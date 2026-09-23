@@ -74,7 +74,10 @@ jobs:
               --exclude-glob .env --exclude-glob '.env.*' \
               --exclude-glob .gitignore \
               '$SRC' '$DEPLOY_PATH';
-            cls -1 '$DEPLOY_PATH/';
-            bye" | tee listing.txt
-          # Fail loudly if the files did not land where the site serves from.
-          grep -Eq '(^|/)index\.(html|php)$' listing.txt || { echo "No index file in DEPLOY_PATH"; exit 1; }
+            bye"
+
+      - name: Check the live site
+        run: |
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 https://ai-schoolportal.mejortechworld.com/)
+          echo "HTTP $code"
+          [ "$code" -lt 400 ]

@@ -61,6 +61,7 @@ jobs:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
           SRC: ${{ steps.build.outputs.dir }}
         run: |
+          case "$DEPLOY_PATH" in /home/*) ;; *) echo "DEPLOY_PATH must be an absolute /home path"; exit 1;; esac
           lftp -e "
             set sftp:auto-confirm no;
             set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/deploy -o IdentitiesOnly=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes';
@@ -71,5 +72,9 @@ jobs:
               --exclude-glob node_modules/ --exclude-glob .kilocode/ \
               --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
               --exclude-glob .env --exclude-glob '.env.*' \
-              $SRC $DEPLOY_PATH;
-            bye"
+              --exclude-glob .gitignore \
+              '$SRC' '$DEPLOY_PATH';
+            cls -1 '$DEPLOY_PATH/';
+            bye" | tee listing.txt
+          # Fail loudly if the files did not land where the site serves from.
+          grep -Eq '(^|/)index\.(html|php)$' listing.txt || { echo "No index file in DEPLOY_PATH"; exit 1; }

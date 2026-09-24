@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AcademicEngineService } from './academic-engine.service';
 import { CurriculaController } from './curricula.controller';
-import { GenerationQueue } from './generation-queue';
 import { LessonsController } from './lessons.controller';
 import { SchemesController } from './schemes.controller';
 
@@ -10,6 +9,6 @@ import { SchemesController } from './schemes.controller';
 @Module({
   imports: [AiModule],
   controllers: [CurriculaController, SchemesController, LessonsController],
-  providers: [AcademicEngineService, GenerationQueue],
+  providers: [AcademicEngineService],
 })
 export class AcademicModule {}

@@ -36,6 +36,12 @@ export const TENANT_MODELS = new Set<string>([
   'SchemeOfWork',
   'SchemeWeek',
   'LessonPlan',
+  'AiJob',
+  'Question',
+  'ExamPaper',
+  'ExamPaperItem',
+  'Score',
+  'ReportCard',
 ]);
 
 const WHERE_OPS = new Set([

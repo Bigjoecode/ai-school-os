@@ -83,11 +83,11 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Assessments',
     items: [
-      { label: 'Question Bank', to: '/questions', icon: FileQuestionMark, soon: true },
-      { label: 'Exams', to: '/exams', icon: FileText, soon: true },
+      { label: 'Question Bank', to: '/questions', icon: FileQuestionMark, permission: 'assessment.read', keywords: 'questions items objective theory' },
+      { label: 'Exams', to: '/exams', icon: FileText, permission: 'assessment.read', keywords: 'exam papers tests' },
       { label: 'Online Exams', to: '/online-exams', icon: MonitorCheck, soon: true, keywords: 'cbt' },
-      { label: 'Results', to: '/results', icon: Trophy, soon: true, keywords: 'grades scores' },
-      { label: 'Report Cards', to: '/report-cards', icon: Award, soon: true },
+      { label: 'Results', to: '/results', icon: Trophy, permission: 'results.read', keywords: 'grades scores marks broadsheet analysis' },
+      { label: 'Report Cards', to: '/report-cards', icon: Award, permission: 'results.read', keywords: 'reports remarks terminal' },
     ],
   },
   {

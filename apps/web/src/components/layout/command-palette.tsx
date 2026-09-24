@@ -1,8 +1,12 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Command } from 'cmdk';
 import {
+  Award,
   ArrowRight,
   BookOpen,
+  ClipboardList,
+  FileQuestionMark,
+  FileText,
   Briefcase,
   CornerDownLeft,
   GraduationCap,
@@ -124,6 +128,36 @@ export function CommandPalette() {
         icon: <Presentation />,
         keywords: 'ai new lesson plan note create teacher',
         onSelect: () => navigate('/lessons?new=1'),
+      },
+    canAi &&
+      hasPermission(me, 'assessment.manage') && {
+        id: 'gen-questions',
+        label: 'Generate questions with AI',
+        icon: <FileQuestionMark />,
+        keywords: 'ai new question bank objective theory quiz create',
+        onSelect: () => navigate('/questions?new=1'),
+      },
+    hasPermission(me, 'assessment.manage') && {
+      id: 'build-paper',
+      label: 'Build an exam paper',
+      icon: <FileText />,
+      keywords: 'exam test paper new create assessment',
+      onSelect: () => navigate('/exams?new=1'),
+    },
+    hasPermission(me, 'results.enter') && {
+      id: 'enter-scores',
+      label: 'Enter scores',
+      icon: <ClipboardList />,
+      keywords: 'results marks ca exam score sheet grades',
+      onSelect: () => navigate('/results'),
+    },
+    canAi &&
+      hasPermission(me, 'results.read') && {
+        id: 'draft-remarks',
+        label: 'Draft report card remarks',
+        icon: <Award />,
+        keywords: 'ai report card teacher remark comments',
+        onSelect: () => navigate('/report-cards?remarks=1'),
       },
     hasPermission(me, 'roles.manage') && {
       id: 'role',

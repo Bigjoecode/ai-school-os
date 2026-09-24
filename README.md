@@ -78,6 +78,13 @@ answer in a fixed schema (structured outputs), every result is validated
 before it is saved, and generation runs as a background job the page polls,
 since it takes longer than shared hosting allows a request to stay open.
 
+**Assessment.** [apps/api/src/assessment](apps/api/src/assessment) keeps one
+results engine behind the score sheet, broadsheet, report cards and analysis,
+so they always agree. Scores are graded on the percentage of what has been
+assessed so far (mid-term, a 1st CA of 12.5/20 is 62.5%), with the school's
+own components (default 1st CA 20 + 2nd CA 20 + Exam 60) and grading scale
+(default WAEC A1–F9). Teachers enter marks only for subjects they teach.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -90,7 +97,9 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
    parents, staff ✅ (admissions workflow next)
 3. **Academic engine** — curriculum → scheme of work → lesson plan, each with an AI
    generator that returns validated, structured data ✅ (homework, materials next)
-4. Assessment — question bank, exams, results, report cards
+4. **Assessment** — question bank with AI question writer, exam paper builder,
+   score entry, broadsheets, report cards with AI-drafted remarks, and class
+   analysis with an AI briefing ✅ (online exams arrive with the student portal)
 5. Smart timetable (constraint solver + AI assistant)
 6. Attendance · 7. Finance · 8. HR · 9. Operations · 10. Communication
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

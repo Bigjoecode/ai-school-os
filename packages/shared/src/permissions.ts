@@ -46,6 +46,23 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'assessment',
+    label: 'Question Bank & Exams',
+    permissions: {
+      'assessment.read': 'View the question bank and exam papers',
+      'assessment.manage': 'Write, generate and approve questions; build exam papers',
+    },
+  },
+  {
+    module: 'results',
+    label: 'Results & Report Cards',
+    permissions: {
+      'results.read': 'View results, broadsheets and report cards',
+      'results.enter': 'Enter scores for the subjects you teach',
+      'results.publish': 'Enter any score, write principal remarks and publish report cards',
+    },
+  },
+  {
     module: 'students',
     label: 'Students',
     permissions: {

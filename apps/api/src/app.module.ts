@@ -3,6 +3,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import type { NextFunction, Request, Response } from 'express';
 import { AcademicModule } from './academic-engine/academic.module';
+import { AssessmentModule } from './assessment/assessment.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -51,6 +52,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     RbacModule,
     AiModule,
     AcademicModule,
+    AssessmentModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [

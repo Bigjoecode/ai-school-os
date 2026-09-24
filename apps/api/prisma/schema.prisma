@@ -52,25 +52,30 @@ model Plan {
 }
 
 model Tenant {
-  id                 String       @id @default(cuid())
-  slug               String       @unique
-  name               String
-  shortName          String?
-  motto              String?
-  status             TenantStatus @default(TRIAL)
-  logoUrl            String?
-  primaryColor       String?
-  email              String?
-  phone              String?
-  address            String?
-  country            String       @default("NG")
-  currency           String       @default("NGN")
-  timezone           String       @default("Africa/Lagos")
-  planId             String?
-  trialEndsAt        DateTime?
-  aiMonthlyBudgetUsd Decimal?     @db.Decimal(10, 2)
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  id                   String       @id @default(cuid())
+  slug                 String       @unique
+  name                 String
+  shortName            String?
+  motto                String?
+  status               TenantStatus @default(TRIAL)
+  logoUrl              String?
+  primaryColor         String?
+  email                String?
+  phone                String?
+  address              String?
+  country              String       @default("NG")
+  currency             String       @default("NGN")
+  timezone             String       @default("Africa/Lagos")
+  planId               String?
+  trialEndsAt          DateTime?
+  aiMonthlyBudgetUsd   Decimal?     @db.Decimal(10, 2)
+  /// [{ key, name, maxScore }] — how a term's score is made up (CA1, CA2, Exam…).
+  /// Null means the platform default (see packages/shared DEFAULT_ASSESSMENT_COMPONENTS).
+  assessmentComponents Json?
+  /// [{ grade, min, remark }] highest band first. Null means the WAEC-style default.
+  gradingScale         Json?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
 
   plan             Plan?             @relation(fields: [planId], references: [id])
   domains          TenantDomain[]
@@ -100,6 +105,12 @@ model Tenant {
   schemes          SchemeOfWork[]
   schemeWeeks      SchemeWeek[]
   lessonPlans      LessonPlan[]
+  aiJobs           AiJob[]
+  questions        Question[]
+  examPapers       ExamPaper[]
+  examPaperItems   ExamPaperItem[]
+  scores           Score[]
+  reportCards      ReportCard[]
 
   @@map("tenants")
 }
@@ -368,9 +379,12 @@ model Term {
   isCurrent Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  tenant  Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  session AcademicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  schemes SchemeOfWork[]
+  tenant      Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  session     AcademicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  schemes     SchemeOfWork[]
+  examPapers  ExamPaper[]
+  scores      Score[]
+  reportCards ReportCard[]
 
   @@unique([sessionId, order])
   @@index([tenantId])
@@ -387,10 +401,12 @@ model ClassLevel {
   order     Int      @default(0)
   createdAt DateTime @default(now())
 
-  tenant    Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  arms      ClassArm[]
-  curricula Curriculum[]
-  schemes   SchemeOfWork[]
+  tenant     Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  arms       ClassArm[]
+  curricula  Curriculum[]
+  schemes    SchemeOfWork[]
+  questions  Question[]
+  examPapers ExamPaper[]
 
   @@unique([tenantId, code])
   @@map("class_levels")
@@ -414,6 +430,8 @@ model ClassArm {
   students     Student[]
   subjects     ClassSubject[]
   lessonPlans  LessonPlan[]
+  scores       Score[]
+  reportCards  ReportCard[]
 
   @@unique([classLevelId, name])
   @@index([tenantId])
@@ -434,6 +452,9 @@ model Subject {
   curricula   Curriculum[]
   schemes     SchemeOfWork[]
   lessonPlans LessonPlan[]
+  questions   Question[]
+  examPapers  ExamPaper[]
+  scores      Score[]
 
   @@unique([tenantId, code])
   @@map("subjects")
@@ -492,11 +513,13 @@ model Student {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  tenant    Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  branch    Branch?           @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  user      User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
-  classArm  ClassArm?         @relation(fields: [classArmId], references: [id], onDelete: SetNull)
-  guardians StudentGuardian[]
+  tenant      Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branch      Branch?           @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  user        User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classArm    ClassArm?         @relation(fields: [classArmId], references: [id], onDelete: SetNull)
+  guardians   StudentGuardian[]
+  scores      Score[]
+  reportCards ReportCard[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
@@ -816,4 +839,188 @@ model LessonPlan {
 
   @@index([tenantId, classArmId, date])
   @@map("lesson_plans")
+}
+
+/// A background AI task that produces many records at once (a batch of
+/// questions, a class's report-card remarks). Pages poll it for progress.
+model AiJob {
+  id          String          @id @default(cuid())
+  tenantId    String
+  kind        String
+  state       GenerationState @default(QUEUED)
+  error       String?
+  params      Json
+  /// Short outcome for the UI, e.g. { created: 12 }.
+  result      Json?
+  createdById String?
+  createdAt   DateTime        @default(now())
+  finishedAt  DateTime?
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questions Question[]
+
+  @@index([tenantId, kind, createdAt])
+  @@map("ai_jobs")
+}
+
+// ============================================================== assessment
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  SHORT_ANSWER
+  THEORY
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum QuestionStatus {
+  DRAFT
+  APPROVED
+  RETIRED
+}
+
+model Question {
+  id           String         @id @default(cuid())
+  tenantId     String
+  subjectId    String
+  classLevelId String
+  topic        String
+  type         QuestionType
+  difficulty   Difficulty     @default(MEDIUM)
+  /// The question as the learner sees it.
+  stem         String
+  /// Choices for multiple-choice (and ["True","False"]); empty otherwise.
+  options      String[]
+  /// Index into `options` for objective questions.
+  correctIndex Int?
+  /// Model answer / key points for written questions.
+  answer       String?
+  /// How marks are awarded, for the marker.
+  markingGuide String?
+  marks        Int            @default(1)
+  status       QuestionStatus @default(DRAFT)
+  source       ContentSource  @default(MANUAL)
+  aiJobId      String?
+  createdById  String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  tenant     Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  subject    Subject         @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  classLevel ClassLevel      @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
+  aiJob      AiJob?          @relation(fields: [aiJobId], references: [id], onDelete: SetNull)
+  paperItems ExamPaperItem[]
+
+  @@index([tenantId, subjectId, classLevelId, status])
+  @@map("questions")
+}
+
+enum PaperStatus {
+  DRAFT
+  FINAL
+}
+
+/// A printable test or exam built from the question bank.
+model ExamPaper {
+  id              String      @id @default(cuid())
+  tenantId        String
+  subjectId       String
+  classLevelId    String
+  termId          String
+  /// Which result component it feeds: "ca1", "exam"…
+  componentKey    String
+  title           String
+  instructions    String?
+  durationMinutes Int         @default(60)
+  status          PaperStatus @default(DRAFT)
+  createdById     String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  tenant     Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  subject    Subject         @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  classLevel ClassLevel      @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
+  term       Term            @relation(fields: [termId], references: [id], onDelete: Cascade)
+  items      ExamPaperItem[]
+
+  @@index([tenantId, termId])
+  @@map("exam_papers")
+}
+
+model ExamPaperItem {
+  id         String @id @default(cuid())
+  tenantId   String
+  paperId    String
+  questionId String
+  order      Int
+  /// "A" for objective questions, "B" for written ones.
+  section    String @default("A")
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  paper    ExamPaper @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  question Question  @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@unique([paperId, questionId])
+  @@index([tenantId])
+  @@map("exam_paper_items")
+}
+
+/// One student's mark for one component (CA1, Exam…) of one subject in one term.
+model Score {
+  id           String   @id @default(cuid())
+  tenantId     String
+  studentId    String
+  subjectId    String
+  termId       String
+  /// The class the student sat in when marked (results stay put if they move).
+  classArmId   String
+  componentKey String
+  score        Decimal  @db.Decimal(5, 2)
+  enteredById  String?
+  updatedAt    DateTime @updatedAt
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subject  Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  term     Term     @relation(fields: [termId], references: [id], onDelete: Cascade)
+  classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, subjectId, termId, componentKey])
+  @@index([tenantId, classArmId, termId])
+  @@map("scores")
+}
+
+enum ReportStatus {
+  DRAFT
+  PUBLISHED
+}
+
+/// The per-term report: the scores come from Score rows; this holds what
+/// people write on it and whether it has been released to parents.
+model ReportCard {
+  id              String        @id @default(cuid())
+  tenantId        String
+  studentId       String
+  termId          String
+  classArmId      String
+  teacherRemark   String?
+  remarkSource    ContentSource @default(MANUAL)
+  principalRemark String?
+  status          ReportStatus  @default(DRAFT)
+  publishedAt     DateTime?
+  updatedAt       DateTime      @updatedAt
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  term     Term     @relation(fields: [termId], references: [id], onDelete: Cascade)
+  classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, termId])
+  @@index([tenantId, classArmId, termId])
+  @@map("report_cards")
 }

@@ -32,9 +32,12 @@ export class FakeProvider implements AiProvider {
 
   async generateJson<T>(req: AiRequest, schema: ZodType<T>): Promise<AiJsonResult<T>> {
     await pause();
+    const prompt = req.messages.at(-1)?.content ?? '';
     // Honour an "exactly N weeks/steps" instruction so counts look realistic.
-    const wanted = Number(/exactly (\d+) (?:weeks|steps)/i.exec(req.messages.at(-1)?.content ?? '')?.[1]) || 3;
-    const data = sample(z.toJSONSchema(schema) as JsonSchema, '', wanted);
+    const wanted = Number(/exactly (\d+) (?:weeks|steps)/i.exec(prompt)?.[1]) || 3;
+    // Echo the references a prompt asks to be returned (report remarks use "S1 | …").
+    const refs = [...prompt.matchAll(/^(S\d+) \|/gm)].map((m) => m[1]!);
+    const data = sample(z.toJSONSchema(schema) as JsonSchema, '', { count: wanted, refs });
     return { text: '', model: this.modelFor(req.tier), inputTokens: 0, outputTokens: 0, data: data as T };
   }
 }
@@ -44,23 +47,33 @@ interface JsonSchema {
   properties?: Record<string, JsonSchema>;
   items?: JsonSchema;
   enum?: unknown[];
+  anyOf?: JsonSchema[];
 }
 
-function sample(s: JsonSchema, key: string, count: number): unknown {
+interface Hints {
+  count: number;
+  refs: string[];
+  index?: number;
+}
+
+function sample(s: JsonSchema, key: string, h: Hints): unknown {
+  if (s.anyOf?.length) return sample(s.anyOf.find((x) => x.type !== 'null') ?? s.anyOf[0]!, key, h);
   if (s.enum?.length) return s.enum[0];
   switch (s.type) {
     case 'object':
-      return Object.fromEntries(Object.entries(s.properties ?? {}).map(([k, v]) => [k, sample(v, k, count)]));
-    case 'array':
-      return Array.from({ length: key === 'weeks' || key === 'steps' ? count : 2 }, (_, i) =>
-        sample(s.items ?? { type: 'string' }, `${key} ${i + 1}`, count),
-      );
+      return Object.fromEntries(Object.entries(s.properties ?? {}).map(([k, v]) => [k, sample(v, k, h)]));
+    case 'array': {
+      const length =
+        key === 'weeks' || key === 'steps' ? h.count : key === 'options' ? 4 : key === 'remarks' && h.refs.length ? h.refs.length : 2;
+      return Array.from({ length }, (_, i) => sample(s.items ?? { type: 'string' }, `${key} ${i + 1}`, { ...h, index: i }));
+    }
     case 'integer':
     case 'number':
-      return 10;
+      return 1;
     case 'boolean':
       return false;
     default:
+      if (key === 'studentRef' && h.refs.length) return h.refs[h.index ?? 0] ?? h.refs[0];
       return `Placeholder ${key || 'text'}`;
   }
 }

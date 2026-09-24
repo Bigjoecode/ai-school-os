@@ -10,7 +10,7 @@ import {
   CalendarCheck,
   CalendarClock,
   CalendarDays,
-  FileText,
+  MonitorPlay,
   GraduationCap,
   Layers,
   Receipt,
@@ -661,7 +661,7 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 const NEXT_MODULES = [
   { label: 'Attendance', icon: CalendarCheck, to: '/attendance', note: 'Daily registers & absence alerts' },
   { label: 'Fees', icon: Receipt, to: '/fees', note: 'Invoices, payments & collections' },
-  { label: 'Exams', icon: FileText, to: '/exams', note: 'Scores, results & report cards' },
+  { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
   { label: 'Timetable', icon: CalendarClock, to: '/timetable', note: 'AI-built, clash-free schedules' },
 ];
 

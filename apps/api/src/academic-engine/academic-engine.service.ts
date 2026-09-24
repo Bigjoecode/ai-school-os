@@ -18,7 +18,7 @@ import { AiGatewayService } from '../ai/ai-gateway.service';
 import { dateOnly, fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
-import { GenerationQueue } from './generation-queue';
+import { GenerationQueue } from '../ai/generation-queue';
 import { curriculumTermPrompt, lessonPrompt, schemePrompt, type SchoolContext } from './prompts';
 
 const MAX_TERM_WEEKS = 14;

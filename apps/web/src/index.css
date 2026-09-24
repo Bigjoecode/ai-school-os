@@ -215,6 +215,10 @@
   from { transform: translateX(0); }
   to { transform: translateX(-100%); }
 }
+@keyframes job-slide {
+  0% { left: -35%; }
+  100% { left: 100%; }
+}
 @keyframes typing {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
   30% { transform: translateY(-3px); opacity: 1; }
@@ -391,4 +395,30 @@
   .print-avoid-break {
     break-inside: avoid;
   }
+  /* Exam papers: when printing the marking scheme, only it prints (and vice versa). */
+  body[data-print="paper"] .print-marking-scheme,
+  body[data-print="scheme"] .print-exam-paper {
+    display: none !important;
+  }
+  body[data-print="scheme"] .print-marking-scheme {
+    display: block !important;
+  }
+  /* Report cards and wide tables: one A4 sheet each, no app chrome. */
+  .print-a4 {
+    break-after: page;
+    break-inside: avoid;
+  }
+  .print-a4:last-child {
+    break-after: auto;
+  }
+  .print-landscape {
+    page: landscape;
+  }
+  .print-scroll-reset {
+    overflow: visible !important;
+  }
+}
+@page landscape {
+  size: A4 landscape;
+  margin: 10mm;
 }

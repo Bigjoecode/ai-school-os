@@ -40,28 +40,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'Student AI answers questions grounded in your materials',
     ],
   },
-  '/questions': {
-    name: 'Question Bank',
-    phase: 4,
-    summary: 'A reusable, tagged bank of questions for every subject.',
-    features: [
-      'Objective, theory and structured question types',
-      'Tag by topic, difficulty and learning outcome',
-      'Import from Word and spreadsheets',
-      'AI generates new questions matched to your syllabus',
-    ],
-  },
-  '/exams': {
-    name: 'Exams',
-    phase: 4,
-    summary: 'Plan exams, publish timetables and capture scores.',
-    features: [
-      'Exam schedules, halls and invigilators',
-      'Score entry by class and subject with validation',
-      'Continuous assessment weighting',
-      'AI flags anomalies and grading inconsistencies',
-    ],
-  },
   '/online-exams': {
     name: 'Online Exams',
     phase: 4,
@@ -71,28 +49,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'Auto-marking for objective questions',
       'Proctoring signals and attempt logs',
       'AI marks essay answers against a rubric for teacher review',
-    ],
-  },
-  '/results': {
-    name: 'Results',
-    phase: 4,
-    summary: 'Compute, review and publish results with confidence.',
-    features: [
-      'Grade scales, positions and averages',
-      'Approval workflow before publishing',
-      'Subject and class performance analytics',
-      'AI explains each class’s strengths and weak topics',
-    ],
-  },
-  '/report-cards': {
-    name: 'Report Cards',
-    phase: 4,
-    summary: 'Branded report cards parents love to read.',
-    features: [
-      'Custom templates with your school branding',
-      'Bulk PDF generation and parent portal delivery',
-      'Psychomotor and affective domain ratings',
-      'AI writes personalised teacher and principal remarks',
     ],
   },
   '/timetable': {

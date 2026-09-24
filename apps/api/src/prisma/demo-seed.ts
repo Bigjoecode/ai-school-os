@@ -339,12 +339,38 @@ async function run({ demoOwner }: SeedOptions) {
     }
   }
 
+  // 1st CA (out of 20) in the core subjects — the test schools hold around
+  // week 3 of first term. Each learner has a general ability plus a
+  // per-subject lean, so strengths and weaknesses show up in the analysis.
+  const currentTerm = await prisma.term.findFirstOrThrow({ where: { tenantId: g.id, isCurrent: true } });
+  const core = subjects.filter((s) => s.isCore);
+  const gaussian = () => Math.sqrt(-2 * Math.log(rand() || 1e-9)) * Math.cos(2 * Math.PI * rand());
+  const scoreRows = students.flatMap((st) => {
+    const ability = 0.6 + 0.14 * gaussian();
+    return core
+      .filter(() => !chance(0.03)) // a few absences
+      .map((subject) => {
+        const pct = Math.min(1, Math.max(0.1, ability + 0.08 * gaussian() + (subject.code === 'MTH' ? -0.05 : 0)));
+        return {
+          tenantId: g.id,
+          studentId: st.id,
+          subjectId: subject.id,
+          termId: currentTerm.id,
+          classArmId: st.classArmId!,
+          componentKey: 'ca1',
+          score: Math.round(pct * 20 * 2) / 2,
+          enteredById: admin.id,
+        };
+      });
+  });
+  await prisma.score.createMany({ data: scoreRows });
+
   await prisma.auditLog.create({
     data: {
       tenantId: g.id,
       actorUserId: admin.id,
       action: 'data.imported',
-      summary: `Imported ${students.length} students, ${staff.length} staff and the class structure from the demo dataset`,
+      summary: `Imported ${students.length} students, ${staff.length} staff, the class structure and ${scoreRows.length} 1st CA marks from the demo dataset`,
     },
   });
 

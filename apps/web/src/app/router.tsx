@@ -18,6 +18,12 @@ const SchemesPage = lazy(() => import('@/features/schemes/schemes-page'));
 const SchemeDetailPage = lazy(() => import('@/features/schemes/scheme-detail-page'));
 const LessonsPage = lazy(() => import('@/features/lessons/lessons-page'));
 const LessonDetailPage = lazy(() => import('@/features/lessons/lesson-detail-page'));
+const QuestionsPage = lazy(() => import('@/features/questions/questions-page'));
+const ExamsPage = lazy(() => import('@/features/exams/exams-page'));
+const PaperDetailPage = lazy(() => import('@/features/exams/paper-detail-page'));
+const ResultsPage = lazy(() => import('@/features/results/results-page'));
+const ReportCardsPage = lazy(() => import('@/features/report-cards/report-cards-page'));
+const ReportCardPage = lazy(() => import('@/features/report-cards/report-card-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -132,6 +138,54 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="lessons.read">
             <LessonDetailPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'questions',
+        element: (
+          <RequirePermission permission="assessment.read">
+            <QuestionsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'exams',
+        element: (
+          <RequirePermission permission="assessment.read">
+            <ExamsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'exams/:id',
+        element: (
+          <RequirePermission permission="assessment.read">
+            <PaperDetailPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'results',
+        element: (
+          <RequirePermission permission="results.read">
+            <ResultsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'report-cards',
+        element: (
+          <RequirePermission permission="results.read">
+            <ReportCardsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'report-cards/:studentId',
+        element: (
+          <RequirePermission permission="results.read">
+            <ReportCardPage />
           </RequirePermission>
         ),
       },

@@ -18,7 +18,7 @@ export function Topbar() {
   const title = match?.label ?? (pathname.startsWith('/settings') ? 'Settings' : 'AI School OS');
 
   return (
-    <header className="glass sticky top-0 z-20 border-b border-border/80">
+    <header className="glass sticky print:hidden top-0 z-20 border-b border-border/80">
       <div className="flex h-14 items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Button
           variant="ghost"

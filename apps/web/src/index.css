@@ -356,3 +356,39 @@
 .recharts-sector:focus {
   outline: none;
 }
+
+/* ------------------------------------------------------------------ print */
+/* Printing always uses the light palette and drops the app chrome. */
+@media print {
+  @page {
+    margin: 14mm 12mm;
+  }
+  :root,
+  .dark {
+    --background: #ffffff;
+    --foreground: #0a1024;
+    --card: #ffffff;
+    --card-foreground: #0a1024;
+    --muted: #f3f5f9;
+    --muted-foreground: #4b556b;
+    --border: #dfe3ec;
+    --border-strong: #cdd3df;
+    --brand-soft: #ecebff;
+    --success-soft: #e3f7ee;
+    --warning-soft: #fdf2dc;
+    --danger-soft: #fde6e9;
+    --info-soft: #e4edfe;
+    color-scheme: light;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+}

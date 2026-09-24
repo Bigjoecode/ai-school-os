@@ -46,4 +46,10 @@ export const qk = {
   audit: (params?: object) => (params ? (['audit', params] as const) : (['audit'] as const)),
   aiStatus: ['ai', 'status'] as const,
   tenants: ['platform', 'tenants'] as const,
+  curricula: (params?: object) => (params ? (['curricula', params] as const) : (['curricula'] as const)),
+  curriculum: (id: string) => ['curriculum', id] as const,
+  schemes: (params?: object) => (params ? (['schemes', params] as const) : (['schemes'] as const)),
+  scheme: (id: string) => ['scheme', id] as const,
+  lessons: (params?: object) => (params ? (['lessons', params] as const) : (['lessons'] as const)),
+  lesson: (id: string) => ['lesson', id] as const,
 };

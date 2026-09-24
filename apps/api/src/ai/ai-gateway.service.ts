@@ -5,8 +5,16 @@ import { PrismaService } from '../prisma/prisma.service';
 import { costUsd } from './pricing';
 import { AnthropicProvider } from './providers/anthropic.provider';
 import { GeminiProvider } from './providers/gemini.provider';
+import type { ZodType } from 'zod';
+import { FakeProvider } from './providers/fake.provider';
 import { OpenAiProvider } from './providers/openai.provider';
-import { ProviderUnavailableError, type AiProvider, type AiRequest, type AiResult } from './providers/provider';
+import {
+  ProviderOutputError,
+  ProviderUnavailableError,
+  type AiProvider,
+  type AiRequest,
+  type AiResult,
+} from './providers/provider';
 
 export interface GatewayResult extends AiResult {
   provider: string;
@@ -30,6 +38,8 @@ export class AiGatewayService {
       .AI_PROVIDER_ORDER.split(',')
       .map((s) => s.trim());
     this.providers = [...all].sort((a, b) => rank(order, a.name) - rank(order, b.name));
+    // Development placeholder goes first so it never spends real credit.
+    if (env().AI_FAKE_PROVIDER) this.providers.unshift(new FakeProvider());
   }
 
   configuredProviders(): string[] {
@@ -55,7 +65,30 @@ export class AiGatewayService {
     return budget > 0 ? budget : null;
   }
 
-  async generate(req: AiRequest, agent: string): Promise<GatewayResult> {
+  generate(req: AiRequest, agent: string): Promise<GatewayResult> {
+    return this.run(req, agent, (p) => p.generate(req));
+  }
+
+  /**
+   * Structured output: the result is validated against `schema` whichever
+   * provider produced it, so callers can save it without further checks.
+   */
+  generateJson<T>(req: AiRequest, schema: ZodType<T>, agent: string): Promise<GatewayResult & { data: T }> {
+    return this.run(req, agent, async (p) => {
+      const result = await p.generateJson(req, schema);
+      const checked = schema.safeParse(result.data);
+      if (!checked.success) {
+        throw new ProviderOutputError(`The AI returned content in an unexpected shape (${checked.error.issues[0]?.message})`);
+      }
+      return { ...result, data: checked.data };
+    });
+  }
+
+  private async run<R extends AiResult>(
+    req: AiRequest,
+    agent: string,
+    call: (provider: AiProvider) => Promise<R>,
+  ): Promise<R & { provider: string }> {
     const candidates = this.providers.filter((p) => p.isConfigured());
     if (!candidates.length) {
       throw new ServiceUnavailableException("AI isn't connected yet — add an AI provider API key to the server");
@@ -73,7 +106,7 @@ export class AiGatewayService {
     for (const provider of candidates) {
       const started = Date.now();
       try {
-        const result = await provider.generate(req);
+        const result = await call(provider);
         await this.record(agent, provider.name, result, Date.now() - started);
         return { ...result, provider: provider.name };
       } catch (err) {
@@ -82,6 +115,9 @@ export class AiGatewayService {
         if (err instanceof ProviderUnavailableError) {
           this.logger.warn(`${err.message}; trying the next provider`);
           continue;
+        }
+        if (err instanceof ProviderOutputError) {
+          throw new ServiceUnavailableException(`${err.message}. Please try again.`);
         }
         this.logger.error(`${provider.name} request failed: ${(err as Error).message}`);
         throw new ServiceUnavailableException('The AI service could not complete that request. Please try again.');

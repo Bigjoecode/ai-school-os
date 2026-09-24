@@ -31,6 +31,11 @@ export const TENANT_MODELS = new Set<string>([
   'AiUsage',
   'AiConversation',
   'AiMessage',
+  'Curriculum',
+  'CurriculumUnit',
+  'SchemeOfWork',
+  'SchemeWeek',
+  'LessonPlan',
 ]);
 
 const WHERE_OPS = new Set([

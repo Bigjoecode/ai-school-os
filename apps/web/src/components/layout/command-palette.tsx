@@ -2,10 +2,13 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Command } from 'cmdk';
 import {
   ArrowRight,
+  BookOpen,
   Briefcase,
   CornerDownLeft,
   GraduationCap,
   LogOut,
+  NotebookPen,
+  Presentation,
   Moon,
   Search,
   ShieldCheck,
@@ -98,6 +101,30 @@ export function CommandPalette() {
       keywords: 'teacher employee new',
       onSelect: () => navigate('/staff?new=1'),
     },
+    canAi &&
+      hasPermission(me, 'curriculum.manage') && {
+        id: 'gen-curriculum',
+        label: 'Generate a curriculum',
+        icon: <BookOpen />,
+        keywords: 'ai new curriculum syllabus create',
+        onSelect: () => navigate('/curriculum?new=1'),
+      },
+    canAi &&
+      hasPermission(me, 'curriculum.manage') && {
+        id: 'gen-scheme',
+        label: 'Generate a scheme of work',
+        icon: <NotebookPen />,
+        keywords: 'ai new scheme termly plan create',
+        onSelect: () => navigate('/schemes?new=1'),
+      },
+    canAi &&
+      hasPermission(me, 'lessons.manage') && {
+        id: 'plan-lesson',
+        label: 'Plan a lesson with AI',
+        icon: <Presentation />,
+        keywords: 'ai new lesson plan note create teacher',
+        onSelect: () => navigate('/lessons?new=1'),
+      },
     hasPermission(me, 'roles.manage') && {
       id: 'role',
       label: 'Create role',

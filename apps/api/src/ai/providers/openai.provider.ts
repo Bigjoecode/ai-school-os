@@ -1,6 +1,15 @@
 import OpenAI from 'openai';
+import { z, type ZodType } from 'zod';
 import { env } from '../../config/env';
-import { ProviderUnavailableError, type AiProvider, type AiRequest, type AiResult, type AiTier } from './provider';
+import {
+  ProviderOutputError,
+  ProviderUnavailableError,
+  type AiJsonResult,
+  type AiProvider,
+  type AiRequest,
+  type AiResult,
+  type AiTier,
+} from './provider';
 
 export class OpenAiProvider implements AiProvider {
   readonly name = 'openai' as const;
@@ -14,13 +23,28 @@ export class OpenAiProvider implements AiProvider {
     return (tier === 'advanced' ? env().OPENAI_MODEL_ADVANCED : env().OPENAI_MODEL_STANDARD) ?? '';
   }
 
-  async generate(req: AiRequest): Promise<AiResult> {
+  generate(req: AiRequest): Promise<AiResult> {
+    return this.complete(req, req.system);
+  }
+
+  /** JSON mode, with the JSON Schema spelled out in the system prompt. */
+  async generateJson<T>(req: AiRequest, schema: ZodType<T>): Promise<AiJsonResult<T>> {
+    const system = `${req.system}\n\nRespond with a single JSON object that matches this JSON Schema exactly:\n${JSON.stringify(z.toJSONSchema(schema))}`;
+    const result = await this.complete(req, system, true);
+    try {
+      return { ...result, data: JSON.parse(result.text) as T };
+    } catch {
+      throw new ProviderOutputError('The AI returned invalid JSON');
+    }
+  }
+
+  private async complete(req: AiRequest, system: string, json = false): Promise<AiResult> {
     this.client ??= new OpenAI({ apiKey: env().OPENAI_API_KEY, maxRetries: 2 });
-    const model = this.modelFor(req.tier);
     try {
       const completion = await this.client.chat.completions.create({
-        model,
-        messages: [{ role: 'system', content: req.system }, ...req.messages],
+        model: this.modelFor(req.tier),
+        messages: [{ role: 'system', content: system }, ...req.messages],
+        ...(json ? { response_format: { type: 'json_object' as const } } : {}),
       });
       return {
         text: completion.choices[0]?.message?.content?.trim() ?? '',

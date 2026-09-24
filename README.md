@@ -70,6 +70,17 @@ to the next provider on outages, enforces each school's monthly budget, and
 records tokens and cost per call. Assistants answer from the school's live
 data, and what each role can see is limited (a parent can't open the School AI).
 
+**Academic engine.** [apps/api/src/academic-engine](apps/api/src/academic-engine)
+generates a year's curriculum (term by term, each term aware of the last), a
+term's scheme of work laid out on the real term calendar, and lesson plans
+with timed steps and support/core/stretch differentiation. The model must
+answer in a fixed schema (structured outputs), every result is validated
+before it is saved, and generation runs as a background job the page polls,
+since it takes longer than shared hosting allows a request to stay open.
+
+Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
+`apps/api/.env` to get schema-valid placeholder output (refused in production).
+
 Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Build phases
@@ -77,7 +88,8 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
 1. **Foundation** — monorepo, auth, multi-tenancy, RBAC, audit, design system ✅
 2. **School core** — branches, sessions/terms, classes, subjects, students,
    parents, staff ✅ (admissions workflow next)
-3. Academic engine — curriculum, schemes, lesson plans (+ AI generators)
+3. **Academic engine** — curriculum → scheme of work → lesson plan, each with an AI
+   generator that returns validated, structured data ✅ (homework, materials next)
 4. Assessment — question bank, exams, results, report cards
 5. Smart timetable (constraint solver + AI assistant)
 6. Attendance · 7. Finance · 8. HR · 9. Operations · 10. Communication

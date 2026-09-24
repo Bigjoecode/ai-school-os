@@ -12,6 +12,12 @@ const StudentsPage = lazy(() => import('@/features/students/students-page'));
 const ParentsPage = lazy(() => import('@/features/guardians/parents-page'));
 const StaffPage = lazy(() => import('@/features/staff/staff-page'));
 const AcademicsPage = lazy(() => import('@/features/academics/academics-page'));
+const CurriculumPage = lazy(() => import('@/features/curriculum/curriculum-page'));
+const CurriculumDetailPage = lazy(() => import('@/features/curriculum/curriculum-detail-page'));
+const SchemesPage = lazy(() => import('@/features/schemes/schemes-page'));
+const SchemeDetailPage = lazy(() => import('@/features/schemes/scheme-detail-page'));
+const LessonsPage = lazy(() => import('@/features/lessons/lessons-page'));
+const LessonDetailPage = lazy(() => import('@/features/lessons/lesson-detail-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -78,6 +84,54 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="academics.read">
             <AcademicsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'curriculum',
+        element: (
+          <RequirePermission permission="curriculum.read">
+            <CurriculumPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'curriculum/:id',
+        element: (
+          <RequirePermission permission="curriculum.read">
+            <CurriculumDetailPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'schemes',
+        element: (
+          <RequirePermission permission="curriculum.read">
+            <SchemesPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'schemes/:id',
+        element: (
+          <RequirePermission permission="curriculum.read">
+            <SchemeDetailPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'lessons',
+        element: (
+          <RequirePermission permission="lessons.read">
+            <LessonsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'lessons/:id',
+        element: (
+          <RequirePermission permission="lessons.read">
+            <LessonDetailPage />
           </RequirePermission>
         ),
       },

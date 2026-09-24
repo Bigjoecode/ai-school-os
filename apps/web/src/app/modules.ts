@@ -18,39 +18,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'Admissions AI drafts offer letters and follow-ups for every applicant',
     ],
   },
-  '/curriculum': {
-    name: 'Curriculum',
-    phase: 3,
-    summary: 'Map what every class learns, subject by subject.',
-    features: [
-      'Curriculum maps per class level and subject',
-      'Align topics to national standards and outcomes',
-      'Version and share curricula across branches',
-      'AI Curriculum Generator returns structured weekly plans',
-    ],
-  },
-  '/schemes': {
-    name: 'Scheme of Work',
-    phase: 3,
-    summary: 'Termly schemes that stay in sync with the curriculum.',
-    features: [
-      'Week-by-week topics per subject and class',
-      'Track coverage against the calendar',
-      'Head-of-department review and approval',
-      'AI drafts a full-term scheme from your curriculum in seconds',
-    ],
-  },
-  '/lessons': {
-    name: 'Lesson Plans',
-    phase: 3,
-    summary: 'Beautiful lesson plans teachers actually enjoy writing.',
-    features: [
-      'Objectives, activities, resources and assessment in one place',
-      'Link plans to the scheme of work',
-      'Supervisor feedback and sign-off',
-      'Teacher AI writes differentiated lesson plans on request',
-    ],
-  },
   '/homework': {
     name: 'Homework',
     phase: 3,

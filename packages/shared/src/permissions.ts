@@ -30,6 +30,22 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'curriculum',
+    label: 'Curriculum & Schemes',
+    permissions: {
+      'curriculum.read': 'View curricula and schemes of work',
+      'curriculum.manage': 'Create, generate, edit and publish curricula and schemes',
+    },
+  },
+  {
+    module: 'lessons',
+    label: 'Lesson Plans',
+    permissions: {
+      'lessons.read': 'View lesson plans',
+      'lessons.manage': 'Create, generate and edit lesson plans',
+    },
+  },
+  {
     module: 'students',
     label: 'Students',
     permissions: {

@@ -36,6 +36,11 @@ const schema = z.object({
   GEMINI_MODEL_STANDARD: z.string().optional(),
   GEMINI_MODEL_ADVANCED: z.string().optional(),
   AI_PROVIDER_ORDER: z.string().default('anthropic,openai,gemini'),
+  /** Development only: answer AI requests with schema-valid placeholders. */
+  AI_FAKE_PROVIDER: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
   AI_PRICES: z.string().optional(),
   AI_DEFAULT_MONTHLY_BUDGET_USD: z.coerce.number().min(0).default(25),
 });
@@ -53,6 +58,9 @@ export function env(): Env {
   if (!parsed.success) {
     const lines = parsed.error.issues.map((i) => `  ${i.path.join('.')}: ${i.message}`);
     throw new Error(`Invalid environment:\n${lines.join('\n')}`);
+  }
+  if (parsed.data.AI_FAKE_PROVIDER && parsed.data.NODE_ENV === 'production') {
+    throw new Error('Invalid environment:\n  AI_FAKE_PROVIDER: placeholder AI is for development only');
   }
   cached = parsed.data;
   return cached;

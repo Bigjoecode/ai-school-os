@@ -1,3 +1,5 @@
+import type { ZodType } from 'zod';
+
 /**
  * The contract every AI vendor implements. The rest of the app talks to the
  * gateway, never to a vendor SDK, so providers can be added, swapped or
@@ -24,11 +26,21 @@ export interface AiResult {
   outputTokens: number;
 }
 
+export interface AiJsonResult<T> extends AiResult {
+  data: T;
+}
+
 export interface AiProvider {
-  readonly name: 'anthropic' | 'openai' | 'gemini';
+  readonly name: 'anthropic' | 'openai' | 'gemini' | 'fake';
   isConfigured(): boolean;
   modelFor(tier: AiTier): string;
   generate(req: AiRequest): Promise<AiResult>;
+  /**
+   * Returns data matching `schema`. Providers use their native structured
+   * output where they have one; the gateway validates every result against
+   * the schema again before it is used.
+   */
+  generateJson<T>(req: AiRequest, schema: ZodType<T>): Promise<AiJsonResult<T>>;
 }
 
 /** Raised for failures worth retrying on the next provider (outages, rate limits). */
@@ -37,3 +49,6 @@ export class ProviderUnavailableError extends Error {
     super(`${provider} is unavailable: ${cause instanceof Error ? cause.message : String(cause)}`);
   }
 }
+
+/** The model answered, but not with usable content (refusal, bad JSON). */
+export class ProviderOutputError extends Error {}

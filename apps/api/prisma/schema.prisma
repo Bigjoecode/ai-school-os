@@ -1,0 +1,625 @@
+// AI School OS — data model.
+//
+// Multi-tenancy: every school is a Tenant. Every tenant-owned table carries a
+// non-null `tenantId`; the API's tenant-scoped Prisma client adds it to every
+// query automatically (see src/prisma/tenant-scope.ts), so a query can never
+// reach across schools by accident.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================== platform
+
+enum TenantStatus {
+  TRIAL
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum BillingPeriod {
+  PER_SESSION
+  PER_TERM
+  MONTHLY
+  ANNUAL
+}
+
+/// A price list entry. Billing is modelled as per-student-per-period plus
+/// optional add-ons, so pricing can change without code changes.
+model Plan {
+  id                  String        @id @default(cuid())
+  code                String        @unique
+  name                String
+  description         String?
+  pricePerStudentKobo Int           @default(0)
+  billingPeriod       BillingPeriod @default(PER_SESSION)
+  aiMonthlyBudgetUsd  Decimal?      @db.Decimal(10, 2)
+  features            String[]
+  isActive            Boolean       @default(true)
+  createdAt           DateTime      @default(now())
+
+  tenants       Tenant[]
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Tenant {
+  id                 String       @id @default(cuid())
+  slug               String       @unique
+  name               String
+  shortName          String?
+  motto              String?
+  status             TenantStatus @default(TRIAL)
+  logoUrl            String?
+  primaryColor       String?
+  email              String?
+  phone              String?
+  address            String?
+  country            String       @default("NG")
+  currency           String       @default("NGN")
+  timezone           String       @default("Africa/Lagos")
+  planId             String?
+  trialEndsAt        DateTime?
+  aiMonthlyBudgetUsd Decimal?     @db.Decimal(10, 2)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  plan             Plan?             @relation(fields: [planId], references: [id])
+  domains          TenantDomain[]
+  subscriptions    Subscription[]
+  memberships      Membership[]
+  roles            Role[]
+  sessions         AuthSession[]
+  auditLogs        AuditLog[]
+  files            FileObject[]
+  notifications    Notification[]
+  branches         Branch[]
+  academicSessions AcademicSession[]
+  terms            Term[]
+  classLevels      ClassLevel[]
+  classArms        ClassArm[]
+  subjects         Subject[]
+  classSubjects    ClassSubject[]
+  students         Student[]
+  guardians        Guardian[]
+  studentGuardians StudentGuardian[]
+  staff            Staff[]
+  aiUsage          AiUsage[]
+  aiConversations  AiConversation[]
+  aiMessages       AiMessage[]
+
+  @@map("tenants")
+}
+
+/// Hostnames that resolve to a school: greenfield.aischool.ng,
+/// portal.greenfieldschool.com, …
+model TenantDomain {
+  id         String    @id @default(cuid())
+  tenantId   String
+  hostname   String    @unique
+  isPrimary  Boolean   @default(false)
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("tenant_domains")
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
+
+model Subscription {
+  id                 String             @id @default(cuid())
+  tenantId           String
+  planId             String
+  status             SubscriptionStatus @default(TRIALING)
+  studentSeats       Int                @default(0)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  createdAt          DateTime           @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  plan   Plan   @relation(fields: [planId], references: [id])
+
+  @@index([tenantId])
+  @@map("subscriptions")
+}
+
+// ============================================================== identity
+
+enum PlatformRole {
+  SUPER_ADMIN
+  SUPPORT_ADMIN
+  FINANCE_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INVITED
+  DISABLED
+}
+
+/// A person who can sign in. Global across schools: one parent can belong to
+/// two schools through two memberships.
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String?
+  avatarUrl    String?
+  platformRole PlatformRole?
+  status       UserStatus    @default(ACTIVE)
+  lastLoginAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  memberships   Membership[]
+  sessions      AuthSession[]
+  auditLogs     AuditLog[]
+  notifications Notification[]
+  students      Student[]
+  guardians     Guardian[]
+  staff         Staff[]
+  files         FileObject[]
+  aiUsage       AiUsage[]
+  conversations AiConversation[]
+
+  @@map("users")
+}
+
+enum MembershipStatus {
+  ACTIVE
+  DISABLED
+}
+
+/// A user's place in one school, and the roles they hold there.
+model Membership {
+  id        String           @id @default(cuid())
+  tenantId  String
+  userId    String
+  status    MembershipStatus @default(ACTIVE)
+  createdAt DateTime         @default(now())
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roles  MembershipRole[]
+
+  @@unique([tenantId, userId])
+  @@index([userId])
+  @@map("memberships")
+}
+
+/// A named set of permissions within a school. System roles are copied in when
+/// a school is created and can be edited; schools can add custom roles.
+model Role {
+  id          String   @id @default(cuid())
+  tenantId    String
+  key         String
+  name        String
+  description String?
+  isSystem    Boolean  @default(false)
+  permissions String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant  Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  members MembershipRole[]
+
+  @@unique([tenantId, key])
+  @@map("roles")
+}
+
+model MembershipRole {
+  membershipId String
+  roleId       String
+
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([membershipId, roleId])
+  @@index([roleId])
+  @@map("membership_roles")
+}
+
+/// A refresh-token session. Tokens rotate on every refresh; reuse of a
+/// rotated token revokes the whole family.
+model AuthSession {
+  id         String    @id @default(cuid())
+  userId     String
+  tenantId   String?
+  familyId   String
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  rotatedAt  DateTime?
+  userAgent  String?
+  ip         String?
+  createdAt  DateTime  @default(now())
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
+  @@map("auth_sessions")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  tenantId    String?
+  actorUserId String?
+  action      String
+  entityType  String?
+  entityId    String?
+  summary     String
+  metadata    Json?
+  ip          String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  actor  User?   @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@map("audit_logs")
+}
+
+model FileObject {
+  id           String   @id @default(cuid())
+  tenantId     String
+  storageKey   String   @unique
+  filename     String
+  mimeType     String
+  sizeBytes    Int
+  uploadedById String?
+  createdAt    DateTime @default(now())
+
+  tenant     Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy User?  @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@map("files")
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  tenantId  String
+  userId    String
+  title     String
+  body      String?
+  link      String?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, userId, readAt])
+  @@map("notifications")
+}
+
+// ============================================================== school core
+
+model Branch {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  code      String
+  address   String?
+  isMain    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArms ClassArm[]
+  students  Student[]
+
+  @@unique([tenantId, code])
+  @@map("branches")
+}
+
+model AcademicSession {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  startsOn  DateTime @db.Date
+  endsOn    DateTime @db.Date
+  isCurrent Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  terms  Term[]
+
+  @@unique([tenantId, name])
+  @@map("academic_sessions")
+}
+
+model Term {
+  id        String   @id @default(cuid())
+  tenantId  String
+  sessionId String
+  name      String
+  order     Int
+  startsOn  DateTime @db.Date
+  endsOn    DateTime @db.Date
+  isCurrent Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  tenant  Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  session AcademicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, order])
+  @@index([tenantId])
+  @@map("terms")
+}
+
+/// A year group: JSS 1, SS 2, Primary 4…
+model ClassLevel {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  code      String
+  stage     String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  arms   ClassArm[]
+
+  @@unique([tenantId, code])
+  @@map("class_levels")
+}
+
+/// A class section: JSS 1 A, JSS 1 B…
+model ClassArm {
+  id             String   @id @default(cuid())
+  tenantId       String
+  classLevelId   String
+  branchId       String?
+  name           String
+  capacity       Int?
+  classTeacherId String?
+  createdAt      DateTime @default(now())
+
+  tenant       Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classLevel   ClassLevel     @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
+  branch       Branch?        @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  classTeacher Staff?         @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
+  students     Student[]
+  subjects     ClassSubject[]
+
+  @@unique([classLevelId, name])
+  @@index([tenantId])
+  @@map("class_arms")
+}
+
+model Subject {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  code      String
+  category  String?
+  isCore    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  tenant  Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classes ClassSubject[]
+
+  @@unique([tenantId, code])
+  @@map("subjects")
+}
+
+/// Which subject is taught in which class, and by whom. The timetable engine
+/// and teacher workloads build on this.
+model ClassSubject {
+  id         String  @id @default(cuid())
+  tenantId   String
+  classArmId String
+  subjectId  String
+  teacherId  String?
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  subject  Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  teacher  Staff?   @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+
+  @@unique([classArmId, subjectId])
+  @@index([tenantId])
+  @@map("class_subjects")
+}
+
+// ============================================================== people
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum StudentStatus {
+  ACTIVE
+  SUSPENDED
+  WITHDRAWN
+  GRADUATED
+}
+
+model Student {
+  id              String        @id @default(cuid())
+  tenantId        String
+  branchId        String?
+  userId          String?
+  classArmId      String?
+  admissionNumber String
+  firstName       String
+  middleName      String?
+  lastName        String
+  gender          Gender
+  dateOfBirth     DateTime?     @db.Date
+  status          StudentStatus @default(ACTIVE)
+  admittedOn      DateTime      @default(now()) @db.Date
+  photoUrl        String?
+  address         String?
+  medicalNotes    String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  tenant    Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branch    Branch?           @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  user      User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classArm  ClassArm?         @relation(fields: [classArmId], references: [id], onDelete: SetNull)
+  guardians StudentGuardian[]
+
+  @@unique([tenantId, admissionNumber])
+  @@index([tenantId, classArmId])
+  @@index([tenantId, lastName])
+  @@map("students")
+}
+
+model Guardian {
+  id           String   @id @default(cuid())
+  tenantId     String
+  userId       String?
+  firstName    String
+  lastName     String
+  relationship String
+  phone        String
+  email        String?
+  occupation   String?
+  address      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user     User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  students StudentGuardian[]
+
+  @@index([tenantId, lastName])
+  @@map("guardians")
+}
+
+model StudentGuardian {
+  tenantId   String
+  studentId  String
+  guardianId String
+  isPrimary  Boolean @default(false)
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  guardian Guardian @relation(fields: [guardianId], references: [id], onDelete: Cascade)
+
+  @@id([studentId, guardianId])
+  @@index([tenantId])
+  @@index([guardianId])
+  @@map("student_guardians")
+}
+
+enum StaffType {
+  TEACHING
+  NON_TEACHING
+}
+
+enum StaffStatus {
+  ACTIVE
+  ON_LEAVE
+  EXITED
+}
+
+model Staff {
+  id          String      @id @default(cuid())
+  tenantId    String
+  userId      String?
+  staffNumber String
+  firstName   String
+  lastName    String
+  gender      Gender
+  email       String?
+  phone       String?
+  jobTitle    String
+  type        StaffType   @default(TEACHING)
+  status      StaffStatus @default(ACTIVE)
+  employedOn  DateTime?   @db.Date
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user          User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classesLed    ClassArm[]     @relation("ClassTeacher")
+  classSubjects ClassSubject[]
+
+  @@unique([tenantId, staffNumber])
+  @@map("staff")
+}
+
+// ============================================================== ai
+
+/// One row per model call: who, which feature, which model, tokens and cost.
+/// Budgets and per-plan limits read from here.
+model AiUsage {
+  id           String   @id @default(cuid())
+  tenantId     String
+  userId       String?
+  agent        String
+  provider     String
+  model        String
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  costUsd      Decimal  @default(0) @db.Decimal(12, 6)
+  latencyMs    Int      @default(0)
+  success      Boolean  @default(true)
+  error        String?
+  createdAt    DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@map("ai_usage")
+}
+
+model AiConversation {
+  id        String   @id @default(cuid())
+  tenantId  String
+  userId    String
+  agent     String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant   Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages AiMessage[]
+
+  @@index([tenantId, userId])
+  @@map("ai_conversations")
+}
+
+model AiMessage {
+  id             String   @id @default(cuid())
+  tenantId       String
+  conversationId String
+  role           String
+  content        String
+  provider       String?
+  model          String?
+  createdAt      DateTime @default(now())
+
+  tenant       Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@map("ai_messages")
+}

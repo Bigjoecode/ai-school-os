@@ -1,0 +1,26 @@
+{
+  "name": "ai-school-os",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI School OS — the intelligent operating system for modern schools.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "db": "node scripts/dev-db.mjs",
+    "dev:api": "npm run dev -w @aischool/api",
+    "dev:web": "npm run dev -w @aischool/web",
+    "build": "npm run build -w @aischool/shared && npm run build -w @aischool/api && npm run build -w @aischool/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @aischool/api",
+    "db:seed": "npm run db:seed -w @aischool/api"
+  },
+  "devDependencies": {
+    "embedded-postgres": "18.4.0-beta.17",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

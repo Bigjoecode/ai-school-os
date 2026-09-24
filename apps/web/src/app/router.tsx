@@ -1,0 +1,137 @@
+import { lazy, Suspense, type ReactNode } from 'react';
+import { createBrowserRouter } from 'react-router';
+import { AppShell } from '@/components/layout/app-shell';
+import { BootLoader } from '@/components/layout/boot-loader';
+import { RedirectIfAuthed, RequireAuth, RequirePermission, RequireSuperAdmin } from './guards';
+import { UPCOMING_MODULES } from './modules';
+
+const LoginPage = lazy(() => import('@/features/auth/login-page'));
+const OverviewPage = lazy(() => import('@/features/overview/overview-page'));
+const AiPage = lazy(() => import('@/features/ai/ai-page'));
+const StudentsPage = lazy(() => import('@/features/students/students-page'));
+const ParentsPage = lazy(() => import('@/features/guardians/parents-page'));
+const StaffPage = lazy(() => import('@/features/staff/staff-page'));
+const AcademicsPage = lazy(() => import('@/features/academics/academics-page'));
+const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
+const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
+const UsersPage = lazy(() => import('@/features/settings/users-page'));
+const RolesPage = lazy(() => import('@/features/settings/roles-page'));
+const AuditPage = lazy(() => import('@/features/settings/audit-page'));
+const TenantsPage = lazy(() => import('@/features/platform/tenants-page'));
+const ComingSoonPage = lazy(() => import('@/features/coming-soon/coming-soon-page'));
+const NotFoundPage = lazy(() => import('@/features/not-found/not-found-page'));
+
+const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
+
+export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: withSuspense(
+      <RedirectIfAuthed>
+        <LoginPage />
+      </RedirectIfAuthed>,
+    ),
+  },
+  {
+    path: '/',
+    element: (
+      <RequireAuth>
+        <AppShell />
+      </RequireAuth>
+    ),
+    children: [
+      { index: true, element: <OverviewPage /> },
+      {
+        path: 'ai',
+        element: (
+          <RequirePermission permission="ai.use">
+            <AiPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'students',
+        element: (
+          <RequirePermission permission="students.read">
+            <StudentsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'parents',
+        element: (
+          <RequirePermission permission="guardians.read">
+            <ParentsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'staff',
+        element: (
+          <RequirePermission permission="staff.read">
+            <StaffPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'academics',
+        element: (
+          <RequirePermission permission="academics.read">
+            <AcademicsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'settings',
+        element: <SettingsLayout />,
+        children: [
+          {
+            index: true,
+            element: (
+              <RequirePermission permission="school.read">
+                <SchoolProfilePage />
+              </RequirePermission>
+            ),
+          },
+          {
+            path: 'users',
+            element: (
+              <RequirePermission permission="users.read">
+                <UsersPage />
+              </RequirePermission>
+            ),
+          },
+          {
+            path: 'roles',
+            element: (
+              <RequirePermission permission="roles.manage">
+                <RolesPage />
+              </RequirePermission>
+            ),
+          },
+          {
+            path: 'audit',
+            element: (
+              <RequirePermission permission="audit.read">
+                <AuditPage />
+              </RequirePermission>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'platform/tenants',
+        element: (
+          <RequireSuperAdmin>
+            <TenantsPage />
+          </RequireSuperAdmin>
+        ),
+      },
+      ...Object.keys(UPCOMING_MODULES).map((path) => ({
+        path: path.slice(1),
+        element: <ComingSoonPage path={path} />,
+      })),
+      { path: '*', element: <NotFoundPage /> },
+    ],
+  },
+]);

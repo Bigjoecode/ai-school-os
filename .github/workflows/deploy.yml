@@ -12,32 +12,26 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://ai-schoolportal.mejortechworld.com
     steps:
       - uses: actions/checkout@v4
 
-      # Build only when the project has a build script; the output folder
-      # (dist/ or build/) is what gets published. Without one, the repo root
-      # is published as-is.
       - uses: actions/setup-node@v4
-        if: hashFiles('package.json') != ''
         with:
           node-version: '22'
+          cache: npm
 
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      # Typechecks everything, then builds: shared contracts → API (tsc, then
+      # a single-file bundle) → web (static files). prisma generate only needs
+      # a well-formed URL here; nothing connects to a database in CI.
       - name: Build
-        id: build
-        run: |
-          dir=.
-          if [ -f package.json ]; then
-            if [ -f package-lock.json ]; then npm ci; else npm install; fi
-            if npm run | grep -q '^  build$'; then
-              npm run build
-              for d in dist build out; do
-                if [ -d "$d" ]; then dir=$d; break; fi
-              done
-            fi
-          fi
-          echo "dir=$dir" >> "$GITHUB_OUTPUT"
-          echo "Publishing: $dir"
+        env:
+          DATABASE_URL: postgresql://build:build@localhost:5432/build
+        run: npm run build
 
       - name: Load the deploy key
         run: |
@@ -50,34 +44,69 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
           sudo apt-get install -y -qq lftp >/dev/null
 
-      # The host allows SFTP but no shell, so rsync is not an option. lftp
-      # mirrors the folder and removes files that were deleted from the repo,
-      # leaving cPanel's own folders alone.
+      # The host allows SFTP but no shell, so everything ships as files:
+      #  - API bundle → API_DEPLOY_PATH (the cPanel Node.js app root), then
+      #    tmp/restart.txt tells Passenger to reload it;
+      #  - web build  → DEPLOY_PATH (the subdomain's document root), with the
+      #    .htaccess merged so cPanel's own rules survive.
       - name: Publish over SFTP
         env:
           HOST: ${{ secrets.SSH_HOST }}
           USER: ${{ secrets.SSH_USER }}
           PORT: ${{ secrets.SSH_PORT }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-          SRC: ${{ steps.build.outputs.dir }}
+          API_DEPLOY_PATH: ${{ secrets.API_DEPLOY_PATH }}
         run: |
-          case "$DEPLOY_PATH" in /home/*) ;; *) echo "DEPLOY_PATH must be an absolute /home path"; exit 1;; esac
+          for p in "$DEPLOY_PATH" "$API_DEPLOY_PATH"; do
+            case "$p" in /home/*) ;; *) echo "Deploy paths must be absolute /home paths"; exit 1;; esac
+          done
+
+          sftp_cmd() {
+            lftp -e "
+              set sftp:auto-confirm no;
+              set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/deploy -o IdentitiesOnly=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes';
+              set net:max-retries 3;
+              set cmd:fail-exit yes;
+              open -u $USER, -p $PORT sftp://$HOST;
+              $1
+              bye"
+          }
+
+          # --- API
+          : > restart.txt
+          sftp_cmd "
+            mkdir -p -f '$API_DEPLOY_PATH/tmp';
+            mirror --reverse --delete --parallel=4 \
+              --exclude-glob tmp/ --exclude-glob node_modules/ \
+              --exclude-glob .env --exclude-glob '*.log' --exclude-glob '*.map' \
+              --exclude-glob .htaccess --exclude-glob public/ \
+              apps/api/bundle '$API_DEPLOY_PATH';
+            put restart.txt -o '$API_DEPLOY_PATH/tmp/restart.txt';"
+
+          # --- Web
           lftp -e "
-            set sftp:auto-confirm no;
             set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/deploy -o IdentitiesOnly=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes';
-            set net:max-retries 3;
             open -u $USER, -p $PORT sftp://$HOST;
-            mirror --reverse --delete --verbose --parallel=4 \
-              --exclude-glob .git/ --exclude-glob .github/ \
-              --exclude-glob node_modules/ --exclude-glob .kilocode/ \
-              --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
-              --exclude-glob .env --exclude-glob '.env.*' \
-              --exclude-glob .gitignore \
-              '$SRC' '$DEPLOY_PATH';
-            bye"
+            get '$DEPLOY_PATH/.htaccess' -o live.htaccess;
+            bye" || echo "No live .htaccess yet"
+          node infrastructure/deploy/merge-htaccess.mjs live.htaccess apps/web/dist/.htaccess merged.htaccess
+          cp merged.htaccess apps/web/dist/.htaccess
+          sftp_cmd "
+            mirror --reverse --delete --parallel=4 \
+              --exclude-glob api/ --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
+              --exclude-glob .user.ini --exclude-glob php.ini --exclude-glob error_log \
+              apps/web/dist '$DEPLOY_PATH';"
 
       - name: Check the live site
         run: |
-          code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 https://ai-schoolportal.mejortechworld.com/)
-          echo "HTTP $code"
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 "$SITE_URL/")
+          echo "Web: HTTP $code"
           [ "$code" -lt 400 ]
+          # The API needs the one-time cPanel setup (Node.js app + database);
+          # until then this reports a warning instead of failing the deploy.
+          api=$(curl -sS -o api.json -w '%{http_code}' --retry 4 --retry-delay 10 "$SITE_URL/api/health" || true)
+          if [ "$api" = "200" ]; then
+            echo "API: $(cat api.json)"
+          else
+            echo "::warning::API health check returned HTTP $api — finish the cPanel Node.js app setup (see DEPLOYMENT.md)"
+          fi

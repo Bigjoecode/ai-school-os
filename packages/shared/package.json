@@ -1,0 +1,15 @@
+{
+  "name": "@aischool/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Contracts shared by the API and the web app: permissions, roles and validation schemas.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}

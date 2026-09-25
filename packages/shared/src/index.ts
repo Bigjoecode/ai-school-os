@@ -5,3 +5,4 @@ export * from './types';
 export * from './academic';
 export * from './assessment';
 export * from './timetable';
+export * from './attendance';

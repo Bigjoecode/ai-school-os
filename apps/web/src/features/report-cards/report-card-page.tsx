@@ -1,5 +1,5 @@
 import { ordinal, type ReportCardView } from '@aischool/shared';
-import { Award, Check, ChevronLeft, ChevronRight, Info, Pencil, Printer, X } from 'lucide-react';
+import { Award, CalendarCheck, Check, ChevronLeft, ChevronRight, Info, Pencil, Printer, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { Page } from '@/components/layout/page-header';
@@ -273,6 +273,9 @@ function CardView({ v, termId }: { v: ReportCardView; termId: string }) {
           <SummaryTile label="Class average" value={fmtPct(s.classAverage)} />
         </div>
 
+        {/* ---------------------------------------------------- attendance */}
+        <AttendanceStrip a={v.attendance} />
+
         {/* ---------------------------------------------------- remarks */}
         <div className="grid gap-5 px-5 py-6 sm:px-8 md:grid-cols-2 print:grid-cols-2 print:gap-3 print:px-3 print:py-3">
           <RemarkBox
@@ -327,6 +330,38 @@ function SummaryTile({ label, value, emphasis }: { label: string; value: string;
       <p className="text-[10.5px] font-medium uppercase tracking-wider text-muted-foreground print:text-[8px]">{label}</p>
       <p className={cn('mt-0.5 font-display font-semibold tabular', emphasis ? 'text-[20px] print:text-[14px]' : 'text-[16px] print:text-[12px]')}>{value}</p>
     </div>
+  );
+}
+
+function AttendanceStrip({ a }: { a: ReportCardView['attendance'] | undefined }) {
+  if (!a) return null;
+  const tiles: [string, string, string?][] = [
+    ['Days marked', String(a.daysMarked)],
+    ['Present', String(a.present)],
+    ['Late', String(a.late), a.late > 0 ? 'text-warning print:text-inherit' : undefined],
+    ['Absent', String(a.absent), a.absent > 0 ? 'text-danger print:text-inherit' : undefined],
+    ['Excused', String(a.excused)],
+    ['Attendance', a.rate == null ? '—' : `${Number.isInteger(a.rate) ? a.rate : a.rate.toFixed(1)}%`],
+  ];
+  return (
+    <section aria-labelledby="rc-attendance" className="print-avoid-break border-b border-border">
+      <h2
+        id="rc-attendance"
+        className="flex items-center gap-1.5 bg-muted/50 px-4 py-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-muted-foreground sm:px-8 print:px-3 print:py-1 print:text-[8px]"
+      >
+        <CalendarCheck className="size-3 print:hidden" aria-hidden /> Attendance this term
+      </h2>
+      <dl className="grid grid-cols-3 gap-px bg-border sm:grid-cols-6 print:grid-cols-6">
+        {tiles.map(([label, value, tone], i) => (
+          <div key={label} className="bg-card px-3 py-2 text-center print:py-1">
+            <dt className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground print:text-[7.5px]">{label}</dt>
+            <dd className={cn('mt-0.5 font-display font-semibold tabular', i === tiles.length - 1 ? 'text-[17px] print:text-[12px]' : 'text-[15px] print:text-[11px]', tone)}>
+              {value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
 

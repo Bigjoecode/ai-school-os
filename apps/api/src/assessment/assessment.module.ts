@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
+import { AttendanceModule } from '../attendance/attendance.module';
 import { AssessmentSettingsService } from './assessment-settings.service';
 import { PapersController } from './papers.controller';
 import { QuestionsController } from './questions.controller';
@@ -9,7 +10,7 @@ import { ResultsService } from './results.service';
 
 /** Phase 4: question bank, exam papers, scores, results, report cards and analysis. */
 @Module({
-  imports: [AiModule],
+  imports: [AiModule, AttendanceModule],
   controllers: [QuestionsController, PapersController, ResultsController, ReportCardsController],
   providers: [AssessmentSettingsService, ResultsService],
 })

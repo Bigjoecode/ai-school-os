@@ -26,6 +26,10 @@ const ReportCardsPage = lazy(() => import('@/features/report-cards/report-cards-
 const ReportCardPage = lazy(() => import('@/features/report-cards/report-card-page'));
 const TimetablePage = lazy(() => import('@/features/timetable/timetable-page'));
 const TimetableSetupPage = lazy(() => import('@/features/timetable/setup/setup-page'));
+const AttendancePage = lazy(() => import('@/features/attendance/attendance-page'));
+const StudentAttendancePage = lazy(() => import('@/features/attendance/student-attendance-page'));
+const KioskPage = lazy(() => import('@/features/attendance/kiosk-page'));
+const CheckInPage = lazy(() => import('@/features/attendance/check-in-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -45,6 +49,23 @@ export const router = createBrowserRouter([
         <LoginPage />
       </RedirectIfAuthed>,
     ),
+  },
+  // Full-screen pages without the app chrome (reception display, phone check-in).
+  {
+    path: '/attendance/kiosk',
+    element: (
+      <RequireAuth>
+        {withSuspense(
+          <RequirePermission permission="attendance.manage">
+            <KioskPage />
+          </RequirePermission>,
+        )}
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/check-in',
+    element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
   },
   {
     path: '/',
@@ -204,6 +225,22 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="timetable.read">
             <TimetableSetupPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'attendance',
+        element: (
+          <RequirePermission permission="attendance.read">
+            <AttendancePage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'attendance/students/:id',
+        element: (
+          <RequirePermission permission="attendance.read">
+            <StudentAttendancePage />
           </RequirePermission>
         ),
       },

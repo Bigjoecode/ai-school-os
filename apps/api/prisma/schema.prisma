@@ -76,6 +76,8 @@ model Tenant {
   gradingScale         Json?
   /// { days: [1..7], periods: [{ label, start, end, kind }] }. Null means the default day.
   bellSchedule         Json?
+  /// { staffLateAfter: "HH:MM", editWindowDays } — null means the defaults.
+  attendanceSettings   Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -117,6 +119,9 @@ model Tenant {
   staffUnavailability StaffUnavailability[]
   timetables          Timetable[]
   timetableEntries    TimetableEntry[]
+  attendanceRegisters AttendanceRegister[]
+  studentAttendance   StudentAttendance[]
+  staffAttendance     StaffAttendance[]
 
   @@map("tenants")
 }
@@ -430,16 +435,17 @@ model ClassArm {
   classTeacherId String?
   createdAt      DateTime @default(now())
 
-  tenant           Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  classLevel       ClassLevel       @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
-  branch           Branch?          @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  classTeacher     Staff?           @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
+  tenant           Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classLevel       ClassLevel           @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
+  branch           Branch?              @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  classTeacher     Staff?               @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
   students         Student[]
   subjects         ClassSubject[]
   lessonPlans      LessonPlan[]
   scores           Score[]
   reportCards      ReportCard[]
   timetableEntries TimetableEntry[]
+  registers        AttendanceRegister[]
 
   @@unique([classLevelId, name])
   @@index([tenantId])
@@ -528,13 +534,14 @@ model Student {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  tenant      Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  branch      Branch?           @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  user        User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
-  classArm    ClassArm?         @relation(fields: [classArmId], references: [id], onDelete: SetNull)
+  tenant      Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branch      Branch?             @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  user        User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classArm    ClassArm?           @relation(fields: [classArmId], references: [id], onDelete: SetNull)
   guardians   StudentGuardian[]
   scores      Score[]
   reportCards ReportCard[]
+  attendance  StudentAttendance[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
@@ -615,6 +622,7 @@ model Staff {
   lessonPlans      LessonPlan[]
   unavailability   StaffUnavailability[]
   timetableEntries TimetableEntry[]
+  attendance       StaffAttendance[]
 
   @@unique([tenantId, staffNumber])
   @@map("staff")
@@ -1141,4 +1149,80 @@ model TimetableEntry {
   @@index([timetableId, teacherId])
   @@index([tenantId])
   @@map("timetable_entries")
+}
+
+// ============================================================== attendance
+
+/// One class's daily register. Rates are computed over registers taken, so
+/// a missing register never counts as absence.
+model AttendanceRegister {
+  id         String   @id @default(cuid())
+  tenantId   String
+  classArmId String
+  date       DateTime @db.Date
+  takenById  String?
+  takenAt    DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tenant   Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArm ClassArm            @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  marks    StudentAttendance[]
+
+  @@unique([classArmId, date])
+  @@index([tenantId, date])
+  @@map("attendance_registers")
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+model StudentAttendance {
+  id         String           @id @default(cuid())
+  tenantId   String
+  registerId String
+  studentId  String
+  /// Copied from the register so per-student history needs no join.
+  date       DateTime         @db.Date
+  status     AttendanceStatus
+  note       String?
+
+  tenant   Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  register AttendanceRegister @relation(fields: [registerId], references: [id], onDelete: Cascade)
+  student  Student            @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([registerId, studentId])
+  @@index([tenantId, studentId, date])
+  @@map("student_attendance")
+}
+
+enum StaffAttendanceStatus {
+  PRESENT
+  LATE
+  ABSENT
+  ON_LEAVE
+}
+
+model StaffAttendance {
+  id         String                @id @default(cuid())
+  tenantId   String
+  staffId    String
+  date       DateTime              @db.Date
+  status     StaffAttendanceStatus
+  checkInAt  DateTime?
+  checkOutAt DateTime?
+  /// KIOSK (QR check-in) or MANUAL (entered by a manager).
+  method     String                @default("MANUAL")
+  note       String?
+  updatedAt  DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staff  Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@unique([staffId, date])
+  @@index([tenantId, date])
+  @@map("staff_attendance")
 }

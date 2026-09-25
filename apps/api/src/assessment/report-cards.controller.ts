@@ -25,6 +25,7 @@ import { dateOnly } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
+import { AttendanceService } from '../attendance/attendance.service';
 import { remarksPrompt } from './prompts';
 import { mean, ResultsService, type ClassResults } from './results.service';
 
@@ -40,6 +41,7 @@ export class ReportCardsController {
     private readonly gateway: AiGatewayService,
     private readonly jobs: AiJobsService,
     private readonly audit: AuditService,
+    private readonly attendance: AttendanceService,
   ) {}
 
   /** Every student in a class for a term, with where their report stands. */
@@ -131,6 +133,7 @@ export class ReportCardsController {
       teacherRemark: card?.teacherRemark ?? null,
       remarkSource: card?.remarkSource ?? 'MANUAL',
       principalRemark: card?.principalRemark ?? null,
+      attendance: await this.attendance.termCounts(student.id, { startsOn: r.term.startsOn, endsOn: r.term.endsOn }),
       canEditTeacherRemark: currentContext().permissions.has('results.publish') || r.classArm.classTeacherUserId === currentContext().userId,
       canEditPrincipalRemark: currentContext().permissions.has('results.publish'),
       status: card?.status ?? 'DRAFT',

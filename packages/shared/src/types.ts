@@ -56,6 +56,14 @@ export interface OverviewResponse {
     staff: { total: number; teaching: number };
     guardians: { total: number; coveragePct: number };
     classes: { arms: number; levels: number; avgClassSize: number; utilisationPct: number | null };
+    /** Null until the school takes its first register. */
+    attendance: {
+      todayRate: number | null;
+      registersTaken: number;
+      registersExpected: number;
+      termRate: number | null;
+      persistentlyAbsent: number;
+    } | null;
   };
   enrolmentTrend: { month: string; admitted: number; total: number }[];
   byClassLevel: { level: string; students: number; capacity: number | null }[];
@@ -124,7 +132,8 @@ export interface AcademicStructure {
       name: string;
       capacity: number | null;
       studentCount: number;
-      classTeacher: { id: string; firstName: string; lastName: string } | null;
+      /** userId: the teacher's sign-in account, if they have one. */
+      classTeacher: { id: string; firstName: string; lastName: string; userId: string | null } | null;
     }[];
   }[];
   subjects: { id: string; name: string; code: string; category: string | null; isCore: boolean }[];

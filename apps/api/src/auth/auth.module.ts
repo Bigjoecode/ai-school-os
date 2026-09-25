@@ -16,6 +16,7 @@ import { AuthService } from './auth.service';
   ],
   controllers: [AuthController],
   providers: [AuthService, AccessService, { provide: APP_GUARD, useClass: AuthGuard }],
-  exports: [AccessService],
+  // JwtModule is shared so other modules can sign short-lived tokens (e.g. the check-in kiosk).
+  exports: [AccessService, JwtModule],
 })
 export class AuthModule {}

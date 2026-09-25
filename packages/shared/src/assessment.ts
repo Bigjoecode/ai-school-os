@@ -459,6 +459,8 @@ export interface ReportCardView {
   remarkSource: 'MANUAL' | 'AI';
   principalRemark: string | null;
   /** The signed-in user is this class's teacher or manages results. */
+  /** Days present/absent from the daily register for this term. */
+  attendance: { present: number; absent: number; late: number; excused: number; rate: number | null; daysMarked: number };
   canEditTeacherRemark: boolean;
   /** The signed-in user manages results (principal and similar). */
   canEditPrincipalRemark: boolean;

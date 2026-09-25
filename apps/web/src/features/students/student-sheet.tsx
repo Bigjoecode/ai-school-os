@@ -11,6 +11,7 @@ import { useCan } from '@/lib/auth-store';
 import { formatDate } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
+import { StudentAttendanceSummary } from '../attendance/student-summary';
 import { type StudentDetail, useStudent, useUpdateStudent } from './api';
 import { StudentFields, studentDefaults, useStudentForm } from './student-form';
 
@@ -41,6 +42,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
   const { data, isLoading, error, refetch } = useStudent(id);
   const [editing, setEditing] = useState(false);
   const canManage = useCan('students.manage');
+  const canAttendance = useCan('attendance.read');
 
   useEffect(() => {
     setEditing(false);
@@ -143,6 +145,8 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
                   </ul>
                 )}
               </div>
+
+              {canAttendance && <StudentAttendanceSummary studentId={data.id} onNavigate={onClose} />}
             </SheetBody>
             {canManage && (
               <SheetFooter>

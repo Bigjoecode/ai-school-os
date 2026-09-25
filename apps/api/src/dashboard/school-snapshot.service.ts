@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import type { Insight, OverviewResponse } from '@aischool/shared';
+import { CHRONIC_ABSENCE_THRESHOLD, attendanceRate, type Insight, type OverviewResponse } from '@aischool/shared';
 import { dateOnly, fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
+import { schoolNow, weekdayOf } from '../common/school-time';
+import { bellScheduleFor } from '../timetable/timetable-builder';
 import { PrismaService } from '../prisma/prisma.service';
 
 const NEARLY_FULL = 0.9;
@@ -99,6 +101,7 @@ export class SchoolSnapshotService {
     const base = totalStudents - addedThisMonth;
 
     const daysLeft = term ? Math.ceil((term.endsOn.getTime() - now.getTime()) / 86_400_000) : 0;
+    const attendance = await this.attendance(term, arms.filter((a) => a._count.students > 0).length);
 
     return {
       greetingName: user.firstName,
@@ -124,6 +127,7 @@ export class SchoolSnapshotService {
           avgClassSize: arms.length ? round1(assigned / arms.length) : 0,
           utilisationPct: capacity ? round1((seatedInCapped / capacity) * 100) : null,
         },
+        attendance: attendance?.kpi ?? null,
       },
       enrolmentTrend,
       byClassLevel: levels.map((l) => ({
@@ -138,6 +142,7 @@ export class SchoolSnapshotService {
         female: genderRows.find((g) => g.gender === 'FEMALE')?._count._all ?? 0,
       },
       insights: this.insights({
+        attendance,
         totalStudents,
         addedThisMonth,
         withoutGuardian: totalStudents - studentsWithGuardian,
@@ -155,6 +160,54 @@ export class SchoolSnapshotService {
     };
   }
 
+  /** Today's registers and the term's attendance, or null before the first register. */
+  private async attendance(term: { startsOn: Date; endsOn: Date } | null, armsWithStudents: number) {
+    const db = this.prisma.db;
+    if (!(await db.attendanceRegister.count())) return null;
+    const tenantId = currentTenantId();
+    const [tenant, bell] = await Promise.all([
+      this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tenantId }, select: { timezone: true } }),
+      bellScheduleFor(this.prisma.root, tenantId),
+    ]);
+    const now = schoolNow(tenant.timezone);
+    const today = new Date(`${now.date}T00:00:00.000Z`);
+    const [registersToday, todayMarks, termMarks] = await Promise.all([
+      db.attendanceRegister.count({ where: { date: today } }),
+      db.studentAttendance.groupBy({ by: ['status'], where: { date: today }, _count: { _all: true } }),
+      term
+        ? db.studentAttendance.groupBy({
+            by: ['studentId', 'status'],
+            where: { date: { gte: term.startsOn, lte: term.endsOn } },
+            _count: { _all: true },
+          })
+        : Promise.resolve([]),
+    ]);
+    const count = (rows: { status: string; _count: { _all: number } }[]) => {
+      const c = { present: 0, absent: 0, late: 0, excused: 0 };
+      for (const r of rows) c[r.status.toLowerCase() as keyof typeof c] += r._count._all;
+      return c;
+    };
+    const perStudent = new Map<string, { status: string; _count: { _all: number } }[]>();
+    for (const r of termMarks) perStudent.set(r.studentId, [...(perStudent.get(r.studentId) ?? []), r]);
+    let persistentlyAbsent = 0;
+    for (const rows of perStudent.values()) {
+      const c = count(rows);
+      const rate = attendanceRate(c);
+      if (rate !== null && rate < CHRONIC_ABSENCE_THRESHOLD && c.present + c.late + c.absent >= 5) persistentlyAbsent++;
+    }
+    return {
+      schoolDay: bell.days.includes(weekdayOf(now.date)),
+      time: now.time,
+      kpi: {
+        todayRate: attendanceRate(count(todayMarks)),
+        registersTaken: registersToday,
+        registersExpected: armsWithStudents,
+        termRate: attendanceRate(count(termMarks)),
+        persistentlyAbsent,
+      },
+    };
+  }
+
   private insights(d: {
     totalStudents: number;
     addedThisMonth: number;
@@ -163,6 +216,7 @@ export class SchoolSnapshotService {
     arms: { name: string; levelName: string; capacity: number | null; classTeacher: { id: string } | null; _count: { students: number } }[];
     term: { name: string; daysLeft: number } | null;
     hasSession: boolean;
+    attendance: Awaited<ReturnType<SchoolSnapshotService['attendance']>>;
   }): Insight[] {
     const out: Insight[] = [];
     const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
@@ -180,6 +234,25 @@ export class SchoolSnapshotService {
         title: `${d.term.name} ends in ${plural(d.term.daysLeft, 'day')}`,
         detail: 'A good time to finalise assessments and prepare report cards.',
         href: '/academics',
+      });
+    }
+
+    const a = d.attendance;
+    if (a?.schoolDay && a.time >= '10:00' && a.kpi.registersTaken < a.kpi.registersExpected) {
+      const missing = a.kpi.registersExpected - a.kpi.registersTaken;
+      out.push({
+        tone: 'warning',
+        title: `${plural(missing, "class hasn't", "classes haven't")} taken today's register`,
+        detail: 'Registers keep children safe: absences are only followed up once the class is marked.',
+        href: '/attendance',
+      });
+    }
+    if (a && a.kpi.persistentlyAbsent > 0) {
+      out.push({
+        tone: 'warning',
+        title: `${plural(a.kpi.persistentlyAbsent, 'student is', 'students are')} persistently absent`,
+        detail: `Below ${CHRONIC_ABSENCE_THRESHOLD}% attendance this term. Early contact with parents makes the biggest difference.`,
+        href: '/attendance',
       });
     }
 

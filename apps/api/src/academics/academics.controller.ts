@@ -49,7 +49,7 @@ export class AcademicsController {
           arms: {
             orderBy: { name: 'asc' },
             include: {
-              classTeacher: { select: { id: true, firstName: true, lastName: true } },
+              classTeacher: { select: { id: true, firstName: true, lastName: true, userId: true } },
               _count: { select: { students: { where: { status: 'ACTIVE' } } } },
             },
           },

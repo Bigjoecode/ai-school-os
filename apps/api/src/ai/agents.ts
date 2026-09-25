@@ -89,7 +89,10 @@ export function snapshotToText(o: OverviewResponse): string {
       o.byClassLevel.map((l) => `${l.level} ${l.students}${l.capacity ? `/${l.capacity} seats` : ''}`).join('; '),
     'Admissions by month (last 12): ' + o.enrolmentTrend.map((t) => `${t.month}: ${t.admitted}`).join(', '),
     'Flags: ' + o.insights.map((i) => `${i.title} — ${i.detail}`).join(' | '),
-    'Not yet tracked in the system: attendance, fees and payments, exams and results, timetable.',
+    k.attendance
+      ? `Attendance: today ${k.attendance.todayRate ?? 'n/a'}% present (${k.attendance.registersTaken} of ${k.attendance.registersExpected} registers taken); this term ${k.attendance.termRate ?? 'n/a'}%; ${k.attendance.persistentlyAbsent} students below 90%.`
+      : 'Attendance: no registers taken yet.',
+    'Not yet tracked in the system: fees and payments.',
   ];
   return lines.join('\n');
 }

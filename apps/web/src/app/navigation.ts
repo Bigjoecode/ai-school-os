@@ -92,7 +92,15 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Attendance',
-    items: [{ label: 'Attendance', to: '/attendance', icon: CalendarCheck, soon: true, keywords: 'register roll call' }],
+    items: [
+      {
+        label: 'Attendance',
+        to: '/attendance',
+        icon: CalendarCheck,
+        permission: 'attendance.read',
+        keywords: 'register roll call absent late present absence kiosk check in staff',
+      },
+    ],
   },
   {
     label: 'Finance',

@@ -51,17 +51,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/attendance': {
-    name: 'Attendance',
-    phase: 6,
-    summary: 'Fast daily registers with real-time insight.',
-    features: [
-      'Class registers in a few taps on any device',
-      'Instant absence alerts to parents',
-      'Trends by student, class and term',
-      'AI spots chronic absence patterns before they become problems',
-    ],
-  },
   '/fees': {
     name: 'Fees',
     phase: 7,

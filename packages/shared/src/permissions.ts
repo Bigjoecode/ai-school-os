@@ -71,6 +71,15 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'attendance',
+    label: 'Attendance',
+    permissions: {
+      'attendance.read': 'View attendance registers and reports',
+      'attendance.take': "Take the daily register for the classes you lead",
+      'attendance.manage': "Take or correct any register, manage staff attendance and the check-in kiosk",
+    },
+  },
+  {
     module: 'students',
     label: 'Students',
     permissions: {

@@ -11,6 +11,7 @@ import { DEFAULT_BELL_SCHEDULE, SYSTEM_ROLES } from '@aischool/shared';
 import type { Gender, PrismaClient } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
 import { buildTimetable } from '../timetable/timetable-builder';
+import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
 
 let prisma: PrismaClient;
 
@@ -418,6 +419,72 @@ async function run({ demoOwner }: SeedOptions) {
     },
   });
   await buildTimetable(prisma, g.id, timetable.id);
+
+  // Attendance from the first day of term to today (school time). Most
+  // learners attend ~96% of days; a few are persistently absent; Mondays are
+  // a little worse. Today two classes haven't taken their register yet.
+  const today = schoolNow('Africa/Lagos').date;
+  const schoolDays = datesBetween('2026-09-07', today).filter((d) => weekdayOf(d) <= 5);
+  const chronicIds = new Set(students.filter(() => chance(0.035)).map((s) => s.id));
+  const notYetTaken = new Set([arms[4]!.arm.id, arms[9]!.arm.id]);
+  const EXCUSES = ['Hospital appointment', 'Family emergency', 'Sick — note from parent', 'Religious observance'];
+  const registerRows: { id: string; tenantId: string; classArmId: string; date: Date; takenById: string; takenAt: Date }[] = [];
+  const markRows: { tenantId: string; registerId: string; studentId: string; date: Date; status: 'PRESENT' | 'ABSENT' | 'LATE' | 'EXCUSED'; note?: string }[] = [];
+  for (const d of schoolDays) {
+    const date = day(d);
+    for (const { arm } of arms) {
+      if (d === today && notYetTaken.has(arm.id)) continue;
+      const registerId = `reg_${arm.id}_${d}`;
+      registerRows.push({ id: registerId, tenantId: g.id, classArmId: arm.id, date, takenById: admin.id, takenAt: new Date(`${d}T07:05:00.000Z`) });
+      for (const st of students.filter((s) => s.classArmId === arm.id)) {
+        const pAbsent = (chronicIds.has(st.id) ? 0.2 : 0.03) + (weekdayOf(d) === 1 ? 0.015 : 0);
+        const r = rand();
+        const status = r < pAbsent ? 'ABSENT' : r < pAbsent + 0.008 ? 'EXCUSED' : r < pAbsent + 0.04 ? 'LATE' : 'PRESENT';
+        markRows.push({
+          tenantId: g.id,
+          registerId,
+          studentId: st.id,
+          date,
+          status,
+          ...(status === 'EXCUSED' ? { note: pick(EXCUSES) } : {}),
+        });
+      }
+    }
+  }
+  await prisma.attendanceRegister.createMany({ data: registerRows });
+  for (let i = 0; i < markRows.length; i += 5000) await prisma.studentAttendance.createMany({ data: markRows.slice(i, i + 5000) });
+
+  // Staff check in at the kiosk around 07:30 (late after 07:45); one teacher
+  // is on leave for three days last week.
+  const staffAttendanceRows: { tenantId: string; staffId: string; date: Date; status: 'PRESENT' | 'LATE' | 'ABSENT' | 'ON_LEAVE'; checkInAt?: Date; checkOutAt?: Date; method: string }[] = [];
+  const onLeave = staff[7]!;
+  for (const d of schoolDays) {
+    for (const member of staff) {
+      if (member.id === onLeave.id && schoolDays.indexOf(d) >= schoolDays.length - 8 && schoolDays.indexOf(d) < schoolDays.length - 5) {
+        staffAttendanceRows.push({ tenantId: g.id, staffId: member.id, date: day(d), status: 'ON_LEAVE', method: 'MANUAL' });
+        continue;
+      }
+      if (chance(0.015)) {
+        staffAttendanceRows.push({ tenantId: g.id, staffId: member.id, date: day(d), status: 'ABSENT', method: 'MANUAL' });
+        continue;
+      }
+      // Lagos is UTC+1: 07:30 school time is 06:30Z.
+      const minutes = Math.round(6 * 60 + 30 + 9 * gaussian());
+      const checkIn = new Date(`${d}T00:00:00.000Z`);
+      checkIn.setUTCMinutes(minutes);
+      const checkOut = d === today ? undefined : new Date(checkIn.getTime() + (8.5 + rand()) * 3_600_000);
+      staffAttendanceRows.push({
+        tenantId: g.id,
+        staffId: member.id,
+        date: day(d),
+        status: minutes > 6 * 60 + 45 ? 'LATE' : 'PRESENT',
+        checkInAt: checkIn,
+        checkOutAt: checkOut,
+        method: 'KIOSK',
+      });
+    }
+  }
+  await prisma.staffAttendance.createMany({ data: staffAttendanceRows });
 
   await prisma.auditLog.create({
     data: {

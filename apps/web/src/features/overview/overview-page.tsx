@@ -1,4 +1,4 @@
-import type { Insight, OverviewResponse } from '@aischool/shared';
+import { CHRONIC_ABSENCE_THRESHOLD, type Insight, type OverviewResponse } from '@aischool/shared';
 import { useQuery } from '@tanstack/react-query';
 import { motion, type Variants } from 'framer-motion';
 import {
@@ -17,6 +17,7 @@ import {
   Send,
   TrendingDown,
   TrendingUp,
+  UserPlus,
   Users,
 } from 'lucide-react';
 import { type FormEvent, type ReactNode, useState } from 'react';
@@ -96,6 +97,7 @@ function SchoolOverview() {
   });
   useDocumentTitle('Overview');
   const canTimetable = useCan('timetable.read');
+  const canAttendance = useCan('attendance.read');
 
   if (error && !data) {
     return (
@@ -110,6 +112,11 @@ function SchoolOverview() {
       <Greeting data={data} loading={isLoading} />
       <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
         <Kpis data={data} />
+        {canAttendance && (data === undefined || data.kpis.attendance) && (
+          <motion.div variants={item}>
+            <AttendanceBand data={data} />
+          </motion.div>
+        )}
         <div className="grid gap-5 xl:grid-cols-3">
           <motion.div variants={item} className="xl:col-span-2">
             <AiIntelligenceCard data={data} />
@@ -361,6 +368,77 @@ function Kpis({ data }: { data?: OverviewResponse }) {
         />
       </motion.div>
     </motion.div>
+  );
+}
+
+// ------------------------------------------------------------------ attendance
+function AttendanceBand({ data }: { data?: OverviewResponse }) {
+  const a = data?.kpis.attendance;
+  const taken = a?.registersTaken ?? 0;
+  const expected = a?.registersExpected ?? 0;
+  const tone = (r: number | null | undefined) =>
+    r == null ? 'text-muted-foreground' : r >= 95 ? 'text-success' : r >= CHRONIC_ABSENCE_THRESHOLD ? 'text-warning' : 'text-danger';
+  const pct = (r: number | null | undefined) => (r == null ? '—' : `${Number.isInteger(r) ? r : r.toFixed(1)}%`);
+  return (
+    <Card className="overflow-hidden">
+      <div className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center">
+        <div className="flex items-center gap-3 lg:w-56 lg:shrink-0">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-success-soft text-success">
+            <CalendarCheck className="size-5" />
+          </span>
+          <div className="min-w-0">
+            <p className="font-display text-[15px] font-semibold tracking-tight">Attendance today</p>
+            <p className="text-[12.5px] text-muted-foreground">Registers and absence at a glance</p>
+          </div>
+        </div>
+        <dl className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Present today</dt>
+            <dd className={cn('mt-0.5 font-display text-[22px] font-semibold leading-tight tabular', tone(a?.todayRate))}>
+              {a ? pct(a.todayRate) : <Skeleton className="mt-1 h-6 w-16" />}
+            </dd>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Registers taken</dt>
+            <dd className="mt-0.5">
+              {a ? (
+                <span className="flex items-center gap-2.5">
+                  <span className="font-display text-[22px] font-semibold leading-tight tabular">
+                    {taken}
+                    <span className="text-[14px] font-medium text-muted-foreground">/{expected}</span>
+                  </span>
+                  <Progress
+                    value={expected ? (taken / expected) * 100 : 0}
+                    className="max-w-20"
+                    barClassName={expected > 0 && taken >= expected ? 'bg-success' : 'bg-brand'}
+                    label="Registers taken today"
+                  />
+                </span>
+              ) : (
+                <Skeleton className="mt-1 h-6 w-16" />
+              )}
+            </dd>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">This term</dt>
+            <dd className={cn('mt-0.5 font-display text-[22px] font-semibold leading-tight tabular', tone(a?.termRate))}>
+              {a ? pct(a.termRate) : <Skeleton className="mt-1 h-6 w-16" />}
+            </dd>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Persistently absent</dt>
+            <dd className={cn('mt-0.5 font-display text-[22px] font-semibold leading-tight tabular', a && a.persistentlyAbsent > 0 && 'text-danger')}>
+              {a ? a.persistentlyAbsent : <Skeleton className="mt-1 h-6 w-16" />}
+            </dd>
+          </div>
+        </dl>
+        <Button asChild variant="outline" className="lg:shrink-0">
+          <Link to="/attendance">
+            Open attendance <ArrowRight />
+          </Link>
+        </Button>
+      </div>
+    </Card>
   );
 }
 
@@ -664,10 +742,10 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 
 // ------------------------------------------------------------------ roadmap strip
 const NEXT_MODULES = [
-  { label: 'Attendance', icon: CalendarCheck, to: '/attendance', note: 'Daily registers & absence alerts' },
   { label: 'Fees', icon: Receipt, to: '/fees', note: 'Invoices, payments & collections' },
   { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
   { label: 'Communication', icon: Megaphone, to: '/announcements', note: 'Announcements, SMS & WhatsApp' },
+  { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Enquiries, applications & offers' },
 ];
 
 function ComingOnline() {

@@ -42,6 +42,10 @@ export const TENANT_MODELS = new Set<string>([
   'ExamPaperItem',
   'Score',
   'ReportCard',
+  'Room',
+  'StaffUnavailability',
+  'Timetable',
+  'TimetableEntry',
 ]);
 
 const WHERE_OPS = new Set([

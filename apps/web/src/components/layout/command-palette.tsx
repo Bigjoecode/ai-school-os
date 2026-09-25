@@ -4,6 +4,8 @@ import {
   Award,
   ArrowRight,
   BookOpen,
+  CalendarClock,
+  Wand2,
   ClipboardList,
   FileQuestionMark,
   FileText,
@@ -158,6 +160,28 @@ export function CommandPalette() {
         icon: <Award />,
         keywords: 'ai report card teacher remark comments',
         onSelect: () => navigate('/report-cards?remarks=1'),
+      },
+    hasPermission(me, 'timetable.read') && {
+      id: 'open-timetable',
+      label: 'Open timetable',
+      icon: <CalendarClock />,
+      keywords: 'timetable schedule periods today class teacher room',
+      onSelect: () => navigate('/timetable'),
+    },
+    hasPermission(me, 'timetable.manage') && {
+      id: 'gen-timetable',
+      label: 'Generate a timetable',
+      icon: <Wand2 />,
+      keywords: 'timetable new build solver schedule create',
+      onSelect: () => navigate('/timetable?new=1'),
+    },
+    canAi &&
+      hasPermission(me, 'timetable.manage') && {
+        id: 'timetable-assistant',
+        label: 'Timetable assistant (AI)',
+        icon: <AiSparkle />,
+        keywords: 'ai timetable constraints availability periods teacher change',
+        onSelect: () => navigate('/timetable/setup?tab=assistant'),
       },
     hasPermission(me, 'roles.manage') && {
       id: 'role',

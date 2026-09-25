@@ -85,6 +85,15 @@ assessed so far (mid-term, a 1st CA of 12.5/20 is 62.5%), with the school's
 own components (default 1st CA 20 + 2nd CA 20 + Exam 60) and grading scale
 (default WAEC A1–F9). Teachers enter marks only for subjects they teach.
 
+**Timetable.** [apps/api/src/timetable/solver.ts](apps/api/src/timetable/solver.ts)
+is a plain TypeScript constraint solver, not an LLM: it never double-books a
+class, teacher or room, respects teacher availability, room kinds (labs, ICT)
+and double periods, and keeps locked lessons; then it improves spread and
+teacher balance. For Greenfield it places all 381 weekly lessons in a few
+seconds, yielding to the event loop so the API stays responsive.
+`node -r ts-node/register/transpile-only scripts/solver-check.ts` (in
+`apps/api`) stress-tests it and independently verifies every hard constraint.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -100,6 +109,9 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
 4. **Assessment** — question bank with AI question writer, exam paper builder,
    score entry, broadsheets, report cards with AI-drafted remarks, and class
    analysis with an AI briefing ✅ (online exams arrive with the student portal)
-5. Smart timetable (constraint solver + AI assistant)
+5. **Smart timetable** — bell schedule, rooms, teaching loads and teacher
+   availability; a constraint solver builds a clash-free timetable; drag to
+   edit with clash checks; AI explains the result and turns plain-English
+   requests into constraints ✅
 6. Attendance · 7. Finance · 8. HR · 9. Operations · 10. Communication
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

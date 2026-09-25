@@ -75,7 +75,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Curriculum', to: '/curriculum', icon: BookOpen, permission: 'curriculum.read', keywords: 'syllabus topics' },
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
-      { label: 'Timetable', to: '/timetable', icon: CalendarClock, soon: true },
+      { label: 'Timetable', to: '/timetable', icon: CalendarClock, permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
       { label: 'Homework', to: '/homework', icon: PencilLine, soon: true, keywords: 'assignments' },
       { label: 'Study Materials', to: '/materials', icon: FolderOpen, soon: true },
     ],

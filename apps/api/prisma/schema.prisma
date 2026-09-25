@@ -74,43 +74,49 @@ model Tenant {
   assessmentComponents Json?
   /// [{ grade, min, remark }] highest band first. Null means the WAEC-style default.
   gradingScale         Json?
+  /// { days: [1..7], periods: [{ label, start, end, kind }] }. Null means the default day.
+  bellSchedule         Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
-  plan             Plan?             @relation(fields: [planId], references: [id])
-  domains          TenantDomain[]
-  subscriptions    Subscription[]
-  memberships      Membership[]
-  roles            Role[]
-  sessions         AuthSession[]
-  auditLogs        AuditLog[]
-  files            FileObject[]
-  notifications    Notification[]
-  branches         Branch[]
-  academicSessions AcademicSession[]
-  terms            Term[]
-  classLevels      ClassLevel[]
-  classArms        ClassArm[]
-  subjects         Subject[]
-  classSubjects    ClassSubject[]
-  students         Student[]
-  guardians        Guardian[]
-  studentGuardians StudentGuardian[]
-  staff            Staff[]
-  aiUsage          AiUsage[]
-  aiConversations  AiConversation[]
-  aiMessages       AiMessage[]
-  curricula        Curriculum[]
-  curriculumUnits  CurriculumUnit[]
-  schemes          SchemeOfWork[]
-  schemeWeeks      SchemeWeek[]
-  lessonPlans      LessonPlan[]
-  aiJobs           AiJob[]
-  questions        Question[]
-  examPapers       ExamPaper[]
-  examPaperItems   ExamPaperItem[]
-  scores           Score[]
-  reportCards      ReportCard[]
+  plan                Plan?                 @relation(fields: [planId], references: [id])
+  domains             TenantDomain[]
+  subscriptions       Subscription[]
+  memberships         Membership[]
+  roles               Role[]
+  sessions            AuthSession[]
+  auditLogs           AuditLog[]
+  files               FileObject[]
+  notifications       Notification[]
+  branches            Branch[]
+  academicSessions    AcademicSession[]
+  terms               Term[]
+  classLevels         ClassLevel[]
+  classArms           ClassArm[]
+  subjects            Subject[]
+  classSubjects       ClassSubject[]
+  students            Student[]
+  guardians           Guardian[]
+  studentGuardians    StudentGuardian[]
+  staff               Staff[]
+  aiUsage             AiUsage[]
+  aiConversations     AiConversation[]
+  aiMessages          AiMessage[]
+  curricula           Curriculum[]
+  curriculumUnits     CurriculumUnit[]
+  schemes             SchemeOfWork[]
+  schemeWeeks         SchemeWeek[]
+  lessonPlans         LessonPlan[]
+  aiJobs              AiJob[]
+  questions           Question[]
+  examPapers          ExamPaper[]
+  examPaperItems      ExamPaperItem[]
+  scores              Score[]
+  reportCards         ReportCard[]
+  rooms               Room[]
+  staffUnavailability StaffUnavailability[]
+  timetables          Timetable[]
+  timetableEntries    TimetableEntry[]
 
   @@map("tenants")
 }
@@ -385,6 +391,7 @@ model Term {
   examPapers  ExamPaper[]
   scores      Score[]
   reportCards ReportCard[]
+  timetables  Timetable[]
 
   @@unique([sessionId, order])
   @@index([tenantId])
@@ -423,15 +430,16 @@ model ClassArm {
   classTeacherId String?
   createdAt      DateTime @default(now())
 
-  tenant       Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  classLevel   ClassLevel     @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
-  branch       Branch?        @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  classTeacher Staff?         @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
-  students     Student[]
-  subjects     ClassSubject[]
-  lessonPlans  LessonPlan[]
-  scores       Score[]
-  reportCards  ReportCard[]
+  tenant           Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classLevel       ClassLevel       @relation(fields: [classLevelId], references: [id], onDelete: Cascade)
+  branch           Branch?          @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  classTeacher     Staff?           @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
+  students         Student[]
+  subjects         ClassSubject[]
+  lessonPlans      LessonPlan[]
+  scores           Score[]
+  reportCards      ReportCard[]
+  timetableEntries TimetableEntry[]
 
   @@unique([classLevelId, name])
   @@index([tenantId])
@@ -447,14 +455,15 @@ model Subject {
   isCore    Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  tenant      Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  classes     ClassSubject[]
-  curricula   Curriculum[]
-  schemes     SchemeOfWork[]
-  lessonPlans LessonPlan[]
-  questions   Question[]
-  examPapers  ExamPaper[]
-  scores      Score[]
+  tenant           Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classes          ClassSubject[]
+  curricula        Curriculum[]
+  schemes          SchemeOfWork[]
+  lessonPlans      LessonPlan[]
+  questions        Question[]
+  examPapers       ExamPaper[]
+  scores           Score[]
+  timetableEntries TimetableEntry[]
 
   @@unique([tenantId, code])
   @@map("subjects")
@@ -463,11 +472,17 @@ model Subject {
 /// Which subject is taught in which class, and by whom. The timetable engine
 /// and teacher workloads build on this.
 model ClassSubject {
-  id         String  @id @default(cuid())
-  tenantId   String
-  classArmId String
-  subjectId  String
-  teacherId  String?
+  id             String  @id @default(cuid())
+  tenantId       String
+  classArmId     String
+  subjectId      String
+  teacherId      String?
+  /// Lessons of this subject per week for this class (0 = not timetabled).
+  periodsPerWeek Int     @default(0)
+  /// A room kind the lessons need ("LAB", "ICT"…); null = the class's own room.
+  roomKind       String?
+  /// Timetable one of the week's lessons as two consecutive periods.
+  doublePeriod   Boolean @default(false)
 
   tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
@@ -593,11 +608,13 @@ model Staff {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
-  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  user          User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
-  classesLed    ClassArm[]     @relation("ClassTeacher")
-  classSubjects ClassSubject[]
-  lessonPlans   LessonPlan[]
+  tenant           Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user             User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classesLed       ClassArm[]            @relation("ClassTeacher")
+  classSubjects    ClassSubject[]
+  lessonPlans      LessonPlan[]
+  unavailability   StaffUnavailability[]
+  timetableEntries TimetableEntry[]
 
   @@unique([tenantId, staffNumber])
   @@map("staff")
@@ -1023,4 +1040,105 @@ model ReportCard {
   @@unique([studentId, termId])
   @@index([tenantId, classArmId, termId])
   @@map("report_cards")
+}
+
+// ============================================================== timetable
+//
+// The solver (src/timetable/solver.ts) places each class's weekly lessons
+// (ClassSubject.periodsPerWeek) into the bell schedule without double-booking
+// a class, teacher or room, then improves spread and balance. AI explains
+// what couldn't be placed and turns plain-English requests into constraints.
+
+model Room {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  /// CLASSROOM, LAB, ICT, HALL, LIBRARY, WORKSHOP…
+  kind      String   @default("CLASSROOM")
+  capacity  Int?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  tenant  Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  entries TimetableEntry[]
+
+  @@unique([tenantId, name])
+  @@map("rooms")
+}
+
+/// A period in the week when a teacher can't be timetabled.
+model StaffUnavailability {
+  id       String @id @default(cuid())
+  tenantId String
+  staffId  String
+  /// 1 = Monday … 7 = Sunday
+  day      Int
+  /// Index into the bell schedule's periods.
+  period   Int
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staff  Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@unique([staffId, day, period])
+  @@index([tenantId])
+  @@map("staff_unavailability")
+}
+
+enum TimetableStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Timetable {
+  id              String          @id @default(cuid())
+  tenantId        String
+  termId          String
+  name            String
+  status          TimetableStatus @default(DRAFT)
+  generation      GenerationState @default(NONE)
+  generationError String?
+  /// The bell schedule it was built against (so later edits don't shift it).
+  bellSchedule    Json
+  /// Solver report: placed/unplaced counts, reasons, quality scores.
+  report          Json?
+  createdById     String?
+  publishedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  tenant  Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  term    Term             @relation(fields: [termId], references: [id], onDelete: Cascade)
+  entries TimetableEntry[]
+
+  @@index([tenantId, termId])
+  @@map("timetables")
+}
+
+model TimetableEntry {
+  id          String  @id @default(cuid())
+  tenantId    String
+  timetableId String
+  classArmId  String
+  subjectId   String
+  teacherId   String?
+  roomId      String?
+  day         Int
+  period      Int
+  /// Part of a double lesson: both halves share a group id.
+  doubleGroup String?
+  /// Kept in place when the timetable is regenerated.
+  locked      Boolean @default(false)
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  timetable Timetable @relation(fields: [timetableId], references: [id], onDelete: Cascade)
+  classArm  ClassArm  @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  subject   Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  teacher   Staff?    @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  room      Room?     @relation(fields: [roomId], references: [id], onDelete: SetNull)
+
+  @@unique([timetableId, classArmId, day, period])
+  @@index([timetableId, teacherId])
+  @@index([tenantId])
+  @@map("timetable_entries")
 }

@@ -8,11 +8,11 @@ import {
   Briefcase,
   Building2,
   CalendarCheck,
-  CalendarClock,
   CalendarDays,
   MonitorPlay,
   GraduationCap,
   Layers,
+  Megaphone,
   Receipt,
   Send,
   TrendingDown,
@@ -37,6 +37,7 @@ import { formatDate, formatNumber, formatRelative, greeting } from '@/lib/format
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
+import { TodayClassesCard } from '../timetable/today-card';
 
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
 const item: Variants = {
@@ -94,6 +95,7 @@ function SchoolOverview() {
     queryFn: ({ signal }) => api.get<OverviewResponse>('/dashboard/overview', undefined, signal),
   });
   useDocumentTitle('Overview');
+  const canTimetable = useCan('timetable.read');
 
   if (error && !data) {
     return (
@@ -112,8 +114,11 @@ function SchoolOverview() {
           <motion.div variants={item} className="xl:col-span-2">
             <AiIntelligenceCard data={data} />
           </motion.div>
-          <motion.div variants={item}>
-            <AiAssistantCard />
+          <motion.div variants={item} className="flex flex-col gap-5">
+            {canTimetable && <TodayClassesCard />}
+            <div className="flex-1">
+              <AiAssistantCard />
+            </div>
           </motion.div>
         </div>
         <div className="grid gap-5 xl:grid-cols-3">
@@ -662,7 +667,7 @@ const NEXT_MODULES = [
   { label: 'Attendance', icon: CalendarCheck, to: '/attendance', note: 'Daily registers & absence alerts' },
   { label: 'Fees', icon: Receipt, to: '/fees', note: 'Invoices, payments & collections' },
   { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
-  { label: 'Timetable', icon: CalendarClock, to: '/timetable', note: 'AI-built, clash-free schedules' },
+  { label: 'Communication', icon: Megaphone, to: '/announcements', note: 'Announcements, SMS & WhatsApp' },
 ];
 
 function ComingOnline() {

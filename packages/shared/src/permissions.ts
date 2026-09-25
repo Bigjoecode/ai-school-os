@@ -63,6 +63,14 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'timetable',
+    label: 'Timetable',
+    permissions: {
+      'timetable.read': 'View timetables',
+      'timetable.manage': 'Set up, generate, edit and publish timetables',
+    },
+  },
+  {
     module: 'students',
     label: 'Students',
     permissions: {

@@ -43,7 +43,7 @@ export class FakeProvider implements AiProvider {
 }
 
 interface JsonSchema {
-  type?: string;
+  type?: string | string[];
   properties?: Record<string, JsonSchema>;
   items?: JsonSchema;
   enum?: unknown[];
@@ -58,6 +58,7 @@ interface Hints {
 
 function sample(s: JsonSchema, key: string, h: Hints): unknown {
   if (s.anyOf?.length) return sample(s.anyOf.find((x) => x.type !== 'null') ?? s.anyOf[0]!, key, h);
+  if (Array.isArray(s.type)) return sample({ ...s, type: s.type.find((t) => t !== 'null') ?? 'null' }, key, h);
   if (s.enum?.length) return s.enum[0];
   switch (s.type) {
     case 'object':

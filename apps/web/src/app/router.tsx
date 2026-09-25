@@ -24,6 +24,8 @@ const PaperDetailPage = lazy(() => import('@/features/exams/paper-detail-page'))
 const ResultsPage = lazy(() => import('@/features/results/results-page'));
 const ReportCardsPage = lazy(() => import('@/features/report-cards/report-cards-page'));
 const ReportCardPage = lazy(() => import('@/features/report-cards/report-card-page'));
+const TimetablePage = lazy(() => import('@/features/timetable/timetable-page'));
+const TimetableSetupPage = lazy(() => import('@/features/timetable/setup/setup-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -186,6 +188,22 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="results.read">
             <ReportCardPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'timetable',
+        element: (
+          <RequirePermission permission="timetable.read">
+            <TimetablePage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'timetable/setup',
+        element: (
+          <RequirePermission permission="timetable.read">
+            <TimetableSetupPage />
           </RequirePermission>
         ),
       },

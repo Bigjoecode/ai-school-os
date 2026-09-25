@@ -51,17 +51,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/timetable': {
-    name: 'Timetable',
-    phase: 5,
-    summary: 'Clash-free timetables for every class and teacher.',
-    features: [
-      'Periods, breaks and room allocation',
-      'Teacher load balancing and availability',
-      'Personal timetables for students and staff',
-      'AI builds a clash-free timetable from your constraints',
-    ],
-  },
   '/attendance': {
     name: 'Attendance',
     phase: 6,

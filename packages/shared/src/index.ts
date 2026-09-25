@@ -4,3 +4,4 @@ export * from './schemas';
 export * from './types';
 export * from './academic';
 export * from './assessment';
+export * from './timetable';

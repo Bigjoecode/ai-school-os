@@ -129,7 +129,7 @@ export class AiGatewayService {
 
   private async record(agent: string, provider: string, r: AiResult, latencyMs: number) {
     const { cost, known } = costUsd(r.model, r.inputTokens, r.outputTokens);
-    if (!known) this.logger.warn(`No price for model ${r.model}; set AI_PRICES so budgets count it`);
+    if (!known && provider !== 'fake') this.logger.warn(`No price for model ${r.model}; set AI_PRICES so budgets count it`);
     await this.prisma.db.aiUsage.create({
       data: {
         tenantId: currentTenantId(),

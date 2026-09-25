@@ -9,12 +9,15 @@ export interface FieldError {
 export class ApiError extends Error {
   readonly status: number;
   readonly errors: FieldError[];
+  /** The full parsed error body — carries extra detail such as timetable `conflicts`. */
+  readonly details: Record<string, unknown>;
 
-  constructor(status: number, message: string, errors: FieldError[] = []) {
+  constructor(status: number, message: string, errors: FieldError[] = [], details: Record<string, unknown> = {}) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
     this.errors = errors;
+    this.details = details;
   }
 }
 
@@ -88,7 +91,7 @@ async function toApiError(res: Response): Promise<ApiError> {
         ? 'Not found.'
         : res.statusText || 'Request failed');
   const errors = Array.isArray(data?.errors) ? data.errors : [];
-  return new ApiError(res.status, message, errors);
+  return new ApiError(res.status, message, errors, (data ?? {}) as Record<string, unknown>);
 }
 
 async function parse<T>(res: Response): Promise<T> {

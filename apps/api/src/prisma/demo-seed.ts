@@ -7,9 +7,10 @@
  * API at boot when SEED_DEMO_ON_BOOT=true (only if the demo isn't there yet).
  * Re-running replaces the two demo schools.
  */
-import { SYSTEM_ROLES } from '@aischool/shared';
+import { DEFAULT_BELL_SCHEDULE, SYSTEM_ROLES } from '@aischool/shared';
 import type { Gender, PrismaClient } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
+import { buildTimetable } from '../timetable/timetable-builder';
 
 let prisma: PrismaClient;
 
@@ -244,14 +245,52 @@ async function run({ demoOwner }: SeedOptions) {
     }
   }
 
-  // Core subjects in every class; each taught by a matching teacher when one exists.
-  for (const { arm } of arms) {
-    for (const subject of subjects.filter((s) => s.isCore)) {
-      const teacher = teachers.find((x) => x.jobTitle.startsWith(subject.name));
+  // What each class studies, how often, with whom and where. Junior classes
+  // take 27 lessons a week, senior classes 32, out of 40 periods. Subjects
+  // with two teachers (Maths, English…) alternate between class arms.
+  const JUNIOR_LOAD: [string, number, string | null, boolean][] = [
+    ['MTH', 5, null, false], ['ENG', 5, null, false], ['BSC', 3, null, true], ['BTE', 2, null, false], ['CIV', 2, null, false],
+    ['CMP', 2, 'ICT', false], ['AGR', 2, null, false], ['FRE', 2, null, false], ['YOR', 2, null, false], ['CRS', 2, null, false],
+  ];
+  const SENIOR_LOAD: [string, number, string | null, boolean][] = [
+    ['MTH', 5, null, false], ['ENG', 5, null, false], ['BIO', 3, 'LAB', true], ['CHM', 3, 'LAB', true], ['PHY', 3, 'LAB', true],
+    ['ECO', 3, null, false], ['GOV', 2, null, false], ['LIT', 2, null, false], ['CIV', 2, null, false], ['CMP', 2, 'ICT', false],
+    ['FMT', 2, null, false],
+  ];
+  const teachersOf = (subjectName: string) => teachers.filter((t) => t.jobTitle === `${subjectName} Teacher`);
+  for (const [i, { level, arm }] of arms.entries()) {
+    const plan = level.stage === 'Senior Secondary' ? SENIOR_LOAD : JUNIOR_LOAD;
+    for (const [code, periodsPerWeek, roomKind, doublePeriod] of plan) {
+      const subject = subjects.find((s) => s.code === code)!;
+      const options = teachersOf(subject.name);
       await prisma.classSubject.create({
-        data: { tenantId: g.id, classArmId: arm.id, subjectId: subject.id, teacherId: teacher?.id },
+        data: {
+          tenantId: g.id,
+          classArmId: arm.id,
+          subjectId: subject.id,
+          teacherId: options.length ? options[i % options.length]!.id : undefined,
+          periodsPerWeek,
+          roomKind,
+          doublePeriod,
+        },
       });
     }
+  }
+  await prisma.room.createMany({
+    data: [
+      { tenantId: g.id, name: 'Science Lab 1', kind: 'LAB', capacity: 36 },
+      { tenantId: g.id, name: 'Science Lab 2', kind: 'LAB', capacity: 36 },
+      { tenantId: g.id, name: 'ICT Suite', kind: 'ICT', capacity: 40 },
+      { tenantId: g.id, name: 'Main Hall', kind: 'HALL', capacity: 450 },
+      { tenantId: g.id, name: 'Library', kind: 'LIBRARY', capacity: 60 },
+    ],
+  });
+  // The French teacher works part-time: not available on Friday afternoons.
+  const french = teachersOf('French')[0];
+  if (french) {
+    await prisma.staffUnavailability.createMany({
+      data: [9, 10].map((period) => ({ tenantId: g.id, staffId: french.id, day: 5, period })),
+    });
   }
 
   // Students. Most were admitted in earlier sessions; this session's new
@@ -364,6 +403,21 @@ async function run({ demoOwner }: SeedOptions) {
       });
   });
   await prisma.score.createMany({ data: scoreRows });
+
+  // A published timetable for the current term, built by the real solver.
+  const timetable = await prisma.timetable.create({
+    data: {
+      tenantId: g.id,
+      termId: currentTerm.id,
+      name: `${currentTerm.name} 2026/2027`,
+      bellSchedule: DEFAULT_BELL_SCHEDULE as unknown as object,
+      status: 'PUBLISHED',
+      generation: 'DONE',
+      publishedAt: new Date(),
+      createdById: admin.id,
+    },
+  });
+  await buildTimetable(prisma, g.id, timetable.id);
 
   await prisma.auditLog.create({
     data: {

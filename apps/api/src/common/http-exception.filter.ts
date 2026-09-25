@@ -33,7 +33,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
       if (typeof response === 'object' && response !== null) {
         const r = response as Record<string, unknown>;
         const message = Array.isArray(r.message) ? r.message.join(', ') : r.message;
-        return { status, body: { statusCode: status, message: message ?? exception.message, errors: r.errors } };
+        // Pass through any extra detail (e.g. timetable `conflicts`).
+        const { message: _m, statusCode: _s, error: _e, ...extra } = r;
+        return { status, body: { statusCode: status, message: message ?? exception.message, ...extra } };
       }
       return { status, body: { statusCode: status, message: String(response) } };
     }

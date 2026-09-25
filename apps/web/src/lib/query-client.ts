@@ -63,4 +63,8 @@ export const qk = {
   analysis: (params?: object) => (params ? (['analysis', params] as const) : (['analysis'] as const)),
   reportCards: (params?: object) => (params ? (['report-cards', params] as const) : (['report-cards'] as const)),
   reportCard: (params?: object) => (params ? (['report-card', params] as const) : (['report-card'] as const)),
+  timetableSetup: ['timetable', 'setup'] as const,
+  timetables: (params?: object) => (params ? (['timetables', params] as const) : (['timetables'] as const)),
+  timetable: (id: string) => ['timetable', 'detail', id] as const,
+  timetableToday: ['timetable', 'today'] as const,
 };

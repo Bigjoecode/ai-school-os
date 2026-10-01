@@ -1,4 +1,4 @@
-import type { AiAgent } from '@aischool/shared';
+import type { AiAgent, AiProposedAction, AiToolCall } from '@aischool/shared';
 import { create } from 'zustand';
 
 export interface ChatMessage {
@@ -7,6 +7,10 @@ export interface ChatMessage {
   content: string;
   provider?: string;
   model?: string;
+  /** What the assistant looked up while answering. */
+  toolCalls?: AiToolCall[];
+  /** Drafts it prepared for review — never sent by the AI. */
+  actions?: AiProposedAction[];
   at: number;
 }
 

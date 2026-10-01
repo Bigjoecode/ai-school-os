@@ -2,6 +2,7 @@ import { env } from '../config/env';
 
 /** USD per million tokens. Anthropic list prices; others come from AI_PRICES. */
 const BUILT_IN: Record<string, { input: number; output: number }> = {
+  'claude-opus-5-5': { input: 4, output: 20 },
   'claude-opus-5': { input: 5, output: 25 },
   'claude-sonnet-5': { input: 2, output: 10 },
   'claude-haiku-4-5': { input: 1, output: 5 },

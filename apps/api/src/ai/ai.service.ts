@@ -1,26 +1,12 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { formatMoney, type AiAgent, type AiChatInput, type AiChatResponse, type AiStatus, type Permission } from '@aischool/shared';
+import { Injectable } from '@nestjs/common';
+import { formatMoney, type AiAgent, type AiStatus } from '@aischool/shared';
 import { dateOnly } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { SchoolSnapshotService } from '../dashboard/school-snapshot.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AiGatewayService } from './ai-gateway.service';
-import { AGENTS, snapshotToText, systemPrompt } from './agents';
-
-const HISTORY_TURNS = 20;
-
-/**
- * School-wide agents see aggregate school data, so they need more than
- * `ai.use`: a parent or student can't open the School AI and read the roll.
- */
-const AGENT_PERMISSION: Partial<Record<AiAgent, Permission>> = {
-  school: 'school.read',
-  admissions: 'students.read',
-  finance: 'finance.read',
-  hr: 'hr.read',
-  teacher: 'academics.read',
-};
+import { snapshotToText } from './agents';
 
 @Injectable()
 export class AiService {
@@ -40,66 +26,16 @@ export class AiService {
     };
   }
 
-  async chat(input: AiChatInput): Promise<AiChatResponse> {
-    const ctx = currentContext();
-    const needed = AGENT_PERMISSION[input.agent];
-    if (needed && !ctx.permissions.has(needed)) {
-      throw new ForbiddenException(`${AGENTS[input.agent].label} isn't available for your role`);
-    }
-    const userId = ctx.userId!;
-    const db = this.prisma.db;
-
-    const conversation = input.conversationId
-      ? await db.aiConversation.findFirstOrThrow({ where: { id: input.conversationId, userId, agent: input.agent } })
-      : await db.aiConversation.create({
-          data: { tenantId: currentTenantId(), userId, agent: input.agent, title: input.message.slice(0, 80) },
-        });
-
-    const history = await db.aiMessage.findMany({
-      where: { conversationId: conversation.id },
-      orderBy: { createdAt: 'desc' },
-      take: HISTORY_TURNS,
-    });
-
-    const tenant = await this.prisma.root.tenant.findUniqueOrThrow({
-      where: { id: currentTenantId() },
-      select: { name: true, timezone: true },
-    });
-    const today = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeZone: tenant.timezone }).format(new Date());
-
-    const result = await this.gateway.generate(
-      {
-        tier: AGENTS[input.agent].tier,
-        system: systemPrompt(input.agent, tenant.name, await this.grounding(input.agent, userId), today),
-        messages: [
-          ...history.reverse().map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-          { role: 'user', content: input.message },
-        ],
-      },
-      input.agent,
-    );
-
-    const reply = result.text || "I couldn't produce an answer to that. Please try rephrasing.";
-    await db.aiMessage.createMany({
-      data: [
-        { tenantId: conversation.tenantId, conversationId: conversation.id, role: 'user', content: input.message },
-        { tenantId: conversation.tenantId, conversationId: conversation.id, role: 'assistant', content: reply, provider: result.provider, model: result.model },
-      ],
-    });
-    await db.aiConversation.update({ where: { id: conversation.id }, data: { updatedAt: new Date() } });
-
-    return { conversationId: conversation.id, reply, provider: result.provider, model: result.model };
-  }
-
   /** The records each agent may draw on. */
-  private async grounding(agent: AiAgent, userId: string): Promise<string> {
+  /** Data fetched up front, for providers that can't call tools. */
+  async grounding(agent: AiAgent, userId: string): Promise<string> {
     if (agent === 'finance') {
       return [snapshotToText(await this.snapshot.overview()), await this.financeText()].join('\n\n');
     }
     if (agent === 'hr') {
       return [snapshotToText(await this.snapshot.overview()), await this.hrText()].join('\n\n');
     }
-    if (agent === 'school' || agent === 'admissions') {
+    if (agent === 'school' || agent === 'admissions' || agent === 'principal' || agent === 'academic' || agent === 'communication') {
       return snapshotToText(await this.snapshot.overview());
     }
     if (agent === 'parent') {

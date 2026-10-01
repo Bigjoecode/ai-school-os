@@ -13,5 +13,6 @@ import { ResultsService } from './results.service';
   imports: [AiModule, AttendanceModule],
   controllers: [QuestionsController, PapersController, ResultsController, ReportCardsController],
   providers: [AssessmentSettingsService, ResultsService],
+  exports: [ResultsService],
 })
 export class AssessmentModule {}

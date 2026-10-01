@@ -182,7 +182,7 @@ export const inviteUserSchema = z.object({
 export type InviteUserInput = z.infer<typeof inviteUserSchema>;
 
 // ---------------------------------------------------------------- ai
-export const AI_AGENTS = ['school', 'teacher', 'parent', 'student', 'finance', 'hr', 'admissions'] as const;
+export const AI_AGENTS = ['school', 'principal', 'academic', 'teacher', 'parent', 'student', 'finance', 'hr', 'admissions', 'communication'] as const;
 export type AiAgent = (typeof AI_AGENTS)[number];
 export const aiChatSchema = z.object({
   agent: z.enum(AI_AGENTS).default('school'),

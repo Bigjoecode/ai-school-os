@@ -40,17 +40,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/ai/usage': {
-    name: 'AI Usage',
-    phase: 12,
-    summary: 'Transparent AI spend and adoption.',
-    features: [
-      'Usage by agent, user and month',
-      'Budgets and alerts',
-      'Provider and model breakdown',
-      'AI recommends where assistants save the most time',
-    ],
-  },
   '/website': {
     name: 'Website',
     phase: 13,

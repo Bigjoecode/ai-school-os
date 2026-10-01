@@ -15,6 +15,7 @@ import {
   CalendarDays,
   ConciergeBell,
   Contact,
+  Crown,
   CreditCard,
   FileBadge,
   FileQuestionMark,
@@ -40,8 +41,10 @@ import {
   Plane,
   PencilLine,
   Presentation,
+  Radar,
   Receipt,
   ScrollText,
+  Send,
   Settings,
   ShieldCheck,
   Sparkles,
@@ -59,6 +62,8 @@ export interface NavItem {
   to: string;
   icon: LucideIcon;
   permission?: Permission;
+  /** Every one of these is also needed (mirrors API gates that check several permissions). */
+  requires?: Permission[];
   /** Module not built yet — renders the Coming Soon page. */
   soon?: boolean;
   /** 'family': only for parents and students (members without school.read), keeping staff navs tidy. */
@@ -172,12 +177,44 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'AI',
     items: [
-      { label: 'School AI', to: '/ai?agent=school', icon: Bot, permission: 'school.read' },
-      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'academics.read' },
+      {
+        label: 'Principal AI',
+        to: '/ai?agent=principal',
+        icon: Crown,
+        permission: 'ai.use',
+        requires: ['school.read', 'results.read', 'finance.read'],
+        keywords: 'head teacher leadership briefing school-wide assistant',
+      },
+      { label: 'School AI', to: '/ai?agent=school', icon: Bot, permission: 'ai.use', requires: ['school.read'] },
+      {
+        label: 'Academic AI',
+        to: '/ai?agent=academic',
+        icon: BookOpenCheck,
+        permission: 'ai.use',
+        requires: ['curriculum.read', 'results.read'],
+        keywords: 'curriculum results learning outcomes academic',
+      },
+      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'ai.use', requires: ['academics.read'] },
       { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, permission: 'ai.use' },
       { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, permission: 'ai.use' },
-      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'hr.read' },
-      { label: 'AI Usage', to: '/ai/usage', icon: Gauge, permission: 'ai.use', soon: true, keywords: 'tokens spend budget' },
+      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'ai.use', requires: ['hr.read'] },
+      {
+        label: 'Communication AI',
+        to: '/ai?agent=communication',
+        icon: Send,
+        permission: 'ai.use',
+        requires: ['comms.send'],
+        keywords: 'messages draft announcement parents broadcast',
+      },
+      {
+        label: 'Insights',
+        to: '/ai/insights',
+        icon: Radar,
+        permission: 'attendance.read',
+        requires: ['students.read'],
+        keywords: 'students at risk need attention early warning briefing intelligence',
+      },
+      { label: 'AI Usage', to: '/ai/usage', icon: Gauge, permission: 'ai.admin', keywords: 'tokens spend budget cost calls' },
     ],
   },
   {
@@ -209,6 +246,7 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
       // The roadmap's coming-soon items mean nothing to parents and students.
       if (i.soon && !hasPermission(me, 'school.read')) return false;
       if (i.audience === 'family' && hasPermission(me, 'school.read')) return false;
+      if (i.requires && !i.requires.every((p) => hasPermission(me, p))) return false;
       return !i.permission || hasPermission(me, i.permission);
     }),
   })).filter((g) => g.items.length > 0);

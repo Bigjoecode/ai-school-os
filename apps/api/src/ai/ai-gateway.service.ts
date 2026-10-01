@@ -14,6 +14,8 @@ import {
   type AiProvider,
   type AiRequest,
   type AiResult,
+  type AiToolSpec,
+  type ToolRunner,
 } from './providers/provider';
 
 export interface GatewayResult extends AiResult {
@@ -81,6 +83,25 @@ export class AiGatewayService {
         throw new ProviderOutputError(`The AI returned content in an unexpected shape (${checked.error.issues[0]?.message})`);
       }
       return { ...result, data: checked.data };
+    });
+  }
+
+  /**
+   * Lets the model call tools (live lookups) before answering. Providers
+   * without tool use get `fallbackSystem` instead: the same question
+   * answered from data fetched up front.
+   */
+  generateWithTools(
+    req: AiRequest,
+    tools: AiToolSpec[],
+    run: ToolRunner,
+    agent: string,
+    opts: { maxSteps?: number; fallbackSystem: () => Promise<string> },
+  ): Promise<GatewayResult & { steps: number }> {
+    return this.run(req, agent, async (p) => {
+      if (p.generateWithTools && tools.length) return p.generateWithTools(req, tools, run, opts.maxSteps ?? 8);
+      const r = await p.generate({ ...req, system: await opts.fallbackSystem() });
+      return { ...r, steps: 1 };
     });
   }
 

@@ -55,6 +55,9 @@ import {
   MonitorPlay,
   PencilLine,
   BookOpenCheck,
+  Crown,
+  Gauge,
+  Radar,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -114,6 +117,8 @@ export function CommandPalette() {
 
   const navItems = useMemo(() => visibleNav(me).flatMap((g) => g.items.map((i) => ({ ...i, group: g.label }))), [me]);
   const canAi = hasPermission(me, 'ai.use');
+  // Mirrors the API's gate for Principal AI.
+  const canPrincipal = (['school.read', 'results.read', 'finance.read'] as const).every((p) => hasPermission(me, p));
 
   const run = (fn: () => void) => {
     setOpen(false);
@@ -282,6 +287,37 @@ export function CommandPalette() {
         keywords: 'ai fees collections finance summary insight',
         onSelect: () => navigate('/fees?briefing=1'),
       },
+    canAi &&
+      canPrincipal && {
+        id: 'ask-principal',
+        label: 'Ask Principal AI',
+        icon: <Crown />,
+        keywords: 'ai principal head teacher leadership school-wide question',
+        onSelect: () => navigate('/ai?agent=principal'),
+      },
+    canAi &&
+      canPrincipal && {
+        id: 'weekly-briefing',
+        label: 'Write the weekly briefing',
+        icon: <AiSparkle />,
+        keywords: 'ai principal weekly briefing summary report week school',
+        onSelect: () => navigate('/ai/insights#briefing'),
+      },
+    hasPermission(me, 'students.read') &&
+      hasPermission(me, 'attendance.read') && {
+        id: 'students-at-risk',
+        label: 'Students at risk',
+        icon: <Radar />,
+        keywords: 'at risk students need attention early warning insights struggling absent failing',
+        onSelect: () => navigate('/ai/insights'),
+      },
+    hasPermission(me, 'ai.admin') && {
+      id: 'ai-usage',
+      label: 'AI usage',
+      icon: <Gauge />,
+      keywords: 'ai usage spend cost budget tokens calls',
+      onSelect: () => navigate('/ai/usage'),
+    },
     hasPermission(me, 'hr.read') && {
       id: 'hr-overview',
       label: 'HR overview',

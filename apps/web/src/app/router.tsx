@@ -8,6 +8,8 @@ import { UPCOMING_MODULES } from './modules';
 const LoginPage = lazy(() => import('@/features/auth/login-page'));
 const OverviewPage = lazy(() => import('@/features/overview/overview-page'));
 const AiPage = lazy(() => import('@/features/ai/ai-page'));
+const InsightsPage = lazy(() => import('@/features/ai/insights-page'));
+const UsagePage = lazy(() => import('@/features/ai/usage-page'));
 const StudentsPage = lazy(() => import('@/features/students/students-page'));
 const ParentsPage = lazy(() => import('@/features/guardians/parents-page'));
 const StaffPage = lazy(() => import('@/features/staff/staff-page'));
@@ -125,6 +127,24 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="ai.use">
             <AiPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'ai/insights',
+        element: (
+          <RequirePermission permission="students.read">
+            <RequirePermission permission="attendance.read">
+              <InsightsPage />
+            </RequirePermission>
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'ai/usage',
+        element: (
+          <RequirePermission permission="ai.admin">
+            <UsagePage />
           </RequirePermission>
         ),
       },

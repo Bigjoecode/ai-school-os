@@ -142,6 +142,14 @@ message stays a single cheap page where possible. Scheduled sends and
 automations run from an in-process timer and from `POST /api/cron/tick`; both
 are idempotent.
 
+**AI agents.** Assistants call tools rather than reading a pasted snapshot:
+each tool runs inside the user's request, so the school-scoped database and
+the user's own permissions apply — an assistant can never see more than the
+person using it, and a parent's assistant only ever sees their own children.
+Write tools only create drafts. The loop is provider-neutral (Anthropic and
+OpenAI tool use; providers without it answer from data fetched up front), and
+every model request is metered against the school's monthly AI budget.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -196,4 +204,12 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     transcript, the teacher's notes or the lesson plan; homework set straight
     from it, the quiz saved to the question bank, and a "My learning" page for
     students and parents ✅
-12. AI school · 13. School website · 14. SaaS billing
+12. **AI school** — ten assistants (School, Principal, Academic, Teacher,
+    Parent, Student, Finance, HR, Admissions, Communication) that look things
+    up live with tools — students, classes, attendance, results, fees, staff,
+    timetables, the calendar, operations — within each user's own
+    permissions, and prepare drafts (messages, homework) that a person reviews
+    before anything is sent; an explainable "students who need attention"
+    list, the principal's AI weekly briefing, and AI usage and budget
+    analytics ✅
+13. School website · 14. SaaS billing

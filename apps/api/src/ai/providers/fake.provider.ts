@@ -1,6 +1,6 @@
 import { z, type ZodType } from 'zod';
 import { env } from '../../config/env';
-import type { AiJsonResult, AiProvider, AiRequest, AiResult, AiTier } from './provider';
+import type { AiJsonResult, AiProvider, AiRequest, AiResult, AiTier, AiToolResult, AiToolSpec, ToolRunner } from './provider';
 
 /**
  * Development-only stand-in for a real model (AI_FAKE_PROVIDER=true). It
@@ -27,6 +27,43 @@ export class FakeProvider implements AiProvider {
       model: this.modelFor(req.tier),
       inputTokens: 0,
       outputTokens: 0,
+    };
+  }
+
+  /**
+   * Calls the tools whose names share a word with the question (or the first
+   * tool), with sample arguments, then reports what came back — enough to
+   * exercise the tool loop, permissions and the UI without a model.
+   */
+  async generateWithTools(req: AiRequest, tools: AiToolSpec[], run: ToolRunner): Promise<AiToolResult> {
+    await pause();
+    const question = (req.messages.at(-1)?.content ?? '').toLowerCase();
+    const words = question.split(/[^a-z]+/).filter((w) => w.length > 3);
+    // Tests can name exact calls: "call find_students {\"query\":\"Ada\"}".
+    const raw = req.messages.at(-1)?.content ?? '';
+    const explicit = [...raw.matchAll(/call (\w+) (\{.*?\})(?=\s+call |\s*$)/g)];
+    if (explicit.length) {
+      const lines: string[] = [];
+      for (const m of explicit) {
+        const r = tools.some((t) => t.name === m[1]) ? await run(m[1]!, JSON.parse(m[2]!)) : { content: 'not offered to this assistant', isError: true };
+        lines.push(`- **${m[1]}**${r.isError ? ' (error)' : ''}: ${r.content.slice(0, 4000)}`);
+      }
+      return { text: `**[Development placeholder]** Tool results:\n${lines.join('\n')}`, model: this.modelFor(req.tier), inputTokens: 0, outputTokens: 0, steps: explicit.length + 1 };
+    }
+    const picked = tools.filter((t) => words.some((w) => t.name.includes(w.replace(/s$/, '')) || t.description.toLowerCase().includes(` ${w} `))).slice(0, 2);
+    const chosen = picked.length ? picked : tools.slice(0, 1);
+    const lines: string[] = [];
+    for (const t of chosen) {
+      const input = sample(t.inputSchema as JsonSchema, '', { count: 1, refs: [] });
+      const r = await run(t.name, input);
+      lines.push(`- **${t.name}**${r.isError ? ' (error)' : ''}: ${r.content.slice(0, 240)}`);
+    }
+    return {
+      text: `**[Development placeholder]** No AI provider is connected. I called ${chosen.length} tool${chosen.length === 1 ? '' : 's'} for “${question.slice(0, 120)}”:\n${lines.join('\n')}`,
+      model: this.modelFor(req.tier),
+      inputTokens: 0,
+      outputTokens: 0,
+      steps: chosen.length + 1,
     };
   }
 

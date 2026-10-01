@@ -1,8 +1,6 @@
-import { Body, Controller, Get, HttpCode, Module, Param, Post } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
-import { aiChatSchema, type AiChatInput, type AiChatResponse, type AiJobView, type AiStatus } from '@aischool/shared';
+import { Controller, Get, Module, Param } from '@nestjs/common';
+import type { AiJobView, AiStatus } from '@aischool/shared';
 import { RequirePermissions } from '../common/decorators';
-import { ZodPipe } from '../common/zod.pipe';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { AiGatewayService } from './ai-gateway.service';
 import { AiJobsService } from './ai-jobs.service';
@@ -22,14 +20,6 @@ export class AiController {
     return this.ai.status();
   }
 
-  @Post('chat')
-  @HttpCode(200)
-  @RequirePermissions('ai.use')
-  @Throttle({ default: { limit: 20, ttl: 60_000 } })
-  chat(@Body(new ZodPipe(aiChatSchema)) body: AiChatInput): Promise<AiChatResponse> {
-    return this.ai.chat(body);
-  }
-
   /** Progress of a background AI job (question batches, report remarks…). */
   @Get('jobs/:id')
   @RequirePermissions('ai.use')
@@ -42,6 +32,6 @@ export class AiController {
   imports: [DashboardModule],
   controllers: [AiController],
   providers: [AiGatewayService, AiService, GenerationQueue, AiJobsService],
-  exports: [AiGatewayService, GenerationQueue, AiJobsService],
+  exports: [AiGatewayService, GenerationQueue, AiJobsService, AiService],
 })
 export class AiModule {}

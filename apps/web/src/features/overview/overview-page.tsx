@@ -39,6 +39,7 @@ import { formatDate, formatNumber, formatRelative, greeting } from '@/lib/format
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
+import { AiSchoolCards } from '../ai/ai-school-cards';
 import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
@@ -180,6 +181,9 @@ function SchoolOverview() {
             <FeesBand data={data} />
           </motion.div>
         )}
+        <motion.div variants={item} className="empty:hidden">
+          <AiSchoolCards />
+        </motion.div>
         <div className="grid gap-5 xl:grid-cols-3">
           <motion.div variants={item} className="xl:col-span-2">
             <AiIntelligenceCard data={data} />

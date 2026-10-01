@@ -30,6 +30,21 @@ export interface AiJsonResult<T> extends AiResult {
   data: T;
 }
 
+/** A function the model may call. `inputSchema` is a JSON Schema object. */
+export interface AiToolSpec {
+  name: string;
+  description: string;
+  inputSchema: Record<string, unknown>;
+}
+
+/** Runs one tool call; errors come back to the model as an error result, not an exception. */
+export type ToolRunner = (name: string, input: unknown) => Promise<{ content: string; isError?: boolean }>;
+
+export interface AiToolResult extends AiResult {
+  /** Model requests made, including the final answer. */
+  steps: number;
+}
+
 export interface AiProvider {
   readonly name: 'anthropic' | 'openai' | 'gemini' | 'fake';
   isConfigured(): boolean;
@@ -41,6 +56,12 @@ export interface AiProvider {
    * the schema again before it is used.
    */
   generateJson<T>(req: AiRequest, schema: ZodType<T>): Promise<AiJsonResult<T>>;
+  /**
+   * Lets the model call tools until it answers (at most `maxSteps` requests).
+   * Providers without tool use leave this out; the gateway then answers from
+   * pre-fetched data instead.
+   */
+  generateWithTools?(req: AiRequest, tools: AiToolSpec[], run: ToolRunner, maxSteps: number): Promise<AiToolResult>;
 }
 
 /** Raised for failures worth retrying on the next provider (outages, rate limits). */

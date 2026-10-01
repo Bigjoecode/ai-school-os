@@ -204,4 +204,21 @@ export interface AiChatResponse {
   reply: string;
   provider: string;
   model: string;
+  /** What the assistant looked up to answer ("Checked attendance for JSS 2 A"). */
+  toolCalls?: AiToolCall[];
+  /** Drafts it prepared for the user to review — nothing is sent or published by the AI. */
+  actions?: AiProposedAction[];
+}
+
+export interface AiToolCall {
+  name: string;
+  label: string;
+  ok: boolean;
+}
+
+export interface AiProposedAction {
+  kind: 'DRAFT_MESSAGE' | 'DRAFT_HOMEWORK';
+  label: string;
+  /** Where the user reviews it, e.g. "/messages/abc/edit". */
+  link: string;
 }

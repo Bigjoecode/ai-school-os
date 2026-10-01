@@ -11,3 +11,4 @@ export * from './hr';
 export * from './operations';
 export * from './comms';
 export * from './live';
+export * from './ai';

@@ -10,6 +10,7 @@ import { FinanceModule } from './finance/finance.module';
 import { HrModule } from './hr/hr.module';
 import { OperationsModule } from './operations/operations.module';
 import { CommsModule } from './comms/comms.module';
+import { LiveModule } from './live/live.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -65,6 +66,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     HrModule,
     OperationsModule,
     CommsModule,
+    LiveModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [

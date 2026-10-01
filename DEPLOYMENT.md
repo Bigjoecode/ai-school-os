@@ -118,6 +118,30 @@ Each school connects its own accounts in the app: **Messages → Settings**.
 Every message is recorded per recipient, with the reason for anything skipped
 (no email on record, channel not set up) or failed.
 
+## Live classes (Google Meet, Zoom, BigBlueButton)
+
+Schools connect their own accounts in **Live classes → Settings**. Zoom and
+BigBlueButton need nothing on the server. Google Meet needs one OAuth client
+for the whole platform, created once:
+
+1. [Google Cloud console](https://console.cloud.google.com) → new project →
+   enable the **Google Calendar API** and the **Google Meet REST API**.
+2. **OAuth consent screen**: External, add the scopes `calendar.events` and
+   `meetings.space.readonly`, then publish it (Google reviews apps that use
+   these scopes before strangers can connect).
+3. **Credentials → Create OAuth client ID → Web application**, authorised
+   redirect URI `https://ai-schoolportal.mejortechworld.com/api/live/google/callback`.
+4. Add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to the Node.js app's
+   environment variables and restart it.
+
+Each school then clicks **Connect Google Meet** and signs in with a Google
+Workspace account; Meet links are created on that account's calendar.
+Attendance, recordings and transcripts come from the Meet REST API and depend
+on the school's Workspace edition. Zoom attendance needs a Pro plan or higher
+and a Server-to-Server OAuth app with the `meeting:write`, `meeting:read`,
+`recording:read` and `report:read` scopes. BigBlueButton keeps no attendance
+after a meeting, so attendance comes from students joining through the portal.
+
 ## GitHub secrets
 
 | Secret | Value |

@@ -188,4 +188,12 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     delivery reports; AI drafting and translation into Yoruba, Igbo, Hausa and
     Pidgin; noticeboard, school calendar with a phone calendar feed, event
     reminders and birthday messages ✅
-11. Live learning · 12. AI school · 13. School website · 14. SaaS billing
+11. **Live learning** — live classes on Google Meet, Zoom, BigBlueButton or
+    any meeting link, scheduled one by one or for every timetabled lesson in
+    a date range; join links per person; attendance from the meeting service
+    or the portal; recordings and transcripts; the AI class pack (summary,
+    key concepts, homework, a five-question quiz, revision notes) from the
+    transcript, the teacher's notes or the lesson plan; homework set straight
+    from it, the quiz saved to the question bank, and a "My learning" page for
+    students and parents ✅
+12. AI school · 13. School website · 14. SaaS billing

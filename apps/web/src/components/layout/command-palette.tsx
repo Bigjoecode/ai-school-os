@@ -51,6 +51,10 @@ import {
   Package,
   PackagePlus,
   UserCheck,
+  Video,
+  MonitorPlay,
+  PencilLine,
+  BookOpenCheck,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -419,6 +423,42 @@ export function CommandPalette() {
       keywords: 'id cards identity print students staff badge qr',
       onSelect: () => navigate('/id-cards'),
     },
+    (hasPermission(me, 'live.host') || hasPermission(me, 'live.manage')) && {
+      id: 'schedule-live',
+      label: 'Schedule a live class',
+      icon: <Video />,
+      keywords: 'live class online meet zoom bigbluebutton virtual lesson schedule',
+      onSelect: () => navigate('/live?new=1'),
+    },
+    hasPermission(me, 'live.read') && {
+      id: 'live-today',
+      label: 'Live classes today',
+      icon: <MonitorPlay />,
+      keywords: 'live classes online today join start meet zoom',
+      onSelect: () => navigate('/live'),
+    },
+    hasPermission(me, 'homework.manage') && {
+      id: 'set-homework',
+      label: 'Set homework',
+      icon: <PencilLine />,
+      keywords: 'homework assignment set class due',
+      onSelect: () => navigate('/homework?new=1'),
+    },
+    hasPermission(me, 'live.read') && {
+      id: 'live-settings',
+      label: 'Live class settings',
+      icon: <Settings2 />,
+      keywords: 'live google meet zoom bigbluebutton connect integration settings',
+      onSelect: () => navigate('/live/settings'),
+    },
+    !!me?.tenant &&
+      !hasPermission(me, 'school.read') && {
+        id: 'my-learning',
+        label: 'My learning',
+        icon: <BookOpenCheck />,
+        keywords: 'homework live classes class notes revision join',
+        onSelect: () => navigate('/learning'),
+      },
     hasPermission(me, 'comms.send') && {
       id: 'new-message',
       label: 'New message',

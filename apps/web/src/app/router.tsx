@@ -57,6 +57,11 @@ const CertificatesPage = lazy(() => import('@/features/operations/certificates-p
 const CertificatePage = lazy(() => import('@/features/operations/certificate-page'));
 const IdCardsPage = lazy(() => import('@/features/operations/id-cards-page'));
 const VerifyPage = lazy(() => import('@/features/operations/verify-page'));
+const LivePage = lazy(() => import('@/features/live/live-page'));
+const LiveClassPage = lazy(() => import('@/features/live/class-page'));
+const LiveSettingsPage = lazy(() => import('@/features/live/settings-page'));
+const HomeworkPage = lazy(() => import('@/features/live/homework-page'));
+const LearningPage = lazy(() => import('@/features/live/learning-page'));
 const MessagesPage = lazy(() => import('@/features/comms/messages-page'));
 const ComposePage = lazy(() => import('@/features/comms/compose-page'));
 const BroadcastPage = lazy(() => import('@/features/comms/broadcast-page'));
@@ -366,7 +371,19 @@ export const router = createBrowserRouter([
         path,
         element: <RequirePermission permission={permission}>{page}</RequirePermission>,
       })),
+      ...(
+        [
+          ['live', 'live.read', <LivePage key="live" />],
+          ['live/settings', 'live.read', <LiveSettingsPage key="live-settings" />],
+          ['live/:id', 'live.read', <LiveClassPage key="live-class" />],
+          ['homework', 'homework.manage', <HomeworkPage key="homework" />],
+        ] as const
+      ).map(([path, permission, page]) => ({
+        path,
+        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+      })),
       // Everyone in the school: staff, parents and students.
+      { path: 'learning', element: <LearningPage /> },
       { path: 'noticeboard', element: <NoticeboardPage /> },
       { path: 'calendar', element: <CalendarPage /> },
       {

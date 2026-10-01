@@ -4,6 +4,7 @@ import {
   Banknote,
   BedDouble,
   BookOpen,
+  BookOpenCheck,
   Bot,
   Briefcase,
   Building2,
@@ -60,6 +61,8 @@ export interface NavItem {
   permission?: Permission;
   /** Module not built yet — renders the Coming Soon page. */
   soon?: boolean;
+  /** 'family': only for parents and students (members without school.read), keeping staff navs tidy. */
+  audience?: 'family';
   keywords?: string;
 }
 
@@ -73,6 +76,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
       { label: 'AI Command Center', to: '/ai', icon: Sparkles, permission: 'ai.use', keywords: 'assistant chat' },
+      { label: 'My learning', to: '/learning', icon: BookOpenCheck, audience: 'family', keywords: 'homework live classes class notes revision summaries' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },
@@ -86,7 +90,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
       { label: 'Timetable', to: '/timetable', icon: CalendarClock, permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
-      { label: 'Homework', to: '/homework', icon: PencilLine, soon: true, keywords: 'assignments' },
       { label: 'Study Materials', to: '/materials', icon: FolderOpen, soon: true },
     ],
   },
@@ -153,7 +156,10 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Live Learning',
-    items: [{ label: 'Live Classes', to: '/live', icon: Video, soon: true, keywords: 'video virtual' }],
+    items: [
+      { label: 'Live Classes', to: '/live', icon: Video, permission: 'live.read', keywords: 'video virtual online meet zoom bigbluebutton recordings transcript ai summary' },
+      { label: 'Homework', to: '/homework', icon: PencilLine, permission: 'homework.manage', keywords: 'assignments set homework due' },
+    ],
   },
   {
     label: 'Communication',
@@ -202,6 +208,7 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
       if (!hasTenant && i.to !== '/') return false;
       // The roadmap's coming-soon items mean nothing to parents and students.
       if (i.soon && !hasPermission(me, 'school.read')) return false;
+      if (i.audience === 'family' && hasPermission(me, 'school.read')) return false;
       return !i.permission || hasPermission(me, i.permission);
     }),
   })).filter((g) => g.items.length > 0);

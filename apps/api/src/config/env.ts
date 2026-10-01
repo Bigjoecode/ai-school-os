@@ -52,6 +52,19 @@ const schema = z.object({
   VAPID_PUBLIC_KEY: z.string().optional(),
   VAPID_PRIVATE_KEY: z.string().optional(),
   VAPID_SUBJECT: z.string().default('mailto:admin@example.com'),
+  /**
+   * Google Meet: one OAuth client for the whole platform (Google Cloud console →
+   * Credentials → OAuth client, web application). Each school then connects its
+   * own Google Workspace account. Redirect URI: <site>/api/live/google/callback
+   */
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
+  GOOGLE_AUTH_URL: z.string().url().default('https://accounts.google.com/o/oauth2/v2/auth'),
+  GOOGLE_OAUTH_BASE: z.string().url().default('https://oauth2.googleapis.com'),
+  GOOGLE_API_BASE: z.string().url().default('https://www.googleapis.com'),
+  GOOGLE_MEET_BASE: z.string().url().default('https://meet.googleapis.com'),
+  ZOOM_OAUTH_BASE: z.string().url().default('https://zoom.us'),
+  ZOOM_API_BASE: z.string().url().default('https://api.zoom.us/v2'),
   /** Lets a cPanel cron job wake the API to send scheduled messages and automations. */
   CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
 });

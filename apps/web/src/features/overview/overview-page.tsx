@@ -12,7 +12,7 @@ import {
   MonitorPlay,
   GraduationCap,
   Layers,
-  PencilLine,
+  FolderOpen,
   Megaphone,
   Receipt,
   Send,
@@ -41,6 +41,7 @@ import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
+import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { OperationsCard } from '../operations/operations-card';
 import { TodayClassesCard } from '../timetable/today-card';
 
@@ -109,6 +110,7 @@ function MemberOverview() {
         </h1>
       </div>
       <div className="space-y-5">
+        <MyLearningCard />
         <NoticeboardCard alwaysShow />
         <div className="grid gap-3 sm:grid-cols-3 [&>*]:min-w-0">
           {[
@@ -148,6 +150,7 @@ function SchoolOverview() {
   const canTimetable = useCan('timetable.read');
   const canAttendance = useCan('attendance.read');
   const canFinance = useCan('finance.read');
+  const canLive = useCan('live.read');
 
   if (error && !data) {
     return (
@@ -166,6 +169,7 @@ function SchoolOverview() {
         <motion.div variants={item}>
           <NoticeboardCard />
         </motion.div>
+        {canLive && <LiveTodayCard />}
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />
@@ -872,9 +876,9 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 
 // ------------------------------------------------------------------ roadmap strip
 const NEXT_MODULES = [
-  { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
   { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Applications, entrance tests & offers' },
-  { label: 'Homework', icon: PencilLine, to: '/homework', note: 'Set, collect & mark homework online' },
+  { label: 'Online exams', icon: MonitorPlay, to: '/online-exams', note: 'Timed CBT with instant marking' },
+  { label: 'Study materials', icon: FolderOpen, to: '/materials', note: 'Notes, slides & videos per class' },
 ];
 
 function ComingOnline() {

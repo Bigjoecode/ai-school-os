@@ -18,17 +18,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'Admissions AI drafts offer letters and follow-ups for every applicant',
     ],
   },
-  '/homework': {
-    name: 'Homework',
-    phase: 3,
-    summary: 'Set, collect and grade homework without the paper chase.',
-    features: [
-      'Assign to classes or individual students with due dates',
-      'Online submissions with attachments',
-      'Parents notified automatically',
-      'AI suggests questions and pre-grades short answers',
-    ],
-  },
   '/materials': {
     name: 'Study Materials',
     phase: 3,
@@ -49,17 +38,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'Auto-marking for objective questions',
       'Proctoring signals and attempt logs',
       'AI marks essay answers against a rubric for teacher review',
-    ],
-  },
-  '/live': {
-    name: 'Live Classes',
-    phase: 11,
-    summary: 'Virtual classrooms built into the timetable.',
-    features: [
-      'One-click live sessions from the timetable',
-      'Attendance captured automatically',
-      'Recordings shared with the class',
-      'AI summarises every lesson into notes',
     ],
   },
   '/ai/usage': {

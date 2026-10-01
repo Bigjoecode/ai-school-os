@@ -178,6 +178,16 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'live',
+    label: 'Live Classes & Homework',
+    permissions: {
+      'live.read': 'View the live class schedule, attendance, recordings and class summaries',
+      'live.host': 'Schedule and host live classes for the classes you teach',
+      'live.manage': "Schedule any live class and connect Google Meet, Zoom or BigBlueButton",
+      'homework.manage': 'Set and publish homework',
+    },
+  },
+  {
     module: 'comms',
     label: 'Communication',
     permissions: {

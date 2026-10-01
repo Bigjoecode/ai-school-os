@@ -1394,6 +1394,219 @@ async function run({ demoOwner }: SeedOptions) {
     ],
   });
 
+  // ------------------------------------------------------------ live learning
+  // Ngozi Eze's English classes: yesterday's live lesson with a transcript, the
+  // AI summary pack and homework set from it; a class with notes only (ready
+  // to summarise); and the week ahead. Meeting links are plain links, since no
+  // Meet/Zoom account is connected in the demo.
+  const ngoziStaff = staff.find((m) => m.userId === teacherUser.id)!;
+  const english = subjects.find((sj) => sj.name === 'English Language')!;
+  const ngoziArms = await prisma.classSubject.findMany({ where: { tenantId: g.id, teacherId: ngoziStaff.id, subjectId: english.id }, include: { classArm: { include: { classLevel: true } } } });
+  const liveArm = ngoziArms[0]?.classArm ?? arms[0]!.arm;
+  const liveArmStudents = active.filter((st) => st.classArmId === liveArm.id);
+  const yesterday = ago(1);
+  const lastSchoolDay = [0, 6].includes(new Date(`${yesterday}T12:00:00Z`).getUTCDay()) ? ago(3) : yesterday;
+  const transcriptText = [
+    'Mrs Eze: Good morning everyone. Today we are looking at reported speech, also called indirect speech.',
+    'Mrs Eze: When we report what someone said, we usually move the tense one step back. "I am tired" becomes: she said she was tired.',
+    'Tolu: Ma, what about "I will come tomorrow"?',
+    'Mrs Eze: Good question, Tolu. Will becomes would, and tomorrow becomes the next day. So: he said he would come the next day.',
+    'Mrs Eze: Pronouns change too. "I love my school" becomes: Ada said she loved her school.',
+    'Chinedu: Do we always need "that"?',
+    'Mrs Eze: "That" is optional. "She said that she was tired" and "She said she was tired" are both correct.',
+    'Mrs Eze: Questions are different. "Where do you live?" becomes: he asked me where I lived. No question mark, and the word order is like a statement.',
+    'Aisha: So for yes or no questions we use "if"?',
+    'Mrs Eze: Exactly — "Are you ready?" becomes: she asked if I was ready. You can also use "whether".',
+    'Mrs Eze: Some of you wrote "he asked where did I live". That is the common mistake: keep statement order after the question word.',
+    'Mrs Eze: Time and place words change: today becomes that day, yesterday becomes the day before, here becomes there.',
+    'Mrs Eze: Commands use "told" or "asked" with "to": "Close the door" becomes: she told me to close the door.',
+    'Mrs Eze: For homework, rewrite the ten sentences in your workbook on page 54 in reported speech. We will mark them on Friday.',
+  ].join('\n');
+  const intelligence = {
+    topic: 'Reported (indirect) speech',
+    summary:
+      'The class learnt how to report what someone has said. In reported speech the tense usually moves one step back (am → was, will → would), pronouns change to fit the speaker, and words of time and place shift (today → that day, here → there). Questions are reported with "asked" and keep statement word order, using "if" or "whether" for yes/no questions. Commands are reported with "told" or "asked" plus "to".',
+    keyConcepts: ['Backshifting tenses (am → was, will → would)', 'Changing pronouns and possessives', 'Time and place words (today → that day)', 'Reporting questions with statement word order', 'Reporting commands with told/asked + to'],
+    homework: {
+      title: 'Reported speech practice',
+      instructions: 'Rewrite each sentence in reported speech in your exercise book. Underline the words that changed.',
+      questions: [
+        'Ada said, "I am hungry."',
+        'Musa said, "I will visit my grandmother tomorrow."',
+        'The teacher asked, "Have you finished your work?"',
+        'My mother said, "Close the windows."',
+        'Tunde asked me, "Where do you live?"',
+        'Grace said, "We are going to the market today."',
+      ],
+    },
+    quiz: [
+      { question: 'Which is the correct reported form of: She said, "I am tired."', options: ['She said she is tired.', 'She said she was tired.', 'She said I was tired.', 'She says she was tired.'], answerIndex: 1, explanation: 'The present tense "am" moves back to "was", and "I" becomes "she".' },
+      { question: '"I will come tomorrow," he said. In reported speech "will" becomes…', options: ['shall', 'can', 'would', 'will'], answerIndex: 2, explanation: '"Will" backshifts to "would".' },
+      { question: 'Which word introduces a reported yes/no question?', options: ['that', 'if', 'what', 'to'], answerIndex: 1, explanation: 'Yes/no questions are reported with "if" or "whether".' },
+      { question: 'Report the command: "Open your books."', options: ['She said open your books.', 'She told us that we open our books.', 'She told us to open our books.', 'She asked did we open our books.'], answerIndex: 2, explanation: 'Commands use told/asked + to + verb.' },
+      { question: '"Where do you live?" he asked. The correct reported question is…', options: ['He asked me where I lived.', 'He asked me where did I live.', 'He asked me where do I live?', 'He asked where I live?'], answerIndex: 0, explanation: 'Reported questions keep statement word order and lose the question mark.' },
+    ],
+    revisionNotes:
+      'Reported speech tells someone what another person said, without quotation marks.\n\n1. Tenses move back: am/is → was; are → were; will → would; can → could; have → had.\n2. Pronouns change to fit who is speaking: "I love my school" → she said she loved her school.\n3. Time and place words change: today → that day; tomorrow → the next day; yesterday → the day before; here → there.\n4. "That" is optional after said.\n5. Questions: use asked; keep statement word order; no question mark. Wh-questions keep the question word; yes/no questions use if or whether.\n6. Commands: told/asked + object + to + verb ("She told me to close the door").',
+    followUp: 'Several students still put the verb before the subject in reported questions ("where did I live"). Start Friday with a quick drill on statement word order before marking the homework.',
+  };
+  const startY = lagos(lastSchoolDay, '10:20');
+  const yClass = await prisma.liveClass.create({
+    data: {
+      tenantId: g.id,
+      title: 'English Language',
+      classArmId: liveArm.id,
+      subjectId: english.id,
+      teacherId: ngoziStaff.id,
+      provider: 'EXTERNAL',
+      startsAt: startY,
+      endsAt: new Date(startY.getTime() + 40 * 60_000),
+      agenda: 'Reported speech: statements, questions and commands.',
+      joinUrl: 'https://meet.google.com/xqe-ruwp-kdn',
+      transcript: transcriptText,
+      transcriptSource: 'UPLOAD',
+      intelligence,
+      summarySharedAt: new Date(startY.getTime() + 2 * 3_600_000),
+      createdById: teacherUser.id,
+    },
+  });
+  await prisma.liveAttendance.createMany({
+    data: liveArmStudents.map((st, i) => ({
+      tenantId: g.id,
+      liveClassId: yClass.id,
+      studentId: st.id,
+      status: i % 11 === 4 ? 'ABSENT' : i % 7 === 2 ? 'LATE' : 'PRESENT',
+      joinedAt: i % 11 === 4 ? null : new Date(startY.getTime() + (i % 7 === 2 ? 14 : 1) * 60_000),
+      minutes: i % 11 === 4 ? null : i % 7 === 2 ? 26 : 39,
+      source: 'MANUAL',
+    })),
+  });
+  const hw = await prisma.homework.create({
+    data: {
+      tenantId: g.id,
+      classArmId: liveArm.id,
+      subjectId: english.id,
+      teacherId: ngoziStaff.id,
+      liveClassId: yClass.id,
+      title: intelligence.homework.title,
+      instructions: intelligence.homework.instructions,
+      questions: intelligence.homework.questions,
+      dueDate: day(ago(-3)),
+      status: 'PUBLISHED',
+      source: 'AI',
+      publishedAt: new Date(startY.getTime() + 2 * 3_600_000),
+      createdById: teacherUser.id,
+    },
+  });
+  await prisma.liveClass.update({ where: { id: yClass.id }, data: { homeworkId: hw.id } });
+  // A class with the teacher's notes only — ready for "Generate summary".
+  const notesArm = ngoziArms[1]?.classArm ?? liveArm;
+  const startN = lagos(ago(2), '08:40');
+  await prisma.liveClass.create({
+    data: {
+      tenantId: g.id,
+      title: 'English Language',
+      classArmId: notesArm.id,
+      subjectId: english.id,
+      teacherId: ngoziStaff.id,
+      provider: 'EXTERNAL',
+      startsAt: startN,
+      endsAt: new Date(startN.getTime() + 40 * 60_000),
+      agenda: 'Summary writing',
+      joinUrl: 'https://meet.google.com/pwa-nxte-jfo',
+      teacherNotes:
+        'Summary writing for WAEC-style passages. Read the passage twice; underline the key point in each paragraph; write each point as one sentence in your own words; avoid examples and repetition. Practised on "The Dangers of Drug Abuse" passage — most students copied whole sentences instead of rephrasing. Homework idea: summarise paragraph 3 of the comprehension passage on page 61 in three sentences.',
+      createdById: teacherUser.id,
+    },
+  });
+  // The week ahead.
+  for (const [i, d] of [0, 1, 2, 4].entries()) {
+    const date = ago(-d);
+    if ([0, 6].includes(new Date(`${date}T12:00:00Z`).getUTCDay())) continue;
+    const arm = ngoziArms[i % Math.max(1, ngoziArms.length)]?.classArm ?? liveArm;
+    const at = lagos(date, i === 0 ? '16:00' : '11:00');
+    await prisma.liveClass.create({
+      data: {
+        tenantId: g.id,
+        title: i === 0 ? 'English Language — revision clinic' : 'English Language',
+        classArmId: arm.id,
+        subjectId: english.id,
+        teacherId: ngoziStaff.id,
+        provider: 'EXTERNAL',
+        startsAt: at,
+        endsAt: new Date(at.getTime() + 40 * 60_000),
+        agenda: i === 0 ? 'Questions on reported speech before Friday’s marking.' : null,
+        joinUrl: `https://meet.google.com/${['dkr-mavq-xpe', 'hjt-weub-qoa', 'zpe-kcyu-rnd', 'mvq-arpl-tse'][i]}`,
+        createdById: teacherUser.id,
+      },
+    });
+  }
+  // The demo parent's child gets the same shared summary, homework and an upcoming class, so "My learning" has content.
+  const parentChild = await prisma.studentGuardian.findFirst({ where: { tenantId: g.id, guardian: { userId: parentUser.id } }, include: { student: true } });
+  const childArmId = parentChild?.student.classArmId;
+  if (childArmId && childArmId !== liveArm.id) {
+    const cs = await prisma.classSubject.findFirst({ where: { tenantId: g.id, classArmId: childArmId, subjectId: english.id } });
+    const startC = lagos(lastSchoolDay, '13:00');
+    const childClass = await prisma.liveClass.create({
+      data: {
+        tenantId: g.id,
+        title: 'English Language',
+        classArmId: childArmId,
+        subjectId: english.id,
+        teacherId: cs?.teacherId ?? ngoziStaff.id,
+        provider: 'EXTERNAL',
+        startsAt: startC,
+        endsAt: new Date(startC.getTime() + 40 * 60_000),
+        joinUrl: 'https://meet.google.com/kfo-zrst-wqa',
+        transcript: transcriptText,
+        transcriptSource: 'UPLOAD',
+        intelligence,
+        summarySharedAt: new Date(startC.getTime() + 3_600_000),
+        createdById: admin.id,
+      },
+    });
+    const childHw = await prisma.homework.create({
+      data: {
+        tenantId: g.id,
+        classArmId: childArmId,
+        subjectId: english.id,
+        teacherId: cs?.teacherId ?? null,
+        liveClassId: childClass.id,
+        title: intelligence.homework.title,
+        instructions: intelligence.homework.instructions,
+        questions: intelligence.homework.questions,
+        dueDate: day(ago(-3)),
+        status: 'PUBLISHED',
+        source: 'AI',
+        publishedAt: new Date(startC.getTime() + 3_600_000),
+        createdById: admin.id,
+      },
+    });
+    await prisma.liveClass.update({ where: { id: childClass.id }, data: { homeworkId: childHw.id } });
+    const nextC = lagos(ago(-1), '15:00');
+    await prisma.liveClass.create({
+      data: { tenantId: g.id, title: 'Mathematics — revision', classArmId: childArmId, subjectId: subjects.find((sj) => sj.name === 'Mathematics')!.id, provider: 'EXTERNAL', startsAt: nextC, endsAt: new Date(nextC.getTime() + 45 * 60_000), joinUrl: 'https://meet.google.com/qmz-tabc-uvo', createdById: admin.id },
+    });
+  }
+  const maths = subjects.find((sj) => sj.name === 'Mathematics')!;
+  const mathsArm = await prisma.classSubject.findFirst({ where: { tenantId: g.id, subjectId: maths.id, classArmId: liveArm.id } });
+  await prisma.homework.create({
+    data: {
+      tenantId: g.id,
+      classArmId: liveArm.id,
+      subjectId: maths.id,
+      teacherId: mathsArm?.teacherId ?? null,
+      title: 'Simple equations',
+      instructions: 'Solve each equation, showing every step. Check your answer by substituting it back.',
+      questions: ['3x + 5 = 20', '7 − 2y = 1', '4(a − 3) = 2a + 6', 'x/5 + 2 = 6'],
+      dueDate: day(ago(-5)),
+      status: 'PUBLISHED',
+      source: 'MANUAL',
+      publishedAt: new Date(`${ago(1)}T14:00:00Z`),
+      createdById: admin.id,
+    },
+  });
+
   // ------------------------------------------------------------ Sunrise
   const s = await createTenant('sunrise', 'Sunrise Academy', 'SRA', 'Rise and Shine', plan.id);
   const sunriseAdmin = await upsertUser('admin@sunrise.demo', 'Sunrise#2026', 'Halima', 'Bello');

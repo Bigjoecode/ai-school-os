@@ -165,6 +165,11 @@ model Tenant {
   schoolEvents        SchoolEvent[]
   automationRuns      AutomationRun[]
 
+  liveClasses    LiveClass[]
+  liveAttendance LiveAttendance[]
+  liveRecordings LiveRecording[]
+  homework       Homework[]
+
   @@map("tenants")
 }
 
@@ -492,6 +497,9 @@ model ClassArm {
   timetableEntries TimetableEntry[]
   registers        AttendanceRegister[]
 
+  liveClasses LiveClass[]
+  homework    Homework[]
+
   @@unique([classLevelId, name])
   @@index([tenantId])
   @@map("class_arms")
@@ -515,6 +523,9 @@ model Subject {
   examPapers       ExamPaper[]
   scores           Score[]
   timetableEntries TimetableEntry[]
+
+  liveClasses LiveClass[]
+  homework    Homework[]
 
   @@unique([tenantId, code])
   @@map("subjects")
@@ -595,6 +606,8 @@ model Student {
   exeats       Exeat[]
   pickups      StudentPickup[]
   certificates Certificate[]
+
+  liveAttendance LiveAttendance[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
@@ -694,6 +707,9 @@ model Staff {
   hostelsWarded    Hostel[]
   visitorsHosted   Visitor[]             @relation("VisitorHost")
   certificates     Certificate[]
+
+  liveClasses LiveClass[]
+  homework    Homework[]
 
   @@unique([tenantId, staffNumber])
   @@map("staff")
@@ -932,6 +948,8 @@ model LessonPlan {
   schemeWeek SchemeWeek? @relation(fields: [schemeWeekId], references: [id], onDelete: SetNull)
   teacher    Staff?      @relation(fields: [teacherId], references: [id], onDelete: SetNull)
   createdBy  User?       @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  liveClasses LiveClass[]
 
   @@index([tenantId, classArmId, date])
   @@map("lesson_plans")
@@ -2178,4 +2196,129 @@ model AutomationRun {
 
   @@unique([tenantId, kind, subjectKey, runDate])
   @@map("automation_runs")
+}
+
+// ============================================================== live learning
+
+/// A live lesson on Google Meet, Zoom, BigBlueButton or any meeting link.
+model LiveClass {
+  id                String    @id @default(cuid())
+  tenantId          String
+  title             String
+  classArmId        String
+  subjectId         String?
+  teacherId         String?
+  lessonPlanId      String?
+  /// GOOGLE_MEET, ZOOM, BBB, EXTERNAL
+  provider          String
+  /// SCHEDULED, LIVE, ENDED, CANCELLED
+  status            String    @default("SCHEDULED")
+  startsAt          DateTime
+  endsAt            DateTime
+  agenda            String?
+  joinUrl           String?
+  /// The provider's id: calendar event id, Zoom meeting id, BBB meetingID.
+  externalId        String?
+  /// Provider details kept server-side (Meet code, Zoom start URL and passcode, BBB passwords).
+  providerData      Json?
+  transcript        String?
+  /// PROVIDER, UPLOAD, NOTES
+  transcriptSource  String?
+  teacherNotes      String?
+  intelligence      Json?
+  intelligenceJobId String?
+  /// When the teacher shared the AI summary with students and parents.
+  summarySharedAt   DateTime?
+  homeworkId        String?
+  quizQuestionIds   String[]
+  syncedAt          DateTime?
+  createdById       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArm   ClassArm         @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  subject    Subject?         @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  teacher    Staff?           @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  lessonPlan LessonPlan?      @relation(fields: [lessonPlanId], references: [id], onDelete: SetNull)
+  attendance LiveAttendance[]
+  recordings LiveRecording[]
+
+  @@index([tenantId, startsAt])
+  @@index([classArmId, startsAt])
+  @@map("live_classes")
+}
+
+model LiveAttendance {
+  id          String    @id @default(cuid())
+  tenantId    String
+  liveClassId String
+  studentId   String
+  /// PRESENT, LATE, ABSENT
+  status      String
+  joinedAt    DateTime?
+  leftAt      DateTime?
+  minutes     Int?
+  /// PORTAL, PROVIDER, MANUAL
+  source      String    @default("MANUAL")
+  updatedAt   DateTime  @updatedAt
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  liveClass LiveClass @relation(fields: [liveClassId], references: [id], onDelete: Cascade)
+  student   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([liveClassId, studentId])
+  @@index([tenantId])
+  @@map("live_attendance")
+}
+
+model LiveRecording {
+  id              String    @id @default(cuid())
+  tenantId        String
+  liveClassId     String
+  /// VIDEO, AUDIO, TRANSCRIPT, CHAT
+  kind            String
+  title           String
+  url             String
+  durationSeconds Int?
+  startedAt       DateTime?
+  externalId      String
+  createdAt       DateTime  @default(now())
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  liveClass LiveClass @relation(fields: [liveClassId], references: [id], onDelete: Cascade)
+
+  @@unique([liveClassId, externalId])
+  @@index([tenantId])
+  @@map("live_recordings")
+}
+
+/// Homework set for a class, by hand or from a live class's AI summary.
+model Homework {
+  id           String    @id @default(cuid())
+  tenantId     String
+  classArmId   String
+  subjectId    String?
+  teacherId    String?
+  liveClassId  String?
+  title        String
+  instructions String
+  questions    String[]
+  dueDate      DateTime  @db.Date
+  /// DRAFT, PUBLISHED
+  status       String    @default("DRAFT")
+  /// MANUAL, AI
+  source       String    @default("MANUAL")
+  publishedAt  DateTime?
+  createdById  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  subject  Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  teacher  Staff?   @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, classArmId, dueDate])
+  @@map("homework")
 }

@@ -1,4 +1,4 @@
-import { AI_AGENTS, type AiAgent, type AiChatResponse, type AiStatus } from '@aischool/shared';
+import { AI_AGENTS, type AiAgent, type AiChatResponse, type AiStatus, type Permission } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -27,7 +27,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tip } from '@/components/ui/tooltip';
 import { ApiError, api, errorMessage } from '@/lib/api';
-import { useMe } from '@/lib/auth-store';
+import { hasPermission, useMe } from '@/lib/auth-store';
 import { formatMoney } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
@@ -83,6 +83,14 @@ const AGENT_META: Record<AiAgent, { label: string; icon: LucideIcon; blurb: stri
   },
 };
 
+const AGENT_PERMISSION: Partial<Record<AiAgent, Permission>> = {
+  school: 'school.read',
+  admissions: 'students.read',
+  finance: 'finance.read',
+  hr: 'hr.read',
+  teacher: 'academics.read',
+};
+
 function isAgent(v: string | null): v is AiAgent {
   return !!v && (AI_AGENTS as readonly string[]).includes(v);
 }
@@ -90,7 +98,11 @@ function isAgent(v: string | null): v is AiAgent {
 export default function AiPage() {
   useDocumentTitle('AI Command Center');
   const [params, setParams] = useSearchParams();
-  const agent: AiAgent = isAgent(params.get('agent')) ? (params.get('agent') as AiAgent) : 'school';
+  const me = useMe();
+  // Mirrors the API: school-wide assistants need more than ai.use.
+  const agents = AI_AGENTS.filter((a) => !AGENT_PERMISSION[a] || hasPermission(me, AGENT_PERMISSION[a]!));
+  const asked = params.get('agent');
+  const agent: AiAgent = isAgent(asked) && agents.includes(asked) ? asked : (agents[0] ?? 'parent');
   const status = useQuery({
     queryKey: qk.aiStatus,
     queryFn: ({ signal }) => api.get<AiStatus>('/ai/status', undefined, signal),
@@ -118,7 +130,7 @@ export default function AiPage() {
       </div>
 
       <div role="tablist" aria-label="AI agents" className="no-scrollbar -mx-4 mb-4 flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-        {AI_AGENTS.map((a) => {
+        {agents.map((a) => {
           const meta = AGENT_META[a];
           const active = a === agent;
           return (

@@ -63,6 +63,9 @@ Then add these **environment variables** and click **Create**:
 | `BOOTSTRAP_OWNER_PASSWORD` | a strong password (12+ characters) |
 | `SEED_DEMO_ON_BOOT` | `true` to load the Greenfield demo school, otherwise `false` |
 | `ANTHROPIC_API_KEY` | optional — turns on the AI assistants |
+| `CRON_SECRET` | another long random string — lets the cron job below send scheduled messages and automations |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | optional — browser push notifications. Generate once on your computer with `npx web-push generate-vapid-keys`; **never change them** afterwards |
+| `VAPID_SUBJECT` | `mailto:` + your email, if you set the VAPID keys |
 
 Do **not** click "Run NPM Install": the API ships as a single bundled file
 with no dependencies to install.
@@ -85,6 +88,35 @@ public and secret keys (test keys first), then copy the **webhook URL** shown
 there into Paystack → Settings → API Keys & Webhooks. Paystack signs every
 webhook; the API rejects any that don't verify, and re-checks each payment
 with Paystack before marking an invoice paid.
+
+## Scheduled messages and automations (cron)
+
+Shared hosting puts an idle Node.js app to sleep, so a cron job wakes the API
+every five minutes to send scheduled messages, event reminders and birthday
+messages. cPanel → **Cron Jobs** → Common settings "Once per five minutes",
+command:
+
+```
+curl -s -X POST -H "x-cron-key: <your CRON_SECRET>" https://ai-schoolportal.mejortechworld.com/api/cron/tick > /dev/null
+```
+
+## Email, SMS and WhatsApp
+
+Each school connects its own accounts in the app: **Messages → Settings**.
+
+- **Email** — any SMTP mailbox. The simplest is a cPanel email account on the
+  school's domain (host `mail.<domain>`, port 465, SSL). Zoho and Google
+  Workspace (with an app password) also work.
+- **SMS** — a [Termii](https://termii.com) account: API key and an approved
+  sender ID. Many Nigerian numbers are on DND; ask Termii to enable the DND
+  route for the school, then tick "DND route".
+- **WhatsApp** — the WhatsApp Cloud API (Meta Business). Create and get
+  approved a *utility* template with two body variables, e.g.
+  `Message from {{1}}: {{2}}`, then enter the phone number ID, a permanent
+  access token and the template name.
+
+Every message is recorded per recipient, with the reason for anything skipped
+(no email on record, channel not set up) or failed.
 
 ## GitHub secrets
 

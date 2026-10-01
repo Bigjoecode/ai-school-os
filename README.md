@@ -133,6 +133,15 @@ name, school and whether it is still valid. ID card codes are signed, and a
 card stops verifying when the student leaves or the card's validity date
 passes.
 
+**Communication.** A broadcast resolves its audience once (parents are
+de-duplicated, so a mother of two gets one message naming both children),
+then becomes one delivery per person per channel. Deliveries are claimed with
+a conditional update, retried up to three times, and keep the provider's
+reference or error. SMS text is made GSM-safe ("₦" → "N", plain quotes) so a
+message stays a single cheap page where possible. Scheduled sends and
+automations run from an in-process timer and from `POST /api/cron/tick`; both
+are idempotent.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -172,5 +181,11 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
    exeats), reception (visitor book, admissions enquiries with AI replies,
    early pick-ups), certificates with AI drafts and public verification, and
    printable ID cards with QR codes ✅
-10. Communication
+10. **Communication** — messages to parents and staff by email, SMS
+    (Termii), WhatsApp (Cloud API), browser push and in-app notifications,
+    with audiences (classes, fee debtors, bus routes, boarders, departments),
+    personalisation, SMS page and cost estimates, scheduling and per-recipient
+    delivery reports; AI drafting and translation into Yoruba, Igbo, Hausa and
+    Pidgin; noticeboard, school calendar with a phone calendar feed, event
+    reminders and birthday messages ✅
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

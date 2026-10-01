@@ -39,6 +39,7 @@ import { formatDate, formatNumber, formatRelative, greeting } from '@/lib/format
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
+import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { OperationsCard } from '../operations/operations-card';
 import { TodayClassesCard } from '../timetable/today-card';
@@ -64,6 +65,8 @@ const toneDot: Record<Insight['tone'], string> = {
 export default function OverviewPage() {
   const me = useMe();
   if (!me?.tenant) return <PlatformWelcome />;
+  // Parents and students don't see the school-wide numbers.
+  if (!me.permissions.includes('school.read')) return <MemberOverview />;
   return <SchoolOverview />;
 }
 
@@ -93,6 +96,49 @@ function PlatformWelcome() {
   );
 }
 
+function MemberOverview() {
+  useDocumentTitle('Overview');
+  const me = useMe();
+  const canAi = useCan('ai.use');
+  return (
+    <Page className="max-w-5xl">
+      <div className="mb-7">
+        <p className="text-[13px] font-medium text-muted-foreground">{me?.tenant?.name}</p>
+        <h1 className="mt-1 font-display text-[28px] font-semibold leading-tight tracking-[-0.025em] sm:text-[34px]">
+          {greeting()}, {me?.user.firstName}
+        </h1>
+      </div>
+      <div className="space-y-5">
+        <NoticeboardCard alwaysShow />
+        <div className="grid gap-3 sm:grid-cols-3 [&>*]:min-w-0">
+          {[
+            { to: '/noticeboard', label: 'Noticeboard', note: 'News from school', icon: Megaphone, show: true },
+            { to: '/calendar', label: 'Calendar', note: 'Holidays, exams and events', icon: CalendarDays, show: true },
+            { to: '/ai', label: 'Ask AI', note: 'Questions about school life', icon: Send, show: canAi },
+          ]
+            .filter((l) => l.show)
+            .map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-soft transition-all hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+                  <l.icon className="size-[18px]" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13.5px] font-medium">{l.label}</span>
+                  <span className="block truncate text-[12px] text-muted-foreground">{l.note}</span>
+                </span>
+                <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
+              </Link>
+            ))}
+        </div>
+      </div>
+    </Page>
+  );
+}
+
 function SchoolOverview() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: qk.overview,
@@ -117,6 +163,9 @@ function SchoolOverview() {
       <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
         <Kpis data={data} />
         <PendingLeaveNotice />
+        <motion.div variants={item}>
+          <NoticeboardCard />
+        </motion.div>
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />
@@ -824,7 +873,6 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 // ------------------------------------------------------------------ roadmap strip
 const NEXT_MODULES = [
   { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
-  { label: 'Communication', icon: Megaphone, to: '/announcements', note: 'Announcements, SMS & WhatsApp' },
   { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Applications, entrance tests & offers' },
   { label: 'Homework', icon: PencilLine, to: '/homework', note: 'Set, collect & mark homework online' },
 ];
@@ -836,7 +884,7 @@ function ComingOnline() {
         <h2 className="font-display text-[15px] font-semibold tracking-tight">Coming online</h2>
         <span className="text-[12px] text-muted-foreground">Not yet tracked — no data shown until these modules launch</span>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 [&>*]:min-w-0">
         {NEXT_MODULES.map((m) => (
           <Link
             key={m.label}

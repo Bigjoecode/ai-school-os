@@ -51,28 +51,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/announcements': {
-    name: 'Announcements',
-    phase: 10,
-    summary: 'Reach the right people with the right message.',
-    features: [
-      'Audience targeting by class, role or branch',
-      'Scheduled posts and read receipts',
-      'Portal and push delivery',
-      'AI writes clear, friendly announcements from bullet points',
-    ],
-  },
-  '/messaging': {
-    name: 'WhatsApp, SMS & Email',
-    phase: 10,
-    summary: 'Every channel, one inbox.',
-    features: [
-      'Bulk WhatsApp, SMS and email with templates',
-      'Delivery reports and cost tracking',
-      'Two-way conversations with parents',
-      'Parent AI answers routine questions 24/7',
-    ],
-  },
   '/live': {
     name: 'Live Classes',
     phase: 11,

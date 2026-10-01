@@ -84,6 +84,8 @@ model Tenant {
   hrSettings           Json?
   /// Library loan rules, certificate prefix, ID card validity — null means the defaults.
   operationsSettings   Json?
+  /// SMS price, sender name, birthday and event-reminder automations — null means the defaults.
+  commsSettings        Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -157,6 +159,11 @@ model Tenant {
   enquiries           Enquiry[]
   studentPickups      StudentPickup[]
   certificates        Certificate[]
+  broadcasts          Broadcast[]
+  deliveries          Delivery[]
+  announcements       Announcement[]
+  schoolEvents        SchoolEvent[]
+  automationRuns      AutomationRun[]
 
   @@map("tenants")
 }
@@ -231,19 +238,20 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  memberships   Membership[]
-  sessions      AuthSession[]
-  auditLogs     AuditLog[]
-  notifications Notification[]
-  students      Student[]
-  guardians     Guardian[]
-  staff         Staff[]
-  files         FileObject[]
-  aiUsage       AiUsage[]
-  conversations AiConversation[]
-  curricula     Curriculum[]
-  schemes       SchemeOfWork[]
-  lessonPlans   LessonPlan[]
+  memberships       Membership[]
+  sessions          AuthSession[]
+  auditLogs         AuditLog[]
+  notifications     Notification[]
+  pushSubscriptions PushSubscription[]
+  students          Student[]
+  guardians         Guardian[]
+  staff             Staff[]
+  files             FileObject[]
+  aiUsage           AiUsage[]
+  conversations     AiConversation[]
+  curricula         Curriculum[]
+  schemes           SchemeOfWork[]
+  lessonPlans       LessonPlan[]
 
   @@map("users")
 }
@@ -1441,6 +1449,8 @@ model TenantIntegration {
   /// Last four characters of the secret, to show which key is saved.
   secretHint      String
   isLive          Boolean  @default(false)
+  /// Non-secret settings (SMTP host and sender, SMS sender ID, WhatsApp template…).
+  config          Json?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -2017,4 +2027,155 @@ model Certificate {
 
   @@unique([tenantId, serial])
   @@map("certificates")
+}
+
+// ============================================================== communication
+
+/// One message to many people over one or more channels.
+model Broadcast {
+  id              String    @id @default(cuid())
+  tenantId        String
+  title           String
+  /// ["EMAIL", "SMS", "WHATSAPP", "PUSH", "IN_APP"]
+  channels        String[]
+  /// The audience definition (see audienceSchema).
+  audience        Json
+  audienceSummary String
+  subject         String?
+  body            String
+  smsBody         String?
+  link            String?
+  /// DRAFT, SCHEDULED, SENDING, SENT, CANCELLED
+  status          String    @default("DRAFT")
+  /// MANUAL, BIRTHDAY, EVENT_REMINDER, ANNOUNCEMENT, TRANSPORT, FEES, ENQUIRY
+  source          String    @default("MANUAL")
+  scheduledAt     DateTime?
+  sentAt          DateTime?
+  createdById     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  tenant     Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  deliveries Delivery[]
+
+  @@index([tenantId, createdAt])
+  @@index([status, scheduledAt])
+  @@map("broadcasts")
+}
+
+/// One message to one person on one channel.
+model Delivery {
+  id            String    @id @default(cuid())
+  tenantId      String
+  broadcastId   String
+  channel       String
+  recipientName String
+  /// Email address, phone number (234…), or user id for push/in-app.
+  address       String?
+  guardianId    String?
+  staffId       String?
+  userId        String?
+  /// Personalised text actually sent.
+  subject       String?
+  text          String
+  /// QUEUED, SENT, FAILED, SKIPPED
+  status        String    @default("QUEUED")
+  error         String?
+  providerRef   String?
+  /// SMS pages billed.
+  units         Int       @default(0)
+  attempts      Int       @default(0)
+  sentAt        DateTime?
+  createdAt     DateTime  @default(now())
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  broadcast Broadcast @relation(fields: [broadcastId], references: [id], onDelete: Cascade)
+
+  @@index([broadcastId])
+  @@index([status, createdAt])
+  @@index([tenantId, sentAt])
+  @@map("deliveries")
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  tenantId    String
+  title       String
+  body        String
+  /// EVERYONE, STAFF, PARENTS, STUDENTS
+  audience    String    @default("EVERYONE")
+  classArmIds String[]
+  pinned      Boolean   @default(false)
+  publishAt   DateTime  @default(now())
+  expiresAt   DateTime?
+  broadcastId String?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, publishAt])
+  @@map("announcements")
+}
+
+model SchoolEvent {
+  id               String    @id @default(cuid())
+  tenantId         String
+  title            String
+  description      String?
+  /// ACADEMIC, EXAM, HOLIDAY, PTA, SPORTS, CULTURAL, MEETING, TRIP, OTHER
+  category         String    @default("OTHER")
+  allDay           Boolean   @default(false)
+  startDate        DateTime  @db.Date
+  /// HH:MM school time
+  startTime        String?
+  endDate          DateTime? @db.Date
+  endTime          String?
+  location         String?
+  audience         String    @default("EVERYONE")
+  classArmIds      String[]
+  remindDaysBefore Int?
+  reminderSentAt   DateTime?
+  createdById      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, startDate])
+  @@map("school_events")
+}
+
+/// A browser that accepts push notifications for a user (any school).
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+/// One automated send (a birthday, an event reminder) so it never repeats.
+model AutomationRun {
+  id          String   @id @default(cuid())
+  tenantId    String
+  /// BIRTHDAY_STUDENT, BIRTHDAY_STAFF, EVENT_REMINDER
+  kind        String
+  subjectKey  String
+  runDate     DateTime @db.Date
+  broadcastId String?
+  createdAt   DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, kind, subjectKey, runDate])
+  @@map("automation_runs")
 }

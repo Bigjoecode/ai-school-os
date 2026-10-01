@@ -178,6 +178,17 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'comms',
+    label: 'Communication',
+    permissions: {
+      'comms.read': 'View sent messages and delivery reports',
+      'comms.send': 'Send messages to parents and staff by email, SMS, WhatsApp and app',
+      'comms.manage': 'Set up email, SMS and WhatsApp, and automations like birthday messages',
+      'announcements.manage': 'Post and edit announcements',
+      'events.manage': 'Add and edit events on the school calendar',
+    },
+  },
+  {
     module: 'ai',
     label: 'AI',
     permissions: {

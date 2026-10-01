@@ -11,6 +11,7 @@ import {
   Calculator,
   CalendarCheck,
   CalendarClock,
+  CalendarDays,
   ConciergeBell,
   Contact,
   CreditCard,
@@ -157,18 +158,19 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Communication',
     items: [
-      { label: 'Announcements', to: '/announcements', icon: Megaphone, soon: true },
-      { label: 'WhatsApp / SMS / Email', to: '/messaging', icon: MessagesSquare, soon: true, keywords: 'messaging bulk' },
+      { label: 'Messages', to: '/messages', icon: MessagesSquare, permission: 'comms.read', keywords: 'messaging bulk sms whatsapp email broadcast send parents staff delivery' },
+      { label: 'Noticeboard', to: '/noticeboard', icon: Megaphone, keywords: 'announcements news notices bulletin' },
+      { label: 'Calendar', to: '/calendar', icon: CalendarDays, keywords: 'events term dates holidays exams pta school calendar' },
     ],
   },
   {
     label: 'AI',
     items: [
-      { label: 'School AI', to: '/ai?agent=school', icon: Bot, permission: 'ai.use' },
-      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'ai.use' },
+      { label: 'School AI', to: '/ai?agent=school', icon: Bot, permission: 'school.read' },
+      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'academics.read' },
       { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, permission: 'ai.use' },
       { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, permission: 'ai.use' },
-      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'ai.use' },
+      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'hr.read' },
       { label: 'AI Usage', to: '/ai/usage', icon: Gauge, permission: 'ai.use', soon: true, keywords: 'tokens spend budget' },
     ],
   },
@@ -198,6 +200,8 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
     ...g,
     items: g.items.filter((i) => {
       if (!hasTenant && i.to !== '/') return false;
+      // The roadmap's coming-soon items mean nothing to parents and students.
+      if (i.soon && !hasPermission(me, 'school.read')) return false;
       return !i.permission || hasPermission(me, i.permission);
     }),
   })).filter((g) => g.items.length > 0);

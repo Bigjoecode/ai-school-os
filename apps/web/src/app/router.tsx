@@ -57,6 +57,12 @@ const CertificatesPage = lazy(() => import('@/features/operations/certificates-p
 const CertificatePage = lazy(() => import('@/features/operations/certificate-page'));
 const IdCardsPage = lazy(() => import('@/features/operations/id-cards-page'));
 const VerifyPage = lazy(() => import('@/features/operations/verify-page'));
+const MessagesPage = lazy(() => import('@/features/comms/messages-page'));
+const ComposePage = lazy(() => import('@/features/comms/compose-page'));
+const BroadcastPage = lazy(() => import('@/features/comms/broadcast-page'));
+const CommsSettingsPage = lazy(() => import('@/features/comms/settings-page'));
+const NoticeboardPage = lazy(() => import('@/features/comms/noticeboard-page'));
+const CalendarPage = lazy(() => import('@/features/comms/calendar-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -348,6 +354,21 @@ export const router = createBrowserRouter([
         path,
         element: <RequirePermission permission={permission}>{page}</RequirePermission>,
       })),
+      ...(
+        [
+          ['messages', 'comms.read', <MessagesPage key="messages" />],
+          ['messages/new', 'comms.send', <ComposePage key="compose" />],
+          ['messages/settings', 'comms.read', <CommsSettingsPage key="comms-settings" />],
+          ['messages/:id', 'comms.read', <BroadcastPage key="broadcast" />],
+          ['messages/:id/edit', 'comms.send', <ComposePage key="compose-edit" />],
+        ] as const
+      ).map(([path, permission, page]) => ({
+        path,
+        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+      })),
+      // Everyone in the school: staff, parents and students.
+      { path: 'noticeboard', element: <NoticeboardPage /> },
+      { path: 'calendar', element: <CalendarPage /> },
       {
         path: 'settings',
         element: <SettingsLayout />,

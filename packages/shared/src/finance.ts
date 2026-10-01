@@ -236,7 +236,7 @@ export interface InvoiceDetail extends InvoiceRow {
   currency: string;
   lines: { id: string; description: string; kind: 'FEE' | 'DISCOUNT' | 'FINE'; amountKobo: number }[];
   payments: PaymentRow[];
-  guardians: { name: string; phone: string; email: string | null }[];
+  guardians: { id: string; name: string; phone: string; email: string | null }[];
   note: string | null;
   /** Path for the parent payment page (append to the site origin). */
   payPath: string | null;
@@ -340,7 +340,7 @@ export interface FeeReminder {
   subject: string;
   message: string;
   smsVersion: string;
-  guardian: { name: string; phone: string; email: string | null } | null;
+  guardian: { id: string; name: string; phone: string; email: string | null } | null;
   provider: string;
   model: string;
 }

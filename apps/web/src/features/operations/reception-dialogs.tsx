@@ -12,7 +12,7 @@ import {
   type PickupRow,
   visitorSchema,
 } from '@aischool/shared';
-import { AlertTriangle, Baby, Check, IdCard, Mail, RefreshCw, ShieldAlert, ShieldCheck, UserCheck } from 'lucide-react';
+import { AlertTriangle, Baby, Check, IdCard, Mail, RefreshCw, Send, ShieldAlert, ShieldCheck, UserCheck } from 'lucide-react';
 import { type BaseSyntheticEvent, type FormEvent, useEffect, useState } from 'react';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { Button } from '@/components/ui/button';
@@ -24,6 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
+import { useOpenComposer } from '../comms/ui';
 import { aiErrorMessage } from '../finance/api';
 import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
@@ -268,6 +269,8 @@ export function EnquirySheet({ open, onOpenChange, enquiry }: { open: boolean; o
 
 export function ReplyDialog({ enquiry, onOpenChange }: { enquiry: EnquiryRow | null; onOpenChange: (o: boolean) => void }) {
   const draft = useEnquiryReply();
+  const canSend = useCan('comms.send');
+  const openComposer = useOpenComposer();
   const [result, setResult] = useState<(AiEnquiryReply & AiText) | null>(null);
   const [error, setError] = useState<string | null>(null);
   const run = (id: string) => {
@@ -289,7 +292,7 @@ export function ReplyDialog({ enquiry, onOpenChange }: { enquiry: EnquiryRow | n
             <AiSparkle className="size-5 [&_path]:fill-white" animated={draft.isPending} />
           </div>
           <DialogTitle>Reply to {enquiry?.parentName}</DialogTitle>
-          <DialogDescription>Drafted from your real fees and term dates. Nothing is sent — copy it into email or WhatsApp.</DialogDescription>
+          <DialogDescription>Drafted from your real fees and term dates. Nothing is sent until you choose to.</DialogDescription>
         </DialogHeader>
         <DialogBody className="space-y-3">
           {enquiry?.question && <p className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-[13px] italic text-muted-foreground">“{enquiry.question}”</p>}
@@ -326,7 +329,26 @@ export function ReplyDialog({ enquiry, onOpenChange }: { enquiry: EnquiryRow | n
               {!draft.isPending && <RefreshCw />} Draft again
             </Button>
           )}
-          <Button onClick={() => onOpenChange(false)}>Done</Button>
+          {result && enquiry && canSend ? (
+            <Button
+              onClick={() => {
+                onOpenChange(false);
+                openComposer({
+                  audience: { type: 'CONTACTS', contacts: [{ name: enquiry.parentName, email: enquiry.email, phone: enquiry.phone }] },
+                  channels: enquiry.email ? ['EMAIL'] : ['SMS', 'WHATSAPP'],
+                  title: `Reply to ${enquiry.parentName}`,
+                  subject: result.subject,
+                  body: result.message,
+                  smsBody: result.whatsappVersion,
+                  source: 'ENQUIRY',
+                });
+              }}
+            >
+              <Send /> Send
+            </Button>
+          ) : (
+            <Button onClick={() => onOpenChange(false)}>Done</Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -9,3 +9,4 @@ export * from './attendance';
 export * from './finance';
 export * from './hr';
 export * from './operations';
+export * from './comms';

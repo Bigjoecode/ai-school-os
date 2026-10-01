@@ -257,7 +257,7 @@ export class FinanceService {
       currency: settings.currency,
       lines: inv.lines.map((l) => ({ id: l.id, description: l.description, kind: l.kind as 'FEE' | 'DISCOUNT' | 'FINE', amountKobo: l.amountKobo })),
       payments: inv.payments.map((p) => this.paymentRow(p, receivers)),
-      guardians: inv.student.guardians.map((g) => ({ name: fullName(g.guardian), phone: g.guardian.phone, email: g.guardian.email })),
+      guardians: inv.student.guardians.map((g) => ({ id: g.guardian.id, name: fullName(g.guardian), phone: g.guardian.phone, email: g.guardian.email })),
       note: inv.note,
       payPath: onlineEnabled && row.balanceKobo > 0 && inv.status !== 'CANCELLED' ? `/pay/${await this.payToken(inv.id)}` : null,
       onlinePaymentsEnabled: onlineEnabled,

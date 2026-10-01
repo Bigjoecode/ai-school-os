@@ -1267,6 +1267,133 @@ async function run({ demoOwner }: SeedOptions) {
     });
   }
 
+  // ------------------------------------------------------------ communication
+  // The term calendar, a noticeboard, a short history of messages sent home
+  // and a few bell notifications.
+  const jss1 = arms.filter(({ level }) => level.code === 'JSS1').map(({ arm }) => arm.id);
+  const ss3 = arms.filter(({ level }) => level.code === 'SS3').map(({ arm }) => arm.id);
+  const EVENTS: { title: string; category: string; start: string; end?: string; time?: string; endTime?: string; location?: string; audience?: string; classArmIds?: string[]; remind?: number; description?: string }[] = [
+    { title: 'Independence Day — school closed', category: 'HOLIDAY', start: '2026-10-01' },
+    { title: 'PTA general meeting', category: 'PTA', start: '2026-10-10', time: '10:00', endTime: '12:30', location: 'School hall', remind: 2, description: 'Agenda: first-term report from the principal, the new school bus routes, and the end-of-year party. All parents are welcome.' },
+    { title: 'Inter-house sports', category: 'SPORTS', start: '2026-10-16', time: '09:00', endTime: '15:00', location: 'Sports field', remind: 3, description: 'Children should wear their house T-shirts and bring water. Parents are welcome to cheer from the stands.' },
+    { title: 'Mid-term break', category: 'HOLIDAY', start: '2026-10-22', end: '2026-10-23' },
+    { title: 'JSS 1 excursion to the National Museum, Onikan', category: 'TRIP', start: '2026-11-06', time: '08:30', endTime: '14:00', location: 'National Museum, Onikan', classArmIds: jss1, remind: 5, description: 'Signed consent forms and ₦5,000 for transport and lunch are due by 30 October.' },
+    { title: 'SS 3 mock examinations', category: 'EXAM', start: '2026-11-16', end: '2026-11-27', classArmIds: ss3 },
+    { title: 'Staff professional development day', category: 'MEETING', start: '2026-11-13', time: '13:00', endTime: '16:00', location: 'Staffroom', audience: 'STAFF', description: 'Using the AI lesson planner well, and assessment for learning.' },
+    { title: 'First-term examinations', category: 'EXAM', start: '2026-12-01', end: '2026-12-11' },
+    { title: 'Carol service and prize-giving', category: 'CULTURAL', start: '2026-12-17', time: '11:00', location: 'School hall', remind: 4 },
+    { title: 'Last day of first term', category: 'ACADEMIC', start: '2026-12-18' },
+  ];
+  for (const e of EVENTS) {
+    await prisma.schoolEvent.create({
+      data: {
+        tenantId: g.id,
+        title: e.title,
+        category: e.category,
+        allDay: !e.time,
+        startDate: day(e.start),
+        startTime: e.time ?? null,
+        endDate: e.end ? day(e.end) : null,
+        endTime: e.endTime ?? null,
+        location: e.location ?? null,
+        audience: e.audience ?? 'EVERYONE',
+        classArmIds: e.classArmIds ?? [],
+        remindDaysBefore: e.remind ?? null,
+        description: e.description ?? null,
+        createdById: admin.id,
+      },
+    });
+  }
+  await prisma.announcement.createMany({
+    data: [
+      { tenantId: g.id, title: 'New school bus routes from Monday', body: 'We have added a third route for Ikoyi and Victoria Island. Parents who opted for the school bus will receive the pick-up time for their stop from the Transport Office this week.', audience: 'PARENTS', pinned: true, publishAt: new Date(`${ago(6)}T08:00:00Z`), createdById: admin.id },
+      { tenantId: g.id, title: 'Inter-house sports: house T-shirts', body: 'House T-shirts are available at the bursary for ₦4,500. Please make sure your child has theirs before 16 October.', audience: 'EVERYONE', publishAt: new Date(`${ago(3)}T08:00:00Z`), createdById: admin.id },
+      { tenantId: g.id, title: 'Staff briefing moved to Thursday', body: 'This week’s staff briefing is on Thursday at 7:30 in the staffroom instead of Monday.', audience: 'STAFF', publishAt: new Date(`${ago(2)}T07:00:00Z`), createdById: principal.id },
+      { tenantId: g.id, title: 'JSS 1 excursion consent forms', body: 'Consent forms for the National Museum trip went home in book bags today. Please return them signed by 30 October.', audience: 'PARENTS', classArmIds: jss1, publishAt: new Date(`${ago(1)}T12:00:00Z`), createdById: admin.id },
+    ],
+  });
+  // Messages sent before this demo: a fee reminder and a welcome-back note.
+  const history: { title: string; daysAgo: number; channels: string[]; summary: string; audience: object; subject: string; body: string; sms: string; source: string; recipients: number }[] = [
+    {
+      title: 'Welcome back to first term',
+      daysAgo: 24,
+      channels: ['EMAIL', 'SMS'],
+      summary: 'All parents (main contact per child)',
+      audience: { type: 'ALL_PARENTS', primaryOnly: true },
+      subject: 'Welcome back to the 2026/2027 session',
+      body: 'Dear {{first_name}},\n\nWelcome back! First term begins on Monday 7 September. Classes start at 7:45 and the gates open at 7:00.\n\nWarm regards,\nGreenfield International School',
+      sms: 'Welcome back! First term starts Mon 7 Sept. Classes begin 7:45am, gates open 7:00am. - Greenfield Int\'l School',
+      source: 'MANUAL',
+      recipients: 60,
+    },
+    {
+      title: 'First-term fees reminder',
+      daysAgo: 9,
+      channels: ['SMS'],
+      summary: 'Parents with fees outstanding past the due date (First Term)',
+      audience: { type: 'FEE_DEBTORS', minBalanceKobo: 0, overdueOnly: true, primaryOnly: true },
+      subject: 'First-term fees',
+      body: 'Dear {{first_name}}, a reminder that {{balance}} is outstanding on {{children}}\'s first-term fees. Pay online with the link on your invoice, or at the bursary. Thank you.',
+      sms: 'Dear {{first_name}}, {{balance}} is outstanding on {{children}}\'s first-term fees. Pay with the link on your invoice or at the bursary. Thank you.',
+      source: 'FEES',
+      recipients: 40,
+    },
+  ];
+  const sampleGuardians = await prisma.guardian.findMany({ where: { tenantId: g.id }, take: 60, orderBy: { lastName: 'asc' } });
+  for (const h of history) {
+    const at = new Date(`${ago(h.daysAgo)}T09:00:00Z`);
+    const b = await prisma.broadcast.create({
+      data: { tenantId: g.id, title: h.title, channels: h.channels, audience: h.audience, audienceSummary: h.summary, subject: h.subject, body: h.body, smsBody: h.sms, source: h.source, status: 'SENT', sentAt: at, createdAt: at, createdById: admin.id },
+    });
+    const rows = [];
+    for (const [i, gd] of sampleGuardians.slice(0, h.recipients).entries()) {
+      for (const channel of h.channels) {
+        const hasEmail = channel === 'EMAIL' && !!gd.email;
+        const failed = channel === 'SMS' && i % 23 === 7;
+        rows.push({
+          tenantId: g.id,
+          broadcastId: b.id,
+          channel,
+          recipientName: `${gd.firstName} ${gd.lastName}`,
+          address: channel === 'EMAIL' ? gd.email : gd.phone.replace(/^\+/, ''),
+          guardianId: gd.id,
+          subject: channel === 'EMAIL' ? h.subject : null,
+          text: (channel === 'SMS' ? h.sms : h.body).replace('{{first_name}}', gd.firstName).replace('{{children}}', 'your child').replace('{{balance}}', 'N150,000'),
+          status: channel === 'EMAIL' && !hasEmail ? 'SKIPPED' : failed ? 'FAILED' : 'SENT',
+          error: channel === 'EMAIL' && !hasEmail ? 'No email address on record' : failed ? 'Termii: DND number — use the DND route' : null,
+          units: channel === 'SMS' && !failed ? 1 : 0,
+          attempts: 1,
+          sentAt: (channel === 'EMAIL' && !hasEmail) || failed ? null : at,
+          createdAt: at,
+        });
+      }
+    }
+    await prisma.delivery.createMany({ data: rows });
+  }
+  await prisma.tenant.update({
+    where: { id: g.id },
+    data: {
+      commsSettings: {
+        smsPricePerUnitKobo: 400,
+        senderName: 'Greenfield International School',
+        birthdays: {
+          students: { enabled: false, channels: ['SMS'], template: 'Dear {{first_name}}, everyone at {{school}} wishes {{children}} a very happy birthday today! Have a wonderful day.' },
+          staff: { enabled: true, channels: ['IN_APP'], template: 'Happy birthday, {{first_name}}! Thank you for all you do at {{school}}. Enjoy your day.' },
+          sendAt: '07:00',
+        },
+        eventReminders: { enabled: true, channels: ['IN_APP', 'SMS'] },
+      },
+    },
+  });
+  await prisma.notification.createMany({
+    data: [
+      { tenantId: g.id, userId: admin.id, title: '2 leave requests are waiting for a decision', body: 'Annual leave and compassionate leave — see HR → Leave.', link: '/hr/leave', createdAt: new Date(`${ago(1)}T08:10:00Z`) },
+      { tenantId: g.id, userId: admin.id, title: 'Three items are low in stores', body: 'Disinfectant, printer toner and A4 paper are at or below their reorder level.', link: '/inventory', createdAt: new Date(`${ago(0)}T07:05:00Z`) },
+      { tenantId: g.id, userId: teacherUser.id, title: 'Staff briefing moved to Thursday', body: 'This week’s staff briefing is on Thursday at 7:30 in the staffroom.', link: '/noticeboard', createdAt: new Date(`${ago(2)}T07:00:00Z`) },
+      { tenantId: g.id, userId: parentUser.id, title: 'New school bus routes from Monday', body: 'We have added a third route for Ikoyi and Victoria Island.', link: '/noticeboard', createdAt: new Date(`${ago(6)}T08:00:00Z`) },
+    ],
+  });
+
   // ------------------------------------------------------------ Sunrise
   const s = await createTenant('sunrise', 'Sunrise Academy', 'SRA', 'Rise and Shine', plan.id);
   const sunriseAdmin = await upsertUser('admin@sunrise.demo', 'Sunrise#2026', 'Halima', 'Bello');

@@ -1,5 +1,5 @@
 import { type FinanceOverview, PAYMENT_METHOD_LABELS } from '@aischool/shared';
-import { AlertTriangle, ArrowUpDown, Banknote, CalendarClock, ChevronRight, CircleDollarSign, Hourglass, Receipt, RotateCw, Sparkles, TrendingUp, Users, Wallet } from 'lucide-react';
+import { AlertTriangle, ArrowUpDown, Banknote, CalendarClock, ChevronRight, CircleDollarSign, Hourglass, Receipt, RotateCw, Send, Sparkles, TrendingUp, Users, Wallet } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
@@ -14,6 +14,7 @@ import { ApiError } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 import { StatTile } from '../attendance/ui';
+import { useOpenComposer } from '../comms/ui';
 import { termDates } from '../planning/pickers';
 import { type AiText, useFinanceInsight, useFinanceOverview } from './api';
 import { DailyCollectionsChart, MoneyDonut } from './charts';
@@ -280,6 +281,8 @@ function ByClass({ o }: { o: FinanceOverview }) {
 
 function TopDebtors({ o, onDraftReminder }: { o: FinanceOverview; onDraftReminder: (inv: { id: string; studentName: string }) => void }) {
   const canAi = useCan('ai.use');
+  const canSend = useCan('comms.send');
+  const openComposer = useOpenComposer();
   const c = o.currency;
   return (
     <Card className="flex flex-col xl:col-span-2">
@@ -291,6 +294,30 @@ function TopDebtors({ o, onDraftReminder }: { o: FinanceOverview; onDraftReminde
           </CardTitle>
           <CardDescription>Families to follow up with first</CardDescription>
         </div>
+        {canSend && o.topDebtors.length > 0 && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="shrink-0"
+            onClick={() =>
+              openComposer({
+                audience: { type: 'FEE_DEBTORS', minBalanceKobo: 0, overdueOnly: false, primaryOnly: true },
+                channels: ['SMS', 'EMAIL'],
+                title: 'Fee reminder',
+                subject: 'A reminder about school fees',
+                body: [
+                  'Dear {{first_name}},',
+                  'This is a gentle reminder that {{balance}} is outstanding on {{children}}’s school fees for this term. Please pay at your earliest convenience, or speak to the bursary if you need to arrange a payment plan.',
+                  'Thank you,\n{{school}}',
+                ].join('\n\n'),
+                smsBody: "Dear {{first_name}}, {{balance}} is outstanding on {{children}}'s fees this term. Kindly pay soon or call the bursary. - {{school}}",
+                source: 'FEES',
+              })
+            }
+          >
+            <Send /> Message parents
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="flex-1">
         {o.topDebtors.length === 0 ? (

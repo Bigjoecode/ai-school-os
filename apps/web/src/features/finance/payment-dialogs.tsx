@@ -1,5 +1,5 @@
 import { type FeeReminder, PAYMENT_METHOD_LABELS, type RecordPaymentInput } from '@aischool/shared';
-import { ChevronRight, FileSearch, Info, Mail, MessageSquareText, Phone, Receipt, RotateCw, UserRound } from 'lucide-react';
+import { ChevronRight, FileSearch, Info, Mail, MessageSquareText, Phone, Receipt, RotateCw, Send, UserRound } from 'lucide-react';
 import { type BaseSyntheticEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
@@ -16,8 +16,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { ApiError } from '@/lib/api';
+import { useCan } from '@/lib/auth-store';
 import { useDebounced } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
+import { useOpenComposer } from '../comms/ui';
 import { aiErrorMessage, useFeeReminder, useInvoices, useRecordPayment } from './api';
 import { CopyButton, InvoiceStatusBadge, koboToInput, money, MoneyInput, parseNaira, schoolToday, useCurrency } from './ui';
 
@@ -290,6 +292,22 @@ export function ReminderDialog({ open, onOpenChange, invoiceId, studentName }: {
 
   const g = msg?.guardian;
   const first = studentName.split(' ')[0];
+  const canSend = useCan('comms.send');
+  const openComposer = useOpenComposer();
+  // Sent to the guardian's record, so it also reaches their app if they have one.
+  const sendIt = () => {
+    if (!g) return;
+    onOpenChange(false);
+    openComposer({
+      audience: { type: 'PEOPLE', guardianIds: [g.id], staffIds: [] },
+      channels: g.email ? ['EMAIL', 'SMS', 'IN_APP'] : ['SMS', 'IN_APP'],
+      title: `Fee reminder: ${studentName}`,
+      subject,
+      body,
+      smsBody: sms,
+      source: 'FEES',
+    });
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -313,7 +331,7 @@ export function ReminderDialog({ open, onOpenChange, invoiceId, studentName }: {
           <p className="flex items-start gap-2 rounded-xl border border-warning/30 bg-warning-soft/60 px-3 py-2.5 text-[12.5px] text-foreground">
             <Info className="mt-0.5 size-3.5 shrink-0 text-warning" aria-hidden />
             <span>
-              <strong className="font-semibold">Draft only — review before sending.</strong> Nothing is sent from here.
+              <strong className="font-semibold">Draft only — review before sending.</strong> {canSend ? 'Send opens it in Messages, where you can check it before it goes.' : 'Nothing is sent from here.'}
             </span>
           </p>
 
@@ -407,8 +425,13 @@ export function ReminderDialog({ open, onOpenChange, invoiceId, studentName }: {
             </Button>
           )}
           {msg && (
-            <Button variant="ai" onClick={run} loading={draft.isPending}>
+            <Button variant={canSend && g ? 'outline' : 'ai'} onClick={run} loading={draft.isPending}>
               {!draft.isPending && <RotateCw />} Redraft
+            </Button>
+          )}
+          {msg && g && canSend && (
+            <Button onClick={sendIt} disabled={draft.isPending}>
+              <Send /> Send
             </Button>
           )}
         </DialogFooter>

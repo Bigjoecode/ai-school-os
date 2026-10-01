@@ -46,6 +46,14 @@ const schema = z.object({
   /** Encrypts stored third-party secrets (e.g. each school's Paystack key). Long random string; never change it once set. */
   APP_ENCRYPTION_KEY: z.string().min(32, 'APP_ENCRYPTION_KEY must be at least 32 characters').optional(),
   PAYSTACK_BASE_URL: z.string().url().default('https://api.paystack.co'),
+  TERMII_BASE_URL: z.string().url().default('https://api.ng.termii.com'),
+  WHATSAPP_BASE_URL: z.string().url().default('https://graph.facebook.com/v21.0'),
+  /** Web push (browser notifications). Generate once: `npx web-push generate-vapid-keys`. */
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().default('mailto:admin@example.com'),
+  /** Lets a cPanel cron job wake the API to send scheduled messages and automations. */
+  CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
 });
 
 export type Env = z.infer<typeof schema>;

@@ -8,3 +8,4 @@ export * from './timetable';
 export * from './attendance';
 export * from './finance';
 export * from './hr';
+export * from './operations';

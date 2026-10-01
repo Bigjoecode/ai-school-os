@@ -131,6 +131,53 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'library',
+    label: 'Library',
+    permissions: {
+      'library.read': 'Browse the library catalogue and loans',
+      'library.manage': 'Manage books, issue and return loans, and fines',
+    },
+  },
+  {
+    module: 'inventory',
+    label: 'Inventory & Assets',
+    permissions: {
+      'inventory.read': 'View stock, assets and movements',
+      'inventory.manage': 'Add items, receive and issue stock, and count stock',
+    },
+  },
+  {
+    module: 'transport',
+    label: 'Transport',
+    permissions: {
+      'transport.read': 'View vehicles, routes and riders',
+      'transport.manage': 'Manage vehicles and routes, and assign riders',
+    },
+  },
+  {
+    module: 'hostel',
+    label: 'Hostel',
+    permissions: {
+      'hostel.read': 'View hostels, rooms, boarders and exeats',
+      'hostel.manage': 'Manage hostels and rooms, allocate beds and sign exeats',
+    },
+  },
+  {
+    module: 'reception',
+    label: 'Reception',
+    permissions: {
+      'reception.read': 'View the visitor book, enquiries and pick-ups',
+      'reception.manage': 'Sign visitors in and out, log enquiries and early pick-ups',
+    },
+  },
+  {
+    module: 'documents',
+    label: 'Certificates & ID Cards',
+    permissions: {
+      'documents.issue': 'Issue certificates and testimonials, and print ID cards',
+    },
+  },
+  {
     module: 'ai',
     label: 'AI',
     permissions: {

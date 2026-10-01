@@ -51,61 +51,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/library': {
-    name: 'Library',
-    phase: 9,
-    summary: 'Catalogue, circulation and reading insights.',
-    features: [
-      'Catalogue with ISBN lookup',
-      'Issue, return and overdue tracking',
-      'Reading history per student',
-      'AI recommends books by reading level and interest',
-    ],
-  },
-  '/inventory': {
-    name: 'Inventory',
-    phase: 9,
-    summary: 'Know what you own and where it is.',
-    features: [
-      'Assets, consumables and stores',
-      'Stock movements and reorder levels',
-      'Asset assignment to staff and rooms',
-      'AI predicts reorders before you run out',
-    ],
-  },
-  '/transport': {
-    name: 'Transport',
-    phase: 9,
-    summary: 'Routes, vehicles and safe pick-ups.',
-    features: [
-      'Routes, stops and vehicle assignment',
-      'Driver and maintenance records',
-      'Transport fees linked to billing',
-      'AI optimises routes to cut travel time',
-    ],
-  },
-  '/hostel': {
-    name: 'Hostel',
-    phase: 9,
-    summary: 'Boarding made orderly.',
-    features: [
-      'Rooms, beds and allocations',
-      'Exeat and visitor logs',
-      'Boarding fees linked to billing',
-      'AI suggests balanced room allocations',
-    ],
-  },
-  '/reception': {
-    name: 'Reception',
-    phase: 9,
-    summary: 'A calm, digital front desk.',
-    features: [
-      'Visitor sign-in and badges',
-      'Enquiry capture into Admissions',
-      'Call and complaint logs',
-      'AI drafts replies to parent enquiries',
-    ],
-  },
   '/announcements': {
     name: 'Announcements',
     phase: 10,

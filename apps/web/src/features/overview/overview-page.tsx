@@ -12,7 +12,7 @@ import {
   MonitorPlay,
   GraduationCap,
   Layers,
-  Library,
+  PencilLine,
   Megaphone,
   Receipt,
   Send,
@@ -40,6 +40,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { PendingLeaveNotice } from '../hr/ui';
+import { OperationsCard } from '../operations/operations-card';
 import { TodayClassesCard } from '../timetable/today-card';
 
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
@@ -183,6 +184,7 @@ function SchoolOverview() {
             <ActivityCard data={data} />
           </motion.div>
         </div>
+        <OperationsCard />
         <motion.div variants={item}>
           <ComingOnline />
         </motion.div>
@@ -821,10 +823,10 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 
 // ------------------------------------------------------------------ roadmap strip
 const NEXT_MODULES = [
-  { label: 'Library', icon: Library, to: '/library', note: 'Catalogue, loans & reading insights' },
   { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
   { label: 'Communication', icon: Megaphone, to: '/announcements', note: 'Announcements, SMS & WhatsApp' },
-  { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Enquiries, applications & offers' },
+  { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Applications, entrance tests & offers' },
+  { label: 'Homework', icon: PencilLine, to: '/homework', note: 'Set, collect & mark homework online' },
 ];
 
 function ComingOnline() {

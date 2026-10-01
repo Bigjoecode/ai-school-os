@@ -18,7 +18,7 @@ import {
   type Allowance,
   type PayAdjustment,
 } from '@aischool/shared';
-import type { ClassArm, ClassLevel, Gender, Invoice, Prisma, PrismaClient } from '../generated/prisma/client';
+import type { ClassArm, ClassLevel, Gender, HostelRoom, Invoice, Prisma, PrismaClient, Staff, TransportRoute } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
 import { buildTimetable } from '../timetable/timetable-builder';
 import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
@@ -214,7 +214,7 @@ async function run({ demoOwner }: SeedOptions) {
   }
   staffRows[1] = { firstName: 'Ngozi', lastName: 'Eze', gender: 'FEMALE', jobTitle: 'English Language Teacher', type: 'TEACHING' };
 
-  const staff = [];
+  const staff: Staff[] = [];
   for (const [i, s] of staffRows.entries()) {
     staff.push(
       await prisma.staff.create({
@@ -923,6 +923,349 @@ async function run({ demoOwner }: SeedOptions) {
       summary: `Imported ${students.length} students, ${staff.length} staff, the class structure and ${scoreRows.length} 1st CA marks from the demo dataset`,
     },
   });
+
+  // ------------------------------------------------------------ operations
+  // A working library, stores, three bus routes, two boarding houses, the
+  // front desk's visitor book and enquiries, and a few certificates.
+  const ago = (n: number) => new Date(Date.parse(`${today}T00:00:00Z`) - n * 86_400_000).toISOString().slice(0, 10);
+  const lagos = (date: string, hhmm: string) => new Date(`${date}T${hhmm}:00+01:00`);
+  const levelOf = new Map(arms.map(({ level, arm }) => [arm.id, level.code]));
+  const active = students.filter((st) => st.classArmId);
+  await prisma.tenant.update({
+    where: { id: g.id },
+    data: { operationsSettings: { libraryLoanDays: 14, libraryStudentMaxLoans: 3, libraryStaffMaxLoans: 5, libraryFinePerDayKobo: 2_000, certificatePrefix: 'GIS', idCardValidUntil: '2027-07-23' } },
+  });
+
+  // Library
+  const BOOKS: [string, string, string, string | null, string | null, number, string][] = [
+    ['Things Fall Apart', 'Chinua Achebe', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 1–3', 6, 'Okonkwo, a proud Igbo wrestler and farmer, and the coming of colonial rule to Umuofia.'],
+    ['Arrow of God', 'Chinua Achebe', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 2–3', 3, 'Ezeulu, chief priest of Ulu, caught between his people and the colonial administration.'],
+    ['Chike and the River', 'Chinua Achebe', 'AFRICAN_LITERATURE', null, 'JSS 1–2', 5, 'Young Chike longs to cross the Niger to Asaba — a short adventure about courage and honesty.'],
+    ['Purple Hibiscus', 'Chimamanda Ngozi Adichie', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 1–3', 4, 'Kambili grows up in Enugu under a devout, violent father, and finds a different life at her aunt’s in Nsukka.'],
+    ['Half of a Yellow Sun', 'Chimamanda Ngozi Adichie', 'AFRICAN_LITERATURE', null, 'SS 2–3', 2, 'Three lives swept up in the Nigerian Civil War.'],
+    ['The Lion and the Jewel', 'Wole Soyinka', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 1–3', 5, 'A comic play: the village belle Sidi, the schoolteacher Lakunle and the wily Bale, Baroka.'],
+    ['The Joys of Motherhood', 'Buchi Emecheta', 'AFRICAN_LITERATURE', null, 'SS 2–3', 2, 'Nnu Ego’s life in colonial Lagos and the cost of devotion to her children.'],
+    ['Second Class Citizen', 'Buchi Emecheta', 'AFRICAN_LITERATURE', null, 'SS 1–3', 2, 'Adah moves from Lagos to London and fights to write and raise her children.'],
+    ['Eze Goes to School', 'Onuora Nzekwu & Michael Crowder', 'AFRICAN_LITERATURE', null, 'JSS 1–2', 6, 'A village boy’s determination to stay in school against the odds.'],
+    ['The Drummer Boy', 'Cyprian Ekwensi', 'AFRICAN_LITERATURE', null, 'JSS 1–3', 4, 'Akin, a blind young drummer, and the music and dangers of the city.'],
+    ['An African Night’s Entertainment', 'Cyprian Ekwensi', 'AFRICAN_LITERATURE', null, 'JSS 2–3', 3, 'A tale of love and revenge told under the moonlight.'],
+    ['Without a Silver Spoon', 'Eddie Iroh', 'AFRICAN_LITERATURE', null, 'JSS 1–3', 5, 'Ike works as a houseboy to pay for his schooling — a story of hard work and integrity.'],
+    ['Sweet Sixteen', 'Bolaji Abdullahi', 'AFRICAN_LITERATURE', 'Literature in English', 'JSS 3–SS 1', 5, 'Aliya’s sixteenth birthday, and the frank conversations with her father that come with it.'],
+    ['The Last Days at Forcados High School', 'A. H. Mohammed', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 1–3', 4, 'Final-year students at a Delta boarding school face choices about love, friendship and the future.'],
+    ['Faceless', 'Amma Darko', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 2–3', 3, 'Fofo, a street girl in Accra, and the women who try to help her.'],
+    ['Unexpected Joy at Dawn', 'Alex Agyei-Agyiri', 'AFRICAN_LITERATURE', 'Literature in English', 'SS 2–3', 3, 'A Ghanaian woman’s search for her brother in Nigeria during the expulsions of 1983.'],
+    ['Animal Farm', 'George Orwell', 'FICTION', null, 'SS 1–3', 3, 'Farm animals overthrow their master — and their revolution goes wrong.'],
+    ['Charlotte’s Web', 'E. B. White', 'FICTION', null, 'JSS 1', 3, 'A pig named Wilbur and the spider who saves him.'],
+    ['The Old Man and the Sea', 'Ernest Hemingway', 'FICTION', null, 'SS 1–3', 2, 'An ageing fisherman’s long struggle with a giant marlin.'],
+    ['Diary of a Wimpy Kid', 'Jeff Kinney', 'FICTION', null, 'JSS 1–2', 4, 'Greg Heffley’s comic diary of surviving middle school.'],
+    ['Gifted Hands', 'Ben Carson', 'NON_FICTION', null, 'JSS 3–SS 3', 3, 'From struggling pupil in Detroit to pioneering neurosurgeon.'],
+    ['Long Walk to Freedom (abridged)', 'Nelson Mandela', 'NON_FICTION', 'Government', 'SS 1–3', 2, 'Mandela’s own story of the struggle against apartheid.'],
+    ['There Was a Country', 'Chinua Achebe', 'NON_FICTION', 'Government', 'SS 3', 1, 'Achebe’s memoir of the Biafran war.'],
+    ['New General Mathematics for SS 1', 'M. F. Macrae et al.', 'TEXTBOOK', 'Mathematics', 'SS 1', 8, null as unknown as string],
+    ['New General Mathematics for JSS 2', 'M. F. Macrae et al.', 'TEXTBOOK', 'Mathematics', 'JSS 2', 8, null as unknown as string],
+    ['Essential Mathematics for Senior Secondary Schools', 'A. J. S. Oluwasanmi', 'TEXTBOOK', 'Mathematics', 'SS 1–3', 6, null as unknown as string],
+    ['New School Chemistry for Senior Secondary Schools', 'Osei Yaw Ababio', 'TEXTBOOK', 'Chemistry', 'SS 1–3', 6, null as unknown as string],
+    ['Modern Biology for Senior Secondary Schools', 'Sarojini T. Ramalingam', 'TEXTBOOK', 'Biology', 'SS 1–3', 6, null as unknown as string],
+    ['New School Physics for Senior Secondary Schools', 'M. W. Anyakoha', 'TEXTBOOK', 'Physics', 'SS 1–3', 5, null as unknown as string],
+    ['Basic Science for Junior Secondary Schools 1', 'STAN', 'TEXTBOOK', 'Basic Science', 'JSS 1', 6, null as unknown as string],
+    ['Intensive English for Junior Secondary Schools 2', 'Evans', 'TEXTBOOK', 'English Language', 'JSS 2', 6, null as unknown as string],
+    ['Comprehensive Economics for Senior Secondary Schools', 'J. U. Anyaele', 'TEXTBOOK', 'Economics', 'SS 1–3', 4, null as unknown as string],
+    ['Brighter Grammar', 'C. E. Eckersley', 'REFERENCE', 'English Language', 'JSS 1–SS 3', 4, null as unknown as string],
+    ['Oxford Advanced Learner’s Dictionary', 'Oxford University Press', 'REFERENCE', 'English Language', null, 5, null as unknown as string],
+    ['Macmillan Secondary School Atlas', 'Macmillan', 'REFERENCE', 'Geography', null, 4, null as unknown as string],
+    ['A Brief History of Time', 'Stephen Hawking', 'SCIENCE', 'Physics', 'SS 2–3', 2, 'Black holes, the Big Bang and the nature of time, explained for everyone.'],
+    ['The Story of Nigeria', 'Michael Crowder', 'NON_FICTION', 'Civic Education', 'SS 1–3', 2, 'Nigeria’s history from early kingdoms to independence.'],
+    ['National Geographic Kids (bound volume)', 'National Geographic', 'MAGAZINE', null, 'JSS 1–3', 2, null as unknown as string],
+  ];
+  const books = [];
+  for (const [i, [title, author, category, subject, level, copies, summary]] of BOOKS.entries()) {
+    books.push(
+      await prisma.libraryBook.create({
+        data: {
+          tenantId: g.id,
+          title,
+          author,
+          category,
+          subject,
+          level,
+          copies,
+          summary,
+          shelf: `${category === 'TEXTBOOK' ? 'T' : category === 'REFERENCE' ? 'R' : 'F'}${1 + (i % 6)}`,
+          publishedYear: 1958 + Math.floor(rand() * 60),
+        },
+      }),
+    );
+  }
+  const loanRows: { tenantId: string; bookId: string; studentId?: string; staffId?: string; issuedOn: Date; dueOn: Date; returnedOn: Date | null; fineKobo: number; finePaid: boolean; issuedById: string }[] = [];
+  const out = new Map<string, number>();
+  for (let i = 0; i < 90; i++) {
+    const book = pick(books);
+    const issued = ago(5 + Math.floor(rand() * 110));
+    const due = new Date(Date.parse(`${issued}T00:00:00Z`) + 14 * 86_400_000).toISOString().slice(0, 10);
+    const stillOut = issued >= ago(30) && chance(0.55);
+    if (stillOut && (out.get(book.id) ?? 0) >= book.copies) continue;
+    const late = Math.max(0, Math.round((rand() - 0.6) * 12));
+    const returned = stillOut ? null : new Date(Date.parse(`${due}T00:00:00Z`) + (late - 4) * 86_400_000).toISOString().slice(0, 10);
+    if (returned && returned > today) continue;
+    if (stillOut) out.set(book.id, (out.get(book.id) ?? 0) + 1);
+    const byStaff = chance(0.12);
+    const fine = returned && returned > due ? Math.round((Date.parse(returned) - Date.parse(due)) / 86_400_000) * 2_000 : 0;
+    loanRows.push({
+      tenantId: g.id,
+      bookId: book.id,
+      ...(byStaff ? { staffId: pick(staff).id } : { studentId: pick(active).id }),
+      issuedOn: day(issued),
+      dueOn: day(due),
+      returnedOn: returned ? day(returned) : null,
+      fineKobo: fine,
+      finePaid: fine > 0 && chance(0.6),
+      issuedById: admin.id,
+    });
+  }
+  await prisma.libraryLoan.createMany({ data: loanRows });
+
+  // Inventory: consumables with eight weeks of use, and assets.
+  const ITEMS: [string, string, string, number, number, number, number, boolean, string | null][] = [
+    // name, category, unit, quantity now (before use), reorder level, unit cost (₦), weekly use, asset, condition
+    ['White chalk (box of 100)', 'STATIONERY', 'boxes', 140, 30, 1_200, 9, false, null],
+    ['Whiteboard markers', 'STATIONERY', 'pcs', 260, 60, 450, 22, false, null],
+    ['A4 paper', 'STATIONERY', 'reams', 90, 40, 6_500, 9, false, null],
+    ['Exercise books (40 leaves)', 'STATIONERY', 'pcs', 1_400, 300, 250, 55, false, null],
+    ['Printer toner (HP 85A)', 'ICT', 'cartridges', 9, 4, 38_000, 0.7, false, null],
+    ['Liquid detergent (5 L)', 'CLEANING', 'jerrycans', 30, 10, 7_800, 2.6, false, null],
+    ['Toilet rolls (pack of 12)', 'CLEANING', 'packs', 70, 25, 4_200, 6, false, null],
+    ['Disinfectant (4 L)', 'CLEANING', 'bottles', 12, 8, 6_900, 1.4, false, null],
+    ['Hydrochloric acid (2.5 L)', 'LAB', 'bottles', 6, 3, 15_500, 0.3, false, null],
+    ['Test tubes', 'LAB', 'pcs', 220, 80, 180, 6, false, null],
+    ['Filter paper (pack)', 'LAB', 'packs', 14, 6, 3_200, 1, false, null],
+    ['Paracetamol 500 mg (pack)', 'MEDICAL', 'packs', 40, 15, 650, 3.5, false, null],
+    ['First-aid kit refills', 'MEDICAL', 'kits', 5, 4, 12_000, 0.3, false, null],
+    ['Footballs (size 5)', 'SPORTS', 'pcs', 12, 4, 9_500, 0.2, false, null],
+    ['Projectors (Epson)', 'ICT', 'units', 6, 0, 420_000, 0, true, 'GOOD'],
+    ['Projector — Library', 'ICT', 'units', 1, 0, 380_000, 0, true, 'BROKEN'],
+    ['Laptops (ICT lab)', 'ICT', 'units', 24, 0, 450_000, 0, true, 'GOOD'],
+    ['Student desks and chairs', 'FURNITURE', 'sets', 410, 0, 38_000, 0, true, 'GOOD'],
+    ['Staffroom chairs', 'FURNITURE', 'pcs', 8, 0, 25_000, 0, true, 'POOR'],
+    ['Microscopes', 'LAB', 'units', 10, 0, 95_000, 0, true, 'FAIR'],
+  ];
+  const ISSUED_TO = ['JSS 1 A', 'JSS 2 B', 'SS 1 A', 'SS 2 A', 'Staffroom', 'Science lab', 'Sick bay', 'Cleaners', 'Admin office', 'Sports department'];
+  for (const [name, category, unit, start, reorder, cost, weekly, isAsset, condition] of ITEMS) {
+    const movements: { kind: string; change: number; date: string; issuedTo?: string; reason?: string; supplier?: string }[] = [
+      { kind: 'IN', change: start, date: ago(60), reason: 'Opening stock', supplier: isAsset ? null! : 'Lekki Stationers & Supplies' },
+    ];
+    let qty = start;
+    if (!isAsset) {
+      for (let w = 8; w >= 1; w--) {
+        const n = Math.max(0, Math.round(weekly * (0.7 + rand() * 0.6)));
+        if (!n || n > qty) continue;
+        qty -= n;
+        movements.push({ kind: 'OUT', change: -n, date: ago(w * 7 - 2), issuedTo: pick(ISSUED_TO) });
+      }
+    }
+    // Restock what ran low last month, leaving a few items below their reorder level to act on.
+    if (!isAsset && qty <= reorder && !['Printer toner (HP 85A)', 'Disinfectant (4 L)', 'First-aid kit refills', 'A4 paper'].includes(name)) {
+      const n = reorder * 3;
+      qty += n;
+      movements.push({ kind: 'IN', change: n, date: ago(12), supplier: 'Lekki Stationers & Supplies', reason: 'Restock' });
+    }
+    const item = await prisma.inventoryItem.create({
+      data: { tenantId: g.id, name, category, unit, quantity: qty, reorderLevel: reorder, unitCostKobo: naira(cost), isAsset, condition, location: isAsset ? (category === 'ICT' ? 'ICT lab' : category === 'LAB' ? 'Science lab' : 'Classrooms') : 'Main store' },
+    });
+    let balance = 0;
+    await prisma.stockMovement.createMany({
+      data: movements
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map((m) => {
+          balance += m.change;
+          return {
+            tenantId: g.id,
+            itemId: item.id,
+            kind: m.kind,
+            change: m.change,
+            balanceAfter: balance,
+            unitCostKobo: naira(cost),
+            reason: m.reason ?? null,
+            issuedTo: m.issuedTo ?? null,
+            supplier: m.supplier ?? null,
+            movedOn: day(m.date),
+            recordedById: admin.id,
+          };
+        }),
+    });
+  }
+
+  // Transport: three buses on three routes, riders from the bus fee list.
+  const coaster1 = await prisma.vehicle.create({ data: { tenantId: g.id, name: 'Bus 1 (Toyota Coaster)', plateNumber: 'LND 482 KJ', capacity: 30, driverName: 'Mr Sunday Okon', driverPhone: '+2348033120044', assistantName: 'Mrs Bose Ade' } });
+  const coaster2 = await prisma.vehicle.create({ data: { tenantId: g.id, name: 'Bus 2 (Toyota Coaster)', plateNumber: 'EPE 219 XA', capacity: 30, driverName: 'Mr Ibrahim Garba', driverPhone: '+2348051877310', assistantName: 'Miss Joy Etim' } });
+  const hiace = await prisma.vehicle.create({ data: { tenantId: g.id, name: 'Bus 3 (Toyota Hiace)', plateNumber: 'KJA 731 LG', capacity: 14, driverName: 'Mr Felix Obi', driverPhone: '+2348090334187' } });
+  await prisma.vehicle.create({ data: { tenantId: g.id, name: 'Spare bus (Mazda)', plateNumber: 'LSD 904 FE', capacity: 18, status: 'MAINTENANCE', notes: 'Gearbox repair at Lekki Auto — expected back mid-October' } });
+  const ROUTES: [string, string, [string, string, string][]][] = [
+    ['Lekki Phase 1', coaster1.id, [['Admiralty Way (Mega Plaza)', '06:30', '15:55'], ['Lekki Phase 1 Gate', '06:40', '15:45'], ['Chevron Roundabout', '06:55', '15:30'], ['Ikota Shopping Complex', '07:05', '15:20']]],
+    ['Ajah & Sangotedo', coaster2.id, [['Sangotedo (Shoprite)', '06:15', '16:10'], ['Abraham Adesanya', '06:30', '15:55'], ['Ajah Under-bridge', '06:45', '15:40'], ['Thomas Estate', '06:55', '15:30']]],
+    ['Ikoyi & Victoria Island', hiace.id, [['Falomo Roundabout', '06:10', '16:20'], ['Adeola Odeku (VI)', '06:25', '16:05'], ['Lekki Toll Gate', '06:45', '15:45']]],
+  ];
+  const routes: TransportRoute[] = [];
+  for (const [name, vehicleId, stops] of ROUTES) {
+    routes.push(await prisma.transportRoute.create({ data: { tenantId: g.id, name, vehicleId, stops: stops.map(([n, pickup, dropoff]) => ({ name: n, pickup, dropoff })) } }));
+  }
+  const busLines = await prisma.invoiceLine.findMany({ where: { tenantId: g.id, feeItem: { category: 'TRANSPORT' } }, select: { invoice: { select: { studentId: true } } } });
+  const riders = [...new Set(busLines.map((l) => l.invoice.studentId))];
+  // Three billed riders still waiting for a seat; two riders on the bus with no bus fee — both show as checks.
+  const placed = riders.slice(3);
+  const unbilled = active.filter((st) => !riders.includes(st.id)).slice(0, 2).map((st) => st.id);
+  const routeFor = (i: number) => (i < 16 ? routes[2]! : i % 2 ? routes[0]! : routes[1]!);
+  await prisma.transportAssignment.createMany({
+    data: [...placed, ...unbilled].map((studentId, i) => {
+      const r = routeFor(i);
+      const stops = r.stops as { name: string }[];
+      return { tenantId: g.id, studentId, routeId: r.id, stop: stops[i % stops.length]!.name };
+    }),
+  });
+
+  // Hostel: senior boarders in two houses.
+  const warden = (gender: 'MALE' | 'FEMALE') => staff.find((s) => s.gender === gender && s.type === 'NON_TEACHING') ?? staff.find((s) => s.gender === gender)!;
+  const houses = [
+    { name: 'Amina House', gender: 'FEMALE' as const, notes: 'Girls’ boarding, SS 1–3' },
+    { name: 'Obafemi House', gender: 'MALE' as const, notes: 'Boys’ boarding, SS 1–3' },
+  ];
+  for (const hdef of houses) {
+    const hostel = await prisma.hostel.create({ data: { tenantId: g.id, name: hdef.name, gender: hdef.gender, notes: hdef.notes, wardenStaffId: warden(hdef.gender).id } });
+    const rooms: HostelRoom[] = [];
+    for (let r = 1; r <= 5; r++) rooms.push(await prisma.hostelRoom.create({ data: { tenantId: g.id, hostelId: hostel.id, name: `Room ${r}`, beds: 8 } }));
+    const boarders = active.filter((st) => st.gender === hdef.gender && String(levelOf.get(st.classArmId!)).startsWith('SS') && chance(0.45)).slice(0, 34);
+    await prisma.hostelAllocation.createMany({
+      data: boarders.map((st, i) => ({ tenantId: g.id, studentId: st.id, roomId: rooms[Math.floor(i / 8)]!.id, bed: (i % 8) + 1, fromDate: day('2026-09-06') })),
+    });
+    // Exeats: a couple out now (one late back), and some already returned.
+    for (const [i, st] of boarders.slice(0, 5).entries()) {
+      const leave = i < 2 ? ago(1) : ago(10 + i * 3);
+      const back = i === 0 ? ago(0) : i === 1 ? ago(-2) : ago(8 + i * 3);
+      await prisma.exeat.create({
+        data: {
+          tenantId: g.id,
+          studentId: st.id,
+          leaveAt: lagos(leave, '15:30'),
+          expectedReturnAt: lagos(back, i === 0 ? '08:00' : '17:00'),
+          returnedAt: i < 2 ? null : lagos(back, '16:40'),
+          reason: pick(['Family wedding', 'Dental appointment', 'Grandmother’s 80th birthday', 'Medical check-up', 'Sibling’s graduation']),
+          collectedBy: `${pick(hdef.gender === 'FEMALE' ? FEMALE : MALE)} ${st.lastName} (parent)`,
+          approvedById: admin.id,
+        },
+      });
+    }
+  }
+
+  // Reception: today's visitor book, the past fortnight, enquiries and early pick-ups.
+  const VISITORS: [string, string | null, string, string | null][] = [
+    ['Engr. Tope Alabi', 'Eko Electricity', 'Meter inspection', 'Bursar'],
+    ['Mrs Funke Adebayo', null, 'Meeting about her son’s results', null],
+    ['Mr Chidi Okeke', 'Lekki Stationers & Supplies', 'Delivering exercise books', 'Bursar'],
+    ['Dr Amaka Obi', 'Lagos State Ministry of Education', 'Quality assurance visit', null],
+    ['Mr Yusuf Bello', null, 'Admissions enquiry and school tour', null],
+    ['Ms Kemi Ojo', 'PowerTech Nigeria', 'Generator servicing', null],
+  ];
+  const visitorRows = [];
+  for (let d = 13; d >= 0; d--) {
+    const date = ago(d);
+    if ([0, 6].includes(new Date(`${date}T12:00:00Z`).getUTCDay())) continue;
+    const n = d === 0 ? 4 : 1 + Math.floor(rand() * 3);
+    for (let i = 0; i < n; i++) {
+      const [name, org, purpose, hostName] = pick(VISITORS);
+      const inAt = lagos(date, `${String(8 + i * 2).padStart(2, '0')}:${String(5 + Math.floor(rand() * 50)).padStart(2, '0')}`);
+      const stillHere = d === 0 && i >= 2;
+      visitorRows.push({
+        tenantId: g.id,
+        name,
+        organisation: org,
+        purpose,
+        hostName,
+        hostStaffId: hostName ? null : pick(staff).id,
+        phone: `+23480${Math.floor(10000000 + rand() * 89999999)}`,
+        badgeNumber: `V${String(1 + i).padStart(2, '0')}`,
+        checkInAt: inAt,
+        checkOutAt: stillHere ? null : new Date(inAt.getTime() + (30 + Math.floor(rand() * 90)) * 60_000),
+        recordedById: admin.id,
+      });
+    }
+  }
+  await prisma.visitor.createMany({ data: visitorRows.filter((v) => v.checkInAt.getTime() <= Date.now()) });
+  const ENQUIRIES: [string, string, string, string, string, string | null, number, number | null][] = [
+    // parent, child, class, source, status, question, days ago, follow-up in days
+    ['Mrs Adaora Nnamdi', 'Chisom', 'JSS 1', 'WEBSITE', 'NEW', 'What are your fees for JSS 1 and do you run a school bus to Ajah?', 1, 1],
+    ['Mr Babatunde Afolabi', 'Tolu', 'SS 1', 'PHONE', 'CONTACTED', 'Do you offer boarding for SS 1, and what subjects can science students take?', 4, 0],
+    ['Mrs Hauwa Sani', 'Aisha', 'JSS 2', 'WHATSAPP', 'VISIT_BOOKED', 'Can we visit on a Saturday? We are relocating from Abuja in January.', 6, 3],
+    ['Mr Kelechi Uzo', 'Daniel', 'JSS 1', 'REFERRAL', 'APPLIED', 'My friend’s daughter is in JSS 2 here. When is the entrance exam?', 15, null],
+    ['Mrs Grace Etim', 'Blessing', 'SS 2', 'WALK_IN', 'ENROLLED', 'Is mid-session transfer into SS 2 possible?', 30, null],
+    ['Mr Olumide Ajayi', 'Feyi and Femi (twins)', 'JSS 1', 'SOCIAL', 'NEW', 'Is there a discount for twins?', 0, 2],
+    ['Mrs Ifeoma Chukwu', 'Kosi', 'JSS 3', 'PHONE', 'CLOSED', 'Do you prepare students for BECE?', 40, null],
+    ['Dr Segun Adeleke', 'Moyo', 'SS 1', 'WEBSITE', 'CONTACTED', 'What ICT and coding opportunities do you have?', 9, -2],
+    ['Mrs Ngozi Okafor', 'Ebube', 'JSS 1', 'WALK_IN', 'VISIT_BOOKED', 'We would like a tour and to meet the principal.', 3, 2],
+    ['Mr Musa Danladi', 'Abdul', 'SS 1', 'REFERRAL', 'NEW', 'Do you accept students coming from a different curriculum (British)?', 2, 0],
+  ];
+  for (const [parentName, childName, classOfInterest, source, status, question, daysAgo, follow] of ENQUIRIES) {
+    await prisma.enquiry.create({
+      data: {
+        tenantId: g.id,
+        parentName,
+        phone: `+23480${Math.floor(10000000 + rand() * 89999999)}`,
+        childName,
+        classOfInterest,
+        entryTerm: 'Second Term 2026/2027',
+        source,
+        status,
+        question,
+        followUpOn: follow === null ? null : day(ago(-follow)),
+        createdById: admin.id,
+        createdAt: lagos(ago(daysAgo), '10:15'),
+      },
+    });
+  }
+  const pickupKids = active.slice(40, 44);
+  for (const [i, kid] of pickupKids.entries()) {
+    const link = await prisma.studentGuardian.findFirst({ where: { studentId: kid.id }, include: { guardian: true } });
+    const known = i !== 3 && link;
+    await prisma.studentPickup.create({
+      data: {
+        tenantId: g.id,
+        studentId: kid.id,
+        collectedBy: known ? `${link.guardian.firstName} ${link.guardian.lastName}` : 'Mr Peter Okon',
+        relationship: known ? link.guardian.relationship : 'Driver',
+        phone: known ? link.guardian.phone : '+2348077001122',
+        reason: pick(['Hospital appointment', 'Family emergency', 'Feeling unwell (sick bay)', 'Visa interview']),
+        onRecord: !!known,
+        at: lagos(ago([0, 2, 5, 8][i]!), '12:40'),
+        recordedById: admin.id,
+      },
+    });
+  }
+
+  // Certificates: a merit certificate, a staff service certificate and a transfer.
+  const certStudent = active.find((st) => levelOf.get(st.classArmId!) === 'SS3')!;
+  const leaver = active.find((st) => levelOf.get(st.classArmId!) === 'JSS2')!;
+  const longest = [...staff].sort((a, b) => (a.employedOn?.getTime() ?? 0) - (b.employedOn?.getTime() ?? 0))[0]!;
+  const CERTS = [
+    { kind: 'MERIT', student: certStudent, title: 'Certificate of Merit — Mathematics', body: `This is to certify that ${certStudent.firstName} ${certStudent.lastName} achieved the highest mark in Mathematics in SS 3 in the Third Term of the 2025/2026 session, through consistent effort and careful work. We congratulate ${certStudent.firstName} on this achievement.`, issuedOn: '2026-07-17' },
+    { kind: 'SERVICE', staff: longest, title: 'Certificate of Long Service', body: `In grateful recognition of ${longest.firstName} ${longest.lastName}'s loyal and dedicated service to Greenfield International School as ${longest.jobTitle} since ${longest.employedOn?.getUTCFullYear()}. Your commitment has shaped generations of our students.`, issuedOn: '2026-09-07' },
+    { kind: 'TRANSFER', student: leaver, title: 'Transfer Certificate', body: `This is to certify that ${leaver.firstName} ${leaver.lastName} (admission number ${leaver.admissionNumber}) was a student of Greenfield International School and is in JSS 2 at the date of this certificate. ${leaver.firstName} leaves owing to the family's relocation to Abuja and is in good standing.`, issuedOn: ago(3) },
+  ];
+  for (const [i, c] of CERTS.entries()) {
+    await prisma.certificate.create({
+      data: {
+        tenantId: g.id,
+        serial: `GIS/${c.issuedOn.slice(0, 4)}/${String(i + 1).padStart(4, '0')}`,
+        code: `DEMO${String(i + 1).padStart(2, '0')}${digits(4)}`,
+        kind: c.kind,
+        studentId: c.student?.id ?? null,
+        staffId: c.staff?.id ?? null,
+        recipientName: c.student ? `${c.student.firstName} ${c.student.lastName}` : `${c.staff!.firstName} ${c.staff!.lastName}`,
+        recipientInfo: c.student ? (c.kind === 'MERIT' ? 'SS 3' : 'JSS 2') : c.staff!.jobTitle,
+        title: c.title,
+        body: c.body,
+        issuedOn: day(c.issuedOn),
+        issuedById: admin.id,
+      },
+    });
+  }
 
   // ------------------------------------------------------------ Sunrise
   const s = await createTenant('sunrise', 'Sunrise Academy', 'SRA', 'Rise and Shine', plan.id);

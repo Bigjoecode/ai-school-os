@@ -121,6 +121,18 @@ is one function, `computePayslip` in
 seed and the live preview in the browser. Have the school's accountant confirm
 the rates before the first live payroll.
 
+**Operations.** Library loans check copies, limits and overdue books before
+lending (two desks can't lend the last copy twice), and fines accrue daily
+until a book comes back. Stores keep every receipt, issue and count as a
+movement with the running balance; receiving stock can also record the
+purchase under Expenses. Transport cross-checks riders against bus fees billed
+this term, both ways. Early pick-ups are checked against the parents and
+guardians on record. Certificates get a serial number and a public code; the
+QR code on a certificate or ID card opens `/verify/...`, which shows only the
+name, school and whether it is still valid. ID card codes are signed, and a
+card stops verifying when the student leaves or the card's validity date
+passes.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -153,5 +165,12 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
    grades, monthly payroll with PAYE, pension and NHF, pre-approval checks, an
    AI payroll review, payslips, bank schedule export, and self-service "My HR"
    for every staff member ✅
-9. Operations · 10. Communication
+9. **Operations** — library (catalogue, loans, fines, AI reading lists from
+   the school's own books), inventory and assets (receipts, issues, counts,
+   reorder alerts, AI reorder briefing), transport (vehicles, routes, riders,
+   manifests, fee cross-checks, AI notices to parents), hostel (rooms, beds,
+   exeats), reception (visitor book, admissions enquiries with AI replies,
+   early pick-ups), certificates with AI drafts and public verification, and
+   printable ID cards with QR codes ✅
+10. Communication
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

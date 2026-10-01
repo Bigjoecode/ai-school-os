@@ -82,6 +82,8 @@ model Tenant {
   financeSettings      Json?
   /// { payeEnabled, pensionEmployeePct, pensionEmployerPct, nhfPct, payslipNote } — null means the defaults.
   hrSettings           Json?
+  /// Library loan rules, certificate prefix, ID card validity — null means the defaults.
+  operationsSettings   Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -140,6 +142,21 @@ model Tenant {
   leaveTypes          LeaveType[]
   leaveRequests       LeaveRequest[]
   awards              Award[]
+  libraryBooks        LibraryBook[]
+  libraryLoans        LibraryLoan[]
+  inventoryItems      InventoryItem[]
+  stockMovements      StockMovement[]
+  vehicles            Vehicle[]
+  transportRoutes     TransportRoute[]
+  transportRiders     TransportAssignment[]
+  hostels             Hostel[]
+  hostelRooms         HostelRoom[]
+  hostelAllocations   HostelAllocation[]
+  exeats              Exeat[]
+  visitors            Visitor[]
+  enquiries           Enquiry[]
+  studentPickups      StudentPickup[]
+  certificates        Certificate[]
 
   @@map("tenants")
 }
@@ -554,16 +571,22 @@ model Student {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  tenant      Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  branch      Branch?             @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  user        User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
-  classArm    ClassArm?           @relation(fields: [classArmId], references: [id], onDelete: SetNull)
-  guardians   StudentGuardian[]
-  scores      Score[]
-  reportCards ReportCard[]
-  attendance  StudentAttendance[]
-  invoices    Invoice[]
-  payments    Payment[]
+  tenant       Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branch       Branch?              @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  user         User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classArm     ClassArm?            @relation(fields: [classArmId], references: [id], onDelete: SetNull)
+  guardians    StudentGuardian[]
+  scores       Score[]
+  reportCards  ReportCard[]
+  attendance   StudentAttendance[]
+  invoices     Invoice[]
+  payments     Payment[]
+  libraryLoans LibraryLoan[]
+  transport    TransportAssignment?
+  hostelBeds   HostelAllocation[]
+  exeats       Exeat[]
+  pickups      StudentPickup[]
+  certificates Certificate[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
@@ -659,6 +682,10 @@ model Staff {
   payslips         Payslip[]
   leaveRequests    LeaveRequest[]
   awards           Award[]
+  libraryLoans     LibraryLoan[]
+  hostelsWarded    Hostel[]
+  visitorsHosted   Visitor[]             @relation("VisitorHost")
+  certificates     Certificate[]
 
   @@unique([tenantId, staffNumber])
   @@map("staff")
@@ -1644,4 +1671,350 @@ model Award {
 
   @@index([tenantId, awardedOn])
   @@map("awards")
+}
+
+// ============================================================== library
+
+model LibraryBook {
+  id            String   @id @default(cuid())
+  tenantId      String
+  title         String
+  author        String
+  isbn          String?
+  /// TEXTBOOK, FICTION, NON_FICTION, REFERENCE, AFRICAN_LITERATURE, SCIENCE, MAGAZINE, OTHER
+  category      String
+  publisher     String?
+  publishedYear Int?
+  shelf         String?
+  subject       String?
+  level         String?
+  copies        Int      @default(1)
+  summary       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  loans  LibraryLoan[]
+
+  @@index([tenantId, title])
+  @@map("library_books")
+}
+
+/// A book lent to one student or one member of staff.
+model LibraryLoan {
+  id         String    @id @default(cuid())
+  tenantId   String
+  bookId     String
+  studentId  String?
+  staffId    String?
+  issuedOn   DateTime  @db.Date
+  dueOn      DateTime  @db.Date
+  returnedOn DateTime? @db.Date
+  /// Charged on return (after any waiver).
+  fineKobo   Int       @default(0)
+  finePaid   Boolean   @default(false)
+  note       String?
+  issuedById String?
+  createdAt  DateTime  @default(now())
+
+  tenant  Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  book    LibraryBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  student Student?    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  staff   Staff?      @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, returnedOn])
+  @@index([bookId])
+  @@map("library_loans")
+}
+
+// ============================================================== inventory
+
+model InventoryItem {
+  id           String   @id @default(cuid())
+  tenantId     String
+  name         String
+  category     String
+  unit         String   @default("pcs")
+  sku          String?
+  location     String?
+  quantity     Int      @default(0)
+  reorderLevel Int      @default(0)
+  unitCostKobo Int      @default(0)
+  isAsset      Boolean  @default(false)
+  /// NEW, GOOD, FAIR, POOR, BROKEN (assets)
+  condition    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant    Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  movements StockMovement[]
+
+  @@unique([tenantId, name])
+  @@map("inventory_items")
+}
+
+model StockMovement {
+  id           String   @id @default(cuid())
+  tenantId     String
+  itemId       String
+  /// IN, OUT, ADJUST
+  kind         String
+  /// Signed change in stock.
+  change       Int
+  balanceAfter Int
+  unitCostKobo Int?
+  reason       String?
+  issuedTo     String?
+  supplier     String?
+  movedOn      DateTime @db.Date
+  recordedById String?
+  expenseId    String?
+  createdAt    DateTime @default(now())
+
+  tenant Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item   InventoryItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, movedOn])
+  @@index([itemId, createdAt])
+  @@map("stock_movements")
+}
+
+// ============================================================== transport
+
+model Vehicle {
+  id            String   @id @default(cuid())
+  tenantId      String
+  name          String
+  plateNumber   String
+  capacity      Int
+  driverName    String?
+  driverPhone   String?
+  assistantName String?
+  /// ACTIVE, MAINTENANCE, RETIRED
+  status        String   @default("ACTIVE")
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  routes TransportRoute[]
+
+  @@unique([tenantId, plateNumber])
+  @@map("vehicles")
+}
+
+model TransportRoute {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  vehicleId String?
+  /// [{ name, pickup: "06:45", dropoff: "15:40" }] in route order
+  stops     Json     @default("[]")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant      Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  vehicle     Vehicle?              @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  assignments TransportAssignment[]
+
+  @@unique([tenantId, name])
+  @@map("transport_routes")
+}
+
+/// A student's place on a route (one route per student).
+model TransportAssignment {
+  id        String   @id @default(cuid())
+  tenantId  String
+  studentId String   @unique
+  routeId   String
+  stop      String
+  /// BOTH, MORNING, AFTERNOON
+  direction String   @default("BOTH")
+  createdAt DateTime @default(now())
+
+  tenant  Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  route   TransportRoute @relation(fields: [routeId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, routeId])
+  @@map("transport_assignments")
+}
+
+// ============================================================== hostel
+
+model Hostel {
+  id            String   @id @default(cuid())
+  tenantId      String
+  name          String
+  /// MALE, FEMALE, MIXED
+  gender        String
+  wardenStaffId String?
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  warden Staff?       @relation(fields: [wardenStaffId], references: [id], onDelete: SetNull)
+  rooms  HostelRoom[]
+
+  @@unique([tenantId, name])
+  @@map("hostels")
+}
+
+model HostelRoom {
+  id       String @id @default(cuid())
+  tenantId String
+  hostelId String
+  name     String
+  beds     Int
+
+  tenant      Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  hostel      Hostel             @relation(fields: [hostelId], references: [id], onDelete: Cascade)
+  allocations HostelAllocation[]
+
+  @@unique([hostelId, name])
+  @@map("hostel_rooms")
+}
+
+/// A boarder's bed. Ending an allocation keeps it as history.
+model HostelAllocation {
+  id        String    @id @default(cuid())
+  tenantId  String
+  roomId    String
+  studentId String
+  bed       Int?
+  fromDate  DateTime  @db.Date
+  toDate    DateTime? @db.Date
+  active    Boolean   @default(true)
+  createdAt DateTime  @default(now())
+
+  tenant  Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  room    HostelRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  student Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, active])
+  @@index([studentId])
+  @@map("hostel_allocations")
+}
+
+/// Permission for a boarder to leave school, and their return.
+model Exeat {
+  id               String    @id @default(cuid())
+  tenantId         String
+  studentId        String
+  leaveAt          DateTime
+  expectedReturnAt DateTime
+  returnedAt       DateTime?
+  reason           String
+  collectedBy      String
+  approvedById     String?
+  createdAt        DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, returnedAt])
+  @@map("exeats")
+}
+
+// ============================================================== reception
+
+model Visitor {
+  id           String    @id @default(cuid())
+  tenantId     String
+  name         String
+  phone        String?
+  organisation String?
+  purpose      String
+  hostStaffId  String?
+  hostName     String?
+  badgeNumber  String?
+  vehiclePlate String?
+  checkInAt    DateTime  @default(now())
+  checkOutAt   DateTime?
+  recordedById String?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  host   Staff? @relation("VisitorHost", fields: [hostStaffId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, checkInAt])
+  @@map("visitors")
+}
+
+model Enquiry {
+  id              String    @id @default(cuid())
+  tenantId        String
+  parentName      String
+  phone           String
+  email           String?
+  childName       String?
+  classOfInterest String?
+  entryTerm       String?
+  /// WALK_IN, PHONE, WHATSAPP, WEBSITE, REFERRAL, SOCIAL, OTHER
+  source          String    @default("WALK_IN")
+  /// NEW, CONTACTED, VISIT_BOOKED, APPLIED, ENROLLED, CLOSED
+  status          String    @default("NEW")
+  question        String?
+  notes           String?
+  followUpOn      DateTime? @db.Date
+  createdById     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, status])
+  @@map("enquiries")
+}
+
+/// A student collected before the end of the school day.
+model StudentPickup {
+  id           String   @id @default(cuid())
+  tenantId     String
+  studentId    String
+  collectedBy  String
+  relationship String
+  phone        String?
+  reason       String
+  onRecord     Boolean  @default(false)
+  at           DateTime @default(now())
+  recordedById String?
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, at])
+  @@map("student_pickups")
+}
+
+// ============================================================== certificates
+
+model Certificate {
+  id            String    @id @default(cuid())
+  tenantId      String
+  /// e.g. GIS/CERT/2026/0007, unique within the school
+  serial        String
+  /// Random public code for the verification page.
+  code          String    @unique
+  /// TESTIMONIAL, TRANSFER, MERIT, ATTENDANCE, COMPLETION, SERVICE
+  kind          String
+  studentId     String?
+  staffId       String?
+  recipientName String
+  /// Class or job title when issued.
+  recipientInfo String?
+  title         String
+  body          String
+  issuedOn      DateTime  @db.Date
+  issuedById    String?
+  revokedAt     DateTime?
+  revokeReason  String?
+  createdAt     DateTime  @default(now())
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student? @relation(fields: [studentId], references: [id], onDelete: SetNull)
+  staff   Staff?   @relation(fields: [staffId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, serial])
+  @@map("certificates")
 }

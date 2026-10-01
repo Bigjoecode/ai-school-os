@@ -47,6 +47,16 @@ const PayrollPage = lazy(() => import('@/features/hr/payroll-page'));
 const PayrollRunPage = lazy(() => import('@/features/hr/payroll-run-page'));
 const PayslipPage = lazy(() => import('@/features/hr/payslip-page'));
 const MyHrPage = lazy(() => import('@/features/hr/my-hr-page'));
+const LibraryPage = lazy(() => import('@/features/operations/library-page'));
+const InventoryPage = lazy(() => import('@/features/operations/inventory-page'));
+const TransportPage = lazy(() => import('@/features/operations/transport-page'));
+const RoutePage = lazy(() => import('@/features/operations/route-page'));
+const HostelPage = lazy(() => import('@/features/operations/hostel-page'));
+const ReceptionPage = lazy(() => import('@/features/operations/reception-page'));
+const CertificatesPage = lazy(() => import('@/features/operations/certificates-page'));
+const CertificatePage = lazy(() => import('@/features/operations/certificate-page'));
+const IdCardsPage = lazy(() => import('@/features/operations/id-cards-page'));
+const VerifyPage = lazy(() => import('@/features/operations/verify-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -83,6 +93,9 @@ export const router = createBrowserRouter([
   // Public parent payment pages: no sign-in, no app chrome.
   { path: '/pay/:token', element: withSuspense(<PayPage />) },
   { path: '/pay/:token/done', element: withSuspense(<PayDonePage />) },
+  // Public QR verification for certificates and ID cards: no sign-in, no app chrome.
+  { path: '/verify/certificate/:code', element: withSuspense(<VerifyPage kind="certificate" />) },
+  { path: '/verify/id/:code', element: withSuspense(<VerifyPage kind="id" />) },
   {
     path: '/check-in',
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
@@ -319,6 +332,22 @@ export const router = createBrowserRouter([
           </RequirePermission>
         ),
       },
+      ...(
+        [
+          ['library', 'library.read', <LibraryPage key="library" />],
+          ['inventory', 'inventory.read', <InventoryPage key="inventory" />],
+          ['transport', 'transport.read', <TransportPage key="transport" />],
+          ['transport/routes/:id', 'transport.read', <RoutePage key="route" />],
+          ['hostel', 'hostel.read', <HostelPage key="hostel" />],
+          ['reception', 'reception.read', <ReceptionPage key="reception" />],
+          ['certificates', 'documents.issue', <CertificatesPage key="certificates" />],
+          ['certificates/:id', 'documents.issue', <CertificatePage key="certificate" />],
+          ['id-cards', 'documents.issue', <IdCardsPage key="id-cards" />],
+        ] as const
+      ).map(([path, permission, page]) => ({
+        path,
+        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+      })),
       {
         path: 'settings',
         element: <SettingsLayout />,

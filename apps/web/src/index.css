@@ -137,6 +137,7 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -432,4 +433,28 @@
 @page landscape {
   size: A4 landscape;
   margin: 10mm;
+}
+/* ID cards: CR80 cards, two across and five down on each A4 sheet. */
+@page idcards {
+  size: A4 portrait;
+  margin: 6mm 10mm;
+}
+@media print {
+  .print-idcards {
+    page: idcards;
+  }
+  .idcard-sheet {
+    display: grid;
+    grid-template-columns: repeat(2, 85.6mm);
+    grid-auto-rows: 54mm;
+    gap: 3mm 6mm;
+    justify-content: center;
+    break-after: page;
+  }
+  .idcard-sheet:last-child {
+    break-after: auto;
+  }
+  .idcard-sheet > * {
+    break-inside: avoid;
+  }
 }

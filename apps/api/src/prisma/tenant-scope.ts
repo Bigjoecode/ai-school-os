@@ -62,6 +62,21 @@ export const TENANT_MODELS = new Set<string>([
   'LeaveType',
   'LeaveRequest',
   'Award',
+  'LibraryBook',
+  'LibraryLoan',
+  'InventoryItem',
+  'StockMovement',
+  'Vehicle',
+  'TransportRoute',
+  'TransportAssignment',
+  'Hostel',
+  'HostelRoom',
+  'HostelAllocation',
+  'Exeat',
+  'Visitor',
+  'Enquiry',
+  'StudentPickup',
+  'Certificate',
 ]);
 
 const WHERE_OPS = new Set([

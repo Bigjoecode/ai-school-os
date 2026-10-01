@@ -28,6 +28,12 @@ import {
   Send,
   FileSearch,
   HandCoins,
+  HeartPulse,
+  Contact,
+  Plane,
+  CalendarPlus,
+  Banknote,
+  FileStack,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -254,6 +260,56 @@ export function CommandPalette() {
         icon: <AiSparkle />,
         keywords: 'ai fees collections finance summary insight',
         onSelect: () => navigate('/fees?briefing=1'),
+      },
+    hasPermission(me, 'hr.read') && {
+      id: 'hr-overview',
+      label: 'HR overview',
+      icon: <HeartPulse />,
+      keywords: 'hr people staff headcount away punctuality',
+      onSelect: () => navigate('/hr'),
+    },
+    hasPermission(me, 'hr.read') && {
+      id: 'employees',
+      label: 'Find an employee',
+      icon: <Contact />,
+      keywords: 'hr employees staff directory record department',
+      onSelect: () => navigate('/hr/employees'),
+    },
+    hasPermission(me, 'hr.read') && {
+      id: 'leave-requests',
+      label: 'Leave requests',
+      icon: <Plane />,
+      keywords: 'leave approve decline pending holiday sick away',
+      onSelect: () => navigate('/hr/leave?status=PENDING'),
+    },
+    hasPermission(me, 'hr.self') && {
+      id: 'request-leave',
+      label: 'Request leave',
+      icon: <CalendarPlus />,
+      keywords: 'my leave holiday sick day off request time off',
+      onSelect: () => navigate('/me/hr?request=1'),
+    },
+    hasPermission(me, 'payroll.read') && {
+      id: 'payroll',
+      label: 'Open payroll',
+      icon: <Banknote />,
+      keywords: 'payroll salaries payslips paye pension wages',
+      onSelect: () => navigate('/payroll'),
+    },
+    hasPermission(me, 'payroll.manage') && {
+      id: 'prepare-payroll',
+      label: 'Prepare payroll',
+      icon: <FileStack />,
+      keywords: 'payroll run month salaries prepare new payslips',
+      onSelect: () => navigate('/payroll?prepare=1'),
+    },
+    canAi &&
+      hasPermission(me, 'hr.read') && {
+        id: 'hr-briefing',
+        label: 'HR briefing (AI)',
+        icon: <AiSparkle />,
+        keywords: 'ai hr staff leave punctuality summary insight',
+        onSelect: () => navigate('/hr?briefing=1'),
       },
     hasPermission(me, 'roles.manage') && {
       id: 'role',

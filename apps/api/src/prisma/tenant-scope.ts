@@ -54,6 +54,14 @@ export const TENANT_MODELS = new Set<string>([
   'InvoiceLine',
   'Payment',
   'Expense',
+  'Department',
+  'SalaryGrade',
+  'StaffPayProfile',
+  'PayrollRun',
+  'Payslip',
+  'LeaveType',
+  'LeaveRequest',
+  'Award',
 ]);
 
 const WHERE_OPS = new Set([

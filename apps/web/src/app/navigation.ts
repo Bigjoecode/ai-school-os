@@ -1,6 +1,7 @@
 import type { MeResponse, Permission } from '@aischool/shared';
 import {
   Award,
+  Banknote,
   BedDouble,
   BookOpen,
   Bot,
@@ -11,6 +12,7 @@ import {
   CalendarCheck,
   CalendarClock,
   ConciergeBell,
+  Contact,
   CreditCard,
   FileQuestionMark,
   FileText,
@@ -19,15 +21,19 @@ import {
   Globe,
   GraduationCap,
   HeartHandshake,
+  HeartPulse,
+  IdCard,
   Layers,
   LayoutDashboard,
   Library,
   type LucideIcon,
+  Medal,
   Megaphone,
   MessagesSquare,
   MonitorCheck,
   NotebookPen,
   Package,
+  Plane,
   PencilLine,
   Presentation,
   Receipt,
@@ -64,6 +70,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
       { label: 'AI Command Center', to: '/ai', icon: Sparkles, permission: 'ai.use', keywords: 'assistant chat' },
+      { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },
   {
@@ -112,6 +119,16 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    label: 'HR',
+    items: [
+      { label: 'HR Overview', to: '/hr', icon: HeartPulse, permission: 'hr.read', keywords: 'human resources people staff headcount' },
+      { label: 'Employees', to: '/hr/employees', icon: Contact, permission: 'hr.read', keywords: 'staff directory departments records hr' },
+      { label: 'Leave', to: '/hr/leave', icon: Plane, permission: 'hr.read', keywords: 'leave requests holiday sick maternity approve away' },
+      { label: 'Awards', to: '/hr/awards', icon: Medal, permission: 'hr.read', keywords: 'recognition award citation teacher of the term' },
+      { label: 'Payroll', to: '/payroll', icon: Banknote, permission: 'payroll.read', keywords: 'salaries payslips paye pension nhf wages' },
+    ],
+  },
+  {
     label: 'People',
     items: [
       { label: 'Parents', to: '/parents', icon: Users, permission: 'guardians.read', keywords: 'guardians' },
@@ -147,6 +164,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'ai.use' },
       { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, permission: 'ai.use' },
       { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, permission: 'ai.use' },
+      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'ai.use' },
       { label: 'AI Usage', to: '/ai/usage', icon: Gauge, permission: 'ai.use', soon: true, keywords: 'tokens spend budget' },
     ],
   },

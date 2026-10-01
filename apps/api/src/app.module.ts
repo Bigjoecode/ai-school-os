@@ -7,6 +7,7 @@ import { AssessmentModule } from './assessment/assessment.module';
 import { TimetableModule } from './timetable/timetable.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { FinanceModule } from './finance/finance.module';
+import { HrModule } from './hr/hr.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -59,6 +60,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     TimetableModule,
     AttendanceModule,
     FinanceModule,
+    HrModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [

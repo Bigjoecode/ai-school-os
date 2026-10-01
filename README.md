@@ -23,7 +23,7 @@ Requires Node 22+.
 ```bash
 npm install
 cp apps/api/.env.example apps/api/.env      # then set JWT_SECRET
-npm run db                                  # terminal 1: PostgreSQL on :5433
+npm run db                                  # terminal 1: PostgreSQL on :5433 (UTF-8)
 npm run build -w @aischool/shared
 npm run db:migrate                          # create tables
 npm run db:seed                             # demo schools
@@ -108,6 +108,19 @@ pending first, then settled exactly once — by Paystack's signed webhook or the
 parent's return, whichever comes first — after re-verifying the amount with
 Paystack. A mismatched amount is never counted.
 
+**HR & payroll.** Leave balances are working days per calendar year; approved
+leave shows on the staff register as "on leave". Payroll is prepared once a
+month, checked, approved by someone with `payroll.approve`, then marked paid,
+which records the net salaries and the statutory remittances as expenses.
+Payslips copy each person's pay when prepared, so a later salary change never
+alters an approved month. PAYE follows the Nigeria Tax Act 2025 bands (from
+January 2026, with rent relief); pension is 8% employee + 10% employer on
+basic, housing and transport; NHF 2.5% of basic where it applies. The maths
+is one function, `computePayslip` in
+[packages/shared/src/hr.ts](packages/shared/src/hr.ts), shared by the API, the
+seed and the live preview in the browser. Have the school's accountant confirm
+the rates before the first live payroll.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -135,5 +148,10 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
    payments and receipts, online payment by Paystack through a parent link,
    expenses, income & expenditure, collection reports, AI briefings and fee
    reminders ✅
-8. HR · 9. Operations · 10. Communication
+8. **HR & payroll** — departments, employee records, leave requests and
+   approvals with balances, staff awards with AI-drafted citations, salary
+   grades, monthly payroll with PAYE, pension and NHF, pre-approval checks, an
+   AI payroll review, payslips, bank schedule export, and self-service "My HR"
+   for every staff member ✅
+9. Operations · 10. Communication
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

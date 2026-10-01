@@ -38,6 +38,15 @@ const ExpensesPage = lazy(() => import('@/features/finance/expenses-page'));
 const AccountingPage = lazy(() => import('@/features/finance/accounting-page'));
 const PayPage = lazy(() => import('@/features/finance/pay-page'));
 const PayDonePage = lazy(() => import('@/features/finance/pay-done-page'));
+const HrOverviewPage = lazy(() => import('@/features/hr/hr-overview-page'));
+const EmployeesPage = lazy(() => import('@/features/hr/employees-page'));
+const EmployeePage = lazy(() => import('@/features/hr/employee-page'));
+const LeavePage = lazy(() => import('@/features/hr/leave-page'));
+const AwardsPage = lazy(() => import('@/features/hr/awards-page'));
+const PayrollPage = lazy(() => import('@/features/hr/payroll-page'));
+const PayrollRunPage = lazy(() => import('@/features/hr/payroll-run-page'));
+const PayslipPage = lazy(() => import('@/features/hr/payslip-page'));
+const MyHrPage = lazy(() => import('@/features/hr/my-hr-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -268,6 +277,48 @@ export const router = createBrowserRouter([
         path,
         element: <RequirePermission permission="finance.read">{page}</RequirePermission>,
       })),
+      ...(
+        [
+          ['hr', <HrOverviewPage key="hr" />],
+          ['hr/employees', <EmployeesPage key="employees" />],
+          ['hr/leave', <LeavePage key="leave" />],
+          ['hr/awards', <AwardsPage key="awards" />],
+        ] as const
+      ).map(([path, page]) => ({
+        path,
+        element: <RequirePermission permission="hr.read">{page}</RequirePermission>,
+      })),
+      // Payroll staff open an employee's record to set their pay, without needing hr.read.
+      {
+        path: 'hr/employees/:id',
+        element: <RequirePermission permission={['hr.read', 'payroll.read']}><EmployeePage key="employee" /></RequirePermission>,
+      },
+      ...(
+        [
+          ['payroll', <PayrollPage key="payroll" />],
+          ['payroll/runs/:id', <PayrollRunPage key="payroll-run" />],
+          ['payroll/payslips/:id', <PayslipPage key="payslip" />],
+        ] as const
+      ).map(([path, page]) => ({
+        path,
+        element: <RequirePermission permission="payroll.read">{page}</RequirePermission>,
+      })),
+      {
+        path: 'me/hr',
+        element: (
+          <RequirePermission permission="hr.self">
+            <MyHrPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'me/payslips/:id',
+        element: (
+          <RequirePermission permission="hr.self">
+            <PayslipPage self />
+          </RequirePermission>
+        ),
+      },
       {
         path: 'settings',
         element: <SettingsLayout />,

@@ -104,6 +104,25 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'hr',
+    label: 'HR & Leave',
+    permissions: {
+      'hr.read': 'View employee records, departments, leave and awards',
+      'hr.manage': 'Edit employee records and departments, manage leave types and give awards',
+      'hr.self': 'Request your own leave and view your own payslips',
+      'leave.approve': 'Approve or decline leave requests',
+    },
+  },
+  {
+    module: 'payroll',
+    label: 'Payroll',
+    permissions: {
+      'payroll.read': 'View salaries, pay details, payroll runs and payslips',
+      'payroll.manage': 'Set salaries and pay details, prepare payroll and mark it paid',
+      'payroll.approve': 'Approve a prepared payroll for payment',
+    },
+  },
+  {
     module: 'finance',
     label: 'Finance',
     permissions: {

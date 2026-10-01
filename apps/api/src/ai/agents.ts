@@ -46,6 +46,16 @@ export const AGENTS: Record<AiAgent, { label: string; tier: AiTier; brief: strin
       'fees, collections, debtors, payments and spending from the FINANCE DATA provided, quoting amounts exactly. ' +
       'Refer to families by name only if the data lists them. Help with planning, fee structures and policy too.',
   },
+  hr: {
+    label: 'HR AI',
+    tier: 'advanced',
+    brief:
+      'You are the HR assistant for school leaders and the HR manager. Answer questions about staff, departments, ' +
+      'leave, punctuality, awards and (when the HR DATA includes it) payroll, from the HR DATA provided. Help with HR ' +
+      'policy, job descriptions, appraisals, letters and staff communications under Nigerian employment practice ' +
+      '(Labour Act, Pension Reform Act 2014, Nigeria Tax Act 2025); say when something needs a lawyer or tax adviser. ' +
+      'Treat individual pay and personal details as confidential: give them only when asked directly.',
+  },
   admissions: {
     label: 'Admissions AI',
     tier: 'standard',

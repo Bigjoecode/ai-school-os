@@ -5,7 +5,7 @@ import { Link, Navigate, useLocation } from 'react-router';
 import { Page } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/empty-state';
-import { useAuthStore, useCan, useIsSuperAdmin } from '@/lib/auth-store';
+import { hasPermission, useAuthStore, useIsSuperAdmin } from '@/lib/auth-store';
 
 export function RequireAuth({ children }: { children: ReactNode }) {
   const status = useAuthStore((s) => s.status);
@@ -39,8 +39,9 @@ function NoAccess() {
   );
 }
 
-export function RequirePermission({ permission, children }: { permission: Permission; children: ReactNode }) {
-  const allowed = useCan(permission);
+/** Allowed when the user has the permission (or any one of a list). */
+export function RequirePermission({ permission, children }: { permission: Permission | Permission[]; children: ReactNode }) {
+  const allowed = useAuthStore((s) => (Array.isArray(permission) ? permission : [permission]).some((p) => hasPermission(s.me, p)));
   return allowed ? <>{children}</> : <NoAccess />;
 }
 

@@ -80,6 +80,8 @@ model Tenant {
   attendanceSettings   Json?
   /// { invoicePrefix, receiptPrefix, defaultDueDays, bankDetails } — null means the defaults.
   financeSettings      Json?
+  /// { payeEnabled, pensionEmployeePct, pensionEmployerPct, nhfPct, payslipNote } — null means the defaults.
+  hrSettings           Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -130,6 +132,14 @@ model Tenant {
   payments            Payment[]
   expenses            Expense[]
   integrations        TenantIntegration[]
+  departments         Department[]
+  salaryGrades        SalaryGrade[]
+  payProfiles         StaffPayProfile[]
+  payrollRuns         PayrollRun[]
+  payslips            Payslip[]
+  leaveTypes          LeaveType[]
+  leaveRequests       LeaveRequest[]
+  awards              Award[]
 
   @@map("tenants")
 }
@@ -611,30 +621,44 @@ enum StaffStatus {
 }
 
 model Staff {
-  id          String      @id @default(cuid())
-  tenantId    String
-  userId      String?
-  staffNumber String
-  firstName   String
-  lastName    String
-  gender      Gender
-  email       String?
-  phone       String?
-  jobTitle    String
-  type        StaffType   @default(TEACHING)
-  status      StaffStatus @default(ACTIVE)
-  employedOn  DateTime?   @db.Date
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id             String      @id @default(cuid())
+  tenantId       String
+  userId         String?
+  staffNumber    String
+  firstName      String
+  lastName       String
+  gender         Gender
+  email          String?
+  phone          String?
+  jobTitle       String
+  type           StaffType   @default(TEACHING)
+  status         StaffStatus @default(ACTIVE)
+  employedOn     DateTime?   @db.Date
+  departmentId   String?
+  dateOfBirth    DateTime?   @db.Date
+  address        String?
+  qualification  String?
+  nextOfKinName  String?
+  nextOfKinPhone String?
+  exitedOn       DateTime?   @db.Date
+  exitReason     String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   tenant           Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   user             User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+  department       Department?           @relation("DepartmentStaff", fields: [departmentId], references: [id], onDelete: SetNull)
+  departmentsLed   Department[]          @relation("DepartmentHead")
   classesLed       ClassArm[]            @relation("ClassTeacher")
   classSubjects    ClassSubject[]
   lessonPlans      LessonPlan[]
   unavailability   StaffUnavailability[]
   timetableEntries TimetableEntry[]
   attendance       StaffAttendance[]
+  payProfile       StaffPayProfile?
+  payslips         Payslip[]
+  leaveRequests    LeaveRequest[]
+  awards           Award[]
 
   @@unique([tenantId, staffNumber])
   @@map("staff")
@@ -1397,4 +1421,227 @@ model TenantIntegration {
 
   @@unique([tenantId, provider])
   @@map("tenant_integrations")
+}
+
+// ============================================================== hr & payroll
+
+/// Academic departments (Sciences, Languages…) and support units (Admin, Facilities).
+model Department {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  description String?
+  headStaffId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  head   Staff?  @relation("DepartmentHead", fields: [headStaffId], references: [id], onDelete: SetNull)
+  staff  Staff[] @relation("DepartmentStaff")
+
+  @@unique([tenantId, name])
+  @@map("departments")
+}
+
+/// A salary structure: monthly amounts in kobo that a pay profile starts from.
+model SalaryGrade {
+  id              String   @id @default(cuid())
+  tenantId        String
+  name            String
+  basicKobo       Int
+  housingKobo     Int      @default(0)
+  transportKobo   Int      @default(0)
+  /// [{ label, amountKobo }]
+  otherAllowances Json     @default("[]")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  profiles StaffPayProfile[]
+
+  @@unique([tenantId, name])
+  @@map("salary_grades")
+}
+
+/// An employee's monthly pay, bank and statutory details.
+model StaffPayProfile {
+  id              String   @id @default(cuid())
+  tenantId        String
+  staffId         String   @unique
+  gradeId         String?
+  basicKobo       Int
+  housingKobo     Int      @default(0)
+  transportKobo   Int      @default(0)
+  otherAllowances Json     @default("[]")
+  pensionEnabled  Boolean  @default(true)
+  nhfEnabled      Boolean  @default(false)
+  /// For rent relief on PAYE.
+  annualRentKobo  Int      @default(0)
+  bankName        String?
+  accountNumber   String?
+  accountName     String?
+  pfaName         String?
+  pensionPin      String?
+  taxId           String?
+  updatedAt       DateTime @updatedAt
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staff  Staff        @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  grade  SalaryGrade? @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@map("staff_pay_profiles")
+}
+
+enum PayrollStatus {
+  DRAFT
+  APPROVED
+  PAID
+}
+
+/// One month's payroll. Payslips copy the pay details when prepared, so a
+/// later salary change never alters an approved month.
+model PayrollRun {
+  id           String        @id @default(cuid())
+  tenantId     String
+  /// YYYY-MM
+  period       String
+  status       PayrollStatus @default(DRAFT)
+  workingDays  Int
+  note         String?
+  preparedById String?
+  approvedById String?
+  approvedAt   DateTime?
+  paidOn       DateTime?     @db.Date
+  payMethod    String?
+  payReference String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  payslips Payslip[]
+
+  @@unique([tenantId, period])
+  @@map("payroll_runs")
+}
+
+model Payslip {
+  id                  String   @id @default(cuid())
+  tenantId            String
+  runId               String
+  staffId             String
+  staffName           String
+  staffNumber         String
+  jobTitle            String
+  department          String?
+  bankName            String?
+  accountNumber       String?
+  accountName         String?
+  pfaName             String?
+  pensionPin          String?
+  taxId               String?
+  basicKobo           Int
+  housingKobo         Int
+  transportKobo       Int
+  otherAllowances     Json     @default("[]")
+  pensionEnabled      Boolean
+  nhfEnabled          Boolean
+  annualRentKobo      Int      @default(0)
+  unpaidLeaveDays     Int      @default(0)
+  /// [{ kind: EARNING | DEDUCTION, label, amountKobo }]
+  adjustments         Json     @default("[]")
+  /// Worked-out lines, [{ label, amountKobo }]
+  earnings            Json     @default("[]")
+  deductions          Json     @default("[]")
+  grossKobo           Int
+  payeKobo            Int
+  pensionKobo         Int
+  nhfKobo             Int
+  otherDeductionsKobo Int
+  netKobo             Int
+  employerPensionKobo Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  run    PayrollRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  staff  Staff      @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, staffId])
+  @@index([tenantId, staffId])
+  @@map("payslips")
+}
+
+model LeaveType {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  /// Working days per calendar year.
+  daysPerYear Int
+  paid        Boolean  @default(true)
+  /// ALL, FEMALE or MALE
+  appliesTo   String   @default("ALL")
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  tenant   Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  requests LeaveRequest[]
+
+  @@unique([tenantId, name])
+  @@map("leave_types")
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  DECLINED
+  CANCELLED
+}
+
+model LeaveRequest {
+  id            String      @id @default(cuid())
+  tenantId      String
+  staffId       String
+  leaveTypeId   String
+  startDate     DateTime    @db.Date
+  endDate       DateTime    @db.Date
+  /// Working days (Mon–Fri) in the range.
+  days          Int
+  reason        String?
+  status        LeaveStatus @default(PENDING)
+  requestedById String?
+  decidedById   String?
+  decidedAt     DateTime?
+  decisionNote  String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staff     Staff     @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  leaveType LeaveType @relation(fields: [leaveTypeId], references: [id], onDelete: Restrict)
+
+  @@index([tenantId, status])
+  @@index([staffId, startDate])
+  @@map("leave_requests")
+}
+
+model Award {
+  id          String   @id @default(cuid())
+  tenantId    String
+  staffId     String
+  title       String
+  /// EXCELLENCE, TEACHER_OF_TERM, PUNCTUALITY, LONG_SERVICE, INNOVATION, SERVICE, OTHER
+  category    String
+  citation    String?
+  prize       String?
+  awardedOn   DateTime @db.Date
+  createdById String?
+  createdAt   DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staff  Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, awardedOn])
+  @@map("awards")
 }

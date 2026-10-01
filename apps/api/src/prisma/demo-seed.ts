@@ -7,8 +7,18 @@
  * API at boot when SEED_DEMO_ON_BOOT=true (only if the demo isn't there yet).
  * Re-running replaces the two demo schools.
  */
-import { DEFAULT_BELL_SCHEDULE, SYSTEM_ROLES } from '@aischool/shared';
-import type { ClassArm, ClassLevel, Gender, Invoice, PrismaClient } from '../generated/prisma/client';
+import {
+  DEFAULT_BELL_SCHEDULE,
+  DEFAULT_HR_SETTINGS,
+  DEFAULT_LEAVE_TYPES,
+  SYSTEM_ROLES,
+  computePayslip,
+  periodBounds,
+  workingDaysBetween,
+  type Allowance,
+  type PayAdjustment,
+} from '@aischool/shared';
+import type { ClassArm, ClassLevel, Gender, Invoice, Prisma, PrismaClient } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
 import { buildTimetable } from '../timetable/timetable-builder';
 import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
@@ -625,9 +635,257 @@ async function run({ demoOwner }: SeedOptions) {
     });
   }
 
-  // Two months of spending: salaries at month end, diesel most weeks, utilities and upkeep.
+  // ------------------------------------------------------------ HR & payroll
+  // Departments, salary grades, everyone's pay and bank details, a term of
+  // leave, two awards, and August and September payrolls (paid, and recorded
+  // as salary expenses the way the app does it).
+  const DEPARTMENTS: [string, string, (title: string) => boolean][] = [
+    ['Mathematics & Sciences', 'Mathematics, the sciences, technology and computing', (t) => /Mathematics|Science|Technology|Biology|Chemistry|Physics|Agricultural|Computer Studies/.test(t)],
+    ['Languages', 'English, literature and modern languages', (t) => /English|Literature|French|Yoruba/.test(t)],
+    ['Humanities', 'Social sciences, civic and religious studies', (t) => /Economics|Government|Civic|Religious/.test(t)],
+    ['Creative Arts & Sports', 'Music, physical and health education', (t) => /Music|Physical/.test(t)],
+    ['Administration', 'Bursary, admissions and ICT', (t) => /Bursar|Admissions|ICT Officer/.test(t)],
+    ['Student Services', 'Library, health and transport', (t) => /Librarian|Nurse|Transport/.test(t)],
+  ];
+  const QUALIFICATIONS = ['B.Sc. (Ed.)', 'B.A. (Ed.)', 'M.Ed.', 'B.Sc. + PGDE', 'B.A. + PGDE', 'NCE', 'M.Sc.'];
+  const deptRows = [];
+  for (const [name, description, match] of DEPARTMENTS) {
+    const members = staff.filter((st) => match(st.jobTitle));
+    const head = members.find((m) => m.type === 'TEACHING' && m.employedOn && m.employedOn.getUTCFullYear() <= 2019) ?? members[0];
+    const dep = await prisma.department.create({ data: { tenantId: g.id, name, description, headStaffId: head?.id } });
+    deptRows.push({ dep, members, head });
+    for (const m of members) {
+      await prisma.staff.update({
+        where: { id: m.id },
+        data: {
+          departmentId: dep.id,
+          dateOfBirth: day(`19${70 + Math.floor(rand() * 26)}-${String(1 + Math.floor(rand() * 12)).padStart(2, '0')}-${String(1 + Math.floor(rand() * 28)).padStart(2, '0')}`),
+          qualification: m.type === 'TEACHING' ? pick(QUALIFICATIONS) : pick(['B.Sc.', 'HND', 'OND', 'B.Sc. Accounting', 'RN, B.N.Sc.']),
+          address: `${1 + Math.floor(rand() * 40)} ${pick(['Admiralty Way', 'Freedom Way', 'Bisola Durosinmi-Etti Drive', 'Ajah Road', 'Chevron Drive', 'Ikota Road'])}, Lekki, Lagos`,
+          nextOfKinName: `${pick(rand() < 0.5 ? MALE : FEMALE)} ${m.lastName}`,
+          nextOfKinPhone: `+23480${Math.floor(10000000 + rand() * 89999999)}`,
+        },
+      });
+    }
+  }
+  const heads = new Set(deptRows.filter((d) => d.dep.name !== 'Administration' && d.dep.name !== 'Student Services').map((d) => d.head?.id));
+
+  const grade = async (name: string, basic: number, housing: number, transport: number, other: { label: string; amountKobo: number }[] = []) =>
+    prisma.salaryGrade.create({
+      data: { tenantId: g.id, name, basicKobo: naira(basic), housingKobo: naira(housing), transportKobo: naira(transport), otherAllowances: other },
+    });
+  const grades = {
+    support: await grade('Support Staff', 60_000, 24_000, 12_000),
+    admin: await grade('Administrative Officer', 100_000, 40_000, 20_000),
+    graduate: await grade('Graduate Teacher', 110_000, 44_000, 22_000),
+    senior: await grade('Senior Teacher', 145_000, 58_000, 29_000),
+    bursar: await grade('Bursar', 170_000, 68_000, 34_000),
+    hod: await grade('Head of Department', 185_000, 74_000, 37_000, [{ label: 'Responsibility allowance', amountKobo: naira(30_000) }]),
+  };
+  const BANKS = ['GTBank', 'Access Bank', 'Zenith Bank', 'First Bank', 'UBA', 'Wema Bank', 'Stanbic IBTC'];
+  const PFAS = ['Stanbic IBTC Pension Managers', 'ARM Pension Managers', 'Leadway Pensure', 'Premium Pension', 'Access Pensions'];
+  const digits = (n: number) => Array.from({ length: n }, () => Math.floor(rand() * 10)).join('');
+  const payProfiles = new Map<string, Awaited<ReturnType<typeof prisma.staffPayProfile.create>>>();
+  for (const [i, m] of staff.entries()) {
+    const gr =
+      m.jobTitle === 'Bursar' ? grades.bursar
+      : m.jobTitle === 'Transport Coordinator' ? grades.support
+      : m.type === 'NON_TEACHING' ? grades.admin
+      : heads.has(m.id) ? grades.hod
+      : m.employedOn && m.employedOn.getUTCFullYear() <= 2019 ? grades.senior
+      : grades.graduate;
+    const p = await prisma.staffPayProfile.create({
+      data: {
+        tenantId: g.id,
+        staffId: m.id,
+        gradeId: gr.id,
+        basicKobo: gr.basicKobo,
+        housingKobo: gr.housingKobo,
+        transportKobo: gr.transportKobo,
+        otherAllowances: gr.otherAllowances ?? [],
+        pensionEnabled: true,
+        nhfEnabled: chance(0.3),
+        annualRentKobo: chance(0.6) ? naira(600_000 + Math.round(rand() * 9) * 100_000) : 0,
+        bankName: pick(BANKS),
+        accountNumber: digits(10),
+        accountName: `${m.lastName} ${m.firstName}`.toUpperCase(),
+        pfaName: pick(PFAS),
+        // One pension PIN is still outstanding, so the payroll checks have something real to flag.
+        pensionPin: i === 22 ? null : `PEN${digits(12)}`,
+        taxId: digits(10),
+      },
+    });
+    payProfiles.set(m.id, p);
+  }
+
+  // Leave: the standard types, the three sick days already on the register,
+  // a teacher's summer leave, unpaid days in September, requests awaiting a
+  // decision, maternity leave ahead and one declined request.
+  const leaveTypes = new Map<string, { id: string }>();
+  for (const [i, t] of DEFAULT_LEAVE_TYPES.entries()) {
+    leaveTypes.set(t.name, await prisma.leaveType.create({ data: { tenantId: g.id, ...t, sortOrder: i } }));
+  }
+  const ngozi = staff.find((m) => m.userId === teacherUser.id)!;
+  const sickDays = schoolDays.slice(-8, -5);
+  const female = staff.filter((m) => m.gender === 'FEMALE' && m.type === 'TEACHING' && m.id !== ngozi.id);
+  const male = staff.filter((m) => m.gender === 'MALE');
+  const unpaidStaff = staff[25]!;
+  const leaveRows: {
+    staffId: string;
+    type: string;
+    start: string;
+    end: string;
+    status: 'PENDING' | 'APPROVED' | 'DECLINED';
+    reason: string;
+    note?: string;
+  }[] = [
+    { staffId: onLeave.id, type: 'Sick leave', start: sickDays[0]!, end: sickDays[2]!, status: 'APPROVED', reason: 'Malaria — doctor’s note submitted' },
+    { staffId: ngozi.id, type: 'Annual leave', start: '2026-08-10', end: '2026-08-14', status: 'APPROVED', reason: 'Family holiday in Enugu' },
+    { staffId: unpaidStaff.id, type: 'Unpaid leave', start: '2026-09-17', end: '2026-09-18', status: 'APPROVED', reason: 'Personal matter out of state' },
+    { staffId: female[0]!.id, type: 'Maternity leave', start: '2026-11-02', end: '2026-12-18', status: 'APPROVED', reason: 'Expected due date mid-November' },
+    { staffId: staff[27]!.id, type: 'Annual leave', start: '2026-10-19', end: '2026-10-23', status: 'PENDING', reason: 'Mid-term break extension — sister’s wedding in Ibadan' },
+    { staffId: male[3]!.id, type: 'Compassionate leave', start: '2026-10-07', end: '2026-10-09', status: 'PENDING', reason: 'Burial of my father in Owerri' },
+    { staffId: staff[12]!.id, type: 'Annual leave', start: '2026-10-12', end: '2026-10-16', status: 'DECLINED', reason: 'Short trip', note: 'Clashes with the SS 3 mock examinations — please choose the half-term break instead' },
+  ];
+  for (const l of leaveRows) {
+    // Asked two weeks ahead (or yesterday, for short notice); decided the next day.
+    const asked = new Date(Math.min(Date.parse(`${l.start}T09:00:00.000Z`) - 14 * 86_400_000, Date.parse(`${today}T09:00:00.000Z`) - 86_400_000));
+    await prisma.leaveRequest.create({
+      data: {
+        tenantId: g.id,
+        staffId: l.staffId,
+        leaveTypeId: leaveTypes.get(l.type)!.id,
+        startDate: day(l.start),
+        endDate: day(l.end),
+        days: workingDaysBetween(l.start, l.end),
+        reason: l.reason,
+        status: l.status,
+        requestedById: l.staffId === ngozi.id ? teacherUser.id : admin.id,
+        decidedById: l.status === 'PENDING' ? null : admin.id,
+        decidedAt: l.status === 'PENDING' ? null : new Date(asked.getTime() + 86_400_000),
+        createdAt: asked,
+        decisionNote: l.note ?? null,
+      },
+    });
+  }
+  await prisma.staffAttendance.updateMany({ where: { staffId: onLeave.id, status: 'ON_LEAVE' }, data: { method: 'LEAVE' } });
+
+  // Awards from the end of last session and resumption.
+  const star = staff.find((m) => heads.has(m.id) && m.id !== ngozi.id)!;
+  await prisma.award.create({
+    data: {
+      tenantId: g.id,
+      staffId: star.id,
+      title: 'Teacher of the Term — Third Term 2025/2026',
+      category: 'TEACHER_OF_TERM',
+      citation: `${star.firstName} ${star.lastName} led the department through a demanding third term: every scheme of work was in place by week two, and the department's classes met each assessment deadline. Colleagues speak of a steady, generous presence in the staffroom. For dedication that lifts the whole school, we name ${star.firstName} ${star.lastName} Teacher of the Term.`,
+      prize: 'Gift voucher (₦50,000) and certificate',
+      awardedOn: day('2026-07-17'),
+      createdById: admin.id,
+    },
+  });
+  const veteran = [...staff].sort((a, b) => (a.employedOn?.getTime() ?? 0) - (b.employedOn?.getTime() ?? 0))[0]!;
+  await prisma.award.create({
+    data: {
+      tenantId: g.id,
+      staffId: veteran.id,
+      title: 'Long Service Award',
+      category: 'LONG_SERVICE',
+      citation: null,
+      prize: 'Plaque',
+      awardedOn: day('2026-09-07'),
+      createdById: admin.id,
+    },
+  });
+
+  // Payroll: August and September, worked out with the app's own payslip maths.
+  const payrollExpenses: { description: string; amountKobo: number; spentOn: string; paidTo: string; reference: string }[] = [];
+  for (const [period, paidOn] of [['2026-08', '2026-08-28'], ['2026-09', '2026-09-28']] as const) {
+    const { start, end } = periodBounds(period);
+    const workingDays = workingDaysBetween(start, end);
+    const paid = paidOn <= today;
+    const run = await prisma.payrollRun.create({
+      data: {
+        tenantId: g.id,
+        period,
+        workingDays,
+        status: paid ? 'PAID' : 'APPROVED',
+        preparedById: admin.id,
+        approvedById: principal.id,
+        approvedAt: new Date(`${paidOn}T09:00:00.000Z`),
+        paidOn: paid ? day(paidOn) : null,
+        payMethod: paid ? 'BANK_TRANSFER' : null,
+        payReference: paid ? `GTB-BULK-${period.replace('-', '')}` : null,
+      },
+    });
+    const slips: Prisma.PayslipCreateManyInput[] = [];
+    for (const m of staff) {
+      const p = payProfiles.get(m.id)!;
+      const otherAllowances = p.otherAllowances as unknown as Allowance[];
+      const adjustments: PayAdjustment[] =
+        period === '2026-09' && m.id === staff[2]!.id ? [{ kind: 'EARNING', label: 'Exam supervision allowance', amountKobo: naira(25_000) }]
+        : period === '2026-09' && m.id === staff[29]!.id ? [{ kind: 'DEDUCTION', label: 'Salary advance repayment', amountKobo: naira(30_000) }]
+        : [];
+      const unpaidLeaveDays = period === '2026-09' && m.id === unpaidStaff.id ? 2 : 0;
+      const calc = computePayslip({ ...p, otherAllowances, unpaidLeaveDays, workingDays, adjustments }, DEFAULT_HR_SETTINGS);
+      const dep = deptRows.find((d) => d.members.some((x) => x.id === m.id))?.dep.name ?? null;
+      slips.push({
+        tenantId: g.id,
+        runId: run.id,
+        staffId: m.id,
+        staffName: `${m.firstName} ${m.lastName}`,
+        staffNumber: m.staffNumber,
+        jobTitle: m.jobTitle,
+        department: dep,
+        bankName: p.bankName,
+        accountNumber: p.accountNumber,
+        accountName: p.accountName,
+        pfaName: p.pfaName,
+        pensionPin: p.pensionPin,
+        taxId: p.taxId,
+        basicKobo: p.basicKobo,
+        housingKobo: p.housingKobo,
+        transportKobo: p.transportKobo,
+        otherAllowances: otherAllowances as unknown as Prisma.InputJsonValue,
+        pensionEnabled: p.pensionEnabled,
+        nhfEnabled: p.nhfEnabled,
+        annualRentKobo: p.annualRentKobo,
+        unpaidLeaveDays,
+        adjustments: adjustments as unknown as Prisma.InputJsonValue,
+        earnings: calc.earnings as unknown as Prisma.InputJsonValue,
+        deductions: calc.deductions as unknown as Prisma.InputJsonValue,
+        grossKobo: calc.grossKobo,
+        payeKobo: calc.payeKobo,
+        pensionKobo: calc.pensionKobo,
+        nhfKobo: calc.nhfKobo,
+        otherDeductionsKobo: calc.otherDeductionsKobo,
+        netKobo: calc.netKobo,
+        employerPensionKobo: calc.employerPensionKobo,
+      });
+    }
+    await prisma.payslip.createMany({ data: slips });
+    if (paid) {
+      const sum = (k: 'netKobo' | 'payeKobo' | 'pensionKobo' | 'employerPensionKobo' | 'nhfKobo') => slips.reduce((n, s) => n + (s[k] as number), 0);
+      const label = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(day(start));
+      const reference = `GTB-BULK-${period.replace('-', '')}`;
+      payrollExpenses.push(
+        { description: `${label} salaries (${slips.length} staff, net pay)`, amountKobo: sum('netKobo'), spentOn: paidOn, paidTo: 'Staff payroll', reference },
+        {
+          description: `${label} PAYE, pension & NHF remittances`,
+          amountKobo: sum('payeKobo') + sum('pensionKobo') + sum('employerPensionKobo') + sum('nhfKobo'),
+          spentOn: paidOn,
+          paidTo: 'State IRS, PFAs & FMBN',
+          reference,
+        },
+      );
+    }
+  }
+  await prisma.expense.createMany({
+    data: payrollExpenses.map((e) => ({ ...e, tenantId: g.id, category: 'SALARIES', spentOn: day(e.spentOn), method: 'BANK_TRANSFER', recordedById: admin.id })),
+  });
+
+  // Two months of spending: diesel most weeks, utilities and upkeep (salaries come from payroll above).
   const expenseRows: { category: string; description: string; amount: number; date: string; paidTo: string }[] = [
-    { category: 'SALARIES', description: 'August salaries (30 staff)', amount: 6_840_000, date: '2026-08-28', paidTo: 'Staff payroll' },
     { category: 'UTILITIES', description: 'Electricity (prepaid meter)', amount: 285_000, date: '2026-08-05', paidTo: 'Eko Electricity' },
     { category: 'UTILITIES', description: 'Internet — dedicated line', amount: 180_000, date: '2026-08-10', paidTo: 'Spectranet' },
     { category: 'MAINTENANCE', description: 'Classroom painting before resumption', amount: 1_150_000, date: '2026-08-18', paidTo: 'Ade Decor Services' },

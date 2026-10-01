@@ -4,7 +4,7 @@ import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { Briefcase, Mail, Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import type { z } from 'zod';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -36,6 +36,8 @@ type TypeFilter = 'ALL' | (typeof STAFF_TYPES)[number];
 export default function StaffPage() {
   const [params, setParams] = useSearchParams();
   const canManage = useCan('staff.manage');
+  const canHr = useCan('hr.read');
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [type, setType] = useState<TypeFilter>('ALL');
@@ -163,6 +165,8 @@ export default function StaffPage() {
           loading={list.isFetching}
           error={list.error}
           onRetry={() => void list.refetch()}
+          onRowClick={canHr ? (s) => navigate(`/hr/employees/${s.id}`) : undefined}
+          rowLabel={(s) => `Open ${s.firstName} ${s.lastName}’s HR record`}
           renderMobile={(s) => (
             <div className="flex items-center gap-3">
               <Avatar name={`${s.firstName} ${s.lastName}`} initials={initials(s.firstName, s.lastName)} />

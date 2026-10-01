@@ -25,6 +25,10 @@ export async function runMigrations(databaseUrl: string): Promise<void> {
   const client = new Client({ connectionString: databaseUrl });
   await client.connect();
   try {
+    const { rows: enc } = await client.query<{ server_encoding: string }>('SHOW server_encoding');
+    if (enc[0] && !['UTF8', 'SQL_ASCII'].includes(enc[0].server_encoding)) {
+      logger.warn(`Database encoding is ${enc[0].server_encoding}, not UTF8: text with "₦" or other symbols will fail to save. Recreate the database as UTF8.`);
+    }
     // One runner at a time, even if Passenger starts several processes.
     await client.query('SELECT pg_advisory_lock(727274)');
     await client.query(`

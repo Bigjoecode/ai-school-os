@@ -39,6 +39,7 @@ import { formatDate, formatNumber, formatRelative, greeting } from '@/lib/format
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
+import { PendingLeaveNotice } from '../hr/ui';
 import { TodayClassesCard } from '../timetable/today-card';
 
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
@@ -114,6 +115,7 @@ function SchoolOverview() {
       <Greeting data={data} loading={isLoading} />
       <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
         <Kpis data={data} />
+        <PendingLeaveNotice />
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />

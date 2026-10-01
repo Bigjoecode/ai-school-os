@@ -5,6 +5,7 @@ import {
   ArrowUp,
   Bot,
   Building2,
+  Contact,
   GraduationCap,
   HeartHandshake,
   KeyRound,
@@ -67,6 +68,12 @@ const AGENT_META: Record<AiAgent, { label: string; icon: LucideIcon; blurb: stri
     icon: Wallet,
     blurb: 'Budgets, fee planning and financial summaries.',
     suggestions: ['Draft a fee reminder message', 'How should we structure sibling discounts?', 'Outline a termly budget template'],
+  },
+  hr: {
+    label: 'HR',
+    icon: Contact,
+    blurb: 'Leave, punctuality, appraisals and staff letters.',
+    suggestions: ['Who is on leave this month?', 'Draft a staff appraisal template', 'Summarise punctuality this month'],
   },
   admissions: {
     label: 'Admissions',

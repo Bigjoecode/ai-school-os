@@ -15,11 +15,25 @@ const pg = new EmbeddedPostgres({
 
 if (!existsSync(resolve(dir, 'PG_VERSION'))) await pg.initialise();
 await pg.start();
-try {
-  await pg.createDatabase('aischool');
-} catch {
-  // already exists
+
+// Always UTF-8: on Windows the cluster defaults to WIN1252, which can't store "₦".
+const client = pg.getPgClient();
+await client.connect();
+const { rows } = await client.query("SELECT pg_encoding_to_char(encoding) AS enc FROM pg_database WHERE datname = 'aischool'");
+if (!rows.length) {
+  await client.query("CREATE DATABASE aischool ENCODING 'UTF8' TEMPLATE template0 LC_COLLATE 'C' LC_CTYPE 'C'");
+} else if (rows[0].enc !== 'UTF8') {
+  console.warn(
+    `The aischool database uses ${rows[0].enc}, so "₦" and other symbols can't be stored. ` +
+      'Run: node scripts/dev-db.mjs --recreate   (then npm run db:migrate && npm run db:seed)',
+  );
+  if (process.argv.includes('--recreate')) {
+    await client.query('DROP DATABASE aischool WITH (FORCE)');
+    await client.query("CREATE DATABASE aischool ENCODING 'UTF8' TEMPLATE template0 LC_COLLATE 'C' LC_CTYPE 'C'");
+    console.log('Recreated the aischool database as UTF-8 (empty).');
+  }
 }
+await client.end();
 console.log('PostgreSQL ready: postgresql://aischool:aischool@localhost:5433/aischool');
 
 const stop = async () => {

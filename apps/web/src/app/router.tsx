@@ -30,6 +30,14 @@ const AttendancePage = lazy(() => import('@/features/attendance/attendance-page'
 const StudentAttendancePage = lazy(() => import('@/features/attendance/student-attendance-page'));
 const KioskPage = lazy(() => import('@/features/attendance/kiosk-page'));
 const CheckInPage = lazy(() => import('@/features/attendance/check-in-page'));
+const FeesPage = lazy(() => import('@/features/finance/fees-page'));
+const InvoicePage = lazy(() => import('@/features/finance/invoice-page'));
+const ReceiptPage = lazy(() => import('@/features/finance/receipt-page'));
+const PaymentsPage = lazy(() => import('@/features/finance/payments-page'));
+const ExpensesPage = lazy(() => import('@/features/finance/expenses-page'));
+const AccountingPage = lazy(() => import('@/features/finance/accounting-page'));
+const PayPage = lazy(() => import('@/features/finance/pay-page'));
+const PayDonePage = lazy(() => import('@/features/finance/pay-done-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -63,6 +71,9 @@ export const router = createBrowserRouter([
       </RequireAuth>
     ),
   },
+  // Public parent payment pages: no sign-in, no app chrome.
+  { path: '/pay/:token', element: withSuspense(<PayPage />) },
+  { path: '/pay/:token/done', element: withSuspense(<PayDonePage />) },
   {
     path: '/check-in',
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
@@ -244,6 +255,19 @@ export const router = createBrowserRouter([
           </RequirePermission>
         ),
       },
+      ...(
+        [
+          ['fees', <FeesPage key="fees" />],
+          ['fees/invoices/:id', <InvoicePage key="invoice" />],
+          ['fees/receipts/:id', <ReceiptPage key="receipt" />],
+          ['payments', <PaymentsPage key="payments" />],
+          ['expenses', <ExpensesPage key="expenses" />],
+          ['accounting', <AccountingPage key="accounting" />],
+        ] as const
+      ).map(([path, page]) => ({
+        path,
+        element: <RequirePermission permission="finance.read">{page}</RequirePermission>,
+      })),
       {
         path: 'settings',
         element: <SettingsLayout />,

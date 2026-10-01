@@ -18,6 +18,8 @@ async function bootstrap() {
   await runBootTasks(config);
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    // Webhook signatures (Paystack) are computed over the exact raw body.
+    rawBody: true,
     logger: config.NODE_ENV === 'production' ? ['log', 'warn', 'error'] : undefined,
   });
 

@@ -43,6 +43,9 @@ const schema = z.object({
     .transform((v) => v === 'true' || v === '1'),
   AI_PRICES: z.string().optional(),
   AI_DEFAULT_MONTHLY_BUDGET_USD: z.coerce.number().min(0).default(25),
+  /** Encrypts stored third-party secrets (e.g. each school's Paystack key). Long random string; never change it once set. */
+  APP_ENCRYPTION_KEY: z.string().min(32, 'APP_ENCRYPTION_KEY must be at least 32 characters').optional(),
+  PAYSTACK_BASE_URL: z.string().url().default('https://api.paystack.co'),
 });
 
 export type Env = z.infer<typeof schema>;

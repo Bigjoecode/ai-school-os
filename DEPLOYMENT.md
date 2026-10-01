@@ -58,6 +58,7 @@ Then add these **environment variables** and click **Create**:
 | `DATABASE_URL` | the connection string from step 1 |
 | `JWT_SECRET` | a long random string (generate: `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`) |
 | `RUN_MIGRATIONS_ON_BOOT` | `true` |
+| `APP_ENCRYPTION_KEY` | another long random string (same command as `JWT_SECRET`). Encrypts each school's saved Paystack key — **never change it** once schools have connected Paystack |
 | `BOOTSTRAP_OWNER_EMAIL` | your email — becomes the platform super admin |
 | `BOOTSTRAP_OWNER_PASSWORD` | a strong password (12+ characters) |
 | `SEED_DEMO_ON_BOOT` | `true` to load the Greenfield demo school, otherwise `false` |
@@ -75,6 +76,15 @@ returns `{"status":"ok",...}`.
 
 Then **remove `BOOTSTRAP_OWNER_PASSWORD`** from the app's environment variables
 (the account stays; the variable is only read when no owner exists).
+
+## Online fee payments (Paystack)
+
+Each school connects its own Paystack account, so fees are paid straight to
+the school. In the app: **Fees → Settings → Paystack**, paste the school's
+public and secret keys (test keys first), then copy the **webhook URL** shown
+there into Paystack → Settings → API Keys & Webhooks. Paystack signs every
+webhook; the API rejects any that don't verify, and re-checks each payment
+with Paystack before marking an invoice paid.
 
 ## GitHub secrets
 

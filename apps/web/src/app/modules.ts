@@ -51,50 +51,6 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/fees': {
-    name: 'Fees',
-    phase: 7,
-    summary: 'Fee structures, invoices and reminders on autopilot.',
-    features: [
-      'Fee items per class, term and category',
-      'Discounts, scholarships and sibling rules',
-      'Automated invoices and reminders',
-      'Finance AI forecasts collections and flags at-risk balances',
-    ],
-  },
-  '/payments': {
-    name: 'Payments',
-    phase: 7,
-    summary: 'Collect fees online and reconcile automatically.',
-    features: [
-      'Card, bank transfer and USSD payments',
-      'Automatic receipts and reconciliation',
-      'Part-payments and payment plans',
-      'AI matches unidentified transfers to the right student',
-    ],
-  },
-  '/accounting': {
-    name: 'Accounting',
-    phase: 7,
-    summary: 'Double-entry books built for schools.',
-    features: [
-      'Chart of accounts and journals',
-      'Income statement and balance sheet',
-      'Budget vs actual per term',
-      'AI answers “where did our money go this term?”',
-    ],
-  },
-  '/expenses': {
-    name: 'Expenses',
-    phase: 7,
-    summary: 'Track spending with approvals and receipts.',
-    features: [
-      'Expense requests with approval chains',
-      'Receipt capture and categorisation',
-      'Vendor records and payment tracking',
-      'AI categorises receipts and spots unusual spend',
-    ],
-  },
   '/library': {
     name: 'Library',
     phase: 9,

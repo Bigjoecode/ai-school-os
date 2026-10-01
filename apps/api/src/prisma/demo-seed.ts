@@ -8,7 +8,7 @@
  * Re-running replaces the two demo schools.
  */
 import { DEFAULT_BELL_SCHEDULE, SYSTEM_ROLES } from '@aischool/shared';
-import type { Gender, PrismaClient } from '../generated/prisma/client';
+import type { ClassArm, ClassLevel, Gender, Invoice, PrismaClient } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
 import { buildTimetable } from '../timetable/timetable-builder';
 import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
@@ -224,7 +224,7 @@ async function run({ demoOwner }: SeedOptions) {
 
   // Classes: two arms per level; JSS 1 has a third. Two arms are left without
   // a class teacher so the dashboard has something honest to flag.
-  const arms = [];
+  const arms: { level: ClassLevel; arm: ClassArm }[] = [];
   let t = 0;
   for (const [order, [name, code, stage]] of LEVELS.entries()) {
     const level = await prisma.classLevel.create({ data: { tenantId: g.id, name, code, stage, order } });
@@ -485,6 +485,177 @@ async function run({ demoOwner }: SeedOptions) {
     }
   }
   await prisma.staffAttendance.createMany({ data: staffAttendanceRows });
+
+  // ------------------------------------------------------------ fees
+  // First-term fee schedule (amounts in kobo), invoices for every learner with
+  // a 10% sibling discount on tuition, and a realistic payment spread: about
+  // half paid in full, a quarter part-paid, the rest still owing after the
+  // 21 September due date.
+  const naira = (n: number) => n * 100;
+  const levelIds = (codes: string[]) => arms.filter((a) => codes.includes(a.level.code)).map((a) => a.level.id).filter((v, i, xs) => xs.indexOf(v) === i);
+  const junior = levelIds(['JSS1', 'JSS2', 'JSS3']);
+  const senior = levelIds(['SS1', 'SS2', 'SS3']);
+  const feeSpecs = [
+    { name: 'Tuition (Junior Secondary)', category: 'TUITION', amount: 150_000, levels: junior },
+    { name: 'Tuition (Senior Secondary)', category: 'TUITION', amount: 175_000, levels: senior },
+    { name: 'Development levy', category: 'LEVY', amount: 20_000, levels: [] as string[] },
+    { name: 'ICT fee', category: 'ICT', amount: 8_000, levels: [] },
+    { name: 'Laboratory fee', category: 'LAB', amount: 12_000, levels: senior },
+    { name: 'Books & stationery (new intake)', category: 'BOOKS', amount: 25_000, levels: levelIds(['JSS1', 'SS1']) },
+    { name: 'WAEC & NECO registration', category: 'EXAM', amount: 45_000, levels: levelIds(['SS3']) },
+    { name: 'School bus (optional)', category: 'TRANSPORT', amount: 60_000, levels: [], optional: true },
+  ];
+  const feeItems = [];
+  for (const f of feeSpecs) {
+    feeItems.push(
+      await prisma.feeItem.create({
+        data: {
+          tenantId: g.id,
+          termId: currentTerm.id,
+          name: f.name,
+          category: f.category,
+          amountKobo: naira(f.amount),
+          classLevelIds: f.levels,
+          optional: f.optional ?? false,
+        },
+      }),
+    );
+  }
+
+  const guardianLinks = await prisma.studentGuardian.findMany({ where: { tenantId: g.id } });
+  const guardiansOf = new Map<string, string[]>();
+  for (const l of guardianLinks) guardiansOf.set(l.studentId, [...(guardiansOf.get(l.studentId) ?? []), l.guardianId]);
+  const levelOfArm = new Map(arms.map((a) => [a.arm.id, a.level.id]));
+  const seenGuardians = new Set<string>();
+  const eldestFirst = [...students].sort((a, b) => (a.dateOfBirth?.getTime() ?? 0) - (b.dateOfBirth?.getTime() ?? 0));
+  const PAY_METHODS: [string, number][] = [['BANK_TRANSFER', 0.45], ['PAYSTACK', 0.2], ['POS', 0.2], ['CASH', 0.15]];
+  const pickMethod = () => {
+    let r = rand();
+    for (const [m, p] of PAY_METHODS) if ((r -= p) < 0) return m;
+    return 'CASH';
+  };
+  const paymentsToCreate: { invoiceIndex: number; amountKobo: number; method: string; paidAt: Date; reference: string | null }[] = [];
+  const invoiceRows: { studentId: string; number: string; totalKobo: number; lines: { feeItemId: string | null; description: string; kind: string; amountKobo: number }[] }[] = [];
+
+  for (const st of eldestFirst) {
+    const levelId = levelOfArm.get(st.classArmId!)!;
+    const items = feeItems.filter((f) => !f.optional && (!f.classLevelIds.length || f.classLevelIds.includes(levelId)));
+    const lines: { feeItemId: string | null; description: string; kind: string; amountKobo: number }[] = items.map((f) => ({
+      feeItemId: f.id,
+      description: f.name,
+      kind: 'FEE',
+      amountKobo: f.amountKobo,
+    }));
+    if (chance(0.12)) {
+      const bus = feeItems.find((f) => f.optional)!;
+      lines.push({ feeItemId: bus.id, description: bus.name, kind: 'FEE', amountKobo: bus.amountKobo });
+    }
+    const gs = guardiansOf.get(st.id) ?? [];
+    if (gs.some((x) => seenGuardians.has(x))) {
+      const tuition = items.filter((f) => f.category === 'TUITION').reduce((n, f) => n + f.amountKobo, 0);
+      lines.push({ feeItemId: null, description: 'Sibling discount (10% of tuition)', kind: 'DISCOUNT', amountKobo: -Math.round(tuition * 0.1) });
+    }
+    for (const x of gs) seenGuardians.add(x);
+    const total = lines.reduce((n, l) => n + l.amountKobo, 0);
+    const index = invoiceRows.length;
+    invoiceRows.push({ studentId: st.id, number: `INV/2026/${String(index + 1).padStart(5, '0')}`, totalKobo: total, lines });
+
+    // Payment behaviour for this family.
+    const r = rand();
+    const payDay = () => {
+      const d = new Date('2026-08-24T09:00:00.000Z');
+      d.setUTCDate(d.getUTCDate() + Math.floor(rand() * 30));
+      d.setUTCHours(8 + Math.floor(rand() * 8), Math.floor(rand() * 60));
+      return d.getTime() > Date.now() ? new Date(Date.now() - 3_600_000) : d;
+    };
+    if (r < 0.5) {
+      paymentsToCreate.push({ invoiceIndex: index, amountKobo: total, method: pickMethod(), paidAt: payDay(), reference: null });
+    } else if (r < 0.78) {
+      const first = Math.round((total * (0.4 + rand() * 0.3)) / 100_000) * 100_000;
+      paymentsToCreate.push({ invoiceIndex: index, amountKobo: Math.min(first, total), method: pickMethod(), paidAt: payDay(), reference: null });
+      if (chance(0.35)) {
+        paymentsToCreate.push({ invoiceIndex: index, amountKobo: Math.round((total - first) / 2 / 100) * 100, method: pickMethod(), paidAt: payDay(), reference: null });
+      }
+    }
+  }
+
+  const createdInvoices: Invoice[] = [];
+  for (const inv of invoiceRows) {
+    createdInvoices.push(
+      await prisma.invoice.create({
+        data: {
+          tenantId: g.id,
+          studentId: inv.studentId,
+          termId: currentTerm.id,
+          number: inv.number,
+          totalKobo: inv.totalKobo,
+          dueDate: day('2026-09-21'),
+          issuedAt: new Date('2026-08-20T09:00:00.000Z'),
+          createdById: admin.id,
+          lines: { create: inv.lines.map((l) => ({ ...l, tenantId: g.id })) },
+        },
+      }),
+    );
+  }
+  paymentsToCreate.sort((a, b) => a.paidAt.getTime() - b.paidAt.getTime());
+  const paidByInvoice = new Map<number, number>();
+  await prisma.payment.createMany({
+    data: paymentsToCreate.map((p, i) => {
+      const inv = createdInvoices[p.invoiceIndex]!;
+      paidByInvoice.set(p.invoiceIndex, (paidByInvoice.get(p.invoiceIndex) ?? 0) + p.amountKobo);
+      return {
+        tenantId: g.id,
+        invoiceId: inv.id,
+        studentId: inv.studentId,
+        amountKobo: p.amountKobo,
+        method: p.method,
+        status: 'SUCCESS' as const,
+        reference: p.method === 'PAYSTACK' ? `AIS-DEMO-${String(i + 1).padStart(5, '0')}` : p.method === 'BANK_TRANSFER' ? `TRF${100000 + i}` : null,
+        receiptNumber: `RCT/2026/${String(i + 1).padStart(5, '0')}`,
+        paidAt: p.paidAt,
+        receivedById: p.method === 'PAYSTACK' ? null : admin.id,
+      };
+    }),
+  });
+  for (const [index, paid] of paidByInvoice) {
+    const inv = createdInvoices[index]!;
+    await prisma.invoice.update({
+      where: { id: inv.id },
+      data: { paidKobo: paid, status: paid >= inv.totalKobo ? 'PAID' : 'PART_PAID' },
+    });
+  }
+
+  // Two months of spending: salaries at month end, diesel most weeks, utilities and upkeep.
+  const expenseRows: { category: string; description: string; amount: number; date: string; paidTo: string }[] = [
+    { category: 'SALARIES', description: 'August salaries (30 staff)', amount: 6_840_000, date: '2026-08-28', paidTo: 'Staff payroll' },
+    { category: 'UTILITIES', description: 'Electricity (prepaid meter)', amount: 285_000, date: '2026-08-05', paidTo: 'Eko Electricity' },
+    { category: 'UTILITIES', description: 'Internet — dedicated line', amount: 180_000, date: '2026-08-10', paidTo: 'Spectranet' },
+    { category: 'MAINTENANCE', description: 'Classroom painting before resumption', amount: 1_150_000, date: '2026-08-18', paidTo: 'Ade Decor Services' },
+    { category: 'SUPPLIES', description: 'Chalk, markers and exercise books', amount: 342_500, date: '2026-09-02', paidTo: 'Lekki Stationers' },
+    { category: 'MAINTENANCE', description: 'Generator servicing', amount: 210_000, date: '2026-09-09', paidTo: 'PowerTech Nigeria' },
+    { category: 'UTILITIES', description: 'Electricity (prepaid meter)', amount: 310_000, date: '2026-09-04', paidTo: 'Eko Electricity' },
+    { category: 'UTILITIES', description: 'Internet — dedicated line', amount: 180_000, date: '2026-09-10', paidTo: 'Spectranet' },
+    { category: 'EVENTS', description: 'Resumption assembly & welcome reception', amount: 275_000, date: '2026-09-07', paidTo: 'Various' },
+    { category: 'TRANSPORT', description: 'School bus tyres', amount: 420_000, date: '2026-09-15', paidTo: 'Tyre Plus Lekki' },
+  ];
+  for (const d of ['2026-08-03', '2026-08-17', '2026-08-31', '2026-09-07', '2026-09-14', '2026-09-21']) {
+    if (d > today) continue;
+    expenseRows.push({ category: 'FUEL', description: 'Diesel for generators (1,000 litres)', amount: 1_150_000 + Math.round(rand() * 8) * 25_000, date: d, paidTo: 'Conoil Lekki' });
+  }
+  await prisma.expense.createMany({
+    data: expenseRows
+      .filter((e) => e.date <= today)
+      .map((e) => ({
+        tenantId: g.id,
+        category: e.category,
+        description: e.description,
+        amountKobo: naira(e.amount),
+        spentOn: day(e.date),
+        paidTo: e.paidTo,
+        method: 'BANK_TRANSFER',
+        recordedById: admin.id,
+      })),
+  });
 
   await prisma.auditLog.create({
     data: {

@@ -17,7 +17,9 @@ function SessionGate({ children }: { children: ReactNode }) {
       if (!session && useAuthStore.getState().status === 'booting') useAuthStore.getState().clear();
     });
   }, []);
-  if (status === 'booting') return <BootLoader />;
+  // Public parent payment pages render straight away; the session restore runs in the background.
+  const isPublic = typeof window !== 'undefined' && window.location.pathname.startsWith('/pay/');
+  if (status === 'booting' && !isPublic) return <BootLoader />;
   return <>{children}</>;
 }
 

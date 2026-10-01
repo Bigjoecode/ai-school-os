@@ -6,3 +6,4 @@ export * from './academic';
 export * from './assessment';
 export * from './timetable';
 export * from './attendance';
+export * from './finance';

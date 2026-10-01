@@ -24,6 +24,10 @@ import {
   ShieldCheck,
   Sun,
   Users,
+  Wallet,
+  Send,
+  FileSearch,
+  HandCoins,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -215,6 +219,42 @@ export function CommandPalette() {
       keywords: 'attendance staff check in out clock arrive leave scan qr',
       onSelect: () => navigate('/check-in'),
     },
+    hasPermission(me, 'finance.manage') && {
+      id: 'record-payment',
+      label: 'Record a payment',
+      icon: <HandCoins />,
+      keywords: 'fees payment receipt cash transfer pos bursar collect',
+      onSelect: () => navigate('/payments?new=1'),
+    },
+    hasPermission(me, 'finance.manage') && {
+      id: 'issue-invoices',
+      label: 'Issue invoices',
+      icon: <Send />,
+      keywords: 'fees invoices bill generate term billing',
+      onSelect: () => navigate('/fees?tab=schedule&issue=1'),
+    },
+    hasPermission(me, 'finance.read') && {
+      id: 'find-invoice',
+      label: 'Find an invoice',
+      icon: <FileSearch />,
+      keywords: 'fees invoice search student balance owing debtor',
+      onSelect: () => navigate('/fees?tab=invoices&find=1'),
+    },
+    hasPermission(me, 'finance.manage') && {
+      id: 'record-expense',
+      label: 'Record an expense',
+      icon: <Wallet />,
+      keywords: 'expense spending diesel salary cost',
+      onSelect: () => navigate('/expenses?new=1'),
+    },
+    canAi &&
+      hasPermission(me, 'finance.read') && {
+        id: 'finance-briefing',
+        label: 'Finance briefing (AI)',
+        icon: <AiSparkle />,
+        keywords: 'ai fees collections finance summary insight',
+        onSelect: () => navigate('/fees?briefing=1'),
+      },
     hasPermission(me, 'roles.manage') && {
       id: 'role',
       label: 'Create role',

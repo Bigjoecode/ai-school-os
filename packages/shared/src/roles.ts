@@ -73,7 +73,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     key: 'accountant',
     name: 'Accountant',
     description: 'Manages fees, payments and expenses.',
-    permissions: ['school.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'ai.use'],
+    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'ai.use'],
   },
   {
     key: 'hr_manager',

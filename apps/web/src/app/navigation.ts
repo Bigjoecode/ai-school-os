@@ -105,10 +105,10 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Finance',
     items: [
-      { label: 'Fees', to: '/fees', icon: Receipt, soon: true, keywords: 'invoices billing' },
-      { label: 'Payments', to: '/payments', icon: CreditCard, soon: true },
-      { label: 'Accounting', to: '/accounting', icon: Calculator, soon: true, keywords: 'ledger' },
-      { label: 'Expenses', to: '/expenses', icon: Wallet, soon: true },
+      { label: 'Fees', to: '/fees', icon: Receipt, permission: 'finance.read', keywords: 'invoices billing fee schedule collections debtors paystack' },
+      { label: 'Payments', to: '/payments', icon: CreditCard, permission: 'finance.read', keywords: 'receipts collections cash transfer pos' },
+      { label: 'Accounting', to: '/accounting', icon: Calculator, permission: 'finance.read', keywords: 'income expenditure cash flow net' },
+      { label: 'Expenses', to: '/expenses', icon: Wallet, permission: 'finance.read', keywords: 'spending costs diesel salaries' },
     ],
   },
   {

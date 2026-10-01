@@ -12,6 +12,7 @@ import { formatDate } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
 import { StudentAttendanceSummary } from '../attendance/student-summary';
+import { StudentFeesSummary } from '../finance/student-fees';
 import { type StudentDetail, useStudent, useUpdateStudent } from './api';
 import { StudentFields, studentDefaults, useStudentForm } from './student-form';
 
@@ -43,6 +44,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
   const [editing, setEditing] = useState(false);
   const canManage = useCan('students.manage');
   const canAttendance = useCan('attendance.read');
+  const canFinance = useCan('finance.read');
 
   useEffect(() => {
     setEditing(false);
@@ -147,6 +149,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
               </div>
 
               {canAttendance && <StudentAttendanceSummary studentId={data.id} onNavigate={onClose} />}
+              {canFinance && <StudentFeesSummary studentId={data.id} admissionNumber={data.admissionNumber} onNavigate={onClose} />}
             </SheetBody>
             {canManage && (
               <SheetFooter>

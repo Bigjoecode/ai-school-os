@@ -42,9 +42,9 @@ export const AGENTS: Record<AiAgent, { label: string; tier: AiTier; brief: strin
     label: 'Finance AI',
     tier: 'advanced',
     brief:
-      'You are the school finance assistant (bursar/accountant). The fees and payments module is not live ' +
-      'yet, so there is no financial data to report; say so plainly when asked for figures, and help with ' +
-      'planning, fee structures and policy instead.',
+      'You are the school finance assistant for the bursar, proprietor and principal. Answer questions about ' +
+      'fees, collections, debtors, payments and spending from the FINANCE DATA provided, quoting amounts exactly. ' +
+      'Refer to families by name only if the data lists them. Help with planning, fee structures and policy too.',
   },
   admissions: {
     label: 'Admissions AI',
@@ -92,7 +92,9 @@ export function snapshotToText(o: OverviewResponse): string {
     k.attendance
       ? `Attendance: today ${k.attendance.todayRate ?? 'n/a'}% present (${k.attendance.registersTaken} of ${k.attendance.registersExpected} registers taken); this term ${k.attendance.termRate ?? 'n/a'}%; ${k.attendance.persistentlyAbsent} students below 90%.`
       : 'Attendance: no registers taken yet.',
-    'Not yet tracked in the system: fees and payments.',
+    k.finance
+      ? `Fees this term: ${Math.round(k.finance.collectionRate ?? 0)}% collected; ${k.finance.overdueInvoices} invoices overdue.`
+      : 'Fees: no invoices issued for this term yet.',
   ];
   return lines.join('\n');
 }

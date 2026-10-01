@@ -49,6 +49,11 @@ export const TENANT_MODELS = new Set<string>([
   'AttendanceRegister',
   'StudentAttendance',
   'StaffAttendance',
+  'FeeItem',
+  'Invoice',
+  'InvoiceLine',
+  'Payment',
+  'Expense',
 ]);
 
 const WHERE_OPS = new Set([

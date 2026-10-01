@@ -64,6 +64,15 @@ export interface OverviewResponse {
       termRate: number | null;
       persistentlyAbsent: number;
     } | null;
+    /** Current term's fees (kobo). Null until invoices are issued. */
+    finance: {
+      currency: string;
+      billedKobo: number;
+      collectedKobo: number;
+      overdueKobo: number;
+      collectionRate: number | null;
+      overdueInvoices: number;
+    } | null;
   };
   enrolmentTrend: { month: string; admitted: number; total: number }[];
   byClassLevel: { level: string; students: number; capacity: number | null }[];

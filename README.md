@@ -101,6 +101,13 @@ managers can correct any register. Staff check in by scanning a QR code that
 rotates every 90 seconds on a reception screen; the code only works for
 signed-in staff of that school.
 
+**Finance.** Amounts are integers in kobo. Each school connects its own
+Paystack account (keys encrypted at rest with `APP_ENCRYPTION_KEY`). A parent
+pays through a signed link without an account; the payment is recorded as
+pending first, then settled exactly once — by Paystack's signed webhook or the
+parent's return, whichever comes first — after re-verifying the amount with
+Paystack. A mismatched amount is never counted.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -124,5 +131,9 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
    at a reception kiosk, school/class/student reports, persistent-absence
    flags, attendance on report cards and the dashboard, AI briefings and
    drafted notes to parents ✅
-7. Finance · 8. HR · 9. Operations · 10. Communication
+7. **Finance** — fee schedules, bulk invoicing with sibling discounts,
+   payments and receipts, online payment by Paystack through a parent link,
+   expenses, income & expenditure, collection reports, AI briefings and fee
+   reminders ✅
+8. HR · 9. Operations · 10. Communication
 11. Live learning · 12. AI school · 13. School website · 14. SaaS billing

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CHRONIC_ABSENCE_THRESHOLD, attendanceRate, type Insight, type OverviewResponse } from '@aischool/shared';
+import { CHRONIC_ABSENCE_THRESHOLD, attendanceRate, formatMoney, type Insight, type OverviewResponse } from '@aischool/shared';
 import { dateOnly, fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow, weekdayOf } from '../common/school-time';
@@ -102,6 +102,7 @@ export class SchoolSnapshotService {
 
     const daysLeft = term ? Math.ceil((term.endsOn.getTime() - now.getTime()) / 86_400_000) : 0;
     const attendance = await this.attendance(term, arms.filter((a) => a._count.students > 0).length);
+    const finance = term ? await this.finance(term.id) : null;
 
     return {
       greetingName: user.firstName,
@@ -128,6 +129,7 @@ export class SchoolSnapshotService {
           utilisationPct: capacity ? round1((seatedInCapped / capacity) * 100) : null,
         },
         attendance: attendance?.kpi ?? null,
+        finance,
       },
       enrolmentTrend,
       byClassLevel: levels.map((l) => ({
@@ -143,6 +145,7 @@ export class SchoolSnapshotService {
       },
       insights: this.insights({
         attendance,
+        finance,
         totalStudents,
         addedThisMonth,
         withoutGuardian: totalStudents - studentsWithGuardian,
@@ -208,6 +211,28 @@ export class SchoolSnapshotService {
     };
   }
 
+  /** Current term's fee position, or null before invoices are issued. */
+  private async finance(termId: string) {
+    const invoices = await this.prisma.db.invoice.findMany({
+      where: { termId, status: { not: 'CANCELLED' } },
+      select: { totalKobo: true, paidKobo: true, dueDate: true },
+    });
+    if (!invoices.length) return null;
+    const tenant = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { currency: true, timezone: true } });
+    const today = schoolNow(tenant.timezone).date;
+    const billedKobo = invoices.reduce((n, i) => n + i.totalKobo, 0);
+    const collectedKobo = invoices.reduce((n, i) => n + i.paidKobo, 0);
+    const overdue = invoices.filter((i) => i.totalKobo > i.paidKobo && dateOnly(i.dueDate)! < today);
+    return {
+      currency: tenant.currency,
+      billedKobo,
+      collectedKobo,
+      overdueKobo: overdue.reduce((n, i) => n + i.totalKobo - i.paidKobo, 0),
+      collectionRate: billedKobo ? Math.round((collectedKobo / billedKobo) * 1000) / 10 : null,
+      overdueInvoices: overdue.length,
+    };
+  }
+
   private insights(d: {
     totalStudents: number;
     addedThisMonth: number;
@@ -217,6 +242,7 @@ export class SchoolSnapshotService {
     term: { name: string; daysLeft: number } | null;
     hasSession: boolean;
     attendance: Awaited<ReturnType<SchoolSnapshotService['attendance']>>;
+    finance: Awaited<ReturnType<SchoolSnapshotService['finance']>>;
   }): Insight[] {
     const out: Insight[] = [];
     const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
@@ -253,6 +279,16 @@ export class SchoolSnapshotService {
         title: `${plural(a.kpi.persistentlyAbsent, 'student is', 'students are')} persistently absent`,
         detail: `Below ${CHRONIC_ABSENCE_THRESHOLD}% attendance this term. Early contact with parents makes the biggest difference.`,
         href: '/attendance',
+      });
+    }
+
+    const f = d.finance;
+    if (f && f.overdueKobo > 0 && (f.overdueKobo >= 100_000_000 || f.overdueKobo >= f.billedKobo * 0.1)) {
+      out.push({
+        tone: 'warning',
+        title: `${formatMoney(f.overdueKobo, f.currency)} in fees is overdue`,
+        detail: `${plural(f.overdueInvoices, 'invoice is', 'invoices are')} past due. A courteous reminder with a payment link usually brings most of it in.`,
+        href: '/fees',
       });
     }
 

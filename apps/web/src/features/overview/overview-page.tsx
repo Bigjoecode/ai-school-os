@@ -1,4 +1,4 @@
-import { CHRONIC_ABSENCE_THRESHOLD, type Insight, type OverviewResponse } from '@aischool/shared';
+import { CHRONIC_ABSENCE_THRESHOLD, formatMoney, type Insight, type OverviewResponse } from '@aischool/shared';
 import { useQuery } from '@tanstack/react-query';
 import { motion, type Variants } from 'framer-motion';
 import {
@@ -12,6 +12,7 @@ import {
   MonitorPlay,
   GraduationCap,
   Layers,
+  Library,
   Megaphone,
   Receipt,
   Send,
@@ -98,6 +99,7 @@ function SchoolOverview() {
   useDocumentTitle('Overview');
   const canTimetable = useCan('timetable.read');
   const canAttendance = useCan('attendance.read');
+  const canFinance = useCan('finance.read');
 
   if (error && !data) {
     return (
@@ -115,6 +117,11 @@ function SchoolOverview() {
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />
+          </motion.div>
+        )}
+        {canFinance && (data === undefined || data.kpis.finance) && (
+          <motion.div variants={item}>
+            <FeesBand data={data} />
           </motion.div>
         )}
         <div className="grid gap-5 xl:grid-cols-3">
@@ -442,6 +449,76 @@ function AttendanceBand({ data }: { data?: OverviewResponse }) {
   );
 }
 
+// ------------------------------------------------------------------ fees
+function FeesBand({ data }: { data?: OverviewResponse }) {
+  const f = data?.kpis.finance;
+  const money = (k: number) => {
+    try {
+      return formatMoney(k, f?.currency ?? 'NGN');
+    } catch {
+      return formatMoney(k, 'NGN');
+    }
+  };
+  const rate = f?.collectionRate ?? null;
+  const tone = rate == null ? 'var(--border-strong)' : rate >= 80 ? 'var(--success)' : rate >= 50 ? 'var(--warning)' : 'var(--danger)';
+  const size = 44;
+  const stroke = 5;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  return (
+    <Card className="overflow-hidden">
+      <div className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center">
+        <div className="flex items-center gap-3 lg:w-56 lg:shrink-0">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+            <Receipt className="size-5" />
+          </span>
+          <div className="min-w-0">
+            <p className="font-display text-[15px] font-semibold tracking-tight">Fees this term</p>
+            <p className="text-[12.5px] text-muted-foreground">Collections against invoices</p>
+          </div>
+        </div>
+        <dl className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Collected</dt>
+            <dd className="mt-0.5 font-display text-[20px] font-semibold leading-tight tabular text-success">{f ? money(f.collectedKobo) : <Skeleton className="mt-1 h-6 w-20" />}</dd>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Billed</dt>
+            <dd className="mt-0.5 font-display text-[20px] font-semibold leading-tight tabular">{f ? money(f.billedKobo) : <Skeleton className="mt-1 h-6 w-20" />}</dd>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            {f ? (
+              <>
+                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0 -rotate-90" role="img" aria-label={`${rate ?? 0}% collected`}>
+                  <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--muted)" strokeWidth={stroke} />
+                  <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={tone} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - Math.min(100, rate ?? 0) / 100)} />
+                </svg>
+                <div>
+                  <dt className="text-[12px] text-muted-foreground">Collection rate</dt>
+                  <dd className="font-display text-[20px] font-semibold leading-tight tabular">{rate == null ? '—' : `${Math.round(rate)}%`}</dd>
+                </div>
+              </>
+            ) : (
+              <Skeleton className="h-10 w-full" />
+            )}
+          </div>
+          <div className="rounded-xl border border-border bg-muted/30 px-3.5 py-2.5">
+            <dt className="text-[12px] text-muted-foreground">Overdue{f && f.overdueInvoices > 0 ? ` · ${f.overdueInvoices}` : ''}</dt>
+            <dd className={cn('mt-0.5 font-display text-[20px] font-semibold leading-tight tabular', f && f.overdueKobo > 0 && 'text-danger')}>
+              {f ? money(f.overdueKobo) : <Skeleton className="mt-1 h-6 w-20" />}
+            </dd>
+          </div>
+        </dl>
+        <Button asChild variant="outline" className="lg:shrink-0">
+          <Link to="/fees">
+            Open fees <ArrowRight />
+          </Link>
+        </Button>
+      </div>
+    </Card>
+  );
+}
+
 // ------------------------------------------------------------------ AI cards
 function AiIntelligenceCard({ data }: { data?: OverviewResponse }) {
   const navigate = useNavigate();
@@ -742,7 +819,7 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
 
 // ------------------------------------------------------------------ roadmap strip
 const NEXT_MODULES = [
-  { label: 'Fees', icon: Receipt, to: '/fees', note: 'Invoices, payments & collections' },
+  { label: 'Library', icon: Library, to: '/library', note: 'Catalogue, loans & reading insights' },
   { label: 'Live classes', icon: MonitorPlay, to: '/live', note: 'Google Meet lessons & AI summaries' },
   { label: 'Communication', icon: Megaphone, to: '/announcements', note: 'Announcements, SMS & WhatsApp' },
   { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Enquiries, applications & offers' },

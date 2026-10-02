@@ -11,6 +11,7 @@ import {
   DEFAULT_BELL_SCHEDULE,
   DEFAULT_HR_SETTINGS,
   DEFAULT_LEAVE_TYPES,
+  DEFAULT_WEBSITE_SETTINGS,
   SYSTEM_ROLES,
   computePayslip,
   periodBounds,
@@ -1606,6 +1607,161 @@ async function run({ demoOwner }: SeedOptions) {
       createdById: admin.id,
     },
   });
+
+  // ------------------------------------------------------------ website
+  // A published school website: page copy, news, the public calendar,
+  // teacher profiles, a gallery album, and mid-term results for one class
+  // that parents can check with the codes the school prints.
+  const W = DEFAULT_WEBSITE_SETTINGS;
+  await prisma.tenant.update({
+    where: { id: g.id },
+    data: {
+      websiteSettings: {
+        ...W,
+        published: true,
+        theme: { primaryColor: '#0f5132', accentColor: '#d97706', style: 'MODERN' },
+        hero: {
+          ...W.hero,
+          title: 'Where curious children become confident young leaders',
+          subtitle: 'A caring nursery, primary and secondary school in Lekki and Ikeja, with small classes, strong teaching and a warm community.',
+        },
+        about: {
+          ...W.about,
+          founded: '2009',
+          story:
+            'Greenfield International School opened in 2009 with 46 pupils in a converted house in Lekki. Today we teach nursery, primary and secondary pupils across two campuses.\n\nWe believe every child can do well when they are known, stretched and cared for. Our teachers plan together, track each child’s progress closely and keep parents informed every week.\n\nBeyond the classroom, our pupils debate, code, play football and basketball, sing in the choir and serve the community through our outreach club.',
+          mission: 'To give every child a rigorous education and the character to use it well.',
+          vision: 'Confident, kind young people ready for any university and any future.',
+          values: [
+            { title: 'Knowledge', description: 'We read widely, think carefully and never stop asking why.' },
+            { title: 'Character', description: 'Honesty, respect and kindness in everything we do.' },
+            { title: 'Excellence', description: 'We aim high and help one another get there.' },
+            { title: 'Community', description: 'Parents, pupils and staff working as one team.' },
+          ],
+          leaderName: 'Mr Babatunde Adeyemi',
+          leaderTitle: 'Principal',
+          leaderMessage: 'Welcome to Greenfield. We are proud of our pupils, our teachers and the partnership we share with parents. Come and visit — you will feel the difference the moment you walk in.',
+        },
+        academics: {
+          intro: 'We follow the Nigerian national curriculum, enriched with extra reading, project work and technology. Pupils sit the BECE in JSS 3 and WAEC and NECO in SS 3.',
+          programmes: [
+            { title: 'Nursery', description: 'Play-based learning for ages 2–5, building early literacy, numeracy and social skills.' },
+            { title: 'Primary', description: 'Primary 1–6, with a strong focus on reading, mathematics, science and the creative arts.' },
+            { title: 'Junior secondary', description: 'JSS 1–3: a broad curriculum with ICT, French and Basic Technology, leading to the BECE.' },
+            { title: 'Senior secondary', description: 'SS 1–3 in science, commercial and arts tracks, preparing for WAEC, NECO and JAMB.' },
+          ],
+          highlights: ['Average class size of 25', 'Weekly progress updates for parents', 'Coding and robotics club', 'A library of over 6,000 books'],
+        },
+        admissions: {
+          open: true,
+          intro: 'We welcome applications all year round, subject to space. Start online and our admissions team will call you within two working days.',
+          steps: [
+            { title: 'Apply online', description: 'Fill in the short form on this page.' },
+            { title: 'Visit the school', description: 'Tour the campus and meet the admissions team.' },
+            { title: 'Entrance assessment', description: 'English, mathematics and a short interview.' },
+            { title: 'Offer and acceptance', description: 'Pay the acceptance fee to secure a place.' },
+          ],
+          requirements: ['Birth certificate', 'Last two school reports', 'Two passport photographs', 'Transfer letter (from JSS 2 upwards)'],
+          entryTerms: ['First Term', 'Second Term', 'Third Term'],
+        },
+        contact: {
+          ...W.contact,
+          address: '12 Admiralty Way, Lekki Phase 1, Lagos',
+          phone: '+234 803 000 1234',
+          whatsapp: '+234 803 000 1234',
+          email: 'admissions@greenfield.demo',
+          hours: 'Monday–Friday, 7:30am–4:00pm',
+        },
+        social: { ...W.social, instagram: 'https://instagram.com/greenfield.demo', facebook: 'https://facebook.com/greenfield.demo' },
+        faq: [
+          { question: 'What ages do you admit?', answer: 'From age 2 in our nursery up to SS 2. Entry into SS 3 is not usually possible.' },
+          { question: 'Do you run a school bus?', answer: 'Yes. Buses cover Lekki, Ajah, Victoria Island and Ikeja. Ask the office for routes and termly fees.' },
+          { question: 'What are the school hours?', answer: 'Lessons run from 7:45am to 2:30pm; clubs run until 4:00pm.' },
+          { question: 'How do I check my child’s result?', answer: 'Use the Results page with your child’s admission number and the code on the slip from the school.' },
+          { question: 'Can I pay fees in instalments?', answer: 'Yes, by arrangement with the bursar. Contact the school office to agree a plan.' },
+        ],
+        sections: { ...W.sections, fees: true },
+        seo: { title: null, description: 'Greenfield International School: nursery, primary and secondary education in Lekki and Ikeja, Lagos.' },
+      } as unknown as Prisma.InputJsonValue,
+    },
+  });
+  await prisma.tenantDomain.create({ data: { tenantId: g.id, hostname: 'greenfield-site.localhost', kind: 'WEBSITE' } });
+
+  const POSTS: { slug: string; title: string; category: string; daysAgo: number; excerpt: string; body: string; draft?: boolean }[] = [
+    {
+      slug: 'a-strong-start-to-the-new-session',
+      title: 'A strong start to the 2026/2027 session',
+      category: 'NEWS',
+      daysAgo: 22,
+      excerpt: 'We welcomed 64 new pupils and three new teachers as the first term began.',
+      body: 'The new session began on 7 September with a full assembly and a warm welcome for 64 new pupils across both campuses.\n\nThree new teachers joined us this term, in mathematics, French and computer studies. Our refurbished science laboratory also opened, with new equipment for physics and chemistry practicals.\n\nThank you to every parent who helped make the first weeks so smooth.',
+    },
+    {
+      slug: 'debaters-reach-the-state-finals',
+      title: 'Greenfield debaters reach the Lagos State finals',
+      category: 'ACHIEVEMENT',
+      daysAgo: 9,
+      excerpt: 'Our senior debate team won four rounds in a row to reach the state finals.',
+      body: 'Our senior debate team won four rounds in a row at the Lagos State Secondary Schools Debate Championship and will compete in the finals next month.\n\nThe team argued on topics from renewable energy to the role of social media in elections. Well done to them and to their coach.',
+    },
+    {
+      slug: 'inter-house-sports-what-parents-need-to-know',
+      title: 'Inter-house sports: what parents need to know',
+      category: 'ANNOUNCEMENT',
+      daysAgo: 3,
+      excerpt: 'Times, house colours and what to bring on 16 October.',
+      body: 'Our inter-house sports competition takes place on Friday 16 October from 9:00am on the school field.\n\n- Pupils should wear their house T-shirts and trainers.\n- Bring a water bottle and a hat.\n- Parents are welcome; seating opens at 8:30am.\n\nThe day ends with the march past and prize-giving at about 3:00pm.',
+    },
+    { slug: 'science-fair-2026', title: 'Science fair 2026', category: 'NEWS', daysAgo: 1, excerpt: 'Projects on display in November.', body: 'Draft: details to follow once the date is confirmed.', draft: true },
+  ];
+  for (const p of POSTS) {
+    await prisma.websitePost.create({
+      data: {
+        tenantId: g.id,
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        body: p.body,
+        category: p.category,
+        status: p.draft ? 'DRAFT' : 'PUBLISHED',
+        publishedAt: p.draft ? null : new Date(`${ago(p.daysAgo)}T09:00:00Z`),
+        createdById: admin.id,
+      },
+    });
+  }
+  // School-wide events go on the public calendar; class and staff events stay inside.
+  await prisma.schoolEvent.updateMany({ where: { tenantId: g.id, audience: 'EVERYONE', classArmIds: { isEmpty: true } }, data: { showOnWebsite: true } });
+
+  const BIOS = [
+    'Leads our mathematics department and runs the Olympiad club.',
+    'Teaches English language and literature, and coaches the debate team.',
+    'A physics graduate who loves practical science and robotics.',
+    'Teaches French and organises our annual cultural day.',
+    'Brings history to life through projects and trips.',
+    'Teaches computer studies and runs the coding club.',
+  ];
+  for (const [i, st] of staff.filter((x) => x.type === 'TEACHING').slice(0, 8).entries()) {
+    await prisma.staff.update({ where: { id: st.id }, data: { showOnWebsite: true, websiteBio: BIOS[i % BIOS.length] } });
+  }
+
+  await prisma.websiteAlbum.create({ data: { tenantId: g.id, title: 'First day of the new session', description: 'Smiles, new uniforms and new friends.', date: day('2026-09-07'), published: true } });
+
+  // Mid-term results for one class, released to parents, with result-checker codes.
+  const resultArm = arms[0]!.arm;
+  for (const st of students.filter((x) => x.classArmId === resultArm.id && x.status === 'ACTIVE')) {
+    await prisma.reportCard.create({
+      data: {
+        tenantId: g.id,
+        studentId: st.id,
+        termId: currentTerm.id,
+        classArmId: resultArm.id,
+        teacherRemark: pick(['A good start to the term. Keep it up.', 'Works hard and takes part well in class.', 'Capable; more care with homework will help.']),
+        status: 'PUBLISHED',
+        publishedAt: new Date(),
+      },
+    });
+    await prisma.resultAccessCode.create({ data: { tenantId: g.id, studentId: st.id, termId: currentTerm.id, code: `DEMO${digits(6)}`, maxUses: 5 } });
+  }
 
   // ------------------------------------------------------------ Sunrise
   const s = await createTenant('sunrise', 'Sunrise Academy', 'SRA', 'Rise and Shine', plan.id);

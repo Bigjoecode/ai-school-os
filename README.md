@@ -150,6 +150,16 @@ Write tools only create drafts. The loop is provider-neutral (Anthropic and
 OpenAI tool use; providers without it answer from data fetched up front), and
 every model request is metered against the school's monthly AI budget.
 
+**School website.** Public pages only ever read published content: draft
+posts, staff-only and class events, unpublished albums and private files stay
+inside. Uploads are checked by their bytes, not their name (JPG, PNG, WebP,
+GIF, PDF and Office files only — no SVG or HTML) and are served with
+`nosniff` and a sandboxing CSP. The results checker needs the admission number
+and that term's code from the slip the school prints, shows only a published
+report card, and gives the same answer for a wrong code or a wrong admission
+number; each code has a limited number of uses. The website assistant is
+rate-limited and answers only from the facts the site already publishes.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -212,4 +222,11 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     before anything is sent; an explainable "students who need attention"
     list, the principal's AI weekly briefing, and AI usage and budget
     analytics ✅
-13. School website · 14. SaaS billing
+13. **School website** — every school gets a public website at `/s/<school>`
+    (or at the root of its own domain): Home, About, Academics, Admissions
+    with online applications into Reception's enquiries, Teachers, News,
+    Events from the school calendar, Gallery, Contact with an inbox, FAQ, a
+    results checker with printed access codes, Downloads and fees; a builder
+    with uploads and AI-written pages and posts; and an AI website assistant
+    that answers visitors from the school's own published facts ✅
+14. SaaS superadmin

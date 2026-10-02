@@ -17,20 +17,21 @@ function SessionGate({ children }: { children: ReactNode }) {
       if (!session && useAuthStore.getState().status === 'booting') useAuthStore.getState().clear();
     });
   }, []);
-  // Public pages (parent payments, QR verification) render straight away; the session restore runs in the background.
-  const isPublic = typeof window !== 'undefined' && /^\/(pay|verify)\//.test(window.location.pathname);
+  // Public pages (parent payments, QR verification, school websites) render straight away; the session restore runs in the background.
+  const isPublic = typeof window !== 'undefined' && /^\/(pay|verify|s)\//.test(window.location.pathname);
   if (status === 'booting' && !isPublic) return <BootLoader />;
   return <>{children}</>;
 }
 
-export function Providers({ children }: { children: ReactNode }) {
+/** `publicOnly`: a school's website on its own domain — no portal session at all. */
+export function Providers({ children, publicOnly }: { children: ReactNode; publicOnly?: boolean }) {
   const theme = useThemeStore((s) => s.resolved);
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={250} skipDelayDuration={100}>
-        <SessionGate>{children}</SessionGate>
+        {publicOnly ? children : <SessionGate>{children}</SessionGate>}
         <Toaster
-          theme={theme}
+          theme={publicOnly ? 'light' : theme}
           position="bottom-right"
           richColors
           closeButton

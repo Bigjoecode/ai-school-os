@@ -199,6 +199,13 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'website',
+    label: 'School Website',
+    permissions: {
+      'website.manage': 'Edit the school website, publish news, photos and downloads, read website messages and issue result codes',
+    },
+  },
+  {
     module: 'ai',
     label: 'AI',
     permissions: {

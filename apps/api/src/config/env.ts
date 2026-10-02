@@ -65,6 +65,9 @@ const schema = z.object({
   GOOGLE_MEET_BASE: z.string().url().default('https://meet.googleapis.com'),
   ZOOM_OAUTH_BASE: z.string().url().default('https://zoom.us'),
   ZOOM_API_BASE: z.string().url().default('https://api.zoom.us/v2'),
+  /** Where uploaded files are kept (default: ./uploads in the app folder; the deploy never deletes it). */
+  UPLOAD_DIR: z.string().optional(),
+  UPLOAD_MAX_MB: z.coerce.number().min(1).max(50).default(10),
   /** Lets a cPanel cron job wake the API to send scheduled messages and automations. */
   CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
 });

@@ -12,6 +12,8 @@ import { OperationsModule } from './operations/operations.module';
 import { CommsModule } from './comms/comms.module';
 import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
+import { FilesModule } from './files/files.module';
+import { WebsiteModule } from './website/website.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -69,6 +71,8 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     CommsModule,
     LiveModule,
     AgentsModule,
+    FilesModule,
+    WebsiteModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [

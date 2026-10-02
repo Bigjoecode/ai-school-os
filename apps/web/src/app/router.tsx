@@ -76,6 +76,17 @@ const UsersPage = lazy(() => import('@/features/settings/users-page'));
 const RolesPage = lazy(() => import('@/features/settings/roles-page'));
 const AuditPage = lazy(() => import('@/features/settings/audit-page'));
 const TenantsPage = lazy(() => import('@/features/platform/tenants-page'));
+const WebsiteLayout = lazy(() => import('@/features/website/website-layout'));
+const WebsiteOverviewTab = lazy(() => import('@/features/website/overview-tab'));
+const WebsitePagesTab = lazy(() => import('@/features/website/pages-tab'));
+const WebsiteNewsTab = lazy(() => import('@/features/website/news-tab'));
+const WebsiteGalleryTab = lazy(() => import('@/features/website/content-tabs').then((m) => ({ default: m.WebsiteGalleryTab })));
+const WebsiteDownloadsTab = lazy(() => import('@/features/website/content-tabs').then((m) => ({ default: m.WebsiteDownloadsTab })));
+const WebsiteTeachersTab = lazy(() => import('@/features/website/people-tabs').then((m) => ({ default: m.WebsiteTeachersTab })));
+const WebsiteEventsTab = lazy(() => import('@/features/website/people-tabs').then((m) => ({ default: m.WebsiteEventsTab })));
+const WebsiteInboxTab = lazy(() => import('@/features/website/inbox-tab'));
+const WebsiteCodesTab = lazy(() => import('@/features/website/codes-tab'));
+const PublicSiteRoute = lazy(() => import('@/features/website/public/site-app').then((m) => ({ default: m.PublicSiteRoute })));
 const ComingSoonPage = lazy(() => import('@/features/coming-soon/coming-soon-page'));
 const NotFoundPage = lazy(() => import('@/features/not-found/not-found-page'));
 
@@ -109,6 +120,8 @@ export const router = createBrowserRouter([
   // Public QR verification for certificates and ID cards: no sign-in, no app chrome.
   { path: '/verify/certificate/:code', element: withSuspense(<VerifyPage kind="certificate" />) },
   { path: '/verify/id/:code', element: withSuspense(<VerifyPage kind="id" />) },
+  // The public school website: no sign-in, no app chrome. On a school's own domain it renders at the root instead (see main.tsx).
+  { path: '/s/:slug/*', element: <Suspense fallback={<div className="min-h-dvh bg-white" />}><PublicSiteRoute /></Suspense> },
   {
     path: '/check-in',
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
@@ -402,6 +415,25 @@ export const router = createBrowserRouter([
         path,
         element: <RequirePermission permission={permission}>{page}</RequirePermission>,
       })),
+      {
+        path: 'website',
+        element: (
+          <RequirePermission permission="website.manage">
+            <WebsiteLayout />
+          </RequirePermission>
+        ),
+        children: [
+          { index: true, element: <WebsiteOverviewTab /> },
+          { path: 'pages', element: <WebsitePagesTab /> },
+          { path: 'news', element: <WebsiteNewsTab /> },
+          { path: 'gallery', element: <WebsiteGalleryTab /> },
+          { path: 'downloads', element: <WebsiteDownloadsTab /> },
+          { path: 'teachers', element: <WebsiteTeachersTab /> },
+          { path: 'events', element: <WebsiteEventsTab /> },
+          { path: 'inbox', element: <WebsiteInboxTab /> },
+          { path: 'result-codes', element: <WebsiteCodesTab /> },
+        ],
+      },
       // Everyone in the school: staff, parents and students.
       { path: 'learning', element: <LearningPage /> },
       { path: 'noticeboard', element: <NoticeboardPage /> },

@@ -458,3 +458,85 @@
     break-inside: avoid;
   }
 }
+
+/* ------------------------------------------------------------------ public school website */
+/* Themed per school from settings.theme (colours set inline on .site). Always light. */
+@theme inline {
+  --color-site: var(--site-primary);
+  --color-site-on: var(--site-on-primary);
+  --color-site-accent: var(--site-accent);
+  --color-site-soft: var(--site-soft);
+  --color-site-accent-soft: var(--site-accent-soft);
+  --color-site-ink: var(--site-ink);
+  --color-site-muted: var(--site-muted);
+  --color-site-bg: var(--site-bg);
+  --color-site-surface: var(--site-surface);
+  --color-site-line: var(--site-line);
+}
+
+.site {
+  --site-primary: #1d4ed8;
+  --site-accent: #f59e0b;
+  --site-on-primary: #ffffff;
+  --site-ink: #0b1220;
+  --site-muted: #5a6376;
+  --site-bg: #ffffff;
+  --site-surface: #f6f7f9;
+  --site-line: #e6e8ee;
+  --site-soft: color-mix(in oklab, var(--site-primary) 8%, white);
+  --site-accent-soft: color-mix(in oklab, var(--site-accent) 16%, white);
+  --site-radius: 1rem;
+  --site-heading: var(--font-display);
+  color-scheme: light;
+  background: var(--site-bg);
+  color: var(--site-ink);
+  --border: var(--site-line);
+}
+.site[data-style="CLASSIC"] {
+  --site-heading: var(--font-serif);
+  --site-radius: 0.375rem;
+  --site-bg: #fcfbf8;
+  --site-surface: #f5f2ec;
+  --site-line: #e7e1d6;
+}
+.site[data-style="WARM"] {
+  --site-radius: 1.5rem;
+  --site-bg: #fffbf6;
+  --site-surface: #fbf3e9;
+  --site-line: #eee3d3;
+  --site-ink: #1f1a15;
+  --site-muted: #6b6258;
+}
+.site .site-h {
+  font-family: var(--site-heading);
+  letter-spacing: -0.025em;
+}
+.site[data-style="CLASSIC"] .site-h {
+  letter-spacing: -0.005em;
+  font-weight: 600;
+}
+.site ::selection {
+  background: color-mix(in oklab, var(--site-primary) 22%, transparent);
+}
+.site :focus-visible {
+  outline-color: var(--site-primary);
+}
+
+@utility rounded-site {
+  border-radius: var(--site-radius);
+}
+@utility rounded-site-lg {
+  border-radius: calc(var(--site-radius) * 1.5);
+}
+@utility site-grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@media print {
+  .site {
+    background: #fff;
+  }
+}

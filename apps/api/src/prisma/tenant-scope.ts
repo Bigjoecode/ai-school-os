@@ -86,6 +86,12 @@ export const TENANT_MODELS = new Set<string>([
   'LiveAttendance',
   'LiveRecording',
   'Homework',
+  'WebsitePost',
+  'WebsiteAlbum',
+  'WebsitePhoto',
+  'WebsiteDownload',
+  'WebsiteMessage',
+  'ResultAccessCode',
 ]);
 
 const WHERE_OPS = new Set([

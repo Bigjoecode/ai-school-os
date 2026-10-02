@@ -14,6 +14,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // School websites on their own domains: *.localhost exercises host mode in development.
+    allowedHosts: ['.localhost'],
     proxy: {
       '/api': {
         target: 'http://localhost:3000',

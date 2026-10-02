@@ -219,7 +219,15 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Website',
-    items: [{ label: 'Website', to: '/website', icon: Globe, soon: true, keywords: 'cms public site' }],
+    items: [
+      {
+        label: 'Website',
+        to: '/website',
+        icon: Globe,
+        permission: 'website.manage',
+        keywords: 'cms public site school website news gallery photos downloads teachers inbox contact online applications result checker codes publish',
+      },
+    ],
   },
   {
     label: 'Settings',

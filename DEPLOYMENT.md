@@ -142,6 +142,28 @@ and a Server-to-Server OAuth app with the `meeting:write`, `meeting:read`,
 `recording:read` and `report:read` scopes. BigBlueButton keeps no attendance
 after a meeting, so attendance comes from students joining through the portal.
 
+## School websites and uploads
+
+Each school's website is at `https://ai-schoolportal.mejortechworld.com/s/<slug>`
+once it is published in **Website → Overview**.
+
+**Own domain.** To serve a school's website at the root of its own domain
+(for example `www.greenfieldschool.ng`):
+
+1. Point the domain at this hosting account (an A record, or add it in
+   cPanel as an **Alias**/parked domain of the portal's subdomain so it
+   serves the same web root).
+2. Issue SSL for it in cPanel (**SSL/TLS Status → Run AutoSSL**).
+3. Add a row to `tenant_domains` with `kind = 'WEBSITE'` and the hostname
+   (until the superadmin screens in Phase 14 do this). Any other hostname
+   keeps showing the portal.
+
+**Uploads.** Images and documents uploaded for websites are stored on disk,
+in `UPLOAD_DIR` (default: `uploads/` inside the Node.js app root, e.g.
+`/home/martcqpk/ai-school-api/uploads`). The deploy never touches that
+folder. Include it in your backups. `UPLOAD_MAX_MB` (default 10) caps each
+file. Raise the limit on the web server too if you go above ~20 MB.
+
 ## GitHub secrets
 
 | Secret | Value |

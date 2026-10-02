@@ -40,15 +40,4 @@ export const UPCOMING_MODULES: Record<string, UpcomingModule> = {
       'AI marks essay answers against a rubric for teacher review',
     ],
   },
-  '/website': {
-    name: 'Website',
-    phase: 13,
-    summary: 'A stunning public website that runs itself.',
-    features: [
-      'Templates in your brand colours',
-      'News, events and gallery synced from the OS',
-      'Online admission forms built in',
-      'AI writes pages and news posts in your school’s voice',
-    ],
-  },
 };

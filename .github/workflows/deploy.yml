@@ -31,6 +31,9 @@ jobs:
       - name: Build
         env:
           DATABASE_URL: postgresql://build:build@localhost:5432/build
+          # The portal's own host skips the "is this a school website?" lookup.
+          VITE_PORTAL_HOST: ai-schoolportal.mejortechworld.com
+          VITE_PORTAL_URL: https://ai-schoolportal.mejortechworld.com
         run: npm run build
 
       - name: Load the deploy key
@@ -79,7 +82,7 @@ jobs:
             mirror --reverse --delete --parallel=4 \
               --exclude-glob tmp/ --exclude-glob node_modules/ \
               --exclude-glob .env --exclude-glob '*.log' --exclude-glob '*.map' \
-              --exclude-glob .htaccess --exclude-glob public/ \
+              --exclude-glob .htaccess --exclude-glob public/ --exclude-glob uploads/ \
               apps/api/bundle '$API_DEPLOY_PATH';
             put restart.txt -o '$API_DEPLOY_PATH/tmp/restart.txt';"
 

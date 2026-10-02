@@ -12,6 +12,7 @@ import { schoolNow, weekdayOf } from '../common/school-time';
 import { SchoolSnapshotService } from '../dashboard/school-snapshot.service';
 import { HrService } from '../hr/hr.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { AUDIENCES_FOR, KnowledgeService } from '../knowledge/knowledge.service';
 import { InsightsService } from './insights.service';
 
 interface ToolContext {
@@ -50,6 +51,7 @@ export class AgentToolsService {
     private readonly insights: InsightsService,
     private readonly hr: HrService,
     private readonly sender: SenderService,
+    private readonly kb: KnowledgeService,
   ) {
     this.register();
   }
@@ -469,6 +471,19 @@ export class AgentToolsService {
         });
         const bell = tt.bellSchedule as unknown as BellSchedule;
         return entries.map((e) => ({ day: DAY_NAMES[e.day], time: `${bell.periods[e.period]?.start}–${bell.periods[e.period]?.end}`, class: arm(e.classArm), subject: e.subject.name, teacher: e.teacher ? fullName(e.teacher) : null, room: e.room?.name ?? null }));
+      },
+    });
+
+    this.add({
+      name: 'school_documents',
+      description:
+        "Search the school's own documents (handbook, fee policy, calendar, rules, uniform list…) for a passage that answers a question. Quote what the passage says and name the document; don't guess beyond it.",
+      input: z.object({ question: z.string().min(3).max(300) }),
+      permissions: [],
+      label: () => "Searched the school's documents",
+      run: async (i) => {
+        const hits = await this.kb.search(currentTenantId(), i.question, AUDIENCES_FOR[this.kb.audienceOfCaller()], 4);
+        return hits.length ? hits.map((h) => ({ document: h.title, section: h.heading, passage: h.text })) : { note: "Nothing in the school's documents matches. Suggest contacting the school office." };
       },
     });
 

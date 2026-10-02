@@ -15,6 +15,8 @@ export interface RequestContext {
   permissions: Set<Permission>;
   ip?: string;
   userAgent?: string;
+  /** Student AI: whose allowance this request's AI calls belong to. */
+  aiStudent?: { studentId: string; tier: string };
 }
 
 const storage = new AsyncLocalStorage<RequestContext>();

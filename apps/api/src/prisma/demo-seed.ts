@@ -21,6 +21,8 @@ import {
 } from '@aischool/shared';
 import type { ClassArm, ClassLevel, Gender, HostelRoom, Invoice, Prisma, PrismaClient, Staff, TransportRoute } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
+import { ensurePlatformContent } from './platform-content';
+import { seedLearning } from './learning-seed';
 import { seedPlans, seedPlatform } from './platform-seed';
 import { buildTimetable } from '../timetable/timetable-builder';
 import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
@@ -134,6 +136,7 @@ async function member(tenantId: string, userId: string, roleKey: string) {
 }
 
 async function run({ demoOwner }: SeedOptions) {
+  await ensurePlatformContent(prisma);
   const plans = await seedPlans(prisma);
   const plan = plans.growth;
 
@@ -1777,6 +1780,8 @@ async function run({ demoOwner }: SeedOptions) {
   await prisma.studentGuardian.create({ data: { tenantId: s.id, studentId: child.id, guardianId: sunriseParent.id, isPrimary: true } });
 
   const platform = await seedPlatform(prisma, { plans, greenfieldId: g.id, sunriseId: s.id, greenfieldAdminId: admin.id, demoStaff: demoOwner });
+  const finance = await prisma.user.findUnique({ where: { email: 'finance@aischool.os' }, select: { id: true } });
+  const learning = await seedLearning(prisma, { greenfieldId: g.id, sunriseId: s.id, parentUserId: parentUser.id, financeUserId: finance?.id ?? null });
 
-  return `${owner ? `owner ${owner.email}; ` : ''}Greenfield (${students.length} students, ${staff.length} staff, ${arms.length} classes); Sunrise Academy; ${platform}`;
+  return `${owner ? `owner ${owner.email}; ` : ''}Greenfield (${students.length} students, ${staff.length} staff, ${arms.length} classes); Sunrise Academy; ${platform}; ${learning}`;
 }

@@ -14,3 +14,4 @@ export * from './live';
 export * from './ai';
 export * from './website';
 export * from './platform';
+export * from './learning';

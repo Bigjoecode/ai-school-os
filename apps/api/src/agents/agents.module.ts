@@ -11,6 +11,7 @@ import { currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { HrModule } from '../hr/hr.module';
+import { KnowledgeModule } from '../knowledge/knowledge.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { AgentsService } from './agents.service';
 import { InsightsService } from './insights.service';
@@ -71,7 +72,7 @@ export class AgentsController {
 
 /** Phase 12: tool-using assistants, AI analytics, early warnings and the principal's briefing. */
 @Module({
-  imports: [AiModule, AssessmentModule, DashboardModule, HrModule, CommsModule],
+  imports: [AiModule, AssessmentModule, DashboardModule, HrModule, CommsModule, KnowledgeModule],
   controllers: [AgentsController],
   providers: [AgentsService, AgentToolsService, InsightsService],
 })

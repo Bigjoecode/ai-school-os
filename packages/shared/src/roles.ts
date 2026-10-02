@@ -50,7 +50,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
       'ai.use',
       'ai.admin',
       'audit.read',
-      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use',
+      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use', 'sponsorship.manage', 'knowledge.manage',
     ],
   },
   {
@@ -75,7 +75,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     key: 'accountant',
     name: 'Accountant',
     description: 'Manages fees, payments and expenses.',
-    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'hr.self', 'payroll.read', 'payroll.manage', 'ai.use', 'inventory.read', 'inventory.manage', 'transport.read', 'hostel.read', 'comms.read', 'comms.send', 'billing.manage', 'support.use'],
+    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'hr.self', 'payroll.read', 'payroll.manage', 'ai.use', 'inventory.read', 'inventory.manage', 'transport.read', 'hostel.read', 'comms.read', 'comms.send', 'billing.manage', 'support.use', 'sponsorship.manage'],
   },
   {
     key: 'hr_manager',
@@ -111,12 +111,12 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     key: 'parent',
     name: 'Parent',
     description: 'Portal access to their own children only.',
-    permissions: ['ai.use'],
+    permissions: ['ai.use', 'family.manage'],
   },
   {
     key: 'student',
     name: 'Student',
     description: 'Portal access to their own learning.',
-    permissions: ['ai.use'],
+    permissions: ['ai.use', 'learning.use'],
   },
 ];

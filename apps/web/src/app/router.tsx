@@ -92,6 +92,13 @@ const ConsoleHealthPage = lazy(() => import('@/features/platform/health-page'));
 const ConsoleFlagsPage = lazy(() => import('@/features/platform/flags-page'));
 const ConsoleAuditPage = lazy(() => import('@/features/platform/audit-page'));
 const ConsoleTeamPage = lazy(() => import('@/features/platform/team-page'));
+const ConsoleRevenuePage = lazy(() => import('@/features/platform/revenue-page'));
+const ConsoleUnitEconomicsPage = lazy(() => import('@/features/platform/unit-economics-page'));
+const ConsoleProductsPage = lazy(() => import('@/features/platform/products-page'));
+const ConsoleFamilyPage = lazy(() => import('@/features/platform/family-page'));
+const ConsoleContentPage = lazy(() => import('@/features/platform/content-page'));
+const SponsorshipsPage = lazy(() => import('@/features/sponsorships/sponsorships-page'));
+const KnowledgePage = lazy(() => import('@/features/knowledge/knowledge-page'));
 const WebsiteLayout = lazy(() => import('@/features/website/website-layout'));
 const WebsiteOverviewTab = lazy(() => import('@/features/website/overview-tab'));
 const WebsitePagesTab = lazy(() => import('@/features/website/pages-tab'));
@@ -105,6 +112,16 @@ const WebsiteCodesTab = lazy(() => import('@/features/website/codes-tab'));
 const PublicSiteRoute = lazy(() => import('@/features/website/public/site-app').then((m) => ({ default: m.PublicSiteRoute })));
 const ComingSoonPage = lazy(() => import('@/features/coming-soon/coming-soon-page'));
 const NotFoundPage = lazy(() => import('@/features/not-found/not-found-page'));
+const LearnHomePage = lazy(() => import('@/features/learning/learn-home-page'));
+const TutorPage = lazy(() => import('@/features/learning/tutor-page'));
+const LearnProgressPage = lazy(() => import('@/features/learning/progress-page'));
+const StudyPlansPage = lazy(() => import('@/features/learning/plans-page'));
+const FlashcardsPage = lazy(() => import('@/features/learning/flashcards-page'));
+const AttemptPage = lazy(() => import('@/features/learning/attempt-page'));
+const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
+const FamilyPage = lazy(() => import('@/features/family/family-page'));
+const ChildProgressPage = lazy(() => import('@/features/family/child-page'));
+const AskSchoolPage = lazy(() => import('@/features/family/ask-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -483,6 +500,21 @@ export const router = createBrowserRouter([
           </RequireFeature>
         ),
       },
+      // Phase 15: the student's learning companion and Exam Academy, and the parent's family page.
+      ...(
+        [
+          ['learn', <LearnHomePage key="learn" />],
+          ['learn/tutor/:conversationId?', <TutorPage key="tutor" />],
+          ['learn/progress', <LearnProgressPage key="progress" />],
+          ['learn/plans', <StudyPlansPage key="plans" />],
+          ['learn/flashcards', <FlashcardsPage key="flashcards" />],
+          ['learn/attempts/:id', <AttemptPage key="attempt" />],
+          ['learn/exams', <ExamAcademyPage key="exams" />],
+        ] as const
+      ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
+      { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
+      { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
+      { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
       {
         path: 'support',
         element: (
@@ -496,6 +528,22 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="support.use">
             <SchoolTicketPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'sponsorships',
+        element: (
+          <RequirePermission permission="sponsorship.manage">
+            <SponsorshipsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'knowledge',
+        element: (
+          <RequirePermission permission="knowledge.manage">
+            <KnowledgePage />
           </RequirePermission>
         ),
       },
@@ -564,6 +612,11 @@ export const router = createBrowserRouter([
           ['platform/flags', 'flags', <ConsoleFlagsPage key="flags" />],
           ['platform/audit', 'audit', <ConsoleAuditPage key="audit" />],
           ['platform/team', undefined, <ConsoleTeamPage key="team" />],
+          ['platform/revenue', 'commerce', <ConsoleRevenuePage key="revenue" />],
+          ['platform/unit-economics', 'commerce', <ConsoleUnitEconomicsPage key="unit-economics" />],
+          ['platform/products', 'commerce', <ConsoleProductsPage key="products" />],
+          ['platform/family', 'commerce', <ConsoleFamilyPage key="family" />],
+          ['platform/content', 'content', <ConsoleContentPage key="content" />],
         ] as const
       ).map(([path, area, page]) => ({
         path,

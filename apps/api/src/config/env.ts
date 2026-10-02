@@ -73,6 +73,8 @@ const schema = z.object({
   /** Bank details printed on subscription invoices for transfers. Use 
  for new lines. */
   PLATFORM_BANK_DETAILS: z.string().optional(),
+  /** For unit economics: AI is billed in dollars, revenue in naira. */
+  NAIRA_PER_USD: z.coerce.number().min(1).default(1600),
   PLATFORM_INVOICE_DUE_DAYS: z.coerce.number().int().min(1).max(90).default(14),
   /** The hostname schools point their own domains at (CNAME), e.g. ai-schoolportal.mejortechworld.com. */
   PLATFORM_DOMAIN_TARGET: z.string().optional(),

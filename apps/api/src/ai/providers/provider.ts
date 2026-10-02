@@ -7,9 +7,16 @@ import type { ZodType } from 'zod';
  */
 export type AiTier = 'standard' | 'advanced';
 
+/** A picture sent with a turn (a photo of a question), base64-encoded. */
+export interface AiImage {
+  mediaType: 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif';
+  data: string;
+}
+
 export interface AiTurn {
   role: 'user' | 'assistant';
   content: string;
+  images?: AiImage[];
 }
 
 export interface AiRequest {

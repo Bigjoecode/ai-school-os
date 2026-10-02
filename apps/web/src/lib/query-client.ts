@@ -39,6 +39,11 @@ export const queryClient = new QueryClient({
         });
         return;
       }
+      // Student AI allowance (402) or an exam pack not included: an encouraging nudge, not an error.
+      if (error instanceof ApiError && (error.status === 402 || error.details.code === 'EXAM_NOT_INCLUDED')) {
+        toast.info(error.status === 402 ? 'AI learning limit reached' : 'Comes with Exam Prep', { description: `${errorMessage(error)} A parent can add more from the Family page.` });
+        return;
+      }
       toast.error(errorMessage(error));
     },
   }),

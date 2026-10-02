@@ -4,6 +4,7 @@ import { hashPassword } from '../auth/password';
 import type { Env } from '../config/env';
 import { PrismaClient } from '../generated/prisma/client';
 import { seedDemo } from './demo-seed';
+import { ensurePlatformContent } from './platform-content';
 
 /**
  * One-off setup that would normally be a shell command, for hosting where
@@ -14,14 +15,23 @@ import { seedDemo } from './demo-seed';
  *    owner (super admin) when the platform has none yet.
  *  - SEED_DEMO_ON_BOOT=true: loads the Greenfield/Sunrise demo schools when
  *    they aren't there yet (without the local-only demo owner account).
+ *
+ * Always: installs missing platform content (parent products, the syllabus
+ * graph, the starter Exam Academy bank). It never overwrites console edits.
  */
 export async function runBootTasks(config: Env): Promise<void> {
   const wantsOwner = Boolean(config.BOOTSTRAP_OWNER_EMAIL && config.BOOTSTRAP_OWNER_PASSWORD);
-  if (!wantsOwner && !config.SEED_DEMO_ON_BOOT) return;
 
   const logger = new Logger('BootTasks');
   const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: config.DATABASE_URL, max: 1 }) });
   try {
+    try {
+      const content = await ensurePlatformContent(prisma);
+      if (!content.startsWith('0 products, 0 topics, 0')) logger.log(`Platform content: ${content}`);
+    } catch (err) {
+      logger.error(`Platform content could not be installed: ${(err as Error).message}`);
+    }
+
     if (wantsOwner) {
       const existing = await prisma.user.count({ where: { platformRole: 'SUPER_ADMIN' } });
       if (existing === 0) {

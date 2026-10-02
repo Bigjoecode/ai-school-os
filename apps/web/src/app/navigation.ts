@@ -12,6 +12,8 @@ import {
   Building2,
   Bus,
   Calculator,
+  ChartColumnStacked,
+  CircleDollarSign,
   CalendarCheck,
   CalendarClock,
   CalendarDays,
@@ -31,6 +33,8 @@ import {
   GraduationCap,
   HeartHandshake,
   HeartPulse,
+  HandCoins,
+  Home,
   IdCard,
   IdCardLanyard,
   Landmark,
@@ -38,6 +42,7 @@ import {
   LayoutGrid,
   LayoutDashboard,
   Library,
+  LibraryBig,
   LifeBuoy,
   type LucideIcon,
   Medal,
@@ -46,12 +51,14 @@ import {
   MonitorCheck,
   NotebookPen,
   Package,
+  PackageOpen,
   Plane,
   PencilLine,
   Presentation,
   Radar,
   Receipt,
   ScrollText,
+  ScanSearch,
   Send,
   Settings,
   ShieldCheck,
@@ -64,6 +71,7 @@ import {
   Video,
   Wallet,
 } from 'lucide-react';
+import { CalendarCheck2, GalleryVerticalEnd, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -95,7 +103,26 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
       { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', keywords: 'assistant chat' },
       { label: 'My learning', to: '/learning', icon: BookOpenCheck, feature: 'live_classes', audience: 'family', keywords: 'homework live classes class notes revision summaries' },
+      { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
+    ],
+  },
+  // Phase 15: the student's learning companion and the parent's family page (permissions keep staff navs clean).
+  {
+    label: 'Learning',
+    items: [
+      { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', keywords: 'study home today ai learning' },
+      { label: 'AI tutor', to: '/learn/tutor', icon: MessageCircleQuestion, permission: 'learning.use', keywords: 'tutor homework help ask explain' },
+      { label: 'Exam Academy', to: '/learn/exams', icon: Target, permission: 'learning.use', keywords: 'bece waec neco jamb past questions mock practice' },
+      { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', keywords: 'mastery topics memories strengths' },
+      { label: 'Study plans', to: '/learn/plans', icon: CalendarCheck2, permission: 'learning.use', keywords: 'revision timetable plan goals' },
+      { label: 'Flashcards', to: '/learn/flashcards', icon: GalleryVerticalEnd, permission: 'learning.use', keywords: 'cards review memorise' },
+    ],
+  },
+  {
+    label: 'Family',
+    items: [
+      { label: 'My family', to: '/family', icon: Users2, permission: 'family.manage', keywords: 'children subscriptions ai plus exam prep buy payments progress' },
     ],
   },
   {
@@ -245,6 +272,7 @@ export const NAV_GROUPS: NavGroup[] = [
         permission: 'website.manage',
         keywords: 'cms public site school website news gallery photos downloads teachers inbox contact online applications result checker codes publish',
       },
+      { label: 'Knowledge base', to: '/knowledge', icon: LibraryBig, permission: 'knowledge.manage', keywords: 'documents handbook policies faq answers parents staff website assistant' },
     ],
   },
   {
@@ -254,6 +282,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Roles & Permissions', to: '/settings/roles', icon: ShieldCheck, permission: 'roles.manage' },
       { label: 'Audit Log', to: '/settings/audit', icon: ScrollText, permission: 'audit.read', keywords: 'history activity' },
       { label: 'Billing', to: '/settings/billing', icon: CreditCard, permission: 'billing.manage', keywords: 'subscription plan invoices pay ai school os account upgrade' },
+      { label: 'Sponsorships', to: '/sponsorships', icon: HandCoins, permission: 'sponsorship.manage', keywords: 'sponsor ai plus exam prep waec jamb classes students pay for' },
       { label: 'Help & support', to: '/support', icon: LifeBuoy, permission: 'support.use', keywords: 'help ticket contact support problem issue' },
     ],
   },
@@ -266,6 +295,11 @@ export const PLATFORM_GROUP: NavGroup = {
     { label: 'Schools', to: '/platform/schools', icon: Building2, area: 'schools', keywords: 'tenants customers accounts' },
     { label: 'Branches', to: '/platform/branches', icon: GitBranch, area: 'schools', keywords: 'campuses sites' },
     { label: 'Billing', to: '/platform/billing', icon: Landmark, area: 'billing', keywords: 'subscriptions invoices payments revenue billing cycle' },
+    { label: 'Revenue', to: '/platform/revenue', icon: ChartColumnStacked, area: 'commerce', keywords: 'ledger revenue domains balances accounts refunds' },
+    { label: 'Unit economics', to: '/platform/unit-economics', icon: CircleDollarSign, area: 'commerce', keywords: 'contribution margin ai cost per student conversion' },
+    { label: 'Parent products', to: '/platform/products', icon: PackageOpen, area: 'commerce', keywords: 'ai plus pro exam prep pricing coupons discounts' },
+    { label: 'Parent subscriptions', to: '/platform/family', icon: Home, area: 'commerce', keywords: 'family orders refunds renewals grant access sponsorships' },
+    { label: 'Exam content', to: '/platform/content', icon: ScanSearch, area: 'content', keywords: 'question bank waec jamb neco bece syllabus topics ai draft' },
     { label: 'Plans', to: '/platform/plans', icon: Boxes, area: 'plans', keywords: 'pricing tiers modules packages' },
     { label: 'Usage', to: '/platform/usage', icon: Activity, area: 'usage', keywords: 'students seats ai spend api requests' },
     { label: 'Domains', to: '/platform/domains', icon: Globe2, area: 'domains', keywords: 'custom domain dns hostname cname' },

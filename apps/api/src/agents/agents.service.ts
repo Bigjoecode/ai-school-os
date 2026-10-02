@@ -6,6 +6,7 @@ import { AiJobsService } from '../ai/ai-jobs.service';
 import { AiService } from '../ai/ai.service';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
+import { EntitlementService } from '../student-ai/entitlements.service';
 import { AgentToolsService } from './tools.service';
 
 const HISTORY_TURNS = 20;
@@ -28,6 +29,7 @@ const TOOL_CAPABILITY: Record<string, string> = {
   recent_messages: 'Recent messages',
   my_children: "Your children's records",
   my_learning: 'Your timetable & homework',
+  school_documents: 'School documents',
   draft_message: 'Draft messages',
   draft_homework: 'Draft homework',
 };
@@ -40,6 +42,7 @@ export class AgentsService {
     private readonly ai: AiService,
     private readonly tools: AgentToolsService,
     private readonly jobs: AiJobsService,
+    private readonly entitlements: EntitlementService,
   ) {}
 
   canOpen(agent: AiAgent): boolean {
@@ -72,6 +75,10 @@ export class AgentsService {
       this.prisma.root.user.findUniqueOrThrow({ where: { id: userId }, select: { firstName: true, lastName: true } }),
     ]);
     const today = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeZone: tenant.timezone }).format(new Date());
+    // A student's assistant runs on their AI allowance, like the tutor.
+    const studentAccess = input.agent === 'student' && ctx.permissions.has('learning.use') ? await this.entitlements.access(await this.entitlements.me()) : null;
+    const charge = studentAccess ? await this.entitlements.check(studentAccess, {}) : null;
+    if (studentAccess) this.entitlements.attribute(studentAccess);
     const specs = this.tools.available(AGENTS[input.agent].tools);
     const allowed = new Set(specs.map((s) => s.name));
     const toolCalls: AiToolCall[] = [];
@@ -95,6 +102,7 @@ export class AgentsService {
       { maxSteps: 8, fallbackSystem: async () => systemPrompt(input.agent, tenant.name, `${who}\n\n${await this.ai.grounding(input.agent, userId)}`, today) },
     );
 
+    if (studentAccess && charge) await this.entitlements.consume(studentAccess, charge.units, charge.deep);
     const reply = result.text || "I couldn't produce an answer to that. Please try rephrasing.";
     await db.aiMessage.createMany({
       data: [

@@ -486,5 +486,9 @@ export const PLATFORM_AREAS = {
   health: ['SUPER_ADMIN', 'SUPPORT_ADMIN'],
   flags: ['SUPER_ADMIN'],
   audit: ['SUPER_ADMIN', 'SUPPORT_ADMIN'],
+  /** Parent subscriptions, products, coupons, refunds, the ledger and unit economics. */
+  commerce: ['SUPER_ADMIN', 'FINANCE_ADMIN'],
+  /** The Exam Academy question bank and syllabus. */
+  content: ['SUPER_ADMIN', 'SUPPORT_ADMIN'],
 } as const satisfies Record<string, readonly PlatformRole[]>;
 export type PlatformArea = keyof typeof PLATFORM_AREAS;

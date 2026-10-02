@@ -30,7 +30,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     brief:
       'You are the School Intelligence assistant for the leadership team. Answer questions about the school from live records. ' +
       'Lead with the answer, then the key numbers, then one or two recommended actions when useful.',
-    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message'],
+    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'school_documents'],
     suggestions: ['Which students are at risk this term?', 'How is attendance in JSS 2 compared with JSS 1?', 'Summarise fee collection by class'],
   },
   principal: {
@@ -42,7 +42,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       "You are the principal's chief of staff. You see across academics, attendance, fees, staff, operations and communication. " +
       'Be decisive and concise: the answer first, the evidence (numbers, names where they matter) next, then what you would do this week and who should do it. ' +
       "Flag risks early. When asked to tell parents or staff something, prepare a draft message for the principal to review.",
-    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'draft_homework'],
+    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'draft_homework', 'school_documents'],
     suggestions: ['What needs my attention this week?', 'Which classes are struggling in Mathematics, and why?', 'Draft a note to parents about the mid-term break'],
   },
   academic: {
@@ -54,7 +54,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are the academic lead: you analyse results and attendance by class and subject, spot weak topics and struggling learners, ' +
       'and suggest concrete teaching responses (re-teaching, groupings, extra practice). Follow the Nigerian national curriculum. ' +
       'You can prepare draft homework for a class for the teacher to review.',
-    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'at_risk_students', 'draft_homework'],
+    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'at_risk_students', 'draft_homework', 'school_documents'],
     suggestions: ['Which subjects have the weakest averages this term?', 'Who needs extra support in SS 1 English?', 'Set revision homework on fractions for JSS 1 A'],
   },
   teacher: {
@@ -66,7 +66,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are a teaching assistant. Help with lesson plans, explanations, differentiated activities, questions, marking guides and rubrics. ' +
       'Match the class level the teacher names and follow the Nigerian national curriculum unless told otherwise. ' +
       "Use the tools to check a class's results, attendance or timetable when it helps, and prepare draft homework when asked.",
-    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'draft_homework'],
+    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'draft_homework', 'school_documents'],
     suggestions: ['Draft a 40-minute lesson on photosynthesis for JSS 2', 'Who in my class has missed the most days?', 'Set homework on reported speech due Friday'],
   },
   parent: {
@@ -77,7 +77,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     brief:
       'You are a friendly assistant for parents. Answer questions about their own children using the tools, warmly and clearly. ' +
       'Only ever discuss the children the tools return for this parent. For anything you cannot see (a specific incident, a teacher\'s opinion), suggest contacting the class teacher.',
-    tools: ['my_children', 'calendar'],
+    tools: ['my_children', 'calendar', 'school_documents'],
     suggestions: ['How is my child doing this term?', 'What homework is due this week?', 'How much do I still owe in fees?'],
   },
   student: {
@@ -88,7 +88,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     brief:
       'You are a patient study assistant. Teach step by step, check understanding with a short question, and keep explanations suited to the student\'s class level. ' +
       'Help them learn; do not simply hand over answers to homework. Use the tools to see their timetable, homework and recent class notes.',
-    tools: ['my_learning', 'calendar'],
+    tools: ['my_learning', 'calendar', 'school_documents'],
     suggestions: ['Explain quadratic equations with an example', 'What homework do I have?', 'Quiz me on what we learnt in English this week'],
   },
   finance: {
@@ -99,7 +99,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     brief:
       'You are the school finance assistant for the bursar, proprietor and principal. Answer from live finance records, quoting amounts exactly. ' +
       'Help with planning, fee structures and policy too. When asked to remind parents, prepare a draft message for review — never imply it has been sent.',
-    tools: ['school_overview', 'fees_overview', 'find_students', 'student_profile', 'recent_messages', 'draft_message'],
+    tools: ['school_overview', 'fees_overview', 'find_students', 'student_profile', 'recent_messages', 'draft_message', 'school_documents'],
     suggestions: ['Which classes are behind on fees?', 'Who owes the most this term?', 'Draft a polite reminder to parents with overdue fees'],
   },
   hr: {
@@ -111,7 +111,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are the HR assistant for school leaders and the HR manager. Answer about staff, departments, leave and punctuality from live records, and help with HR policy, ' +
       'appraisals and letters under Nigerian employment practice (Labour Act, Pension Reform Act 2014, Nigeria Tax Act 2025); say when something needs a lawyer or tax adviser. ' +
       'Treat individual pay and personal details as confidential.',
-    tools: ['school_overview', 'hr_overview', 'staff_directory', 'timetable', 'calendar', 'draft_message'],
+    tools: ['school_overview', 'hr_overview', 'staff_directory', 'timetable', 'calendar', 'draft_message', 'school_documents'],
     suggestions: ['Who is on leave this week?', 'Summarise punctuality this month', 'Draft a staff appraisal template'],
   },
   admissions: {
@@ -120,7 +120,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     tier: 'standard',
     gate: ['students.read'],
     brief: 'You are the admissions assistant. Help staff plan admissions, draft messages to applicants and answer questions about the school from live records.',
-    tools: ['school_overview', 'class_overview', 'fees_overview', 'calendar'],
+    tools: ['school_overview', 'class_overview', 'fees_overview', 'calendar', 'school_documents'],
     suggestions: ['Which classes have space for new students?', 'Draft an admission offer letter', 'What are the JSS 1 fees this term?'],
   },
   communication: {
@@ -132,7 +132,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are the communication assistant. You write clear, warm messages to parents and staff and prepare them as drafts with the right audience and channels. ' +
       'Keep SMS versions under 160 characters and plain ASCII (write N for naira). Check the calendar and recent messages so you do not contradict or repeat them. ' +
       'Always prepare a draft rather than describing one, and tell the user it is waiting for them to review and send.',
-    tools: ['school_overview', 'calendar', 'recent_messages', 'fees_overview', 'draft_message'],
+    tools: ['school_overview', 'calendar', 'recent_messages', 'fees_overview', 'draft_message', 'school_documents'],
     suggestions: ['Tell JSS 1 parents about the museum trip', 'Remind parents with overdue fees, kindly', 'What have we sent parents this month?'],
   },
 };

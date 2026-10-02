@@ -141,7 +141,17 @@ export class AnthropicProvider implements AiProvider {
   }
 
   private messages(req: AiRequest): Anthropic.Beta.BetaMessageParam[] {
-    return req.messages.map((m) => ({ role: m.role, content: m.content }));
+    return req.messages.map((m) =>
+      m.images?.length
+        ? {
+            role: m.role,
+            content: [
+              ...m.images.map((i) => ({ type: 'image' as const, source: { type: 'base64' as const, media_type: i.mediaType, data: i.data } })),
+              { type: 'text' as const, text: m.content },
+            ],
+          }
+        : { role: m.role, content: m.content },
+    );
   }
 
   private async call<R>(fn: () => Promise<R>): Promise<R> {

@@ -44,7 +44,7 @@ export class GeminiProvider implements AiProvider {
         model,
         contents: req.messages.map((m) => ({
           role: m.role === 'assistant' ? 'model' : 'user',
-          parts: [{ text: m.content }],
+          parts: [...(m.images ?? []).map((i) => ({ inlineData: { mimeType: i.mediaType, data: i.data } })), { text: m.content }],
         })),
         config: {
           systemInstruction: req.system,

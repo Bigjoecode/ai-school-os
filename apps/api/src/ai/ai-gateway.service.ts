@@ -162,6 +162,8 @@ export class AiGatewayService {
       data: {
         tenantId: RequestContextStore.get()?.tenantId ?? null,
         userId: currentContext().userId,
+        studentId: RequestContextStore.get()?.aiStudent?.studentId ?? null,
+        aiTier: RequestContextStore.get()?.aiStudent?.tier ?? null,
         agent,
         provider,
         model: r.model,

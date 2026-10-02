@@ -13,6 +13,7 @@ import { AuditService } from '../audit/audit.service';
 import { dateOnly, fullName } from '../common/format';
 import { env } from '../config/env';
 import { PaystackService, type PaystackTransaction } from '../finance/paystack.service';
+import { LedgerService, REVENUE_ACCOUNT } from '../ledger/ledger.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 type SubscriptionWithPlan = Prisma.SubscriptionGetPayload<{ include: { plan: true; tenant: true } }>;
@@ -46,7 +47,20 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
     private readonly prisma: PrismaService,
     private readonly paystack: PaystackService,
     private readonly audit: AuditService,
+    private readonly ledger: LedgerService,
   ) {}
+
+  /** An invoice is revenue earned and money owed. */
+  async postInvoice(inv: { id: string; number: string; tenantId: string; amountKobo: number; domain: string; issuedAt: Date }) {
+    const domain = inv.domain as 'SCHOOL' | 'STUDENT_AI' | 'EXAM';
+    await this.ledger.safePost(
+      { event: 'invoice', domain, sourceType: 'PLATFORM_INVOICE', sourceId: inv.id, tenantId: inv.tenantId, memo: `Invoice ${inv.number}`, at: inv.issuedAt },
+      [
+        { account: 'RECEIVABLE_SCHOOLS', debitKobo: inv.amountKobo },
+        { account: REVENUE_ACCOUNT[domain], creditKobo: inv.amountKobo },
+      ],
+    );
+  }
 
   onModuleInit() {
     if (env().NODE_ENV === 'test') return;
@@ -202,10 +216,11 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
       }),
     );
     await this.audit.log({ tenantId: s.tenantId, action: 'billing.invoice_issued', entityType: 'PlatformInvoice', entityId: invoice.id, summary: `Issued subscription invoice ${invoice.number} to ${s.tenant.name}` });
+    await this.postInvoice(invoice);
     return invoice;
   }
 
-  async manualInvoice(input: { tenantId: string; description: string; amountKobo: number; dueDate: string; notes: string | null }) {
+  async manualInvoice(input: { tenantId: string; description: string; amountKobo: number; dueDate: string; notes: string | null; domain?: 'SCHOOL' | 'STUDENT_AI' | 'EXAM'; seats?: number; unitKobo?: number }) {
     const tenant = await this.prisma.root.tenant.findUnique({ where: { id: input.tenantId } });
     if (!tenant) throw new NotFoundException('School not found');
     const invoice = await this.prisma.root.$transaction(async (tx) =>
@@ -218,10 +233,14 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
           currency: tenant.currency,
           dueDate: new Date(`${input.dueDate}T00:00:00Z`),
           notes: input.notes,
+          domain: input.domain ?? 'SCHOOL',
+          seats: input.seats ?? 0,
+          unitKobo: input.unitKobo ?? 0,
         },
       }),
     );
     await this.audit.log({ tenantId: tenant.id, action: 'billing.invoice_issued', entityType: 'PlatformInvoice', entityId: invoice.id, summary: `Issued invoice ${invoice.number} to ${tenant.name}: ${input.description}` });
+    await this.postInvoice(invoice);
     return invoice;
   }
 
@@ -230,6 +249,14 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
     if (inv.status !== 'OPEN') throw new BadRequestException('Only open invoices can be voided');
     if (inv.paidKobo > 0) throw new BadRequestException('This invoice has payments against it; record a credit instead');
     await this.prisma.root.platformInvoice.update({ where: { id }, data: { status: 'VOID', notes: [inv.notes, `Voided: ${reason}`].filter(Boolean).join('\n') } });
+    const domain = inv.domain as 'SCHOOL' | 'STUDENT_AI' | 'EXAM';
+    await this.ledger.safePost(
+      { event: 'void', domain, sourceType: 'PLATFORM_INVOICE', sourceId: id, tenantId: inv.tenantId, memo: `Voided ${inv.number}: ${reason}` },
+      [
+        { account: REVENUE_ACCOUNT[domain], debitKobo: inv.amountKobo },
+        { account: 'RECEIVABLE_SCHOOLS', creditKobo: inv.amountKobo },
+      ],
+    );
     await this.audit.log({ tenantId: inv.tenantId, action: 'billing.invoice_voided', entityType: 'PlatformInvoice', entityId: id, summary: `Voided invoice ${inv.number} for ${inv.tenant.name}: ${reason}` });
   }
 
@@ -257,6 +284,13 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
       }
       await this.prisma.root.tenant.updateMany({ where: { id: inv.tenantId, status: 'TRIAL' }, data: { status: 'ACTIVE' } });
     }
+    await this.ledger.safePost(
+      { event: 'payment', domain: inv.domain as 'SCHOOL' | 'STUDENT_AI' | 'EXAM', sourceType: 'PLATFORM_PAYMENT', sourceId: p.id, tenantId: p.tenantId, memo: `Payment for ${p.invoice.number} (${p.reference})`, at: p.paidAt ?? undefined },
+      [
+        { account: p.method === 'PAYSTACK' ? 'CASH_PAYSTACK' : 'CASH_BANK', debitKobo: p.amountKobo },
+        { account: 'RECEIVABLE_SCHOOLS', creditKobo: p.amountKobo },
+      ],
+    );
     await this.audit.log({
       tenantId: p.tenantId,
       actorUserId: p.recordedById ?? null,
@@ -323,7 +357,19 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
         await this.prisma.root.platformPayment.update({ where: { id: p.id }, data: { status: 'FAILED', note: `Amount mismatch: Paystack reported ${tx.amount} kobo` } });
         return { status: 'FAILED', invoiceId: p.invoiceId };
       }
-      await this.settle(p.id, tx.paid_at ? new Date(tx.paid_at) : new Date());
+      if (await this.settle(p.id, tx.paid_at ? new Date(tx.paid_at) : new Date())) {
+        const fee = tx.fees ?? 0;
+        if (fee > 0) {
+          const inv = await this.prisma.root.platformInvoice.findUniqueOrThrow({ where: { id: p.invoiceId }, select: { domain: true } });
+          await this.ledger.safePost(
+            { event: 'fee', domain: inv.domain as 'SCHOOL' | 'STUDENT_AI' | 'EXAM', sourceType: 'PLATFORM_PAYMENT', sourceId: p.id, tenantId: p.tenantId, memo: `Paystack fee on ${reference}` },
+            [
+              { account: 'PAYMENT_FEES', debitKobo: fee },
+              { account: 'CASH_PAYSTACK', creditKobo: fee },
+            ],
+          );
+        }
+      }
       return { status: 'SUCCESS', invoiceId: p.invoiceId };
     }
     if (tx.status === 'failed' || tx.status === 'abandoned' || tx.status === 'reversed') {

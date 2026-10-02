@@ -222,6 +222,16 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'learning',
+    label: 'Student AI & Exam Academy',
+    permissions: {
+      'learning.use': 'Use the AI learning companion and Exam Academy as a student',
+      'family.manage': 'Manage AI and exam subscriptions for your own children',
+      'sponsorship.manage': 'Sponsor AI or exam preparation for classes (billed to the school)',
+      'knowledge.manage': "Upload and manage the school's knowledge base documents",
+    },
+  },
+  {
     module: 'audit',
     label: 'Audit',
     permissions: {

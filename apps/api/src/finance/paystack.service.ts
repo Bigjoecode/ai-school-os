@@ -17,7 +17,11 @@ export interface PaystackTransaction {
   amount: number;
   currency: string;
   paid_at: string | null;
+  /** Paystack's charge on this transaction, in kobo. */
+  fees?: number | null;
+  channel?: string;
   customer?: { email?: string };
+  authorization?: { authorization_code?: string; reusable?: boolean; card_type?: string; last4?: string; brand?: string; exp_month?: string; exp_year?: string };
 }
 
 /**

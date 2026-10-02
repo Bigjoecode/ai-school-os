@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Logger, Param, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post, Query, Req } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import type { Request } from 'express';
 import {
@@ -9,7 +9,7 @@ import {
   type TicketRow,
 } from '@aischool/shared';
 import { z } from 'zod';
-import { Public, RequirePermissions } from '../common/decorators';
+import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId, currentUserId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { env } from '../config/env';
@@ -22,8 +22,6 @@ import { SupportService } from './support.service';
 /** A school's own view of its AI School OS account: subscription, invoices and payments. */
 @Controller('billing')
 export class SchoolBillingController {
-  private readonly logger = new Logger(SchoolBillingController.name);
-
   constructor(
     private readonly prisma: PrismaService,
     private readonly billing: PlatformBillingService,
@@ -90,23 +88,6 @@ export class SchoolBillingController {
   @RequirePermissions('billing.manage')
   verify(@Query(new ZodPipe(z.object({ reference: z.string().min(6).max(80) }))) q: { reference: string }) {
     return this.billing.verifyOnline(q.reference, currentTenantId());
-  }
-
-  /** Paystack → platform account. Always answers 200 so Paystack stops retrying; the signature decides. */
-  @Public()
-  @Post('paystack/webhook')
-  @HttpCode(200)
-  async webhook(@Req() req: Request & { rawBody?: Buffer }) {
-    if (!req.rawBody || !this.billing.webhookSignatureValid(req.rawBody, req.headers['x-paystack-signature'] as string | undefined)) return { ok: true };
-    const event = req.body as { event?: string; data?: { reference?: string } };
-    if (event.event === 'charge.success' && event.data?.reference) {
-      try {
-        await this.billing.verifyOnline(event.data.reference);
-      } catch (err) {
-        this.logger.warn(`Subscription webhook for ${event.data.reference}: ${(err as Error).message}`);
-      }
-    }
-    return { ok: true };
   }
 }
 

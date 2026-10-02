@@ -21,6 +21,8 @@ const AREA_LABEL: Record<PlatformArea, string> = {
   health: 'Health',
   flags: 'Flags',
   audit: 'Audit',
+  commerce: 'Commerce',
+  content: 'Exam content',
 };
 
 export default function TeamPage() {

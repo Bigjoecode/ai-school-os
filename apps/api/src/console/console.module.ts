@@ -17,5 +17,6 @@ import { SupportService } from './support.service';
   imports: [AiModule, FinanceModule],
   controllers: [ConsoleController, ConsoleBillingController, ConsoleOpsController, SchoolBillingController, SchoolSupportController],
   providers: [PlatformBillingService, SupportService],
+  exports: [PlatformBillingService],
 })
 export class ConsoleModule {}

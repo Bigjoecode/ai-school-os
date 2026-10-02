@@ -16,6 +16,11 @@ import { FilesModule } from './files/files.module';
 import { FeaturesModule } from './features/features.module';
 import { apiUsageMiddleware } from './features/api-usage.service';
 import { ConsoleModule } from './console/console.module';
+import { LedgerModule } from './ledger/ledger.service';
+import { EntitlementsModule } from './student-ai/entitlements.service';
+import { CommerceModule } from './commerce/commerce.module';
+import { LearningModule } from './learning/learning.module';
+import { KnowledgeModule } from './knowledge/knowledge.module';
 import { WebsiteModule } from './website/website.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
@@ -58,6 +63,8 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     PrismaModule,
     FeaturesModule,
+    LedgerModule,
+    EntitlementsModule,
     AuditModule,
     AuthModule,
     PlatformModule,
@@ -78,6 +85,9 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     FilesModule,
     WebsiteModule,
     ConsoleModule,
+    CommerceModule,
+    LearningModule,
+    KnowledgeModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [

@@ -1,6 +1,6 @@
 import type { PlatformInvoiceRow, PlatformInvoiceStatus, PlatformPaymentRow, SubscriptionRow } from '@aischool/shared';
 import { BILLING_PERIOD_LABELS } from '@aischool/shared';
-import { Ban, Banknote, CreditCard, FilePlus2, FileText, MoreHorizontal, Pencil, PlayCircle, Receipt, RefreshCw } from 'lucide-react';
+import { Ban, Banknote, CreditCard, FilePlus2, FileText, MoreHorizontal, Pencil, PlayCircle, Receipt, RefreshCw, Undo2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { toast } from 'sonner';
@@ -17,6 +17,8 @@ import { formatDate, formatDateTime, formatNumber } from '@/lib/format';
 import { Segmented } from '../operations/ui';
 import { naira, nairaCompact, useInvoiceNow, usePlatformInvoices, usePlatformPayments, useRunBilling, useSubscriptions, useVerifyPayment } from './api';
 import { CreateInvoiceDialog, EditSubscriptionDialog, RecordPaymentDialog, VoidInvoiceDialog } from './billing-dialogs';
+import { useRefunds } from './commerce-api';
+import { RefundDialog, type RefundTarget } from './refund-dialog';
 import { Kpi, Muted, PAYMENT_METHOD_LABEL, PaymentStatusPill, PlatformInvoiceBadge, SchoolCell, SubStatusBadge, Toolbar, useTabParam } from './ui';
 
 const TABS = ['subscriptions', 'invoices', 'payments'] as const;
@@ -393,6 +395,15 @@ function PaymentsTab() {
     return q.data?.filter((r) => !s || `${r.reference} ${r.tenant.name} ${r.invoice.number}`.toLowerCase().includes(s));
   }, [q.data, search]);
   const pending = q.data?.filter((p) => p.status === 'PENDING').length ?? 0;
+  const refunds = useRefunds();
+  const [refunding, setRefunding] = useState<RefundTarget | null>(null);
+  const refundedOf = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const r of refunds.data ?? []) if (r.sourceType === 'PLATFORM_PAYMENT' && r.status !== 'FAILED') m.set(r.sourceId, (m.get(r.sourceId) ?? 0) + r.amountKobo);
+    return m;
+  }, [refunds.data]);
+  const refundTarget = (p: PlatformPaymentRow): RefundTarget => ({ kind: 'payment', id: p.id, label: p.invoice.number, who: p.tenant.name, amountKobo: p.amountKobo, refundedKobo: refundedOf.get(p.id) ?? 0 });
+  const canRefund = (p: PlatformPaymentRow) => p.status === 'SUCCESS' && (refundedOf.get(p.id) ?? 0) < p.amountKobo;
 
   const columns: Column<PlatformPaymentRow>[] = [
     {
@@ -414,7 +425,18 @@ function PaymentsTab() {
         </div>
       ),
     },
-    { key: 'amount', header: 'Amount', className: 'tabular text-right', headClassName: 'text-right', cell: (p) => <span className="font-medium">{naira(p.amountKobo)}</span> },
+    {
+      key: 'amount',
+      header: 'Amount',
+      className: 'tabular text-right',
+      headClassName: 'text-right',
+      cell: (p) => (
+        <div>
+          <p className="font-medium">{naira(p.amountKobo)}</p>
+          {(refundedOf.get(p.id) ?? 0) > 0 && <p className="whitespace-nowrap text-[11.5px] text-warning">−{naira(refundedOf.get(p.id))} refunded</p>}
+        </div>
+      ),
+    },
     { key: 'status', header: 'Status', cell: (p) => <PaymentStatusPill status={p.status} /> },
     { key: 'by', header: 'Recorded by', cell: (p) => <span className="text-muted-foreground">{p.recordedBy ?? (p.method === 'PAYSTACK' ? 'Online' : '—')}</span> },
     {
@@ -439,6 +461,10 @@ function PaymentsTab() {
             }
           >
             Verify
+          </Button>
+        ) : canRefund(p) ? (
+          <Button size="sm" variant="ghost" onClick={() => setRefunding(refundTarget(p))}>
+            <Undo2 /> Refund
           </Button>
         ) : null,
     },
@@ -466,12 +492,19 @@ function PaymentsTab() {
               <p className="truncate text-[12px] text-muted-foreground">
                 {PAYMENT_METHOD_LABEL[p.method]} · {p.invoice.number} · {formatDate(p.paidAt ?? p.createdAt)}
               </p>
+              {(refundedOf.get(p.id) ?? 0) > 0 && <p className="text-[12px] text-warning">−{naira(refundedOf.get(p.id))} refunded</p>}
+              {canRefund(p) && (
+                <Button size="sm" variant="outline" className="mt-2" onClick={() => setRefunding(refundTarget(p))}>
+                  <Undo2 /> Refund
+                </Button>
+              )}
             </div>
             <PaymentStatusPill status={p.status} />
           </div>
         )}
         empty={{ icon: CreditCard, title: search ? 'No payments match' : 'No payments yet', description: 'Payments appear when schools pay online or you record a transfer.' }}
       />
+      <RefundDialog target={refunding} onOpenChange={(o) => !o && setRefunding(null)} />
     </Card>
   );
 }

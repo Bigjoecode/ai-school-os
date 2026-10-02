@@ -14,6 +14,16 @@ import {
   type ToolRunner,
 } from './provider';
 
+
+/** Turns with pictures become multi-part user content (data URLs). */
+function turns(req: AiRequest): OpenAI.Chat.ChatCompletionMessageParam[] {
+  return req.messages.map((m) =>
+    m.role === 'user' && m.images?.length
+      ? { role: 'user' as const, content: [{ type: 'text' as const, text: m.content }, ...m.images.map((i) => ({ type: 'image_url' as const, image_url: { url: `data:${i.mediaType};base64,${i.data}` } }))] }
+      : { role: m.role, content: m.content },
+  );
+}
+
 export class OpenAiProvider implements AiProvider {
   readonly name = 'openai' as const;
   private client?: OpenAI;
@@ -46,7 +56,7 @@ export class OpenAiProvider implements AiProvider {
     this.client ??= new OpenAI({ apiKey: env().OPENAI_API_KEY, maxRetries: 2 });
     const model = this.modelFor(req.tier);
     const defs: OpenAI.Chat.ChatCompletionTool[] = tools.map((t) => ({ type: 'function', function: { name: t.name, description: t.description, parameters: t.inputSchema } }));
-    const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [{ role: 'system', content: req.system }, ...req.messages];
+    const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [{ role: 'system', content: req.system }, ...turns(req)];
     const total: AiToolResult = { text: '', model, inputTokens: 0, outputTokens: 0, steps: 0 };
     for (let step = 0; step < maxSteps; step++) {
       let completion: OpenAI.Chat.ChatCompletion;
@@ -90,7 +100,7 @@ export class OpenAiProvider implements AiProvider {
     try {
       const completion = await this.client.chat.completions.create({
         model: this.modelFor(req.tier),
-        messages: [{ role: 'system', content: system }, ...req.messages],
+        messages: [{ role: 'system', content: system }, ...turns(req)],
         ...(json ? { response_format: { type: 'json_object' as const } } : {}),
       });
       return {

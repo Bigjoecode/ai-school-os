@@ -209,6 +209,32 @@ AI spend is metered on every call, including the console's own AI
 briefing and support drafts. **Platform → System health** checks the
 database, AI providers, encryption key, cron job, error rate and queues.
 
+## Parent payments, sponsorships and the knowledge base
+
+Parents pay for AI Student Plus/Family/Pro and Exam Prep from the **Family**
+page with your platform Paystack account (`PLATFORM_PAYSTACK_SECRET_KEY`).
+The same webhook URL handles school invoices, parent orders and refunds:
+`https://ai-schoolportal.mejortechworld.com/api/billing/paystack/webhook`.
+In Paystack, enable the `charge.success` and `refund.*` events.
+
+- **Renewals** charge the card saved at checkout at the end of each period
+  (up to three daily attempts), then fall back to a reminder and a
+  week's grace. `APP_ENCRYPTION_KEY` must be set, or cards can't be saved
+  and parents renew by hand.
+- **Products and prices** (and coupons) are edited in **Platform → Products**.
+  The catalogue, syllabus topics and a starter bank of original exam
+  questions are installed automatically on first start; edits in the
+  console are never overwritten.
+- **Sponsorships**: a school pays for AI or exam prep for whole classes from
+  **Sponsorships**; access starts at once and the school is invoiced on its
+  AI School OS account.
+- **Knowledge base**: schools upload PDF or Word documents (or paste text).
+  Documents are split into passages and searched with PostgreSQL full-text
+  search inside the school; no extension or vector database is needed.
+  Scanned PDFs have no text layer: paste the text instead.
+- **Unit economics** converts AI costs (in dollars) with `NAIRA_PER_USD`
+  (default 1600). Update it as the rate moves.
+
 ## GitHub secrets
 
 | Secret | Value |

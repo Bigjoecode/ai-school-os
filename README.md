@@ -160,6 +160,19 @@ report card, and gives the same answer for a wrong code or a wrong admission
 number; each code has a limited number of uses. The website assistant is
 rate-limited and answers only from the facts the site already publishes.
 
+**Student AI and Exam Academy.** Features never ask "which plan?"; they
+ask the entitlement engine what a student may use now and how much is left.
+Parents see learning access ("82% left this term"), never tokens. Every
+student gets the school's included allowance (set on the plan); AI Plus/Pro
+raise it for the paid period; a rolling daily cap keeps use fair. The tutor
+reads only that student's records through tools; official results are
+quoted, never estimated, and the tutor's own evidence goes to a separate
+mastery map. Practice is marked against the stored answer key, not by the
+model. Exam questions written by AI stay drafts until a person publishes
+them. Money from all three domains posts to one double-entry ledger, so
+revenue, refunds, fees and contribution per paid student come from the same
+numbers.
+
 Local development without an AI key: set `AI_FAKE_PROVIDER=true` in
 `apps/api/.env` to get schema-valid placeholder output (refused in production).
 
@@ -238,3 +251,16 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     a support desk with AI triage and draft replies; system health; feature
     flags with percentage rollouts and per-school overrides; and a
     platform-wide audit log. Schools get Billing and Help & support pages ✅
+15. **Student AI, Exam Academy and the parent-paid layer** — three ways to
+    pay (the school's subscription, parent subscriptions, school
+    sponsorships) all grant per-student entitlements; an allowance engine
+    (sessions per term, daily fair use, deeper answers cost more) in front of
+    the AI gateway; the AI learning companion with tools scoped to one
+    student, memory of how they learn, a topic mastery map kept apart from
+    official results, study plans, flashcards, quizzes and photo questions;
+    Exam Academy (BECE, WAEC, NECO, JAMB) with a reviewed question bank,
+    timed mocks and AI reviews; a Family centre where parents buy, renew and
+    cancel; school sponsorships billed on the school's invoice; a school
+    knowledge base the assistants and website answer from; and a
+    double-entry ledger with refunds, coupons and unit economics in the
+    console ✅

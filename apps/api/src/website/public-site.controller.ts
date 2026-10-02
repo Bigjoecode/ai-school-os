@@ -27,6 +27,8 @@ import { dateOnly, fullName, parseDate } from '../common/format';
 import { ZodPipe } from '../common/zod.pipe';
 import { FilesService } from '../files/files.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { currentTenantId } from '../common/request-context';
+import { KnowledgeService } from '../knowledge/knowledge.service';
 import { assistantPrompt } from './prompts';
 import { WebsiteService, eventView, postView } from './website.service';
 
@@ -45,6 +47,7 @@ export class PublicSiteController {
     private readonly gateway: AiGatewayService,
     private readonly jwt: JwtService,
     private readonly audit: AuditService,
+    private readonly kb: KnowledgeService,
   ) {}
 
   private async previewTenant(token?: string): Promise<string | null> {
@@ -255,7 +258,11 @@ export class PublicSiteController {
     ]
       .filter(Boolean)
       .join('\n');
-    const r = await this.gateway.generate({ tier: 'standard', system: assistantPrompt(site.school.name, facts), messages: body.messages, maxOutputTokens: 600 }, 'website-assistant');
+    // Public documents (prospectus, fee policy…) the school has put in its knowledge base.
+    const question = body.messages.filter((m) => m.role === 'user').at(-1)?.content ?? '';
+    const hits = question ? await this.kb.search(currentTenantId(), question, ['PUBLIC'], 4) : [];
+    const withDocs = hits.length ? `${facts}\n\nFROM THE SCHOOL'S PUBLIC DOCUMENTS:\n${KnowledgeService.asContext(hits)}` : facts;
+    const r = await this.gateway.generate({ tier: 'standard', system: assistantPrompt(site.school.name, withDocs), messages: body.messages, maxOutputTokens: 600 }, 'website-assistant');
     return { reply: r.text || "Sorry, I couldn't answer that just now — please use the contact page." };
   }
 }

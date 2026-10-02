@@ -44,6 +44,8 @@ model Plan {
   /// Module feature keys the plan includes (packages/shared MODULE_FEATURES). Empty = all modules.
   features            String[]
   maxStudents         Int?
+  /// AI tutor sessions per term every student gets with the school (AI Basic).
+  studentAiSessions   Int           @default(20)
   isActive            Boolean       @default(true)
   /// Shown on public pricing; private plans are for custom deals.
   isPublic            Boolean       @default(true)
@@ -191,6 +193,18 @@ model Tenant {
   supportTickets   SupportTicket[]
   supportMessages  SupportMessage[]
 
+  consumerCoverage    ConsumerSubscriptionStudent[]
+  sponsorships        Sponsorship[]
+  studentEntitlements StudentEntitlement[]
+  studentAiUsage      StudentAiUsage[]
+  studentMemories     StudentMemory[]
+  masteryRecords      MasteryRecord[]
+  studyPlans          StudyPlan[]
+  flashcardDecks      FlashcardDeck[]
+  practiceAttempts    PracticeAttempt[]
+  kbDocuments         KbDocument[]
+  kbChunks            KbChunk[]
+
   @@map("tenants")
 }
 
@@ -273,23 +287,25 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  memberships       Membership[]
-  sessions          AuthSession[]
-  auditLogs         AuditLog[]
-  notifications     Notification[]
-  pushSubscriptions PushSubscription[]
-  students          Student[]
-  guardians         Guardian[]
-  staff             Staff[]
-  files             FileObject[]
-  aiUsage           AiUsage[]
-  conversations     AiConversation[]
-  curricula         Curriculum[]
-  schemes           SchemeOfWork[]
-  lessonPlans       LessonPlan[]
-  ticketsOpened     SupportTicket[]    @relation("TicketOpenedBy")
-  ticketsAssigned   SupportTicket[]    @relation("TicketAssignee")
-  supportMessages   SupportMessage[]
+  memberships           Membership[]
+  sessions              AuthSession[]
+  auditLogs             AuditLog[]
+  notifications         Notification[]
+  pushSubscriptions     PushSubscription[]
+  students              Student[]
+  guardians             Guardian[]
+  staff                 Staff[]
+  files                 FileObject[]
+  aiUsage               AiUsage[]
+  conversations         AiConversation[]
+  curricula             Curriculum[]
+  schemes               SchemeOfWork[]
+  lessonPlans           LessonPlan[]
+  ticketsOpened         SupportTicket[]        @relation("TicketOpenedBy")
+  ticketsAssigned       SupportTicket[]        @relation("TicketAssignee")
+  supportMessages       SupportMessage[]
+  consumerSubscriptions ConsumerSubscription[]
+  consumerOrders        ConsumerOrder[]
 
   @@map("users")
 }
@@ -627,10 +643,10 @@ model Student {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  tenant       Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  branch       Branch?              @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  user         User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
-  classArm     ClassArm?            @relation(fields: [classArmId], references: [id], onDelete: SetNull)
+  tenant       Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branch       Branch?             @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  user         User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+  classArm     ClassArm?           @relation(fields: [classArmId], references: [id], onDelete: SetNull)
   guardians    StudentGuardian[]
   scores       Score[]
   reportCards  ReportCard[]
@@ -638,11 +654,20 @@ model Student {
   invoices     Invoice[]
   payments     Payment[]
   libraryLoans LibraryLoan[]
-  transport    TransportAssignment?
-  hostelBeds   HostelAllocation[]
-  exeats       Exeat[]
-  pickups      StudentPickup[]
-  certificates Certificate[]
+
+  consumerCoverage ConsumerSubscriptionStudent[]
+  entitlements     StudentEntitlement[]
+  aiUsageWindows   StudentAiUsage[]
+  memories         StudentMemory[]
+  mastery          MasteryRecord[]
+  studyPlans       StudyPlan[]
+  flashcardDecks   FlashcardDeck[]
+  practiceAttempts PracticeAttempt[]
+  transport        TransportAssignment?
+  hostelBeds       HostelAllocation[]
+  exeats           Exeat[]
+  pickups          StudentPickup[]
+  certificates     Certificate[]
 
   liveAttendance LiveAttendance[]
 
@@ -772,6 +797,9 @@ model AiUsage {
   inputTokens  Int      @default(0)
   outputTokens Int      @default(0)
   costUsd      Decimal  @default(0) @db.Decimal(12, 6)
+  /// Student AI: whose allowance this used, and on which tier.
+  studentId    String?
+  aiTier       String?
   latencyMs    Int      @default(0)
   success      Boolean  @default(true)
   error        String?
@@ -789,6 +817,8 @@ model AiConversation {
   id        String   @id @default(cuid())
   tenantId  String
   userId    String
+  /// The tutor's conversations belong to a student.
+  studentId String?
   agent     String
   title     String
   createdAt DateTime @default(now())
@@ -2508,6 +2538,8 @@ model PlatformInvoice {
   amountKobo     Int
   paidKobo       Int                   @default(0)
   currency       String                @default("NGN")
+  /// SCHOOL | STUDENT_AI | EXAM: which revenue line the invoice posts to.
+  domain         String                @default("SCHOOL")
   status         PlatformInvoiceStatus @default(OPEN)
   issuedAt       DateTime              @default(now())
   dueDate        DateTime              @db.Date
@@ -2648,4 +2680,450 @@ model SupportMessage {
 
   @@index([ticketId, createdAt])
   @@map("support_messages")
+}
+
+// ============================================================== Phase 15: parent-paid layer
+//
+// Three ways to pay (school SaaS, parent subscriptions, school sponsorships)
+// all end in StudentEntitlement rows; features only ever check entitlements.
+
+/// Something a parent (or a school, as a sponsor) can buy.
+model Product {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  name            String
+  tagline         String?
+  description     String?
+  /// AI | EXAM
+  kind            String
+  /// Entitlement keys granted to each covered student (packages/shared ENTITLEMENTS).
+  entitlements    String[]
+  priceKobo       Int
+  /// Per student, when a school sponsors it. Null = not offered to schools.
+  schoolPriceKobo Int?
+  /// TERM | MONTH | YEAR | ONE_OFF
+  period          String   @default("TERM")
+  periodMonths    Int      @default(4)
+  /// Children one purchase covers (a family plan covers several).
+  maxChildren     Int      @default(1)
+  /// Tutor sessions per access period, for AI products.
+  aiSessions      Int?
+  features        String[]
+  isActive        Boolean  @default(true)
+  isPublic        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  subscriptions ConsumerSubscription[]
+  orders        ConsumerOrder[]
+  sponsorships  Sponsorship[]
+
+  @@map("products")
+}
+
+model Coupon {
+  id             String    @id @default(cuid())
+  code           String    @unique
+  description    String?
+  percentOff     Int?
+  amountOffKobo  Int?
+  /// Empty = every product.
+  productCodes   String[]
+  maxRedemptions Int?
+  redemptions    Int       @default(0)
+  expiresAt      DateTime?
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+
+  @@map("coupons")
+}
+
+/// A parent's subscription, paid with the platform's Paystack account. Covers
+/// one or more of the parent's children, possibly in different schools.
+model ConsumerSubscription {
+  id                 String    @id @default(cuid())
+  userId             String
+  productId          String
+  /// PENDING | ACTIVE | PAST_DUE | CANCELLED | EXPIRED
+  status             String    @default("PENDING")
+  priceKobo          Int
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  autoRenew          Boolean   @default(true)
+  cancelAtPeriodEnd  Boolean   @default(false)
+  /// Paystack reusable authorization (encrypted) for renewals.
+  authorizationEnc   String?
+  cardHint           String?
+  email              String
+  couponCode         String?
+  renewalAttempts    Int       @default(0)
+  lastRenewalAttempt DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  user     User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product  Product                       @relation(fields: [productId], references: [id])
+  students ConsumerSubscriptionStudent[]
+  orders   ConsumerOrder[]
+
+  @@index([userId])
+  @@index([status, currentPeriodEnd])
+  @@map("consumer_subscriptions")
+}
+
+model ConsumerSubscriptionStudent {
+  id             String @id @default(cuid())
+  subscriptionId String
+  studentId      String
+  tenantId       String
+
+  subscription ConsumerSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  student      Student              @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  tenant       Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([subscriptionId, studentId])
+  @@index([studentId])
+  @@map("consumer_subscription_students")
+}
+
+/// One checkout or renewal charge.
+model ConsumerOrder {
+  id             String    @id @default(cuid())
+  reference      String    @unique
+  userId         String
+  productId      String
+  subscriptionId String?
+  /// NEW | RENEWAL
+  kind           String    @default("NEW")
+  studentIds     String[]
+  amountKobo     Int
+  discountKobo   Int       @default(0)
+  feeKobo        Int?
+  couponCode     String?
+  /// PENDING | PAID | FAILED | REFUNDED | PARTIALLY_REFUNDED
+  status         String    @default("PENDING")
+  refundedKobo   Int       @default(0)
+  paidAt         DateTime?
+  createdAt      DateTime  @default(now())
+
+  user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product      Product               @relation(fields: [productId], references: [id])
+  subscription ConsumerSubscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("consumer_orders")
+}
+
+/// A school paying for AI or exam prep for whole classes; billed as a platform invoice.
+model Sponsorship {
+  id                String   @id @default(cuid())
+  tenantId          String
+  productId         String
+  title             String
+  classArmIds       String[]
+  seats             Int
+  unitKobo          Int
+  totalKobo         Int
+  startsAt          DateTime
+  endsAt            DateTime
+  /// ACTIVE | CANCELLED | EXPIRED
+  status            String   @default("ACTIVE")
+  platformInvoiceId String?
+  createdById       String?
+  createdAt         DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([tenantId])
+  @@map("sponsorships")
+}
+
+/// What a student may use, and until when. Basic AI is implicit (from the school's plan).
+model StudentEntitlement {
+  id                     String   @id @default(cuid())
+  tenantId               String
+  studentId              String
+  key                    String
+  /// PARENT | SCHOOL | PLATFORM
+  source                 String
+  consumerSubscriptionId String?
+  sponsorshipId          String?
+  productId              String?
+  aiSessions             Int?
+  startsAt               DateTime
+  endsAt                 DateTime
+  /// ACTIVE | REVOKED
+  status                 String   @default("ACTIVE")
+  note                   String?
+  createdAt              DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, status, endsAt])
+  @@index([consumerSubscriptionId])
+  @@index([sponsorshipId])
+  @@map("student_entitlements")
+}
+
+/// Tutor sessions used per student per allowance window.
+model StudentAiUsage {
+  id        String   @id @default(cuid())
+  tenantId  String
+  studentId String
+  periodKey String
+  units     Int      @default(0)
+  deepUnits Int      @default(0)
+  lastAt    DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, periodKey])
+  @@map("student_ai_usage")
+}
+
+/// What the tutor has learned about how a student learns (not their records).
+model StudentMemory {
+  id         String   @id @default(cuid())
+  tenantId   String
+  studentId  String
+  /// STRENGTH | STRUGGLE | PREFERENCE | GOAL | NOTE
+  kind       String
+  content    String
+  confidence Float    @default(0.7)
+  /// AI | TEACHER | STUDENT | PARENT
+  source     String   @default("AI")
+  evidence   String?
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, active])
+  @@map("student_memories")
+}
+
+/// The platform syllabus graph: subject → topic → subtopic. Shared by every school.
+model SyllabusTopic {
+  id       String  @id @default(cuid())
+  subject  String
+  /// PRIMARY | JUNIOR | SENIOR
+  level    String
+  name     String
+  parentId String?
+  order    Int     @default(0)
+
+  parent    SyllabusTopic?  @relation("TopicTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  SyllabusTopic[] @relation("TopicTree")
+  mastery   MasteryRecord[]
+  questions ExamQuestion[]
+
+  @@unique([subject, level, name])
+  @@index([subject])
+  @@map("syllabus_topics")
+}
+
+/// A student's mastery of one topic, from practice, quizzes and tutor evidence.
+model MasteryRecord {
+  id             String    @id @default(cuid())
+  tenantId       String
+  studentId      String
+  topicId        String
+  score          Int
+  confidence     Float     @default(0.3)
+  attempts       Int       @default(0)
+  correct        Int       @default(0)
+  lastEvidenceAt DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  tenant  Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  topic   SyllabusTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, topicId])
+  @@map("mastery_records")
+}
+
+model StudyPlan {
+  id        String   @id @default(cuid())
+  tenantId  String
+  studentId String
+  title     String
+  goal      String
+  startsOn  DateTime @db.Date
+  endsOn    DateTime @db.Date
+  items     Json
+  /// ACTIVE | DONE | ARCHIVED
+  status    String   @default("ACTIVE")
+  source    String   @default("AI")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, status])
+  @@map("study_plans")
+}
+
+model FlashcardDeck {
+  id        String   @id @default(cuid())
+  tenantId  String
+  studentId String
+  title     String
+  subject   String
+  topic     String?
+  cards     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@map("flashcard_decks")
+}
+
+/// Practice sets, AI quizzes and timed mock exams. Questions are snapshotted
+/// with answers server-side; students only see answers after submitting.
+model PracticeAttempt {
+  id              String    @id @default(cuid())
+  tenantId        String
+  studentId       String
+  /// PRACTICE | MOCK | AI_QUIZ
+  mode            String
+  exam            String?
+  subject         String?
+  topicId         String?
+  title           String
+  questions       Json
+  answers         Json?
+  score           Int?
+  total           Int
+  durationMinutes Int?
+  perTopic        Json?
+  review          String?
+  startedAt       DateTime  @default(now())
+  endsAt          DateTime?
+  submittedAt     DateTime?
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, startedAt])
+  @@map("practice_attempts")
+}
+
+/// The Exam Academy bank, shared by every school. AI drafts stay DRAFT until a person publishes them.
+model ExamQuestion {
+  id           String   @id @default(cuid())
+  exam         String
+  subject      String
+  topicId      String?
+  year         Int?
+  stem         String
+  options      Json
+  answer       Int
+  explanation  String?
+  difficulty   String   @default("MEDIUM")
+  /// LICENSED | AUTHORED | AI_REVIEWED
+  source       String   @default("AUTHORED")
+  /// DRAFT | PUBLISHED | RETIRED
+  status       String   @default("DRAFT")
+  createdById  String?
+  reviewedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  topic SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  @@index([exam, subject, status])
+  @@map("exam_questions")
+}
+
+/// A school document the AI may answer from (handbook, fee policy, calendar…).
+model KbDocument {
+  id           String   @id @default(cuid())
+  tenantId     String
+  title        String
+  /// PUBLIC | PARENTS | STAFF
+  audience     String   @default("PARENTS")
+  fileId       String?
+  filename     String?
+  /// PROCESSING | READY | FAILED
+  status       String   @default("PROCESSING")
+  error        String?
+  chars        Int      @default(0)
+  uploadedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  chunks KbChunk[]
+
+  @@index([tenantId])
+  @@map("kb_documents")
+}
+
+model KbChunk {
+  id         String  @id @default(cuid())
+  tenantId   String
+  documentId String
+  idx        Int
+  heading    String?
+  text       String
+
+  tenant   Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  document KbDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, documentId])
+  @@map("kb_chunks")
+}
+
+/// Double-entry ledger across all three revenue domains. Every money event
+/// posts balanced lines under one txnId.
+model LedgerEntry {
+  id         String   @id @default(cuid())
+  txnId      String
+  account    String
+  debitKobo  Int      @default(0)
+  creditKobo Int      @default(0)
+  currency   String   @default("NGN")
+  /// SCHOOL | STUDENT_AI | EXAM
+  domain     String
+  sourceType String
+  sourceId   String
+  tenantId   String?
+  userId     String?
+  memo       String
+  createdAt  DateTime @default(now())
+
+  @@index([txnId])
+  @@index([account, createdAt])
+  @@index([sourceType, sourceId])
+  @@map("ledger_entries")
+}
+
+model Refund {
+  id          String    @id @default(cuid())
+  /// CONSUMER_ORDER | PLATFORM_PAYMENT
+  sourceType  String
+  sourceId    String
+  amountKobo  Int
+  reason      String
+  /// PENDING | PROCESSED | FAILED
+  status      String    @default("PENDING")
+  providerRef String?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
+
+  @@index([sourceType, sourceId])
+  @@map("refunds")
 }

@@ -66,7 +66,7 @@ export class ApiUsageService implements OnModuleInit, OnApplicationShutdown {
       try {
         await this.prisma.root.$executeRaw`
           INSERT INTO "api_usage_daily" ("id", "scope", "day", "requests", "clientErrors", "serverErrors", "totalMs", "maxMs")
-          VALUES (gen_random_uuid()::text, ${scope}, ${day}::date, ${b.requests}, ${b.clientErrors}, ${b.serverErrors}, ${b.totalMs}, ${b.maxMs})
+          VALUES (md5(random()::text || clock_timestamp()::text), ${scope}, ${day}::date, ${b.requests}, ${b.clientErrors}, ${b.serverErrors}, ${b.totalMs}, ${b.maxMs})
           ON CONFLICT ("scope", "day") DO UPDATE SET
             "requests" = "api_usage_daily"."requests" + EXCLUDED."requests",
             "clientErrors" = "api_usage_daily"."clientErrors" + EXCLUDED."clientErrors",

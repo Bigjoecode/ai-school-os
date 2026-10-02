@@ -136,22 +136,23 @@ export class KnowledgeService {
   async search(tenantId: string, query: string, audiences: KbAudience[], limit = 5): Promise<KbHit[]> {
     const q = query.replace(/[^\p{L}\p{N}\s'-]/gu, ' ').trim().slice(0, 300);
     if (!q) return [];
-    // websearch_to_tsquery ANDs the words; fall back to OR-ing them so a long question still finds passages.
-    const orQuery = q.split(/\s+/).filter((w) => w.length > 2).join(' OR ');
+    // plainto_tsquery ANDs the words; fall back to OR-ing them so a long question still finds passages.
+    // (Both work on old PostgreSQL versions found on shared hosting.)
+    const orQuery = [...new Set(q.split(/\s+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, '')).filter((w) => w.length > 2))].slice(0, 30).join(' | ');
     const hits = await this.prisma.root.$queryRaw<KbHit[]>`
       SELECT c."documentId", d."title", c."heading", c."text",
-             ts_rank_cd(to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text"), websearch_to_tsquery('english', ${q})) AS rank
+             ts_rank_cd(to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text"), plainto_tsquery('english', ${q})) AS rank
       FROM "kb_chunks" c JOIN "kb_documents" d ON d."id" = c."documentId"
       WHERE c."tenantId" = ${tenantId} AND d."status" = 'READY' AND d."audience" = ANY(${audiences}::text[])
-        AND to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text") @@ websearch_to_tsquery('english', ${q})
+        AND to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text") @@ plainto_tsquery('english', ${q})
       ORDER BY rank DESC LIMIT ${limit}`;
     if (hits.length || !orQuery) return hits;
     return this.prisma.root.$queryRaw<KbHit[]>`
       SELECT c."documentId", d."title", c."heading", c."text",
-             ts_rank_cd(to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text"), websearch_to_tsquery('english', ${orQuery})) AS rank
+             ts_rank_cd(to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text"), to_tsquery('english', ${orQuery})) AS rank
       FROM "kb_chunks" c JOIN "kb_documents" d ON d."id" = c."documentId"
       WHERE c."tenantId" = ${tenantId} AND d."status" = 'READY' AND d."audience" = ANY(${audiences}::text[])
-        AND to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text") @@ websearch_to_tsquery('english', ${orQuery})
+        AND to_tsvector('english', coalesce(c."heading", '') || ' ' || c."text") @@ to_tsquery('english', ${orQuery})
       ORDER BY rank DESC LIMIT ${limit}`;
   }
 

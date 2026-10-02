@@ -222,17 +222,17 @@ ALTER TABLE "support_messages" ADD CONSTRAINT "support_messages_authorId_fkey" F
 
 -- Module flags: one per module a plan can include (packages/shared MODULE_FEATURES).
 INSERT INTO "feature_flags" ("id", "key", "name", "description", "kind", "enabled", "rolloutPercent", "updatedAt") VALUES
-  (gen_random_uuid()::text, 'ai', 'AI assistants and generators', 'Every AI feature: assistants, lesson and exam generators, briefings and the website assistant.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'website', 'School website', 'Public website, news, gallery, results checker and online applications.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'live_classes', 'Live classes', 'Google Meet, Zoom and BigBlueButton classes with AI class packs.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'messaging', 'Messages', 'Email, SMS and WhatsApp messages to parents and staff.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'online_payments', 'Online fee payments', 'Parents pay fees online through the school''s Paystack account.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'payroll', 'Payroll', 'Salary grades, monthly payroll, payslips and bank schedules.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'timetable', 'Smart timetable', 'Timetable builder and solver.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'library', 'Library', 'Catalogue, loans and fines.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'inventory', 'Inventory', 'Stores, assets and stock counts.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'transport', 'Transport', 'Vehicles, routes and riders.', 'MODULE', true, 0, NOW()),
-  (gen_random_uuid()::text, 'hostel', 'Hostel', 'Boarding houses, beds and exeats.', 'MODULE', true, 0, NOW())
+  (md5(random()::text || clock_timestamp()::text), 'ai', 'AI assistants and generators', 'Every AI feature: assistants, lesson and exam generators, briefings and the website assistant.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'website', 'School website', 'Public website, news, gallery, results checker and online applications.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'live_classes', 'Live classes', 'Google Meet, Zoom and BigBlueButton classes with AI class packs.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'messaging', 'Messages', 'Email, SMS and WhatsApp messages to parents and staff.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'online_payments', 'Online fee payments', 'Parents pay fees online through the school''s Paystack account.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'payroll', 'Payroll', 'Salary grades, monthly payroll, payslips and bank schedules.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'timetable', 'Smart timetable', 'Timetable builder and solver.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'library', 'Library', 'Catalogue, loans and fines.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'inventory', 'Inventory', 'Stores, assets and stock counts.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'transport', 'Transport', 'Vehicles, routes and riders.', 'MODULE', true, 0, NOW()),
+  (md5(random()::text || clock_timestamp()::text), 'hostel', 'Hostel', 'Boarding houses, beds and exeats.', 'MODULE', true, 0, NOW())
 ON CONFLICT ("key") DO NOTHING;
 
 -- Older plans listed marketing labels as features; an empty list means every module.
@@ -240,7 +240,7 @@ UPDATE "plans" SET "features" = '{}' WHERE NOT ("features" && ARRAY['ai','websit
 
 -- Schools on a plan without a subscription start one as a trial.
 INSERT INTO "subscriptions" ("id", "tenantId", "planId", "status", "studentSeats", "currentPeriodStart", "currentPeriodEnd", "updatedAt")
-SELECT gen_random_uuid()::text, t."id", t."planId", 'TRIALING', 0, t."createdAt", COALESCE(t."trialEndsAt", t."createdAt" + INTERVAL '30 days'), NOW()
+SELECT md5(random()::text || clock_timestamp()::text), t."id", t."planId", 'TRIALING', 0, t."createdAt", COALESCE(t."trialEndsAt", t."createdAt" + INTERVAL '30 days'), NOW()
 FROM "tenants" t
 WHERE t."planId" IS NOT NULL AND NOT EXISTS (SELECT 1 FROM "subscriptions" s WHERE s."tenantId" = t."id");
 

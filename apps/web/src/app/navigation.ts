@@ -111,18 +111,18 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Learning',
     items: [
-      { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', keywords: 'study home today ai learning' },
-      { label: 'AI tutor', to: '/learn/tutor', icon: MessageCircleQuestion, permission: 'learning.use', keywords: 'tutor homework help ask explain' },
-      { label: 'Exam Academy', to: '/learn/exams', icon: Target, permission: 'learning.use', keywords: 'bece waec neco jamb past questions mock practice' },
-      { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', keywords: 'mastery topics memories strengths' },
-      { label: 'Study plans', to: '/learn/plans', icon: CalendarCheck2, permission: 'learning.use', keywords: 'revision timetable plan goals' },
-      { label: 'Flashcards', to: '/learn/flashcards', icon: GalleryVerticalEnd, permission: 'learning.use', keywords: 'cards review memorise' },
+      { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', audience: 'family', keywords: 'study home today ai learning' },
+      { label: 'AI tutor', to: '/learn/tutor', icon: MessageCircleQuestion, permission: 'learning.use', audience: 'family', keywords: 'tutor homework help ask explain' },
+      { label: 'Exam Academy', to: '/learn/exams', icon: Target, permission: 'learning.use', audience: 'family', keywords: 'bece waec neco jamb past questions mock practice' },
+      { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', audience: 'family', keywords: 'mastery topics memories strengths' },
+      { label: 'Study plans', to: '/learn/plans', icon: CalendarCheck2, permission: 'learning.use', audience: 'family', keywords: 'revision timetable plan goals' },
+      { label: 'Flashcards', to: '/learn/flashcards', icon: GalleryVerticalEnd, permission: 'learning.use', audience: 'family', keywords: 'cards review memorise' },
     ],
   },
   {
     label: 'Family',
     items: [
-      { label: 'My family', to: '/family', icon: Users2, permission: 'family.manage', keywords: 'children subscriptions ai plus exam prep buy payments progress' },
+      { label: 'My family', to: '/family', icon: Users2, permission: 'family.manage', audience: 'family', keywords: 'children subscriptions ai plus exam prep buy payments progress' },
     ],
   },
   {

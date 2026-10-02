@@ -26,24 +26,7 @@ export default defineConfig({
   build: {
     target: 'es2022',
     chunkSizeWarningLimit: 700,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ['react', 'react-dom', 'react-dom/client', 'react-router'],
-          ui: ['cmdk', 'sonner', 'lucide-react'],
-          query: ['@tanstack/react-query', 'zustand'],
-          motion: ['framer-motion'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-          radix: [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
-          ],
-        },
-      },
-    },
+    // No manual chunks: hand-written vendor splits created circular chunks that ran
+    // before React loaded (a blank page). Rollup's own splitting orders them safely.
   },
 });

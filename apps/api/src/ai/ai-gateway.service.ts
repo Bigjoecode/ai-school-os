@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 import { env } from '../config/env';
-import { currentContext, currentTenantId } from '../common/request-context';
+import { RequestContextStore, currentContext, currentTenantId } from '../common/request-context';
+import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { costUsd } from './pricing';
 import { AnthropicProvider } from './providers/anthropic.provider';
@@ -26,7 +27,8 @@ export interface GatewayResult extends AiResult {
  * The single door to every model. It
  *  - routes by tier (standard/advanced) across providers in AI_PROVIDER_ORDER,
  *    falling through to the next provider on outages and rate limits,
- *  - enforces each school's monthly AI budget before calling out,
+ *  - checks the school's plan includes AI and enforces its monthly AI
+ *    budget before calling out (console calls have no school and no budget),
  *  - writes one AiUsage row per call (tokens, cost, latency, success).
  */
 @Injectable()
@@ -34,7 +36,10 @@ export class AiGatewayService {
   private readonly logger = new Logger(AiGatewayService.name);
   private readonly providers: AiProvider[];
 
-  constructor(private readonly prisma: PrismaService) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly features: FeatureService,
+  ) {
     const all: AiProvider[] = [new AnthropicProvider(), new OpenAiProvider(), new GeminiProvider()];
     const order = env()
       .AI_PROVIDER_ORDER.split(',')
@@ -115,7 +120,9 @@ export class AiGatewayService {
       throw new ServiceUnavailableException("AI isn't connected yet — add an AI provider API key to the server");
     }
 
-    const budget = await this.monthBudgetUsd();
+    const tenantId = RequestContextStore.get()?.tenantId ?? null;
+    if (tenantId) await this.features.assert(tenantId, 'ai');
+    const budget = tenantId ? await this.monthBudgetUsd() : null;
     if (budget !== null && (await this.monthSpendUsd()) >= budget) {
       throw new HttpException(
         { statusCode: 429, message: "Your school has used this month's AI allowance. It resets on the 1st." },
@@ -151,9 +158,9 @@ export class AiGatewayService {
   private async record(agent: string, provider: string, r: AiResult, latencyMs: number) {
     const { cost, known } = costUsd(r.model, r.inputTokens, r.outputTokens);
     if (!known && provider !== 'fake') this.logger.warn(`No price for model ${r.model}; set AI_PRICES so budgets count it`);
-    await this.prisma.db.aiUsage.create({
+    await this.prisma.root.aiUsage.create({
       data: {
-        tenantId: currentTenantId(),
+        tenantId: RequestContextStore.get()?.tenantId ?? null,
         userId: currentContext().userId,
         agent,
         provider,
@@ -167,10 +174,10 @@ export class AiGatewayService {
   }
 
   private async recordFailure(agent: string, provider: string, model: string, err: unknown, latencyMs: number) {
-    await this.prisma.db.aiUsage
+    await this.prisma.root.aiUsage
       .create({
         data: {
-          tenantId: currentTenantId(),
+          tenantId: RequestContextStore.get()?.tenantId ?? null,
           userId: currentContext().userId,
           agent,
           provider,

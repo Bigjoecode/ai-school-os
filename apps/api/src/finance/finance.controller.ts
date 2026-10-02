@@ -44,7 +44,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
@@ -92,6 +92,7 @@ export class FinanceController {
   }
 
   @Put('paystack')
+  @RequireFeature('online_payments')
   @RequirePermissions('finance.manage', 'school.manage')
   async connectPaystack(@Body(new ZodPipe(paystackSettingsSchema)) body: z.infer<typeof paystackSettingsSchema>): Promise<PaystackStatus> {
     await this.paystack.connect(currentTenantId(), body.publicKey, body.secretKey);

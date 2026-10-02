@@ -31,6 +31,8 @@ export interface MeResponse {
   tenant: (TenantSummary & { currency: string; timezone: string; motto: string | null }) | null;
   roles: { id: string; key: string; name: string }[];
   permissions: Permission[];
+  /** Modules and beta flags switched on for the current school. */
+  features: string[];
   memberships: TenantSummary[];
 }
 

@@ -22,7 +22,7 @@ import {
   Users,
 } from 'lucide-react';
 import { type FormEvent, type ReactNode, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, Navigate, useNavigate } from 'react-router';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { ClassLevelBarChart, DonutChart, EnrolmentAreaChart, Sparkline } from '@/components/charts/charts';
 import { Page } from '@/components/layout/page-header';
@@ -34,7 +34,7 @@ import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/lib/api';
-import { useCan, useMe } from '@/lib/auth-store';
+import { useCan, useHasFeature, useMe } from '@/lib/auth-store';
 import { formatDate, formatNumber, formatRelative, greeting } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
@@ -66,6 +66,8 @@ const toneDot: Record<Insight['tone'], string> = {
 
 export default function OverviewPage() {
   const me = useMe();
+  // Platform staff without a school selected live in the console.
+  if (!me?.tenant && me?.user.platformRole) return <Navigate to="/platform" replace />;
   if (!me?.tenant) return <PlatformWelcome />;
   // Parents and students don't see the school-wide numbers.
   if (!me.permissions.includes('school.read')) return <MemberOverview />;
@@ -88,7 +90,7 @@ function PlatformWelcome() {
         </p>
         {me?.user.platformRole === 'SUPER_ADMIN' && (
           <Button asChild className="mt-6">
-            <Link to="/platform/tenants">
+            <Link to="/platform/schools">
               <Building2 /> Manage schools
             </Link>
           </Button>
@@ -101,7 +103,9 @@ function PlatformWelcome() {
 function MemberOverview() {
   useDocumentTitle('Overview');
   const me = useMe();
-  const canAi = useCan('ai.use');
+  const hasAi = useHasFeature('ai');
+  const hasLive = useHasFeature('live_classes');
+  const canAi = useCan('ai.use') && hasAi;
   return (
     <Page className="max-w-5xl">
       <div className="mb-7">
@@ -111,7 +115,7 @@ function MemberOverview() {
         </h1>
       </div>
       <div className="space-y-5">
-        <MyLearningCard />
+        {hasLive && <MyLearningCard />}
         <NoticeboardCard alwaysShow />
         <div className="grid gap-3 sm:grid-cols-3 [&>*]:min-w-0">
           {[
@@ -148,10 +152,12 @@ function SchoolOverview() {
     queryFn: ({ signal }) => api.get<OverviewResponse>('/dashboard/overview', undefined, signal),
   });
   useDocumentTitle('Overview');
-  const canTimetable = useCan('timetable.read');
+  const hasTimetable = useHasFeature('timetable');
+  const hasLive = useHasFeature('live_classes');
+  const canTimetable = useCan('timetable.read') && hasTimetable;
   const canAttendance = useCan('attendance.read');
   const canFinance = useCan('finance.read');
-  const canLive = useCan('live.read');
+  const canLive = useCan('live.read') && hasLive;
 
   if (error && !data) {
     return (
@@ -583,7 +589,8 @@ function FeesBand({ data }: { data?: OverviewResponse }) {
 // ------------------------------------------------------------------ AI cards
 function AiIntelligenceCard({ data }: { data?: OverviewResponse }) {
   const navigate = useNavigate();
-  const canAi = useCan('ai.use');
+  const hasAi = useHasFeature('ai');
+  const canAi = useCan('ai.use') && hasAi;
   const [q, setQ] = useState('');
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -680,7 +687,8 @@ function AiIntelligenceCard({ data }: { data?: OverviewResponse }) {
 }
 
 function AiAssistantCard() {
-  const canAi = useCan('ai.use');
+  const hasAi = useHasFeature('ai');
+  const canAi = useCan('ai.use') && hasAi;
   return (
     <Card className="relative h-full overflow-hidden bg-[#070c1d] text-white dark:bg-[#0a1024]">
       <div aria-hidden className="pointer-events-none absolute inset-0">

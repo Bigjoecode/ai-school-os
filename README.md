@@ -229,4 +229,12 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     results checker with printed access codes, Downloads and fees; a builder
     with uploads and AI-written pages and posts; and an AI website assistant
     that answers visitors from the school's own published facts ✅
-14. SaaS superadmin
+14. **SaaS superadmin** — the operator console: an overview with MRR,
+    collections, usage and an AI briefing on at-risk schools; schools (detail,
+    plan changes, suspension with a reason, "open school" for support);
+    branches; plans that decide which modules each school gets; subscriptions
+    billed per student with invoices, online and bank payments and an hourly
+    billing cycle; student, AI and API usage; custom domains with DNS checks;
+    a support desk with AI triage and draft replies; system health; feature
+    flags with percentage rollouts and per-school overrides; and a
+    platform-wide audit log. Schools get Billing and Help & support pages ✅

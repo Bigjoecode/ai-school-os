@@ -41,9 +41,15 @@ model Plan {
   pricePerStudentKobo Int           @default(0)
   billingPeriod       BillingPeriod @default(PER_SESSION)
   aiMonthlyBudgetUsd  Decimal?      @db.Decimal(10, 2)
+  /// Module feature keys the plan includes (packages/shared MODULE_FEATURES). Empty = all modules.
   features            String[]
+  maxStudents         Int?
   isActive            Boolean       @default(true)
+  /// Shown on public pricing; private plans are for custom deals.
+  isPublic            Boolean       @default(true)
+  sortOrder           Int           @default(0)
   createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @default(now()) @updatedAt
 
   tenants       Tenant[]
   subscriptions Subscription[]
@@ -179,6 +185,12 @@ model Tenant {
   websiteMessages  WebsiteMessage[]
   resultCodes      ResultAccessCode[]
 
+  platformInvoices PlatformInvoice[]
+  platformPayments PlatformPayment[]
+  featureOverrides TenantFeature[]
+  supportTickets   SupportTicket[]
+  supportMessages  SupportMessage[]
+
   @@map("tenants")
 }
 
@@ -215,10 +227,17 @@ model Subscription {
   studentSeats       Int                @default(0)
   currentPeriodStart DateTime
   currentPeriodEnd   DateTime
+  /// A negotiated price per student per period, instead of the plan's.
+  priceOverrideKobo  Int?
+  discountPct        Int                @default(0)
+  cancelAtPeriodEnd  Boolean            @default(false)
+  notes              String?
   createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @default(now()) @updatedAt
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  plan   Plan   @relation(fields: [planId], references: [id])
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  plan     Plan              @relation(fields: [planId], references: [id])
+  invoices PlatformInvoice[]
 
   @@index([tenantId])
   @@map("subscriptions")
@@ -268,6 +287,9 @@ model User {
   curricula         Curriculum[]
   schemes           SchemeOfWork[]
   lessonPlans       LessonPlan[]
+  ticketsOpened     SupportTicket[]    @relation("TicketOpenedBy")
+  ticketsAssigned   SupportTicket[]    @relation("TicketAssignee")
+  supportMessages   SupportMessage[]
 
   @@map("users")
 }
@@ -739,9 +761,10 @@ model Staff {
 
 /// One row per model call: who, which feature, which model, tokens and cost.
 /// Budgets and per-plan limits read from here.
+/// tenantId is null for the operator console's own AI calls.
 model AiUsage {
   id           String   @id @default(cuid())
-  tenantId     String
+  tenantId     String?
   userId       String?
   agent        String
   provider     String
@@ -754,10 +777,11 @@ model AiUsage {
   error        String?
   createdAt    DateTime @default(now())
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([tenantId, createdAt])
+  @@index([createdAt])
   @@map("ai_usage")
 }
 
@@ -2459,4 +2483,169 @@ model ResultAccessCode {
   @@unique([studentId, termId])
   @@unique([tenantId, code])
   @@map("result_access_codes")
+}
+
+// ============================================================== SaaS console
+
+enum PlatformInvoiceStatus {
+  OPEN
+  PAID
+  VOID
+}
+
+/// What a school owes the platform: one per subscription period, or ad hoc.
+model PlatformInvoice {
+  id             String                @id @default(cuid())
+  number         String                @unique
+  tenantId       String
+  subscriptionId String?
+  description    String
+  periodStart    DateTime?
+  periodEnd      DateTime?
+  seats          Int                   @default(0)
+  unitKobo       Int                   @default(0)
+  discountKobo   Int                   @default(0)
+  amountKobo     Int
+  paidKobo       Int                   @default(0)
+  currency       String                @default("NGN")
+  status         PlatformInvoiceStatus @default(OPEN)
+  issuedAt       DateTime              @default(now())
+  dueDate        DateTime              @db.Date
+  paidAt         DateTime?
+  notes          String?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  tenant       Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  subscription Subscription?     @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  payments     PlatformPayment[]
+
+  @@unique([subscriptionId, periodStart])
+  @@index([tenantId, issuedAt])
+  @@index([status, dueDate])
+  @@map("platform_invoices")
+}
+
+/// PAYSTACK payments start PENDING and settle on verify or webhook; others are recorded by finance staff.
+model PlatformPayment {
+  id           String    @id @default(cuid())
+  tenantId     String
+  invoiceId    String
+  amountKobo   Int
+  method       String
+  status       String    @default("SUCCESS")
+  reference    String    @unique
+  paidAt       DateTime?
+  recordedById String?
+  note         String?
+  createdAt    DateTime  @default(now())
+
+  tenant  Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  invoice PlatformInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@map("platform_payments")
+}
+
+/// MODULE flags follow the school's plan; BETA flags roll out by percentage.
+/// enabled=false switches a flag off for every school, overrides included.
+model FeatureFlag {
+  id             String   @id @default(cuid())
+  key            String   @unique
+  name           String
+  description    String?
+  kind           String   @default("BETA")
+  enabled        Boolean  @default(true)
+  rolloutPercent Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  overrides TenantFeature[]
+
+  @@map("feature_flags")
+}
+
+model TenantFeature {
+  id        String   @id @default(cuid())
+  tenantId  String
+  flagKey   String
+  enabled   Boolean
+  note      String?
+  createdAt DateTime @default(now())
+
+  tenant Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  flag   FeatureFlag @relation(fields: [flagKey], references: [key], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([tenantId, flagKey])
+  @@map("tenant_features")
+}
+
+/// Request counts per school per day ("platform" for signed-out and console traffic).
+model ApiUsageDaily {
+  id           String   @id @default(cuid())
+  scope        String
+  day          DateTime @db.Date
+  requests     Int      @default(0)
+  clientErrors Int      @default(0)
+  serverErrors Int      @default(0)
+  totalMs      BigInt   @default(0)
+  maxMs        Int      @default(0)
+
+  @@unique([scope, day])
+  @@index([day])
+  @@map("api_usage_daily")
+}
+
+enum TicketStatus {
+  OPEN
+  PENDING
+  RESOLVED
+  CLOSED
+}
+
+model SupportTicket {
+  id               String       @id @default(cuid())
+  number           Int          @unique @default(autoincrement())
+  tenantId         String
+  openedById       String?
+  subject          String
+  category         String       @default("OTHER")
+  priority         String       @default("NORMAL")
+  status           TicketStatus @default(OPEN)
+  assignedToId     String?
+  lastMessageAt    DateTime     @default(now())
+  /// The school spoke last, so support owes a reply.
+  awaitingPlatform Boolean      @default(true)
+  firstResponseAt  DateTime?
+  resolvedAt       DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  openedBy   User?            @relation("TicketOpenedBy", fields: [openedById], references: [id], onDelete: SetNull)
+  assignedTo User?            @relation("TicketAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  messages   SupportMessage[]
+
+  @@index([tenantId, status])
+  @@index([status, lastMessageAt])
+  @@map("support_tickets")
+}
+
+model SupportMessage {
+  id           String   @id @default(cuid())
+  ticketId     String
+  tenantId     String
+  authorId     String?
+  fromPlatform Boolean  @default(false)
+  /// Visible to platform staff only.
+  internal     Boolean  @default(false)
+  body         String
+  createdAt    DateTime @default(now())
+
+  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  tenant Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  author User?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([ticketId, createdAt])
+  @@map("support_messages")
 }

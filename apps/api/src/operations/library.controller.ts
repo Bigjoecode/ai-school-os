@@ -22,7 +22,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, fullName, paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -38,6 +38,7 @@ const loanInclude = {
 type LoanWithRefs = Prisma.LibraryLoanGetPayload<{ include: typeof loanInclude }>;
 
 @Controller('library')
+@RequireFeature('library')
 export class LibraryController {
   constructor(
     private readonly prisma: PrismaService,

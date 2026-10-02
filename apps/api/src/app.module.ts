@@ -13,6 +13,9 @@ import { CommsModule } from './comms/comms.module';
 import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
 import { FilesModule } from './files/files.module';
+import { FeaturesModule } from './features/features.module';
+import { apiUsageMiddleware } from './features/api-usage.service';
+import { ConsoleModule } from './console/console.module';
 import { WebsiteModule } from './website/website.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
@@ -54,6 +57,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
   imports: [
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     PrismaModule,
+    FeaturesModule,
     AuditModule,
     AuthModule,
     PlatformModule,
@@ -73,6 +77,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     AgentsModule,
     FilesModule,
     WebsiteModule,
+    ConsoleModule,
   ],
   controllers: [HealthController, SchoolController, AcademicsController],
   providers: [
@@ -83,6 +88,6 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(requestContext).forRoutes('{*splat}');
+    consumer.apply(requestContext, apiUsageMiddleware).forRoutes('{*splat}');
   }
 }

@@ -7,7 +7,7 @@ import { ErrorState } from '@/components/ui/empty-state';
 import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatusBadge } from '@/components/ui/status-badge';
-import { useCan } from '@/lib/auth-store';
+import { useCan, useHasFeature } from '@/lib/auth-store';
 import { formatDate } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
@@ -46,7 +46,8 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
   const canManage = useCan('students.manage');
   const canAttendance = useCan('attendance.read');
   const canFinance = useCan('finance.read');
-  const canLibrary = useCan('library.read');
+  const hasLibrary = useHasFeature('library');
+  const canLibrary = useCan('library.read') && hasLibrary;
 
   useEffect(() => {
     setEditing(false);

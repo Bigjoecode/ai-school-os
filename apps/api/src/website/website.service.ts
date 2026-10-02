@@ -15,6 +15,7 @@ import { ResultsService } from '../assessment/results.service';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { RequestContextStore, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
+import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -63,6 +64,7 @@ export class WebsiteService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly results: ResultsService,
+    private readonly features: FeatureService,
   ) {}
 
   settingsOf(raw: Prisma.JsonValue | null): WebsiteSettings {
@@ -95,6 +97,7 @@ export class WebsiteService {
     });
     if (!t || t.status === 'SUSPENDED' || t.status === 'ARCHIVED') throw new NotFoundException('This school website does not exist');
     const settings = this.settingsOf(t.websiteSettings);
+    if (!(await this.features.isEnabled(t.id, 'website'))) throw new NotFoundException('This school website does not exist');
     if (!settings.published && previewTenantId !== t.id) throw new NotFoundException('This school website is not published yet');
     const ctx = RequestContextStore.get();
     if (ctx) ctx.tenantId = t.id;

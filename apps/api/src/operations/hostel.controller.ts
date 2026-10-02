@@ -13,7 +13,7 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -34,6 +34,7 @@ const exeatInclude = {
 type ExeatWithRefs = Prisma.ExeatGetPayload<{ include: typeof exeatInclude }>;
 
 @Controller('hostel')
+@RequireFeature('hostel')
 export class HostelController {
   constructor(
     private readonly prisma: PrismaService,

@@ -1,6 +1,6 @@
 import type { Permission } from '@aischool/shared';
 import type { ReactNode } from 'react';
-import { Building, ScrollText, ShieldCheck, UserCog } from 'lucide-react';
+import { Building, CreditCard, ScrollText, ShieldCheck, UserCog } from 'lucide-react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { hasPermission, useMe } from '@/lib/auth-store';
@@ -11,6 +11,7 @@ const LINKS: { to: string; label: string; icon: typeof Building; permission: Per
   { to: '/settings/users', label: 'Users', icon: UserCog, permission: 'users.read' },
   { to: '/settings/roles', label: 'Roles & permissions', icon: ShieldCheck, permission: 'roles.manage' },
   { to: '/settings/audit', label: 'Audit log', icon: ScrollText, permission: 'audit.read' },
+  { to: '/settings/billing', label: 'Billing', icon: CreditCard, permission: 'billing.manage' },
 ];
 
 export default function SettingsLayout() {
@@ -19,7 +20,7 @@ export default function SettingsLayout() {
   const links = LINKS.filter((l) => hasPermission(me, l.permission));
   return (
     <Page>
-      <PageHeader title="Settings" description="Manage your school profile, people's access and the audit trail." />
+      <PageHeader title="Settings" description="Manage your school profile, people's access, the audit trail and your AI School OS plan." />
       <nav aria-label="Settings" className="no-scrollbar -mx-4 mb-6 flex gap-1 overflow-x-auto border-b border-border px-4 sm:mx-0 sm:px-0">
         {links.map((l) => {
           const active = pathname === l.to;

@@ -1,7 +1,10 @@
+import { MODULE_FEATURES } from '@aischool/shared';
 import type { LucideIcon } from 'lucide-react';
-import { AlertTriangle, RotateCw } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Lock, RotateCw } from 'lucide-react';
 import type * as React from 'react';
-import { errorMessage } from '@/lib/api';
+import { Link } from 'react-router';
+import { errorMessage, notInPlanFeature } from '@/lib/api';
+import { hasPermission, useAuthStore } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
 
@@ -52,7 +55,41 @@ export function EmptyState({ icon: Icon, title, description, action, className, 
   );
 }
 
+/**
+ * Shown when a module isn't part of the school's plan: calm, never an error.
+ * Admins who manage billing get a way to see (and change) the plan.
+ */
+export function NotInPlanState({ feature, className, compact }: { feature?: string | null; className?: string; compact?: boolean }) {
+  const canBilling = useAuthStore((s) => hasPermission(s.me, 'billing.manage'));
+  const label = feature ? (MODULE_FEATURES as Record<string, { label: string }>)[feature]?.label : undefined;
+  return (
+    <EmptyState
+      icon={Lock}
+      compact={compact}
+      className={className}
+      title="Not in your plan"
+      description={
+        <>
+          {label ? <span className="font-medium text-foreground">{label}</span> : 'This feature'} isn’t included in your school’s current plan.{' '}
+          {canBilling ? 'See what your plan includes, or contact us to upgrade.' : 'Ask your school admin about upgrading.'}
+        </>
+      }
+      action={
+        canBilling && (
+          <Button asChild variant="outline" size="sm">
+            <Link to="/settings/billing">
+              View plan &amp; billing <ArrowRight />
+            </Link>
+          </Button>
+        )
+      }
+    />
+  );
+}
+
 export function ErrorState({ error, onRetry, className }: { error: unknown; onRetry?: () => void; className?: string }) {
+  const feature = notInPlanFeature(error);
+  if (feature !== null) return <NotInPlanState feature={feature} className={className} />;
   return (
     <EmptyState
       icon={AlertTriangle}

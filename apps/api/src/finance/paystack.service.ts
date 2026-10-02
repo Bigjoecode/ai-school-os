@@ -108,13 +108,19 @@ export class PaystackService {
     } catch {
       return false;
     }
+    return PaystackService.signatureMatches(secret, rawBody, signature);
+  }
+
+  static signatureMatches(secret: string, rawBody: Buffer, signature: string | undefined): boolean {
+    if (!signature) return false;
     const expected = createHmac('sha512', secret).update(rawBody).digest('hex');
     const a = Buffer.from(expected);
     const b = Buffer.from(signature);
     return a.length === b.length && timingSafeEqual(a, b);
   }
 
-  private async call<T>(secret: string, method: 'GET' | 'POST', path: string, body?: unknown): Promise<T> {
+  /** A raw Paystack call with a given secret key (the platform's own key for subscriptions). */
+  async call<T>(secret: string, method: 'GET' | 'POST', path: string, body?: unknown): Promise<T> {
     let res: Response;
     try {
       res = await fetch(`${env().PAYSTACK_BASE_URL}${path}`, {

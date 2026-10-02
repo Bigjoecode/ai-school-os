@@ -19,3 +19,8 @@ export const RequirePermissions = (...permissions: Permission[]) =>
 /** Restricted to SaaS operator staff with one of these platform roles. */
 export const RequirePlatformRole = (...roles: PlatformRole[]) =>
   SetMetadata(PLATFORM_ROLES_KEY, roles);
+
+export const FEATURE_KEY = 'feature';
+
+/** The route belongs to a module the school's plan must include (see FeatureService). */
+export const RequireFeature = (feature: string) => SetMetadata(FEATURE_KEY, feature);

@@ -25,7 +25,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -35,6 +35,7 @@ import { WebsiteService, eventView, resultCode, slugify } from './website.servic
 
 /** The website builder: content, news, gallery, downloads, teachers, events, inbox and result codes. */
 @Controller('website')
+@RequireFeature('website')
 export class WebsiteController {
   constructor(
     private readonly prisma: PrismaService,

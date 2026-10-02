@@ -68,6 +68,14 @@ const schema = z.object({
   /** Where uploaded files are kept (default: ./uploads in the app folder; the deploy never deletes it). */
   UPLOAD_DIR: z.string().optional(),
   UPLOAD_MAX_MB: z.coerce.number().min(1).max(50).default(10),
+  /** The platform's own Paystack secret key, for schools paying their subscription online. */
+  PLATFORM_PAYSTACK_SECRET_KEY: z.string().optional(),
+  /** Bank details printed on subscription invoices for transfers. Use 
+ for new lines. */
+  PLATFORM_BANK_DETAILS: z.string().optional(),
+  PLATFORM_INVOICE_DUE_DAYS: z.coerce.number().int().min(1).max(90).default(14),
+  /** The hostname schools point their own domains at (CNAME), e.g. ai-schoolportal.mejortechworld.com. */
+  PLATFORM_DOMAIN_TARGET: z.string().optional(),
   /** Lets a cPanel cron job wake the API to send scheduled messages and automations. */
   CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
 });

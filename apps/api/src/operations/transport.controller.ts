@@ -21,7 +21,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { fullName } from '../common/format';
 import { currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -50,6 +50,7 @@ const riderInclude = {
 } satisfies Prisma.TransportAssignmentInclude;
 
 @Controller('transport')
+@RequireFeature('transport')
 export class TransportController {
   constructor(
     private readonly prisma: PrismaService,

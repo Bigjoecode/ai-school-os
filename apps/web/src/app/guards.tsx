@@ -1,11 +1,12 @@
-import type { Permission } from '@aischool/shared';
-import { Lock } from 'lucide-react';
+import type { Permission, PlatformArea } from '@aischool/shared';
+import { Lock, ShieldOff } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Link, Navigate, useLocation } from 'react-router';
 import { Page } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
-import { EmptyState } from '@/components/ui/empty-state';
-import { hasPermission, useAuthStore, useIsSuperAdmin } from '@/lib/auth-store';
+import { Card } from '@/components/ui/card';
+import { EmptyState, NotInPlanState } from '@/components/ui/empty-state';
+import { canOpenArea, hasFeature, hasPermission, useAuthStore, useIsSuperAdmin } from '@/lib/auth-store';
 
 export function RequireAuth({ children }: { children: ReactNode }) {
   const status = useAuthStore((s) => s.status);
@@ -48,4 +49,44 @@ export function RequirePermission({ permission, children }: { permission: Permis
 export function RequireSuperAdmin({ children }: { children: ReactNode }) {
   const allowed = useIsSuperAdmin();
   return allowed ? <>{children}</> : <NoAccess />;
+}
+
+/** A module the school's plan must include; otherwise a friendly "Not in your plan" page. */
+export function RequireFeature({ feature, children }: { feature: string; children: ReactNode }) {
+  const allowed = useAuthStore((s) => hasFeature(s.me, feature));
+  if (allowed) return <>{children}</>;
+  return (
+    <Page>
+      <Card>
+        <NotInPlanState feature={feature} />
+      </Card>
+    </Page>
+  );
+}
+
+function ConsoleNoAccess() {
+  return (
+    <Page>
+      <Card>
+        <EmptyState
+          icon={ShieldOff}
+          title="This part of the console isn’t for your role"
+          description="Your platform role doesn’t include this area. Ask a super admin if you need it."
+          action={
+            <Button asChild variant="outline" size="sm">
+              <Link to="/platform">Back to the console</Link>
+            </Button>
+          }
+        />
+      </Card>
+    </Page>
+  );
+}
+
+/** Platform staff only; with `area`, only the roles PLATFORM_AREAS lists for it. */
+export function RequirePlatform({ area, children }: { area?: PlatformArea; children: ReactNode }) {
+  const role = useAuthStore((s) => s.me?.user.platformRole ?? null);
+  const allowed = useAuthStore((s) => (area ? canOpenArea(s.me, area) : !!s.me?.user.platformRole));
+  if (!role) return <NoAccess />;
+  return allowed ? <>{children}</> : <ConsoleNoAccess />;
 }

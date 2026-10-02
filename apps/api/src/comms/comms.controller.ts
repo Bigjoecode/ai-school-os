@@ -38,7 +38,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
@@ -62,6 +62,7 @@ const listQuery = z.object({ status: z.enum(BROADCAST_STATUSES).optional(), sour
 type BroadcastWithCounts = Prisma.BroadcastGetPayload<object> & { counts: Map<string, number> };
 
 @Controller('comms')
+@RequireFeature('messaging')
 export class CommsController {
   constructor(
     private readonly prisma: PrismaService,

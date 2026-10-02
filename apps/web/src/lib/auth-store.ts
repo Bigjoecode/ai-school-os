@@ -1,4 +1,4 @@
-import type { AuthResponse, MeResponse, Permission } from '@aischool/shared';
+import { PLATFORM_AREAS, type AuthResponse, type MeResponse, type Permission, type PlatformArea, type PlatformRole } from '@aischool/shared';
 import { create } from 'zustand';
 
 export type AuthStatus = 'booting' | 'authenticated' | 'anonymous';
@@ -39,4 +39,32 @@ export function useCan(permission: Permission): boolean {
 
 export function useIsSuperAdmin(): boolean {
   return useAuthStore((s) => s.me?.user.platformRole === 'SUPER_ADMIN');
+}
+
+/**
+ * Whether the current school's plan (or a beta rollout) has this module or
+ * flag switched on. Sessions without a features list are treated as all-on.
+ */
+export function hasFeature(me: MeResponse | null, feature: string): boolean {
+  if (!me?.tenant) return false;
+  if (!Array.isArray(me.features)) return true;
+  return me.features.includes(feature);
+}
+
+export function useHasFeature(feature: string): boolean {
+  return useAuthStore((s) => hasFeature(s.me, feature));
+}
+
+/** Platform staff may open a console area when their role is listed for it. */
+export function canOpenArea(me: MeResponse | null, area: PlatformArea): boolean {
+  const role = me?.user.platformRole;
+  return !!role && (PLATFORM_AREAS[area] as readonly PlatformRole[]).includes(role);
+}
+
+export function useCanOpenArea(area: PlatformArea): boolean {
+  return useAuthStore((s) => canOpenArea(s.me, area));
+}
+
+export function usePlatformRole(): PlatformRole | null {
+  return useAuthStore((s) => s.me?.user.platformRole ?? null);
 }

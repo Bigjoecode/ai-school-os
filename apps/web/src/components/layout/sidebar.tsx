@@ -18,6 +18,7 @@ function isActive(item: NavItem, pathname: string, search: string): boolean {
   if (path === '/') return pathname === '/';
   if (path === '/ai') return pathname === '/ai' && !new URLSearchParams(search).get('agent');
   if (path === '/settings') return pathname === '/settings';
+  if (path === '/platform') return pathname === '/platform';
   return pathname === path || pathname.startsWith(`${path}/`);
 }
 

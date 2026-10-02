@@ -21,13 +21,14 @@ import {
 } from '@aischool/shared';
 import { z } from 'zod';
 import { AiGatewayService } from '../ai/ai-gateway.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
 import { HrService } from './hr.service';
 import { PayrollService } from './payroll.service';
 import { payrollReviewPrompt } from './prompts';
 
 @Controller('payroll')
+@RequireFeature('payroll')
 export class PayrollController {
   constructor(
     private readonly hr: HrService,

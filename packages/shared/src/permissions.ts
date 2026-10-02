@@ -214,6 +214,14 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'billing',
+    label: 'Subscription & Support',
+    permissions: {
+      'billing.manage': "View and pay the school's AI School OS subscription",
+      'support.use': 'Contact AI School OS support and follow tickets',
+    },
+  },
+  {
     module: 'audit',
     label: 'Audit',
     permissions: {

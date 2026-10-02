@@ -50,7 +50,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
       'ai.use',
       'ai.admin',
       'audit.read',
-      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage',
+      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use',
     ],
   },
   {
@@ -75,7 +75,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     key: 'accountant',
     name: 'Accountant',
     description: 'Manages fees, payments and expenses.',
-    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'hr.self', 'payroll.read', 'payroll.manage', 'ai.use', 'inventory.read', 'inventory.manage', 'transport.read', 'hostel.read', 'comms.read', 'comms.send'],
+    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'finance.read', 'finance.manage', 'timetable.read', 'hr.self', 'payroll.read', 'payroll.manage', 'ai.use', 'inventory.read', 'inventory.manage', 'transport.read', 'hostel.read', 'comms.read', 'comms.send', 'billing.manage', 'support.use'],
   },
   {
     key: 'hr_manager',

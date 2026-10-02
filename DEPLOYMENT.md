@@ -154,15 +154,60 @@ once it is published in **Website → Overview**.
    cPanel as an **Alias**/parked domain of the portal's subdomain so it
    serves the same web root).
 2. Issue SSL for it in cPanel (**SSL/TLS Status → Run AutoSSL**).
-3. Add a row to `tenant_domains` with `kind = 'WEBSITE'` and the hostname
-   (until the superadmin screens in Phase 14 do this). Any other hostname
-   keeps showing the portal.
+3. In the console, **Platform → Domains → Add domain**: pick the school,
+   enter the hostname and choose **Website** (or **Portal** for a school's
+   own sign-in address), then **Verify DNS**. Any hostname not listed keeps
+   showing the portal.
 
 **Uploads.** Images and documents uploaded for websites are stored on disk,
 in `UPLOAD_DIR` (default: `uploads/` inside the Node.js app root, e.g.
 `/home/martcqpk/ai-school-api/uploads`). The deploy never touches that
 folder. Include it in your backups. `UPLOAD_MAX_MB` (default 10) caps each
 file. Raise the limit on the web server too if you go above ~20 MB.
+
+## Running the platform (operator console)
+
+Platform staff sign in like everyone else and get the **Platform** menu.
+There are three platform roles: **super admin** (everything), **support**
+(schools, support tickets, domains, system health and the audit log, but no
+billing) and **finance** (subscriptions, invoices, payments and plans). The
+first super admin comes from `BOOTSTRAP_OWNER_EMAIL` / `BOOTSTRAP_OWNER_PASSWORD`.
+For now, give other staff their role in the database
+(`UPDATE users SET "platformRole" = 'SUPPORT_ADMIN' WHERE email = '…'`).
+
+**Plans decide which modules a school gets.** Each plan lists its modules
+(AI, website, live classes, messages, online payments, payroll, timetable,
+library, inventory, transport, hostel). A plan that lists none includes
+them all. When a module isn't in a school's plan, its menus are hidden and
+its API answers 403. You can switch a module on or off for one school as an
+override, or switch it off for every school with the flag's master switch
+in **Platform → Feature flags**. Beta flags roll out to a percentage of schools.
+
+**Subscription billing.** Schools are billed per student per period: the
+larger of the seats they committed to and their active students, at the
+plan price or a negotiated one, less any discount. An hourly cycle rolls
+finished periods into the next and invoices them. A subscription with an
+overdue invoice becomes past due. Nothing is suspended automatically;
+suspending a school is always a person's decision, with a reason recorded
+in the audit log. These environment variables control billing:
+
+| Variable | Purpose |
+|---|---|
+| `PLATFORM_PAYSTACK_SECRET_KEY` | Your own Paystack secret key, so schools can pay their subscription online. Without it, schools see bank details instead. |
+| `PLATFORM_BANK_DETAILS` | Bank transfer instructions shown on invoices; use `\n` for new lines. |
+| `PLATFORM_INVOICE_DUE_DAYS` | Days to pay an invoice (default 14). |
+| `PLATFORM_DOMAIN_TARGET` | The hostname schools' own domains must point to (CNAME), e.g. `ai-schoolportal.mejortechworld.com`. |
+
+In your Paystack dashboard, set the webhook URL to
+`https://ai-schoolportal.mejortechworld.com/api/billing/paystack/webhook`
+so payments settle even if the school closes the tab. Payments the finance
+team receives by transfer are recorded against the invoice in
+**Platform → Billing**.
+
+**Usage and health.** API requests are counted per school per day.
+AI spend is metered on every call, including the console's own AI
+briefing and support drafts. **Platform → System health** checks the
+database, AI providers, encryption key, cron job, error rate and queues.
 
 ## GitHub secrets
 

@@ -50,6 +50,8 @@ const result = await build({
   sourcemap: 'linked',
   external: optional,
   legalComments: 'none',
+  // The deployed commit, shown in the console's system health.
+  banner: process.env.GITHUB_SHA ? { js: `process.env.APP_VERSION ??= ${JSON.stringify(process.env.GITHUB_SHA.slice(0, 7))};` } : undefined,
   metafile: true,
   logLevel: 'warning',
 });

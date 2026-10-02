@@ -11,11 +11,13 @@ import type { Request } from 'express';
 import type { Permission, PlatformRole } from '@aischool/shared';
 import {
   ALLOW_NO_TENANT,
+  FEATURE_KEY,
   IS_PUBLIC,
   PERMISSIONS,
   PLATFORM_ROLES_KEY,
 } from '../common/decorators';
 import { RequestContextStore } from '../common/request-context';
+import { FeatureService } from '../features/features.service';
 import { AccessService } from './access.service';
 import type { AccessTokenPayload } from './tokens';
 
@@ -24,7 +26,8 @@ import type { AccessTokenPayload } from './tokens';
  *  1. verifies the Bearer access token,
  *  2. resolves the user's roles/permissions in the token's school,
  *  3. fills the request context (read by the tenant-scoped Prisma client),
- *  4. enforces @RequirePermissions / @RequirePlatformRole / tenant presence.
+ *  4. enforces @RequirePermissions / @RequirePlatformRole / tenant presence,
+ *  5. checks the school's plan includes the route's @RequireFeature module.
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,6 +35,7 @@ export class AuthGuard implements CanActivate {
     private readonly reflector: Reflector,
     private readonly jwt: JwtService,
     private readonly access: AccessService,
+    private readonly features: FeatureService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -66,6 +70,8 @@ export class AuthGuard implements CanActivate {
       if (!resolved.user.platformRole || !platformRoles.includes(resolved.user.platformRole)) {
         throw new ForbiddenException('Platform administrators only');
       }
+      // Console routes act across schools, never inside the one a super admin has open.
+      ctx.tenantId = null;
       return true;
     }
 
@@ -77,6 +83,9 @@ export class AuthGuard implements CanActivate {
     if (missing.length) {
       throw new ForbiddenException(`You don't have permission to do this (${missing.join(', ')})`);
     }
+
+    const feature = this.reflector.getAllAndOverride<string>(FEATURE_KEY, targets);
+    if (feature && ctx.tenantId) await this.features.assert(ctx.tenantId, feature);
     return true;
   }
 }

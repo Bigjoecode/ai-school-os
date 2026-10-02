@@ -10,6 +10,6 @@ import { PublicPayController } from './public-pay.controller';
   imports: [AiModule],
   controllers: [FinanceController, PublicPayController],
   providers: [FinanceService, PaystackService],
-  exports: [FinanceService],
+  exports: [FinanceService, PaystackService],
 })
 export class FinanceModule {}

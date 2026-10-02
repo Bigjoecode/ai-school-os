@@ -38,6 +38,8 @@ export const createTenantSchema = z.object({
   country: z.string().length(2).default('NG'),
   currency: z.string().length(3).default('NGN'),
   timezone: z.string().default('Africa/Lagos'),
+  /** Defaults to the standard plan. */
+  planId: z.string().optional(),
   admin: z.object({
     firstName: name,
     lastName: name,

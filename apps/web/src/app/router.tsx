@@ -1,8 +1,8 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import { AppShell } from '@/components/layout/app-shell';
 import { BootLoader } from '@/components/layout/boot-loader';
-import { RedirectIfAuthed, RequireAuth, RequirePermission, RequireSuperAdmin } from './guards';
+import { RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
 import { UPCOMING_MODULES } from './modules';
 
 const LoginPage = lazy(() => import('@/features/auth/login-page'));
@@ -75,7 +75,23 @@ const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
 const RolesPage = lazy(() => import('@/features/settings/roles-page'));
 const AuditPage = lazy(() => import('@/features/settings/audit-page'));
-const TenantsPage = lazy(() => import('@/features/platform/tenants-page'));
+const SchoolBillingPage = lazy(() => import('@/features/billing/school-billing-page'));
+const SupportPage = lazy(() => import('@/features/support/support-page'));
+const SchoolTicketPage = lazy(() => import('@/features/support/ticket-page'));
+const ConsoleOverviewPage = lazy(() => import('@/features/platform/overview-page'));
+const ConsoleSchoolsPage = lazy(() => import('@/features/platform/schools-page'));
+const ConsoleSchoolPage = lazy(() => import('@/features/platform/school-detail-page'));
+const ConsoleBranchesPage = lazy(() => import('@/features/platform/branches-page'));
+const ConsoleBillingPage = lazy(() => import('@/features/platform/billing-page'));
+const ConsolePlansPage = lazy(() => import('@/features/platform/plans-page'));
+const ConsoleUsagePage = lazy(() => import('@/features/platform/usage-page'));
+const ConsoleDomainsPage = lazy(() => import('@/features/platform/domains-page'));
+const ConsoleSupportPage = lazy(() => import('@/features/platform/support-page'));
+const ConsoleTicketPage = lazy(() => import('@/features/platform/ticket-page'));
+const ConsoleHealthPage = lazy(() => import('@/features/platform/health-page'));
+const ConsoleFlagsPage = lazy(() => import('@/features/platform/flags-page'));
+const ConsoleAuditPage = lazy(() => import('@/features/platform/audit-page'));
+const ConsoleTeamPage = lazy(() => import('@/features/platform/team-page'));
 const WebsiteLayout = lazy(() => import('@/features/website/website-layout'));
 const WebsiteOverviewTab = lazy(() => import('@/features/website/overview-tab'));
 const WebsitePagesTab = lazy(() => import('@/features/website/pages-tab'));
@@ -139,7 +155,9 @@ export const router = createBrowserRouter([
         path: 'ai',
         element: (
           <RequirePermission permission="ai.use">
-            <AiPage />
+            <RequireFeature feature="ai">
+              <AiPage />
+            </RequireFeature>
           </RequirePermission>
         ),
       },
@@ -148,7 +166,9 @@ export const router = createBrowserRouter([
         element: (
           <RequirePermission permission="students.read">
             <RequirePermission permission="attendance.read">
-              <InsightsPage />
+              <RequireFeature feature="ai">
+                <InsightsPage />
+              </RequireFeature>
             </RequirePermission>
           </RequirePermission>
         ),
@@ -157,7 +177,9 @@ export const router = createBrowserRouter([
         path: 'ai/usage',
         element: (
           <RequirePermission permission="ai.admin">
-            <UsagePage />
+            <RequireFeature feature="ai">
+              <UsagePage />
+            </RequireFeature>
           </RequirePermission>
         ),
       },
@@ -293,7 +315,9 @@ export const router = createBrowserRouter([
         path: 'timetable',
         element: (
           <RequirePermission permission="timetable.read">
-            <TimetablePage />
+            <RequireFeature feature="timetable">
+              <TimetablePage />
+            </RequireFeature>
           </RequirePermission>
         ),
       },
@@ -301,7 +325,9 @@ export const router = createBrowserRouter([
         path: 'timetable/setup',
         element: (
           <RequirePermission permission="timetable.read">
-            <TimetableSetupPage />
+            <RequireFeature feature="timetable">
+              <TimetableSetupPage />
+            </RequireFeature>
           </RequirePermission>
         ),
       },
@@ -358,7 +384,11 @@ export const router = createBrowserRouter([
         ] as const
       ).map(([path, page]) => ({
         path,
-        element: <RequirePermission permission="payroll.read">{page}</RequirePermission>,
+        element: (
+          <RequirePermission permission="payroll.read">
+            <RequireFeature feature="payroll">{page}</RequireFeature>
+          </RequirePermission>
+        ),
       })),
       {
         path: 'me/hr',
@@ -378,19 +408,19 @@ export const router = createBrowserRouter([
       },
       ...(
         [
-          ['library', 'library.read', <LibraryPage key="library" />],
-          ['inventory', 'inventory.read', <InventoryPage key="inventory" />],
-          ['transport', 'transport.read', <TransportPage key="transport" />],
-          ['transport/routes/:id', 'transport.read', <RoutePage key="route" />],
-          ['hostel', 'hostel.read', <HostelPage key="hostel" />],
-          ['reception', 'reception.read', <ReceptionPage key="reception" />],
-          ['certificates', 'documents.issue', <CertificatesPage key="certificates" />],
-          ['certificates/:id', 'documents.issue', <CertificatePage key="certificate" />],
-          ['id-cards', 'documents.issue', <IdCardsPage key="id-cards" />],
+          ['library', 'library.read', <LibraryPage key="library" />, 'library'],
+          ['inventory', 'inventory.read', <InventoryPage key="inventory" />, 'inventory'],
+          ['transport', 'transport.read', <TransportPage key="transport" />, 'transport'],
+          ['transport/routes/:id', 'transport.read', <RoutePage key="route" />, 'transport'],
+          ['hostel', 'hostel.read', <HostelPage key="hostel" />, 'hostel'],
+          ['reception', 'reception.read', <ReceptionPage key="reception" />, null],
+          ['certificates', 'documents.issue', <CertificatesPage key="certificates" />, null],
+          ['certificates/:id', 'documents.issue', <CertificatePage key="certificate" />, null],
+          ['id-cards', 'documents.issue', <IdCardsPage key="id-cards" />, null],
         ] as const
-      ).map(([path, permission, page]) => ({
+      ).map(([path, permission, page, feature]) => ({
         path,
-        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+        element: <RequirePermission permission={permission}>{feature ? <RequireFeature feature={feature}>{page}</RequireFeature> : page}</RequirePermission>,
       })),
       ...(
         [
@@ -402,7 +432,11 @@ export const router = createBrowserRouter([
         ] as const
       ).map(([path, permission, page]) => ({
         path,
-        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+        element: (
+          <RequirePermission permission={permission}>
+            <RequireFeature feature="messaging">{page}</RequireFeature>
+          </RequirePermission>
+        ),
       })),
       ...(
         [
@@ -413,13 +447,19 @@ export const router = createBrowserRouter([
         ] as const
       ).map(([path, permission, page]) => ({
         path,
-        element: <RequirePermission permission={permission}>{page}</RequirePermission>,
+        element: (
+          <RequirePermission permission={permission}>
+            <RequireFeature feature="live_classes">{page}</RequireFeature>
+          </RequirePermission>
+        ),
       })),
       {
         path: 'website',
         element: (
           <RequirePermission permission="website.manage">
-            <WebsiteLayout />
+            <RequireFeature feature="website">
+              <WebsiteLayout />
+            </RequireFeature>
           </RequirePermission>
         ),
         children: [
@@ -435,7 +475,30 @@ export const router = createBrowserRouter([
         ],
       },
       // Everyone in the school: staff, parents and students.
-      { path: 'learning', element: <LearningPage /> },
+      {
+        path: 'learning',
+        element: (
+          <RequireFeature feature="live_classes">
+            <LearningPage />
+          </RequireFeature>
+        ),
+      },
+      {
+        path: 'support',
+        element: (
+          <RequirePermission permission="support.use">
+            <SupportPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'support/:id',
+        element: (
+          <RequirePermission permission="support.use">
+            <SchoolTicketPage />
+          </RequirePermission>
+        ),
+      },
       { path: 'noticeboard', element: <NoticeboardPage /> },
       { path: 'calendar', element: <CalendarPage /> },
       {
@@ -474,16 +537,39 @@ export const router = createBrowserRouter([
               </RequirePermission>
             ),
           },
+          {
+            path: 'billing',
+            element: (
+              <RequirePermission permission="billing.manage">
+                <SchoolBillingPage />
+              </RequirePermission>
+            ),
+          },
         ],
       },
-      {
-        path: 'platform/tenants',
-        element: (
-          <RequireSuperAdmin>
-            <TenantsPage />
-          </RequireSuperAdmin>
-        ),
-      },
+      // The SaaS operator console: platform staff only, each area gated by role (PLATFORM_AREAS).
+      ...(
+        [
+          ['platform', 'overview', <ConsoleOverviewPage key="console" />],
+          ['platform/schools', 'schools', <ConsoleSchoolsPage key="schools" />],
+          ['platform/schools/:id', 'schools', <ConsoleSchoolPage key="school" />],
+          ['platform/branches', 'schools', <ConsoleBranchesPage key="branches" />],
+          ['platform/billing', 'billing', <ConsoleBillingPage key="billing" />],
+          ['platform/plans', 'plans', <ConsolePlansPage key="plans" />],
+          ['platform/usage', 'usage', <ConsoleUsagePage key="usage" />],
+          ['platform/domains', 'domains', <ConsoleDomainsPage key="domains" />],
+          ['platform/support', 'support', <ConsoleSupportPage key="support" />],
+          ['platform/support/:id', 'support', <ConsoleTicketPage key="ticket" />],
+          ['platform/health', 'health', <ConsoleHealthPage key="health" />],
+          ['platform/flags', 'flags', <ConsoleFlagsPage key="flags" />],
+          ['platform/audit', 'audit', <ConsoleAuditPage key="audit" />],
+          ['platform/team', undefined, <ConsoleTeamPage key="team" />],
+        ] as const
+      ).map(([path, area, page]) => ({
+        path,
+        element: <RequirePlatform area={area}>{page}</RequirePlatform>,
+      })),
+      { path: 'platform/tenants', element: <Navigate to="/platform/schools" replace /> },
       ...Object.keys(UPCOMING_MODULES).map((path) => ({
         path: path.slice(1),
         element: <ComingSoonPage path={path} />,

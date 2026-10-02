@@ -1,11 +1,13 @@
-import type { MeResponse, Permission } from '@aischool/shared';
+import type { MeResponse, Permission, PlatformArea } from '@aischool/shared';
 import {
+  Activity,
   Award,
   Banknote,
   BedDouble,
   BookOpen,
   BookOpenCheck,
   Bot,
+  Boxes,
   Briefcase,
   Building2,
   Bus,
@@ -20,17 +22,23 @@ import {
   FileBadge,
   FileQuestionMark,
   FileText,
+  Flag,
   FolderOpen,
   Gauge,
+  GitBranch,
   Globe,
+  Globe2,
   GraduationCap,
   HeartHandshake,
   HeartPulse,
   IdCard,
   IdCardLanyard,
+  Landmark,
   Layers,
+  LayoutGrid,
   LayoutDashboard,
   Library,
+  LifeBuoy,
   type LucideIcon,
   Medal,
   Megaphone,
@@ -52,10 +60,11 @@ import {
   UserCog,
   UserPlus,
   Users,
+  Users2,
   Video,
   Wallet,
 } from 'lucide-react';
-import { hasPermission } from '@/lib/auth-store';
+import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
   label: string;
@@ -68,6 +77,10 @@ export interface NavItem {
   soon?: boolean;
   /** 'family': only for parents and students (members without school.read), keeping staff navs tidy. */
   audience?: 'family';
+  /** Module or beta flag the school's plan must include (me.features). */
+  feature?: string;
+  /** Platform console area (PLATFORM_AREAS) the operator's role must allow. */
+  area?: PlatformArea;
   keywords?: string;
 }
 
@@ -80,8 +93,8 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
-      { label: 'AI Command Center', to: '/ai', icon: Sparkles, permission: 'ai.use', keywords: 'assistant chat' },
-      { label: 'My learning', to: '/learning', icon: BookOpenCheck, audience: 'family', keywords: 'homework live classes class notes revision summaries' },
+      { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', keywords: 'assistant chat' },
+      { label: 'My learning', to: '/learning', icon: BookOpenCheck, feature: 'live_classes', audience: 'family', keywords: 'homework live classes class notes revision summaries' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },
@@ -94,7 +107,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Curriculum', to: '/curriculum', icon: BookOpen, permission: 'curriculum.read', keywords: 'syllabus topics' },
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
-      { label: 'Timetable', to: '/timetable', icon: CalendarClock, permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
+      { label: 'Timetable', to: '/timetable', icon: CalendarClock, feature: 'timetable', permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
       { label: 'Study Materials', to: '/materials', icon: FolderOpen, soon: true },
     ],
   },
@@ -136,7 +149,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Employees', to: '/hr/employees', icon: Contact, permission: 'hr.read', keywords: 'staff directory departments records hr' },
       { label: 'Leave', to: '/hr/leave', icon: Plane, permission: 'hr.read', keywords: 'leave requests holiday sick maternity approve away' },
       { label: 'Awards', to: '/hr/awards', icon: Medal, permission: 'hr.read', keywords: 'recognition award citation teacher of the term' },
-      { label: 'Payroll', to: '/payroll', icon: Banknote, permission: 'payroll.read', keywords: 'salaries payslips paye pension nhf wages' },
+      { label: 'Payroll', to: '/payroll', icon: Banknote, feature: 'payroll', permission: 'payroll.read', keywords: 'salaries payslips paye pension nhf wages' },
     ],
   },
   {
@@ -150,10 +163,10 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Operations',
     items: [
-      { label: 'Library', to: '/library', icon: Library, permission: 'library.read', keywords: 'books loans borrow return overdue fines catalogue reading list' },
-      { label: 'Inventory', to: '/inventory', icon: Package, permission: 'inventory.read', keywords: 'stock stores assets supplies reorder low stock equipment' },
-      { label: 'Transport', to: '/transport', icon: Bus, permission: 'transport.read', keywords: 'routes buses vehicles riders stops drivers school bus' },
-      { label: 'Hostel', to: '/hostel', icon: BedDouble, permission: 'hostel.read', keywords: 'boarding boarders rooms beds exeat houses' },
+      { label: 'Library', to: '/library', icon: Library, feature: 'library', permission: 'library.read', keywords: 'books loans borrow return overdue fines catalogue reading list' },
+      { label: 'Inventory', to: '/inventory', icon: Package, feature: 'inventory', permission: 'inventory.read', keywords: 'stock stores assets supplies reorder low stock equipment' },
+      { label: 'Transport', to: '/transport', icon: Bus, feature: 'transport', permission: 'transport.read', keywords: 'routes buses vehicles riders stops drivers school bus' },
+      { label: 'Hostel', to: '/hostel', icon: BedDouble, feature: 'hostel', permission: 'hostel.read', keywords: 'boarding boarders rooms beds exeat houses' },
       { label: 'Reception', to: '/reception', icon: ConciergeBell, permission: 'reception.read', keywords: 'visitors front desk enquiries admissions pick-up early collection' },
       { label: 'Certificates', to: '/certificates', icon: FileBadge, permission: 'documents.issue', keywords: 'testimonial transfer merit award certificate documents' },
       { label: 'ID Cards', to: '/id-cards', icon: IdCardLanyard, permission: 'documents.issue', keywords: 'identity cards badges print students staff qr' },
@@ -162,14 +175,14 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Live Learning',
     items: [
-      { label: 'Live Classes', to: '/live', icon: Video, permission: 'live.read', keywords: 'video virtual online meet zoom bigbluebutton recordings transcript ai summary' },
-      { label: 'Homework', to: '/homework', icon: PencilLine, permission: 'homework.manage', keywords: 'assignments set homework due' },
+      { label: 'Live Classes', to: '/live', icon: Video, feature: 'live_classes', permission: 'live.read', keywords: 'video virtual online meet zoom bigbluebutton recordings transcript ai summary' },
+      { label: 'Homework', to: '/homework', icon: PencilLine, feature: 'live_classes', permission: 'homework.manage', keywords: 'assignments set homework due' },
     ],
   },
   {
     label: 'Communication',
     items: [
-      { label: 'Messages', to: '/messages', icon: MessagesSquare, permission: 'comms.read', keywords: 'messaging bulk sms whatsapp email broadcast send parents staff delivery' },
+      { label: 'Messages', to: '/messages', icon: MessagesSquare, feature: 'messaging', permission: 'comms.read', keywords: 'messaging bulk sms whatsapp email broadcast send parents staff delivery' },
       { label: 'Noticeboard', to: '/noticeboard', icon: Megaphone, keywords: 'announcements news notices bulletin' },
       { label: 'Calendar', to: '/calendar', icon: CalendarDays, keywords: 'events term dates holidays exams pta school calendar' },
     ],
@@ -180,27 +193,30 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         label: 'Principal AI',
         to: '/ai?agent=principal',
+        feature: 'ai',
         icon: Crown,
         permission: 'ai.use',
         requires: ['school.read', 'results.read', 'finance.read'],
         keywords: 'head teacher leadership briefing school-wide assistant',
       },
-      { label: 'School AI', to: '/ai?agent=school', icon: Bot, permission: 'ai.use', requires: ['school.read'] },
+      { label: 'School AI', to: '/ai?agent=school', icon: Bot, feature: 'ai', permission: 'ai.use', requires: ['school.read'] },
       {
         label: 'Academic AI',
         to: '/ai?agent=academic',
+        feature: 'ai',
         icon: BookOpenCheck,
         permission: 'ai.use',
         requires: ['curriculum.read', 'results.read'],
         keywords: 'curriculum results learning outcomes academic',
       },
-      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, permission: 'ai.use', requires: ['academics.read'] },
-      { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, permission: 'ai.use' },
-      { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, permission: 'ai.use' },
-      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, permission: 'ai.use', requires: ['hr.read'] },
+      { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, feature: 'ai', permission: 'ai.use', requires: ['academics.read'] },
+      { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, feature: 'ai', permission: 'ai.use' },
+      { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, feature: 'ai', permission: 'ai.use' },
+      { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, feature: 'ai', permission: 'ai.use', requires: ['hr.read'] },
       {
         label: 'Communication AI',
         to: '/ai?agent=communication',
+        feature: 'ai',
         icon: Send,
         permission: 'ai.use',
         requires: ['comms.send'],
@@ -209,12 +225,13 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         label: 'Insights',
         to: '/ai/insights',
+        feature: 'ai',
         icon: Radar,
         permission: 'attendance.read',
         requires: ['students.read'],
         keywords: 'students at risk need attention early warning briefing intelligence',
       },
-      { label: 'AI Usage', to: '/ai/usage', icon: Gauge, permission: 'ai.admin', keywords: 'tokens spend budget cost calls' },
+      { label: 'AI Usage', to: '/ai/usage', icon: Gauge, feature: 'ai', permission: 'ai.admin', keywords: 'tokens spend budget cost calls' },
     ],
   },
   {
@@ -223,6 +240,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         label: 'Website',
         to: '/website',
+        feature: 'website',
         icon: Globe,
         permission: 'website.manage',
         keywords: 'cms public site school website news gallery photos downloads teachers inbox contact online applications result checker codes publish',
@@ -235,13 +253,28 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'School Profile', to: '/settings', icon: Settings, permission: 'school.read', keywords: 'branding' },
       { label: 'Roles & Permissions', to: '/settings/roles', icon: ShieldCheck, permission: 'roles.manage' },
       { label: 'Audit Log', to: '/settings/audit', icon: ScrollText, permission: 'audit.read', keywords: 'history activity' },
+      { label: 'Billing', to: '/settings/billing', icon: CreditCard, permission: 'billing.manage', keywords: 'subscription plan invoices pay ai school os account upgrade' },
+      { label: 'Help & support', to: '/support', icon: LifeBuoy, permission: 'support.use', keywords: 'help ticket contact support problem issue' },
     ],
   },
 ];
 
 export const PLATFORM_GROUP: NavGroup = {
   label: 'Platform',
-  items: [{ label: 'Schools', to: '/platform/tenants', icon: Building2, keywords: 'tenants' }],
+  items: [
+    { label: 'Console', to: '/platform', icon: LayoutGrid, area: 'overview', keywords: 'platform overview mrr arr kpis briefing' },
+    { label: 'Schools', to: '/platform/schools', icon: Building2, area: 'schools', keywords: 'tenants customers accounts' },
+    { label: 'Branches', to: '/platform/branches', icon: GitBranch, area: 'schools', keywords: 'campuses sites' },
+    { label: 'Billing', to: '/platform/billing', icon: Landmark, area: 'billing', keywords: 'subscriptions invoices payments revenue billing cycle' },
+    { label: 'Plans', to: '/platform/plans', icon: Boxes, area: 'plans', keywords: 'pricing tiers modules packages' },
+    { label: 'Usage', to: '/platform/usage', icon: Activity, area: 'usage', keywords: 'students seats ai spend api requests' },
+    { label: 'Domains', to: '/platform/domains', icon: Globe2, area: 'domains', keywords: 'custom domain dns hostname cname' },
+    { label: 'Support', to: '/platform/support', icon: LifeBuoy, area: 'support', keywords: 'tickets help desk queue' },
+    { label: 'System health', to: '/platform/health', icon: HeartPulse, area: 'health', keywords: 'status uptime database queues errors' },
+    { label: 'Feature flags', to: '/platform/flags', icon: Flag, area: 'flags', keywords: 'beta rollout modules toggles' },
+    { label: 'Audit log', to: '/platform/audit', icon: ScrollText, area: 'audit', keywords: 'history activity platform' },
+    { label: 'Team', to: '/platform/team', icon: Users2, keywords: 'platform staff operators' },
+  ],
 };
 
 /** Nav groups filtered to what this user may see. */
@@ -255,10 +288,17 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
       if (i.soon && !hasPermission(me, 'school.read')) return false;
       if (i.audience === 'family' && hasPermission(me, 'school.read')) return false;
       if (i.requires && !i.requires.every((p) => hasPermission(me, p))) return false;
+      // Modules outside the school's plan disappear from the menu.
+      if (i.feature && !hasFeature(me, i.feature)) return false;
       return !i.permission || hasPermission(me, i.permission);
     }),
   })).filter((g) => g.items.length > 0);
-  if (me?.user.platformRole === 'SUPER_ADMIN') groups.push(PLATFORM_GROUP);
+  if (me?.user.platformRole) {
+    const items = PLATFORM_GROUP.items.filter((i) => !i.area || canOpenArea(me, i.area));
+    // Without a school selected the console is the whole app, so it leads.
+    if (hasTenant) groups.push({ ...PLATFORM_GROUP, items });
+    else return [{ ...PLATFORM_GROUP, items }];
+  }
   return groups;
 }
 

@@ -1,6 +1,7 @@
 import { MutationCache, QueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { ApiError, errorMessage } from './api';
+import { ApiError, errorMessage, notInPlanFeature } from './api';
+import { hasPermission, useAuthStore } from './auth-store';
 
 declare module '@tanstack/react-query' {
   interface Register {
@@ -27,6 +28,17 @@ export const queryClient = new QueryClient({
     onError: (error, _vars, _ctx, mutation) => {
       if (mutation.meta?.silent) return;
       if (error instanceof ApiError && error.status === 401) return;
+      // A module outside the school's plan: explain calmly, and point billing admins at their plan.
+      if (notInPlanFeature(error) !== null) {
+        const canBilling = hasPermission(useAuthStore.getState().me, 'billing.manage');
+        toast.info('Not in your plan', {
+          description: errorMessage(error),
+          action: canBilling
+            ? { label: 'View plan', onClick: () => void import('@/app/router').then((m) => m.router.navigate('/settings/billing')) }
+            : undefined,
+        });
+        return;
+      }
       toast.error(errorMessage(error));
     },
   }),

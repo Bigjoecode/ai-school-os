@@ -21,6 +21,7 @@ import {
 } from '@aischool/shared';
 import type { ClassArm, ClassLevel, Gender, HostelRoom, Invoice, Prisma, PrismaClient, Staff, TransportRoute } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
+import { seedPlans, seedPlatform } from './platform-seed';
 import { buildTimetable } from '../timetable/timetable-builder';
 import { datesBetween, schoolNow, weekdayOf } from '../common/school-time';
 
@@ -133,19 +134,8 @@ async function member(tenantId: string, userId: string, roleKey: string) {
 }
 
 async function run({ demoOwner }: SeedOptions) {
-  const plan = await prisma.plan.upsert({
-    where: { code: 'school-license' },
-    update: {},
-    create: {
-      code: 'school-license',
-      name: 'School License',
-      description: 'ERP, portals, AI academic tools, attendance, exams, finance and communication.',
-      pricePerStudentKobo: 5000 * 100,
-      billingPeriod: 'PER_SESSION',
-      aiMonthlyBudgetUsd: 25,
-      features: ['erp', 'portals', 'ai-academic', 'attendance', 'exams', 'finance', 'communication'],
-    },
-  });
+  const plans = await seedPlans(prisma);
+  const plan = plans.growth;
 
   const owner = demoOwner ? await upsertUser('owner@aischool.os', 'AiSchoolOS#2026', 'Platform', 'Owner', 'SUPER_ADMIN') : null;
   const admin = await upsertUser('admin@greenfield.demo', 'Greenfield#2026', 'Adaeze', 'Okafor');
@@ -1786,5 +1776,7 @@ async function run({ demoOwner }: SeedOptions) {
   });
   await prisma.studentGuardian.create({ data: { tenantId: s.id, studentId: child.id, guardianId: sunriseParent.id, isPrimary: true } });
 
-  return `${owner ? `owner ${owner.email}; ` : ''}Greenfield (${students.length} students, ${staff.length} staff, ${arms.length} classes); Sunrise Academy`;
+  const platform = await seedPlatform(prisma, { plans, greenfieldId: g.id, sunriseId: s.id, greenfieldAdminId: admin.id, demoStaff: demoOwner });
+
+  return `${owner ? `owner ${owner.email}; ` : ''}Greenfield (${students.length} students, ${staff.length} staff, ${arms.length} classes); Sunrise Academy; ${platform}`;
 }

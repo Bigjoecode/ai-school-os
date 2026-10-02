@@ -20,7 +20,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -44,6 +44,7 @@ const itemListQuery = z.object({
 });
 
 @Controller('inventory')
+@RequireFeature('inventory')
 export class InventoryController {
   constructor(
     private readonly prisma: PrismaService,

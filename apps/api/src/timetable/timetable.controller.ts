@@ -26,13 +26,14 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequireFeature, RequirePermissions } from '../common/decorators';
 import { currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
 import { TimetableService } from './timetable.service';
 
 @Controller()
+@RequireFeature('timetable')
 export class TimetableController {
   constructor(
     private readonly prisma: PrismaService,

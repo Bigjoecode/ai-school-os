@@ -30,7 +30,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
 import { SenderService } from '../comms/sender.service';
-import { Public, RequirePermissions } from '../common/decorators';
+import { Public, RequireFeature, RequirePermissions } from '../common/decorators';
 import { dateOnly, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -50,6 +50,7 @@ const homeworkInclude = { classArm: { include: { classLevel: true } }, subject: 
 const FREE: Channel[] = ['IN_APP', 'PUSH'];
 
 @Controller()
+@RequireFeature('live_classes')
 export class LiveController {
   constructor(
     private readonly prisma: PrismaService,

@@ -15,6 +15,7 @@ import { Public } from '../common/decorators';
 import { dateOnly } from '../common/format';
 import { RequestContextStore } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
+import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { siteOrigin } from './finance.controller';
 import { FinanceService } from './finance.service';
@@ -42,6 +43,7 @@ export class PublicPayController {
     private readonly finance: FinanceService,
     private readonly paystack: PaystackService,
     private readonly audit: AuditService,
+    private readonly features: FeatureService,
   ) {}
 
   /** Verifies a payment link and scopes this request to its school. */
@@ -78,7 +80,7 @@ export class PublicPayController {
         },
       }),
       this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tid }, select: { name: true, logoUrl: true, currency: true } }),
-      this.paystack.connected(tid),
+      this.paystack.connected(tid).then(async (c) => c && (await this.features.isEnabled(tid, 'online_payments'))),
     ]);
     if (!invoice) throw new NotFoundException('Invoice not found');
     return {
@@ -110,6 +112,7 @@ export class PublicPayController {
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async start(@Body(new ZodPipe(startOnlinePaymentSchema)) body: z.infer<typeof startOnlinePaymentSchema>, @Req() req: Request): Promise<OnlinePaymentStart> {
     const { tid, inv } = await this.open(body.token);
+    await this.features.assert(tid, 'online_payments');
     const invoice = await this.prisma.db.invoice.findUniqueOrThrow({ where: { id: inv } });
     const tenant = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tid }, select: { currency: true } });
     const balance = invoice.totalKobo - invoice.paidKobo;

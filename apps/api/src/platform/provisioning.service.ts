@@ -27,7 +27,9 @@ export class ProvisioningService {
     const passwordHash = await hashPassword(input.admin.password);
 
     return this.prisma.root.$transaction(async (tx) => {
-      const plan = await tx.plan.findFirst({ where: { code: 'school-license', isActive: true } });
+      const plan = input.planId
+        ? await tx.plan.findFirst({ where: { id: input.planId, isActive: true } })
+        : await tx.plan.findFirst({ where: { code: 'school-license', isActive: true } });
       const tenant = await tx.tenant.create({
         data: {
           name: input.name,
@@ -41,6 +43,11 @@ export class ProvisioningService {
         },
       });
       await createSystemRoles(tx, tenant.id);
+      if (plan) {
+        await tx.subscription.create({
+          data: { tenantId: tenant.id, planId: plan.id, status: 'TRIALING', currentPeriodStart: tenant.createdAt, currentPeriodEnd: tenant.trialEndsAt! },
+        });
+      }
       await tx.branch.create({ data: { tenantId: tenant.id, name: 'Main Campus', code: 'MAIN', isMain: true } });
 
       const admin = await tx.user.upsert({

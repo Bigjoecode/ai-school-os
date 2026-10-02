@@ -165,3 +165,13 @@ export const api = {
   put: <T>(path: string, body?: unknown) => request<T>(path, { method: 'PUT', body }),
   delete: <T = void>(path: string) => request<T>(path, { method: 'DELETE' }),
 };
+
+/**
+ * The API answers 403 `{ code: 'FEATURE_NOT_IN_PLAN', feature }` when a module
+ * isn't in the school's plan. Returns that feature key, or null for any other error.
+ */
+export function notInPlanFeature(error: unknown): string | null {
+  if (!(error instanceof ApiError) || error.status !== 403) return null;
+  if (error.details.code !== 'FEATURE_NOT_IN_PLAN') return null;
+  return typeof error.details.feature === 'string' ? error.details.feature : '';
+}

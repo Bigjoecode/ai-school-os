@@ -6,6 +6,7 @@ import {
   type Permission,
   type PlatformRole,
 } from '@aischool/shared';
+import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface ResolvedAccess {
@@ -45,7 +46,10 @@ const BLOCKED_TENANT_STATUSES = new Set(['SUSPENDED', 'ARCHIVED']);
  */
 @Injectable()
 export class AccessService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly features: FeatureService,
+  ) {}
 
   async resolve(userId: string, tenantId: string | null): Promise<ResolvedAccess | null> {
     const user = await this.prisma.root.user.findUnique({
@@ -136,6 +140,7 @@ export class AccessService {
       tenant,
       roles: access.roles,
       permissions: [...access.permissions],
+      features: access.tenant ? await this.features.enabledKeys(access.tenant.id) : [],
       memberships: await this.memberships(userId),
     };
   }

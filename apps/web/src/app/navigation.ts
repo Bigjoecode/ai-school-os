@@ -71,7 +71,7 @@ import {
   Video,
   Wallet,
 } from 'lucide-react';
-import { CalendarCheck2, GalleryVerticalEnd, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
+import { CalendarCheck2, FileUp, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -81,6 +81,10 @@ export interface NavItem {
   permission?: Permission;
   /** Every one of these is also needed (mirrors API gates that check several permissions). */
   requires?: Permission[];
+  /** Shown when the user holds every permission of at least one of these sets. */
+  anyOf?: Permission[][];
+  /** A live indicator rendered beside the label (e.g. setup progress). */
+  badge?: 'setup';
   /** Module not built yet — renders the Coming Soon page. */
   soon?: boolean;
   /** 'family': only for parents and students (members without school.read), keeping staff navs tidy. */
@@ -101,6 +105,14 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
+      { label: 'Setup', to: '/setup', icon: Rocket, permission: 'academics.manage', badge: 'setup', keywords: 'onboarding getting started checklist new school year terms classes subjects' },
+      {
+        label: 'Import data',
+        to: '/import',
+        icon: FileUp,
+        anyOf: [['students.manage', 'guardians.manage'], ['staff.manage'], ['results.enter', 'results.publish']],
+        keywords: 'csv excel spreadsheet upload bulk students parents staff results migrate',
+      },
       { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', keywords: 'assistant chat' },
       { label: 'My learning', to: '/learning', icon: BookOpenCheck, feature: 'live_classes', audience: 'family', keywords: 'homework live classes class notes revision summaries' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
@@ -322,6 +334,7 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
       if (i.soon && !hasPermission(me, 'school.read')) return false;
       if (i.audience === 'family' && hasPermission(me, 'school.read')) return false;
       if (i.requires && !i.requires.every((p) => hasPermission(me, p))) return false;
+      if (i.anyOf && !i.anyOf.some((set) => set.every((p) => hasPermission(me, p)))) return false;
       // Modules outside the school's plan disappear from the menu.
       if (i.feature && !hasFeature(me, i.feature)) return false;
       return !i.permission || hasPermission(me, i.permission);

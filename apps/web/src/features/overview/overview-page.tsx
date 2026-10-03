@@ -43,6 +43,7 @@ import { AiSchoolCards } from '../ai/ai-school-cards';
 import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
+import { SetupProgressCard } from '../onboarding/ui';
 import { OperationsCard } from '../operations/operations-card';
 import { TodayClassesCard } from '../timetable/today-card';
 
@@ -171,6 +172,7 @@ function SchoolOverview() {
     <Page>
       <Greeting data={data} loading={isLoading} />
       <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
+        <SetupProgressCard />
         <Kpis data={data} />
         <PendingLeaveNotice />
         <motion.div variants={item}>

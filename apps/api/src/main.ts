@@ -26,6 +26,8 @@ async function bootstrap() {
   // Behind cPanel's Apache/Passenger (and any other proxy): trust the first
   // hop so req.ip and secure cookies see the real client and scheme.
   app.set('trust proxy', 1);
+  // CSV imports send a whole school's student list as JSON (the default limit is 100 KB).
+  app.useBodyParser('json', { limit: '6mb' });
   app.use(helmet());
   app.use(cookieParser());
 

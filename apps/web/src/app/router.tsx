@@ -13,6 +13,8 @@ const UsagePage = lazy(() => import('@/features/ai/usage-page'));
 const StudentsPage = lazy(() => import('@/features/students/students-page'));
 const ParentsPage = lazy(() => import('@/features/guardians/parents-page'));
 const StaffPage = lazy(() => import('@/features/staff/staff-page'));
+const SetupPage = lazy(() => import('@/features/onboarding/setup-page'));
+const ImportPage = lazy(() => import('@/features/onboarding/import-page'));
 const AcademicsPage = lazy(() => import('@/features/academics/academics-page'));
 const CurriculumPage = lazy(() => import('@/features/curriculum/curriculum-page'));
 const CurriculumDetailPage = lazy(() => import('@/features/curriculum/curriculum-detail-page'));
@@ -223,6 +225,19 @@ export const router = createBrowserRouter([
             <StaffPage />
           </RequirePermission>
         ),
+      },
+      {
+        path: 'setup',
+        element: (
+          <RequirePermission permission="academics.manage">
+            <SetupPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        // Each tab checks its own permissions; the page explains when none apply.
+        path: 'import',
+        element: <ImportPage />,
       },
       {
         path: 'academics',

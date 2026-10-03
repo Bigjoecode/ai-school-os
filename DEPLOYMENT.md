@@ -209,6 +209,21 @@ AI spend is metered on every call, including the console's own AI
 briefing and support drafts. **Platform → System health** checks the
 database, AI providers, encryption key, cron job, error rate and queues.
 
+## Onboarding a school
+
+1. **Platform → Schools → New school** creates the school and its first admin.
+2. The admin signs in and opens **Setup**: one form each for the academic
+   year and terms, classes (Nursery, Primary, JSS, SS templates with your arm
+   names) and subjects (the Nigerian curriculum, ticked per stage).
+3. **Import data** takes CSV files (in Excel: File → Save as → CSV UTF-8):
+   students with their parents, staff, and past results. Download the
+   template, upload, check the preview (errors are shown per line and left
+   out), then import. Parents are matched by phone, so siblings share one
+   parent; re-uploading a corrected file skips students already imported.
+   Ticking "give logins" returns a one-time file of emails and passwords to
+   hand out privately; passwords are not stored in plain text and can't be
+   shown again.
+
 ## Parent payments, sponsorships and the knowledge base
 
 Parents pay for AI Student Plus/Family/Pro and Exam Prep from the **Family**

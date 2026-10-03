@@ -52,6 +52,7 @@ export const queryClient = new QueryClient({
 /** Canonical query keys, one namespace per resource. */
 export const qk = {
   overview: ['overview'] as const,
+  setup: ['setup'] as const,
   school: ['school'] as const,
   structure: ['academics', 'structure'] as const,
   students: (params?: object) => (params ? (['students', params] as const) : (['students'] as const)),

@@ -264,3 +264,9 @@ Deployment: see [DEPLOYMENT.md](DEPLOYMENT.md).
     knowledge base the assistants and website answer from; and a
     double-entry ledger with refunds, coupons and unit economics in the
     console ✅
+16. **Onboarding** — a setup checklist with Nigerian templates for the
+    academic year, classes and subjects, and CSV imports for students with
+    their parents, staff and past results: header spellings recognised,
+    every row validated with a preview before anything is written, parents
+    de-duplicated by phone, optional portal logins, and 1,500 students in
+    about a second ✅

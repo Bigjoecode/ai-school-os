@@ -35,6 +35,8 @@ export interface RequestOptions {
   signal?: AbortSignal;
   /** Skip the refresh-and-retry dance (used by auth endpoints themselves). */
   noRefresh?: boolean;
+  /** Return the response body as text (CSV downloads) instead of parsing JSON. */
+  text?: boolean;
 }
 
 const BASE = '/api';
@@ -52,7 +54,7 @@ function buildUrl(path: string, query?: Record<string, QueryValue>): string {
 }
 
 async function send(path: string, opts: RequestOptions): Promise<Response> {
-  const headers: Record<string, string> = { Accept: 'application/json' };
+  const headers: Record<string, string> = { Accept: opts.text ? 'text/csv, text/plain, */*' : 'application/json' };
   const token = useAuthStore.getState().accessToken;
   if (token) headers.Authorization = `Bearer ${token}`;
   let body: string | undefined;
@@ -153,6 +155,7 @@ export async function request<T>(path: string, opts: RequestOptions = {}): Promi
   }
 
   if (!res.ok) throw await toApiError(res);
+  if (opts.text) return (await res.text()) as T;
   return parse<T>(res);
 }
 
@@ -164,6 +167,8 @@ export const api = {
   patch: <T>(path: string, body?: unknown) => request<T>(path, { method: 'PATCH', body }),
   put: <T>(path: string, body?: unknown) => request<T>(path, { method: 'PUT', body }),
   delete: <T = void>(path: string) => request<T>(path, { method: 'DELETE' }),
+  /** GET a non-JSON body (e.g. CSV) with the same auth and refresh handling. */
+  text: (path: string, signal?: AbortSignal) => request<string>(path, { signal, text: true }),
 };
 
 /**

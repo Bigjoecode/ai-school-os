@@ -5,6 +5,7 @@ import { type NavItem, visibleNav } from '@/app/navigation';
 import { useMe } from '@/lib/auth-store';
 import { useUiStore } from '@/lib/ui-store';
 import { cn } from '@/lib/utils';
+import { SetupNavBadge } from '@/features/onboarding/ui';
 import { Tip } from '../ui/tooltip';
 import { TenantSwitcher } from './tenant-switcher';
 
@@ -50,6 +51,7 @@ function NavLinkItem({ item, collapsed, onNavigate }: { item: NavItem; collapsed
       {!collapsed && (
         <>
           <span className="truncate">{item.label}</span>
+          {item.badge === 'setup' && <SetupNavBadge />}
           {item.soon && (
             <span className="ml-auto rounded-full border border-border px-1.5 text-[10px] font-medium leading-4 text-muted-foreground/80">
               Soon

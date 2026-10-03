@@ -151,7 +151,8 @@ export class CommerceService implements OnModuleInit, OnApplicationShutdown {
     const q = await this.quote(userId, input);
     if (q.alreadyCovered.length) throw new ConflictException(`${q.alreadyCovered.map((c) => c.name).join(', ')} already ${q.alreadyCovered.length === 1 ? 'has' : 'have'} this until ${q.alreadyCovered[0]!.until.slice(0, 10)}`);
     const product = await this.product(input.productCode);
-    const user = await this.prisma.root.user.findUniqueOrThrow({ where: { id: userId }, select: { email: true } });
+    const account = await this.prisma.root.user.findUniqueOrThrow({ where: { id: userId }, select: { email: true } });
+    const user = { email: input.email ?? account.email };
     const children = await this.entitlements.myChildren(userId);
     const reference = `FAM-${Date.now().toString(36)}-${randomBytes(5).toString('hex')}`.toUpperCase();
     if (q.totalKobo === 0) {

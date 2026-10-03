@@ -14,6 +14,7 @@ import {
   Calculator,
   ChartColumnStacked,
   CircleDollarSign,
+  Cpu,
   CalendarCheck,
   CalendarClock,
   CalendarDays,
@@ -93,6 +94,8 @@ export interface NavItem {
   feature?: string;
   /** Platform console area (PLATFORM_AREAS) the operator's role must allow. */
   area?: PlatformArea;
+  /** Platform console page only the super admin may open. */
+  superAdmin?: boolean;
   keywords?: string;
 }
 
@@ -317,6 +320,7 @@ export const PLATFORM_GROUP: NavGroup = {
     { label: 'Domains', to: '/platform/domains', icon: Globe2, area: 'domains', keywords: 'custom domain dns hostname cname' },
     { label: 'Support', to: '/platform/support', icon: LifeBuoy, area: 'support', keywords: 'tickets help desk queue' },
     { label: 'System health', to: '/platform/health', icon: HeartPulse, area: 'health', keywords: 'status uptime database queues errors' },
+    { label: 'AI models', to: '/platform/ai', icon: Cpu, superAdmin: true, keywords: 'openai anthropic claude gemini gpt provider fallback prices tokens reasoning caching' },
     { label: 'Feature flags', to: '/platform/flags', icon: Flag, area: 'flags', keywords: 'beta rollout modules toggles' },
     { label: 'Audit log', to: '/platform/audit', icon: ScrollText, area: 'audit', keywords: 'history activity platform' },
     { label: 'Team', to: '/platform/team', icon: Users2, keywords: 'platform staff operators' },
@@ -341,7 +345,7 @@ export function visibleNav(me: MeResponse | null): NavGroup[] {
     }),
   })).filter((g) => g.items.length > 0);
   if (me?.user.platformRole) {
-    const items = PLATFORM_GROUP.items.filter((i) => !i.area || canOpenArea(me, i.area));
+    const items = PLATFORM_GROUP.items.filter((i) => (!i.area || canOpenArea(me, i.area)) && (!i.superAdmin || me.user.platformRole === 'SUPER_ADMIN'));
     // Without a school selected the console is the whole app, so it leads.
     if (hasTenant) groups.push({ ...PLATFORM_GROUP, items });
     else return [{ ...PLATFORM_GROUP, items }];

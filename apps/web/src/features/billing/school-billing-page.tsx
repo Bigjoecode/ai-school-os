@@ -13,7 +13,7 @@ import { ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { api, errorMessage } from '@/lib/api';
-import { useCan } from '@/lib/auth-store';
+import { useAuthStore, useCan } from '@/lib/auth-store';
 import { formatDate, formatNumber } from '@/lib/format';
 import { queryClient } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,13 @@ export default function SchoolBillingPage() {
   const canSupport = useCan('support.use');
   const [transferFor, setTransferFor] = useState<Invoice | null>(null);
   const pay = useMutation({
-    mutationFn: (id: string) => api.post<{ authorizationUrl: string; reference: string }>(`/billing/invoices/${id}/pay`),
+    mutationFn: (id: string) => {
+      // Paystack needs a real address for the receipt; demo and test accounts don't have one.
+      const own = useAuthStore.getState().me?.user.email ?? '';
+      const email = /\.(demo|test|local|example|invalid)$/i.test(own) ? window.prompt('Email address for the Paystack receipt:', '')?.trim() : null;
+      if (email === undefined) return Promise.reject(new Error('Payment cancelled'));
+      return api.post<{ authorizationUrl: string; reference: string }>(`/billing/invoices/${id}/pay`, email ? { email } : {});
+    },
     onSuccess: (r) => {
       window.location.href = r.authorizationUrl;
     },

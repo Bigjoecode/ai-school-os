@@ -1,6 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { z, type ZodType } from 'zod';
 import { env } from '../../config/env';
+import { aiSettings } from '../ai-settings';
 import {
   ProviderOutputError,
   ProviderUnavailableError,
@@ -16,11 +17,12 @@ export class GeminiProvider implements AiProvider {
   private client?: GoogleGenAI;
 
   isConfigured() {
-    return Boolean(env().GEMINI_API_KEY && env().GEMINI_MODEL_STANDARD && env().GEMINI_MODEL_ADVANCED);
+    const m = aiSettings().models.gemini;
+    return Boolean(env().GEMINI_API_KEY && m.standard && m.advanced);
   }
 
   modelFor(tier: AiTier) {
-    return (tier === 'advanced' ? env().GEMINI_MODEL_ADVANCED : env().GEMINI_MODEL_STANDARD) ?? '';
+    return aiSettings().models.gemini[tier];
   }
 
   generate(req: AiRequest): Promise<AiResult> {

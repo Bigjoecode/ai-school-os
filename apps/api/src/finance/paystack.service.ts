@@ -140,6 +140,7 @@ export class PaystackService {
     const json = (await res.json().catch(() => null)) as PaystackEnvelope<T> | null;
     if (res.status === 401) throw new BadRequestException('Paystack rejected the secret key');
     if (!res.ok || !json?.status) {
+      if (/email/i.test(json?.message ?? '')) throw new BadRequestException('Paystack needs a real email address for the receipt. Enter one and try again.');
       throw new BadGatewayException(`Paystack: ${json?.message ?? `HTTP ${res.status}`}`);
     }
     return json.data;

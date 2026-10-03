@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
 import type { ZodType } from 'zod';
 import { env } from '../../config/env';
+import { aiSettings } from '../ai-settings';
 import {
   ProviderOutputError,
   ProviderUnavailableError,
@@ -15,11 +16,6 @@ import {
   type ToolRunner,
 } from './provider';
 
-const MODELS: Record<AiTier, string> = {
-  standard: 'claude-haiku-4-5',
-  advanced: 'claude-opus-5-5',
-};
-
 const REFUSAL_TEXT = "I can't help with that request. Please rephrase it or ask about something else.";
 
 export class AnthropicProvider implements AiProvider {
@@ -31,9 +27,22 @@ export class AnthropicProvider implements AiProvider {
   }
 
   modelFor(tier: AiTier) {
-    return tier === 'advanced'
-      ? (env().ANTHROPIC_MODEL_ADVANCED ?? MODELS.advanced)
-      : (env().ANTHROPIC_MODEL_STANDARD ?? MODELS.standard);
+    return aiSettings().models.anthropic[tier];
+  }
+
+  /**
+   * Prompt caching for conversations (several turns) and tool loops: the
+   * instructions get their own cache point, and the automatic one follows
+   * the growing conversation, so each turn re-reads the earlier ones at a
+   * tenth of the price. One-shot requests aren't cached: nothing would
+   * read the entry back.
+   */
+  private caching(req: AiRequest, conversational: boolean) {
+    if (!aiSettings().promptCaching || !conversational) return { system: req.system };
+    return {
+      system: [{ type: 'text' as const, text: req.system, cache_control: { type: 'ephemeral' as const } }],
+      cache_control: { type: 'ephemeral' as const },
+    };
   }
 
   async generate(req: AiRequest): Promise<AiResult> {
@@ -42,7 +51,7 @@ export class AnthropicProvider implements AiProvider {
       this.sdk().beta.messages.create({
         model,
         max_tokens: req.maxOutputTokens ?? 16000,
-        system: req.system,
+        ...this.caching(req, req.messages.length > 1),
         messages: this.messages(req),
         ...fallbacksFor(model),
       }),
@@ -89,14 +98,14 @@ export class AnthropicProvider implements AiProvider {
       input_schema: t.inputSchema as Anthropic.Beta.BetaTool.InputSchema,
     }));
     const messages: Anthropic.Beta.BetaMessageParam[] = this.messages(req);
-    const total: AiToolResult = { text: '', model, inputTokens: 0, outputTokens: 0, steps: 0 };
+    const total: AiToolResult = { text: '', model, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, steps: 0 };
     for (let step = 0; step < maxSteps; step++) {
       const lastStep = step === maxSteps - 1;
       const response = await this.call(() =>
         this.sdk().beta.messages.create({
           model,
           max_tokens: req.maxOutputTokens ?? 16000,
-          system: req.system,
+          ...this.caching(req, true),
           messages,
           tools: defs,
           // On the last allowed request, answer with what has been gathered.
@@ -108,6 +117,8 @@ export class AnthropicProvider implements AiProvider {
       total.model = response.model;
       total.inputTokens += response.usage.input_tokens;
       total.outputTokens += response.usage.output_tokens;
+      total.cacheReadTokens = (total.cacheReadTokens ?? 0) + (response.usage.cache_read_input_tokens ?? 0);
+      total.cacheWriteTokens = (total.cacheWriteTokens ?? 0) + (response.usage.cache_creation_input_tokens ?? 0);
       const text = response.content
         .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
         .map((b) => b.text)
@@ -161,7 +172,11 @@ export class AnthropicProvider implements AiProvider {
       if (
         err instanceof Anthropic.RateLimitError ||
         err instanceof Anthropic.InternalServerError ||
-        err instanceof Anthropic.APIConnectionError
+        err instanceof Anthropic.APIConnectionError ||
+        // A wrong key or model name: let the next provider answer instead of failing.
+        err instanceof Anthropic.AuthenticationError ||
+        err instanceof Anthropic.PermissionDeniedError ||
+        err instanceof Anthropic.NotFoundError
       ) {
         throw new ProviderUnavailableError(this.name, err);
       }
@@ -186,5 +201,7 @@ function usage(response: Anthropic.Beta.BetaMessage): AiResult {
     model: response.model,
     inputTokens: response.usage.input_tokens,
     outputTokens: response.usage.output_tokens,
+    cacheReadTokens: response.usage.cache_read_input_tokens ?? 0,
+    cacheWriteTokens: response.usage.cache_creation_input_tokens ?? 0,
   };
 }

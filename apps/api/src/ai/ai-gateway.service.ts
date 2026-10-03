@@ -1,4 +1,7 @@
-import { HttpException, HttpStatus, Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger, OnApplicationShutdown, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
+import type { AiSettings } from '@aischool/shared';
+import { AlertService } from '../alerts/alerts.service';
+import { aiSettings, mergeAiSettings, setAiSettings } from './ai-settings';
 import { env } from '../config/env';
 import { RequestContextStore, currentContext, currentTenantId } from '../common/request-context';
 import { FeatureService } from '../features/features.service';
@@ -29,24 +32,55 @@ export interface GatewayResult extends AiResult {
  *    falling through to the next provider on outages and rate limits,
  *  - checks the school's plan includes AI and enforces its monthly AI
  *    budget before calling out (console calls have no school and no budget),
- *  - writes one AiUsage row per call (tokens, cost, latency, success).
+ *  - writes one AiUsage row per call (tokens, cache, cost, latency, success).
+ * Which models each tier uses, the provider order and prices come from
+ * Platform → AI models (refreshed every 30 seconds), over the environment.
  */
 @Injectable()
-export class AiGatewayService {
+export class AiGatewayService implements OnModuleInit, OnApplicationShutdown {
   private readonly logger = new Logger(AiGatewayService.name);
-  private readonly providers: AiProvider[];
+  private readonly all: AiProvider[] = [new AnthropicProvider(), new OpenAiProvider(), new GeminiProvider()];
+  private readonly fake = env().AI_FAKE_PROVIDER ? new FakeProvider() : null;
+  private timer: NodeJS.Timeout | null = null;
 
   constructor(
     private readonly prisma: PrismaService,
     private readonly features: FeatureService,
-  ) {
-    const all: AiProvider[] = [new AnthropicProvider(), new OpenAiProvider(), new GeminiProvider()];
-    const order = env()
-      .AI_PROVIDER_ORDER.split(',')
-      .map((s) => s.trim());
-    this.providers = [...all].sort((a, b) => rank(order, a.name) - rank(order, b.name));
-    // Development placeholder goes first so it never spends real credit.
-    if (env().AI_FAKE_PROVIDER) this.providers.unshift(new FakeProvider());
+    private readonly alerts: AlertService,
+  ) {}
+
+  async onModuleInit() {
+    await this.reloadSettings();
+    if (env().NODE_ENV === 'test') return;
+    this.timer = setInterval(() => void this.reloadSettings(), 30_000);
+    this.timer.unref();
+  }
+
+  onApplicationShutdown() {
+    if (this.timer) clearInterval(this.timer);
+  }
+
+  /** Reads Platform → AI models into memory; keeps the last good settings if the read fails. */
+  async reloadSettings(): Promise<AiSettings> {
+    try {
+      const row = await this.prisma.root.platformSetting.findUnique({ where: { key: 'ai' } });
+      setAiSettings(mergeAiSettings(row?.value));
+    } catch (err) {
+      this.logger.warn(`AI settings not refreshed: ${(err as Error).message}`);
+    }
+    return aiSettings();
+  }
+
+  /** Providers in the configured order; the development placeholder goes first so it never spends real credit. */
+  private get providers(): AiProvider[] {
+    const order = aiSettings().order;
+    const sorted = [...this.all].sort((a, b) => rank(order, a.name) - rank(order, b.name));
+    return this.fake ? [this.fake, ...sorted] : sorted;
+  }
+
+  /** One provider directly (the console's "Test" button), bypassing the order and fallbacks. */
+  provider(name: string): AiProvider | undefined {
+    return this.all.find((p) => p.name === name);
   }
 
   configuredProviders(): string[] {
@@ -142,6 +176,7 @@ export class AiGatewayService {
         await this.recordFailure(agent, provider.name, provider.modelFor(req.tier), err, Date.now() - started);
         if (err instanceof ProviderUnavailableError) {
           this.logger.warn(`${err.message}; trying the next provider`);
+          this.alerts.raise('ai', `unavailable:${provider.name}`, `${provider.name} AI requests are failing`, `${err.message}\n\nRequests fell back to the next provider in Platform → AI models. Check the API key, credit and model names.`);
           continue;
         }
         if (err instanceof ProviderOutputError) {
@@ -156,8 +191,11 @@ export class AiGatewayService {
   }
 
   private async record(agent: string, provider: string, r: AiResult, latencyMs: number) {
-    const { cost, known } = costUsd(r.model, r.inputTokens, r.outputTokens);
-    if (!known && provider !== 'fake') this.logger.warn(`No price for model ${r.model}; set AI_PRICES so budgets count it`);
+    const { cost, known } = costUsd(r.model, r.inputTokens, r.outputTokens, { read: r.cacheReadTokens, write: r.cacheWriteTokens });
+    if (!known && provider !== 'fake') {
+      this.logger.warn(`No price for model ${r.model}; add it in Platform → AI models so budgets count it`);
+      this.alerts.raise('ai', `unpriced:${r.model}`, `No price set for ${r.model}`, `AI calls to ${r.model} are recorded at $0, so school budgets and unit economics can't see their cost. Add its price in Platform → AI models.`);
+    }
     await this.prisma.root.aiUsage.create({
       data: {
         tenantId: RequestContextStore.get()?.tenantId ?? null,
@@ -169,6 +207,8 @@ export class AiGatewayService {
         model: r.model,
         inputTokens: r.inputTokens,
         outputTokens: r.outputTokens,
+        cacheReadTokens: r.cacheReadTokens ?? 0,
+        cacheWriteTokens: r.cacheWriteTokens ?? 0,
         costUsd: cost,
         latencyMs,
       },

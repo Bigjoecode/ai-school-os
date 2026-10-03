@@ -117,6 +117,8 @@ export const checkoutSchema = z.object({
   studentIds: z.array(z.string().min(1)).min(1).max(10),
   couponCode: z.string().trim().toUpperCase().max(30).nullish().transform((v) => v || null),
   autoRenew: z.boolean().default(true),
+  /** Where Paystack sends the receipt (defaults to the account's email). */
+  email: z.email().trim().toLowerCase().max(160).nullish().transform((v) => v || null),
 });
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
 export interface CheckoutQuote {

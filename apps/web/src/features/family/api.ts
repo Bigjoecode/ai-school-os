@@ -15,6 +15,7 @@ export interface CheckoutBody {
   studentIds: string[];
   couponCode?: string | null;
   autoRenew: boolean;
+  email?: string | null;
 }
 
 export const fk = {

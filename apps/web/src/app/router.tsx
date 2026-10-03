@@ -100,6 +100,7 @@ const ConsoleUnitEconomicsPage = lazy(() => import('@/features/platform/unit-eco
 const ConsoleProductsPage = lazy(() => import('@/features/platform/products-page'));
 const ConsoleFamilyPage = lazy(() => import('@/features/platform/family-page'));
 const ConsoleContentPage = lazy(() => import('@/features/platform/content-page'));
+const ConsoleAiModelsPage = lazy(() => import('@/features/platform/ai-models-page'));
 const SponsorshipsPage = lazy(() => import('@/features/sponsorships/sponsorships-page'));
 const KnowledgePage = lazy(() => import('@/features/knowledge/knowledge-page'));
 const WebsiteLayout = lazy(() => import('@/features/website/website-layout'));
@@ -638,6 +639,14 @@ export const router = createBrowserRouter(withRouteErrors([
         path,
         element: <RequirePlatform area={area}>{page}</RequirePlatform>,
       })),
+      {
+        path: 'platform/ai',
+        element: (
+          <RequirePlatform superAdmin>
+            <ConsoleAiModelsPage />
+          </RequirePlatform>
+        ),
+      },
       { path: 'platform/tenants', element: <Navigate to="/platform/schools" replace /> },
       ...Object.keys(UPCOMING_MODULES).map((path) => ({
         path: path.slice(1),

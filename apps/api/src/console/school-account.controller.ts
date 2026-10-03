@@ -79,9 +79,9 @@ export class SchoolBillingController {
   @HttpCode(200)
   @RequirePermissions('billing.manage')
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
-  async pay(@Param('id') id: string, @Req() req: Request) {
+  async pay(@Param('id') id: string, @Req() req: Request, @Body(new ZodPipe(z.object({ email: z.email().trim().toLowerCase().max(160).nullish() }).default({}))) body: { email?: string | null }) {
     const user = await this.prisma.root.user.findUniqueOrThrow({ where: { id: currentUserId() }, select: { email: true } });
-    return this.billing.startOnline(currentTenantId(), id, user.email, `${siteOrigin(req)}/settings/billing?paid=1`);
+    return this.billing.startOnline(currentTenantId(), id, body.email || user.email, `${siteOrigin(req)}/settings/billing?paid=1`);
   }
 
   @Get('verify')

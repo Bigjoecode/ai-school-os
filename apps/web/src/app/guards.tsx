@@ -83,10 +83,10 @@ function ConsoleNoAccess() {
   );
 }
 
-/** Platform staff only; with `area`, only the roles PLATFORM_AREAS lists for it. */
-export function RequirePlatform({ area, children }: { area?: PlatformArea; children: ReactNode }) {
+/** Platform staff only; with `area`, only the roles PLATFORM_AREAS lists for it; with `superAdmin`, only the super admin. */
+export function RequirePlatform({ area, superAdmin, children }: { area?: PlatformArea; superAdmin?: boolean; children: ReactNode }) {
   const role = useAuthStore((s) => s.me?.user.platformRole ?? null);
-  const allowed = useAuthStore((s) => (area ? canOpenArea(s.me, area) : !!s.me?.user.platformRole));
+  const allowed = useAuthStore((s) => (superAdmin ? s.me?.user.platformRole === 'SUPER_ADMIN' : area ? canOpenArea(s.me, area) : !!s.me?.user.platformRole));
   if (!role) return <NoAccess />;
   return allowed ? <>{children}</> : <ConsoleNoAccess />;
 }

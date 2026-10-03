@@ -62,7 +62,7 @@ Then add these **environment variables** and click **Create**:
 | `BOOTSTRAP_OWNER_EMAIL` | your email — becomes the platform super admin |
 | `BOOTSTRAP_OWNER_PASSWORD` | a strong password (12+ characters) |
 | `SEED_DEMO_ON_BOOT` | `true` to load the Greenfield demo school, otherwise `false` |
-| `ANTHROPIC_API_KEY` | optional — turns on the AI assistants |
+| `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` | AI providers: set one or both (see *AI providers* below) |
 | `CRON_SECRET` | another long random string — lets the cron job below send scheduled messages and automations |
 | `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | optional — browser push notifications. Generate once on your computer with `npx web-push generate-vapid-keys`; **never change them** afterwards |
 | `VAPID_SUBJECT` | `mailto:` + your email, if you set the VAPID keys |
@@ -208,6 +208,28 @@ team receives by transfer are recorded against the invoice in
 AI spend is metered on every call, including the console's own AI
 briefing and support drafts. **Platform → System health** checks the
 database, AI providers, encryption key, cron job, error rate and queues.
+
+## AI providers
+
+Every AI feature asks for a tier, never a model: **Standard** (tutoring,
+assistants, drafts) or **Advanced** (deeper explanations, AI Pro,
+briefings). **Platform → AI models** decides which model each tier uses for
+each provider, which provider is tried first, and the prices used for cost
+tracking, budgets and unit economics. Changes apply within seconds; no
+redeploy.
+
+1. Add the API keys to the Node.js app (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`,
+   optionally `GEMINI_API_KEY`) and restart. Keys are never stored in the
+   database or shown in the console.
+2. In **Platform → AI models**, set the order (e.g. OpenAI first, Anthropic
+   as backup), check the model names and prices against the providers'
+   pricing pages, and press **Test** on each provider and tier.
+
+If the first provider fails (outage, rate limit, wrong key or model name),
+the next one answers and you get an email alert. Conversations use prompt
+caching (Anthropic explicitly; OpenAI automatically), so repeated
+instructions and history are billed at a fraction of the price. A model
+used without a price is costed at $0 and triggers an alert: add its price.
 
 ## Email alerts and the demo accounts
 

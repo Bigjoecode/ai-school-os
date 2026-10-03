@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/lib/auth-store';
 import { PRODUCT_PERIOD_LABELS, type FamilyChild, type FamilyOrderRow, type FamilySubscriptionRow, type ProductRow, type StudentAccess } from '@aischool/shared';
 import { AlertTriangle, ArrowRight, Check, CheckCircle2, CreditCard, GraduationCap, Info, MessageCircleQuestion, Receipt, RefreshCw, School, ShoppingBag, Sparkles, Trophy, Users, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -320,8 +321,11 @@ function BuyDialog({ product, kids, onClose }: { product: ProductRow; kids: Fami
   const [coupon, setCoupon] = useState<string | null>(null);
   const [autoRenew, setAutoRenew] = useState(product.period !== 'ONE_OFF');
   const [done, setDone] = useState(false);
+  const accountEmail = useAuthStore((st) => st.me?.user.email ?? '');
+  const [email, setEmail] = useState(accountEmail);
   const body: CheckoutBody = { productCode: product.code, studentIds: selected, couponCode: coupon, autoRenew };
   const key = JSON.stringify(body);
+  const emailOk = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email.trim());
 
   useEffect(() => {
     if (selected.length === 0) return;
@@ -341,7 +345,7 @@ function BuyDialog({ product, kids, onClose }: { product: ProductRow; kids: Fami
   const couponBad = !!coupon && quote.isError;
 
   const pay = () =>
-    checkout.mutate(body, {
+    checkout.mutate({ ...body, email: email.trim() || null }, {
       onSuccess: (r) => {
         if (r.authorizationUrl) window.location.assign(r.authorizationUrl);
         else {
@@ -395,6 +399,13 @@ function BuyDialog({ product, kids, onClose }: { product: ProductRow; kids: Fami
                     );
                   })}
                 </ul>
+              </div>
+              <div>
+                <label htmlFor="receipt-email" className="mb-2 block text-[13px] font-medium">
+                  Email for the receipt
+                </label>
+                <Input id="receipt-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+                {!emailOk && <p className="mt-1.5 text-[12.5px] text-danger">Enter a real email address: Paystack sends your receipt there.</p>}
               </div>
               <div>
                 <p className="mb-2 text-[13px] font-medium">Coupon</p>
@@ -480,7 +491,7 @@ function BuyDialog({ product, kids, onClose }: { product: ProductRow; kids: Fami
               <Button variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button onClick={pay} loading={checkout.isPending} disabled={selected.length === 0 || !qd || quote.isPending || couponBad || covered.length > 0}>
+              <Button onClick={pay} loading={checkout.isPending} disabled={selected.length === 0 || !qd || quote.isPending || couponBad || covered.length > 0 || (!emailOk && qd.totalKobo > 0)}>
                 <CreditCard /> {qd && qd.totalKobo === 0 ? 'Confirm' : `Pay ${qd ? naira(qd.totalKobo) : ''}`}
               </Button>
             </DialogFooter>

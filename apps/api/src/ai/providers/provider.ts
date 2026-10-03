@@ -29,8 +29,13 @@ export interface AiRequest {
 export interface AiResult {
   text: string;
   model: string;
+  /** Uncached input tokens. */
   inputTokens: number;
   outputTokens: number;
+  /** Input served from the provider's prompt cache (billed at a fraction). */
+  cacheReadTokens?: number;
+  /** Input written to the prompt cache (Anthropic bills a small premium). */
+  cacheWriteTokens?: number;
 }
 
 export interface AiJsonResult<T> extends AiResult {

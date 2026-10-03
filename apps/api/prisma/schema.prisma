@@ -788,22 +788,25 @@ model Staff {
 /// Budgets and per-plan limits read from here.
 /// tenantId is null for the operator console's own AI calls.
 model AiUsage {
-  id           String   @id @default(cuid())
-  tenantId     String?
-  userId       String?
-  agent        String
-  provider     String
-  model        String
-  inputTokens  Int      @default(0)
-  outputTokens Int      @default(0)
-  costUsd      Decimal  @default(0) @db.Decimal(12, 6)
+  id               String   @id @default(cuid())
+  tenantId         String?
+  userId           String?
+  agent            String
+  provider         String
+  model            String
+  /// Uncached input tokens (cached reads and writes are counted separately).
+  inputTokens      Int      @default(0)
+  outputTokens     Int      @default(0)
+  cacheReadTokens  Int      @default(0)
+  cacheWriteTokens Int      @default(0)
+  costUsd          Decimal  @default(0) @db.Decimal(12, 6)
   /// Student AI: whose allowance this used, and on which tier.
-  studentId    String?
-  aiTier       String?
-  latencyMs    Int      @default(0)
-  success      Boolean  @default(true)
-  error        String?
-  createdAt    DateTime @default(now())
+  studentId        String?
+  aiTier           String?
+  latencyMs        Int      @default(0)
+  success          Boolean  @default(true)
+  error            String?
+  createdAt        DateTime @default(now())
 
   tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
@@ -3126,4 +3129,14 @@ model Refund {
 
   @@index([sourceType, sourceId])
   @@map("refunds")
+}
+
+/// Platform-wide settings edited in the console (e.g. "ai": which models each tier uses, and their prices).
+model PlatformSetting {
+  key       String   @id
+  value     Json
+  updatedBy String?
+  updatedAt DateTime @updatedAt
+
+  @@map("platform_settings")
 }

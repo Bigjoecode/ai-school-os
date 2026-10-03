@@ -5,6 +5,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
 import { AiGatewayService } from './ai-gateway.service';
 import { AiJobsService } from './ai-jobs.service';
 import { AiService } from './ai.service';
+import { AiSettingsController } from './ai-settings.controller';
 import { GenerationQueue } from './generation-queue';
 
 @Controller('ai')
@@ -30,7 +31,7 @@ export class AiController {
 
 @Module({
   imports: [DashboardModule],
-  controllers: [AiController],
+  controllers: [AiController, AiSettingsController],
   providers: [AiGatewayService, AiService, GenerationQueue, AiJobsService],
   exports: [AiGatewayService, GenerationQueue, AiJobsService, AiService],
 })

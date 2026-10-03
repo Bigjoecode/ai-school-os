@@ -30,7 +30,9 @@ const VALUE_PROPS = [
 const DEMOS = [
   { label: 'School admin', email: 'admin@greenfield.demo', password: 'Greenfield#2026', school: 'greenfield' },
   { label: 'Principal', email: 'principal@greenfield.demo', password: 'Greenfield#2026', school: 'greenfield' },
+  { label: 'Teacher', email: 'teacher@greenfield.demo', password: 'Greenfield#2026', school: 'greenfield' },
   { label: 'Parent (two schools)', email: 'parent@greenfield.demo', password: 'Greenfield#2026', school: '' },
+  { label: 'Student (AI Plus)', email: 'student@greenfield.demo', password: 'Greenfield#2026', school: 'greenfield' },
   ...(import.meta.env.DEV
     ? [{ label: 'Platform owner (local)', email: 'owner@aischool.os', password: 'AiSchoolOS#2026', school: '' }]
     : []),

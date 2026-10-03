@@ -26,6 +26,18 @@ const schema = z.object({
     .string()
     .default('false')
     .transform((v) => v === 'true' || v === '1'),
+  /** Show the demo accounts box on the login page (default: on when the demo school is loaded). Set false before real schools join. */
+  SHOW_DEMO_ACCOUNTS: z
+    .string()
+    .optional()
+    .transform((v) => (v === undefined || v === '' ? undefined : v === 'true' || v === '1')),
+  /** Operator alerts: where to email problems, and the platform's own mail server (e.g. a cPanel mailbox). */
+  ALERT_EMAIL: z.string().optional(),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().default(465),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL_STANDARD: z.string().optional(),
   ANTHROPIC_MODEL_ADVANCED: z.string().optional(),

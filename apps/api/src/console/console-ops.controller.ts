@@ -30,6 +30,7 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
+import { AlertService, sendAlertNow } from '../alerts/alerts.service';
 import { AuditService } from '../audit/audit.service';
 import { RequirePlatformRole } from '../common/decorators';
 import { dateOnly, fullName } from '../common/format';
@@ -59,7 +60,22 @@ export class ConsoleOpsController {
     private readonly gateway: AiGatewayService,
     private readonly support: SupportService,
     private readonly audit: AuditService,
+    private readonly alerts: AlertService,
   ) {}
+
+  /** Sends a test alert so the operator can confirm the mail settings. */
+  @Post('alerts/test')
+  @HttpCode(200)
+  @RequirePlatformRole('SUPER_ADMIN')
+  async testAlert() {
+    if (!this.alerts.enabled()) throw new BadRequestException('Email alerts are not set up: add ALERT_EMAIL and SMTP_HOST, SMTP_USER and SMTP_PASSWORD to the server settings');
+    try {
+      await sendAlertNow('Test alert', `This is a test from ${env().PLATFORM_DOMAIN_TARGET ?? 'AI School OS'}. Alerts are working.`);
+    } catch (err) {
+      throw new BadRequestException(`The mail server refused: ${(err as Error).message}`);
+    }
+    return { sent: true, to: env().ALERT_EMAIL };
+  }
 
   // ---------------------------------------------------------- usage
 
@@ -408,6 +424,7 @@ export class ConsoleOpsController {
       { key: 'billing', label: 'Subscription payments', status: e.PLATFORM_PAYSTACK_SECRET_KEY ? 'ok' : 'warn', detail: e.PLATFORM_PAYSTACK_SECRET_KEY ? 'Schools can pay online' : 'PLATFORM_PAYSTACK_SECRET_KEY not set: schools pay by bank transfer only' },
       { key: 'errors', label: 'Server errors (24h)', status: !requests || serverErrors / requests < 0.01 ? 'ok' : serverErrors / requests < 0.05 ? 'warn' : 'fail', detail: `${serverErrors} of ${requests} requests` },
       { key: 'queues', label: 'Background work', status: stuck ? 'warn' : 'ok', detail: stuck ? `${stuck} AI jobs waiting over 30 minutes` : `${aiPending} AI jobs, ${queued} messages in the queue` },
+      { key: 'alerts', label: 'Email alerts', status: this.alerts.enabled() ? 'ok' : 'warn', detail: this.alerts.enabled() ? `Problems are emailed to ${e.ALERT_EMAIL}` : 'Set ALERT_EMAIL and SMTP_HOST/USER/PASSWORD to be emailed when something breaks' },
       { key: 'memory', label: 'Memory', status: mem.rss < 900 * 1048576 ? 'ok' : 'warn', detail: `${Math.round(mem.rss / 1048576)} MB in use` },
     ];
     const worst = checks.some((c) => c.status === 'fail') ? 'fail' : checks.some((c) => c.status === 'warn') ? 'warn' : 'ok';

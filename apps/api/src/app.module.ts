@@ -13,6 +13,8 @@ import { CommsModule } from './comms/comms.module';
 import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
 import { FilesModule } from './files/files.module';
+import { AlertsModule } from './alerts/alerts.service';
+import { env } from './config/env';
 import { FeaturesModule } from './features/features.module';
 import { apiUsageMiddleware } from './features/api-usage.service';
 import { ConsoleModule } from './console/console.module';
@@ -51,6 +53,17 @@ class HealthController {
   }
 }
 
+/** Public settings the sign-in page needs before anyone has signed in. */
+@Controller('public/config')
+class PublicConfigController {
+  @Public()
+  @Get()
+  config() {
+    const e = env();
+    return { demoAccounts: e.SHOW_DEMO_ACCOUNTS ?? e.SEED_DEMO_ON_BOOT };
+  }
+}
+
 /** Opens the per-request context store before any guard or handler runs. */
 function requestContext(req: Request, _res: Response, next: NextFunction) {
   RequestContextStore.run(
@@ -64,6 +77,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     PrismaModule,
     FeaturesModule,
+    AlertsModule,
     LedgerModule,
     EntitlementsModule,
     AuditModule,
@@ -91,7 +105,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     KnowledgeModule,
     OnboardingModule,
   ],
-  controllers: [HealthController, SchoolController, AcademicsController],
+  controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [
     // Order matters: rate limiting first, then authentication/permissions.
     { provide: APP_GUARD, useClass: ThrottlerGuard },

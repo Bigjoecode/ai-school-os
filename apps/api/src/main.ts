@@ -1,5 +1,8 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import { stat, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
@@ -8,6 +11,7 @@ import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { env } from './config/env';
 import { runBootTasks } from './prisma/boot-tasks';
+import { sendAlertNow } from './alerts/alerts.service';
 import { runMigrations } from './prisma/migrator';
 
 async function bootstrap() {
@@ -48,8 +52,16 @@ async function bootstrap() {
   logger.log(`AI School OS API listening on :${config.PORT} (${config.NODE_ENV})`);
 }
 
-bootstrap().catch((err) => {
+bootstrap().catch(async (err) => {
   // eslint-disable-next-line no-console
   console.error(err);
+  // The app can't start (bad database password, failed migration…): email the operator if alerts are set up.
+  // Passenger retries the start on every request, so send at most one of these an hour.
+  const marker = join(tmpdir(), 'ai-school-os-boot-alert');
+  const last = await stat(marker).then((s) => s.mtimeMs).catch(() => 0);
+  if (Date.now() - last > 60 * 60_000) {
+    await writeFile(marker, new Date().toISOString()).catch(() => undefined);
+    await sendAlertNow('The API failed to start', `${(err as Error)?.stack ?? String(err)}`.slice(0, 4000)).catch(() => undefined);
+  }
   process.exit(1);
 });

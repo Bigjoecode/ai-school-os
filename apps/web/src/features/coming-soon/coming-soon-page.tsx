@@ -21,7 +21,7 @@ export default function ComingSoonPage({ path }: { path: string }) {
   return (
     <Page className="flex min-h-[calc(100dvh-56px)] items-center">
       <div className="relative mx-auto w-full max-w-3xl">
-        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 size-[420px] -translate-x-1/2 rounded-full bg-brand/10 blur-[100px]" />
+        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 aspect-square w-[min(420px,100%)] -translate-x-1/2 rounded-full bg-brand/10 blur-[100px]" />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

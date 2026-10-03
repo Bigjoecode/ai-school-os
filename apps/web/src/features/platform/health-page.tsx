@@ -1,9 +1,12 @@
 import type { HealthCheck, SystemHealth } from '@aischool/shared';
-import { CheckCircle2, CircleAlert, Cpu, Database, HardDrive, Layers, RotateCw, Server, XCircle } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { CheckCircle2, CircleAlert, Cpu, Database, HardDrive, Layers, Mail, RotateCw, Server, XCircle } from 'lucide-react';
+import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { errorMessage } from '@/lib/api';
+import { api, errorMessage } from '@/lib/api';
+import { useAuthStore } from '@/lib/auth-store';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDateTime, formatNumber, formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
@@ -26,6 +29,12 @@ function uptime(seconds: number) {
 export default function HealthPage() {
   const q = useHealth();
   const h = q.data;
+  const isOwner = useAuthStore((st) => st.me?.user.platformRole === 'SUPER_ADMIN');
+  const testAlert = useMutation({
+    mutationFn: () => api.post<{ sent: boolean; to: string }>('/platform/alerts/test'),
+    onSuccess: (r) => toast.success('Test alert sent', { description: `Check ${r.to} (and the spam folder).` }),
+    onError: (e) => toast.error(errorMessage(e)),
+  });
   return (
     <Page>
       <PageHeader
@@ -33,9 +42,16 @@ export default function HealthPage() {
         title="System health"
         description="Live checks on the API, database, AI providers and background work. Refreshes every 30 seconds."
         actions={
-          <Button variant="outline" size="sm" onClick={() => void q.refetch()} loading={q.isFetching}>
-            {!q.isFetching && <RotateCw />} Check now
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            {isOwner && (
+              <Button variant="outline" size="sm" onClick={() => testAlert.mutate()} loading={testAlert.isPending}>
+                {!testAlert.isPending && <Mail />} Send test alert
+              </Button>
+            )}
+            <Button variant="outline" size="sm" onClick={() => void q.refetch()} loading={q.isFetching}>
+              {!q.isFetching && <RotateCw />} Check now
+            </Button>
+          </div>
         }
       />
       {q.error && !h ? (

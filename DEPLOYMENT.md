@@ -209,6 +209,30 @@ AI spend is metered on every call, including the console's own AI
 briefing and support drafts. **Platform → System health** checks the
 database, AI providers, encryption key, cron job, error rate and queues.
 
+## Email alerts and the demo accounts
+
+**Alerts.** Get an email when something breaks: unexpected server errors,
+the app failing to start (for example a wrong database password), and
+failing health checks every 15 minutes (database, AI failures, stuck jobs,
+messages not sending). The same problem is sent at most once an hour.
+Create a mailbox in cPanel (**Email Accounts**, e.g. `alerts@mejortechworld.com`)
+and add to the Node.js app:
+
+| Variable | Value |
+|---|---|
+| `ALERT_EMAIL` | where alerts go (comma-separate several) |
+| `SMTP_HOST` | `mail.mejortechworld.com` |
+| `SMTP_PORT` | `465` |
+| `SMTP_USER` | the mailbox, e.g. `alerts@mejortechworld.com` |
+| `SMTP_PASSWORD` | its password |
+
+Save, Restart, then **Platform → System health → Send test alert**.
+
+**Demo accounts.** The login page lists the demo logins while the demo
+school is loaded. Before real schools join, set `SHOW_DEMO_ACCOUNTS=false`
+(and `SEED_DEMO_ON_BOOT=false`), restart, and archive the demo schools in
+**Platform → Schools**.
+
 ## Onboarding a school
 
 1. **Platform → Schools → New school** creates the school and its first admin.

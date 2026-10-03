@@ -6,7 +6,8 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
+import { AlertService } from '../alerts/alerts.service';
 import { Prisma } from '../generated/prisma/client';
 
 /**
@@ -19,10 +20,17 @@ import { Prisma } from '../generated/prisma/client';
 export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger('Errors');
 
+  constructor(private readonly alerts: AlertService) {}
+
   catch(exception: unknown, host: ArgumentsHost) {
     const res = host.switchToHttp().getResponse<Response>();
+    const req = host.switchToHttp().getRequest<Request>();
     const { status, body } = this.toBody(exception);
-    if (status >= 500) this.logger.error(exception instanceof Error ? exception.stack : exception);
+    if (status >= 500) {
+      this.logger.error(exception instanceof Error ? exception.stack : exception);
+      // Deliberate 502/503s (an AI or payment provider is down) are expected; only the unexpected is alerted.
+      if (status === 500) this.alerts.serverError(req.method, req.originalUrl ?? req.url, exception);
+    }
     res.status(status).json(body);
   }
 

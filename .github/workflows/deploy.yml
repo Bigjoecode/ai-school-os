@@ -94,8 +94,14 @@ jobs:
             bye" || echo "No live .htaccess yet"
           node infrastructure/deploy/merge-htaccess.mjs live.htaccess apps/web/dist/.htaccess merged.htaccess
           cp merged.htaccess apps/web/dist/.htaccess
+          # Hashed code files are added, never deleted, so a tab opened before
+          # this deploy still finds the files it asks for (they are small;
+          # prune assets/ by hand once a year if you like). Then everything
+          # else, removing stale non-asset files.
           sftp_cmd "
+            mirror --reverse --parallel=4 apps/web/dist/assets '$DEPLOY_PATH/assets';
             mirror --reverse --delete --parallel=4 \
+              --exclude-glob assets/ \
               --exclude-glob api/ --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
               --exclude-glob .user.ini --exclude-glob php.ini --exclude-glob error_log \
               apps/web/dist '$DEPLOY_PATH';"

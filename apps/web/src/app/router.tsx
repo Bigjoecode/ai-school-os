@@ -1,5 +1,6 @@
 import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
+import { withRouteErrors } from './route-error';
 import { AppShell } from '@/components/layout/app-shell';
 import { BootLoader } from '@/components/layout/boot-loader';
 import { RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
@@ -127,7 +128,7 @@ const AskSchoolPage = lazy(() => import('@/features/family/ask-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(withRouteErrors([
   {
     path: '/login',
     element: withSuspense(
@@ -645,4 +646,4 @@ export const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
     ],
   },
-]);
+]));

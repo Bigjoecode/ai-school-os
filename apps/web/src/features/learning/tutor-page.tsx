@@ -1,7 +1,7 @@
 import { TIER_POLICY, type AllowanceExhausted, type TutorReply } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
-import { ArrowUp, Brain, CalendarCheck2, Camera, History, Layers, Loader2, MessageSquarePlus, Sparkles, Target, X, Zap } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowUp, AudioLines, Brain, CalendarCheck2, Camera, History, Layers, Loader2, MessageSquarePlus, Sparkles, Target, X, Zap } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { Markdown } from '@/components/ai/markdown';
@@ -14,9 +14,11 @@ import { Switch } from '@/components/ui/switch';
 import { errorMessage } from '@/lib/api';
 import { useDocumentTitle } from '@/lib/hooks';
 import { formatRelative } from '@/lib/format';
-import { cn } from '@/lib/utils';
-import { allowanceError, lk, uploadQuestionPhoto, useConversation, useConversations, useLearnHome, useMastery, useTutorChat, type ConversationDetail } from './api';
+import { cn, safeStorage } from '@/lib/utils';
+import { allowanceError, lk, uploadQuestionPhoto, useConversation, useConversations, useLearnHome, useMastery, useTutorChat, useTutorVoice, type ConversationDetail } from './api';
 import { TierBadge, UpgradeCard } from './components';
+import { canSynthesise, micMode, speaker, unlockAudio } from './voice';
+import { ListenButton, MicButton, RecordingStrip, TalkPanel, useVoiceInput, VoiceRepliesToggle, type AskResult } from './voice-ui';
 
 const ANY = '__any__';
 const FALLBACK_SUBJECTS = ['Mathematics', 'English Language', 'Basic Science', 'Physics', 'Chemistry', 'Biology', 'Economics'];
@@ -51,9 +53,17 @@ const SAVED_VERB = { QUIZ: 'Take the quiz', STUDY_PLAN: 'Open plan', FLASHCARDS:
 /** Saved items and the deep flag per reply, kept outside the component so they survive the route change to /learn/tutor/:id. */
 const replyExtras = new Map<string, Extra>();
 
+const VOICE_REPLIES_KEY = 'aischool:tutor-voice-replies';
+/** Set just before the first reply moves a new chat to its own URL (which remounts this page): keep reading it. */
+let keepSpeakingUntil = 0;
+
 export default function TutorPage() {
   useDocumentTitle('AI tutor');
-  const { conversationId } = useParams();
+  const { conversationId: routeId } = useParams();
+  // A new chat started in Talk mode keeps its id here until the panel closes:
+  // changing the URL remounts the page, which would end the conversation.
+  const [talkConvoId, setTalkConvoId] = useState<string | null>(null);
+  const conversationId = routeId ?? talkConvoId ?? undefined;
   const navigate = useNavigate();
   const qc = useQueryClient();
   const home = useLearnHome();
@@ -76,6 +86,39 @@ export default function TutorPage() {
   const input = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  // Voice: server speech when connected, else the browser's own.
+  const voiceInfo = useTutorVoice();
+  const voiceReady = voiceInfo.isSuccess || voiceInfo.isError;
+  const server = !!voiceInfo.data?.server;
+  const voice = useVoiceInput(voiceReady ? micMode(server) : null, subject === ANY ? null : subject);
+  const canSpeak = voiceReady && (server || canSynthesise());
+  const [voiceReplies, setVoiceRepliesState] = useState(() => safeStorage().get(VOICE_REPLIES_KEY) === '1');
+  const voiceRepliesRef = useRef(voiceReplies);
+  voiceRepliesRef.current = voiceReplies;
+  const setVoiceReplies = useCallback((on: boolean) => {
+    setVoiceRepliesState(on);
+    voiceRepliesRef.current = on;
+    safeStorage().set(VOICE_REPLIES_KEY, on ? '1' : '0');
+    if (!on) speaker.stop();
+  }, []);
+  const [talkOpen, setTalkOpen] = useState(false);
+  const talkOpenRef = useRef(talkOpen);
+  talkOpenRef.current = talkOpen;
+  const closeTalk = () => {
+    setTalkOpen(false);
+    if (!routeId && talkConvoId) navigate(`/learn/tutor/${talkConvoId}`, { replace: true });
+  };
+
+  // Leaving the page (or the tab going away) silences the tutor.
+  useEffect(() => {
+    const hide = () => speaker.stop();
+    window.addEventListener('pagehide', hide);
+    return () => {
+      window.removeEventListener('pagehide', hide);
+      if (Date.now() > keepSpeakingUntil) speaker.stop();
+    };
+  }, []);
+
   // Pro answers deeply by default.
   const tier = access?.tier;
   useEffect(() => {
@@ -97,42 +140,88 @@ export default function TutorPage() {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: 'smooth' });
   }, [messages.length, pending, blocked]);
 
-  const send = (message: string) => {
+  /**
+   * Sends a message. `voice` asks for a short, speakable reply; `speak` reads
+   * the reply aloud when voice replies are on (Talk mode reads it itself).
+   */
+  const send = (message: string, opts: { voice?: boolean; speak?: boolean } = {}): Promise<AskResult> => {
     const msg = message.trim();
-    if ((!msg && photos.length === 0) || chat.isPending) return;
+    if ((!msg && photos.length === 0) || chat.isPending) return Promise.resolve(null);
+    speaker.stop();
     const body = msg || 'Please help me with the question in this photo.';
+    const spoken = !!opts.voice || voiceRepliesRef.current;
     setPending(body);
     setBlocked(null);
     setText('');
-    chat.mutate(
-      { conversationId: conversationId ?? null, message: body, deep: deep && !!access?.deepAllowed, imageFileIds: photos.map((p) => p.id), subject: subject === ANY ? null : subject },
-      {
-        onSuccess: (r) => {
-          const now = new Date().toISOString();
-          const replyId = `local-${Date.now()}`;
-          const prev = qc.getQueryData<ConversationDetail>(lk.conversation(r.conversationId));
-          qc.setQueryData<ConversationDetail>(lk.conversation(r.conversationId), {
-            id: r.conversationId,
-            title: prev?.title ?? body.slice(0, 80),
-            messages: [...(prev?.messages ?? []), { id: `${replyId}-q`, role: 'user', content: body, createdAt: now }, { id: replyId, role: 'assistant', content: r.reply, createdAt: now }],
-          });
-          replyExtras.set(replyId, { saved: r.savedItems, deep: r.deep });
-          bump((n) => n + 1);
-          setPhotos([]);
-          setPending(null);
-          if (!conversationId) navigate(`/learn/tutor/${r.conversationId}`, { replace: true });
+    return new Promise<AskResult>((resolve) =>
+      chat.mutate(
+        {
+          conversationId: conversationId ?? null,
+          message: body,
+          deep: deep && !!access?.deepAllowed,
+          imageFileIds: photos.map((p) => p.id),
+          subject: subject === ANY ? null : subject,
+          ...(spoken ? { voice: true } : {}),
         },
-        onError: (err) => {
-          setPending(null);
-          setText(body);
-          const a = allowanceError(err);
-          if (a) {
-            setBlocked(a);
-            qc.setQueryData(lk.home, (old: object | undefined) => (old && a.access ? { ...old, access: a.access } : old));
-          } else toast.error(errorMessage(err));
+        {
+          onSuccess: (r) => {
+            const now = new Date().toISOString();
+            const replyId = `local-${Date.now()}`;
+            const prev = qc.getQueryData<ConversationDetail>(lk.conversation(r.conversationId));
+            qc.setQueryData<ConversationDetail>(lk.conversation(r.conversationId), {
+              id: r.conversationId,
+              title: prev?.title ?? body.slice(0, 80),
+              messages: [...(prev?.messages ?? []), { id: `${replyId}-q`, role: 'user', content: body, createdAt: now }, { id: replyId, role: 'assistant', content: r.reply, createdAt: now }],
+            });
+            replyExtras.set(replyId, { saved: r.savedItems, deep: r.deep });
+            bump((n) => n + 1);
+            setPhotos([]);
+            setPending(null);
+            if (!conversationId) {
+              if (talkOpenRef.current) setTalkConvoId(r.conversationId);
+              else {
+                keepSpeakingUntil = Date.now() + 2000;
+                navigate(`/learn/tutor/${r.conversationId}`, { replace: true });
+              }
+            }
+            if (opts.speak !== false && voiceRepliesRef.current && canSpeak) void speaker.speak(replyId, r.reply, server);
+            resolve({ id: replyId, reply: r.reply });
+          },
+          onError: (err) => {
+            setPending(null);
+            setText(body);
+            const a = allowanceError(err);
+            if (a) {
+              setBlocked(a);
+              qc.setQueryData(lk.home, (old: object | undefined) => (old && a.access ? { ...old, access: a.access } : old));
+            } else toast.error(errorMessage(err));
+            resolve(a ? 'blocked' : null);
+          },
         },
-      },
+      ),
     );
+  };
+
+  /** Composer mic: tap to talk, tap again to send. */
+  const onMic = async () => {
+    if (voice.state === 'listening') return voice.stop();
+    if (voice.state !== 'idle') return;
+    if (canSpeak && !voiceRepliesRef.current) setVoiceReplies(true);
+    try {
+      const heard = await voice.listen();
+      if (heard) void send(heard, { voice: true });
+      else if (heard === '') toast.info('I didn’t hear anything. Tap the microphone and speak a little louder.');
+    } catch (err) {
+      toast.error(errorMessage(err), { duration: 8000 });
+    }
+  };
+
+  const openTalk = () => {
+    unlockAudio();
+    speaker.stop();
+    voice.cancel();
+    if (canSpeak && !voiceRepliesRef.current) setVoiceReplies(true);
+    setTalkOpen(true);
   };
 
   const onPickPhoto = async (file: File | undefined) => {
@@ -223,6 +312,12 @@ export default function TutorPage() {
               {access && <p className="truncate text-[11.5px] text-muted-foreground">{access.remainingPct}% of this term’s AI learning left</p>}
             </div>
             {access && <TierBadge access={access} className="hidden sm:inline-flex" />}
+            {voice.mode && (
+              <Button type="button" variant="ai" size="sm" className="px-2.5" onClick={openTalk} aria-label="Talk to your tutor" title="Talk to your tutor, hands-free">
+                <AudioLines /> Talk
+              </Button>
+            )}
+            {canSpeak && <VoiceRepliesToggle on={voiceReplies} onChange={setVoiceReplies} />}
           </header>
 
           <div ref={scroller} className="scrollbar-thin min-h-0 flex-1 overflow-y-auto px-3 py-5 sm:px-6">
@@ -233,12 +328,17 @@ export default function TutorPage() {
                 </div>
                 <h1 className="mt-4 font-display text-xl font-semibold tracking-tight sm:text-2xl">What are we learning today?</h1>
                 <p className="mt-1.5 text-[14px] text-muted-foreground">I’ll guide you to the answer step by step — not just hand it over. Ask anything from class or homework.</p>
+                {voice.mode && (
+                  <Button type="button" variant="ai" size="lg" className="mt-5 rounded-full" onClick={openTalk}>
+                    <AudioLines /> Talk to your tutor
+                  </Button>
+                )}
                 <div className="mt-6 grid w-full gap-2 sm:grid-cols-2 [&>*]:min-w-0">
                   {STARTERS.map((s) => (
                     <button
                       key={s.text}
                       type="button"
-                      onClick={() => send(s.text)}
+                      onClick={() => void send(s.text)}
                       className="flex items-start gap-2.5 rounded-xl border border-border bg-background/60 p-3 text-left text-[13px] transition-colors hover:border-border-strong hover:bg-muted/60"
                     >
                       <s.icon className="mt-0.5 size-4 shrink-0 text-ai-2" aria-hidden />
@@ -255,7 +355,7 @@ export default function TutorPage() {
             ) : (
               <ol className="mx-auto max-w-3xl space-y-5">
                 {messages.map((m) => (
-                  <Message key={m.id} role={m.role} content={m.content} extra={replyExtras.get(m.id)} />
+                  <Message key={m.id} id={m.id} role={m.role} content={m.content} extra={replyExtras.get(m.id)} speak={canSpeak ? { server } : undefined} />
                 ))}
                 {pending && (
                   <>
@@ -282,7 +382,7 @@ export default function TutorPage() {
             className="border-t border-border bg-background/40 p-2.5 sm:p-3"
             onSubmit={(e) => {
               e.preventDefault();
-              send(text);
+              void send(text);
             }}
           >
             {photos.length > 0 && (
@@ -303,6 +403,7 @@ export default function TutorPage() {
               </div>
             )}
             <div className="rounded-xl border border-input bg-card focus-within:ring-2 focus-within:ring-ring/40">
+              {voice.state !== 'idle' && !talkOpen && <RecordingStrip voice={voice} />}
               <textarea
                 ref={input}
                 value={text}
@@ -310,14 +411,14 @@ export default function TutorPage() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    send(text);
+                    void send(text);
                   }
                 }}
                 rows={2}
                 maxLength={4000}
                 placeholder="Ask your tutor anything…"
                 aria-label="Message your tutor"
-                className="block max-h-40 w-full resize-none bg-transparent px-3 pt-2.5 text-[14px] outline-none placeholder:text-muted-foreground"
+                className={cn('block max-h-40 w-full resize-none bg-transparent px-3 pt-2.5 text-[14px] outline-none placeholder:text-muted-foreground', voice.state !== 'idle' && !talkOpen && 'hidden')}
               />
               <div className="flex flex-wrap items-center gap-1.5 px-2 pb-2">
                 <Select value={subject} onValueChange={setSubject}>
@@ -349,7 +450,8 @@ export default function TutorPage() {
                     </span>
                   </label>
                 )}
-                <Button type="submit" size="icon-sm" className="ml-auto rounded-lg" disabled={chat.isPending || (!text.trim() && photos.length === 0)} aria-label="Send">
+                {voice.mode && <MicButton voice={voice} onTap={() => void onMic()} disabled={chat.isPending || talkOpen} className="ml-auto" />}
+                <Button type="submit" size="icon-sm" className={cn('rounded-lg', !voice.mode && 'ml-auto')} disabled={chat.isPending || (!text.trim() && photos.length === 0)} aria-label="Send">
                   {chat.isPending ? <Loader2 className="animate-spin" /> : <ArrowUp />}
                 </Button>
               </div>
@@ -358,11 +460,21 @@ export default function TutorPage() {
           </form>
         </section>
       </div>
+      {voice.mode && (
+        <TalkPanel
+          open={talkOpen}
+          onClose={closeTalk}
+          voice={voice}
+          server={server}
+          ask={(t) => send(t, { voice: true, speak: false })}
+          blocked={blocked}
+        />
+      )}
     </Page>
   );
 }
 
-function Message({ role, content, extra }: { role: string; content: string; extra?: Extra }) {
+function Message({ id, role, content, extra, speak }: { id?: string; role: string; content: string; extra?: Extra; speak?: { server: boolean } }) {
   if (role === 'user') {
     return (
       <li className="flex justify-end">
@@ -378,6 +490,11 @@ function Message({ role, content, extra }: { role: string; content: string; extr
       <div className="min-w-0 flex-1 space-y-2.5">
         {extra?.deep && <span className="inline-flex items-center gap-1 rounded-full bg-ai-2/10 px-2 py-0.5 text-[11px] font-medium text-ai-2">Deeper explanation</span>}
         <Markdown text={content} className="break-words" />
+        {speak && id && (
+          <div className="-ml-1.5 -mt-1">
+            <ListenButton id={id} text={content} server={speak.server} />
+          </div>
+        )}
         {extra && extra.saved.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {extra.saved.map((s, i) => {

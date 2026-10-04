@@ -22,17 +22,34 @@ type SummaryItem = MyLearning['summaries'][number];
 
 const names = (list: string[]) => (list.length <= 1 ? (list[0] ?? '') : `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}`);
 
-export default function LearningPage() {
+type LearningView = 'all' | 'homework' | 'live' | 'notes';
+const VIEW_TITLE: Record<LearningView, string> = { all: 'My learning', homework: 'Homework', live: 'Live classes', notes: 'Class notes' };
+
+/** Everything in one place (`all`), or one section on its own for the student and parent menus. */
+export default function LearningPage({ view = 'all' }: { view?: LearningView }) {
   const q = useMyLearning();
   const d = q.data;
   const family = !!d && [...d.liveClasses, ...d.homework].some((x) => x.children.length > 0);
-  const empty = !!d && d.liveClasses.length === 0 && d.homework.length === 0 && d.summaries.length === 0;
+  const show = (v: Exclude<LearningView, 'all'>) => view === 'all' || view === v;
+  const empty =
+    !!d &&
+    (!show('live') || d.liveClasses.length === 0) &&
+    (!show('homework') || d.homework.length === 0) &&
+    (!show('notes') || d.summaries.length === 0);
+  const description =
+    view === 'homework'
+      ? family ? 'Homework and assignments for your children, with what was handed in and marked.' : 'Your homework and assignments: hand in, see your marks and feedback.'
+      : view === 'live'
+        ? family ? 'Upcoming live classes for your children.' : 'Your upcoming live classes. Join from here when a class starts.'
+        : view === 'notes'
+          ? 'Summaries, key ideas and revision notes from recent lessons.'
+          : family ? 'Live classes, homework and class notes for your children.' : 'Your live classes, homework and notes from your lessons.';
 
   return (
     <Page className="max-w-5xl">
       <PageHeader
-        title="My learning"
-        description={family ? 'Live classes, homework and class notes for your children.' : 'Your live classes, homework and notes from your lessons.'}
+        title={VIEW_TITLE[view]}
+        description={description}
       />
       {q.error && !d ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />
@@ -49,15 +66,15 @@ export default function LearningPage() {
         <Card>
           <EmptyState
             icon={BookOpenCheck}
-            title="Nothing here yet"
+            title={view === 'homework' ? 'No homework right now' : view === 'live' ? 'No live classes coming up' : view === 'notes' ? 'No class notes yet' : 'Nothing here yet'}
             description="When teachers schedule live classes, set homework or share notes from a lesson, you’ll find them here."
           />
         </Card>
       ) : (
         <div className="space-y-8">
-          <LiveSection items={d.liveClasses} />
-          <HomeworkSection items={d.homework} />
-          <SummariesSection items={d.summaries} />
+          {show('live') && <LiveSection items={d.liveClasses} />}
+          {show('homework') && <HomeworkSection items={d.homework} />}
+          {show('notes') && <SummariesSection items={d.summaries} />}
         </div>
       )}
     </Page>

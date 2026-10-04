@@ -12,6 +12,7 @@ import type {
   StudentMemoryRow,
   StudyPlanRow,
   TutorReply,
+  TutorVoiceInfo,
 } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api, ApiError, refreshSession } from '@/lib/api';
@@ -48,6 +49,7 @@ export const lk = {
   attempts: ['learning', 'attempts'] as const,
   attempt: (id: string) => ['learning', 'attempt', id] as const,
   exams: ['learning', 'exams'] as const,
+  voice: ['learning', 'voice'] as const,
 };
 
 export const useLearnHome = () => useQuery({ queryKey: lk.home, queryFn: () => api.get<LearnHome>('/learning/me') });
@@ -61,13 +63,16 @@ export const useDecks = () => useQuery({ queryKey: lk.decks, queryFn: () => api.
 export const useAttempts = () => useQuery({ queryKey: lk.attempts, queryFn: () => api.get<PracticeAttemptRow[]>('/learning/attempts') });
 export const useAttempt = (id: string) => useQuery({ queryKey: lk.attempt(id), queryFn: () => api.get<PracticeAttemptView>(`/learning/attempts/${id}`) });
 export const useExamCatalog = () => useQuery({ queryKey: lk.exams, queryFn: () => api.get<ExamCatalog>('/learning/exams') });
+/** Whether the server reads and hears speech (OpenAI); otherwise the browser's own speech features are used. */
+export const useTutorVoice = () =>
+  useQuery({ queryKey: lk.voice, queryFn: () => api.get<TutorVoiceInfo>('/learning/tutor/voice'), staleTime: 10 * 60_000, retry: 1 });
 
 /** The tutor reply also carries the fresh access meter: keep the home cache in step. */
 export function useTutorChat() {
   const qc = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (body: { conversationId?: string | null; message: string; deep: boolean; imageFileIds: string[]; subject?: string | null }) =>
+    mutationFn: (body: { conversationId?: string | null; message: string; deep: boolean; imageFileIds: string[]; subject?: string | null; voice?: boolean }) =>
       api.post<TutorReply>('/learning/tutor', body),
     onSuccess: (r) => {
       qc.setQueryData<LearnHome>(lk.home, (old) => (old ? { ...old, access: r.access } : old));
@@ -256,6 +261,60 @@ export async function uploadQuestionPhoto(file: File): Promise<{ id: string }> {
     throw new ApiError(res.status, message);
   }
   return (await res.json()) as { id: string };
+}
+
+// ------------------------------------------------------------------ tutor voice
+
+/** POST with the session token (refreshing once on 401), for bodies the JSON client can't send or read. */
+async function voiceFetch(path: string, init: { body: BodyInit; json?: boolean; signal?: AbortSignal }, fallback: string): Promise<Response> {
+  const send = () => {
+    const token = useAuthStore.getState().accessToken;
+    return fetch(`/api${path}`, {
+      method: 'POST',
+      body: init.body,
+      signal: init.signal,
+      credentials: 'include',
+      headers: { ...(init.json ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+    });
+  };
+  let res: Response;
+  try {
+    res = await send();
+    if (res.status === 401 && (await refreshSession())) res = await send();
+  } catch (err) {
+    if (err instanceof DOMException && err.name === 'AbortError') throw err;
+    throw new ApiError(0, "Can't reach the server. Check your connection and try again.");
+  }
+  if (!res.ok) {
+    let message = fallback;
+    let details: Record<string, unknown> = {};
+    try {
+      details = (await res.json()) as Record<string, unknown>;
+      const m = details.message as string | string[] | undefined;
+      if (m) message = Array.isArray(m) ? m.join('. ') : m;
+    } catch {
+      /* not JSON */
+    }
+    throw new ApiError(res.status, message, [], details);
+  }
+  return res;
+}
+
+/** POST /learning/tutor/transcribe (multipart `audio`): what the student said, as text. */
+export async function transcribeSpeech(audio: Blob, subject?: string | null, signal?: AbortSignal): Promise<string> {
+  if (audio.size > 12 * 1024 * 1024) throw new ApiError(413, 'That recording is too long. Please ask in a shorter message.');
+  const form = new FormData();
+  const ext = /mp4|m4a|aac/.test(audio.type) ? 'm4a' : /ogg/.test(audio.type) ? 'ogg' : 'webm';
+  form.append('audio', audio, `speech.${ext}`);
+  if (subject) form.append('subject', subject);
+  const res = await voiceFetch('/learning/tutor/transcribe', { body: form, signal }, 'Your voice could not be understood just now. Please try again or type your question.');
+  return ((await res.json()) as { text: string }).text.trim();
+}
+
+/** POST /learning/tutor/speak: part of a reply read aloud, as MP3. */
+export async function fetchSpeech(text: string, signal?: AbortSignal): Promise<Blob> {
+  const res = await voiceFetch('/learning/tutor/speak', { body: JSON.stringify({ text }), json: true, signal }, 'The reply could not be read aloud just now.');
+  return res.blob();
 }
 
 // ------------------------------------------------------------------ upgrade-aware errors

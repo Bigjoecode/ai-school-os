@@ -13,6 +13,11 @@ import { MasteryService, subjectKey } from './mastery.service';
 import { StudyService, type StoredQuestion } from './study.service';
 
 const HISTORY_TURNS = 16;
+/** Added to the system prompt when the student is talking and listening. */
+const VOICE_STYLE =
+  '\n\nVOICE: the student is speaking to you and will HEAR your reply read aloud. Talk naturally, like a teacher beside them: short sentences, ' +
+  'under 100 words, one idea at a time, then one short question. No tables, headings, bullet symbols or code. Say maths in words ' +
+  '("x squared plus 3x equals 10", "a half") instead of notation. If they ask for working on screen, give it briefly.';
 const MAX_MEMORIES = 40;
 
 interface ToolDef<I> {
@@ -273,7 +278,7 @@ export class TutorService {
     const result = await this.gateway.generateWithTools(
       {
         tier: deep ? 'advanced' : 'standard',
-        system: this.system(access, today, input.subject),
+        system: this.system(access, today, input.subject) + (input.voice ? VOICE_STYLE : ''),
         messages: [
           ...history.reverse().map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
           { role: 'user', content: input.message || 'Please help me with the question in this photo.', ...(images.length ? { images } : {}) },

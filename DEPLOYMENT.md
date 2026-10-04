@@ -235,6 +235,17 @@ caching (Anthropic explicitly; OpenAI automatically), so repeated
 instructions and history are billed at a fraction of the price. A model
 used without a price is costed at $0 and triggers an alert: add its price.
 
+**Tutor voice.** Students can talk to the AI tutor and hear its replies.
+Speech in and out uses OpenAI's audio models, so it needs `OPENAI_API_KEY`
+even if another provider answers the chat. Optional settings:
+`OPENAI_TRANSCRIBE_MODEL` (default `gpt-4o-mini-transcribe`),
+`OPENAI_TTS_MODEL` (default `gpt-4o-mini-tts`) and `OPENAI_TTS_VOICE`
+(default `coral`). Without the key, the app falls back to the phone's own
+speech features where the browser has them. Voice costs roughly $0.003 per
+minute listened and $0.015 per minute spoken; it shows as "Tutor voice" in
+AI usage and doesn't use up a student's daily message allowance (the chat
+message itself does).
+
 ## Email alerts and the demo accounts
 
 **Alerts.** Get an email when something breaks: unexpected server errors,

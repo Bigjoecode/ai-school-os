@@ -10,6 +10,8 @@ import { PrismaService } from '../prisma/prisma.service';
 
 /** Friendly names for AI features recorded in the usage ledger. */
 const FEATURE_LABELS: Record<string, string> = {
+  'tutor-voice-in': 'Tutor voice (listening)',
+  'tutor-voice-out': 'Tutor voice (speaking)',
   'finance-insight': 'Finance briefing',
   'fee-reminder': 'Fee reminders',
   'hr-insight': 'HR briefing',

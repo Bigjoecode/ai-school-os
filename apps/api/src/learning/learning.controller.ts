@@ -1,4 +1,5 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import type { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Throttle } from '@nestjs/throttler';
 import {
@@ -18,6 +19,8 @@ import {
   theoryAnswerSchema,
   theoryStartSchema,
   tutorChatSchema,
+  tutorSpeakSchema,
+  type TutorVoiceInfo,
   type ExamBody,
   type ExamQuestionInput,
   type StudentAccess,
@@ -35,6 +38,7 @@ import { ExamService } from './exam.service';
 import { MasteryService, subjectKey } from './mastery.service';
 import { StudyService } from './study.service';
 import { SyllabusService } from './syllabus.service';
+import { MAX_SPEAK_CHARS, VoiceService } from '../ai/voice.service';
 import { TutorService } from './tutor.service';
 
 const visible = ({ tenantId: _t, periodKey: _p, ...a }: ResolvedAccess): StudentAccess => a;
@@ -50,6 +54,7 @@ export class LearningController {
     private readonly mastery: MasteryService,
     private readonly exams: ExamService,
     private readonly files: FilesService,
+    private readonly voice: VoiceService,
   ) {}
 
   private async me() {
@@ -62,6 +67,37 @@ export class LearningController {
     const { id, access } = await this.me();
     const [plans, decks, attempts, map] = await Promise.all([this.study.plans(id), this.study.decks(id), this.study.attempts(id, 10), this.mastery.map(id)]);
     return { access: visible(access), plans: plans.filter((p) => p.status === 'ACTIVE').slice(0, 3), dueCards: decks.reduce((t, d) => t + d.due, 0), recent: attempts, weakest: map.weakest, strongest: map.strongest };
+  }
+
+  // ---------------------------------------------------------- tutor voice
+
+  @Get('tutor/voice')
+  voiceInfo(): TutorVoiceInfo {
+    return { server: this.voice.available(), maxSpeakChars: MAX_SPEAK_CHARS };
+  }
+
+  /** What the student said, as text (then sent to the tutor like a typed message). */
+  @Post('tutor/transcribe')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  @UseInterceptors(FileInterceptor('audio', { limits: { fileSize: 12 * 1024 * 1024, files: 1 } }))
+  async transcribe(@UploadedFile() audio: { buffer: Buffer; mimetype: string; originalname: string } | undefined, @Body() body: { subject?: string }) {
+    const { access } = await this.me();
+    this.entitlements.attribute(access);
+    return { text: await this.voice.transcribe(audio!, typeof body?.subject === 'string' ? body.subject.slice(0, 60) : null) };
+  }
+
+  /** Part of a tutor reply read aloud (MP3). */
+  @Post('tutor/speak')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 40, ttl: 60_000 } })
+  async speak(@Body(new ZodPipe(tutorSpeakSchema)) body: { text: string }, @Res() res: Response) {
+    const { access } = await this.me();
+    this.entitlements.attribute(access);
+    const audio = await this.voice.speak(body.text);
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Cache-Control', 'no-store');
+    res.send(audio);
   }
 
   @Post('tutor')

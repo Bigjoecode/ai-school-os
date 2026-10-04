@@ -272,7 +272,15 @@ export const tutorChatSchema = z.object({
   /** Uploaded image ids (Plus/Pro): a photo of the question. */
   imageFileIds: z.array(z.string()).max(3).default([]),
   subject: z.string().trim().max(60).nullish(),
+  /** The student is talking by voice and will hear the reply read aloud. */
+  voice: z.boolean().default(false),
 });
+export const tutorSpeakSchema = z.object({ text: z.string().trim().min(1).max(1500) });
+export interface TutorVoiceInfo {
+  /** Server speech (OpenAI) is connected; otherwise use the browser's speech features. */
+  server: boolean;
+  maxSpeakChars: number;
+}
 export type TutorChatInput = z.infer<typeof tutorChatSchema>;
 export interface TutorReply {
   conversationId: string;

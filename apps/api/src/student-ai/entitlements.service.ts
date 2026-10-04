@@ -15,6 +15,7 @@ import { fullName } from '../common/format';
 import { RequestContextStore, currentContext } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { PrismaService } from '../prisma/prisma.service';
+import { VOICE_AGENTS } from '../ai/voice.service';
 
 const DEFAULT_SESSIONS: Record<StudentAiTier, number> = { BASIC: 20, PLUS: 300, PRO: 800 };
 const TIER_OF: Partial<Record<string, StudentAiTier>> = { STUDENT_AI_PLUS: 'PLUS', STUDENT_AI_PRO: 'PRO' };
@@ -108,7 +109,8 @@ export class EntitlementService {
     const dayStart = new Date(now.getTime() - 86_400_000);
     const [usage, today] = await Promise.all([
       this.prisma.root.studentAiUsage.findUnique({ where: { studentId_periodKey: { studentId, periodKey } } }),
-      this.prisma.root.aiUsage.count({ where: { studentId, createdAt: { gte: dayStart }, success: true } }),
+      // Voice (speech in and out) rides on a chat message that is already counted.
+      this.prisma.root.aiUsage.count({ where: { studentId, createdAt: { gte: dayStart }, success: true, agent: { notIn: VOICE_AGENTS } } }),
     ]);
     const used = usage?.units ?? 0;
     const policy = TIER_POLICY[tier];

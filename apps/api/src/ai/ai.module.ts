@@ -1,3 +1,4 @@
+import { VoiceService } from './voice.service';
 import { Controller, Get, Module, Param } from '@nestjs/common';
 import type { AiJobView, AiStatus } from '@aischool/shared';
 import { RequirePermissions } from '../common/decorators';
@@ -32,7 +33,7 @@ export class AiController {
 @Module({
   imports: [DashboardModule],
   controllers: [AiController, AiSettingsController],
-  providers: [AiGatewayService, AiService, GenerationQueue, AiJobsService],
-  exports: [AiGatewayService, GenerationQueue, AiJobsService, AiService],
+  providers: [AiGatewayService, AiService, GenerationQueue, AiJobsService, VoiceService],
+  exports: [AiGatewayService, GenerationQueue, AiJobsService, AiService, VoiceService],
 })
 export class AiModule {}

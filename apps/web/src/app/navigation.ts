@@ -70,6 +70,8 @@ import {
   Users,
   Users2,
   Video,
+  ClipboardList,
+  NotebookText,
   Wallet,
 } from 'lucide-react';
 import { CalendarCheck2, FileUp, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
@@ -116,8 +118,11 @@ export const NAV_GROUPS: NavGroup[] = [
         anyOf: [['students.manage', 'guardians.manage'], ['staff.manage'], ['results.enter', 'results.publish']],
         keywords: 'csv excel spreadsheet upload bulk students parents staff results migrate',
       },
-      { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', keywords: 'assistant chat' },
-      { label: 'My learning', to: '/learning', icon: BookOpenCheck, feature: 'live_classes', audience: 'family', keywords: 'homework live classes class notes revision summaries' },
+      // Students have the AI tutor instead; parents and staff use the agents here.
+      { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', anyOf: [['school.read'], ['family.manage']], keywords: 'assistant chat' },
+      { label: 'Homework', to: '/learning/homework', icon: ClipboardList, feature: 'live_classes', audience: 'family', keywords: 'assignments projects hand in submit marks feedback' },
+      { label: 'Live classes', to: '/learning/live', icon: Video, feature: 'live_classes', audience: 'family', keywords: 'online class join zoom meet lesson' },
+      { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
@@ -252,8 +257,7 @@ export const NAV_GROUPS: NavGroup[] = [
         keywords: 'curriculum results learning outcomes academic',
       },
       { label: 'Teacher AI', to: '/ai?agent=teacher', icon: Presentation, feature: 'ai', permission: 'ai.use', requires: ['academics.read'] },
-      { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, feature: 'ai', permission: 'ai.use' },
-      { label: 'Student AI', to: '/ai?agent=student', icon: GraduationCap, feature: 'ai', permission: 'ai.use' },
+      { label: 'Parent AI', to: '/ai?agent=parent', icon: HeartHandshake, feature: 'ai', permission: 'ai.use', requires: ['family.manage'] },
       { label: 'HR AI', to: '/ai?agent=hr', icon: Contact, feature: 'ai', permission: 'ai.use', requires: ['hr.read'] },
       {
         label: 'Communication AI',

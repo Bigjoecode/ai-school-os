@@ -547,6 +547,14 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequireFeature>
         ),
       },
+      ...(['homework', 'live', 'notes'] as const).map((view) => ({
+        path: `learning/${view}`,
+        element: (
+          <RequireFeature feature="live_classes">
+            <LearningPage view={view} />
+          </RequireFeature>
+        ),
+      })),
       {
         path: 'learning/homework/:id',
         element: (

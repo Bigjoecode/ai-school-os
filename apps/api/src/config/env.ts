@@ -44,6 +44,10 @@ const schema = z.object({
   OPENAI_API_KEY: z.string().optional(),
   OPENAI_MODEL_STANDARD: z.string().optional(),
   OPENAI_MODEL_ADVANCED: z.string().optional(),
+  /** Voice for the AI tutor (needs OPENAI_API_KEY). */
+  OPENAI_TRANSCRIBE_MODEL: z.string().default('gpt-4o-mini-transcribe'),
+  OPENAI_TTS_MODEL: z.string().default('gpt-4o-mini-tts'),
+  OPENAI_TTS_VOICE: z.string().default('coral'),
   GEMINI_API_KEY: z.string().optional(),
   GEMINI_MODEL_STANDARD: z.string().optional(),
   GEMINI_MODEL_ADVANCED: z.string().optional(),

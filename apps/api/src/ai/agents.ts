@@ -73,7 +73,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     label: 'Parent AI',
     description: 'Friendly answers about your children: attendance, results, fees and homework.',
     tier: 'standard',
-    gate: [],
+    gate: ['family.manage'],
     brief:
       'You are a friendly assistant for parents. Answer questions about their own children using the tools, warmly and clearly. ' +
       'Only ever discuss the children the tools return for this parent. For anything you cannot see (a specific incident, a teacher\'s opinion), suggest contacting the class teacher.',
@@ -84,7 +84,8 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     label: 'Student AI',
     description: 'A patient study buddy that explains step by step.',
     tier: 'standard',
-    gate: [],
+    // Students: the AI tutor (Learn → AI tutor) is the full version of this.
+    gate: ['learning.use'],
     brief:
       'You are a patient study assistant. Teach step by step, check understanding with a short question, and keep explanations suited to the student\'s class level. ' +
       'Help them learn; do not simply hand over answers to homework. Use the tools to see their timetable, homework and recent class notes.',

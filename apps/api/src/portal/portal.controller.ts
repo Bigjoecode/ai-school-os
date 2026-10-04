@@ -6,11 +6,13 @@ import {
   type PortalChild,
   type PortalDownload,
   type PortalEvent,
+  type PortalFees,
   type PortalMe,
   type PortalOverview,
   type PortalResultTerm,
   type PortalSettings,
   type PortalTermRef,
+  type ReceiptView,
   type ReportCardView,
 } from '@aischool/shared';
 import { z } from 'zod';
@@ -24,6 +26,9 @@ import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { ZodPipe } from '../common/zod.pipe';
 import { FilesService } from '../files/files.service';
+import { FeatureService } from '../features/features.service';
+import { FinanceService } from '../finance/finance.service';
+import { PaystackService } from '../finance/paystack.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 type Viewer = { role: 'PARENT' | 'STUDENT'; childIds: Set<string> };
@@ -42,6 +47,9 @@ export class PortalController {
     private readonly cards: ReportCardService,
     private readonly files: FilesService,
     private readonly audit: AuditService,
+    private readonly finance: FinanceService,
+    private readonly paystack: PaystackService,
+    private readonly features: FeatureService,
   ) {}
 
   // ---------------------------------------------------------- school settings (staff)
@@ -85,7 +93,7 @@ export class PortalController {
       settings.showResults ? this.resultTerms(id, settings, v) : [],
       settings.showCalendar ? this.events(v, student.classArmId, 5) : [],
       student.classArmId ? db.homework.count({ where: { classArmId: student.classArmId, status: 'PUBLISHED', dueDate: { gte: new Date(`${today}T00:00:00Z`) }, submissions: { none: { studentId: id } } } }) : 0,
-      v.role === 'PARENT' ? db.invoice.findMany({ where: { studentId: id, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } }) : null,
+      v.role === 'PARENT' && settings.showFees ? db.invoice.findMany({ where: { studentId: id, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } }) : null,
       settings.showDownloads ? this.downloadRows(v, student.classArm?.classLevelId ?? null) : [],
     ]);
     const weekAgo = Date.now() - 14 * 86_400_000;
@@ -146,6 +154,75 @@ export class PortalController {
     if (!(await this.settings()).showCalendar) throw new ForbiddenException('The school has not shared its calendar in the portal');
     const s = await this.prisma.db.student.findUniqueOrThrow({ where: { id }, select: { classArmId: true } });
     return this.events(v, s.classArmId, 60);
+  }
+
+  /**
+   * A child's fees, for parents: invoices with what is still owed, payment
+   * history and receipts. Pay now opens the same secure Paystack page as the
+   * school's payment links; Paystack confirms each payment to the server.
+   */
+  @Get('students/:id/fees')
+  async fees(@Param('id') id: string): Promise<PortalFees> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    if (v.role !== 'PARENT') throw new ForbiddenException('Fees are shown to parents');
+    if (!(await this.settings()).showFees) throw new ForbiddenException('The school has not shared fees in the portal');
+    const db = this.prisma.db;
+    const tenantId = currentTenantId();
+    const [invoices, payments, settings, online, today] = await Promise.all([
+      db.invoice.findMany({
+        where: { studentId: id, status: { not: 'CANCELLED' } },
+        include: { term: { include: { session: { select: { name: true } } } }, lines: { orderBy: { id: 'asc' } } },
+        orderBy: [{ term: { startsOn: 'desc' } }, { issuedAt: 'desc' }],
+      }),
+      db.payment.findMany({ where: { studentId: id, status: { in: ['SUCCESS', 'PENDING', 'REVERSED'] } }, include: { invoice: { select: { number: true } } }, orderBy: { paidAt: 'desc' }, take: 100 }),
+      this.finance.settings(),
+      this.paystack.connected(tenantId).then(async (c) => c && (await this.features.isEnabled(tenantId, 'online_payments'))),
+      this.today(),
+    ]);
+    const rows = await Promise.all(
+      invoices.map(async (i) => {
+        const balanceKobo = Math.max(0, i.totalKobo - i.paidKobo);
+        const due = dateOnly(i.dueDate)!;
+        return {
+          id: i.id,
+          number: i.number,
+          term: i.term.name,
+          sessionName: i.term.session.name,
+          totalKobo: i.totalKobo,
+          paidKobo: i.paidKobo,
+          balanceKobo,
+          dueDate: due,
+          status: i.status,
+          overdue: balanceKobo > 0 && due < today,
+          lines: i.lines.map((l) => ({ description: l.description, amountKobo: l.amountKobo })),
+          payPath: online && balanceKobo > 0 ? `/pay/${await this.finance.payToken(i.id)}` : null,
+        };
+      }),
+    );
+    return {
+      currency: settings.currency,
+      onlinePayments: online,
+      bankDetails: settings.bankDetails,
+      totals: {
+        billedKobo: rows.reduce((n, r) => n + r.totalKobo, 0),
+        paidKobo: rows.reduce((n, r) => n + r.paidKobo, 0),
+        balanceKobo: rows.reduce((n, r) => n + r.balanceKobo, 0),
+      },
+      invoices: rows,
+      payments: payments.map((p) => ({ id: p.id, receiptNumber: p.receiptNumber, amountKobo: p.amountKobo, method: p.method, status: p.status, paidAt: p.status === 'PENDING' ? null : p.paidAt.toISOString(), invoiceNumber: p.invoice.number })),
+    };
+  }
+
+  /** A receipt for one of this child's payments. */
+  @Get('students/:id/receipts/:paymentId')
+  async receipt(@Param('id') id: string, @Param('paymentId') paymentId: string): Promise<ReceiptView> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    if (v.role !== 'PARENT') throw new ForbiddenException('Receipts are shown to parents');
+    const p = await this.prisma.db.payment.findUnique({ where: { id: paymentId }, select: { studentId: true, status: true } });
+    if (!p || p.studentId !== id || p.status === 'PENDING' || p.status === 'FAILED') throw new NotFoundException('Receipt not found');
+    return this.finance.receiptView(paymentId);
   }
 
   /** The school's documents for this family: forms, timetables, newsletters, the calendar… */

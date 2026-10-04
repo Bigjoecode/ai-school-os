@@ -1,6 +1,7 @@
 import { DEFAULT_PORTAL_SETTINGS, type PortalSettings } from '@aischool/shared';
-import { CalendarCheck, CalendarDays, Download, Lock, Save, Trophy } from 'lucide-react';
+import { Banknote, CalendarCheck, CalendarDays, Download, Lock, Save, Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ErrorState } from '@/components/ui/empty-state';
@@ -27,6 +28,7 @@ export default function PortalSettingsPage() {
   const canManage = useCan('school.manage');
   const q = usePortalSettings();
   const save = useSavePortalSettings();
+  const canFinance = useCan('finance.manage');
   const [v, setV] = useState<PortalSettings>(DEFAULT_PORTAL_SETTINGS);
   useEffect(() => {
     if (q.data) setV(q.data);
@@ -70,6 +72,28 @@ export default function PortalSettingsPage() {
                 <Switch checked={v[s.key]} onCheckedChange={(on) => set({ [s.key]: on })} aria-label={`Show ${s.label.toLowerCase()}`} />
               </label>
             ))}
+
+            <div className="rounded-xl border border-border bg-muted/30 px-4 py-3">
+              <label className={cn('flex items-center gap-3', canManage && 'cursor-pointer')}>
+                <Banknote className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13.5px] font-medium">Fees and online payment (parents)</span>
+                  <span className="block text-[12px] text-muted-foreground">Invoices, what’s owed, payment history and printable receipts. Students never see fees.</span>
+                </span>
+                <Switch checked={v.showFees} onCheckedChange={(on) => set({ showFees: on })} aria-label="Show fees and online payment to parents" />
+              </label>
+              <p className="mt-2 pl-7 text-[12px] text-muted-foreground">
+                Pay now needs Paystack connected in{' '}
+                {canFinance ? (
+                  <Link to="/fees?settings=1" className="font-medium text-brand hover:underline">
+                    Finance settings
+                  </Link>
+                ) : (
+                  'Finance settings'
+                )}
+                . Without it, parents see your bank details and are asked to quote the invoice number.
+              </p>
+            </div>
 
             <div className={cn('rounded-xl border border-border px-4 py-3', !v.showResults && 'opacity-60')}>
               <label className={cn('flex items-center gap-3', canManage && v.showResults && 'cursor-pointer')}>

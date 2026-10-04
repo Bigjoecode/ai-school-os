@@ -1,4 +1,4 @@
-import type { PortalAttendance, PortalDownload, PortalEvent, PortalMe, PortalOverview, PortalResultTerm, PortalSettings, ReportCardView } from '@aischool/shared';
+import type { PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
@@ -19,6 +19,8 @@ export const pk = {
   card: (id: string, termId: string) => ['portal', 'card', id, termId] as const,
   calendar: (id: string) => ['portal', 'calendar', id] as const,
   downloads: (id?: string) => ['portal', 'downloads', id ?? 'all'] as const,
+  fees: (id: string) => ['portal', 'fees', id] as const,
+  receipt: (id: string, paymentId: string) => ['portal', 'receipt', id, paymentId] as const,
   settings: ['portal', 'settings'] as const,
 };
 
@@ -65,12 +67,33 @@ export const usePortalCalendar = (id: string) =>
 export const usePortalDownloads = (studentId?: string) =>
   useQuery({ queryKey: pk.downloads(studentId), queryFn: ({ signal }) => api.get<PortalDownload[]>('/portal/downloads', { studentId }, signal) });
 
+/**
+ * Parents only. Always refetched on mount and when the tab regains focus, so
+ * the balance is fresh after paying on Paystack and coming back.
+ */
+export const usePortalFees = (id: string, enabled = true) =>
+  useQuery({
+    queryKey: pk.fees(id),
+    queryFn: ({ signal }) => api.get<PortalFees>(`/portal/students/${id}/fees`, undefined, signal),
+    enabled: enabled && !!id,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: 'always',
+  });
+
+export const usePortalReceipt = (id: string, paymentId: string) =>
+  useQuery({
+    queryKey: pk.receipt(id, paymentId),
+    queryFn: ({ signal }) => api.get<ReceiptView>(`/portal/students/${id}/receipts/${paymentId}`, undefined, signal),
+    enabled: !!id && !!paymentId,
+  });
+
 const EMPTY = new Set<string>();
 
 /** Sidebar paths for portal sections the school has switched off (empty for staff). */
 export function usePortalHiddenNav(): ReadonlySet<string> {
   const q = usePortalMe();
   const s = q.data?.settings;
+  const parent = q.data?.role === 'PARENT';
   return useMemo(() => {
     if (!s) return EMPTY;
     const out = new Set<string>();
@@ -78,8 +101,9 @@ export function usePortalHiddenNav(): ReadonlySet<string> {
     if (!s.showResults) out.add('/school/results');
     if (!s.showCalendar) out.add('/school/calendar');
     if (!s.showDownloads) out.add('/school/downloads');
+    if (!s.showFees || !parent) out.add('/school/fees');
     return out;
-  }, [s]);
+  }, [s, parent]);
 }
 
 // ------------------------------------------------------------------ staff settings

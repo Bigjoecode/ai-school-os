@@ -51,7 +51,7 @@ function OverviewBody({ child, me, isParent, who }: ShellCtx) {
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 [&>*]:min-w-0">
-        {isParent && d.feesOwed != null && <FeesTile owed={d.feesOwed} currency={me.currency} />}
+        {isParent && d.feesOwed != null && <FeesTile owed={d.feesOwed} currency={me.currency} to={sectionShared(s, 'fees') ? portalPath('fees', child.id) : null} />}
         {hasHomework && (
           <QuickTile
             to="/learning/homework"
@@ -232,16 +232,33 @@ function QuickTile({ to, icon: Icon, value, label, note, tone }: { to: string; i
   );
 }
 
-function FeesTile({ owed, currency }: { owed: number; currency: string }) {
+function FeesTile({ owed, currency, to }: { owed: number; currency: string; to: string | null }) {
   const clear = owed <= 0;
-  return (
-    <div className="col-span-2 flex min-w-0 flex-col rounded-2xl border border-border bg-card p-3.5 shadow-soft sm:col-span-1">
+  const body = (
+    <>
       <Banknote className="size-4 text-muted-foreground" aria-hidden />
       <span className={cn('mt-2 truncate font-display text-xl font-semibold tabular leading-tight', !clear && 'text-danger')}>
         {clear ? 'All paid' : formatMoney(owed, currency, { maximumFractionDigits: 0 })}
       </span>
       <span className="truncate text-[12.5px] font-medium">School fees</span>
-      <span className="text-[11.5px] text-muted-foreground">{clear ? 'Nothing outstanding' : 'Outstanding. Use the payment link the school sent you, or contact the bursar.'}</span>
-    </div>
+      {to ? (
+        <span className={cn('mt-1 inline-flex items-center gap-1 text-[12.5px] font-medium', clear ? 'text-brand' : 'text-danger')}>
+          {clear ? 'Payments and receipts' : 'Pay now'} <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </span>
+      ) : (
+        <span className="text-[11.5px] text-muted-foreground">{clear ? 'Nothing outstanding' : 'Outstanding. Use the payment link the school sent you, or contact the bursar.'}</span>
+      )}
+    </>
+  );
+  const cls = 'col-span-2 flex min-w-0 flex-col rounded-2xl border border-border bg-card p-3.5 shadow-soft sm:col-span-1';
+  if (!to) return <div className={cls}>{body}</div>;
+  return (
+    <Link
+      to={to}
+      aria-label={clear ? 'School fees: all paid. See payments and receipts' : `School fees: ${formatMoney(owed, currency, { maximumFractionDigits: 0 })} outstanding. Pay now`}
+      className={cn(cls, 'group transition-all hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', !clear && 'border-danger/30')}
+    >
+      {body}
+    </Link>
   );
 }

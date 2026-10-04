@@ -1,11 +1,12 @@
 import type { OnlinePaymentResult } from '@aischool/shared';
 import { motion } from 'framer-motion';
-import { ArrowRight, Check, Loader2, RotateCw, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Loader2, RotateCw, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ApiError, errorMessage } from '@/lib/api';
+import { hasPermission, useAuthStore } from '@/lib/auth-store';
 import { useDocumentTitle } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { usePublicInvoice, verifyOnlinePayment } from './api';
@@ -26,6 +27,8 @@ export default function PayDonePage() {
   const [state, setState] = useState<State>({ kind: 'checking' });
   const started = useRef(Date.now());
   const [attempt, setAttempt] = useState(0);
+  // Parents who paid from "My school → Fees" get a way back there; the public flow is unchanged.
+  const signedInParent = useAuthStore((s) => s.status === 'authenticated' && hasPermission(s.me, 'family.manage') && !hasPermission(s.me, 'school.read'));
 
   useEffect(() => {
     if (!reference) return;
@@ -125,6 +128,13 @@ export default function PayDonePage() {
             </Link>
           </Button>
         </Card>
+      )}
+      {signedInParent && state.kind !== 'checking' && (
+        <Button asChild size="lg" variant="outline" className="w-full rounded-xl">
+          <Link to="/school/fees">
+            <ArrowLeft /> Back to My school · Fees
+          </Link>
+        </Button>
       )}
     </PayShell>
   );

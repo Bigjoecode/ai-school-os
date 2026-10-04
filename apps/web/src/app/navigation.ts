@@ -127,13 +127,14 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },
-  // The family portal: a child's attendance, results, exams and the school's documents (parents and students only).
+  // The family portal: a child's attendance, results, fees (parents), exams and the school's documents (parents and students only).
   {
     label: 'School',
     items: [
       { label: 'My school', to: '/school', icon: Backpack, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'portal child children overview summary fees owed' },
       { label: 'Attendance', to: '/school/attendance', icon: CalendarCheck, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'present absent late register days' },
       { label: 'Results', to: '/school/results', icon: Trophy, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'report card grades position average term result' },
+      { label: 'Fees', to: '/school/fees', icon: Banknote, permission: 'family.manage', audience: 'family', keywords: 'school fees pay online paystack balance owed invoice receipt bank transfer' },
       { label: 'Exams & calendar', to: '/school/calendar', icon: CalendarDays, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'exam timetable test holidays events term dates' },
       { label: 'Downloads', to: '/school/downloads', icon: FolderDown, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'documents forms newsletter booklist timetable pdf' },
     ],

@@ -138,6 +138,8 @@ const PortalResultsPage = lazy(() => import('@/features/portal/results-page'));
 const PortalReportCardPage = lazy(() => import('@/features/portal/results-page').then((m) => ({ default: m.PortalReportCardPage })));
 const PortalCalendarPage = lazy(() => import('@/features/portal/calendar-page'));
 const PortalDownloadsPage = lazy(() => import('@/features/portal/downloads-page'));
+const PortalFeesPage = lazy(() => import('@/features/portal/fees-page'));
+const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
@@ -602,6 +604,14 @@ export const router = createBrowserRouter(withRouteErrors([
           ['school/downloads/:studentId', <PortalDownloadsPage key="p-downloads" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
+      // Fees are for parents only.
+      ...(
+        [
+          ['school/fees', <PortalRedirect key="p-fee" section="fees" />],
+          ['school/fees/:studentId', <PortalFeesPage key="p-fees" />],
+          ['school/fees/:studentId/receipt/:paymentId', <PortalReceiptPage key="p-receipt" />],
+        ] as const
+      ).map(([path, page]) => ({ path, element: <RequirePermission permission="family.manage">{page}</RequirePermission> })),
       {
         path: 'support',
         element: (

@@ -14,6 +14,8 @@ export const portalSettingsSchema = z.object({
   withholdMessage: z.string().trim().max(300).nullish().transform((v) => v || null),
   showCalendar: z.boolean(),
   showDownloads: z.boolean(),
+  /** Fees, receipts and paying online (parents only). */
+  showFees: z.boolean().default(true),
 });
 export type PortalSettings = z.infer<typeof portalSettingsSchema>;
 export const DEFAULT_PORTAL_SETTINGS: PortalSettings = {
@@ -23,6 +25,7 @@ export const DEFAULT_PORTAL_SETTINGS: PortalSettings = {
   withholdMessage: null,
   showCalendar: true,
   showDownloads: true,
+  showFees: true,
 };
 
 export const DOWNLOAD_AUDIENCES = ['PUBLIC', 'FAMILIES', 'PARENTS', 'STUDENTS'] as const;
@@ -111,4 +114,30 @@ export interface PortalOverview {
   /** Parents only. */
   feesOwed: number | null;
   newDownloads: number;
+}
+
+/** A child's fees for parents: every invoice, what's been paid, and how to pay the rest. */
+export interface PortalFees {
+  currency: string;
+  /** Paystack is connected and online payments are on: Pay now opens the payment page. */
+  onlinePayments: boolean;
+  /** For paying by transfer or at the bank, as the school wrote it. */
+  bankDetails: string | null;
+  totals: { billedKobo: number; paidKobo: number; balanceKobo: number };
+  invoices: {
+    id: string;
+    number: string;
+    term: string;
+    sessionName: string;
+    totalKobo: number;
+    paidKobo: number;
+    balanceKobo: number;
+    dueDate: string;
+    status: string;
+    overdue: boolean;
+    lines: { description: string; amountKobo: number }[];
+    /** /pay/<token>: the payment page for this invoice (null when nothing is owed or online payment is off). */
+    payPath: string | null;
+  }[];
+  payments: { id: string; receiptNumber: string | null; amountKobo: number; method: string; status: string; paidAt: string | null; invoiceNumber: string }[];
 }

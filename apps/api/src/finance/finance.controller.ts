@@ -316,27 +316,7 @@ export class FinanceController {
   @Get('payments/:id/receipt')
   @RequirePermissions('finance.read')
   async receipt(@Param('id') id: string): Promise<ReceiptView> {
-    const p = await this.prisma.db.payment.findUniqueOrThrow({
-      where: { id },
-      include: { ...paymentInclude, invoice: { include: { term: true } } },
-    });
-    const [settings, tenant, names] = await Promise.all([
-      this.finance.settings(),
-      this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { name: true, address: true, phone: true, email: true, logoUrl: true } }),
-      this.finance.userNames([p.receivedById]),
-    ]);
-    return {
-      ...this.finance.paymentRow(p, names),
-      school: { ...tenant, bankDetails: settings.bankDetails },
-      currency: settings.currency,
-      invoice: {
-        number: p.invoice.number,
-        totalKobo: p.invoice.totalKobo,
-        paidKobo: p.invoice.paidKobo,
-        balanceKobo: Math.max(0, p.invoice.totalKobo - p.invoice.paidKobo),
-        term: p.invoice.term.name,
-      },
-    };
+    return this.finance.receiptView(id);
   }
 
   // ---------------------------------------------------------- expenses

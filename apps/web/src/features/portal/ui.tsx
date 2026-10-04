@@ -1,7 +1,7 @@
 import { ordinal, type PortalChild, type PortalMe, type PortalSettings } from '@aischool/shared';
-import { CalendarCheck, CalendarDays, Download, House, Lock, type LucideIcon, Trophy } from 'lucide-react';
+import { Banknote, CalendarCheck, CalendarDays, Download, House, Lock, type LucideIcon, Trophy } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Avatar } from '@/components/ui/avatar';
@@ -20,12 +20,13 @@ import { lastChild, rememberChild, usePortalMe } from './api';
  * /school/attendance…) resolve to the last child they looked at.
  */
 
-export type PortalSection = 'overview' | 'attendance' | 'results' | 'calendar' | 'downloads';
+export type PortalSection = 'overview' | 'attendance' | 'results' | 'fees' | 'calendar' | 'downloads';
 
-export const PORTAL_SECTIONS: { key: PortalSection; label: string; icon: LucideIcon; setting?: keyof PortalSettings }[] = [
+export const PORTAL_SECTIONS: { key: PortalSection; label: string; icon: LucideIcon; setting?: keyof PortalSettings; parentsOnly?: boolean }[] = [
   { key: 'overview', label: 'Overview', icon: House },
   { key: 'attendance', label: 'Attendance', icon: CalendarCheck, setting: 'showAttendance' },
   { key: 'results', label: 'Results', icon: Trophy, setting: 'showResults' },
+  { key: 'fees', label: 'Fees', icon: Banknote, setting: 'showFees', parentsOnly: true },
   { key: 'calendar', label: 'Exams & calendar', icon: CalendarDays, setting: 'showCalendar' },
   { key: 'downloads', label: 'Downloads', icon: Download, setting: 'showDownloads' },
 ];
@@ -37,6 +38,12 @@ export function portalPath(section: PortalSection, childId: string): string {
 export function sectionShared(settings: PortalSettings, section: PortalSection): boolean {
   const s = PORTAL_SECTIONS.find((x) => x.key === section);
   return !s?.setting || settings[s.setting] !== false;
+}
+
+/** Shared by the school and meant for this viewer (fees are for parents only). */
+export function sectionVisible(me: PortalMe, section: PortalSection): boolean {
+  const s = PORTAL_SECTIONS.find((x) => x.key === section);
+  return sectionShared(me.settings, section) && (!s?.parentsOnly || me.role === 'PARENT');
 }
 
 /** /school and /school/<section>: open the last child looked at (or the first). */
@@ -93,6 +100,7 @@ export function PortalShell({
   const isParent = me.role === 'PARENT';
   const ctx: ShellCtx = { me, child, isParent, who: isParent ? child.firstName : 'you' };
   const shared = sectionShared(me.settings, section);
+  const forParents = !isParent && !!PORTAL_SECTIONS.find((s) => s.key === section)?.parentsOnly;
 
   return (
     <Page className={cn('max-w-5xl', className)}>
@@ -101,7 +109,11 @@ export function PortalShell({
         {isParent && me.children.length > 1 && <ChildSwitcher kids={me.children} current={child.id} section={section} />}
         <SectionTabs me={me} childId={child.id} current={section} />
       </div>
-      {shared ? (
+      {forParents ? (
+        <Card>
+          <EmptyState icon={Lock} title="For parents" description="This part of the portal is for parents. Ask a parent or guardian if you have a question about it." />
+        </Card>
+      ) : shared ? (
         children(ctx)
       ) : (
         <Card>
@@ -146,9 +158,19 @@ function ChildSwitcher({ kids, current, section }: { kids: PortalChild[]; curren
 }
 
 function SectionTabs({ me, childId, current }: { me: PortalMe; childId: string; current: PortalSection }) {
-  const tabs = PORTAL_SECTIONS.filter((s) => sectionShared(me.settings, s.key));
+  const tabs = PORTAL_SECTIONS.filter((s) => sectionVisible(me, s.key));
+  const navRef = useRef<HTMLElement>(null);
+  // On a phone the strip scrolls: keep the open section in view.
+  useEffect(() => {
+    const nav = navRef.current;
+    const el = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !el) return;
+    const box = nav.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    if (r.left < box.left || r.right > box.right) nav.scrollLeft += r.left - box.left - 16;
+  }, [current]);
   return (
-    <nav aria-label="My school" className="no-scrollbar -mx-4 mb-5 flex gap-1 overflow-x-auto border-b border-border px-4 sm:mx-0 sm:px-0">
+    <nav ref={navRef} aria-label="My school" className="no-scrollbar -mx-4 mb-5 flex gap-1 overflow-x-auto border-b border-border px-4 sm:mx-0 sm:px-0">
       {tabs.map((t) => {
         const active = t.key === current;
         return (

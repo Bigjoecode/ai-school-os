@@ -10,6 +10,7 @@ import {
   type InvoiceRow,
   type PaymentMethod,
   type PaymentRow,
+  type ReceiptView,
   type RecordPaymentInput,
 } from '@aischool/shared';
 import { Prisma } from '../generated/prisma/client';
@@ -261,6 +262,31 @@ export class FinanceService {
       note: inv.note,
       payPath: onlineEnabled && row.balanceKobo > 0 && inv.status !== 'CANCELLED' ? `/pay/${await this.payToken(inv.id)}` : null,
       onlinePaymentsEnabled: onlineEnabled,
+    };
+  }
+
+  /** A payment's receipt, for staff and (their own) families. */
+  async receiptView(id: string): Promise<ReceiptView> {
+    const p = await this.prisma.db.payment.findUniqueOrThrow({
+      where: { id },
+      include: { ...paymentInclude, invoice: { include: { term: true } } },
+    });
+    const [settings, tenant, names] = await Promise.all([
+      this.settings(),
+      this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { name: true, address: true, phone: true, email: true, logoUrl: true } }),
+      this.userNames([p.receivedById]),
+    ]);
+    return {
+      ...this.paymentRow(p, names),
+      school: { ...tenant, bankDetails: settings.bankDetails },
+      currency: settings.currency,
+      invoice: {
+        number: p.invoice.number,
+        totalKobo: p.invoice.totalKobo,
+        paidKobo: p.invoice.paidKobo,
+        balanceKobo: Math.max(0, p.invoice.totalKobo - p.invoice.paidKobo),
+        term: p.invoice.term.name,
+      },
     };
   }
 

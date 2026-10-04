@@ -97,6 +97,21 @@ function ChildRow({ c, me }: { c: PortalChild; me: PortalMe }) {
           </div>
         )}
       </Link>
+      {parent && d?.feesOwed != null && me.settings.showFees && (
+        <div className="-mt-1 px-4 pb-3.5 sm:px-5">
+          <Link
+            to={portalPath('fees', c.id)}
+            className={cn(
+              'inline-flex min-h-10 items-center gap-1.5 rounded-xl px-3 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+              d.feesOwed > 0 ? 'bg-brand text-brand-foreground hover:bg-brand/90' : 'text-brand hover:bg-muted/50',
+            )}
+          >
+            <Banknote className="size-4" aria-hidden />
+            {d.feesOwed > 0 ? `Pay ${formatMoney(d.feesOwed, me.currency, { maximumFractionDigits: 0 })} now` : 'Fees and receipts'}
+            <ArrowRight className="size-3.5" aria-hidden />
+          </Link>
+        </div>
+      )}
     </li>
   );
 }

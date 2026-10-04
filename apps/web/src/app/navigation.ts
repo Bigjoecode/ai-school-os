@@ -74,7 +74,7 @@ import {
   NotebookText,
   Wallet,
 } from 'lucide-react';
-import { CalendarCheck2, FileUp, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
+import { Backpack, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -125,6 +125,17 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
+    ],
+  },
+  // The family portal: a child's attendance, results, exams and the school's documents (parents and students only).
+  {
+    label: 'School',
+    items: [
+      { label: 'My school', to: '/school', icon: Backpack, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'portal child children overview summary fees owed' },
+      { label: 'Attendance', to: '/school/attendance', icon: CalendarCheck, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'present absent late register days' },
+      { label: 'Results', to: '/school/results', icon: Trophy, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'report card grades position average term result' },
+      { label: 'Exams & calendar', to: '/school/calendar', icon: CalendarDays, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'exam timetable test holidays events term dates' },
+      { label: 'Downloads', to: '/school/downloads', icon: FolderDown, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'documents forms newsletter booklist timetable pdf' },
     ],
   },
   // Phase 15: the student's learning companion and the parent's family page (permissions keep staff navs clean).
@@ -332,12 +343,13 @@ export const PLATFORM_GROUP: NavGroup = {
 };
 
 /** Nav groups filtered to what this user may see. */
-export function visibleNav(me: MeResponse | null): NavGroup[] {
+export function visibleNav(me: MeResponse | null, hidden?: ReadonlySet<string>): NavGroup[] {
   const hasTenant = !!me?.tenant;
   const groups = NAV_GROUPS.map((g) => ({
     ...g,
     items: g.items.filter((i) => {
       if (!hasTenant && i.to !== '/') return false;
+      if (hidden?.has(i.to)) return false;
       // The roadmap's coming-soon items mean nothing to parents and students.
       if (i.soon && !hasPermission(me, 'school.read')) return false;
       if (i.audience === 'family' && hasPermission(me, 'school.read')) return false;

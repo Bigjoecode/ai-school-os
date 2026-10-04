@@ -1,5 +1,5 @@
-import { DOWNLOAD_CATEGORIES, DOWNLOAD_CATEGORY_LABELS, type DownloadCategory } from '@aischool/shared';
-import { Check, Download, EyeOff, FileText, Images, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { DOWNLOAD_AUDIENCE_LABELS, DOWNLOAD_AUDIENCES, DOWNLOAD_CATEGORIES, DOWNLOAD_CATEGORY_LABELS, type DownloadAudience, type DownloadCategory } from '@aischool/shared';
+import { Check, Download, EyeOff, FileText, Globe, Images, Lock, Pencil, Plus, Trash2, X } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
@@ -16,7 +16,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { formatDate } from '@/lib/format';
+import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
+import { useStructure } from '../academics/api';
 import { apiFieldErrors, dateInput, FormError } from '../operations/ui';
 import {
   type AlbumInputBody,
@@ -270,6 +272,7 @@ export function WebsiteDownloadsTab() {
       ),
     },
     { key: 'cat', header: 'Category', cell: (d) => <Badge variant="outline">{DOWNLOAD_CATEGORY_LABELS[d.category]}</Badge> },
+    { key: 'audience', header: 'Who can see it', cell: (d) => <AudienceBadge d={d} />, headClassName: 'hidden md:table-cell', className: 'hidden md:table-cell' },
     { key: 'status', header: 'Status', cell: (d) => (d.published ? <Badge variant="success" dot>Published</Badge> : <Badge variant="secondary" dot>Hidden</Badge>), headClassName: 'hidden lg:table-cell', className: 'hidden lg:table-cell' },
     {
       key: 'actions',
@@ -292,7 +295,7 @@ export function WebsiteDownloadsTab() {
   return (
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[13.5px] text-muted-foreground">Prospectus, forms, calendars and policies families can download. PDF, Word, Excel, PowerPoint or images, up to 10 MB.</p>
+        <p className="text-[13.5px] text-muted-foreground">Prospectus, forms, calendars and policies families can download. Public documents show on the website; the rest only in the parent and student portal. PDF, Word, Excel, PowerPoint or images, up to 10 MB.</p>
         <Button onClick={() => setDialog({ row: null })}>
           <Plus /> Add document
         </Button>
@@ -315,6 +318,9 @@ export function WebsiteDownloadsTab() {
                   {DOWNLOAD_CATEGORY_LABELS[d.category]}
                   {!d.published && ' · Hidden'}
                 </p>
+                <div className="mt-1">
+                  <AudienceBadge d={d} />
+                </div>
               </div>
               <Pencil className="size-4 shrink-0 text-muted-foreground" />
             </div>
@@ -327,7 +333,7 @@ export function WebsiteDownloadsTab() {
         open={!!deleting}
         onOpenChange={(o) => !o && setDeleting(null)}
         title={`Remove “${deleting?.title ?? ''}”?`}
-        description="It disappears from the Downloads page."
+        description="It disappears from the website and the parent and student portal."
         confirmLabel="Remove"
         loading={del.isPending}
         onConfirm={() => deleting && del.mutate(deleting.id, { onSuccess: () => setDeleting(null) })}
@@ -337,7 +343,7 @@ export function WebsiteDownloadsTab() {
 }
 
 function DownloadDialog({ open, row, onOpenChange }: { open: boolean; row: WebsiteDownloadRow | null; onOpenChange: (o: boolean) => void }) {
-  const blank: DownloadInputBody = { title: '', description: null, category: 'FORMS', fileUrl: '', published: true };
+  const blank: DownloadInputBody = { title: '', description: null, category: 'FORMS', fileUrl: '', published: true, audience: 'PUBLIC', classLevelIds: [] };
   const [v, setV] = React.useState<DownloadInputBody>(blank);
   const [fileName, setFileName] = React.useState<string | null>(null);
   const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -346,7 +352,11 @@ function DownloadDialog({ open, row, onOpenChange }: { open: boolean; row: Websi
     if (!open) return;
     setErrors({});
     setFileName(null);
-    setV(row ? { title: row.title, description: row.description, category: row.category, fileUrl: row.fileUrl, published: row.published } : blank);
+    setV(
+      row
+        ? { title: row.title, description: row.description, category: row.category, fileUrl: row.fileUrl, published: row.published, audience: row.audience ?? 'PUBLIC', classLevelIds: row.classLevelIds ?? [] }
+        : blank,
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, row]);
   const submit = (e?: React.BaseSyntheticEvent) => {
@@ -415,11 +425,90 @@ function DownloadDialog({ open, row, onOpenChange }: { open: boolean; row: Websi
             </SelectContent>
           </Select>
         </Field>
-        <SwitchRow label="Show on the website">
+        <Field
+          label="Who can see this"
+          htmlFor="dl-audience"
+          hint={
+            v.audience === 'PUBLIC'
+              ? 'Shown on the public website and in the parent and student portal.'
+              : 'Only in the signed-in parent and student portal. It won’t appear on the public website.'
+          }
+        >
+          <Select value={v.audience} onValueChange={(a) => setV((x) => ({ ...x, audience: a as DownloadAudience, classLevelIds: a === 'PUBLIC' ? [] : x.classLevelIds }))}>
+            <SelectTrigger id="dl-audience">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {DOWNLOAD_AUDIENCES.map((a) => (
+                <SelectItem key={a} value={a}>
+                  {DOWNLOAD_AUDIENCE_LABELS[a]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
+        {v.audience !== 'PUBLIC' && (
+          <Field label="Only for these classes" optional hint={v.classLevelIds.length ? undefined : 'None picked: every class sees it.'}>
+            <ClassLevelPicker value={v.classLevelIds} onChange={(classLevelIds) => setV((x) => ({ ...x, classLevelIds }))} />
+          </Field>
+        )}
+        <SwitchRow label="Published" description={v.published ? 'Families can see and download it.' : 'Hidden from everyone until you publish it.'}>
           <Switch checked={v.published} onCheckedChange={(published) => setV((x) => ({ ...x, published }))} />
         </SwitchRow>
         <FormError message={errors.form} />
       </div>
     </FormDialog>
+  );
+}
+
+const AUDIENCE_SHORT: Record<DownloadAudience, string> = {
+  PUBLIC: 'Website & portal',
+  FAMILIES: 'Portal: families',
+  PARENTS: 'Portal: parents',
+  STUDENTS: 'Portal: students',
+};
+
+function AudienceBadge({ d }: { d: WebsiteDownloadRow }) {
+  const audience = d.audience ?? 'PUBLIC';
+  const n = audience === 'PUBLIC' ? 0 : (d.classLevelIds?.length ?? 0);
+  return (
+    <Badge variant={audience === 'PUBLIC' ? 'info' : 'secondary'} title={DOWNLOAD_AUDIENCE_LABELS[audience]}>
+      {audience === 'PUBLIC' ? <Globe /> : <Lock />}
+      {AUDIENCE_SHORT[audience]}
+      {n > 0 && ` · ${n} ${n === 1 ? 'class' : 'classes'}`}
+    </Badge>
+  );
+}
+
+/** Class levels as toggle chips; none picked means every class. */
+function ClassLevelPicker({ value, onChange }: { value: string[]; onChange: (ids: string[]) => void }) {
+  const s = useStructure();
+  const canSee = useCan('academics.read');
+  if (!canSee) return <p className="text-[12.5px] text-muted-foreground">{value.length ? `${value.length} classes picked.` : 'Every class.'} Ask someone with access to the class list to change this.</p>;
+  if (s.isLoading) return <p className="text-[12.5px] text-muted-foreground">Loading classes…</p>;
+  const levels = [...(s.data?.classLevels ?? [])].sort((a, b) => a.order - b.order);
+  if (!levels.length) return <p className="text-[12.5px] text-muted-foreground">No classes set up yet, so every class sees it.</p>;
+  const toggle = (id: string) => onChange(value.includes(id) ? value.filter((x) => x !== id) : [...value, id]);
+  return (
+    <div className="flex flex-wrap gap-1.5 rounded-xl border border-border p-3" role="group" aria-label="Only for these classes">
+      {levels.map((l) => {
+        const on = value.includes(l.id);
+        return (
+          <button
+            key={l.id}
+            type="button"
+            aria-pressed={on}
+            onClick={() => toggle(l.id)}
+            className={cn(
+              'inline-flex h-8 items-center gap-1 rounded-full border px-3 text-[12.5px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+              on ? 'border-brand bg-brand text-brand-foreground' : 'border-border bg-card hover:bg-muted/50',
+            )}
+          >
+            {on && <Check className="size-3.5" aria-hidden />}
+            {l.name}
+          </button>
+        );
+      })}
+    </div>
   );
 }

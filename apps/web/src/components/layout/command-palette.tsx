@@ -62,6 +62,7 @@ import {
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { visibleNav } from '@/app/navigation';
+import { usePortalHiddenNav } from '@/features/portal/api';
 import { useSignOut } from '@/features/auth/session';
 import { hasPermission, useMe } from '@/lib/auth-store';
 import { useThemeStore } from '@/lib/theme';
@@ -115,7 +116,8 @@ export function CommandPalette() {
     if (!open) setQuery('');
   }, [open]);
 
-  const navItems = useMemo(() => visibleNav(me).flatMap((g) => g.items.map((i) => ({ ...i, group: g.label }))), [me]);
+  const hiddenNav = usePortalHiddenNav();
+  const navItems = useMemo(() => visibleNav(me, hiddenNav).flatMap((g) => g.items.map((i) => ({ ...i, group: g.label }))), [me, hiddenNav]);
   const canAi = hasPermission(me, 'ai.use');
   // Mirrors the API's gate for Principal AI.
   const canPrincipal = (['school.read', 'results.read', 'finance.read'] as const).every((p) => hasPermission(me, p));

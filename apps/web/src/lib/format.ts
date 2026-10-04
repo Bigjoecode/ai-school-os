@@ -72,7 +72,7 @@ export function formatCompact(value: number): string {
 export function formatMoney(value: number | null | undefined, currency = 'NGN', opts: Intl.NumberFormatOptions = {}): string {
   if (value == null || Number.isNaN(value)) return '—';
   try {
-    return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 2, ...opts }).format(value);
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency, currencyDisplay: 'narrowSymbol', maximumFractionDigits: 2, ...opts }).format(value);
   } catch {
     return `${currency} ${formatNumber(value)}`;
   }

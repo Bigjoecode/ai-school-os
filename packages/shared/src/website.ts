@@ -144,6 +144,10 @@ export const downloadSchema = z.object({
   category: z.enum(DOWNLOAD_CATEGORIES).default('OTHER'),
   fileUrl: mediaUrl.refine((v) => !!v, 'Upload the file'),
   published: z.boolean().default(true),
+  /** PUBLIC also shows on the website; the others only in the signed-in portal. */
+  audience: z.enum(['PUBLIC', 'FAMILIES', 'PARENTS', 'STUDENTS']).default('PUBLIC'),
+  /** Portal downloads for some classes only; empty = everyone. */
+  classLevelIds: z.array(z.string()).max(50).default([]),
 });
 
 export const websiteTeacherSchema = z.object({

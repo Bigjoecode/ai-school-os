@@ -1,7 +1,8 @@
-import { ArrowLeft, Brain, CalendarCheck2, MessageCircle, Sparkles, Trophy } from 'lucide-react';
+import { ArrowLeft, Backpack, Brain, CalendarCheck2, MessageCircle, Sparkles, Trophy } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ErrorState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
@@ -29,6 +30,13 @@ export default function ChildProgressPage() {
         }
         title={d ? `${d.access.name}’s learning` : 'Learning progress'}
         description={d ? `How ${first} is getting on with the AI tutor, practice and exam prep this term.` : undefined}
+        actions={
+          <Button asChild variant="outline">
+            <Link to={`/school/${id}`}>
+              <Backpack /> Attendance & results
+            </Link>
+          </Button>
+        }
       />
       {q.error && !d ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />

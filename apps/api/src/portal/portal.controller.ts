@@ -1,0 +1,280 @@
+import { Body, Controller, ForbiddenException, Get, NotFoundException, Param, Put, Query } from '@nestjs/common';
+import {
+  DEFAULT_PORTAL_SETTINGS,
+  portalSettingsSchema,
+  type PortalAttendance,
+  type PortalChild,
+  type PortalDownload,
+  type PortalEvent,
+  type PortalMe,
+  type PortalOverview,
+  type PortalResultTerm,
+  type PortalSettings,
+  type PortalTermRef,
+  type ReportCardView,
+} from '@aischool/shared';
+import { z } from 'zod';
+import type { Prisma } from '../generated/prisma/client';
+import { AuditService } from '../audit/audit.service';
+import { AttendanceService } from '../attendance/attendance.service';
+import { ReportCardService } from '../assessment/report-card.service';
+import { RequirePermissions } from '../common/decorators';
+import { dateOnly, fullName } from '../common/format';
+import { currentContext, currentTenantId } from '../common/request-context';
+import { schoolNow } from '../common/school-time';
+import { ZodPipe } from '../common/zod.pipe';
+import { FilesService } from '../files/files.service';
+import { PrismaService } from '../prisma/prisma.service';
+
+type Viewer = { role: 'PARENT' | 'STUDENT'; childIds: Set<string> };
+type TermRow = Prisma.TermGetPayload<{ include: { session: { select: { name: true } } } }>;
+
+/**
+ * The family portal: parents see each of their children, students see
+ * themselves. Results are only ever published report cards, and the school
+ * decides what is shown (and can withhold results while fees are owed).
+ */
+@Controller('portal')
+export class PortalController {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly attendance: AttendanceService,
+    private readonly cards: ReportCardService,
+    private readonly files: FilesService,
+    private readonly audit: AuditService,
+  ) {}
+
+  // ---------------------------------------------------------- school settings (staff)
+
+  @Get('settings')
+  @RequirePermissions('school.read')
+  getSettings(): Promise<PortalSettings> {
+    return this.settings();
+  }
+
+  @Put('settings')
+  @RequirePermissions('school.manage')
+  async setSettings(@Body(new ZodPipe(portalSettingsSchema)) body: PortalSettings): Promise<PortalSettings> {
+    await this.prisma.root.tenant.update({ where: { id: currentTenantId() }, data: { portalSettings: body as unknown as Prisma.InputJsonValue } });
+    await this.audit.log({ action: 'portal.settings_updated', entityType: 'Tenant', entityId: currentTenantId(), summary: `Updated what families see in the portal${body.withholdResultsWhenOwing ? ' (results withheld while fees are owed)' : ''}` });
+    return body;
+  }
+
+  // ---------------------------------------------------------- families
+
+  @Get('me')
+  async me(): Promise<PortalMe> {
+    const v = await this.viewer();
+    const [children, settings, tenant] = await Promise.all([this.children(v), this.settings(), this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { currency: true } })]);
+    return { role: v.role, children, settings, currency: tenant.currency };
+  }
+
+  @Get('students/:id/overview')
+  async overview(@Param('id') id: string): Promise<PortalOverview> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const db = this.prisma.db;
+    const settings = await this.settings();
+    const [child] = await this.children(v, id);
+    if (!child) throw new NotFoundException('Student not found');
+    const current = await this.currentTerm();
+    const student = await db.student.findUniqueOrThrow({ where: { id }, select: { classArmId: true, classArm: { select: { classLevelId: true } } } });
+    const today = await this.today();
+    const [attendance, results, upcoming, homeworkDue, invoices, downloads] = await Promise.all([
+      settings.showAttendance && current ? this.attendance.termCounts(id, current) : null,
+      settings.showResults ? this.resultTerms(id, settings, v) : [],
+      settings.showCalendar ? this.events(v, student.classArmId, 5) : [],
+      student.classArmId ? db.homework.count({ where: { classArmId: student.classArmId, status: 'PUBLISHED', dueDate: { gte: new Date(`${today}T00:00:00Z`) }, submissions: { none: { studentId: id } } } }) : 0,
+      v.role === 'PARENT' ? db.invoice.findMany({ where: { studentId: id, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } }) : null,
+      settings.showDownloads ? this.downloadRows(v, student.classArm?.classLevelId ?? null) : [],
+    ]);
+    const weekAgo = Date.now() - 14 * 86_400_000;
+    return {
+      child,
+      attendance,
+      latestResult: results.find((r) => r.published) ?? null,
+      upcoming,
+      homeworkDue,
+      feesOwed: invoices ? invoices.reduce((n, i) => n + Math.max(0, i.totalKobo - i.paidKobo), 0) / 100 : null,
+      newDownloads: downloads.filter((d) => Date.parse(d.updatedAt) > weekAgo).length,
+    };
+  }
+
+  @Get('students/:id/attendance')
+  async studentAttendance(@Param('id') id: string, @Query(new ZodPipe(z.object({ termId: z.string().optional() }))) q: { termId?: string }): Promise<PortalAttendance> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    if (!(await this.settings()).showAttendance) throw new ForbiddenException('The school has not shared attendance in the portal');
+    const terms = await this.terms();
+    const term = (q.termId ? terms.find((t) => t.id === q.termId) : null) ?? terms.find((t) => t.isCurrent) ?? terms[0];
+    if (!term) throw new NotFoundException('No terms have been set up yet');
+    const row = await this.prisma.db.term.findUniqueOrThrow({ where: { id: term.id } });
+    const [counts, days] = await Promise.all([
+      this.attendance.termCounts(id, row),
+      this.prisma.db.studentAttendance.findMany({ where: { studentId: id, date: { gte: row.startsOn, lte: row.endsOn } }, orderBy: { date: 'desc' }, select: { date: true, status: true, note: true } }),
+    ]);
+    return { term, terms, counts, days: days.map((d) => ({ date: dateOnly(d.date)!, status: d.status, note: d.note })) };
+  }
+
+  @Get('students/:id/results')
+  async results(@Param('id') id: string): Promise<PortalResultTerm[]> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    return this.resultTerms(id, settings, v);
+  }
+
+  /** A published report card, exactly as the school prints it. */
+  @Get('students/:id/results/:termId')
+  async resultCard(@Param('id') id: string, @Param('termId') termId: string): Promise<ReportCardView> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    const card = await this.prisma.db.reportCard.findUnique({ where: { studentId_termId: { studentId: id, termId } } });
+    if (card?.status !== 'PUBLISHED') throw new NotFoundException('This result has not been published yet');
+    const withheld = await this.withheld(id, settings);
+    if (withheld) throw new ForbiddenException({ statusCode: 403, code: 'RESULT_WITHHELD', message: withheld });
+    return this.cards.view({ studentId: id, termId });
+  }
+
+  @Get('students/:id/calendar')
+  async calendar(@Param('id') id: string): Promise<PortalEvent[]> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    if (!(await this.settings()).showCalendar) throw new ForbiddenException('The school has not shared its calendar in the portal');
+    const s = await this.prisma.db.student.findUniqueOrThrow({ where: { id }, select: { classArmId: true } });
+    return this.events(v, s.classArmId, 60);
+  }
+
+  /** The school's documents for this family: forms, timetables, newsletters, the calendar… */
+  @Get('downloads')
+  async downloads(@Query(new ZodPipe(z.object({ studentId: z.string().optional() }))) q: { studentId?: string }): Promise<PortalDownload[]> {
+    const v = await this.viewer();
+    if (!(await this.settings()).showDownloads) return [];
+    let levels: (string | null)[] | null = null;
+    if (q.studentId) {
+      this.mustSee(v, q.studentId);
+      const s = await this.prisma.db.student.findUniqueOrThrow({ where: { id: q.studentId }, select: { classArm: { select: { classLevelId: true } } } });
+      levels = [s.classArm?.classLevelId ?? null];
+    } else {
+      const kids = await this.prisma.db.student.findMany({ where: { id: { in: [...v.childIds] } }, select: { classArm: { select: { classLevelId: true } } } });
+      levels = kids.map((k) => k.classArm?.classLevelId ?? null);
+    }
+    return this.downloadRows(v, ...levels);
+  }
+
+  // ---------------------------------------------------------- helpers
+
+  private async viewer(): Promise<Viewer> {
+    const ctx = currentContext();
+    const db = this.prisma.db;
+    if (ctx.permissions.has('family.manage')) {
+      const links = await db.studentGuardian.findMany({ where: { guardian: { userId: ctx.userId }, student: { status: 'ACTIVE' } }, select: { studentId: true } });
+      return { role: 'PARENT', childIds: new Set(links.map((l) => l.studentId)) };
+    }
+    if (ctx.permissions.has('learning.use')) {
+      const me = await db.student.findFirst({ where: { userId: ctx.userId, status: 'ACTIVE' }, select: { id: true } });
+      if (me) return { role: 'STUDENT', childIds: new Set([me.id]) };
+    }
+    throw new ForbiddenException('The portal is for parents and students');
+  }
+
+  private mustSee(v: Viewer, studentId: string) {
+    if (!v.childIds.has(studentId)) throw new ForbiddenException(v.role === 'PARENT' ? 'You can only see your own children' : 'You can only see your own records');
+  }
+
+  private async children(v: Viewer, only?: string): Promise<PortalChild[]> {
+    const rows = await this.prisma.db.student.findMany({
+      where: { id: { in: only ? [only] : [...v.childIds] } },
+      include: { classArm: { include: { classLevel: true } } },
+      orderBy: [{ firstName: 'asc' }],
+    });
+    return rows.map((s) => ({
+      id: s.id,
+      name: fullName(s),
+      firstName: s.firstName,
+      admissionNumber: s.admissionNumber,
+      className: s.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}`.trim() : null,
+      photoUrl: s.photoUrl,
+    }));
+  }
+
+  private async settings(): Promise<PortalSettings> {
+    const t = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { portalSettings: true } });
+    return { ...DEFAULT_PORTAL_SETTINGS, ...((t.portalSettings as Partial<PortalSettings> | null) ?? {}) };
+  }
+
+  private async today() {
+    const t = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { timezone: true } });
+    return schoolNow(t.timezone).date;
+  }
+
+  private async terms(): Promise<PortalTermRef[]> {
+    const rows = await this.prisma.db.term.findMany({ include: { session: { select: { name: true } } }, orderBy: { startsOn: 'desc' } });
+    return rows.map(termRef);
+  }
+
+  private async currentTerm() {
+    return (await this.prisma.db.term.findFirst({ where: { isCurrent: true } })) ?? (await this.prisma.db.term.findFirst({ orderBy: { startsOn: 'desc' } }));
+  }
+
+  /** Why results are hidden from this family, or null. */
+  private async withheld(studentId: string, settings: PortalSettings): Promise<string | null> {
+    if (!settings.withholdResultsWhenOwing) return null;
+    const invoices = await this.prisma.db.invoice.findMany({ where: { studentId, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } });
+    const owed = invoices.reduce((n, i) => n + Math.max(0, i.totalKobo - i.paidKobo), 0);
+    if (owed <= 0) return null;
+    return settings.withholdMessage ?? 'Results are available once school fees are fully paid. Please contact the school bursar.';
+  }
+
+  private async resultTerms(studentId: string, settings: PortalSettings, v: Viewer): Promise<PortalResultTerm[]> {
+    void v;
+    const [cards, withheld] = await Promise.all([
+      this.prisma.db.reportCard.findMany({ where: { studentId, status: 'PUBLISHED' }, include: { term: { include: { session: { select: { name: true } } } } }, orderBy: { term: { startsOn: 'desc' } } }),
+      this.withheld(studentId, settings),
+    ]);
+    return Promise.all(
+      cards.map(async (c) => {
+        let summary: { average: number | null; position: number | null; classSize: number | null } = { average: null, position: null, classSize: null };
+        if (!withheld) {
+          const view = await this.cards.view({ studentId, termId: c.termId }).catch(() => null);
+          if (view) summary = { average: view.summary.average, position: view.summary.position, classSize: view.summary.classSize };
+        }
+        return { term: termRef(c.term), published: true, publishedAt: c.publishedAt?.toISOString() ?? null, ...summary, withheld };
+      }),
+    );
+  }
+
+  /** Upcoming events this family may see (school-wide, for parents/students, or for the child's class). */
+  private async events(v: Viewer, classArmId: string | null, take: number): Promise<PortalEvent[]> {
+    const today = await this.today();
+    const audiences = ['EVERYONE', v.role === 'PARENT' ? 'PARENTS' : 'STUDENTS'];
+    const rows = await this.prisma.db.schoolEvent.findMany({
+      where: { audience: { in: audiences }, OR: [{ startDate: { gte: new Date(`${today}T00:00:00Z`) } }, { endDate: { gte: new Date(`${today}T00:00:00Z`) } }] },
+      orderBy: [{ startDate: 'asc' }, { startTime: 'asc' }],
+      take: take * 2,
+    });
+    return rows
+      .filter((e) => !e.classArmIds.length || (classArmId && e.classArmIds.includes(classArmId)))
+      .slice(0, take)
+      .map((e) => ({ id: e.id, title: e.title, description: e.description, category: e.category, startDate: dateOnly(e.startDate)!, endDate: dateOnly(e.endDate), startTime: e.startTime, endTime: e.endTime, allDay: e.allDay, location: e.location }));
+  }
+
+  private async downloadRows(v: Viewer, ...levels: (string | null)[]): Promise<PortalDownload[]> {
+    const audiences = ['PUBLIC', 'FAMILIES', v.role === 'PARENT' ? 'PARENTS' : 'STUDENTS'];
+    const rows = await this.prisma.db.websiteDownload.findMany({ where: { published: true, audience: { in: audiences } }, orderBy: [{ updatedAt: 'desc' }] });
+    const mine = new Set(levels.filter((l): l is string => !!l));
+    return Promise.all(
+      rows
+        .filter((d) => !d.classLevelIds.length || d.classLevelIds.some((l) => mine.has(l)))
+        .map(async (d) => ({ id: d.id, title: d.title, description: d.description, category: d.category, fileUrl: d.fileUrl, sizeBytes: await this.files.sizeOf(d.fileUrl), updatedAt: d.updatedAt.toISOString() })),
+    );
+  }
+}
+
+function termRef(t: TermRow): PortalTermRef {
+  return { id: t.id, name: t.name, sessionName: t.session.name, startsOn: dateOnly(t.startsOn)!, endsOn: dateOnly(t.endsOn)!, isCurrent: t.isCurrent };
+}
+

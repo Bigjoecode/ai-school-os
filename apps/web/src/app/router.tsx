@@ -131,6 +131,14 @@ const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
 const FamilyPage = lazy(() => import('@/features/family/family-page'));
 const ChildProgressPage = lazy(() => import('@/features/family/child-page'));
 const AskSchoolPage = lazy(() => import('@/features/family/ask-page'));
+const PortalRedirect = lazy(() => import('@/features/portal/ui').then((m) => ({ default: m.PortalRedirect })));
+const PortalOverviewPage = lazy(() => import('@/features/portal/overview-page'));
+const PortalAttendancePage = lazy(() => import('@/features/portal/attendance-page'));
+const PortalResultsPage = lazy(() => import('@/features/portal/results-page'));
+const PortalReportCardPage = lazy(() => import('@/features/portal/results-page').then((m) => ({ default: m.PortalReportCardPage })));
+const PortalCalendarPage = lazy(() => import('@/features/portal/calendar-page'));
+const PortalDownloadsPage = lazy(() => import('@/features/portal/downloads-page'));
+const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -578,6 +586,22 @@ export const router = createBrowserRouter(withRouteErrors([
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
+      // The family portal ("My school"): /school/<section>/<studentId>; bare section links open the last child viewed.
+      ...(
+        [
+          ['school', <PortalRedirect key="p-home" section="overview" />],
+          ['school/attendance', <PortalRedirect key="p-att" section="attendance" />],
+          ['school/results', <PortalRedirect key="p-res" section="results" />],
+          ['school/calendar', <PortalRedirect key="p-cal" section="calendar" />],
+          ['school/downloads', <PortalRedirect key="p-dl" section="downloads" />],
+          ['school/:studentId', <PortalOverviewPage key="p-overview" />],
+          ['school/attendance/:studentId', <PortalAttendancePage key="p-attendance" />],
+          ['school/results/:studentId', <PortalResultsPage key="p-results" />],
+          ['school/results/:studentId/:termId', <PortalReportCardPage key="p-card" />],
+          ['school/calendar/:studentId', <PortalCalendarPage key="p-calendar" />],
+          ['school/downloads/:studentId', <PortalDownloadsPage key="p-downloads" />],
+        ] as const
+      ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
       {
         path: 'support',
         element: (
@@ -629,6 +653,14 @@ export const router = createBrowserRouter(withRouteErrors([
             element: (
               <RequirePermission permission="users.read">
                 <UsersPage />
+              </RequirePermission>
+            ),
+          },
+          {
+            path: 'portal',
+            element: (
+              <RequirePermission permission="school.read">
+                <PortalSettingsPage />
               </RequirePermission>
             ),
           },

@@ -1,4 +1,5 @@
 import type {
+  DownloadAudience,
   DownloadCategory,
   PostCategory,
   PublicEvent,
@@ -36,6 +37,10 @@ export interface WebsiteDownloadRow {
   category: DownloadCategory;
   fileUrl: string;
   published: boolean;
+  /** PUBLIC also shows on the website; the others only in the signed-in portal. */
+  audience: DownloadAudience;
+  /** Portal downloads for some class levels only; empty = every class. */
+  classLevelIds: string[];
   createdAt: string;
 }
 
@@ -82,6 +87,8 @@ export interface DownloadInputBody {
   category: DownloadCategory;
   fileUrl: string;
   published: boolean;
+  audience: DownloadAudience;
+  classLevelIds: string[];
 }
 
 // ------------------------------------------------------------------ keys

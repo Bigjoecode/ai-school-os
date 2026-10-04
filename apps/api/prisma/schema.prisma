@@ -96,6 +96,8 @@ model Tenant {
   commsSettings        Json?
   /// Public website content and settings — null means not set up.
   websiteSettings      Json?
+  /// What parents and students see in the portal (see portalSettingsSchema).
+  portalSettings       Json?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -2485,16 +2487,20 @@ model WebsitePhoto {
 }
 
 model WebsiteDownload {
-  id          String   @id @default(cuid())
-  tenantId    String
-  title       String
-  description String?
+  id            String   @id @default(cuid())
+  tenantId      String
+  title         String
+  description   String?
   /// PROSPECTUS, FORMS, CALENDAR, POLICIES, FEES, NEWSLETTER, OTHER
-  category    String   @default("OTHER")
-  fileUrl     String
-  published   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  category      String   @default("OTHER")
+  fileUrl       String
+  published     Boolean  @default(true)
+  /// PUBLIC (website and portal), FAMILIES (portal: parents and students), PARENTS, STUDENTS
+  audience      String   @default("PUBLIC")
+  /// Portal downloads for some classes only; empty = every class.
+  classLevelIds String[] @default([])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 

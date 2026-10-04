@@ -148,7 +148,7 @@ export class PublicSiteController {
   @Public()
   async downloads(@Param('slug') slug: string, @Query('preview') preview?: string): Promise<PublicDownload[]> {
     await this.site.siteTenant(slug, await this.previewTenant(preview));
-    const rows = await this.prisma.db.websiteDownload.findMany({ where: { published: true }, orderBy: [{ category: 'asc' }, { title: 'asc' }] });
+    const rows = await this.prisma.db.websiteDownload.findMany({ where: { published: true, audience: 'PUBLIC' }, orderBy: [{ category: 'asc' }, { title: 'asc' }] });
     return Promise.all(rows.map(async (d) => ({ id: d.id, title: d.title, description: d.description, category: d.category as DownloadCategory, fileUrl: d.fileUrl, sizeBytes: await this.files.sizeOf(d.fileUrl) })));
   }
 

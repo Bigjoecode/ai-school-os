@@ -45,6 +45,7 @@ import { PendingLeaveNotice } from '../hr/ui';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { SetupProgressCard } from '../onboarding/ui';
 import { OperationsCard } from '../operations/operations-card';
+import { PortalSummaryCard } from '../portal/summary-card';
 import { TodayClassesCard } from '../timetable/today-card';
 
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
@@ -116,6 +117,7 @@ function MemberOverview() {
         </h1>
       </div>
       <div className="space-y-5">
+        <PortalSummaryCard />
         {hasLive && <MyLearningCard />}
         <NoticeboardCard alwaysShow />
         <div className="grid gap-3 sm:grid-cols-3 [&>*]:min-w-0">

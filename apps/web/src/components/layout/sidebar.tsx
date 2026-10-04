@@ -6,8 +6,11 @@ import { useMe } from '@/lib/auth-store';
 import { useUiStore } from '@/lib/ui-store';
 import { cn } from '@/lib/utils';
 import { SetupNavBadge } from '@/features/onboarding/ui';
+import { usePortalHiddenNav } from '@/features/portal/api';
 import { Tip } from '../ui/tooltip';
 import { TenantSwitcher } from './tenant-switcher';
+
+const PORTAL_NAV_SECTIONS = new Set(['attendance', 'results', 'calendar', 'downloads']);
 
 function isActive(item: NavItem, pathname: string, search: string): boolean {
   const [path, query] = item.to.split('?');
@@ -20,6 +23,8 @@ function isActive(item: NavItem, pathname: string, search: string): boolean {
   if (path === '/ai') return pathname === '/ai' && !new URLSearchParams(search).get('agent');
   if (path === '/settings') return pathname === '/settings';
   if (path === '/platform') return pathname === '/platform';
+  // My school's overview is /school/<studentId>; its sections have their own items.
+  if (path === '/school') return pathname === '/school' || (/^\/school\/[^/]+$/.test(pathname) && !PORTAL_NAV_SECTIONS.has(pathname.split('/')[2]));
   return pathname === path || pathname.startsWith(`${path}/`);
 }
 
@@ -73,7 +78,8 @@ function NavLinkItem({ item, collapsed, onNavigate }: { item: NavItem; collapsed
 
 export function SidebarContent({ collapsed = false, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
   const me = useMe();
-  const groups = useMemo(() => visibleNav(me), [me]);
+  const hidden = usePortalHiddenNav();
+  const groups = useMemo(() => visibleNav(me, hidden), [me, hidden]);
   return (
     <div className="flex h-full min-h-0 flex-col">
       <div className={cn('shrink-0 p-3', collapsed && 'px-2')}>

@@ -10,6 +10,7 @@ import { FinanceModule } from './finance/finance.module';
 import { HrModule } from './hr/hr.module';
 import { OperationsModule } from './operations/operations.module';
 import { CommsModule } from './comms/comms.module';
+import { PortalModule } from './portal/portal.module';
 import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
 import { FilesModule } from './files/files.module';
@@ -96,6 +97,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     OperationsModule,
     CommsModule,
     LiveModule,
+    PortalModule,
     AgentsModule,
     FilesModule,
     WebsiteModule,

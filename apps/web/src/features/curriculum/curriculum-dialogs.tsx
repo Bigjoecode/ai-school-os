@@ -1,11 +1,11 @@
-import { createCurriculumSchema, generateCurriculumSchema } from '@aischool/shared';
+import { createCurriculumSchema, generateCurriculumSchema, importCurriculumSchema } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BookOpen, Sparkles } from 'lucide-react';
-import { useEffect } from 'react';
+import { BookOpen, FileUp, Sparkles } from 'lucide-react';
+import { type BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
-import type { z } from 'zod';
+import { z } from 'zod';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -15,8 +15,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { applyServerErrors } from '@/lib/forms';
 import { useStructure } from '../academics/api';
+import { FormError } from '../operations/ui';
 import { LevelSelect, SubjectSelect } from '../planning/pickers';
-import { useCreateCurriculum, useGenerateCurriculum } from './api';
+import { useCreateCurriculum, useGenerateCurriculum, useImportCurriculum } from './api';
+import { DocumentPicker, type DocValue, docErrors, emptyDoc, NothingInventedNote } from './import-document';
 
 interface DialogProps {
   open: boolean;
@@ -240,6 +242,130 @@ export function BlankCurriculumDialog({ open, onOpenChange, defaults }: DialogPr
         <Field label="Weeks per term" htmlFor="bc-weeks" error={e.weeksPerTerm?.message}>
           <Input id="bc-weeks" type="number" min={6} max={14} invalid={!!e.weeksPerTerm} {...form.register('weeksPerTerm', { valueAsNumber: true })} />
         </Field>
+      </div>
+    </FormDialog>
+  );
+}
+
+const importFieldsSchema = importCurriculumSchema.pick({ subjectId: true, classLevelId: true, weeksPerTerm: true }).extend({
+  subjectId: z.string().min(1, 'Choose a subject'),
+  classLevelId: z.string().min(1, 'Choose a class level'),
+  weeksPerTerm: z.number({ error: 'Enter the teaching weeks per term' }).int().min(6, 'Between 6 and 14 weeks').max(14, 'Between 6 and 14 weeks'),
+});
+type ImportValues = z.input<typeof importFieldsSchema>;
+type ImportOutput = z.output<typeof importFieldsSchema>;
+
+/** "Upload our curriculum": the school's own document, laid out term by term. */
+export function ImportCurriculumDialog({ open, onOpenChange, defaults }: DialogProps) {
+  const navigate = useNavigate();
+  const structure = useStructure();
+  const importDoc = useImportCurriculum();
+  const [doc, setDoc] = useState<DocValue>(emptyDoc);
+  const [docErrs, setDocErrs] = useState<{ file?: string; text?: string }>({});
+  const [formError, setFormError] = useState<string | undefined>();
+  const initial = (): ImportValues => ({
+    subjectId: defaults?.subjectId ?? '',
+    classLevelId: defaults?.classLevelId ?? '',
+    weeksPerTerm: 11,
+  });
+  const form = useForm<ImportValues, unknown, ImportOutput>({ resolver: zodResolver(importFieldsSchema), defaultValues: initial() });
+  const e = form.formState.errors;
+
+  useEffect(() => {
+    if (open) {
+      form.reset(initial());
+      setDoc(emptyDoc());
+      setDocErrs({});
+      setFormError(undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  const onSubmit = (ev?: BaseSyntheticEvent) => {
+    ev?.preventDefault();
+    const errs = docErrors(doc);
+    setDocErrs(errs);
+    setFormError(undefined);
+    void form.handleSubmit((values) => {
+      if (errs.file || errs.text) return;
+      importDoc.mutate(
+        { ...values, doc },
+        {
+          onSuccess: (c) => {
+            toast.success('Your curriculum is being laid out', { description: 'This usually takes a minute or two.' });
+            onOpenChange(false);
+            navigate(`/curriculum/${c.id}`);
+          },
+          onError: (err) => {
+            if (!applyServerErrors(err, form.setError)) setFormError(err.message);
+          },
+        },
+      );
+    })();
+  };
+
+  return (
+    <FormDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Upload our curriculum"
+      description="Already have a curriculum? Upload it (or paste it) and it becomes an editable draft here, ready for schemes of work and lesson plans."
+      icon={<FileUp />}
+      submitLabel={importDoc.isPending ? 'Uploading…' : 'Upload curriculum'}
+      pending={importDoc.isPending}
+      onSubmit={onSubmit}
+      size="lg"
+    >
+      <div className="grid gap-4">
+        <NothingInventedNote noun="term by term" />
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field label="Subject" htmlFor="ic-subject" className="content-start" error={e.subjectId?.message}>
+            <Controller
+              control={form.control}
+              name="subjectId"
+              render={({ field }) => (
+                <SubjectSelect
+                  id="ic-subject"
+                  structure={structure.data}
+                  value={field.value || undefined}
+                  onChange={(v) => field.onChange(v ?? '')}
+                  invalid={!!e.subjectId}
+                  disabled={structure.isLoading}
+                />
+              )}
+            />
+          </Field>
+          <Field label="Class level" htmlFor="ic-level" className="content-start" error={e.classLevelId?.message}>
+            <Controller
+              control={form.control}
+              name="classLevelId"
+              render={({ field }) => (
+                <LevelSelect
+                  id="ic-level"
+                  structure={structure.data}
+                  value={field.value || undefined}
+                  onChange={(v) => field.onChange(v ?? '')}
+                  invalid={!!e.classLevelId}
+                  disabled={structure.isLoading}
+                />
+              )}
+            />
+          </Field>
+          <Field label="Weeks per term" htmlFor="ic-weeks" hint="6–14" className="content-start" error={e.weeksPerTerm?.message}>
+            <Input id="ic-weeks" type="number" min={6} max={14} invalid={!!e.weeksPerTerm} {...form.register('weeksPerTerm', { valueAsNumber: true })} />
+          </Field>
+        </div>
+        <DocumentPicker
+          idPrefix="ic"
+          value={doc}
+          onChange={(v) => {
+            setDoc(v);
+            setDocErrs({});
+            setFormError(undefined);
+          }}
+          errors={docErrs}
+        />
+        <FormError message={formError} />
       </div>
     </FormDialog>
   );

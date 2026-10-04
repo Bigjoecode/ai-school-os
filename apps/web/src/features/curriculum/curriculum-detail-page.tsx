@@ -176,7 +176,13 @@ function CurriculumView({ c }: { c: CurriculumDetail }) {
       </div>
 
       {generating ? (
-        <GeneratingPanel noun="curriculum" state={c.generation} />
+        <GeneratingPanel noun="curriculum" state={c.generation}>
+          {c.source === 'UPLOAD' && (
+            <p className="max-w-md rounded-xl border border-border bg-card/70 px-4 py-2.5 text-[13px] text-muted-foreground">
+              We’re laying out your own document term by term as an editable draft. Nothing is invented.
+            </p>
+          )}
+        </GeneratingPanel>
       ) : (
         <div className="space-y-6">
           {c.generation === 'FAILED' && (

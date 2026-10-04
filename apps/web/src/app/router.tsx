@@ -29,6 +29,9 @@ const PaperDetailPage = lazy(() => import('@/features/exams/paper-detail-page'))
 const ResultsPage = lazy(() => import('@/features/results/results-page'));
 const ReportCardsPage = lazy(() => import('@/features/report-cards/report-cards-page'));
 const ReportCardPage = lazy(() => import('@/features/report-cards/report-card-page'));
+const ReportLayoutsPage = lazy(() => import('@/features/report-cards/layouts-page'));
+const ReportLayoutEditorPage = lazy(() => import('@/features/report-cards/layout-editor-page'));
+const TraitRatingsPage = lazy(() => import('@/features/report-cards/trait-ratings-page'));
 const TimetablePage = lazy(() => import('@/features/timetable/timetable-page'));
 const TimetableSetupPage = lazy(() => import('@/features/timetable/setup/setup-page'));
 const AttendancePage = lazy(() => import('@/features/attendance/attendance-page'));
@@ -67,6 +70,8 @@ const LiveClassPage = lazy(() => import('@/features/live/class-page'));
 const LiveSettingsPage = lazy(() => import('@/features/live/settings-page'));
 const HomeworkPage = lazy(() => import('@/features/live/homework-page'));
 const LearningPage = lazy(() => import('@/features/live/learning-page'));
+const SubmissionsPage = lazy(() => import('@/features/live/submissions-page'));
+const AssignmentPage = lazy(() => import('@/features/live/assignment-page'));
 const MessagesPage = lazy(() => import('@/features/comms/messages-page'));
 const ComposePage = lazy(() => import('@/features/comms/compose-page'));
 const BroadcastPage = lazy(() => import('@/features/comms/broadcast-page'));
@@ -338,6 +343,30 @@ export const router = createBrowserRouter(withRouteErrors([
         ),
       },
       {
+        path: 'report-cards/layout',
+        element: (
+          <RequirePermission permission="results.read">
+            <ReportLayoutsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'report-cards/layout/:templateId',
+        element: (
+          <RequirePermission permission="results.read">
+            <ReportLayoutEditorPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'report-cards/ratings',
+        element: (
+          <RequirePermission permission="results.read">
+            <TraitRatingsPage />
+          </RequirePermission>
+        ),
+      },
+      {
         path: 'report-cards/:studentId',
         element: (
           <RequirePermission permission="results.read">
@@ -478,6 +507,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['live/settings', 'live.read', <LiveSettingsPage key="live-settings" />],
           ['live/:id', 'live.read', <LiveClassPage key="live-class" />],
           ['homework', 'homework.manage', <HomeworkPage key="homework" />],
+          ['homework/:id', 'homework.manage', <SubmissionsPage key="homework-submissions" />],
         ] as const
       ).map(([path, permission, page]) => ({
         path,
@@ -514,6 +544,14 @@ export const router = createBrowserRouter(withRouteErrors([
         element: (
           <RequireFeature feature="live_classes">
             <LearningPage />
+          </RequireFeature>
+        ),
+      },
+      {
+        path: 'learning/homework/:id',
+        element: (
+          <RequireFeature feature="live_classes">
+            <AssignmentPage />
           </RequireFeature>
         ),
       },

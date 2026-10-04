@@ -150,6 +150,16 @@ export const homeworkSchema = z.object({
   dueDate: isoDate,
   publish: z.boolean().default(true),
   notifyParents: z.array(z.enum(['IN_APP', 'SMS', 'EMAIL', 'WHATSAPP', 'PUSH'])).default([]),
+  /** QUESTIONS | THEORY | PROJECT | UPLOAD */
+  kind: z.enum(['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD']).default('QUESTIONS'),
+  attachments: z
+    .array(z.object({ type: z.enum(['FILE', 'LINK']), fileId: z.string().nullish().transform((v) => v || null), url: z.string().trim().max(1000), name: z.string().trim().min(1).max(200), mimeType: z.string().max(100).nullish().transform((v) => v || null) }))
+    .max(10)
+    .default([]),
+  submissionTypes: z.array(z.enum(['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT', 'LINK'])).max(6).default([]),
+  maxScore: z.number().int().min(1).max(1000).nullish().transform((v) => v ?? null),
+  markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
+  allowLate: z.boolean().default(true),
 });
 export type HomeworkInput = z.infer<typeof homeworkSchema>;
 
@@ -252,6 +262,17 @@ export interface HomeworkRow {
   liveClassId: string | null;
   publishedAt: string | null;
   overdue: boolean;
+  kind: 'QUESTIONS' | 'THEORY' | 'PROJECT' | 'UPLOAD';
+  attachments: { type: 'FILE' | 'LINK'; fileId: string | null; url: string; name: string; mimeType: string | null }[];
+  submissionTypes: ('TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT' | 'LINK')[];
+  maxScore: number | null;
+  allowLate: boolean;
+  /** Staff list only: the private marking guide (so editing keeps it). */
+  markingGuide?: string | null;
+  /** Staff: hand-ins so far. */
+  submissions?: { submitted: number; graded: number; classSize: number };
+  /** Students and parents: the child's own hand-in. */
+  mine?: { id: string; status: 'SUBMITTED' | 'GRADED' | 'RETURNED'; late: boolean; score: number | null; feedback: string | null; submittedAt: string; text?: string | null; files?: { fileId: string; name: string; mimeType: string; sizeBytes: number; url: string }[]; links?: string[] } | null;
 }
 
 /** What a student or parent sees: upcoming live classes and homework for their classes. */

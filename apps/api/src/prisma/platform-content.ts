@@ -185,6 +185,15 @@ const QUESTIONS: Q[] = [
   [['BECE'], 'Basic Science', 'Human body', 'Which organ pumps blood round the body?', ['Lungs', 'Heart', 'Liver', 'Kidney'], 1, 'The heart pumps blood through the blood vessels.'],
 ];
 
+/** Written (theory) starters: [exams, subject, topic, stem, marks, marking guide, model answer]. JAMB is objective-only. */
+type T = [exams: string[], subject: string, topic: string, stem: string, marks: number, guide: string, model: string];
+const THEORY: T[] = [
+  [['WAEC', 'NECO'], 'Mathematics', 'Quadratic equations', '(a) Solve the equation 2x² − 7x + 3 = 0.\n(b) Hence find the sum of the roots.', 6, '1 mark: correct factorisation or formula substitution; 2 marks: x = 3; 1 mark: x = 1/2; 2 marks: sum of roots = 7/2 (by adding roots or −b/a).', '2x² − 7x + 3 = (2x − 1)(x − 3) = 0, so x = 1/2 or x = 3. Sum of roots = 3 + 1/2 = 7/2 (check: −b/a = 7/2).'],
+  [['WAEC', 'NECO'], 'Biology', 'Nutrition', '(a) Define photosynthesis.\n(b) State three conditions necessary for photosynthesis.\n(c) Write a balanced equation for the process.', 8, '2 marks: definition — green plants make glucose/food from carbon dioxide and water using light energy absorbed by chlorophyll; 3 marks: any three of light, chlorophyll, carbon dioxide, water, suitable temperature (1 each); 3 marks: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (1 reactants, 1 products, 1 balanced, with light/chlorophyll noted).', 'Photosynthesis is the process by which green plants make glucose from carbon dioxide and water using light energy trapped by chlorophyll, releasing oxygen. Conditions: light, chlorophyll, carbon dioxide (also water and a suitable temperature). 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (in light, with chlorophyll).'],
+  [['WAEC', 'NECO'], 'Economics', 'Demand and supply', '(a) What is meant by demand?\n(b) Explain three factors, other than price, that affect the demand for a commodity.', 8, '2 marks: the quantity of a good consumers are willing and able to buy at a given price in a given period (both "willing" and "able" for full marks); 6 marks: any three of income, prices of related goods (substitutes/complements), tastes and fashion, population, expectations, advertising — 1 mark for naming and 1 for explaining each.', 'Demand is the quantity of a commodity consumers are willing and able to buy at a given price over a period of time. Other factors: income (higher income usually raises demand for normal goods); prices of related goods (a dearer substitute raises demand; a dearer complement lowers it); tastes and fashion (a good in fashion is demanded more).'],
+  [['BECE'], 'Basic Science', 'Matter', '(a) Name the three states of matter.\n(b) Give one example of each.\n(c) What is the change from liquid to gas called?', 7, '3 marks: solid, liquid, gas; 3 marks: one correct example each (e.g. stone, water, air); 1 mark: evaporation (or boiling).', 'Solid (e.g. stone), liquid (e.g. water) and gas (e.g. air/oxygen). A liquid changing into a gas is evaporation (boiling when it happens at the boiling point).'],
+];
+
 export async function ensurePlatformContent(prisma: PrismaClient): Promise<string> {
   let created = 0;
   for (const p of PRODUCTS) {
@@ -206,6 +215,14 @@ export async function ensurePlatformContent(prisma: PrismaClient): Promise<strin
       exams.map((exam) => ({ exam, subject, topicId: topicId(subject, topic, exam), stem, options, answer, explanation, difficulty: 'MEDIUM', source: 'AUTHORED', status: 'PUBLISHED' })),
     );
     questions = (await prisma.examQuestion.createMany({ data: rows })).count;
+  }
+  if ((await prisma.examQuestion.count({ where: { type: 'THEORY' } })) === 0) {
+    const topics = await prisma.syllabusTopic.findMany();
+    const topicId = (subject: string, name: string, exam: string) => topics.find((x) => x.subject === subject && x.name === name && x.level === (exam === 'BECE' ? 'JUNIOR' : 'SENIOR'))?.id ?? null;
+    const rows = THEORY.flatMap(([exams, subject, topic, stem, marks, markingGuide, explanation]) =>
+      exams.map((exam) => ({ exam, type: 'THEORY', subject, topicId: topicId(subject, topic, exam), stem, options: [], answer: 0, marks, markingGuide, explanation, difficulty: 'MEDIUM', source: 'AUTHORED', status: 'PUBLISHED' })),
+    );
+    questions += (await prisma.examQuestion.createMany({ data: rows })).count;
   }
   return `${created} products, ${t.count} topics, ${questions} exam questions`;
 }

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ReportTemplateConfig } from './flex';
 
 /**
  * Assessment contracts: question bank, exam papers, scores, results and
@@ -324,7 +325,7 @@ export interface QuestionRow {
   markingGuide: string | null;
   marks: number;
   status: (typeof QUESTION_STATUSES)[number];
-  source: 'MANUAL' | 'AI';
+  source: 'MANUAL' | 'AI' | 'UPLOAD';
   usedInPapers: number;
   updatedAt: string;
 }
@@ -446,6 +447,8 @@ export interface ReportCardView {
     classAverage: number | null;
     highest: number | null;
     lowest: number | null;
+    /** Earlier terms' percentages this session (1st, 2nd, 3rd; null where not taken) and their average, for cumulative cards. */
+    cumulative?: { terms: (number | null)[]; average: number | null };
   }[];
   summary: {
     subjectsTaken: number;
@@ -456,7 +459,7 @@ export interface ReportCardView {
     classAverage: number | null;
   };
   teacherRemark: string | null;
-  remarkSource: 'MANUAL' | 'AI';
+  remarkSource: 'MANUAL' | 'AI' | 'UPLOAD';
   principalRemark: string | null;
   /** The signed-in user is this class's teacher or manages results. */
   /** Days present/absent from the daily register for this term. */
@@ -466,6 +469,11 @@ export interface ReportCardView {
   canEditPrincipalRemark: boolean;
   status: 'DRAFT' | 'PUBLISHED';
   publishedAt: string | null;
+  /** The school's report card layout (its default template, else the standard one). */
+  template: ReportTemplateConfig;
+  /** Behaviour and skills ratings, by trait. */
+  traits: { affective: Record<string, number | null>; psychomotor: Record<string, number | null> };
+  extra: { age: number | null; nextTermBegins: string | null; feesOwed: number | null; currency: string; termNames: string[] };
 }
 
 /** Statistics are on percentages of what has been assessed so far. */

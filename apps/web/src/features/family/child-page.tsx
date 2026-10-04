@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/format';
 import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, SectionTitle, TopicChip } from '../learning/components';
+import { ChildHomework } from '../live/child-homework';
 import { useChildProgress, useTellTutor } from './api';
 
 export default function ChildProgressPage() {
@@ -72,6 +73,8 @@ export default function ChildProgressPage() {
               )}
             </Card>
           </div>
+
+          <ChildHomework childId={id} first={first} />
 
           <section aria-label="Mastery map">
             <SectionTitle icon={Sparkles} title="Mastery by subject" />

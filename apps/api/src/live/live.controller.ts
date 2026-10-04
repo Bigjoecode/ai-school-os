@@ -383,7 +383,31 @@ export class LiveController {
       orderBy: [{ dueDate: q.due === 'PAST' ? 'desc' : 'asc' }],
       take: 300,
     });
-    return rows.map((h) => this.live.homeworkRow(h, school.today));
+    const ids = rows.map((h) => h.id);
+    const [subs, sizes] = await Promise.all([
+      this.prisma.db.homeworkSubmission.groupBy({ by: ['homeworkId', 'status'], where: { homeworkId: { in: ids } }, _count: { _all: true } }),
+      this.prisma.db.student.groupBy({ by: ['classArmId'], where: { classArmId: { in: [...new Set(rows.map((h) => h.classArmId))] }, status: 'ACTIVE' }, _count: { _all: true } }),
+    ]);
+    return rows.map((h) => {
+      const mine = subs.filter((x) => x.homeworkId === h.id);
+      return {
+        ...this.live.homeworkRow(h, school.today),
+        markingGuide: h.markingGuide,
+        submissions: {
+          submitted: mine.reduce((t, x) => t + x._count._all, 0),
+          graded: mine.filter((x) => x.status === 'GRADED').reduce((t, x) => t + x._count._all, 0),
+          classSize: sizes.find((x) => x.classArmId === h.classArmId)?._count._all ?? 0,
+        },
+      };
+    });
+  }
+
+  /** Teacher attachments: links, or files already uploaded to this school. */
+  private async checkAttachments(list: HomeworkInput['attachments']) {
+    const ids = list.filter((a) => a.type === 'FILE').map((a) => a.fileId).filter((x): x is string => !!x);
+    if (ids.length && (await this.prisma.db.fileObject.count({ where: { id: { in: ids } } })) !== ids.length) throw new BadRequestException('Upload the attachment again: one of the files was not found');
+    for (const a of list) if (a.type === 'LINK' && !/^https?:\/\//i.test(a.url)) throw new BadRequestException(`"${a.name}" isn't a web link`);
+    return list.map((a) => (a.type === 'FILE' ? { ...a, url: `/api/files/${a.fileId}` } : a)) as unknown as Prisma.InputJsonValue;
   }
 
   private async checkTeaches(classArmId: string, subjectId: string | null) {
@@ -409,6 +433,12 @@ export class LiveController {
         title: body.title,
         instructions: body.instructions,
         questions: body.questions,
+        kind: body.kind,
+        attachments: await this.checkAttachments(body.attachments),
+        submissionTypes: body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        maxScore: body.maxScore,
+        markingGuide: body.markingGuide,
+        allowLate: body.allowLate,
         dueDate: parseDate(body.dueDate),
         status: body.publish ? 'PUBLISHED' : 'DRAFT',
         publishedAt: body.publish ? new Date() : null,
@@ -435,6 +465,12 @@ export class LiveController {
         title: body.title,
         instructions: body.instructions,
         questions: body.questions,
+        kind: body.kind,
+        attachments: await this.checkAttachments(body.attachments),
+        submissionTypes: body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        maxScore: body.maxScore,
+        markingGuide: body.markingGuide,
+        allowLate: body.allowLate,
         dueDate: parseDate(body.dueDate),
         subjectId: body.subjectId,
         ...(publishing ? { status: 'PUBLISHED', publishedAt: new Date() } : {}),
@@ -501,9 +537,18 @@ export class LiveController {
       }),
     ]);
     const rows = await this.live.rows(classes, v);
+    const mineSubs = me ? await db.homeworkSubmission.findMany({ where: { studentId: me.id, homeworkId: { in: homework.map((h) => h.id) } } }) : [];
     return {
       liveClasses: rows.map((r) => ({ ...r, canHost: false, canJoin: !!me && me.classArmId === r.classArm.id && r.status === 'LIVE', children: childrenByArm.get(r.classArm.id) ?? [] })),
-      homework: homework.map((h) => ({ ...this.live.homeworkRow(h, school.today), children: childrenByArm.get(h.classArmId) ?? [] })),
+      homework: homework.map((h) => {
+        const sub = mineSubs.find((x) => x.homeworkId === h.id);
+        return {
+          ...this.live.homeworkRow(h, school.today),
+          children: childrenByArm.get(h.classArmId) ?? [],
+          // A student's own hand-in (parents see each child's in the child's progress).
+          mine: me ? (sub ? { id: sub.id, status: sub.status as 'SUBMITTED' | 'GRADED' | 'RETURNED', late: sub.late, score: sub.score, feedback: sub.feedback, submittedAt: sub.submittedAt.toISOString() } : null) : undefined,
+        };
+      }),
       summaries: summaries
         .filter((c) => c.intelligence)
         .map((c) => {

@@ -17,3 +17,4 @@ export * from './platform';
 export * from './learning';
 export * from './onboarding';
 export * from './ai-models';
+export * from './flex';

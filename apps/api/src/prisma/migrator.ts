@@ -60,9 +60,16 @@ export async function runMigrations(databaseUrl: string): Promise<void> {
       const checksum = createHash('sha256').update(sql).digest('hex');
       const id = randomUUID();
       logger.log(`Applying ${name}`);
+      // Adding an enum value can't run inside a transaction before PostgreSQL 12 (shared hosting often runs
+      // older versions): run those statements first, on their own, idempotently.
+      const enumAdds = sql.match(/^ALTER TYPE [^;]+ ADD VALUE [^;]+;/gim) ?? [];
+      for (const stmt of enumAdds) {
+        await client.query(stmt.replace(/ADD VALUE (?!IF NOT EXISTS)/i, 'ADD VALUE IF NOT EXISTS '));
+      }
+      const body = enumAdds.reduce((acc, stmt) => acc.replace(stmt, ''), sql);
       await client.query('BEGIN');
       try {
-        await client.query(sql);
+        await client.query(body);
         await client.query(
           `INSERT INTO "_prisma_migrations"
              (id, checksum, migration_name, started_at, finished_at, applied_steps_count)

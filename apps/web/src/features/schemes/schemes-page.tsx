@@ -1,5 +1,5 @@
 import type { SchemeSummary } from '@aischool/shared';
-import { NotebookPen, Sparkles } from 'lucide-react';
+import { FileUp, NotebookPen, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -11,9 +11,9 @@ import { useCan } from '@/lib/auth-store';
 import { formatRelative } from '@/lib/format';
 import { useStructure } from '../academics/api';
 import { currentTerm, LevelSelect, SubjectSelect, termOptions } from '../planning/pickers';
-import { ContentStatusBadge, GenerationIndicator, useSearchFlag } from '../planning/ui';
+import { ContentStatusBadge, GenerationIndicator, SourceBadge, useSearchFlag } from '../planning/ui';
 import { useSchemes } from './api';
-import { GenerateSchemeDialog } from './scheme-dialogs';
+import { GenerateSchemeDialog, ImportSchemeDialog } from './scheme-dialogs';
 
 const ALL_TERMS = '__all__';
 
@@ -26,6 +26,7 @@ export default function SchemesPage() {
   const [classLevelId, setClassLevelId] = useState<string | undefined>();
   const [subjectId, setSubjectId] = useState<string | undefined>();
   const [generateOpen, setGenerateOpen] = useSearchFlag('new');
+  const [importOpen, setImportOpen] = useSearchFlag('upload');
 
   // Default to the current term once the structure is known.
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function SchemesPage() {
         </span>
       ),
     },
+    { key: 'source', header: 'Source', cell: (s) => <SourceBadge source={s.source} /> },
     { key: 'weeks', header: 'Weeks', cell: (s) => <span className="tabular text-muted-foreground">{s.weekCount}</span> },
     {
       key: 'curriculum',
@@ -73,6 +75,8 @@ export default function SchemesPage() {
       cell: (s) =>
         s.curriculum ? (
           <span className="text-muted-foreground">v{s.curriculum.version}</span>
+        ) : s.source === 'UPLOAD' ? (
+          <span className="text-[12.5px] text-muted-foreground/80">Own document</span>
         ) : (
           <span className="text-[12.5px] text-muted-foreground/80">National</span>
         ),
@@ -96,6 +100,12 @@ export default function SchemesPage() {
     },
   ];
 
+  const importButton = canManage && canAi && (
+    <Button variant="outline" onClick={() => setImportOpen(true)}>
+      <FileUp /> Upload our scheme
+    </Button>
+  );
+
   const generateButton = canManage && canAi && (
     <Button variant="ai" onClick={() => setGenerateOpen(true)}>
       <Sparkles /> Generate scheme
@@ -107,7 +117,15 @@ export default function SchemesPage() {
       <PageHeader
         title="Scheme of Work"
         description="Termly, week-by-week teaching plans with real dates — built from your curriculum."
-        actions={generateButton}
+        actions={
+          canManage &&
+          canAi && (
+            <>
+              {importButton}
+              {generateButton}
+            </>
+          )
+        }
       />
       <Card className="overflow-hidden">
         <div className="grid grid-cols-1 gap-3 border-b border-border p-4 sm:flex sm:flex-wrap sm:items-center">
@@ -166,7 +184,7 @@ export default function SchemesPage() {
                   {s.subject.name} · {s.classLevel.name}
                 </p>
                 <p className="truncate text-[12px] text-muted-foreground">
-                  {s.term.name} · {s.weekCount} weeks
+                  {s.term.name} · {s.weekCount} weeks{s.source === 'UPLOAD' ? ' · Uploaded' : ''}
                 </p>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   <ContentStatusBadge status={s.status} />
@@ -180,18 +198,27 @@ export default function SchemesPage() {
             title: filtered ? 'No schemes match' : 'No schemes of work for this term yet',
             description: filtered
               ? 'Try another class or subject.'
-              : 'Pick a subject and class — AI plans the whole term, week by week, in a couple of minutes.',
-            action: !filtered ? (generateButton || undefined) : undefined,
+              : 'Upload the scheme your school already uses, or pick a subject and class and AI plans the whole term, week by week, in a couple of minutes.',
+            action:
+              !filtered && canManage && canAi ? (
+                <>
+                  {importButton}
+                  {generateButton}
+                </>
+              ) : undefined,
           }}
         />
       </Card>
 
       {canManage && canAi && (
-        <GenerateSchemeDialog
-          open={generateOpen}
-          onOpenChange={setGenerateOpen}
-          defaults={{ subjectId, classLevelId, termId: effectiveTerm }}
-        />
+        <>
+          <GenerateSchemeDialog
+            open={generateOpen}
+            onOpenChange={setGenerateOpen}
+            defaults={{ subjectId, classLevelId, termId: effectiveTerm }}
+          />
+          <ImportSchemeDialog open={importOpen} onOpenChange={setImportOpen} defaults={{ subjectId, classLevelId, termId: effectiveTerm }} />
+        </>
       )}
     </Page>
   );

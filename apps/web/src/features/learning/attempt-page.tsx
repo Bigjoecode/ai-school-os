@@ -14,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useAttempt, useSaveProgress, useSubmitAttempt } from './api';
 import { MODE_LABEL, scoreTone } from './components';
+import { TheoryResults, TheoryWriter } from './theory';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
@@ -29,6 +30,8 @@ export default function AttemptPage() {
           <Skeleton className="h-8 w-64" />
           <Skeleton className="h-64 rounded-2xl" />
         </div>
+      ) : q.data.mode === 'THEORY' ? (
+        q.data.submittedAt ? <TheoryResults a={q.data} /> : <TheoryWriter key={q.data.id} a={q.data} />
       ) : q.data.submittedAt ? (
         <Results a={q.data} />
       ) : (

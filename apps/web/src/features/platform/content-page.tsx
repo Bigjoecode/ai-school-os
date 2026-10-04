@@ -1,5 +1,5 @@
-import { EXAM_LABELS, EXAMS, examQuestionSchema, QUESTION_DIFFICULTIES, type ExamBody, type ExamQuestionInput, type ExamQuestionRow, type SyllabusTopicRow } from '@aischool/shared';
-import { Archive, BookMarked, Check, FileJson, FilePen, ListTree, MoreHorizontal, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
+import { EXAM_LABELS, EXAMS, examQuestionSchema, QUESTION_DIFFICULTIES, QUESTION_KINDS, type ExamBody, type ExamQuestionInput, type ExamQuestionRow, type SyllabusTopicRow } from '@aischool/shared';
+import { Archive, BookMarked, Check, ChevronDown, FileJson, FilePen, FileUp, ListChecks, ListTree, MoreHorizontal, PenLine, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -22,10 +22,13 @@ import { useDebounced } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { apiFieldErrors, FormError, plural, zodErrors } from '../operations/ui';
 import { useAddTopic, useDeleteQuestion, useDraftQuestions, useImportQuestions, useQuestions, useSaveQuestion, useSetQuestionStatus, useTopics } from './commerce-api';
+import { SyllabusImport } from './syllabus-import';
 import { FilterSelect, Toolbar, useTabParam } from './ui';
 
 type QStatus = 'DRAFT' | 'PUBLISHED' | 'RETIRED';
-const TABS = ['questions', 'topics'] as const;
+const TABS = ['questions', 'topics', 'syllabus'] as const;
+type QKind = (typeof QUESTION_KINDS)[number];
+const KIND: Record<QKind, { label: string; variant: BadgeProps['variant'] }> = { OBJECTIVE: { label: 'Objective', variant: 'secondary' }, THEORY: { label: 'Theory', variant: 'info' } };
 const STATUS: Record<QStatus, { label: string; variant: BadgeProps['variant'] }> = {
   DRAFT: { label: 'Draft', variant: 'warning' },
   PUBLISHED: { label: 'Published', variant: 'success' },
@@ -44,6 +47,7 @@ export default function ContentPage() {
   const [importOpen, setImportOpen] = useState(false);
   const [draftOpen, setDraftOpen] = useState(false);
   const [topicOpen, setTopicOpen] = useState(false);
+  const subjects = useSubjects();
   return (
     <Page>
       <PageHeader
@@ -63,11 +67,16 @@ export default function ContentPage() {
                 <Plus /> New question
               </Button>
             </>
-          ) : (
-            <Button onClick={() => setTopicOpen(true)}>
-              <Plus /> Add topic
-            </Button>
-          )
+          ) : tab === 'topics' ? (
+            <>
+              <Button variant="outline" onClick={() => setTab('syllabus')}>
+                <FileUp /> Import syllabus
+              </Button>
+              <Button onClick={() => setTopicOpen(true)}>
+                <Plus /> Add topic
+              </Button>
+            </>
+          ) : null
         }
       />
       <Tabs value={tab} onValueChange={(v) => setTab(v as (typeof TABS)[number])}>
@@ -78,12 +87,18 @@ export default function ContentPage() {
           <TabsTrigger value="topics">
             <ListTree /> Syllabus topics
           </TabsTrigger>
+          <TabsTrigger value="syllabus">
+            <FileUp /> Import syllabus
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="questions">
           <QuestionsTab onEdit={setEditing} />
         </TabsContent>
         <TabsContent value="topics">
           <TopicsTab />
+        </TabsContent>
+        <TabsContent value="syllabus">
+          <SyllabusImport subjects={subjects} onSaved={() => setTab('topics')} />
         </TabsContent>
       </Tabs>
       <QuestionDialog question={editing} onOpenChange={(o) => !o && setEditing(null)} />
@@ -100,16 +115,17 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
   const [exam, setExam] = useState<string>();
   const [subject, setSubject] = useState<string>();
   const [status, setStatus] = useState<string>();
+  const [kind, setKind] = useState<string>();
   const [search, setSearch] = useState('');
   const q = useDebounced(search, 300);
-  const bank = useQuestions({ exam, subject, status, q: q.trim() || undefined });
+  const bank = useQuestions({ exam, subject, status, q: q.trim() || undefined, type: kind });
   const all = useQuestions({});
   const setStatusM = useSetQuestionStatus();
   const del = useDeleteQuestion();
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState<ExamQuestionRow | null>(null);
   const rows = bank.data?.rows;
-  useEffect(() => setSelected(new Set()), [exam, subject, status, q]);
+  useEffect(() => setSelected(new Set()), [exam, subject, status, q, kind]);
 
   const subjects = useMemo(() => [...new Set((all.data?.rows ?? []).map((r) => r.subject))].sort(), [all.data]);
   const summary = bank.data?.summary ?? [];
@@ -148,7 +164,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
         <div className="min-w-0 max-w-[460px]">
           <p className="line-clamp-2 text-[13px]">{r.stem}</p>
           <p className="mt-0.5 truncate text-[11.5px] text-muted-foreground">
-            Answer {LETTERS[r.answer]}: {r.options[r.answer]}
+            {r.type === 'THEORY' ? `${plural(r.marks, 'mark')} · ${r.markingGuide ? `Guide: ${r.markingGuide}` : 'No marking guide'}` : `Answer ${LETTERS[r.answer]}: ${r.options[r.answer] ?? '—'}`}
           </p>
         </div>
       ),
@@ -166,6 +182,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
         </div>
       ),
     },
+    { key: 'type', header: 'Type', cell: (r) => <Badge variant={KIND[r.type ?? 'OBJECTIVE'].variant}>{KIND[r.type ?? 'OBJECTIVE'].label}</Badge> },
     { key: 'topic', header: 'Topic', cell: (r) => <p className="max-w-[160px] truncate text-[12.5px] text-muted-foreground">{r.topic ?? '—'}</p> },
     {
       key: 'meta',
@@ -237,6 +254,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
           <SearchInput value={search} onChange={setSearch} placeholder="Search question text…" className="sm:w-64" />
           <FilterSelect label="Exam" value={exam} onChange={setExam} allLabel="All exams" options={EXAMS.map((e) => ({ value: e, label: EXAM_LABELS[e] }))} className="sm:w-[150px]" />
           <FilterSelect label="Subject" value={subject} onChange={setSubject} allLabel="All subjects" options={subjects.map((s) => ({ value: s, label: titleCase(s) }))} />
+          <FilterSelect label="Type" value={kind} onChange={setKind} allLabel="Any type" options={QUESTION_KINDS.map((k) => ({ value: k, label: KIND[k].label }))} className="sm:w-[130px]" />
           <FilterSelect label="Status" value={status} onChange={setStatus} allLabel="Any status" options={(Object.keys(STATUS) as QStatus[]).map((s) => ({ value: s, label: STATUS[s].label }))} className="sm:w-[140px]" />
           {rows && <p className="text-[12.5px] text-muted-foreground tabular sm:ml-auto">{plural(rows.length, 'question')}{rows.length >= 500 ? ' (first 500)' : ''}</p>}
         </Toolbar>
@@ -271,7 +289,8 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
               <div className="min-w-0 flex-1">
                 <p className="line-clamp-2 text-[13.5px]">{r.stem}</p>
                 <p className="truncate text-[12px] text-muted-foreground">
-                  {r.exam} · {titleCase(r.subject)}
+                  {r.exam} · {KIND[r.type ?? 'OBJECTIVE'].label}
+                  {r.type === 'THEORY' ? ` (${plural(r.marks, 'mark')})` : ''} · {titleCase(r.subject)}
                   {r.topic ? ` · ${r.topic}` : ''} · {SOURCE_LABEL[r.source]}
                 </p>
               </div>
@@ -305,7 +324,8 @@ function TopicSelect({ id, subject, value, onChange, topics }: { id: string; sub
         <SelectItem value="__none__">{subject ? (options.length ? 'No topic' : 'No topics for this subject') : 'Choose a subject first'}</SelectItem>
         {options.map((t) => (
           <SelectItem key={t.id} value={t.id}>
-            {t.name} <span className="text-muted-foreground">· {LEVEL_LABEL[t.level]}</span>
+            {t.parentId ? '— ' : ''}
+            {t.name} <span className="text-muted-foreground">· {LEVEL_LABEL[t.level]}{t.exams?.length ? ` · ${t.exams.join(', ')}` : ''}</span>
           </SelectItem>
         ))}
       </SelectContent>
@@ -358,7 +378,7 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
   const topics = useTopics();
   const subjects = useSubjects();
   const existing = question && question !== 'new' ? question : null;
-  const blank = { exam: 'WAEC' as ExamBody, subject: '', topicId: '', year: '', stem: '', options: ['', '', '', ''], answer: 0, explanation: '', difficulty: 'MEDIUM' as ExamQuestionInput['difficulty'], source: 'AUTHORED' as ExamQuestionInput['source'], status: 'DRAFT' as QStatus };
+  const blank = { type: 'OBJECTIVE' as QKind, marks: '10', markingGuide: '', exam: 'WAEC' as ExamBody, subject: '', topicId: '', year: '', stem: '', options: ['', '', '', ''], answer: 0, explanation: '', difficulty: 'MEDIUM' as ExamQuestionInput['difficulty'], source: 'AUTHORED' as ExamQuestionInput['source'], status: 'DRAFT' as QStatus };
   const [v, setV] = useState(blank);
   const [errors, setErrors] = useState<Record<string, string>>({});
   useEffect(() => {
@@ -366,7 +386,7 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
     setErrors({});
     setV(
       existing
-        ? { exam: existing.exam, subject: titleCase(existing.subject), topicId: existing.topicId ?? '', year: existing.year ? String(existing.year) : '', stem: existing.stem, options: [...existing.options], answer: existing.answer, explanation: existing.explanation ?? '', difficulty: existing.difficulty, source: existing.source, status: existing.status }
+        ? { type: existing.type ?? 'OBJECTIVE', marks: String(existing.marks ?? 1), markingGuide: existing.markingGuide ?? '', exam: existing.exam, subject: titleCase(existing.subject), topicId: existing.topicId ?? '', year: existing.year ? String(existing.year) : '', stem: existing.stem, options: [...existing.options], answer: existing.answer, explanation: existing.explanation ?? '', difficulty: existing.difficulty, source: existing.source, status: existing.status }
         : blank,
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -375,13 +395,25 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
 
   const submit = (e?: React.BaseSyntheticEvent) => {
     e?.preventDefault();
-    const parsed = examQuestionSchema.safeParse({ ...v, topicId: v.topicId || null, year: v.year ? Number(v.year) : null, options: v.options.map((o) => o.trim()) });
+    const theory = v.type === 'THEORY';
+    const parsed = examQuestionSchema.safeParse({
+      ...v,
+      topicId: v.topicId || null,
+      year: v.year ? Number(v.year) : null,
+      marks: theory ? Number(v.marks) : 1,
+      markingGuide: theory ? v.markingGuide : null,
+      options: theory ? [] : v.options.map((o) => o.trim()),
+      answer: theory ? 0 : v.answer,
+    });
     if (!parsed.success) {
       const errs = zodErrors(parsed.error.issues);
       if (errs.options) errs.options = 'Fill in every option (2 to 5)';
+      if (errs.marks) errs.marks = 'Whole marks, 1 to 100';
       return setErrors(errs);
     }
-    if (parsed.data.answer >= parsed.data.options.length) return setErrors({ answer: 'Mark one of the options as correct' });
+    if (theory && !parsed.data.markingGuide) return setErrors({ markingGuide: 'Write the marking guide: the points a full-mark answer makes, with their marks' });
+    if (!theory && parsed.data.options.length < 2) return setErrors({ options: 'Give at least two options' });
+    if (!theory && parsed.data.answer >= parsed.data.options.length) return setErrors({ answer: 'Mark one of the options as correct' });
     save.mutate(
       { id: existing?.id, body: parsed.data },
       {
@@ -398,6 +430,28 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
     <FormDialog open={!!question} onOpenChange={onOpenChange} title={existing ? 'Edit question' : 'New question'} icon={<FilePen />} submitLabel={existing ? 'Save question' : 'Create question'} pending={save.isPending} onSubmit={submit} size="xl">
       <div className="grid gap-4">
         <FormError message={errors.form} />
+        <div role="radiogroup" aria-label="Question type" className="grid grid-cols-2 gap-2">
+          {QUESTION_KINDS.map((k) => {
+            const on = v.type === k;
+            const Icon = k === 'THEORY' ? PenLine : ListChecks;
+            return (
+              <button
+                key={k}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                onClick={() => (set('type', k), setErrors({}))}
+                className={cn('flex items-start gap-2.5 rounded-xl border p-3 text-left transition-colors', on ? 'border-brand bg-brand-soft/50' : 'border-border hover:bg-muted/50')}
+              >
+                <Icon className={cn('mt-0.5 size-4 shrink-0', on ? 'text-brand' : 'text-muted-foreground')} aria-hidden />
+                <span className="min-w-0">
+                  <span className="block text-[13.5px] font-medium">{KIND[k].label}</span>
+                  <span className="block text-[12px] text-muted-foreground">{k === 'THEORY' ? 'Written answer, AI-marked against your guide' : 'Multiple choice with one right answer'}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
         <div className="grid gap-4 sm:grid-cols-4">
           <Field label="Exam" htmlFor="q-exam" error={errors.exam}>
             <ExamSelect id="q-exam" value={v.exam} onChange={(x) => set('exam', x)} />
@@ -415,6 +469,19 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
         <Field label="Question" htmlFor="q-stem" error={errors.stem}>
           <Textarea id="q-stem" rows={3} value={v.stem} onChange={(e) => set('stem', e.target.value)} />
         </Field>
+        {v.type === 'THEORY' ? (
+          <>
+            <div className="grid gap-4 sm:grid-cols-[120px_minmax(0,1fr)]">
+              <Field label="Marks" htmlFor="q-marks" error={errors.marks}>
+                <Input id="q-marks" type="number" min={1} max={100} value={v.marks} onChange={(e) => set('marks', e.target.value)} />
+              </Field>
+              <p className="self-end pb-2 text-[12px] text-muted-foreground">The total the marking guide adds up to.</p>
+            </div>
+            <Field label="Marking guide" htmlFor="q-guide" error={errors.markingGuide} hint="The points that earn marks, one per line, e.g. “1 mark: names the organelle”. The AI marks strictly against this; students see it after marking.">
+              <Textarea id="q-guide" rows={6} value={v.markingGuide} onChange={(e) => set('markingGuide', e.target.value)} placeholder={'(a) 2 marks: defines osmosis as…\n(b) 1 mark each, up to 3: …'} />
+            </Field>
+          </>
+        ) : (
         <Field label="Options — select the correct answer" error={errors.options ?? errors.answer}>
           <div role="radiogroup" aria-label="Correct answer" className="grid gap-2">
             {v.options.map((o, i) => (
@@ -450,8 +517,15 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
             )}
           </div>
         </Field>
-        <Field label="Explanation" htmlFor="q-expl" error={errors.explanation} optional hint="Shown after the student answers.">
-          <Textarea id="q-expl" rows={3} value={v.explanation} onChange={(e) => set('explanation', e.target.value)} />
+        )}
+        <Field
+          label={v.type === 'THEORY' ? 'Model answer' : 'Explanation'}
+          htmlFor="q-expl"
+          error={errors.explanation}
+          optional
+          hint={v.type === 'THEORY' ? 'A concise full-mark answer, shown with the marking guide after marking.' : 'Shown after the student answers.'}
+        >
+          <Textarea id="q-expl" rows={v.type === 'THEORY' ? 5 : 3} value={v.explanation} onChange={(e) => set('explanation', e.target.value)} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-3">
           <Field label="Difficulty" htmlFor="q-diff">
@@ -549,7 +623,9 @@ function ImportDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o:
     data.forEach((item, i) => {
       const r = examQuestionSchema.safeParse(item);
       if (!r.success) errs.push(...r.error.issues.slice(0, 3).map((x) => `#${i + 1} ${x.path.join('.') || 'item'}: ${x.message}`));
-      else if (r.data.answer >= r.data.options.length) errs.push(`#${i + 1} answer: points past the last option`);
+      else if (r.data.type === 'THEORY' && !r.data.markingGuide) errs.push(`#${i + 1} markingGuide: theory questions need a marking guide`);
+      else if (r.data.type !== 'THEORY' && r.data.options.length < 2) errs.push(`#${i + 1} options: give at least two`);
+      else if (r.data.type !== 'THEORY' && r.data.answer >= r.data.options.length) errs.push(`#${i + 1} answer: points past the last option`);
       else out.push(r.data);
     });
     setProblems(errs);
@@ -573,7 +649,7 @@ function ImportDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o:
       open={open}
       onOpenChange={onOpenChange}
       title="Import questions"
-      description="Paste a JSON array of questions. Each one is checked here first; nothing is saved until every row is valid. Import as DRAFT and publish after review."
+      description='Paste a JSON array of questions. Each one is checked here first; nothing is saved until every row is valid. Import as DRAFT and publish after review. Theory questions take "type": "THEORY", "marks", "markingGuide" and the model answer as "explanation" (no options).'
       icon={<FileJson />}
       submitLabel={valid ? `Import ${plural(valid.length, 'question')}` : 'Check'}
       pending={imp.isPending}
@@ -624,7 +700,7 @@ function DraftDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
   const draft = useDraftQuestions();
   const topics = useTopics();
   const subjects = useSubjects();
-  const [v, setV] = useState({ exam: 'WAEC' as ExamBody, subject: '', topicId: '', count: '5', difficulty: 'MEDIUM' });
+  const [v, setV] = useState({ type: 'OBJECTIVE' as QKind, exam: 'WAEC' as ExamBody, subject: '', topicId: '', count: '5', difficulty: 'MEDIUM' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   useEffect(() => {
     if (open) setErrors({});
@@ -637,7 +713,7 @@ function DraftDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
     if (!Number.isInteger(count) || count < 1 || count > 20) errs.count = '1 to 20';
     if (Object.keys(errs).length) return setErrors(errs);
     draft.mutate(
-      { exam: v.exam, subject: v.subject.trim(), topicId: v.topicId || null, count, difficulty: v.difficulty },
+      { type: v.type, exam: v.exam, subject: v.subject.trim(), topicId: v.topicId || null, count, difficulty: v.difficulty },
       {
         onSuccess: (r) => {
           toast.success(`${plural(r.drafted, 'draft')} added for review`, { description: 'Filter by Draft, check each one, then publish.' });
@@ -648,15 +724,25 @@ function DraftDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
     );
   };
   return (
-    <FormDialog open={open} onOpenChange={onOpenChange} title="Draft questions with AI" icon={<Sparkles />} submitLabel="Draft questions" pending={draft.isPending} onSubmit={submit} size="lg">
+    <FormDialog open={open} onOpenChange={onOpenChange} title="Draft questions with AI" icon={<Sparkles />} submitLabel={v.type === 'THEORY' ? 'Draft theory questions' : 'Draft questions'} pending={draft.isPending} onSubmit={submit} size="lg">
       <div className="grid gap-4">
         <div className="flex items-start gap-2.5 rounded-xl border border-warning/30 bg-warning-soft/50 p-3 text-[12.5px]">
           <BookMarked className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
           <p>
-            AI drafts land as <strong>Draft</strong> and are never shown to students until a person checks the stem, the options, the marked answer and the explanation, then publishes them. Expect to fix or delete some.
+            AI drafts land as <strong>Draft</strong> and are never shown to students until a person checks{' '}
+            {v.type === 'THEORY' ? 'the question, its marks, the marking guide and the model answer' : 'the stem, the options, the marked answer and the explanation'}, then publishes them. Expect to fix or delete some.
           </p>
         </div>
         <FormError message={errors.form} />
+        <Field label="Type">
+          <div role="radiogroup" aria-label="Question type" className="grid grid-cols-2 gap-2">
+            {QUESTION_KINDS.map((k) => (
+              <Button key={k} type="button" variant={v.type === k ? 'default' : 'outline'} role="radio" aria-checked={v.type === k} onClick={() => setV((p) => ({ ...p, type: k }))}>
+                {k === 'THEORY' ? <PenLine /> : <ListChecks />} {KIND[k].label}
+              </Button>
+            ))}
+          </div>
+        </Field>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Exam" htmlFor="d-exam">
             <ExamSelect id="d-exam" value={v.exam} onChange={(x) => setV((p) => ({ ...p, exam: x }))} />
@@ -698,29 +784,41 @@ function TopicsTab() {
   const q = useTopics();
   const [subject, setSubject] = useState<string>();
   const [level, setLevel] = useState<string>();
+  const [exam, setExam] = useState<string>();
   const subjects = useMemo(() => [...new Set((q.data ?? []).map((t) => t.subject))].sort(), [q.data]);
-  const rows = useMemo(() => (q.data ?? []).filter((t) => (!subject || t.subject === subject) && (!level || t.level === level)), [q.data, subject, level]);
-  const names = useMemo(() => new Map((q.data ?? []).map((t) => [t.id, t.name])), [q.data]);
+  const all = q.data ?? [];
+  // A subtopic shows when it or its parent matches the exam filter.
+  const matchesExam = (t: SyllabusTopicRow) => !exam || !!t.exams?.includes(exam as ExamBody);
+  const rows = useMemo(() => all.filter((t) => (!subject || t.subject === subject) && (!level || t.level === level)), [all, subject, level]);
   const groups = useMemo(() => {
-    const m = new Map<string, SyllabusTopicRow[]>();
+    const ids = new Set(rows.map((t) => t.id));
+    const children = new Map<string, SyllabusTopicRow[]>();
+    for (const t of rows) if (t.parentId && ids.has(t.parentId)) children.set(t.parentId, [...(children.get(t.parentId) ?? []), t]);
+    const m = new Map<string, { topic: SyllabusTopicRow; subs: SyllabusTopicRow[] }[]>();
     for (const t of rows) {
+      if (t.parentId && ids.has(t.parentId)) continue;
+      const subs = (children.get(t.id) ?? []).filter((s) => matchesExam(s) || matchesExam(t));
+      if (!matchesExam(t) && !subs.length) continue;
       const k = `${t.subject}|${t.level}`;
-      m.set(k, [...(m.get(k) ?? []), t]);
+      m.set(k, [...(m.get(k) ?? []), { topic: t, subs }]);
     }
     return [...m.entries()];
-  }, [rows]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows, exam]);
+  const shown = groups.reduce((t, [, ts]) => t + ts.length + ts.reduce((u, x) => u + x.subs.length, 0), 0);
 
   return (
     <Card className="overflow-hidden">
       <Toolbar>
+        <FilterSelect label="Exam" value={exam} onChange={setExam} allLabel="Any exam" options={EXAMS.map((e) => ({ value: e, label: EXAM_LABELS[e] }))} className="sm:w-[150px]" />
         <FilterSelect label="Subject" value={subject} onChange={setSubject} allLabel="All subjects" options={subjects.map((s) => ({ value: s, label: titleCase(s) }))} />
         <FilterSelect label="Level" value={level} onChange={setLevel} allLabel="All levels" options={LEVELS.map((l) => ({ value: l, label: LEVEL_LABEL[l] }))} />
-        <p className="text-[12.5px] text-muted-foreground tabular sm:ml-auto">{plural(rows.length, 'topic')}</p>
+        <p className="text-[12.5px] text-muted-foreground tabular sm:ml-auto">{plural(shown, 'topic')}</p>
       </Toolbar>
       {q.isLoading ? (
         <div className="h-40 animate-pulse" />
       ) : !groups.length ? (
-        <p className="p-10 text-center text-[13px] text-muted-foreground">No topics yet. Add the syllabus so questions and mastery can be grouped.</p>
+        <p className="p-10 text-center text-[13px] text-muted-foreground">{all.length ? 'No topics match these filters.' : 'No topics yet. Import an exam syllabus or add topics so questions and mastery can be grouped.'}</p>
       ) : (
         <div className="divide-y divide-border">
           {groups.map(([k, ts]) => {
@@ -730,20 +828,91 @@ function TopicsTab() {
                 <p className="mb-2 text-[13px] font-semibold">
                   {titleCase(s)} <span className="font-normal text-muted-foreground">· {LEVEL_LABEL[l]}</span>
                 </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {ts.map((t) => (
-                    <Badge key={t.id} variant="secondary" className="font-normal" title={t.parentId ? `Under ${names.get(t.parentId) ?? ''}` : undefined}>
-                      {t.parentId && <span className="text-muted-foreground">{names.get(t.parentId)} › </span>}
-                      {t.name}
-                    </Badge>
+                <ul className="divide-y divide-border/60 rounded-xl border border-border">
+                  {ts.map(({ topic, subs }) => (
+                    <TopicRow key={topic.id} topic={topic} subs={subs} />
                   ))}
-                </div>
+                </ul>
               </div>
             );
           })}
         </div>
       )}
     </Card>
+  );
+}
+
+function ExamChips({ exams }: { exams?: ExamBody[] }) {
+  if (!exams?.length) return <span className="text-[11px] text-muted-foreground">School only</span>;
+  return (
+    <span className="flex flex-wrap gap-1">
+      {exams.map((e) => (
+        <Badge key={e} variant="outline" className="px-1.5 py-0 text-[10.5px] font-medium">
+          {e}
+        </Badge>
+      ))}
+    </span>
+  );
+}
+
+function TopicRow({ topic, subs }: { topic: SyllabusTopicRow; subs: SyllabusTopicRow[] }) {
+  const [open, setOpen] = useState(false);
+  const objectives = topic.objectives ?? [];
+  const subObjectives = subs.reduce((t, x) => t + (x.objectives?.length ?? 0), 0);
+  const expandable = objectives.length + subObjectives > 0 || subs.length > 0;
+  return (
+    <li className="px-3 py-2.5">
+      <div className="flex items-start gap-2">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="text-[13.5px] font-medium [overflow-wrap:anywhere]">{topic.name}</span>
+            <ExamChips exams={topic.exams} />
+          </div>
+          {(subs.length > 0 || objectives.length > 0) && (
+            <p className="mt-0.5 text-[12px] text-muted-foreground">
+              {subs.length > 0 && plural(subs.length, 'subtopic')}
+              {subs.length > 0 && objectives.length > 0 && ' · '}
+              {objectives.length > 0 && plural(objectives.length, 'objective')}
+            </p>
+          )}
+        </div>
+        {expandable && (
+          <Button variant="ghost" size="icon-sm" aria-label={open ? `Hide ${topic.name} details` : `Show ${topic.name} details`} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+            <ChevronDown className={cn('transition-transform', open && 'rotate-180')} />
+          </Button>
+        )}
+      </div>
+      {open && (
+        <div className="mt-2 space-y-2.5">
+          {objectives.length > 0 && <Objectives items={objectives} />}
+          {subs.length > 0 && (
+            <ul className="space-y-2 border-l-2 border-border pl-3">
+              {subs.map((s) => (
+                <li key={s.id}>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span className="text-[13px] [overflow-wrap:anywhere]">{s.name}</span>
+                    <ExamChips exams={s.exams} />
+                  </div>
+                  {!!s.objectives?.length && <Objectives items={s.objectives} />}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </li>
+  );
+}
+
+function Objectives({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-1 list-disc space-y-0.5 pl-5 text-[12.5px] text-muted-foreground marker:text-border-strong">
+      {items.map((o, i) => (
+        <li key={i} className="[overflow-wrap:anywhere]">
+          {o}
+        </li>
+      ))}
+    </ul>
   );
 }
 

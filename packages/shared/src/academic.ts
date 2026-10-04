@@ -189,7 +189,7 @@ interface Ref {
 }
 
 interface GenerationInfo {
-  source: 'MANUAL' | 'AI';
+  source: 'MANUAL' | 'AI' | 'UPLOAD';
   generation: GenerationState;
   generationError: string | null;
 }

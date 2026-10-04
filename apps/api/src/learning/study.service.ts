@@ -17,6 +17,9 @@ export interface StoredQuestion {
   explanation: string | null;
   topicId: string | null;
   topic: string | null;
+  /** Theory questions: marks available and the points that earn them. */
+  marks?: number;
+  markingGuide?: string | null;
 }
 
 const MOCK_GRACE_MS = 2 * 60_000;
@@ -71,8 +74,9 @@ export class StudyService {
 
   view(a: Prisma.PracticeAttemptGetPayload<object>): PracticeAttemptView {
     const qs = a.questions as unknown as StoredQuestion[];
-    const answers = (a.answers as (number | null)[] | null) ?? [];
     const done = !!a.submittedAt;
+    if (a.mode === 'THEORY') return this.theoryView(a, qs, done);
+    const answers = (a.answers as (number | null)[] | null) ?? [];
     return {
       id: a.id,
       mode: a.mode as PracticeAttemptView['mode'],
@@ -95,6 +99,41 @@ export class StudyService {
       total: a.total,
       percent: a.score !== null && a.total ? Math.round((a.score / a.total) * 100) : null,
       perTopic: a.perTopic as PracticeAttemptView['perTopic'],
+      review: a.review,
+    };
+  }
+
+  /** Written practice: the guide and model answer stay hidden until the answers are marked. */
+  private theoryView(a: Prisma.PracticeAttemptGetPayload<object>, qs: StoredQuestion[], done: boolean): PracticeAttemptView {
+    const written = (a.answers as (string | null)[] | null) ?? [];
+    const marking = done ? ((a.perTopic as unknown as (NonNullable<PracticeQuestion['marking']> & { index: number })[] | null) ?? []) : [];
+    const total = qs.reduce((t, q) => t + (q.marks ?? 0), 0);
+    return {
+      id: a.id,
+      mode: 'THEORY',
+      exam: a.exam as PracticeAttemptView['exam'],
+      title: a.title,
+      subject: a.subject,
+      questions: qs.map((q, i): PracticeQuestion => {
+        const m = marking.find((x) => x.index === i);
+        return {
+          index: i,
+          stem: q.stem,
+          options: [],
+          topic: q.topic,
+          marks: q.marks ?? 0,
+          written: typeof written[i] === 'string' ? written[i] : null,
+          ...(done ? { explanation: q.explanation, markingGuide: q.markingGuide ?? null, marking: m ? { score: m.score, outOf: m.outOf, strengths: m.strengths, missing: m.missing, feedback: m.feedback } : null } : {}),
+        };
+      }),
+      durationMinutes: null,
+      startedAt: a.startedAt.toISOString(),
+      submittedAt: a.submittedAt?.toISOString() ?? null,
+      endsAt: null,
+      score: a.score,
+      total,
+      percent: a.score !== null && total ? Math.round((a.score / total) * 100) : null,
+      perTopic: null,
       review: a.review,
     };
   }
@@ -144,6 +183,7 @@ export class StudyService {
   async saveProgress(studentId: string, id: string, answers: (number | null)[]) {
     const a = await this.attempt(studentId, id);
     if (a.submittedAt) throw new BadRequestException('This attempt is already marked');
+    if (a.mode === 'THEORY') throw new BadRequestException('Send written answers to the theory marking endpoint');
     await this.prisma.root.practiceAttempt.update({ where: { id }, data: { answers } });
     return { ok: true };
   }
@@ -151,6 +191,7 @@ export class StudyService {
   async submit(studentId: string, id: string, answers: (number | null)[]) {
     const a = await this.attempt(studentId, id);
     if (a.submittedAt) return a;
+    if (a.mode === 'THEORY') throw new BadRequestException('Theory answers are marked by the theory endpoint');
     return this.grade(a, answers);
   }
 

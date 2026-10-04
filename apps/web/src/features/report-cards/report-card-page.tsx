@@ -1,5 +1,5 @@
-import { ordinal, type ReportCardView } from '@aischool/shared';
-import { Award, CalendarCheck, Check, ChevronLeft, ChevronRight, Info, Pencil, Printer, X } from 'lucide-react';
+import type { ReportCardView } from '@aischool/shared';
+import { Award, CalendarCheck, Check, ChevronLeft, ChevronRight, LayoutTemplate, Pencil, Printer, Star, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { Page } from '@/components/layout/page-header';
@@ -7,12 +7,13 @@ import { Button } from '@/components/ui/button';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Textarea } from '@/components/ui/textarea';
 import { ApiError } from '@/lib/api';
-import { formatDate } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
-import { cn, initialsFromName } from '@/lib/utils';
+import { useCan } from '@/lib/auth-store';
+import { cn } from '@/lib/utils';
 import { useReportCard, useReportCards, useUpdateRemarks } from '../assessment/api';
-import { AiBadge, AssessmentStatusBadge, fmtPct, fmtScore } from '../assessment/ui';
+import { AiBadge } from '../assessment/ui';
 import { BackLink, DetailSkeleton } from '../planning/ui';
+import { PaperStyle, ReportCardDocument } from './card-document';
 
 export default function ReportCardPage() {
   const { studentId = '' } = useParams();
@@ -79,8 +80,7 @@ function CardView({ v, termId }: { v: ReportCardView; termId: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prev?.studentId, next?.studentId]);
 
-  const interim = v.subjects.some((s) => !s.complete);
-  const s = v.summary;
+  const canLayout = useCan('results.publish');
 
   return (
     <Page className="max-w-5xl print:max-w-none print:p-0">
@@ -112,224 +112,55 @@ function CardView({ v, termId }: { v: ReportCardView; termId: string }) {
               )}
             </Button>
           </div>
+          {(canTeacher || canPublish) && (
+            <Button asChild variant="outline">
+              <Link to={`/report-cards/ratings?classArmId=${v.classArm.id}&termId=${termId}`}>
+                <Star /> Rate traits
+              </Link>
+            </Button>
+          )}
+          {canLayout && (
+            <Button asChild variant="ghost">
+              <Link to="/report-cards/layout">
+                <LayoutTemplate /> Layout
+              </Link>
+            </Button>
+          )}
           <Button variant="outline" onClick={() => window.print()}>
             <Printer /> Print
           </Button>
         </div>
       </div>
 
-      <article className="print-a4 mx-auto overflow-hidden rounded-2xl border border-border bg-card shadow-soft print:rounded-none print:border-0 print:text-[10.5px] print:shadow-none">
-        <div aria-hidden className="h-1.5 w-full bg-gradient-to-r from-brand via-ai-2 to-ai-3" />
-
-        {/* ---------------------------------------------------- school header */}
-        <header className="flex flex-col items-center gap-3 border-b border-border px-5 py-6 text-center sm:flex-row sm:text-left sm:px-8 print:flex-row print:px-4 print:py-3 print:text-left">
-          {v.school.logoUrl ? (
-            <img src={v.school.logoUrl} alt="" className="size-16 shrink-0 rounded-xl object-contain print:size-14" />
+      <PaperStyle paper={v.template.paper} />
+      {/* Its own wrapper so the sheet is a :last-child (no blank page after it). */}
+      <div>
+      <ReportCardDocument
+        v={v}
+        className="print:text-[10.5px]"
+        renderComment={(kind, label) =>
+          kind === 'teacher' ? (
+            <RemarkBox
+              title={label}
+              who={v.classArm.classTeacher}
+              value={v.teacherRemark}
+              ai={v.remarkSource === 'AI' && !!v.teacherRemark}
+              editable={canTeacher}
+              studentId={v.student.id}
+              termId={termId}
+              field="teacherRemark"
+            />
           ) : (
-            <div className="grid size-16 shrink-0 place-items-center rounded-xl bg-brand-soft font-display text-xl font-bold text-brand print:size-14">
-              {initialsFromName(v.school.name)}
-            </div>
-          )}
-          <div className="min-w-0 flex-1">
-            <h1 className="font-display text-[22px] font-bold uppercase leading-tight tracking-tight sm:text-[24px] print:text-[18px]">{v.school.name}</h1>
-            {v.school.motto && <p className="mt-0.5 text-[13px] italic text-muted-foreground print:text-[10.5px]">“{v.school.motto}”</p>}
-            {v.school.address && <p className="mt-0.5 text-[12px] text-muted-foreground print:text-[9.5px]">{v.school.address}</p>}
-          </div>
-          <div className="shrink-0 text-center sm:text-right print:text-right">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Termly report</p>
-            <p className="font-display text-[15px] font-semibold">
-              {v.term.name} · {v.term.sessionName}
-            </p>
-            <AssessmentStatusBadge status={v.status} className="mt-1 print:hidden" />
-          </div>
-        </header>
+            <RemarkBox title={label} value={v.principalRemark} editable={canPublish} studentId={v.student.id} termId={termId} field="principalRemark" />
+          )
+        }
+      />
+      </div>
 
-        {/* ---------------------------------------------------- learner */}
-        <dl className="grid grid-cols-2 gap-px border-b border-border bg-border sm:grid-cols-4 print:grid-cols-4">
-          {(
-            [
-              ['Learner', v.student.name],
-              ['Admission no.', v.student.admissionNumber],
-              ['Class', `${v.classArm.levelName} ${v.classArm.name}`],
-              ['Class teacher', v.classArm.classTeacher ?? '—'],
-              ['Gender', v.student.gender === 'FEMALE' ? 'Female' : 'Male'],
-              ['Term dates', `${formatDate(v.term.startsOn, { year: undefined })} – ${formatDate(v.term.endsOn)}`],
-              ['Subjects', String(s.subjectsTaken)],
-              ['Class size', String(s.classSize)],
-            ] as const
-          ).map(([k, val]) => (
-            <div key={k} className="min-w-0 bg-card px-4 py-2.5 sm:px-5 print:px-3 print:py-1.5">
-              <dt className="text-[10.5px] font-medium uppercase tracking-wider text-muted-foreground print:text-[8.5px]">{k}</dt>
-              <dd className="mt-0.5 truncate text-[13.5px] font-semibold print:text-[10.5px]">{val}</dd>
-            </div>
-          ))}
-        </dl>
-
-        {interim && (
-          <p className="flex items-start gap-2 border-b border-border bg-warning-soft/50 px-5 py-2.5 text-[12.5px] sm:px-8 print:px-3 print:py-1.5 print:text-[9.5px]">
-            <Info className="mt-0.5 size-3.5 shrink-0 text-warning" />
-            Interim report: some subjects have only been partly assessed. Scores marked “so far” are out of what has been assessed, and grades are based on that
-            percentage.
-          </p>
-        )}
-
-        {/* ---------------------------------------------------- subjects */}
-        <div className="scrollbar-thin overflow-x-auto print-scroll-reset">
-          <table className="w-full border-collapse text-[12.5px] print:text-[9.5px]">
-            <thead>
-              <tr className="border-b border-border bg-muted/50 text-[10.5px] uppercase tracking-wider text-muted-foreground print:text-[8px]">
-                <th scope="col" className="px-4 py-2 text-left font-medium sm:pl-8 print:px-2">
-                  Subject
-                </th>
-                {v.components.map((c) => (
-                  <th key={c.key} scope="col" className="px-2 py-2 text-center font-medium">
-                    {c.name}
-                    <span className="block font-normal normal-case">/{c.maxScore}</span>
-                  </th>
-                ))}
-                <th scope="col" className="px-2 py-2 text-center font-medium">
-                  Total
-                </th>
-                <th scope="col" className="px-2 py-2 text-center font-medium">
-                  Grade
-                </th>
-                <th scope="col" className="px-2 py-2 text-left font-medium">
-                  Remark
-                </th>
-                <th scope="col" className="px-2 py-2 text-center font-medium">
-                  Pos.
-                </th>
-                <th scope="col" className="px-2 py-2 text-center font-medium">
-                  Class avg
-                </th>
-                <th scope="col" className="px-2 py-2 text-center font-medium sm:pr-8 print:px-2">
-                  High / Low
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {v.subjects.length === 0 && (
-                <tr>
-                  <td colSpan={v.components.length + 7} className="px-8 py-8 text-center text-muted-foreground">
-                    No marks entered for this learner yet.
-                  </td>
-                </tr>
-              )}
-              {v.subjects.map((sub) => {
-                const band = v.gradingScale.find((b) => b.grade === sub.grade);
-                return (
-                  <tr key={sub.subject.id} className="border-b border-border last:border-0">
-                    <th scope="row" className="px-4 py-2 text-left font-medium sm:pl-8 print:px-2 print:py-1">
-                      {sub.subject.name}
-                    </th>
-                    {v.components.map((c) => (
-                      <td key={c.key} className={cn('px-2 py-2 text-center tabular print:py-1', sub.scores[c.key] == null && 'text-muted-foreground')}>
-                        {fmtScore(sub.scores[c.key] ?? null)}
-                      </td>
-                    ))}
-                    <td className="whitespace-nowrap px-2 py-2 text-center tabular print:py-1">
-                      {sub.total == null ? (
-                        '—'
-                      ) : (
-                        <>
-                          <span className="font-semibold">{fmtScore(sub.total)}</span>
-                          <span className="text-muted-foreground">/{sub.outOf}</span>
-                          {!sub.complete && <span className="ml-1 text-[10px] font-medium text-warning">so far</span>}
-                        </>
-                      )}
-                    </td>
-                    <td className="px-2 py-2 text-center print:py-1">
-                      {sub.grade ? (
-                        <span
-                          className={cn(
-                            'inline-grid min-w-8 place-items-center rounded-md px-1.5 py-0.5 text-[12px] font-bold print:text-[9.5px]',
-                            band?.pass === false ? 'bg-danger-soft text-danger' : 'bg-success-soft text-success',
-                          )}
-                        >
-                          {sub.grade}
-                        </span>
-                      ) : (
-                        '—'
-                      )}
-                    </td>
-                    <td className="px-2 py-2 text-muted-foreground print:py-1">{sub.remark ?? '—'}</td>
-                    <td className="px-2 py-2 text-center tabular print:py-1">{sub.position ? ordinal(sub.position) : '—'}</td>
-                    <td className="px-2 py-2 text-center tabular text-muted-foreground print:py-1">{fmtPct(sub.classAverage)}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-center tabular text-muted-foreground sm:pr-8 print:px-2 print:py-1">
-                      {fmtPct(sub.highest, 0)} / {fmtPct(sub.lowest, 0)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* ---------------------------------------------------- summary */}
-        <div className="grid grid-cols-2 gap-px border-y border-border bg-border sm:grid-cols-4 print:grid-cols-4">
-          <SummaryTile label="Total score" value={fmtScore(s.totalScore)} />
-          <SummaryTile label="Average" value={fmtPct(s.average)} emphasis />
-          <SummaryTile label="Position" value={s.position ? `${ordinal(s.position)} of ${s.classSize}` : '—'} emphasis />
-          <SummaryTile label="Class average" value={fmtPct(s.classAverage)} />
-        </div>
-
-        {/* ---------------------------------------------------- attendance */}
+      <div className="mx-auto mt-4 overflow-hidden rounded-2xl border border-border bg-card print:hidden">
         <AttendanceStrip a={v.attendance} />
-
-        {/* ---------------------------------------------------- remarks */}
-        <div className="grid gap-5 px-5 py-6 sm:px-8 md:grid-cols-2 print:grid-cols-2 print:gap-3 print:px-3 print:py-3">
-          <RemarkBox
-            title="Class teacher’s remark"
-            who={v.classArm.classTeacher}
-            value={v.teacherRemark}
-            ai={v.remarkSource === 'AI' && !!v.teacherRemark}
-            editable={canTeacher}
-            studentId={v.student.id}
-            termId={termId}
-            field="teacherRemark"
-          />
-          <RemarkBox
-            title="Principal’s remark"
-            value={v.principalRemark}
-            editable={canPublish}
-            studentId={v.student.id}
-            termId={termId}
-            field="principalRemark"
-          />
-        </div>
-
-        {/* ---------------------------------------------------- grading key */}
-        <footer className="border-t border-border bg-muted/30 px-5 py-4 sm:px-8 print:px-3 print:py-2">
-          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-wider text-muted-foreground print:mb-1 print:text-[8px]">Grading key</p>
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] print:text-[8.5px]">
-            {[...v.gradingScale]
-              .sort((a, b) => b.min - a.min)
-              .map((b, i, arr) => (
-                <span key={b.grade} className="tabular">
-                  <span className={cn('font-bold', !b.pass && 'text-danger')}>{b.grade}</span>{' '}
-                  <span className="text-muted-foreground">
-                    {b.min}
-                    {i === 0 ? '–100' : `–${arr[i - 1].min - 1}`} {b.remark}
-                  </span>
-                </span>
-              ))}
-          </div>
-          <p className="mt-3 text-[11px] text-muted-foreground print:mt-1 print:text-[8.5px]">
-            {v.status === 'PUBLISHED' && v.publishedAt ? `Published ${formatDate(v.publishedAt)}.` : 'Draft — not yet published to parents.'} Grades are on the
-            percentage of each subject assessed.
-          </p>
-        </footer>
-      </article>
+      </div>
     </Page>
-  );
-}
-
-function SummaryTile({ label, value, emphasis }: { label: string; value: string; emphasis?: boolean }) {
-  return (
-    <div className="bg-card px-4 py-3 text-center sm:px-5 print:py-1.5">
-      <p className="text-[10.5px] font-medium uppercase tracking-wider text-muted-foreground print:text-[8px]">{label}</p>
-      <p className={cn('mt-0.5 font-display font-semibold tabular', emphasis ? 'text-[20px] print:text-[14px]' : 'text-[16px] print:text-[12px]')}>{value}</p>
-    </div>
   );
 }
 
@@ -344,7 +175,7 @@ function AttendanceStrip({ a }: { a: ReportCardView['attendance'] | undefined })
     ['Attendance', a.rate == null ? '—' : `${Number.isInteger(a.rate) ? a.rate : a.rate.toFixed(1)}%`],
   ];
   return (
-    <section aria-labelledby="rc-attendance" className="print-avoid-break border-b border-border">
+    <section aria-labelledby="rc-attendance">
       <h2
         id="rc-attendance"
         className="flex items-center gap-1.5 bg-muted/50 px-4 py-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-muted-foreground sm:px-8 print:px-3 print:py-1 print:text-[8px]"
@@ -396,9 +227,9 @@ function RemarkBox({
     update.mutate({ [field]: draft.trim() }, { onSuccess: () => setEditing(false) });
 
   return (
-    <section className="print-avoid-break flex flex-col rounded-xl border border-border p-4 print:p-2">
-      <div className="mb-2 flex items-center gap-2">
-        <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground print:text-[8.5px]">{title}</h2>
+    <section className="print-avoid-break flex h-full flex-col rounded-xl border border-border p-3 print:p-2">
+      <div className="mb-1.5 flex items-center gap-2">
+        <h2 className="text-[10.5px] font-semibold uppercase tracking-wider text-[var(--rc-accent)] dark:text-foreground print:text-[8px] print:text-[var(--rc-accent)]">{title}</h2>
         {ai && (
           <span className="print:hidden">
             <AiBadge label="AI draft" />
@@ -440,14 +271,11 @@ function RemarkBox({
           </div>
         </form>
       ) : (
-        <p className={cn('flex-1 whitespace-pre-line text-[13.5px] leading-relaxed print:text-[10px]', !value && 'italic text-muted-foreground')}>
+        <p className={cn('flex-1 whitespace-pre-line text-[13px] leading-relaxed print:text-[10px]', !value && 'italic text-muted-foreground')}>
           {value || (editable ? 'No remark yet — click the pencil to write one.' : 'No remark yet.')}
         </p>
       )}
-      <div className="mt-4 flex items-end justify-between gap-4 text-[11px] text-muted-foreground print:mt-2 print:text-[8.5px]">
-        <span className="truncate">{who ?? ''}</span>
-        <span className="w-32 border-t border-dotted border-foreground/40 pt-1 text-center">Signature</span>
-      </div>
+      {who && <p className="mt-2 truncate text-[11px] text-muted-foreground print:mt-1 print:text-[8.5px]">{who}</p>}
     </section>
   );
 }

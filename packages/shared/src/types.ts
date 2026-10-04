@@ -147,7 +147,7 @@ export interface AcademicStructure {
       classTeacher: { id: string; firstName: string; lastName: string; userId: string | null } | null;
     }[];
   }[];
-  subjects: { id: string; name: string; code: string; category: string | null; isCore: boolean }[];
+  subjects: { id: string; name: string; code: string; category: string | null; isCore: boolean; classCount: number }[];
   branches: { id: string; name: string; code: string; isMain: boolean }[];
 }
 

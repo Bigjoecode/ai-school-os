@@ -1,14 +1,19 @@
 import type { MyLearning } from '@aischool/shared';
-import { AlertTriangle, BookOpenCheck, CalendarClock, ChevronDown, ClipboardList, Lightbulb, Video } from 'lucide-react';
+import { HOMEWORK_KIND_LABELS } from '@aischool/shared';
+import { AlertTriangle, ArrowRight, BookOpenCheck, CalendarClock, ChevronDown, ClipboardList, Lightbulb, Paperclip, Video } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useMyLearning } from './api';
+import { AttachmentList } from './files';
+import { HandInBadge } from './handin';
 import { addDays, dayLabel, JoinButton, LiveStatusBadge, NotesText, OpensHint, ProviderIcon, relativeDay, schoolDate, schoolToday, timeRange, useSchoolTz } from './ui';
 
 type LiveItem = MyLearning['liveClasses'][number];
@@ -150,6 +155,9 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
   const due = h.dueDate.slice(0, 10);
   const id = `hw-${h.id}`;
   const soon = !h.overdue && due <= addDays(today, 1);
+  // Students get their own hand-in (or null); parents don't.
+  const student = h.mine !== undefined;
+  const todo = student && (!h.mine || h.mine.status === 'RETURNED') && (!h.overdue || h.allowLate);
   return (
     <Card className={cn('overflow-hidden', h.overdue && 'opacity-80')}>
       <button
@@ -181,6 +189,13 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
               </Badge>
             )}
             {h.questions.length > 0 && <Badge variant="outline">{h.questions.length} {h.questions.length === 1 ? 'question' : 'questions'}</Badge>}
+            {h.kind !== 'QUESTIONS' && <Badge variant="brand">{HOMEWORK_KIND_LABELS[h.kind]}</Badge>}
+            {h.attachments.length > 0 && (
+              <Badge variant="outline" className="gap-1">
+                <Paperclip /> {h.attachments.length}
+              </Badge>
+            )}
+            {student && <HandInBadge mine={h.mine} overdue={h.overdue} maxScore={h.maxScore} />}
           </span>
         </span>
         <ChevronDown className={cn('mt-1 size-4 shrink-0 text-muted-foreground transition-transform', open && 'rotate-180')} aria-hidden />
@@ -197,6 +212,19 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
               ))}
             </ol>
           )}
+          <AttachmentList homeworkId={h.id} attachments={h.attachments} className="mt-3" />
+          {student && h.mine?.status === 'GRADED' && h.mine.feedback && (
+            <p className="mt-3 whitespace-pre-wrap break-words rounded-xl border border-success/30 bg-success-soft/30 px-3 py-2 text-[13px] leading-relaxed">{h.mine.feedback}</p>
+          )}
+        </div>
+      )}
+      {student && (
+        <div className={cn('flex justify-end border-t border-border px-4 py-2.5', todo && 'bg-brand-soft/20')}>
+          <Button asChild size="sm" variant={todo ? 'default' : 'outline'}>
+            <Link to={`/learning/homework/${h.id}`}>
+              {todo ? (h.mine?.status === 'RETURNED' ? 'Redo and hand in' : 'Open and hand in') : 'Open'} <ArrowRight />
+            </Link>
+          </Button>
         </div>
       )}
     </Card>

@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
 import {
   aiCurriculumTermSchema,
   aiLessonSchema,
@@ -19,9 +19,14 @@ import { dateOnly, fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
 import { GenerationQueue } from '../ai/generation-queue';
-import { curriculumTermPrompt, lessonPrompt, schemePrompt, type SchoolContext } from './prompts';
+import type { AiImage } from '../ai/providers/provider';
+import { FilesService } from '../files/files.service';
+import { extractText } from '../knowledge/extract';
+import { curriculumTermPrompt, importPrompt, lessonPrompt, schemePrompt, type SchoolContext } from './prompts';
 
 const MAX_TERM_WEEKS = 14;
+/** How much of an uploaded document the AI reads (about 25 pages of text). */
+const MAX_IMPORT_CHARS = 80_000;
 
 // ------------------------------------------------------------ includes
 
@@ -66,6 +71,7 @@ export class AcademicEngineService implements OnModuleInit {
     private readonly gateway: AiGatewayService,
     private readonly queue: GenerationQueue,
     private readonly audit: AuditService,
+    private readonly files: FilesService,
   ) {}
 
   /** Jobs don't survive a restart: mark any left mid-flight as failed. */
@@ -90,11 +96,42 @@ export class AcademicEngineService implements OnModuleInit {
     }
   }
 
+  /**
+   * Reads an uploaded curriculum or scheme: text from a PDF, Word or text
+   * file (or pasted), or a photo/scan the AI reads directly. Fails early on
+   * a scanned PDF, which has no text to read.
+   */
+  async readImport(fileId: string | null | undefined, text: string | null | undefined): Promise<{ text: string | null; fileId: string | null; name: string }> {
+    if (!fileId) {
+      if (!text?.trim()) throw new BadRequestException('Upload a document or paste its text');
+      return { text: text.trim(), fileId: null, name: 'pasted text' };
+    }
+    const f = await this.files.read(fileId, false);
+    if (f.mimeType.startsWith('image/')) return { text: null, fileId, name: f.filename };
+    let extracted: string;
+    try {
+      extracted = (await extractText(f.data, f.mimeType)).trim();
+    } catch (e) {
+      throw new BadRequestException((e as Error).message);
+    }
+    if (extracted.length < 80) throw new BadRequestException('No text could be read from this file. If it is a scan, upload a photo of the pages instead, or paste the text.');
+    return { text: extracted, fileId, name: f.filename };
+  }
+
+  /** The uploaded document as message content: its text, or the photo itself. */
+  private async importContent(row: { importText: string | null; importFileId: string | null }): Promise<{ doc: string; images?: AiImage[] }> {
+    if (row.importText) return { doc: `THE DOCUMENT:\n${row.importText.slice(0, MAX_IMPORT_CHARS)}` };
+    if (!row.importFileId) throw new Error('The uploaded document is missing; upload it again');
+    const f = await this.files.read(row.importFileId, false);
+    return { doc: 'THE DOCUMENT is the attached photo.', images: [{ mediaType: f.mimeType as AiImage['mediaType'], data: f.data.toString('base64') }] };
+  }
+
   queueCurriculum(id: string) {
     this.queue.enqueue(`curriculum ${id}`, () =>
       this.track('curriculum', id, async () => {
         const cur = await this.prisma.db.curriculum.findUniqueOrThrow({ where: { id }, include: curriculumInclude });
         const ctx = await this.context(cur.subject.name, cur.classLevelId);
+        if (cur.source === 'UPLOAD') return this.importCurriculum(cur, ctx);
         const summaries: string[] = [];
         const earlier: string[] = [];
 
@@ -133,12 +170,45 @@ export class AcademicEngineService implements OnModuleInit {
     );
   }
 
+  /** Each term of the school's own curriculum, as the document lays it out. */
+  private async importCurriculum(cur: CurriculumRow, ctx: SchoolContext) {
+    const { doc, images } = await this.importContent(cur);
+    const summaries: string[] = [];
+    let found = 0;
+    for (const order of [1, 2, 3]) {
+      const { system, user } = importPrompt(
+        ctx,
+        'curriculum (it may cover one term or the whole year)',
+        `${doc}\n\nExtract TERM ${order} only (first, second and third term in order), week by week, at most ${MAX_TERM_WEEKS} weeks. ` +
+          `If the document is not divided into terms, split its topics across the three terms in order, about a third each. ` +
+          `If the document has nothing for this term, return no weeks. termSummary: one or two sentences on what the term covers.`,
+      );
+      const result = await this.gateway.generateJson(
+        { tier: 'advanced', system, messages: [{ role: 'user', content: user, ...(images ? { images } : {}) }], maxOutputTokens: 8000 },
+        aiCurriculumTermSchema,
+        'curriculum-import',
+      );
+      const weeks = result.data.weeks.filter((w) => w.topic?.trim()).slice(0, MAX_TERM_WEEKS);
+      found += weeks.length;
+      await this.prisma.db.$transaction(async (tx) => {
+        await tx.curriculumUnit.deleteMany({ where: { curriculumId: cur.id, termOrder: order } });
+        await tx.curriculumUnit.createMany({
+          data: weeks.map((w, i) => ({ tenantId: cur.tenantId, curriculumId: cur.id, termOrder: order, week: i + 1, topic: w.topic, subtopics: w.subtopics, objectives: w.objectives, activities: w.activities, resources: w.resources, assessment: w.assessment })),
+        });
+      });
+      if (weeks.length) summaries.push(`Term ${order}: ${result.data.termSummary}`);
+    }
+    if (!found) throw new Error('No topics could be found in the document. Check it is the right file, or paste the text.');
+    await this.prisma.db.curriculum.update({ where: { id: cur.id }, data: { overview: summaries.join('\n\n') } });
+  }
+
   queueScheme(id: string) {
     this.queue.enqueue(`scheme ${id}`, () =>
       this.track('scheme', id, async () => {
         const scheme = await this.prisma.db.schemeOfWork.findUniqueOrThrow({ where: { id }, include: schemeInclude });
         const ctx = await this.context(scheme.subject.name, scheme.classLevelId);
         const calendar = termWeeks(scheme.term.startsOn, scheme.term.endsOn);
+        if (scheme.source === 'UPLOAD') return this.importScheme(scheme, ctx, calendar);
 
         const units = scheme.curriculumId
           ? await this.prisma.db.curriculumUnit.findMany({
@@ -178,6 +248,41 @@ export class AcademicEngineService implements OnModuleInit {
         });
       }),
     );
+  }
+
+  /** The school's own scheme, week by week, dated weekly from the start of the term. */
+  private async importScheme(scheme: SchemeRow, ctx: SchoolContext, calendar: { week: number; startsOn: string }[]) {
+    const { doc, images } = await this.importContent(scheme);
+    const { system, user } = importPrompt(
+      ctx,
+      `scheme of work for ${scheme.term.name}`,
+      `${doc}\n\nExtract the weeks in the document's order (at most 16). Keep revision and examination weeks if the document has them. evaluation: the document's evaluation questions or tasks for the week.`,
+    );
+    const result = await this.gateway.generateJson(
+      { tier: 'advanced', system, messages: [{ role: 'user', content: user, ...(images ? { images } : {}) }], maxOutputTokens: 8000 },
+      aiSchemeSchema,
+      'scheme-import',
+    );
+    const weeks = result.data.weeks.filter((w) => w.topic?.trim()).slice(0, 16);
+    if (!weeks.length) throw new Error('No weeks could be found in the document. Check it is the right file, or paste the text.');
+    const first = new Date(`${calendar[0]!.startsOn}T00:00:00.000Z`).getTime();
+    await this.prisma.db.$transaction(async (tx) => {
+      await tx.schemeWeek.deleteMany({ where: { schemeId: scheme.id } });
+      await tx.schemeWeek.createMany({
+        data: weeks.map((w, i) => ({
+          tenantId: scheme.tenantId,
+          schemeId: scheme.id,
+          week: i + 1,
+          startsOn: new Date(first + i * 7 * 86_400_000),
+          topic: w.topic,
+          subtopics: w.subtopics,
+          objectives: w.objectives,
+          activities: w.activities,
+          resources: w.resources,
+          evaluation: w.evaluation,
+        })),
+      });
+    });
   }
 
   queueLesson(id: string) {

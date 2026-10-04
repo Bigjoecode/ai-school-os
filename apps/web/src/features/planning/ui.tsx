@@ -1,5 +1,5 @@
 import type { GenerationState } from '@aischool/shared';
-import { AlertTriangle, ArrowLeft, Clock, RotateCw } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Clock, FileUp, RotateCw } from 'lucide-react';
 import type * as React from 'react';
 import { useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router';
@@ -79,7 +79,14 @@ export function ContentStatusBadge({ status, className }: { status: string; clas
   );
 }
 
-export function SourceBadge({ source }: { source: 'AI' | 'MANUAL' }) {
+export function SourceBadge({ source }: { source: 'AI' | 'MANUAL' | 'UPLOAD' }) {
+  if (source === 'UPLOAD') {
+    return (
+      <Badge variant="outline" className="gap-1">
+        <FileUp /> Uploaded
+      </Badge>
+    );
+  }
   if (source === 'AI') {
     return (
       <Badge variant="outline" className="gap-1 border-ai-2/30 text-foreground">

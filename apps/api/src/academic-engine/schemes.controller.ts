@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   academicListQuerySchema,
   generateSchemeSchema,
+  importSchemeSchema,
   schemeWeekSchema,
   updateSchemeSchema,
   type AcademicListQuery,
@@ -109,6 +110,50 @@ export class SchemesController {
       entityId: scheme.id,
       summary: `Asked AI to write the scheme of work for ${scheme.title}`,
     });
+    return this.engine.schemeSummary(scheme);
+  }
+
+  /**
+   * The school's own scheme of work for a term: upload a PDF, Word file or
+   * photo (or paste the text); AI lays it out week by week as an editable
+   * draft that lesson plans can then be built from.
+   */
+  @Post('import')
+  @HttpCode(202)
+  @RequirePermissions('curriculum.manage', 'ai.use')
+  async importDoc(@Body(new ZodPipe(importSchemeSchema)) body: z.infer<typeof importSchemeSchema>): Promise<SchemeSummary> {
+    this.engine.assertAiAvailable();
+    const db = this.prisma.db;
+    const [subject, level, term] = await Promise.all([
+      db.subject.findUniqueOrThrow({ where: { id: body.subjectId } }),
+      db.classLevel.findUniqueOrThrow({ where: { id: body.classLevelId } }),
+      db.term.findUniqueOrThrow({ where: { id: body.termId } }),
+    ]);
+    if (await db.schemeOfWork.findFirst({ where: { subjectId: subject.id, classLevelId: level.id, termId: term.id } })) {
+      throw new ConflictException({
+        statusCode: 409,
+        message: 'A scheme of work already exists for this subject, class and term. Delete it first to upload your own.',
+        errors: [{ path: 'termId', message: 'Already has a scheme' }],
+      });
+    }
+    const doc = await this.engine.readImport(body.fileId, body.text);
+    const scheme = await db.schemeOfWork.create({
+      data: {
+        tenantId: currentTenantId(),
+        subjectId: subject.id,
+        classLevelId: level.id,
+        termId: term.id,
+        title: `${subject.name} — ${level.name}, ${term.name}`,
+        source: 'UPLOAD',
+        generation: 'QUEUED',
+        importText: doc.text,
+        importFileId: doc.fileId,
+        createdById: currentContext().userId,
+      },
+      include: schemeInclude,
+    });
+    this.engine.queueScheme(scheme.id);
+    await this.audit.log({ action: 'scheme.imported', entityType: 'SchemeOfWork', entityId: scheme.id, summary: `Uploaded the scheme of work for ${scheme.title} from ${doc.name}` });
     return this.engine.schemeSummary(scheme);
   }
 

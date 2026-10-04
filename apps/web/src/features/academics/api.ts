@@ -1,4 +1,4 @@
-import type { AcademicStructure } from '@aischool/shared';
+import type { AcademicStructure, SubjectClasses, SubjectInput } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
@@ -59,6 +59,46 @@ export function useMakeCurrent(resource: 'sessions' | 'terms') {
     onSuccess: () => {
       invalidate();
       toast.success(resource === 'sessions' ? 'Current session updated' : 'Current term updated');
+    },
+  });
+}
+
+// ------------------------------------------------------------------ subjects
+
+export function useUpdateSubject() {
+  return useMutation({
+    mutationFn: ({ id, ...input }: Omit<Partial<SubjectInput>, 'category'> & { id: string; category?: string | null }) => api.patch<unknown>(`/academics/subjects/${id}`, input),
+    meta: { silent: true },
+    onSuccess: () => {
+      invalidate();
+      toast.success('Subject updated');
+    },
+  });
+}
+
+const subjectClassesKey = (id: string) => ['academics', 'subject-classes', id] as const;
+
+/** Which classes take a subject, and who teaches it in each. */
+export function useSubjectClasses(id: string | undefined) {
+  const can = useCan('academics.read');
+  return useQuery({
+    queryKey: subjectClassesKey(id ?? ''),
+    queryFn: ({ signal }) => api.get<SubjectClasses>(`/academics/subjects/${id}/classes`, undefined, signal),
+    enabled: !!id && can,
+  });
+}
+
+/** Sets the exact set of classes (unticked = unlinked) and their teachers. */
+export function useSetSubjectClasses(id: string) {
+  return useMutation({
+    mutationFn: (assignments: { classArmId: string; teacherId: string | null }[]) =>
+      api.put<SubjectClasses>(`/academics/subjects/${id}/classes`, { assignments }),
+    meta: { silent: true },
+    onSuccess: (data) => {
+      queryClient.setQueryData(subjectClassesKey(id), data);
+      invalidate();
+      // Score sheets, timetables and staff workloads read these links.
+      void queryClient.invalidateQueries({ queryKey: qk.timetableSetup });
     },
   });
 }

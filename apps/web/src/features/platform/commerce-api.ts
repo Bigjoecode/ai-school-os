@@ -123,7 +123,7 @@ export const useLedger = (filters: { account?: string; domain?: string }) =>
 export const useUnitEconomics = (range: { from?: string; to?: string }) =>
   useQuery({ queryKey: ck.economics(range), queryFn: ({ signal }) => api.get<UnitEconomics>('/platform/unit-economics', range, signal), placeholderData: keepPreviousData });
 
-export const useQuestions = (f: { exam?: string; subject?: string; status?: string; q?: string }) =>
+export const useQuestions = (f: { exam?: string; subject?: string; status?: string; q?: string; type?: string }) =>
   useQuery({ queryKey: ck.questions(f), queryFn: ({ signal }) => api.get<QuestionBank>('/platform/content/questions', f, signal), placeholderData: keepPreviousData });
 
 export const useTopics = () => useQuery({ queryKey: ck.topics, queryFn: ({ signal }) => api.get<SyllabusTopicRow[]>('/platform/content/topics', undefined, signal), staleTime: 60_000 });
@@ -166,7 +166,7 @@ export const useImportQuestions = () =>
 
 export const useDraftQuestions = () =>
   useMutation({
-    mutationFn: (body: { exam: string; subject: string; topicId?: string | null; count: number; difficulty: string }) =>
+    mutationFn: (body: { exam: string; subject: string; topicId?: string | null; count: number; difficulty: string; type?: 'OBJECTIVE' | 'THEORY' }) =>
       api.post<{ drafted: number; provider: string; model: string }>('/platform/content/questions/draft', body),
     onSuccess: afterContent,
   });

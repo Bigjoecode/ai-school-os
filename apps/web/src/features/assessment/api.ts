@@ -19,6 +19,10 @@ import {
   type QuestionRow,
   type QuestionTopicCount,
   type ReportCardRow,
+  type ReportTemplateConfig,
+  type ReportTemplateRow,
+  type TraitDomain,
+  type TraitSheet,
   type ReportCardView,
   type SaveScoresInput,
   type ScoreSheet,
@@ -27,8 +31,8 @@ import {
 } from '@aischool/shared';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { api, request } from '@/lib/api';
-import { useCan } from '@/lib/auth-store';
+import { ApiError, api, refreshSession, request } from '@/lib/api';
+import { useAuthStore, useCan } from '@/lib/auth-store';
 import { qk, queryClient } from '@/lib/query-client';
 
 // ------------------------------------------------------------------ AI jobs
@@ -335,4 +339,171 @@ export function usePublishReports() {
 export function invalidateReportCards() {
   void queryClient.invalidateQueries({ queryKey: qk.reportCards() });
   void queryClient.invalidateQueries({ queryKey: qk.reportCard() });
+}
+
+// ------------------------------------------------------------------ report card layouts
+
+export const reportTemplateKeys = {
+  all: ['report-templates'] as const,
+  traits: (params?: object) => (params ? (['trait-sheet', params] as const) : (['trait-sheet'] as const)),
+  file: (id: string) => ['private-file', id] as const,
+};
+
+export interface ReportTemplatesResponse {
+  templates: ReportTemplateRow[];
+  standard: ReportTemplateConfig;
+}
+
+export interface ReportTemplateInput {
+  name: string;
+  isDefault: boolean;
+  config: ReportTemplateConfig;
+}
+
+export function useReportTemplates() {
+  const can = useCan('results.read');
+  return useQuery({
+    queryKey: reportTemplateKeys.all,
+    queryFn: ({ signal }) => api.get<ReportTemplatesResponse>('/report-cards/templates', undefined, signal),
+    enabled: can,
+  });
+}
+
+/** Layouts change how every card prints: refresh the list and any open card. */
+function invalidateTemplates() {
+  void queryClient.invalidateQueries({ queryKey: reportTemplateKeys.all });
+  void queryClient.invalidateQueries({ queryKey: reportTemplateKeys.traits() });
+  void queryClient.invalidateQueries({ queryKey: qk.reportCard() });
+}
+
+/** Create (no id) or update a layout. Errors are rendered by the editor (400 carries `errors[]`). */
+export function useSaveReportTemplate() {
+  return useMutation({
+    mutationFn: ({ id, input }: { id?: string; input: ReportTemplateInput }) =>
+      id ? api.put<ReportTemplateRow>(`/report-cards/templates/${id}`, input) : api.post<ReportTemplateRow>('/report-cards/templates', input),
+    meta: { silent: true },
+    onSuccess: (t) => {
+      // Put the saved row in the cache now so an editor that navigates to it finds it straight away.
+      queryClient.setQueryData<ReportTemplatesResponse>(reportTemplateKeys.all, (old) =>
+        old
+          ? {
+              ...old,
+              templates: [t, ...old.templates.filter((x) => x.id !== t.id).map((x) => (t.isDefault ? { ...x, isDefault: false } : x))],
+            }
+          : old,
+      );
+      invalidateTemplates();
+    },
+  });
+}
+
+export function useDeleteReportTemplate() {
+  return useMutation({
+    mutationFn: (t: ReportTemplateRow) => api.delete(`/report-cards/templates/${t.id}`),
+    onSuccess: (_d, t) => {
+      invalidateTemplates();
+      toast.success(`“${t.name}” deleted`);
+    },
+  });
+}
+
+/** Reads a photo/PDF of the school's current card (already uploaded) into a new layout. Slow: 10–30 s. */
+export function useTemplateFromSample() {
+  return useMutation({
+    mutationFn: (input: { fileId: string; name: string }) => api.post<ReportTemplateRow>('/report-cards/templates/from-sample', input),
+    meta: { silent: true },
+    onSuccess: (t) => {
+      queryClient.setQueryData<ReportTemplatesResponse>(reportTemplateKeys.all, (old) => (old ? { ...old, templates: [...old.templates, t] } : old));
+      invalidateTemplates();
+    },
+  });
+}
+
+async function authedFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  const send = () => {
+    const token = useAuthStore.getState().accessToken;
+    return fetch(`/api${path}`, {
+      ...init,
+      credentials: 'include',
+      headers: { Accept: 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(init.headers ?? {}) },
+    });
+  };
+  let res: Response;
+  try {
+    res = await send();
+    if (res.status === 401 && (await refreshSession())) res = await send();
+  } catch (err) {
+    if (err instanceof DOMException && err.name === 'AbortError') throw err;
+    throw new ApiError(0, "Can't reach the server. Check your connection and try again.");
+  }
+  if (!res.ok) {
+    let message = res.status === 404 ? 'File not found.' : 'Request failed. Please try again.';
+    try {
+      const b = (await res.json()) as { message?: string | string[] };
+      if (b.message) message = Array.isArray(b.message) ? b.message.join('. ') : b.message;
+    } catch {
+      /* not JSON */
+    }
+    throw new ApiError(res.status, message);
+  }
+  return res;
+}
+
+/** POST /files/private (multipart `file`): a private upload such as a sample report card. */
+export async function uploadPrivateFile(file: File): Promise<{ id: string; mimeType?: string }> {
+  const form = new FormData();
+  form.append('file', file);
+  const res = await authedFetch('/files/private', { method: 'POST', body: form });
+  return (await res.json()) as { id: string; mimeType?: string };
+}
+
+/** A protected file (GET /files/:id needs the bearer token) as a blob URL for <img>/<iframe>. */
+export function usePrivateFileUrl(id: string | null | undefined) {
+  const query = useQuery({
+    queryKey: reportTemplateKeys.file(id ?? ''),
+    queryFn: async ({ signal }) => {
+      const res = await authedFetch(`/files/${id}`, { signal });
+      const blob = await res.blob();
+      return { url: URL.createObjectURL(blob), type: blob.type };
+    },
+    enabled: !!id,
+    staleTime: Infinity,
+    gcTime: 10 * 60_000,
+  });
+  return query;
+}
+
+// ------------------------------------------------------------------ trait ratings
+
+export interface TraitSheetKey {
+  classArmId?: string;
+  termId?: string;
+  domain: TraitDomain;
+}
+
+export function useTraitSheet(k: TraitSheetKey) {
+  const can = useCan('results.read');
+  return useQuery({
+    queryKey: reportTemplateKeys.traits(k),
+    queryFn: ({ signal }) => api.get<TraitSheet>('/report-cards/traits', { ...k }, signal),
+    enabled: can && !!k.classArmId && !!k.termId,
+  });
+}
+
+export interface TraitRatingInput {
+  classArmId: string;
+  termId: string;
+  ratings: { studentId: string; domain: TraitDomain; trait: string; rating: number | null }[];
+}
+
+/** Saves changed cells. 403: only the class teacher or someone who publishes results may rate. */
+export function useSaveTraitRatings() {
+  return useMutation({
+    mutationFn: (input: TraitRatingInput) => api.put<{ saved: number }>('/report-cards/traits', input),
+    meta: { silent: true },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: reportTemplateKeys.traits() });
+      void queryClient.invalidateQueries({ queryKey: qk.reportCard() });
+    },
+  });
 }

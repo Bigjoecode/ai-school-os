@@ -80,6 +80,8 @@ const schema = z.object({
   /** Where uploaded files are kept (default: ./uploads in the app folder; the deploy never deletes it). */
   UPLOAD_DIR: z.string().optional(),
   UPLOAD_MAX_MB: z.coerce.number().min(1).max(50).default(10),
+  /** Video and audio (assignments and projects). Larger files should be shared as links. */
+  UPLOAD_MEDIA_MAX_MB: z.coerce.number().min(1).max(500).default(50),
   /** The platform's own Paystack secret key, for schools paying their subscription online. */
   PLATFORM_PAYSTACK_SECRET_KEY: z.string().optional(),
   /** Bank details printed on subscription invoices for transfers. Use 

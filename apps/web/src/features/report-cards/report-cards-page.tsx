@@ -1,7 +1,7 @@
 import { ordinal, type ReportCardRow } from '@aischool/shared';
-import { Award, CheckCircle2, Circle, EyeOff, Send, Sparkles } from 'lucide-react';
+import { Award, CheckCircle2, Circle, EyeOff, LayoutTemplate, Send, Sparkles, Star } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -64,14 +64,26 @@ export default function ReportCardsPage() {
         title="Report Cards"
         description="Review each learner’s termly report, add remarks and publish them to parents when you’re ready."
         actions={
-          ready && (
-            <>
-              {canAi && (
+          <>
+            <Button asChild variant="ghost">
+              <Link to="/report-cards/layout">
+                <LayoutTemplate /> Card layout
+              </Link>
+            </Button>
+            {ready && (
+              <Button asChild variant="outline">
+                <Link to={`/report-cards/ratings?classArmId=${classArmId}&termId=${termId}`}>
+                  <Star /> Rate behaviour & skills
+                </Link>
+              </Button>
+            )}
+            {ready && canAi && (
                 <Button variant="ai" onClick={() => setRemarksOpen(true)} disabled={!withResults.length}>
                   <Sparkles /> Draft remarks with AI
                 </Button>
               )}
-              {canPublish &&
+            {ready &&
+              canPublish &&
                 (allPublished ? (
                   <Button variant="outline" onClick={() => setConfirm('withdraw')}>
                     <EyeOff /> Withdraw
@@ -81,8 +93,7 @@ export default function ReportCardsPage() {
                     <Send /> Publish
                   </Button>
                 ))}
-            </>
-          )
+          </>
         }
       />
 

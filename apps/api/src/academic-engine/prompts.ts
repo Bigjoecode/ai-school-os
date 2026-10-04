@@ -87,6 +87,23 @@ export function schemePrompt(
   return { system, user };
 }
 
+/**
+ * Turning the school's own document (curriculum or scheme of work) into the
+ * app's structure. The document is the authority: the model transcribes and
+ * tidies, it does not plan.
+ */
+export function importPrompt(ctx: SchoolContext, what: string, job: string) {
+  const system = [
+    base(ctx, "a careful academic administrator digitising the school's own documents"),
+    `You are given the school's ${what}. Reproduce ITS content in the requested structure.`,
+    'Topics, subtopics and objectives must come from the document, in its order and close to its wording. ' +
+      'Never invent topics, never reorder weeks, and never add content from the national curriculum that the document does not contain.',
+    'If the document gives activities, resources or evaluation, use them. If it leaves them out, you may add one or two brief, practical suggestions for those three fields only.',
+    'Ignore page headers, footers, signatures and school letterhead.',
+  ].join('\n');
+  return { system, user: job };
+}
+
 export function lessonPrompt(
   ctx: SchoolContext & { classArm: string },
   lesson: { topic: string; durationMinutes: number; objectives: string[]; subtopics: string[]; date: string | null },

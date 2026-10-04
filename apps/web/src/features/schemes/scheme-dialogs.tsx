@@ -1,23 +1,26 @@
-import { generateSchemeSchema } from '@aischool/shared';
+import { generateSchemeSchema, importSchemeSchema } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, BookOpen, Globe2, Info, Sparkles } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowRight, BookOpen, FileUp, Globe2, Info, Sparkles } from 'lucide-react';
+import { type BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
-import type { z } from 'zod';
+import { z } from 'zod';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Field } from '@/components/ui/field';
+import { FormDialog } from '@/components/ui/form-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { ApiError } from '@/lib/api';
 import { applyServerErrors } from '@/lib/forms';
 import { useStructure } from '../academics/api';
 import { pickSourceCurriculum, useCurricula } from '../curriculum/api';
+import { DocumentPicker, type DocValue, docErrors, emptyDoc, NothingInventedNote } from '../curriculum/import-document';
+import { FormError } from '../operations/ui';
 import { currentTerm, LevelSelect, SubjectSelect, TermSelect } from '../planning/pickers';
-import { useGenerateScheme, useSchemes } from './api';
+import { useGenerateScheme, useImportScheme, useSchemes } from './api';
 
 type Values = z.input<typeof generateSchemeSchema>;
 type Output = z.output<typeof generateSchemeSchema>;
@@ -234,5 +237,185 @@ export function GenerateSchemeDialog({ open, onOpenChange, defaults }: Props) {
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+const importFieldsSchema = importSchemeSchema.pick({ subjectId: true, classLevelId: true, termId: true }).extend({
+  subjectId: z.string().min(1, 'Choose a subject'),
+  classLevelId: z.string().min(1, 'Choose a class level'),
+  termId: z.string().min(1, 'Choose a term'),
+});
+type ImportValues = z.input<typeof importFieldsSchema>;
+type ImportOutput = z.output<typeof importFieldsSchema>;
+
+/** "Upload our scheme of work": the school's own document, laid out week by week. */
+export function ImportSchemeDialog({ open, onOpenChange, defaults }: Props) {
+  const navigate = useNavigate();
+  const structure = useStructure();
+  const importDoc = useImportScheme();
+  const [doc, setDoc] = useState<DocValue>(emptyDoc);
+  const [docErrs, setDocErrs] = useState<{ file?: string; text?: string }>({});
+  const [formError, setFormError] = useState<string | undefined>();
+
+  const initial = (): ImportValues => ({
+    subjectId: defaults?.subjectId ?? '',
+    classLevelId: defaults?.classLevelId ?? '',
+    termId: defaults?.termId ?? currentTerm(structure.data)?.id ?? '',
+  });
+  const form = useForm<ImportValues, unknown, ImportOutput>({ resolver: zodResolver(importFieldsSchema), defaultValues: initial() });
+  const e = form.formState.errors;
+
+  useEffect(() => {
+    if (open) {
+      form.reset(initial());
+      setDoc(emptyDoc());
+      setDocErrs({});
+      setFormError(undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  // Fill in the current term once the structure arrives.
+  useEffect(() => {
+    if (open && !form.getValues('termId') && structure.data) {
+      const t = currentTerm(structure.data);
+      if (t) form.setValue('termId', t.id);
+    }
+  }, [open, structure.data, form]);
+
+  const subjectId = form.watch('subjectId');
+  const classLevelId = form.watch('classLevelId');
+  const termId = form.watch('termId');
+  const existing = useSchemes({ subjectId, classLevelId, termId }, open && !!subjectId && !!classLevelId && !!termId);
+  const existingScheme = existing.data?.[0];
+
+  const onSubmit = (ev?: BaseSyntheticEvent) => {
+    ev?.preventDefault();
+    const errs = docErrors(doc);
+    setDocErrs(errs);
+    setFormError(undefined);
+    void form.handleSubmit((values) => {
+      if (errs.file || errs.text) return;
+      importDoc.mutate(
+        { ...values, doc },
+        {
+          onSuccess: (s) => {
+            toast.success('Your scheme of work is being laid out', { description: 'This usually takes a minute or two.' });
+            onOpenChange(false);
+            navigate(`/schemes/${s.id}`);
+          },
+          onError: (err) => {
+            if (err instanceof ApiError && err.status === 409) void existing.refetch();
+            // A 409 also flags the term field; show the full message as well.
+            applyServerErrors(err, form.setError);
+            setFormError(err.message);
+          },
+        },
+      );
+    })();
+  };
+
+  const clearConflict = () => {
+    form.clearErrors('termId');
+    setFormError(undefined);
+  };
+
+  return (
+    <FormDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Upload our scheme of work"
+      description="Already have a scheme of work for this term? Upload it (or paste it) and it becomes an editable draft here, ready for lesson plans."
+      icon={<FileUp />}
+      submitLabel={importDoc.isPending ? 'Uploading…' : 'Upload scheme'}
+      pending={importDoc.isPending}
+      onSubmit={onSubmit}
+      size="lg"
+    >
+      <div className="grid gap-4">
+        <NothingInventedNote noun="week by week" />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Subject" htmlFor="is-subject" error={e.subjectId?.message}>
+            <Controller
+              control={form.control}
+              name="subjectId"
+              render={({ field }) => (
+                <SubjectSelect
+                  id="is-subject"
+                  structure={structure.data}
+                  value={field.value || undefined}
+                  onChange={(v) => {
+                    field.onChange(v ?? '');
+                    clearConflict();
+                  }}
+                  invalid={!!e.subjectId}
+                />
+              )}
+            />
+          </Field>
+          <Field label="Class level" htmlFor="is-level" error={e.classLevelId?.message}>
+            <Controller
+              control={form.control}
+              name="classLevelId"
+              render={({ field }) => (
+                <LevelSelect
+                  id="is-level"
+                  structure={structure.data}
+                  value={field.value || undefined}
+                  onChange={(v) => {
+                    field.onChange(v ?? '');
+                    clearConflict();
+                  }}
+                  invalid={!!e.classLevelId}
+                />
+              )}
+            />
+          </Field>
+          <Field label="Term" htmlFor="is-term" className="sm:col-span-2" error={e.termId?.message}>
+            <Controller
+              control={form.control}
+              name="termId"
+              render={({ field }) => (
+                <TermSelect
+                  id="is-term"
+                  structure={structure.data}
+                  value={field.value || undefined}
+                  onChange={(v) => {
+                    field.onChange(v ?? '');
+                    clearConflict();
+                  }}
+                  invalid={!!e.termId}
+                />
+              )}
+            />
+          </Field>
+        </div>
+        {existingScheme && (
+          <div className="flex flex-col gap-3 rounded-xl border border-warning/40 bg-warning-soft px-4 py-3 sm:flex-row sm:items-center">
+            <Info className="size-4 shrink-0 text-warning" />
+            <p className="min-w-0 flex-1 text-[13px]">
+              <span className="font-medium">A scheme already exists for this term.</span>{' '}
+              <span className="text-muted-foreground">Delete it first to upload your own, or pick another term.</span>
+            </p>
+            <Button asChild size="sm" variant="outline">
+              <Link to={`/schemes/${existingScheme.id}`} onClick={() => onOpenChange(false)}>
+                Open scheme <ArrowRight />
+              </Link>
+            </Button>
+          </div>
+        )}
+        <DocumentPicker
+          idPrefix="is"
+          value={doc}
+          onChange={(v) => {
+            setDoc(v);
+            setDocErrs({});
+            setFormError(undefined);
+          }}
+          errors={docErrs}
+        />
+        <FormError message={formError} />
+      </div>
+    </FormDialog>
   );
 }

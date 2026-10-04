@@ -195,6 +195,34 @@ export function useStartExam() {
   });
 }
 
+/** Written (theory) practice for one exam subject; needs the exam's Prep pack (403 EXAM_NOT_INCLUDED otherwise). */
+export function useStartTheory() {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: { exam: ExamBody; subject: string; questions: number }) => api.post<PracticeAttemptView>('/learning/exams/theory/start', body),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: lk.exams });
+      void qc.invalidateQueries({ queryKey: lk.attempts });
+    },
+  });
+}
+
+/** Sends written answers for AI marking (10–30 s). Returns the marked attempt. */
+export function useMarkTheory(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (answers: string[]) => api.post<PracticeAttemptView>(`/learning/attempts/${id}/theory`, { answers }),
+    onSuccess: (v) => {
+      qc.setQueryData(lk.attempt(id), v);
+      void qc.invalidateQueries({ queryKey: lk.attempts });
+      void qc.invalidateQueries({ queryKey: lk.home });
+      void qc.invalidateQueries({ queryKey: lk.mastery });
+    },
+  });
+}
+
 /** POST /learning/uploads (multipart `file`) — a photo of a question, Plus and Pro only. */
 export async function uploadQuestionPhoto(file: File): Promise<{ id: string }> {
   if (!/^image\//.test(file.type)) throw new ApiError(415, 'Choose a photo (JPG, PNG or WebP).');

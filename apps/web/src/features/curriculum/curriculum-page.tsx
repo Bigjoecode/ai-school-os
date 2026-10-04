@@ -1,5 +1,5 @@
 import type { CurriculumSummary } from '@aischool/shared';
-import { BookOpen, FilePlus2, Sparkles } from 'lucide-react';
+import { BookOpen, FilePlus2, FileUp, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -13,7 +13,9 @@ import { useStructure } from '../academics/api';
 import { LevelSelect, SubjectSelect } from '../planning/pickers';
 import { ContentStatusBadge, GenerationIndicator, SourceBadge, useSearchFlag } from '../planning/ui';
 import { useCurricula } from './api';
-import { BlankCurriculumDialog, GenerateCurriculumDialog } from './curriculum-dialogs';
+import { BlankCurriculumDialog, GenerateCurriculumDialog, ImportCurriculumDialog } from './curriculum-dialogs';
+
+const SOURCE_LABEL: Record<CurriculumSummary['source'], string> = { AI: 'AI draft', MANUAL: 'Manual', UPLOAD: 'Uploaded' };
 
 export default function CurriculumPage() {
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ export default function CurriculumPage() {
   const [status, setStatus] = useState<string | undefined>();
   const [generateOpen, setGenerateOpen] = useSearchFlag('new');
   const [blankOpen, setBlankOpen] = useState(false);
+  const [importOpen, setImportOpen] = useSearchFlag('upload');
 
   const structure = useStructure();
   const list = useCurricula({ classLevelId, subjectId, status });
@@ -73,6 +76,12 @@ export default function CurriculumPage() {
     },
   ];
 
+  const importButton = canManage && canAi && (
+    <Button variant="outline" onClick={() => setImportOpen(true)}>
+      <FileUp /> Upload our curriculum
+    </Button>
+  );
+
   const generateButton = canManage && canAi && (
     <Button variant="ai" onClick={() => setGenerateOpen(true)}>
       <Sparkles /> Generate with AI
@@ -90,6 +99,7 @@ export default function CurriculumPage() {
               <Button variant="outline" onClick={() => setBlankOpen(true)}>
                 <FilePlus2 /> Start blank
               </Button>
+              {importButton}
               {generateButton}
             </>
           )
@@ -150,7 +160,7 @@ export default function CurriculumPage() {
                   {c.subject.name} · {c.classLevel.name}
                 </p>
                 <p className="truncate text-[12px] text-muted-foreground">
-                  v{c.version} · {c.unitCount} weeks · {c.source === 'AI' ? 'AI draft' : 'Manual'}
+                  v{c.version} · {c.unitCount} weeks · {SOURCE_LABEL[c.source]}
                 </p>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   <ContentStatusBadge status={c.status} />
@@ -164,8 +174,14 @@ export default function CurriculumPage() {
             title: filtered ? 'No curricula match' : 'No curricula yet',
             description: filtered
               ? 'Try another class, subject or status.'
-              : 'No curricula yet — let AI draft one in about two minutes, or start from a blank page.',
-            action: !filtered && canManage ? (generateButton || undefined) : undefined,
+              : 'No curricula yet — upload the one your school already uses, let AI draft one in about two minutes, or start from a blank page.',
+            action:
+              !filtered && canManage && canAi ? (
+                <>
+                  {importButton}
+                  {generateButton}
+                </>
+              ) : undefined,
           }}
         />
       </Card>
@@ -177,6 +193,7 @@ export default function CurriculumPage() {
             onOpenChange={setGenerateOpen}
             defaults={{ subjectId, classLevelId }}
           />
+          {canAi && <ImportCurriculumDialog open={importOpen} onOpenChange={setImportOpen} defaults={{ subjectId, classLevelId }} />}
           <BlankCurriculumDialog open={blankOpen} onOpenChange={setBlankOpen} defaults={{ subjectId, classLevelId }} />
         </>
       )}

@@ -628,6 +628,11 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
       liveClassId: h.liveClassId,
       publishedAt: h.publishedAt?.toISOString() ?? null,
       overdue: h.status === 'PUBLISHED' && due < today,
+      kind: h.kind as HomeworkRow['kind'],
+      attachments: (h.attachments as unknown as HomeworkRow['attachments']) ?? [],
+      submissionTypes: h.submissionTypes as HomeworkRow['submissionTypes'],
+      maxScore: h.maxScore,
+      allowLate: h.allowLate,
     };
   }
 }

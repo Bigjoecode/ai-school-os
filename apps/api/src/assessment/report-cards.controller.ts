@@ -27,6 +27,7 @@ import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
 import { AttendanceService } from '../attendance/attendance.service';
 import { remarksPrompt } from './prompts';
+import { defaultTemplate } from './report-templates.controller';
 import { mean, ResultsService, type ClassResults } from './results.service';
 
 const studentTermQuery = z.object({ studentId: z.string().min(1), termId: z.string().min(1) });
@@ -75,14 +76,33 @@ export class ReportCardsController {
   @RequirePermissions('results.read')
   async view(@Query(new ZodPipe(studentTermQuery)) q: StudentTermQuery): Promise<ReportCardView> {
     const classArmId = await this.armFor(q.studentId, q.termId);
-    const [r, card, tenant] = await Promise.all([
+    const db = this.prisma.db;
+    const [r, card, tenant, template, ratings, profile, invoices, term] = await Promise.all([
       this.results.classResults(classArmId, q.termId),
-      this.prisma.db.reportCard.findUnique({ where: { studentId_termId: { studentId: q.studentId, termId: q.termId } } }),
+      db.reportCard.findUnique({ where: { studentId_termId: { studentId: q.studentId, termId: q.termId } } }),
       this.prisma.root.tenant.findUniqueOrThrow({
         where: { id: currentTenantId() },
-        select: { name: true, motto: true, address: true, logoUrl: true },
+        select: { name: true, motto: true, address: true, logoUrl: true, currency: true },
       }),
+      defaultTemplate(this.prisma),
+      db.studentTraitRating.findMany({ where: { studentId: q.studentId, termId: q.termId } }),
+      db.student.findUniqueOrThrow({ where: { id: q.studentId }, select: { dateOfBirth: true } }),
+      db.invoice.findMany({ where: { studentId: q.studentId, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } }),
+      db.term.findUniqueOrThrow({ where: { id: q.termId }, select: { sessionId: true, order: true, endsOn: true } }),
     ]);
+    const [nextTerm, sessionTerms] = await Promise.all([
+      db.term.findFirst({ where: { startsOn: { gt: term.endsOn } }, orderBy: { startsOn: 'asc' }, select: { startsOn: true } }),
+      db.term.findMany({ where: { sessionId: term.sessionId }, orderBy: { order: 'asc' }, select: { id: true, name: true, order: true } }),
+    ]);
+    // Cumulative cards: the same subjects' percentages in this session's earlier terms.
+    const earlier = new Map<string, Map<string, number | null>>();
+    if (template.columns.includes('cumulative')) {
+      for (const t of sessionTerms.filter((x) => x.order < term.order)) {
+        const arm = await this.armFor(q.studentId, t.id).catch(() => null);
+        const res = arm ? (await this.results.classResults(arm, t.id)).results.get(q.studentId) : undefined;
+        earlier.set(t.id, new Map([...(res?.entries() ?? [])].map(([subjectId, x]) => [subjectId, x.percent])));
+      }
+    }
     const student = r.students.find((s) => s.id === q.studentId);
     if (!student) throw new BadRequestException('This student has no results for that term');
 
@@ -105,11 +125,14 @@ export class ReportCardsController {
           classAverage: mean(classPercents),
           highest: classPercents.length ? Math.max(...classPercents) : null,
           lowest: classPercents.length ? Math.min(...classPercents) : null,
+          ...(earlier.size || template.columns.includes('cumulative') ? { cumulative: cumulative(sessionTerms, term.order, earlier, s.id, res.percent) } : {}),
         };
       });
 
+    const traitMap = (domain: string, traits: string[]) => Object.fromEntries(traits.map((t) => [t, ratings.find((x) => x.domain === domain && x.trait === t)?.rating ?? null]));
+    const owed = invoices.reduce((n, i) => n + Math.max(0, i.totalKobo - i.paidKobo), 0);
     return {
-      school: tenant,
+      school: { name: tenant.name, motto: tenant.motto, address: tenant.address, logoUrl: tenant.logoUrl },
       student: { id: student.id, name: student.name, admissionNumber: student.admissionNumber, gender: student.gender },
       classArm: { id: r.classArm.id, name: r.classArm.name, levelName: r.classArm.levelName, classTeacher: r.classArm.classTeacher },
       term: {
@@ -138,6 +161,15 @@ export class ReportCardsController {
       canEditPrincipalRemark: currentContext().permissions.has('results.publish'),
       status: card?.status ?? 'DRAFT',
       publishedAt: card?.publishedAt?.toISOString() ?? null,
+      template,
+      traits: { affective: traitMap('AFFECTIVE', template.affective.traits), psychomotor: traitMap('PSYCHOMOTOR', template.psychomotor.traits) },
+      extra: {
+        age: profile.dateOfBirth ? ageOn(profile.dateOfBirth, r.term.endsOn) : null,
+        nextTermBegins: nextTerm ? dateOnly(nextTerm.startsOn) : null,
+        feesOwed: owed / 100,
+        currency: tenant.currency,
+        termNames: sessionTerms.map((t) => t.name),
+      },
     };
   }
 
@@ -278,6 +310,19 @@ export class ReportCardsController {
     const userId = currentContext().userId;
     return (await this.prisma.db.classArm.count({ where: { id: classArmId, classTeacher: { userId } } })) > 0;
   }
+}
+
+function ageOn(dob: Date, on: Date): number {
+  let age = on.getUTCFullYear() - dob.getUTCFullYear();
+  if (on.getUTCMonth() < dob.getUTCMonth() || (on.getUTCMonth() === dob.getUTCMonth() && on.getUTCDate() < dob.getUTCDate())) age--;
+  return age;
+}
+
+/** This subject's percentage in each term of the session so far, and their average. */
+function cumulative(terms: { id: string; order: number }[], order: number, earlier: Map<string, Map<string, number | null>>, subjectId: string, now: number | null) {
+  const values = terms.map((t) => (t.order === order ? now : t.order < order ? (earlier.get(t.id)?.get(subjectId) ?? null) : null));
+  const taken = values.filter((v): v is number => v !== null);
+  return { terms: values, average: taken.length ? Math.round((taken.reduce((a, b) => a + b, 0) / taken.length) * 10) / 10 : null };
 }
 
 /** One line per learner for the remark writer: average, position and subject spread. */

@@ -9,7 +9,7 @@ import {
   MEMORY_KINDS,
   PRODUCT_PERIOD_LABELS,
 } from '@aischool/shared';
-import { ArrowRight, Brain, Crown, Gauge, HeartHandshake, Lock, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
+import { ArrowRight, Brain, Crown, Gauge, HeartHandshake, Lock, PenLine, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Badge } from '@/components/ui/badge';
@@ -323,7 +323,7 @@ export function AddMemoryForm({ onAdd, pending, placeholder = 'e.g. I learn best
 
 // ------------------------------------------------------------------ attempts
 
-export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz' };
+export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz', THEORY: 'Theory (AI-marked)' };
 
 export function scoreTone(pct: number | null) {
   if (pct == null) return 'text-muted-foreground';
@@ -337,8 +337,8 @@ export function AttemptList({ rows, linkable = true, empty }: { rows: PracticeAt
       {rows.map((a) => {
         const inner = (
           <>
-            <div className={cn('grid size-9 shrink-0 place-items-center rounded-xl', a.mode === 'MOCK' ? 'bg-warning-soft text-warning' : a.mode === 'AI_QUIZ' ? 'bg-ai-2/10 text-ai-2' : 'bg-brand-soft text-brand')}>
-              <Trophy className="size-4" aria-hidden />
+            <div className={cn('grid size-9 shrink-0 place-items-center rounded-xl', a.mode === 'MOCK' ? 'bg-warning-soft text-warning' : a.mode === 'AI_QUIZ' || a.mode === 'THEORY' ? 'bg-ai-2/10 text-ai-2' : 'bg-brand-soft text-brand')}>
+              {a.mode === 'THEORY' ? <PenLine className="size-4" aria-hidden /> : <Trophy className="size-4" aria-hidden />}
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-[13.5px] font-medium">{a.title}</p>

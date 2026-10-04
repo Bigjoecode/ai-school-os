@@ -203,6 +203,9 @@ model Tenant {
   flashcardDecks      FlashcardDeck[]
   practiceAttempts    PracticeAttempt[]
   kbDocuments         KbDocument[]
+  reportCardTemplates ReportCardTemplate[]
+  traitRatings        StudentTraitRating[]
+  homeworkSubmissions HomeworkSubmission[]
   kbChunks            KbChunk[]
 
   @@map("tenants")
@@ -655,19 +658,21 @@ model Student {
   payments     Payment[]
   libraryLoans LibraryLoan[]
 
-  consumerCoverage ConsumerSubscriptionStudent[]
-  entitlements     StudentEntitlement[]
-  aiUsageWindows   StudentAiUsage[]
-  memories         StudentMemory[]
-  mastery          MasteryRecord[]
-  studyPlans       StudyPlan[]
-  flashcardDecks   FlashcardDeck[]
-  practiceAttempts PracticeAttempt[]
-  transport        TransportAssignment?
-  hostelBeds       HostelAllocation[]
-  exeats           Exeat[]
-  pickups          StudentPickup[]
-  certificates     Certificate[]
+  consumerCoverage    ConsumerSubscriptionStudent[]
+  entitlements        StudentEntitlement[]
+  aiUsageWindows      StudentAiUsage[]
+  memories            StudentMemory[]
+  mastery             MasteryRecord[]
+  studyPlans          StudyPlan[]
+  flashcardDecks      FlashcardDeck[]
+  practiceAttempts    PracticeAttempt[]
+  traitRatings        StudentTraitRating[]
+  homeworkSubmissions HomeworkSubmission[]
+  transport           TransportAssignment?
+  hostelBeds          HostelAllocation[]
+  exeats              Exeat[]
+  pickups             StudentPickup[]
+  certificates        Certificate[]
 
   liveAttendance LiveAttendance[]
 
@@ -869,6 +874,8 @@ enum ContentStatus {
 enum ContentSource {
   MANUAL
   AI
+  /// Read from a document the school uploaded (PDF/Word/pasted text).
+  UPLOAD
 }
 
 enum GenerationState {
@@ -893,6 +900,9 @@ model Curriculum {
   generationError String?
   /// What the author asked the AI for, kept so a version can be regenerated.
   guidance        String?
+  /// The uploaded document (UPLOAD source), kept so it can be processed again.
+  importText      String?
+  importFileId    String?
   weeksPerTerm    Int             @default(11)
   createdById     String?
   publishedAt     DateTime?
@@ -946,6 +956,9 @@ model SchemeOfWork {
   generation      GenerationState @default(NONE)
   generationError String?
   guidance        String?
+  /// The uploaded document (UPLOAD source), kept so it can be processed again.
+  importText      String?
+  importFileId    String?
   createdById     String?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
@@ -2373,29 +2386,40 @@ model LiveRecording {
 
 /// Homework set for a class, by hand or from a live class's AI summary.
 model Homework {
-  id           String    @id @default(cuid())
-  tenantId     String
-  classArmId   String
-  subjectId    String?
-  teacherId    String?
-  liveClassId  String?
-  title        String
-  instructions String
-  questions    String[]
-  dueDate      DateTime  @db.Date
+  id              String    @id @default(cuid())
+  tenantId        String
+  classArmId      String
+  subjectId       String?
+  teacherId       String?
+  liveClassId     String?
+  title           String
+  instructions    String
+  questions       String[]
+  /// QUESTIONS | THEORY | PROJECT | UPLOAD (students hand in a file or link)
+  kind            String    @default("QUESTIONS")
+  /// Teacher's files and links: [{ type: FILE|LINK, fileId?, url, name, mimeType? }]
+  attachments     Json      @default("[]")
+  /// What students may hand in: TEXT, IMAGE, VIDEO, AUDIO, DOCUMENT, LINK
+  submissionTypes String[]  @default([])
+  maxScore        Int?
+  /// For theory and projects: what a good answer contains (used to mark, never shown to students).
+  markingGuide    String?
+  allowLate       Boolean   @default(true)
+  dueDate         DateTime  @db.Date
   /// DRAFT, PUBLISHED
-  status       String    @default("DRAFT")
+  status          String    @default("DRAFT")
   /// MANUAL, AI
-  source       String    @default("MANUAL")
-  publishedAt  DateTime?
-  createdById  String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  source          String    @default("MANUAL")
+  publishedAt     DateTime?
+  createdById     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  classArm ClassArm @relation(fields: [classArmId], references: [id], onDelete: Cascade)
-  subject  Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
-  teacher  Staff?   @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  tenant      Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classArm    ClassArm             @relation(fields: [classArmId], references: [id], onDelete: Cascade)
+  subject     Subject?             @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  teacher     Staff?               @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  submissions HomeworkSubmission[]
 
   @@index([tenantId, classArmId, dueDate])
   @@map("homework")
@@ -2914,13 +2938,17 @@ model StudentMemory {
 
 /// The platform syllabus graph: subject → topic → subtopic. Shared by every school.
 model SyllabusTopic {
-  id       String  @id @default(cuid())
-  subject  String
+  id         String   @id @default(cuid())
+  subject    String
   /// PRIMARY | JUNIOR | SENIOR
-  level    String
-  name     String
-  parentId String?
-  order    Int     @default(0)
+  level      String
+  name       String
+  parentId   String?
+  order      Int      @default(0)
+  /// Exam bodies whose syllabus lists this topic (WAEC, NECO, JAMB, BECE); empty = school syllabus.
+  exams      String[] @default([])
+  objectives String[] @default([])
+  content    String?
 
   parent    SyllabusTopic?  @relation("TopicTree", fields: [parentId], references: [id], onDelete: Cascade)
   children  SyllabusTopic[] @relation("TopicTree")
@@ -3027,6 +3055,10 @@ model PracticeAttempt {
 model ExamQuestion {
   id           String   @id @default(cuid())
   exam         String
+  /// OBJECTIVE (options + answer) | THEORY (written answer marked against the guide)
+  type         String   @default("OBJECTIVE")
+  marks        Int      @default(1)
+  markingGuide String?
   subject      String
   topicId      String?
   year         Int?
@@ -3139,4 +3171,81 @@ model PlatformSetting {
   updatedAt DateTime @updatedAt
 
   @@map("platform_settings")
+}
+
+// ============================================================== Phase 17: flexibility
+
+/**
+ * A school's own report card layout (built from a photo of their current card, then adjusted).
+ */
+model ReportCardTemplate {
+  id           String   @id @default(cuid())
+  tenantId     String
+  name         String
+  isDefault    Boolean  @default(false)
+  /// Layout: header, student fields, score columns, rating sections, comments, signatures, footer.
+  config       Json
+  sampleFileId String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("report_card_templates")
+}
+
+/**
+ * Affective (behaviour) and psychomotor (skills) ratings on the report card, e.g. Punctuality: 4.
+ */
+model StudentTraitRating {
+  id        String   @id @default(cuid())
+  tenantId  String
+  studentId String
+  termId    String
+  /// AFFECTIVE | PSYCHOMOTOR
+  domain    String
+  trait     String
+  rating    Int
+  updatedAt DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, termId, domain, trait])
+  @@index([tenantId, termId])
+  @@map("student_trait_ratings")
+}
+
+/**
+ * A student's hand-in for an assignment: text, files (image/video/audio/document) and links.
+ */
+model HomeworkSubmission {
+  id           String    @id @default(cuid())
+  tenantId     String
+  homeworkId   String
+  studentId    String
+  text         String?
+  /// [{ fileId, name, mimeType, sizeBytes }]
+  files        Json      @default("[]")
+  links        String[]  @default([])
+  /// SUBMITTED | GRADED | RETURNED (sent back for changes)
+  status       String    @default("SUBMITTED")
+  late         Boolean   @default(false)
+  submittedAt  DateTime  @default(now())
+  score        Float?
+  feedback     String?
+  gradedById   String?
+  gradedAt     DateTime?
+  /// AI's suggested mark and reasons for theory answers; a teacher confirms.
+  aiSuggestion Json?
+  updatedAt    DateTime  @updatedAt
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  homework Homework @relation(fields: [homeworkId], references: [id], onDelete: Cascade)
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([homeworkId, studentId])
+  @@index([tenantId, homeworkId])
+  @@map("homework_submissions")
 }

@@ -1,5 +1,5 @@
 import { ENTITLEMENTS, examEntitlement, type ExamBody, type ExamCatalog } from '@aischool/shared';
-import { CheckCircle2, Clock, GraduationCap, HeartHandshake, Lock, School, Target, Timer, Trophy } from 'lucide-react';
+import { CheckCircle2, Clock, GraduationCap, HeartHandshake, Lock, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -9,17 +9,18 @@ import { Card } from '@/components/ui/card';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
-import { errorMessage } from '@/lib/api';
+import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { examLockError, useAttempts, useExamCatalog, useStartExam } from './api';
+import { examLockError, useAttempts, useExamCatalog, useStartExam, useStartTheory } from './api';
 import { AttemptList, SectionTitle } from './components';
 
 type Exam = ExamCatalog['exams'][number];
+type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY';
 
 export default function ExamsPage() {
   const cat = useExamCatalog();
   const attempts = useAttempts();
-  const [start, setStart] = useState<{ exam: Exam; mode: 'PRACTICE' | 'MOCK' } | null>(null);
+  const [start, setStart] = useState<{ exam: Exam; mode: StartMode } | null>(null);
   const fp = cat.data?.freePractice;
   const freeLeft = fp ? Math.max(0, fp.setsPerTerm - fp.used) : 0;
   const examAttempts = (attempts.data ?? []).filter((a) => a.exam);
@@ -56,12 +57,13 @@ export default function ExamsPage() {
           </Card>
         </div>
       )}
-      {start && <StartDialog key={`${start.exam.exam}-${start.mode}`} exam={start.exam} mode={start.mode} freeQuestions={fp?.questionsPerSet ?? 5} onClose={() => setStart(null)} />}
+      {start && start.mode === 'THEORY' && <TheoryDialog key={`${start.exam.exam}-theory`} exam={start.exam} onClose={() => setStart(null)} />}
+      {start && start.mode !== 'THEORY' && <StartDialog key={`${start.exam.exam}-${start.mode}`} exam={start.exam} mode={start.mode} freeQuestions={fp?.questionsPerSet ?? 5} onClose={() => setStart(null)} />}
     </Page>
   );
 }
 
-function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; onStart: (mode: 'PRACTICE' | 'MOCK') => void }) {
+function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; onStart: (mode: StartMode) => void }) {
   const total = exam.subjects.reduce((t, s) => t + s.questions, 0);
   const ent = ENTITLEMENTS[examEntitlement(exam.exam)];
   return (
@@ -95,12 +97,12 @@ function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; o
       </ul>
       {exam.entitled && (
         <p className="mt-4 flex items-start gap-1.5 rounded-xl bg-success-soft/60 p-3 text-[12.5px] text-success">
-          <CheckCircle2 className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Unlimited practice and timed mocks are unlocked. Good luck!
+          <CheckCircle2 className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Unlimited practice, timed mocks and AI-marked theory practice are unlocked. Good luck!
         </p>
       )}
       {!exam.entitled && (
         <div className="mt-4 rounded-xl border border-dashed border-border p-3 text-[12.5px] text-muted-foreground">
-          <p className="font-medium text-foreground">{ent.label} unlocks unlimited practice and timed mocks</p>
+          <p className="font-medium text-foreground">{ent.label} unlocks unlimited practice, timed mocks and AI-marked theory</p>
           <p className="mt-1 flex items-start gap-1.5">
             <HeartHandshake className="mt-0.5 size-3.5 shrink-0" aria-hidden /> A parent can add it from the Family page.
           </p>
@@ -122,6 +124,9 @@ function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; o
             <Lock /> Timed mock
           </Button>
         )}
+        <Button variant="outline" onClick={() => onStart('THEORY')} className="w-full sm:w-auto" title={exam.entitled ? 'Write full answers; AI marks them against the marking guide' : `Theory practice comes with ${ent.label}`}>
+          {exam.entitled ? <PenLine /> : <Lock />} Theory practice <span className="font-normal text-muted-foreground">(AI-marked)</span>
+        </Button>
       </div>
     </Card>
   );
@@ -198,6 +203,94 @@ function StartDialog({ exam, mode, freeQuestions, onClose }: { exam: Exam; mode:
             onClick={() => startExam.mutate({ mode, exam: exam.exam, subjects, questions: count }, { onSuccess: (a) => navigate(`/learn/attempts/${a.id}`) })}
           >
             {mode === 'MOCK' ? 'Start the clock' : 'Start practice'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** Written answers marked by AI against the marking guide (one subject, 1–5 questions). */
+function TheoryDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
+  const navigate = useNavigate();
+  const start = useStartTheory();
+  const [subject, setSubject] = useState(exam.subjects[0]?.subject ?? '');
+  const [count, setCount] = useState(2);
+  const ent = ENTITLEMENTS[examEntitlement(exam.exam)];
+  const lock = examLockError(start.error) ?? (exam.entitled ? null : { exam: exam.exam, message: `Theory practice with AI marking comes with ${ent.label}.` });
+  const noQuestions = start.error instanceof ApiError && start.error.status === 400;
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <div className="mb-2 grid size-10 place-items-center rounded-xl bg-ai-2/10 text-ai-2 [&_svg]:size-5">
+            <PenLine />
+          </div>
+          <DialogTitle>{exam.label} theory practice</DialogTitle>
+          <DialogDescription>Write full answers the way you would in the exam hall. AI marks each one against the official-style marking guide and shows you what earned marks and what was missing.</DialogDescription>
+        </DialogHeader>
+        <DialogBody className="space-y-5">
+          {exam.subjects.length === 0 ? (
+            <p className="text-[13px] text-muted-foreground">No {exam.label} subjects have questions yet. Check back soon.</p>
+          ) : (
+            <div>
+              <p className="mb-2 text-[13px] font-medium">Subject</p>
+              <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Subject">
+                {exam.subjects.map((s) => {
+                  const on = subject === s.subject;
+                  return (
+                    <button
+                      key={s.subject}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      onClick={() => (setSubject(s.subject), start.reset())}
+                      className={cn('rounded-full border px-3 py-1.5 text-[13px] transition-colors', on ? 'border-brand bg-brand-soft text-brand' : 'border-border hover:bg-muted')}
+                    >
+                      {s.subject}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          <div>
+            <p className="mb-2 text-[13px] font-medium">Questions</p>
+            <div className="flex gap-2">
+              {[1, 2, 3, 5].map((n) => (
+                <Button key={n} type="button" size="sm" variant={count === n ? 'default' : 'outline'} aria-pressed={count === n} onClick={() => setCount(n)}>
+                  {n}
+                </Button>
+              ))}
+            </div>
+            <p className="mt-2 flex items-start gap-1.5 text-[12px] text-muted-foreground">
+              <Sparkles className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Marking uses one session of your AI learning allowance. Allow about 10–15 minutes per question.
+            </p>
+          </div>
+          {lock ? (
+            <div className="rounded-xl border border-warning/30 bg-warning-soft/60 p-3 text-[13px]">
+              <p className="font-medium text-warning">{lock.message}</p>
+              <p className="mt-1 text-muted-foreground">Ask a parent — they can add {ENTITLEMENTS[examEntitlement(lock.exam)]?.label ?? 'Exam Prep'} from the Family page, or your school may sponsor it.</p>
+            </div>
+          ) : noQuestions ? (
+            <p className="rounded-lg bg-info-soft px-3 py-2 text-[13px] text-info">
+              There are no {exam.label} theory questions for {subject} yet — our content team is adding them. Try another subject, or practise objective questions for now.
+            </p>
+          ) : start.error ? (
+            <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(start.error)}</p>
+          ) : null}
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            loading={start.isPending}
+            disabled={!subject || !!lock || noQuestions}
+            onClick={() => start.mutate({ exam: exam.exam, subject, questions: count }, { onSuccess: (a) => navigate(`/learn/attempts/${a.id}`) })}
+          >
+            <PenLine /> Start writing
           </Button>
         </DialogFooter>
       </DialogContent>

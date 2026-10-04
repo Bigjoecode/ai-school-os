@@ -12,6 +12,7 @@ import { api } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { qk, queryClient } from '@/lib/query-client';
 import { pollListWhileGenerating, pollWhileGenerating } from '../planning/ui';
+import { type DocValue, docPayload } from './import-document';
 
 export interface CurriculumFilters {
   subjectId?: string;
@@ -61,6 +62,23 @@ function setDetail(c: CurriculumDetail) {
 export function useGenerateCurriculum() {
   return useMutation({
     mutationFn: (input: GenerateCurriculumInput) => api.post<CurriculumSummary>('/curricula/generate', input),
+    meta: { silent: true },
+    onSuccess: invalidateLists,
+  });
+}
+
+export interface ImportCurriculumInput {
+  subjectId: string;
+  classLevelId: string;
+  weeksPerTerm: number;
+  /** The file is uploaded first (POST /files/private), or the pasted text is sent. */
+  doc: DocValue;
+}
+
+/** The school's own curriculum: AI lays the uploaded document out as a draft. */
+export function useImportCurriculum() {
+  return useMutation({
+    mutationFn: async ({ doc, ...input }: ImportCurriculumInput) => api.post<CurriculumSummary>('/curricula/import', { ...input, ...(await docPayload(doc)) }),
     meta: { silent: true },
     onSuccess: invalidateLists,
   });

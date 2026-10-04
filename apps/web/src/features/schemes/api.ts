@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { qk, queryClient } from '@/lib/query-client';
+import { type DocValue, docPayload } from '../curriculum/import-document';
 import { pollListWhileGenerating, pollWhileGenerating } from '../planning/ui';
 
 export interface SchemeFilters {
@@ -43,6 +44,23 @@ function setDetail(s: SchemeDetail) {
 export function useGenerateScheme() {
   return useMutation({
     mutationFn: (input: GenerateSchemeInput) => api.post<SchemeSummary>('/schemes/generate', input),
+    meta: { silent: true },
+    onSuccess: invalidateLists,
+  });
+}
+
+export interface ImportSchemeInput {
+  subjectId: string;
+  classLevelId: string;
+  termId: string;
+  /** The file is uploaded first (POST /files/private), or the pasted text is sent. */
+  doc: DocValue;
+}
+
+/** The school's own scheme of work: AI lays the uploaded document out week by week. */
+export function useImportScheme() {
+  return useMutation({
+    mutationFn: async ({ doc, ...input }: ImportSchemeInput) => api.post<SchemeSummary>('/schemes/import', { ...input, ...(await docPayload(doc)) }),
     meta: { silent: true },
     onSuccess: invalidateLists,
   });

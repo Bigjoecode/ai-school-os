@@ -6,11 +6,14 @@ import {
   CalendarDays,
   CheckCircle2,
   Layers,
+  Link2,
   MapPin,
+  Pencil,
   Plus,
   Star,
   Trash2,
   UserRound,
+  Users,
 } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import { useSearchParams } from 'react-router';
@@ -27,7 +30,7 @@ import { Tip } from '@/components/ui/tooltip';
 import { useCan } from '@/lib/auth-store';
 import { formatDate } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { BranchDialog, ClassArmDialog, ClassLevelDialog, SessionDialog, SubjectDialog, TermDialog } from './academic-dialogs';
+import { BranchDialog, ClassArmDialog, ClassLevelDialog, SessionDialog, SubjectClassesDialog, SubjectDialog, TermDialog } from './academic-dialogs';
 import { type AcademicResource, useDeleteAcademic, useMakeCurrent, useStructure } from './api';
 
 const TABS = ['sessions', 'classes', 'subjects', 'branches'] as const;
@@ -44,6 +47,10 @@ export default function AcademicsPage() {
   const [dialog, setDialog] = useState<null | 'session' | 'term' | 'level' | 'arm' | 'subject' | 'branch'>(null);
   const [context, setContext] = useState<string | undefined>();
   const [toDelete, setToDelete] = useState<DeleteTarget>(null);
+  // The subject stays set while its dialog animates closed.
+  const [subjectAction, setSubjectAction] = useState<{ kind: 'edit' | 'classes'; subject: SubjectRow; open: boolean } | null>(null);
+  const subjectDialog = (kind: 'edit' | 'classes') => (s: SubjectRow) => setSubjectAction({ kind, subject: s, open: true });
+  const closeSubject = (o: boolean) => !o && setSubjectAction((a) => (a ? { ...a, open: false } : a));
 
   const open = (d: NonNullable<typeof dialog>, ctx?: string) => {
     setContext(ctx);
@@ -84,7 +91,7 @@ export default function AcademicsPage() {
     ),
     subjects: (
       <Button onClick={() => open('subject')}>
-        <Plus /> New subject
+        <Plus /> Add subject
       </Button>
     ),
     branches: (
@@ -134,7 +141,14 @@ export default function AcademicsPage() {
               <ClassesTab data={data} canManage={canManage} onAddArm={(id) => open('arm', id)} onAdd={() => open('level')} onDelete={setToDelete} />
             </TabsContent>
             <TabsContent value="subjects">
-              <SubjectsTab data={data} canManage={canManage} onAdd={() => open('subject')} onDelete={setToDelete} />
+              <SubjectsTab
+                data={data}
+                canManage={canManage}
+                onAdd={() => open('subject')}
+                onEdit={subjectDialog('edit')}
+                onClasses={subjectDialog('classes')}
+                onDelete={setToDelete}
+              />
             </TabsContent>
             <TabsContent value="branches">
               <BranchesTab data={data} canManage={canManage} onAdd={() => open('branch')} onDelete={setToDelete} />
@@ -150,6 +164,16 @@ export default function AcademicsPage() {
           <ClassLevelDialog open={dialog === 'level'} onOpenChange={close} structure={data} />
           <ClassArmDialog open={dialog === 'arm'} onOpenChange={close} structure={data} levelId={context} />
           <SubjectDialog open={dialog === 'subject'} onOpenChange={close} />
+          <SubjectDialog
+            open={subjectAction?.kind === 'edit' && subjectAction.open}
+            onOpenChange={closeSubject}
+            subject={subjectAction?.kind === 'edit' ? subjectAction.subject : null}
+          />
+          <SubjectClassesDialog
+            open={subjectAction?.kind === 'classes' && subjectAction.open}
+            onOpenChange={closeSubject}
+            subject={subjectAction?.kind === 'classes' ? subjectAction.subject : null}
+          />
           <BranchDialog open={dialog === 'branch'} onOpenChange={close} />
           <DeleteConfirm target={toDelete} onClose={() => setToDelete(null)} />
         </>
@@ -426,42 +450,103 @@ function ClassesTab({
 }
 
 // ------------------------------------------------------------------ subjects
-function SubjectsTab({ data, canManage, onAdd, onDelete }: { data: AcademicStructure; canManage: boolean; onAdd: () => void; onDelete: (t: DeleteTarget) => void }) {
+type SubjectRow = AcademicStructure['subjects'][number];
+function SubjectsTab({
+  data,
+  canManage,
+  onAdd,
+  onEdit,
+  onClasses,
+  onDelete,
+}: {
+  data: AcademicStructure;
+  canManage: boolean;
+  onAdd: () => void;
+  onEdit: (s: SubjectRow) => void;
+  onClasses: (s: SubjectRow) => void;
+  onDelete: (t: DeleteTarget) => void;
+}) {
   if (data.subjects.length === 0) {
     return (
       <Card>
-        <EmptyState icon={BookOpen} title="No subjects yet" description="Add the subjects your school teaches." action={canManage && <Button onClick={onAdd}><Plus /> New subject</Button>} />
+        <EmptyState
+          icon={BookOpen}
+          title="No subjects yet"
+          description="Add the subjects your school teaches, then link each one to the classes that take it and who teaches it."
+          action={canManage && <Button onClick={onAdd}><Plus /> Add subject</Button>}
+        />
       </Card>
     );
   }
   const subjects = [...data.subjects].sort((a, b) => Number(b.isCore) - Number(a.isCore) || a.name.localeCompare(b.name));
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {subjects.map((s, i) => (
-        <motion.div key={s.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: Math.min(i * 0.02, 0.3) }}>
-          <Card className="group flex h-full items-start gap-3 p-4">
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-muted font-mono text-[11px] font-semibold text-muted-foreground">
-              {s.code.slice(0, 4)}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate font-medium">{s.name}</p>
-              <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                {s.isCore && (
-                  <Badge variant="brand">
-                    <Star /> Core
-                  </Badge>
+    <div className="space-y-4">
+      {canManage && (
+        <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/30 px-4 py-3 text-[13px]">
+          <Link2 className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
+          <p className="min-w-0 text-muted-foreground">
+            <span className="font-medium text-foreground">Link each subject to its classes.</span> Use{' '}
+            <span className="font-medium text-foreground">Classes & teachers</span> to tick the classes that take a subject and choose who
+            teaches it — that’s what puts it on score sheets, timetables and report cards.
+          </p>
+        </div>
+      )}
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {subjects.map((s, i) => (
+          <motion.div key={s.id} className="min-w-0" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: Math.min(i * 0.02, 0.3) }}>
+            <Card className="flex h-full flex-col gap-3 p-4">
+              <div className="flex items-start gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-muted font-mono text-[11px] font-semibold text-muted-foreground">
+                  {s.code.slice(0, 4)}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="line-clamp-2 break-words font-medium leading-snug" title={s.name}>
+                    {s.name}
+                  </p>
+                  <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                    {s.isCore && (
+                      <Badge variant="brand">
+                        <Star /> Core
+                      </Badge>
+                    )}
+                    {s.category && <span className="text-[12px] text-muted-foreground">{s.category}</span>}
+                    <span className={s.classCount ? 'text-[12px] text-muted-foreground' : 'text-[12px] font-medium text-amber-600 dark:text-amber-400'}>
+                      {s.classCount ? `${s.classCount} class${s.classCount === 1 ? '' : 'es'}` : 'No classes yet'}
+                    </span>
+                  </div>
+                </div>
+                {canManage && (
+                  <div className="-mr-1.5 -mt-1 flex shrink-0">
+                    <Tip label={`Edit ${s.name}`}>
+                      <Button variant="ghost" size="icon-sm" onClick={() => onEdit(s)} aria-label={`Edit ${s.name}`} className="text-muted-foreground">
+                        <Pencil />
+                      </Button>
+                    </Tip>
+                    <DeleteButton label={s.name} onClick={() => onDelete({ resource: 'subjects', id: s.id, label: s.name })} />
+                  </div>
                 )}
-                {s.category && <span className="text-[12px] text-muted-foreground">{s.category}</span>}
               </div>
-            </div>
-            {canManage && (
-              <span className="opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
-                <DeleteButton label={s.name} onClick={() => onDelete({ resource: 'subjects', id: s.id, label: s.name })} />
-              </span>
-            )}
-          </Card>
-        </motion.div>
-      ))}
+              {canManage && (
+                <Button variant="outline" size="sm" className="mt-auto w-full" onClick={() => onClasses(s)}>
+                  <Users /> Classes & teachers
+                </Button>
+              )}
+            </Card>
+          </motion.div>
+        ))}
+        {canManage && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="flex min-h-[7.5rem] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border p-4 text-[13.5px] font-medium text-muted-foreground transition-colors hover:border-brand hover:bg-brand-soft/30 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <span className="grid size-10 place-items-center rounded-xl bg-muted">
+              <Plus className="size-5" />
+            </span>
+            Add subject
+          </button>
+        )}
+      </div>
     </div>
   );
 }

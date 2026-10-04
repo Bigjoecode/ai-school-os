@@ -5,6 +5,7 @@ import {
   createCurriculumSchema,
   curriculumUnitSchema,
   generateCurriculumSchema,
+  importCurriculumSchema,
   updateCurriculumSchema,
   type AcademicListQuery,
   type CreateCurriculumInput,
@@ -75,6 +76,22 @@ export class CurriculaController {
     return this.engine.curriculumSummary(cur);
   }
 
+  /**
+   * The school's own curriculum: upload a PDF, Word file or photo (or paste
+   * the text) and AI lays it out term by term as an editable draft. Nothing is
+   * invented; the document is the source.
+   */
+  @Post('import')
+  @HttpCode(202)
+  @RequirePermissions('curriculum.manage', 'ai.use')
+  async importDoc(@Body(new ZodPipe(importCurriculumSchema)) body: z.infer<typeof importCurriculumSchema>): Promise<CurriculumSummary> {
+    this.engine.assertAiAvailable();
+    const doc = await this.engine.readImport(body.fileId, body.text);
+    const cur = await this.newVersion(body.subjectId, body.classLevelId, body.weeksPerTerm, 'UPLOAD', undefined, undefined, doc);
+    this.engine.queueCurriculum(cur.id);
+    return this.engine.curriculumSummary(cur);
+  }
+
   /** Re-runs generation for an AI draft (after a failure, or with new guidance). */
   @Post(':id/regenerate')
   @HttpCode(202)
@@ -91,7 +108,8 @@ export class CurriculaController {
     }
     const cur = await this.prisma.db.curriculum.update({
       where: { id },
-      data: { generation: 'QUEUED', generationError: null, source: 'AI', guidance: body.guidance ?? existing.guidance },
+      // An uploaded curriculum is re-read from its document, not rewritten by AI.
+      data: { generation: 'QUEUED', generationError: null, source: existing.source === 'UPLOAD' ? 'UPLOAD' : 'AI', guidance: body.guidance ?? existing.guidance },
       include: curriculumInclude,
     });
     this.engine.queueCurriculum(id);
@@ -185,9 +203,10 @@ export class CurriculaController {
     subjectId: string,
     classLevelId: string,
     weeksPerTerm: number,
-    source: 'MANUAL' | 'AI',
+    source: 'MANUAL' | 'AI' | 'UPLOAD',
     title?: string,
     guidance?: string,
+    doc?: { text: string | null; fileId: string | null; name: string },
   ) {
     const db = this.prisma.db;
     // Scoped lookups: another school's subject or class is a 404.
@@ -211,16 +230,18 @@ export class CurriculaController {
         title: title ?? `${subject.name} — ${level.name}`,
         source,
         guidance,
-        generation: source === 'AI' ? 'QUEUED' : 'NONE',
+        importText: doc?.text ?? null,
+        importFileId: doc?.fileId ?? null,
+        generation: source === 'MANUAL' ? 'NONE' : 'QUEUED',
         createdById: currentContext().userId,
       },
       include: curriculumInclude,
     });
     await this.audit.log({
-      action: source === 'AI' ? 'curriculum.generation_started' : 'curriculum.created',
+      action: source === 'AI' ? 'curriculum.generation_started' : source === 'UPLOAD' ? 'curriculum.imported' : 'curriculum.created',
       entityType: 'Curriculum',
       entityId: cur.id,
-      summary: `${source === 'AI' ? 'Asked AI to write' : 'Started'} ${cur.title} curriculum (v${version})`,
+      summary: source === 'UPLOAD' ? `Uploaded the ${cur.title} curriculum (v${version}) from ${doc?.name}` : `${source === 'AI' ? 'Asked AI to write' : 'Started'} ${cur.title} curriculum (v${version})`,
     });
     return cur;
   }

@@ -119,6 +119,10 @@ export const subjectSchema = z.object({
   isCore: z.boolean().default(false),
 });
 export type SubjectInput = z.infer<typeof subjectSchema>;
+/** Editing a subject: like creating, but an empty category clears it. */
+export const updateSubjectSchema = subjectSchema.partial().extend({
+  category: z.string().trim().max(40).nullish().transform((v) => (v === undefined ? undefined : v || null)),
+});
 
 // ---------------------------------------------------------------- people
 export const GENDERS = ['MALE', 'FEMALE'] as const;

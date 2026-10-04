@@ -1,22 +1,26 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put } from '@nestjs/common';
+import { z } from 'zod';
 import {
   academicSessionSchema,
   branchSchema,
   classArmSchema,
   classLevelSchema,
+  subjectClassesSchema,
   subjectSchema,
+  updateSubjectSchema,
   termSchema,
   type AcademicSessionInput,
   type AcademicStructure,
   type BranchInput,
   type ClassArmInput,
   type ClassLevelInput,
+  type SubjectClasses,
   type SubjectInput,
   type TermInput,
 } from '@aischool/shared';
 import { AuditService } from '../audit/audit.service';
 import { RequirePermissions } from '../common/decorators';
-import { dateOnly, parseDate } from '../common/format';
+import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
@@ -55,7 +59,7 @@ export class AcademicsController {
           },
         },
       }),
-      db.subject.findMany({ orderBy: [{ isCore: 'desc' }, { name: 'asc' }] }),
+      db.subject.findMany({ orderBy: [{ isCore: 'desc' }, { name: 'asc' }], include: { _count: { select: { classes: true } } } }),
       db.branch.findMany({ orderBy: [{ isMain: 'desc' }, { name: 'asc' }] }),
     ]);
 
@@ -89,7 +93,7 @@ export class AcademicsController {
           classTeacher: a.classTeacher,
         })),
       })),
-      subjects: subjects.map(({ id, name, code, category, isCore }) => ({ id, name, code, category, isCore })),
+      subjects: subjects.map(({ id, name, code, category, isCore, _count }) => ({ id, name, code, category, isCore, classCount: _count.classes })),
       branches: branches.map(({ id, name, code, isMain }) => ({ id, name, code, isMain })),
     };
   }
@@ -206,6 +210,72 @@ export class AcademicsController {
     const subject = await this.prisma.db.subject.create({ data: { ...body, tenantId: currentTenantId() } });
     await this.log('subject', subject.id, `Added subject ${subject.name}`);
     return subject;
+  }
+
+  @Patch('subjects/:id')
+  @RequirePermissions('academics.manage')
+  async updateSubject(@Param('id') id: string, @Body(new ZodPipe(updateSubjectSchema)) body: z.infer<typeof updateSubjectSchema>) {
+    const subject = await this.prisma.db.subject.update({ where: { id }, data: body });
+    await this.log('subject', id, `Updated subject ${subject.name}`);
+    return subject;
+  }
+
+  /** Which classes take a subject, and who teaches it in each. */
+  @Get('subjects/:id/classes')
+  @RequirePermissions('academics.read')
+  async subjectClasses(@Param('id') id: string): Promise<SubjectClasses> {
+    const db = this.prisma.db;
+    const [subject, levels, links, teachers, scored] = await Promise.all([
+      db.subject.findUniqueOrThrow({ where: { id } }),
+      db.classLevel.findMany({ include: { arms: { orderBy: { name: 'asc' } } }, orderBy: { order: 'asc' } }),
+      db.classSubject.findMany({ where: { subjectId: id }, include: { teacher: true } }),
+      db.staff.findMany({ where: { status: { not: 'EXITED' } }, orderBy: [{ type: 'asc' }, { firstName: 'asc' }], select: { id: true, firstName: true, lastName: true, jobTitle: true, type: true } }),
+      db.score.groupBy({ by: ['classArmId'], where: { subjectId: id } }),
+    ]);
+    const byArm = new Map(links.map((l) => [l.classArmId, l]));
+    const hasScores = new Set(scored.map((s) => s.classArmId));
+    return {
+      subject: { id: subject.id, name: subject.name, code: subject.code },
+      levels: levels.map((l) => ({
+        id: l.id,
+        name: l.name,
+        arms: l.arms.map((a) => {
+          const link = byArm.get(a.id);
+          return { id: a.id, name: a.name, linked: !!link, teacherId: link?.teacherId ?? null, teacherName: link?.teacher ? fullName(link.teacher) : null, periodsPerWeek: link?.periodsPerWeek ?? 0, hasScores: hasScores.has(a.id) };
+        }),
+      })),
+      teachers: teachers.map((t) => ({ id: t.id, name: fullName(t), jobTitle: t.jobTitle })),
+    };
+  }
+
+  /**
+   * Sets exactly which classes take the subject and their teachers. Classes
+   * left out are unlinked (their scores are kept; the subject just stops
+   * appearing on new score sheets and timetables for them).
+   */
+  @Put('subjects/:id/classes')
+  @RequirePermissions('academics.manage')
+  async setSubjectClasses(@Param('id') id: string, @Body(new ZodPipe(subjectClassesSchema)) body: { assignments: { classArmId: string; teacherId: string | null }[] }): Promise<SubjectClasses> {
+    const db = this.prisma.db;
+    const subject = await db.subject.findUniqueOrThrow({ where: { id } });
+    const armIds = [...new Set(body.assignments.map((a) => a.classArmId))];
+    const teacherIds = [...new Set(body.assignments.map((a) => a.teacherId).filter((t): t is string => !!t))];
+    const [arms, teachers] = await Promise.all([db.classArm.count({ where: { id: { in: armIds } } }), db.staff.count({ where: { id: { in: teacherIds } } })]);
+    if (arms !== armIds.length || teachers !== teacherIds.length) throw new BadRequestException('Some classes or teachers were not found');
+    const tenantId = currentTenantId();
+    const before = await db.classSubject.count({ where: { subjectId: id } });
+    await db.$transaction([
+      db.classSubject.deleteMany({ where: { subjectId: id, classArmId: { notIn: armIds } } }),
+      ...body.assignments.map((a) =>
+        db.classSubject.upsert({
+          where: { classArmId_subjectId: { classArmId: a.classArmId, subjectId: id } },
+          update: { teacherId: a.teacherId },
+          create: { tenantId, classArmId: a.classArmId, subjectId: id, teacherId: a.teacherId },
+        }),
+      ),
+    ]);
+    await this.log('subject', id, `Set the classes for ${subject.name}: ${armIds.length} class${armIds.length === 1 ? '' : 'es'} (was ${before})`);
+    return this.subjectClasses(id);
   }
 
   @Post('branches')

@@ -159,11 +159,15 @@ once it is published in **Website → Overview**.
    own sign-in address), then **Verify DNS**. Any hostname not listed keeps
    showing the portal.
 
-**Uploads.** Images and documents uploaded for websites are stored on disk,
+**Uploads.** Images and documents uploaded for websites, assignment
+hand-ins (photos, videos, voice notes), uploaded curricula and sample report
+cards are stored on disk,
 in `UPLOAD_DIR` (default: `uploads/` inside the Node.js app root, e.g.
 `/home/martcqpk/ai-school-api/uploads`). The deploy never touches that
 folder. Include it in your backups. `UPLOAD_MAX_MB` (default 10) caps each
-file. Raise the limit on the web server too if you go above ~20 MB.
+document or image; `UPLOAD_MEDIA_MAX_MB` (default 50) caps each video or audio
+file. Raise the limit on the web server too if you go above ~20 MB, and watch
+the account's disk quota: videos add up quickly.
 
 ## Running the platform (operator console)
 

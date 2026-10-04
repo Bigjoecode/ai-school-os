@@ -11,21 +11,27 @@ import {
 } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
-import { BookOpen, Building2, CalendarDays, Layers, LayoutGrid, Timer } from 'lucide-react';
-import { useEffect } from 'react';
+import { AlertTriangle, BookOpen, Building2, CalendarDays, Layers, LayoutGrid, Pencil, Timer, Users } from 'lucide-react';
+import { type BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Controller, type FieldValues, useForm, type UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { z } from 'zod';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Field } from '@/components/ui/field';
 import { FormDialog, SwitchRow } from '@/components/ui/form-dialog';
 import { Input } from '@/components/ui/input';
 import { NONE, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { api } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { applyServerErrors, toOptionalNumber } from '@/lib/forms';
 import { qk } from '@/lib/query-client';
-import { type AcademicResource, useCreateAcademic } from './api';
+import { type AcademicResource, useCreateAcademic, useSetSubjectClasses, useSubjectClasses, useUpdateSubject } from './api';
 
 interface DialogProps {
   open: boolean;
@@ -287,13 +293,44 @@ export function ClassArmDialog({ open, onOpenChange, structure, levelId }: Dialo
 
 // ------------------------------------------------------------------ subject
 type SubjectValues = z.input<typeof subjectSchema>;
-export function SubjectDialog({ open, onOpenChange }: DialogProps) {
-  const defaults: SubjectValues = { name: '', code: '', category: '', isCore: false };
+type SubjectRow = AcademicStructure['subjects'][number];
+/** Creates a subject, or edits one when `subject` is given. */
+export function SubjectDialog({ open, onOpenChange, subject }: DialogProps & { subject?: SubjectRow | null }) {
+  const editing = !!subject;
+  const defaults: SubjectValues = subject
+    ? { name: subject.name, code: subject.code, category: subject.category ?? '', isCore: subject.isCore }
+    : { name: '', code: '', category: '', isCore: false };
   const form = useForm<SubjectValues, unknown, z.output<typeof subjectSchema>>({ resolver: zodResolver(subjectSchema), defaultValues: defaults });
-  const { onSubmit, pending } = useCreateForm(form, 'subjects', 'Subject created', open, onOpenChange, defaults);
+  const create = useCreateForm(form, 'subjects', 'Subject created', open && !editing, onOpenChange, defaults);
+  const update = useUpdateSubject();
+  useEffect(() => {
+    if (open && editing) form.reset(defaults);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, subject?.id]);
+  const onUpdate = form.handleSubmit((values) =>
+    update.mutate(
+      // An emptied category is sent as null so the server clears it.
+      { id: subject!.id, ...values, category: values.category ?? null },
+      {
+        onSuccess: () => onOpenChange(false),
+        onError: (err) => {
+          if (!applyServerErrors(err, form.setError)) toast.error(err.message);
+        },
+      },
+    ),
+  );
   const e = form.formState.errors;
   return (
-    <FormDialog open={open} onOpenChange={onOpenChange} title="New subject" icon={<BookOpen />} submitLabel="Create subject" pending={pending} onSubmit={onSubmit}>
+    <FormDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title={editing ? `Edit ${subject.name}` : 'Add a subject'}
+      description={editing ? undefined : 'Next, link it to the classes that take it and who teaches it.'}
+      icon={editing ? <Pencil /> : <BookOpen />}
+      submitLabel={editing ? 'Save changes' : 'Add subject'}
+      pending={editing ? update.isPending : create.pending}
+      onSubmit={editing ? onUpdate : create.onSubmit}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Name" htmlFor="sb-name" error={e.name?.message}>
           <Input id="sb-name" placeholder="Mathematics" invalid={!!e.name} {...form.register('name')} />
@@ -317,6 +354,205 @@ export function SubjectDialog({ open, onOpenChange }: DialogProps) {
         </div>
       </div>
     </FormDialog>
+  );
+}
+
+// ------------------------------------------------------------------ subject ↔ classes
+type ArmState = { linked: boolean; teacherId: string | null };
+const UNLINKED: ArmState = { linked: false, teacherId: null };
+
+/** Tick the classes that take a subject and pick who teaches it in each. */
+export function SubjectClassesDialog({ open, onOpenChange, subject }: DialogProps & { subject: SubjectRow | null }) {
+  const query = useSubjectClasses(subject?.id);
+  const save = useSetSubjectClasses(subject?.id ?? '');
+  const data = query.data;
+  const [state, setState] = useState<Record<string, ArmState>>({});
+  const [bulkTeacher, setBulkTeacher] = useState<string>(NONE);
+  const [loadedFor, setLoadedFor] = useState<string | null>(null);
+
+  // Take a fresh copy of the saved links each time the dialog opens.
+  useEffect(() => {
+    if (open) setLoadedFor(null);
+  }, [open]);
+  useEffect(() => {
+    if (open && data && !query.isFetching && loadedFor !== data.subject.id) {
+      const next: Record<string, ArmState> = {};
+      for (const l of data.levels) for (const a of l.arms) next[a.id] = { linked: a.linked, teacherId: a.teacherId };
+      setState(next);
+      setBulkTeacher(NONE);
+      setLoadedFor(data.subject.id);
+    }
+  }, [open, data, query.isFetching, loadedFor]);
+
+  const levels = (data?.levels ?? []).filter((l) => l.arms.length > 0);
+  const allArms = levels.flatMap((l) => l.arms.map((a) => ({ ...a, label: `${l.name} ${a.name}` })));
+  const ticked = allArms.filter((a) => state[a.id]?.linked);
+  const losingScores = allArms.filter((a) => a.linked && a.hasScores && !state[a.id]?.linked);
+  const ready = loadedFor === subject?.id && !!data;
+  const changed = ready && allArms.some((a) => (state[a.id]?.linked ?? false) !== a.linked || (state[a.id]?.linked && (state[a.id]?.teacherId ?? null) !== a.teacherId));
+
+  const setArm = (id: string, patch: Partial<ArmState>) => setState((s) => ({ ...s, [id]: { ...(s[id] ?? UNLINKED), ...patch } }));
+  const setLevel = (armIds: string[], linked: boolean) =>
+    setState((s) => {
+      const next = { ...s };
+      for (const id of armIds) next[id] = { ...(next[id] ?? UNLINKED), linked };
+      return next;
+    });
+  const applyBulk = () => {
+    const teacherId = bulkTeacher === NONE ? null : bulkTeacher;
+    setState((s) => {
+      const next = { ...s };
+      for (const a of ticked) next[a.id] = { ...next[a.id]!, teacherId };
+      return next;
+    });
+  };
+
+  const onSave = (ev?: BaseSyntheticEvent) => {
+    ev?.preventDefault();
+    if (!ready) return;
+    save.mutate(
+      ticked.map((a) => ({ classArmId: a.id, teacherId: state[a.id]?.teacherId ?? null })),
+      {
+        onSuccess: () => {
+          toast.success(`${subject?.name} saved`, { description: `Taken by ${ticked.length} class${ticked.length === 1 ? '' : 'es'}.` });
+          onOpenChange(false);
+        },
+        onError: (err) => toast.error(err.message),
+      },
+    );
+  };
+
+  const teacherItems = (data?.teachers ?? []).map((t) => (
+    <SelectItem key={t.id} value={t.id}>
+      {t.name}
+      {t.jobTitle ? <span className="text-muted-foreground"> · {t.jobTitle}</span> : null}
+    </SelectItem>
+  ));
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent size="xl">
+        <form onSubmit={onSave} noValidate className="flex min-h-0 flex-1 flex-col">
+          <DialogHeader>
+            <div className="mb-2 grid size-10 place-items-center rounded-xl bg-brand-soft text-brand [&_svg]:size-5">
+              <Users />
+            </div>
+            <DialogTitle>{subject ? `${subject.name}: classes & teachers` : 'Classes & teachers'}</DialogTitle>
+            <DialogDescription>
+              Tick every class that takes this subject and choose who teaches it there. Ticked classes get it on their score sheets, timetables and
+              report cards.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogBody>
+            {query.error && !data ? (
+              <ErrorState error={query.error} onRetry={() => void query.refetch()} />
+            ) : !ready ? (
+              <div className="space-y-3" aria-busy>
+                <Skeleton className="h-14 w-full rounded-xl" />
+                <Skeleton className="h-40 w-full rounded-xl" />
+                <Skeleton className="h-40 w-full rounded-xl" />
+              </div>
+            ) : levels.length === 0 ? (
+              <EmptyState
+                icon={Layers}
+                title="No classes yet"
+                description="Add class levels and arms on the Classes tab first, then link this subject to them."
+                compact
+              />
+            ) : (
+              <div className="space-y-4">
+                <div className="flex flex-col gap-3 rounded-xl border border-border bg-muted/30 p-3 sm:flex-row sm:items-center">
+                  <p className="text-[13px] sm:flex-1">
+                    <span className="font-medium tabular">{ticked.length}</span> of <span className="tabular">{allArms.length}</span> classes ticked
+                  </p>
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Select value={bulkTeacher} onValueChange={setBulkTeacher}>
+                      <SelectTrigger className="h-9 min-w-0 flex-1 sm:w-56" aria-label="Teacher for all ticked classes">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={NONE}>No teacher</SelectItem>
+                        {teacherItems}
+                      </SelectContent>
+                    </Select>
+                    <Button type="button" variant="outline" size="sm" className="shrink-0" disabled={ticked.length === 0} onClick={applyBulk}>
+                      Same for all ticked
+                    </Button>
+                  </div>
+                </div>
+
+                {losingScores.length > 0 && (
+                  <div role="alert" className="flex items-start gap-3 rounded-xl border border-warning/40 bg-warning-soft px-4 py-3 text-[13px]">
+                    <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+                    <p className="min-w-0">
+                      <span className="font-medium">{losingScores.map((a) => a.label).join(', ')} already {losingScores.length === 1 ? 'has' : 'have'} scores for this subject.</span>{' '}
+                      <span className="text-muted-foreground">The scores are kept, but the subject will no longer appear on new score sheets for {losingScores.length === 1 ? 'that class' : 'those classes'}.</span>
+                    </p>
+                  </div>
+                )}
+
+                {levels.map((l) => {
+                  const ids = l.arms.map((a) => a.id);
+                  const on = ids.filter((id) => state[id]?.linked).length;
+                  const levelState = on === 0 ? false : on === ids.length ? true : 'indeterminate';
+                  return (
+                    <section key={l.id} className="rounded-xl border border-border">
+                      <label className="flex cursor-pointer items-center gap-3 border-b border-border bg-muted/30 px-4 py-2.5">
+                        <Checkbox checked={levelState} onCheckedChange={(v) => setLevel(ids, v === true)} aria-label={`Select all of ${l.name}`} />
+                        <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium">{l.name}</span>
+                        <span className="shrink-0 text-[12px] text-muted-foreground tabular">
+                          {on}/{ids.length}
+                        </span>
+                      </label>
+                      <ul className="divide-y divide-border">
+                        {l.arms.map((a) => {
+                          const s = state[a.id] ?? UNLINKED;
+                          const label = `${l.name} ${a.name}`;
+                          return (
+                            <li key={a.id} className="grid gap-2 px-4 py-2.5 sm:grid-cols-[minmax(0,1fr)_16rem] sm:items-center">
+                              <label className="flex min-w-0 cursor-pointer items-center gap-3">
+                                <Checkbox checked={s.linked} onCheckedChange={(v) => setArm(a.id, { linked: v === true })} aria-label={label} />
+                                <span className="truncate text-[13.5px]">{label}</span>
+                                {a.hasScores && (
+                                  <Badge variant="outline" className="shrink-0">
+                                    Has scores
+                                  </Badge>
+                                )}
+                              </label>
+                              <Select
+                                value={s.teacherId ?? NONE}
+                                onValueChange={(v) => setArm(a.id, { teacherId: v === NONE ? null : v, linked: true })}
+                                disabled={!s.linked}
+                              >
+                                <SelectTrigger className="h-9" aria-label={`Teacher for ${label}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value={NONE}>No teacher yet</SelectItem>
+                                  {teacherItems}
+                                </SelectContent>
+                              </Select>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </section>
+                  );
+                })}
+              </div>
+            )}
+          </DialogBody>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              Cancel
+            </Button>
+            <Button type="submit" loading={save.isPending} disabled={!ready || !changed}>
+              Save classes
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -1,5 +1,5 @@
 import type { SchemeDetail, SchemeWeek } from '@aischool/shared';
-import { BookOpen, CircleCheck, Globe2, MoreHorizontal, NotebookPen, Pencil, Presentation, RotateCw, Sparkles, Trash2 } from 'lucide-react';
+import { BookOpen, CircleCheck, FileUp, Globe2, MoreHorizontal, NotebookPen, Pencil, Presentation, RotateCw, Sparkles, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Page } from '@/components/layout/page-header';
@@ -155,6 +155,11 @@ function SchemeView({ s }: { s: SchemeDetail }) {
               Built from {s.subject.name} — {s.classLevel.name} v{s.curriculum.version}
             </span>
           </Link>
+        ) : s.source === 'UPLOAD' ? (
+          <p className="inline-flex max-w-full items-center gap-2 rounded-lg border border-dashed border-border px-3 py-1.5 text-[12.5px] text-muted-foreground">
+            <FileUp className="size-3.5 shrink-0" />
+            <span className="truncate">Laid out from your school’s own document</span>
+          </p>
         ) : (
           <p className="inline-flex max-w-full items-center gap-2 rounded-lg border border-dashed border-border px-3 py-1.5 text-[12.5px] text-muted-foreground">
             <Globe2 className="size-3.5 shrink-0" />
@@ -164,7 +169,13 @@ function SchemeView({ s }: { s: SchemeDetail }) {
       </div>
 
       {generating ? (
-        <GeneratingPanel noun="scheme of work" state={s.generation} />
+        <GeneratingPanel noun="scheme of work" state={s.generation}>
+          {s.source === 'UPLOAD' && (
+            <p className="max-w-md rounded-xl border border-border bg-card/70 px-4 py-2.5 text-[13px] text-muted-foreground">
+              We’re laying out your own document week by week as an editable draft. Nothing is invented.
+            </p>
+          )}
+        </GeneratingPanel>
       ) : (
         <div className="space-y-4">
           {s.generation === 'FAILED' && (

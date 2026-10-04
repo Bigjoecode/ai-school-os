@@ -13,6 +13,8 @@ import type {
   LiveProvider,
   LiveStatus,
   MyLearning,
+  SubmissionBoard,
+  SubmissionRow,
   SyncResult,
 } from '@aischool/shared';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
@@ -32,6 +34,9 @@ export const lk = {
   homeworkAll: ['homework'] as const,
   homework: (p: object) => ['homework', p] as const,
   learning: ['learning'] as const,
+  board: (id: string) => ['homework', 'board', id] as const,
+  assignment: (id: string) => ['learning', 'homework', id] as const,
+  childHomework: (id: string) => ['learning', 'child', id] as const,
 };
 
 const refreshLive = () => void queryClient.invalidateQueries({ queryKey: lk.all });
@@ -326,5 +331,79 @@ export function useMyLearning(enabled = true) {
     queryFn: ({ signal }) => api.get<MyLearning>('/learning/mine', undefined, signal),
     enabled: enabled && !!me?.tenant,
     refetchInterval: 60_000,
+  });
+}
+
+// ------------------------------------------------------------------ hand-ins
+
+/** A student's own view of one assignment, with their hand-in. */
+export interface AssignmentView {
+  homework: HomeworkRow;
+  submission: SubmissionRow | null;
+}
+
+/** A child's homework for their parent, with the child's hand-in. */
+export type ChildHomeworkRow = HomeworkRow & { mine: NonNullable<HomeworkRow['mine']> | null };
+
+export function useSubmissionBoard(id: string | undefined, enabled = true) {
+  const can = useCan('homework.manage');
+  return useQuery({
+    queryKey: lk.board(id ?? ''),
+    queryFn: ({ signal }) => api.get<SubmissionBoard>(`/homework/${id}/submissions`, undefined, signal),
+    enabled: enabled && can && !!id,
+  });
+}
+
+function putSubmission(homeworkId: string, row: SubmissionRow) {
+  queryClient.setQueryData<SubmissionBoard>(lk.board(homeworkId), (b) => (b ? { ...b, submissions: b.submissions.map((s) => (s.id === row.id ? row : s)) } : b));
+}
+
+export function useAiMark(homeworkId: string) {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (submissionId: string) => api.post<SubmissionRow>(`/homework/submissions/${submissionId}/ai-mark`),
+    onSuccess: (row) => putSubmission(homeworkId, row),
+    onError: (err) => toast.error(aiErrorMessage(err)),
+  });
+}
+
+export function useGradeSubmission(homeworkId: string) {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: ({ id, input }: { id: string; input: { score: number | null; feedback: string | null; status: 'GRADED' | 'RETURNED' } }) => api.put<SubmissionRow>(`/homework/submissions/${id}`, input),
+    onSuccess: (row, v) => {
+      putSubmission(homeworkId, row);
+      void queryClient.invalidateQueries({ queryKey: lk.homeworkAll, predicate: (q) => q.queryKey[1] !== 'board' });
+      toast.success(v.input.status === 'RETURNED' ? `Returned to ${row.student.name} to redo` : `Mark saved — ${row.student.name} and their parents can see it`);
+    },
+  });
+}
+
+export function useAssignment(id: string | undefined) {
+  const me = useMe();
+  return useQuery({
+    queryKey: lk.assignment(id ?? ''),
+    queryFn: ({ signal }) => api.get<AssignmentView>(`/learning/homework/${id}`, undefined, signal),
+    enabled: !!id && !!me?.tenant,
+  });
+}
+
+export function useSubmitHomework(id: string) {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (input: { text: string | null; fileIds: string[]; links: string[] }) => api.post<SubmissionRow>(`/learning/homework/${id}/submit`, input),
+    onSuccess: (row) => {
+      queryClient.setQueryData<AssignmentView>(lk.assignment(id), (d) => (d ? { ...d, submission: row } : d));
+      void queryClient.invalidateQueries({ queryKey: lk.learning });
+      toast.success(row.late ? 'Handed in (late) — your teacher can see it now' : 'Handed in — your teacher can see it now');
+    },
+  });
+}
+
+export function useChildHomework(childId: string | undefined) {
+  return useQuery({
+    queryKey: lk.childHomework(childId ?? ''),
+    queryFn: ({ signal }) => api.get<ChildHomeworkRow[]>(`/family/children/${childId}/homework`, undefined, signal),
+    enabled: !!childId,
   });
 }

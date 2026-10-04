@@ -381,10 +381,15 @@ export interface PracticeQuestion {
   explanation?: string | null;
   chosen?: number | null;
   correct?: boolean;
+  /** Theory questions: marks available, the student's written answer and, after marking, the guide and the AI's marking. */
+  marks?: number;
+  written?: string | null;
+  markingGuide?: string | null;
+  marking?: { score: number; outOf: number; strengths: string[]; missing: string[]; feedback: string } | null;
 }
 export interface PracticeAttemptView {
   id: string;
-  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ';
+  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ' | 'THEORY';
   exam: ExamBody | null;
   title: string;
   subject: string | null;
@@ -430,12 +435,16 @@ export interface ExamCatalog {
 
 export const examQuestionSchema = z.object({
   exam: z.enum(EXAMS),
+  /** OBJECTIVE (options + answer) | THEORY (written answer marked against the guide). */
+  type: z.enum(['OBJECTIVE', 'THEORY']).default('OBJECTIVE'),
+  marks: z.number().int().min(1).max(100).default(1),
+  markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
   subject: z.string().trim().min(2).max(60),
   topicId: z.string().nullish().transform((v) => v || null),
   year: z.number().int().min(1980).max(2100).nullish().transform((v) => v ?? null),
   stem: z.string().trim().min(5).max(3000),
-  options: z.array(z.string().trim().min(1).max(600)).min(2).max(5),
-  answer: z.number().int().min(0).max(4),
+  options: z.array(z.string().trim().min(1).max(600)).max(5).default([]),
+  answer: z.number().int().min(0).max(4).default(0),
   explanation: z.string().trim().max(3000).nullish().transform((v) => v || null),
   difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM'),
   source: z.enum(['LICENSED', 'AUTHORED', 'AI_REVIEWED']).default('AUTHORED'),
@@ -447,10 +456,13 @@ export interface ExamQuestionRow extends ExamQuestionInput {
   topic: string | null;
   updatedAt: string;
 }
-export const examDraftSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60), topicId: z.string().nullish(), count: z.number().int().min(1).max(20).default(5), difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM') });
+export const examDraftSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60), topicId: z.string().nullish(), count: z.number().int().min(1).max(20).default(5), difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM'), type: z.enum(['OBJECTIVE', 'THEORY']).default('OBJECTIVE') });
 
 export interface SyllabusTopicRow {
   id: string;
+  /** Exam syllabi that list this topic; empty for school-only topics. */
+  exams?: ExamBody[];
+  objectives?: string[];
   subject: string;
   level: 'PRIMARY' | 'JUNIOR' | 'SENIOR';
   name: string;

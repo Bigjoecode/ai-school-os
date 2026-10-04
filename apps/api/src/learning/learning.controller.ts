@@ -13,6 +13,10 @@ import {
   practiceStartSchema,
   practiceSubmitSchema,
   studyPlanRequestSchema,
+  syllabusImportSchema,
+  syllabusSaveSchema,
+  theoryAnswerSchema,
+  theoryStartSchema,
   tutorChatSchema,
   type ExamBody,
   type ExamQuestionInput,
@@ -30,6 +34,7 @@ import { EntitlementService, type ResolvedAccess } from '../student-ai/entitleme
 import { ExamService } from './exam.service';
 import { MasteryService, subjectKey } from './mastery.service';
 import { StudyService } from './study.service';
+import { SyllabusService } from './syllabus.service';
 import { TutorService } from './tutor.service';
 
 const visible = ({ tenantId: _t, periodKey: _p, ...a }: ResolvedAccess): StudentAccess => a;
@@ -193,6 +198,22 @@ export class LearningController {
     const { access } = await this.me();
     return this.study.view(await this.exams.start(access, body));
   }
+
+  /** Written (theory) practice, marked by AI against each question's marking guide. */
+  @Post('exams/theory/start')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  async startTheory(@Body(new ZodPipe(theoryStartSchema)) body: z.infer<typeof theoryStartSchema>) {
+    const { access } = await this.me();
+    return this.study.view(await this.exams.startTheory(access, body));
+  }
+
+  @Post('attempts/:id/theory')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 6, ttl: 60_000 } })
+  async markTheory(@Param('id') id: string, @Body(new ZodPipe(theoryAnswerSchema)) body: z.infer<typeof theoryAnswerSchema>) {
+    const { access } = await this.me();
+    return this.study.view(await this.exams.markTheory(access, id, body.answers));
+  }
 }
 
 /** A parent's view of one child's learning: access, mastery, plans, practice and what the tutor has learned. */
@@ -238,10 +259,11 @@ export class ContentController {
   constructor(
     private readonly prisma: PrismaService,
     private readonly exams: ExamService,
+    private readonly syllabus: SyllabusService,
   ) {}
 
   @Get('questions')
-  questions(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS).optional(), subject: z.string().optional(), status: z.enum(['DRAFT', 'PUBLISHED', 'RETIRED']).optional(), q: z.string().max(100).optional() }))) q: { exam?: ExamBody; subject?: string; status?: string; q?: string }) {
+  questions(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS).optional(), subject: z.string().optional(), status: z.enum(['DRAFT', 'PUBLISHED', 'RETIRED']).optional(), q: z.string().max(100).optional(), type: z.enum(['OBJECTIVE', 'THEORY']).optional() }))) q: { exam?: ExamBody; subject?: string; status?: string; q?: string; type?: string }) {
     return this.exams.bank(q);
   }
 
@@ -283,7 +305,31 @@ export class ContentController {
   @Get('topics')
   async topics(@Query(new ZodPipe(z.object({ subject: z.string().optional(), level: z.enum(['PRIMARY', 'JUNIOR', 'SENIOR']).optional() }))) q: { subject?: string; level?: string }): Promise<SyllabusTopicRow[]> {
     const rows = await this.prisma.root.syllabusTopic.findMany({ where: { ...(q.subject ? { subject: subjectKey(q.subject) } : {}), ...(q.level ? { level: q.level } : {}) }, orderBy: [{ subject: 'asc' }, { level: 'asc' }, { order: 'asc' }, { name: 'asc' }] });
-    return rows.map((t) => ({ id: t.id, subject: t.subject, level: t.level as SyllabusTopicRow['level'], name: t.name, parentId: t.parentId, order: t.order }));
+    return rows.map((t) => ({ id: t.id, subject: t.subject, level: t.level as SyllabusTopicRow['level'], name: t.name, parentId: t.parentId, order: t.order, exams: t.exams as ExamBody[], objectives: t.objectives }));
+  }
+
+  // ---------------------------------------------------------- syllabus import (WAEC, NECO, JAMB, BECE)
+
+  /** Reads the text out of an uploaded syllabus PDF or Word file (nothing is stored). */
+  @Post('syllabus/extract')
+  @HttpCode(200)
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 25 * 1024 * 1024, files: 1 } }))
+  extractSyllabus(@UploadedFile() file: { buffer: Buffer; originalname: string; size: number; mimetype: string } | undefined) {
+    return this.syllabus.extract(file);
+  }
+
+  /** AI lays the syllabus out as topics, subtopics and objectives, for review. */
+  @Post('syllabus/preview')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 6, ttl: 60_000 } })
+  previewSyllabus(@Body(new ZodPipe(syllabusImportSchema)) body: z.infer<typeof syllabusImportSchema>) {
+    return this.syllabus.preview(body);
+  }
+
+  @Post('syllabus')
+  @HttpCode(200)
+  saveSyllabus(@Body(new ZodPipe(syllabusSaveSchema)) body: z.infer<typeof syllabusSaveSchema>) {
+    return this.syllabus.save(body, currentUserId());
   }
 
   @Post('topics')

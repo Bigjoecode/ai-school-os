@@ -195,20 +195,27 @@ model Tenant {
   supportTickets   SupportTicket[]
   supportMessages  SupportMessage[]
 
-  consumerCoverage    ConsumerSubscriptionStudent[]
-  sponsorships        Sponsorship[]
-  studentEntitlements StudentEntitlement[]
-  studentAiUsage      StudentAiUsage[]
-  studentMemories     StudentMemory[]
-  masteryRecords      MasteryRecord[]
-  studyPlans          StudyPlan[]
-  flashcardDecks      FlashcardDeck[]
-  practiceAttempts    PracticeAttempt[]
-  kbDocuments         KbDocument[]
-  reportCardTemplates ReportCardTemplate[]
-  traitRatings        StudentTraitRating[]
-  homeworkSubmissions HomeworkSubmission[]
-  kbChunks            KbChunk[]
+  consumerCoverage      ConsumerSubscriptionStudent[]
+  sponsorships          Sponsorship[]
+  studentEntitlements   StudentEntitlement[]
+  studentAiUsage        StudentAiUsage[]
+  studentMemories       StudentMemory[]
+  masteryRecords        MasteryRecord[]
+  studyPlans            StudyPlan[]
+  flashcardDecks        FlashcardDeck[]
+  practiceAttempts      PracticeAttempt[]
+  kbDocuments           KbDocument[]
+  reportCardTemplates   ReportCardTemplate[]
+  admissionApplications AdmissionApplication[]
+  studyMaterials        StudyMaterial[]
+  onlineExams           OnlineExam[]
+  onlineExamAttempts    OnlineExamAttempt[]
+  promotions            StudentPromotion[]
+  behaviourRecords      BehaviourRecord[]
+  sickBayVisits         SickBayVisit[]
+  traitRatings          StudentTraitRating[]
+  homeworkSubmissions   HomeworkSubmission[]
+  kbChunks              KbChunk[]
 
   @@map("tenants")
 }
@@ -279,18 +286,22 @@ enum UserStatus {
 /// A person who can sign in. Global across schools: one parent can belong to
 /// two schools through two memberships.
 model User {
-  id           String        @id @default(cuid())
-  email        String        @unique
-  passwordHash String
-  firstName    String
-  lastName     String
-  phone        String?
-  avatarUrl    String?
-  platformRole PlatformRole?
-  status       UserStatus    @default(ACTIVE)
-  lastLoginAt  DateTime?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id            String        @id @default(cuid())
+  email         String        @unique
+  passwordHash  String
+  firstName     String
+  lastName      String
+  phone         String?
+  avatarUrl     String?
+  platformRole  PlatformRole?
+  status        UserStatus    @default(ACTIVE)
+  lastLoginAt   DateTime?
+  /// Two-step sign-in: TOTP secret (encrypted with APP_ENCRYPTION_KEY), when it was turned on, and hashed one-time recovery codes.
+  totpSecret    String?
+  totpEnabledAt DateTime?
+  recoveryCodes String[]      @default([])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   memberships           Membership[]
   sessions              AuthSession[]
@@ -629,24 +640,29 @@ enum StudentStatus {
 }
 
 model Student {
-  id              String        @id @default(cuid())
-  tenantId        String
-  branchId        String?
-  userId          String?
-  classArmId      String?
-  admissionNumber String
-  firstName       String
-  middleName      String?
-  lastName        String
-  gender          Gender
-  dateOfBirth     DateTime?     @db.Date
-  status          StudentStatus @default(ACTIVE)
-  admittedOn      DateTime      @default(now()) @db.Date
-  photoUrl        String?
-  address         String?
-  medicalNotes    String?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id                String        @id @default(cuid())
+  tenantId          String
+  branchId          String?
+  userId            String?
+  classArmId        String?
+  admissionNumber   String
+  firstName         String
+  middleName        String?
+  lastName          String
+  gender            Gender
+  dateOfBirth       DateTime?     @db.Date
+  status            StudentStatus @default(ACTIVE)
+  admittedOn        DateTime      @default(now()) @db.Date
+  photoUrl          String?
+  address           String?
+  medicalNotes      String?
+  /// A+, O−… and AA, AS, SS: asked for on every Nigerian school medical form.
+  bloodGroup        String?
+  genotype          String?
+  allergies         String[]      @default([])
+  chronicConditions String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
   tenant       Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   branch       Branch?             @relation(fields: [branchId], references: [id], onDelete: SetNull)
@@ -670,6 +686,9 @@ model Student {
   practiceAttempts    PracticeAttempt[]
   traitRatings        StudentTraitRating[]
   homeworkSubmissions HomeworkSubmission[]
+  promotions          StudentPromotion[]
+  behaviourRecords    BehaviourRecord[]
+  sickBayVisits       SickBayVisit[]
   transport           TransportAssignment?
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
@@ -1031,6 +1050,12 @@ model LessonPlan {
   generation      GenerationState @default(NONE)
   generationError String?
   guidance        String?
+  /// Lesson note vetting: NOT_SUBMITTED, SUBMITTED, APPROVED, RETURNED
+  reviewStatus    String          @default("NOT_SUBMITTED")
+  submittedAt     DateTime?
+  reviewedAt      DateTime?
+  reviewedById    String?
+  reviewNote      String?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
@@ -3254,4 +3279,238 @@ model HomeworkSubmission {
   @@unique([homeworkId, studentId])
   @@index([tenantId, homeworkId])
   @@map("homework_submissions")
+}
+
+// ============================================================ Phase 20: admissions, study materials, online exams (CBT)
+
+/// An application for a place, from the website, the front desk or an enquiry.
+model AdmissionApplication {
+  id                 String    @id @default(cuid())
+  tenantId           String
+  /// APP/2026/0001
+  number             String
+  enquiryId          String?
+  /// SUBMITTED, REVIEWING, EXAM_SCHEDULED, INTERVIEW, OFFERED, ACCEPTED, ENROLLED, WAITLISTED, REJECTED, WITHDRAWN
+  status             String    @default("SUBMITTED")
+  /// WEBSITE, FRONT_DESK, ENQUIRY, PORTAL
+  source             String    @default("FRONT_DESK")
+  childFirstName     String
+  childMiddleName    String?
+  childLastName      String
+  gender             Gender
+  dateOfBirth        DateTime? @db.Date
+  classLevelId       String?
+  entryTerm          String?
+  previousSchool     String?
+  parentName         String
+  parentPhone        String
+  parentEmail        String?
+  relationship       String?
+  address            String?
+  medicalNotes       String?
+  /// Uploaded documents: [{ fileId, name, kind }] (birth certificate, last result, passport photo…)
+  documents          Json      @default("[]")
+  notes              String?
+  examAt             DateTime?
+  examVenue          String?
+  examScore          Float?
+  interviewAt        DateTime?
+  decisionNote       String?
+  offerExpiresOn     DateTime? @db.Date
+  applicationFeeKobo Int?
+  feePaidAt          DateTime?
+  feeReference       String?
+  /// Set when enrolled.
+  studentId          String?
+  createdById        String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, number])
+  @@index([tenantId, status])
+  @@map("admission_applications")
+}
+
+/// Notes, slides, videos, audio and links teachers share with classes.
+model StudyMaterial {
+  id            String   @id @default(cuid())
+  tenantId      String
+  title         String
+  description   String?
+  /// NOTE, DOCUMENT, SLIDES, VIDEO, AUDIO, LINK, IMAGE
+  kind          String   @default("DOCUMENT")
+  subjectId     String?
+  /// Every arm of these levels; plus any arms listed directly. Both empty = whole school.
+  classLevelIds String[] @default([])
+  classArmIds   String[] @default([])
+  termId        String?
+  topic         String?
+  /// An uploaded file (private, served after an access check), or a link.
+  fileId        String?
+  url           String?
+  mimeType      String?
+  sizeBytes     Int?
+  /// Written notes in markdown.
+  body          String?
+  published     Boolean  @default(true)
+  views         Int      @default(0)
+  createdById   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, subjectId])
+  @@map("study_materials")
+}
+
+/// A paper sat on screen (CBT) by some classes within a window.
+model OnlineExam {
+  id                String    @id @default(cuid())
+  tenantId          String
+  paperId           String
+  title             String
+  classArmIds       String[]
+  opensAt           DateTime
+  closesAt          DateTime
+  durationMinutes   Int
+  shuffleQuestions  Boolean   @default(true)
+  shuffleOptions    Boolean   @default(true)
+  /// IMMEDIATE (score after submitting), AFTER_CLOSE, NEVER (teacher releases later)
+  showResults       String    @default("AFTER_CLOSE")
+  /// Copy the score into the paper's result component (ca1, exam…).
+  sendToScores      Boolean   @default(true)
+  /// DRAFT, SCHEDULED, CLOSED
+  status            String    @default("DRAFT")
+  /// Optional code the invigilator reads out in the hall.
+  accessCode        String?
+  resultsReleasedAt DateTime?
+  createdById       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  tenant   Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  attempts OnlineExamAttempt[]
+
+  @@index([tenantId, opensAt])
+  @@map("online_exams")
+}
+
+model OnlineExamAttempt {
+  id             String    @id @default(cuid())
+  tenantId       String
+  examId         String
+  studentId      String
+  /// Question ids in the order shown, and each question's option order.
+  layout         Json
+  /// { [questionId]: optionIndex | text }
+  answers        Json      @default("{}")
+  startedAt      DateTime  @default(now())
+  endsAt         DateTime
+  submittedAt    DateTime?
+  /// IN_PROGRESS, SUBMITTED, MARKED
+  status         String    @default("IN_PROGRESS")
+  objectiveScore Float?
+  /// Teacher marks for written questions: { [questionId]: number }
+  theoryMarks    Json      @default("{}")
+  score          Float?
+  total          Float?
+  /// Times the student left the exam screen (tab switch / app switch).
+  focusLosses    Int       @default(0)
+  ip             String?
+  updatedAt      DateTime  @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  exam   OnlineExam @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  @@unique([examId, studentId])
+  @@index([tenantId, studentId])
+  @@map("online_exam_attempts")
+}
+
+// ============================================================ Phase 21: promotion, behaviour, sick bay
+
+/// End-of-session decision for one student: promoted, repeating, graduated or left.
+model StudentPromotion {
+  id            String   @id @default(cuid())
+  tenantId      String
+  studentId     String
+  fromSessionId String
+  toSessionId   String?
+  fromArmId     String?
+  toArmId       String?
+  /// PROMOTED, REPEATED, GRADUATED, WITHDRAWN
+  decision      String
+  /// Session average used for the suggestion.
+  average       Float?
+  note          String?
+  decidedById   String?
+  createdAt     DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, fromSessionId])
+  @@index([tenantId, fromSessionId])
+  @@map("student_promotions")
+}
+
+/// Merits, demerits and incidents: the behaviour log parents can be told about.
+model BehaviourRecord {
+  id               String    @id @default(cuid())
+  tenantId         String
+  studentId        String
+  date             DateTime  @db.Date
+  /// MERIT, DEMERIT, INCIDENT
+  kind             String
+  category         String
+  title            String
+  description      String?
+  points           Int       @default(0)
+  /// LOW, MEDIUM, HIGH
+  severity         String    @default("LOW")
+  actionTaken      String?
+  /// OPEN, RESOLVED
+  status           String    @default("OPEN")
+  visibleToParents Boolean   @default(true)
+  parentNotifiedAt DateTime?
+  reportedById     String?
+  resolvedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, date])
+  @@index([studentId])
+  @@map("behaviour_records")
+}
+
+/// A visit to the sick bay / school clinic.
+model SickBayVisit {
+  id               String    @id @default(cuid())
+  tenantId         String
+  studentId        String
+  visitedAt        DateTime  @default(now())
+  complaint        String
+  temperature      Float?
+  assessment       String?
+  treatment        String?
+  medication       String?
+  /// RETURNED_TO_CLASS, OBSERVATION, SENT_HOME, REFERRED, HOSPITAL
+  outcome          String    @default("RETURNED_TO_CLASS")
+  followUp         String?
+  parentNotifiedAt DateTime?
+  recordedById     String?
+  createdAt        DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, visitedAt])
+  @@index([studentId])
+  @@map("sick_bay_visits")
 }

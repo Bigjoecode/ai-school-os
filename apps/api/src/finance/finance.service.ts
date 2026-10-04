@@ -188,6 +188,44 @@ export class FinanceService {
   }
 
   /**
+   * Issues one student's invoice for a term from the fee schedule (compulsory
+   * items for their class level), e.g. on enrolment. Runs inside the caller's
+   * transaction. Returns null, with the reason, when nothing is issued.
+   */
+  async invoiceStudent(client: unknown, studentId: string, termId: string): Promise<{ invoice: { id: string; number: string; totalKobo: number } | null; reason: string | null }> {
+    const tx = client as Prisma.TransactionClient;
+    const tenantId = currentTenantId();
+    const [student, settings, existing] = await Promise.all([
+      tx.student.findUniqueOrThrow({ where: { id: studentId }, include: { classArm: true } }),
+      this.settings(),
+      tx.invoice.findFirst({ where: { tenantId, studentId, termId }, select: { id: true, number: true, totalKobo: true } }),
+    ]);
+    if (existing) return { invoice: existing, reason: 'An invoice for this term already existed' };
+    if (!student.classArm) return { invoice: null, reason: 'The student has no class' };
+    const fees = await tx.feeItem.findMany({ where: { tenantId, termId, optional: false } });
+    const items = fees.filter((f) => !f.classLevelIds.length || f.classLevelIds.includes(student.classArm!.classLevelId));
+    if (!items.length) return { invoice: null, reason: 'No compulsory fees are set for this class and term' };
+    const today = schoolNow(settings.timezone).date;
+    const dueDate = new Date(Date.parse(`${today}T00:00:00Z`) + settings.defaultDueDays * 86_400_000).toISOString().slice(0, 10);
+    const total = items.reduce((n, f) => n + f.amountKobo, 0);
+    const number = await this.nextNumber('invoice', settings.invoicePrefix, tx);
+    const invoice = await tx.invoice.create({
+      data: {
+        tenantId,
+        studentId,
+        termId,
+        number,
+        totalKobo: total,
+        dueDate: parseDate(dueDate),
+        createdById: currentContext().userId,
+        lines: { create: items.map((f) => ({ tenantId, feeItemId: f.id, description: f.name, kind: 'FEE', amountKobo: f.amountKobo })) },
+      },
+      select: { id: true, number: true, totalKobo: true },
+    });
+    return { invoice, reason: null };
+  }
+
+  /**
    * Recomputes a total and status after lines or payments change. Accepts the
    * tenant-scoped or the root transaction client (webhooks run on the root one).
    */

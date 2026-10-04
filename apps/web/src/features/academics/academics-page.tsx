@@ -14,11 +14,12 @@ import {
   Plus,
   Star,
   Trash2,
+  TrendingUp,
   UserRound,
   Users,
 } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -80,6 +81,13 @@ export default function AcademicsPage() {
   const primaryAction: Record<Tab, ReactNode> = {
     sessions: (
       <>
+        {data && data.sessions.length > 0 && (
+          <Button variant="outline" asChild>
+            <Link to="/academics/promotion">
+              <TrendingUp /> End of session
+            </Link>
+          </Button>
+        )}
         {data && data.sessions.length > 0 && (
           <Button variant="outline" onClick={() => open('term')}>
             <Plus /> Add term

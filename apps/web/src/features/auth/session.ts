@@ -1,4 +1,4 @@
-import type { AuthResponse, LoginInput } from '@aischool/shared';
+import type { AuthResponse, LoginInput, TwoFactorChallengeResponse, TwoFactorLoginInput } from '@aischool/shared';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
@@ -6,10 +6,31 @@ import { api } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth-store';
 import { queryClient } from '@/lib/query-client';
 
+export type LoginResult = AuthResponse | TwoFactorChallengeResponse;
+
+export function isTwoFactorChallenge(r: LoginResult): r is TwoFactorChallengeResponse {
+  return 'twoFactorRequired' in r && r.twoFactorRequired === true;
+}
+
+/** Password step. With two-step sign-in on, the result is a challenge and no session is stored yet. */
 export function useLogin() {
   const setSession = useAuthStore((s) => s.setSession);
   return useMutation({
-    mutationFn: (input: LoginInput) => api.post<AuthResponse>('/auth/login', input, { noRefresh: true }),
+    mutationFn: (input: LoginInput) => api.post<LoginResult>('/auth/login', input, { noRefresh: true }),
+    meta: { silent: true },
+    onSuccess: (result) => {
+      if (isTwoFactorChallenge(result)) return;
+      queryClient.clear();
+      setSession(result);
+    },
+  });
+}
+
+/** Second step: the code from the authenticator app (or a recovery code). */
+export function useCompleteTwoFactor() {
+  const setSession = useAuthStore((s) => s.setSession);
+  return useMutation({
+    mutationFn: (input: TwoFactorLoginInput) => api.post<AuthResponse>('/auth/2fa', input, { noRefresh: true }),
     meta: { silent: true },
     onSuccess: (session) => {
       queryClient.clear();

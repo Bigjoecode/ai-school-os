@@ -1,4 +1,4 @@
-import { LESSON_STATUSES, type LessonDetail, type UpdateLessonInput } from '@aischool/shared';
+import { LESSON_STATUSES, type UpdateLessonInput, type VettedLessonDetail as LessonDetail } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AlertTriangle,
@@ -67,6 +67,7 @@ import {
   listToLines,
 } from '../planning/ui';
 import { useDeleteLesson, useLesson, useRegenerateLesson, useUpdateLesson } from './api';
+import { VettingPanel } from './vetting-ui';
 
 export default function LessonDetailPage() {
   const { id = '' } = useParams();
@@ -116,7 +117,7 @@ function LessonView({ l }: { l: LessonDetail }) {
   return (
     <Page className="max-w-4xl print:max-w-none print:p-0">
       <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between print:hidden">
-        <BackLink to="/lessons">Lesson Plans</BackLink>
+        <BackLink to={l.canReview ? '/lessons/vetting' : '/lessons'}>{l.canReview ? 'Lesson vetting' : 'Lesson Plans'}</BackLink>
         {!editing && (
           <div className="flex flex-wrap items-center gap-2">
             {editable && (
@@ -183,6 +184,7 @@ function LessonView({ l }: { l: LessonDetail }) {
         <LessonEditor l={l} onDone={() => setEditing(false)} />
       ) : (
         <div className="space-y-5">
+          <VettingPanel l={l} />
           {l.generation === 'FAILED' && (
             <div className="print:hidden">
               <FailedPanel
@@ -515,6 +517,22 @@ function LessonEditor({ l, onDone }: { l: LessonDetail; onDone: () => void }) {
 
   return (
     <form onSubmit={submit} noValidate className="space-y-5">
+      {(l.reviewStatus === 'APPROVED' || l.reviewStatus === 'SUBMITTED') && (
+        <p role="note" className="flex items-start gap-2 rounded-xl border border-warning/30 bg-warning-soft px-4 py-3 text-[13px] text-warning">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0" />
+          <span>
+            {l.reviewStatus === 'APPROVED'
+              ? 'This lesson note has been approved. Saving changes takes it back to “not submitted”, so it will need to be vetted again.'
+              : 'This lesson note is waiting to be vetted. Saving changes withdraws it — submit it again when you’re done.'}
+          </span>
+        </p>
+      )}
+      {l.reviewStatus === 'RETURNED' && l.reviewNote && (
+        <div role="note" className="rounded-xl border border-danger/30 bg-danger-soft/50 px-4 py-3 text-[13px]">
+          <p className="font-semibold text-danger">Corrections requested{l.reviewedBy ? ` by ${l.reviewedBy.name}` : ''}</p>
+          <p className="mt-1 whitespace-pre-line leading-relaxed">{l.reviewNote}</p>
+        </div>
+      )}
       <Card className="grid gap-4 p-5 sm:grid-cols-4 sm:p-6">
         <Field label="Topic" htmlFor="le-topic" className="sm:col-span-2" error={e.topic?.message}>
           <Input id="le-topic" invalid={!!e.topic} {...register('topic')} />

@@ -51,14 +51,18 @@ export class OperationsService {
       ...DEFAULT_OPERATIONS_SETTINGS,
       ...((t.operationsSettings as Partial<OperationsSettings> | null) ?? {}),
     };
+    delete (settings as Partial<OperationsSettings> & { admissions?: unknown }).admissions;
     const now = schoolNow(t.timezone);
     return { ...t, settings, today: now.date, now };
   }
 
   async setSettings(settings: OperationsSettings) {
+    // Other modules keep their own keys in this column (e.g. `admissions`); keep them.
+    const before = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { operationsSettings: true } });
+    const { admissions } = (before.operationsSettings as { admissions?: unknown } | null) ?? {};
     await this.prisma.root.tenant.update({
       where: { id: currentTenantId() },
-      data: { operationsSettings: settings as unknown as Prisma.InputJsonValue },
+      data: { operationsSettings: { ...settings, ...(admissions ? { admissions } : {}) } as unknown as Prisma.InputJsonValue },
     });
     await this.audit.log({ action: 'operations.settings', summary: 'Updated library, certificate and ID card settings' });
     return (await this.school()).settings;

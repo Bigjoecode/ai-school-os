@@ -1,5 +1,5 @@
-import { LESSON_STATUSES, type LessonSummary } from '@aischool/shared';
-import { CalendarDays, Clock, Presentation, Sparkles, User } from 'lucide-react';
+import { LESSON_REVIEW_LABELS, LESSON_REVIEW_STATUSES, LESSON_STATUSES, type LessonReviewStatus, type VettedLessonSummary as LessonSummary } from '@aischool/shared';
+import { CalendarDays, ClipboardCheck, Clock, Presentation, Send, Sparkles, User } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -15,6 +15,8 @@ import { ArmSelect, SubjectSelect } from '../planning/pickers';
 import { CardGridSkeleton, ContentStatusBadge, GenerationIndicator, useSearchFlag } from '../planning/ui';
 import { useLessons } from './api';
 import { PlanLessonDialog } from './lesson-dialogs';
+import { ReviewStatusBadge } from './vetting-ui';
+import { SubmitWeekDialog } from './vetting-dialogs';
 
 type Scope = 'mine' | 'all';
 
@@ -22,6 +24,9 @@ export default function LessonsPage() {
   const canManage = useCan('lessons.manage');
   const canAi = useCan('ai.use');
   const canSeeAll = useCan('curriculum.manage');
+  const canVet = useCan('lessons.approve');
+  const [review, setReview] = useState<LessonReviewStatus | undefined>();
+  const [submitOpen, setSubmitOpen] = useState(false);
   const structure = useStructure();
   const [scope, setScope] = useState<Scope>('mine');
   const [classArmId, setClassArmId] = useState<string | undefined>();
@@ -30,9 +35,9 @@ export default function LessonsPage() {
   const [planOpen, setPlanOpen] = useSearchFlag('new');
 
   const mine = !canSeeAll || scope === 'mine';
-  const list = useLessons({ classArmId, subjectId, status, mine });
+  const list = useLessons({ classArmId, subjectId, status, review, mine });
   const rows = list.data;
-  const filtered = !!(classArmId || subjectId || status);
+  const filtered = !!(classArmId || subjectId || status || review);
   const canPlan = canManage && canAi;
 
   const planButton = canPlan && (
@@ -46,7 +51,23 @@ export default function LessonsPage() {
       <PageHeader
         title="Lesson Plans"
         description="Differentiated, timed lesson plans — linked to your scheme of work and ready to print."
-        actions={planButton}
+        actions={
+          <div className="flex flex-wrap gap-2">
+            {canVet && (
+              <Button variant="outline" asChild>
+                <Link to="/lessons/vetting">
+                  <ClipboardCheck /> Lesson vetting
+                </Link>
+              </Button>
+            )}
+            {canManage && (
+              <Button variant="outline" onClick={() => setSubmitOpen(true)}>
+                <Send /> Submit a week
+              </Button>
+            )}
+            {planButton}
+          </div>
+        }
       />
 
       <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
@@ -74,7 +95,7 @@ export default function LessonsPage() {
             ))}
           </div>
         )}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:ml-auto lg:flex">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:ml-auto lg:flex">
           <ArmSelect
             structure={structure.data}
             value={classArmId}
@@ -100,6 +121,19 @@ export default function LessonsPage() {
               {LESSON_STATUSES.map((s) => (
                 <SelectItem key={s} value={s}>
                   {titleCase(s)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={review ?? NONE} onValueChange={(v) => setReview(v === NONE ? undefined : (v as LessonReviewStatus))}>
+            <SelectTrigger className="lg:w-44" aria-label="Filter by vetting">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={NONE}>Any vetting status</SelectItem>
+              {LESSON_REVIEW_STATUSES.map((s) => (
+                <SelectItem key={s} value={s}>
+                  {LESSON_REVIEW_LABELS[s]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -137,6 +171,7 @@ export default function LessonsPage() {
         </ul>
       )}
 
+      {canManage && <SubmitWeekDialog open={submitOpen} onOpenChange={setSubmitOpen} />}
       {canPlan && <PlanLessonDialog open={planOpen} onOpenChange={setPlanOpen} defaults={{ subjectId, classArmId }} />}
     </Page>
   );
@@ -152,12 +187,16 @@ function LessonCard({ lesson: l, showTeacher }: { lesson: LessonSummary; showTea
         <div className="flex flex-wrap items-center gap-1.5">
           <ContentStatusBadge status={l.status} />
           <GenerationIndicator state={l.generation} />
+          <ReviewStatusBadge status={l.reviewStatus} late={l.late} />
           {l.schemeWeek && <span className="ml-auto text-[11.5px] text-muted-foreground">Scheme · Week {l.schemeWeek.week}</span>}
         </div>
         <h3 className="mt-3 line-clamp-2 font-display text-[15.5px] font-semibold leading-snug tracking-tight">{l.topic}</h3>
         <p className="mt-1 truncate text-[13px] text-muted-foreground">
           {l.subject.name} · {l.classArm.levelName} {l.classArm.name}
         </p>
+        {l.reviewStatus === 'RETURNED' && l.reviewNote && (
+          <p className="mt-2 line-clamp-2 rounded-lg bg-danger-soft/60 px-2.5 py-1.5 text-[12px] text-danger">{l.reviewNote}</p>
+        )}
         <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-4 text-[12.5px] text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="size-3.5" /> {l.date ? formatDate(l.date, { weekday: 'short' }) : 'No date'}

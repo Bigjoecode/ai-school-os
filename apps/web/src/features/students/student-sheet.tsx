@@ -11,9 +11,11 @@ import { useCan, useHasFeature } from '@/lib/auth-store';
 import { formatDate, classLabel } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
+import { StudentPromotionHistory } from '../academics/student-promotions';
 import { StudentAttendanceSummary } from '../attendance/student-summary';
 import { StudentFeesSummary } from '../finance/student-fees';
 import { StudentLibrarySummary } from '../operations/student-library';
+import { StudentWelfarePanel } from '../welfare/medical-panel';
 import { type StudentDetail, useStudent, useUpdateStudent } from './api';
 import { StudentFields, studentDefaults, useStudentForm } from './student-form';
 
@@ -48,6 +50,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
   const canFinance = useCan('finance.read');
   const hasLibrary = useHasFeature('library');
   const canLibrary = useCan('library.read') && hasLibrary;
+  const canWelfare = useCan('welfare.read');
 
   useEffect(() => {
     setEditing(false);
@@ -151,6 +154,8 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
                 )}
               </div>
 
+              <StudentPromotionHistory studentId={data.id} />
+              {canWelfare && <StudentWelfarePanel studentId={data.id} onNavigate={onClose} />}
               {canAttendance && <StudentAttendanceSummary studentId={data.id} onNavigate={onClose} />}
               {canFinance && <StudentFeesSummary studentId={data.id} admissionNumber={data.admissionNumber} onNavigate={onClose} />}
               {canLibrary && <StudentLibrarySummary studentId={data.id} onNavigate={onClose} />}

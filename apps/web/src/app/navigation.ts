@@ -22,6 +22,7 @@ import {
   Contact,
   Crown,
   CreditCard,
+  DatabaseBackup,
   FileBadge,
   FileQuestionMark,
   FileText,
@@ -74,7 +75,8 @@ import {
   NotebookText,
   Wallet,
 } from 'lucide-react';
-import { Backpack, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
+import { Backpack, ClipboardCheck, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
+import { Stethoscope } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -123,6 +125,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Homework', to: '/learning/homework', icon: ClipboardList, feature: 'live_classes', audience: 'family', keywords: 'assignments projects hand in submit marks feedback' },
       { label: 'Live classes', to: '/learning/live', icon: Video, feature: 'live_classes', audience: 'family', keywords: 'online class join zoom meet lesson' },
       { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
+      { label: 'Study materials', to: '/learning/materials', icon: FolderOpen, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'notes slides videos documents library revision textbook' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
@@ -137,6 +140,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Fees', to: '/school/fees', icon: Banknote, permission: 'family.manage', audience: 'family', keywords: 'school fees pay online paystack balance owed invoice receipt bank transfer' },
       { label: 'Exams & calendar', to: '/school/calendar', icon: CalendarDays, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'exam timetable test holidays events term dates' },
       { label: 'Downloads', to: '/school/downloads', icon: FolderDown, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'documents forms newsletter booklist timetable pdf' },
+      { label: 'Behaviour & health', to: '/school/welfare', icon: HeartPulse, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'merits demerits conduct discipline sick bay clinic nurse medical allergies genotype' },
     ],
   },
   // Phase 15: the student's learning companion and the parent's family page (permissions keep staff navs clean).
@@ -144,6 +148,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Learning',
     items: [
       { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', audience: 'family', keywords: 'study home today ai learning' },
+      { label: 'Exams', to: '/my-exams', icon: MonitorCheck, permission: 'learning.use', audience: 'family', keywords: 'cbt online exam test computer based school exam' },
       { label: 'AI tutor', to: '/learn/tutor', icon: MessageCircleQuestion, permission: 'learning.use', audience: 'family', keywords: 'tutor homework help ask explain' },
       { label: 'Exam Academy', to: '/learn/exams', icon: Target, permission: 'learning.use', audience: 'family', keywords: 'bece waec neco jamb past questions mock practice' },
       { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', audience: 'family', keywords: 'mastery topics memories strengths' },
@@ -161,13 +166,15 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Academics',
     items: [
       { label: 'Students', to: '/students', icon: GraduationCap, permission: 'students.read', keywords: 'pupils learners' },
-      { label: 'Admissions', to: '/admissions', icon: UserPlus, soon: true, keywords: 'enquiries applicants' },
+      { label: 'Admissions', to: '/admissions', icon: UserPlus, permission: 'admissions.read', keywords: 'applications applicants entrance exam interview offer enrol new intake' },
       { label: 'Academic Setup', to: '/academics', icon: Layers, permission: 'academics.read', keywords: 'sessions terms classes subjects branches' },
+      { label: 'End of session', to: '/academics/promotion', icon: TrendingUp, permission: 'academics.manage', keywords: 'promotion promote repeat graduate new session rollover next class year end' },
       { label: 'Curriculum', to: '/curriculum', icon: BookOpen, permission: 'curriculum.read', keywords: 'syllabus topics' },
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
+      { label: 'Lesson vetting', to: '/lessons/vetting', icon: ClipboardCheck, permission: 'lessons.approve', keywords: 'vet approve lesson notes hod principal submissions compliance' },
       { label: 'Timetable', to: '/timetable', icon: CalendarClock, feature: 'timetable', permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
-      { label: 'Study Materials', to: '/materials', icon: FolderOpen, soon: true },
+      { label: 'Study Materials', to: '/materials', icon: FolderOpen, anyOf: [['homework.manage'], ['curriculum.manage'], ['academics.manage']], keywords: 'notes slides videos documents resources library youtube revision' },
     ],
   },
   {
@@ -175,7 +182,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Question Bank', to: '/questions', icon: FileQuestionMark, permission: 'assessment.read', keywords: 'questions items objective theory' },
       { label: 'Exams', to: '/exams', icon: FileText, permission: 'assessment.read', keywords: 'exam papers tests' },
-      { label: 'Online Exams', to: '/online-exams', icon: MonitorCheck, soon: true, keywords: 'cbt' },
+      { label: 'Online Exams', to: '/online-exams', icon: MonitorCheck, permission: 'assessment.read', keywords: 'cbt computer based test online exam lab timed live monitor marking' },
       { label: 'Results', to: '/results', icon: Trophy, permission: 'results.read', keywords: 'grades scores marks broadsheet analysis' },
       { label: 'Report Cards', to: '/report-cards', icon: Award, permission: 'results.read', keywords: 'reports remarks terminal' },
     ],
@@ -190,6 +197,13 @@ export const NAV_GROUPS: NavGroup[] = [
         permission: 'attendance.read',
         keywords: 'register roll call absent late present absence kiosk check in staff',
       },
+    ],
+  },
+  {
+    label: 'Welfare',
+    items: [
+      { label: 'Behaviour', to: '/behaviour', icon: Medal, permission: 'welfare.read', keywords: 'merits demerits incidents discipline conduct detention points' },
+      { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
     ],
   },
   {
@@ -313,6 +327,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Roles & Permissions', to: '/settings/roles', icon: ShieldCheck, permission: 'roles.manage' },
       { label: 'Audit Log', to: '/settings/audit', icon: ScrollText, permission: 'audit.read', keywords: 'history activity' },
       { label: 'Billing', to: '/settings/billing', icon: CreditCard, permission: 'billing.manage', keywords: 'subscription plan invoices pay ai school os account upgrade' },
+      { label: 'Backup & export', to: '/settings/backup', icon: DatabaseBackup, permission: 'school.manage', keywords: 'backup export download data csv zip' },
       { label: 'Sponsorships', to: '/sponsorships', icon: HandCoins, permission: 'sponsorship.manage', keywords: 'sponsor ai plus exam prep waec jamb classes students pay for' },
       { label: 'Help & support', to: '/support', icon: LifeBuoy, permission: 'support.use', keywords: 'help ticket contact support problem issue' },
     ],

@@ -9,16 +9,13 @@ import {
   Building2,
   CalendarCheck,
   CalendarDays,
-  MonitorPlay,
   GraduationCap,
   Layers,
-  FolderOpen,
   Megaphone,
   Receipt,
   Send,
   TrendingDown,
   TrendingUp,
-  UserPlus,
   Users,
 } from 'lucide-react';
 import { type FormEvent, type ReactNode, useState } from 'react';
@@ -252,9 +249,6 @@ function SchoolOverview() {
           </motion.div>
         </div>
         <OperationsCard />
-        <motion.div variants={item}>
-          <ComingOnline />
-        </motion.div>
       </motion.div>
     </Page>
   );
@@ -887,44 +881,5 @@ function ActivityCard({ data }: { data?: OverviewResponse }) {
         )}
       </CardContent>
     </Card>
-  );
-}
-
-// ------------------------------------------------------------------ roadmap strip
-const NEXT_MODULES = [
-  { label: 'Admissions', icon: UserPlus, to: '/admissions', note: 'Applications, entrance tests & offers' },
-  { label: 'Online exams', icon: MonitorPlay, to: '/online-exams', note: 'Timed CBT with instant marking' },
-  { label: 'Study materials', icon: FolderOpen, to: '/materials', note: 'Notes, slides & videos per class' },
-];
-
-function ComingOnline() {
-  return (
-    <div>
-      <div className="mb-3 flex items-center justify-between">
-        <h2 className="font-display text-[15px] font-semibold tracking-tight">Coming online</h2>
-        <span className="text-[12px] text-muted-foreground">Not yet tracked — no data shown until these modules launch</span>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 [&>*]:min-w-0">
-        {NEXT_MODULES.map((m) => (
-          <Link
-            key={m.label}
-            to={m.to}
-            className="group flex items-center gap-3 rounded-2xl border border-dashed border-border bg-card/50 p-4 transition-all hover:border-border-strong hover:bg-card"
-          >
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-muted text-muted-foreground transition-colors group-hover:text-brand">
-              <m.icon className="size-[18px]" />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="flex items-center gap-2 text-[13.5px] font-medium">
-                {m.label}
-                <span className="rounded-full border border-border px-1.5 text-[10px] leading-4 text-muted-foreground">Soon</span>
-              </span>
-              <span className="block truncate text-[12px] text-muted-foreground">{m.note}</span>
-            </span>
-            <span className="text-[12px] font-medium text-muted-foreground/70">—</span>
-          </Link>
-        ))}
-      </div>
-    </div>
   );
 }

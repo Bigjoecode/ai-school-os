@@ -1,7 +1,7 @@
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router';
-import { type NavItem, visibleNav } from '@/app/navigation';
+import { NAV_GROUPS, type NavItem, visibleNav } from '@/app/navigation';
 import { useMe } from '@/lib/auth-store';
 import { useUiStore } from '@/lib/ui-store';
 import { cn } from '@/lib/utils';
@@ -23,10 +23,16 @@ function isActive(item: NavItem, pathname: string, search: string): boolean {
   if (path === '/ai') return pathname === '/ai' && !new URLSearchParams(search).get('agent');
   if (path === '/settings') return pathname === '/settings';
   if (path === '/platform') return pathname === '/platform';
+  // End of session (/academics/promotion) has its own item.
+  if (path === '/academics') return pathname === '/academics';
   // My school's overview is /school/<studentId>; its sections have their own items.
   if (path === '/school') return pathname === '/school' || (/^\/school\/[^/]+$/.test(pathname) && !PORTAL_NAV_SECTIONS.has(pathname.split('/')[2]));
-  return pathname === path || pathname.startsWith(`${path}/`);
+  if (pathname !== path && !pathname.startsWith(`${path}/`)) return false;
+  // A more specific menu item wins (e.g. /lessons/vetting over /lessons).
+  return !NAV_PATHS.some((p) => p.length > path.length && p.startsWith(`${path}/`) && (pathname === p || pathname.startsWith(`${p}/`)));
 }
+
+const NAV_PATHS = NAV_GROUPS.flatMap((g) => g.items.map((i) => i.to.split('?')[0]!));
 
 function NavLinkItem({ item, collapsed, onNavigate }: { item: NavItem; collapsed: boolean; onNavigate?: () => void }) {
   const { pathname, search } = useLocation();

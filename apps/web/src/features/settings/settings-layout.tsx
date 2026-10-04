@@ -1,24 +1,26 @@
 import type { Permission } from '@aischool/shared';
 import type { ReactNode } from 'react';
-import { Building, CreditCard, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
+import { Building, CreditCard, DatabaseBackup, KeyRound, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { hasPermission, useMe } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 
-const LINKS: { to: string; label: string; icon: typeof Building; permission: Permission }[] = [
+const LINKS: { to: string; label: string; icon: typeof Building; permission?: Permission }[] = [
   { to: '/settings', label: 'School profile', icon: Building, permission: 'school.read' },
   { to: '/settings/users', label: 'Users', icon: UserCog, permission: 'users.read' },
   { to: '/settings/portal', label: 'Parent & student portal', icon: Users2, permission: 'school.read' },
   { to: '/settings/roles', label: 'Roles & permissions', icon: ShieldCheck, permission: 'roles.manage' },
   { to: '/settings/audit', label: 'Audit log', icon: ScrollText, permission: 'audit.read' },
   { to: '/settings/billing', label: 'Billing', icon: CreditCard, permission: 'billing.manage' },
+  { to: '/settings/security', label: 'Security', icon: KeyRound },
+  { to: '/settings/backup', label: 'Backup & export', icon: DatabaseBackup, permission: 'school.manage' },
 ];
 
 export default function SettingsLayout() {
   const me = useMe();
   const { pathname } = useLocation();
-  const links = LINKS.filter((l) => hasPermission(me, l.permission));
+  const links = LINKS.filter((l) => !l.permission || hasPermission(me, l.permission));
   return (
     <Page>
       <PageHeader title="Settings" description="Manage your school profile, people's access, the audit trail and your AI School OS plan." />

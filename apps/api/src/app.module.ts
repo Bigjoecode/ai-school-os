@@ -11,6 +11,7 @@ import { HrModule } from './hr/hr.module';
 import { OperationsModule } from './operations/operations.module';
 import { CommsModule } from './comms/comms.module';
 import { PortalModule } from './portal/portal.module';
+import { WelfareModule } from './welfare/welfare.module';
 import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
 import { FilesModule } from './files/files.module';
@@ -25,7 +26,12 @@ import { CommerceModule } from './commerce/commerce.module';
 import { LearningModule } from './learning/learning.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
 import { OnboardingModule } from './onboarding/onboarding.module';
+import { AdmissionsModule } from './admissions/admissions.module';
+import { MaterialsModule } from './materials/materials.module';
+import { BackupModule } from './backup/backup.module';
+import { PromotionModule } from './promotion/promotion.module';
 import { WebsiteModule } from './website/website.module';
+import { CbtModule } from './cbt/cbt.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -98,6 +104,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     CommsModule,
     LiveModule,
     PortalModule,
+    WelfareModule,
     AgentsModule,
     FilesModule,
     WebsiteModule,
@@ -106,6 +113,11 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     LearningModule,
     KnowledgeModule,
     OnboardingModule,
+    AdmissionsModule,
+    CbtModule,
+    MaterialsModule,
+    PromotionModule,
+    BackupModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

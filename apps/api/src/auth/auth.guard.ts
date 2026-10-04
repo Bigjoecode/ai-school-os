@@ -8,7 +8,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import type { Request } from 'express';
-import type { Permission, PlatformRole } from '@aischool/shared';
+import { TWO_FACTOR_SETUP_REQUIRED, type Permission, type PlatformRole } from '@aischool/shared';
 import {
   ALLOW_NO_TENANT,
   FEATURE_KEY,
@@ -19,6 +19,8 @@ import {
 import { RequestContextStore } from '../common/request-context';
 import { FeatureService } from '../features/features.service';
 import { AccessService } from './access.service';
+import { ALLOW_WITHOUT_2FA } from './two-factor.decorator';
+import { TwoFactorService } from './two-factor.service';
 import type { AccessTokenPayload } from './tokens';
 
 /**
@@ -27,7 +29,8 @@ import type { AccessTokenPayload } from './tokens';
  *  2. resolves the user's roles/permissions in the token's school,
  *  3. fills the request context (read by the tenant-scoped Prisma client),
  *  4. enforces @RequirePermissions / @RequirePlatformRole / tenant presence,
- *  5. checks the school's plan includes the route's @RequireFeature module.
+ *  5. checks the school's plan includes the route's @RequireFeature module,
+ *  6. blocks everything but set-up when two-step sign-in is required and not on yet.
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -36,6 +39,7 @@ export class AuthGuard implements CanActivate {
     private readonly jwt: JwtService,
     private readonly access: AccessService,
     private readonly features: FeatureService,
+    private readonly twoFactor: TwoFactorService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -64,6 +68,20 @@ export class AuthGuard implements CanActivate {
     ctx.sessionId = payload.sid;
     ctx.tenantId = resolved.tenant?.id ?? null;
     ctx.permissions = resolved.permissions;
+
+    // A school (or the platform) that requires two-step sign-in: until it is set up,
+    // only the profile, the set-up endpoints and sign-out are open.
+    if (
+      !resolved.user.twoFactorEnabled &&
+      !this.reflector.getAllAndOverride<boolean>(ALLOW_WITHOUT_2FA, targets) &&
+      (await this.twoFactor.mustEnrolFirst(resolved))
+    ) {
+      throw new ForbiddenException({
+        statusCode: 403,
+        code: TWO_FACTOR_SETUP_REQUIRED,
+        message: 'Set up two-step sign-in to continue (Settings → Security).',
+      });
+    }
 
     const platformRoles = this.reflector.getAllAndOverride<PlatformRole[]>(PLATFORM_ROLES_KEY, targets);
     if (platformRoles?.length) {

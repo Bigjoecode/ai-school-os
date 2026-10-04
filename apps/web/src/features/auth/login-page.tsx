@@ -25,7 +25,8 @@ import { Input } from "@/components/ui/input";
 import { ApiError, api, errorMessage } from "@/lib/api";
 import { applyServerErrors, emptyToUndefined } from "@/lib/forms";
 import { useDocumentTitle } from "@/lib/hooks";
-import { useLogin } from "./session";
+import { isTwoFactorChallenge, useLogin } from "./session";
+import { TwoFactorStep } from "./two-factor-step";
 
 type LoginValues = z.input<typeof loginSchema>;
 
@@ -191,6 +192,13 @@ export default function LoginPage() {
   const [showSchool, setShowSchool] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [challenge, setChallenge] = useState<{
+    token: string;
+    expiresAt: number;
+    email: string;
+  } | null>(null);
+  const goOn = () =>
+    navigate(from === "/login" ? "/" : from, { replace: true });
 
   const form = useForm<LoginValues, unknown, z.output<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -201,8 +209,17 @@ export default function LoginPage() {
   const onSubmit = handleSubmit((values) => {
     setFormError(null);
     login.mutate(values, {
-      onSuccess: () =>
-        navigate(from === "/login" ? "/" : from, { replace: true }),
+      onSuccess: (result) => {
+        if (isTwoFactorChallenge(result)) {
+          setChallenge({
+            token: result.challenge,
+            expiresAt: Date.now() + result.expiresIn * 1000,
+            email: values.email,
+          });
+          return;
+        }
+        goOn();
+      },
       onError: (err) => {
         if (!applyServerErrors(err, setError)) {
           setFormError(
@@ -252,6 +269,19 @@ export default function LoginPage() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-[400px]"
           >
+            {challenge ? (
+              <TwoFactorStep
+                challenge={challenge.token}
+                expiresAt={challenge.expiresAt}
+                email={challenge.email}
+                onDone={goOn}
+                onBack={() => {
+                  setChallenge(null);
+                  setValue("password", "");
+                }}
+              />
+            ) : (
+            <>
             <h2 className="font-display text-[28px] font-semibold tracking-tight">
               Welcome back
             </h2>
@@ -403,6 +433,8 @@ export default function LoginPage() {
                   ))}
                 </div>
               </div>
+            )}
+            </>
             )}
           </motion.div>
         </div>

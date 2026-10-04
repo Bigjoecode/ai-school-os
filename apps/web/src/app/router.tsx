@@ -2,6 +2,7 @@ import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 import { withRouteErrors } from './route-error';
 import { AppShell } from '@/components/layout/app-shell';
+import { TwoFactorGate } from '@/features/auth/two-factor-gate';
 import { BootLoader } from '@/components/layout/boot-loader';
 import { RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
 import { UPCOMING_MODULES } from './modules';
@@ -17,12 +18,14 @@ const StaffPage = lazy(() => import('@/features/staff/staff-page'));
 const SetupPage = lazy(() => import('@/features/onboarding/setup-page'));
 const ImportPage = lazy(() => import('@/features/onboarding/import-page'));
 const AcademicsPage = lazy(() => import('@/features/academics/academics-page'));
+const PromotionPage = lazy(() => import('@/features/academics/promotion-page'));
 const CurriculumPage = lazy(() => import('@/features/curriculum/curriculum-page'));
 const CurriculumDetailPage = lazy(() => import('@/features/curriculum/curriculum-detail-page'));
 const SchemesPage = lazy(() => import('@/features/schemes/schemes-page'));
 const SchemeDetailPage = lazy(() => import('@/features/schemes/scheme-detail-page'));
 const LessonsPage = lazy(() => import('@/features/lessons/lessons-page'));
 const LessonDetailPage = lazy(() => import('@/features/lessons/lesson-detail-page'));
+const LessonVettingPage = lazy(() => import('@/features/lessons/vetting-page'));
 const QuestionsPage = lazy(() => import('@/features/questions/questions-page'));
 const ExamsPage = lazy(() => import('@/features/exams/exams-page'));
 const PaperDetailPage = lazy(() => import('@/features/exams/paper-detail-page'));
@@ -61,6 +64,10 @@ const TransportPage = lazy(() => import('@/features/operations/transport-page'))
 const RoutePage = lazy(() => import('@/features/operations/route-page'));
 const HostelPage = lazy(() => import('@/features/operations/hostel-page'));
 const ReceptionPage = lazy(() => import('@/features/operations/reception-page'));
+const AdmissionsPage = lazy(() => import('@/features/admissions/admissions-page'));
+const ApplicationPage = lazy(() => import('@/features/admissions/application-page'));
+const ApplicationFormPage = lazy(() => import('@/features/admissions/application-form-page'));
+const OfferLetterPage = lazy(() => import('@/features/admissions/offer-letter-page'));
 const CertificatesPage = lazy(() => import('@/features/operations/certificates-page'));
 const CertificatePage = lazy(() => import('@/features/operations/certificate-page'));
 const IdCardsPage = lazy(() => import('@/features/operations/id-cards-page'));
@@ -128,6 +135,10 @@ const StudyPlansPage = lazy(() => import('@/features/learning/plans-page'));
 const FlashcardsPage = lazy(() => import('@/features/learning/flashcards-page'));
 const AttemptPage = lazy(() => import('@/features/learning/attempt-page'));
 const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
+const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
+const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
+const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
+const ExamRoomPage = lazy(() => import('@/features/cbt/exam-room-page'));
 const FamilyPage = lazy(() => import('@/features/family/family-page'));
 const ChildProgressPage = lazy(() => import('@/features/family/child-page'));
 const AskSchoolPage = lazy(() => import('@/features/family/ask-page'));
@@ -138,9 +149,16 @@ const PortalResultsPage = lazy(() => import('@/features/portal/results-page'));
 const PortalReportCardPage = lazy(() => import('@/features/portal/results-page').then((m) => ({ default: m.PortalReportCardPage })));
 const PortalCalendarPage = lazy(() => import('@/features/portal/calendar-page'));
 const PortalDownloadsPage = lazy(() => import('@/features/portal/downloads-page'));
+const PortalWelfarePage = lazy(() => import('@/features/portal/welfare-page'));
+const BehaviourPage = lazy(() => import('@/features/welfare/behaviour-page'));
+const SickBayPage = lazy(() => import('@/features/welfare/sick-bay-page'));
 const PortalFeesPage = lazy(() => import('@/features/portal/fees-page'));
 const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
+const SecurityPage = lazy(() => import('@/features/settings/security-page'));
+const BackupPage = lazy(() => import('@/features/settings/backup-page'));
+const MaterialsPage = lazy(() => import('@/features/materials/materials-page'));
+const MaterialsLibraryPage = lazy(() => import('@/features/materials/library-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -178,11 +196,26 @@ export const router = createBrowserRouter(withRouteErrors([
     path: '/check-in',
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
   },
+  // The online exam room: full screen, no app chrome, so students stay focused on the paper.
+  {
+    path: '/exam-room/:id',
+    element: (
+      <RequireAuth>
+        {withSuspense(
+          <RequirePermission permission="learning.use">
+            <ExamRoomPage />
+          </RequirePermission>,
+        )}
+      </RequireAuth>
+    ),
+  },
   {
     path: '/',
     element: (
       <RequireAuth>
-        <AppShell />
+        <TwoFactorGate>
+          <AppShell />
+        </TwoFactorGate>
       </RequireAuth>
     ),
     children: [
@@ -265,6 +298,14 @@ export const router = createBrowserRouter(withRouteErrors([
         ),
       },
       {
+        path: 'academics/promotion',
+        element: (
+          <RequirePermission permission="academics.manage">
+            <PromotionPage />
+          </RequirePermission>
+        ),
+      },
+      {
         path: 'curriculum',
         element: (
           <RequirePermission permission="curriculum.read">
@@ -305,6 +346,14 @@ export const router = createBrowserRouter(withRouteErrors([
         ),
       },
       {
+        path: 'lessons/vetting',
+        element: (
+          <RequirePermission permission="lessons.approve">
+            <LessonVettingPage />
+          </RequirePermission>
+        ),
+      },
+      {
         path: 'lessons/:id',
         element: (
           <RequirePermission permission="lessons.read">
@@ -336,6 +385,23 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequirePermission>
         ),
       },
+      {
+        path: 'online-exams',
+        element: (
+          <RequirePermission permission="assessment.read">
+            <OnlineExamsPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'online-exams/:id',
+        element: (
+          <RequirePermission permission="assessment.read">
+            <OnlineExamPage />
+          </RequirePermission>
+        ),
+      },
+      { path: 'my-exams', element: <RequirePermission permission="learning.use"><MyExamsPage /></RequirePermission> },
       {
         path: 'results',
         element: (
@@ -420,6 +486,23 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequirePermission>
         ),
       },
+      // Student welfare: the behaviour log and the sick bay.
+      {
+        path: 'behaviour',
+        element: (
+          <RequirePermission permission="welfare.read">
+            <BehaviourPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'sick-bay',
+        element: (
+          <RequirePermission permission={['welfare.read', 'health.manage']}>
+            <SickBayPage />
+          </RequirePermission>
+        ),
+      },
       ...(
         [
           ['fees', <FeesPage key="fees" />],
@@ -487,6 +570,11 @@ export const router = createBrowserRouter(withRouteErrors([
           ['transport/routes/:id', 'transport.read', <RoutePage key="route" />, 'transport'],
           ['hostel', 'hostel.read', <HostelPage key="hostel" />, 'hostel'],
           ['reception', 'reception.read', <ReceptionPage key="reception" />, null],
+          ['admissions', 'admissions.read', <AdmissionsPage key="admissions" />, null],
+          ['admissions/new', 'admissions.manage', <ApplicationFormPage key="admissions-new" />, null],
+          ['admissions/:id', 'admissions.read', <ApplicationPage key="admission" />, null],
+          ['admissions/:id/edit', 'admissions.manage', <ApplicationFormPage key="admission-edit" />, null],
+          ['admissions/:id/offer-letter', 'admissions.read', <OfferLetterPage key="offer-letter" />, null],
           ['certificates', 'documents.issue', <CertificatesPage key="certificates" />, null],
           ['certificates/:id', 'documents.issue', <CertificatePage key="certificate" />, null],
           ['id-cards', 'documents.issue', <IdCardsPage key="id-cards" />, null],
@@ -573,6 +661,16 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequireFeature>
         ),
       },
+      // Study materials: teachers share with their classes; students and parents read them.
+      {
+        path: 'materials',
+        element: (
+          <RequirePermission permission={['homework.manage', 'curriculum.manage', 'academics.manage']}>
+            <MaterialsPage />
+          </RequirePermission>
+        ),
+      },
+      { path: 'learning/materials', element: <RequirePermission permission={['family.manage', 'learning.use']}><MaterialsLibraryPage /></RequirePermission> },
       // Phase 15: the student's learning companion and Exam Academy, and the parent's family page.
       ...(
         [
@@ -602,6 +700,8 @@ export const router = createBrowserRouter(withRouteErrors([
           ['school/results/:studentId/:termId', <PortalReportCardPage key="p-card" />],
           ['school/calendar/:studentId', <PortalCalendarPage key="p-calendar" />],
           ['school/downloads/:studentId', <PortalDownloadsPage key="p-downloads" />],
+          ['school/welfare', <PortalRedirect key="p-wel" section="welfare" />],
+          ['school/welfare/:studentId', <PortalWelfarePage key="p-welfare" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
       // Fees are for parents only.
@@ -695,6 +795,16 @@ export const router = createBrowserRouter(withRouteErrors([
             element: (
               <RequirePermission permission="billing.manage">
                 <SchoolBillingPage />
+              </RequirePermission>
+            ),
+          },
+          // Two-step sign-in: every signed-in user, with or without a school.
+          { path: 'security', element: <SecurityPage /> },
+          {
+            path: 'backup',
+            element: (
+              <RequirePermission permission="school.manage">
+                <BackupPage />
               </RequirePermission>
             ),
           },

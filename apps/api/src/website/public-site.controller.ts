@@ -4,12 +4,14 @@ import { Throttle } from '@nestjs/throttler';
 import type { Request } from 'express';
 import {
   applicationFormSchema,
+  applicationStatusCheckSchema,
   assistantRequestSchema,
   contactFormSchema,
   formatMoney,
   resultCheckSchema,
   type DownloadCategory,
   type PublicAlbum,
+  type PublicApplicationStatus,
   type PublicDownload,
   type PublicEvent,
   type PublicFees,
@@ -20,6 +22,7 @@ import {
   type PublicTeacher,
 } from '@aischool/shared';
 import { z } from 'zod';
+import { AdmissionsService } from '../admissions/admissions.service';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
 import { Public } from '../common/decorators';
@@ -48,6 +51,7 @@ export class PublicSiteController {
     private readonly jwt: JwtService,
     private readonly audit: AuditService,
     private readonly kb: KnowledgeService,
+    private readonly admissions: AdmissionsService,
   ) {}
 
   private async previewTenant(token?: string): Promise<string | null> {
@@ -183,38 +187,35 @@ export class PublicSiteController {
     return { ok: true, message: 'Thank you — your message has been sent to the school.' };
   }
 
-  /** An online application: becomes an admissions enquiry for the front desk. */
+  /**
+   * An online application: becomes an admissions application (source
+   * WEBSITE), plus a linked enquiry so the front desk's follow-up list still
+   * shows it.
+   */
   @Post('sites/:slug/apply')
   @Public()
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async apply(@Param('slug') slug: string, @Body(new ZodPipe(applicationFormSchema)) body: z.infer<typeof applicationFormSchema>) {
     const t = await this.site.siteTenant(slug);
     if (!t.settings.admissions.open) throw new BadRequestException('Admissions are closed at the moment — please contact the school');
-    const notes = [
-      body.childDateOfBirth ? `Date of birth: ${body.childDateOfBirth}` : '',
-      body.currentSchool ? `Current school: ${body.currentSchool}` : '',
-      'Applied on the school website.',
-    ]
-      .filter(Boolean)
-      .join('\n');
-    const e = await this.prisma.db.enquiry.create({
-      data: {
-        tenantId: t.id,
-        parentName: body.parentName,
-        phone: body.phone,
-        email: body.email,
-        childName: body.childName,
-        classOfInterest: body.classOfInterest,
-        entryTerm: body.entryTerm,
-        source: 'WEBSITE',
-        status: 'APPLIED',
-        question: body.message,
-        notes,
-        followUpOn: parseDate(new Date(Date.parse(`${t.today}T00:00:00Z`) + 2 * 86_400_000).toISOString().slice(0, 10)),
-      },
-    });
-    await this.audit.log({ tenantId: t.id, actorUserId: null, action: 'website.application', entityType: 'Enquiry', entityId: e.id, summary: `Online application from ${body.parentName} for ${body.childName} (${body.classOfInterest})` });
-    return { ok: true, message: `Thank you, ${body.parentName.split(' ')[0]}. Your application for ${body.childName} has been received — the admissions office will contact you shortly.` };
+    const app = await this.admissions.createFromWebsite(body, t.today);
+    await this.audit.log({ tenantId: t.id, actorUserId: null, action: 'website.application', entityType: 'AdmissionApplication', entityId: app.id, summary: `Online application ${app.number} from ${body.parentName} for ${body.childName} (${body.classOfInterest})` });
+    const fee = app.applicationFeeKobo ? ` An application fee of ${formatMoney(app.applicationFeeKobo, t.currency)} is payable at the school.` : '';
+    return {
+      ok: true,
+      number: app.number,
+      message: `Thank you, ${body.parentName.split(' ')[0]}. Your application for ${body.childName} has been received — your application number is ${app.number}. Keep it to check your application's progress on this website; the admissions office will contact you shortly.${fee}`,
+    };
+  }
+
+  /** "Where is my application?" — the number and the parent's phone must both match. */
+  @Post('sites/:slug/application-status')
+  @Public()
+  @HttpCode(200)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  async applicationStatus(@Param('slug') slug: string, @Body(new ZodPipe(applicationStatusCheckSchema)) body: z.infer<typeof applicationStatusCheckSchema>): Promise<PublicApplicationStatus> {
+    await this.site.siteTenant(slug);
+    return this.admissions.publicStatus(body.number, body.phone);
   }
 
   @Post('sites/:slug/results')

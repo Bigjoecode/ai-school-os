@@ -311,6 +311,57 @@ In Paystack, enable the `charge.success` and `refund.*` events.
 - **Unit economics** converts AI costs (in dollars) with `NAIRA_PER_USD`
   (default 1600). Update it as the rate moves.
 
+## Backups
+
+The app does not back up the server itself; use the hosting account's own
+tools, which run outside the app and can restore everything.
+
+- **Database, daily.** In cPanel open **JetBackup** (where the plan includes
+  it) and check that daily database backups are on and kept for at least
+  7–14 days. Before any risky change (a large import, an upgrade with
+  migrations) take one by hand: **JetBackup → Database Backups**, or
+  **cPanel → Backup** (database backups section), or **phpPgAdmin** →
+  select the database → **Export** (SQL). Keep a copy off the server.
+- **Uploads.** Uploaded files live in `UPLOAD_DIR` (default
+  `/home/martcqpk/ai-school-api/uploads`), outside the web root. JetBackup's
+  home-directory backups include it. For an extra copy, open **File Manager**,
+  right-click the `uploads` folder, choose **Compress** (Zip), then download
+  the archive and delete it from the server afterwards.
+- **Test a restore** once a term: restore last night's database into a
+  spare database in cPanel and point a local copy of the API at it.
+- **Schools' own copies.** School admins (with *school.manage*) can download
+  their school's records as a ZIP of CSV files from **Settings → Backup &
+  export**. It holds only that school's data, never passwords, two-step
+  secrets, tokens or payment keys, and every download is in the audit log.
+  It is for the school's records and moving elsewhere, not a substitute for
+  the database backups above (it can't be restored into the app directly).
+
+## Two-step sign-in
+
+Anyone can turn on two-step sign-in (an authenticator app such as Google or
+Microsoft Authenticator) in **Settings → Security**. Each user gets 10
+one-time recovery codes. Notes for operators:
+
+- It needs `APP_ENCRYPTION_KEY` (the same key that protects payment and SMS
+  keys): each user's authenticator secret is stored encrypted with it. Never
+  change the key once people have set up two-step sign-in, or they will all
+  need a reset.
+- A school can **require** it for powerful roles (school admin, principal,
+  accountant, and anyone who can manage users, roles, settings or money) in
+  **Settings → Security**. Those staff are then sent to a set-up screen after
+  signing in, and the API refuses everything else until it is done.
+- Platform staff are shown a strong reminder. To **enforce** it for all
+  platform staff, set `REQUIRE_PLATFORM_2FA=true` in the Node.js app's
+  environment and restart (turn it on for yourself first).
+- **Lost phone and recovery codes:** a school admin with *users.manage* can
+  reset a member's two-step sign-in in **Settings → Security** (not platform
+  staff). Platform super and support admins can reset anyone with
+  `POST /api/auth/2fa/platform-reset` and `{ "email": "..." }`. Resets sign
+  the person out everywhere and are written to the audit log. Check the
+  person's identity before resetting.
+- Server clocks must be right (cPanel servers use NTP); codes allow about
+  30 seconds of drift either way.
+
 ## GitHub secrets
 
 | Secret | Value |

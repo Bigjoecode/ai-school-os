@@ -5,6 +5,7 @@ import type { Env } from '../config/env';
 import { PrismaClient } from '../generated/prisma/client';
 import { seedDemo } from './demo-seed';
 import { ensurePlatformContent } from './platform-content';
+import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
  * One-off setup that would normally be a shell command, for hosting where
@@ -30,6 +31,37 @@ export async function runBootTasks(config: Env): Promise<void> {
       if (!content.startsWith('0 products, 0 topics, 0')) logger.log(`Platform content: ${content}`);
     } catch (err) {
       logger.error(`Platform content could not be installed: ${(err as Error).message}`);
+    }
+
+    // New features add permissions to the built-in roles; give existing
+    // schools' copies of those roles anything they are missing (never removes).
+    try {
+      let topped = 0;
+      for (const def of SYSTEM_ROLES) {
+        const roles = await prisma.role.findMany({ where: { key: def.key, isSystem: true }, select: { id: true, permissions: true } });
+        for (const r of roles) {
+          const missing = def.permissions.filter((p) => !r.permissions.includes(p));
+          if (missing.length) {
+            await prisma.role.update({ where: { id: r.id }, data: { permissions: [...r.permissions, ...missing] } });
+            topped++;
+          }
+        }
+      }
+      // Built-in roles added since a school was created (e.g. School Nurse).
+      const tenants = await prisma.tenant.findMany({ select: { id: true, roles: { where: { isSystem: true }, select: { key: true } } } });
+      let created = 0;
+      for (const t of tenants) {
+        const have = new Set(t.roles.map((r) => r.key));
+        const missing = SYSTEM_ROLES.filter((r) => !have.has(r.key));
+        if (missing.length) {
+          await prisma.role.createMany({ data: missing.map((r) => ({ tenantId: t.id, key: r.key, name: r.name, description: r.description, isSystem: true, permissions: [...r.permissions] })), skipDuplicates: true });
+          created += missing.length;
+        }
+      }
+      if (topped) logger.log(`Added new permissions to ${topped} built-in role(s)`);
+      if (created) logger.log(`Added ${created} new built-in role(s) to existing schools`);
+    } catch (err) {
+      logger.error(`Built-in roles could not be updated: ${(err as Error).message}`);
     }
 
     if (wantsOwner) {

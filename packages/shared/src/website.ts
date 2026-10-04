@@ -184,6 +184,7 @@ export const applicationFormSchema = z.object({
   phone: z.string().trim().min(7).max(30),
   email: z.email().max(160).nullish().or(z.literal('')).transform((v) => (v ? v : null)),
   childName: z.string().trim().min(2).max(120),
+  childGender: z.enum(['MALE', 'FEMALE'], 'Choose boy or girl'),
   childDateOfBirth: isoDate.nullish().transform((v) => v ?? null),
   classOfInterest: z.string().trim().min(2).max(40),
   entryTerm: nullableText(60),

@@ -4,6 +4,7 @@ import type { Prisma } from '../generated/prisma/client';
 import { dateOnly } from '../common/format';
 import { schoolNow } from '../common/school-time';
 import { env } from '../config/env';
+import { runTickTasks } from '../common/tick-tasks';
 import { PrismaService } from '../prisma/prisma.service';
 import { SenderService } from './sender.service';
 
@@ -14,6 +15,8 @@ export interface TickResult {
   resumed: number;
   birthdays: number;
   eventReminders: number;
+  /** Other modules' housekeeping (e.g. online exams auto-submitted when time ran out). */
+  tasks?: Record<string, number>;
 }
 
 const longDate = (d: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${d}T00:00:00Z`));
@@ -88,6 +91,7 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
           this.logger.error(`Automations for ${t.id} failed: ${(err as Error).message}`);
         }
       }
+      result.tasks = await runTickTasks();
       return result;
     } finally {
       this.ticking = false;

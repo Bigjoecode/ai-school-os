@@ -43,6 +43,7 @@ export const PERMISSION_GROUPS = [
     permissions: {
       'lessons.read': 'View lesson plans',
       'lessons.manage': 'Create, generate and edit lesson plans',
+      'lessons.approve': 'Vet lesson notes: approve or return them with comments',
     },
   },
   {
@@ -168,6 +169,23 @@ export const PERMISSION_GROUPS = [
     permissions: {
       'reception.read': 'View the visitor book, enquiries and pick-ups',
       'reception.manage': 'Sign visitors in and out, log enquiries and early pick-ups',
+    },
+  },
+  {
+    module: 'welfare',
+    label: 'Behaviour & Health',
+    permissions: {
+      'welfare.read': 'View behaviour records, sick-bay visits and medical details',
+      'behaviour.manage': 'Record merits, demerits and incidents',
+      'health.manage': "Record sick-bay visits and students' medical details",
+    },
+  },
+  {
+    module: 'admissions',
+    label: 'Admissions',
+    permissions: {
+      'admissions.read': 'View applications and the admissions pipeline',
+      'admissions.manage': 'Record applications, schedule entrance exams, offer places and enrol',
     },
   },
   {

@@ -1,10 +1,11 @@
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'node:crypto';
-import type { AuthResponse, LoginInput } from '@aischool/shared';
+import type { AuthResponse, LoginInput, TwoFactorChallengeResponse, TwoFactorLoginInput } from '@aischool/shared';
 import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AccessService } from './access.service';
+import { TWO_FACTOR_CHALLENGE_TTL_SECONDS, TwoFactorService } from './two-factor.service';
 import { burnPasswordCheck, verifyPassword } from './password';
 import {
   ACCESS_TOKEN_TTL_SECONDS,
@@ -32,9 +33,14 @@ export class AuthService {
     private readonly jwt: JwtService,
     private readonly access: AccessService,
     private readonly audit: AuditService,
+    private readonly twoFactor: TwoFactorService,
   ) {}
 
-  async login(input: LoginInput, client: ClientInfo): Promise<IssuedSession> {
+  /**
+   * Password sign-in. With two-step sign-in on, no session is issued yet:
+   * the caller gets a 5-minute challenge to complete with POST /auth/2fa.
+   */
+  async login(input: LoginInput, client: ClientInfo): Promise<IssuedSession | TwoFactorChallengeResponse> {
     const user = await this.prisma.root.user.findUnique({ where: { email: input.email } });
     if (!user) {
       await burnPasswordCheck(input.password);
@@ -52,14 +58,70 @@ export class AuthService {
     if (user.status === 'DISABLED') throw new ForbiddenException('This account has been disabled');
 
     const tenantId = await this.pickTenant(user.id, user.platformRole, input.school, client.host);
-    const issued = await this.issue(user.id, tenantId, randomUUID(), client);
+    if (user.totpEnabledAt) {
+      return {
+        twoFactorRequired: true,
+        challenge: await this.twoFactor.issueChallenge(user.id, tenantId),
+        expiresIn: TWO_FACTOR_CHALLENGE_TTL_SECONDS,
+      };
+    }
+    return this.finishLogin(user, tenantId, client, 'password');
+  }
 
+  /** Second step: a code from the authenticator app, or one recovery code (used up). */
+  async completeTwoFactor(input: TwoFactorLoginInput, client: ClientInfo): Promise<IssuedSession> {
+    const challenge = await this.twoFactor.readChallenge(input.challenge);
+    const user = await this.prisma.root.user.findUnique({ where: { id: challenge.sub } });
+    if (!user || user.status === 'DISABLED') throw new ForbiddenException('This account has been disabled');
+    if (!user.totpEnabledAt) {
+      // Reset by an admin between the two steps: the password was already checked.
+      this.twoFactor.markChallengeUsed(challenge.jti);
+      return this.finishLogin(user, challenge.tid, client, 'password');
+    }
+
+    const method = await this.twoFactor.checkSecondFactor(user, input);
+    if (!method) {
+      this.twoFactor.noteFailedAttempt(challenge.jti);
+      await this.audit.log({
+        action: 'auth.2fa_failed',
+        summary: `Wrong two-step ${input.recoveryCode ? 'recovery code' : 'code'} for ${user.email}`,
+        tenantId: challenge.tid,
+        actorUserId: user.id,
+      });
+      throw new UnauthorizedException(
+        input.recoveryCode ? "That recovery code didn't work (each code works once)." : "That code didn't match. Try the newest code in your app.",
+      );
+    }
+    this.twoFactor.markChallengeUsed(challenge.jti);
+    if (method === 'recovery') {
+      const left = user.recoveryCodes.length - 1;
+      await this.audit.log({
+        action: 'auth.2fa_recovery_used',
+        entityType: 'User',
+        entityId: user.id,
+        summary: `${user.firstName} ${user.lastName} signed in with a recovery code (${left} left)`,
+        tenantId: challenge.tid,
+        actorUserId: user.id,
+        metadata: { left },
+      });
+    }
+    return this.finishLogin(user, challenge.tid, client, method);
+  }
+
+  private async finishLogin(
+    user: { id: string; firstName: string; lastName: string },
+    tenantId: string | null,
+    client: ClientInfo,
+    method: 'password' | 'totp' | 'recovery',
+  ): Promise<IssuedSession> {
+    const issued = await this.issue(user.id, tenantId, randomUUID(), client);
     await this.prisma.root.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
     await this.audit.log({
       action: 'auth.login',
-      summary: `${user.firstName} ${user.lastName} signed in`,
+      summary: `${user.firstName} ${user.lastName} signed in${method === 'password' ? '' : ' with two-step sign-in'}`,
       tenantId,
       actorUserId: user.id,
+      metadata: method === 'password' ? undefined : { secondFactor: method },
     });
     return issued;
   }

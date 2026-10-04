@@ -50,26 +50,26 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
       'ai.use',
       'ai.admin',
       'audit.read',
-      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use', 'sponsorship.manage', 'knowledge.manage',
+      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use', 'sponsorship.manage', 'knowledge.manage', 'admissions.read', 'admissions.manage', 'lessons.approve', 'welfare.read', 'behaviour.manage', 'health.manage',
     ],
   },
   {
     key: 'vice_principal',
     name: 'Vice Principal',
     description: 'Supports the principal across academics and discipline.',
-    permissions: [...readCore, 'academics.manage', 'students.manage', 'curriculum.read', 'curriculum.manage', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'results.publish', 'timetable.read', 'timetable.manage', 'attendance.read', 'attendance.take', 'attendance.manage', 'hr.read', 'hr.self', 'ai.use', 'library.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage'],
+    permissions: [...readCore, 'academics.manage', 'students.manage', 'curriculum.read', 'curriculum.manage', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'results.publish', 'timetable.read', 'timetable.manage', 'attendance.read', 'attendance.take', 'attendance.manage', 'hr.read', 'hr.self', 'ai.use', 'library.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'lessons.approve', 'welfare.read', 'behaviour.manage', 'health.manage'],
   },
   {
     key: 'academic_coordinator',
     name: 'Academic Coordinator',
     description: 'Owns curriculum, schemes, timetable and assessment.',
-    permissions: [...readCore, 'academics.manage', 'curriculum.read', 'curriculum.manage', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'results.publish', 'timetable.read', 'timetable.manage', 'attendance.read', 'attendance.take', 'hr.self', 'ai.use', 'library.read', 'documents.issue', 'comms.read', 'events.manage', 'live.read', 'live.manage', 'homework.manage'],
+    permissions: [...readCore, 'academics.manage', 'curriculum.read', 'curriculum.manage', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'results.publish', 'timetable.read', 'timetable.manage', 'attendance.read', 'attendance.take', 'hr.self', 'ai.use', 'library.read', 'documents.issue', 'comms.read', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'lessons.approve', 'welfare.read'],
   },
   {
     key: 'teacher',
     name: 'Teacher',
     description: 'Teaches classes, records attendance and results.',
-    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'curriculum.read', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'timetable.read', 'attendance.read', 'attendance.take', 'hr.self', 'ai.use', 'library.read', 'comms.read', 'live.read', 'live.host', 'homework.manage'],
+    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'curriculum.read', 'lessons.read', 'lessons.manage', 'assessment.read', 'assessment.manage', 'results.read', 'results.enter', 'timetable.read', 'attendance.read', 'attendance.take', 'hr.self', 'ai.use', 'library.read', 'comms.read', 'live.read', 'live.host', 'homework.manage', 'welfare.read', 'behaviour.manage'],
   },
   {
     key: 'accountant',
@@ -87,7 +87,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     key: 'receptionist',
     name: 'Receptionist',
     description: 'Front desk: visitors, enquiries and admissions.',
-    permissions: ['school.read', 'students.read', 'guardians.read', 'timetable.read', 'attendance.read', 'hr.self', 'reception.read', 'reception.manage', 'transport.read', 'hostel.read', 'staff.read', 'comms.read', 'comms.send'],
+    permissions: ['school.read', 'students.read', 'guardians.read', 'timetable.read', 'attendance.read', 'hr.self', 'reception.read', 'reception.manage', 'transport.read', 'hostel.read', 'staff.read', 'comms.read', 'comms.send', 'admissions.read', 'admissions.manage'],
   },
   {
     key: 'librarian',
@@ -106,6 +106,12 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     name: 'Hostel Manager',
     description: 'Runs boarding and hostels.',
     permissions: ['school.read', 'students.read', 'timetable.read', 'hr.self', 'hostel.read', 'hostel.manage', 'guardians.read', 'staff.read', 'comms.read', 'comms.send'],
+  },
+  {
+    key: 'school_nurse',
+    name: 'School Nurse',
+    description: "Runs the sick bay and keeps students' medical details.",
+    permissions: ['school.read', 'academics.read', 'students.read', 'guardians.read', 'attendance.read', 'hr.self', 'welfare.read', 'health.manage', 'comms.read', 'comms.send'],
   },
   {
     key: 'parent',

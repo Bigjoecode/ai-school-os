@@ -13,6 +13,7 @@ import {
   BookUser,
   CalendarClock,
   ConciergeBell,
+  FilePlus2,
   DoorOpen,
   Inbox,
   LogOut,
@@ -26,7 +27,7 @@ import {
   Users,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -546,6 +547,8 @@ function EnquiriesTab({ onEdit }: { onEdit: (e: EnquiryRow) => void }) {
 function EnquiryCard({ e, onEdit, onReply, showStatus }: { e: EnquiryRow; onEdit: (e: EnquiryRow) => void; onReply: (e: EnquiryRow) => void; showStatus?: boolean }) {
   const canManage = useCan('reception.manage');
   const canAi = useCan('ai.use');
+  const canApply = useCan('admissions.manage');
+  const navigate = useNavigate();
   const move = useMoveEnquiry();
   const today = schoolToday();
   const followLabel: ReactNode = e.followUpOn ? (
@@ -590,6 +593,11 @@ function EnquiryCard({ e, onEdit, onReply, showStatus }: { e: EnquiryRow; onEdit
               {canAi && (
                 <DropdownMenuItem onSelect={() => onReply(e)}>
                   <Sparkles /> Draft reply with AI
+                </DropdownMenuItem>
+              )}
+              {canApply && e.status !== 'ENROLLED' && e.status !== 'CLOSED' && (
+                <DropdownMenuItem onSelect={() => navigate(`/admissions/new?enquiry=${e.id}`)}>
+                  <FilePlus2 /> {e.status === 'APPLIED' ? 'Open or start application' : 'Start an application'}
                 </DropdownMenuItem>
               )}
               <DropdownMenuSeparator />

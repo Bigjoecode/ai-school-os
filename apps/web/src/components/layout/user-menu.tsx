@@ -1,4 +1,4 @@
-import { LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
+import { KeyRound, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useSignOut } from '@/features/auth/session';
 import { useMe } from '@/lib/auth-store';
@@ -58,6 +58,9 @@ export function UserMenu() {
         )}
         <DropdownMenuItem onSelect={() => navigate('/settings/users')} disabled={!me.permissions.includes('users.read')}>
           <UserRound /> Users & roles
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => navigate('/settings/security')}>
+          <KeyRound /> Security & two-step sign-in
         </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={(e) => {

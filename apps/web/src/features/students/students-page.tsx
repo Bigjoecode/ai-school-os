@@ -28,7 +28,7 @@ function classLabel(s: StudentRow) {
 export default function StudentsPage() {
   const [params, setParams] = useSearchParams();
   const canManage = useCan('students.manage');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => params.get('q') ?? '');
   const [page, setPage] = useState(1);
   const [classArmId, setClassArmId] = useState<string | undefined>();
   const [status, setStatus] = useState<string | undefined>();

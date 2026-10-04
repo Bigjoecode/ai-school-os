@@ -6,6 +6,8 @@ import { AccessService } from './access.service';
 import { AuthController } from './auth.controller';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { TwoFactorController } from './two-factor.controller';
+import { TwoFactorService } from './two-factor.service';
 
 @Global()
 @Module({
@@ -14,9 +16,9 @@ import { AuthService } from './auth.service';
       useFactory: () => ({ secret: env().JWT_SECRET, signOptions: { algorithm: 'HS256' } }),
     }),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, AccessService, { provide: APP_GUARD, useClass: AuthGuard }],
+  controllers: [AuthController, TwoFactorController],
+  providers: [AuthService, AccessService, TwoFactorService, { provide: APP_GUARD, useClass: AuthGuard }],
   // JwtModule is shared so other modules can sign short-lived tokens (e.g. the check-in kiosk).
-  exports: [AccessService, JwtModule],
+  exports: [AccessService, TwoFactorService, JwtModule],
 })
 export class AuthModule {}

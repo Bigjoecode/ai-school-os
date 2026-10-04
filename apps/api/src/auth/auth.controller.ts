@@ -4,9 +4,12 @@ import type { Request, Response } from 'express';
 import {
   loginSchema,
   switchTenantSchema,
+  twoFactorLoginSchema,
   type AuthResponse,
   type LoginInput,
   type MeResponse,
+  type TwoFactorChallengeResponse,
+  type TwoFactorLoginInput,
 } from '@aischool/shared';
 import { AllowNoTenant, Public } from '../common/decorators';
 import { currentContext } from '../common/request-context';
@@ -14,6 +17,7 @@ import { ZodPipe } from '../common/zod.pipe';
 import { AccessService } from './access.service';
 import { AuthService, type IssuedSession } from './auth.service';
 import { REFRESH_COOKIE, refreshCookieOptions } from './tokens';
+import { AllowWithoutTwoFactor } from './two-factor.decorator';
 
 function clientInfo(req: Request) {
   return {
@@ -38,8 +42,23 @@ export class AuthController {
     @Body(new ZodPipe(loginSchema)) body: LoginInput,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
+  ): Promise<AuthResponse | TwoFactorChallengeResponse> {
+    const result = await this.auth.login(body, clientInfo(req));
+    if ('twoFactorRequired' in result) return result;
+    return this.send(res, result);
+  }
+
+  /** Second step of sign-in: the challenge from /auth/login plus a code (or a recovery code). */
+  @Public()
+  @Post('2fa')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 10, ttl: 5 * 60_000 } })
+  async twoFactor(
+    @Body(new ZodPipe(twoFactorLoginSchema)) body: TwoFactorLoginInput,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<AuthResponse> {
-    return this.send(res, await this.auth.login(body, clientInfo(req)));
+    return this.send(res, await this.auth.completeTwoFactor(body, clientInfo(req)));
   }
 
   @Public()
@@ -64,6 +83,7 @@ export class AuthController {
   }
 
   @AllowNoTenant()
+  @AllowWithoutTwoFactor()
   @Get('me')
   async me(): Promise<MeResponse> {
     const ctx = currentContext();
@@ -73,6 +93,7 @@ export class AuthController {
   }
 
   @AllowNoTenant()
+  @AllowWithoutTwoFactor()
   @Post('switch-tenant')
   @HttpCode(200)
   async switchTenant(

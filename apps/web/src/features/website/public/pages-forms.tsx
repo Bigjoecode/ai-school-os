@@ -1,6 +1,6 @@
-import { applicationFormSchema, contactFormSchema, resultCheckSchema, type PublicResult } from '@aischool/shared';
+import { applicationFormSchema, applicationStatusCheckSchema, contactFormSchema, resultCheckSchema, type PublicApplicationStatus, type PublicResult } from '@aischool/shared';
 import { useMutation } from '@tanstack/react-query';
-import { Award, CheckCircle2, Clock, FileCheck2, KeyRound, Lock, Mail, MapPin, MessageCircle, Phone, Printer, RotateCcw } from 'lucide-react';
+import { Award, CheckCircle2, Clock, FileCheck2, KeyRound, ListChecks, Lock, Mail, MapPin, MessageCircle, Phone, Printer, RotateCcw } from 'lucide-react';
 import * as React from 'react';
 import { api, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
@@ -14,6 +14,8 @@ const FRIENDLY: Record<string, string> = {
   phone: 'Please enter a phone number we can call',
   email: 'That email address doesn’t look right',
   childName: 'Please enter your child’s name',
+  childGender: 'Choose boy or girl',
+  number: 'Enter the application number, e.g. APP/2026/0012',
   childDateOfBirth: 'Use a valid date',
   classOfInterest: 'Choose the class you’re applying for',
   name: 'Please enter your name',
@@ -132,6 +134,9 @@ export function AdmissionsPage() {
       <Section tone="surface" id="apply" className="scroll-mt-20">
         {a.open ? <ApplicationForm /> : <AdmissionsClosed />}
       </Section>
+      <Section id="status" className="scroll-mt-20">
+        <ApplicationStatusCheck />
+      </Section>
     </>
   );
 }
@@ -160,7 +165,7 @@ function AdmissionsClosed() {
   );
 }
 
-const emptyApplication = { parentName: '', phone: '', email: '', childName: '', childDateOfBirth: '', classOfInterest: '', entryTerm: '', currentSchool: '', message: '', website: '' };
+const emptyApplication = { parentName: '', phone: '', email: '', childName: '', childGender: '', childDateOfBirth: '', classOfInterest: '', entryTerm: '', currentSchool: '', message: '', website: '' };
 
 function ApplicationForm() {
   const { site, slug } = useSite();
@@ -183,7 +188,7 @@ function ApplicationForm() {
   };
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = applicationFormSchema.safeParse({ ...v, childDateOfBirth: v.childDateOfBirth || null, entryTerm: v.entryTerm || null });
+    const parsed = applicationFormSchema.safeParse({ ...v, childGender: v.childGender || undefined, childDateOfBirth: v.childDateOfBirth || null, entryTerm: v.entryTerm || null });
     if (!parsed.success) {
       setErrors(fieldErrors(parsed.error.issues));
       return;
@@ -203,7 +208,7 @@ function ApplicationForm() {
             <Lock className="mt-0.5 size-4 shrink-0 text-site" aria-hidden /> Your details go only to the school’s admissions office.
           </li>
           <li className="flex gap-3">
-            <Clock className="mt-0.5 size-4 shrink-0 text-site" aria-hidden /> No payment needed to apply.
+            <Clock className="mt-0.5 size-4 shrink-0 text-site" aria-hidden /> You’ll get an application number to follow its progress on this page.
           </li>
         </ul>
       </div>
@@ -229,6 +234,13 @@ function ApplicationForm() {
             <div className="grid gap-5 sm:grid-cols-2 [&>*]:min-w-0">
               <SiteField label="Child’s full name" htmlFor="ap-child" error={errors.childName}>
                 <input id="ap-child" className={siteInput} value={v.childName} onChange={set('childName')} aria-invalid={!!errors.childName} />
+              </SiteField>
+              <SiteField label="Boy or girl" htmlFor="ap-gender" error={errors.childGender}>
+                <select id="ap-gender" className={cn(siteInput, 'pr-8')} value={v.childGender} onChange={set('childGender')} aria-invalid={!!errors.childGender}>
+                  <option value="">Choose…</option>
+                  <option value="FEMALE">Girl</option>
+                  <option value="MALE">Boy</option>
+                </select>
               </SiteField>
               <SiteField label="Date of birth" htmlFor="ap-dob" optional error={errors.childDateOfBirth}>
                 <input id="ap-dob" type="date" className={cn(siteInput, '[color-scheme:light]')} value={v.childDateOfBirth} onChange={set('childDateOfBirth')} aria-invalid={!!errors.childDateOfBirth} />
@@ -271,6 +283,88 @@ function ApplicationForm() {
             <FormAlert message={submit.error ? errorMessage(submit.error) : null} />
             <SiteButton type="submit" size="lg" loading={submit.isPending} className="w-full sm:w-auto sm:justify-self-start">
               Submit application
+            </SiteButton>
+          </form>
+        )}
+      </SiteCard>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------ application status
+
+function statusWhen(iso: string) {
+  return new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(iso));
+}
+
+function ApplicationStatusCheck() {
+  const { slug } = useSite();
+  const [v, setV] = React.useState({ number: '', phone: '', website: '' });
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const check = useMutation({
+    mutationFn: (body: unknown) => api.post<PublicApplicationStatus>(`/public/sites/${encodeURIComponent(slug)}/application-status`, body),
+    meta: { silent: true },
+  });
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsed = applicationStatusCheckSchema.safeParse({ ...v, number: v.number.trim().toUpperCase() });
+    if (!parsed.success) {
+      setErrors(fieldErrors(parsed.error.issues));
+      return;
+    }
+    setErrors({});
+    check.mutate(parsed.data);
+  };
+  const r = check.data;
+  return (
+    <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.5fr] [&>*]:min-w-0">
+      <div>
+        <Eyebrow className="mb-3">Already applied?</Eyebrow>
+        <h2 className="site-h text-[26px] font-semibold leading-tight text-site-ink sm:text-[30px]">Check your application</h2>
+        <p className="mt-4 text-[16px] leading-relaxed text-site-muted">Enter the application number we gave you and the phone number on the application.</p>
+      </div>
+      <SiteCard className="p-5 sm:p-8">
+        {r ? (
+          <div role="status" className="grid gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono text-[13px] text-site-muted">{r.number}</span>
+              <Chip tone="accent">{r.label}</Chip>
+            </div>
+            <p className="site-h text-[20px] font-semibold text-site-ink">{r.childFirstName}’s application</p>
+            <p className="text-[15.5px] leading-relaxed text-site-ink/85">{r.message}</p>
+            {(r.examAt || r.interviewAt) && (
+              <ul className="space-y-1.5 text-[14.5px] text-site-ink/85">
+                {r.examAt && (
+                  <li className="flex gap-2">
+                    <Clock className="mt-0.5 size-4 shrink-0 text-site" aria-hidden /> Entrance exam: {statusWhen(r.examAt)}
+                    {r.examVenue ? `, ${r.examVenue}` : ''}
+                  </li>
+                )}
+                {r.interviewAt && (
+                  <li className="flex gap-2">
+                    <Clock className="mt-0.5 size-4 shrink-0 text-site" aria-hidden /> Interview: {statusWhen(r.interviewAt)}
+                  </li>
+                )}
+              </ul>
+            )}
+            <SiteButton type="button" tone="outline" onClick={() => check.reset()} className="justify-self-start">
+              <RotateCcw aria-hidden /> Check another
+            </SiteButton>
+          </div>
+        ) : (
+          <form onSubmit={onSubmit} noValidate className="grid gap-5">
+            <Honeypot value={v.website} onChange={(website) => setV((x) => ({ ...x, website }))} />
+            <div className="grid gap-5 sm:grid-cols-2 [&>*]:min-w-0">
+              <SiteField label="Application number" htmlFor="as-number" error={errors.number}>
+                <input id="as-number" className={cn(siteInput, 'font-mono uppercase tracking-wide')} autoComplete="off" placeholder="APP/2026/0012" value={v.number} onChange={(e) => setV((x) => ({ ...x, number: e.target.value }))} aria-invalid={!!errors.number} />
+              </SiteField>
+              <SiteField label="Phone number" htmlFor="as-phone" error={errors.phone}>
+                <input id="as-phone" type="tel" inputMode="tel" className={siteInput} autoComplete="tel" value={v.phone} onChange={(e) => setV((x) => ({ ...x, phone: e.target.value }))} aria-invalid={!!errors.phone} />
+              </SiteField>
+            </div>
+            <FormAlert message={check.error ? errorMessage(check.error) : null} />
+            <SiteButton type="submit" size="lg" loading={check.isPending} className="w-full sm:w-auto sm:justify-self-start">
+              <ListChecks aria-hidden /> Check status
             </SiteButton>
           </form>
         )}

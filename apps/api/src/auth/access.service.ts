@@ -18,6 +18,8 @@ export interface ResolvedAccess {
     avatarUrl: string | null;
     platformRole: PlatformRole | null;
     status: string;
+    /** Two-step sign-in is switched on (enforced by the guard when a policy requires it). */
+    twoFactorEnabled: boolean;
   };
   tenant: {
     id: string;
@@ -73,6 +75,7 @@ export class AccessService {
         avatarUrl: user.avatarUrl,
         platformRole: user.platformRole,
         status: user.status,
+        twoFactorEnabled: !!user.totpEnabledAt,
       },
       tenant: null,
       roles: [],
@@ -133,7 +136,7 @@ export class AccessService {
   async me(userId: string, tenantId: string | null): Promise<MeResponse | null> {
     const access = await this.resolve(userId, tenantId);
     if (!access) return null;
-    const { status: _status, ...user } = access.user;
+    const { status: _status, twoFactorEnabled: _tfa, ...user } = access.user;
     const tenant = access.tenant ? (({ status: _s, ...t }) => t)(access.tenant) : null;
     return {
       user,

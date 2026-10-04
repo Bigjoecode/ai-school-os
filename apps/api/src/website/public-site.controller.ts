@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Throttle } from '@nestjs/throttler';
 import type { Request } from 'express';
 import {
+  alumniSignupSchema,
   applicationFormSchema,
   applicationStatusCheckSchema,
   assistantRequestSchema,
@@ -23,6 +24,7 @@ import {
 } from '@aischool/shared';
 import { z } from 'zod';
 import { AdmissionsService } from '../admissions/admissions.service';
+import { selfRegister } from '../alumni/alumni.service';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
 import { Public } from '../common/decorators';
@@ -206,6 +208,18 @@ export class PublicSiteController {
       number: app.number,
       message: `Thank you, ${body.parentName.split(' ')[0]}. Your application for ${body.childName} has been received — your application number is ${app.number}. Keep it to check your application's progress on this website; the admissions office will contact you shortly.${fee}`,
     };
+  }
+
+  /** Old students sign up (or update their details); staff verify them in Alumni. */
+  @Post('sites/:slug/alumni')
+  @Public()
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  async alumni(@Param('slug') slug: string, @Body(new ZodPipe(alumniSignupSchema)) body: z.infer<typeof alumniSignupSchema>) {
+    const t = await this.site.siteTenant(slug);
+    if (!t.settings.sections.alumni) throw new NotFoundException('This school is not collecting alumni details on its website');
+    const r = await selfRegister(this.prisma, t.id, body);
+    await this.audit.log({ tenantId: t.id, actorUserId: null, action: 'website.alumni_signup', entityType: 'AlumniProfile', entityId: r.id, summary: `${body.firstName} ${body.lastName} (class of ${body.graduationYear}) ${r.updated ? 'updated their alumni sign-up' : 'signed up as an old student'} on the website` });
+    return { ok: true, message: `Thank you, ${body.firstName}. Your details have been sent to the school — once they are confirmed you will be part of the ${t.name} alumni community.` };
   }
 
   /** "Where is my application?" — the number and the parent's phone must both match. */

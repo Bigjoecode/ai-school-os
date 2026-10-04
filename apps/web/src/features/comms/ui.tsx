@@ -83,6 +83,7 @@ export const SOURCE_LABELS: Record<BroadcastSource, string> = {
   CLASS_SUMMARY: 'Class summary',
   ADMISSIONS: 'Admissions',
   WELFARE: 'Behaviour & health',
+  ALUMNI: 'Alumni',
 };
 
 export function SourceBadge({ source }: { source: BroadcastSource }) {

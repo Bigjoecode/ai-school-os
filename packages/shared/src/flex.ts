@@ -43,6 +43,7 @@ export const REPORT_STUDENT_FIELDS = {
   attendance: 'Attendance',
   nextTermBegins: 'Next term begins',
   feesOwed: 'Fees owed',
+  house: 'House',
 } as const;
 export type ReportStudentField = keyof typeof REPORT_STUDENT_FIELDS;
 

@@ -74,6 +74,8 @@ interface StudentOp {
   data: { firstName: string; middleName: string | null; lastName: string; gender: 'MALE' | 'FEMALE'; dateOfBirth: string | null; admittedOn: string | null; address: string | null; medicalNotes: string | null; admissionNumber: string | null };
   classArmId: string | null;
   newArm: { levelId: string; name: string; label: string } | null;
+  /** School house, matched by name ("Aggrey" or "Aggrey House"). */
+  houseId: string | null;
   parents: { key: string; first: string; last: string; relationship: string; phone: string; email: string | null }[];
 }
 interface StaffOp {
@@ -159,11 +161,14 @@ export class ImportService {
   private async planStudents(req: ImportRequest) {
     const p = this.parse('STUDENTS', req.csv);
     const db = this.prisma.db;
-    const [levels, existing, guardians] = await Promise.all([
+    const [levels, existing, guardians, houses] = await Promise.all([
       db.classLevel.findMany({ include: { arms: true } }),
       db.student.findMany({ select: { id: true, admissionNumber: true, firstName: true, lastName: true, dateOfBirth: true } }),
       db.guardian.findMany({ select: { id: true, phone: true } }),
+      db.house.findMany({ select: { id: true, name: true } }),
     ]);
+    const houseKey = (s: string) => compact(s.replace(/\s*house$/i, ''));
+    const houseIds = new Map(houses.map((h) => [houseKey(h.name), h.id]));
     const armKeys = new Map<string, { id: string; label: string }>();
     for (const l of levels) for (const a of l.arms) for (const name of [l.name, l.code]) armKeys.set(compact(`${name}${a.name}`), { id: a.id, label: `${l.name} ${a.name}` });
     const byAdm = new Map(existing.map((s) => [s.admissionNumber.toLowerCase(), s.id]));
@@ -217,6 +222,10 @@ export class ImportService {
         }
       }
 
+      const houseName = r.get('house');
+      const houseId = houseName ? (houseIds.get(houseKey(houseName)) ?? null) : null;
+      if (houseName && !houseId) msgs.push(`House "${houseName}" doesn't exist, so it wasn't added (create it on the Houses page first)`);
+
       const parents: StudentOp['parents'] = [];
       for (const [n, rel, ph, em, def] of [
         ['parentName', 'parentRelationship', 'parentPhone', 'parentEmail', 'Parent'],
@@ -261,6 +270,7 @@ export class ImportService {
         data: { firstName: first, middleName: titleCase(r.get('middleName')) || null, lastName: last, gender: gender!, dateOfBirth: dob, admittedOn: admitted, address: r.get('address') || null, medicalNotes: r.get('medicalNotes') || null, admissionNumber: adm || null },
         classArmId,
         newArm,
+        houseId,
         parents,
       });
     }
@@ -306,6 +316,7 @@ export class ImportService {
           dateOfBirth: date(o.data.dateOfBirth),
           admittedOn: date(o.data.admittedOn) ?? new Date(),
           classArmId: o.classArmId,
+          houseId: o.houseId,
         })),
         select: { id: true },
       });
@@ -313,7 +324,7 @@ export class ImportService {
     }
     for (const o of ops.filter((x) => x.action === 'UPDATE')) {
       const { admissionNumber: _a, ...data } = o.data;
-      await db.student.update({ where: { id: o.existingId! }, data: { ...data, dateOfBirth: date(o.data.dateOfBirth) ?? undefined, admittedOn: date(o.data.admittedOn) ?? undefined, ...(o.classArmId ? { classArmId: o.classArmId } : {}) } });
+      await db.student.update({ where: { id: o.existingId! }, data: { ...data, dateOfBirth: date(o.data.dateOfBirth) ?? undefined, admittedOn: date(o.data.admittedOn) ?? undefined, ...(o.classArmId ? { classArmId: o.classArmId } : {}), ...(o.houseId ? { houseId: o.houseId } : {}) } });
       studentIds.set(o.line, o.existingId!);
     }
 

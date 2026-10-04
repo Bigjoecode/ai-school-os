@@ -185,6 +185,7 @@ export const IMPORT_FIELDS: Record<ImportKind, { field: string; label: string; r
     { field: 'dateOfBirth', label: 'Date of birth', aliases: ['date of birth', 'dob', 'birth date', 'birthday'], example: '2013-04-21' },
     { field: 'class', label: 'Class (level and arm)', aliases: ['class', 'class arm', 'form', 'class name'], example: 'JSS 1 A' },
     { field: 'admittedOn', label: 'Admission date', aliases: ['admission date', 'date admitted', 'admitted on', 'date of admission'], example: '2024-09-09' },
+    { field: 'house', label: 'House', aliases: ['house', 'school house', 'sports house'], example: 'Aggrey' },
     { field: 'address', label: 'Home address', aliases: ['address', 'home address'], example: '12 Admiralty Way, Lekki' },
     { field: 'medicalNotes', label: 'Medical notes', aliases: ['medical notes', 'medical', 'allergies', 'health'], example: 'Asthma: inhaler in bag' },
     { field: 'parentName', label: 'Parent/guardian name', aliases: ['parent name', 'guardian name', 'father name', 'parent', 'guardian', 'parent/guardian name'], example: 'Mr Emeka Okafor' },

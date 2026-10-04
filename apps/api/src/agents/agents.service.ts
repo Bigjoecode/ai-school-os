@@ -61,7 +61,11 @@ export class AgentsService {
     }));
   }
 
-  async chat(input: AiChatInput): Promise<AiChatResponse> {
+  /**
+   * `opts.style` adds channel-specific instructions (e.g. the WhatsApp
+   * assistant's plain, short replies) to the assistant's system prompt.
+   */
+  async chat(input: AiChatInput, opts: { style?: string } = {}): Promise<AiChatResponse> {
     const ctx = currentContext();
     if (!this.canOpen(input.agent)) throw new ForbiddenException(`${AGENTS[input.agent].label} isn't available for your role`);
     const userId = ctx.userId!;
@@ -83,7 +87,7 @@ export class AgentsService {
     const allowed = new Set(specs.map((s) => s.name));
     const toolCalls: AiToolCall[] = [];
     const actions: AiProposedAction[] = [];
-    const who = `You are talking to ${user.firstName} ${user.lastName}.`;
+    const who = [`You are talking to ${user.firstName} ${user.lastName}.`, opts.style].filter(Boolean).join('\n\n');
 
     const result = await this.gateway.generateWithTools(
       {

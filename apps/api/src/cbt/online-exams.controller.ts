@@ -221,8 +221,11 @@ export class OnlineExamsController {
     const updated = await this.prisma.db.onlineExam.update({ where: { id }, data: { resultsReleasedAt: body.released ? (exam.resultsReleasedAt ?? new Date()) : null } });
     await this.audit.log({ action: body.released ? 'cbt.released' : 'cbt.unreleased', entityType: 'OnlineExam', entityId: id, summary: `${body.released ? 'Released' : 'Withdrew'} results of "${exam.title}"` });
     if (body.released && !exam.resultsReleasedAt) {
-      const sat = await this.prisma.db.onlineExamAttempt.findMany({ where: { examId: id, status: { not: 'IN_PROGRESS' } }, select: { studentId: true } });
+      const sat = await this.prisma.db.onlineExamAttempt.findMany({ where: { examId: id, status: { not: 'IN_PROGRESS' } }, select: { studentId: true, status: true } });
       await this.notifyStudents(updated, `Results are out: ${exam.title}`, 'Open the exam to see your score and review your answers.', sat.map((s) => s.studentId));
+      // Parents too; those told when the marking finished (results straight after submitting) aren't told twice.
+      const told = (s: { status: string }) => exam.showResults === 'IMMEDIATE' && s.status === 'MARKED';
+      await this.cbt.notifyGuardians(currentTenantId(), updated, sat.filter((s) => !told(s)).map((s) => s.studentId));
     }
     return (await this.cbt.summaries([updated], scope))[0]!;
   }

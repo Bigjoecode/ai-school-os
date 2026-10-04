@@ -32,6 +32,9 @@ import { BackupModule } from './backup/backup.module';
 import { PromotionModule } from './promotion/promotion.module';
 import { WebsiteModule } from './website/website.module';
 import { CbtModule } from './cbt/cbt.module';
+import { AlumniModule } from './alumni/alumni.module';
+import { HousesModule } from './houses/houses.module';
+import { WhatsappAssistantModule } from './comms/whatsapp-assistant.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
@@ -106,6 +109,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     PortalModule,
     WelfareModule,
     AgentsModule,
+    WhatsappAssistantModule,
     FilesModule,
     WebsiteModule,
     ConsoleModule,
@@ -118,6 +122,8 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     MaterialsModule,
     PromotionModule,
     BackupModule,
+    AlumniModule,
+    HousesModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

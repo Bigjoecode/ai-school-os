@@ -83,6 +83,7 @@ const MessagesPage = lazy(() => import('@/features/comms/messages-page'));
 const ComposePage = lazy(() => import('@/features/comms/compose-page'));
 const BroadcastPage = lazy(() => import('@/features/comms/broadcast-page'));
 const CommsSettingsPage = lazy(() => import('@/features/comms/settings-page'));
+const WhatsappAssistantPage = lazy(() => import('@/features/comms/whatsapp-assistant-page'));
 const NoticeboardPage = lazy(() => import('@/features/comms/noticeboard-page'));
 const CalendarPage = lazy(() => import('@/features/comms/calendar-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
@@ -152,6 +153,8 @@ const PortalDownloadsPage = lazy(() => import('@/features/portal/downloads-page'
 const PortalWelfarePage = lazy(() => import('@/features/portal/welfare-page'));
 const BehaviourPage = lazy(() => import('@/features/welfare/behaviour-page'));
 const SickBayPage = lazy(() => import('@/features/welfare/sick-bay-page'));
+const HousesPage = lazy(() => import('@/features/houses/houses-page'));
+const AlumniPage = lazy(() => import('@/features/alumni/alumni-page'));
 const PortalFeesPage = lazy(() => import('@/features/portal/fees-page'));
 const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
@@ -503,6 +506,22 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequirePermission>
         ),
       },
+      {
+        path: 'houses',
+        element: (
+          <RequirePermission permission="school.read">
+            <HousesPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'alumni',
+        element: (
+          <RequirePermission permission="alumni.read">
+            <AlumniPage />
+          </RequirePermission>
+        ),
+      },
       ...(
         [
           ['fees', <FeesPage key="fees" />],
@@ -588,6 +607,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['messages', 'comms.read', <MessagesPage key="messages" />],
           ['messages/new', 'comms.send', <ComposePage key="compose" />],
           ['messages/settings', 'comms.read', <CommsSettingsPage key="comms-settings" />],
+          ['messages/whatsapp', 'comms.read', <WhatsappAssistantPage key="whatsapp-assistant" />],
           ['messages/:id', 'comms.read', <BroadcastPage key="broadcast" />],
           ['messages/:id/edit', 'comms.send', <ComposePage key="compose-edit" />],
         ] as const

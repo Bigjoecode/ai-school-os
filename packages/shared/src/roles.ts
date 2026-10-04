@@ -50,7 +50,7 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
       'ai.use',
       'ai.admin',
       'audit.read',
-      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use', 'sponsorship.manage', 'knowledge.manage', 'admissions.read', 'admissions.manage', 'lessons.approve', 'welfare.read', 'behaviour.manage', 'health.manage',
+      'library.read', 'inventory.read', 'transport.read', 'hostel.read', 'reception.read', 'documents.issue', 'comms.read', 'comms.send', 'comms.manage', 'announcements.manage', 'events.manage', 'live.read', 'live.manage', 'homework.manage', 'website.manage', 'support.use', 'sponsorship.manage', 'knowledge.manage', 'admissions.read', 'admissions.manage', 'lessons.approve', 'welfare.read', 'behaviour.manage', 'health.manage', 'alumni.read', 'alumni.manage',
     ],
   },
   {

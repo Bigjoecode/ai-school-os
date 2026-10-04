@@ -1,6 +1,7 @@
 import { KeyRound, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useSignOut } from '@/features/auth/session';
+import { InstallMenuItem } from '@/pwa/install-menu-item';
 import { useMe } from '@/lib/auth-store';
 import { useThemeStore } from '@/lib/theme';
 import { initials, titleCase } from '@/lib/utils';
@@ -70,6 +71,7 @@ export function UserMenu() {
         >
           {resolved === 'dark' ? <Sun /> : <Moon />} {resolved === 'dark' ? 'Light theme' : 'Dark theme'}
         </DropdownMenuItem>
+        <InstallMenuItem />
         <DropdownMenuSeparator />
         <DropdownMenuItem destructive onSelect={() => void signOut()}>
           <LogOut /> Sign out

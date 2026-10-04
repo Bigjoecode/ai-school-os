@@ -13,7 +13,9 @@ import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
 import { StudentPromotionHistory } from '../academics/student-promotions';
 import { StudentAttendanceSummary } from '../attendance/student-summary';
+import { StudentDiscountsPanel } from '../finance/student-discounts';
 import { StudentFeesSummary } from '../finance/student-fees';
+import { StudentHouseRow } from '../houses/student-house';
 import { StudentLibrarySummary } from '../operations/student-library';
 import { StudentWelfarePanel } from '../welfare/medical-panel';
 import { type StudentDetail, useStudent, useUpdateStudent } from './api';
@@ -121,6 +123,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
                   {data.medicalNotes || <span className="text-muted-foreground">None recorded</span>}
                 </Detail>
               </dl>
+              <StudentHouseRow studentId={data.id} />
 
               <div className="mt-6">
                 <h3 className="mb-3 flex items-center gap-2 text-[13px] font-semibold">
@@ -158,6 +161,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
               {canWelfare && <StudentWelfarePanel studentId={data.id} onNavigate={onClose} />}
               {canAttendance && <StudentAttendanceSummary studentId={data.id} onNavigate={onClose} />}
               {canFinance && <StudentFeesSummary studentId={data.id} admissionNumber={data.admissionNumber} onNavigate={onClose} />}
+              {canFinance && <StudentDiscountsPanel student={{ id: data.id, name: fullName(data), admissionNumber: data.admissionNumber }} onNavigate={onClose} />}
               {canLibrary && <StudentLibrarySummary studentId={data.id} onNavigate={onClose} />}
             </SheetBody>
             {canManage && (

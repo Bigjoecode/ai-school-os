@@ -1,5 +1,5 @@
 import { BROADCAST_SOURCES, type BroadcastRow, type BroadcastSource, type Channel, CHANNEL_LABELS, type CommsOverview } from '@aischool/shared';
-import { AlertTriangle, CalendarClock, CheckCircle2, Coins, Gift, Inbox, Mail, PenLine, Plus, Send, Settings, Trash2, XCircle } from 'lucide-react';
+import { AlertTriangle, CalendarClock, CheckCircle2, Coins, Gift, Inbox, Mail, MessageCircle, PenLine, Plus, Send, Settings, Trash2, XCircle } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -53,6 +53,11 @@ export default function MessagesPage() {
         description="Email, SMS, WhatsApp and app notifications to parents and staff — with delivery reports."
         actions={
           <>
+            <Button asChild variant="outline">
+              <Link to="/messages/whatsapp">
+                <MessageCircle /> WhatsApp assistant
+              </Link>
+            </Button>
             <Button asChild variant="outline">
               <Link to="/messages/settings">
                 <Settings /> Settings

@@ -28,6 +28,7 @@ export function useSiteNav(): { primary: SiteNavItem[]; more: SiteNavItem[]; all
     ...(on('fees') ? [{ to: '/fees', label: 'School fees' }] : []),
     ...(on('results') ? [{ to: '/results', label: 'Check results' }] : []),
     ...(on('downloads') ? [{ to: '/downloads', label: 'Downloads' }] : []),
+    ...(on('alumni') ? [{ to: '/alumni', label: 'Alumni' }] : []),
     ...(s.faq.length ? [{ to: '/faq', label: 'FAQ' }] : []),
   ];
   return { primary, more, all: [{ to: '/', label: 'Home' }, ...primary, ...more, { to: '/contact', label: 'Contact' }] };

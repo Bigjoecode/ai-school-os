@@ -78,6 +78,22 @@ export const layoutOf = (a: Pick<OnlineExamAttempt, 'layout'>) => a.layout as un
 export const answersOf = (a: Pick<OnlineExamAttempt, 'answers'>) => (a.answers ?? {}) as unknown as StoredAnswers;
 export const theoryMarksOf = (a: Pick<OnlineExamAttempt, 'theoryMarks'>) => (a.theoryMarks ?? {}) as unknown as Record<string, number>;
 
+/**
+ * What a student (and so their parents) may see of a handed-in attempt right
+ * now: the score per the exam's "show results" choice, and the answers only
+ * once nobody can still be sitting the exam (or the teacher released them).
+ */
+export function resultVisibility(e: Pick<OnlineExam, 'status' | 'opensAt' | 'closesAt' | 'showResults' | 'resultsReleasedAt'>, a: Pick<OnlineExamAttempt, 'status'>, now = new Date()) {
+  if (a.status === 'IN_PROGRESS') return { score: false, review: false };
+  const ended = phaseOf(e, now) === 'ENDED';
+  const released = !!e.resultsReleasedAt;
+  const show = e.showResults as CbtShowResults;
+  return {
+    score: released || show === 'IMMEDIATE' || (show === 'AFTER_CLOSE' && ended),
+    review: released || (ended && show !== 'NEVER'),
+  };
+}
+
 export function isAnswered(v: number | string | null | undefined) {
   return typeof v === 'number' || (typeof v === 'string' && v.trim().length > 0);
 }
@@ -307,7 +323,8 @@ export class CbtService implements OnModuleInit {
    * (the row is locked, and only an attempt still in progress is changed).
    */
   async finalize(attemptId: string, now = new Date()): Promise<boolean> {
-    return this.prisma.root.$transaction(async (tx) => {
+    let marked = false;
+    const done = await this.prisma.root.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT id FROM online_exam_attempts WHERE id = ${attemptId} FOR UPDATE`;
       const a = await tx.onlineExamAttempt.findUnique({ where: { id: attemptId } });
       if (!a || a.status !== 'IN_PROGRESS') return false;
@@ -329,17 +346,76 @@ export class CbtService implements OnModuleInit {
           theoryMarks: theory as unknown as Prisma.InputJsonValue,
         },
       });
+      marked = m.status === 'MARKED';
       return true;
     });
+    if (marked) await this.announceMarked(attemptId);
+    return done;
   }
 
   /** Re-scores a handed-in attempt after the teacher's marks change. */
   async rescore(a: OnlineExamAttempt, theory: Record<string, number>) {
     const m = this.computeMarks(layoutOf(a), answersOf(a), theory);
-    return this.prisma.db.onlineExamAttempt.update({
+    const updated = await this.prisma.db.onlineExamAttempt.update({
       where: { id: a.id },
       data: { theoryMarks: theory as unknown as Prisma.InputJsonValue, objectiveScore: m.objectiveScore, score: m.score, total: m.total, status: m.status },
     });
+    if (a.status !== 'MARKED' && m.status === 'MARKED') await this.announceMarked(a.id);
+    return updated;
+  }
+
+  // ---------------------------------------------------------- telling parents
+
+  /**
+   * An attempt has just been fully marked: if the child may already see the
+   * score (results straight after submitting, or already released), tell
+   * their parents. Works outside a request too (the auto-submit sweep).
+   */
+  async announceMarked(attemptId: string) {
+    try {
+      const a = await this.prisma.root.onlineExamAttempt.findUnique({ where: { id: attemptId }, include: { exam: true } });
+      if (!a || a.status !== 'MARKED' || !resultVisibility(a.exam, a).score) return;
+      await this.notifyGuardians(a.tenantId, a.exam, [a.studentId]);
+    } catch (err) {
+      this.logger.warn(`Couldn't tell parents about attempt ${attemptId}: ${(err as Error).message}`);
+    }
+  }
+
+  /**
+   * In-app notification to the parents (with portal logins) of these students
+   * that a test result can be seen in the family portal. Skipped when the
+   * school doesn't share results in the portal. The score itself is not in
+   * the message, so a school withholding results while fees are owed still can.
+   */
+  async notifyGuardians(tenantId: string, exam: Pick<OnlineExam, 'id' | 'title'>, studentIds: string[]) {
+    if (!studentIds.length) return;
+    try {
+      const db = this.prisma.root;
+      const tenant = await db.tenant.findUnique({ where: { id: tenantId }, select: { portalSettings: true } });
+      if ((tenant?.portalSettings as { showResults?: boolean } | null)?.showResults === false) return;
+      const links = await db.studentGuardian.findMany({
+        where: { tenantId, studentId: { in: studentIds }, student: { status: 'ACTIVE' }, guardian: { userId: { not: null } } },
+        select: { studentId: true, student: { select: { firstName: true } }, guardian: { select: { userId: true } } },
+      });
+      const seen = new Set<string>();
+      const data = links.flatMap((l) => {
+        const key = `${l.guardian.userId}|${l.studentId}`;
+        if (seen.has(key)) return [];
+        seen.add(key);
+        return [
+          {
+            tenantId,
+            userId: l.guardian.userId!,
+            title: `${l.student.firstName}’s test result: ${exam.title}`.slice(0, 160),
+            body: `See how ${l.student.firstName} did in the online test, in My school › Results.`,
+            link: `/school/results/${l.studentId}?tab=online&exam=${exam.id}`,
+          },
+        ];
+      });
+      if (data.length) await db.notification.createMany({ data });
+    } catch (err) {
+      this.logger.warn(`Couldn't notify parents about "${exam.title}": ${(err as Error).message}`);
+    }
   }
 
   /** Whether a save can still be accepted (a little grace for slow networks). */

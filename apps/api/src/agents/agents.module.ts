@@ -75,5 +75,6 @@ export class AgentsController {
   imports: [AiModule, AssessmentModule, DashboardModule, HrModule, CommsModule, KnowledgeModule],
   controllers: [AgentsController],
   providers: [AgentsService, AgentToolsService, InsightsService],
+  exports: [AgentsService],
 })
 export class AgentsModule {}

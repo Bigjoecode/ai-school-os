@@ -28,7 +28,7 @@ export class ReportCardService {
       }),
       defaultTemplate(this.prisma),
       db.studentTraitRating.findMany({ where: { studentId: q.studentId, termId: q.termId } }),
-      db.student.findUniqueOrThrow({ where: { id: q.studentId }, select: { dateOfBirth: true } }),
+      db.student.findUniqueOrThrow({ where: { id: q.studentId }, select: { dateOfBirth: true, house: { select: { name: true } } } }),
       db.invoice.findMany({ where: { studentId: q.studentId, status: { not: 'CANCELLED' } }, select: { totalKobo: true, paidKobo: true } }),
       db.term.findUniqueOrThrow({ where: { id: q.termId }, select: { sessionId: true, order: true, endsOn: true } }),
     ]);
@@ -111,6 +111,7 @@ export class ReportCardService {
         feesOwed: owed / 100,
         currency: tenant.currency,
         termNames: sessionTerms.map((t) => t.name),
+        house: profile.house?.name ?? null,
       },
     };
   }

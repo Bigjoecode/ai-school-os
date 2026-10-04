@@ -138,6 +138,10 @@ export async function request<T>(path: string, opts: RequestOptions = {}): Promi
     res = await send(path, opts);
   } catch (err) {
     if (err instanceof DOMException && err.name === 'AbortError') throw err;
+    // Changes are never queued silently: say plainly that this one wasn't saved.
+    if ((opts.method ?? 'GET') !== 'GET' && typeof navigator !== 'undefined' && !navigator.onLine) {
+      throw new ApiError(0, 'You’re offline, so this wasn’t saved. Try again when you’re connected.');
+    }
     throw new ApiError(0, "Can't reach the server. Check your connection and try again.");
   }
 

@@ -118,6 +118,73 @@ Each school connects its own accounts in the app: **Messages → Settings**.
 Every message is recorded per recipient, with the reason for anything skipped
 (no email on record, channel not set up) or failed.
 
+## WhatsApp parent assistant
+
+Parents message the school's WhatsApp number and the Parent AI answers about
+their own children (attendance, results, fees, homework, events). Urgent
+messages and anything it can't answer go to staff under **Messages → WhatsApp
+assistant**, where staff can also reply. Each school uses its own Meta app and
+number; all of them point at the same webhook.
+
+1. **Meta app.** At [developers.facebook.com](https://developers.facebook.com)
+   create an app of type *Business* and add the **WhatsApp** product. Link it to
+   the school's Meta Business account (verify the business to lift the limits
+   on new numbers).
+2. **Business number.** Under WhatsApp → API Setup, add the school's phone
+   number (it can't be in use on the ordinary WhatsApp or WhatsApp Business
+   app at the same time) and verify it by SMS or call. Copy the **phone number
+   ID** (not the phone number itself).
+3. **Permanent token.** In Business settings → Users → System users, create a
+   system user, give it the app and the WhatsApp account with *full control*,
+   and generate a token with `whatsapp_business_messaging` and
+   `whatsapp_business_management`. Temporary tokens from API Setup expire in a
+   day — don't use them.
+4. **Connect WhatsApp** in the app: Messages → Settings → WhatsApp (phone
+   number ID, token, template — the template is for messages the school starts,
+   such as broadcasts).
+5. **App Secret.** In the Meta app: App settings → Basic → App secret → Show.
+   Paste it in Messages → WhatsApp assistant → Set-up. It is stored encrypted
+   and used to check the `X-Hub-Signature-256` signature on every webhook, so
+   nobody else can post fake messages. Saving the settings also creates the
+   school's **verify token**.
+6. **Webhook.** In the Meta app: WhatsApp → Configuration → Webhook → Edit.
+   - Callback URL: `https://ai-schoolportal.mejortechworld.com/api/whatsapp/webhook`
+   - Verify token: copy it from the Set-up tab.
+   Click *Verify and save*, then under Webhook fields **subscribe to
+   `messages`**.
+7. **Switch it on** in the Set-up tab and send `HELP` from a parent's phone to
+   the school's number. The checklist ticks "Test it" once a message arrives.
+
+How parents are recognised: the sender's number (0803…, +234803…, 234803…)
+must match a parent record of that school with a parent portal login and an
+active account. Unknown numbers get a polite reply with the school's contact
+details and how to get a portal login — no student information. Parents can
+send `STOP` (and `START`) to turn replies off and on, and `HELP`.
+
+Costs and limits:
+
+- **Meta charges.** Replies to a parent who wrote in the last 24 hours (the
+  *customer service window*) are free-form messages; Meta does not charge for
+  service conversations. Messages the school starts outside the window must
+  use an approved template and are charged per message at Meta's Nigeria
+  rates (utility/marketing). Staff replies from the inbox are only allowed
+  inside the 24-hour window; after that, send a template message from Messages
+  → New message.
+- **AI spend.** Answers use the school's normal AI allowance and are recorded
+  in AI usage. Each parent can send at most 20 messages an hour, and each
+  school sets a cap on AI answers per day (default 300, in the Set-up tab).
+  When the cap or the monthly AI budget is reached, or AI is unavailable,
+  parents get a friendly holding reply and staff are notified in the app.
+- **Hand-over.** Messages mentioning illness, emergencies, accidents,
+  injuries, bullying or fights are never answered by the AI: the parent gets an
+  acknowledgement (with the school's phone number) and staff are notified.
+- **Read-only.** The assistant runs as the parent with parent-only access and
+  can't change any record. Only text messages are answered; voice notes and
+  images get a "please type your question" reply.
+- **New numbers** start with Meta's messaging limits (business-initiated
+  conversations per day) until the business is verified and quality is good;
+  replies to parents' own messages are not limited this way.
+
 ## Live classes (Google Meet, Zoom, BigBlueButton)
 
 Schools connect their own accounts in **Live classes → Settings**. Zoom and

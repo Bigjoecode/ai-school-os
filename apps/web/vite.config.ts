@@ -2,10 +2,11 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
+import { serviceWorker } from './src/pwa/vite-plugin';
 
 export default defineConfig({
   base: '/',
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), serviceWorker()],
   resolve: {
     alias: {
       '@aischool/shared': fileURLToPath(new URL('../../packages/shared/src/index.ts', import.meta.url)),
@@ -16,6 +17,16 @@ export default defineConfig({
     port: 5173,
     // School websites on their own domains: *.localhost exercises host mode in development.
     allowedHosts: ['.localhost'],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
+  },
+  // `vite preview` serves the production build (with its service worker) against the local API.
+  preview: {
+    port: 4173,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',

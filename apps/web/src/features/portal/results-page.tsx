@@ -1,16 +1,18 @@
 import type { PortalResultTerm } from '@aischool/shared';
-import { ArrowLeft, Award, ChevronRight, FileDown, Lock, Printer, Trophy } from 'lucide-react';
-import { Link, useParams } from 'react-router';
+import { ArrowLeft, Award, ChevronRight, FileDown, Lock, MonitorCheck, Printer, ScrollText, Trophy } from 'lucide-react';
+import { Link, useParams, useSearchParams } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ApiError } from '@/lib/api';
 import { formatDate, formatPct } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { PaperStyle, ReportCardDocument } from '../report-cards/card-document';
 import { usePortalReportCard, usePortalResults } from './api';
+import { OnlineTestReview, OnlineTestsList } from './online-tests';
 import { PortalShell, portalPath, positionText, type ShellCtx } from './ui';
 
 export default function PortalResultsPage() {
@@ -18,10 +20,46 @@ export default function PortalResultsPage() {
     <PortalShell
       section="results"
       title={({ isParent, child }) => (isParent ? `${child.firstName}’s results` : 'My results')}
-      description={() => 'Report cards appear here once the school publishes them.'}
+      description={() => 'Report cards appear once the school publishes them; online test scores once the teacher shares them.'}
     >
-      {(ctx) => <ResultsBody {...ctx} />}
+      {(ctx) => <ResultsTabs {...ctx} />}
     </PortalShell>
+  );
+}
+
+/** Report cards and online tests (CBT); ?tab=online&exam=<id> opens one test, so notifications can link straight to it. */
+function ResultsTabs(ctx: ShellCtx) {
+  const [params, setParams] = useSearchParams();
+  const exam = params.get('exam');
+  const tab = exam || params.get('tab') === 'online' ? 'online' : 'cards';
+  const go = (next: { tab?: string; exam?: string }) => {
+    const p = new URLSearchParams();
+    if (next.tab === 'online') p.set('tab', 'online');
+    if (next.exam) p.set('exam', next.exam);
+    setParams(p, { replace: !next.exam });
+    if (next.exam) window.scrollTo({ top: 0 });
+  };
+  return (
+    <Tabs value={tab} onValueChange={(t) => go({ tab: t })}>
+      <TabsList className="w-full sm:w-auto">
+        <TabsTrigger value="cards" className="flex-1 sm:flex-none">
+          <ScrollText /> Report cards
+        </TabsTrigger>
+        <TabsTrigger value="online" className="flex-1 sm:flex-none">
+          <MonitorCheck /> Online tests
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="cards" className="mt-4">
+        <ResultsBody {...ctx} />
+      </TabsContent>
+      <TabsContent value="online" className="mt-4">
+        {exam ? (
+          <OnlineTestReview child={ctx.child} isParent={ctx.isParent} examId={exam} onBack={() => go({ tab: 'online' })} />
+        ) : (
+          <OnlineTestsList child={ctx.child} isParent={ctx.isParent} onOpen={(id) => go({ tab: 'online', exam: id })} />
+        )}
+      </TabsContent>
+    </Tabs>
   );
 }
 

@@ -141,3 +141,66 @@ export interface PortalFees {
   }[];
   payments: { id: string; receiptNumber: string | null; amountKobo: number; method: string; status: string; paidAt: string | null; invoiceNumber: string }[];
 }
+
+// ------------------------------------------------------------------ online tests (CBT)
+
+/**
+ * One online test (CBT) the child sat. Scores and answers follow exactly the
+ * rules the child sees in "My exams": nothing before the teacher's chosen
+ * moment (straight after submitting, when the test closes, or on release).
+ */
+export interface PortalOnlineTest {
+  id: string;
+  title: string;
+  subject: string;
+  /** "First Term · 2025/2026" */
+  term: string | null;
+  /** When the child handed in (or was handed in when time ran out). */
+  satAt: string;
+  /** MARKING: written answers are still being marked (the score is the objective part so far). */
+  status: 'MARKED' | 'MARKING';
+  /** Null until results may be seen (or while withheld). */
+  score: number | null;
+  total: number | null;
+  percent: number | null;
+  /** Of everyone whose test is fully marked (shown once at least two are). */
+  classAverage: number | null;
+  classHighest: number | null;
+  /** Question-by-question review is open (after the test closes, or on release). */
+  canReview: boolean;
+  /** Why the score or review isn't shown yet, for the family. */
+  note: string | null;
+}
+
+export interface PortalOnlineTests {
+  /** Set when the school withholds results (e.g. fees owed): tests are listed without scores. */
+  withheld: string | null;
+  /** Newest first. */
+  tests: PortalOnlineTest[];
+}
+
+export interface PortalOnlineTestQuestion {
+  number: number;
+  /** MULTIPLE_CHOICE, TRUE_FALSE, SHORT_ANSWER, THEORY… */
+  type: string;
+  objective: boolean;
+  stem: string;
+  /** In the order the child saw them; empty for written questions. */
+  options: string[];
+  /** Objective: the option index the child picked (null if not answered). */
+  chosenIndex: number | null;
+  correctIndex: number | null;
+  /** Written: what the child typed. */
+  writtenAnswer: string | null;
+  modelAnswer: string | null;
+  correct: boolean | null;
+  marks: number;
+  /** Null while a written answer is still being marked. */
+  awarded: number | null;
+}
+
+export interface PortalOnlineTestReview {
+  test: PortalOnlineTest;
+  /** Null when answers can't be reviewed yet (see test.note). */
+  questions: PortalOnlineTestQuestion[] | null;
+}

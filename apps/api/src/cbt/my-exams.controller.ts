@@ -18,7 +18,7 @@ import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
-import { CbtService, answersOf, isObjective, layoutOf, paperInclude, phaseOf, round1, theoryMarksOf } from './cbt.service';
+import { CbtService, answersOf, isObjective, layoutOf, paperInclude, phaseOf, resultVisibility, round1, theoryMarksOf } from './cbt.service';
 
 /**
  * Online exams for the signed-in student: list, start (one attempt), save as
@@ -177,12 +177,9 @@ export class MyExamsController {
 
   private result(exam: OnlineExam, a: OnlineExamAttempt) {
     if (a.status === 'IN_PROGRESS') return { score: null, review: false, note: null };
-    const ended = phaseOf(exam) === 'ENDED';
-    const released = !!exam.resultsReleasedAt;
     const show = exam.showResults as CbtShowResults;
-    const seeScore = released || show === 'IMMEDIATE' || (show === 'AFTER_CLOSE' && ended);
-    // Answers are only revealed once nobody can still be sitting the exam.
-    const seeReview = released || (ended && show !== 'NEVER');
+    // Answers are only revealed once nobody can still be sitting the exam (the same rule parents get in the portal).
+    const { score: seeScore, review: seeReview } = resultVisibility(exam, a);
     const total = a.total ?? 0;
     const partial = a.status !== 'MARKED';
     const raw = partial ? (a.objectiveScore ?? 0) : (a.score ?? 0);

@@ -16,6 +16,8 @@ declare module '@tanstack/react-query' {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      // Ask even when the browser says it's offline: the service worker may have a saved copy.
+      networkMode: 'offlineFirst',
       staleTime: 30_000,
       refetchOnWindowFocus: false,
       retry: (count, error) => {
@@ -23,6 +25,8 @@ export const queryClient = new QueryClient({
         return count < 2;
       },
     },
+    // Changes fail straight away when offline (with a clear message) instead of waiting silently.
+    mutations: { networkMode: 'always' },
   },
   mutationCache: new MutationCache({
     onError: (error, _vars, _ctx, mutation) => {

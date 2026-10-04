@@ -27,7 +27,7 @@ const mediaUrl = z
 
 // ============================================================ settings
 
-export const WEBSITE_SECTIONS = ['news', 'events', 'gallery', 'teachers', 'results', 'downloads', 'fees', 'stats', 'assistant'] as const;
+export const WEBSITE_SECTIONS = ['news', 'events', 'gallery', 'teachers', 'results', 'downloads', 'fees', 'stats', 'assistant', 'alumni'] as const;
 export type WebsiteSection = (typeof WEBSITE_SECTIONS)[number];
 
 export const websiteSettingsSchema = z.object({
@@ -98,7 +98,7 @@ export const DEFAULT_WEBSITE_SETTINGS: WebsiteSettings = {
   contact: { address: null, phone: null, whatsapp: null, email: null, hours: null, mapUrl: null },
   social: { facebook: null, instagram: null, x: null, youtube: null, linkedin: null },
   faq: [],
-  sections: { news: true, events: true, gallery: true, teachers: true, results: true, downloads: true, fees: false, stats: true, assistant: true },
+  sections: { news: true, events: true, gallery: true, teachers: true, results: true, downloads: true, fees: false, stats: true, assistant: true, alumni: false },
   seo: { title: null, description: null },
 };
 

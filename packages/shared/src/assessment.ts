@@ -473,7 +473,7 @@ export interface ReportCardView {
   template: ReportTemplateConfig;
   /** Behaviour and skills ratings, by trait. */
   traits: { affective: Record<string, number | null>; psychomotor: Record<string, number | null> };
-  extra: { age: number | null; nextTermBegins: string | null; feesOwed: number | null; currency: string; termNames: string[] };
+  extra: { age: number | null; nextTermBegins: string | null; feesOwed: number | null; currency: string; termNames: string[]; /** The student's school house, if they have one. */ house?: string | null };
 }
 
 /** Statistics are on percentages of what has been assessed so far. */

@@ -13,6 +13,6 @@ import { SenderService } from './sender.service';
   imports: [AiModule],
   controllers: [CommsController, CommunityController, NotificationsController],
   providers: [ChannelsService, AudienceService, SenderService, SchedulerService],
-  exports: [SenderService],
+  exports: [SenderService, ChannelsService],
 })
 export class CommsModule {}

@@ -1,4 +1,4 @@
-import type { PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
+import type { PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOnlineTestReview, PortalOnlineTests, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
@@ -17,6 +17,8 @@ export const pk = {
   attendance: (id: string, termId?: string) => ['portal', 'attendance', id, termId ?? 'current'] as const,
   results: (id: string) => ['portal', 'results', id] as const,
   card: (id: string, termId: string) => ['portal', 'card', id, termId] as const,
+  onlineTests: (id: string) => ['portal', 'online-tests', id] as const,
+  onlineTest: (id: string, examId: string) => ['portal', 'online-test', id, examId] as const,
   calendar: (id: string) => ['portal', 'calendar', id] as const,
   downloads: (id?: string) => ['portal', 'downloads', id ?? 'all'] as const,
   fees: (id: string) => ['portal', 'fees', id] as const,
@@ -59,6 +61,17 @@ export const usePortalReportCard = (id: string, termId: string) =>
     queryFn: ({ signal }) => api.get<ReportCardView>(`/portal/students/${id}/results/${termId}`, undefined, signal),
     enabled: !!id && !!termId,
     staleTime: 5 * 60_000,
+  });
+
+/** The child's online tests (CBT), with scores once the child may see them. */
+export const usePortalOnlineTests = (id: string, enabled = true) =>
+  useQuery({ queryKey: pk.onlineTests(id), queryFn: ({ signal }) => api.get<PortalOnlineTests>(`/portal/students/${id}/online-exams`, undefined, signal), enabled: enabled && !!id });
+
+export const usePortalOnlineTest = (id: string, examId: string) =>
+  useQuery({
+    queryKey: pk.onlineTest(id, examId),
+    queryFn: ({ signal }) => api.get<PortalOnlineTestReview>(`/portal/students/${id}/online-exams/${examId}`, undefined, signal),
+    enabled: !!id && !!examId,
   });
 
 export const usePortalCalendar = (id: string) =>

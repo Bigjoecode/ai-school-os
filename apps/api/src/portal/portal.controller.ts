@@ -8,6 +8,10 @@ import {
   type PortalEvent,
   type PortalFees,
   type PortalMe,
+  type PortalOnlineTest,
+  type PortalOnlineTestQuestion,
+  type PortalOnlineTestReview,
+  type PortalOnlineTests,
   type PortalOverview,
   type PortalResultTerm,
   type PortalSettings,
@@ -17,7 +21,9 @@ import {
 } from '@aischool/shared';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
+import type { ExamPaper, OnlineExam, OnlineExamAttempt } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
+import { answersOf, isObjective, layoutOf, resultVisibility, round1, theoryMarksOf } from '../cbt/cbt.service';
 import { AttendanceService } from '../attendance/attendance.service';
 import { ReportCardService } from '../assessment/report-card.service';
 import { RequirePermissions } from '../common/decorators';
@@ -145,6 +151,84 @@ export class PortalController {
     const withheld = await this.withheld(id, settings);
     if (withheld) throw new ForbiddenException({ statusCode: 403, code: 'RESULT_WITHHELD', message: withheld });
     return this.cards.view({ studentId: id, termId });
+  }
+
+  /**
+   * The child's online tests (CBT). Scores appear exactly when the child may
+   * see their own (the teacher's "show results" choice), and follow the
+   * school's withholding while fees are owed, like report cards.
+   */
+  @Get('students/:id/online-exams')
+  async onlineExams(@Param('id') id: string): Promise<PortalOnlineTests> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    const db = this.prisma.db;
+    const [attempts, withheld] = await Promise.all([db.onlineExamAttempt.findMany({ where: { studentId: id, status: { not: 'IN_PROGRESS' } } }), this.withheld(id, settings)]);
+    if (!attempts.length) return { withheld, tests: [] };
+    const exams = await db.onlineExam.findMany({ where: { id: { in: attempts.map((a) => a.examId) }, status: { not: 'DRAFT' } } });
+    const papers = await db.examPaper.findMany({ where: { id: { in: exams.map((e) => e.paperId) } }, include: testPaperInclude });
+    const now = new Date();
+    const visible = withheld ? [] : exams.filter((e) => resultVisibility(e, attempts.find((a) => a.examId === e.id)!, now).score).map((e) => e.id);
+    const peers = visible.length ? await db.onlineExamAttempt.findMany({ where: { examId: { in: visible }, status: 'MARKED' }, select: { examId: true, score: true, total: true } }) : [];
+    const paperBy = new Map(papers.map((p) => [p.id, p]));
+    const tests = exams.flatMap((e) => {
+      const p = paperBy.get(e.paperId);
+      const a = attempts.find((x) => x.examId === e.id);
+      return p && a ? [testRow(e, p, a, peers.filter((x) => x.examId === e.id), withheld, now)] : [];
+    });
+    return { withheld, tests: tests.sort((x, y) => y.satAt.localeCompare(x.satAt)) };
+  }
+
+  /** One online test question by question, once the child may review their answers. */
+  @Get('students/:id/online-exams/:examId')
+  async onlineExam(@Param('id') id: string, @Param('examId') examId: string): Promise<PortalOnlineTestReview> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    const db = this.prisma.db;
+    const [exam, a] = await Promise.all([
+      db.onlineExam.findFirst({ where: { id: examId, status: { not: 'DRAFT' } } }),
+      db.onlineExamAttempt.findUnique({ where: { examId_studentId: { examId, studentId: id } } }),
+    ]);
+    const paper = exam ? await db.examPaper.findUnique({ where: { id: exam.paperId }, include: testPaperInclude }) : null;
+    if (!exam || !paper || !a || a.status === 'IN_PROGRESS') throw new NotFoundException('Test not found');
+    const withheld = await this.withheld(id, settings);
+    if (withheld) throw new ForbiddenException({ statusCode: 403, code: 'RESULT_WITHHELD', message: withheld });
+    const now = new Date();
+    const vis = resultVisibility(exam, a, now);
+    const peers = vis.score ? await db.onlineExamAttempt.findMany({ where: { examId, status: 'MARKED' }, select: { score: true, total: true } }) : [];
+    const test = testRow(exam, paper, a, peers, null, now);
+    if (!vis.review) return { test, questions: null };
+
+    const layout = layoutOf(a);
+    const answers = answersOf(a);
+    const theory = theoryMarksOf(a);
+    const bank = await db.question.findMany({ where: { id: { in: layout.items.map((i) => i.id) } }, select: { id: true, stem: true, options: true, answer: true } });
+    const qBy = new Map(bank.map((q) => [q.id, q]));
+    const questions = layout.items.map((item, i): PortalOnlineTestQuestion => {
+      const q = qBy.get(item.id);
+      const objective = isObjective(item.type);
+      const chosen = answers[item.id];
+      const correct = objective ? item.correct != null && chosen === item.correct : null;
+      return {
+        number: i + 1,
+        type: item.type,
+        objective,
+        stem: q?.stem ?? '(This question was removed from the question bank.)',
+        options: objective ? item.order.map((o) => q?.options[o] ?? '') : [],
+        chosenIndex: objective && typeof chosen === 'number' ? item.order.indexOf(chosen) : null,
+        correctIndex: objective && item.correct != null ? item.order.indexOf(item.correct) : null,
+        writtenAnswer: !objective && typeof chosen === 'string' && chosen.trim() ? chosen : null,
+        modelAnswer: objective ? null : (q?.answer ?? null),
+        correct,
+        marks: item.marks,
+        awarded: objective ? (correct ? item.marks : 0) : typeof theory[item.id] === 'number' ? theory[item.id]! : null,
+      };
+    });
+    return { test, questions };
   }
 
   @Get('students/:id/calendar')
@@ -349,6 +433,46 @@ export class PortalController {
         .map(async (d) => ({ id: d.id, title: d.title, description: d.description, category: d.category, fileUrl: d.fileUrl, sizeBytes: await this.files.sizeOf(d.fileUrl), updatedAt: d.updatedAt.toISOString() })),
     );
   }
+}
+
+const testPaperInclude = { subject: { select: { name: true } }, term: { select: { name: true, session: { select: { name: true } } } } } as const;
+type TestPaper = ExamPaper & { subject: { name: string }; term: { name: string; session: { name: string } } };
+
+/** A CBT attempt as the family sees it: the score only once the child may see it, never while withheld. */
+function testRow(e: OnlineExam, p: TestPaper, a: OnlineExamAttempt, peers: { score: number | null; total: number | null }[], withheld: string | null, now: Date): PortalOnlineTest {
+  const vis = resultVisibility(e, a, now);
+  const partial = a.status !== 'MARKED';
+  const total = a.total ?? 0;
+  const raw = partial ? (a.objectiveScore ?? 0) : (a.score ?? 0);
+  const show = vis.score && !withheld && total > 0;
+  const pcts = peers.filter((x) => x.score != null && x.total).map((x) => (x.score! / x.total!) * 100);
+  const stats = show && pcts.length >= 2;
+  const note = withheld
+    ? null
+    : !vis.score
+      ? e.showResults === 'AFTER_CLOSE'
+        ? 'The score will show when the test closes.'
+        : 'The score will show when the teacher releases the results.'
+      : partial
+        ? 'Written answers are still being marked; this is the score so far.'
+        : !vis.review
+          ? 'Answers can be reviewed once the test has closed.'
+          : null;
+  return {
+    id: e.id,
+    title: e.title,
+    subject: p.subject.name,
+    term: `${p.term.name} · ${p.term.session.name}`,
+    satAt: (a.submittedAt ?? a.startedAt).toISOString(),
+    status: partial ? 'MARKING' : 'MARKED',
+    score: show ? raw : null,
+    total: show ? total : null,
+    percent: show ? round1((raw / total) * 100) : null,
+    classAverage: stats ? round1(pcts.reduce((x, y) => x + y, 0) / pcts.length) : null,
+    classHighest: stats ? round1(Math.max(...pcts)) : null,
+    canReview: !withheld && vis.review,
+    note,
+  };
 }
 
 function termRef(t: TermRow): PortalTermRef {

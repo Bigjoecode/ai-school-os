@@ -152,6 +152,8 @@ function fieldValue(f: ReportStudentField, v: ReportCardView): string {
       return v.extra.nextTermBegins ? formatDate(v.extra.nextTermBegins) : '—';
     case 'feesOwed':
       return v.extra.feesOwed == null ? '—' : v.extra.feesOwed <= 0 ? 'Nil' : formatMoney(v.extra.feesOwed, v.extra.currency);
+    case 'house':
+      return v.extra.house ?? '—';
   }
 }
 
@@ -169,6 +171,8 @@ export function ReportCardDocument({
   className?: string;
 }) {
   const cfg = v.template;
+  // The house line only prints for students who have a house.
+  const fields = cfg.studentFields.filter((f) => f !== 'house' || !!v.extra.house);
   const cells = tableCells(v);
   const interim = !preview && v.subjects.some((s) => !s.complete);
   const traitSections = (
@@ -223,13 +227,13 @@ export function ReportCardDocument({
       {/* ---------------------------------------------------- learner */}
       <dl className="grid grid-cols-2 gap-px border-b border-border bg-border @xl:grid-cols-4">
         <InfoCell label="Name" value={v.student.name} className="col-span-2" strong />
-        {cfg.studentFields.map((f) => (
+        {fields.map((f) => (
           <InfoCell key={f} label={REPORT_STUDENT_FIELDS[f]} value={fieldValue(f, v)} />
         ))}
         {/* Fill the last row so the grid has no gaps. */}
         {Array.from({ length: 3 }, (_, i) => {
-          const wide = i < (4 - ((cfg.studentFields.length + 2) % 4)) % 4;
-          const narrow = i < cfg.studentFields.length % 2;
+          const wide = i < (4 - ((fields.length + 2) % 4)) % 4;
+          const narrow = i < fields.length % 2;
           if (!wide && !narrow) return null;
           return <div key={i} aria-hidden className={cn('bg-card', narrow ? 'block' : 'hidden', wide ? '@xl:block' : '@xl:hidden')} />;
         })}

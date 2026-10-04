@@ -7,14 +7,20 @@ import { refreshSession } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth-store';
 import { queryClient } from '@/lib/query-client';
 import { useThemeStore } from '@/lib/theme';
+import { openSavedSession } from '@/pwa/session';
 
 /** Restore the session from the refresh cookie before rendering the app. */
 function SessionGate({ children }: { children: ReactNode }) {
   const status = useAuthStore((s) => s.status);
   useEffect(() => {
     if (useAuthStore.getState().status !== 'booting') return;
-    void refreshSession().then((session) => {
-      if (!session && useAuthStore.getState().status === 'booting') useAuthStore.getState().clear();
+    // No connection (or a very slow one): open with this device's saved sign-in while the real one restores.
+    const fallback = window.setTimeout(() => void openSavedSession(), navigator.onLine ? 8000 : 0);
+    void refreshSession().then(async (session) => {
+      window.clearTimeout(fallback);
+      if (session || useAuthStore.getState().status !== 'booting') return;
+      if (await openSavedSession({ verifyOffline: true })) return;
+      if (useAuthStore.getState().status === 'booting') useAuthStore.getState().clear();
     });
   }, []);
   // Public pages (parent payments, QR verification, school websites) render straight away; the session restore runs in the background.

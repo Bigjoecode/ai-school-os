@@ -26,6 +26,18 @@ interface WhatsappConfig {
   phoneNumberId: string;
   templateName: string;
   templateLanguage: string;
+  /** The parent assistant (inbound messages); see whatsapp-assistant.service.ts. */
+  assistant?: WhatsappAssistantConfig;
+}
+
+/** Stored inside the WhatsApp channel's config; the App Secret is encrypted like the token. */
+export interface WhatsappAssistantConfig {
+  enabled: boolean;
+  dailyCap: number;
+  /** Meta echoes this back when the webhook is set up (not a secret, but random). */
+  verifyToken: string | null;
+  appSecretEncrypted: string | null;
+  appSecretHint: string | null;
 }
 
 export interface SendResult {
@@ -86,7 +98,7 @@ export class ChannelsService {
     return [
       { channel: 'EMAIL', configured: !!smtp, detail: smtpCfg ? `${smtpCfg.host} · ${smtpCfg.fromEmail}` : null },
       { channel: 'SMS', configured: !!termii, detail: termiiCfg ? `Termii · sender ${termiiCfg.senderId}${termiiCfg.dnd ? ' · DND route' : ''}` : null },
-      { channel: 'WHATSAPP', configured: !!wa, detail: waCfg ? `Cloud API · template ${waCfg.templateName}` : null },
+      { channel: 'WHATSAPP', configured: !!wa, detail: waCfg ? `Cloud API · template ${waCfg.templateName}${waCfg.assistant?.enabled ? ' · parent assistant on' : ''}` : null },
       { channel: 'PUSH', configured: this.pushReady, detail: this.pushReady ? 'Browser notifications on this server' : 'Needs VAPID keys on the server', serverManaged: true },
       { channel: 'IN_APP', configured: true, detail: 'Bell notifications for people with an app account' },
     ];
@@ -135,9 +147,38 @@ export class ChannelsService {
 
   /** Checks the WhatsApp phone number and token before saving them. */
   async saveWhatsapp(tenantId: string, s: { phoneNumberId: string; accessToken: string; templateName: string; templateLanguage: string }) {
+    // Inbound messages are routed by phone number ID, so one number can belong to one school only.
+    const taken = await this.prisma.root.tenantIntegration.findFirst({
+      where: { provider: 'whatsapp', tenantId: { not: tenantId }, config: { path: ['phoneNumberId'], equals: s.phoneNumberId } },
+      select: { id: true },
+    });
+    if (taken) throw new BadRequestException('That WhatsApp phone number ID is already connected to another school');
     const res = await this.http(`${env().WHATSAPP_BASE_URL}/${encodeURIComponent(s.phoneNumberId)}`, { method: 'GET', headers: { authorization: `Bearer ${s.accessToken}` } }, 'WhatsApp');
     if (!res.ok) throw new BadRequestException('WhatsApp did not accept that phone number ID and access token');
-    await this.save(tenantId, 'whatsapp', s.accessToken, { phoneNumberId: s.phoneNumberId, templateName: s.templateName, templateLanguage: s.templateLanguage } satisfies WhatsappConfig);
+    // Keep the parent assistant's settings when the number or token changes.
+    const existing = await this.prisma.root.tenantIntegration.findUnique({ where: { tenantId_provider: { tenantId, provider: 'whatsapp' } }, select: { config: true } });
+    const assistant = (existing?.config as WhatsappConfig | null)?.assistant;
+    await this.save(tenantId, 'whatsapp', s.accessToken, {
+      phoneNumberId: s.phoneNumberId,
+      templateName: s.templateName,
+      templateLanguage: s.templateLanguage,
+      ...(assistant ? { assistant } : {}),
+    } satisfies WhatsappConfig);
+  }
+
+  /** The parent assistant's settings, or null when WhatsApp isn't connected. */
+  async whatsappAssistant(tenantId: string): Promise<{ phoneNumberId: string; assistant: WhatsappAssistantConfig | null } | null> {
+    const row = await this.prisma.root.tenantIntegration.findUnique({ where: { tenantId_provider: { tenantId, provider: 'whatsapp' } }, select: { config: true } });
+    if (!row) return null;
+    const c = row.config as unknown as WhatsappConfig;
+    return { phoneNumberId: c.phoneNumberId, assistant: c.assistant ?? null };
+  }
+
+  async saveWhatsappAssistant(tenantId: string, assistant: WhatsappAssistantConfig) {
+    const row = await this.prisma.root.tenantIntegration.findUnique({ where: { tenantId_provider: { tenantId, provider: 'whatsapp' } }, select: { config: true } });
+    if (!row) throw new BadRequestException('Connect WhatsApp first');
+    const config = { ...(row.config as unknown as WhatsappConfig), assistant };
+    await this.prisma.root.tenantIntegration.update({ where: { tenantId_provider: { tenantId, provider: 'whatsapp' } }, data: { config: config as unknown as Prisma.InputJsonValue } });
   }
 
   // ---------------------------------------------------------- loading
@@ -256,6 +297,28 @@ export class ChannelsService {
       throw new SendError(err.message);
     });
     const body = (await res.json().catch(() => ({}))) as { messages?: { id: string }[]; error?: { message?: string } };
+    if (!res.ok) throw new SendError(`WhatsApp: ${body.error?.message ?? res.statusText}`.slice(0, 300));
+    return { ref: body.messages?.[0]?.id ?? null };
+  }
+
+  /**
+   * A free-form text reply. Meta only allows these within 24 hours of the
+   * person's last message to the business (the customer-service window).
+   */
+  async sendWhatsappText(ch: SchoolChannels, to: string, text: string): Promise<SendResult> {
+    if (!ch.whatsapp) throw new SendError('WhatsApp is not set up');
+    const res = await this.http(
+      `${env().WHATSAPP_BASE_URL}/${encodeURIComponent(ch.whatsapp.phoneNumberId)}/messages`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${ch.whatsapp.token}` },
+        body: JSON.stringify({ messaging_product: 'whatsapp', recipient_type: 'individual', to, type: 'text', text: { preview_url: true, body: text.slice(0, 4000) } }),
+      },
+      'WhatsApp',
+    ).catch((err: Error) => {
+      throw new SendError(err.message);
+    });
+    const body = (await res.json().catch(() => ({}))) as { messages?: { id: string }[]; error?: { message?: string; code?: number } };
     if (!res.ok) throw new SendError(`WhatsApp: ${body.error?.message ?? res.statusText}`.slice(0, 300));
     return { ref: body.messages?.[0]?.id ?? null };
   }

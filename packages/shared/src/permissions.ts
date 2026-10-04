@@ -181,6 +181,14 @@ export const PERMISSION_GROUPS = [
     },
   },
   {
+    module: 'alumni',
+    label: 'Alumni',
+    permissions: {
+      'alumni.read': 'View the alumni directory',
+      'alumni.manage': 'Add, verify and edit alumni, and message them',
+    },
+  },
+  {
     module: 'admissions',
     label: 'Admissions',
     permissions: {

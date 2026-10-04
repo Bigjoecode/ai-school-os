@@ -28,6 +28,7 @@ import {
 import type { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { ResultsService } from '../assessment/results.service';
+import { forgetGraduates, graduationYearOf, recordGraduates } from '../alumni/graduates';
 import { AuditService } from '../audit/audit.service';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
@@ -448,6 +449,9 @@ export class PromotionService {
           const ids = final.filter((f) => f.decision === status).map((f) => f.row.studentId);
           if (ids.length) await tx.student.updateMany({ where: { id: { in: ids } }, data: { status, classArmId: null } });
         }
+        // Graduates join the alumni directory.
+        const graduates = final.filter((f) => f.decision === 'GRADUATED').map((f) => ({ studentId: f.row.studentId, finalClass: f.row.armId ? (armById.get(f.row.armId)?.label ?? null) : null }));
+        await recordGraduates(tx, tenantId, graduates, graduationYearOf(from.endsOn));
         let madeCurrent = false;
         if (body.makeCurrent) {
           await tx.academicSession.updateMany({ data: { isCurrent: false } });
@@ -558,6 +562,9 @@ export class PromotionService {
           if (g.ids.length) await tx.student.updateMany({ where: { id: { in: g.ids } }, data: { classArmId: arm } });
           if (g.reactivate.length) await tx.student.updateMany({ where: { id: { in: g.reactivate } }, data: { classArmId: arm, status: 'ACTIVE' } });
         }
+        // Alumni records the promotion created go too (unless someone has edited them since).
+        const regraduated = restore.filter((p) => p.decision === 'GRADUATED');
+        if (regraduated.length) await forgetGraduates(tx, regraduated.map((p) => p.studentId), new Date(Math.min(...regraduated.map((p) => p.createdAt.getTime()))));
         await tx.studentPromotion.deleteMany({ where: { fromSessionId: sessionId } });
         let currentSessionRestored = false;
         if (to?.isCurrent) {

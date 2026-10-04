@@ -2,8 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import {
   DEFAULT_FINANCE_SETTINGS,
+  type AppliedDiscount,
   type FinanceOverview,
   type FinanceSettings,
+  type FinanceSettingsInput,
   type GenerateInvoicesInput,
   type GenerateInvoicesResult,
   type InvoiceDetail,
@@ -12,6 +14,9 @@ import {
   type PaymentRow,
   type ReceiptView,
   type RecordPaymentInput,
+  formatMoney,
+  normaliseDiscountRules,
+  resolveDiscounts,
 } from '@aischool/shared';
 import { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
@@ -19,6 +24,7 @@ import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { PrismaService } from '../prisma/prisma.service';
+import { type DiscountContext, loadDiscountContext } from './discount-engine';
 
 export const invoiceInclude = {
   student: {
@@ -44,6 +50,16 @@ type PaymentWithRefs = Prisma.PaymentGetPayload<{ include: typeof paymentInclude
 
 const PAY_TOKEN_DAYS = 120;
 
+type PlannedLine = { feeItemId: string | null; description: string; kind: string; amountKobo: number };
+
+export interface InvoicePlan {
+  student: { id: string; firstName: string; lastName: string; classArm: string | null };
+  lines: PlannedLine[];
+  grossKobo: number;
+  discounts: AppliedDiscount[];
+  totalKobo: number;
+}
+
 const armLabel = (a: { name: string; classLevel: { name: string } } | null) => (a ? `${a.classLevel.name} ${a.name}` : null);
 
 @Injectable()
@@ -61,20 +77,26 @@ export class FinanceService {
       where: { id: currentTenantId() },
       select: { financeSettings: true, currency: true, timezone: true },
     });
+    const saved = (t.financeSettings as Partial<FinanceSettings> | null) ?? {};
     return {
       ...DEFAULT_FINANCE_SETTINGS,
-      ...((t.financeSettings as Partial<FinanceSettings> | null) ?? {}),
+      ...saved,
+      // Settings saved before discount rules existed have none: fill in the defaults.
+      discountRules: normaliseDiscountRules(saved.discountRules),
       currency: t.currency,
       timezone: t.timezone,
     };
   }
 
-  async setSettings(settings: FinanceSettings) {
+  /** Saves settings; parts left out (e.g. discount rules, from the older settings form) are kept. */
+  async setSettings(input: Partial<FinanceSettingsInput>, summary = 'Updated finance settings') {
+    const { currency: _c, timezone: _t, ...current } = await this.settings();
+    const next: FinanceSettings = { ...current, ...input, discountRules: input.discountRules ?? current.discountRules };
     await this.prisma.root.tenant.update({
       where: { id: currentTenantId() },
-      data: { financeSettings: settings as unknown as Prisma.InputJsonValue },
+      data: { financeSettings: next as unknown as Prisma.InputJsonValue },
     });
-    await this.audit.log({ action: 'finance.settings', summary: 'Updated finance settings' });
+    await this.audit.log({ action: 'finance.settings', summary });
     return this.settings();
   }
 
@@ -97,12 +119,12 @@ export class FinanceService {
   // ---------------------------------------------------------- invoices
 
   /**
-   * Issues one invoice per active student for the term, from the term's fee
-   * schedule (compulsory items for their class level). Students who already
-   * have an invoice for the term are skipped. A sibling discount applies to
-   * every child after the eldest who shares a parent or guardian.
+   * Works out the invoices that would be issued for a term (without saving):
+   * one per active student with a class, from the term's compulsory fee items
+   * for their class level, less their standing discounts. Students who
+   * already have an invoice for the term are left out.
    */
-  async generateInvoices(body: GenerateInvoicesInput): Promise<GenerateInvoicesResult> {
+  async planInvoices(body: GenerateInvoicesInput) {
     const db = this.prisma.db;
     const tenantId = currentTenantId();
     const [term, fees, settings] = await Promise.all([
@@ -110,38 +132,24 @@ export class FinanceService {
       db.feeItem.findMany({ where: { termId: body.termId, optional: false } }),
       this.settings(),
     ]);
-    if (!fees.length) throw new BadRequestException('Add fee items for this term before issuing invoices');
-
     const students = await db.student.findMany({
       where: {
         status: 'ACTIVE',
         classArmId: { not: null },
         ...(body.classLevelIds.length ? { classArm: { classLevelId: { in: body.classLevelIds } } } : {}),
       },
-      include: { classArm: true, guardians: { select: { guardianId: true } } },
-      orderBy: [{ dateOfBirth: 'asc' }, { lastName: 'asc' }],
+      include: { classArm: { include: { classLevel: { select: { name: true } } } } },
+      orderBy: [{ lastName: 'asc' }, { firstName: 'asc' }],
     });
     const existing = new Set(
       (await db.invoice.findMany({ where: { termId: term.id, studentId: { in: students.map((s) => s.id) } }, select: { studentId: true } })).map(
         (i) => i.studentId,
       ),
     );
-
-    // Families: students linked through any shared guardian. Eldest first (ordered by birth date).
-    const seenGuardian = new Set<string>();
-    const isYounger = new Map<string, boolean>();
-    for (const st of students) {
-      const gs = st.guardians.map((g) => g.guardianId);
-      isYounger.set(st.id, gs.some((g) => seenGuardian.has(g)));
-      for (const g of gs) seenGuardian.add(g);
-    }
-
-    const today = schoolNow(settings.timezone).date;
-    const dueDate = body.dueDate ?? new Date(Date.parse(`${today}T00:00:00Z`) + settings.defaultDueDays * 86_400_000).toISOString().slice(0, 10);
-    let created = 0;
+    // Siblings are counted across the whole school, not just the classes chosen.
+    const ctx = await loadDiscountContext(db, tenantId, term.id, settings.discountRules, { siblingOverridePct: body.siblingDiscountPct ?? null });
+    const plans: InvoicePlan[] = [];
     let noFees = 0;
-    let totalKobo = 0;
-
     for (const st of students) {
       if (existing.has(st.id)) continue;
       const items = fees.filter((f) => !f.classLevelIds.length || f.classLevelIds.includes(st.classArm!.classLevelId));
@@ -149,48 +157,78 @@ export class FinanceService {
         noFees++;
         continue;
       }
-      const lines: { feeItemId: string | null; description: string; kind: string; amountKobo: number }[] = items.map((f) => ({
-        feeItemId: f.id,
-        description: f.name,
-        kind: 'FEE',
-        amountKobo: f.amountKobo,
-      }));
-      if (body.siblingDiscountPct > 0 && isYounger.get(st.id)) {
-        const tuition = items.filter((f) => f.category === 'TUITION').reduce((n, f) => n + f.amountKobo, 0);
-        const discount = Math.round((tuition * body.siblingDiscountPct) / 100);
-        if (discount > 0) lines.push({ feeItemId: null, description: `Sibling discount (${body.siblingDiscountPct}% of tuition)`, kind: 'DISCOUNT', amountKobo: -discount });
-      }
-      const total = lines.reduce((n, l) => n + l.amountKobo, 0);
+      plans.push({
+        student: { id: st.id, firstName: st.firstName, lastName: st.lastName, classArm: armLabel(st.classArm) },
+        ...this.buildLines(items, st.id, ctx, settings.currency),
+      });
+    }
+    return { term, settings, fees, plans, skipped: existing.size, noFees };
+  }
+
+  /** Fee lines plus discount lines for one invoice. Never negative. */
+  private buildLines(items: { id: string; name: string; category: string; amountKobo: number }[], studentId: string, ctx: DiscountContext, currency: string) {
+    const lines: PlannedLine[] = items.map((f) => ({ feeItemId: f.id, description: f.name, kind: 'FEE', amountKobo: f.amountKobo }));
+    const grossKobo = lines.reduce((n, l) => n + l.amountKobo, 0);
+    const discounts = resolveDiscounts(items, ctx.candidatesFor(studentId), ctx.rules.combine, { money: (k) => formatMoney(k, currency) });
+    for (const d of discounts) lines.push({ feeItemId: null, description: d.description, kind: 'DISCOUNT', amountKobo: -d.amountKobo });
+    const totalKobo = Math.max(0, lines.reduce((n, l) => n + l.amountKobo, 0));
+    return { lines, grossKobo, discounts, totalKobo };
+  }
+
+  /**
+   * Issues one invoice per active student for the term, from the fee schedule
+   * (compulsory items for their class level) less standing discounts: the
+   * school's sibling and staff-child rules and each student's own awards. A
+   * one-off sibling % passed in replaces the sibling rule for this run.
+   * Students who already have an invoice for the term are skipped.
+   */
+  async generateInvoices(body: GenerateInvoicesInput): Promise<GenerateInvoicesResult> {
+    const db = this.prisma.db;
+    const tenantId = currentTenantId();
+    const { term, settings, fees, plans, skipped, noFees } = await this.planInvoices(body);
+    if (!fees.length) throw new BadRequestException('Add fee items for this term before issuing invoices');
+
+    const today = schoolNow(settings.timezone).date;
+    const dueDate = body.dueDate ?? new Date(Date.parse(`${today}T00:00:00Z`) + settings.defaultDueDays * 86_400_000).toISOString().slice(0, 10);
+    let created = 0;
+    let totalKobo = 0;
+    let discountKobo = 0;
+
+    for (const plan of plans) {
       await db.$transaction(async (tx) => {
         const number = await this.nextNumber('invoice', settings.invoicePrefix, tx);
         await tx.invoice.create({
           data: {
             tenantId,
-            studentId: st.id,
+            studentId: plan.student.id,
             termId: term.id,
             number,
-            totalKobo: total,
+            totalKobo: plan.totalKobo,
+            // Fully discounted (e.g. a 100% scholarship): nothing to pay.
+            ...(plan.totalKobo <= 0 ? { status: 'PAID' as const } : {}),
             dueDate: parseDate(dueDate),
             createdById: currentContext().userId,
-            lines: { create: lines.map((l) => ({ ...l, tenantId })) },
+            lines: { create: plan.lines.map((l) => ({ ...l, tenantId })) },
           },
         });
       });
       created++;
-      totalKobo += total;
+      totalKobo += plan.totalKobo;
+      discountKobo += plan.discounts.reduce((n, d) => n + d.amountKobo, 0);
     }
 
     await this.audit.log({
       action: 'finance.invoices_issued',
-      summary: `Issued ${created} invoices for ${term.name} (${(totalKobo / 100).toLocaleString('en-NG')} ${settings.currency})`,
+      summary: `Issued ${created} invoices for ${term.name} (${(totalKobo / 100).toLocaleString('en-NG')} ${settings.currency}${discountKobo ? ` after ${(discountKobo / 100).toLocaleString('en-NG')} in discounts` : ''})`,
     });
-    return { created, skipped: existing.size, totalKobo, noFees };
+    return { created, skipped, totalKobo, noFees, discountKobo };
   }
 
   /**
    * Issues one student's invoice for a term from the fee schedule (compulsory
-   * items for their class level), e.g. on enrolment. Runs inside the caller's
-   * transaction. Returns null, with the reason, when nothing is issued.
+   * items for their class level, less standing discounts), e.g. on enrolment.
+   * Runs inside the caller's transaction. Returns null, with the reason, when
+   * nothing is issued.
    */
   async invoiceStudent(client: unknown, studentId: string, termId: string): Promise<{ invoice: { id: string; number: string; totalKobo: number } | null; reason: string | null }> {
     const tx = client as Prisma.TransactionClient;
@@ -205,9 +243,10 @@ export class FinanceService {
     const fees = await tx.feeItem.findMany({ where: { tenantId, termId, optional: false } });
     const items = fees.filter((f) => !f.classLevelIds.length || f.classLevelIds.includes(student.classArm!.classLevelId));
     if (!items.length) return { invoice: null, reason: 'No compulsory fees are set for this class and term' };
+    const ctx = await loadDiscountContext(tx, tenantId, termId, settings.discountRules, { includeStudentIds: [studentId] });
+    const { lines, totalKobo } = this.buildLines(items, studentId, ctx, settings.currency);
     const today = schoolNow(settings.timezone).date;
     const dueDate = new Date(Date.parse(`${today}T00:00:00Z`) + settings.defaultDueDays * 86_400_000).toISOString().slice(0, 10);
-    const total = items.reduce((n, f) => n + f.amountKobo, 0);
     const number = await this.nextNumber('invoice', settings.invoicePrefix, tx);
     const invoice = await tx.invoice.create({
       data: {
@@ -215,10 +254,11 @@ export class FinanceService {
         studentId,
         termId,
         number,
-        totalKobo: total,
+        totalKobo,
+        ...(totalKobo <= 0 ? { status: 'PAID' as const } : {}),
         dueDate: parseDate(dueDate),
         createdById: currentContext().userId,
-        lines: { create: items.map((f) => ({ tenantId, feeItemId: f.id, description: f.name, kind: 'FEE', amountKobo: f.amountKobo })) },
+        lines: { create: lines.map((l) => ({ ...l, tenantId })) },
       },
       select: { id: true, number: true, totalKobo: true },
     });
@@ -239,7 +279,7 @@ export class FinanceService {
     const totalKobo = lines._sum.amountKobo ?? 0;
     const paidKobo = paid._sum.amountKobo ?? 0;
     const status =
-      invoice.status === 'CANCELLED' ? 'CANCELLED' : paidKobo >= totalKobo && totalKobo > 0 ? 'PAID' : paidKobo > 0 ? 'PART_PAID' : 'ISSUED';
+      invoice.status === 'CANCELLED' ? 'CANCELLED' : paidKobo >= totalKobo ? 'PAID' : paidKobo > 0 ? 'PART_PAID' : 'ISSUED';
     return tx.invoice.update({ where: { id: invoiceId }, data: { totalKobo, paidKobo, status } });
   }
 

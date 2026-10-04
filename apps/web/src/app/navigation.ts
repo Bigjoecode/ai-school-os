@@ -77,6 +77,7 @@ import {
 } from 'lucide-react';
 import { Backpack, ClipboardCheck, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { Stethoscope } from 'lucide-react';
+import { BookUser, Shield } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -204,6 +205,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Behaviour', to: '/behaviour', icon: Medal, permission: 'welfare.read', keywords: 'merits demerits incidents discipline conduct detention points' },
       { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
+      { label: 'Houses', to: '/houses', icon: Shield, permission: 'school.read', keywords: 'house points inter-house sports red blue green yellow leaderboard assembly' },
     ],
   },
   {
@@ -229,6 +231,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'People',
     items: [
       { label: 'Parents', to: '/parents', icon: Users, permission: 'guardians.read', keywords: 'guardians' },
+      { label: 'Alumni', to: '/alumni', icon: BookUser, permission: 'alumni.read', keywords: 'old students graduates old boys old girls association reunion' },
       { label: 'Teachers & Staff', to: '/staff', icon: Briefcase, permission: 'staff.read', keywords: 'employees hr' },
       { label: 'Users & Roles', to: '/settings/users', icon: UserCog, permission: 'users.read', keywords: 'accounts invite' },
     ],

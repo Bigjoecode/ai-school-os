@@ -84,6 +84,6 @@ export function sampleReportView({
     publishedAt: null,
     template: config,
     traits: { affective: rate(config.affective.traits, 0), psychomotor: rate(config.psychomotor.traits, 1) },
-    extra: { age: 12, nextTermBegins: '2026-04-27', feesOwed: 0, currency: 'NGN', termNames },
+    extra: { age: 12, nextTermBegins: '2026-04-27', feesOwed: 0, currency: 'NGN', termNames, house: 'Aggrey House' },
   };
 }

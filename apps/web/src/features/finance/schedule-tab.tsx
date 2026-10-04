@@ -1,6 +1,7 @@
-import { type AcademicStructure, FEE_CATEGORIES, FEE_CATEGORY_LABELS, type FeeItemRow, toKobo } from '@aischool/shared';
-import { Copy, FileStack, MoreHorizontal, Pencil, Plus, Receipt, Send, Trash2 } from 'lucide-react';
+import { type AcademicStructure, DISCOUNT_KIND_LABELS, FEE_CATEGORIES, FEE_CATEGORY_LABELS, type FeeItemRow, toKobo } from '@aischool/shared';
+import { BadgePercent, Copy, FileStack, MoreHorizontal, Pencil, Plus, Receipt, Send, Trash2 } from 'lucide-react';
 import { type BaseSyntheticEvent, useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,9 +17,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { ApiError } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
+import { useDebounced } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { sortedLevels, TermSelect, termOptions } from '../planning/pickers';
 import { useCopyFees, useDeleteFee, useFees, useFinanceSettings, useGenerateInvoices, useSaveFee } from './api';
+import { useDiscountPreview } from './discounts-api';
 import { addDaysIso, compactMoney, FinanceTermSelect, koboToInput, money, MoneyInput, parseNaira, plural, schoolToday, type TermContext, useCurrency } from './ui';
 
 type Category = FeeItemRow['category'];
@@ -362,6 +365,7 @@ function IssueInvoicesDialog({ open, onOpenChange, ctx, fees }: { open: boolean;
   const [termId, setTermId] = useState(ctx.termId);
   const [levels, setLevels] = useState<string[]>([]);
   const [dueDate, setDueDate] = useState('');
+  const [overrideOn, setOverrideOn] = useState(false);
   const [sibling, setSibling] = useState('10');
 
   useEffect(() => {
@@ -369,6 +373,7 @@ function IssueInvoicesDialog({ open, onOpenChange, ctx, fees }: { open: boolean;
     setTermId(ctx.termId);
     setLevels([]);
     setDueDate(addDaysIso(schoolToday(), settings.data?.defaultDueDays ?? 21));
+    setOverrideOn(false);
     setSibling('10');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, ctx.termId, settings.data?.defaultDueDays]);
@@ -392,18 +397,25 @@ function IssueInvoicesDialog({ open, onOpenChange, ctx, fees }: { open: boolean;
   }, [ctx.structure, levels, termFees]);
 
   const pct = Math.max(0, Math.min(100, Number(sibling) || 0));
+  const override = overrideOn && pct > 0 ? pct : undefined;
+  const debouncedPct = useDebounced(override, 400);
+  const discounts = useDiscountPreview({ termId, classLevelIds: levels, siblingDiscountPct: debouncedPct }, open);
+  const dp = discounts.data;
 
   const submit = (e?: BaseSyntheticEvent) => {
     e?.preventDefault();
     if (!termId) return;
     generate.mutate(
-      { termId, classLevelIds: levels, dueDate: dueDate || undefined, siblingDiscountPct: pct },
+      { termId, classLevelIds: levels, dueDate: dueDate || undefined, siblingDiscountPct: override },
       {
         onSuccess: (r) => {
           onOpenChange(false);
           const extra = r.noFees ? ` · ${plural(r.noFees, 'learner')} had no fees` : '';
           if (r.created === 0) toast.info(`No new invoices — ${plural(r.skipped, 'learner')} already invoiced${extra}`);
-          else toast.success(`Issued ${plural(r.created, 'invoice')} worth ${compactMoney(r.totalKobo, currency)} (${r.skipped} skipped)${extra}`);
+          else
+            toast.success(
+              `Issued ${plural(r.created, 'invoice')} worth ${compactMoney(r.totalKobo, currency)}${r.discountKobo ? ` after ${compactMoney(r.discountKobo, currency)} in discounts` : ''} (${r.skipped} skipped)${extra}`,
+            );
         },
       },
     );
@@ -432,19 +444,61 @@ function IssueInvoicesDialog({ open, onOpenChange, ctx, fees }: { open: boolean;
         ) : (
           <p className="rounded-xl border border-border bg-muted/30 p-3 text-[12.5px] text-muted-foreground">Invoices will be issued for the whole school.</p>
         )}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Due date" htmlFor="gen-due" hint={settings.data ? `Default: ${settings.data.defaultDueDays} days from today` : undefined}>
-            <Input id="gen-due" type="date" value={dueDate} min={schoolToday()} onChange={(e) => setDueDate(e.target.value)} className="tabular [color-scheme:light] dark:[color-scheme:dark]" />
-          </Field>
-          <Field label="Sibling discount" htmlFor="gen-sib" hint="Off every child after the eldest in a family">
-            <div className="relative">
-              <Input id="gen-sib" inputMode="decimal" value={sibling} onChange={(e) => setSibling(e.target.value.replace(/[^\d.]/g, '').slice(0, 5))} className="pr-8 tabular" />
-              <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                %
-              </span>
+        <Field label="Due date" htmlFor="gen-due" hint={settings.data ? `Default: ${settings.data.defaultDueDays} days from today` : undefined}>
+          <Input id="gen-due" type="date" value={dueDate} min={schoolToday()} onChange={(e) => setDueDate(e.target.value)} className="tabular [color-scheme:light] dark:[color-scheme:dark] sm:max-w-[50%]" />
+        </Field>
+        <section className="grid gap-3 rounded-xl border border-border p-3.5" aria-labelledby="gen-disc">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p id="gen-disc" className="flex items-center gap-1.5 text-[13px] font-medium">
+              <BadgePercent className="size-4 text-muted-foreground" aria-hidden /> Discounts
+            </p>
+            <Link to="/fees?tab=discounts" onClick={() => onOpenChange(false)} className="text-[12px] font-medium text-brand hover:underline">
+              Rules and learner discounts
+            </Link>
+          </div>
+          {discounts.error && !dp ? (
+            <p className="text-[12.5px] text-muted-foreground">Couldn’t work out the discounts preview.</p>
+          ) : !dp ? (
+            <Skeleton className="h-10 w-full" />
+          ) : dp.byKind.length === 0 ? (
+            <p className="text-[12.5px] text-muted-foreground">
+              No discounts on {dp.learners ? `these ${plural(dp.learners, 'invoice')}` : 'new invoices'} — set up sibling, staff-child or scholarship discounts on the Discounts tab.
+            </p>
+          ) : (
+            <div className={cn('grid gap-2', discounts.isFetching && 'opacity-60')}>
+              <ul className="flex flex-wrap gap-1.5">
+                {dp.byKind.map((k) => (
+                  <li key={k.kind} className="rounded-full bg-muted px-2.5 py-1 text-[12px]">
+                    {DISCOUNT_KIND_LABELS[k.kind]} <span className="text-muted-foreground">×{k.count}</span> · <span className="font-medium tabular">{money(k.totalKobo, currency)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[12.5px] text-muted-foreground">
+                <span className="font-medium text-foreground tabular">{money(dp.discountKobo, currency)}</span> off in total ·{' '}
+                {dp.combine === 'BEST' ? 'largest discount only per learner' : 'discounts added together'}
+                {dp.examples[0] && (
+                  <>
+                    {' '}
+                    · e.g. {dp.examples[0].student}: {dp.examples[0].description}
+                  </>
+                )}
+              </p>
             </div>
-          </Field>
-        </div>
+          )}
+          <SwitchRow label="One-off sibling discount for this run" description="Replaces the sibling rule for these invoices only.">
+            <Switch checked={overrideOn} onCheckedChange={setOverrideOn} aria-label="One-off sibling discount" />
+          </SwitchRow>
+          {overrideOn && (
+            <Field label="Sibling discount" htmlFor="gen-sib" hint="Off the tuition of every child after the eldest in a family">
+              <div className="relative sm:max-w-[50%]">
+                <Input id="gen-sib" inputMode="decimal" value={sibling} onChange={(e) => setSibling(e.target.value.replace(/[^\d.]/g, '').slice(0, 5))} className="pr-8 tabular" />
+                <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                  %
+                </span>
+              </div>
+            </Field>
+          )}
+        </section>
         <div className="flex items-start gap-3 rounded-xl border border-brand/25 bg-brand-soft/40 p-3.5">
           <FileStack className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
           <p className="text-[13px]">
@@ -455,6 +509,12 @@ function IssueInvoicesDialog({ open, onOpenChange, ctx, fees }: { open: boolean;
                   <>
                     {' '}
                     · ≈ <span className="font-semibold tabular">{compactMoney(preview.gross, currency)}</span> before discounts
+                    {dp && dp.discountKobo > 0 && (
+                      <>
+                        {' '}
+                        · ≈ <span className="font-semibold tabular">{compactMoney(Math.max(0, preview.gross - dp.discountKobo), currency)}</span> after
+                      </>
+                    )}
                   </>
                 )}
               </>

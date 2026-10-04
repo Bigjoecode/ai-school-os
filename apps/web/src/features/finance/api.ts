@@ -6,6 +6,7 @@ import type {
   FeeReminder,
   FinanceOverview,
   FinanceSettings,
+  FinanceSettingsInput,
   GenerateInvoicesInput,
   GenerateInvoicesResult,
   InvoiceDetail,
@@ -100,7 +101,7 @@ export function useFinanceSettings(enabled = true) {
 
 export function useSaveFinanceSettings() {
   return useMutation({
-    mutationFn: (input: FinanceSettings) => api.put<FinanceSettingsView>('/finance/settings', input),
+    mutationFn: (input: FinanceSettingsInput) => api.put<FinanceSettingsView>('/finance/settings', input),
     meta: { silent: true },
     onSuccess: (s) => {
       queryClient.setQueryData(fk.settings, s);

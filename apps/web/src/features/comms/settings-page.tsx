@@ -12,7 +12,7 @@ import {
 } from '@aischool/shared';
 import { Bell, BellRing, Cake, CalendarClock, Check, Info, Link2Off, Pencil, Send, Settings2, Unplug } from 'lucide-react';
 import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -433,6 +433,17 @@ function WhatsappCard({ status, canManage }: { status?: ChannelStatus; canManage
         <>
           Through the <strong className="font-medium text-foreground">WhatsApp Business Cloud API</strong> (Meta). Each message is sent with your approved template.
         </>
+      }
+      extra={
+        status?.configured && (
+          <p className="mt-3 rounded-xl border border-border bg-muted/30 px-3 py-2 text-[12.5px]">
+            Let parents ask questions on WhatsApp and get answers about their children:{' '}
+            <Link to="/messages/whatsapp?tab=setup" className="font-medium text-brand underline-offset-4 hover:underline">
+              set up the WhatsApp parent assistant
+            </Link>
+            .
+          </p>
+        )
       }
       form={(done) => <WhatsappForm onDone={done} />}
     />

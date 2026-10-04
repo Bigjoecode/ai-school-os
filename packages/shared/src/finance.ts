@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DEFAULT_DISCOUNT_RULES, type DiscountRules, discountRulesSchema } from './discounts';
 
 /**
  * Finance contracts: fee schedules, invoices, payments (manual and Paystack),
@@ -69,6 +70,8 @@ export interface FinanceSettings {
   defaultDueDays: number;
   /** Shown on invoices for payment by transfer. */
   bankDetails: string | null;
+  /** Automatic sibling / staff-child discounts and how discounts combine. */
+  discountRules: DiscountRules;
 }
 
 export const DEFAULT_FINANCE_SETTINGS: FinanceSettings = {
@@ -76,6 +79,7 @@ export const DEFAULT_FINANCE_SETTINGS: FinanceSettings = {
   receiptPrefix: 'RCT',
   defaultDueDays: 21,
   bankDetails: null,
+  discountRules: DEFAULT_DISCOUNT_RULES,
 };
 
 // ------------------------------------------------------------ schemas
@@ -95,7 +99,10 @@ export const financeSettingsSchema = z.object({
   receiptPrefix: z.string().trim().toUpperCase().regex(/^[A-Z0-9]{2,8}$/, '2–8 letters or digits'),
   defaultDueDays: z.number().int().min(0).max(120),
   bankDetails: z.string().trim().max(500).nullable(),
+  /** Optional: left out, the saved rules are kept. */
+  discountRules: discountRulesSchema.optional(),
 });
+export type FinanceSettingsInput = z.infer<typeof financeSettingsSchema>;
 
 export const feeItemSchema = z.object({
   termId: z.string().min(1),
@@ -117,8 +124,11 @@ export const generateInvoicesSchema = z.object({
   /** Limit to some class levels (empty = the whole school). */
   classLevelIds: z.array(z.string()).max(50).default([]),
   dueDate: isoDate.optional(),
-  /** Discount applied to every child after the eldest in a family, in percent. */
-  siblingDiscountPct: z.number().min(0).max(100).default(0),
+  /**
+   * A one-off sibling discount for this run, in percent, replacing the
+   * school's sibling rule. Left out (or 0), the automatic rules apply.
+   */
+  siblingDiscountPct: z.number().min(0).max(100).optional(),
 });
 export type GenerateInvoicesInput = z.infer<typeof generateInvoicesSchema>;
 
@@ -270,6 +280,8 @@ export interface GenerateInvoicesResult {
   skipped: number;
   totalKobo: number;
   noFees: number;
+  /** Total of the discount lines on the new invoices. */
+  discountKobo?: number;
 }
 
 export interface ExpenseRow {

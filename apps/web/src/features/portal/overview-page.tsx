@@ -10,7 +10,9 @@ import { useHasFeature } from '@/lib/auth-store';
 import { formatDate, formatMoney, formatPct } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { usePortalOverview } from './api';
+import { PortalHouseCard } from '../houses/portal-house-card';
 import { PortalEventItem } from './events';
+import { LatestOnlineTest } from './latest-online-test';
 import { AttendanceRing, PortalShell, portalPath, positionText, sectionShared, type ShellCtx } from './ui';
 
 export default function PortalOverviewPage() {
@@ -72,6 +74,8 @@ function OverviewBody({ child, me, isParent, who }: ShellCtx) {
           />
         )}
       </div>
+
+      <PortalHouseCard childId={child.id} firstName={child.firstName} isParent={isParent} />
 
       {sectionShared(s, 'calendar') && (
         <Card className="p-4 sm:p-5">
@@ -200,6 +204,7 @@ function ResultCard({ d, childId, who, isParent }: { d: PortalOverview; childId:
           {r.publishedAt && <p className="mt-2 text-[12px] text-muted-foreground">Published {formatDate(r.publishedAt)}</p>}
         </div>
       )}
+      <LatestOnlineTest childId={childId} />
       <div className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
         {r && !r.withheld && (
           <Button asChild size="sm">

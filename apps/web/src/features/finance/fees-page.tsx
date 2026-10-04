@@ -1,4 +1,4 @@
-import { FileStack, LayoutDashboard, Receipt, Settings2, Wallet } from 'lucide-react';
+import { BadgePercent, FileStack, LayoutDashboard, Receipt, Settings2, Wallet } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCan } from '@/lib/auth-store';
 import type { InvoiceStatusFilter } from './api';
+import { DiscountsTab } from './discounts-tab';
 import { InvoicesTab, STATUS_FILTERS } from './invoices-tab';
 import { OverviewTab } from './overview-tab';
 import { FindInvoiceDialog, type PayableInvoice, RecordPaymentDialog, ReminderDialog } from './payment-dialogs';
@@ -13,8 +14,8 @@ import { ScheduleTab } from './schedule-tab';
 import { FinanceSettingsSheet } from './settings-sheet';
 import { FinanceTermSelect, useTermContext } from './ui';
 
-type Tab = 'overview' | 'invoices' | 'schedule';
-const TABS: Tab[] = ['overview', 'invoices', 'schedule'];
+type Tab = 'overview' | 'invoices' | 'schedule' | 'discounts';
+const TABS: Tab[] = ['overview', 'invoices', 'schedule', 'discounts'];
 
 export default function FeesPage() {
   const canManage = useCan('finance.manage');
@@ -101,6 +102,9 @@ export default function FeesPage() {
             <TabsTrigger value="schedule">
               <FileStack /> Fee schedule
             </TabsTrigger>
+            <TabsTrigger value="discounts">
+              <BadgePercent /> Discounts
+            </TabsTrigger>
           </TabsList>
           {tab === 'overview' && <FinanceTermSelect ctx={ctx} onChange={setTerm} className="sm:w-72" />}
         </div>
@@ -127,6 +131,9 @@ export default function FeesPage() {
         </TabsContent>
         <TabsContent value="schedule">
           <ScheduleTab ctx={ctx} onTermChange={setTerm} issueOpen={issueOpen} onIssueOpenChange={(o) => patch({ issue: o ? '1' : undefined })} />
+        </TabsContent>
+        <TabsContent value="discounts">
+          <DiscountsTab ctx={ctx} onTermChange={setTerm} />
         </TabsContent>
       </Tabs>
 

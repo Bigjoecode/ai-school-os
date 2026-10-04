@@ -213,6 +213,11 @@ model Tenant {
   promotions            StudentPromotion[]
   behaviourRecords      BehaviourRecord[]
   sickBayVisits         SickBayVisit[]
+  studentDiscounts      StudentDiscount[]
+  alumniProfiles        AlumniProfile[]
+  houses                House[]
+  housePointEntries     HousePointEntry[]
+  whatsappMessages      WhatsAppMessage[]
   traitRatings          StudentTraitRating[]
   homeworkSubmissions   HomeworkSubmission[]
   kbChunks              KbChunk[]
@@ -645,6 +650,8 @@ model Student {
   branchId          String?
   userId            String?
   classArmId        String?
+  /// School house (Red, Blue…), for house points and sports.
+  houseId           String?
   admissionNumber   String
   firstName         String
   middleName        String?
@@ -689,6 +696,10 @@ model Student {
   promotions          StudentPromotion[]
   behaviourRecords    BehaviourRecord[]
   sickBayVisits       SickBayVisit[]
+  discounts           StudentDiscount[]
+  alumniProfile       AlumniProfile?
+  house               House?                        @relation(fields: [houseId], references: [id], onDelete: SetNull)
+  housePoints         HousePointEntry[]
   transport           TransportAssignment?
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
@@ -3513,4 +3524,136 @@ model SickBayVisit {
   @@index([tenantId, visitedAt])
   @@index([studentId])
   @@map("sick_bay_visits")
+}
+
+// ============================================================ Phase 22: discounts, alumni, houses, WhatsApp assistant
+
+/// A standing fee discount for one student, applied whenever invoices are raised.
+model StudentDiscount {
+  id           String   @id @default(cuid())
+  tenantId     String
+  studentId    String
+  /// SIBLING, STAFF_CHILD, SCHOLARSHIP, BURSARY, OTHER
+  kind         String
+  label        String
+  /// Either a percentage or a fixed amount per term.
+  percent      Float?
+  amountKobo   Int?
+  /// TUITION (tuition items only) or ALL (every compulsory fee item)
+  appliesTo    String   @default("TUITION")
+  /// Optional window; empty = until removed.
+  fromTermId   String?
+  untilTermId  String?
+  active       Boolean  @default(true)
+  note         String?
+  approvedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, studentId])
+  @@map("student_discounts")
+}
+
+/// A former student: where they are now and how to reach them.
+model AlumniProfile {
+  id                 String   @id @default(cuid())
+  tenantId           String
+  /// Linked when we know which student record this is (graduates always; self-registrations once matched).
+  studentId          String?  @unique
+  firstName          String
+  lastName           String
+  graduationYear     Int?
+  finalClass         String?
+  email              String?
+  phone              String?
+  currentInstitution String?
+  course             String?
+  occupation         String?
+  employer           String?
+  city               String?
+  country            String?
+  /// Happy to be contacted for events, mentoring, fundraising.
+  consentToContact   Boolean  @default(true)
+  /// GRADUATED (from promotion), SELF_REGISTERED (website form), IMPORTED, ADDED
+  source             String   @default("ADDED")
+  /// Self-registrations wait for a staff member to confirm.
+  verified           Boolean  @default(true)
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student? @relation(fields: [studentId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, graduationYear])
+  @@map("alumni_profiles")
+}
+
+/// A school house (Red House, Aggrey House…).
+model House {
+  id            String   @id @default(cuid())
+  tenantId      String
+  name          String
+  /// #rrggbb
+  colour        String   @default("#2563eb")
+  motto         String?
+  /// House master/mistress (staff).
+  masterStaffId String?
+  createdAt     DateTime @default(now())
+
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  students Student[]
+  points   HousePointEntry[]
+
+  @@unique([tenantId, name])
+  @@map("houses")
+}
+
+/// Points awarded to a house (sports, competitions, inspections), optionally for one student.
+model HousePointEntry {
+  id          String   @id @default(cuid())
+  tenantId    String
+  houseId     String
+  studentId   String?
+  points      Int
+  reason      String
+  /// SPORTS, ACADEMIC, CONDUCT, CULTURAL, INSPECTION, OTHER
+  category    String   @default("OTHER")
+  date        DateTime @db.Date
+  awardedById String?
+  createdAt   DateTime @default(now())
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  house   House    @relation(fields: [houseId], references: [id], onDelete: Cascade)
+  student Student? @relation(fields: [studentId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, date])
+  @@map("house_point_entries")
+}
+
+/// WhatsApp messages to and from parents (the WhatsApp parent assistant).
+model WhatsAppMessage {
+  id             String   @id @default(cuid())
+  tenantId       String
+  /// Meta's message id: incoming webhooks can repeat, so each is handled once.
+  waMessageId    String   @unique
+  /// INBOUND or OUTBOUND
+  direction      String
+  phone          String
+  body           String
+  guardianId     String?
+  userId         String?
+  conversationId String?
+  /// RECEIVED, ANSWERED, IGNORED, FAILED, SENT
+  status         String   @default("RECEIVED")
+  error          String?
+  createdAt      DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, phone, createdAt])
+  @@map("whatsapp_messages")
 }

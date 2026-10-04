@@ -3,6 +3,7 @@ import { Globe2 } from 'lucide-react';
 import * as React from 'react';
 import { Route, Routes, useLocation, useParams, useSearchParams } from 'react-router';
 import { ApiError } from '@/lib/api';
+import { AlumniSignupPage } from '@/features/alumni/public-alumni-page';
 import { AssistantWidget } from './assistant';
 import { makeHref, onColor, SiteContext, type SiteContextValue, usePublicSite } from './context';
 import { PreviewBanner, SiteFooter, SiteHeader } from './layout';
@@ -107,6 +108,7 @@ export default function PublicSiteApp({ slug, basePath }: { slug: string; basePa
             {ctx.on('results') && <Route path="results" element={<ResultsPage />} />}
             {ctx.on('downloads') && <Route path="downloads" element={<DownloadsPage />} />}
             {ctx.on('fees') && <Route path="fees" element={<FeesPage />} />}
+            {ctx.on('alumni') && <Route path="alumni" element={<AlumniSignupPage />} />}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>

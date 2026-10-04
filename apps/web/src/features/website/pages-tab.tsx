@@ -38,6 +38,7 @@ const SECTION_COPY: Record<WebsiteSection, { label: string; description: string 
   fees: { label: 'School fees', description: 'This term’s fee schedule from Finance' },
   stats: { label: 'School numbers', description: 'Student, teacher and class counts on the home page' },
   assistant: { label: 'AI assistant', description: 'A chat widget that answers visitors from your published facts' },
+  alumni: { label: 'Alumni', description: 'A page where old students sign up and keep their details current' },
 };
 
 /** Empty optional text becomes null, as the API expects. */

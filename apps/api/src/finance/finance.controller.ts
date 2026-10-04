@@ -26,7 +26,7 @@ import {
   type FeeItemRow,
   type FeeReminder,
   type FinanceOverview,
-  type FinanceSettings,
+  type FinanceSettingsInput,
   type GenerateInvoicesInput,
   type GenerateInvoicesResult,
   type InvoiceDetail,
@@ -80,7 +80,7 @@ export class FinanceController {
 
   @Put('settings')
   @RequirePermissions('finance.manage')
-  setSettings(@Body(new ZodPipe(financeSettingsSchema)) body: FinanceSettings) {
+  setSettings(@Body(new ZodPipe(financeSettingsSchema)) body: FinanceSettingsInput) {
     return this.finance.setSettings(body);
   }
 

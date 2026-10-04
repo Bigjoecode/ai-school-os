@@ -11,7 +11,7 @@ import { SearchInput } from '@/components/ui/search-input';
 import { NONE, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { useCan } from '@/lib/auth-store';
-import { formatNumber } from '@/lib/format';
+import { classLabel as formatClass, formatNumber } from '@/lib/format';
 import { useDebounced } from '@/lib/hooks';
 import { cn, fullName, initials, titleCase } from '@/lib/utils';
 import { armOptions, useStructure } from '../academics/api';
@@ -22,7 +22,7 @@ import { StudentSheet } from './student-sheet';
 const PAGE_SIZE = 20;
 
 function classLabel(s: StudentRow) {
-  return s.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}` : null;
+  return s.classArm ? formatClass(s.classArm.classLevel.name, s.classArm.name) : null;
 }
 
 export default function StudentsPage() {

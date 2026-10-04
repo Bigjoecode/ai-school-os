@@ -26,6 +26,7 @@ import { formatNumber } from '@/lib/format';
 import { useDebounced } from '@/lib/hooks';
 import { initialsFromName } from '@/lib/utils';
 import { plural } from '../finance/ui';
+import { type StaffAction, StaffActionDialogs, StaffActionsMenu } from '../staff/staff-actions';
 import { useDeleteDepartment, useDepartments, useEmployees, useSaveDepartment } from './api';
 import { EmployeeStatusBadge, STAFF_TYPE_LABEL, StaffSelect, yearsLabel } from './ui';
 
@@ -84,6 +85,9 @@ function Directory({ params, patch }: { params: URLSearchParams; patch: (n: Reco
   const type = rawType === 'TEACHING' || rawType === 'NON_TEACHING' ? rawType : undefined;
   const page = Math.max(1, Number(params.get('page')) || 1);
   const departments = useDepartments();
+  const canManageStaff = useCan('staff.manage');
+  const [action, setAction] = useState<StaffAction>(null);
+  const menu = (e: EmployeeRow) => <StaffActionsMenu staff={e} onAction={(kind) => setAction({ kind, staff: e, open: true })} />;
 
   useEffect(() => {
     if ((params.get('q') ?? '') !== q) patch({ q: q || undefined, page: undefined });
@@ -129,6 +133,7 @@ function Directory({ params, patch }: { params: URLSearchParams; patch: (n: Reco
         </div>
       ),
     },
+    ...(canManageStaff ? [{ key: 'actions', header: <span className="sr-only">Actions</span>, className: 'w-12 text-right', cell: menu }] : []),
   ];
 
   return (
@@ -196,6 +201,7 @@ function Directory({ params, patch }: { params: URLSearchParams; patch: (n: Reco
             </div>
           </div>
         )}
+        mobileActions={canManageStaff ? menu : undefined}
         empty={{
           icon: Users,
           title: filtered ? 'Nobody matches' : 'No staff yet',
@@ -220,6 +226,7 @@ function Directory({ params, patch }: { params: URLSearchParams; patch: (n: Reco
       {list.data && list.data.total > 0 && (
         <Pagination page={page} pageSize={PAGE_SIZE} total={list.data.total} onPageChange={(p) => patch({ page: p > 1 ? String(p) : undefined })} noun="staff" />
       )}
+      {canManageStaff && <StaffActionDialogs action={action} onActionChange={setAction} />}
     </Card>
   );
 }

@@ -105,12 +105,15 @@ export type ClassLevelInput = z.infer<typeof classLevelSchema>;
 
 export const classArmSchema = z.object({
   classLevelId: z.string().min(1),
-  name: z.string().trim().min(1).max(20),
+  /** Empty for a level taught as one class with no arms (shows as just "JSS 1"). */
+  name: z.string().trim().max(20),
   capacity: z.number().int().min(1).max(500).optional(),
   classTeacherId: z.string().optional(),
   branchId: z.string().optional(),
 });
 export type ClassArmInput = z.infer<typeof classArmSchema>;
+/** Moves everything in one class arm into another, then removes the emptied arm. */
+export const mergeArmSchema = z.object({ intoId: z.string().min(1) });
 
 export const subjectSchema = z.object({
   name,
@@ -169,6 +172,9 @@ export const staffSchema = z.object({
   staffNumber: optionalText(30),
 });
 export type StaffInput = z.infer<typeof staffSchema>;
+export const updateStaffSchema = staffSchema.partial().extend({ status: z.enum(['ACTIVE', 'ON_LEAVE']).optional() });
+/** Someone leaving: their record and history stay; their classes, subjects and sign-in are released. */
+export const staffExitSchema = z.object({ exitedOn: isoDate.optional(), reason: optionalText(300) });
 
 // ---------------------------------------------------------------- rbac
 export const roleSchema = z.object({

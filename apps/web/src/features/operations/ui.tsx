@@ -12,6 +12,7 @@ import { useCan } from '@/lib/auth-store';
 import { useDebounced } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn, fullName, initialsFromName } from '@/lib/utils';
+import { classLabel } from '@/lib/format';
 import { useStudents } from '../students/api';
 import { CopyButton } from '../finance/ui';
 
@@ -233,7 +234,7 @@ export function StudentCombo({ placeholder = 'Search for a student…', ...props
   const options = (list.data?.items ?? []).map((s) => ({
     id: s.id,
     name: fullName(s),
-    detail: [s.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}` : null, s.admissionNumber].filter(Boolean).join(' · '),
+    detail: [s.classArm ? classLabel(s.classArm.classLevel.name, s.classArm.name) : null, s.admissionNumber].filter(Boolean).join(' · '),
   }));
   return <Combo {...props} options={options} loading={list.isFetching} onSearch={setQ} placeholder={placeholder} searchPlaceholder="Name or admission number…" emptyText="No students found." icon={<GraduationCap />} />;
 }

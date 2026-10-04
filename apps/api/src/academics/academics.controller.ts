@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put } from '@nestjs/common';
+import { BadRequestException, ConflictException, Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put } from '@nestjs/common';
 import { z } from 'zod';
 import {
   academicSessionSchema,
@@ -6,6 +6,7 @@ import {
   classArmSchema,
   classLevelSchema,
   subjectClassesSchema,
+  mergeArmSchema,
   subjectSchema,
   updateSubjectSchema,
   termSchema,
@@ -204,6 +205,58 @@ export class AcademicsController {
     return arm;
   }
 
+  /**
+   * Merges one class arm into another (e.g. JSS 1 B into JSS 1 A when a
+   * school stops using arms). Students, scores, report cards, attendance,
+   * homework, live classes and lesson plans move across; subjects the target
+   * doesn't have yet move too; the emptied arm's timetable periods are
+   * removed (regenerate the timetable afterwards).
+   */
+  @Post('class-arms/:id/merge')
+  @HttpCode(200)
+  @RequirePermissions('academics.manage')
+  async mergeArm(@Param('id') id: string, @Body(new ZodPipe(mergeArmSchema)) body: { intoId: string }) {
+    if (id === body.intoId) throw new BadRequestException('Choose a different class to merge into');
+    const db = this.prisma.db;
+    const [from, into] = await Promise.all([
+      db.classArm.findUniqueOrThrow({ where: { id }, include: { classLevel: true } }),
+      db.classArm.findUniqueOrThrow({ where: { id: body.intoId }, include: { classLevel: true, subjects: { select: { subjectId: true } } } }),
+    ]);
+    const label = (a: { name: string; classLevel: { name: string } }) => `${a.classLevel.name} ${a.name}`.trim();
+    const has = new Set(into.subjects.map((s) => s.subjectId));
+    const result = await db.$transaction(async (tx) => {
+      const students = await tx.student.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      const scores = await tx.score.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      await tx.reportCard.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      await tx.homework.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      await tx.liveClass.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      await tx.lessonPlan.updateMany({ where: { classArmId: id }, data: { classArmId: into.id } });
+      // Subjects: move the ones the target lacks; drop duplicates.
+      const subs = await tx.classSubject.findMany({ where: { classArmId: id } });
+      for (const s of subs) {
+        if (has.has(s.subjectId)) await tx.classSubject.delete({ where: { id: s.id } });
+        else await tx.classSubject.update({ where: { id: s.id }, data: { classArmId: into.id } });
+      }
+      // Attendance: one register per class per day, so same-day registers combine.
+      const registers = await tx.attendanceRegister.findMany({ where: { classArmId: id } });
+      for (const r of registers) {
+        const same = await tx.attendanceRegister.findFirst({ where: { classArmId: into.id, date: r.date } });
+        if (same) {
+          await tx.studentAttendance.updateMany({ where: { registerId: r.id }, data: { registerId: same.id } });
+          await tx.attendanceRegister.delete({ where: { id: r.id } });
+        } else {
+          await tx.attendanceRegister.update({ where: { id: r.id }, data: { classArmId: into.id } });
+        }
+      }
+      const periods = await tx.timetableEntry.deleteMany({ where: { classArmId: id } });
+      if (!into.classTeacherId && from.classTeacherId) await tx.classArm.update({ where: { id: into.id }, data: { classTeacherId: from.classTeacherId } });
+      await tx.classArm.delete({ where: { id } });
+      return { students: students.count, scores: scores.count, registers: registers.length, timetablePeriodsRemoved: periods.count };
+    }, { timeout: 60_000 });
+    await this.log('class-arm', id, `Merged ${label(from)} into ${label(into)}: ${result.students} students moved`);
+    return { ...result, into: { id: into.id, name: label(into) } };
+  }
+
   @Post('subjects')
   @RequirePermissions('academics.manage')
   async createSubject(@Body(new ZodPipe(subjectSchema)) body: SubjectInput) {
@@ -295,6 +348,8 @@ export class AcademicsController {
   async remove(@Param('kind') kind: string, @Param('id') id: string) {
     const model = DELETABLE[kind as keyof typeof DELETABLE];
     if (!model) throw new BadRequestException('Unknown record type');
+    // Deleting a class would take its students' results and attendance with it.
+    if (kind === 'class-arms' || kind === 'class-levels') await this.assertClassesEmpty(kind, id);
     // A dynamic model name loses Prisma's per-model typing; the scoped
     // client still applies the tenant filter.
     const delegate = this.prisma.db[model] as unknown as {
@@ -302,6 +357,27 @@ export class AcademicsController {
     };
     const removed = await delegate.delete({ where: { id } });
     await this.log(kind, id, `Deleted ${kind.replace(/-/g, ' ').replace(/s$/, '')} ${removed.name ?? ''}`.trim());
+  }
+
+  private async assertClassesEmpty(kind: 'class-arms' | 'class-levels', id: string) {
+    const db = this.prisma.db;
+    const arms = kind === 'class-arms' ? { id } : { classLevelId: id };
+    const [students, scores, reports, registers] = await Promise.all([
+      db.student.count({ where: { classArm: arms } }),
+      db.score.count({ where: { classArm: arms } }),
+      db.reportCard.count({ where: { classArm: arms } }),
+      db.attendanceRegister.count({ where: { classArm: arms } }),
+    ]);
+    const what = [students && `${students} student(s)`, scores && `${scores} score(s)`, reports && `${reports} report card(s)`, registers && `${registers} attendance register(s)`].filter(Boolean);
+    if (what.length) {
+      throw new ConflictException({
+        statusCode: 409,
+        code: 'CLASS_IN_USE',
+        message: kind === 'class-arms'
+          ? `This class has ${what.join(', ')}. Merge it into another class instead, so nothing is lost.`
+          : `This level's classes have ${what.join(', ')}. Merge or move them first.`,
+      });
+    }
   }
 
   private log(entity: string, id: string, summary: string) {

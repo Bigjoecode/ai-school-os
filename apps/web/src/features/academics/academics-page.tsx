@@ -5,9 +5,11 @@ import {
   Building2,
   CalendarDays,
   CheckCircle2,
+  GitMerge,
   Layers,
   Link2,
   MapPin,
+  MoreHorizontal,
   Pencil,
   Plus,
   Star,
@@ -22,6 +24,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -32,11 +35,16 @@ import { formatDate } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { BranchDialog, ClassArmDialog, ClassLevelDialog, SessionDialog, SubjectClassesDialog, SubjectDialog, TermDialog } from './academic-dialogs';
 import { type AcademicResource, useDeleteAcademic, useMakeCurrent, useStructure } from './api';
+import { armLabel, DeleteArmDialog, MakeOneClassDialog, MergeArmDialog } from './arm-dialogs';
 
 const TABS = ['sessions', 'classes', 'subjects', 'branches'] as const;
 type Tab = (typeof TABS)[number];
 
 type DeleteTarget = { resource: AcademicResource; id: string; label: string } | null;
+type LevelRow = AcademicStructure['classLevels'][number];
+type ArmRow = LevelRow['arms'][number];
+/** An action on one class arm; the rows stay set while the dialog animates closed. */
+type ArmAction = { kind: 'edit' | 'delete' | 'merge'; level: LevelRow; arm: ArmRow; open: boolean } | null;
 
 export default function AcademicsPage() {
   const [params, setParams] = useSearchParams();
@@ -47,6 +55,11 @@ export default function AcademicsPage() {
   const [dialog, setDialog] = useState<null | 'session' | 'term' | 'level' | 'arm' | 'subject' | 'branch'>(null);
   const [context, setContext] = useState<string | undefined>();
   const [toDelete, setToDelete] = useState<DeleteTarget>(null);
+  const [armAction, setArmAction] = useState<ArmAction>(null);
+  const [oneClass, setOneClass] = useState<{ level: LevelRow; open: boolean } | null>(null);
+  const closeArm = (o: boolean) => !o && setArmAction((a) => (a ? { ...a, open: false } : a));
+  // Keep the level fresh (arms change as merges finish) while its dialog is open.
+  const oneClassLevel = oneClass ? (data?.classLevels.find((l) => l.id === oneClass.level.id) ?? oneClass.level) : undefined;
   // The subject stays set while its dialog animates closed.
   const [subjectAction, setSubjectAction] = useState<{ kind: 'edit' | 'classes'; subject: SubjectRow; open: boolean } | null>(null);
   const subjectDialog = (kind: 'edit' | 'classes') => (s: SubjectRow) => setSubjectAction({ kind, subject: s, open: true });
@@ -138,7 +151,15 @@ export default function AcademicsPage() {
               <SessionsTab data={data} canManage={canManage} onAddTerm={(id) => open('term', id)} onAdd={() => open('session')} onDelete={setToDelete} />
             </TabsContent>
             <TabsContent value="classes">
-              <ClassesTab data={data} canManage={canManage} onAddArm={(id) => open('arm', id)} onAdd={() => open('level')} onDelete={setToDelete} />
+              <ClassesTab
+                data={data}
+                canManage={canManage}
+                onAddArm={(id) => open('arm', id)}
+                onAdd={() => open('level')}
+                onDelete={setToDelete}
+                onArmAction={(kind, level, arm) => setArmAction({ kind, level, arm, open: true })}
+                onMakeOneClass={(level) => setOneClass({ level, open: true })}
+              />
             </TabsContent>
             <TabsContent value="subjects">
               <SubjectsTab
@@ -163,6 +184,22 @@ export default function AcademicsPage() {
           <TermDialog open={dialog === 'term'} onOpenChange={close} structure={data} sessionId={context} />
           <ClassLevelDialog open={dialog === 'level'} onOpenChange={close} structure={data} />
           <ClassArmDialog open={dialog === 'arm'} onOpenChange={close} structure={data} levelId={context} />
+          <ClassArmDialog
+            open={armAction?.kind === 'edit' && armAction.open}
+            onOpenChange={closeArm}
+            structure={data}
+            levelId={armAction?.level.id}
+            arm={armAction?.kind === 'edit' ? armAction.arm : null}
+          />
+          <DeleteArmDialog
+            open={armAction?.kind === 'delete' && armAction.open}
+            onOpenChange={closeArm}
+            level={armAction?.level}
+            arm={armAction?.arm}
+            onMerge={() => armAction && setArmAction({ ...armAction, kind: 'merge', open: true })}
+          />
+          <MergeArmDialog open={armAction?.kind === 'merge' && armAction.open} onOpenChange={closeArm} structure={data} level={armAction?.level} arm={armAction?.arm} />
+          <MakeOneClassDialog open={!!oneClass?.open} onOpenChange={(o) => !o && setOneClass((c) => (c ? { ...c, open: false } : c))} level={oneClassLevel} />
           <SubjectDialog open={dialog === 'subject'} onOpenChange={close} />
           <SubjectDialog
             open={subjectAction?.kind === 'edit' && subjectAction.open}
@@ -351,13 +388,18 @@ function ClassesTab({
   onAdd,
   onAddArm,
   onDelete,
+  onArmAction,
+  onMakeOneClass,
 }: {
   data: AcademicStructure;
   canManage: boolean;
   onAdd: () => void;
   onAddArm: (levelId: string) => void;
   onDelete: (t: DeleteTarget) => void;
+  onArmAction: (kind: 'edit' | 'delete' | 'merge', level: LevelRow, arm: ArmRow) => void;
+  onMakeOneClass: (level: LevelRow) => void;
 }) {
+  const armCount = data.classLevels.reduce((n, l) => n + l.arms.length, 0);
   if (data.classLevels.length === 0) {
     return (
       <Card>
@@ -376,27 +418,46 @@ function ClassesTab({
       {levels.map((l, i) => {
         const total = l.arms.reduce((n, a) => n + a.studentCount, 0);
         const cap = l.arms.reduce((n, a) => n + (a.capacity ?? 0), 0);
+        const isOneClass = l.arms.length === 1 && !l.arms[0]!.name;
+        const canMakeOneClass = l.arms.length > 1 || (l.arms.length === 1 && !isOneClass);
         return (
           <motion.div key={l.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
             <Card className="h-full p-5">
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="flex items-center gap-2 font-display text-[17px] font-semibold tracking-tight">
+                <div className="min-w-0">
+                  <p className="flex flex-wrap items-center gap-2 font-display text-[17px] font-semibold tracking-tight">
                     {l.name}
                     <span className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[11px] font-normal text-muted-foreground">{l.code}</span>
                   </p>
                   <p className="mt-0.5 text-[13px] text-muted-foreground">
                     {l.stage ? `${l.stage} · ` : ''}
-                    {l.arms.length} arm{l.arms.length === 1 ? '' : 's'} · {total} student{total === 1 ? '' : 's'}
+                    {isOneClass ? 'One class' : `${l.arms.length} arm${l.arms.length === 1 ? '' : 's'}`} · {total} student{total === 1 ? '' : 's'}
                     {cap > 0 && ` of ${cap}`}
                   </p>
                 </div>
                 {canManage && (
-                  <div className="flex items-center">
+                  <div className="flex shrink-0 items-center">
                     <Button variant="ghost" size="sm" onClick={() => onAddArm(l.id)}>
                       <Plus /> Arm
                     </Button>
-                    <DeleteButton label={l.name} onClick={() => onDelete({ resource: 'class-levels', id: l.id, label: l.name })} />
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon-sm" aria-label={`Actions for ${l.name}`} className="text-muted-foreground">
+                          <MoreHorizontal />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-52">
+                        {canMakeOneClass && (
+                          <DropdownMenuItem onSelect={() => onMakeOneClass(l)}>
+                            <GitMerge /> Make this one class
+                          </DropdownMenuItem>
+                        )}
+                        {canMakeOneClass && <DropdownMenuSeparator />}
+                        <DropdownMenuItem destructive onSelect={() => onDelete({ resource: 'class-levels', id: l.id, label: l.name })}>
+                          <Trash2 /> Delete level
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 )}
               </div>
@@ -406,21 +467,41 @@ function ClassesTab({
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                   {l.arms.map((a) => {
                     const pct = a.capacity ? (a.studentCount / a.capacity) * 100 : null;
+                    const label = armLabel(l, a);
                     return (
-                      <li key={a.id} className="group rounded-xl border border-border bg-muted/20 p-3.5">
+                      <li key={a.id} className="min-w-0 rounded-xl border border-border bg-muted/20 p-3.5">
                         <div className="flex items-center justify-between gap-2">
-                          <p className="font-medium">
-                            {l.name} {a.name}
+                          {/* An arm with no name is the whole level ("JSS 1"); the level header says "One class". */}
+                          <p className="min-w-0 truncate font-medium" title={label}>
+                            {label}
                           </p>
-                          <div className="flex items-center gap-1">
+                          <div className="flex shrink-0 items-center gap-1">
                             <span className={cn('text-[12px] tabular', pct != null && pct >= 90 ? 'font-semibold text-warning' : 'text-muted-foreground')}>
                               {a.studentCount}
                               {a.capacity != null && `/${a.capacity}`}
                             </span>
                             {canManage && (
-                              <span className="opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
-                                <DeleteButton label={`${l.name} ${a.name}`} onClick={() => onDelete({ resource: 'class-arms', id: a.id, label: `${l.name} ${a.name}` })} />
-                              </span>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon-sm" aria-label={`Actions for ${label}`} className="-my-1 text-muted-foreground">
+                                    <MoreHorizontal />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-56">
+                                  <DropdownMenuItem onSelect={() => onArmAction('edit', l, a)}>
+                                    <Pencil /> {a.name ? 'Rename or edit' : 'Edit'}
+                                  </DropdownMenuItem>
+                                  {armCount > 1 && (
+                                    <DropdownMenuItem onSelect={() => onArmAction('merge', l, a)}>
+                                      <GitMerge /> Merge into another class
+                                    </DropdownMenuItem>
+                                  )}
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuItem destructive onSelect={() => onArmAction('delete', l, a)}>
+                                    <Trash2 /> Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             )}
                           </div>
                         </div>
@@ -429,7 +510,7 @@ function ClassesTab({
                             value={pct}
                             className="mt-2 h-1"
                             barClassName={pct >= 100 ? 'bg-danger' : pct >= 90 ? 'bg-warning' : 'bg-chart-4'}
-                            label={`${l.name} ${a.name} capacity`}
+                            label={`${label} capacity`}
                           />
                         )}
                         <p className="mt-2 flex items-center gap-1.5 truncate text-[12px] text-muted-foreground">

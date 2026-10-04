@@ -8,7 +8,7 @@ import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHea
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { useCan, useHasFeature } from '@/lib/auth-store';
-import { formatDate } from '@/lib/format';
+import { formatDate, classLabel } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { fullName, initials, titleCase } from '@/lib/utils';
 import { StudentAttendanceSummary } from '../attendance/student-summary';
@@ -99,7 +99,7 @@ export function StudentSheet({ id, onClose }: { id: string | null; onClose: () =
             <SheetBody>
               <dl className="grid gap-x-6 divide-y divide-border sm:grid-cols-2 sm:divide-y-0">
                 <Detail icon={<School />} label="Class">
-                  {data.classArm ? `${data.classArm.classLevel.name} ${data.classArm.name}` : 'Not assigned'}
+                  {data.classArm ? classLabel(data.classArm.classLevel.name, data.classArm.name) : 'Not assigned'}
                 </Detail>
                 <Detail icon={<Hash />} label="Gender">
                   {titleCase(data.gender)}

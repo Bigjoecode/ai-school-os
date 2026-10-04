@@ -13,6 +13,7 @@ import { useCan } from '@/lib/auth-store';
 import { useDebounced } from '@/lib/hooks';
 import { qk } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
+import { classLabel } from '@/lib/format';
 import { useStructure } from '../academics/api';
 import { MoneyInput, koboToInput, parseNaira, useCurrency } from '../finance/ui';
 import { useDepartments } from '../hr/api';
@@ -273,7 +274,7 @@ function ClassPicker({ value, set }: { value: AudienceDraft; set: Setter }) {
             {l.arms.length > 1 &&
               l.arms.map((a) => (
                 <Chip key={a.id} on={whole || value.classArmIds.includes(a.id)} disabled={whole} onClick={() => set({ classArmIds: toggle(value.classArmIds, a.id) })}>
-                  {l.name} {a.name}
+                  {classLabel(l.name, a.name)}
                 </Chip>
               ))}
           </div>

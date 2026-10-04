@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { NONE, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
+import { classLabel } from '@/lib/format';
 import { Stepper, useStoredState } from '../../assessment/ui';
 import { useSaveLoads } from '../api';
 import { SubjectDot } from '../ui';
@@ -172,7 +173,7 @@ export function LoadsMatrix({ setup, canManage }: { setup: TimetableSetup; canMa
                   </th>
                   {arms.map((a) => (
                     <th key={a.id} scope="col" className="min-w-[230px] px-3 py-2.5 text-left text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                      {level.name} {a.name}
+                      {classLabel(level.name, a.name)}
                     </th>
                   ))}
                 </tr>

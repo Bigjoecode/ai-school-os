@@ -15,7 +15,7 @@ import { FormDialog } from '@/components/ui/form-dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { api } from '@/lib/api';
-import { formatDate, formatNumber, todayIso } from '@/lib/format';
+import { formatDate, formatNumber, todayIso, classLabel } from '@/lib/format';
 import { queryClient } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { useStructure } from '../academics/api';
@@ -337,7 +337,7 @@ function CreateDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o:
                     {l.arms.map((a) => (
                       <label key={a.id} className={cn('flex cursor-pointer items-center gap-2 rounded-lg border px-2.5 py-1.5 text-[13px]', arms.includes(a.id) ? 'border-brand bg-brand-soft/40' : 'border-border')}>
                         <Checkbox checked={arms.includes(a.id)} onCheckedChange={(v) => toggle(a.id, v === true)} />
-                        {l.name} {a.name}
+                        {classLabel(l.name, a.name)}
                         <span className="text-[11.5px] text-muted-foreground tabular">{a.studentCount}</span>
                       </label>
                     ))}

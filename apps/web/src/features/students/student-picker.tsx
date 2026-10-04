@@ -6,6 +6,7 @@ import { Avatar } from '@/components/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useDebounced } from '@/lib/hooks';
 import { cn, fullName, initials } from '@/lib/utils';
+import { classLabel } from '@/lib/format';
 import { useStudents } from './api';
 
 export interface PickedStudent {
@@ -77,7 +78,7 @@ export function StudentPicker({ value, onChange, id }: StudentPickerProps) {
                       <span className="block truncate font-medium">{fullName(s)}</span>
                       <span className="block truncate text-[11.5px] text-muted-foreground">
                         {s.admissionNumber}
-                        {s.classArm && ` · ${s.classArm.classLevel.name} ${s.classArm.name}`}
+                        {s.classArm && ` · ${classLabel(s.classArm.classLevel.name, s.classArm.name)}`}
                       </span>
                     </span>
                     <Check className={cn('size-4 text-brand', on ? 'opacity-100' : 'opacity-0')} />

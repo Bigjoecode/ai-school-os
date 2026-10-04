@@ -26,6 +26,8 @@ interface DataTableProps<T> {
   rowLabel?: (row: T) => string;
   /** Card renderer for small screens. */
   renderMobile: (row: T) => React.ReactNode;
+  /** Controls shown beside each phone card (kept outside the card's row button). */
+  mobileActions?: (row: T) => React.ReactNode;
   empty: { icon: LucideIcon; title: string; description?: React.ReactNode; action?: React.ReactNode };
   skeletonRows?: number;
   className?: string;
@@ -45,6 +47,7 @@ export function DataTable<T>({
   onRowClick,
   rowLabel,
   renderMobile,
+  mobileActions,
   empty,
   skeletonRows = 6,
   className,
@@ -116,19 +119,23 @@ export function DataTable<T>({
       </div>
       <ul className="divide-y divide-border md:hidden">
         {rows.map((row) => (
-          <li key={rowKey(row)}>
+          <li key={rowKey(row)} className={mobileActions ? 'flex items-center' : undefined}>
             {onRowClick ? (
               <button
                 type="button"
                 onClick={() => onRowClick(row)}
-                className="w-full px-4 py-3.5 text-left transition-colors hover:bg-muted/40 focus-visible:bg-muted/60 focus-visible:outline-none"
+                className={cn(
+                  'w-full px-4 py-3.5 text-left transition-colors hover:bg-muted/40 focus-visible:bg-muted/60 focus-visible:outline-none',
+                  mobileActions && 'min-w-0 flex-1 pr-2',
+                )}
                 aria-label={rowLabel?.(row)}
               >
                 {renderMobile(row)}
               </button>
             ) : (
-              <div className="px-4 py-3.5">{renderMobile(row)}</div>
+              <div className={cn('px-4 py-3.5', mobileActions && 'min-w-0 flex-1 pr-2')}>{renderMobile(row)}</div>
             )}
+            {mobileActions && <div className="shrink-0 pr-2">{mobileActions(row)}</div>}
           </li>
         ))}
       </ul>

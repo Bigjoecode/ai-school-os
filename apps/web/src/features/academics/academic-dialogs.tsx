@@ -31,7 +31,9 @@ import { api } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { applyServerErrors, toOptionalNumber } from '@/lib/forms';
 import { qk } from '@/lib/query-client';
-import { type AcademicResource, useCreateAcademic, useSetSubjectClasses, useSubjectClasses, useUpdateSubject } from './api';
+import { classLabel } from '@/lib/format';
+import { cn } from '@/lib/utils';
+import { type AcademicResource, useCreateAcademic, useSetSubjectClasses, useSubjectClasses, useUpdateArm, useUpdateSubject } from './api';
 
 interface DialogProps {
   open: boolean;
@@ -200,7 +202,10 @@ export function ClassLevelDialog({ open, onOpenChange, structure }: DialogProps 
 
 // ------------------------------------------------------------------ class arm
 type ArmValues = z.input<typeof classArmSchema>;
-export function ClassArmDialog({ open, onOpenChange, structure, levelId }: DialogProps & { structure?: AcademicStructure; levelId?: string }) {
+type ArmRow = AcademicStructure['classLevels'][number]['arms'][number];
+/** Creates a class arm, or edits one (rename, capacity, class teacher) when `arm` is given. */
+export function ClassArmDialog({ open, onOpenChange, structure, levelId, arm }: DialogProps & { structure?: AcademicStructure; levelId?: string; arm?: ArmRow | null }) {
+  const editing = !!arm;
   const canStaff = useCan('staff.read');
   const teachers = useQuery({
     queryKey: qk.staff({ type: 'TEACHING', pageSize: 100, page: 1 }),
@@ -209,19 +214,73 @@ export function ClassArmDialog({ open, onOpenChange, structure, levelId }: Dialo
   });
   const levels = structure?.classLevels ?? [];
   const branches = structure?.branches ?? [];
-  const defaults: ArmValues = { classLevelId: levelId ?? levels[0]?.id ?? '', name: '', capacity: 30 };
+  const defaults: ArmValues = arm
+    ? { classLevelId: levelId ?? '', name: arm.name, capacity: arm.capacity ?? undefined, classTeacherId: arm.classTeacher?.id }
+    : { classLevelId: levelId ?? levels[0]?.id ?? '', name: '', capacity: 30 };
   const form = useForm<ArmValues, unknown, z.output<typeof classArmSchema>>({ resolver: zodResolver(classArmSchema), defaultValues: defaults });
-  const { onSubmit, pending } = useCreateForm(form, 'class-arms', 'Class arm created', open, onOpenChange, defaults);
+  const create = useCreateForm(form, 'class-arms', 'Class arm created', open && !editing, onOpenChange, defaults);
+  const update = useUpdateArm();
+  const [noArm, setNoArm] = useState(false);
+  useEffect(() => {
+    if (open && editing) form.reset(defaults);
+    if (open) setNoArm(editing && arm.name === '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, arm?.id]);
+
+  const level = levels.find((l) => l.id === form.watch('classLevelId'));
+  // A level can only be "one class" when this is its only arm (names are unique within a level).
+  const canBeOneClass = (level?.arms ?? []).every((a) => a.id === arm?.id);
+  useEffect(() => {
+    if (noArm && !canBeOneClass) setNoArm(false);
+  }, [noArm, canBeOneClass]);
+
+  const toggleNoArm = (on: boolean) => {
+    setNoArm(on);
+    form.setValue('name', on ? '' : (arm?.name ?? ''));
+    form.clearErrors('name');
+  };
+
+  const onSubmit = (ev?: BaseSyntheticEvent) => {
+    ev?.preventDefault();
+    if (!noArm && !form.getValues('name').trim()) {
+      form.setError('name', { message: 'Give the arm a name, or tick “No arm”' }, { shouldFocus: true });
+      return;
+    }
+    if (!editing) return create.onSubmit(ev);
+    return form.handleSubmit((v) =>
+      update.mutate(
+        { id: arm.id, name: noArm ? '' : v.name, capacity: v.capacity, classTeacherId: v.classTeacherId },
+        {
+          onSuccess: () => {
+            toast.success(`${classLabel(level?.name ?? '', noArm ? '' : v.name)} saved`);
+            onOpenChange(false);
+          },
+          onError: (err) => {
+            if (!applyServerErrors(err, form.setError)) toast.error(err.message);
+          },
+        },
+      ),
+    )(ev);
+  };
   const e = form.formState.errors;
   return (
-    <FormDialog open={open} onOpenChange={onOpenChange} title="New class arm" description="A stream within a level, e.g. JSS 1 A." icon={<LayoutGrid />} submitLabel="Create arm" pending={pending} onSubmit={onSubmit}>
+    <FormDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title={editing ? `Edit ${classLabel(level?.name ?? '', arm.name)}` : 'New class arm'}
+      description={editing ? 'Rename the arm, or tick “No arm” if this level is taught as one class.' : 'A stream within a level, e.g. JSS 1 A.'}
+      icon={editing ? <Pencil /> : <LayoutGrid />}
+      submitLabel={editing ? 'Save changes' : 'Create arm'}
+      pending={editing ? update.isPending : create.pending}
+      onSubmit={onSubmit}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Class level" htmlFor="ca-level" error={e.classLevelId?.message}>
           <Controller
             control={form.control}
             name="classLevelId"
             render={({ field }) => (
-              <Select value={field.value || undefined} onValueChange={field.onChange}>
+              <Select value={field.value || undefined} onValueChange={field.onChange} disabled={editing}>
                 <SelectTrigger id="ca-level" invalid={!!e.classLevelId}>
                   <SelectValue placeholder="Select level" />
                 </SelectTrigger>
@@ -237,8 +296,24 @@ export function ClassArmDialog({ open, onOpenChange, structure, levelId }: Dialo
           />
         </Field>
         <Field label="Arm name" htmlFor="ca-name" error={e.name?.message}>
-          <Input id="ca-name" placeholder="A, B, Gold…" invalid={!!e.name} {...form.register('name')} />
+          <Input id="ca-name" placeholder={noArm ? 'No arm' : 'A, B, Gold…'} readOnly={noArm} aria-disabled={noArm} tabIndex={noArm ? -1 : undefined} className={noArm ? 'cursor-not-allowed opacity-60' : undefined} invalid={!!e.name} {...form.register('name')} />
         </Field>
+        <label
+          className={cn(
+            'flex items-start gap-3 rounded-xl border border-border bg-muted/30 px-4 py-3 sm:col-span-2',
+            canBeOneClass ? 'cursor-pointer' : 'cursor-not-allowed opacity-70',
+          )}
+        >
+          <Checkbox className="mt-0.5" checked={noArm} disabled={!canBeOneClass} onCheckedChange={(v) => toggleNoArm(v === true)} />
+          <span className="min-w-0">
+            <span className="block text-[13.5px] font-medium">No arm — this level is one class</span>
+            <span className="block text-[12px] text-muted-foreground">
+              {canBeOneClass
+                ? `It shows as just “${level?.name ?? 'JSS 1'}” everywhere.`
+                : `${level?.name ?? 'This level'} already has other arms. Use “Make this one class” on the level to merge them first.`}
+            </span>
+          </span>
+        </label>
         <Field label="Capacity" htmlFor="ca-cap" optional error={e.capacity?.message}>
           <Input id="ca-cap" type="number" min={1} max={500} invalid={!!e.capacity} {...form.register('capacity', { setValueAs: toOptionalNumber })} />
         </Field>
@@ -253,17 +328,19 @@ export function ClassArmDialog({ open, onOpenChange, structure, levelId }: Dialo
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={NONE}>None</SelectItem>
-                  {teachers.data?.items.map((t) => (
-                    <SelectItem key={t.id} value={t.id}>
-                      {t.firstName} {t.lastName}
-                    </SelectItem>
-                  ))}
+                  {teachers.data?.items
+                    .filter((t) => t.status !== 'EXITED' || t.id === field.value)
+                    .map((t) => (
+                      <SelectItem key={t.id} value={t.id}>
+                        {t.firstName} {t.lastName}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             )}
           />
         </Field>
-        {branches.length > 1 && (
+        {!editing && branches.length > 1 && (
           <Field label="Branch" htmlFor="ca-branch" optional className="sm:col-span-2">
             <Controller
               control={form.control}

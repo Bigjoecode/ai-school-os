@@ -101,3 +101,12 @@ export function toDateInput(value: string | null | undefined): string {
   if (!value) return '';
   return value.slice(0, 10);
 }
+
+/**
+ * A class's display name: level plus arm ("JSS 1 A"), or just the level when
+ * the level is taught as one class with no arms ("JSS 1").
+ */
+export function classLabel(levelName: string, armName?: string | null): string {
+  const arm = armName?.trim();
+  return arm ? `${levelName} ${arm}` : levelName;
+}

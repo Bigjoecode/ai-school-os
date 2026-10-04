@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { useCan } from '@/lib/auth-store';
 import { qk, queryClient } from '@/lib/query-client';
+import { classLabel } from '@/lib/format';
 
 export function useStructure(enabled = true) {
   const can = useCan('academics.read');
@@ -22,7 +23,7 @@ export function armOptions(structure: AcademicStructure | undefined): ArmOption[
   if (!structure) return [];
   return [...structure.classLevels]
     .sort((a, b) => a.order - b.order)
-    .flatMap((l) => l.arms.map((a) => ({ id: a.id, label: `${l.name} ${a.name}`, levelName: l.name })));
+    .flatMap((l) => l.arms.map((a) => ({ id: a.id, label: classLabel(l.name, a.name), levelName: l.name })));
 }
 
 export type AcademicResource = 'sessions' | 'terms' | 'class-levels' | 'class-arms' | 'subjects' | 'branches';
@@ -49,6 +50,44 @@ export function useDeleteAcademic(resource: AcademicResource) {
     onSuccess: () => {
       invalidate();
       toast.success('Deleted');
+    },
+  });
+}
+
+// ------------------------------------------------------------------ class arms
+
+export type ArmMergeResult = { students: number; scores: number; registers: number; timetablePeriodsRemoved: number; into: { id: string; name: string } };
+
+/** Renames an arm or changes its capacity / class teacher. An empty name means the level is one class. */
+export function useUpdateArm() {
+  return useMutation({
+    mutationFn: ({ id, ...input }: { id: string; name?: string; capacity?: number; classTeacherId?: string }) => api.patch<unknown>(`/academics/class-arms/${id}`, input),
+    meta: { silent: true },
+    onSuccess: invalidate,
+  });
+}
+
+/** Deletes an empty arm. 409 CLASS_IN_USE when it has students, scores, report cards or attendance. */
+export function useDeleteArm() {
+  return useMutation({
+    mutationFn: (id: string) => api.delete(`/academics/class-arms/${id}`),
+    meta: { silent: true },
+    onSuccess: invalidate,
+  });
+}
+
+/** Moves everything in one arm into another, then removes the emptied arm. */
+export function useMergeArm() {
+  return useMutation({
+    mutationFn: ({ id, intoId }: { id: string; intoId: string }) => api.post<ArmMergeResult>(`/academics/class-arms/${id}/merge`, { intoId }),
+    meta: { silent: true },
+    onSettled: () => {
+      invalidate();
+      // Merging moves students and removes timetable periods.
+      void queryClient.invalidateQueries({ queryKey: qk.students() });
+      void queryClient.invalidateQueries({ queryKey: ['timetable'] });
+      void queryClient.invalidateQueries({ queryKey: ['timetables'] });
+      void queryClient.invalidateQueries({ queryKey: qk.staff() });
     },
   });
 }

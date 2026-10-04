@@ -1,7 +1,7 @@
 import { AWARD_CATEGORY_LABELS, type EmployeeDetail } from '@aischool/shared';
 import { AlarmClock, Award, CalendarDays, CalendarPlus, KeyRound, Medal, Pencil, UserRound, Wallet } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { Page } from '@/components/layout/page-header';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,7 @@ import { BackLink, Chips, DetailSkeleton } from '../planning/ui';
 import { useCancelLeave, useEmployee } from './api';
 import { type AwardPrefill, GiveAwardDialog } from './award-dialog';
 import { EditEmployeeSheet, PayBreakdown, PayProfileSheet } from './employee-sheets';
+import { type StaffAction, StaffActionDialogs, StaffActionsMenu } from '../staff/staff-actions';
 import { RecordLeaveDialog } from './leave-dialogs';
 import { dateRange, daysLabel, Detail, EmployeeStatusBadge, LeaveStatusBadge, maskAccount, STAFF_TYPE_LABEL, yearsLabel } from './ui';
 
@@ -54,6 +55,9 @@ function EmployeeView({ e }: { e: EmployeeDetail }) {
   useDocumentTitle(e.name);
   const canManage = useCan('hr.manage');
   const canPayManage = useCan('payroll.manage');
+  const canManageStaff = useCan('staff.manage');
+  const navigate = useNavigate();
+  const [staffAction, setStaffAction] = useState<StaffAction>(null);
   const [params, setParams] = useSearchParams();
   const tabs: Tab[] = ['overview', 'leave', 'attendance', 'awards', ...(e.canSeePay ? (['pay'] as const) : [])];
   const raw = params.get('tab') as Tab | null;
@@ -72,6 +76,7 @@ function EmployeeView({ e }: { e: EmployeeDetail }) {
   return (
     <Page className="max-w-6xl">
       <BackLink to="/hr/employees">Employees</BackLink>
+      {canManageStaff && <StaffActionDialogs action={staffAction} onActionChange={setStaffAction} onDeleted={() => void navigate('/hr/employees', { replace: true })} />}
 
       <Card className="relative mt-4 overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 size-64 rounded-full bg-brand/10 blur-3xl" />
@@ -108,6 +113,7 @@ function EmployeeView({ e }: { e: EmployeeDetail }) {
                 <CalendarPlus /> Record leave
               </Button>
             )}
+            {canManageStaff && <StaffActionsMenu staff={e} trigger="button" onAction={(kind) => setStaffAction({ kind, staff: e, open: true })} />}
           </div>
         </div>
       </Card>

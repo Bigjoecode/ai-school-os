@@ -31,6 +31,7 @@ import { dateOnly, fullName, paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow, schoolTimeOf } from '../common/school-time';
 import { PrismaService } from '../prisma/prisma.service';
+import { releaseStaff } from '../people/staff-release';
 
 const employeeInclude = {
   department: { select: { id: true, name: true } },
@@ -253,6 +254,9 @@ export class HrService {
         exitReason: exiting ? body.exitReason : null,
       },
     });
+    // Leaving through HR releases classes and sign-in, as "Mark as left" does.
+    if (exiting && before.status !== 'EXITED') await releaseStaff(this.prisma, id, before.userId);
+    if (!exiting && before.status === 'EXITED' && before.userId) await db.membership.updateMany({ where: { userId: before.userId }, data: { status: 'ACTIVE' } });
     const changes: string[] = [];
     if (before.jobTitle !== body.jobTitle) changes.push(`job title to ${body.jobTitle}`);
     if (before.departmentId !== body.departmentId) changes.push('department');

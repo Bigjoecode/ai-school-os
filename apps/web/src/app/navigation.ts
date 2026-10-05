@@ -77,7 +77,7 @@ import {
 } from 'lucide-react';
 import { Backpack, ClipboardCheck, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { Stethoscope } from 'lucide-react';
-import { BookUser, Shield } from 'lucide-react';
+import { BookUser, Compass, Shield } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -142,6 +142,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Exams & calendar', to: '/school/calendar', icon: CalendarDays, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'exam timetable test holidays events term dates' },
       { label: 'Downloads', to: '/school/downloads', icon: FolderDown, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'documents forms newsletter booklist timetable pdf' },
       { label: 'Behaviour & health', to: '/school/welfare', icon: HeartPulse, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'merits demerits conduct discipline sick bay clinic nurse medical allergies genotype' },
+      { label: 'Careers', to: '/school/careers', icon: Compass, permission: 'family.manage', audience: 'family', keywords: 'child career plan interests track university course jamb' },
     ],
   },
   // Phase 15: the student's learning companion and the parent's family page (permissions keep staff navs clean).
@@ -155,6 +156,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', audience: 'family', keywords: 'mastery topics memories strengths' },
       { label: 'Study plans', to: '/learn/plans', icon: CalendarCheck2, permission: 'learning.use', audience: 'family', keywords: 'revision timetable plan goals' },
       { label: 'Flashcards', to: '/learn/flashcards', icon: GalleryVerticalEnd, permission: 'learning.use', audience: 'family', keywords: 'cards review memorise' },
+      { label: 'Careers', to: '/careers', icon: Compass, permission: 'learning.use', audience: 'family', keywords: 'career job future university course jamb track science arts commercial technical interest quiz counsellor' },
     ],
   },
   {
@@ -206,6 +208,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Behaviour', to: '/behaviour', icon: Medal, permission: 'welfare.read', keywords: 'merits demerits incidents discipline conduct detention points' },
       { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
       { label: 'Houses', to: '/houses', icon: Shield, permission: 'school.read', keywords: 'house points inter-house sports red blue green yellow leaderboard assembly' },
+      { label: 'Careers guidance', to: '/careers-guidance', icon: Compass, permission: 'students.read', keywords: 'careers counsellor guidance track science arts commercial technical jamb university interests' },
     ],
   },
   {
@@ -349,6 +352,7 @@ export const PLATFORM_GROUP: NavGroup = {
     { label: 'Parent products', to: '/platform/products', icon: PackageOpen, area: 'commerce', keywords: 'ai plus pro exam prep pricing coupons discounts' },
     { label: 'Parent subscriptions', to: '/platform/family', icon: Home, area: 'commerce', keywords: 'family orders refunds renewals grant access sponsorships' },
     { label: 'Exam content', to: '/platform/content', icon: ScanSearch, area: 'content', keywords: 'question bank waec jamb neco bece syllabus topics ai draft' },
+    { label: 'Careers & courses', to: '/platform/careers', icon: Compass, area: 'content', keywords: 'career library university courses jamb brochure utme subjects olevel requirements' },
     { label: 'Plans', to: '/platform/plans', icon: Boxes, area: 'plans', keywords: 'pricing tiers modules packages' },
     { label: 'Usage', to: '/platform/usage', icon: Activity, area: 'usage', keywords: 'students seats ai spend api requests' },
     { label: 'Domains', to: '/platform/domains', icon: Globe2, area: 'domains', keywords: 'custom domain dns hostname cname' },

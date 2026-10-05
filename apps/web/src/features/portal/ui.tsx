@@ -1,5 +1,5 @@
 import { ordinal, type PortalChild, type PortalMe, type PortalSettings } from '@aischool/shared';
-import { Banknote, CalendarCheck, CalendarDays, Download, HeartPulse, House, Lock, type LucideIcon, Trophy } from 'lucide-react';
+import { Banknote, CalendarCheck, CalendarDays, Compass, Download, HeartPulse, House, Lock, type LucideIcon, Trophy } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useRef } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
@@ -20,7 +20,7 @@ import { lastChild, rememberChild, usePortalMe } from './api';
  * /school/attendance…) resolve to the last child they looked at.
  */
 
-export type PortalSection = 'overview' | 'attendance' | 'results' | 'fees' | 'calendar' | 'downloads' | 'welfare';
+export type PortalSection = 'overview' | 'attendance' | 'results' | 'fees' | 'calendar' | 'downloads' | 'welfare' | 'careers';
 
 export const PORTAL_SECTIONS: { key: PortalSection; label: string; icon: LucideIcon; setting?: keyof PortalSettings; parentsOnly?: boolean }[] = [
   { key: 'overview', label: 'Overview', icon: House },
@@ -30,6 +30,8 @@ export const PORTAL_SECTIONS: { key: PortalSection; label: string; icon: LucideI
   { key: 'calendar', label: 'Exams & calendar', icon: CalendarDays, setting: 'showCalendar' },
   { key: 'downloads', label: 'Downloads', icon: Download, setting: 'showDownloads' },
   { key: 'welfare', label: 'Behaviour & health', icon: HeartPulse },
+  // Students have their own Careers area; this tab is the parent's read-only view.
+  { key: 'careers', label: 'Careers', icon: Compass, parentsOnly: true },
 ];
 
 export function portalPath(section: PortalSection, childId: string): string {

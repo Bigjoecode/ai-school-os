@@ -23,11 +23,14 @@ function loadPdf(): PdfJs {
 
 export const MAX_PAGES = 200;
 
-export async function pdfText(buf: Buffer): Promise<string> {
+/** Text of a PDF's pages (the first MAX_PAGES unless a range is given, e.g. a long brochure read in parts). */
+export async function pdfText(buf: Buffer, range: { from?: number; to?: number } = {}): Promise<string> {
   const doc = await loadPdf().getDocument(new Uint8Array(buf));
   const pages: string[] = [];
+  const from = Math.max(1, range.from ?? 1);
+  const to = Math.min(doc.numPages, range.to ?? from + MAX_PAGES - 1);
   try {
-    for (let n = 1; n <= Math.min(doc.numPages, MAX_PAGES); n++) {
+    for (let n = from; n <= to; n++) {
       const content = await (await doc.getPage(n)).getTextContent();
       let lastY: number | undefined;
       let text = '';
@@ -42,6 +45,15 @@ export async function pdfText(buf: Buffer): Promise<string> {
     doc.destroy();
   }
   return pages.join('\n\n');
+}
+
+export async function pdfPageCount(buf: Buffer): Promise<number> {
+  const doc = await loadPdf().getDocument(new Uint8Array(buf));
+  try {
+    return doc.numPages;
+  } finally {
+    doc.destroy();
+  }
 }
 
 export async function docxText(buf: Buffer): Promise<string> {

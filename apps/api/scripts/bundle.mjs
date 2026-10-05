@@ -58,6 +58,7 @@ const result = await build({
 
 cpSync(resolve(root, 'prisma/migrations'), resolve(out, 'prisma/migrations'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/syllabi'))) cpSync(resolve(root, 'prisma/syllabi'), resolve(out, 'prisma/syllabi'), { recursive: true });
+if (existsSync(resolve(root, 'prisma/careers'))) cpSync(resolve(root, 'prisma/careers'), resolve(out, 'prisma/careers'), { recursive: true });
 writeFileSync(
   resolve(out, 'package.json'),
   JSON.stringify({ name: 'ai-school-os-api', private: true, main: 'main.js', scripts: { start: 'node main.js' } }, null, 2),

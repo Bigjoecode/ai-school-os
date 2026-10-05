@@ -6,6 +6,7 @@ import { PrismaClient } from '../generated/prisma/client';
 import { seedDemo } from './demo-seed';
 import { ensurePlatformContent } from './platform-content';
 import { installSyllabi } from './syllabus-install';
+import { installCareers } from './careers-install';
 import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
@@ -94,7 +95,7 @@ export async function runBootTasks(config: Env): Promise<void> {
 }
 
 /**
- * Installs shipped exam syllabi after the server is listening (a first
+ * Installs shipped exam syllabi and the career library after the server is listening (a first
  * install is thousands of rows; it must not hold up start-up). One process
  * at a time, via an advisory lock.
  */
@@ -106,8 +107,19 @@ export function installSyllabiInBackground(config: Env): void {
       const [lock] = await prisma.$queryRaw<{ ok: boolean }[]>`SELECT pg_try_advisory_lock(727275) AS ok`;
       if (!lock?.ok) return;
       try {
-        const result = await installSyllabi(prisma);
-        if (result) logger.log(result);
+        try {
+          const result = await installSyllabi(prisma);
+          if (result) logger.log(result);
+        } catch (err) {
+          logger.error(`Exam syllabi could not be installed: ${(err as Error).message}`);
+        }
+        // The career library (prisma/careers/careers.json) installs the same way.
+        try {
+          const careers = await installCareers(prisma);
+          if (careers) new Logger('Careers').log(careers);
+        } catch (err) {
+          new Logger('Careers').error(`Career library could not be installed: ${(err as Error).message}`);
+        }
       } finally {
         await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;
       }

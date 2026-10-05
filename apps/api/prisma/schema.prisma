@@ -218,6 +218,7 @@ model Tenant {
   houses                House[]
   housePointEntries     HousePointEntry[]
   whatsappMessages      WhatsAppMessage[]
+  careerProfiles        CareerProfile[]
   traitRatings          StudentTraitRating[]
   homeworkSubmissions   HomeworkSubmission[]
   kbChunks              KbChunk[]
@@ -700,6 +701,7 @@ model Student {
   alumniProfile       AlumniProfile?
   house               House?                        @relation(fields: [houseId], references: [id], onDelete: SetNull)
   housePoints         HousePointEntry[]
+  careerProfile       CareerProfile?
   transport           TransportAssignment?
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
@@ -3656,4 +3658,91 @@ model WhatsAppMessage {
 
   @@index([tenantId, phone, createdAt])
   @@map("whatsapp_messages")
+}
+
+// ============================================================ Phase 23: careers guidance
+
+/// A career in the platform's library (not per school): what the job is and how to get there.
+model Career {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  /// Health, Engineering, Law & Public Service, Business & Finance, Technology, Creative & Media, Education, Agriculture & Environment, Science & Research, Skilled Trades, Hospitality & Tourism, Transport & Logistics, Security & Defence…
+  field              String
+  summary            String
+  description        String?
+  /// What a typical day looks like.
+  dayToDay           String?
+  skills             String[] @default([])
+  /// Senior secondary subjects that help (by name).
+  subjects           String[] @default([])
+  /// SCIENCE, ARTS, COMMERCIAL, TECHNICAL — the SS1 track(s) that lead here.
+  tracks             String[] @default([])
+  /// Interest codes (Holland RIASEC letters) this career suits, strongest first, e.g. ["I","S"].
+  interests          String[] @default([])
+  /// University/polytechnic courses that lead here (UniversityCourse names).
+  courses            String[] @default([])
+  /// Routes besides a degree: ND/HND, apprenticeship, professional exams.
+  otherRoutes        String?
+  /// Professional bodies and licences (e.g. MDCN, COREN, ICAN, NBA).
+  professionalBodies String[] @default([])
+  outlook            String?
+  published          Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([field])
+  @@map("careers")
+}
+
+/// A tertiary course and its admission requirements (from the JAMB brochure or entered in the console).
+model UniversityCourse {
+  id                 String   @id @default(cuid())
+  name               String   @unique
+  faculty            String?
+  /// UTME subjects: Use of English is always compulsory; the other three as rules, e.g.
+  /// [{ "subjects": ["Biology"] }, { "subjects": ["Chemistry"] }, { "subjects": ["Physics"] }] or with alternatives
+  /// [{ "subjects": ["Mathematics", "Physics"], "note": "any one" }].
+  utmeSubjects       Json     @default("[]")
+  /// O'level (WASSCE/NECO) credits: { "count": 5, "required": ["English Language","Mathematics","Biology"], "anyOf": [...] , "note": "..." }
+  olevelRequirements Json?
+  /// Direct entry and other notes.
+  notes              String?
+  /// JAMB_BROCHURE, MANUAL
+  source             String   @default("MANUAL")
+  /// Brochure year / edition the requirements were taken from.
+  sourceEdition      String?
+  /// Requirements still need checking against the brochure.
+  verified           Boolean  @default(false)
+  published          Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("university_courses")
+}
+
+/// A student's career exploration: interest quiz results, saved careers and target course.
+model CareerProfile {
+  id              String    @id @default(cuid())
+  tenantId        String
+  studentId       String    @unique
+  /// Interest quiz scores by RIASEC letter, e.g. { "R": 12, "I": 18, … }.
+  interestScores  Json?
+  /// The quiz answers, for re-scoring.
+  quizAnswers     Json?
+  quizCompletedAt DateTime?
+  savedCareers    String[]  @default([])
+  targetCourse    String?
+  /// SCIENCE, ARTS, COMMERCIAL, TECHNICAL — the student's chosen/planned track.
+  plannedTrack    String?
+  /// Counsellor's notes (staff only).
+  counsellorNotes String?
+  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("career_profiles")
 }

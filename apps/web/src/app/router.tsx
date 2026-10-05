@@ -156,6 +156,17 @@ const SickBayPage = lazy(() => import('@/features/welfare/sick-bay-page'));
 const HousesPage = lazy(() => import('@/features/houses/houses-page'));
 const AlumniPage = lazy(() => import('@/features/alumni/alumni-page'));
 const PortalFeesPage = lazy(() => import('@/features/portal/fees-page'));
+const PortalCareersPage = lazy(() => import('@/features/portal/careers-page'));
+const CareersHomePage = lazy(() => import('@/features/careers/home-page'));
+const CareerLibraryPage = lazy(() => import('@/features/careers/library-page'));
+const CareerPage = lazy(() => import('@/features/careers/career-page'));
+const CareerQuizPage = lazy(() => import('@/features/careers/quiz-page'));
+const CareerResultsPage = lazy(() => import('@/features/careers/quiz-page').then((m) => ({ default: m.CareerResultsPage })));
+const TrackAdvisorPage = lazy(() => import('@/features/careers/advisor-page'));
+const CounsellorPage = lazy(() => import('@/features/careers/counsellor-page'));
+const CareerPlanPage = lazy(() => import('@/features/careers/plan-page'));
+const CareersGuidancePage = lazy(() => import('@/features/careers/staff-page'));
+const ConsoleCareersPage = lazy(() => import('@/features/platform/careers-content-page'));
 const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
 const SecurityPage = lazy(() => import('@/features/settings/security-page'));
@@ -703,6 +714,20 @@ export const router = createBrowserRouter(withRouteErrors([
           ['learn/exams', <ExamAcademyPage key="exams" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
+      // Phase 23: careers guidance for students (and the staff overview below).
+      ...(
+        [
+          ['careers', <CareersHomePage key="careers" />],
+          ['careers/library', <CareerLibraryPage key="career-library" />],
+          ['careers/library/:slug', <CareerPage key="career" />],
+          ['careers/quiz', <CareerQuizPage key="career-quiz" />],
+          ['careers/results', <CareerResultsPage key="career-results" />],
+          ['careers/advisor', <TrackAdvisorPage key="career-advisor" />],
+          ['careers/counsellor/:conversationId?', <CounsellorPage key="career-counsellor" />],
+          ['careers/plan', <CareerPlanPage key="career-plan" />],
+        ] as const
+      ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
+      { path: 'careers-guidance', element: <RequirePermission permission="students.read"><CareersGuidancePage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
@@ -724,12 +749,14 @@ export const router = createBrowserRouter(withRouteErrors([
           ['school/welfare/:studentId', <PortalWelfarePage key="p-welfare" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
-      // Fees are for parents only.
+      // Fees and the Careers tab are for parents only.
       ...(
         [
           ['school/fees', <PortalRedirect key="p-fee" section="fees" />],
           ['school/fees/:studentId', <PortalFeesPage key="p-fees" />],
           ['school/fees/:studentId/receipt/:paymentId', <PortalReceiptPage key="p-receipt" />],
+          ['school/careers', <PortalRedirect key="p-car" section="careers" />],
+          ['school/careers/:studentId', <PortalCareersPage key="p-careers" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission="family.manage">{page}</RequirePermission> })),
       {
@@ -852,6 +879,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['platform/products', 'commerce', <ConsoleProductsPage key="products" />],
           ['platform/family', 'commerce', <ConsoleFamilyPage key="family" />],
           ['platform/content', 'content', <ConsoleContentPage key="content" />],
+          ['platform/careers', 'content', <ConsoleCareersPage key="careers" />],
         ] as const
       ).map(([path, area, page]) => ({
         path,

@@ -2,65 +2,97 @@
  "exam": "WAEC",
  "subject": "Literature in English",
  "level": "SENIOR",
- "sourceFile": "Arts & Humanities -- LITERATURE IN ENGLISH.txt",
- "examFormat": "The source file is only the WAEC harmonized list of prescribed Literature-in-English texts for WASSCE 2026-2030 and the full text of the prescribed poems; it does not state the papers, format, marks or duration.",
- "excluded": "Specific titles, authors and the full poem texts, because set texts change yearly and are described generically. No Ghana-only or other country-specific content appears in the file.",
+ "sourceFile": "Arts & Humanities -- LITERATURE IN ENGLISH.txt (WAEC harmonised list of texts 2026-2030) + WASSCE Literature in English scheme of examination",
+ "examFormat": "Three papers, all compulsory; Papers 1 and 2 are taken at one sitting. Paper 1 (1 hour, 50 marks): 50 multiple-choice questions — 20 on general knowledge of literature, 5 on one unseen prose passage (about 120–150 words), 5 on one unseen poem and 20 context questions on the prescribed Shakespearean text. Paper 2 (1 hour 15 minutes, 50 marks): essays — Section A African prose, Section B non-African prose, two questions on each prescribed novel; answer one from each section. Paper 3 (2 hours 30 minutes, 50 marks): Section A African drama, B non-African drama, C African poetry, D non-African poetry, two questions on each prescribed text; answer one from each section (four in all).",
+ "excluded": "Full texts of the prescribed poems (copyright; students read them in their anthologies). Set texts change with each WAEC list: these are for 2026–2030.",
  "topics": [
   {
-   "name": "Shakespearean Text",
-   "objectives": [
-    "Study the prescribed Shakespearean play"
-   ],
-   "content": "Drama: one prescribed Shakespearean play on the WASSCE harmonized list of Literature-in-English texts for the current examination cycle.",
+   "name": "General Knowledge of Literature",
+   "objectives": ["Answer objective questions on general knowledge of literature (Paper 1: 20 questions)"],
+   "content": "Paper 1, part (a): twenty multiple-choice questions on general knowledge of literature.",
    "subtopics": []
+  },
+  {
+   "name": "Unseen Prose",
+   "objectives": ["Read an unseen prose passage of about 120–150 words and answer questions on it (Paper 1: 5 questions)"],
+   "content": null,
+   "subtopics": []
+  },
+  {
+   "name": "Unseen Poetry",
+   "objectives": ["Read an unseen poem and answer questions on it (Paper 1: 5 questions)"],
+   "content": null,
+   "subtopics": []
+  },
+  {
+   "name": "Shakespearean Text",
+   "objectives": ["Answer context questions on the prescribed Shakespearean play (Paper 1: 20 questions)"],
+   "content": "Prescribed for 2026–2030: Antony and Cleopatra.",
+   "subtopics": [
+    { "name": "Antony and Cleopatra (William Shakespeare)", "objectives": ["Answer context questions on Antony and Cleopatra"] }
+   ]
   },
   {
    "name": "African Prose",
-   "objectives": [
-    "Study the prescribed African prose texts"
-   ],
-   "content": "Prose: set African novels chosen from the WASSCE harmonized list of Literature-in-English texts (two texts listed for the current cycle).",
-   "subtopics": []
+   "objectives": ["Write an essay on one of the prescribed African novels (Paper 2, Section A)"],
+   "content": "Prescribed for 2026–2030: Pede Hollist, So the Path Does Not Die; Elma Shaw, Redemption Road.",
+   "subtopics": [
+    { "name": "So the Path Does Not Die (Pede Hollist)", "objectives": ["Answer essay questions on So the Path Does Not Die"] },
+    { "name": "Redemption Road (Elma Shaw)", "objectives": ["Answer essay questions on Redemption Road"] }
+   ]
   },
   {
    "name": "Non-African Prose",
-   "objectives": [
-    "Study the prescribed non-African prose texts"
-   ],
-   "content": "Prose: set non-African novels chosen from the WASSCE harmonized list of Literature-in-English texts (two texts listed for the current cycle).",
-   "subtopics": []
+   "objectives": ["Write an essay on one of the prescribed non-African novels (Paper 2, Section B)"],
+   "content": "Prescribed for 2026–2030: Harper Lee, To Kill a Mockingbird; Susanne Bellefeuille, Path of Lucas: The Journey He Endured.",
+   "subtopics": [
+    { "name": "To Kill a Mockingbird (Harper Lee)", "objectives": ["Answer essay questions on To Kill a Mockingbird"] },
+    { "name": "Path of Lucas: The Journey He Endured (Susanne Bellefeuille)", "objectives": ["Answer essay questions on Path of Lucas: The Journey He Endured"] }
+   ]
   },
   {
    "name": "African Drama",
-   "objectives": [
-    "Study the prescribed African drama texts"
-   ],
-   "content": "Drama: set African plays chosen from the WASSCE harmonized list of Literature-in-English texts (two texts listed for the current cycle).",
-   "subtopics": []
+   "objectives": ["Answer a question on one of the prescribed African plays (Paper 3, Section A)"],
+   "content": "Prescribed for 2026–2030: Bosede Ademilua-Afolayan, Once Upon an Elephant; Efua Sutherland, The Marriage of Anansewa.",
+   "subtopics": [
+    { "name": "Once Upon an Elephant (Bosede Ademilua-Afolayan)", "objectives": ["Answer questions on Once Upon an Elephant"] },
+    { "name": "The Marriage of Anansewa (Efua Sutherland)", "objectives": ["Answer questions on The Marriage of Anansewa"] }
+   ]
   },
   {
    "name": "Non-African Drama",
-   "objectives": [
-    "Study the prescribed non-African drama texts"
-   ],
-   "content": "Drama: set non-African plays chosen from the WASSCE harmonized list of Literature-in-English texts (two texts listed for the current cycle).",
-   "subtopics": []
+   "objectives": ["Answer a question on one of the prescribed non-African plays (Paper 3, Section B)"],
+   "content": "Prescribed for 2026–2030: J. B. Priestley, An Inspector Calls; Robert Bolt, A Man for All Seasons.",
+   "subtopics": [
+    { "name": "An Inspector Calls (J. B. Priestley)", "objectives": ["Answer questions on An Inspector Calls"] },
+    { "name": "A Man for All Seasons (Robert Bolt)", "objectives": ["Answer questions on A Man for All Seasons"] }
+   ]
   },
   {
    "name": "African Poetry",
-   "objectives": [
-    "Study the prescribed African poems"
-   ],
-   "content": "Poetry: a list of prescribed African poems (six listed for the current cycle), whose full texts are reproduced in the WAEC list of prescribed poems.",
-   "subtopics": []
+   "objectives": ["Answer a question on one of the prescribed African poems (Paper 3, Section C)"],
+   "content": "Prescribed for 2026–2030: Gabriel Okara, Once Upon a Time; Elizabeth L. A. Kamara, New Tongue; Wole Soyinka, Night; Niyi Osundare, Not My Business; S. O. H. Afriyie-Vidza, Hearty Garlands; Syl Cheney-Coker, The Breast of the Sea.",
+   "subtopics": [
+    { "name": "Once Upon a Time (Gabriel Okara)", "objectives": ["Answer questions on Once Upon a Time"] },
+    { "name": "New Tongue (Elizabeth L. A. Kamara)", "objectives": ["Answer questions on New Tongue"] },
+    { "name": "Night (Wole Soyinka)", "objectives": ["Answer questions on Night"] },
+    { "name": "Not My Business (Niyi Osundare)", "objectives": ["Answer questions on Not My Business"] },
+    { "name": "Hearty Garlands (S. O. H. Afriyie-Vidza)", "objectives": ["Answer questions on Hearty Garlands"] },
+    { "name": "The Breast of the Sea (Syl Cheney-Coker)", "objectives": ["Answer questions on The Breast of the Sea"] }
+   ]
   },
   {
    "name": "Non-African Poetry",
-   "objectives": [
-    "Study the prescribed non-African poems"
-   ],
-   "content": "Poetry: a list of prescribed non-African poems (six listed for the current cycle, including one shortened narrative poem), whose full texts are reproduced in the WAEC list of prescribed poems.",
-   "subtopics": []
+   "objectives": ["Answer a question on one of the prescribed non-African poems (Paper 3, Section D)"],
+   "content": "Prescribed for 2026–2030: Lord Byron, She Walks in Beauty; Geoffrey Chaucer, The Nun's Priest's Tale (shortened); Seamus Heaney, Digging; Maya Angelou, Still I Rise; Fleur Adcock, The Telephone Call; Wilfrid Wilson Gibson, The Stone.",
+   "subtopics": [
+    { "name": "She Walks in Beauty (Lord Byron)", "objectives": ["Answer questions on She Walks in Beauty"] },
+    { "name": "The Nun's Priest's Tale (Geoffrey Chaucer)", "objectives": ["Answer questions on The Nun's Priest's Tale (shortened)"] },
+    { "name": "Digging (Seamus Heaney)", "objectives": ["Answer questions on Digging"] },
+    { "name": "Still I Rise (Maya Angelou)", "objectives": ["Answer questions on Still I Rise"] },
+    { "name": "The Telephone Call (Fleur Adcock)", "objectives": ["Answer questions on The Telephone Call"] },
+    { "name": "The Stone (Wilfrid Wilson Gibson)", "objectives": ["Answer questions on The Stone"] }
+   ]
   }
  ]
 }

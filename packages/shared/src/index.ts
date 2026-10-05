@@ -30,3 +30,4 @@ export * from './welfare';
 export * from './whatsapp';
 export * from './alumni';
 export * from './houses';
+export * from './careers';

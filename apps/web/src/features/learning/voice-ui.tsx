@@ -248,6 +248,7 @@ export function TalkPanel({
   server,
   ask,
   blocked,
+  who = 'tutor',
 }: {
   open: boolean;
   onClose: () => void;
@@ -255,6 +256,8 @@ export function TalkPanel({
   server: boolean;
   ask: (text: string) => Promise<AskResult>;
   blocked: AllowanceExhausted | null;
+  /** Who the student is talking to ("tutor", "counsellor"). */
+  who?: string;
 }) {
   const [phase, setPhase] = useState<Phase>('paused');
   const [heard, setHeard] = useState('');
@@ -356,7 +359,7 @@ export function TalkPanel({
               ? 'Tap the circle to interrupt and ask something else.'
               : 'Tap the circle to talk.');
   const orbLabel =
-    orb === 'listening' ? 'Stop listening and send' : orb === 'speaking' ? 'Interrupt and talk' : orb === 'thinking' ? 'Your tutor is thinking' : 'Start talking';
+    orb === 'listening' ? 'Stop listening and send' : orb === 'speaking' ? 'Interrupt and talk' : orb === 'thinking' ? `Your ${who} is thinking` : 'Start talking';
   const you = phase === 'listening' && interim ? interim : heard;
 
   return (
@@ -364,7 +367,7 @@ export function TalkPanel({
       <DialogContent size="sm" hideClose className="h-[92dvh] sm:h-[min(720px,88dvh)]">
         <div className="flex items-center justify-between gap-3 px-5 pt-5">
           <div className="min-w-0">
-            <DialogTitle className="text-[16px]">Talk to your tutor</DialogTitle>
+            <DialogTitle className="text-[16px]">Talk to your {who}</DialogTitle>
             <DialogDescription className="text-[12px]">Hands-free. Everything you say stays in this chat.</DialogDescription>
           </div>
           <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-ai-2/10 px-2 py-0.5 text-[11px] font-medium text-ai-2">
@@ -394,7 +397,7 @@ export function TalkPanel({
             )}
             {reply && (
               <div className="max-w-[95%] rounded-2xl rounded-bl-md bg-muted px-3.5 py-2 text-[13.5px]">
-                <span className="sr-only">Tutor: </span>
+                <span className="sr-only">{who.charAt(0).toUpperCase() + who.slice(1)}: </span>
                 <span className="whitespace-pre-wrap break-words">{plainForSpeech(reply)}</span>
               </div>
             )}

@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { env } from './config/env';
-import { runBootTasks } from './prisma/boot-tasks';
+import { installSyllabiInBackground, runBootTasks } from './prisma/boot-tasks';
 import { sendAlertNow } from './alerts/alerts.service';
 import { runMigrations } from './prisma/migrator';
 
@@ -50,6 +50,7 @@ async function bootstrap() {
 
   await app.listen(config.PORT);
   logger.log(`AI School OS API listening on :${config.PORT} (${config.NODE_ENV})`);
+  installSyllabiInBackground(config);
 }
 
 bootstrap().catch(async (err) => {

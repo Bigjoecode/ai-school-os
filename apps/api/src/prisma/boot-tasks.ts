@@ -5,6 +5,7 @@ import type { Env } from '../config/env';
 import { PrismaClient } from '../generated/prisma/client';
 import { seedDemo } from './demo-seed';
 import { ensurePlatformContent } from './platform-content';
+import { installSyllabi } from './syllabus-install';
 import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
@@ -91,3 +92,30 @@ export async function runBootTasks(config: Env): Promise<void> {
     await prisma.$disconnect();
   }
 }
+
+/**
+ * Installs shipped exam syllabi after the server is listening (a first
+ * install is thousands of rows; it must not hold up start-up). One process
+ * at a time, via an advisory lock.
+ */
+export function installSyllabiInBackground(config: Env): void {
+  const logger = new Logger('Syllabi');
+  void (async () => {
+    const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: config.DATABASE_URL, max: 1 }) });
+    try {
+      const [lock] = await prisma.$queryRaw<{ ok: boolean }[]>`SELECT pg_try_advisory_lock(727275) AS ok`;
+      if (!lock?.ok) return;
+      try {
+        const result = await installSyllabi(prisma);
+        if (result) logger.log(result);
+      } finally {
+        await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;
+      }
+    } catch (err) {
+      logger.error(`Exam syllabi could not be installed: ${(err as Error).message}`);
+    } finally {
+      await prisma.$disconnect().catch(() => undefined);
+    }
+  })();
+}
+

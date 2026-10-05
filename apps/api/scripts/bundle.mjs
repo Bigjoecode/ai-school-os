@@ -6,7 +6,7 @@
 // tsc runs first (nest build) because Nest's dependency injection needs the
 // decorator metadata tsc emits; esbuild then only bundles plain JavaScript.
 import { build } from 'esbuild';
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -57,6 +57,7 @@ const result = await build({
 });
 
 cpSync(resolve(root, 'prisma/migrations'), resolve(out, 'prisma/migrations'), { recursive: true });
+if (existsSync(resolve(root, 'prisma/syllabi'))) cpSync(resolve(root, 'prisma/syllabi'), resolve(out, 'prisma/syllabi'), { recursive: true });
 writeFileSync(
   resolve(out, 'package.json'),
   JSON.stringify({ name: 'ai-school-os-api', private: true, main: 'main.js', scripts: { start: 'node main.js' } }, null, 2),

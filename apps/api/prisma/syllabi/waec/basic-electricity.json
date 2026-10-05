@@ -1,0 +1,389 @@
+{
+ "exam": "WAEC",
+ "subject": "Basic Electricity",
+ "level": "SENIOR",
+ "sourceFile": "Technical & Trade -- APPLIED ELECTRICITY OR BASIC ELECTRICITY.txt",
+ "examFormat": "Three papers, all compulsory; Papers 1 and 2 are taken at one sitting. Paper 1: fifty multiple-choice questions in 1 hour for 50 marks. Paper 2: Section A (compulsory, four questions, answer three) and Section C for Nigeria, Sierra Leone and The Gambia (three questions, answer two), five questions in all, 1 hour for 50 marks. Paper 3: practical paper of two experiments, both carried out, in 3 hours for 100 marks.",
+ "excluded": "Section B (Ghana only): Topics 11-13 (Electron Emission, Semiconductor, Communication), because they are for Ghana candidates only.",
+ "topics": [
+  {
+   "name": "Direct Current Circuit Theory",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Structure of matter",
+     "objectives": [
+      "Explain, qualitatively, the structure of atoms in relation to electric current"
+     ]
+    },
+    {
+     "name": "Conductors and insulators",
+     "objectives": [
+      "Define conductors and insulators and give examples and characteristics (qualitative treatment only)"
+     ]
+    },
+    {
+     "name": "Resistors",
+     "objectives": [
+      "Identify the types of resistors",
+      "Use the resistor colour code",
+      "Calculate resistors in series and parallel",
+      "State the power rating of resistors"
+     ]
+    },
+    {
+     "name": "Ohm's law and Kirchhoff's laws",
+     "objectives": [
+      "Apply Ohm's law and Kirchhoff's laws in calculations"
+     ]
+    },
+    {
+     "name": "Power and energy",
+     "objectives": [
+      "Solve problems on power and energy (treatment should include calculations)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Magnetic Field and Electromagnetism",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Fundamentals of magnetism",
+     "objectives": [
+      "Identify the types of magnet",
+      "Describe magnetic properties of materials: magnetic flux, magnetic flux density, permeability, magnetomotive force and reluctance"
+     ]
+    },
+    {
+     "name": "Concept of electric field",
+     "objectives": [
+      "Describe the electric field and its properties: electric flux, electric flux density, electric field strength, permittivity and dielectric constant, potential gradient",
+      "Compare magnetic and electric circuits"
+     ]
+    },
+    {
+     "name": "Capacitors",
+     "objectives": [
+      "Identify the types of capacitor",
+      "Explain capacitance and dielectric",
+      "Relate the charge on a capacitor to the applied voltage",
+      "State applications of capacitors and voltage rating",
+      "Analyse series and parallel connection of capacitors",
+      "Calculate energy stored in a capacitor (E = 1/2 QV = 1/2 CV^2)"
+     ]
+    },
+    {
+     "name": "Electromagnetic field",
+     "objectives": [
+      "Describe the magnetic field around a current-carrying conductor",
+      "State Fleming's Right Hand Rule",
+      "Calculate the force on a current-carrying conductor in a magnetic field (F = BIL sin theta)",
+      "State Lenz's law and Faraday's law",
+      "Calculate the e.m.f. induced in a coil (E = BLV sin theta); simple calculations on force and e.m.f. only"
+     ]
+    },
+    {
+     "name": "Self and mutual induction",
+     "objectives": [
+      "Explain self and mutual induction (qualitative treatment)",
+      "Calculate energy stored in a coil (E = 1/2 LI^2)",
+      "Describe applications of electromagnetism: electric bell, security alarm system, solenoid, loudspeaker, buzzer, moving-coil instruments etc."
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Measuring Instruments",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Moving-coil instrument",
+     "objectives": [
+      "Describe the construction, advantages and disadvantages of the moving-coil instrument",
+      "Explain conversion of a moving-coil instrument to an ammeter and voltmeter",
+      "Calculate shunts and multipliers"
+     ]
+    },
+    {
+     "name": "Moving-iron instrument",
+     "objectives": [
+      "Describe the construction, principles of operation, advantages and disadvantages of the moving-iron instrument"
+     ]
+    },
+    {
+     "name": "Digital instrument",
+     "objectives": [
+      "Identify digital instruments (multimeter, voltmeter, ammeter etc.) and state their advantages and disadvantages"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Digital Electronics",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Binary number",
+     "objectives": [
+      "Convert decimal numbers to binary numbers and vice versa"
+     ]
+    },
+    {
+     "name": "Logic gates",
+     "objectives": [
+      "Describe series connection of switches (AND gate), parallel connection of switches (OR gate) and the inverter (NOT gate)",
+      "Draw truth tables for logic gates",
+      "Draw the general symbols for AND, OR, NOT, NAND and NOR gates",
+      "Write Boolean expressions"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Alternating Current Circuit Theory",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Generation of e.m.f. in a single turn coil",
+     "objectives": [
+      "Plot a labelled sinusoidal waveform for a complete cycle"
+     ]
+    },
+    {
+     "name": "A.C. quantities",
+     "objectives": [
+      "Define a.c. quantities: r.m.s., peak and average values, form factor, cycle, period and frequency"
+     ]
+    },
+    {
+     "name": "RLC circuits",
+     "objectives": [
+      "Solve problems involving RL, RC and RLC series circuits",
+      "State the conditions for resonance",
+      "Draw the phasor diagram of series resonance"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Transformers",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Types of transformer",
+     "objectives": [
+      "Describe transformer construction",
+      "Classify transformers by construction (shell and core) and by function (current and voltage)"
+     ]
+    },
+    {
+     "name": "Principles of operation of a transformer",
+     "objectives": [
+      "Explain the operation and transformation ratio of a transformer"
+     ]
+    },
+    {
+     "name": "Losses and temperature rise in transformers",
+     "objectives": [
+      "Identify transformer losses (copper and iron)",
+      "Describe the effect of losses and temperature rise in a transformer (qualitative treatment only)"
+     ]
+    },
+    {
+     "name": "Efficiency of transformers",
+     "objectives": [
+      "Explain losses and efficiency of a transformer"
+     ]
+    },
+    {
+     "name": "Cooling of transformers",
+     "objectives": [
+      "State the methods of cooling and the need for cooling"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Power Supply",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Power supply units",
+     "objectives": [
+      "Describe power supply units: dry cell, solar cell, cadmium cell and accumulator",
+      "Draw the block diagram of a d.c. power supply and state the functions of its blocks"
+     ]
+    },
+    {
+     "name": "Rectification",
+     "objectives": [
+      "Explain half-wave and full-wave rectification",
+      "Explain filtration and stabilization"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Electrical Machines",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "A.C. motors (single phase)",
+     "objectives": [
+      "Identify the types of single phase motor: split-phase, capacitor-start, capacitor-run",
+      "State applications of single-phase motors"
+     ]
+    },
+    {
+     "name": "Alternators",
+     "objectives": [
+      "Explain the principles of operation, parts and types of alternators",
+      "Relate speed, number of poles and frequency (f in Hz)"
+     ]
+    },
+    {
+     "name": "A.C. motors (three phase)",
+     "objectives": [
+      "Explain the principles of operation, parts, types and application of three-phase motors",
+      "State the methods of starting: direct-on-line, star delta and auto transformer"
+     ]
+    },
+    {
+     "name": "D.C. generators",
+     "objectives": [
+      "Explain the principles of operation, parts and methods of connecting field windings"
+     ]
+    },
+    {
+     "name": "D.C. motors",
+     "objectives": [
+      "Explain the principles of operation, parts, types (shunt, compound, series) and application of d.c. motors"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Electrical Energy Supply",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Generating station",
+     "objectives": [
+      "State the methods of generating electrical power: diesel engine, steam engine, hydro-electric, nuclear, gas turbine"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Electrical Wiring",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Electrical installation",
+     "objectives": [
+      "Identify the types of wiring: surface, conduit, trunking, ducting",
+      "Select materials, tools and accessories",
+      "Apply the IEE wiring regulations regarding domestic installation"
+     ]
+    },
+    {
+     "name": "Wiring",
+     "objectives": [
+      "Identify cables and accessories",
+      "Determine the current-carrying capacity of cable",
+      "Wire lighting and socket outlets and connect plugs",
+      "Carry out conduit, surface, trunking and ducting installations"
+     ]
+    },
+    {
+     "name": "Protection",
+     "objectives": [
+      "Identify protective devices",
+      "Describe fuses and circuit breakers",
+      "Explain discrimination of protective devices"
+     ]
+    },
+    {
+     "name": "Earthing",
+     "objectives": [
+      "State the reasons for earthing",
+      "Describe the methods of earthing",
+      "Explain earth loop impedance"
+     ]
+    },
+    {
+     "name": "Maintenance, fault diagnosis and repairs",
+     "objectives": [
+      "Identify the types of fault: short circuit, open circuit and earth leakage",
+      "Diagnose and repair faults in an installation and equipment such as fluorescent fitting, electric iron, electric fan, blender etc."
+     ]
+    },
+    {
+     "name": "Testing of an installation",
+     "objectives": [
+      "Carry out continuity test, insulation resistance test, earth leakage test and polarity test"
+     ]
+    },
+    {
+     "name": "General workshop safety",
+     "objectives": [
+      "Apply electrical safety regulations"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Electricity Transmission and Distribution",
+   "objectives": [],
+   "content": "Transmission: layout diagram of a high voltage overhead transmission system; main components (towers, insulators and conductors) and their functions, without detailed treatment of components. Operating voltage levels for transmission lines (132 kV and 330 kV) and the need for a high voltage system should be emphasized. Distribution: layout diagram and main components of electricity distribution; functions of substation components (transformers, feeders etc.).",
+   "subtopics": [
+    {
+     "name": "Transmission",
+     "objectives": [
+      "Draw the layout of a high voltage overhead transmission system",
+      "State the functions of towers, insulators and conductors",
+      "State the operating voltages of transmission lines (132 kV and 330 kV) and explain the need for high voltage"
+     ]
+    },
+    {
+     "name": "Distribution of electricity",
+     "objectives": [
+      "Draw the layout and identify the main components of electricity distribution",
+      "State the functions of substation components (transformers, feeders etc.)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Maintenance and Repair of Various Electrical Appliances",
+   "objectives": [],
+   "content": null,
+   "subtopics": [
+    {
+     "name": "Maintenance",
+     "objectives": [
+      "Identify the types of maintenance: predictive, preventive and corrective"
+     ]
+    },
+    {
+     "name": "Maintenance and repair of electrical appliances",
+     "objectives": [
+      "Identify common faults in electrical appliances (blender, electric iron, electric kettle, toaster, fluorescent lamps etc.) such as short circuit, open circuit and earth fault"
+     ]
+    }
+   ]
+  }
+ ]
+}

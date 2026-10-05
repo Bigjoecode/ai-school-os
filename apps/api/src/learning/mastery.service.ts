@@ -20,21 +20,31 @@ export function levelOf(stage: string | null | undefined, levelName?: string): S
 /** "maths", "Mathematics", "General Mathematics" → one subject key. */
 export function subjectKey(name: string): string {
   const n = name.toLowerCase().replace(/[^a-z ]/g, '').trim();
+  // Specific names first: "Further Mathematics" isn't Mathematics, "Literature in English" isn't English.
+  if (/further math|math[a-z]* elective/.test(n)) return 'Further Mathematics';
+  if (/literature/.test(n)) return 'Literature in English';
+  if (/data processing/.test(n)) return 'Data Processing';
+  if (/\bict\b|information and communication/.test(n)) return 'Information and Communication Technology';
   if (/math/.test(n)) return 'Mathematics';
   if (/english/.test(n)) return 'English Language';
   if (/basic science|integrated science/.test(n)) return 'Basic Science';
   if (/physics/.test(n)) return 'Physics';
   if (/chem/.test(n)) return 'Chemistry';
-  if (/bio/.test(n)) return 'Biology';
+  if (/\bbio\b|biolog/.test(n)) return 'Biology'; // not "Ibibio"
   if (/econ/.test(n)) return 'Economics';
   if (/civic/.test(n)) return 'Civic Education';
   if (/government/.test(n)) return 'Government';
-  if (/literature/.test(n)) return 'Literature in English';
   if (/geograph/.test(n)) return 'Geography';
-  if (/computer|ict|data processing/.test(n)) return 'Computer Studies';
+  if (/computer/.test(n)) return 'Computer Studies';
   if (/social studies/.test(n)) return 'Social Studies';
   if (/agric/.test(n)) return 'Agricultural Science';
-  return name.trim().replace(/\b\w/g, (c) => c.toUpperCase());
+  // Keep names already written properly ("GSM Phone Maintenance and Repairs"); tidy all-caps or all-lowercase ones.
+  const t = name.trim().replace(/\s+/g, ' ');
+  if (t !== t.toUpperCase() && t !== t.toLowerCase()) return t;
+  return t
+    .toLowerCase()
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace(/(?!^)\b(And|Of|In|The|For|To)\b/g, (w) => w.toLowerCase());
 }
 
 /**

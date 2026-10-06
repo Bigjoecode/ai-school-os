@@ -167,6 +167,15 @@ const CounsellorPage = lazy(() => import('@/features/careers/counsellor-page'));
 const CareerPlanPage = lazy(() => import('@/features/careers/plan-page'));
 const CareersGuidancePage = lazy(() => import('@/features/careers/staff-page'));
 const ConsoleCareersPage = lazy(() => import('@/features/platform/careers-content-page'));
+const JambOverviewPage = lazy(() => import('@/features/careers/jamb-pages'));
+const JambSyllabusPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSyllabusPage })));
+const JambSubjectPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSubjectPage })));
+const JambFaqPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambFaqPage })));
+const JambInstitutionsPage = lazy(() => import('@/features/careers/jamb-browse').then((m) => ({ default: m.JambInstitutionsPage })));
+const JambInstitutionPage = lazy(() => import('@/features/careers/jamb-browse').then((m) => ({ default: m.JambInstitutionPage })));
+const JambProgrammesPage = lazy(() => import('@/features/careers/jamb-browse').then((m) => ({ default: m.JambProgrammesPage })));
+const JambCoursePage = lazy(() => import('@/features/careers/jamb-browse').then((m) => ({ default: m.JambCoursePage })));
+const JambCheckPage = lazy(() => import('@/features/careers/jamb-check'));
 const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
 const SecurityPage = lazy(() => import('@/features/settings/security-page'));
@@ -727,6 +736,20 @@ export const router = createBrowserRouter(withRouteErrors([
           ['careers/plan', <CareerPlanPage key="career-plan" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
+      // Phase 24: JAMB & universities (JAMB's brochure) — students, parents and school staff.
+      ...(
+        [
+          ['careers/jamb', <JambOverviewPage key="jamb" />],
+          ['careers/jamb/institutions', <JambInstitutionsPage key="jamb-institutions" />],
+          ['careers/jamb/institutions/:id', <JambInstitutionPage key="jamb-institution" />],
+          ['careers/jamb/programmes', <JambProgrammesPage key="jamb-programmes" />],
+          ['careers/jamb/courses/:id', <JambCoursePage key="jamb-course" />],
+          ['careers/jamb/check', <JambCheckPage key="jamb-check" />],
+          ['careers/jamb/syllabus', <JambSyllabusPage key="jamb-syllabus" />],
+          ['careers/jamb/syllabus/:subject', <JambSubjectPage key="jamb-subject" />],
+          ['careers/jamb/faq', <JambFaqPage key="jamb-faq" />],
+        ] as const
+      ).map(([path, page]) => ({ path, element: <RequirePermission permission={['learning.use', 'family.manage', 'school.read']}>{page}</RequirePermission> })),
       { path: 'careers-guidance', element: <RequirePermission permission="students.read"><CareersGuidancePage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },

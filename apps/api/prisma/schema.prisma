@@ -3746,3 +3746,82 @@ model CareerProfile {
   @@index([tenantId])
   @@map("career_profiles")
 }
+
+// ============================================================ Phase 24: JAMB brochure (IBASS)
+
+/// A tertiary institution in JAMB's brochure (ibass.jamb.gov.ng). Platform-wide content.
+model JambInstitution {
+  /// IBASS institution id.
+  id             Int     @id
+  name           String
+  abbreviation   String?
+  state          String?
+  address        String?
+  /// DEGREE (universities and other degree-awarding), ND (polytechnics, monotechnics), NCE (colleges of education)
+  type           String
+  /// e.g. FEDERAL UNIVERSITIES, STATE POLYTECHNICS, PRIVATE COLLEGES OF EDUCATION
+  category       String?
+  /// Federal, State, Private
+  ownership      String?
+  accreditation  String?
+  modeOfStudy    String?
+  specialization String?
+  programmeCount Int     @default(0)
+
+  programmes JambProgramme[]
+
+  @@index([type])
+  @@index([state])
+  @@map("jamb_institutions")
+}
+
+/// A course an institution offers, with JAMB's admission requirements for it.
+model JambProgramme {
+  /// IBASS programme id.
+  id                 Int     @id
+  institutionId      Int
+  /// IBASS course id (the same course across institutions).
+  courseId           Int?
+  name               String
+  department         String?
+  /// Requirement texts are shared between institutions offering a course: JambText ids.
+  utmeSubjectsTextId Int?
+  olevelTextId       Int?
+  directEntryTextId  Int?
+  remarksTextId      Int?
+  duration           String?
+  status             String?
+  accreditation      String?
+  modeOfStudy        String?
+
+  institution JambInstitution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+  @@index([institutionId])
+  @@index([name])
+  @@map("jamb_programmes")
+}
+
+/// A requirement text from the JAMB brochure (stored once, shared by many programmes).
+model JambText {
+  id   Int    @id
+  text String
+
+  @@map("jamb_texts")
+}
+
+/// A course across institutions (by IBASS course id), grouped into faculties like the brochure.
+model JambCourse {
+  /// IBASS course id.
+  id               Int     @id
+  name             String
+  /// Sciences, Arts, Social Sciences, Engineering/Technology, Medicine & Health, Law, Agriculture, Education, Administration/Management, Environmental… (from the brochure's faculty lists; null if unknown)
+  faculty          String?
+  /// DEGREE, ND, NCE (a course id can appear at more than one level only rarely).
+  level            String?
+  institutionCount Int     @default(0)
+
+  @@index([name])
+  @@index([faculty])
+  @@map("jamb_courses")
+}

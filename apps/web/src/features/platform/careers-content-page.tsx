@@ -18,6 +18,7 @@ import {
 import { BadgeCheck, Briefcase, Clock, FileSpreadsheet, FileUp, GraduationCap, Plus, Trash2, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
+import { JambStatusPanel } from './jamb-status-panel';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -69,6 +70,7 @@ export default function CareersContentPage() {
           ) : null
         }
       />
+      <JambStatusPanel />
       <Tabs value={tab} onValueChange={(v) => setTab(v as (typeof TABS)[number])}>
         <TabsList className="no-scrollbar max-w-full overflow-x-auto">
           <TabsTrigger value="careers">

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { JambCourseLink, JambCourseRow } from './jamb';
 import type { StudentAccess } from './learning';
 
 /**
@@ -260,6 +261,17 @@ export interface CourseView {
   olevelRequirements: OlevelRequirements | null;
   notes: string | null;
   sourceEdition: string | null;
+  /** The same course in JAMB's brochure (JAMB & universities), when the names match. */
+  jamb: JambCourseRow | null;
+}
+
+/** A course for the target-course picker: our course list and JAMB's brochure courses. */
+export interface CoursePickerItem {
+  name: string;
+  faculty: string | null;
+  verified: boolean;
+  jambCourseId: number | null;
+  institutionCount: number | null;
 }
 
 /** A course row parsed from CSV or extracted by AI, for review before saving. */
@@ -416,6 +428,8 @@ export interface CareerDetail extends CareerFull {
   related: CareerRow[];
   /** Why this suits (or may not suit) the student, in plain words. */
   fitNotes: string[];
+  /** Its courses in JAMB's brochure: where to study this. */
+  whereToStudy: JambCourseLink[];
 }
 
 export interface QuizResult {

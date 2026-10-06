@@ -1,5 +1,5 @@
 import { INTEREST_TYPES } from '@aischool/shared';
-import { ArrowLeft, BadgeCheck, Briefcase, GraduationCap, Lightbulb, MessageCircleHeart, Route, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowLeft, BadgeCheck, Briefcase, ChevronRight, GraduationCap, Landmark, Lightbulb, MessageCircleHeart, Route, Sparkles, TrendingUp } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { Page } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
@@ -134,6 +134,32 @@ export default function CareerPage() {
               <p className="whitespace-pre-line text-[13.5px] text-muted-foreground">{c.otherRoutes}</p>
             </>
           )}
+        </Card>
+
+        <Card className="p-4 sm:p-5">
+          <SectionTitle icon={Landmark} title="Where to study this" action={<Link to="/careers/jamb" className="text-[12.5px] font-medium text-brand hover:underline">JAMB & universities</Link>} />
+          {c.whereToStudy.length ? (
+            <ul className="divide-y divide-border">
+              {c.whereToStudy.flatMap((l) =>
+                l.courses.slice(0, 2).map((j) => (
+                  <li key={`${l.name}-${j.id}`}>
+                    <Link to={`/careers/jamb/courses/${j.id}`} className="flex min-h-12 items-center gap-3 py-2">
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-[13.5px] font-medium">{j.name}</span>
+                        <span className="block text-[12px] text-muted-foreground">
+                          {j.level === 'ND' ? 'Polytechnics (ND)' : j.level === 'NCE' ? 'Colleges of education (NCE)' : 'Universities'} · offered at {j.institutionCount} institution{j.institutionCount === 1 ? '' : 's'}
+                        </span>
+                      </span>
+                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+                    </Link>
+                  </li>
+                )),
+              )}
+            </ul>
+          ) : (
+            <p className="text-[13px] text-muted-foreground">We couldn’t match these courses to JAMB’s brochure yet. Search for them under JAMB & universities.</p>
+          )}
+          <p className="mt-2 text-[11.5px] text-muted-foreground">From JAMB’s brochure: each course page lists every institution offering it, with JAMB’s requirements.</p>
         </Card>
 
         {(c.professionalBodies.length > 0 || c.outlook) && (

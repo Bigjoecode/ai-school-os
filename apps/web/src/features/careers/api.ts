@@ -6,6 +6,7 @@ import type {
   CareerRow,
   CounsellorReply,
   CourseImportPreview,
+  CoursePickerItem,
   CourseInput,
   CourseRow,
   courseImportSaveSchema,
@@ -67,7 +68,7 @@ export const useTrackAdvice = () => useQuery({ queryKey: crk.advice, queryFn: ()
 export const useCourseNames = (search: string, enabled = true) =>
   useQuery({
     queryKey: crk.courses(search),
-    queryFn: ({ signal }) => api.get<{ name: string; faculty: string | null; verified: boolean }[]>('/careers/courses', search ? { search } : undefined, signal),
+    queryFn: ({ signal }) => api.get<CoursePickerItem[]>('/careers/courses', search ? { search } : undefined, signal),
     enabled,
     placeholderData: keepPreviousData,
   });

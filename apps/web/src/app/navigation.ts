@@ -209,6 +209,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
       { label: 'Houses', to: '/houses', icon: Shield, permission: 'school.read', keywords: 'house points inter-house sports red blue green yellow leaderboard assembly' },
       { label: 'Careers guidance', to: '/careers-guidance', icon: Compass, permission: 'students.read', keywords: 'careers counsellor guidance track science arts commercial technical jamb university interests' },
+      { label: 'JAMB & universities', to: '/careers/jamb', icon: Landmark, permission: 'school.read', keywords: 'jamb ibass brochure university polytechnic college of education admission requirements utme subjects olevel syllabus cbt faq' },
     ],
   },
   {

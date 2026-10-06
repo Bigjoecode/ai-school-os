@@ -14,7 +14,9 @@ import {
   type CareerMatch,
   type CareerPlanState,
   type CareerRow,
+  type CoursePickerItem,
   type CourseView,
+  type JambCourseRow,
   type FitCheck,
   type InterestResult,
   type InterestType,
@@ -35,6 +37,8 @@ import { fullName } from '../common/format';
 import { RequestContextStore } from '../common/request-context';
 import type { Career, CareerProfile, Prisma, UniversityCourse } from '../generated/prisma/client';
 import { levelOf, subjectKey } from '../learning/mastery.service';
+import { JambService } from '../jamb/jamb.service';
+import { normCourse } from '../prisma/jamb-install';
 import { PrismaService } from '../prisma/prisma.service';
 
 /** Subjects whose results say most about each track (JSS and SS names). */
@@ -75,6 +79,7 @@ export class CareersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly results: ResultsService,
+    private readonly jamb: JambService,
   ) {}
 
   // ---------------------------------------------------------- library
@@ -116,7 +121,8 @@ export class CareersService {
     if (!names.length) return [];
     const rows = await this.prisma.root.universityCourse.findMany({ where: { OR: names.map((n) => ({ name: { equals: n, mode: 'insensitive' as const } })) } });
     const by = new Map(rows.map((r) => [r.name.toLowerCase(), r]));
-    return names.map((n) => courseView(by.get(n.toLowerCase()) ?? null, n));
+    const links = new Map((await this.jamb.links(names).catch(() => [])).map((l) => [l.name, [...l.courses].sort((x, y) => y.institutionCount - x.institutionCount)[0] ?? null]));
+    return names.map((n) => courseView(by.get(n.toLowerCase()) ?? null, n, links.get(n) ?? null));
   }
 
   private async course(name: string | null): Promise<UniversityCourse | null> {
@@ -125,14 +131,35 @@ export class CareersService {
   }
 
   /** Course names for the target-course picker (every published course, verified or not). */
-  async courseNames(search?: string) {
-    const rows = await this.prisma.root.universityCourse.findMany({
-      where: { published: true, ...(search ? { name: { contains: search, mode: 'insensitive' as const } } : {}) },
-      orderBy: { name: 'asc' },
-      select: { name: true, faculty: true, verified: true },
-      take: 400,
-    });
-    return rows;
+  async courseNames(search?: string): Promise<CoursePickerItem[]> {
+    const [rows, jamb] = await Promise.all([
+      this.prisma.root.universityCourse.findMany({
+        where: { published: true, ...(search ? { name: { contains: search, mode: 'insensitive' as const } } : {}) },
+        orderBy: { name: 'asc' },
+        select: { name: true, faculty: true, verified: true },
+        take: 400,
+      }),
+      // JAMB's brochure courses too (most widely offered first).
+      this.jamb.searchCourses(search, search ? 60 : 150),
+    ]);
+    const seen = new Set<string>();
+    const out: CoursePickerItem[] = [];
+    for (const r of rows) {
+      seen.add(normCourse(r.name));
+      out.push({ ...r, jambCourseId: null, institutionCount: null });
+    }
+    for (const j of jamb) {
+      const key = normCourse(j.name);
+      const mine = out.find((o) => normCourse(o.name) === key);
+      if (mine) {
+        mine.jambCourseId ??= j.id;
+        mine.institutionCount ??= j.institutionCount;
+      } else if (!seen.has(key)) {
+        seen.add(key);
+        out.push({ name: j.name, faculty: j.faculty, verified: false, jambCourseId: j.id, institutionCount: j.institutionCount });
+      }
+    }
+    return out.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   // ---------------------------------------------------------- the student
@@ -307,7 +334,7 @@ export class CareersService {
   async detail(studentId: string, slug: string): Promise<CareerDetail> {
     const c = await this.prisma.root.career.findFirst({ where: { slug, published: true } });
     if (!c) throw new NotFoundException('Career not found');
-    const [p, courseViews, info] = await Promise.all([this.profile(studentId), this.courseViews(c.courses), this.student(studentId)]);
+    const [p, courseViews, info, whereToStudy] = await Promise.all([this.profile(studentId), this.courseViews(c.courses), this.student(studentId), this.jamb.links(c.courses)]);
     const related = await this.prisma.root.career.findMany({ where: { published: true, field: c.field, id: { not: c.id } }, take: 6, orderBy: { name: 'asc' } });
     const interests = this.interests(p);
     const plan = this.plan(p);
@@ -322,7 +349,7 @@ export class CareersService {
     const strengths = await this.strengths(info);
     const hits = c.subjects.filter((s) => strengths.some((x) => norm(x.subject) === norm(s) && (best(x) ?? 0) >= STRONG));
     if (hits.length) fitNotes.push(`You’re doing well in ${listWords(hits.slice(0, 3))}, which help here.`);
-    return { ...this.full(c), courseViews, saved: plan.savedCareers.includes(c.slug), related: related.map((r) => this.row(r)), fitNotes };
+    return { ...this.full(c), courseViews, saved: plan.savedCareers.includes(c.slug), related: related.map((r) => this.row(r)), fitNotes, whereToStudy };
   }
 
   async setSaved(studentId: string, slug: string, saved: boolean): Promise<CareerPlanState> {
@@ -341,8 +368,13 @@ export class CareersService {
     if (input.targetCourse !== undefined) {
       if (input.targetCourse) {
         const c = await this.course(input.targetCourse);
-        if (!c || !c.published) throw new BadRequestException('Choose a course from the list');
-        data.targetCourse = c.name;
+        if (c?.published) data.targetCourse = c.name;
+        else {
+          // A course from JAMB's brochure.
+          const j = await this.prisma.root.jambCourse.findFirst({ where: { name: { equals: input.targetCourse, mode: 'insensitive' } }, select: { name: true } });
+          if (!j) throw new BadRequestException('Choose a course from the list');
+          data.targetCourse = j.name;
+        }
       } else data.targetCourse = null;
     }
     return this.plan(await this.upsertProfile(studentId, data));
@@ -467,7 +499,7 @@ export class CareersService {
     if (!saved.length) nextSteps.push('Explore the career library and save careers that excite you.');
     if (!plan.plannedTrack) nextSteps.push(info.stage === 'SENIOR' ? 'Set your track so we can check your subjects against your goals.' : 'Use the track advisor to think about Science, Arts, Commercial or Technical.');
     if (!plan.targetCourse) nextSteps.push('Pick a target university course for your saved career.');
-    else if (target && !target.verified) nextSteps.push(`Check the JAMB brochure for ${target.name}’s UTME subjects and O’level requirements (they aren’t loaded here yet).`);
+    else if (target && !target.verified) nextSteps.push(target.jamb ? `Read JAMB’s requirements for ${target.name} in JAMB & universities, and try your UTME subjects in the eligibility checker.` : `Check the JAMB brochure for ${target.name}’s UTME subjects and O’level requirements (they aren’t loaded here yet).`);
     nextSteps.push('Talk your plan through with your parents and your school counsellor.');
     return { plan, interests, saved, target, fits, nextSteps };
   }
@@ -568,7 +600,7 @@ export function topTypes(scores: Record<InterestType, number>): InterestType[] {
   return [ranked[0]!, ...ranked.slice(1, 3).filter((t) => scores[t] > 0)];
 }
 
-export function courseView(c: UniversityCourse | null, name: string): CourseView {
+export function courseView(c: UniversityCourse | null, name: string, jamb: JambCourseRow | null = null): CourseView {
   const verified = !!c && c.verified && c.published;
   return {
     name: c?.name ?? name,
@@ -579,13 +611,14 @@ export function courseView(c: UniversityCourse | null, name: string): CourseView
     olevelRequirements: verified ? ((c!.olevelRequirements as unknown as OlevelRequirements | null) ?? null) : null,
     notes: verified ? c!.notes : null,
     sourceEdition: verified ? c!.sourceEdition : null,
+    jamb,
   };
 }
 
 /** Checks a verified course's subject requirements against a set of (normalised) subjects. */
 export function courseFit(v: CourseView, have: Set<string> | null): FitCheck {
   const base = { kind: 'COURSE' as const, name: v.name, slug: null };
-  if (!v.verified) return { ...base, status: 'NOT_LOADED', notes: [NOT_LOADED] };
+  if (!v.verified) return { ...base, status: 'NOT_LOADED', notes: [v.jamb ? `JAMB’s brochure lists ${v.jamb.name} at ${v.jamb.institutionCount} institution${v.jamb.institutionCount === 1 ? '' : 's'} — read the requirements and check your subjects in JAMB & universities.` : NOT_LOADED] };
   if (!have) return { ...base, status: 'NO_SUBJECTS', notes: ['Choose a planned track so we can check your subjects against this course.'] };
   const notes: string[] = [];
   for (const rule of v.utmeSubjects ?? []) {

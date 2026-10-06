@@ -7,6 +7,7 @@ import { seedDemo } from './demo-seed';
 import { ensurePlatformContent } from './platform-content';
 import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
+import { installJamb } from './jamb-install';
 import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
@@ -95,7 +96,7 @@ export async function runBootTasks(config: Env): Promise<void> {
 }
 
 /**
- * Installs shipped exam syllabi and the career library after the server is listening (a first
+ * Installs shipped exam syllabi, the career library and JAMB's brochure after the server is listening (a first
  * install is thousands of rows; it must not hold up start-up). One process
  * at a time, via an advisory lock.
  */
@@ -119,6 +120,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (careers) new Logger('Careers').log(careers);
         } catch (err) {
           new Logger('Careers').error(`Career library could not be installed: ${(err as Error).message}`);
+        }
+        // JAMB's brochure (prisma/jamb/ibass.json.gz): replaces the JAMB tables when the file changes.
+        try {
+          const jamb = await installJamb(prisma);
+          if (jamb) new Logger('Jamb').log(jamb);
+        } catch (err) {
+          new Logger('Jamb').error(`JAMB brochure could not be installed: ${(err as Error).message}`);
         }
       } finally {
         await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;

@@ -58,6 +58,7 @@ const result = await build({
 
 cpSync(resolve(root, 'prisma/migrations'), resolve(out, 'prisma/migrations'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/syllabi'))) cpSync(resolve(root, 'prisma/syllabi'), resolve(out, 'prisma/syllabi'), { recursive: true });
+if (existsSync(resolve(root, 'prisma/jamb'))) cpSync(resolve(root, 'prisma/jamb'), resolve(out, 'prisma/jamb'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/careers'))) cpSync(resolve(root, 'prisma/careers'), resolve(out, 'prisma/careers'), { recursive: true });
 writeFileSync(
   resolve(out, 'package.json'),

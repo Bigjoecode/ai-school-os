@@ -34,6 +34,7 @@ import {
   ChevronsUpDown,
   GraduationCap,
   Loader2,
+  Landmark,
 } from 'lucide-react';
 import { Command } from 'cmdk';
 import { useEffect, useRef, useState } from 'react';
@@ -66,6 +67,7 @@ const TABS: { to: string; label: string; icon: LucideIcon; exact?: boolean }[] =
   { to: '/careers/advisor', label: 'Track advisor', icon: Route },
   { to: '/careers/counsellor', label: 'AI counsellor', icon: MessageCircleHeart },
   { to: '/careers/plan', label: 'My plan', icon: Compass },
+  { to: '/careers/jamb', label: 'JAMB & universities', icon: Landmark },
 ];
 
 export function CareersTabs() {
@@ -211,6 +213,8 @@ export function CourseRequirements({ course, className }: { course: CourseView; 
           <Badge variant="success" dot>
             Checked{course.sourceEdition ? ` · JAMB ${course.sourceEdition}` : ''}
           </Badge>
+        ) : course.jamb ? (
+          <Badge variant="info">JAMB brochure</Badge>
         ) : (
           <Badge variant="outline">
             <Clock /> Coming soon
@@ -234,6 +238,13 @@ export function CourseRequirements({ course, className }: { course: CourseView; 
           {course.notes && <p className="whitespace-pre-line text-[12.5px] text-muted-foreground">{course.notes}</p>}
           <p className="text-[11.5px] text-muted-foreground">Cut-off marks change every year: check JAMB and the university.</p>
         </dl>
+      ) : course.jamb ? (
+        <p className="mt-1.5 text-[12.5px] text-muted-foreground">
+          JAMB’s brochure lists this course at {course.jamb.institutionCount} institution{course.jamb.institutionCount === 1 ? '' : 's'}.{' '}
+          <Link to={`/careers/jamb/courses/${course.jamb.id}`} className="font-medium text-brand hover:underline">
+            See JAMB’s requirements
+          </Link>
+        </p>
       ) : (
         <p className="mt-1.5 text-[12.5px] text-muted-foreground">{REQUIREMENTS_SOON} Your school counsellor can help you read it.</p>
       )}
@@ -329,7 +340,7 @@ export function CoursePicker({ value, onChange, disabled }: { value: string | nu
               >
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-medium">{c.name}</span>
-                  <span className="block truncate text-[11.5px] text-muted-foreground">{[c.faculty, c.verified ? 'Requirements checked' : 'Requirements coming soon'].filter(Boolean).join(' · ')}</span>
+                  <span className="block truncate text-[11.5px] text-muted-foreground">{[c.faculty, c.verified ? 'Requirements checked' : c.jambCourseId ? `JAMB brochure · ${c.institutionCount} institution${c.institutionCount === 1 ? '' : 's'}` : 'Requirements coming soon'].filter(Boolean).join(' · ')}</span>
                 </span>
                 <Check className={cn('size-4 text-brand', value === c.name ? 'opacity-100' : 'opacity-0')} aria-hidden />
               </Command.Item>

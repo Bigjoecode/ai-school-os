@@ -1,5 +1,6 @@
 import { INTEREST_TYPES, TRACK_LABELS } from '@aischool/shared';
-import { Bookmark, Compass, GraduationCap, Route, ShieldCheck, Sparkles } from 'lucide-react';
+import { Bookmark, ChevronRight, Compass, GraduationCap, Landmark, Route, ShieldCheck, Sparkles } from 'lucide-react';
+import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
@@ -19,6 +20,22 @@ export default function PortalCareersPage() {
   );
 }
 
+/** JAMB's brochure, read-only, for parents too. */
+function JambLink() {
+  return (
+    <Link to="/careers/jamb" className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-soft transition-colors hover:border-border-strong">
+      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+        <Landmark className="size-5" aria-hidden />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-display text-[15px] font-semibold tracking-tight">JAMB & universities</span>
+        <span className="block text-[12.5px] text-muted-foreground">JAMB’s official brochure: institutions, course requirements, an eligibility checker, the UTME syllabus and FAQ.</span>
+      </span>
+      <ChevronRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+    </Link>
+  );
+}
+
 function Body({ child }: ShellCtx) {
   const q = usePortalCareers(child.id);
   const d = q.data;
@@ -34,13 +51,16 @@ function Body({ child }: ShellCtx) {
   const started = d.interests || d.saved.length || d.plan.plannedTrack || d.plan.targetCourse;
   if (!started) {
     return (
-      <Card>
-        <EmptyState
-          icon={Compass}
-          title={`${child.firstName} hasn’t started yet`}
-          description={`In Careers, ${child.firstName} can take an interest quiz, explore careers and plan their SS1 track. Encourage them to try it — it takes about 5 minutes — and you’ll see their plan here.`}
-        />
-      </Card>
+      <div className="space-y-4">
+        <Card>
+          <EmptyState
+            icon={Compass}
+            title={`${child.firstName} hasn’t started yet`}
+            description={`In Careers, ${child.firstName} can take an interest quiz, explore careers and plan their SS1 track. Encourage them to try it — it takes about 5 minutes — and you’ll see their plan here.`}
+          />
+        </Card>
+        <JambLink />
+      </div>
     );
   }
   return (
@@ -111,6 +131,7 @@ function Body({ child }: ShellCtx) {
         <FitListPlain fits={d.fits} />
         <p className="mt-3 text-[11.5px] text-muted-foreground">Admission requirements are shown only once checked against the JAMB brochure. For cut-off marks and the latest requirements, check the current JAMB brochure and speak with the school’s guidance counsellor.</p>
       </Card>
+      <JambLink />
     </div>
   );
 }

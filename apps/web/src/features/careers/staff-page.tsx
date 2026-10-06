@@ -1,6 +1,7 @@
 import { INTEREST_TYPES, RIASEC, TRACK_LABELS, TRACKS, type StaffCareerRow } from '@aischool/shared';
-import { Bookmark, BookOpenCheck, Compass, Lock, NotebookPen, Route, ShieldCheck, Sparkles, Users } from 'lucide-react';
+import { Bookmark, BookOpenCheck, Compass, Landmark, Lock, NotebookPen, Route, ShieldCheck, Sparkles, Users } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router';
 import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -44,6 +45,13 @@ export default function CareersGuidancePage() {
         eyebrow="Welfare"
         title="Careers guidance"
         description="Students’ interest types, planned SS1 tracks and the careers they’re exploring. Open a student to see their full profile and keep counsellor notes."
+        actions={
+          <Button asChild variant="outline">
+            <Link to="/careers/jamb">
+              <Landmark /> JAMB & universities
+            </Link>
+          </Button>
+        }
       />
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
         <FilterSelect value={classArmId} onChange={setClassArmId} options={(d?.classes ?? []).map((c) => ({ value: c.id, label: c.label }))} label="Class" allLabel="All classes" />

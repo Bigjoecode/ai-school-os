@@ -25,6 +25,12 @@ export function subjectKey(name: string): string {
   if (/literature/.test(n)) return 'Literature in English';
   if (/data processing/.test(n)) return 'Data Processing';
   if (/\bict\b|information and communication/.test(n)) return 'Information and Communication Technology';
+  // JAMB and WAEC (and schools) name these differently.
+  if (/home econ/.test(n)) return 'Home Economics';
+  if (/principles of account|financial account/.test(n)) return 'Financial Accounting';
+  if (/islamic (religious )?(studies|knowledge)|\birs\b|\birk\b/.test(n)) return 'Islamic Religious Studies';
+  if (/christian religious (studies|knowledge)|\bcrs\b|\bcrk\b/.test(n)) return 'Christian Religious Studies';
+  if (/^(fine |visual |creative )?arts?$/.test(n)) return 'Visual Art';
   if (/math/.test(n)) return 'Mathematics';
   if (/english/.test(n)) return 'English Language';
   if (/basic science|integrated science/.test(n)) return 'Basic Science';

@@ -1,0 +1,543 @@
+{
+ "exam": "JAMB",
+ "subject": "Computer Studies",
+ "level": "SENIOR",
+ "sourceFile": "Computer-Studies.txt",
+ "examFormat": "The aim of the UTME Computer Studies syllabus is to prepare candidates for the Board's examination. It tests candidates' understanding, knowledge and acquisition of the evolution of computing systems; basic concepts of the computer and its operations; problem-solving skills, data processing and practical skills in computing; system and application software; operations of basic computer hardware (input, output, memory and CPU); application of online resources and skills; ethics and human issues in computing; and career prospects in computing. The syllabus has nine sections: Evolution of Computing, Fundamentals of Computing, Computer Application Packages, Managing Computer Files, Computer Maintenance and Safety Measures, ICT, Developing Problem-Solving Skills, Artificial Intelligence and Robotics, and Computer Ethics and Human Issues.",
+ "excluded": "",
+ "recommendedTexts": [
+  "A Textbook for Year 11 - Computer Studies — Sharma, Bibhya; Singh, Shaveen; Singh, Vijay (Technology and Employment Skills Training, Ministry of Education, Fiji)",
+  "My Computer for Senior Secondary Schools 1, 2, 3 with Practical Training CD — Addan, Emmanuel (Valueplus Publication Limited, 2013)",
+  "Fundamentals of Computer Studies — Adebisi, A. J. (Nigeria: Expert Consults, 2013)",
+  "Online with Computer Senior Secondary 2 — Adedapo, F. O.; Mitchell, A. S.; Agunbiade, D. A. (Rasmed Publications)",
+  "Computer Science: An Overview — Brookshear, J. G. (Benjamin-Cummings Publishing Co. Inc., 1991)",
+  "Computer Studies for Senior Secondary Schools — Chiemeke, Stella C.; Boukari, Souley; Longe, Olumide B. (University Press Plc)",
+  "Computer Studies for You, 2nd Edition — Doyle, S. (USA: Nelson Thomas Ltd, 1995)",
+  "Computer Studies and Information Technology (The Motivate Series) — Driscoll, T. and Dolden, R. (Nigeria: Macmillan Education, 1998)",
+  "Modern Introductory Computer Science — Henderson, P. (Proceedings of the 18th SIGCSE technical symposium on Computer Science education, 1987)",
+  "Computer Studies for Senior Secondary Education — HiiT@School (HiiT)",
+  "Senior Secondary School Certificate Examination on Data Processing. Past Questions and Answers (2014-2020) — Ojo, D. J. (TONAD Publishers Limited, 2018)",
+  "New Computer Studies 1-3 — Otuka, J. O. E.; Akande, A. F.; Iginla, S. I. (LearnAfrica, 2019)",
+  "Past Questions and Answers on Computer Studies (Theory/Objectives) — SSCE/NECO",
+  "CS 0.5: a better approach to introductory computer science for majors — Sloan, R. H. and Troy, P. (ACM SIGCSE Bulletin, 40(1), 2008)"
+ ],
+ "topics": [
+  {
+   "name": "History of computing",
+   "objectives": [
+    "identify the various computing devices since the beginning of counting/computing: Abacus, Slide Rule, Napier's Bones, Pascal Calculator, Leibnitz Multiplier, Jacquard Loom, Charles Babbage's Analytical Engine, Hollerith Census machine and Burroughs' machine",
+    "discuss the contributions and uses of each of the founders of these devices: ENIAC, EDVAC, UNIVAC 1, Desktop Personal Computers, etc."
+   ],
+   "content": "Pre-computing age (19th century): features and components of early computing devices. Computing devices of the 20th century. The history behind each device.",
+   "subtopics": []
+  },
+  {
+   "name": "Classification of computing devices",
+   "objectives": [
+    "relate each generation with its characteristic feature: first, second, third, fourth to current generation",
+    "describe each generation under year of development, basic components/type of technology, speed of operation and storage capacity/component",
+    "explain the differences in the classification of computing systems by size (micro, mini, mainframe and super)",
+    "differentiate among the various types of modern computer systems in respect of sizes and basic components, data and usage: personal computers, desktops, laptops, tablets, hand-held, servers, workstations, mainframes, wearable, super computers",
+    "differentiate among digital, analog, hybrid, special purpose and general purpose computers, etc.",
+    "state the importance and use of these computing systems"
+   ],
+   "content": "Classification by generation, by size, by purpose and by type.",
+   "subtopics": []
+  },
+  {
+   "name": "Overview of computing systems",
+   "objectives": [
+    "define computer system in relation to its nature and programmability",
+    "list functional parts of computer systems",
+    "explain the characteristics of computers (electronic, accuracy, speed, interactive, reliability, consistency, large storage, etc.)",
+    "identify the differences between hardware and software"
+   ],
+   "content": "Two main constituents of a computer (hardware and software); characteristics of computers.",
+   "subtopics": []
+  },
+  {
+   "name": "Computer hardware",
+   "objectives": [
+    "define and give examples of hardware devices",
+    "list components of computer hardware, their functions and different types: Central Processing Unit, peripherals (input and output devices) and storage media",
+    "explain the differences between input and output devices",
+    "explain the functions of major input devices and give examples (keyboards, mouse, scanner, joystick, light pen, voice, digital camera, etc.)",
+    "explain the classification of keys on the keyboard (function, numeric, alphabetic, cursors)",
+    "explain the features, functions and operations of the mouse",
+    "explain the differences among keyboard, mouse, light pen, scanner, digital camera and output devices",
+    "define and give examples of output devices (monitor, printer, speaker, plotters)",
+    "list the different types, features and uses of each output device above",
+    "explain the similarities and differences among inkjet, laser and line printers",
+    "list the components of CPU: Arithmetic and Logic Unit (ALU), Control Unit (CU) and Registers",
+    "explain the functions of ALU, CU and Registers",
+    "distinguish between primary and secondary memory (storage) units",
+    "list the components of Primary Memory Unit (Random Access Memory (RAM), Read Only Memory (ROM))",
+    "explain the uses and differences between RAM and ROM",
+    "explain the functions of secondary (auxiliary) storages",
+    "list different types of secondary storages",
+    "give examples of secondary storages (floppy disks, magnetic tape, hard disks, compact disk (CD), Digital Video Disk (DVD), USB, etc.)",
+    "carry out comparative analysis of auxiliary storage devices in respect of size, speed, cost and technology (access mode, component, etc.)",
+    "list different units by which storage is measured and their relationships: bits, bytes, nibbles, words, kilobytes, megabytes, gigabytes, terabytes, etc.",
+    "relate the relationships between Micro, Mega, Giga and Tera bytes"
+   ],
+   "content": "Type, examples and uses of computer hardware.",
+   "subtopics": []
+  },
+  {
+   "name": "Registers, buses and data transfer",
+   "objectives": [
+    "define registers, bus and address",
+    "explain the functions of the following registers: MDR (Memory Data Register), MAR (Memory Address Register), MBR (Memory Base Register), AC (Accumulator), PC (Program Counter), CIR (Current Instruction Register), etc.",
+    "explain the differences between register and main memory",
+    "state the major steps involved in how a computer converts data to required information (input - process - output)",
+    "enumerate factors affecting speed of data transfer (bus speed and bus width)"
+   ],
+   "content": "Registers, bus and address; registers in the CPU; the major steps by which a computer converts data to information (input, process, output).",
+   "subtopics": []
+  },
+  {
+   "name": "Logic circuits",
+   "objectives": [
+    "define different types and uses of gates: AND, NOT, OR, NOR, NAND",
+    "interpret logic equations for AND, NOT and OR gates",
+    "list the symbols of AND, NOT and OR gates",
+    "construct truth tables for standard logic gates: AND, NOT, OR",
+    "define comparator",
+    "construct a simple comparator with XOR (Exclusive OR) and NOR gate"
+   ],
+   "content": "Logic gates, logic equations, symbols, truth tables and comparators.",
+   "subtopics": []
+  },
+  {
+   "name": "System software",
+   "objectives": [
+    "differentiate between system and application software",
+    "list different types of system software (operating systems, utility software, middleware, device drivers, translators, etc.)",
+    "define Operating System (OS)",
+    "list functions of OS",
+    "list different types of OS user interfaces: text (command line and menu) and Graphical User Interface (GUI)",
+    "give examples of operating systems (MS Windows, Linux, Unix, etc.)",
+    "discuss different OS on phones and iPad (Android, Blackberry, iPhone, etc.)",
+    "define utility software",
+    "list functions of utility software",
+    "list different types of utility software",
+    "give examples of utility software (editors, anti-virus, etc.)",
+    "define translators",
+    "explain the functions of translator software",
+    "list the different categories of translators (interpreter, assembler and compiler)",
+    "explain the differences among the categories of translators"
+   ],
+   "content": "Types, examples and uses of software: system software, operating systems, utility software and translators.",
+   "subtopics": []
+  },
+  {
+   "name": "Application software",
+   "objectives": [
+    "list examples of application software and their usage",
+    "differentiate between open source and proprietary software",
+    "state the methods of acquiring application software (built in-house and off the shelf)",
+    "explain the differences between user application programs and general-purpose application packages",
+    "give examples of common off-the-shelf application packages"
+   ],
+   "content": "Types, examples and uses of application software, including common off-the-shelf packages: word processing (MS Word), spreadsheet (Excel), database (Access), presentation (PowerPoint), graphics (Adobe Photoshop), accounting and payroll (Sage), government (Remita), banking (Fusion Banking Essence), statistics (SPSS), educational (SchoolShell), hospital (eHospital), etc.",
+   "subtopics": []
+  },
+  {
+   "name": "Data and information",
+   "objectives": [
+    "define data and information",
+    "list properties of information",
+    "list different data types (integers, real numbers, strings, multimedia (image, audio/visual, signal), etc.)",
+    "identify ways of representing and handling data, that is number bases with special reference to binary, decimal, hexadecimal, etc.",
+    "define digitization",
+    "explain the process of digitization (manual, heads-up, interactive tracing, automatic)",
+    "list different formats of digitized data (image, audio, video, motion, text, multimedia, etc.)"
+   ],
+   "content": "Differences between data and information; data representation; methods of digitisation.",
+   "subtopics": []
+  },
+  {
+   "name": "Word processing package",
+   "objectives": [
+    "define word processing, and give examples of word processing packages (MS Word, WordStar, WordPerfect, Open Word, etc.)",
+    "identify features of word processing packages in general (create, save, edit, insert, print, share, etc.)",
+    "list the application areas of word processing packages (office, publishing, journalism, education, etc.)"
+   ],
+   "content": "General concept; creating and saving documents; editing, formatting and insertion; printing; MS Word features, launching, basic operations and other operations.",
+   "subtopics": [
+    {
+     "name": "MS Word operations",
+     "objectives": [
+      "launch MS Word effectively",
+      "perform MS Word basic operations: create, edit, save, retrieve, print, copy and move, etc.",
+      "use different types and sizes of fonts",
+      "format, justify, search/explore, etc.",
+      "carry out spell checking and file merging operations",
+      "close MS Word"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Spreadsheet package",
+   "objectives": [
+    "define spreadsheet and give examples of spreadsheet packages (MS Excel, VisiCalc, SuperCalc, SPSS, Calc, etc.)",
+    "identify features of spreadsheet packages in general (environment, status bar, menu bar, formula bar, etc.)",
+    "list the application areas of spreadsheet packages (accounting, engineering, statistics, calculation, what-if scenarios, education, etc.)"
+   ],
+   "content": "General concept; creating and saving documents; editing, formatting and insertion; printing; MS Excel features, launching, basic operations and other operations.",
+   "subtopics": [
+    {
+     "name": "MS Excel operations",
+     "objectives": [
+      "launch MS Excel effectively",
+      "define basic terms in MS Excel: worksheet, workbook, cells, cell ranges, etc.",
+      "use MS Excel to create, edit, save, retrieve and print spreadsheet documents",
+      "use data types in MS Excel (number, labels, formula, etc.)",
+      "perform basic operations in MS Excel: data entry, saving, retrieve, move, copy, etc.",
+      "perform arithmetic calculations using formula and inbuilt functions, etc.",
+      "use different types and sizes of fonts",
+      "perform additional MS Excel operations (formatting, editing, printing, drawing charts, etc.)",
+      "close MS Excel"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Database package",
+   "objectives": [
+    "define database and give examples of database packages (dBase, Foxbase, MS Access, Oracle, etc.)",
+    "define basic database terms (file, record, field, key, form, table, etc.)",
+    "list and explain different types of database organisation (hierarchical, network and relational)",
+    "list the application areas of database in different organizations (office, home, education, government, hospital, agriculture, etc.)"
+   ],
+   "content": "Definition of database and examples of database packages; database organisations; different features of database format; basic operations of database using MS Access; creating a database using MS Access; carrying out operations on an existing database using MS Access.",
+   "subtopics": [
+    {
+     "name": "MS Access database operations",
+     "objectives": [
+      "explain different features of database format in MS Access: files designed as tables; tables comprising rows and columns; a row containing related information about a record; a column containing a specific type of information about a field",
+      "carry out steps to create a database in MS Access: define structure of a database, indicate field type (numeric, character, date, text, etc.), enter data and save data",
+      "carry out basic operations on an already created MS Access database: searching, modifying, sorting, reporting, selecting, inserting, etc.",
+      "close the MS Access database"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Graphics package",
+   "objectives": [
+    "define graphics and give examples of graphic packages (Paint, Harvard Graphics, Photoshop, CorelDraw, Autocad, etc.)",
+    "explain features of CorelDraw (LiveSketch Tool, Multi-Monitor, Healing Clone Tools, Copy Curve Segments, Gaussian Blur Feature, Touch-Friendly GUI Interface, Stylus Enhancements, Import Legacy Workspaces, Interactive Sliders, Custom Node Shapes, Font Filtering and Search, Corel Font Manager, etc.)",
+    "use features of CorelDraw to activate an existing CorelDraw file",
+    "use CorelDraw to design a business card, school logo, national flag, invitation card, certificates, etc."
+   ],
+   "content": "Definitions and examples of graphic packages; features of CorelDraw; simple design using CorelDraw.",
+   "subtopics": []
+  },
+  {
+   "name": "Presentation package",
+   "objectives": [
+    "define presentation and give examples of presentation packages (MS PowerPoint, Windows Movie Maker, Macromedia Flash, Impress, Apple Keynote, etc.)",
+    "explain features of the PowerPoint environment (Animation Painter, Video Editor, create a video of your presentation, automatic ribbons toolbars, transitions, sections, crop tool, mask feature, effective preview, screenshot, smart guides)",
+    "explain steps in activating a PowerPoint presentation",
+    "perform PowerPoint operations to create a new presentation; insert pictures, text, graphs, animated contents and add new slides; save a presentation, run a slide show, print a presentation, close a presentation, etc."
+   ],
+   "content": "Definition of presentation package and examples; PowerPoint: features of the PowerPoint environment, steps in activating an existing PowerPoint, PowerPoint operations.",
+   "subtopics": []
+  },
+  {
+   "name": "Web design package",
+   "objectives": [
+    "define and give examples of web design packages (HTML, XML, Dreamweaver, Rapidweaver, Google Web Designer, Microsoft SharePoint Designer, NetObjects Fusion, Xara Web Designer, etc.)",
+    "list elements of web design: navigation, visual design, content, web friendly, interaction, information accessibility, intuitiveness, branding, turnaround time, conversion, etc.",
+    "use Dreamweaver for social media management, social media marketing, website design and web development, pay-per-click (PPC) management and advert consulting, etc."
+   ],
+   "content": "Definition and examples of web design packages; uses of web design packages; elements of web design using Dreamweaver.",
+   "subtopics": []
+  },
+  {
+   "name": "Concept of computer files",
+   "objectives": [
+    "define some basic terms (file, record, field, data item, etc.)",
+    "identify and use basic data types (numeric, alphabetic and alphanumeric)",
+    "explain the relationship among file structure items (data item - field - record - file - database)",
+    "classify files according to how they are organised (serial, sequential, index and random)",
+    "access files as appropriate (serial, sequential and random)",
+    "classify files into master, transaction and reference files",
+    "explain the criteria used in classifying files: nature of content (program and data), organization method, storage medium, date, size, etc."
+   ],
+   "content": "Definitions of basic terms; file organisations; methods of accessing files; file classifications; criteria for classifying files.",
+   "subtopics": []
+  },
+  {
+   "name": "Handling computer files",
+   "objectives": [
+    "perform basic file operations: create, delete, retrieve, insert, copy, view, update, open, close, etc.",
+    "identify causes of data loss: overwriting, inadvertent deletion, hardware malfunction, virus attack, theft, arson, natural disaster, etc.",
+    "use different methods of securing data and maintaining its integrity: backup, antivirus, Personal Identification Number, biometrics, passwords, proper labelling of storage devices, CCTV, physical security, fire extinguisher, smoke alarms, etc.",
+    "compare the advantages and disadvantages of computer and manual files (security, speed of access and creation, cost of setup and maintenance, electricity supply, etc.)"
+   ],
+   "content": "Basic operations; data loss; security; computer versus manual files.",
+   "subtopics": []
+  },
+  {
+   "name": "Booting and shutting down process",
+   "objectives": [
+    "define booting",
+    "list the two types of booting process (cold and warm booting)",
+    "explain the difference between cold and warm booting",
+    "explain the steps involved in booting and shutting down a computer system"
+   ],
+   "content": "Booting and shutting down a computer.",
+   "subtopics": []
+  },
+  {
+   "name": "Computer maintenance",
+   "objectives": [
+    "perform general cleaning of the computer system",
+    "charge and replace battery for portable systems and UPS",
+    "clean drive lens",
+    "perform simple hardware and software maintenance",
+    "recover data from a crashed system"
+   ],
+   "content": "General computer maintenance.",
+   "subtopics": []
+  },
+  {
+   "name": "Computer room management",
+   "objectives": [
+    "define proper sitting arrangement",
+    "position the monitor, keyboard, CPU, mouse and other peripherals appropriately",
+    "ensure proper illumination of the computer room",
+    "maintain a dust-free environment",
+    "keep liquid away from the computer room",
+    "keep strictly to laboratory rules and regulations"
+   ],
+   "content": "Management of the computer room.",
+   "subtopics": []
+  },
+  {
+   "name": "Communication systems",
+   "objectives": [
+    "state the full meaning of the acronym ICT",
+    "define ICT",
+    "list types of ICT: broadcasting, telecommunication, data network, information systems, satellite communication, etc.",
+    "give examples of broadcasting: radio broadcasting, television broadcasting, satellite broadcasting, etc.",
+    "list types of telecommunications: Public Switched Telephone Network (PSTN) land line, mobile phone system, Circuit Switched Packet Telephone System (CSPT), satellite telephone system, fixed wireless telephone system, etc.",
+    "list types of data network: PAN, LAN, MAN, WAN, Intranet, Internet, etc.",
+    "list types of information system: data processing system, Global Positioning System (GPS), etc."
+   ],
+   "content": "Definitions and acronym of ICT; types and examples of ICT.",
+   "subtopics": []
+  },
+  {
+   "name": "Application areas of ICT",
+   "objectives": [
+    "define application areas of ICT: teleconferencing, video conferencing, telecommuting, telecomputing, messaging, information search, retrieval and archival systems, e-learning, telemedicine, e-commerce, e-government, e-library, etc.",
+    "list types of ICT devices: mobile phones, computers, Automated Teller Machines (ATM), dispensing machines, point of sale machines, Automated Cash Register (ACR), radio sets, television sets, scanners, etc."
+   ],
+   "content": "Application areas; ICT-based devices.",
+   "subtopics": []
+  },
+  {
+   "name": "Internet",
+   "objectives": [
+    "define Internet",
+    "define and illustrate the use of home page, browse, browser, chatroom, cybercafe, HTTP, HTML, ISP, webpage, website, etc.",
+    "access the Internet through any of the browsers: Internet Explorer, Opera, Firefox, Cometbird, Ubuntu, Google Chrome, Phoenix, etc.",
+    "explain features of internet browsers: title bar, menu bar, tool bar, address bar, icons, search bar, Uniform Resource Locator (URL)/hypertext link, etc.",
+    "describe the use of different types of Internet services: electronic mail (e-mail), e-mail discussion group, instant messaging/chats, virtual meeting platforms, File Transfer Protocol (FTP), World Wide Web (WWW), search engines, chatting, etc."
+   ],
+   "content": "Definition of terms; internet browsers; features of internet browsers; internet services.",
+   "subtopics": []
+  },
+  {
+   "name": "Electronic mail",
+   "objectives": [
+    "define electronic mail and chatting",
+    "list e-mail services: creating e-mail address, composing e-mail, sending/receiving e-mail, adding attachments, chatting, creating mailing list/group, etc.",
+    "explain the features in an e-mail address, e.g. xyz@jamb.org.ng (user@domainname), and the components of a domain name"
+   ],
+   "content": "Definition; e-mail service; steps involved in creating and opening mail (email box, and chatting); features of e-mail address.",
+   "subtopics": []
+  },
+  {
+   "name": "Networking",
+   "objectives": [
+    "define computer network",
+    "list and define various types of networks: PAN, LAN, WAN, MAN, Intranet, Extranet, Internet",
+    "explain the differences in basic network topologies: star, bus and ring",
+    "define and explain the use of network devices: hub, modems, switches, routers, gateway, repeaters, access points, Network Interface Card (NIC), etc."
+   ],
+   "content": "Definitions; network types; network topologies; network devices.",
+   "subtopics": []
+  },
+  {
+   "name": "World Wide Web (www)",
+   "objectives": [
+    "give full meanings of www, HTTP, HTTPS, HTML, XML",
+    "explain the history behind www",
+    "explain basic terminologies: www, website, webpage, homepage, protocol, etc.",
+    "define protocol and list different types of protocols (http, https, ftp, etc.)",
+    "list uses and benefits of www, e.g. access from anywhere with Internet, access to and sharing of information worldwide, online shopping, online courses, online marketing and branding of businesses, establishing professional contacts, communicating through text, chat and email",
+    "list disadvantages of www: risk of data and identity theft, cyberbullying, easy spread of fake news, hacking, spam mails, paedophiles, etc.",
+    "navigate through websites, e.g. www.jamb.org.ng, www.waec.org.ng, www.neco.org.ng, www.ui.edu.ng, www.google.com, etc.",
+    "use software for web development: FrontPage, WordPress, Dreamweaver, Photoshop, Google Web Designer, etc.",
+    "differentiate between email and website, e.g. xyz@jamb.gov.ng and www.jamb.org.ng"
+   ],
+   "content": "Definition and full meanings of acronyms; brief history of WWW; basic terminologies; protocols; advantages and disadvantages of www; navigation through websites; software for web development; differences between email and website.",
+   "subtopics": []
+  },
+  {
+   "name": "Cables and connectors",
+   "objectives": [
+    "identify different network cables and connectors: cables (twisted pair, coaxial, fibre optics, etc.) and connectors (RJ45, RJ11, T-connectors)",
+    "identify different types of computer cables and connectors: power cables, data cables, printer cable, Universal Serial Bus (USB), monitor cable, serial cable, parallel cable, etc.; connectors: male and female"
+   ],
+   "content": "Network cables and connectors; computer cables and connectors.",
+   "subtopics": []
+  },
+  {
+   "name": "Programming language",
+   "objectives": [
+    "define Programming Language (PL)",
+    "identify classifications of PL: machine language (interpreted directly in hardware, i.e. binary machine code); assembly languages (thin wrappers over a corresponding machine language, i.e. symbolic language); high-level languages (machine independent, e.g. BASIC, C, Java, Fortran, Python, Perl)",
+    "give advantages and disadvantages of machine language, assembly language and high-level programming language"
+   ],
+   "content": "Definition and classification of programming languages (PL); advantages and disadvantages of different levels of PL.",
+   "subtopics": []
+  },
+  {
+   "name": "High level languages",
+   "objectives": [
+    "classify high-level programming languages into scientific, general purpose, business, object oriented, procedural, artificial intelligence, string processing, domain specific, scripting, systems, visual, esoteric, etc.",
+    "explain the characteristics of high-level programming languages: require translation into machine language; portable; easier to read, write and maintain as commands are similar to English",
+    "explain further characteristics of high-level languages: use data types, data structures, selection statements and repetition/iteration constructs; use logic operators and built-in functions; programmer-friendly; easy to code, debug and maintain",
+    "define translators and their two basic types: interpreters and compilers"
+   ],
+   "content": "Classifications of high-level languages (HLL); characteristics of HLL; translators.",
+   "subtopics": []
+  },
+  {
+   "name": "Algorithm and flowcharts",
+   "objectives": [
+    "define algorithm and flowchart",
+    "state functions of algorithms: calculations, data processing, automated reasoning, etc.",
+    "state and explain the properties of algorithm: input specified, output specified, definiteness, effectiveness, finiteness, etc.",
+    "identify flowchart symbols: start, input/output, process, decision, stop, loop, continuation, etc.",
+    "draw a flowchart of a given programming problem"
+   ],
+   "content": "Definitions; functions of algorithm; properties of algorithm; flowchart symbols.",
+   "subtopics": []
+  },
+  {
+   "name": "Programming language structure",
+   "objectives": [
+    "identify features/syntax of a programming language: keywords, variable types, constants/literals, numeric, string/alphanumeric, basic characteristics of the language",
+    "state basic statements of a high-level programming language: input, output, processing, comments, subunits (functions, procedures, methods, subroutines, etc.), statements (iteration/loop, conditional, assignment, dimension, etc.)",
+    "use arithmetic operators and expressions",
+    "use string operators and expressions",
+    "use built-in functions",
+    "identify primitive data (integer, float, Boolean, character, etc.)",
+    "identify non-primitive data types (arrays, classes, string, etc.)",
+    "identify complex data structures (trees, graphs, linked lists, objects, etc.)"
+   ],
+   "content": "Basic statements; arithmetic/string operators; subunits; primitive and non-primitive data.",
+   "subtopics": []
+  },
+  {
+   "name": "Program development",
+   "objectives": [
+    "define a program",
+    "list characteristics of a good program: accuracy, readability, maintainability, efficiency, generality, clarity, etc.",
+    "state the precautions required in the development of a program: be stable, steady and patient; no step skipping; follow order of execution, etc.",
+    "state the steps involved in program development: problem definition, problem analysis, design (flow charting/algorithm) development, program coding, program compilation, program testing/debugging, program documentation, program maintenance",
+    "give examples of interpreted programs (BASIC, Java, Python) and compiled programs (COBOL, FORTRAN, C, C++, Java, etc.)"
+   ],
+   "content": "Definition; characteristics of programs; precautions; steps involved in developing a program.",
+   "subtopics": []
+  },
+  {
+   "name": "System development life cycle (SDLC)",
+   "objectives": [
+    "define SDLC",
+    "describe SDLC",
+    "explain stages in SDLC: preliminary study (identification of the problem, recognition of the need), feasibility, analysis, design, implementation (coding, testing, documentation and delivery), maintenance, review",
+    "draw a diagram of an SDLC"
+   ],
+   "content": "Definition of SDLC; stages of SDLC.",
+   "subtopics": []
+  },
+  {
+   "name": "Artificial intelligence (AI)",
+   "objectives": [
+    "define AI",
+    "identify branches of AI: machine learning (supervised, unsupervised, reinforcement), neural network, expert systems, fuzzy logic, natural language processing, deep learning, etc.",
+    "list application areas of AI: robotics, e-commerce, navigation, human resource, healthcare, agriculture, gaming, automobiles, social media, marketing, etc."
+   ],
+   "content": "Definition of AI; branches of AI; applications of AI.",
+   "subtopics": []
+  },
+  {
+   "name": "Fundamentals of robotics",
+   "objectives": [
+    "define robotics",
+    "define robots",
+    "identify main components of robots: control system, sensors, actuators, power supply, end effectors, etc.",
+    "mention types of robots: humanoid robots, autonomous robots, teleoperated robots, augmenting robots, etc.",
+    "itemise application areas of robots: logistics, manufacturing, home, travel, healthcare, security, space exploration, entertainment, agriculture, food preparation, military, customer service, etc.",
+    "state advantages and disadvantages of using robots"
+   ],
+   "content": "Definition of robotics; main components of robotics; types of robots; application areas of robotics; advantages and disadvantages of robots.",
+   "subtopics": []
+  },
+  {
+   "name": "Ethical issues",
+   "objectives": [
+    "define computer-related crime",
+    "state examples of computer-related crime (compromising computer systems, hacking, theft, etc.)",
+    "list methods to prevent unauthorised use of computer systems (user identification, passwords, etc.)",
+    "list methods to protect computer resources using both electronic and manual methods",
+    "list methods to protect privacy of individuals (workers, companies, customers, government, etc.) by law and electronically"
+   ],
+   "content": "Computer-related crime; responsibility for computer failure; protection of computer property, records and software; privacy of the company, workers and customers.",
+   "subtopics": []
+  },
+  {
+   "name": "Computer security",
+   "objectives": [
+    "define computer security",
+    "identify different types of computer security and their characteristics: network security, internet security (cyber), application security, data security, information security, end user security, etc.",
+    "identify appropriate security tools to use for the different types of computer security (firewalls, antivirus software, encryption, etc.)",
+    "identify categories of application threats and their characteristics (input, authorisation, session management, parameter tampering)",
+    "identify basic dimensions of information security: Confidentiality, Integrity and Availability (CIA)",
+    "mention network security issues (unauthorised intrusion; rules and configurations that protect confidentiality, integrity and accessibility using both software and hardware)"
+   ],
+   "content": "Computer security.",
+   "subtopics": []
+  },
+  {
+   "name": "Cyber risks and protection",
+   "objectives": [
+    "mention network security methods: antivirus software, application security, behavioural analytics, data loss prevention, email security, firewalls, mobile device security",
+    "mention further network security methods: network segmentation, security information and event management (SIEM), Virtual Private Network (VPN), web security, wireless security, Network Access Control (NAC)",
+    "list types of cyber security threats: cybercrime, cyber-attack, cyber terrorism, malware, virus, trojans, spyware, ransomware, adware, botnets, SQL injection, phishing, man-in-the-middle attack, denial of service, Dridex, romance scams, Emotet malware",
+    "list cyber security safety tips: regular update of software and operating systems; use of anti-virus software; use of strong passwords",
+    "list cyber security safety tips: do not open email attachments from unknown senders; do not click on links in emails from unknown senders or unfamiliar websites; avoid unsecure WiFi networks in public places, etc."
+   ],
+   "content": "Network security methods, cyber security threats and cyber security safety tips.",
+   "subtopics": []
+  },
+  {
+   "name": "Potentials for higher studies in computing",
+   "objectives": [
+    "list possible career paths in computing: software developer, software test engineer, programme analyst, system developer, web developer, software development engineer, computer system analyst, database administrator, system administrator",
+    "list possible career paths in computing: system engineer, network engineer, business analyst, program manager, IT specialist, data analyst/scientist, AI and robotics, system security analyst, digital forensic analyst, mobile app developer",
+    "list possible career paths in computing: ICT manager, blogger, e-marketer, social media manager, ICT educator, career in academia, private entrepreneurship, internet police, IT user support/desk officer, ICT librarian, computer instructor, etc."
+   ],
+   "content": "Career paths in computing.",
+   "subtopics": []
+  }
+ ]
+}

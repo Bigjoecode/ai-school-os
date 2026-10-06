@@ -19,6 +19,7 @@ interface SyllabusFile {
   level: string;
   examFormat?: string;
   excluded?: string;
+  recommendedTexts?: string[];
   topics: { name: string; objectives?: string[]; content?: string | null; subtopics?: { name: string; objectives?: string[] }[] }[];
 }
 
@@ -59,7 +60,7 @@ export async function installSyllabi(prisma: PrismaClient): Promise<string> {
         created += r.created;
         updated += r.updated;
         subjects++;
-        const meta = { hash, subject: subjectKey(parsed.subject), exam: parsed.exam, examFormat: data.examFormat ?? null, excluded: data.excluded ?? null, topics: parsed.topics.length, installedAt: new Date().toISOString() };
+        const meta = { hash, subject: subjectKey(parsed.subject), exam: parsed.exam, examFormat: data.examFormat ?? null, excluded: data.excluded ?? null, recommendedTexts: (data.recommendedTexts ?? []).slice(0, 80), topics: parsed.topics.length, installedAt: new Date().toISOString() };
         await prisma.platformSetting.upsert({ where: { key }, update: { value: meta as unknown as Prisma.InputJsonValue }, create: { key, value: meta as unknown as Prisma.InputJsonValue } });
       } catch (err) {
         failed.push(`${exam}/${file}: ${(err as Error).message.slice(0, 160)}`);

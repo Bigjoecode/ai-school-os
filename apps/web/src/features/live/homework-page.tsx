@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils';
 import { armOptions, useStructure } from '../academics/api';
 import { apiFieldErrors, dateInput, FormError, Segmented, zodErrors } from '../operations/ui';
 import { useSearchFlag } from '../planning/ui';
-import { type HomeworkParams, useDeleteHomework, useHomework, useSaveHomework } from './api';
+import { type HomeworkParams, useDeleteHomework, useHomework, useHomeworkTopics, useSaveHomework } from './api';
 import { ATTACH_ACCEPT, AttachmentList, hostOf, UploadRows, useUploads } from './files';
 import { addDays, ChannelChooser, dayLabel, relativeDay, schoolToday, useSchoolTz } from './ui';
 
@@ -232,6 +232,11 @@ function HomeworkItem({ h, today, onEdit, onDelete }: { h: HomeworkRow; today: s
             <DueChip h={h} today={today} />
             {h.kind !== 'QUESTIONS' && <Badge variant="brand">{KIND_SHORT[h.kind]}</Badge>}
             {h.maxScore != null && <Badge variant="outline">Out of {h.maxScore}</Badge>}
+            {h.topic && (
+              <Badge variant="outline" className="max-w-[16rem]" title="Marked work counts towards this topic’s mastery">
+                <span className="truncate">Topic: {h.topic.name}</span>
+              </Badge>
+            )}
             {h.attachments.length > 0 && (
               <Badge variant="outline" className="gap-1">
                 <Paperclip /> {h.attachments.length}
@@ -321,6 +326,7 @@ function HomeworkItem({ h, today, onEdit, onDelete }: { h: HomeworkRow; today: s
 interface Values {
   classArmId: string;
   subjectId: string;
+  topicId: string;
   title: string;
   instructions: string;
   questions: string[];
@@ -361,6 +367,20 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
   const published = homework?.status === 'PUBLISHED';
   const arms = useMemo(() => armOptions(structure.data), [structure.data]);
   const subjects = useMemo(() => [...(structure.data?.subjects ?? [])].sort((a, b) => a.name.localeCompare(b.name)), [structure.data]);
+  const topics = useHomeworkTopics(v?.classArmId ?? '', v?.subjectId ?? '');
+  const topicOptions = useMemo(() => {
+    const rows = topics.data ?? [];
+    const kids = new Map<string | null, typeof rows>();
+    for (const t of rows) kids.set(t.parentId, [...(kids.get(t.parentId) ?? []), t]);
+    const known = new Set(rows.map((t) => t.id));
+    // Topics, each followed by its sub-topics.
+    const out: { id: string; label: string; sub: boolean }[] = [];
+    for (const t of rows.filter((x) => !x.parentId || !known.has(x.parentId))) {
+      out.push({ id: t.id, label: t.name, sub: false });
+      for (const c of kids.get(t.id) ?? []) out.push({ id: c.id, label: c.name, sub: true });
+    }
+    return out;
+  }, [topics.data]);
   const uploads = useUploads(10);
   const resetUploads = uploads.reset;
   const [linkUrl, setLinkUrl] = useState('');
@@ -381,6 +401,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
         ? {
             classArmId: homework.classArm.id,
             subjectId: homework.subject?.id ?? '',
+            topicId: homework.topic?.id ?? '',
             title: homework.title,
             instructions: homework.instructions,
             questions: homework.questions.length ? homework.questions : [''],
@@ -397,6 +418,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
         : {
             classArmId: '',
             subjectId: '',
+            topicId: '',
             title: '',
             instructions: '',
             questions: [''],
@@ -443,6 +465,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
     const input = {
       classArmId: v.classArmId,
       subjectId: v.subjectId || null,
+      topicId: (v.subjectId && v.topicId) || null,
       title: v.title,
       instructions: v.instructions,
       questions: v.questions.map((q) => q.trim()).filter(Boolean),
@@ -502,7 +525,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                   </Select>
                 </Field>
                 <Field label="Subject" htmlFor="hw-subject" optional>
-                  <Select value={v.subjectId || NONE} onValueChange={(s) => set({ subjectId: s === NONE ? '' : s })}>
+                  <Select value={v.subjectId || NONE} onValueChange={(s) => set({ subjectId: s === NONE ? '' : s, topicId: '' })}>
                     <SelectTrigger id="hw-subject">
                       <SelectValue />
                     </SelectTrigger>
@@ -517,6 +540,30 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                   </Select>
                 </Field>
               </div>
+              {v.classArmId && v.subjectId && (
+                <Field
+                  label="Syllabus topic"
+                  htmlFor="hw-topic"
+                  optional
+                  error={errors.topicId}
+                  hint={v.topicId ? (v.maxScore.trim() ? 'Marked work counts towards each student’s mastery of this topic.' : 'Give it marks too: work marked out of a total counts towards this topic.') : topics.data && !topicOptions.length ? 'No syllabus topics for this subject yet.' : 'Pick one so marked work counts towards topic mastery.'}
+                >
+                  <Select value={v.topicId || NONE} onValueChange={(t) => set({ topicId: t === NONE ? '' : t })} disabled={topics.isLoading || (!!topics.data && !topicOptions.length && !v.topicId)}>
+                    <SelectTrigger id="hw-topic">
+                      <SelectValue placeholder={topics.isLoading ? 'Loading topics…' : 'No topic'} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={NONE}>No topic</SelectItem>
+                      {v.topicId && homework?.topic && !topicOptions.some((t) => t.id === v.topicId) && <SelectItem value={homework.topic.id}>{homework.topic.name}</SelectItem>}
+                      {topicOptions.map((t) => (
+                        <SelectItem key={t.id} value={t.id} className={cn(t.sub && 'pl-6 text-muted-foreground')}>
+                          {t.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+              )}
               <fieldset className="grid gap-1.5">
                 <legend className="mb-1.5 text-[13px] font-medium">Kind of assignment</legend>
                 <div role="radiogroup" aria-label="Kind of assignment" className="grid grid-cols-2 gap-2 [&>*]:min-w-0">

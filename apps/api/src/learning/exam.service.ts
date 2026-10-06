@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAMS, EXAM_LABELS, examEntitlement, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow } from '@aischool/shared';
+import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, examEntitlement, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
@@ -82,14 +82,40 @@ export class ExamService {
   }
 
   async catalog(access: ResolvedAccess): Promise<ExamCatalog> {
-    const counts = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject'], where: { status: 'PUBLISHED' }, _count: { _all: true }, orderBy: [{ exam: 'asc' }, { subject: 'asc' }] });
+    const counts = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject', 'type'], where: { status: 'PUBLISHED' }, _count: { _all: true }, orderBy: [{ exam: 'asc' }, { subject: 'asc' }] });
+    // Subjects with a syllabus in the graph (NECO uses WAEC's until its own is loaded) appear as "coming soon" until they have enough questions.
+    const syllabus = await this.prisma.root.syllabusTopic.findMany({ where: { parentId: null, exams: { isEmpty: false } }, select: { subject: true, exams: true } });
+    const topicsFor = (exam: ExamBody) => {
+      const own = syllabus.filter((t) => t.exams.includes(exam));
+      const rows = own.length || exam !== 'NECO' ? own : syllabus.filter((t) => t.exams.includes('WAEC'));
+      const m = new Map<string, number>();
+      for (const t of rows) m.set(t.subject, (m.get(t.subject) ?? 0) + 1);
+      return m;
+    };
     return {
-      exams: EXAMS.map((exam) => ({
-        exam,
-        label: EXAM_LABELS[exam],
-        entitled: access.exams.includes(exam),
-        subjects: counts.filter((c) => c.exam === exam).map((c) => ({ subject: c.subject, questions: c._count._all })),
-      })),
+      exams: EXAMS.map((exam) => {
+        // A subject is listed once it has enough objective questions for a practice set; the count shown includes theory.
+        const mine = new Map<string, { objective: number; all: number }>();
+        for (const c of counts.filter((x) => x.exam === exam)) {
+          const m = mine.get(c.subject) ?? { objective: 0, all: 0 };
+          m.all += c._count._all;
+          if (c.type !== 'THEORY') m.objective += c._count._all;
+          mine.set(c.subject, m);
+        }
+        const topics = topicsFor(exam);
+        const listed = [...mine].filter(([, m]) => m.objective >= MIN_PUBLISHED_TO_LIST);
+        const soon = [...new Set([...topics.keys(), ...mine.keys()])]
+          .filter((subject) => !listed.some(([s]) => s === subject))
+          .map((subject) => ({ subject, topics: topics.get(subject) ?? 0, questions: mine.get(subject)?.objective ?? 0 }))
+          .sort((a, b) => b.questions - a.questions || a.subject.localeCompare(b.subject));
+        return {
+          exam,
+          label: EXAM_LABELS[exam],
+          entitled: access.exams.includes(exam),
+          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all })),
+          comingSoon: soon,
+        };
+      }),
       freePractice: { setsPerTerm: FREE_SETS_PER_TERM, questionsPerSet: FREE_QUESTIONS, used: await this.freeUsed(access) },
     };
   }
@@ -180,6 +206,7 @@ export class ExamService {
       source: q.source as ExamQuestionRow['source'],
       status: q.status as ExamQuestionRow['status'],
       updatedAt: q.updatedAt.toISOString(),
+      reviewedAt: q.reviewedAt?.toISOString() ?? null,
     };
   }
 
@@ -212,7 +239,7 @@ export class ExamService {
   async create(input: ExamQuestionInput, userId: string) {
     this.check(input);
     const q = await this.prisma.root.examQuestion.create({
-      data: { ...input, subject: subjectKey(input.subject), options: input.options, createdById: userId, reviewedById: input.status === 'PUBLISHED' ? userId : null },
+      data: { ...input, subject: subjectKey(input.subject), options: input.options, createdById: userId, reviewedById: input.status === 'PUBLISHED' ? userId : null, reviewedAt: input.status === 'PUBLISHED' ? new Date() : null },
       include: { topic: true },
     });
     return this.row(q);
@@ -223,21 +250,21 @@ export class ExamService {
     const before = await this.prisma.root.examQuestion.findUniqueOrThrow({ where: { id } });
     const q = await this.prisma.root.examQuestion.update({
       where: { id },
-      data: { ...input, subject: subjectKey(input.subject), options: input.options, ...(input.status === 'PUBLISHED' && before.status !== 'PUBLISHED' ? { reviewedById: userId } : {}) },
+      data: { ...input, subject: subjectKey(input.subject), options: input.options, ...(input.status === 'PUBLISHED' && before.status !== 'PUBLISHED' ? { reviewedById: userId, reviewedAt: new Date() } : {}) },
       include: { topic: true },
     });
     return this.row(q);
   }
 
   async setStatus(ids: string[], status: 'DRAFT' | 'PUBLISHED' | 'RETIRED', userId: string) {
-    const r = await this.prisma.root.examQuestion.updateMany({ where: { id: { in: ids } }, data: { status, ...(status === 'PUBLISHED' ? { reviewedById: userId } : {}) } });
+    const r = await this.prisma.root.examQuestion.updateMany({ where: { id: { in: ids } }, data: { status, ...(status === 'PUBLISHED' ? { reviewedById: userId, reviewedAt: new Date() } : {}) } });
     await this.audit.log({ tenantId: null, action: 'content.questions_status', summary: `Marked ${r.count} exam questions ${status.toLowerCase()}` });
     return { updated: r.count };
   }
 
   async import(rows: ExamQuestionInput[], userId: string) {
     rows.forEach((r) => this.check(r));
-    const r = await this.prisma.root.examQuestion.createMany({ data: rows.map((x) => ({ ...x, subject: subjectKey(x.subject), options: x.options, status: x.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT', createdById: userId, reviewedById: x.status === 'PUBLISHED' ? userId : null })) });
+    const r = await this.prisma.root.examQuestion.createMany({ data: rows.map((x) => ({ ...x, subject: subjectKey(x.subject), options: x.options, status: x.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT', createdById: userId, reviewedById: x.status === 'PUBLISHED' ? userId : null, reviewedAt: x.status === 'PUBLISHED' ? new Date() : null })) });
     await this.audit.log({ tenantId: null, action: 'content.questions_imported', summary: `Imported ${r.count} exam questions` });
     return { imported: r.count };
   }
@@ -328,7 +355,7 @@ export class ExamService {
     });
     for (const [i, q] of qs.entries()) {
       const topicId = q.topicId ?? (q.topic && a.subject ? (await this.mastery.topicFor(a.studentId, a.subject, q.topic)).id : null);
-      if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, marks[i]!.score, q.marks);
+      if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, marks[i]!.score, q.marks, { source: 'PRACTICE', sourceId: a.id });
     }
     return this.prisma.root.practiceAttempt.findUniqueOrThrow({ where: { id: a.id } });
   }

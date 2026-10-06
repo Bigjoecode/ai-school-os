@@ -39,6 +39,7 @@ import { cn } from '@/lib/utils';
 import { AiSchoolCards } from '../ai/ai-school-cards';
 import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
+import { ClassInsightsCard } from '../class-insights/insights-card';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { SetupProgressCard } from '../onboarding/ui';
 import { OperationsCard } from '../operations/operations-card';
@@ -178,6 +179,7 @@ function SchoolOverview() {
           <NoticeboardCard />
         </motion.div>
         {canLive && <LiveTodayCard />}
+        <ClassInsightsCard />
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />

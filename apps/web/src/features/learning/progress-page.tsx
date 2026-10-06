@@ -1,4 +1,4 @@
-import { Brain, Sparkles, Zap } from 'lucide-react';
+import { Brain, History, Sparkles, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAddMemory, useForgetMemory, useMastery, useMemories } from './api';
-import { AddMemoryForm, MasteryMapView, MemoryList, QuickQuizDialog, SectionTitle } from './components';
+import { AddMemoryForm, MasteryMapView, MemoryList, QuickQuizDialog, RecentEvidence, SectionTitle } from './components';
 
 export default function ProgressPage() {
   const mastery = useMastery();
@@ -20,7 +20,7 @@ export default function ProgressPage() {
       <PageHeader
         eyebrow="Learning"
         title="My progress"
-        description="How each topic is going. Your official result comes from your school; practice is what you’ve done here with your tutor."
+        description="How each topic is going. Your official result comes from your school; topic mastery grows with your school tests, marked homework, practice and tutor sessions."
         actions={
           <Button variant="outline" onClick={() => setQuiz({ subject: '', topic: '' })}>
             <Zap /> Quick quiz
@@ -39,8 +39,16 @@ export default function ProgressPage() {
               ))}
             </div>
           ) : (
-            <MasteryMapView map={mastery.data} onQuiz={(subject, topic) => setQuiz({ subject, topic })} />
+            <MasteryMapView map={mastery.data} onQuiz={(subject, topic) => setQuiz({ subject, topic })} evidencePath="/learning/evidence" />
           )}
+        </section>
+
+        <section aria-label="Recent work">
+          <Card className="p-5">
+            <SectionTitle icon={History} title="What’s counted lately" />
+            <p className="mb-2 text-[13px] text-muted-foreground">School tests and marked homework count towards your topics, alongside your own practice. Tap a topic above to see its work.</p>
+            <RecentEvidence path="/learning/evidence" empty="Nothing yet: your next school test, marked homework or practice set will show here." />
+          </Card>
         </section>
 
         <section aria-label="What my tutor remembers">

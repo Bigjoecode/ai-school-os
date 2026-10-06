@@ -18,6 +18,7 @@ import { currentContext } from '../common/request-context';
 import { registerTickTask } from '../common/tick-tasks';
 import { PrismaService } from '../prisma/prisma.service';
 import { AssessmentSettingsService } from '../assessment/assessment-settings.service';
+import { SchoolEvidenceService } from '../learning/school-evidence.service';
 
 /** One question as this student sees it: `order[displayed] = original option index`. */
 export interface LayoutItem {
@@ -109,6 +110,7 @@ export class CbtService implements OnModuleInit {
   constructor(
     private readonly prisma: PrismaService,
     private readonly settings: AssessmentSettingsService,
+    private readonly evidence: SchoolEvidenceService,
   ) {}
 
   onModuleInit() {
@@ -349,7 +351,11 @@ export class CbtService implements OnModuleInit {
       marked = m.status === 'MARKED';
       return true;
     });
-    if (marked) await this.announceMarked(attemptId);
+    if (marked) {
+      await this.announceMarked(attemptId);
+      // A fully marked attempt counts towards the student's topic mastery.
+      await this.evidence.syncCbtAttempt(attemptId);
+    }
     return done;
   }
 
@@ -361,6 +367,8 @@ export class CbtService implements OnModuleInit {
       data: { theoryMarks: theory as unknown as Prisma.InputJsonValue, objectiveScore: m.objectiveScore, score: m.score, total: m.total, status: m.status },
     });
     if (a.status !== 'MARKED' && m.status === 'MARKED') await this.announceMarked(a.id);
+    // Replaces this attempt's earlier mastery evidence (none unless MARKED), so re-marking never counts twice.
+    if (a.status === 'MARKED' || m.status === 'MARKED') await this.evidence.syncCbtAttempt(a.id);
     return updated;
   }
 

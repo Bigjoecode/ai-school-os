@@ -136,6 +136,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'School',
     items: [
       { label: 'My school', to: '/school', icon: Backpack, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'portal child children overview summary fees owed' },
+      { label: 'Learning updates', to: '/school/learning', icon: Sparkles, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'weekly update how my child is learning progress topics strong improving attention' },
       { label: 'Attendance', to: '/school/attendance', icon: CalendarCheck, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'present absent late register days' },
       { label: 'Results', to: '/school/results', icon: Trophy, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'report card grades position average term result' },
       { label: 'Fees', to: '/school/fees', icon: Banknote, permission: 'family.manage', audience: 'family', keywords: 'school fees pay online paystack balance owed invoice receipt bank transfer' },
@@ -176,6 +177,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
       { label: 'Lesson vetting', to: '/lessons/vetting', icon: ClipboardCheck, permission: 'lessons.approve', keywords: 'vet approve lesson notes hod principal submissions compliance' },
+      { label: 'Class insights', to: '/class-insights', icon: LayoutGrid, anyOf: [['academics.read'], ['homework.manage']], keywords: 'mastery heatmap topics struggling weak students remedial re-teach practice support group learning loop' },
       { label: 'Timetable', to: '/timetable', icon: CalendarClock, feature: 'timetable', permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },
       { label: 'Study Materials', to: '/materials', icon: FolderOpen, anyOf: [['homework.manage'], ['curriculum.manage'], ['academics.manage']], keywords: 'notes slides videos documents resources library youtube revision' },
     ],

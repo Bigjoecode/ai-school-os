@@ -95,6 +95,7 @@ function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; o
           </li>
         ))}
       </ul>
+      {!!exam.comingSoon?.length && <ComingSoon subjects={exam.comingSoon} />}
       {exam.entitled && (
         <p className="mt-4 flex items-start gap-1.5 rounded-xl bg-success-soft/60 p-3 text-[12.5px] text-success">
           <CheckCircle2 className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Unlimited practice, timed mocks and AI-marked theory practice are unlocked. Good luck!
@@ -129,6 +130,33 @@ function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; o
         </Button>
       </div>
     </Card>
+  );
+}
+
+/** Subjects with a syllabus whose question bank is still being written. */
+function ComingSoon({ subjects }: { subjects: NonNullable<Exam['comingSoon']> }) {
+  const [all, setAll] = useState(false);
+  const shown = all ? subjects : subjects.slice(0, 8);
+  return (
+    <div className="mt-3">
+      <p className="mb-1.5 flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground">
+        <Clock className="size-3.5" aria-hidden /> Coming soon · {subjects.length} more subject{subjects.length === 1 ? '' : 's'}
+      </p>
+      <ul className="flex flex-wrap gap-1.5">
+        {shown.map((s) => (
+          <li key={s.subject} className="rounded-full border border-dashed border-border px-2.5 py-1 text-[12px] text-muted-foreground" title="Questions for this subject are being written and checked">
+            {s.subject}
+          </li>
+        ))}
+        {subjects.length > shown.length && (
+          <li>
+            <button type="button" onClick={() => setAll(true)} className="rounded-full px-2.5 py-1 text-[12px] font-medium text-brand hover:underline">
+              +{subjects.length - shown.length} more
+            </button>
+          </li>
+        )}
+      </ul>
+    </div>
   );
 }
 

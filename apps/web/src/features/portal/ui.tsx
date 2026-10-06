@@ -1,5 +1,5 @@
 import { ordinal, type PortalChild, type PortalMe, type PortalSettings } from '@aischool/shared';
-import { Banknote, CalendarCheck, CalendarDays, Compass, Download, HeartPulse, House, Lock, type LucideIcon, Trophy } from 'lucide-react';
+import { Banknote, CalendarCheck, CalendarDays, Compass, Download, HeartPulse, House, Lock, type LucideIcon, Sparkles, Trophy } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useRef } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
@@ -20,10 +20,11 @@ import { lastChild, rememberChild, usePortalMe } from './api';
  * /school/attendance…) resolve to the last child they looked at.
  */
 
-export type PortalSection = 'overview' | 'attendance' | 'results' | 'fees' | 'calendar' | 'downloads' | 'welfare' | 'careers';
+export type PortalSection = 'overview' | 'learning' | 'attendance' | 'results' | 'fees' | 'calendar' | 'downloads' | 'welfare' | 'careers';
 
 export const PORTAL_SECTIONS: { key: PortalSection; label: string; icon: LucideIcon; setting?: keyof PortalSettings; parentsOnly?: boolean }[] = [
   { key: 'overview', label: 'Overview', icon: House },
+  { key: 'learning', label: 'Learning updates', icon: Sparkles },
   { key: 'attendance', label: 'Attendance', icon: CalendarCheck, setting: 'showAttendance' },
   { key: 'results', label: 'Results', icon: Trophy, setting: 'showResults' },
   { key: 'fees', label: 'Fees', icon: Banknote, setting: 'showFees', parentsOnly: true },

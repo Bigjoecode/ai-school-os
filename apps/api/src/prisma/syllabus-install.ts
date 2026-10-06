@@ -35,6 +35,7 @@ function syllabiDir(): string | undefined {
 export async function installSyllabi(prisma: PrismaClient): Promise<string> {
   const dir = syllabiDir();
   if (!dir) return '';
+  const merged = await mergeDuplicateTopics(prisma);
   let subjects = 0;
   let created = 0;
   let updated = 0;
@@ -68,7 +69,8 @@ export async function installSyllabi(prisma: PrismaClient): Promise<string> {
     }
   }
   if (failed.length) throw new Error(`Syllabus files failed: ${failed.join(' | ')}`);
-  return subjects ? `${subjects} syllabus subject(s): ${created} topics added, ${updated} updated` : '';
+  const parts = [subjects ? `${subjects} syllabus subject(s): ${created} topics added, ${updated} updated` : '', merged ? `${merged} duplicate topic(s) merged` : ''].filter(Boolean);
+  return parts.join('; ');
 }
 
 /** Same merge rules as the console's syllabus import. */
@@ -81,7 +83,10 @@ async function applySyllabus(prisma: PrismaClient, input: ReturnType<typeof syll
     return xs.map((x) => x.trim()).filter((x) => x && !seen.has(x.toLowerCase()) && seen.add(x.toLowerCase()));
   };
   const upsert = async (name: string, objectives: string[], content: string | null, parentId: string | null, order: number) => {
-    const existing = await prisma.syllabusTopic.findUnique({ where: { subject_level_name: { subject, level: input.level, name } } });
+    // Case-insensitive: WAEC and JAMB capitalise the same topic differently ("Number Bases" / "Number bases").
+    const existing =
+      (await prisma.syllabusTopic.findUnique({ where: { subject_level_name: { subject, level: input.level, name } } })) ??
+      (await prisma.syllabusTopic.findFirst({ where: { subject, level: input.level, name: { equals: name, mode: 'insensitive' } }, orderBy: { id: 'asc' } }));
     if (existing) {
       updated++;
       return prisma.syllabusTopic.update({
@@ -106,3 +111,61 @@ async function applySyllabus(prisma: PrismaClient, input: ReturnType<typeof syll
   }
   return { created, updated };
 }
+
+/**
+ * Merges topics that differ only in capitalisation (same subject and level),
+ * keeping one and moving everything that points at the others onto it:
+ * sub-topics, exam questions, homework, practice attempts, mastery evidence
+ * and mastery records (a student with progress on both gets one combined
+ * record). Safe to run at every start-up: does nothing when there are none.
+ */
+export async function mergeDuplicateTopics(prisma: PrismaClient): Promise<number> {
+  const groups = await prisma.$queryRaw<{ ids: string[] }[]>`
+    SELECT array_agg(id ORDER BY ("parentId" IS NOT NULL), id) AS ids
+    FROM syllabus_topics GROUP BY subject, level, lower(name) HAVING count(*) > 1`;
+  let merged = 0;
+  for (const g of groups) {
+    const [keepId, ...dupIds] = g.ids;
+    if (!keepId || !dupIds.length) continue;
+    await prisma.$transaction(async (tx) => {
+      const all = await tx.syllabusTopic.findMany({ where: { id: { in: [keepId, ...dupIds] } } });
+      const keep = all.find((t) => t.id === keepId)!;
+      const uniq = (xs: string[]) => {
+        const seen = new Set<string>();
+        return xs.map((x) => x.trim()).filter((x) => x && !seen.has(x.toLowerCase()) && seen.add(x.toLowerCase()));
+      };
+      await tx.syllabusTopic.update({
+        where: { id: keepId },
+        data: {
+          exams: uniq(all.flatMap((t) => t.exams)),
+          objectives: uniq(all.flatMap((t) => t.objectives)).slice(0, 60),
+          content: keep.content ?? all.find((t) => t.content)?.content ?? null,
+          parentId: keep.parentId ?? all.find((t) => t.parentId && !dupIds.includes(t.parentId) && t.parentId !== keepId)?.parentId ?? null,
+        },
+      });
+      await tx.syllabusTopic.updateMany({ where: { parentId: { in: dupIds } }, data: { parentId: keepId } });
+      await tx.examQuestion.updateMany({ where: { topicId: { in: dupIds } }, data: { topicId: keepId } });
+      await tx.homework.updateMany({ where: { topicId: { in: dupIds } }, data: { topicId: keepId } });
+      await tx.practiceAttempt.updateMany({ where: { topicId: { in: dupIds } }, data: { topicId: keepId } });
+      await tx.masteryEvidence.updateMany({ where: { topicId: { in: dupIds } }, data: { topicId: keepId } });
+      const recs = await tx.masteryRecord.findMany({ where: { topicId: { in: [keepId, ...dupIds] } } });
+      const byStudent = new Map<string, typeof recs>();
+      for (const r of recs) byStudent.set(r.studentId, [...(byStudent.get(r.studentId) ?? []), r]);
+      for (const rs of byStudent.values()) {
+        const target = rs.find((r) => r.topicId === keepId);
+        if (rs.length === 1 && target) continue;
+        const attempts = rs.reduce((n, r) => n + r.attempts, 0);
+        const correct = rs.reduce((n, r) => n + r.correct, 0);
+        const last = rs.map((r) => r.lastEvidenceAt).filter((d): d is Date => !!d).sort((a, b) => b.getTime() - a.getTime())[0] ?? null;
+        const score = Math.round((100 * (correct + 0.5)) / (attempts + 1));
+        const confidence = Math.min(0.95, Math.round((1 - 1 / Math.sqrt(attempts + 1)) * 100) / 100);
+        await tx.masteryRecord.deleteMany({ where: { id: { in: rs.map((r) => r.id) } } });
+        await tx.masteryRecord.create({ data: { tenantId: rs[0]!.tenantId, studentId: rs[0]!.studentId, topicId: keepId, attempts, correct, score, confidence, lastEvidenceAt: last } });
+      }
+      await tx.syllabusTopic.deleteMany({ where: { id: { in: dupIds } } });
+    }, { timeout: 60_000 });
+    merged += dupIds.length;
+  }
+  return merged;
+}
+

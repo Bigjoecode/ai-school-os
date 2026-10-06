@@ -13,6 +13,7 @@ import { usePortalOverview } from './api';
 import { PortalHouseCard } from '../houses/portal-house-card';
 import { PortalEventItem } from './events';
 import { LatestOnlineTest } from './latest-online-test';
+import { LatestLearningUpdateCard } from './learning-updates';
 import { AttendanceRing, PortalShell, portalPath, positionText, sectionShared, type ShellCtx } from './ui';
 
 export default function PortalOverviewPage() {
@@ -74,6 +75,8 @@ function OverviewBody({ child, me, isParent, who }: ShellCtx) {
           />
         )}
       </div>
+
+      <LatestLearningUpdateCard childId={child.id} isParent={isParent} />
 
       <PortalHouseCard childId={child.id} firstName={child.firstName} isParent={isParent} />
 

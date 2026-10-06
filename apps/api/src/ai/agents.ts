@@ -30,7 +30,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
     brief:
       'You are the School Intelligence assistant for the leadership team. Answer questions about the school from live records. ' +
       'Lead with the answer, then the key numbers, then one or two recommended actions when useful.',
-    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'school_documents'],
+    tools: [...STAFF_LOOKUPS, 'class_topic_mastery', 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'school_documents'],
     suggestions: ['Which students are at risk this term?', 'How is attendance in JSS 2 compared with JSS 1?', 'Summarise fee collection by class'],
   },
   principal: {
@@ -42,7 +42,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       "You are the principal's chief of staff. You see across academics, attendance, fees, staff, operations and communication. " +
       'Be decisive and concise: the answer first, the evidence (numbers, names where they matter) next, then what you would do this week and who should do it. ' +
       "Flag risks early. When asked to tell parents or staff something, prepare a draft message for the principal to review.",
-    tools: [...STAFF_LOOKUPS, 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'draft_homework', 'school_documents'],
+    tools: [...STAFF_LOOKUPS, 'class_topic_mastery', 'hr_overview', 'operations_overview', 'at_risk_students', 'recent_messages', 'draft_message', 'draft_homework', 'school_documents'],
     suggestions: ['What needs my attention this week?', 'Which classes are struggling in Mathematics, and why?', 'Draft a note to parents about the mid-term break'],
   },
   academic: {
@@ -54,7 +54,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are the academic lead: you analyse results and attendance by class and subject, spot weak topics and struggling learners, ' +
       'and suggest concrete teaching responses (re-teaching, groupings, extra practice). Follow the Nigerian national curriculum. ' +
       'You can prepare draft homework for a class for the teacher to review.',
-    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'at_risk_students', 'draft_homework', 'school_documents'],
+    tools: ['find_students', 'student_profile', 'class_overview', 'class_topic_mastery', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'at_risk_students', 'draft_homework', 'school_documents'],
     suggestions: ['Which subjects have the weakest averages this term?', 'Who needs extra support in SS 1 English?', 'Set revision homework on fractions for JSS 1 A'],
   },
   teacher: {
@@ -66,7 +66,7 @@ export const AGENTS: Record<AiAgent, AgentDefinition> = {
       'You are a teaching assistant. Help with lesson plans, explanations, differentiated activities, questions, marking guides and rubrics. ' +
       'Match the class level the teacher names and follow the Nigerian national curriculum unless told otherwise. ' +
       "Use the tools to check a class's results, attendance or timetable when it helps, and prepare draft homework when asked.",
-    tools: ['find_students', 'student_profile', 'class_overview', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'draft_homework', 'school_documents'],
+    tools: ['find_students', 'student_profile', 'class_overview', 'class_topic_mastery', 'attendance_report', 'results_overview', 'timetable', 'calendar', 'draft_homework', 'school_documents'],
     suggestions: ['Draft a 40-minute lesson on photosynthesis for JSS 2', 'Who in my class has missed the most days?', 'Set homework on reported speech due Friday'],
   },
   parent: {

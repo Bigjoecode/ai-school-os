@@ -219,6 +219,8 @@ model Tenant {
   housePointEntries     HousePointEntry[]
   whatsappMessages      WhatsAppMessage[]
   careerProfiles        CareerProfile[]
+  masteryEvidence       MasteryEvidence[]
+  learningUpdates       LearningUpdate[]
   traitRatings          StudentTraitRating[]
   homeworkSubmissions   HomeworkSubmission[]
   kbChunks              KbChunk[]
@@ -702,6 +704,8 @@ model Student {
   house               House?                        @relation(fields: [houseId], references: [id], onDelete: SetNull)
   housePoints         HousePointEntry[]
   careerProfile       CareerProfile?
+  masteryEvidence     MasteryEvidence[]
+  learningUpdates     LearningUpdate[]
   transport           TransportAssignment?
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
@@ -719,18 +723,20 @@ model Student {
 }
 
 model Guardian {
-  id           String   @id @default(cuid())
-  tenantId     String
-  userId       String?
-  firstName    String
-  lastName     String
-  relationship String
-  phone        String
-  email        String?
-  occupation   String?
-  address      String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  tenantId           String
+  userId             String?
+  firstName          String
+  lastName           String
+  relationship       String
+  phone              String
+  email              String?
+  /// Parent turned off the weekly learning update.
+  learningUpdatesOff Boolean  @default(false)
+  occupation         String?
+  address            String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   user     User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
@@ -2426,34 +2432,37 @@ model LiveRecording {
 
 /// Homework set for a class, by hand or from a live class's AI summary.
 model Homework {
-  id              String    @id @default(cuid())
+  id              String         @id @default(cuid())
   tenantId        String
   classArmId      String
   subjectId       String?
+  /// The syllabus topic it practises: graded work becomes mastery evidence.
+  topicId         String?
+  topic           SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
   teacherId       String?
   liveClassId     String?
   title           String
   instructions    String
   questions       String[]
   /// QUESTIONS | THEORY | PROJECT | UPLOAD (students hand in a file or link)
-  kind            String    @default("QUESTIONS")
+  kind            String         @default("QUESTIONS")
   /// Teacher's files and links: [{ type: FILE|LINK, fileId?, url, name, mimeType? }]
-  attachments     Json      @default("[]")
+  attachments     Json           @default("[]")
   /// What students may hand in: TEXT, IMAGE, VIDEO, AUDIO, DOCUMENT, LINK
-  submissionTypes String[]  @default([])
+  submissionTypes String[]       @default([])
   maxScore        Int?
   /// For theory and projects: what a good answer contains (used to mark, never shown to students).
   markingGuide    String?
-  allowLate       Boolean   @default(true)
-  dueDate         DateTime  @db.Date
+  allowLate       Boolean        @default(true)
+  dueDate         DateTime       @db.Date
   /// DRAFT, PUBLISHED
-  status          String    @default("DRAFT")
+  status          String         @default("DRAFT")
   /// MANUAL, AI
-  source          String    @default("MANUAL")
+  source          String         @default("MANUAL")
   publishedAt     DateTime?
   createdById     String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 
   tenant      Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   classArm    ClassArm             @relation(fields: [classArmId], references: [id], onDelete: Cascade)
@@ -2994,10 +3003,12 @@ model SyllabusTopic {
   objectives String[] @default([])
   content    String?
 
-  parent    SyllabusTopic?  @relation("TopicTree", fields: [parentId], references: [id], onDelete: Cascade)
-  children  SyllabusTopic[] @relation("TopicTree")
+  parent    SyllabusTopic?    @relation("TopicTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  SyllabusTopic[]   @relation("TopicTree")
   mastery   MasteryRecord[]
   questions ExamQuestion[]
+  evidence  MasteryEvidence[]
+  homework  Homework[]
 
   @@unique([subject, level, name])
   @@index([subject])
@@ -3097,11 +3108,11 @@ model PracticeAttempt {
 
 /// The Exam Academy bank, shared by every school. AI drafts stay DRAFT until a person publishes them.
 model ExamQuestion {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   exam         String
   /// OBJECTIVE (options + answer) | THEORY (written answer marked against the guide)
-  type         String   @default("OBJECTIVE")
-  marks        Int      @default(1)
+  type         String    @default("OBJECTIVE")
+  marks        Int       @default(1)
   markingGuide String?
   subject      String
   topicId      String?
@@ -3110,15 +3121,17 @@ model ExamQuestion {
   options      Json
   answer       Int
   explanation  String?
-  difficulty   String   @default("MEDIUM")
+  difficulty   String    @default("MEDIUM")
   /// LICENSED | AUTHORED | AI_REVIEWED
-  source       String   @default("AUTHORED")
+  source       String    @default("AUTHORED")
   /// DRAFT | PUBLISHED | RETIRED
-  status       String   @default("DRAFT")
+  status       String    @default("DRAFT")
   createdById  String?
+  /// Who approved it for students (PUBLISHED), and when.
   reviewedById String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  reviewedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   topic SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
 
@@ -3824,4 +3837,55 @@ model JambCourse {
   @@index([name])
   @@index([faculty])
   @@map("jamb_courses")
+}
+
+// ============================================================ Phase 25: closed learning loop
+
+/// One piece of evidence about a student's grasp of a topic, and the mastery score after it.
+model MasteryEvidence {
+  id         String   @id @default(cuid())
+  tenantId   String
+  studentId  String
+  topicId    String
+  /// PRACTICE (Exam Academy), TUTOR, QUIZ, CBT (school online exam), HOMEWORK, TEST (school test/exam score)
+  source     String
+  /// What produced it (attempt id, homework id, exam id…).
+  sourceId   String?
+  correct    Float
+  total      Float
+  scoreAfter Int
+  createdAt  DateTime @default(now())
+
+  tenant  Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  topic   SyllabusTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, createdAt])
+  @@index([tenantId, topicId])
+  @@map("mastery_evidence")
+}
+
+/// The weekly "how your child is learning" update sent to parents.
+model LearningUpdate {
+  id        String    @id @default(cuid())
+  tenantId  String
+  studentId String
+  /// Monday of the week it covers.
+  weekStart DateTime  @db.Date
+  /// { strong[], improving[], attention[], highlights[], recommendation, attendance, homework }
+  content   Json
+  /// Plain-text version as sent.
+  text      String
+  /// AI or RULES (when AI wasn't available).
+  source    String    @default("RULES")
+  sentAt    DateTime?
+  channels  String[]  @default([])
+  createdAt DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, weekStart])
+  @@index([tenantId, weekStart])
+  @@map("learning_updates")
 }

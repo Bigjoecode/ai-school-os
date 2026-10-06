@@ -20,6 +20,7 @@ import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { FilesController } from '../files/files.module';
 import { FilesService } from '../files/files.service';
+import { SchoolEvidenceService } from '../learning/school-evidence.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveService } from './live.service';
 
@@ -47,6 +48,7 @@ export class AssignmentsController {
     private readonly files: FilesService,
     private readonly gateway: AiGatewayService,
     private readonly audit: AuditService,
+    private readonly evidence: SchoolEvidenceService,
   ) {}
 
   private filesOf(s: { files: Prisma.JsonValue; homeworkId: string }): SubmissionFile[] {
@@ -119,6 +121,8 @@ export class AssignmentsController {
       data: { score: body.score, feedback: body.feedback, status: body.status, gradedById: currentContext().userId, gradedAt: new Date() },
       include: { student: true },
     });
+    // Marked work counts towards the homework's topic; re-grading replaces the earlier evidence.
+    await this.evidence.syncHomeworkSubmission(s.id);
     // Tell the student and their parents.
     const guardians = await this.prisma.db.studentGuardian.findMany({ where: { studentId: s.studentId }, select: { guardian: { select: { userId: true } } } });
     const userIds = [s.student.userId, ...guardians.map((g) => g.guardian.userId)].filter((x): x is string => !!x);
@@ -217,6 +221,8 @@ export class AssignmentsController {
     const s = existing
       ? await this.prisma.db.homeworkSubmission.update({ where: { id: existing.id }, data: { ...data, aiSuggestion: Prisma.DbNull, score: null }, include: { student: true } })
       : await this.prisma.db.homeworkSubmission.create({ data: { ...data, tenantId: currentTenantId(), homeworkId: id, studentId: me.id }, include: { student: true } });
+    // Handing in again (after it was returned) takes back any mark it counted with.
+    if (existing) await this.evidence.syncHomeworkSubmission(s.id);
     return this.row(s);
   }
 

@@ -3,6 +3,7 @@ import type {
   ExamBody,
   ExamCatalog,
   FlashcardDeckRow,
+  MasteryEvidenceRow,
   MasteryMap,
   MasteryTopic,
   MemoryKind,
@@ -56,6 +57,9 @@ export const useLearnHome = () => useQuery({ queryKey: lk.home, queryFn: () => a
 export const useConversations = () => useQuery({ queryKey: lk.conversations, queryFn: () => api.get<ConversationRow[]>('/learning/conversations') });
 export const useConversation = (id: string | undefined) =>
   useQuery({ queryKey: lk.conversation(id ?? ''), queryFn: () => api.get<ConversationDetail>(`/learning/conversations/${id}`), enabled: !!id });
+/** Evidence behind a student's mastery. `path`: /learning/evidence (self) or /family/children/:id/evidence (parent). */
+export const useEvidence = (path: string, topicId?: string, enabled = true) =>
+  useQuery({ queryKey: ['learning', 'evidence', path, topicId ?? ''] as const, queryFn: () => api.get<MasteryEvidenceRow[]>(path, topicId ? { topicId } : { limit: 8 }), enabled });
 export const useMastery = () => useQuery({ queryKey: lk.mastery, queryFn: () => api.get<MasteryMap>('/learning/mastery') });
 export const useMemories = () => useQuery({ queryKey: lk.memories, queryFn: () => api.get<StudentMemoryRow[]>('/learning/memories') });
 export const usePlans = () => useQuery({ queryKey: lk.plans, queryFn: () => api.get<StudyPlanRow[]>('/learning/plans') });

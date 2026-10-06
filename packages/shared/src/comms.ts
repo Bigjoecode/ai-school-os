@@ -135,7 +135,7 @@ export type Audience = z.infer<typeof audienceSchema>;
 
 export const BROADCAST_STATUSES = ['DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'CANCELLED'] as const;
 export type BroadcastStatus = (typeof BROADCAST_STATUSES)[number];
-export const BROADCAST_SOURCES = ['MANUAL', 'BIRTHDAY', 'EVENT_REMINDER', 'ANNOUNCEMENT', 'TRANSPORT', 'FEES', 'ENQUIRY', 'HOMEWORK', 'CLASS_SUMMARY', 'ADMISSIONS', 'WELFARE', 'ALUMNI'] as const;
+export const BROADCAST_SOURCES = ['MANUAL', 'BIRTHDAY', 'EVENT_REMINDER', 'ANNOUNCEMENT', 'TRANSPORT', 'FEES', 'ENQUIRY', 'HOMEWORK', 'CLASS_SUMMARY', 'ADMISSIONS', 'WELFARE', 'ALUMNI', 'LEARNING_UPDATE'] as const;
 export type BroadcastSource = (typeof BROADCAST_SOURCES)[number];
 
 export const broadcastSchema = z

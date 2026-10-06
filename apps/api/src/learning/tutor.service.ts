@@ -157,7 +157,7 @@ export class TutorService {
       input: z.object({ subject: z.string().min(2), topic: z.string().min(2).max(120), correct: z.number().int().min(0).max(10), total: z.number().int().min(1).max(10) }),
       run: async (i, { access, saved }) => {
         const topic = await this.mastery.topicFor(access.studentId, i.subject, i.topic);
-        const r = await this.mastery.record(access.tenantId, access.studentId, topic.id, Math.min(i.correct, i.total), i.total);
+        const r = await this.mastery.record(access.tenantId, access.studentId, topic.id, Math.min(i.correct, i.total), i.total, { source: 'TUTOR' });
         saved.push({ kind: 'MASTERY', label: `${topic.name}: ${r?.score ?? '–'}%` });
         return { topic: topic.name, mastery: r?.score };
       },

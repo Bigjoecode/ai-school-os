@@ -35,6 +35,7 @@ import { dateOnly, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
+import { SchoolEvidenceService } from '../learning/school-evidence.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveProvidersService } from './providers.service';
 import { LiveService, displayStatus, liveInclude } from './live.service';
@@ -46,7 +47,7 @@ interface OAuthState {
   origin: string;
 }
 
-const homeworkInclude = { classArm: { include: { classLevel: true } }, subject: true, teacher: true } satisfies Prisma.HomeworkInclude;
+const homeworkInclude = { classArm: { include: { classLevel: true } }, subject: true, teacher: true, topic: { select: { id: true, name: true } } } satisfies Prisma.HomeworkInclude;
 const FREE: Channel[] = ['IN_APP', 'PUSH'];
 
 @Controller()
@@ -59,6 +60,7 @@ export class LiveController {
     private readonly sender: SenderService,
     private readonly jwt: JwtService,
     private readonly audit: AuditService,
+    private readonly evidence: SchoolEvidenceService,
   ) {}
 
   /** Paid channels (SMS, email, WhatsApp) need messaging permission. Checked before anything is saved. */
@@ -410,6 +412,14 @@ export class LiveController {
     return list.map((a) => (a.type === 'FILE' ? { ...a, url: `/api/files/${a.fileId}` } : a)) as unknown as Prisma.InputJsonValue;
   }
 
+  /** The syllabus topic chosen for homework must exist (it needs a subject to belong to). */
+  private async checkTopic(topicId: string | null, subjectId: string | null) {
+    if (!topicId) return null;
+    if (!subjectId) throw new BadRequestException('Choose the subject before its topic');
+    if (!(await this.prisma.root.syllabusTopic.findUnique({ where: { id: topicId }, select: { id: true } }))) throw new BadRequestException('That topic was not found; choose it again');
+    return topicId;
+  }
+
   private async checkTeaches(classArmId: string, subjectId: string | null) {
     const v = await this.live.viewer();
     if (v.manage) return v;
@@ -429,6 +439,7 @@ export class LiveController {
         tenantId: currentTenantId(),
         classArmId: body.classArmId,
         subjectId: body.subjectId,
+        topicId: await this.checkTopic(body.topicId, body.subjectId),
         teacherId: v.staffId,
         title: body.title,
         instructions: body.instructions,
@@ -473,11 +484,14 @@ export class LiveController {
         allowLate: body.allowLate,
         dueDate: parseDate(body.dueDate),
         subjectId: body.subjectId,
+        topicId: await this.checkTopic(body.topicId, body.subjectId),
         ...(publishing ? { status: 'PUBLISHED', publishedAt: new Date() } : {}),
       },
       include: homeworkInclude,
     });
     if (publishing) await this.notifyParents(h.classArmId, body.notifyParents as Channel[], this.homeworkMessage(h.title, h.subject?.name ?? null, body.dueDate, h.instructions));
+    // Marked hand-ins now count towards a different topic, or out of a different maximum.
+    if (h.topicId !== before.topicId || h.maxScore !== before.maxScore) await this.evidence.syncHomework(h.id);
     return this.live.homeworkRow(h, school.today);
   }
 
@@ -487,6 +501,7 @@ export class LiveController {
   async deleteHomework(@Param('id') id: string) {
     const h = await this.prisma.db.homework.findUniqueOrThrow({ where: { id } });
     await this.checkTeaches(h.classArmId, h.subjectId);
+    await this.evidence.clearHomework(id);
     await this.prisma.db.homework.delete({ where: { id } });
     if (h.liveClassId) await this.prisma.db.liveClass.updateMany({ where: { id: h.liveClassId, homeworkId: id }, data: { homeworkId: null } });
     await this.audit.log({ action: 'homework.deleted', entityType: 'Homework', entityId: id, summary: `Removed homework "${h.title}"` });

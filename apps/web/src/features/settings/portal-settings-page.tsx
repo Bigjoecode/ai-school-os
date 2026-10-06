@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 import { usePortalSettings, useSavePortalSettings } from '../portal/api';
+import { LearningUpdatesSettings } from './learning-updates-settings';
 
 type BoolKey = 'showAttendance' | 'showResults' | 'showCalendar' | 'showDownloads';
 
@@ -41,13 +42,13 @@ export default function PortalSettingsPage() {
   const set = (patch: Partial<PortalSettings>) => setV((x) => ({ ...x, ...patch }));
 
   return (
+    <div className="max-w-3xl space-y-6">
     <form
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
         save.mutate({ ...v, withholdMessage: v.withholdMessage?.trim() || null });
       }}
-      className="max-w-3xl"
     >
       <Card>
         <CardHeader>
@@ -136,5 +137,7 @@ export default function PortalSettingsPage() {
         )}
       </Card>
     </form>
+    <LearningUpdatesSettings />
+    </div>
   );
 }

@@ -11,5 +11,6 @@ import { SchemesController } from './schemes.controller';
   imports: [AiModule, FilesModule],
   controllers: [CurriculaController, SchemesController, LessonsController],
   providers: [AcademicEngineService],
+  exports: [AcademicEngineService],
 })
 export class AcademicModule {}

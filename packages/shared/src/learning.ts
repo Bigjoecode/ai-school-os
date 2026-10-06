@@ -330,6 +330,46 @@ export interface MasteryMap {
 export const masteryBand = (score: number | null): MasteryTopic['band'] =>
   score === null ? 'NOT_STARTED' : score >= 85 ? 'MASTERED' : score >= 70 ? 'SECURE' : score >= 50 ? 'DEVELOPING' : 'EMERGING';
 
+/** Where a piece of mastery evidence came from. */
+export const EVIDENCE_SOURCES = ['PRACTICE', 'TUTOR', 'QUIZ', 'CBT', 'HOMEWORK', 'TEST'] as const;
+export type EvidenceSource = (typeof EVIDENCE_SOURCES)[number];
+export const EVIDENCE_SOURCE_LABELS: Record<EvidenceSource, string> = {
+  PRACTICE: 'Practice',
+  TUTOR: 'Tutor',
+  QUIZ: 'Quiz',
+  CBT: 'School test',
+  HOMEWORK: 'Homework',
+  TEST: 'School test',
+};
+/** Work set and marked by the school (as opposed to the student's own practice). */
+export const SCHOOL_EVIDENCE_SOURCES: readonly EvidenceSource[] = ['CBT', 'HOMEWORK', 'TEST'];
+
+/** One piece of evidence behind a topic's mastery. */
+export interface MasteryEvidenceRow {
+  id: string;
+  topicId: string;
+  topic: string;
+  subject: string;
+  source: EvidenceSource;
+  /** "School test", "Homework", "Practice", "Tutor"… */
+  sourceLabel: string;
+  /** The test or homework title, when there is one. */
+  title: string | null;
+  correct: number;
+  total: number;
+  percent: number;
+  /** Topic mastery straight after this evidence. */
+  scoreAfter: number;
+  createdAt: string;
+}
+
+export interface SchoolEvidenceBackfill {
+  cbtAttempts: number;
+  homeworkSubmissions: number;
+  /** How many of them changed anything (0 on a second run). */
+  changed: number;
+}
+
 export const studyPlanItemSchema = z.object({
   date: z.iso.date(),
   subject: z.string().trim().min(2).max(60),
@@ -437,7 +477,7 @@ export const aiQuizSchema = z.object({ subject: z.string().trim().min(2).max(60)
 export const practiceSubmitSchema = z.object({ answers: z.array(z.number().int().min(-1).max(5).nullable()).max(200) });
 
 export interface ExamCatalog {
-  exams: { exam: ExamBody; label: string; entitled: boolean; subjects: { subject: string; questions: number }[] }[];
+  exams: { exam: ExamBody; label: string; entitled: boolean; subjects: { subject: string; questions: number }[]; /** Subjects with a syllabus but too few published questions yet. */ comingSoon?: { subject: string; questions: number; topics: number }[] }[];
   freePractice: { setsPerTerm: number; questionsPerSet: number; used: number };
 }
 
@@ -463,6 +503,8 @@ export interface ExamQuestionRow extends ExamQuestionInput {
   id: string;
   topic: string | null;
   updatedAt: string;
+  /** When a person approved it for students (null for drafts and older rows). */
+  reviewedAt?: string | null;
 }
 export const examDraftSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60), topicId: z.string().nullish(), count: z.number().int().min(1).max(20).default(5), difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM'), type: z.enum(['OBJECTIVE', 'THEORY']).default('OBJECTIVE') });
 

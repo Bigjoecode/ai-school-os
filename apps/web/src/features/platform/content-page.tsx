@@ -1,5 +1,5 @@
 import { EXAM_LABELS, EXAMS, examQuestionSchema, QUESTION_DIFFICULTIES, QUESTION_KINDS, type ExamBody, type ExamQuestionInput, type ExamQuestionRow, type SyllabusTopicRow } from '@aischool/shared';
-import { Archive, BookMarked, Check, ChevronDown, FileJson, FilePen, FileUp, ListChecks, ListTree, MoreHorizontal, PenLine, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
+import { Archive, BookMarked, Check, ClipboardCheck, Gauge, ChevronDown, FileJson, FilePen, FileUp, ListChecks, ListTree, MoreHorizontal, PenLine, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -22,11 +22,13 @@ import { useDebounced } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { apiFieldErrors, FormError, plural, zodErrors } from '../operations/ui';
 import { useAddTopic, useDeleteQuestion, useDraftQuestions, useImportQuestions, useQuestions, useSaveQuestion, useSetQuestionStatus, useTopics } from './commerce-api';
+import { type ReviewFilter } from './question-pipeline-api';
+import { CoverageTab, ReviewTab } from './question-pipeline';
 import { SyllabusImport } from './syllabus-import';
 import { FilterSelect, Toolbar, useTabParam } from './ui';
 
 type QStatus = 'DRAFT' | 'PUBLISHED' | 'RETIRED';
-const TABS = ['questions', 'topics', 'syllabus'] as const;
+const TABS = ['questions', 'coverage', 'review', 'topics', 'syllabus'] as const;
 type QKind = (typeof QUESTION_KINDS)[number];
 const KIND: Record<QKind, { label: string; variant: BadgeProps['variant'] }> = { OBJECTIVE: { label: 'Objective', variant: 'secondary' }, THEORY: { label: 'Theory', variant: 'info' } };
 const STATUS: Record<QStatus, { label: string; variant: BadgeProps['variant'] }> = {
@@ -35,6 +37,8 @@ const STATUS: Record<QStatus, { label: string; variant: BadgeProps['variant'] }>
   RETIRED: { label: 'Retired', variant: 'outline' },
 };
 const SOURCE_LABEL = { LICENSED: 'Licensed', AUTHORED: 'Authored', AI_REVIEWED: 'AI draft' } as const;
+/** AI-written questions read "AI draft" until a person approves them, then "AI, reviewed". */
+const sourceLabel = (r: ExamQuestionRow) => (r.source === 'AI_REVIEWED' && r.reviewedAt ? 'AI, reviewed' : SOURCE_LABEL[r.source]);
 const LEVELS = ['PRIMARY', 'JUNIOR', 'SENIOR'] as const;
 const LEVEL_LABEL: Record<(typeof LEVELS)[number], string> = { PRIMARY: 'Primary', JUNIOR: 'Junior secondary', SENIOR: 'Senior secondary' };
 const LETTERS = 'ABCDE';
@@ -47,13 +51,14 @@ export default function ContentPage() {
   const [importOpen, setImportOpen] = useState(false);
   const [draftOpen, setDraftOpen] = useState(false);
   const [topicOpen, setTopicOpen] = useState(false);
+  const [reviewFilter, setReviewFilter] = useState<ReviewFilter>({});
   const subjects = useSubjects();
   return (
     <Page>
       <PageHeader
         eyebrow="Platform"
         title="Exam content"
-        description="The Exam Academy question bank behind BECE, WAEC, NECO and JAMB practice. Students only ever see published questions."
+        description="The Exam Academy question bank behind BECE, WAEC, NECO and JAMB practice. Students only ever see published questions: AI drafts wait in Review until a person approves them."
         actions={
           tab === 'questions' ? (
             <>
@@ -84,6 +89,12 @@ export default function ContentPage() {
           <TabsTrigger value="questions">
             <ScanSearch /> Question bank
           </TabsTrigger>
+          <TabsTrigger value="coverage">
+            <Gauge /> Coverage
+          </TabsTrigger>
+          <TabsTrigger value="review">
+            <ClipboardCheck /> Review
+          </TabsTrigger>
           <TabsTrigger value="topics">
             <ListTree /> Syllabus topics
           </TabsTrigger>
@@ -93,6 +104,12 @@ export default function ContentPage() {
         </TabsList>
         <TabsContent value="questions">
           <QuestionsTab onEdit={setEditing} />
+        </TabsContent>
+        <TabsContent value="coverage">
+          <CoverageTab onReview={(f) => (setReviewFilter(f), setTab('review'))} />
+        </TabsContent>
+        <TabsContent value="review">
+          <ReviewTab filter={reviewFilter} onFilter={setReviewFilter} />
         </TabsContent>
         <TabsContent value="topics">
           <TopicsTab />
@@ -189,7 +206,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
       header: 'Source',
       cell: (r) => (
         <div>
-          <p className="whitespace-nowrap text-[12.5px]">{SOURCE_LABEL[r.source]}</p>
+          <p className="whitespace-nowrap text-[12.5px]">{sourceLabel(r)}</p>
           <p className="text-[11.5px] text-muted-foreground">{r.difficulty.toLowerCase()}</p>
         </div>
       ),
@@ -291,7 +308,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
                 <p className="truncate text-[12px] text-muted-foreground">
                   {r.exam} · {KIND[r.type ?? 'OBJECTIVE'].label}
                   {r.type === 'THEORY' ? ` (${plural(r.marks, 'mark')})` : ''} · {titleCase(r.subject)}
-                  {r.topic ? ` · ${r.topic}` : ''} · {SOURCE_LABEL[r.source]}
+                  {r.topic ? ` · ${r.topic}` : ''} · {sourceLabel(r)}
                 </p>
               </div>
               <Badge variant={STATUS[r.status].variant}>{STATUS[r.status].label}</Badge>

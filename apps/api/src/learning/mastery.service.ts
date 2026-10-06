@@ -6,6 +6,17 @@ import { PrismaService } from '../prisma/prisma.service';
 
 /** Old evidence counts for less: each new piece of evidence decays the history by this much. */
 const DECAY = 0.85;
+/** One piece of school work counts, per topic, as at most this many marks (a 60-mark paper weighs like 20 questions). */
+const SCHOOL_WORK_CAP = 20;
+const CAPPED_SOURCES = new Set(['CBT', 'HOMEWORK']);
+
+/** Score and confidence from decayed attempts and correct answers (Laplace-smoothed so one lucky answer isn't "mastered"). */
+function standing(attempts: number, right: number) {
+  return {
+    score: Math.round((100 * (right + 0.5)) / (attempts + 1)),
+    confidence: Math.min(0.95, Math.round((1 - 1 / Math.sqrt(attempts + 1)) * 100) / 100),
+  };
+}
 
 export type SyllabusLevel = 'PRIMARY' | 'JUNIOR' | 'SENIOR';
 
@@ -75,10 +86,7 @@ export class MasteryService {
     const level = await this.studentLevel(studentId);
     const key = subjectKey(subject);
     const name = topic.trim().replace(/\s+/g, ' ').slice(0, 120);
-    const existing =
-      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, level, name: { equals: name, mode: 'insensitive' } } })) ??
-      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, name: { equals: name, mode: 'insensitive' } } })) ??
-      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, level, name: { contains: name, mode: 'insensitive' } } }));
+    const existing = await this.findTopic(level, subject, name);
     if (existing) return existing;
     return this.prisma.root.syllabusTopic.upsert({
       where: { subject_level_name: { subject: key, level, name } },
@@ -87,21 +95,116 @@ export class MasteryService {
     });
   }
 
+  /** An existing topic by name (never creates one): exact in the level, exact in any level, then contained in the level. */
+  async findTopic(level: SyllabusLevel, subject: string, topic: string) {
+    const key = subjectKey(subject);
+    const name = topic.trim().replace(/\s+/g, ' ').slice(0, 120);
+    if (!name) return null;
+    // WAEC and JAMB can both list a topic ("Number Bases", "Number bases"): same spelling first, then main topics before sub-topics.
+    const orderBy = [{ parentId: { sort: 'asc' as const, nulls: 'first' as const } }, { order: 'asc' as const }];
+    return (
+      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, level, name }, orderBy })) ??
+      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, level, name: { equals: name, mode: 'insensitive' } }, orderBy })) ??
+      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, name: { equals: name, mode: 'insensitive' } }, orderBy })) ??
+      (await this.prisma.root.syllabusTopic.findFirst({ where: { subject: key, level, name: { contains: name, mode: 'insensitive' } }, orderBy }))
+    );
+  }
+
   /** Adds evidence: `correct` out of `total` (an observation counts as one attempt). */
-  async record(tenantId: string, studentId: string, topicId: string, correct: number, total: number) {
+  /**
+   * Adds evidence about a topic. Sources: PRACTICE (Exam Academy), TUTOR,
+   * QUIZ, CBT (school online exam), HOMEWORK, TEST (school score). Every call
+   * is also logged in MasteryEvidence so progress over time can be shown.
+   */
+  async record(tenantId: string, studentId: string, topicId: string, correct: number, total: number, evidence: { source?: string; sourceId?: string | null } = {}) {
     if (total <= 0) return null;
     const now = new Date();
     const prev = await this.prisma.root.masteryRecord.findUnique({ where: { studentId_topicId: { studentId, topicId } } });
     const attempts = (prev ? prev.attempts * DECAY : 0) + total;
     const right = (prev ? prev.correct * DECAY : 0) + correct;
-    // Laplace-smoothed so one lucky answer isn't "mastered".
-    const score = Math.round((100 * (right + 0.5)) / (attempts + 1));
-    const confidence = Math.min(0.95, Math.round((1 - 1 / Math.sqrt(attempts + 1)) * 100) / 100);
+    const { score, confidence } = standing(attempts, right);
     const data = { score, confidence, attempts: Math.round(attempts), correct: Math.round(right), lastEvidenceAt: now };
-    return this.prisma.root.masteryRecord.upsert({
+    const rec = await this.prisma.root.masteryRecord.upsert({
       where: { studentId_topicId: { studentId, topicId } },
       update: data,
       create: { tenantId, studentId, topicId, ...data },
+    });
+    await this.prisma.root.masteryEvidence
+      .create({ data: { tenantId, studentId, topicId, source: evidence.source ?? 'PRACTICE', sourceId: evidence.sourceId ?? null, correct, total, scoreAfter: score } })
+      .catch(() => undefined);
+    return rec;
+  }
+
+  /**
+   * Sets the evidence one piece of school work (a CBT attempt, a homework
+   * hand-in) gives, replacing whatever it gave before — so re-marking never
+   * counts twice. Each earlier row is taken back out of the record exactly
+   * (up to the record's whole-number rounding): its decayed contribution and
+   * the extra decay it applied to the history before it are both undone, so
+   * any history from before evidence was logged is kept; the new marks are
+   * then added as the latest evidence. Work is
+   * capped at SCHOOL_WORK_CAP marks per topic so one long paper can't drown
+   * out everything else. Returns false when nothing changed.
+   */
+  async replaceEvidence(tenantId: string, studentId: string, source: string, sourceId: string, items: { topicId: string; correct: number; total: number }[]) {
+    const weight = (total: number) => (total > SCHOOL_WORK_CAP ? SCHOOL_WORK_CAP / total : 1);
+    // Only school work added here is capped; other evidence counted in full.
+    const weightOf = (e: { source: string; total: number }) => (CAPPED_SOURCES.has(e.source) ? weight(e.total) : 1);
+    const fresh = items.filter((i) => i.total > 0).map((i) => ({ ...i, correct: Math.max(0, Math.min(i.total, i.correct)) }));
+    return this.prisma.root.$transaction(async (tx) => {
+      // One student's evidence is changed by one call at a time.
+      await tx.$queryRaw`SELECT 1 FROM (SELECT pg_advisory_xact_lock(hashtext(${`mastery:${studentId}`}))) l`;
+      const old = await tx.masteryEvidence.findMany({ where: { studentId, source, sourceId } });
+      const key = (x: { topicId: string; correct: number; total: number }) => `${x.topicId}|${x.correct}|${x.total}`;
+      if (old.length === fresh.length && [...old.map(key)].sort().join() === [...fresh.map(key)].sort().join()) return false;
+      const now = new Date();
+      for (const topicId of new Set([...old.map((o) => o.topicId), ...fresh.map((i) => i.topicId)])) {
+        const prev = await tx.masteryRecord.findUnique({ where: { studentId_topicId: { studentId, topicId } } });
+        let attempts = prev?.attempts ?? 0;
+        let right = prev?.correct ?? 0;
+        // Newest first, so each removal sees only the rows still logged after it.
+        const gone = old.filter((o) => o.topicId === topicId).sort((x, y) => y.createdAt.getTime() - x.createdAt.getTime());
+        for (const o of gone) {
+          const later = await tx.masteryEvidence.findMany({ where: { studentId, topicId, createdAt: { gt: o.createdAt } }, orderBy: { createdAt: 'asc' } });
+          // What the rows after it contribute now (each decayed once per row after it).
+          let laterA = 0;
+          let laterR = 0;
+          later.forEach((j, n) => {
+            const f = weightOf(j) * DECAY ** (later.length - 1 - n);
+            laterA += j.total * f;
+            laterR += j.correct * f;
+          });
+          const f = weightOf(o) * DECAY ** later.length;
+          // What's left is the history before it, decayed once more by it: undo that too.
+          attempts = Math.max(0, attempts - laterA - o.total * f) / DECAY + laterA;
+          right = Math.max(0, right - laterR - o.correct * f) / DECAY + laterR;
+          await tx.masteryEvidence.delete({ where: { id: o.id } });
+        }
+        right = Math.max(0, Math.min(attempts, right));
+        const add = fresh.filter((i) => i.topicId === topicId);
+        if (!add.length) {
+          if (!prev) continue;
+          // Nothing else ever counted here: the topic goes back to "not started".
+          if (attempts < 0.5 && !(await tx.masteryEvidence.count({ where: { studentId, topicId } }))) {
+            await tx.masteryRecord.delete({ where: { id: prev.id } });
+            continue;
+          }
+          const s = standing(attempts, right);
+          await tx.masteryRecord.update({ where: { id: prev.id }, data: { ...s, attempts: Math.round(attempts), correct: Math.round(right) } });
+          continue;
+        }
+        let s = standing(attempts, right);
+        for (const i of add) {
+          const w = weightOf({ source, total: i.total });
+          attempts = attempts * DECAY + i.total * w;
+          right = right * DECAY + i.correct * w;
+          s = standing(attempts, right);
+          await tx.masteryEvidence.create({ data: { tenantId, studentId, topicId, source, sourceId, correct: i.correct, total: i.total, scoreAfter: s.score, createdAt: now } });
+        }
+        const data = { ...s, attempts: Math.round(attempts), correct: Math.round(right), lastEvidenceAt: now };
+        await tx.masteryRecord.upsert({ where: { studentId_topicId: { studentId, topicId } }, update: data, create: { tenantId, studentId, topicId, ...data } });
+      }
+      return true;
     });
   }
 

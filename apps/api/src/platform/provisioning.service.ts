@@ -40,6 +40,8 @@ export class ProvisioningService {
           status: 'TRIAL',
           planId: plan?.id,
           trialEndsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          // New schools start with the weekly parent learning update on (existing schools opt in).
+          portalSettings: { learningUpdates: { enabled: true } },
         },
       });
       await createSystemRoles(tx, tenant.id);

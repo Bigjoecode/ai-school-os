@@ -16,6 +16,7 @@ import type {
   SubmissionBoard,
   SubmissionRow,
   SyncResult,
+  SyllabusTopicRow,
 } from '@aischool/shared';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -296,6 +297,16 @@ export function useHomework(params: HomeworkParams) {
     queryFn: ({ signal }) => api.get<HomeworkRow[]>('/homework', { ...params }, signal),
     enabled: can,
     placeholderData: keepPreviousData,
+  });
+}
+
+/** Syllabus topics a homework can practise, for its subject at the class's level. */
+export function useHomeworkTopics(classArmId: string, subjectId: string) {
+  return useQuery({
+    queryKey: ['homework', 'topics', classArmId, subjectId] as const,
+    queryFn: ({ signal }) => api.get<SyllabusTopicRow[]>('/homework/topics', { classArmId, subjectId }, signal),
+    enabled: !!classArmId && !!subjectId,
+    staleTime: 10 * 60_000,
   });
 }
 

@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { AiModule } from '../ai/ai.module';
 import { AssessmentModule } from '../assessment/assessment.module';
 import { AuditService } from '../audit/audit.service';
+import { ClassInsightsModule } from '../class-insights/class-insights.module';
 import { CommsModule } from '../comms/comms.module';
 import { RequirePermissions } from '../common/decorators';
 import { currentTenantId } from '../common/request-context';
@@ -72,7 +73,7 @@ export class AgentsController {
 
 /** Phase 12: tool-using assistants, AI analytics, early warnings and the principal's briefing. */
 @Module({
-  imports: [AiModule, AssessmentModule, DashboardModule, HrModule, CommsModule, KnowledgeModule],
+  imports: [AiModule, AssessmentModule, DashboardModule, HrModule, CommsModule, KnowledgeModule, ClassInsightsModule],
   controllers: [AgentsController],
   providers: [AgentsService, AgentToolsService, InsightsService],
   exports: [AgentsService],

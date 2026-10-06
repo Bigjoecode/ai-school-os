@@ -216,7 +216,7 @@ export class StudyService {
     if (graded.count) {
       for (const t of topics.values()) {
         const topicId = t.topicId ?? (a.subject && t.topic !== 'General' ? (await this.mastery.topicFor(a.studentId, a.subject, t.topic)).id : null);
-        if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, t.correct, t.total);
+        if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, t.correct, t.total, { source: a.mode === 'AI_QUIZ' ? 'QUIZ' : 'PRACTICE', sourceId: a.id });
       }
     }
     return this.prisma.root.practiceAttempt.findUniqueOrThrow({ where: { id: a.id } });

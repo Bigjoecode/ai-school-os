@@ -13,6 +13,7 @@ import { SchoolSnapshotService } from '../dashboard/school-snapshot.service';
 import { HrService } from '../hr/hr.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AUDIENCES_FOR, KnowledgeService } from '../knowledge/knowledge.service';
+import { ClassInsightsService } from '../class-insights/class-insights.service';
 import { InsightsService } from './insights.service';
 
 interface ToolContext {
@@ -52,6 +53,7 @@ export class AgentToolsService {
     private readonly hr: HrService,
     private readonly sender: SenderService,
     private readonly kb: KnowledgeService,
+    private readonly classInsights: ClassInsightsService,
   ) {
     this.register();
   }
@@ -281,6 +283,18 @@ export class AgentToolsService {
         }
         return out;
       },
+    });
+
+    this.add({
+      name: 'class_topic_mastery',
+      description:
+        'Topic mastery (0–100, from practice, tutor, quizzes, homework and online exams; separate from official results) for a class arm ("JSS 2 B") or a whole level ("JSS 2"), ' +
+        'optionally for one subject: hardest topics, students struggling across several topics, and topics improving in the last 14 days. ' +
+        "Use it for questions like 'Which JSS 2 students are struggling in Mathematics?' or 'Which topics are hardest across JSS 2?'. Teachers only see the classes and subjects they teach.",
+      input: z.object({ className: z.string().min(1).describe('A class arm ("JSS 2 B") or a level ("JSS 2")'), subject: z.string().optional().describe('e.g. "Mathematics"; leave out for every subject') }),
+      permissions: ['academics.read'],
+      label: (i) => `Checked topic mastery in ${i.className}${i.subject ? ` ${i.subject}` : ''}`,
+      run: async (i) => this.classInsights.forAgent((await this.arms(i.className)).map((a) => a.id), i.subject),
     });
 
     this.add({

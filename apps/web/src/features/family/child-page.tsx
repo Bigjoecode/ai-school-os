@@ -1,4 +1,4 @@
-import { ArrowLeft, Backpack, Brain, CalendarCheck2, MessageCircle, Sparkles, Trophy } from 'lucide-react';
+import { ArrowLeft, Backpack, Brain, CalendarCheck2, History, MessageCircle, Sparkles, Trophy } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -8,7 +8,7 @@ import { ErrorState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/format';
-import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, SectionTitle, TopicChip } from '../learning/components';
+import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, RecentEvidence, SectionTitle, TopicChip } from '../learning/components';
 import { ChildHomework } from '../live/child-homework';
 import { useChildProgress, useTellTutor } from './api';
 
@@ -86,7 +86,15 @@ export default function ChildProgressPage() {
 
           <section aria-label="Mastery map">
             <SectionTitle icon={Sparkles} title="Mastery by subject" />
-            <MasteryMapView map={d.mastery} />
+            <MasteryMapView map={d.mastery} evidencePath={`/family/children/${id}/evidence`} />
+          </section>
+
+          <section aria-label="Recent work">
+            <Card className="p-5">
+              <SectionTitle icon={History} title="What’s counted lately" />
+              <p className="mb-2 text-[13px] text-muted-foreground">School tests and marked homework count towards {first}’s topics, alongside practice and the tutor. Tap a topic above to see its work.</p>
+              <RecentEvidence path={`/family/children/${id}/evidence`} empty={`Nothing yet: ${first}’s next school test, marked homework or practice set will show here.`} />
+            </Card>
           </section>
 
           <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">

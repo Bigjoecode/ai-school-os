@@ -160,6 +160,8 @@ export const homeworkSchema = z.object({
   maxScore: z.number().int().min(1).max(1000).nullish().transform((v) => v ?? null),
   markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
   allowLate: z.boolean().default(true),
+  /** The syllabus topic it practises: marked work counts towards the student's topic mastery. */
+  topicId: z.string().nullish().transform((v) => v || null),
 });
 export type HomeworkInput = z.infer<typeof homeworkSchema>;
 
@@ -267,6 +269,8 @@ export interface HomeworkRow {
   submissionTypes: ('TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT' | 'LINK')[];
   maxScore: number | null;
   allowLate: boolean;
+  /** The syllabus topic it practises (marked work counts towards mastery). */
+  topic?: { id: string; name: string } | null;
   /** Staff list only: the private marking guide (so editing keeps it). */
   markingGuide?: string | null;
   /** Staff: hand-ins so far. */

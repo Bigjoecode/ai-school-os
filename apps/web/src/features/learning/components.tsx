@@ -1,5 +1,6 @@
 import {
   type AllowanceExhausted,
+  type MasteryEvidenceRow,
   type MasteryMap,
   type MasteryTopic,
   type MemoryKind,
@@ -8,6 +9,7 @@ import {
   type StudentMemoryRow,
   MEMORY_KINDS,
   PRODUCT_PERIOD_LABELS,
+  SCHOOL_EVIDENCE_SOURCES,
 } from '@aischool/shared';
 import { ArrowRight, Brain, Crown, Gauge, HeartHandshake, Lock, PenLine, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
@@ -15,14 +17,16 @@ import { Link, useNavigate } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Dialog, DialogBody, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Field } from '@/components/ui/field';
 import { FormDialog } from '@/components/ui/form-dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import { errorMessage } from '@/lib/api';
 import { formatDate, formatMoney, formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { allowanceError, useQuickQuiz } from './api';
+import { allowanceError, useEvidence, useQuickQuiz } from './api';
 
 export const naira = (kobo: number) => formatMoney(kobo / 100, 'NGN', { maximumFractionDigits: 0 });
 
@@ -194,10 +198,15 @@ function StatPill({ label, value, tone }: { label: string; value: number | null;
   );
 }
 
-export function MasteryMapView({ map, onQuiz }: { map: MasteryMap; onQuiz?: (subject: string, topic: string) => void }) {
+/**
+ * `evidencePath` (/learning/evidence or /family/children/:id/evidence) makes
+ * each practised topic open the work behind its score.
+ */
+export function MasteryMapView({ map, onQuiz, evidencePath }: { map: MasteryMap; onQuiz?: (subject: string, topic: string) => void; evidencePath?: string }) {
+  const [detail, setDetail] = useState<{ subject: string; t: MasteryTopic } | null>(null);
   const subjects = [...map.subjects].sort((a, b) => b.topics.length - a.topics.length || a.subject.localeCompare(b.subject));
   if (subjects.length === 0) {
-    return <p className="rounded-2xl border border-dashed border-border px-4 py-8 text-center text-[13px] text-muted-foreground">Mastery builds up as you practise and chat with your tutor.</p>;
+    return <p className="rounded-2xl border border-dashed border-border px-4 py-8 text-center text-[13px] text-muted-foreground">Mastery builds up from school tests, marked homework, practice and the tutor.</p>;
   }
   return (
     <div className="space-y-4">
@@ -211,7 +220,7 @@ export function MasteryMapView({ map, onQuiz }: { map: MasteryMap; onQuiz?: (sub
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <StatPill label="Official result" value={s.officialPercent} tone="official" />
-              <StatPill label="Practice" value={s.average} tone="practice" />
+              <StatPill label="Topic mastery" value={s.average} tone="practice" />
             </div>
             {s.topics.length === 0 ? (
               <p className="mt-4 text-[13px] text-muted-foreground">No topic practice yet in {s.subject}.</p>
@@ -224,7 +233,13 @@ export function MasteryMapView({ map, onQuiz }: { map: MasteryMap; onQuiz?: (sub
                       <div className="flex items-center justify-between gap-3 text-[13px]">
                         <span className="flex min-w-0 items-center gap-2">
                           <span className={cn('size-2 shrink-0 rounded-full', b.dot)} aria-hidden />
-                          <span className="truncate">{t.topic}</span>
+                          {evidencePath && t.attempts > 0 ? (
+                            <button type="button" onClick={() => setDetail({ subject: s.subject, t })} className="truncate text-left hover:underline focus-visible:underline focus-visible:outline-none" title="See the work behind this score">
+                              {t.topic}
+                            </button>
+                          ) : (
+                            <span className="truncate">{t.topic}</span>
+                          )}
                         </span>
                         <span className="flex shrink-0 items-center gap-2">
                           {onQuiz && (
@@ -250,7 +265,79 @@ export function MasteryMapView({ map, onQuiz }: { map: MasteryMap; onQuiz?: (sub
           </Card>
         ))}
       </div>
+      {evidencePath && <TopicEvidenceDialog path={evidencePath} subject={detail?.subject ?? ''} topic={detail?.t ?? null} onClose={() => setDetail(null)} />}
     </div>
+  );
+}
+
+// ------------------------------------------------------------------ evidence
+
+const isSchoolWork = (r: MasteryEvidenceRow) => SCHOOL_EVIDENCE_SOURCES.includes(r.source);
+const marks = (n: number) => String(Math.round(n * 10) / 10);
+
+/** Each piece of work behind a score, labelled by where it came from (school test, homework, practice, tutor). */
+export function EvidenceList({ rows, showTopic }: { rows: MasteryEvidenceRow[]; showTopic?: boolean }) {
+  return (
+    <ul className="divide-y divide-border">
+      {rows.map((r) => (
+        <li key={r.id} className="flex items-start justify-between gap-3 py-2.5 text-[13px]">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <Badge variant={isSchoolWork(r) ? 'brand' : 'secondary'}>{r.sourceLabel}</Badge>
+              {showTopic && (
+                <span className="min-w-0 truncate font-medium">
+                  {r.topic} <span className="font-normal text-muted-foreground">· {r.subject}</span>
+                </span>
+              )}
+            </div>
+            <p className="mt-1 truncate text-[12px] text-muted-foreground">
+              {r.title ? `${r.title} · ` : ''}
+              {formatRelative(r.createdAt)}
+            </p>
+          </div>
+          <div className="shrink-0 text-right">
+            <p className="tabular font-medium">{r.source === 'TUTOR' ? `${r.percent}%` : `${marks(r.correct)}/${marks(r.total)}`}</p>
+            <p className="text-[11.5px] text-muted-foreground">topic now {r.scoreAfter}%</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** The latest work counting towards topic mastery, across topics. */
+export function RecentEvidence({ path, empty }: { path: string; empty: string }) {
+  const q = useEvidence(path);
+  if (q.isLoading) return <Skeleton className="h-28 w-full" />;
+  const rows = q.data ?? [];
+  if (!rows.length) return <p className="text-[13px] text-muted-foreground">{empty}</p>;
+  return <EvidenceList rows={rows} showTopic />;
+}
+
+export function TopicEvidenceDialog({ path, subject, topic, onClose }: { path: string; subject: string; topic: MasteryTopic | null; onClose: () => void }) {
+  const q = useEvidence(path, topic?.topicId, !!topic);
+  const rows = q.data ?? [];
+  return (
+    <Dialog open={!!topic} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent size="md">
+        <DialogHeader>
+          <DialogTitle className="font-display text-lg font-semibold tracking-tight">{topic?.topic}</DialogTitle>
+          <DialogDescription className="text-[13px] text-muted-foreground">
+            {subject}
+            {topic?.score != null && ` · ${topic.score}% · ${bandOf(topic.band).label}`}. Newer work counts for more.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogBody>
+          {q.isLoading ? (
+            <Skeleton className="h-32 w-full" />
+          ) : rows.length === 0 ? (
+            <p className="text-[13px] text-muted-foreground">This score was built before work was itemised; new tests, homework and practice will show here.</p>
+          ) : (
+            <EvidenceList rows={rows} />
+          )}
+        </DialogBody>
+      </DialogContent>
+    </Dialog>
   );
 }
 

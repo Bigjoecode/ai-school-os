@@ -36,6 +36,7 @@ import { AlumniModule } from './alumni/alumni.module';
 import { HousesModule } from './houses/houses.module';
 import { CareersModule } from './careers/careers.module';
 import { JambModule } from './jamb/jamb.module';
+import { LearningUpdatesModule } from './learning-updates/learning-updates.module';
 import { WhatsappAssistantModule } from './comms/whatsapp-assistant.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
@@ -128,6 +129,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     HousesModule,
     CareersModule,
     JambModule,
+    LearningUpdatesModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

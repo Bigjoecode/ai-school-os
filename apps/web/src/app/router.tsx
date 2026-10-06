@@ -151,6 +151,8 @@ const PortalReportCardPage = lazy(() => import('@/features/portal/results-page')
 const PortalCalendarPage = lazy(() => import('@/features/portal/calendar-page'));
 const PortalDownloadsPage = lazy(() => import('@/features/portal/downloads-page'));
 const PortalWelfarePage = lazy(() => import('@/features/portal/welfare-page'));
+const PortalLearningUpdatesPage = lazy(() => import('@/features/portal/learning-updates'));
+const PortalLearningUpdatePage = lazy(() => import('@/features/portal/learning-updates').then((m) => ({ default: m.PortalLearningUpdatePage })));
 const BehaviourPage = lazy(() => import('@/features/welfare/behaviour-page'));
 const SickBayPage = lazy(() => import('@/features/welfare/sick-bay-page'));
 const HousesPage = lazy(() => import('@/features/houses/houses-page'));
@@ -166,6 +168,7 @@ const TrackAdvisorPage = lazy(() => import('@/features/careers/advisor-page'));
 const CounsellorPage = lazy(() => import('@/features/careers/counsellor-page'));
 const CareerPlanPage = lazy(() => import('@/features/careers/plan-page'));
 const CareersGuidancePage = lazy(() => import('@/features/careers/staff-page'));
+const ClassInsightsPage = lazy(() => import('@/features/class-insights/class-insights-page'));
 const ConsoleCareersPage = lazy(() => import('@/features/platform/careers-content-page'));
 const JambOverviewPage = lazy(() => import('@/features/careers/jamb-pages'));
 const JambSyllabusPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSyllabusPage })));
@@ -751,6 +754,7 @@ export const router = createBrowserRouter(withRouteErrors([
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['learning.use', 'family.manage', 'school.read']}>{page}</RequirePermission> })),
       { path: 'careers-guidance', element: <RequirePermission permission="students.read"><CareersGuidancePage /></RequirePermission> },
+      { path: 'class-insights', element: <RequirePermission permission={['academics.read', 'homework.manage']}><ClassInsightsPage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
@@ -770,6 +774,9 @@ export const router = createBrowserRouter(withRouteErrors([
           ['school/downloads/:studentId', <PortalDownloadsPage key="p-downloads" />],
           ['school/welfare', <PortalRedirect key="p-wel" section="welfare" />],
           ['school/welfare/:studentId', <PortalWelfarePage key="p-welfare" />],
+          ['school/learning', <PortalRedirect key="p-lu" section="learning" />],
+          ['school/learning/:studentId', <PortalLearningUpdatesPage key="p-learning" />],
+          ['school/learning/:studentId/:updateId', <PortalLearningUpdatePage key="p-learning-one" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
       // Fees and the Careers tab are for parents only.

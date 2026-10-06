@@ -8,6 +8,7 @@ import { ensurePlatformContent } from './platform-content';
 import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
+import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
@@ -127,6 +128,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (jamb) new Logger('Jamb').log(jamb);
         } catch (err) {
           new Logger('Jamb').error(`JAMB brochure could not be installed: ${(err as Error).message}`);
+        }
+        // Demo school only, once ever: topic-mastery history so Class insights and learning updates can be shown.
+        try {
+          const demo = await autoSeedDemoLearning(prisma);
+          if (demo) new Logger('Demo').log(demo);
+        } catch (err) {
+          new Logger('Demo').error(`Demo learning data could not be added: ${(err as Error).message}`);
         }
       } finally {
         await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;

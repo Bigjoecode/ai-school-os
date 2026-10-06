@@ -1,4 +1,5 @@
 import { Body, Controller, Get, HttpCode, Module, Post, Query } from '@nestjs/common';
+import { DemoLearningController } from './demo-learning';
 import { Throttle } from '@nestjs/throttler';
 import {
   classInsightsQuerySchema,
@@ -101,7 +102,7 @@ export class ClassInsightsController {
 /** Phase 25: the teacher learning loop (class mastery heatmap, remedial lessons and practice). */
 @Module({
   imports: [AiModule, AcademicModule, AssessmentModule],
-  controllers: [ClassInsightsController],
+  controllers: [ClassInsightsController, DemoLearningController],
   providers: [ClassInsightsService],
   exports: [ClassInsightsService],
 })

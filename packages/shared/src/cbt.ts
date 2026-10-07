@@ -125,6 +125,8 @@ export interface CbtExamSummary {
   counts: { students: number; started: number; inProgress: number; submitted: number; marked: number };
   canManage: boolean;
   createdAt: string;
+  /** Students may download an encrypted copy and sit it with no internet (see cbt-offline.ts). */
+  offlineEnabled?: boolean;
 }
 
 /** A paper that can be scheduled, with the classes this user may schedule it for. */
@@ -264,6 +266,8 @@ export interface CbtMyExam {
   attempt: { status: CbtAttemptStatus; endsAt: string; submittedAt: string | null } | null;
   /** Shown once results are visible to the student. */
   result: { score: number; total: number; percent: number; partial: boolean } | null;
+  /** Set when the exam can be downloaded and sat offline. */
+  offline?: { availableFrom: string | null; syncBy: string | null; version: number; downloaded: boolean; synced: boolean } | null;
 }
 
 export interface CbtRoomQuestion {

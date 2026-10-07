@@ -169,7 +169,7 @@ export class LearningUpdatesService implements OnModuleInit {
     }));
 
     const day = (d: string) => new Date(`${d}T00:00:00Z`);
-    const [homework, attendance, card] = await Promise.all([
+    const [homework, attendance, card, modulesCompleted] = await Promise.all([
       student.classArmId
         ? db.homework.findMany({
             where: { tenantId, classArmId: student.classArmId, status: 'PUBLISHED', dueDate: { gte: day(weekStart), lte: day(weekEnd) } },
@@ -178,6 +178,7 @@ export class LearningUpdatesService implements OnModuleInit {
         : [],
       db.studentAttendance.groupBy({ by: ['status'], where: { tenantId, studentId, date: { gte: day(weekStart), lte: day(weekEnd) } }, _count: { _all: true } }),
       db.reportCard.findFirst({ where: { tenantId, studentId, status: 'PUBLISHED', publishedAt: { gte: from, lt: to } }, select: { term: { select: { name: true } } } }),
+      db.moduleProgress.count({ where: { tenantId, studentId, completedAt: { gte: from, lt: to } } }),
     ]);
     const count = (s: string) => attendance.find((a) => a.status === s)?._count._all ?? 0;
     const att = { present: count('PRESENT'), absent: count('ABSENT'), late: count('LATE'), excused: count('EXCUSED'), daysMarked: attendance.reduce((n, a) => n + a._count._all, 0) };
@@ -191,6 +192,7 @@ export class LearningUpdatesService implements OnModuleInit {
       homework: homework.length ? { set: homework.length, handedIn: homework.filter((h) => h.submissions.length > 0).length } : null,
       attendance: att.daysMarked ? att : null,
       reportCard: card?.term.name ?? null,
+      modulesCompleted,
     };
   }
 

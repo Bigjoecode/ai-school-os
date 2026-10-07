@@ -227,6 +227,7 @@ export class CbtService implements OnModuleInit {
       counts: { students: x.students, started: x.inProgress + x.submitted + x.marked, inProgress: x.inProgress, submitted: x.submitted + x.marked, marked: x.marked },
       canManage: x.canManage,
       createdAt: e.createdAt.toISOString(),
+      offlineEnabled: e.offlineEnabled,
     };
   }
 

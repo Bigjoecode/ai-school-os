@@ -716,7 +716,7 @@ function SaveIndicator({ state, savedAt }: { state: SaveState; savedAt: number |
   );
 }
 
-function QuestionView({
+export function QuestionView({
   q,
   total,
   value,
@@ -796,7 +796,7 @@ function QuestionView({
   );
 }
 
-function Palette({ questions, answers, flags, pos, onPick }: { questions: CbtRoomQuestion[]; answers: Record<string, AnswerValue>; flags: Set<string>; pos: number; onPick: (i: number) => void }) {
+export function Palette({ questions, answers, flags, pos, onPick }: { questions: CbtRoomQuestion[]; answers: Record<string, AnswerValue>; flags: Set<string>; pos: number; onPick: (i: number) => void }) {
   return (
     <div>
       <ol className="grid grid-cols-6 gap-1.5 sm:grid-cols-8 lg:grid-cols-5">

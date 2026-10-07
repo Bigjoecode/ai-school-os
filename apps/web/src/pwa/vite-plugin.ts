@@ -14,8 +14,11 @@ import type { Plugin } from 'vite';
  */
 const TEMPLATE = fileURLToPath(new URL('./service-worker.js', import.meta.url));
 const STATIC_FILES = ['/manifest.webmanifest', '/favicon.svg', '/icons/icon-192.png', '/icons/maskable-192.png', '/icons/badge-96.png', '/icons/apple-touch-icon.png'];
-/** Lazily imported at start-up by main.tsx, so needed to open the portal at all. */
-const STARTUP_MODULES = [/\/src\/app\/router\.tsx$/];
+/**
+ * Lazily imported at start-up by main.tsx, so needed to open the portal at all. The offline exam
+ * pages too: an exam device must open them with no internet even if they were never visited.
+ */
+const STARTUP_MODULES = [/\/src\/app\/router\.tsx$/, /\/src\/features\/cbt\/offline\/offline-(exams|room)-page\.tsx$/];
 
 function render(version: string, precache: string[]): string {
   return readFileSync(TEMPLATE, 'utf8')

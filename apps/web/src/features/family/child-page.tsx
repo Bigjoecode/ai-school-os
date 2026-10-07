@@ -11,6 +11,7 @@ import { formatDate } from '@/lib/format';
 import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, RecentEvidence, SectionTitle, TopicChip } from '../learning/components';
 import { ChildHomework } from '../live/child-homework';
 import { useChildProgress, useTellTutor } from './api';
+import { ChildModulesCard } from '../lesson-modules/widgets';
 import { ChildTutorLanguageCard } from './language-cards';
 
 export default function ChildProgressPage() {
@@ -85,6 +86,7 @@ export default function ChildProgressPage() {
           </div>
 
           <ChildHomework childId={id} first={first} />
+          <ChildModulesCard childId={id} first={first} />
 
           <section aria-label="Mastery map">
             <SectionTitle icon={Sparkles} title="Mastery by subject" />

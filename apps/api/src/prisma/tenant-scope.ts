@@ -13,6 +13,11 @@ import { currentTenantId } from '../common/request-context';
  * not scoped here; they fail on the NOT NULL tenantId instead, which is safe.
  */
 export const TENANT_MODELS = new Set<string>([
+  'LearningModule',
+  'LearningModuleStep',
+  'ModuleProgress',
+  'CheckInAttempt',
+  'ClassroomSession',
   'MasteryEvidence',
   'LearningUpdate',
   'CareerProfile',
@@ -28,6 +33,7 @@ export const TENANT_MODELS = new Set<string>([
   'StudyMaterial',
   'OnlineExam',
   'OnlineExamAttempt',
+  'OfflineExamSeat',
   'ReportCardTemplate',
   'StudentTraitRating',
   'HomeworkSubmission',

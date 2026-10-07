@@ -133,11 +133,12 @@ export class SchoolEvidenceService {
       take: Math.min(Math.max(limit, 1), 50),
     });
     const ids = (s: string) => rows.filter((r) => r.source === s && r.sourceId).map((r) => r.sourceId!);
-    const [attempts, subs] = await Promise.all([
+    const [attempts, subs, checkIns] = await Promise.all([
       ids('CBT').length ? this.prisma.root.onlineExamAttempt.findMany({ where: { id: { in: ids('CBT') } }, select: { id: true, exam: { select: { title: true } } } }) : [],
       ids('HOMEWORK').length ? this.prisma.root.homeworkSubmission.findMany({ where: { id: { in: ids('HOMEWORK') } }, select: { id: true, homework: { select: { title: true } } } }) : [],
+      ids('CHECKIN').length ? this.prisma.root.checkInAttempt.findMany({ where: { id: { in: ids('CHECKIN') } }, select: { id: true, module: { select: { title: true } } } }) : [],
     ]);
-    const titles = new Map<string, string>([...attempts.map((a) => [a.id, a.exam.title] as const), ...subs.map((s) => [s.id, s.homework.title] as const)]);
+    const titles = new Map<string, string>([...attempts.map((a) => [a.id, a.exam.title] as const), ...subs.map((s) => [s.id, s.homework.title] as const), ...checkIns.map((c) => [c.id, c.module.title] as const)]);
     return rows.map((r) => {
       const source = (r.source in EVIDENCE_SOURCE_LABELS ? r.source : 'PRACTICE') as EvidenceSource;
       return {

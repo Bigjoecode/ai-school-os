@@ -16,6 +16,7 @@ import { formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { useDeleteOnlineExam, useExamAction, useOnlineExam } from './api';
 import { MarkingPanel } from './marking';
+import { OfflinePanel } from './offline/offline-panel';
 import { ResultsPanel } from './results';
 import { ScheduleExamDialog } from './schedule-dialog';
 import { AttemptBadge, PhaseBadge, clock, minutesLabel, windowLabel } from './ui';
@@ -156,6 +157,7 @@ function ExamView({ e, fetchedAt }: { e: CbtExamDetail; fetchedAt: number }) {
             </TabsTrigger>
           )}
           <TabsTrigger value="results">Results</TabsTrigger>
+          {(e.canManage || e.offlineEnabled) && <TabsTrigger value="offline">Offline{e.offlineEnabled ? ' · on' : ''}</TabsTrigger>}
         </TabsList>
         <TabsContent value="students">
           <Roster e={e} fetchedAt={fetchedAt} />
@@ -168,6 +170,11 @@ function ExamView({ e, fetchedAt }: { e: CbtExamDetail; fetchedAt: number }) {
         <TabsContent value="results">
           <ResultsPanel examId={e.id} />
         </TabsContent>
+        {(e.canManage || e.offlineEnabled) && (
+          <TabsContent value="offline">
+            <OfflinePanel e={e} />
+          </TabsContent>
+        )}
       </Tabs>
 
       {e.canManage && <ScheduleExamDialog open={editOpen} onOpenChange={setEditOpen} exam={e} started={started} />}

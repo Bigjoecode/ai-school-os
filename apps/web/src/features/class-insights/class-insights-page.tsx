@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils';
 import { SectionTitle } from '../learning/components';
 import { StatTile } from '../portal/ui';
 import { useClassMastery, useInsightOptions, useInsightSummary } from './api';
+import { ClassModulesCard } from '../lesson-modules/widgets';
 import { StudentSheet, TopicSheet } from './panels';
 import { BAND_CELL, bandLabel, bandOf, Legend, Trend } from './ui';
 
@@ -146,6 +147,11 @@ export default function ClassInsightsPage() {
                   <Heatmap m={m} onTopic={(id) => patch({ topicId: id, studentId: null })} onStudent={(id) => patch({ studentId: id, topicId: null })} />
                 </>
               )}
+            </div>
+          )}
+          {cls && subjectId && (
+            <div className="mt-4">
+              <ClassModulesCard classArmId={classArmId} subjectId={subjectId} />
             </div>
           )}
           {cls && (

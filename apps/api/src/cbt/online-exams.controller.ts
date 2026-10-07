@@ -236,6 +236,7 @@ export class OnlineExamsController {
   async remove(@Param('id') id: string) {
     const { exam } = await this.cbt.staffExam(id, 'manage');
     if (await this.prisma.db.onlineExamAttempt.count({ where: { examId: id } })) throw new BadRequestException('Students have sat this exam, so it can’t be deleted. Close it instead.');
+    if (await this.prisma.db.offlineExamSeat.count({ where: { examId: id, downloadedAt: { not: null } } })) throw new BadRequestException('Students have downloaded this exam to sit offline, so it can’t be deleted. Close it instead.');
     await this.prisma.db.onlineExam.delete({ where: { id } });
     await this.audit.log({ action: 'cbt.deleted', entityType: 'OnlineExam', entityId: id, summary: `Deleted online exam "${exam.title}"` });
   }

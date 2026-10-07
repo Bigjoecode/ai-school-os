@@ -445,6 +445,45 @@ one-time recovery codes. Notes for operators:
 - Server clocks must be right (cPanel servers use NTP); codes allow about
   30 seconds of drift either way.
 
+## Offline CBT (exam packs)
+
+For schools with poor internet or power: an online exam can be sat with **no
+connection at all** during the exam. Nothing extra to configure on the server;
+the site must be served over **https** (browsers only allow the encryption
+used here on secure pages) and the app installed or opened once on each
+device while online.
+
+How a school runs it:
+
+1. **Teacher / exam officer** (exam › **Offline** tab): turn on *Available
+   offline*, set *Can start from* and *Must sync by*. A 10-character
+   **invigilator start code** is made; keep it secret until the exam starts.
+   Print the **invigilator sheet** (code, instructions and per-student
+   **exam PIN** slips). *Change code* if it leaks — every device must then
+   download again.
+2. **The day before (online):** each student opens **Exams › Download for
+   offline** on their own phone or laptop, *or* a teacher signs in on a shared
+   school laptop/tablet and taps **Prepare this device** (one encrypted copy for
+   the whole class). Charge every device; bring power banks.
+3. **Exam day (offline):** open **Offline exams** (it opens with no internet),
+   pick the exam, the invigilator types the start code. On a shared device each
+   student then enters their admission number and the exam PIN from their slip.
+   The device keeps the time, saves every answer on the device and hands in at
+   zero. After a hand-in on a shared device, tap *Next student*.
+4. **After (online):** open the app on each device (staff sign in on shared
+   devices). Answers upload by themselves, or tap **Sync now**. Don't clear
+   browser data until every hand-in shows *Sent*. The Offline tab shows each
+   student as downloaded / started / synced, and lists anything flagged.
+
+Security, briefly: the pack is AES-256-GCM encrypted with a key derived from
+the start code (PBKDF2-SHA256, 600 000 rounds, per-pack salt); answer keys and
+model answers never leave the server. Each student's seat is wrapped again
+with the code + their exam PIN on shared devices. Hand-ins are signed with a
+per-student HMAC key; a payload that fails the check, or a student who also
+sat online, is **held** for the teacher (Accept / Reject). Over-time, device
+clock changes, starting outside the window, late syncs and stale packs are
+flagged but still marked. The same hand-in uploaded twice counts once.
+
 ## GitHub secrets
 
 | Secret | Value |

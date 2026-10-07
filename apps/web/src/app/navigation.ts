@@ -77,6 +77,8 @@ import {
 } from 'lucide-react';
 import { Backpack, ClipboardCheck, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { Stethoscope } from 'lucide-react';
+import { WifiOff } from 'lucide-react';
+import { BookMarked, NotebookTabs } from 'lucide-react';
 import { BookUser, Compass, Shield } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
@@ -152,7 +154,9 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Learning',
     items: [
       { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', audience: 'family', keywords: 'study home today ai learning' },
+      { label: 'My lessons', to: '/my-lessons', icon: BookMarked, permission: 'learning.use', audience: 'family', keywords: 'lesson modules check-in class code join video quiz notes offline' },
       { label: 'Exams', to: '/my-exams', icon: MonitorCheck, permission: 'learning.use', audience: 'family', keywords: 'cbt online exam test computer based school exam' },
+      { label: 'Offline exams', to: '/offline-exams', icon: WifiOff, permission: 'learning.use', audience: 'family', keywords: 'cbt offline exam download no internet sync' },
       { label: 'AI tutor', to: '/learn/tutor', icon: MessageCircleQuestion, permission: 'learning.use', audience: 'family', keywords: 'tutor homework help ask explain' },
       { label: 'Exam Academy', to: '/learn/exams', icon: Target, permission: 'learning.use', audience: 'family', keywords: 'bece waec neco jamb past questions mock practice' },
       { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', audience: 'family', keywords: 'mastery topics memories strengths' },
@@ -177,6 +181,8 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Curriculum', to: '/curriculum', icon: BookOpen, permission: 'curriculum.read', keywords: 'syllabus topics' },
       { label: 'Scheme of Work', to: '/schemes', icon: NotebookPen, permission: 'curriculum.read', keywords: 'schemes termly weekly plan' },
       { label: 'Lesson Plans', to: '/lessons', icon: Presentation, permission: 'lessons.read', keywords: 'lesson notes teaching' },
+      { label: 'Weekly workbook', to: '/workbook', icon: NotebookTabs, anyOf: [['lessons.manage'], ['homework.manage'], ['academics.manage'], ['curriculum.manage']], keywords: 'teacher workbook week topic lesson classroom projector teach check-in' },
+      { label: 'Lesson modules', to: '/modules', icon: BookMarked, anyOf: [['lessons.manage'], ['homework.manage'], ['academics.manage'], ['curriculum.manage'], ['results.publish'], ['lessons.approve']], keywords: 'modules check-ins video quiz classroom mode content library shared multimedia' },
       { label: 'Lesson vetting', to: '/lessons/vetting', icon: ClipboardCheck, permission: 'lessons.approve', keywords: 'vet approve lesson notes hod principal submissions compliance' },
       { label: 'Class insights', to: '/class-insights', icon: LayoutGrid, anyOf: [['academics.read'], ['homework.manage']], keywords: 'mastery heatmap topics struggling weak students remedial re-teach practice support group learning loop' },
       { label: 'Timetable', to: '/timetable', icon: CalendarClock, feature: 'timetable', permission: 'timetable.read', keywords: 'schedule periods rooms bell lessons' },

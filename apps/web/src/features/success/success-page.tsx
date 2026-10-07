@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate, formatNumber, formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
+import { ClassroomEngagementTile } from '../lesson-modules/widgets';
 import { Facts, Kpi, Section } from '../platform/ui';
 import { money, pct, useSuccessSummary, useSuccessTrends } from './api';
 import { ChartLegend, type LineSeries, WeekBars, WeekLines } from './charts';
@@ -95,6 +96,7 @@ export default function SuccessPage() {
       ) : (
         <div className={cn('space-y-4 transition-opacity', q.isPlaceholderData && 'opacity-60')}>
           <Tiles s={s} />
+          <ClassroomEngagementTile />
 
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
             <Section

@@ -70,6 +70,8 @@ export interface WeekFacts {
   attendance: { present: number; absent: number; late: number; excused: number; daysMarked: number } | null;
   /** "First Term" when a report card was published this week. */
   reportCard: string | null;
+  /** Lesson modules finished this week (self-paced, in My lessons). */
+  modulesCompleted?: number;
 }
 
 const BAND_RANK: Record<string, number> = { NOT_STARTED: 0, EMERGING: 1, DEVELOPING: 2, SECURE: 3, MASTERED: 4 };
@@ -118,6 +120,7 @@ export function highlights(f: WeekFacts): string[] {
   if (at) out.push(at);
   if (f.questions > 0) out.push(`Answered ${plural(f.questions, 'practice question')} across ${plural(f.topics.length, 'topic')}`);
   else if (f.topics.length) out.push(`Worked on ${plural(f.topics.length, 'topic')}`);
+  if (f.modulesCompleted) out.push(`Finished ${plural(f.modulesCompleted, 'lesson module')}`);
   if (f.reportCard) out.push(`${f.reportCard} report card published`);
   return out;
 }
@@ -273,4 +276,4 @@ export function buildContent(f: WeekFacts, rec: Recommendation): LearningUpdateC
 }
 
 /** Nothing at all to say this week: no learning, no homework set, no register marked. */
-export const nothingToSay = (f: WeekFacts) => f.pieces === 0 && !(f.homework && f.homework.set > 0) && !(f.attendance && f.attendance.daysMarked > 0) && !f.reportCard;
+export const nothingToSay = (f: WeekFacts) => f.pieces === 0 && !(f.homework && f.homework.set > 0) && !(f.attendance && f.attendance.daysMarked > 0) && !f.reportCard && !f.modulesCompleted;

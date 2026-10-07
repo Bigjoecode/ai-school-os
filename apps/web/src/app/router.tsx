@@ -141,6 +141,9 @@ const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
 const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
 const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
 const ExamRoomPage = lazy(() => import('@/features/cbt/exam-room-page'));
+const OfflineExamsPage = lazy(() => import('@/features/cbt/offline/offline-exams-page'));
+const OfflineRoomPage = lazy(() => import('@/features/cbt/offline/offline-room-page'));
+const InvigilatorSheetPage = lazy(() => import('@/features/cbt/offline/invigilator-sheet-page'));
 const FamilyPage = lazy(() => import('@/features/family/family-page'));
 const ChildProgressPage = lazy(() => import('@/features/family/child-page'));
 const AskSchoolPage = lazy(() => import('@/features/family/ask-page'));
@@ -192,6 +195,13 @@ const DataProtectionPage = lazy(() => import('@/features/data-protection/admin-p
 const MyPrivacyPage = lazy(() => import('@/features/data-protection/my-privacy-page'));
 const MaterialsPage = lazy(() => import('@/features/materials/materials-page'));
 const MaterialsLibraryPage = lazy(() => import('@/features/materials/library-page'));
+const ModulesPage = lazy(() => import('@/features/lesson-modules/modules-page'));
+const ModulePage = lazy(() => import('@/features/lesson-modules/module-page'));
+const WorkbookPage = lazy(() => import('@/features/lesson-modules/workbook-page'));
+const PresentPage = lazy(() => import('@/features/lesson-modules/present-page'));
+const MyLessonsPage = lazy(() => import('@/features/lesson-modules/my-lessons-page'));
+const MyLessonPage = lazy(() => import('@/features/lesson-modules/my-lesson-page'));
+const LiveCheckInPage = lazy(() => import('@/features/lesson-modules/live-checkin-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -232,6 +242,19 @@ export const router = createBrowserRouter(withRouteErrors([
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
   },
   // The online exam room: full screen, no app chrome, so students stay focused on the paper.
+  // Classroom mode: the teacher presents a lesson module full screen (projector, TV or laptop).
+  {
+    path: '/present/:sessionId',
+    element: (
+      <RequireAuth>
+        {withSuspense(
+          <RequirePermission permission={['lessons.manage', 'homework.manage', 'academics.manage', 'curriculum.manage']}>
+            <PresentPage />
+          </RequirePermission>,
+        )}
+      </RequireAuth>
+    ),
+  },
   {
     path: '/exam-room/:id',
     element: (
@@ -244,6 +267,10 @@ export const router = createBrowserRouter(withRouteErrors([
       </RequireAuth>
     ),
   },
+  // Offline exams: full screen and no sign-in needed (an exam device may have no one signed in); the
+  // pages only read this device's encrypted downloads, and syncing asks for a sign-in.
+  { path: '/offline-exams', element: withSuspense(<OfflineExamsPage />) },
+  { path: '/offline-exams/:key', element: withSuspense(<OfflineRoomPage />) },
   {
     path: '/',
     element: (
@@ -435,6 +462,14 @@ export const router = createBrowserRouter(withRouteErrors([
         element: (
           <RequirePermission permission="assessment.read">
             <OnlineExamPage />
+          </RequirePermission>
+        ),
+      },
+      {
+        path: 'online-exams/:id/offline-sheet',
+        element: (
+          <RequirePermission permission="assessment.manage">
+            <InvigilatorSheetPage />
           </RequirePermission>
         ),
       },
@@ -725,6 +760,13 @@ export const router = createBrowserRouter(withRouteErrors([
         ),
       },
       { path: 'learning/materials', element: <RequirePermission permission={['family.manage', 'learning.use']}><MaterialsLibraryPage /></RequirePermission> },
+      // Learning modules: teachers' modules, library and weekly workbook; students' self-paced lessons and live class check-ins.
+      { path: 'modules', element: <RequirePermission permission={['lessons.manage', 'homework.manage', 'academics.manage', 'curriculum.manage', 'results.publish', 'lessons.approve']}><ModulesPage /></RequirePermission> },
+      { path: 'modules/:id', element: <RequirePermission permission={['lessons.manage', 'homework.manage', 'academics.manage', 'curriculum.manage', 'results.publish', 'lessons.approve']}><ModulePage /></RequirePermission> },
+      { path: 'workbook', element: <RequirePermission permission={['lessons.manage', 'homework.manage', 'academics.manage', 'curriculum.manage', 'results.publish', 'lessons.approve']}><WorkbookPage /></RequirePermission> },
+      { path: 'my-lessons', element: <RequirePermission permission="learning.use"><MyLessonsPage /></RequirePermission> },
+      { path: 'my-lessons/live/:sessionId', element: <RequirePermission permission="learning.use"><LiveCheckInPage /></RequirePermission> },
+      { path: 'my-lessons/:id', element: <RequirePermission permission="learning.use"><MyLessonPage /></RequirePermission> },
       // Phase 15: the student's learning companion and Exam Academy, and the parent's family page.
       ...(
         [

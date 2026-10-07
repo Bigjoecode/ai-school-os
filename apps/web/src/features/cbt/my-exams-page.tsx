@@ -1,6 +1,7 @@
 import type { CbtMyExam } from '@aischool/shared';
-import { ArrowRight, CalendarClock, CheckCircle2, Clock, KeyRound, ListOrdered, MonitorCheck, PlayCircle } from 'lucide-react';
-import { useMemo } from 'react';
+import { ArrowRight, CalendarClock, CheckCircle2, Clock, Download, KeyRound, ListOrdered, MonitorCheck, PlayCircle, WifiOff } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { toast } from 'sonner';
 import { Link } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -9,8 +10,10 @@ import { Card } from '@/components/ui/card';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatRelative } from '@/lib/format';
+import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { useMyExams } from './api';
+import { downloadMyPack } from './offline/api';
 import { windowLabel } from './ui';
 
 /** The student's online exams: open now, coming up, and done. */
@@ -28,7 +31,17 @@ export default function MyExamsPage() {
 
   return (
     <Page className="max-w-4xl">
-      <PageHeader title="Exams" description="Your school’s online tests and exams. Your answers save as you go, so if the network drops, just come back and carry on." />
+      <PageHeader
+        title="Exams"
+        description="Your school’s online tests and exams. Your answers save as you go, so if the network drops, just come back and carry on."
+        actions={
+          <Button asChild variant="outline">
+            <Link to="/offline-exams">
+              <WifiOff /> Offline exams
+            </Link>
+          </Button>
+        }
+      />
       {q.isLoading ? (
         <div className="space-y-3">
           <Skeleton className="h-28 rounded-2xl" />
@@ -64,6 +77,38 @@ export default function MyExamsPage() {
   );
 }
 
+/** "Download for offline" on an exam the teacher made available offline. */
+function OfflineAction({ e }: { e: CbtMyExam }) {
+  const [busy, setBusy] = useState(false);
+  const o = e.offline;
+  if (!o || e.attempt || o.synced || e.phase === 'ENDED' || (o.syncBy && Date.parse(o.syncBy) < Date.now())) return null;
+  return (
+    <div className="flex items-center gap-2">
+      {o.downloaded && (
+        <Button asChild size="sm" variant="ghost">
+          <Link to="/offline-exams">
+            <WifiOff /> On this device?
+          </Link>
+        </Button>
+      )}
+      <Button
+        size="sm"
+        variant="outline"
+        loading={busy}
+        onClick={() => {
+          setBusy(true);
+          downloadMyPack(e.id)
+            .then(() => toast.success('Saved for offline', { description: 'On exam day open Offline exams — no internet needed. Your invigilator gives the start code.' }))
+            .catch((x) => toast.error(errorMessage(x)))
+            .finally(() => setBusy(false));
+        }}
+      >
+        <Download /> {o.downloaded ? 'Download again' : 'Download for offline'}
+      </Button>
+    </div>
+  );
+}
+
 function ExamRow({ e }: { e: CbtMyExam }) {
   const writing = e.attempt?.status === 'IN_PROGRESS';
   const handedIn = e.attempt && !writing;
@@ -80,6 +125,11 @@ function ExamRow({ e }: { e: CbtMyExam }) {
             </Badge>
           )}
           {missed && <Badge variant="outline">Missed</Badge>}
+          {e.offline && !e.attempt && (
+            <Badge variant={e.offline.synced ? 'success' : 'info'}>
+              <WifiOff /> {e.offline.synced ? 'Sat offline' : e.offline.downloaded ? 'Downloaded' : 'Can sit offline'}
+            </Badge>
+          )}
           {e.needsAccessCode && !e.attempt && (
             <Badge variant="outline">
               <KeyRound /> Access code
@@ -124,6 +174,7 @@ function ExamRow({ e }: { e: CbtMyExam }) {
             <Link to={`/exam-room/${e.id}`}>{e.result ? 'See result' : 'View'}</Link>
           </Button>
         ) : null}
+        <OfflineAction e={e} />
       </div>
     </Card>
   );

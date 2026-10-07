@@ -29,6 +29,7 @@ export const INSIGHT_SOURCE_LABELS: Record<string, string> = {
   CBT: 'Online exams (CBT)',
   HOMEWORK: 'Homework',
   TEST: 'School tests',
+  CHECKIN: 'Lesson check-ins',
 };
 
 // ============================================================ requests

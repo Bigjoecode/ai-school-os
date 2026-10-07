@@ -180,6 +180,8 @@ export function initPwa() {
   watchConnection();
   syncSession();
   useAuthStore.subscribe(syncSession);
+  // Offline exam hand-ins waiting on this device: send them in the background (small, loaded after start-up).
+  window.setTimeout(() => void import('@/features/cbt/offline/sync').then((m) => m.startOfflineSync()).catch(() => undefined), 3000);
   if (!supported) return;
 
   navigator.serviceWorker.addEventListener('controllerchange', () => {

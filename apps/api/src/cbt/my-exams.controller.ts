@@ -18,6 +18,7 @@ import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
+import { OfflineExamsService } from './offline-exams.service';
 import { CbtService, answersOf, isObjective, layoutOf, paperInclude, phaseOf, resultVisibility, round1, theoryMarksOf } from './cbt.service';
 
 /**
@@ -31,6 +32,7 @@ export class MyExamsController {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cbt: CbtService,
+    private readonly offline: OfflineExamsService,
   ) {}
 
   private async me(): Promise<Student> {
@@ -67,6 +69,7 @@ export class MyExamsController {
     });
     const papers = await this.prisma.db.examPaper.findMany({ where: { id: { in: exams.map((e) => e.paperId) } }, include: { subject: { select: { name: true } }, _count: { select: { items: true } } } });
     const paperBy = new Map(papers.map((p) => [p.id, p]));
+    const offline = await this.offline.myOffline(me.id, exams);
     const out: CbtMyExam[] = [];
     for (const e of exams) {
       const p = paperBy.get(e.paperId);
@@ -85,6 +88,9 @@ export class MyExamsController {
         needsAccessCode: !!e.accessCode,
         attempt: a ? { status: a.status as CbtAttemptStatus, endsAt: a.endsAt.toISOString(), submittedAt: a.submittedAt?.toISOString() ?? null } : null,
         result: r?.score ? { score: r.score.score, total: r.score.total, percent: r.score.percent, partial: r.score.partial } : null,
+        offline: e.offlineEnabled
+          ? { availableFrom: e.offlineFrom?.toISOString() ?? null, syncBy: e.offlineSyncBy?.toISOString() ?? null, version: e.offlineVersion, downloaded: offline.get(e.id)?.downloaded ?? false, synced: offline.get(e.id)?.synced ?? false }
+          : null,
       });
     }
     return out;

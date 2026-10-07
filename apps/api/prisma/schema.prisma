@@ -3423,9 +3423,22 @@ model OnlineExam {
   createdById       String?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
+  /// Offline exam packs: students (or a prepared exam device) download an encrypted copy and sit with no internet.
+  offlineEnabled    Boolean   @default(false)
+  /// Offline sittings may start from this time…
+  offlineFrom       DateTime?
+  /// …and must be synced back by this time (later syncs are accepted but flagged).
+  offlineSyncBy     DateTime?
+  /// Invigilator start code: the pack's decryption key is derived from it. Staff only.
+  offlineCode       String?
+  /// Per-pack PBKDF2 salt (base64url); changes with the code.
+  offlineSalt       String?
+  /// Bumped whenever the code is rotated, so older downloads are recognised.
+  offlineVersion    Int       @default(0)
 
-  tenant   Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  attempts OnlineExamAttempt[]
+  tenant       Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  attempts     OnlineExamAttempt[]
+  offlineSeats OfflineExamSeat[]
 
   @@index([tenantId, opensAt])
   @@map("online_exams")
@@ -3895,4 +3908,208 @@ model LearningUpdate {
   @@unique([studentId, weekStart])
   @@index([tenantId, weekStart])
   @@map("learning_updates")
+}
+
+// ============================================================ Offline exam packs (CBT with no internet)
+
+/// One student's place in an offline exam: their question order, signing key and exam PIN, and what their device reported.
+model OfflineExamSeat {
+  id                String    @id @default(cuid())
+  tenantId          String
+  examId            String
+  studentId         String
+  /// Per-student exam PIN for shared exam devices (printed on the invigilator sheet).
+  pin               String
+  /// HMAC-SHA256 key (base64url) the device signs its submission with.
+  hmacKey           String
+  /// Same shape as OnlineExamAttempt.layout (question order, option order, key at download time).
+  layout            Json
+  /// Pack version last downloaded (OnlineExam.offlineVersion at the time).
+  packVersion       Int       @default(0)
+  downloads         Int       @default(0)
+  downloadedAt      DateTime?
+  /// PERSONAL (the student's own sign-in) or DEVICE (a shared exam device prepared by staff).
+  downloadMode      String?
+  downloadedById    String?
+  /// What the device reported, converted to server time.
+  startedAt         DateTime?
+  submittedAt       DateTime?
+  lastSeenAt        DateTime?
+  syncedAt          DateTime?
+  /// Client-generated id of the submission accepted for this seat (idempotency).
+  submissionId      String?
+  /// The signed submission as received, kept for review.
+  submission        Json?
+  elapsedSeconds    Int?
+  clockSkewSeconds  Int?
+  /// DOWNLOADED-only seats have none. SYNCED (marked), HELD (waiting for a teacher: bad signature or already sat online).
+  syncStatus        String?
+  /// BAD_SIGNATURE, OVER_TIME, CLOCK, OUTSIDE_WINDOW, LATE_SYNC, STALE_PACK, ALREADY_SAT, DIFFERENT_RESUBMISSION
+  flags             String[]  @default([])
+  flagsReviewedAt   DateTime?
+  flagsReviewedById String?
+  attemptId         String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  exam OnlineExam @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  @@unique([examId, studentId])
+  @@index([tenantId, studentId])
+  @@map("offline_exam_seats")
+}
+
+// ============================================================ Learning modules, check-ins and classroom sessions
+
+/// A lesson module: an ordered teaching unit for one class and subject (notes, videos, materials and check-ins).
+/// Taught in class from the teacher's workbook (classroom mode) or worked through by students at their own pace.
+model LearningModule {
+  id           String    @id @default(cuid())
+  tenantId     String
+  title        String
+  summary      String?
+  subjectId    String
+  classLevelId String
+  /// The class it is taught to; null for a content-library module (copied into classes).
+  classArmId   String?
+  /// The syllabus topic it teaches: check-ins add mastery evidence here.
+  topicId      String?
+  topicName    String?
+  termId       String?
+  /// Week of the term (scheme of work week, or the syllabus order).
+  week         Int?
+  schemeWeekId String?
+  lessonPlanId String?
+  /// DRAFT | PUBLISHED | ARCHIVED
+  status       String    @default("DRAFT")
+  /// Students must pass each check-in before the next step unlocks.
+  mustPass     Boolean   @default(true)
+  /// Default pass mark (%) for the module's check-ins.
+  passMark     Int       @default(60)
+  /// Shared in the school's content library for any teacher of the subject and level to copy.
+  library      Boolean   @default(false)
+  copiedFromId String?
+  /// MANUAL | AI
+  source       String    @default("MANUAL")
+  createdById  String?
+  publishedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  steps    LearningModuleStep[]
+  progress ModuleProgress[]
+  attempts CheckInAttempt[]
+  sessions ClassroomSession[]
+
+  @@index([tenantId, classArmId, subjectId])
+  @@index([tenantId, library, subjectId])
+  @@map("learning_modules")
+}
+
+/// One step of a module: content (note, video, picture, file, link, study material) or a check-in.
+model LearningModuleStep {
+  id         String   @id @default(cuid())
+  tenantId   String
+  moduleId   String
+  order      Int
+  /// NOTE | VIDEO | IMAGE | FILE | LINK | MATERIAL | CHECKIN
+  kind       String
+  title      String
+  /// Notes in markdown (a note's text, or words shown with any other step).
+  body       String?
+  /// An uploaded file (video, picture, document), served after an access check.
+  fileId     String?
+  mimeType   String?
+  url        String?
+  materialId String?
+  /// Check-in questions, or a video's questions pinned at timestamps (`at`, seconds).
+  questions  Json     @default("[]")
+  /// Pass mark (%) for this check-in; null = the module's.
+  passMark   Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  module LearningModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@index([moduleId, order])
+  @@map("learning_module_steps")
+}
+
+/// A student's way through a module (self-paced), so they resume where they left off.
+model ModuleProgress {
+  id               String    @id @default(cuid())
+  tenantId         String
+  moduleId         String
+  studentId        String
+  completedStepIds String[]  @default([])
+  currentStepId    String?
+  /// IN_PROGRESS | COMPLETED
+  status           String    @default("IN_PROGRESS")
+  startedAt        DateTime  @default(now())
+  lastSeenAt       DateTime  @default(now())
+  completedAt      DateTime?
+
+  module LearningModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([moduleId, studentId])
+  @@index([tenantId, studentId])
+  @@map("module_progress")
+}
+
+/// One go at a check-in: on the student's own (SELF), live in class on their device (CLASS),
+/// a video's pinned questions (VIDEO), or marked by the teacher in class with no devices (MARKED).
+model CheckInAttempt {
+  id          String    @id @default(cuid())
+  tenantId    String
+  moduleId    String
+  stepId      String
+  studentId   String
+  sessionId   String?
+  mode        String
+  /// Question ids in the order shown (shuffled for each try).
+  layout      Json
+  /// { [questionId]: optionIndex | text }
+  answers     Json      @default("{}")
+  correct     Int       @default(0)
+  total       Int       @default(0)
+  percent     Int       @default(0)
+  passed      Boolean   @default(false)
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  module LearningModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@index([moduleId, studentId])
+  @@index([sessionId, stepId])
+  @@index([tenantId, createdAt])
+  @@map("check_in_attempts")
+}
+
+/// A module taught in class (projector, TV or laptop): the evidence that the class engaged.
+model ClassroomSession {
+  id            String    @id @default(cuid())
+  tenantId      String
+  moduleId      String
+  classArmId    String
+  teacherUserId String?
+  /// Short code students type on their own devices to answer the live check-in.
+  code          String
+  /// LIVE | ENDED
+  status        String    @default("LIVE")
+  currentStepId String?
+  /// The check-in students can answer right now (null = none open).
+  openStepId    String?
+  openedAt      DateTime?
+  /// Students in the room, as the teacher counted them.
+  present       Int?
+  /// Per check-in step: { mode, responses, understood, percent, decision, rounds }.
+  results       Json      @default("{}")
+  startedAt     DateTime  @default(now())
+  endedAt       DateTime?
+
+  module LearningModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, startedAt])
+  @@index([tenantId, code, status])
+  @@map("classroom_sessions")
 }

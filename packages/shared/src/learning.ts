@@ -334,7 +334,7 @@ export const masteryBand = (score: number | null): MasteryTopic['band'] =>
   score === null ? 'NOT_STARTED' : score >= 85 ? 'MASTERED' : score >= 70 ? 'SECURE' : score >= 50 ? 'DEVELOPING' : 'EMERGING';
 
 /** Where a piece of mastery evidence came from. */
-export const EVIDENCE_SOURCES = ['PRACTICE', 'TUTOR', 'QUIZ', 'CBT', 'HOMEWORK', 'TEST'] as const;
+export const EVIDENCE_SOURCES = ['PRACTICE', 'TUTOR', 'QUIZ', 'CBT', 'HOMEWORK', 'TEST', 'CHECKIN'] as const;
 export type EvidenceSource = (typeof EVIDENCE_SOURCES)[number];
 export const EVIDENCE_SOURCE_LABELS: Record<EvidenceSource, string> = {
   PRACTICE: 'Practice',
@@ -343,9 +343,10 @@ export const EVIDENCE_SOURCE_LABELS: Record<EvidenceSource, string> = {
   CBT: 'School test',
   HOMEWORK: 'Homework',
   TEST: 'School test',
+  CHECKIN: 'Lesson check-in',
 };
 /** Work set and marked by the school (as opposed to the student's own practice). */
-export const SCHOOL_EVIDENCE_SOURCES: readonly EvidenceSource[] = ['CBT', 'HOMEWORK', 'TEST'];
+export const SCHOOL_EVIDENCE_SOURCES: readonly EvidenceSource[] = ['CBT', 'HOMEWORK', 'TEST', 'CHECKIN'];
 
 /** One piece of evidence behind a topic's mastery. */
 export interface MasteryEvidenceRow {

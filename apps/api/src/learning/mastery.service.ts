@@ -42,6 +42,13 @@ export function subjectKey(name: string): string {
   if (/islamic (religious )?(studies|knowledge)|\birs\b|\birk\b/.test(n)) return 'Islamic Religious Studies';
   if (/christian religious (studies|knowledge)|\bcrs\b|\bcrk\b/.test(n)) return 'Christian Religious Studies';
   if (/^(fine |visual |creative )?arts?$/.test(n)) return 'Visual Art';
+  // Junior secondary (BECE) subjects, combined and separate.
+  if (/basic science\s+(and\s+)?tech|^bst$/.test(n)) return 'Basic Science and Technology';
+  if (/basic tech|introductory tech/.test(n)) return 'Basic Technology';
+  if (/physical\s+(and\s+)?health|^phe$/.test(n)) return 'Physical and Health Education';
+  if (/national values?\b|^nve$/.test(n)) return 'National Values Education';
+  if (/pre\s*vocational|^pvs$/.test(n)) return 'Pre-Vocational Studies';
+  if (/cultural\s+(and\s+)?creative|^cca$/.test(n)) return 'Cultural and Creative Arts';
   if (/math/.test(n)) return 'Mathematics';
   if (/english/.test(n)) return 'English Language';
   if (/basic science|integrated science/.test(n)) return 'Basic Science';

@@ -1,0 +1,677 @@
+{
+ "exam": "BECE",
+ "subject": "Yoruba",
+ "level": "JUNIOR",
+ "sourceFile": "Copy of Yoruba BECE Syllabus - syllabusNG.txt",
+ "examFormat": "Based on the 9-year Basic Education Curriculum for Yoruba, for candidates who speak Yoruba as a first language (L1) or second language (L2); it tests the ability to read, write and comprehend Yoruba, construct sentences correctly with idiomatic expressions, show familiarity with Yoruba culture, read and appreciate literature, write essays and short stories and translate simple sentences from English to Yoruba. L1 has two papers of 60 multiple-choice questions each (120 in all): Paper 1 covers grammar (25), comprehension (10), composition (5), sound system (10), orthography (5) and translation (5); Paper 2 covers oral literature (15), prose (5), drama (5), poetry (5) and culture and tradition (20). L2 is one 1-hour paper of 60 multiple-choice questions in sections A-D: dialogue (10), written comprehension (10), numbers, greetings, alphabets, translation, grammar and culture (25), and pictures of time, the human body, animals, crops, utensils and school-related items (15).",
+ "excluded": "syllabus.ng 'About us', 'About BECE', eligibility, grading, registration and FAQ chapters. The L1 and L2 syllabuses are combined in this one file; L2 topic names are suffixed '(L2)'. The extraction corrupted Yoruba tone marks and under-dots (stray characters such as å, ö, ΀), so Yoruba is written without diacritics and with clear OCR errors corrected; this makes 'aroko' (essay, Language IV) and 'aroko' (coded message, Culture XIV, heading missing in the text) look alike, so they are named 'Aroko oniroyin' and 'Aroko ati ipaaroko'. L2 Literature I and III share the heading 'Alo ati orin keekeeke' and are qualified; L2 Culture has two topics numbered XII. Some place/name readings are uncertain (e.g. 'Igba Ibolo' read as 'Igbo Ora', 'Sibee' as 'Sabe').",
+ "recommendedTexts": [
+  "Subu Sere (L1 drama) — Olasunkanmi Tele (Extension Publications Ltd, Ibadan)",
+  "Olu Omo (L1 drama) — D.O. Adisa (Capital Publishers)",
+  "Atiteebi (L1 prose) — Dipo Gbenro (Extension Publications Ltd, Ibadan)",
+  "Sisi Oloja (L1 prose) — Olajumoke Amiteko (Life Steps Publishers)",
+  "Iwe Ijinle Arofo Yoruba Meedogun Ojo (L1 poetry) — Kola Ajiboye (Rasmed Publications)",
+  "Simplified Yoruba Language for J.S.S. Bk 1, 2, 3 (2018 ed.) — Adewoyin S.Y. (Compromut, Lagos)",
+  "Yoruba Akoye fun Ile Eko Sekondiri Kekere Book 1, 2 and 3 — Olatunji Opadotun (Rasmed Publications Ltd)",
+  "Iwe Ede, Asa ati Itupale Litireso Yoruba JSS 1, 2 and 3 — Olayemi Olayinka (Admed Design Limited)",
+  "Asa ati Ise Yoruba — Adeoye C.L. (UPL)",
+  "Owe Pelu Itumo — Akinlade Kola (Vantage)",
+  "A Dictionary of the Yoruba Language — (University Press, UPL)",
+  "Akotun Ede Yoruba I, II & III — S.L. Raji and Co (Extension Publications Limited)",
+  "Akomolede Ijinle Yoruba 1, 2 & 3 — Adebisi Aromolaran & Oyebamiji Mustapha (Macmillan Nigeria)",
+  "Ekunrere Ibeere lori Eko Ede Yoruba Ipele Keje si Ekesan-an — Ebo Awe (Elyon Publications)",
+  "Akopojo Alo Apagbe — Adun Amoo (Hirise Celebrity Publishers)",
+  "Ewi Igbalode — Taiwo Olunlade (Evans Publishers)",
+  "Simplified Yoruba L1 Workbook 1, 2 & 3 — Adewoyin S.Y. (Compromut, Lagos)",
+  "Yoruba Orthography (Akoto Ede Yoruba) — Dept of Linguistics, African and Asian Studies, University of Lagos (1994)",
+  "Simplified Yoruba L2 for Non-Native Speakers Basic 7, 8 & 9 — S.Y. Adewoyin (Compromut, Lagos)",
+  "Essentials of Yoruba L2 — Agboola Ayadiran (Rasmed)",
+  "Akotun Ede Yoruba fun awon Elede Miiran ni Ile Eko Sekondiri Kekere 1, 2 & 3 — S.M. Raji and Co (Extension)",
+  "Girama Ede Yoruba Book 1, 2 & 3 — Dabo Awe (Elyon)",
+  "Ewi fun Awon Ogo Weere: Iwe 1, 2 & 3 — Olatunji Opadotun (Rasmed Publications Ltd, Ibadan)",
+  "Simplified Yoruba L2 Workbook for Basic 7, 8, 9 — S.Y. Adewoyin (Compromut, Lagos)"
+ ],
+ "topics": [
+  {
+   "name": "Iro ede (konsonanti ati faweeli)",
+   "objectives": [
+    "Konsonanti: b, d, f, g, gb, h, j, etc.",
+    "Faweeli airanmupe",
+    "Faweeli aranmupe: an, en, in, on, un"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Akaye",
+   "objectives": [
+    "Ayoka ti ko le ju ogbon lo (comprehension of a passage)"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Akoto",
+   "objectives": [
+    "So ohun ti akoto je",
+    "Afiwe akoto atijo ati ti ode oni: faweeli (e.g. aiye - aye, enia - eniyan) ati konsonanti (e.g. Oshogbo - Osogbo, Offa - Ofa)",
+    "Ami ohun (e.g. Ogun - Oogun, Alanu - Alaaanu)",
+    "Pipin oro (e.g. Wipe - wi pe, Nigbati - nigba ti)"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Aroko oniroyin",
+   "objectives": [
+    "Akole",
+    "Ilapa ero",
+    "Atonte ilapa ero",
+    "Ifaara",
+    "Ipin afo",
+    "Koko inu aroko",
+    "Igunle/asokagba"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Leta kiko",
+   "objectives": [
+    "Leta gbefe ati aigbefe",
+    "Iyato aarin won",
+    "Ilana kiko leta gbefe",
+    "Ilana kiko leta aigbefe fun apeere adiresi ati deeti abbl"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Iseda oro oruko",
+   "objectives": [
+    "Oro oruko alalaye",
+    "Orisi oro oruko: aiseda ati aseda"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Itesiwaju iro: ami ohun",
+   "objectives": [
+    "Alaye lori orisirisi ohun Yoruba meteeta: ohun aarin, ohun oke, ohun ile",
+    "Ami ohun lori konsonanti aranmupe onisilebu kan"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Isori oro",
+   "objectives": [
+    "Oro oruko",
+    "Oro aropo oruko",
+    "Oro ise",
+    "Oro apejuwe",
+    "Oro atokun",
+    "Oro asopo"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Ihun oro",
+   "objectives": [
+    "Batani ihun oro Yoruba: F, KF, FKF abbl"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Orisirisi gbolohun",
+   "objectives": [
+    "Gbolohun alabode",
+    "Gbolohun alakanpo",
+    "Gbolohun onibo"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Agbeyewo akoto siwaju sii",
+   "objectives": [
+    "Agbeyewo ipinnu 1974 ti ijoba apapo lori akoto Yoruba (Joint Consultative Committee)"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Ise oro aropo oruko ninu gbolohun",
+   "objectives": [
+    "Oluwa",
+    "Abo fun oro ise",
+    "Abo fun atokun",
+    "Eyan fun oro miiran"
+   ],
+   "content": "Yoruba L1, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Agbeyewo litireso apileko",
+   "objectives": [
+    "Koko oro",
+    "Ahunpo itan",
+    "Ibudo itan",
+    "Eda itan ati ifiwawedaa",
+    "Ilo ede"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Sise agbeyewo litireso alohun",
+   "objectives": [
+    "Alaye lori litireso alohun: awon akopa/osere, akoko isere, ibi ti won ti n se e, iwulo, ohun elo orin abbl",
+    "Orisirisi litireso alohun: ewi, orin, isere, aran abbl"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Asayan iwe ayoka",
+   "objectives": [
+    "Eda itan",
+    "Ifiwawedaa",
+    "Ibudo itan",
+    "Ahunpo itan",
+    "Koko oro to je yo"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Ewi alohun aranmo",
+   "objectives": [
+    "Alaye awon ewi alohun: oriki, ese Ifa, ofo, owe abbl"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Asayan iwe: ere onitan",
+   "objectives": [
+    "Ibudo itan",
+    "Ahunpo itan",
+    "Asa to suyo",
+    "Koko oro",
+    "Ifiwawedaa",
+    "Ilo ede"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature). Iwe ere onitan ti a yan (drama set books).",
+   "subtopics": [
+    {
+     "name": "Subu Sere (Olasunkanmi Tele)",
+     "objectives": [
+      "Agbeyewo iwe ere onitan"
+     ]
+    },
+    {
+     "name": "Olu Omo (D.O. Adisa)",
+     "objectives": [
+      "Agbeyewo iwe ere onitan"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Asayan iwe: ewi",
+   "objectives": [
+    "Ewi kika",
+    "Koko oro inu ewi, oro to n lo lawujo/lagbaaye",
+    "Ona ede ati isowulo ede"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature). Iwe ewi ti a yan (poetry set book).",
+   "subtopics": [
+    {
+     "name": "Iwe Ijinle Arofo Yoruba Meedogun Ojo (Kola Ajiboye)",
+     "objectives": [
+      "Agbeyewo iwe ewi"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Asayan iwe: itan aroso oloro geere",
+   "objectives": [
+    "Ibudo ati ahunpo itan",
+    "Asa to suyo",
+    "Awon koko oro to je mo isele bagbamu",
+    "Eda itan ati ifiwawedaa",
+    "Ona ede ati isowulo ede"
+   ],
+   "content": "Yoruba L1, Akori: Litireso (Literature). Iwe itan aroso ti a yan (prose set books).",
+   "subtopics": [
+    {
+     "name": "Atiteebi (Dipo Gbenro)",
+     "objectives": [
+      "Agbeyewo iwe itan aroso"
+     ]
+    },
+    {
+     "name": "Sisi Oloja (Olajumoke Amiteko)",
+     "objectives": [
+      "Agbeyewo iwe itan aroso"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Onka",
+   "objectives": [
+    "Onka lati ookan de egbaawa (1-2000)"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Isedale ati itankale Yoruba",
+   "objectives": [
+    "Itan isedale Yoruba ati Oduduwa",
+    "Itankale Yoruba: Owu, Sabe, Ketu, Popo, Oyo, Ijesa, Ijebu, Egba abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Awon eya Yoruba",
+   "objectives": [
+    "Igbo Ora, Yewa, Ondo, Ijesa, Ife, Onko, Oyo, Ekiti, Ibarapa, Igbomina, Ikale, Awori, Owo abbl",
+    "Afihan ekun ti eya kookan wa ninu maapu"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Igbeyawo",
+   "objectives": [
+    "Ilana asa igbeyawo ibile: eto, ifojusode, alarina abbl",
+    "Igbeyawo ode oni: kootu, soosi ati mosalasi",
+    "Afiwe ti ibile ati ti ode oni"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Isere ajemesin ati ajemayeye/alaijemesin",
+   "objectives": [
+    "Alaye isere ajemesin ati ajemayeye",
+    "Orisii isere ajemesin Yoruba: ijala, esa, iyere Ifa, Sango pipe, Esu pipe abbl",
+    "Isere alaijemesin Yoruba: rara, ekun iyawo, ege dida, alamo abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Esin ibile",
+   "objectives": [
+    "Pataki esin lawujo Yoruba",
+    "Ipo Olodumare",
+    "Awon orisa ile Yoruba",
+    "Esin ode oni: Musulumi ati omoleyin Jesu"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Ogun ati alaafia",
+   "objectives": [
+    "Alaye lori ogun",
+    "Ogun Yoruba laye atijo: apeere ogun Jalumi, Kiriji abbl",
+    "Awon jagunjagun bi apeere Ibikunle, Ogunmola, Ogedengbe",
+    "Ohun elo ogun: ofa, ere, ida, ibon, oogun abbl",
+    "Anfaani ati aleebu"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Ayeye isomoloruko",
+   "objectives": [
+    "Igbagbo Yoruba nipa bi oruko se pataki to",
+    "Eto isomoloruko",
+    "Ohun elo isomoloruko bii oyin, ireke abbl",
+    "Orisirisii oruko: abiso, amutorunwa, oriki, inagije abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Asa iranra-eni-lowo",
+   "objectives": [
+    "Esusu",
+    "Ajo",
+    "Owe",
+    "Arokodoko",
+    "Ajo alafowosowopo ode oni abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Didekun iwa ika si omonikeji",
+   "objectives": [
+    "Iwa ika si omonikeji latijo: ikonileru, ifinisofa, fifi eniyan rubo abbl",
+    "Iwa ika si omonikeji lode oni: jijinigbe, ipaniyan, ifomosowo, lilu aya/iyawo ile abbl",
+    "Ona lati dekun re: gbigba alaafia laaye, fifi ara eni si ipo omonikeji, agbofinro abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Atunyewo esin ibile Yoruba siwaju si: ohun mimo",
+   "objectives": [
+    "Ohun mimo ninu esin ibile, apeere asofunfun, efun, igba funfun, igbin, omi ajipon abbl",
+    "Eewo orisa ti o je mo iwa mimo bi apeere otito, ododo abbl"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Owo sise",
+   "objectives": [
+    "Alaye lori owo sise (kara kata)",
+    "Pataki owo sise ni ile Yoruba",
+    "Orisirisi owo ti Yoruba n se",
+    "Ipolowo oja ni ile Yoruba",
+    "Airisise lode oni ati ti owo le ko"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Itoju alaboyun",
+   "objectives": [
+    "Igbagbo Yoruba nipa agan, omo bibi ati abiku",
+    "Awon ti oyun nini wa fun",
+    "Ona ti a le gba din bibi abiku ku lawujo",
+    "Orisiirisii jenotiipu eje ti o wa ati awon to le fera won",
+    "Bi a se n toju alaboyun latijo (oyun dide, eewo fun alaboyun, aseje, agbo abbl) ati lode oni (ounje asaraloore, lilo fun itoju ni ile iwosan abbl)"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Aroko ati ipaaroko",
+   "objectives": [
+    "Salaye lori ohun ti aroko je",
+    "Orisiirisii aroko: aale, kainkain, itufu, aroko gan-an",
+    "Bi a se n paroko ni aye atijo",
+    "Awon ami iparoko ni atijo ati itumo won bi apeere owo eyo meta, ikarahun igbin, iye abbl",
+    "Aroko ode oni"
+   ],
+   "content": "Yoruba L1, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Alifabeti Yoruba (L2)",
+   "objectives": [
+    "Iro ede Yoruba",
+    "Konsonanti: b, d, f, g, gb, h, j, etc.",
+    "Faweeli Yoruba: faweeli airanmupe ati faweeli aranmupe (an, en, in, on, un)"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Apejuwe bi nnkan se ri (L2)",
+   "objectives": [
+    "Irisi bii giga, kukuru, titobi, isanra",
+    "Awo bii funfun, pupa, dudu, kalakinni, awo ewe"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Oruko won eniyan ati bi won se je si ara won (L2)",
+   "objectives": [
+    "Baba, iya, omo, egbon, aburo",
+    "Oko, iyawo, ebi abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Oruko awon eranko (L2)",
+   "objectives": [
+    "Eranko ile bii aja, ehoro, ologbo, ewure, adiye abbl",
+    "Eranko igbo bii kiniun, ekun, ojola, erin, etu, oya, okete abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Oruko igi ati eso (L2)",
+   "objectives": [
+    "Igi bii iroko, ayunre",
+    "Igi eleso bii igi koko, ope, mangoro, osan, ibepe, agbalumo, kasu abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Oruko awon nnkan ti o wa ni ayika wa (L2)",
+   "objectives": [
+    "Awon nnkan ti o wa layiika wa bii igi, eye, eranko, eja abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Awon eya ara (ifihan ara eni) (L2)",
+   "objectives": [
+    "Awon eya ara bii oju, eti, ori, imu, enu, ese, owo, atelese abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Awon ipede ti a maa n so ti a ba n gba alejo (L2)",
+   "objectives": [
+    "Ikini kaabo",
+    "Iwadii bi irin/irinajo ti ri",
+    "Iwadii nipa awon eniyan tabi ibi ti alejo ti n bo"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Sise amulo orisirisi gbolohun fun ibeere ati idahun (L2)",
+   "objectives": [
+    "Lilo awon ibeere wonyii lati se ibeere bii Ta ni, Kin ni, Nibo ni, Nje, Ewo, Meloo/Elo abbl",
+    "Didahun si awon gbolohun ibeere"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Siso imolara eniyan (L2)",
+   "objectives": [
+    "Imolara bii ebi, oungbe, irora, aisan, rire abbl"
+   ],
+   "content": "Yoruba L2, Akori: Ede (Language).",
+   "subtopics": []
+  },
+  {
+   "name": "Alo ati orin keekeeke: alo (L2)",
+   "objectives": [
+    "Alo apamo",
+    "Alo apagbe"
+   ],
+   "content": "Yoruba L2, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Orin keekeeke (L2)",
+   "objectives": [
+    "Orin omode bii iremolekun",
+    "Orin ere idaraya bii Bojuboju, Ekun meeran, Ta lo wa ninu ogba naa"
+   ],
+   "content": "Yoruba L2, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Alo ati orin keekeeke: atunyewo (L2)",
+   "objectives": [
+    "Alo apamo ati apagbe",
+    "Orin omode"
+   ],
+   "content": "Yoruba L2, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Ewi omode (L2)",
+   "objectives": [
+    "Awon ewi omode keekeeke (short rhymes and poems)"
+   ],
+   "content": "Yoruba L2, Akori: Litireso (Literature).",
+   "subtopics": []
+  },
+  {
+   "name": "Onka Yoruba (L2)",
+   "objectives": [
+    "Ookan titi de ogun",
+    "Okanlelogun titi de ogoji"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Ikini ni oniruuru akoko ati asiko (L2)",
+   "objectives": [
+    "Owuro, osan, ale ati oru",
+    "Igba ojo, eerun ati oye"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Akoko ati asiko: ojo ati osu (L2)",
+   "objectives": [
+    "Ojo/ose bii Aiku, Aje, Isegun, Ojoru, Ojobo, Eti, Ojo Abameta",
+    "Oruko awon osu inu odun bii Seere, Erele, Erena, Igbe, Ebibi, Okudu, Agemo, Ogun, Owewe, Owara, Belu, Ope"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Ounje ati ijeun (L2)",
+   "objectives": [
+    "Orisii ounje ati eso",
+    "Bi a se n se ounje",
+    "Bi a se n jeun"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Ere ati idaraya omode (L2)",
+   "objectives": [
+    "Awon ere osupa bii Bojuboju, Ekun meeran, Mude-mude, Ta lo wa ninu ogba naa abbl"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Eniyan/nnkan kika (L2)",
+   "objectives": [
+    "Onka eniyan (obinrin, okunrin, osise ati akeko)",
+    "Onka nnkan bii igi, ile, iwe, moto, aga, tabili abbl"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Oja rira ati tita nile Yoruba (L2)",
+   "objectives": [
+    "Alaye lori oja",
+    "Ipolowo oja ni ile Yoruba: ipolowo ounje bii isu, agbado, iyan, ewa abbl, ati ipolowo awon nnkan miiran"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Asa igbeyawo (L2)",
+   "objectives": [
+    "Awon igbese eto igbeyawo: ifojusode, alarina, idana, igbeyawo"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Eto omo bibi (L2)",
+   "objectives": [
+    "Oyun nini",
+    "Itoju oyun",
+    "Ibimo",
+    "Ikomojade"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Akoko igba ati oju ojo (L2)",
+   "objectives": [
+    "Igba ojo, igba eerun, oginitin, oye ati ooru",
+    "Ikini ni asiko wonyi"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Odun ibile Yoruba (L2)",
+   "objectives": [
+    "Orisiirisii odun ibile bii odun Sango, Oya, Ogun, Esu, Egungun, odun Ifa abbl"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Aso wiwo nile Yoruba (L2)",
+   "objectives": [
+    "Orisiirisii aso ati iwoso",
+    "Awon isesi ti o ro mo aso wiwo"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Imototo ara (L2)",
+   "objectives": [
+    "Imototo ara eni bii eyin, eekanna, oju, irun ori, ara, atelese abbl",
+    "Imototo ile bii ile gbigba, awo fifo, ile ninu, jankariwo gbigbon",
+    "Imototo aso bii aso fifo, aso lilo, aso kika ati kikopamo"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Irinajo (L2)",
+   "objectives": [
+    "Awon ohun irinna bii ile, oju omi, ofurufu, esin, reluwe abbl",
+    "Awon ibi ti a le lo bii oko, ile, oja, ile eko, ilu miiran abbl",
+    "Ijuwe ona ati ibi ti nnkan wa"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  },
+  {
+   "name": "Oku sinsin ni ile Yoruba (L2)",
+   "objectives": [
+    "Itufo",
+    "Ile gbigbe",
+    "Wiwe oku",
+    "Isinku"
+   ],
+   "content": "Yoruba L2, Akori: Asa ati Ise (Culture and Tradition).",
+   "subtopics": []
+  }
+ ]
+}

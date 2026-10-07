@@ -1,0 +1,753 @@
+{
+ "exam": "BECE",
+ "subject": "Igbo",
+ "level": "JUNIOR",
+ "sourceFile": "Copy of Igbo BECE Syllabus - syllabusNG.txt",
+ "examFormat": "Part of the 9-year Basic Education Curriculum for Igbo, the syllabus aims at fluent speaking, reading and writing of Igbo as a mother tongue/immediate environment language (L1) or as a second language (L2), and assesses reading, writing and comprehension, correct sentence construction, literary appreciation, translation from English to Igbo, and understanding of Igbo customs, social values, norms, institutions and traditions. L1 has two papers of 60 multiple-choice questions each (120 in all): Paper 1 covers comprehension (10), composition (5), grammar (25), sound system (10), orthography (5) and translation (5); Paper 2 covers oral literature (15), prose (5), drama (5), poetry (5) and culture and tradition (20). L2 is one 1-hour paper of 60 multiple-choice questions in sections A-D: written comprehension (10), dialogue (10), numbers, greetings, alphabets, translation, grammar and culture (25), and pictures of time, the human body, animals, crops, utensils and school-related items (15).",
+ "excluded": "syllabus.ng 'About us', 'About BECE', eligibility, grading, registration and FAQ chapters. The L1 and L2 syllabuses are combined in this one file; L2 topic names are suffixed '(L2)'. The extraction dropped Igbo diacritics (dotted vowels, tone marks) and garbled many words, so Igbo is written in plain orthography with clear OCR errors corrected (e.g. 'Myinudaume' → 'Myiriudaume', 'Akpaalaokuu' → 'Akpaalaokwu'). Several items were cut off at line ends and were completed only where the rest is obvious; unclear words were kept close to the source (e.g. 'Mburo/Mburu', 'Omemnobi', 'Aka md Ocha', 'Oruuru'). The prose title 'CEIUKWU NONSO' is read as 'Chukwu Nonso' (doubtful). The poetry set book is printed both as 'Zeruwa' by Ikechukwu Ihejirika and 'Zereuwa nke Okechukwu Ihejirika'; 'Zeruwa' / Ikechukwu Ihejirika is used. Topic XVII 'Orubere na oru umuaka' is given as 'Oke na oru umuaka' and XIII 'Oniru oya na-azu ahia' as 'Oruuru onye na-azu ahia', from their content items.",
+ "recommendedTexts": [
+  "Uwa Di Omimi (L1 prose) — Anayo Ikeora (Uzu Oji Publishers)",
+  "Chukwu Nonso (L1 prose) — S.C. Okechukwu (Mis Fav Publishers)",
+  "Aka Ekpuchi Eziokwu (L1 drama) — S.N. Okafor (Elites Publishers)",
+  "Ka Ma Nke (L1 drama) — M.O. Agugu (Matag Edu Resources)",
+  "Zeruwa (L1 poetry) — Ikechukwu Ihejirika (Format Publishers)",
+  "Mgbaama maka Omumu Asusu, Agumagu, Omenala, Ewumewu na Nto Asusu Igbo nke ndi Junio Sekondiri 1-3 — Usoh Rose A.N. (Kemji Publishers)",
+  "Akwukwo Uto Asusu Igbo (A Text/Workbook) JSS 1-3 — Okechukwu Chizitere and Chibuzor Favour (Mis Fav Publishers)",
+  "Ezumezu Omumu Igbo maka Junio Sekondiri Skuul JSS 1, 2 & 3 — Ichie A.O. Umeh et al. (Pacific Publishers)",
+  "Ndezu Uto Asusu Igbo nke ndi Junio Sekondiri JSS 1, 2 & 3 — Chinedu E. Ofomata (Format Publishers)",
+  "Igbo Junio Sekondiri n'Usoro Bezik Edukeshon Books 1, 2 and 3 — Chinedu E. Ofomata (Elites Publishers)",
+  "Igbo Ohuu ndi Junio Sekondiri 1, 2 & 3 — C.F. Demson (Avan Global)",
+  "Ogene Ike Na-Akpo Dike (supplementary) — Nzeako J.T. (God's Eagle)",
+  "Opi Dufuo Dike (supplementary) — Abara C.U. (Pacific Publishers)",
+  "Mbem Igbo (supplementary) — (UPC)",
+  "Ehi Na-Enweghi Odudu Chi Ya Na-Achuru Ya (supplementary) — Nzeako J.T. (God's Eagle)",
+  "Oba Uto Asusu Igbo (supplementary) — Oliver Akponye (Totan)",
+  "Onwu Egbughi Achara (supplementary) — Grace Obasi (Pacific)",
+  "Igbo for Learners (3rd ed.) (L2) — O.C. Ihejirika (PCC and Press Limited)",
+  "Igbo Ekele (L2) — E.N. Emenanjo et al. (University Press)",
+  "Learn Igbo as a Second Language (L2) — M.C. Agwufodile (During Ventures)",
+  "Mmalite Omumu Asusu Igbo (L2) — Kammelu N.C. et al. (Crofex Publishers)",
+  "Igbo English Dictionary (L2 supplementary) — J.G. Eke (New Creation Books)",
+  "Understanding for JS 1, 2 and 3 — Demson C.F. (Avan Global)"
+ ],
+ "topics": [
+  {
+   "name": "Aghotaazaa",
+   "objectives": [
+    "Igu akuko Igbo were were",
+    "Igu akuko Igbo na ighota ihe a na-agu",
+    "Ikowa isi ihe a guru",
+    "Ikowa okwu ndi siri ike",
+    "Iza ajuju ndi so ya",
+    "Isiokwu di iche iche dika iji mmadu atu mgbere, ito mmadu, dgz"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Asusu",
+   "objectives": [
+    "Njirimara na oru asusu",
+    "Ndiiche di n'etiti asusu na uzo e si eziputa ihe e bu n'uche",
+    "Uru asusu baara ndi na-asu ya",
+    "Ikowa ndi bu ndi Igbo na asusu ha",
+    "Iziputa ebe a na-asu Igbo",
+    "Igosi uzo di iche iche e si ama ndi Igbo"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Udaasusu Igbo na usoro odide Igbo",
+   "objectives": [
+    "Udaume",
+    "Mgbochiume",
+    "Myiriudaume",
+    "Akaraedemede",
+    "Mgbakwunye",
+    "Akara udaolu"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Onuogugu",
+   "objectives": [
+    "Igu site n'otu ruo na nari ise",
+    "Igu site n'otu ruo na otu puku",
+    "Igu site n'otu ruo na nde ise",
+    "Igu elekere",
+    "Ikwuputa ihe na-aku n'elekere"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Nkebiokwu",
+   "objectives": [
+    "Ihe bu nkebiokwu",
+    "Nkebiokwu di iche iche dika keaha, kenkowaaha, kembuuzo, kenruaka",
+    "Mmebe ahiriokwu nwere nkebiokwu",
+    "Ngosi nkebiokwu n'ahiriokwu"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Nkebiahiri",
+   "objectives": [
+    "Ihe bu nkebiahiri",
+    "Nkebiahiri di iche iche",
+    "Ngosi nkebiahiri n'ahiriokwu"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Akaraedemede",
+   "objectives": [
+    "Ihe bu akaraedemede",
+    "Udi akaraedemede di iche iche",
+    "Itinye akaraedemede n'ahiriokwu",
+    "Uru akaraedemede bara"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Nkejiasusu",
+   "objectives": [
+    "Mkpoaha di iche iche: aha, nnochiaha, onuogugu, njuajuju",
+    "Ngwaa",
+    "Nkowaaha",
+    "Njiko",
+    "Mbuuzo",
+    "Nkwuwa"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Mkpuruedemede na usoro odide abidii Igbo",
+   "objectives": [
+    "Imata mkpuruedemede di iche iche",
+    "Iguputa ha n'otu n'otu",
+    "Iji ha mebe mkpuruokwu Igbo"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Oru 'Na' na-aru",
+   "objectives": [
+    "Idi iche iche 'na' na-aru n'ahiriokwu",
+    "Ebe 'na' na-aru oru di iche iche",
+    "Ahiriokwu di iche iche na-egosiputa oru 'na' dika mbuuzo, njiko, nnyemakangwaa"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ntughari",
+   "objectives": [
+    "Itughari mkpuruokwu Igbo n'asusu Bekee",
+    "Itughari mkpuruokwu Bekee n'asusu Igbo",
+    "Itughari ahiriokwu Igbo n'asusu Bekee na nke Bekee n'asusu Igbo"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Edemede",
+   "objectives": [
+    "Nkowa edemede",
+    "Edemede di iche iche",
+    "Nkebi edemede",
+    "Okpurukpuokwu",
+    "Nhazi edemede",
+    "Asusu nka"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Edemede leta",
+   "objectives": [
+    "Udi leta di iche iche",
+    "Ikwu mpaghara di iche iche e nwere na leta",
+    "Ikwu etu e si ahazi leta",
+    "Ide udi leta di iche iche"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ekuumekwu",
+   "objectives": [
+    "Ihe di iche iche umuaka na-eme n'ezinaulo",
+    "Nrubeisi na ndebe iwu",
+    "Nkowa nrubeisi na ndebe iwu",
+    "Agwa nrubeisi na ndebe iwu",
+    "Uru nrubeisi na ndebe iwu bara"
+   ],
+   "content": "Igbo L1, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Agumagu",
+   "objectives": [
+    "Akuko di iche iche",
+    "Ejije",
+    "Abu di iche iche",
+    "Njirimara agumagu odinaala",
+    "Uru agumagu bara"
+   ],
+   "content": "Igbo L1, Isiokwu: Agumagu.",
+   "subtopics": []
+  },
+  {
+   "name": "Atumatuokwu",
+   "objectives": [
+    "Ilu",
+    "Akpaalaokwu",
+    "Agwugwa",
+    "Okwuntabiire",
+    "Mburu",
+    "Myiri",
+    "Mmemmadu",
+    "Ukabuilu"
+   ],
+   "content": "Igbo L1, Isiokwu: Agumagu.",
+   "subtopics": []
+  },
+  {
+   "name": "Akwukwo ogugu ndi a hoputara",
+   "objectives": [
+    "Ogugu akwukwo a hoputara",
+    "Nkowa isi ihe akwukwo na-ekwu maka ya",
+    "Nkowa okwu ufodu di ka atumatuokwu a goro",
+    "Agwa ufodu di n'akwukwo a guru",
+    "Uche umuaka banyere isi ihe akwukwo na-ekwu"
+   ],
+   "content": "Igbo L1, Isiokwu: Agumagu. Akwukwo agumagu a hoputara maka BECE Igbo L1 (2020-2023).",
+   "subtopics": [
+    {
+     "name": "Uwa Di Omimi (Anayo Ikeora)",
+     "objectives": [
+      "Ogugu na nkowa akwukwo akuko (prose)"
+     ]
+    },
+    {
+     "name": "Chukwu Nonso (S.C. Okechukwu)",
+     "objectives": [
+      "Ogugu na nkowa akwukwo akuko (prose)"
+     ]
+    },
+    {
+     "name": "Aka Ekpuchi Eziokwu (S.N. Okafor)",
+     "objectives": [
+      "Ogugu na nkowa akwukwo ejije (drama)"
+     ]
+    },
+    {
+     "name": "Ka Ma Nke (M.O. Agugu)",
+     "objectives": [
+      "Ogugu na nkowa akwukwo ejije (drama)"
+     ]
+    },
+    {
+     "name": "Zeruwa (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Ogugu na nkowa abu ndi a hoputara (poetry)"
+     ]
+    },
+    {
+     "name": "Obodo m Naijiria (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 7"
+     ]
+    },
+    {
+     "name": "Mbakammaa (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 10"
+     ]
+    },
+    {
+     "name": "Ezi Nwanyi di uko (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 14"
+     ]
+    },
+    {
+     "name": "Ekwenti (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 18"
+     ]
+    },
+    {
+     "name": "Omemnobi (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 21"
+     ]
+    },
+    {
+     "name": "Anwunta (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 26"
+     ]
+    },
+    {
+     "name": "Mma (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 29"
+     ]
+    },
+    {
+     "name": "Agha a mara Okwa ya (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 30"
+     ]
+    },
+    {
+     "name": "Aka md Ocha (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 51"
+     ]
+    },
+    {
+     "name": "Nwanyi bu nwa (Ikechukwu Ihejirika)",
+     "objectives": [
+      "Abu a hoputara site na Zeruwa, peeji 57"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ikowa ndi bu ndi Igbo na asusu ha",
+   "objectives": [
+    "Ndi bu ndi Igbo",
+    "Njirimara ndi Igbo",
+    "Ebe di iche iche bu ala Igbo na Nigeria",
+    "Igosi uzo di iche iche e si ama ndi Igbo",
+    "Ndi Igbo na agbataobi ha",
+    "Akuko di iche iche gbasara ebe ha siri malite"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nrukorita oru na uru o bara",
+   "objectives": [
+    "Nkowa ihe nrukorita oru bu",
+    "Ikowa usoro na iwu nrukorita",
+    "Uru na ogbom di na nrukorita oru"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ikowa ufodu omenaala Igbo",
+   "objectives": [
+    "Ekele ndi Igbo na mgbe eji ekele ha",
+    "Iga ozi",
+    "Irubeisi",
+    "Iwa oji, udi oji di iche iche na uru oji bara",
+    "Ilu nwaanyi",
+    "Iri ji",
+    "Ile omugwo",
+    "Myiri na ndiiche ha",
+    "Uru na ogbom ha",
+    "Mgbanwe na-abata n'omenaala",
+    "Ezinaulo na udi ya, oru diiri nne, nna na umuaka n'ezinaulo",
+    "Ile obia"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Otu nzuzo n'uloakwukwo",
+   "objectives": [
+    "Ide edemede nduzi banyere otu nzuzo",
+    "Ide edemede di mfe gara n'usoro banyere otu nzuzo",
+    "Ikoputa nsogbu na-esite n'otu nzuzo n'uloakwukwo"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Udi oru nwoke na nwaanyi na-aru ugbu a",
+   "objectives": [
+    "Ikowaputa udi oru di iche iche",
+    "Ikowaputa oru naani nwoke maobu nwaanyi na-aru",
+    "Ide udi oru nwoke na nwaanyi na-aru"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ubiam na aguu",
+   "objectives": [
+    "Ikpochapu ubiam na aguu n'ala anyi",
+    "Ikowa ihe bu ubiam na aguu",
+    "Ikowaputa ihe na-ebute ubiam na aguu",
+    "Ikowaputa uzo di iche iche e si ekpochapu ma na-egbochikwa ubiam na aguu"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ahuike",
+   "objectives": [
+    "Ikwu ihe bu ahuike",
+    "Ikwu oria di iche iche",
+    "Ihe na-ebute oria di iche iche",
+    "Ikwu mgbochi oria di iche iche",
+    "Izu na inu ogwu aghara aghara",
+    "Ikowa ihe bu ogwu",
+    "Mgbe e ji anu ogwu",
+    "Onye kwesiri ide ogwu",
+    "Ebe e kwesiri izuta ogwu",
+    "Nsogbu di n'izu na n'inu anwuru ike"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ahuike ndi ntorobia",
+   "objectives": [
+    "Nkowa ndi ntorobia",
+    "Mgbanwe na-ahu ndi ntorobia",
+    "Oria ufodu na-emetuta ndi ntorobia",
+    "Uzo mgbochi oria ndi a"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nzisaozi",
+   "objectives": [
+    "Uzo nzisaozi nke odinaala dika okwu onu, ekwe, egbe, ogele, dgz",
+    "Uzo nzisaozi nke ugbu a dika ekwenti, redio, tiivii, nuzpepa (akwukwo akuko), komputa, dgz",
+    "Uru izisa ozi bara"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Igu oge",
+   "objectives": [
+    "Oge elekere",
+    "Oge ubochi",
+    "Oge izu",
+    "Oge afo"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Mmeputa na mbawanye akunauba n'ala anyi",
+   "objectives": [
+    "Ihe ndi e ji enweta ego",
+    "Uzo e si enweta ego",
+    "Uzo e si eme ka akunauba na-abawanye",
+    "Ikpata ego n'uzo ziri ezi"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Akaoru",
+   "objectives": [
+    "Ihe bu akaoru",
+    "Udi akaoru di iche iche",
+    "Ozuzu maka akaoru",
+    "Uru akaoru bara"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Oruuru onye na-azu ahia",
+   "objectives": [
+    "Ihe bu azumahia",
+    "Nsogbu di n'izu ahia",
+    "Uzo e si arugbu onye gara izu ahia",
+    "Oruuru onye gara izu ahia"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ikwado na inye nwaanyi ikike na ohere dika ndi nwoke",
+   "objectives": [
+    "Uzo di iche iche a ga-esi na-enye nwaanyi ohere",
+    "Otu a ga-esi kwado nwaanyi",
+    "Ebe di iche iche nwaanyi nwere ike iputa n'ochichi",
+    "Umunwaanyi ndi nwetarala ezigbo onodu n'ochichi govmenti"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ibi n'udo",
+   "objectives": [
+    "Nkowa ihe bu ibi n'udo",
+    "Etu e si ebi n'udo",
+    "Uru di na ibi n'udo"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Agwa oma na agwa ojoo",
+   "objectives": [
+    "Ihe bu agwa oma na agwa ojoo",
+    "Uru agwa oma bara",
+    "Ohom ikpa agwa ojoo"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Oke na oru umuaka",
+   "objectives": [
+    "Ihe bu oke",
+    "Oke na oru umuaka",
+    "Uru inye umuaka oke ha bara",
+    "Uru baara umuaka ima oke na oru ha"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nrugosi",
+   "objectives": [
+    "Irugosi ihe ndi di n'ime na gburugburu uloakwukwo na n'ebe obibi ha",
+    "Irugosi ndi mmadu site n'aha umunna na etu ha si metuta",
+    "Irugosi ufodu akuku ahu mmadu",
+    "Irugosi anumanu di iche iche"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Uloakwukwo, ezinaulo na uloogwu",
+   "objectives": [
+    "Ozi di mfe gbasara uloakwukwo na gburugburu ya dika n'ime klasi na ama egwuregwu, dgz",
+    "Ozi di mfe gbasara gburugburu ezinaulo",
+    "Ozi di mfe gbasara uloogwu dika n'ime uloogwu, ofisi dokita, dgz"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nri na etu e si eri ya",
+   "objectives": [
+    "Aha nri Igbo tinyere mkpuruosisi",
+    "Nri a na-eri n'oge di iche iche n'ubochi",
+    "Uzo di iche iche e si akpo mmadu oku nri na etu e si aju maobu kwe",
+    "Ikowa ihe ndi a na-eme mgbe a na-esi nri",
+    "Akaoru di iche iche dika oru ubi, ire nri, igbu azu nakwa ichu nta",
+    "Itulekorita ufodu omenaala Igbo na nke umuakwukwo gbasara etu e si esi nri"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Uwe na etu e si eyi uwe",
+   "objectives": [
+    "Ikowa ihe di iche iche a na-eyi n'ahu",
+    "Uwe ndi a na-eyi na mmemme di iche iche",
+    "Ntulerikota omenaala Igbo gbasara uwe, etu e si akwa na etu e si eyi uwe"
+   ],
+   "content": "Igbo L1, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Onuogugu na igu onu (L2)",
+   "objectives": [
+    "Onuogugu bido n'otu ruo na puku",
+    "Mgbako na mwepu di mfe bido n'otu ruo na puku",
+    "Nomba usoro ndi metutara nari nakwa onuogugu ndi di n'etiti ha",
+    "Nomba nke dika onye nke mbu wee ruo n'onye nke iri abuo",
+    "Nomba mpekele dika okara (1/2), otu n'oke ato (1/3), otu n'oke ano (1/4), dgz"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Iju na igwa mmadu ihe (L2)",
+   "objectives": [
+    "Iju ajuju mfe gbasara ndi mmadu na ebe di iche iche",
+    "Izi ozi gbasara ndi mmadu na ebe di iche iche",
+    "Irio enyemaka n'uzo di iche iche ndi Igbo si ario ya",
+    "Igu na ide ozi aririo e dere ede",
+    "Iza ajuju",
+    "Ntimiwu mfe na irio ihe",
+    "Ntimiwu mfe dika bia, gaa, nodu ala, kwusi, bulie, dgz",
+    "Ime ihe ntimiwu mfe kwuru",
+    "Irio ihe n'ahiriokwu di mfe"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Iga njem (L2)",
+   "objectives": [
+    "Mkparita okwu n'uzo di mfe gbasara njem okporouzo, njem ugbommiri, njem ugbookporoigwe na njem ugboelu"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ime nduzi mfe (L2)",
+   "objectives": [
+    "Kadinal point",
+    "Ugwu/mgbago, ndida, owuwa anyanwu, odida anyanwu",
+    "Elu, ala, azu, ihu, akanri, akaekpe, dgz"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Nkowa di mfe metutara nha, ole na ucha (L2)",
+   "objectives": [
+    "Nkowa ihe dika etu ha di na ole ha di",
+    "Nkowa ucha ihe na ucha mmadu na ebe obibi"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Udaasusu (L2)",
+   "objectives": [
+    "Mkpuruedemede Igbo",
+    "Udaume",
+    "Mgbochiume",
+    "Myiriudaume"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Nkowa etu obi na ahu di mmadu (L2)",
+   "objectives": [
+    "Iji ahiriokwu kowaa ihe na-eme ha maobu ndi ozo dika aguu, akpiri ikpo nku, oria na ike ogwugwu",
+    "Ikowaputa ihe ndi ha choro na ihe ndi na-akpa ha",
+    "Ikowa ka e si ele obia",
+    "Imebe ahiriokwu ndi na-atulekorita ihe gbasara mmadu na ibe ya, mmemme na mmereeme, mmeniihu"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Oge, oge afo na ihu igwe (L2)",
+   "objectives": [
+    "Nkowa di mfe gbasara oge di iche iche di n'ubochi, izu, onwa nakwa n'afo dika ikwu ihe elekere na-aku, okochi na udummiri, mgbe onwa na-eti, mgbe okeokpa ji akwa",
+    "Mgbakwunye ntoasusu di iche iche e ji egosiputa oge dika mmenugbu a, mmereeme, mmeniihu"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Izu na ire ahia (L2)",
+   "objectives": [
+    "Nkwukorita okwu n'uzo di mfe gbasara izu na ire ahia dika n'ahia, shopu nakwa supa maketi"
+   ],
+   "content": "Igbo L2, Isiokwu: Asusu.",
+   "subtopics": []
+  },
+  {
+   "name": "Uri ndi di mfe na egwuregwu (L2)",
+   "objectives": [
+    "Abu umuaka",
+    "Uri",
+    "Egwuregwu dika kpokpo nwangwere aka, akoro, dgz"
+   ],
+   "content": "Igbo L2, Isiokwu: Agumagu.",
+   "subtopics": []
+  },
+  {
+   "name": "Akuko na abu (L2)",
+   "objectives": [
+    "Umu nkenke akuko",
+    "Abu na uri ndi di mfe"
+   ],
+   "content": "Igbo L2, Isiokwu: Agumagu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ekele (L2)",
+   "objectives": [
+    "Ekele maka mgbe di iche iche",
+    "Ikele ekele n'uzo dabara adaba n'asusu Igbo",
+    "Ikwe ekele n'uzo dabara adaba n'asusu Igbo",
+    "Inara ike were puo n'uzo dabara adaba",
+    "Igosiputa udi mmeghari ahu na-eso ekele obula n'asusu Igbo",
+    "Iji uzo di iche iche dabara adaba kelee ekele n'oge di iche iche"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nrugosi (L2)",
+   "objectives": [
+    "Irugosi ihe ndi di n'ime na gburugburu uloakwukwo na n'ebe obibi ha",
+    "Irugosi ndi mmadu site n'aha umunna na etu ha si metuta",
+    "Irugosi ufodu akuku ahu mmadu",
+    "Irugosi anumanu di iche iche"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Uloakwukwo, ezinaulo na uloogwu (L2)",
+   "objectives": [
+    "Ozi di mfe gbasara uloakwukwo na gburugburu dika n'ime klasi na ama egwuregwu, dgz",
+    "Ozi di mfe gbasara gburugburu ezinaulo",
+    "Ozi di mfe gbasara uloogwu dika n'ime uloogwu, ofisi dokita, dgz"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Nri na etu e si eri ya (L2)",
+   "objectives": [
+    "Aha nri Igbo tinyere mkpuruosisi",
+    "Nri a na-eri n'oge di iche iche n'ubochi",
+    "Uzo di iche iche e si akpo mmadu oku nri na etu e si aju maobu kwe",
+    "Ikowa ihe ndi a na-eme mgbe a na-esi nri",
+    "Akaoru di iche iche dika oru ubi, ire nri, igbu azu nakwa ichu nta",
+    "Itulekorita ufodu omenaala Igbo na nke umuakwukwo gbasara etu e si esi nri"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Uwe na etu e si eyi uwe (L2)",
+   "objectives": [
+    "Ikowa ihe di iche iche a na-eyi n'ahu",
+    "Uwe ndi a na-eyi na mmemme di iche iche",
+    "Ntulerikota omenaala Igbo gbasara uwe, etu e si akwa na etu e si eyi uwe",
+    "Oru di iche iche dika ikwe akwa, ikwa akwa",
+    "Ikowa etu e si acho isi mma dika ibo isi, ikpu isi, dgz",
+    "Ihe ufodu metutara idi ocha nke onwe"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  },
+  {
+   "name": "Ihe ndi na-eme n'ezinaulo (L2)",
+   "objectives": [
+    "Alum di na nwunye na imu nwa",
+    "Omenaala na-eso ilu di na nwunye",
+    "Idi ime",
+    "Nkwadobe a na-eme maka obibia nwa ohuru",
+    "Imu nwa na ufodu emume na-eso ya, na ka e si elekota nwaanyi muru nwa"
+   ],
+   "content": "Igbo L2, Isiokwu: Omenaala.",
+   "subtopics": []
+  }
+ ]
+}

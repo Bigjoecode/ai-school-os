@@ -1,0 +1,654 @@
+{
+ "exam": "BECE",
+ "subject": "Hausa",
+ "level": "JUNIOR",
+ "sourceFile": "Copy of Hausa BECE Syllabus - syllabusNG.txt",
+ "examFormat": "Derived from the 9-year Basic Education Curriculum, the syllabus has two parts: L1 (Hausa as mother tongue or language of the immediate environment) and L2 (Hausa as a second language). L1 candidates should express themselves in appropriate Hausa, know Hausa oral tradition, read and appreciate Hausa literature and write with correct grammar, idioms, orthography and punctuation; L2 candidates should understand and express themselves in common Hausa and listen, read and interact with Hausa people. L1 has two 1-hour papers: Paper 1 is 60 multiple-choice questions on comprehension (10), composition (5), grammar (25), sound system (10), orthography (5) and translation (5); Paper 2 is 60 questions on oral literature (15), written literature (25) and culture/tradition (20). L2 is one 1-hour paper of 60 multiple-choice questions: written comprehension (10), dialogue/conversation (10), numbers, greetings, alphabet, translation, grammar and culture (25), and pictorial identification of time, the human body, animals, crops/vegetables and domestic utensils (15).",
+ "excluded": "syllabus.ng 'About us', 'About BECE', eligibility, grading, registration and FAQ chapters. The L1 and L2 syllabuses are combined in this one file; L2 topic names are suffixed '(L2)'. The L1 literature theme heading was missing in the extraction and is taken as 'Adabi' (as in L2). The extraction lost Hausa hooked letters (ɓ, ɗ, ƙ, 'y) and garbled many words; text is written in plain orthography and OCR errors corrected where the reading was clear (e.g. 'Gab0bin' → 'Gabobin', 'kucfi' → 'kudi', 'Ilaba-haba' → 'haba-haba'). Uncertain readings: the organs of speech list ('Hanka', 'Hancfa' read as 'hanci'), 'etra da gursimeti' and the insha'i type 'na tadillira' (kept as printed), L2 topic 'Nema alfarma da tuyar da' (cut off; given as 'Neman alfarma'), and the poetry anthology 'Alkalami A Hannun' by 'Gwararn H.' (title and author possibly truncated/garbled, kept as printed). Repeated L1 theme headings ('Ginshikin ginin al'umma', 'Dabi'u da al'adu') are qualified by their first content item.",
+ "recommendedTexts": [
+  "Gogan Naka (prose) — Funtua M.S.G. (NNPC)",
+  "Gandoki (prose) — Bello A.M. (NNPC)",
+  "Kukan Kurciya (drama) — Bambale M.B. (NNPC)",
+  "Wasannin Yara (drama) — Dembo U. (NNPC)",
+  "Alkalami A Hannun (poetry) — Gwararn H. et al. (NNPC)",
+  "Sabuwar Hanyar Nazarin Hausa 1-3 (supplementary, L1) — Zarruk M.R. et al.",
+  "Hausa Don Kananan Makarantun Sakandare 1-3 (supplementary, L1) — Galadanci M.K.M. et al. (Longman Nigeria)",
+  "Koyon Hausa 1, 2 & 3 (L2) — Junai et al. (UPL)"
+ ],
+ "topics": [
+  {
+   "name": "Jimla: tsarin sassaukar jimla",
+   "objectives": [
+    "Ma'anar jimla a takaice",
+    "Bayanin sassan sassaukar jimla",
+    "Ambato kalmomi cikin kowane sashe na sassaukar jimla"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Tsarin tsattsaurar jimla",
+   "objectives": [
+    "Ma'anar tsattsaurar jimla a takaice",
+    "Bayanin fasalin tsattsaurar jimla",
+    "Ire-iren tsattsaurar jimla: jimlar umurni da ta tambaya"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Rukunin kalmomi",
+   "objectives": [
+    "Ma'anar rukunonin kalmomi",
+    "Rukunin kalmomi: suna, wakilin suna, aikatau, sifa, bayanau",
+    "Misalan rukunonin kalmomi"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Ginin kalmomi",
+   "objectives": [
+    "Ma'anar ginin kalma",
+    "Jinsi: tamata (mace) da namiji",
+    "Adadi: tilo da jam'i"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Nau'o'in jimloli",
+   "objectives": [
+    "Ma'anar jimla",
+    "Ire-iren jimla: jimlar bayani, jimlar tambaya, jimlar umurni, jimlar korewa",
+    "Bambanci tsakanin nau'o'in jimloli: kalma ta jimlar umurni (tafi!, zauna!, zo!) da kalmar tambaya cikin jimlar tambaya (Me Ali ya saya?, Wa ya sa?, Wa ya mari Binta?)"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Furuci",
+   "objectives": [
+    "Ma'anar furuci",
+    "Gabobin furuci: lebba, hakora, harshe, hanka, ganda, hanci, makogwaro"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Yadda ake samar da sautin furuci",
+   "objectives": [
+    "Bayyana yadda ake samar da sautin furuci",
+    "Gabobi masu motsi, misali harshe, lebe, d.s.",
+    "Gabobi marasa motsi, misali hanka, ganda, dasashi, hanci, d.s."
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Auna fahimta",
+   "objectives": [
+    "Karanta labari a bayyane",
+    "Ma'anar auna fahimta",
+    "Bayanin muhimman kalmomi",
+    "Karanta labari a zuci",
+    "Amsa tambayoyin labari",
+    "Nau'o'in jawaban auna fahimta",
+    "Na wayar da kai: game da HIV, muhalli, shan miyagun kwayoyi, tsaro, da abubuwa masu tasowa",
+    "Na fasaha da kirkire-kirkire: fasahar komfuta da sadarwa",
+    "Zaman lafiya a kasa, kare mutunci da hakkin masu saye"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Fassara",
+   "objectives": [
+    "Ma'anar fassara",
+    "Ire-iren fassara: ta baka (tafinta), ta rubutu, mai 'yanci, maras 'yanci",
+    "Fassarar jimloli da gajerun jawabai"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Insha'i",
+   "objectives": [
+    "Ma'anar insha'i",
+    "Ire-iren insha'i: na siffantawa, na labari, na muhawara, na bayyanawa, na tadillira, na karin magana, na rubutun wasika",
+    "Bayanin nau'o'in insha'i"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Sigar insha'i",
+   "objectives": [
+    "Sigar insha'i",
+    "Tantance sigar insha'i: gabatarwa, gangar jiki/ginshiki/gundari, kammalawa"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Rubutun wasika",
+   "objectives": [
+    "Ire-iren wasika",
+    "Fasalin rubutun wasika",
+    "Bayanin wasikar ma'aikata ta neman aiki"
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Ka'idojin rubutu",
+   "objectives": [
+    "Ma'anar ka'idojin rubutu",
+    "Tantance alamomin rubutu",
+    "Amfani da alamomin rubutu",
+    "Wuraren hada kalmomi: Kowanne ba Kowan ne ba; Nakan ba Na kan ba; Yana ba Ya na ba",
+    "Wuraren raba kalmomi: Za ta ba Zata ba; Za shi ba Zashi ba; Rigarsa/rigarta ba Rigar sa/rigar ta ba, d.s."
+   ],
+   "content": "Hausa L1, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Wasannin kwaikwayo",
+   "objectives": [
+    "Gajerun wasannin kwaikwayo: ma'anar wasan kwaikwayo",
+    "Bayani game da wasan kwaikwayo",
+    "Shiryawa da aiwatarwa",
+    "Darussan wasan kwaikwayo"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Rubutattun wakoki",
+   "objectives": [
+    "Ma'anar rubutacciyar waka",
+    "Karatun gajerun rubutattun wakoki",
+    "Fito da zubi da tsarin wakoki",
+    "Ma'anar muhimman kalmomi",
+    "Darussan wakoki"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Labarai masu tushen karin magana (zube)",
+   "objectives": [
+    "Karatun labarai masu tushen karin magana",
+    "Bayanin abubuwan da labarai suka kunsa",
+    "Ma'anar muhimman kalmomi",
+    "Darussa daga labarai"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Rubutaccen adabi",
+   "objectives": [
+    "Ma'anar rubutaccen adabi a saukake",
+    "Rukunonin rubutaccen adabi: zube, waka, wasan kwaikwayo",
+    "Bayanin rukunonin rubutaccen adabi da misalansu",
+    "Nazarin zababbun littattafai dangane da jigo, salo da tsari, da taurari"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Zababbun rubutattun wasannin kwaikwayo",
+   "objectives": [
+    "Nazarin zababbun rubutattun wasan kwaikwayo dangane da: jigo, salo, zubi da tsari, bayanin wasan kwaikwayo, taurari"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Zababbun rubutattun wakoki",
+   "objectives": [
+    "Nazarin zababbun rubutattun wakoki dangane da: jigo, salo, zubi da tsari, ma'anar muhimman kalmomi, bayanin wakar"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Zababbun rubutattun zube",
+   "objectives": [
+    "Nazarin zababbun rubutattun zube dangane da: jigo, salo, zubi da tsari, taurari, bayanin labarin"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Adabin baka",
+   "objectives": [
+    "Ma'anar adabin baka",
+    "Wakokin baka (na aiki, na bukukuwa, na reno, na dandali, d.s.)",
+    "Tatsuniyoyi (ma'ana, muhalli, amfani, darussa, tsari da misalai)",
+    "Labarin gargajiya (ma'ana, muhalli, amfani, darussa, tsari da misalai)",
+    "Zaurance (ma'ana, amfani, tsari da misalai)",
+    "Barkwanci (ma'ana, muhalli, amfani da misalai)",
+    "Wakokin makada (rabe-rabe, jigo, salo da tsari)",
+    "Karin magana (ma'ana, ire-ire, muhalli, amfani da misalai)"
+   ],
+   "content": "Hausa L1, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Zababbun littattafan adabi (BECE prescribed texts)",
+   "objectives": [
+    "Karanta da nazarin zababbun littattafan zube, wasan kwaikwayo da wakoki"
+   ],
+   "content": "Littattafan adabi da aka zaba a jerin littattafan BECE Hausa (Recommended Textbooks).",
+   "subtopics": [
+    {
+     "name": "Gogan Naka (Funtua M.S.G.)",
+     "objectives": [
+      "Nazarin littafin zube Gogan Naka"
+     ]
+    },
+    {
+     "name": "Gandoki (Bello A.M.)",
+     "objectives": [
+      "Nazarin littafin zube Gandoki"
+     ]
+    },
+    {
+     "name": "Kukan Kurciya (Bambale M.B.)",
+     "objectives": [
+      "Nazarin wasan kwaikwayo Kukan Kurciya"
+     ]
+    },
+    {
+     "name": "Wasannin Yara (Dembo U.)",
+     "objectives": [
+      "Nazarin wasan kwaikwayo Wasannin Yara"
+     ]
+    },
+    {
+     "name": "Alkalami A Hannun (Gwararn H. et al.)",
+     "objectives": [
+      "Nazarin zababbun wakoki daga littafin"
+     ]
+    },
+    {
+     "name": "Wakar Ta Aziyar Tafawa Balewa da Sardauna",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    },
+    {
+     "name": "Wakar Bude Kos a Tsohuwar Laburare",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    },
+    {
+     "name": "Wakar Kidaya (San-san) 1972",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    },
+    {
+     "name": "Wakar Mu Ci Da Kasarmu",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    },
+    {
+     "name": "Wakar Shirin Tuki Hannun Dama",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    },
+    {
+     "name": "Wakar Gidan Abdu Bako (Zoo)",
+     "objectives": [
+      "Nazarin wakar"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ginshikin ginin al'umma: dabarun tafiyar da rayuwa",
+   "objectives": [
+    "Rikon sana'a da dabarunsa: kyautata sana'a, kawo sabon salo, tsafta, cika alkawari, gaskiya, aiki tukuru, alfahari da sana'a",
+    "Rike iyali da dabarunsa: rikon amana, tabbatar da tarbiyya, biyan bukatu muhimmai, gaskiya, kyautata dangantaka da cusa soyayya a tsakanin iyali, makwabtaka ta gari",
+    "Tattalin kudi da dabarunsa: tsara yadda ake kashe su, kauce wa almubazzaranci, ajiya a banki, ware kudi domin bukatun gida, kiyaye daukar kudi masu yawa",
+    "Cudanya da zamantakewa da dabarunsu: sanin hakkin mutane, tsare mutunci, akidar rayuwa ta gari, samar wa kai kwarjini, zumunci, haba-haba, taimako da hadin kai"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ginshikin ginin al'umma: sana'o'in Hausawa",
+   "objectives": [
+    "Ma'anar sana'a",
+    "Muhimmancin sana'a, misali dogaro da kai, kare mutunci, samun abin masarufi, hana zaman banza, samar da aiki, koyar da sana'a, habaka tattalin arziki, kyautata hulda da juna",
+    "Ire-iren sana'o'i: noma da kiwo, aski da kitso, rini, etra da gursimeti, dukanci, gini, walda, kafinta, kanikanci, zayyana, zanen kwarya, dinki"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Dabi'u da al'adu: miyagun kwayoyi",
+   "objectives": [
+    "Ma'anar miyagun kwayoyi",
+    "Illar shan miyagun kwayoyi",
+    "Bayanin miyagun kwayoyi: wiwi, giya, sholisho",
+    "Bayanin magunguna masu amfani amma idan an wuce ka'ida su zama illa, misali baliyan, penagan, aji garau",
+    "Bayanin illolin shan miyagun kwayoyi da wadanda aka wuce ka'ida: hauka, lalata rayuwa, cututtuka, fita daga cikin jama'a, kadaitaka, kisa"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Sauye-sauyen da suka shafi al'adu",
+   "objectives": [
+    "Ma'anar sauyin al'adu",
+    "Bayanin sauye-sauyen al'adu",
+    "Sauye-sauyen al'adu game da: fannin ilmi, cinikayya da kasuwanci, sana'o'i da sababbin sana'o'i na zamani kamar noma da abinci, bukukuwa, tufafi, zamantakewa, sarauta"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Bukukuwan gargajiya",
+   "objectives": [
+    "Ma'anar bukukuwan gargajiya",
+    "Bayanin bukukuwan gargajiya",
+    "Ire-iren bukukuwan gargajiya kamar bikin aure, suna, sallah, takutaha, sallar gani",
+    "Muhimmancin bukukuwa"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Kayayyakin al'adu",
+   "objectives": [
+    "Zane da kwalliya da tufafin Hausawa",
+    "Zane na kwarya, na tukunya, na gida (dagi, makuba), na tufafi (kwado-da-linzami, sirfani, kufta, alkyabba, abaya)",
+    "Bayanin zane na kwarya, na tukunya, na gida da na tufa",
+    "Ire-iren tufafin Hausawa",
+    "Rukunan mutane dangane da amfani da tufafi"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Dabi'u da al'adu: ibada",
+   "objectives": [
+    "Ma'anar ibada",
+    "Ire-iren ayyukan ibada: sallah, azumi, zakka, haji/ziyara, sada zumunci, sadaka, kyauta, tarbiyya, mu'amala",
+    "Muhimmancin ibada, misali karfafa imani, kyautata mu'amala, samun tarbiyya, aikata ayyuka nagari, kauce wa miyagun ayyuka, gina al'umma ta gari"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Ginshikin ginin al'umma: shugabanci",
+   "objectives": [
+    "Ma'anar shugabanci",
+    "Ire-iren shugabanci: na gida, na gari, na kasa, na addini, na sana'a, na gwamnati (matakai), na karamar hukuma, jiha da kasa",
+    "Muhimmancin shugabanci, misali jagoranci, gudanar da mulki, tabbatar da bin doka, adalci da zaman lafiya, ci-gaban al'umma, girmama juna, tsaro (tsaron lafiya, kasa da dukiya)",
+    "Hawa uku na mulki: bangaren zartarwa, bangaren dokoki (majalisa), bangaren shari'a"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Hanyoyin samar da arziki",
+   "objectives": [
+    "Ma'anar hanyoyin samar da arziki",
+    "Hanyoyin samar da arziki: kiwon zamani (dabbobi - tumaki, awaki, shanu, zomo; tsuntsaye - kaji, jimina, agwagwa, dinya; kifi), noman lambu da 'ya'yan itace, sarrafa kayan abinci, sana'o'in hannu kamar gyaran wayar hannu, kananan kere-kere ko ayyukan sadarwa na komfuta",
+    "Cinikayyar zamani: safarar kaya a gida da ketare, sayen hannun jari, hadin gwiwa, kafa kamfani",
+    "Bayanin jerin hanyoyin samar da arziki"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Dabi'u da al'adu: tsaro",
+   "objectives": [
+    "Ma'anar tsaro",
+    "Nau'o'in tsaro: na kai, na gida, na harkar mu'amala, na gari, na kasa, da bayaninsu",
+    "Hukumomin tsaro: 'yan sanda, sojoji (kasa, ruwa, sama), kwastan, jami'an shige-da-fice, jami'an asiri, jami'an kurkuku",
+    "Shawarwari game da tsaro: sa fitilu, sa kofofi da tagogi masu inganci, ajiye kudi a banki, abokai na gari, tsantseni wajen karbar rance a banki, sirrin bayanan kai, kai rahoton miyagun ayyuka ga 'yan sanda, guje wa wani kunshi a hanya, sa ido kan baki"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Kare-saye",
+   "objectives": [
+    "Ma'anar kare-saye",
+    "Hakkokin mai saye/kare-saye",
+    "Nauyin da suke kan mai saye: hakkin samun biyan bukata, rashin illa ga lafiya, samun bayani, zabi, kai kuka, samun ilmin kare-saye, kai kara"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Keta haddi",
+   "objectives": [
+    "Ma'anar keta haddi (cuta da cin zarafin mutane)",
+    "Misalan keta haddi: satar mutane, safarar mutane, gallaza wa ko azabtar da yara, gallaza wa mata",
+    "Bayanin misalan keta haddin mutane"
+   ],
+   "content": "Hausa L1, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Makaranta da gida da asibiti (L2)",
+   "objectives": [
+    "Kalmomi da suka danganci makaranta da gida da asibiti",
+    "Saukakan jimloli game da makaranta da gida da asibiti"
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Neman alfarma (L2)",
+   "objectives": [
+    "Bayani dangane da mutane da wurare kamar bisa, kasa da baya, da kalmomin mukami kamar Gwamna, Sarki, Hakimi da Mai unguwa",
+    "Kalmomin neman taimako ko alfarma kamar Don Allah, Don Manzon Allah, daure, yi hakuri, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Umurni (L2)",
+   "objectives": [
+    "Kalmomin umurni kamar tafi, zo, zauna, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Gajerun labarai (L2)",
+   "objectives": [
+    "Gajerun labarai da suka kunshi kalmomi",
+    "Karanta da rubuta gajerun labarai"
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Saukakan kalmomin awo (L2)",
+   "objectives": [
+    "Kalmomin da suke nuna adadin abu, kamar buhu tara, mutane biyar, wake kwano biyu, ruwa tulu-tulu, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Tafiye-tafiye (L2)",
+   "objectives": [
+    "Kalmomin da suka danganci tafiye-tafiye kamar hanya, mota, fasinja, direba, d.s.",
+    "Tantance tafiye-tafiye ta jirgin kasa ko ta jirgin ruwa ko ta mota",
+    "Abubuwan da suka danganci jirgin ruwa, na sama da mota"
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Launi (L2)",
+   "objectives": [
+    "Sunayen launuka kamar kore, ja, fari, baki, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Siffofi (L2)",
+   "objectives": [
+    "Kalmomi masu nuna siffar wani ko wani abu kamar baki, fari, rawaya, kewayayye, mai kusurwa, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Rubutun wasika da insha'i (L2)",
+   "objectives": [
+    "Rubutun wasika zuwa ga abokai da iyaye",
+    "Rubutun insha'i a kan wasu sanannun abubuwa"
+   ],
+   "content": "Hausa L2, Jigo: Harshe.",
+   "subtopics": []
+  },
+  {
+   "name": "Saukakan wakoki da wasanni (L2)",
+   "objectives": [
+    "Wakokin yara da wasanni",
+    "Wakokin baka"
+   ],
+   "content": "Hausa L2, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Saukakan zaurance da karin magana (L2)",
+   "objectives": [
+    "Ma'anar zaurance da karin magana",
+    "Misalan zaurance da karin magana"
+   ],
+   "content": "Hausa L2, Jigo: Adabi.",
+   "subtopics": []
+  },
+  {
+   "name": "Gaisuwa (L2)",
+   "objectives": [
+    "Gaisuwar Hausa",
+    "Ire-iren gaisuwa kamar ta safe, rana, yamma, ta mutuwa, ta rashin lafiya, d.s.",
+    "Yadda ake amsa gaisuwa"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Sunayen abubuwa (L2)",
+   "objectives": [
+    "Sunayen abubuwa da suka danganci muhalli, mutane, sassan jikin dan Adam da dabbobi"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Halin da jiki yake ciki (L2)",
+   "objectives": [
+    "Kalmomin da suka danganci halin da jiki yake ciki kamar yunwa, kishirwa, rashin lafiya, gajiya",
+    "Halin da mutum yake ciki kamar jin dadi, bakin ciki, tsoro ko bacin rai"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Alkaluma da kidaya (L2)",
+   "objectives": [
+    "Alkaluman kidaya daga daya zuwa dari, da kidaya daga daya zuwa dari-dari tare da dori zuwa dubu",
+    "Tarawa da debewa daga daya zuwa goma (1-10)",
+    "Kidayar jerantawa kamar na farko, na biyu",
+    "Kidayar kasafi kamar 1/2, 1/3, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Abinci da da'ar cin abinci (L2)",
+   "objectives": [
+    "Ire-iren abincin Hausawa",
+    "'Ya'yan itatuwa",
+    "Dabi'un ci da sha kamar ci, sha, tauna, hadiya, lasa, d.s.",
+    "Dabi'un girke-girke kamar soya, gasawa, dafawa, d.s.",
+    "Da'ar cin abinci kamar yadda ake zaman cin abinci da gayyato wani",
+    "Kayan girka abinci kamar tukunya, kasko, tanda, d.s.",
+    "Kayan cin abinci: ludayi, koko, kwano, akushi, d.s.",
+    "Sana'o'i da suka danganci samar da abinci kamar noma, farauta, su, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Sutura da da'ar sa ta (L2)",
+   "objectives": [
+    "Ire-iren sutura kamar na maza da na mata",
+    "Yadda ake sanya su"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Lokuta (L2)",
+   "objectives": [
+    "Lokutan shekara da yanayi",
+    "Lokutan agogo",
+    "Ranakun mako da watanni",
+    "Lokutan yanayi kamar bazara, zafi, damina, d.s.",
+    "Kalmomin da ke nuna lokacin aiki (wanda ya shude, mai ci da mai zuwa)",
+    "Nuna lokuta na gargajiya kamar carar zakara, rana, d.s."
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Saye da sayarwa (L2)",
+   "objectives": [
+    "Yadda ake ciniki",
+    "Sunayen kayan masarufi",
+    "Wuraren saye da sayarwa (kasuwa, shaguna da kantuna)"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Al'adun aure (L2)",
+   "objectives": [
+    "Matakai na aure",
+    "Yin aure",
+    "Ire-iren aure",
+    "Al'adun aure"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Al'adun haihuwa (L2)",
+   "objectives": [
+    "Shirye-shiryen da ake yi kafin haihuwa",
+    "Yadda ake kula da mai jego"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  },
+  {
+   "name": "Bukukuwa da al'adun gargajiya (L2)",
+   "objectives": [
+    "Takaitaccen bayani a kan wasu bukukuwa da al'adun gargajiya guda uku",
+    "Kalmomin da suka danganci su"
+   ],
+   "content": "Hausa L2, Jigo: Al'adu.",
+   "subtopics": []
+  }
+ ]
+}

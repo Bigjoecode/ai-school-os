@@ -35,3 +35,6 @@ export * from './careers';
 export * from './jamb';
 export * from './class-insights';
 export * from './learning-updates';
+export * from './languages';
+export * from './success';
+export * from './data-protection';

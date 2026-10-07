@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router';
 import { withRouteErrors } from './route-error';
 import { AppShell } from '@/components/layout/app-shell';
 import { TwoFactorGate } from '@/features/auth/two-factor-gate';
+import { ConsentGate } from '@/features/data-protection/consent-gate';
 import { BootLoader } from '@/components/layout/boot-loader';
 import { RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
 import { UPCOMING_MODULES } from './modules';
@@ -170,6 +171,9 @@ const CareerPlanPage = lazy(() => import('@/features/careers/plan-page'));
 const CareersGuidancePage = lazy(() => import('@/features/careers/staff-page'));
 const ClassInsightsPage = lazy(() => import('@/features/class-insights/class-insights-page'));
 const ConsoleCareersPage = lazy(() => import('@/features/platform/careers-content-page'));
+const SuccessPage = lazy(() => import('@/features/success/success-page'));
+const SuccessReportPage = lazy(() => import('@/features/success/report-page'));
+const PilotSchoolsPage = lazy(() => import('@/features/success/pilot-schools-page'));
 const JambOverviewPage = lazy(() => import('@/features/careers/jamb-pages'));
 const JambSyllabusPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSyllabusPage })));
 const JambSubjectPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSubjectPage })));
@@ -183,6 +187,9 @@ const PortalReceiptPage = lazy(() => import('@/features/portal/receipt-page'));
 const PortalSettingsPage = lazy(() => import('@/features/settings/portal-settings-page'));
 const SecurityPage = lazy(() => import('@/features/settings/security-page'));
 const BackupPage = lazy(() => import('@/features/settings/backup-page'));
+const LegalPage = lazy(() => import('@/features/legal/legal-page'));
+const DataProtectionPage = lazy(() => import('@/features/data-protection/admin-page'));
+const MyPrivacyPage = lazy(() => import('@/features/data-protection/my-privacy-page'));
 const MaterialsPage = lazy(() => import('@/features/materials/materials-page'));
 const MaterialsLibraryPage = lazy(() => import('@/features/materials/library-page'));
 
@@ -211,6 +218,8 @@ export const router = createBrowserRouter(withRouteErrors([
     ),
   },
   // Public parent payment pages: no sign-in, no app chrome.
+  // Privacy notice, terms, DPA and the other legal pages: public, no app chrome.
+  { path: '/legal/:doc?', element: withSuspense(<LegalPage />) },
   { path: '/pay/:token', element: withSuspense(<PayPage />) },
   { path: '/pay/:token/done', element: withSuspense(<PayDonePage />) },
   // Public QR verification for certificates and ID cards: no sign-in, no app chrome.
@@ -240,7 +249,9 @@ export const router = createBrowserRouter(withRouteErrors([
     element: (
       <RequireAuth>
         <TwoFactorGate>
-          <AppShell />
+          <ConsentGate>
+            <AppShell />
+          </ConsentGate>
         </TwoFactorGate>
       </RequireAuth>
     ),
@@ -755,6 +766,9 @@ export const router = createBrowserRouter(withRouteErrors([
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['learning.use', 'family.manage', 'school.read']}>{page}</RequirePermission> })),
       { path: 'careers-guidance', element: <RequirePermission permission="students.read"><CareersGuidancePage /></RequirePermission> },
       { path: 'class-insights', element: <RequirePermission permission={['academics.read', 'homework.manage']}><ClassInsightsPage /></RequirePermission> },
+      // School success dashboard and term impact report (API: school.read + results.publish).
+      { path: 'success', element: <RequirePermission permission="results.publish"><SuccessPage /></RequirePermission> },
+      { path: 'success/report', element: <RequirePermission permission="results.publish"><SuccessReportPage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
@@ -885,6 +899,16 @@ export const router = createBrowserRouter(withRouteErrors([
               </RequirePermission>
             ),
           },
+          {
+            path: 'data-protection',
+            element: (
+              <RequirePermission permission="school.read">
+                <DataProtectionPage />
+              </RequirePermission>
+            ),
+          },
+          // Parents: what they agreed to, and withdrawing it.
+          { path: 'privacy', element: <MyPrivacyPage /> },
         ],
       },
       // The SaaS operator console: platform staff only, each area gated by role (PLATFORM_AREAS).
@@ -910,6 +934,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['platform/family', 'commerce', <ConsoleFamilyPage key="family" />],
           ['platform/content', 'content', <ConsoleContentPage key="content" />],
           ['platform/careers', 'content', <ConsoleCareersPage key="careers" />],
+          ['platform/success', 'overview', <PilotSchoolsPage key="pilot-schools" />],
         ] as const
       ).map(([path, area, page]) => ({
         path,

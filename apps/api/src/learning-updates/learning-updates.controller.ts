@@ -15,6 +15,7 @@ import type { Response } from 'express';
 import { z } from 'zod';
 import { AuditService } from '../audit/audit.service';
 import { Public, RequirePermissions } from '../common/decorators';
+import { parentLanguage } from '../common/language';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
@@ -81,7 +82,7 @@ export class LearningUpdatesController {
     const tenantId = currentTenantId();
     const [settings, updates, optedOut] = await Promise.all([
       this.updates.settings(tenantId),
-      this.updates.list(tenantId, id),
+      this.updates.list(tenantId, id, v.role === 'PARENT' ? await parentLanguage(this.prisma, tenantId, currentContext().userId!) : 'EN'),
       v.role === 'PARENT' ? this.updates.optedOut(tenantId, currentContext().userId!) : false,
     ]);
     return { enabled: settings.enabled && (v.role === 'PARENT' || settings.students), optedOut, role: v.role, updates: v.role === 'STUDENT' && !settings.students ? [] : updates };
@@ -91,7 +92,8 @@ export class LearningUpdatesController {
   async one(@Param('id') id: string, @Param('updateId') updateId: string): Promise<LearningUpdateView> {
     const v = await this.viewer();
     this.mustSee(v, id);
-    return this.updates.one(currentTenantId(), id, updateId);
+    const tenantId = currentTenantId();
+    return this.updates.one(tenantId, id, updateId, v.role === 'PARENT' ? await parentLanguage(this.prisma, tenantId, currentContext().userId!) : 'EN');
   }
 
   @Put('subscription')

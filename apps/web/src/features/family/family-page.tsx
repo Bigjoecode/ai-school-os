@@ -22,6 +22,7 @@ import { formatDate } from '@/lib/format';
 import { cn, initialsFromName } from '@/lib/utils';
 import { AccessMeter, naira, SectionTitle } from '../learning/components';
 import { useCheckout, useFamily, useQuote, useRenewNow, useUpdateSubscription, useVerify, type CheckoutBody } from './api';
+import { ParentLanguageCard } from './language-cards';
 
 const SOURCE: Record<StudentAccess['entitlements'][number]['source'], { label: string; variant: 'secondary' | 'brand' | 'info' | 'success' }> = {
   INCLUDED: { label: 'Included', variant: 'secondary' },
@@ -93,6 +94,10 @@ export default function FamilyPage() {
                 ))}
               </div>
             )}
+          </section>
+
+          <section aria-label="Your language">
+            <ParentLanguageCard />
           </section>
 
           <section aria-label="Add learning" id="shop">

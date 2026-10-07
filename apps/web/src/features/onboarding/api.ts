@@ -1,4 +1,4 @@
-import type { ImportKind, ImportPreview, ImportRequest, ImportResult, Permission, SetupStatus, SetupYearInput, StageKey } from '@aischool/shared';
+import type { FirstWeekAction, FirstWeekPlan, ImportKind, ImportPreview, ImportRequest, ImportResult, ParentInviteInput, ParentInvitePreview, ParentInviteResult, Permission, SetupStatus, SetupYearInput, StageKey } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { api, ApiError, errorMessage } from '@/lib/api';
@@ -126,4 +126,49 @@ export function importErrorMessage(error: unknown): string {
     if (error.status === 400 && error.errors.length) return error.errors.map((e) => e.message).join('. ');
   }
   return errorMessage(error);
+}
+
+// ------------------------------------------------------------------ your first week
+
+export const firstWeekKey = ['onboarding', 'first-week'] as const;
+
+/** Principals and admins: school.manage or academics.manage (mirrors the API). */
+export function useCanRunFirstWeek() {
+  const me = useAuthStore((s) => s.me);
+  return hasPermission(me, 'school.manage') || hasPermission(me, 'academics.manage');
+}
+
+export function useFirstWeek(enabled = true) {
+  const can = useCanRunFirstWeek();
+  return useQuery({
+    queryKey: firstWeekKey,
+    queryFn: ({ signal }) => api.get<FirstWeekPlan>('/onboarding/first-week', undefined, signal),
+    enabled: enabled && can,
+    staleTime: 60_000,
+  });
+}
+
+export function useFirstWeekAction() {
+  return useMutation({
+    mutationFn: (body: FirstWeekAction) => api.post<FirstWeekPlan>('/onboarding/first-week', body),
+    onSuccess: (plan) => queryClient.setQueryData(firstWeekKey, plan),
+  });
+}
+
+export function useParentInvitePreview(enabled: boolean) {
+  return useQuery({
+    queryKey: ['onboarding', 'parent-invites'],
+    queryFn: ({ signal }) => api.get<ParentInvitePreview>('/onboarding/parent-invites', undefined, signal),
+    enabled,
+  });
+}
+
+export function useSendParentInvites() {
+  return useMutation({
+    mutationFn: (body: ParentInviteInput) => api.post<ParentInviteResult>('/onboarding/parent-invites', body),
+    meta: { silent: true },
+    onSuccess: () => {
+      for (const key of [firstWeekKey, ['onboarding', 'parent-invites'], qk.guardians()]) void queryClient.invalidateQueries({ queryKey: key });
+    },
+  });
 }

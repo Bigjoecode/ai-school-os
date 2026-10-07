@@ -1,7 +1,10 @@
 import { BadRequestException, Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import {
+  asLanguage,
   DEFAULT_LEARNING_UPDATE_SETTINGS,
+  languageInfo,
   learningUpdateSettingsSchema,
+  type LanguageCode,
   normalisePhone,
   smsInfo,
   smsSafe,
@@ -16,6 +19,7 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
+import { schoolParentLanguage } from '../common/language';
 import { RequestContextStore } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { registerTickTask } from '../common/tick-tasks';
@@ -34,6 +38,7 @@ import {
   mondayOf,
   nothingToSay,
   parentText,
+  parentTextIn,
   rulesRecommendation,
   shortSubject,
   WEEKDAY_NAMES,
@@ -57,7 +62,7 @@ interface RunState {
   queued: boolean;
 }
 
-const aiSchema = z.object({ recommendation: z.string().min(10).max(400) });
+const aiSchema = z.object({ recommendation: z.string().min(10).max(400), translations: z.record(z.string(), z.string().max(600)).optional() });
 
 /**
  * The weekly "How <child> is learning" update: built from topic mastery
@@ -190,7 +195,8 @@ export class LearningUpdatesService implements OnModuleInit {
   }
 
   /** Words the recommendation with AI (standard tier, the school's budget); null to use the rules. */
-  private async aiRecommendation(tenantId: string, f: WeekFacts, state: RunState): Promise<string | null> {
+  private async aiRecommendation(tenantId: string, f: WeekFacts, state: RunState, languages: LanguageCode[] = []): Promise<{ text: string; localized: Partial<Record<LanguageCode, string>> } | null> {
+    const others = languages.filter((l) => l !== 'EN');
     if (state.aiOff) return null;
     const g = classify(f.topics);
     const focus = focusTopic(g) ?? g.strong[0] ?? null;
@@ -209,19 +215,33 @@ export class LearningUpdatesService implements OnModuleInit {
         this.ai.generateJson(
           {
             tier: 'standard',
-            maxOutputTokens: 200,
+            maxOutputTokens: 200 + others.length * 200,
             system:
               'You write ONE practical recommendation for a Nigerian parent about their child this week. ' +
               'Plain, warm British English that a busy parent reading on a basic phone understands. No jargon, no scores, no percentages, no numbers except minutes of practice, no lists, no greetings. ' +
               'One or two short sentences, at most 30 words. Something the parent can do at home this week; if there is a focus topic, name it and suggest short practice in Exam Academy on the school app. ' +
-              'Use only the facts given; never invent anything. Reply as JSON: {"recommendation": "..."}',
+              'Use only the facts given; never invent anything. ' +
+              (others.length
+                ? `LANGUAGES: some parents read in other languages. Also write the same recommendation, with the same meaning, in each of: ${others.map((l) => `${l} = ${languageInfo(l).english}`).join(', ')}. ` +
+                  others.map((l) => `${l}: ${languageInfo(l).instruction}`).join(' ') +
+                  ' In every language keep the child’s name, subject names, topic names and "Exam Academy" in English exactly as given; write minutes as digits; respectful and natural for a Nigerian parent; no greetings. If you are not confident in a language, leave it out. ' +
+                  `Reply as JSON: {"recommendation": "...", "translations": {${others.map((l) => `"${l}": "..."`).join(', ')}}}`
+                : 'Reply as JSON: {"recommendation": "..."}'),
             messages: [{ role: 'user', content: JSON.stringify(facts) }],
           },
           aiSchema,
           'learning_update',
         ),
       );
-      return acceptableAiText(r.data.recommendation);
+      const text = acceptableAiText(r.data.recommendation);
+      if (!text) return null;
+      const localized: Partial<Record<LanguageCode, string>> = {};
+      for (const l of others) {
+        // Same checks as English (no invented numbers), a little longer allowed for the language.
+        const t = acceptableAiText(r.data.translations?.[l] ?? '', 400);
+        if (t) localized[l] = t;
+      }
+      return { text, localized };
     } catch (err) {
       state.aiOff = true;
       this.logger.debug(`AI recommendation off for this run (${tenantId}): ${(err as Error).message}`);
@@ -241,9 +261,19 @@ export class LearningUpdatesService implements OnModuleInit {
     const f = await this.facts(tenantId, studentId, weekStart, tenant.timezone);
     if (nothingToSay(f) || (f.pieces === 0 && s.quietWeeks === 'SKIP')) return null;
     const rules = rulesRecommendation(f, classify(f.topics));
-    const aiText = s.useAi ? await this.aiRecommendation(tenantId, f, state) : null;
-    const content = buildContent(f, aiText ? { ...rules, text: aiText } : rules);
-    return { content, text: parentText(content), source: aiText ? 'AI' : 'RULES', userId: f.userId };
+    const ai = s.useAi ? await this.aiRecommendation(tenantId, f, state, await this.guardianLanguages(tenantId, studentId)) : null;
+    const content = buildContent(f, ai ? { ...rules, text: ai.text } : rules);
+    if (ai && Object.keys(ai.localized).length) content.localized = ai.localized;
+    return { content, text: parentText(content), source: ai ? 'AI' : 'RULES', userId: f.userId };
+  }
+
+  /** The languages this student's guardians read their updates in (their choice, else the school's default). */
+  private async guardianLanguages(tenantId: string, studentId: string): Promise<LanguageCode[]> {
+    const [links, fallback] = await Promise.all([
+      this.prisma.root.studentGuardian.findMany({ where: { tenantId, studentId, guardian: { learningUpdatesOff: false } }, select: { guardian: { select: { preferredLanguage: true } } } }),
+      schoolParentLanguage(this.prisma, tenantId),
+    ]);
+    return [...new Set(links.map((l) => asLanguage(l.guardian.preferredLanguage) ?? fallback))];
   }
 
   // ---------------------------------------------------------------- weekly run
@@ -381,6 +411,7 @@ export class LearningUpdatesService implements OnModuleInit {
     const weekStart = content.weekStart;
     const base = await this.baseUrl(tenantId);
     const school = await this.sender.school(tenantId);
+    const schoolLanguage = asLanguage(school.settings.parentLanguage) ?? 'EN';
     if (!state.channels) state.channels = await this.channels.load(tenantId);
     const ch = state.channels;
     const listLink = `${base}/school/learning/${u.studentId}`;
@@ -388,7 +419,7 @@ export class LearningUpdatesService implements OnModuleInit {
     const [links, student] = await Promise.all([
       db.studentGuardian.findMany({
         where: { tenantId, studentId: u.studentId },
-        select: { guardian: { select: { id: true, firstName: true, lastName: true, email: true, phone: true, userId: true, learningUpdatesOff: true } } },
+        select: { guardian: { select: { id: true, firstName: true, lastName: true, email: true, phone: true, userId: true, learningUpdatesOff: true, preferredLanguage: true } } },
       }),
       db.student.findUniqueOrThrow({ where: { id: u.studentId }, select: { userId: true } }),
     ]);
@@ -405,6 +436,9 @@ export class LearningUpdatesService implements OnModuleInit {
 
     for (const { guardian: g } of links) {
       if (g.learningUpdatesOff) continue;
+      // Each parent reads it in their language (subject and topic names stay in English).
+      const language = asLanguage(g.preferredLanguage) ?? schoolLanguage;
+      const text = language === 'EN' ? u.text : parentTextIn(content, language);
       const name = `${g.firstName} ${g.lastName}`.trim();
       const phone = normalisePhone(g.phone);
       const stop = base ? `${base}/api/learning-updates/stop/${stopToken(g.id)}` : null;
@@ -424,28 +458,28 @@ export class LearningUpdatesService implements OnModuleInit {
       });
       let reached = false;
       if (g.userId) {
-        notifications.push({ tenantId, userId: g.userId, title: subject, body: u.text.slice(0, 500), link: `/school/learning/${u.studentId}/${u.id}` });
-        deliveries.push(row('IN_APP', g.userId, u.text, 'SENT'));
+        notifications.push({ tenantId, userId: g.userId, title: subject, body: text.slice(0, 500), link: `/school/learning/${u.studentId}/${u.id}` });
+        deliveries.push(row('IN_APP', g.userId, text, 'SENT'));
         used.add('IN_APP');
         reached = true;
         if (pushUsers.has(g.userId)) {
-          deliveries.push(row('PUSH', g.userId, `${content.recommendation.text}`.slice(0, 240), 'QUEUED'));
+          deliveries.push(row('PUSH', g.userId, `${content.localized?.[language] ?? content.recommendation.text}`.slice(0, 240), 'QUEUED'));
           used.add('PUSH');
         }
       }
       if (s.email) {
-        const text = [`Dear ${g.firstName},`, u.text.replace(/\n/g, '\n\n'), base ? `See the full update in the school portal: ${base}/school/learning/${u.studentId}/${u.id}` : '', stop ? `To stop these weekly updates, open: ${stop}` : '']
+        const email = [`Dear ${g.firstName},`, text.replace(/\n/g, '\n\n'), base ? `See the full update in the school portal: ${base}/school/learning/${u.studentId}/${u.id}` : '', stop ? `To stop these weekly updates, open: ${stop}` : '']
           .filter(Boolean)
           .join('\n\n');
         const missing = !g.email ? 'No email address on record' : !ch.smtp ? 'Email is not set up' : null;
-        deliveries.push(row('EMAIL', g.email, text, missing ? 'SKIPPED' : 'QUEUED', missing));
+        deliveries.push(row('EMAIL', g.email, email, missing ? 'SKIPPED' : 'QUEUED', missing));
         if (!missing) {
           used.add('EMAIL');
           state.queued = true;
           reached = true;
         }
       }
-      const short = smsSafe(`${u.text}${base ? `\nMore: ${listLink}` : ''}${stop ? `\nStop: ${stop}` : ''}`);
+      const short = smsSafe(`${text}${base ? `\nMore: ${listLink}` : ''}${stop ? `\nStop: ${stop}` : ''}`);
       if (s.sms) {
         const missing = !phone ? 'No valid phone number on record' : !ch.termii ? 'SMS is not set up' : null;
         deliveries.push(row('SMS', phone, short, missing ? 'SKIPPED' : 'QUEUED', missing));
@@ -566,19 +600,19 @@ export class LearningUpdatesService implements OnModuleInit {
 
   // ---------------------------------------------------------------- families
 
-  async list(tenantId: string, studentId: string): Promise<LearningUpdateView[]> {
+  async list(tenantId: string, studentId: string, language: LanguageCode = 'EN'): Promise<LearningUpdateView[]> {
     const rows = await this.prisma.root.learningUpdate.findMany({
       where: { tenantId, studentId, sentAt: { not: null }, text: { not: '' } },
       orderBy: { weekStart: 'desc' },
       take: 52,
     });
-    return rows.map(view);
+    return rows.map((r) => view(r, language));
   }
 
-  async one(tenantId: string, studentId: string, id: string): Promise<LearningUpdateView> {
+  async one(tenantId: string, studentId: string, id: string, language: LanguageCode = 'EN'): Promise<LearningUpdateView> {
     const row = await this.prisma.root.learningUpdate.findFirst({ where: { id, tenantId, studentId, sentAt: { not: null }, text: { not: '' } } });
     if (!row) throw new NotFoundException('Update not found');
-    return view(row);
+    return view(row, language);
   }
 
   /** Turns the updates on or off for every guardian record this user has in the school. */
@@ -613,13 +647,16 @@ export function readSettings(portalSettings: unknown): LearningUpdateSettings {
   return parsed.success ? parsed.data : DEFAULT_LEARNING_UPDATE_SETTINGS;
 }
 
-function view(r: Row): LearningUpdateView {
+/** A parent sees the update in their language: the AI recommendation when there is one, and the text as it was sent to them. */
+function view(r: Row, language: LanguageCode = 'EN'): LearningUpdateView {
+  const content = r.content as unknown as LearningUpdateContent;
+  const local = language !== 'EN' ? content.localized?.[language] : undefined;
   return {
     id: r.id,
     studentId: r.studentId,
     weekStart: r.weekStart.toISOString().slice(0, 10),
-    content: r.content as unknown as LearningUpdateContent,
-    text: r.text,
+    content: local ? { ...content, recommendation: { ...content.recommendation, text: local } } : content,
+    text: language !== 'EN' && content.weekStart ? parentTextIn(content, language) : r.text,
     source: r.source === 'AI' ? 'AI' : 'RULES',
     sentAt: r.sentAt?.toISOString() ?? null,
     channels: r.channels,

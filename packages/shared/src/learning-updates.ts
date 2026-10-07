@@ -1,3 +1,4 @@
+import type { LanguageCode } from './languages';
 import { z } from 'zod';
 
 /**
@@ -80,6 +81,8 @@ export interface LearningUpdateContent {
   quiet: boolean;
   /** The same week, written to the student. */
   studentText: string;
+  /** The AI-worded recommendation in parents' chosen languages (absent: rules wording, English with a fixed line in the language). */
+  localized?: Partial<Record<LanguageCode, string>>;
 }
 
 export interface LearningUpdateView {

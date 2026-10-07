@@ -41,6 +41,7 @@ import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { ClassInsightsCard } from '../class-insights/insights-card';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
+import { FirstWeekCard } from '../onboarding/first-week';
 import { SetupProgressCard } from '../onboarding/ui';
 import { OperationsCard } from '../operations/operations-card';
 import { PortalSummaryCard } from '../portal/summary-card';
@@ -172,7 +173,7 @@ function SchoolOverview() {
     <Page>
       <Greeting data={data} loading={isLoading} />
       <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
-        <SetupProgressCard />
+        <FirstWeekCard fallback={<SetupProgressCard />} />
         <Kpis data={data} />
         <PendingLeaveNotice />
         <motion.div variants={item}>

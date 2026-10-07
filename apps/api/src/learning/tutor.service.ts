@@ -1,9 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { MEMORY_KINDS, type StudentMemoryRow, type TutorChatInput, type TutorReply } from '@aischool/shared';
+import { languagePrompt, MEMORY_KINDS, type StudentMemoryRow, type TutorChatInput, type TutorReply } from '@aischool/shared';
 import { z, type ZodType } from 'zod';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import type { AiImage, AiToolSpec } from '../ai/providers/provider';
 import { dateOnly, fullName, parseDate } from '../common/format';
+import { studentLanguage } from '../common/language';
 import { currentContext } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
 import { FilesService } from '../files/files.service';
@@ -273,12 +274,14 @@ export class TutorService {
     const ctx: TutorCtx = { access, saved: [] };
     const specs = this.specs(access);
     const allowed = new Set(specs.map((s) => s.name));
+    // The language goes in the system prompt: the student's choice, or this one reply's ("Explain in English").
+    const language = '\n' + languagePrompt(input.language ?? (await studentLanguage(this.prisma, studentId)), 'student', { explicit: !!input.language });
 
     this.entitlements.attribute(access);
     const result = await this.gateway.generateWithTools(
       {
         tier: deep ? 'advanced' : 'standard',
-        system: this.system(access, today, input.subject) + (input.voice ? VOICE_STYLE : ''),
+        system: this.system(access, today, input.subject) + language + (input.voice ? VOICE_STYLE : ''),
         messages: [
           ...history.reverse().map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
           { role: 'user', content: input.message || 'Please help me with the question in this photo.', ...(images.length ? { images } : {}) },
@@ -299,7 +302,7 @@ export class TutorService {
         }
       },
       'tutor',
-      { maxSteps: 6, fallbackSystem: async () => this.system(access, today, input.subject) },
+      { maxSteps: 6, fallbackSystem: async () => this.system(access, today, input.subject) + language },
     );
     await this.entitlements.consume(access, units, deep);
     const reply = result.text || "Sorry, I couldn't work that out. Could you ask it another way?";

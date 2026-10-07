@@ -2,6 +2,7 @@ import type {
   AllowanceExhausted,
   ExamBody,
   ExamCatalog,
+  LanguageCode,
   FlashcardDeckRow,
   MasteryEvidenceRow,
   MasteryMap,
@@ -26,6 +27,8 @@ export interface LearnHome {
   recent: PracticeAttemptRow[];
   weakest: MasteryTopic[];
   strongest: MasteryTopic[];
+  /** The language the tutor and careers counsellor reply in. */
+  tutorLanguage?: LanguageCode;
 }
 export interface ConversationRow {
   id: string;
@@ -76,7 +79,7 @@ export function useTutorChat() {
   const qc = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (body: { conversationId?: string | null; message: string; deep: boolean; imageFileIds: string[]; subject?: string | null; voice?: boolean }) =>
+    mutationFn: (body: { conversationId?: string | null; message: string; deep: boolean; imageFileIds: string[]; subject?: string | null; voice?: boolean; language?: LanguageCode | null }) =>
       api.post<TutorReply>('/learning/tutor', body),
     onSuccess: (r) => {
       qc.setQueryData<LearnHome>(lk.home, (old) => (old ? { ...old, access: r.access } : old));
@@ -89,6 +92,15 @@ export function useTutorChat() {
         void qc.invalidateQueries({ queryKey: lk.attempts });
       }
     },
+  });
+}
+
+/** The student's tutor language (also used by the careers counsellor and voice). */
+export function useSetTutorLanguage() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (language: LanguageCode | null) => api.put<{ tutorLanguage: LanguageCode }>('/learning/language', { language }),
+    onSuccess: (r) => qc.setQueryData<LearnHome>(lk.home, (old) => (old ? { ...old, tutorLanguage: r.tutorLanguage } : old)),
   });
 }
 

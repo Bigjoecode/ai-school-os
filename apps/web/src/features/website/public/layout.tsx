@@ -370,12 +370,18 @@ export function SiteFooter() {
           <p>
             © {year} {site.school.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             {login && (
               <a href={login} className="font-medium text-white/70 transition-colors hover:text-white">
                 Parent / staff login
               </a>
             )}
+            <a href="/legal/privacy" className="transition-colors hover:text-white">
+              Privacy
+            </a>
+            <a href="/legal/children" className="transition-colors hover:text-white">
+              AI & children’s data
+            </a>
             <span>Powered by AI School OS</span>
           </div>
         </div>

@@ -28,6 +28,19 @@ interface Recognition {
 type RecognitionCtor = new () => Recognition;
 /** Nigerian English first; dropped for the session if the browser doesn't offer it. */
 let langs = ['en-NG', 'en-GB'];
+/** The speech tag for the student's language ('yo-NG', 'ig-NG', 'ha-NG'; Pidgin and English: 'en-NG'). */
+let speechLang = 'en-NG';
+
+/**
+ * Sets the language the browser listens for (and prefers for its own voice).
+ * Yoruba, Igbo and Hausa fall back to Nigerian English if the browser doesn't support them.
+ */
+export function setVoiceLanguage(tag: string) {
+  if (tag === speechLang) return;
+  speechLang = tag;
+  langs = [...new Set([tag, 'en-NG', 'en-GB'])];
+  if (canSynthesise()) voices = window.speechSynthesis.getVoices();
+}
 
 function recognitionCtor(): RecognitionCtor | null {
   if (typeof window === 'undefined') return null;
@@ -528,6 +541,11 @@ function pickVoice(): SpeechSynthesisVoice | null {
   if (!canSynthesise()) return null;
   if (!voices.length) voices = window.speechSynthesis.getVoices();
   const lang = (v: SpeechSynthesisVoice) => v.lang.replace('_', '-').toLowerCase();
+  const own = speechLang.toLowerCase();
+  if (own !== 'en-ng') {
+    const native = voices.find((v) => lang(v) === own) ?? voices.find((v) => lang(v).split('-')[0] === own.split('-')[0]);
+    if (native) return native;
+  }
   return voices.find((v) => lang(v) === 'en-ng') ?? voices.find((v) => lang(v) === 'en-gb') ?? voices.find((v) => lang(v).startsWith('en')) ?? null;
 }
 if (canSynthesise()) {

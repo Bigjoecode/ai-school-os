@@ -36,6 +36,7 @@ import { apiFieldErrors, FormError, zodErrors } from '../operations/ui';
 import { usePush } from './push';
 import { type ProviderChannel, useChannels, useCommsSettings, useDisconnectChannel, useSaveChannel, useSaveCommsSettings, useTestChannel } from './api';
 import { CHANNEL_ICON, insertAt, TokenChips } from './ui';
+import { LanguageSelect } from '../learning/language';
 
 type Tab = 'channels' | 'automations';
 
@@ -695,6 +696,16 @@ function AutomationsForm({ initial, canManage }: { initial: CommsSettings; canMa
         </div>
         <p className="text-[12px] text-muted-foreground">Set “Remind parents N days before” on an event in the Calendar to use this.</p>
       </AutomationBlock>
+
+      <Card className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center">
+        <div className="min-w-0 flex-1">
+          <Label>Default language for parents</Label>
+          <p className="mt-1 text-[12px] text-muted-foreground">
+            The Parent AI, WhatsApp assistant and weekly learning updates use this when a parent hasn’t chosen their own language. Subject names and scores stay in English. Yoruba, Igbo and Hausa wording comes from the AI model — ask a native speaker to check it during your pilot.
+          </p>
+        </div>
+        <LanguageSelect label="Default language for parents" value={s.parentLanguage ?? 'EN'} onChange={(code) => setS((p) => ({ ...p, parentLanguage: code ?? 'EN' }))} disabled={ro} />
+      </Card>
 
       <Card className="grid gap-4 p-5 sm:grid-cols-2 [&>*]:min-w-0">
         <Field label="SMS price per page" htmlFor="sms-price" hint="What Termii charges you — used for cost estimates." error={errors.smsPricePerUnitKobo}>

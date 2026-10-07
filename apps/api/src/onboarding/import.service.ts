@@ -359,7 +359,7 @@ export class ImportService {
   }
 
   /** Creates (or reuses) user accounts and school memberships; new accounts get a one-time password. */
-  private async makeLogins(people: { email: string; firstName: string; lastName: string; roleId: string; roleName: string; link: (userId: string) => Promise<unknown> }[], credentials: string[][]) {
+  async makeLogins(people: { email: string; firstName: string; lastName: string; roleId: string; roleName: string; link: (userId: string) => Promise<unknown> }[], credentials: string[][]) {
     const tenantId = currentTenantId();
     for (let i = 0; i < people.length; i += 10) {
       await Promise.all(

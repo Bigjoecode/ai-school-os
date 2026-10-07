@@ -99,7 +99,7 @@ export function TwoFactorGate({ children }: { children: ReactNode }) {
   return (
     <>
       {showBanner && (
-        <div className="flex items-center gap-3 border-b border-warning/30 bg-warning-soft px-4 py-2 text-[13px] text-warning" role="status">
+        <div className="flex items-center gap-3 border-b border-warning/30 bg-warning-soft px-4 py-2 text-[13px] text-warning print:hidden" role="status">
           <ShieldAlert className="size-4 shrink-0" aria-hidden />
           <p className="min-w-0 flex-1">
             <span className="font-semibold">Protect your account:</span> {s.reason ?? 'turn on two-step sign-in.'}{' '}

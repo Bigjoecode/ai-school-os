@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
+import { languageInfo, type LanguageCode } from '@aischool/shared';
 import OpenAI, { toFile } from 'openai';
 import { env } from '../config/env';
 import { currentContext, RequestContextStore } from '../common/request-context';
@@ -38,20 +39,36 @@ export class VoiceService {
     return this.client;
   }
 
-  async transcribe(audio: { buffer: Buffer; mimetype: string; originalname?: string }, hint?: string | null): Promise<string> {
+  /**
+   * `language`: the student's tutor language. Yoruba, Igbo and Hausa are sent
+   * as an ISO hint; Pidgin is transcribed as English; English is left to
+   * auto-detect (so a student who switches language is still understood).
+   */
+  async transcribe(audio: { buffer: Buffer; mimetype: string; originalname?: string }, hint?: string | null, language?: LanguageCode | null): Promise<string> {
     if (!audio?.buffer?.length) throw new BadRequestException('No recording was received');
     if (env().AI_FAKE_PROVIDER && !env().OPENAI_API_KEY) return 'Can you explain how to solve a quadratic equation?';
     const model = env().OPENAI_TRANSCRIBE_MODEL;
     const started = Date.now();
     const ext = /mp4|m4a|aac/.test(audio.mimetype) ? 'm4a' : /ogg/.test(audio.mimetype) ? 'ogg' : /wav/.test(audio.mimetype) ? 'wav' : /mpeg|mp3/.test(audio.mimetype) ? 'mp3' : 'webm';
     try {
-      const file = await toFile(audio.buffer, `speech.${ext}`, { type: audio.mimetype || 'audio/webm' });
-      const r = await this.sdk().audio.transcriptions.create({
-        file,
-        model,
-        // Helps with subject words and Nigerian names; never treated as instructions.
-        prompt: `A Nigerian secondary school student asking their tutor a question${hint ? ` about ${hint}` : ''}.`,
-      });
+      const lang = language && language !== 'EN' ? languageInfo(language) : null;
+      const iso = lang?.iso;
+      const ask = async (withLanguage: boolean) =>
+        this.sdk().audio.transcriptions.create({
+          file: await toFile(audio.buffer, `speech.${ext}`, { type: audio.mimetype || 'audio/webm' }),
+          model,
+          ...(withLanguage && iso ? { language: iso } : {}),
+          // Helps with subject words and Nigerian names; never treated as instructions.
+          prompt: `A Nigerian secondary school student asking their tutor a question${lang ? ` in ${lang.english}, with school subject words in English` : ''}${hint ? ` about ${hint}` : ''}.`,
+        });
+      let r: Awaited<ReturnType<typeof ask>>;
+      try {
+        r = await ask(true);
+      } catch (err) {
+        // A model that doesn't accept this language code: let it detect the language instead.
+        if (!iso || (err as { status?: number }).status !== 400) throw err;
+        r = await ask(false);
+      }
       const usage = (r as { usage?: { type?: string; seconds?: number; input_tokens?: number; output_tokens?: number } }).usage;
       const cost =
         usage?.type === 'duration' && usage.seconds
@@ -68,7 +85,7 @@ export class VoiceService {
   }
 
   /** The reply as MP3, in a warm, unhurried teacher's voice. */
-  async speak(text: string): Promise<Buffer> {
+  async speak(text: string, language?: LanguageCode | null): Promise<Buffer> {
     const input = speakable(text).slice(0, MAX_SPEAK_CHARS);
     if (!input) throw new BadRequestException('Nothing to read aloud');
     const model = env().OPENAI_TTS_MODEL;
@@ -79,7 +96,13 @@ export class VoiceService {
         voice: env().OPENAI_TTS_VOICE,
         input,
         response_format: 'mp3',
-        ...(model.startsWith('gpt-') ? { instructions: 'A warm, patient teacher talking with a secondary school student in Nigeria. Clear and unhurried, encouraging, natural pauses between steps.' } : {}),
+        ...(model.startsWith('gpt-')
+          ? {
+              instructions: `A warm, patient teacher talking with a secondary school student in Nigeria. Clear and unhurried, encouraging, natural pauses between steps.${
+                language && language !== 'EN' ? ` The text is in ${languageInfo(language).english}: pronounce it as naturally as you can; school subject words are in English.` : ''
+              }`,
+            }
+          : {}),
       });
       const audio = Buffer.from(await r.arrayBuffer());
       await this.record('tutor-voice-out', model, input.length * TTS_USD_PER_CHAR, Date.now() - started, input.length, 0);

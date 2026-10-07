@@ -1,4 +1,4 @@
-import { KeyRound, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
+import { FileLock2, KeyRound, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useSignOut } from '@/features/auth/session';
 import { InstallMenuItem } from '@/pwa/install-menu-item';
@@ -63,6 +63,11 @@ export function UserMenu() {
         <DropdownMenuItem onSelect={() => navigate('/settings/security')}>
           <KeyRound /> Security & two-step sign-in
         </DropdownMenuItem>
+        {me.permissions.includes('family.manage') && (
+          <DropdownMenuItem onSelect={() => navigate('/settings/privacy')}>
+            <FileLock2 /> Privacy & consent
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem
           onSelect={(e) => {
             e.preventDefault();

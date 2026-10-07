@@ -27,6 +27,7 @@ import { applyServerErrors, emptyToUndefined } from "@/lib/forms";
 import { useDocumentTitle } from "@/lib/hooks";
 import { isTwoFactorChallenge, useLogin } from "./session";
 import { TwoFactorStep } from "./two-factor-step";
+import { LegalLinks } from "../legal/legal-links";
 
 type LoginValues = z.input<typeof loginSchema>;
 
@@ -438,9 +439,10 @@ export default function LoginPage() {
             )}
           </motion.div>
         </div>
-        <p className="pb-6 text-center text-[12px] text-muted-foreground">
-          © {new Date().getFullYear()} AI School OS
-        </p>
+        <div className="space-y-1.5 pb-6 text-center text-[12px] text-muted-foreground">
+          <LegalLinks />
+          <p>© {new Date().getFullYear()} AI School OS</p>
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { languageCodeSchema, type LanguageCode } from './languages';
 import { z } from 'zod';
 
 /**
@@ -350,6 +351,8 @@ export interface CommsSettings {
     sendAt: string;
   };
   eventReminders: { enabled: boolean; channels: Channel[] };
+  /** Language for parent messages and the Parent AI when a parent hasn't chosen one. */
+  parentLanguage: LanguageCode;
 }
 
 export const DEFAULT_COMMS_SETTINGS: CommsSettings = {
@@ -369,6 +372,7 @@ export const DEFAULT_COMMS_SETTINGS: CommsSettings = {
     sendAt: '07:00',
   },
   eventReminders: { enabled: true, channels: ['IN_APP', 'SMS'] },
+  parentLanguage: 'EN',
 };
 
 const channelList = z.array(z.enum(CHANNELS));
@@ -381,6 +385,7 @@ export const commsSettingsSchema = z.object({
     sendAt: hhmm,
   }),
   eventReminders: z.object({ enabled: z.boolean(), channels: channelList }),
+  parentLanguage: languageCodeSchema.default('EN'),
 });
 
 /** Provider set-up. Secrets are write-only: they are never sent back. */

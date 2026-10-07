@@ -244,3 +244,149 @@ export function parseSchoolDate(v: string): string | null {
   if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d || y < 1950 || y > 2100) return null;
   return dt.toISOString().slice(0, 10);
 }
+
+// ============================================================ your first week
+
+/**
+ * "Your first week": a 7-day plan that takes a new school from setup to the
+ * learning loop running (work set → marked → mastery → class insights →
+ * weekly parent updates). Every goal is detected from real records; only the
+ * Day 7 review goals, which leave no trace, are ticked by opening them.
+ */
+export const FIRST_WEEK_GOAL_KEYS = [
+  'year',
+  'classes',
+  'subjects',
+  'students',
+  'parents',
+  'staffLogins',
+  'subjectTeachers',
+  'parentInvites',
+  'teachersIn',
+  'registers',
+  'homework',
+  'onlineTest',
+  'parentsIn',
+  'learningUpdates',
+  'fees',
+  'paystack',
+  'masteryEvidence',
+  'classInsights',
+  'firstUpdate',
+  'successReview',
+  'impactShared',
+  'website',
+  'whatsapp',
+] as const;
+export type FirstWeekGoalKey = (typeof FIRST_WEEK_GOAL_KEYS)[number];
+
+/** Goals with no record to detect: done when the principal opens them from the plan. */
+export const FIRST_WEEK_MANUAL_GOALS = ['successReview', 'impactShared'] as const satisfies readonly FirstWeekGoalKey[];
+export type FirstWeekManualGoal = (typeof FIRST_WEEK_MANUAL_GOALS)[number];
+
+/** Thresholds, here so the API, the page and the copy agree. */
+export const FIRST_WEEK_THRESHOLDS = {
+  /** Share of class subjects with a teacher. */
+  subjectTeachers: 0.7,
+  /** Share of active students with a parent on record. */
+  parents: 0.8,
+  /** Share of teachers with a login. */
+  staffLogins: 0.8,
+  /** Share of parents with a portal login (or an invitation sent). */
+  parentInvites: 0.5,
+  /** Share of teachers who have signed in. */
+  teachersIn: 0.5,
+  /** Share of classes with at least one register taken. */
+  registers: 0.5,
+  /** Share of parents who have signed in. */
+  parentsIn: 0.3,
+} as const;
+
+export type FirstWeekGoalStatus = 'DONE' | 'IN_PROGRESS' | 'TODO';
+
+export interface FirstWeekGoal {
+  key: FirstWeekGoalKey;
+  label: string;
+  /** One line on why it matters for the school. */
+  why: string;
+  status: FirstWeekGoalStatus;
+  /** What the records show, e.g. "18 of 24 teachers have signed in". */
+  detail: string;
+  progress: { done: number; total: number } | null;
+  /** Where "Do it now" goes (a query string opens the right dialog where the screen supports it). */
+  href: string;
+  action: string;
+  /** Nice to have; not counted in the plan's progress. */
+  optional: boolean;
+  /** Ticked by opening it from the plan (nothing to detect). */
+  manual: boolean;
+}
+
+export type FirstWeekDayStatus = 'DONE' | 'TODAY' | 'BEHIND' | 'UPCOMING';
+
+export interface FirstWeekDay {
+  day: number;
+  title: string;
+  summary: string;
+  status: FirstWeekDayStatus;
+  goals: FirstWeekGoal[];
+}
+
+export interface FirstWeekPlan {
+  /** YYYY-MM-DD (school time): when the school was created, or when the plan was (re)started. */
+  startedOn: string;
+  /** Day of the plan today (1 on the start date); above 7 once the week has passed. */
+  dayNumber: number;
+  /** ACTIVE: running (or catching up); COMPLETE: every goal done but not yet closed; FINISHED / DISMISSED: closed. */
+  state: 'ACTIVE' | 'COMPLETE' | 'FINISHED' | 'DISMISSED';
+  /** Show the dashboard card (active or just completed, and the school is new or started the plan itself). */
+  showCard: boolean;
+  progressPct: number;
+  doneCount: number;
+  total: number;
+  /** The day to focus on now: the earliest unfinished day up to today. */
+  focusDay: number;
+  days: FirstWeekDay[];
+  nextAction: (FirstWeekGoal & { day: number }) | null;
+}
+
+export const firstWeekActionSchema = z.object({
+  action: z.enum(['DISMISS', 'FINISH', 'RESTART', 'MARK']),
+  /** MARK: the review goal the principal opened. */
+  key: z.enum(FIRST_WEEK_MANUAL_GOALS).optional(),
+});
+export type FirstWeekAction = z.infer<typeof firstWeekActionSchema>;
+
+// ============================================================ parent portal invitations
+
+export interface ParentInvitePreview {
+  parents: number;
+  /** Parents with a portal login already. */
+  withLogin: number;
+  /** Of those, how many have never signed in. */
+  neverSignedIn: number;
+  /** No login yet but an email, so one can be made now. */
+  canCreate: number;
+  /** No login and no email: add an email first (logins are by email). */
+  noEmail: number;
+  channels: { email: boolean; sms: boolean };
+  lastSentAt: string | null;
+}
+
+export const parentInviteSchema = z.object({
+  /** IN_APP reaches parents who already have a login; email and SMS everyone else. */
+  channels: z.array(z.enum(['EMAIL', 'SMS', 'IN_APP'])).min(1, 'Choose at least one way to send'),
+  /** Also remind parents who have a login but have never signed in. */
+  remindExisting: z.boolean().default(true),
+});
+export type ParentInviteInput = z.infer<typeof parentInviteSchema>;
+
+export interface ParentInviteResult {
+  loginsCreated: number;
+  invited: number;
+  reminded: number;
+  noEmail: number;
+  broadcastId: string | null;
+  /** One-time passwords for the new logins, as CSV to download once (never sent by message). */
+  credentialsCsv: string | null;
+}

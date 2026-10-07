@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { INTEREST_TYPES, RIASEC, TRACK_LABELS, TRACKS, type CounsellorReply, type Track } from '@aischool/shared';
+import { INTEREST_TYPES, languagePrompt, RIASEC, TRACK_LABELS, TRACKS, type CounsellorReply, type Track } from '@aischool/shared';
 import { z, type ZodType } from 'zod';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import type { AiToolSpec } from '../ai/providers/provider';
+import { studentLanguage } from '../common/language';
 import { currentContext } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
 import { EntitlementService, type ResolvedAccess } from '../student-ai/entitlements.service';
@@ -156,7 +157,7 @@ export class CounsellorService {
     return [
       `You are a friendly careers counsellor for a Nigerian secondary school student (${access.name.split(' ')[0]}). Today is ${today}.`,
       'Help them discover careers that suit their interests and strengths, understand what the work is really like, choose an SS1 track (Science, Arts, Commercial or Technical) and plan for WAEC/NECO, JAMB UTME and university, polytechnic or other routes (ND/HND, apprenticeships, professional exams).',
-      'Be encouraging and honest; British English; short replies (under 180 words unless asked), simple words for a young person, Nigerian examples. Ask one question at a time to understand them. Never say a career is closed to them because of gender, background or one weak result.',
+      'Be encouraging and honest; British English unless the LANGUAGE rule below says otherwise; short replies (under 180 words unless asked), simple words for a young person, Nigerian examples. Ask one question at a time to understand them. Never say a career is closed to them because of gender, background or one weak result.',
       'Use tools: my_interests, my_strengths, my_plan and track_advice to personalise; search_careers and career_details for the library; course_requirements for admission requirements.',
       'STRICT RULE ON ADMISSIONS FACTS: never state UTME subject combinations, O’level requirements, cut-off marks, admission quotas or fees from your own knowledge. Only quote requirements a tool returns as verified, and name the brochure edition. If a tool says requirements are not loaded, say: "Those requirements aren’t loaded yet — check the current JAMB brochure (on the JAMB website or e-Facility) and confirm with your school counsellor." Cut-off marks are set by JAMB and each university every year: always tell them to check the official sources.',
       'Official results come from my_strengths: quote them exactly, never estimate grades. You only see this student’s own records. Never ask for personal details (address, phone, passwords). If the student seems worried, unsafe or very upset, respond kindly and encourage them to talk to a parent, teacher or the school counsellor.',
@@ -181,7 +182,7 @@ export class CounsellorService {
     return { id: c.id, title: c.title, messages: c.messages.map((m) => ({ id: m.id, role: m.role, content: m.content, createdAt: m.createdAt.toISOString() })) };
   }
 
-  async chat(studentId: string, input: { conversationId?: string | null; message: string; voice: boolean }): Promise<CounsellorReply> {
+  async chat(studentId: string, input: { conversationId?: string | null; message: string; voice: boolean; language?: string | null }): Promise<CounsellorReply> {
     const access = await this.entitlements.access(studentId);
     const { units } = await this.entitlements.check(access, { deep: false });
     const userId = currentContext().userId!;
@@ -193,12 +194,13 @@ export class CounsellorService {
     const tenant = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: access.tenantId }, select: { timezone: true } });
     const today = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeZone: tenant.timezone }).format(new Date());
     const ctx: Ctx = { access, saved: [] };
+    const language = '\n' + languagePrompt(input.language ?? (await studentLanguage(this.prisma, studentId)), 'student', { explicit: !!input.language });
 
     this.entitlements.attribute(access);
     const result = await this.gateway.generateWithTools(
       {
         tier: 'standard',
-        system: this.system(access, today) + (input.voice ? VOICE_STYLE : ''),
+        system: this.system(access, today) + language + (input.voice ? VOICE_STYLE : ''),
         messages: [...history.reverse().map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })), { role: 'user', content: input.message }],
         maxOutputTokens: 1200,
       },
@@ -215,7 +217,7 @@ export class CounsellorService {
         }
       },
       AGENT,
-      { maxSteps: 6, fallbackSystem: () => this.fallback(access, today) },
+      { maxSteps: 6, fallbackSystem: async () => (await this.fallback(access, today)) + language },
     );
     await this.entitlements.consume(access, units, false);
     const reply = result.text || "Sorry, I couldn't work that out. Could you ask it another way?";

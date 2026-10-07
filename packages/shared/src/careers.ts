@@ -1,3 +1,4 @@
+import { languageCodeSchema } from './languages';
 import { z } from 'zod';
 import type { JambCourseLink, JambCourseRow } from './jamb';
 import type { StudentAccess } from './learning';
@@ -484,6 +485,8 @@ export const counsellorChatSchema = z.object({
   conversationId: z.string().nullish(),
   message: z.string().trim().min(1).max(4000),
   voice: z.boolean().default(false),
+  /** This one reply in this language; otherwise the student's tutor language. */
+  language: languageCodeSchema.nullish(),
 });
 export interface CounsellorReply {
   conversationId: string;

@@ -1,4 +1,4 @@
-import { masteryBand, type LearningUpdateContent, type LearningUpdateTopic } from '@aischool/shared';
+import { LEARNING_UPDATE_INTRO, masteryBand, SUGGESTION_LABEL, type LanguageCode, type LearningUpdateContent, type LearningUpdateTopic } from '@aischool/shared';
 import { schoolNow } from '../common/school-time';
 
 /**
@@ -183,9 +183,9 @@ export function rulesRecommendation(f: WeekFacts, g: ReturnType<typeof classify>
  * Checks an AI-worded recommendation: short, plain, and with no numbers
  * other than practice minutes (so no invented scores or counts).
  */
-export function acceptableAiText(text: string): string | null {
+export function acceptableAiText(text: string, max = 240): string | null {
   const t = text.replace(/\s+/g, ' ').trim().replace(/^["“]|["”]$/g, '');
-  if (t.length < 20 || t.length > 240) return null;
+  if (t.length < 20 || t.length > max) return null;
   if (/[%*#[\]{}<>]|https?:/i.test(t)) return null;
   if (/placeholder/i.test(t)) return null;
   for (const n of t.match(/\d+/g) ?? []) if (!['5', '10', '15', '20', '30'].includes(n)) return null;
@@ -217,6 +217,24 @@ export function parentText(c: Omit<LearningUpdateContent, 'studentText'>): strin
     if (t.length <= TEXT_LIMIT) return t;
   }
   return clip(build(1, 24), TEXT_LIMIT);
+}
+
+/**
+ * The parent's message in their language. Facts, subject and topic names stay
+ * in English (the school's records); a fixed, reviewed line in the language
+ * opens it, and the recommendation is in the language when AI wrote it
+ * (otherwise the English rules wording). English: exactly parentText.
+ */
+export function parentTextIn(c: Omit<LearningUpdateContent, 'studentText'>, language: LanguageCode): string {
+  const english = parentText(c);
+  if (language === 'EN') return english;
+  const local = c.localized?.[language];
+  const intro = LEARNING_UPDATE_INTRO[language](c.firstName);
+  const lines = english.split('\n');
+  const suggestion = lines.findIndex((l) => l.startsWith('Our suggestion: '));
+  if (local && suggestion >= 0) lines[suggestion] = `${SUGGESTION_LABEL[language]} ${local}`;
+  const t = [intro, ...lines].join('\n');
+  return t.length <= TEXT_LIMIT + 200 ? t : clip(t, TEXT_LIMIT + 200);
 }
 
 /** The student's own version: second person and encouraging. */

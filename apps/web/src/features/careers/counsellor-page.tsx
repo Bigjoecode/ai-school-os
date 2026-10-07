@@ -1,3 +1,4 @@
+import { languageInfo } from '@aischool/shared';
 import type { AllowanceExhausted } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowUp, AudioLines, BookmarkCheck, Compass, GraduationCap, History, Loader2, MessageCircleHeart, MessageSquarePlus, Route, Sparkles } from 'lucide-react';
@@ -15,7 +16,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { cn, safeStorage } from '@/lib/utils';
 import { allowanceError, lk, useLearnHome, useTutorVoice } from '../learning/api';
 import { UpgradeCard } from '../learning/components';
-import { canSynthesise, micMode, speaker, unlockAudio } from '../learning/voice';
+import { canSynthesise, micMode, setVoiceLanguage, speaker, unlockAudio } from '../learning/voice';
 import { ListenButton, MicButton, RecordingStrip, TalkPanel, useVoiceInput, VoiceRepliesToggle, type AskResult } from '../learning/voice-ui';
 import { crk, useCounsellorChat, useCounsellorConversation, useCounsellorConversations, type CounsellorConversation } from './api';
 
@@ -83,6 +84,9 @@ export default function CounsellorPage() {
   talkOpenRef.current = talkOpen;
 
   useEffect(() => () => speaker.stop(), []);
+  // The counsellor replies in the student's tutor language; the browser's speech listens for it too.
+  const tutorLanguage = home.data?.tutorLanguage;
+  useEffect(() => setVoiceLanguage(languageInfo(tutorLanguage).speech), [tutorLanguage]);
   useEffect(() => {
     setBlocked(null);
     setPending(null);

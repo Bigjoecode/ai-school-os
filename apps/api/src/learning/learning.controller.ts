@@ -3,7 +3,12 @@ import type { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Throttle } from '@nestjs/throttler';
 import {
+  asLanguage,
   EXAMS,
+  parentLanguageSchema,
+  tutorLanguageSchema,
+  type LanguageCode,
+  type ParentLanguageInfo,
   MEMORY_KINDS,
   PLATFORM_AREAS,
   aiQuizSchema,
@@ -29,7 +34,8 @@ import {
 } from '@aischool/shared';
 import { z } from 'zod';
 import { RequirePermissions, RequirePlatformRole } from '../common/decorators';
-import { currentUserId } from '../common/request-context';
+import { parentChoice, schoolParentLanguage, studentLanguage } from '../common/language';
+import { currentTenantId, currentUserId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { FilesService } from '../files/files.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -55,6 +61,7 @@ export class LearningController {
     private readonly exams: ExamService,
     private readonly files: FilesService,
     private readonly voice: VoiceService,
+    private readonly prisma: PrismaService,
   ) {}
 
   private async me() {
@@ -66,7 +73,16 @@ export class LearningController {
   async home() {
     const { id, access } = await this.me();
     const [plans, decks, attempts, map] = await Promise.all([this.study.plans(id), this.study.decks(id), this.study.attempts(id, 10), this.mastery.map(id)]);
-    return { access: visible(access), plans: plans.filter((p) => p.status === 'ACTIVE').slice(0, 3), dueCards: decks.reduce((t, d) => t + d.due, 0), recent: attempts, weakest: map.weakest, strongest: map.strongest };
+    const tutorLanguage = await studentLanguage(this.prisma, id);
+    return { access: visible(access), plans: plans.filter((p) => p.status === 'ACTIVE').slice(0, 3), dueCards: decks.reduce((t, d) => t + d.due, 0), recent: attempts, weakest: map.weakest, strongest: map.strongest, tutorLanguage };
+  }
+
+  /** The language the tutor and careers counsellor reply in (the student's own choice). */
+  @Put('language')
+  async setLanguage(@Body(new ZodPipe(tutorLanguageSchema)) body: { language: LanguageCode | null }) {
+    const id = await this.entitlements.me();
+    await this.prisma.root.student.update({ where: { id }, data: { tutorLanguage: body.language && body.language !== 'EN' ? body.language : null } });
+    return { tutorLanguage: await studentLanguage(this.prisma, id) };
   }
 
   // ---------------------------------------------------------- tutor voice
@@ -81,10 +97,11 @@ export class LearningController {
   @HttpCode(200)
   @Throttle({ default: { limit: 20, ttl: 60_000 } })
   @UseInterceptors(FileInterceptor('audio', { limits: { fileSize: 12 * 1024 * 1024, files: 1 } }))
-  async transcribe(@UploadedFile() audio: { buffer: Buffer; mimetype: string; originalname: string } | undefined, @Body() body: { subject?: string }) {
-    const { access } = await this.me();
+  async transcribe(@UploadedFile() audio: { buffer: Buffer; mimetype: string; originalname: string } | undefined, @Body() body: { subject?: string; language?: string }) {
+    const { id, access } = await this.me();
     this.entitlements.attribute(access);
-    return { text: await this.voice.transcribe(audio!, typeof body?.subject === 'string' ? body.subject.slice(0, 60) : null) };
+    const language = asLanguage(body?.language) ?? (await studentLanguage(this.prisma, id));
+    return { text: await this.voice.transcribe(audio!, typeof body?.subject === 'string' ? body.subject.slice(0, 60) : null, language) };
   }
 
   /** Part of a tutor reply read aloud (MP3). */
@@ -92,9 +109,9 @@ export class LearningController {
   @HttpCode(200)
   @Throttle({ default: { limit: 40, ttl: 60_000 } })
   async speak(@Body(new ZodPipe(tutorSpeakSchema)) body: { text: string }, @Res() res: Response) {
-    const { access } = await this.me();
+    const { id, access } = await this.me();
     this.entitlements.attribute(access);
-    const audio = await this.voice.speak(body.text);
+    const audio = await this.voice.speak(body.text, await studentLanguage(this.prisma, id));
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('Cache-Control', 'no-store');
     res.send(audio);
@@ -276,7 +293,15 @@ export class ChildProgressController {
       this.tutor.memories(id),
       this.prisma.root.aiConversation.count({ where: { studentId: id, agent: 'tutor', updatedAt: { gte: since } } }),
     ]);
-    return { access: visible(access), mastery: map, plans, attempts, memories, tutorConversations: sessions };
+    return { access: visible(access), mastery: map, plans, attempts, memories, tutorConversations: sessions, tutorLanguage: await studentLanguage(this.prisma, id) };
+  }
+
+  /** Parents may also choose the language their child's tutor explains in. */
+  @Put(':id/tutor-language')
+  async setTutorLanguage(@Param('id') id: string, @Body(new ZodPipe(tutorLanguageSchema)) body: { language: LanguageCode | null }) {
+    await this.entitlements.assertParentOf(currentUserId(), [id]);
+    await this.prisma.root.student.update({ where: { id }, data: { tutorLanguage: body.language && body.language !== 'EN' ? body.language : null } });
+    return { tutorLanguage: await studentLanguage(this.prisma, id) };
   }
 
   /** Parents can tell the tutor something useful ("she learns best with diagrams"). */
@@ -285,6 +310,26 @@ export class ChildProgressController {
     await this.entitlements.assertParentOf(currentUserId(), [id]);
     const s = await this.prisma.root.student.findUniqueOrThrow({ where: { id }, select: { tenantId: true } });
     return this.tutor.addMemory({ tenantId: s.tenantId, studentId: id }, body, 'PARENT');
+  }
+}
+
+/** A parent's own language: weekly learning updates, the Parent AI and WhatsApp assistant reply in it. */
+@Controller('family/language')
+@RequirePermissions('family.manage')
+export class FamilyLanguageController {
+  constructor(private readonly prisma: PrismaService) {}
+
+  @Get()
+  async get(): Promise<ParentLanguageInfo> {
+    const tenantId = currentTenantId();
+    return { language: await parentChoice(this.prisma, tenantId, currentUserId()), schoolDefault: await schoolParentLanguage(this.prisma, tenantId) };
+  }
+
+  /** Saved on every guardian record this parent has, in every school (it's a personal preference). Null: use the school's default. */
+  @Put()
+  async set(@Body(new ZodPipe(parentLanguageSchema)) body: { language: LanguageCode | null }): Promise<ParentLanguageInfo> {
+    await this.prisma.root.guardian.updateMany({ where: { userId: currentUserId() }, data: { preferredLanguage: asLanguage(body.language) } });
+    return this.get();
   }
 }
 

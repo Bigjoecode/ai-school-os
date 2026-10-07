@@ -1,6 +1,6 @@
 import type { Permission } from '@aischool/shared';
 import type { ReactNode } from 'react';
-import { Building, CreditCard, DatabaseBackup, KeyRound, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
+import { Building, CreditCard, DatabaseBackup, FileLock2, KeyRound, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { hasPermission, useMe } from '@/lib/auth-store';
@@ -15,6 +15,8 @@ const LINKS: { to: string; label: string; icon: typeof Building; permission?: Pe
   { to: '/settings/billing', label: 'Billing', icon: CreditCard, permission: 'billing.manage' },
   { to: '/settings/security', label: 'Security', icon: KeyRound },
   { to: '/settings/backup', label: 'Backup & export', icon: DatabaseBackup, permission: 'school.manage' },
+  { to: '/settings/data-protection', label: 'Data protection', icon: FileLock2, permission: 'school.read' },
+  { to: '/settings/privacy', label: 'Privacy & consent', icon: FileLock2, permission: 'family.manage' },
 ];
 
 export default function SettingsLayout() {

@@ -313,6 +313,22 @@ minute listened and $0.015 per minute spoken; it shows as "Tutor voice" in
 AI usage and doesn't use up a student's daily message allowance (the chat
 message itself does).
 
+**Nigerian languages.** Students can choose the language their AI tutor and
+careers counsellor explain in (English, Naijá/Pidgin, Yorùbá, Igbo or Hausa)
+from the tutor page; parents can set it for a child on the child's progress
+page. Parents choose their own language on *My family*; the Parent AI (in the
+app and on WhatsApp) and the weekly learning update use it, or the school's
+default for parents (Messages → Settings). Subject and exam terms, topic
+names, scores and amounts always stay in English/digits, because WAEC, NECO
+and JAMB are in English. **Yoruba, Igbo and Hausa quality depends on the AI
+model in use**: have a native speaker review tutor replies, Parent AI replies
+and learning updates in each language during the pilot before promoting it.
+Spoken replies use OpenAI's English-trained voices, so Yoruba, Igbo and Hausa
+may sound accented (the app says so); speech-to-text gets the language as a
+hint. Weekly updates without AI stay in English with one fixed opening line
+in the parent's language; SMS in Yoruba, Igbo or Hausa uses Unicode (tone
+marks), which costs more SMS pages.
+
 ## Email alerts and the demo accounts
 
 **Alerts.** Get an email when something breaks: unexpected server errors,

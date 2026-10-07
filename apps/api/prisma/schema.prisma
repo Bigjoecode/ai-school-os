@@ -655,6 +655,8 @@ model Student {
   classArmId        String?
   /// School house (Red, Blue…), for house points and sports.
   houseId           String?
+  /// Language the AI tutor explains in: EN, PCM (Nigerian Pidgin), YO, IG, HA.
+  tutorLanguage     String?
   admissionNumber   String
   firstName         String
   middleName        String?
@@ -723,7 +725,7 @@ model Student {
 }
 
 model Guardian {
-  id                 String   @id @default(cuid())
+  id                 String    @id @default(cuid())
   tenantId           String
   userId             String?
   firstName          String
@@ -732,11 +734,16 @@ model Guardian {
   phone              String
   email              String?
   /// Parent turned off the weekly learning update.
-  learningUpdatesOff Boolean  @default(false)
+  learningUpdatesOff Boolean   @default(false)
+  /// Language for messages and the weekly learning update (EN, PCM, YO, IG, HA).
+  preferredLanguage  String?
+  /// Parental consent to the school's use of the platform for their children (NDPA), and which version of the notice they accepted.
+  dataConsentAt      DateTime?
+  dataConsentVersion String?
   occupation         String?
   address            String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   user     User?             @relation(fields: [userId], references: [id], onDelete: SetNull)

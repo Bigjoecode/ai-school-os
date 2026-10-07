@@ -1,3 +1,4 @@
+import { languageCodeSchema } from './languages';
 import { z } from 'zod';
 
 /**
@@ -274,6 +275,8 @@ export const tutorChatSchema = z.object({
   subject: z.string().trim().max(60).nullish(),
   /** The student is talking by voice and will hear the reply read aloud. */
   voice: z.boolean().default(false),
+  /** This one reply in this language ("Explain in English" / "Explain in Yorùbá"); otherwise the student's tutor language. */
+  language: languageCodeSchema.nullish(),
 });
 export const tutorSpeakSchema = z.object({ text: z.string().trim().min(1).max(1500) });
 export interface TutorVoiceInfo {

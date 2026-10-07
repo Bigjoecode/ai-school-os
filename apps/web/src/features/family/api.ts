@@ -1,4 +1,4 @@
-import type { CheckoutQuote, FamilyOverview, KbAnswer, MasteryMap, MemoryKind, PracticeAttemptRow, StudentAccess, StudentMemoryRow, StudyPlanRow } from '@aischool/shared';
+import type { CheckoutQuote, FamilyOverview, KbAnswer, LanguageCode, MasteryMap, MemoryKind, PracticeAttemptRow, StudentAccess, StudentMemoryRow, StudyPlanRow } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 
@@ -9,6 +9,7 @@ export interface ChildProgress {
   attempts: PracticeAttemptRow[];
   memories: StudentMemoryRow[];
   tutorConversations: number;
+  tutorLanguage?: LanguageCode;
 }
 export interface CheckoutBody {
   productCode: string;

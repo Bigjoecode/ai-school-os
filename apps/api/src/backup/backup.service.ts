@@ -12,7 +12,7 @@ const BATCH = 2000;
 const MAX_ROWS_PER_TABLE = 2_000_000;
 
 /** Never exported, whatever the table: credentials and anything that could sign someone in. */
-const SENSITIVE_FIELD = /password|secret|token|hash|credential|apikey|recoverycode|totp/i;
+export const SENSITIVE_FIELD = /password|secret|token|hash|credential|apikey|recoverycode|totp/i;
 
 interface TableSpec {
   /** Prisma model name (also used to find its column list). */
@@ -77,7 +77,7 @@ const TABLES: TableSpec[] = [
 
 const BOM = '﻿';
 
-function cell(v: unknown): string {
+export function cell(v: unknown): string {
   if (v === null || v === undefined) return '';
   let s: string;
   if (v instanceof Date) s = v.toISOString();
@@ -91,9 +91,9 @@ function cell(v: unknown): string {
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-const line = (values: unknown[]) => `${values.map(cell).join(',')}\r\n`;
+export const line = (values: unknown[]) => `${values.map(cell).join(',')}\r\n`;
 
-function columnsOf(model: Prisma.ModelName): string[] | null {
+export function columnsOf(model: Prisma.ModelName): string[] | null {
   const fieldEnum = (Prisma as unknown as Record<string, Record<string, string> | undefined>)[`${model}ScalarFieldEnum`];
   if (!fieldEnum) return null;
   return Object.values(fieldEnum);

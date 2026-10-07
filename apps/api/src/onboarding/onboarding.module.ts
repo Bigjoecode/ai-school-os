@@ -1,7 +1,14 @@
 import { Body, Controller, ForbiddenException, Get, Header, HttpCode, Module, Param, Post } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import {
+  firstWeekActionSchema,
   IMPORT_KINDS,
+  parentInviteSchema,
+  type FirstWeekAction,
+  type FirstWeekPlan,
+  type ParentInviteInput,
+  type ParentInvitePreview,
+  type ParentInviteResult,
   importRequestSchema,
   setupClassesSchema,
   setupSubjectsSchema,
@@ -17,9 +24,12 @@ import {
 import { z } from 'zod';
 import { AssessmentModule } from '../assessment/assessment.module';
 import { RequirePermissions } from '../common/decorators';
-import { currentContext } from '../common/request-context';
+import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
+import { CommsModule } from '../comms/comms.module';
+import { FirstWeekService } from './first-week.service';
 import { ImportService } from './import.service';
+import { ParentInvitesService } from './parent-invites.service';
 import { SetupService } from './setup.service';
 
 /** New-school setup: the checklist and the Nigerian templates for the year, classes and subjects. */
@@ -103,9 +113,55 @@ export class ImportController {
   }
 }
 
+/** Throws unless the caller can run the school (school.manage) or its academics (academics.manage). */
+function allowPlan() {
+  const perms = currentContext().permissions;
+  if (!perms.has('school.manage') && !perms.has('academics.manage')) throw new ForbiddenException("You don't have permission to do this (school.manage or academics.manage)");
+}
+
+/** "Your first week": the guided 7-day plan for a new school, and the parent portal invitations it asks for. */
+@Controller('onboarding')
+export class FirstWeekController {
+  constructor(
+    private readonly firstWeek: FirstWeekService,
+    private readonly invites: ParentInvitesService,
+  ) {}
+
+  @Get('first-week')
+  @RequirePermissions('school.read')
+  plan(): Promise<FirstWeekPlan> {
+    allowPlan();
+    return this.firstWeek.plan(currentTenantId());
+  }
+
+  /** DISMISS or FINISH closes the plan, RESTART starts it again from today, MARK ticks a Day 7 review goal. */
+  @Post('first-week')
+  @HttpCode(200)
+  @RequirePermissions('school.read')
+  act(@Body(new ZodPipe(firstWeekActionSchema)) body: FirstWeekAction): Promise<FirstWeekPlan> {
+    allowPlan();
+    return this.firstWeek.act(currentTenantId(), body);
+  }
+
+  @Get('parent-invites')
+  @RequirePermissions('guardians.manage', 'users.manage')
+  invitePreview(): Promise<ParentInvitePreview> {
+    return this.invites.preview();
+  }
+
+  @Post('parent-invites')
+  @HttpCode(200)
+  @RequirePermissions('guardians.manage', 'users.manage', 'comms.send')
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  invite(@Body(new ZodPipe(parentInviteSchema)) body: ParentInviteInput): Promise<ParentInviteResult> {
+    return this.invites.send(body);
+  }
+}
+
 @Module({
-  imports: [AssessmentModule],
-  controllers: [SetupController, ImportController],
-  providers: [SetupService, ImportService],
+  imports: [AssessmentModule, CommsModule],
+  controllers: [SetupController, ImportController, FirstWeekController],
+  providers: [SetupService, ImportService, FirstWeekService, ParentInvitesService],
+  exports: [FirstWeekService],
 })
 export class OnboardingModule {}

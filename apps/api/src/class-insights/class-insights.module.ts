@@ -28,7 +28,10 @@ import { AcademicModule } from '../academic-engine/academic.module';
 import { AiModule } from '../ai/ai.module';
 import { AssessmentModule } from '../assessment/assessment.module';
 import { RequirePermissions } from '../common/decorators';
+import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
+import { noteClassInsightsSeen } from '../onboarding/first-week.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { ClassInsightsService } from './class-insights.service';
 
 /**
@@ -38,7 +41,10 @@ import { ClassInsightsService } from './class-insights.service';
  */
 @Controller('class-insights')
 export class ClassInsightsController {
-  constructor(private readonly insights: ClassInsightsService) {}
+  constructor(
+    private readonly insights: ClassInsightsService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Get('options')
   options(): Promise<ClassInsightsOptions> {
@@ -51,8 +57,11 @@ export class ClassInsightsController {
   }
 
   @Get('mastery')
-  mastery(@Query(new ZodPipe(classInsightsQuerySchema)) q: ClassInsightsQuery): Promise<ClassMastery> {
-    return this.insights.mastery(q.classArmId, q.subjectId, q.allTopics);
+  async mastery(@Query(new ZodPipe(classInsightsQuerySchema)) q: ClassInsightsQuery): Promise<ClassMastery> {
+    const result = await this.insights.mastery(q.classArmId, q.subjectId, q.allTopics);
+    // "Your first week" counts who has opened a class's insights.
+    void noteClassInsightsSeen(this.prisma, currentTenantId(), currentContext().userId).catch(() => undefined);
+    return result;
   }
 
   @Get('topic')

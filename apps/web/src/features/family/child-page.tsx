@@ -11,6 +11,7 @@ import { formatDate } from '@/lib/format';
 import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, RecentEvidence, SectionTitle, TopicChip } from '../learning/components';
 import { ChildHomework } from '../live/child-homework';
 import { useChildProgress, useTellTutor } from './api';
+import { ChildTutorLanguageCard } from './language-cards';
 
 export default function ChildProgressPage() {
   const { id = '' } = useParams();
@@ -48,6 +49,7 @@ export default function ChildProgressPage() {
         </div>
       ) : (
         <div className="space-y-8">
+          <ChildTutorLanguageCard id={id} first={first} value={d.tutorLanguage ?? 'EN'} />
           <div className="grid gap-4 lg:grid-cols-3 [&>*]:min-w-0">
             <Card className="p-5">
               <AccessMeter access={d.access} title="AI learning this term" />

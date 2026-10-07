@@ -1,9 +1,10 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { AI_AGENTS, type AgentInfo, type AiAgent, type AiChatInput, type AiChatResponse, type AiProposedAction, type AiToolCall } from '@aischool/shared';
+import { AI_AGENTS, languagePrompt, type AgentInfo, type AiAgent, type AiChatInput, type AiChatResponse, type AiProposedAction, type AiToolCall } from '@aischool/shared';
 import { AGENTS, systemPrompt } from '../ai/agents';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AiJobsService } from '../ai/ai-jobs.service';
 import { AiService } from '../ai/ai.service';
+import { parentLanguage } from '../common/language';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
 import { EntitlementService } from '../student-ai/entitlements.service';
@@ -87,7 +88,9 @@ export class AgentsService {
     const allowed = new Set(specs.map((s) => s.name));
     const toolCalls: AiToolCall[] = [];
     const actions: AiProposedAction[] = [];
-    const who = [`You are talking to ${user.firstName} ${user.lastName}.`, opts.style].filter(Boolean).join('\n\n');
+    // Parents: reply in their chosen language (or the school's default for parent messages), in the system prompt.
+    const language = input.agent === 'parent' ? languagePrompt(await parentLanguage(this.prisma, currentTenantId(), userId), 'parent') : null;
+    const who = [`You are talking to ${user.firstName} ${user.lastName}.`, language, opts.style].filter(Boolean).join('\n\n');
 
     const result = await this.gateway.generateWithTools(
       {

@@ -113,6 +113,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
+      { label: 'School success', to: '/success', icon: TrendingUp, permission: 'results.publish', requires: ['school.read'], keywords: 'impact health score adoption outcomes renewal pta proprietor report value time saved' },
       { label: 'Setup', to: '/setup', icon: Rocket, permission: 'academics.manage', badge: 'setup', keywords: 'onboarding getting started checklist new school year terms classes subjects' },
       {
         label: 'Import data',
@@ -347,6 +348,7 @@ export const PLATFORM_GROUP: NavGroup = {
   label: 'Platform',
   items: [
     { label: 'Console', to: '/platform', icon: LayoutGrid, area: 'overview', keywords: 'platform overview mrr arr kpis briefing' },
+    { label: 'Pilot schools', to: '/platform/success', icon: HeartPulse, area: 'overview', keywords: 'success health score adoption risk churn renewal pilots at risk' },
     { label: 'Schools', to: '/platform/schools', icon: Building2, area: 'schools', keywords: 'tenants customers accounts' },
     { label: 'Branches', to: '/platform/branches', icon: GitBranch, area: 'schools', keywords: 'campuses sites' },
     { label: 'Billing', to: '/platform/billing', icon: Landmark, area: 'billing', keywords: 'subscriptions invoices payments revenue billing cycle' },

@@ -1,4 +1,4 @@
-import { TIER_POLICY, type AllowanceExhausted, type TutorReply } from '@aischool/shared';
+import { languageInfo, TIER_POLICY, type AllowanceExhausted, type LanguageCode, type TutorReply } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowUp, AudioLines, Brain, CalendarCheck2, Camera, History, Layers, Loader2, MessageSquarePlus, Sparkles, Target, X, Zap } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -15,9 +15,10 @@ import { errorMessage } from '@/lib/api';
 import { useDocumentTitle } from '@/lib/hooks';
 import { formatRelative } from '@/lib/format';
 import { cn, safeStorage } from '@/lib/utils';
-import { allowanceError, lk, uploadQuestionPhoto, useConversation, useConversations, useLearnHome, useMastery, useTutorChat, useTutorVoice, type ConversationDetail } from './api';
+import { allowanceError, lk, uploadQuestionPhoto, useConversation, useConversations, useLearnHome, useMastery, useSetTutorLanguage, useTutorChat, useTutorVoice, type ConversationDetail } from './api';
+import { accentNote, explainAgain, LanguageSelect } from './language';
 import { TierBadge, UpgradeCard } from './components';
-import { canSynthesise, micMode, speaker, unlockAudio } from './voice';
+import { canSynthesise, micMode, setVoiceLanguage, speaker, unlockAudio } from './voice';
 import { ListenButton, MicButton, RecordingStrip, TalkPanel, useVoiceInput, VoiceRepliesToggle, type AskResult } from './voice-ui';
 
 const ANY = '__any__';
@@ -72,6 +73,10 @@ export default function TutorPage() {
   const convo = useConversation(conversationId);
   const mastery = useMastery();
   const chat = useTutorChat();
+  const setLanguage = useSetTutorLanguage();
+  const language: LanguageCode = home.data?.tutorLanguage ?? 'EN';
+  // The browser's own speech listens for the student's language (Nigerian English when unsupported).
+  useEffect(() => setVoiceLanguage(languageInfo(language).speech), [language]);
 
   const [text, setText] = useState('');
   const [deep, setDeep] = useState(false);
@@ -136,6 +141,8 @@ export default function TutorPage() {
   }, [mastery.data]);
 
   const messages = conversationId ? (convo.data?.messages ?? []) : [];
+  /** The quick "Explain in English / in Yorùbá" toggle sits under the latest reply. */
+  const lastReplyId = [...messages].reverse().find((m) => m.role === 'assistant')?.id;
   useEffect(() => {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: 'smooth' });
   }, [messages.length, pending, blocked]);
@@ -144,7 +151,7 @@ export default function TutorPage() {
    * Sends a message. `voice` asks for a short, speakable reply; `speak` reads
    * the reply aloud when voice replies are on (Talk mode reads it itself).
    */
-  const send = (message: string, opts: { voice?: boolean; speak?: boolean } = {}): Promise<AskResult> => {
+  const send = (message: string, opts: { voice?: boolean; speak?: boolean; language?: LanguageCode } = {}): Promise<AskResult> => {
     const msg = message.trim();
     if ((!msg && photos.length === 0) || chat.isPending) return Promise.resolve(null);
     speaker.stop();
@@ -162,6 +169,7 @@ export default function TutorPage() {
           imageFileIds: photos.map((p) => p.id),
           subject: subject === ANY ? null : subject,
           ...(spoken ? { voice: true } : {}),
+          ...(opts.language ? { language: opts.language } : {}),
         },
         {
           onSuccess: (r) => {
@@ -312,6 +320,15 @@ export default function TutorPage() {
               {access && <p className="truncate text-[11.5px] text-muted-foreground">{access.remainingPct}% of this term’s AI learning left</p>}
             </div>
             {access && <TierBadge access={access} className="hidden sm:inline-flex" />}
+            {home.data && (
+              <LanguageSelect
+                compact
+                label="Language your tutor explains in"
+                value={language}
+                disabled={setLanguage.isPending}
+                onChange={(code) => setLanguage.mutate(code, { onSuccess: (r) => toast.success(`Your tutor will explain in ${languageInfo(r.tutorLanguage).label}`), onError: (e) => toast.error(errorMessage(e)) })}
+              />
+            )}
             {voice.mode && (
               <Button type="button" variant="ai" size="sm" className="px-2.5" onClick={openTalk} aria-label="Talk to your tutor" title="Talk to your tutor, hands-free">
                 <AudioLines /> Talk
@@ -355,7 +372,19 @@ export default function TutorPage() {
             ) : (
               <ol className="mx-auto max-w-3xl space-y-5">
                 {messages.map((m) => (
-                  <Message key={m.id} id={m.id} role={m.role} content={m.content} extra={replyExtras.get(m.id)} speak={canSpeak ? { server } : undefined} />
+                  <Message
+                    key={m.id}
+                    id={m.id}
+                    role={m.role}
+                    content={m.content}
+                    extra={replyExtras.get(m.id)}
+                    speak={canSpeak ? { server } : undefined}
+                    explain={
+                      language !== 'EN' && !chat.isPending && m.id === lastReplyId
+                        ? (['EN', language] as const).map((code) => ({ ...explainAgain(code), onClick: () => void send(explainAgain(code).message, { language: code }) }))
+                        : undefined
+                    }
+                  />
                 ))}
                 {pending && (
                   <>
@@ -457,6 +486,7 @@ export default function TutorPage() {
               </div>
             </div>
             <p className="mt-1.5 px-1 text-center text-[11px] text-muted-foreground">The tutor can make mistakes — check important answers with your teacher.</p>
+            {canSpeak && accentNote(language) && <p className="mt-0.5 px-1 text-center text-[11px] text-muted-foreground">{accentNote(language)}</p>}
           </form>
         </section>
       </div>
@@ -474,7 +504,7 @@ export default function TutorPage() {
   );
 }
 
-function Message({ id, role, content, extra, speak }: { id?: string; role: string; content: string; extra?: Extra; speak?: { server: boolean } }) {
+function Message({ id, role, content, extra, speak, explain }: { id?: string; role: string; content: string; extra?: Extra; speak?: { server: boolean }; explain?: { label: string; onClick: () => void }[] }) {
   if (role === 'user') {
     return (
       <li className="flex justify-end">
@@ -490,9 +520,19 @@ function Message({ id, role, content, extra, speak }: { id?: string; role: strin
       <div className="min-w-0 flex-1 space-y-2.5">
         {extra?.deep && <span className="inline-flex items-center gap-1 rounded-full bg-ai-2/10 px-2 py-0.5 text-[11px] font-medium text-ai-2">Deeper explanation</span>}
         <Markdown text={content} className="break-words" />
-        {speak && id && (
-          <div className="-ml-1.5 -mt-1">
-            <ListenButton id={id} text={content} server={speak.server} />
+        {((speak && id) || explain) && (
+          <div className="-ml-1.5 -mt-1 flex flex-wrap items-center gap-0.5">
+            {speak && id && <ListenButton id={id} text={content} server={speak.server} />}
+            {explain?.map((x) => (
+              <button
+                key={x.label}
+                type="button"
+                onClick={x.onClick}
+                className="inline-flex items-center rounded-md px-1.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {x.label}
+              </button>
+            ))}
           </div>
         )}
         {extra && extra.saved.length > 0 && (

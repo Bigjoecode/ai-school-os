@@ -15,7 +15,7 @@ import {
   X,
 } from 'lucide-react';
 import { type FormEvent, type KeyboardEvent, type ReactNode, useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -26,16 +26,33 @@ import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useStructure } from '@/features/academics/api';
 import { errorMessage } from '@/lib/api';
 import { formatNumber } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { useImportKinds, useSetupClasses, useSetupStatus, useSetupSubjects, useSetupYear } from './api';
+import { useCanRunFirstWeek, useImportKinds, useSetupClasses, useSetupStatus, useSetupSubjects, useSetupYear } from './api';
+import { FirstWeekPanel } from './first-week';
 import { ProgressRing, stepHref } from './ui';
 
 export default function SetupPage() {
   const { data, isLoading, error, refetch } = useSetupStatus();
   const { hash } = useLocation();
+  const [params, setParams] = useSearchParams();
+  const canPlan = useCanRunFirstWeek();
+  // A #section link always means the checklist; ?tab=first-week opens the plan.
+  const tab = canPlan && !hash && params.get('tab') === 'first-week' ? 'first-week' : 'checklist';
+  const setTab = (t: string) =>
+    setParams(
+      (prev) => {
+        const p = new URLSearchParams(prev);
+        if (t === 'first-week') p.set('tab', t);
+        else p.delete('tab');
+        p.delete('invite');
+        return p;
+      },
+      { replace: true },
+    );
 
   // Jump to #year / #classes / #subjects once the sections exist.
   useEffect(() => {
@@ -44,34 +61,54 @@ export default function SetupPage() {
     if (el) window.setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   }, [data, hash]);
 
+  const checklist =
+    error && !data ? (
+      <Card>
+        <ErrorState error={error} onRetry={() => void refetch()} />
+      </Card>
+    ) : isLoading || !data ? (
+      <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] [&>*]:min-w-0">
+        <Skeleton className="h-[480px] rounded-2xl" />
+        <div className="space-y-6">
+          <Skeleton className="h-64 rounded-2xl" />
+          <Skeleton className="h-80 rounded-2xl" />
+        </div>
+      </div>
+    ) : (
+      <div className="grid items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)] [&>*]:min-w-0">
+        <Checklist status={data} />
+        <div className="space-y-6">
+          <YearSection status={data} />
+          <ClassesSection status={data} />
+          <SubjectsSection status={data} />
+          <PeopleSection status={data} />
+        </div>
+      </div>
+    );
+
   return (
     <Page>
       <PageHeader
         title="Set up your school"
-        description="A short checklist to get your school ready for day one. Every step can be repeated safely — nothing you already have is changed."
+        description={
+          tab === 'first-week'
+            ? 'A day-by-day plan from setup to the learning loop running: work set and marked, mastery for every child, and parents kept in the picture.'
+            : 'A short checklist to get your school ready for day one. Every step can be repeated safely — nothing you already have is changed.'
+        }
       />
-      {error && !data ? (
-        <Card>
-          <ErrorState error={error} onRetry={() => void refetch()} />
-        </Card>
-      ) : isLoading || !data ? (
-        <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] [&>*]:min-w-0">
-          <Skeleton className="h-[480px] rounded-2xl" />
-          <div className="space-y-6">
-            <Skeleton className="h-64 rounded-2xl" />
-            <Skeleton className="h-80 rounded-2xl" />
-          </div>
-        </div>
+      {canPlan ? (
+        <Tabs value={tab} onValueChange={setTab}>
+          <TabsList>
+            <TabsTrigger value="checklist">Setup checklist</TabsTrigger>
+            <TabsTrigger value="first-week">Your first week</TabsTrigger>
+          </TabsList>
+          <TabsContent value="checklist">{checklist}</TabsContent>
+          <TabsContent value="first-week" className="mx-auto max-w-3xl">
+            <FirstWeekPanel />
+          </TabsContent>
+        </Tabs>
       ) : (
-        <div className="grid items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)] [&>*]:min-w-0">
-          <Checklist status={data} />
-          <div className="space-y-6">
-            <YearSection status={data} />
-            <ClassesSection status={data} />
-            <SubjectsSection status={data} />
-            <PeopleSection status={data} />
-          </div>
-        </div>
+        checklist
       )}
     </Page>
   );

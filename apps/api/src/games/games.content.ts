@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CURATED_QUESTIONS, DAILY_CHALLENGE, seededRandom, seededShuffle, seedOf, TRUE_FALSE_FACTS, type GameLevel, type SyllabusMatchPack } from '@aischool/shared';
+import { CURATED_QUESTIONS, DAILY_CHALLENGE, preferYear, seededRandom, seededShuffle, seedOf, suitsYear, TRUE_FALSE_FACTS, yearTier, type GameLevel, type SyllabusMatchPack } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { subjectKey, MasteryService } from '../learning/mastery.service';
 import { shuffle } from '../lesson-modules/modules.helpers';
@@ -16,10 +16,14 @@ export interface RoundItem {
   subject: string | null;
   topic: string | null;
   topicId: string | null;
+  /** How well it fits the student's year: 0 the school's own or written for the year, 1 the whole stage, 2 another year (topping up). */
+  tier?: number;
 }
 
 export interface Learner {
   level: GameLevel;
+  /** School year within the stage (1–6); nursery classes are 1. Curated items written for other years only top up a thin round. */
+  year: number;
   classLevelId: string | null;
   classArmId: string | null;
   /** The student's subjects: school subject ids and their syllabus keys. */
@@ -90,15 +94,23 @@ export class GamesContent {
       }
     }
 
-    // Curated packs for the level.
-    out.push(...this.curated(l.level, kind, keys));
+    // Curated packs for the level and the student's year.
+    out.push(...this.curated(l.level, kind, keys, l.year));
     return out;
   }
 
-  curated(level: GameLevel, kind: Kind, keys: string[] | null): RoundItem[] {
+  /**
+   * Curated items of a level (optionally some subjects). With `year`, only
+   * those that suit it; with `rankYear`, all of them, the ones for that year
+   * first and then the nearest years (to top up a thin round).
+   */
+  curated(level: GameLevel, kind: Kind, keys: string[] | null, year: number | null = null, rankYear: number | null = null): RoundItem[] {
     const wanted = keys ? new Set(keys) : null;
+    const byYear = <T extends { years?: number[] }>(xs: T[]) => (year ? xs.filter((x) => suitsYear(x, year)) : rankYear ? preferYear(xs, rankYear, Infinity) : xs);
+    const fit = year ?? rankYear;
     if (kind === 'TF') {
-      return TRUE_FALSE_FACTS.filter((f) => f.level === level && (!wanted || wanted.has(subjectKey(f.subject)))).map((f) => ({
+      return byYear(TRUE_FALSE_FACTS.filter((f) => f.level === level && (!wanted || wanted.has(subjectKey(f.subject))))).map((f) => ({
+        tier: yearTier(f, fit),
         ref: `t:${f.id}`,
         prompt: f.statement,
         options: ['True', 'False'],
@@ -109,7 +121,8 @@ export class GamesContent {
         topicId: null,
       }));
     }
-    return CURATED_QUESTIONS.filter((q) => q.level === level && (!wanted || wanted.has(subjectKey(q.subject)))).map((q) => ({
+    return byYear(CURATED_QUESTIONS.filter((q) => q.level === level && (!wanted || wanted.has(subjectKey(q.subject))))).map((q) => ({
+      tier: yearTier(q, fit),
       ref: `c:${q.id}`,
       prompt: q.q,
       options: [q.a, ...q.w],
@@ -123,17 +136,27 @@ export class GamesContent {
 
   /** Questions for a round: fresh ones first (not seen in the last few rounds), options mixed, topics resolved. */
   async pick(l: Learner, kind: Kind, subject: string | null, n: number, recent: Set<string>): Promise<RoundItem[]> {
-    let pool = await this.pool(l, kind, subject);
-    // A thin pool for the student's subjects: top up with the level's other curated questions.
-    if (!subject && pool.length < n) {
-      const have = new Set(pool.map((p) => p.ref));
-      pool = [...pool, ...this.curated(l.level, kind, null).filter((c) => !have.has(c.ref))];
-    }
+    const pool = this.topUp(await this.pool(l, kind, subject), l, kind, subject, n);
     if (pool.length < Math.min(n, 5)) throw new BadRequestException(subject ? `There aren’t enough ${subject} questions for a round yet. Try all subjects.` : 'There aren’t enough questions for your class yet.');
-    const fresh = shuffle(pool.filter((p) => !recent.has(p.ref)));
-    const seen = shuffle(pool.filter((p) => recent.has(p.ref)));
-    const chosen = [...fresh, ...seen].slice(0, n);
+    // Best fit for the year first (written for it, then the whole stage, then other years), fresh before recently seen.
+    const byTier = (xs: RoundItem[]) => [0, 1, 2].flatMap((t) => shuffle(xs.filter((p) => (p.tier ?? 0) === t)));
+    const fresh = byTier(pool.filter((p) => !recent.has(p.ref)));
+    const seen = byTier(pool.filter((p) => recent.has(p.ref)));
+    const chosen = shuffle([...fresh, ...seen].slice(0, n));
     return Promise.all(chosen.map((q) => this.finalise(l.level, q, kind === 'MCQ' ? () => randomInt(1_000_000) / 1_000_000 : null)));
+  }
+
+  /**
+   * A thin pool (few questions for this year): top up with the stage's other
+   * curated questions, the same subjects first, nearest years first, then
+   * (for an all-subjects round) the level's other subjects. Only as many as needed.
+   */
+  private topUp(pool: RoundItem[], l: Learner, kind: Kind, subject: string | null, n: number): RoundItem[] {
+    if (pool.length >= n) return pool;
+    const keys = subject ? [subjectKey(subject)] : l.subjectKeys;
+    const have = new Set(pool.map((p) => p.ref));
+    const extra = [...this.curated(l.level, kind, keys, null, l.year), ...(subject ? [] : this.curated(l.level, kind, null, null, l.year))].filter((c) => !have.has(c.ref) && !!have.add(c.ref));
+    return [...pool, ...extra.slice(0, n - pool.length)];
   }
 
   /** Mixes the options (multiple choice only; True stays before False) and finds the syllabus topic. */
@@ -153,13 +176,16 @@ export class GamesContent {
   /** The class's Daily Challenge: the same questions, in the same order, for everyone in the class that day. */
   async daily(l: Learner, date: string): Promise<RoundItem[]> {
     if (!l.classArmId) return [];
-    const mcq = await this.pool(l, 'MCQ', null);
-    const tf = await this.pool(l, 'TF', null);
+    // The class's year band: questions for the student's year, topped up from the stage if there are few.
+    const mcq = this.topUp(await this.pool(l, 'MCQ', null), l, 'MCQ', null, DAILY_CHALLENGE.questions);
+    const tf = this.topUp(await this.pool(l, 'TF', null), l, 'TF', null, 2);
     const rand = seededRandom(seedOf(`${date}|${l.classArmId}`));
     const byRef = (a: RoundItem, b: RoundItem) => a.ref.localeCompare(b.ref);
+    // Best fit for the class's year first (written for it, then the whole stage, then other years).
+    const ranked = (xs: RoundItem[]) => [0, 1, 2].flatMap((t) => seededShuffle(xs.filter((x) => (x.tier ?? 0) === t).sort(byRef), rand));
     // Mostly multiple choice, with a couple of quick true-or-false statements.
     const tfCount = Math.min(2, tf.length);
-    const picked = [...seededShuffle([...mcq].sort(byRef), rand).slice(0, DAILY_CHALLENGE.questions - tfCount), ...seededShuffle([...tf].sort(byRef), rand).slice(0, tfCount)];
+    const picked = [...ranked(mcq).slice(0, DAILY_CHALLENGE.questions - tfCount), ...ranked(tf).slice(0, tfCount)];
     const ordered = seededShuffle(picked, rand);
     return Promise.all(ordered.map((q) => this.finalise(l.level, q, q.options.length > 2 ? rand : null)));
   }

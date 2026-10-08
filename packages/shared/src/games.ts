@@ -19,7 +19,22 @@ import { z } from 'zod';
 
 // ------------------------------------------------------------ the games
 
-export const GAME_KINDS = ['QUIZ_RUSH', 'MATHS_SPRINT', 'SPELLING_BEE', 'WORD_SCRAMBLE', 'MATCH_UP', 'TF_BLITZ', 'DAILY'] as const;
+export const GAME_KINDS = [
+  'QUIZ_RUSH',
+  'MATHS_SPRINT',
+  'SPELLING_BEE',
+  'WORD_SCRAMBLE',
+  'MATCH_UP',
+  'TF_BLITZ',
+  'DAILY',
+  'COUNT_TAP',
+  'SHAPES',
+  'LETTER_SOUNDS',
+  'TELL_TIME',
+  'NAIRA_SHOP',
+  'WORD_SEARCH',
+  'CROSSWORD',
+] as const;
 export type GameKind = (typeof GAME_KINDS)[number];
 export const GAME_LABELS: Record<GameKind, string> = {
   QUIZ_RUSH: 'Quiz Rush',
@@ -29,15 +44,107 @@ export const GAME_LABELS: Record<GameKind, string> = {
   MATCH_UP: 'Match Up',
   TF_BLITZ: 'True or False Blitz',
   DAILY: 'Daily Challenge',
+  COUNT_TAP: 'Count and Tap',
+  SHAPES: 'Shapes',
+  LETTER_SOUNDS: 'Letter Sounds',
+  TELL_TIME: 'Tell the Time',
+  NAIRA_SHOP: 'Naira Shop',
+  WORD_SEARCH: 'Word Search',
+  CROSSWORD: 'Crossword',
 };
-/** The games a student can pick on the hub (the Daily Challenge has its own card). */
-export const PLAYABLE_GAMES: readonly GameKind[] = ['QUIZ_RUSH', 'MATHS_SPRINT', 'SPELLING_BEE', 'WORD_SCRAMBLE', 'MATCH_UP', 'TF_BLITZ'];
+/** Every game a student can pick on the hub (the Daily Challenge has its own card); `gamesFor` narrows it to the student's age. */
+export const PLAYABLE_GAMES: readonly GameKind[] = ['QUIZ_RUSH', 'MATHS_SPRINT', 'SPELLING_BEE', 'WORD_SCRAMBLE', 'MATCH_UP', 'TF_BLITZ', 'COUNT_TAP', 'SHAPES', 'LETTER_SOUNDS', 'TELL_TIME', 'NAIRA_SHOP', 'WORD_SEARCH', 'CROSSWORD'];
 export const SERVER_GAMES: readonly GameKind[] = ['QUIZ_RUSH', 'TF_BLITZ', 'DAILY'];
-export const LOCAL_GAMES = ['MATHS_SPRINT', 'SPELLING_BEE', 'WORD_SCRAMBLE', 'MATCH_UP', 'TF_BLITZ'] as const;
+export const LOCAL_GAMES = ['MATHS_SPRINT', 'SPELLING_BEE', 'WORD_SCRAMBLE', 'MATCH_UP', 'TF_BLITZ', 'COUNT_TAP', 'SHAPES', 'LETTER_SOUNDS', 'TELL_TIME', 'NAIRA_SHOP', 'WORD_SEARCH', 'CROSSWORD'] as const;
 export type LocalGameKind = (typeof LOCAL_GAMES)[number];
+/** Early-years games: generated questions with pictures, played on the device and marked by replay like Maths Sprint. */
+export const EARLY_GAMES = ['COUNT_TAP', 'SHAPES', 'LETTER_SOUNDS', 'TELL_TIME', 'NAIRA_SHOP'] as const;
+export type EarlyGameKind = (typeof EARLY_GAMES)[number];
+export const isEarlyGame = (g: string): g is EarlyGameKind => (EARLY_GAMES as readonly string[]).includes(g);
 
 export type GameLevel = 'PRIMARY' | 'JUNIOR' | 'SENIOR';
 export const GAME_LEVEL_LABELS: Record<GameLevel, string> = { PRIMARY: 'Primary', JUNIOR: 'Junior secondary', SENIOR: 'Senior secondary' };
+
+// ------------------------------------------------------------ the student's stage and year
+
+/**
+ * Where a student is, for games: the syllabus level, the school year within
+ * it (1–6), whether the class is early years (nursery, KG, creche…: played
+ * with Primary 1 content) and whether young mode is on (early years to
+ * Primary 3: bigger buttons, read-aloud, no lives or countdowns, cheerful
+ * feedback). Young mode follows the class: neither the student nor a teacher
+ * can switch it off.
+ */
+export interface GameStage {
+  level: GameLevel;
+  year: number;
+  early: boolean;
+  young: boolean;
+}
+
+const EARLY_RE = /nursery|kindergarten|\bkg\s?\d*\b|cr[eè]che|pre-?school|play\s?group|reception|early\s?years|toddler|pre-?k\b|\bnur\s?\d/i;
+
+/** From a class level's stage and name ("Nursery" / "Nursery 2", "Primary" / "Primary 4", "Junior Secondary" / "JSS 1"…). */
+export function gameStageOf(stage: string | null | undefined, levelName: string | null | undefined): GameStage {
+  const s = `${stage ?? ''} ${levelName ?? ''}`;
+  const lower = s.toLowerCase();
+  const level: GameLevel = lower.includes('senior') || /\bss\s?\d/.test(lower) ? 'SENIOR' : lower.includes('junior') || /\bjss\s?\d/.test(lower) ? 'JUNIOR' : 'PRIMARY';
+  const early = level === 'PRIMARY' && EARLY_RE.test(s);
+  const n = Number(/(\d+)/.exec(levelName ?? '')?.[1]);
+  const year = early ? 1 : Math.min(6, Math.max(1, Number.isFinite(n) && n > 0 ? n : 1));
+  return { level, year, early, young: level === 'PRIMARY' && (early || year <= 3) };
+}
+
+/** A short name for the student's year band ("Early years", "Primary 1–3", "Primary 4–6", "Junior secondary"…). */
+export function yearBandOf(st: Pick<GameStage, 'level' | 'year' | 'early'>): string {
+  if (st.level === 'JUNIOR') return 'Junior secondary';
+  if (st.level === 'SENIOR') return 'Senior secondary';
+  if (st.early) return 'Early years';
+  return st.year <= 3 ? 'Primary 1–3' : 'Primary 4–6';
+}
+
+/** The games that suit a student, in hub order. */
+export function gamesFor(st: Pick<GameStage, 'level' | 'year' | 'early'>): GameKind[] {
+  const primary = st.level === 'PRIMARY';
+  const out: GameKind[] = [];
+  // The picture games first for the youngest: counting, shapes and letter sounds to Primary 2; time and money Primary 1–4.
+  if (primary && (st.early || st.year <= 2)) out.push('COUNT_TAP', 'SHAPES', 'LETTER_SOUNDS');
+  if (primary && !st.early && st.year <= 4) out.push('TELL_TIME', 'NAIRA_SHOP');
+  out.push('QUIZ_RUSH', 'MATHS_SPRINT');
+  // Spelling and the crossword need a reader: not for nursery classes.
+  if (!st.early) out.push('SPELLING_BEE', 'WORD_SCRAMBLE');
+  out.push('MATCH_UP', 'TF_BLITZ', 'WORD_SEARCH');
+  if (!st.early) out.push('CROSSWORD');
+  return out;
+}
+
+/** An item suits a year when it names no years, or names that one. */
+export const suitsYear = (item: { years?: number[] }, year: number | null | undefined) => !year || !item.years?.length || item.years.includes(year);
+
+/** How well an item fits a year: 0 written for it, 1 for the whole stage (no years), 2 for other years. */
+export const yearTier = (item: { years?: number[] }, year: number | null | undefined) => (!year ? 1 : !item.years?.length ? 1 : item.years.includes(year) ? 0 : 2);
+
+/**
+ * Items for a year, best fit first: the ones written for that year (alone,
+ * when there are at least `min`), then those for the whole stage (no years),
+ * then (only to make up `min`) the rest of the stage, nearest years first, so
+ * a thin year still gets a full round. The order is stable (no randomness),
+ * so the device and the server agree.
+ */
+export function preferYear<T extends { years?: number[] }>(items: readonly T[], year: number | null | undefined, min: number): T[] {
+  if (!year) return [...items];
+  const exact = items.filter((x) => yearTier(x, year) === 0);
+  if (exact.length >= min) return exact;
+  const suited = [...exact, ...items.filter((x) => yearTier(x, year) === 1)];
+  if (suited.length >= min) return suited;
+  const dist = (x: T) => Math.min(...(x.years ?? [year]).map((y) => Math.abs(y - year)));
+  const rest = items
+    .map((x, i) => ({ x, i }))
+    .filter(({ x }) => !suitsYear(x, year))
+    .sort((a, b) => dist(a.x) - dist(b.x) || a.i - b.i)
+    .map(({ x }) => x);
+  return [...suited, ...rest.slice(0, min - suited.length)];
+}
 
 /** Round rules (the server enforces them; the client shows them). */
 export const QUIZ_RUSH = { questions: 15, lives: 3, secondsPerQuestion: 20 } as const;
@@ -46,6 +153,13 @@ export const DAILY_CHALLENGE = { questions: 8, secondsPerQuestion: 45 } as const
 export const MATHS_SPRINT = { seconds: 60, maxQuestions: 60 } as const;
 export const WORD_ROUND = { words: 8 } as const;
 export const MATCH_ROUND = { pairs: 6 } as const;
+/** Young mode (early years to Primary 3): shorter rounds, no lives, no clock. */
+export const YOUNG_ROUND = { quizQuestions: 10, tfStatements: 12, mathsQuestions: 10 } as const;
+/** Early-years picture games: questions a round. */
+export const EARLY_ROUND = { questions: 10 } as const;
+/** Word Search and Crossword have no clock. */
+export const WORD_SEARCH_ROUND = { young: { size: 6, words: 5 }, primary: { size: 8, words: 7 }, secondary: { size: 10, words: 9 } } as const;
+export const CROSSWORD_ROUND = { min: 5, max: 8 } as const;
 
 /** XP a day can earn: plenty for a keen student, not a reason to play all night. */
 export const DAILY_XP_CAP = 500;
@@ -82,8 +196,11 @@ export const GAME_BADGES = [
   { key: 'MATHS_WHIZ', label: 'Human calculator', description: 'Get 25 right in one Maths Sprint.' },
   { key: 'SPELLING_STAR', label: 'Spelling star', description: 'Spell every word right in a Spelling Bee.' },
   { key: 'SHARP_MEMORY', label: 'Sharp memory', description: 'Finish Match Up with at most 2 misses.' },
+  { key: 'SUPER_STAR', label: 'Super star', description: 'Get every answer right in a picture game.' },
+  { key: 'WORD_HUNTER', label: 'Word hunter', description: 'Find every word in a Word Search.' },
+  { key: 'PUZZLE_SOLVER', label: 'Puzzle solver', description: 'Finish a Crossword with no hints.' },
   { key: 'SUBJECT_MASTER', label: 'Subject master', description: 'Answer 100 questions correctly in one subject.' },
-  { key: 'ALL_ROUNDER', label: 'All-rounder', description: 'Play all six games.' },
+  { key: 'ALL_ROUNDER', label: 'All-rounder', description: 'Play every game on your games page.' },
   { key: 'LEVEL_5', label: 'Level 5', description: 'Reach level 5.' },
   { key: 'LEVEL_10', label: 'Level 10', description: 'Reach level 10.' },
 ] as const;
@@ -190,7 +307,47 @@ export const localScoreSchema = z.discriminatedUnion('game', [
     seed: z.number().int().min(0).max(0xffffffff),
     level: z.enum(['PRIMARY', 'JUNIOR', 'SENIOR']),
     year: z.number().int().min(1).max(6),
+    /** Young mode: ten questions with no clock. */
+    young: z.boolean().optional(),
     answers: z.array(z.object({ choice: z.number().int().min(0).max(3), ms: answerMs })).max(MATHS_SPRINT.maxQuestions),
+  }),
+  z.object({
+    game: z.enum(EARLY_GAMES),
+    clientId: z.string().min(8).max(64),
+    playedAt: z.iso.datetime(),
+    durationMs: z.number().int().min(0).max(10 * 60_000),
+    seed: z.number().int().min(0).max(0xffffffff),
+    year: z.number().int().min(1).max(6),
+    /** A nursery class: only the simplest kinds of question. */
+    early: z.boolean().optional(),
+    /** The first tap on each question (a second try after a wrong one is for learning, not marks). */
+    answers: z.array(z.object({ choice: z.number().int().min(0).max(3), ms: answerMs })).max(EARLY_ROUND.questions),
+  }),
+  z.object({
+    game: z.literal('WORD_SEARCH'),
+    clientId: z.string().min(8).max(64),
+    playedAt: z.iso.datetime(),
+    durationMs: z.number().int().min(0).max(10 * 60_000),
+    seed: z.number().int().min(0).max(0xffffffff),
+    level: z.enum(['PRIMARY', 'JUNIOR', 'SENIOR']),
+    year: z.number().int().min(1).max(6),
+    young: z.boolean(),
+    /** Each word found: the first and last cells of the line the student drew. */
+    found: z.array(z.object({ r0: z.number().int().min(0).max(15), c0: z.number().int().min(0).max(15), r1: z.number().int().min(0).max(15), c1: z.number().int().min(0).max(15), ms: answerMs })).max(12),
+  }),
+  z.object({
+    game: z.literal('CROSSWORD'),
+    clientId: z.string().min(8).max(64),
+    playedAt: z.iso.datetime(),
+    durationMs: z.number().int().min(0).max(10 * 60_000),
+    seed: z.number().int().min(0).max(0xffffffff),
+    level: z.enum(['PRIMARY', 'JUNIOR', 'SENIOR']),
+    year: z.number().int().min(1).max(6),
+    young: z.boolean(),
+    /** What is in each entry's cells when the student finished (in the puzzle's entry order). */
+    entries: z.array(z.string().max(20)).min(1).max(CROSSWORD_ROUND.max),
+    /** Letters revealed as hints (each costs points). */
+    hints: z.number().int().min(0).max(200),
   }),
   z.object({
     game: z.enum(['SPELLING_BEE', 'WORD_SCRAMBLE']),
@@ -299,7 +456,21 @@ export interface GameProfileView {
 }
 
 export interface GamesHub {
-  student: { firstName: string; className: string | null; level: GameLevel; year: number; house: { name: string; colour: string } | null };
+  student: {
+    firstName: string;
+    className: string | null;
+    level: GameLevel;
+    year: number;
+    /** Nursery, KG, creche…: Primary 1 content. */
+    early: boolean;
+    /** Young mode (early years to Primary 3), set by the class. */
+    young: boolean;
+    /** "Primary 1–3", "Junior secondary"… */
+    band: string;
+    /** The games that suit this student, in hub order. */
+    games: GameKind[];
+    house: { name: string; colour: string } | null;
+  };
   access: { open: boolean; reason: 'OFF' | 'QUIET_HOURS' | null; message: string | null };
   profile: GameProfileView;
   badges: { key: string; label: string; description: string; earnedAt: string | null }[];
@@ -364,6 +535,8 @@ export interface ChildGamesSummary {
   rounds: number;
   streak: number;
   minutes: number;
+  /** The game played most this week (named on the parent's line). */
+  topGame: GameKind | null;
 }
 
 export interface GamesAdminStatus {
@@ -724,10 +897,19 @@ export const MIN_ANSWER_MS: Record<LocalGameKind | 'QUIZ_RUSH' | 'DAILY', number
   TF_BLITZ: 300,
   QUIZ_RUSH: 400,
   DAILY: 400,
+  // Picture games: only impossibly fast taps are refused; a slow young child never is (there is no upper limit per question).
+  COUNT_TAP: 450,
+  SHAPES: 400,
+  LETTER_SOUNDS: 450,
+  TELL_TIME: 500,
+  NAIRA_SHOP: 600,
+  // Per word: spot it and draw the line / type it.
+  WORD_SEARCH: 700,
+  CROSSWORD: 1200,
 };
 
 /** XP for a round, before the day's limit (the server works it out; the client only shows it). */
-export function xpFor(game: GameKind, correct: number, total: number, extra: { finished?: boolean; perfect?: boolean; misses?: number; pairs?: number } = {}): number {
+export function xpFor(game: GameKind, correct: number, total: number, extra: { finished?: boolean; perfect?: boolean; misses?: number; pairs?: number; hints?: number } = {}): number {
   switch (game) {
     case 'QUIZ_RUSH':
       return correct * 5 + (extra.finished ? 10 : 0);
@@ -745,5 +927,15 @@ export function xpFor(game: GameKind, correct: number, total: number, extra: { f
       const pairs = extra.pairs ?? correct;
       return correct * 3 + (correct === pairs && (extra.misses ?? 99) <= pairs ? 10 : 0);
     }
+    case 'COUNT_TAP':
+    case 'SHAPES':
+    case 'LETTER_SOUNDS':
+    case 'TELL_TIME':
+    case 'NAIRA_SHOP':
+      return correct * 3 + (total >= 5 ? 5 : 0) + (extra.perfect && total >= 5 ? 5 : 0);
+    case 'WORD_SEARCH':
+      return correct * 3 + (extra.perfect && total >= 5 ? 10 : 0);
+    case 'CROSSWORD':
+      return Math.max(0, correct * 5 + (extra.perfect && total >= 5 ? 10 : 0) - (extra.hints ?? 0) * 2);
   }
 }

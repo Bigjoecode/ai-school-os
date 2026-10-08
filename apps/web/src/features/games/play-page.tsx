@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navigate, useParams } from 'react-router';
 import { useGamesHub } from './api';
 import { type GameMeta, metaBySlug } from './meta';
+import { useGameMode } from './mode';
 import { GameFrame, Loading, Problem } from './ui';
 
 /** Each game is its own small download, fetched when it is opened (and kept by the app for offline play). */
@@ -10,6 +11,9 @@ const MathsSprint = lazy(() => import('./maths-sprint'));
 const WordGame = lazy(() => import('./word-games'));
 const MatchUp = lazy(() => import('./match-up'));
 const TrueFalseBlitz = lazy(() => import('./tf-blitz'));
+const EarlyGame = lazy(() => import('./early-games'));
+const WordSearch = lazy(() => import('./word-search'));
+const Crossword = lazy(() => import('./crossword'));
 
 function Game({ meta }: { meta: GameMeta }) {
   switch (meta.kind) {
@@ -25,6 +29,16 @@ function Game({ meta }: { meta: GameMeta }) {
       return <MatchUp meta={meta} />;
     case 'TF_BLITZ':
       return <TrueFalseBlitz meta={meta} />;
+    case 'COUNT_TAP':
+    case 'SHAPES':
+    case 'LETTER_SOUNDS':
+    case 'TELL_TIME':
+    case 'NAIRA_SHOP':
+      return <EarlyGame meta={meta} />;
+    case 'WORD_SEARCH':
+      return <WordSearch meta={meta} />;
+    case 'CROSSWORD':
+      return <Crossword meta={meta} />;
   }
 }
 
@@ -32,7 +46,16 @@ export default function PlayPage() {
   const { game } = useParams();
   const meta = metaBySlug(game);
   const hub = useGamesHub();
+  const mode = useGameMode();
   if (!meta) return <Navigate to="/games" replace />;
+  // Each class has its own set of games (picture games for the youngest, crosswords from Primary 1…).
+  if (meta.kind !== 'DAILY' && !mode.games.includes(meta.kind)) {
+    return (
+      <GameFrame meta={meta}>
+        <Problem message={`${meta.name} is for ${['COUNT_TAP', 'SHAPES', 'LETTER_SOUNDS', 'TELL_TIME', 'NAIRA_SHOP'].includes(meta.kind) ? 'younger' : 'older'} classes. Pick another game from your games page.`} />
+      </GameFrame>
+    );
+  }
   // Closed by the school (off, or lesson time). Offline, the hub can't be checked: device games still play and the server decides later.
   if (hub.data && !hub.data.access.open) {
     return (
@@ -45,7 +68,7 @@ export default function PlayPage() {
   if (!hub.data && hub.error && !meta.offline) {
     return (
       <GameFrame meta={meta}>
-        <Problem message={`${meta.name} needs a connection. Maths Sprint, the word games, Match Up and True or False work offline.`} onRetry={() => void hub.refetch()} />
+        <Problem message={`${meta.name} needs a connection. The other games work offline.`} onRetry={() => void hub.refetch()} />
       </GameFrame>
     );
   }

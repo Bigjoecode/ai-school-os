@@ -3,18 +3,23 @@ import {
   DAILY_CHALLENGE,
   DAILY_XP_CAP,
   DAILY_XP_ROUNDS,
+  EARLY_ROUND,
   GAME_BADGES,
+  gamesFor,
+  gameStageOf,
   gamesOpenAt,
+  isEarlyGame,
   gamesSettingsOf,
   levelOf as xpLevelOf,
   markLocalRound,
   MATCH_ROUND,
   MIN_ANSWER_MS,
-  PLAYABLE_GAMES,
   QUIZ_RUSH,
   TF_BLITZ,
   WORD_ROUND,
   xpFor,
+  yearBandOf,
+  YOUNG_ROUND,
   type ChildGamesSummary,
   type ClassGamesActivity,
   type GameAnswerFeedback,
@@ -36,8 +41,7 @@ import type { GameProfile, GameRound, Prisma } from '../generated/prisma/client'
 import { AuditService } from '../audit/audit.service';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
-import { levelOf, MasteryService, subjectKey } from '../learning/mastery.service';
-import { yearOf } from '../lesson-modules/modules.helpers';
+import { MasteryService, subjectKey } from '../learning/mastery.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { GamesContent, type Learner, type RoundItem } from './games.content';
 
@@ -194,10 +198,13 @@ export class GamesService {
       include: { classArm: { include: { classLevel: true, subjects: { include: { subject: { select: { id: true, name: true } } } } } }, house: { select: { id: true, name: true, colour: true } } },
     });
     if (!s) throw new ForbiddenException('Your account isn’t linked to a student record');
-    const level = levelOf(s.classArm?.classLevel.stage, s.classArm?.classLevel.name) as GameLevel;
+    // Stage and year from the class: nursery, KG and creche classes play Primary 1 content in young mode (early years to Primary 3).
+    const stage = gameStageOf(s.classArm?.classLevel.stage, s.classArm?.classLevel.name);
+    const level: GameLevel = stage.level;
     const subjects = s.classArm?.subjects.map((c) => c.subject) ?? [];
     const learner: Learner = {
       level,
+      year: stage.year,
       classLevelId: s.classArm?.classLevelId ?? null,
       classArmId: s.classArmId,
       subjectIds: subjects.map((x) => x.id),
@@ -206,7 +213,10 @@ export class GamesService {
     return {
       s,
       level,
-      year: Math.min(6, yearOf(s.classArm?.classLevel.name ?? '1')),
+      year: stage.year,
+      stage,
+      young: stage.young,
+      games: gamesFor(stage),
       learner,
       className: s.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}`.trim() : null,
     };
@@ -269,7 +279,17 @@ export class GamesService {
     const earned = (profile.badges ?? {}) as Record<string, string>;
     const access = this.accessOf(t);
     return {
-      student: { firstName: m.s.firstName, className: m.className, level: m.level, year: m.year, house: m.s.house ? { name: m.s.house.name, colour: m.s.house.colour } : null },
+      student: {
+        firstName: m.s.firstName,
+        className: m.className,
+        level: m.level,
+        year: m.year,
+        early: m.stage.early,
+        young: m.young,
+        band: yearBandOf(m.stage),
+        games: m.games,
+        house: m.s.house ? { name: m.s.house.name, colour: m.s.house.colour } : null,
+      },
       access: { open: access.open, reason: access.reason, message: access.message },
       profile: v,
       badges: GAME_BADGES.map((b) => ({ key: b.key, label: b.label, description: b.description, earnedAt: earned[b.key] ?? null })),
@@ -285,7 +305,8 @@ export class GamesService {
       subjects,
       week: { days: Array.from({ length: 7 }, (_, i) => days.has(addDays(weekStart, i))), xp: week._sum.xp ?? 0, rounds: week._count._all },
       recent: recent.map((r) => ({ game: r.game as GameKind, correct: r.correct, total: r.total, xp: r.xp, at: r.endedAt!.toISOString() })),
-      leaderboards: t.settings.leaderboards,
+      // Young mode has no leaderboards (stars and badges instead).
+      leaderboards: t.settings.leaderboards && !m.young,
       today,
     };
   }
@@ -299,16 +320,18 @@ export class GamesService {
 
   // ---------------------------------------------------------- server rounds (Quiz Rush, True or False Blitz, Daily Challenge)
 
-  private rules(game: GameKind) {
-    if (game === 'QUIZ_RUSH') return { n: QUIZ_RUSH.questions, lives: QUIZ_RUSH.lives as number | null, seconds: QUIZ_RUSH.secondsPerQuestion };
-    if (game === 'TF_BLITZ') return { n: TF_BLITZ.statements, lives: null, seconds: TF_BLITZ.secondsPerStatement };
-    return { n: DAILY_CHALLENGE.questions, lives: null, seconds: DAILY_CHALLENGE.secondsPerQuestion };
+  /** Round rules; young mode (early years to Primary 3) has shorter rounds, no lives and no clock (seconds 0). */
+  private rules(game: GameKind, young: boolean) {
+    if (game === 'QUIZ_RUSH') return young ? { n: YOUNG_ROUND.quizQuestions, lives: null, seconds: 0 } : { n: QUIZ_RUSH.questions, lives: QUIZ_RUSH.lives as number | null, seconds: QUIZ_RUSH.secondsPerQuestion };
+    if (game === 'TF_BLITZ') return young ? { n: YOUNG_ROUND.tfStatements, lives: null, seconds: 0 } : { n: TF_BLITZ.statements, lives: null, seconds: TF_BLITZ.secondsPerStatement };
+    return { n: DAILY_CHALLENGE.questions, lives: null, seconds: young ? 0 : DAILY_CHALLENGE.secondsPerQuestion };
   }
 
-  private roundView(r: GameRound): GameRoundView {
+  private roundView(r: GameRound, young: boolean): GameRoundView {
     const items = r.items as unknown as RoundItem[];
     const answers = r.answers as unknown as StoredAnswer[];
-    const rules = this.rules(r.game as GameKind);
+    // A round started in young mode has no lives: keep it that way even if the class changed since.
+    const rules = this.rules(r.game as GameKind, young || (r.game === 'QUIZ_RUSH' && r.lives === null));
     let score = 0;
     return {
       id: r.id,
@@ -320,7 +343,7 @@ export class GamesService {
         return this.feedback(items[a.i]!, a, score, a.i === items.length - 1 || a.lives === 0);
       }),
       lives: rules.lives,
-      secondsPerQuestion: rules.seconds,
+      secondsPerQuestion: r.game === 'DAILY' ? 0 : rules.seconds,
       startedAt: r.startedAt.toISOString(),
       done: !!r.endedAt || answers.length >= items.length || answers.at(-1)?.lives === 0,
     };
@@ -344,7 +367,7 @@ export class GamesService {
       const mine = await this.db.gameRound.findUnique({ where: { studentId_dailyKey: { studentId: m.s.id, dailyKey } } });
       if (mine?.endedAt) throw new ConflictException({ statusCode: 409, code: 'DAILY_DONE', message: 'You’ve done today’s Daily Challenge. A new one comes tomorrow.' });
       // A refresh or a lost connection: carry on where you were.
-      if (mine) return this.roundView(mine);
+      if (mine) return this.roundView(mine, m.young);
       // Everyone in the class gets the same questions: copy them from whoever started first today.
       const first = await this.db.gameRound.findFirst({ where: { dailyKey }, select: { items: true } });
       const items = first ? (first.items as unknown as RoundItem[]) : await this.content.daily(m.learner, today);
@@ -353,12 +376,12 @@ export class GamesService {
         const r = await this.db.gameRound.create({
           data: { studentId: m.s.id, classArmId: m.s.classArmId, game, mode: 'SERVER', playDate: today, dailyKey, items: items as unknown as Prisma.InputJsonValue } as Prisma.GameRoundUncheckedCreateInput,
         });
-        return this.roundView(r);
+        return this.roundView(r, m.young);
       } catch {
         // Started twice at once: the other request won.
         const again = await this.db.gameRound.findUnique({ where: { studentId_dailyKey: { studentId: m.s.id, dailyKey } } });
         if (!again) throw new ConflictException('Couldn’t start the Daily Challenge. Try again.');
-        return this.roundView(again);
+        return this.roundView(again, m.young);
       }
     }
 
@@ -366,12 +389,12 @@ export class GamesService {
     await this.db.gameRound.updateMany({ where: { studentId: m.s.id, mode: 'SERVER', endedAt: null, dailyKey: null }, data: { endedAt: new Date(), flagged: 'Left unfinished' } });
     const recentRounds = await this.db.gameRound.findMany({ where: { studentId: m.s.id, mode: 'SERVER' }, orderBy: { startedAt: 'desc' }, take: 4, select: { items: true } });
     const recent = new Set(recentRounds.flatMap((r) => (r.items as unknown as RoundItem[]).map((i) => i.ref)));
-    const rules = this.rules(game);
+    const rules = this.rules(game, m.young);
     const items = await this.content.pick(m.learner, game === 'TF_BLITZ' ? 'TF' : 'MCQ', input.subject, rules.n, recent);
     const r = await this.db.gameRound.create({
       data: { studentId: m.s.id, classArmId: m.s.classArmId, game, mode: 'SERVER', subject: input.subject, playDate: today, items: items as unknown as Prisma.InputJsonValue, lives: rules.lives } as Prisma.GameRoundUncheckedCreateInput,
     });
-    return this.roundView(r);
+    return this.roundView(r, m.young);
   }
 
   private async mine(roundId: string, studentId: string) {
@@ -382,7 +405,7 @@ export class GamesService {
 
   async round(roundId: string): Promise<GameRoundView> {
     const m = await this.me();
-    return this.roundView(await this.mine(roundId, m.s.id));
+    return this.roundView(await this.mine(roundId, m.s.id), m.young);
   }
 
   /** Marks one answer. The right answer is revealed only now, for this question. */
@@ -396,7 +419,7 @@ export class GamesService {
       const items = r.items as unknown as RoundItem[];
       const answers = r.answers as unknown as StoredAnswer[];
       const game = r.game as GameKind;
-      const rules = this.rules(game);
+      const rules = this.rules(game, m.young || (game === 'QUIZ_RUSH' && r.lives === null));
       let score = answers.reduce((a, x) => a + x.points, 0);
       // Sent twice (a retry on a bad connection): the same answer back.
       if (input.index < answers.length) {
@@ -414,13 +437,15 @@ export class GamesService {
       const askedAt = last?.at ?? r.startedAt.getTime();
       const ms = Math.max(0, now - askedAt);
       const limitMs = rules.seconds * 1000;
-      // The Daily Challenge has no clock (it can be picked up again later); the others do.
-      const timedOut = input.choice === null || (game !== 'DAILY' && ms > limitMs + LATE_GRACE_MS);
+      // The Daily Challenge and young mode have no clock; the others do.
+      const clock = game !== 'DAILY' && rules.seconds > 0;
+      const timedOut = input.choice === null || (clock && ms > limitMs + LATE_GRACE_MS);
       if (input.choice !== null && (input.choice < 0 || input.choice >= item.options.length)) throw new ConflictException('That option isn’t in the question');
       const correct = !timedOut && input.choice === item.answer;
       const tooFast = !timedOut && ms < MIN_ANSWER_MS[game === 'TF_BLITZ' ? 'TF_BLITZ' : game === 'DAILY' ? 'DAILY' : 'QUIZ_RUSH'];
       const run = correct ? (last?.run ?? 0) + 1 : 0;
-      const speed = Math.max(0, 1 - ms / limitMs);
+      // No clock: half the speed bonus for everyone (nobody is rushed).
+      const speed = clock ? Math.max(0, 1 - ms / limitMs) : 0.5;
       let points = 0;
       if (correct && !tooFast) {
         if (game === 'QUIZ_RUSH') points = 100 + Math.round(50 * speed) + Math.min(run - 1, 5) * 10;
@@ -513,7 +538,13 @@ export class GamesService {
     const mark = markLocalRound(input);
     let subject: string | null = null;
     let implausible = mark.implausible;
+    // Only the games that suit the student's class count (no Count and Tap for an SS 3 student).
+    if (!m.games.includes(input.game)) implausible ??= `${input.game.replace(/_/g, ' ').toLowerCase()} isn’t one of your class’s games.`;
     if (input.game === 'MATHS_SPRINT' && input.level !== m.level) implausible ??= 'That Maths Sprint wasn’t for your level.';
+    // Young mode makes rounds easier: only a young student's round can claim it (an older one may play the harder version).
+    if ((input.game === 'MATHS_SPRINT' || input.game === 'WORD_SEARCH' || input.game === 'CROSSWORD') && input.young && !m.young) implausible ??= 'That round was the young version.';
+    if ((input.game === 'WORD_SEARCH' || input.game === 'CROSSWORD') && input.level !== m.level) implausible ??= 'That puzzle wasn’t for your level.';
+    if (isEarlyGame(input.game) && 'early' in input && input.early && !m.stage.early) implausible ??= 'That round was the nursery version.';
     if (input.game === 'MATCH_UP' && input.packId.startsWith('syl:')) {
       const chk = await this.content.checkSyllabusPack(input.packId, m.level);
       if (!chk.ok || chk.pairs !== input.pairs.length || input.matched > chk.pairs) implausible ??= 'That match pack isn’t from your syllabus.';
@@ -539,7 +570,7 @@ export class GamesService {
           items: payload as unknown as Prisma.InputJsonValue,
           correct: mark.correct,
           total: mark.total,
-          score: mark.correct * 10 + mark.bestRun * 2,
+          score: Math.max(0, mark.correct * 10 + mark.bestRun * 2 - (input.game === 'CROSSWORD' ? input.hints * 5 : 0)),
           durationMs: Math.min(input.durationMs, 10 * 60_000),
           startedAt: new Date(playedAt.getTime() - input.durationMs),
           endedAt: playedAt,
@@ -550,7 +581,7 @@ export class GamesService {
       if (!again) throw new ConflictException('Couldn’t save that score. Try again.');
       return { ...(await this.resultOf(m, t.now.date, again, null)), review: [], duplicate: true };
     }
-    const extra = input.game === 'MATCH_UP' ? { misses: input.misses, pairs: input.pairs.length } : {};
+    const extra = input.game === 'MATCH_UP' ? { misses: input.misses, pairs: input.pairs.length } : input.game === 'CROSSWORD' ? { hints: input.hints } : {};
     const base = xpFor(game, mark.correct, mark.total, { ...extra, perfect: mark.total > 0 && mark.correct === mark.total });
     const award = await this.award(m, t, r.id, playDate, game, { correct: mark.correct, total: mark.total, base, flagged: null, subjects: mark.subjects, bestRun: mark.bestRun, perfect: mark.total > 0 && mark.correct === mark.total, ...extra });
     return { ...(await this.resultOf(m, t.now.date, await this.db.gameRound.findUniqueOrThrow({ where: { id: r.id } }), award)), review: [] };
@@ -572,7 +603,7 @@ export class GamesService {
     roundId: string,
     playDate: string,
     game: GameKind,
-    x: { correct: number; total: number; base: number; flagged: string | null; subjects: Record<string, number>; bestRun: number; perfect: boolean; misses?: number; pairs?: number },
+    x: { correct: number; total: number; base: number; flagged: string | null; subjects: Record<string, number>; bestRun: number; perfect: boolean; misses?: number; pairs?: number; hints?: number },
   ): Promise<{ newBadges: GameRoundResult['newBadges']; leveledUp: boolean; note: string | null }> {
     const studentId = m.s.id;
     const tenantId = t.id;
@@ -637,8 +668,12 @@ export class GamesService {
           MATHS_WHIZ: game === 'MATHS_SPRINT' && x.correct >= 25,
           SPELLING_STAR: game === 'SPELLING_BEE' && x.perfect && x.total >= WORD_ROUND.words,
           SHARP_MEMORY: game === 'MATCH_UP' && x.correct === (x.pairs ?? -1) && (x.misses ?? 99) <= 2,
+          SUPER_STAR: isEarlyGame(game) && x.perfect && x.total >= EARLY_ROUND.questions,
+          WORD_HUNTER: game === 'WORD_SEARCH' && x.perfect && x.total >= 5,
+          PUZZLE_SOLVER: game === 'CROSSWORD' && x.perfect && x.total >= 5 && (x.hints ?? 0) === 0,
           SUBJECT_MASTER: Object.values(subjects).some((n) => n >= 100),
-          ALL_ROUNDER: PLAYABLE_GAMES.every((g) => (games[g] ?? 0) > 0),
+          // Every game on the student's own hub (it changes with age).
+          ALL_ROUNDER: m.games.every((g) => (games[g] ?? 0) > 0),
           LEVEL_5: lv >= 5,
           LEVEL_10: lv >= 10,
         };
@@ -865,8 +900,12 @@ export class GamesService {
       this.playDays(studentId, addDays(t.now.date, -400)),
     ]);
     const quiz = rounds.filter((r) => r.game !== 'MATCH_UP');
+    const byGame = new Map<string, number>();
+    for (const r of rounds) byGame.set(r.game, (byGame.get(r.game) ?? 0) + 1);
+    const topGame = ([...byGame].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null) as GameKind | null;
     return {
       studentId,
+      topGame,
       firstName: s.firstName,
       daysThisWeek: new Set(rounds.map((r) => r.playDate)).size,
       questionsThisWeek: quiz.reduce((a, r) => a + r.total, 0),

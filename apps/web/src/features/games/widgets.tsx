@@ -61,7 +61,7 @@ export function ChildGamesLine({ childId, first }: { childId: string; first: str
       <span>
         <span className="font-medium">Learning games: </span>
         {g.rounds
-          ? `${first} played on ${g.daysThisWeek} day${g.daysThisWeek === 1 ? '' : 's'} this week, ${g.questionsThisWeek} question${g.questionsThisWeek === 1 ? '' : 's'} (${g.questionsThisWeek ? Math.round((100 * g.correctThisWeek) / g.questionsThisWeek) : 0}% right), about ${Math.max(1, g.minutes)} minute${g.minutes === 1 ? '' : 's'}.${g.streak > 1 ? ` ${g.streak}-day streak.` : ''}`
+          ? `${first} played on ${g.daysThisWeek} day${g.daysThisWeek === 1 ? '' : 's'} this week, ${g.questionsThisWeek} question${g.questionsThisWeek === 1 ? '' : 's'} (${g.questionsThisWeek ? Math.round((100 * g.correctThisWeek) / g.questionsThisWeek) : 0}% right), about ${Math.max(1, g.minutes)} minute${g.minutes === 1 ? '' : 's'}${g.topGame ? `, mostly ${GAME_LABELS[g.topGame]}` : ''}.${g.streak > 1 ? ` ${g.streak}-day streak.` : ''}`
           : `${first} hasn’t played the learning games this week.`}
       </span>
     </p>
@@ -160,7 +160,7 @@ export function GamesSettingsCard() {
               <Gamepad2 className="size-4 text-brand" aria-hidden /> Learning games
             </CardTitle>
             <CardDescription>
-              Free, short games for students that practise their subjects: Quiz Rush, Maths Sprint, spelling, Match Up, True or False and a Daily Challenge for each class. This week: {w.players} of {w.students} students played, {w.rounds} rounds, about {w.minutes} minutes.
+              Free, short games for students that practise their subjects: Quiz Rush, Maths Sprint, spelling, Match Up, True or False, Word Search, Crosswords and a Daily Challenge for each class, plus picture games (counting, shapes, letter sounds, telling the time, the Naira Shop) for nursery and lower primary, who play in a simpler young mode with read-aloud and no clock. This week: {w.players} of {w.students} students played, {w.rounds} rounds, about {w.minutes} minutes.
             </CardDescription>
           </div>
         </CardHeader>

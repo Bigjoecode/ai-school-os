@@ -42,3 +42,5 @@ export * from './data-protection';
 export * from './lesson-modules';
 export * from './games';
 export * from './games-content';
+export * from './games-early';
+export * from './games-puzzles';

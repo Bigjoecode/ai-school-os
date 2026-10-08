@@ -4,8 +4,9 @@ import { BookOpenCheck, Star, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { gk, newClientId, rememberedLevel, submitScore, syllabusPack, useGamesHub } from './api';
+import { gk, newClientId, submitScore, syllabusPack, useGamesHub } from './api';
 import type { GameMeta } from './meta';
+import { useGameMode } from './mode';
 import { buzz, play } from './sound';
 import { GameFrame, Hud, Intro, ResultView } from './ui';
 
@@ -31,8 +32,10 @@ const random = () => Math.random();
 export default function MatchUp({ meta }: { meta: GameMeta }) {
   const hub = useGamesHub();
   const qc = useQueryClient();
-  const level: GameLevel = hub.data?.student.level ?? rememberedLevel()?.level ?? 'JUNIOR';
-  const packs = matchPacksFor(level);
+  const mode = useGameMode();
+  const level: GameLevel = mode.level;
+  // Packs written for the student's year first (the whole stage if few suit it).
+  const packs = matchPacksFor(level, mode.year);
   const subjects = (hub.data?.subjects ?? []).map((s) => s.subject);
   const [choice, setChoice] = useState<string>(packs[0]?.id ?? '');
   const [deal, setDeal] = useState<Deal | null>(null);

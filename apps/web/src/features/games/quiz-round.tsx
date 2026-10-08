@@ -1,4 +1,4 @@
-import { QUIZ_RUSH, type GameAnswerFeedback, type GameRoundResult, type GameRoundView } from '@aischool/shared';
+import { QUIZ_RUSH, YOUNG_ROUND, type GameAnswerFeedback, type GameRoundResult, type GameRoundView } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { Flame, Star, Trophy } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -8,8 +8,10 @@ import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { answerRound, finishRound, gk, startRound, useGamesHub } from './api';
 import type { GameMeta } from './meta';
+import { useGameMode } from './mode';
 import { buzz, play } from './sound';
-import { Feedback, GameFrame, Hud, Intro, Lives, Loading, OptionButton, Problem, ResultView, TimeBar, useCountdown, useKeys } from './ui';
+import { questionSpeech, stopSpeaking } from './speech';
+import { Feedback, GameFrame, Hud, Intro, Lives, Loading, OptionButton, Problem, ResultView, SpeakButton, TimeBar, useAutoSpeak, useCountdown, useKeys } from './ui';
 
 type Phase = { kind: 'intro' } | { kind: 'loading' } | { kind: 'play' } | { kind: 'finishing' } | { kind: 'result'; result: GameRoundResult } | { kind: 'error'; message: string; retry?: () => void };
 
@@ -36,8 +38,12 @@ export default function QuizRound({ meta }: { meta: GameMeta }) {
   /** The last question we moved on from (a tap and the auto-advance must not both count). */
   const advanced = useRef(-1);
 
+  const mode = useGameMode();
   const q = round?.questions[index];
-  const timed = !daily && phase.kind === 'play' && !fb && !sending;
+  // Young mode and the Daily Challenge have no clock (the server sends 0 seconds).
+  const clock = !daily && !!round && round.secondsPerQuestion > 0;
+  const timed = clock && phase.kind === 'play' && !fb && !sending;
+  useAutoSpeak(phase.kind === 'play' && q ? questionSpeech(q.prompt, q.options) : null, `${round?.id}-${index}-${phase.kind}`, mode.young);
   const left = useCountdown(round?.secondsPerQuestion ?? 20, `${round?.id}-${index}`, timed, () => void choose(null));
 
   async function begin() {
@@ -84,7 +90,7 @@ export default function QuizRound({ meta }: { meta: GameMeta }) {
       play(f.correct ? 'right' : 'wrong');
       if (!f.correct) buzz();
       // Right answers move on by themselves; a wrong one waits so the explanation can be read.
-      if (f.correct) window.setTimeout(() => next(f), 900);
+      if (f.correct) window.setTimeout(() => next(f), mode.young ? 1500 : 900);
     } catch (err) {
       setPicked(null);
       setPhase({ kind: 'error', message: `${errorMessage(err)} Your round is saved: try again to carry on.`, retry: () => void resume() });
@@ -101,6 +107,7 @@ export default function QuizRound({ meta }: { meta: GameMeta }) {
   function next(f = fb) {
     if (!round || !f || advanced.current >= f.index) return;
     advanced.current = f.index;
+    stopSpeaking();
     if (f.done) return void end(round.id);
     setFb(null);
     setPicked(null);
@@ -125,8 +132,12 @@ export default function QuizRound({ meta }: { meta: GameMeta }) {
           startLabel={daily ? (hub.data?.daily.inProgress ? 'Carry on' : 'Start today’s challenge') : 'Start'}
           rules={
             daily
-              ? ['8 questions, the same for everyone in your class today.', 'One scored try: take your time, there’s no clock.', 'Double XP for each right answer, plus a bonus for full marks.']
-              : [`${QUIZ_RUSH.questions} questions, ${QUIZ_RUSH.secondsPerQuestion} seconds each.`, `${QUIZ_RUSH.lives} lives: a wrong answer or running out of time costs one.`, 'Answer fast for bonus points; keep a run going for more.']
+              ? mode.young
+                ? ['8 questions for your whole class.', 'Take your time. There’s no clock.']
+                : ['8 questions, the same for everyone in your class today.', 'One scored try: take your time, there’s no clock.', 'Double XP for each right answer, plus a bonus for full marks.']
+              : mode.young
+                ? [`${YOUNG_ROUND.quizQuestions} questions.`, 'Take your time. There’s no clock.', 'Tap the speaker to hear a question.']
+                : [`${QUIZ_RUSH.questions} questions, ${QUIZ_RUSH.secondsPerQuestion} seconds each.`, `${QUIZ_RUSH.lives} lives: a wrong answer or running out of time costs one.`, 'Answer fast for bonus points; keep a run going for more.']
           }
         >
           {!daily && subjects.length > 0 && (
@@ -184,18 +195,21 @@ export default function QuizRound({ meta }: { meta: GameMeta }) {
           ...(run >= 2 ? [{ label: 'Run', value: `${run} in a row`, icon: <Flame className="size-3.5 text-warning" aria-hidden /> }] : []),
         ]}
       />
-      {!daily ? <TimeBar leftMs={fb ? 0 : left} totalMs={round.secondsPerQuestion * 1000} paused={!!fb} /> : <div className="mb-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-brand" style={{ width: `${(100 * index) / round.questions.length}%` }} /></div>}
+      {clock ? <TimeBar leftMs={fb ? 0 : left} totalMs={round.secondsPerQuestion * 1000} paused={!!fb} /> : <div className="mb-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-brand" style={{ width: `${(100 * index) / round.questions.length}%` }} /></div>}
       <div className="rounded-3xl border border-border bg-card p-5 shadow-soft">
-        {(q.subject || q.topic) && <p className="mb-1.5 text-[12px] font-medium text-muted-foreground">{[q.subject, q.topic].filter(Boolean).join(' · ')}</p>}
-        <h2 className="text-[17px] font-semibold leading-snug sm:text-lg">{q.prompt}</h2>
+        {(q.subject || q.topic) && <p className={cn('mb-1.5 font-medium text-muted-foreground', mode.young ? 'text-[14px]' : 'text-[12px]')}>{[q.subject, q.topic].filter(Boolean).join(' · ')}</p>}
+        <div className="flex items-start gap-3">
+          <h2 className={cn('min-w-0 flex-1 font-semibold leading-snug', mode.young ? 'text-2xl' : 'text-[17px] sm:text-lg')}>{q.prompt}</h2>
+          {mode.readAloud && <SpeakButton parts={questionSpeech(q.prompt, q.options)} big={mode.young} label="Hear the question and answers" />}
+        </div>
         <div className="mt-4 space-y-2.5">
           {q.options.map((o, i) => (
-            <OptionButton key={i} n={i + 1} label={o} state={stateOf(i)} disabled={!!fb || sending} onClick={() => void choose(i)} />
+            <OptionButton key={i} n={i + 1} label={o} young={mode.young} state={stateOf(i)} disabled={!!fb || sending} onClick={() => void choose(i)} />
           ))}
         </div>
-        {fb && <Feedback correct={fb.correct} timedOut={picked === null} text={fb.tooFast ? 'That was too quick to count for points.' : fb.correct ? (fb.points ? `+${fb.points} points` : null) : fb.explanation} />}
+        {fb && <Feedback correct={fb.correct} young={mode.young} k={index} timedOut={picked === null} text={fb.tooFast ? 'That was too quick to count for points.' : fb.correct ? (mode.young ? null : fb.points ? `+${fb.points} points` : null) : mode.young ? `The answer is: ${q.options[fb.correctIndex]}. ${fb.explanation ?? ''}` : fb.explanation} />}
         {fb && !fb.correct && (
-          <Button size="lg" className="mt-4 h-12 w-full" onClick={() => next()} autoFocus>
+          <Button size="lg" className={cn('mt-4 w-full', mode.young ? 'h-16 rounded-2xl text-xl' : 'h-12')} onClick={() => next()} autoFocus>
             {fb.done ? (
               <>
                 <Trophy /> See your score

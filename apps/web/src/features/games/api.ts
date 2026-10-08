@@ -65,19 +65,27 @@ export function useSaveGamesSettings() {
 
 // ------------------------------------------------------------------ device rounds and the offline queue
 
-/** What the device remembers to play offline: the student's level and year (from the last hub visit). */
+/** What the device remembers to play offline: the student's level, year and mode (from the last hub visit). */
 const PROFILE_KEY = 'ais-games-level';
-export function rememberLevel(level: GameLevel, year: number) {
+export interface RememberedLevel {
+  level: GameLevel;
+  year: number;
+  early: boolean;
+  young: boolean;
+}
+export function rememberLevel(v: RememberedLevel) {
   try {
-    localStorage.setItem(PROFILE_KEY, JSON.stringify({ level, year }));
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(v));
   } catch {
     /* private mode */
   }
 }
-export function rememberedLevel(): { level: GameLevel; year: number } | null {
+export function rememberedLevel(): RememberedLevel | null {
   try {
-    const v = JSON.parse(localStorage.getItem(PROFILE_KEY) ?? 'null') as { level?: GameLevel; year?: number } | null;
-    return v?.level ? { level: v.level, year: v.year ?? 1 } : null;
+    const v = JSON.parse(localStorage.getItem(PROFILE_KEY) ?? 'null') as Partial<RememberedLevel> | null;
+    if (!v?.level) return null;
+    const year = v.year ?? 1;
+    return { level: v.level, year, early: !!v.early, young: v.young ?? (v.level === 'PRIMARY' && year <= 3) };
   } catch {
     return null;
   }

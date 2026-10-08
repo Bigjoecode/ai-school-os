@@ -1,4 +1,4 @@
-import { GAME_LABELS, type GamesHub } from '@aischool/shared';
+import { GAME_LABELS, gamesFor, type GamesHub } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowRight, CalendarCheck2, CircleCheck, Clock, Flame, Lock, Medal, Snowflake, Trophy, Users, WifiOff } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -10,9 +10,10 @@ import { errorMessage } from '@/lib/api';
 import { formatRelative } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
-import { flushScores, gk, queuedScores, rememberLevel, useGamesHub, useSetHidden } from './api';
+import { flushScores, gk, queuedScores, rememberedLevel, rememberLevel, useGamesHub, useSetHidden } from './api';
 import { GAME_META, type GameMeta, metaOf, tint } from './meta';
-import { SoundToggle, XpBar } from './ui';
+import { canSpeak } from './speech';
+import { SoundToggle, SpeakButton, XpBar } from './ui';
 
 const DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -24,6 +25,9 @@ function prefetchOfflineGames() {
     void import('./word-games');
     void import('./match-up');
     void import('./tf-blitz');
+    void import('./early-games');
+    void import('./word-search');
+    void import('./crossword');
     void import('./play-page');
   };
   const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
@@ -39,7 +43,7 @@ export default function GamesPage() {
   const h = hub.data;
 
   useEffect(() => {
-    if (h) rememberLevel(h.student.level, h.student.year);
+    if (h) rememberLevel({ level: h.student.level, year: h.student.year, early: h.student.early, young: h.student.young });
   }, [h]);
 
   // Scores played offline go up as soon as there's a connection.
@@ -81,7 +85,7 @@ export default function GamesPage() {
 
       {!h && hub.isPending && <HubSkeleton />}
       {!h && hub.error && <OfflineHub message={errorMessage(hub.error)} />}
-      {h && <Hub h={h} />}
+      {h && (h.student.young ? <YoungHub h={h} /> : <Hub h={h} />)}
     </div>
   );
 }
@@ -107,8 +111,8 @@ function Hub({ h }: { h: GamesHub }) {
           Pick a game
         </h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {GAME_META.filter((g) => g.kind !== 'DAILY').map((g) => (
-            <GameTile key={g.kind} g={g} disabled={closed} />
+          {h.student.games.map((k) => (
+            <GameTile key={k} g={metaOf(k)} disabled={closed} />
           ))}
         </div>
       </section>
@@ -144,6 +148,112 @@ function Hub({ h }: { h: GamesHub }) {
           {h.leaderboards && <Privacy hidden={h.profile.hidden} />}
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Young mode (nursery to Primary 3): big picture tiles that read their name
+ * aloud, today's challenge, stars and badges. No leaderboards, no small print.
+ */
+function YoungHub({ h }: { h: GamesHub }) {
+  const closed = !h.access.open;
+  const p = h.profile;
+  const d = h.daily;
+  const earned = h.badges.filter((b) => b.earnedAt);
+  return (
+    <div className="space-y-5">
+      {closed && (
+        <div className="flex items-start gap-3 rounded-2xl border border-warning/40 bg-warning-soft px-4 py-3 text-[16px]" role="status">
+          <Lock className="mt-0.5 size-5 shrink-0 text-warning" aria-hidden />
+          <span>{h.access.message}</span>
+        </div>
+      )}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <section aria-label="Your stars" className="flex items-center gap-4 rounded-3xl border border-border bg-card p-5 shadow-soft">
+          <span className="text-5xl leading-none" aria-hidden>
+            ⭐
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-3xl font-semibold leading-none tabular">{p.correct}</p>
+            <p className="mt-1 text-[15px] text-muted-foreground">stars so far</p>
+          </div>
+          <div className="text-center">
+            <p className="font-display text-2xl font-semibold leading-none tabular">
+              {p.streak} <span aria-hidden>🔥</span>
+            </p>
+            <p className="mt-1 text-[13px] text-muted-foreground">day{p.streak === 1 ? '' : 's'} in a row</p>
+          </div>
+        </section>
+        {d.available && (
+          <section aria-labelledby="young-daily" className="relative overflow-hidden rounded-3xl p-5 text-white shadow-soft" style={{ background: 'linear-gradient(125deg, #3730a3, #5b21b6 55%, #7e22ce)' }}>
+            <h2 id="young-daily" className="flex items-center gap-2 font-display text-2xl font-semibold">
+              <span aria-hidden>🌟</span> Today’s challenge
+            </h2>
+            <p className="mt-1 text-[16px] text-white/90">{d.done ? `You got ${d.result?.correct} out of ${d.result?.total}. Well done!` : `${d.questions} questions for your class.`}</p>
+            {!d.done && (
+              <Button asChild size="lg" className={cn('mt-3 h-14 rounded-2xl bg-white px-8 text-xl text-[#1b1d45] hover:bg-white/90', closed && 'pointer-events-none opacity-60')}>
+                <Link to="/games/play/daily" aria-disabled={closed}>
+                  {d.inProgress ? 'Carry on' : 'Play'} <ArrowRight />
+                </Link>
+              </Button>
+            )}
+          </section>
+        )}
+      </div>
+
+      <section aria-labelledby="young-games">
+        <h2 id="young-games" className="mb-3 font-display text-2xl font-semibold tracking-tight">
+          Pick a game
+        </h2>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {h.student.games.map((k) => (
+            <YoungTile key={k} g={metaOf(k)} disabled={closed} />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="young-badges" className="rounded-3xl border border-border bg-card p-5 shadow-soft">
+        <h2 id="young-badges" className="mb-3 flex items-center gap-2 font-display text-xl font-semibold">
+          <Medal className="size-5 text-warning" aria-hidden /> My badges
+          <span className="ml-auto text-[14px] font-normal text-muted-foreground tabular">{earned.length}</span>
+        </h2>
+        {earned.length ? (
+          <ul className="flex flex-wrap gap-2">
+            {earned.map((b) => (
+              <li key={b.key} className="inline-flex items-center gap-1.5 rounded-full bg-warning-soft px-3 py-1.5 text-[15px] font-semibold" title={b.description}>
+                <span aria-hidden>🏅</span> {b.label}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-[16px] text-muted-foreground">Play a game to win your first badge!</p>
+        )}
+      </section>
+    </div>
+  );
+}
+
+/** A big picture tile; the speaker says what the game is. */
+function YoungTile({ g, disabled }: { g: GameMeta; disabled?: boolean }) {
+  return (
+    <div className="relative">
+      <Link
+        to={`/games/play/${g.slug}`}
+        aria-disabled={disabled}
+        className={cn(
+          'flex min-h-44 flex-col items-center justify-center gap-2 rounded-3xl border-2 border-border bg-card p-4 text-center shadow-soft transition-[border-color,transform] hover:-translate-y-0.5 hover:border-border-strong focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none',
+          disabled && 'pointer-events-none opacity-50',
+        )}
+        style={{ background: `linear-gradient(180deg, ${tint(g.accent, 16)}, transparent 70%)` }}
+      >
+        <span className="text-6xl leading-none" aria-hidden>
+          {g.emoji}
+        </span>
+        <span className="font-display text-xl font-semibold leading-tight">{g.name}</span>
+        <span className="text-[14px] leading-snug text-muted-foreground">{g.youngTagline}</span>
+      </Link>
+      {canSpeak() && <SpeakButton parts={[g.name, g.youngTagline]} label={`Hear: ${g.name}`} className="absolute right-2 top-2 size-9" />}
     </div>
   );
 }
@@ -358,6 +468,9 @@ function HubSkeleton() {
 
 /** No connection (and no saved copy): the games that work on the phone alone. */
 function OfflineHub({ message }: { message: string }) {
+  // The games for the student's class, as last seen on this phone.
+  const known = rememberedLevel();
+  const mine = known ? gamesFor(known) : null;
   return (
     <div className="space-y-4">
       <div className="flex items-start gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-[14px] shadow-soft" role="status">
@@ -367,7 +480,7 @@ function OfflineHub({ message }: { message: string }) {
         </span>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-        {GAME_META.filter((g) => g.offline).map((g) => (
+        {GAME_META.filter((g) => g.offline && (!mine || mine.includes(g.kind))).map((g) => (
           <GameTile key={g.kind} g={g} />
         ))}
       </div>

@@ -1,12 +1,14 @@
-import { GAME_LEVEL_LABELS, markLocalRound, MATHS_SPRINT, mathsRound, type GameLevel, type GameRoundResult, type LocalScoreInput } from '@aischool/shared';
+import { GAME_LEVEL_LABELS, markLocalRound, MATHS_SPRINT, mathsRound, YOUNG_ROUND, type GameLevel, type GameRoundResult, type LocalScoreInput } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { Flame, Star } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { gk, newClientId, rememberedLevel, submitScore, useGamesHub } from './api';
+import { gk, newClientId, submitScore } from './api';
 import type { GameMeta } from './meta';
+import { useGameMode } from './mode';
 import { buzz, play } from './sound';
-import { GameFrame, Hud, Intro, ResultView, TimeBar, useCountdown, useKeys } from './ui';
+import { forTheEar } from './speech';
+import { GameFrame, Hud, Intro, praiseFor, ResultView, SpeakButton, TimeBar, useAutoSpeak, useCountdown, useKeys } from './ui';
 
 const randomSeed = () => {
   try {
@@ -18,11 +20,12 @@ const randomSeed = () => {
 
 /** Maths Sprint: generated on the phone (works offline), marked again by the server from the same seed. */
 export default function MathsSprint({ meta }: { meta: GameMeta }) {
-  const hub = useGamesHub();
   const qc = useQueryClient();
-  const known = hub.data ? { level: hub.data.student.level, year: hub.data.student.year } : rememberedLevel();
-  const level: GameLevel = known?.level ?? 'JUNIOR';
-  const year = known?.year ?? 1;
+  const mode = useGameMode();
+  const level: GameLevel = mode.level;
+  const year = mode.year;
+  // Young mode: ten sums with no clock.
+  const young = mode.young;
   const [seed, setSeed] = useState(randomSeed);
   const [phase, setPhase] = useState<'intro' | 'play' | 'result'>('intro');
   const [answers, setAnswers] = useState<{ choice: number; ms: number }[]>([]);
@@ -30,10 +33,12 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
   const [outcome, setOutcome] = useState<{ result?: GameRoundResult; queued?: boolean; rejected?: string } | null>(null);
   const askedAt = useRef(0);
   const startedAt = useRef(0);
-  const questions = useMemo(() => mathsRound(seed, level, year, MATHS_SPRINT.maxQuestions), [seed, level, year]);
+  const questions = useMemo(() => mathsRound(seed, level, year, young ? YOUNG_ROUND.mathsQuestions : MATHS_SPRINT.maxQuestions), [seed, level, year, young]);
   const i = answers.length;
   const q = questions[i];
-  const left = useCountdown(MATHS_SPRINT.seconds, seed, phase === 'play', () => void finish());
+  const left = useCountdown(MATHS_SPRINT.seconds, seed, phase === 'play' && !young, () => void finish());
+  const said = q ? [`${forTheEar(q.prompt)}${q.prompt.length <= 30 && !/[?]|Solve|Find|Expand|Simple/.test(q.prompt) ? ' equals?' : ''}`, ...q.options.map((o, k) => `${k + 1}: ${forTheEar(o)}.`)] : null;
+  useAutoSpeak(phase === 'play' ? said : null, `${seed}-${i}-${phase}`, young);
 
   const correct = useMemo(() => answers.filter((a, k) => a.choice === questions[k]!.answer).length, [answers, questions]);
   const run = useMemo(() => {
@@ -79,11 +84,12 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
       game: 'MATHS_SPRINT',
       clientId: newClientId(),
       playedAt: new Date().toISOString(),
-      durationMs: Math.min(Math.round(performance.now() - startedAt.current), (MATHS_SPRINT.seconds + 2) * 1000),
+      durationMs: Math.min(Math.round(performance.now() - startedAt.current), young ? 10 * 60_000 : (MATHS_SPRINT.seconds + 2) * 1000),
       seed,
       level,
       year,
-      answers: list,
+      ...(young ? { young: true } : {}),
+      answers: list.map((a) => ({ ...a, ms: Math.min(120_000, a.ms) })),
     };
     if (!list.length) {
       finishing.current = false;
@@ -106,13 +112,13 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
         <Intro
           meta={meta}
           onStart={begin}
-          rules={[`${MATHS_SPRINT.seconds} seconds: answer as many as you can.`, 'Questions get harder as you go.', `Pitched at ${GAME_LEVEL_LABELS[level].toLowerCase()} level. Works offline too.`]}
+          rules={young ? [`${YOUNG_ROUND.mathsQuestions} sums.`, 'Take your time. There’s no clock.'] : [`${MATHS_SPRINT.seconds} seconds: answer as many as you can.`, 'Questions get harder as you go.', `Pitched at ${GAME_LEVEL_LABELS[level].toLowerCase()} level. Works offline too.`]}
         />
       </GameFrame>
     );
   }
   if (phase === 'result') {
-    const mark = markLocalRound({ game: 'MATHS_SPRINT', clientId: 'x', playedAt: new Date().toISOString(), durationMs: 60_000, seed, level, year, answers });
+    const mark = markLocalRound({ game: 'MATHS_SPRINT', clientId: 'x', playedAt: new Date().toISOString(), durationMs: 60_000, seed, level, year, young, answers });
     return (
       <GameFrame meta={meta}>
         <ResultView
@@ -134,13 +140,16 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
       <Hud
         items={[
           { label: 'Right', value: correct, icon: <Star className="size-3.5 text-warning" aria-hidden /> },
-          { label: 'Answered', value: `${i} done` },
+          { label: 'Answered', value: young ? `${i} of ${questions.length}` : `${i} done` },
           ...(run >= 3 ? [{ label: 'Run', value: `${run} in a row`, icon: <Flame className="size-3.5 text-warning" aria-hidden /> }] : []),
         ]}
       />
-      <TimeBar leftMs={left} totalMs={MATHS_SPRINT.seconds * 1000} />
+      {young ? <div className="mb-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-brand" style={{ width: `${(100 * i) / questions.length}%` }} /></div> : <TimeBar leftMs={left} totalMs={MATHS_SPRINT.seconds * 1000} />}
       <div className="rounded-3xl border border-border bg-card p-5 shadow-soft">
-        <p className="mb-1 text-[12px] font-medium text-muted-foreground">{q.skill}</p>
+        <div className="flex items-start gap-2">
+          <p className="mb-1 min-w-0 flex-1 text-[12px] font-medium text-muted-foreground">{q.skill}</p>
+          {mode.readAloud && said && <SpeakButton parts={said} big={young} label="Hear the sum" />}
+        </div>
         <p className={cn('min-h-[4.5rem] font-display font-semibold tabular leading-tight tracking-tight', q.prompt.length > 30 ? 'text-xl' : 'text-4xl')} aria-live="polite">
           {q.prompt}
           {q.prompt.length <= 30 && !/[?]|Solve|Find|Expand|Simple/.test(q.prompt) && ' = ?'}
@@ -151,7 +160,10 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
               key={`${i}-${k}`}
               type="button"
               onClick={() => pick(k)}
-              className="flex min-h-16 items-center gap-2 rounded-2xl border-2 border-border bg-card px-3 py-2 text-left text-[17px] font-semibold tabular transition-colors hover:border-border-strong hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none"
+              className={cn(
+                'flex items-center gap-2 rounded-2xl border-2 border-border bg-card px-3 py-2 text-left font-semibold tabular transition-colors hover:border-border-strong hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none',
+                young ? 'min-h-20 text-2xl' : 'min-h-16 text-[17px]',
+              )}
             >
               <span className="grid size-6 shrink-0 place-items-center rounded-md bg-muted text-[11px] text-muted-foreground" aria-hidden>
                 {k + 1}
@@ -161,7 +173,7 @@ export default function MathsSprint({ meta }: { meta: GameMeta }) {
           ))}
         </div>
         <p className={cn('mt-3 h-5 text-center text-[13px] font-semibold', flash?.right ? 'text-success' : 'text-danger')} role="status">
-          {flash && flash.i === i - 1 ? (flash.right ? '✓ Right' : `✗ It was ${questions[flash.i]!.options[questions[flash.i]!.answer]}`) : ''}
+          {flash && flash.i === i - 1 ? (flash.right ? (young ? `⭐ ${praiseFor(flash.i)}` : '✓ Right') : `${young ? 'Good try! ' : '✗ '}It was ${questions[flash.i]!.options[questions[flash.i]!.answer]}`) : ''}
         </p>
       </div>
     </GameFrame>

@@ -1,4 +1,22 @@
-import { MATHS_SPRINT, MIN_ANSWER_MS, mathsRound, normaliseWord, type GameLevel, type LocalScoreInput } from './games';
+import {
+  CROSSWORD_ROUND,
+  EARLY_ROUND,
+  MATHS_SPRINT,
+  MIN_ANSWER_MS,
+  mathsRound,
+  normaliseWord,
+  preferYear,
+  seededRandom,
+  TF_BLITZ,
+  WORD_ROUND,
+  WORD_SEARCH_ROUND,
+  YOUNG_ROUND,
+  type GameLevel,
+  type LocalScoreInput,
+} from './games';
+import { earlyRound } from './games-early';
+import { ALL_PACK_FACTS, ALL_PACK_MATCH_PACKS, ALL_PACK_QUESTIONS, ALL_PACK_WORDS } from './games-packs';
+import { buildCrossword, buildWordSearch, DIRS_ALL, DIRS_PRIMARY, DIRS_YOUNG, lineLetters, puzzleForm, type CrosswordPuzzle, type PuzzleWord, type WordSearchPuzzle } from './games-puzzles';
 
 /**
  * Curated EduGames content: match packs, true-or-false facts, quiz questions
@@ -20,9 +38,11 @@ export interface MatchPack {
   leftLabel: string;
   rightLabel: string;
   pairs: [string, string][];
+  /** School years within the stage this suits (e.g. [1, 2, 3] = Primary 1–3); empty or missing = the whole stage. */
+  years?: number[];
 }
 
-export const MATCH_PACKS: MatchPack[] = [
+const BASE_MATCH_PACKS: MatchPack[] = [
   {
     id: 'ng-states',
     title: 'Nigerian states and capitals',
@@ -354,10 +374,19 @@ export const MATCH_PACKS: MatchPack[] = [
   },
 ];
 
+/** The packs written for each year group (games-packs/) join the ones above. */
+export const MATCH_PACKS: MatchPack[] = [...BASE_MATCH_PACKS, ...ALL_PACK_MATCH_PACKS];
+
 /** "Kano State ↔ Kano" teaches nothing in a memory game: such pairs are skipped when cards are dealt. */
 export const isTrivialPair = ([l, r]: [string, string]) => normaliseWord(l) === normaliseWord(r);
 
-export const matchPacksFor = (level: GameLevel) => MATCH_PACKS.filter((p) => p.levels.includes(level));
+/** Match packs for a level, the ones written for the student's year first (the whole stage if fewer than three suit it). */
+export const matchPacksFor = (level: GameLevel, year?: number | null) =>
+  preferYear(
+    MATCH_PACKS.filter((p) => p.levels.includes(level)),
+    year,
+    3,
+  );
 
 // ------------------------------------------------------------ true or false facts
 
@@ -369,12 +398,14 @@ export interface TrueFalseFact {
   statement: string;
   answer: boolean;
   explain: string;
+  /** School years within the stage this suits (e.g. [1, 2, 3] = Primary 1–3); empty or missing = the whole stage. */
+  years?: number[];
 }
 
 const tf = (level: GameLevel, prefix: string, subject: string, rows: [string, boolean, string, string?][]): TrueFalseFact[] =>
   rows.map(([statement, answer, explain, topic], i) => ({ id: `${prefix}${i + 1}`, level, subject, topic: topic ?? null, statement, answer, explain }));
 
-export const TRUE_FALSE_FACTS: TrueFalseFact[] = [
+const BASE_FACTS: TrueFalseFact[] = [
   // Primary
   ...tf('PRIMARY', 'pS', 'Basic Science', [
     ['The sun rises in the east.', true, 'The sun rises in the east and sets in the west.'],
@@ -491,6 +522,16 @@ export const TRUE_FALSE_FACTS: TrueFalseFact[] = [
   ]),
 ];
 
+export const TRUE_FALSE_FACTS: TrueFalseFact[] = [...BASE_FACTS, ...ALL_PACK_FACTS];
+
+/** True-or-false facts for a level and year (topped up from the rest of the stage for a full round). */
+export const factsFor = (level: GameLevel, year?: number | null) =>
+  preferYear(
+    TRUE_FALSE_FACTS.filter((f) => f.level === level),
+    year,
+    TF_BLITZ.statements,
+  );
+
 // ------------------------------------------------------------ quiz questions (multiple choice)
 
 export interface CuratedQuestion {
@@ -504,12 +545,14 @@ export interface CuratedQuestion {
   /** Three wrong answers. */
   w: [string, string, string];
   explain?: string;
+  /** School years within the stage this suits (e.g. [1, 2, 3] = Primary 1–3); empty or missing = the whole stage. */
+  years?: number[];
 }
 
 const mcq = (level: GameLevel, prefix: string, subject: string, rows: [string, string, [string, string, string], (string | null)?, string?][]): CuratedQuestion[] =>
   rows.map(([q, a, w, topic, explain], i) => ({ id: `${prefix}${i + 1}`, level, subject, topic: topic ?? null, q, a, w, explain }));
 
-export const CURATED_QUESTIONS: CuratedQuestion[] = [
+const BASE_QUESTIONS: CuratedQuestion[] = [
   // ---------------- Primary
   ...mcq('PRIMARY', 'PM', 'Mathematics', [
     ['What is 9 × 7?', '63', ['56', '72', '64']],
@@ -703,6 +746,8 @@ export const CURATED_QUESTIONS: CuratedQuestion[] = [
   ]),
 ];
 
+export const CURATED_QUESTIONS: CuratedQuestion[] = [...BASE_QUESTIONS, ...ALL_PACK_QUESTIONS];
+
 // ------------------------------------------------------------ spelling and word lists
 
 export interface GameWord {
@@ -714,12 +759,14 @@ export interface GameWord {
   sentence: string;
   /** Subject vocabulary ("Basic Science"); empty for common spelling-error words. */
   subject?: string;
+  /** School years within the stage this suits (e.g. [1, 2, 3] = Primary 1–3); empty or missing = the whole stage. */
+  years?: number[];
 }
 
 const words = (level: GameLevel, rows: [string, string, string, string?][]): GameWord[] => rows.map(([word, meaning, sentence, subject]) => ({ word, level, meaning, sentence, subject }));
 
 /** Words students often misspell (BECE and WAEC examiners’ reports), and subject vocabulary. British spelling. */
-export const GAME_WORDS: GameWord[] = [
+const BASE_WORDS: GameWord[] = [
   ...words('PRIMARY', [
     ['because', 'for the reason that', 'We stayed inside because it was raining.'],
     ['friend', 'someone you like and trust', 'Bola is my best friend.'],
@@ -808,12 +855,148 @@ export const GAME_WORDS: GameWord[] = [
   ]),
 ];
 
-/** Words of a level for a round: optionally only subject vocabulary or only common words. */
-export const wordsFor = (level: GameLevel) => GAME_WORDS.filter((w) => w.level === level);
+/** One entry per word in each level (the first kept): a word written into two packs isn't dealt twice. */
+function dedupeWords(list: GameWord[]): GameWord[] {
+  const seen = new Set<string>();
+  return list.filter((w) => {
+    const key = `${w.level}|${normaliseWord(w.word)}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+export const GAME_WORDS: GameWord[] = dedupeWords([...BASE_WORDS, ...ALL_PACK_WORDS]);
+
+/** Words of a level for a round, the ones for the student's year first (topped up from the stage when there are few). */
+export const wordsFor = (level: GameLevel, year?: number | null) =>
+  preferYear(
+    GAME_WORDS.filter((w) => w.level === level),
+    year,
+    WORD_ROUND.words * 2,
+  );
 export const wordById = (id: string) => GAME_WORDS.find((w) => normaliseWord(w.word) === normaliseWord(id)) ?? null;
 
 /** The sentence with the word blanked out (for students who can't hear it). */
 export const blankedSentence = (w: GameWord) => w.sentence.replace(new RegExp(w.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_'.repeat(Math.min(w.word.length, 12)));
+
+/** Quiz questions for a level and year (topped up from the stage). */
+export const questionsFor = (level: GameLevel, year?: number | null) =>
+  preferYear(
+    CURATED_QUESTIONS.filter((q) => q.level === level),
+    year,
+    20,
+  );
+
+// ------------------------------------------------------------ checks (dev and test)
+
+/**
+ * Problems in the curated content: ids used twice (offline scores are marked
+ * by id, so a clash would mark against the wrong item), quiz questions whose
+ * right answer is also among the wrong ones, empty match packs. Empty when all
+ * is well; the content test fails on any, and in development a warning is logged.
+ */
+export function gamesContentIssues(): string[] {
+  const out: string[] = [];
+  const dupes = (what: string, ids: string[]) => {
+    const seen = new Set<string>();
+    for (const id of ids) {
+      if (seen.has(id)) out.push(`${what} id used twice: ${id}`);
+      seen.add(id);
+    }
+  };
+  dupes('Match pack', MATCH_PACKS.map((p) => p.id));
+  dupes('True-or-false fact', TRUE_FALSE_FACTS.map((f) => f.id));
+  dupes('Quiz question', CURATED_QUESTIONS.map((q) => q.id));
+  for (const q of CURATED_QUESTIONS) {
+    const opts = [q.a, ...q.w].map(normaliseWord);
+    if (q.w.length !== 3 || new Set(opts).size !== 4) out.push(`Quiz question ${q.id} needs a right answer and three different wrong ones`);
+  }
+  for (const p of MATCH_PACKS) if (p.pairs.length < 2 || !p.levels.length) out.push(`Match pack ${p.id} needs at least two pairs and a level`);
+  for (const x of [...MATCH_PACKS, ...TRUE_FALSE_FACTS, ...CURATED_QUESTIONS, ...GAME_WORDS]) {
+    if (x.years?.some((y) => !Number.isInteger(y) || y < 1 || y > 6)) out.push(`Years must be 1–6: ${'id' in x ? x.id : x.word}`);
+  }
+  return out;
+}
+
+{
+  const env = typeof process !== 'undefined' ? process.env?.NODE_ENV : undefined;
+  if (env && env !== 'production') {
+    const issues = gamesContentIssues();
+    if (issues.length) console.warn(`EduGames content: ${issues.length} problem(s)\n  ${issues.slice(0, 20).join('\n  ')}`);
+  }
+}
+
+// ------------------------------------------------------------ word puzzles (Word Search, Crossword)
+
+/** A theme of words for a puzzle: a match pack, a subject's vocabulary, or a mix. */
+export interface PuzzleTheme {
+  title: string;
+  words: PuzzleWord[];
+}
+
+/** The clue must not give the word away. */
+const clueGivesAway = (clue: string, word: string) => clue.toUpperCase().replace(/[^A-Z]/g, ' ').split(/\s+/).some((t) => t && (t === word || (word.length >= 4 && t.includes(word))));
+
+/**
+ * The words a level and year can be given in puzzles, grouped into themes
+ * (stable order, so the device and the server pick the same one from a seed).
+ * Spelling and subject words come with their meaning as the clue; match packs
+ * give "Abia: its capital" → UMUAHIA.
+ */
+export function puzzleThemes(level: GameLevel, year: number, maxLen: number, min: number): PuzzleTheme[] {
+  const seen = new Set<string>();
+  const all: (PuzzleWord & { theme: string })[] = [];
+  const add = (word: string, clue: string, subject: string | null, theme: string) => {
+    const w = puzzleForm(word);
+    if (!w || w.length < 3 || w.length > maxLen || !clue.trim() || clueGivesAway(clue, w)) return;
+    const key = `${theme}|${w}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    all.push({ word: w, clue: clue.trim(), subject, theme });
+  };
+  // A bigger pool than a spelling round (puzzles need words that fit together), still the student's year first.
+  for (const w of preferYear(GAME_WORDS.filter((x) => x.level === level), year, 60)) add(w.word, w.meaning, w.subject ?? null, w.subject ? `${w.subject} words` : 'Tricky spellings');
+  for (const p of matchPacksFor(level, year)) for (const [l, r] of p.pairs) if (!isTrivialPair([l, r])) add(r, `${l}: its ${/^(English|French|Arabic|Yoruba|Igbo|Hausa|Latin)/.test(p.rightLabel) ? p.rightLabel : p.rightLabel.toLowerCase()}`, p.subject, p.title);
+  const groups = new Map<string, PuzzleWord[]>();
+  for (const w of all) groups.set(w.theme, [...(groups.get(w.theme) ?? []), { word: w.word, clue: w.clue, subject: w.subject }]);
+  const themes: PuzzleTheme[] = [...groups].filter(([, ws]) => ws.length >= min).map(([title, words]) => ({ title, words }));
+  // Always a mixed theme too (each word once).
+  const mixed = new Map<string, PuzzleWord>();
+  for (const w of all) if (!mixed.has(w.word)) mixed.set(w.word, { word: w.word, clue: w.clue, subject: w.subject });
+  themes.push({ title: 'Words from your lessons', words: [...mixed.values()] });
+  return themes;
+}
+
+/** Word Search size and directions by age: 6 × 6 across and down for the youngest, 8 × 8 with diagonals for older primary, 10 × 10 every way for secondary. */
+export function wordSearchShape(level: GameLevel, young: boolean) {
+  if (young) return { ...WORD_SEARCH_ROUND.young, dirs: DIRS_YOUNG };
+  if (level === 'PRIMARY') return { ...WORD_SEARCH_ROUND.primary, dirs: DIRS_PRIMARY };
+  return { ...WORD_SEARCH_ROUND.secondary, dirs: DIRS_ALL };
+}
+
+/** The Word Search for a seed (the same on the device and the server). */
+export function wordSearchFor(seed: number, level: GameLevel, year: number, young: boolean): WordSearchPuzzle {
+  const shape = wordSearchShape(level, young);
+  const themes = puzzleThemes(level, year, shape.size, shape.words + 3);
+  const r = seededRandom(seed);
+  const theme = themes[Math.floor(r() * themes.length)]!;
+  return buildWordSearch((seed ^ 0x5bd1e995) >>> 0, theme.words, { size: shape.size, count: shape.words, dirs: shape.dirs, title: theme.title });
+}
+
+/** Crossword size by age: 5–6 short words for the youngest, up to 8 for older students. */
+export function crosswordShape(young: boolean) {
+  return young ? { min: CROSSWORD_ROUND.min, max: 6, maxLen: 7, maxSize: 9 } : { min: CROSSWORD_ROUND.min, max: CROSSWORD_ROUND.max, maxLen: 10, maxSize: 13 };
+}
+
+/** The Crossword for a seed (the same on the device and the server). Themes with plenty of words, else a mix. */
+export function crosswordFor(seed: number, level: GameLevel, year: number, young: boolean): CrosswordPuzzle {
+  const shape = crosswordShape(young);
+  const themes = puzzleThemes(level, year, shape.maxLen, 24);
+  const r = seededRandom(seed);
+  const theme = themes[Math.floor(r() * themes.length)]!;
+  return buildCrossword((seed ^ 0x27d4eb2f) >>> 0, theme.words, { ...shape, title: theme.title });
+}
 
 // ------------------------------------------------------------ marking a local round
 
@@ -854,8 +1037,10 @@ export function markLocalRound(input: LocalScoreInput): LocalMark {
     return null;
   };
   const sumMs = (ms: number[]) => ms.reduce((a, b) => a + b, 0);
+  // A round sent at the 10-minute cap (a slow young child) can't be checked against the sum.
+  const capped = input.durationMs >= 10 * 60_000 - 1000;
   const timing = (ms: number[], min: number) =>
-    tooFast(ms, min) ?? (sumMs(ms) > input.durationMs + 2000 ? 'The answer times don’t add up to the round’s length.' : null);
+    tooFast(ms, min) ?? (!capped && sumMs(ms) > input.durationMs + 2000 ? 'The answer times don’t add up to the round’s length.' : null);
 
   switch (input.game) {
     case 'MATHS_SPRINT': {
@@ -866,7 +1051,9 @@ export function markLocalRound(input: LocalScoreInput): LocalMark {
         input.answers.map((a) => a.ms),
         MIN_ANSWER_MS.MATHS_SPRINT,
       );
-      if (!implausible && input.durationMs > (MATHS_SPRINT.seconds + 5) * 1000) implausible = 'The round ran longer than a Maths Sprint can.';
+      // Young mode: ten questions with no clock (however long they take).
+      if (!implausible && input.young && input.answers.length > YOUNG_ROUND.mathsQuestions) implausible = 'More questions than a young Maths Sprint has.';
+      if (!implausible && !input.young && input.durationMs > (MATHS_SPRINT.seconds + 5) * 1000) implausible = 'The round ran longer than a Maths Sprint can.';
       return { correct, total: input.answers.length, implausible, subjects: correct ? { Mathematics: correct } : {}, bestRun: run(results) };
     }
     case 'SPELLING_BEE':
@@ -905,6 +1092,57 @@ export function markLocalRound(input: LocalScoreInput): LocalMark {
       else if (input.matched > 0 && input.durationMs < input.matched * 2 * MIN_ANSWER_MS.MATCH_UP) implausible = 'Matched faster than cards can be turned.';
       const subject = pack?.subject ?? 'General';
       return { correct: input.matched, total: input.pairs.length, implausible, subjects: input.matched ? { [subject]: input.matched } : {}, bestRun: input.matched };
+    }
+    case 'COUNT_TAP':
+    case 'SHAPES':
+    case 'LETTER_SOUNDS':
+    case 'TELL_TIME':
+    case 'NAIRA_SHOP': {
+      const qs = earlyRound(input.game, input.seed, input.year, input.answers.length, !!input.early);
+      const results = input.answers.map((a, i) => a.choice === qs[i]!.answer);
+      const correct = results.filter(Boolean).length;
+      let implausible: string | null = input.answers.length > EARLY_ROUND.questions ? 'More answers than the round has.' : null;
+      // Only impossibly quick taps are refused: young children are slow, and that's fine.
+      implausible ??= timing(
+        input.answers.map((a) => a.ms),
+        MIN_ANSWER_MS[input.game],
+      );
+      const subject = input.game === 'LETTER_SOUNDS' ? 'English Language' : 'Mathematics';
+      return { correct, total: input.answers.length, implausible, subjects: correct ? { [subject]: correct } : {}, bestRun: run(results) };
+    }
+    case 'WORD_SEARCH': {
+      const pz = wordSearchFor(input.seed, input.level, input.year, input.young);
+      const found = new Set<string>();
+      const subjects: Record<string, number> = {};
+      let implausible: string | null = null;
+      for (const f of input.found) {
+        const line = lineLetters(pz.grid, f.r0, f.c0, f.r1, f.c1);
+        const back = line ? [...line].reverse().join('') : null;
+        const w = pz.words.find((x) => x.word === line || x.word === back);
+        if (!w) implausible ??= 'Some of those lines aren’t words in the puzzle.';
+        else if (found.has(w.word)) implausible ??= 'The same word was sent twice.';
+        else {
+          found.add(w.word);
+          const s = w.subject ?? 'English Language';
+          subjects[s] = (subjects[s] ?? 0) + 1;
+        }
+      }
+      implausible ??= timing(
+        input.found.map((f) => f.ms),
+        MIN_ANSWER_MS.WORD_SEARCH,
+      );
+      if (!implausible && input.durationMs < found.size * MIN_ANSWER_MS.WORD_SEARCH) implausible = 'Found faster than anyone can spot the words.';
+      return { correct: found.size, total: pz.words.length, implausible, subjects, bestRun: found.size };
+    }
+    case 'CROSSWORD': {
+      const pz = crosswordFor(input.seed, input.level, input.year, input.young);
+      let implausible: string | null = input.entries.length !== pz.entries.length ? 'That isn’t the crossword for this round.' : null;
+      const subjects: Record<string, number> = {};
+      const results = pz.entries.map((e, i) => normaliseWord(input.entries[i] ?? '').toUpperCase() === e.answer);
+      const correct = results.filter(Boolean).length;
+      if (correct) subjects['English Language'] = correct;
+      if (!implausible && input.durationMs < correct * MIN_ANSWER_MS.CROSSWORD) implausible = 'Solved faster than anyone can read the clues.';
+      return { correct: implausible ? 0 : correct, total: pz.entries.length, implausible, subjects, bestRun: run(results) };
     }
     case 'TF_BLITZ': {
       const subjects: Record<string, number> = {};

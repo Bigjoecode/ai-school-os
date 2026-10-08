@@ -1,13 +1,15 @@
-import { markLocalRound, seededShuffle, TF_BLITZ, TRUE_FALSE_FACTS, type GameAnswerFeedback, type GameLevel, type GameRoundResult, type GameRoundView, type LocalScoreInput } from '@aischool/shared';
+import { factsFor, markLocalRound, seededShuffle, TF_BLITZ, YOUNG_ROUND, type GameAnswerFeedback, type GameLevel, type GameRoundResult, type GameRoundView, type LocalScoreInput } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { Check, Star, WifiOff, X } from 'lucide-react';
 import { type PointerEvent, useRef, useState } from 'react';
 import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { answerRound, finishRound, gk, newClientId, rememberedLevel, startRound, submitScore, useGamesHub } from './api';
+import { answerRound, finishRound, gk, newClientId, startRound, submitScore } from './api';
 import type { GameMeta } from './meta';
+import { useGameMode } from './mode';
 import { buzz, play } from './sound';
-import { GameFrame, Hud, Intro, Loading, Problem, ResultView, TimeBar, useCountdown, useKeys } from './ui';
+import { forTheEar } from './speech';
+import { GameFrame, Hud, Intro, Loading, Problem, ResultView, SpeakButton, TimeBar, useAutoSpeak, useCountdown, useKeys } from './ui';
 
 interface Statement {
   text: string;
@@ -30,9 +32,9 @@ interface Mark {
  * and sent later.
  */
 export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
-  const hub = useGamesHub();
   const qc = useQueryClient();
-  const level: GameLevel = hub.data?.student.level ?? rememberedLevel()?.level ?? 'JUNIOR';
+  const mode = useGameMode();
+  const level: GameLevel = mode.level;
   const [phase, setPhase] = useState<'intro' | 'loading' | 'play' | 'finishing' | 'result' | 'error'>('intro');
   const [error, setError] = useState('');
   const [items, setItems] = useState<Statement[]>([]);
@@ -50,7 +52,10 @@ export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
   const last = useRef(-1);
   const [dx, setDx] = useState(0);
   const offline = !round;
-  const left = useCountdown(TF_BLITZ.secondsPerStatement, i, phase === 'play', () => answer(null));
+  // Young mode has no clock (the server sends 0 seconds; offline it's the same).
+  const seconds = round ? round.secondsPerQuestion : mode.young ? 0 : TF_BLITZ.secondsPerStatement;
+  const left = useCountdown(seconds || 1, i, phase === 'play' && seconds > 0, () => answer(null));
+  useAutoSpeak(phase === 'play' && items[i] ? [forTheEar(items[i]!.text), 'True or false?'] : null, `${round?.id ?? 'local'}-${i}-${phase}`, mode.young);
 
   async function begin() {
     setPhase('loading');
@@ -73,10 +78,8 @@ export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
       }
       // No connection: play the curated facts on the phone.
       setRound(null);
-      const facts = seededShuffle(
-        TRUE_FALSE_FACTS.filter((f) => f.level === level),
-        Math.random,
-      ).slice(0, TF_BLITZ.statements);
+      // The facts for the student's year (topped up from the stage when there are few).
+      const facts = seededShuffle(factsFor(level, mode.year), Math.random).slice(0, mode.young ? YOUNG_ROUND.tfStatements : TF_BLITZ.statements);
       setItems(facts.map((f) => ({ id: f.id, text: f.statement, subject: f.subject, answer: f.answer, explain: f.explain })));
     }
     startedAt.current = shownAt.current = Date.now();
@@ -175,7 +178,15 @@ export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
   if (phase === 'intro') {
     return (
       <GameFrame meta={meta}>
-        <Intro meta={meta} onStart={() => void begin()} rules={[`${TF_BLITZ.statements} statements, ${TF_BLITZ.secondsPerStatement} seconds each.`, 'Tap True or False, swipe the card right or left, or press T or F.', 'Quick right answers score more. Works offline with the fact packs.']} />
+        <Intro
+          meta={meta}
+          onStart={() => void begin()}
+          rules={
+            mode.young
+              ? [`${YOUNG_ROUND.tfStatements} sentences.`, 'Is it true or false? Tap the button.', 'Take your time. There’s no clock.']
+              : [`${TF_BLITZ.statements} statements, ${TF_BLITZ.secondsPerStatement} seconds each.`, 'Tap True or False, swipe the card right or left, or press T or F.', 'Quick right answers score more. Works offline with the fact packs.']
+          }
+        />
       </GameFrame>
     );
   }
@@ -204,7 +215,7 @@ export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
           { label: 'Score', value: score, icon: <Star className="size-3.5 text-warning" aria-hidden /> },
         ]}
       />
-      <TimeBar leftMs={left} totalMs={TF_BLITZ.secondsPerStatement * 1000} />
+      {seconds > 0 ? <TimeBar leftMs={left} totalMs={seconds * 1000} /> : <div className="mb-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-brand" style={{ width: `${(100 * i) / items.length}%` }} /></div>}
       <div
         className="touch-pan-y select-none rounded-3xl border border-border bg-card p-6 shadow-soft transition-transform duration-150 motion-reduce:transition-none"
         style={{ transform: `translateX(${dx}px) rotate(${dx / 30}deg)` }}
@@ -213,15 +224,20 @@ export default function TrueFalseBlitz({ meta }: { meta: GameMeta }) {
         onPointerUp={onUp}
         onPointerCancel={onUp}
       >
-        {it.subject && <p className="mb-2 text-[12px] font-medium text-muted-foreground">{it.subject}</p>}
-        <p className="min-h-24 text-xl font-semibold leading-snug" aria-live="polite">
-          {it.text}
-        </p>
+        <div className="flex items-start gap-3">
+          <div className="min-w-0 flex-1">
+            {it.subject && <p className="mb-2 text-[12px] font-medium text-muted-foreground">{it.subject}</p>}
+            <p className={cn('min-h-24 font-semibold leading-snug', mode.young ? 'text-2xl' : 'text-xl')} aria-live="polite">
+              {it.text}
+            </p>
+          </div>
+          {mode.readAloud && <SpeakButton parts={[forTheEar(it.text), 'True or false?']} big={mode.young} label="Hear it" />}
+        </div>
         <div className="mt-5 grid grid-cols-2 gap-3">
-          <button type="button" onClick={() => answer(false)} className="flex h-16 items-center justify-center gap-2 rounded-2xl border-2 border-danger/40 bg-danger-soft text-lg font-semibold text-foreground transition-transform hover:border-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none">
+          <button type="button" onClick={() => answer(false)} className={`flex items-center justify-center gap-2 rounded-2xl border-2 border-danger/40 ${mode.young ? 'h-20 text-2xl' : 'h-16'} bg-danger-soft text-lg font-semibold text-foreground transition-transform hover:border-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none`}>
             <X className="size-5 text-danger" aria-hidden /> False
           </button>
-          <button type="button" onClick={() => answer(true)} className="flex h-16 items-center justify-center gap-2 rounded-2xl border-2 border-success/40 bg-success-soft text-lg font-semibold text-foreground transition-transform hover:border-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none">
+          <button type="button" onClick={() => answer(true)} className={`flex items-center justify-center gap-2 rounded-2xl border-2 border-success/40 ${mode.young ? 'h-20 text-2xl' : 'h-16'} bg-success-soft text-lg font-semibold text-foreground transition-transform hover:border-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98] motion-reduce:transform-none`}>
             <Check className="size-5 text-success" aria-hidden /> True
           </button>
         </div>

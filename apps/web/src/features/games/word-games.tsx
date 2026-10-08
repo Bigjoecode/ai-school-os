@@ -4,33 +4,12 @@ import { Delete, Ear, Lightbulb, Star, Turtle } from 'lucide-react';
 import { type FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { gk, newClientId, rememberedLevel, submitScore, useGamesHub } from './api';
+import { gk, newClientId, submitScore } from './api';
 import type { GameMeta } from './meta';
+import { useGameMode } from './mode';
+import { canSpeak, speak } from './speech';
 import { buzz, play } from './sound';
 import { Feedback, GameFrame, Hud, Intro, ResultView } from './ui';
-
-// ------------------------------------------------------------------ the browser's own voice (free, works offline on most phones)
-
-const canSpeak = () => typeof window !== 'undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
-
-function voice(): SpeechSynthesisVoice | null {
-  const all = window.speechSynthesis.getVoices();
-  return all.find((v) => v.lang === 'en-NG') ?? all.find((v) => v.lang === 'en-GB') ?? all.find((v) => v.lang.startsWith('en-GB')) ?? all.find((v) => v.lang.startsWith('en')) ?? null;
-}
-
-function speak(parts: string[], rate = 0.9) {
-  if (!canSpeak()) return;
-  const synth = window.speechSynthesis;
-  synth.cancel();
-  const v = voice();
-  for (const text of parts) {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = v?.lang ?? 'en-GB';
-    if (v) u.voice = v;
-    u.rate = rate;
-    synth.speak(u);
-  }
-}
 
 const random = () => Math.random();
 
@@ -47,10 +26,9 @@ function scramble(word: string): string[] {
 /** Spelling Bee (hear it, spell it) and Word Scramble (unjumble it from the clue): curated lists, playable offline. */
 export default function WordGame({ meta }: { meta: GameMeta }) {
   const scrambleMode = meta.kind === 'WORD_SCRAMBLE';
-  const hub = useGamesHub();
   const qc = useQueryClient();
-  const known = hub.data ? { level: hub.data.student.level } : rememberedLevel();
-  const level: GameLevel = known?.level ?? 'JUNIOR';
+  const mode = useGameMode();
+  const level: GameLevel = mode.level;
   const [round, setRound] = useState<GameWord[]>([]);
   const [i, setI] = useState(0);
   const [phase, setPhase] = useState<'intro' | 'play' | 'result'>('intro');
@@ -67,7 +45,8 @@ export default function WordGame({ meta }: { meta: GameMeta }) {
   const w = round[i];
 
   function begin() {
-    const list = seededShuffle(wordsFor(level), random).slice(0, WORD_ROUND.words);
+    // Words for the student's year first (topped up from the stage when there are few).
+    const list = seededShuffle(wordsFor(level, mode.year), random).slice(0, WORD_ROUND.words);
     setRound(list);
     setI(0);
     setDone([]);

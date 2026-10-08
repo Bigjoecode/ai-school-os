@@ -30,6 +30,7 @@ export const INSIGHT_SOURCE_LABELS: Record<string, string> = {
   HOMEWORK: 'Homework',
   TEST: 'School tests',
   CHECKIN: 'Lesson check-ins',
+  GAME: 'Games',
 };
 
 // ============================================================ requests

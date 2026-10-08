@@ -13,6 +13,7 @@ import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 import { usePortalSettings, useSavePortalSettings } from '../portal/api';
 import { LearningUpdatesSettings } from './learning-updates-settings';
+import { GamesSettingsCard } from '../games/widgets';
 
 type BoolKey = 'showAttendance' | 'showResults' | 'showCalendar' | 'showDownloads';
 
@@ -138,6 +139,7 @@ export default function PortalSettingsPage() {
       </Card>
     </form>
     <LearningUpdatesSettings />
+    <GamesSettingsCard />
     </div>
   );
 }

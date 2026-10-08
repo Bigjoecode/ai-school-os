@@ -202,6 +202,9 @@ const PresentPage = lazy(() => import('@/features/lesson-modules/present-page'))
 const MyLessonsPage = lazy(() => import('@/features/lesson-modules/my-lessons-page'));
 const MyLessonPage = lazy(() => import('@/features/lesson-modules/my-lesson-page'));
 const LiveCheckInPage = lazy(() => import('@/features/lesson-modules/live-checkin-page'));
+const GamesPage = lazy(() => import('@/features/games/games-page'));
+const GamesPlayPage = lazy(() => import('@/features/games/play-page'));
+const GamesLeaderboardPage = lazy(() => import('@/features/games/leaderboard-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -767,6 +770,10 @@ export const router = createBrowserRouter(withRouteErrors([
       { path: 'my-lessons', element: <RequirePermission permission="learning.use"><MyLessonsPage /></RequirePermission> },
       { path: 'my-lessons/live/:sessionId', element: <RequirePermission permission="learning.use"><LiveCheckInPage /></RequirePermission> },
       { path: 'my-lessons/:id', element: <RequirePermission permission="learning.use"><MyLessonPage /></RequirePermission> },
+      // EduGames: the hub, each game (lazy-loaded) and the weekly leaderboards.
+      { path: 'games', element: <RequirePermission permission="learning.use"><GamesPage /></RequirePermission> },
+      { path: 'games/leaderboard', element: <RequirePermission permission="learning.use"><GamesLeaderboardPage /></RequirePermission> },
+      { path: 'games/play/:game', element: <RequirePermission permission="learning.use"><GamesPlayPage /></RequirePermission> },
       // Phase 15: the student's learning companion and Exam Academy, and the parent's family page.
       ...(
         [

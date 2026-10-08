@@ -80,6 +80,7 @@ import { Stethoscope } from 'lucide-react';
 import { WifiOff } from 'lucide-react';
 import { BookMarked, NotebookTabs } from 'lucide-react';
 import { BookUser, Compass, Shield } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -154,6 +155,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Learning',
     items: [
       { label: 'Learn', to: '/learn', icon: House, permission: 'learning.use', audience: 'family', keywords: 'study home today ai learning' },
+      { label: 'Games', to: '/games', icon: Gamepad2, permission: 'learning.use', audience: 'family', keywords: 'play fun quiz rush maths sprint spelling bee word scramble match up true false daily challenge streak xp badges leaderboard' },
       { label: 'My lessons', to: '/my-lessons', icon: BookMarked, permission: 'learning.use', audience: 'family', keywords: 'lesson modules check-in class code join video quiz notes offline' },
       { label: 'Exams', to: '/my-exams', icon: MonitorCheck, permission: 'learning.use', audience: 'family', keywords: 'cbt online exam test computer based school exam' },
       { label: 'Offline exams', to: '/offline-exams', icon: WifiOff, permission: 'learning.use', audience: 'family', keywords: 'cbt offline exam download no internet sync' },

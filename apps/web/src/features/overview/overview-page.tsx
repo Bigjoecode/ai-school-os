@@ -42,6 +42,7 @@ import { PendingLeaveNotice } from '../hr/ui';
 import { ClassInsightsCard } from '../class-insights/insights-card';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { FirstWeekCard } from '../onboarding/first-week';
+import { DailyChallengeCard } from '../games/widgets';
 import { SetupProgressCard } from '../onboarding/ui';
 import { OperationsCard } from '../operations/operations-card';
 import { PortalSummaryCard } from '../portal/summary-card';
@@ -107,6 +108,7 @@ function MemberOverview() {
   const hasAi = useHasFeature('ai');
   const hasLive = useHasFeature('live_classes');
   const canAi = useCan('ai.use') && hasAi;
+  const isStudent = useCan('learning.use');
   return (
     <Page className="max-w-5xl">
       <div className="mb-7">
@@ -116,6 +118,7 @@ function MemberOverview() {
         </h1>
       </div>
       <div className="space-y-5">
+        {isStudent && <DailyChallengeCard />}
         <PortalSummaryCard />
         {hasLive && <MyLearningCard />}
         <NoticeboardCard alwaysShow />

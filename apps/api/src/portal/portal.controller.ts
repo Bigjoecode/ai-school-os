@@ -69,10 +69,13 @@ export class PortalController {
   @Put('settings')
   @RequirePermissions('school.manage')
   async setSettings(@Body(new ZodPipe(portalSettingsSchema)) body: PortalSettings): Promise<PortalSettings> {
-    // Keep the weekly learning update settings stored alongside (see learning-updates).
+    // Keep the weekly learning update, data protection and games settings stored alongside.
     const prev = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: currentTenantId() }, select: { portalSettings: true } });
-    const { learningUpdates, dataProtection } = (prev.portalSettings as { learningUpdates?: unknown; dataProtection?: unknown } | null) ?? {};
-    await this.prisma.root.tenant.update({ where: { id: currentTenantId() }, data: { portalSettings: { ...body, ...(learningUpdates ? { learningUpdates } : {}), ...(dataProtection ? { dataProtection } : {}) } as unknown as Prisma.InputJsonValue } });
+    const { learningUpdates, dataProtection, games } = (prev.portalSettings as { learningUpdates?: unknown; dataProtection?: unknown; games?: unknown } | null) ?? {};
+    await this.prisma.root.tenant.update({
+      where: { id: currentTenantId() },
+      data: { portalSettings: { ...body, ...(learningUpdates ? { learningUpdates } : {}), ...(dataProtection ? { dataProtection } : {}), ...(games ? { games } : {}) } as unknown as Prisma.InputJsonValue },
+    });
     await this.audit.log({ action: 'portal.settings_updated', entityType: 'Tenant', entityId: currentTenantId(), summary: `Updated what families see in the portal${body.withholdResultsWhenOwing ? ' (results withheld while fees are owed)' : ''}` });
     return body;
   }

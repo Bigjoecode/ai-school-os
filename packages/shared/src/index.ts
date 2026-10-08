@@ -40,3 +40,5 @@ export * from './languages';
 export * from './success';
 export * from './data-protection';
 export * from './lesson-modules';
+export * from './games';
+export * from './games-content';

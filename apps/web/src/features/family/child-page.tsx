@@ -12,6 +12,7 @@ import { AccessMeter, AddMemoryForm, AttemptList, MasteryMapView, MemoryList, Re
 import { ChildHomework } from '../live/child-homework';
 import { useChildProgress, useTellTutor } from './api';
 import { ChildModulesCard } from '../lesson-modules/widgets';
+import { ChildGamesLine } from '../games/widgets';
 import { ChildTutorLanguageCard } from './language-cards';
 
 export default function ChildProgressPage() {
@@ -87,6 +88,7 @@ export default function ChildProgressPage() {
 
           <ChildHomework childId={id} first={first} />
           <ChildModulesCard childId={id} first={first} />
+          <ChildGamesLine childId={id} first={first} />
 
           <section aria-label="Mastery map">
             <SectionTitle icon={Sparkles} title="Mastery by subject" />

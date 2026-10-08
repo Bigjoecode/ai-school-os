@@ -4113,3 +4113,75 @@ model ClassroomSession {
   @@index([tenantId, code, status])
   @@map("classroom_sessions")
 }
+
+// ============================================================== EduGames
+
+/// A student's EduGames standing: XP, streak, badges and whether they appear on leaderboards.
+model GameProfile {
+  id           String   @id @default(cuid())
+  tenantId     String
+  studentId    String   @unique
+  /// Awarded by the server only.
+  xp           Int      @default(0)
+  streak       Int      @default(0)
+  bestStreak   Int      @default(0)
+  /// School date (YYYY-MM-DD) of the last scored round.
+  lastPlayDate String?
+  correct      Int      @default(0)
+  answered     Int      @default(0)
+  rounds       Int      @default(0)
+  /// { [badgeKey]: ISO time earned }
+  badges       Json     @default("{}")
+  /// { subjects: { [subject]: correct }, games: { [game]: rounds } }
+  stats        Json     @default("{}")
+  /// Left off class and house leaderboards (the student's own choice).
+  hidden       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("game_profiles")
+}
+
+/// One round of a game. SERVER rounds hold their questions and answers here (never sent before
+/// an answer); LOCAL rounds were played on the device and marked by replaying them.
+model GameRound {
+  id         String    @id @default(cuid())
+  tenantId   String
+  studentId  String
+  classArmId String?
+  /// QUIZ_RUSH | MATHS_SPRINT | SPELLING_BEE | WORD_SCRAMBLE | MATCH_UP | TF_BLITZ | DAILY
+  game       String
+  /// SERVER | LOCAL
+  mode       String    @default("SERVER")
+  subject    String?
+  /// School date it was played (YYYY-MM-DD): streaks, weekly boards, the day's XP limit.
+  playDate   String
+  /// "<date>:<classArmId>" for a Daily Challenge: one scored attempt per student per day.
+  dailyKey   String?
+  /// The device's id for a local round, so a score sent twice (offline queue) counts once.
+  clientId   String?
+  /// Server rounds: questions with answers. Local rounds: what was sent.
+  items      Json      @default("[]")
+  /// [{ i, choice, correct, ms, points }]
+  answers    Json      @default("[]")
+  correct    Int       @default(0)
+  total      Int       @default(0)
+  score      Int       @default(0)
+  xp         Int       @default(0)
+  lives      Int?
+  durationMs Int?
+  /// { [topicId]: { topic, subject, correct, total } } (quiz answers with a syllabus topic)
+  topics     Json      @default("{}")
+  /// Why the round earned no XP (too fast, day's limit…).
+  flagged    String?
+  startedAt  DateTime  @default(now())
+  endedAt    DateTime?
+
+  @@unique([studentId, dailyKey])
+  @@unique([studentId, clientId])
+  @@index([tenantId, playDate])
+  @@index([studentId, playDate])
+  @@index([classArmId, playDate])
+  @@map("game_rounds")
+}

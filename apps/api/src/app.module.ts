@@ -40,6 +40,7 @@ import { LearningUpdatesModule } from './learning-updates/learning-updates.modul
 import { DataProtectionModule } from './data-protection/data-protection.module';
 import { SuccessModule } from './success/success.module';
 import { LessonModulesModule } from './lesson-modules/lesson-modules.module';
+import { GamesModule } from './games/games.module';
 import { WhatsappAssistantModule } from './comms/whatsapp-assistant.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
@@ -136,6 +137,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     DataProtectionModule,
     SuccessModule,
     LessonModulesModule,
+    GamesModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

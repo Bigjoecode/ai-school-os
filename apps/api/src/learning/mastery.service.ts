@@ -8,7 +8,13 @@ import { PrismaService } from '../prisma/prisma.service';
 const DECAY = 0.85;
 /** One piece of school work counts, per topic, as at most this many marks (a 60-mark paper weighs like 20 questions). */
 const SCHOOL_WORK_CAP = 20;
-const CAPPED_SOURCES = new Set(['CBT', 'HOMEWORK']);
+/**
+ * A day of games counts, per topic, as at most this many questions: games add a
+ * little evidence (one GAME row per student, topic and day, replaced as the day
+ * goes on) but can never outweigh school work or deliberate practice.
+ */
+export const GAME_EVIDENCE_CAP = 3;
+const SOURCE_CAPS: Record<string, number> = { CBT: SCHOOL_WORK_CAP, HOMEWORK: SCHOOL_WORK_CAP, GAME: GAME_EVIDENCE_CAP };
 
 /** Score and confidence from decayed attempts and correct answers (Laplace-smoothed so one lucky answer isn't "mastered"). */
 function standing(attempts: number, right: number) {
@@ -154,9 +160,11 @@ export class MasteryService {
    * out everything else. Returns false when nothing changed.
    */
   async replaceEvidence(tenantId: string, studentId: string, source: string, sourceId: string, items: { topicId: string; correct: number; total: number }[]) {
-    const weight = (total: number) => (total > SCHOOL_WORK_CAP ? SCHOOL_WORK_CAP / total : 1);
-    // Only school work added here is capped; other evidence counted in full.
-    const weightOf = (e: { source: string; total: number }) => (CAPPED_SOURCES.has(e.source) ? weight(e.total) : 1);
+    // School work and games are capped (see SOURCE_CAPS); other evidence counts in full.
+    const weightOf = (e: { source: string; total: number }) => {
+      const cap = SOURCE_CAPS[e.source];
+      return cap && e.total > cap ? cap / e.total : 1;
+    };
     const fresh = items.filter((i) => i.total > 0).map((i) => ({ ...i, correct: Math.max(0, Math.min(i.total, i.correct)) }));
     return this.prisma.root.$transaction(async (tx) => {
       // One student's evidence is changed by one call at a time.

@@ -47,6 +47,7 @@ const SAVABLE = [
   /^\/api\/learning\/conversations\/[^/]+$/,
   /^\/api\/materials\/library$/,
   /^\/api\/my-lessons(\/[^/]+)?$/,
+  /^\/api\/games\/hub$/,
   /^\/api\/family$/,
   /^\/api\/family\/children\/[^/]+\/(progress|homework)$/,
   /^\/api\/timetables\/today$/,

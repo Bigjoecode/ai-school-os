@@ -9,6 +9,7 @@ import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
+import { autoSeedDemoYoung } from './demo-young';
 import { SYSTEM_ROLES } from '@aischool/shared';
 
 /**
@@ -135,6 +136,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (demo) new Logger('Demo').log(demo);
         } catch (err) {
           new Logger('Demo').error(`Demo learning data could not be added: ${(err as Error).message}`);
+        }
+        // Demo school only, once ever: a Primary 1 pupil so young-mode games can be shown.
+        try {
+          const young = await autoSeedDemoYoung(prisma);
+          if (young) new Logger('Demo').log(young);
+        } catch (err) {
+          new Logger('Demo').error(`Demo Primary 1 pupil could not be added: ${(err as Error).message}`);
         }
       } finally {
         await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;

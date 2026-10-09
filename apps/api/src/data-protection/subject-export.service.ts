@@ -231,6 +231,11 @@ export class SubjectExportService {
           P('StudyPlan', 'study_plans.csv', 'Study plans', bySt),
           P('FlashcardDeck', 'flashcards.csv', 'Flashcard decks', bySt),
           P('PracticeAttempt', 'practice_attempts.csv', 'Practice attempts', bySt),
+          P('ModuleProgress', 'lesson_module_progress.csv', 'Lesson module progress', bySt),
+          P('CheckInAttempt', 'lesson_check_ins.csv', 'Lesson check-in answers and scores', bySt),
+          P('OfflineExamSeat', 'offline_exam_seats.csv', 'Offline exam downloads and hand-ins (no PINs or keys)', bySt),
+          P('GameProfile', 'games_profile.csv', 'EduGames XP, streaks and badges', bySt),
+          P('GameRound', 'games_rounds.csv', 'EduGames rounds played', bySt),
           P('StudentMemory', 'ai_tutor_notes.csv', 'What the AI tutor remembers about how they learn', bySt),
           P('LearningUpdate', 'learning_updates.csv', 'Weekly learning updates to parents', bySt),
           P('StudentEntitlement', 'ai_entitlements.csv', 'AI and exam-prep access', bySt),
@@ -298,7 +303,7 @@ export class SubjectExportService {
 }
 
 const NOT_INCLUDED = [
-  'Passwords, two-step sign-in secrets, recovery codes, sign-in sessions and tokens',
+  'Passwords, two-step sign-in secrets, recovery codes, sign-in sessions and tokens, and offline exam PINs and signing keys',
   'Uploaded files themselves (photos, hand-ins, documents): only their records and links',
   'Records where the person is only mentioned in free text written about someone else',
   'Other schools on the platform',

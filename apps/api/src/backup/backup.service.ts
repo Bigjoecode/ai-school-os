@@ -12,7 +12,7 @@ const BATCH = 2000;
 const MAX_ROWS_PER_TABLE = 2_000_000;
 
 /** Never exported, whatever the table: credentials and anything that could sign someone in. */
-export const SENSITIVE_FIELD = /password|secret|token|hash|credential|apikey|recoverycode|totp/i;
+export const SENSITIVE_FIELD = /password|secret|token|hash|credential|apikey|recoverycode|totp|hmac|^pin$|offlinecode|offlinesalt/i;
 
 interface TableSpec {
   /** Prisma model name (also used to find its column list). */

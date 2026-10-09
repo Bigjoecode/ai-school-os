@@ -183,6 +183,21 @@ export interface JambInstitutionDetail extends JambInstitutionRow {
   specialization: string | null;
   programmes: JambProgrammeRow[];
   texts: Record<number, string>;
+  /** The university's own entry rules from the printed JAMB brochure (undated copy), when it has a section there. */
+  brochureNotes: JambBrochureNotes | null;
+}
+
+/** Shown wherever brochure notes appear: they are older than IBASS and never override it. */
+export const JAMB_BROCHURE_NOTICE = 'From the JAMB brochure (undated) — confirm with the institution and on JAMB’s IBASS portal';
+
+/** A university's "specific entry requirements and other information" from the JAMB brochure (section 2.2.xx). */
+export interface JambBrochureNotes {
+  /** Section number in the brochure, e.g. "2.2.02". */
+  no: string;
+  /** The university's name as the brochure prints it (it may since have been renamed). */
+  brochureName: string;
+  source: string;
+  sections: { heading?: string; text: string }[];
 }
 
 export interface JambFacultyRow {
@@ -212,6 +227,8 @@ export interface JambCourseInstitution {
   status: string | null;
   remarks: number | null;
   mentioned: boolean;
+  /** The JAMB brochure has university-specific entry rules for this institution (see its page). */
+  brochureNotes: boolean;
 }
 
 /** Institutions offering a course with exactly the same requirement texts, as the brochure prints them. */

@@ -7,6 +7,7 @@ import {
   UTME_SYLLABUS_SUBJECT,
   type JambCheckInput,
   type JambCheckResult,
+  type JambBrochureNotes,
   type JambCheckRow,
   type JambCourseDetail,
   type JambCourseInstitution,
@@ -78,6 +79,7 @@ const syllabusName = (key: string) => Object.entries(UTME_SYLLABUS_SUBJECT).find
 export class JambService {
   private names: { at: number; map: Record<string, number[]> } | null = null;
   private faqCache: JambFaq | null = null;
+  private notesCache: Map<number, JambBrochureNotes> | null = null;
   private overviewCache: { at: number; value: JambOverview } | null = null;
 
   constructor(private readonly prisma: PrismaService) {}
@@ -182,6 +184,7 @@ export class JambService {
       accreditation: i.accreditation,
       modeOfStudy: i.modeOfStudy,
       specialization: i.specialization,
+      brochureNotes: this.universityNotes().get(i.id) ?? null,
       programmes: i.programmes.map((p) => ({
         id: p.id,
         name: titleCase(p.name),
@@ -244,6 +247,7 @@ export class JambService {
     const texts = await this.texts(shown.flatMap((p) => [p.utmeSubjectsTextId, p.olevelTextId, p.directEntryTextId, p.remarksTextId]));
     const groups = new Map<string, JambRequirementGroup>();
     const remarks = new Map<number, number>();
+    const notes = this.universityNotes();
     for (const p of shown) {
       const key = `${p.utmeSubjectsTextId}|${p.olevelTextId}|${p.directEntryTextId}`;
       const g = groups.get(key) ?? { utme: p.utmeSubjectsTextId, olevel: p.olevelTextId, directEntry: p.directEntryTextId, institutions: [] };
@@ -260,6 +264,7 @@ export class JambService {
         status: p.status,
         remarks: p.remarksTextId,
         mentioned: namesInstitution(p.remarksTextId !== null ? texts[p.remarksTextId] : undefined, p.institution.abbreviation),
+        brochureNotes: notes.has(p.institution.id),
       };
       g.institutions.push(row);
       groups.set(key, g);
@@ -390,6 +395,30 @@ export class JambService {
     if (!path) return { source: 'JAMB', faq: [] };
     this.faqCache = JSON.parse(readFileSync(path, 'utf8')) as JambFaq;
     return this.faqCache;
+  }
+
+  /**
+   * Each university's own entry rules from the printed brochure (section 2.2.xx), by IBASS
+   * institution id: prisma/jamb/university-notes.json, read once. The brochure copy is undated
+   * and older than IBASS, so it is shown beside IBASS's requirements, never instead of them.
+   */
+  universityNotes(): Map<number, JambBrochureNotes> {
+    if (this.notesCache) return this.notesCache;
+    const map = new Map<number, JambBrochureNotes>();
+    const path = jambFile('university-notes.json');
+    if (path) {
+      try {
+        const file = JSON.parse(readFileSync(path, 'utf8')) as { source?: string; universities?: (Omit<JambBrochureNotes, 'source'> & { institutionId: number | null })[] };
+        for (const u of file.universities ?? []) {
+          if (typeof u.institutionId !== 'number' || !u.sections?.length) continue;
+          map.set(u.institutionId, { no: u.no, brochureName: titleCase(u.brochureName), source: file.source ?? 'JAMB brochure', sections: u.sections });
+        }
+      } catch {
+        // A broken file shows no notes rather than breaking the institution pages.
+      }
+    }
+    this.notesCache = map;
+    return map;
   }
 
   // ---------------------------------------------------------------- eligibility helper

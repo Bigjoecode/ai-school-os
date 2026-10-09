@@ -142,6 +142,12 @@ for (const key of dataNames) {
 }
 // Listed names not (yet) in the data, for when the full brochure data arrives.
 for (const [key, faculty] of pdfOnly) if (!out[key]) out[key] = faculty;
+// Names placed earlier and not produced by this run (DEGREE names found in the brochure's faculty
+// tables, field groupings for ND/NCE courses IBASS files under no faculty): keep them.
+const facultiesPath = join(root, 'prisma/jamb/faculties.json');
+if (existsSync(facultiesPath)) {
+  for (const [key, faculty] of Object.entries(JSON.parse(readFileSync(facultiesPath, 'utf8')))) if (!out[key]) out[key] = faculty;
+}
 
 const sorted = Object.fromEntries(Object.entries(out).sort((a, b) => a[0].localeCompare(b[0])));
 writeFileSync(join(root, 'prisma/jamb/faculties.json'), `${JSON.stringify(sorted, null, 1)}\n`);

@@ -1,4 +1,4 @@
-import { JAMB_FACULTIES, JAMB_LEVEL_HINTS, JAMB_LEVEL_LABELS, JAMB_LEVELS, JAMB_OWNERSHIPS, type JambLevel, type JambRequirementGroup } from '@aischool/shared';
+import { JAMB_BROCHURE_NOTICE, JAMB_FACULTIES, JAMB_LEVEL_HINTS, JAMB_LEVEL_LABELS, JAMB_LEVELS, JAMB_OWNERSHIPS, type JambBrochureNotes, type JambLevel, type JambRequirementGroup } from '@aischool/shared';
 import {
   Atom,
   BookOpen,
@@ -16,13 +16,14 @@ import {
   Palette,
   Scale,
   School,
+  ScrollText,
   ShieldCheck,
   Sprout,
   TriangleAlert,
   Users,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -164,6 +165,12 @@ export function JambInstitutionPage() {
   const d = q.data;
   const [filter, setFilter] = useState('');
   const [open, setOpen] = useState<number | null>(null);
+  const { hash } = useLocation();
+  const hasNotes = !!d?.brochureNotes;
+  useEffect(() => {
+    // Course pages link here with #entry-rules.
+    if (hash === '#entry-rules' && hasNotes) document.getElementById('entry-rules')?.scrollIntoView({ block: 'start' });
+  }, [hash, hasNotes]);
   const programmes = useMemo(() => {
     const f = filter.trim().toLowerCase();
     return (d?.programmes ?? []).filter((p) => !f || p.name.toLowerCase().includes(f) || (p.department ?? '').toLowerCase().includes(f));
@@ -194,6 +201,7 @@ export function JambInstitutionPage() {
               <MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {d.address}
             </p>
           )}
+          {d.brochureNotes && <BrochureNotesCard notes={d.brochureNotes} />}
           <Card className="p-4 sm:p-5">
             <SectionTitle icon={GraduationCap} title={`Programmes (${d.programmes.length})`} action={<Link to={`${JAMB_BASE}/check?institution=${d.id}`} className="text-[12.5px] font-medium text-brand hover:underline">Check my subjects</Link>} />
             {d.programmes.length > 8 && <SearchInput value={filter} onChange={setFilter} placeholder="Find a programme" className="mb-3" />}
@@ -228,6 +236,18 @@ export function JambInstitutionPage() {
                             <RequirementText text={d.texts[p.remarks]} have={p.mentioned && d.abbreviation ? [d.abbreviation] : []} className="mt-1 text-[12.5px] text-muted-foreground" />
                           </details>
                         )}
+                        {d.brochureNotes && (
+                          <p className="flex gap-1.5 text-[12px] text-muted-foreground">
+                            <ScrollText className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+                            <span>
+                              The university’s own entry rules (from the JAMB brochure, undated) also apply —{' '}
+                              <a href="#entry-rules" className="font-medium text-brand hover:underline">
+                                see Entry rules for this university
+                              </a>
+                              .
+                            </span>
+                          </p>
+                        )}
                         <div className="flex flex-wrap gap-2">
                           {p.courseId !== null && (
                             <Button asChild variant="outline" size="sm">
@@ -253,6 +273,55 @@ export function JambInstitutionPage() {
         </div>
       )}
     </JambShell>
+  );
+}
+
+/** Lines of brochure notes shown before “Show all”. */
+const NOTES_PREVIEW = 10;
+
+/** The first `max` lines of the sections (a long single section is cut too). */
+function previewSections(sections: JambBrochureNotes['sections'], max: number) {
+  const out: JambBrochureNotes['sections'] = [];
+  let left = max;
+  for (const s of sections) {
+    if (left <= 0) break;
+    const lines = s.text.split('\n');
+    out.push({ ...s, text: lines.slice(0, left).join('\n') });
+    left -= lines.length + (s.heading ? 1 : 0);
+  }
+  return out;
+}
+
+/** A university's own rules from the printed JAMB brochure (section 2.2.xx): older than IBASS, shown beside it, never instead of it. */
+function BrochureNotesCard({ notes }: { notes: JambBrochureNotes }) {
+  const lines = notes.sections.reduce((n, s) => n + s.text.split('\n').length + (s.heading ? 1 : 0), 0);
+  const long = lines > NOTES_PREVIEW + 3;
+  const [all, setAll] = useState(false);
+  const shown = all || !long ? notes.sections : previewSections(notes.sections, NOTES_PREVIEW);
+  return (
+    <Card id="entry-rules" className="scroll-mt-20 p-4 sm:p-5">
+      <SectionTitle icon={ScrollText} title="Entry rules for this university" />
+      <div className="mb-3 flex gap-2 rounded-xl border border-warning/30 bg-warning-soft/40 p-3 text-[12.5px]">
+        <TriangleAlert className="mt-0.5 size-3.5 shrink-0 text-warning" aria-hidden />
+        <p>
+          <span className="font-medium">{JAMB_BROCHURE_NOTICE}.</span> The programme requirements below come from IBASS and take priority.
+          {notes.brochureName ? <span className="text-muted-foreground"> Printed under “{notes.brochureName}” (section {notes.no}).</span> : null}
+        </p>
+      </div>
+      <div className="space-y-3">
+        {shown.map((s, i) => (
+          <section key={i} className="min-w-0">
+            {s.heading && <h3 className="mb-1 text-[11.5px] font-semibold tracking-wide text-muted-foreground uppercase">{s.heading}</h3>}
+            <p className="text-[13px] leading-relaxed break-words whitespace-pre-line">{s.text}</p>
+          </section>
+        ))}
+      </div>
+      {long && (
+        <Button variant="ghost" size="sm" className="mt-2" onClick={() => setAll(!all)} aria-expanded={all}>
+          {all ? 'Show less' : 'Show all entry rules'}
+        </Button>
+      )}
+    </Card>
   );
 }
 
@@ -570,12 +639,17 @@ function RequirementGroupCard({ group: g, texts, index, many, flat }: { group: J
         <ul className="divide-y divide-border">
           {list.map((i) => (
             <li key={i.programmeId}>
-              <Link to={`${JAMB_BASE}/institutions/${i.id}`} className="flex min-h-12 items-center gap-2 py-2 hover:underline-offset-2">
+              <Link to={`${JAMB_BASE}/institutions/${i.id}${i.brochureNotes ? '#entry-rules' : ''}`} className="flex min-h-12 items-center gap-2 py-2 hover:underline-offset-2">
                 <span className="min-w-0 flex-1">
                   <span className="block text-[13.5px] font-medium leading-snug">{i.name}</span>
                   <span className="block text-[11.5px] text-muted-foreground">{[i.abbreviation, i.ownership, i.state, i.duration].filter(Boolean).join(' · ')}</span>
                 </span>
                 {i.mentioned && <Badge variant="warning">Own rules</Badge>}
+                {i.brochureNotes && (
+                  <Badge variant="outline" className="hidden sm:inline-flex" title="This university has its own entry rules in the JAMB brochure (undated) — see its page">
+                    Entry rules
+                  </Badge>
+                )}
                 <ChevronRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
               </Link>
             </li>

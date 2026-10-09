@@ -197,7 +197,7 @@ function SchoolOverview() {
         <motion.div variants={item} className="empty:hidden">
           <AiSchoolCards />
         </motion.div>
-        <div className="grid gap-5 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           <motion.div variants={item} className="xl:col-span-2">
             <AiIntelligenceCard data={data} />
           </motion.div>
@@ -208,7 +208,7 @@ function SchoolOverview() {
             </div>
           </motion.div>
         </div>
-        <div className="grid gap-5 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           <motion.div variants={item} className="xl:col-span-2">
             <ChartCard
               title="Enrolment trend"
@@ -231,7 +231,7 @@ function SchoolOverview() {
             <GenderCard data={data} />
           </motion.div>
         </div>
-        <div className="grid gap-5 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           <motion.div variants={item} className="xl:col-span-2">
             <ChartCard
               title="Students by class level"

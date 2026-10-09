@@ -10,7 +10,9 @@ import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
+import { demoLoginsOff } from '../auth/demo-mode.service';
 import { SYSTEM_ROLES } from '@aischool/shared';
+import { raiseAlert } from '../alerts/alerts.service';
 
 /**
  * One-off setup that would normally be a shell command, for hosting where
@@ -36,6 +38,7 @@ export async function runBootTasks(config: Env): Promise<void> {
       if (!content.startsWith('0 products, 0 topics, 0')) logger.log(`Platform content: ${content}`);
     } catch (err) {
       logger.error(`Platform content could not be installed: ${(err as Error).message}`);
+      raiseAlert('boot', 'platform-content', 'Platform content could not be installed', (err as Error).message.slice(0, 1000));
     }
 
     // New features add permissions to the built-in roles; give existing
@@ -67,6 +70,7 @@ export async function runBootTasks(config: Env): Promise<void> {
       if (created) logger.log(`Added ${created} new built-in role(s) to existing schools`);
     } catch (err) {
       logger.error(`Built-in roles could not be updated: ${(err as Error).message}`);
+      raiseAlert('boot', 'roles', 'Built-in roles could not be updated', (err as Error).message.slice(0, 1000));
     }
 
     if (wantsOwner) {
@@ -88,7 +92,8 @@ export async function runBootTasks(config: Env): Promise<void> {
       }
     }
 
-    if (config.SEED_DEMO_ON_BOOT) {
+    // Demo logins switched off (console or DEMO_LOGINS=off): never (re)load demo schools that were removed.
+    if (config.SEED_DEMO_ON_BOOT && !(await demoLoginsOff(prisma))) {
       const present = await prisma.tenant.count({ where: { slug: 'greenfield' } });
       if (!present) logger.log(`Loaded demo schools: ${await seedDemo(prisma, { demoOwner: false })}`);
     }
@@ -115,6 +120,7 @@ export function installSyllabiInBackground(config: Env): void {
           if (result) logger.log(result);
         } catch (err) {
           logger.error(`Exam syllabi could not be installed: ${(err as Error).message}`);
+          raiseAlert('boot', 'syllabi', 'Exam syllabi could not be installed', (err as Error).message.slice(0, 1000));
         }
         // The career library (prisma/careers/careers.json) installs the same way.
         try {
@@ -122,6 +128,7 @@ export function installSyllabiInBackground(config: Env): void {
           if (careers) new Logger('Careers').log(careers);
         } catch (err) {
           new Logger('Careers').error(`Career library could not be installed: ${(err as Error).message}`);
+          raiseAlert('boot', 'careers', 'Career library could not be installed', (err as Error).message.slice(0, 1000));
         }
         // JAMB's brochure (prisma/jamb/ibass.json.gz): replaces the JAMB tables when the file changes.
         try {
@@ -129,17 +136,20 @@ export function installSyllabiInBackground(config: Env): void {
           if (jamb) new Logger('Jamb').log(jamb);
         } catch (err) {
           new Logger('Jamb').error(`JAMB brochure could not be installed: ${(err as Error).message}`);
+          raiseAlert('boot', 'jamb', 'JAMB brochure could not be installed', (err as Error).message.slice(0, 1000));
         }
         // Demo school only, once ever: topic-mastery history so Class insights and learning updates can be shown.
+        // Skipped while demo logins are off (nothing is created then; it runs once they are back on).
+        const demosOff = await demoLoginsOff(prisma).catch(() => true);
         try {
-          const demo = await autoSeedDemoLearning(prisma);
+          const demo = demosOff ? '' : await autoSeedDemoLearning(prisma);
           if (demo) new Logger('Demo').log(demo);
         } catch (err) {
           new Logger('Demo').error(`Demo learning data could not be added: ${(err as Error).message}`);
         }
         // Demo school only, once ever: a Primary 1 pupil so young-mode games can be shown.
         try {
-          const young = await autoSeedDemoYoung(prisma);
+          const young = demosOff ? '' : await autoSeedDemoYoung(prisma);
           if (young) new Logger('Demo').log(young);
         } catch (err) {
           new Logger('Demo').error(`Demo Primary 1 pupil could not be added: ${(err as Error).message}`);

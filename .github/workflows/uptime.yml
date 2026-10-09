@@ -1,0 +1,137 @@
+name: Uptime
+
+# Checks the live site every 15 minutes. When it fails it opens a GitHub issue
+# labelled "outage" (or comments on the open one); when it recovers it closes
+# the issue. New issues are emailed to the repository owner (assigned and
+# @mentioned), so no extra secrets or services are needed.
+#
+# GitHub runs scheduled workflows on a best-effort basis: runs can start 5–30
+# minutes late at busy times, are occasionally skipped, and are switched off
+# after 60 days without commits to the repository (re-enable under Actions).
+# Use an external monitor as well (see "Monitoring" in DEPLOYMENT.md).
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SITE_URL: https://ai-schoolportal.mejortechworld.com
+      # A response slower than this counts as failing (seconds). A sleeping
+      # cPanel app can take ~20 s to wake, so each check is retried.
+      MAX_SECONDS: '15'
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check the API and the web app
+        id: probe
+        run: |
+          problems=()
+          keys=()
+
+          # API: HTTP 200, {"status":"ok","db":"ok"}, answered within MAX_SECONDS.
+          api_ok=0
+          for attempt in 1 2 3; do
+            rm -f health.json
+            code=$(curl -sS -o health.json -w '%{http_code} %{time_total}' --max-time 60 "$SITE_URL/api/health" 2>curl.err) || code="000 0"
+            http=${code% *}; secs=${code#* }
+            status=$(jq -r '.status // empty' health.json 2>/dev/null || true)
+            db=$(jq -r '.db // empty' health.json 2>/dev/null || true)
+            echo "API attempt $attempt: HTTP $http in ${secs}s, status=$status db=$db"
+            if [ "$http" = "200" ] && [ "$status" = "ok" ] && [ "$db" = "ok" ] && awk "BEGIN{exit !($secs <= $MAX_SECONDS)}"; then api_ok=1; break; fi
+            api_detail="HTTP $http in ${secs}s, status=${status:-?}, db=${db:-?} $(head -c 200 curl.err 2>/dev/null)"
+            api_key="api:$http/${db:-?}"
+            if [ $attempt -lt 3 ]; then sleep 20; fi
+          done
+          if [ $api_ok = 1 ]; then
+            echo "API: $(cat health.json)"
+            backup=$(jq -r '.backup // empty' health.json)
+            if [ "$backup" = "failed" ] || [ "$backup" = "stale" ]; then
+              echo "::warning::Database backup is $backup (last good: $(jq -r '.lastBackupAt' health.json)). The API emails ALERT_EMAIL about this."
+            fi
+          else
+            problems+=("API $SITE_URL/api/health: $api_detail")
+            keys+=("$api_key")
+          fi
+
+          # Web: the React app's index page.
+          web_ok=0
+          for attempt in 1 2 3; do
+            rm -f index.html
+            code=$(curl -sS -o index.html -w '%{http_code} %{time_total}' --max-time 60 "$SITE_URL/" 2>curl.err) || code="000 0"
+            http=${code% *}; secs=${code#* }
+            echo "Web attempt $attempt: HTTP $http in ${secs}s"
+            if [ "$http" = "200" ] && grep -q 'id="root"' index.html && awk "BEGIN{exit !($secs <= $MAX_SECONDS)}"; then web_ok=1; break; fi
+            web_detail="HTTP $http in ${secs}s $(head -c 200 curl.err 2>/dev/null)"
+            web_key="web:$http"
+            if [ $attempt -lt 3 ]; then sleep 20; fi
+          done
+          if [ $web_ok = 0 ]; then
+            problems+=("Web $SITE_URL/: $web_detail (expected HTTP 200 with the app page)")
+            keys+=("$web_key")
+          fi
+
+          if [ ${#problems[@]} -eq 0 ]; then
+            echo "healthy=true" >> "$GITHUB_OUTPUT"
+            echo "### Site is up" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+            echo "key=${keys[*]}" >> "$GITHUB_OUTPUT"
+            {
+              echo 'summary<<EOF'
+              printf -- '- %s\n' "${problems[@]}"
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+            printf -- '- %s\n' "${problems[@]}" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Open or update the outage issue
+        if: steps.probe.outputs.healthy == 'false'
+        env:
+          SUMMARY: ${{ steps.probe.outputs.summary }}
+          KEY: ${{ steps.probe.outputs.key }}
+          OWNER: ${{ github.repository_owner }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create outage --color B60205 --description "The live site is failing its uptime check" 2>/dev/null || true
+          now=$(date -u '+%Y-%m-%d %H:%M UTC')
+          issue=$(gh issue list --label outage --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -z "$issue" ]; then
+            body=$(printf '@%s the uptime check is failing since **%s**.\n\n%s\n\n[Run log](%s)\n\nWhat to check: cPanel → Setup Node.js App (is the app running? Restart), the app'"'"'s `stderr.log`, cPanel → PostgreSQL Databases, and disk usage. This issue closes itself when the site answers again.\n\n<!-- key: %s -->' "$OWNER" "$now" "$SUMMARY" "$RUN_URL" "$KEY")
+            gh issue create --title "Outage: ai-schoolportal.mejortechworld.com is not answering" --label outage --body "$body" --assignee "$OWNER" \
+              || gh issue create --title "Outage: ai-schoolportal.mejortechworld.com is not answering" --label outage --body "$body"
+          else
+            # One comment per hour at most, unless the symptoms (component + HTTP code) changed.
+            last=$(gh issue view "$issue" --json body,createdAt,comments --jq '(.comments | last) // {body: .body, createdAt: .createdAt} | {body, at: .createdAt}')
+            last_body=$(jq -r '.body' <<<"$last")
+            last_at=$(jq -r '.at' <<<"$last")
+            age=$(( $(date -u +%s) - $(date -u -d "$last_at" +%s) ))
+            if [ "$age" -ge 3600 ] || ! grep -qF -- "<!-- key: $KEY -->" <<<"$last_body"; then
+              gh issue comment "$issue" --body "$(printf 'Still failing at **%s**:\n\n%s\n\n[Run log](%s)\n\n<!-- key: %s -->' "$now" "$SUMMARY" "$RUN_URL" "$KEY")"
+            else
+              echo "Outage issue #$issue already up to date"
+            fi
+          fi
+          exit 1
+
+      - name: Close the outage issue
+        if: steps.probe.outputs.healthy == 'true'
+        run: |
+          issue=$(gh issue list --label outage --state open --limit 1 --json number --jq '.[0].number // empty' 2>/dev/null || true)
+          if [ -n "$issue" ]; then
+            opened=$(gh issue view "$issue" --json createdAt --jq .createdAt)
+            mins=$(( ( $(date -u +%s) - $(date -u -d "$opened" +%s) ) / 60 ))
+            gh issue close "$issue" --comment "Recovered at $(date -u '+%Y-%m-%d %H:%M UTC') (about $mins minutes after this issue was opened)."
+          fi

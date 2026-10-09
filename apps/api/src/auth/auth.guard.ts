@@ -18,7 +18,9 @@ import {
 } from '../common/decorators';
 import { RequestContextStore } from '../common/request-context';
 import { FeatureService } from '../features/features.service';
+import { ConsentEnforcementService } from '../data-protection/consent-enforcement.service';
 import { AccessService } from './access.service';
+import { DemoModeService } from './demo-mode.service';
 import { ALLOW_WITHOUT_2FA } from './two-factor.decorator';
 import { TwoFactorService } from './two-factor.service';
 import type { AccessTokenPayload } from './tokens';
@@ -30,7 +32,9 @@ import type { AccessTokenPayload } from './tokens';
  *  3. fills the request context (read by the tenant-scoped Prisma client),
  *  4. enforces @RequirePermissions / @RequirePlatformRole / tenant presence,
  *  5. checks the school's plan includes the route's @RequireFeature module,
- *  6. blocks everything but set-up when two-step sign-in is required and not on yet.
+ *  6. blocks everything but set-up when two-step sign-in is required and not on yet,
+ *  7. ends sessions in a demo school whose logins are switched off (DemoModeService),
+ *  8. holds parents at the consent step when their school requires NDPA consent (ConsentEnforcementService).
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -40,6 +44,8 @@ export class AuthGuard implements CanActivate {
     private readonly access: AccessService,
     private readonly features: FeatureService,
     private readonly twoFactor: TwoFactorService,
+    private readonly demo: DemoModeService,
+    private readonly consent: ConsentEnforcementService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -60,6 +66,7 @@ export class AuthGuard implements CanActivate {
 
     const resolved = await this.access.resolve(payload.sub, payload.tid ?? null);
     if (!resolved) throw new UnauthorizedException('Your account is not active');
+    if (!(await this.demo.allows(resolved.tenant?.id, resolved.user.platformRole))) throw new UnauthorizedException('Your session has ended');
 
     const ctx = RequestContextStore.get();
     if (!ctx) throw new Error('Request context middleware is not installed');
@@ -104,6 +111,7 @@ export class AuthGuard implements CanActivate {
 
     const feature = this.reflector.getAllAndOverride<string>(FEATURE_KEY, targets);
     if (feature && ctx.tenantId) await this.features.assert(ctx.tenantId, feature);
+    await this.consent.assertRequest(req.path, ctx.tenantId, resolved.user.id, resolved.roles.map((r) => r.key), resolved.user.platformRole);
     return true;
   }
 }

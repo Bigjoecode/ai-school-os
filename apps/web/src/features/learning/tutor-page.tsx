@@ -447,7 +447,7 @@ export default function TutorPage() {
                 maxLength={4000}
                 placeholder="Ask your tutor anything…"
                 aria-label="Message your tutor"
-                className={cn('block max-h-40 w-full resize-none bg-transparent px-3 pt-2.5 text-[14px] outline-none placeholder:text-muted-foreground', voice.state !== 'idle' && !talkOpen && 'hidden')}
+                className={cn('block max-h-40 w-full resize-none bg-transparent px-3 pt-2.5 text-base outline-none sm:text-[14px] placeholder:text-muted-foreground', voice.state !== 'idle' && !talkOpen && 'hidden')}
               />
               <div className="flex flex-wrap items-center gap-1.5 px-2 pb-2">
                 <Select value={subject} onValueChange={setSubject}>

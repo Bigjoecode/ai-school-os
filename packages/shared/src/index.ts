@@ -44,3 +44,4 @@ export * from './games';
 export * from './games-content';
 export * from './games-early';
 export * from './games-puzzles';
+export * from './demo-mode';

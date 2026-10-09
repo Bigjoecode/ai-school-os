@@ -22,6 +22,7 @@ import { useIsSuperAdmin } from '@/lib/auth-store';
 import { formatDate, formatNumber, formatRelative } from '@/lib/format';
 import { applyServerErrors } from '@/lib/forms';
 import { slugify, titleCase } from '@/lib/utils';
+import { DemoModeCard } from './demo-mode-card';
 import { invalidatePlatform, naira, usePlans, useSchools, usd } from './api';
 import { FilterSelect, Muted, SchoolCell, SUB_STATUS_LABEL, SubStatusBadge, TenantStatusBadge, Toolbar, daysUntil } from './ui';
 
@@ -110,6 +111,7 @@ export default function SchoolsPage() {
           )
         }
       />
+      {isSuper && <DemoModeCard />}
       <Card className="overflow-hidden">
         <Toolbar>
           <SearchInput value={search} onChange={setSearch} placeholder="Search by name or ID…" className="sm:w-72" />

@@ -3,6 +3,7 @@ import { randomBytes } from 'node:crypto';
 import {
   DEFAULT_WEBSITE_SETTINGS,
   gradeFor,
+  isDemoSchoolSlug,
   type PostCategory,
   type PublicEvent,
   type PublicPost,
@@ -15,6 +16,7 @@ import { ResultsService } from '../assessment/results.service';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { RequestContextStore, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
+import { DemoModeService } from '../auth/demo-mode.service';
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -65,6 +67,7 @@ export class WebsiteService {
     private readonly prisma: PrismaService,
     private readonly results: ResultsService,
     private readonly features: FeatureService,
+    private readonly demo: DemoModeService,
   ) {}
 
   settingsOf(raw: Prisma.JsonValue | null): WebsiteSettings {
@@ -96,6 +99,8 @@ export class WebsiteService {
       select: { id: true, slug: true, name: true, shortName: true, motto: true, logoUrl: true, primaryColor: true, timezone: true, currency: true, status: true, websiteSettings: true },
     });
     if (!t || t.status === 'SUSPENDED' || t.status === 'ARCHIVED') throw new NotFoundException('This school website does not exist');
+    // The demo schools stay off the public web unless the console shows them (Demo schools switch).
+    if (isDemoSchoolSlug(t.slug) && previewTenantId !== t.id && !(await this.demo.effective()).publicHints) throw new NotFoundException('This school website does not exist');
     const settings = this.settingsOf(t.websiteSettings);
     if (!(await this.features.isEnabled(t.id, 'website'))) throw new NotFoundException('This school website does not exist');
     if (!settings.published && previewTenantId !== t.id) throw new NotFoundException('This school website is not published yet');

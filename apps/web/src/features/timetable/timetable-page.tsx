@@ -453,7 +453,7 @@ export default function TimetablePage() {
                         view === v.value && 'bg-card text-foreground shadow-soft',
                       )}
                     >
-                      <v.icon className="size-3.5" /> {v.label}
+                      <v.icon className="size-3.5 max-[359px]:hidden" /> {v.label}
                     </button>
                   ))}
                 </div>

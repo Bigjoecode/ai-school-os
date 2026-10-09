@@ -28,6 +28,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const { status, body } = this.toBody(exception);
     if (status >= 500) {
       this.logger.error(exception instanceof Error ? exception.stack : exception);
+      this.alerts.noteServerError(status);
       // Deliberate 502/503s (an AI or payment provider is down) are expected; only the unexpected is alerted.
       if (status === 500) this.alerts.serverError(req.method, req.originalUrl ?? req.url, exception);
     }

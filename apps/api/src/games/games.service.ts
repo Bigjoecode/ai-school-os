@@ -109,6 +109,9 @@ export function streakFrom(days: Set<string>, today: string): { streak: number; 
 // ------------------------------------------------------------ rate limits (per student, not per IP: a whole school shares one)
 
 const buckets = new Map<string, number[]>();
+/** How long the school's games settings and a student's class are reused between requests. */
+const TENANT_TTL_MS = 15_000;
+const ME_TTL_MS = 30_000;
 function limit(key: string, max: number, windowMs = 60_000) {
   const now = Date.now();
   const hits = (buckets.get(key) ?? []).filter((t) => now - t < windowMs);
@@ -126,6 +129,9 @@ function limit(key: string, max: number, windowMs = 60_000) {
 @Injectable()
 export class GamesService {
   private readonly logger = new Logger(GamesService.name);
+  /** Every answer reads the school's settings and the student's class: cache both briefly (one process). */
+  private readonly tenantCache = new Map<string, { at: number; row: { id: string; timezone: string; portalSettings: unknown } }>();
+  private readonly meCache = new Map<string, { at: number; value: Promise<Awaited<ReturnType<GamesService['loadMe']>>> }>();
 
   constructor(
     private readonly prisma: PrismaService,
@@ -141,7 +147,13 @@ export class GamesService {
   // ---------------------------------------------------------- school settings
 
   async tenant(tenantId = currentTenantId()) {
-    const t = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tenantId }, select: { id: true, timezone: true, portalSettings: true } });
+    const hit = this.tenantCache.get(tenantId);
+    let t = hit && Date.now() - hit.at < TENANT_TTL_MS ? hit.row : null;
+    if (!t) {
+      t = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tenantId }, select: { id: true, timezone: true, portalSettings: true } });
+      if (this.tenantCache.size > 1000) this.tenantCache.clear();
+      this.tenantCache.set(tenantId, { at: Date.now(), row: t });
+    }
     const settings = gamesSettingsOf((t.portalSettings as { games?: unknown } | null)?.games);
     return { id: t.id, timezone: t.timezone, settings, now: schoolNow(t.timezone) };
   }
@@ -178,6 +190,7 @@ export class GamesService {
     const prev = gamesSettingsOf(portal.games);
     // Read-modify-write: the portal's other settings stay as they are.
     await this.prisma.root.tenant.update({ where: { id: tenantId }, data: { portalSettings: { ...portal, games: next } as unknown as Prisma.InputJsonValue } });
+    this.tenantCache.delete(tenantId);
     const changes = [
       prev.enabled !== next.enabled && (next.enabled ? 'games on' : 'games off'),
       JSON.stringify(prev.quietHours) !== JSON.stringify(next.quietHours) && (next.quietHours.enabled ? `closed ${next.quietHours.start}–${next.quietHours.end} on school days` : 'no quiet hours'),
@@ -193,8 +206,20 @@ export class GamesService {
   async me() {
     const ctx = currentContext();
     if (!ctx.permissions.has('learning.use')) throw new ForbiddenException('Games are for students');
+    const key = `${currentTenantId()}|${ctx.userId}`;
+    const now = Date.now();
+    const hit = this.meCache.get(key);
+    if (hit && now - hit.at < ME_TTL_MS) return hit.value;
+    if (this.meCache.size > 5000) for (const [k, v] of this.meCache) if (now - v.at >= ME_TTL_MS) this.meCache.delete(k);
+    const value = this.loadMe(ctx.userId);
+    this.meCache.set(key, { at: now, value });
+    value.catch(() => this.meCache.delete(key));
+    return value;
+  }
+
+  private async loadMe(userId: string | undefined) {
     const s = await this.db.student.findFirst({
-      where: { userId: ctx.userId, status: 'ACTIVE' },
+      where: { userId, status: 'ACTIVE' },
       include: { classArm: { include: { classLevel: true, subjects: { include: { subject: { select: { id: true, name: true } } } } } }, house: { select: { id: true, name: true, colour: true } } },
     });
     if (!s) throw new ForbiddenException('Your account isn’t linked to a student record');
@@ -270,7 +295,7 @@ export class GamesService {
       this.db.gameRound.findMany({ where: { studentId: m.s.id, endedAt: { not: null }, total: { gt: 0 }, ...COUNTED }, orderBy: { endedAt: 'desc' }, take: 5, select: { game: true, correct: true, total: true, xp: true, endedAt: true } }),
       this.db.gameRound.aggregate({ where: { studentId: m.s.id, playDate: { gte: weekStart }, endedAt: { not: null } }, _sum: { xp: true }, _count: { _all: true } }),
       dailyKey ? this.db.gameRound.findUnique({ where: { studentId_dailyKey: { studentId: m.s.id, dailyKey } } }) : null,
-      dailyKey ? this.db.gameRound.count({ where: { dailyKey, endedAt: { not: null } } }) : 0,
+      dailyKey ? this.db.gameRound.count({ where: { playDate: today, dailyKey, endedAt: { not: null } } }) : 0,
       this.content.subjectCounts(m.learner),
     ]);
     // Keep the stored streak in step (leaderboards and parents read it).
@@ -369,7 +394,7 @@ export class GamesService {
       // A refresh or a lost connection: carry on where you were.
       if (mine) return this.roundView(mine, m.young);
       // Everyone in the class gets the same questions: copy them from whoever started first today.
-      const first = await this.db.gameRound.findFirst({ where: { dailyKey }, select: { items: true } });
+      const first = await this.db.gameRound.findFirst({ where: { playDate: today, dailyKey }, select: { items: true } });
       const items = first ? (first.items as unknown as RoundItem[]) : await this.content.daily(m.learner, today);
       if (!items.length) throw new ForbiddenException('There’s no Daily Challenge for your class yet.');
       try {

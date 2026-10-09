@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { raiseAlert } from '../alerts/alerts.service';
 
 /**
  * Housekeeping that other modules want run on the scheduler's tick (every
@@ -22,6 +23,7 @@ export async function runTickTasks(): Promise<Record<string, number>> {
       out[name] = await run();
     } catch (err) {
       logger.error(`${name} failed: ${(err as Error).message}`);
+      raiseAlert('job', `tick:${name}`, `Scheduled job "${name}" failed`, `${(err as Error).message}`.slice(0, 1000));
       out[name] = 0;
     }
   }

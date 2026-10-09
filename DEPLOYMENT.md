@@ -58,6 +58,7 @@ Then add these **environment variables** and click **Create**:
 | `DATABASE_URL` | the connection string from step 1 |
 | `JWT_SECRET` | a long random string (generate: `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`) |
 | `RUN_MIGRATIONS_ON_BOOT` | `true` |
+| `DATABASE_POOL_MAX` | optional, default `10`: database connections the API keeps open (see *Capacity and performance*) |
 | `APP_ENCRYPTION_KEY` | another long random string (same command as `JWT_SECRET`). Encrypts each school's saved Paystack key — **never change it** once schools have connected Paystack |
 | `BOOTSTRAP_OWNER_EMAIL` | your email — becomes the platform super admin |
 | `BOOTSTRAP_OWNER_PASSWORD` | a strong password (12+ characters) |
@@ -516,3 +517,305 @@ Nothing is tied to cPanel. On a VPS or container host: run `node main.js` from
 the bundle (or `npm start` in `apps/api`) behind any reverse proxy that sends
 `/api` to it, serve `apps/web/dist` as static files with an SPA fallback, and
 point `DATABASE_URL` at the new database.
+
+## Capacity and performance (shared hosting)
+
+The API is **one Node process** with a pool of database connections; the
+database is on the same host. What limits it is the Node process's CPU (every
+request is checked, scoped to its school and serialised in that one process),
+then the hosting account's CPU/entry-process limits (CloudLinux LVE).
+
+**Settings that matter.**
+
+| Name | Value |
+|---|---|
+| `DATABASE_POOL_MAX` | Database connections the API keeps open. Default **10**; use 8–10 on shared hosting. More does not help one Node process, and the account's PostgreSQL connection limit is shared with backups and phpPgAdmin (leave at least 5 spare). |
+
+Connections stay open for 5 minutes when idle (opening one starts a Postgres
+backend process), and a request that can't get a connection within 20 s fails
+instead of hanging.
+
+**Rate limits and school networks.** A whole school (or exam hall) usually
+reaches the internet through one IP address. Signed-in requests are therefore
+rate-limited **per user**, not per IP (e.g. CBT saves: 240 a minute per
+student; everything else: 300 a minute per user). Sign-in is limited per IP
+**and account** (10 a minute each) with a ceiling of 200 sign-ins a minute per
+IP; token refresh per IP and session (60 a minute) with a ceiling of 600 a
+minute per IP. Before this, 20 pupils behind one router could start a CBT and
+the rest got "Too many requests" (measured: 40 of 60 starts refused).
+
+**Housekeeping (daily, automatic).** Sign-in session records older than 400
+days (all long expired), read notifications older than 400 days, and game
+rounds started but never answered after 30 days are deleted once a day in
+small batches (`apps/api/src/prisma/housekeeping.service.ts`). The audit log
+is not touched. See `docs/legal/data-retention.md`.
+
+**Measured (October 2026).** Load tests against the production bundle with
+`--max-old-space-size=512`, the database on the same machine, on a 4-core
+development PC that was already ~99% busy with other work, so absolute
+latencies are pessimistic; the comparison before/after is what counts.
+Students had their own IP addresses except in the shared-IP test.
+
+| Scenario | Before | After |
+|---|---|---|
+| CBT, 200 students start within 1 min, save every ~10 s for 4 min | start p50 17.5 s, list p50 57 s (87 of 200 timed out), save p50 0.36 s / p95 15 s | start p50 0.9 s, list p50 0.5 s (0 failures), save p50 28 ms / p95 7 s, 18 req/s |
+| CBT, 500 students, 10 min | collapsed: 460 of 500 starts failed (timeouts, then connections refused); ~1% of saves stored | all 500 started (p50 12 s), 96% of saves stored (p50 7.5 s, p95 32 s); 358 of 500 hand-ins answered, 142 got an error under the overload (answers were already saved; the attempt stays open and the per-minute sweep hands it in when time is up) |
+| Morning rush, 300 sign-ins + 5 page loads each in 2 min | 178 of 300 sign-ins timed out, most page loads timed out | 299 of 300 sign-ins (p50 27 s: scrypt hashing on a busy CPU), 97–100% of page loads OK |
+| Games, 200 concurrent Quiz Rush players, 3 min | 60% of answers timed out, every finish failed | 99% of answers stored (p50 4.4 s), 547 of 655 finishes OK (the rest hit the overload); hub p50 10 s |
+| CBT, 60 students on **one IP**, 2 min | 40 of 60 starts refused (429) | 60 of 60 started, every save stored |
+
+Memory: the process peaked at about 410 MB RSS (heap about 230 MB) with 500
+students; it idles at about 210 MB. Database connections peaked at the pool
+size (10) plus one for boot tasks.
+
+**What the current host can take.** Normal school use for the 10-school
+pilot (hundreds of daily users, homework, results, games, parents) and an
+online CBT of **up to about 150–200 students at the same time** across the
+platform. Above that, pages slow down for everyone while the exam runs,
+because every school shares the one process.
+
+**When to move to a VPS.** Move before any of these: a CBT with more than
+about 200 students online at the same time (e.g. a whole school's mock exam
+in one sitting), more than about 1,500 daily active users, `/api/health`
+`dbLatencyMs` regularly above 200 ms, or the host's resource graphs showing
+the CPU or entry-process limit being hit. Until then, large exams can run as
+**offline exam packs** (see *Offline CBT*), which need the server only for the
+download and the sync, or in staggered sittings (two halls an hour apart).
+
+**VPS size.** 4 vCPU, 8 GB RAM, SSD (e.g. a 4 vCPU/8 GB VPS from Namecheap,
+Hetzner CPX31 or DigitalOcean), PostgreSQL 16 on the same server with
+`max_connections = 100` and `shared_buffers = 2GB`, the API as one Node
+process at first with `DATABASE_POOL_MAX=20`. That gives the Node process a
+whole uncontended core plus room for Postgres, which is enough for a 500-student
+CBT. Running more than one API process needs care first: rate limits,
+two-step sign-in replay protection and the short caches are kept in memory per
+process.
+
+## Monitoring, alerts and backups (runbook)
+
+Three layers, from the outside in. Set up all three; each catches what the
+others miss.
+
+### 1. Uptime: is the site answering?
+
+**GitHub (already in the repo).** [.github/workflows/uptime.yml](.github/workflows/uptime.yml)
+runs every 15 minutes. It checks `/api/health` (HTTP 200, `"status":"ok"`,
+`"db":"ok"`, answered within 15 s, three tries 20 s apart so a sleeping app can
+wake) and the web root (HTTP 200 with the app page). On failure it opens an
+issue labelled **outage**, assigned to and @mentioning the repository owner, so
+GitHub emails you; while it stays down it comments at most once an hour (or
+when the symptoms change), and the failed run itself also sends GitHub's
+"workflow failed" email. When the site answers again it closes the issue
+with how long it was down. It needs no secrets (the built-in `GITHUB_TOKEN`
+with `issues: write`).
+
+- Check once: **Actions → Uptime → Run workflow**; the run should be green.
+- Make sure the emails reach you: on the repo, **Watch → All activity** (or at
+  least *Issues*), and GitHub → **Settings → Notifications → Email** ticked for
+  *Participating* and *Watching*.
+- Limits: GitHub starts scheduled runs on a best-effort basis. They are often
+  5–30 minutes late at busy times, sometimes skipped, and **switched off after
+  60 days without a commit** to the repository (GitHub emails a warning;
+  re-enable under Actions → Uptime). That is why you also want:
+
+**An external monitor (free, every 5 minutes, the second line).**
+
+*UptimeRobot* ([uptimerobot.com](https://uptimerobot.com), free plan):
+
+1. Sign up, verify your email, then **+ New monitor**.
+2. Monitor type **Keyword**. URL
+   `https://ai-schoolportal.mejortechworld.com/api/health`, keyword `"db":"ok"`,
+   alert when the keyword **does not exist**. Friendly name "AI School OS API".
+   Interval 5 minutes. Under *How will we notify you?* tick your email (and
+   install the UptimeRobot app for push alerts if you like). **Create monitor.**
+3. **+ New monitor** again: type **HTTP(s)**, URL
+   `https://ai-schoolportal.mejortechworld.com/`, name "AI School OS web",
+   5 minutes, same email. **Create monitor.**
+
+*Or Better Stack* ([betterstack.com/uptime](https://betterstack.com/uptime), free plan):
+**Monitors → Create monitor** → *Alert us when* "URL doesn't contain keyword",
+URL `https://ai-schoolportal.mejortechworld.com/api/health`, keyword
+`"status":"ok"`, check every 3 minutes, on-call escalation: email. Add a
+second "URL becomes unavailable" monitor for the web root.
+
+Both also keep the API awake, like the cron job does.
+
+**What `/api/health` returns** (public, nothing secret):
+
+```json
+{"status":"ok","db":"ok","dbLatencyMs":3,"version":"93fe8d1","uptimeSeconds":5120,
+ "time":"…","lastMigration":"20261009120000_edugames","backup":"ok","lastBackupAt":"…"}
+```
+
+`version` is the deployed git commit (the build stamps it from `GITHUB_SHA`).
+`backup` is `ok`, `failed`, `stale` (no good backup for 30 hours) or `none`
+(the backup cron job isn't set up yet). When the database is down it answers
+**HTTP 503** with `"status":"error","db":"down"`. The full picture, for
+platform staff, is **Platform → System health**, which now also shows the
+database backup.
+
+### 2. Alerts: the API emails you when something breaks
+
+**Set it up (cPanel, 5 minutes).**
+
+1. cPanel → **Email Accounts → Create**: e.g. `alerts@mejortechworld.com`
+   with a strong password (or use any SMTP mailbox you already have).
+2. cPanel → **Setup Node.js App** → the `ai-school-api` app → **Edit** →
+   *Environment variables* → **Add variable** for each:
+
+   | Name | Value |
+   |---|---|
+   | `ALERT_EMAIL` | where alerts go, e.g. your Gmail (comma-separate several) |
+   | `SMTP_HOST` | `mail.mejortechworld.com` (Email Accounts → Connect Devices shows it) |
+   | `SMTP_PORT` | `465` |
+   | `SMTP_USER` | `alerts@mejortechworld.com` |
+   | `SMTP_PASSWORD` | that mailbox's password (typed in cPanel only, never in the repo or chat) |
+   | `SMTP_FROM` | optional; defaults to `SMTP_USER` |
+
+3. **Save**, then **Restart**.
+4. Sign in as the super admin → **Platform → System health → Send test
+   alert** (or `POST /api/platform/alerts/test`, super admin only). The
+   email arrives within a minute; if the mail server refuses, the button
+   shows its error. Check the spam folder the first time and mark it "not spam".
+
+**What is emailed.** Unexpected server errors (500s, per route); a **burst**
+of 20+ server errors of any kind (including 502/503) within 5 minutes; the API
+**failing to start** (bad database password, a failed migration); the API
+**crashing** (reported by the next process when Passenger restarts it);
+unhandled promise rejections; **boot installs failing** (platform content,
+built-in roles, exam syllabi, career library, JAMB brochure); **scheduled
+jobs failing** (the scheduler tick, school automations, online-exam and other
+tick tasks); **Paystack webhooks** that fail to process and payments whose
+amount doesn't match; and, every 15 minutes, the health checks: database down
+or slow, **uploads folder not writable** (disk quota full, permissions), the
+**database backup failed or older than 30 hours**, AI providers failing,
+AI jobs stuck and messages failing to send. Also AI provider fallbacks,
+unpriced AI models and WhatsApp webhook problems.
+
+**No email storms.** Problems are collected and sent as one digest every 5
+minutes; the same problem is emailed at most **once an hour** (remembered in
+the server's temp folder, so restarts don't reset it), with how many times it
+happened. A failed start is emailed at most once an hour even though Passenger
+retries on every request. Emails never contain request bodies, passwords or
+personal data, only the route and the error.
+
+### 3. Backups and restore
+
+| What | Covers | Restorable? |
+|---|---|---|
+| Nightly `pg_dump` by `scripts/backup-db.sh` (cPanel cron, below) | the whole database, every school | Yes, full restore (tested) |
+| JetBackup / cPanel Backup (the host's own) | database and home folder incl. `uploads/` | Yes, through cPanel |
+| School export (**Settings → Backup & export**, ZIP of CSVs) | one school's records, no passwords or keys | **No**: there is no import for it |
+
+**A. Daily automatic database backup (do this once).** Each deploy puts
+`backup-db.sh` and `restore-db.sh` in `~/ai-school-api/scripts/`.
+
+1. cPanel → **File Manager** → your home folder (`/home/martcqpk`) →
+   *Settings* → tick **Show Hidden Files**. **+ File** named
+   `.ai-school-backup.env`, **Edit**, one line (the same value as the Node.js
+   app's `DATABASE_URL`):
+   ```
+   DATABASE_URL=postgresql://martcqpk_aischool:<password>@localhost:5432/martcqpk_aischool
+   ```
+   Save, then right-click → **Change Permissions** → `600`. This file holds
+   the database password: it lives outside `public_html` and is never in the repo.
+2. cPanel → **Cron Jobs** → *Cron Email*: your email. Cron emails you only
+   when the script prints something, which it does only on failure.
+3. *Add New Cron Job*: Minute `15`, Hour `2`, Day `*`, Month `*`, Weekday `*`
+   (02:15 server time, daily), command:
+   ```
+   /bin/bash $HOME/ai-school-api/scripts/backup-db.sh
+   ```
+4. **Test it now**: add a second, temporary cron job with the same command
+   and *Once Per Minute*; after two minutes open `backups/db/` in File
+   Manager. You should see `aischool-<date>_<time>.sql.gz` and
+   `last-backup.json` with `"status":"ok"`, and `/api/health` shows
+   `"backup":"ok"`. **Delete the temporary job.** If you get an email
+   saying `pg_dump was not found`, ask Namecheap support for the folder that
+   holds `pg_dump` and add `PG_BIN=/that/folder` to `.ai-school-backup.env`.
+
+The script keeps the last **7 daily** dumps in `~/backups/db/` and, every
+Sunday, a copy in `~/backups/db/weekly/` kept for **4 weeks** (change with
+`KEEP_DAILY` / `KEEP_WEEKLY` in the env file). Dumps are plain SQL, gzipped,
+without owners or grants, so they restore under a different cPanel user. A
+dump that is cut short is rejected (it must end with pg_dump's completion
+line). If a run fails, or no run succeeds for 30 hours, you get an alert email
+(from the API, via `last-backup.json`) as well as cron's own email.
+
+**Weekly off-site copy (Sundays, 2 minutes).** File Manager →
+`backups/db/weekly/` → right-click the newest file → **Download**; keep it on
+your computer *and* in cloud storage (Google Drive etc.), and delete copies
+older than a few months. The dump holds every school's personal data: store it
+where only you can open it. Never commit it or put it on GitHub (not as an
+Actions artifact either: on a public repo those are downloadable). Keep
+JetBackup on as the host-level copy, and zip `ai-school-api/uploads` monthly
+(see *Backups* above).
+
+**Manual backup before a risky change** (a large import, an upgrade with
+migrations): run the cron command once (a temporary *Once Per Minute* job,
+then delete it), or **JetBackup → Database Backups**, or **cPanel → Backup** (the database
+downloads, where your server lists PostgreSQL there). phpPgAdmin's Export also
+works for a small database.
+
+**B. Restore the whole database (tested end to end).** Restore into a **new,
+empty** database and switch to it, so the broken one stays as it was until
+you are sure:
+
+1. cPanel → **PostgreSQL Databases**: create `aischool_restore` (it becomes
+   `martcqpk_aischool_restore`) and **add the existing user**
+   `martcqpk_aischool` to it with all privileges.
+2. Pick the dump in File Manager (`~/backups/db/aischool-<date>.sql.gz`; for an
+   off-site copy, upload it there first).
+3. Add a line to `~/.ai-school-backup.env`:
+   ```
+   RESTORE_DATABASE_URL=postgresql://martcqpk_aischool:<password>@localhost:5432/martcqpk_aischool_restore
+   ```
+4. Cron Jobs → temporary job, *Once Per Minute*:
+   ```
+   /bin/bash $HOME/ai-school-api/scripts/restore-db.sh $HOME/backups/db/aischool-<date>.sql.gz >> $HOME/backups/restore.log 2>&1
+   ```
+   After a few minutes **delete the job** and open `backups/restore.log`. It
+   must end with `Restored: N schools, N users, newest migration …` and
+   `Done.` Only one restore runs at a time, it refuses a target that already
+   has tables (so later cron runs just log that and stop), and it restores in
+   one transaction (all or nothing).
+5. **Setup Node.js App** → change `DATABASE_URL` to end in
+   `/martcqpk_aischool_restore` → Save → **Restart**. Keep
+   `RUN_MIGRATIONS_ON_BOOT=true`: migrations newer than the dump are applied
+   on start.
+6. Check: `/api/health` shows `"db":"ok"` and the expected `lastMigration`;
+   sign in as the super admin and as a school admin; open the dashboard,
+   Students and Fees. Put the new value in `.ai-school-backup.env`'s
+   `DATABASE_URL` too, so the nightly backup follows the new database, and
+   remove `RESTORE_DATABASE_URL`.
+7. When you are happy (a few days later), delete the old database in cPanel.
+
+Anything written after the dump was taken is not in the restored database (at
+most a day, with daily backups). Payments made in that window are still in
+Paystack: re-check them from Fees and Platform → Billing. `APP_ENCRYPTION_KEY`
+must be the same as when the dump was taken, or saved Paystack/SMS keys and
+two-step sign-in secrets can't be read. phpPgAdmin can't import these dumps
+(they use psql commands such as `\restrict` and `COPY … FROM stdin`); use the
+script.
+
+*Tested:* a dump of the development database (18 schools, 582 users, 149
+tables, 3.3 MB gzipped) was restored with `restore-db.sh` into a fresh
+database; row counts matched; the API booted against it with
+`RUN_MIGRATIONS_ON_BOOT=true` ("Database is up to date"); the super admin,
+school admin, teacher and parent logins, the dashboard, students, fees,
+invoices and Platform → System health all answered 200.
+
+**C. Restore ONE school.** Not supported directly. The in-app school export
+(the CSV ZIP) **cannot be imported back**, and restoring the whole database
+would undo every other school's work since the backup. Instead:
+
+- Some records lost in one school (e.g. a class's results deleted): restore
+  last night's dump into a spare database (steps B1–B4, but **don't** switch
+  `DATABASE_URL`), look the records up there (phpPgAdmin, or a local copy of
+  the API pointed at it) and re-enter them. Students and parents, staff and
+  past results can be re-imported with **Import data** after copying the
+  columns into its CSV templates.
+- A whole school damaged: a developer copies that school's rows
+  (`"tenantId" = '<id>'`) from the spare database into production, table by
+  table in dependency order. This is a manual job; rehearse it on a copy first.
+- Treat the school export as the school's own record of its data, not as a backup.

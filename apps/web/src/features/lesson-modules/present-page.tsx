@@ -122,7 +122,7 @@ export default function PresentPage() {
         {step.kind === 'CHECKIN' ? <CheckInStage key={step.id} v={v} step={step} /> : <TeachStage key={step.id} moduleId={v.module.id} step={step} />}
       </main>
 
-      <footer className="sticky bottom-0 flex items-center gap-3 border-t border-border bg-card px-4 py-3 sm:px-6">
+      <footer className="sticky bottom-0 flex items-center gap-3 border-t border-border bg-card px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 sm:px-6">
         <Button variant="outline" size="lg" onClick={() => goTo(index - 1)} disabled={index === 0 || v.status !== 'LIVE'}>
           <ArrowLeft /> Back
         </Button>

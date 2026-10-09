@@ -21,6 +21,7 @@ import {
   type UnitEconomics,
 } from '@aischool/shared';
 import { z } from 'zod';
+import { raiseAlert } from '../alerts/alerts.service';
 import { AuditService } from '../audit/audit.service';
 import { Public, RequirePermissions, RequirePlatformRole } from '../common/decorators';
 import { fullName } from '../common/format';
@@ -155,6 +156,9 @@ export class PlatformWebhookController {
       }
     } catch (err) {
       this.logger.warn(`Webhook ${event.event}: ${(err as Error).message}`);
+      raiseAlert('payments', `platform-webhook:${event.event}`, 'A Paystack payment webhook failed', `Event ${event.event} (reference ${event.data?.reference ?? 'unknown'}) could not be processed: ${(err as Error).message}
+
+The payment may need to be checked in Platform → Billing / Products.`.slice(0, 1500));
     }
     return { ok: true };
   }

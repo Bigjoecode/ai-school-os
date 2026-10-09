@@ -4,6 +4,8 @@ const schema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().int().default(3000),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  /** Database connections the API keeps open (one Node process). Shared hosting: 8–10; keep well under the account's Postgres connection limit. */
+  DATABASE_POOL_MAX: z.coerce.number().int().min(1).max(50).default(10),
   JWT_SECRET: z.string().min(24, 'JWT_SECRET must be at least 24 characters'),
   CORS_ORIGINS: z
     .string()
@@ -31,6 +33,11 @@ const schema = z.object({
     .string()
     .optional()
     .transform((v) => (v === undefined || v === '' ? undefined : v === 'true' || v === '1')),
+  /** Safety switch: DEMO_LOGINS=off refuses every sign-in to the demo schools (and hides their hints), whatever the console says. */
+  DEMO_LOGINS: z
+    .string()
+    .optional()
+    .transform((v) => (['off', 'false', '0', 'no'].includes((v ?? '').trim().toLowerCase()) ? ('off' as const) : ('on' as const))),
   /** Operator alerts: where to email problems, and the platform's own mail server (e.g. a cPanel mailbox). */
   ALERT_EMAIL: z.string().optional(),
   SMTP_HOST: z.string().optional(),
@@ -38,6 +45,8 @@ const schema = z.object({
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
   SMTP_FROM: z.string().optional(),
+  /** Status file written by scripts/backup-db.sh (default ~/backups/db/last-backup.json); read by /api/health and the alerts. */
+  BACKUP_STATUS_FILE: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL_STANDARD: z.string().optional(),
   ANTHROPIC_MODEL_ADVANCED: z.string().optional(),

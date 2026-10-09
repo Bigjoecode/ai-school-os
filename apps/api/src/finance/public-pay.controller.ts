@@ -10,6 +10,7 @@ import {
   type PublicInvoice,
 } from '@aischool/shared';
 import { z } from 'zod';
+import { raiseAlert } from '../alerts/alerts.service';
 import { AuditService } from '../audit/audit.service';
 import { Public } from '../common/decorators';
 import { dateOnly } from '../common/format';
@@ -229,6 +230,7 @@ export class PublicPayController {
       });
     } else if (result.reason === 'amount mismatch') {
       this.logger.error(`Paystack amount mismatch for ${reference}`);
+      raiseAlert('payments', `amount-mismatch:${tenantId}`, 'A Paystack payment did not match its invoice', `School ${tenantId}, reference ${reference}: Paystack reported a different amount, so the payment was not settled. Check it with the school.`);
     }
   }
 }

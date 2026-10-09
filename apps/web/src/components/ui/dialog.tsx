@@ -37,8 +37,8 @@ export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrim
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-popover text-popover-foreground shadow-pop outline-none',
-          'sm:inset-auto sm:left-1/2 sm:top-1/2 sm:max-h-[88dvh] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl',
+          'fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-popover pb-[env(safe-area-inset-bottom)] text-popover-foreground shadow-pop outline-none',
+          'sm:inset-auto sm:left-1/2 sm:top-1/2 sm:max-h-[88dvh] sm:pb-0 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl',
           'data-[state=open]:animate-[dialog-in_200ms_cubic-bezier(0.16,1,0.3,1)] data-[state=closed]:animate-[fade-out_120ms_ease-in]',
           sizes[size],
           className,

@@ -1,4 +1,4 @@
-import type { AuthResponse } from '@aischool/shared';
+import { CONSENT_REQUIRED, type AuthResponse } from '@aischool/shared';
 import { useAuthStore } from './auth-store';
 
 export interface FieldError {
@@ -40,6 +40,9 @@ export interface RequestOptions {
 }
 
 const BASE = '/api';
+
+/** Fired on window when the API answers 403 CONSENT_REQUIRED. */
+export const CONSENT_REQUIRED_EVENT = 'ais:consent-required';
 
 function buildUrl(path: string, query?: Record<string, QueryValue>): string {
   const url = `${BASE}${path.startsWith('/') ? path : `/${path}`}`;
@@ -158,7 +161,14 @@ export async function request<T>(path: string, opts: RequestOptions = {}): Promi
     }
   }
 
-  if (!res.ok) throw await toApiError(res);
+  if (!res.ok) {
+    const error = await toApiError(res);
+    // A parent who hasn't accepted the school's privacy notice: the consent gate shows the consent screen.
+    if (error.status === 403 && error.details.code === CONSENT_REQUIRED && typeof window !== 'undefined') {
+      window.dispatchEvent(new Event(CONSENT_REQUIRED_EVENT));
+    }
+    throw error;
+  }
   if (opts.text) return (await res.text()) as T;
   return parse<T>(res);
 }

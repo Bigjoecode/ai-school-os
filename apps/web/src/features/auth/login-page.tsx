@@ -1,4 +1,4 @@
-import { loginSchema } from "@aischool/shared";
+import { loginSchema, type DemoLoginHint, type PublicConfig } from "@aischool/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -49,50 +49,12 @@ const VALUE_PROPS = [
   },
 ];
 
-// Accounts in the Greenfield demo school. The platform owner exists only in a
-// locally seeded database, so it is never advertised on a deployed site.
-const DEMOS = [
-  {
-    label: "School admin",
-    email: "admin@greenfield.demo",
-    password: "Greenfield#2026",
-    school: "greenfield",
-  },
-  {
-    label: "Principal",
-    email: "principal@greenfield.demo",
-    password: "Greenfield#2026",
-    school: "greenfield",
-  },
-  {
-    label: "Teacher",
-    email: "teacher@greenfield.demo",
-    password: "Greenfield#2026",
-    school: "greenfield",
-  },
-  {
-    label: "Parent (two schools)",
-    email: "parent@greenfield.demo",
-    password: "Greenfield#2026",
-    school: "",
-  },
-  {
-    label: "Student (AI Plus)",
-    email: "student@greenfield.demo",
-    password: "Greenfield#2026",
-    school: "greenfield",
-  },
-  ...(import.meta.env.DEV
-    ? [
-        {
-          label: "Platform owner (local)",
-          email: "owner@aischool.os",
-          password: "AiSchoolOS#2026",
-          school: "",
-        },
-      ]
-    : []),
-];
+// The demo schools' logins come from the server (GET /public/config) and only
+// while the operator shows them, so they are not in the production bundle.
+// The platform owner exists only in a locally seeded database: local dev only.
+const LOCAL_OWNER: DemoLoginHint[] = import.meta.env.DEV
+  ? [{ label: "Platform owner (local)", email: "owner@aischool.os", password: "AiSchoolOS#2026", school: "" }]
+  : [];
 
 function BrandPanel() {
   return (
@@ -233,16 +195,18 @@ export default function LoginPage() {
     });
   });
 
-  // The server decides whether to advertise demo logins (SHOW_DEMO_ACCOUNTS); hidden until it answers.
+  // The server decides whether to advertise demo logins (console → Schools → Demo schools; DEMO_LOGINS=off
+  // forces it off). Hidden until it answers, and also in local development when the operator has hidden them.
   const config = useQuery({
     queryKey: ["public-config"],
-    queryFn: () => api.get<{ demoAccounts: boolean }>("/public/config"),
+    queryFn: () => api.get<PublicConfig>("/public/config"),
     staleTime: 5 * 60_000,
     retry: 1,
   });
-  const showDemos = import.meta.env.DEV || config.data?.demoAccounts === true;
+  const showDemos = config.data?.demoAccounts === true;
+  const DEMOS = showDemos ? [...(config.data?.demoLogins ?? []), ...LOCAL_OWNER] : [];
 
-  const fillDemo = (d: (typeof DEMOS)[number]) => {
+  const fillDemo = (d: DemoLoginHint) => {
     setValue("email", d.email, { shouldValidate: true });
     setValue("password", d.password, { shouldValidate: true });
     setValue("school", d.school || undefined);
@@ -366,12 +330,12 @@ export default function LoginPage() {
                         label="School ID"
                         htmlFor="school"
                         error={formState.errors.school?.message}
-                        hint="Your school’s short ID, e.g. greenfield"
+                        hint={showDemos ? "Your school’s short ID, e.g. greenfield" : "Your school’s short ID — ask the school office if you don’t know it"}
                         className="px-0.5 pb-0.5 pt-3"
                       >
                         <Input
                           id="school"
-                          placeholder="greenfield"
+                          placeholder={showDemos ? "greenfield" : "your-school"}
                           autoCapitalize="none"
                           invalid={!!formState.errors.school}
                           {...register("school", {

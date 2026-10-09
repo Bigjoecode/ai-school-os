@@ -21,6 +21,7 @@ import { AuditService } from '../audit/audit.service';
 import { decryptSecret, encryptSecret } from '../common/crypto-box';
 import { fullName } from '../common/format';
 import { RequestContextStore, currentContext, currentTenantId } from '../common/request-context';
+import { ConsentEnforcementService } from '../data-protection/consent-enforcement.service';
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ChannelsService, SendError, type WhatsappAssistantConfig } from './channels.service';
@@ -133,6 +134,7 @@ export class WhatsappAssistantService {
     private readonly audit: AuditService,
     private readonly alerts: AlertService,
     private readonly features: FeatureService,
+    private readonly consent: ConsentEnforcementService,
   ) {}
 
   // ================================================================ webhook
@@ -373,6 +375,22 @@ export class WhatsappAssistantService {
       return;
     }
 
+    // ---- NDPA: the school requires consent and this parent hasn't accepted the current privacy notice.
+    // No child data until they do; point them to the portal (urgent messages above still reach staff).
+    if (await this.consent.parentNeedsConsent(m.tenantId, parent.userId)) {
+      await mark('IGNORED', { ...who, error: 'Privacy notice not accepted yet — sent the link to review it' });
+      const link = await this.portalLink(m.tenantId, m.origin, '/settings/privacy');
+      await this.reply(
+        m.tenantId,
+        phone,
+        `Hello ${parent.firstName}. Before I can share information about your child, please review and accept ${school.name}'s privacy notice in the parent portal: ${link}
+
+Then send your question again.${school.phone ? ` For anything urgent, please call ${school.phone}.` : ''}`,
+        who,
+      );
+      return;
+    }
+
     // ---- the school's daily AI cap
     const cap = assistant.dailyCap || WHATSAPP_DEFAULT_DAILY_CAP;
     const answered = await db.whatsAppMessage.count({ where: { direction: 'OUTBOUND', conversationId: { not: null }, createdAt: { gte: new Date(Date.now() - 24 * HOUR) } } });
@@ -443,9 +461,9 @@ export class WhatsappAssistantService {
     return null;
   }
 
-  private async portalLink(tenantId: string, origin: string): Promise<string> {
+  private async portalLink(tenantId: string, origin: string, path = '/family'): Promise<string> {
     const domain = await this.prisma.root.tenantDomain.findFirst({ where: { tenantId, kind: 'PORTAL', verifiedAt: { not: null } }, orderBy: { isPrimary: 'desc' }, select: { hostname: true } });
-    return `${domain ? `https://${domain.hostname}` : origin}/family`;
+    return `${domain ? `https://${domain.hostname}` : origin}${path}`;
   }
 
   /** Runs the Parent AI exactly as the parent's own portal request would: their user, their school, their (parent-only) permissions. */

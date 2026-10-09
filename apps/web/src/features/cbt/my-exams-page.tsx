@@ -83,7 +83,7 @@ function OfflineAction({ e }: { e: CbtMyExam }) {
   const o = e.offline;
   if (!o || e.attempt || o.synced || e.phase === 'ENDED' || (o.syncBy && Date.parse(o.syncBy) < Date.now())) return null;
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2">
       {o.downloaded && (
         <Button asChild size="sm" variant="ghost">
           <Link to="/offline-exams">
@@ -149,7 +149,7 @@ function ExamRow({ e }: { e: CbtMyExam }) {
           </span>
         </p>
       </div>
-      <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end">
+      <div className="flex shrink-0 flex-wrap items-center gap-3 sm:flex-col sm:flex-nowrap sm:items-end">
         {e.result && (
           <p className="font-display text-xl font-semibold tabular">
             {e.result.percent}%<span className="ml-1 text-[12px] font-normal text-muted-foreground">{e.result.partial ? 'so far' : `${e.result.score}/${e.result.total}`}</span>

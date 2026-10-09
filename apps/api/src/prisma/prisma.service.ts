@@ -5,7 +5,17 @@ import { env } from '../config/env';
 import { tenantScope } from './tenant-scope';
 
 function createClient() {
-  const adapter = new PrismaPg({ connectionString: env().DATABASE_URL, max: 5 });
+  const config = env();
+  const adapter = new PrismaPg({
+    connectionString: config.DATABASE_URL,
+    max: config.DATABASE_POOL_MAX,
+    // Keep connections open through short quiet spells: opening one costs a
+    // Postgres backend process, and a burst (a class starting a test) would
+    // otherwise pay for it on every request.
+    idleTimeoutMillis: 5 * 60_000,
+    // Fail a request that can't get a connection rather than letting it hang.
+    connectionTimeoutMillis: 20_000,
+  });
   return new PrismaClient({ adapter });
 }
 

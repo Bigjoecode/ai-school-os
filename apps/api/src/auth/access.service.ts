@@ -37,6 +37,30 @@ export interface ResolvedAccess {
   permissions: Set<Permission>;
 }
 
+/** One row of the access query in resolve(); tenant and membership columns are null when there is no match. */
+interface AccessRow {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  platformRole: string | null;
+  status: string;
+  twoFactorEnabled: boolean;
+  tenantId: string | null;
+  slug: string | null;
+  name: string | null;
+  shortName: string | null;
+  logoUrl: string | null;
+  primaryColor: string | null;
+  currency: string | null;
+  timezone: string | null;
+  motto: string | null;
+  tenantStatus: string | null;
+  membershipId: string | null;
+  roles: { id: string; key: string; name: string; permissions: string[] | null }[] | null;
+}
+
 const BLOCKED_TENANT_STATUSES = new Set(['SUSPENDED', 'ARCHIVED']);
 
 /**
@@ -54,17 +78,23 @@ export class AccessService {
   ) {}
 
   async resolve(userId: string, tenantId: string | null): Promise<ResolvedAccess | null> {
-    const user = await this.prisma.root.user.findUnique({
-      where: { id: userId },
-      include: {
-        memberships: {
-          // No school selected: match nothing rather than every membership.
-          where: { tenantId: tenantId ?? '', status: 'ACTIVE' },
-          include: { roles: { include: { role: true } } },
-        },
-      },
-    });
-    if (!user || user.status === 'DISABLED') return null;
+    // One round trip (this runs on every signed-in request): the user, the
+    // school, and the roles of the user's active membership there. A nested
+    // Prisma include would be five queries.
+    const [row] = await this.prisma.root.$queryRaw<AccessRow[]>`
+      SELECT u.id, u.email, u."firstName", u."lastName", u."avatarUrl", u."platformRole"::text AS "platformRole",
+        u.status::text AS status, (u."totpEnabledAt" IS NOT NULL) AS "twoFactorEnabled",
+        t.id AS "tenantId", t.slug, t.name, t."shortName", t."logoUrl", t."primaryColor", t.currency, t.timezone, t.motto,
+        t.status::text AS "tenantStatus", m.id AS "membershipId",
+        (SELECT COALESCE(json_agg(json_build_object('id', r.id, 'key', r.key, 'name', r.name, 'permissions', r.permissions)), '[]'::json)
+           FROM membership_roles mr JOIN roles r ON r.id = mr."roleId" WHERE mr."membershipId" = m.id) AS roles
+      FROM users u
+      LEFT JOIN tenants t ON t.id = ${tenantId}
+      -- No school selected: match nothing rather than every membership.
+      LEFT JOIN memberships m ON m."userId" = u.id AND m."tenantId" = ${tenantId} AND m.status = 'ACTIVE'
+      WHERE u.id = ${userId}`;
+    if (!row || row.status === 'DISABLED') return null;
+    const user = row;
 
     const base: ResolvedAccess = {
       user: {
@@ -73,43 +103,39 @@ export class AccessService {
         firstName: user.firstName,
         lastName: user.lastName,
         avatarUrl: user.avatarUrl,
-        platformRole: user.platformRole,
+        platformRole: user.platformRole as PlatformRole | null,
         status: user.status,
-        twoFactorEnabled: !!user.totpEnabledAt,
+        twoFactorEnabled: user.twoFactorEnabled,
       },
       tenant: null,
       roles: [],
       permissions: new Set(),
     };
-    if (!tenantId) return base;
-
-    const tenant = await this.prisma.root.tenant.findUnique({ where: { id: tenantId } });
-    if (!tenant) return base;
+    if (!tenantId || !row.tenantId) return base;
 
     const isSuperAdmin = user.platformRole === 'SUPER_ADMIN';
-    if (BLOCKED_TENANT_STATUSES.has(tenant.status) && !isSuperAdmin) return base;
+    if (BLOCKED_TENANT_STATUSES.has(row.tenantStatus!) && !isSuperAdmin) return base;
 
-    const membership = user.memberships[0];
-    if (!membership && !isSuperAdmin) return base;
+    if (!row.membershipId && !isSuperAdmin) return base;
 
-    const roles = membership?.roles.map((mr) => mr.role) ?? [];
+    const roles = row.roles ?? [];
     const permissions = new Set<Permission>(
-      isSuperAdmin ? ALL_PERMISSIONS : roles.flatMap((r) => r.permissions.filter(isPermission)),
+      isSuperAdmin ? ALL_PERMISSIONS : roles.flatMap((r) => (r.permissions ?? []).filter(isPermission)),
     );
 
     return {
       ...base,
       tenant: {
-        id: tenant.id,
-        slug: tenant.slug,
-        name: tenant.name,
-        shortName: tenant.shortName,
-        logoUrl: tenant.logoUrl,
-        primaryColor: tenant.primaryColor,
-        currency: tenant.currency,
-        timezone: tenant.timezone,
-        motto: tenant.motto,
-        status: tenant.status,
+        id: row.tenantId,
+        slug: row.slug!,
+        name: row.name!,
+        shortName: row.shortName,
+        logoUrl: row.logoUrl,
+        primaryColor: row.primaryColor,
+        currency: row.currency!,
+        timezone: row.timezone!,
+        motto: row.motto,
+        status: row.tenantStatus!,
       },
       roles: roles.map((r) => ({ id: r.id, key: r.key, name: r.name })),
       permissions,

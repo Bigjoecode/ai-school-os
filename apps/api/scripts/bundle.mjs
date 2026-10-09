@@ -59,6 +59,9 @@ const result = await build({
 cpSync(resolve(root, 'prisma/migrations'), resolve(out, 'prisma/migrations'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/syllabi'))) cpSync(resolve(root, 'prisma/syllabi'), resolve(out, 'prisma/syllabi'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/jamb'))) cpSync(resolve(root, 'prisma/jamb'), resolve(out, 'prisma/jamb'), { recursive: true });
+// Database backup/restore scripts, for a cPanel cron job (see DEPLOYMENT.md → Backups).
+mkdirSync(resolve(out, 'scripts'), { recursive: true });
+for (const f of ['backup-db.sh', 'restore-db.sh']) cpSync(resolve(root, 'scripts', f), resolve(out, 'scripts', f));
 if (existsSync(resolve(root, 'prisma/careers'))) cpSync(resolve(root, 'prisma/careers'), resolve(out, 'prisma/careers'), { recursive: true });
 writeFileSync(
   resolve(out, 'package.json'),

@@ -5,6 +5,7 @@ import type { AuthResponse, LoginInput, TwoFactorChallengeResponse, TwoFactorLog
 import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AccessService } from './access.service';
+import { DemoModeService } from './demo-mode.service';
 import { TWO_FACTOR_CHALLENGE_TTL_SECONDS, TwoFactorService } from './two-factor.service';
 import { burnPasswordCheck, verifyPassword } from './password';
 import {
@@ -34,7 +35,15 @@ export class AuthService {
     private readonly access: AccessService,
     private readonly audit: AuditService,
     private readonly twoFactor: TwoFactorService,
+    private readonly demo: DemoModeService,
   ) {}
+
+  /** Demo schools can be closed to sign-in from the console (or DEMO_LOGINS=off). Neutral wording: nothing about why. */
+  private async assertSchoolOpen(tenantId: string | null, platformRole: string | null) {
+    if (!(await this.demo.allows(tenantId, platformRole))) {
+      throw new ForbiddenException('Sign-in to this school is not available at the moment.');
+    }
+  }
 
   /**
    * Password sign-in. With two-step sign-in on, no session is issued yet:
@@ -58,6 +67,7 @@ export class AuthService {
     if (user.status === 'DISABLED') throw new ForbiddenException('This account has been disabled');
 
     const tenantId = await this.pickTenant(user.id, user.platformRole, input.school, client.host);
+    await this.assertSchoolOpen(tenantId, user.platformRole);
     if (user.totpEnabledAt) {
       return {
         twoFactorRequired: true,
@@ -213,6 +223,8 @@ export class AuthService {
     if (!me) throw new UnauthorizedException('Your account is not active');
     // The school may have been suspended since the token was issued.
     const effectiveTenantId = me.tenant?.id ?? null;
+    // Every way into a school (password, two-step, refresh, switching school) passes here.
+    await this.assertSchoolOpen(effectiveTenantId, me.user.platformRole);
 
     const refreshToken = newRefreshToken();
     const session = await this.prisma.root.authSession.create({
@@ -264,12 +276,17 @@ export class AuthService {
       return wanted;
     }
 
+    // Platform staff may always open a demo school; others skip demo schools closed to sign-in.
+    const closed = platformRole ? [] : await this.demo.closedTenantIds();
     const first = await this.prisma.root.membership.findFirst({
-      where: { userId, status: 'ACTIVE', tenant: { status: { notIn: ['SUSPENDED', 'ARCHIVED'] } } },
+      where: { userId, status: 'ACTIVE', tenant: { status: { notIn: ['SUSPENDED', 'ARCHIVED'] } }, ...(closed.length ? { tenantId: { notIn: closed } } : {}) },
       orderBy: { createdAt: 'asc' },
     });
     if (first) return first.tenantId;
     if (platformRole) return null;
+    if (closed.length && (await this.prisma.root.membership.count({ where: { userId, status: 'ACTIVE', tenantId: { in: closed } } }))) {
+      throw new ForbiddenException('Sign-in to this school is not available at the moment.');
+    }
     throw new ForbiddenException('Your account is not linked to any school yet');
   }
 }

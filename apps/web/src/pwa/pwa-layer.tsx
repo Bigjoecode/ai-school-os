@@ -1,5 +1,5 @@
 import { CloudOff, Share, Smartphone, SquarePlus, WifiOff, X } from 'lucide-react';
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -59,7 +59,7 @@ function ConnectionBanner() {
     <div
       role="status"
       aria-live="polite"
-      className="pointer-events-none fixed inset-x-0 z-[70] flex justify-center px-3"
+      className="pointer-events-none fixed inset-x-0 z-[70] flex justify-center px-3 print:hidden"
       style={{ top: 'max(env(safe-area-inset-top), 0.5rem)' }}
     >
       <p className="flex max-w-full items-center gap-2 rounded-2xl border border-warning/30 bg-warning-soft px-3.5 py-1.5 text-[12.5px] font-medium text-warning shadow-soft backdrop-blur">
@@ -75,6 +75,7 @@ function InstallBanner({ pathname }: { pathname: string }) {
   const me = useMe();
   const canInstall = useCanInstall();
   const [visible, setVisible] = useState(false);
+  const card = useRef<HTMLDivElement>(null);
 
   const audience = !!me && (me.permissions.includes('family.manage') || me.permissions.includes('learning.use'));
   const eligible = canInstall && audience && pathname !== '/login';
@@ -97,6 +98,14 @@ function InstallBanner({ pathname }: { pathname: string }) {
     return () => window.clearTimeout(t);
   }, [eligible]);
 
+  // While it shows, let the page scroll its last buttons up clear of the card (iPhones always get it: no install prompt there).
+  useEffect(() => {
+    const h = visible ? card.current?.offsetHeight : 0;
+    if (!h) return;
+    document.body.style.paddingBottom = `${h + 12}px`;
+    return () => void (document.body.style.paddingBottom = '');
+  }, [visible]);
+
   if (!visible) return null;
   const dismiss = () => {
     setVisible(false);
@@ -108,7 +117,8 @@ function InstallBanner({ pathname }: { pathname: string }) {
   };
   return (
     <div
-      className="fixed inset-x-0 z-[60] flex justify-center px-3"
+      ref={card}
+      className="fixed inset-x-0 z-[60] flex justify-center px-3 print:hidden"
       style={{ bottom: 'calc(env(safe-area-inset-bottom) + 0.75rem)' }}
       role="dialog"
       aria-label="Install the app"

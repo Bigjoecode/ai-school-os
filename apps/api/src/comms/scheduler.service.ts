@@ -5,6 +5,7 @@ import { dateOnly } from '../common/format';
 import { schoolNow } from '../common/school-time';
 import { env } from '../config/env';
 import { runTickTasks } from '../common/tick-tasks';
+import { raiseAlert } from '../alerts/alerts.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { SenderService } from './sender.service';
 
@@ -41,7 +42,14 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
 
   onModuleInit() {
     if (env().NODE_ENV === 'test') return;
-    this.timer = setInterval(() => void this.tick().catch((e: Error) => this.logger.error(`Tick failed: ${e.message}`)), TICK_MS);
+    this.timer = setInterval(
+      () =>
+        void this.tick().catch((e: Error) => {
+          this.logger.error(`Tick failed: ${e.message}`);
+          raiseAlert('job', 'tick', 'Scheduled messages and automations failed', e.message.slice(0, 1000));
+        }),
+      TICK_MS,
+    );
     this.timer.unref();
   }
 
@@ -89,6 +97,7 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
           result.eventReminders += r.eventReminders;
         } catch (err) {
           this.logger.error(`Automations for ${t.id} failed: ${(err as Error).message}`);
+          raiseAlert('job', `automations:${(err as Error).message.slice(0, 60)}`, 'School automations failed', `Birthday / event-reminder automations failed for school ${t.id}: ${(err as Error).message}`.slice(0, 1000));
         }
       }
       result.tasks = await runTickTasks();

@@ -33,6 +33,8 @@ function sniff(buf: Buffer, filename: string): Kind | null {
   // Video and audio (assignments, projects, recordings).
   if (buf.subarray(4, 8).toString('ascii') === 'ftyp') {
     const brand = buf.subarray(8, 12).toString('ascii');
+    // iPhone HEIC/HEIF (and AVIF) photos share this container: they're images, not video, and aren't supported.
+    if (/^(hei[cmsx]|hev[cmsx]|mif1|msf1|avi[fs])/.test(brand)) return null;
     if (brand === 'qt  ') return { ext: 'mov', mime: 'video/quicktime', media: true };
     if (brand.startsWith('M4A')) return { ext: 'm4a', mime: 'audio/mp4', media: true };
     if (/^(3gp|3g2)/.test(brand)) return { ext: '3gp', mime: 'video/3gpp', media: true };

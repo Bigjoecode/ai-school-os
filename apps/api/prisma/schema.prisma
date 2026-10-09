@@ -408,6 +408,8 @@ model AuthSession {
 
   @@index([userId])
   @@index([familyId])
+  // Success dashboard: sign-ins per school over a period.
+  @@index([tenantId, createdAt])
   @@map("auth_sessions")
 }
 
@@ -721,6 +723,8 @@ model Student {
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
   @@index([tenantId, lastName])
+  // "Which student is this signed-in user?": every student request.
+  @@index([userId])
   @@map("students")
 }
 
@@ -750,6 +754,8 @@ model Guardian {
   students StudentGuardian[]
 
   @@index([tenantId, lastName])
+  // "Which guardian is this signed-in user?": parent requests (consent check, family pages).
+  @@index([userId])
   @@map("guardians")
 }
 
@@ -3110,6 +3116,8 @@ model PracticeAttempt {
   student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@index([studentId, startedAt])
+  // Success dashboard: active students per school over a period.
+  @@index([tenantId, startedAt])
   @@map("practice_attempts")
 }
 
@@ -3473,6 +3481,8 @@ model OnlineExamAttempt {
 
   @@unique([examId, studentId])
   @@index([tenantId, studentId])
+  // The minute-by-minute sweep that hands in attempts whose time ran out.
+  @@index([status, endsAt])
   @@map("online_exam_attempts")
 }
 
@@ -3882,6 +3892,8 @@ model MasteryEvidence {
 
   @@index([studentId, createdAt])
   @@index([tenantId, topicId])
+  // Success dashboard: evidence per school over a period.
+  @@index([tenantId, createdAt])
   @@map("mastery_evidence")
 }
 

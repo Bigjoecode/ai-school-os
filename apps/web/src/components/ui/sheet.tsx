@@ -20,7 +20,7 @@ export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimi
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed inset-y-0 z-50 flex h-dvh w-full flex-col bg-popover text-popover-foreground shadow-pop outline-none',
+          'fixed inset-y-0 z-50 flex h-dvh w-full flex-col bg-popover pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] text-popover-foreground shadow-pop outline-none',
           side === 'right'
             ? 'right-0 border-l border-border sm:max-w-xl data-[state=open]:animate-[sheet-in-right_260ms_cubic-bezier(0.16,1,0.3,1)] data-[state=closed]:animate-[sheet-out-right_180ms_ease-in]'
             : 'left-0 max-w-[300px] border-r border-border data-[state=open]:animate-[sheet-in-left_260ms_cubic-bezier(0.16,1,0.3,1)] data-[state=closed]:animate-[sheet-out-left_180ms_ease-in]',

@@ -60,6 +60,8 @@ export function play(kind: keyof typeof TUNES) {
     const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AC) return;
     ctx ??= new AC();
+    // iPhone: a context made outside a tap starts suspended; the next tap's sound wakes it.
+    if (ctx.state === 'suspended') void ctx.resume().catch(() => {});
     let t = ctx.currentTime;
     for (const [freq, dur] of TUNES[kind]) {
       const osc = ctx.createOscillator();

@@ -573,7 +573,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
       </main>
 
       {/* Phone controls stay within thumb reach. */}
-      <nav className="sticky bottom-0 z-20 border-t border-border bg-card/95 px-3 py-2.5 backdrop-blur lg:hidden" aria-label="Question navigation">
+      <nav className="sticky bottom-0 z-20 border-t border-border bg-card/95 px-3 pb-[max(0.625rem,env(safe-area-inset-bottom))] pt-2.5 backdrop-blur lg:hidden" aria-label="Question navigation">
         <div className="mx-auto flex max-w-2xl items-center gap-2">
           <Button variant="outline" className="h-11 flex-1" onClick={() => go(pos - 1)} disabled={pos === 0}>
             <ArrowLeft /> Prev

@@ -85,6 +85,13 @@ export const CONSENT_STATE_LABELS: Record<ConsentState, string> = {
   PENDING: 'Not yet',
 };
 
+/**
+ * The API answers 403 `{ code: CONSENT_REQUIRED }` when a parent of a school
+ * that requires consent opens their children's data before accepting the
+ * current privacy notice. The web shows the consent screen in response.
+ */
+export const CONSENT_REQUIRED = 'CONSENT_REQUIRED';
+
 /** The signed-in user's consent position in the current school. */
 export interface MyConsentStatus {
   /** The user is a parent/guardian of this school (consent applies to them). */

@@ -31,6 +31,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AlertService, sendAlertNow } from '../alerts/alerts.service';
+import { BACKUP_STALE_HOURS, readBackupStatus } from '../alerts/backup-status';
 import { AuditService } from '../audit/audit.service';
 import { RequirePlatformRole } from '../common/decorators';
 import { dateOnly, fullName } from '../common/format';
@@ -425,6 +426,7 @@ export class ConsoleOpsController {
       { key: 'errors', label: 'Server errors (24h)', status: !requests || serverErrors / requests < 0.01 ? 'ok' : serverErrors / requests < 0.05 ? 'warn' : 'fail', detail: `${serverErrors} of ${requests} requests` },
       { key: 'queues', label: 'Background work', status: stuck ? 'warn' : 'ok', detail: stuck ? `${stuck} AI jobs waiting over 30 minutes` : `${aiPending} AI jobs, ${queued} messages in the queue` },
       { key: 'alerts', label: 'Email alerts', status: this.alerts.enabled() ? 'ok' : 'warn', detail: this.alerts.enabled() ? `Problems are emailed to ${e.ALERT_EMAIL}` : 'Set ALERT_EMAIL and SMTP_HOST/USER/PASSWORD to be emailed when something breaks' },
+      backupCheck(),
       { key: 'memory', label: 'Memory', status: mem.rss < 900 * 1048576 ? 'ok' : 'warn', detail: `${Math.round(mem.rss / 1048576)} MB in use` },
     ];
     const worst = checks.some((c) => c.status === 'fail') ? 'fail' : checks.some((c) => c.status === 'warn') ? 'warn' : 'ok';
@@ -489,4 +491,14 @@ export class ConsoleOpsController {
   assist(@Param('id') id: string): Promise<TicketAssist> {
     return this.support.assist(id);
   }
+}
+
+/** The daily database backup (apps/api/scripts/backup-db.sh via cPanel cron), from the status file it writes. */
+function backupCheck(): HealthCheck {
+  const b = readBackupStatus();
+  const size = b.sizeMb !== null ? `, ${b.sizeMb} MB` : '';
+  if (b.state === 'ok') return { key: 'backup', label: 'Database backup', status: 'ok', detail: `Last backup ${b.lastBackupAt}${size}` };
+  if (b.state === 'failed') return { key: 'backup', label: 'Database backup', status: 'fail', detail: `Last run failed: ${b.message ?? 'no details'} (last good: ${b.lastBackupAt ?? 'never'})` };
+  if (b.state === 'stale') return { key: 'backup', label: 'Database backup', status: 'fail', detail: `No backup in the last ${BACKUP_STALE_HOURS} hours (last: ${b.lastBackupAt ?? 'never'}); check the cron job` };
+  return { key: 'backup', label: 'Database backup', status: 'warn', detail: 'No backup status yet: schedule apps/api/scripts/backup-db.sh in cPanel → Cron Jobs (see DEPLOYMENT.md)' };
 }

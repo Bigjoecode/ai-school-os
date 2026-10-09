@@ -1,6 +1,7 @@
-import { Controller, Get, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Controller, Get, MiddlewareConsumer, Module, NestModule, Res } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AppThrottlerGuard } from './common/throttler.guard';
 import type { NextFunction, Request, Response } from 'express';
 import { AcademicModule } from './academic-engine/academic.module';
 import { AssessmentModule } from './assessment/assessment.module';
@@ -16,7 +17,7 @@ import { LiveModule } from './live/live.module';
 import { AgentsModule } from './agents/agents.module';
 import { FilesModule } from './files/files.module';
 import { AlertsModule } from './alerts/alerts.service';
-import { env } from './config/env';
+import { readBackupStatus } from './alerts/backup-status';
 import { FeaturesModule } from './features/features.module';
 import { apiUsageMiddleware } from './features/api-usage.service';
 import { ConsoleModule } from './console/console.module';
@@ -46,6 +47,8 @@ import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
 import { AuditModule } from './audit/audit.module';
 import { AuthModule } from './auth/auth.module';
+import type { PublicConfig } from '@aischool/shared';
+import { DEMO_LOGIN_HINTS, DemoModeService } from './auth/demo-mode.service';
 import { Public } from './common/decorators';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { RequestContextStore } from './common/request-context';
@@ -61,23 +64,43 @@ import { SchoolController } from './school/school.controller';
 class HealthController {
   constructor(private readonly prisma: PrismaService) {}
 
+  /**
+   * Public, for uptime monitors (the GitHub "Uptime" workflow, UptimeRobot).
+   * Nothing secret: the deployed commit, uptime, the newest applied migration
+   * and when the database was last backed up. 503 when the database is down.
+   */
   @Public()
   @Get()
-  async health() {
+  async health(@Res({ passthrough: true }) res: Response) {
+    const base = { version: process.env.APP_VERSION ?? 'development', uptimeSeconds: Math.round(process.uptime()), time: new Date().toISOString() };
+    const backup = readBackupStatus();
+    const backupInfo = { backup: backup.state, lastBackupAt: backup.lastBackupAt };
     const started = Date.now();
-    await this.prisma.root.$queryRaw`SELECT 1`;
-    return { status: 'ok', db: 'ok', dbLatencyMs: Date.now() - started, time: new Date().toISOString() };
+    try {
+      await this.prisma.root.$queryRaw`SELECT 1`;
+    } catch {
+      res.status(503);
+      return { status: 'error', db: 'down', ...base, ...backupInfo };
+    }
+    const dbLatencyMs = Date.now() - started;
+    const [migration] = await this.prisma.root
+      .$queryRaw<{ name: string }[]>`SELECT "migration_name" AS name FROM "_prisma_migrations" WHERE "finished_at" IS NOT NULL ORDER BY "migration_name" DESC LIMIT 1`
+      .catch(() => []);
+    return { status: 'ok', db: 'ok', dbLatencyMs, ...base, lastMigration: migration?.name ?? null, ...backupInfo };
   }
 }
 
 /** Public settings the sign-in page needs before anyone has signed in. */
 @Controller('public/config')
 class PublicConfigController {
+  constructor(private readonly demo: DemoModeService) {}
+
+  /** demoAccounts: advertise the demo logins (console → Schools → Demo schools; DEMO_LOGINS=off forces it off). */
   @Public()
   @Get()
-  config() {
-    const e = env();
-    return { demoAccounts: e.SHOW_DEMO_ACCOUNTS ?? e.SEED_DEMO_ON_BOOT };
+  async config(): Promise<PublicConfig> {
+    const show = (await this.demo.effective()).publicHints;
+    return { demoAccounts: show, demoLogins: show ? DEMO_LOGIN_HINTS : [] };
   }
 }
 
@@ -142,7 +165,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [
     // Order matters: rate limiting first, then authentication/permissions.
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: AppThrottlerGuard },
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
   ],
 })

@@ -580,7 +580,7 @@ export function CommandPalette() {
                 value={query}
                 onValueChange={setQuery}
                 placeholder="Search pages, run actions or ask AI…"
-                className="h-14 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/70"
+                className="h-14 min-w-0 flex-1 bg-transparent text-base outline-none sm:text-[15px] placeholder:text-muted-foreground/70"
               />
               <Kbd className="hidden sm:inline-flex">Esc</Kbd>
             </div>

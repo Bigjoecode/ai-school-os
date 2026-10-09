@@ -1,12 +1,12 @@
 import type { MyConsentStatus } from '@aischool/shared';
 import { ExternalLink, LogOut, ShieldCheck, Sparkles, X } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
 import { BrandMark } from '@/components/layout/brand';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { errorMessage } from '@/lib/api';
+import { CONSENT_REQUIRED_EVENT, errorMessage } from '@/lib/api';
 import { hasPermission, useAuthStore } from '@/lib/auth-store';
 import { formatDate } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
@@ -156,16 +156,32 @@ function ConsentScreen({ status }: { status: MyConsentStatus }) {
  * the parent hasn't accepted the current notice, only the consent screen is
  * shown. When it is optional (or the person is also staff), a dismissible
  * banner points to Settings → Privacy & consent instead.
+ *
+ * The server enforces the same rule: a held parent's requests for their
+ * children's data answer 403 CONSENT_REQUIRED, which re-checks the status here
+ * and shows the consent screen (e.g. the notice changed during a session).
  */
 export function ConsentGate({ children }: { children: ReactNode }) {
   const isParent = useAuthStore((s) => hasPermission(s.me, 'family.manage'));
   const status = useMyConsent(isParent);
   const { pathname } = useLocation();
   const [dismissed, setDismissed] = useState(readDismissed);
+  const [held, setHeld] = useState(false);
+  const { refetch } = status;
+
+  useEffect(() => {
+    if (!isParent) return;
+    const onRequired = () => {
+      setHeld(true);
+      void refetch();
+    };
+    window.addEventListener(CONSENT_REQUIRED_EVENT, onRequired);
+    return () => window.removeEventListener(CONSENT_REQUIRED_EVENT, onRequired);
+  }, [isParent, refetch]);
 
   if (!isParent || !status.data?.applies) return <>{children}</>;
   const s = status.data;
-  if (s.blocking) return <ConsentScreen status={s} />;
+  if (s.blocking || (held && s.required && s.state !== 'CURRENT')) return <ConsentScreen status={s} />;
 
   const showBanner = s.state !== 'CURRENT' && !dismissed && pathname !== '/settings/privacy';
   return (

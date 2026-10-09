@@ -3,6 +3,7 @@ import { CURATED_QUESTIONS, DAILY_CHALLENGE, preferYear, seededRandom, seededShu
 import { randomInt } from 'node:crypto';
 import { subjectKey, MasteryService } from '../learning/mastery.service';
 import { shuffle } from '../lesson-modules/modules.helpers';
+import { currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
 
 /** A question held by the server for a round: the answer never leaves until the student answers. */
@@ -33,6 +34,10 @@ export interface Learner {
 
 type Kind = 'MCQ' | 'TF';
 
+/** Question pools change only when questions are approved; a class starting rounds together shares one load. */
+const POOL_TTL_MS = 60_000;
+const learnerKey = (l: Learner) => [currentTenantId(), l.level, l.year, l.classLevelId, l.subjectIds.join(','), l.subjectKeys.join(',')].join('|');
+
 /**
  * Where game questions come from, best first: the school's own approved
  * question bank (its class level and subjects), reviewed Exam Academy practice
@@ -43,6 +48,19 @@ type Kind = 'MCQ' | 'TF';
 export class GamesContent {
   /** level|subject|topic → syllabus topic id (curated and bank questions name their topic). */
   private readonly topicCache = new Map<string, string | null>();
+  /** Short-lived question pools and subject counts per school and learner profile (never mutated once built). */
+  private readonly poolCache = new Map<string, { at: number; value: Promise<unknown> }>();
+
+  private cached<T>(key: string, load: () => Promise<T>): Promise<T> {
+    const now = Date.now();
+    const hit = this.poolCache.get(key);
+    if (hit && now - hit.at < POOL_TTL_MS) return hit.value as Promise<T>;
+    if (this.poolCache.size > 2000) for (const [k, v] of this.poolCache) if (now - v.at >= POOL_TTL_MS) this.poolCache.delete(k);
+    const value = load();
+    this.poolCache.set(key, { at: now, value });
+    value.catch(() => this.poolCache.delete(key));
+    return value;
+  }
 
   constructor(
     private readonly prisma: PrismaService,
@@ -61,6 +79,10 @@ export class GamesContent {
 
   /** Every question of a kind available to the learner (optionally one subject), without topic ids yet. */
   async pool(l: Learner, kind: Kind, subject: string | null): Promise<RoundItem[]> {
+    return this.cached(`pool|${kind}|${subject ?? ''}|${learnerKey(l)}`, () => this.loadPool(l, kind, subject));
+  }
+
+  private async loadPool(l: Learner, kind: Kind, subject: string | null): Promise<RoundItem[]> {
     const keys = subject ? [subjectKey(subject)] : l.subjectKeys;
     const out: RoundItem[] = [];
 
@@ -192,6 +214,10 @@ export class GamesContent {
 
   /** How many quiz questions each of the student's subjects has (hub filter chips). */
   async subjectCounts(l: Learner): Promise<{ subject: string; questions: number }[]> {
+    return this.cached(`counts|${learnerKey(l)}`, () => this.loadSubjectCounts(l));
+  }
+
+  private async loadSubjectCounts(l: Learner): Promise<{ subject: string; questions: number }[]> {
     const counts = new Map<string, number>(l.subjectKeys.map((k) => [k, 0]));
     const add = (k: string, n: number) => counts.has(k) && counts.set(k, counts.get(k)! + n);
     if (l.classLevelId && l.subjectIds.length) {

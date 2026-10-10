@@ -50,6 +50,9 @@ const ExpensesPage = lazy(() => import('@/features/finance/expenses-page'));
 const AccountingPage = lazy(() => import('@/features/finance/accounting-page'));
 const PayPage = lazy(() => import('@/features/finance/pay-page'));
 const PayDonePage = lazy(() => import('@/features/finance/pay-done-page'));
+const ResultPinsPage = lazy(() => import('@/features/result-pins/result-pins-page'));
+const CheckResultPage = lazy(() => import('@/features/result-pins/public-checker').then((m) => ({ default: m.PlatformCheckResultPage })));
+const PinBoughtPage = lazy(() => import('@/features/result-pins/public-checker').then((m) => ({ default: m.PlatformPinBoughtPage })));
 const HrOverviewPage = lazy(() => import('@/features/hr/hr-overview-page'));
 const EmployeesPage = lazy(() => import('@/features/hr/employees-page'));
 const EmployeePage = lazy(() => import('@/features/hr/employee-page'));
@@ -85,6 +88,7 @@ const ComposePage = lazy(() => import('@/features/comms/compose-page'));
 const BroadcastPage = lazy(() => import('@/features/comms/broadcast-page'));
 const CommsSettingsPage = lazy(() => import('@/features/comms/settings-page'));
 const WhatsappAssistantPage = lazy(() => import('@/features/comms/whatsapp-assistant-page'));
+const ParentLinesPage = lazy(() => import('@/features/comms/parent-lines-page'));
 const NoticeboardPage = lazy(() => import('@/features/comms/noticeboard-page'));
 const CalendarPage = lazy(() => import('@/features/comms/calendar-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
@@ -115,6 +119,7 @@ const ConsoleProductsPage = lazy(() => import('@/features/platform/products-page
 const ConsoleFamilyPage = lazy(() => import('@/features/platform/family-page'));
 const ConsoleContentPage = lazy(() => import('@/features/platform/content-page'));
 const ConsoleAiModelsPage = lazy(() => import('@/features/platform/ai-models-page'));
+const ConsoleParentLinesPage = lazy(() => import('@/features/platform/parent-lines-page'));
 const SponsorshipsPage = lazy(() => import('@/features/sponsorships/sponsorships-page'));
 const KnowledgePage = lazy(() => import('@/features/knowledge/knowledge-page'));
 const WebsiteLayout = lazy(() => import('@/features/website/website-layout'));
@@ -177,6 +182,9 @@ const ConsoleCareersPage = lazy(() => import('@/features/platform/careers-conten
 const SuccessPage = lazy(() => import('@/features/success/success-page'));
 const SuccessReportPage = lazy(() => import('@/features/success/report-page'));
 const PilotSchoolsPage = lazy(() => import('@/features/success/pilot-schools-page'));
+const ReturnsPage = lazy(() => import('@/features/census/returns-page'));
+const CensusProfilePage = lazy(() => import('@/features/census/profile-page'));
+const CensusAggregatePage = lazy(() => import('@/features/census/aggregate-page'));
 const JambOverviewPage = lazy(() => import('@/features/careers/jamb-pages'));
 const JambSyllabusPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSyllabusPage })));
 const JambSubjectPage = lazy(() => import('@/features/careers/jamb-pages').then((m) => ({ default: m.JambSubjectPage })));
@@ -191,6 +199,15 @@ const PortalSettingsPage = lazy(() => import('@/features/settings/portal-setting
 const SecurityPage = lazy(() => import('@/features/settings/security-page'));
 const BackupPage = lazy(() => import('@/features/settings/backup-page'));
 const LegalPage = lazy(() => import('@/features/legal/legal-page'));
+const SignupPage = lazy(() => import('@/features/signup/signup-pages'));
+const SignupVerifyPage = lazy(() => import('@/features/signup/signup-pages').then((m) => ({ default: m.SignupVerifyPage })));
+const PricingPage = lazy(() => import('@/features/signup/signup-pages').then((m) => ({ default: m.PricingPage })));
+const InvoiceDocumentPage = lazy(() => import('@/features/billing/invoice-document-page'));
+const ConsoleSubscriptionsPage = lazy(() => import('@/features/platform/subscriptions-page'));
+const ForSchoolsPage = lazy(() => import('@/features/sales/for-schools-page'));
+const SalesDeckPage = lazy(() => import('@/features/sales/deck-page'));
+const SalesCalculatorPage = lazy(() => import('@/features/sales/calculator-page'));
+const ForBoardsPage = lazy(() => import('@/features/sales/for-boards-page'));
 const DataProtectionPage = lazy(() => import('@/features/data-protection/admin-page'));
 const MyPrivacyPage = lazy(() => import('@/features/data-protection/my-privacy-page'));
 const MaterialsPage = lazy(() => import('@/features/materials/materials-page'));
@@ -233,8 +250,21 @@ export const router = createBrowserRouter(withRouteErrors([
   // Public parent payment pages: no sign-in, no app chrome.
   // Privacy notice, terms, DPA and the other legal pages: public, no app chrome.
   { path: '/legal/:doc?', element: withSuspense(<LegalPage />) },
+  // Self-serve sign-up and the public plans: no sign-in, no app chrome.
+  { path: '/pricing', element: withSuspense(<PricingPage />) },
+  { path: '/signup', element: withSuspense(<SignupPage />) },
+  { path: '/signup/verify', element: withSuspense(<SignupVerifyPage />) },
+  // A printable AI School OS invoice or receipt (the school's own, or any from the console with ?from=console).
+  { path: '/billing/invoices/:id', element: <RequireAuth>{withSuspense(<InvoiceDocumentPage />)}</RequireAuth> },
+  // Sales kit: brochure, deck, savings calculator and the state boards page. Public, no app chrome.
+  { path: '/for-schools', element: withSuspense(<ForSchoolsPage />) },
+  { path: '/for-schools/deck', element: withSuspense(<SalesDeckPage />) },
+  { path: '/for-schools/calculator', element: withSuspense(<SalesCalculatorPage />) },
+  { path: '/for-boards', element: withSuspense(<ForBoardsPage />) },
   { path: '/pay/:token', element: withSuspense(<PayPage />) },
   { path: '/pay/:token/done', element: withSuspense(<PayDonePage />) },
+  { path: '/check-result/:slug', element: withSuspense(<CheckResultPage />) },
+  { path: '/check-result/:slug/bought', element: withSuspense(<PinBoughtPage />) },
   // Public QR verification for certificates and ID cards: no sign-in, no app chrome.
   { path: '/verify/certificate/:code', element: withSuspense(<VerifyPage kind="certificate" />) },
   { path: '/verify/id/:code', element: withSuspense(<VerifyPage kind="id" />) },
@@ -602,6 +632,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['payments', <PaymentsPage key="payments" />],
           ['expenses', <ExpensesPage key="expenses" />],
           ['accounting', <AccountingPage key="accounting" />],
+          ['result-pins', <ResultPinsPage key="result-pins" />],
         ] as const
       ).map(([path, page]) => ({
         path,
@@ -680,6 +711,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['messages/new', 'comms.send', <ComposePage key="compose" />],
           ['messages/settings', 'comms.read', <CommsSettingsPage key="comms-settings" />],
           ['messages/whatsapp', 'comms.read', <WhatsappAssistantPage key="whatsapp-assistant" />],
+          ['messages/sms-ussd', 'comms.read', <ParentLinesPage key="parent-lines" />],
           ['messages/:id', 'comms.read', <BroadcastPage key="broadcast" />],
           ['messages/:id/edit', 'comms.send', <ComposePage key="compose-edit" />],
         ] as const
@@ -818,6 +850,8 @@ export const router = createBrowserRouter(withRouteErrors([
       // School success dashboard and term impact report (API: school.read + results.publish).
       { path: 'success', element: <RequirePermission permission="results.publish"><SuccessPage /></RequirePermission> },
       { path: 'success/report', element: <RequirePermission permission="results.publish"><SuccessReportPage /></RequirePermission> },
+      // Returns & census: ASC-style tables for state returns (API: school.read + students.read + staff.read).
+      { path: 'returns', element: <RequirePermission permission="students.read"><ReturnsPage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },
@@ -949,6 +983,14 @@ export const router = createBrowserRouter(withRouteErrors([
             ),
           },
           {
+            path: 'returns',
+            element: (
+              <RequirePermission permission="school.read">
+                <CensusProfilePage />
+              </RequirePermission>
+            ),
+          },
+          {
             path: 'data-protection',
             element: (
               <RequirePermission permission="school.read">
@@ -968,6 +1010,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['platform/schools/:id', 'schools', <ConsoleSchoolPage key="school" />],
           ['platform/branches', 'schools', <ConsoleBranchesPage key="branches" />],
           ['platform/billing', 'billing', <ConsoleBillingPage key="billing" />],
+          ['platform/subscriptions', 'billing', <ConsoleSubscriptionsPage key="subscriptions" />],
           ['platform/plans', 'plans', <ConsolePlansPage key="plans" />],
           ['platform/usage', 'usage', <ConsoleUsagePage key="usage" />],
           ['platform/domains', 'domains', <ConsoleDomainsPage key="domains" />],
@@ -984,6 +1027,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['platform/content', 'content', <ConsoleContentPage key="content" />],
           ['platform/careers', 'content', <ConsoleCareersPage key="careers" />],
           ['platform/success', 'overview', <PilotSchoolsPage key="pilot-schools" />],
+          ['platform/census', 'overview', <CensusAggregatePage key="census" />],
         ] as const
       ).map(([path, area, page]) => ({
         path,
@@ -994,6 +1038,14 @@ export const router = createBrowserRouter(withRouteErrors([
         element: (
           <RequirePlatform superAdmin>
             <ConsoleAiModelsPage />
+          </RequirePlatform>
+        ),
+      },
+      {
+        path: 'platform/parent-lines',
+        element: (
+          <RequirePlatform superAdmin>
+            <ConsoleParentLinesPage />
           </RequirePlatform>
         ),
       },

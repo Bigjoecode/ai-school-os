@@ -1,7 +1,9 @@
-import { Body, Controller, ForbiddenException, Get, NotFoundException, Param, Put, Query } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpCode, NotFoundException, Param, Post, Put, Query } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import {
   DEFAULT_PORTAL_SETTINGS,
   portalSettingsSchema,
+  portalPinUnlockSchema,
   type PortalAttendance,
   type PortalChild,
   type PortalDownload,
@@ -36,6 +38,7 @@ import { FeatureService } from '../features/features.service';
 import { FinanceService } from '../finance/finance.service';
 import { PaystackService } from '../finance/paystack.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { ResultPinsService } from '../result-pins/result-pins.service';
 
 type Viewer = { role: 'PARENT' | 'STUDENT'; childIds: Set<string> };
 type TermRow = Prisma.TermGetPayload<{ include: { session: { select: { name: true } } } }>;
@@ -56,6 +59,7 @@ export class PortalController {
     private readonly finance: FinanceService,
     private readonly paystack: PaystackService,
     private readonly features: FeatureService,
+    private readonly resultPins: ResultPinsService,
   ) {}
 
   // ---------------------------------------------------------- school settings (staff)
@@ -156,7 +160,25 @@ export class PortalController {
     if (card?.status !== 'PUBLISHED') throw new NotFoundException('This result has not been published yet');
     const withheld = await this.withheld(id, settings);
     if (withheld) throw new ForbiddenException({ statusCode: 403, code: 'RESULT_WITHHELD', message: withheld });
+    if (settings.requireResultPin && !(await this.resultPins.unlocked(id, termId))) {
+      throw new ForbiddenException({ statusCode: 403, code: 'RESULT_PIN_REQUIRED', message: 'Enter a result-checker PIN to open this report card. You only need to do this once per term.' });
+    }
     return this.cards.view({ studentId: id, termId });
+  }
+
+  /** The school requires a result PIN: one card opens this child's term (and uses one of its checks). */
+  @Post('students/:id/results/:termId/unlock')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  async unlockResult(@Param('id') id: string, @Param('termId') termId: string, @Body(new ZodPipe(portalPinUnlockSchema)) body: { serial: string; pin: string }): Promise<ReportCardView> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    if (!settings.requireResultPin || (await this.resultPins.unlocked(id, termId))) return this.resultCard(id, termId);
+    const r = await this.resultPins.check({ serial: body.serial, pin: body.pin, termId, who: { studentId: id }, channel: 'PORTAL' });
+    await this.audit.log({ action: 'portal.result_pin_used', entityType: 'Student', entityId: id, summary: `Opened a report card in the portal with result card ${r.card.serial}` });
+    return r.view;
   }
 
   /**
@@ -398,18 +420,20 @@ export class PortalController {
 
   private async resultTerms(studentId: string, settings: PortalSettings, v: Viewer): Promise<PortalResultTerm[]> {
     void v;
-    const [cards, withheld] = await Promise.all([
+    const [cards, withheld, unlocked] = await Promise.all([
       this.prisma.db.reportCard.findMany({ where: { studentId, status: 'PUBLISHED' }, include: { term: { include: { session: { select: { name: true } } } } }, orderBy: { term: { startsOn: 'desc' } } }),
       this.withheld(studentId, settings),
+      settings.requireResultPin ? this.resultPins.unlockedTerms(studentId) : null,
     ]);
     return Promise.all(
       cards.map(async (c) => {
         let summary: { average: number | null; position: number | null; classSize: number | null } = { average: null, position: null, classSize: null };
-        if (!withheld) {
+        const pinRequired = !!unlocked && !unlocked.has(c.termId);
+        if (!withheld && !pinRequired) {
           const view = await this.cards.view({ studentId, termId: c.termId }).catch(() => null);
           if (view) summary = { average: view.summary.average, position: view.summary.position, classSize: view.summary.classSize };
         }
-        return { term: termRef(c.term), published: true, publishedAt: c.publishedAt?.toISOString() ?? null, ...summary, withheld };
+        return { term: termRef(c.term), published: true, publishedAt: c.publishedAt?.toISOString() ?? null, ...summary, withheld, ...(pinRequired ? { pinRequired } : {}) };
       }),
     );
   }

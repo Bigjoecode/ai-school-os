@@ -395,6 +395,25 @@ In Paystack, enable the `charge.success` and `refund.*` events.
 - **Unit economics** converts AI costs (in dollars) with `NAIRA_PER_USD`
   (default 1600). Update it as the rate moves.
 
+## Result checker cards (scratch-card PINs)
+
+Schools generate batches of result checker cards in **Finance → Result checker
+cards**. Nothing extra is needed on the server, but:
+
+- `APP_ENCRYPTION_KEY` must be set: PINs are kept encrypted only until the
+  one-time print/CSV export (or, for online cards, until sold), and are
+  otherwise stored as a keyed fingerprint. Never change the key once cards
+  exist, or the printed PINs stop working.
+- **Selling online** uses each school's own Paystack keys and the school's
+  existing webhook (`/api/payments/paystack/webhook/<slug>`); card sales have
+  references starting `RPIN-`. The PIN is shown to the buyer after payment and
+  sent by SMS (Termii) and email (SMTP) when the school has set those up.
+- Parents check results at `/check-result/<slug>` on the portal domain, or
+  `/check-result` on the school's own website domain.
+- Wrong tries are limited per card (locked for 30 minutes after 5) and per
+  internet address (a simple sum after 3, blocked for an hour after 20; kept
+  in memory, so a restart clears it).
+
 ## Backups
 
 The app does not back up the server itself; use the hosting account's own
@@ -819,3 +838,179 @@ would undo every other school's work since the backup. Instead:
   (`"tenantId" = '<id>'`) from the spare database into production, table by
   table in dependency order. This is a manual job; rehearse it on a copy first.
 - Treat the school export as the school's own record of its data, not as a backup.
+
+## Parent SMS & USSD line (parents without smartphones)
+
+Parents dial a USSD code (e.g. `*384*1234#`) or text a keyword (RESULT, FEES,
+ATTENDANCE, UPDATE, HELP, STOP/START, YES) to a short code and get their own
+children's results (published report cards only), fees balance (with a payment
+link by SMS), attendance this week, the weekly learning update and the school's
+contact and next event. The caller is identified by the phone number the
+network sends, matched to guardian records in any school (0803…, +234 803…
+and 234803… all match). Code: `apps/api/src/parent-lines`; school screen
+Messages → SMS & USSD (with a simulator); console Platform → Parent SMS & USSD.
+
+**Getting a code in Nigeria.** USSD codes and short codes are allocated by the
+NCC and are normally obtained through a licensed aggregator rather than
+directly. The integration is built for **Africa's Talking** (USSD + two-way
+SMS); other licensed aggregators can forward incoming SMS to the generic URL
+(`POST …/api/parent-lines/generic/<secret>/sms` with `from` and `text`, answer
+`{ "reply": "…" }` to send back). Steps:
+
+1. Open an Africa's Talking account (start in the sandbox: free, with a
+   simulator at simulator.africastalking.com).
+2. Request a **shared USSD service code** (a sub-code on the aggregator's code,
+   e.g. `*384*xxxx#`) and a **two-way short code** for Nigeria. A dedicated
+   code of your own costs more and takes longer. Lead times depend on the
+   aggregator and the networks (MTN, Airtel, Glo, 9mobile) — often several
+   weeks; ask the provider for current timelines.
+3. Costs vary (set-up fee, monthly code rental, per-session USSD charges, SMS
+   per page, sometimes a minimum spend) — **confirm current prices with the
+   provider**; do not quote prices to schools until you have them in writing.
+   Outbound SMS on the shared line are billed to the platform's account; each
+   school sees its own usage and an estimate at its SMS price.
+4. In the console (Platform → Parent SMS & USSD) enter the username, API key
+   (stored encrypted), the shared USSD code and short code, untick Sandbox when
+   live, switch the line on and save. Copy the **USSD callback URL** and the
+   **incoming SMS callback URL** into the Africa's Talking dashboard. They
+   contain a long random secret (Africa's Talking does not sign callbacks);
+   "New callback URLs" replaces it if it leaks. Optionally ask Africa's Talking
+   for their callback IP ranges and restrict `/api/parent-lines/` at the web
+   server.
+5. Each school switches the line on under Messages → SMS & USSD, chooses
+   whether parents may agree to the privacy notice by SMS, and shares the code.
+   A school with its own Africa's Talking code can enter it there instead (it
+   gets its own callback URLs and serves only its parents).
+
+No environment variables are needed. Rules built in: 12 requests a minute per
+phone (24 for USSD screens); a per-school daily cap of SMS replies per phone
+(default 10); unknown numbers are told once a day and shown no school data;
+portal settings (results/fees/attendance/calendar shown, results withheld while
+owing, result-checker PIN) are respected; where the school requires consent,
+nothing is shown until the parent agrees in the portal or by replying YES to
+the SMS that links to the notice (recorded on the guardian with the notice
+version and in the audit log). STOP stops all school SMS to that parent's
+records (weekly learning update and broadcasts are skipped with the reason
+shown) until START. The weekly learning update SMS is at most two pages, in the
+parent's language (tone marks dropped so it stays at GSM rates).
+
+## Self-serve sign-up and subscription billing
+
+Schools can join on their own at **/signup** (linked from **/pricing** and the
+sign-in page), get a free trial, and pay the platform per student per term
+through your own Paystack account. It is **off until you switch it on**, and
+existing schools are not affected (see "Grandfathering" below).
+
+**To switch it on**
+
+1. Set the platform's email: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+   `SMTP_PASSWORD`, `SMTP_FROM` (the same settings as the alert emails;
+   `ALERT_EMAIL` is not needed for this). Sign-up codes, welcome emails,
+   decline emails and trial reminders go out this way. Without SMTP the
+   sign-up page stays closed in production.
+2. Set `PLATFORM_PAYSTACK_SECRET_KEY` (your **live** secret key from Paystack →
+   Settings → API Keys) and, in the same Paystack dashboard, the webhook URL
+   `https://ai-schoolportal.mejortechworld.com/api/billing/paystack/webhook`.
+   Webhooks are verified with the key's signature and are safe to repeat.
+   Without the key, schools get an invoice and pay by transfer
+   (`PLATFORM_BANK_DETAILS`), and finance records the payment in
+   **Platform → Billing**.
+3. In **Platform → Subscriptions → Settings** (super admin): switch on
+   **Open self-serve sign-up**, decide **Approve automatically** (off = every
+   confirmed sign-up waits in the **Sign-ups** tab for approve / decline with a
+   reason that is emailed), and set the trial length (default 30 days), grace
+   period (14), session discount (10%), minimum billed students (50), days to
+   pay an invoice (7) and the trial reminder days (7, 3, 1).
+4. Replace the **[PLACEHOLDER]** company details (name, RC number, registered
+   address, billing email, tax note) in the same tab: they are printed on every
+   invoice and receipt. Confirm with your accountant whether VAT applies before
+   charging schools; nothing adds VAT automatically.
+
+**Prices** come from **Platform → Plans** (Starter ₦1,200, Growth ₦2,000,
+Enterprise ₦3,500 per student per term in the seed). Only active, public plans
+are offered on /pricing and at checkout.
+
+**What a school goes through.** The sign-up form asks for the school's name,
+type (nursery / primary / secondary / combined), state and LGA, rough student
+numbers, a portal address (checked live) and the admin's name, email, Nigerian
+phone number and password. A hidden honeypot field, per-IP rate limits and a
+limit of 3 sign-ups per email and 10 per IP address a day slow down bots. The
+admin confirms their email with a 6-digit code (or the link in the email; 30
+minutes, 5 tries). The school is then created on a trial with the admin as
+School Admin, the Nigerian classes (arm A) and core subjects for its type, and
+the guided first week on the dashboard. Unconfirmed sign-ups are deleted after
+7 days.
+
+**Billing rules (kept simple on purpose)**
+
+- **Billed students** = active students on the invoice date, never fewer than
+  the minimum. At the first payment the school may enter a higher number it
+  expects this term; the invoice uses whichever is higher.
+- **Term or session.** A term is 4 months; a session is three terms less the
+  session discount. Later invoices follow the cycle the school chose.
+- **Students added mid-term are not charged** until the next invoice (the
+  console shows each school's peak student count so you can spot gaming).
+- **Upgrades** take effect at once, with a top-up invoice for the price
+  difference × billed students × the share of the period left. **Downgrades**
+  take effect from the next period. During the trial, plan changes are free.
+- **Lapsing.** When the trial ends unpaid, or a subscription invoice is past
+  its due date, the school gets the **grace period** with a banner for
+  everyone and emails / in-app notices to the school admins. After grace the
+  school is **read-only**: everyone can still sign in, view and export
+  (including parents and students seeing published results, report cards and
+  fees), and the school can pay, raise support tickets, read notifications and
+  handle privacy / consent requests; parents can still buy their own products
+  and unlock published results. Everything else that adds or changes data is
+  refused with a clear message. **Nothing is ever deleted for billing**, and
+  paying (online, or recorded by finance) restores the school at once.
+- Suspending a school is still a person's decision (**Platform → Schools**).
+
+**Grandfathering.** Billing rules (grace and read-only) apply only to
+self-serve schools. Existing schools, including the operator's own and the
+pilot schools, keep working exactly as before until you switch the rules on
+for one school (**Platform → Subscriptions → Manage**) or for everyone
+(**Billing rules for all schools**). The demo schools (Greenfield, Sunrise)
+are always exempt. **Manage** also extends a trial, sets a discount (100% =
+complimentary) and keeps a note.
+
+The lifecycle check runs every 30 minutes on the scheduler tick (and on
+`POST /api/cron/tick`); **Platform → Subscriptions** can also send due
+reminders straight away.
+
+## Sales kit (public pages for proprietors and state boards)
+
+Public, no sign-in: `/for-schools` (brochure, prints as an A4 handout),
+`/for-schools/deck` (web slides; arrows/swipe, `#n` links, prints one slide
+per landscape page), `/for-schools/calculator` (savings estimate; the link
+carries the figures) and `/for-boards` (SUBEBs and ministries). Code and
+copy live in `apps/web/src/features/sales`.
+
+- **Contact details.** Fill in the `[PLACEHOLDER_…]` tokens in
+  `apps/web/src/features/sales/config.ts`, or set `VITE_SALES_WHATSAPP`
+  (international form, e.g. 2348012345678), `VITE_SALES_PHONE`,
+  `VITE_SALES_EMAIL`, `VITE_SALES_CONTACT_NAME` and `VITE_SALES_PILOT_TERMS`
+  at build time. Unfilled options are hidden on the live site.
+- **Prices** in `config.ts` mirror the console plans; change both together.
+- **Share previews.** The build writes `dist/og/*.html` (the app shell with
+  each page's Open Graph tags) and `.htaccess` serves them for the four
+  paths, so WhatsApp/Facebook/LinkedIn show a card with
+  `public/og/ai-school-os.png`. The absolute URLs use `VITE_PUBLIC_ORIGIN`
+  (default `https://ai-schoolportal.mejortechworld.com`); set it in the
+  build if the portal moves. After changing the image, re-scrape the link in
+  Facebook's Sharing Debugger (WhatsApp caches previews for a while).
+
+## Android app (Google Play)
+
+The Play Store app is the portal in a Trusted Web Activity — no separate code; website deploys update it.
+Build, signing key, versioning: [android/README.md](android/README.md). Store listing, audience/Families
+choice, Data safety answers and the upload steps: [docs/play-store/README.md](docs/play-store/README.md).
+
+For the app to open full screen (no address bar) the deploy publishes `/.well-known/assetlinks.json` from two
+GitHub repository **variables** (Settings → Secrets and variables → Actions → *Variables*):
+
+| Variable | Value |
+|---|---|
+| `ANDROID_PACKAGE_NAME` | `com.mejortechworld.aischool` |
+| `ANDROID_SHA256_FINGERPRINTS` | comma-separated SHA-256 certificate fingerprints: the upload key, plus Play App Signing's key after the first upload |
+
+Unset, the deploy skips the file. Check: `curl -i https://ai-schoolportal.mejortechworld.com/.well-known/assetlinks.json` → `200`, `application/json`.

@@ -20,7 +20,7 @@ import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { siteOrigin } from './finance.controller';
 import { FinanceService } from './finance.service';
-import { PaystackService } from './paystack.service';
+import { PaystackService, paystackReferenceHandlers } from './paystack.service';
 
 interface PayToken {
   typ: 'pay';
@@ -201,7 +201,9 @@ export class PublicPayController {
     const event = req.body as { event?: string; data?: { reference?: string } };
     if (event.event === 'charge.success' && event.data?.reference) {
       RequestContextStore.get()!.tenantId = tenant.id;
-      await this.confirm(tenant.id, event.data.reference, 'webhook');
+      const other = paystackReferenceHandlers.find((h) => event.data!.reference!.startsWith(h.prefix));
+      if (other) await other.handle(tenant.id, event.data.reference);
+      else await this.confirm(tenant.id, event.data.reference, 'webhook');
     }
     return { ok: true };
   }

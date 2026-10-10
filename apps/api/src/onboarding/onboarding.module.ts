@@ -162,6 +162,6 @@ export class FirstWeekController {
   imports: [AssessmentModule, CommsModule],
   controllers: [SetupController, ImportController, FirstWeekController],
   providers: [SetupService, ImportService, FirstWeekService, ParentInvitesService],
-  exports: [FirstWeekService],
+  exports: [FirstWeekService, SetupService],
 })
 export class OnboardingModule {}

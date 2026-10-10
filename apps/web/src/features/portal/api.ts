@@ -155,3 +155,16 @@ export function lastChild(): string | null {
     return null;
   }
 }
+
+/** The school requires a result PIN: one card opens this child's term report card. */
+export function useUnlockPortalResult(id: string, termId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { serial: string; pin: string }) => api.post<ReportCardView>(`/portal/students/${id}/results/${termId}/unlock`, body),
+    meta: { silent: true },
+    onSuccess: (view) => {
+      qc.setQueryData(pk.card(id, termId), view);
+      void qc.invalidateQueries({ queryKey: pk.results(id) });
+    },
+  });
+}

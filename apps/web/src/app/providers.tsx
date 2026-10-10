@@ -24,7 +24,7 @@ function SessionGate({ children }: { children: ReactNode }) {
     });
   }, []);
   // Public pages (parent payments, QR verification, school websites) render straight away; the session restore runs in the background.
-  const isPublic = typeof window !== 'undefined' && /^\/(pay|verify|s)\//.test(window.location.pathname);
+  const isPublic = typeof window !== 'undefined' && (/^\/(pay|verify|s)\//.test(window.location.pathname) || /^\/(for-schools|for-boards)(\/|$)/.test(window.location.pathname));
   if (status === 'booting' && !isPublic) return <BootLoader />;
   return <>{children}</>;
 }

@@ -16,6 +16,8 @@ export const portalSettingsSchema = z.object({
   showDownloads: z.boolean(),
   /** Fees, receipts and paying online (parents only). */
   showFees: z.boolean().default(true),
+  /** Parents enter a result-checker PIN once per term per child before the report card opens. */
+  requireResultPin: z.boolean().default(false),
 });
 export type PortalSettings = z.infer<typeof portalSettingsSchema>;
 export const DEFAULT_PORTAL_SETTINGS: PortalSettings = {
@@ -26,6 +28,7 @@ export const DEFAULT_PORTAL_SETTINGS: PortalSettings = {
   showCalendar: true,
   showDownloads: true,
   showFees: true,
+  requireResultPin: false,
 };
 
 export const DOWNLOAD_AUDIENCES = ['PUBLIC', 'FAMILIES', 'PARENTS', 'STUDENTS'] as const;
@@ -80,6 +83,8 @@ export interface PortalResultTerm {
   classSize: number | null;
   /** Set when the school withholds the result (e.g. fees owed). */
   withheld: string | null;
+  /** The school requires a result-checker PIN and none has been entered for this term yet. */
+  pinRequired?: boolean;
 }
 
 export interface PortalEvent {

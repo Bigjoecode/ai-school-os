@@ -12,6 +12,7 @@ import { AdmissionsPage, ContactPage, ResultsPage } from './pages-forms';
 import { HomePage } from './pages-home';
 import { AlbumPage, DownloadsPage, EventsPage, GalleryPage, NewsPage, PostPage, TeachersPage } from './pages-lists';
 import { Container, SiteLink, siteButton } from './ui';
+import { PinBought, ResultChecker } from '@/features/result-pins/public-checker';
 
 /** The public website, at /s/:slug on the portal. */
 export function PublicSiteRoute() {
@@ -106,6 +107,8 @@ export default function PublicSiteApp({ slug, basePath }: { slug: string; basePa
             {ctx.on('gallery') && <Route path="gallery" element={<GalleryPage />} />}
             {ctx.on('gallery') && <Route path="gallery/:id" element={<AlbumPage />} />}
             {ctx.on('results') && <Route path="results" element={<ResultsPage />} />}
+            <Route path="check-result" element={<SitePinChecker />} />
+            <Route path="check-result/bought" element={<SitePinChecker bought />} />
             {ctx.on('downloads') && <Route path="downloads" element={<DownloadsPage />} />}
             {ctx.on('fees') && <Route path="fees" element={<FeesPage />} />}
             {ctx.on('alumni') && <Route path="alumni" element={<AlumniSignupPage />} />}
@@ -116,6 +119,17 @@ export default function PublicSiteApp({ slug, basePath }: { slug: string; basePa
         {ctx.on('assistant') && <AssistantWidget />}
       </div>
     </SiteContext.Provider>
+  );
+}
+
+/** Result checker cards (scratch-card PINs), inside the school's own website. */
+function SitePinChecker({ bought }: { bought?: boolean }) {
+  const { slug, basePath } = React.useContext(SiteContext)!;
+  const checkerPath = `${basePath}/check-result`;
+  return (
+    <Container className="max-w-5xl py-10 sm:py-14 print:max-w-none print:p-0">
+      {bought ? <PinBought slug={slug} checkerPath={checkerPath} /> : <ResultChecker slug={slug} checkerPath={checkerPath} />}
+    </Container>
   );
 }
 

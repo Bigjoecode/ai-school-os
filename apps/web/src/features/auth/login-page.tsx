@@ -1,4 +1,4 @@
-import { loginSchema, type DemoLoginHint, type PublicConfig } from "@aischool/shared";
+import { loginSchema, type DemoLoginHint, type PublicConfig, type SignupConfig } from "@aischool/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -14,7 +14,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import type { z } from "zod";
 import { AiSparkle } from "@/components/ai/ai-sparkle";
 import { BrandMark } from "@/components/layout/brand";
@@ -152,7 +152,9 @@ export default function LoginPage() {
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? "/";
   const login = useLogin();
-  const [showSchool, setShowSchool] = useState(false);
+  // A link from the welcome email: /login?school=<portal address>.
+  const schoolParam = new URLSearchParams(location.search).get("school")?.toLowerCase() || undefined;
+  const [showSchool, setShowSchool] = useState(!!schoolParam);
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [challenge, setChallenge] = useState<{
@@ -165,7 +167,7 @@ export default function LoginPage() {
 
   const form = useForm<LoginValues, unknown, z.output<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "", school: undefined },
+    defaultValues: { email: "", password: "", school: schoolParam },
   });
   const { register, handleSubmit, formState, setValue, setError } = form;
 
@@ -404,10 +406,29 @@ export default function LoginPage() {
           </motion.div>
         </div>
         <div className="space-y-1.5 pb-6 text-center text-[12px] text-muted-foreground">
+          <SignupLink />
           <LegalLinks />
           <p>© {new Date().getFullYear()} AI School OS</p>
         </div>
       </div>
     </div>
+  );
+}
+
+/** "New school?": only when the operator has opened self-serve sign-up. */
+function SignupLink() {
+  const q = useQuery({ queryKey: ["signup", "config"], queryFn: ({ signal }) => api.get<SignupConfig>("/signup/config", undefined, signal), staleTime: 5 * 60_000, meta: { silent: true } });
+  if (!q.data?.enabled) return null;
+  return (
+    <p className="text-[13px]">
+      New to AI School OS?{" "}
+      <Link to="/pricing" className="font-medium text-brand hover:underline">
+        See plans
+      </Link>{" "}
+      or{" "}
+      <Link to="/signup" className="font-medium text-brand hover:underline">
+        start a {q.data.trialDays}-day free trial
+      </Link>
+    </p>
   );
 }

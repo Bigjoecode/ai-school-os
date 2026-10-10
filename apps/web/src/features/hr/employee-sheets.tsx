@@ -51,6 +51,7 @@ export function EditEmployeeSheet({ open, onOpenChange, employee }: { open: bool
     dateOfBirth: employee.dateOfBirth ?? '',
     address: employee.address ?? '',
     qualification: employee.qualification ?? '',
+    trcnNumber: employee.trcnNumber ?? '',
     nextOfKinName: employee.nextOfKinName ?? '',
     nextOfKinPhone: employee.nextOfKinPhone ?? '',
     exitedOn: employee.exitedOn ?? '',
@@ -178,6 +179,11 @@ export function EditEmployeeSheet({ open, onOpenChange, employee }: { open: bool
                 <Field label="Qualification" htmlFor="em-qual" optional className="sm:col-span-2">
                   <Input id="em-qual" value={v.qualification} onChange={(e) => set({ qualification: e.target.value })} maxLength={120} placeholder="e.g. B.Sc. (Ed) Mathematics" />
                 </Field>
+                {v.type === 'TEACHING' && (
+                  <Field label="TRCN registration number" htmlFor="em-trcn" optional className="sm:col-span-2" hint="Teachers Registration Council of Nigeria. Used in census returns.">
+                    <Input id="em-trcn" value={v.trcnNumber} onChange={(e) => set({ trcnNumber: e.target.value })} maxLength={40} />
+                  </Field>
+                )}
                 <Field label="Status" htmlFor="em-status" className="sm:col-span-2">
                   <Select value={v.status} onValueChange={(s) => set({ status: s as (typeof STAFF_STATUSES)[number] })}>
                     <SelectTrigger id="em-status">

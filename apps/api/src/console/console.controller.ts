@@ -25,6 +25,7 @@ import { env } from '../config/env';
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { PlatformBillingService } from './billing.service';
+import { BillingStateService } from '../subscriptions/billing-state.service';
 
 const DAY = 86_400_000;
 const monthStart = (offset = 0) => {
@@ -51,6 +52,7 @@ export class ConsoleController {
     private readonly features: FeatureService,
     private readonly gateway: AiGatewayService,
     private readonly audit: AuditService,
+    private readonly billingState: BillingStateService,
   ) {}
 
   // ---------------------------------------------------------- overview
@@ -260,6 +262,7 @@ export class ConsoleController {
       where: { id },
       data: { ...body, trialEndsAt: body.trialEndsAt ? new Date(`${body.trialEndsAt}T23:59:59Z`) : null },
     });
+    this.billingState.invalidate(id);
     await this.audit.log({ tenantId: null, action: 'platform.school_updated', entityType: 'Tenant', entityId: id, summary: `Updated ${t.name}'s account details` });
     return { ok: true };
   }
@@ -271,6 +274,7 @@ export class ConsoleController {
     const before = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id } });
     if (before.status === body.status) return { status: body.status };
     await this.prisma.root.tenant.update({ where: { id }, data: { status: body.status } });
+    this.billingState.invalidate(id);
     if (body.status === 'SUSPENDED' || body.status === 'ARCHIVED') {
       // Signed-in users lose access on their next request (access is resolved per request); end their sessions too.
       await this.prisma.root.authSession.updateMany({ where: { tenantId: id, revokedAt: null }, data: { revokedAt: new Date() } });

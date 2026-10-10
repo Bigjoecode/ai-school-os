@@ -291,6 +291,8 @@ export const employeeSchema = z.object({
   dateOfBirth: isoDate.nullish().transform((v) => v ?? null),
   address: nullableText(300),
   qualification: nullableText(120),
+  /** Teachers Registration Council of Nigeria number (teachers). */
+  trcnNumber: nullableText(40),
   nextOfKinName: nullableText(120),
   nextOfKinPhone: nullableText(20),
   exitedOn: isoDate.nullish().transform((v) => v ?? null),
@@ -527,6 +529,7 @@ export interface EmployeeDetail extends EmployeeRow {
   dateOfBirth: string | null;
   address: string | null;
   qualification: string | null;
+  trcnNumber: string | null;
   nextOfKinName: string | null;
   nextOfKinPhone: string | null;
   exitedOn: string | null;

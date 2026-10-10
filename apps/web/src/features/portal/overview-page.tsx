@@ -205,13 +205,14 @@ function ResultCard({ d, childId, who, isParent }: { d: PortalOverview; childId:
             </div>
           </div>
           {r.publishedAt && <p className="mt-2 text-[12px] text-muted-foreground">Published {formatDate(r.publishedAt)}</p>}
+          {r.pinRequired && <p className="mt-1 text-[12px] text-muted-foreground">Enter a result checker PIN to open this report card.</p>}
         </div>
       )}
       <LatestOnlineTest childId={childId} />
       <div className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
         {r && !r.withheld && (
           <Button asChild size="sm">
-            <Link to={`${portalPath('results', childId)}/${r.term.id}`}>View report card</Link>
+            <Link to={`${portalPath('results', childId)}/${r.term.id}`}>{r.pinRequired ? 'Enter PIN' : 'View report card'}</Link>
           </Button>
         )}
         <Button asChild variant="ghost" size="sm" className="-mr-2">

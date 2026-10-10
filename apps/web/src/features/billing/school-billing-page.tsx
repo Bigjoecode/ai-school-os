@@ -21,6 +21,7 @@ import { CopyButton } from '../finance/ui';
 import { naira, usd } from '../platform/api';
 import { daysUntil, Facts, Meter, PAYMENT_METHOD_LABEL, PaymentStatusPill, PlatformInvoiceBadge, Section, SUB_STATUS_LABEL } from '../platform/ui';
 import { SectionHeader } from '../settings/settings-layout';
+import { SubscriptionPanel } from './subscription-panel';
 
 type Invoice = SchoolBilling['invoices'][number];
 const KEY = ['billing', 'school'] as const;
@@ -30,6 +31,14 @@ export default function SchoolBillingPage() {
   const b = q.data;
   const canSupport = useCan('support.use');
   const [transferFor, setTransferFor] = useState<Invoice | null>(null);
+  const [transferId, setTransferId] = useState<string | null>(null);
+  useEffect(() => {
+    const inv = transferId ? b?.invoices.find((i) => i.id === transferId) : null;
+    if (inv) {
+      setTransferFor(inv);
+      setTransferId(null);
+    }
+  }, [transferId, b]);
   const pay = useMutation({
     mutationFn: (id: string) => {
       // Paystack needs a real address for the receipt; demo and test accounts don't have one.
@@ -71,6 +80,7 @@ export default function SchoolBillingPage() {
       ) : (
         <div className="space-y-5">
           <StatusBanner b={b} />
+          <SubscriptionPanel onTransfer={setTransferId} />
           <div className="grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] [&>*]:min-w-0">
             <PlanCard b={b} />
             <div className="space-y-5">
@@ -336,7 +346,9 @@ function InvoicesCard({ b, onPay, paying }: { b: SchoolBilling; onPay: (i: Invoi
                 {b.invoices.map((i) => (
                   <TableRow key={i.id}>
                     <TableCell>
-                      <p className="font-mono text-[12.5px] font-medium">{i.number}</p>
+                      <Link to={`/billing/invoices/${i.id}`} className="font-mono text-[12.5px] font-medium hover:underline" title={i.status === 'PAID' ? 'View or print the receipt' : 'View or print the invoice'}>
+                        {i.number}
+                      </Link>
                       <p className="max-w-[300px] truncate text-[12px] text-muted-foreground" title={i.description}>
                         {i.description}
                       </p>
@@ -373,7 +385,9 @@ function InvoicesCard({ b, onPay, paying }: { b: SchoolBilling; onPay: (i: Invoi
               <li key={i.id} className="px-4 py-3.5">
                 <div className="flex items-start gap-3">
                   <div className="min-w-0 flex-1">
-                    <p className="font-mono text-[13px] font-medium">{i.number}</p>
+                    <Link to={`/billing/invoices/${i.id}`} className="font-mono text-[13px] font-medium hover:underline">
+                      {i.number}
+                    </Link>
                     <p className="truncate text-[12px] text-muted-foreground">
                       {naira(i.amountKobo)} · due {formatDate(i.dueDate)}
                     </p>

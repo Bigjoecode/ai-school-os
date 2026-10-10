@@ -182,6 +182,7 @@ function OverviewTab({ e }: { e: EmployeeDetail }) {
             <Detail label="Gender">{e.gender === 'FEMALE' ? 'Female' : 'Male'}</Detail>
             <Detail label="Date of birth">{e.dateOfBirth ? formatDate(e.dateOfBirth) : '—'}</Detail>
             <Detail label="Qualification">{e.qualification ?? '—'}</Detail>
+            {e.type === 'TEACHING' && <Detail label="TRCN number">{e.trcnNumber ?? '—'}</Detail>}
             <Detail label="Address" className="sm:col-span-2 lg:col-span-1">
               <span className="whitespace-pre-line">{e.address ?? '—'}</span>
             </Detail>

@@ -1,0 +1,77 @@
+{
+  "packageId": "com.mejortechworld.aischool",
+  "host": "ai-schoolportal.mejortechworld.com",
+  "name": "AI School OS",
+  "launcherName": "AI School",
+  "display": "standalone",
+  "themeColor": "#0B1330",
+  "themeColorDark": "#0B1330",
+  "navigationColor": "#0B1330",
+  "navigationColorDark": "#0B1330",
+  "navigationDividerColor": "#0B1330",
+  "navigationDividerColorDark": "#0B1330",
+  "backgroundColor": "#0B1330",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://ai-schoolportal.mejortechworld.com/icons/icon-512.png",
+  "maskableIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/maskable-512.png",
+  "monochromeIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/badge-96.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:/Users/user/ai-school-android-keys/upload-keystore.jks",
+    "alias": "upload"
+  },
+  "appVersionCode": 1,
+  "appVersion": "1.0.0",
+  "shortcuts": [
+    {
+      "name": "Homework",
+      "shortName": "Homework",
+      "url": "https://ai-schoolportal.mejortechworld.com/?shortcut=homework",
+      "chosenIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/icon-192.png"
+    },
+    {
+      "name": "AI tutor",
+      "shortName": "AI tutor",
+      "url": "https://ai-schoolportal.mejortechworld.com/?shortcut=tutor",
+      "chosenIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/icon-192.png"
+    },
+    {
+      "name": "Fees",
+      "shortName": "Fees",
+      "url": "https://ai-schoolportal.mejortechworld.com/?shortcut=fees",
+      "chosenIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/icon-192.png"
+    },
+    {
+      "name": "Attendance",
+      "shortName": "Attendance",
+      "url": "https://ai-schoolportal.mejortechworld.com/?shortcut=attendance",
+      "chosenIconUrl": "https://ai-schoolportal.mejortechworld.com/icons/icon-192.png"
+    }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://ai-schoolportal.mejortechworld.com/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://ai-schoolportal.mejortechworld.com/",
+  "minSdkVersion": 24,
+  "orientation": "default",
+  "fingerprints": [
+    {
+      "name": "Upload key (Bubblewrap signs with this)",
+      "value": "AF:FC:E3:03:E8:77:03:33:F0:5F:92:40:48:FF:B5:46:DB:B8:01:3B:CA:21:0B:F9:5A:8E:DA:67:14:80:35:BC"
+    }
+  ],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": []
+}

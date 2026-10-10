@@ -191,6 +191,7 @@ export class HrService {
       dateOfBirth: dateOnly(s.dateOfBirth),
       address: s.address,
       qualification: s.qualification,
+      trcnNumber: s.trcnNumber,
       nextOfKinName: s.nextOfKinName,
       nextOfKinPhone: s.nextOfKinPhone,
       exitedOn: dateOnly(s.exitedOn),

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { useUiStore } from '@/lib/ui-store';
+import { BillingBanner } from '@/features/billing/billing-banner';
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '../ui/sheet';
 import { RouteLoader } from './boot-loader';
 import { CommandPalette } from './command-palette';
@@ -31,6 +32,7 @@ export function AppShell() {
       </Sheet>
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar />
+        <BillingBanner />
         <main id="main" className="min-w-0 flex-1">
           <Suspense fallback={<RouteLoader />}>
             <motion.div

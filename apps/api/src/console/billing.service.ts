@@ -7,6 +7,10 @@ import {
   type PlatformPaymentRow,
   type SubscriptionRow,
   type SubscriptionStatusKey,
+  priceQuote,
+  SELF_SERVE_SETTINGS_KEY,
+  selfServeSettingsSchema,
+  type BillingCycle,
 } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
@@ -28,6 +32,9 @@ export function addMonths(d: Date, months: number): Date {
   return r;
 }
 const today = () => new Date(new Date().toISOString().slice(0, 10) + 'T00:00:00Z');
+
+/** Told when a school's invoice is paid (the read-only check caches each school's state briefly). */
+export const invoicePaidHooks: ((tenantId: string) => void)[] = [];
 
 /**
  * What schools pay the platform. A subscription bills per student per
@@ -194,7 +201,17 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
     const exists = await this.prisma.root.platformInvoice.findUnique({ where: { subscriptionId_periodStart: { subscriptionId, periodStart: s.currentPeriodStart } } });
     if (exists) return null;
     const active = (await this.activeStudents([s.tenantId])).get(s.tenantId) ?? 0;
-    const q = this.quote(s, active);
+    const tb = await this.prisma.root.tenantBilling.findUnique({ where: { tenantId: s.tenantId } });
+    let q = this.quote(s, active);
+    let dueDays = opts.dueDays;
+    if (tb) {
+      // Self-serve billing rules: the minimum, the cycle chosen (term or session) and the session discount.
+      const rules = await this.selfServeRules();
+      const unit = this.unitKobo(s);
+      const pq = priceQuote({ pricePerStudentKobo: unit, billingPeriod: s.plan.billingPeriod }, Math.max(s.studentSeats, active), tb.cycle as BillingCycle, rules, s.discountPct);
+      q = { seats: pq.billedStudents, unit: pq.unitKobo, gross: pq.grossKobo, discount: pq.discountKobo, amount: pq.totalKobo, monthly: Math.round(pq.totalKobo / (pq.terms * 4)) };
+      dueDays ??= rules.invoiceDueDays;
+    }
     if (q.amount <= 0) return null;
     const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
     const invoice = await this.prisma.root.$transaction(async (tx) =>
@@ -211,13 +228,19 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
           discountKobo: q.discount,
           amountKobo: q.amount,
           currency: s.tenant.currency,
-          dueDate: new Date(today().getTime() + (opts.dueDays ?? env().PLATFORM_INVOICE_DUE_DAYS) * DAY),
+          dueDate: new Date(today().getTime() + (dueDays ?? env().PLATFORM_INVOICE_DUE_DAYS) * DAY),
         },
       }),
     );
     await this.audit.log({ tenantId: s.tenantId, action: 'billing.invoice_issued', entityType: 'PlatformInvoice', entityId: invoice.id, summary: `Issued subscription invoice ${invoice.number} to ${s.tenant.name}` });
     await this.postInvoice(invoice);
     return invoice;
+  }
+
+  async selfServeRules() {
+    const row = await this.prisma.root.platformSetting.findUnique({ where: { key: SELF_SERVE_SETTINGS_KEY } });
+    const parsed = selfServeSettingsSchema.safeParse(row?.value ?? {});
+    return parsed.success ? parsed.data : selfServeSettingsSchema.parse({});
   }
 
   async manualInvoice(input: { tenantId: string; description: string; amountKobo: number; dueDate: string; notes: string | null; domain?: 'SCHOOL' | 'STUDENT_AI' | 'EXAM'; seats?: number; unitKobo?: number }) {
@@ -281,9 +304,17 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
       await this.prisma.root.platformInvoice.update({ where: { id: inv.id }, data: { status: 'PAID', paidAt: p.paidAt ?? new Date() } });
       if (inv.subscriptionId) {
         await this.prisma.root.subscription.updateMany({ where: { id: inv.subscriptionId, status: { in: ['TRIALING', 'PAST_DUE'] } }, data: { status: 'ACTIVE' } });
+        // A paid invoice for a later period (a school paying after its trial, or after lapsing) becomes the current period.
+        if (inv.periodStart && inv.periodEnd) {
+          await this.prisma.root.subscription.updateMany({
+            where: { id: inv.subscriptionId, currentPeriodStart: { lt: inv.periodStart } },
+            data: { currentPeriodStart: inv.periodStart, currentPeriodEnd: inv.periodEnd },
+          });
+        }
       }
       await this.prisma.root.tenant.updateMany({ where: { id: inv.tenantId, status: 'TRIAL' }, data: { status: 'ACTIVE' } });
     }
+    for (const hook of invoicePaidHooks) hook(inv.tenantId);
     await this.ledger.safePost(
       { event: 'payment', domain: inv.domain as 'SCHOOL' | 'STUDENT_AI' | 'EXAM', sourceType: 'PLATFORM_PAYMENT', sourceId: p.id, tenantId: p.tenantId, memo: `Payment for ${p.invoice.number} (${p.reference})`, at: p.paidAt ?? undefined },
       [
@@ -408,8 +439,18 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
           result.cancelled++;
           continue;
         }
-        const months = BILLING_PERIOD_MONTHS[s.plan.billingPeriod as BillingPeriodKey] ?? 12;
-        await this.prisma.root.subscription.update({ where: { id: s.id }, data: { currentPeriodStart: s.currentPeriodEnd, currentPeriodEnd: addMonths(s.currentPeriodEnd, months) } });
+        // Self-serve schools: the cycle they chose (a term or a session), and a downgrade waiting for the new period.
+        const tb = await this.prisma.root.tenantBilling.findUnique({ where: { tenantId: s.tenantId } });
+        const months = tb ? (tb.cycle === 'SESSION' ? 12 : 4) : (BILLING_PERIOD_MONTHS[s.plan.billingPeriod as BillingPeriodKey] ?? 12);
+        const planId = tb?.pendingPlanId ?? s.planId;
+        await this.prisma.root.subscription.update({ where: { id: s.id }, data: { planId, currentPeriodStart: s.currentPeriodEnd, currentPeriodEnd: addMonths(s.currentPeriodEnd, months) } });
+        if (tb?.pendingPlanId) {
+          await this.prisma.root.tenant.update({ where: { id: s.tenantId }, data: { planId } });
+          await this.prisma.root.tenantBilling.update({ where: { tenantId: s.tenantId }, data: { pendingPlanId: null, peakStudents: 0 } });
+          await this.audit.log({ tenantId: s.tenantId, actorUserId: null, action: 'billing.plan_changed', summary: 'Scheduled plan change took effect at the new period' });
+        } else if (tb) {
+          await this.prisma.root.tenantBilling.update({ where: { tenantId: s.tenantId }, data: { peakStudents: 0 } });
+        }
         result.renewed++;
         if (await this.invoicePeriod(s.id)) result.invoiced++;
       }

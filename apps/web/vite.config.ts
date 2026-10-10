@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import { serviceWorker } from './src/pwa/vite-plugin';
+import { salesSeoPages } from './src/features/sales/seo-plugin';
 
 export default defineConfig({
   base: '/',
-  plugins: [react(), tailwindcss(), serviceWorker()],
+  plugins: [react(), tailwindcss(), serviceWorker(), salesSeoPages()],
   resolve: {
     alias: {
       '@aischool/shared': fileURLToPath(new URL('../../packages/shared/src/index.ts', import.meta.url)),

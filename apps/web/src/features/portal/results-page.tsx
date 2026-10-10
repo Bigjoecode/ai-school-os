@@ -1,5 +1,9 @@
 import type { PortalResultTerm } from '@aischool/shared';
-import { ArrowLeft, Award, ChevronRight, FileDown, Lock, MonitorCheck, Printer, ScrollText, Trophy } from 'lucide-react';
+import { ArrowLeft, Award, ChevronRight, FileDown, KeyRound, Lock, MonitorCheck, Printer, ScrollText, Trophy } from 'lucide-react';
+import * as React from 'react';
+import { Field } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { errorMessage } from '@/lib/api';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,7 +15,7 @@ import { ApiError } from '@/lib/api';
 import { formatDate, formatPct } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { PaperStyle, ReportCardDocument } from '../report-cards/card-document';
-import { usePortalReportCard, usePortalResults } from './api';
+import { usePortalReportCard, usePortalResults, useUnlockPortalResult } from './api';
 import { OnlineTestReview, OnlineTestsList } from './online-tests';
 import { PortalShell, portalPath, positionText, type ShellCtx } from './ui';
 
@@ -130,6 +134,11 @@ function TermRow({ r, childId }: { r: PortalResultTerm; childId: string }) {
         {heading}
         <ChevronRight className="mt-0.5 size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
       </div>
+      {r.pinRequired ? (
+        <p className="mt-3 flex items-center gap-2 text-[13px] text-muted-foreground">
+          <KeyRound className="size-4 shrink-0" aria-hidden /> Enter a result checker PIN to open this report card.
+        </p>
+      ) : (
       <div className="mt-3 grid grid-cols-2 gap-2 sm:max-w-sm">
         <div className="min-w-0 rounded-xl bg-muted/60 px-3 py-2">
           <p className="text-[11.5px] text-muted-foreground">Average</p>
@@ -140,7 +149,8 @@ function TermRow({ r, childId }: { r: PortalResultTerm; childId: string }) {
           <p className="truncate font-display text-lg font-semibold tabular">{pos ?? '—'}</p>
         </div>
       </div>
-      <p className="mt-3 text-[13px] font-medium text-brand">View report card</p>
+      )}
+      <p className="mt-3 text-[13px] font-medium text-brand">{r.pinRequired ? 'Enter PIN' : 'View report card'}</p>
     </Link>
   );
 }
@@ -177,11 +187,14 @@ function CardBody({ child }: ShellCtx) {
     const err = q.error;
     const withheld = err instanceof ApiError && err.status === 403 && err.details.code === 'RESULT_WITHHELD';
     const notFound = err instanceof ApiError && err.status === 404;
+    const pinRequired = err instanceof ApiError && err.status === 403 && err.details.code === 'RESULT_PIN_REQUIRED';
     return (
       <div className="space-y-3">
         {back}
         <Card>
-          {withheld ? (
+          {pinRequired ? (
+            <PinUnlock childId={child.id} termId={termId} />
+          ) : withheld ? (
             <EmptyState icon={Lock} title="This result is on hold" description={err.message} />
           ) : notFound ? (
             <EmptyState icon={Award} title="Not published yet" description="The school hasn’t published this report card. Please check again later." />
@@ -213,5 +226,38 @@ function CardBody({ child }: ShellCtx) {
         <ReportCardDocument v={v} className="print:text-[10.5px]" />
       </div>
     </>
+  );
+}
+
+/** The school requires a result PIN once per term: the parent enters a card's serial and PIN. */
+function PinUnlock({ childId, termId }: { childId: string; termId: string }) {
+  const unlock = useUnlockPortalResult(childId, termId);
+  const [v, setV] = React.useState({ serial: '', pin: '' });
+  return (
+    <form
+      className="mx-auto grid max-w-md gap-4 p-5 sm:p-6"
+      onSubmit={(e) => {
+        e.preventDefault();
+        unlock.mutate({ serial: v.serial.replace(/[\s-]/g, ''), pin: v.pin.replace(/[\s-]/g, '') });
+      }}
+    >
+      <div className="text-center">
+        <div className="mx-auto mb-2 grid size-11 place-items-center rounded-xl bg-brand-soft text-brand"><KeyRound className="size-5" aria-hidden /></div>
+        <p className="font-display text-[16px] font-semibold">Enter a result checker PIN</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">The school asks for a result checker card once per term for each child. Cards are sold by the school office.</p>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 [&>*]:min-w-0">
+        <Field label="Serial number" htmlFor="pp-serial">
+          <Input id="pp-serial" inputMode="numeric" autoComplete="off" className="font-mono" value={v.serial} onChange={(e) => setV((x) => ({ ...x, serial: e.target.value }))} />
+        </Field>
+        <Field label="PIN (12 digits)" htmlFor="pp-pin">
+          <Input id="pp-pin" inputMode="numeric" autoComplete="off" className="font-mono" value={v.pin} onChange={(e) => setV((x) => ({ ...x, pin: e.target.value }))} />
+        </Field>
+      </div>
+      {unlock.error && <p role="alert" className="text-[13px] text-danger">{errorMessage(unlock.error)}</p>}
+      <Button type="submit" loading={unlock.isPending} disabled={!v.serial || !v.pin}>
+        Open report card
+      </Button>
+    </form>
   );
 }

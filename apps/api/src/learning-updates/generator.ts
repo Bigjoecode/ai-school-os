@@ -1,4 +1,4 @@
-import { LEARNING_UPDATE_INTRO, masteryBand, SUGGESTION_LABEL, type LanguageCode, type LearningUpdateContent, type LearningUpdateTopic } from '@aischool/shared';
+import { LEARNING_UPDATE_INTRO, masteryBand, smsInfo, smsSafe, SUGGESTION_LABEL, type LanguageCode, type LearningUpdateContent, type LearningUpdateTopic } from '@aischool/shared';
 import { schoolNow } from '../common/school-time';
 
 /**
@@ -238,6 +238,79 @@ export function parentTextIn(c: Omit<LearningUpdateContent, 'studentText'>, lang
   if (local && suggestion >= 0) lines[suggestion] = `${SUGGESTION_LABEL[language]} ${local}`;
   const t = [intro, ...lines].join('\n');
   return t.length <= TEXT_LIMIT + 200 ? t : clip(t, TEXT_LIMIT + 200);
+}
+
+/** At most two SMS pages (306 GSM characters): what a parent without the app gets. */
+export const SMS_MAX_PAGES = 2;
+
+/**
+ * Plain GSM text for SMS: tone marks and dots under letters (Yoruba, Igbo) and
+ * Hausa hooked letters become their base letters, so a message in a Nigerian
+ * language still costs GSM rates (Unicode SMS pages hold only 70 characters).
+ */
+export function smsPlain(text: string): string {
+  return smsSafe(text)
+    .replace(/[ɓ]/g, 'b')
+    .replace(/[Ɓ]/g, 'B')
+    .replace(/[ɗ]/g, 'd')
+    .replace(/[Ɗ]/g, 'D')
+    .replace(/[ƙ]/g, 'k')
+    .replace(/[Ƙ]/g, 'K')
+    .replace(/[ƴ]/g, 'y')
+    .replace(/[Ƴ]/g, 'Y')
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .normalize('NFC');
+}
+
+const fitsPages = (t: string, pages = SMS_MAX_PAGES) => smsInfo(t).segments <= pages;
+
+/**
+ * The weekly update as one short SMS (two pages at most) in the parent's
+ * language: one topic per group, the week's facts and the suggestion, then
+ * whatever the channel adds (a portal link for parents with a login, how to
+ * stop). Shortened step by step until it fits; links are never cut.
+ */
+export function parentSmsText(c: Omit<LearningUpdateContent, 'studentText'>, language: LanguageCode, suffix: string[]): string {
+  const tail = suffix.filter(Boolean).map(smsPlain);
+  const facts = [homeworkLine(c.homework), attendanceLine(c.attendance)].filter(Boolean).join('. ');
+  const suggestion = smsPlain(language !== 'EN' && c.localized?.[language] ? `${SUGGESTION_LABEL[language]} ${c.localized[language]}` : `Tip: ${c.recommendation.text}`);
+  const build = (opts: { intro: boolean; topicLen: number; facts: boolean; tipLen: number; groups?: number }) => {
+    const lines: string[] = [];
+    lines.push(opts.intro && language !== 'EN' ? smsPlain(LEARNING_UPDATE_INTRO[language](c.firstName)) : `${c.firstName}, week of ${shortDate(c.weekStart)}:`);
+    if (c.quiet) lines.push('No practice on the app this week.');
+    else {
+      const parts = [
+        c.strong[0] && `Good: ${clip(c.strong[0].topic, opts.topicLen)} (${shortSubject(c.strong[0].subject)})`,
+        c.improving[0] && `Better: ${clip(c.improving[0].topic, opts.topicLen)}`,
+        c.attention[0] && `Needs work: ${clip(c.attention[0].topic, opts.topicLen)} (${shortSubject(c.attention[0].subject)})`,
+      ]
+        .filter(Boolean)
+        // Shortest versions keep the one that matters most: needs work, else doing well.
+        .reverse()
+        .slice(0, opts.groups ?? 3)
+        .reverse();
+      if (parts.length) lines.push(`${parts.join('. ')}.`);
+    }
+    if (opts.facts && facts) lines.push(`${facts}.`);
+    if (opts.tipLen > 0) lines.push(clip(suggestion, opts.tipLen));
+    return smsPlain([...lines, ...tail].join('\n'));
+  };
+  const tries = [
+    { intro: true, topicLen: 30, facts: true, tipLen: 200 },
+    { intro: false, topicLen: 30, facts: true, tipLen: 160 },
+    { intro: false, topicLen: 22, facts: true, tipLen: 110 },
+    { intro: false, topicLen: 18, facts: false, tipLen: 90 },
+    { intro: false, topicLen: 14, facts: false, tipLen: 50 },
+    { intro: false, topicLen: 24, facts: false, tipLen: 60, groups: 1 },
+    { intro: false, topicLen: 20, facts: false, tipLen: 0, groups: 1 },
+  ];
+  for (const t of tries) {
+    const text = build(t);
+    if (fitsPages(text)) return text;
+  }
+  // Still too long (very long links): keep the head and the links only.
+  return smsPlain([`${c.firstName}, week of ${shortDate(c.weekStart)}: see the school for details.`, ...tail].join('\n'));
 }
 
 /** The student's own version: second person and encouraging. */

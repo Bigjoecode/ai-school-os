@@ -38,6 +38,7 @@ import {
   mondayOf,
   nothingToSay,
   parentText,
+  parentSmsText,
   parentTextIn,
   rulesRecommendation,
   shortSubject,
@@ -45,6 +46,7 @@ import {
   type TopicFacts,
   type WeekFacts,
 } from './generator';
+import { lineCodesFor } from '../parent-lines/parent-lines.config';
 import { stopToken } from './unsubscribe-token';
 
 /** Students handled per step of the weekly run, and how long one tick may spend on it. */
@@ -417,11 +419,14 @@ export class LearningUpdatesService implements OnModuleInit {
     if (!state.channels) state.channels = await this.channels.load(tenantId);
     const ch = state.channels;
     const listLink = `${base}/school/learning/${u.studentId}`;
+    // With the two-way SMS line on, parents stop by texting STOP (shorter than a link, and works without data).
+    const line = s.sms ? await lineCodesFor(this.prisma, tenantId) : null;
+    const textStop = line?.enabled && line.shortCode ? `Text STOP to ${line.shortCode} to stop SMS.` : null;
 
     const [links, student] = await Promise.all([
       db.studentGuardian.findMany({
         where: { tenantId, studentId: u.studentId },
-        select: { guardian: { select: { id: true, firstName: true, lastName: true, email: true, phone: true, userId: true, learningUpdatesOff: true, preferredLanguage: true } } },
+        select: { guardian: { select: { id: true, firstName: true, lastName: true, email: true, phone: true, userId: true, learningUpdatesOff: true, preferredLanguage: true, smsOptOutAt: true } } },
       }),
       db.student.findUniqueOrThrow({ where: { id: u.studentId }, select: { userId: true } }),
     ]);
@@ -483,8 +488,10 @@ export class LearningUpdatesService implements OnModuleInit {
       }
       const short = smsSafe(`${text}${base ? `\nMore: ${listLink}` : ''}${stop ? `\nStop: ${stop}` : ''}`);
       if (s.sms) {
-        const missing = !phone ? 'No valid phone number on record' : !ch.termii ? 'SMS is not set up' : null;
-        deliveries.push(row('SMS', phone, short, missing ? 'SKIPPED' : 'QUEUED', missing));
+        // At most two SMS pages, in the parent's language; the portal link only for parents who can sign in.
+        const sms = parentSmsText(content, language, [g.userId && base ? `More: ${listLink}` : '', textStop ?? (stop ? `Stop: ${stop}` : '')]);
+        const missing = !phone ? 'No valid phone number on record' : !ch.termii ? 'SMS is not set up' : g.smsOptOutAt ? 'Parent texted STOP to the SMS line' : null;
+        deliveries.push(row('SMS', phone, sms, missing ? 'SKIPPED' : 'QUEUED', missing));
         if (!missing) {
           used.add('SMS');
           state.queued = true;
@@ -561,7 +568,7 @@ export class LearningUpdatesService implements OnModuleInit {
     return {
       content: built.content,
       text: built.text,
-      smsText: smsSafe(`${built.text}${base ? `\nMore: ${base}/school/learning/${studentId}` : ''}\nStop: ${base}/api/learning-updates/stop/…`),
+      smsText: parentSmsText(built.content, 'EN', [base ? `More: ${base}/school/learning/${studentId}` : '', `Stop: ${base}/api/learning-updates/stop/...`]),
       source: built.source,
       alreadySent: !!existing?.sentAt,
       recipients,

@@ -5,6 +5,11 @@ RewriteEngine On
 RewriteBase /
 # /api belongs to the Node.js app (Passenger); never rewrite it.
 RewriteRule ^api(/|$) - [L]
+# Sales pages: a copy of the app shell carrying their own share-preview (Open Graph) tags.
+RewriteRule ^for-schools/?$ og/for-schools.html [L]
+RewriteRule ^for-schools/deck/?$ og/for-schools-deck.html [L]
+RewriteRule ^for-schools/calculator/?$ og/for-schools-calculator.html [L]
+RewriteRule ^for-boards/?$ og/for-boards.html [L]
 # Real files and folders are served as-is.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
@@ -15,6 +20,8 @@ RewriteRule ^ index.html [L]
 
 <IfModule mod_mime.c>
 AddType application/manifest+json .webmanifest
+# Android app links (/.well-known/assetlinks.json) must be served as JSON.
+AddType application/json .json
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -24,7 +31,7 @@ Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
 # The app shell must always be fresh so new deploys load immediately.
 # The service worker too (it isn't hashed), so notification fixes reach browsers.
-<FilesMatch "(^index\.html|\.htaccess|^sw\.js)$">
+<FilesMatch "(^index\.html|\.htaccess|^sw\.js|^for-[a-z-]+\.html)$">
 Header set Cache-Control "no-cache, no-store, must-revalidate"
 </FilesMatch>
 # The installable-app manifest: checked each time (it is tiny) so name/icon changes reach phones.
@@ -34,6 +41,11 @@ Header set Cache-Control "no-cache"
 # App icons keep their names between deploys, so they can't be cached forever.
 <FilesMatch "^(icon-\d+|maskable-\d+|badge-\d+|apple-touch-icon)\.png$|^icon\.svg$">
 Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+# Android app links: re-checked by phones, so a new signing fingerprint takes effect within the hour.
+<FilesMatch "^assetlinks\.json$">
+Header set Cache-Control "public, max-age=3600"
+Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
 Header always set X-Content-Type-Options "nosniff"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"

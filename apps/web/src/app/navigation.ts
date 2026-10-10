@@ -74,6 +74,7 @@ import {
   ClipboardList,
   NotebookText,
   Wallet,
+  Smartphone,
 } from 'lucide-react';
 import { Backpack, ClipboardCheck, CalendarCheck2, FileUp, FolderDown, GalleryVerticalEnd, Rocket, House, MessageCircleQuestion, School, Target, TrendingUp } from 'lucide-react';
 import { Stethoscope } from 'lucide-react';
@@ -81,6 +82,9 @@ import { WifiOff } from 'lucide-react';
 import { BookMarked, NotebookTabs } from 'lucide-react';
 import { BookUser, Compass, Shield } from 'lucide-react';
 import { Gamepad2 } from 'lucide-react';
+import { FileBarChart, MapPinned } from 'lucide-react';
+import { Ticket } from 'lucide-react';
+import { BadgePercent } from 'lucide-react';
 import { canOpenArea, hasFeature, hasPermission } from '@/lib/auth-store';
 
 export interface NavItem {
@@ -117,6 +121,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
       { label: 'School success', to: '/success', icon: TrendingUp, permission: 'results.publish', requires: ['school.read'], keywords: 'impact health score adoption outcomes renewal pta proprietor report value time saved' },
+      { label: 'Returns & census', to: '/returns', icon: FileBarChart, permission: 'students.read', requires: ['school.read', 'staff.read'], keywords: 'asc annual school census subeb ministry of education returns state government enrolment by age sex teachers qualification trcn facilities waec neco bece candidates registration list' },
       { label: 'Setup', to: '/setup', icon: Rocket, permission: 'academics.manage', badge: 'setup', keywords: 'onboarding getting started checklist new school year terms classes subjects' },
       {
         label: 'Import data',
@@ -228,6 +233,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Fees', to: '/fees', icon: Receipt, permission: 'finance.read', keywords: 'invoices billing fee schedule collections debtors paystack' },
       { label: 'Payments', to: '/payments', icon: CreditCard, permission: 'finance.read', keywords: 'receipts collections cash transfer pos' },
+      { label: 'Result checker cards', to: '/result-pins', icon: Ticket, permission: 'finance.read', keywords: 'scratch card result checker pin serial sell online revenue' },
       { label: 'Accounting', to: '/accounting', icon: Calculator, permission: 'finance.read', keywords: 'income expenditure cash flow net' },
       { label: 'Expenses', to: '/expenses', icon: Wallet, permission: 'finance.read', keywords: 'spending costs diesel salaries' },
     ],
@@ -273,7 +279,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Communication',
     items: [
-      { label: 'Messages', to: '/messages', icon: MessagesSquare, feature: 'messaging', permission: 'comms.read', keywords: 'messaging bulk sms whatsapp email broadcast send parents staff delivery' },
+      { label: 'Messages', to: '/messages', icon: MessagesSquare, feature: 'messaging', permission: 'comms.read', keywords: 'messaging bulk sms whatsapp email broadcast send parents staff delivery ussd short code feature phone' },
       { label: 'Noticeboard', to: '/noticeboard', icon: Megaphone, keywords: 'announcements news notices bulletin' },
       { label: 'Calendar', to: '/calendar', icon: CalendarDays, keywords: 'events term dates holidays exams pta school calendar' },
     ],
@@ -357,9 +363,11 @@ export const PLATFORM_GROUP: NavGroup = {
   items: [
     { label: 'Console', to: '/platform', icon: LayoutGrid, area: 'overview', keywords: 'platform overview mrr arr kpis briefing' },
     { label: 'Pilot schools', to: '/platform/success', icon: HeartPulse, area: 'overview', keywords: 'success health score adoption risk churn renewal pilots at risk' },
+    { label: 'State census (preview)', to: '/platform/census', icon: MapPinned, area: 'overview', keywords: 'government state lga subeb aggregate totals opted in census' },
     { label: 'Schools', to: '/platform/schools', icon: Building2, area: 'schools', keywords: 'tenants customers accounts' },
     { label: 'Branches', to: '/platform/branches', icon: GitBranch, area: 'schools', keywords: 'campuses sites' },
     { label: 'Billing', to: '/platform/billing', icon: Landmark, area: 'billing', keywords: 'subscriptions invoices payments revenue billing cycle' },
+    { label: 'Subscriptions', to: '/platform/subscriptions', icon: BadgePercent, area: 'billing', keywords: 'self-serve sign-ups signup trial grace read-only overdue review queue extend comp discount' },
     { label: 'Revenue', to: '/platform/revenue', icon: ChartColumnStacked, area: 'commerce', keywords: 'ledger revenue domains balances accounts refunds' },
     { label: 'Unit economics', to: '/platform/unit-economics', icon: CircleDollarSign, area: 'commerce', keywords: 'contribution margin ai cost per student conversion' },
     { label: 'Parent products', to: '/platform/products', icon: PackageOpen, area: 'commerce', keywords: 'ai plus pro exam prep pricing coupons discounts' },
@@ -372,6 +380,7 @@ export const PLATFORM_GROUP: NavGroup = {
     { label: 'Support', to: '/platform/support', icon: LifeBuoy, area: 'support', keywords: 'tickets help desk queue' },
     { label: 'System health', to: '/platform/health', icon: HeartPulse, area: 'health', keywords: 'status uptime database queues errors' },
     { label: 'AI models', to: '/platform/ai', icon: Cpu, superAdmin: true, keywords: 'openai anthropic claude gemini gpt provider fallback prices tokens reasoning caching' },
+    { label: 'Parent SMS & USSD', to: '/platform/parent-lines', icon: Smartphone, superAdmin: true, keywords: 'ussd short code sms africas talking feature phone parents two-way' },
     { label: 'Feature flags', to: '/platform/flags', icon: Flag, area: 'flags', keywords: 'beta rollout modules toggles' },
     { label: 'Audit log', to: '/platform/audit', icon: ScrollText, area: 'audit', keywords: 'history activity platform' },
     { label: 'Team', to: '/platform/team', icon: Users2, keywords: 'platform staff operators' },

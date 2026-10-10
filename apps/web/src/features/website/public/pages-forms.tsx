@@ -534,6 +534,9 @@ export function ResultsPage() {
             <p>The school gives every student a printed slip with a personal access code each term. Each code can be used a limited number of times.</p>
             <p>Lost the slip, or the code has run out? Ask the school office for a new one.</p>
             <MoreLink to="/contact">Contact the school office</MoreLink>
+            <p className="site-h pt-4 text-[19px] font-semibold text-site-ink">Have a scratch card?</p>
+            <p>Result checker cards have a serial number and a 12-digit PIN.</p>
+            <MoreLink to="/check-result">Check with a scratch card</MoreLink>
           </div>
         </div>
       </Section>

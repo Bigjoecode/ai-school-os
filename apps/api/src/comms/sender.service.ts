@@ -99,6 +99,11 @@ export class SenderService {
     if (!contacts.length) throw new BadRequestException('Nobody is in this audience');
     const loaded = await this.channels.load(tenantId);
     this.channels.close(loaded);
+    // Parents who texted STOP to the SMS/USSD line get no school SMS until they text START.
+    const guardianIds = channels.includes('SMS') ? [...new Set(contacts.map((c) => c.guardianId).filter((x): x is string => !!x))] : [];
+    const smsStopped = new Set(
+      guardianIds.length ? (await db.guardian.findMany({ where: { tenantId, id: { in: guardianIds }, smsOptOutAt: { not: null } }, select: { id: true } })).map((g) => g.id) : [],
+    );
 
     const rows: {
       tenantId: string;
@@ -144,7 +149,9 @@ export class SenderService {
             : channel === 'SMS' || channel === 'WHATSAPP'
               ? 'No valid phone number on record'
               : 'Has no app account'
-          : !this.channels.configured(loaded, channel)
+          : channel === 'SMS' && c.guardianId && smsStopped.has(c.guardianId)
+            ? 'Parent texted STOP to the SMS line'
+            : !this.channels.configured(loaded, channel)
             ? `${channel === 'EMAIL' ? 'Email' : channel === 'SMS' ? 'SMS' : channel === 'WHATSAPP' ? 'WhatsApp' : 'Push'} is not set up`
             : null;
         if (missing) {

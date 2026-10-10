@@ -13,6 +13,7 @@ import { currentTenantId } from '../common/request-context';
  * not scoped here; they fail on the NOT NULL tenantId instead, which is safe.
  */
 export const TENANT_MODELS = new Set<string>([
+  'TenantBilling',
   'GameProfile',
   'GameRound',
   'LearningModule',
@@ -132,6 +133,10 @@ export const TENANT_MODELS = new Set<string>([
   'WebsiteDownload',
   'WebsiteMessage',
   'ResultAccessCode',
+  'ResultPinBatch',
+  'ResultPin',
+  'ResultPinUse',
+  'ResultPinSale',
 ]);
 
 const WHERE_OPS = new Set([

@@ -1,5 +1,5 @@
 import { DEFAULT_PORTAL_SETTINGS, type PortalSettings } from '@aischool/shared';
-import { Banknote, CalendarCheck, CalendarDays, Download, Lock, Save, Trophy } from 'lucide-react';
+import { Banknote, CalendarCheck, CalendarDays, Download, KeyRound, Lock, Save, Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
@@ -123,6 +123,20 @@ export default function PortalSettingsPage() {
                   />
                 </Field>
               )}
+            </div>
+
+            <div className={cn('rounded-xl border border-border px-4 py-3', !v.showResults && 'opacity-60')}>
+              <label className={cn('flex items-center gap-3', canManage && v.showResults && 'cursor-pointer')}>
+                <KeyRound className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13.5px] font-medium">Require a result PIN in the parent portal</span>
+                  <span className="block text-[12px] text-muted-foreground">
+                    Off by default: parents see published results free. When on, they enter a result checker card PIN once per term for each child (it uses one of the card’s checks).{' '}
+                    <Link to="/result-pins" className="font-medium text-brand hover:underline">Result checker cards</Link>
+                  </span>
+                </span>
+                <Switch checked={!!v.requireResultPin} disabled={!v.showResults} onCheckedChange={(on) => set({ requireResultPin: on })} aria-label="Require a result PIN in the parent portal" />
+              </label>
             </div>
           </fieldset>
         </CardContent>

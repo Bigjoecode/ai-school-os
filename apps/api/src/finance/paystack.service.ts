@@ -25,6 +25,13 @@ export interface PaystackTransaction {
 }
 
 /**
+ * Other features that take payments through a school's Paystack account (for
+ * example result-checker cards) claim their references by prefix; the school's
+ * one webhook hands such events to them instead of to fees.
+ */
+export const paystackReferenceHandlers: { prefix: string; handle: (tenantId: string, reference: string) => Promise<void> }[] = [];
+
+/**
  * Paystack, per school: each school connects its own Paystack account, so
  * fees go straight to the school. The secret key is stored encrypted and
  * only decrypted to call Paystack or check a webhook signature.

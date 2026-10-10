@@ -1,0 +1,64 @@
+/* Sales kit print layouts. Named pages so these rules never affect other pages' printing. */
+
+@media print {
+  .sales-a4 {
+    page: sales-a4;
+    font-size: 10.5pt;
+    zoom: 0.8;
+  }
+  /* One named page for the whole document, so nothing after the article starts a new (blank) page. */
+  html:has(.sales-a4),
+  html:has(.sales-a4) body {
+    page: sales-a4;
+  }
+  html:has(.sales-deck-slide),
+  html:has(.sales-deck-slide) body {
+    page: sales-deck;
+  }
+  .sales-a4 .rounded-2xl,
+  .sales-a4 .rounded-xl,
+  .sales-a4 li {
+    break-inside: avoid;
+  }
+  .sales-a4 h2 {
+    break-after: avoid;
+  }
+  .sales-a4 .print-break {
+    break-before: page;
+  }
+  .sales-deck-slide {
+    page: sales-deck;
+    break-after: page;
+    break-inside: avoid;
+    height: 190mm !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .sales-deck-slide:last-child {
+    break-after: auto;
+  }
+}
+
+@page sales-a4 {
+  size: A4 portrait;
+  margin: 11mm 11mm 12mm;
+}
+
+@page sales-deck {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+/* Calculator number inputs: no spinners (they crowd small screens). */
+.sales-num::-webkit-outer-spin-button,
+.sales-num::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.sales-num {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

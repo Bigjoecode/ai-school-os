@@ -188,6 +188,10 @@ model Tenant {
   websiteDownloads WebsiteDownload[]
   websiteMessages  WebsiteMessage[]
   resultCodes      ResultAccessCode[]
+  resultPinBatches ResultPinBatch[]
+  resultPins       ResultPin[]
+  resultPinUses    ResultPinUse[]
+  resultPinSales   ResultPinSale[]
 
   platformInvoices PlatformInvoice[]
   platformPayments PlatformPayment[]
@@ -224,6 +228,7 @@ model Tenant {
   traitRatings          StudentTraitRating[]
   homeworkSubmissions   HomeworkSubmission[]
   kbChunks              KbChunk[]
+  billing               TenantBilling?
 
   @@map("tenants")
 }
@@ -719,6 +724,8 @@ model Student {
   liveAttendance LiveAttendance[]
 
   resultCodes ResultAccessCode[]
+  resultPins      ResultPin[]
+  resultPinUses   ResultPinUse[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId, classArmId])
@@ -744,6 +751,8 @@ model Guardian {
   /// Parental consent to the school's use of the platform for their children (NDPA), and which version of the notice they accepted.
   dataConsentAt      DateTime?
   dataConsentVersion String?
+  /// Parent texted STOP to the SMS/USSD line: no SMS updates (weekly learning update, school SMS) until START.
+  smsOptOutAt        DateTime?
   occupation         String?
   address            String?
   createdAt          DateTime  @default(now())
@@ -804,6 +813,8 @@ model Staff {
   dateOfBirth    DateTime?   @db.Date
   address        String?
   qualification  String?
+  /// Teachers Registration Council of Nigeria number, for census returns.
+  trcnNumber     String?
   nextOfKinName  String?
   nextOfKinPhone String?
   exitedOn       DateTime?   @db.Date
@@ -2608,6 +2619,118 @@ model ResultAccessCode {
   @@map("result_access_codes")
 }
 
+// Result-checker PINs ("scratch cards"): printed or sold online; serial is printed, PIN is stored only as a hash.
+model ResultPinBatch {
+  id           String    @id @default(cuid())
+  tenantId     String
+  number       Int
+  label        String?
+  channel      String    @default("PRINT")
+  sessionId    String
+  termId       String?
+  count        Int
+  usesPerPin   Int       @default(5)
+  priceKobo    Int       @default(0)
+  expiresAt    DateTime
+  requireSale  Boolean   @default(false)
+  status       String    @default("ACTIVE")
+  exportedAt   DateTime?
+  exportedById String?
+  createdById  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  tenant Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pins   ResultPin[]
+  sales  ResultPinSale[]
+
+  @@unique([tenantId, number])
+  @@map("result_pin_batches")
+}
+
+model ResultPin {
+  id             String    @id @default(cuid())
+  tenantId       String
+  batchId        String
+  serial         String
+  pinHash        String
+  last4          String
+  /// The PIN, encrypted, only until the one-time export (printed) or the sale (online).
+  sealed         String?
+  status         String    @default("UNSOLD")
+  soldAt         DateTime?
+  soldVia        String?
+  soldById       String?
+  soldTo         String?
+  studentId      String?
+  boundAt        DateTime?
+  usesLeft       Int
+  lastUsedAt     DateTime?
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+  voidReason     String?
+  createdAt      DateTime  @default(now())
+
+  tenant  Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  batch   ResultPinBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  student Student?       @relation(fields: [studentId], references: [id], onDelete: SetNull)
+  uses    ResultPinUse[]
+  sale    ResultPinSale?
+
+  @@unique([tenantId, serial])
+  @@index([batchId, status])
+  @@index([studentId])
+  @@index([tenantId, last4])
+  @@map("result_pins")
+}
+
+model ResultPinUse {
+  id        String   @id @default(cuid())
+  tenantId  String
+  pinId     String
+  studentId String
+  termId    String
+  channel   String   @default("WEB")
+  ipHash    String?
+  userId    String?
+  createdAt DateTime @default(now())
+
+  tenant  Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pin     ResultPin @relation(fields: [pinId], references: [id], onDelete: Cascade)
+  student Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([pinId])
+  @@index([studentId, termId])
+  @@map("result_pin_uses")
+}
+
+model ResultPinSale {
+  id         String    @id @default(cuid())
+  tenantId   String
+  batchId    String
+  pinId      String?   @unique
+  reference  String    @unique
+  amountKobo Int
+  buyerName  String
+  email      String
+  phone      String?
+  status     String    @default("PENDING")
+  claimHash  String
+  /// The sold PIN, encrypted, so the buyer can see it again for 48 hours after paying.
+  sealed     String?
+  delivery   Json?
+  paidAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  batch  ResultPinBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  pin    ResultPin?     @relation(fields: [pinId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@map("result_pin_sales")
+}
+
 // ============================================================== SaaS console
 
 enum PlatformInvoiceStatus {
@@ -4196,4 +4319,102 @@ model GameRound {
   @@index([studentId, playDate])
   @@index([classArmId, playDate])
   @@map("game_rounds")
+}
+
+// ============================================================ parent SMS & USSD line
+
+/**
+ * One request on the parent SMS/USSD line (a USSD screen, an SMS keyword, or
+ * the staff simulator) and what it answered. Platform-level: the shared code
+ * serves every school, so an unknown number has no school (tenantId null).
+ * Schools see their own rows (usage and SMS cost).
+ */
+model ParentLineRequest {
+  id         String   @id @default(cuid())
+  tenantId   String?
+  /// USSD or SMS
+  channel    String
+  /// Staff test from the simulator: nothing was sent and no cost.
+  simulated  Boolean  @default(false)
+  /// africastalking, generic, simulator
+  provider   String
+  /// 234…
+  phone      String
+  sessionId  String?
+  input      String
+  /// MENU, RESULT, FEES, ATTENDANCE, UPDATE, CONTACT, HELP, STOP, START, YES, CONSENT_PROMPT, PAY_LINK, CHOOSE, UNKNOWN
+  action     String
+  /// ANSWERED, UNKNOWN_NUMBER, CONSENT_NEEDED, LIMITED, CAPPED, INVALID, OFF
+  status     String
+  reply      String
+  guardianId String?
+  studentId  String?
+  /// SMS pages sent because of this request (replies, payment links, consent notices).
+  smsUnits   Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  @@index([phone, createdAt])
+  @@index([tenantId, createdAt])
+  @@map("parent_line_requests")
+}
+
+// ============================================================== self-serve sign-up and subscription billing
+
+/// A school's request to join on its own (public /signup). Becomes a tenant once the
+/// email is verified and, if the operator holds sign-ups for review, approved.
+model SchoolSignup {
+  id             String    @id @default(cuid())
+  /// PENDING_VERIFICATION | PENDING_REVIEW | APPROVED | REJECTED
+  status         String    @default("PENDING_VERIFICATION")
+  schoolName     String
+  schoolType     String
+  state          String
+  lga            String
+  approxStudents Int
+  slug           String
+  planId         String?
+  adminFirstName String
+  adminLastName  String
+  adminEmail     String
+  adminPhone     String
+  /// Cleared once the school is created (or the sign-up is rejected).
+  passwordHash   String
+  codeHash       String?
+  codeExpiresAt  DateTime?
+  codeAttempts   Int       @default(0)
+  codesSent      Int       @default(0)
+  verifiedAt     DateTime?
+  reviewNote     String?
+  reviewedById   String?
+  reviewedAt     DateTime?
+  tenantId       String?
+  ip             String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status, createdAt])
+  @@index([adminEmail, createdAt])
+  @@index([slug])
+  @@map("school_signups")
+}
+
+/// A school's billing rules: whether they are enforced (null follows the platform
+/// setting), the cycle it pays for, a downgrade waiting for the next period, the
+/// most students seen this period (for the true-up) and reminders already sent.
+model TenantBilling {
+  tenantId      String   @id
+  enforced      Boolean?
+  selfServe     Boolean  @default(false)
+  /// TERM | SESSION
+  cycle         String   @default("TERM")
+  pendingPlanId String?
+  peakStudents  Int      @default(0)
+  remindersSent String[] @default([])
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("tenant_billing")
 }

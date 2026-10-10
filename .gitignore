@@ -18,3 +18,15 @@ bece-syllabus/
 BECE-syllabus/
 /*.pdf
 jamb-brochure/
+
+# Android (Play Store app, Bubblewrap TWA): signing keys never live in the repo; build outputs aren't kept
+*.keystore
+*.jks
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/*.aab
+android/*.apk
+android/*.idsig
+android/app/release/

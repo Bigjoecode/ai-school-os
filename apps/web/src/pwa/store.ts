@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { isAndroidApp } from './android-app';
 
 /** Chrome/Edge/Samsung Internet's install offer (not in the DOM typings). */
 export interface BeforeInstallPromptEvent extends Event {
@@ -25,7 +26,9 @@ interface PwaState {
 
 export const isStandalone = (): boolean =>
   typeof window !== 'undefined' &&
-  (window.matchMedia?.('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone === true);
+  // The Play Store app (Trusted Web Activity) is already installed: never offer to install it.
+  (isAndroidApp() ||
+    window.matchMedia?.('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone === true);
 
 /** iPhone/iPad: no install prompt — people add it from the Share menu. */
 export const isIos = (): boolean =>

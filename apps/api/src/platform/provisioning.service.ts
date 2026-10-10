@@ -15,7 +15,8 @@ type Tx = Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction'
 export class ProvisioningService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createSchool(input: CreateTenantInput) {
+  /** opts: self-serve sign-up passes the already-hashed password, the trial length and contact details. */
+  async createSchool(input: Omit<CreateTenantInput, 'admin'> & { admin: Omit<CreateTenantInput['admin'], 'password'> & { password?: string } }, opts: { passwordHash?: string; trialDays?: number; contact?: { email?: string; phone?: string; address?: string } } = {}) {
     const taken = await this.prisma.root.tenant.findUnique({ where: { slug: input.slug } });
     if (taken) {
       throw new ConflictException({
@@ -24,7 +25,7 @@ export class ProvisioningService {
         errors: [{ path: 'slug', message: 'Already in use' }],
       });
     }
-    const passwordHash = await hashPassword(input.admin.password);
+    const passwordHash = opts.passwordHash ?? (await hashPassword(input.admin.password ?? ''));
 
     return this.prisma.root.$transaction(async (tx) => {
       const plan = input.planId
@@ -39,7 +40,8 @@ export class ProvisioningService {
           timezone: input.timezone,
           status: 'TRIAL',
           planId: plan?.id,
-          trialEndsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          trialEndsAt: new Date(Date.now() + (opts.trialDays ?? 30) * 24 * 60 * 60 * 1000),
+          ...(opts.contact ?? {}),
           // New schools start with the weekly parent learning update on (existing schools opt in).
           portalSettings: { learningUpdates: { enabled: true } },
         },

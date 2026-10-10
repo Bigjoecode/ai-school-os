@@ -1,6 +1,6 @@
 import type { Permission } from '@aischool/shared';
 import type { ReactNode } from 'react';
-import { Building, CreditCard, DatabaseBackup, FileLock2, KeyRound, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
+import { Building, CreditCard, FileBarChart, DatabaseBackup, FileLock2, KeyRound, ScrollText, ShieldCheck, UserCog, Users2 } from 'lucide-react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { hasPermission, useMe } from '@/lib/auth-store';
@@ -10,6 +10,7 @@ const LINKS: { to: string; label: string; icon: typeof Building; permission?: Pe
   { to: '/settings', label: 'School profile', icon: Building, permission: 'school.read' },
   { to: '/settings/users', label: 'Users', icon: UserCog, permission: 'users.read' },
   { to: '/settings/portal', label: 'Parent & student portal', icon: Users2, permission: 'school.read' },
+  { to: '/settings/returns', label: 'Returns profile', icon: FileBarChart, permission: 'school.read' },
   { to: '/settings/roles', label: 'Roles & permissions', icon: ShieldCheck, permission: 'roles.manage' },
   { to: '/settings/audit', label: 'Audit log', icon: ScrollText, permission: 'audit.read' },
   { to: '/settings/billing', label: 'Billing', icon: CreditCard, permission: 'billing.manage' },

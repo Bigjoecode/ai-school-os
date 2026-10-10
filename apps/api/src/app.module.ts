@@ -32,6 +32,7 @@ import { MaterialsModule } from './materials/materials.module';
 import { BackupModule } from './backup/backup.module';
 import { PromotionModule } from './promotion/promotion.module';
 import { WebsiteModule } from './website/website.module';
+import { ResultPinsModule } from './result-pins/result-pins.module';
 import { CbtModule } from './cbt/cbt.module';
 import { AlumniModule } from './alumni/alumni.module';
 import { HousesModule } from './houses/houses.module';
@@ -40,8 +41,10 @@ import { JambModule } from './jamb/jamb.module';
 import { LearningUpdatesModule } from './learning-updates/learning-updates.module';
 import { DataProtectionModule } from './data-protection/data-protection.module';
 import { SuccessModule } from './success/success.module';
+import { CensusModule } from './census/census.module';
 import { LessonModulesModule } from './lesson-modules/lesson-modules.module';
 import { GamesModule } from './games/games.module';
+import { ParentLinesModule } from './parent-lines/parent-lines.module';
 import { WhatsappAssistantModule } from './comms/whatsapp-assistant.module';
 import { AcademicsController } from './academics/academics.controller';
 import { AiModule } from './ai/ai.module';
@@ -59,6 +62,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 import { RbacModule } from './rbac/rbac.module';
 import { SchoolController } from './school/school.controller';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 
 @Controller('health')
 class HealthController {
@@ -142,6 +146,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     WhatsappAssistantModule,
     FilesModule,
     WebsiteModule,
+    ResultPinsModule,
     ConsoleModule,
     CommerceModule,
     LearningModule,
@@ -161,6 +166,9 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     SuccessModule,
     LessonModulesModule,
     GamesModule,
+    CensusModule,
+    ParentLinesModule,
+    SubscriptionsModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

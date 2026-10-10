@@ -195,6 +195,7 @@ export class SubjectExportService {
       const convIds = await this.conversations(tenantId, { OR: [{ studentId: s.id }, ...(s.userId ? [{ userId: s.userId }] : [])] });
       const invoices = await db.invoice.findMany({ where: { tenantId, studentId: s.id }, select: { id: true } });
       const links = await db.studentGuardian.findMany({ where: { tenantId, studentId: s.id }, select: { guardianId: true } });
+      const pinIds = (await db.resultPin.findMany({ where: { tenantId, studentId: s.id }, select: { id: true } })).map((p) => p.id);
       return {
         subject: { name: name(s), school },
         account: await this.account(s.userId),
@@ -242,6 +243,9 @@ export class SubjectExportService {
           P('StudentAiUsage', 'ai_allowance_usage.csv', 'AI allowance usage', bySt),
           P('AiConversation', 'ai_conversations.csv', 'AI tutor and assistant conversations', convIds.length ? { id: { in: convIds } } : null),
           P('AiMessage', 'ai_messages.csv', 'Messages in those conversations', convIds.length ? { conversationId: { in: convIds } } : null),
+          P('ResultPin', 'result_checker_cards.csv', 'Result checker cards used for them (serials only, no PINs)', bySt),
+          P('ResultPinUse', 'result_checker_uses.csv', 'Each time their result was checked with a card (IP shown only as a one-way code)', bySt),
+          P('ResultPinSale', 'result_checker_purchases.csv', 'Online purchases of the cards used for them', pinIds.length ? { pinId: { in: pinIds } } : null),
           P('AiUsage', 'ai_usage.csv', 'AI usage records (counts and costs, no content)', { OR: [{ studentId: s.id }, ...(s.userId ? [{ userId: s.userId }] : [])] }),
           P('Notification', 'notifications.csv', 'In-app notifications', s.userId ? { userId: s.userId } : null),
           P('AuditLog', 'audit_log.csv', 'Audit entries about them or by their account', { OR: [{ entityId: s.id }, ...(s.userId ? [{ actorUserId: s.userId }] : [])] }),
@@ -261,6 +265,7 @@ export class SubjectExportService {
           P('StudentGuardian', 'children_links.csv', 'Links to their children (see the children’s own exports for their data)', { guardianId: g.id }),
           P('Delivery', 'messages_received.csv', 'Messages sent to them (email, SMS, WhatsApp, in-app)', { guardianId: g.id }),
           P('WhatsAppMessage', 'whatsapp_messages.csv', 'WhatsApp assistant messages', { guardianId: g.id }),
+          P('ParentLineRequest', 'sms_ussd_requests.csv', 'Requests by SMS and USSD, and the replies sent', { guardianId: g.id }),
           P('AiConversation', 'ai_conversations.csv', 'Parent AI conversations', convIds.length ? { id: { in: convIds } } : null),
           P('AiMessage', 'ai_messages.csv', 'Messages in those conversations', convIds.length ? { conversationId: { in: convIds } } : null),
           P('AiUsage', 'ai_usage.csv', 'AI usage records (counts and costs, no content)', g.userId ? { userId: g.userId } : null),

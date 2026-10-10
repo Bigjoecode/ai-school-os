@@ -36,6 +36,16 @@ jobs:
           VITE_PORTAL_URL: https://ai-schoolportal.mejortechworld.com
         run: npm run build
 
+      # The Play Store app (Trusted Web Activity) proves it belongs to this site
+      # with /.well-known/assetlinks.json. Set the repository *variables*
+      # ANDROID_PACKAGE_NAME and ANDROID_SHA256_FINGERPRINTS (see android/README.md);
+      # until then this step writes nothing.
+      - name: Android app links
+        env:
+          ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME }}
+          ANDROID_SHA256_FINGERPRINTS: ${{ vars.ANDROID_SHA256_FINGERPRINTS }}
+        run: node infrastructure/deploy/assetlinks.mjs apps/web/dist/.well-known/assetlinks.json
+
       - name: Load the deploy key
         run: |
           install -m 700 -d ~/.ssh
@@ -105,6 +115,13 @@ jobs:
               --exclude-glob api/ --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
               --exclude-glob .user.ini --exclude-glob php.ini --exclude-glob error_log \
               apps/web/dist '$DEPLOY_PATH';"
+          # .well-known/ is skipped above (cPanel's SSL checks use it), so the
+          # Android app-links file is uploaded on its own.
+          if [ -f apps/web/dist/.well-known/assetlinks.json ]; then
+            sftp_cmd "
+              mkdir -p -f '$DEPLOY_PATH/.well-known';
+              put apps/web/dist/.well-known/assetlinks.json -o '$DEPLOY_PATH/.well-known/assetlinks.json';"
+          fi
 
       - name: Check the live site
         run: |
@@ -118,4 +135,9 @@ jobs:
             echo "API: $(cat api.json)"
           else
             echo "::warning::API health check returned HTTP $api — finish the cPanel Node.js app setup (see DEPLOYMENT.md)"
+          fi
+          if [ -f apps/web/dist/.well-known/assetlinks.json ]; then
+            type=$(curl -sS -o /dev/null -w '%{http_code} %{content_type}' "$SITE_URL/.well-known/assetlinks.json" || true)
+            echo "Android app links: $type"
+            case "$type" in "200 application/json"*) ;; *) echo "::warning::/.well-known/assetlinks.json should be HTTP 200 application/json (got: $type)";; esac
           fi

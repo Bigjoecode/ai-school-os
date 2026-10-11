@@ -126,10 +126,10 @@ function PushFooter() {
       <p className="min-w-0 flex-1 text-[12px] leading-snug text-muted-foreground">
         {push.state === 'on' ? (
           <>
-            <span className="font-medium text-foreground">Browser notifications on</span> for this device
+            <span className="font-medium text-foreground">{push.native ? 'Notifications on' : 'Browser notifications on'}</span> for this device
           </>
         ) : push.state === 'blocked' ? (
-          'Notifications are blocked for this site in your browser settings.'
+          push.native ? 'Notifications are off for AI School OS in your iPhone’s Settings → Notifications.' : 'Notifications are blocked for this site in your browser settings.'
         ) : (
           'Get notified on this device, even when the app is closed.'
         )}

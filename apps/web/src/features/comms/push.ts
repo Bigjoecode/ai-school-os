@@ -3,6 +3,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { api, errorMessage } from '@/lib/api';
 import { useMe } from '@/lib/auth-store';
+import {
+  currentNativePushToken,
+  disableNativePush,
+  enableNativePush,
+  isIosApp,
+  nativePushPermission,
+  nativePushSupported,
+  nativePushTurnedOff,
+} from '@/pwa/ios-app';
 import { ck } from './api';
 
 /** Which signed-in user this browser's subscription was last linked to (once per page load). */
@@ -11,6 +20,8 @@ let linkedTo: string | null = null;
 export type PushState = 'unsupported' | 'loading' | 'off' | 'on' | 'blocked';
 
 export function pushSupported(): boolean {
+  // The iPhone app gets native notifications (APNs) instead of web push.
+  if (isIosApp()) return nativePushSupported();
   return typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
 }
 
@@ -28,17 +39,90 @@ async function currentSubscription(): Promise<PushSubscription | null> {
   return (await reg?.pushManager.getSubscription()) ?? null;
 }
 
-/** Browser notifications for this device: whether they're on, and switches for them. */
+/** Notifications for this device: whether they're on, and switches for them. */
 export function usePush() {
+  const native = isIosApp();
   const me = useMe();
   const supported = pushSupported();
   const key = useQuery({
     queryKey: ck.pushKey,
-    queryFn: ({ signal }) => api.get<{ publicKey: string | null }>('/push/key', undefined, signal),
+    queryFn: ({ signal }) => api.get<{ publicKey: string | null; apns?: boolean }>('/push/key', undefined, signal),
     enabled: supported && !!me,
     staleTime: Infinity,
   });
-  const publicKey = key.data?.publicKey ?? null;
+  const web = useWebPush(!native && supported, key.data?.publicKey ?? null);
+  const app = useNativePush(native && supported, !!key.data?.apns);
+  return native ? app : web;
+}
+
+/** The iPhone app: APNs through the native PushNotifications plugin. */
+function useNativePush(supported: boolean, serverReady: boolean) {
+  const me = useMe();
+  const [state, setState] = useState<PushState>(supported ? 'loading' : 'unsupported');
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (!supported || !serverReady) return;
+    let alive = true;
+    void (async () => {
+      const permission = await nativePushPermission();
+      if (!alive) return;
+      if (permission === 'denied') return setState('blocked');
+      if (permission !== 'granted' || nativePushTurnedOff()) return setState('off');
+      setState('on');
+      // Link this phone to whoever is signed in now (a shared phone may have been someone else's).
+      if (me && linkedTo !== me.user.id) {
+        const token = await currentNativePushToken();
+        if (token) {
+          linkedTo = me.user.id;
+          await api.post('/push/native', { platform: 'ios', token }).catch(() => undefined);
+        }
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [supported, serverReady, me?.user.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const enable = useCallback(async () => {
+    setBusy(true);
+    try {
+      const r = await enableNativePush();
+      if ('denied' in r) {
+        setState('blocked');
+        toast.error('Notifications are off for AI School OS — turn them on in your iPhone’s Settings → Notifications.');
+        return;
+      }
+      await api.post('/push/native', { platform: 'ios', token: r.token });
+      linkedTo = me?.user.id ?? null;
+      setState('on');
+      toast.success('Notifications are on for this device');
+    } catch (err) {
+      toast.error(`Couldn’t turn on notifications: ${errorMessage(err)}`);
+    } finally {
+      setBusy(false);
+    }
+  }, [me?.user.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const disable = useCallback(async () => {
+    setBusy(true);
+    try {
+      const token = disableNativePush() ?? (await currentNativePushToken().catch(() => null));
+      if (token) await api.post('/push/native/unregister', { platform: 'ios', token }).catch(() => undefined);
+      linkedTo = null;
+      setState('off');
+      toast.success('Notifications are off for this device');
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  return { available: supported && serverReady, state, busy, enable, disable, native: true };
+}
+
+/** Browsers: web push through the service worker. */
+function useWebPush(supported: boolean, publicKey: string | null) {
+  const me = useMe();
   const [state, setState] = useState<PushState>(supported ? 'loading' : 'unsupported');
   const [busy, setBusy] = useState(false);
 
@@ -109,5 +193,5 @@ export function usePush() {
 
   /** Hidden when the server has no VAPID keys or the browser can't do push. */
   const available = supported && !!publicKey;
-  return { available, state, busy, enable, disable };
+  return { available, state, busy, enable, disable, native: false };
 }

@@ -61,7 +61,7 @@ export function UserMenu() {
           <UserRound /> Users & roles
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => navigate('/settings/security')}>
-          <KeyRound /> Security & two-step sign-in
+          <KeyRound /> Security & account
         </DropdownMenuItem>
         {me.permissions.includes('family.manage') && (
           <DropdownMenuItem onSelect={() => navigate('/settings/privacy')}>

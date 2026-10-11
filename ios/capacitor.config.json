@@ -1,0 +1,39 @@
+{
+  "appId": "com.mejortechworld.aischool",
+  "appName": "AI School OS",
+  "webDir": "www",
+  "backgroundColor": "#0B1330",
+  "appendUserAgent": "AISchoolOS-iOS/1",
+  "loggingBehavior": "debug",
+  "server": {
+    "url": "https://ai-schoolportal.mejortechworld.com",
+    "allowNavigation": [
+      "ai-schoolportal.mejortechworld.com"
+    ],
+    "errorPath": "offline.html"
+  },
+  "ios": {
+    "path": "native",
+    "contentInset": "never",
+    "allowsLinkPreview": false,
+    "preferredContentMode": "mobile",
+    "limitsNavigationsToAppBoundDomains": true,
+    "handleApplicationNotifications": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "launchFadeOutDuration": 250,
+      "backgroundColor": "#0B1330",
+      "showSpinner": false
+    },
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    }
+  }
+}

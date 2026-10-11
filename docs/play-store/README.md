@@ -5,6 +5,7 @@ signed and versioned. This folder is the Play Console pack:
 
 | File | What it's for |
 |---|---|
+| `QUICKSTART.md` | **The short checklist**: upload the built bundle, link the site, check — start here |
 | `listing.md` | App name, short and full description, category, graphics list, content-rating notes |
 | `audience-and-families.md` | Target audience options and Google Play's Families policy — **decide before submitting** |
 | `data-safety.md` | Draft Data safety answers, and the account-deletion page Play requires |

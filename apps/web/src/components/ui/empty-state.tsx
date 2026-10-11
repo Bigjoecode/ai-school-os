@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { errorMessage, notInPlanFeature } from '@/lib/api';
 import { hasPermission, useAuthStore } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
+import { allowDigitalPurchases } from '@/pwa/ios-app';
 import { Button } from './button';
 
 interface EmptyStateProps {
@@ -71,7 +72,7 @@ export function NotInPlanState({ feature, className, compact }: { feature?: stri
       description={
         <>
           {label ? <span className="font-medium text-foreground">{label}</span> : 'This feature'} isn’t included in your school’s current plan.{' '}
-          {canBilling ? 'See what your plan includes, or contact us to upgrade.' : 'Ask your school admin about upgrading.'}
+          {!allowDigitalPurchases() ? '' : canBilling ? 'See what your plan includes, or contact us to upgrade.' : 'Ask your school admin about upgrading.'}
         </>
       }
       action={

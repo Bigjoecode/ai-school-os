@@ -16,10 +16,11 @@ import {
   type DsrRequestRow,
   type DsrSubjectType,
   type MyConsentStatus,
+  type MyDeletionRequestStatus,
 } from '@aischool/shared';
 import { AuditService } from '../audit/audit.service';
 import { line } from '../backup/backup.service';
-import { currentTenantId, currentUserId } from '../common/request-context';
+import { currentContext, currentTenantId, currentUserId } from '../common/request-context';
 import type { Prisma } from '../generated/prisma/client';
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -342,6 +343,105 @@ export class DataProtectionService {
     }
     await this.audit.log({ action: A.consentsExported, entityType: 'Tenant', entityId: tenantId, summary: history ? 'Downloaded the consent history (CSV)' : 'Downloaded the parental consent records (CSV)' });
     return out;
+  }
+
+  // ------------------------------------------------------------------ "delete my account" (any signed-in user)
+
+  /**
+   * The person signed in asks the school to delete their account and personal data. The school
+   * is the controller, so this files a DELETION request in the school's data subject request log
+   * (Settings → Data protection) and tells the school's administrators; they decide what records
+   * the law makes them keep and close the request. Nothing is deleted automatically. One open
+   * request per person: asking again returns the open one.
+   */
+  async myDeletionRequest(): Promise<MyDeletionRequestStatus> {
+    const tenantId = currentTenantId();
+    const userId = currentUserId();
+    const [open, tenant] = await Promise.all([this.openSelfDeletion(tenantId, userId), this.prisma.root.tenant.findUnique({ where: { id: tenantId }, select: { name: true } })]);
+    return { open, schoolName: tenant?.name ?? null };
+  }
+
+  async requestMyDeletion(reason: string | null): Promise<MyDeletionRequestStatus> {
+    const tenantId = currentTenantId();
+    const userId = currentUserId();
+    if (await this.openSelfDeletion(tenantId, userId)) return this.myDeletionRequest();
+    const user = await this.prisma.root.user.findUniqueOrThrow({ where: { id: userId }, select: { firstName: true, lastName: true, email: true } });
+    const name = fullName(user);
+    // Which school record the account belongs to, so the school can find it in one click.
+    const [guardian, student, staff] = await Promise.all([
+      this.prisma.root.guardian.findFirst({ where: { tenantId, userId }, select: { id: true } }),
+      this.prisma.root.student.findFirst({ where: { tenantId, userId }, select: { id: true } }),
+      this.prisma.root.staff.findFirst({ where: { tenantId, userId }, select: { id: true } }),
+    ]);
+    const subject: { type: DsrSubjectType; id: string } | null = guardian
+      ? { type: 'guardian', id: guardian.id }
+      : student
+        ? { type: 'student', id: student.id }
+        : staff
+          ? { type: 'staff', id: staff.id }
+          : null;
+    const id = randomUUID();
+    const input: DsrLogInput = {
+      kind: 'DELETION',
+      subjectType: subject?.type ?? null,
+      subjectId: subject?.id ?? null,
+      subjectName: name,
+      requesterName: name,
+      receivedOn: new Date().toISOString().slice(0, 10),
+      notes: [`Asked from the app (Settings → Security & account) by the account holder${user.email ? ` (${user.email})` : ''}.`, reason ? `Reason given: “${reason}”` : null]
+        .filter(Boolean)
+        .join(' '),
+    };
+    const ctx = currentContext();
+    // Written directly (not through AuditService.log, which never fails): the person must only be
+    // told "sent" once the request is really on the school's list.
+    await this.prisma.root.auditLog.create({
+      data: {
+        tenantId,
+        actorUserId: userId,
+        action: A.requestLogged,
+        entityType: 'DataSubjectRequest',
+        entityId: id,
+        summary: `${name} asked for their account and personal data to be deleted (from the app)`,
+        metadata: { ...input, selfService: true, userId },
+        ip: ctx.ip,
+        userAgent: ctx.userAgent?.slice(0, 300),
+      },
+    });
+    const admins = await this.prisma.root.membership.findMany({
+      where: { tenantId, status: 'ACTIVE', userId: { not: userId }, roles: { some: { role: { permissions: { has: 'school.manage' } } } } },
+      select: { userId: true },
+      take: 50,
+    });
+    if (admins.length) {
+      await this.prisma.root.notification.createMany({
+        data: admins.map((a) => ({
+          tenantId,
+          userId: a.userId,
+          title: `${name} asked for their account to be deleted`,
+          body: 'A deletion request is waiting in Settings → Data protection → Requests. Reply within the legal time limit, and close it when it is done.',
+          link: '/settings/data-protection',
+        })),
+      });
+    }
+    return this.myDeletionRequest();
+  }
+
+  private async openSelfDeletion(tenantId: string, userId: string): Promise<{ id: string; requestedAt: string } | null> {
+    const mine = await this.prisma.root.auditLog.findMany({
+      where: { tenantId, actorUserId: userId, action: A.requestLogged, entityType: 'DataSubjectRequest', metadata: { path: ['selfService'], equals: true } },
+      orderBy: { createdAt: 'desc' },
+      take: 10,
+      select: { entityId: true, createdAt: true },
+    });
+    if (!mine.length) return null;
+    const closed = await this.prisma.root.auditLog.findMany({
+      where: { tenantId, action: A.requestClosed, entityId: { in: mine.map((m) => m.entityId!) } },
+      select: { entityId: true },
+    });
+    const done = new Set(closed.map((c) => c.entityId));
+    const open = mine.find((m) => !done.has(m.entityId));
+    return open ? { id: open.entityId!, requestedAt: open.createdAt.toISOString() } : null;
   }
 
   // ------------------------------------------------------------------ data subject requests (log)

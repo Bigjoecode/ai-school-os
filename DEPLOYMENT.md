@@ -67,6 +67,8 @@ Then add these **environment variables** and click **Create**:
 | `CRON_SECRET` | another long random string — lets the cron job below send scheduled messages and automations |
 | `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | optional — browser push notifications. Generate once on your computer with `npx web-push generate-vapid-keys`; **never change them** afterwards |
 | `VAPID_SUBJECT` | `mailto:` + your email, if you set the VAPID keys |
+| `APNS_KEY_ID`, `APNS_TEAM_ID`, `APNS_KEY_P8` | optional — push notifications to the **iPhone/iPad app**. An APNs key (.p8) from developer.apple.com → Keys; `APNS_KEY_P8` is the file base64-encoded (or its PEM text with `\n` for newlines). See `docs/app-store/README.md` |
+| `APNS_BUNDLE_ID`, `APNS_ENV` | optional: default `com.mejortechworld.aischool` and `production` (TestFlight and App Store builds) |
 
 Do **not** click "Run NPM Install": the API ships as a single bundled file
 with no dependencies to install.
@@ -1014,3 +1016,14 @@ GitHub repository **variables** (Settings → Secrets and variables → Actions 
 | `ANDROID_SHA256_FINGERPRINTS` | comma-separated SHA-256 certificate fingerprints: the upload key, plus Play App Signing's key after the first upload |
 
 Unset, the deploy skips the file. Check: `curl -i https://ai-schoolportal.mejortechworld.com/.well-known/assetlinks.json` → `200`, `application/json`.
+
+## iPhone and iPad app (App Store)
+
+The App Store app is the portal in a native Capacitor shell (`ios/`) that adds push notifications (APNs), haptics,
+the launch screen and offline support — no separate app code; website deploys update it. Shell, limits and
+building: [ios/README.md](ios/README.md). Builds run on GitHub Actions (*Actions → iOS app (TestFlight)*, macOS
+runner) with the signing secrets listed in [docs/app-store/README.md](docs/app-store/README.md), which also has the
+App Store Connect steps, App Privacy answers, age rating and review notes. Push to iPhones needs the `APNS_*`
+variables on the API (table above). Inside the iPhone app the portal hides digital purchases (parents' AI/exam-prep
+extras, the school plan checkout, result-PIN sales) as App Store rules require; school fees are still paid through
+Paystack.

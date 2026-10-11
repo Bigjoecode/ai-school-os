@@ -9,6 +9,7 @@ import {
   dpaAcceptSchema,
   dsrCloseSchema,
   dsrLogSchema,
+  myDeletionRequestSchema,
   type ConsentAcceptInput,
   type ConsentWithdrawInput,
   type DataProtectionOverview,
@@ -21,6 +22,8 @@ import {
   type DsrSubjectHit,
   type DsrSubjectType,
   type MyConsentStatus,
+  type MyDeletionRequestInput,
+  type MyDeletionRequestStatus,
 } from '@aischool/shared';
 import { z } from 'zod';
 import { RequirePermissions } from '../common/decorators';
@@ -54,6 +57,19 @@ export class DataProtectionController {
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   withdraw(@Body(new ZodPipe(consentWithdrawSchema)) body: ConsentWithdrawInput): Promise<MyConsentStatus> {
     return this.dp.withdraw(body.reason);
+  }
+
+  // ---------------------------------------------------------- anyone signed in: "delete my account"
+
+  @Get('deletion-request/me')
+  myDeletionRequest(): Promise<MyDeletionRequestStatus> {
+    return this.dp.myDeletionRequest();
+  }
+
+  @Post('deletion-request')
+  @Throttle({ default: { limit: 3, ttl: 60_000 } })
+  requestMyDeletion(@Body(new ZodPipe(myDeletionRequestSchema)) body: MyDeletionRequestInput): Promise<MyDeletionRequestStatus> {
+    return this.dp.requestMyDeletion(body.reason);
   }
 
   // ---------------------------------------------------------- school admin

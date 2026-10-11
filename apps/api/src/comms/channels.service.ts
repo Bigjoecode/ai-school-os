@@ -6,6 +6,7 @@ import type { Prisma } from '../generated/prisma/client';
 import { decryptSecret, encryptSecret } from '../common/crypto-box';
 import { env } from '../config/env';
 import { PrismaService } from '../prisma/prisma.service';
+import { ApnsClient } from './apns';
 
 export const PROVIDERS = { EMAIL: 'smtp', SMS: 'termii', WHATSAPP: 'whatsapp' } as const;
 type Provider = (typeof PROVIDERS)[keyof typeof PROVIDERS];
@@ -51,18 +52,23 @@ export interface SchoolChannels {
   whatsapp: (WhatsappConfig & { token: string }) | null;
 }
 
+/** Push subscriptions whose endpoint starts with this are iPhone/iPad app devices (APNs tokens). */
+export const APNS_PREFIX = 'apns:';
+
 /** Errors worth showing to the sender, without leaking secrets. */
 export class SendError extends Error {}
 
 /**
  * The delivery channels. Each school brings its own email (SMTP), SMS
  * (Termii) and WhatsApp (Meta Cloud API) accounts; secrets are stored
- * encrypted. Web push is server-wide (VAPID keys in the environment).
+ * encrypted. Push is server-wide: browsers through web push (VAPID keys in the environment) and
+ * the iPhone/iPad app through APNs (APNS_* keys).
  */
 @Injectable()
 export class ChannelsService {
   private readonly logger = new Logger(ChannelsService.name);
   private pushReady = false;
+  private apns: ApnsClient | null = null;
 
   constructor(private readonly prisma: PrismaService) {
     const e = env();
@@ -74,10 +80,23 @@ export class ChannelsService {
         this.logger.warn(`Web push is off: ${(err as Error).message}`);
       }
     }
+    if (e.APNS_KEY_ID && e.APNS_TEAM_ID && e.APNS_KEY_P8) {
+      try {
+        this.apns = new ApnsClient({ keyId: e.APNS_KEY_ID, teamId: e.APNS_TEAM_ID, keyP8: e.APNS_KEY_P8, bundleId: e.APNS_BUNDLE_ID, env: e.APNS_ENV });
+      } catch (err) {
+        this.logger.warn(`iPhone app push is off: ${(err as Error).message}`);
+      }
+    }
   }
 
+  /** Any kind of push is set up (browsers, the iPhone app, or both). */
   pushEnabled(): boolean {
-    return this.pushReady;
+    return this.pushReady || !!this.apns;
+  }
+
+  /** Push to the iPhone/iPad app (APNs) is set up. */
+  apnsEnabled(): boolean {
+    return !!this.apns;
   }
 
   pushPublicKey(): string | null {
@@ -99,7 +118,14 @@ export class ChannelsService {
       { channel: 'EMAIL', configured: !!smtp, detail: smtpCfg ? `${smtpCfg.host} · ${smtpCfg.fromEmail}` : null },
       { channel: 'SMS', configured: !!termii, detail: termiiCfg ? `Termii · sender ${termiiCfg.senderId}${termiiCfg.dnd ? ' · DND route' : ''}` : null },
       { channel: 'WHATSAPP', configured: !!wa, detail: waCfg ? `Cloud API · template ${waCfg.templateName}${waCfg.assistant?.enabled ? ' · parent assistant on' : ''}` : null },
-      { channel: 'PUSH', configured: this.pushReady, detail: this.pushReady ? 'Browser notifications on this server' : 'Needs VAPID keys on the server', serverManaged: true },
+      {
+        channel: 'PUSH',
+        configured: this.pushEnabled(),
+        detail: this.pushEnabled()
+          ? [this.pushReady && 'Browser notifications', this.apns && 'the iPhone app'].filter(Boolean).join(' and ') + ' on this server'
+          : 'Needs VAPID keys (browsers) or APNs keys (iPhone app) on the server',
+        serverManaged: true,
+      },
       { channel: 'IN_APP', configured: true, detail: 'Bell notifications for people with an app account' },
     ];
   }
@@ -225,7 +251,7 @@ export class ChannelsService {
     if (channel === 'EMAIL') return !!ch.smtp;
     if (channel === 'SMS') return !!ch.termii;
     if (channel === 'WHATSAPP') return !!ch.whatsapp;
-    if (channel === 'PUSH') return this.pushReady;
+    if (channel === 'PUSH') return this.pushEnabled();
     return true;
   }
 
@@ -323,13 +349,26 @@ export class ChannelsService {
     return { ref: body.messages?.[0]?.id ?? null };
   }
 
-  /** Sends to every browser the user has allowed; drops subscriptions the browser has revoked. */
+  /**
+   * Sends to every browser and iPhone the user has allowed; drops subscriptions the device has
+   * revoked. iPhone app devices are rows whose endpoint is `apns:<device token>` (see
+   * NotificationsController.registerNative), so every "has push" check counts them too.
+   */
   async sendPush(userId: string, payload: { title: string; body: string; url: string | null }): Promise<number> {
-    if (!this.pushReady) throw new SendError('Push notifications are not set up on this server');
+    if (!this.pushEnabled()) throw new SendError('Push notifications are not set up on this server');
     const subs = await this.prisma.root.pushSubscription.findMany({ where: { userId } });
     if (!subs.length) throw new SendError('No device has allowed notifications yet');
     let sent = 0;
     for (const s of subs) {
+      if (s.endpoint.startsWith(APNS_PREFIX)) {
+        if (!this.apns) continue;
+        const r = await this.apns.send(s.endpoint.slice(APNS_PREFIX.length), payload);
+        if (r.ok) sent++;
+        else if (r.gone) await this.prisma.root.pushSubscription.delete({ where: { id: s.id } }).catch(() => undefined);
+        else this.logger.warn(`iPhone push to ${userId} failed: ${r.status} ${r.reason}`);
+        continue;
+      }
+      if (!this.pushReady) continue;
       try {
         await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, JSON.stringify(payload), { TTL: 24 * 3600 });
         sent++;

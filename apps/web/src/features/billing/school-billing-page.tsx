@@ -21,6 +21,8 @@ import { CopyButton } from '../finance/ui';
 import { naira, usd } from '../platform/api';
 import { daysUntil, Facts, Meter, PAYMENT_METHOD_LABEL, PaymentStatusPill, PlatformInvoiceBadge, Section, SUB_STATUS_LABEL } from '../platform/ui';
 import { SectionHeader } from '../settings/settings-layout';
+import { allowDigitalPurchases } from '@/pwa/ios-app';
+import { IosPurchaseNote } from '@/pwa/ios-purchase-note';
 import { SubscriptionPanel } from './subscription-panel';
 
 type Invoice = SchoolBilling['invoices'][number];
@@ -80,7 +82,8 @@ export default function SchoolBillingPage() {
       ) : (
         <div className="space-y-5">
           <StatusBanner b={b} />
-          <SubscriptionPanel onTransfer={setTransferId} />
+          {/* The iPhone app shows the plan but doesn't sell it (App Store rules on digital subscriptions). */}
+          {allowDigitalPurchases() ? <SubscriptionPanel onTransfer={setTransferId} /> : <IosPurchaseNote title="Plan changes and payments" />}
           <div className="grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] [&>*]:min-w-0">
             <PlanCard b={b} />
             <div className="space-y-5">
@@ -88,7 +91,7 @@ export default function SchoolBillingPage() {
               <SubscriptionCard b={b} />
             </div>
           </div>
-          <InvoicesCard b={b} onPay={(i) => (b.onlinePayment ? pay.mutate(i.id) : setTransferFor(i))} paying={pay.isPending ? pay.variables : undefined} />
+          {allowDigitalPurchases() && <InvoicesCard b={b} onPay={(i) => (b.onlinePayment ? pay.mutate(i.id) : setTransferFor(i))} paying={pay.isPending ? pay.variables : undefined} />}
           <PaymentsCard b={b} />
         </div>
       )}

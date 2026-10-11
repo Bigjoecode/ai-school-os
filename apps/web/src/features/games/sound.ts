@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { haptic } from '@/pwa/ios-app';
 
 /**
  * Small sound effects made on the phone (Web Audio): nothing to download.
@@ -81,9 +82,10 @@ export function play(kind: keyof typeof TUNES) {
   }
 }
 
-/** A short buzz on phones that support it (also off unless sound is on). */
+/** A short buzz on phones that support it (also off unless sound is on). The iPhone app uses the haptic engine. */
 export function buzz(ms = 40) {
   if (!on) return;
+  if (haptic(ms >= 80 ? 'heavy' : ms >= 40 ? 'medium' : 'light')) return;
   try {
     navigator.vibrate?.(ms);
   } catch {

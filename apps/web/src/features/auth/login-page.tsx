@@ -28,6 +28,7 @@ import { useDocumentTitle } from "@/lib/hooks";
 import { isTwoFactorChallenge, useLogin } from "./session";
 import { TwoFactorStep } from "./two-factor-step";
 import { LegalLinks } from "../legal/legal-links";
+import { isIosApp } from "@/pwa/ios-app";
 
 type LoginValues = z.input<typeof loginSchema>;
 
@@ -417,8 +418,10 @@ export default function LoginPage() {
 
 /** "New school?": only when the operator has opened self-serve sign-up. */
 function SignupLink() {
-  const q = useQuery({ queryKey: ["signup", "config"], queryFn: ({ signal }) => api.get<SignupConfig>("/signup/config", undefined, signal), staleTime: 5 * 60_000, meta: { silent: true } });
-  if (!q.data?.enabled) return null;
+  // The iPhone app is for people whose school already uses AI School OS: schools sign up (and pick a paid plan) on the web.
+  const ios = isIosApp();
+  const q = useQuery({ queryKey: ["signup", "config"], queryFn: ({ signal }) => api.get<SignupConfig>("/signup/config", undefined, signal), staleTime: 5 * 60_000, meta: { silent: true }, enabled: !ios });
+  if (ios || !q.data?.enabled) return null;
   return (
     <p className="text-[13px]">
       New to AI School OS?{" "}

@@ -3,6 +3,7 @@ import { ApiError } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth-store';
 import { queryClient } from '@/lib/query-client';
 import { initAndroidApp } from './android-app';
+import { initIosApp } from './ios-app';
 import { reconnectSavedSession } from './session';
 import { isStandalone, usePwaStore, type BeforeInstallPromptEvent } from './store';
 
@@ -179,6 +180,7 @@ async function register() {
 /** Called once by main.tsx for the portal (not on schools' own website domains). */
 export function initPwa() {
   initAndroidApp();
+  initIosApp();
   watchConnection();
   syncSession();
   useAuthStore.subscribe(syncSession);

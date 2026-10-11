@@ -7,6 +7,7 @@ import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { isIosApp, nativeShare } from '@/pwa/ios-app';
 import { SALES_CONTACT, SALES_PAGES, SIGNUP_PATH, isPlaceholder, showContact, whatsappLink } from './config';
 import { OG_IMAGE, seoFor } from './seo-data';
 
@@ -51,7 +52,7 @@ export function ShareButton({ path, text, className, size = 'sm' }: { path?: str
   const url = window.location.origin + (path ?? location.pathname + location.search);
   const message = text ?? `${seo.title} — ${seo.description}`;
   const [copied, setCopied] = useState(false);
-  const canNativeShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const canNativeShare = isIosApp() || (typeof navigator !== 'undefined' && typeof navigator.share === 'function');
 
   const copy = async () => {
     try {
@@ -70,7 +71,9 @@ export function ShareButton({ path, text, className, size = 'sm' }: { path?: str
         variant="outline"
         size={size}
         className={cn('print:hidden', className)}
-        onClick={() => void navigator.share({ title: seo.title, text: message, url }).catch(() => undefined)}
+        onClick={() =>
+          void nativeShare({ title: seo.title, text: message, url }).then((done) => (done ? undefined : navigator.share({ title: seo.title, text: message, url }))).catch(() => undefined)
+        }
       >
         <Share2 /> Share
       </Button>

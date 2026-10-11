@@ -1,0 +1,21 @@
+{
+  "name": "ai-school-os-ios",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AI School OS for iPhone and iPad: a Capacitor shell that loads the live portal (see README.md).",
+  "scripts": {
+    "sync": "cap sync ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.3",
+    "@capacitor/haptics": "8.0.2",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/push-notifications": "8.1.3",
+    "@capacitor/share": "8.0.3",
+    "@capacitor/splash-screen": "8.0.2",
+    "@capacitor/status-bar": "8.0.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  }
+}

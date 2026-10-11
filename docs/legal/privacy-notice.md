@@ -111,6 +111,8 @@ Under the NDPA you (or a parent, for a child) can ask the school to:
 
 Send requests to the school. The school has tools to find and export a person's records, and the operator helps the school answer. [PLACEHOLDER: response time commitment, e.g. within the period the NDPA allows.]
 
+**Deleting your AI School OS account.** Signed in (on the website or in the Android or iPhone app), open the account menu → **Security & account** → **Request account deletion**. The request goes straight to your school's data protection list and its administrators are told. You can also ask the school office, or write to [PLACEHOLDER: DPO email] with your name, school and the email or phone number on the account. Your sign-in account and the personal data the school no longer needs are then deleted; records the law requires schools to keep (for example results and fee receipts) are kept only for the periods in **Data retention** (/legal/retention).
+
 If you are unhappy, you can complain to the **Nigeria Data Protection Commission** (https://ndpc.gov.ng). [PLACEHOLDER: confirm current NDPC complaint channel.]
 
 ## 9. How information is protected

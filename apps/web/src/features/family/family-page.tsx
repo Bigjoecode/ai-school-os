@@ -23,6 +23,8 @@ import { cn, initialsFromName } from '@/lib/utils';
 import { AccessMeter, naira, SectionTitle } from '../learning/components';
 import { useCheckout, useFamily, useQuote, useRenewNow, useUpdateSubscription, useVerify, type CheckoutBody } from './api';
 import { ParentLanguageCard } from './language-cards';
+import { allowDigitalPurchases } from '@/pwa/ios-app';
+import { IosPurchaseNote } from '@/pwa/ios-purchase-note';
 
 const SOURCE: Record<StudentAccess['entitlements'][number]['source'], { label: string; variant: 'secondary' | 'brand' | 'info' | 'success' }> = {
   INCLUDED: { label: 'Included', variant: 'secondary' },
@@ -60,7 +62,11 @@ export default function FamilyPage() {
     <Page className="max-w-6xl">
       <PageHeader
         title="My family"
-        description="Your children’s AI learning and exam preparation — what they have, how they’re doing, and what you can add."
+        description={
+          allowDigitalPurchases()
+            ? 'Your children’s AI learning and exam preparation — what they have, how they’re doing, and what you can add.'
+            : 'Your children’s AI learning and exam preparation — what they have and how they’re doing.'
+        }
         actions={
           canAsk ? (
             <Button asChild variant="outline">
@@ -100,6 +106,10 @@ export default function FamilyPage() {
             <ParentLanguageCard />
           </section>
 
+          {/* The iPhone app doesn't sell these digital extras (App Store rules): a plain note instead of the shop. */}
+          {!allowDigitalPurchases() ? (
+            <IosPurchaseNote title="Adding AI learning or exam prep" />
+          ) : (
           <section aria-label="Add learning" id="shop">
             <SectionTitle icon={ShoppingBag} title="Add AI learning or exam prep" />
             {!d.onlinePayment && (
@@ -128,6 +138,7 @@ export default function FamilyPage() {
               </div>
             )}
           </section>
+          )}
 
           <section aria-label="Subscriptions">
             <SectionTitle icon={RefreshCw} title="Subscriptions" />
@@ -537,21 +548,23 @@ function SubscriptionRow({ s }: { s: FamilySubscriptionRow }) {
         </p>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {recurring && live && !s.cancelAtPeriodEnd && (
+        {recurring && live && !s.cancelAtPeriodEnd && allowDigitalPurchases() && (
           <label className="mr-1 flex items-center gap-2 text-[12.5px] text-muted-foreground">
             <Switch checked={s.autoRenew} onCheckedChange={(v) => update.mutate({ id: s.id, autoRenew: v }, { onSuccess: () => toast.success(v ? 'Auto-renew is on' : 'Auto-renew is off') })} aria-label="Auto-renew" disabled={update.isPending} />
             Auto-renew
           </label>
         )}
-        {(s.status === 'PAST_DUE' || s.status === 'EXPIRED') && (
+        {(s.status === 'PAST_DUE' || s.status === 'EXPIRED') && allowDigitalPurchases() && (
           <Button size="sm" loading={renew.isPending} onClick={() => renew.mutate(s.id, { onSuccess: (r) => (r.authorizationUrl ? window.location.assign(r.authorizationUrl) : toast.success('Renewed')) })}>
             Renew now
           </Button>
         )}
         {live && recurring && (s.cancelAtPeriodEnd ? (
+          allowDigitalPurchases() && (
           <Button size="sm" variant="outline" loading={update.isPending} onClick={() => update.mutate({ id: s.id, cancelAtPeriodEnd: false }, { onSuccess: () => toast.success('Subscription resumed') })}>
             Resume
           </Button>
+          )
         ) : (
           <Button size="sm" variant="ghost" onClick={() => setConfirmCancel(true)}>
             Cancel

@@ -170,6 +170,18 @@ export const dsrCloseSchema = z.object({
 });
 export type DsrCloseInput = z.infer<typeof dsrCloseSchema>;
 
+/** Anyone signed in: ask the school to delete my account and personal data (Settings → Security & account). */
+export const myDeletionRequestSchema = z.object({
+  reason: z.string().trim().max(1000).nullish().transform((v) => v || null),
+});
+export type MyDeletionRequestInput = z.infer<typeof myDeletionRequestSchema>;
+
+export interface MyDeletionRequestStatus {
+  /** The open request, if there is one (closed ones are not shown). */
+  open: { id: string; requestedAt: string } | null;
+  schoolName: string | null;
+}
+
 export interface DsrRequestRow {
   id: string;
   kind: DsrKind;

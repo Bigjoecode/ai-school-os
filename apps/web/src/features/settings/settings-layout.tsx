@@ -14,7 +14,7 @@ const LINKS: { to: string; label: string; icon: typeof Building; permission?: Pe
   { to: '/settings/roles', label: 'Roles & permissions', icon: ShieldCheck, permission: 'roles.manage' },
   { to: '/settings/audit', label: 'Audit log', icon: ScrollText, permission: 'audit.read' },
   { to: '/settings/billing', label: 'Billing', icon: CreditCard, permission: 'billing.manage' },
-  { to: '/settings/security', label: 'Security', icon: KeyRound },
+  { to: '/settings/security', label: 'Security & account', icon: KeyRound },
   { to: '/settings/backup', label: 'Backup & export', icon: DatabaseBackup, permission: 'school.manage' },
   { to: '/settings/data-protection', label: 'Data protection', icon: FileLock2, permission: 'school.read' },
   { to: '/settings/privacy', label: 'Privacy & consent', icon: FileLock2, permission: 'family.manage' },

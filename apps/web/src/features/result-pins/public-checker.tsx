@@ -13,6 +13,7 @@ import { formatDate } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { money } from '../finance/ui';
 import { PaperStyle, ReportCardDocument } from '../report-cards/card-document';
+import { allowDigitalPurchases } from '@/pwa/ios-app';
 import { publicPins, usePublicPinInfo } from './api';
 
 /** Platform address: /check-result/:slug (works even when the school has no published website). */
@@ -186,7 +187,8 @@ export function ResultChecker({ slug, checkerPath, showSchool }: { slug: string;
           </form>
         )}
       </Card>
-      <BuyCard slug={slug} checkerPath={checkerPath} offers={d.offers} currency={d.currency} />
+      {/* The iPhone app doesn't sell PINs online (App Store rules on digital goods): only the school-office route shows. */}
+      <BuyCard slug={slug} checkerPath={checkerPath} offers={allowDigitalPurchases() ? d.offers : []} currency={d.currency} />
     </div>
   );
 }

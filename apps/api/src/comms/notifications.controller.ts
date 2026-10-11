@@ -8,8 +8,11 @@ import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { env } from '../config/env';
 import { PrismaService } from '../prisma/prisma.service';
-import { ChannelsService } from './channels.service';
+import { APNS_PREFIX, ChannelsService } from './channels.service';
 import { SchedulerService, type TickResult } from './scheduler.service';
+
+/** An APNs device token is 32 bytes today (64 hex characters); Apple says it may grow. */
+const nativePushSchema = z.object({ platform: z.literal('ios'), token: z.string().regex(/^[0-9a-fA-F]{64,200}$/, 'Not a device token') });
 
 @Controller()
 export class NotificationsController {
@@ -51,8 +54,8 @@ export class NotificationsController {
 
   @Get('push/key')
   @AllowNoTenant()
-  key(): { publicKey: string | null } {
-    return { publicKey: this.channels.pushPublicKey() };
+  key(): { publicKey: string | null; apns: boolean } {
+    return { publicKey: this.channels.pushPublicKey(), apns: this.channels.apnsEnabled() };
   }
 
   @Post('push/subscribe')
@@ -72,6 +75,33 @@ export class NotificationsController {
   @AllowNoTenant()
   async unsubscribe(@Body(new ZodPipe(z.object({ endpoint: z.url() }))) body: { endpoint: string }) {
     await this.prisma.root.pushSubscription.deleteMany({ where: { endpoint: body.endpoint, userId: currentContext().userId! } });
+  }
+
+  // ---------------------------------------------------------- the iPhone/iPad app (APNs device tokens)
+
+  /**
+   * The app sends its APNs device token after the user allows notifications. Kept in the same
+   * table as browser subscriptions (endpoint `apns:<token>`), linked to whoever is signed in now.
+   */
+  @Post('push/native')
+  @HttpCode(204)
+  @AllowNoTenant()
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  async registerNative(@Body(new ZodPipe(nativePushSchema)) body: z.infer<typeof nativePushSchema>, @Headers('user-agent') ua?: string) {
+    const userId = currentContext().userId!;
+    const endpoint = `${APNS_PREFIX}${body.token.toLowerCase()}`;
+    await this.prisma.root.pushSubscription.upsert({
+      where: { endpoint },
+      update: { userId, userAgent: ua?.slice(0, 300) },
+      create: { userId, endpoint, p256dh: '-', auth: '-', userAgent: ua?.slice(0, 300) },
+    });
+  }
+
+  @Post('push/native/unregister')
+  @HttpCode(204)
+  @AllowNoTenant()
+  async unregisterNative(@Body(new ZodPipe(nativePushSchema)) body: z.infer<typeof nativePushSchema>) {
+    await this.prisma.root.pushSubscription.deleteMany({ where: { endpoint: `${APNS_PREFIX}${body.token.toLowerCase()}`, userId: currentContext().userId! } });
   }
 
   // ---------------------------------------------------------- cron

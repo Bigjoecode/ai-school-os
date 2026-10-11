@@ -78,6 +78,19 @@ const schema = z.object({
   VAPID_PRIVATE_KEY: z.string().optional(),
   VAPID_SUBJECT: z.string().default('mailto:admin@example.com'),
   /**
+   * Push to the iPhone/iPad app (Apple Push Notification service). From App Store Connect →
+   * Users and Access → Integrations → Keys (APNs) — or developer.apple.com → Keys — a .p8 key with
+   * "Apple Push Notifications service" enabled. APNS_KEY_P8 is the file's contents, either the PEM
+   * text (newlines may be written as \n) or the whole file base64-encoded. All three set → on.
+   */
+  APNS_KEY_ID: z.string().optional(),
+  APNS_TEAM_ID: z.string().optional(),
+  APNS_KEY_P8: z.string().optional(),
+  /** The iOS app's bundle ID (the APNs "topic"). */
+  APNS_BUNDLE_ID: z.string().default('com.mejortechworld.aischool'),
+  /** production for TestFlight and App Store builds; sandbox only for builds run from Xcode. */
+  APNS_ENV: z.enum(['production', 'sandbox']).default('production'),
+  /**
    * Google Meet: one OAuth client for the whole platform (Google Cloud console →
    * Credentials → OAuth client, web application). Each school then connects its
    * own Google Workspace account. Redirect URI: <site>/api/live/google/callback

@@ -75,5 +75,10 @@ Before submitting, publish one (for example a short section in the privacy notic
 3. what is deleted (the sign-in account and personal data the school no longer needs), what may be kept and
    for how long (records schools must keep by law — see `/legal/retention`), and how long it takes.
 
-Then give that page's URL in the Data deletion section. (Drafting the page needs your DPO contact and
-counsel's retention periods, so it isn't written here.)
+Then give that page's URL in the Data deletion section.
+
+**Update:** the privacy notice (section 8, "Deleting your AI School OS account") now gives these steps, and every
+signed-in user can start a request in the app: account menu → **Security & account → Request account deletion**
+(it files a Deletion request in the school's *Data protection → Requests* list and notifies its admins). Fill the
+DPO-email and response-time placeholders there, then use `https://ai-schoolportal.mejortechworld.com/legal/privacy`
+as the Data deletion URL.

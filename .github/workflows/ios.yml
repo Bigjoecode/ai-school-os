@@ -1,0 +1,214 @@
+name: iOS app (TestFlight)
+
+# Builds the App Store app (ios/, a Capacitor shell around the live portal), signs it with the
+# distribution certificate and provisioning profile from the repository secrets, and uploads it to
+# App Store Connect, where it appears in TestFlight. See ios/README.md and docs/app-store/README.md.
+#
+# Run it: Actions → "iOS app (TestFlight)" → Run workflow, or push a tag like ios-v1.0.1.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version shown on the App Store (e.g. 1.0.1). Leave empty to use ios/package.json.'
+        required: false
+        default: ''
+      upload:
+        description: 'Upload to TestFlight (untick to only build and keep the .ipa as an artifact)'
+        type: boolean
+        default: true
+  push:
+    tags: ['ios-v*']
+
+concurrency:
+  group: ios-build
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  testflight:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    env:
+      BUNDLE_ID: com.mejortechworld.aischool
+      PROJECT: ios/native/App/App.xcodeproj
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ios/package-lock.json
+
+      - name: Check the signing secrets are set
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          IOS_DIST_CERT_P12: ${{ secrets.IOS_DIST_CERT_P12 }}
+          IOS_DIST_CERT_PASSWORD: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+          IOS_PROFILE: ${{ secrets.IOS_PROFILE }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          missing=""
+          for name in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8 IOS_DIST_CERT_P12 IOS_DIST_CERT_PASSWORD IOS_PROFILE APPLE_TEAM_ID; do
+            [ -n "${!name}" ] || missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing (see docs/app-store/README.md, 'GitHub secrets')"
+            exit 1
+          fi
+
+      # Apple requires uploads built with a recent Xcode/iOS SDK: use the newest stable one on the runner.
+      - name: Select Xcode
+        run: |
+          xcode=$(ls -d /Applications/Xcode_*.app | grep -viE 'beta|rc' | sort -V | tail -1)
+          sudo xcode-select -s "$xcode/Contents/Developer"
+          xcodebuild -version
+
+      - name: Install
+        working-directory: ios
+        run: npm ci --no-audit --no-fund
+
+      # Copies www/ (the offline page) and capacitor.config.json into the Xcode project and
+      # writes the Swift package list for the plugins.
+      - name: Capacitor sync
+        working-directory: ios
+        run: npx cap sync ios
+
+      - name: Version and build number
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          version="$INPUT_VERSION"
+          if [ -z "$version" ] && [ "${GITHUB_REF_TYPE}" = "tag" ]; then version="${GITHUB_REF_NAME#ios-v}"; fi
+          if [ -z "$version" ]; then version=$(node -p "require('./ios/package.json').version"); fi
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+(\.[0-9]+){0,2}$'; then
+            echo "::error::Version must look like 1.0.1 (got '$version')"; exit 1
+          fi
+          # Must go up with every upload of the same version; the run number always does.
+          build="${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+          echo "Version $version, build $build"
+
+      - name: Install the certificate and provisioning profile
+        id: signing
+        env:
+          IOS_DIST_CERT_P12: ${{ secrets.IOS_DIST_CERT_P12 }}
+          IOS_DIST_CERT_PASSWORD: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+          IOS_PROFILE: ${{ secrets.IOS_PROFILE }}
+        run: |
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          kc_pass=$(openssl rand -base64 24)
+          printf '%s' "$IOS_DIST_CERT_P12" | base64 --decode > "$RUNNER_TEMP/dist.p12"
+          printf '%s' "$IOS_PROFILE" | base64 --decode > "$RUNNER_TEMP/app.mobileprovision"
+
+          security create-keychain -p "$kc_pass" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$kc_pass" "$keychain"
+          security import "$RUNNER_TEMP/dist.p12" -P "$IOS_DIST_CERT_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
+          security set-key-partition-list -S apple-tool:,apple: -k "$kc_pass" "$keychain" >/dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          rm -f "$RUNNER_TEMP/dist.p12"
+
+          security cms -D -i "$RUNNER_TEMP/app.mobileprovision" > "$RUNNER_TEMP/profile.plist"
+          uuid=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$RUNNER_TEMP/profile.plist")
+          name=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$RUNNER_TEMP/profile.plist")
+          app_id=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' "$RUNNER_TEMP/profile.plist")
+          aps=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:aps-environment' "$RUNNER_TEMP/profile.plist" 2>/dev/null || true)
+          case "$app_id" in *".$BUNDLE_ID") ;; *) echo "::error::The provisioning profile is for $app_id, not $BUNDLE_ID"; exit 1;; esac
+          [ "$aps" = "production" ] || { echo "::error::The provisioning profile has no Push Notifications (aps-environment=production). Enable Push Notifications on the App ID, regenerate the App Store profile and update IOS_PROFILE."; exit 1; }
+          # Xcode 16+ reads this folder; older versions the second one.
+          for dir in "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles" "$HOME/Library/MobileDevice/Provisioning Profiles"; do
+            mkdir -p "$dir" && cp "$RUNNER_TEMP/app.mobileprovision" "$dir/$uuid.mobileprovision"
+          done
+          echo "profile_name=$name" >> "$GITHUB_OUTPUT"
+          echo "keychain=$keychain" >> "$GITHUB_OUTPUT"
+          echo "Profile: $name ($uuid)"
+
+      # Manual signing for the app target only. Passing the profile on the xcodebuild command line
+      # would also apply it to the Swift packages, which fails ("does not support provisioning profiles").
+      - name: Configure signing in the project
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          PROFILE_NAME: ${{ steps.signing.outputs.profile_name }}
+        run: |
+          perl -0pi -e 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g; s|(CODE_SIGN_ENTITLEMENTS = App/App.entitlements;\n)|$1\t\t\t\tDEVELOPMENT_TEAM = $ENV{TEAM_ID};\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = "$ENV{PROFILE_NAME}";\n\t\t\t\t"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";\n|g' "$PROJECT/project.pbxproj"
+          grep -c 'PROVISIONING_PROFILE_SPECIFIER' "$PROJECT/project.pbxproj"
+          # App Store builds use the production push service.
+          plutil -replace aps-environment -string production ios/native/App/App/App.entitlements
+
+      - name: Archive
+        run: |
+          ARCHIVE="$RUNNER_TEMP/App.xcarchive"
+          xcodebuild archive \
+            -project "$PROJECT" \
+            -scheme App \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$ARCHIVE" \
+            MARKETING_VERSION='${{ steps.version.outputs.version }}' \
+            CURRENT_PROJECT_VERSION='${{ steps.version.outputs.build }}' \
+            | tee "$RUNNER_TEMP/archive.log" | grep -E '^(\*\*|error:|warning: .*sign|.*error:)' || true
+          [ -d "$ARCHIVE" ] || { echo "::error::Archive failed — see the archive-log artifact"; tail -80 "$RUNNER_TEMP/archive.log"; exit 1; }
+
+      - name: Export the .ipa
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          PROFILE_NAME: ${{ steps.signing.outputs.profile_name }}
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>export</string>
+            <key>teamID</key><string>${TEAM_ID}</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>Apple Distribution</string>
+            <key>provisioningProfiles</key>
+            <dict><key>${BUNDLE_ID}</key><string>${PROFILE_NAME}</string></dict>
+            <key>uploadSymbols</key><true/>
+            <key>manageAppVersionAndBuildNumber</key><false/>
+          </dict>
+          </plist>
+          EOF
+          ARCHIVE="$RUNNER_TEMP/App.xcarchive"; EXPORT_DIR="$RUNNER_TEMP/export"
+          xcodebuild -exportArchive -archivePath "$ARCHIVE" -exportPath "$EXPORT_DIR" -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist"
+          ls -la "$EXPORT_DIR"
+
+      - name: Upload to TestFlight
+        if: github.event_name == 'push' || inputs.upload
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          printf '%s' "$ASC_KEY_P8" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          ipa=$(ls "$RUNNER_TEMP"/export/*.ipa | head -1)
+          xcrun altool --upload-app --type ios --file "$ipa" --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          echo "Uploaded version ${{ steps.version.outputs.version }} (${{ steps.version.outputs.build }}). It appears in App Store Connect → TestFlight after processing (usually 5–30 minutes)."
+
+      - name: Keep the .ipa and build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-${{ steps.version.outputs.version }}-${{ steps.version.outputs.build }}
+          path: |
+            ${{ runner.temp }}/export/*.ipa
+            ${{ runner.temp }}/archive.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Remove signing material
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/signing.keychain-db" 2>/dev/null || true
+          rm -rf "$HOME/.appstoreconnect/private_keys" "$RUNNER_TEMP/app.mobileprovision" "$RUNNER_TEMP/profile.plist" "$RUNNER_TEMP/dist.p12"

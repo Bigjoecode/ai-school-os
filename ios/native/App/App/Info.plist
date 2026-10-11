@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CAPACITOR_DEBUG</key>
+	<string>$(CAPACITOR_DEBUG)</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>AI School OS</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<!--
+		Only standard HTTPS/TLS and the operating system's own crypto (WebCrypto for offline exam packs)
+		are used, which is exempt from export documentation: TestFlight won't ask on every upload.
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<!--
+		App-Bound Domains. WKWebView only runs service workers (the portal's offline copy and offline
+		exams) for these domains, together with ios.limitsNavigationsToAppBoundDomains in
+		capacitor.config.json. Max 10 entries, fixed at build time. "localhost" is the app's own
+		bundled pages (offline.html). youtube-nocookie.com is the lesson-video embed.
+	-->
+	<key>WKAppBoundDomains</key>
+	<array>
+		<string>ai-schoolportal.mejortechworld.com</string>
+		<string>localhost</string>
+		<string>www.youtube-nocookie.com</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>AI School OS uses the camera when you choose to take a photo, for example to hand in homework or ask the AI tutor about a question from your book.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>AI School OS uses the microphone when you choose to talk to the AI tutor or record a voice-note answer for your teacher.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>AI School OS opens your photos only when you choose one to attach, for example to hand in homework or ask the AI tutor about a picture.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>AI School OS saves an image to your photos only when you choose to, for example a receipt or a report card.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+</dict>
+</plist>

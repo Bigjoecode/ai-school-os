@@ -202,6 +202,7 @@ const LegalPage = lazy(() => import('@/features/legal/legal-page'));
 const SignupPage = lazy(() => import('@/features/signup/signup-pages'));
 const SignupVerifyPage = lazy(() => import('@/features/signup/signup-pages').then((m) => ({ default: m.SignupVerifyPage })));
 const PricingPage = lazy(() => import('@/features/signup/signup-pages').then((m) => ({ default: m.PricingPage })));
+const PilotSignupPage = lazy(() => import('@/features/signup/signup-pages').then((m) => ({ default: m.PilotPage })));
 const InvoiceDocumentPage = lazy(() => import('@/features/billing/invoice-document-page'));
 const ConsoleSubscriptionsPage = lazy(() => import('@/features/platform/subscriptions-page'));
 const ForSchoolsPage = lazy(() => import('@/features/sales/for-schools-page'));
@@ -253,6 +254,7 @@ export const router = createBrowserRouter(withRouteErrors([
   // Self-serve sign-up and the public plans: no sign-in, no app chrome.
   { path: '/pricing', element: withSuspense(<PricingPage />) },
   { path: '/signup', element: withSuspense(<SignupPage />) },
+  { path: '/pilot', element: withSuspense(<PilotSignupPage />) },
   { path: '/signup/verify', element: withSuspense(<SignupVerifyPage />) },
   // A printable AI School OS invoice or receipt (the school's own, or any from the console with ?from=console).
   { path: '/billing/invoices/:id', element: <RequireAuth>{withSuspense(<InvoiceDocumentPage />)}</RequireAuth> },

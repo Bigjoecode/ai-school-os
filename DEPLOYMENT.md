@@ -979,6 +979,59 @@ The lifecycle check runs every 30 minutes on the scheduler tick (and on
 `POST /api/cron/tick`); **Platform → Subscriptions** can also send due
 reminders straight away.
 
+### Free pilot programme
+
+A limited number of schools (default **25**, **Platform → Subscriptions →
+Pilot → Pilot settings**) use AI School OS free for **one term**: the rest of
+the term they join in plus the next full term. Every pilot school has an
+explicit **pilot end date** (shown and editable in the Pilot tab).
+
+- **How the end date is worked out.** From the school's own terms (Settings →
+  Academic) when set up: the end of the term after the one it joins in (if it
+  joins in a holiday, the end of the next term to start). A brand-new school
+  has no terms yet, so the default uses *typical* Nigerian term dates
+  (second term 6 Jan – 9 Apr, third 27 Apr – 24 Jul, first 8 Sep – 18 Dec):
+  joining in mid-October gives an end date of 9 April, roughly 4–6 months
+  later. Term dates vary by state and school, so check with the school and
+  change the date if needed. The pilot ends at 23:59 Lagos time on that day.
+- **Applying.** Schools apply at **/pilot** (or tick "Apply for the free
+  pilot" on /signup): the normal sign-up form plus one short question (why
+  they want to join); type, state and student numbers are already on the form.
+  Pilot applications **always** wait in **Sign-ups** with a **Pilot** badge,
+  even with auto-approve on, and are open while places are left even if
+  normal self-serve sign-up is off (SMTP is still needed in production).
+  Approve **as pilot** (uses a place; refused when none is left), **as a
+  normal trial**, or **decline** with a reason.
+- **Existing schools** (e.g. created in the console) can be added from the
+  Pilot tab (**Add a school**). Demo schools and schools that already pay
+  cannot be added. Adding a school switches its billing rules on so normal
+  pricing follows the pilot.
+- **Places.** In-pilot, ended and converted schools use a place;
+  **Remove from pilot** frees it. The tab shows "Pilot places: N of 25 used".
+- **Billing.** Until the end date the school is in the **Free pilot** state:
+  no charges, and the banner says "Free pilot until <date>" (school admins
+  always; everyone else in the last 14 days). A school that chooses a plan and
+  pays early does not lose free days: its paid term starts on the pilot end
+  date. When the pilot ends, the school gets the "pilot ended" notice and its
+  next term's invoice (one term, its plan, active students or its estimate,
+  at least the minimum), then the usual grace period and read-only mode if it
+  does not pay. Nothing is deleted.
+- **Messages** (in-app to the school admins, plus email when SMTP is set):
+  welcome with what is free until when and the guided first week; reminders
+  14, 7, 3 and 1 days before the end (the self-serve trial reminder days plus
+  14 and 3) with the price for the school's student count and how to
+  continue; "pilot ended".
+- **Actions** per school: extend or change the end date, end now, convert to
+  paid (issues the next term's invoice now, starting at the pilot end date),
+  remove from pilot. **CSV** downloads school, state, type, students, joined,
+  pilot dates, status, health score (from the success dashboard), last
+  activity and the price after the pilot.
+- **Public offer.** `GET /api/signup/pilot` returns
+  `{ open, places, placesLeft, termsText, detail, applyPath }`; the brochure,
+  deck and boards page show "Free pilot for 25 schools — one term free — N
+  places left" with **Apply for the free pilot** (to /pilot), and hide it when
+  the pilot is full or closed.
+
 ## Sales kit (public pages for proprietors and state boards)
 
 Public, no sign-in: `/for-schools` (brochure, prints as an A4 handout),
@@ -990,8 +1043,9 @@ copy live in `apps/web/src/features/sales`.
 - **Contact details.** Fill in the `[PLACEHOLDER_…]` tokens in
   `apps/web/src/features/sales/config.ts`, or set `VITE_SALES_WHATSAPP`
   (international form, e.g. 2348012345678), `VITE_SALES_PHONE`,
-  `VITE_SALES_EMAIL`, `VITE_SALES_CONTACT_NAME` and `VITE_SALES_PILOT_TERMS`
-  at build time. Unfilled options are hidden on the live site.
+  `VITE_SALES_EMAIL` and `VITE_SALES_CONTACT_NAME` at build time. Unfilled
+  options are hidden on the live site. The pilot offer is live from the
+  console (see "Free pilot programme" above), not a build setting.
 - **Prices** in `config.ts` mirror the console plans; change both together.
 - **Share previews.** The build writes `dist/og/*.html` (the app shell with
   each page's Open Graph tags) and `.htaccess` serves them for the four

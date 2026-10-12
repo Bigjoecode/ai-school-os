@@ -19,9 +19,14 @@ export const SALES_CONTACT = {
   email: env.VITE_SALES_EMAIL || '[PLACEHOLDER_EMAIL]',
   /** Optional: who signs the pilot proposal on the boards page, e.g. "Ada Obi, Partnerships". */
   contactName: env.VITE_SALES_CONTACT_NAME || '[PLACEHOLDER_CONTACT_NAME]',
-  /** One sentence with your pilot terms, e.g. a price or discount for the first term. Hidden until filled in. */
-  pilotTerms: env.VITE_SALES_PILOT_TERMS || '[PLACEHOLDER_PILOT_TERMS]',
 };
+
+/**
+ * The free pilot offer is live, not a setting here: the pages read GET /api/signup/pilot
+ * (console → Subscriptions → Pilot sets the places and opens or closes applications) and
+ * hide the offer when it is full or closed. See ./pilot-offer.tsx.
+ */
+export const PILOT_PATH = '/pilot';
 
 export const isPlaceholder = (v: string) => /^\[PLACEHOLDER/.test(v);
 /** Show a contact option: filled in, or (in development only) still a placeholder so it gets noticed. */

@@ -20,6 +20,7 @@ import { addMonths, invoicePaidHooks, PlatformBillingService } from '../console/
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BillingStateService, platformSender } from './billing-state.service';
+import { PilotService } from './pilot.service';
 import { SignupService } from './signup.service';
 
 const DAY = 86_400_000;
@@ -53,6 +54,7 @@ export class SubscriptionService implements OnModuleInit {
     private readonly signups: SignupService,
     private readonly features: FeatureService,
     private readonly audit: AuditService,
+    private readonly pilot: PilotService,
   ) {}
 
   onModuleInit() {
@@ -124,6 +126,7 @@ export class SubscriptionService implements OnModuleInit {
     const tenant = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tenantId } });
     if (plan.maxStudents && input.students > plan.maxStudents) throw new BadRequestException(`The ${plan.name} plan is for up to ${plan.maxStudents.toLocaleString('en-NG')} students; choose a larger plan`);
     const rules = await this.state.settings();
+    const status0 = await this.state.status(tenantId, true);
     let sub = await this.billing.current(tenantId);
     if (!sub || sub.status === 'CANCELLED') {
       const created = await this.prisma.root.subscription.create({ data: { tenantId, planId: plan.id, status: 'TRIALING', currentPeriodStart: tenant.createdAt, currentPeriodEnd: tenant.trialEndsAt ?? new Date() } });
@@ -152,8 +155,10 @@ export class SubscriptionService implements OnModuleInit {
     await this.prisma.root.tenantBilling.upsert({ where: { tenantId }, update: { cycle: input.cycle, pendingPlanId: null }, create: { tenantId, cycle: input.cycle } });
     this.features.invalidate(tenantId);
 
-    const start = new Date();
-    const end = addMonths(today(), input.cycle === 'SESSION' ? 12 : 4);
+    // During the free pilot, paying early does not lose free days: the paid period starts when the pilot ends.
+    const pilotEnd = status0.state === 'PILOT' && status0.pilotEndsAt ? new Date(status0.pilotEndsAt) : null;
+    const start = pilotEnd ?? new Date();
+    const end = addMonths(pilotEnd ?? today(), input.cycle === 'SESSION' ? 12 : 4);
     const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
     const invoice = await this.billing.manualInvoice({
       tenantId,
@@ -283,7 +288,7 @@ export class SubscriptionService implements OnModuleInit {
     const subBy = new Map<string, (typeof subs)[number]>();
     for (const s of subs) if (!subBy.has(s.tenantId)) subBy.set(s.tenantId, s);
     const paidBy = new Map(paid.map((p) => [p.tenantId, p._sum.amountKobo ?? 0]));
-    const counts: Record<BillingStateKey, number> = { OK: 0, TRIAL: 0, GRACE: 0, READ_ONLY: 0 };
+    const counts: Record<BillingStateKey, number> = { OK: 0, TRIAL: 0, GRACE: 0, READ_ONLY: 0, PILOT: 0 };
     let termRevenue = 0;
     let overdue = 0;
     const rows: TenantBillingRow[] = [];
@@ -317,6 +322,7 @@ export class SubscriptionService implements OnModuleInit {
         outstandingKobo: outstanding.get(t.id) ?? 0,
         paidThisTermKobo: paidBy.get(t.id) ?? 0,
         notes: t.billing?.notes ?? null,
+        pilotStatus: t.billing?.pilotStatus ?? null,
       });
     }
     return {
@@ -366,7 +372,11 @@ export class SubscriptionService implements OnModuleInit {
     if (!force && Date.now() - this.lastTick < TICK_EVERY_MS) return 0;
     this.lastTick = Date.now();
     const settings = await this.state.settings();
-    let sent = 0;
+    // The free pilot's own reminders, and moving schools whose pilot has ended to normal billing.
+    let sent = await this.pilot.tick().catch((e: Error) => {
+      this.logger.warn(`Pilot lifecycle failed: ${e.message}`);
+      return 0;
+    });
     const tenants = await this.prisma.root.tenant.findMany({ where: { status: { in: ['TRIAL', 'ACTIVE'] } }, select: { id: true, name: true, slug: true, billing: true } });
     for (const t of tenants) {
       if (!this.state.enforcedFor(t, t.billing, settings)) continue;
@@ -383,7 +393,7 @@ export class SubscriptionService implements OnModuleInit {
         }
       } else if (st.state === 'GRACE' && st.readOnlyAt) {
         key = `grace:${st.readOnlyAt.slice(0, 10)}:${st.daysLeft != null && st.daysLeft <= 3 ? 3 : 'start'}`;
-        title = st.reason === 'TRIAL_ENDED' ? 'Your free trial has ended' : 'Your AI School OS invoice is overdue';
+        title = st.reason === 'PILOT_ENDED' ? 'Your free pilot has ended' : st.reason === 'TRIAL_ENDED' ? 'Your free trial has ended' : 'Your AI School OS invoice is overdue';
         body = `Everything keeps working until ${st.readOnlyAt.slice(0, 10)}; after that the school becomes read-only (view and export only) until it pays. Pay in Settings → Billing.`;
       } else if (st.state === 'READ_ONLY' && st.readOnlyAt) {
         key = `readonly:${st.readOnlyAt.slice(0, 10)}`;

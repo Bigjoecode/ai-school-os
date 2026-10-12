@@ -72,7 +72,7 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
   });
 
   const st = o.status;
-  const heading = st.state === 'TRIAL' ? 'Choose your plan' : st.state === 'READ_ONLY' ? 'Pay to unlock your school' : 'Pay to keep your school running';
+  const heading = st.state === 'PILOT' ? 'After your free pilot' : st.state === 'TRIAL' ? 'Choose your plan' : st.state === 'READ_ONLY' ? 'Pay to unlock your school' : 'Pay to keep your school running';
   return (
     <Card className="overflow-hidden">
       <div className="border-b border-border p-5 sm:p-6">
@@ -80,10 +80,16 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
           <Sparkles className="size-4 text-brand" />
           <h3 className="font-display text-[18px] font-semibold tracking-tight">{heading}</h3>
           {st.state === 'TRIAL' && st.trialEndsAt && <Badge variant="brand">Trial ends {formatDate(st.trialEndsAt)}</Badge>}
+          {st.state === 'PILOT' && st.pilotEndsAt && <Badge variant="success">Free pilot until {formatDate(st.pilotEndsAt)}</Badge>}
           {st.state === 'GRACE' && st.readOnlyAt && <Badge variant="warning">Read-only from {formatDate(st.readOnlyAt)}</Badge>}
           {st.state === 'READ_ONLY' && <Badge variant="danger">Read-only</Badge>}
         </div>
-        <p className="mt-1 text-[13px] text-muted-foreground">Paying starts your paid period today. You can pay by card, bank transfer or USSD through Paystack.</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">
+          {st.state === 'PILOT' && st.pilotEndsAt
+            ? `Nothing to pay until ${formatDate(st.pilotEndsAt)}. To carry on after the pilot, choose a plan; if you pay early, your paid term starts when the pilot ends, so you lose no free days.`
+            : 'Paying starts your paid period today.'}{' '}
+          You can pay by card, bank transfer or USSD through Paystack.
+        </p>
       </div>
       <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <div className="space-y-4">

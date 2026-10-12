@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import { BrandMark } from '@/components/layout/brand';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { SALES_CONTACT, SIGNUP_PATH, isPlaceholder, showContact } from './config';
+import { SIGNUP_PATH } from './config';
+import { PilotOffer, usePilotOffer } from './pilot-offer';
 import { AUDIENCES, PROBLEMS, ROLLOUT } from './content';
 import { LoopDiagram } from './loop-diagram';
 import { PRICE_NOTE, PricingCards } from './pricing';
@@ -266,13 +267,7 @@ const SLIDES: { id: string; label: string; render: () => ReactNode }[] = [
             'A printable term impact report at the end, to decide on evidence',
           ]}
         />
-        {!isPlaceholder(SALES_CONTACT.pilotTerms) ? (
-          <p className="mt-4 rounded-xl bg-brand-soft px-4 py-3 text-[15px] font-medium">{SALES_CONTACT.pilotTerms}</p>
-        ) : showContact(SALES_CONTACT.pilotTerms) ? (
-          <p className="mt-4 rounded-xl border border-dashed border-warning px-4 py-3 text-[14px] text-warning">{SALES_CONTACT.pilotTerms}</p>
-        ) : (
-          <p className="mt-4 text-[14px] text-muted-foreground">Pilot terms are agreed with each school.</p>
-        )}
+        <DeckPilotOffer />
       </Slide>
     ),
   },
@@ -428,4 +423,10 @@ export default function DeckPage() {
       </div>
     </SalesLayout>
   );
+}
+
+/** The live pilot offer on the pilot slide; when it is full or closed, the general line. */
+function DeckPilotOffer() {
+  const offer = usePilotOffer();
+  return offer ? <PilotOffer className="mt-4" compact /> : <p className="mt-4 text-[14px] text-muted-foreground">Pilot terms are agreed with each school.</p>;
 }

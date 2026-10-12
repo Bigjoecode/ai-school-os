@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { PilotPublic } from './pilot';
 
 /**
  * Self-serve sign-up and subscription billing: a school joins on its own,
@@ -156,6 +157,10 @@ export const signupSchema = z.object({
   acceptTerms: z.literal(true, { message: 'Please accept the terms to continue' }),
   /** Honeypot: people never see or fill this field. */
   website: z.string().max(200).optional(),
+  /** Applying for the free pilot programme (the operator reviews every pilot application). */
+  pilot: z.boolean().optional(),
+  /** Pilot applications: why the school wants to join (required when pilot is true). */
+  pilotReason: z.string().trim().max(500).optional(),
 });
 export type SignupInput = z.infer<typeof signupSchema>;
 
@@ -166,6 +171,8 @@ export interface SignupConfig {
   trialDays: number;
   sessionDiscountPct: number;
   minBilledStudents: number;
+  /** The free pilot offer (open, places left). */
+  pilot: PilotPublic;
   plans: { id: string; code: string; name: string; description: string | null; pricePerStudentKobo: number; billingPeriod: string; features: string[]; maxStudents: number | null }[];
 }
 
@@ -178,6 +185,8 @@ export interface SignupResult {
 
 export interface SignupVerifyResult {
   status: 'APPROVED' | 'PENDING_REVIEW';
+  /** A pilot application (always reviewed by the operator). */
+  pilot?: boolean;
   slug: string;
   schoolName: string;
 }
@@ -201,6 +210,9 @@ export interface SignupRow {
   reviewedAt: string | null;
   tenantId: string | null;
   createdAt: string;
+  /** Applied for the free pilot. */
+  pilot: boolean;
+  pilotReason: string | null;
 }
 
 export const signupReviewSchema = z.object({ reason: z.string().trim().min(3).max(500) });
@@ -212,8 +224,9 @@ export const signupReviewSchema = z.object({ reason: z.string().trim().min(3).ma
  * TRIAL: in the free trial. GRACE: the trial ended or an invoice is overdue,
  * still fully working. READ_ONLY: grace is over; people can view and export
  * but not add or change anything until the school pays.
+ * PILOT: in the free pilot programme: nothing to pay until pilotEndsAt.
  */
-export const BILLING_STATES = ['OK', 'TRIAL', 'GRACE', 'READ_ONLY'] as const;
+export const BILLING_STATES = ['OK', 'TRIAL', 'GRACE', 'READ_ONLY', 'PILOT'] as const;
 export type BillingStateKey = (typeof BILLING_STATES)[number];
 export const READ_ONLY_CODE = 'SCHOOL_READ_ONLY';
 
@@ -224,7 +237,9 @@ export interface BillingStatus {
   /** When the school becomes read-only (GRACE), or became read-only. */
   readOnlyAt: string | null;
   daysLeft: number | null;
-  reason: 'TRIAL_ENDED' | 'INVOICE_OVERDUE' | null;
+  reason: 'TRIAL_ENDED' | 'PILOT_ENDED' | 'INVOICE_OVERDUE' | null;
+  /** Set while (and after) the school is in the free pilot: when it ends or ended. */
+  pilotEndsAt: string | null;
 }
 
 export const subscriptionCheckoutSchema = z.object({
@@ -325,6 +340,8 @@ export interface TenantBillingRow {
   outstandingKobo: number;
   paidThisTermKobo: number;
   notes: string | null;
+  /** ACTIVE | ENDED | CONVERTED | REMOVED, or null if never in the pilot. */
+  pilotStatus: string | null;
 }
 
 export interface SubscriptionsSummary {

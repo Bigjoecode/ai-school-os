@@ -13,7 +13,7 @@ import {
 } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowRight, Check, CheckCircle2, Clock, Eye, EyeOff, Loader2, Mail, Minus, XCircle } from 'lucide-react';
+import { ArrowRight, Check, CheckCircle2, Clock, Eye, EyeOff, Gift, Loader2, Mail, Minus, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router';
@@ -25,6 +25,7 @@ import { Card } from '@/components/ui/card';
 import { Field } from '@/components/ui/field';
 import { Input, inputClass } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
 import { api, ApiError, errorMessage } from '@/lib/api';
 import { applyServerErrors } from '@/lib/forms';
 import { useDocumentTitle } from '@/lib/hooks';
@@ -181,10 +182,16 @@ function slugify(name: string) {
     .slice(0, 40);
 }
 
-export default function SignupPage() {
-  useDocumentTitle('Start your free trial');
+/** /pilot: the same sign-up form as an application for the free pilot programme. */
+export function PilotPage() {
+  return <SignupPage pilotEntry />;
+}
+
+export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolean }) {
   const q = useConfig();
   const [params] = useSearchParams();
+  const [pilot, setPilot] = useState(pilotEntry || params.get('pilot') === '1');
+  useDocumentTitle(pilot ? 'Apply for the free pilot' : 'Start your free trial');
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -202,6 +209,7 @@ export default function SignupPage() {
       admin: { firstName: '', lastName: '', email: '', phone: '', password: '' },
       acceptTerms: false as unknown as true,
       website: '',
+      pilotReason: '',
     },
   });
   const { register, handleSubmit, formState, watch, setValue, setError } = form;
@@ -238,7 +246,11 @@ export default function SignupPage() {
   });
   const onSubmit = handleSubmit((v) => {
     setFormError(null);
-    start.mutate(v);
+    if (pilot && (v.pilotReason ?? '').trim().length < 10) {
+      setError('pilotReason', { message: 'A sentence or two, please' });
+      return;
+    }
+    start.mutate({ ...v, pilot: pilot || undefined, pilotReason: pilot ? v.pilotReason : undefined });
   });
 
   const c = q.data;
@@ -249,15 +261,41 @@ export default function SignupPage() {
       </PublicShell>
     );
   }
-  if (!c?.enabled) {
+  const pilotOpen = !!c?.pilot?.open;
+  if (pilot && c && !pilotOpen) {
+    return (
+      <PublicShell>
+        <Card className="mt-10 p-8 text-center">
+          <Gift className="mx-auto size-10 text-muted-foreground" />
+          <p className="mt-3 font-display text-xl font-semibold">{c.pilot.placesLeft === 0 ? 'The free pilot is full' : 'Pilot applications are closed'}</p>
+          <p className="mt-2 text-[14px] text-muted-foreground">
+            Thank you for your interest. {c.enabled ? `You can still start a free ${c.trialDays}-day trial.` : 'Contact us and we will tell you when places open.'}
+          </p>
+          {c.enabled && (
+            <Button className="mt-5" onClick={() => setPilot(false)}>
+              Start a free trial instead <ArrowRight />
+            </Button>
+          )}
+        </Card>
+      </PublicShell>
+    );
+  }
+  if (!c?.enabled && !(pilot && pilotOpen)) {
     return (
       <PublicShell>
         <Card className="mt-10 p-8 text-center">
           <p className="font-display text-xl font-semibold">Sign-up is not open right now</p>
           <p className="mt-2 text-[14px] text-muted-foreground">Contact us and we will set your school up. If your school already uses AI School OS, sign in instead.</p>
-          <Button asChild className="mt-5">
-            <Link to="/login">Sign in</Link>
-          </Button>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            {pilotOpen && (
+              <Button onClick={() => setPilot(true)}>
+                Apply for the free pilot <ArrowRight />
+              </Button>
+            )}
+            <Button asChild variant={pilotOpen ? 'outline' : 'default'}>
+              <Link to="/login">Sign in</Link>
+            </Button>
+          </div>
         </Card>
       </PublicShell>
     );
@@ -266,10 +304,30 @@ export default function SignupPage() {
   return (
     <PublicShell>
       <div className="pt-4 sm:pt-8">
-        <h1 className="font-display text-[28px] font-semibold tracking-tight">Start your free {c.trialDays}-day trial</h1>
-        <p className="mt-1.5 text-[14px] text-muted-foreground">Set your school up in a few minutes. No card needed; choose a plan any time before the trial ends.</p>
+        <h1 className="font-display text-[28px] font-semibold tracking-tight">{pilot ? 'Apply for the free pilot' : `Start your free ${c.trialDays}-day trial`}</h1>
+        <p className="mt-1.5 text-[14px] text-muted-foreground">
+          {pilot ? `${c.pilot.termsText}. ${c.pilot.detail} We review every application and email you within a few working days.` : 'Set your school up in a few minutes. No card needed; choose a plan any time before the trial ends.'}
+        </p>
       </div>
       <form onSubmit={onSubmit} noValidate className="mt-6 space-y-5">
+        {pilotOpen && (
+          <Card className={cn('space-y-3 p-4 sm:p-5', pilot && 'border-success/40 ring-1 ring-success/20')}>
+            <label className="flex items-start gap-3">
+              <input type="checkbox" className="mt-1 size-4 accent-[hsl(var(--success))]" checked={pilot} onChange={(e) => setPilot(e.target.checked)} />
+              <span>
+                <span className="flex items-center gap-1.5 text-[14.5px] font-semibold">
+                  <Gift className="size-4 text-success" /> Apply for the free pilot
+                </span>
+                <span className="block text-[13px] text-muted-foreground">{c.pilot.termsText}. Pilot schools pay nothing until the end of next term; we approve each school.</span>
+              </span>
+            </label>
+            {pilot && (
+              <Field label="Why do you want to join the pilot?" htmlFor="pilotReason" error={err.pilotReason?.message} hint="A sentence or two: what you hope to improve this term.">
+                <Textarea id="pilotReason" rows={3} maxLength={500} invalid={!!err.pilotReason} {...register('pilotReason')} />
+              </Field>
+            )}
+          </Card>
+        )}
         <Card className="space-y-4 p-4 sm:p-6">
           <p className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground">Your school</p>
           <Field label="School name" htmlFor="schoolName" error={err.schoolName?.message}>
@@ -386,7 +444,7 @@ export default function SignupPage() {
           </p>
         )}
         <Button type="submit" size="lg" className="w-full" loading={start.isPending}>
-          Create my school <ArrowRight />
+          {pilot ? 'Send my pilot application' : 'Create my school'} <ArrowRight />
         </Button>
         <p className="text-center text-[13px] text-muted-foreground">
           Already on AI School OS?{' '}
@@ -451,8 +509,12 @@ export function SignupVerifyPage() {
           ) : (
             <div className="text-center">
               <Clock className="mx-auto size-12 text-warning" />
-              <p className="mt-4 font-display text-xl font-semibold">Thank you: we’re checking your details</p>
-              <p className="mt-2 text-[14px] text-muted-foreground">Your email is confirmed. Our team reviews new schools, usually within one working day, and we will email you as soon as {done.schoolName} is ready.</p>
+              <p className="mt-4 font-display text-xl font-semibold">{done.pilot ? 'Thank you: your pilot application is in' : 'Thank you: we’re checking your details'}</p>
+              <p className="mt-2 text-[14px] text-muted-foreground">
+                {done.pilot
+                  ? `Your email is confirmed. We review every pilot application and will email you when ${done.schoolName} is approved (as a pilot school, or on a normal free trial if the places have gone).`
+                  : `Your email is confirmed. Our team reviews new schools, usually within one working day, and we will email you as soon as ${done.schoolName} is ready.`}
+              </p>
             </div>
           )
         ) : (

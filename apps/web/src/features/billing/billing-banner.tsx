@@ -1,6 +1,6 @@
 import type { BillingStatus } from '@aischool/shared';
 import { useQuery } from '@tanstack/react-query';
-import { AlertTriangle, Hourglass, Lock } from 'lucide-react';
+import { AlertTriangle, Gift, Hourglass, Lock } from 'lucide-react';
 import { Link } from 'react-router';
 import { api } from '@/lib/api';
 import { useAuthStore, useCan } from '@/lib/auth-store';
@@ -27,6 +27,7 @@ export function BillingBanner() {
     meta: { silent: true },
   });
   const s = q.data;
+  if (s?.enforced && s.state === 'PILOT') return <PilotStrip s={s} canPay={canPay} />;
   if (!s || !s.enforced || s.state === 'OK' || (s.state === 'TRIAL' && (s.daysLeft ?? 99) > 7)) return null;
   // Platform staff looking into a school see it too, but staff and parents get a gentler message.
   const action = canPay ? (
@@ -42,7 +43,7 @@ export function BillingBanner() {
     s.state === 'TRIAL'
       ? `${s.daysLeft === 1 ? 'Your free trial ends tomorrow' : `${s.daysLeft} days left in your free trial`}.`
       : s.state === 'GRACE'
-        ? `${s.reason === 'TRIAL_ENDED' ? 'Your free trial has ended' : 'Your subscription payment is overdue'}. Everything keeps working until ${s.readOnlyAt ? formatDate(s.readOnlyAt) : 'soon'}, then the school becomes read-only.`
+        ? `${s.reason === 'PILOT_ENDED' ? 'Your free pilot has ended' : s.reason === 'TRIAL_ENDED' ? 'Your free trial has ended' : 'Your subscription payment is overdue'}. Everything keeps working until ${s.readOnlyAt ? formatDate(s.readOnlyAt) : 'soon'}, then the school becomes read-only.`
         : 'This school is read-only: you can view and export, but not add or change anything until the subscription is paid. No data has been deleted.';
   return (
     <div
@@ -57,6 +58,32 @@ export function BillingBanner() {
       <Icon className="mt-0.5 size-4 shrink-0 sm:mt-0" aria-hidden />
       <p className="min-w-0 flex-1">
         {text} {!platform || canPay ? action : null}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The free pilot: "Free pilot until <date>". School admins always see it (with
+ * the way to continue); everyone else only in the last two weeks.
+ */
+function PilotStrip({ s, canPay }: { s: BillingStatus; canPay: boolean }) {
+  const soon = (s.daysLeft ?? 99) <= 14;
+  if (!canPay && !soon) return null;
+  const until = s.pilotEndsAt ? formatDate(s.pilotEndsAt) : '';
+  return (
+    <div role="status" className={cn('flex items-start gap-2 border-b px-4 py-2 text-[13px] sm:items-center sm:px-6', soon ? 'border-warning/30 bg-warning-soft/60 text-warning' : 'border-success/25 bg-success-soft/50 text-success')}>
+      <Gift className="mt-0.5 size-4 shrink-0 sm:mt-0" aria-hidden />
+      <p className="min-w-0 flex-1">
+        Free pilot until {until}
+        {soon ? ` (${s.daysLeft === 1 ? '1 day' : `${s.daysLeft} days`} left).` : '.'}{' '}
+        {canPay ? (
+          <Link to="/settings/billing" className="font-semibold underline underline-offset-2">
+            {soon ? 'Choose a plan to continue' : 'See what happens after'}
+          </Link>
+        ) : (
+          <span>The school office will choose a plan to continue.</span>
+        )}
       </p>
     </div>
   );

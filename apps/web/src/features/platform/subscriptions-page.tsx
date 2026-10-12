@@ -29,6 +29,7 @@ import { formatDate, formatNumber } from '@/lib/format';
 import { queryClient } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { naira } from './api';
+import { PILOT_KEY, PilotTab } from './pilot-tab';
 import { Kpi, Section, useTabParam } from './ui';
 
 const KEY = ['platform', 'subscriptions'] as const;
@@ -37,8 +38,9 @@ const STATE_BADGE: Record<BillingStateKey, { label: string; variant: BadgeProps[
   TRIAL: { label: 'Trial', variant: 'brand' },
   GRACE: { label: 'Grace period', variant: 'warning' },
   READ_ONLY: { label: 'Read-only', variant: 'danger' },
+  PILOT: { label: 'Free pilot', variant: 'success' },
 };
-const TABS = ['schools', 'signups', 'settings'] as const;
+const TABS = ['schools', 'signups', 'pilot', 'settings'] as const;
 
 /** Self-serve sign-ups and subscription billing: who is on trial, overdue or read-only, the review queue, and the rules. */
 export default function SubscriptionsPage() {
@@ -51,14 +53,14 @@ export default function SubscriptionsPage() {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi label="Term revenue (paying schools)" icon={CircleDollarSign} value={s ? naira(s.termRevenueKobo) : '—'} sub="Per term at today’s student counts" loading={!s} />
         <Kpi label="Collected, last 120 days" icon={BadgeCheck} tone="success" value={s ? naira(s.collectedLast120DaysKobo) : '—'} loading={!s} />
-        <Kpi label="On trial" icon={Hourglass} value={s?.counts.TRIAL ?? '—'} loading={!s} />
+        <Kpi label="On trial / free pilot" icon={Hourglass} value={s ? `${s.counts.TRIAL} / ${s.counts.PILOT}` : '—'} loading={!s} />
         <Kpi label="Grace / read-only" icon={Lock} tone={s && s.counts.READ_ONLY ? 'danger' : 'warning'} value={s ? `${s.counts.GRACE} / ${s.counts.READ_ONLY}` : '—'} sub={s ? `${s.overdue} with an overdue invoice` : undefined} loading={!s} />
         <Kpi label="Sign-ups to review" icon={Inbox} tone={s?.pendingSignups ? 'warning' : undefined} value={s?.pendingSignups ?? '—'} loading={!s} />
       </div>
       <div className="mt-6 flex gap-1 overflow-x-auto rounded-xl border border-border bg-muted/40 p-1" role="tablist">
         {TABS.map((t) => (
           <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={cn('whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium', tab === t ? 'bg-card shadow-sm' : 'text-muted-foreground hover:text-foreground')}>
-            {t === 'schools' ? 'Schools' : t === 'signups' ? `Sign-ups${s?.pendingSignups ? ` (${s.pendingSignups})` : ''}` : 'Settings'}
+            {t === 'schools' ? 'Schools' : t === 'signups' ? `Sign-ups${s?.pendingSignups ? ` (${s.pendingSignups})` : ''}` : t === 'pilot' ? `Pilot${s ? ` (${s.counts.PILOT})` : ''}` : 'Settings'}
           </button>
         ))}
       </div>
@@ -71,6 +73,8 @@ export default function SubscriptionsPage() {
           s ? <SchoolsTab rows={s.rows} /> : <Skeleton className="h-96 rounded-2xl" />
         ) : tab === 'signups' ? (
           <SignupsTab />
+        ) : tab === 'pilot' ? (
+          <PilotTab />
         ) : s ? (
           <SettingsTab settings={s.settings} />
         ) : (
@@ -128,6 +132,7 @@ function SchoolsTab({ rows }: { rows: TenantBillingRow[] }) {
                     <p className="text-[12px] text-muted-foreground">
                       {r.slug}
                       {r.selfServe ? ' · self-serve' : ''}
+                      {r.pilotStatus && r.pilotStatus !== 'REMOVED' ? ' · pilot' : ''}
                     </p>
                   </TableCell>
                   <TableCell>
@@ -135,7 +140,9 @@ function SchoolsTab({ rows }: { rows: TenantBillingRow[] }) {
                     <p className="mt-0.5 text-[11.5px] text-muted-foreground">
                       {!r.status.enforced
                         ? 'Billing rules off'
-                        : r.status.state === 'TRIAL' && r.status.trialEndsAt
+                        : r.status.state === 'PILOT' && r.status.pilotEndsAt
+                          ? `Free until ${formatDate(r.status.pilotEndsAt)}`
+                          : r.status.state === 'TRIAL' && r.status.trialEndsAt
                           ? `Ends ${formatDate(r.status.trialEndsAt)}`
                           : r.status.readOnlyAt
                             ? `${r.status.state === 'GRACE' ? 'Read-only from' : 'Since'} ${formatDate(r.status.readOnlyAt)}`
@@ -231,10 +238,12 @@ function SignupsTab() {
   const [rejecting, setRejecting] = useState<SignupRow | null>(null);
   const [reason, setReason] = useState('');
   const approve = useMutation({
-    mutationFn: (id: string) => api.post(`/platform/signups/${id}/approve`, {}),
-    onSuccess: () => {
-      toast.success('School created and the admin emailed');
+    mutationFn: ({ id, as }: { id: string; as: 'PILOT' | 'TRIAL' }) => api.post<{ pilot: boolean; pilotError: string | null }>(`/platform/signups/${id}/approve`, { as }),
+    onSuccess: (r, v) => {
+      if (v.as === 'PILOT' && !r.pilot) toast.warning(`School created on a normal trial: ${r.pilotError ?? 'no pilot place was left'}`);
+      else toast.success(v.as === 'PILOT' ? 'School created in the free pilot; the admin has been told' : 'School created and the admin emailed');
       void queryClient.invalidateQueries({ queryKey: KEY });
+      void queryClient.invalidateQueries({ queryKey: PILOT_KEY });
     },
     onError: (e) => toast.error(errorMessage(e)),
   });
@@ -250,7 +259,7 @@ function SignupsTab() {
   });
   const rows = q.data ?? [];
   return (
-    <Section title={<><UserPlus className="size-4 text-muted-foreground" /> Sign-ups</>} description="Confirmed sign-ups. With auto-approve off, new schools wait here until someone approves them." flush>
+    <Section title={<><UserPlus className="size-4 text-muted-foreground" /> Sign-ups</>} description="Confirmed sign-ups. With auto-approve off, new schools wait here until someone approves them. Pilot applications always wait here." flush>
       {q.isLoading ? (
         <Skeleton className="m-4 h-40 rounded-xl" />
       ) : rows.length === 0 ? (
@@ -261,7 +270,12 @@ function SignupsTab() {
             <li key={r.id} className="flex flex-col gap-2 px-4 py-3.5 sm:flex-row sm:items-center sm:px-5">
               <div className="min-w-0 flex-1">
                 <p className="font-medium">
-                  {r.schoolName} <span className="font-mono text-[12px] text-muted-foreground">{r.slug}</span>
+                  {r.schoolName} <span className="font-mono text-[12px] text-muted-foreground">{r.slug}</span>{' '}
+                  {r.pilot && (
+                    <Badge variant="success" className="ml-1 align-middle">
+                      Pilot
+                    </Badge>
+                  )}
                 </p>
                 <p className="text-[12.5px] text-muted-foreground">
                   {SCHOOL_TYPE_LABELS[r.schoolType]} · {r.lga}, {r.state} · about {formatNumber(r.approxStudents)} students{r.plan ? ` · ${r.plan}` : ''}
@@ -269,12 +283,18 @@ function SignupsTab() {
                 <p className="text-[12.5px] text-muted-foreground">
                   {r.admin.name} · {r.admin.email} · {r.admin.phone} · {formatDate(r.createdAt)}
                 </p>
+                {r.pilot && r.pilotReason && <p className="mt-1 rounded-lg bg-success-soft/40 px-2.5 py-1.5 text-[12.5px]">“{r.pilotReason}”</p>}
                 {r.reviewNote && <p className="mt-0.5 text-[12px] text-warning">{r.reviewNote}</p>}
               </div>
               {r.status === 'PENDING_REVIEW' && canReview ? (
-                <div className="flex gap-2">
-                  <Button size="sm" onClick={() => approve.mutate(r.id)} loading={approve.isPending && approve.variables === r.id}>
-                    Approve
+                <div className="flex flex-wrap gap-2">
+                  {r.pilot && (
+                    <Button size="sm" onClick={() => approve.mutate({ id: r.id, as: 'PILOT' })} loading={approve.isPending && approve.variables?.id === r.id && approve.variables.as === 'PILOT'}>
+                      Approve as pilot
+                    </Button>
+                  )}
+                  <Button size="sm" variant={r.pilot ? 'outline' : 'default'} onClick={() => approve.mutate({ id: r.id, as: 'TRIAL' })} loading={approve.isPending && approve.variables?.id === r.id && approve.variables.as === 'TRIAL'}>
+                    {r.pilot ? 'Approve as normal trial' : 'Approve'}
                   </Button>
                   <Button size="sm" variant="outline" onClick={() => setRejecting(r)}>
                     Decline

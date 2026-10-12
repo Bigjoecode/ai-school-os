@@ -3,6 +3,10 @@ import { Throttle } from '@nestjs/throttler';
 import type { Request } from 'express';
 import {
   PLATFORM_AREAS,
+  pilotActionSchema,
+  pilotAddSchema,
+  pilotApproveSchema,
+  pilotSettingsSchema,
   planChangeSchema,
   schoolSlugSchema,
   selfServeSettingsSchema,
@@ -14,6 +18,13 @@ import {
   tenantBillingUpdateSchema,
   type BillingDocument,
   type BillingStatus,
+  type PilotActionInput,
+  type PilotAddInput,
+  type PilotApproveInput,
+  type PilotCandidate,
+  type PilotOverview,
+  type PilotPublic,
+  type PilotSettings,
   type PlanChangeResult,
   type SelfServeSettings,
   type SignupConfig,
@@ -36,6 +47,7 @@ import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
 import { PrismaService } from '../prisma/prisma.service';
 import { BillingStateService } from './billing-state.service';
+import { PilotService } from './pilot.service';
 import { SignupService } from './signup.service';
 import { SubscriptionService } from './subscription.service';
 
@@ -48,6 +60,14 @@ export class SignupController {
   @Get('config')
   config(): Promise<SignupConfig> {
     return this.signups.config();
+  }
+
+  /** The free pilot offer for the public site (brochure, deck, boards page): open or not, places left, one line of terms. */
+  @Public()
+  @Get('pilot')
+  @Throttle({ default: { limit: 60, ttl: 60_000 } })
+  async pilotOffer(): Promise<PilotPublic> {
+    return (await this.signups.config()).pilot;
   }
 
   @Public()
@@ -147,9 +167,9 @@ export class ConsoleSubscriptionsController {
   @Post('signups/:id/approve')
   @HttpCode(200)
   @RequirePlatformRole('SUPER_ADMIN', 'SUPPORT_ADMIN')
-  async approve(@Param('id') id: string) {
-    const t = await this.signups.createSchool(id, currentUserId());
-    return { tenantId: t.id, slug: t.slug };
+  async approve(@Param('id') id: string, @Body(new ZodPipe(pilotApproveSchema)) body: PilotApproveInput) {
+    const t = await this.signups.createSchool(id, currentUserId(), body.as);
+    return { tenantId: t.id, slug: t.slug, pilot: t.pilot, pilotError: t.pilotError };
   }
 
   @Post('signups/:id/reject')
@@ -195,5 +215,44 @@ export class ConsoleSubscriptionsController {
   @HttpCode(200)
   async remind() {
     return { sent: await this.subs.tick(true) };
+  }
+}
+
+/** The console: the free pilot programme (places, pilot schools and their dates, adding existing schools). */
+@Controller('platform/pilot')
+@RequirePlatformRole(...PLATFORM_AREAS.overview)
+export class ConsolePilotController {
+  constructor(private readonly pilot: PilotService) {}
+
+  @Get()
+  overview(): Promise<PilotOverview> {
+    return this.pilot.overview();
+  }
+
+  @Get('candidates')
+  candidates(): Promise<PilotCandidate[]> {
+    return this.pilot.candidates();
+  }
+
+  @Put('settings')
+  @RequirePlatformRole('SUPER_ADMIN')
+  saveSettings(@Body(new ZodPipe(pilotSettingsSchema)) body: PilotSettings): Promise<PilotSettings> {
+    return this.pilot.saveSettings(body, currentUserId());
+  }
+
+  /** Adds an existing school (e.g. one created in the console) to the pilot, using a place. */
+  @Post('schools')
+  @HttpCode(200)
+  @RequirePlatformRole('SUPER_ADMIN', 'SUPPORT_ADMIN', 'FINANCE_ADMIN')
+  add(@Body(new ZodPipe(pilotAddSchema)) body: PilotAddInput) {
+    return this.pilot.enrol(body.tenantId, currentUserId(), { endsOn: body.endsOn, source: 'CONSOLE' });
+  }
+
+  /** Change the end date (extend), end now, convert to paid (issues the next term's invoice) or remove (frees the place). */
+  @Post('schools/:tenantId')
+  @HttpCode(200)
+  @RequirePlatformRole('SUPER_ADMIN', 'SUPPORT_ADMIN', 'FINANCE_ADMIN')
+  act(@Param('tenantId') tenantId: string, @Body(new ZodPipe(pilotActionSchema)) body: PilotActionInput) {
+    return this.pilot.act(tenantId, body, currentUserId());
   }
 }

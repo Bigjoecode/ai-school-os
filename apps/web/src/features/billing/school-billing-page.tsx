@@ -1,7 +1,7 @@
-import { BILLING_PERIOD_LABELS, MODULE_FEATURE_KEYS, MODULE_FEATURES, type SchoolBilling } from '@aischool/shared';
+import { BILLING_PERIOD_LABELS, MODULE_FEATURE_KEYS, MODULE_FEATURES, type BillingStatus, type SchoolBilling } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Building2, Check, CheckCircle2, Clock, CreditCard, Hourglass, LifeBuoy, Minus, Receipt, XCircle } from 'lucide-react';
+import { AlertTriangle, Building2, Check, CheckCircle2, Clock, CreditCard, Gift, Hourglass, LifeBuoy, Minus, Receipt, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
@@ -23,6 +23,7 @@ import { daysUntil, Facts, Meter, PAYMENT_METHOD_LABEL, PaymentStatusPill, Platf
 import { SectionHeader } from '../settings/settings-layout';
 import { allowDigitalPurchases } from '@/pwa/ios-app';
 import { IosPurchaseNote } from '@/pwa/ios-purchase-note';
+import { BILLING_STATUS_KEY } from './billing-banner';
 import { SubscriptionPanel } from './subscription-panel';
 
 type Invoice = SchoolBilling['invoices'][number];
@@ -164,7 +165,28 @@ function PaymentReturn() {
 // ------------------------------------------------------------------ banners
 
 function StatusBanner({ b }: { b: SchoolBilling }) {
+  const tenantId = useAuthStore((s) => s.me?.tenant?.id);
+  const st = useQuery({ queryKey: [...BILLING_STATUS_KEY, tenantId], queryFn: ({ signal }) => api.get<BillingStatus>('/billing/status', undefined, signal), enabled: !!tenantId, meta: { silent: true } }).data;
   const overdue = b.invoices.filter((i) => i.status === 'OPEN' && i.overdue);
+  if (st?.state === 'PILOT' && st.pilotEndsAt) {
+    const d = st.daysLeft ?? 0;
+    return (
+      <Card className="relative overflow-hidden border-success/30 p-5">
+        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-success/10 blur-3xl" />
+        <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-success-soft text-success">
+            <Gift className="size-5" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-[16px] font-semibold tracking-tight">Free pilot until {formatDate(st.pilotEndsAt)}</p>
+            <p className="text-[13px] text-muted-foreground">
+              {d > 1 ? `${d} days left. ` : d === 1 ? 'Ends tomorrow. ' : ''}Your school is part of the AI School OS free pilot: nothing to pay until then. After the pilot, normal per-student pricing applies; we remind you two weeks before. Nothing is ever deleted.
+            </p>
+          </div>
+        </div>
+      </Card>
+    );
+  }
   if (b.status === 'TRIAL' && b.trialEndsAt) {
     const d = daysUntil(b.trialEndsAt) ?? 0;
     const pct = Math.max(0, Math.min(100, ((30 - Math.max(0, d)) / 30) * 100));

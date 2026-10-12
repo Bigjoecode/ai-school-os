@@ -21,6 +21,7 @@ import { SetupService } from '../onboarding/setup.service';
 import { ProvisioningService } from '../platform/provisioning.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BillingStateService, platformSender } from './billing-state.service';
+import { PilotService } from './pilot.service';
 
 const CODE_TTL_MS = 30 * 60_000;
 const MAX_CODE_ATTEMPTS = 5;
@@ -46,6 +47,7 @@ export class SignupService {
     private readonly setup: SetupService,
     private readonly state: BillingStateService,
     private readonly audit: AuditService,
+    private readonly pilot: PilotService,
   ) {}
 
   async publicPlans(): Promise<SignupConfig['plans']> {
@@ -60,6 +62,7 @@ export class SignupService {
       trialDays: s.trialDays,
       sessionDiscountPct: s.sessionDiscountPct,
       minBilledStudents: s.minBilledStudents,
+      pilot: await this.pilot.publicInfo(this.canEmail()),
       plans: await this.publicPlans(),
     };
   }
@@ -103,7 +106,13 @@ export class SignupService {
 
   async start(input: SignupInput, ip: string | undefined, origin: string): Promise<SignupResult> {
     const s = await this.state.settings();
-    if (!s.enabled || !this.canEmail()) throw new BadRequestException('Self-serve sign-up is not open at the moment. Please contact us to set up your school.');
+    if (input.pilot) {
+      // Pilot applications are open while there are places, even if normal self-serve sign-up is off (the operator reviews each one).
+      if (!this.canEmail() || !(await this.pilot.accepting())) throw new BadRequestException('The free pilot is not taking applications at the moment (it may be full). You can still sign up for the normal free trial.');
+      if (!input.pilotReason || input.pilotReason.length < 10) {
+        throw new BadRequestException({ statusCode: 400, message: 'Tell us briefly why you want to join the pilot', errors: [{ path: 'pilotReason', message: 'A sentence or two, please' }] });
+      }
+    } else if (!s.enabled || !this.canEmail()) throw new BadRequestException('Self-serve sign-up is not open at the moment. Please contact us to set up your school.');
     const fakeId = `x${sha(input.admin.email + Date.now()).slice(0, 24)}`;
     // A bot filled the hidden field: look successful, do nothing.
     if (input.website) return { id: fakeId, email: input.admin.email };
@@ -132,6 +141,8 @@ export class SignupService {
         adminPhone: input.admin.phone,
         passwordHash: await hashPassword(input.admin.password),
         ip: ip ?? null,
+        pilot: !!input.pilot,
+        pilotReason: input.pilot ? (input.pilotReason ?? null) : null,
       },
     });
     const devCode = await this.sendCode(row.id, row.adminEmail, row.adminFirstName, row.schoolName, origin);
@@ -150,7 +161,7 @@ export class SignupService {
     const row = await this.prisma.root.schoolSignup.findUnique({ where: { id } });
     const wrong = () => new BadRequestException({ statusCode: 400, message: 'That code is not right, or it has expired', errors: [{ path: 'code', message: 'Check the code in the email' }] });
     if (!row) throw wrong();
-    if (row.status === 'APPROVED' || row.status === 'PENDING_REVIEW') return { status: row.status, slug: row.slug, schoolName: row.schoolName };
+    if (row.status === 'APPROVED' || row.status === 'PENDING_REVIEW') return { status: row.status, slug: row.slug, schoolName: row.schoolName, pilot: row.pilot };
     if (row.status !== 'PENDING_VERIFICATION' || !row.codeHash || !row.codeExpiresAt) throw wrong();
     if (row.codeAttempts >= MAX_CODE_ATTEMPTS) throw new BadRequestException('Too many wrong codes. Ask for a new code.');
     if (row.codeExpiresAt < new Date()) throw new BadRequestException('That code has expired. Ask for a new code.');
@@ -164,12 +175,20 @@ export class SignupService {
     const claimed = await this.prisma.root.schoolSignup.updateMany({ where: { id, status: 'PENDING_VERIFICATION' }, data: { status: 'PENDING_REVIEW', verifiedAt: new Date(), codeHash: null } });
     if (!claimed.count) {
       const now = await this.prisma.root.schoolSignup.findUniqueOrThrow({ where: { id } });
-      return { status: now.status === 'APPROVED' ? 'APPROVED' : 'PENDING_REVIEW', slug: now.slug, schoolName: now.schoolName };
+      return { status: now.status === 'APPROVED' ? 'APPROVED' : 'PENDING_REVIEW', slug: now.slug, schoolName: now.schoolName, pilot: now.pilot };
     }
     const s = await this.state.settings();
-    if (!s.autoApprove) {
-      await this.audit.log({ tenantId: null, actorUserId: null, action: 'signup.pending_review', entityType: 'SchoolSignup', entityId: id, summary: `${row.schoolName} (${row.slug}) signed up and is waiting for review` });
-      return { status: 'PENDING_REVIEW', slug: row.slug, schoolName: row.schoolName };
+    // Pilot applications always wait for the operator, whatever the auto-approve setting.
+    if (!s.autoApprove || row.pilot) {
+      await this.audit.log({
+        tenantId: null,
+        actorUserId: null,
+        action: row.pilot ? 'signup.pilot_application' : 'signup.pending_review',
+        entityType: 'SchoolSignup',
+        entityId: id,
+        summary: `${row.schoolName} (${row.slug}) ${row.pilot ? 'applied for the free pilot' : 'signed up'} and is waiting for review`,
+      });
+      return { status: 'PENDING_REVIEW', slug: row.slug, schoolName: row.schoolName, pilot: row.pilot };
     }
     try {
       await this.createSchool(id, null);
@@ -183,9 +202,12 @@ export class SignupService {
   }
 
   /** Creates the school from a verified sign-up: tenant on trial, admin, Nigerian class and subject templates, billing rules on. */
-  async createSchool(id: string, reviewerId: string | null) {
+  async createSchool(id: string, reviewerId: string | null, as: 'PILOT' | 'TRIAL' = 'TRIAL') {
     const row = await this.prisma.root.schoolSignup.findUniqueOrThrow({ where: { id } });
     if (row.status !== 'PENDING_REVIEW' || !row.verifiedAt) throw new BadRequestException('Only confirmed sign-ups waiting for review can be approved');
+    if (as === 'PILOT' && (await this.pilot.placesLeft()) <= 0) {
+      throw new ConflictException('Every pilot place is used. Approve this school as a normal trial, remove a school from the pilot, or raise the number of places.');
+    }
     const s = await this.state.settings();
     const existingUser = await this.prisma.root.user.findUnique({ where: { email: row.adminEmail }, select: { id: true } });
     const tenant = await this.provisioning.createSchool(
@@ -207,21 +229,33 @@ export class SignupService {
       data: { status: 'APPROVED', tenantId: tenant.id, passwordHash: '', reviewedById: reviewerId, reviewedAt: reviewerId ? new Date() : null },
     });
     await this.applyTemplates(tenant.id, row.schoolType as SchoolTypeKey);
+    let pilot = false;
+    let pilotError: string | null = null;
+    if (as === 'PILOT') {
+      try {
+        await this.pilot.enrol(tenant.id, reviewerId, { source: 'APPLICATION' });
+        pilot = true;
+      } catch (err) {
+        // The last place went to someone else a moment ago: the school is on a normal trial instead.
+        pilotError = (err as Error).message;
+        this.logger.warn(`Pilot enrolment for ${tenant.id} failed: ${pilotError}`);
+      }
+    }
     await this.audit.log({
       tenantId: tenant.id,
       actorUserId: reviewerId,
       action: 'signup.school_created',
       entityType: 'Tenant',
       entityId: tenant.id,
-      summary: `${row.schoolName} (${row.slug}) joined by self-serve sign-up${reviewerId ? ' (approved in the console)' : ''}; ${s.trialDays}-day trial`,
+      summary: `${row.schoolName} (${row.slug}) joined by self-serve sign-up${reviewerId ? ' (approved in the console)' : ''}; ${pilot ? 'free pilot' : `${s.trialDays}-day trial`}`,
     });
-    const mail = platformSender();
+    const mail = pilot ? null : platformSender();
     if (mail) {
       const origin = env().CORS_ORIGINS[0] ?? '';
       const text = `Dear ${row.adminFirstName},\n\n${row.schoolName} is ready on AI School OS. Your free trial runs for ${s.trialDays} days.\n\nSign in: ${origin}/login?school=${row.slug}\nEmail: ${row.adminEmail}${existingUser ? '\n(You already had an AI School OS account, so sign in with your existing password.)' : ''}\n\nYour first week plan on the dashboard walks you through setting up classes, staff, students and parents.\n\nAI School OS`;
       await mail.send(row.adminEmail, `${row.schoolName} is ready on AI School OS`, text).catch((e: Error) => this.logger.warn(`Welcome email failed: ${e.message}`));
     }
-    return tenant;
+    return Object.assign(tenant, { pilot, pilotError });
   }
 
   /** The one-click Nigerian classes (arm A) and core subjects for the school's type, as Setup does. Best effort. */
@@ -271,6 +305,8 @@ export class SignupService {
       reviewedAt: r.reviewedAt?.toISOString() ?? null,
       tenantId: r.tenantId,
       createdAt: r.createdAt.toISOString(),
+      pilot: r.pilot,
+      pilotReason: r.pilotReason,
     }));
   }
 

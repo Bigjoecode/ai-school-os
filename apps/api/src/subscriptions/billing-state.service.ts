@@ -110,22 +110,30 @@ export class BillingStateService {
   private async compute(tenantId: string): Promise<BillingStatus> {
     const [tenant, tb, s] = await Promise.all([
       this.prisma.root.tenant.findUnique({ where: { id: tenantId }, select: { slug: true, status: true, trialEndsAt: true } }),
-      this.prisma.root.tenantBilling.findUnique({ where: { tenantId }, select: { enforced: true, selfServe: true } }),
+      this.prisma.root.tenantBilling.findUnique({ where: { tenantId }, select: { enforced: true, selfServe: true, pilotStatus: true, pilotEndsAt: true } }),
       this.settings(),
     ]);
     const trialEndsAt = tenant?.trialEndsAt?.toISOString() ?? null;
-    const ok: BillingStatus = { state: 'OK', enforced: false, trialEndsAt, readOnlyAt: null, daysLeft: null, reason: null };
+    // The free pilot (ACTIVE or CONVERTED: no charges until pilotEndsAt; ENDED: shown for the messages).
+    const inPilot = !!tb?.pilotEndsAt && (tb.pilotStatus === 'ACTIVE' || tb.pilotStatus === 'CONVERTED' || tb.pilotStatus === 'ENDED');
+    const pilotEndsAt = inPilot ? tb!.pilotEndsAt!.toISOString() : null;
+    const ok: BillingStatus = { state: 'OK', enforced: false, trialEndsAt, readOnlyAt: null, daysLeft: null, reason: null, pilotEndsAt };
     if (!tenant) return ok;
     const enforced = this.enforcedFor(tenant, tb, s);
     if (!enforced || tenant.status === 'SUSPENDED' || tenant.status === 'ARCHIVED') return { ...ok, enforced };
     const now = Date.now();
+    if (inPilot && tb!.pilotStatus !== 'ENDED' && tb!.pilotEndsAt!.getTime() > now) {
+      return { ...ok, enforced, state: 'PILOT', daysLeft: Math.ceil((tb!.pilotEndsAt!.getTime() - now) / DAY) };
+    }
 
     let lapse: { at: Date; reason: BillingStatus['reason'] } | null = null;
     if (tenant.status === 'TRIAL' && tenant.trialEndsAt) {
       if (tenant.trialEndsAt.getTime() > now) {
         return { ...ok, enforced, state: 'TRIAL', daysLeft: Math.ceil((tenant.trialEndsAt.getTime() - now) / DAY) };
       }
-      lapse = { at: tenant.trialEndsAt, reason: 'TRIAL_ENDED' };
+      // A pilot school is "on trial" until the pilot ends (see PilotService.enrol).
+      const pilotEnded = inPilot && Math.abs(tenant.trialEndsAt.getTime() - tb!.pilotEndsAt!.getTime()) < DAY;
+      lapse = { at: tenant.trialEndsAt, reason: pilotEnded ? 'PILOT_ENDED' : 'TRIAL_ENDED' };
     } else {
       const today = new Date(new Date().toISOString().slice(0, 10) + 'T00:00:00Z');
       const overdue = await this.prisma.root.platformInvoice.findFirst({
@@ -146,6 +154,7 @@ export class BillingStateService {
       readOnlyAt: readOnlyAt.toISOString(),
       daysLeft: graceLeft > 0 ? graceLeft : 0,
       reason: lapse.reason,
+      pilotEndsAt,
     };
   }
 
@@ -161,7 +170,9 @@ export class BillingStateService {
       statusCode: 403,
       code: READ_ONLY_CODE,
       message:
-        st.reason === 'TRIAL_ENDED'
+        st.reason === 'PILOT_ENDED'
+          ? 'Your school’s free pilot has ended, so the account is read-only. Everything is still here: a school admin can choose a plan and pay in Settings → Billing to carry on.'
+          : st.reason === 'TRIAL_ENDED'
           ? 'Your school’s free trial has ended, so the account is read-only. Everything is still here: a school admin can choose a plan and pay in Settings → Billing to carry on.'
           : 'Your school’s subscription is overdue, so the account is read-only. Everything is still here: a school admin can pay in Settings → Billing to carry on.',
     });

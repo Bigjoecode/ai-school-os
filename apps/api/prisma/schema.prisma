@@ -4389,6 +4389,10 @@ model SchoolSignup {
   reviewedAt     DateTime?
   tenantId       String?
   ip             String?
+  /// Applied for the free pilot programme (always goes to the review queue).
+  pilot          Boolean   @default(false)
+  /// Why the school wants to join the pilot (short, from the application form).
+  pilotReason    String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -4411,10 +4415,17 @@ model TenantBilling {
   peakStudents  Int      @default(0)
   remindersSent String[] @default([])
   notes         String?
+  /// Free pilot programme: ACTIVE | ENDED | CONVERTED | REMOVED (null = never in the pilot).
+  /// ACTIVE/ENDED/CONVERTED use one of the pilot places; REMOVED frees it.
+  pilotStatus    String?
+  pilotStartedAt DateTime?
+  /// No charges until this moment; then the normal trial-ended flow (grace, read-only).
+  pilotEndsAt    DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
+  @@index([pilotStatus])
   @@map("tenant_billing")
 }

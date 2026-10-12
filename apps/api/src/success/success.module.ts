@@ -6,5 +6,6 @@ import { SuccessService } from './success.service';
 @Module({
   controllers: [SuccessController, PlatformSuccessController],
   providers: [SuccessService],
+  exports: [SuccessService],
 })
 export class SuccessModule {}

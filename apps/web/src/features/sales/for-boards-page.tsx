@@ -1,6 +1,7 @@
 import { ArrowRight, BarChart3, ClipboardCheck, FileSpreadsheet, ShieldCheck, WifiOff } from 'lucide-react';
 import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
+import { PilotOffer } from './pilot-offer';
 import { SALES_CONTACT, showContact } from './config';
 import { DemoContacts, PrintButton, SalesLayout, ShareButton } from './sales-layout';
 import './sales.css';
@@ -102,6 +103,7 @@ export default function ForBoardsPage() {
             <ClipboardCheck className="size-5 text-brand" aria-hidden /> Pilot proposal outline
           </h2>
           <p className="mt-1 text-[14px] text-muted-foreground print:text-[9.5pt]">A starting point for discussion; numbers, dates and costs are agreed with the board.</p>
+          <PilotOffer className="mt-4" compact />
           <ol className="mt-4 grid gap-2 print:gap-1.5">
             {PILOT.map((p, i) => (
               <li key={p.step} className="flex gap-3 rounded-xl border border-border bg-card p-3 print:p-2">

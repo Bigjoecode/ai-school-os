@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SIGNUP_PATH } from './config';
 import { AUDIENCES, HIGHLIGHTS, PROBLEMS } from './content';
 import { LoopDiagram } from './loop-diagram';
+import { PilotOffer } from './pilot-offer';
 import { PRICE_NOTE, PricingCards } from './pricing';
 import { DemoContacts, PrintButton, SalesLayout, ShareButton } from './sales-layout';
 import './sales.css';
@@ -50,6 +51,7 @@ export default function ForSchoolsPage() {
               <a href="#demo">Book a demo</a>
             </Button>
           </div>
+          <PilotOffer className="mt-6 max-w-3xl print:mt-3" />
         </section>
 
         <section aria-labelledby="problems" className="print:pt-0">

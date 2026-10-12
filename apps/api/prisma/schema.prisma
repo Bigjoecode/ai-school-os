@@ -229,6 +229,7 @@ model Tenant {
   homeworkSubmissions   HomeworkSubmission[]
   kbChunks              KbChunk[]
   billing               TenantBilling?
+  referral              TenantReferral?
 
   @@map("tenants")
 }
@@ -4393,6 +4394,9 @@ model SchoolSignup {
   pilot          Boolean   @default(false)
   /// Why the school wants to join the pilot (short, from the application form).
   pilotReason    String?
+  /// Ambassador referral code typed or carried from a ?ref= link (validated; null when none or invalid).
+  referralCode   String?
+  ambassadorId   String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -4428,4 +4432,155 @@ model TenantBilling {
 
   @@index([pilotStatus])
   @@map("tenant_billing")
+}
+
+// ============================================================== Ambassador referral programme
+
+/// Someone who refers schools for a commission on what the school pays the platform.
+/// Platform-level (no school membership): an approved ambassador signs in with a User
+/// that has no school and sees only their own referrals. Not in TENANT_MODELS.
+model Ambassador {
+  id               String    @id @default(cuid())
+  /// PENDING_VERIFICATION | PENDING_REVIEW | ACTIVE | DECLINED | SUSPENDED
+  status           String    @default("PENDING_VERIFICATION")
+  fullName         String
+  email            String
+  /// Normalised to +234XXXXXXXXXX.
+  phone            String
+  state            String
+  /// How they will find schools (from the application).
+  approach         String
+  bankName         String
+  /// encryptSecret(account number). Only the last four digits are ever shown.
+  accountNumberEnc String
+  accountLast4     String
+  accountName      String
+  /// From the application; cleared once the login is created (or the application is declined).
+  passwordHash     String
+  termsVersion     String
+  termsAcceptedAt  DateTime
+  codeHash         String?
+  codeExpiresAt    DateTime?
+  codeAttempts     Int       @default(0)
+  codesSent        Int       @default(0)
+  /// What the emailed code confirms: EMAIL (the application) | BANK (a change of bank details).
+  codePurpose      String?
+  verifiedAt       DateTime?
+  /// A bank change waiting for the emailed code: { bankName, accountNumberEnc, accountLast4, accountName }.
+  pendingBank      Json?
+  ip               String?
+  /// The referral code (upper case), set on approval; the operator may change it once.
+  referralCode     String?   @unique
+  codeChangedAt    DateTime?
+  userId           String?   @unique
+  reviewNote       String?
+  reviewedById     String?
+  reviewedAt       DateTime?
+  suspendedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  referrals   TenantReferral[]
+  commissions AmbassadorCommission[]
+  payouts     AmbassadorPayout[]
+  notices     AmbassadorNotice[]
+
+  @@index([status, createdAt])
+  @@index([email])
+  @@index([phone])
+  @@map("ambassadors")
+}
+
+/// The ambassador credited for a school (one per school; first valid code wins, the operator can change it).
+model TenantReferral {
+  tenantId     String   @id
+  ambassadorId String
+  code         String
+  /// SIGNUP | CONSOLE
+  source       String
+  signupId     String?
+  /// Fraud signals for the operator, e.g. SAME_IP_AS_AMBASSADOR, SHARED_ADMIN_PHONE.
+  flags        String[] @default([])
+  setById      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant     Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ambassador Ambassador @relation(fields: [ambassadorId], references: [id])
+
+  @@index([ambassadorId])
+  @@map("tenant_referrals")
+}
+
+/// One commission per school payment (paymentId unique), or a negative CLAWBACK after a refund or reversal.
+model AmbassadorCommission {
+  id           String    @id @default(cuid())
+  ambassadorId String
+  /// Kept (no foreign key) so the record survives if the school is deleted.
+  tenantId     String
+  schoolName   String
+  /// COMMISSION | CLAWBACK
+  kind         String    @default("COMMISSION")
+  paymentId    String?   @unique
+  refundId     String?   @unique
+  /// For a CLAWBACK: the commission it takes back.
+  reversesId   String?
+  baseKobo     Int
+  /// Rate in basis points at the time (500 = 5%).
+  rateBp       Int
+  amountKobo   Int
+  /// PENDING | PAYABLE | PAID | REVERSED
+  status       String    @default("PENDING")
+  payableAt    DateTime
+  paidAt       DateTime?
+  payoutId     String?
+  reversedAt   DateTime?
+  reason       String?
+  createdById  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  ambassador Ambassador        @relation(fields: [ambassadorId], references: [id])
+  payout     AmbassadorPayout? @relation(fields: [payoutId], references: [id])
+
+  @@index([ambassadorId, status])
+  @@index([status, payableAt])
+  @@index([tenantId])
+  @@map("ambassador_commissions")
+}
+
+/// A payment made to an ambassador (by bank transfer, outside the platform), covering their payable commissions.
+model AmbassadorPayout {
+  id              String   @id @default(cuid())
+  ambassadorId    String
+  amountKobo      Int
+  commissionCount Int
+  reference       String
+  paidOn          DateTime @db.Date
+  note            String?
+  createdById     String?
+  createdAt       DateTime @default(now())
+
+  ambassador  Ambassador             @relation(fields: [ambassadorId], references: [id])
+  commissions AmbassadorCommission[]
+
+  @@index([ambassadorId, createdAt])
+  @@map("ambassador_payouts")
+}
+
+/// What the ambassador dashboard shows as news (also emailed when SMTP is set up).
+model AmbassadorNotice {
+  id           String    @id @default(cuid())
+  ambassadorId String
+  /// APPROVED | SCHOOL_SIGNED_UP | COMMISSION | PAYOUT | BANK_CHANGED | SUSPENDED | REINSTATED | REVERSED
+  kind         String
+  title        String
+  body         String
+  readAt       DateTime?
+  createdAt    DateTime  @default(now())
+
+  ambassador Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+
+  @@index([ambassadorId, createdAt])
+  @@map("ambassador_notices")
 }

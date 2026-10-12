@@ -10,6 +10,7 @@ RewriteRule ^for-schools/?$ og/for-schools.html [L]
 RewriteRule ^for-schools/deck/?$ og/for-schools-deck.html [L]
 RewriteRule ^for-schools/calculator/?$ og/for-schools-calculator.html [L]
 RewriteRule ^for-boards/?$ og/for-boards.html [L]
+RewriteRule ^ambassadors/?$ og/ambassadors.html [L]
 # Real files and folders are served as-is.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d

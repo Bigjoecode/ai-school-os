@@ -1,4 +1,5 @@
 import { Global, Module } from '@nestjs/common';
+import { AmbassadorsModule } from '../ambassadors/ambassadors.module';
 import { ConsoleModule } from '../console/console.module';
 import { OnboardingModule } from '../onboarding/onboarding.module';
 import { PlatformModule } from '../platform/platform.module';
@@ -15,7 +16,7 @@ import { SubscriptionService } from './subscription.service';
  */
 @Global()
 @Module({
-  imports: [ConsoleModule, OnboardingModule, PlatformModule, SuccessModule],
+  imports: [AmbassadorsModule, ConsoleModule, OnboardingModule, PlatformModule, SuccessModule],
   controllers: [SignupController, SubscriptionController, ConsoleSubscriptionsController, ConsolePilotController],
   providers: [BillingStateService, SignupService, SubscriptionService, PilotService],
   exports: [BillingStateService],

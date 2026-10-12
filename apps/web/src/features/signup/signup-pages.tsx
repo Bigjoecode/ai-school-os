@@ -7,13 +7,14 @@ import {
   SCHOOL_TYPES,
   signupSchema,
   type BillingCycle,
+  type ReferralCodeCheck,
   type SignupConfig,
   type SignupResult,
   type SignupVerifyResult,
 } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowRight, Check, CheckCircle2, Clock, Eye, EyeOff, Gift, Loader2, Mail, Minus, XCircle } from 'lucide-react';
+import { ArrowRight, Check, CheckCircle2, Clock, Eye, EyeOff, Gift, HeartHandshake, Loader2, Mail, Minus, X, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router';
@@ -30,12 +31,13 @@ import { api, ApiError, errorMessage } from '@/lib/api';
 import { applyServerErrors } from '@/lib/forms';
 import { useDocumentTitle } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
+import { forgetReferral, rememberReferral, storedReferral } from '../ambassadors/referral';
 import { LegalLinks } from '../legal/legal-links';
 
 const naira = (kobo: number) => `₦${(kobo / 100).toLocaleString('en-NG', { maximumFractionDigits: 0 })}`;
 const useConfig = () => useQuery({ queryKey: ['signup', 'config'], queryFn: ({ signal }) => api.get<SignupConfig>('/signup/config', undefined, signal), staleTime: 60_000 });
 
-function PublicShell({ children, wide }: { children: ReactNode; wide?: boolean }) {
+export function PublicShell({ children, wide }: { children: ReactNode; wide?: boolean }) {
   return (
     <div className="relative flex min-h-dvh flex-col overflow-x-hidden bg-background">
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -196,6 +198,18 @@ export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolea
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [slugTouched, setSlugTouched] = useState(false);
+  // An ambassador's code: from ?ref= (captured at boot), remembered for 90 days, or typed in.
+  const [refCode, setRefCode] = useState<string>(() => (params.get('ref') ?? storedReferral() ?? '').trim().toUpperCase());
+  const [refDraft, setRefDraft] = useState('');
+  const [refOpen, setRefOpen] = useState(false);
+  const refCheck = useQuery({
+    queryKey: ['ambassadors', 'ref', refCode],
+    queryFn: ({ signal }) => api.get<ReferralCodeCheck>(`/ambassadors/ref/${encodeURIComponent(refCode)}`, undefined, signal),
+    enabled: /^[A-Z0-9]{3,12}$/.test(refCode),
+    staleTime: 5 * 60_000,
+    meta: { silent: true },
+  });
+  const referral = refCheck.data?.valid ? refCheck.data : null;
   const form = useForm<SignupValues, unknown, z.output<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -233,6 +247,7 @@ export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolea
   const start = useMutation({
     mutationFn: (v: z.output<typeof signupSchema>) => api.post<SignupResult>('/signup', v),
     onSuccess: (r) => {
+      forgetReferral();
       try {
         sessionStorage.setItem('signup', JSON.stringify(r));
       } catch {
@@ -250,7 +265,7 @@ export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolea
       setError('pilotReason', { message: 'A sentence or two, please' });
       return;
     }
-    start.mutate({ ...v, pilot: pilot || undefined, pilotReason: pilot ? v.pilotReason : undefined });
+    start.mutate({ ...v, pilot: pilot || undefined, pilotReason: pilot ? v.pilotReason : undefined, referralCode: referral?.code });
   });
 
   const c = q.data;
@@ -438,6 +453,54 @@ export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolea
           </label>
           {err.acceptTerms && <p className="text-[12px] font-medium text-danger">{err.acceptTerms.message}</p>}
         </Card>
+        {referral ? (
+          <div className="flex items-center gap-3 rounded-xl border border-success/30 bg-success-soft/40 px-4 py-3 text-[13.5px]">
+            <HeartHandshake className="size-5 shrink-0 text-success" aria-hidden />
+            <p className="min-w-0 flex-1">
+              Referred by <strong>{referral.firstName}</strong> <span className="text-muted-foreground">(code {referral.code})</span>
+            </p>
+            <button
+              type="button"
+              className="rounded-md p-1 text-muted-foreground hover:text-foreground"
+              aria-label="Remove the referral code"
+              onClick={() => {
+                forgetReferral();
+                setRefCode('');
+              }}
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+        ) : refOpen ? (
+          <Card className="p-4">
+            <Field
+              label="Referral code"
+              htmlFor="referralCode"
+              optional
+              hint={refCode && refCheck.data && !refCheck.data.valid ? <span className="text-danger">We don’t recognise that code. Check it, or leave it empty.</span> : 'From the ambassador who told you about AI School OS'}
+            >
+              <div className="flex gap-2">
+                <Input id="referralCode" autoCapitalize="characters" spellCheck={false} maxLength={12} value={refDraft} onChange={(e) => setRefDraft(e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase())} placeholder="e.g. ADA25" />
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={refDraft.length < 3}
+                  loading={refCheck.isFetching}
+                  onClick={() => {
+                    setRefCode(refDraft);
+                    rememberReferral(refDraft);
+                  }}
+                >
+                  Apply
+                </Button>
+              </div>
+            </Field>
+          </Card>
+        ) : (
+          <button type="button" className="text-[13px] font-medium text-brand hover:underline" onClick={() => setRefOpen(true)}>
+            Have a referral code?
+          </button>
+        )}
         {formError && (
           <p role="alert" className="rounded-xl border border-danger/30 bg-danger-soft/40 px-4 py-3 text-[13.5px] text-danger">
             {formError}

@@ -1081,3 +1081,14 @@ App Store Connect steps, App Privacy answers, age rating and review notes. Push 
 variables on the API (table above). Inside the iPhone app the portal hides digital purchases (parents' AI/exam-prep
 extras, the school plan checkout, result-PIN sales) as App Store rules require; school fees are still paid through
 Paystack.
+
+## Ambassador referral programme
+
+People who refer schools earn a commission (5% by default) on every subscription payment a referred school makes. Migration `20261013120000_ambassador_referrals` adds the tables; it runs on boot like the others.
+
+- **Needs:** `APP_ENCRYPTION_KEY` (bank account numbers are encrypted with it; never change it once set) and SMTP (application codes, approvals, commission and payout emails; without SMTP the dashboard still shows the news, and production refuses applications because codes cannot be sent).
+- **Console → Platform → Ambassadors** (super admin and finance admin): review applications (approve creates the ambassador's sign-in and code; decline emails the reason), suspend/reinstate, change a code once, set/change/remove a school's ambassador (audit-logged), reverse a commission, and the monthly payout. Settings (super admin): rate %, hold days, minimum payout, commission period (forever or N months), what happens to a suspended ambassador's balance, applications open/closed. Changes apply to new commissions only.
+- **Monthly payout:** Payouts tab → "Bank transfer list (CSV)" (super admin only; the only place full account numbers are decrypted; every download is audit-logged) → pay each ambassador from the bank → "Mark as paid" with the transfer reference and date. Paying through Paystack Transfers is phase 2 (not built).
+- **Commission rules:** one commission per school subscription payment (SCHOOL-domain invoices, part-payments included), at the rate in force when paid, base = amount received (no VAT line exists on platform invoices; Paystack fees are the platform's). Free trials and the pilot earn nothing. Refunds recorded in the console reverse or reduce the commission, or add a deduction to the next payout if it was already paid.
+- **Public pages:** `/ambassadors` (landing; `.htaccess` serves `og/ambassadors.html` for share previews), `/ambassadors/apply`, `/legal/ambassador` (draft terms). Referral links: `/signup?ref=CODE`, `/pilot?ref=CODE`; the code is remembered for 90 days. Ambassadors sign in at `/login` and land on `/ambassador`.
+- **Before launch:** have counsel complete the `[PLACEHOLDER]`s in `docs/legal/ambassador-terms.md` and the ambassador section of the privacy notice, and an accountant confirm withholding tax and VAT treatment of commission.

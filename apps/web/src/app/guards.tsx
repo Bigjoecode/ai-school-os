@@ -90,3 +90,10 @@ export function RequirePlatform({ area, superAdmin, children }: { area?: Platfor
   if (!role) return <NoAccess />;
   return allowed ? <>{children}</> : <ConsoleNoAccess />;
 }
+
+/** Someone signed in with no school and no platform role is an ambassador: their page is /ambassador, not the school app. */
+export function AmbassadorRedirect({ children }: { children: ReactNode }) {
+  const noSchool = useAuthStore((s) => s.status === 'authenticated' && !!s.me && !s.me.tenant && !s.me.user.platformRole && s.me.memberships.length === 0);
+  if (noSchool) return <Navigate to="/ambassador" replace />;
+  return <>{children}</>;
+}

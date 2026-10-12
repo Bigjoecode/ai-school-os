@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 export function LegalLinks({ className }: { className?: string }) {
   return (
     <nav aria-label="Legal" className={cn('flex flex-wrap items-center justify-center gap-x-3 gap-y-1', className)}>
-      {LEGAL_DOCS.filter((d) => d.slug !== 'retention').map((d) => (
+      {LEGAL_DOCS.filter((d) => d.slug !== 'retention' && d.slug !== 'ambassador').map((d) => (
         <a key={d.slug} href={`/legal/${d.slug}`} className="transition-colors hover:text-foreground hover:underline">
           {d.short}
         </a>

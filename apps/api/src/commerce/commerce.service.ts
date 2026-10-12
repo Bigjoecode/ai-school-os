@@ -29,6 +29,9 @@ const GRACE_DAYS = 7;
 export const domainOf = (p: { kind: string }): RevenueDomain => (p.kind === 'EXAM' ? 'EXAM' : 'STUDENT_AI');
 const money = (k: number) => `₦${(k / 100).toLocaleString('en-NG')}`;
 
+/** Told (with the Refund id) when a school's platform payment is refunded, e.g. so an ambassador's commission is reversed. */
+export const platformRefundHooks: ((refundId: string) => void)[] = [];
+
 /**
  * Parent-paid products and school sponsorships. Parents pay the platform's
  * own Paystack account; a reusable card authorization renews a subscription
@@ -508,6 +511,7 @@ export class CommerceService implements OnModuleInit, OnApplicationShutdown {
       ],
     );
     await this.audit.log({ tenantId: null, action: 'commerce.refund', entityType: 'Refund', entityId: refund.id, summary: `Refunded ${money(input.amountKobo)} to ${p.tenant.name} on ${p.invoice.number}: ${input.reason}` });
+    for (const hook of platformRefundHooks) hook(refund.id);
     return refund;
   }
 

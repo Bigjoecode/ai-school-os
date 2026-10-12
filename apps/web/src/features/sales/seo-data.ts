@@ -42,6 +42,12 @@ export const SALES_SEO: SalesSeo[] = [
     title: 'AI School OS for SUBEBs and state ministries',
     description: 'Offline CBT at scale, classroom engagement evidence, school returns reports and NDPA-ready data protection. A pilot proposal outline for state boards.',
   },
+  {
+    path: '/ambassadors',
+    file: 'og/ambassadors.html',
+    title: 'Earn as an AI School OS ambassador',
+    description: 'Refer Nigerian schools to AI School OS and earn a commission on every subscription payment they make. Free to join; we approve every ambassador.',
+  },
 ];
 
 export const seoFor = (path: string) => SALES_SEO.find((s) => s.path === path) ?? SALES_SEO[0]!;

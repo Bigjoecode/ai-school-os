@@ -235,6 +235,9 @@ export function SalesLayout({ path, children, actions, wide }: { path: string; c
             <Link to={SIGNUP_PATH} className="hover:text-foreground">
               Sign up
             </Link>
+            <Link to="/ambassadors" className="hover:text-foreground">
+              Earn as an ambassador
+            </Link>
           </span>
         </div>
       </footer>

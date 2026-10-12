@@ -284,6 +284,8 @@ export class AuthService {
     });
     if (first) return first.tenantId;
     if (platformRole) return null;
+    // An approved ambassador has no school: signed in with none, so every school route stays closed to them.
+    if (await this.prisma.root.ambassador.count({ where: { userId, status: { in: ['ACTIVE', 'SUSPENDED'] } } })) return null;
     if (closed.length && (await this.prisma.root.membership.count({ where: { userId, status: 'ACTIVE', tenantId: { in: closed } } }))) {
       throw new ForbiddenException('Sign-in to this school is not available at the moment.');
     }

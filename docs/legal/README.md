@@ -10,6 +10,7 @@ Draft documents for AI School OS under the Nigeria Data Protection Act 2023 and 
 | [data-processing-agreement.md](data-processing-agreement.md) | `/legal/dpa` | Schools |
 | [subprocessors.md](subprocessors.md) | `/legal/subprocessors` | Schools |
 | [data-retention.md](data-retention.md) | `/legal/retention` | Schools, counsel |
+| [ambassador-terms.md](ambassador-terms.md) | `/legal/ambassador` | Ambassadors (referral programme) |
 
 The web app imports these files at build time (`apps/web/src/features/legal`), so editing a file here updates the public page on the next deploy.
 

@@ -5,7 +5,7 @@ import { AppShell } from '@/components/layout/app-shell';
 import { TwoFactorGate } from '@/features/auth/two-factor-gate';
 import { ConsentGate } from '@/features/data-protection/consent-gate';
 import { BootLoader } from '@/components/layout/boot-loader';
-import { RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
+import { AmbassadorRedirect, RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
 import { UPCOMING_MODULES } from './modules';
 
 const LoginPage = lazy(() => import('@/features/auth/login-page'));
@@ -223,6 +223,11 @@ const LiveCheckInPage = lazy(() => import('@/features/lesson-modules/live-checki
 const GamesPage = lazy(() => import('@/features/games/games-page'));
 const GamesPlayPage = lazy(() => import('@/features/games/play-page'));
 const GamesLeaderboardPage = lazy(() => import('@/features/games/leaderboard-page'));
+const AmbassadorsLandingPage = lazy(() => import('@/features/ambassadors/public-pages'));
+const AmbassadorApplyPage = lazy(() => import('@/features/ambassadors/public-pages').then((m) => ({ default: m.AmbassadorApplyPage })));
+const AmbassadorVerifyPage = lazy(() => import('@/features/ambassadors/public-pages').then((m) => ({ default: m.AmbassadorVerifyPage })));
+const AmbassadorDashboardPage = lazy(() => import('@/features/ambassadors/dashboard-page'));
+const ConsoleAmbassadorsPage = lazy(() => import('@/features/platform/ambassadors-page'));
 
 const withSuspense = (node: ReactNode) => <Suspense fallback={<BootLoader label="Loading…" />}>{node}</Suspense>;
 
@@ -256,6 +261,11 @@ export const router = createBrowserRouter(withRouteErrors([
   { path: '/signup', element: withSuspense(<SignupPage />) },
   { path: '/pilot', element: withSuspense(<PilotSignupPage />) },
   { path: '/signup/verify', element: withSuspense(<SignupVerifyPage />) },
+  // Ambassador referral programme: public landing, application and email check; the signed-in ambassador's own page.
+  { path: '/ambassadors', element: withSuspense(<AmbassadorsLandingPage />) },
+  { path: '/ambassadors/apply', element: withSuspense(<AmbassadorApplyPage />) },
+  { path: '/ambassadors/verify', element: withSuspense(<AmbassadorVerifyPage />) },
+  { path: '/ambassador', element: <RequireAuth>{withSuspense(<AmbassadorDashboardPage />)}</RequireAuth> },
   // A printable AI School OS invoice or receipt (the school's own, or any from the console with ?from=console).
   { path: '/billing/invoices/:id', element: <RequireAuth>{withSuspense(<InvoiceDocumentPage />)}</RequireAuth> },
   // Sales kit: brochure, deck, savings calculator and the state boards page. Public, no app chrome.
@@ -310,11 +320,13 @@ export const router = createBrowserRouter(withRouteErrors([
     path: '/',
     element: (
       <RequireAuth>
-        <TwoFactorGate>
-          <ConsentGate>
-            <AppShell />
-          </ConsentGate>
-        </TwoFactorGate>
+        <AmbassadorRedirect>
+          <TwoFactorGate>
+            <ConsentGate>
+              <AppShell />
+            </ConsentGate>
+          </TwoFactorGate>
+        </AmbassadorRedirect>
       </RequireAuth>
     ),
     children: [
@@ -1030,6 +1042,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['platform/careers', 'content', <ConsoleCareersPage key="careers" />],
           ['platform/success', 'overview', <PilotSchoolsPage key="pilot-schools" />],
           ['platform/census', 'overview', <CensusAggregatePage key="census" />],
+          ['platform/ambassadors', 'billing', <ConsoleAmbassadorsPage key="ambassadors" />],
         ] as const
       ).map(([path, area, page]) => ({
         path,

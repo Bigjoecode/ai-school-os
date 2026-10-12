@@ -126,6 +126,17 @@ If you are unhappy, you can complain to the **Nigeria Data Protection Commission
 
 No system is perfectly secure. If a personal data breach happens, the school and, where the law requires, the NDPC and affected people are told.
 
+## Ambassadors (referral programme)
+
+> **DRAFT FOR LEGAL REVIEW.** This section is about adults who join our ambassador referral programme, not about schools' students, parents or staff.
+
+- **Who is responsible:** the platform operator ([PLACEHOLDER: legal entity name]) is the data controller for ambassadors' information.
+- **What we hold:** your name, email, phone number, state, what you told us about how you will find schools, your bank name, account number (stored encrypted; staff see only the last four digits, except the person making the monthly bank transfer) and account name, the date you accepted the Ambassador Terms, the IP address you applied from, the schools credited to you (name, state and status only), your commissions and payouts, and an audit trail of changes.
+- **Why, and the legal basis:** to assess your application, run the programme and pay you (contract); to keep financial and tax records (legal obligation); and to prevent fraud such as self-referral or fake sign-ups (legitimate interests). We may compare a referred school's sign-up IP address and admin phone with yours to spot self-referral.
+- **Sharing:** with our bank or payment provider to pay you, our email provider to send you messages, and our hosting provider. We do not tell schools how much you earn.
+- **How long:** while you are an ambassador, then [PLACEHOLDER: retention period for financial records, e.g. 6 years] for payment records; unconfirmed applications are deleted after 7 days, and declined applications after [PLACEHOLDER: period].
+- **Your rights:** as in section 8. You can download a copy of your own data from your ambassador dashboard ("Download my data"); for a complete copy (including your full account number), or to correct or delete your data, contact [PLACEHOLDER: DPO contact].
+
 ## 10. Changes to this notice
 
 When this notice changes in a way that matters, the version number changes and parents are asked to read and accept it again when they next sign in.

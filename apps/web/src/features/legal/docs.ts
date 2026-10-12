@@ -5,9 +5,10 @@ import terms from '../../../../../docs/legal/terms-of-service.md?raw';
 import dpa from '../../../../../docs/legal/data-processing-agreement.md?raw';
 import subprocessors from '../../../../../docs/legal/subprocessors.md?raw';
 import retention from '../../../../../docs/legal/data-retention.md?raw';
+import ambassador from '../../../../../docs/legal/ambassador-terms.md?raw';
 
 /** The Markdown sources in docs/legal, bundled at build time so the pages and the files never drift apart. */
-export const LEGAL_TEXT: Record<LegalDocSlug, string> = { privacy, children, terms, dpa, subprocessors, retention };
+export const LEGAL_TEXT: Record<LegalDocSlug, string> = { privacy, children, terms, dpa, subprocessors, retention, ambassador };
 
 export { LEGAL_DOCS };
 export type { LegalDocSlug };

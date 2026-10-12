@@ -368,6 +368,7 @@ export const PLATFORM_GROUP: NavGroup = {
     { label: 'Branches', to: '/platform/branches', icon: GitBranch, area: 'schools', keywords: 'campuses sites' },
     { label: 'Billing', to: '/platform/billing', icon: Landmark, area: 'billing', keywords: 'subscriptions invoices payments revenue billing cycle' },
     { label: 'Subscriptions', to: '/platform/subscriptions', icon: BadgePercent, area: 'billing', keywords: 'self-serve sign-ups signup trial grace read-only overdue review queue extend comp discount' },
+    { label: 'Ambassadors', to: '/platform/ambassadors', icon: HeartHandshake, area: 'billing', keywords: 'referral referrals commission payouts affiliates agents partners 5%' },
     { label: 'Revenue', to: '/platform/revenue', icon: ChartColumnStacked, area: 'commerce', keywords: 'ledger revenue domains balances accounts refunds' },
     { label: 'Unit economics', to: '/platform/unit-economics', icon: CircleDollarSign, area: 'commerce', keywords: 'contribution margin ai cost per student conversion' },
     { label: 'Parent products', to: '/platform/products', icon: PackageOpen, area: 'commerce', keywords: 'ai plus pro exam prep pricing coupons discounts' },

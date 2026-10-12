@@ -13,6 +13,7 @@ import {
   type SignupVerifyResult,
 } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
+import { AmbassadorsService } from '../ambassadors/ambassadors.service';
 import { AuditService } from '../audit/audit.service';
 import { hashPassword } from '../auth/password';
 import { RequestContextStore } from '../common/request-context';
@@ -48,6 +49,7 @@ export class SignupService {
     private readonly state: BillingStateService,
     private readonly audit: AuditService,
     private readonly pilot: PilotService,
+    private readonly ambassadors: AmbassadorsService,
   ) {}
 
   async publicPlans(): Promise<SignupConfig['plans']> {
@@ -125,6 +127,11 @@ export class SignupService {
     if (!(await this.slugAvailable(input.slug))) {
       throw new ConflictException({ statusCode: 409, message: 'That portal address is taken', errors: [{ path: 'slug', message: 'Already taken: try another' }] });
     }
+    // An ambassador's code (from a ?ref= link or typed): kept only if valid and not the admin referring themselves.
+    const referral = await this.ambassadors.forSignup(input.referralCode, input.admin, input.schoolName).catch((e: Error) => {
+      this.logger.warn(`Referral check failed: ${e.message}`);
+      return null;
+    });
     const plan = input.planId ? await this.prisma.root.plan.findFirst({ where: { id: input.planId, isActive: true, isPublic: true }, select: { id: true } }) : null;
     const row = await this.prisma.root.schoolSignup.create({
       data: {
@@ -143,6 +150,8 @@ export class SignupService {
         ip: ip ?? null,
         pilot: !!input.pilot,
         pilotReason: input.pilot ? (input.pilotReason ?? null) : null,
+        referralCode: referral?.referralCode ?? null,
+        ambassadorId: referral?.ambassadorId ?? null,
       },
     });
     const devCode = await this.sendCode(row.id, row.adminEmail, row.adminFirstName, row.schoolName, origin);
@@ -241,6 +250,7 @@ export class SignupService {
         this.logger.warn(`Pilot enrolment for ${tenant.id} failed: ${pilotError}`);
       }
     }
+    await this.ambassadors.attachSignup(tenant.id, row, pilot).catch((e: Error) => this.logger.warn(`Referral for ${tenant.id} failed: ${e.message}`));
     await this.audit.log({
       tenantId: tenant.id,
       actorUserId: reviewerId,

@@ -50,3 +50,4 @@ export * from './result-pins';
 export * from './self-serve';
 export * from './parent-lines';
 export * from './pilot';
+export * from './ambassadors';

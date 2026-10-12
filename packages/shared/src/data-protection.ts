@@ -29,6 +29,7 @@ export const LEGAL_DOCS = [
   { slug: 'dpa', title: 'Data Processing Agreement', short: 'DPA', description: 'The school (controller) and the platform operator (processor).' },
   { slug: 'subprocessors', title: 'Sub-processors', short: 'Sub-processors', description: 'The service providers that help run AI School OS.' },
   { slug: 'retention', title: 'Data retention', short: 'Retention', description: 'What the platform keeps, and for how long.' },
+  { slug: 'ambassador', title: 'Ambassador Terms', short: 'Ambassador terms', description: 'The referral programme: commission, payment, conduct and tax.' },
 ] as const;
 export type LegalDocSlug = (typeof LEGAL_DOCS)[number]['slug'];
 

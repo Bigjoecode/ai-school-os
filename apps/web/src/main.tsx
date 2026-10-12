@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router';
 import { Providers } from './app/providers';
+import { captureReferral } from './features/ambassadors/referral';
 import { detectWebsiteHost } from './features/website/public/host';
 import { reloadForNewVersion } from './app/route-error';
 import { initTheme } from './lib/theme';
@@ -11,6 +12,8 @@ import { handleShortcut } from './pwa/shortcuts';
 import './index.css';
 
 initTheme();
+// An ambassador's ?ref= code on the sales and sign-up pages, remembered for 90 days.
+captureReferral();
 
 // After a deploy, a tab opened earlier may ask for code files that were replaced: reload once to get the new version.
 window.addEventListener('vite:preloadError', (event) => {

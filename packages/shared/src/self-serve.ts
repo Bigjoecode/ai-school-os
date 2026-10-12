@@ -161,6 +161,8 @@ export const signupSchema = z.object({
   pilot: z.boolean().optional(),
   /** Pilot applications: why the school wants to join (required when pilot is true). */
   pilotReason: z.string().trim().max(500).optional(),
+  /** An ambassador's referral code (from a ?ref= link or typed in). Checked on the server; an invalid code is ignored. */
+  referralCode: z.string().trim().max(20).optional(),
 });
 export type SignupInput = z.infer<typeof signupSchema>;
 

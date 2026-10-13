@@ -135,14 +135,42 @@ export class OpenAiProvider implements AiProvider {
     return { text: '', model: c.model, ...usageOf(c), data: (direct.success ? direct.data : dropNulls(data)) as T };
   }
 
+  /** Models that refuse function tools together with reasoning_effort on chat completions (learned at run time). */
+  private static readonly toolsWithoutReasoning = new Set<string>();
+
+  /** Some reasoning models accept tools only with reasoning off: drop the effort for those, as OpenAI's error advises. */
+  private toolParams(model: string, params: ReturnType<OpenAiProvider['limits']>['params'], mode: 'as-set' | 'none' | 'omit') {
+    if (!('reasoning_effort' in params) || mode === 'as-set') return params;
+    const { reasoning_effort: _dropped, ...rest } = params;
+    return mode === 'none' ? { ...rest, reasoning_effort: 'none' as OpenAI.ReasoningEffort } : rest;
+  }
+
   /** Function calling: run the requested functions and loop until the model answers. */
   async generateWithTools(req: AiRequest, tools: AiToolSpec[], run: ToolRunner, maxSteps: number): Promise<AiToolResult> {
-    const { model, params } = this.limits(req);
+    const { model, params: base } = this.limits(req);
+    let params = this.toolParams(model, base, OpenAiProvider.toolsWithoutReasoning.has(model) ? 'none' : 'as-set');
+    const create = async (body: Omit<OpenAI.Chat.ChatCompletionCreateParamsNonStreaming, 'model'>) => {
+      try {
+        return await this.call(() => this.sdk().chat.completions.create({ model, ...body, ...params }));
+      } catch (err) {
+        if (!(err instanceof OpenAI.BadRequestError) || !/reasoning_effort/i.test(err.message) || !('reasoning_effort' in base)) throw err;
+        // Retry with reasoning off; if the model rejects 'none' too, leave the setting out entirely.
+        OpenAiProvider.toolsWithoutReasoning.add(model);
+        params = this.toolParams(model, base, params === base ? 'none' : 'omit');
+        try {
+          return await this.call(() => this.sdk().chat.completions.create({ model, ...body, ...params }));
+        } catch (again) {
+          if (!(again instanceof OpenAI.BadRequestError) || !/reasoning_effort/i.test(again.message)) throw again;
+          params = this.toolParams(model, base, 'omit');
+          return await this.call(() => this.sdk().chat.completions.create({ model, ...body, ...params }));
+        }
+      }
+    };
     const defs: OpenAI.Chat.ChatCompletionTool[] = tools.map((t) => ({ type: 'function', function: { name: t.name, description: t.description, parameters: t.inputSchema } }));
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [{ role: 'system', content: req.system }, ...turns(req)];
     const total: AiToolResult = { text: '', model, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, steps: 0 };
     for (let step = 0; step < maxSteps; step++) {
-      const c = await this.call(() => this.sdk().chat.completions.create({ model, messages, tools: defs, ...params, ...(step === maxSteps - 1 ? { tool_choice: 'none' as const } : {}) }));
+      const c = await create({ messages, tools: defs, ...(step === maxSteps - 1 ? { tool_choice: 'none' as const } : {}) });
       const u = usageOf(c);
       total.steps++;
       total.model = c.model;

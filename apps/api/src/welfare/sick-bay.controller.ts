@@ -21,7 +21,7 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequirePermissions, RequireFeature } from '../common/decorators';
 import { paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -62,6 +62,7 @@ export function toMedical(s: MedicalPick): MedicalProfile {
  * principal and vice principal record visits and keep the medical profile;
  * teachers and other welfare staff can read them.
  */
+@RequireFeature('health')
 @Controller('welfare')
 export class SickBayController {
   constructor(

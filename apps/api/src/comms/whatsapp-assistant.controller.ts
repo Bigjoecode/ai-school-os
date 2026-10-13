@@ -65,7 +65,7 @@ export class WhatsappWebhookController {
 
 /** Staff side: settings, the conversation inbox, replies and resolving. */
 @Controller('comms/whatsapp-assistant')
-@RequireFeature('messaging')
+@RequireFeature('whatsapp_assistant')
 export class WhatsappAssistantController {
   constructor(private readonly assistant: WhatsappAssistantService) {}
 

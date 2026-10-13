@@ -40,6 +40,8 @@ import { AiSchoolCards } from '../ai/ai-school-cards';
 import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { ClassInsightsCard } from '../class-insights/insights-card';
+import { StudentBirthdayCard } from '../birthdays/birthday-card';
+import { ClassBirthdaysCard } from '../birthdays/class-birthdays-card';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { FirstWeekCard } from '../onboarding/first-week';
 import { DailyChallengeCard } from '../games/widgets';
@@ -118,6 +120,7 @@ function MemberOverview() {
         </h1>
       </div>
       <div className="space-y-5">
+        {isStudent && <StudentBirthdayCard />}
         {isStudent && <DailyChallengeCard />}
         <PortalSummaryCard />
         {hasLive && <MyLearningCard />}
@@ -184,6 +187,7 @@ function SchoolOverview() {
         </motion.div>
         {canLive && <LiveTodayCard />}
         <ClassInsightsCard />
+        <ClassBirthdaysCard />
         {canAttendance && (data === undefined || data.kpis.attendance) && (
           <motion.div variants={item}>
             <AttendanceBand data={data} />

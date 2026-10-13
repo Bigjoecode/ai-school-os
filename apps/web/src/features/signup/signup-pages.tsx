@@ -1,12 +1,9 @@
 import {
-  MODULE_FEATURE_KEYS,
-  MODULE_FEATURES,
   NIGERIAN_STATES,
   priceQuote,
   SCHOOL_TYPE_LABELS,
   SCHOOL_TYPES,
   signupSchema,
-  type BillingCycle,
   type ReferralCodeCheck,
   type SignupConfig,
   type SignupResult,
@@ -14,7 +11,7 @@ import {
 } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ArrowRight, Check, CheckCircle2, Clock, Eye, EyeOff, Gift, HeartHandshake, Loader2, Mail, Minus, X, XCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock, Eye, EyeOff, Gift, HeartHandshake, Loader2, Mail, X, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router';
@@ -33,6 +30,8 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { forgetReferral, rememberReferral, storedReferral } from '../ambassadors/referral';
 import { LegalLinks } from '../legal/legal-links';
+import { toSalesPlan, type SalesPlan } from '../sales/config';
+import { AddonsBox, PlanCards, PricingNotes, SessionBanner, TalkToUsDialog } from '../sales/pricing';
 
 const naira = (kobo: number) => `₦${(kobo / 100).toLocaleString('en-NG', { maximumFractionDigits: 0 })}`;
 const useConfig = () => useQuery({ queryKey: ['signup', 'config'], queryFn: ({ signal }) => api.get<SignupConfig>('/signup/config', undefined, signal), staleTime: 60_000 });
@@ -72,8 +71,14 @@ export function PricingPage() {
   useDocumentTitle('Plans and pricing');
   const q = useConfig();
   const [students, setStudents] = useState(200);
-  const [cycle, setCycle] = useState<BillingCycle>('TERM');
+  const [talk, setTalk] = useState<SalesPlan | null>(null);
   const c = q.data;
+  const plans = c?.plans.map(toSalesPlan) ?? [];
+  // A link straight to the "Talk to us" form (#talk-to-us), e.g. from the billing page.
+  useEffect(() => {
+    if (window.location.hash === '#talk-to-us' && plans.length) setTalk(plans.find((p) => p.contactOnly) ?? null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plans.length]);
   return (
     <PublicShell wide>
       <div className="mx-auto max-w-2xl pt-6 text-center sm:pt-10">
@@ -83,90 +88,43 @@ export function PricingPage() {
         </p>
       </div>
 
-      <Card className="mx-auto mt-8 flex max-w-2xl flex-col gap-4 p-4 sm:flex-row sm:items-end sm:p-5">
-        <Field label="How many students?" htmlFor="est" className="flex-1">
+      {c && <SessionBanner pct={c.sessionDiscountPct} className="mx-auto mt-6 max-w-2xl" />}
+
+      <Card className="mx-auto mt-4 flex max-w-2xl flex-col gap-3 p-4 sm:flex-row sm:items-end sm:p-5">
+        <Field label="How many students?" htmlFor="est" className="flex-1" hint="We show what a term costs for your school.">
           <Input id="est" type="number" inputMode="numeric" min={1} max={20000} value={students} onChange={(e) => setStudents(Math.max(0, Number(e.target.value) || 0))} />
         </Field>
-        <div className="grid flex-1 grid-cols-2 gap-1 rounded-xl border border-border bg-muted/40 p-1" role="radiogroup" aria-label="Pay for">
-          {(['TERM', 'SESSION'] as const).map((k) => (
-            <button key={k} type="button" role="radio" aria-checked={cycle === k} onClick={() => setCycle(k)} className={cn('rounded-lg px-3 py-2 text-[13px] font-medium transition-colors', cycle === k ? 'bg-card shadow-sm' : 'text-muted-foreground hover:text-foreground')}>
-              {k === 'TERM' ? 'Per term' : `Per session${c?.sessionDiscountPct ? ` (−${c.sessionDiscountPct}%)` : ''}`}
-            </button>
-          ))}
-        </div>
       </Card>
 
       {q.isLoading ? (
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {[0, 1, 2].map((i) => (
-            <Skeleton key={i} className="h-96 rounded-2xl" />
+            <Skeleton key={i} className="h-[36rem] rounded-2xl" />
           ))}
         </div>
       ) : q.error || !c ? (
         <p className="mt-8 text-center text-[14px] text-danger">{errorMessage(q.error)}</p>
       ) : (
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {c.plans.map((p, i) => {
-            const quote = priceQuote(p, students, cycle, c);
-            const tooMany = p.maxStudents != null && students > p.maxStudents;
-            return (
-              <Card key={p.id} className={cn('flex flex-col p-5', i === 1 && 'border-brand/50 ring-1 ring-brand/30')}>
-                <p className="font-display text-[20px] font-semibold tracking-tight">{p.name}</p>
-                {p.description && <p className="mt-1 text-[13px] text-muted-foreground">{p.description}</p>}
-                <p className="mt-4 font-display text-[30px] font-semibold tabular tracking-tight">
-                  {naira(quote.unitKobo)}
-                  <span className="text-[13px] font-normal text-muted-foreground"> / student / term</span>
-                </p>
-                <div className="mt-3 rounded-xl bg-muted/50 p-3 text-[13px]">
-                  {tooMany ? (
-                    <p className="text-muted-foreground">Up to {p.maxStudents!.toLocaleString('en-NG')} students: choose a larger plan.</p>
-                  ) : (
-                    <>
-                      <p className="font-semibold tabular">
-                        {naira(quote.totalKobo)} {cycle === 'SESSION' ? 'per session' : 'per term'}
-                      </p>
-                      <p className="text-muted-foreground">
-                        {quote.billedStudents.toLocaleString('en-NG')} students × {naira(quote.unitKobo)}
-                        {quote.terms > 1 ? ' × 3 terms' : ''}
-                        {quote.discountPct ? `, less ${quote.discountPct}%` : ''}
-                        {quote.billedStudents > students ? ` (minimum ${c.minBilledStudents})` : ''}
-                      </p>
-                    </>
-                  )}
-                </div>
-                <ul className="mt-4 flex-1 space-y-1.5 text-[13px]">
-                  {MODULE_FEATURE_KEYS.map((k) => {
-                    const on = p.features.length === 0 || p.features.includes(k);
-                    return (
-                      <li key={k} className={cn('flex items-start gap-2', !on && 'text-muted-foreground')}>
-                        {on ? <Check className="mt-0.5 size-3.5 shrink-0 text-success" strokeWidth={3} /> : <Minus className="mt-0.5 size-3.5 shrink-0" />}
-                        {MODULE_FEATURES[k].label}
-                      </li>
-                    );
-                  })}
-                </ul>
-                {c.enabled && (
-                  <Button asChild className="mt-5" variant={i === 1 ? 'default' : 'outline'}>
-                    <Link to={`/signup?plan=${p.id}&students=${students}`}>
-                      Start free trial <ArrowRight />
-                    </Link>
-                  </Button>
-                )}
-              </Card>
-            );
-          })}
-        </div>
+        <>
+          <PlanCards plans={plans} students={students} signupOpen={c.enabled} onTalk={setTalk} className="mt-10" />
+          <div className="mt-8 grid items-start gap-5 lg:grid-cols-2">
+            <PricingNotes notes={c.notes} />
+            <AddonsBox addons={c.addons} />
+          </div>
+          <div className="mx-auto mt-8 max-w-3xl space-y-2 text-[13px] text-muted-foreground">
+            <p>
+              <strong className="text-foreground">How billing works.</strong> You pay for the active students on your invoice date, at least the plan’s minimum. Students you add during a term are not
+              charged until your next invoice. Upgrades start at once with a top-up for the rest of the period; downgrades start from your next period. The one-off setup fee is on your first invoice only.
+            </p>
+            <p>
+              <strong className="text-foreground">Included SMS.</strong> Each plan includes SMS units per student per term, sent on the AI School OS SMS line. Unused units do not roll over to the next term.
+            </p>
+            <p>If a payment is late, everything keeps working for a grace period; after that the school becomes read-only until it pays. We never delete your data because of billing.</p>
+            {!c.enabled && <p>Self-serve sign-up is not open at the moment: contact us and we will set your school up.</p>}
+          </div>
+        </>
       )}
-      {c && (
-        <div className="mx-auto mt-8 max-w-2xl space-y-2 text-[13px] text-muted-foreground">
-          <p>
-            <strong className="text-foreground">How billing works.</strong> You pay for the active students on your invoice date (at least {c.minBilledStudents}). Students you add during a term are not charged
-            until your next invoice. Upgrades start at once with a top-up for the rest of the period; downgrades start from your next period.
-          </p>
-          <p>If a payment is late, everything keeps working for a grace period; after that the school becomes read-only until it pays. We never delete your data because of billing.</p>
-          {!c.enabled && <p>Self-serve sign-up is not open at the moment: contact us and we will set your school up.</p>}
-        </div>
-      )}
+      <TalkToUsDialog plan={talk} onOpenChange={(o) => !o && setTalk(null)} />
     </PublicShell>
   );
 }
@@ -398,9 +356,9 @@ export default function SignupPage({ pilotEntry = false }: { pilotEntry?: boolea
           {c.plans.length > 0 && (
             <Field label="Plan you’re interested in" htmlFor="planId" hint="You can change this during the trial.">
               <select id="planId" className={inputClass} {...register('planId')}>
-                {c.plans.map((p) => (
+                {c.plans.filter((p) => !p.contactOnly).map((p) => (
                   <option key={p.id} value={p.id}>
-                    {p.name}: {naira(priceQuote(p, 0, 'TERM', { minBilledStudents: 0, sessionDiscountPct: 0 }).unitKobo)} per student per term
+                    {p.name}: {naira(priceQuote(p, 0, 'TERM', { minBilledStudents: 0, sessionDiscountPct: 0 }).unitKobo)} per student per term{p.setupFeeKobo ? ` + ${naira(p.setupFeeKobo)} one-off setup` : ''}
                   </option>
                 ))}
               </select>

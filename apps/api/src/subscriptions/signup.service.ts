@@ -1,7 +1,10 @@
 import { createHash, randomInt, timingSafeEqual } from 'node:crypto';
 import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import {
+  LEGACY_PLAN_MAP,
+  PLAN_CODES,
   RESERVED_SLUGS,
+  type PublicPlan,
   SCHOOL_TYPE_STAGES,
   SUBJECT_TEMPLATES,
   type SchoolTypeKey,
@@ -12,7 +15,7 @@ import {
   type SignupStatus,
   type SignupVerifyResult,
 } from '@aischool/shared';
-import type { Prisma } from '../generated/prisma/client';
+import type { Plan, Prisma } from '../generated/prisma/client';
 import { AmbassadorsService } from '../ambassadors/ambassadors.service';
 import { AuditService } from '../audit/audit.service';
 import { hashPassword } from '../auth/password';
@@ -23,6 +26,7 @@ import { ProvisioningService } from '../platform/provisioning.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BillingStateService, platformSender } from './billing-state.service';
 import { PilotService } from './pilot.service';
+import { readPricingSettings } from './setup-fee';
 
 const CODE_TTL_MS = 30 * 60_000;
 const MAX_CODE_ATTEMPTS = 5;
@@ -52,14 +56,62 @@ export class SignupService {
     private readonly ambassadors: AmbassadorsService,
   ) {}
 
+  toPublicPlan(p: Plan, minBilledStudents: number): PublicPlan {
+    return {
+      id: p.id,
+      code: p.code,
+      name: p.name,
+      description: p.description,
+      pricePerStudentKobo: p.pricePerStudentKobo,
+      billingPeriod: p.billingPeriod,
+      features: p.features,
+      knownFeatures: p.knownFeatures,
+      maxStudents: p.maxStudents,
+      setupFeeKobo: p.setupFeeKobo,
+      trainingDays: p.trainingDays,
+      minStudents: p.minStudents ?? minBilledStudents,
+      smsUnitsPerStudent: p.smsUnitsPerStudent,
+      studentAiSessions: p.studentAiSessions,
+      aiMonthlyBudgetUsd: p.aiMonthlyBudgetUsd !== null ? Number(p.aiMonthlyBudgetUsd) : null,
+      badge: p.badge,
+      contactOnly: p.contactOnly,
+      featureIntro: p.featureIntro,
+      featureList: p.featureList,
+    };
+  }
+
   async publicPlans(): Promise<SignupConfig['plans']> {
-    const plans = await this.prisma.root.plan.findMany({ where: { isActive: true, isPublic: true }, orderBy: { sortOrder: 'asc' } });
-    return plans.map((p) => ({ id: p.id, code: p.code, name: p.name, description: p.description, pricePerStudentKobo: p.pricePerStudentKobo, billingPeriod: p.billingPeriod, features: p.features, maxStudents: p.maxStudents }));
+    const [plans, s] = await Promise.all([
+      this.prisma.root.plan.findMany({ where: { isActive: true, isPublic: true }, orderBy: [{ sortOrder: 'asc' }, { pricePerStudentKobo: 'asc' }] }),
+      this.state.settings(),
+    ]);
+    return plans.map((p) => this.toPublicPlan(p, s.minBilledStudents));
+  }
+
+  /** The plan a new sign-up starts on: the one chosen, the new plan for an old plan's link, else Standard. */
+  private async signupPlan(planId: string | undefined): Promise<{ id: string } | null> {
+    const pub = { isActive: true, isPublic: true, contactOnly: false };
+    if (planId) {
+      const chosen = await this.prisma.root.plan.findFirst({ where: { id: planId, isActive: true }, select: { id: true, code: true, isPublic: true, contactOnly: true } });
+      if (chosen?.isPublic && !chosen.contactOnly) return { id: chosen.id };
+      const mapped = chosen ? LEGACY_PLAN_MAP[chosen.code] : undefined;
+      if (mapped) {
+        const p = await this.prisma.root.plan.findFirst({ where: { code: mapped, ...pub }, select: { id: true } });
+        if (p) return p;
+      }
+    }
+    return this.prisma.root.plan.findFirst({ where: { code: PLAN_CODES.STANDARD, ...pub }, select: { id: true } });
   }
 
   async config(): Promise<SignupConfig> {
     const s = await this.state.settings();
+    const [addons, pricing] = await Promise.all([
+      this.prisma.root.addon.findMany({ where: { isActive: true }, orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }] }),
+      readPricingSettings(this.prisma.root),
+    ]);
     return {
+      addons: addons.map((a) => ({ id: a.id, code: a.code, name: a.name, description: a.description, pricing: a.pricing as 'FIXED' | 'QUOTE', priceKobo: a.priceKobo, unitLabel: a.unitLabel, isActive: a.isActive, sortOrder: a.sortOrder })),
+      notes: pricing.notes,
       enabled: s.enabled && this.canEmail(),
       trialDays: s.trialDays,
       sessionDiscountPct: s.sessionDiscountPct,
@@ -132,7 +184,7 @@ export class SignupService {
       this.logger.warn(`Referral check failed: ${e.message}`);
       return null;
     });
-    const plan = input.planId ? await this.prisma.root.plan.findFirst({ where: { id: input.planId, isActive: true, isPublic: true }, select: { id: true } }) : null;
+    const plan = await this.signupPlan(input.planId);
     const row = await this.prisma.root.schoolSignup.create({
       data: {
         schoolName: input.schoolName,

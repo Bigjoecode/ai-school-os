@@ -52,6 +52,13 @@ export interface SchoolChannels {
   whatsapp: (WhatsappConfig & { token: string }) | null;
 }
 
+/**
+ * The platform's SMS line (plan pricing): for a school with no Termii account of its own, the
+ * pricing service may lend the platform's account while the school's plan includes SMS (and the
+ * allowance is not used up under the "block" rule). Set by PricingService; null = no platform line.
+ */
+export const platformSmsLine: { resolve: ((tenantId: string) => Promise<(TermiiConfig & { apiKey: string }) | null>) | null } = { resolve: null };
+
 /** Push subscriptions whose endpoint starts with this are iPhone/iPad app devices (APNs tokens). */
 export const APNS_PREFIX = 'apns:';
 
@@ -114,9 +121,10 @@ export class ChannelsService {
     const smtpCfg = smtp?.config as SmtpConfig | undefined;
     const termiiCfg = termii?.config as TermiiConfig | undefined;
     const waCfg = wa?.config as WhatsappConfig | undefined;
+    const lent = !termii && platformSmsLine.resolve ? await platformSmsLine.resolve(tenantId).catch(() => null) : null;
     return [
       { channel: 'EMAIL', configured: !!smtp, detail: smtpCfg ? `${smtpCfg.host} · ${smtpCfg.fromEmail}` : null },
-      { channel: 'SMS', configured: !!termii, detail: termiiCfg ? `Termii · sender ${termiiCfg.senderId}${termiiCfg.dnd ? ' · DND route' : ''}` : null },
+      { channel: 'SMS', configured: !!termii || !!lent, detail: termiiCfg ? `Termii · sender ${termiiCfg.senderId}${termiiCfg.dnd ? ' · DND route' : ''}` : lent ? `AI School OS SMS line · sender ${lent.senderId} · included in your plan` : null },
       { channel: 'WHATSAPP', configured: !!wa, detail: waCfg ? `Cloud API · template ${waCfg.templateName}${waCfg.assistant?.enabled ? ' · parent assistant on' : ''}` : null },
       {
         channel: 'PUSH',
@@ -240,6 +248,8 @@ export class ChannelsService {
       } else if (r.provider === 'termii') out.termii = { ...(r.config as unknown as TermiiConfig), apiKey: secret };
       else if (r.provider === 'whatsapp') out.whatsapp = { ...(r.config as unknown as WhatsappConfig), token: secret };
     }
+    // No Termii account of its own: the platform's SMS line, when the school's plan includes SMS.
+    if (!out.termii && platformSmsLine.resolve) out.termii = await platformSmsLine.resolve(tenantId).catch(() => null);
     return out;
   }
 

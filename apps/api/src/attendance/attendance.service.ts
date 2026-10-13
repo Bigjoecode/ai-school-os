@@ -24,6 +24,7 @@ import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
+import { registerSaved } from '../common/register-hooks';
 import { datesBetween, schoolNow, schoolTimeOf, weekdayOf } from '../common/school-time';
 import { PrismaService } from '../prisma/prisma.service';
 import { bellScheduleFor } from '../timetable/timetable-builder';
@@ -228,6 +229,8 @@ export class AttendanceService {
       entityType: 'AttendanceRegister',
       summary: `${existing ? 'Updated' : 'Took'} the register for ${arm.classLevel.name} ${arm.name} on ${body.date}: ${counts.present + counts.late} present, ${counts.absent} absent${counts.late ? `, ${counts.late} late` : ''}`,
     });
+    // e.g. the gate: "present" counts as arriving, and parents are told.
+    await registerSaved({ tenantId, classArmId: arm.id, date: body.date, marks: body.marks.map((m) => ({ studentId: m.studentId, status: m.status })) });
     return this.register(arm.id, body.date);
   }
 

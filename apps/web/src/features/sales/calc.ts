@@ -1,5 +1,6 @@
 import { TIME_SAVED_ASSUMPTIONS, type TimeSavedKey } from '@aischool/shared';
-import { SALES_PLANS } from './config';
+import { LEGACY_PLAN_MAP } from '@aischool/shared';
+import { FALLBACK_SALES_PLANS, type SalesPlan } from './config';
 
 /**
  * The savings calculator's sums. Minutes saved per action come from the success dashboard's
@@ -39,7 +40,7 @@ export interface CalcInputs {
 
 /** Example figures to start from — each school replaces them with its own. */
 export const DEFAULT_INPUTS: CalcInputs = {
-  plan: 'school-license',
+  plan: 'standard',
   students: 400,
   teachers: 25,
   weeksPerTerm: 12,
@@ -79,7 +80,7 @@ export interface CalcResult {
   smsSaved: number;
   extraFees: number;
   cashBenefit: number;
-  plan: (typeof SALES_PLANS)[number];
+  plan: SalesPlan;
   planTooSmall: boolean;
   cost: number;
   pricePerStudent: number;
@@ -89,7 +90,7 @@ export interface CalcResult {
   paybackWeeks: number | null;
 }
 
-export function calculate(i: CalcInputs): CalcResult {
+export function calculate(i: CalcInputs, plans: SalesPlan[] = FALLBACK_SALES_PLANS): CalcResult {
   const adoption = pct(i.adoptionPct);
   const weeks = pos(i.weeksPerTerm);
   const teachers = pos(i.teachers);
@@ -113,8 +114,11 @@ export function calculate(i: CalcInputs): CalcResult {
   const extraFees = students * pos(i.feePerStudent) * (gain / 100);
   const cashBenefit = paperSaved + smsSaved + extraFees;
 
-  const plan = SALES_PLANS.find((p) => p.code === i.plan) ?? SALES_PLANS[1]!;
-  const cost = plan.price * students;
+  const buyable = plans.filter((p) => !p.contactOnly);
+  const code = LEGACY_PLAN_MAP[i.plan] ?? i.plan;
+  const plan = buyable.find((p) => p.code === code) ?? buyable.find((p) => p.badge) ?? buyable[0] ?? FALLBACK_SALES_PLANS[0]!;
+  // A term's subscription for the students billed (at least the plan's minimum); the one-off setup fee is shown separately.
+  const cost = plan.price * Math.max(students, plan.minStudents);
   const totalBenefit = cashBenefit + timeValue;
   const perWeek = weeks > 0 ? totalBenefit / weeks : 0;
 
@@ -144,7 +148,7 @@ export function inputsFromSearch(search: URLSearchParams): CalcInputs {
     const raw = search.get(key);
     if (raw == null) continue;
     if (key === 'plan') {
-      if (SALES_PLANS.some((p) => p.code === raw)) out.plan = raw;
+      if (/^[a-z][a-z0-9-]{1,40}$/.test(raw)) out.plan = raw;
       continue;
     }
     const n = Number(raw);

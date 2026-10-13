@@ -22,7 +22,7 @@ export const SALES_SEO: SalesSeo[] = [
     file: 'og/for-schools.html',
     title: 'AI School OS for Nigerian schools',
     description:
-      'Less paperwork for teachers, weekly updates for parents and offline exam practice for WAEC, BECE and JAMB. Results, fees, attendance and more in one system. From ₦1,200 per student per term.',
+      'Less paperwork for teachers, weekly updates for parents and offline exam practice for WAEC, BECE and JAMB. Results, fees, attendance and more in one system. From ₦2,000 per student per term.',
   },
   {
     path: '/for-schools/deck',

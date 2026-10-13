@@ -6,6 +6,8 @@ import { PlatformModule } from '../platform/platform.module';
 import { SuccessModule } from '../success/success.module';
 import { BillingStateService } from './billing-state.service';
 import { PilotService } from './pilot.service';
+import { ConsolePricingController, PricingPublicController, SchoolPricingController } from './pricing.controller';
+import { PricingService } from './pricing.service';
 import { SignupService } from './signup.service';
 import { ConsolePilotController, ConsoleSubscriptionsController, SignupController, SubscriptionController } from './subscriptions.controller';
 import { SubscriptionService } from './subscription.service';
@@ -17,8 +19,8 @@ import { SubscriptionService } from './subscription.service';
 @Global()
 @Module({
   imports: [AmbassadorsModule, ConsoleModule, OnboardingModule, PlatformModule, SuccessModule],
-  controllers: [SignupController, SubscriptionController, ConsoleSubscriptionsController, ConsolePilotController],
-  providers: [BillingStateService, SignupService, SubscriptionService, PilotService],
+  controllers: [SignupController, SubscriptionController, ConsoleSubscriptionsController, ConsolePilotController, PricingPublicController, SchoolPricingController, ConsolePricingController],
+  providers: [BillingStateService, SignupService, SubscriptionService, PilotService, PricingService],
   exports: [BillingStateService],
 })
 export class SubscriptionsModule {}

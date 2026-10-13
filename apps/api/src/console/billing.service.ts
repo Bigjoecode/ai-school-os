@@ -11,6 +11,7 @@ import {
   SELF_SERVE_SETTINGS_KEY,
   selfServeSettingsSchema,
   type BillingCycle,
+  type InvoiceLine,
 } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
@@ -19,6 +20,7 @@ import { env } from '../config/env';
 import { PaystackService, type PaystackTransaction } from '../finance/paystack.service';
 import { LedgerService, REVENUE_ACCOUNT } from '../ledger/ledger.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { setupFeeLine, setupFeeStatus } from '../subscriptions/setup-fee';
 
 type SubscriptionWithPlan = Prisma.SubscriptionGetPayload<{ include: { plan: true; tenant: true } }>;
 type InvoiceWithTenant = Prisma.PlatformInvoiceGetPayload<{ include: { tenant: true } }>;
@@ -208,25 +210,31 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
       // Self-serve billing rules: the minimum, the cycle chosen (term or session) and the session discount.
       const rules = await this.selfServeRules();
       const unit = this.unitKobo(s);
-      const pq = priceQuote({ pricePerStudentKobo: unit, billingPeriod: s.plan.billingPeriod }, Math.max(s.studentSeats, active), tb.cycle as BillingCycle, rules, s.discountPct);
+      const pq = priceQuote({ pricePerStudentKobo: unit, billingPeriod: s.plan.billingPeriod }, Math.max(s.studentSeats, active), tb.cycle as BillingCycle, { ...rules, minBilledStudents: s.plan.minStudents ?? rules.minBilledStudents }, s.discountPct);
       q = { seats: pq.billedStudents, unit: pq.unitKobo, gross: pq.grossKobo, discount: pq.discountKobo, amount: pq.totalKobo, monthly: Math.round(pq.totalKobo / (pq.terms * 4)) };
       dueDays ??= rules.invoiceDueDays;
     }
     if (q.amount <= 0) return null;
     const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
+    // A new school's first invoice also carries the one-off setup fee (price list), unless waived or not owed.
+    const setup = setupFeeLine(await setupFeeStatus(this.prisma.root, s.tenantId, s.plan));
+    const subDescription = `${s.plan.name} plan: ${q.seats} students, ${fmt(s.currentPeriodStart)} – ${fmt(s.currentPeriodEnd)}`;
+    const lines: InvoiceLine[] = [{ kind: 'SUBSCRIPTION', description: subDescription, quantity: q.seats, unitKobo: q.unit, discountKobo: q.discount, amountKobo: q.amount }];
+    if (setup) lines.push(setup);
     const invoice = await this.prisma.root.$transaction(async (tx) =>
       tx.platformInvoice.create({
         data: {
           number: await this.nextNumber(tx),
           tenantId: s.tenantId,
           subscriptionId: s.id,
-          description: `${s.plan.name} plan: ${q.seats} students, ${fmt(s.currentPeriodStart)} – ${fmt(s.currentPeriodEnd)}`,
+          description: setup ? `${subDescription}; plus the one-off setup fee` : subDescription,
+          lines: lines as unknown as Prisma.InputJsonValue,
           periodStart: s.currentPeriodStart,
           periodEnd: s.currentPeriodEnd,
           seats: q.seats,
           unitKobo: q.unit,
           discountKobo: q.discount,
-          amountKobo: q.amount,
+          amountKobo: q.amount + (setup?.amountKobo ?? 0),
           currency: s.tenant.currency,
           dueDate: new Date(today().getTime() + (dueDays ?? env().PLATFORM_INVOICE_DUE_DAYS) * DAY),
         },
@@ -243,7 +251,7 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
     return parsed.success ? parsed.data : selfServeSettingsSchema.parse({});
   }
 
-  async manualInvoice(input: { tenantId: string; description: string; amountKobo: number; dueDate: string; notes: string | null; domain?: 'SCHOOL' | 'STUDENT_AI' | 'EXAM'; seats?: number; unitKobo?: number }) {
+  async manualInvoice(input: { tenantId: string; description: string; amountKobo: number; dueDate: string; notes: string | null; domain?: 'SCHOOL' | 'STUDENT_AI' | 'EXAM'; seats?: number; unitKobo?: number; lines?: InvoiceLine[] }) {
     const tenant = await this.prisma.root.tenant.findUnique({ where: { id: input.tenantId } });
     if (!tenant) throw new NotFoundException('School not found');
     const invoice = await this.prisma.root.$transaction(async (tx) =>
@@ -259,6 +267,7 @@ export class PlatformBillingService implements OnModuleInit, OnApplicationShutdo
           domain: input.domain ?? 'SCHOOL',
           seats: input.seats ?? 0,
           unitKobo: input.unitKobo ?? 0,
+          ...(input.lines?.length ? { lines: input.lines as unknown as Prisma.InputJsonValue } : {}),
         },
       }),
     );

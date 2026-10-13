@@ -106,7 +106,7 @@ export class ParentLinesWebhookController {
 
 /** Staff: Messages → SMS & USSD. */
 @Controller('comms/parent-lines')
-@RequireFeature('messaging')
+@RequireFeature('parent_lines')
 export class ParentLinesController {
   constructor(
     private readonly admin: ParentLinesAdminService,

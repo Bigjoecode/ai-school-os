@@ -660,6 +660,37 @@ function AutomationsForm({ initial, canManage }: { initial: CommsSettings; canMa
         <p className="text-[12px] text-muted-foreground">
           <span className="font-mono">{'{{first_name}}'}</span> is the parent; <span className="font-mono">{'{{children}}'}</span> is the birthday child.
         </p>
+        <div className="grid gap-3 rounded-xl border border-border bg-muted/30 p-3.5">
+          <div className="flex items-start gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="text-[13.5px] font-medium">Greet the student too</p>
+              <p className="mt-0.5 text-[12px] text-muted-foreground">A birthday card on the student’s own dashboard (with a games treat) and an app notification to their account in the morning. Free: no SMS. No age is ever shown.</p>
+            </div>
+            <Switch checked={s.birthdays.studentGreeting.enabled} onCheckedChange={(enabled) => setS((p) => ({ ...p, birthdays: { ...p.birthdays, studentGreeting: { ...p.birthdays.studentGreeting, enabled } } }))} disabled={ro} aria-label="Greet the student too" />
+          </div>
+          {s.birthdays.studentGreeting.enabled && (
+            <div className="grid gap-1.5">
+              <Label htmlFor="bd-student-greeting">Message to the student</Label>
+              <Textarea
+                id="bd-student-greeting"
+                rows={3}
+                maxLength={300}
+                value={s.birthdays.studentGreeting.message}
+                onChange={(e) => setS((p) => ({ ...p, birthdays: { ...p.birthdays, studentGreeting: { ...p.birthdays.studentGreeting, message: e.target.value } } }))}
+                disabled={ro}
+                invalid={!!errors['birthdays.studentGreeting.message']}
+              />
+              {errors['birthdays.studentGreeting.message'] && (
+                <p role="alert" className="text-[12px] font-medium text-danger">
+                  {errors['birthdays.studentGreeting.message']}
+                </p>
+              )}
+              <p className="text-[12px] text-muted-foreground">
+                <span className="font-mono">{'{{first_name}}'}</span> is the student; <span className="font-mono">{'{{school}}'}</span> is the school. Keep it warm and suitable for young children. <Link to="/messages/birthdays" className="font-medium text-brand hover:underline">Upcoming birthdays and a preview</Link>
+              </p>
+            </div>
+          )}
+        </div>
       </AutomationBlock>
 
       <AutomationBlock icon={<Cake />} title="Staff birthdays" description="A note to members of staff on their birthday." enabled={s.birthdays.staff.enabled} onToggle={(enabled) => setBirthday('staff', { enabled })} disabled={ro}>

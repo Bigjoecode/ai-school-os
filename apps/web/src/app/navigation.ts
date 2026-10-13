@@ -19,6 +19,7 @@ import {
   CalendarClock,
   CalendarDays,
   ConciergeBell,
+  DoorOpen,
   Contact,
   Crown,
   CreditCard,
@@ -120,8 +121,8 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     items: [
       { label: 'Overview', to: '/', icon: LayoutDashboard, keywords: 'dashboard home' },
-      { label: 'School success', to: '/success', icon: TrendingUp, permission: 'results.publish', requires: ['school.read'], keywords: 'impact health score adoption outcomes renewal pta proprietor report value time saved' },
-      { label: 'Returns & census', to: '/returns', icon: FileBarChart, permission: 'students.read', requires: ['school.read', 'staff.read'], keywords: 'asc annual school census subeb ministry of education returns state government enrolment by age sex teachers qualification trcn facilities waec neco bece candidates registration list' },
+      { label: 'School success', to: '/success', icon: TrendingUp, feature: 'success', permission: 'results.publish', requires: ['school.read'], keywords: 'impact health score adoption outcomes renewal pta proprietor report value time saved' },
+      { label: 'Returns & census', to: '/returns', icon: FileBarChart, feature: 'success', permission: 'students.read', requires: ['school.read', 'staff.read'], keywords: 'asc annual school census subeb ministry of education returns state government enrolment by age sex teachers qualification trcn facilities waec neco bece candidates registration list' },
       { label: 'Setup', to: '/setup', icon: Rocket, permission: 'academics.manage', badge: 'setup', keywords: 'onboarding getting started checklist new school year terms classes subjects' },
       {
         label: 'Import data',
@@ -137,7 +138,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
       { label: 'Study materials', to: '/learning/materials', icon: FolderOpen, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'notes slides videos documents library revision textbook' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
-      { label: 'My HR', to: '/me/hr', icon: IdCard, permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
+      { label: 'My HR', to: '/me/hr', icon: IdCard, feature: 'hr', permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },
   // The family portal: a child's attendance, results, fees (parents), exams and the school's documents (parents and students only).
@@ -169,7 +170,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Progress', to: '/learn/progress', icon: TrendingUp, permission: 'learning.use', audience: 'family', keywords: 'mastery topics memories strengths' },
       { label: 'Study plans', to: '/learn/plans', icon: CalendarCheck2, permission: 'learning.use', audience: 'family', keywords: 'revision timetable plan goals' },
       { label: 'Flashcards', to: '/learn/flashcards', icon: GalleryVerticalEnd, permission: 'learning.use', audience: 'family', keywords: 'cards review memorise' },
-      { label: 'Careers', to: '/careers', icon: Compass, permission: 'learning.use', audience: 'family', keywords: 'career job future university course jamb track science arts commercial technical interest quiz counsellor' },
+      { label: 'Careers', to: '/careers', icon: Compass, feature: 'careers', permission: 'learning.use', audience: 'family', keywords: 'career job future university course jamb track science arts commercial technical interest quiz counsellor' },
     ],
   },
   {
@@ -222,10 +223,10 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'Welfare',
     items: [
       { label: 'Behaviour', to: '/behaviour', icon: Medal, permission: 'welfare.read', keywords: 'merits demerits incidents discipline conduct detention points' },
-      { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
-      { label: 'Houses', to: '/houses', icon: Shield, permission: 'school.read', keywords: 'house points inter-house sports red blue green yellow leaderboard assembly' },
-      { label: 'Careers guidance', to: '/careers-guidance', icon: Compass, permission: 'students.read', keywords: 'careers counsellor guidance track science arts commercial technical jamb university interests' },
-      { label: 'JAMB & universities', to: '/careers/jamb', icon: Landmark, permission: 'school.read', keywords: 'jamb ibass brochure university polytechnic college of education admission requirements utme subjects olevel syllabus cbt faq' },
+      { label: 'Sick bay', to: '/sick-bay', icon: Stethoscope, feature: 'health', anyOf: [['welfare.read'], ['health.manage']], keywords: 'clinic nurse sick medical allergies genotype blood group first aid' },
+      { label: 'Houses', to: '/houses', icon: Shield, feature: 'houses', permission: 'school.read', keywords: 'house points inter-house sports red blue green yellow leaderboard assembly' },
+      { label: 'Careers guidance', to: '/careers-guidance', icon: Compass, feature: 'careers', permission: 'students.read', keywords: 'careers counsellor guidance track science arts commercial technical jamb university interests' },
+      { label: 'JAMB & universities', to: '/careers/jamb', icon: Landmark, feature: 'careers', permission: 'school.read', keywords: 'jamb ibass brochure university polytechnic college of education admission requirements utme subjects olevel syllabus cbt faq' },
     ],
   },
   {
@@ -233,7 +234,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Fees', to: '/fees', icon: Receipt, permission: 'finance.read', keywords: 'invoices billing fee schedule collections debtors paystack' },
       { label: 'Payments', to: '/payments', icon: CreditCard, permission: 'finance.read', keywords: 'receipts collections cash transfer pos' },
-      { label: 'Result checker cards', to: '/result-pins', icon: Ticket, permission: 'finance.read', keywords: 'scratch card result checker pin serial sell online revenue' },
+      { label: 'Result checker cards', to: '/result-pins', icon: Ticket, feature: 'result_pins', permission: 'finance.read', keywords: 'scratch card result checker pin serial sell online revenue' },
       { label: 'Accounting', to: '/accounting', icon: Calculator, permission: 'finance.read', keywords: 'income expenditure cash flow net' },
       { label: 'Expenses', to: '/expenses', icon: Wallet, permission: 'finance.read', keywords: 'spending costs diesel salaries' },
     ],
@@ -241,10 +242,10 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'HR',
     items: [
-      { label: 'HR Overview', to: '/hr', icon: HeartPulse, permission: 'hr.read', keywords: 'human resources people staff headcount' },
-      { label: 'Employees', to: '/hr/employees', icon: Contact, permission: 'hr.read', keywords: 'staff directory departments records hr' },
-      { label: 'Leave', to: '/hr/leave', icon: Plane, permission: 'hr.read', keywords: 'leave requests holiday sick maternity approve away' },
-      { label: 'Awards', to: '/hr/awards', icon: Medal, permission: 'hr.read', keywords: 'recognition award citation teacher of the term' },
+      { label: 'HR Overview', to: '/hr', icon: HeartPulse, feature: 'hr', permission: 'hr.read', keywords: 'human resources people staff headcount' },
+      { label: 'Employees', to: '/hr/employees', icon: Contact, feature: 'hr', permission: 'hr.read', keywords: 'staff directory departments records hr' },
+      { label: 'Leave', to: '/hr/leave', icon: Plane, feature: 'hr', permission: 'hr.read', keywords: 'leave requests holiday sick maternity approve away' },
+      { label: 'Awards', to: '/hr/awards', icon: Medal, feature: 'hr', permission: 'hr.read', keywords: 'recognition award citation teacher of the term' },
       { label: 'Payroll', to: '/payroll', icon: Banknote, feature: 'payroll', permission: 'payroll.read', keywords: 'salaries payslips paye pension nhf wages' },
     ],
   },
@@ -265,6 +266,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Transport', to: '/transport', icon: Bus, feature: 'transport', permission: 'transport.read', keywords: 'routes buses vehicles riders stops drivers school bus' },
       { label: 'Hostel', to: '/hostel', icon: BedDouble, feature: 'hostel', permission: 'hostel.read', keywords: 'boarding boarders rooms beds exeat houses' },
       { label: 'Reception', to: '/reception', icon: ConciergeBell, permission: 'reception.read', keywords: 'visitors front desk enquiries admissions pick-up early collection' },
+      { label: 'Gate & pick-up', to: '/gate', icon: DoorOpen, anyOf: [['reception.manage'], ['attendance.manage']], keywords: 'gate scan arrival departure late pick-up collection delegate code qr pass' },
       { label: 'Certificates', to: '/certificates', icon: FileBadge, permission: 'documents.issue', keywords: 'testimonial transfer merit award certificate documents' },
       { label: 'ID Cards', to: '/id-cards', icon: IdCardLanyard, permission: 'documents.issue', keywords: 'identity cards badges print students staff qr' },
     ],

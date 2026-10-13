@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { PLATFORM_AREAS, successQuerySchema, type PlatformSuccess, type SuccessQuery, type SuccessSummary, type SuccessTrends } from '@aischool/shared';
-import { RequirePermissions, RequirePlatformRole } from '../common/decorators';
+import { RequirePermissions, RequirePlatformRole, RequireFeature } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { SuccessService } from './success.service';
@@ -12,6 +12,7 @@ const canSeeFees = () => currentContext().permissions.has('finance.read');
  * principal, academic coordinator, admin): results.publish marks the people
  * who answer for the school's results. Fee figures need finance.read too.
  */
+@RequireFeature('success')
 @Controller('success')
 export class SuccessController {
   constructor(private readonly success: SuccessService) {}

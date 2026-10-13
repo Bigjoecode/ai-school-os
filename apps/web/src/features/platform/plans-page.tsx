@@ -1,4 +1,4 @@
-import { BILLING_PERIOD_LABELS, BILLING_PERIODS, MODULE_FEATURE_KEYS, MODULE_FEATURES, planSchema, type BillingPeriodKey, type PlanRow } from '@aischool/shared';
+import { BILLING_PERIOD_LABELS, BILLING_PERIODS, MODULE_FEATURE_KEYS, MODULE_FEATURES, planIncludesFeature, planSchema, type BillingPeriodKey, type PlanRow } from '@aischool/shared';
 import { Boxes, Check, Minus, MoreHorizontal, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -35,7 +35,7 @@ export default function PlansPage() {
   const del = useDeletePlan();
 
   const toggle = (p: PlanRow, patch: Partial<Pick<PlanRow, 'isActive' | 'isPublic'>>) => {
-    const { id, schools: _s, activeSubscriptions: _a, ...rest } = p;
+    const { id, schools: _s, activeSubscriptions: _a, knownFeatures: _k, ...rest } = p;
     save.mutate(
       { id, body: { ...rest, ...patch } },
       {
@@ -84,6 +84,8 @@ export default function PlansPage() {
                       <h2 className="font-display text-[17px] font-semibold tracking-tight">{p.name}</h2>
                       {!p.isActive && <Badge variant="warning">Retired</Badge>}
                       {p.isActive && !p.isPublic && <Badge variant="outline">Private</Badge>}
+                      {p.badge && <Badge variant="brand">{p.badge}</Badge>}
+                      {p.contactOnly && <Badge variant="info">Contact us</Badge>}
                     </div>
                     <p className="font-mono text-[11.5px] text-muted-foreground">{p.code}</p>
                   </div>
@@ -115,11 +117,14 @@ export default function PlansPage() {
                     <Mini label="Schools" value={formatNumber(p.schools)} />
                     <Mini label="AI / month" value={p.aiMonthlyBudgetUsd == null ? 'Default' : usd(p.aiMonthlyBudgetUsd)} />
                     <Mini label="Max students" value={p.maxStudents ? formatNumber(p.maxStudents) : 'No limit'} />
+                    <Mini label="Setup fee" value={p.setupFeeKobo ? `${naira(p.setupFeeKobo)}${p.trainingDays ? ` · ${p.trainingDays}d` : ''}` : 'None'} />
+                    <Mini label="Min students" value={p.minStudents == null ? 'Default' : formatNumber(p.minStudents)} />
+                    <Mini label="SMS / student / term" value={formatNumber(p.smsUnitsPerStudent)} />
                   </div>
                 </div>
                 <ul className="mt-4 flex-1 space-y-1.5 border-t border-border px-5 py-4 text-[13px]">
                   {MODULE_FEATURE_KEYS.map((k) => {
-                    const on = all || p.features.includes(k);
+                    const on = all || planIncludesFeature(p, k);
                     return (
                       <li key={k} className={cn('flex items-center gap-2', !on && 'text-muted-foreground/70')}>
                         {on ? <Check className="size-3.5 shrink-0 text-success" strokeWidth={3} /> : <Minus className="size-3.5 shrink-0" />}
@@ -175,7 +180,28 @@ function Mini({ label, value }: { label: string; value: string }) {
   );
 }
 
-const blank = { code: '', name: '', description: '', price: '', period: 'PER_TERM' as BillingPeriodKey, budget: '', maxStudents: '', features: [...MODULE_FEATURE_KEYS] as string[], isActive: true, isPublic: true, sortOrder: '0' };
+const blank = {
+  code: '',
+  name: '',
+  description: '',
+  price: '',
+  period: 'PER_TERM' as BillingPeriodKey,
+  budget: '',
+  maxStudents: '',
+  features: [...MODULE_FEATURE_KEYS] as string[],
+  isActive: true,
+  isPublic: true,
+  sortOrder: '0',
+  setupFee: '',
+  trainingDays: '0',
+  minStudents: '',
+  smsUnits: '0',
+  aiSessions: '20',
+  badge: '',
+  contactOnly: false,
+  featureIntro: '',
+  featureList: '',
+};
 
 function PlanDialog({ plan, onOpenChange }: { plan: PlanRow | 'new' | null; onOpenChange: (o: boolean) => void }) {
   const save = useSavePlan();
@@ -194,11 +220,20 @@ function PlanDialog({ plan, onOpenChange }: { plan: PlanRow | 'new' | null; onOp
       period: plan.billingPeriod,
       budget: plan.aiMonthlyBudgetUsd == null ? '' : String(plan.aiMonthlyBudgetUsd),
       maxStudents: plan.maxStudents == null ? '' : String(plan.maxStudents),
-      // An empty list means every module: show them all ticked.
-      features: plan.features.length ? plan.features : [...MODULE_FEATURE_KEYS],
+      // An empty list means every module, and modules newer than the plan's choice are on: show them ticked.
+      features: MODULE_FEATURE_KEYS.filter((k) => planIncludesFeature(plan, k)),
       isActive: plan.isActive,
       isPublic: plan.isPublic,
       sortOrder: String(plan.sortOrder),
+      setupFee: plan.setupFeeKobo ? koboToInput(plan.setupFeeKobo) : '',
+      trainingDays: String(plan.trainingDays),
+      minStudents: plan.minStudents == null ? '' : String(plan.minStudents),
+      smsUnits: String(plan.smsUnitsPerStudent),
+      aiSessions: String(plan.studentAiSessions),
+      badge: plan.badge ?? '',
+      contactOnly: plan.contactOnly,
+      featureIntro: plan.featureIntro ?? '',
+      featureList: plan.featureList.join('\n'),
     });
   }, [plan]);
 
@@ -217,6 +252,15 @@ function PlanDialog({ plan, onOpenChange }: { plan: PlanRow | 'new' | null; onOp
       isActive: v.isActive,
       isPublic: v.isPublic,
       sortOrder: Number(v.sortOrder || 0),
+      setupFeeKobo: v.setupFee.trim() ? Math.round((parseNaira(v.setupFee) ?? NaN) * 100) : 0,
+      trainingDays: Number(v.trainingDays || 0),
+      minStudents: v.minStudents.trim() ? Number(v.minStudents) : null,
+      smsUnitsPerStudent: Number(v.smsUnits || 0),
+      studentAiSessions: Number(v.aiSessions || 0),
+      badge: v.badge,
+      contactOnly: v.contactOnly,
+      featureIntro: v.featureIntro,
+      featureList: v.featureList.split('\n').map((l) => l.trim()).filter(Boolean),
     });
     if (!parsed.success) return setErrors(zodErrors(parsed.error.issues));
     if (parsed.data.features.length === 0) return setErrors({ features: 'Tick at least one module' });
@@ -233,7 +277,7 @@ function PlanDialog({ plan, onOpenChange }: { plan: PlanRow | 'new' | null; onOp
   };
 
   const toggleFeature = (k: string, on: boolean) => setV((p) => ({ ...p, features: on ? [...new Set([...p.features, k])] : p.features.filter((f) => f !== k) }));
-  const set = (k: 'code' | 'name' | 'description' | 'budget' | 'maxStudents' | 'sortOrder') => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setV((p) => ({ ...p, [k]: e.target.value }));
+  const set = (k: 'code' | 'name' | 'description' | 'budget' | 'maxStudents' | 'sortOrder' | 'trainingDays' | 'minStudents' | 'smsUnits' | 'aiSessions' | 'badge' | 'featureIntro' | 'featureList') => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setV((p) => ({ ...p, [k]: e.target.value }));
 
   return (
     <FormDialog
@@ -280,6 +324,38 @@ function PlanDialog({ plan, onOpenChange }: { plan: PlanRow | 'new' | null; onOp
         <Field label="Max students" htmlFor="pl-max" error={errors.maxStudents} hint="Blank for no limit">
           <Input id="pl-max" inputMode="numeric" className="tabular" value={v.maxStudents} onChange={set('maxStudents')} invalid={!!errors.maxStudents} />
         </Field>
+      </div>
+      <p className="mt-5 text-[13px] font-semibold">Price list</p>
+      <div className="mt-2 grid gap-4 sm:grid-cols-2">
+        <Field label="One-off setup fee" htmlFor="pl-setup" error={errors.setupFeeKobo} hint="On a new school’s first invoice; blank for none. Pilot and older schools never pay it.">
+          <MoneyInput id="pl-setup" currency="NGN" value={v.setupFee} onChange={(setupFee) => setV((p) => ({ ...p, setupFee }))} invalid={!!errors.setupFeeKobo} />
+        </Field>
+        <Field label="Training days included" htmlFor="pl-train" error={errors.trainingDays}>
+          <Input id="pl-train" inputMode="numeric" className="tabular" value={v.trainingDays} onChange={set('trainingDays')} invalid={!!errors.trainingDays} />
+        </Field>
+        <Field label="Minimum students billed" htmlFor="pl-min" error={errors.minStudents} hint="Blank uses the platform-wide minimum">
+          <Input id="pl-min" inputMode="numeric" className="tabular" value={v.minStudents} onChange={set('minStudents')} invalid={!!errors.minStudents} />
+        </Field>
+        <Field label="SMS units per student per term" htmlFor="pl-sms" error={errors.smsUnitsPerStudent} hint="Included on the platform SMS line; no rollover">
+          <Input id="pl-sms" inputMode="numeric" className="tabular" value={v.smsUnits} onChange={set('smsUnits')} invalid={!!errors.smsUnitsPerStudent} />
+        </Field>
+        <Field label="AI tutor sessions per student per term" htmlFor="pl-ais" error={errors.studentAiSessions}>
+          <Input id="pl-ais" inputMode="numeric" className="tabular" value={v.aiSessions} onChange={set('aiSessions')} invalid={!!errors.studentAiSessions} />
+        </Field>
+        <Field label="Badge" htmlFor="pl-badge" error={errors.badge} optional hint="e.g. Most popular">
+          <Input id="pl-badge" value={v.badge} onChange={set('badge')} maxLength={30} />
+        </Field>
+        <Field label="Above the feature list" htmlFor="pl-intro" error={errors.featureIntro} optional hint="e.g. Everything in Standard, plus:" className="sm:col-span-2">
+          <Input id="pl-intro" value={v.featureIntro} onChange={set('featureIntro')} maxLength={120} />
+        </Field>
+        <Field label="Feature list on the pricing page" htmlFor="pl-list" error={errors.featureList} optional hint="One per line. Display only: the modules below decide what schools can open." className="sm:col-span-2">
+          <Textarea id="pl-list" rows={6} value={v.featureList} onChange={set('featureList')} />
+        </Field>
+      </div>
+      <div className="mt-3">
+        <SwitchRow label="Contact us (custom price)" description="No self-serve checkout; the pricing page shows “Talk to us”">
+          <Switch checked={v.contactOnly} onCheckedChange={(contactOnly) => setV((p) => ({ ...p, contactOnly }))} />
+        </SwitchRow>
       </div>
       <fieldset className="mt-5">
         <legend className="mb-2 flex w-full items-center justify-between text-[13px] font-semibold">

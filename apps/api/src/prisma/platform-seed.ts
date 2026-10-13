@@ -43,6 +43,8 @@ export async function seedPlans(prisma: PrismaClient) {
       maxStudents: 300,
       features: ['ai', 'messaging', 'timetable'],
       sortOrder: 1,
+      // Old price list: kept for the demo schools on it, not shown on the pricing page.
+      isPublic: false,
     },
     {
       code: 'school-license',
@@ -54,6 +56,8 @@ export async function seedPlans(prisma: PrismaClient) {
       maxStudents: 1_500,
       features: ['ai', 'website', 'messaging', 'online_payments', 'live_classes', 'timetable', 'library'],
       sortOrder: 2,
+      // Old price list: kept for the demo schools on it, not shown on the pricing page.
+      isPublic: false,
     },
     {
       code: 'enterprise',
@@ -65,6 +69,8 @@ export async function seedPlans(prisma: PrismaClient) {
       maxStudents: null,
       features: [],
       sortOrder: 3,
+      // Old price list: kept for the demo schools on it, not shown on the pricing page.
+      isPublic: false,
     },
   ];
   const out: Record<string, { id: string; pricePerStudentKobo: number }> = {};

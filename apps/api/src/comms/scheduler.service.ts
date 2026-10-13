@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationShutdown, OnModuleInit } from '@nestjs/common';
-import { smsSafe, type Audience, type Channel } from '@aischool/shared';
+import { birthdayKeysFor, smsSafe, studentGreetingText, type Audience, type Channel } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { dateOnly } from '../common/format';
 import { schoolNow } from '../common/school-time';
@@ -7,6 +7,7 @@ import { env } from '../config/env';
 import { runTickTasks } from '../common/tick-tasks';
 import { raiseAlert } from '../alerts/alerts.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { ChannelsService } from './channels.service';
 import { SenderService } from './sender.service';
 
 const TICK_MS = 60_000;
@@ -38,6 +39,7 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
   constructor(
     private readonly prisma: PrismaService,
     private readonly sender: SenderService,
+    private readonly channels: ChannelsService,
   ) {}
 
   onModuleInit() {
@@ -142,6 +144,18 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
     return b.id;
   }
 
+  /** The birthday note on the student's own account: in-app always, push when a device allows it. Never throws. */
+  private async greetStudent(tenantId: string, userId: string, firstName: string, school: string, template: string) {
+    const body = studentGreetingText(template, firstName, school).slice(0, 500);
+    const title = `Happy birthday, ${firstName}! 🎉`;
+    try {
+      await this.prisma.root.notification.create({ data: { tenantId, userId, title, body, link: '/' } });
+      await this.channels.sendPush(userId, { title, body: body.slice(0, 240), url: '/' }).catch(() => undefined);
+    } catch (err) {
+      this.logger.warn(`Birthday greeting not sent: ${(err as Error).message}`);
+    }
+  }
+
   private async automations(tenantId: string, timezone: string): Promise<{ birthdays: number; eventReminders: number }> {
     const db = this.prisma.root;
     const school = await this.sender.school(tenantId);
@@ -150,15 +164,22 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
     const out = { birthdays: 0, eventReminders: 0 };
     if (now.time < s.birthdays.sendAt) return out;
     const today = now.date;
-    const md = today.slice(5);
 
-    // ---- birthdays
-    if (s.birthdays.students.enabled && s.birthdays.students.channels.length) {
-      const kids = await db.$queryRaw<{ id: string; firstName: string }[]>`
-        SELECT id, "firstName" FROM students
-        WHERE "tenantId" = ${tenantId} AND status = 'ACTIVE' AND "dateOfBirth" IS NOT NULL AND to_char("dateOfBirth", 'MM-DD') = ${md}`;
+    // ---- birthdays (29 February birthdays are celebrated on the 28th in other years)
+    const mds = birthdayKeysFor(today);
+    const toParents = s.birthdays.students.enabled && s.birthdays.students.channels.length > 0;
+    const greetStudent = s.birthdays.students.enabled && s.birthdays.studentGreeting.enabled;
+    if (toParents || greetStudent) {
+      const kids = await db.$queryRaw<{ id: string; firstName: string; userId: string | null }[]>`
+        SELECT id, "firstName", "userId" FROM students
+        WHERE "tenantId" = ${tenantId} AND status = 'ACTIVE' AND "dateOfBirth" IS NOT NULL AND to_char("dateOfBirth", 'MM-DD') = ANY(${mds})`;
       for (const k of kids) {
-        if (!(await this.once(tenantId, 'BIRTHDAY_STUDENT', k.id, today))) continue;
+        // The student's own greeting: an in-app note (and push, when their phone allows it). Free, so no channels.
+        if (greetStudent && k.userId && (await this.once(tenantId, 'BIRTHDAY_STUDENT_GREETING', k.id, today))) {
+          await this.greetStudent(tenantId, k.userId, k.firstName, school.name, s.birthdays.studentGreeting.message);
+          out.birthdays++;
+        }
+        if (!toParents || !(await this.once(tenantId, 'BIRTHDAY_STUDENT', k.id, today))) continue;
         const link = await db.studentGuardian.findFirst({ where: { tenantId, studentId: k.id }, orderBy: { isPrimary: 'desc' }, select: { guardianId: true } });
         if (!link) continue;
         const body = s.birthdays.students.template.replace(/\{\{\s*children\s*\}\}/g, k.firstName);
@@ -179,7 +200,7 @@ export class SchedulerService implements OnModuleInit, OnApplicationShutdown {
     if (s.birthdays.staff.enabled && s.birthdays.staff.channels.length) {
       const staff = await db.$queryRaw<{ id: string; firstName: string }[]>`
         SELECT id, "firstName" FROM staff
-        WHERE "tenantId" = ${tenantId} AND status <> 'EXITED' AND "dateOfBirth" IS NOT NULL AND to_char("dateOfBirth", 'MM-DD') = ${md}`;
+        WHERE "tenantId" = ${tenantId} AND status <> 'EXITED' AND "dateOfBirth" IS NOT NULL AND to_char("dateOfBirth", 'MM-DD') = ANY(${mds})`;
       for (const st of staff) {
         if (!(await this.once(tenantId, 'BIRTHDAY_STAFF', st.id, today))) continue;
         await this.broadcast(tenantId, {

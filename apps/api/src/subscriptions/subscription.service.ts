@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import {
+  planQuote,
   priceQuote,
   type BillingCycle,
+  type InvoiceLine,
   type BillingDocument,
   type BillingStateKey,
   type PlanChangeResult,
@@ -21,6 +23,7 @@ import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BillingStateService, platformSender } from './billing-state.service';
 import { PilotService } from './pilot.service';
+import { setupFeeLine, setupFeeStatus } from './setup-fee';
 import { SignupService } from './signup.service';
 
 const DAY = 86_400_000;
@@ -90,10 +93,13 @@ export class SubscriptionService implements OnModuleInit {
     const open = sub ? await this.prisma.root.platformInvoice.findFirst({ where: { tenantId, subscriptionId: sub.id, status: 'OPEN' }, orderBy: { issuedAt: 'desc' }, select: { id: true } }) : null;
     const signup = await this.prisma.root.schoolSignup.findFirst({ where: { tenantId }, select: { approxStudents: true } });
     const pending = tb?.pendingPlanId ? await this.prisma.root.plan.findUnique({ where: { id: tb.pendingPlanId }, select: { name: true } }) : null;
-    // A school on a private (negotiated) plan still sees it.
-    if (sub && !plans.some((p) => p.id === sub.planId)) {
-      const p = sub.plan;
-      plans.push({ id: p.id, code: p.code, name: p.name, description: p.description, pricePerStudentKobo: p.pricePerStudentKobo, billingPeriod: p.billingPeriod, features: p.features, maxStudents: p.maxStudents });
+    // A school on a private (negotiated) or retired plan still sees it.
+    if (sub && !plans.some((p) => p.id === sub.planId)) plans.push(this.signups.toPublicPlan(sub.plan, rules.minBilledStudents));
+    const setupFee = await setupFeeStatus(this.prisma.root, tenantId);
+    const setupFeeByPlan: Record<string, number> = {};
+    for (const p of plans) {
+      const f = await setupFeeStatus(this.prisma.root, tenantId, p);
+      setupFeeByPlan[p.id] = f.state === 'DUE' ? f.amountKobo : 0;
     }
     return {
       status,
@@ -108,6 +114,8 @@ export class SubscriptionService implements OnModuleInit {
       onlinePayment: this.billing.onlineEnabled(),
       paying,
       discountPct: sub?.discountPct ?? 0,
+      setupFee,
+      setupFeeByPlan,
     };
   }
 
@@ -123,6 +131,7 @@ export class SubscriptionService implements OnModuleInit {
     }
     const plan = await this.prisma.root.plan.findFirst({ where: { id: input.planId, isActive: true } });
     if (!plan) throw new BadRequestException('Choose one of the plans shown');
+    if (plan.contactOnly) throw new BadRequestException(`The ${plan.name} plan is priced for each school: use “Talk to us” and we will get back to you.`);
     const tenant = await this.prisma.root.tenant.findUniqueOrThrow({ where: { id: tenantId } });
     if (plan.maxStudents && input.students > plan.maxStudents) throw new BadRequestException(`The ${plan.name} plan is for up to ${plan.maxStudents.toLocaleString('en-NG')} students; choose a larger plan`);
     const rules = await this.state.settings();
@@ -147,8 +156,10 @@ export class SubscriptionService implements OnModuleInit {
 
     const active = await this.prisma.root.student.count({ where: { tenantId, status: 'ACTIVE' } });
     const unit = sub.priceOverrideKobo ?? plan.pricePerStudentKobo;
-    const q = priceQuote({ pricePerStudentKobo: unit, billingPeriod: plan.billingPeriod }, Math.max(active, input.students), input.cycle, rules, sub.discountPct);
+    const q = planQuote({ pricePerStudentKobo: unit, billingPeriod: plan.billingPeriod, minStudents: plan.minStudents, smsUnitsPerStudent: plan.smsUnitsPerStudent }, Math.max(active, input.students), input.cycle, rules, sub.discountPct);
     if (q.totalKobo <= 0) throw new BadRequestException('There is nothing to pay on this plan. Contact us to activate it.');
+    // A new school's first invoice carries the one-off setup fee (onboarding and training), unless waived.
+    const setup = setupFeeLine(await setupFeeStatus(this.prisma.root, tenantId, plan));
 
     await this.prisma.root.subscription.update({ where: { id: sub.id }, data: { planId: plan.id } });
     await this.prisma.root.tenant.update({ where: { id: tenantId }, data: { planId: plan.id } });
@@ -160,30 +171,36 @@ export class SubscriptionService implements OnModuleInit {
     const start = pilotEnd ?? new Date();
     const end = addMonths(pilotEnd ?? today(), input.cycle === 'SESSION' ? 12 : 4);
     const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
+    const subDescription = `${plan.name} plan, ${input.cycle === 'SESSION' ? 'one session (3 terms)' : 'one term'}: ${q.billedStudents} students × ${naira(q.unitKobo)}${q.terms > 1 ? ' × 3 terms' : ''}${q.discountPct ? `, less ${q.discountPct}%` : ''} (${fmt(start)} – ${fmt(end)})`;
+    const lines: InvoiceLine[] = [{ kind: 'SUBSCRIPTION', description: subDescription, quantity: q.billedStudents * q.terms, unitKobo: q.unitKobo, discountKobo: q.discountKobo, amountKobo: q.totalKobo }];
+    if (setup) lines.push(setup);
+    const amountKobo = q.totalKobo + (setup?.amountKobo ?? 0);
     const invoice = await this.billing.manualInvoice({
       tenantId,
-      description: `${plan.name} plan, ${input.cycle === 'SESSION' ? 'one session (3 terms)' : 'one term'}: ${q.billedStudents} students × ${naira(q.unitKobo)}${q.terms > 1 ? ' × 3 terms' : ''}${q.discountPct ? `, less ${q.discountPct}%` : ''} (${fmt(start)} – ${fmt(end)})`,
-      amountKobo: q.totalKobo,
+      description: setup ? `${subDescription}; plus the one-off setup fee (${naira(setup.amountKobo)})` : subDescription,
+      amountKobo,
       dueDate: new Date(today().getTime() + rules.invoiceDueDays * DAY).toISOString().slice(0, 10),
       notes: null,
       seats: q.billedStudents,
       unitKobo: q.unitKobo,
+      lines,
     });
     // Tie it to the subscription and the period it pays for (manualInvoice issues free-standing invoices).
     await this.prisma.root.platformInvoice.update({ where: { id: invoice.id }, data: { subscriptionId: sub.id, periodStart: start, periodEnd: end, discountKobo: q.discountKobo } });
-    await this.audit.log({ tenantId, action: 'billing.checkout', entityType: 'PlatformInvoice', entityId: invoice.id, summary: `Chose the ${plan.name} plan for ${input.cycle === 'SESSION' ? 'a session' : 'a term'}: ${q.billedStudents} students, ${naira(q.totalKobo)}` });
+    await this.audit.log({ tenantId, action: 'billing.checkout', entityType: 'PlatformInvoice', entityId: invoice.id, summary: `Chose the ${plan.name} plan for ${input.cycle === 'SESSION' ? 'a session' : 'a term'}: ${q.billedStudents} students, ${naira(amountKobo)}${setup ? ` (including the ${naira(setup.amountKobo)} setup fee)` : ''}` });
     this.state.invalidate(tenantId);
 
     let authorizationUrl: string | null = null;
     if (this.billing.onlineEnabled()) {
       authorizationUrl = (await this.billing.startOnline(tenantId, invoice.id, email, callbackUrl)).authorizationUrl;
     }
-    return { invoiceId: invoice.id, number: invoice.number, amountKobo: q.totalKobo, authorizationUrl };
+    return { invoiceId: invoice.id, number: invoice.number, amountKobo, authorizationUrl };
   }
 
   async changePlan(tenantId: string, planId: string): Promise<PlanChangeResult> {
     const plan = await this.prisma.root.plan.findFirst({ where: { id: planId, isActive: true } });
     if (!plan || !(await this.plans()).some((p) => p.id === planId)) throw new BadRequestException('Choose one of the plans shown');
+    if (plan.contactOnly) throw new BadRequestException(`The ${plan.name} plan is priced for each school: use “Talk to us” and we will get back to you.`);
     const sub = await this.billing.current(tenantId);
     if (!sub) throw new BadRequestException('Your school has no subscription yet. Choose a plan and pay first.');
     if (sub.planId === planId) {
@@ -214,7 +231,7 @@ export class SubscriptionService implements OnModuleInit {
     }
     // Upgrade: at once, with a top-up for the days left in the paid period.
     const last = await this.prisma.root.platformInvoice.findFirst({ where: { tenantId, subscriptionId: sub.id, status: 'PAID' }, orderBy: { periodStart: 'desc' } });
-    const seats = last?.seats || Math.max(active, (await this.state.settings()).minBilledStudents);
+    const seats = last?.seats || Math.max(active, plan.minStudents ?? (await this.state.settings()).minBilledStudents);
     const periodMs = sub.currentPeriodEnd.getTime() - sub.currentPeriodStart.getTime();
     const leftMs = Math.max(0, sub.currentPeriodEnd.getTime() - Date.now());
     const fraction = periodMs > 0 ? leftMs / periodMs : 0;
@@ -266,6 +283,7 @@ export class SubscriptionService implements OnModuleInit {
       company: s.company,
       payments: inv.payments.map((p) => ({ reference: p.reference, method: p.method, amountKobo: p.amountKobo, paidAt: p.paidAt?.toISOString() ?? null })),
       bankDetails: env().PLATFORM_BANK_DETAILS?.replace(/\\n/g, '\n') ?? null,
+      lines: Array.isArray(inv.lines) ? (inv.lines as unknown as InvoiceLine[]) : [],
     };
   }
 
@@ -303,7 +321,7 @@ export class SubscriptionService implements OnModuleInit {
       if (sub) {
         const unit = sub.priceOverrideKobo ?? sub.plan.pricePerStudentKobo;
         const rules = t.billing ? settings : { minBilledStudents: 0, sessionDiscountPct: 0 };
-        termValue = priceQuote({ pricePerStudentKobo: unit, billingPeriod: sub.plan.billingPeriod }, Math.max(n, sub.studentSeats), t.billing ? cycle : 'TERM', rules, sub.discountPct).perTermKobo;
+        termValue = priceQuote({ pricePerStudentKobo: unit, billingPeriod: sub.plan.billingPeriod }, Math.max(n, sub.studentSeats), t.billing ? cycle : 'TERM', t.billing ? { ...rules, minBilledStudents: sub.plan.minStudents ?? rules.minBilledStudents } : rules, sub.discountPct).perTermKobo;
         if (sub.status === 'ACTIVE' || sub.status === 'PAST_DUE') termRevenue += termValue;
       }
       rows.push({
@@ -323,6 +341,7 @@ export class SubscriptionService implements OnModuleInit {
         paidThisTermKobo: paidBy.get(t.id) ?? 0,
         notes: t.billing?.notes ?? null,
         pilotStatus: t.billing?.pilotStatus ?? null,
+        ...(await setupFeeStatus(this.prisma.root, t.id).then((f) => ({ setupFee: f.state, setupFeeKobo: f.amountKobo }))),
       });
     }
     return {

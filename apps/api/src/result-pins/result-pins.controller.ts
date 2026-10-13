@@ -24,7 +24,7 @@ import {
   type PublicPinInfo,
 } from '@aischool/shared';
 import { z } from 'zod';
-import { Public, RequirePermissions } from '../common/decorators';
+import { Public, RequirePermissions, RequireFeature } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
 import { ResultPinsService } from './result-pins.service';
@@ -32,6 +32,7 @@ import { ResultPinsService } from './result-pins.service';
 const reasonSchema = z.object({ reason: z.string().trim().min(2).max(200) });
 
 /** Result-checker cards for the bursar: generate, print once, sell, void, and see how they are used. */
+@RequireFeature('result_pins')
 @Controller('result-pins')
 export class ResultPinsController {
   constructor(private readonly pins: ResultPinsService) {}

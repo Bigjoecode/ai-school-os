@@ -14,6 +14,7 @@ import { currentTenantId } from '../common/request-context';
  */
 export const TENANT_MODELS = new Set<string>([
   'TenantBilling',
+  'AddonOrder',
   'GameProfile',
   'GameRound',
   'LearningModule',
@@ -117,6 +118,9 @@ export const TENANT_MODELS = new Set<string>([
   'Visitor',
   'Enquiry',
   'StudentPickup',
+  'StudentGateEvent',
+  'AuthorisedPickup',
+  'PickupNotice',
   'Certificate',
   'Broadcast',
   'Delivery',

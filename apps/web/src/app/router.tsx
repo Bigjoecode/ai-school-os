@@ -42,6 +42,8 @@ const AttendancePage = lazy(() => import('@/features/attendance/attendance-page'
 const StudentAttendancePage = lazy(() => import('@/features/attendance/student-attendance-page'));
 const KioskPage = lazy(() => import('@/features/attendance/kiosk-page'));
 const CheckInPage = lazy(() => import('@/features/attendance/check-in-page'));
+const GatePage = lazy(() => import('@/features/gate/gate-page'));
+const GatePassesPage = lazy(() => import('@/features/gate/passes-page'));
 const FeesPage = lazy(() => import('@/features/finance/fees-page'));
 const InvoicePage = lazy(() => import('@/features/finance/invoice-page'));
 const ReceiptPage = lazy(() => import('@/features/finance/receipt-page'));
@@ -91,6 +93,7 @@ const WhatsappAssistantPage = lazy(() => import('@/features/comms/whatsapp-assis
 const ParentLinesPage = lazy(() => import('@/features/comms/parent-lines-page'));
 const NoticeboardPage = lazy(() => import('@/features/comms/noticeboard-page'));
 const CalendarPage = lazy(() => import('@/features/comms/calendar-page'));
+const BirthdaysPage = lazy(() => import('@/features/birthdays/birthdays-page'));
 const SettingsLayout = lazy(() => import('@/features/settings/settings-layout'));
 const SchoolProfilePage = lazy(() => import('@/features/settings/school-profile-page'));
 const UsersPage = lazy(() => import('@/features/settings/users-page'));
@@ -285,6 +288,19 @@ export const router = createBrowserRouter(withRouteErrors([
   {
     path: '/check-in',
     element: <RequireAuth>{withSuspense(<CheckInPage />)}</RequireAuth>,
+  },
+  // The gate: scan students in and out, parents' pick-up notices, releasing children (reception or attendance managers).
+  {
+    path: '/gate',
+    element: (
+      <RequireAuth>
+        {withSuspense(
+          <RequirePermission permission={['reception.manage', 'attendance.manage']}>
+            <GatePage />
+          </RequirePermission>,
+        )}
+      </RequireAuth>
+    ),
   },
   // The online exam room: full screen, no app chrome, so students stay focused on the paper.
   // Classroom mode: the teacher presents a lesson module full screen (projector, TV or laptop).
@@ -726,6 +742,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['messages/settings', 'comms.read', <CommsSettingsPage key="comms-settings" />],
           ['messages/whatsapp', 'comms.read', <WhatsappAssistantPage key="whatsapp-assistant" />],
           ['messages/sms-ussd', 'comms.read', <ParentLinesPage key="parent-lines" />],
+          ['messages/birthdays', 'comms.manage', <BirthdaysPage key="birthdays" />],
           ['messages/:id', 'comms.read', <BroadcastPage key="broadcast" />],
           ['messages/:id/edit', 'comms.send', <ComposePage key="compose-edit" />],
         ] as const
@@ -866,6 +883,7 @@ export const router = createBrowserRouter(withRouteErrors([
       { path: 'success/report', element: <RequirePermission permission="results.publish"><SuccessReportPage /></RequirePermission> },
       // Returns & census: ASC-style tables for state returns (API: school.read + students.read + staff.read).
       { path: 'returns', element: <RequirePermission permission="students.read"><ReturnsPage /></RequirePermission> },
+      { path: 'gate/passes', element: <RequirePermission permission={['reception.manage', 'attendance.manage', 'documents.issue']}><GatePassesPage /></RequirePermission> },
       { path: 'family', element: <RequirePermission permission="family.manage"><FamilyPage /></RequirePermission> },
       { path: 'family/children/:id', element: <RequirePermission permission="family.manage"><ChildProgressPage /></RequirePermission> },
       { path: 'ask', element: <RequirePermission permission="ai.use"><AskSchoolPage /></RequirePermission> },

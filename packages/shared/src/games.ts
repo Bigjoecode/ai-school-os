@@ -203,6 +203,7 @@ export const GAME_BADGES = [
   { key: 'ALL_ROUNDER', label: 'All-rounder', description: 'Play every game on your games page.' },
   { key: 'LEVEL_5', label: 'Level 5', description: 'Reach level 5.' },
   { key: 'LEVEL_10', label: 'Level 10', description: 'Reach level 10.' },
+  { key: 'BIRTHDAY', label: 'Birthday star', description: 'A birthday treat from your school, with bonus XP.' },
 ] as const;
 export type GameBadgeKey = (typeof GAME_BADGES)[number]['key'];
 

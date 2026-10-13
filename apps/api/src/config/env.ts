@@ -72,6 +72,16 @@ const schema = z.object({
   APP_ENCRYPTION_KEY: z.string().min(32, 'APP_ENCRYPTION_KEY must be at least 32 characters').optional(),
   PAYSTACK_BASE_URL: z.string().url().default('https://api.paystack.co'),
   TERMII_BASE_URL: z.string().url().default('https://api.ng.termii.com'),
+  /**
+   * The platform's own Termii account (optional): schools on a plan with included SMS and no Termii
+   * account of their own send SMS through it, counted against the plan's SMS allowance.
+   */
+  PLATFORM_TERMII_API_KEY: z.string().optional(),
+  PLATFORM_TERMII_SENDER_ID: z.string().max(11).optional(),
+  PLATFORM_TERMII_DND: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
   WHATSAPP_BASE_URL: z.string().url().default('https://graph.facebook.com/v21.0'),
   /** Web push (browser notifications). Generate once: `npx web-push generate-vapid-keys`. */
   VAPID_PUBLIC_KEY: z.string().optional(),

@@ -19,7 +19,7 @@ import {
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequirePermissions, RequireFeature } from '../common/decorators';
 import { dateOnly, paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -58,6 +58,7 @@ function shuffle<T>(xs: T[]): T[] {
  * masters and senior staff), awarding and deducting points (any teacher),
  * and the leaderboard every member of staff can see.
  */
+@RequireFeature('houses')
 @Controller('houses')
 export class HousesController {
   constructor(

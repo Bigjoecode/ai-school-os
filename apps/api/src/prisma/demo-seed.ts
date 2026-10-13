@@ -9,6 +9,7 @@
  */
 import {
   DEFAULT_BELL_SCHEDULE,
+  DEFAULT_STUDENT_GREETING,
   DEFAULT_HR_SETTINGS,
   DEFAULT_LEAVE_TYPES,
   DEFAULT_WEBSITE_SETTINGS,
@@ -1371,8 +1372,9 @@ async function run({ demoOwner }: SeedOptions) {
         smsPricePerUnitKobo: 400,
         senderName: 'Greenfield International School',
         birthdays: {
-          students: { enabled: false, channels: ['SMS'], template: 'Dear {{first_name}}, everyone at {{school}} wishes {{children}} a very happy birthday today! Have a wonderful day.' },
-          staff: { enabled: true, channels: ['IN_APP'], template: 'Happy birthday, {{first_name}}! Thank you for all you do at {{school}}. Enjoy your day.' },
+          students: { enabled: true, channels: ['IN_APP', 'PUSH'], template: 'Dear {{first_name}}, everyone at {{school}} wishes {{children}} a very happy birthday today! Have a wonderful day.' },
+          staff: { enabled: true, channels: ['IN_APP', 'PUSH'], template: 'Happy birthday, {{first_name}}! Thank you for all you do at {{school}}. Enjoy your day.' },
+          studentGreeting: { enabled: true, message: DEFAULT_STUDENT_GREETING },
           sendAt: '07:00',
         },
         eventReminders: { enabled: true, channels: ['IN_APP', 'SMS'] },

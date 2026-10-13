@@ -1,4 +1,4 @@
-import { BILLING_PERIOD_LABELS, MODULE_FEATURE_KEYS, MODULE_FEATURES, type BillingStatus, type SchoolBilling } from '@aischool/shared';
+import { BILLING_PERIOD_LABELS, MODULE_FEATURE_KEYS, MODULE_FEATURES, planIncludesFeature, type BillingStatus, type SchoolBilling } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Building2, Check, CheckCircle2, Clock, CreditCard, Gift, Hourglass, LifeBuoy, Minus, Receipt, XCircle } from 'lucide-react';
@@ -24,6 +24,7 @@ import { SectionHeader } from '../settings/settings-layout';
 import { allowDigitalPurchases } from '@/pwa/ios-app';
 import { IosPurchaseNote } from '@/pwa/ios-purchase-note';
 import { BILLING_STATUS_KEY } from './billing-banner';
+import { PricingPanel } from './pricing-panel';
 import { SubscriptionPanel } from './subscription-panel';
 
 type Invoice = SchoolBilling['invoices'][number];
@@ -85,6 +86,7 @@ export default function SchoolBillingPage() {
           <StatusBanner b={b} />
           {/* The iPhone app shows the plan but doesn't sell it (App Store rules on digital subscriptions). */}
           {allowDigitalPurchases() ? <SubscriptionPanel onTransfer={setTransferId} /> : <IosPurchaseNote title="Plan changes and payments" />}
+          <PricingPanel />
           <div className="grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] [&>*]:min-w-0">
             <PlanCard b={b} />
             <div className="space-y-5">
@@ -233,7 +235,7 @@ function PlanCard({ b }: { b: SchoolBilling }) {
         <p className="text-[13.5px] text-muted-foreground">Your school isn’t on a plan yet, so every module is available. We’ll be in touch about choosing one.</p>
       </Section>
     );
-  const inPlan = (k: string) => p.features.length === 0 || p.features.includes(k);
+  const inPlan = (k: string) => planIncludesFeature(p, k);
   return (
     <Card className="overflow-hidden">
       <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:p-6">

@@ -1,4 +1,5 @@
 import { languageCodeSchema, type LanguageCode } from './languages';
+import { DEFAULT_STUDENT_GREETING } from './birthdays';
 import { z } from 'zod';
 
 /**
@@ -136,7 +137,7 @@ export type Audience = z.infer<typeof audienceSchema>;
 
 export const BROADCAST_STATUSES = ['DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'CANCELLED'] as const;
 export type BroadcastStatus = (typeof BROADCAST_STATUSES)[number];
-export const BROADCAST_SOURCES = ['MANUAL', 'BIRTHDAY', 'EVENT_REMINDER', 'ANNOUNCEMENT', 'TRANSPORT', 'FEES', 'ENQUIRY', 'HOMEWORK', 'CLASS_SUMMARY', 'ADMISSIONS', 'WELFARE', 'ALUMNI', 'LEARNING_UPDATE'] as const;
+export const BROADCAST_SOURCES = ['MANUAL', 'BIRTHDAY', 'EVENT_REMINDER', 'ANNOUNCEMENT', 'TRANSPORT', 'FEES', 'ENQUIRY', 'HOMEWORK', 'CLASS_SUMMARY', 'ADMISSIONS', 'WELFARE', 'ALUMNI', 'LEARNING_UPDATE', 'GATE'] as const;
 export type BroadcastSource = (typeof BROADCAST_SOURCES)[number];
 
 export const broadcastSchema = z
@@ -347,6 +348,11 @@ export interface CommsSettings {
   birthdays: {
     students: { enabled: boolean; channels: Channel[]; template: string };
     staff: { enabled: boolean; channels: Channel[]; template: string };
+    /**
+     * "Greet the student too" (needs student birthdays on): a birthday card on the student's own
+     * dashboard and an in-app/push note to their account. Placeholders: {{first_name}}, {{school}}.
+     */
+    studentGreeting: { enabled: boolean; message: string };
     /** School time to send, HH:MM. */
     sendAt: string;
   };
@@ -369,6 +375,7 @@ export const DEFAULT_COMMS_SETTINGS: CommsSettings = {
       channels: ['IN_APP', 'SMS'],
       template: 'Happy birthday, {{first_name}}! Thank you for all you do at {{school}}. Enjoy your day.',
     },
+    studentGreeting: { enabled: true, message: DEFAULT_STUDENT_GREETING },
     sendAt: '07:00',
   },
   eventReminders: { enabled: true, channels: ['IN_APP', 'SMS'] },
@@ -382,6 +389,7 @@ export const commsSettingsSchema = z.object({
   birthdays: z.object({
     students: z.object({ enabled: z.boolean(), channels: channelList, template: z.string().trim().min(5).max(500) }),
     staff: z.object({ enabled: z.boolean(), channels: channelList, template: z.string().trim().min(5).max(500) }),
+    studentGreeting: z.object({ enabled: z.boolean(), message: z.string().trim().min(5).max(300) }).default({ enabled: true, message: DEFAULT_STUDENT_GREETING }),
     sendAt: hhmm,
   }),
   eventReminders: z.object({ enabled: z.boolean(), channels: channelList }),

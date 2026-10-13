@@ -27,7 +27,7 @@ import {
   Users,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -96,6 +96,11 @@ export default function ReceptionPage() {
         actions={
           canManage && (
             <>
+              <Button asChild variant="outline">
+                <Link to="/gate">
+                  <DoorOpen /> Gate & pick-up
+                </Link>
+              </Button>
               <Button variant="outline" onClick={() => setPickupOpen(true)}>
                 <Baby /> Early pick-up
               </Button>

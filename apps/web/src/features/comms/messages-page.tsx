@@ -1,5 +1,5 @@
 import { BROADCAST_SOURCES, type BroadcastRow, type BroadcastSource, type Channel, CHANNEL_LABELS, type CommsOverview } from '@aischool/shared';
-import { AlertTriangle, CalendarClock, CheckCircle2, Coins, Gift, Inbox, Mail, MessageCircle, PenLine, Plus, Send, Settings, Smartphone, Trash2, XCircle } from 'lucide-react';
+import { AlertTriangle, Cake, CalendarClock, CheckCircle2, Coins, Gift, Inbox, Mail, MessageCircle, PenLine, Plus, Send, Settings, Smartphone, Trash2, XCircle } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -15,6 +15,7 @@ import { useCan } from '@/lib/auth-store';
 import { formatNumber, formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { StatTile } from '../attendance/ui';
+import { SmsAllowanceStrip } from '../billing/pricing-panel';
 import { schoolDateTime } from '../finance/ui';
 import { Segmented } from '../operations/ui';
 import { useBroadcasts, useCancelBroadcast, useCommsOverview, useDeleteBroadcast } from './api';
@@ -24,6 +25,7 @@ type Tab = 'sent' | 'scheduled' | 'drafts';
 
 export default function MessagesPage() {
   const canSend = useCan('comms.send');
+  const canManage = useCan('comms.manage');
   const [params, setParams] = useSearchParams();
   const tab: Tab = params.get('tab') === 'scheduled' ? 'scheduled' : params.get('tab') === 'drafts' ? 'drafts' : 'sent';
   const source = (BROADCAST_SOURCES as readonly string[]).includes(params.get('source') ?? '') ? (params.get('source') as BroadcastSource) : undefined;
@@ -63,6 +65,13 @@ export default function MessagesPage() {
                 <Smartphone /> SMS &amp; USSD
               </Link>
             </Button>
+            {canManage && (
+              <Button asChild variant="outline">
+                <Link to="/messages/birthdays">
+                  <Cake /> Birthdays
+                </Link>
+              </Button>
+            )}
             <Button asChild variant="outline">
               <Link to="/messages/settings">
                 <Settings /> Settings
@@ -180,6 +189,7 @@ function OverviewStrip({ o }: { o: CommsOverview | undefined }) {
         <StatTile label="Failed" icon={<XCircle />} value={formatNumber(m?.failed ?? 0)} sub={m?.failed ? 'Open a message to retry' : 'None failed'} tone={m?.failed ? 'danger' : undefined} loading={loading} />
         <StatTile label="SMS pages" icon={<Coins />} value={formatNumber(m?.smsUnits ?? 0)} sub={o ? `≈ ${money(m?.smsCostKobo ?? 0, o.currency)} this month` : undefined} loading={loading} />
       </div>
+      <SmsAllowanceStrip />
       {o && (
         <Card className="flex flex-col gap-3 p-3.5 sm:flex-row sm:items-center">
           <p className="shrink-0 text-[12.5px] font-medium text-muted-foreground">Channels</p>

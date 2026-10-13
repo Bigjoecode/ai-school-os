@@ -12,7 +12,7 @@ import {
   type CensusSettings,
 } from '@aischool/shared';
 import { z } from 'zod';
-import { RequirePermissions, RequirePlatformRole } from '../common/decorators';
+import { RequirePermissions, RequirePlatformRole, RequireFeature } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
 import { CensusService } from './census.service';
 
@@ -21,6 +21,7 @@ import { CensusService } from './census.service';
  * Census and working candidate lists for exam-body registration. Aggregated
  * figures for school leaders who can see both pupil and staff records.
  */
+@RequireFeature('success')
 @Controller('census')
 export class CensusController {
   constructor(private readonly census: CensusService) {}

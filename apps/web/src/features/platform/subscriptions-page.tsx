@@ -30,6 +30,7 @@ import { queryClient } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { naira } from './api';
 import { PILOT_KEY, PilotTab } from './pilot-tab';
+import { PriceListTab } from './price-list-tab';
 import { Kpi, Section, useTabParam } from './ui';
 
 const KEY = ['platform', 'subscriptions'] as const;
@@ -40,7 +41,7 @@ const STATE_BADGE: Record<BillingStateKey, { label: string; variant: BadgeProps[
   READ_ONLY: { label: 'Read-only', variant: 'danger' },
   PILOT: { label: 'Free pilot', variant: 'success' },
 };
-const TABS = ['schools', 'signups', 'pilot', 'settings'] as const;
+const TABS = ['schools', 'signups', 'pilot', 'pricelist', 'settings'] as const;
 
 /** Self-serve sign-ups and subscription billing: who is on trial, overdue or read-only, the review queue, and the rules. */
 export default function SubscriptionsPage() {
@@ -60,7 +61,7 @@ export default function SubscriptionsPage() {
       <div className="mt-6 flex gap-1 overflow-x-auto rounded-xl border border-border bg-muted/40 p-1" role="tablist">
         {TABS.map((t) => (
           <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={cn('whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium', tab === t ? 'bg-card shadow-sm' : 'text-muted-foreground hover:text-foreground')}>
-            {t === 'schools' ? 'Schools' : t === 'signups' ? `Sign-ups${s?.pendingSignups ? ` (${s.pendingSignups})` : ''}` : t === 'pilot' ? `Pilot${s ? ` (${s.counts.PILOT})` : ''}` : 'Settings'}
+            {t === 'schools' ? 'Schools' : t === 'signups' ? `Sign-ups${s?.pendingSignups ? ` (${s.pendingSignups})` : ''}` : t === 'pilot' ? `Pilot${s ? ` (${s.counts.PILOT})` : ''}` : t === 'pricelist' ? 'Price list' : 'Settings'}
           </button>
         ))}
       </div>
@@ -75,6 +76,8 @@ export default function SubscriptionsPage() {
           <SignupsTab />
         ) : tab === 'pilot' ? (
           <PilotTab />
+        ) : tab === 'pricelist' ? (
+          <PriceListTab />
         ) : s ? (
           <SettingsTab settings={s.settings} />
         ) : (
@@ -152,6 +155,12 @@ function SchoolsTab({ rows }: { rows: TenantBillingRow[] }) {
                   <TableCell>
                     {r.plan ?? '—'}
                     {r.discountPct ? <span className="text-[12px] text-muted-foreground"> · {r.discountPct === 100 ? 'comp' : `${r.discountPct}% off`}</span> : null}
+                    {r.setupFee !== 'NONE' && (
+                      <p className="text-[11.5px] text-muted-foreground">
+                        Setup fee {r.setupFee.toLowerCase()}
+                        {r.setupFeeKobo ? ` · ${naira(r.setupFeeKobo)}` : ''}
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell className="text-right tabular">{formatNumber(r.activeStudents)}</TableCell>
                   <TableCell className="text-right tabular">{r.termValueKobo ? naira(r.termValueKobo) : '—'}</TableCell>
@@ -177,16 +186,27 @@ function ManageDialog({ row, onClose }: { row: TenantBillingRow | null; onClose:
   const [extend, setExtend] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [notes, setNotes] = useState('');
+  const [setup, setSetup] = useState<'keep' | 'WAIVE' | 'SET' | 'RESET'>('keep');
+  const [setupAmount, setSetupAmount] = useState('');
+  const [setupNote, setSetupNote] = useState('');
   useEffect(() => {
     if (!row) return;
+    setSetup('keep');
+    setSetupAmount('');
+    setSetupNote('');
     setEnforced(row.enforcedSetting === null ? 'inherit' : row.enforcedSetting ? 'on' : 'off');
     setExtend(0);
     setDiscount(row.discountPct);
     setNotes(row.notes ?? '');
   }, [row]);
   const save = useMutation({
-    mutationFn: () =>
-      api.put(`/platform/tenants/${row!.tenantId}/billing`, { enforced: enforced === 'inherit' ? null : enforced === 'on', extendTrialDays: extend, discountPct: discount, notes: notes.trim() || null }),
+    mutationFn: async () => {
+      await api.put(`/platform/tenants/${row!.tenantId}/billing`, { enforced: enforced === 'inherit' ? null : enforced === 'on', extendTrialDays: extend, discountPct: discount, notes: notes.trim() || null });
+      if (setup !== 'keep') {
+        const amount = Math.round(Number(setupAmount.replace(/[^\d.]/g, '')) * 100);
+        await api.put(`/platform/tenants/${row!.tenantId}/setup-fee`, { action: setup, ...(setup === 'SET' ? { amountKobo: Number.isFinite(amount) ? amount : 0 } : {}), note: setupNote.trim() || null });
+      }
+    },
     onSuccess: () => {
       toast.success('Saved');
       void queryClient.invalidateQueries({ queryKey: KEY });
@@ -224,6 +244,28 @@ function ManageDialog({ row, onClose }: { row: TenantBillingRow | null; onClose:
         <Field label="Notes" htmlFor="bn" optional>
           <Textarea id="bn" rows={2} value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={500} />
         </Field>
+        <Field
+          label="One-off setup fee"
+          htmlFor="setup"
+          hint={row ? `Now: ${row.setupFee.toLowerCase()}${row.setupFeeKobo ? ` (${naira(row.setupFeeKobo)})` : ''}. An unpaid invoice that carries the fee is corrected.` : undefined}
+        >
+          <select id="setup" className={inputClass} value={setup} onChange={(e) => setSetup(e.target.value as typeof setup)}>
+            <option value="keep">Leave as it is</option>
+            <option value="WAIVE">Waive it</option>
+            <option value="SET">Charge a different amount (discount)</option>
+            <option value="RESET">Back to the plan’s fee</option>
+          </select>
+        </Field>
+        {setup === 'SET' && (
+          <Field label="Amount to charge (₦)" htmlFor="setup-amt">
+            <Input id="setup-amt" inputMode="decimal" value={setupAmount} onChange={(e) => setSetupAmount(e.target.value)} placeholder="50,000" />
+          </Field>
+        )}
+        {setup !== 'keep' && (
+          <Field label="Reason" htmlFor="setup-note" optional>
+            <Input id="setup-note" value={setupNote} onChange={(e) => setSetupNote(e.target.value)} maxLength={300} placeholder="e.g. Launch offer" />
+          </Field>
+        )}
       </div>
     </FormDialog>
   );

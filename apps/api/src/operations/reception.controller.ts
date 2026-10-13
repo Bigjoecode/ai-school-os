@@ -22,6 +22,7 @@ import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
+import { GateService } from '../gate/gate.service';
 import { RequirePermissions } from '../common/decorators';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
@@ -53,6 +54,7 @@ export class ReceptionController {
     private readonly ops: OperationsService,
     private readonly gateway: AiGatewayService,
     private readonly audit: AuditService,
+    private readonly gate: GateService,
   ) {}
 
   private visitorRow(v: Prisma.VisitorGetPayload<{ include: typeof visitorInclude }>): VisitorRow {
@@ -303,6 +305,8 @@ export class ReceptionController {
       entityId: student.id,
       summary: `${fullName(student)} collected early by ${body.collectedBy} (${body.relationship}${onRecord ? '' : ', not on record'}) — ${body.reason}`,
     });
+    // Signs the child out at the gate and tells the parents who collected them.
+    await this.gate.afterReceptionPickup(currentTenantId(), p.id);
     return this.pickupRow(p, await this.ops.userNames([p.recordedById]));
   }
 }

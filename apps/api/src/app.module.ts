@@ -63,6 +63,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { RbacModule } from './rbac/rbac.module';
 import { SchoolController } from './school/school.controller';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { BirthdaysModule } from './birthdays/birthdays.module';
 
 @Controller('health')
 class HealthController {
@@ -169,6 +170,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     CensusModule,
     ParentLinesModule,
     SubscriptionsModule,
+    BirthdaysModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

@@ -2,7 +2,7 @@ import { Body, Controller, ForbiddenException, Get, HttpCode, Param, ParseIntPip
 import { Throttle } from '@nestjs/throttler';
 import { JAMB_LEVELS, PLATFORM_AREAS, jambCheckSchema, type JambCheckInput, type Permission } from '@aischool/shared';
 import { z } from 'zod';
-import { RequirePlatformRole } from '../common/decorators';
+import { RequirePlatformRole, RequireFeature } from '../common/decorators';
 import { currentContext } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { JambService } from './jamb.service';
@@ -21,6 +21,7 @@ const courseQuery = z.object({ faculty: text(60), level: z.enum(JAMB_LEVELS).opt
 const courseFilters = z.object({ state: text(60), ownership: text(20), type: z.enum(JAMB_LEVELS).optional() });
 
 /** JAMB & universities: JAMB's brochure (IBASS), read-only. */
+@RequireFeature('careers')
 @Controller('jamb')
 export class JambController {
   constructor(private readonly jamb: JambService) {}

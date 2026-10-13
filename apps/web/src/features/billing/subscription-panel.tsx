@@ -1,5 +1,6 @@
 import {
   BILLING_CYCLE_LABELS,
+  planQuote,
   priceQuote,
   type PlanChangeResult,
   type SubscriptionCheckoutOptions,
@@ -44,13 +45,17 @@ function refresh() {
 }
 
 function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfer: (invoiceId: string) => void }) {
-  const [planId, setPlanId] = useState(o.currentPlanId ?? o.plans[0]?.id ?? '');
+  // "Contact us" plans (Ultimate) have no self-serve checkout.
+  const buyable = o.plans.filter((p) => !p.contactOnly);
+  const custom = o.plans.filter((p) => p.contactOnly);
+  const [planId, setPlanId] = useState((buyable.some((p) => p.id === o.currentPlanId) ? o.currentPlanId : null) ?? buyable.find((p) => p.badge)?.id ?? buyable[0]?.id ?? '');
   const [cycle, setCycle] = useState(o.cycle);
   const [students, setStudents] = useState(Math.max(o.activeStudents, o.estimatedStudents));
   useEffect(() => setStudents((s) => Math.max(s, o.activeStudents)), [o.activeStudents]);
-  const plan = o.plans.find((p) => p.id === planId);
+  const plan = buyable.find((p) => p.id === planId);
   const counted = Math.max(students, o.activeStudents);
-  const quote = plan ? priceQuote(plan, counted, cycle, o.rules, o.discountPct) : null;
+  const setupKobo = plan ? (o.setupFeeByPlan[plan.id] ?? 0) : 0;
+  const quote = plan ? planQuote(plan, counted, cycle, o.rules, o.discountPct, setupKobo) : null;
   const tooMany = plan?.maxStudents != null && counted > plan.maxStudents;
 
   const pay = useMutation({
@@ -93,8 +98,11 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
       </div>
       <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <div className="space-y-4">
+          {o.rules.sessionDiscountPct > 0 && (
+            <p className="rounded-lg bg-success/10 px-3 py-2 text-[12.5px] font-medium text-success">{o.rules.sessionDiscountPct}% off when you pay for 3 terms at once</p>
+          )}
           <div className="grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Plan">
-            {o.plans.map((p) => {
+            {buyable.map((p) => {
               const unit = priceQuote(p, 0, 'TERM', { minBilledStudents: 0, sessionDiscountPct: 0 }).unitKobo;
               return (
                 <button
@@ -105,11 +113,20 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
                   onClick={() => setPlanId(p.id)}
                   className={cn('rounded-xl border p-3 text-left transition-colors', planId === p.id ? 'border-brand bg-brand-soft/40 ring-1 ring-brand/40' : 'border-border hover:bg-muted/50')}
                 >
-                  <p className="text-[14px] font-semibold">{p.name}</p>
+                  <p className="flex items-center gap-1.5 text-[14px] font-semibold">
+                    {p.name}
+                    {p.badge && <Badge variant="brand">{p.badge}</Badge>}
+                  </p>
                   <p className="text-[12.5px] text-muted-foreground tabular">{naira(unit)} / student / term</p>
                 </button>
               );
             })}
+            {custom.map((p) => (
+              <a key={p.id} href={`/pricing#talk-to-us`} className="rounded-xl border border-dashed border-border p-3 text-left transition-colors hover:bg-muted/50">
+                <p className="text-[14px] font-semibold">{p.name}</p>
+                <p className="text-[12.5px] text-muted-foreground">Custom price: talk to us</p>
+              </a>
+            ))}
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Pay for" htmlFor="cycle">
@@ -122,7 +139,7 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
                 ))}
               </select>
             </Field>
-            <Field label="Students this term" htmlFor="students" hint={`You have ${o.activeStudents} active students; we bill whichever is higher (minimum ${o.rules.minBilledStudents}).`}>
+            <Field label="Students this term" htmlFor="students" hint={`You have ${o.activeStudents} active students; we bill whichever is higher (minimum ${plan?.minStudents ?? o.rules.minBilledStudents}).`}>
               <Input id="students" type="number" inputMode="numeric" min={o.activeStudents} value={students} onChange={(e) => setStudents(Math.max(0, Number(e.target.value) || 0))} />
             </Field>
           </div>
@@ -136,18 +153,23 @@ function Checkout({ o, onTransfer }: { o: SubscriptionCheckoutOptions; onTransfe
                 {quote.terms > 1 && <Row label="Terms" value="3" />}
                 <Row label="Subtotal" value={naira(quote.grossKobo)} />
                 {quote.discountKobo > 0 && <Row label={`Discount (${quote.discountPct}%)`} value={`−${naira(quote.discountKobo)}`} />}
+                {quote.setupFeeKobo > 0 && (
+                  <Row label={`One-off setup fee (onboarding${plan.trainingDays ? `, ${plan.trainingDays} days’ training` : ''})`} value={naira(quote.setupFeeKobo)} />
+                )}
               </dl>
               <div className="mt-3 flex items-baseline justify-between border-t border-border pt-3">
                 <span className="text-[13px] font-medium">Total</span>
-                <span className="font-display text-[24px] font-semibold tabular tracking-tight">{naira(quote.totalKobo)}</span>
+                <span className="font-display text-[24px] font-semibold tabular tracking-tight">{naira(quote.grandTotalKobo)}</span>
               </div>
+              {quote.smsUnitsPerTerm > 0 && <p className="mt-1 text-[12px] text-muted-foreground">Includes {quote.smsUnitsPerTerm.toLocaleString('en-NG')} SMS pages a term ({plan.smsUnitsPerStudent} per student).</p>}
+              {o.setupFee.state === 'WAIVED' && plan.setupFeeKobo > 0 && <p className="mt-1 text-[12px] text-success">Setup fee waived{o.setupFee.reason === 'PILOT' ? ' for pilot schools' : ''}.</p>}
               {tooMany ? (
                 <p className="mt-3 text-[12.5px] text-danger">The {plan.name} plan is for up to {plan.maxStudents} students: choose a larger plan.</p>
               ) : (
                 <Button className="mt-4 w-full" onClick={() => pay.mutate()} loading={pay.isPending} disabled={!planId}>
                   {o.onlinePayment ? (
                     <>
-                      <CreditCard /> Pay {naira(quote.totalKobo)}
+                      <CreditCard /> Pay {naira(quote.grandTotalKobo)}
                     </>
                   ) : (
                     <>
@@ -182,7 +204,7 @@ function Rules({ o }: { o: SubscriptionCheckoutOptions }) {
     <p className="flex items-start gap-2 border-t border-border px-5 py-3 text-[12px] text-muted-foreground sm:px-6">
       <Info className="mt-0.5 size-3.5 shrink-0" />
       <span>
-        Each invoice counts active students on its date (minimum {o.rules.minBilledStudents}); students added mid-term are not charged until the next invoice. Upgrades start at once with a top-up for the days left;
+        Each invoice counts active students on its date (at least the plan’s minimum); students added mid-term are not charged until the next invoice. Upgrades start at once with a top-up for the days left;
         downgrades start next period. Late payment: {o.rules.graceDays} days’ grace, then read-only until paid. Nothing is ever deleted for billing.
       </span>
     </p>
@@ -209,7 +231,7 @@ function ChangePlan({ o }: { o: SubscriptionCheckoutOptions }) {
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
         <Field label="Plan" htmlFor="change-plan" className="flex-1">
           <select id="change-plan" className={inputClass} value={planId} onChange={(e) => setPlanId(e.target.value)}>
-            {o.plans.map((p) => (
+            {o.plans.filter((p) => !p.contactOnly || p.id === o.currentPlanId).map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}: {naira(priceQuote(p, 0, 'TERM', { minBilledStudents: 0, sessionDiscountPct: 0 }).unitKobo)} per student per term
               </option>

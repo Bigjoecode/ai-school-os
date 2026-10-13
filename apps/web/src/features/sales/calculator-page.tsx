@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { inputClass } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { DEFAULT_INPUTS, assumption, calculate, inputsFromSearch, inputsToSearch, type CalcInputs } from './calc';
-import { SALES_PLANS, SIGNUP_PATH, naira } from './config';
+import { SIGNUP_PATH, naira, useSalesPricing } from './config';
 import { PRICE_NOTE } from './pricing';
 import { PrintButton, SalesLayout, ShareButton } from './sales-layout';
 import './sales.css';
@@ -95,7 +95,8 @@ function Row({ label, value, strong, sub }: { label: ReactNode; value: ReactNode
 export default function CalculatorPage() {
   const [search, setSearch] = useSearchParams();
   const [inputs, setInputs] = useState<CalcInputs>(() => inputsFromSearch(search));
-  const r = useMemo(() => calculate(inputs), [inputs]);
+  const pricing = useSalesPricing();
+  const r = useMemo(() => calculate(inputs, pricing.plans), [inputs, pricing.plans]);
 
   // Keep the figures in the link so "Share" sends exactly what is on screen.
   useEffect(() => {
@@ -139,8 +140,8 @@ export default function CalculatorPage() {
                 <label htmlFor="calc-plan" className="text-[13px] font-medium">
                   Plan
                 </label>
-                <select id="calc-plan" value={inputs.plan} onChange={(e) => set('plan')(e.target.value)} className={cn(inputClass, 'appearance-auto')}>
-                  {SALES_PLANS.map((p) => (
+                <select id="calc-plan" value={r.plan.code} onChange={(e) => set('plan')(e.target.value)} className={cn(inputClass, 'appearance-auto')}>
+                  {pricing.plans.filter((p) => !p.contactOnly).map((p) => (
                     <option key={p.code} value={p.code}>
                       {p.name} — {naira(p.price)} per student per term
                     </option>
@@ -248,7 +249,9 @@ export default function CalculatorPage() {
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-[11.5px] font-semibold uppercase tracking-wider text-muted-foreground">Cost · per term</p>
               <dl className="mt-1">
-                <Row label={`${r.plan.name} plan`} sub={`${naira(r.pricePerStudent)} × ${inputs.students.toLocaleString('en-NG')} students`} value={naira(r.cost)} strong />
+                <Row label={`${r.plan.name} plan`} sub={`${naira(r.pricePerStudent)} × ${Math.max(inputs.students, r.plan.minStudents).toLocaleString('en-NG')} students${inputs.students < r.plan.minStudents ? ` (minimum ${r.plan.minStudents})` : ''}`} value={naira(r.cost)} strong />
+                {r.plan.setupFee > 0 && <Row label="One-off setup fee" sub={`Onboarding${r.plan.trainingDays ? ` and ${r.plan.trainingDays} days of training` : ''}; first invoice only; waived for pilot schools`} value={naira(r.plan.setupFee)} />}
+                {pricing.sessionDiscountPct > 0 && <Row label={`Pay 3 terms at once: ${pricing.sessionDiscountPct}% off`} value={naira(r.cost * 3 * (1 - pricing.sessionDiscountPct / 100))} />}
                 <Row label="Price per student" value={naira(r.pricePerStudent)} />
                 <Row label="Cash benefit per student" value={naira(r.cashBenefitPerStudent)} />
                 <Row label="Cash + time value per student" value={naira(r.totalBenefitPerStudent)} />

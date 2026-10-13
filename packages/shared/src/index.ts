@@ -51,3 +51,6 @@ export * from './self-serve';
 export * from './parent-lines';
 export * from './pilot';
 export * from './ambassadors';
+export * from './birthdays';
+export * from './pricing';
+export * from './gate';

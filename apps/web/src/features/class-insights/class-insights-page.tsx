@@ -20,6 +20,7 @@ import { StatTile } from '../portal/ui';
 import { useClassMastery, useInsightOptions, useInsightSummary } from './api';
 import { ClassModulesCard } from '../lesson-modules/widgets';
 import { ClassGamesCard } from '../games/widgets';
+import { ClassBirthdaysCard } from '../birthdays/class-birthdays-card';
 import { StudentSheet, TopicSheet } from './panels';
 import { BAND_CELL, bandLabel, bandOf, Legend, Trend } from './ui';
 
@@ -154,6 +155,7 @@ export default function ClassInsightsPage() {
             <div className="mt-4 space-y-4">
               <ClassModulesCard classArmId={classArmId} subjectId={subjectId} />
               <ClassGamesCard classArmId={classArmId} />
+              <ClassBirthdaysCard classArmId={classArmId} />
             </div>
           )}
           {cls && (

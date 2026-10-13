@@ -50,6 +50,22 @@ model Plan {
   /// Shown on public pricing; private plans are for custom deals.
   isPublic            Boolean       @default(true)
   sortOrder           Int           @default(0)
+  /// Price list: one-off setup fee (onboarding and training) on a new school's first invoice.
+  setupFeeKobo        Int           @default(0)
+  trainingDays        Int           @default(0)
+  /// Fewest students billed on this plan (null = the platform-wide minBilledStudents).
+  minStudents         Int?
+  /// SMS pages included per billed student per term (no rollover).
+  smsUnitsPerStudent  Int           @default(0)
+  /// Pricing card ribbon, e.g. "Most popular".
+  badge               String?
+  /// Custom price: no self-serve checkout, "Talk to us" instead.
+  contactOnly         Boolean       @default(false)
+  featureIntro        String?
+  /// Display checklist for the pricing page (modules in `features` gate access).
+  featureList         String[]      @default([])
+  /// Module keys that existed when `features` was chosen; modules added later are on for this plan.
+  knownFeatures       String[]      @default(["ai", "website", "live_classes", "messaging", "online_payments", "payroll", "timetable", "library", "inventory", "transport", "hostel"])
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @default(now()) @updatedAt
 
@@ -86,6 +102,8 @@ model Tenant {
   bellSchedule         Json?
   /// { staffLateAfter: "HH:MM", editWindowDays } — null means the defaults.
   attendanceSettings   Json?
+  /// Gate check-in/out, parent arrival alerts and secure pick-up (see GateSettings in @aischool/shared).
+  gateSettings         Json?
   /// { invoicePrefix, receiptPrefix, defaultDueDays, bankDetails } — null means the defaults.
   financeSettings      Json?
   /// { payeEnabled, pensionEmployeePct, pensionEmployerPct, nhfPct, payslipNote } — null means the defaults.
@@ -170,6 +188,9 @@ model Tenant {
   visitors            Visitor[]
   enquiries           Enquiry[]
   studentPickups      StudentPickup[]
+  studentGateEvents   StudentGateEvent[]
+  authorisedPickups   AuthorisedPickup[]
+  pickupNotices       PickupNotice[]
   certificates        Certificate[]
   broadcasts          Broadcast[]
   deliveries          Delivery[]
@@ -230,6 +251,7 @@ model Tenant {
   kbChunks              KbChunk[]
   billing               TenantBilling?
   referral              TenantReferral?
+  addonOrders           AddonOrder[]
 
   @@map("tenants")
 }
@@ -720,6 +742,11 @@ model Student {
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
   pickups             StudentPickup[]
+  gateEvents          StudentGateEvent[]
+  authorisedPickups   AuthorisedPickup[]
+  pickupNotices       PickupNotice[]
+  /// Random code printed in the gate pass QR (never the student id). Created when a pass is first printed.
+  gateToken           String?                       @unique
   certificates        Certificate[]
 
   liveAttendance LiveAttendance[]
@@ -2168,12 +2195,111 @@ model StudentPickup {
   onRecord     Boolean  @default(false)
   at           DateTime @default(now())
   recordedById String?
+  /// EARLY (leaves during the day, reason required) or END_OF_DAY (collected at home time)
+  kind               String  @default("EARLY")
+  /// GUARDIAN, AUTHORISED, CODE (one-time delegate code), OVERRIDE (not authorised; reason recorded), UNVERIFIED (free-text log)
+  verification       String?
+  guardianId         String?
+  authorisedPickupId String?
+  noticeId           String?
+  overrideReason     String?
 
   tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@index([tenantId, at])
   @@map("student_pickups")
+}
+
+/// A student arriving at or leaving school: scanned at the gate, typed in, from the class register, or a recorded pick-up.
+model StudentGateEvent {
+  id           String    @id @default(cuid())
+  tenantId     String
+  studentId    String
+  /// ARRIVE or LEAVE
+  type         String
+  /// The school-local day.
+  date         DateTime  @db.Date
+  at           DateTime  @default(now())
+  /// SCAN, MANUAL, REGISTER, PICKUP
+  method       String
+  gate         String?
+  branchId     String?
+  late         Boolean   @default(false)
+  pickupId     String?
+  recordedById String?
+  undoneAt     DateTime?
+  undoneById   String?
+  createdAt    DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, date])
+  @@index([studentId, date])
+  @@map("student_gate_events")
+}
+
+/// Someone (besides the guardians, who are always authorised) allowed to collect a child.
+model AuthorisedPickup {
+  id           String    @id @default(cuid())
+  tenantId     String
+  studentId    String
+  name         String
+  relationship String
+  /// Personal data: shown only to the child's guardians and gate/reception staff.
+  phone        String?
+  /// /api/files/<id> (a private upload); served through the gate endpoints.
+  photoUrl     String?
+  validUntil   DateTime? @db.Date
+  active       Boolean   @default(true)
+  /// PARENT or STAFF
+  addedBy      String    @default("STAFF")
+  addedById    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, studentId])
+  @@map("authorised_pickups")
+}
+
+/// A parent's message about today's pick-up: running late, a new pick-up time, or someone else collecting (with a one-time code).
+model PickupNotice {
+  id                   String    @id @default(cuid())
+  tenantId             String
+  studentId            String
+  date                 DateTime  @db.Date
+  /// RUNNING_LATE, PICKUP_TIME, DELEGATE
+  kind                 String
+  /// HH:MM, school time
+  eta                  String?
+  note                 String?
+  authorisedPickupId   String?
+  delegateName         String?
+  delegateRelationship String?
+  delegatePhone        String?
+  delegatePhotoUrl     String?
+  /// One-time pick-up code: HMAC for checking, encrypted copy so the parent can see it again today.
+  codeHash             String?
+  codeSecret           String?
+  codeAttempts         Int       @default(0)
+  codeUsedAt           DateTime?
+  /// SENT, QUEUED, SKIPPED: … (why the SMS to the delegate didn't go)
+  codeSms              String?
+  guardianId           String?
+  createdById          String?
+  cancelledAt          DateTime?
+  createdAt            DateTime  @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, date])
+  @@index([studentId, date])
+  @@map("pickup_notices")
 }
 
 // ============================================================== certificates
@@ -2762,6 +2888,8 @@ model PlatformInvoice {
   dueDate        DateTime              @db.Date
   paidAt         DateTime?
   notes          String?
+  /// Itemised lines (packages/shared InvoiceLine[]): subscription, setup fee, add-ons, SMS. Null on older invoices.
+  lines          Json?
   createdAt      DateTime              @default(now())
   updatedAt      DateTime              @updatedAt
 
@@ -4425,6 +4553,12 @@ model TenantBilling {
   pilotStartedAt DateTime?
   /// No charges until this moment; then the normal trial-ended flow (grace, read-only).
   pilotEndsAt    DateTime?
+  /// Setup fee set by the operator: WAIVED, or SET (a discounted amount in setupFeeKobo). Null = the plan's fee.
+  setupFeeMode   String?
+  setupFeeKobo   Int?
+  setupFeeNote   String?
+  /// SMS allowance warnings and overage invoices already sent, e.g. "sms80:2026-09-07".
+  smsFlags       String[] @default([])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -4583,4 +4717,72 @@ model AmbassadorNotice {
 
   @@index([ambassadorId, createdAt])
   @@map("ambassador_notices")
+}
+
+// ============================================================== Price list: add-ons and enquiries
+
+/// An extra the platform sells per school (template customisation, extra training…). Platform-level.
+model Addon {
+  id          String       @id @default(cuid())
+  code        String       @unique
+  name        String
+  description String?
+  /// FIXED: bought at priceKobo per unit, invoiced at once. QUOTE: a request the operator prices.
+  pricing     String       @default("FIXED")
+  priceKobo   Int?
+  unitLabel   String?
+  isActive    Boolean      @default(true)
+  sortOrder   Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  orders AddonOrder[]
+
+  @@map("addons")
+}
+
+/// A school's purchase of, or request for, an add-on. Invoiced on a platform invoice.
+model AddonOrder {
+  id            String   @id @default(cuid())
+  tenantId      String
+  addonId       String
+  quantity      Int      @default(1)
+  /// REQUESTED | INVOICED | DECLINED | CANCELLED
+  status        String   @default("REQUESTED")
+  note          String?
+  operatorNote  String?
+  amountKobo    Int?
+  invoiceId     String?
+  requestedById String?
+  handledById   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  addon  Addon  @relation(fields: [addonId], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([status, createdAt])
+  @@map("addon_orders")
+}
+
+/// "Talk to us" from the pricing page (Ultimate and custom deals). Platform-level lead, not a school.
+model PlanEnquiry {
+  id          String   @id @default(cuid())
+  planId      String?
+  schoolName  String
+  contactName String
+  email       String
+  phone       String
+  students    Int
+  branches    Int      @default(1)
+  message     String?
+  /// NEW | CONTACTED | WON | CLOSED
+  status      String   @default("NEW")
+  ip          String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@map("plan_enquiries")
 }

@@ -20,9 +20,34 @@ export const MODULE_FEATURES = {
   inventory: { label: 'Inventory', description: 'Stores, assets and stock counts.' },
   transport: { label: 'Transport', description: 'Vehicles, routes and riders.' },
   hostel: { label: 'Hostel', description: 'Boarding houses, beds and exeats.' },
+  // Added with the Standard / Premium price list (plan pricing). Plans saved before a module existed
+  // keep it switched on (see Plan.knownFeatures and planIncludesFeature), so no school loses a module.
+  hr: { label: 'HR', description: 'Departments, leave requests and approvals, staff awards.' },
+  health: { label: 'Health and sick bay', description: 'Sick bay visits, medication and health records.' },
+  houses: { label: 'Houses', description: 'School houses, house points and inter-house leaderboards.' },
+  careers: { label: 'Careers and JAMB', description: 'Careers guidance, the counsellor and the JAMB/universities brochure.' },
+  success: { label: 'Success dashboard and census returns', description: 'The school success dashboard, proprietor reports and annual school census returns.' },
+  whatsapp_assistant: { label: 'WhatsApp assistant', description: 'Parents ask the school’s AI assistant on WhatsApp.' },
+  parent_lines: { label: 'Parent SMS and USSD line', description: 'Two-way SMS and USSD for parents on feature phones.' },
+  result_pins: { label: 'Result checker PINs', description: 'Scratch-card style PINs parents buy to check results.' },
 } as const;
 export type ModuleFeature = keyof typeof MODULE_FEATURES;
 export const MODULE_FEATURE_KEYS = Object.keys(MODULE_FEATURES) as ModuleFeature[];
+
+/**
+ * The modules that existed before the Standard / Premium price list. A plan
+ * stores the module keys it was decided over (Plan.knownFeatures, defaulting
+ * to these); a module added later is on for that plan until the console
+ * saves the plan again, so new modules never take anything away from a school.
+ */
+export const LEGACY_MODULE_KEYS = ['ai', 'website', 'live_classes', 'messaging', 'online_payments', 'payroll', 'timetable', 'library', 'inventory', 'transport', 'hostel'] as const;
+
+/** Does a plan include a module? Empty features = every module; modules newer than the plan's choice are on. */
+export function planIncludesFeature(plan: { features: string[]; knownFeatures?: string[] | null }, key: string): boolean {
+  if (!plan.features.length || plan.features.includes(key)) return true;
+  const known = plan.knownFeatures ?? (LEGACY_MODULE_KEYS as readonly string[]);
+  return !known.includes(key);
+}
 
 export const FLAG_KINDS = ['MODULE', 'BETA'] as const;
 export type FlagKind = (typeof FLAG_KINDS)[number];
@@ -96,12 +121,33 @@ export const planSchema = z.object({
   isActive: z.boolean(),
   isPublic: z.boolean(),
   sortOrder: z.number().int().min(0).max(1000).default(0),
+  // ---- price list (Standard / Premium / Ultimate)
+  /** One-off setup fee (onboarding and training) on a new school's first invoice. 0 = none. */
+  setupFeeKobo: z.number().int().min(0).max(1_000_000_000).default(0),
+  /** Days of onboarding and training the setup fee includes. */
+  trainingDays: z.number().int().min(0).max(60).default(0),
+  /** The fewest students billed on this plan (null = the platform-wide minimum). */
+  minStudents: z.number().int().min(0).max(100_000).nullable().default(null),
+  /** SMS pages included per billed student per term (0 = none; no rollover). */
+  smsUnitsPerStudent: z.number().int().min(0).max(1000).default(0),
+  /** AI tutor sessions per term every student gets (AI Basic). */
+  studentAiSessions: z.number().int().min(0).max(10_000).default(20),
+  /** A ribbon on the pricing card, e.g. "Most popular". */
+  badge: z.string().trim().max(30).nullish().transform((v) => v || null),
+  /** Custom price: no self-serve checkout, a "Talk to us" form instead. */
+  contactOnly: z.boolean().default(false),
+  /** A line above the feature list, e.g. "Everything in Standard, plus:". */
+  featureIntro: z.string().trim().max(120).nullish().transform((v) => v || null),
+  /** Human-readable feature list for the pricing page (display only; modules gate access). */
+  featureList: z.array(z.string().trim().min(2).max(120)).max(40).default([]),
 });
 export type PlanInput = z.infer<typeof planSchema>;
 
 export interface PlanRow extends Omit<PlanInput, 'billingPeriod'> {
   id: string;
   billingPeriod: BillingPeriodKey;
+  /** Modules the plan's feature choice was made over (newer ones are on). */
+  knownFeatures: string[];
   schools: number;
   activeSubscriptions: number;
 }
@@ -206,7 +252,7 @@ export interface PlatformPaymentRow {
 export interface SchoolBilling {
   status: string;
   trialEndsAt: string | null;
-  plan: { name: string; description: string | null; billingPeriod: BillingPeriodKey; pricePerStudentKobo: number; features: string[]; aiMonthlyBudgetUsd: number | null; maxStudents: number | null } | null;
+  plan: { name: string; description: string | null; billingPeriod: BillingPeriodKey; pricePerStudentKobo: number; features: string[]; knownFeatures?: string[]; aiMonthlyBudgetUsd: number | null; maxStudents: number | null } | null;
   subscription: Omit<SubscriptionRow, 'tenant' | 'plan' | 'notes'> | null;
   invoices: Omit<PlatformInvoiceRow, 'tenant'>[];
   payments: Omit<PlatformPaymentRow, 'tenant' | 'recordedBy'>[];

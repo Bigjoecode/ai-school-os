@@ -5,11 +5,13 @@ import type { Env } from '../config/env';
 import { PrismaClient } from '../generated/prisma/client';
 import { seedDemo } from './demo-seed';
 import { ensurePlatformContent } from './platform-content';
+import { ensurePricePlans } from './plan-pricing-seed';
 import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
+import { autoDemoBirthdays } from '../birthdays/demo-birthdays';
 import { demoLoginsOff } from '../auth/demo-mode.service';
 import { SYSTEM_ROLES } from '@aischool/shared';
 import { raiseAlert } from '../alerts/alerts.service';
@@ -39,6 +41,14 @@ export async function runBootTasks(config: Env): Promise<void> {
     } catch (err) {
       logger.error(`Platform content could not be installed: ${(err as Error).message}`);
       raiseAlert('boot', 'platform-content', 'Platform content could not be installed', (err as Error).message.slice(0, 1000));
+    }
+
+    // The Standard / Premium / Ultimate price list and add-ons (once; console edits are kept).
+    try {
+      const plans = await ensurePricePlans(prisma);
+      if (plans) logger.log(`Price list: ${plans}`);
+    } catch (err) {
+      logger.error(`Price list could not be installed: ${(err as Error).message}`);
     }
 
     // New features add permissions to the built-in roles; give existing
@@ -153,6 +163,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (young) new Logger('Demo').log(young);
         } catch (err) {
           new Logger('Demo').error(`Demo Primary 1 pupil could not be added: ${(err as Error).message}`);
+        }
+        // Demo school only, once ever: birthday greetings on (app channels only, no SMS).
+        try {
+          const bd = demosOff ? '' : await autoDemoBirthdays(prisma);
+          if (bd) new Logger('Demo').log(bd);
+        } catch (err) {
+          new Logger('Demo').error(`Demo birthday settings could not be set: ${(err as Error).message}`);
         }
       } finally {
         await prisma.$queryRaw`SELECT pg_advisory_unlock(727275)`;

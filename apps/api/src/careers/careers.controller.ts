@@ -21,7 +21,7 @@ import {
   type Track,
 } from '@aischool/shared';
 import { z } from 'zod';
-import { RequirePermissions, RequirePlatformRole } from '../common/decorators';
+import { RequirePermissions, RequirePlatformRole, RequireFeature } from '../common/decorators';
 import { currentContext, currentUserId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
@@ -39,6 +39,7 @@ const libraryQuery = z.object({
 });
 
 /** The student's own careers area. Everything is scoped to the signed-in student. */
+@RequireFeature('careers')
 @Controller('careers')
 @RequirePermissions('learning.use')
 export class CareersController {
@@ -140,6 +141,7 @@ export class CareersController {
 }
 
 /** The family portal's Careers tab: a parent's read-only view of a child's careers plan. */
+@RequireFeature('careers')
 @Controller('portal/students')
 export class CareersPortalController {
   constructor(
@@ -172,6 +174,7 @@ export class CareersPortalController {
  * staff who also hold welfare.read (teachers, guidance counsellors and
  * school leaders by default).
  */
+@RequireFeature('careers')
 @Controller('careers/staff')
 @RequirePermissions('students.read')
 export class CareersStaffController {

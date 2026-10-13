@@ -363,6 +363,16 @@ export class ConsoleController {
       isActive: p.isActive,
       isPublic: p.isPublic,
       sortOrder: p.sortOrder,
+      setupFeeKobo: p.setupFeeKobo,
+      trainingDays: p.trainingDays,
+      minStudents: p.minStudents,
+      smsUnitsPerStudent: p.smsUnitsPerStudent,
+      studentAiSessions: p.studentAiSessions,
+      badge: p.badge,
+      contactOnly: p.contactOnly,
+      featureIntro: p.featureIntro,
+      featureList: p.featureList,
+      knownFeatures: p.knownFeatures,
       schools: p._count.tenants,
       activeSubscriptions: p._count.subscriptions,
     }));
@@ -371,7 +381,8 @@ export class ConsoleController {
   private planData(body: PlanInput) {
     const unknown = body.features.filter((f) => !(MODULE_FEATURE_KEYS as string[]).includes(f));
     if (unknown.length) throw new BadRequestException(`Unknown modules: ${unknown.join(', ')}`);
-    return body;
+    // Saving decides every module that exists today (modules added later stay on until the plan is saved again).
+    return { ...body, knownFeatures: [...MODULE_FEATURE_KEYS] };
   }
 
   @Post('plans')

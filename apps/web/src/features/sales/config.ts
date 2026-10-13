@@ -1,14 +1,16 @@
 /**
- * Sales kit settings: contact details for "Book a demo", plan prices and the public URLs.
+ * Sales kit settings: contact details for "Book a demo", the live price list and the public URLs.
  *
  * CONTACT DETAILS: replace each [PLACEHOLDER_…] token below (or set the matching VITE_SALES_* variable
  * at build time). Until a value is filled in, that contact option is hidden on the live site and
  * shown as the token in development so it is easy to spot.
  *
- * PRICES mirror the plans seeded in apps/api/src/prisma/platform-seed.ts (console → Plans can change
- * them). If you change a price in the console, change it here too so the brochure, deck and
- * calculator stay in step.
+ * PRICES are read live from the API (console → Plans); see useSalesPricing below.
  */
+import { DEFAULT_FEATURE_LISTS, priceQuote, type PublicPlan, type SignupConfig } from '@aischool/shared';
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/api';
+
 const env = import.meta.env as Record<string, string | undefined>;
 
 export const SALES_CONTACT = {
@@ -43,37 +45,78 @@ export const SALES_PAGES = [
 ] as const;
 
 export interface SalesPlan {
+  id: string | null;
   code: string;
   name: string;
-  /** ₦ per student per term. */
+  /** ₦ per student per term (0 for a contact-only plan). */
   price: number;
   maxStudents: number | null;
   summary: string;
+  /** One-off setup fee in ₦ and the training days it includes. */
+  setupFee: number;
+  trainingDays: number;
+  minStudents: number;
+  smsUnitsPerStudent: number;
+  badge: string | null;
+  contactOnly: boolean;
+  featureIntro: string | null;
+  featureList: string[];
 }
 
-export const SALES_PLANS: SalesPlan[] = [
-  {
-    code: 'starter',
-    name: 'Starter',
-    price: 1_200,
-    maxStudents: 300,
-    summary: 'The school core: attendance, exams and results, report cards, fees, the timetable and messages, with a small AI allowance.',
-  },
-  {
-    code: 'school-license',
-    name: 'Growth',
-    price: 2_000,
-    maxStudents: 1_500,
-    summary: 'Everything in Starter plus the school website, online fee payments, live classes and the library.',
-  },
-  {
-    code: 'enterprise',
-    name: 'Enterprise',
-    price: 3_500,
-    maxStudents: null,
-    summary: 'Every module, including HR and payroll, inventory, transport and hostels, with a large AI allowance and priority support.',
-  },
-];
+/**
+ * Plans come live from the API (GET /signup/config, i.e. console → Plans), so the brochure, deck,
+ * calculator and /pricing always show the same prices. This copy of the defaults is only used if the
+ * API can't be reached (the page then says prices are indicative).
+ */
+export const FALLBACK_SALES_PLANS: SalesPlan[] = (['standard', 'premium', 'ultimate'] as const).map((code) => ({
+  id: null,
+  code,
+  name: code === 'standard' ? 'Standard' : code === 'premium' ? 'Premium' : 'Ultimate',
+  price: code === 'standard' ? 2_000 : code === 'premium' ? 3_500 : 0,
+  maxStudents: null,
+  summary: '',
+  setupFee: code === 'standard' ? 100_000 : code === 'premium' ? 150_000 : 0,
+  trainingDays: code === 'standard' ? 2 : code === 'premium' ? 3 : 0,
+  minStudents: 100,
+  smsUnitsPerStudent: 10,
+  badge: code === 'standard' ? 'Most popular' : null,
+  contactOnly: code === 'ultimate',
+  featureIntro: DEFAULT_FEATURE_LISTS[code].intro,
+  featureList: DEFAULT_FEATURE_LISTS[code].lines,
+}));
+
+export function toSalesPlan(p: PublicPlan): SalesPlan {
+  return {
+    id: p.id,
+    code: p.code,
+    name: p.name,
+    price: priceQuote(p, 0, 'TERM', { minBilledStudents: 0, sessionDiscountPct: 0 }).unitKobo / 100,
+    maxStudents: p.maxStudents,
+    summary: p.description ?? '',
+    setupFee: p.setupFeeKobo / 100,
+    trainingDays: p.trainingDays,
+    minStudents: p.minStudents,
+    smsUnitsPerStudent: p.smsUnitsPerStudent,
+    badge: p.badge,
+    contactOnly: p.contactOnly,
+    featureIntro: p.featureIntro,
+    featureList: p.featureList,
+  };
+}
+
+/** The live price list (plans, add-ons, notes, the session discount) for the sales pages. */
+export function useSalesPricing() {
+  const q = useQuery({ queryKey: ['signup', 'config'], queryFn: ({ signal }) => api.get<SignupConfig>('/signup/config', undefined, signal), staleTime: 60_000, meta: { silent: true } });
+  const live = q.data;
+  return {
+    loading: q.isLoading,
+    live: !!live,
+    plans: live?.plans.length ? live.plans.map(toSalesPlan) : FALLBACK_SALES_PLANS,
+    addons: live?.addons ?? [],
+    notes: live?.notes ?? [],
+    sessionDiscountPct: live?.sessionDiscountPct ?? 10,
+  };
+}
 
 export const naira = (n: number, digits = 0) =>
   `₦${new Intl.NumberFormat('en-NG', { maximumFractionDigits: digits, minimumFractionDigits: 0 }).format(Math.round(n * 10 ** digits) / 10 ** digits)}`;

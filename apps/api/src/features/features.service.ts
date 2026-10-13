@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { createHash } from 'node:crypto';
-import { MODULE_FEATURES, type FlagKind, type ModuleFeature, type TenantFeatureState } from '@aischool/shared';
+import { MODULE_FEATURES, planIncludesFeature, type FlagKind, type ModuleFeature, type TenantFeatureState } from '@aischool/shared';
 import { PrismaService } from '../prisma/prisma.service';
 
 const TTL_MS = 30_000;
@@ -61,18 +61,19 @@ export class FeatureService {
     if (hit && Date.now() - hit.at < TTL_MS) return hit.states;
     const [flags, tenant] = await Promise.all([
       this.allFlags(),
-      this.prisma.root.tenant.findUnique({ where: { id: tenantId }, select: { plan: { select: { features: true } }, featureOverrides: { select: { flagKey: true, enabled: true } } } }),
+      this.prisma.root.tenant.findUnique({ where: { id: tenantId }, select: { plan: { select: { features: true, knownFeatures: true } }, featureOverrides: { select: { flagKey: true, enabled: true } } } }),
     ]);
     const overrides = new Map(tenant?.featureOverrides.map((o) => [o.flagKey, o.enabled]) ?? []);
-    const planFeatures = tenant?.plan?.features ?? null;
+    const plan = tenant?.plan ?? null;
     const states = flags.map((f): TenantFeatureState => {
       const override = overrides.has(f.key) ? overrides.get(f.key)! : null;
       const base = { key: f.key, name: f.name, kind: f.kind, override };
       if (!f.enabled) return { ...base, enabled: false, source: 'MASTER_OFF' };
       if (override !== null) return { ...base, enabled: override, source: 'OVERRIDE' };
       if (f.kind === 'MODULE') {
-        if (!planFeatures) return { ...base, enabled: true, source: 'NO_PLAN' };
-        return { ...base, enabled: planFeatures.length === 0 || planFeatures.includes(f.key), source: 'PLAN' };
+        if (!plan) return { ...base, enabled: true, source: 'NO_PLAN' };
+        // Modules added after the plan's choice was made stay on (planIncludesFeature).
+        return { ...base, enabled: planIncludesFeature(plan, f.key), source: 'PLAN' };
       }
       if (f.rolloutPercent >= 100) return { ...base, enabled: true, source: 'DEFAULT' };
       return { ...base, enabled: f.rolloutPercent > 0 && rolloutBucket(tenantId, f.key) < f.rolloutPercent, source: 'ROLLOUT' };
@@ -92,6 +93,14 @@ export class FeatureService {
   async assert(tenantId: string, key: ModuleFeature | string) {
     if (await this.isEnabled(tenantId, key)) return;
     const label = (MODULE_FEATURES as Record<string, { label: string }>)[key]?.label ?? key;
-    throw new ForbiddenException({ statusCode: 403, code: 'FEATURE_NOT_IN_PLAN', feature: key, message: `${label} isn't included in your school's plan. Ask your school admin to upgrade.` });
+    // Name the school's plan and the cheapest public plan that has the module, so the upgrade path is clear.
+    const [tenant, plans] = await Promise.all([
+      this.prisma.root.tenant.findUnique({ where: { id: tenantId }, select: { plan: { select: { name: true } } } }),
+      this.prisma.root.plan.findMany({ where: { isActive: true, isPublic: true }, orderBy: [{ sortOrder: 'asc' }, { pricePerStudentKobo: 'asc' }], select: { name: true, features: true, knownFeatures: true } }),
+    ]).catch(() => [null, []] as const);
+    const upgrade = plans.find((p) => planIncludesFeature(p, key));
+    const current = tenant?.plan?.name;
+    const message = `${label} isn't included in ${current ? `the ${current} plan` : "your school's plan"}. ${upgrade ? `It comes with the ${upgrade.name} plan: a school admin can upgrade in Settings → Billing.` : 'Ask your school admin about upgrading in Settings → Billing.'}`;
+    throw new ForbiddenException({ statusCode: 403, code: 'FEATURE_NOT_IN_PLAN', feature: key, plan: current ?? null, upgradeTo: upgrade?.name ?? null, message });
   }
 }

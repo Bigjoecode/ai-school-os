@@ -14,6 +14,7 @@ import { flushScores, gk, queuedScores, rememberedLevel, rememberLevel, useGames
 import { GAME_META, type GameMeta, metaOf, tint } from './meta';
 import { canSpeak } from './speech';
 import { SoundToggle, SpeakButton, XpBar } from './ui';
+import { BirthdayGamesBanner } from '../birthdays/birthday-card';
 
 const DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -76,6 +77,8 @@ export default function GamesPage() {
           </Button>
         )}
       </div>
+
+      <BirthdayGamesBanner />
 
       {waiting > 0 && (
         <p className="mb-4 flex items-center gap-2 rounded-2xl bg-muted px-4 py-2.5 text-[13px]" role="status">

@@ -35,7 +35,7 @@ import {
 import { z } from 'zod';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
-import { RequirePermissions } from '../common/decorators';
+import { RequirePermissions, RequireFeature } from '../common/decorators';
 import { dateOnly, fullName, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -44,6 +44,7 @@ import { HrService, awardRow, leaveInclude, ref, yearsBetween } from './hr.servi
 import { PayrollService } from './payroll.service';
 import { citationPrompt, hrBriefingPrompt } from './prompts';
 
+@RequireFeature('hr')
 @Controller('hr')
 export class HrController {
   constructor(

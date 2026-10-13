@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { PilotPublic } from './pilot';
+import type { AddonRow, InvoiceLine, PublicPlan, SetupFeeStatus } from './pricing';
 
 /**
  * Self-serve sign-up and subscription billing: a school joins on its own,
@@ -175,7 +176,11 @@ export interface SignupConfig {
   minBilledStudents: number;
   /** The free pilot offer (open, places left). */
   pilot: PilotPublic;
-  plans: { id: string; code: string; name: string; description: string | null; pricePerStudentKobo: number; billingPeriod: string; features: string[]; maxStudents: number | null }[];
+  plans: PublicPlan[];
+  /** Add-ons any school can buy or ask for (price list). */
+  addons: AddonRow[];
+  /** Notes printed under the prices (VAT, support, payment charges). */
+  notes: string[];
 }
 
 export interface SignupResult {
@@ -269,6 +274,10 @@ export interface SubscriptionCheckoutOptions {
   /** True once the school has paid for a period (plan changes then follow the change rules). */
   paying: boolean;
   discountPct: number;
+  /** The one-off setup fee the first invoice will carry (per plan: amount 0 when waived, paid or not applicable). */
+  setupFee: SetupFeeStatus;
+  /** Setup fee per plan id for this school (0 = none owed on that plan). */
+  setupFeeByPlan: Record<string, number>;
 }
 
 export interface SubscriptionCheckoutResult {
@@ -310,6 +319,8 @@ export interface BillingDocument {
   company: SelfServeSettings['company'];
   payments: { reference: string; method: string; amountKobo: number; paidAt: string | null }[];
   bankDetails: string | null;
+  /** Itemised lines (subscription, setup fee, add-ons, SMS); empty on older invoices. */
+  lines: InvoiceLine[];
 }
 
 // ------------------------------------------------------------------ console
@@ -344,6 +355,9 @@ export interface TenantBillingRow {
   notes: string | null;
   /** ACTIVE | ENDED | CONVERTED | REMOVED, or null if never in the pilot. */
   pilotStatus: string | null;
+  /** The one-off setup fee: NONE | DUE | INVOICED | PAID | WAIVED. */
+  setupFee: SetupFeeStatus['state'];
+  setupFeeKobo: number;
 }
 
 export interface SubscriptionsSummary {

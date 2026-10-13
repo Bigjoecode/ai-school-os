@@ -60,6 +60,7 @@ export class SchoolBillingController {
             billingPeriod: tenant.plan.billingPeriod,
             pricePerStudentKobo: tenant.plan.pricePerStudentKobo,
             features: tenant.plan.features,
+            knownFeatures: tenant.plan.knownFeatures,
             aiMonthlyBudgetUsd: tenant.plan.aiMonthlyBudgetUsd !== null ? Number(tenant.plan.aiMonthlyBudgetUsd) : null,
             maxStudents: tenant.plan.maxStudents,
           }

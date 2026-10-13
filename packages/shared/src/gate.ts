@@ -309,7 +309,20 @@ export interface GateAlertFacts {
  * included. Yoruba, Igbo and Hausa use English until a native speaker has
  * checked a translation (wrong safety messages are worse than English ones).
  */
+
+/** "16:45" or "4:45" (24-hour, school time) → "4:45 pm"; anything else is returned unchanged. */
+export function clock12(t: string | null): string | null {
+  const m = t ? /^(\d{1,2}):(\d{2})$/.exec(t.trim()) : null;
+  if (!m) return t;
+  const h = Number(m[1]);
+  if (h > 23) return t;
+  return `${h % 12 || 12}:${m[2]} ${h < 12 ? 'am' : 'pm'}`;
+}
+
+/** Fixed alert wording per parent language (see above); every time in it is shown as "4:45 am" / "2:15 pm". */
 export function gateAlertText(f: GateAlertFacts, language: LanguageCode): { title: string; body: string } {
+  // Parents read "4:45 am", never a bare "4:45" (the time is already in the school's time zone, Africa/Lagos by default).
+  f = { ...f, time: clock12(f.time) };
   if (language === 'PCM') {
     switch (f.kind) {
       case 'ARRIVE':

@@ -1,4 +1,4 @@
-import type { PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOnlineTestReview, PortalOnlineTests, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
+import type { ClassTimetable, PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOnlineTestReview, PortalOnlineTests, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
@@ -24,6 +24,7 @@ export const pk = {
   fees: (id: string) => ['portal', 'fees', id] as const,
   receipt: (id: string, paymentId: string) => ['portal', 'receipt', id, paymentId] as const,
   settings: ['portal', 'settings'] as const,
+  timetable: (id: string) => ['portal', 'timetable', id] as const,
 };
 
 /** Parents and students (members without school.read) — the only people the portal is for. */
@@ -168,3 +169,13 @@ export function useUnlockPortalResult(id: string, termId: string) {
     },
   });
 }
+
+/** The class's published timetable for this term, with now/next (refreshed each minute so "now" stays true). */
+export const useClassTimetable = (id: string, enabled = true) =>
+  useQuery({
+    queryKey: pk.timetable(id),
+    queryFn: ({ signal }) => api.get<ClassTimetable>(`/portal/students/${id}/timetable`, undefined, signal),
+    enabled: enabled && !!id,
+    staleTime: 60_000,
+    refetchInterval: 60_000,
+  });

@@ -26,9 +26,9 @@ These terms are an agreement between **[PLACEHOLDER: legal entity name]**, RC [P
 
 3.1 You earn **[PLACEHOLDER: 5]%** (the rate shown in your dashboard when the payment is made) of each subscription payment that a school you referred actually makes to us for AI School OS, **for as long as that school pays** [PLACEHOLDER: or a limited period, if the Operator sets one; the period in force is shown in your dashboard]. A change to the rate or period applies to payments made after the change.
 
-3.2 Commission is worked out on the amount we actually receive for the subscription, excluding any VAT or other tax we charge on it [PLACEHOLDER: counsel/accountant to confirm VAT treatment]. Payment-processing fees are our cost and are not deducted.
+3.2 Commission is worked out on the amount we actually receive for the subscription, excluding any VAT or other tax we charge on it [PLACEHOLDER: counsel/accountant to confirm VAT treatment]. Payment-processing fees are our cost and are not deducted. **One-off setup fees (onboarding and training) are not subscription payments and earn no commission.** Add-ons and SMS top-ups billed with the subscription do earn commission, unless we tell you otherwise in your dashboard (the items that earn no commission are shown there).
 
-3.3 Free trials, the free pilot programme, discounts given as credit, and any period a school does not pay earn no commission. Part-payments earn commission on each part received.
+3.3 Free trials, the free pilot programme, discounts given as credit, and any period a school does not pay earn no commission. Part-payments earn commission on each part received. Where one invoice includes both subscription and a setup fee, each payment on it is split in proportion to the invoice: for example, a payment of ₦100,000 on a ₦300,000 invoice of which ₦100,000 is the setup fee counts as ₦66,666 of subscription. An invoice made up only of a setup fee earns no commission.
 
 3.4 If a payment is refunded, charged back or reversed, the commission on it is reversed. If it has already been paid to you, we deduct it from your next payout(s) [PLACEHOLDER: or you repay it within 30 days if no further payouts are due].
 

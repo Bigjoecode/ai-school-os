@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { INVOICE_LINE_KINDS, type InvoiceLine, type InvoiceLineKind } from './pricing';
 import { NIGERIAN_STATES } from './self-serve';
 
 /**
@@ -29,8 +30,26 @@ export const ambassadorSettingsSchema = z.object({
   commissionMonths: z.number().int().min(1).max(240).nullable().default(null),
   /** What happens to a suspended ambassador's payable balance: kept for payout, or withheld until reinstated. */
   suspendedPayable: z.enum(['KEEP', 'WITHHOLD']).default('WITHHOLD'),
+  /** Invoice line kinds that earn no commission (their share of each payment is left out). One-off setup fees by default. */
+  excludedLineKinds: z.array(z.enum(INVOICE_LINE_KINDS)).max(INVOICE_LINE_KINDS.length).default(['SETUP_FEE']),
 });
 export type AmbassadorSettings = z.infer<typeof ambassadorSettingsSchema>;
+
+/**
+ * The commissionable part of a payment on a platform invoice: the payment's
+ * pro-rata share of the invoice lines that earn commission. A ₦100,000 payment
+ * on a ₦300,000 invoice of which ₦100,000 is a setup fee is two-thirds
+ * commissionable (₦66,666). Invoices without itemised lines (older ones) are
+ * wholly commissionable; an invoice made only of excluded lines earns nothing.
+ */
+export function commissionableKobo(paymentKobo: number, invoice: { amountKobo: number; lines: InvoiceLine[] | null | undefined }, excluded: readonly InvoiceLineKind[]): number {
+  if (paymentKobo <= 0 || invoice.amountKobo <= 0) return 0;
+  const lines = Array.isArray(invoice.lines) ? invoice.lines : [];
+  const excludedKobo = lines.filter((l) => excluded.includes(l.kind)).reduce((n, l) => n + Math.max(0, l.amountKobo), 0);
+  const eligible = Math.max(0, invoice.amountKobo - excludedKobo);
+  if (eligible >= invoice.amountKobo) return paymentKobo;
+  return Math.floor((paymentKobo * eligible) / invoice.amountKobo);
+}
 
 // ------------------------------------------------------------------ phones, codes
 
@@ -102,6 +121,8 @@ export interface AmbassadorPublicConfig {
   holdDays: number;
   minPayoutKobo: number;
   commissionMonths: number | null;
+  /** Invoice line kinds that earn no commission (e.g. SETUP_FEE). */
+  excludedLineKinds: InvoiceLineKind[];
 }
 
 /** GET /api/ambassadors/ref/:code — whether a code is valid, and the ambassador's first name only. */

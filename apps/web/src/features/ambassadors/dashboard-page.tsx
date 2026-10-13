@@ -133,7 +133,7 @@ function Dashboard({ d }: { d: AmbassadorDashboard }) {
       <div>
         <h1 className="font-display text-[24px] font-semibold tracking-tight">Hello, {d.firstName}</h1>
         <p className="text-[13.5px] text-muted-foreground">
-          You earn {d.settings.ratePct}% of every subscription payment from schools you refer{d.settings.commissionMonths ? ` (first ${d.settings.commissionMonths} months)` : ''}.
+          You earn {d.settings.ratePct}% of every subscription payment from schools you refer{d.settings.commissionMonths ? ` (first ${d.settings.commissionMonths} months)` : ''}{d.settings.excludedLineKinds?.includes('SETUP_FEE') ? '; one-off setup fees earn no commission' : ''}.
         </p>
       </div>
       {d.status === 'SUSPENDED' && (

@@ -39,6 +39,13 @@ function jsonSchema(schema: ZodType<unknown>): Record<string, unknown> {
  * requirements only when a person has verified them. It must never make up
  * UTME subjects, O'level requirements or cut-off marks.
  */
+/** "Thinker", "Investigative" or "I" → "I" (the AI may name an interest type in words). */
+function interestCode(v: string): string {
+  const t = v.trim().toLowerCase();
+  const hit = RIASEC.find((k) => k.toLowerCase() === t || INTEREST_TYPES[k].name.toLowerCase() === t || INTEREST_TYPES[k].formal.toLowerCase() === t);
+  return hit ?? v.trim().toUpperCase();
+}
+
 @Injectable()
 export class CounsellorService {
   private readonly tools = new Map<string, ToolDef<unknown>>();
@@ -107,10 +114,16 @@ export class CounsellorService {
     });
     this.add({
       name: 'search_careers',
-      description: 'Search the career library by words, field, track or interest type. Returns up to 15 careers with a slug for career_details.',
-      input: z.object({ query: z.string().max(80).optional(), field: z.string().max(60).optional(), track: z.enum(TRACKS).optional(), interest: z.enum(RIASEC).optional() }),
+      description: 'Search the career library by words (any order, e.g. "doctor hospital"), school subjects the student likes or is good at (e.g. ["Biology", "Chemistry"]), field, SS1 track or interest type. Careers matching more words/subjects come first. Returns up to 15 careers with a slug for career_details.',
+      input: z.object({
+        query: z.string().max(120).optional(),
+        subjects: z.array(z.string().max(60)).max(6).optional(),
+        field: z.string().max(60).optional(),
+        track: z.preprocess((v) => (typeof v === 'string' ? v.trim().toUpperCase() : v), z.enum(TRACKS)).optional(),
+        interest: z.preprocess((v) => (typeof v === 'string' ? interestCode(v) : v), z.enum(RIASEC)).optional(),
+      }),
       run: async (i) => {
-        const rows = await this.careers.library({ search: i.query, field: i.field, track: i.track, interest: i.interest });
+        const rows = await this.careers.library({ search: i.query, subjects: i.subjects, field: i.field, track: i.track, interest: i.interest });
         return rows.length ? rows.slice(0, 15).map((c) => ({ slug: c.slug, name: c.name, field: c.field, summary: c.summary, tracks: c.tracks.map((t) => TRACK_LABELS[t as Track]) })) : { note: 'No careers matched. Try fewer or different words.' };
       },
     });

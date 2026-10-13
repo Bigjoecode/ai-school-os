@@ -52,6 +52,8 @@ const STRONG = 65;
 const NOT_LOADED = 'Requirements coming soon — check the JAMB brochure or ask your school counsellor.';
 
 const norm = (s: string) => subjectKey(s).toLowerCase();
+/** Words ignored in career searches. */
+const SEARCH_STOPWORDS = new Set(['and', 'the', 'for', 'with', 'that', 'like', 'career', 'careers', 'job', 'jobs', 'work', 'who', 'what', 'good', 'best']);
 const uniq = <T>(xs: T[]) => [...new Set(xs)];
 const listWords = (xs: string[]) => (xs.length <= 1 ? (xs[0] ?? '') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
 
@@ -96,17 +98,30 @@ export class CareersService {
     return this.prisma.root.career.findMany({ where: { published: true }, orderBy: { name: 'asc' } });
   }
 
-  async library(q: { field?: string; track?: string; subject?: string; search?: string; interest?: string }): Promise<CareerRow[]> {
+  async library(q: { field?: string; track?: string; subject?: string; subjects?: string[]; search?: string; interest?: string }): Promise<CareerRow[]> {
     const all = await this.publishedCareers();
-    const s = q.search?.trim().toLowerCase();
-    const subject = q.subject ? norm(q.subject) : null;
-    return all
-      .filter((c) => !q.field || c.field === q.field)
-      .filter((c) => !q.track || c.tracks.includes(q.track))
-      .filter((c) => !q.interest || c.interests.includes(q.interest))
-      .filter((c) => !subject || c.subjects.some((x) => norm(x) === subject))
-      .filter((c) => !s || [c.name, c.field, c.summary, ...c.skills, ...c.courses].some((x) => x.toLowerCase().includes(s)))
-      .map((c) => this.row(c));
+    const field = q.field?.trim().toLowerCase();
+    const track = q.track?.trim().toUpperCase();
+    const interest = q.interest?.trim().toUpperCase();
+    const subjects = (q.subjects?.length ? q.subjects : q.subject ? [q.subject] : []).map(norm);
+    // Searches are word-based ("biology chemistry", "doctor hospital"): a career matching more of the words ranks higher.
+    const words = [...new Set((q.search ?? '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2 && !SEARCH_STOPWORDS.has(w)))];
+    const scored = all
+      .filter((c) => !field || c.field.toLowerCase() === field || c.field.toLowerCase().includes(field) || field.includes(c.field.toLowerCase()))
+      .filter((c) => !track || c.tracks.includes(track))
+      .filter((c) => !interest || c.interests.includes(interest))
+      .map((c) => {
+        const subjectHits = subjects.filter((s) => c.subjects.some((x) => norm(x) === s)).length;
+        // A word in the career's name counts most, then its subjects and courses, then the rest of the description.
+        const name = c.name.toLowerCase();
+        const core = [...c.subjects, ...c.courses, c.field].join(' ').toLowerCase();
+        const rest = [c.summary, ...c.skills].join(' ').toLowerCase();
+        const wordHits = words.reduce((n, w) => n + (name.includes(w) ? 4 : core.includes(w) ? 2 : rest.includes(w) ? 1 : 0), 0);
+        return { c, subjectHits, wordHits };
+      })
+      .filter((x) => (!subjects.length || x.subjectHits > 0) && (!words.length || x.wordHits > 0))
+      .sort((a, b) => b.subjectHits - a.subjectHits || b.wordHits - a.wordHits);
+    return scored.map((x) => this.row(x.c));
   }
 
   private async bySlugs(slugs: string[]): Promise<CareerRow[]> {

@@ -14,6 +14,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Input } from '@/components/ui/input';
+import { OfferNote } from '@/components/ui/offer-note';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { errorMessage } from '@/lib/api';
@@ -232,8 +233,20 @@ function CheckoutReturn() {
 
 // ------------------------------------------------------------------ children
 
+/** The one offer worth showing for a child: exam prep in an exam year, otherwise AI Student Plus on the included tier. */
+function childOffer(child: FamilyChild): { product: string; text: string } | null {
+  const first = child.name.split(' ')[0];
+  const cls = child.classArm ?? '';
+  const exams = child.access.exams;
+  if (/\bJSS\s*3\b/i.test(cls) && !exams.includes('BECE')) return { product: 'BECE Prep', text: `unlocks unlimited practice, timed mocks and AI-marked theory for ${first}’s BECE.` };
+  if (/\bS?SS\s*3\b/i.test(cls) && !exams.includes('WAEC')) return { product: 'WAEC Prep', text: `unlocks unlimited practice, timed mocks and AI-marked theory for ${first}’s WAEC.` };
+  if (child.access.tier === 'BASIC') return { product: 'AI Student Plus', text: `unlocks a personal tutor, study plans, flashcards and deeper explanations for ${first}.` };
+  return null;
+}
+
 function ChildCard({ child }: { child: FamilyChild }) {
   const ents = uniqueEntitlements(child.access.entitlements);
+  const offer = childOffer(child);
   return (
     <Card className="flex flex-col p-5">
       <div className="flex items-start gap-3">
@@ -276,6 +289,16 @@ function ChildCard({ child }: { child: FamilyChild }) {
           </li>
         ))}
       </ul>
+      {offer && (
+        <OfferNote
+          className="mt-4"
+          size="sm"
+          product={offer.product}
+          cta={{ label: 'See options', onClick: () => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}
+        >
+          {offer.text}
+        </OfferNote>
+      )}
       <div className="mt-auto pt-5">
         <Button asChild variant="outline" className="w-full">
           <Link to={`/family/children/${child.id}`}>

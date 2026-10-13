@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ErrorState } from '@/components/ui/empty-state';
+import { OfferNote } from '@/components/ui/offer-note';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
@@ -102,15 +103,23 @@ function ExamCard({ exam, freeLeft, onStart }: { exam: Exam; freeLeft: number; o
         </p>
       )}
       {!exam.entitled && (
-        <div className="mt-4 rounded-xl border border-dashed border-border p-3 text-[12.5px] text-muted-foreground">
-          <p className="font-medium text-foreground">{ent.label} unlocks unlimited practice, timed mocks and AI-marked theory</p>
-          <p className="mt-1 flex items-start gap-1.5">
-            <HeartHandshake className="mt-0.5 size-3.5 shrink-0" aria-hidden /> A parent can add it from the Family page.
-          </p>
-          <p className="mt-0.5 flex items-start gap-1.5">
-            <School className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Your school may sponsor it for your class.
-          </p>
-        </div>
+        <OfferNote
+          className="mt-4"
+          size="sm"
+          product={ent.label}
+          note={
+            <>
+              <p className="flex items-start gap-1.5">
+                <HeartHandshake className="mt-0.5 size-3.5 shrink-0" aria-hidden /> A parent can add it from the Family page.
+              </p>
+              <p className="mt-0.5 flex items-start gap-1.5">
+                <School className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Your school may sponsor it for your class.
+              </p>
+            </>
+          }
+        >
+          unlocks unlimited practice, timed mocks and AI-marked theory.
+        </OfferNote>
       )}
       <div className="mt-auto flex flex-wrap gap-2 pt-4">
         <Button variant={exam.entitled ? 'outline' : 'default'} onClick={() => onStart('PRACTICE')} disabled={!exam.entitled && freeLeft === 0} className="flex-1 sm:flex-none">
@@ -215,7 +224,9 @@ function StartDialog({ exam, mode, freeQuestions, onClose }: { exam: Exam; mode:
           {lock ? (
             <div className="rounded-xl border border-warning/30 bg-warning-soft/60 p-3 text-[13px]">
               <p className="font-medium text-warning">{lock.message}</p>
-              <p className="mt-1 text-muted-foreground">Ask a parent — they can add {ENTITLEMENTS[examEntitlement(lock.exam as ExamBody)]?.label ?? 'Exam Prep'} from the Family page, or your school may sponsor it.</p>
+              <OfferNote className="mt-2" size="sm" product={ENTITLEMENTS[examEntitlement(lock.exam as ExamBody)]?.label ?? 'Exam Prep'} note="Ask a parent: they can add it from the Family page, or your school may sponsor it.">
+                unlocks unlimited practice, timed mocks and AI-marked theory.
+              </OfferNote>
             </div>
           ) : startExam.error ? (
             <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(startExam.error)}</p>
@@ -299,7 +310,9 @@ function TheoryDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
           {lock ? (
             <div className="rounded-xl border border-warning/30 bg-warning-soft/60 p-3 text-[13px]">
               <p className="font-medium text-warning">{lock.message}</p>
-              <p className="mt-1 text-muted-foreground">Ask a parent — they can add {ENTITLEMENTS[examEntitlement(lock.exam)]?.label ?? 'Exam Prep'} from the Family page, or your school may sponsor it.</p>
+              <OfferNote className="mt-2" size="sm" product={ENTITLEMENTS[examEntitlement(lock.exam)]?.label ?? 'Exam Prep'} note="Ask a parent: they can add it from the Family page, or your school may sponsor it.">
+                unlocks unlimited practice, timed mocks and AI-marked theory.
+              </OfferNote>
             </div>
           ) : noQuestions ? (
             <p className="rounded-lg bg-info-soft px-3 py-2 text-[13px] text-info">

@@ -146,6 +146,8 @@ export const NAV_GROUPS: NavGroup[] = [
     label: 'School',
     items: [
       { label: 'My school', to: '/school', icon: Backpack, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'portal child children overview summary fees owed' },
+      // Read-only class timetable for families: shown whenever the school has published one (the plan feature pays for the generator).
+      { label: 'Timetable', to: '/school/timetable', icon: CalendarClock, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'class timetable lessons periods today now next subjects teacher room week' },
       { label: 'Learning updates', to: '/school/learning', icon: Sparkles, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'weekly update how my child is learning progress topics strong improving attention' },
       { label: 'Attendance', to: '/school/attendance', icon: CalendarCheck, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'present absent late register days' },
       { label: 'Results', to: '/school/results', icon: Trophy, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'report card grades position average term result' },

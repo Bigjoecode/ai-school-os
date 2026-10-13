@@ -171,6 +171,7 @@ const HousesPage = lazy(() => import('@/features/houses/houses-page'));
 const AlumniPage = lazy(() => import('@/features/alumni/alumni-page'));
 const PortalFeesPage = lazy(() => import('@/features/portal/fees-page'));
 const PortalCareersPage = lazy(() => import('@/features/portal/careers-page'));
+const PortalTimetablePage = lazy(() => import('@/features/portal/timetable-page'));
 const CareersHomePage = lazy(() => import('@/features/careers/home-page'));
 const CareerLibraryPage = lazy(() => import('@/features/careers/library-page'));
 const CareerPage = lazy(() => import('@/features/careers/career-page'));
@@ -906,6 +907,8 @@ export const router = createBrowserRouter(withRouteErrors([
           ['school/learning', <PortalRedirect key="p-lu" section="learning" />],
           ['school/learning/:studentId', <PortalLearningUpdatesPage key="p-learning" />],
           ['school/learning/:studentId/:updateId', <PortalLearningUpdatePage key="p-learning-one" />],
+          ['school/timetable', <PortalRedirect key="p-tt" section="timetable" />],
+          ['school/timetable/:studentId', <PortalTimetablePage key="p-timetable" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['family.manage', 'learning.use']}>{page}</RequirePermission> })),
       // Fees and the Careers tab are for parents only.

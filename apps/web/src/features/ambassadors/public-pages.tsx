@@ -38,7 +38,7 @@ export default function AmbassadorsLandingPage() {
   const rate = c ? `${c.ratePct}%` : '5%';
   const steps = [
     { icon: School, title: 'Tell schools about us', text: 'Share your own link with proprietors and principals you know. Your code stays with the school for 90 days while they decide.' },
-    { icon: HandCoins, title: 'Earn on every payment', text: `When a school you referred pays its subscription, you earn ${rate} of what it paid${c?.commissionMonths ? ` (for its first ${c.commissionMonths} months)` : ', every time it pays, for as long as it stays'}.` },
+    { icon: HandCoins, title: 'Earn on every payment', text: `When a school you referred pays its subscription, you earn ${rate} of what it paid for the subscription (one-off setup fees excluded)${c?.commissionMonths ? ` (for its first ${c.commissionMonths} months)` : ', every time it pays, for as long as it stays'}.` },
     { icon: Banknote, title: 'Get paid monthly', text: c ? `Each commission is held for ${c.holdDays} days, then paid by bank transfer in the monthly payout once your balance reaches ${naira(c.minPayoutKobo)}.` : 'Commissions are held for a short period, then paid monthly by bank transfer.' },
   ];
   return (
@@ -49,7 +49,7 @@ export default function AmbassadorsLandingPage() {
           Earn {rate} every time a school you refer pays
         </h1>
         <p className="mt-4 max-w-2xl text-[15.5px] text-muted-foreground">
-          Know school owners, principals or teachers? Introduce them to AI School OS. When a school signs up with your link and pays for its subscription, you earn {rate} of each payment
+          Know school owners, principals or teachers? Introduce them to AI School OS. When a school signs up with your link and pays for its subscription, you earn {rate} of each subscription payment
           {c?.commissionMonths ? ` for its first ${c.commissionMonths} months` : ' — term after term, for as long as it pays'}.
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
@@ -88,6 +88,7 @@ export default function AmbassadorsLandingPage() {
           <h2 className="font-display text-[20px] font-semibold tracking-tight">The fine print, in plain words</h2>
           <ul className="mt-3 space-y-2 text-[14px] text-muted-foreground">
             <li>• Commission is worked out on what the school actually paid for its AI School OS subscription. Free trials and the free pilot earn nothing until the school pays.</li>
+            <li>• One-off setup fees (onboarding and training) earn no commission. When an invoice includes one, each payment is split in proportion, so only the subscription part counts.</li>
             <li>• If a payment is refunded or reversed, the commission on it is reversed too (or deducted from a later payout).</li>
             <li>• You can’t refer your own school, and each school has one ambassador: the first valid code used at sign-up.</li>
             <li>• Be honest: no spam, no pretending to be from AI School OS staff, no promises we haven’t made.</li>

@@ -2,6 +2,7 @@ import {
   AMBASSADOR_STATUS_LABELS,
   COMMISSION_STATUS_LABELS,
   COMMISSION_STATUSES,
+  INVOICE_LINE_KINDS,
   REFERRAL_SCHOOL_STATUS_LABELS,
   type AmbassadorOverview,
   type AmbassadorRow,
@@ -11,6 +12,7 @@ import {
   type ConsoleCommissionRow,
   type ConsolePayoutRow,
   type ConsoleReferralRow,
+  type InvoiceLineKind,
   type PayoutDueRow,
 } from '@aischool/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -62,7 +64,7 @@ export default function AmbassadorsPage() {
     <Page>
       <PageHeader
         title="Ambassadors"
-        description={o ? `People who refer schools earn ${o.settings.ratePct}% of each subscription payment${o.settings.commissionMonths ? ` for ${o.settings.commissionMonths} months` : ', for as long as the school pays'}; held ${o.settings.holdDays} days, paid monthly from ${naira(o.settings.minPayoutKobo)}.` : 'The ambassador referral programme.'}
+        description={o ? `People who refer schools earn ${o.settings.ratePct}% of each subscription payment${o.settings.excludedLineKinds.length ? ` (excluding ${o.settings.excludedLineKinds.map((k) => LINE_KIND_LABELS[k].toLowerCase()).join(', ')})` : ''}${o.settings.commissionMonths ? ` for ${o.settings.commissionMonths} months` : ', for as long as the school pays'}; held ${o.settings.holdDays} days, paid monthly from ${naira(o.settings.minPayoutKobo)}.` : 'The ambassador referral programme.'}
       />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi label="Applications to review" icon={Inbox} tone={o?.counts.pendingReview ? 'warning' : undefined} value={o?.counts.pendingReview ?? '—'} loading={!o} />
@@ -718,6 +720,13 @@ function PayoutsTab() {
 
 // ------------------------------------------------------------------ settings
 
+const LINE_KIND_LABELS: Record<InvoiceLineKind, string> = {
+  SUBSCRIPTION: 'Subscription (term or session fee)',
+  SETUP_FEE: 'One-off setup fee',
+  ADDON: 'Add-ons',
+  SMS: 'SMS overage',
+};
+
 function SettingsTab({ settings }: { settings: AmbassadorSettings }) {
   const role = usePlatformRole();
   const [v, setV] = useState(settings);
@@ -760,6 +769,22 @@ function SettingsTab({ settings }: { settings: AmbassadorSettings }) {
             <Input id="st-months" type="number" min={1} max={240} disabled={disabled} value={v.commissionMonths ?? 12} onChange={(e) => setV({ ...v, commissionMonths: Math.round(Number(e.target.value)) })} />
           </Field>
         )}
+        <fieldset className="grid gap-2">
+          <legend className="text-[13px] font-medium">Invoice items that earn no commission</legend>
+          <p className="text-[12.5px] text-muted-foreground">Each payment’s share of these lines is left out of the commission base (pro rata for part-payments). One-off setup fees by default.</p>
+          {INVOICE_LINE_KINDS.map((k) => (
+            <label key={k} className="flex min-h-9 items-center gap-2.5 text-[13.5px]">
+              <input
+                type="checkbox"
+                className="size-4 accent-[var(--brand,currentColor)]"
+                disabled={disabled}
+                checked={v.excludedLineKinds.includes(k)}
+                onChange={(e) => setV({ ...v, excludedLineKinds: e.target.checked ? [...v.excludedLineKinds, k] : v.excludedLineKinds.filter((x) => x !== k) })}
+              />
+              {LINE_KIND_LABELS[k]}
+            </label>
+          ))}
+        </fieldset>
         <Field label="Suspended ambassadors’ payable balance" htmlFor="st-susp">
           <select id="st-susp" className={inputClass} disabled={disabled} value={v.suspendedPayable} onChange={(e) => setV({ ...v, suspendedPayable: e.target.value as 'KEEP' | 'WITHHOLD' })}>
             <option value="WITHHOLD">Withhold until reinstated</option>

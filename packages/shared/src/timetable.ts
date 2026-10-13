@@ -268,3 +268,50 @@ export interface InterpretResult extends AiInterpretation {
   provider: string;
   model: string;
 }
+
+// ------------------------------------------------------------ family (students and parents)
+
+/** One lesson in a class's week, as families see it (teacher shown as "Mr Okafor"). */
+export interface ClassLesson {
+  day: number;
+  /** Bell-schedule period index. */
+  period: number;
+  start: string;
+  end: string;
+  subject: { name: string; code: string };
+  /** Title and surname only, e.g. "Mr Okafor" — never a full name. */
+  teacher: string | null;
+  room: string | null;
+  /** Both halves of a double share this id. */
+  doubleGroup: string | null;
+}
+
+/** A child's (or the signed-in student's) class timetable: the current term's published one. */
+export interface ClassTimetable {
+  student: { id: string; firstName: string };
+  className: string | null;
+  /** Nursery to Primary 3: show the simpler picture view. */
+  young: boolean;
+  /** Null when the school hasn't published a timetable for this class this term (show an empty state). */
+  timetable: { name: string; termName: string; sessionName: string; publishedAt: string | null } | null;
+  /** Why there is nothing to show, when timetable is null or the class has no lessons. */
+  emptyReason: 'NO_CLASS' | 'NOT_PUBLISHED' | 'NO_LESSONS' | null;
+  bellSchedule: BellSchedule;
+  lessons: ClassLesson[];
+  /** Today in the school's time zone. */
+  today: {
+    date: string;
+    day: number;
+    dayName: string;
+    /** HH:MM, school time. */
+    time: string;
+    /** False at weekends or other days the school doesn't run. */
+    schoolDay: boolean;
+    /** Bell period happening now (lesson, break or assembly), if any. */
+    currentPeriod: number | null;
+    /** The lesson happening now, if any. */
+    now: ClassLesson | null;
+    /** The next lesson today, if any. */
+    next: ClassLesson | null;
+  };
+}

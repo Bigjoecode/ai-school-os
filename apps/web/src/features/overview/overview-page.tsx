@@ -41,6 +41,7 @@ import { NoticeboardCard } from '../comms/noticeboard-card';
 import { PendingLeaveNotice } from '../hr/ui';
 import { ClassInsightsCard } from '../class-insights/insights-card';
 import { StudentBirthdayCard } from '../birthdays/birthday-card';
+import { TodayLessonsCard } from '../timetable/class-timetable';
 import { ClassBirthdaysCard } from '../birthdays/class-birthdays-card';
 import { LiveTodayCard, MyLearningCard } from '../live/cards';
 import { FirstWeekCard } from '../onboarding/first-week';
@@ -121,6 +122,7 @@ function MemberOverview() {
       </div>
       <div className="space-y-5">
         {isStudent && <StudentBirthdayCard />}
+        {isStudent && <TodayLessonsCard />}
         {isStudent && <DailyChallengeCard />}
         <PortalSummaryCard />
         {hasLive && <MyLearningCard />}

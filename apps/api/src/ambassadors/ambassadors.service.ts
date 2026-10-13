@@ -15,6 +15,7 @@ import {
   AMBASSADOR_SETTINGS_KEY,
   AMBASSADOR_TERMS_VERSION,
   ambassadorSettingsSchema,
+  commissionableKobo,
   normaliseNgPhone,
   referralCodeSchema,
   type AmbassadorApplyInput,
@@ -29,6 +30,7 @@ import {
   type AmbassadorTotals,
   type BankDetailsInput,
   type CommissionStatus,
+  type InvoiceLine,
   type ConsoleCommissionRow,
   type ConsolePayoutRow,
   type ConsoleReferralRow,
@@ -131,7 +133,7 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
 
   async publicConfig(): Promise<AmbassadorPublicConfig> {
     const s = await this.settings();
-    return { open: s.open && this.canEmail(), ratePct: s.ratePct, holdDays: s.holdDays, minPayoutKobo: s.minPayoutKobo, commissionMonths: s.commissionMonths };
+    return { open: s.open && this.canEmail(), ratePct: s.ratePct, holdDays: s.holdDays, minPayoutKobo: s.minPayoutKobo, commissionMonths: s.commissionMonths, excludedLineKinds: s.excludedLineKinds };
   }
 
   private origin() {
@@ -444,9 +446,12 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
    * Called (via invoicePaidHooks) for every payment applied to a school's
    * invoice, part-payments included. Creates one commission per school
    * subscription payment received since the referral, idempotently (the
-   * payment id is unique). The base is the amount received for that payment;
-   * platform invoices carry no VAT line today, and Paystack fees are the
-   * platform's cost, so nothing is deducted.
+   * payment id is unique). The base is the payment's pro-rata share of the
+   * invoice's commissionable lines: one-off setup fees (settings
+   * excludedLineKinds, default SETUP_FEE) earn nothing, so a part-payment on an
+   * invoice that is one-third setup fee counts two-thirds. Platform invoices
+   * carry no VAT line today, and Paystack fees are the platform's cost, so
+   * nothing else is deducted.
    */
   async onTenantPaid(tenantId: string) {
     const ref = await this.prisma.root.tenantReferral.findUnique({ where: { tenantId }, include: { ambassador: true, tenant: { select: { name: true } } } });
@@ -457,7 +462,7 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
     }
     const payments = await this.prisma.root.platformPayment.findMany({
       where: { tenantId, status: 'SUCCESS', createdAt: { gte: ref.createdAt }, invoice: { domain: 'SCHOOL' } },
-      select: { id: true, amountKobo: true, paidAt: true, createdAt: true, reference: true },
+      select: { id: true, amountKobo: true, paidAt: true, createdAt: true, reference: true, invoice: { select: { amountKobo: true, lines: true } } },
       orderBy: { createdAt: 'asc' },
     });
     if (!payments.length) return 0;
@@ -469,20 +474,25 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
       if (done.has(p.id)) continue;
       const at = p.paidAt ?? p.createdAt;
       if (s.commissionMonths && at > addMonths(ref.createdAt, s.commissionMonths)) continue;
-      const base = p.amountKobo - (await this.refundedKobo(p.id));
+      const received = p.amountKobo - (await this.refundedKobo(p.id));
+      const base = this.commissionBase(received, p.invoice, s);
       const amount = Math.floor((base * rateBp) / 10_000);
-      if (base <= 0 || amount <= 0) continue;
+      if (base <= 0 || amount <= 0) {
+        if (received > 0 && base <= 0) this.logger.log(`No commission on ${ref.tenant.name}'s payment ${p.reference}: it only covers excluded lines (${s.excludedLineKinds.join(', ')})`);
+        continue;
+      }
+      const excludedNote = base < received ? ` (${money(received - base)} of the ${money(received)} paid was a one-off setup fee or other non-commissionable item)` : '';
       try {
         const c = await this.prisma.root.ambassadorCommission.create({
           data: { ambassadorId: ref.ambassadorId, tenantId, schoolName: ref.tenant.name, kind: 'COMMISSION', paymentId: p.id, baseKobo: base, rateBp, amountKobo: amount, status: 'PENDING', payableAt: new Date(Date.now() + s.holdDays * DAY) },
         });
         created++;
-        await this.audit.log({ tenantId: null, actorUserId: null, action: 'ambassador.commission', entityType: 'AmbassadorCommission', entityId: c.id, summary: `Commission ${money(amount)} (${s.ratePct}% of ${money(base)}) to ${ref.ambassador.fullName} for ${ref.tenant.name}'s payment ${p.reference}` });
+        await this.audit.log({ tenantId: null, actorUserId: null, action: 'ambassador.commission', entityType: 'AmbassadorCommission', entityId: c.id, summary: `Commission ${money(amount)} (${s.ratePct}% of ${money(base)}) to ${ref.ambassador.fullName} for ${ref.tenant.name}'s payment ${p.reference}${excludedNote}` });
         await this.notify(
           ref.ambassador,
           'COMMISSION',
           `You earned ${money(amount)} from ${ref.tenant.name}`,
-          `${ref.tenant.name} made a payment of ${money(base)}. Your ${s.ratePct}% commission of ${money(amount)} becomes payable on ${new Date(c.payableAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}${s.holdDays ? ` (after a ${s.holdDays}-day hold)` : ''}.`,
+          `${ref.tenant.name} made a subscription payment of ${money(base)}${excludedNote}. Your ${s.ratePct}% commission of ${money(amount)} becomes payable on ${new Date(c.payableAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}${s.holdDays ? ` (after a ${s.holdDays}-day hold)` : ''}.`,
         );
       } catch (err) {
         if ((err as { code?: string }).code === 'P2002') continue; // another hook got there first
@@ -492,14 +502,23 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
     return created;
   }
 
+  /** The commissionable part of a payment (see commissionableKobo): excluded invoice lines' share is left out. */
+  private commissionBase(paymentKobo: number, invoice: { amountKobo: number; lines: unknown } | null, s: AmbassadorSettings): number {
+    if (!invoice) return Math.max(0, paymentKobo);
+    return commissionableKobo(paymentKobo, { amountKobo: invoice.amountKobo, lines: invoice.lines as InvoiceLine[] | null }, s.excludedLineKinds);
+  }
+
   /** A school's payment was refunded: shrink or reverse its commission, or claw back what was already paid out. */
   async onRefund(refundId: string) {
     const r = await this.prisma.root.refund.findUnique({ where: { id: refundId } });
     if (!r || r.sourceType !== 'PLATFORM_PAYMENT') return;
     const c = await this.prisma.root.ambassadorCommission.findUnique({ where: { paymentId: r.sourceId }, include: { ambassador: true } });
     if (!c || c.status === 'REVERSED') return;
-    const p = await this.prisma.root.platformPayment.findUniqueOrThrow({ where: { id: r.sourceId } });
-    const base = Math.max(0, p.amountKobo - (await this.refundedKobo(p.id)));
+    const p = await this.prisma.root.platformPayment.findUniqueOrThrow({ where: { id: r.sourceId }, include: { invoice: { select: { amountKobo: true, lines: true } } } });
+    // Same proportion as when the commission was made: only the commissionable share of what is left counts.
+    const s = await this.settings();
+    const fullBase = this.commissionBase(p.amountKobo, p.invoice, s);
+    const base = this.commissionBase(Math.max(0, p.amountKobo - (await this.refundedKobo(p.id))), p.invoice, s);
     const shouldBe = Math.floor((base * c.rateBp) / 10_000);
     const why = `Payment refunded (${money(r.amountKobo)}): ${r.reason}`;
     if (c.status === 'PENDING' || c.status === 'PAYABLE') {
@@ -510,7 +529,7 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
       const owed = c.amountKobo + (clawed._sum.amountKobo ?? 0) - shouldBe;
       if (owed <= 0) return;
       await this.prisma.root.ambassadorCommission.create({
-        data: { ambassadorId: c.ambassadorId, tenantId: c.tenantId, schoolName: c.schoolName, kind: 'CLAWBACK', refundId: r.id, reversesId: c.id, baseKobo: -(p.amountKobo - base), rateBp: c.rateBp, amountKobo: -owed, status: 'PAYABLE', payableAt: new Date(), reason: why },
+        data: { ambassadorId: c.ambassadorId, tenantId: c.tenantId, schoolName: c.schoolName, kind: 'CLAWBACK', refundId: r.id, reversesId: c.id, baseKobo: -(fullBase - base), rateBp: c.rateBp, amountKobo: -owed, status: 'PAYABLE', payableAt: new Date(), reason: why },
       });
     }
     await this.audit.log({ tenantId: null, actorUserId: null, action: 'ambassador.commission_reversed', entityType: 'AmbassadorCommission', entityId: c.id, summary: `Commission for ${c.schoolName} adjusted after a refund: now ${money(shouldBe)} (${why})` });
@@ -634,7 +653,7 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
       status: a.status as AmbassadorStatus,
       code: a.referralCode ?? '',
       bank: { bankName: a.bankName, accountLast4: a.accountLast4, accountName: a.accountName, changePending: !!pending?.bankName && a.codePurpose === 'BANK' },
-      settings: { open: s.open, ratePct: s.ratePct, holdDays: s.holdDays, minPayoutKobo: s.minPayoutKobo, commissionMonths: s.commissionMonths, suspendedPayable: s.suspendedPayable },
+      settings: { open: s.open, ratePct: s.ratePct, holdDays: s.holdDays, minPayoutKobo: s.minPayoutKobo, commissionMonths: s.commissionMonths, excludedLineKinds: s.excludedLineKinds, suspendedPayable: s.suspendedPayable },
       totals: totals.get(a.id) ?? { pendingKobo: 0, payableKobo: 0, paidKobo: 0, reversedKobo: 0 },
       schools: [
         ...applied.map((x) => ({ name: x.schoolName, state: x.state, status: 'APPLIED' as const, referredAt: x.createdAt.toISOString() })),

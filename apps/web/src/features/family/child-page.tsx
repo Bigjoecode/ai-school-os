@@ -1,4 +1,4 @@
-import { ArrowLeft, Backpack, Brain, CalendarCheck2, History, MessageCircle, Sparkles, Trophy } from 'lucide-react';
+import { ArrowLeft, Backpack, Brain, CalendarCheck2, CalendarClock,History, MessageCircle, Sparkles, Trophy } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -14,6 +14,7 @@ import { useChildProgress, useTellTutor } from './api';
 import { ChildModulesCard } from '../lesson-modules/widgets';
 import { ChildGamesLine } from '../games/widgets';
 import { ChildTutorLanguageCard } from './language-cards';
+import { ClassTimetableView } from '../timetable/class-timetable';
 
 export default function ChildProgressPage() {
   const { id = '' } = useParams();
@@ -85,6 +86,11 @@ export default function ChildProgressPage() {
               )}
             </Card>
           </div>
+
+          <section aria-label="Timetable" id="timetable">
+            <SectionTitle icon={CalendarClock} title="Class timetable" />
+            <ClassTimetableView childId={id} who={first} isParent />
+          </section>
 
           <ChildHomework childId={id} first={first} />
           <ChildModulesCard childId={id} first={first} />

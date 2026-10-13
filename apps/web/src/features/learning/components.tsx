@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Field } from '@/components/ui/field';
+import { OfferNote } from '@/components/ui/offer-note';
 import { FormDialog } from '@/components/ui/form-dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -110,15 +111,18 @@ export function UpgradeCard({ error, className, onClose }: { error: AllowanceExh
           <p className="font-display text-[15px] font-semibold tracking-tight">{title}</p>
           <p className="text-[13.5px] text-muted-foreground">{error.message}</p>
           {error.code !== 'AI_DAILY_LIMIT' && (
-            <div className="rounded-xl bg-muted/70 p-3 text-[13px]">
-              <p className="flex items-center gap-1.5 font-medium">
-                <HeartHandshake className="size-4 text-ai-2" aria-hidden /> Ask a parent about {error.upgrade?.name ?? 'AI Student Plus'}
-              </p>
-              <p className="mt-1 text-muted-foreground">
-                Your parent can add it from the <span className="font-medium text-foreground">Family</span> page when they sign in
-                {error.upgrade ? ` — ${naira(error.upgrade.priceKobo)} ${PRODUCT_PERIOD_LABELS[error.upgrade.period]}` : ''}. Your school may sponsor it too.
-              </p>
-            </div>
+            <OfferNote
+              size="sm"
+              product={error.upgrade?.name ?? 'AI Student Plus'}
+              price={error.upgrade ? `${naira(error.upgrade.priceKobo)} ${PRODUCT_PERIOD_LABELS[error.upgrade.period]}` : undefined}
+              note={
+                <span className="flex items-start gap-1.5">
+                  <HeartHandshake className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Ask a parent: they can add it from the Family page when they sign in. Your school may sponsor it too.
+                </span>
+              }
+            >
+              unlocks more learning sessions, study tools and deeper explanations.
+            </OfferNote>
           )}
           {onClose && (
             <Button variant="ghost" size="sm" className="-ml-2" onClick={onClose}>
@@ -141,12 +145,9 @@ export function PlusUpsell({ feature, children }: { feature: string; children?: 
           <Lock className="size-3" aria-hidden /> AI Student Plus
         </span>
         <h2 className="font-display text-xl font-semibold tracking-tight">{feature} come with AI Student Plus</h2>
-        <p className="text-[14px] text-muted-foreground">
-          Plus gives you a personal tutor that remembers how you learn, day-by-day study plans, flashcards, photo questions and deeper explanations.
-        </p>
-        <p className="text-[14px] text-muted-foreground">
-          Ask a parent — they can add it from the <span className="font-medium text-foreground">Family</span> page. Your school may also sponsor it for your class.
-        </p>
+        <OfferNote product="AI Student Plus" note="Ask a parent: they can add it from the Family page. Your school may also sponsor it for your class.">
+          unlocks a personal tutor that remembers how you learn, day-by-day study plans, flashcards, photo questions and deeper explanations.
+        </OfferNote>
         {children}
       </div>
     </Card>

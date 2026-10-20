@@ -9,6 +9,7 @@ import { ensurePricePlans } from './plan-pricing-seed';
 import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
+import { installQuestionBank } from './question-bank-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
 import { autoDemoBirthdays } from '../birthdays/demo-birthdays';
@@ -147,6 +148,14 @@ export function installSyllabiInBackground(config: Env): void {
         } catch (err) {
           new Logger('Jamb').error(`JAMB brochure could not be installed: ${(err as Error).message}`);
           raiseAlert('boot', 'jamb', 'JAMB brochure could not be installed', (err as Error).message.slice(0, 1000));
+        }
+        // Practice questions shipped as drafts (prisma/question-bank): reviewers publish them from the console.
+        try {
+          const bank = await installQuestionBank(prisma);
+          if (bank) new Logger('QuestionBank').log(bank);
+        } catch (err) {
+          new Logger('QuestionBank').error(`Question bank could not be installed: ${(err as Error).message}`);
+          raiseAlert('boot', 'question-bank', 'Question bank could not be installed', (err as Error).message.slice(0, 1000));
         }
         // Demo school only, once ever: topic-mastery history so Class insights and learning updates can be shown.
         // Skipped while demo logins are off (nothing is created then; it runs once they are back on).

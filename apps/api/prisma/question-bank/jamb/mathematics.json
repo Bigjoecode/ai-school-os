@@ -1,0 +1,5844 @@
+{
+  "exam": "JAMB",
+  "subject": "Mathematics",
+  "questions": [
+    {
+      "id": "jm-math-0001",
+      "topic": "Number bases",
+      "stem": "Convert 1011011 (base 2) to a base ten numeral.",
+      "options": [
+        "91",
+        "841",
+        "93",
+        "90"
+      ],
+      "answer": 0,
+      "explanation": "Expand by place values in powers of 2: the result is 91. Using powers of the wrong base is the usual slip.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0002",
+      "topic": "Number bases",
+      "stem": "Convert 3142 (base 5) to a base ten numeral.",
+      "options": [
+        "710",
+        "13",
+        "427",
+        "422"
+      ],
+      "answer": 3,
+      "explanation": "Expand by place values in powers of 5: the result is 422. Using powers of the wrong base is the usual slip.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0003",
+      "topic": "Number bases",
+      "stem": "Convert 657 (base 8) to a base ten numeral.",
+      "options": [
+        "538",
+        "431",
+        "47",
+        "439"
+      ],
+      "answer": 1,
+      "explanation": "Expand by place values in powers of 8: the result is 431. Using powers of the wrong base is the usual slip.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0004",
+      "topic": "Number bases",
+      "stem": "Express 95 (base ten) in base 3.",
+      "options": [
+        "21101 (base 3)",
+        "10120 (base 3)",
+        "10112 (base 3)",
+        "10122 (base 3)"
+      ],
+      "answer": 2,
+      "explanation": "Divide repeatedly by 3 and read the remainders from the last to the first, giving 10112. Reading the remainders top-down reverses the digits.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0005",
+      "topic": "Number bases",
+      "stem": "Express 173 (base ten) in base 6.",
+      "options": [
+        "445 (base 6)",
+        "544 (base 6)",
+        "450 (base 6)",
+        "455 (base 6)"
+      ],
+      "answer": 0,
+      "explanation": "Divide repeatedly by 6 and read the remainders from the last to the first, giving 445. Reading the remainders top-down reverses the digits.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0006",
+      "topic": "Number bases",
+      "stem": "Express 250 (base ten) in base 7.",
+      "options": [
+        "506 (base 7)",
+        "515 (base 7)",
+        "505 (base 7)",
+        "504 (base 7)"
+      ],
+      "answer": 2,
+      "explanation": "Divide repeatedly by 7 and read the remainders from the last to the first, giving 505. Reading the remainders top-down reverses the digits.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0007",
+      "topic": "Number bases",
+      "stem": "Express 58 (base ten) in base 2.",
+      "options": [
+        "010111 (base 2)",
+        "111011 (base 2)",
+        "111100 (base 2)",
+        "111010 (base 2)"
+      ],
+      "answer": 3,
+      "explanation": "Divide repeatedly by 2 and read the remainders from the last to the first, giving 111010. Reading the remainders top-down reverses the digits.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0008",
+      "topic": "Number bases",
+      "stem": "Add 2433 (base five) and 1344 (base five), giving the answer in base five.",
+      "options": [
+        "3777",
+        "4332",
+        "4342",
+        "4331"
+      ],
+      "answer": 1,
+      "explanation": "2433 five = 368 and 1344 five = 224; their sum 592 is 4332 in base five. Writing 3777 forgets to carry when a column reaches 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0009",
+      "topic": "Number bases",
+      "stem": "Subtract 10111 (base two) from 110101 (base two).",
+      "options": [
+        "100000",
+        "11110",
+        "11101",
+        "1001100"
+      ],
+      "answer": 1,
+      "explanation": "53 - 23 = 30, which is 11110 in base two.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0010",
+      "topic": "Number bases",
+      "stem": "Evaluate 32 (base four) x 13 (base four), leaving the answer in base four.",
+      "options": [
+        "416",
+        "1212",
+        "1201",
+        "1202"
+      ],
+      "answer": 3,
+      "explanation": "32 four = 14 and 13 four = 7; 14 x 7 = 98 = 1202 in base four.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0011",
+      "topic": "Number bases",
+      "stem": "Find the digit x if 2x4 (base six) = 100 (base ten).",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "2"
+      ],
+      "answer": 0,
+      "explanation": "2 x 36 + 6x + 4 = 100 gives 6x = 24, so x = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0012",
+      "topic": "Number bases",
+      "stem": "If 45 (base b) = 33 (base ten), find the base b.",
+      "options": [
+        "6",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 2,
+      "explanation": "4b + 5 = 33 gives b = 7.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0013",
+      "topic": "Number bases",
+      "stem": "Given that 132 (base b) = 42 (base ten), find b.",
+      "options": [
+        "6",
+        "4",
+        "5",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "b^2 + 3b + 2 = 42 gives b^2 + 3b - 40 = 0, i.e. (b + 8)(b - 5) = 0; the base must be positive, so b = 5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0014",
+      "topic": "Number bases",
+      "stem": "Convert 101.011 (base two) to base ten.",
+      "options": [
+        "5.3",
+        "5.75",
+        "5.011",
+        "5.375"
+      ],
+      "answer": 3,
+      "explanation": "The integer part 101 is 5; the fractional part is 0 x 1/2 + 1 x 1/4 + 1 x 1/8 = 0.375, so the value is 5.375.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0015",
+      "topic": "Number bases",
+      "stem": "Express 0.8125 (base ten) as a base two numeral.",
+      "options": [
+        "0.1101",
+        "0.1011",
+        "0.111",
+        "0.1001"
+      ],
+      "answer": 0,
+      "explanation": "Multiply the fraction by 2 repeatedly and record the whole-number parts: 1, 1, 0, 1, giving 0.1101 (base two).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0016",
+      "topic": "Number bases",
+      "stem": "Convert 546 (base eight) directly to base two.",
+      "options": [
+        "101100101",
+        "101100110",
+        "1011000110",
+        "110100101"
+      ],
+      "answer": 1,
+      "explanation": "Each octal digit becomes three binary digits: 5 = 101, 4 = 100, 6 = 110, giving 101100110.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0017",
+      "topic": "Number bases",
+      "stem": "Which of the following numerals has the greatest value?",
+      "options": [
+        "221 (base three)",
+        "44 (base five)",
+        "10110 (base two)",
+        "25 (base seven)"
+      ],
+      "answer": 0,
+      "explanation": "In base ten the values are 221 = 25, 44 = 24, 10110 = 22, 25 = 19; the greatest is 221 (base three).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0018",
+      "topic": "Number bases",
+      "stem": "Simplify 1111 (base two) + 101 (base two).",
+      "options": [
+        "11100",
+        "10100",
+        "1212",
+        "10010"
+      ],
+      "answer": 1,
+      "explanation": "15 + 5 = 20, which is 10100 in base two.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0019",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Simplify (2 1/3 - 1 3/4) / 1 1/6.",
+      "options": [
+        "7/12",
+        "2",
+        "1/2",
+        "49/72"
+      ],
+      "answer": 2,
+      "explanation": "2 1/3 - 1 3/4 = 28/12 - 21/12 = 7/12, and 7/12 / 7/6 = 7/12 x 6/7 = 1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0020",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Evaluate 3/4 of (1 2/5 + 2 1/10).",
+      "options": [
+        "3 1/2",
+        "2 3/4",
+        "1 7/8",
+        "2 5/8"
+      ],
+      "answer": 3,
+      "explanation": "1 2/5 + 2 1/10 = 3 1/2 = 7/2, and 3/4 x 7/2 = 21/8 = 2 5/8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0021",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Round 0.0063849 to three significant figures.",
+      "options": [
+        "0.00638",
+        "0.006",
+        "0.00639",
+        "0.0064"
+      ],
+      "answer": 0,
+      "explanation": "The first significant figure is 6; keep 6, 3, 8 and look at the next digit (4), which rounds down, giving 0.00638.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0022",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Write 58,463 correct to two significant figures.",
+      "options": [
+        "58",
+        "59,000",
+        "58,500",
+        "58,000"
+      ],
+      "answer": 3,
+      "explanation": "Keep the first two significant digits 5 and 8; the next digit 4 rounds down, and zeros hold the place values: 58,000.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0023",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Express 7.08496 correct to three decimal places.",
+      "options": [
+        "7.084",
+        "7.08",
+        "7.085",
+        "7.0850"
+      ],
+      "answer": 2,
+      "explanation": "The fourth decimal digit is 9, so the third decimal digit 4 rounds up to 5: 7.085.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0024",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Evaluate (0.0476 x 5.12) / 0.0193 correct to the nearest whole number.",
+      "options": [
+        "12",
+        "13",
+        "25",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "The exact value is 12.628, which is 13 to the nearest whole number (an estimate of 0.05 x 5 / 0.02 = 12.5 confirms the size).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0025",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "A student measured a line of length 5.0 cm as 4.8 cm. Calculate the percentage error.",
+      "options": [
+        "0.2%",
+        "4%",
+        "4.2%",
+        "2%"
+      ],
+      "answer": 1,
+      "explanation": "Error = 0.2 cm; percentage error = 0.2 / 5.0 x 100 = 4%. Dividing by the measured value 4.8 gives about 4.2%, which is wrong.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0026",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Amaka bought a bag for ₦2,800 and sold it for ₦3,220. Find her percentage profit.",
+      "options": [
+        "13.04%",
+        "42%",
+        "12%",
+        "15%"
+      ],
+      "answer": 3,
+      "explanation": "Profit = ₦420; profit % = 420 / 2800 x 100 = 15%. Dividing by the selling price gives 13.04%.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0027",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "A trader sold a phone at a loss of 10% for ₦13,500. What was the cost price?",
+      "options": [
+        "₦12,150",
+        "₦14,850",
+        "₦15,000",
+        "₦16,500"
+      ],
+      "answer": 2,
+      "explanation": "Selling price = 90% of cost price, so cost price = 13,500 / 0.9 = ₦15,000. Adding 10% of 13,500 is a common error.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0028",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "The price of a bag of rice was increased by 25% and later reduced by 20%. The final price compared with the original price is",
+      "options": [
+        "the same",
+        "5% higher",
+        "5% lower",
+        "45% higher"
+      ],
+      "answer": 0,
+      "explanation": "1.25 x 0.80 = 1.00, so the final price equals the original price; percentages applied successively cannot simply be added.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0029",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Find the simple interest on ₦18,000 for 4 years at 7.5% per annum.",
+      "options": [
+        "₦1,350",
+        "₦23,400",
+        "₦5,400",
+        "₦5,000"
+      ],
+      "answer": 2,
+      "explanation": "I = PRT/100 = 18,000 x 7.5 x 4 / 100 = ₦5,400.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0030",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "What principal will yield a simple interest of ₦4,500 in 5 years at 6% per annum?",
+      "options": [
+        "₦13,500",
+        "₦15,000",
+        "₦1,350",
+        "₦27,000"
+      ],
+      "answer": 1,
+      "explanation": "P = 100I / (RT) = 100 x 4,500 / (6 x 5) = ₦15,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0031",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "₦40,000 is invested at 10% compound interest per annum. Find the amount after 2 years.",
+      "options": [
+        "₦48,400",
+        "₦48,000",
+        "₦8,400",
+        "₦44,000"
+      ],
+      "answer": 0,
+      "explanation": "A = 40,000 x 1.1^2 = ₦48,400. ₦48,000 is the simple-interest amount.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0032",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Express 0.363636... (with 36 recurring) as a fraction in its lowest terms.",
+      "options": [
+        "9/25",
+        "36/100",
+        "3/11",
+        "4/11"
+      ],
+      "answer": 3,
+      "explanation": "Let x = 0.3636...; 100x - x = 36, so x = 36/99 = 4/11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0033",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Express 0.2333... (only the 3 recurring) as a fraction.",
+      "options": [
+        "23/99",
+        "7/3",
+        "7/30",
+        "233/999"
+      ],
+      "answer": 2,
+      "explanation": "Let x = 0.2333...; 100x - 10x = 23.333... - 2.333... = 21, so x = 21/90 = 7/30.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0034",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "₦45,000 is shared among Tunde, Bisi and Chidi in the ratio 2 : 3 : 4. How much does Chidi receive?",
+      "options": [
+        "₦20,000",
+        "₦15,000",
+        "₦10,000",
+        "₦18,000"
+      ],
+      "answer": 0,
+      "explanation": "Total parts = 9; Chidi gets 4/9 x 45,000 = ₦20,000.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0035",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "A woman spent 1/4 of her money on yam and 2/3 of the remainder on fish. If she had ₦6,000 left, how much did she have at first?",
+      "options": [
+        "₦18,000",
+        "₦72,000",
+        "₦9,000",
+        "₦24,000"
+      ],
+      "answer": 3,
+      "explanation": "After the yam, 3/4 remains; after the fish, 1/3 of that remains, i.e. 1/4 of the total. So total = 4 x 6,000 = ₦24,000.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0036",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "A generator costs ₦64,000 before VAT. If VAT is charged at 7.5%, how much does a customer pay in total?",
+      "options": [
+        "₦4,800",
+        "₦68,800",
+        "₦64,480",
+        "₦69,120"
+      ],
+      "answer": 1,
+      "explanation": "VAT = 7.5% of 64,000 = ₦4,800; total = 64,000 + 4,800 = ₦68,800.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0037",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Musa bought 800 shares at ₦2.5 per share. If the company pays a dividend of 12 kobo per share, find his total dividend.",
+      "options": [
+        "₦240",
+        "₦960",
+        "₦96",
+        "₦9.6"
+      ],
+      "answer": 2,
+      "explanation": "Dividend = 800 x ₦0.12 = ₦96. The purchase price does not affect a per-share dividend.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0038",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "The enrolment of a school rose from 12,000 to 14,700. Find the percentage increase.",
+      "options": [
+        "18.4%",
+        "27%",
+        "2.7%",
+        "22.5%"
+      ],
+      "answer": 3,
+      "explanation": "Increase = 2,700; 2,700 / 12,000 x 100 = 22.5%. Dividing by the new figure gives 18.4%.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0039",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Arrange 5/8, 7/12 and 3/5 in ascending order.",
+      "options": [
+        "7/12, 3/5, 5/8",
+        "3/5, 7/12, 5/8",
+        "5/8, 3/5, 7/12",
+        "7/12, 5/8, 3/5"
+      ],
+      "answer": 0,
+      "explanation": "As decimals: 7/12 = 0.5833, 3/5 = 0.6, 5/8 = 0.625, so the order is 7/12, 3/5, 5/8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0040",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "Express 1/8 as a percentage.",
+      "options": [
+        "8%",
+        "12.5%",
+        "1.25%",
+        "18%"
+      ],
+      "answer": 1,
+      "explanation": "1/8 x 100% = 12.5%.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0041",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "A car uses 8 litres of petrol per 100 km. If petrol costs ₦650 per litre, find the cost of fuel for a 350 km journey.",
+      "options": [
+        "₦18,200",
+        "₦5,200",
+        "₦28,000",
+        "₦36,400"
+      ],
+      "answer": 0,
+      "explanation": "Fuel used = 350 / 100 x 8 = 28 litres; cost = 28 x 650 = ₦18,200.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0042",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate 8^(2/3) x 81^(-3/4).",
+      "options": [
+        "27/4",
+        "4/9",
+        "4/27",
+        "16/27"
+      ],
+      "answer": 2,
+      "explanation": "8^(2/3) = (cube root of 8)^2 = 4 and 81^(-3/4) = 1/(fourth root of 81)^3 = 1/27, so the product is 4/27.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0043",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve for x: 5^(2x - 3) = 125.",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "3/2"
+      ],
+      "answer": 1,
+      "explanation": "125 = 5^3, so 2x - 3 = 3 and x = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0044",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve 9^(x - 1) = 27^(x - 2).",
+      "options": [
+        "-4",
+        "2",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "explanation": "Write both sides as powers of 3: 3^(2x - 2) = 3^(3x - 6), so 2x - 2 = 3x - 6 and x = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0045",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Simplify (p^4 q^(-1))^3 / (p^5 q^(-4)).",
+      "options": [
+        "p^7 / q^7",
+        "p^2 q",
+        "p^7 q",
+        "p^7 q^(-7)"
+      ],
+      "answer": 2,
+      "explanation": "The numerator is p^12 q^(-3); dividing by p^5 q^(-4) subtracts indices: p^(12-5) q^(-3+4) = p^7 q.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0046",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate log10 0.0001.",
+      "options": [
+        "4",
+        "-4",
+        "-3",
+        "1/4"
+      ],
+      "answer": 1,
+      "explanation": "0.0001 = 10^(-4), so log10 0.0001 = -4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0047",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate log2 64 + log3 (1/81).",
+      "options": [
+        "2",
+        "10",
+        "-2",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "log2 64 = 6 and log3 (1/81) = -4; their sum is 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0048",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Given that log10 2 = 0.3010 and log10 3 = 0.4771, find log10 36.",
+      "options": [
+        "0.5744",
+        "1.0791",
+        "1.7781",
+        "1.5562"
+      ],
+      "answer": 3,
+      "explanation": "36 = 2^2 x 3^2, so log 36 = 2(0.3010) + 2(0.4771) = 1.5562.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0049",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Given that log10 2 = 0.3010 and log10 3 = 0.4771, find log10 45.",
+      "options": [
+        "1.2552",
+        "1.1761",
+        "0.667",
+        "1.6532"
+      ],
+      "answer": 3,
+      "explanation": "45 = 9 x 5 and log 5 = log 10 - log 2 = 0.6990, so log 45 = 0.9542 + 0.6990 = 1.6532.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0050",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Given that log10 2 = 0.3010 and log10 3 = 0.4771, evaluate log10 1.5.",
+      "options": [
+        "1.585",
+        "0.1761",
+        "0.7781",
+        "0.1436"
+      ],
+      "answer": 1,
+      "explanation": "log 1.5 = log (3/2) = log 3 - log 2 = 0.1761. The log of a quotient is not the quotient of logs.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0051",
+      "topic": "Indices, logarithms and surds",
+      "stem": "If logx 125 = 3, find x.",
+      "options": [
+        "25",
+        "375",
+        "5",
+        "15"
+      ],
+      "answer": 2,
+      "explanation": "logx 125 = 3 means x^3 = 125, so x = 5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0052",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve log2 (x + 1) + log2 (x - 3) = 5.",
+      "options": [
+        "7",
+        "-5",
+        "7 or -5",
+        "9"
+      ],
+      "answer": 0,
+      "explanation": "(x + 1)(x - 3) = 2^5 = 32 gives x^2 - 2x - 35 = 0, so x = 7 or x = -5; x = -5 makes the logarithms undefined, so x = 7.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0053",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Simplify 2 log10 5 + log10 32 - log10 8.",
+      "options": [
+        "2",
+        "1",
+        "log10 49",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "This is log10 (25 x 32 / 8) = log10 100 = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0054",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Simplify sqrt(50) - sqrt(18) + sqrt(8).",
+      "options": [
+        "2 sqrt(10)",
+        "4 sqrt(2)",
+        "6 sqrt(2)",
+        "sqrt(40)"
+      ],
+      "answer": 1,
+      "explanation": "5 sqrt(2) - 3 sqrt(2) + 2 sqrt(2) = 4 sqrt(2). Surds can only be combined after reducing them to the same surd.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0055",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Rationalise 10 / (sqrt(7) - sqrt(2)).",
+      "options": [
+        "2 sqrt(7) - 2 sqrt(2)",
+        "10 sqrt(7) + 10 sqrt(2)",
+        "2 sqrt(7) + 2 sqrt(2)",
+        "(sqrt(7) + sqrt(2)) / 2"
+      ],
+      "answer": 2,
+      "explanation": "Multiply top and bottom by sqrt(7) + sqrt(2); the denominator becomes 7 - 2 = 5, giving 2(sqrt(7) + sqrt(2)).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0056",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate (3 sqrt(2) + 1)(3 sqrt(2) - 1).",
+      "options": [
+        "5",
+        "19",
+        "35",
+        "17"
+      ],
+      "answer": 3,
+      "explanation": "(a + b)(a - b) = a^2 - b^2 = 18 - 1 = 17.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0057",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Expand (sqrt(6) + sqrt(2))^2.",
+      "options": [
+        "8",
+        "8 + 4 sqrt(3)",
+        "8 + 2 sqrt(3)",
+        "4 + 4 sqrt(3)"
+      ],
+      "answer": 1,
+      "explanation": "(sqrt(6))^2 + 2 sqrt(12) + (sqrt(2))^2 = 8 + 2(2 sqrt(3)) = 8 + 4 sqrt(3).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0058",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Simplify (2 + sqrt(3)) / (2 - sqrt(3)).",
+      "options": [
+        "1 + 4 sqrt(3)",
+        "7 - 4 sqrt(3)",
+        "7 + 4 sqrt(3)",
+        "(7 + 4 sqrt(3)) / 7"
+      ],
+      "answer": 2,
+      "explanation": "Multiply by (2 + sqrt(3))/(2 + sqrt(3)): numerator 4 + 4 sqrt(3) + 3 = 7 + 4 sqrt(3), denominator 4 - 3 = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0059",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate (0.04)^(-3/2).",
+      "options": [
+        "1/125",
+        "8",
+        "0.008",
+        "125"
+      ],
+      "answer": 3,
+      "explanation": "0.04 = 1/25, so (1/25)^(-3/2) = 25^(3/2) = 5^3 = 125.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0060",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve 3^(2x) - 12(3^x) + 27 = 0.",
+      "options": [
+        "x = 1 or x = 2",
+        "x = 3 or x = 9",
+        "x = -1 or x = -2",
+        "x = 1 only"
+      ],
+      "answer": 0,
+      "explanation": "Let y = 3^x: y^2 - 12y + 27 = 0 gives y = 3 or 9, so 3^x = 3 or 9 and x = 1 or 2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0061",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate log8 16.",
+      "options": [
+        "2",
+        "3/4",
+        "4/3",
+        "1/2"
+      ],
+      "answer": 2,
+      "explanation": "log8 16 = log2 16 / log2 8 = 4/3 (change of base).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0062",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Express 0.000407 in standard form.",
+      "options": [
+        "4.07 x 10^(-4)",
+        "4.07 x 10^(-3)",
+        "4.07 x 10^4",
+        "40.7 x 10^(-5)"
+      ],
+      "answer": 0,
+      "explanation": "Move the decimal point four places to the right to get 4.07, so the number is 4.07 x 10^(-4).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0063",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate (6.4 x 10^5 x 3 x 10^(-2)) / (8 x 10^(-3)), giving the answer in standard form.",
+      "options": [
+        "2.4 x 10^0",
+        "2.4 x 10^5",
+        "24 x 10^6",
+        "2.4 x 10^6"
+      ],
+      "answer": 3,
+      "explanation": "(6.4 x 3 / 8) x 10^(5 - 2 + 3) = 2.4 x 10^6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0064",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Evaluate log5 sqrt(125).",
+      "options": [
+        "3",
+        "3/2",
+        "2/3",
+        "5/2"
+      ],
+      "answer": 1,
+      "explanation": "sqrt(125) = 5^(3/2), so the logarithm is 3/2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0065",
+      "topic": "Sets",
+      "stem": "If n(P) = 26, n(Q) = 19 and n(P intersection Q) = 11, find n(P union Q).",
+      "options": [
+        "45",
+        "56",
+        "34",
+        "30"
+      ],
+      "answer": 2,
+      "explanation": "n(P union Q) = 26 + 19 - 11 = 34.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0066",
+      "topic": "Sets",
+      "stem": "In a class of 55 students, 34 offer Physics, 29 offer Chemistry and 6 offer neither. How many offer both subjects?",
+      "options": [
+        "8",
+        "20",
+        "63",
+        "14"
+      ],
+      "answer": 3,
+      "explanation": "34 + 29 - x + 6 = 55, so x = 14.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0067",
+      "topic": "Sets",
+      "stem": "How many subsets has a set with 6 elements?",
+      "options": [
+        "36",
+        "64",
+        "12",
+        "63"
+      ],
+      "answer": 1,
+      "explanation": "A set with n elements has 2^n subsets; 2^6 = 64 (63 of them are proper subsets).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0068",
+      "topic": "Sets",
+      "stem": "How many proper subsets has the set {a, e, i, o}?",
+      "options": [
+        "15",
+        "16",
+        "8",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "There are 2^4 = 16 subsets in all; excluding the set itself leaves 15 proper subsets.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0069",
+      "topic": "Sets",
+      "stem": "U = {1, 2, 3, ..., 15}, A = {multiples of 3} and B = {even numbers}. Find A intersection B.",
+      "options": [
+        "{6, 12, 15}",
+        "{3, 6, 9, 12, 15}",
+        "{2, 6, 12}",
+        "{6, 12}"
+      ],
+      "answer": 3,
+      "explanation": "Numbers that are both multiples of 3 and even are the multiples of 6 up to 15: {6, 12}.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0070",
+      "topic": "Sets",
+      "stem": "U = {1, 2, 3, ..., 15}, A = {multiples of 3} and B = {even numbers}. How many elements are in (A union B)'?",
+      "options": [
+        "10",
+        "5",
+        "7",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "A union B has 10 elements, so its complement has 5: {1, 5, 7, 11, 13}.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0071",
+      "topic": "Sets",
+      "stem": "In a market survey of 120 traders, 52 sell rice, 47 sell beans and 40 sell garri; 18 sell rice and beans, 14 sell beans and garri, 12 sell rice and garri, and 6 sell all three. How many traders sell none of the three items?",
+      "options": [
+        "15",
+        "27",
+        "19",
+        "9"
+      ],
+      "answer": 2,
+      "explanation": "n(R union B union G) = 52 + 47 + 40 - 18 - 14 - 12 + 6 = 101, so 120 - 101 = 19 sell none.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0072",
+      "topic": "Sets",
+      "stem": "Using the same survey (120 traders: 52 rice, 47 beans, 40 garri; 18 rice and beans, 14 beans and garri, 12 rice and garri, 6 all three), how many sell rice only?",
+      "options": [
+        "28",
+        "22",
+        "34",
+        "40"
+      ],
+      "answer": 0,
+      "explanation": "Rice only = 52 - 18 - 12 + 6 = 28; the \"all three\" group is subtracted twice and must be added back once.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0073",
+      "topic": "Sets",
+      "stem": "(A union B)' is equal to",
+      "options": [
+        "A' intersection B'",
+        "A' union B'",
+        "A intersection B",
+        "A' intersection B"
+      ],
+      "answer": 0,
+      "explanation": "By De Morgan's law, the complement of a union is the intersection of the complements.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0074",
+      "topic": "Sets",
+      "stem": "If A = {x : x^2 - 7x + 12 = 0}, then A is",
+      "options": [
+        "{-3, -4}",
+        "{2, 6}",
+        "{3, 4}",
+        "{1, 12}"
+      ],
+      "answer": 2,
+      "explanation": "x^2 - 7x + 12 = (x - 3)(x - 4) = 0, so A = {3, 4}.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0075",
+      "topic": "Sets",
+      "stem": "If P is a subset of Q, then P intersection Q is",
+      "options": [
+        "Q",
+        "P",
+        "the empty set",
+        "P union Q"
+      ],
+      "answer": 1,
+      "explanation": "Every element of P is already in Q, so the common elements are exactly the elements of P.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0076",
+      "topic": "Sets",
+      "stem": "Which of the following sets is empty?",
+      "options": [
+        "{x : x^2 = 4, x is real}",
+        "{x : 2x + 4 = 0, x is real}",
+        "{0}",
+        "{x : x^2 + 4 = 0, x is real}"
+      ],
+      "answer": 3,
+      "explanation": "x^2 = -4 has no real solution, so that set is empty. Note that {0} has one element, so it is not empty.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0077",
+      "topic": "Sets",
+      "stem": "Of 45 guests at a party, 27 ate jollof rice, 21 ate amala and 5 ate neither. How many ate only jollof rice?",
+      "options": [
+        "27",
+        "22",
+        "8",
+        "19"
+      ],
+      "answer": 3,
+      "explanation": "Both = 27 + 21 + 5 - 45 = 8; jollof only = 27 - 8 = 19.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0078",
+      "topic": "Sets",
+      "stem": "How many elements are in {x : 3 < x <= 11, x is an integer}?",
+      "options": [
+        "9",
+        "8",
+        "7",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "The integers are 4, 5, 6, 7, 8, 9, 10, 11, which is 8 elements.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0079",
+      "topic": "Sets",
+      "stem": "In a Venn diagram of two intersecting sets P and Q, the region inside P but outside Q represents",
+      "options": [
+        "P' intersection Q",
+        "P union Q'",
+        "P intersection Q'",
+        "(P intersection Q)'"
+      ],
+      "answer": 2,
+      "explanation": "Elements in P but not in Q belong to P and to the complement of Q.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0080",
+      "topic": "Sets",
+      "stem": "In a Venn diagram, n(A only) = 3x, n(B only) = 2x, n(A intersection B) = x and 4 elements lie outside A and B. If n(U) = 40, find n(A).",
+      "options": [
+        "24",
+        "18",
+        "6",
+        "30"
+      ],
+      "answer": 0,
+      "explanation": "3x + 2x + x + 4 = 40 gives x = 6, so n(A) = 3x + x = 24.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0081",
+      "topic": "Sets",
+      "stem": "Given U = {a, b, c, d, e, f}, A = {a, c, e} and B = {c, d}, find A' intersection B.",
+      "options": [
+        "{d}",
+        "{c}",
+        "{b, d, f}",
+        "{b, f}"
+      ],
+      "answer": 0,
+      "explanation": "A' = {b, d, f}; its common element with B is d.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0082",
+      "topic": "Polynomials",
+      "stem": "Find the remainder when x^3 - 5x^2 + 3x - 4 is divided by (x - 4).",
+      "options": [
+        "-160",
+        "0",
+        "-8",
+        "4"
+      ],
+      "answer": 2,
+      "explanation": "By the remainder theorem the remainder is f(4) = 64 - 80 + 12 - 4 = -8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0083",
+      "topic": "Polynomials",
+      "stem": "If (x + 2) is a factor of 2x^3 + kx^2 - 5x - 6, find k.",
+      "options": [
+        "-3",
+        "3",
+        "5",
+        "-5"
+      ],
+      "answer": 1,
+      "explanation": "f(-2) = -16 + 4k + 10 - 6 = 0, so 4k = 12 and k = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0084",
+      "topic": "Polynomials",
+      "stem": "Factorise 6x^2 + x - 15.",
+      "options": [
+        "(2x + 3)(3x - 5)",
+        "(6x - 5)(x + 3)",
+        "(3x - 3)(2x + 5)",
+        "(2x - 3)(3x + 5)"
+      ],
+      "answer": 3,
+      "explanation": "(2x - 3)(3x + 5) = 6x^2 + 10x - 9x - 15 = 6x^2 + x - 15.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0085",
+      "topic": "Polynomials",
+      "stem": "If a and b are the roots of 4x^2 - 7x - 3 = 0, find a^2 + b^2.",
+      "options": [
+        "25/16",
+        "49/16",
+        "37/16",
+        "73/16"
+      ],
+      "answer": 3,
+      "explanation": "a + b = 7/4 and ab = -3/4; a^2 + b^2 = (a + b)^2 - 2ab = 49/16 + 3/2 = 73/16.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0086",
+      "topic": "Polynomials",
+      "stem": "If a and b are the roots of 4x^2 - 7x - 3 = 0, find 1/a + 1/b.",
+      "options": [
+        "-7/3",
+        "7/3",
+        "-3/7",
+        "7/4"
+      ],
+      "answer": 0,
+      "explanation": "1/a + 1/b = (a + b)/ab = (7/4)/(-3/4) = -7/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0087",
+      "topic": "Polynomials",
+      "stem": "Find the quadratic equation whose roots are -3/2 and 5.",
+      "options": [
+        "2x^2 + 7x - 15 = 0",
+        "2x^2 - 13x + 15 = 0",
+        "2x^2 - 7x - 15 = 0",
+        "2x^2 + 7x + 15 = 0"
+      ],
+      "answer": 2,
+      "explanation": "(2x + 3)(x - 5) = 2x^2 - 10x + 3x - 15 = 2x^2 - 7x - 15.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0088",
+      "topic": "Polynomials",
+      "stem": "Solve 3x^2 + 7x - 6 = 0.",
+      "options": [
+        "x = -2/3 or x = 3",
+        "x = 2/3 or x = -3",
+        "x = 3/2 or x = -2",
+        "x = 2 or x = -3/2"
+      ],
+      "answer": 1,
+      "explanation": "3x^2 + 7x - 6 = (3x - 2)(x + 3) = 0.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0089",
+      "topic": "Polynomials",
+      "stem": "Solve the simultaneous equations 4x + 3y = 18 and x - 2y = -1.",
+      "options": [
+        "x = 2, y = 3",
+        "x = 3, y = -2",
+        "x = 3, y = 2",
+        "x = -3, y = 2"
+      ],
+      "answer": 2,
+      "explanation": "Substitute x = 2y - 1: 8y - 4 + 3y = 18, so y = 2 and x = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0090",
+      "topic": "Polynomials",
+      "stem": "Find the points of intersection of the line y = x - 1 and the circle x^2 + y^2 = 13.",
+      "options": [
+        "(2, 3) and (-3, -2)",
+        "(3, 2) and (2, -3)",
+        "(-3, -4) and (2, 1)",
+        "(3, 2) and (-2, -3)"
+      ],
+      "answer": 3,
+      "explanation": "x^2 + (x - 1)^2 = 13 gives x^2 - x - 6 = 0, so x = 3 or -2, with y = 2 or -3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0091",
+      "topic": "Polynomials",
+      "stem": "Express x^2 - 8x + 5 in the form (x + a)^2 + b and hence state its minimum value.",
+      "options": [
+        "-11",
+        "5",
+        "-3",
+        "11"
+      ],
+      "answer": 0,
+      "explanation": "x^2 - 8x + 5 = (x - 4)^2 - 11, so the minimum value is -11 (at x = 4).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0092",
+      "topic": "Polynomials",
+      "stem": "Find the values of k for which x^2 + kx + 16 = 0 has equal roots.",
+      "options": [
+        "k = 4 or k = -4",
+        "k = 8 or k = -8",
+        "k = 16 only",
+        "k = 64"
+      ],
+      "answer": 1,
+      "explanation": "For equal roots k^2 - 4(1)(16) = 0, so k^2 = 64 and k = +/-8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0093",
+      "topic": "Polynomials",
+      "stem": "Resolve (7x - 1)/((x - 1)(x + 2)) into partial fractions.",
+      "options": [
+        "2/(x - 1) + 5/(x + 2)",
+        "5/(x - 1) + 2/(x + 2)",
+        "2/(x - 1) - 5/(x + 2)",
+        "3/(x - 1) + 4/(x + 2)"
+      ],
+      "answer": 0,
+      "explanation": "Put x = 1: A = 6/3 = 2; put x = -2: B = -15/-3 = 5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0094",
+      "topic": "Polynomials",
+      "stem": "Make l the subject of the formula T = 2 pi sqrt(l/g).",
+      "options": [
+        "l = gT / (2 pi)",
+        "l = 4 pi^2 g / T^2",
+        "l = gT^2 / (4 pi^2)",
+        "l = T^2 / (4 pi^2 g)"
+      ],
+      "answer": 2,
+      "explanation": "Divide by 2 pi and square: T^2/(4 pi^2) = l/g, so l = gT^2/(4 pi^2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0095",
+      "topic": "Polynomials",
+      "stem": "Make a the subject of v^2 = u^2 + 2as.",
+      "options": [
+        "a = (v - u)^2 / (2s)",
+        "a = 2s / (v^2 - u^2)",
+        "a = (v^2 + u^2) / (2s)",
+        "a = (v^2 - u^2) / (2s)"
+      ],
+      "answer": 3,
+      "explanation": "Subtract u^2 and divide by 2s.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0096",
+      "topic": "Polynomials",
+      "stem": "If f(x) = 2x^3 - 3x + 4, find f(-2).",
+      "options": [
+        "-18",
+        "-6",
+        "14",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "f(-2) = 2(-8) + 6 + 4 = -6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0097",
+      "topic": "Polynomials",
+      "stem": "The curve y = x^2 - 6x + 5 cuts the x-axis at",
+      "options": [
+        "x = -1 and x = -5",
+        "x = 1 and x = -5",
+        "x = 1 and x = 5",
+        "x = 3 and x = -4"
+      ],
+      "answer": 2,
+      "explanation": "x^2 - 6x + 5 = (x - 1)(x - 5) = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0098",
+      "topic": "Polynomials",
+      "stem": "Find the coordinates of the turning point of y = x^2 - 6x + 5.",
+      "options": [
+        "(-3, 32)",
+        "(3, -4)",
+        "(3, 4)",
+        "(6, 5)"
+      ],
+      "answer": 1,
+      "explanation": "x = -b/2a = 3 and y = 9 - 18 + 5 = -4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0099",
+      "topic": "Polynomials",
+      "stem": "The product of two consecutive positive odd numbers is 195. Find their sum.",
+      "options": [
+        "28",
+        "26",
+        "30",
+        "24"
+      ],
+      "answer": 0,
+      "explanation": "n(n + 2) = 195 gives n^2 + 2n - 195 = 0, so n = 13; the numbers are 13 and 15, with sum 28.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0100",
+      "topic": "Polynomials",
+      "stem": "A mother is three times as old as her daughter. In 12 years she will be twice as old as the daughter. How old is the mother now?",
+      "options": [
+        "12",
+        "24",
+        "48",
+        "36"
+      ],
+      "answer": 3,
+      "explanation": "3d + 12 = 2(d + 12) gives d = 12, so the mother is 36.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0101",
+      "topic": "Polynomials",
+      "stem": "Divide x^3 - 27 by (x - 3).",
+      "options": [
+        "x^2 - 3x + 9",
+        "x^2 + 3x + 9",
+        "x^2 + 9",
+        "x^2 + 6x + 9"
+      ],
+      "answer": 1,
+      "explanation": "x^3 - 27 = (x - 3)(x^2 + 3x + 9), a difference of two cubes.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0102",
+      "topic": "Polynomials",
+      "stem": "Find the remainder when 4x^3 - 2x^2 + x - 3 is divided by (2x - 1).",
+      "options": [
+        "-4.5",
+        "0",
+        "3",
+        "-2.5"
+      ],
+      "answer": 3,
+      "explanation": "The remainder is f(1/2) = 1/2 - 1/2 + 1/2 - 3 = -2.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0103",
+      "topic": "Polynomials",
+      "stem": "If (x - 1) and (x + 3) are factors of x^3 + px^2 + qx - 6, find p and q.",
+      "options": [
+        "p = 1, q = 4",
+        "p = -4, q = 1",
+        "p = 4, q = 1",
+        "p = 4, q = -1"
+      ],
+      "answer": 2,
+      "explanation": "f(1) = 1 + p + q - 6 = 0 and f(-3) = -27 + 9p - 3q - 6 = 0; so p + q = 5 and 3p - q = 11, giving p = 4, q = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0104",
+      "topic": "Variation",
+      "stem": "y varies directly as the square of x, and y = 20 when x = 2. Find y when x = 3.",
+      "options": [
+        "45",
+        "30",
+        "60",
+        "36"
+      ],
+      "answer": 0,
+      "explanation": "y = kx^2 with k = 20/4 = 5; y = 5 x 9 = 45.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0105",
+      "topic": "Variation",
+      "stem": "P varies inversely as the square root of Q. If P = 9 when Q = 16, find P when Q = 36.",
+      "options": [
+        "13.5",
+        "4",
+        "24",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "P = k/sqrt(Q) with k = 9 x 4 = 36; P = 36/6 = 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0106",
+      "topic": "Variation",
+      "stem": "R varies jointly as S and T. If R = 30 when S = 3 and T = 5, find R when S = 4 and T = 7.",
+      "options": [
+        "56",
+        "42",
+        "35",
+        "84"
+      ],
+      "answer": 0,
+      "explanation": "R = kST with k = 30/15 = 2; R = 2 x 4 x 7 = 56.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0107",
+      "topic": "Variation",
+      "stem": "The cost C of printing n copies of a school magazine is partly constant and partly varies as n. It costs ₦9,000 for 30 copies and ₦13,500 for 60 copies. Find the cost of 100 copies.",
+      "options": [
+        "₦22,500",
+        "₦15,000",
+        "₦19,500",
+        "₦30,000"
+      ],
+      "answer": 2,
+      "explanation": "C = a + bn gives b = 4,500/30 = 150 and a = 4,500, so C = 4,500 + 150 x 100 = ₦19,500.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0108",
+      "topic": "Variation",
+      "stem": "15 labourers can clear a farm in 8 days. Working at the same rate, how many days will 24 labourers take?",
+      "options": [
+        "12.8",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "Days vary inversely as workers: 15 x 8 = 120 labourer-days; 120/24 = 5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0109",
+      "topic": "Variation",
+      "stem": "If y varies as x^3, by what factor does y change when x is doubled?",
+      "options": [
+        "2",
+        "8",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "y is proportional to x^3, and 2^3 = 8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0110",
+      "topic": "Variation",
+      "stem": "The period T of a pendulum varies as the square root of its length l. If l is increased by 21%, find the percentage increase in T.",
+      "options": [
+        "21%",
+        "4.6%",
+        "10%",
+        "11%"
+      ],
+      "answer": 2,
+      "explanation": "New T = sqrt(1.21) T = 1.1 T, a 10% increase.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0111",
+      "topic": "Variation",
+      "stem": "F varies inversely as the square of d. If d is tripled, F becomes",
+      "options": [
+        "one-ninth of its former value",
+        "one-third of its former value",
+        "nine times its former value",
+        "three times its former value"
+      ],
+      "answer": 0,
+      "explanation": "F is proportional to 1/d^2, and 1/3^2 = 1/9.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0112",
+      "topic": "Variation",
+      "stem": "y is partly constant and partly varies as x^2. When x = 1, y = 6 and when x = 3, y = 22. Find y when x = 2.",
+      "options": [
+        "14",
+        "11",
+        "16",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "y = a + bx^2: 8b = 16 gives b = 2, a = 4; y = 4 + 2(4) = 12.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0113",
+      "topic": "Variation",
+      "stem": "u varies directly as w^2 and w varies inversely as v. If u = 2 when v = 3, express u in terms of v.",
+      "options": [
+        "u = 2v^2/9",
+        "u = 18/v^2",
+        "u = 6/v",
+        "u = 18v^2"
+      ],
+      "answer": 1,
+      "explanation": "u is proportional to w^2 and w to 1/v, so u = k/v^2; k = 2 x 9 = 18.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0114",
+      "topic": "Variation",
+      "stem": "The braking distance of a car varies as the square of its speed. If it is 16 m at 60 km/h, find it at 90 km/h.",
+      "options": [
+        "36 m",
+        "24 m",
+        "32 m",
+        "54 m"
+      ],
+      "answer": 0,
+      "explanation": "d = 16 x (90/60)^2 = 16 x 2.25 = 36 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0115",
+      "topic": "Variation",
+      "stem": "x varies directly as y and inversely as z. If x = 6 when y = 4 and z = 2, find x when y = 9 and z = 3.",
+      "options": [
+        "13.5",
+        "4",
+        "9",
+        "6.75"
+      ],
+      "answer": 2,
+      "explanation": "x = ky/z with k = 6 x 2/4 = 3; x = 3 x 9/3 = 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0116",
+      "topic": "Variation",
+      "stem": "If y varies inversely as x and y = 12 when x = 5, find the equation connecting x and y.",
+      "options": [
+        "y = 60x",
+        "y = 12x/5",
+        "x = 60y",
+        "xy = 60"
+      ],
+      "answer": 3,
+      "explanation": "y = k/x with k = 12 x 5 = 60, so xy = 60.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0117",
+      "topic": "Inequalities",
+      "stem": "Solve 7 - 2x <= 3x - 8.",
+      "options": [
+        "x >= 3",
+        "x <= 3",
+        "x >= -3",
+        "x >= 1"
+      ],
+      "answer": 0,
+      "explanation": "7 + 8 <= 3x + 2x gives 15 <= 5x, so x >= 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0118",
+      "topic": "Inequalities",
+      "stem": "How many integers satisfy -5 < 2x + 1 <= 9?",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Subtract 1 and divide by 2: -3 < x <= 4, i.e. x = -2, -1, 0, 1, 2, 3, 4 (seven integers).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0119",
+      "topic": "Inequalities",
+      "stem": "Solve x^2 - 2x - 15 < 0.",
+      "options": [
+        "x < -3 or x > 5",
+        "-5 < x < 3",
+        "-3 < x < 5",
+        "x < -5 or x > 3"
+      ],
+      "answer": 2,
+      "explanation": "(x - 5)(x + 3) < 0 holds between the roots, so -3 < x < 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0120",
+      "topic": "Inequalities",
+      "stem": "Find the range of values of x for which x^2 - 7x + 10 >= 0.",
+      "options": [
+        "2 <= x <= 5",
+        "x <= -5 or x >= -2",
+        "-5 <= x <= -2",
+        "x <= 2 or x >= 5"
+      ],
+      "answer": 3,
+      "explanation": "(x - 2)(x - 5) >= 0 holds outside the roots (the parabola opens upwards).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0121",
+      "topic": "Inequalities",
+      "stem": "Solve (x - 2)/3 - (x + 1)/4 > 1.",
+      "options": [
+        "x > 13",
+        "x < 23",
+        "x > 23",
+        "x > 7"
+      ],
+      "answer": 2,
+      "explanation": "Multiply by 12: 4x - 8 - 3x - 3 > 12, so x > 23.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0122",
+      "topic": "Inequalities",
+      "stem": "Solve -3x > 12.",
+      "options": [
+        "x < -4",
+        "x > -4",
+        "x > 4",
+        "x < 4"
+      ],
+      "answer": 0,
+      "explanation": "Dividing both sides by a negative number reverses the inequality sign.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0123",
+      "topic": "Inequalities",
+      "stem": "Which of the following points lies in the region defined by y >= 2x - 1 and x + y < 4?",
+      "options": [
+        "(3, 0)",
+        "(0, 5)",
+        "(2, 4)",
+        "(1, 1)"
+      ],
+      "answer": 3,
+      "explanation": "For (1, 1): 1 >= 1 and 2 < 4, both true; each of the others fails at least one condition.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0124",
+      "topic": "Inequalities",
+      "stem": "Find the maximum value of P = 4x + 3y subject to x + y <= 8, x <= 5, x >= 0 and y >= 0.",
+      "options": [
+        "24",
+        "29",
+        "20",
+        "32"
+      ],
+      "answer": 1,
+      "explanation": "The vertices are (0, 0), (5, 0), (5, 3) and (0, 8), giving P = 0, 20, 29 and 24; the maximum is 29 at (5, 3).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0125",
+      "topic": "Inequalities",
+      "stem": "What is the least integer x that satisfies 5x - 4 > 2x + 11?",
+      "options": [
+        "5",
+        "6",
+        "4",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "3x > 15 gives x > 5, so the least integer is 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0126",
+      "topic": "Inequalities",
+      "stem": "Solve 2x^2 + x - 6 > 0.",
+      "options": [
+        "-2 < x < 3/2",
+        "x < -3/2 or x > 2",
+        "-3/2 < x < 2",
+        "x < -2 or x > 3/2"
+      ],
+      "answer": 3,
+      "explanation": "2x^2 + x - 6 = (2x - 3)(x + 2); the product is positive outside the roots -2 and 3/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0127",
+      "topic": "Inequalities",
+      "stem": "If 3 <= x <= 7 and 1 <= y <= 4, find the greatest value of x - y.",
+      "options": [
+        "6",
+        "3",
+        "11",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "x - y is greatest when x is largest and y is smallest: 7 - 1 = 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0128",
+      "topic": "Inequalities",
+      "stem": "The region below the line y = 2 and to the right of the line x = 1, including both lines, is described by",
+      "options": [
+        "y >= 2 and x >= 1",
+        "y <= 2 and x <= 1",
+        "y <= 2 and x >= 1",
+        "y < 2 and x > 1"
+      ],
+      "answer": 2,
+      "explanation": "Below y = 2 means y <= 2; to the right of x = 1 means x >= 1; \"including the lines\" gives non-strict signs.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0129",
+      "topic": "Inequalities",
+      "stem": "For what values of x is (x + 1)(x - 4) negative?",
+      "options": [
+        "x < -1 or x > 4",
+        "-4 < x < 1",
+        "x > 4",
+        "-1 < x < 4"
+      ],
+      "answer": 3,
+      "explanation": "The product of two factors is negative when they have opposite signs, which happens between the roots -1 and 4.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0130",
+      "topic": "Progression",
+      "stem": "Find the 25th term of the arithmetic progression 6, 11, 16, ...",
+      "options": [
+        "131",
+        "126",
+        "125",
+        "120"
+      ],
+      "answer": 1,
+      "explanation": "T25 = a + 24d = 6 + 24(5) = 126.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0131",
+      "topic": "Progression",
+      "stem": "Find the sum of the first 18 terms of the AP 4, 7, 10, ...",
+      "options": [
+        "495",
+        "990",
+        "531",
+        "549"
+      ],
+      "answer": 2,
+      "explanation": "S = n/2 [2a + (n - 1)d] = 9(8 + 51) = 531.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0132",
+      "topic": "Progression",
+      "stem": "Which term of the AP 5, 11, 17, ... is 95?",
+      "options": [
+        "16th",
+        "15th",
+        "17th",
+        "18th"
+      ],
+      "answer": 0,
+      "explanation": "5 + (n - 1)6 = 95 gives n - 1 = 15, so n = 16.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0133",
+      "topic": "Progression",
+      "stem": "The 4th term of an AP is 17 and the 9th term is 37. Find the sum of the first 12 terms.",
+      "options": [
+        "300",
+        "276",
+        "324",
+        "348"
+      ],
+      "answer": 2,
+      "explanation": "5d = 20 so d = 4 and a = 5; S12 = 6(10 + 44) = 324.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0134",
+      "topic": "Progression",
+      "stem": "Find the 8th term of the GP 3, 6, 12, ...",
+      "options": [
+        "768",
+        "48",
+        "24",
+        "384"
+      ],
+      "answer": 3,
+      "explanation": "T8 = ar^7 = 3 x 2^7 = 384.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0135",
+      "topic": "Progression",
+      "stem": "Find the sum of the first 6 terms of the GP 2, 6, 18, ...",
+      "options": [
+        "486",
+        "728",
+        "1456",
+        "242"
+      ],
+      "answer": 1,
+      "explanation": "S = a(r^n - 1)/(r - 1) = 2(729 - 1)/2 = 728.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0136",
+      "topic": "Progression",
+      "stem": "Find the sum to infinity of the GP 36, 12, 4, ...",
+      "options": [
+        "54",
+        "52",
+        "108",
+        "48"
+      ],
+      "answer": 0,
+      "explanation": "r = 1/3, so S = 36/(1 - 1/3) = 54.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0137",
+      "topic": "Progression",
+      "stem": "Find the sum to infinity of the GP 18, -6, 2, ...",
+      "options": [
+        "27",
+        "13.5",
+        "9",
+        "14"
+      ],
+      "answer": 1,
+      "explanation": "r = -1/3, so S = 18/(1 + 1/3) = 13.5. Forgetting the negative sign of r gives 27.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0138",
+      "topic": "Progression",
+      "stem": "The 2nd and 5th terms of a GP are 10 and 270 respectively. Find the 4th term.",
+      "options": [
+        "30",
+        "810",
+        "90",
+        "180"
+      ],
+      "answer": 2,
+      "explanation": "r^3 = 270/10 = 27, so r = 3 and T4 = T5/r = 90.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0139",
+      "topic": "Progression",
+      "stem": "If x, x + 5 and 3x + 4 are consecutive terms of an AP, find x.",
+      "options": [
+        "2",
+        "5",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "The middle term is the average: 2(x + 5) = x + 3x + 4, so 2x = 6 and x = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0140",
+      "topic": "Progression",
+      "stem": "If k, k + 4 and k + 12 are consecutive terms of a GP, find the common ratio.",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "(k + 4)^2 = k(k + 12) gives 8k + 16 = 12k, so k = 4; the terms are 4, 8, 16 and r = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0141",
+      "topic": "Progression",
+      "stem": "A teacher's starting salary is ₦150,000 per year and it rises by ₦8,000 each year. Find her total earnings in the first 10 years.",
+      "options": [
+        "₦1,572,000",
+        "₦1,788,000",
+        "₦1,860,000",
+        "₦222,000"
+      ],
+      "answer": 2,
+      "explanation": "This is an AP with a = 150,000, d = 8,000, n = 10: S = 5(300,000 + 72,000) = ₦1,860,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0142",
+      "topic": "Progression",
+      "stem": "How many terms are in the AP 7, 15, 23, ..., 247?",
+      "options": [
+        "31",
+        "30",
+        "32",
+        "29"
+      ],
+      "answer": 0,
+      "explanation": "(247 - 7)/8 + 1 = 31.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0143",
+      "topic": "Progression",
+      "stem": "Find the sum of all multiples of 4 between 1 and 150.",
+      "options": [
+        "2738",
+        "2812",
+        "2964",
+        "2850"
+      ],
+      "answer": 1,
+      "explanation": "The multiples are 4, 8, ..., 148: 37 terms, so S = 37/2 (4 + 148) = 2812.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0144",
+      "topic": "Progression",
+      "stem": "The sum of the first n terms of a sequence is Sn = 2n^2 + n. Find the 6th term.",
+      "options": [
+        "78",
+        "25",
+        "21",
+        "23"
+      ],
+      "answer": 3,
+      "explanation": "T6 = S6 - S5 = 78 - 55 = 23.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0145",
+      "topic": "Progression",
+      "stem": "The first term of a GP is 48 and its sum to infinity is 72. Find the common ratio.",
+      "options": [
+        "2/3",
+        "1/2",
+        "3/2",
+        "1/3"
+      ],
+      "answer": 3,
+      "explanation": "48/(1 - r) = 72 gives 1 - r = 2/3, so r = 1/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0146",
+      "topic": "Progression",
+      "stem": "A machine bought for ₦64,000 loses one quarter of its value at the end of every year. What is it worth after 3 years?",
+      "options": [
+        "₦16,000",
+        "₦48,000",
+        "₦27,000",
+        "₦36,000"
+      ],
+      "answer": 2,
+      "explanation": "The values form a GP with r = 3/4: 64,000 x (3/4)^3 = ₦27,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0147",
+      "topic": "Progression",
+      "stem": "What is the common difference of the AP 12, 7.5, 3, ...?",
+      "options": [
+        "4.5",
+        "-4.5",
+        "-5",
+        "0.625"
+      ],
+      "answer": 1,
+      "explanation": "d = 7.5 - 12 = -4.5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0148",
+      "topic": "Binary operations",
+      "stem": "A binary operation * is defined on the real numbers by a * b = a + b - ab. Evaluate 4 * (-3).",
+      "options": [
+        "13",
+        "-11",
+        "1",
+        "-13"
+      ],
+      "answer": 0,
+      "explanation": "4 + (-3) - (4)(-3) = 1 + 12 = 13.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0149",
+      "topic": "Binary operations",
+      "stem": "The operation * is defined on R by a * b = a + b + 4. Find the identity element.",
+      "options": [
+        "4",
+        "0",
+        "-4",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "a * e = a means a + e + 4 = a, so e = -4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0150",
+      "topic": "Binary operations",
+      "stem": "The operation * is defined on R by a * b = a + b + 4. Find the inverse of 3.",
+      "options": [
+        "-7",
+        "-11",
+        "-3",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "The identity is -4, so 3 + x + 4 = -4 and x = -11.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0151",
+      "topic": "Binary operations",
+      "stem": "A binary operation is defined on the non-zero real numbers by a o b = ab/3. Find the identity element.",
+      "options": [
+        "3",
+        "1",
+        "1/3",
+        "0"
+      ],
+      "answer": 0,
+      "explanation": "a o e = ae/3 = a gives e = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0152",
+      "topic": "Binary operations",
+      "stem": "A binary operation is defined on the non-zero real numbers by a o b = ab/3. Find the inverse of 6.",
+      "options": [
+        "1/6",
+        "2",
+        "1/2",
+        "3/2"
+      ],
+      "answer": 3,
+      "explanation": "The identity is 3; 6x/3 = 3 gives x = 3/2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0153",
+      "topic": "Binary operations",
+      "stem": "Which of the following binary operations on the real numbers is NOT commutative?",
+      "options": [
+        "a * b = a + b + ab",
+        "a * b = 3ab",
+        "a * b = a^2 + b^2",
+        "a * b = a - 2b"
+      ],
+      "answer": 3,
+      "explanation": "For a * b = a - 2b, 1 * 0 = 1 but 0 * 1 = -2, so the order matters.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0154",
+      "topic": "Binary operations",
+      "stem": "Under multiplication modulo 7, evaluate 5 x 4.",
+      "options": [
+        "20",
+        "2",
+        "6",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "5 x 4 = 20 = 2(7) + 6, so the result is 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0155",
+      "topic": "Binary operations",
+      "stem": "Under multiplication modulo 7 on {1, 2, 3, 4, 5, 6}, find the inverse of 3.",
+      "options": [
+        "3",
+        "5",
+        "4",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "3 x 5 = 15 = 2(7) + 1, so the inverse is 5 (the identity is 1).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0156",
+      "topic": "Binary operations",
+      "stem": "Under addition modulo 5 on {0, 1, 2, 3, 4}, find the inverse of 3.",
+      "options": [
+        "2",
+        "3",
+        "0",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "The identity is 0, and 3 + 2 = 5 = 0 (mod 5).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0157",
+      "topic": "Binary operations",
+      "stem": "If a * b = a^2 - b, evaluate (3 * 2) * 4.",
+      "options": [
+        "45",
+        "21",
+        "33",
+        "-7"
+      ],
+      "answer": 0,
+      "explanation": "3 * 2 = 9 - 2 = 7, then 7 * 4 = 49 - 4 = 45.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0158",
+      "topic": "Binary operations",
+      "stem": "If a * b = 3a + 2b, solve x * 5 = 31.",
+      "options": [
+        "9",
+        "7",
+        "5",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "3x + 10 = 31 gives x = 7.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0159",
+      "topic": "Binary operations",
+      "stem": "Which of the following sets is closed under subtraction?",
+      "options": [
+        "The set of natural numbers",
+        "The set of odd numbers",
+        "{0, 1}",
+        "The set of integers"
+      ],
+      "answer": 3,
+      "explanation": "The difference of any two integers is an integer; 2 - 5 = -3 is not natural, and odd - odd is even.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0160",
+      "topic": "Binary operations",
+      "stem": "For a * b = a + b + ab on R, evaluate (1 * 2) * 3 and state what the result illustrates when compared with 1 * (2 * 3).",
+      "options": [
+        "23; the operation is not associative",
+        "11; the operation is associative",
+        "23; the operation is associative",
+        "17; the operation is commutative only"
+      ],
+      "answer": 2,
+      "explanation": "1 * 2 = 5 and 5 * 3 = 23; 2 * 3 = 11 and 1 * 11 = 23. Both groupings give 23, consistent with associativity.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0161",
+      "topic": "Matrices and determinants",
+      "stem": "Evaluate the determinant of [4, -3; 5, 2] (rows are separated by semicolons).",
+      "options": [
+        "-7",
+        "-23",
+        "23",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "4(2) - (-3)(5) = 8 + 15 = 23.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0162",
+      "topic": "Matrices and determinants",
+      "stem": "Find the inverse of [5, 3; 3, 2] (rows are separated by semicolons).",
+      "options": [
+        "[5, -3; -3, 2]",
+        "[2, -3; -3, 5]",
+        "[-2, 3; 3, -5]",
+        "[2, 3; 3, 5]"
+      ],
+      "answer": 1,
+      "explanation": "The determinant is 10 - 9 = 1; swap the leading diagonal and change the signs of the other two entries.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0163",
+      "topic": "Matrices and determinants",
+      "stem": "If A = [3, 1; 0, 2] and B = [1, 4; 2, -1] (rows are separated by semicolons), find AB.",
+      "options": [
+        "[3, 9; 6, 0]",
+        "[3, 4; 0, -2]",
+        "[5, 11; 4, 2]",
+        "[5, 11; 4, -2]"
+      ],
+      "answer": 3,
+      "explanation": "Multiply rows of A by columns of B: AB = [5, 11; 4, -2].",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0164",
+      "topic": "Matrices and determinants",
+      "stem": "Evaluate the determinant of [2, 1, -1; 3, 0, 2; 1, 4, 1] (rows are separated by semicolons).",
+      "options": [
+        "-29",
+        "29",
+        "-21",
+        "-35"
+      ],
+      "answer": 0,
+      "explanation": "Expanding along the first row: 2(0 - 8) - 1(3 - 2) + (-1)(12 - 0) = -29.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0165",
+      "topic": "Matrices and determinants",
+      "stem": "Find x if the determinant of [x, 2; 5, x - 3] (rows are separated by semicolons) is 18.",
+      "options": [
+        "x = -7 or x = 4",
+        "x = 7 or x = -4",
+        "x = 4 or x = 3",
+        "x = 7 only"
+      ],
+      "answer": 1,
+      "explanation": "x(x - 3) - 10 = 18 gives x^2 - 3x - 28 = 0, so (x - 7)(x + 4) = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0166",
+      "topic": "Matrices and determinants",
+      "stem": "For what value of k is [3, k; 4, 8] (rows are separated by semicolons) singular?",
+      "options": [
+        "-6",
+        "32/3",
+        "2",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "A singular matrix has determinant 0: 24 - 4k = 0, so k = 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0167",
+      "topic": "Matrices and determinants",
+      "stem": "Using the determinant method on 3x + 2y = 12 and 4x - y = 5, the determinant of the coefficient matrix is",
+      "options": [
+        "5",
+        "11",
+        "-11",
+        "-5"
+      ],
+      "answer": 2,
+      "explanation": "The coefficient matrix is [3, 2; 4, -1], whose determinant is -3 - 8 = -11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0168",
+      "topic": "Matrices and determinants",
+      "stem": "Solve 3x + 2y = 12 and 4x - y = 5 for x and y.",
+      "options": [
+        "x = 2, y = 3",
+        "x = 3, y = 2",
+        "x = 2, y = -3",
+        "x = 1, y = 4.5"
+      ],
+      "answer": 0,
+      "explanation": "x = Dx/D = (-12 - 10)/(-11) = 2 and y = Dy/D = (15 - 48)/(-11) = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0169",
+      "topic": "Matrices and determinants",
+      "stem": "If P is a 3 x 2 matrix and Q is a 2 x 4 matrix, the order of PQ is",
+      "options": [
+        "2 x 2",
+        "4 x 3",
+        "undefined",
+        "3 x 4"
+      ],
+      "answer": 3,
+      "explanation": "The inner dimensions (2) match, and the product takes the outer dimensions: 3 x 4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0170",
+      "topic": "Matrices and determinants",
+      "stem": "Which of the following products is NOT defined?",
+      "options": [
+        "(2 x 3 matrix) x (3 x 1 matrix)",
+        "(2 x 3 matrix) x (2 x 3 matrix)",
+        "(1 x 2 matrix) x (2 x 2 matrix)",
+        "(3 x 3 matrix) x (3 x 2 matrix)"
+      ],
+      "answer": 1,
+      "explanation": "A product is defined only when the number of columns of the first equals the number of rows of the second; 3 is not equal to 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0171",
+      "topic": "Matrices and determinants",
+      "stem": "If A = [1, 3; 2, 1] (rows are separated by semicolons), find A^2.",
+      "options": [
+        "[7, 6; 4, 7]",
+        "[1, 9; 4, 1]",
+        "[2, 6; 4, 2]",
+        "[7, 5; 5, 7]"
+      ],
+      "answer": 0,
+      "explanation": "Multiply A by itself row-by-column; squaring each entry is a common error.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0172",
+      "topic": "Matrices and determinants",
+      "stem": "If A = [2, -1; 3, 4] and B = [1, 0; -2, 5] (rows are separated by semicolons), find 3A - 2B.",
+      "options": [
+        "[5, -3; 5, 22]",
+        "[4, -3; 5, 2]",
+        "[4, -3; 13, 2]",
+        "[4, 3; 13, 22]"
+      ],
+      "answer": 2,
+      "explanation": "Subtract entry by entry: 3A - 2B = [4, -3; 13, 2].",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0173",
+      "topic": "Matrices and determinants",
+      "stem": "If A is a 2 x 2 matrix with determinant 5, find the determinant of 3A.",
+      "options": [
+        "15",
+        "8",
+        "125",
+        "45"
+      ],
+      "answer": 3,
+      "explanation": "For a 2 x 2 matrix, multiplying by 3 multiplies each of two rows by 3, so det(3A) = 3^2 x 5 = 45.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0174",
+      "topic": "Matrices and determinants",
+      "stem": "Solve the matrix equation [3, 1; 2, 4] [x; y] = [5; 10] (rows are separated by semicolons).",
+      "options": [
+        "x = 2, y = 1",
+        "x = 1, y = 2",
+        "x = 1, y = -2",
+        "x = 5/3, y = 5/2"
+      ],
+      "answer": 1,
+      "explanation": "3x + y = 5 and 2x + 4y = 10; solving gives x = 1, y = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0175",
+      "topic": "Matrices and determinants",
+      "stem": "Find the determinant of [1, 0, 2; 0, 3, 0; 4, 0, 1] (rows are separated by semicolons).",
+      "options": [
+        "-21",
+        "21",
+        "27",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "Expanding along the second row: 3 x (1 x 1 - 2 x 4) = -21.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0176",
+      "topic": "Matrices and determinants",
+      "stem": "The transpose of [2, 5; -1, 7] (rows are separated by semicolons) is",
+      "options": [
+        "[7, -5; 1, 2]",
+        "[-2, -5; 1, -7]",
+        "[2, -1; 5, 7]",
+        "[5, 2; 7, -1]"
+      ],
+      "answer": 2,
+      "explanation": "The transpose interchanges rows and columns.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0177",
+      "topic": "Matrices and determinants",
+      "stem": "Given A = [2, 1; 5, 3] (rows are separated by semicolons), find A^(-1).",
+      "options": [
+        "[-3, 1; 5, -2]",
+        "[3, -1; -5, 2]",
+        "[3, 1; 5, 2]",
+        "[2, -5; -1, 3]"
+      ],
+      "answer": 1,
+      "explanation": "det A = 6 - 5 = 1; the inverse is (1/1)[3, -1; -5, 2].",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0178",
+      "topic": "Euclidean geometry",
+      "stem": "Find the sum of the interior angles of a heptagon (7-sided polygon).",
+      "options": [
+        "1260 degrees",
+        "720 degrees",
+        "900 degrees",
+        "1080 degrees"
+      ],
+      "answer": 2,
+      "explanation": "Sum = (n - 2) x 180 = 5 x 180 = 900 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0179",
+      "topic": "Euclidean geometry",
+      "stem": "Each interior angle of a regular polygon is 160 degrees. How many sides has the polygon?",
+      "options": [
+        "18",
+        "16",
+        "20",
+        "9"
+      ],
+      "answer": 0,
+      "explanation": "Each exterior angle is 20 degrees, and 360/20 = 18 sides.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0180",
+      "topic": "Euclidean geometry",
+      "stem": "Calculate the size of each interior angle of a regular decagon.",
+      "options": [
+        "36 degrees",
+        "150 degrees",
+        "140 degrees",
+        "144 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Each exterior angle is 360/10 = 36 degrees, so each interior angle is 144 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0181",
+      "topic": "Euclidean geometry",
+      "stem": "The interior angles of a pentagon are x, 2x, 100, 110 and 140 degrees. Find x.",
+      "options": [
+        "70 degrees",
+        "95 degrees",
+        "63 1/3 degrees",
+        "50 degrees"
+      ],
+      "answer": 2,
+      "explanation": "The angles sum to 540: 3x + 350 = 540, so x = 190/3 = 63 1/3 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0182",
+      "topic": "Euclidean geometry",
+      "stem": "An arc of a circle subtends an angle of 136 degrees at the centre. What angle does it subtend at a point on the remaining part of the circumference?",
+      "options": [
+        "136 degrees",
+        "44 degrees",
+        "112 degrees",
+        "68 degrees"
+      ],
+      "answer": 3,
+      "explanation": "The angle at the centre is twice the angle at the circumference: 136/2 = 68 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0183",
+      "topic": "Euclidean geometry",
+      "stem": "In a cyclic quadrilateral PQRS, angle P = (3x + 15) degrees and angle R = (2x + 25) degrees. Find x.",
+      "options": [
+        "28",
+        "35",
+        "26",
+        "18"
+      ],
+      "answer": 0,
+      "explanation": "Opposite angles of a cyclic quadrilateral are supplementary: 5x + 40 = 180, so x = 28.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0184",
+      "topic": "Euclidean geometry",
+      "stem": "AB is a diameter of a circle and C is a point on the circumference. If angle CAB = 38 degrees, find angle CBA.",
+      "options": [
+        "38 degrees",
+        "52 degrees",
+        "142 degrees",
+        "76 degrees"
+      ],
+      "answer": 1,
+      "explanation": "The angle in a semicircle (angle ACB) is 90 degrees, so angle CBA = 180 - 90 - 38 = 52 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0185",
+      "topic": "Euclidean geometry",
+      "stem": "A tangent is drawn from a point T to a circle of radius 8 cm. If T is 17 cm from the centre, find the length of the tangent.",
+      "options": [
+        "9 cm",
+        "25 cm",
+        "15 cm",
+        "sqrt(353) cm"
+      ],
+      "answer": 2,
+      "explanation": "The radius is perpendicular to the tangent, so length = sqrt(17^2 - 8^2) = 15 cm.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0186",
+      "topic": "Euclidean geometry",
+      "stem": "A chord makes an angle of 64 degrees with the tangent at its end point. What is the angle the chord subtends at a point in the alternate segment?",
+      "options": [
+        "26 degrees",
+        "116 degrees",
+        "128 degrees",
+        "64 degrees"
+      ],
+      "answer": 3,
+      "explanation": "By the alternate segment theorem, the angle between a tangent and a chord equals the angle in the alternate segment.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0187",
+      "topic": "Euclidean geometry",
+      "stem": "An exterior angle of a triangle is 128 degrees and one of the interior opposite angles is 57 degrees. Find the other interior opposite angle.",
+      "options": [
+        "52 degrees",
+        "71 degrees",
+        "123 degrees",
+        "185 degrees"
+      ],
+      "answer": 1,
+      "explanation": "An exterior angle equals the sum of the two interior opposite angles: 128 - 57 = 71 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0188",
+      "topic": "Euclidean geometry",
+      "stem": "The vertical angle of an isosceles triangle is 46 degrees. Find each base angle.",
+      "options": [
+        "67 degrees",
+        "46 degrees",
+        "134 degrees",
+        "44 degrees"
+      ],
+      "answer": 0,
+      "explanation": "Base angles are equal: (180 - 46)/2 = 67 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0189",
+      "topic": "Euclidean geometry",
+      "stem": "Two similar triangles have corresponding sides in the ratio 3 : 5. If the area of the smaller triangle is 36 cm^2, find the area of the larger.",
+      "options": [
+        "60 cm^2",
+        "100 cm^2",
+        "64.8 cm^2",
+        "21.6 cm^2"
+      ],
+      "answer": 1,
+      "explanation": "Areas are in the ratio of squares of sides, 9 : 25, so area = 36 x 25/9 = 100 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0190",
+      "topic": "Euclidean geometry",
+      "stem": "Two parallel lines are cut by a transversal. If a pair of alternate angles are (3x - 25) degrees and (2x + 10) degrees, find x.",
+      "options": [
+        "35",
+        "39",
+        "15",
+        "43"
+      ],
+      "answer": 0,
+      "explanation": "Alternate angles are equal: 3x - 25 = 2x + 10, so x = 35.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0191",
+      "topic": "Euclidean geometry",
+      "stem": "Chords AB and CD of a circle intersect inside the circle at X. If AX = 6 cm, XB = 4 cm and CX = 3 cm, find XD.",
+      "options": [
+        "4.5 cm",
+        "2 cm",
+        "7 cm",
+        "8 cm"
+      ],
+      "answer": 3,
+      "explanation": "Intersecting chords: AX x XB = CX x XD, so 24 = 3 x XD and XD = 8 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0192",
+      "topic": "Euclidean geometry",
+      "stem": "The diagonals of a rhombus are 24 cm and 10 cm long. Find the length of a side.",
+      "options": [
+        "17 cm",
+        "26 cm",
+        "13 cm",
+        "34 cm"
+      ],
+      "answer": 2,
+      "explanation": "The diagonals bisect each other at right angles, so a side = sqrt(12^2 + 5^2) = 13 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0193",
+      "topic": "Euclidean geometry",
+      "stem": "A chord of length 24 cm is drawn in a circle of radius 13 cm. How far is the chord from the centre?",
+      "options": [
+        "11 cm",
+        "5 cm",
+        "12 cm",
+        "sqrt(313) cm"
+      ],
+      "answer": 1,
+      "explanation": "The perpendicular from the centre bisects the chord: distance = sqrt(13^2 - 12^2) = 5 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0194",
+      "topic": "Euclidean geometry",
+      "stem": "The sum of the exterior angles of any convex polygon is",
+      "options": [
+        "180 degrees",
+        "(n - 2) x 180 degrees",
+        "360 degrees",
+        "720 degrees"
+      ],
+      "answer": 2,
+      "explanation": "Walking round any convex polygon turns through one complete revolution, 360 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0195",
+      "topic": "Euclidean geometry",
+      "stem": "In triangle PQR, M and N are the mid-points of PQ and PR respectively. If QR = 14 cm, find MN.",
+      "options": [
+        "7 cm",
+        "14 cm",
+        "28 cm",
+        "3.5 cm"
+      ],
+      "answer": 0,
+      "explanation": "The line joining the mid-points of two sides of a triangle is parallel to the third side and half its length.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0196",
+      "topic": "Euclidean geometry",
+      "stem": "Points A, B, C and D lie on a circle, and angle ADB = 41 degrees. Find angle ACB, where C and D are on the same side of AB.",
+      "options": [
+        "82 degrees",
+        "139 degrees",
+        "49 degrees",
+        "41 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Angles subtended by the same arc in the same segment are equal.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0197",
+      "topic": "Euclidean geometry",
+      "stem": "Which of the following is NOT always true of a parallelogram?",
+      "options": [
+        "Its opposite sides are equal",
+        "Its opposite angles are equal",
+        "Its diagonals bisect each other",
+        "Its diagonals are equal"
+      ],
+      "answer": 3,
+      "explanation": "Equal diagonals hold only for rectangles (and squares), not for every parallelogram.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0198",
+      "topic": "Mensuration",
+      "stem": "Find the length of an arc of a circle of radius 21 cm which subtends an angle of 150 degrees at the centre. (Take pi = 22/7)",
+      "options": [
+        "27.5 cm",
+        "55 cm",
+        "577.5 cm",
+        "110 cm"
+      ],
+      "answer": 1,
+      "explanation": "Arc = (150/360) x 2 x 22/7 x 21 = 55 cm.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0199",
+      "topic": "Mensuration",
+      "stem": "Find the area of a sector of a circle of radius 21 cm with an angle of 80 degrees. (Take pi = 22/7)",
+      "options": [
+        "29.33 cm^2",
+        "1386 cm^2",
+        "308 cm^2",
+        "616 cm^2"
+      ],
+      "answer": 2,
+      "explanation": "Area = (80/360) x 22/7 x 21^2 = 308 cm^2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0200",
+      "topic": "Mensuration",
+      "stem": "Find the area of a triangle whose sides are 9 cm, 10 cm and 17 cm.",
+      "options": [
+        "36 cm^2",
+        "45 cm^2",
+        "76.5 cm^2",
+        "18 cm^2"
+      ],
+      "answer": 0,
+      "explanation": "s = 18; area = sqrt(18 x 9 x 8 x 1) = 36 cm^2 (Hero's formula).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0201",
+      "topic": "Mensuration",
+      "stem": "Two sides of a triangle are 12 cm and 9 cm, and the angle between them is 150 degrees. Find the area of the triangle.",
+      "options": [
+        "54 cm^2",
+        "46.8 cm^2",
+        "108 cm^2",
+        "27 cm^2"
+      ],
+      "answer": 3,
+      "explanation": "Area = (1/2)ab sin C = (1/2)(12)(9) sin 150 = 54 x 0.5 = 27 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0202",
+      "topic": "Mensuration",
+      "stem": "A cylindrical water tank has radius 7 m and height 12 m. Find its volume. (Take pi = 22/7)",
+      "options": [
+        "528 m^3",
+        "1848 m^3",
+        "616 m^3",
+        "3696 m^3"
+      ],
+      "answer": 1,
+      "explanation": "V = pi r^2 h = 22/7 x 49 x 12 = 1848 m^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0203",
+      "topic": "Mensuration",
+      "stem": "Find the volume of a cone of base radius 6 cm and height 14 cm. (Take pi = 22/7)",
+      "options": [
+        "528 cm^3",
+        "1584 cm^3",
+        "264 cm^3",
+        "176 cm^3"
+      ],
+      "answer": 0,
+      "explanation": "V = (1/3) pi r^2 h = (1/3)(22/7)(36)(14) = 528 cm^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0204",
+      "topic": "Mensuration",
+      "stem": "Find the surface area of a sphere of radius 3.5 cm. (Take pi = 22/7)",
+      "options": [
+        "38.5 cm^2",
+        "179.67 cm^2",
+        "154 cm^2",
+        "44 cm^2"
+      ],
+      "answer": 2,
+      "explanation": "S = 4 pi r^2 = 4 x 22/7 x 12.25 = 154 cm^2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0205",
+      "topic": "Mensuration",
+      "stem": "Find the total surface area of a closed cylinder of radius 7 cm and height 8 cm. (Take pi = 22/7)",
+      "options": [
+        "352 cm^2",
+        "660 cm^2",
+        "506 cm^2",
+        "1232 cm^2"
+      ],
+      "answer": 1,
+      "explanation": "TSA = 2 pi r(r + h) = 2 x 22/7 x 7 x 15 = 660 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0206",
+      "topic": "Mensuration",
+      "stem": "A cone has base radius 8 cm and vertical height 15 cm. Find its curved surface area in terms of pi.",
+      "options": [
+        "136 pi cm^2",
+        "120 pi cm^2",
+        "200 pi cm^2",
+        "320 pi cm^2"
+      ],
+      "answer": 0,
+      "explanation": "The slant height is sqrt(8^2 + 15^2) = 17 cm, so the curved surface area = pi r l = 136 pi cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0207",
+      "topic": "Mensuration",
+      "stem": "A sector of radius 9 cm and angle 240 degrees is folded to form a cone. Find the base radius of the cone.",
+      "options": [
+        "9 cm",
+        "4.5 cm",
+        "13.5 cm",
+        "6 cm"
+      ],
+      "answer": 3,
+      "explanation": "The arc becomes the base circumference: 2 pi r = (240/360) x 2 pi x 9, so r = 6 cm; the sector radius becomes the slant height.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0208",
+      "topic": "Mensuration",
+      "stem": "Find the length of the longest rod that can fit inside a box measuring 12 cm by 4 cm by 3 cm.",
+      "options": [
+        "19 cm",
+        "12.65 cm",
+        "13 cm",
+        "5 cm"
+      ],
+      "answer": 2,
+      "explanation": "The longest diagonal is sqrt(12^2 + 4^2 + 3^2) = sqrt(169) = 13 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0209",
+      "topic": "Mensuration",
+      "stem": "Find the volume of a hemisphere of radius 6 cm, in terms of pi.",
+      "options": [
+        "288 pi cm^3",
+        "72 pi cm^3",
+        "108 pi cm^3",
+        "144 pi cm^3"
+      ],
+      "answer": 3,
+      "explanation": "V = (2/3) pi r^3 = (2/3) pi (216) = 144 pi cm^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0210",
+      "topic": "Mensuration",
+      "stem": "The parallel sides of a trapezium are 9 cm and 15 cm and the distance between them is 7 cm. Find its area.",
+      "options": [
+        "84 cm^2",
+        "168 cm^2",
+        "63 cm^2",
+        "105 cm^2"
+      ],
+      "answer": 0,
+      "explanation": "Area = (1/2)(9 + 15)(7) = 84 cm^2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0211",
+      "topic": "Mensuration",
+      "stem": "Find the perimeter of a semicircular plate of radius 7 cm. (Take pi = 22/7)",
+      "options": [
+        "22 cm",
+        "36 cm",
+        "44 cm",
+        "29 cm"
+      ],
+      "answer": 1,
+      "explanation": "Perimeter = arc + diameter = (22/7)(7) + 14 = 36 cm.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0212",
+      "topic": "Mensuration",
+      "stem": "The length of a rectangle is increased by 15% and its width is decreased by 20%. Find the percentage change in its area.",
+      "options": [
+        "5% decrease",
+        "5% increase",
+        "8% decrease",
+        "8% increase"
+      ],
+      "answer": 2,
+      "explanation": "1.15 x 0.80 = 0.92 of the original area, i.e. an 8% decrease.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0213",
+      "topic": "Mensuration",
+      "stem": "Find the area of the minor segment cut off by a chord that subtends a right angle at the centre of a circle of radius 14 cm. (Take pi = 22/7)",
+      "options": [
+        "154 cm^2",
+        "56 cm^2",
+        "98 cm^2",
+        "252 cm^2"
+      ],
+      "answer": 1,
+      "explanation": "Segment = sector - triangle = (1/4)(22/7)(196) - (1/2)(14)(14) = 154 - 98 = 56 cm^2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0214",
+      "topic": "Mensuration",
+      "stem": "A chord subtends an angle of 60 degrees at the centre of a circle of radius 10 cm. Find the length of the chord.",
+      "options": [
+        "10 sqrt(3) cm",
+        "5 cm",
+        "10 cm",
+        "20 cm"
+      ],
+      "answer": 2,
+      "explanation": "The triangle formed with the two radii is equilateral (60 degrees, two equal sides), so the chord is 10 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0215",
+      "topic": "Mensuration",
+      "stem": "Two towns lie on the same line of longitude at latitudes 30 degrees N and 15 degrees S. Find the distance between them along the meridian. (Radius of the earth = 6400 km, pi = 22/7)",
+      "options": [
+        "5,029 km",
+        "1,676 km",
+        "2,514 km",
+        "3,556 km"
+      ],
+      "answer": 0,
+      "explanation": "The angle between them is 30 + 15 = 45 degrees, so the distance = (45/360) x 2 x (22/7) x 6400 = 5028.6 km, about 5,029 km.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0216",
+      "topic": "Mensuration",
+      "stem": "Two points on latitude 60 degrees N have longitudes 20 degrees W and 70 degrees E. Find the distance between them along the parallel of latitude. (R = 6400 km, pi = 22/7)",
+      "options": [
+        "10,057 km",
+        "2,794 km",
+        "8,710 km",
+        "5,029 km"
+      ],
+      "answer": 3,
+      "explanation": "The radius of the parallel is R cos 60 = 3200 km, and the longitude difference is 90 degrees, so the distance = (90/360) x 2 x (22/7) x 3200 = about 5,029 km.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0217",
+      "topic": "Mensuration",
+      "stem": "A prism 10 cm long has a right-angled triangular cross-section with the sides containing the right angle 6 cm and 8 cm. Find its volume.",
+      "options": [
+        "480 cm^3",
+        "120 cm^3",
+        "1000 cm^3",
+        "240 cm^3"
+      ],
+      "answer": 3,
+      "explanation": "Volume = cross-sectional area x length = (1/2)(6)(8)(10) = 240 cm^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0218",
+      "topic": "Mensuration",
+      "stem": "A solid metal sphere of radius 6 cm is melted and recast into small spheres each of radius 2 cm. How many small spheres are obtained?",
+      "options": [
+        "27",
+        "3",
+        "9",
+        "216"
+      ],
+      "answer": 0,
+      "explanation": "Volume ratio = (6/2)^3 = 27, so 27 small spheres are formed.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0219",
+      "topic": "Loci",
+      "stem": "The locus of points that are 5 cm from a fixed point O is",
+      "options": [
+        "a straight line 5 cm from O",
+        "a circle of radius 5 cm with centre O",
+        "a pair of parallel lines 5 cm apart",
+        "the perpendicular bisector of a 5 cm line"
+      ],
+      "answer": 1,
+      "explanation": "All points at a fixed distance from a fixed point lie on a circle centred at that point.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0220",
+      "topic": "Loci",
+      "stem": "The locus of points equidistant from two fixed points A and B is",
+      "options": [
+        "the line AB",
+        "a circle with diameter AB",
+        "the perpendicular bisector of AB",
+        "the bisector of the angle at A"
+      ],
+      "answer": 2,
+      "explanation": "Every point on the perpendicular bisector of AB is the same distance from A and from B.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0221",
+      "topic": "Loci",
+      "stem": "A lamp post is to be placed so that it is the same perpendicular distance from two straight roads that cross each other. The possible positions lie on",
+      "options": [
+        "the bisectors of the angles formed where the roads cross",
+        "a circle centred where the roads cross",
+        "a line parallel to one of the roads",
+        "the perpendicular to one road at the crossing"
+      ],
+      "answer": 0,
+      "explanation": "Points equidistant from two intersecting lines lie on the bisectors of the angles between them.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0222",
+      "topic": "Loci",
+      "stem": "The locus of points at a distance of 3 cm from a straight line l is",
+      "options": [
+        "one line parallel to l at 3 cm",
+        "two lines parallel to l, one on each side, each 3 cm from l",
+        "a circle of radius 3 cm",
+        "a line perpendicular to l"
+      ],
+      "answer": 1,
+      "explanation": "On each side of l there is a parallel line at the required distance.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0223",
+      "topic": "Loci",
+      "stem": "Find the equation of the locus of a point P(x, y) which moves so that it is equidistant from A(1, 2) and B(5, 6).",
+      "options": [
+        "x - y = 1",
+        "x + y = 4",
+        "y = x + 4",
+        "x + y = 7"
+      ],
+      "answer": 3,
+      "explanation": "(x - 1)^2 + (y - 2)^2 = (x - 5)^2 + (y - 6)^2 simplifies to 8x + 8y = 56, i.e. x + y = 7.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0224",
+      "topic": "Loci",
+      "stem": "A point P moves so that its distance from the origin is always 4 units. The equation of its locus is",
+      "options": [
+        "x^2 + y^2 = 4",
+        "x + y = 4",
+        "x^2 + y^2 = 16",
+        "y^2 = 16x"
+      ],
+      "answer": 2,
+      "explanation": "The distance from (0, 0) is sqrt(x^2 + y^2) = 4, so x^2 + y^2 = 16.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0225",
+      "topic": "Loci",
+      "stem": "A goat is tied to a peg at a corner of a large field by a rope 6 m long. The region it can graze is bounded by",
+      "options": [
+        "an arc of a circle of radius 6 m centred at the peg",
+        "a square of side 6 m",
+        "a straight line 6 m from the peg",
+        "an ellipse with the peg at its centre"
+      ],
+      "answer": 0,
+      "explanation": "The furthest the goat can reach is 6 m from the peg in every allowed direction, which traces a circular arc.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0226",
+      "topic": "Loci",
+      "stem": "A point moves so that the angle APB, where A and B are fixed points, is always 90 degrees. The locus of P is",
+      "options": [
+        "the perpendicular bisector of AB",
+        "a circle with AB as diameter",
+        "a straight line through A",
+        "a circle with centre A and radius AB"
+      ],
+      "answer": 1,
+      "explanation": "The angle in a semicircle is a right angle, so P lies on the circle having AB as its diameter.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0227",
+      "topic": "Loci",
+      "stem": "The locus of the centre of a coin of radius 1 cm rolling round the outside of a circular plate of radius 10 cm is",
+      "options": [
+        "a circle of radius 10 cm",
+        "a circle of radius 9 cm",
+        "a straight line",
+        "a circle of radius 11 cm concentric with the plate"
+      ],
+      "answer": 3,
+      "explanation": "The centre of the coin always stays 10 + 1 = 11 cm from the centre of the plate.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0228",
+      "topic": "Coordinate geometry",
+      "stem": "Find the mid-point of the line joining P(-3, 7) and Q(5, -1).",
+      "options": [
+        "(4, 3)",
+        "(1, 4)",
+        "(1, 3)",
+        "(-4, 4)"
+      ],
+      "answer": 2,
+      "explanation": "Mid-point = ((-3 + 5)/2, (7 - 1)/2) = (1, 3).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0229",
+      "topic": "Coordinate geometry",
+      "stem": "Find the distance between the points (-1, 4) and (7, -2).",
+      "options": [
+        "sqrt(40) units",
+        "14 units",
+        "8 units",
+        "10 units"
+      ],
+      "answer": 3,
+      "explanation": "Distance = sqrt(8^2 + (-6)^2) = sqrt(100) = 10.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0230",
+      "topic": "Coordinate geometry",
+      "stem": "Find the gradient of the line joining (2, -5) and (6, 3).",
+      "options": [
+        "1/2",
+        "2",
+        "-2",
+        "-1/2"
+      ],
+      "answer": 1,
+      "explanation": "m = (3 - (-5))/(6 - 2) = 8/4 = 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0231",
+      "topic": "Coordinate geometry",
+      "stem": "What is the gradient of the line 4x - 2y + 7 = 0?",
+      "options": [
+        "-2",
+        "4",
+        "2",
+        "1/2"
+      ],
+      "answer": 2,
+      "explanation": "Rewrite as y = 2x + 7/2; the gradient is 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0232",
+      "topic": "Coordinate geometry",
+      "stem": "Find the equation of the line through (3, -1) with gradient -2.",
+      "options": [
+        "y = -2x + 5",
+        "y = -2x - 7",
+        "y = 2x - 7",
+        "y = -2x + 1"
+      ],
+      "answer": 0,
+      "explanation": "y + 1 = -2(x - 3) gives y = -2x + 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0233",
+      "topic": "Coordinate geometry",
+      "stem": "Find the equation of the line passing through (1, 2) and (4, 11).",
+      "options": [
+        "y = 3x + 2",
+        "y = 3x - 1",
+        "y = (1/3)x + 5/3",
+        "y = 3x + 1"
+      ],
+      "answer": 1,
+      "explanation": "m = 9/3 = 3; y - 2 = 3(x - 1), so y = 3x - 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0234",
+      "topic": "Coordinate geometry",
+      "stem": "Find the gradient of a line perpendicular to 3x + 5y = 8.",
+      "options": [
+        "-5/3",
+        "-3/5",
+        "5/3",
+        "3/5"
+      ],
+      "answer": 2,
+      "explanation": "The given line has gradient -3/5; a perpendicular line has gradient -1/(-3/5) = 5/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0235",
+      "topic": "Coordinate geometry",
+      "stem": "Find the equation of the line through (2, 1) parallel to y = 4x - 3.",
+      "options": [
+        "y = 4x - 7",
+        "y = 4x + 1",
+        "y = -x/4 + 3/2",
+        "y = 4x - 3"
+      ],
+      "answer": 0,
+      "explanation": "A parallel line has the same gradient 4: y - 1 = 4(x - 2), so y = 4x - 7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0236",
+      "topic": "Coordinate geometry",
+      "stem": "Find the equation of the perpendicular bisector of the line joining A(2, 3) and B(6, 7).",
+      "options": [
+        "x - y = -1",
+        "x + y = 5",
+        "y = x + 9",
+        "x + y = 9"
+      ],
+      "answer": 3,
+      "explanation": "The mid-point is (4, 5) and AB has gradient 1, so the bisector has gradient -1: y - 5 = -(x - 4), i.e. x + y = 9.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0237",
+      "topic": "Coordinate geometry",
+      "stem": "Find the y-intercept of the line 2y - 3x = 10.",
+      "options": [
+        "5",
+        "10",
+        "-10/3",
+        "3/2"
+      ],
+      "answer": 0,
+      "explanation": "Put x = 0: 2y = 10, so y = 5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0238",
+      "topic": "Coordinate geometry",
+      "stem": "For what value of k are the lines y = 3x + 2 and ky = -x + 4 perpendicular?",
+      "options": [
+        "-3",
+        "1/3",
+        "3",
+        "-1/3"
+      ],
+      "answer": 2,
+      "explanation": "The second line has gradient -1/k. Perpendicular: 3 x (-1/k) = -1, so k = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0239",
+      "topic": "Coordinate geometry",
+      "stem": "Find the angle the line y = x sqrt(3) + 4 makes with the positive x-axis.",
+      "options": [
+        "30 degrees",
+        "45 degrees",
+        "120 degrees",
+        "60 degrees"
+      ],
+      "answer": 3,
+      "explanation": "tan(theta) = gradient = sqrt(3), so theta = 60 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0240",
+      "topic": "Coordinate geometry",
+      "stem": "The mid-point of the line joining (k, 4) and (6, -2) is (5, 1). Find k.",
+      "options": [
+        "16",
+        "4",
+        "-4",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "(k + 6)/2 = 5 gives k = 4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0241",
+      "topic": "Coordinate geometry",
+      "stem": "If the points (1, 2), (3, 6) and (5, p) are collinear, find p.",
+      "options": [
+        "8",
+        "10",
+        "12",
+        "14"
+      ],
+      "answer": 1,
+      "explanation": "The gradient from (1, 2) to (3, 6) is 2; from (3, 6) to (5, p) it must also be 2, so p - 6 = 4 and p = 10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0242",
+      "topic": "Coordinate geometry",
+      "stem": "Find the area of the triangle formed by the line 3x + 4y = 24 and the coordinate axes.",
+      "options": [
+        "24 square units",
+        "48 square units",
+        "12 square units",
+        "96 square units"
+      ],
+      "answer": 0,
+      "explanation": "The intercepts are (8, 0) and (0, 6); area = (1/2)(8)(6) = 24 square units.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0243",
+      "topic": "Coordinate geometry",
+      "stem": "Find the distance from the origin to the line 3x + 4y - 20 = 0.",
+      "options": [
+        "5 units",
+        "20 units",
+        "20/7 units",
+        "4 units"
+      ],
+      "answer": 3,
+      "explanation": "Distance = |3(0) + 4(0) - 20| / sqrt(3^2 + 4^2) = 20/5 = 4 units.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0244",
+      "topic": "Coordinate geometry",
+      "stem": "The line 2x + y = 6 meets the x-axis at",
+      "options": [
+        "(0, 6)",
+        "(6, 0)",
+        "(3, 0)",
+        "(0, 3)"
+      ],
+      "answer": 2,
+      "explanation": "On the x-axis y = 0, so 2x = 6 and x = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0245",
+      "topic": "Coordinate geometry",
+      "stem": "Find the coordinates of the point of intersection of y = 2x - 1 and x + y = 8.",
+      "options": [
+        "(5, 3)",
+        "(3, 5)",
+        "(2, 6)",
+        "(3, 4)"
+      ],
+      "answer": 1,
+      "explanation": "x + 2x - 1 = 8 gives x = 3 and y = 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0246",
+      "topic": "Trigonometry",
+      "stem": "If sin x = 5/13 and x is acute, find tan x.",
+      "options": [
+        "5/12",
+        "12/13",
+        "12/5",
+        "13/12"
+      ],
+      "answer": 0,
+      "explanation": "The adjacent side is sqrt(169 - 25) = 12, so tan x = 5/12.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0247",
+      "topic": "Trigonometry",
+      "stem": "If cos x = -3/5 and x lies between 90 and 180 degrees, find sin x.",
+      "options": [
+        "-4/5",
+        "3/4",
+        "4/5",
+        "-4/3"
+      ],
+      "answer": 2,
+      "explanation": "sin^2 x = 1 - 9/25 = 16/25, and sine is positive in the second quadrant, so sin x = 4/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0248",
+      "topic": "Trigonometry",
+      "stem": "Without tables, evaluate sin 60 x cos 30 + cos 60 x sin 30.",
+      "options": [
+        "1/2",
+        "sqrt(3)/2",
+        "0",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "sqrt(3)/2 x sqrt(3)/2 + 1/2 x 1/2 = 3/4 + 1/4 = 1 (it equals sin 90).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0249",
+      "topic": "Trigonometry",
+      "stem": "From a point 40 m from the foot of a mast on level ground, the angle of elevation of the top is 30 degrees. Find the height of the mast.",
+      "options": [
+        "40 sqrt(3) m",
+        "20 m",
+        "40 sqrt(3)/3 m",
+        "80 m"
+      ],
+      "answer": 2,
+      "explanation": "h = 40 tan 30 = 40/sqrt(3) = 40 sqrt(3)/3, about 23.09 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0250",
+      "topic": "Trigonometry",
+      "stem": "From the top of a cliff 50 m high, the angle of depression of a canoe on the water is 45 degrees. How far is the canoe from the foot of the cliff?",
+      "options": [
+        "50 m",
+        "50 sqrt(2) m",
+        "25 m",
+        "100 m"
+      ],
+      "answer": 0,
+      "explanation": "tan 45 = 50/d = 1, so d = 50 m.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0251",
+      "topic": "Trigonometry",
+      "stem": "A flagpole stands on top of a building. From a point 30 m from the foot of the building, the angles of elevation of the top and bottom of the flagpole are 60 degrees and 30 degrees respectively. Find the length of the flagpole.",
+      "options": [
+        "10 sqrt(3) m",
+        "20 sqrt(3) m",
+        "30 sqrt(3) m",
+        "30 m"
+      ],
+      "answer": 1,
+      "explanation": "Length = 30 tan 60 - 30 tan 30 = 30 sqrt(3) - 10 sqrt(3) = 20 sqrt(3) m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0252",
+      "topic": "Trigonometry",
+      "stem": "The bearing of Q from P is 065 degrees. What is the bearing of P from Q?",
+      "options": [
+        "115 degrees",
+        "295 degrees",
+        "025 degrees",
+        "245 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Back bearings differ by 180 degrees: 65 + 180 = 245 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0253",
+      "topic": "Trigonometry",
+      "stem": "A surveyor walks 12 km on a bearing of 030 degrees and then 5 km on a bearing of 120 degrees. How far is she from her starting point?",
+      "options": [
+        "17 km",
+        "13 km",
+        "7 km",
+        "sqrt(119) km"
+      ],
+      "answer": 1,
+      "explanation": "The two paths are at right angles (120 - 30 = 90), so the distance is sqrt(12^2 + 5^2) = 13 km.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0254",
+      "topic": "Trigonometry",
+      "stem": "In triangle ABC, b = 8 cm, c = 5 cm and angle A = 60 degrees. Find a.",
+      "options": [
+        "sqrt(129) cm",
+        "9 cm",
+        "7 cm",
+        "13 cm"
+      ],
+      "answer": 2,
+      "explanation": "a^2 = 64 + 25 - 2(8)(5)(1/2) = 49, so a = 7 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0255",
+      "topic": "Trigonometry",
+      "stem": "In triangle PQR, angle P = 30 degrees, angle Q = 45 degrees and p = 10 cm. Find q.",
+      "options": [
+        "10 sqrt(2) cm",
+        "5 sqrt(2) cm",
+        "10 sqrt(3) cm",
+        "20 cm"
+      ],
+      "answer": 0,
+      "explanation": "Sine rule: q = p sin Q / sin P = 10 (sqrt(2)/2)/(1/2) = 10 sqrt(2) cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0256",
+      "topic": "Trigonometry",
+      "stem": "What is the maximum value of 3 + 2 sin x?",
+      "options": [
+        "3",
+        "2",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "explanation": "The greatest value of sin x is 1, so the maximum is 3 + 2 = 5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0257",
+      "topic": "Trigonometry",
+      "stem": "Which of the following angles has the same sine as 50 degrees?",
+      "options": [
+        "130 degrees",
+        "230 degrees",
+        "310 degrees",
+        "40 degrees"
+      ],
+      "answer": 0,
+      "explanation": "sin(180 - x) = sin x, so sin 130 = sin 50.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0258",
+      "topic": "Trigonometry",
+      "stem": "Express cos 300 degrees in surd or fraction form.",
+      "options": [
+        "-1/2",
+        "1/2",
+        "sqrt(3)/2",
+        "-sqrt(3)/2"
+      ],
+      "answer": 1,
+      "explanation": "300 degrees is in the fourth quadrant where cosine is positive: cos 300 = cos 60 = 1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0259",
+      "topic": "Trigonometry",
+      "stem": "Solve 2 sin x - 1 = 0 for 0 <= x <= 360 degrees.",
+      "options": [
+        "30 degrees and 210 degrees",
+        "60 degrees and 120 degrees",
+        "30 degrees and 150 degrees",
+        "30 degrees and 330 degrees"
+      ],
+      "answer": 2,
+      "explanation": "sin x = 1/2, which is positive in the first and second quadrants: x = 30 or 150 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0260",
+      "topic": "Trigonometry",
+      "stem": "The graph of y = cos x for 0 <= x <= 360 degrees crosses the x-axis at",
+      "options": [
+        "0 and 180 degrees",
+        "180 degrees only",
+        "45 degrees and 225 degrees",
+        "90 degrees and 270 degrees"
+      ],
+      "answer": 3,
+      "explanation": "cos x = 0 at x = 90 and 270 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0261",
+      "topic": "Trigonometry",
+      "stem": "Simplify (1 - cos^2 x)/(sin x cos x).",
+      "options": [
+        "cot x",
+        "tan x",
+        "sin x",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "1 - cos^2 x = sin^2 x, and sin^2 x/(sin x cos x) = sin x/cos x = tan x.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0262",
+      "topic": "Trigonometry",
+      "stem": "Find the area of an equilateral triangle of side 10 cm.",
+      "options": [
+        "25 sqrt(3) cm^2",
+        "50 cm^2",
+        "50 sqrt(3) cm^2",
+        "100 sqrt(3) cm^2"
+      ],
+      "answer": 0,
+      "explanation": "Area = (1/2)(10)(10) sin 60 = 50 x sqrt(3)/2 = 25 sqrt(3) cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0263",
+      "topic": "Trigonometry",
+      "stem": "The sides of a triangle are 5 cm, 7 cm and 8 cm. Find the cosine of the angle opposite the 8 cm side.",
+      "options": [
+        "-1/7",
+        "11/14",
+        "1/7",
+        "13/14"
+      ],
+      "answer": 2,
+      "explanation": "cos C = (25 + 49 - 64)/(2 x 5 x 7) = 10/70 = 1/7 (so C is about 81.8 degrees).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0264",
+      "topic": "Trigonometry",
+      "stem": "If tan x = 3/4 and x is acute, evaluate (sin x + cos x)/(sin x - cos x).",
+      "options": [
+        "7",
+        "7/5",
+        "-1/7",
+        "-7"
+      ],
+      "answer": 3,
+      "explanation": "sin x = 3/5 and cos x = 4/5: (7/5)/(-1/5) = -7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0265",
+      "topic": "Trigonometry",
+      "stem": "A ladder 10 m long leans against a vertical wall and makes an angle of 60 degrees with the ground. How high up the wall does it reach?",
+      "options": [
+        "5 m",
+        "5 sqrt(3) m",
+        "10 sqrt(3) m",
+        "20/sqrt(3) m"
+      ],
+      "answer": 1,
+      "explanation": "Height = 10 sin 60 = 10 x sqrt(3)/2 = 5 sqrt(3) m.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0266",
+      "topic": "Trigonometry",
+      "stem": "A town Y is 8 km due east of X, and Z is 6 km due north of Y. Find the bearing of X from Z, to the nearest degree.",
+      "options": [
+        "053 degrees",
+        "217 degrees",
+        "127 degrees",
+        "233 degrees"
+      ],
+      "answer": 3,
+      "explanation": "From Z, X is 6 km south and 8 km west. The angle west of south is arctan(8/6) = 53.1 degrees, so the bearing is 180 + 53 = 233 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0267",
+      "topic": "Trigonometry",
+      "stem": "In which quadrants is tan x negative?",
+      "options": [
+        "Second and fourth",
+        "First and third",
+        "Third and fourth",
+        "Second and third"
+      ],
+      "answer": 0,
+      "explanation": "tan x = sin x/cos x is negative when sine and cosine have opposite signs: quadrants II and IV.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0268",
+      "topic": "Differentiation",
+      "stem": "Evaluate the limit of (x^2 - 16)/(x - 4) as x tends to 4.",
+      "options": [
+        "0",
+        "4",
+        "8",
+        "undefined"
+      ],
+      "answer": 2,
+      "explanation": "Factorise: (x - 4)(x + 4)/(x - 4) = x + 4, which tends to 8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0269",
+      "topic": "Differentiation",
+      "stem": "Evaluate the limit of (2x^2 + 3x)/(5x^2 - x) as x tends to infinity.",
+      "options": [
+        "0",
+        "-3",
+        "infinity",
+        "2/5"
+      ],
+      "answer": 3,
+      "explanation": "Divide numerator and denominator by x^2: (2 + 3/x)/(5 - 1/x) tends to 2/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0270",
+      "topic": "Differentiation",
+      "stem": "Differentiate y = 4x^3 - 5x^2 + 7 with respect to x.",
+      "options": [
+        "12x^2 - 10x",
+        "12x^2 - 10x + 7",
+        "4x^2 - 5x",
+        "12x^3 - 10x^2"
+      ],
+      "answer": 0,
+      "explanation": "Bring down each power and reduce it by one; the derivative of a constant is 0.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0271",
+      "topic": "Differentiation",
+      "stem": "Find dy/dx if y = 3/x^2 + 2 sqrt(x).",
+      "options": [
+        "6/x^3 + 1/sqrt(x)",
+        "-6/x^3 + 1/sqrt(x)",
+        "-6/x + 4 sqrt(x)",
+        "-3/x^3 + 1/(2 sqrt(x))"
+      ],
+      "answer": 1,
+      "explanation": "Write y = 3x^(-2) + 2x^(1/2); then dy/dx = -6x^(-3) + x^(-1/2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0272",
+      "topic": "Differentiation",
+      "stem": "Differentiate (2x - 1)^4 with respect to x.",
+      "options": [
+        "4(2x - 1)^3",
+        "8x(2x - 1)^3",
+        "8(2x - 1)^3",
+        "2(2x - 1)^3"
+      ],
+      "answer": 2,
+      "explanation": "Chain rule: 4(2x - 1)^3 x 2 = 8(2x - 1)^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0273",
+      "topic": "Differentiation",
+      "stem": "Find the derivative of x^2 sin x.",
+      "options": [
+        "2x sin x + x^2 cos x",
+        "2x cos x",
+        "2x sin x - x^2 cos x",
+        "x^2 cos x"
+      ],
+      "answer": 0,
+      "explanation": "Product rule: (2x)(sin x) + (x^2)(cos x).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0274",
+      "topic": "Differentiation",
+      "stem": "Differentiate cos 3x with respect to x.",
+      "options": [
+        "3 sin 3x",
+        "-sin 3x",
+        "-3 sin 3x",
+        "-3 cos 3x"
+      ],
+      "answer": 2,
+      "explanation": "d/dx (cos ax) = -a sin ax.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0275",
+      "topic": "Differentiation",
+      "stem": "What is the derivative of tan x?",
+      "options": [
+        "-cosec^2 x",
+        "sec x tan x",
+        "cot x",
+        "sec^2 x"
+      ],
+      "answer": 3,
+      "explanation": "tan x = sin x/cos x; by the quotient rule the derivative is 1/cos^2 x = sec^2 x.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0276",
+      "topic": "Differentiation",
+      "stem": "Find dy/dx if y = (x + 1)/(x - 2).",
+      "options": [
+        "3/(x - 2)^2",
+        "-3/(x - 2)^2",
+        "1",
+        "(2x - 1)/(x - 2)^2"
+      ],
+      "answer": 1,
+      "explanation": "Quotient rule: [(x - 2)(1) - (x + 1)(1)]/(x - 2)^2 = -3/(x - 2)^2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0277",
+      "topic": "Differentiation",
+      "stem": "Differentiate sqrt(x^2 + 9) with respect to x.",
+      "options": [
+        "1/(2 sqrt(x^2 + 9))",
+        "x/sqrt(x^2 + 9)",
+        "2x sqrt(x^2 + 9)",
+        "x/(x^2 + 9)"
+      ],
+      "answer": 1,
+      "explanation": "Chain rule: (1/2)(x^2 + 9)^(-1/2) x 2x = x/sqrt(x^2 + 9).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0278",
+      "topic": "Differentiation",
+      "stem": "Find the gradient of the curve y = 2x^3 - 2x^2 + x - 5 at the point where x = 2.",
+      "options": [
+        "9",
+        "16",
+        "17",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "dy/dx = 6x^2 - 4x + 1; at x = 2 this is 24 - 8 + 1 = 17.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0279",
+      "topic": "Differentiation",
+      "stem": "If y = sin x cos x, find dy/dx.",
+      "options": [
+        "cos 2x",
+        "-sin 2x",
+        "sin 2x",
+        "2 cos x"
+      ],
+      "answer": 0,
+      "explanation": "Product rule: cos^2 x - sin^2 x, which equals cos 2x.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0280",
+      "topic": "Differentiation",
+      "stem": "Find the second derivative of y = x^4 - 3x^2 + 2x.",
+      "options": [
+        "4x^3 - 6x + 2",
+        "12x^2 - 6x",
+        "24x",
+        "12x^2 - 6"
+      ],
+      "answer": 3,
+      "explanation": "dy/dx = 4x^3 - 6x + 2, so d2y/dx2 = 12x^2 - 6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0281",
+      "topic": "Differentiation",
+      "stem": "Find the equation of the tangent to y = x^2 + 3 at the point (1, 4).",
+      "options": [
+        "y = 2x + 4",
+        "y = x + 3",
+        "y = 2x + 2",
+        "y = -x/2 + 9/2"
+      ],
+      "answer": 2,
+      "explanation": "The gradient is 2x = 2 at x = 1; y - 4 = 2(x - 1), so y = 2x + 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0282",
+      "topic": "Differentiation",
+      "stem": "Differentiate 5 sin x - 2 cos x.",
+      "options": [
+        "5 cos x - 2 sin x",
+        "5 cos x + 2 sin x",
+        "-5 cos x + 2 sin x",
+        "5 cos x + 2 cos x"
+      ],
+      "answer": 1,
+      "explanation": "d/dx sin x = cos x and d/dx cos x = -sin x, so -2 cos x differentiates to +2 sin x.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0283",
+      "topic": "Application of differentiation",
+      "stem": "Find the turning point of y = x^2 - 8x + 3.",
+      "options": [
+        "(-4, 51)",
+        "(4, 3)",
+        "(8, 3)",
+        "(4, -13)"
+      ],
+      "answer": 3,
+      "explanation": "dy/dx = 2x - 8 = 0 gives x = 4, and y = 16 - 32 + 3 = -13.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0284",
+      "topic": "Application of differentiation",
+      "stem": "Find the maximum value of y = 5 + 6x - x^2.",
+      "options": [
+        "14",
+        "3",
+        "5",
+        "41"
+      ],
+      "answer": 0,
+      "explanation": "dy/dx = 6 - 2x = 0 at x = 3; y = 5 + 18 - 9 = 14 (d2y/dx2 = -2 < 0, a maximum).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0285",
+      "topic": "Application of differentiation",
+      "stem": "Find the minimum value of y = x^3 - 3x^2 - 9x + 4.",
+      "options": [
+        "9",
+        "-23",
+        "-1",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "dy/dx = 3x^2 - 6x - 9 = 3(x - 3)(x + 1) = 0; d2y/dx2 = 6x - 6 is positive at x = 3, where y = 27 - 27 - 27 + 4 = -23.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0286",
+      "topic": "Application of differentiation",
+      "stem": "At which value of x does y = x^3 - 3x^2 - 9x + 4 have a local maximum?",
+      "options": [
+        "x = -1",
+        "x = 3",
+        "x = 1",
+        "x = -3"
+      ],
+      "answer": 0,
+      "explanation": "Turning points at x = -1 and x = 3; d2y/dx2 = 6x - 6 is negative at x = -1, so that is the maximum.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0287",
+      "topic": "Application of differentiation",
+      "stem": "A particle moves so that its distance s metres after t seconds is s = 6t^2 - t^3. Find its velocity after 3 seconds.",
+      "options": [
+        "27 m/s",
+        "0 m/s",
+        "-9 m/s",
+        "9 m/s"
+      ],
+      "answer": 3,
+      "explanation": "v = ds/dt = 12t - 3t^2; at t = 3, v = 36 - 27 = 9 m/s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0288",
+      "topic": "Application of differentiation",
+      "stem": "For the particle with s = 6t^2 - t^3 (s in metres, t in seconds), find its acceleration at t = 1 s.",
+      "options": [
+        "9 m/s^2",
+        "12 m/s^2",
+        "6 m/s^2",
+        "0 m/s^2"
+      ],
+      "answer": 2,
+      "explanation": "a = dv/dt = 12 - 6t; at t = 1, a = 6 m/s^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0289",
+      "topic": "Application of differentiation",
+      "stem": "For the particle with s = 6t^2 - t^3 (s in metres, t in seconds), when does it momentarily come to rest (t > 0)?",
+      "options": [
+        "t = 2 s",
+        "t = 6 s",
+        "t = 3 s",
+        "t = 4 s"
+      ],
+      "answer": 3,
+      "explanation": "v = 12t - 3t^2 = 3t(4 - t) = 0 at t = 4 s.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0290",
+      "topic": "Application of differentiation",
+      "stem": "The radius of a circular oil spill increases at 0.5 m/s. How fast is the area increasing when the radius is 6 m?",
+      "options": [
+        "12 pi m^2/s",
+        "6 pi m^2/s",
+        "3 pi m^2/s",
+        "36 pi m^2/s"
+      ],
+      "answer": 1,
+      "explanation": "dA/dt = 2 pi r (dr/dt) = 2 pi (6)(0.5) = 6 pi m^2/s.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0291",
+      "topic": "Application of differentiation",
+      "stem": "A farmer has 40 m of fencing to enclose a rectangular plot. Find the maximum possible area.",
+      "options": [
+        "100 m^2",
+        "96 m^2",
+        "400 m^2",
+        "200 m^2"
+      ],
+      "answer": 0,
+      "explanation": "With sides x and 20 - x, A = 20x - x^2 is greatest when x = 10, giving 100 m^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0292",
+      "topic": "Application of differentiation",
+      "stem": "Equal squares of side x cm are cut from the corners of a 12 cm by 12 cm sheet, and the sides are folded up to make an open box. Find the value of x that gives the greatest volume.",
+      "options": [
+        "3 cm",
+        "4 cm",
+        "2 cm",
+        "6 cm"
+      ],
+      "answer": 2,
+      "explanation": "V = x(12 - 2x)^2; dV/dx = (12 - 2x)(12 - 6x) = 0 gives x = 2 (x = 6 gives zero volume). The maximum volume is 128 cm^3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0293",
+      "topic": "Application of differentiation",
+      "stem": "At a turning point of a curve, the value of dy/dx is",
+      "options": [
+        "0",
+        "1",
+        "-1",
+        "undefined"
+      ],
+      "answer": 0,
+      "explanation": "The tangent at a turning point is horizontal, so its gradient is zero.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0294",
+      "topic": "Application of differentiation",
+      "stem": "For what value of x is the gradient of y = x^2 - 5x + 1 equal to 3?",
+      "options": [
+        "1",
+        "-1",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "dy/dx = 2x - 5 = 3 gives x = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0295",
+      "topic": "Application of differentiation",
+      "stem": "The side of a cube increases at 0.2 cm/s. Find the rate of increase of its volume when the side is 5 cm.",
+      "options": [
+        "5 cm^3/s",
+        "15 cm^3/s",
+        "25 cm^3/s",
+        "75 cm^3/s"
+      ],
+      "answer": 1,
+      "explanation": "dV/dt = 3x^2 (dx/dt) = 3(25)(0.2) = 15 cm^3/s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0296",
+      "topic": "Application of differentiation",
+      "stem": "The profit P (in thousands of naira) from selling x bags of cement a day is P = 40x - 2x^2. How many bags should be sold daily to maximise profit?",
+      "options": [
+        "20",
+        "40",
+        "5",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "dP/dx = 40 - 4x = 0 gives x = 10, and d2P/dx2 = -4 < 0 confirms a maximum.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0297",
+      "topic": "Application of differentiation",
+      "stem": "If d2y/dx2 > 0 at a stationary point, the point is",
+      "options": [
+        "a minimum point",
+        "a maximum point",
+        "a point of inflexion only",
+        "the y-intercept"
+      ],
+      "answer": 0,
+      "explanation": "A positive second derivative means the curve is concave upwards there, so the stationary point is a minimum.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0298",
+      "topic": "Application of differentiation",
+      "stem": "The height h metres of a ball t seconds after being thrown upwards is h = 30t - 5t^2. Find the greatest height reached.",
+      "options": [
+        "30 m",
+        "90 m",
+        "25 m",
+        "45 m"
+      ],
+      "answer": 3,
+      "explanation": "dh/dt = 30 - 10t = 0 at t = 3 s; h = 90 - 45 = 45 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0299",
+      "topic": "Application of differentiation",
+      "stem": "Two positive numbers add up to 18. Find the greatest possible value of their product.",
+      "options": [
+        "72",
+        "80",
+        "81",
+        "324"
+      ],
+      "answer": 2,
+      "explanation": "Product P = x(18 - x); dP/dx = 18 - 2x = 0 at x = 9, so P = 81.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0300",
+      "topic": "Integration",
+      "stem": "Find the integral of (6x^2 - 4x + 3) dx.",
+      "options": [
+        "12x - 4 + c",
+        "2x^3 - 2x^2 + 3x + c",
+        "6x^3 - 4x^2 + 3x + c",
+        "2x^3 - 4x^2 + 3x + c"
+      ],
+      "answer": 1,
+      "explanation": "Raise each power by one and divide by the new power: 6x^3/3 - 4x^2/2 + 3x + c.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0301",
+      "topic": "Integration",
+      "stem": "Evaluate the definite integral of (3x^2 + 2) dx from x = 1 to x = 3.",
+      "options": [
+        "26",
+        "28",
+        "32",
+        "30"
+      ],
+      "answer": 3,
+      "explanation": "[x^3 + 2x] from 1 to 3 = (27 + 6) - (1 + 2) = 30.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0302",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of sin x dx from 0 to pi/2.",
+      "options": [
+        "0",
+        "1",
+        "-1",
+        "pi/2"
+      ],
+      "answer": 1,
+      "explanation": "[-cos x] from 0 to pi/2 = -0 + 1 = 1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0303",
+      "topic": "Integration",
+      "stem": "Find the integral of cos 2x dx.",
+      "options": [
+        "(1/2) sin 2x + c",
+        "2 sin 2x + c",
+        "-(1/2) sin 2x + c",
+        "sin 2x + c"
+      ],
+      "answer": 0,
+      "explanation": "The integral of cos ax is (1/a) sin ax + c.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0304",
+      "topic": "Integration",
+      "stem": "Find the area enclosed by the curve y = 4x - x^2 and the x-axis.",
+      "options": [
+        "16/3 square units",
+        "64/3 square units",
+        "32/3 square units",
+        "8 square units"
+      ],
+      "answer": 2,
+      "explanation": "The curve meets the x-axis at x = 0 and x = 4; the area = [2x^2 - x^3/3] from 0 to 4 = 32 - 64/3 = 32/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0305",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of 1/x^2 dx from 1 to 4.",
+      "options": [
+        "3/4",
+        "-3/4",
+        "15/16",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "[-1/x] from 1 to 4 = -1/4 + 1 = 3/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0306",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of sqrt(x) dx from 0 to 9.",
+      "options": [
+        "27",
+        "6",
+        "54",
+        "18"
+      ],
+      "answer": 3,
+      "explanation": "[(2/3)x^(3/2)] from 0 to 9 = (2/3)(27) = 18.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0307",
+      "topic": "Integration",
+      "stem": "Find the integral of (x + 2)(x - 3) dx.",
+      "options": [
+        "x^3/3 + x^2/2 - 6x + c",
+        "(x^2/2 + 2x)(x^2/2 - 3x) + c",
+        "x^3/3 - x^2/2 - 6x + c",
+        "x^3 - x^2 - 6x + c"
+      ],
+      "answer": 2,
+      "explanation": "Expand first: x^2 - x - 6, then integrate term by term.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0308",
+      "topic": "Integration",
+      "stem": "The gradient of a curve is 3x^2 - 4 and the curve passes through (2, 5). Find its equation.",
+      "options": [
+        "y = x^3 - 4x + 1",
+        "y = x^3 - 4x + 5",
+        "y = x^3 - 4x",
+        "y = 6x - 7"
+      ],
+      "answer": 1,
+      "explanation": "y = x^3 - 4x + c; at (2, 5): 8 - 8 + c = 5, so c = 5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0309",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of (2x + 1)^2 dx from 0 to 1.",
+      "options": [
+        "9/2",
+        "3",
+        "26/3",
+        "13/3"
+      ],
+      "answer": 3,
+      "explanation": "Expand: 4x^2 + 4x + 1; [4x^3/3 + 2x^2 + x] from 0 to 1 = 4/3 + 2 + 1 = 13/3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0310",
+      "topic": "Integration",
+      "stem": "Find the integral of 5 dx.",
+      "options": [
+        "5 + c",
+        "0",
+        "5x + c",
+        "5x^2/2 + c"
+      ],
+      "answer": 2,
+      "explanation": "The integral of a constant k is kx + c.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0311",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of 2 cos x dx from 0 to pi/6.",
+      "options": [
+        "1",
+        "sqrt(3)",
+        "2",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "[2 sin x] from 0 to pi/6 = 2 x 1/2 = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0312",
+      "topic": "Integration",
+      "stem": "Find the area bounded by y = x^2, the x-axis and the lines x = 0 and x = 3.",
+      "options": [
+        "27 square units",
+        "9 square units",
+        "3 square units",
+        "6 square units"
+      ],
+      "answer": 1,
+      "explanation": "Area = [x^3/3] from 0 to 3 = 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0313",
+      "topic": "Integration",
+      "stem": "The velocity of a body is v = 3t^2 + 2t m/s. Find the distance it covers in the first 2 seconds.",
+      "options": [
+        "16 m",
+        "14 m",
+        "8 m",
+        "12 m"
+      ],
+      "answer": 3,
+      "explanation": "Distance = integral of v dt from 0 to 2 = [t^3 + t^2] = 8 + 4 = 12 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0314",
+      "topic": "Integration",
+      "stem": "Find the integral of (x^3 - 2x)/x dx, for x not equal to 0.",
+      "options": [
+        "x^3/3 - 2x + c",
+        "x^4/4 - x^2 + c",
+        "3x^2 - 2 + c",
+        "x^3/3 - x^2 + c"
+      ],
+      "answer": 0,
+      "explanation": "Simplify first: x^2 - 2, which integrates to x^3/3 - 2x + c.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0315",
+      "topic": "Integration",
+      "stem": "Find the total area between y = x^2 - 1 and the x-axis from x = 0 to x = 2.",
+      "options": [
+        "2/3 square units",
+        "4/3 square units",
+        "2 square units",
+        "8/3 square units"
+      ],
+      "answer": 2,
+      "explanation": "From 0 to 1 the curve is below the axis (area 2/3) and from 1 to 2 above it (area 4/3); the total area is 2. Integrating straight from 0 to 2 gives 2/3, which wrongly cancels the parts.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0316",
+      "topic": "Representation of data",
+      "stem": "In a survey, 8, 12, 16 and 24 students chose football, basketball, athletics and table tennis respectively. In a pie chart, what angle represents table tennis?",
+      "options": [
+        "24 degrees",
+        "144 degrees",
+        "96 degrees",
+        "120 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Total = 60; angle = 24/60 x 360 = 144 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0317",
+      "topic": "Representation of data",
+      "stem": "In a pie chart showing how 6 pupils travel to school by bicycle, the bicycle sector has an angle of 45 degrees. How many pupils were surveyed altogether?",
+      "options": [
+        "48",
+        "270",
+        "36",
+        "60"
+      ],
+      "answer": 0,
+      "explanation": "Each pupil is represented by 45/6 = 7.5 degrees, so the total is 360/7.5 = 48 pupils.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0318",
+      "topic": "Representation of data",
+      "stem": "A pie chart shows how a civil servant spends a monthly income of ₦180,000. If food takes a sector of 120 degrees, how much is spent on food?",
+      "options": [
+        "₦120,000",
+        "₦54,000",
+        "₦66,000",
+        "₦60,000"
+      ],
+      "answer": 3,
+      "explanation": "Food = 120/360 x 180,000 = ₦60,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0319",
+      "topic": "Representation of data",
+      "stem": "In a histogram with equal class widths, the height of each bar is proportional to the",
+      "options": [
+        "class boundary",
+        "class mark",
+        "class frequency",
+        "cumulative frequency"
+      ],
+      "answer": 2,
+      "explanation": "With equal widths, bar area (and hence height) represents the frequency.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0320",
+      "topic": "Representation of data",
+      "stem": "In a histogram with unequal class widths, the quantity represented by the area of each bar is the",
+      "options": [
+        "frequency density",
+        "frequency",
+        "class width",
+        "cumulative frequency"
+      ],
+      "answer": 1,
+      "explanation": "The height is the frequency density (frequency divided by class width), so the area gives the frequency.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0321",
+      "topic": "Representation of data",
+      "stem": "A class 20 - 27 (class boundaries 19.5 and 27.5) has frequency 24. What is its frequency density?",
+      "options": [
+        "24",
+        "3",
+        "8",
+        "1/3"
+      ],
+      "answer": 1,
+      "explanation": "The class width is 27.5 - 19.5 = 8, and the frequency density = 24/8 = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0322",
+      "topic": "Representation of data",
+      "stem": "The class mark of the class interval 35 - 39 is",
+      "options": [
+        "35",
+        "39",
+        "36.5",
+        "37"
+      ],
+      "answer": 3,
+      "explanation": "Class mark = (35 + 39)/2 = 37.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0323",
+      "topic": "Representation of data",
+      "stem": "The upper class boundary of the class 40 - 49 is",
+      "options": [
+        "49.5",
+        "49",
+        "50",
+        "45"
+      ],
+      "answer": 0,
+      "explanation": "With whole-number data, the upper class boundary lies halfway between 49 and 50, i.e. 49.5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0324",
+      "topic": "Representation of data",
+      "stem": "Which of the following is best for comparing the proportions of a whole, such as the parts of a household budget?",
+      "options": [
+        "A histogram",
+        "An ogive",
+        "A pie chart",
+        "A frequency polygon"
+      ],
+      "answer": 2,
+      "explanation": "A pie chart shows each part as a fraction of the whole circle.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0325",
+      "topic": "Representation of data",
+      "stem": "The numbers of goals scored in 12 matches were 3, 5, 4, 3, 2, 5, 3, 4, 3, 1, 2, 3. In a frequency table, what is the frequency of 3 goals?",
+      "options": [
+        "3",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "explanation": "Count the 3s: there are five of them.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0326",
+      "topic": "Representation of data",
+      "stem": "A frequency polygon is drawn by joining with straight lines the points plotted at the",
+      "options": [
+        "upper class boundaries against the cumulative frequencies",
+        "class marks against the frequencies",
+        "lower class limits against the frequencies",
+        "class widths against the frequencies"
+      ],
+      "answer": 1,
+      "explanation": "Frequencies are plotted against mid-points (class marks); plotting cumulative frequency against upper boundaries gives an ogive instead.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0327",
+      "topic": "Representation of data",
+      "stem": "In a bar chart of 60 cars passing a junction, 15 were red. If the same data were shown on a pie chart, the angle for red cars would be",
+      "options": [
+        "90 degrees",
+        "15 degrees",
+        "60 degrees",
+        "25 degrees"
+      ],
+      "answer": 0,
+      "explanation": "15/60 x 360 = 90 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0328",
+      "topic": "Representation of data",
+      "stem": "Two sectors of a pie chart representing Mathematics and English have angles 72 degrees and 108 degrees. If 30 students chose English, how many chose Mathematics?",
+      "options": [
+        "45",
+        "24",
+        "20",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "Each degree represents 30/108 students, so Mathematics = 72 x 30/108 = 20 students.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0329",
+      "topic": "Measures of location",
+      "stem": "Find the median of 7, 3, 9, 5, 6, 3, 8.",
+      "options": [
+        "6",
+        "5",
+        "3",
+        "5.86"
+      ],
+      "answer": 0,
+      "explanation": "Arrange in order: 3, 3, 5, 6, 7, 8, 9; the middle (4th) value is 6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0330",
+      "topic": "Measures of location",
+      "stem": "Find the mode of 7, 3, 9, 5, 6, 3, 8.",
+      "options": [
+        "6",
+        "3",
+        "9",
+        "5.86"
+      ],
+      "answer": 1,
+      "explanation": "3 occurs twice and every other value once.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0331",
+      "topic": "Measures of location",
+      "stem": "Find the median of 12, 15, 11, 18, 14, 20.",
+      "options": [
+        "14",
+        "15",
+        "18",
+        "14.5"
+      ],
+      "answer": 3,
+      "explanation": "Ordered: 11, 12, 14, 15, 18, 20; the median is the mean of the 3rd and 4th values: (14 + 15)/2 = 14.5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0332",
+      "topic": "Measures of location",
+      "stem": "The mean of six numbers is 15. Five of them are 12, 17, 9, 20 and 14. Find the sixth number.",
+      "options": [
+        "15",
+        "14.4",
+        "18",
+        "72"
+      ],
+      "answer": 2,
+      "explanation": "The total must be 6 x 15 = 90; 90 - 72 = 18.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0333",
+      "topic": "Measures of location",
+      "stem": "The table shows the number of children (x) in 20 families: x = 1, 2, 3, 4, 5 with frequencies 4, 7, 5, 3, 1 respectively. Find the mean number of children.",
+      "options": [
+        "3",
+        "4",
+        "2.5",
+        "2"
+      ],
+      "answer": 2,
+      "explanation": "Sum of fx = 4 + 14 + 15 + 12 + 5 = 50; mean = 50/20 = 2.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0334",
+      "topic": "Measures of location",
+      "stem": "For the same 20 families (x = 1, 2, 3, 4, 5 children with frequencies 4, 7, 5, 3, 1), what is the modal number of children?",
+      "options": [
+        "2",
+        "7",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "explanation": "The mode is the value with the highest frequency (7), i.e. 2 children.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0335",
+      "topic": "Measures of location",
+      "stem": "For the same 20 families (x = 1, 2, 3, 4, 5 with frequencies 4, 7, 5, 3, 1), find the median number of children.",
+      "options": [
+        "3",
+        "2",
+        "2.5",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Cumulative frequencies are 4, 11, 16, 19, 20; the 10th and 11th values both lie in x = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0336",
+      "topic": "Measures of location",
+      "stem": "Marks of 20 pupils are grouped as 1 - 5, 6 - 10, 11 - 15 and 16 - 20 with frequencies 3, 7, 6 and 4. Using class mid-points, estimate the mean mark.",
+      "options": [
+        "10.5",
+        "11.25",
+        "12",
+        "10.75"
+      ],
+      "answer": 3,
+      "explanation": "Mid-points 3, 8, 13, 18: sum of fx = 9 + 56 + 78 + 72 = 215, and 215/20 = 10.75.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0337",
+      "topic": "Measures of location",
+      "stem": "The mean of 10 numbers is 8. When one of the numbers is removed, the mean of the rest is 7.5. Find the number removed.",
+      "options": [
+        "0.5",
+        "12.5",
+        "8.5",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "Total before = 80; total after = 9 x 7.5 = 67.5; removed number = 12.5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0338",
+      "topic": "Measures of location",
+      "stem": "The average age of 5 men is 62 years and that of 3 women is 70 years. Find the average age of all 8 people.",
+      "options": [
+        "66 years",
+        "64 years",
+        "68 years",
+        "65 years"
+      ],
+      "answer": 3,
+      "explanation": "(5 x 62 + 3 x 70)/8 = 520/8 = 65 years. Averaging 62 and 70 directly (66) ignores the different group sizes.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0339",
+      "topic": "Measures of location",
+      "stem": "The median of a set of data is the value that",
+      "options": [
+        "lies in the middle when the data are arranged in order",
+        "occurs most often",
+        "is the sum of the values divided by their number",
+        "is the difference between the largest and smallest values"
+      ],
+      "answer": 0,
+      "explanation": "The median is the middle value of ordered data.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0340",
+      "topic": "Measures of location",
+      "stem": "On a cumulative frequency curve (ogive) for 80 candidates, the median is read off at a cumulative frequency of",
+      "options": [
+        "80",
+        "20",
+        "40",
+        "60"
+      ],
+      "answer": 2,
+      "explanation": "The median corresponds to half the total frequency: 80/2 = 40. (20 and 60 give the quartiles.)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0341",
+      "topic": "Measures of location",
+      "stem": "The mean of five numbers is 6. If each number is multiplied by 3 and then 1 is added, what is the new mean?",
+      "options": [
+        "18",
+        "21",
+        "7",
+        "19"
+      ],
+      "answer": 3,
+      "explanation": "Means transform in the same way: 3 x 6 + 1 = 19.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0342",
+      "topic": "Measures of location",
+      "stem": "The numbers 2, 5, x, 7, 9 have a mean of 6. Find the median.",
+      "options": [
+        "7",
+        "6",
+        "5",
+        "9"
+      ],
+      "answer": 0,
+      "explanation": "The total is 30, so x = 7. Ordered: 2, 5, 7, 7, 9, and the median is 7.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0343",
+      "topic": "Measures of location",
+      "stem": "Scores of 40 students: 10 - 19 (5), 20 - 29 (12), 30 - 39 (15), 40 - 49 (8). Estimate the median by interpolation.",
+      "options": [
+        "30",
+        "34.5",
+        "31.5",
+        "29.5"
+      ],
+      "answer": 2,
+      "explanation": "The 20th value is in 30 - 39: median = 29.5 + (20 - 17)/15 x 10 = 31.5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0344",
+      "topic": "Measures of dispersion",
+      "stem": "Find the range of 14, 9, 22, 17, 6, 19.",
+      "options": [
+        "13",
+        "16",
+        "22",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "Range = largest - smallest = 22 - 6 = 16.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0345",
+      "topic": "Measures of dispersion",
+      "stem": "Find the variance of 3, 5, 7, 9, 11.",
+      "options": [
+        "10",
+        "sqrt(8)",
+        "2.4",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "The mean is 7; squared deviations 16, 4, 0, 4, 16 sum to 40; variance = 40/5 = 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0346",
+      "topic": "Measures of dispersion",
+      "stem": "Find the standard deviation of 3, 5, 7, 9, 11.",
+      "options": [
+        "8",
+        "2.4",
+        "2 sqrt(2)",
+        "sqrt(10)"
+      ],
+      "answer": 2,
+      "explanation": "The variance is 8, so the standard deviation is sqrt(8) = 2 sqrt(2), about 2.83.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0347",
+      "topic": "Measures of dispersion",
+      "stem": "Find the mean deviation of 2, 4, 6, 8.",
+      "options": [
+        "5",
+        "2",
+        "0",
+        "2.24"
+      ],
+      "answer": 1,
+      "explanation": "The mean is 5; absolute deviations 3, 1, 1, 3 have mean 2. Without absolute values the deviations sum to 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0348",
+      "topic": "Measures of dispersion",
+      "stem": "Calculate the mean deviation of 4, 6, 9, 13.",
+      "options": [
+        "3",
+        "8",
+        "0",
+        "3.5"
+      ],
+      "answer": 0,
+      "explanation": "The mean is 8; absolute deviations 4, 2, 1, 5 have mean 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0349",
+      "topic": "Measures of dispersion",
+      "stem": "If 5 is added to every value in a set of data, the standard deviation",
+      "options": [
+        "increases by 5",
+        "is unchanged",
+        "increases by 25",
+        "is multiplied by 5"
+      ],
+      "answer": 1,
+      "explanation": "Adding a constant shifts every value and the mean equally, so the spread is unchanged.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0350",
+      "topic": "Measures of dispersion",
+      "stem": "If every value in a data set is multiplied by 3, the variance is",
+      "options": [
+        "multiplied by 3",
+        "unchanged",
+        "increased by 3",
+        "multiplied by 9"
+      ],
+      "answer": 3,
+      "explanation": "Deviations are tripled, so squared deviations (and the variance) are multiplied by 3^2 = 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0351",
+      "topic": "Measures of dispersion",
+      "stem": "Find the variance of the distribution x = 1, 2, 3, 4 with frequencies 2, 3, 3, 2.",
+      "options": [
+        "1.05",
+        "1.25",
+        "2.5",
+        "1.02"
+      ],
+      "answer": 0,
+      "explanation": "The mean is 2.5; sum of f(x - mean)^2 = 2(2.25) + 3(0.25) + 3(0.25) + 2(2.25) = 10.5; variance = 10.5/10 = 1.05.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0352",
+      "topic": "Measures of dispersion",
+      "stem": "Which of the following is a measure of dispersion?",
+      "options": [
+        "Median",
+        "Mode",
+        "Standard deviation",
+        "Mean"
+      ],
+      "answer": 2,
+      "explanation": "Range, mean deviation, variance and standard deviation measure spread; the others measure location.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0353",
+      "topic": "Measures of dispersion",
+      "stem": "For 10 observations, the sum of x is 20 and the sum of x^2 is 50. Find the variance.",
+      "options": [
+        "5",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "Variance = (sum x^2)/n - (mean)^2 = 50/10 - 2^2 = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0354",
+      "topic": "Measures of dispersion",
+      "stem": "What is the standard deviation of 6, 6, 6, 6?",
+      "options": [
+        "0",
+        "6",
+        "1",
+        "24"
+      ],
+      "answer": 0,
+      "explanation": "All values equal the mean, so every deviation is zero.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0355",
+      "topic": "Measures of dispersion",
+      "stem": "Find the standard deviation of 1, 3, 4, 6, 6, correct to two decimal places.",
+      "options": [
+        "3.60",
+        "1.90",
+        "2.12",
+        "4.24"
+      ],
+      "answer": 1,
+      "explanation": "The mean is 4; squared deviations 9, 1, 0, 4, 4 sum to 18; variance = 18/5 = 3.6 and SD = sqrt(3.6) = 1.90.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0356",
+      "topic": "Measures of dispersion",
+      "stem": "The marks of two classes have the same mean, but class X has a standard deviation of 4 and class Y one of 9. This shows that",
+      "options": [
+        "class Y performed better on average",
+        "class X has a higher range for certain",
+        "the marks in class Y are more spread out",
+        "class X has more students"
+      ],
+      "answer": 2,
+      "explanation": "A larger standard deviation means the values are more widely scattered about the mean; it says nothing about the average or class size.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0357",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can 5 students be arranged in a row?",
+      "options": [
+        "25",
+        "120",
+        "60",
+        "24"
+      ],
+      "answer": 1,
+      "explanation": "5! = 5 x 4 x 3 x 2 x 1 = 120.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0358",
+      "topic": "Permutation and combination",
+      "stem": "Evaluate 7P3.",
+      "options": [
+        "35",
+        "21",
+        "343",
+        "210"
+      ],
+      "answer": 3,
+      "explanation": "7P3 = 7 x 6 x 5 = 210.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0359",
+      "topic": "Permutation and combination",
+      "stem": "Evaluate 8C3.",
+      "options": [
+        "336",
+        "24",
+        "56",
+        "40"
+      ],
+      "answer": 2,
+      "explanation": "8C3 = (8 x 7 x 6)/(3 x 2 x 1) = 56.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0360",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can a committee of 4 be chosen from 9 people?",
+      "options": [
+        "126",
+        "3024",
+        "36",
+        "84"
+      ],
+      "answer": 0,
+      "explanation": "Order does not matter: 9C4 = 126.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0361",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can a chairman, a secretary and a treasurer be chosen from 10 club members?",
+      "options": [
+        "720",
+        "120",
+        "30",
+        "1000"
+      ],
+      "answer": 0,
+      "explanation": "The positions are different, so order matters: 10P3 = 10 x 9 x 8 = 720.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0362",
+      "topic": "Permutation and combination",
+      "stem": "How many different arrangements can be made from the letters of the word ABUBAKAR?",
+      "options": [
+        "40320",
+        "6720",
+        "3360",
+        "20160"
+      ],
+      "answer": 2,
+      "explanation": "There are 8 letters with A repeated 3 times and B repeated twice: 8!/(3! 2!) = 3360.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0363",
+      "topic": "Permutation and combination",
+      "stem": "How many distinct arrangements can be made using all six letters B, O, B, O, L, L?",
+      "options": [
+        "720",
+        "180",
+        "360",
+        "90"
+      ],
+      "answer": 3,
+      "explanation": "6 letters with B, O and L each appearing twice: 6!/(2! 2! 2!) = 90.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0364",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can 6 people be seated round a circular table?",
+      "options": [
+        "720",
+        "120",
+        "360",
+        "36"
+      ],
+      "answer": 1,
+      "explanation": "For circular arrangements fix one person and arrange the rest: (6 - 1)! = 120.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0365",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can 7 different beads be threaded on a circular necklace that can be turned over?",
+      "options": [
+        "720",
+        "5040",
+        "360",
+        "2520"
+      ],
+      "answer": 2,
+      "explanation": "Circular arrangements give 6! = 720, but turning the necklace over makes clockwise and anticlockwise arrangements the same: 720/2 = 360.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0366",
+      "topic": "Permutation and combination",
+      "stem": "A committee of 2 men and 2 women is to be chosen from 5 men and 4 women. In how many ways can this be done?",
+      "options": [
+        "60",
+        "126",
+        "20",
+        "120"
+      ],
+      "answer": 0,
+      "explanation": "5C2 x 4C2 = 10 x 6 = 60.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0367",
+      "topic": "Permutation and combination",
+      "stem": "How many three-digit numbers can be formed from the digits 1, 2, 3, 4, 5 if no digit may be repeated?",
+      "options": [
+        "125",
+        "10",
+        "15",
+        "60"
+      ],
+      "answer": 3,
+      "explanation": "5 x 4 x 3 = 60.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0368",
+      "topic": "Permutation and combination",
+      "stem": "How many even three-digit numbers can be formed from 1, 2, 3, 4, 5 without repetition?",
+      "options": [
+        "36",
+        "24",
+        "30",
+        "48"
+      ],
+      "answer": 1,
+      "explanation": "The units digit must be 2 or 4 (2 ways); then 4 choices for the hundreds and 3 for the tens: 2 x 4 x 3 = 24.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0369",
+      "topic": "Permutation and combination",
+      "stem": "If nC2 = 28, find n.",
+      "options": [
+        "7",
+        "14",
+        "56",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "n(n - 1)/2 = 28 gives n(n - 1) = 56, so n = 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0370",
+      "topic": "Probability",
+      "stem": "A fair die is thrown once. What is the probability of getting a number greater than 4?",
+      "options": [
+        "1/2",
+        "1/3",
+        "2/3",
+        "1/6"
+      ],
+      "answer": 1,
+      "explanation": "The favourable outcomes are 5 and 6: 2/6 = 1/3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0371",
+      "topic": "Probability",
+      "stem": "A bag contains 5 red, 3 blue and 4 green balls. One ball is picked at random. Find the probability that it is not blue.",
+      "options": [
+        "1/4",
+        "5/12",
+        "3/4",
+        "7/12"
+      ],
+      "answer": 2,
+      "explanation": "9 of the 12 balls are not blue: 9/12 = 3/4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0372",
+      "topic": "Probability",
+      "stem": "Two fair coins are tossed. What is the probability of getting exactly one head?",
+      "options": [
+        "1/2",
+        "1/4",
+        "3/4",
+        "1/3"
+      ],
+      "answer": 0,
+      "explanation": "The outcomes are HH, HT, TH, TT; two of the four have exactly one head.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0373",
+      "topic": "Probability",
+      "stem": "Two fair dice are thrown together. Find the probability that the sum of the scores is 8.",
+      "options": [
+        "1/6",
+        "1/9",
+        "5/36",
+        "8/36"
+      ],
+      "answer": 2,
+      "explanation": "There are 5 favourable pairs (2,6), (3,5), (4,4), (5,3), (6,2) out of 36.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0374",
+      "topic": "Probability",
+      "stem": "Two dice are thrown. Find the probability of getting a double or a total of 10.",
+      "options": [
+        "1/4",
+        "2/9",
+        "1/6",
+        "1/12"
+      ],
+      "answer": 1,
+      "explanation": "Doubles: 6 outcomes; total 10: 3 outcomes; (5, 5) is in both. So 6 + 3 - 1 = 8 outcomes and 8/36 = 2/9.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0375",
+      "topic": "Probability",
+      "stem": "The probability that Ngozi passes an examination is 0.8 and that Femi passes is 0.6. Assuming independence, find the probability that both pass.",
+      "options": [
+        "0.48",
+        "1.4",
+        "0.7",
+        "0.08"
+      ],
+      "answer": 0,
+      "explanation": "For independent events P(A and B) = P(A) x P(B) = 0.8 x 0.6 = 0.48.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0376",
+      "topic": "Probability",
+      "stem": "The probability that Ngozi passes an examination is 0.8 and that Femi passes is 0.6, independently. Find the probability that at least one of them passes.",
+      "options": [
+        "0.48",
+        "1.4",
+        "0.08",
+        "0.92"
+      ],
+      "answer": 3,
+      "explanation": "P(neither) = 0.2 x 0.4 = 0.08, so P(at least one) = 1 - 0.08 = 0.92.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0377",
+      "topic": "Probability",
+      "stem": "The probability that Ngozi passes is 0.8 and that Femi passes is 0.6, independently. Find the probability that only Ngozi passes.",
+      "options": [
+        "0.48",
+        "0.8",
+        "0.12",
+        "0.32"
+      ],
+      "answer": 3,
+      "explanation": "P(Ngozi passes and Femi fails) = 0.8 x 0.4 = 0.32.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0378",
+      "topic": "Probability",
+      "stem": "A box contains 4 white and 6 black balls. Two balls are drawn one after the other without replacement. Find the probability that both are white.",
+      "options": [
+        "4/25",
+        "2/5",
+        "2/15",
+        "1/5"
+      ],
+      "answer": 2,
+      "explanation": "4/10 x 3/9 = 12/90 = 2/15. Using 4/10 x 4/10 = 4/25 wrongly assumes replacement.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0379",
+      "topic": "Probability",
+      "stem": "A box contains 4 white and 6 black balls. Two balls are drawn without replacement. Find the probability that they are of different colours.",
+      "options": [
+        "8/15",
+        "4/15",
+        "12/25",
+        "7/15"
+      ],
+      "answer": 0,
+      "explanation": "P(WB) + P(BW) = (4/10)(6/9) + (6/10)(4/9) = 48/90 = 8/15.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0380",
+      "topic": "Probability",
+      "stem": "A number is chosen at random from 1 to 20. Find the probability that it is a prime number.",
+      "options": [
+        "9/20",
+        "2/5",
+        "1/2",
+        "7/20"
+      ],
+      "answer": 1,
+      "explanation": "The primes are 2, 3, 5, 7, 11, 13, 17, 19, which is 8 numbers; 8/20 = 2/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0381",
+      "topic": "Probability",
+      "stem": "A card is drawn from a pack of 52 playing cards. What is the probability that it is a king or a queen?",
+      "options": [
+        "1/13",
+        "1/169",
+        "4/13",
+        "2/13"
+      ],
+      "answer": 3,
+      "explanation": "There are 4 kings and 4 queens: 8/52 = 2/13. The events are mutually exclusive, so the probabilities add.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0382",
+      "topic": "Probability",
+      "stem": "In an experiment a drawing pin was tossed 200 times and landed point up 76 times. Estimate the probability that it lands point down on the next toss.",
+      "options": [
+        "0.38",
+        "0.5",
+        "0.62",
+        "0.76"
+      ],
+      "answer": 2,
+      "explanation": "Experimental probability of point up = 76/200 = 0.38, so point down = 1 - 0.38 = 0.62.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0383",
+      "topic": "Probability",
+      "stem": "Three fair coins are tossed. Find the probability of obtaining at least two heads.",
+      "options": [
+        "3/8",
+        "1/2",
+        "1/8",
+        "7/8"
+      ],
+      "answer": 1,
+      "explanation": "Outcomes with 2 or 3 heads: HHT, HTH, THH and HHH, which is 4 of 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0384",
+      "topic": "Probability",
+      "stem": "If the probability that it will rain in Port Harcourt tomorrow is 0.65, what is the probability that it will not rain?",
+      "options": [
+        "0.35",
+        "0.65",
+        "1.65",
+        "0.5"
+      ],
+      "answer": 0,
+      "explanation": "The probabilities of an event and its complement sum to 1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0385",
+      "topic": "Probability",
+      "stem": "A coin is tossed and a die is thrown. Find the probability of a head and a 6.",
+      "options": [
+        "2/3",
+        "1/8",
+        "1/12",
+        "7/12"
+      ],
+      "answer": 2,
+      "explanation": "Independent events: 1/2 x 1/6 = 1/12.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "jm-math-0386",
+      "topic": "Probability",
+      "stem": "A bag contains red and blue marbles. The probability of picking a red marble is 3/7. If there are 12 red marbles, how many blue marbles are there?",
+      "options": [
+        "28",
+        "9",
+        "12",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Total = 12 / (3/7) = 28 marbles, so there are 28 - 12 = 16 blue marbles.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0387",
+      "topic": "Probability",
+      "stem": "A fair die is thrown twice. Find the probability of getting at least one six.",
+      "options": [
+        "1/3",
+        "11/36",
+        "1/36",
+        "25/36"
+      ],
+      "answer": 1,
+      "explanation": "P(no six) = (5/6)^2 = 25/36, so P(at least one six) = 11/36.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "jm-math-0388",
+      "topic": "Number bases",
+      "stem": "Evaluate 0.11 (base two) + 0.2 (base four), giving the answer in base ten.",
+      "options": [
+        "1.25",
+        "0.31",
+        "0.75",
+        "1.5"
+      ],
+      "answer": 0,
+      "explanation": "0.11 (base two) = 1/2 + 1/4 = 0.75 and 0.2 (base four) = 2/4 = 0.5; the sum is 1.25.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0389",
+      "topic": "Number bases",
+      "stem": "If 213 (base x) = 58 (base ten), find x.",
+      "options": [
+        "4",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "explanation": "2x^2 + x + 3 = 58 gives 2x^2 + x - 55 = 0, i.e. (2x + 11)(x - 5) = 0, so x = 5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0390",
+      "topic": "Fractions, decimals, approximations and percentages",
+      "stem": "₦100,000 is invested at 8% per annum compound interest, compounded half-yearly. Find the amount after one year.",
+      "options": [
+        "₦108,000",
+        "₦108,160",
+        "₦116,640",
+        "₦104,000"
+      ],
+      "answer": 1,
+      "explanation": "Rate per half-year = 4%, two periods: 100,000 x 1.04^2 = ₦108,160. ₦108,000 is the simple-interest amount.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0391",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve 2^(x + 1) + 2^x = 48.",
+      "options": [
+        "5",
+        "3",
+        "4",
+        "24"
+      ],
+      "answer": 2,
+      "explanation": "2^(x + 1) + 2^x = 2^x(2 + 1) = 3(2^x) = 48, so 2^x = 16 and x = 4.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0392",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve log3 x + log9 x = 3.",
+      "options": [
+        "9",
+        "27",
+        "3",
+        "81"
+      ],
+      "answer": 0,
+      "explanation": "log9 x = (1/2) log3 x, so (3/2) log3 x = 3, giving log3 x = 2 and x = 9.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0393",
+      "topic": "Indices, logarithms and surds",
+      "stem": "Solve log10 (x^2 + 6) - log10 x = log10 5.",
+      "options": [
+        "x = -2 or x = -3",
+        "x = 1 or x = 6",
+        "x = 5 only",
+        "x = 2 or x = 3"
+      ],
+      "answer": 3,
+      "explanation": "(x^2 + 6)/x = 5 gives x^2 - 5x + 6 = 0, so x = 2 or 3 (both make the logarithms defined).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0394",
+      "topic": "Indices, logarithms and surds",
+      "stem": "If (sqrt(3) + 2)/(sqrt(3) - 1) = a + b sqrt(3), find a and b.",
+      "options": [
+        "a = 3/2, b = 5/2",
+        "a = 5, b = 3",
+        "a = 5/2, b = 3/2",
+        "a = -5/2, b = 3/2"
+      ],
+      "answer": 2,
+      "explanation": "Multiply by (sqrt(3) + 1)/(sqrt(3) + 1): numerator 3 + sqrt(3) + 2 sqrt(3) + 2 = 5 + 3 sqrt(3), denominator 2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0395",
+      "topic": "Polynomials",
+      "stem": "Find the roots of x^3 - 6x^2 + 11x - 6 = 0.",
+      "options": [
+        "-1, -2 and -3",
+        "1, 2 and 3",
+        "1, 2 and -3",
+        "2, 3 and 6"
+      ],
+      "answer": 1,
+      "explanation": "f(1) = 0, so (x - 1) is a factor; dividing gives x^2 - 5x + 6 = (x - 2)(x - 3).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0396",
+      "topic": "Polynomials",
+      "stem": "If a and b are the roots of x^2 - 5x + 3 = 0, find a^2 b + a b^2.",
+      "options": [
+        "15",
+        "8",
+        "-15",
+        "19"
+      ],
+      "answer": 0,
+      "explanation": "a^2 b + ab^2 = ab(a + b) = 3 x 5 = 15.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0397",
+      "topic": "Polynomials",
+      "stem": "If a and b are the roots of x^2 - 3x + 1 = 0, find the equation whose roots are a^2 and b^2.",
+      "options": [
+        "x^2 - 9x + 1 = 0",
+        "x^2 - 7x + 1 = 0",
+        "x^2 - 7x - 1 = 0",
+        "x^2 + 7x + 1 = 0"
+      ],
+      "answer": 1,
+      "explanation": "a^2 + b^2 = (a + b)^2 - 2ab = 9 - 2 = 7 and a^2 b^2 = 1, so the equation is x^2 - 7x + 1 = 0.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0398",
+      "topic": "Variation",
+      "stem": "P varies jointly as Q and the square of R. If Q is increased by 20% and R is decreased by 10%, find the percentage change in P.",
+      "options": [
+        "10% increase",
+        "2.8% increase",
+        "8% decrease",
+        "2.8% decrease"
+      ],
+      "answer": 3,
+      "explanation": "New P = 1.2 x 0.9^2 = 0.972 of the old P, which is a 2.8% decrease.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0399",
+      "topic": "Inequalities",
+      "stem": "Find the range of values of k for which x^2 + kx + 9 = 0 has no real roots.",
+      "options": [
+        "k < -6 or k > 6",
+        "-3 < k < 3",
+        "-6 < k < 6",
+        "k > 6"
+      ],
+      "answer": 2,
+      "explanation": "No real roots requires k^2 - 36 < 0, so -6 < k < 6.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0400",
+      "topic": "Progression",
+      "stem": "The sum of the first three terms of a GP with common ratio 2 is 21. Find the 6th term.",
+      "options": [
+        "96",
+        "192",
+        "48",
+        "63"
+      ],
+      "answer": 0,
+      "explanation": "a(1 + 2 + 4) = 21 gives a = 3; T6 = 3 x 2^5 = 96.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0401",
+      "topic": "Progression",
+      "stem": "How many terms of the AP 2, 5, 8, ... must be added to give a sum of 155?",
+      "options": [
+        "10",
+        "11",
+        "9",
+        "31"
+      ],
+      "answer": 0,
+      "explanation": "n/2[4 + 3(n - 1)] = 155 gives 3n^2 + n - 310 = 0, i.e. (3n + 31)(n - 10) = 0, so n = 10.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0402",
+      "topic": "Matrices and determinants",
+      "stem": "Find the inverse of [3, 2; 4, 2] (rows are separated by semicolons).",
+      "options": [
+        "[1, -1; -2, 3/2]",
+        "[2, -2; -4, 3]",
+        "[-1, 2; 1, -3/2]",
+        "[-1, 1; 2, -3/2]"
+      ],
+      "answer": 3,
+      "explanation": "det = 6 - 8 = -2, so the inverse is (-1/2)[2, -2; -4, 3] = [-1, 1; 2, -3/2].",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0403",
+      "topic": "Matrices and determinants",
+      "stem": "Find the values of x for which the determinant of [x, 1, 0; 2, x, 1; 0, 1, 1] (rows are separated by semicolons) is zero.",
+      "options": [
+        "x = -2 or x = 1",
+        "x = 2 or x = -1",
+        "x = 1 or x = 2",
+        "x = 0 or x = 1"
+      ],
+      "answer": 1,
+      "explanation": "Expanding along the first row: x(x - 1) - 1(2 - 0) = x^2 - x - 2 = (x - 2)(x + 1).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0404",
+      "topic": "Euclidean geometry",
+      "stem": "The interior and exterior angles of a regular polygon are in the ratio 7 : 2. How many sides has the polygon?",
+      "options": [
+        "7",
+        "14",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "The two angles add up to 180 degrees, so the exterior angle is 2/9 x 180 = 40 degrees and n = 360/40 = 9.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0405",
+      "topic": "Mensuration",
+      "stem": "A bucket is a frustum of a cone with top radius 14 cm, bottom radius 7 cm and depth 12 cm. Find its capacity. (V = (pi h/3)(R^2 + Rr + r^2), pi = 22/7)",
+      "options": [
+        "6468 cm^3",
+        "9240 cm^3",
+        "1848 cm^3",
+        "4312 cm^3"
+      ],
+      "answer": 3,
+      "explanation": "V = (22/7 x 12/3)(196 + 98 + 49) = (88/7)(343) = 4312 cm^3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0406",
+      "topic": "Trigonometry",
+      "stem": "Two boats leave a jetty at the same time. One sails 8 km on a bearing of 060 degrees and the other 15 km on a bearing of 150 degrees. How far apart are they?",
+      "options": [
+        "7 km",
+        "23 km",
+        "17 km",
+        "sqrt(161) km"
+      ],
+      "answer": 2,
+      "explanation": "The angle between the two courses is 150 - 60 = 90 degrees, so the distance is sqrt(8^2 + 15^2) = 17 km.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0407",
+      "topic": "Coordinate geometry",
+      "stem": "Find the equation of the line through (-2, 3) perpendicular to 2x - 3y + 6 = 0.",
+      "options": [
+        "2x - 3y + 13 = 0",
+        "3x + 2y = 0",
+        "3x - 2y + 12 = 0",
+        "3x + 2y = 12"
+      ],
+      "answer": 1,
+      "explanation": "The given line has gradient 2/3, so the perpendicular has gradient -3/2: y - 3 = -(3/2)(x + 2), i.e. 3x + 2y = 0.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0408",
+      "topic": "Differentiation",
+      "stem": "Find the gradient of the curve y = x/(1 + x^2) at x = 1.",
+      "options": [
+        "0",
+        "1/2",
+        "1/4",
+        "-1/2"
+      ],
+      "answer": 0,
+      "explanation": "By the quotient rule dy/dx = (1 - x^2)/(1 + x^2)^2, which is 0 at x = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0409",
+      "topic": "Application of differentiation",
+      "stem": "A closed cylindrical tin is to hold 16 pi cm^3. Find the radius that makes its total surface area a minimum.",
+      "options": [
+        "4 cm",
+        "2 cm",
+        "1 cm",
+        "8 cm"
+      ],
+      "answer": 1,
+      "explanation": "h = 16/r^2, so A = 2 pi r^2 + 32 pi/r; dA/dr = 4 pi r - 32 pi/r^2 = 0 gives r^3 = 8 and r = 2 cm (then h = 4 cm).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0410",
+      "topic": "Integration",
+      "stem": "Find the area enclosed between the curve y = x^2 and the line y = 2x.",
+      "options": [
+        "8/3 square units",
+        "4 square units",
+        "2/3 square units",
+        "4/3 square units"
+      ],
+      "answer": 3,
+      "explanation": "They meet at x = 0 and x = 2; area = integral of (2x - x^2) from 0 to 2 = 4 - 8/3 = 4/3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0411",
+      "topic": "Integration",
+      "stem": "Evaluate the integral of sec^2 x dx from 0 to pi/4.",
+      "options": [
+        "1",
+        "sqrt(2)",
+        "0",
+        "pi/4"
+      ],
+      "answer": 0,
+      "explanation": "The integral of sec^2 x is tan x; tan(pi/4) - tan 0 = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0412",
+      "topic": "Measures of location",
+      "stem": "The mean of x + 1, x + 3, x + 5 and x + 7 is 10. Find the median of the four numbers.",
+      "options": [
+        "6",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 2,
+      "explanation": "4x + 16 = 40 gives x = 6; the numbers are 7, 9, 11, 13 and the median is (9 + 11)/2 = 10.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0413",
+      "topic": "Permutation and combination",
+      "stem": "In how many ways can the letters of the word ENUGU be arranged so that the two Us are always together?",
+      "options": [
+        "24",
+        "48",
+        "60",
+        "12"
+      ],
+      "answer": 0,
+      "explanation": "Treat UU as a single block: 4 objects (E, N, G, UU) give 4! = 24 arrangements; swapping identical Us gives nothing new.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0414",
+      "topic": "Permutation and combination",
+      "stem": "A committee of 3 is to be chosen from 6 men and 4 women. In how many ways can it be chosen to include at least one woman?",
+      "options": [
+        "120",
+        "100",
+        "96",
+        "60"
+      ],
+      "answer": 1,
+      "explanation": "All committees: 10C3 = 120; all-men committees: 6C3 = 20; so 120 - 20 = 100.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0415",
+      "topic": "Probability",
+      "stem": "Ada, Bola and Chika independently attempt a problem with probabilities of success 1/2, 1/3 and 1/4 respectively. Find the probability that the problem is solved.",
+      "options": [
+        "1/24",
+        "13/12",
+        "1/4",
+        "3/4"
+      ],
+      "answer": 3,
+      "explanation": "P(nobody solves it) = (1/2)(2/3)(3/4) = 1/4, so P(solved) = 1 - 1/4 = 3/4.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0416",
+      "topic": "Sets",
+      "stem": "Each of 50 students plays at least one of football, volleyball and tennis. 30 play football, 25 volleyball and 20 tennis; 12 play football and volleyball, 8 play volleyball and tennis, and 10 play football and tennis. How many play all three?",
+      "options": [
+        "0",
+        "10",
+        "5",
+        "15"
+      ],
+      "answer": 2,
+      "explanation": "50 = 30 + 25 + 20 - 12 - 8 - 10 + x, so x = 5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "jm-math-0417",
+      "topic": "Measures of dispersion",
+      "stem": "The standard deviation of 2, 4, 6, 8, 10 is 2 sqrt(2). What is the standard deviation of 7, 11, 15, 19, 23?",
+      "options": [
+        "2 sqrt(2) + 3",
+        "8 sqrt(2) + 3",
+        "4 sqrt(2)",
+        "2 sqrt(2)"
+      ],
+      "answer": 2,
+      "explanation": "Each new value is 2x + 3; adding 3 does not change the spread, while doubling doubles the standard deviation: 2 x 2 sqrt(2) = 4 sqrt(2).",
+      "difficulty": "HARD"
+    }
+  ]
+}

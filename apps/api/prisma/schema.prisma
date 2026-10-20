@@ -3397,6 +3397,8 @@ model ExamQuestion {
   /// Who approved it for students (PUBLISHED), and when.
   reviewedById String?
   reviewedAt   DateTime?
+  /// Stable id of a question shipped in prisma/question-bank (e.g. jm-math-0001): re-installs update drafts, never duplicate.
+  bankRef      String?   @unique
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 

@@ -15,12 +15,12 @@ const env = import.meta.env as Record<string, string | undefined>;
 
 export const SALES_CONTACT = {
   /** WhatsApp number in international form without "+" or spaces, e.g. 2348012345678. */
-  whatsapp: env.VITE_SALES_WHATSAPP || '[PLACEHOLDER_WHATSAPP]',
+  whatsapp: env.VITE_SALES_WHATSAPP || '2349063598091',
   /** Phone number as people should dial it, e.g. 0801 234 5678. */
-  phone: env.VITE_SALES_PHONE || '[PLACEHOLDER_PHONE]',
-  email: env.VITE_SALES_EMAIL || '[PLACEHOLDER_EMAIL]',
+  phone: env.VITE_SALES_PHONE || '0906 359 8091',
+  email: env.VITE_SALES_EMAIL || 'hello@mejortechworld.com',
   /** Optional: who signs the pilot proposal on the boards page, e.g. "Ada Obi, Partnerships". */
-  contactName: env.VITE_SALES_CONTACT_NAME || '[PLACEHOLDER_CONTACT_NAME]',
+  contactName: env.VITE_SALES_CONTACT_NAME || 'Joseph — Partnerships',
 };
 
 /**

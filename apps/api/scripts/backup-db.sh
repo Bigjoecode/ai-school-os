@@ -17,7 +17,7 @@
 #
 # Where DATABASE_URL comes from (first found wins):
 #   1. the environment;
-#   2. BACKUP_ENV_FILE (default ~/.ai-school-backup.env), a file you create in
+#   2. BACKUP_ENV_FILE (default ~/.ai-school-backup.env, else ~/ai-school-backup.env), a file you create in
 #      File Manager with one line DATABASE_URL=postgresql://... and
 #      permissions 600. Never commit it; it holds the database password.
 #
@@ -26,7 +26,10 @@
 set -uo pipefail
 umask 077
 
-ENV_FILE="${BACKUP_ENV_FILE:-$HOME/.ai-school-backup.env}"
+# The settings file may be hidden (.ai-school-backup.env) or not (ai-school-backup.env): File Manager makes dot-files awkward.
+if [ -n "${BACKUP_ENV_FILE:-}" ]; then ENV_FILE="$BACKUP_ENV_FILE"
+elif [ -f "$HOME/.ai-school-backup.env" ]; then ENV_FILE="$HOME/.ai-school-backup.env"
+else ENV_FILE="$HOME/ai-school-backup.env"; fi
 if [ -f "$ENV_FILE" ]; then
   # Only KEY=VALUE lines for the settings this script uses; nothing is executed.
   while IFS= read -r line || [ -n "$line" ]; do

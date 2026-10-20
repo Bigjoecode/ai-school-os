@@ -50,7 +50,7 @@ export default function InvoiceDocumentPage() {
                 <span className="font-display text-[17px] font-semibold">AI School OS</span>
               </div>
               <p className="mt-3 font-medium">{d.company.name}</p>
-              <p className="text-neutral-600">RC {d.company.rcNumber}</p>
+              {d.company.rcNumber && !d.company.rcNumber.startsWith('[PLACEHOLDER') ? <p className="text-neutral-600">RC {d.company.rcNumber}</p> : null}
               <p className="whitespace-pre-line text-neutral-600">{d.company.address}</p>
               <p className="text-neutral-600">
                 {d.company.email}

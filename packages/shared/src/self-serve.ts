@@ -59,7 +59,8 @@ export const selfServeSettingsSchema = z.object({
   company: z
     .object({
       name: z.string().trim().max(160).default('[PLACEHOLDER: legal entity name]'),
-      rcNumber: z.string().trim().max(40).default('[PLACEHOLDER: RC number]'),
+      /** Optional: left off invoices when blank. */
+      rcNumber: z.string().trim().max(40).default(''),
       address: z.string().trim().max(300).default('[PLACEHOLDER: registered address]'),
       email: z.string().trim().max(160).default('[PLACEHOLDER: billing email]'),
       phone: z.string().trim().max(40).default(''),
@@ -67,7 +68,7 @@ export const selfServeSettingsSchema = z.object({
     })
     .default({
       name: '[PLACEHOLDER: legal entity name]',
-      rcNumber: '[PLACEHOLDER: RC number]',
+      rcNumber: '',
       address: '[PLACEHOLDER: registered address]',
       email: '[PLACEHOLDER: billing email]',
       phone: '',

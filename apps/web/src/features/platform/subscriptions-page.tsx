@@ -429,7 +429,7 @@ function SettingsTab({ settings }: { settings: SelfServeSettings }) {
       <Section title="Invoices and receipts" description="Printed on every invoice and receipt. Replace the placeholders with your registered company details before charging schools.">
         <div className="grid gap-4 sm:grid-cols-2">
           {co('name', 'Company name')}
-          {co('rcNumber', 'RC number')}
+          {co('rcNumber', 'RC number (optional — leave blank if you don’t have one)')}
           {co('address', 'Registered address')}
           {co('email', 'Billing email')}
           {co('phone', 'Phone')}

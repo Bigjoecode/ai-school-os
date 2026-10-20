@@ -47,7 +47,7 @@ import { env } from '../config/env';
 import { addMonths, invoicePaidHooks } from '../console/billing.service';
 import { platformRefundHooks } from '../commerce/commerce.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { platformSender } from '../subscriptions/billing-state.service';
+import { emailOperator, platformSender } from '../subscriptions/billing-state.service';
 
 const CODE_TTL_MS = 30 * 60_000;
 const MAX_CODE_ATTEMPTS = 5;
@@ -248,6 +248,12 @@ export class AmbassadorsService implements OnModuleInit, OnApplicationShutdown {
     const claimed = await this.prisma.root.ambassador.updateMany({ where: { id, status: 'PENDING_VERIFICATION' }, data: { status: 'PENDING_REVIEW', verifiedAt: new Date(), codeHash: null, codePurpose: null } });
     if (claimed.count) {
       await this.audit.log({ tenantId: null, actorUserId: null, action: 'ambassador.applied', entityType: 'Ambassador', entityId: id, summary: `${row.fullName} (${row.state}) applied to be an ambassador and is waiting for review` });
+      emailOperator(`Ambassador application: ${row.fullName}`, [
+        `${row.fullName} has applied to be an ambassador and is waiting for your approval.`,
+        '',
+        `Email: ${row.email} · phone: ${row.phone} · state: ${row.state}`,
+        row.approach ? `How they'll find schools: ${row.approach}` : null,
+      ]);
     }
     return { status: 'PENDING_REVIEW' };
   }

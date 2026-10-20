@@ -24,7 +24,7 @@ import { env } from '../config/env';
 import { SetupService } from '../onboarding/setup.service';
 import { ProvisioningService } from '../platform/provisioning.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { BillingStateService, platformSender } from './billing-state.service';
+import { BillingStateService, platformSender, emailOperator } from './billing-state.service';
 import { PilotService } from './pilot.service';
 import { readPricingSettings } from './setup-fee';
 
@@ -239,8 +239,21 @@ export class SignupService {
       return { status: now.status === 'APPROVED' ? 'APPROVED' : 'PENDING_REVIEW', slug: now.slug, schoolName: now.schoolName, pilot: now.pilot };
     }
     const s = await this.state.settings();
+    const waits = !s.autoApprove || row.pilot;
+    emailOperator(
+      row.pilot ? `Pilot application: ${row.schoolName}` : waits ? `New sign-up to review: ${row.schoolName}` : `New school signed up: ${row.schoolName}`,
+      [
+        row.pilot ? `${row.schoolName} has applied for the free pilot and is waiting for your approval.` : waits ? `${row.schoolName} has signed up and is waiting for your approval.` : `${row.schoolName} has signed up and started its free trial.`,
+        '',
+        `School: ${row.schoolName} (${row.schoolType}), ${[row.lga, row.state].filter(Boolean).join(', ')}`,
+        `About ${row.approxStudents} students · portal address: ${row.slug}`,
+        `Admin: ${row.adminFirstName} ${row.adminLastName} · ${row.adminEmail}${row.adminPhone ? ` · ${row.adminPhone}` : ''}`,
+        row.pilot && row.pilotReason ? `Why they want the pilot: ${row.pilotReason}` : null,
+        row.referralCode ? `Referred by ambassador code: ${row.referralCode}` : null,
+      ],
+    );
     // Pilot applications always wait for the operator, whatever the auto-approve setting.
-    if (!s.autoApprove || row.pilot) {
+    if (waits) {
       await this.audit.log({
         tenantId: null,
         actorUserId: null,

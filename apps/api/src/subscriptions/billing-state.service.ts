@@ -36,6 +36,19 @@ const READ_ONLY_ALLOWED = [
   /^\/portal\/students\/[^/]+\/results\/[^/]+\/unlock$/,
 ];
 
+/**
+ * Tells the operator (ALERT_EMAIL) about something that needs their attention, e.g. a new sign-up or
+ * pilot application. Never blocks or fails the caller: without SMTP or ALERT_EMAIL it does nothing.
+ */
+export function emailOperator(subject: string, lines: (string | null | undefined | false)[]) {
+  const to = env().ALERT_EMAIL;
+  const mail = platformSender();
+  if (!to || !mail) return;
+  const origin = env().CORS_ORIGINS[0] ?? '';
+  const text = [...lines.filter(Boolean), '', origin ? `Review it in the console: ${origin}/platform/subscriptions` : '', '', 'AI School OS'].join('\n');
+  void mail.send(to, `[AI School OS] ${subject}`, text).catch(() => undefined);
+}
+
 /** The platform's own email (sign-up codes, trial reminders): the SMTP_* settings, without needing ALERT_EMAIL. */
 export function platformSender() {
   const e = env();

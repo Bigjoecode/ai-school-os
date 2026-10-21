@@ -146,9 +146,14 @@ export interface SelfCheck {
   note: string;
   at: string;
 }
+/** A long stem up to this many characters (a reading passage) is a warning, not a blocking flag. */
+export const LONG_STEM_WARNING_MAX = 2500;
 export interface ReviewItem extends ExamQuestionRow {
   aiDraft: boolean;
+  /** Blocking: bulk approval skips a question with any of these. */
   flags: { flag: QuestionFlag; detail: string }[];
+  /** For the reviewer's attention only (e.g. a long stem holding a reading passage); never blocks approval. */
+  warnings?: { flag: QuestionFlag; detail: string }[];
   check: SelfCheck | null;
   topicObjectives: string[];
   parentTopic: string | null;
@@ -159,6 +164,8 @@ export interface ReviewQueue {
   total: number;
   flagged: number;
   subjects: { exam: ExamBody; subject: string; drafts: number }[];
+  /** Years among drafts (past questions), newest first. */
+  years?: { year: number; drafts: number }[];
 }
 export interface ReviewStats {
   today: { approved: number; edited: number; rejected: number };
@@ -172,3 +179,21 @@ export interface ReviewStats {
 export const reviewApproveSchema = z.object({ edits: examQuestionSchema.optional() });
 export const reviewRejectSchema = z.object({ mode: z.enum(['DELETE', 'RETIRE']).default('DELETE') });
 export const reviewBulkApproveSchema = z.object({ ids: z.array(z.string()).min(1).max(200) });
+/** Approve every unflagged draft matching the filters (server-side, in batches). `dryRun` only counts. */
+export const reviewBulkFilterSchema = z.object({
+  exam: z.enum(EXAMS).optional(),
+  subject: z.string().trim().max(60).optional(),
+  source: z.enum(['AUTHORED', 'LICENSED', 'AI_REVIEWED']).optional(),
+  year: z.number().int().min(1978).max(2100).optional(),
+  topicId: z.string().max(40).optional(),
+  dryRun: z.boolean().default(true),
+});
+export interface ReviewBulkFilterResult {
+  matching: number;
+  unflagged: number;
+  flagged: number;
+  /** 0 on a dry run. */
+  approved: number;
+  /** Blocking flags among the drafts left for one-by-one review. */
+  byFlag: Partial<Record<QuestionFlag, number>>;
+}

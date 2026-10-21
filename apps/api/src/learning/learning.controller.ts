@@ -25,6 +25,7 @@ import {
   theoryStartSchema,
   tutorChatSchema,
   tutorSpeakSchema,
+  utmeStartSchema,
   type TutorVoiceInfo,
   type ExamBody,
   type ExamQuestionInput,
@@ -183,7 +184,7 @@ export class LearningController {
 
   @Get('attempts/:id')
   async attempt(@Param('id') id: string) {
-    return this.study.view(await this.study.attempt(await this.entitlements.me(), id));
+    return this.study.present(await this.study.attempt(await this.entitlements.me(), id));
   }
 
   @Put('attempts/:id/progress')
@@ -195,9 +196,9 @@ export class LearningController {
   @HttpCode(200)
   async submit(@Param('id') id: string, @Body(new ZodPipe(practiceSubmitSchema)) body: z.infer<typeof practiceSubmitSchema>) {
     const { id: studentId, access } = await this.me();
-    const a = await this.study.submit(studentId, id, body.answers);
+    const a = await this.study.submit(studentId, id, body.answers, body.flags);
     // Exam practice gets a short AI review when allowance remains.
-    return this.study.view(a.exam ? await this.exams.review(access, a.id) : a);
+    return this.study.present(a.exam ? await this.exams.review(access, a.id) : a);
   }
 
   // ---------------------------------------------------------- study plans & flashcards (Plus)
@@ -250,6 +251,21 @@ export class LearningController {
   async startExam(@Body(new ZodPipe(practiceStartSchema)) body: z.infer<typeof practiceStartSchema>) {
     const { access } = await this.me();
     return this.study.view(await this.exams.start(access, body));
+  }
+
+  /** A full JAMB UTME CBT mock: Use of English + 3 subjects, 180 questions, one 120-minute timer (needs JAMB Prep). */
+  @Post('exams/utme/start')
+  @Throttle({ default: { limit: 6, ttl: 60_000 } })
+  async startUtme(@Body(new ZodPipe(utmeStartSchema)) body: z.infer<typeof utmeStartSchema>) {
+    const { access } = await this.me();
+    return this.study.present(await this.exams.startUtme(access, body));
+  }
+
+  /** Approved questions per topic in one exam subject (practice by topic). */
+  @Get('exams/topics')
+  async examTopics(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60) }))) q: { exam: ExamBody; subject: string }) {
+    await this.entitlements.me();
+    return this.exams.topics(q.exam, q.subject);
   }
 
   /** Written (theory) practice, marked by AI against each question's marking guide. */

@@ -15,6 +15,8 @@ import type {
   StudyPlanRow,
   TutorReply,
   TutorVoiceInfo,
+  ExamTopicRow,
+  UtmeShortfall,
 } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api, ApiError, refreshSession } from '@/lib/api';
@@ -208,7 +210,8 @@ export function useStartExam() {
   const qc = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (body: { mode: 'PRACTICE' | 'MOCK'; exam: ExamBody; subjects: string[]; questions: number }) => api.post<PracticeAttemptView>('/learning/exams/start', body),
+    mutationFn: (body: { mode: 'PRACTICE' | 'MOCK'; exam: ExamBody; subjects: string[]; questions: number; topicId?: string | null; difficulty?: 'EASY' | 'MEDIUM' | 'HARD' | null; year?: number | null }) =>
+      api.post<PracticeAttemptView>('/learning/exams/start', body),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: lk.exams });
       void qc.invalidateQueries({ queryKey: lk.attempts });
@@ -348,3 +351,33 @@ export function examLockError(error: unknown): { exam: ExamBody; message: string
   if (!(error instanceof ApiError) || error.status !== 403 || error.details.code !== 'EXAM_NOT_INCLUDED') return null;
   return { exam: error.details.exam as ExamBody, message: error.message };
 }
+
+// ------------------------------------------------------------------ JAMB UTME CBT mock
+
+/** A full UTME mock: Use of English + the three subjects given. 400 `UTME_SHORTFALL` lists subjects without enough approved questions. */
+export function useStartUtme() {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: { subjects: string[]; allowShort: boolean }) => api.post<PracticeAttemptView>('/learning/exams/utme/start', body),
+    onSuccess: (v) => {
+      qc.setQueryData(lk.attempt(v.id), v);
+      void qc.invalidateQueries({ queryKey: lk.attempts });
+    },
+  });
+}
+
+/** The UTME shortfall from a failed start, or null. */
+export function utmeShortfall(error: unknown): UtmeShortfall[] | null {
+  if (!(error instanceof ApiError) || error.status !== 400 || error.details.code !== 'UTME_SHORTFALL') return null;
+  return (error.details.shortfalls as UtmeShortfall[]) ?? [];
+}
+
+/** Approved questions per topic for one exam subject (practice by topic). */
+export const useExamTopics = (exam: ExamBody, subject: string | null) =>
+  useQuery({ queryKey: ['learning', 'exam-topics', exam, subject ?? ''] as const, queryFn: () => api.get<ExamTopicRow[]>('/learning/exams/topics', { exam, subject: subject! }), enabled: !!subject, staleTime: 5 * 60_000 });
+
+/** Saves answers in progress (the UTME room retries on its own; errors are returned, not toasted). */
+export const saveAttemptProgress = (id: string, answers: (number | null)[]) => api.put<{ ok: boolean }>(`/learning/attempts/${id}/progress`, { answers });
+/** Hands in an attempt with flags for review. */
+export const submitAttempt = (id: string, answers: (number | null)[], flags: number[]) => api.post<PracticeAttemptView>(`/learning/attempts/${id}/submit`, { answers, flags });

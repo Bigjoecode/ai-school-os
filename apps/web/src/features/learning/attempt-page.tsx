@@ -1,7 +1,7 @@
 import type { PracticeAttemptView } from '@aischool/shared';
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, Clock, LayoutList, ListOrdered, MessageCircleQuestion, Sparkles, XCircle } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, Navigate, useParams } from 'react-router';
 import { Markdown } from '@/components/ai/markdown';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -12,18 +12,25 @@ import { ErrorState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { useAttempt, useSaveProgress, useSubmitAttempt } from './api';
+import { useAttempt, useAttempts, useSaveProgress, useSubmitAttempt } from './api';
 import { MODE_LABEL, scoreTone } from './components';
 import { TheoryResults, TheoryWriter } from './theory';
+import { UtmeResults } from './utme-results';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
 export default function AttemptPage() {
   const { id = '' } = useParams();
   const q = useAttempt(id);
+  const utme = q.data?.mode === 'UTME';
+  const history = useAttempts();
+  // A UTME mock is written in its own full-screen CBT room.
+  if (utme && !q.data!.submittedAt) return <Navigate to={`/utme/${q.data!.id}`} replace />;
   return (
-    <Page className="max-w-3xl">
-      {q.error && !q.data ? (
+    <Page className={utme ? 'max-w-5xl' : 'max-w-3xl'}>
+      {utme ? (
+        <UtmeResults a={q.data!} history={(history.data ?? []).filter((r) => r.mode === 'UTME')} />
+      ) : q.error && !q.data ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />
       ) : !q.data ? (
         <div className="space-y-4">

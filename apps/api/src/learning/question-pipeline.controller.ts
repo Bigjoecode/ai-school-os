@@ -7,6 +7,7 @@ import {
   pipelineSettingsSchema,
   reviewApproveSchema,
   reviewBulkApproveSchema,
+  reviewBulkFilterSchema,
   reviewRejectSchema,
   type ExamBody,
   type FillGapsInput,
@@ -79,12 +80,14 @@ export class QuestionPipelineController {
           topicId: z.string().max(40).optional(),
           flagged: z.enum(['yes', 'no']).optional(),
           aiOnly: z.enum(['true', 'false']).optional().transform((v) => v === 'true'),
+          source: z.enum(['AUTHORED', 'LICENSED', 'AI_REVIEWED']).optional(),
+          year: z.coerce.number().int().min(1978).max(2100).optional(),
           limit: z.coerce.number().int().min(1).max(200).default(50),
           offset: z.coerce.number().int().min(0).default(0),
         }),
       ),
     )
-    q: { exam?: ExamBody; subject?: string; topicId?: string; flagged?: 'yes' | 'no'; aiOnly: boolean; limit: number; offset: number },
+    q: { exam?: ExamBody; subject?: string; topicId?: string; flagged?: 'yes' | 'no'; aiOnly: boolean; source?: string; year?: number; limit: number; offset: number },
   ) {
     return this.pipeline.reviewQueue(q);
   }
@@ -98,6 +101,14 @@ export class QuestionPipelineController {
   @HttpCode(200)
   bulkApprove(@Body(new ZodPipe(reviewBulkApproveSchema)) body: z.infer<typeof reviewBulkApproveSchema>) {
     return this.pipeline.bulkApprove(body.ids, currentUserId());
+  }
+
+  /** Every unflagged draft matching the filters, in batches on the server. `dryRun: true` only counts (for the confirmation). */
+  @Post('review/bulk-approve-filter')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  bulkApproveByFilter(@Body(new ZodPipe(reviewBulkFilterSchema)) body: z.infer<typeof reviewBulkFilterSchema>) {
+    return this.pipeline.bulkApproveByFilter(body, currentUserId());
   }
 
   /** Approve (optionally with edits): PUBLISHED, with the reviewer and time recorded. */

@@ -411,7 +411,7 @@ export function AddMemoryForm({ onAdd, pending, placeholder = 'e.g. I learn best
 
 // ------------------------------------------------------------------ attempts
 
-export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz', THEORY: 'Theory (AI-marked)' };
+export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz', THEORY: 'Theory (AI-marked)', UTME: 'UTME CBT mock' };
 
 export function scoreTone(pct: number | null) {
   if (pct == null) return 'text-muted-foreground';
@@ -425,7 +425,7 @@ export function AttemptList({ rows, linkable = true, empty }: { rows: PracticeAt
       {rows.map((a) => {
         const inner = (
           <>
-            <div className={cn('grid size-9 shrink-0 place-items-center rounded-xl', a.mode === 'MOCK' ? 'bg-warning-soft text-warning' : a.mode === 'AI_QUIZ' || a.mode === 'THEORY' ? 'bg-ai-2/10 text-ai-2' : 'bg-brand-soft text-brand')}>
+            <div className={cn('grid size-9 shrink-0 place-items-center rounded-xl', a.mode === 'MOCK' || a.mode === 'UTME' ? 'bg-warning-soft text-warning' : a.mode === 'AI_QUIZ' || a.mode === 'THEORY' ? 'bg-ai-2/10 text-ai-2' : 'bg-brand-soft text-brand')}>
               {a.mode === 'THEORY' ? <PenLine className="size-4" aria-hidden /> : <Trophy className="size-4" aria-hidden />}
             </div>
             <div className="min-w-0 flex-1">
@@ -435,7 +435,15 @@ export function AttemptList({ rows, linkable = true, empty }: { rows: PracticeAt
               </p>
             </div>
             <div className="shrink-0 text-right">
-              {a.submittedAt ? (
+              {a.submittedAt && a.utme ? (
+                <>
+                  <p className={cn('font-display text-[15px] font-semibold tabular', scoreTone(Math.round((a.utme.total / Math.max(1, a.utme.outOf)) * 100)))}>
+                    {a.utme.total}
+                    <span className="text-[11px] text-muted-foreground">/{a.utme.outOf}</span>
+                  </p>
+                  <p className="text-[11px] tabular text-muted-foreground">{a.utme.subjects.map((x) => x.score).join(' · ')}</p>
+                </>
+              ) : a.submittedAt ? (
                 <>
                   <p className={cn('font-display text-[15px] font-semibold tabular', scoreTone(a.percent))}>{a.percent ?? 0}%</p>
                   <p className="text-[11px] tabular text-muted-foreground">
@@ -451,7 +459,7 @@ export function AttemptList({ rows, linkable = true, empty }: { rows: PracticeAt
         return (
           <li key={a.id}>
             {linkable ? (
-              <Link to={`/learn/attempts/${a.id}`} className="-mx-2 flex items-center gap-3 rounded-xl px-2 py-2.5 transition-colors hover:bg-muted/60">
+              <Link to={a.mode === 'UTME' && !a.submittedAt ? `/utme/${a.id}` : `/learn/attempts/${a.id}`} className="-mx-2 flex items-center gap-3 rounded-xl px-2 py-2.5 transition-colors hover:bg-muted/60">
                 {inner}
               </Link>
             ) : (

@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, examEntitlement, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow } from '@aischool/shared';
+import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type UtmeShortfall } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
@@ -7,7 +7,7 @@ import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { EntitlementService, type ResolvedAccess } from '../student-ai/entitlements.service';
-import { MasteryService, subjectKey } from './mastery.service';
+import { MasteryService, levelOf, subjectKey } from './mastery.service';
 import { StudyService, type StoredQuestion } from './study.service';
 
 /** Without an exam pack every student still gets a taste: a few short practice sets a term. */
@@ -92,7 +92,13 @@ export class ExamService {
       for (const t of rows) m.set(t.subject, (m.get(t.subject) ?? 0) + 1);
       return m;
     };
+    // Past papers by year: licensed past questions only (our own questions carry no year).
+    const papers = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject', 'year'], where: { status: 'PUBLISHED', type: 'OBJECTIVE', source: 'LICENSED', year: { not: null } }, _count: { _all: true }, orderBy: [{ subject: 'asc' }, { year: 'desc' }] });
+    // Only known when the student is in a class (no guessing for unplaced students).
+    const placed = await this.prisma.root.student.findUnique({ where: { id: access.studentId }, select: { classArm: { select: { classLevel: { select: { stage: true, name: true } } } } } });
+    const level = placed?.classArm ? levelOf(placed.classArm.classLevel.stage, placed.classArm.classLevel.name) : null;
     return {
+      level: (level as ExamCatalog['level']) ?? null,
       exams: EXAMS.map((exam) => {
         // A subject is listed once it has enough objective questions for a practice set; the count shown includes theory.
         const mine = new Map<string, { objective: number; all: number }>();
@@ -112,15 +118,24 @@ export class ExamService {
           exam,
           label: EXAM_LABELS[exam],
           entitled: access.exams.includes(exam),
-          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all })),
+          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective })),
           comingSoon: soon,
+          pastPapers: papers.filter((p) => p.exam === exam && p.year !== null).map((p) => ({ subject: p.subject, year: p.year!, questions: p._count._all })),
         };
       }),
       freePractice: { setsPerTerm: FREE_SETS_PER_TERM, questionsPerSet: FREE_QUESTIONS, used: await this.freeUsed(access) },
     };
   }
 
-  async start(access: ResolvedAccess, input: { mode: 'PRACTICE' | 'MOCK'; exam: ExamBody; subjects: string[]; topicId?: string | null; questions: number }) {
+  /** A question for an attempt; options are shuffled (so a remembered letter is no help) unless `keepOrder` (past papers). */
+  private stored(q: { id: string; stem: string; options: Prisma.JsonValue; answer: number; explanation: string | null; topicId: string | null; subject: string; topic: { name: string } | null }, keepOrder = false): StoredQuestion {
+    const opts = (q.options as string[]).map((text, i) => ({ text, right: i === q.answer }));
+    const mixed = keepOrder ? opts : shuffle(opts);
+    return { questionId: q.id, stem: q.stem, options: mixed.map((o) => o.text), answer: mixed.findIndex((o) => o.right), explanation: q.explanation, topicId: q.topicId, topic: q.topic?.name ?? null, subject: q.subject };
+  }
+
+  async start(access: ResolvedAccess, input: { mode: 'PRACTICE' | 'MOCK'; exam: ExamBody; subjects: string[]; topicId?: string | null; questions: number; difficulty?: 'EASY' | 'MEDIUM' | 'HARD' | null; year?: number | null }) {
+    if (input.year) return this.startPastPaper(access, { exam: input.exam, subject: input.subjects[0]!, year: input.year });
     const entitled = access.exams.includes(input.exam);
     if (input.mode === 'MOCK' && !entitled) throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: input.exam, message: `Timed ${EXAM_LABELS[input.exam]} mock exams come with ${EXAM_LABELS[input.exam]} Prep.` });
     let n = input.questions;
@@ -131,24 +146,103 @@ export class ExamService {
       n = Math.min(n, FREE_QUESTIONS);
     }
     const subjects = [...new Set(input.subjects.map(subjectKey))];
+    // A topic filter takes in its subtopics too.
+    const topicIds = input.topicId ? [input.topicId, ...(await this.prisma.root.syllabusTopic.findMany({ where: { parentId: input.topicId }, select: { id: true } })).map((t) => t.id)] : null;
     const pool = await this.prisma.root.examQuestion.findMany({
-      where: { exam: input.exam, subject: { in: subjects }, status: 'PUBLISHED', type: 'OBJECTIVE', ...(input.topicId ? { topicId: input.topicId } : {}) },
+      where: { exam: input.exam, subject: { in: subjects }, status: 'PUBLISHED', type: 'OBJECTIVE', ...(topicIds ? { topicId: { in: topicIds } } : {}), ...(input.difficulty ? { difficulty: input.difficulty } : {}) },
       include: { topic: { select: { name: true } } },
     });
-    if (!pool.length) throw new BadRequestException(`There are no ${EXAM_LABELS[input.exam]} questions for ${subjects.join(', ')} yet`);
+    if (!pool.length) throw new BadRequestException(`There are no ${EXAM_LABELS[input.exam]} questions for ${subjects.join(', ')}${input.difficulty || topicIds ? ' with these filters' : ''} yet`);
     // An even spread across the chosen subjects.
     const per = Math.ceil(n / subjects.length);
     const picked = subjects.flatMap((s) => shuffle(pool.filter((q) => q.subject === s)).slice(0, per));
     const chosen = shuffle(picked).slice(0, n);
-    const questions: StoredQuestion[] = chosen.map((q) => {
-      // Options are shuffled too, so a remembered letter is no help.
-      const opts = (q.options as string[]).map((text, i) => ({ text, right: i === q.answer }));
-      const mixed = shuffle(opts);
-      return { questionId: q.id, stem: q.stem, options: mixed.map((o) => o.text), answer: mixed.findIndex((o) => o.right), explanation: q.explanation, topicId: q.topicId, topic: q.topic?.name ?? null };
-    });
+    const questions: StoredQuestion[] = chosen.map((q) => this.stored(q));
     const minutes = input.mode === 'MOCK' ? Math.max(5, Math.round(questions.length * MINUTES_PER_QUESTION[input.exam])) : null;
-    const title = `${EXAM_LABELS[input.exam]} ${input.mode === 'MOCK' ? 'mock' : 'practice'}: ${subjects.join(', ')}`;
+    const topicName = input.topicId ? (await this.prisma.root.syllabusTopic.findUnique({ where: { id: input.topicId }, select: { name: true } }))?.name : null;
+    const filters = [topicName ?? '', input.difficulty ? input.difficulty.toLowerCase() : ''].filter(Boolean);
+    const title = `${EXAM_LABELS[input.exam]} ${input.mode === 'MOCK' ? 'mock' : 'practice'}: ${subjects.join(', ')}${filters.length ? ` (${filters.join(', ')})` : ''}`;
     return this.study.createAttempt(access, { mode: input.mode, exam: input.exam, subject: subjects.length === 1 ? subjects[0] : null, topicId: input.topicId, title, questions, durationMinutes: minutes });
+  }
+
+  /**
+   * A past paper by year: the licensed past questions of one subject and year,
+   * in their original order (bank reference, then creation), options as set.
+   * Untimed practice; free practice rules apply without the exam's Prep.
+   */
+  async startPastPaper(access: ResolvedAccess, input: { exam: ExamBody; subject: string; year: number }) {
+    const entitled = access.exams.includes(input.exam);
+    if (!entitled && (await this.freeUsed(access)) >= FREE_SETS_PER_TERM) {
+      throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: input.exam, message: `You've used this term's free practice sets. ${EXAM_LABELS[input.exam]} Prep unlocks every past paper.` });
+    }
+    const subject = subjectKey(input.subject);
+    const rows = await this.prisma.root.examQuestion.findMany({
+      where: { exam: input.exam, subject, year: input.year, source: 'LICENSED', status: 'PUBLISHED', type: 'OBJECTIVE' },
+      include: { topic: { select: { name: true } } },
+      orderBy: [{ bankRef: { sort: 'asc', nulls: 'last' } }, { createdAt: 'asc' }, { id: 'asc' }],
+      take: 200,
+    });
+    if (!rows.length) throw new BadRequestException(`There is no ${EXAM_LABELS[input.exam]} ${input.year} ${subject} paper yet`);
+    const chosen = entitled ? rows : rows.slice(0, FREE_QUESTIONS);
+    const exam = input.exam === 'JAMB' ? 'JAMB' : EXAM_LABELS[input.exam];
+    return this.study.createAttempt(access, { mode: 'PRACTICE', exam: input.exam, subject, title: `${exam} ${input.year} — ${input.exam === 'JAMB' ? utmeLabel(subject) : subject}`, questions: chosen.map((q) => this.stored(q, true)) });
+  }
+
+  /** Approved questions per topic for one exam subject (practice by topic). */
+  async topics(exam: ExamBody, subjectName: string): Promise<ExamTopicRow[]> {
+    const subject = subjectKey(subjectName);
+    const counts = await this.prisma.root.examQuestion.groupBy({ by: ['topicId'], where: { exam, subject, status: 'PUBLISHED', type: 'OBJECTIVE', topicId: { not: null } }, _count: { _all: true } });
+    const topics = await this.prisma.root.syllabusTopic.findMany({ where: { id: { in: counts.map((c) => c.topicId!) } }, select: { id: true, name: true, parent: { select: { name: true } } } });
+    return counts
+      .map((c) => {
+        const t = topics.find((x) => x.id === c.topicId);
+        return { topicId: c.topicId!, topic: t?.name ?? 'Topic', parent: t?.parent?.name ?? null, questions: c._count._all };
+      })
+      .sort((a, b) => (a.parent ?? a.topic).localeCompare(b.parent ?? b.topic) || a.topic.localeCompare(b.topic));
+  }
+
+  /** How many approved objective questions each UTME subject has, against what the full paper needs. */
+  private async utmePools(subjects: string[]) {
+    const pool = await this.prisma.root.examQuestion.findMany({
+      where: { exam: 'JAMB', subject: { in: subjects }, status: 'PUBLISHED', type: 'OBJECTIVE' },
+      include: { topic: { select: { name: true } } },
+    });
+    return subjects.map((subject) => {
+      const rows = pool.filter((q) => q.subject === subject);
+      const needed: number = subject === UTME.english ? UTME.englishQuestions : UTME.otherQuestions;
+      return { subject, rows, needed, shortfall: rows.length < needed ? ({ subject, label: utmeLabel(subject), available: rows.length, needed } satisfies UtmeShortfall) : null };
+    });
+  }
+
+  /**
+   * A full JAMB UTME CBT mock: Use of English (60) plus three other subjects
+   * (40 each), 180 questions on one 120-minute timer. Questions stay grouped
+   * by subject (Use of English first, then the order chosen), shuffled within
+   * each subject, options shuffled per attempt. If a subject has fewer
+   * approved questions than the paper needs, the student is told exactly
+   * which and may start a shorter mock (time scaled to the questions).
+   */
+  async startUtme(access: ResolvedAccess, input: { subjects: string[]; allowShort: boolean }) {
+    if (!access.exams.includes('JAMB')) throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: 'JAMB', message: `Full UTME CBT mocks come with ${EXAM_LABELS.JAMB} Prep.` });
+    const others = [...new Set(input.subjects.map(subjectKey))].filter((s) => s !== UTME.english);
+    if (others.length !== UTME.otherSubjects) throw new BadRequestException(`Choose ${UTME.otherSubjects} different subjects besides ${UTME.englishLabel} (it is compulsory and always included).`);
+    const pools = await this.utmePools([UTME.english, ...others]);
+    const empty = pools.filter((p) => !p.rows.length);
+    if (empty.length) throw new BadRequestException(`${empty.map((p) => utmeLabel(p.subject)).join(', ')} ${empty.length === 1 ? 'has' : 'have'} no approved ${EXAM_LABELS.JAMB} questions yet. Choose another subject.`);
+    const short = pools.map((p) => p.shortfall).filter((x): x is UtmeShortfall => !!x);
+    if (short.length && !input.allowShort) {
+      throw new BadRequestException({
+        statusCode: 400,
+        code: 'UTME_SHORTFALL',
+        shortfalls: short,
+        message: short.map((s) => `${s.label} has only ${s.available} approved question${s.available === 1 ? '' : 's'} — a full mock needs ${s.needed}`).join('. ') + '. You can start a shorter mock instead.',
+      });
+    }
+    const questions = pools.flatMap((p) => shuffle(p.rows).slice(0, p.needed).map((q) => this.stored(q)));
+    const full = questions.length === UTME.questions;
+    const minutes = full ? UTME.minutes : Math.max(10, Math.round((UTME.minutes * questions.length) / UTME.questions));
+    const title = `${EXAM_LABELS.JAMB} mock${full ? '' : ' (shorter)'}: ${pools.map((p) => utmeLabel(p.subject)).join(', ')}`;
+    return this.study.createAttempt(access, { mode: 'UTME', exam: 'JAMB', subject: null, title, questions, durationMinutes: minutes });
   }
 
   /** After marking: a short, specific review from the marked result (uses one tutor session if any are left). */

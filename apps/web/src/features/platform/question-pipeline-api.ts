@@ -1,4 +1,4 @@
-import type { ExamCoverage, ExamQuestionInput, FillGapsInput, PipelineJob, PipelineSettings, PipelineSettingsInput, ReviewItem, ReviewQueue, ReviewStats, SubjectCoverage } from '@aischool/shared';
+import type { ReviewBulkFilterResult, ExamCoverage, ExamQuestionInput, FillGapsInput, PipelineJob, PipelineSettings, PipelineSettingsInput, ReviewItem, ReviewQueue, ReviewStats, SubjectCoverage } from '@aischool/shared';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { queryClient } from '@/lib/query-client';
@@ -53,6 +53,9 @@ export interface ReviewFilter {
   topicId?: string;
   flagged?: 'yes' | 'no';
   aiOnly?: boolean;
+  /** AUTHORED (our own) | LICENSED (past questions) | AI_REVIEWED. */
+  source?: string;
+  year?: number;
 }
 export const useReviewQueue = (f: ReviewFilter, limit = 50) =>
   useQuery({
@@ -65,3 +68,12 @@ export const useApprove = () => useMutation({ mutationFn: ({ id, edits }: { id: 
 export const useReject = () => useMutation({ mutationFn: ({ id, mode }: { id: string; mode: 'DELETE' | 'RETIRE' }) => api.post<{ id: string }>(`${base}/review/${id}/reject`, { mode }), onSuccess: afterContent });
 export const useBulkApprove = () =>
   useMutation({ mutationFn: (ids: string[]) => api.post<{ approved: number; skipped: { id: string; flags: string[] }[]; notDraft: number }>(`${base}/review/bulk-approve`, { ids }), onSuccess: afterContent });
+
+/** Approve every unflagged draft matching the filters (server-side, in batches). `dryRun` only counts, for the confirmation. */
+export const useBulkApproveByFilter = () =>
+  useMutation({
+    mutationFn: (body: { exam?: string; subject?: string; source?: string; year?: number; topicId?: string; dryRun: boolean }) => api.post<ReviewBulkFilterResult>(`${base}/review/bulk-approve-filter`, body),
+    onSuccess: (_r, v) => {
+      if (!v.dryRun) afterContent();
+    },
+  });

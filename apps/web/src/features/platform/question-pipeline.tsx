@@ -9,6 +9,7 @@ import {
   type ExamQuestionInput,
   type PipelineJob,
   type QuestionTarget,
+  type ReviewBulkFilterResult,
   type ReviewItem,
   type TopicCoverage,
 } from '@aischool/shared';
@@ -38,6 +39,7 @@ import {
   isJobLive,
   useApprove,
   useBulkApprove,
+  useBulkApproveByFilter,
   useCancelJob,
   useExamCoverage,
   useFillGaps,
@@ -53,6 +55,9 @@ import {
 import { FilterSelect, Kpi, Meter, Toolbar } from './ui';
 
 const LETTERS = 'ABCDE';
+const SOURCE_LABELS: Record<string, string> = { AUTHORED: 'Original', LICENSED: 'Past questions', AI_REVIEWED: 'AI drafts' };
+/** "Original", "Past question 1984", or "AI draft". */
+const sourceLabel = (q: { source: string; year: number | null }) => (q.source === 'LICENSED' ? `Past question${q.year ? ` ${q.year}` : ''}` : q.source === 'AI_REVIEWED' ? 'AI draft' : 'Original');
 const pct = (n: number) => `${n.toFixed(n >= 10 || n === 0 ? 0 : 1)}%`;
 
 /** Coverage colour: red under a third, amber under two thirds, green after. */
@@ -614,6 +619,8 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
   const approve = useApprove();
   const reject = useReject();
   const bulk = useBulkApprove();
+  const byFilter = useBulkApproveByFilter();
+  const [filterCount, setFilterCount] = useState<ReviewBulkFilterResult | null>(null);
   const [mode, setMode] = useState<'focus' | 'list'>('focus');
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<ReviewItem | null>(null);
@@ -622,7 +629,11 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
   const items = queue.data?.items ?? [];
   const current = items.find((i) => !skipped.has(i.id)) ?? null;
   const unflagged = items.filter((i) => !i.flags.length);
-  useEffect(() => setSkipped(new Set()), [filter.exam, filter.subject, filter.topicId, filter.flagged, filter.aiOnly]);
+  useEffect(() => setSkipped(new Set()), [filter.exam, filter.subject, filter.topicId, filter.flagged, filter.aiOnly, filter.source, filter.year]);
+  const scope = { exam: filter.exam, subject: filter.subject, source: filter.aiOnly ? 'AI_REVIEWED' : filter.source, year: filter.year, topicId: filter.topicId };
+  const scopeText = [filter.exam ? EXAM_LABELS[filter.exam as ExamBody] : 'all exams', filter.subject ?? 'all subjects', scope.source ? SOURCE_LABELS[scope.source] : 'any source', filter.year ? String(filter.year) : ''].filter(Boolean).join(' · ');
+  const countByFilter = () =>
+    byFilter.mutate({ ...scope, dryRun: true }, { onSuccess: (r) => setFilterCount(r), onError: (e) => toast.error(errorMessage(e)) });
 
   const busy = approve.isPending || reject.isPending;
   const doApprove = (it: ReviewItem) => approve.mutate({ id: it.id }, { onSuccess: () => toast.success('Approved — live for students'), onError: (e) => toast.error(errorMessage(e)) });
@@ -672,9 +683,27 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
             options={[...new Map(subjects.filter((s) => !filter.exam || s.exam === filter.exam).map((s) => [s.subject, s])).values()].map((s) => ({ value: s.subject, label: `${s.subject}${filter.exam ? ` (${s.drafts})` : ''}` }))}
           />
           <FilterSelect label="Flags" value={filter.flagged} onChange={(v) => onFilter({ ...filter, flagged: v as ReviewFilter['flagged'] })} allLabel="Flagged or not" options={[{ value: 'yes', label: 'Flagged only' }, { value: 'no', label: 'Unflagged only' }]} className="sm:w-[150px]" />
+          <FilterSelect
+            label="Source"
+            value={filter.source}
+            onChange={(v) => onFilter({ ...filter, source: v, year: v === 'LICENSED' ? filter.year : undefined })}
+            allLabel="Any source"
+            options={[
+              { value: 'AUTHORED', label: 'Original' },
+              { value: 'LICENSED', label: 'Past questions' },
+              { value: 'AI_REVIEWED', label: 'AI drafts' },
+            ]}
+            className="sm:w-[150px]"
+          />
+          {(queue.data?.years?.length ?? 0) > 0 && (
+            <FilterSelect label="Year" value={filter.year ? String(filter.year) : undefined} onChange={(v) => onFilter({ ...filter, year: v ? Number(v) : undefined })} allLabel="Any year" options={(queue.data?.years ?? []).map((y) => ({ value: String(y.year), label: `${y.year} (${y.drafts})` }))} className="sm:w-[130px]" />
+          )}
           <label className="flex items-center gap-2 text-[13px]">
             <Switch checked={!!filter.aiOnly} onCheckedChange={(v) => onFilter({ ...filter, aiOnly: v })} /> AI drafts only
           </label>
+          <Button size="sm" variant="outline" onClick={countByFilter} loading={byFilter.isPending && !filterCount} data-testid="approve-by-filter">
+            <ListChecks /> Approve all unflagged matching…
+          </Button>
           {filter.topicId && (
             <Button variant="ghost" size="sm" onClick={() => onFilter({ ...filter, topicId: undefined })}>
               <X /> Topic filter
@@ -755,14 +784,19 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
                   <div className="min-w-0 flex-1">
                     <p className="line-clamp-2 text-[13px]">{it.stem}</p>
                     <p className="mt-0.5 truncate text-[11.5px] text-muted-foreground">
-                      {it.exam} · {it.subject}
+                      <span className={cn('font-medium', it.source === 'LICENSED' && 'text-info')}>{sourceLabel(it)}</span> · {it.exam} · {it.subject}
                       {it.topic ? ` · ${it.topic}` : ''} · {it.type === 'THEORY' ? `${plural(it.marks, 'mark')}` : `Key ${LETTERS[it.answer]}: ${it.options[it.answer] ?? '—'}`} · {it.difficulty.toLowerCase()}
                     </p>
-                    {it.flags.length > 0 && (
+                    {(it.flags.length > 0 || (it.warnings?.length ?? 0) > 0) && (
                       <div className="mt-1 flex flex-wrap gap-1">
                         {it.flags.map((f) => (
                           <Badge key={f.flag} variant="warning" title={f.detail}>
                             {QUESTION_FLAG_LABELS[f.flag]}
+                          </Badge>
+                        ))}
+                        {(it.warnings ?? []).map((f) => (
+                          <Badge key={`w-${f.flag}`} variant="outline" title={`${f.detail} — a warning only; doesn’t block approval`}>
+                            {QUESTION_FLAG_LABELS[f.flag]} (passage)
                           </Badge>
                         ))}
                       </div>
@@ -786,6 +820,29 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
         )}
       </Card>
       <EditApproveDialog item={editing} onOpenChange={(o) => !o && setEditing(null)} />
+      <ConfirmDialog
+        open={!!filterCount}
+        onOpenChange={(o) => !o && setFilterCount(null)}
+        destructive={false}
+        title={filterCount?.unflagged ? `Approve ${plural(filterCount.unflagged, 'unflagged draft')}?` : 'Nothing to approve'}
+        description={
+          filterCount
+            ? `${scopeText}: ${plural(filterCount.matching, 'draft')} match; ${filterCount.unflagged} have no blocking flags and go live for students at once, with you recorded as the reviewer. ${filterCount.flagged} flagged draft${filterCount.flagged === 1 ? '' : 's'} stay for one-by-one review${Object.keys(filterCount.byFlag).length ? ` (${Object.entries(filterCount.byFlag).map(([k, n]) => `${QUESTION_FLAG_LABELS[k as keyof typeof QUESTION_FLAG_LABELS]}: ${n}`).join(', ')})` : ''}. Long reading passages are warnings only. This is audit-logged.`
+            : ''
+        }
+        confirmLabel={filterCount?.unflagged ? `Approve ${filterCount.unflagged}` : 'OK'}
+        loading={byFilter.isPending}
+        onConfirm={() => {
+          if (!filterCount?.unflagged) return setFilterCount(null);
+          byFilter.mutate(
+            { ...scope, dryRun: false },
+            {
+              onSuccess: (r) => (toast.success(`${plural(r.approved, 'question')} approved${r.flagged ? ` · ${r.flagged} flagged left for review` : ''}`), setFilterCount(null)),
+              onError: (e) => toast.error(errorMessage(e)),
+            },
+          );
+        }}
+      />
       <ConfirmDialog
         open={bulkOpen}
         onOpenChange={setBulkOpen}
@@ -828,6 +885,7 @@ function ReviewCard({ item }: { item: ReviewItem }) {
           <Badge variant="outline">{item.subject}</Badge>
           <Badge variant={item.type === 'THEORY' ? 'info' : 'secondary'}>{item.type === 'THEORY' ? `Theory · ${plural(item.marks, 'mark')}` : 'Objective'}</Badge>
           <Badge variant="outline">{item.difficulty.toLowerCase()}</Badge>
+          <Badge variant={item.source === 'LICENSED' ? 'info' : 'outline'}>{sourceLabel(item)}</Badge>
           {item.aiDraft && (
             <Badge variant="ai">
               <Bot /> AI draft
@@ -843,6 +901,18 @@ function ReviewCard({ item }: { item: ReviewItem }) {
                 <span>
                   <span className="font-medium">{QUESTION_FLAG_LABELS[f.flag]}</span>
                   {f.detail ? <span className="text-muted-foreground"> — {f.detail}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {(item.warnings?.length ?? 0) > 0 && (
+          <ul className="space-y-1 rounded-xl border border-border bg-muted/40 p-3 text-[12.5px]">
+            {item.warnings!.map((f) => (
+              <li key={f.flag} className="flex gap-2 text-muted-foreground">
+                <AlertTriangle className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+                <span>
+                  <span className="font-medium text-foreground">{QUESTION_FLAG_LABELS[f.flag]}</span> — {f.detail}. A warning only (reading passages are long); it doesn’t block approval.
                 </span>
               </li>
             ))}
@@ -919,7 +989,8 @@ function EditApproveDialog({ item, onOpenChange }: { item: ReviewItem | null; on
         topicId: item.topicId,
         year: item.year,
         stem: item.stem,
-        options: item.type === 'THEORY' ? [] : [...item.options, '', '', '', ''].slice(0, 4),
+        // Licensed past papers can have five options (A–E); our own questions have four.
+        options: item.type === 'THEORY' ? [] : [...item.options, '', '', '', ''].slice(0, item.source === 'LICENSED' && item.options.length === 5 ? 5 : 4),
         answer: item.answer,
         explanation: item.explanation,
         difficulty: item.difficulty,

@@ -12,6 +12,7 @@ import { installJamb } from './jamb-install';
 import { installQuestionBank } from './question-bank-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
+import { autoSeedDemoJamb } from './demo-jamb';
 import { autoDemoBirthdays } from '../birthdays/demo-birthdays';
 import { demoLoginsOff } from '../auth/demo-mode.service';
 import { SYSTEM_ROLES } from '@aischool/shared';
@@ -172,6 +173,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (young) new Logger('Demo').log(young);
         } catch (err) {
           new Logger('Demo').error(`Demo Primary 1 pupil could not be added: ${(err as Error).message}`);
+        }
+        // Demo school only: an SS 3 JAMB candidate (jamb@greenfield.demo) with JAMB Prep, to try the full UTME mock.
+        try {
+          const jamb = demosOff ? '' : await autoSeedDemoJamb(prisma);
+          if (jamb) new Logger('Demo').log(jamb);
+        } catch (err) {
+          new Logger('Demo').error(`Demo JAMB candidate could not be added: ${(err as Error).message}`);
         }
         // Demo school only, once ever: birthday greetings on (app channels only, no SMS).
         try {

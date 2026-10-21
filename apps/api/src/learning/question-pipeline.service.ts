@@ -3,6 +3,7 @@ import {
   DEFAULT_QUESTION_TARGETS,
   EXAMS,
   EXAM_LABELS,
+  LONG_STEM_WARNING_MAX,
   MIN_PUBLISHED_TO_LIST,
   QUESTION_DIFFICULTIES,
   type CoverageCounts,
@@ -16,6 +17,7 @@ import {
   type PipelineSettingsInput,
   type QuestionFlag,
   type QuestionTarget,
+  type ReviewBulkFilterResult,
   type ReviewItem,
   type ReviewQueue,
   type ReviewStats,
@@ -701,12 +703,20 @@ export class QuestionPipelineService implements OnModuleInit {
 
   // ---------------------------------------------------------------- flags
 
-  private flags(q: QRow, others: { id: string; t: Set<string>; stem: string; status: string }[], check: SelfCheck | null): ReviewItem['flags'] {
+  /**
+   * Blocking flags (bulk approval skips these) and warnings. A long stem is
+   * only a warning up to LONG_STEM_WARNING_MAX characters: comprehension and
+   * cloze questions carry their reading passage in the stem.
+   */
+  private flags(q: QRow, others: { id: string; t: Set<string>; stem: string; status: string }[], check: SelfCheck | null): { flags: ReviewItem['flags']; warnings: NonNullable<ReviewItem['warnings']> } {
     const f: ReviewItem['flags'] = [];
-    const add = (flag: QuestionFlag, detail: string) => f.push({ flag, detail });
+    const w: NonNullable<ReviewItem['warnings']> = [];
+    const add = (flag: QuestionFlag, detail: string) => (flag === 'LONG_STEM' && q.stem.length <= LONG_STEM_WARNING_MAX ? w : f).push({ flag, detail });
     const options = (q.options as string[]) ?? [];
     if (q.type !== 'THEORY') {
-      if (options.length !== 4 || q.answer < 0 || q.answer >= options.length) add('BAD_SHAPE', `${options.length} options, key ${q.answer + 1}`);
+      // Our own questions have exactly four options; licensed past papers (e.g. 1983–85 JAMB) may have five (A–E).
+      const shapeOk = q.source === 'LICENSED' ? options.length === 4 || options.length === 5 : options.length === 4;
+      if (!shapeOk || q.answer < 0 || q.answer >= options.length) add('BAD_SHAPE', `${options.length} options, key ${q.answer + 1}`);
       const norm = options.map(normalise);
       let overlap = '';
       for (let i = 0; i < norm.length && !overlap; i++)
@@ -738,7 +748,7 @@ export class QuestionPipelineService implements OnModuleInit {
     }
     if (best) add('DUPLICATE', `${Math.round(best.s * 100)}% like a ${best.o.status.toLowerCase()} question: “${best.o.stem.replace(/\s+/g, ' ').slice(0, 90)}”`);
     if (check && !check.agrees) add('SELF_CHECK', check.note);
-    return f;
+    return { flags: f, warnings: w };
   }
 
   private async checksFor(ids: string[]): Promise<Map<string, SelfCheck>> {
@@ -748,9 +758,9 @@ export class QuestionPipelineService implements OnModuleInit {
   }
 
   /** Drafts with their flags and self-checks, in the order they arrived. */
-  private async items(rows: QRow[]): Promise<ReviewItem[]> {
-    const groups = new Map<string, { id: string; t: Set<string>; stem: string; status: string }[]>();
+  private async items(rows: QRow[], groups = new Map<string, { id: string; t: Set<string>; stem: string; status: string }[]>()): Promise<ReviewItem[]> {
     for (const key of new Set(rows.map((r) => `${r.exam}|${r.subject}`))) {
+      if (groups.has(key)) continue;
       const [exam, subject] = key.split('|');
       const all = await this.prisma.root.examQuestion.findMany({ where: { exam, subject, status: { not: 'RETIRED' } }, select: { id: true, stem: true, status: true } });
       groups.set(key, all.map((a) => ({ id: a.id, stem: a.stem, status: a.status, t: tokens(a.stem) })));
@@ -759,10 +769,12 @@ export class QuestionPipelineService implements OnModuleInit {
     const parents = await this.prisma.root.syllabusTopic.findMany({ where: { id: { in: [...new Set(rows.map((r) => r.topic?.parentId).filter((x): x is string => !!x))] } }, select: { id: true, name: true } });
     return rows.map((q) => {
       const check = checks.get(q.id) ?? null;
+      const { flags, warnings } = this.flags(q, groups.get(`${q.exam}|${q.subject}`) ?? [], check);
       return {
         ...this.exams.row(q),
         aiDraft: q.source === 'AI_REVIEWED' && !q.reviewedAt,
-        flags: this.flags(q, groups.get(`${q.exam}|${q.subject}`) ?? [], check),
+        flags,
+        warnings,
         check,
         topicObjectives: q.topic?.objectives ?? [],
         parentTopic: parents.find((p) => p.id === q.topic?.parentId)?.name ?? null,
@@ -773,11 +785,24 @@ export class QuestionPipelineService implements OnModuleInit {
 
   // ---------------------------------------------------------------- review
 
-  async reviewQueue(f: { exam?: ExamBody; subject?: string; topicId?: string; flagged?: 'yes' | 'no'; aiOnly?: boolean; limit: number; offset: number }): Promise<ReviewQueue> {
+  /** Drafts matching the review filters (source: AUTHORED = our own, LICENSED = past questions; year for past questions). */
+  private async draftWhere(f: { exam?: ExamBody; subject?: string; topicId?: string; aiOnly?: boolean; source?: string; year?: number }): Promise<Prisma.ExamQuestionWhereInput> {
     const subject = f.subject ? subjectKey(f.subject) : undefined;
     const topicIds = f.topicId ? [f.topicId, ...(await this.prisma.root.syllabusTopic.findMany({ where: { parentId: f.topicId }, select: { id: true } })).map((t) => t.id)] : null;
+    return {
+      status: 'DRAFT',
+      ...(f.exam ? { exam: f.exam } : {}),
+      ...(subject ? { subject } : {}),
+      ...(topicIds ? { topicId: { in: topicIds } } : {}),
+      ...(f.source ? { source: f.source } : {}),
+      ...(f.year ? { year: f.year } : {}),
+      ...(f.aiOnly ? { source: 'AI_REVIEWED', reviewedAt: null } : {}),
+    };
+  }
+
+  async reviewQueue(f: { exam?: ExamBody; subject?: string; topicId?: string; flagged?: 'yes' | 'no'; aiOnly?: boolean; source?: string; year?: number; limit: number; offset: number }): Promise<ReviewQueue> {
     const rows = await this.prisma.root.examQuestion.findMany({
-      where: { status: 'DRAFT', ...(f.exam ? { exam: f.exam } : {}), ...(subject ? { subject } : {}), ...(topicIds ? { topicId: { in: topicIds } } : {}), ...(f.aiOnly ? { source: 'AI_REVIEWED', reviewedAt: null } : {}) },
+      where: await this.draftWhere(f),
       include: { topic: true },
       orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
       take: 1000,
@@ -785,12 +810,58 @@ export class QuestionPipelineService implements OnModuleInit {
     const items = await this.items(rows);
     const filtered = f.flagged === 'yes' ? items.filter((i) => i.flags.length) : f.flagged === 'no' ? items.filter((i) => !i.flags.length) : items;
     const subjects = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject'], where: { status: 'DRAFT' }, _count: { _all: true }, orderBy: [{ exam: 'asc' }, { subject: 'asc' }] });
+    const years = await this.prisma.root.examQuestion.groupBy({ by: ['year'], where: { status: 'DRAFT', year: { not: null }, ...(f.exam ? { exam: f.exam } : {}) }, _count: { _all: true }, orderBy: [{ year: 'desc' }] });
     return {
       items: filtered.slice(f.offset, f.offset + f.limit),
       total: filtered.length,
       flagged: items.filter((i) => i.flags.length).length,
       subjects: subjects.map((s) => ({ exam: s.exam as ExamBody, subject: s.subject, drafts: s._count._all })),
+      years: years.filter((y) => y.year !== null).map((y) => ({ year: y.year!, drafts: y._count._all })),
     };
+  }
+
+  /**
+   * "Approve all unflagged drafts matching these filters", done here in
+   * batches (no id limit). Each draft is checked exactly as in the queue;
+   * any with a blocking flag is left for one-by-one review. A dry run only
+   * counts, for the confirmation. The approval is audit-logged with counts.
+   */
+  async bulkApproveByFilter(f: { exam?: ExamBody; subject?: string; source?: string; year?: number; topicId?: string; dryRun: boolean }, userId: string): Promise<ReviewBulkFilterResult> {
+    const where = await this.draftWhere(f);
+    const groups = new Map<string, { id: string; t: Set<string>; stem: string; status: string }[]>();
+    const out: ReviewBulkFilterResult = { matching: 0, unflagged: 0, flagged: 0, approved: 0, byFlag: {} };
+    const BATCH = 250;
+    let cursor: string | undefined;
+    for (;;) {
+      const rows = await this.prisma.root.examQuestion.findMany({ where, include: { topic: true }, orderBy: { id: 'asc' }, take: BATCH, ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}) });
+      if (!rows.length) break;
+      cursor = rows[rows.length - 1]!.id;
+      const items = await this.items(rows, groups);
+      out.matching += items.length;
+      const ok = items.filter((i) => !i.flags.length).map((i) => i.id);
+      for (const i of items.filter((x) => x.flags.length)) {
+        out.flagged++;
+        for (const fl of new Set(i.flags.map((x) => x.flag))) out.byFlag[fl] = (out.byFlag[fl] ?? 0) + 1;
+      }
+      out.unflagged += ok.length;
+      if (!f.dryRun && ok.length) {
+        const r = await this.prisma.root.examQuestion.updateMany({ where: { id: { in: ok }, status: 'DRAFT' }, data: { status: 'PUBLISHED', reviewedById: userId, reviewedAt: new Date() } });
+        await this.prisma.root.platformSetting.deleteMany({ where: { key: { in: ok.map((id) => CHECK_PREFIX + id) } } });
+        out.approved += r.count;
+      }
+      if (rows.length < BATCH) break;
+    }
+    if (!f.dryRun && out.approved) {
+      await this.bump(userId, 'approved', out.approved);
+      const scope = [f.exam ? EXAM_LABELS[f.exam] : 'all exams', f.subject ? subjectKey(f.subject) : 'all subjects', f.source ? (f.source === 'LICENSED' ? 'past questions' : f.source === 'AUTHORED' ? 'original questions' : 'AI drafts') : 'any source', f.year ? String(f.year) : ''].filter(Boolean).join(', ');
+      await this.audit.log({
+        tenantId: null,
+        action: 'content.questions_bulk_approved',
+        summary: `Bulk-approved ${out.approved} unflagged exam question drafts by filter (${scope}); ${out.flagged} flagged left for review`,
+        metadata: { filter: { exam: f.exam ?? null, subject: f.subject ?? null, source: f.source ?? null, year: f.year ?? null, topicId: f.topicId ?? null }, matching: out.matching, approved: out.approved, flagged: out.flagged, byFlag: out.byFlag },
+      });
+    }
+    return out;
   }
 
   async approve(id: string, edits: ExamQuestionInput | undefined, userId: string): Promise<ReviewItem> {
@@ -802,7 +873,7 @@ export class QuestionPipelineService implements OnModuleInit {
       if (edits.type === 'THEORY') {
         if (!edits.markingGuide) throw new BadRequestException('Theory questions need a marking guide');
       } else {
-        if (edits.options.length !== 4) throw new BadRequestException('Give exactly four options');
+        if (q.source === 'LICENSED' ? edits.options.length !== 4 && edits.options.length !== 5 : edits.options.length !== 4) throw new BadRequestException(q.source === 'LICENSED' ? 'Give four or five options' : 'Give exactly four options');
         if (new Set(edits.options.map(normalise)).size !== edits.options.length) throw new BadRequestException('Two options are the same');
         if (edits.answer >= edits.options.length) throw new BadRequestException('The answer must be one of the options');
         if (!edits.explanation) throw new BadRequestException('Add an explanation: students see it after marking');

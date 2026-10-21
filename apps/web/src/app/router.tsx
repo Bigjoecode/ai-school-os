@@ -149,6 +149,7 @@ const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
 const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
 const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
 const ExamRoomPage = lazy(() => import('@/features/cbt/exam-room-page'));
+const UtmeRoomPage = lazy(() => import('@/features/learning/utme-room-page'));
 const OfflineExamsPage = lazy(() => import('@/features/cbt/offline/offline-exams-page'));
 const OfflineRoomPage = lazy(() => import('@/features/cbt/offline/offline-room-page'));
 const InvigilatorSheetPage = lazy(() => import('@/features/cbt/offline/invigilator-sheet-page'));
@@ -324,6 +325,19 @@ export const router = createBrowserRouter(withRouteErrors([
         {withSuspense(
           <RequirePermission permission="learning.use">
             <ExamRoomPage />
+          </RequirePermission>,
+        )}
+      </RequireAuth>
+    ),
+  },
+  // Exam Academy's JAMB UTME CBT mock: full screen like the real CBT software.
+  {
+    path: '/utme/:id',
+    element: (
+      <RequireAuth>
+        {withSuspense(
+          <RequirePermission permission="learning.use">
+            <UtmeRoomPage />
           </RequirePermission>,
         )}
       </RequireAuth>

@@ -434,6 +434,10 @@ export interface PracticeQuestion {
   explanation?: string | null;
   chosen?: number | null;
   correct?: boolean;
+  /** The question's own subject (multi-subject attempts, e.g. a full UTME mock). */
+  subject?: string | null;
+  /** Flagged for review by the student (kept from the CBT room when handed in). */
+  flagged?: boolean;
   /** Theory questions: marks available, the student's written answer and, after marking, the guide and the AI's marking. */
   marks?: number;
   written?: string | null;
@@ -442,7 +446,8 @@ export interface PracticeQuestion {
 }
 export interface PracticeAttemptView {
   id: string;
-  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ' | 'THEORY';
+  /** UTME: a full JAMB UTME CBT mock (Use of English + 3 subjects, one timer). */
+  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ' | 'THEORY' | 'UTME';
   exam: ExamBody | null;
   title: string;
   subject: string | null;
@@ -455,8 +460,34 @@ export interface PracticeAttemptView {
   score: number | null;
   total: number;
   percent: number | null;
-  perTopic: { topic: string; correct: number; total: number }[] | null;
+  perTopic: { topic: string; correct: number; total: number; subject?: string | null }[] | null;
   review: string | null;
+  /** Server clock when this view was made (keeps a countdown honest on a device with a wrong clock). */
+  serverNow?: string;
+  /** Multi-subject papers: the questions grouped by subject, in order (UTME). */
+  sections?: UtmeSection[];
+  /** UTME: who is sitting it (shown on the candidate panel). */
+  candidate?: { name: string; number: string | null; className: string | null };
+  /** UTME, after marking: each subject scored out of 100, the total out of 400. */
+  utme?: UtmeScore | null;
+  /** Seconds between starting and handing in (after marking). */
+  timeUsedSeconds?: number | null;
+}
+export interface UtmeSection {
+  subject: string;
+  /** "Use of English" for English Language. */
+  label: string;
+  /** Index of the section's first question in `questions`. */
+  start: number;
+  count: number;
+}
+export interface UtmeScore {
+  subjects: { subject: string; label: string; correct: number; total: number; score: number }[];
+  /** Sum of the subject scores (out of 100 x subjects: 400 for a full mock). */
+  total: number;
+  outOf: number;
+  correct: number;
+  questions: number;
 }
 export interface PracticeAttemptRow {
   id: string;
@@ -469,6 +500,8 @@ export interface PracticeAttemptRow {
   percent: number | null;
   startedAt: string;
   submittedAt: string | null;
+  /** UTME mocks, after marking: total out of 400 and each subject out of 100. */
+  utme?: { total: number; outOf: number; subjects: { subject: string; label: string; score: number }[] } | null;
 }
 
 export const practiceStartSchema = z.object({
@@ -477,13 +510,73 @@ export const practiceStartSchema = z.object({
   subjects: z.array(z.string().trim().min(2)).min(1).max(4),
   topicId: z.string().nullish(),
   questions: z.number().int().min(5).max(100).default(20),
+  /** Practice filter by difficulty. */
+  difficulty: z.enum(['EASY', 'MEDIUM', 'HARD']).nullish(),
+  /** Past paper by year (licensed past questions): one subject, that year's paper in its original order. */
+  year: z.number().int().min(1978).max(2100).nullish(),
 });
+
+// ============================================================ JAMB UTME CBT mock
+
+/** The full UTME paper: Use of English (compulsory) 60 questions + 40 for each of three other subjects, one timer. */
+export const UTME = {
+  /** The bank's subject name for Use of English. */
+  english: 'English Language',
+  englishLabel: 'Use of English',
+  englishQuestions: 60,
+  otherQuestions: 40,
+  otherSubjects: 3,
+  /** One timer for the whole paper (a shorter mock gets a proportional share). */
+  minutes: 120,
+  questions: 180,
+} as const;
+/** How a subject is named on the UTME paper. */
+export const utmeLabel = (subject: string) => (subject === UTME.english ? UTME.englishLabel : subject);
+export const utmeStartSchema = z.object({
+  /** The three subjects besides Use of English (which is always included). */
+  subjects: z.array(z.string().trim().min(2).max(60)).length(UTME.otherSubjects),
+  /** Start even if a subject has fewer approved questions than the paper needs (a shorter mock). */
+  allowShort: z.boolean().default(false),
+});
+export interface UtmeShortfall {
+  subject: string;
+  label: string;
+  available: number;
+  needed: number;
+}
+export interface PastPaperRow {
+  subject: string;
+  year: number;
+  questions: number;
+}
+export interface ExamTopicRow {
+  topicId: string;
+  topic: string;
+  parent: string | null;
+  questions: number;
+}
 export const aiQuizSchema = z.object({ subject: z.string().trim().min(2).max(60), topic: z.string().trim().min(2).max(120), questions: z.number().int().min(3).max(15).default(5) });
-export const practiceSubmitSchema = z.object({ answers: z.array(z.number().int().min(-1).max(5).nullable()).max(200) });
+export const practiceSubmitSchema = z.object({
+  answers: z.array(z.number().int().min(-1).max(5).nullable()).max(200),
+  /** Question indexes flagged for review (kept with the marked attempt). */
+  flags: z.array(z.number().int().min(0).max(199)).max(200).optional(),
+});
 
 export interface ExamCatalog {
-  exams: { exam: ExamBody; label: string; entitled: boolean; subjects: { subject: string; questions: number }[]; /** Subjects with a syllabus but too few published questions yet. */ comingSoon?: { subject: string; questions: number; topics: number }[] }[];
+  exams: {
+    exam: ExamBody;
+    label: string;
+    entitled: boolean;
+    /** `objective`: approved objective questions (what practice and mocks draw from). */
+    subjects: { subject: string; questions: number; objective?: number }[];
+    /** Subjects with a syllabus but too few published questions yet. */
+    comingSoon?: { subject: string; questions: number; topics: number }[];
+    /** Past papers by year (licensed past questions only). */
+    pastPapers?: PastPaperRow[];
+  }[];
   freePractice: { setsPerTerm: number; questionsPerSet: number; used: number };
+  /** The student's school level (JAMB, WAEC and NECO are for senior classes, BECE for junior). */
+  level?: 'PRIMARY' | 'JUNIOR' | 'SENIOR' | null;
 }
 
 export const examQuestionSchema = z.object({

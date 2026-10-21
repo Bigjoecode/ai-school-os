@@ -17,8 +17,12 @@ import { subjectKey } from '../learning/mastery.service';
 interface BankFile {
   exam: string;
   subject: string;
-  questions: { id: string; topic: string; stem: string; options: string[]; answer: number; explanation?: string; difficulty?: string }[];
+  /** AUTHORED (written for the app) or LICENSED (official past questions used with permission). */
+  source?: string;
+  questions: { id: string; topic: string; stem: string; options: string[]; answer: number; explanation?: string; difficulty?: string; year?: number | null }[];
 }
+
+const SOURCES = new Set(['AUTHORED', 'LICENSED']);
 
 const DIFFICULTIES = new Set(['EASY', 'MEDIUM', 'HARD']);
 
@@ -71,10 +75,11 @@ export async function installQuestionBank(prisma: PrismaClient): Promise<string>
             answer: q.answer,
             explanation: q.explanation?.trim() || null,
             difficulty: DIFFICULTIES.has(q.difficulty ?? '') ? q.difficulty! : 'MEDIUM',
+            year: typeof q.year === 'number' && q.year >= 1978 && q.year <= 2100 ? q.year : null,
           };
           const existing = await prisma.examQuestion.findUnique({ where: { bankRef: q.id }, select: { id: true, status: true, reviewedAt: true } });
           if (!existing) {
-            await prisma.examQuestion.create({ data: { ...content, bankRef: q.id, source: 'AUTHORED', status: 'DRAFT' } });
+            await prisma.examQuestion.create({ data: { ...content, bankRef: q.id, source: SOURCES.has(data.source ?? '') ? data.source! : 'AUTHORED', status: 'DRAFT' } });
             created++;
           } else if (existing.status === 'DRAFT' && !existing.reviewedAt) {
             await prisma.examQuestion.update({ where: { id: existing.id }, data: content });

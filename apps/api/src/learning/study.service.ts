@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import type { Flashcard, FlashcardDeckRow, PracticeAttemptRow, PracticeAttemptView, PracticeQuestion, StudyPlanRow } from '@aischool/shared';
+import { utmeLabel, type Flashcard, type FlashcardDeckRow, type PracticeAttemptRow, type PracticeAttemptView, type PracticeQuestion, type StudyPlanRow, type UtmeScore, type UtmeSection } from '@aischool/shared';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
@@ -17,12 +17,48 @@ export interface StoredQuestion {
   explanation: string | null;
   topicId: string | null;
   topic: string | null;
+  /** The question's own subject (so multi-subject attempts mark mastery in the right subject). */
+  subject?: string | null;
+  /** Flagged for review by the student when handed in. */
+  flagged?: boolean;
   /** Theory questions: marks available and the points that earn them. */
   marks?: number;
   markingGuide?: string | null;
 }
 
 const MOCK_GRACE_MS = 2 * 60_000;
+
+/** UTME scoring: each subject out of 100 (correct / questions x 100, rounded); the total is their sum (out of 400). */
+export function utmeScore(items: { subject?: string | null; correct: number; total: number }[]): UtmeScore {
+  const by = new Map<string, { correct: number; total: number }>();
+  for (const i of items) {
+    const k = i.subject ?? 'General';
+    const t = by.get(k) ?? { correct: 0, total: 0 };
+    t.correct += i.correct;
+    t.total += i.total;
+    by.set(k, t);
+  }
+  const subjects = [...by].map(([subject, t]) => ({ subject, label: utmeLabel(subject), correct: t.correct, total: t.total, score: t.total ? Math.round((t.correct / t.total) * 100) : 0 }));
+  return {
+    subjects,
+    total: subjects.reduce((n, x) => n + x.score, 0),
+    outOf: subjects.length * 100,
+    correct: subjects.reduce((n, x) => n + x.correct, 0),
+    questions: subjects.reduce((n, x) => n + x.total, 0),
+  };
+}
+
+/** Contiguous runs of one subject, in paper order. */
+export function sectionsOf(qs: { subject?: string | null }[]): UtmeSection[] {
+  const out: UtmeSection[] = [];
+  qs.forEach((q, i) => {
+    const subject = q.subject ?? 'General';
+    const last = out[out.length - 1];
+    if (last && last.subject === subject) last.count++;
+    else out.push({ subject, label: utmeLabel(subject), start: i, count: 1 });
+  });
+  return out;
+}
 const LEITNER_DAYS = [0, 1, 2, 4, 7, 14];
 const DAY = 86_400_000;
 const today = () => new Date().toISOString().slice(0, 10);
@@ -88,8 +124,9 @@ export class StudyService {
         stem: q.stem,
         options: q.options,
         topic: q.topic,
+        subject: q.subject ?? null,
         chosen: answers[i] ?? null,
-        ...(done ? { answer: q.answer, explanation: q.explanation, correct: answers[i] === q.answer } : {}),
+        ...(done ? { answer: q.answer, explanation: q.explanation, correct: answers[i] === q.answer, flagged: !!q.flagged } : {}),
       })),
       durationMinutes: a.durationMinutes,
       startedAt: a.startedAt.toISOString(),
@@ -100,7 +137,23 @@ export class StudyService {
       percent: a.score !== null && a.total ? Math.round((a.score / a.total) * 100) : null,
       perTopic: a.perTopic as PracticeAttemptView['perTopic'],
       review: a.review,
+      serverNow: new Date().toISOString(),
+      timeUsedSeconds: a.submittedAt ? Math.max(0, Math.round((Math.min(a.submittedAt.getTime(), a.endsAt?.getTime() ?? Infinity) - a.startedAt.getTime()) / 1000)) : null,
+      ...(a.mode === 'UTME'
+        ? {
+            sections: sectionsOf(qs),
+            utme: done ? utmeScore(qs.map((q, i) => ({ subject: q.subject, correct: answers[i] === q.answer ? 1 : 0, total: 1 }))) : null,
+          }
+        : {}),
     };
+  }
+
+  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class). */
+  async present(a: Prisma.PracticeAttemptGetPayload<object>): Promise<PracticeAttemptView> {
+    const v = this.view(a);
+    if (a.mode !== 'UTME') return v;
+    const s = await this.prisma.root.student.findUnique({ where: { id: a.studentId }, select: { firstName: true, lastName: true, admissionNumber: true, classArm: { select: { name: true, classLevel: { select: { name: true } } } } } });
+    return { ...v, candidate: { name: s ? `${s.lastName.toUpperCase()} ${s.firstName}` : 'Candidate', number: s?.admissionNumber ?? null, className: s?.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}` : null } };
   }
 
   /** Written practice: the guide and model answer stay hidden until the answers are marked. */
@@ -150,7 +203,13 @@ export class StudyService {
       percent: a.score !== null && a.total ? Math.round((a.score / a.total) * 100) : null,
       startedAt: a.startedAt.toISOString(),
       submittedAt: a.submittedAt?.toISOString() ?? null,
+      utme: a.mode === 'UTME' && a.submittedAt && Array.isArray(a.perTopic) ? this.utmeRow(a.perTopic as unknown as { subject?: string | null; correct: number; total: number }[]) : null,
     };
+  }
+
+  private utmeRow(per: { subject?: string | null; correct: number; total: number }[]) {
+    const s = utmeScore(per);
+    return { total: s.total, outOf: s.outOf, subjects: s.subjects.map(({ subject, label, score }) => ({ subject, label, score })) };
   }
 
   async createAttempt(access: ResolvedAccess, data: { mode: string; exam?: string | null; subject?: string | null; topicId?: string | null; title: string; questions: StoredQuestion[]; durationMinutes?: number | null }) {
@@ -188,35 +247,56 @@ export class StudyService {
     return { ok: true };
   }
 
-  async submit(studentId: string, id: string, answers: (number | null)[]) {
+  async submit(studentId: string, id: string, answers: (number | null)[], flags?: number[]) {
     const a = await this.attempt(studentId, id);
     if (a.submittedAt) return a;
     if (a.mode === 'THEORY') throw new BadRequestException('Theory answers are marked by the theory endpoint');
-    return this.grade(a, answers);
+    return this.grade(a, answers, flags);
   }
 
-  /** Marks against the stored key, records topic evidence, and keeps the result. */
-  private async grade(a: Prisma.PracticeAttemptGetPayload<object>, answers: (number | null)[]) {
+  /**
+   * Marks against the stored key, records topic evidence, and keeps the result.
+   * Each question counts in its own subject (a full UTME mock has four), so a
+   * question without a syllabus topic id still finds (or makes) its topic in
+   * the right subject. Evidence source: PRACTICE for Exam Academy sets and
+   * mocks alike (CBT is kept for the school's own online exams, which count
+   * as school evidence).
+   */
+  private async grade(a: Prisma.PracticeAttemptGetPayload<object>, answers: (number | null)[], flags?: number[]) {
     const qs = a.questions as unknown as StoredQuestion[];
     let score = 0;
-    const topics = new Map<string, { topicId: string | null; topic: string; correct: number; total: number }>();
+    const topics = new Map<string, { topicId: string | null; topic: string; subject: string | null; correct: number; total: number }>();
     qs.forEach((q, i) => {
       const ok = answers[i] === q.answer;
       if (ok) score++;
-      const key = q.topicId ?? q.topic ?? 'General';
-      const t = topics.get(key) ?? { topicId: q.topicId, topic: q.topic ?? 'General', correct: 0, total: 0 };
+      const subject = q.subject ?? a.subject ?? null;
+      const key = `${subject ?? ''}|${q.topicId ?? q.topic ?? 'General'}`;
+      const t = topics.get(key) ?? { topicId: q.topicId, topic: q.topic ?? 'General', subject, correct: 0, total: 0 };
       t.total++;
       if (ok) t.correct++;
       topics.set(key, t);
     });
+    const flagged = new Set(flags ?? []);
+    const multi = new Set(qs.map((q) => q.subject ?? a.subject)).size > 1;
     const graded = await this.prisma.root.practiceAttempt.updateMany({
       where: { id: a.id, submittedAt: null },
-      data: { answers, score, submittedAt: new Date(), perTopic: [...topics.values()].map(({ topic, correct, total }) => ({ topic, correct, total })) },
+      data: {
+        answers,
+        score,
+        submittedAt: new Date(),
+        perTopic: [...topics.values()].map(({ topic, subject, correct, total }) => ({ topic, ...(multi || a.mode === 'UTME' ? { subject } : {}), correct, total })),
+        // Flags for review stay with the questions so the review can filter by them.
+        ...(flagged.size ? { questions: qs.map((q, i) => (flagged.has(i) ? { ...q, flagged: true } : q)) as unknown as Prisma.InputJsonValue } : {}),
+      },
     });
     if (graded.count) {
       for (const t of topics.values()) {
-        const topicId = t.topicId ?? (a.subject && t.topic !== 'General' ? (await this.mastery.topicFor(a.studentId, a.subject, t.topic)).id : null);
-        if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, t.correct, t.total, { source: a.mode === 'AI_QUIZ' ? 'QUIZ' : 'PRACTICE', sourceId: a.id });
+        try {
+          const topicId = t.topicId ?? (t.subject && t.topic !== 'General' ? (await this.mastery.topicFor(a.studentId, t.subject, t.topic)).id : null);
+          if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, t.correct, t.total, { source: a.mode === 'AI_QUIZ' ? 'QUIZ' : 'PRACTICE', sourceId: a.id });
+        } catch {
+          /* mastery is a side effect: the marked result stands */
+        }
       }
     }
     return this.prisma.root.practiceAttempt.findUniqueOrThrow({ where: { id: a.id } });

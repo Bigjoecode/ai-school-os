@@ -143,8 +143,33 @@ export function normalise(s: string): string {
     .replace(/\s+/g, ' ')
     .trim();
 }
+/**
+ * What two texts are compared on: pairs of neighbouring words, so word ORDER counts
+ * ("x = 2, y = 3" is not "x = 3, y = 2") and a long shared instruction line does not
+ * make two different questions look alike. Very short texts fall back to content words.
+ */
 function tokens(s: string): Set<string> {
-  return new Set(normalise(s).split(' ').filter((w) => w && !STOP.has(w)));
+  const words = normalise(s).split(' ').filter(Boolean);
+  if (words.length < 3) return new Set(words.filter((w) => !STOP.has(w)));
+  const pairs = new Set<string>();
+  for (let i = 0; i + 1 < words.length; i++) pairs.add(`${words[i]} ${words[i + 1]}`);
+  return pairs;
+}
+/**
+ * The text compared when looking for duplicate questions. For a question that
+ * carries a reading passage (passage, blank line, question), it is the question
+ * itself plus the start of the passage, so different questions on one passage
+ * are not mistaken for repeats while a repeated question on the same passage is.
+ */
+function dupKey(stem: string, options?: unknown): Set<string> {
+  // The options count too: JAMB re-asks a question in a later year with different options.
+  const opts = Array.isArray(options) ? ` ${(options as string[]).map(String).join(' ')}` : '';
+  stem = `${stem}${opts}`;
+  const parts = stem.trim().split(/\n\s*\n/);
+  if (parts.length < 2) return tokens(stem);
+  const question = parts[parts.length - 1]!;
+  const passageStart = parts.slice(0, -1).join(' ').slice(0, 80);
+  return tokens(`${passageStart} ${question}`);
 }
 /** Jaccard similarity of the content words (1 = same words). */
 export function similarity(a: Set<string> | string, b: Set<string> | string): number {
@@ -505,7 +530,7 @@ export class QuestionPipelineService implements OnModuleInit {
     const topic = await this.prisma.root.syllabusTopic.findUniqueOrThrow({ where: { id: p.topicId }, include: { children: { select: { id: true, name: true, objectives: true } }, parent: { select: { name: true } } } });
     const ids = [topic.id, ...topic.children.map((c) => c.id)];
     const existing = await this.prisma.root.examQuestion.findMany({ where: { subject: job.subject, topicId: { in: ids }, status: { not: 'RETIRED' } }, select: { stem: true }, orderBy: { createdAt: 'desc' }, take: 300 });
-    const seen = existing.map((e) => ({ stem: e.stem, t: tokens(e.stem) }));
+    const seen = existing.map((e) => ({ stem: e.stem, t: dupKey(e.stem) }));
     const out = { drafted: 0, duplicates: 0, invalid: 0, flagged: 0 };
     const objectives = [...topic.objectives, ...topic.children.flatMap((c) => c.objectives)].slice(0, 25);
     const context = [
@@ -520,7 +545,7 @@ export class QuestionPipelineService implements OnModuleInit {
     const avoid = () => (seen.length ? `\n\nQuestions that already exist for this topic — do NOT repeat or closely paraphrase them; test different objectives or angles:\n${seen.slice(0, 40).map((s) => `- ${s.stem.replace(/\s+/g, ' ').slice(0, 160)}`).join('\n')}` : '');
     const subtopicId = (name: string) => topic.children.find((c) => normalise(c.name) === normalise(name ?? ''))?.id ?? topic.id;
     const isDuplicate = (stem: string) => {
-      const t = tokens(stem);
+      const t = dupKey(stem);
       const dup = seen.some((s) => similarity(s.t, t) >= DUPLICATE_SIMILARITY);
       if (!dup) seen.push({ stem, t });
       return dup;
@@ -717,17 +742,20 @@ export class QuestionPipelineService implements OnModuleInit {
       // Our own questions have exactly four options; licensed past papers (e.g. 1983–85 JAMB) may have five (A–E).
       const shapeOk = q.source === 'LICENSED' ? options.length === 4 || options.length === 5 : options.length === 4;
       if (!shapeOk || q.answer < 0 || q.answer >= options.length) add('BAD_SHAPE', `${options.length} options, key ${q.answer + 1}`);
-      const norm = options.map(normalise);
+      // Exactly as written (spacing aside): symbols and capitals matter ("10^-4" is not "10^4", "BB" is not "bb").
+      const norm = options.map((o) => String(o).replace(/\s+/g, ' ').trim());
       let overlap = '';
       for (let i = 0; i < norm.length && !overlap; i++)
         for (let j = i + 1; j < norm.length && !overlap; j++) {
           const a = norm[i]!;
           const b = norm[j]!;
-          if (a === b || (a.split(' ').length >= 3 && b.split(' ').length >= 3 && similarity(a, b) >= 0.8)) overlap = `${'ABCDE'[i]} and ${'ABCDE'[j]} are nearly the same`;
+          // Only identical options are a mistake: distractors that differ by one word ("doubled"/"halved") are deliberate.
+          if (a === b) overlap = `${'ABCDE'[i]} and ${'ABCDE'[j]} are the same`;
         }
       if (overlap) add('OPTION_OVERLAP', overlap);
       const aota = options.find((o) => /\b(all|none|both|neither) of the (above|options|statements)\b|\bboth [a-e] and [a-e]\b/i.test(o));
-      if (aota) add('ALL_OF_THE_ABOVE', `“${aota.slice(0, 60)}”`);
+      // Real past papers used "all of the above"; only our own questions avoid it.
+      if (aota && q.source !== 'LICENSED') add('ALL_OF_THE_ABOVE', `“${aota.slice(0, 60)}”`);
       const keyed = norm[q.answer];
       if ((keyed && norm.filter((n) => n === keyed).length > 1) || options.some((o) => /^\s*[a-e]\s*(and|&)\s*[a-e]\s*(only)?\s*$/i.test(o))) add('ANSWER_NOT_UNIQUE', 'The keyed option repeats another, or an option combines others');
       if (q.stem.length > 500) add('LONG_STEM', `${q.stem.length} characters`);
@@ -739,7 +767,7 @@ export class QuestionPipelineService implements OnModuleInit {
       if (!q.markingGuide) add('GUIDE_MARKS', 'No marking guide');
       else if (sum !== null && sum !== q.marks) add('GUIDE_MARKS', `Guide points add up to ${sum}, question is worth ${q.marks}`);
     }
-    const t = tokens(q.stem);
+    const t = dupKey(q.stem, q.options);
     let best: { s: number; o: (typeof others)[number] } | null = null;
     for (const o of others) {
       if (o.id === q.id) continue;
@@ -762,8 +790,8 @@ export class QuestionPipelineService implements OnModuleInit {
     for (const key of new Set(rows.map((r) => `${r.exam}|${r.subject}`))) {
       if (groups.has(key)) continue;
       const [exam, subject] = key.split('|');
-      const all = await this.prisma.root.examQuestion.findMany({ where: { exam, subject, status: { not: 'RETIRED' } }, select: { id: true, stem: true, status: true } });
-      groups.set(key, all.map((a) => ({ id: a.id, stem: a.stem, status: a.status, t: tokens(a.stem) })));
+      const all = await this.prisma.root.examQuestion.findMany({ where: { exam, subject, status: { not: 'RETIRED' } }, select: { id: true, stem: true, status: true, options: true } });
+      groups.set(key, all.map((a) => ({ id: a.id, stem: a.stem, status: a.status, t: dupKey(a.stem, a.options) })));
     }
     const checks = await this.checksFor(rows.map((r) => r.id));
     const parents = await this.prisma.root.syllabusTopic.findMany({ where: { id: { in: [...new Set(rows.map((r) => r.topic?.parentId).filter((x): x is string => !!x))] } }, select: { id: true, name: true } });

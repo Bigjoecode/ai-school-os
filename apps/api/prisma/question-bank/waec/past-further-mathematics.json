@@ -1,0 +1,876 @@
+{
+  "exam": "WAEC",
+  "subject": "Further Mathematics",
+  "source": "LICENSED",
+  "questions": [
+    {
+      "id": "wp-fmath-1993jun-p2-01",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Rational Functions",
+      "stem": "Resolve (2x^2 - 1)/[(x^2 - 1)(x - 2)] into partial fractions.",
+      "marks": 6,
+      "markingGuide": "1 mark: (x^2 - 1)(x - 2) = (x - 1)(x + 1)(x - 2)\n1 mark: 2x^2 - 1 = A(x + 1)(x - 2) + B(x - 1)(x - 2) + C(x - 1)(x + 1)\n1 mark: A = -1/2\n1 mark: B = 1/6\n1 mark: C = 7/3\n1 mark: -1/[2(x - 1)] + 1/[6(x + 1)] + 7/[3(x - 2)]",
+      "explanation": "Write 2x^2 - 1 = A(x + 1)(x - 2) + B(x - 1)(x - 2) + C(x - 1)(x + 1). x = 1: 1 = -2A, A = -1/2. x = -1: 1 = 6B, B = 1/6. x = 2: 7 = 3C, C = 7/3. So the expression = -1/[2(x - 1)] + 1/[6(x + 1)] + 7/[3(x - 2)].",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-02",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Conic Sections",
+      "stem": "A circle touches the x axis at the point P(-3, 0) and its centre C lies on the line 2x + y + 1 = 0. Find the: (a) coordinates of C; (b) radius of the circle; (c) equation of the circle.",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) centre is vertically above/below P, so C = (-3, k)\n1 mark: (a) 2(-3) + k + 1 = 0, C = (-3, 5)\n1 mark: (b) radius = 5\n1 mark: (c) (x + 3)^2 + (y - 5)^2 = 25\n2 marks: (c) x^2 + y^2 + 6x - 10y + 9 = 0",
+      "explanation": "Since the circle touches the x-axis at (-3, 0), CP is vertical, so C = (-3, k); substituting in 2x + y + 1 = 0 gives k = 5. (a) C(-3, 5). (b) r = 5. (c) (x + 3)^2 + (y - 5)^2 = 25, i.e. x^2 + y^2 + 6x - 10y + 9 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-03",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Sets",
+      "stem": "A school has 37 vacancies for teachers, out of which 22 are for English Language, 20 for History and 17 for Fine Art. Of these vacancies 11 are for both English Language and History, 8 for both History and Fine Art and 7 for English Language and Fine Art. Using a Venn diagram, find the number of teachers who must be able to teach: (a) all the three subjects; (b) Fine Art only; (c) English Language and History, but not Fine Art.",
+      "marks": 6,
+      "markingGuide": "1 mark: correct Venn diagram with x for all three subjects\n1 mark: 22 + 20 + 17 - 11 - 8 - 7 + x = 37\n1 mark: (a) x = 4\n1 mark: (b) Fine Art only = 17 - 8 - 7 + 4\n1 mark: (b) = 6\n1 mark: (c) 11 - 4 = 7",
+      "explanation": "n(E U H U F) = 22 + 20 + 17 - 11 - 8 - 7 + x = 33 + x = 37, so (a) x = 4. (b) Fine Art only = 17 - (8 - 4) - (7 - 4) - 4 = 6. (c) English and History but not Fine Art = 11 - 4 = 7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-04",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Differentiation",
+      "stem": "The distance s metres after time t seconds covered by a particle moving along a straight line is given by s = t^3 - t^2 - t - 2. Find the: (a) average acceleration between t = 2 and t = 4; (b) acceleration when the velocity is zero.",
+      "marks": 6,
+      "markingGuide": "1 mark: v = ds/dt = 3t^2 - 2t - 1\n1 mark: (a) v(2) = 7 and v(4) = 39\n1 mark: (a) average acceleration = (39 - 7)/2 = 16 ms^-2\n1 mark: (b) 3t^2 - 2t - 1 = (3t + 1)(t - 1) = 0, t = 1 (t = -1/3 rejected)\n1 mark: (b) a = 6t - 2\n1 mark: (b) a = 4 ms^-2",
+      "explanation": "v = 3t^2 - 2t - 1. (a) v(2) = 7 and v(4) = 39, so the average acceleration = 32/2 = 16 ms^-2. (b) v = 0 when t = 1 (t = -1/3 is rejected); a = 6t - 2 = 4 ms^-2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-05",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Permutation and Combinations",
+      "stem": "(a) Two boys and four girls are to be seated in a row. If the two boys are to sit together, find the number of ways in which this can be done. (b) A box contains 12 identical marbles, 3 red, 2 blue, 2 green and 5 yellow. If a marble is drawn at random from the box, what is the probability that it is either yellow or red?",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) treat the two boys as one unit: 5 units\n1 mark: (a) 5! x 2!\n2 marks: (a) 240 ways\n1 mark: (b) P(yellow) + P(red) = 5/12 + 3/12\n1 mark: (b) = 2/3",
+      "explanation": "(a) Treating the boys as a single unit gives 5! arrangements, and the boys can swap: 5! x 2! = 240 ways. (b) P(yellow or red) = (5 + 3)/12 = 2/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-07",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Vectors",
+      "stem": "If u = -2i + 5j and v = i + j, find, to the nearest degree, the angle between u and v.",
+      "marks": 6,
+      "markingGuide": "2 marks: u.v = -2 + 5 = 3\n1 mark: |u| = sqrt29\n1 mark: |v| = sqrt2\n1 mark: cos theta = 3/(sqrt29 sqrt2) = 0.3939\n1 mark: theta = 67 degrees",
+      "explanation": "cos theta = u.v/(|u||v|) = 3/(sqrt29 x sqrt2) = 3/sqrt58 = 0.3939, so theta = 66.8 = 67 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-08",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Vectors",
+      "stem": "If F1 = (10 N, 045 degrees) and F2 = (6 N, 120 degrees) are two forces, find the (i) magnitude and (ii) direction, of their resultant.",
+      "marks": 6,
+      "markingGuide": "1 mark: resolving F1 into components (10 sin 45, 10 cos 45) = (7.071, 7.071)\n1 mark: resolving F2: (6 sin 120, 6 cos 120) = (5.196, -3)\n1 mark: resultant components (12.267, 4.071)\n1 mark: (i) magnitude = sqrt(12.267^2 + 4.071^2) = 12.9 N\n2 marks: (ii) direction tan^-1(12.267/4.071) = 071.6 degrees (bearing)",
+      "explanation": "Taking directions as bearings: F1 = (7.071 east, 7.071 north) and F2 = (5.196 east, -3 north), so R = (12.267, 4.071). (i) |R| = 12.9 N. (ii) The direction is tan^-1(12.267/4.071) = 071.6 degrees, i.e. the resultant is (12.9 N, 071.6 degrees).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-09",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Logarithms",
+      "stem": "(a) Given that 1/sqrt(5) + 1/(sqrt(5) - 1) = p + q sqrt(r), find the values of the constants p, q and r. (b) Solve the equation: (i) log2(x^2 - 2) = log2(x - 1) + 1; (ii) 4^(x + 1) - 9(2)^x = -2.",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) 1/sqrt5 = sqrt5/5\n1 mark: (a) 1/(sqrt5 - 1) = (sqrt5 + 1)/4\n2 marks: (a) sum = 1/4 + (9/20)sqrt5\n1 mark: (a) p = 1/4, q = 9/20, r = 5\n1 mark: (b)(i) log2(x^2 - 2) = log2[2(x - 1)]\n1 mark: (b)(i) x^2 - 2x = 0\n2 marks: (b)(i) x = 2 (x = 0 rejected since log of a negative number is undefined)\n1 mark: (b)(ii) let u = 2^x: 4u^2 - 9u + 2 = 0\n1 mark: (b)(ii) u = 2 or u = 1/4\n2 marks: (b)(ii) x = 1 or x = -2",
+      "explanation": "(a) sqrt5/5 + (sqrt5 + 1)/4 = 1/4 + (4sqrt5 + 5sqrt5)/20 = 1/4 + (9/20)sqrt5, so p = 1/4, q = 9/20, r = 5. (b)(i) x^2 - 2 = 2x - 2 gives x(x - 2) = 0; x = 0 makes the logs undefined, so x = 2. (ii) With u = 2^x: 4u^2 - 9u + 2 = (4u - 1)(u - 2) = 0, so 2^x = 1/4 or 2, giving x = -2 or x = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-10",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Indefinite Integral",
+      "stem": "(a) Evaluate: (i) the integral from 2 to 3 of (x + 1)/(x - 1) dx, correct to 3 decimal places; (ii) the integral of dx/[x^2(1 - 4x)]. (b) Using the substitution (1 + x^2) = u, or otherwise, evaluate the integral of x dx/(1 + x^2)^(3/2).",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) (x + 1)/(x - 1) = 1 + 2/(x - 1)\n2 marks: (a)(i) [x + 2ln(x - 1)] from 2 to 3 = 1 + 2ln 2\n1 mark: (a)(i) = 2.386\n2 marks: (a)(ii) 1/[x^2(1 - 4x)] = 1/x^2 + 4/x + 16/(1 - 4x)\n2 marks: (a)(ii) integral = -1/x + 4ln|x| - 4ln|1 - 4x| + c\n1 mark: (b) du = 2x dx\n2 marks: (b) integral = (1/2) integral of u^(-3/2) du = -u^(-1/2) + c\n2 marks: (b) = -1/sqrt(1 + x^2) + c",
+      "explanation": "(a)(i) Integrate 1 + 2/(x - 1): [x + 2ln(x - 1)] from 2 to 3 = 1 + 2ln 2 = 2.386. (ii) Partial fractions 1/x^2 + 4/x + 16/(1 - 4x) give -1/x + 4ln|x| - 4ln|1 - 4x| + c. (b) With u = 1 + x^2, x dx = du/2, so the integral = (1/2) integral u^(-3/2) du = -u^(-1/2) + c = -1/sqrt(1 + x^2) + c.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-11",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Determinants",
+      "stem": "(a) Show that the determinant |x + y, x, x; x, x + y, x; x, x, x + y| = (3x + y)y^2 [rows separated by semicolons]. (b) Evaluate |3, 4, 2; 1, -5, 3; 2, 3, 1|. Hence, solve the following equations: 3x + 4y + 2z = 4; x - 5y + 3z = -1; 2x + 3y + z = 3.",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) adding columns 2 and 3 to column 1 gives a common factor (3x + y)\n2 marks: (a) subtracting rows to obtain y and y on the diagonal\n2 marks: (a) determinant = (3x + y)y^2\n2 marks: (b) determinant = 3(-5 - 9) - 4(1 - 6) + 2(3 + 10) = 4\n2 marks: (b) Cramer's rule (or inverse): determinants for x, y, z are 8, 0 and -4\n1 mark: (b) x = 2\n1 mark: (b) y = 0\n2 marks: (b) z = -1",
+      "explanation": "(a) C1 -> C1 + C2 + C3 gives (3x + y) as a factor of column 1: (3x + y)|1, x, x; 1, x + y, x; 1, x, x + y|; then R2 - R1 and R3 - R1 give (3x + y)|1, x, x; 0, y, 0; 0, 0, y| = (3x + y)y^2. (b) The determinant = -42 + 20 + 26 = 4. By Cramer's rule: Dx = 8, Dy = 0, Dz = -4, so x = 2, y = 0, z = -1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-12",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "(a) The faces of a fair die are numbered 1, 2, 3, 4, 5, 6. If the die is thrown twice, what is the probability of obtaining a total score of 6? (b) The probabilities that two athletes P and Q will win a gold medal in a competition are 0.75 and 0.60 respectively. What is the probability that in the competition, (i) both P and Q will win gold medals, (ii) neither of them will win a gold medal, (iii) at least one of them will win a gold medal?",
+      "marks": 13,
+      "markingGuide": "2 marks: (a) favourable outcomes (1,5), (2,4), (3,3), (4,2), (5,1)\n2 marks: (a) probability = 5/36\n3 marks: (b)(i) 0.75 x 0.60 = 0.45\n3 marks: (b)(ii) 0.25 x 0.40 = 0.10\n3 marks: (b)(iii) 1 - 0.10 = 0.90",
+      "explanation": "(a) 5 of the 36 equally likely outcomes give a total of 6: probability 5/36. (b)(i) 0.75 x 0.60 = 0.45. (ii) 0.25 x 0.40 = 0.10. (iii) 1 - 0.10 = 0.90.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-13",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "The ages, in years, of workers in a certain factory are known to be normally distributed with mean 50 and standard deviation 10. (a) If a worker is selected at random from the factory, what is the probability that the worker's age is (i) at least 30 years, (ii) between 40 and 60 years? (b) If there are 1,000 workers in the factory, find the number of workers whose ages will be at most 75 years.",
+      "marks": 13,
+      "markingGuide": "2 marks: (a)(i) z = (30 - 50)/10 = -2\n2 marks: (a)(i) P(Z >= -2) = 0.9772\n2 marks: (a)(ii) z values -1 and 1\n2 marks: (a)(ii) P(-1 < Z < 1) = 0.6826\n2 marks: (b) z = (75 - 50)/10 = 2.5, P(Z <= 2.5) = 0.9938\n3 marks: (b) number of workers = 1000 x 0.9938 = 994",
+      "explanation": "(a)(i) z = -2, so P(age >= 30) = P(Z >= -2) = 0.9772. (ii) z = -1 and 1: P = 2(0.3413) = 0.6826. (b) z = 2.5: P(Z <= 2.5) = 0.9938, so about 1000 x 0.9938 = 994 workers.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-14",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "A block of mass 5 kg, placed on a plane inclined at an angle of 30 degrees to the horizontal, slides down at a slow steady speed. (a) Find the: (i) frictional force between the block and the plane; (ii) coefficient of friction. (b) If the angle of inclination of the plane had been sin^-1(sqrt(3)/2), find what would have been the acceleration of the block. [Take g = 10 ms^-2]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) steady speed, so the forces along the plane balance\n2 marks: (a)(i) F = mg sin 30 = 5 x 10 x 0.5 = 25 N\n1 mark: (a)(ii) normal reaction R = mg cos 30 = 43.3 N\n2 marks: (a)(ii) mu = F/R = tan 30 = 0.577\n1 mark: (b) angle = 60 degrees\n2 marks: (b) ma = mg sin 60 - mu mg cos 60\n2 marks: (b) a = 10(0.866 - 0.577 x 0.5)\n2 marks: (b) a = 5.77 ms^-2",
+      "explanation": "(a)(i) At constant speed the friction balances the component of the weight down the plane: F = 50 sin 30 = 25 N. (ii) R = 50 cos 30 = 43.3 N, so mu = 25/43.3 = tan 30 = 0.577. (b) sin^-1(sqrt3/2) = 60 degrees: a = g(sin 60 - mu cos 60) = 10(0.8660 - 0.2887) = 5.77 ms^-2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-1993jun-p2-15",
+      "year": 1993,
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "A particle is projected from a fixed point O with a velocity of u ms^-1 at an angle alpha to the horizontal. (a) If the particle is at a point P(x, y) after time t seconds, show that (i) x = ut cos alpha, (ii) y = ut sin alpha - (1/2)gt^2, (iii) the equation of the path of the particle is y = x tan alpha - (gx^2/(2u^2)) sec^2 alpha, where g is the acceleration due to gravity. (b) Find the horizontal range of the particle and hence the maximum range. (c) Find u given that x = 300 m and y = 100 m, when t = 10 seconds. (Take g = 10 ms^-2).",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) horizontal velocity u cos alpha is constant, so x = ut cos alpha\n1 mark: (a)(ii) vertical motion with initial velocity u sin alpha and acceleration -g gives y = ut sin alpha - (1/2)gt^2\n2 marks: (a)(iii) eliminating t = x/(u cos alpha) gives y = x tan alpha - gx^2 sec^2 alpha/(2u^2)\n2 marks: (b) y = 0 gives time of flight 2u sin alpha/g\n2 marks: (b) range R = u^2 sin 2alpha/g\n1 mark: (b) maximum range u^2/g when alpha = 45 degrees\n1 mark: (c) u cos alpha = 300/10 = 30\n1 mark: (c) 100 = 10u sin alpha - 500, u sin alpha = 60\n2 marks: (c) u = sqrt(30^2 + 60^2) = 30sqrt5 = 67.1 ms^-1",
+      "explanation": "(a) Horizontally there is no acceleration: x = (u cos alpha)t. Vertically y = (u sin alpha)t - (1/2)gt^2. Substituting t = x/(u cos alpha): y = x tan alpha - gx^2/(2u^2 cos^2 alpha) = x tan alpha - (gx^2/(2u^2)) sec^2 alpha. (b) y = 0 when x = 2u^2 sin alpha cos alpha/g, so R = u^2 sin 2alpha/g; the maximum range is u^2/g (alpha = 45 degrees). (c) u cos alpha = 30 and 10u sin alpha - 500 = 100 gives u sin alpha = 60; u = sqrt(900 + 3600) = 30sqrt5 = 67.1 ms^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-04",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "If 1/(x^2 - 2x - 3) = P/(x + 1) + Q/(x - 3), find the value of (P + 2Q).",
+      "options": [
+        "-1/2",
+        "-1/4",
+        "0",
+        "1/4"
+      ],
+      "answer": 3,
+      "explanation": "1 = P(x - 3) + Q(x + 1): x = 3 gives Q = 1/4, x = -1 gives P = -1/4; P + 2Q = -1/4 + 1/2 = 1/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-05",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "The 3rd, 4th and 5th terms of an exponential sequence are x, y and z respectively. Which of the following statements is true?",
+      "options": [
+        "3x = 20yz",
+        "x^2 = yz",
+        "y^2 = xz",
+        "z^2 = xy"
+      ],
+      "answer": 2,
+      "explanation": "In a geometric (exponential) sequence y/x = z/y, so y^2 = xz.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-06",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "If cos theta = x, 0 degrees < theta < 90 degrees, find the value of tan^2 theta.",
+      "options": [
+        "sqrt(1 - x^2)/x",
+        "sqrt(1 - x^2)",
+        "1/x^2 - 1",
+        "(1 - x^2)/x"
+      ],
+      "answer": 2,
+      "explanation": "tan^2 theta = sec^2 theta - 1 = 1/x^2 - 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-07",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Solve for x: 3^(5x - 1/2) - 1 = 0",
+      "options": [
+        "-0.5",
+        "0.1",
+        "0.5",
+        "2.5"
+      ],
+      "answer": 1,
+      "explanation": "3^(5x - 1/2) = 1 = 3^0, so 5x - 1/2 = 0 and x = 0.1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-08",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "Given that M = (0 2; 2 1) and N = (0 2; 2 -1), find (2M - N). [Matrices are written row by row.]",
+      "options": [
+        "(0 2; 2 -3)",
+        "(0 2; 2 -1)",
+        "(0 2; 2 1)",
+        "(0 2; 2 3)"
+      ],
+      "answer": 3,
+      "explanation": "2M = (0 4; 4 2); 2M - N = (0 2; 2 3).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-09",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "If f : x -> x^2 - 1 and g : x -> 3x + 1, find f o g(x) when x = 2.",
+      "options": [
+        "3",
+        "6",
+        "10",
+        "48"
+      ],
+      "answer": 3,
+      "explanation": "g(2) = 7 and f(7) = 49 - 1 = 48.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-13",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "If alpha and beta are the roots of 2x^2 - x - 2 = 0, find the value of (1/(2alpha) + 1/(2beta)).",
+      "options": [
+        "-1",
+        "-1/2",
+        "-1/3",
+        "-1/4"
+      ],
+      "answer": 3,
+      "explanation": "alpha + beta = 1/2 and alpha beta = -1; 1/(2alpha) + 1/(2beta) = (alpha + beta)/(2 alpha beta) = (1/2)/(-2) = -1/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-14",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "If the coefficient of x^2 in the expansion of (1 + 3x)^n is 324, find the value of n.",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "nC2 x 3^2 = 324 gives nC2 = 36 = n(n - 1)/2, so n = 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-15",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Solve: x^2 > x.",
+      "options": [
+        "x < 0",
+        "x > 0",
+        "0 < x < 1",
+        "x < 0 or x > 1"
+      ],
+      "answer": 3,
+      "explanation": "x^2 - x = x(x - 1) > 0 when both factors have the same sign: x < 0 or x > 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-16",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Measures of Location",
+      "stem": "If the mean of the numbers 5, 8, x, 12, (x + 5) and 10 is 10, find x.",
+      "options": [
+        "6",
+        "8",
+        "10",
+        "60"
+      ],
+      "answer": 2,
+      "explanation": "Sum = 40 + 2x = 6 x 10 = 60, so x = 10.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-17",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "How many five-digit even numbers greater than 50,000 can be formed from the set S = {1, 2, 3, 4, 5} if repetition is not allowed?",
+      "options": [
+        "5",
+        "12",
+        "24",
+        "120"
+      ],
+      "answer": 1,
+      "explanation": "The first digit must be 5 and the last digit 2 or 4 (2 ways); the middle three digits can be arranged in 3! = 6 ways: 2 x 6 = 12.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-18",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Tabulation and Graphical Representation of Data",
+      "stem": "The table shows the marks obtained by 100 pupils in a test. Marks: 1 - 5, 6 - 10, 11 - 15, 16 - 20, 21 - 25, 26 - 30; Frequency: 5, 12, 8, 48, 17, 10. What is the upper class boundary of the class containing the 40th percentile?",
+      "options": [
+        "13",
+        "15.5",
+        "18",
+        "20.5"
+      ],
+      "answer": 3,
+      "explanation": "Cumulative frequencies: 5, 17, 25, 73, ... The 40th value lies in the class 16 - 20, whose upper class boundary is 20.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-19",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "The table shows the marks obtained by 100 pupils in a test. Marks: 1 - 5, 6 - 10, 11 - 15, 16 - 20, 21 - 25, 26 - 30; Frequency: 5, 12, 8, 48, 17, 10. Find the probability that a pupil selected at random had a mark of at most 15.",
+      "options": [
+        "0.08",
+        "0.17",
+        "0.25",
+        "0.75"
+      ],
+      "answer": 2,
+      "explanation": "Pupils with at most 15 marks = 5 + 12 + 8 = 25, so the probability = 25/100 = 0.25.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-20",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "If r = (ai - 5j) and n = (3i + 12j) are perpendicular, find the value of a.",
+      "options": [
+        "-20",
+        "-15",
+        "3",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "r.n = 3a - 60 = 0, so a = 20.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-21",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Measures of Dispersion",
+      "stem": "Calculate the mean deviation of 1, 2, 3 and 4.",
+      "options": [
+        "0.5",
+        "1.0",
+        "1.5",
+        "2.0"
+      ],
+      "answer": 1,
+      "explanation": "Mean = 2.5; |deviations| = 1.5, 0.5, 0.5, 1.5; mean deviation = 4/4 = 1.0.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-22",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "The position vectors of P and Q are (1, 5) and (4, 8) respectively [as column vectors]. If R is the midpoint of OQ where O is the origin, find PR.",
+      "options": [
+        "(4, 8)",
+        "(3, 3)",
+        "(1, -1)",
+        "(-1, 4)"
+      ],
+      "answer": 2,
+      "explanation": "R = (1/2)(4, 8) = (2, 4); PR = R - P = (2 - 1, 4 - 5) = (1, -1).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-23",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "A beam of mass 0.5 kg has two forces 10 N and 15 N hung at its ends. Find the force that will be required to keep the beam in equilibrium. [Take g = 10 ms^-2]",
+      "options": [
+        "25 N",
+        "25.5 N",
+        "30 N",
+        "30.5 N"
+      ],
+      "answer": 2,
+      "explanation": "The beam's weight is 0.5 x 10 = 5 N, so the supporting force = 10 + 15 + 5 = 30 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-24",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A body of mass 25 kg and moving with a velocity 15 ms^-1 collides with another body of mass 15 kg and moving with a velocity of 5 ms^-1 in the opposite direction. What is the momentum after collision?",
+      "options": [
+        "300 kg ms^-1",
+        "350 kg ms^-1",
+        "400 kg ms^-1",
+        "450 kg ms^-1"
+      ],
+      "answer": 0,
+      "explanation": "Momentum is conserved: 25(15) - 15(5) = 375 - 75 = 300 kg ms^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-25",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A body of mass 25 kg and moving with a velocity 15 ms^-1 collides with another body of mass 15 kg and moving with a velocity of 5 ms^-1 in the opposite direction. If the two bodies moved together for 5 seconds after impact, what will be the retardation that will bring them to stop?",
+      "options": [
+        "1.5 ms^-2",
+        "2.5 ms^-2",
+        "3.4 ms^-2",
+        "4.3 ms^-2"
+      ],
+      "answer": 0,
+      "explanation": "Common velocity = 300/40 = 7.5 ms^-1; to stop in 5 s the retardation = 7.5/5 = 1.5 ms^-2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-26",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Two forces, (10 N, 150 degrees) and (8 N, 330 degrees), act at a point. Find the magnitude of the resultant of their horizontal components.",
+      "options": [
+        "1 N",
+        "3 N",
+        "4 N",
+        "5 N"
+      ],
+      "answer": 0,
+      "explanation": "With directions given as bearings, the horizontal (east) components are 10 sin 150 = 5 N and 8 sin 330 = -4 N, so the resultant horizontal component is 1 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-27",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "If VW and XY are two vectors such that VW = 4XY, then",
+      "options": [
+        "V, W, X, Y are vertices of a parallelogram.",
+        "VW = 4YX.",
+        "VW is perpendicular to WY.",
+        "VW is parallel to XY."
+      ],
+      "answer": 3,
+      "explanation": "A vector that is a scalar multiple of another has the same direction, so VW is parallel to XY.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-28",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "A die is tossed twice. What is the probability of obtaining a total of 6?",
+      "options": [
+        "1/12",
+        "1/9",
+        "5/36",
+        "11/36"
+      ],
+      "answer": 2,
+      "explanation": "Outcomes with total 6: (1,5), (2,4), (3,3), (4,2), (5,1) - 5 out of 36.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-29",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "If (2 4; 3 z) + (x y; 3 4) = (4 -4; w 0), find (w, x, y, z). [Matrices are written row by row.]",
+      "options": [
+        "(6, -2, -8, -4)",
+        "(6, 2, -8, -4)",
+        "(6, 2, -8, 4)",
+        "(6, 4, -4, 0)"
+      ],
+      "answer": 1,
+      "explanation": "2 + x = 4, 4 + y = -4, 3 + 3 = w, z + 4 = 0: w = 6, x = 2, y = -8, z = -4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-30",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Definite Integral",
+      "stem": "Evaluate the integral from 0 to 1 of (3 - 3x^2)/(x + 1) dx.",
+      "options": [
+        "1 1/3",
+        "1 1/2",
+        "3",
+        "4 1/2"
+      ],
+      "answer": 1,
+      "explanation": "(3 - 3x^2)/(x + 1) = 3(1 - x); integral from 0 to 1 of 3(1 - x) dx = 3[x - x^2/2] = 3/2 = 1 1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-31",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Which of the following is a point of intersection of the curve y = 3x^2 + 15x + 5 and the line y = 5x + 2?",
+      "options": [
+        "(-3, -13)",
+        "(-3, 13)",
+        "(1/3, -11/3)",
+        "(1/3, 11/3)"
+      ],
+      "answer": 0,
+      "explanation": "3x^2 + 10x + 3 = 0 gives x = -3 or x = -1/3; at x = -3, y = 5(-3) + 2 = -13.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-32",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A body is thrown vertically upwards with a velocity of 60 ms^-1. Neglecting air resistance, calculate the maximum height reached. [Take g = 10 ms^-2]",
+      "options": [
+        "6sqrt(5) m",
+        "36 m",
+        "180 m",
+        "360 m"
+      ],
+      "answer": 2,
+      "explanation": "v^2 = u^2 - 2gh with v = 0: h = 3600/20 = 180 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-33",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "Find the equation of the normal to the curve y = 3x^3 - 5x^2 at the point where x = 1.",
+      "options": [
+        "x - y - 3 = 0",
+        "x - y + 1 = 0",
+        "x - y + 3 = 0",
+        "x + y + 1 = 0"
+      ],
+      "answer": 0,
+      "explanation": "dy/dx = 9x^2 - 10x = -1 at x = 1, and y = -2. The normal has gradient 1: y + 2 = x - 1, i.e. x - y - 3 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-34",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "Given that sin(alpha +- beta) = sin alpha cos beta +- cos alpha sin beta, evaluate sin(30 degrees + theta) + sin(30 degrees - theta).",
+      "options": [
+        "sin theta",
+        "cos theta",
+        "sqrt(3) sin theta",
+        "sqrt(3) cos theta"
+      ],
+      "answer": 1,
+      "explanation": "The cos 30 sin theta terms cancel, leaving 2 sin 30 cos theta = cos theta.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-35",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "In a class of 25 students, 6 study Mathematics, 14 study Biology and 3 study both subjects. What is the probability that a student selected at random does not study any of the two subjects?",
+      "options": [
+        "14/25",
+        "8/25",
+        "1/5",
+        "3/25"
+      ],
+      "answer": 1,
+      "explanation": "Students studying at least one subject = 6 + 14 - 3 = 17, so 8 study neither: 8/25.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-36",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "Find the equation of the line which passes through the midpoint of the line joining the points (1, 2) and (2, -3) and perpendicular to the line 3x + 2y - 5 = 0.",
+      "options": [
+        "4x - 6y - 12 = 0",
+        "4x - 6y - 9 = 0",
+        "4x + 6y - 12 = 0",
+        "4x + 6y - 9 = 0"
+      ],
+      "answer": 1,
+      "explanation": "Midpoint (3/2, -1/2); the given line has gradient -3/2, so the required gradient is 2/3: y + 1/2 = (2/3)(x - 3/2), i.e. 4x - 6y - 9 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-37",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A bullet of mass 200 g is fired with a velocity 200 ms^-1 into a stationary wooden block of mass 760 g. Find the common velocity with which the bullet and the block move, if the bullet got stuck in the wood.",
+      "options": [
+        "41.67 ms^-1",
+        "45.13 ms^-1",
+        "51.28 ms^-1",
+        "52.60 ms^-1"
+      ],
+      "answer": 0,
+      "explanation": "0.2 x 200 = (0.2 + 0.76)v, so v = 40/0.96 = 41.67 ms^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-39",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "If 10C4 = 10C(n - 1), find the value of n.",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "10C4 = 10C6, so n - 1 = 4 or 6, i.e. n = 5 or 7; from the options n = 7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p1-40",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Find the minimum value of x^2 + 2x - 6.",
+      "options": [
+        "-7",
+        "-6",
+        "-5",
+        "-4"
+      ],
+      "answer": 0,
+      "explanation": "x^2 + 2x - 6 = (x + 1)^2 - 7, so the minimum value is -7 (at x = -1).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-01",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "Find the truth set of sin theta + cos 2theta = 0, 0 degrees <= theta <= 360 degrees.",
+      "marks": 6,
+      "markingGuide": "1 mark: cos 2theta = 1 - 2sin^2 theta\n1 mark: 2sin^2 theta - sin theta - 1 = 0\n1 mark: (2sin theta + 1)(sin theta - 1) = 0\n1 mark: sin theta = 1 gives theta = 90 degrees\n2 marks: sin theta = -1/2 gives theta = 210 degrees, 330 degrees; truth set {90, 210, 330}",
+      "explanation": "sin theta + 1 - 2sin^2 theta = 0, so 2sin^2 theta - sin theta - 1 = (2sin theta + 1)(sin theta - 1) = 0. sin theta = 1 gives 90 degrees; sin theta = -1/2 gives 210 and 330 degrees. Truth set: {90, 210, 330} degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-02",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Straight Lines",
+      "stem": "Find the equation of the line which passes through the point (3, -2) and is perpendicular to the line 3x + 2y - 4 = 0.",
+      "marks": 6,
+      "markingGuide": "2 marks: gradient of given line = -3/2\n1 mark: gradient of perpendicular = 2/3\n2 marks: y + 2 = (2/3)(x - 3)\n1 mark: 2x - 3y - 12 = 0",
+      "explanation": "The given line has gradient -3/2, so the required gradient is 2/3. y + 2 = (2/3)(x - 3) gives 3y + 6 = 2x - 6, i.e. 2x - 3y - 12 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-03",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Logarithms",
+      "stem": "Solve for x and y in the equations: log(x - 1) + 2log y = 2log 3, log x + log y = log 6.",
+      "marks": 6,
+      "markingGuide": "1 mark: (x - 1)y^2 = 9\n1 mark: xy = 6\n1 mark: substituting y = 6/x: 36(x - 1) = 9x^2\n1 mark: x^2 - 4x + 4 = 0\n2 marks: x = 2, y = 3",
+      "explanation": "The equations give (x - 1)y^2 = 9 and xy = 6. With y = 6/x: 36(x - 1)/x^2 = 9, so x^2 - 4x + 4 = 0, (x - 2)^2 = 0, x = 2 and y = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-04",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Sequences and Series",
+      "stem": "Find the third term of the exponential sequence (G.P.) (sqrt(2) - 1), (3 - 2sqrt(2)), ... .",
+      "marks": 6,
+      "markingGuide": "1 mark: r = (3 - 2sqrt2)/(sqrt2 - 1)\n2 marks: rationalising, r = sqrt2 - 1 (since 3 - 2sqrt2 = (sqrt2 - 1)^2)\n1 mark: third term = (3 - 2sqrt2)(sqrt2 - 1)\n2 marks: third term = 5sqrt2 - 7",
+      "explanation": "3 - 2sqrt2 = (sqrt2 - 1)^2, so r = sqrt2 - 1. Third term = (3 - 2sqrt2)(sqrt2 - 1) = 3sqrt2 - 3 - 4 + 2sqrt2 = 5sqrt2 - 7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-05",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "X and Y are two events such that P(X U Y) = 11/15 and P(X) = 1/3. Find P(Y) if events X and Y are (a) mutually exclusive; (b) independent.",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) P(X U Y) = P(X) + P(Y)\n2 marks: (a) P(Y) = 11/15 - 1/3 = 2/5\n1 mark: (b) P(X U Y) = P(X) + P(Y) - P(X)P(Y)\n2 marks: (b) 11/15 = 1/3 + (2/3)P(Y), P(Y) = 3/5",
+      "explanation": "(a) Mutually exclusive: P(Y) = 11/15 - 5/15 = 6/15 = 2/5. (b) Independent: 11/15 = 1/3 + P(Y) - (1/3)P(Y), so (2/3)P(Y) = 6/15 and P(Y) = 3/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-06",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Measures of Location",
+      "stem": "(a) In a Physics examination, the mean mark of the first twelve students in a class is 60, that of the next twenty students is 50 and that of the remaining y students is x. What is the mean mark for the whole class in the examination, in terms of x and y? (b) A box contains 4 red and 3 blue identical balls. If two balls are picked at random, one after the other without replacement, find the probability that one is red and the other is blue.",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) total marks = 12(60) + 20(50) + xy = 1720 + xy\n2 marks: (a) mean = (1720 + xy)/(32 + y)\n1 mark: (b) P(RB) + P(BR) = (4/7)(3/6) + (3/7)(4/6)\n2 marks: (b) probability = 4/7",
+      "explanation": "(a) Total = 720 + 1000 + xy and the number of students = 32 + y, so mean = (1720 + xy)/(32 + y). (b) P = (4/7)(3/6) + (3/7)(4/6) = 2/7 + 2/7 = 4/7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-07",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Vectors",
+      "stem": "Given that n = (-12, 5) and s = (1, -1) [column vectors], find the vector q such that |q| = 35 and q is in the direction of (n + 5s).",
+      "marks": 6,
+      "markingGuide": "2 marks: n + 5s = (-12 + 5, 5 - 5) = (-7, 0)\n1 mark: |n + 5s| = 7\n1 mark: unit vector = (-1, 0)\n2 marks: q = 35(-1, 0) = (-35, 0), i.e. -35i",
+      "explanation": "n + 5s = (-7, 0), whose magnitude is 7, so the unit vector is (-1, 0) and q = 35(-1, 0) = (-35, 0).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-08",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "(a) A car moving on a straight road with constant acceleration has a velocity of 20 kmh^-1 at one instant. If at 15 minutes later, it had a velocity of 50 kmh^-1, find the acceleration of the car. (b) A particle is projected vertically upwards with a speed of 40 ms^-1 from a point on the ground. Find the maximum height reached. [Take g = 10 ms^-2]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) t = 15 minutes = 1/4 h\n2 marks: (a) a = (50 - 20)/(1/4) = 120 km h^-2\n1 mark: (b) v^2 = u^2 - 2gh with v = 0\n2 marks: (b) h = 1600/20 = 80 m",
+      "explanation": "(a) a = (v - u)/t = 30/(0.25) = 120 kmh^-2. (b) At the highest point v = 0: 0 = 40^2 - 2(10)h, so h = 80 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-09",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Definite Integral",
+      "stem": "(a) Use the trapezium rule with ordinates at x = 1, 2, 3, 4 and 5 to calculate, correct to two decimal places, an approximate value for the integral from 1 to 5 of (2x + 8x^-2) dx. (b) Given that f : x -> x^2 + 1 and g : x -> (3x + 1)/(x - 1), x not equal to 1, find: (i) g o f; (ii) g o f(2).",
+      "marks": 13,
+      "markingGuide": "2 marks: (a) ordinates: 10, 6, 6.889, 8.5, 10.32\n1 mark: (a) h = 1\n2 marks: (a) area = (1/2)[10 + 10.32 + 2(6 + 6.889 + 8.5)]\n2 marks: (a) approximate value = 31.55\n2 marks: (b)(i) g o f(x) = [3(x^2 + 1) + 1]/[(x^2 + 1) - 1]\n2 marks: (b)(i) = (3x^2 + 4)/x^2\n2 marks: (b)(ii) g o f(2) = 16/4 = 4",
+      "explanation": "(a) y = 2x + 8/x^2 at x = 1,...,5: 10, 6, 6.889, 8.5, 10.32. Trapezium rule: (1/2)(1)[10 + 10.32 + 2(21.389)] = 31.55 (the exact value is 30.4). (b)(i) g(f(x)) = (3x^2 + 4)/x^2; (ii) at x = 2: 16/4 = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-10",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Differentiation",
+      "stem": "(a) The gradient of a curve is given by 2x - 3x^2. Find the equation of the curve if a point (1, 2) lies on it. (b)(i) Find the equations of the normals to the curve y = x^2 - 1 at the points where it cuts the x-axis. (ii) Find the coordinates of the point of intersection of the normals in (b)(i).",
+      "marks": 13,
+      "markingGuide": "2 marks: (a) y = x^2 - x^3 + c\n2 marks: (a) 2 = 1 - 1 + c, c = 2, so y = x^2 - x^3 + 2\n1 mark: (b)(i) curve cuts x-axis at (1, 0) and (-1, 0)\n1 mark: (b)(i) dy/dx = 2x: gradients 2 and -2\n2 marks: (b)(i) normal at (1, 0): y = -(1/2)(x - 1), i.e. x + 2y - 1 = 0\n2 marks: (b)(i) normal at (-1, 0): y = (1/2)(x + 1), i.e. x - 2y + 1 = 0\n3 marks: (b)(ii) solving: point of intersection (0, 1/2)",
+      "explanation": "(a) Integrating, y = x^2 - x^3 + c; using (1, 2), c = 2, so y = x^2 - x^3 + 2. (b)(i) x^2 - 1 = 0 at x = +-1. At (1, 0) the gradient is 2, normal: x + 2y - 1 = 0; at (-1, 0) the gradient is -2, normal: x - 2y + 1 = 0. (ii) Adding: 2x = 0, so x = 0 and y = 1/2: the normals meet at (0, 1/2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-11",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Rational Functions",
+      "stem": "(a) Solve for x, y and z in the equations: 3x + 5y - 4z = -5; 6x + 3y - 5z = 26; -2x + 2y + z = -11. (b) A function g is defined by g(x) = (3 - 4x)/(x^2 + x - 6). Express g(x) in partial fractions.",
+      "marks": 13,
+      "markingGuide": "2 marks: (a) eliminating one unknown to obtain two equations in two unknowns\n2 marks: (a) solving the reduced pair\n2 marks: (a) x = 20, y = 51/13, z = 275/13 (check in all three equations)\n1 mark: (b) x^2 + x - 6 = (x + 3)(x - 2)\n2 marks: (b) 3 - 4x = A(x - 2) + B(x + 3)\n2 marks: (b) A = -3, B = -1\n2 marks: (b) g(x) = -3/(x + 3) - 1/(x - 2)",
+      "explanation": "(a) From the third equation z = -11 + 2x - 2y. Substituting: 3x + 5y + 44 - 8x + 8y = -5 gives -5x + 13y = -49; 6x + 3y + 55 - 10x + 10y = 26 gives -4x + 13y = -29. Subtracting: x = 20, then y = 51/13 and z = 275/13. (b) 3 - 4x = A(x - 2) + B(x + 3): x = 2 gives B = -1; x = -3 gives A = -3. So g(x) = -3/(x + 3) - 1/(x - 2).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-12",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Applications of the Definite Integral",
+      "stem": "Given the curve y = x^2 - 4, calculate, correct to two decimal places, the: (a) area of the finite region bounded by the curve and the x-axis; (b) volume generated by rotating the region in (a) through 360 degrees about the x-axis. [Take pi = 22/7].",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) the curve cuts the x-axis at x = -2 and x = 2\n2 marks: (a) integral from -2 to 2 of (x^2 - 4) dx = [x^3/3 - 4x]\n1 mark: (a) value = -32/3\n2 marks: (a) area = 10.67 square units\n2 marks: (b) V = pi integral from -2 to 2 of (x^2 - 4)^2 dx\n2 marks: (b) = pi[x^5/5 - 8x^3/3 + 16x] from -2 to 2 = 512pi/15\n3 marks: (b) V = (22/7)(512/15) = 107.28 cubic units",
+      "explanation": "(a) The region lies between x = -2 and 2 below the axis: integral = [x^3/3 - 4x] from -2 to 2 = -32/3, so the area = 10.67 square units. (b) V = pi times the integral of (x^4 - 8x^2 + 16) from -2 to 2 = pi(64/5 - 128/3 + 64) = 512pi/15 = 107.28 cubic units.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-13",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Permutation and Combinations",
+      "stem": "(a) A committee of five is to be formed among 6 Ghanaians, 8 Nigerians and 5 Gambians. In how many ways can the committee be formed if; (i) there is no restriction; (ii) at most 2 Ghanaians are on the committee; (iii) 1 Nigerian is on the committee? (b) Five out of 12 articles are known to be defective. If three articles are picked, one after the other without replacement, find the probability that all the three articles are non-defective.",
+      "marks": 13,
+      "markingGuide": "2 marks: (a)(i) 19C5 = 11628\n1 mark: (a)(ii) 13C5 + 6C1 x 13C4 + 6C2 x 13C3\n2 marks: (a)(ii) 1287 + 4290 + 4290 = 9867\n2 marks: (a)(iii) 8C1 x 11C4\n1 mark: (a)(iii) 2640\n2 marks: (b) (7/12)(6/11)(5/10)\n3 marks: (b) probability = 7/44",
+      "explanation": "(a)(i) 19C5 = 11628. (ii) 0, 1 or 2 Ghanaians: 13C5 + 6(13C4) + 15(13C3) = 1287 + 4290 + 4290 = 9867. (iii) Exactly one Nigerian: 8 x 11C4 = 8 x 330 = 2640. (b) 7 are non-defective: (7/12)(6/11)(5/10) = 210/1320 = 7/44.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-15",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "(a) The probability that a patient recovers from a disease is 0.25. If 6 people are known to have contracted this disease, calculate the probability that: (i) more than three people survived; (ii) at most 2 people survived. (b) Two distinct numbers are selected at random from the set P = {2, 3, 4, 5, 6}. Find the probability that (i) the sum of the two numbers is 8; (ii) one of the numbers is a factor of the other.",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) binomial with n = 6, p = 0.25, q = 0.75\n2 marks: (a)(i) P(4) + P(5) + P(6) = 0.0330 + 0.0044 + 0.0002\n1 mark: (a)(i) = 0.0376\n2 marks: (a)(ii) P(0) + P(1) + P(2) = 0.1780 + 0.3560 + 0.2966\n1 mark: (a)(ii) = 0.8306\n1 mark: (b) number of possible pairs = 5C2 = 10\n2 marks: (b)(i) pairs {2, 6}, {3, 5}: probability = 2/10 = 1/5\n3 marks: (b)(ii) pairs {2, 4}, {2, 6}, {3, 6}: probability = 3/10",
+      "explanation": "(a) P(X = k) = 6Ck (0.25)^k (0.75)^(6-k). (i) P(X > 3) = 0.03296 + 0.00439 + 0.00024 = 0.0376. (ii) P(X <= 2) = 0.17798 + 0.35596 + 0.29663 = 0.8306. (b) There are 10 pairs. (i) {2,6} and {3,5}: 1/5. (ii) {2,4}, {2,6}, {3,6}: 3/10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-16",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Vectors",
+      "stem": "(a) The position vectors of points P, Q and R are 5i + 3j, 8i - j and 11i - 5j respectively. (i) Show that P, Q and R are collinear. (ii) Find the scalars k1 and k2 such that 37i - j = k1 p + k2 r where p and r are position vectors of P and R respectively. (b) Given that m = 3i - 4j and n = 6i + 4j, find the angle between the two vectors, correct to the nearest degree.",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) PQ = 3i - 4j\n1 mark: (a)(i) QR = 3i - 4j\n2 marks: (a)(i) PQ = QR with Q common, so P, Q and R are collinear\n1 mark: (a)(ii) 5k1 + 11k2 = 37 and 3k1 - 5k2 = -1\n2 marks: (a)(ii) k1 = 3, k2 = 2\n2 marks: (b) m.n = 18 - 16 = 2\n1 mark: (b) |m| = 5, |n| = sqrt52\n1 mark: (b) cos theta = 2/(5sqrt52)\n2 marks: (b) theta = 87 degrees",
+      "explanation": "(a)(i) PQ = (8 - 5)i + (-1 - 3)j = 3i - 4j and QR = 3i - 4j; the vectors are parallel and share Q, so P, Q, R are collinear. (ii) 5k1 + 11k2 = 37 and 3k1 - 5k2 = -1 give k1 = 3, k2 = 2. (b) cos theta = 2/(5 x 7.211) = 0.0555, theta = 86.8 = 87 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-17",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "(a) A particle is projected vertically upwards with a speed of 25 ms^-1 from a point on the ground. Find the: (i) position of the particle after 4 seconds; (ii) maximum height reached; (iii) time taken to reach the maximum height; (iv) time when the particle is 30 m above the ground. [Take g = 10 ms^-2] (b) Calculate the force which acts on a body of mass 3 kg moving at 2.5 ms^-1 for 0.5 seconds, if the final velocity is 4.5 ms^-1.",
+      "marks": 13,
+      "markingGuide": "2 marks: (a)(i) s = 25(4) - 5(16) = 20 m above the ground\n2 marks: (a)(ii) h = 25^2/20 = 31.25 m\n2 marks: (a)(iii) t = 25/10 = 2.5 s\n1 mark: (a)(iv) 30 = 25t - 5t^2\n2 marks: (a)(iv) t = 2 s and t = 3 s\n2 marks: (b) a = (4.5 - 2.5)/0.5 = 4 ms^-2\n2 marks: (b) F = 3 x 4 = 12 N",
+      "explanation": "(a)(i) s = ut - (1/2)gt^2 = 100 - 80 = 20 m above the ground. (ii) h = u^2/(2g) = 31.25 m. (iii) t = u/g = 2.5 s. (iv) 5t^2 - 25t + 30 = 0, t^2 - 5t + 6 = 0, t = 2 s (going up) and 3 s (coming down). (b) a = 2/0.5 = 4 ms^-2, F = ma = 12 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-fmath-2011nov-p2-18",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Statics",
+      "stem": "(a) A uniform bar PQ of length 60 cm and weight 20 N is supported at two points C and D such that |PC| = 10 cm and |QD| = 15 cm. Two forces 10 N and 15 N are placed at P and Q respectively. If the system remains in equilibrium under the action of these forces, calculate the reactions at C and D. [Take g = 10 ms^-2] (b) Two forces 3i N and 4j N act on an object of mass 5 kg. Find the acceleration of the object.",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) correct diagram: weight 20 N at 30 cm from P, C at 10 cm, D at 45 cm\n1 mark: (a) Rc + Rd = 10 + 20 + 15 = 45\n3 marks: (a) moments about C: 35Rd + 10(10) = 20(20) + 15(50)\n2 marks: (a) Rd = 30 N\n1 mark: (a) Rc = 15 N\n2 marks: (b) resultant force = 3i + 4j N, magnitude 5 N\n3 marks: (b) a = (3i + 4j)/5 = 0.6i + 0.8j ms^-2, magnitude 1 ms^-2",
+      "explanation": "(a) Resolving: Rc + Rd = 45 N. Moments about C: Rd(35) + 10(10) = 20(20) + 15(50), so 35Rd = 1050, Rd = 30 N and Rc = 15 N. (b) F = 3i + 4j (magnitude 5 N), so a = F/m = 0.6i + 0.8j ms^-2, of magnitude 1 ms^-2 in the direction of the resultant force.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

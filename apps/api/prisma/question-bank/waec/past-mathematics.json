@@ -1,0 +1,2960 @@
+{
+  "exam": "WAEC",
+  "subject": "Mathematics",
+  "source": "LICENSED",
+  "questions": [
+    {
+      "id": "wp-math-2007jun-p2-01",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Financial Arithmetic",
+      "stem": "(a) Evaluate, without using mathematical tables or calculator, (3.69 x 10^5)/(1.64 x 10^-3), leaving your answer in the standard form. (b) A man invested ₦20,000 in bank A and ₦25,000 in bank B at the beginning of a year. Bank A pays simple interest at a rate of y% per annum and B pays 1.5y% per annum. If his total interest at the end of the year from the two banks was ₦4,600, find the value of y.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 3.69/1.64 = 2.25\n1 mark: (a) 10^5/10^-3 = 10^8\n2 marks: (a) 2.25 x 10^8\n1 mark: (b) interest from A = 20,000 x y x 1/100 = 200y\n1 mark: (b) interest from B = 25,000 x 1.5y x 1/100 = 375y\n2 marks: (b) 575y = 4600, y = 8",
+      "explanation": "(a) 3.69/1.64 = 2.25 and 10^5 / 10^-3 = 10^8, so the result is 2.25 x 10^8. (b) I = PRT/100: 200y + 375y = 4600, so 575y = 4600 and y = 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-02",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Algebraic Fractions",
+      "stem": "(a) Simplify: (x^2 - 8x + 16)/(x^2 - 7x + 12). (b) If 1/2, 1/x, 1/3 are successive terms of an arithmetic progression (A.P.), show that (2 - x)/(x - 3) = 2/3.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) x^2 - 8x + 16 = (x - 4)^2\n1 mark: (a) x^2 - 7x + 12 = (x - 3)(x - 4)\n2 marks: (a) result (x - 4)/(x - 3)\n1 mark: (b) common difference: 1/x - 1/2 = 1/3 - 1/x\n1 mark: (b) (2 - x)/(2x) = (x - 3)/(3x)\n2 marks: (b) cross-multiplying/rearranging to (2 - x)/(x - 3) = 2x/(3x) = 2/3",
+      "explanation": "(a) (x - 4)^2/[(x - 3)(x - 4)] = (x - 4)/(x - 3). (b) In an A.P. the common difference is constant: 1/x - 1/2 = 1/3 - 1/x, i.e. (2 - x)/(2x) = (x - 3)/(3x). Hence (2 - x)/(x - 3) = 2x/(3x) = 2/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-03",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Lengths and Perimeters",
+      "stem": "The diagram shows the cross-section of a railway tunnel. [The cross-section is the major segment of a circle cut off by the chord AB, which forms the floor of the tunnel.] If |AB| = 100 m and the radius of the arc is 56 m, calculate, correct to the nearest metre, the perimeter of the cross-section. [Take pi = 22/7]",
+      "marks": 8,
+      "markingGuide": "2 marks: sin(theta/2) = 50/56 for the angle theta subtended by AB at the centre\n2 marks: theta = 126.5 degrees, so the major arc subtends 360 - 126.5 = 233.5 degrees\n2 marks: major arc = (233.5/360) x 2 x (22/7) x 56 = 228.3 m\n2 marks: perimeter = 228.3 + 100 = 328 m",
+      "explanation": "Half the chord is 50 m, so sin(theta/2) = 50/56 and theta = 126.47 degrees. The arc of the tunnel subtends 233.53 degrees, so its length = (233.53/360)(2)(22/7)(56) = 228.3 m. Perimeter = 228.3 + 100 = 328 m (nearest metre).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2007jun-p2-04",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Bearings",
+      "stem": "Y is 60 km away from X on a bearing of 135 degrees. Z is 80 km away from X on a bearing of 225 degrees. Find the: (a) distance of Z from Y; (b) bearing of Z from Y.",
+      "marks": 8,
+      "markingGuide": "1 mark: correct sketch showing angle YXZ = 225 - 135 = 90 degrees\n1 mark: (a) ZY^2 = 60^2 + 80^2\n2 marks: (a) ZY = 100 km\n1 mark: (b) angle XYZ = tan^-1(80/60) = 53.1 degrees\n1 mark: (b) bearing of X from Y = 315 degrees\n2 marks: (b) bearing of Z from Y = 315 - 53.1 = 262 degrees",
+      "explanation": "Angle YXZ = 90 degrees. (a) ZY = sqrt(60^2 + 80^2) = 100 km. (b) Angle XYZ = tan^-1(80/60) = 53.13 degrees; the bearing of X from Y is 315 degrees, so the bearing of Z from Y = 315 - 53.13 = 261.9 = 262 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-05",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "Out of the 24 apples in a box, 6 are bad. If three apples are taken from the box at random, with replacement, find the probability that: (a) the first two are good and the third is bad; (b) all the three are bad; (c) all the three are good.",
+      "marks": 8,
+      "markingGuide": "2 marks: P(good) = 18/24 = 3/4 and P(bad) = 6/24 = 1/4\n2 marks: (a) (3/4)(3/4)(1/4) = 9/64\n2 marks: (b) (1/4)^3 = 1/64\n2 marks: (c) (3/4)^3 = 27/64",
+      "explanation": "With replacement each draw is independent: P(good) = 3/4, P(bad) = 1/4. (a) 3/4 x 3/4 x 1/4 = 9/64. (b) (1/4)^3 = 1/64. (c) (3/4)^3 = 27/64.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-07",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Logarithms",
+      "stem": "(a) With the aid of four-figure logarithm tables, evaluate (0.004592)^(1/3). (b) If log10 y + 3log10 x = 2, express y in terms of x. (c) Solve the equations: 3x - 2y = 21; 4x + 5y = 5.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) log 0.004592 = 3bar.6620\n2 marks: (a) dividing by 3: 1bar.2207 (i.e. (-3 + 0.6620)/3)\n1 mark: (a) antilog = 0.1663\n1 mark: (b) log10(y x^3) = 2\n2 marks: (b) y x^3 = 100, y = 100/x^3\n2 marks: (c) eliminating y: 15x - 10y = 105 and 8x + 10y = 10, so 23x = 115\n1 mark: (c) x = 5\n2 marks: (c) y = -3",
+      "explanation": "(a) log 0.004592 = 3bar.6620 = -3 + 0.6620; one third gives 1bar.2207, whose antilog is 0.1663. (b) log(yx^3) = log 100, so y = 100/x^3. (c) 5(3x - 2y = 21) + 2(4x + 5y = 5): 23x = 115, x = 5; then 15 - 2y = 21 gives y = -3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-10",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Areas",
+      "stem": "(a) Simplify (x^2 - y^2)/(3x + 3y). (b) In the diagram, PQRS is a rectangle. |PK| = 15 cm, |SK| = |KR| and angle PKS = 37 degrees. [K is the midpoint of SR, and the shaded portion is the part of the rectangle outside triangle PKS.] Calculate, correct to three significant figures: (i) |PS|; (ii) |SK| and (iii) the area of the shaded portion.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) x^2 - y^2 = (x + y)(x - y) and 3x + 3y = 3(x + y)\n2 marks: (a) (x - y)/3\n2 marks: (b)(i) |PS| = 15 sin 37 = 9.03 cm\n2 marks: (b)(ii) |SK| = 15 cos 37 = 12.0 cm\n1 mark: (b)(iii) area of rectangle = 9.027 x 2(11.98) = 216.3 cm^2\n1 mark: (b)(iii) area of triangle PKS = (1/2)(11.98)(9.027) = 54.07 cm^2\n3 marks: (b)(iii) shaded area = 216.3 - 54.07 = 162 cm^2",
+      "explanation": "(a) (x + y)(x - y)/[3(x + y)] = (x - y)/3. (b) In right triangle PSK: (i) PS = 15 sin 37 = 9.03 cm; (ii) SK = 15 cos 37 = 12.0 cm; (iii) SR = 2SK = 23.96 cm, rectangle = 216.3 cm^2, triangle PKS = 54.07 cm^2, so the shaded area = 162 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-11",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Angles",
+      "stem": "(a) In the diagram, AOB is a straight line, angle AOC = 3(x + y) degrees, angle COB = 45 degrees, angle AOD = (5x + y) degrees and angle DOB = y degrees. Find the values of x and y. (b) From two points on opposite sides of a pole 33 m high, the angles of elevation of the top of the pole are 53 degrees and 67 degrees. If the two points and the base of the pole are on the same horizontal level, calculate, correct to three significant figures, the distance between the two points.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) 3(x + y) + 45 = 180, so x + y = 45\n1 mark: (a) (5x + y) + y = 180, so 5x + 2y = 180\n2 marks: (a) solving: x = 30\n1 mark: (a) y = 15\n1 mark: (b) correct diagram with the pole between the two points\n2 marks: (b) distances 33/tan 53 = 24.87 m and 33/tan 67 = 14.01 m\n1 mark: (b) adding the two distances\n3 marks: (b) distance = 38.9 m",
+      "explanation": "(a) Angles on a straight line: x + y = 45 and 5x + 2y = 180; substituting y = 45 - x gives 3x = 90, x = 30 and y = 15. (b) Distance = 33/tan 53 + 33/tan 67 = 24.87 + 14.01 = 38.9 m (3 s.f.).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-12",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Sequence and Series",
+      "stem": "(a) The 3rd and 8th terms of an arithmetic progression (A.P.) are -9 and 26 respectively. Find the: (i) common difference; (ii) first term. (b) In the diagram, PQ||YZ, |XP| = 2 cm, |PY| = 3 cm, |PQ| = 6 cm and the area of triangle XPQ = 24 cm^2. [P lies on XY and Q lies on XZ.] Calculate the area of the trapezium PQZY.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) a + 2d = -9 and a + 7d = 26\n2 marks: (a)(i) 5d = 35, d = 7\n2 marks: (a)(ii) a = -9 - 14 = -23\n2 marks: (b) triangles XPQ and XYZ are similar with XY = 5 cm\n2 marks: (b) area ratio = (2/5)^2 = 4/25\n1 mark: (b) area of XYZ = 24 x 25/4 = 150 cm^2\n2 marks: (b) area of PQZY = 150 - 24 = 126 cm^2",
+      "explanation": "(a) Subtracting a + 2d = -9 from a + 7d = 26: 5d = 35, d = 7; a = -23. (b) XY = 5 cm; similar triangles give area XYZ/area XPQ = (5/2)^2, so area XYZ = 24 x 25/4 = 150 cm^2 and the trapezium = 150 - 24 = 126 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007jun-p2-13",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Statistics",
+      "stem": "In a College, the number of absentees recorded over a period of 30 days was as shown in the frequency distribution table. Number of absentees: 0 - 4, 5 - 9, 10 - 14, 15 - 19, 20 - 24; Number of days: 1, 5, 10, 9, 5 respectively. Calculate the: (a) mean; (b) standard deviation, correct to two decimal places.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) class marks 2, 7, 12, 17, 22\n2 marks: (a) sum fx = 420\n2 marks: (a) mean = 420/30 = 14\n2 marks: (b) deviations (x - 14): -12, -7, -2, 3, 8 and their squares\n2 marks: (b) sum f(x - mean)^2 = 830\n2 marks: (b) SD = sqrt(830/30) = 5.26",
+      "explanation": "(a) Sum fx = 2 + 35 + 120 + 153 + 110 = 420; mean = 420/30 = 14. (b) Sum f(x - 14)^2 = 144 + 245 + 40 + 81 + 320 = 830; variance = 830/30 = 27.67; standard deviation = sqrt(27.67) = 5.26.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-01",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Linear Inequalities",
+      "stem": "(a) Without using four-figure tables or calculators, evaluate (0.0024 x 0.064)/0.048, leaving your answer in standard form. (b)(i) What range of values of x satisfies the inequalities 3x - 2 > 4 and 2x - 1 <= 9? (ii) Illustrate your answer on the number line.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) writing as (24 x 10^-4)(64 x 10^-3)/(48 x 10^-3)\n1 mark: (a) simplifying to 32 x 10^-4 = 0.0032\n2 marks: (a) 3.2 x 10^-3\n1 mark: (b)(i) 3x > 6, x > 2\n1 mark: (b)(i) 2x <= 10, x <= 5\n1 mark: (b)(i) 2 < x <= 5\n1 mark: (b)(ii) number line with open circle at 2, closed dot at 5, joined",
+      "explanation": "(a) (24 x 10^-4)(64 x 10^-3)/(48 x 10^-3) = 32 x 10^-4 = 3.2 x 10^-3. (b)(i) 3x - 2 > 4 gives x > 2; 2x - 1 <= 9 gives x <= 5; so 2 < x <= 5. (ii) Draw an open circle at 2 and a solid dot at 5, joined by a line segment.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-02",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Sets",
+      "stem": "(a) In a class of 90 students, 45 take Physics and 58 Economics. If each student takes at least one of the subjects, how many take both? (b) Simplify (2sqrt(12) - 3)(2sqrt(3) + 1).",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) n(P U E) = 90 = 45 + 58 - n(P n E)\n3 marks: (a) n(P n E) = 13\n1 mark: (b) 2sqrt12 = 4sqrt3\n1 mark: (b) expansion (4sqrt3 - 3)(2sqrt3 + 1) = 24 + 4sqrt3 - 6sqrt3 - 3\n2 marks: (b) 21 - 2sqrt3",
+      "explanation": "(a) 90 = 45 + 58 - x, so x = 13 students take both. (b) (4sqrt3 - 3)(2sqrt3 + 1) = 24 + 4sqrt3 - 6sqrt3 - 3 = 21 - 2sqrt3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-03",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "In the diagram, angle PRA = 50 degrees, |AB| = 67 m, |BQ| = 28 m and |AP| = 48 m. [A, R and B lie in that order on a straight line; AP and BQ are perpendicular to AB and on the same side of it.] Find, correct to the nearest whole number: (a) |RB|; (b) angle QPA.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) |AR| = 48/tan 50\n1 mark: (a) |AR| = 40.28 m\n2 marks: (a) |RB| = 67 - 40.28 = 27 m\n1 mark: (b) draw QS parallel to AB meeting PA at S, so |PS| = 48 - 28 = 20 m and |QS| = 67 m\n1 mark: (b) tan QPA = 67/20\n2 marks: (b) angle QPA = 73 degrees",
+      "explanation": "(a) In right triangle PAR, AR = 48/tan 50 = 40.28 m, so RB = 67 - 40.28 = 26.7 = 27 m. (b) Through Q draw QS parallel to BA to meet PA at S: PS = 20 m and QS = 67 m, so angle QPA = tan^-1(67/20) = 73 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-04",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Financial Arithmetic",
+      "stem": "(a) An article valued at ₦P when new depreciates by 10% of its value at the end of every year. If at the end of the third year, the article is valued at ₦7,290, find the value of P. (b) In the diagram, ABCD is a cyclic quadrilateral. [X is a point on DC produced beyond C, and AX is drawn.] If angle DAX = 40 degrees and angle AXD = 60 degrees, calculate angle ABC.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) value after 3 years = P(0.9)^3\n1 mark: (a) 0.729P = 7290\n2 marks: (a) P = ₦10,000\n2 marks: (b) angle ADX (= angle ADC) = 180 - (60 + 40) = 80 degrees\n2 marks: (b) angle ABC = 180 - 80 = 100 degrees (opposite angles of a cyclic quadrilateral)",
+      "explanation": "(a) P(0.9)^3 = 7290, so P = 7290/0.729 = ₦10,000. (b) In triangle ADX, angle ADX = 180 - 100 = 80 degrees = angle ADC; opposite angles of a cyclic quadrilateral are supplementary, so angle ABC = 100 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-05",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "Let U = {x : x is an integer from 1 to 20}, A = {multiples of 5}, B = {multiples of 3} and C = {factors of 20}. If x is chosen at random from U, find the probability that: (a) x is in A n B; (b) x is in A U B; (c) x is in A n B n C.",
+      "marks": 8,
+      "markingGuide": "1 mark: A = {5, 10, 15, 20}, B = {3, 6, 9, 12, 15, 18}\n1 mark: C = {1, 2, 4, 5, 10, 20}\n2 marks: (a) A n B = {15}, probability = 1/20\n2 marks: (b) A U B has 9 elements, probability = 9/20\n2 marks: (c) A n B n C = { } (empty), probability = 0",
+      "explanation": "A = {5, 10, 15, 20}, B = {3, 6, 9, 12, 15, 18}, C = {1, 2, 4, 5, 10, 20}. (a) A n B = {15}: P = 1/20. (b) A U B = {3, 5, 6, 9, 10, 12, 15, 18, 20}: P = 9/20. (c) A n B n C is empty: P = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-06",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Percentages",
+      "stem": "(a) A contractor employs 12 men for 44 1/2 days and pays each man $6.50 per day. He employs some other 4 women for 36 days and pays each of them $3.00 per day. Find: (i) his total wage bill; (ii) the percentage of the total wage bill paid to the women. (b) Simplify: (2log 8 + log 4 - log 16)/log 32.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) men's wages = 12 x 44.5 x 6.50 = $3,471.00\n2 marks: (a) women's wages = 4 x 36 x 3.00 = $432.00\n1 mark: (a)(i) total wage bill = $3,903.00\n2 marks: (a)(ii) (432/3903) x 100 = 11.1%\n2 marks: (b) numerator = log(64 x 4/16) = log 16 = 4log 2\n1 mark: (b) denominator = log 32 = 5log 2\n2 marks: (b) result 4/5",
+      "explanation": "(a) Men: 12 x 44.5 x $6.50 = $3,471; women: 4 x 36 x $3 = $432; (i) total = $3,903.00; (ii) 432/3903 x 100 = 11.1%. (b) 2log 8 + log 4 - log 16 = log(64 x 4/16) = log 16 = 4log 2, and log 32 = 5log 2, so the expression = 4/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-07",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Number Bases",
+      "stem": "(a) If 126 (base n) = 86 (base ten), find n. (b) Solve the equations 3x + (1/2)y = 8; (1/2)x + 2y = 9. (c) Solve for x in the inequality 2(x - 1)/3 - 3(2x - 1)/4 <= 2/3.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) n^2 + 2n + 6 = 86\n1 mark: (a) n^2 + 2n - 80 = 0, (n + 10)(n - 8) = 0\n2 marks: (a) n = 8 (base cannot be negative)\n1 mark: (b) clearing fractions: 6x + y = 16 and x + 4y = 18\n2 marks: (b) x = 2\n1 mark: (b) y = 4\n1 mark: (c) multiplying by 12: 8(x - 1) - 9(2x - 1) <= 8\n1 mark: (c) -10x <= 7\n2 marks: (c) x >= -7/10",
+      "explanation": "(a) 1 x n^2 + 2n + 6 = 86 gives n^2 + 2n - 80 = 0, so n = 8 (n = -10 rejected). (b) 6x + y = 16 and x + 4y = 18; y = 16 - 6x gives x + 64 - 24x = 18, x = 2, y = 4. (c) 8x - 8 - 18x + 9 <= 8, -10x <= 7, x >= -0.7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-09",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Circles",
+      "stem": "(a) In the diagram, O is the centre of the circle, PT is a tangent to the circle at A. [B and C are points on the circle, and angle PAB is obtuse.] Angle AOB = 126 degrees and angle ABC = 27 degrees. (i) Calculate angle PAB. (ii) Show that OA is parallel to BC. (b) Each interior angle of a regular polygon is 20n degrees, where n is the number of sides. Find the least value of n.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) angle OAB = angle OBA = (180 - 126)/2 = 27 degrees\n1 mark: (a) angle PAO = 90 degrees (radius perpendicular to tangent)\n2 marks: (a)(i) angle PAB = 90 + 27 = 117 degrees\n2 marks: (a)(ii) angle OAB = angle ABC = 27 degrees, alternate angles equal, so OA // BC\n2 marks: (b) 20n = 180(n - 2)/n\n2 marks: (b) 20n^2 - 180n + 360 = 0, i.e. n^2 - 9n + 18 = 0\n2 marks: (b) n = 3 or 6, least value n = 3",
+      "explanation": "(a) Triangle OAB is isosceles, so angle OAB = 27 degrees; with angle PAO = 90, angle PAB = 117 degrees. Since angle OAB = angle ABC = 27 (alternate angles), OA is parallel to BC. (b) 20n = 180(n - 2)/n gives n^2 - 9n + 18 = 0, (n - 3)(n - 6) = 0, so the least value is n = 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2007nov-p2-12",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "A pyramid has a square base ABCD of side 40 cm. The vertex V is 35 cm above the centre, O, of the base. Calculate: (a) the angle VCO correct to the nearest degree; (b) |VC|; (c) the area of a triangular face of the pyramid, correct to one decimal place.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) |AC| = 40sqrt2 = 56.57 cm, |OC| = 20sqrt2 = 28.28 cm\n2 marks: (a) tan VCO = 35/28.28\n1 mark: (a) angle VCO = 51 degrees\n3 marks: (b) |VC| = sqrt(35^2 + (20sqrt2)^2) = sqrt(2025) = 45 cm\n2 marks: (c) slant height of a face = sqrt(35^2 + 20^2) = 40.31 cm\n2 marks: (c) area = (1/2)(40)(40.31) = 806.2 cm^2",
+      "explanation": "(a) OC = 20sqrt2 = 28.28 cm; tan VCO = 35/28.28 gives 51 degrees. (b) VC = sqrt(1225 + 800) = 45 cm. (c) The height of a triangular face = sqrt(35^2 + 20^2) = 40.31 cm, so area = (1/2)(40)(40.31) = 806.2 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2007nov-p2-13",
+      "year": 2007,
+      "type": "THEORY",
+      "topic": "Lengths and Perimeters",
+      "stem": "(a) A (60 degrees N, 30 degrees E) and B (60 degrees N, 42 degrees W) are two towns on the surface of the earth. Calculate, correct to three significant figures, the: (i) radius of the circle of latitude on which A and B lie; (ii) distance on the Earth's surface between A and B along the circle of latitude. [Take the radius of the Earth to be 6400 km and pi = 3.142] (b) In the diagram, O is the centre of the circle with radius 3.5 cm. [A, B and C are on the circle; the shaded segment is cut off by the chord BC on the side away from A.] If angle BAC = 42 degrees, calculate, correct to two decimal places, the area of the shaded segment. [Take pi = 22/7].",
+      "marks": 12,
+      "markingGuide": "2 marks: (a)(i) r = 6400 cos 60 = 3200 km\n1 mark: (a)(ii) difference in longitude = 30 + 42 = 72 degrees\n3 marks: (a)(ii) distance = (72/360) x 2 x 3.142 x 3200 = 4020 km\n1 mark: (b) angle BOC = 84 degrees\n2 marks: (b) area of sector = (84/360)(22/7)(3.5^2) = 8.98 cm^2\n2 marks: (b) area of triangle BOC = (1/2)(3.5)^2 sin 84 = 6.09 cm^2\n1 mark: (b) area of segment = 2.89 cm^2",
+      "explanation": "(a)(i) Radius of latitude = 6400 cos 60 = 3200 km. (ii) Longitude difference = 72 degrees; distance = (72/360)(2)(3.142)(3200) = 4021.8 = 4020 km (3 s.f.). (b) Angle BOC = 2 x 42 = 84 degrees; sector = 8.98 cm^2, triangle BOC = 6.09 cm^2, so the segment = 2.89 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-01",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Angles of Elevation and Depression",
+      "stem": "(a) If x : y = 2 : 3, evaluate (x^2 - y^2)/(y^2 + x^2). (b) A man on the same level ground with a tree, stands at a distance of 12.82 m away from the foot of the tree. He observes the angle of elevation of the top of the tree as 52 degrees. If the man is 1.24 m tall, calculate correct to two decimal places, the height of the tree.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) x = 2k, y = 3k (or x = 2y/3)\n1 mark: (a) (4k^2 - 9k^2)/(9k^2 + 4k^2)\n2 marks: (a) -5/13\n1 mark: (b) correct diagram\n1 mark: (b) h = 12.82 tan 52 = 16.41 m\n2 marks: (b) height of tree = 16.41 + 1.24 = 17.65 m",
+      "explanation": "(a) Let x = 2k and y = 3k: (4k^2 - 9k^2)/(9k^2 + 4k^2) = -5k^2/13k^2 = -5/13. (b) Height above the man's eye level = 12.82 tan 52 = 16.41 m; height of tree = 16.41 + 1.24 = 17.65 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-03",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "A bucket is 12 cm in diameter at the bottom, 20 cm in diameter at the open end and 16 cm deep. If the bucket is filled with water and emptied into a cylindrical tin of diameter 28 cm, calculate the depth of water in the tin. (Take pi = 22/7)",
+      "marks": 8,
+      "markingGuide": "2 marks: similar triangles: h/6 = (16 + h)/10, so the removed cone has height h = 24 cm (full cone 40 cm)\n2 marks: volume of bucket = (1/3)(22/7)(10^2 x 40 - 6^2 x 24) = 3285.3 cm^3\n2 marks: (22/7)(14^2) d = 3285.3\n2 marks: depth d = 5.33 cm",
+      "explanation": "Completing the cone: h/6 = (h + 16)/10 gives h = 24 cm. Volume of bucket (frustum) = (1/3)(22/7)(100 x 40 - 36 x 24) = (1/3)(22/7)(3136) = 3285.3 cm^3. Depth in tin = 3285.3/((22/7)(196)) = 3285.3/616 = 5.33 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-04",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Logarithms",
+      "stem": "(a) Solve the equation: 2log x - log(1 - x) = log(2 - x). (b) If Ade gives ₦5 out of what he has to Chidi, the two of them will have equal amount. If Chidi gives out ₦5 to Ade, Ade will have twice as much as Chidi. How much did each of them have initially?",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) log[x^2/(1 - x)] = log(2 - x)\n1 mark: (a) x^2 = (2 - x)(1 - x) = 2 - 3x + x^2\n2 marks: (a) 3x = 2, x = 2/3\n1 mark: (b) x - 5 = y + 5 (x - y = 10)\n1 mark: (b) x + 5 = 2(y - 5) (x - 2y = -15)\n2 marks: (b) Ade ₦35 and Chidi ₦25",
+      "explanation": "(a) x^2/(1 - x) = 2 - x gives x^2 = 2 - 3x + x^2, so x = 2/3. (b) Let Ade have ₦x and Chidi ₦y: x - y = 10 and x + 5 = 2y - 10; solving, y = 25 and x = 35. Ade had ₦35 and Chidi ₦25.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-05",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Lengths and Perimeters",
+      "stem": "(a) A rectangular field is l metres long and b metres wide. Its perimeter is 280 metres. If the length is two and a half times its breadth, find the values of l and b. (b) The base of a pyramid is a 4.5 m by 2.5 m rectangle. The height of the pyramid is 4 m. Calculate its volume.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 2(l + b) = 280 and l = 2.5b\n1 mark: (a) 7b = 280\n2 marks: (a) b = 40 m and l = 100 m\n2 marks: (b) V = (1/3)(4.5 x 2.5)(4)\n2 marks: (b) V = 15 m^3",
+      "explanation": "(a) 2(2.5b + b) = 280 gives 7b = 280, b = 40 m and l = 100 m. (b) V = (1/3) x base area x height = (1/3)(11.25)(4) = 15 m^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-07",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Financial Arithmetic",
+      "stem": "(a) Solve, correct to two decimal places, the equation 4x^2 = 11x + 21. (b) A man invests £1500 for two years at compound interest. After one year, his money amounts to £1560. Find the: (i) rate of interest; (ii) interest for the second year. (c) A car costs ₦300,000.00. It depreciates by 25% in the first year and 20% in the second year. Find its value after 2 years.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) 4x^2 - 11x - 21 = 0\n1 mark: (a) x = [11 +- sqrt(121 + 336)]/8\n2 marks: (a) x = 4.05 or x = -1.30\n1 mark: (b) interest for first year = £60\n1 mark: (b)(i) rate = (60/1500) x 100\n1 mark: (b)(i) rate = 4%\n2 marks: (b)(ii) second-year interest = 4% of £1560 = £62.40\n1 mark: (c) value after first year = 0.75 x 300,000 = ₦225,000\n2 marks: (c) value after second year = 0.8 x 225,000 = ₦180,000.00",
+      "explanation": "(a) x = (11 +- sqrt 457)/8 = (11 +- 21.378)/8, so x = 4.05 or -1.30. (b)(i) Interest = £60 on £1500, rate = 4%; (ii) 4% of £1560 = £62.40. (c) 300,000 x 0.75 = ₦225,000 after one year; 225,000 x 0.80 = ₦180,000.00 after two years.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-09",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "(a) The triangle ABC has sides AB = 17 m, BC = 12 m and AC = 10 m. Calculate the: (i) largest angle of the triangle; (ii) area of the triangle. (b) From a point T on a horizontal ground, the angle of elevation of the top R of a tower RS, 38 m high, is 63 degrees. Calculate, correct to the nearest metre, the distance between T and S.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a)(i) largest angle is C, opposite the longest side AB\n2 marks: (a)(i) cos C = (10^2 + 12^2 - 17^2)/(2 x 10 x 12) = -0.1875\n2 marks: (a)(i) C = 100.8 degrees\n1 mark: (a)(ii) area = (1/2)(10)(12) sin 100.8\n2 marks: (a)(ii) area = 58.9 m^2\n1 mark: (b) correct diagram\n1 mark: (b) tan 63 = 38/TS\n2 marks: (b) TS = 19 m",
+      "explanation": "(a)(i) The largest angle is opposite AB: cos C = (100 + 144 - 289)/240 = -0.1875, so C = 100.8 degrees. (ii) Area = (1/2)(10)(12) sin 100.8 = 58.9 m^2. (b) TS = 38/tan 63 = 19.36 = 19 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008jun-p2-13",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Sequence and Series",
+      "stem": "(a) If 3, x, y, 18 are in Arithmetic progression (A.P.), find the values of x and y. (b)(i) The sum of the second and third terms of a geometric progression is six times the fourth term. Find the two possible values of the common ratio. (ii) If the second term is 8 and the common ratio is positive, find the first six terms.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) 3 + 3d = 18\n1 mark: (a) d = 5\n2 marks: (a) x = 8, y = 13\n1 mark: (b)(i) ar + ar^2 = 6ar^3\n1 mark: (b)(i) 6r^2 - r - 1 = 0\n2 marks: (b)(i) r = 1/2 or r = -1/3\n1 mark: (b)(ii) ar = 8 with r = 1/2, so a = 16\n3 marks: (b)(ii) 16, 8, 4, 2, 1, 1/2",
+      "explanation": "(a) 18 = 3 + 3d gives d = 5, so x = 8 and y = 13. (b)(i) ar + ar^2 = 6ar^3; dividing by ar: 6r^2 - r - 1 = 0, (2r - 1)(3r + 1) = 0, r = 1/2 or -1/3. (ii) r = 1/2 and ar = 8 give a = 16: the terms are 16, 8, 4, 2, 1, 1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-01",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Surds (Radicals)",
+      "stem": "Simplify, without using tables or calculator (a) 3 1/3 / 1 1/4 - 4/9; (b) 2 + sqrt(96) - 4(sqrt(6) - 1)^2 and express your answer in the form m + n sqrt(6) where m and n are real numbers.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 10/3 x 4/5 = 8/3\n1 mark: (a) 8/3 - 4/9 = 20/9\n2 marks: (a) 2 2/9\n1 mark: (b) sqrt96 = 4sqrt6\n1 mark: (b) (sqrt6 - 1)^2 = 7 - 2sqrt6\n2 marks: (b) 2 + 4sqrt6 - 28 + 8sqrt6 = -26 + 12sqrt6",
+      "explanation": "(a) Divide first: 10/3 x 4/5 = 8/3; 8/3 - 4/9 = 20/9 = 2 2/9. (b) sqrt96 = 4sqrt6 and (sqrt6 - 1)^2 = 7 - 2sqrt6, so 2 + 4sqrt6 - 28 + 8sqrt6 = -26 + 12sqrt6 (m = -26, n = 12).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-02",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Solution of Linear Equations",
+      "stem": "(a) Solve the equation (4x - 1)/3 - (3x - 1)/2 = (5 - 2x)/4. (b) From a shop, Kofi bought 2 singlets and 3 shirts for GH₵31.00 while Kwasi bought 3 singlets and 2 shirts for GH₵29.00. How much will Yaw pay for one singlet and one shirt he bought from the same shop?",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) multiplying by 12: 4(4x - 1) - 6(3x - 1) = 3(5 - 2x)\n1 mark: (a) -2x + 2 = 15 - 6x\n2 marks: (a) x = 13/4\n1 mark: (b) 2x + 3y = 31 and 3x + 2y = 29\n1 mark: (b) x = 5 (singlet), y = 7 (shirt)\n2 marks: (b) Yaw pays GH₵12.00",
+      "explanation": "(a) 16x - 4 - 18x + 6 = 15 - 6x, so 4x = 13 and x = 13/4. (b) 2x + 3y = 31 and 3x + 2y = 29 give x = GH₵5 (singlet) and y = GH₵7 (shirt); Yaw pays GH₵12.00. (Shortcut: adding gives 5x + 5y = 60.)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-03",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "The probability that a malaria patient (M) survives when administered with a newly discovered drug is 0.27 and the probability that a typhoid patient (T) survives when injected with another newly discovered drug is 0.85. What is the probability that (a) either of the two patients survives? (b) neither of two patients survive? (c) at least one of the two patients survive? Give your answers correct to 2 significant figures.",
+      "marks": 8,
+      "markingGuide": "1 mark: P(M') = 0.73 and P(T') = 0.15\n3 marks: (a) (0.27 x 0.15) + (0.73 x 0.85) = 0.66\n2 marks: (b) 0.73 x 0.15 = 0.11\n2 marks: (c) 1 - 0.1095 = 0.89",
+      "explanation": "P(M') = 0.73, P(T') = 0.15. (a) Exactly one survives: 0.27 x 0.15 + 0.73 x 0.85 = 0.661 = 0.66. (b) Neither: 0.73 x 0.15 = 0.1095 = 0.11. (c) At least one: 1 - 0.1095 = 0.89.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-04",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "A sector of angle 135 degrees is removed from a thin circular metal sheet of radius 40 cm. It is then folded with the straight edges coinciding to form a right circular cone. Calculate the: (a) base radius of the cone, correct to two decimal places; (b) greatest volume of liquid which the cone can hold, leaving your answer correct to the nearest cm^3. (Take pi = 22/7).",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) arc length = circumference of base: (135/360)(2 pi)(40) = 2 pi r\n2 marks: (a) r = 15.00 cm\n2 marks: (b) h = sqrt(40^2 - 15^2) = 37.08 cm\n1 mark: (b) V = (1/3)(22/7)(15^2)(37.08)\n2 marks: (b) V = 8741 cm^3",
+      "explanation": "(a) The arc becomes the base circumference: (135/360)(2 pi x 40) = 2 pi r, so r = 15.00 cm. (b) The slant height is 40 cm, so h = sqrt(1600 - 225) = 37.08 cm and V = (1/3)(22/7)(225)(37.08) = 8741 cm^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-05",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Circles",
+      "stem": "(a) In the diagram, the two circles intersect at X and Y. The centre of the smaller circle is on the circumference of the bigger circle. A and B are any two points on the major arcs, one on each circle. [A is on the bigger circle with angle XAY = a degrees; B is on the smaller circle with angle XBY = b degrees.] Find an equation connecting a and b. (b) In the diagram angle QPR = angle PTR = 90 degrees, |PR| = 8 cm and |QP| = 6 cm. [T lies on QR.] Find |TR|.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) join X and Y to the centre O of the smaller circle\n1 mark: (a) angle XOY = 2b (angle at the centre)\n2 marks: (a) AXOY is cyclic, so a + 2b = 180\n1 mark: (b) |QR| = 10 cm or tan R = 6/8\n1 mark: (b) angle R = 36.87 degrees\n2 marks: (b) |TR| = 8 cos 36.87 = 6.4 cm",
+      "explanation": "(a) With O the centre of the small circle, angle XOY = 2b; O lies on the big circle, so AXOY is a cyclic quadrilateral and a + 2b = 180 degrees. (b) QR = 10 cm and cos R = 8/10, so TR = PR cos R = 8 x 0.8 = 6.4 cm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2008nov-p2-06",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Number Bases",
+      "stem": "(a) By how much is 11000 (base 2) greater than or less than 111 (base 2) x 11 (base 2)? (b) A shopkeeper has in stock 20 television sets. He sells 18 of them at a profit of 15 percent and the remaining two at a loss of 5 percent. Find his percentage profit on the 20 sets.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) 111 x 11 = 10101 (base 2)\n2 marks: (a) 11000 - 10101\n2 marks: (a) 11000 (base 2) is greater by 11 (base 2) (i.e. 3)\n1 mark: (b) let cost price per set be p; sales on 18 sets = 1.15 x 18p = 20.7p\n1 mark: (b) sales on 2 sets = 0.95 x 2p = 1.9p\n1 mark: (b) total sales = 22.6p, total cost = 20p\n3 marks: (b) percentage profit = (2.6p/20p) x 100 = 13%",
+      "explanation": "(a) 111 x 11 = 10101 (base 2) (7 x 3 = 21) and 11000 (base 2) = 24, so 11000 is greater by 11 (base 2). (b) Selling price = 18(1.15p) + 2(0.95p) = 22.6p against a cost of 20p, so the profit is 2.6p, i.e. 13%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-08",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Areas",
+      "stem": "The area of a rectangular football field is 7200 m^2 while its perimeter is 360 m. Calculate the: (a) dimensions of the field; (b) cost of clearing the field at ₦6.50 per square metre, leaving a margin of 2 m wide along the longer sides; (c) percentage of the part not cleared.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) xy = 7200 and x + y = 180\n2 marks: (a) x^2 - 180x + 7200 = 0\n1 mark: (a) 120 m by 60 m\n2 marks: (b) cleared area = 120 x (60 - 4) = 6720 m^2\n2 marks: (b) cost = 6720 x 6.50 = ₦43,680.00\n2 marks: (c) uncleared area = 7200 - 6720 = 480 m^2\n2 marks: (c) percentage = (480/7200) x 100 = 6.67%",
+      "explanation": "(a) x + y = 180 and xy = 7200 give 120 m by 60 m. (b) Cleared region = 120 x 56 = 6720 m^2; cost = 6720 x ₦6.50 = ₦43,680.00. (c) Not cleared = 480 m^2 = 6 2/3% of the field.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-09",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "In the diagram, a ladder LN 10 m long, rests on a wall 4.5 m high such that 2.5 m of it projects beyond the wall. (a) Calculate, correct to one decimal place, the angle which the ladder makes with the ground. (b) How high above the ground is the upper end of the ladder? (c) If the foot of the ladder is moved by 2 m further away from the wall, calculate, correct to the nearest degree, the angle which the ladder makes with the ground.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) length from foot to top of wall = 10 - 2.5 = 7.5 m\n2 marks: (a) sin theta = 4.5/7.5 = 0.6\n1 mark: (a) theta = 36.9 degrees\n1 mark: (b) height = 10 sin 36.9\n2 marks: (b) height = 6 m\n2 marks: (c) original distance from foot to wall = sqrt(7.5^2 - 4.5^2) = 6 m, new distance = 8 m\n1 mark: (c) tan alpha = 4.5/8\n2 marks: (c) alpha = 29 degrees",
+      "explanation": "(a) The ladder touches the top of the wall 7.5 m from its foot, so sin theta = 4.5/7.5 = 0.6 and theta = 36.9 degrees. (b) Upper end height = 10 sin 36.9 = 6 m. (c) The foot was 6 m from the wall; now 8 m, so tan alpha = 4.5/8 = 0.5625 and alpha = 29 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2008nov-p2-10",
+      "year": 2008,
+      "type": "THEORY",
+      "topic": "Sets",
+      "stem": "In a class of 200 students, 70 offered Physics, 90 Chemistry, 100 Mathematics while 24 did not offer any of the three subjects. Twenty three (23) students offered Physics and Chemistry, 41 Chemistry and Mathematics while 8 offered all three subjects. (a) Draw a Venn diagram to illustrate the information. (b) Find the probability that a student selected at random from the class offered: (i) Physics only; (ii) Exactly two of the subjects.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) Venn diagram with three intersecting sets in a universal set of 200 and 24 outside\n1 mark: (a) P n C only = 15, C n M only = 33, all three = 8\n2 marks: (a) let P n M only = x; equation for the total gives x = 20\n1 mark: (a) Physics only = 27, Chemistry only = 34, Mathematics only = 39\n2 marks: (b)(i) P(Physics only) = 27/200\n1 mark: (b)(ii) exactly two = 15 + 20 + 33 = 68\n3 marks: (b)(ii) probability = 68/200 = 17/50",
+      "explanation": "Let x offer Physics and Mathematics only. Regions: P n C only 15, C n M only 33, all three 8, P only 47 - x, C only 34, M only 59 - x. Total: (47 - x) + 34 + (59 - x) + 15 + 33 + x + 8 + 24 = 200 gives x = 20. (i) Physics only = 27: probability 27/200. (ii) Exactly two = 15 + 20 + 33 = 68: probability 68/200 = 17/50.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-01",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Indices",
+      "stem": "(a) Given that (sqrt(3) - 5sqrt(2))(sqrt(3) + sqrt(2)) = a + b sqrt(6), find a and b. (b) If [2^(1 - y) x 2^(y - 1)]/2^(y + 2) = 8^(2 - 3y), find y.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) expansion 3 + sqrt6 - 5sqrt6 - 10\n1 mark: (a) = -7 - 4sqrt6\n2 marks: (a) a = -7, b = -4\n1 mark: (b) left side = 2^((1 - y) + (y - 1) - (y + 2)) = 2^(-y - 2)\n1 mark: (b) right side = 2^(3(2 - 3y)) = 2^(6 - 9y)\n2 marks: (b) -y - 2 = 6 - 9y, y = 1",
+      "explanation": "(a) (sqrt3 - 5sqrt2)(sqrt3 + sqrt2) = 3 + sqrt6 - 5sqrt6 - 10 = -7 - 4sqrt6, so a = -7 and b = -4. (b) The left side is 2^(-y - 2) and 8^(2 - 3y) = 2^(6 - 9y); equating indices, -y - 2 = 6 - 9y, so 8y = 8 and y = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-02",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Linear Inequalities",
+      "stem": "(a) If 9cos x - 7 = 1 and 0 degrees <= x <= 90 degrees, find x. (b) Given that x is an integer, find the three greatest values of x which satisfy the inequality 7x < 2x - 13.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 9cos x = 8\n1 mark: (a) cos x = 0.8889\n2 marks: (a) x = 27.27 degrees\n1 mark: (b) 5x < -13\n1 mark: (b) x < -2.6\n2 marks: (b) the three greatest integers are -3, -4 and -5",
+      "explanation": "(a) cos x = 8/9 = 0.8889, so x = 27.27 degrees. (b) 7x - 2x < -13 gives x < -13/5 = -2.6, so the three greatest integer values are -3, -4 and -5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-03",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Statistics",
+      "stem": "The table shows the number of children per family in a community. No. of children: 0, 1, 2, 3, 4, 5; No. of families: 3, 5, 7, 4, 3, 2 respectively. (a) Find the: (i) mode; (ii) third quartile; (iii) probability that a family has at least 2 children. (b) If a pie chart were to be drawn for the data, what would be the sectoral angle representing families with one child?",
+      "marks": 8,
+      "markingGuide": "1 mark: (a)(i) mode = 2\n1 mark: (a)(ii) position of Q3 = (3/4) x 24 = 18th\n1 mark: (a)(ii) third quartile = 3\n1 mark: (a)(iii) families with at least 2 children = 16\n2 marks: (a)(iii) probability = 16/24 = 2/3\n2 marks: (b) angle = (5/24) x 360 = 75 degrees",
+      "explanation": "(a)(i) The highest frequency (7) is for 2 children, so the mode is 2. (ii) There are 24 families; the 18th value is 3, so Q3 = 3. (iii) 7 + 4 + 3 + 2 = 16 families have at least 2 children: probability 16/24 = 2/3. (b) (5/24) x 360 = 75 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-04",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Sets",
+      "stem": "(a) Out of 30 candidates applying for a post, 17 have degrees, 15 diplomas and 4 neither degree nor diploma. How many of them have both? (b) In triangle PQR, M and N are points on the sides PQ and PR respectively such that MN is parallel to QR. If angle PRQ = 75 degrees, |PN| = |QN| and angle PNQ = 125 degrees, determine (i) angle NQR; (ii) angle NPM.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) (17 - y) + y + (15 - y) + 4 = 30\n2 marks: (a) y = 6\n1 mark: (b) angle QNR = 180 - 125 = 55 degrees (or angle MNQ = 125 - 75 = 50)\n2 marks: (b)(i) angle NQR = 180 - 75 - 55 = 50 degrees\n2 marks: (b)(ii) angle NPM = (180 - 125)/2 = 27.5 degrees",
+      "explanation": "(a) 36 - y = 30, so y = 6 have both. (b)(i) Angle QNR = 55 degrees, so in triangle NQR angle NQR = 180 - 75 - 55 = 50 degrees (equivalently, alternate to angle MNQ = 125 - 75). (ii) Triangle PNQ is isosceles with PN = QN, so angle NPQ = angle NPM = (180 - 125)/2 = 27.5 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-05",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Areas",
+      "stem": "In the diagram, ABCDEF is a triangular prism [with triangular ends ABC and FED, and rectangular faces including BCDE and ACDF]. Angle ABC = angle DEF = 90 degrees, |AB| = 24 cm, |BC| = 7 cm and |CD| = 40 cm. Calculate: (a) |AC|; (b) the total surface area of the prism.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) |AC|^2 = 24^2 + 7^2\n2 marks: (a) |AC| = 25 cm\n1 mark: (b) area of two triangular ends = 2 x (1/2)(24)(7) = 168 cm^2\n2 marks: (b) area of three rectangles = (24 + 7 + 25) x 40 = 2240 cm^2\n2 marks: (b) total surface area = 2408 cm^2",
+      "explanation": "(a) AC = sqrt(576 + 49) = 25 cm. (b) Two triangles: 2 x 84 = 168 cm^2; three rectangular faces: 40(24 + 7 + 25) = 2240 cm^2; total surface area = 2408 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-06",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Logarithms",
+      "stem": "(a) If log 5 = 0.6990, log 7 = 0.8451 and log 8 = 0.9031, evaluate: log[(35 x 49)/(40 / 56)]. (b) For a musical show, x children were present. There were 60 more adults than children. An adult paid D5 and a child D2. If a total of D1280 was collected, calculate the (i) value of x; (ii) ratio of the number of children to the number of adults; (iii) average amount paid per person; (iv) percentage profit if the organizers spent D720 on the show.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) (35 x 49)/(40/56) = (35 x 49 x 56)/40 = 7^4\n1 mark: (a) log 7^4 = 4log 7\n2 marks: (a) 4 x 0.8451 = 3.3804\n1 mark: (b)(i) 2x + 5(x + 60) = 1280\n1 mark: (b)(i) x = 140\n2 marks: (b)(ii) 140 : 200 = 7 : 10\n2 marks: (b)(iii) average = 1280/340 = D3.76\n2 marks: (b)(iv) profit % = (1280 - 720)/720 x 100 = 77.8%",
+      "explanation": "(a) (35 x 49 x 56)/40 = 2401 = 7^4, so the log = 4 x 0.8451 = 3.3804. (b)(i) 2x + 5(x + 60) = 1280 gives 7x = 980, x = 140. (ii) Children : adults = 140 : 200 = 7 : 10. (iii) 1280/340 = D3.76 per person. (iv) Profit = 560, so percentage profit = 560/720 x 100 = 77.8%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-09",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Graphs of Linear and Quadratic Functions",
+      "stem": "(a) Simplify (x + 2)/(x - 2) - (x + 3)/(x - 1). (b) The graph of the equation y = Ax^2 + Bx + C passes through the points (0, 0), (1, 4) and (2, 10). Find the: (i) value of C; (ii) values of A and B; (iii) co-ordinates of the other point where the graph cuts the x-axis.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) L.C.M. (x - 2)(x - 1)\n2 marks: (a) [(x + 2)(x - 1) - (x + 3)(x - 2)]/[(x - 2)(x - 1)]\n2 marks: (a) = 4/[(x - 2)(x - 1)]\n1 mark: (b)(i) C = 0\n1 mark: (b)(ii) A + B = 4\n1 mark: (b)(ii) 4A + 2B = 10\n2 marks: (b)(ii) A = 1, B = 3\n2 marks: (b)(iii) x^2 + 3x = 0 gives the point (-3, 0)",
+      "explanation": "(a) [(x^2 + x - 2) - (x^2 + x - 6)]/[(x - 2)(x - 1)] = 4/[(x - 2)(x - 1)]. (b)(i) (0, 0) gives C = 0. (ii) A + B = 4 and 4A + 2B = 10 give A = 1, B = 3, so y = x^2 + 3x. (iii) x(x + 3) = 0: the other point is (-3, 0).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-11",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Lengths and Perimeters",
+      "stem": "(a) A circle is inscribed in a square. If the sum of the perimeter of the square and the circumference of the circle is 100 cm, calculate the radius of the circle. [Take pi = 22/7] (b) A rope 60 cm long is made to form a rectangle. If the length is 4 times its breadth, calculate, correct to one decimal place, the (i) length; (ii) diagonal of the rectangle.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) side of square = 2r, perimeter = 8r\n1 mark: (a) circumference = 2(22/7)r\n2 marks: (a) 8r + 44r/7 = 100\n2 marks: (a) r = 7 cm\n1 mark: (b) 2(4b + b) = 60\n1 mark: (b) b = 6 cm\n1 mark: (b)(i) length = 24.0 cm\n1 mark: (b)(ii) diagonal^2 = 24^2 + 6^2\n2 marks: (b)(ii) diagonal = 24.7 cm",
+      "explanation": "(a) The square's side is 2r: 8r + (44/7)r = 100 gives (100/7)r = 100, r = 7 cm. (b) 10b = 60, so b = 6 cm and (i) length = 24.0 cm; (ii) diagonal = sqrt(576 + 36) = 24.7 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2009jun-p2-13",
+      "year": 2009,
+      "type": "THEORY",
+      "topic": "Sequence and Series",
+      "stem": "(a) How many numbers between 75 and 500 are divisible by 7? (b) The 8th term of an Arithmetic progression (A.P.) is 5 times the third term while the 7th term is 9 greater than the 4th term. Write the first five terms of the A.P.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) first such number 77, last 497, d = 7\n1 mark: (a) 497 = 77 + (n - 1)7\n2 marks: (a) n = 61\n1 mark: (b) a + 7d = 5(a + 2d)\n1 mark: (b) a + 6d = a + 3d + 9\n2 marks: (b) d = 3\n2 marks: (b) 4a = -3d, a = -9/4\n2 marks: (b) terms: -9/4, 3/4, 15/4, 27/4, 39/4",
+      "explanation": "(a) The multiples of 7 between 75 and 500 run from 77 to 497: 497 = 77 + 7(n - 1) gives n = 61. (b) 3d = 9 so d = 3; a + 7d = 5a + 10d gives 4a = -3d = -9, a = -9/4. First five terms: -9/4, 3/4, 15/4, 27/4, 39/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-01",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Sets",
+      "stem": "A = {2, 4, 6, 8}, B = {2, 3, 7, 9} and C = {x : 3 < x < 9} are subsets of the universal set U = {2, 3, 4, 5, 6, 7, 8, 9}. Find (a) A n (B' n C'); (b) (A U B) n (B U C).",
+      "marks": 8,
+      "markingGuide": "1 mark: C = {4, 5, 6, 7, 8}\n1 mark: B' = {4, 5, 6, 8} and C' = {2, 3, 9}\n1 mark: (a) B' n C' = { }\n1 mark: (a) A n (B' n C') = { }\n1 mark: (b) A U B = {2, 3, 4, 6, 7, 8, 9}\n1 mark: (b) B U C = {2, 3, 4, 5, 6, 7, 8, 9}\n2 marks: (b) (A U B) n (B U C) = {2, 3, 4, 6, 7, 8, 9}",
+      "explanation": "C = {4, 5, 6, 7, 8}, B' = {4, 5, 6, 8}, C' = {2, 3, 9}. (a) B' n C' = { }, so A n (B' n C') = { } (the empty set). (b) A U B = {2, 3, 4, 6, 7, 8, 9} and B U C = {2, 3, 4, 5, 6, 7, 8, 9}; their intersection is {2, 3, 4, 6, 7, 8, 9}.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-02",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Angles of Elevation and Depression",
+      "stem": "(a) The angle of depression of a boat from the mid-point of a vertical cliff is 35 degrees. If the boat is 120 m from the foot of the cliff, calculate the height of the cliff. (b) Towns P and Q are x km apart. Two motorists set out at the same time from P to Q at steady speeds of 60 km/h and 80 km/h. The faster motorist got to Q 30 minutes earlier than the other. Find the value of x.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) half the height = 120 tan 35\n1 mark: (a) = 84.02 m\n2 marks: (a) height of cliff = 2 x 84.02 = 168.04 m\n1 mark: (b) times x/60 and x/80 hours\n1 mark: (b) x/60 - x/80 = 1/2\n2 marks: (b) x = 120 km",
+      "explanation": "(a) The mid-point is 120 tan 35 = 84.02 m above the foot, so the cliff is 2 x 84.02 = 168.04 m high. (b) x/60 - x/80 = 1/2 (30 minutes = 1/2 hour), so x/240 = 1/2 and x = 120 km.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-04",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "The diagram shows a cone with slant height 10.5 cm. If the curved surface area of the cone is 115.5 cm^2, calculate, correct to 3 significant figures, the: (a) base radius, r; (b) height, h; (c) volume of the cone. [Take pi = 22/7]",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) pi r l = 115.5\n2 marks: (a) r = 115.5 x 7/(22 x 10.5) = 3.50 cm\n1 mark: (b) h = sqrt(10.5^2 - 3.5^2)\n1 mark: (b) h = 9.90 cm\n1 mark: (c) V = (1/3)(22/7)(3.5^2)(9.899)\n2 marks: (c) V = 127 cm^3",
+      "explanation": "(a) r = 115.5/((22/7)(10.5)) = 3.50 cm. (b) h = sqrt(110.25 - 12.25) = sqrt98 = 9.90 cm. (c) V = (1/3)(22/7)(12.25)(9.899) = 127 cm^3 (3 s.f.).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-05",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "Two fair dice are thrown. M is the event described by \"the sum of the scores is 10\" and N is the event described by \"the difference between the scores is 3\". (a) Write out the elements of M and N. (b) Find the probability of M or N. (c) Are M and N mutually exclusive? Give reasons.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) M = {(4, 6), (5, 5), (6, 4)}\n2 marks: (a) N = {(1, 4), (2, 5), (3, 6), (4, 1), (5, 2), (6, 3)}\n1 mark: (b) P(M) = 3/36 = 1/12 and P(N) = 6/36 = 1/6\n2 marks: (b) P(M or N) = 1/12 + 1/6 = 1/4\n2 marks: (c) yes, M and N are mutually exclusive since they have no element in common (n(M n N) = 0)",
+      "explanation": "(a) M = {(4,6), (5,5), (6,4)}; N = {(1,4), (2,5), (3,6), (4,1), (5,2), (6,3)}. (b) P(M or N) = 3/36 + 6/36 = 9/36 = 1/4. (c) Yes: no outcome has both sum 10 and difference 3, so M n N is empty and they cannot occur together.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-09",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Bearings",
+      "stem": "In the diagram, |AB| = 8 km, |BC| = 13 km, the bearing of A from B is 310 degrees and the bearing of B from C is 230 degrees. Calculate, correct to 3 significant figures, (a) the distance AC; (b) the bearing of C from A; (c) how far east of B, C is.",
+      "marks": 12,
+      "markingGuide": "2 marks: angle ABC = 100 degrees (bearing of C from B is 050 degrees)\n1 mark: (a) AC^2 = 8^2 + 13^2 - 2(8)(13)cos 100\n2 marks: (a) AC = 16.4 km\n1 mark: (b) sin BAC = 13 sin 100/16.4\n1 mark: (b) angle BAC = 51.3 degrees\n2 marks: (b) bearing of C from A = 180 - (50 + 51.3) = 079 degrees (78.7 degrees)\n1 mark: (c) distance east = 13 cos 40 (= 13 sin 50)\n2 marks: (c) 9.96 km",
+      "explanation": "The bearing of C from B is 050, so angle ABC = 310 - 50 = 260 reflex, i.e. 100 degrees. (a) AC^2 = 64 + 169 - 208 cos 100 = 269.1, AC = 16.4 km. (b) sin BAC = 13 sin 100/16.4 gives angle BAC = 51.3 degrees; the bearing of C from A = 078.7 = 079 degrees. (c) C is 13 sin 50 = 9.96 km east of B.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2010jun-p2-11",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Areas",
+      "stem": "(a) In the diagram, angle PTQ = angle PSR = 90 degrees, |PQ| = 10 cm, |PS| = 14.4 cm and |TQ| = 6 cm. [T lies on PS and Q lies on PR.] Calculate the area of quadrilateral QRST. (b) Two opposite sides of a square are each decreased by 10% while the other two are each increased by 15% to form a rectangle. Find the ratio of the area of the rectangle to that of the square.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) |PT| = sqrt(10^2 - 6^2) = 8 cm\n2 marks: (a) similar triangles: |PT|/|PS| = |TQ|/|SR|\n1 mark: (a) |SR| = 10.8 cm\n1 mark: (a) |TS| = 14.4 - 8 = 6.4 cm\n2 marks: (a) area of trapezium QRST = (1/2)(6 + 10.8)(6.4) = 53.76 cm^2\n1 mark: (b) new sides 0.9y and 1.15y\n2 marks: (b) area of rectangle = 1.035y^2\n2 marks: (b) ratio = 1.035 : 1 = 207 : 200",
+      "explanation": "(a) PT = 8 cm. Triangles PTQ and PSR are similar, so SR = 6 x 14.4/8 = 10.8 cm; TS = 6.4 cm. QRST is a trapezium (TQ // SR): area = (1/2)(6 + 10.8)(6.4) = 53.76 cm^2. (b) If the side is y, the rectangle is 0.9y by 1.15y, area 1.035y^2, so the ratio is 1.035 : 1 = 207 : 200.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2010jun-p2-13",
+      "year": 2010,
+      "type": "THEORY",
+      "topic": "Sequence and Series",
+      "stem": "(a) The third term of a Geometric Progression (G.P.) is 24 and its seventh term is 4 20/27. Find its first term. (b) Given that y varies directly as x and inversely as the square of z. If y = 4, when x = 3 and z = 1, find y when x = 3 and z = 2.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) ar^2 = 24\n1 mark: (a) ar^6 = 128/27\n2 marks: (a) r^4 = 16/81, so r = 2/3 (or -2/3)\n2 marks: (a) first term a = 24/(4/9) = 54\n1 mark: (b) y = kx/z^2\n2 marks: (b) 4 = 3k, k = 4/3\n1 mark: (b) y = (4/3)(3)/2^2\n2 marks: (b) y = 1",
+      "explanation": "(a) ar^6/ar^2 = (128/27)/24 = 16/81 = r^4, so r^2 = 4/9 and a = 24/(4/9) = 54. (b) y = kx/z^2: 4 = 3k/1 gives k = 4/3; when x = 3 and z = 2, y = (4/3)(3)/4 = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-01",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Financial Arithmetic",
+      "stem": "A money lender collects $200 simple interest on a capital after 2 years at 5%. Calculate the capital invested.",
+      "options": [
+        "$1,000.00",
+        "$2,000.00",
+        "$3,000.00",
+        "$4,000.00"
+      ],
+      "answer": 1,
+      "explanation": "P = 100I/(RT) = 100 x 200/(5 x 2) = $2,000.00.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-02",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Simplify: log10 2.25 + 4 log10 2 - 2 log10 0.6.",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "log10(2.25 x 2^4 / 0.6^2) = log10(2.25 x 16 / 0.36) = log10 100 = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-03",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Surds (Radicals)",
+      "stem": "Simplify: 5sqrt(12) - 4sqrt(75) + 3sqrt(48).",
+      "options": [
+        "3sqrt(3)",
+        "2sqrt(3)",
+        "-2sqrt(3)",
+        "-3sqrt(3)"
+      ],
+      "answer": 1,
+      "explanation": "5(2sqrt3) - 4(5sqrt3) + 3(4sqrt3) = 10sqrt3 - 20sqrt3 + 12sqrt3 = 2sqrt3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-04",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Percentages",
+      "stem": "A book seller gives 5% discount to a customer who pays cash. What is the marked price of a book for which the customer pays ₦475.00?",
+      "options": [
+        "₦300.00",
+        "₦400.00",
+        "₦500.00",
+        "₦600.00"
+      ],
+      "answer": 2,
+      "explanation": "95% of the marked price = ₦475, so marked price = 475 x 100/95 = ₦500.00.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-05",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Variation",
+      "stem": "If y varies inversely as the cube root of x and y = 4 when x = 27, find y when x = 8.",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "explanation": "y = k/cuberoot(x): 4 = k/3 so k = 12; when x = 8, y = 12/2 = 6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-06",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Sequence and Series",
+      "stem": "The nth term of a sequence is 2^(2n) (-1/2)^n. Find the third term.",
+      "options": [
+        "-512",
+        "-64",
+        "-32",
+        "-8"
+      ],
+      "answer": 3,
+      "explanation": "T3 = 2^6 x (-1/2)^3 = 64 x (-1/8) = -8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-07",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Percentages",
+      "stem": "If y% of a number n equals k, what is 3% of n?",
+      "options": [
+        "k/(3y)",
+        "3k/y",
+        "k/(300y)",
+        "3k/(100y)"
+      ],
+      "answer": 1,
+      "explanation": "(y/100)n = k gives n = 100k/y, so 3% of n = (3/100)(100k/y) = 3k/y.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-14",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Solution of Linear Equations",
+      "stem": "If x + 2y = 7 and 4x + 11y = 34, by how much is 3y less than 10?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "Substituting x = 7 - 2y: 28 - 8y + 11y = 34, so y = 2 and 3y = 6; 10 - 6 = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-15",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Equations",
+      "stem": "Solve the equation: 7x^2 - 3x - 10 = 0.",
+      "options": [
+        "-1, 10/7",
+        "1, -10/7",
+        "-1, -10/7",
+        "1, 10/7"
+      ],
+      "answer": 0,
+      "explanation": "7x^2 - 3x - 10 = (7x - 10)(x + 1) = 0, so x = -1 or x = 10/7.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-16",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, P, Q and R are points on a circle with centre O. [In the diagram |RP| = |RQ|, and the line from R passes through O to meet the chord PQ at S.] The chord |PQ| = 10sqrt(3) cm, angle OSQ = 90 degrees and angle POQ = 120 degrees. Find |RS|.",
+      "options": [
+        "15 cm",
+        "15sqrt(3) cm",
+        "25 cm",
+        "25sqrt(3) cm"
+      ],
+      "answer": 0,
+      "explanation": "PS = 5sqrt3 and angle POS = 60 degrees, so radius = 5sqrt3/sin 60 = 10 cm and OS = 10 cos 60 = 5 cm; RS = RO + OS = 10 + 5 = 15 cm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p1-17",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Volumes",
+      "stem": "A rectangular tank 82 cm long, 37 cm wide and 75 cm deep has the same volume as a cylinderical tank. If the radius of the cylinderical tank is 30 cm, calculate its height. [Take pi = 3.14]",
+      "options": [
+        "83.00 cm",
+        "80.52 cm",
+        "52.80 cm",
+        "50.80 cm"
+      ],
+      "answer": 1,
+      "explanation": "h = (82 x 37 x 75)/(3.14 x 30^2) = 227550/2826 = 80.52 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-18",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "A chord PR of a circle, centre O, is 20 cm long. If angle POR = 120 degrees, calculate the radius of the circle.",
+      "options": [
+        "16.0 cm",
+        "13.0 cm",
+        "11.5 cm",
+        "11.2 cm"
+      ],
+      "answer": 2,
+      "explanation": "Half the chord is 10 cm and subtends 60 degrees at O, so r = 10/sin 60 = 11.5 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-19",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "PQ is the diameter of a circle PQR. |PR| = 9 cm and |RQ| = 12 cm. Calculate the area of the circle. [Take pi = 22/7]",
+      "options": [
+        "88.4 cm^2",
+        "144.0 cm^2",
+        "176.8 cm^2",
+        "225.0 cm^2"
+      ],
+      "answer": 2,
+      "explanation": "Angle in a semicircle is 90 degrees, so PQ = sqrt(9^2 + 12^2) = 15 cm, r = 7.5 cm; area = (22/7)(7.5)^2 = 176.8 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-20",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In an octagon, three of the interior angles are x degrees each. Each of the remaining five interior angles is (16 + x) degrees. Find the value of x.",
+      "options": [
+        "102 degrees",
+        "105 degrees",
+        "120 degrees",
+        "125 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Sum of interior angles = 6 x 180 = 1080; 3x + 5(16 + x) = 1080 gives 8x = 1000, x = 125.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-21",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "In the diagram, PSQ and PTR are straight lines, reflex angle SHT = 5x, angle HTR = 2x and angle QSH = 3x. [PSHT is a quadrilateral with angle SPT = 40 degrees.] Find the value of x.",
+      "options": [
+        "32 degrees",
+        "40 degrees",
+        "68 degrees",
+        "70 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Interior angles of PSHT: 40 + (180 - 3x) + (360 - 5x) + (180 - 2x) = 360, so 10x = 400 and x = 40.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p1-23",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "In the diagram, PQ is parallel to SR, angle EQR = 100 degrees and ER bisects angle QRS. [E is a point on PQ between P and Q, and x is the angle PER.] Find the value of x.",
+      "options": [
+        "120 degrees",
+        "130 degrees",
+        "140 degrees",
+        "150 degrees"
+      ],
+      "answer": 2,
+      "explanation": "Angle QRS = 180 - 100 = 80 (co-interior), so angle ERS = 40 = angle QER (alternate); x = angle PER = 180 - 40 = 140.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-24",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagram, ST//QR, |PS| = 6 cm, |ST| = 8 cm and |QR| = 12 cm. [S and T lie on the sides PQ and PR of triangle PQR respectively.] Calculate |SQ|.",
+      "options": [
+        "6 cm",
+        "5 cm",
+        "4 cm",
+        "3 cm"
+      ],
+      "answer": 3,
+      "explanation": "Triangles PST and PQR are similar: PQ/6 = 12/8, so PQ = 9 cm and SQ = 9 - 6 = 3 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-25",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "[T, S, P and Q are points on a circle. The chords TS and PQ are produced to meet at R outside the circle; TQ and SP are chords that cross inside the circle.] Angle QTS = 31 degrees and angle SRQ = 58 degrees. Find the value of angle TSP in the diagram.",
+      "options": [
+        "91 degrees",
+        "89 degrees",
+        "71 degrees",
+        "69 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Angle SPQ = angle STQ = 31 degrees (same segment). Angle TSP is an exterior angle of triangle PSR, so TSP = 31 + 58 = 89 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p1-26",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Bearings",
+      "stem": "The bearing of P from Q is N5 degrees W. Find the true bearing of Q from P.",
+      "options": [
+        "100 degrees",
+        "175 degrees",
+        "180 degrees",
+        "185 degrees"
+      ],
+      "answer": 1,
+      "explanation": "N5 degrees W = 355 degrees; the back bearing is 355 - 180 = 175 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-27",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "If cos p = 0.8, evaluate 20 tan p sin p.",
+      "options": [
+        "6",
+        "9",
+        "12",
+        "18"
+      ],
+      "answer": 1,
+      "explanation": "With cos p = 0.8 (3-4-5 triangle), sin p = 0.6 and tan p = 0.75; 20 x 0.75 x 0.6 = 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-28",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "A ladder 5 m long leans against a vertical wall. The foot of the ladder is 3 m from the wall on the same horizontal ground. Calculate, correct to the nearest degree, the angle which the ladder makes with the wall.",
+      "options": [
+        "35 degrees",
+        "37 degrees",
+        "38 degrees",
+        "39 degrees"
+      ],
+      "answer": 1,
+      "explanation": "sin theta = 3/5 = 0.6, so theta = 36.87 = 37 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-29",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "What is the probability that an event E will surely occur?",
+      "options": [
+        "Pr(E) = 1",
+        "Pr(E) not equal to 0",
+        "Pr(E) < 1",
+        "Pr(E) > 0"
+      ],
+      "answer": 0,
+      "explanation": "An event that is certain to occur has probability 1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-30",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "The pie chart represents the distribution of 900 undergraduates in a university. [The sectors are: Part 1, 120 degrees; Part 2, 2x degrees; Part 3, x degrees; Part 4, x degrees.] Calculate the value of x.",
+      "options": [
+        "36 degrees",
+        "60 degrees",
+        "72 degrees",
+        "108 degrees"
+      ],
+      "answer": 1,
+      "explanation": "120 + 2x + x + x = 360, so 4x = 240 and x = 60.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-31",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "The pie chart represents the distribution of 900 undergraduates in a university. [The sectors are: Part 1, 120 degrees; Part 2, 2x degrees; Part 3, x degrees; Part 4, x degrees.] How many undergraduates are in Part 3?",
+      "options": [
+        "100",
+        "120",
+        "150",
+        "180"
+      ],
+      "answer": 2,
+      "explanation": "x = 60 degrees, so Part 3 has (60/360) x 900 = 150 undergraduates.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-32",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "If the mean of 15, x, 18 and 13 is 19, find the median.",
+      "options": [
+        "15.0",
+        "15.5",
+        "16.5",
+        "18.0"
+      ],
+      "answer": 2,
+      "explanation": "15 + x + 18 + 13 = 76, so x = 30. Ordered: 13, 15, 18, 30; median = (15 + 18)/2 = 16.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-33",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "Aku, Kay and Badu share an amount in the ratio 2:5:9 respectively. If Badu receives GH₵48.00 more than Kay, find the amount shared.",
+      "options": [
+        "GH₵92.00",
+        "GH₵126.67",
+        "GH₵153.60",
+        "GH₵192.00"
+      ],
+      "answer": 3,
+      "explanation": "9 - 5 = 4 parts = 48, so 1 part = 12 and the total (16 parts) = 192.00.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-34",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Fractions, Decimals and Approximations",
+      "stem": "Simplify: 6 1/3 - 2 3/4 + 1 1/6.",
+      "options": [
+        "4 3/4",
+        "4 1/5",
+        "2 1/4",
+        "11/30"
+      ],
+      "answer": 0,
+      "explanation": "19/3 - 11/4 + 7/6 = (76 - 33 + 14)/12 = 57/12 = 4 3/4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-35",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Fractions",
+      "stem": "Simplify: [3/x - 15/(2y)] / (6/(xy)).",
+      "options": [
+        "(2y - 5x)/4",
+        "3(2y - 5x)/(2x^2 y^2)",
+        "(5x - 2y)/4",
+        "x^2 y^2/(18y - 45x)"
+      ],
+      "answer": 0,
+      "explanation": "3/x - 15/(2y) = (6y - 15x)/(2xy); multiplying by xy/6 gives (6y - 15x)/12 = (2y - 5x)/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-36",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "In the figure, PS//QR. SR bisects angle PRQ. [SR cuts PQ at T, and x is the angle between TS and TQ at T.] If angle PST = 30 degrees and angle RPQ = 60 degrees, calculate angle x.",
+      "options": [
+        "105 degrees",
+        "100 degrees",
+        "95 degrees",
+        "90 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Angle TRQ = angle PST = 30 (alternate), so angle PRT = 30 (bisector). In triangle PTR, angle PTR = 180 - 60 - 30 = 90, and x is vertically opposite it, so x = 90 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-37",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, RQ is a tangent to the circle at Q, RSP is a straight line with S and P on the circle, |PS| = |SQ| and angle SQR = 50 degrees. Calculate angle SRQ.",
+      "options": [
+        "30 degrees",
+        "35 degrees",
+        "40 degrees",
+        "45 degrees"
+      ],
+      "answer": 0,
+      "explanation": "Angle SPQ = angle SQR = 50 (alternate segment); PS = SQ gives angle SQP = 50, so angle PSQ = 80 and angle RSQ = 100. In triangle RSQ, angle SRQ = 180 - 100 - 50 = 30 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p1-38",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "Two students are selected at random from 5 boys and 4 girls. Find the probability that both are boys.",
+      "options": [
+        "5/18",
+        "2/9",
+        "5/9",
+        "20/81"
+      ],
+      "answer": 0,
+      "explanation": "P = (5/9)(4/8) = 20/72 = 5/18.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-39",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Lengths and Perimeters",
+      "stem": "Calculate the perimeter of a quadrant of a circle, radius 10.5 cm. [Take pi = 22/7]",
+      "options": [
+        "37.5 cm",
+        "36.0 cm",
+        "32.5 cm",
+        "27.0 cm"
+      ],
+      "answer": 0,
+      "explanation": "Perimeter = 2r + (1/4)(2 pi r) = 21 + 16.5 = 37.5 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-40",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "P and Q are two intersecting subsets of a universal set E. If n(P) = 25, n(Q) = 20, n(P U Q)' = 5 and n(E) = 40, find n(P n Q).",
+      "options": [
+        "5",
+        "10",
+        "15",
+        "20"
+      ],
+      "answer": 1,
+      "explanation": "n(P U Q) = 40 - 5 = 35; n(P n Q) = 25 + 20 - 35 = 10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-41",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Volumes",
+      "stem": "The perpendicular height of a pyramid is 12 m. If its base is a square of side 5 m, calculate its volume.",
+      "options": [
+        "200 m^3",
+        "100 m^3",
+        "80 m^3",
+        "60 m^3"
+      ],
+      "answer": 1,
+      "explanation": "V = (1/3) x base area x height = (1/3)(25)(12) = 100 m^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-42",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagram, WXY is a triangle and Z is a point on YW. |XY| = |XW|, |XZ| = |WZ| and angle XYZ = 50 degrees. Find angle XZW.",
+      "options": [
+        "55 degrees",
+        "65 degrees",
+        "70 degrees",
+        "80 degrees"
+      ],
+      "answer": 3,
+      "explanation": "XY = XW gives angle XWZ = 50; XZ = WZ gives angle ZXW = 50; so angle XZW = 180 - 50 - 50 = 80 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-43",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Express the sum of 10^-2 and 10^-3 in standard form.",
+      "options": [
+        "1.0 x 10^-6",
+        "1.0 x 10^-4",
+        "1.1 x 10^-3",
+        "1.1 x 10^-2"
+      ],
+      "answer": 3,
+      "explanation": "0.01 + 0.001 = 0.011 = 1.1 x 10^-2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-44",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Change of Subject of a Formula/Relation",
+      "stem": "Given that r = xy/2 and x = v/w, express r in terms of y, v and w.",
+      "options": [
+        "2vw/y",
+        "vw/(2y)",
+        "vwy/2",
+        "vy/(2w)"
+      ],
+      "answer": 3,
+      "explanation": "r = (v/w)(y)/2 = vy/(2w).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-45",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "Calculate the length of the diagonal of a square whose area is p cm^2.",
+      "options": [
+        "sqrt(p)",
+        "2sqrt(p)",
+        "p sqrt(2)",
+        "sqrt(2p)"
+      ],
+      "answer": 3,
+      "explanation": "Side = sqrt(p), so diagonal = sqrt(p) x sqrt(2) = sqrt(2p).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-46",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "If 2p^2 = 1/2 and pq = 2, find the values of q.",
+      "options": [
+        "-4, 4",
+        "-2, 2",
+        "2, 2",
+        "4, 4"
+      ],
+      "answer": 0,
+      "explanation": "p^2 = 1/4, so p = +-1/2 and q = 2/p = +-4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-48",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Number Bases",
+      "stem": "Convert 2201 (base four) to a base ten numeral.",
+      "options": [
+        "128",
+        "137",
+        "161",
+        "165"
+      ],
+      "answer": 2,
+      "explanation": "2 x 64 + 2 x 16 + 0 x 4 + 1 = 128 + 32 + 1 = 161.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p1-49",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Coordinate Geometry of Straight Lines",
+      "stem": "[A straight-line graph cuts the x-axis at (-3, 0) and the y-axis at (0, 2).] Which of the following equations satisfies the linear graph above?",
+      "options": [
+        "3y = 2x - 6",
+        "2y = -3x + 6",
+        "3y = 2x + 6",
+        "2y = 3x - 6"
+      ],
+      "answer": 2,
+      "explanation": "Gradient = 2/3 and intercept 2: y = (2/3)x + 2, i.e. 3y = 2x + 6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p1-50",
+      "year": 2011,
+      "type": "OBJECTIVE",
+      "topic": "Linear Inequalities",
+      "stem": "[A number line shows an open circle at -5 with an arrow drawn from it to the right.] Which of the following inequalities is represented by the number line?",
+      "options": [
+        "x >= -5",
+        "x > -5",
+        "x < -5",
+        "x <= -5"
+      ],
+      "answer": 1,
+      "explanation": "An open circle excludes -5 and the arrow to the right means greater than: x > -5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2011nov-p2-01",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Indices",
+      "stem": "(a) Find the value of x in the expression: 3^(2x+1) / [3^(3x-4) x 3^(6-7x)] = 27^x. (b) Without using Tables or Calculator, simplify: (1/3)log(125/8) - 2log(2/5) + log(80/125) (All logarithms are in base 10).",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) denominator combined as 3^(3x-4+6-7x) = 3^(2-4x)\n1 mark: (a) left side written as 3^(6x-1) and 27^x as 3^(3x)\n2 marks: (a) 6x - 1 = 3x, so x = 1/3\n1 mark: (b) (1/3)log(125/8) = log(5/2)\n1 mark: (b) 2log(2/5) = log(4/25)\n2 marks: (b) log[(5/2)(25/4)(16/25)] = log 10 = 1",
+      "explanation": "(a) 3^(2x+1)/3^(2-4x) = 3^(6x-1) = 3^(3x), so 6x - 1 = 3x and x = 1/3. (b) (1/3)log(125/8) = log(5/2); 2log(2/5) = log(4/25). Expression = log[(5/2) x (25/4) x (16/25)] = log 10 = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-02",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Solution of Linear Equations",
+      "stem": "(a) Solve the equations 8 = 2^(x+y) and 1 = 3^(x-y) simultaneously. (b) If (3x + 2y)/(5x - 4y) = 9/4, find the ratio x : y.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) x + y = 3\n1 mark: (a) x - y = 0\n2 marks: (a) x = 3/2, y = 3/2\n1 mark: (b) 4(3x + 2y) = 9(5x - 4y)\n1 mark: (b) 44y = 33x\n2 marks: (b) x : y = 4 : 3",
+      "explanation": "(a) 8 = 2^3 gives x + y = 3; 1 = 3^0 gives x - y = 0. Hence x = y = 3/2. (b) 12x + 8y = 45x - 36y, so 44y = 33x and x/y = 44/33 = 4/3; x : y = 4 : 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-03",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "(a) A cube of side 4 cm has the same volume as a cone with diameter 7 cm. Calculate, correct to the nearest cm, the height of the cone. [Take pi = 22/7]. (b) In the diagram, O is the centre of the circle, radius 14 cm. If the length of the minor arc XY is 36 cm, calculate the area of the minor sector OXY. [Take pi = 22/7].",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) volume of cube = 64 cm^3\n1 mark: (a) (1/3)(22/7)(3.5)^2 h = 64\n2 marks: (a) h = 4.99, so h = 5 cm to the nearest cm\n1 mark: (b) angle of sector from arc: theta/360 x 2 x (22/7) x 14 = 36 (theta = 147.3 degrees) or use area = (1/2) x r x arc\n1 mark: (b) area = (1/2)(14)(36) or (theta/360)(22/7)(14^2)\n2 marks: (b) area = 252 cm^2",
+      "explanation": "(a) 64 = (1/3)(22/7)(3.5^2)h, so h = 192/38.5 = 4.99 = 5 cm. (b) Area of sector = (1/2) x radius x arc length = (1/2)(14)(36) = 252 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-04",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Circles",
+      "stem": "(a) In the diagram, O is the centre of the circle, OC is parallel to AD, AB is a straight line [through O, so AB is a diameter; A, B, C, D lie on the circle] and angle OCA = 48 degrees. Calculate angle ABC. (b) From a window of a building, the angle of elevation of the top of a tower 50 m away is 31 degrees and the angle of depression of the foot of the tower is 25 degrees. Calculate, correct to 2 decimal places, the height of the tower.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) angle OAC = 48 degrees (OA = OC, isosceles triangle)\n1 mark: (a) angle AOC = 180 - 96 = 84 degrees\n2 marks: (a) angle ABC = 84/2 = 42 degrees (angle at centre twice angle at circumference)\n1 mark: (b) height above window level = 50 tan 31 = 30.04 m\n1 mark: (b) height below window level = 50 tan 25 = 23.32 m\n2 marks: (b) height of tower = 53.36 m",
+      "explanation": "(a) OA = OC, so angle OAC = 48 and angle AOC = 84 degrees; angle ABC = (1/2)(84) = 42 degrees. (b) Height = 50 tan 31 + 50 tan 25 = 30.04 + 23.32 = 53.36 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-05",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "(a) The number of green (G), red (R), white (W) and black (B) identical balls contained in a bag is as shown in the table: G: 2; R: 4; W: 3; B: 1. If two balls are selected at random without replacement, find the probability that both balls are green. (b) In a test, if a student had scored 80 marks in one of the subjects, his average mark in 8 subjects would be 62. If he had scored 64 marks in that same subject with the scores in the remaining 7 subjects unchanged, the average mark would be m. Find the value of m.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) total number of balls = 10\n1 mark: (a) P = (2/10) x (1/9)\n2 marks: (a) P = 1/45\n1 mark: (b) total marks = 8 x 62 = 496\n1 mark: (b) new total = 496 - 80 + 64 = 480\n2 marks: (b) m = 480/8 = 60",
+      "explanation": "(a) P(both green) = (2/10)(1/9) = 1/45. (b) Total = 8 x 62 = 496; replacing 80 by 64 gives 480; m = 480/8 = 60.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-06",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Financial Arithmetic",
+      "stem": "A man whose annual basic salary is ₦750,000.00 is allowed the following tax reliefs: Personal allowance: 20% of annual basic salary; Wife allowance: ₦70,000.00; Children allowance: ₦30,000.00 per child up to 4 children; Dependent Relatives: ₦100,000.00. (a) If the man has four children, calculate his taxable income. (b) If he pays tax at the rate of 35 kobo in the naira on the first ₦180,000.00 taxable income and 15 kobo in the naira on the remaining taxable income, calculate his monthly tax.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) personal allowance = 20% of 750,000 = ₦150,000\n2 marks: (a) total relief = 150,000 + 70,000 + 120,000 + 100,000 = ₦440,000\n2 marks: (a) taxable income = 750,000 - 440,000 = ₦310,000\n2 marks: (b) tax on first ₦180,000 = 0.35 x 180,000 = ₦63,000\n2 marks: (b) tax on remaining ₦130,000 = 0.15 x 130,000 = ₦19,500\n2 marks: (b) annual tax ₦82,500; monthly tax = 82,500/12 = ₦6,875.00",
+      "explanation": "(a) Reliefs = 150,000 + 70,000 + 4(30,000) + 100,000 = ₦440,000; taxable income = 750,000 - 440,000 = ₦310,000. (b) Tax = 0.35(180,000) + 0.15(130,000) = 63,000 + 19,500 = ₦82,500 a year, so monthly tax = ₦6,875.00.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-07",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Angles of Elevation and Depression",
+      "stem": "(a) In the diagram, angle QSR = 90 degrees, |PR| = 150 m, |QS| = h metres and angle QPR = angle RQS = 30 degrees. [P, R and S lie on a straight line in that order, and Q is vertically above S.] Calculate, correct to the nearest whole number, the value of h. (b) In the diagram, O is the centre of the circle PQS. SR is a tangent [at S, and QR is a straight line meeting the tangent at R], reflex angle POS = 252 degrees [with Q on the major arc] and angle SQR = 79 degrees. [|PQ| = |QS|.] Calculate the size of angle QRS.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) RS = h tan 30 (or h/sqrt3)\n1 mark: (a) PS = h/tan 30 = h sqrt3\n2 marks: (a) h sqrt3 - h/sqrt3 = 150\n2 marks: (a) h = 129.9 = 130 m\n1 mark: (b) angle POS (non-reflex) = 108 degrees\n1 mark: (b) angle PQS = 54 degrees (half the angle at the centre)\n1 mark: (b) angle QPS = angle QSP = 63 degrees (PQ = QS)\n1 mark: (b) angle QSR = angle QPS = 63 degrees (alternate segment)\n2 marks: (b) angle QRS = 180 - 79 - 63 = 38 degrees",
+      "explanation": "(a) In triangle QRS, angle QRS = 60, so RS = h/sqrt3; in triangle QPS, PS = h sqrt3. Then h sqrt3 - h/sqrt3 = 150, so 2h/sqrt3 = 150 and h = 75sqrt3 = 129.9 = 130 m. (b) Angle POS = 360 - 252 = 108, so angle PQS = 54; triangle PQS is isosceles, so angle QPS = 63. By the alternate segment theorem angle QSR = 63, hence angle QRS = 180 - 79 - 63 = 38 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p2-10",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Sequence and Series",
+      "stem": "(a) Given the Arithmetic Sequence -6, -2 1/2, 1, ..., 71, find the: (i) common difference; (ii) number of terms of the sequence. (b) The difference between the third and first terms of a Geometric Progression (G.P.) is 42. If the fourth term is greater than the second term by 168, find the: (i) first term; (ii) fourth term of the progression.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a)(i) d = -2 1/2 - (-6) = 3 1/2\n1 mark: (a)(ii) -6 + (n - 1)(3.5) = 71\n2 marks: (a)(ii) n = 23\n1 mark: (b) ar^2 - a = 42\n1 mark: (b) ar^3 - ar = 168\n2 marks: (b) dividing, r = 4\n2 marks: (b)(i) a(16 - 1) = 42, a = 2.8\n1 mark: (b)(ii) fourth term = 2.8 x 4^3 = 179.2",
+      "explanation": "(a) d = 3 1/2; 71 = -6 + (n - 1)(7/2) gives n - 1 = 22, n = 23. (b) a(r^2 - 1) = 42 and ar(r^2 - 1) = 168, so r = 4; a = 42/15 = 2.8; fourth term = 2.8 x 64 = 179.2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-11",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "The diagram is a right pyramid with a triangular base PQR and height |SN|. If |PQ| = 6 cm, |PR| = |RQ| = 5 cm, |PN| = 3.3 cm and angle SPN = 52 degrees, calculate, correct to 2 significant figures, the (i) vertical height |SN|; (ii) area of the base PRQ; (iii) volume; (iv) angle between the slant face SPQ and the base PRQ of the pyramid. [N lies on the line of symmetry of the base through R.]",
+      "marks": 12,
+      "markingGuide": "3 marks: (i) SN = 3.3 tan 52 = 4.2 cm\n2 marks: (ii) height of base triangle = sqrt(5^2 - 3^2) = 4 cm\n1 mark: (ii) area = (1/2)(6)(4) = 12 cm^2\n3 marks: (iii) volume = (1/3)(12)(4.22) = 17 cm^3\n1 mark: (iv) distance from N to midpoint M of PQ = sqrt(3.3^2 - 3^2) = 1.375 cm\n2 marks: (iv) tan theta = 4.22/1.375, theta = 72 degrees",
+      "explanation": "(i) SN = PN tan 52 = 3.3 x 1.2799 = 4.2 cm. (ii) The altitude from R to PQ is sqrt(25 - 9) = 4 cm, so area = 12 cm^2. (iii) V = (1/3)(12)(4.224) = 16.9 = 17 cm^3. (iv) With M the midpoint of PQ, NM = sqrt(3.3^2 - 3^2) = 1.375 cm, so tan theta = 4.224/1.375 and theta = 72 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p2-12",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Statistics",
+      "stem": "The table shows the distribution of the masses of some bags of beans in a grains stores. Mass (kg): 51 - 55, 56 - 60, 61 - 65, 66 - 70, 71 - 75, 76 - 80; No of bags: 7, 10, 24, 6, 2, 1 respectively. Calculate, correct to one decimal place, the: (a) range; (b) mean deviation of the distribution.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) range = highest class mark - lowest class mark = 78 - 53 = 25.0 kg (accept 80.5 - 50.5 = 30.0 kg using class boundaries)\n2 marks: (b) class marks 53, 58, 63, 68, 73, 78 and sum f = 50\n2 marks: (b) sum fx = 3095\n1 mark: (b) mean = 3095/50 = 61.9 kg\n3 marks: (b) |x - mean| values and sum f|x - mean| = 202.6\n2 marks: (b) mean deviation = 202.6/50 = 4.1",
+      "explanation": "(a) Using class marks, range = 78 - 53 = 25.0 kg. (b) Sum f = 50, sum fx = 3095, mean = 61.9. Deviations |x - 61.9|: 8.9, 3.9, 1.1, 6.1, 11.1, 16.1; sum f|x - mean| = 62.3 + 39 + 26.4 + 36.6 + 22.2 + 16.1 = 202.6; mean deviation = 202.6/50 = 4.05 = 4.1 (1 d.p.).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2011nov-p2-13",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Bearings",
+      "stem": "From a point X, a boat sails 6 km on a bearing of 037 degrees to a point Y. It then sails 7 km from Y on a bearing of 068 degrees to a point Z. Calculate the: (a) distance XZ, correct to two decimal places; (b) bearing of Z from X, correct to the nearest degree.",
+      "marks": 12,
+      "markingGuide": "2 marks: correct sketch with angle XYZ = 180 - 68 + 37 = 149 degrees\n2 marks: XZ^2 = 6^2 + 7^2 - 2(6)(7)cos 149\n2 marks: XZ = 12.53 km\n2 marks: sin YXZ / 7 = sin 149 / 12.53\n2 marks: angle YXZ = 16.7 degrees\n2 marks: bearing of Z from X = 037 + 16.7 = 054 degrees",
+      "explanation": "Angle XYZ = 180 - 68 + 37 = 149 degrees. XZ^2 = 36 + 49 - 84 cos 149 = 157.0, so XZ = 12.53 km. sin YXZ = 7 sin 149/12.53, giving angle YXZ = 16.7 degrees, so the bearing of Z from X = 037 + 17 = 054 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2011nov-p2-14",
+      "year": 2011,
+      "type": "THEORY",
+      "topic": "Modular Arithmetic",
+      "stem": "[For candidates in Ghana, Sierra Leone and The Gambia only.] (a) Draw the tables for: (i) addition (+) (ii) multiplication (x) on the set {0, 1, 2, 3, 4} modulo 7. (b) From your table, evaluate: (i) m (x) m = 2 (ii) m (+) (m (x) 4) = 5 (iii) m (x) (m + 3) = 0",
+      "marks": 12,
+      "markingGuide": "3 marks: (a)(i) correct addition table mod 7 (rows 0-4: 01234, 12345, 23456, 34560, 45601)\n3 marks: (a)(ii) correct multiplication table mod 7 (rows: 00000, 01234, 02461, 03625, 04152)\n2 marks: (b)(i) m = 3 or m = 4\n2 marks: (b)(ii) 5m = 5 (mod 7), m = 1\n2 marks: (b)(iii) m = 0 or m = 4",
+      "explanation": "Addition mod 7 rows: 0:0 1 2 3 4; 1:1 2 3 4 5; 2:2 3 4 5 6; 3:3 4 5 6 0; 4:4 5 6 0 1. Multiplication rows: 0:0 0 0 0 0; 1:0 1 2 3 4; 2:0 2 4 6 1; 3:0 3 6 2 5; 4:0 4 1 5 2. (i) m^2 = 2: m = 3 or 4. (ii) m + 4m = 5m = 5, so m = 1. (iii) m(m + 3) = 0: m = 0 or m = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-01",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Multiply 2.7 x 10^-4 by 6.3 x 10^6 and leave your answer in standard form.",
+      "options": [
+        "1.7 x 10^3",
+        "1.70 x 10^3",
+        "1.701 x 10^3",
+        "17.01 x 10^3"
+      ],
+      "answer": 2,
+      "explanation": "2.7 x 6.3 = 17.01 and 10^-4 x 10^6 = 10^2, so the product = 17.01 x 10^2 = 1.701 x 10^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-02",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "If 9^(2 - x) = 3, find x.",
+      "options": [
+        "1",
+        "3/2",
+        "2",
+        "5/2"
+      ],
+      "answer": 1,
+      "explanation": "3^(2(2 - x)) = 3^1, so 4 - 2x = 1 and x = 3/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-03",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Number Bases",
+      "stem": "In what number base is the addition 465 + 24 + 225 = 1050?",
+      "options": [
+        "ten",
+        "nine",
+        "eight",
+        "seven"
+      ],
+      "answer": 3,
+      "explanation": "In base seven: 465 = 243, 24 = 18, 225 = 117 (base ten), total 378 = 1050 (base seven), since 343 + 35 = 378.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-04",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Fractions, Decimals and Approximations",
+      "stem": "Simplify: (1 7/8 x 2 2/5) / (6 3/4 / 3/4).",
+      "options": [
+        "9",
+        "4 1/2",
+        "2",
+        "1/2"
+      ],
+      "answer": 3,
+      "explanation": "Numerator: 15/8 x 12/5 = 9/2; denominator: 27/4 x 4/3 = 9; (9/2)/9 = 1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-05",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sequence and Series",
+      "stem": "If Un = n(n^2 + 1), evaluate U5 - U4.",
+      "options": [
+        "18",
+        "56",
+        "62",
+        "80"
+      ],
+      "answer": 2,
+      "explanation": "U5 = 5(26) = 130 and U4 = 4(17) = 68; 130 - 68 = 62.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-06",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Surds (Radicals)",
+      "stem": "If sqrt(50) - K sqrt(8) = 2/sqrt(2), find K.",
+      "options": [
+        "-2",
+        "-1",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "explanation": "5sqrt2 - 2K sqrt2 = sqrt2, so 5 - 2K = 1 and K = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-07",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Percentages",
+      "stem": "A sales boy gave a change of ₦68 instead of ₦72. Calculate his percentage error.",
+      "options": [
+        "4%",
+        "5 5/9%",
+        "5 15/17%",
+        "7%"
+      ],
+      "answer": 1,
+      "explanation": "Error = 72 - 68 = 4; percentage error = (4/72) x 100 = 5 5/9%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-08",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Expressions",
+      "stem": "Four oranges sell for ₦x and three mangoes sell for ₦y. Olu bought 24 oranges and 12 mangoes. How much did he pay in terms of x and y?",
+      "options": [
+        "₦(4x + 6y)",
+        "₦(6x + 4y)",
+        "₦(24x + 12y)",
+        "₦(12x + 24y)"
+      ],
+      "answer": 1,
+      "explanation": "24 oranges = 6 lots of 4 = ₦6x; 12 mangoes = 4 lots of 3 = ₦4y; total ₦(6x + 4y).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-09",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Fractions",
+      "stem": "Simplify: (x^2 - y^2)/(x + y)^2 / ((x - y)^2/(3x + 3y)).",
+      "options": [
+        "(x - y)/3",
+        "x + y",
+        "3/(x - y)",
+        "x - y"
+      ],
+      "answer": 2,
+      "explanation": "(x - y)(x + y)/(x + y)^2 x 3(x + y)/(x - y)^2 = 3/(x - y).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-10",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Linear Inequalities",
+      "stem": "Solve the inequality: (2x - 5)/2 < (2 - x).",
+      "options": [
+        "x > 0",
+        "x < 1/4",
+        "x > 2 1/2",
+        "x < 2 1/4"
+      ],
+      "answer": 3,
+      "explanation": "2x - 5 < 4 - 2x gives 4x < 9, so x < 2 1/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-11",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "If x = 64 and y = 27, evaluate: (x^(1/2) - y^(1/3))/(y - x^(2/3)).",
+      "options": [
+        "2 1/5",
+        "1",
+        "5/11",
+        "11/43"
+      ],
+      "answer": 2,
+      "explanation": "x^(1/2) = 8, y^(1/3) = 3, x^(2/3) = 16; (8 - 3)/(27 - 16) = 5/11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-12",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Linear Inequalities",
+      "stem": "Which of the following lines represents the solution of the inequality 7x < 9x - 4?",
+      "options": [
+        "An open circle at 2 with an arrow to the right",
+        "An open circle at 2 with an arrow to the left",
+        "An open circle at -2 with an arrow to the right",
+        "An open circle at -2 with an arrow to the left"
+      ],
+      "answer": 0,
+      "explanation": "7x < 9x - 4 gives 4 < 2x, i.e. x > 2: open circle at 2, arrow pointing right.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-13",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Solution of Linear Equations",
+      "stem": "If (1/2)x + 2y = 3 and (3/2)x - 2y = 1, find (x + y).",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "explanation": "Adding: 2x = 4, so x = 2; then 1 + 2y = 3 gives y = 1; x + y = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-14",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Change of Subject of a Formula/Relation",
+      "stem": "Given that p^(1/3) = cuberoot(q)/r, make q the subject of the equation.",
+      "options": [
+        "q = p sqrt(r)",
+        "q = p^3 r",
+        "q = pr^3",
+        "q = 1/(pr^3)"
+      ],
+      "answer": 2,
+      "explanation": "Cubing both sides: p = q/r^3, so q = pr^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-15",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Lengths and Perimeters",
+      "stem": "In the diagram, PRST is a square. If |PQ| = 24 cm, |QR| = 10 cm and angle PQR = 90 degrees; find the perimeter of the polygon PQRST. [Triangle PQR stands on the side PR of the square, outside it.]",
+      "options": [
+        "112 cm",
+        "98 cm",
+        "86 cm",
+        "84 cm"
+      ],
+      "answer": 0,
+      "explanation": "PR = sqrt(24^2 + 10^2) = 26 cm; perimeter = PQ + QR + RS + ST + TP = 24 + 10 + 3(26) = 112 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-16",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "In the diagram, the height of a flagpole |TF| and the length of its shadow |FL| are in the ratio 6 : 8. [Angle TFL = 90 degrees.] Using K as a constant of proportionality, find the shortest distance between T and L.",
+      "options": [
+        "7K units",
+        "10K units",
+        "12K units",
+        "14K units"
+      ],
+      "answer": 1,
+      "explanation": "TF = 6K and FL = 8K, so TL = sqrt(36K^2 + 64K^2) = 10K units.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-17",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "A chord is 2 cm from the centre of a circle. If the radius of the circle is 5 cm, find the length of the chord.",
+      "options": [
+        "2sqrt(21) cm",
+        "sqrt(42) cm",
+        "2sqrt(19) cm",
+        "sqrt(21) cm"
+      ],
+      "answer": 0,
+      "explanation": "Half-chord = sqrt(5^2 - 2^2) = sqrt21, so the chord = 2sqrt21 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-18",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Volumes",
+      "stem": "A cube and a cuboid have the same base area. The volume of the cube is 64 cm^3 while that of the cuboid is 80 cm^3. Find the height of the cuboid.",
+      "options": [
+        "2 cm",
+        "3 cm",
+        "5 cm",
+        "6 cm"
+      ],
+      "answer": 2,
+      "explanation": "Cube side = 4 cm, base area = 16 cm^2; height of cuboid = 80/16 = 5 cm.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-19",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, VX is a tangent to the circle UYW at W. If WY//UV, angle UYW = 95 degrees and angle UWY = 46 degrees, find angle UVW. [V and X lie on the tangent on opposite sides of W, and Y is on the same side as X.]",
+      "options": [
+        "51 degrees",
+        "49 degrees",
+        "39 degrees",
+        "34 degrees"
+      ],
+      "answer": 2,
+      "explanation": "In triangle UWY, angle WUY = 180 - 95 - 46 = 39. By the alternate segment theorem angle YWX = 39, and since WY//UV, angle UVW = angle YWX = 39 degrees (corresponding angles).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013jun-p1-20",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagrams [of triangles XYZ and MNO], |XZ| = |MN|, |ZY| = |MO| and |XY| = |NO|. Which of the following statements is true?",
+      "options": [
+        "Triangle ZYX is congruent to triangle OMN",
+        "Triangle YZX is congruent to triangle NOM",
+        "Triangle ZXY is congruent to triangle MON",
+        "Triangle XYZ is congruent to triangle NOM"
+      ],
+      "answer": 3,
+      "explanation": "XZ = NM and XY = NO put X with N; then Z goes with M and Y with O. So triangle XYZ is congruent to triangle NOM (SSS).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-21",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagram, PQRS is a rhombus and angle PSQ = 35 degrees. Calculate the size of angle PRQ.",
+      "options": [
+        "65 degrees",
+        "55 degrees",
+        "45 degrees",
+        "35 degrees"
+      ],
+      "answer": 1,
+      "explanation": "The diagonal SQ bisects angle S, so angle PSR = 70 and angle QRS = 180 - 70 = 110; diagonal PR bisects it, giving angle PRQ = 55 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-23",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, O is the centre of the circle, OM || XZ and angle ZOM = 25 degrees. [X, Y, Z and M are points on the circle, with Y on the major arc XZ.] Calculate angle XYZ.",
+      "options": [
+        "50 degrees",
+        "55 degrees",
+        "60 degrees",
+        "65 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Angle OZX = angle ZOM = 25 (alternate angles), and OX = OZ so angle OXZ = 25; angle XOZ = 130, hence angle XYZ = 130/2 = 65 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013jun-p1-24",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "If sin x = 5/13 and 0 degrees <= x <= 90 degrees, find the value of (cos x - tan x).",
+      "options": [
+        "7/13",
+        "12/13",
+        "79/156",
+        "209/156"
+      ],
+      "answer": 2,
+      "explanation": "cos x = 12/13 and tan x = 5/12; 12/13 - 5/12 = (144 - 65)/156 = 79/156.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-25",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles of Elevation and Depression",
+      "stem": "An object is 6 m away from the base of a mast. The angle of depression of the object from the top of the mast is 50 degrees. Find, correct to 2 decimal places, the height of the mast.",
+      "options": [
+        "8.60 m",
+        "7.51 m",
+        "7.15 m",
+        "1.19 m"
+      ],
+      "answer": 2,
+      "explanation": "Height = 6 tan 50 = 7.15 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-26",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Bearings",
+      "stem": "The bearing of Y from X is 060 degrees and the bearing of Z from Y = 060 degrees. Find the bearing of X from Z.",
+      "options": [
+        "300 degrees",
+        "240 degrees",
+        "180 degrees",
+        "120 degrees"
+      ],
+      "answer": 1,
+      "explanation": "X, Y and Z lie on one straight line on a bearing of 060 degrees, so the bearing of X from Z is 060 + 180 = 240 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-27",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "Which of the following is not a probability of Mary scoring 85% in a mathematics test?",
+      "options": [
+        "0.15",
+        "0.57",
+        "0.94",
+        "1.01"
+      ],
+      "answer": 3,
+      "explanation": "A probability must lie between 0 and 1 inclusive; 1.01 is greater than 1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-30",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "If 2log_x(3 3/8) = 6, find the value of x.",
+      "options": [
+        "3/2",
+        "4/3",
+        "2/3",
+        "1/2"
+      ],
+      "answer": 0,
+      "explanation": "log_x(27/8) = 3, so x^3 = 27/8 and x = 3/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-31",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "If P = {y : 2y >= 6} and Q = {y : y - 3 <= 4}, where y is an integer, find P n Q.",
+      "options": [
+        "{3, 4}",
+        "{3, 7}",
+        "{3, 4, 5, 6, 7}",
+        "{4, 5, 6}"
+      ],
+      "answer": 2,
+      "explanation": "P: y >= 3; Q: y <= 7; so P n Q = {3, 4, 5, 6, 7}.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-32",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Equations",
+      "stem": "Find the values of k in the equation 6k^2 = 5k + 6.",
+      "options": [
+        "{-2/3, -3/2}",
+        "{-2/3, 3/2}",
+        "{2/3, -3/2}",
+        "{2/3, 3/2}"
+      ],
+      "answer": 1,
+      "explanation": "6k^2 - 5k - 6 = (3k + 2)(2k - 3) = 0, so k = -2/3 or 3/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-33",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Variation",
+      "stem": "If y varies directly as the square root of (x + 1) and y = 6 when x = 3, find x when y = 9.",
+      "options": [
+        "8",
+        "7",
+        "6",
+        "5"
+      ],
+      "answer": 0,
+      "explanation": "y = k sqrt(x + 1): 6 = 2k, k = 3; 9 = 3 sqrt(x + 1) gives x + 1 = 9, x = 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-34",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Graphs of Linear and Quadratic Functions",
+      "stem": "The graph of the relation y = x^2 + 2x + k passes through the point (2, 0). Find the value of k.",
+      "options": [
+        "0",
+        "-2",
+        "-4",
+        "-8"
+      ],
+      "answer": 3,
+      "explanation": "0 = 4 + 4 + k, so k = -8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-35",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "The pie chart shows the distribution of 600 mathematics textbooks for Arts, Business, Science and Technical classes. [Arts 90 degrees, Business 75 degrees, Science 45 degrees; Technical is the remaining sector.] How many textbooks are for the Technical class?",
+      "options": [
+        "100",
+        "150",
+        "200",
+        "250"
+      ],
+      "answer": 3,
+      "explanation": "Technical angle = 360 - 90 - 75 - 45 = 150 degrees; (150/360) x 600 = 250.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-36",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "The pie chart shows the distribution of 600 mathematics textbooks for Arts, Business, Science and Technical classes. [Arts 90 degrees, Business 75 degrees, Science 45 degrees; Technical is the remaining sector.] What percentage of the total number of textbooks belongs to science?",
+      "options": [
+        "12 1/2%",
+        "20 5/6%",
+        "25%",
+        "41 2/3%"
+      ],
+      "answer": 0,
+      "explanation": "(45/360) x 100 = 12 1/2%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-37",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagram, PQRST is a regular polygon with sides QR and TS produced to meet at V. Find the size of angle RVS.",
+      "options": [
+        "36 degrees",
+        "54 degrees",
+        "60 degrees",
+        "72 degrees"
+      ],
+      "answer": 0,
+      "explanation": "Each exterior angle of a regular pentagon is 72 degrees, so in triangle RSV angles VRS = VSR = 72 and angle RVS = 180 - 144 = 36 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-38",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Loci",
+      "stem": "What is the locus of the point X which moves relative to two fixed points P and M on a plane such that angle PXM = 30 degrees?",
+      "options": [
+        "The bisector of the straight line joining P and M",
+        "An arc of a circle with PM as a chord",
+        "The bisector of angle PXM",
+        "A circle centre X and radius PM"
+      ],
+      "answer": 1,
+      "explanation": "Points at which a fixed segment PM subtends a constant angle lie on an arc of a circle with PM as chord (angles in the same segment).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-39",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles",
+      "stem": "In the diagram, PQ is a straight line. [Two other straight lines cross PQ at the same point O. Above PQ the angles, from P to Q, are 2y and 2x. Below PQ the angles, from P to Q, are 80 degrees, 50 degrees and (x + 10) degrees; the 80 degree angle is vertically opposite 2x.] Calculate the value of the angle labelled 2y.",
+      "options": [
+        "130 degrees",
+        "120 degrees",
+        "110 degrees",
+        "100 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Below PQ: 80 + 50 + x + 10 = 180, so x = 40 and 2x = 80. Above PQ: 2y = 180 - 80 = 100 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-40",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Solution of Linear Equations",
+      "stem": "When a number is subtracted from 2, the result equals 4 less than one-fifth of the number. Find the number.",
+      "options": [
+        "11",
+        "15/2",
+        "5",
+        "5/2"
+      ],
+      "answer": 2,
+      "explanation": "2 - n = n/5 - 4, so 6 = 6n/5 and n = 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-41",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Fractions",
+      "stem": "Express 2/(x + 3) - 1/(x - 2) as a simple fraction.",
+      "options": [
+        "(x - 7)/(x^2 + x - 6)",
+        "(x - 1)/(x^2 + x - 6)",
+        "(x - 2)/(x^2 + x - 6)",
+        "(x + 7)/(x^2 + x - 6)"
+      ],
+      "answer": 0,
+      "explanation": "[2(x - 2) - (x + 3)]/[(x + 3)(x - 2)] = (x - 7)/(x^2 + x - 6).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-42",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "An interior angle of a regular polygon is 5 times each exterior angle. How many sides has the polygon?",
+      "options": [
+        "15",
+        "12",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "5e + e = 180, so e = 30 degrees and n = 360/30 = 12.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-43",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "In the diagram, ST//PQ, reflex angle SRQ = 198 degrees and angle RQP = 72 degrees. [R lies between the parallel lines; y is the angle TSR.] Find the value of y.",
+      "options": [
+        "18 degrees",
+        "54 degrees",
+        "92 degrees",
+        "108 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Through R draw a line parallel to ST. The reflex angle SRQ is made up of (180 - y) on the S side and 72 degrees (alternate to angle RQP) on the Q side: 198 = (180 - y) + 72, so y = 54 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013jun-p1-44",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "[In a Venn diagram, a and b are in X only, c is in both X and Y, f and g are in Y only, and e is outside both sets.] Using the Venn diagram, find n(X n Y').",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "X n Y' is the part of X outside Y: {a, b}, so n(X n Y') = 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-45",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Equations",
+      "stem": "Given that P = x^2 + 4x - 2, Q = 2x - 1 and Q - P = 2, find x.",
+      "options": [
+        "-2",
+        "-1",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "2x - 1 - x^2 - 4x + 2 = 2 gives x^2 + 2x + 1 = 0, (x + 1)^2 = 0, x = -1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-46",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Volumes",
+      "stem": "A pyramid has a rectangular base with dimensions 12 m by 8 m. If its height is 14 m, calculate the volume.",
+      "options": [
+        "344 m^3",
+        "448 m^3",
+        "632 m^3",
+        "840 m^3"
+      ],
+      "answer": 1,
+      "explanation": "V = (1/3)(12 x 8)(14) = 448 m^3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013jun-p1-47",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Volumes",
+      "stem": "The slant height of a cone is 5 cm and the radius of its base is 3 cm. Find, correct to the nearest whole number, the volume of the cone. [Take pi = 22/7].",
+      "options": [
+        "48 cm^3",
+        "47 cm^3",
+        "38 cm^3",
+        "13 cm^3"
+      ],
+      "answer": 2,
+      "explanation": "Height = sqrt(25 - 9) = 4 cm; V = (1/3)(22/7)(9)(4) = 37.7 = 38 cm^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-48",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "The distance between two towns is 50 km. It is represented on a map by 5 cm. Find the scale used.",
+      "options": [
+        "1 : 1,000,000",
+        "1 : 500,000",
+        "1 : 100,000",
+        "1 : 10,000"
+      ],
+      "answer": 0,
+      "explanation": "50 km = 5,000,000 cm; 5 cm : 5,000,000 cm = 1 : 1,000,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-49",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Simple Operations on Algebraic Expressions",
+      "stem": "Given that (x + 2)(x^2 - 3x + 2) + 2(x + 2)(x - 1) = (x + 2)M, find M.",
+      "options": [
+        "(x + 2)^2",
+        "x(x + 2)",
+        "x^2 + 2",
+        "x^2 - x"
+      ],
+      "answer": 3,
+      "explanation": "M = x^2 - 3x + 2 + 2(x - 1) = x^2 - x.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013jun-p1-50",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "An open cone with base radius 28 cm and perpendicular height 96 cm was stretched to form a sector of a circle. Calculate the area of the sector. [Take pi = 22/7].",
+      "options": [
+        "8800 cm^2",
+        "8448 cm^2",
+        "4400 cm^2",
+        "4224 cm^2"
+      ],
+      "answer": 0,
+      "explanation": "Slant height = sqrt(28^2 + 96^2) = 100 cm; sector area = curved surface area = pi r l = (22/7)(28)(100) = 8800 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-01",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Surds (Radicals)",
+      "stem": "Simplify: (2sqrt(3) - 5sqrt(2))/sqrt(3).",
+      "options": [
+        "2 - 5sqrt(2)",
+        "2 + 5sqrt(2)",
+        "2 - (5/3)sqrt(6)",
+        "2 + (5/3)sqrt(6)"
+      ],
+      "answer": 2,
+      "explanation": "(2sqrt3 - 5sqrt2)/sqrt3 = 2 - 5sqrt2/sqrt3 = 2 - 5sqrt6/3 = 2 - (5/3)sqrt6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-02",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Fractions, Decimals and Approximations",
+      "stem": "Express 0.029646 correct to three decimal places.",
+      "options": [
+        "0.02",
+        "0.029",
+        "0.03",
+        "0.030"
+      ],
+      "answer": 3,
+      "explanation": "The fourth decimal digit is 6, so 0.029|646 rounds up to 0.030 (three decimal places).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-03",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Simplify, leaving your answer in standard form, (0.015 x 0.063)/0.0013.",
+      "options": [
+        "7.269 x 10^-2",
+        "7.269 x 10^-1",
+        "7.269 x 10^1",
+        "7.269 x 10^2"
+      ],
+      "answer": 1,
+      "explanation": "0.015 x 0.063 = 0.000945; 0.000945/0.0013 = 0.7269 = 7.269 x 10^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-04",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Variation",
+      "stem": "If y varies inversely as x and x = 1/2 when y = 6, find y when x = 1/3.",
+      "options": [
+        "1/36",
+        "9",
+        "12",
+        "18"
+      ],
+      "answer": 1,
+      "explanation": "y = k/x: k = 6 x 1/2 = 3, so y = 3/(1/3) = 9.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-05",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "Okon won a 200 m race in 25 seconds. If he ran at the same rate, how long in minutes, would it take him to complete 800 m.",
+      "options": [
+        "2 1/2",
+        "2",
+        "1 2/3",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "800 m takes 4 x 25 = 100 seconds = 1 2/3 minutes.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-06",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "A piece of land was offered for ₦2,100,000.00. If the price was reduced in the ratio 3 : 7, find the new selling price.",
+      "options": [
+        "₦900,000.00",
+        "₦1,100,000.00",
+        "₦1,600,000.00",
+        "₦1,800,000.00"
+      ],
+      "answer": 0,
+      "explanation": "New price : old price = 3 : 7, so new price = (3/7) x 2,100,000 = ₦900,000.00.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-07",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Evaluate: log27/log(1/3) + log4/log(sqrt(2)).",
+      "options": [
+        "-2",
+        "-1",
+        "1",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "log27/log(1/3) = 3log3/(-log3) = -3; log4/log sqrt2 = 2log2/((1/2)log2) = 4; -3 + 4 = 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-08",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Simple Operations on Algebraic Expressions",
+      "stem": "Expand: (5x - y)(x - 3y).",
+      "options": [
+        "5x^2 + 16xy + 3y^2",
+        "5x^2 - 16xy + 3y^2",
+        "5x^2 + 14xy - 3y^2",
+        "5x^2 - 14xy + 3y^2"
+      ],
+      "answer": 1,
+      "explanation": "5x^2 - 15xy - xy + 3y^2 = 5x^2 - 16xy + 3y^2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-09",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Solution of Linear Equations",
+      "stem": "Solve the simultaneous equations: 3x = -y and y = x + 4.",
+      "options": [
+        "x = -1 and y = 3.",
+        "x = -3 and y = -1.",
+        "x = -1 and y = -3.",
+        "x = 3 and y = 1."
+      ],
+      "answer": 0,
+      "explanation": "3x = -(x + 4) gives 4x = -4, x = -1, and y = -1 + 4 = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-10",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Simple Operations on Algebraic Expressions",
+      "stem": "Factorize: p - bq + q - bp.",
+      "options": [
+        "(p - q)(1 - b)",
+        "(p + q)(b - 1)",
+        "(p + q)(1 - b)",
+        "(p + q)(1 + b)"
+      ],
+      "answer": 2,
+      "explanation": "(p + q) - b(q + p) = (p + q)(1 - b).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-11",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Expressions",
+      "stem": "If m = 2, n = -3 and p = -2, evaluate: (mn^2 - p^2)/(2np) + m^2/(2n + p).",
+      "options": [
+        "1/3",
+        "2/3",
+        "4/5",
+        "1 2/3"
+      ],
+      "answer": 1,
+      "explanation": "(2 x 9 - 4)/(2 x -3 x -2) = 14/12 = 7/6; 4/(-6 - 2) = -1/2; 7/6 - 1/2 = 2/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-12",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Linear Inequalities",
+      "stem": "Which of the following number lines correctly represents the solution of 4(x + 1) <= 5(x - 2) + 16?",
+      "options": [
+        "A closed dot at -4 with an arrow to the right",
+        "A closed dot at -2 with an arrow to the right",
+        "A closed dot at 2 with an arrow to the right",
+        "A closed dot at 4 with an arrow to the left"
+      ],
+      "answer": 1,
+      "explanation": "4x + 4 <= 5x + 6 gives -2 <= x, i.e. x >= -2: a solid dot at -2 with the arrow pointing right.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-13",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Equations",
+      "stem": "Find the equation whose roots are 1/2 and -2/3.",
+      "options": [
+        "6x^2 - x + 2 = 0",
+        "6x^2 - x - 2 = 0",
+        "6x^2 + x + 2 = 0",
+        "6x^2 + x - 2 = 0"
+      ],
+      "answer": 3,
+      "explanation": "(2x - 1)(3x + 2) = 6x^2 + x - 2 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-14",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Change of Subject of a Formula/Relation",
+      "stem": "Make m the subject of the equation y = mx + c.",
+      "options": [
+        "m = (y - x)/c",
+        "m = (y - c)/x",
+        "m = x(y - c)",
+        "m = x(y + c)"
+      ],
+      "answer": 1,
+      "explanation": "mx = y - c, so m = (y - c)/x.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-15",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Solution of Linear Equations",
+      "stem": "If 2(x - 1)/3 - 3(2x - 1)/4 = 1/2, find x.",
+      "options": [
+        "-1/2",
+        "-3/5",
+        "-2",
+        "-23/10"
+      ],
+      "answer": 0,
+      "explanation": "Multiplying by 12: 8(x - 1) - 9(2x - 1) = 6, so -10x + 1 = 6 and x = -1/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-16",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "A cylinder of height 7 cm has a curved surface area of 264 cm^2. Find the radius of its base. [Take pi = 22/7]",
+      "options": [
+        "6 cm",
+        "10 cm",
+        "15 cm",
+        "16 cm"
+      ],
+      "answer": 0,
+      "explanation": "2 pi r h = 264: 2 x (22/7) x r x 7 = 44r = 264, so r = 6 cm.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-17",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "PQR is a triangle such that |PQ| = 12 cm and angle PQR = 50.1 degrees, calculate the length of the perpendicular from P to QR.",
+      "options": [
+        "7.70 cm",
+        "9.21 cm",
+        "10.62 cm",
+        "14.35 cm"
+      ],
+      "answer": 1,
+      "explanation": "Perpendicular = 12 sin 50.1 = 9.21 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-18",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "Calculate, correct to the nearest whole number, the total surface area of a solid cone whose slant height 18 cm and base diameter 34 cm. [Take pi = 22/7]",
+      "options": [
+        "1780 cm^2",
+        "1808 cm^2",
+        "1870 cm^2",
+        "1970 cm^2"
+      ],
+      "answer": 2,
+      "explanation": "TSA = pi r(r + l) = (22/7)(17)(17 + 18) = 1870 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-19",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "In the figure, O is the centre of the circle and |OY| = |XY| = 7 cm. [X and Y are on the circle, so triangle OXY is equilateral.] If triangle OXY is cut out from the circle, calculate correct to 3 significant figures, the area of the remaining portion. [Take pi = 22/7]",
+      "options": [
+        "133 cm^2",
+        "128 cm^2",
+        "25.7 cm^2",
+        "22.8 cm^2"
+      ],
+      "answer": 0,
+      "explanation": "Area of circle = (22/7)(49) = 154 cm^2; area of equilateral triangle of side 7 = (sqrt3/4)(49) = 21.2 cm^2; remaining = 132.8 = 133 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-20",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "[Two parallel lines are cut by a transversal. At the upper line, the angle above the line on the right of the transversal is P; at the lower line, the angle below the line on the right of the transversal is 3P.] Find the value of P in the diagram.",
+      "options": [
+        "60 degrees",
+        "45 degrees",
+        "30 degrees",
+        "15 degrees"
+      ],
+      "answer": 1,
+      "explanation": "The angle above the lower line on the right equals P (corresponding angles), and it is supplementary to 3P, so P + 3P = 180 and P = 45 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-21",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "[P, Q and R are points on a circle with centre O, Q lying on the minor arc PR, and PQ is produced to S.] In the diagram, angle RQS = 74 degrees. Find the reflex angle POR.",
+      "options": [
+        "200 degrees",
+        "212 degrees",
+        "228 degrees",
+        "240 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Angle PQR = 180 - 74 = 106 degrees. The angle at the centre on the same arc is twice it: reflex angle POR = 2 x 106 = 212 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-22",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "In the diagram, triangle XMN and XYZ are similar triangles, |YZ| = 20 cm, |MN| = 8 cm, angle MXN = 63 degrees and |NZ| = t. [M lies on XY and N lies on XZ, with angle MNX = angle YZX = 90 degrees.] Find the value of t.",
+      "options": [
+        "4.1 cm",
+        "6.1 cm",
+        "7.1 cm",
+        "10.1 cm"
+      ],
+      "answer": 1,
+      "explanation": "XN = 8/tan 63 = 4.08 cm and XZ = 20/tan 63 = 10.19 cm, so t = 10.19 - 4.08 = 6.1 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-23",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "[Two parallel lines are drawn. From a point V on the lower line, two straight lines go up to meet the upper line, forming a triangle with it. At V, the angles along the lower line, from left to right, are 2x, 3x and x. The angle at the upper-left vertex between the upper line and the left slanting line is y, and the angle at the upper-right vertex is z.] Find the value of y in the diagram.",
+      "options": [
+        "30 degrees",
+        "45 degrees",
+        "60 degrees",
+        "90 degrees"
+      ],
+      "answer": 2,
+      "explanation": "2x + 3x + x = 180 gives x = 30. y and 2x are alternate angles, so y = 2x = 60 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-24",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "In the diagram, |PS| = |SQ| = |SR| and angle QRS = 50 degrees. [S is a point on PR, and PQR is a triangle.] Calculate the size of angle QPS.",
+      "options": [
+        "60 degrees",
+        "50 degrees",
+        "40 degrees",
+        "30 degrees"
+      ],
+      "answer": 2,
+      "explanation": "SQ = SR gives angle SQR = 50 and angle QSR = 80, so angle QSP = 100. Since SP = SQ, angle QPS = (180 - 100)/2 = 40 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-25",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, O is the centre of the circle, angle QPR = 50 degrees and |QR| = 10 cm. [PR is a diameter of the circle and Q is on the circle.] Calculate, correct to one decimal place, the radius of the circle.",
+      "options": [
+        "15.6 cm",
+        "13.0 cm",
+        "7.8 cm",
+        "6.5 cm"
+      ],
+      "answer": 3,
+      "explanation": "Angle PQR = 90 degrees (angle in a semicircle), so PR = 10/sin 50 = 13.05 cm and the radius = 6.5 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-26",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "Given that cos 2x - sin x = 0 and 0 degrees <= x <= 90 degrees, find the value of x.",
+      "options": [
+        "90 degrees",
+        "60 degrees",
+        "45 degrees",
+        "30 degrees"
+      ],
+      "answer": 3,
+      "explanation": "cos 2x = sin x means cos 2x = cos(90 - x), so 2x = 90 - x and x = 30 degrees (check: cos 60 = sin 30 = 0.5).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-27",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Bearings",
+      "stem": "Town X is 6 km away and on a bearing of 030 degrees from Y. Town Z is 8 km from Town X and on a bearing of 120 degrees. Calculate, correct to the nearest whole number, the bearing of Z from Y.",
+      "options": [
+        "067 degrees",
+        "071 degrees",
+        "079 degrees",
+        "083 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Angle YXZ = 90 degrees, so angle XYZ = tan^-1(8/6) = 53.1 degrees; bearing of Z from Y = 30 + 53.1 = 083 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013nov-p1-28",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Statistics",
+      "stem": "If the mean of 13, 15, x and 18 is 19, find the median.",
+      "options": [
+        "15.0",
+        "15.5",
+        "16.5",
+        "18.0"
+      ],
+      "answer": 2,
+      "explanation": "13 + 15 + x + 18 = 76 gives x = 30; ordered 13, 15, 18, 30, median = (15 + 18)/2 = 16.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-29",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "A box contains 40 identical beads that are either blue or green. If the probability of picking a blue bead is 1/4, how many green beads were in the box?",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "explanation": "Blue beads = 40/4 = 10, so green beads = 30.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-30",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Algebraic Fractions",
+      "stem": "For what values of x is the expression (x^2 - 9)/(x^2 - 3x + 2) not defined?",
+      "options": [
+        "x = 1 and 2",
+        "x = -2 and 2",
+        "x = -1 and -2",
+        "x = -3 and 3"
+      ],
+      "answer": 0,
+      "explanation": "The expression is undefined when x^2 - 3x + 2 = (x - 1)(x - 2) = 0, i.e. x = 1 or 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-33",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles and Intercepts on Parallel Lines",
+      "stem": "In the diagram, angle MNO = 3x, angle MQP = 2x and angle NMQ = 55 degrees. [NO is parallel to QP, and M is a point to the left of N and Q, between the two parallel lines.] Find the value of x.",
+      "options": [
+        "125 degrees",
+        "67 degrees",
+        "61 degrees",
+        "51 degrees"
+      ],
+      "answer": 2,
+      "explanation": "Angle NMQ = (180 - 3x) + (180 - 2x), so 55 = 360 - 5x and x = 61 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-34",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "PQ and RQ are tangents to circle PRS with centre O. If |PQ| = 15 cm and |OQ| = 17 cm, find |RQ| + |SO|. [S is a point on the circle.]",
+      "options": [
+        "20 cm",
+        "22 cm",
+        "23 cm",
+        "24 cm"
+      ],
+      "answer": 2,
+      "explanation": "RQ = PQ = 15 cm (tangents from a point); radius SO = OP = sqrt(17^2 - 15^2) = 8 cm; sum = 23 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-35",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "If (1/3)(81^n) = 81^2, find n.",
+      "options": [
+        "3",
+        "9/4",
+        "2",
+        "4/3"
+      ],
+      "answer": 1,
+      "explanation": "81^n = 3 x 81^2, i.e. 3^(4n) = 3^9, so n = 9/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-36",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Triangles and Polygons",
+      "stem": "A side of a regular polygon is 10 cm. If each of its interior angles is 156 degrees, calculate its perimeter.",
+      "options": [
+        "100 cm",
+        "120 cm",
+        "150 cm",
+        "240 cm"
+      ],
+      "answer": 2,
+      "explanation": "Exterior angle = 24 degrees, so number of sides = 360/24 = 15; perimeter = 15 x 10 = 150 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-37",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Equations",
+      "stem": "Solve the equation: x^2 - 4sqrt(5)x + 20 = 0.",
+      "options": [
+        "x = 2sqrt(5) or -2sqrt(5)",
+        "x = 4sqrt(5) or -4sqrt(5)",
+        "x = 2sqrt(5) or 2sqrt(5)",
+        "x = 4sqrt(5) or 4sqrt(5)"
+      ],
+      "answer": 2,
+      "explanation": "x^2 - 4sqrt5 x + 20 = (x - 2sqrt5)^2 = 0, so x = 2sqrt5 (repeated).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-38",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Circles",
+      "stem": "In the diagram, O is the centre of the semi-circle PRQ and angle ROQ = 54 degrees. Calculate the value of angle PRO.",
+      "options": [
+        "36 degrees",
+        "32 degrees",
+        "30 degrees",
+        "27 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Angle ROQ is an exterior angle of isosceles triangle POR (OP = OR), so angle PRO = 54/2 = 27 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-39",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Angles",
+      "stem": "An obtuse angle is four times the size of its supplementary angle. Find the value of the supplementary angle.",
+      "options": [
+        "45 degrees",
+        "36 degrees",
+        "30 degrees",
+        "18 degrees"
+      ],
+      "answer": 1,
+      "explanation": "4s + s = 180, so s = 36 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p1-40",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Areas",
+      "stem": "The volume of a cylinder with diameter 14 cm is 770 cm^3. What is the curved surface area of the cylinder? [Take pi = 22/7]",
+      "options": [
+        "528 cm^2",
+        "374 cm^2",
+        "308 cm^2",
+        "220 cm^2"
+      ],
+      "answer": 3,
+      "explanation": "h = 770/((22/7)(49)) = 5 cm; curved surface area = 2(22/7)(7)(5) = 220 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-41",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Lengths and Perimeters",
+      "stem": "In the figure, PQRS is a parallelogram, |PQ| = 15 cm, |ER| = 12 cm and |PE| = 4 cm. [E is the foot of the perpendicular from P to SR.] Find the perimeter of the parallelogram.",
+      "options": [
+        "50 cm",
+        "45 cm",
+        "44 cm",
+        "40 cm"
+      ],
+      "answer": 3,
+      "explanation": "SR = PQ = 15 cm, so SE = 3 cm and PS = sqrt(3^2 + 4^2) = 5 cm; perimeter = 2(15 + 5) = 40 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-44",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Fractions, Decimals and Approximations",
+      "stem": "A petrol tanker is 2/5 full. When 35,000 litres of petrol are added, the tanker will be 3/4 full. What is the capacity of the tanker in litres?",
+      "options": [
+        "70,000",
+        "75,000",
+        "90,000",
+        "100,000"
+      ],
+      "answer": 3,
+      "explanation": "3/4 - 2/5 = 7/20 of the capacity = 35,000 litres, so capacity = 100,000 litres.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-45",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Lengths and Perimeters",
+      "stem": "A rectangle whose length is twice its width, has the same perimeter with a square of area 144 cm^2. Find the length of the rectangle.",
+      "options": [
+        "10 cm",
+        "12 cm",
+        "16 cm",
+        "24 cm"
+      ],
+      "answer": 2,
+      "explanation": "Square side 12 cm, perimeter 48 cm; 2(2w + w) = 48 gives w = 8, so length = 16 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-46",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "Two numbers are such that the sum of three times the first and two times the second is 68. If the numbers are in the ratio 3 : 4, find the smaller number.",
+      "options": [
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "answer": 1,
+      "explanation": "Let the numbers be 3k and 4k: 9k + 8k = 68, k = 4, so the smaller number is 12.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-47",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Percentages",
+      "stem": "A trader made a profit of 15% by selling an article for Le 345.00. Calculate the actual profit.",
+      "options": [
+        "Le 300.00",
+        "Le 117.00",
+        "Le 51.75",
+        "Le 45.00"
+      ],
+      "answer": 3,
+      "explanation": "Cost price = 345/1.15 = Le 300, so profit = Le 45.00.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p1-50",
+      "year": 2013,
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "A letter is selected from the word EXAMINATIONS. What is the probability that the letter selected is N?",
+      "options": [
+        "1/12",
+        "1/10",
+        "1/9",
+        "1/6"
+      ],
+      "answer": 3,
+      "explanation": "EXAMINATIONS has 12 letters, 2 of which are N: 2/12 = 1/6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wp-math-2013nov-p2-01",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Indices",
+      "stem": "(a) Evaluate: 6(1 - 7/16)^(-1/2) x 2^(-1). (b) The interior angle of a regular polygon is 108 degrees greater than the exterior angle. How many sides has the polygon?",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 1 - 7/16 = 9/16\n1 mark: (a) (9/16)^(-1/2) = 4/3\n2 marks: (a) 6 x 4/3 x 1/2 = 4\n1 mark: (b) i - e = 108 and i + e = 180\n1 mark: (b) exterior angle = 36 degrees\n2 marks: (b) n = 360/36 = 10 sides",
+      "explanation": "(a) (9/16)^(-1/2) = (16/9)^(1/2) = 4/3, so 6 x 4/3 x 1/2 = 4. (b) i + e = 180 and i - e = 108 give e = 36 degrees, so n = 360/36 = 10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-02",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Volumes",
+      "stem": "(a) The diagram shows a triangular prism with |QR| = |MN| = |OP| = 10 cm and |NR| = |QM| = 8 cm. If angle RON = 90 degrees and angle RNO = 30 degrees, calculate, correct to 3 significant figures, the volume of the prism. [QRNM is a rectangular face; the triangular ends are RON and QPM.] (b) A bird on top of a tree sights a prey 18 m away and on the same horizontal ground as the foot of the tree. If the height of the tree is 8 m, calculate, correct to the nearest degree, the angle of depression through which the bird sights the prey.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) |RO| = 8 sin 30 = 4 cm and |ON| = 8 cos 30 = 6.93 cm\n1 mark: (a) area of triangle RON = (1/2)(4)(6.93) = 13.86 cm^2\n2 marks: (a) volume = 13.86 x 10 = 139 cm^3 (3 s.f.)\n1 mark: (b) correct sketch / tan theta = 8/18\n1 mark: (b) theta = tan^-1(0.4444)\n2 marks: (b) angle of depression = 24 degrees",
+      "explanation": "(a) In triangle RON, RO = 8 sin 30 = 4 cm and ON = 8 cos 30 = 4sqrt3 = 6.93 cm, so the cross-section area = 8sqrt3 = 13.86 cm^2 and the volume = 13.86 x 10 = 139 cm^3. (b) tan theta = 8/18 = 0.4444, so theta = 24 degrees (nearest degree).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-04",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Linear Inequalities",
+      "stem": "(a) Solve: 7x + 4 < (1/2)(4x + 3) and illustrate your answer on a number line. (b) The sum of three numbers is 81. The second number is twice the first and the third number is six more than the second. Find the numbers.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 14x + 8 < 4x + 3\n1 mark: (a) 10x < -5\n1 mark: (a) x < -1/2\n1 mark: (a) number line with an open circle at -1/2 and an arrow to the left\n1 mark: (b) x + 2x + (2x + 6) = 81\n1 mark: (b) 5x = 75, x = 15\n2 marks: (b) the numbers are 15, 30 and 36",
+      "explanation": "(a) 7x + 4 < 2x + 1.5 gives 5x < -2.5, so x < -1/2; on the number line, draw an open (hollow) circle at -1/2 with an arrow pointing to the left. (b) Let the first number be x: x + 2x + 2x + 6 = 81, 5x = 75, x = 15. The numbers are 15, 30 and 36.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-05",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Statistics",
+      "stem": "(a) The pie chart shows the result of a survey conducted on the maintainance of five small and medium scale industries in a state. [The sectors are: Ceramic 72 degrees, Textile 68 degrees, Paper mill x degrees, Plywood x degrees and the fifth industry 82 degrees.] If the cost of maintainance of the plywood industry was ₦34,500.00, calculate the cost of maintainance of the textile industry. (b) In the diagram, TYZ and UWZ are tangents to the circle WXY [at Y and W respectively], angle XYZ = 100 degrees, angle YZW = 42 degrees and angle UWX = m. Find the value of m.",
+      "marks": 8,
+      "markingGuide": "1 mark: (a) 72 + 68 + 82 + 2x = 360\n1 mark: (a) x = 69 degrees\n2 marks: (a) textile = (68/69) x 34,500 = ₦34,000.00\n1 mark: (b) ZY = ZW (tangents from Z), so angle ZYW = angle ZWY = (180 - 42)/2 = 69 degrees\n1 mark: (b) angle XYW = 100 - 69 = 31 degrees\n2 marks: (b) m = angle UWX = angle XYW = 31 degrees (alternate segment theorem)",
+      "explanation": "(a) 2x = 360 - 222 = 138, so x = 69 degrees; 69 degrees represents ₦34,500, i.e. ₦500 per degree, so textile (68 degrees) = ₦34,000.00. (b) Tangents ZY = ZW, so angle ZYW = 69 and angle XYW = 100 - 69 = 31; by the alternate segment theorem m = angle XYW = 31 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013nov-p2-06",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Ratio, Proportions and Rates",
+      "stem": "(a) If y^2 - x^2 = 5(y - x)^2, find x : y. (b) In a partnership, Ajayi contributed ₦500,000.00 more than Kunle. The total profit made was 15% of their total contribution. If Kunle received 2/5 of the total profit which amounted to ₦84,000.00, how much was: (i) Ajayi's share of the profit? (ii) Kunle's contribution to the partnership?",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) (y - x)(y + x) = 5(y - x)^2\n1 mark: (a) y + x = 5(y - x)\n1 mark: (a) 6x = 4y\n2 marks: (a) x : y = 2 : 3\n1 mark: (b) total profit = 84,000 x 5/2 = ₦210,000\n2 marks: (b)(i) Ajayi's share = 210,000 - 84,000 = ₦126,000.00\n1 mark: (b) total contribution = 210,000/0.15 = ₦1,400,000\n1 mark: (b) k + (k + 500,000) = 1,400,000\n2 marks: (b)(ii) Kunle's contribution = ₦450,000.00",
+      "explanation": "(a) Dividing by (y - x): y + x = 5y - 5x, so 6x = 4y and x : y = 2 : 3. (b) Total profit = 84,000/(2/5) = ₦210,000; (i) Ajayi's share = ₦126,000.00. Total contribution = 210,000/0.15 = ₦1,400,000; 2k + 500,000 = 1,400,000 gives (ii) Kunle's contribution k = ₦450,000.00.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-07",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Sine, Cosine and Tangent of an Angle",
+      "stem": "In the diagram, triangle PQS is a right angled triangle, angle PSQ = 90 degrees, |PS| = 3 cm, |PQ| = 5 cm, angle PRS = 61 degrees and angle QPR = x degrees. [R is a point on QS.] Calculate, correct to one decimal place, the: (a) value of x; (b) area of triangle PQR.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) |QS| = sqrt(5^2 - 3^2) = 4 cm; angle QPS = tan^-1(4/3) = 53.1 degrees\n2 marks: (a) angle RPS = 90 - 61 = 29 degrees\n2 marks: (a) x = 53.1 - 29 = 24.1 degrees\n2 marks: (b) |RS| = 3/tan 61 = 1.66 cm\n1 mark: (b) |QR| = 4 - 1.66 = 2.34 cm\n3 marks: (b) area of triangle PQR = (1/2)(2.34)(3) = 3.5 cm^2",
+      "explanation": "(a) QS = 4 cm, angle QPS = tan^-1(4/3) = 53.13 degrees and angle RPS = 29 degrees, so x = 24.1 degrees. (b) RS = 3/tan 61 = 1.663 cm, QR = 2.337 cm; area = (1/2)(QR)(PS) = (1/2)(2.337)(3) = 3.5 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-09",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Quadratic Equations",
+      "stem": "(a) Solve: x/2 + 1/x = 1 1/2. (b) The range of the numbers p, 6, 8, 11 and q arranged in ascending order, is 16. If the mean is 9, find the value of (2p + q).",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) multiplying by 2x: x^2 + 2 = 3x\n2 marks: (a) x^2 - 3x + 2 = (x - 1)(x - 2) = 0\n2 marks: (a) x = 1 or x = 2\n1 mark: (b) q - p = 16\n1 mark: (b) p + 6 + 8 + 11 + q = 45, so p + q = 20\n2 marks: (b) q = 18, p = 2\n2 marks: (b) 2p + q = 22",
+      "explanation": "(a) x^2 - 3x + 2 = 0, so x = 1 or 2. (b) q - p = 16 and p + q = 45 - 25 = 20, giving q = 18 and p = 2; 2p + q = 4 + 18 = 22.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-10",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Bearings",
+      "stem": "Town Q is 20 km due north of P. The bearing of town R from Q is 140 degrees. If R is 8 km from Q, calculate: (a) the bearing of R from P, to the nearest degree; (b) how far north of P, R is, correct to 2 significant figures.",
+      "marks": 12,
+      "markingGuide": "2 marks: correct sketch with angle PQR = 40 degrees\n2 marks: (a) PR^2 = 20^2 + 8^2 - 2(20)(8)cos 40, PR = 14.8 km\n2 marks: (a) sin QPR = 8 sin 40/14.8 (or tan QPR = 5.14/13.87)\n2 marks: (a) bearing of R from P = 020 degrees\n2 marks: (b) R is 8 cos 40 = 6.13 km south of Q\n2 marks: (b) distance north of P = 20 - 6.13 = 14 km",
+      "explanation": "R is 8 sin 40 = 5.14 km east of Q and 8 cos 40 = 6.13 km south of Q, so relative to P it is 5.14 km east and 13.87 km north. (a) Bearing = tan^-1(5.14/13.87) = 20.3, i.e. 020 degrees. (b) R is 13.87 = 14 km north of P (2 s.f.).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013nov-p2-12",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Areas",
+      "stem": "(a) An open rectangular tank is made from a steel plate of area 1440 m^2. Its length is twice its width. If the depth of the tank is 4 m less than the width, find the length of the tank. (b) In the diagram, |XU| = 10 cm, |WU| = 8 cm, |UV| = 3.5 cm and XV is perpendicular to WZ. [W, X, Z and V are on the circle and the chords XV and WZ meet at U.] If the radius of the circle is 7 cm, calculate, correct to 2 decimal places, the length of the arc WV. [Take pi = 22/7]",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) width w, length 2w, depth w - 4\n2 marks: (a) 2w^2 + 2(2w)(w - 4) + 2w(w - 4) = 1440\n1 mark: (a) w^2 - 3w - 180 = 0\n1 mark: (a) w = 15 m\n1 mark: (a) length = 30 m\n2 marks: (b) angle WXV = tan^-1(8/10) = 38.66 degrees\n2 marks: (b) angle WOV = 2 x 38.66 = 77.32 degrees\n2 marks: (b) arc WV = (77.32/360) x 2 x (22/7) x 7 = 9.45 cm",
+      "explanation": "(a) Area of open tank = 2w^2 + 6w(w - 4) = 8w^2 - 24w = 1440, so w^2 - 3w - 180 = 0, (w - 15)(w + 12) = 0, w = 15 m and length = 30 m. (b) In right triangle WUX, angle WXU = tan^-1(8/10) = 38.66 degrees; the angle at the centre on arc WV is 77.32 degrees, so arc WV = (77.32/360)(2)(22/7)(7) = 9.45 cm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wp-math-2013nov-p2-13",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Variation",
+      "stem": "(a) Given that Y = {-2 <= x <= 5} and W = {1 < x < 6}, illustrate Y n W on the number line. (b) x varies jointly as the square of m and the cube of n. When x = 9, m = 3/4 and n = 1/2. (i) Determine the relationship between x, m and n. (ii) Calculate, correct to 3 significant figures, the value of: I. x when m = 2/3 and n = 1/5; II. m when x = 5 and n = 1/8.",
+      "marks": 12,
+      "markingGuide": "2 marks: (a) Y n W = {1 < x <= 5}\n2 marks: (a) number line: open circle at 1, closed dot at 5, segment shaded between them\n1 mark: (b)(i) x = k m^2 n^3\n2 marks: (b)(i) 9 = k(9/16)(1/8), k = 128, so x = 128 m^2 n^3\n2 marks: (b)(ii) I. x = 128(4/9)(1/125) = 0.455\n3 marks: (b)(ii) II. 5 = 128 m^2/512, m^2 = 20, m = 4.47",
+      "explanation": "(a) Y n W = {x : 1 < x <= 5}: hollow circle at 1, solid dot at 5, line joining them. (b)(i) x = km^2n^3; 9 = k(9/16)(1/8) gives k = 128, so x = 128m^2n^3. (ii) I. x = 128 x 4/9 x 1/125 = 0.455. II. 5 = 128m^2/512 = m^2/4, so m^2 = 20 and m = 4.47.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wp-math-2013nov-p2-14",
+      "year": 2013,
+      "type": "THEORY",
+      "topic": "Modular Arithmetic",
+      "stem": "[For candidates in Ghana, Sierra Leone, Liberia and The Gambia only.] (a) Find the equation of the line which passes through the points (2, -3) and (1, -3). (b)(i) Draw a multiplication (x) table for arithmetic modulo 7. (ii) Using the table, I. state with reasons whether or not the operation (x) is commutative. II. evaluate: (4 (x) 6) (x) (5 (x) 4). III. find the truth set of n (x) n = n.",
+      "marks": 12,
+      "markingGuide": "1 mark: (a) gradient = (-3 - (-3))/(1 - 2) = 0\n2 marks: (a) equation of the line: y = -3\n3 marks: (b)(i) correct multiplication table modulo 7 on {0, 1, 2, 3, 4, 5, 6}\n2 marks: (b)(ii) I. commutative, because the table is symmetric about the leading diagonal (a (x) b = b (x) a)\n2 marks: (b)(ii) II. 4 (x) 6 = 3, 5 (x) 4 = 6, 3 (x) 6 = 4\n2 marks: (b)(ii) III. n^2 = n (mod 7): truth set {0, 1}",
+      "explanation": "(a) Both points have y = -3, so the gradient is 0 and the line is y = -3. (b) Rows of the mod 7 table (0 to 6): 0: all 0; 1: 0 1 2 3 4 5 6; 2: 0 2 4 6 1 3 5; 3: 0 3 6 2 5 1 4; 4: 0 4 1 5 2 6 3; 5: 0 5 3 1 6 4 2; 6: 0 6 5 4 3 2 1. I. Commutative: the table is symmetric about the leading diagonal. II. (4 x 6) = 3 and (5 x 4) = 6, so 3 x 6 = 18 = 4 (mod 7). III. n x n = n only for n = 0 and n = 1: truth set {0, 1}.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

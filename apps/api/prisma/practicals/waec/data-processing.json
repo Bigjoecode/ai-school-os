@@ -1,0 +1,1538 @@
+{
+ "exam": "WAEC",
+ "subject": "Data Processing",
+ "practicalPaper": "WAEC Data Processing has no hands-on computer paper: practical skill is examined in writing in Section B of Paper 2, a test of practical work with two compulsory questions answered in 1 hour for 40 marks. The questions describe a spreadsheet, database, word-processing or similar task (often with data or a screen layout) and ask for exact steps, formulae, queries, field types and the resulting values.",
+ "practicals": [
+  {
+   "id": "pr-dpr-word-processing-document",
+   "title": "Creating, formatting and mail-merging a document",
+   "topic": "Word Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To create, edit, format, save and retrieve a letter in a word processor and produce personalised copies by mail merge.",
+   "apparatus": [
+    "Desktop or laptop computer with Microsoft Word or LibreOffice Writer",
+    "Printer (shared)",
+    "Flash drive for backup"
+   ],
+   "materials": [
+    "A short draft letter to parents about a PTA meeting",
+    "A list of 40 parents' names and addresses (typed as a table or spreadsheet)",
+    "A4 paper"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start the word processor (Start menu > Word, or double-click its desktop icon) and choose Blank document.",
+    "Set the page: Layout > Size > A4, Orientation > Portrait, Margins > Normal (2.54 cm all round).",
+    "Type the school address, date, salutation, three short paragraphs and the closing; correct mistakes with Backspace/Delete as you go.",
+    "Select the heading and apply Bold (Ctrl+B), Centre (Ctrl+E) and font size 14; justify the body paragraphs (Ctrl+J) and set line spacing to 1.15.",
+    "Run Review > Spelling & Grammar (F7) and accept or ignore each suggestion sensibly.",
+    "Save the file with File > Save As, choose the folder Documents\\SS3, type the name PTA_Letter and keep the .docx type; note the difference between Save (same name/place) and Save As (new name, place or type).",
+    "Close the document, then retrieve it with File > Open (or Recent) to show that it was saved correctly.",
+    "Start Mailings > Start Mail Merge > Letters, then Select Recipients > Use an Existing List and choose the parents' list.",
+    "Place the cursor after \"Dear\" and use Insert Merge Field to add Title and Surname; add the address block at the top.",
+    "Click Preview Results to check two or three letters, then Finish & Merge > Print Documents (or Edit Individual Documents to save the merged file)."
+   ],
+   "expectedObservations": "The formatted heading appears bold and centred, body text is justified with even right edges, red and blue underlines disappear after the spelling check, the file reappears in Recent documents after closing, and mail merge produces one letter per parent with the correct name in each salutation.",
+   "dataAndCalculations": "Worked example: an A4 page is 21.0 cm wide. With left and right margins of 2.54 cm each, the usable line length = 21.0 - (2 x 2.54) = 15.92 cm (159.2 mm). Mail merge for 40 parents at one page each = 40 pages; on a printer rated at 20 pages per minute the print run takes 40 / 20 = 2 minutes (ignoring warm-up). If the letter has 3 paragraphs of about 75 words each (225 words) and you type at 30 words per minute, typing takes 225 / 30 = 7.5 minutes.",
+   "precautions": [
+    "Save early and every few minutes (Ctrl+S) so a power failure does not erase your work.",
+    "Preview merged letters before printing to avoid wasting paper.",
+    "Use the built-in alignment and spacing tools rather than pressing the space bar or Enter repeatedly."
+   ],
+   "sourcesOfError": [
+    "Wrong field inserted (e.g. First name instead of Surname) during mail merge.",
+    "Spelling checker accepting a wrongly used but correctly spelt word (e.g. \"their\" for \"there\").",
+    "Saving into an unknown folder and failing to find the file later."
+   ],
+   "commonMistakes": [
+    "Confusing Save with Save As, or forgetting to give a meaningful file name.",
+    "Selecting only part of a paragraph before formatting it.",
+    "Calling mail merge \"copy and paste\"; examiners want the name of the feature and the two files it combines (main document and data source)."
+   ],
+   "examTips": [
+    "Write steps in the order they are done and name the exact menu/tab and command, e.g. \"Home tab > Paragraph group > Centre\".",
+    "Give keyboard shortcuts when asked: Ctrl+C copy, Ctrl+V paste, Ctrl+X cut, Ctrl+Z undo, Ctrl+S save, Ctrl+A select all.",
+    "One mark is usually awarded per correct, ordered step; vague answers such as \"format the text\" earn nothing."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which feature combines a main document with a data source to produce personalised letters?",
+     "options": [
+      "Find and replace",
+      "Mail merge",
+      "Track changes",
+      "Page setup"
+     ],
+     "answer": 1,
+     "explanation": "Mail merge inserts fields from the data source into the main document, giving one copy per record."
+    },
+    {
+     "q": "A4 paper is 21.0 cm wide. With 2.54 cm left and right margins, what is the usable line length?",
+     "options": [
+      "15.92 cm",
+      "18.46 cm",
+      "16.46 cm",
+      "13.38 cm"
+     ],
+     "answer": 0,
+     "explanation": "21.0 - 2 x 2.54 = 15.92 cm."
+    },
+    {
+     "q": "Which shortcut justifies a selected paragraph in Microsoft Word?",
+     "options": [
+      "Ctrl+E",
+      "Ctrl+L",
+      "Ctrl+R",
+      "Ctrl+J"
+     ],
+     "answer": 3,
+     "explanation": "Ctrl+E centres, Ctrl+L aligns left, Ctrl+R aligns right and Ctrl+J justifies."
+    },
+    {
+     "q": "What is the main difference between Save and Save As?",
+     "options": [
+      "Save As deletes the old version",
+      "Save works only for new documents",
+      "Save As lets you choose a new name, location or file type",
+      "Save prints a copy automatically"
+     ],
+     "answer": 2,
+     "explanation": "Save updates the existing file; Save As creates a file with a new name, location or format."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-spreadsheet-results",
+   "title": "Computing students' results with formulae and functions",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To enter data into a worksheet and use formulae and built-in functions (SUM, AVERAGE, IF, RANK) to compute totals, averages, remarks and positions.",
+   "apparatus": [
+    "Computer with Microsoft Excel or LibreOffice Calc"
+   ],
+   "materials": [
+    "Scores of five students in Mathematics, English and Biology"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start the spreadsheet program and in Sheet1 type the headings in row 1: A1 Name, B1 Maths, C1 English, D1 Biology, E1 Total, F1 Average, G1 Remark, H1 Position.",
+    "Enter the data in rows 2 to 6: Amaka 72 65 80; Babatunde 58 70 61; Chinedu 45 52 49; Fatima 88 79 91; Ibrahim 63 48 57.",
+    "In E2 type =SUM(B2:D2) and press Enter; drag the fill handle from E2 down to E6.",
+    "In F2 type =AVERAGE(B2:D2), copy it down to F6, then format F2:F6 to 2 decimal places (Home > Number > Decrease/Increase Decimal).",
+    "In G2 type =IF(F2>=50,\"PASS\",\"FAIL\") and copy down to G6.",
+    "In H2 type =RANK(E2,$E$2:$E$6) and copy down; note that the $ signs keep the range fixed while E2 changes to E3, E4 and so on.",
+    "In A8 type Class average (Maths) and in B8 type =AVERAGE(B2:B6).",
+    "Save the workbook as SS3_Results.xlsx and close it."
+   ],
+   "expectedObservations": "Copying a formula down changes its relative references automatically (E3 holds =SUM(B3:D3)), while absolute references ($E$2:$E$6) stay the same. Values appear immediately and recalculate when any score is edited.",
+   "dataAndCalculations": "Results: Totals (E2:E6) = 217, 189, 146, 258, 168. Averages (F2:F6) = 72.33, 63.00, 48.67, 86.00, 56.00. Remarks = PASS, PASS, FAIL, PASS, PASS (only Chinedu is below 50). Positions by total: Fatima 1st (258), Amaka 2nd (217), Babatunde 3rd (189), Ibrahim 4th (168), Chinedu 5th (146). Class average in Maths = (72 + 58 + 45 + 88 + 63) / 5 = 326 / 5 = 65.2.",
+   "precautions": [
+    "Begin every formula with = (or the formula is stored as text).",
+    "Use cell references, not typed numbers, so results update when data change.",
+    "Lock ranges that must not shift (use $) before copying formulae."
+   ],
+   "sourcesOfError": [
+    "Typing a score into the wrong cell or row.",
+    "Using a relative range in RANK so that it shifts when copied (gives wrong positions).",
+    "Rounding the display to 2 d.p. and then quoting a rounded figure as if exact."
+   ],
+   "commonMistakes": [
+    "Writing =B2+C2+D2/3 for the average; division is done first, so brackets are needed: =(B2+C2+D2)/3 or =AVERAGE(B2:D2).",
+    "Leaving out the quotation marks around text in IF, e.g. =IF(F2>=50,PASS,FAIL).",
+    "Using a colon and comma wrongly: B2:D2 means the range B2 to D2; B2,D2 means only the two cells."
+   ],
+   "examTips": [
+    "When asked for \"the formula in E4\", write the copied version (=SUM(B4:D4)), not the original.",
+    "State the displayed value for each cell when the question asks; marks are split between formula and value.",
+    "Know the difference between a formula (=B2*2) and a function (=SUM(B2:D2))."
+   ],
+   "checkQuestions": [
+    {
+     "q": "=SUM(B2:D2) is in E2 and is copied to E5. What formula appears in E5?",
+     "options": [
+      "=SUM(B2:D2)",
+      "=SUM(B5:D5)",
+      "=SUM(B5:D2)",
+      "=SUM($B$5:$D$5)"
+     ],
+     "answer": 1,
+     "explanation": "Relative references change by the number of rows moved (3 rows)."
+    },
+    {
+     "q": "Fatima scored 88, 79 and 91. What does =AVERAGE(B5:D5) display to 2 d.p.?",
+     "options": [
+      "86.00",
+      "258.00",
+      "79.00",
+      "85.33"
+     ],
+     "answer": 0,
+     "explanation": "(88 + 79 + 91) / 3 = 258 / 3 = 86.00."
+    },
+    {
+     "q": "Which formula correctly finds the average of B2, C2 and D2?",
+     "options": [
+      "=B2+C2+D2/3",
+      "=SUM(B2:D2)*3",
+      "=B2:D2/3",
+      "=(B2+C2+D2)/3"
+     ],
+     "answer": 3,
+     "explanation": "Brackets make the addition happen before the division."
+    },
+    {
+     "q": "In =RANK(E2,$E$2:$E$6), why are the $ signs used?",
+     "options": [
+      "To format the result as currency",
+      "To make the cell read-only",
+      "To keep the range fixed when the formula is copied",
+      "To sort the list automatically"
+     ],
+     "answer": 2,
+     "explanation": "Absolute references do not change when copied."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-spreadsheet-chart",
+   "title": "Percentages and charts from a sales worksheet",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "graph",
+    "procedure"
+   ],
+   "aim": "To calculate totals and percentage shares in a worksheet and present the data as a pie chart and a column chart.",
+   "apparatus": [
+    "Computer with Microsoft Excel or LibreOffice Calc",
+    "Printer (optional)"
+   ],
+   "materials": [
+    "Monthly sales of a provision shop in Onitsha for January to April"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Enter headings A1 Month, B1 Sales (N), C1 % of total. Enter Jan 120000, Feb 95000, Mar 150000, Apr 135000 in A2:B5.",
+    "In A6 type Total and in B6 type =SUM(B2:B5).",
+    "In C2 type =B2/$B$6 and copy down to C5; format C2:C5 as Percentage with 2 decimal places.",
+    "Format B2:B6 with a thousands separator (and the naira sign if available).",
+    "Select A1:B5, choose Insert > Chart > Pie; add the title \"Sales January to April\" and data labels showing percentages.",
+    "With the same range selected, insert a Clustered Column chart; label the axes Month and Sales (N).",
+    "Move each chart beside the table, preview with File > Print and save the workbook as Shop_Sales."
+   ],
+   "expectedObservations": "The pie chart shows four sectors whose labels add up to 100%; March has the largest sector. The column chart shows March tallest and February shortest. Changing a sales figure redraws both charts automatically.",
+   "dataAndCalculations": "Total = 120000 + 95000 + 150000 + 135000 = 500000. Shares: Jan 120000/500000 = 24.00%; Feb 19.00%; Mar 30.00%; Apr 27.00% (sum 100%). Pie-sector angles (share x 360 degrees): Jan 86.4, Feb 68.4, Mar 108.0, Apr 97.2 degrees (sum 360).",
+   "precautions": [
+    "Do not include the Total row in the chart range, or it will appear as a giant extra sector.",
+    "Use an absolute reference to the total ($B$6) before copying the percentage formula.",
+    "Give every chart a title and labels."
+   ],
+   "sourcesOfError": [
+    "Selecting the header row incorrectly so that the series name becomes a data point.",
+    "Formatting a fraction as a percentage twice (multiplying by 100 and then applying % format gives 2400%)."
+   ],
+   "commonMistakes": [
+    "Writing =B2/B6 and copying it down, which changes B6 to B7, B8 ... and gives #DIV/0!.",
+    "Choosing a pie chart for data that change over time where a column or line chart is clearer."
+   ],
+   "examTips": [
+    "Explain the error value if one is shown: #DIV/0! means division by zero or an empty cell; ##### means the column is too narrow.",
+    "Name the chart types correctly (pie, bar, column, line) and say which suits the data.",
+    "Show the arithmetic for percentages; examiners award method marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Sales for March are 150000 out of a total of 500000. What percentage is shown?",
+     "options": [
+      "15.00%",
+      "30.00%",
+      "3.00%",
+      "33.33%"
+     ],
+     "answer": 1,
+     "explanation": "150000 / 500000 = 0.30 = 30%."
+    },
+    {
+     "q": "What angle does a 24% sector occupy in a pie chart?",
+     "options": [
+      "86.4 degrees",
+      "24 degrees",
+      "90 degrees",
+      "72 degrees"
+     ],
+     "answer": 0,
+     "explanation": "0.24 x 360 = 86.4 degrees."
+    },
+    {
+     "q": "A cell shows #DIV/0!. What is the most likely cause?",
+     "options": [
+      "The column is too narrow",
+      "The cell contains text",
+      "The file was not saved",
+      "The formula divides by an empty or zero cell"
+     ],
+     "answer": 3,
+     "explanation": "#DIV/0! is a division-by-zero error."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-dbms-create-table",
+   "title": "Creating a database table with suitable field types",
+   "topic": "Database Management System",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To create a database file, design a table with appropriate field names, data types, sizes and a primary key, and enter, save and retrieve records.",
+   "apparatus": [
+    "Computer with Microsoft Access (or LibreOffice Base)"
+   ],
+   "materials": [
+    "Student records for an SS3 class (admission number, names, date of birth, class, sex, phone)"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start Microsoft Access, choose Blank database, name the file School.accdb and click Create.",
+    "Switch to Design View (Home > View > Design View) and save the table as STUDENTS.",
+    "Enter the fields and data types: AdmNo (Short Text, size 6), Surname (Short Text, 20), FirstName (Short Text, 20), DateOfBirth (Date/Time), Class (Short Text, 5), Sex (Short Text, 1), Phone (Short Text, 11).",
+    "Select AdmNo and click Primary Key; set Sex's Validation Rule to \"M\" Or \"F\".",
+    "Save the design (Ctrl+S) and switch to Datasheet View.",
+    "Enter at least five records, pressing Tab to move between fields; records save automatically when you leave the row.",
+    "Sort by Surname (Home > Sort Ascending) and use Find (Ctrl+F) to locate a given admission number.",
+    "Close the database, reopen it from File > Open and confirm the records are there."
+   ],
+   "expectedObservations": "A key icon appears beside AdmNo in Design View. Access refuses a duplicate admission number and a Sex value other than M or F, displaying an error message. Phone numbers keep their leading zero because they are stored as text.",
+   "dataAndCalculations": "Rough storage estimate (characters only): 6 + 20 + 20 + 8 (date) + 5 + 1 + 11 = 71 bytes per record. For 1,200 students: 71 x 1,200 = 85,200 bytes = 85,200 / 1,024 = about 83.2 KB (actual files are larger because of indexes and overheads).",
+   "precautions": [
+    "Choose the primary key from a field that is unique and never empty (admission number, not surname).",
+    "Store phone numbers and admission numbers that will not be calculated as Short Text.",
+    "Avoid spaces and symbols in field names."
+   ],
+   "sourcesOfError": [
+    "Wrong data type (e.g. Number for phone) dropping the leading 0.",
+    "Field size too small, cutting off long surnames."
+   ],
+   "commonMistakes": [
+    "Confusing a field (column) with a record (row).",
+    "Making Surname the primary key, which fails when two students share a surname.",
+    "Forgetting to save the table design before entering data."
+   ],
+   "examTips": [
+    "Learn the data types: Short Text, Long Text, Number, Date/Time, Currency, AutoNumber, Yes/No, OLE Object/Attachment.",
+    "For \"suggest a data type\" questions, justify briefly (e.g. Currency for fees because it is money).",
+    "Define file, record, field and key with an example from the table given."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which field is most suitable as a primary key in a STUDENTS table?",
+     "options": [
+      "Surname",
+      "Class",
+      "AdmNo",
+      "Sex"
+     ],
+     "answer": 2,
+     "explanation": "The admission number is unique for every student."
+    },
+    {
+     "q": "Which data type should store a phone number such as 08031234567?",
+     "options": [
+      "Number",
+      "Short Text",
+      "Currency",
+      "Yes/No"
+     ],
+     "answer": 1,
+     "explanation": "It is not used in calculations and the leading zero must be kept."
+    },
+    {
+     "q": "A record needs 71 bytes. About how much space do 1,200 records need?",
+     "options": [
+      "About 83 KB",
+      "About 8.3 KB",
+      "About 830 KB",
+      "About 71 KB"
+     ],
+     "answer": 0,
+     "explanation": "71 x 1200 = 85,200 bytes; / 1024 = 83.2 KB."
+    },
+    {
+     "q": "In a database table, a single row is called a",
+     "options": [
+      "field",
+      "key",
+      "query",
+      "record"
+     ],
+     "answer": 3,
+     "explanation": "Rows are records; columns are fields."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-relational-relationships",
+   "title": "Linking tables with primary and foreign keys",
+   "topic": "Relational Model",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To create two related tables, define a one-to-many relationship using a primary key and a foreign key, and use a query to total related records.",
+   "apparatus": [
+    "Computer with Microsoft Access"
+   ],
+   "materials": [
+    "STUDENTS table (AdmNo, Name, Class)",
+    "PAYMENTS records for school fees (ReceiptNo, AdmNo, Amount, PayDate)"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Open School.accdb and create STUDENTS with AdmNo as primary key; enter 1001 Okafor Ada SS3A, 1002 Bello Musa SS3B, 1003 Adeyemi Tolu SS3A, 1004 Etim Grace SS3B.",
+    "Create PAYMENTS with ReceiptNo (primary key), AdmNo (Short Text, same size as in STUDENTS), Amount (Currency) and PayDate (Date/Time).",
+    "Enter: R01 1001 25000; R02 1002 45000; R03 1001 15000; R04 1003 30000; R05 1004 10000; R06 1003 15000.",
+    "Open Database Tools > Relationships, add both tables and drag AdmNo from STUDENTS onto AdmNo in PAYMENTS.",
+    "Tick Enforce Referential Integrity and click Create; observe the 1 and infinity symbols on the join line.",
+    "Try to enter a payment for AdmNo 1009 and note the error.",
+    "Create a query with both tables, show Name and Amount, click Totals and set Amount to Sum, grouped by Name; add a calculated field Outstanding: 45000-[SumOfAmount]."
+   ],
+   "expectedObservations": "The relationship line shows one (1) on STUDENTS and many (infinity) on PAYMENTS. A payment for a non-existent student is rejected because of referential integrity. The totals query returns one row per student.",
+   "dataAndCalculations": "Fee = N45,000 each. Totals: Okafor 25000 + 15000 = 40000 (outstanding 5000); Bello 45000 (0); Adeyemi 30000 + 15000 = 45000 (0); Etim 10000 (35000). Total collected = 140,000; total outstanding = 40,000 (4 x 45000 = 180000; 180000 - 140000 = 40000).",
+   "precautions": [
+    "The linking fields must have the same data type and size.",
+    "Enter the parent (STUDENTS) records before the child (PAYMENTS) records."
+   ],
+   "sourcesOfError": [
+    "Mismatched data types (Number in one table, Short Text in the other) prevent the relationship.",
+    "Duplicate or misspelt AdmNo values break the link."
+   ],
+   "commonMistakes": [
+    "Calling AdmNo in PAYMENTS a primary key; there it is a foreign key and may repeat.",
+    "Storing the student's name again in PAYMENTS, which causes redundancy."
+   ],
+   "examTips": [
+    "Define: entity (thing stored, e.g. student), attribute (field, e.g. surname), relationship (association between entities).",
+    "State the relationship type with a reason: one student can make many payments, so one-to-many.",
+    "Explain referential integrity: a foreign key value must match an existing primary key."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In PAYMENTS, the field AdmNo that refers to STUDENTS is called a",
+     "options": [
+      "primary key",
+      "candidate key",
+      "foreign key",
+      "index key"
+     ],
+     "answer": 2,
+     "explanation": "A foreign key links to the primary key of another table."
+    },
+    {
+     "q": "One student can make many payments. This relationship is",
+     "options": [
+      "one-to-one",
+      "one-to-many",
+      "many-to-many",
+      "many-to-one from STUDENTS"
+     ],
+     "answer": 1,
+     "explanation": "One STUDENTS record relates to many PAYMENTS records."
+    },
+    {
+     "q": "Okafor paid 25,000 and 15,000 against a fee of 45,000. How much is outstanding?",
+     "options": [
+      "5,000",
+      "20,000",
+      "40,000",
+      "10,000"
+     ],
+     "answer": 0,
+     "explanation": "45000 - (25000 + 15000) = 5000."
+    },
+    {
+     "q": "What does enforcing referential integrity prevent?",
+     "options": [
+      "Sorting the tables",
+      "Entering amounts in naira",
+      "Printing reports",
+      "Payments for students who do not exist in STUDENTS"
+     ],
+     "answer": 3,
+     "explanation": "Every foreign key value must match an existing primary key."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-relational-queries",
+   "title": "Selecting records with query by example and SQL",
+   "topic": "Relational Model",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To retrieve, filter, sort and summarise records using query design (QBE) and simple SQL statements.",
+   "apparatus": [
+    "Computer with Microsoft Access"
+   ],
+   "materials": [
+    "RESULTS table: AdmNo, Surname, Class, Score"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Create RESULTS and enter: 1001 Okafor SS3A 72; 1002 Bello SS3B 58; 1003 Adeyemi SS3A 55; 1004 Etim SS3B 81; 1005 Nwosu SS3A 64; 1006 Garba SS3A 90.",
+    "Create > Query Design; add RESULTS; drag Surname, Class and Score to the grid.",
+    "Under Class type \"SS3A\" in the Criteria row and under Score type >=60; set Sort to Descending on Score.",
+    "Run the query (Run !) and record the result; save it as qrySS3A_Credit.",
+    "Switch to SQL View and read the statement Access generated; compare it with: SELECT Surname, Score FROM RESULTS WHERE Class = 'SS3A' AND Score >= 60 ORDER BY Score DESC;",
+    "Write and run a totals query: SELECT Class, COUNT(*) AS Students, AVG(Score) AS Mean FROM RESULTS GROUP BY Class;",
+    "Change one criterion to use OR (Score < 56 or Score > 85) by putting the conditions on separate Criteria/or rows; run and record."
+   ],
+   "expectedObservations": "Only rows that meet all criteria on the same Criteria row appear (AND); criteria on different rows give OR. Query results are a dynamic view: changing a score in the table changes the query output.",
+   "dataAndCalculations": "SS3A with Score >= 60, highest first: Garba 90, Okafor 72, Nwosu 64 (3 records; Adeyemi 55 fails the score test). Totals query: SS3A count 4, mean (72 + 55 + 64 + 90) / 4 = 281 / 4 = 70.25; SS3B count 2, mean (58 + 81) / 2 = 69.5. OR query (Score < 56 or > 85): Adeyemi 55 and Garba 90.",
+   "precautions": [
+    "Put text criteria in quotation marks and numeric criteria without them.",
+    "Check whether the question wants AND (same row) or OR (separate rows)."
+   ],
+   "sourcesOfError": [
+    "Spaces or different spelling in data (e.g. \"SS 3A\") so the criterion does not match.",
+    "Running a query on the wrong table."
+   ],
+   "commonMistakes": [
+    "Using = 60 instead of >= 60 for \"60 and above\".",
+    "Forgetting GROUP BY when using COUNT or AVG with another field.",
+    "Writing ORDER BY Score ASC when \"highest first\" is required."
+   ],
+   "examTips": [
+    "Give the result rows in the order the query would show them.",
+    "Know the SQL keywords: SELECT, FROM, WHERE, ORDER BY, GROUP BY, AND/OR, COUNT, SUM, AVG.",
+    "Define a query as a request to retrieve or manipulate data meeting given conditions."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which SQL clause sorts the output?",
+     "options": [
+      "GROUP BY",
+      "WHERE",
+      "ORDER BY",
+      "SELECT"
+     ],
+     "answer": 2,
+     "explanation": "ORDER BY sorts; WHERE filters; GROUP BY groups for totals."
+    },
+    {
+     "q": "Scores in SS3A are 72, 55, 64 and 90. What is AVG(Score) for SS3A?",
+     "options": [
+      "70.00",
+      "70.25",
+      "281",
+      "69.50"
+     ],
+     "answer": 1,
+     "explanation": "281 / 4 = 70.25."
+    },
+    {
+     "q": "In query design, two criteria placed on the SAME row are combined with",
+     "options": [
+      "AND",
+      "OR",
+      "NOT",
+      "LIKE"
+     ],
+     "answer": 0,
+     "explanation": "Same row = AND; different rows = OR."
+    },
+    {
+     "q": "How many SS3A records have Score >= 60 (72, 55, 64, 90)?",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 3,
+     "explanation": "72, 64 and 90 qualify."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-relational-forms-reports",
+   "title": "Designing a data-entry form and a grouped report",
+   "topic": "Relational Model",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To create a form for entering records and a report grouped by class with subtotals and averages.",
+   "apparatus": [
+    "Computer with Microsoft Access",
+    "Printer (optional)"
+   ],
+   "materials": [
+    "RESULTS table from the query practical"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Select RESULTS in the Navigation Pane and click Create > Form Wizard; choose all fields and the Columnar layout; name it frmResults.",
+    "In Form View, use the navigation buttons to move between records and the New (blank) record button to add 1007 Danladi SS3B 66; then delete this test record.",
+    "Switch to Layout View and change the title text and the label font; save.",
+    "Click Create > Report Wizard; choose Class, Surname and Score; group by Class; sort by Surname.",
+    "Under Summary Options tick Sum and Avg for Score; choose Stepped layout and Portrait orientation; name it rptClassScores.",
+    "Preview the report (Print Preview) and check the group footers.",
+    "Export or print the report if a printer is available."
+   ],
+   "expectedObservations": "The form shows one record at a time with labelled boxes. The report lists SS3A and SS3B as separate groups, each followed by a Sum and Avg line, and a grand total at the end.",
+   "dataAndCalculations": "Group SS3A: 72 + 55 + 64 + 90 = 281, average 70.25. Group SS3B: 58 + 81 = 139, average 69.5. Grand total = 281 + 139 = 420; overall average = 420 / 6 = 70.",
+   "precautions": [
+    "Remove test records after demonstrating data entry.",
+    "Check the report preview before printing to save paper."
+   ],
+   "sourcesOfError": [
+    "Choosing the wrong grouping field, so subtotals are meaningless.",
+    "Leaving a test record in the table, which changes the totals."
+   ],
+   "commonMistakes": [
+    "Confusing a form (for entering/viewing data on screen) with a report (for presenting/printing summarised output).",
+    "Expecting a report to let you edit data."
+   ],
+   "examTips": [
+    "State the purpose of each object: table stores, query retrieves, form enters/displays, report presents.",
+    "Mention grouping and summary (Sum/Avg/Count) when describing a report."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which database object is mainly used to present summarised output for printing?",
+     "options": [
+      "Form",
+      "Table",
+      "Report",
+      "Macro"
+     ],
+     "answer": 2,
+     "explanation": "Reports format and summarise data for output."
+    },
+    {
+     "q": "SS3A scores total 281 and SS3B scores total 139 for 6 students. What is the overall average?",
+     "options": [
+      "69.5",
+      "70",
+      "70.25",
+      "420"
+     ],
+     "answer": 1,
+     "explanation": "(281 + 139) / 6 = 420 / 6 = 70."
+    },
+    {
+     "q": "A form is mainly used to",
+     "options": [
+      "enter and view records one at a time",
+      "store data permanently",
+      "join two tables",
+      "compress the database"
+     ],
+     "answer": 0,
+     "explanation": "Forms provide a friendly screen for data entry and viewing."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-presentation-slides",
+   "title": "Creating and running a slide presentation",
+   "topic": "Presentation Package",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To create, save, retrieve and run a short presentation with text, a picture, a chart, transitions and timings.",
+   "apparatus": [
+    "Computer with Microsoft PowerPoint or LibreOffice Impress",
+    "Projector (optional)"
+   ],
+   "materials": [
+    "Notes on \"Keeping our school clean\", a picture file and simple survey figures"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start PowerPoint, choose Blank Presentation and type the title and your name on the title slide.",
+    "Add slides with Home > New Slide (Ctrl+M) using the Title and Content layout; type bullet points on slides 2 to 6.",
+    "Insert a picture (Insert > Pictures) on slide 3 and a column chart (Insert > Chart) on slide 5 using the survey figures.",
+    "Apply one design theme (Design tab) to all slides.",
+    "Apply a transition (Transitions tab) and Apply To All; add an entrance animation to the chart.",
+    "Use Slide Show > Rehearse Timings, or set \"After 00:30\" in the Transitions tab, then save as Clean_School.pptx.",
+    "Close and reopen the file, then run the show from the beginning (F5); press Esc to end."
+   ],
+   "expectedObservations": "Slides advance automatically after the set time, transitions play between slides and the chart animates in. Slide Sorter view shows all slides as thumbnails.",
+   "dataAndCalculations": "Eight slides at 30 seconds each = 8 x 30 = 240 s = 4 minutes. If the talk must last 6 minutes, each slide needs 360 / 8 = 45 s. Survey on slide 5: 24 of 40 students said the toilets need more cleaning = 24 / 40 = 60%.",
+   "precautions": [
+    "Keep to about six short bullets per slide and a readable font size (at least 24 pt for body text).",
+    "Use one consistent theme and avoid too many animations."
+   ],
+   "sourcesOfError": [
+    "Linked pictures or videos missing when the file is moved to another computer.",
+    "Automatic timings too short for the audience to read."
+   ],
+   "commonMistakes": [
+    "Confusing transitions (between slides) with animations (on objects within a slide).",
+    "Pressing F5 when Shift+F5 (from current slide) was required."
+   ],
+   "examTips": [
+    "Name the views: Normal, Slide Sorter, Notes Page, Reading View and Slide Show.",
+    "Give exact steps with tab names for \"insert a new slide\", \"apply a transition\", \"run the show\"."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which key starts a slide show from the first slide in PowerPoint?",
+     "options": [
+      "F7",
+      "F12",
+      "Ctrl+M",
+      "F5"
+     ],
+     "answer": 3,
+     "explanation": "F5 runs from the beginning; Shift+F5 from the current slide."
+    },
+    {
+     "q": "A 6-minute talk uses 8 slides. How long should each slide be shown on average?",
+     "options": [
+      "30 seconds",
+      "48 seconds",
+      "45 seconds",
+      "60 seconds"
+     ],
+     "answer": 2,
+     "explanation": "360 s / 8 = 45 s."
+    },
+    {
+     "q": "The effect that occurs as one slide replaces another is called a",
+     "options": [
+      "animation",
+      "transition",
+      "template",
+      "master"
+     ],
+     "answer": 1,
+     "explanation": "Animations apply to objects; transitions apply between slides."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-coreldraw-business-card",
+   "title": "Designing a business card in CorelDRAW",
+   "topic": "Graphic Packages",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To use the basic tools of a graphics package (CorelDRAW) to design a business card and plan how many fit on an A4 sheet.",
+   "apparatus": [
+    "Computer with CorelDRAW (or Inkscape as a free alternative)",
+    "Colour printer (optional)"
+   ],
+   "materials": [
+    "Details of a small business, e.g. \"Ada's Tailoring, Aba\", phone number and address",
+    "A logo idea sketched on paper"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start CorelDRAW and create a new document; set the page size to 88.9 mm x 50.8 mm (3.5 in x 2 in) in the property bar.",
+    "Use the Rectangle tool (F6) to draw a background rectangle and fill it from the colour palette; set the outline to None.",
+    "Draw a simple logo with the Ellipse tool (F7; hold Ctrl for a perfect circle) and the Polygon/Basic Shapes tools; group the parts (Ctrl+G).",
+    "Use the Text tool (F8) to add the business name, owner's name, phone and address; choose readable fonts and sizes.",
+    "Align items with Object > Align and Distribute; check spelling.",
+    "Save as AdaCard.cdr, then export a PNG at 300 dpi (File > Export) for printing elsewhere.",
+    "Plan the print layout of several cards on one A4 sheet."
+   ],
+   "expectedObservations": "Shapes can be resized with handles, filled and outlined independently; grouped objects move as one. The exported image is sharp at 300 dpi.",
+   "dataAndCalculations": "Card 3.5 in x 2 in at 300 dpi = 3.5 x 300 by 2 x 300 = 1050 x 600 pixels. A4 = 210 mm x 297 mm; with 5 mm margins the usable area is 200 mm x 287 mm. Portrait: floor(200 / 88.9) = 2 across, floor(287 / 50.8) = 5 down, so 2 x 5 = 10 cards. Landscape (287 x 200): 3 across x 3 down = 9 cards. Portrait gives more cards (10).",
+   "precautions": [
+    "Keep text at least 3 mm inside the card edge so trimming does not cut it.",
+    "Use no more than two or three fonts and colours that contrast well."
+   ],
+   "sourcesOfError": [
+    "Exporting at screen resolution (72-96 dpi), which prints blurred.",
+    "Wrong page units (inches vs millimetres)."
+   ],
+   "commonMistakes": [
+    "Not grouping the logo, so parts shift when moved.",
+    "Calling CorelDRAW a word processor; it is a vector graphics package."
+   ],
+   "examTips": [
+    "Give examples of graphic packages: CorelDRAW, Adobe Photoshop, Adobe Illustrator, Paint.",
+    "State uses: logos, posters, cards, certificates, photo editing, illustrations.",
+    "Name tools by function: Pick, Shape, Rectangle, Ellipse, Text, Fill, Outline."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In CorelDRAW, holding Ctrl while using the Ellipse tool draws",
+     "options": [
+      "a perfect circle",
+      "a rectangle",
+      "a straight line",
+      "a text box"
+     ],
+     "answer": 0,
+     "explanation": "Ctrl constrains the ellipse to equal width and height."
+    },
+    {
+     "q": "A 3.5 in x 2 in card is exported at 300 dpi. What is its size in pixels?",
+     "options": [
+      "350 x 200",
+      "300 x 300",
+      "1050 x 300",
+      "1050 x 600"
+     ],
+     "answer": 3,
+     "explanation": "3.5 x 300 = 1050 and 2 x 300 = 600."
+    },
+    {
+     "q": "Which of these is a graphics package?",
+     "options": [
+      "Microsoft Access",
+      "Microsoft Excel",
+      "CorelDRAW",
+      "WordPerfect"
+     ],
+     "answer": 2,
+     "explanation": "Access is a DBMS, Excel a spreadsheet and WordPerfect a word processor."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-internet-browsing-search",
+   "title": "Browsing, searching and downloading safely",
+   "topic": "Internet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To use a web browser and search engine efficiently, judge the security of websites and estimate download time and data use.",
+   "apparatus": [
+    "Computer or smartphone with a browser (Chrome, Firefox, Edge or Opera)",
+    "Internet connection (school Wi-Fi or modem)"
+   ],
+   "materials": [
+    "A list of research questions, e.g. \"WAEC registration deadline\", \"symptoms of Lassa fever\""
+   ],
+   "safety": [
+    "Do not enter passwords, BVN or bank details on shared computers or unknown sites.",
+    "Do not download or open files from unknown sources; scan downloads with antivirus.",
+    "Log out of accounts and clear your session on public computers."
+   ],
+   "procedure": [
+    "Open the browser and identify the title bar, address bar, tabs, back/forward/refresh buttons and the bookmarks bar.",
+    "Type a URL (e.g. www.waecnigeria.org) in the address bar and press Enter; check for https and the padlock icon.",
+    "Go to a search engine (e.g. Google, Bing) and search: Lassa fever symptoms; note the number of results.",
+    "Refine using operators: \"Lassa fever\" site:ncdc.gov.ng ; then exclude a word with a minus sign, e.g. Lassa fever -rat.",
+    "Open a result in a new tab (Ctrl+click), bookmark a useful page (Ctrl+D) and view your history (Ctrl+H).",
+    "Download a small PDF; note where it is saved (Downloads folder) and scan it before opening.",
+    "Clear browsing data at the end of the session."
+   ],
+   "expectedObservations": "Quotation marks and site: greatly reduce and focus the results. Secure sites show https and a padlock. The downloaded file appears in the Downloads folder and the browser's download list.",
+   "dataAndCalculations": "Download time = file size in megabits / speed. A 450 MB file on a 10 Mbps connection: 450 x 8 = 3,600 megabits; 3,600 / 10 = 360 s = 6 minutes. Data left on a 1.5 GB bundle (1.5 x 1024 = 1,536 MB) after this download: 1,536 - 450 = 1,086 MB.",
+   "precautions": [
+    "Check the source and date of information; prefer official (.gov.ng, .edu.ng) or reputable sites.",
+    "Watch out for fake look-alike addresses (e.g. waec-nigeria-results.com)."
+   ],
+   "sourcesOfError": [
+    "Network speed varies, so actual download time differs from the estimate.",
+    "Confusing megabytes (MB) with megabits (Mb)."
+   ],
+   "commonMistakes": [
+    "Calling the search engine \"the Internet\" or \"the browser\"; a browser displays pages, a search engine finds them.",
+    "Forgetting to multiply by 8 when converting bytes to bits."
+   ],
+   "examTips": [
+    "Know examples: browsers (Chrome, Firefox, Edge, Opera, Safari) and search engines (Google, Bing, Yahoo, DuckDuckGo).",
+    "List Internet services: e-mail, WWW, chat/instant messaging, FTP, e-commerce, e-learning.",
+    "Describe Internet abuse (cyber fraud, pornography, piracy, cyberbullying) and security measures."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How long does a 450 MB file take to download at 10 Mbps?",
+     "options": [
+      "45 seconds",
+      "6 minutes",
+      "45 minutes",
+      "36 seconds"
+     ],
+     "answer": 1,
+     "explanation": "450 x 8 = 3600 Mb; 3600 / 10 = 360 s = 6 min."
+    },
+    {
+     "q": "Which search restricts results to one website?",
+     "options": [
+      "site:ncdc.gov.ng Lassa fever",
+      "Lassa fever -ncdc",
+      "Lassa OR fever",
+      "\"Lassa\" \"fever\""
+     ],
+     "answer": 0,
+     "explanation": "The site: operator limits results to a domain."
+    },
+    {
+     "q": "Which is a web browser rather than a search engine?",
+     "options": [
+      "Google Search",
+      "Bing",
+      "DuckDuckGo",
+      "Mozilla Firefox"
+     ],
+     "answer": 3,
+     "explanation": "Firefox displays web pages; the others search."
+    },
+    {
+     "q": "A padlock and \"https\" in the address bar indicate that",
+     "options": [
+      "the site is free of viruses",
+      "the page is offline",
+      "the connection to the site is encrypted",
+      "the site is a government site"
+     ],
+     "answer": 2,
+     "explanation": "HTTPS encrypts data in transit; it does not guarantee the site is honest."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-os-file-management",
+   "title": "Managing files and folders with the operating system",
+   "topic": "Operating System",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To use a graphical user interface to create, rename, copy, move, delete and restore files and folders, and compare GUI and command-line methods.",
+   "apparatus": [
+    "Computer running Windows (or Linux)",
+    "Flash drive"
+   ],
+   "materials": [
+    "Three practice files: Notes.docx (2.4 MB), Scores.xlsx (850 KB), Photo.jpg (1.2 MB)"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Identify desktop items: icons, taskbar, Start button, notification area and Recycle Bin.",
+    "Open File Explorer (Windows key + E); in drive D create the folder School, and inside it SS3 (right-click > New > Folder).",
+    "Copy the three files into D:\\School\\SS3 (Ctrl+C, Ctrl+V); rename Notes.docx to DP_Notes.docx (F2).",
+    "Switch to Details view to see the size, type and date modified of each file.",
+    "Insert a flash drive; copy the SS3 folder to it, then safely eject it.",
+    "Delete Photo.jpg, open the Recycle Bin and restore it.",
+    "Open Command Prompt and type dir D:\\School\\SS3 to list the same files, showing the command-line interface."
+   ],
+   "expectedObservations": "The GUI uses windows, icons, menus and a pointer; the command line accepts typed commands and shows text output. Deleted files go to the Recycle Bin and can be restored; files deleted from a flash drive usually cannot.",
+   "dataAndCalculations": "Full path of renamed file: D:\\School\\SS3\\DP_Notes.docx. Space needed on the flash drive: 2.4 MB = 2.4 x 1024 = 2,457.6 KB; 1.2 MB = 1,228.8 KB; total = 2,457.6 + 850 + 1,228.8 = 4,536.4 KB = 4,536.4 / 1024 = about 4.43 MB.",
+   "precautions": [
+    "Always eject a flash drive before removing it to avoid corrupting files.",
+    "Do not delete or rename system folders such as Windows or Program Files."
+   ],
+   "sourcesOfError": [
+    "Dragging files between drives copies them, while dragging within a drive moves them; confusing the two.",
+    "File extensions hidden, so the full name is misread."
+   ],
+   "commonMistakes": [
+    "Mixing up \"copy\" (original remains) with \"move/cut\" (original removed).",
+    "Writing paths with forward slashes on Windows or leaving out the drive letter."
+   ],
+   "examTips": [
+    "Give examples: GUI operating systems (Windows, macOS, Linux desktops, Android); command-line (MS-DOS, UNIX shell).",
+    "State OS functions: managing files, memory, processor, devices and security, and providing a user interface.",
+    "Write paths exactly: Drive:\\Folder\\Subfolder\\File.ext."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which key renames a selected file in Windows File Explorer?",
+     "options": [
+      "F5",
+      "F2",
+      "Delete",
+      "F1"
+     ],
+     "answer": 1,
+     "explanation": "F2 puts the name into edit mode."
+    },
+    {
+     "q": "Files of 2.4 MB, 850 KB and 1.2 MB are copied. What is the total in KB (1 MB = 1024 KB)?",
+     "options": [
+      "4,536.4 KB",
+      "4,450 KB",
+      "4,450.4 KB",
+      "3,686.4 KB"
+     ],
+     "answer": 0,
+     "explanation": "2457.6 + 850 + 1228.8 = 4536.4 KB."
+    },
+    {
+     "q": "Which is an example of a command-line operating system?",
+     "options": [
+      "Windows 11",
+      "Android",
+      "macOS",
+      "MS-DOS"
+     ],
+     "answer": 3,
+     "explanation": "MS-DOS uses typed commands; the others are graphical."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-computer-maintenance",
+   "title": "Routine hardware and software maintenance",
+   "topic": "Maintenance of Computer",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To carry out general cleaning, check UPS and battery condition, clean a DVD drive lens and perform basic software maintenance, then estimate UPS backup time.",
+   "apparatus": [
+    "Desktop computer with UPS",
+    "Lint-free (microfibre) cloth",
+    "Soft brush and blower or compressed air",
+    "Lens-cleaning disc",
+    "Isopropyl alcohol",
+    "Cotton buds",
+    "Anti-static wrist strap"
+   ],
+   "materials": [
+    "Screen cleaning solution (or water-dampened cloth)",
+    "Maintenance log sheet"
+   ],
+   "safety": [
+    "Shut down and unplug the computer and UPS output before cleaning.",
+    "Never spray liquid directly on the screen or keyboard; dampen the cloth instead.",
+    "Wear an anti-static strap or touch earthed metal before touching internal parts.",
+    "Do not open power supplies, monitors or UPS units; they hold dangerous charge."
+   ],
+   "procedure": [
+    "Shut down properly (Start > Power > Shut down) and switch off at the wall socket.",
+    "Wipe the screen gently with a slightly damp microfibre cloth; clean the casing and mouse.",
+    "Turn the keyboard upside down and tap; brush between keys; clean keys with a cloth moistened with isopropyl alcohol.",
+    "Blow dust from the system unit vents and fans with a blower, holding fans still.",
+    "Run a lens-cleaning disc in the DVD drive (or gently wipe the exposed lens with a cotton bud and alcohol on a laptop drive).",
+    "Check the UPS: press the self-test button, note the battery indicator and the date of the last battery change.",
+    "Restart; run Disk Cleanup, check for Windows/antivirus updates and back up important files.",
+    "Record all actions in the maintenance log."
+   ],
+   "expectedObservations": "Clean vents and fans reduce noise and heat; a dirty lens causes read errors that clear after cleaning. A healthy UPS passes the self-test and beeps when mains power is removed; a weak battery shows a warning or drops the load quickly.",
+   "dataAndCalculations": "UPS runtime estimate: battery 12 V, 7 Ah stores 12 x 7 = 84 Wh. Load = system unit 150 W + monitor 30 W = 180 W. With 80% inverter efficiency, runtime = 84 x 0.8 / 180 = 0.373 h = 0.373 x 60 = about 22 minutes (in practice less, as lead-acid batteries deliver less at high current). VA check: 180 W / 0.6 power factor = 300 VA, well within a 650 VA UPS.",
+   "precautions": [
+    "Replace UPS batteries every 2-3 years or when the self-test fails.",
+    "Keep the computer room dust-free and use covers when not in use.",
+    "Back up data before any repair or software change."
+   ],
+   "sourcesOfError": [
+    "Battery capacity falls with age and heat, so real backup time is shorter than calculated.",
+    "Actual power drawn varies with workload."
+   ],
+   "commonMistakes": [
+    "Cleaning a computer while it is switched on.",
+    "Treating a UPS as a generator; it gives only short backup for saving work and shutting down."
+   ],
+   "examTips": [
+    "Separate hardware maintenance (cleaning, replacing parts, checking cables) from software maintenance (updates, antivirus, disk cleanup, defragmenting HDDs, backups).",
+    "Explain a computer crash and data recovery: restore from backup, use recovery tools, System Restore."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 12 V, 7 Ah battery stores how much energy?",
+     "options": [
+      "19 Wh",
+      "1.7 Wh",
+      "84 Wh",
+      "840 Wh"
+     ],
+     "answer": 2,
+     "explanation": "Energy = V x Ah = 12 x 7 = 84 Wh."
+    },
+    {
+     "q": "What is the safest way to clean a monitor screen?",
+     "options": [
+      "Spray water directly on it while on",
+      "Wipe with a slightly damp microfibre cloth after switching off",
+      "Scrub with a dry paper towel",
+      "Use a wet sponge with detergent"
+     ],
+     "answer": 1,
+     "explanation": "Liquid must not run into the screen; paper scratches it."
+    },
+    {
+     "q": "Which of these is software maintenance?",
+     "options": [
+      "Installing antivirus updates",
+      "Blowing dust from fans",
+      "Replacing a UPS battery",
+      "Cleaning the DVD lens"
+     ],
+     "answer": 0,
+     "explanation": "The others are hardware tasks."
+    },
+    {
+     "q": "Estimated runtime: 84 Wh battery, 80% efficiency, 180 W load. About how long?",
+     "options": [
+      "47 minutes",
+      "2 hours",
+      "8 minutes",
+      "22 minutes"
+     ],
+     "answer": 3,
+     "explanation": "84 x 0.8 / 180 = 0.373 h = 22.4 min."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-virus-scan",
+   "title": "Detecting and removing computer viruses",
+   "topic": "Computer Virus",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "observation",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To update antivirus software, scan drives and removable media, quarantine or delete threats, and recognise warning signs of infection.",
+   "apparatus": [
+    "Computer with antivirus (e.g. Microsoft Defender, Avast, Kaspersky, Norton)",
+    "Flash drive"
+   ],
+   "materials": [
+    "The EICAR test file (a harmless standard file every antivirus reports as a test virus) provided by the teacher"
+   ],
+   "safety": [
+    "Never open suspicious e-mail attachments or run unknown programs during the practical.",
+    "Use only the harmless EICAR test file, never real malware.",
+    "Disconnect an infected machine from the network until it is cleaned."
+   ],
+   "procedure": [
+    "List warning signs of infection: slow performance, strange pop-ups, missing or renamed files, shortcuts replacing folders on flash drives, programs crashing, disabled antivirus.",
+    "Open the antivirus and update its virus definitions (signatures).",
+    "Run a Quick Scan; note time taken and items scanned.",
+    "Insert a flash drive and right-click it in File Explorer > Scan with the antivirus before opening it.",
+    "Copy the EICAR test file to the desktop and observe the real-time protection alert.",
+    "Choose Quarantine (or Delete) and open the quarantine/protection history to view the record.",
+    "Schedule a weekly Full Scan and turn on automatic updates."
+   ],
+   "expectedObservations": "The antivirus flags the EICAR file immediately and moves it to quarantine. Scan reports show number of files scanned, threats found and actions taken.",
+   "dataAndCalculations": "A scan checked 48,520 files in 12 minutes (720 s): rate = 48,520 / 720 = about 67.4 files per second. At that rate a drive with 120,000 files takes 120,000 / 67.4 = about 1,780 s = about 29.7 minutes. If 3 infected files were found: 3 / 48,520 x 100 = about 0.0062% of files.",
+   "precautions": [
+    "Keep virus definitions up to date; an outdated antivirus misses new viruses.",
+    "Scan every removable medium before opening it.",
+    "Back up data regularly so files can be restored after an attack."
+   ],
+   "sourcesOfError": [
+    "False positives: safe files reported as threats.",
+    "New (zero-day) viruses not yet in the signature database."
+   ],
+   "commonMistakes": [
+    "Saying a virus \"damages the monitor\"; viruses damage software and data, not usually hardware.",
+    "Installing two real-time antivirus programs together, which conflict."
+   ],
+   "examTips": [
+    "Give types/examples of malware: virus, worm, Trojan horse, ransomware, spyware; named examples such as ILOVEYOU, Melissa, WannaCry.",
+    "Sources: infected flash drives, e-mail attachments, downloads, pirated software, networks.",
+    "Prevention: antivirus, updates, firewall, avoiding pirated software, scanning media."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Before opening a borrowed flash drive you should",
+     "options": [
+      "format the hard disk",
+      "run Disk Cleanup",
+      "scan it with up-to-date antivirus",
+      "disable the firewall"
+     ],
+     "answer": 2,
+     "explanation": "Scanning detects malware before it runs."
+    },
+    {
+     "q": "A scan covers 48,520 files in 720 s. About how many files per second is that?",
+     "options": [
+      "674",
+      "67",
+      "6.7",
+      "720"
+     ],
+     "answer": 1,
+     "explanation": "48520 / 720 = 67.4."
+    },
+    {
+     "q": "Moving a suspicious file to an isolated area where it cannot run is called",
+     "options": [
+      "quarantine",
+      "formatting",
+      "defragmentation",
+      "encryption"
+     ],
+     "answer": 0,
+     "explanation": "Quarantined files are isolated and can be deleted or restored later."
+    },
+    {
+     "q": "Which is a common sign of virus infection?",
+     "options": [
+      "A quiet cooling fan",
+      "Faster boot times",
+      "Correctly saved files",
+      "Folders on a flash drive replaced by shortcuts"
+     ],
+     "answer": 3,
+     "explanation": "Shortcut viruses hide the real folders."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-computer-room-layout",
+   "title": "Planning a safe computer room layout",
+   "topic": "Safety Measures",
+   "kind": "FIELD",
+   "skills": [
+    "measurement",
+    "calculation",
+    "safety",
+    "drawing"
+   ],
+   "aim": "To survey the school computer room and plan seating, equipment positions, lighting, power points and dust control for safe use.",
+   "apparatus": [
+    "Measuring tape (30 m)",
+    "Graph paper, ruler and pencil",
+    "Lux meter app on a smartphone (optional)"
+   ],
+   "materials": [
+    "Checklist of safety measures",
+    "Floor plan of the computer room (if available)"
+   ],
+   "safety": [
+    "Do not step over or pull trailing cables during the survey.",
+    "Report any exposed wires, overloaded sockets or blocked exits to the teacher."
+   ],
+   "procedure": [
+    "Measure the length and width of the room and note doors, windows, sockets and the fire extinguisher.",
+    "Draw the room to scale (e.g. 1 cm : 50 cm) on graph paper.",
+    "Plan workstations along the walls, allowing 1.2 m of bench per workstation and a clear central aisle at least 1 m wide.",
+    "Position monitors at right angles to windows to avoid glare, with the top of the screen at or slightly below eye level and 50-70 cm from the eyes.",
+    "Mark power points, assigning surge-protected extension boxes, and route cables along trunking, not across walkways.",
+    "Check illumination (aim for about 300-500 lux, no direct glare) and ventilation/air conditioning.",
+    "Record dust controls (covers, mats at the door, no chalk boards) and the \"no liquids\" rule; write up recommendations."
+   ],
+   "expectedObservations": "Common findings include monitors facing windows (glare), cables across floors, overloaded extension boxes, chairs without back support and drinks on benches.",
+   "dataAndCalculations": "Room walls are 10 m long. Workstations per long wall = floor(10 / 1.2) = 8; using both long walls gives 8 x 2 = 16 workstations. Each needs 2 sockets (system unit and monitor) = 16 x 2 = 32 sockets; with 4-way surge-protected extension boxes, 32 / 4 = 8 boxes are needed. Scale drawing: 10 m at 1 cm : 50 cm = 1000 / 50 = 20 cm on paper.",
+   "precautions": [
+    "Never daisy-chain extension boxes.",
+    "Keep fire exits and the extinguisher clear and accessible; a CO2 extinguisher suits electrical fires."
+   ],
+   "sourcesOfError": [
+    "Measuring tape not held straight, giving wrong room size.",
+    "Light readings vary with time of day and weather."
+   ],
+   "commonMistakes": [
+    "Placing monitors directly in front of or behind windows.",
+    "Ignoring the need for an aisle and emergency exit space."
+   ],
+   "examTips": [
+    "Explain each measure with its reason, e.g. \"liquids are kept out because spills cause short circuits and electric shock\".",
+    "Describe correct sitting: upright, back supported, feet flat, elbows about 90 degrees, wrists straight.",
+    "Mention dust-free environment: dust blocks fans and causes overheating."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 10 m wall allows 1.2 m per workstation. How many workstations fit along it?",
+     "options": [
+      "9",
+      "12",
+      "8",
+      "10"
+     ],
+     "answer": 2,
+     "explanation": "10 / 1.2 = 8.33, so 8 whole workstations."
+    },
+    {
+     "q": "Why should monitors be placed at right angles to windows?",
+     "options": [
+      "To save electricity",
+      "To reduce glare and reflections",
+      "To keep the room dust-free",
+      "To speed up the network"
+     ],
+     "answer": 1,
+     "explanation": "Light from behind or in front causes glare."
+    },
+    {
+     "q": "Which fire extinguisher is suitable for an electrical fire in a computer room?",
+     "options": [
+      "Carbon dioxide (CO2)",
+      "Water",
+      "Foam",
+      "Sand bucket only"
+     ],
+     "answer": 0,
+     "explanation": "CO2 does not conduct electricity and leaves no residue."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-file-organisation-access",
+   "title": "Comparing serial, sequential, indexed and random file access",
+   "topic": "File Organization",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "procedure",
+    "observation"
+   ],
+   "aim": "To model different file organisation methods with a set of record cards and a spreadsheet, and compare the number of accesses needed to find a record.",
+   "apparatus": [
+    "Computer with a spreadsheet program",
+    "Stopwatch"
+   ],
+   "materials": [
+    "40 index cards each holding a student record with a 4-digit key",
+    "Pencils"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Serial: shuffle the cards and search for a given key from the top; count the cards examined.",
+    "Sequential: sort the cards by key and search again from the top, stopping as soon as you pass the key; count.",
+    "Indexed sequential: divide the sorted cards into 4 groups of 10 and write an index card showing the highest key in each group; look up the index first, then search only the right group; count.",
+    "Random (direct/hashed): use the rule address = key MOD 97 to place each record in a numbered slot; to find a record compute its address and go straight there; count.",
+    "Repeat each search for five different keys and record the counts in a spreadsheet; compute the mean for each method.",
+    "Discuss which method suits a payroll master file (sequential batch), a bank enquiry (random) and a library catalogue (indexed)."
+   ],
+   "expectedObservations": "Serial and sequential searches take many accesses; indexed sequential needs far fewer; random/direct access usually needs one access unless two keys hash to the same address (a collision).",
+   "dataAndCalculations": "For a file of 1,000 records: sequential search examines on average (1,000 + 1) / 2 = 500.5 records (worst case 1,000). Indexed with 10 index entries of 100 records each: about (10 + 1) / 2 + (100 + 1) / 2 = 5.5 + 50.5 = 56 accesses on average. Hashing with key MOD 97: key 5437 gives 5437 - 97 x 56 = 5 (slot 5); key 8123 gives 8123 - 97 x 83 = 72 (slot 72).",
+   "precautions": [
+    "Keep the cards in the right order after each sequential trial.",
+    "Record every count honestly, including collisions."
+   ],
+   "sourcesOfError": [
+    "Small sample of searches gives averages that differ from theory.",
+    "Human counting errors."
+   ],
+   "commonMistakes": [
+    "Confusing serial (unordered, in order of arrival) with sequential (ordered by key).",
+    "Thinking random organisation means records are placed \"anyhow\"; it means direct access by calculated address."
+   ],
+   "examTips": [
+    "Compare methods by access speed, storage medium (tape = serial/sequential; disk = all), and suitability.",
+    "Define master, transaction and reference files with examples.",
+    "Show working for hashing and average-search calculations."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Average number of records examined in a sequential search of 1,000 records?",
+     "options": [
+      "1000",
+      "100",
+      "56",
+      "500.5"
+     ],
+     "answer": 3,
+     "explanation": "(n + 1) / 2 = 1001 / 2 = 500.5."
+    },
+    {
+     "q": "Using address = key MOD 97, where is key 5437 stored?",
+     "options": [
+      "Slot 56",
+      "Slot 97",
+      "Slot 5",
+      "Slot 37"
+     ],
+     "answer": 2,
+     "explanation": "97 x 56 = 5432; 5437 - 5432 = 5."
+    },
+    {
+     "q": "Which organisation is best for answering one customer's balance enquiry instantly?",
+     "options": [
+      "Serial",
+      "Random (direct) access",
+      "Sequential on tape",
+      "Unsorted batch"
+     ],
+     "answer": 1,
+     "explanation": "Direct access goes straight to the record."
+    },
+    {
+     "q": "Records stored in key order on magnetic tape are an example of",
+     "options": [
+      "sequential organisation",
+      "random organisation",
+      "indexed organisation",
+      "hashed organisation"
+     ],
+     "answer": 0,
+     "explanation": "Tape supports only sequential/serial access."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-dpr-information-processing-survey",
+   "title": "Turning survey data into information",
+   "topic": "The Art of Information Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "graph"
+   ],
+   "aim": "To carry out each step of information processing — collection, collation, input, processing, output, storage and distribution — on a class survey.",
+   "apparatus": [
+    "Computer with a spreadsheet program",
+    "Printer (optional)"
+   ],
+   "materials": [
+    "Questionnaire: \"How do you usually come to school?\"",
+    "Tally sheet"
+   ],
+   "safety": [
+    "Keep food, drinks and water bottles out of the computer laboratory.",
+    "Do not touch exposed cables, sockets or the inside of a system unit; report sparks, burning smells or loose plugs to the teacher.",
+    "Sit upright with feet flat and the screen at arm's length; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Collection: ask 40 students the survey question and record each answer on the questionnaire.",
+    "Preparation/collation: check forms for missing or unclear answers, then tally the responses by category.",
+    "Input: type the categories and counts into a spreadsheet.",
+    "Processing: compute the total and percentage for each category with formulae.",
+    "Output: produce a table and a bar or pie chart with a title.",
+    "Storage: save the file with a meaningful name and back it up to a flash drive or cloud folder.",
+    "Distribution: print or share the summary with the class prefect or principal, then write two conclusions."
+   ],
+   "expectedObservations": "Raw answers (data) mean little until counted and summarised; the chart and percentages (information) reveal patterns useful for decisions such as school bus planning.",
+   "dataAndCalculations": "Responses from 40 students: walk 14, bus 12, motorcycle 6, private car 8 (total 40). Percentages: walk 14/40 = 35%; bus 30%; motorcycle 15%; car 20% (sum 100%). Conclusion: 65% walk or use buses, so safe footpaths and bus timing matter most.",
+   "precautions": [
+    "Validate data before input (no impossible or duplicate entries).",
+    "Keep personal details of respondents private."
+   ],
+   "sourcesOfError": [
+    "Respondents misunderstanding the question.",
+    "Tally or typing errors (garbage in, garbage out)."
+   ],
+   "commonMistakes": [
+    "Listing processing steps in the wrong order.",
+    "Calling raw counts \"information\" before they are processed and interpreted."
+   ],
+   "examTips": [
+    "Learn the steps in order and describe each in one sentence with an example.",
+    "Explain GIGO (garbage in, garbage out) when asked about data accuracy.",
+    "Differentiate data (raw facts) from information (processed, meaningful data)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "12 of 40 students come by bus. What percentage is this?",
+     "options": [
+      "12%",
+      "25%",
+      "48%",
+      "30%"
+     ],
+     "answer": 3,
+     "explanation": "12 / 40 x 100 = 30%."
+    },
+    {
+     "q": "Which step comes immediately after input in information processing?",
+     "options": [
+      "Collection",
+      "Distribution",
+      "Processing",
+      "Collation"
+     ],
+     "answer": 2,
+     "explanation": "Input is followed by processing, then output."
+    },
+    {
+     "q": "\"Garbage in, garbage out\" means that",
+     "options": [
+      "old computers produce rubbish",
+      "wrong input data produce wrong output",
+      "waste paper must be recycled",
+      "output must be deleted after use"
+     ],
+     "answer": 1,
+     "explanation": "Output can only be as accurate as the input."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

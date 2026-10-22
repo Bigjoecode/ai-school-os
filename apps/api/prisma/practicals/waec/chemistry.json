@@ -1,0 +1,3737 @@
+{
+  "exam": "WAEC",
+  "subject": "Chemistry",
+  "practicalPaper": "Paper 3 is a 2-hour practical test for school candidates (1½-hour alternative to practical for private candidates) with three compulsory questions for 50 marks: one on quantitative analysis (usually an acid–base or redox titration with calculations), one on qualitative analysis (tests, observations and inferences for ions, gases and organic groups) and one on practical activities from the teaching syllabus.",
+  "practicals": [
+    {
+      "id": "pr-chem-titration-h2so4-naoh",
+      "title": "Acid–base titration: concentration of sodium hydroxide",
+      "topic": "Acid-base titration",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure",
+        "safety"
+      ],
+      "aim": "To determine the concentration, in mol dm⁻³ and g dm⁻³, of a sodium hydroxide solution (B) by titration against a standard tetraoxosulphate(VI) acid solution (A).",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: H₂SO₄ containing 4.90 g dm⁻³",
+        "Solution B: NaOH of unknown concentration",
+        "Methyl orange indicator",
+        "Distilled water"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water."
+      ],
+      "procedure": [
+        "Rinse the burette with a little of A and fill it; run some through the jet to remove air, then record the initial reading.",
+        "Rinse the pipette with B, then pipette 25.0 cm³ of B into a clean conical flask (rinsed with distilled water only).",
+        "Add 2–3 drops of methyl orange; the solution turns yellow.",
+        "Run A from the burette into the flask with constant swirling until the colour changes from yellow to orange (end point). This first titration is the rough titre.",
+        "Repeat at least twice more, adding A rapidly to within about 1 cm³ of the rough titre, then dropwise, until you have concordant titres.",
+        "Record all readings in a table and calculate the mean of the concordant titres.",
+        "Use the mean titre and the equation H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O to calculate the concentration of B."
+      ],
+      "expectedObservations": "With methyl orange the solution in the flask is yellow (alkaline) and changes sharply to orange (neutral end point) with one drop of acid; red means the end point has been overshot.",
+      "dataAndCalculations": "Titres: rough 25.40; accurate 24.90, 24.80, 24.85 cm³. Mean titre = (24.90 + 24.80 + 24.85)/3 = 24.85 cm³. Molar mass of H₂SO₄ = 98 g mol⁻¹, so [A] = 4.90/98 = 0.0500 mol dm⁻³. Moles of acid = 0.0500 × 24.85/1000 = 1.243 × 10⁻³ mol. Mole ratio acid : base = 1 : 2, so moles of NaOH = 2.485 × 10⁻³ mol in 25.0 cm³. [B] = 2.485 × 10⁻³ × 1000/25.0 = 0.0994 mol dm⁻³. Mass concentration = 0.0994 × 40 = 3.98 g dm⁻³.",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base."
+      ],
+      "commonMistakes": [
+        "Including the rough titre in the average.",
+        "Forgetting the 1 : 2 mole ratio of H₂SO₄ to NaOH.",
+        "Rinsing the conical flask with B (adds extra base).",
+        "Writing burette readings to one decimal place."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The concordant titres 22.40, 22.50 and 22.45 cm³ have a mean of",
+          "options": [
+            "22.40 cm³",
+            "22.45 cm³",
+            "22.50 cm³",
+            "22.48 cm³"
+          ],
+          "answer": 1,
+          "explanation": "(22.40 + 22.50 + 22.45)/3 = 22.45 cm³."
+        },
+        {
+          "q": "Why is the conical flask rinsed with distilled water and not with the base?",
+          "options": [
+            "Water speeds up the reaction",
+            "Rinsing with base would add extra moles of base",
+            "Water dilutes the indicator",
+            "It keeps the flask cool"
+          ],
+          "answer": 1,
+          "explanation": "The number of moles pipetted must be exact; water does not change it."
+        },
+        {
+          "q": "A solution containing 4.90 g dm⁻³ of H₂SO₄ (M = 98) has concentration",
+          "options": [
+            "0.050 mol dm⁻³",
+            "0.10 mol dm⁻³",
+            "0.49 mol dm⁻³",
+            "20 mol dm⁻³"
+          ],
+          "answer": 0,
+          "explanation": "4.90/98 = 0.0500 mol dm⁻³."
+        },
+        {
+          "q": "With methyl orange, the end point when acid is added to alkali is",
+          "options": [
+            "pink to colourless",
+            "yellow to orange",
+            "colourless to pink",
+            "blue to red"
+          ],
+          "answer": 1,
+          "explanation": "Methyl orange is yellow in alkali, orange at the end point and red in acid."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-titration-hcl-na2co3",
+      "title": "Standardising hydrochloric acid with sodium trioxocarbonate(IV)",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the concentration of hydrochloric acid (A) by titration against a standard solution of anhydrous sodium trioxocarbonate(IV) (B).",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: HCl of unknown concentration",
+        "Solution B: 5.30 g dm⁻³ anhydrous Na₂CO₃",
+        "Methyl orange indicator",
+        "Distilled water"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water."
+      ],
+      "procedure": [
+        "Fill the burette with A after rinsing it with A; record the initial reading.",
+        "Pipette 25.0 cm³ of B into a conical flask and add 2–3 drops of methyl orange.",
+        "Titrate with A, swirling, until the yellow solution just turns orange (or pink-orange).",
+        "Do a rough titration followed by at least two accurate titrations until concordant.",
+        "Calculate the mean titre and the concentration of A using Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂."
+      ],
+      "expectedObservations": "Effervescence is slight (CO₂ stays mainly dissolved); yellow changes to orange at the end point.",
+      "dataAndCalculations": "Molar mass of Na₂CO₃ = 106 g mol⁻¹; [B] = 5.30/106 = 0.0500 mol dm⁻³. Mean titre of A = 23.50 cm³. Moles of Na₂CO₃ in 25.0 cm³ = 0.0500 × 25.0/1000 = 1.25 × 10⁻³ mol; moles of HCl = 2 × 1.25 × 10⁻³ = 2.50 × 10⁻³ mol. [A] = 2.50 × 10⁻³ × 1000/23.50 = 0.106 mol dm⁻³; mass concentration = 0.106 × 36.5 = 3.88 g dm⁻³.",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base."
+      ],
+      "commonMistakes": [
+        "Using phenolphthalein, which changes colour at the first stage (forming NaHCO₃) and halves the titre.",
+        "Forgetting the 1 : 2 ratio."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³).",
+        "Know that anhydrous Na₂CO₃ is a primary standard: pure, stable and not deliquescent."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Moles of Na₂CO₃ in 25.0 cm³ of 0.100 mol dm⁻³ solution",
+          "options": [
+            "2.50 × 10⁻³",
+            "2.50 × 10⁻²",
+            "4.00 × 10⁻³",
+            "0.250"
+          ],
+          "answer": 0,
+          "explanation": "0.100 × 0.0250 = 2.50 × 10⁻³ mol."
+        },
+        {
+          "q": "The mole ratio HCl : Na₂CO₃ is",
+          "options": [
+            "1 : 1",
+            "2 : 1",
+            "1 : 2",
+            "3 : 1"
+          ],
+          "answer": 1,
+          "explanation": "Na₂CO₃ + 2HCl."
+        },
+        {
+          "q": "The most suitable indicator for HCl vs Na₂CO₃ (complete neutralisation) is",
+          "options": [
+            "phenolphthalein",
+            "methyl orange",
+            "litmus paper",
+            "starch"
+          ],
+          "answer": 1,
+          "explanation": "Strong acid against a weak base salt — methyl orange."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-water-of-crystallisation",
+      "title": "Water of crystallisation in washing soda",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the number of molecules of water of crystallisation, x, in hydrated sodium trioxocarbonate(IV), Na₂CO₃·xH₂O, by titration.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: 0.100 mol dm⁻³ HCl",
+        "Solution B: 14.3 g dm⁻³ of Na₂CO₃·xH₂O (washing soda)",
+        "Methyl orange"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water."
+      ],
+      "procedure": [
+        "Fill the burette with A and pipette 25.0 cm³ of B into a conical flask.",
+        "Add methyl orange and titrate to the orange end point.",
+        "Repeat to obtain concordant titres and find the mean.",
+        "Calculate the concentration of B in mol dm⁻³.",
+        "Molar mass of the hydrate = mass concentration ÷ molar concentration; then 106 + 18x = molar mass."
+      ],
+      "expectedObservations": "Yellow to orange at the end point.",
+      "dataAndCalculations": "Mean titre = 25.00 cm³. Moles HCl = 0.100 × 25.00/1000 = 2.50 × 10⁻³; moles Na₂CO₃·xH₂O = 1.25 × 10⁻³ in 25.0 cm³ → [B] = 0.0500 mol dm⁻³. Molar mass = 14.3/0.0500 = 286 g mol⁻¹. 106 + 18x = 286 → 18x = 180 → x = 10 (Na₂CO₃·10H₂O).",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base.",
+        "Washing soda crystals losing water (efflorescence) before weighing."
+      ],
+      "commonMistakes": [
+        "Using 106 as the molar mass of the hydrate.",
+        "Rounding x to the nearest whole number too early."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If the molar mass of Na₂CO₃·xH₂O is 124 g mol⁻¹, x is",
+          "options": [
+            "1",
+            "2",
+            "7",
+            "10"
+          ],
+          "answer": 0,
+          "explanation": "106 + 18x = 124 → x = 1."
+        },
+        {
+          "q": "Washing soda left in air loses mass because it is",
+          "options": [
+            "deliquescent",
+            "efflorescent",
+            "hygroscopic",
+            "volatile"
+          ],
+          "answer": 1,
+          "explanation": "It gives off water of crystallisation."
+        },
+        {
+          "q": "Molar mass = mass concentration/molar concentration. For 28.6 g dm⁻³ at 0.100 mol dm⁻³ it is",
+          "options": [
+            "286",
+            "2.86",
+            "128.6",
+            "28.6"
+          ],
+          "answer": 0,
+          "explanation": "28.6/0.100 = 286 g mol⁻¹."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-percentage-purity",
+      "title": "Percentage purity of sodium hydroxide",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To determine the percentage purity of an impure sample of sodium hydroxide by titration with standard hydrochloric acid.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: 0.100 mol dm⁻³ HCl",
+        "Solution B: 4.50 g of impure NaOH made up to 1.00 dm³",
+        "Methyl orange (or phenolphthalein)"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water.",
+        "Solid NaOH is corrosive; it was weighed by the teacher in a closed container."
+      ],
+      "procedure": [
+        "Fill the burette with A; pipette 25.0 cm³ of B into the flask and add indicator.",
+        "Titrate to the end point; repeat until titres are concordant.",
+        "Calculate the concentration of pure NaOH in B (mol dm⁻³, then g dm⁻³).",
+        "Percentage purity = (mass concentration of pure NaOH ÷ mass concentration of the impure sample) × 100."
+      ],
+      "expectedObservations": "Normal colour change of the indicator; the impurity does not react with the acid.",
+      "dataAndCalculations": "Mean titre = 26.25 cm³. Moles HCl = 0.100 × 26.25/1000 = 2.625 × 10⁻³ = moles NaOH (1 : 1) in 25.0 cm³. [NaOH] = 2.625 × 10⁻³ × 1000/25.0 = 0.105 mol dm⁻³ → 0.105 × 40 = 4.20 g dm⁻³. Purity = 4.20/4.50 × 100 = 93.3%.",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base.",
+        "NaOH absorbs moisture and CO₂ from the air while being weighed."
+      ],
+      "commonMistakes": [
+        "Dividing the other way round (4.50/4.20) to get a percentage above 100.",
+        "Using a 1 : 2 ratio for NaOH and HCl."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "5.00 g of impure substance contains 4.00 g of the pure compound. Purity is",
+          "options": [
+            "80%",
+            "125%",
+            "20%",
+            "4%"
+          ],
+          "answer": 0,
+          "explanation": "4.00/5.00 × 100."
+        },
+        {
+          "q": "Mass concentration of 0.050 mol dm⁻³ NaOH is",
+          "options": [
+            "2.0 g dm⁻³",
+            "0.80 g dm⁻³",
+            "20 g dm⁻³",
+            "4.0 g dm⁻³"
+          ],
+          "answer": 0,
+          "explanation": "0.050 × 40."
+        },
+        {
+          "q": "Solid NaOH is not a good primary standard because it",
+          "options": [
+            "is coloured",
+            "absorbs water and CO₂ from the air",
+            "is insoluble",
+            "is a weak base"
+          ],
+          "answer": 1,
+          "explanation": "Its mass changes on exposure."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-identify-group1-carbonate",
+      "title": "Molar mass and identity of a Group 1 trioxocarbonate(IV)",
+      "topic": "Mole ratios",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "identification"
+      ],
+      "aim": "To determine the molar mass of M₂CO₃ by titration and hence identify the Group 1 metal M.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: 0.110 mol dm⁻³ HCl",
+        "Solution B: 6.90 g dm⁻³ of M₂CO₃",
+        "Methyl orange"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water."
+      ],
+      "procedure": [
+        "Titrate 25.0 cm³ portions of B with A using methyl orange until concordant titres are obtained.",
+        "Calculate moles of HCl used, then moles of M₂CO₃ (ratio 1 : 2).",
+        "Find the molar concentration of B and the molar mass = mass concentration ÷ molar concentration.",
+        "Subtract the mass of CO₃ (60) and divide by 2 to obtain the relative atomic mass of M."
+      ],
+      "expectedObservations": "Yellow to orange at the end point.",
+      "dataAndCalculations": "Mean titre = 22.70 cm³. Moles HCl = 0.110 × 22.70/1000 = 2.497 × 10⁻³; moles M₂CO₃ = 1.249 × 10⁻³ in 25.0 cm³ → [B] = 0.04994 mol dm⁻³. Molar mass = 6.90/0.04994 = 138 g mol⁻¹. 2M + 60 = 138 → M = 39. The metal is potassium (K₂CO₃).",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base."
+      ],
+      "commonMistakes": [
+        "Forgetting there are two M atoms in M₂CO₃.",
+        "Using 1 : 1 mole ratio."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³).",
+        "Use the relative atomic masses given on the question paper (e.g. C = 12, O = 16)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If the molar mass of M₂CO₃ is 106 g mol⁻¹, M is",
+          "options": [
+            "Li",
+            "Na",
+            "K",
+            "Rb"
+          ],
+          "answer": 1,
+          "explanation": "(106 − 60)/2 = 23 → sodium."
+        },
+        {
+          "q": "Moles of M₂CO₃ that react with 3.0 × 10⁻³ mol HCl",
+          "options": [
+            "6.0 × 10⁻³",
+            "3.0 × 10⁻³",
+            "1.5 × 10⁻³",
+            "1.0 × 10⁻³"
+          ],
+          "answer": 2,
+          "explanation": "Ratio 1 : 2."
+        },
+        {
+          "q": "Relative formula mass of the CO₃ group (C = 12, O = 16) is",
+          "options": [
+            "28",
+            "44",
+            "60",
+            "76"
+          ],
+          "answer": 2,
+          "explanation": "12 + 48 = 60."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-basicity-ethanedioic-acid",
+      "title": "Mole ratio and basicity of ethanedioic acid",
+      "topic": "Mole ratios",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the mole ratio in which ethanedioic (oxalic) acid reacts with sodium hydroxide and hence its basicity.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Solution A: 6.30 g dm⁻³ H₂C₂O₄·2H₂O",
+        "Solution B: 3.20 g dm⁻³ NaOH",
+        "Phenolphthalein indicator"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water.",
+        "Ethanedioic acid is toxic if swallowed; wash hands after the practical."
+      ],
+      "procedure": [
+        "Fill the burette with A; pipette 25.0 cm³ of B into the flask and add 2 drops of phenolphthalein (pink).",
+        "Titrate until the pink colour just disappears.",
+        "Repeat to obtain concordant titres.",
+        "Calculate moles of acid and moles of base and find the simplest whole-number ratio."
+      ],
+      "expectedObservations": "Pink solution becomes colourless at the end point.",
+      "dataAndCalculations": "Molar mass of H₂C₂O₄·2H₂O = 126 g mol⁻¹ → [A] = 6.30/126 = 0.0500 mol dm⁻³; [B] = 3.20/40 = 0.0800 mol dm⁻³. Mean titre = 20.00 cm³. Moles acid = 0.0500 × 20.00/1000 = 1.00 × 10⁻³; moles NaOH = 0.0800 × 25.0/1000 = 2.00 × 10⁻³. Ratio acid : base = 1 : 2, so ethanedioic acid is dibasic: H₂C₂O₄ + 2NaOH → Na₂C₂O₄ + 2H₂O.",
+      "precautions": [
+        "Rinsed the burette with the acid and the pipette with the base before use; rinsed the conical flask with distilled water only.",
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly."
+      ],
+      "sourcesOfError": [
+        "Parallax in burette readings.",
+        "Overshooting the end point.",
+        "Air bubble in the burette jet.",
+        "Drops left on the pipette tip or rinsing the flask with the base."
+      ],
+      "commonMistakes": [
+        "Using methyl orange for a weak acid–strong base titration (unsharp end point).",
+        "Using 90 instead of 126 for the hydrated acid."
+      ],
+      "examTips": [
+        "Record burette readings to two decimal places (e.g. 24.85 cm³) in a neat table: final, initial, volume used.",
+        "Average only concordant titres (within ±0.10 cm³ of each other); show which ones you used.",
+        "Write the balanced equation and state the mole ratio before calculating — each step earns marks.",
+        "Give answers to 3 significant figures with units (mol dm⁻³, g dm⁻³).",
+        "Indicator choice: weak acid/strong base — phenolphthalein; strong acid/weak base — methyl orange; strong/strong — either."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The basicity of an acid is",
+          "options": [
+            "its pH",
+            "the number of replaceable hydrogen ions per molecule",
+            "its concentration",
+            "the number of oxygen atoms"
+          ],
+          "answer": 1,
+          "explanation": "Definition."
+        },
+        {
+          "q": "Best indicator for ethanedioic acid vs NaOH",
+          "options": [
+            "methyl orange",
+            "phenolphthalein",
+            "starch",
+            "litmus"
+          ],
+          "answer": 1,
+          "explanation": "Weak acid with strong base."
+        },
+        {
+          "q": "1.5 × 10⁻³ mol of acid reacts with 4.5 × 10⁻³ mol NaOH. The acid is",
+          "options": [
+            "monobasic",
+            "dibasic",
+            "tribasic",
+            "neutral"
+          ],
+          "answer": 2,
+          "explanation": "Ratio 1 : 3."
+        }
+      ],
+      "simulator": "chem-titration"
+    },
+    {
+      "id": "pr-chem-standard-solution-and-dilution",
+      "title": "Preparing a standard solution and diluting it",
+      "topic": "Standard solutions",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure",
+        "safety"
+      ],
+      "aim": "To prepare 250 cm³ of 0.100 mol dm⁻³ sodium trioxocarbonate(IV) solution and to prepare a dilute solution of known concentration from it.",
+      "apparatus": [
+        "250 cm³ volumetric flask with stopper",
+        "Electronic balance (0.01 g)",
+        "Weighing bottle",
+        "Beaker (100 cm³)",
+        "Glass rod",
+        "Funnel",
+        "Wash bottle",
+        "Dropper",
+        "25.0 cm³ pipette with filler"
+      ],
+      "materials": [
+        "Anhydrous Na₂CO₃",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear goggles.",
+        "Use a pipette filler."
+      ],
+      "procedure": [
+        "Calculate the mass required: moles = 0.100 × 250/1000 = 0.0250 mol; mass = 0.0250 × 106 = 2.65 g.",
+        "Weigh about 2.65 g accurately in a weighing bottle and transfer to a beaker; reweigh the bottle to find the exact mass transferred.",
+        "Dissolve in about 100 cm³ of distilled water, stirring.",
+        "Transfer the solution through a funnel into the volumetric flask; rinse the beaker, rod and funnel several times into the flask.",
+        "Add distilled water until close to the mark, then dropwise until the bottom of the meniscus is on the mark (at eye level). Stopper and invert many times.",
+        "Dilution: pipette 25.0 cm³ of this solution into another 250 cm³ volumetric flask, make up to the mark and mix — the new concentration is ten times smaller."
+      ],
+      "expectedObservations": "A clear, colourless solution. The diluted solution looks identical but is 0.0100 mol dm⁻³.",
+      "dataAndCalculations": "Mass needed = 0.100 × 0.250 × 106 = 2.65 g. If 2.68 g was actually transferred, the true concentration = (2.68/106)/0.250 = 0.101 mol dm⁻³. Dilution: C₁V₁ = C₂V₂ → 0.101 × 25.0 = C₂ × 250 → C₂ = 0.0101 mol dm⁻³. To make 250 cm³ of 0.100 mol dm⁻³ HCl from 1.00 mol dm⁻³ stock: V₁ = 0.100 × 250/1.00 = 25.0 cm³.",
+      "precautions": [
+        "Rinsings transferred so that no solute was lost.",
+        "Meniscus brought exactly to the mark at eye level.",
+        "Flask shaken (inverted) to make the solution uniform.",
+        "Solution at room temperature before making up to the mark."
+      ],
+      "sourcesOfError": [
+        "Solid left in the beaker or funnel.",
+        "Overshooting the graduation mark.",
+        "Weighing errors."
+      ],
+      "commonMistakes": [
+        "Dissolving the solid directly in the volumetric flask filled to the mark.",
+        "Adding 250 cm³ of water to the solid (giving a volume greater than 250 cm³)."
+      ],
+      "examTips": [
+        "Define a standard solution: one whose concentration is accurately known.",
+        "Show C₁V₁ = C₂V₂ for dilution questions.",
+        "List the qualities of a primary standard: pure, stable, not hygroscopic, high molar mass, soluble."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Mass of NaOH needed for 500 cm³ of 0.200 mol dm⁻³ solution",
+          "options": [
+            "4.0 g",
+            "8.0 g",
+            "40 g",
+            "0.40 g"
+          ],
+          "answer": 0,
+          "explanation": "0.200 × 0.500 × 40 = 4.0 g."
+        },
+        {
+          "q": "Volume of 2.0 mol dm⁻³ acid needed to make 100 cm³ of 0.50 mol dm⁻³",
+          "options": [
+            "25 cm³",
+            "50 cm³",
+            "40 cm³",
+            "4.0 cm³"
+          ],
+          "answer": 0,
+          "explanation": "0.50 × 100/2.0 = 25 cm³."
+        },
+        {
+          "q": "A volumetric flask is used because it",
+          "options": [
+            "measures any volume",
+            "contains one accurately known volume",
+            "can be heated",
+            "is cheap"
+          ],
+          "answer": 1,
+          "explanation": "It is calibrated to a single mark."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-redox-permanganate-iron",
+      "title": "Redox titration: potassium tetraoxomanganate(VII) with iron(II)",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure",
+        "safety"
+      ],
+      "aim": "To determine the concentration of an iron(II) salt solution by titration with standard acidified potassium tetraoxomanganate(VII).",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "0.0200 mol dm⁻³ KMnO₄",
+        "Iron(II) tetraoxosulphate(VI) solution (FeSO₄·7H₂O)",
+        "Dilute H₂SO₄ (1 mol dm⁻³)"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water.",
+        "KMnO₄ stains skin and clothes brown — handle carefully."
+      ],
+      "procedure": [
+        "Fill the burette with KMnO₄ solution (read the top of the meniscus, as the solution is deeply coloured).",
+        "Pipette 25.0 cm³ of the iron(II) solution into a conical flask and add about 20 cm³ of dilute H₂SO₄.",
+        "Titrate with KMnO₄; the purple colour disappears as it is added.",
+        "The end point is the first permanent pale pink colour.",
+        "Repeat to obtain concordant titres and calculate using MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O."
+      ],
+      "expectedObservations": "Purple KMnO₄ is decolourised on entering the flask; one excess drop gives a permanent faint pink. KMnO₄ acts as its own indicator.",
+      "dataAndCalculations": "Mean titre = 24.50 cm³. Moles MnO₄⁻ = 0.0200 × 24.50/1000 = 4.90 × 10⁻⁴; moles Fe²⁺ = 5 × 4.90 × 10⁻⁴ = 2.45 × 10⁻³ in 25.0 cm³ → [Fe²⁺] = 0.0980 mol dm⁻³. Mass concentration of FeSO₄·7H₂O (M = 278) = 0.0980 × 278 = 27.2 g dm⁻³.",
+      "precautions": [
+        "Removed air bubbles from the burette jet.",
+        "Read the bottom of the meniscus at eye level.",
+        "Swirled the flask continuously and added the titrant dropwise near the end point.",
+        "Used a white tile to see the colour change clearly.",
+        "Added enough dilute H₂SO₄ (never HCl, which is oxidised by MnO₄⁻).",
+        "Read the top of the meniscus for the coloured solution."
+      ],
+      "sourcesOfError": [
+        "Insufficient acid gives a brown precipitate of MnO₂.",
+        "Iron(II) solution partly oxidised by air on standing.",
+        "Parallax."
+      ],
+      "commonMistakes": [
+        "Using a 1 : 1 ratio instead of 1 : 5.",
+        "Adding an indicator.",
+        "Acidifying with HCl or HNO₃."
+      ],
+      "examTips": [
+        "Write ionic half-equations: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O and Fe²⁺ → Fe³⁺ + e⁻.",
+        "State that no indicator is needed because KMnO₄ is self-indicating."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Mole ratio MnO₄⁻ : Fe²⁺ is",
+          "options": [
+            "1 : 1",
+            "1 : 2",
+            "1 : 5",
+            "5 : 1"
+          ],
+          "answer": 2,
+          "explanation": "Five electrons accepted by each MnO₄⁻."
+        },
+        {
+          "q": "Why is HCl not used to acidify KMnO₄ titrations?",
+          "options": [
+            "It is too weak",
+            "It is oxidised to chlorine",
+            "It forms a precipitate",
+            "It is coloured"
+          ],
+          "answer": 1,
+          "explanation": "MnO₄⁻ oxidises Cl⁻."
+        },
+        {
+          "q": "The end point is",
+          "options": [
+            "colourless to purple-pink, permanent",
+            "green to blue",
+            "yellow to orange",
+            "blue-black"
+          ],
+          "answer": 0,
+          "explanation": "Excess MnO₄⁻ shows pink."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-redox-permanganate-oxalate",
+      "title": "Standardising potassium tetraoxomanganate(VII) with ethanedioate",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To determine the concentration of KMnO₄ solution using a standard solution of ethanedioic acid (or sodium ethanedioate) in acid at about 60 °C.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water",
+        "Thermometer",
+        "Bunsen burner, tripod and gauze (or hot water bath)"
+      ],
+      "materials": [
+        "KMnO₄ solution of unknown concentration",
+        "0.0500 mol dm⁻³ ethanedioic acid",
+        "Dilute H₂SO₄"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water.",
+        "Use tongs or a cloth to hold the hot flask.",
+        "Do not boil the mixture."
+      ],
+      "procedure": [
+        "Pipette 25.0 cm³ of ethanedioic acid into a conical flask and add 20 cm³ of dilute H₂SO₄.",
+        "Warm the mixture to about 60–70 °C.",
+        "Titrate with KMnO₄ from the burette; the first drops decolourise slowly, then quickly (Mn²⁺ catalyses the reaction).",
+        "Stop at the first permanent pink colour; repeat with fresh, warmed portions.",
+        "Calculate using 2MnO₄⁻ + 5C₂O₄²⁻ + 16H⁺ → 2Mn²⁺ + 10CO₂ + 8H₂O."
+      ],
+      "expectedObservations": "Slow decolourisation at first, then rapid (autocatalysis); bubbles of CO₂; permanent pink at the end point.",
+      "dataAndCalculations": "Moles C₂O₄²⁻ = 0.0500 × 25.0/1000 = 1.25 × 10⁻³. Moles MnO₄⁻ = (2/5) × 1.25 × 10⁻³ = 5.00 × 10⁻⁴. Mean titre = 25.00 cm³ → [KMnO₄] = 5.00 × 10⁻⁴ × 1000/25.00 = 0.0200 mol dm⁻³ (= 0.0200 × 158 = 3.16 g dm⁻³).",
+      "precautions": [
+        "Solution warmed to 60–70 °C, not boiled (boiling decomposes ethanedioic acid).",
+        "Sufficient acid added.",
+        "Top of the meniscus read."
+      ],
+      "sourcesOfError": [
+        "Titrating cold gives a slow reaction and overshooting.",
+        "Temperature too high decomposes the acid."
+      ],
+      "commonMistakes": [
+        "Using a 1 : 1 or 5 : 2 ratio the wrong way round.",
+        "Not warming the mixture."
+      ],
+      "examTips": [
+        "Explain autocatalysis by Mn²⁺ if asked why the reaction speeds up.",
+        "Show the 2 : 5 ratio clearly."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Ratio MnO₄⁻ : C₂O₄²⁻ is",
+          "options": [
+            "1 : 1",
+            "2 : 5",
+            "5 : 2",
+            "1 : 5"
+          ],
+          "answer": 1,
+          "explanation": "From the balanced equation."
+        },
+        {
+          "q": "The mixture is warmed because",
+          "options": [
+            "the reaction is slow at room temperature",
+            "KMnO₄ is insoluble cold",
+            "it removes water",
+            "it makes the end point blue"
+          ],
+          "answer": 0,
+          "explanation": "Rate increases with temperature."
+        },
+        {
+          "q": "The catalyst produced in the reaction is",
+          "options": [
+            "MnO₂",
+            "Mn²⁺",
+            "CO₂",
+            "H⁺"
+          ],
+          "answer": 1,
+          "explanation": "Autocatalysis by Mn²⁺ ions."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-iodine-thiosulphate",
+      "title": "Iodine–thiosulphate titration",
+      "topic": "Quantitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To determine the concentration of iodine in a solution of iodine in potassium iodide by titration with standard sodium thiosulphate.",
+      "apparatus": [
+        "50 cm³ burette",
+        "25.0 cm³ pipette with pipette filler",
+        "Two 250 cm³ conical flasks",
+        "Retort stand with burette clamp",
+        "White tile",
+        "Small funnel",
+        "Wash bottle of distilled water"
+      ],
+      "materials": [
+        "Iodine in KI solution",
+        "0.100 mol dm⁻³ Na₂S₂O₃",
+        "Freshly prepared starch solution"
+      ],
+      "safety": [
+        "Always use a pipette filler — never pipette by mouth.",
+        "Wear safety goggles; acids and alkalis harm the eyes.",
+        "Remove the funnel from the burette before titrating, and fill the burette below eye level.",
+        "Wash spills on skin with plenty of water.",
+        "Iodine stains skin; wash spills immediately."
+      ],
+      "procedure": [
+        "Fill the burette with sodium thiosulphate.",
+        "Pipette 25.0 cm³ of the iodine solution into a conical flask.",
+        "Titrate until the brown colour fades to pale yellow (straw colour).",
+        "Add about 1 cm³ of starch solution — the mixture turns blue-black.",
+        "Continue adding thiosulphate dropwise until the blue-black colour just disappears. Repeat for concordant titres.",
+        "Calculate using I₂ + 2S₂O₃²⁻ → 2I⁻ + S₄O₆²⁻."
+      ],
+      "expectedObservations": "Brown → pale yellow → blue-black with starch → colourless at the end point.",
+      "dataAndCalculations": "Mean titre = 20.00 cm³. Moles S₂O₃²⁻ = 0.100 × 20.00/1000 = 2.00 × 10⁻³; moles I₂ = 1.00 × 10⁻³ in 25.0 cm³ → [I₂] = 0.0400 mol dm⁻³. Mass concentration = 0.0400 × 254 = 10.2 g dm⁻³.",
+      "precautions": [
+        "Starch added only near the end point.",
+        "Freshly made starch used.",
+        "Flask swirled constantly."
+      ],
+      "sourcesOfError": [
+        "Adding starch too early (iodine binds to starch and the end point is slow).",
+        "Loss of iodine by evaporation."
+      ],
+      "commonMistakes": [
+        "Using a 1 : 1 ratio.",
+        "Taking pale yellow as the end point."
+      ],
+      "examTips": [
+        "Explain why starch is added late: a stable starch–iodine complex forms at high iodine concentration and is slow to decolourise."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The ratio I₂ : S₂O₃²⁻ is",
+          "options": [
+            "1 : 1",
+            "1 : 2",
+            "2 : 1",
+            "1 : 4"
+          ],
+          "answer": 1,
+          "explanation": "From the equation."
+        },
+        {
+          "q": "The indicator in iodine titrations is",
+          "options": [
+            "methyl orange",
+            "starch",
+            "phenolphthalein",
+            "litmus"
+          ],
+          "answer": 1,
+          "explanation": "Blue-black with iodine."
+        },
+        {
+          "q": "Colour at the end point in the flask",
+          "options": [
+            "blue-black",
+            "brown",
+            "colourless",
+            "pink"
+          ],
+          "answer": 2,
+          "explanation": "All iodine reduced to iodide."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-heat-of-neutralisation",
+      "title": "Heat of neutralisation",
+      "topic": "Energy changes and their effects",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To determine the heat (enthalpy) of neutralisation of hydrochloric acid by sodium hydroxide.",
+      "apparatus": [
+        "Polystyrene (plastic foam) cup with lid",
+        "Thermometer (0–50 °C, 0.1 or 0.2 °C divisions)",
+        "Two 50 cm³ measuring cylinders",
+        "Beaker to support the cup"
+      ],
+      "materials": [
+        "1.00 mol dm⁻³ HCl",
+        "1.00 mol dm⁻³ NaOH"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "NaOH is corrosive — wash skin splashes at once."
+      ],
+      "procedure": [
+        "Measure 50.0 cm³ of the acid into the polystyrene cup placed in a beaker for support. Record its steady temperature.",
+        "Measure 50.0 cm³ of NaOH into a cylinder and record its temperature (it should be the same; otherwise use the average as the initial temperature).",
+        "Pour the alkali quickly into the acid, cover, stir with the thermometer and record the highest temperature reached.",
+        "Calculate the heat given out with Q = mcΔT (take the mixture as 100 g with c = 4.2 J g⁻¹ K⁻¹) and divide by the moles of water formed."
+      ],
+      "expectedObservations": "The temperature rises by several degrees; the cup feels warm — the reaction is exothermic.",
+      "dataAndCalculations": "Initial temperature 28.0 °C; highest 34.7 °C; ΔT = 6.7 K. Q = 100 × 4.2 × 6.7 = 2814 J. Moles of water = 0.0500 (50.0 cm³ × 1.00 mol dm⁻³). ΔH = −2814/0.0500 = −56 300 J mol⁻¹ = −56.3 kJ mol⁻¹ (accepted about −57 kJ mol⁻¹).",
+      "precautions": [
+        "Used a polystyrene cup with a lid to reduce heat loss.",
+        "Mixed quickly and stirred.",
+        "Recorded the highest steady temperature.",
+        "Ensured both solutions started at the same temperature."
+      ],
+      "sourcesOfError": [
+        "Heat lost to the surroundings and absorbed by the thermometer.",
+        "Assuming density and specific heat capacity equal to water."
+      ],
+      "commonMistakes": [
+        "Giving ΔH a positive sign for an exothermic reaction.",
+        "Using only the volume of acid (50 g) as the mass heated.",
+        "Not converting J to kJ."
+      ],
+      "examTips": [
+        "ΔH for strong acid + strong base is about −57 kJ mol⁻¹ because the reaction is H⁺ + OH⁻ → H₂O in every case.",
+        "Weak acids (e.g. ethanoic acid) give a less negative value — some energy is used to ionise them."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Heat released when 200 g of water rises by 5.0 K (c = 4.2 J g⁻¹ K⁻¹)",
+          "options": [
+            "4200 J",
+            "1000 J",
+            "840 J",
+            "21 000 J"
+          ],
+          "answer": 0,
+          "explanation": "200 × 4.2 × 5.0 = 4200 J."
+        },
+        {
+          "q": "An exothermic reaction has ΔH that is",
+          "options": [
+            "positive",
+            "negative",
+            "zero",
+            "always −57 kJ"
+          ],
+          "answer": 1,
+          "explanation": "Heat lost by the system."
+        },
+        {
+          "q": "Why is a polystyrene cup used?",
+          "options": [
+            "It reacts with the acid",
+            "It is a poor conductor of heat",
+            "It is transparent",
+            "It absorbs CO₂"
+          ],
+          "answer": 1,
+          "explanation": "Reduces heat loss."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-heat-of-solution",
+      "title": "Heat of solution of ammonium trioxonitrate(V)",
+      "topic": "Energy and enthalpy",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To determine the heat of solution of ammonium trioxonitrate(V) and compare endothermic and exothermic dissolving.",
+      "apparatus": [
+        "Polystyrene cup",
+        "Thermometer",
+        "Measuring cylinder",
+        "Balance",
+        "Spatula"
+      ],
+      "materials": [
+        "Ammonium trioxonitrate(V), NH₄NO₃",
+        "Sodium hydroxide pellets (teacher demonstration of an exothermic comparison)",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Do not touch NaOH pellets with fingers.",
+        "NH₄NO₃ is an oxidising agent — keep away from heat and flames."
+      ],
+      "procedure": [
+        "Measure 50.0 cm³ of distilled water into the polystyrene cup and record its temperature.",
+        "Add 4.00 g of NH₄NO₃, stir until dissolved and record the lowest temperature reached.",
+        "Calculate the heat absorbed and the enthalpy change per mole of NH₄NO₃.",
+        "Compare with the temperature change when a few NaOH pellets dissolve in water (demonstrated by the teacher)."
+      ],
+      "expectedObservations": "The temperature falls when NH₄NO₃ dissolves (endothermic); it rises when NaOH dissolves (exothermic).",
+      "dataAndCalculations": "Initial 29.0 °C, lowest 23.0 °C, ΔT = 6.0 K. Heat absorbed = 50.0 × 4.2 × 6.0 = 1260 J. Moles NH₄NO₃ = 4.00/80 = 0.0500 mol. ΔH = +1260/0.0500 = +25 200 J mol⁻¹ = +25.2 kJ mol⁻¹.",
+      "precautions": [
+        "Stirred until all the solid dissolved.",
+        "Read the lowest temperature.",
+        "Cup covered."
+      ],
+      "sourcesOfError": [
+        "Heat gained from the surroundings.",
+        "Mass of solid ignored in the heat capacity."
+      ],
+      "commonMistakes": [
+        "Writing a negative ΔH for a temperature fall.",
+        "Using the mass of solid instead of water in Q = mcΔT."
+      ],
+      "examTips": [
+        "Draw energy-profile diagrams for endothermic and exothermic processes.",
+        "Application: instant cold packs use endothermic dissolving."
+      ],
+      "checkQuestions": [
+        {
+          "q": "When a salt dissolves and the temperature falls, the process is",
+          "options": [
+            "exothermic",
+            "endothermic",
+            "neutralisation",
+            "combustion"
+          ],
+          "answer": 1,
+          "explanation": "Heat taken from surroundings."
+        },
+        {
+          "q": "Moles in 8.00 g of NH₄NO₃ (M = 80)",
+          "options": [
+            "0.10",
+            "0.80",
+            "10",
+            "0.010"
+          ],
+          "answer": 0,
+          "explanation": "8.00/80."
+        },
+        {
+          "q": "ΔH for an endothermic change is",
+          "options": [
+            "negative",
+            "positive",
+            "zero",
+            "infinite"
+          ],
+          "answer": 1,
+          "explanation": "Products have more energy."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-rate-mg-hcl-gas-syringe",
+      "title": "Rate of reaction: magnesium and hydrochloric acid",
+      "topic": "Rate of reactions",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To follow the rate of reaction between magnesium and dilute hydrochloric acid by measuring the volume of hydrogen produced over time.",
+      "apparatus": [
+        "Conical flask with delivery tube and bung",
+        "Gas syringe (or inverted burette/measuring cylinder over water)",
+        "Stopwatch",
+        "Measuring cylinder",
+        "Balance"
+      ],
+      "materials": [
+        "Magnesium ribbon (0.048 g, cleaned)",
+        "Dilute HCl (1.0 mol dm⁻³, excess)",
+        "Sandpaper"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Hydrogen is flammable — no flames near the apparatus."
+      ],
+      "procedure": [
+        "Clean the magnesium with sandpaper and weigh 0.048 g.",
+        "Put 50 cm³ of HCl in the flask and connect the gas syringe, checking the apparatus is airtight.",
+        "Drop the magnesium in, replace the bung at once and start the stopwatch.",
+        "Record the volume of gas every 30 s until no more gas is produced.",
+        "Plot volume against time; find the rate at different times from tangents to the curve."
+      ],
+      "expectedObservations": "Effervescence; the magnesium dissolves and the flask gets warm. Gas volume rises quickly at first, then more slowly, and levels off.",
+      "dataAndCalculations": "t/s: 0, 30, 60, 90, 120, 150, 180; V/cm³: 0, 20, 32, 40, 45, 48, 48. Average rate in the first 30 s = 20/30 = 0.67 cm³ s⁻¹; between 90 and 120 s = 5/30 = 0.17 cm³ s⁻¹. Theoretical volume: Mg + 2HCl → MgCl₂ + H₂; moles Mg = 0.048/24 = 0.0020 mol → 0.0020 mol H₂ × 24 000 cm³ mol⁻¹ = 48 cm³ (at r.t.p.), matching the final volume.",
+      "precautions": [
+        "Bung replaced immediately.",
+        "Magnesium cleaned of its oxide layer.",
+        "Acid in excess.",
+        "Syringe barrel free to move."
+      ],
+      "sourcesOfError": [
+        "Gas lost before the bung is inserted.",
+        "Temperature rise during the reaction.",
+        "Syringe friction."
+      ],
+      "commonMistakes": [
+        "Drawing a straight line through curved data.",
+        "Using the final volume instead of the slope to describe rate."
+      ],
+      "examTips": [
+        "Explain the shape: rate decreases as reactants are used up (concentration falls).",
+        "Rate at an instant = slope of the tangent at that time."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Why does the curve level off?",
+          "options": [
+            "The acid becomes stronger",
+            "Magnesium is used up",
+            "The syringe is broken",
+            "The temperature falls to zero"
+          ],
+          "answer": 1,
+          "explanation": "Limiting reactant is exhausted."
+        },
+        {
+          "q": "Volume of H₂ at r.t.p. from 0.12 g Mg (Mg = 24)",
+          "options": [
+            "120 cm³",
+            "48 cm³",
+            "240 cm³",
+            "24 cm³"
+          ],
+          "answer": 0,
+          "explanation": "0.005 mol × 24 000 = 120 cm³."
+        },
+        {
+          "q": "Powdered magnesium reacts faster than ribbon because of",
+          "options": [
+            "higher concentration",
+            "larger surface area",
+            "catalysis",
+            "lower temperature"
+          ],
+          "answer": 1,
+          "explanation": "More particles exposed."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-thiosulphate-cross",
+      "title": "Effect of concentration and temperature on rate (disappearing cross)",
+      "topic": "Factors affecting rates",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To investigate how concentration and temperature affect the rate of reaction between sodium thiosulphate and hydrochloric acid.",
+      "apparatus": [
+        "250 cm³ conical flask (or beaker)",
+        "Measuring cylinders (50 cm³ and 10 cm³)",
+        "Stopwatch",
+        "Thermometer",
+        "White paper with a bold cross",
+        "Water bath"
+      ],
+      "materials": [
+        "0.15 mol dm⁻³ Na₂S₂O₃",
+        "2.0 mol dm⁻³ HCl",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "The reaction produces sulphur dioxide — work in a ventilated room and do not sniff the flask.",
+        "Rinse flasks promptly into the sink with plenty of water."
+      ],
+      "procedure": [
+        "Put 50 cm³ of thiosulphate solution in the flask on the cross.",
+        "Add 5 cm³ of HCl, start the stopwatch and swirl. Look down through the solution and stop the watch when the cross can no longer be seen.",
+        "Repeat using 40, 30, 20 and 10 cm³ of thiosulphate each made up to 50 cm³ with water (same acid volume).",
+        "Calculate 1/t (a measure of rate) and plot 1/t against volume (concentration) of thiosulphate.",
+        "Then keep the concentration constant and repeat at about 30, 40, 50 and 60 °C using a water bath."
+      ],
+      "expectedObservations": "A pale yellow precipitate of sulphur forms and gradually hides the cross. The cross disappears faster at higher concentrations and higher temperatures.",
+      "dataAndCalculations": "Volume of thiosulphate/cm³: 50, 40, 30, 20, 10; t/s: 20, 25, 33, 50, 100; 1/t (s⁻¹): 0.050, 0.040, 0.030, 0.020, 0.010. 1/t against volume is a straight line through the origin (slope = 0.050/50 = 0.0010 s⁻¹ cm⁻³), so rate ∝ concentration. A 10 °C rise roughly halves the time (doubles the rate).",
+      "precautions": [
+        "Total volume kept the same (50 cm³) in each run.",
+        "Same cross and same observer.",
+        "Flask washed and dried between runs."
+      ],
+      "sourcesOfError": [
+        "Judging when the cross disappears.",
+        "Temperature changing during the run."
+      ],
+      "commonMistakes": [
+        "Not keeping total volume constant.",
+        "Saying time is the rate (rate is proportional to 1/t)."
+      ],
+      "examTips": [
+        "Use the collision theory: higher concentration → more frequent collisions; higher temperature → more particles with energy ≥ activation energy.",
+        "Equation: Na₂S₂O₃ + 2HCl → 2NaCl + SO₂ + S + H₂O."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If t = 40 s, the rate (1/t) is",
+          "options": [
+            "0.025 s⁻¹",
+            "40 s⁻¹",
+            "0.40 s⁻¹",
+            "4.0 s⁻¹"
+          ],
+          "answer": 0,
+          "explanation": "1/40."
+        },
+        {
+          "q": "The yellow precipitate is",
+          "options": [
+            "sulphur",
+            "sodium chloride",
+            "sulphur(IV) oxide",
+            "chlorine"
+          ],
+          "answer": 0,
+          "explanation": "Colloidal sulphur."
+        },
+        {
+          "q": "Raising temperature increases rate mainly because",
+          "options": [
+            "particles get bigger",
+            "more particles have energy ≥ activation energy",
+            "concentration rises",
+            "a catalyst forms"
+          ],
+          "answer": 1,
+          "explanation": "Collision theory."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-solubility-curve",
+      "title": "Solubility curve of potassium trioxonitrate(V)",
+      "topic": "General principles of solubility",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To determine the solubility of potassium trioxonitrate(V) at different temperatures and draw its solubility curve.",
+      "apparatus": [
+        "Boiling tube",
+        "Thermometer",
+        "Water bath (beaker, burner, tripod, gauze)",
+        "Burette or measuring cylinder (for water)",
+        "Balance",
+        "Stirrer"
+      ],
+      "materials": [
+        "Potassium trioxonitrate(V), KNO₃",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Handle hot water and boiling tubes with a holder."
+      ],
+      "procedure": [
+        "Weigh 4.0 g of KNO₃ into a boiling tube and add 5.0 cm³ (5.0 g) of water.",
+        "Warm in a water bath, stirring, until all the solid dissolves.",
+        "Allow to cool, stirring with the thermometer, and record the temperature at which crystals first appear (saturation temperature).",
+        "Add 1.0 cm³ more water, warm to redissolve and repeat. Continue for several dilutions.",
+        "Calculate the solubility in g per 100 g of water for each temperature and plot solubility against temperature."
+      ],
+      "expectedObservations": "Crystals reappear at lower temperatures as more water is added; solubility of KNO₃ rises steeply with temperature.",
+      "dataAndCalculations": "Maximum masses of KNO₃ dissolving in 50.0 g water: 20 °C 15.80 g, 40 °C 31.95 g. Solubility = 31.6 g/100 g at 20 °C and 63.9 g/100 g at 40 °C. Mass of crystals deposited when a solution saturated in 100 g of water at 40 °C cools to 20 °C = 63.9 − 31.6 = 32.3 g. In mol per kg of water at 20 °C: 316/101 = 3.13 mol kg⁻¹ (KNO₃ = 101 g mol⁻¹).",
+      "precautions": [
+        "Stirred continuously while cooling.",
+        "Recorded the temperature at the first appearance of crystals.",
+        "Water measured accurately."
+      ],
+      "sourcesOfError": [
+        "Evaporation of water during heating.",
+        "Supersaturation delaying crystallisation."
+      ],
+      "commonMistakes": [
+        "Forgetting to scale from 50 g (or 5 g) of water to 100 g.",
+        "Joining points with straight segments rather than a smooth curve."
+      ],
+      "examTips": [
+        "Define solubility: maximum mass (or moles) of solute that saturates 100 g (or 1 dm³) of solvent at a given temperature.",
+        "Use the curve to find mass of crystals deposited on cooling — a common question."
+      ],
+      "checkQuestions": [
+        {
+          "q": "12 g of a salt saturates 40 g of water at 30 °C. Solubility is",
+          "options": [
+            "12 g/100 g",
+            "30 g/100 g",
+            "48 g/100 g",
+            "3.3 g/100 g"
+          ],
+          "answer": 1,
+          "explanation": "12 × 100/40 = 30 g."
+        },
+        {
+          "q": "Fractional crystallisation separates salts because they differ in",
+          "options": [
+            "colour",
+            "solubility at different temperatures",
+            "density",
+            "boiling point"
+          ],
+          "answer": 1,
+          "explanation": "Solubility differences."
+        },
+        {
+          "q": "Solubility of most gases in water as temperature rises",
+          "options": [
+            "increases",
+            "decreases",
+            "stays constant",
+            "doubles"
+          ],
+          "answer": 1,
+          "explanation": "Gases escape from warm water."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-electrolysis-copper-sulphate",
+      "title": "Electrolysis of copper(II) tetraoxosulphate(VI) with copper electrodes",
+      "topic": "Electrolysis",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To verify Faraday's first law and observe changes at the electrodes during electrolysis of CuSO₄(aq) with copper electrodes.",
+      "apparatus": [
+        "Beaker (voltameter)",
+        "Two copper plates (electrodes)",
+        "Ammeter",
+        "Rheostat",
+        "d.c. supply (4–6 V) or batteries",
+        "Key",
+        "Stopwatch",
+        "Balance (0.01 g)"
+      ],
+      "materials": [
+        "1 mol dm⁻³ CuSO₄ solution",
+        "Propanone (acetone) or alcohol for drying",
+        "Sandpaper"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Propanone is flammable — no flames.",
+        "CuSO₄ is harmful if swallowed; wash hands."
+      ],
+      "procedure": [
+        "Clean the copper electrodes with sandpaper, wash, dry and weigh each.",
+        "Set up the circuit with the electrodes in CuSO₄ solution, ammeter in series.",
+        "Switch on, adjust the rheostat to 0.50 A and keep it constant for 40 minutes.",
+        "Remove the electrodes, rinse gently with water then propanone, dry and reweigh.",
+        "Compare the mass gained at the cathode with the calculated mass from m = QM/(nF)."
+      ],
+      "expectedObservations": "Cathode becomes coated with fresh pink-brown copper and gains mass; anode loses an equal mass; the blue colour of the solution stays the same.",
+      "dataAndCalculations": "Q = It = 0.50 × 2400 = 1200 C. Cu²⁺ + 2e⁻ → Cu. Mass = 1200 × 63.5/(2 × 96 500) = 0.395 g. Measured: cathode 12.46 g → 12.86 g (gain 0.40 g); anode lost 0.40 g. Agreement within 0.01 g.",
+      "precautions": [
+        "Current kept constant using the rheostat.",
+        "Electrodes washed and dried gently so deposited copper was not lost.",
+        "Electrodes kept apart (not touching)."
+      ],
+      "sourcesOfError": [
+        "Loose copper flaking off the cathode.",
+        "Current fluctuation.",
+        "Incomplete drying."
+      ],
+      "commonMistakes": [
+        "Using minutes instead of seconds in Q = It.",
+        "Using n = 1 for copper."
+      ],
+      "examTips": [
+        "Write electrode equations: anode Cu → Cu²⁺ + 2e⁻; cathode Cu²⁺ + 2e⁻ → Cu.",
+        "Application: purification of copper and electroplating.",
+        "With inert (carbon) electrodes, oxygen is released at the anode and the blue colour fades."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Charge passed by 2.0 A for 5 minutes",
+          "options": [
+            "10 C",
+            "600 C",
+            "300 C",
+            "2.5 C"
+          ],
+          "answer": 1,
+          "explanation": "2.0 × 300 = 600 C."
+        },
+        {
+          "q": "Using copper electrodes, the colour of CuSO₄(aq)",
+          "options": [
+            "fades",
+            "stays the same",
+            "turns green",
+            "turns colourless"
+          ],
+          "answer": 1,
+          "explanation": "Cu²⁺ removed at the cathode is replaced at the anode."
+        },
+        {
+          "q": "Faraday constant is approximately",
+          "options": [
+            "96 500 C mol⁻¹",
+            "6.02 × 10²³ C",
+            "1.6 × 10⁻¹⁹ C",
+            "24 000 C"
+          ],
+          "answer": 0,
+          "explanation": "Charge on 1 mole of electrons."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-daniell-cell",
+      "title": "Electrochemical cell (zinc–copper cell)",
+      "topic": "Electrochemical cells",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To construct a simple zinc–copper (Daniell) cell, measure its e.m.f. and compare with the value from standard electrode potentials.",
+      "apparatus": [
+        "Two beakers",
+        "Zinc strip",
+        "Copper strip",
+        "High-resistance voltmeter",
+        "Connecting wires with crocodile clips"
+      ],
+      "materials": [
+        "1 mol dm⁻³ ZnSO₄",
+        "1 mol dm⁻³ CuSO₄",
+        "Filter paper soaked in saturated KNO₃ (salt bridge)",
+        "Sandpaper"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Wash hands after handling metal salt solutions."
+      ],
+      "procedure": [
+        "Clean the metal strips with sandpaper.",
+        "Place the zinc strip in ZnSO₄ and the copper strip in CuSO₄.",
+        "Connect the two beakers with the salt bridge.",
+        "Connect the voltmeter: positive terminal to copper, negative to zinc. Record the e.m.f.",
+        "Remove the salt bridge and note the reading; replace it."
+      ],
+      "expectedObservations": "The voltmeter reads about 1.1 V with the salt bridge in place and zero when it is removed. Over time zinc dissolves and copper is deposited.",
+      "dataAndCalculations": "Measured e.m.f. = 1.08 V. E°cell = E°(Cu²⁺/Cu) − E°(Zn²⁺/Zn) = +0.34 − (−0.76) = 1.10 V. Percentage difference = (1.10 − 1.08)/1.10 × 100 = 1.8%.",
+      "precautions": [
+        "Clean metal surfaces.",
+        "High-resistance voltmeter used so little current flows.",
+        "Salt bridge well soaked."
+      ],
+      "sourcesOfError": [
+        "Solutions not exactly 1 mol dm⁻³.",
+        "Temperature different from 25 °C.",
+        "Oxide films on metals."
+      ],
+      "commonMistakes": [
+        "Reversing the voltmeter connections.",
+        "Calling zinc the cathode (it is the negative electrode/anode where oxidation occurs)."
+      ],
+      "examTips": [
+        "Cell notation: Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s).",
+        "State the function of the salt bridge: completes the circuit and maintains electrical neutrality."
+      ],
+      "checkQuestions": [
+        {
+          "q": "In the Daniell cell, oxidation occurs at",
+          "options": [
+            "the copper electrode",
+            "the zinc electrode",
+            "the salt bridge",
+            "the voltmeter"
+          ],
+          "answer": 1,
+          "explanation": "Zn → Zn²⁺ + 2e⁻."
+        },
+        {
+          "q": "E° values: Mg²⁺/Mg −2.37 V, Cu²⁺/Cu +0.34 V. The cell e.m.f. is",
+          "options": [
+            "2.03 V",
+            "2.71 V",
+            "−2.71 V",
+            "0.34 V"
+          ],
+          "answer": 1,
+          "explanation": "0.34 − (−2.37)."
+        },
+        {
+          "q": "Removing the salt bridge makes the reading",
+          "options": [
+            "increase",
+            "zero",
+            "double",
+            "negative"
+          ],
+          "answer": 1,
+          "explanation": "Circuit is broken."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-ph-universal-indicator",
+      "title": "pH of solutions with universal indicator",
+      "topic": "Concept of pH",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "calculation"
+      ],
+      "aim": "To determine the pH of various solutions using universal indicator (colorimetric method) and classify them as strongly or weakly acidic or alkaline.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Dropper",
+        "Universal indicator colour chart"
+      ],
+      "materials": [
+        "Universal indicator solution or paper",
+        "0.1 mol dm⁻³ HCl",
+        "0.1 mol dm⁻³ ethanoic acid (or vinegar)",
+        "Distilled water",
+        "Sodium hydrogentrioxocarbonate(IV) solution",
+        "0.1 mol dm⁻³ NaOH",
+        "Local samples: lime/orange juice, soap solution, wood-ash extract, Coca-Cola"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Do not taste any sample."
+      ],
+      "procedure": [
+        "Place about 2 cm³ of each solution in separate labelled test tubes.",
+        "Add 2 drops of universal indicator to each and shake.",
+        "Compare each colour with the chart and record the pH.",
+        "Classify each as strongly acidic (pH 0–3), weakly acidic (4–6), neutral (7), weakly alkaline (8–10) or strongly alkaline (11–14)."
+      ],
+      "expectedObservations": "HCl red (pH 1); vinegar/ethanoic acid orange (pH 3–4); lime juice orange-red (pH 2–3); water green (pH 7); NaHCO₃ blue-green (pH 8–9); soap and wood-ash blue (pH 9–10); NaOH violet (pH 13).",
+      "dataAndCalculations": "pH = −log[H⁺]. 0.010 mol dm⁻³ HCl (fully ionised): [H⁺] = 1.0 × 10⁻² → pH = 2. 0.0010 mol dm⁻³ NaOH: [OH⁻] = 1.0 × 10⁻³, pOH = 3, pH = 14 − 3 = 11. 0.1 mol dm⁻³ HCl (pH 1) and 0.1 mol dm⁻³ ethanoic acid (pH about 3) show that ethanoic acid is weak (partly ionised).",
+      "precautions": [
+        "Same number of indicator drops used each time.",
+        "Test tubes clean and rinsed with distilled water.",
+        "Colours compared in good daylight against a white background."
+      ],
+      "sourcesOfError": [
+        "Judging colour shades by eye.",
+        "Contaminated test tubes."
+      ],
+      "commonMistakes": [
+        "Confusing concentration with strength.",
+        "Thinking a pH of 6 is \"strongly acidic\"."
+      ],
+      "examTips": [
+        "Explain why 0.1 mol dm⁻³ HCl and 0.1 mol dm⁻³ CH₃COOH have different pH.",
+        "Each unit decrease in pH is a tenfold increase in [H⁺]."
+      ],
+      "checkQuestions": [
+        {
+          "q": "pH of 0.001 mol dm⁻³ HCl",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "11"
+          ],
+          "answer": 2,
+          "explanation": "[H⁺] = 10⁻³ → pH 3."
+        },
+        {
+          "q": "Universal indicator in a strong alkali turns",
+          "options": [
+            "red",
+            "green",
+            "violet/purple",
+            "yellow"
+          ],
+          "answer": 2,
+          "explanation": "pH 13–14."
+        },
+        {
+          "q": "Wood-ash extract is alkaline because it contains",
+          "options": [
+            "potassium trioxocarbonate(IV)",
+            "sodium chloride",
+            "sulphur",
+            "ethanoic acid"
+          ],
+          "answer": 0,
+          "explanation": "Potash (K₂CO₃) hydrolyses to give OH⁻."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-indicator-from-hibiscus",
+      "title": "Making an acid–base indicator from zobo (hibiscus) flowers",
+      "topic": "Acid-base indicators",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "procedure",
+        "calculation"
+      ],
+      "aim": "To extract a natural indicator from dried hibiscus (zobo) calyces and test its colours in acids and alkalis and its use in titration.",
+      "apparatus": [
+        "Mortar and pestle",
+        "Beaker",
+        "Filter funnel and paper",
+        "Test tubes",
+        "Titration set"
+      ],
+      "materials": [
+        "Dried zobo (Hibiscus sabdariffa) calyces",
+        "Ethanol or warm water",
+        "Dilute HCl",
+        "Dilute NaOH",
+        "Vinegar",
+        "Baking soda solution"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Ethanol is flammable — warm only with a water bath."
+      ],
+      "procedure": [
+        "Crush a handful of zobo calyces with a little ethanol (or warm water) and filter. The filtrate is the indicator.",
+        "Add a few drops to dilute HCl, vinegar, water, baking soda solution and NaOH in separate test tubes; record colours.",
+        "Compare the colours with universal indicator results for the same solutions to estimate the pH range over which the extract changes colour.",
+        "Use 2–3 drops in an HCl vs NaOH titration and compare the titre with that obtained using methyl orange."
+      ],
+      "expectedObservations": "The extract is red in acids, pinkish-purple near neutral and green to yellow in strong alkalis.",
+      "dataAndCalculations": "HCl vs NaOH (25.0 cm³ NaOH): methyl orange titre = 24.80 cm³; zobo extract titre = 24.90 cm³. Difference = 0.10 cm³ = 0.10/24.80 × 100 = 0.40% — the natural indicator is suitable for strong acid–strong base titrations.",
+      "precautions": [
+        "Filtered the extract to remove solids.",
+        "Used fresh extract (it fades on standing).",
+        "Same volume of indicator in each test."
+      ],
+      "sourcesOfError": [
+        "Gradual colour change makes the end point harder to judge.",
+        "Extract concentration varies."
+      ],
+      "commonMistakes": [
+        "Adding too much extract so its own colour masks the change."
+      ],
+      "examTips": [
+        "An indicator is a weak acid (or base) whose ionised and un-ionised forms have different colours.",
+        "Know methyl orange (red–orange–yellow, range 3.1–4.4) and phenolphthalein (colourless–pink, range 8.3–10)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Phenolphthalein in an alkali is",
+          "options": [
+            "colourless",
+            "pink",
+            "yellow",
+            "blue"
+          ],
+          "answer": 1,
+          "explanation": "Pink above pH ~8.3."
+        },
+        {
+          "q": "Methyl orange in acid is",
+          "options": [
+            "yellow",
+            "red",
+            "pink",
+            "green"
+          ],
+          "answer": 1,
+          "explanation": "Red below pH ~3.1."
+        },
+        {
+          "q": "A good indicator for strong acid vs strong base can be",
+          "options": [
+            "either methyl orange or phenolphthalein",
+            "only starch",
+            "only litmus",
+            "none"
+          ],
+          "answer": 0,
+          "explanation": "The pH jump covers both ranges."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-preparing-soluble-salt",
+      "title": "Preparing crystals of copper(II) tetraoxosulphate(VI)",
+      "topic": "Salts",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "observation",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To prepare crystals of a soluble salt, CuSO₄·5H₂O, from an insoluble base and an acid, and calculate the percentage yield.",
+      "apparatus": [
+        "Beaker (100 cm³)",
+        "Measuring cylinder",
+        "Glass rod",
+        "Bunsen burner, tripod and gauze",
+        "Filter funnel and paper",
+        "Evaporating dish",
+        "Spatula"
+      ],
+      "materials": [
+        "Copper(II) oxide (black powder)",
+        "1.00 mol dm⁻³ H₂SO₄",
+        "Filter paper for drying"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Warm gently — hot acid spits.",
+        "CuSO₄ is harmful if swallowed."
+      ],
+      "procedure": [
+        "Warm 50.0 cm³ of dilute H₂SO₄ in a beaker.",
+        "Add CuO a little at a time with stirring until some remains undissolved (excess base ensures all the acid is used).",
+        "Filter to remove excess CuO; collect the blue filtrate.",
+        "Evaporate the filtrate to about one-third of its volume (until crystals form on a cold glass rod dipped in it).",
+        "Leave to cool and crystallise; filter off the crystals and dry them between filter papers. Weigh."
+      ],
+      "expectedObservations": "Black CuO dissolves to give a blue solution; blue crystals form on cooling.",
+      "dataAndCalculations": "CuO + H₂SO₄ → CuSO₄ + H₂O. Moles H₂SO₄ = 1.00 × 50.0/1000 = 0.0500 mol → maximum 0.0500 mol CuSO₄·5H₂O (M = 249.5) = 12.5 g. Mass obtained = 9.80 g → percentage yield = 9.80/12.5 × 100 = 78.6%.",
+      "precautions": [
+        "Excess base added so that no acid remained.",
+        "Did not evaporate to dryness (would destroy the crystal structure/water of crystallisation).",
+        "Crystals dried with filter paper, not by strong heating."
+      ],
+      "sourcesOfError": [
+        "Salt left in solution (mother liquor).",
+        "Loss during filtration."
+      ],
+      "commonMistakes": [
+        "Evaporating to dryness, which gives a white powder (anhydrous CuSO₄).",
+        "Adding excess acid instead of excess base."
+      ],
+      "examTips": [
+        "Know the methods: insoluble base/metal/carbonate + acid → filter → crystallise; soluble salts of Na, K, NH₄ by titration; insoluble salts by precipitation."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Excess CuO is used so that",
+          "options": [
+            "all the acid reacts",
+            "the solution becomes black",
+            "more acid is formed",
+            "the crystals dry faster"
+          ],
+          "answer": 0,
+          "explanation": "Excess solid is easily filtered off."
+        },
+        {
+          "q": "Heating CuSO₄·5H₂O strongly gives a",
+          "options": [
+            "blue liquid",
+            "white solid",
+            "black solid",
+            "green gas"
+          ],
+          "answer": 1,
+          "explanation": "Anhydrous CuSO₄ is white."
+        },
+        {
+          "q": "Theoretical yield 10.0 g, actual 8.5 g. Yield is",
+          "options": [
+            "85%",
+            "118%",
+            "15%",
+            "8.5%"
+          ],
+          "answer": 0,
+          "explanation": "8.5/10.0 × 100."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-preparing-insoluble-salt",
+      "title": "Preparing an insoluble salt by precipitation",
+      "topic": "Salts",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To prepare calcium trioxocarbonate(IV) by double decomposition and calculate the percentage yield.",
+      "apparatus": [
+        "Beakers",
+        "Measuring cylinder",
+        "Filter funnel and paper",
+        "Wash bottle",
+        "Oven or warm place",
+        "Balance"
+      ],
+      "materials": [
+        "0.20 mol dm⁻³ CaCl₂",
+        "0.20 mol dm⁻³ Na₂CO₃ (in excess)",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout."
+      ],
+      "procedure": [
+        "Mix 25.0 cm³ of CaCl₂ solution with 30 cm³ of Na₂CO₃ solution and stir.",
+        "Weigh a dry filter paper, then filter the white precipitate.",
+        "Wash the precipitate with distilled water to remove soluble NaCl.",
+        "Dry the paper and residue in a warm place and weigh."
+      ],
+      "expectedObservations": "A white precipitate forms immediately.",
+      "dataAndCalculations": "CaCl₂ + Na₂CO₃ → CaCO₃ + 2NaCl. Moles CaCl₂ = 0.20 × 25.0/1000 = 5.0 × 10⁻³ mol → CaCO₃ (M = 100) = 0.50 g theoretical. Obtained 0.47 g → yield 94%.",
+      "precautions": [
+        "Precipitate washed with distilled water.",
+        "Dried thoroughly before weighing.",
+        "Excess Na₂CO₃ used."
+      ],
+      "sourcesOfError": [
+        "Precipitate passing through or sticking to the beaker.",
+        "Incomplete drying."
+      ],
+      "commonMistakes": [
+        "Not washing the precipitate (NaCl adds mass)."
+      ],
+      "examTips": [
+        "Solubility rules: all Na, K, NH₄ and NO₃⁻ salts are soluble; most CO₃²⁻ salts are insoluble except those of Na, K, NH₄."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which salt is insoluble in water?",
+          "options": [
+            "NaCl",
+            "KNO₃",
+            "BaSO₄",
+            "NH₄Cl"
+          ],
+          "answer": 2,
+          "explanation": "Barium sulphate."
+        },
+        {
+          "q": "The method used to prepare insoluble salts is",
+          "options": [
+            "titration",
+            "double decomposition (precipitation)",
+            "distillation",
+            "electrolysis"
+          ],
+          "answer": 1,
+          "explanation": "Mix two soluble salts."
+        },
+        {
+          "q": "Why is the precipitate washed?",
+          "options": [
+            "To dissolve it",
+            "To remove soluble impurities",
+            "To cool it",
+            "To change its colour"
+          ],
+          "answer": 1,
+          "explanation": "Removes spectator ions."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-hardness-of-water",
+      "title": "Hardness of water samples using soap solution",
+      "topic": "Water and solution",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To compare the hardness of water samples (tap, borehole, rain, distilled) and distinguish temporary and permanent hardness.",
+      "apparatus": [
+        "Burette",
+        "Conical flasks with stoppers",
+        "Measuring cylinder",
+        "Bunsen burner, tripod and gauze",
+        "Beakers"
+      ],
+      "materials": [
+        "Standard soap solution",
+        "Water samples: distilled, rain water, tap water, borehole/well water",
+        "Washing soda"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Handle boiled water carefully."
+      ],
+      "procedure": [
+        "Put 50.0 cm³ of the sample in a conical flask.",
+        "Add soap solution from the burette 0.5 cm³ at a time, stoppering and shaking after each addition, until a lather lasting 2 minutes forms. Record the volume.",
+        "Boil another 50 cm³ of the same sample for 5 minutes, cool, make up to 50 cm³ with distilled water, filter and repeat.",
+        "Repeat for all samples, including distilled water (blank). Optionally treat a sample with washing soda and test again."
+      ],
+      "expectedObservations": "Distilled and rain water lather easily; borehole water needs much more soap and forms scum; boiling reduces the soap needed for temporarily hard water.",
+      "dataAndCalculations": "Volumes of soap for 50.0 cm³: distilled 0.5 cm³; borehole sample before boiling 12.0 cm³, after boiling 4.0 cm³. Soap used by temporary hardness = 12.0 − 4.0 = 8.0 cm³; by permanent hardness = 4.0 − 0.5 = 3.5 cm³. Total hardness = 12.0 − 0.5 = 11.5 cm³ of soap; 8.0/11.5 × 100 = 70% of the hardness is temporary.",
+      "precautions": [
+        "Same volume of each sample.",
+        "Shaking done the same way each time.",
+        "Distilled water blank used to correct for soap needed to form lather in pure water."
+      ],
+      "sourcesOfError": [
+        "Judging a \"permanent\" lather.",
+        "Evaporation during boiling changing the volume."
+      ],
+      "commonMistakes": [
+        "Not subtracting the blank.",
+        "Saying boiling removes permanent hardness."
+      ],
+      "examTips": [
+        "Temporary hardness: Ca(HCO₃)₂ → CaCO₃ + H₂O + CO₂ on boiling.",
+        "Permanent hardness (CaSO₄, MgSO₄) is removed by washing soda, ion exchange or distillation."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Temporary hardness is caused by",
+          "options": [
+            "CaSO₄",
+            "Ca(HCO₃)₂",
+            "NaCl",
+            "MgCl₂ only"
+          ],
+          "answer": 1,
+          "explanation": "Hydrogentrioxocarbonates(IV)."
+        },
+        {
+          "q": "Permanent hardness is removed by",
+          "options": [
+            "boiling",
+            "adding washing soda",
+            "filtration",
+            "chlorination"
+          ],
+          "answer": 1,
+          "explanation": "Na₂CO₃ precipitates Ca²⁺ and Mg²⁺."
+        },
+        {
+          "q": "An advantage of hard water is",
+          "options": [
+            "it lathers easily",
+            "it supplies calcium for bones and teeth",
+            "it prevents scale",
+            "it saves soap"
+          ],
+          "answer": 1,
+          "explanation": "Ca²⁺ is nutritionally useful."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-rusting-conditions",
+      "title": "Conditions necessary for rusting",
+      "topic": "Corrosion of metals",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "procedure",
+        "calculation"
+      ],
+      "aim": "To show that both water and oxygen (air) are needed for iron to rust, and to estimate the percentage of oxygen in air using rusting iron wool.",
+      "apparatus": [
+        "Test tubes with stoppers",
+        "Measuring cylinder (100 cm³) or graduated tube",
+        "Trough of water",
+        "Bunsen burner"
+      ],
+      "materials": [
+        "Clean iron nails",
+        "Anhydrous calcium chloride",
+        "Boiled distilled water",
+        "Oil or grease",
+        "Iron wool",
+        "Salt water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Handle the hot boiled water with care."
+      ],
+      "procedure": [
+        "Tube A: nail in tap water (air and water). Tube B: nail in boiled water covered with a layer of oil (water, no air). Tube C: nail with anhydrous CaCl₂ in a stoppered tube (air, no water). Tube D: nail in salt water.",
+        "Leave for one week and observe.",
+        "Separately, push moist iron wool into the closed end of a graduated tube containing 50 cm³ of air and invert it in water. Record the volume of air after several days when the water level stops rising.",
+        "Calculate the percentage of oxygen used."
+      ],
+      "expectedObservations": "Rust (reddish-brown) forms in A and fastest in D (salt speeds rusting); no rust in B and C. Water rises inside the graduated tube as oxygen is used.",
+      "dataAndCalculations": "Initial volume of air = 50.0 cm³; final = 40.0 cm³. Oxygen used = 10.0 cm³. Percentage of oxygen = 10.0/50.0 × 100 = 20% (accepted ≈ 21%).",
+      "precautions": [
+        "Water boiled to remove dissolved air in tube B.",
+        "Nails cleaned with sandpaper.",
+        "Tubes stoppered tightly.",
+        "Levels compared at the same temperature."
+      ],
+      "sourcesOfError": [
+        "Air re-dissolving in boiled water.",
+        "Temperature changes affecting gas volume."
+      ],
+      "commonMistakes": [
+        "Saying rust is iron oxide only; it is hydrated iron(III) oxide, Fe₂O₃·xH₂O."
+      ],
+      "examTips": [
+        "Methods of prevention: painting, oiling, galvanising (zinc), tin plating, sacrificial protection, alloying (stainless steel).",
+        "Rusting is an oxidation (redox) process."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Rust is",
+          "options": [
+            "Fe₃O₄",
+            "Fe₂O₃·xH₂O",
+            "FeCO₃",
+            "FeS"
+          ],
+          "answer": 1,
+          "explanation": "Hydrated iron(III) oxide."
+        },
+        {
+          "q": "Why is the water in tube B boiled?",
+          "options": [
+            "To sterilise it",
+            "To remove dissolved air",
+            "To warm the nail",
+            "To add oxygen"
+          ],
+          "answer": 1,
+          "explanation": "Ensures no oxygen."
+        },
+        {
+          "q": "Galvanising protects iron by coating it with",
+          "options": [
+            "tin",
+            "zinc",
+            "copper",
+            "lead"
+          ],
+          "answer": 1,
+          "explanation": "Sacrificial zinc."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-iron-copper-displacement",
+      "title": "Displacement of copper by iron",
+      "topic": "Reactivity of iron and aluminium",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To show that iron is more reactive than copper by displacing copper from copper(II) tetraoxosulphate(VI) solution, and to compare masses.",
+      "apparatus": [
+        "Beaker",
+        "Balance (0.01 g)",
+        "Filter funnel and paper",
+        "Glass rod"
+      ],
+      "materials": [
+        "Iron filings (0.56 g) or clean iron nails",
+        "Excess 0.5 mol dm⁻³ CuSO₄",
+        "Propanone for drying"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Propanone is flammable."
+      ],
+      "procedure": [
+        "Weigh 0.56 g of iron filings and add to 50 cm³ of CuSO₄ solution (excess); stir for several minutes.",
+        "Observe the colour of the solution and solid.",
+        "Filter off the solid, wash with water then propanone, dry and weigh.",
+        "Compare the mass with the theoretical mass of copper."
+      ],
+      "expectedObservations": "Reddish-brown copper forms; the blue solution turns pale green (Fe²⁺). The beaker warms slightly.",
+      "dataAndCalculations": "Fe + CuSO₄ → FeSO₄ + Cu. Moles Fe = 0.56/56 = 0.010 mol → 0.010 mol Cu = 0.010 × 63.5 = 0.635 g. Mass obtained 0.61 g → 96%.",
+      "precautions": [
+        "Iron filings clean (free of rust).",
+        "CuSO₄ in excess.",
+        "Solid washed and dried before weighing."
+      ],
+      "sourcesOfError": [
+        "Unreacted iron mixed with copper.",
+        "Copper lost during filtration."
+      ],
+      "commonMistakes": [
+        "Saying copper displaces iron."
+      ],
+      "examTips": [
+        "A metal higher in the activity series displaces a lower one from solutions of its salts.",
+        "Aluminium seems unreactive because of its protective oxide layer."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The colour change of the solution is",
+          "options": [
+            "blue to pale green",
+            "green to blue",
+            "colourless to blue",
+            "blue to red"
+          ],
+          "answer": 0,
+          "explanation": "Cu²⁺ replaced by Fe²⁺."
+        },
+        {
+          "q": "Mass of copper from 0.28 g Fe (Fe = 56, Cu = 63.5)",
+          "options": [
+            "0.32 g",
+            "0.28 g",
+            "0.64 g",
+            "0.16 g"
+          ],
+          "answer": 0,
+          "explanation": "0.005 mol × 63.5 = 0.32 g."
+        },
+        {
+          "q": "Aluminium utensils resist corrosion because",
+          "options": [
+            "Al is unreactive",
+            "a thin protective oxide layer forms",
+            "they are painted",
+            "Al is an alloy"
+          ],
+          "answer": 1,
+          "explanation": "Al₂O₃ layer."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-acids-with-carbonates",
+      "title": "Reactions of acids with metals, oxides and trioxocarbonates(IV)",
+      "topic": "Reactions of acids with metals, oxides and trioxocarbonates (IV)",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "measurement",
+        "calculation",
+        "identification"
+      ],
+      "aim": "To observe reactions of dilute acids with metals, metal oxides and trioxocarbonates(IV), identify the gases, and measure the mass of CO₂ lost from marble.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Conical flask with cotton wool plug",
+        "Balance (0.01 g)",
+        "Delivery tube"
+      ],
+      "materials": [
+        "Dilute HCl",
+        "Magnesium ribbon",
+        "Zinc granules",
+        "Copper turnings",
+        "CuO",
+        "Marble chips (CaCO₃) or snail shell",
+        "Limewater",
+        "Wooden splints"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Hydrogen is flammable — test only small volumes."
+      ],
+      "procedure": [
+        "Add dilute HCl to Mg, Zn and Cu in separate test tubes; test any gas with a burning splint.",
+        "Warm a little CuO with dilute HCl and observe.",
+        "Add HCl to marble chips; pass the gas into limewater.",
+        "Weigh a flask containing excess HCl and 2.00 g of marble chips (with cotton wool plug) before and after the reaction; find the mass lost."
+      ],
+      "expectedObservations": "Mg and Zn effervesce; gas gives a \"pop\" with a burning splint (H₂); Cu does not react. CuO dissolves on warming to a blue-green solution. Marble effervesces; the gas turns limewater milky (CO₂).",
+      "dataAndCalculations": "CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂. Moles CaCO₃ = 2.00/100 = 0.0200 mol → CO₂ mass = 0.0200 × 44 = 0.88 g. Observed mass loss = 0.86 g (98% of expected).",
+      "precautions": [
+        "Cotton wool plug prevents loss of acid spray but lets CO₂ escape.",
+        "Acid in excess.",
+        "Balance zeroed before weighing."
+      ],
+      "sourcesOfError": [
+        "Some CO₂ remains dissolved.",
+        "Acid spray lost."
+      ],
+      "commonMistakes": [
+        "Saying copper reacts with dilute HCl.",
+        "Writing acid + carbonate → salt + water only (CO₂ forgotten)."
+      ],
+      "examTips": [
+        "Learn: acid + metal → salt + hydrogen; acid + base → salt + water; acid + carbonate → salt + water + CO₂."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The gas that \"pops\" with a burning splint is",
+          "options": [
+            "O₂",
+            "H₂",
+            "CO₂",
+            "Cl₂"
+          ],
+          "answer": 1,
+          "explanation": "Hydrogen burns explosively."
+        },
+        {
+          "q": "Which metal does not react with dilute HCl?",
+          "options": [
+            "Mg",
+            "Zn",
+            "Fe",
+            "Cu"
+          ],
+          "answer": 3,
+          "explanation": "Copper is below hydrogen."
+        },
+        {
+          "q": "Mass of CO₂ from 5.0 g CaCO₃",
+          "options": [
+            "2.2 g",
+            "4.4 g",
+            "5.0 g",
+            "1.1 g"
+          ],
+          "answer": 0,
+          "explanation": "0.050 mol × 44."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-le-chatelier",
+      "title": "Le Chatelier's principle: shifting an equilibrium",
+      "topic": "Le Chatelier's principle",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "calculation"
+      ],
+      "aim": "To observe how changes in concentration and temperature shift chemical equilibria.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Droppers",
+        "Beakers of hot and iced water"
+      ],
+      "materials": [
+        "Dilute iron(III) chloride solution",
+        "Dilute potassium thiocyanate solution",
+        "Solid ammonium chloride",
+        "Potassium chromate(VI) solution",
+        "Dilute HCl and dilute NaOH"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Chromate(VI) compounds are toxic — avoid skin contact and dispose in the residue bottle."
+      ],
+      "procedure": [
+        "Mix a few drops of FeCl₃ and KSCN with water to give a pale red solution; divide among four test tubes.",
+        "Tube 1 control; add more FeCl₃ to tube 2, more KSCN to tube 3 and solid NH₄Cl to tube 4; compare colours.",
+        "Add dilute acid to yellow chromate(VI) solution, then add alkali; note colour changes.",
+        "Place a tube of the iron thiocyanate mixture in hot water and another in ice water; compare."
+      ],
+      "expectedObservations": "Adding Fe³⁺ or SCN⁻ deepens the red colour (equilibrium shifts right); adding NH₄Cl lightens it slightly. Chromate turns orange (dichromate) with acid and yellow again with alkali. Heating lightens the red colour (forward reaction exothermic).",
+      "dataAndCalculations": "Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺. At equilibrium [Fe³⁺] = 1.6 × 10⁻³, [SCN⁻] = 2.0 × 10⁻⁴, [FeSCN²⁺] = 4.0 × 10⁻⁵ mol dm⁻³. Kc = [FeSCN²⁺]/([Fe³⁺][SCN⁻]) = 4.0 × 10⁻⁵/(1.6 × 10⁻³ × 2.0 × 10⁻⁴) = 125 dm³ mol⁻¹.",
+      "precautions": [
+        "Compared colours against a white background with a control tube.",
+        "Very dilute solutions used so colour changes are visible."
+      ],
+      "sourcesOfError": [
+        "Subjective colour judgement.",
+        "Dilution changes colour intensity."
+      ],
+      "commonMistakes": [
+        "Saying a catalyst shifts equilibrium position (it does not)."
+      ],
+      "examTips": [
+        "State the principle: if a system in equilibrium is disturbed, it shifts to oppose the change.",
+        "Apply to the Haber and Contact processes."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Adding more reactant to an equilibrium mixture shifts it",
+          "options": [
+            "to the left",
+            "to the right",
+            "not at all",
+            "randomly"
+          ],
+          "answer": 1,
+          "explanation": "To use up the added reactant."
+        },
+        {
+          "q": "A catalyst in an equilibrium",
+          "options": [
+            "increases yield",
+            "speeds up attainment of equilibrium only",
+            "shifts it left",
+            "changes Kc"
+          ],
+          "answer": 1,
+          "explanation": "Both rates increase equally."
+        },
+        {
+          "q": "For an exothermic forward reaction, raising temperature",
+          "options": [
+            "increases products",
+            "decreases products",
+            "has no effect",
+            "stops the reaction"
+          ],
+          "answer": 1,
+          "explanation": "Shifts in the endothermic direction."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-paper-chromatography",
+      "title": "Paper chromatography of inks and food dyes",
+      "topic": "Standard Separation Techniques for Mixtures",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To separate the components of an ink or food colouring by paper chromatography and calculate their Rf values.",
+      "apparatus": [
+        "Beaker or gas jar with lid",
+        "Chromatography (or filter) paper strip",
+        "Capillary tube",
+        "Ruler",
+        "Pencil"
+      ],
+      "materials": [
+        "Black ink or felt-tip pen ink",
+        "Pure food dyes A and B",
+        "Water or ethanol (solvent)"
+      ],
+      "safety": [
+        "Ethanol is flammable — keep away from flames."
+      ],
+      "procedure": [
+        "Draw a pencil base line 1.5 cm from the bottom of the paper.",
+        "Spot the ink and the pure dyes on the line with a capillary tube; let each dry and re-spot to concentrate.",
+        "Stand the paper in the solvent so that the solvent level is below the base line; cover the container.",
+        "When the solvent has risen near the top, remove the paper, mark the solvent front with pencil and dry.",
+        "Measure the distance moved by each spot and by the solvent; calculate Rf = distance moved by spot ÷ distance moved by solvent."
+      ],
+      "expectedObservations": "The black ink separates into several coloured spots; a spot from the ink at the same height as pure dye A shows that A is present.",
+      "dataAndCalculations": "Solvent front 8.0 cm from the base line. Dye A spot 6.0 cm → Rf = 6.0/8.0 = 0.75. Dye B spot 3.2 cm → Rf = 3.2/8.0 = 0.40. The ink gives spots at Rf 0.75 and 0.40 (and another at 0.20), so it contains A, B and one other dye.",
+      "precautions": [
+        "Base line drawn in pencil (ink would itself separate).",
+        "Solvent level below the spots.",
+        "Container covered to keep the atmosphere saturated with solvent.",
+        "Small, concentrated spots used."
+      ],
+      "sourcesOfError": [
+        "Spots too large and overlapping.",
+        "Uneven solvent front."
+      ],
+      "commonMistakes": [
+        "Measuring from the bottom of the paper instead of from the base line.",
+        "Letting the solvent touch the spots directly."
+      ],
+      "examTips": [
+        "Rf has no unit and is always less than 1.",
+        "Applications: detecting food colourings, drugs, checking purity, separating plant pigments (chlorophyll from bitter leaf or green leaves)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A spot moves 4.5 cm when the solvent moves 9.0 cm. Rf is",
+          "options": [
+            "0.50",
+            "2.0",
+            "4.5",
+            "13.5"
+          ],
+          "answer": 0,
+          "explanation": "4.5/9.0."
+        },
+        {
+          "q": "Why is the base line drawn in pencil?",
+          "options": [
+            "It is darker",
+            "Graphite does not dissolve in the solvent",
+            "Pencil is cheaper",
+            "It helps the solvent rise"
+          ],
+          "answer": 1,
+          "explanation": "Ink would separate."
+        },
+        {
+          "q": "A pure substance gives",
+          "options": [
+            "several spots",
+            "one spot",
+            "no spot",
+            "a line"
+          ],
+          "answer": 1,
+          "explanation": "Single component."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-evaporation-distillation",
+      "title": "Separating salt and water from sea water (evaporation and distillation)",
+      "topic": "Standard Separation Techniques for Mixtures",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To recover salt from sea (or salty) water by evaporation and obtain pure water by simple distillation.",
+      "apparatus": [
+        "Evaporating dish",
+        "Bunsen burner, tripod and gauze",
+        "Distillation flask with thermometer",
+        "Liebig condenser",
+        "Receiver (conical flask)",
+        "Anti-bumping granules",
+        "Balance"
+      ],
+      "materials": [
+        "Sea water (or 3.5% NaCl solution)",
+        "Filter paper"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Never heat a closed apparatus — the receiver must be open.",
+        "Water enters the condenser at the bottom and leaves at the top.",
+        "Turn off the heat before the flask boils dry."
+      ],
+      "procedure": [
+        "Filter the sea water to remove sand.",
+        "Weigh an evaporating dish, add 50.0 cm³ of filtrate and heat gently until nearly dry, then finish on a water bath; reweigh.",
+        "For distillation, put salty water and anti-bumping granules in the flask, set the thermometer bulb level with the side arm and connect the condenser.",
+        "Heat gently; collect the distillate and record the boiling temperature.",
+        "Test the distillate: it leaves no residue on evaporation and boils at 100 °C."
+      ],
+      "expectedObservations": "White salt crystals remain in the dish. Vapour condenses in the condenser; the thermometer reads about 100 °C; the distillate is pure water.",
+      "dataAndCalculations": "Mass of dish = 42.30 g; dish + salt = 44.05 g → salt = 1.75 g from 50.0 cm³. Salt concentration = 1.75 × 1000/50.0 = 35.0 g dm⁻³.",
+      "precautions": [
+        "Heated gently near the end to avoid spitting.",
+        "Thermometer bulb at the side-arm level.",
+        "Anti-bumping granules used.",
+        "Condenser water flowing upward."
+      ],
+      "sourcesOfError": [
+        "Spitting of salt during evaporation.",
+        "Salt not completely dry."
+      ],
+      "commonMistakes": [
+        "Placing the thermometer in the liquid.",
+        "Connecting the condenser water inlet at the top."
+      ],
+      "examTips": [
+        "Fractional distillation separates miscible liquids with close boiling points (e.g. ethanol from fermented palm wine; crude oil fractions).",
+        "Match each technique to its mixture: filtration (insoluble solid/liquid), separating funnel (immiscible liquids), sublimation (iodine/NH₄Cl from sand)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which technique separates ethanol from water?",
+          "options": [
+            "Filtration",
+            "Fractional distillation",
+            "Sublimation",
+            "Decantation"
+          ],
+          "answer": 1,
+          "explanation": "Miscible liquids with different boiling points."
+        },
+        {
+          "q": "Water enters the Liebig condenser at the",
+          "options": [
+            "top",
+            "bottom",
+            "side arm of the flask",
+            "receiver"
+          ],
+          "answer": 1,
+          "explanation": "Keeps the jacket full for efficient cooling."
+        },
+        {
+          "q": "Ammonium chloride can be separated from sand by",
+          "options": [
+            "sublimation",
+            "distillation",
+            "chromatography",
+            "magnetism"
+          ],
+          "answer": 0,
+          "explanation": "NH₄Cl sublimes."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-recrystallisation-melting-point",
+      "title": "Purification by recrystallisation and melting-point test",
+      "topic": "General practical skills and principles",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To purify impure benzoic acid by recrystallisation from hot water and check purity by melting point.",
+      "apparatus": [
+        "Beakers",
+        "Bunsen burner, tripod and gauze",
+        "Filter funnel (preferably pre-warmed) and paper",
+        "Glass rod",
+        "Ice bath",
+        "Capillary tubes",
+        "Thermometer (0–200 °C)",
+        "Oil bath or melting-point apparatus",
+        "Balance"
+      ],
+      "materials": [
+        "Impure benzoic acid (with sand or charcoal)",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Hot oil baths cause severe burns — heat slowly and do not overheat.",
+        "Benzoic acid dust irritates — avoid inhaling."
+      ],
+      "procedure": [
+        "Weigh 5.00 g of impure benzoic acid and dissolve it in the minimum volume of boiling water.",
+        "Filter the hot solution quickly through a warmed funnel to remove insoluble impurities.",
+        "Cool the filtrate slowly, then in ice, to form crystals.",
+        "Filter off the crystals, wash with a little ice-cold water, dry and weigh.",
+        "Pack a little dry sample into a capillary tube sealed at one end, attach it to the thermometer and heat slowly in the oil bath; record the temperature range over which it melts."
+      ],
+      "expectedObservations": "White needle-like crystals form on cooling. Pure benzoic acid melts sharply at about 122 °C; the impure sample melts lower and over a wider range.",
+      "dataAndCalculations": "Mass of impure sample = 5.00 g; mass of dry recrystallised acid = 4.10 g. Percentage recovery = 4.10/5.00 × 100 = 82.0%. Melting range: impure 115–119 °C; recrystallised 121–122 °C (literature 122 °C).",
+      "precautions": [
+        "Used the minimum amount of hot solvent.",
+        "Cooled slowly for larger, purer crystals.",
+        "Heated the oil bath slowly near the melting point.",
+        "Crystals fully dry before weighing."
+      ],
+      "sourcesOfError": [
+        "Product lost in the filtrate (some is soluble even when cold).",
+        "Crystallisation in the funnel during hot filtration."
+      ],
+      "commonMistakes": [
+        "Using too much water, giving a poor yield.",
+        "Heating the melting-point tube too fast and recording a high value."
+      ],
+      "examTips": [
+        "A pure substance has a sharp melting point; impurities lower it and broaden the range.",
+        "Recrystallisation works because solubility is much higher in hot solvent than in cold."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Impurities usually make the melting point",
+          "options": [
+            "higher and sharper",
+            "lower and over a range",
+            "unchanged",
+            "exactly 0 °C"
+          ],
+          "answer": 1,
+          "explanation": "Impurities depress and broaden the melting point."
+        },
+        {
+          "q": "The minimum volume of hot solvent is used to",
+          "options": [
+            "speed up melting",
+            "maximise the yield of crystals on cooling",
+            "remove charcoal",
+            "raise the boiling point"
+          ],
+          "answer": 1,
+          "explanation": "Less product remains dissolved."
+        },
+        {
+          "q": "Recovery when 3.00 g gives 2.40 g pure product",
+          "options": [
+            "80%",
+            "125%",
+            "24%",
+            "60%"
+          ],
+          "answer": 0,
+          "explanation": "2.40/3.00 × 100."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-cation-tests",
+      "title": "Tests for cations with NaOH(aq) and NH₃(aq)",
+      "topic": "Qualitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "procedure",
+        "safety"
+      ],
+      "aim": "To identify the cations NH₄⁺, Ca²⁺, Pb²⁺, Cu²⁺, Fe²⁺, Fe³⁺, Al³⁺ and Zn²⁺ by their reactions with sodium hydroxide and aqueous ammonia, with confirmatory tests.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Droppers",
+        "Test-tube holder",
+        "Bunsen burner"
+      ],
+      "materials": [
+        "Dilute NaOH(aq)",
+        "Dilute NH₃(aq)",
+        "Solutions of the salts",
+        "Red litmus paper",
+        "Dilute HCl",
+        "KI solution",
+        "K₄Fe(CN)₆ / K₃Fe(CN)₆ (or KSCN)",
+        "(NH₄)₂C₂O₄ (ammonium ethanedioate)"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Point test tubes away from yourself and others when heating.",
+        "Smell gases by wafting gently towards the nose — never inhale directly.",
+        "Use a fume cupboard or open window for SO₂, NO₂, HCl and chlorine.",
+        "Add concentrated H₂SO₄ only in drops; it is very corrosive.",
+        "Lead compounds are toxic — handle with care and wash hands."
+      ],
+      "procedure": [
+        "To 2 cm³ of the test solution add NaOH(aq) dropwise, then in excess, shaking; record colour of any precipitate and whether it dissolves.",
+        "To a fresh portion add NH₃(aq) dropwise, then in excess; record observations.",
+        "For NH₄⁺: warm the solid or solution with NaOH(aq) and test the gas with damp red litmus.",
+        "Carry out confirmatory tests: Pb²⁺ with KI (yellow precipitate); Cu²⁺ deep blue solution in excess NH₃; Fe³⁺ blood-red with KSCN; Fe²⁺ dark blue with K₃Fe(CN)₆; Ca²⁺ white precipitate with ammonium ethanedioate (and brick-red flame).",
+        "Record in a Test / Observation / Inference table."
+      ],
+      "expectedObservations": "NaOH: Ca²⁺ white ppt insoluble in excess; Zn²⁺, Al³⁺, Pb²⁺ white ppt soluble in excess; Cu²⁺ blue ppt; Fe²⁺ dirty-green ppt; Fe³⁺ reddish-brown ppt (all insoluble in excess); NH₄⁺ no ppt but NH₃ on warming. NH₃(aq): Zn²⁺ white ppt soluble in excess; Al³⁺ and Pb²⁺ white ppt insoluble in excess; Cu²⁺ blue ppt dissolving to a deep blue solution; Ca²⁺ no ppt (or very slight).",
+      "dataAndCalculations": "Worked inference: salt solution X + NaOH(aq) gives a white precipitate soluble in excess → Zn²⁺, Al³⁺ or Pb²⁺. X + NH₃(aq) gives a white precipitate soluble in excess → Zn²⁺ confirmed. Ionic equation: Zn²⁺(aq) + 2OH⁻(aq) → Zn(OH)₂(s); in excess NaOH, Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻. Quantity check: 2 cm³ of 0.1 mol dm⁻³ Zn²⁺ contains 2.0 × 10⁻⁴ mol and needs 4.0 × 10⁻⁴ mol OH⁻ (2 cm³ of 0.2 mol dm⁻³ NaOH) just to precipitate it — so \"excess\" means clearly more than this.",
+      "precautions": [
+        "Added the reagent dropwise first, then in excess, shaking after each addition.",
+        "Used clean test tubes rinsed with distilled water.",
+        "Small quantities of reagents used."
+      ],
+      "sourcesOfError": [
+        "Not adding enough reagent to see the \"soluble in excess\" effect.",
+        "Fe²⁺ oxidising to Fe³⁺ in air (green ppt turning brown)."
+      ],
+      "commonMistakes": [
+        "Writing \"precipitate\" without a colour.",
+        "Confusing Al³⁺ and Zn²⁺ (use NH₃ in excess to distinguish).",
+        "Inferring a single ion when the observation allows several."
+      ],
+      "examTips": [
+        "Use three columns — Test, Observation, Inference — and keep each observation precise (colour, state, \"soluble in excess\").",
+        "Inferences must follow from the observation: \"white precipitate soluble in excess NaOH — Zn²⁺, Al³⁺ or Pb²⁺ present\", then narrow down with NH₃(aq).",
+        "Name gases and give their test: \"gas turns damp red litmus blue — NH₃\".",
+        "Write ionic equations where asked, e.g. Cu²⁺(aq) + 2OH⁻(aq) → Cu(OH)₂(s)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A white precipitate soluble in excess NaOH but insoluble in excess NH₃ indicates",
+          "options": [
+            "Zn²⁺",
+            "Al³⁺ or Pb²⁺",
+            "Ca²⁺",
+            "Cu²⁺"
+          ],
+          "answer": 1,
+          "explanation": "Zn²⁺ dissolves in excess NH₃."
+        },
+        {
+          "q": "A reddish-brown precipitate with NaOH indicates",
+          "options": [
+            "Fe²⁺",
+            "Fe³⁺",
+            "Cu²⁺",
+            "Zn²⁺"
+          ],
+          "answer": 1,
+          "explanation": "Fe(OH)₃."
+        },
+        {
+          "q": "A deep blue solution with excess NH₃(aq) indicates",
+          "options": [
+            "Cu²⁺",
+            "Pb²⁺",
+            "Fe²⁺",
+            "Ca²⁺"
+          ],
+          "answer": 0,
+          "explanation": "Tetraamminecopper(II) complex."
+        },
+        {
+          "q": "Pb²⁺ is confirmed by",
+          "options": [
+            "a yellow precipitate with KI",
+            "a blue flame",
+            "a green gas",
+            "a white fume with HCl"
+          ],
+          "answer": 0,
+          "explanation": "PbI₂ is yellow."
+        }
+      ],
+      "simulator": "chem-qualitative"
+    },
+    {
+      "id": "pr-chem-anion-tests",
+      "title": "Tests for anions: Cl⁻, SO₃²⁻, CO₃²⁻, NO₃⁻, SO₄²⁻",
+      "topic": "Qualitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "safety",
+        "calculation"
+      ],
+      "aim": "To identify common anions by reactions with dilute HCl, concentrated H₂SO₄ and confirmatory reagents.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Delivery tube",
+        "Bunsen burner",
+        "Droppers",
+        "Glass rod"
+      ],
+      "materials": [
+        "Dilute HCl and HNO₃",
+        "Concentrated H₂SO₄",
+        "AgNO₃(aq)",
+        "BaCl₂(aq) or Ba(NO₃)₂(aq)",
+        "Limewater",
+        "Acidified K₂Cr₂O₇ paper",
+        "Freshly prepared FeSO₄(aq)",
+        "Copper turnings",
+        "Concentrated NH₃(aq) on a glass rod",
+        "Test salts"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Point test tubes away from yourself and others when heating.",
+        "Smell gases by wafting gently towards the nose — never inhale directly.",
+        "Use a fume cupboard or open window for SO₂, NO₂, HCl and chlorine.",
+        "Add concentrated H₂SO₄ only in drops; it is very corrosive.",
+        "Barium salts are poisonous; AgNO₃ stains skin."
+      ],
+      "procedure": [
+        "Add dilute HCl to the solid: effervescence with a gas turning limewater milky shows CO₃²⁻; a gas with a choking smell that turns orange dichromate paper green shows SO₃²⁻.",
+        "Chloride: acidify the solution with dilute HNO₃, add AgNO₃(aq) — white precipitate soluble in NH₃(aq). Warming the solid with conc. H₂SO₄ gives HCl fumes (white fumes with NH₃).",
+        "Sulphate: acidify with dilute HCl, add BaCl₂(aq) — white precipitate insoluble in the acid.",
+        "Nitrate: brown-ring test — add FeSO₄(aq), then carefully pour conc. H₂SO₄ down the side; or warm the solid with conc. H₂SO₄ and copper turnings — brown fumes of NO₂.",
+        "Record Test / Observation / Inference."
+      ],
+      "expectedObservations": "CO₃²⁻: effervescence, limewater milky. SO₃²⁻: choking SO₂ turns dichromate green; BaCl₂ precipitate dissolves in HCl. Cl⁻: white AgCl precipitate soluble in NH₃(aq). SO₄²⁻: white BaSO₄ insoluble in dilute HCl. NO₃⁻: brown ring at the junction / brown fumes with Cu.",
+      "dataAndCalculations": "Gravimetric follow-up for sulphate: excess BaCl₂ added to 25.0 cm³ of a sulphate solution gives 0.233 g of dry BaSO₄ (M = 233). Moles SO₄²⁻ = 0.233/233 = 1.00 × 10⁻³ mol → [SO₄²⁻] = 1.00 × 10⁻³ × 1000/25.0 = 0.0400 mol dm⁻³.",
+      "precautions": [
+        "Acidified before adding Ag⁺ or Ba²⁺ to remove CO₃²⁻ and SO₃²⁻ which also precipitate.",
+        "Conc. H₂SO₄ added slowly down the side of the tube for the brown ring.",
+        "Fresh FeSO₄ used."
+      ],
+      "sourcesOfError": [
+        "Carbonate impurity giving false precipitates if not acidified.",
+        "Brown ring disturbed by shaking."
+      ],
+      "commonMistakes": [
+        "Acidifying with HCl before the AgNO₃ chloride test (adds Cl⁻).",
+        "Acidifying with H₂SO₄ before the BaCl₂ sulphate test (adds SO₄²⁻)."
+      ],
+      "examTips": [
+        "Use three columns — Test, Observation, Inference — and keep each observation precise (colour, state, \"soluble in excess\").",
+        "Inferences must follow from the observation: \"white precipitate soluble in excess NaOH — Zn²⁺, Al³⁺ or Pb²⁺ present\", then narrow down with NH₃(aq).",
+        "Name gases and give their test: \"gas turns damp red litmus blue — NH₃\".",
+        "Write ionic equations where asked, e.g. Cu²⁺(aq) + 2OH⁻(aq) → Cu(OH)₂(s)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Before testing for Cl⁻ with AgNO₃, the solution is acidified with",
+          "options": [
+            "dilute HCl",
+            "dilute HNO₃",
+            "dilute H₂SO₄",
+            "ethanoic acid only"
+          ],
+          "answer": 1,
+          "explanation": "HCl would add chloride ions."
+        },
+        {
+          "q": "A white precipitate with BaCl₂ insoluble in dilute HCl indicates",
+          "options": [
+            "SO₃²⁻",
+            "CO₃²⁻",
+            "SO₄²⁻",
+            "Cl⁻"
+          ],
+          "answer": 2,
+          "explanation": "BaSO₄ is insoluble in acid."
+        },
+        {
+          "q": "SO₂ turns acidified potassium heptaoxodichromate(VI) paper",
+          "options": [
+            "blue",
+            "orange to green",
+            "red",
+            "colourless to brown"
+          ],
+          "answer": 1,
+          "explanation": "Cr₂O₇²⁻ reduced to Cr³⁺."
+        }
+      ],
+      "simulator": "chem-qualitative"
+    },
+    {
+      "id": "pr-chem-gas-tests",
+      "title": "Tests for gases: H₂, O₂, NH₃, CO₂, HCl and SO₂",
+      "topic": "Qualitative analysis",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "safety"
+      ],
+      "aim": "To prepare small samples of common gases and identify them by their characteristic tests.",
+      "apparatus": [
+        "Test tubes with delivery tubes",
+        "Wooden splints",
+        "Bunsen burner",
+        "Glass rods"
+      ],
+      "materials": [
+        "Zinc and dilute HCl (H₂)",
+        "Hydrogen peroxide with MnO₂ (O₂)",
+        "NH₄Cl with Ca(OH)₂ or NaOH (NH₃)",
+        "Marble and dilute HCl (CO₂)",
+        "NaCl with conc. H₂SO₄ (HCl, teacher)",
+        "Na₂SO₃ and dilute HCl (SO₂)",
+        "Limewater",
+        "Red and blue litmus paper",
+        "Acidified K₂Cr₂O₇ paper",
+        "Concentrated NH₃ and HCl on glass rods"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Point test tubes away from yourself and others when heating.",
+        "Smell gases by wafting gently towards the nose — never inhale directly.",
+        "Use a fume cupboard or open window for SO₂, NO₂, HCl and chlorine.",
+        "Add concentrated H₂SO₄ only in drops; it is very corrosive."
+      ],
+      "procedure": [
+        "Generate a small amount of each gas in a test tube.",
+        "H₂: hold a burning splint at the mouth — squeaky \"pop\".",
+        "O₂: insert a glowing splint — it relights.",
+        "NH₃: damp red litmus turns blue; dense white fumes with a rod dipped in conc. HCl.",
+        "CO₂: bubble into limewater — milky.",
+        "HCl: damp blue litmus turns red; white fumes with a rod dipped in conc. NH₃.",
+        "SO₂: choking smell; acidified dichromate paper turns from orange to green."
+      ],
+      "expectedObservations": "Each gas gives its characteristic result listed in the procedure; NH₃ is the only common alkaline gas.",
+      "dataAndCalculations": "Worked example: 0.10 g of zinc (Zn = 65) with excess acid gives 0.10/65 = 1.54 × 10⁻³ mol H₂ = 1.54 × 10⁻³ × 24 000 = 37 cm³ at r.t.p. — enough to fill several test tubes for testing. Similarly, 0.10 g CaCO₃ gives 1.0 × 10⁻³ mol CO₂ = 24 cm³.",
+      "precautions": [
+        "Only small quantities of gas generated.",
+        "Used damp litmus (gases act as acids/alkalis only in water).",
+        "Gases with toxic properties handled in a fume cupboard."
+      ],
+      "sourcesOfError": [
+        "Air diluting the gas so the splint test fails.",
+        "Dry litmus giving no change."
+      ],
+      "commonMistakes": [
+        "Saying CO₂ \"turns limewater white\" without \"milky/white precipitate\".",
+        "Testing NH₃ with blue litmus."
+      ],
+      "examTips": [
+        "Use three columns — Test, Observation, Inference — and keep each observation precise (colour, state, \"soluble in excess\").",
+        "Inferences must follow from the observation: \"white precipitate soluble in excess NaOH — Zn²⁺, Al³⁺ or Pb²⁺ present\", then narrow down with NH₃(aq).",
+        "Name gases and give their test: \"gas turns damp red litmus blue — NH₃\".",
+        "Write ionic equations where asked, e.g. Cu²⁺(aq) + 2OH⁻(aq) → Cu(OH)₂(s)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A gas that relights a glowing splint is",
+          "options": [
+            "H₂",
+            "O₂",
+            "CO₂",
+            "NH₃"
+          ],
+          "answer": 1,
+          "explanation": "Oxygen supports combustion."
+        },
+        {
+          "q": "A gas that turns damp red litmus blue is",
+          "options": [
+            "HCl",
+            "SO₂",
+            "NH₃",
+            "CO₂"
+          ],
+          "answer": 2,
+          "explanation": "Ammonia is alkaline."
+        },
+        {
+          "q": "Dense white fumes form when NH₃ meets",
+          "options": [
+            "HCl",
+            "O₂",
+            "H₂",
+            "N₂"
+          ],
+          "answer": 0,
+          "explanation": "NH₄Cl forms."
+        }
+      ],
+      "simulator": "chem-qualitative"
+    },
+    {
+      "id": "pr-chem-effect-of-heat-on-salts",
+      "title": "Effect of heat on salts",
+      "topic": "Salts",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To observe the effect of heat on trioxocarbonates(IV), trioxonitrates(V), hydrated salts and ammonium salts and identify the products.",
+      "apparatus": [
+        "Hard-glass test tubes",
+        "Test-tube holder",
+        "Bunsen burner",
+        "Delivery tube",
+        "Balance"
+      ],
+      "materials": [
+        "CuCO₃",
+        "ZnCO₃",
+        "Na₂CO₃",
+        "Pb(NO₃)₂ (teacher only) or Cu(NO₃)₂",
+        "KNO₃",
+        "CuSO₄·5H₂O",
+        "NH₄Cl",
+        "Limewater",
+        "Wooden splints",
+        "Anhydrous CuSO₄ or cobalt(II) chloride paper"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Point test tubes away from yourself and others when heating.",
+        "Smell gases by wafting gently towards the nose — never inhale directly.",
+        "Use a fume cupboard or open window for SO₂, NO₂, HCl and chlorine.",
+        "Add concentrated H₂SO₄ only in drops; it is very corrosive.",
+        "Nitrates give toxic NO₂ — heat only small amounts in a fume cupboard."
+      ],
+      "procedure": [
+        "Heat a small amount of each solid in a dry test tube, gently at first then strongly.",
+        "Test any gas: limewater (CO₂), glowing splint (O₂), damp litmus (NH₃, HCl, NO₂), cobalt chloride paper for water droplets.",
+        "Note the colour of the residue hot and cold.",
+        "Weigh a tube with 2.47 g of CuCO₃ before and after strong heating to constant mass."
+      ],
+      "expectedObservations": "CuCO₃ (green) → black CuO + CO₂. ZnCO₃ → ZnO, yellow when hot, white when cold. Na₂CO₃: no change. Cu(NO₃)₂ → black residue, brown NO₂ and O₂. KNO₃ → melts, gives O₂ only. CuSO₄·5H₂O blue → white with water droplets. NH₄Cl sublimes (white deposit on cooler part).",
+      "dataAndCalculations": "CuCO₃ → CuO + CO₂. 2.47 g CuCO₃ (M = 123.5) = 0.0200 mol → CuO (79.5) = 1.59 g; mass loss (CO₂) = 0.0200 × 44 = 0.88 g. Observed residue 1.60 g — decomposition complete within experimental error.",
+      "precautions": [
+        "Heated gently at first to avoid cracking the tube.",
+        "Heated to constant mass.",
+        "Tube mouth pointed away from people."
+      ],
+      "sourcesOfError": [
+        "Incomplete decomposition.",
+        "Moisture absorbed by the residue on cooling."
+      ],
+      "commonMistakes": [
+        "Saying sodium carbonate decomposes on heating.",
+        "Describing ZnO colour only when cold."
+      ],
+      "examTips": [
+        "Use three columns — Test, Observation, Inference — and keep each observation precise (colour, state, \"soluble in excess\").",
+        "Inferences must follow from the observation: \"white precipitate soluble in excess NaOH — Zn²⁺, Al³⁺ or Pb²⁺ present\", then narrow down with NH₃(aq).",
+        "Group 1 carbonates (except Li) do not decompose; Group 1 nitrates give nitrite + O₂; most other nitrates give oxide + NO₂ + O₂."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A residue yellow when hot and white when cold is",
+          "options": [
+            "CuO",
+            "ZnO",
+            "PbO",
+            "CaO"
+          ],
+          "answer": 1,
+          "explanation": "Zinc oxide."
+        },
+        {
+          "q": "Heating KNO₃ gives",
+          "options": [
+            "NO₂ and O₂",
+            "O₂ only",
+            "CO₂",
+            "NH₃"
+          ],
+          "answer": 1,
+          "explanation": "2KNO₃ → 2KNO₂ + O₂."
+        },
+        {
+          "q": "Blue CuSO₄·5H₂O on heating turns",
+          "options": [
+            "black",
+            "white",
+            "green",
+            "red"
+          ],
+          "answer": 1,
+          "explanation": "Loses water of crystallisation."
+        }
+      ],
+      "simulator": "chem-qualitative"
+    },
+    {
+      "id": "pr-chem-halogen-displacement",
+      "title": "Comparing the halogens: displacement reactions",
+      "topic": "Periodic gradation of the halogens",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "safety"
+      ],
+      "aim": "To compare the reactivity of chlorine, bromine and iodine using displacement reactions with halide solutions.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Droppers"
+      ],
+      "materials": [
+        "Chlorine water (fresh)",
+        "Bromine water (dilute)",
+        "Iodine solution",
+        "KCl, KBr and KI solutions",
+        "Hexane or kerosene (organic solvent)",
+        "Starch solution"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Chlorine and bromine are toxic — use dilute solutions in a fume cupboard or well-ventilated room.",
+        "Hexane/kerosene are flammable."
+      ],
+      "procedure": [
+        "Add a few drops of chlorine water to KBr and KI solutions in separate tubes; observe.",
+        "Add a few drops of bromine water to KCl and KI solutions.",
+        "Add iodine solution to KCl and KBr.",
+        "Add 1 cm³ of hexane to each tube that changed, shake and note the colour of the organic layer.",
+        "Tabulate which halogens displace which halides."
+      ],
+      "expectedObservations": "Chlorine water turns KBr orange (Br₂) and KI brown (I₂). Bromine water turns KI brown but has no effect on KCl. Iodine has no effect on KCl or KBr. In hexane, Br₂ is orange-red and I₂ is violet; I₂ gives blue-black with starch.",
+      "dataAndCalculations": "Worked equation and mole ratio: Cl₂ + 2KI → 2KCl + I₂. If 25.0 cm³ of 0.020 mol dm⁻³ chlorine water reacts with excess KI, moles I₂ formed = 0.020 × 25.0/1000 = 5.0 × 10⁻⁴ mol = 5.0 × 10⁻⁴ × 254 = 0.127 g of iodine. Reactivity order deduced: Cl₂ > Br₂ > I₂ (decreasing down the group).",
+      "precautions": [
+        "Used dilute halogen solutions.",
+        "Fresh chlorine water used.",
+        "Control tubes compared."
+      ],
+      "sourcesOfError": [
+        "Old chlorine water has lost chlorine.",
+        "Faint colour changes hard to see."
+      ],
+      "commonMistakes": [
+        "Writing that iodine displaces bromine.",
+        "Confusing the colours of bromine and iodine solutions — use hexane to confirm."
+      ],
+      "examTips": [
+        "Explain the trend: atomic radius increases down the group, so the attraction for an extra electron (oxidising power) decreases.",
+        "Write ionic equations, e.g. Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which reaction occurs?",
+          "options": [
+            "I₂ + 2KBr",
+            "Br₂ + 2KCl",
+            "Cl₂ + 2KBr",
+            "I₂ + 2KCl"
+          ],
+          "answer": 2,
+          "explanation": "A more reactive halogen displaces a less reactive one."
+        },
+        {
+          "q": "Iodine dissolved in hexane is",
+          "options": [
+            "colourless",
+            "violet/purple",
+            "green",
+            "orange"
+          ],
+          "answer": 1,
+          "explanation": "Characteristic colour."
+        },
+        {
+          "q": "The most powerful oxidising agent among Cl₂, Br₂ and I₂ is",
+          "options": [
+            "Cl₂",
+            "Br₂",
+            "I₂",
+            "all equal"
+          ],
+          "answer": 0,
+          "explanation": "Smallest atom, strongest electron attraction."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-functional-group-tests",
+      "title": "Test-tube reactions of functional groups",
+      "topic": "Functional groups",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "safety",
+        "calculation"
+      ],
+      "aim": "To identify alkenes, alkanols and alkanoic acids by characteristic test-tube reactions.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Droppers",
+        "Water bath",
+        "Wooden splints"
+      ],
+      "materials": [
+        "Hexene or cyclohexene (or vegetable oil as an unsaturated sample)",
+        "Hexane or kerosene",
+        "Ethanol",
+        "Ethanoic acid (or vinegar)",
+        "Bromine water",
+        "Acidified KMnO₄",
+        "Acidified K₂Cr₂O₇",
+        "Sodium metal (teacher demonstration)",
+        "NaHCO₃ solid",
+        "Conc. H₂SO₄ (teacher)"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Organic liquids are flammable — no flames near them; heat with a water bath.",
+        "Sodium reacts violently with water — teacher only, tiny piece.",
+        "Bromine water is toxic."
+      ],
+      "procedure": [
+        "Shake a few drops of hexene and of hexane separately with bromine water and with acidified KMnO₄.",
+        "Warm ethanol with acidified K₂Cr₂O₇ in a water bath.",
+        "Add a tiny piece of sodium to dry ethanol (teacher) and test the gas with a burning splint.",
+        "Add NaHCO₃ to ethanoic acid; test gas with limewater.",
+        "Warm ethanol and ethanoic acid with a few drops of conc. H₂SO₄ in a water bath, then pour into water and smell cautiously (esterification)."
+      ],
+      "expectedObservations": "Alkene decolourises bromine water and purple KMnO₄ rapidly; alkane does not (in the dark). Ethanol turns dichromate from orange to green. Sodium in ethanol gives H₂ (pop). Ethanoic acid effervesces with NaHCO₃ (CO₂). The ester has a sweet, fruity smell.",
+      "dataAndCalculations": "Esterification: CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O. 6.0 g ethanoic acid (M = 60) = 0.10 mol → maximum 0.10 mol ethyl ethanoate (M = 88) = 8.8 g. If 5.5 g is obtained, yield = 5.5/8.8 × 100 = 62.5% (the reaction is reversible).",
+      "precautions": [
+        "Heated organic liquids only in a water bath.",
+        "Small quantities used.",
+        "Compared each test with a control."
+      ],
+      "sourcesOfError": [
+        "Impure samples (e.g. old hexane containing alkenes).",
+        "Sunlight causing slow substitution of bromine with alkanes."
+      ],
+      "commonMistakes": [
+        "Saying alkanes decolourise bromine water instantly.",
+        "Confusing esterification with neutralisation."
+      ],
+      "examTips": [
+        "Give the general formula and functional group for each class: alkenes C=C; alkanols –OH; alkanoic acids –COOH; esters –COO–.",
+        "State the test and positive result together."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A compound that decolourises bromine water rapidly contains",
+          "options": [
+            "C–C single bonds only",
+            "a C=C double bond",
+            "an –OH group",
+            "a benzene ring only"
+          ],
+          "answer": 1,
+          "explanation": "Addition across C=C."
+        },
+        {
+          "q": "Ethanol warmed with acidified K₂Cr₂O₇ changes it from",
+          "options": [
+            "green to orange",
+            "orange to green",
+            "purple to colourless",
+            "blue to red"
+          ],
+          "answer": 1,
+          "explanation": "Cr₂O₇²⁻ reduced to Cr³⁺."
+        },
+        {
+          "q": "Effervescence with NaHCO₃ indicates",
+          "options": [
+            "an alkanol",
+            "an alkanoic acid",
+            "an alkane",
+            "an ester"
+          ],
+          "answer": 1,
+          "explanation": "Acid releases CO₂."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-tests-for-carbohydrates",
+      "title": "Tests for sugars and starch",
+      "topic": "Carbohydrates",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "calculation"
+      ],
+      "aim": "To test for reducing sugars with Fehling's or Benedict's solution and for starch with iodine, and to show hydrolysis of starch and sucrose.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Water bath",
+        "Droppers",
+        "Bunsen burner"
+      ],
+      "materials": [
+        "Glucose solution",
+        "Sucrose solution",
+        "Starch solution (cassava or yam starch)",
+        "Benedict's or Fehling's A and B",
+        "Iodine in KI",
+        "Dilute HCl and NaHCO₃",
+        "Local samples: orange juice, sugarcane juice, garri, bread"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Fehling's B contains NaOH — corrosive.",
+        "Use a water bath, not a direct flame, to heat solutions in test tubes."
+      ],
+      "procedure": [
+        "Add 2 cm³ of Benedict's solution to 2 cm³ of each sample and heat in a boiling water bath for 5 minutes.",
+        "Add 2 drops of iodine solution to each sample (solids: add to a small portion).",
+        "Boil sucrose solution with a few drops of dilute HCl for 5 minutes, neutralise with NaHCO₃, then repeat the Benedict's test.",
+        "Boil starch with dilute HCl and test portions with iodine at intervals, then with Benedict's."
+      ],
+      "expectedObservations": "Glucose gives a brick-red (or green → orange → brick-red) precipitate with Benedict's; sucrose gives none until hydrolysed by acid. Starch (garri, bread) gives blue-black with iodine; after acid hydrolysis the blue-black colour disappears and a reducing sugar is detected.",
+      "dataAndCalculations": "Preparing the glucose test solution: 1.80 g glucose (C₆H₁₂O₆, M = 180) in 100 cm³ gives 0.0100 mol in 0.100 dm³ = 0.100 mol dm⁻³. Hydrolysis: C₁₂H₂₂O₁₁ + H₂O → C₆H₁₂O₆ + C₆H₁₂O₆, so 3.42 g sucrose (0.0100 mol) gives 0.0200 mol of monosaccharides (3.60 g).",
+      "precautions": [
+        "Equal volumes of sample and reagent.",
+        "Heated in a water bath.",
+        "Neutralised acid before Benedict's test."
+      ],
+      "sourcesOfError": [
+        "Not heating long enough.",
+        "Acid left after hydrolysis interfering with Benedict's test."
+      ],
+      "commonMistakes": [
+        "Saying sucrose is a reducing sugar.",
+        "Heating iodine tests (blue-black colour disappears when hot)."
+      ],
+      "examTips": [
+        "Fehling's/Benedict's detect reducing sugars (glucose, fructose, maltose, lactose).",
+        "Starch is a polymer of glucose; acid or enzymes (amylase) hydrolyse it."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A brick-red precipitate with Benedict's solution shows",
+          "options": [
+            "starch",
+            "reducing sugar",
+            "protein",
+            "fat"
+          ],
+          "answer": 1,
+          "explanation": "Cu²⁺ reduced to Cu₂O."
+        },
+        {
+          "q": "Starch with iodine gives",
+          "options": [
+            "brick-red",
+            "blue-black",
+            "purple",
+            "yellow"
+          ],
+          "answer": 1,
+          "explanation": "Starch–iodine complex."
+        },
+        {
+          "q": "Sucrose gives a positive Benedict's test only after",
+          "options": [
+            "cooling",
+            "acid hydrolysis",
+            "adding iodine",
+            "filtering"
+          ],
+          "answer": 1,
+          "explanation": "Breaks into glucose and fructose."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-tests-for-proteins",
+      "title": "Tests for proteins",
+      "topic": "Proteins",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "safety"
+      ],
+      "aim": "To detect proteins with the Biuret, Millon's, xanthoproteic and ninhydrin tests.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Water bath",
+        "Droppers"
+      ],
+      "materials": [
+        "Egg albumen solution (egg white in water)",
+        "Milk",
+        "Beans or groundnut extract",
+        "Dilute NaOH and 1% CuSO₄ (Biuret)",
+        "Millon's reagent (teacher)",
+        "Concentrated HNO₃ (teacher)",
+        "Ninhydrin solution"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Millon's reagent contains mercury — teacher only; dispose of correctly.",
+        "Concentrated HNO₃ is very corrosive.",
+        "Ninhydrin stains skin purple."
+      ],
+      "procedure": [
+        "Biuret: add 2 cm³ of NaOH to 2 cm³ of sample, then 1% CuSO₄ drop by drop and shake.",
+        "Millon's (teacher): add a few drops of Millon's reagent and warm gently.",
+        "Xanthoproteic (teacher): add conc. HNO₃, warm, cool, then add NH₃(aq) or NaOH.",
+        "Ninhydrin: add a few drops and warm in a water bath.",
+        "Repeat with water as a control."
+      ],
+      "expectedObservations": "Biuret: violet/purple colour. Millon's: white precipitate turning brick-red on warming. Xanthoproteic: yellow, turning orange with alkali. Ninhydrin: blue-violet colour. Water control: no change.",
+      "dataAndCalculations": "Proteins are polymers of amino acids joined by peptide links. Percentage of nitrogen in glycine, H₂NCH₂COOH (C₂H₅NO₂, M = 75): 14/75 × 100 = 18.7%. For a dipeptide of two glycines (C₄H₈N₂O₃, M = 132), %N = 28/132 × 100 = 21.2%.",
+      "precautions": [
+        "Control tube used.",
+        "CuSO₄ added dropwise (excess masks the violet colour with blue)."
+      ],
+      "sourcesOfError": [
+        "Too much CuSO₄ in the Biuret test.",
+        "Dilute samples giving faint colours."
+      ],
+      "commonMistakes": [
+        "Confusing the Biuret colour (violet) with Benedict's (brick-red)."
+      ],
+      "examTips": [
+        "Biuret detects peptide bonds; ninhydrin detects amino acids/proteins.",
+        "Proteins are denatured by heat and strong acids (egg white coagulates)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A positive Biuret test is",
+          "options": [
+            "brick-red",
+            "violet/purple",
+            "blue-black",
+            "yellow"
+          ],
+          "answer": 1,
+          "explanation": "Copper complex with peptide links."
+        },
+        {
+          "q": "The xanthoproteic test uses",
+          "options": [
+            "iodine",
+            "conc. HNO₃",
+            "Benedict's solution",
+            "starch"
+          ],
+          "answer": 1,
+          "explanation": "Nitration of aromatic rings."
+        },
+        {
+          "q": "The monomers of proteins are",
+          "options": [
+            "glucose",
+            "amino acids",
+            "fatty acids",
+            "nucleotides only"
+          ],
+          "answer": 1,
+          "explanation": "Linked by peptide bonds."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-saponification",
+      "title": "Making soap from palm oil (saponification)",
+      "topic": "Fats and oils",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "observation",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To prepare soap by boiling palm oil with sodium hydroxide and test its lathering.",
+      "apparatus": [
+        "Beaker (250 cm³)",
+        "Bunsen burner, tripod and gauze",
+        "Glass rod",
+        "Filter funnel and paper",
+        "Measuring cylinder",
+        "Balance"
+      ],
+      "materials": [
+        "Palm oil or palm-kernel oil",
+        "20% NaOH solution (or potash from wood ash — traditional \"black soap\")",
+        "Saturated NaCl solution (brine)",
+        "Distilled water"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Hot NaOH is very corrosive and spits — stir carefully, never leave unattended.",
+        "Wash any skin contact immediately with plenty of water."
+      ],
+      "procedure": [
+        "Put 10 cm³ of palm oil and 20 cm³ of NaOH solution in a beaker.",
+        "Boil gently with continuous stirring for 15–20 minutes, adding water to replace losses.",
+        "Add about 20 cm³ of saturated brine and stir (salting out); the soap floats.",
+        "Cool, filter or skim off the soap, wash with a little cold water and press dry.",
+        "Shake a small piece with distilled water and with hard water and compare the lather."
+      ],
+      "expectedObservations": "The mixture becomes thick and creamy; on adding brine a solid soap layer separates on top. The soap lathers in distilled water but forms scum in hard water.",
+      "dataAndCalculations": "Taking palm oil as glyceryl tripalmitate (M = 806): fat + 3NaOH → glycerol + 3C₁₅H₃₁COONa. 8.06 g fat = 0.0100 mol needs 0.0300 mol NaOH (1.20 g) and gives 0.0300 mol sodium palmitate (M = 278) = 8.34 g of soap. A 7.10 g yield = 7.10/8.34 × 100 = 85%.",
+      "precautions": [
+        "Stirred continuously to prevent spitting and charring.",
+        "Kept the volume up with water.",
+        "Washed soap to remove excess alkali."
+      ],
+      "sourcesOfError": [
+        "Incomplete saponification (oily soap).",
+        "Soap lost in the brine layer."
+      ],
+      "commonMistakes": [
+        "Confusing soap (sodium salt of a fatty acid) with detergent (sulphonate).",
+        "Forgetting that glycerol is a by-product."
+      ],
+      "examTips": [
+        "Explain how soap cleans: hydrophobic tail dissolves grease; hydrophilic head dissolves in water.",
+        "Explain \"salting out\" with brine."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Saponification is the hydrolysis of fats by",
+          "options": [
+            "acids",
+            "alkalis",
+            "water only",
+            "enzymes only"
+          ],
+          "answer": 1,
+          "explanation": "Alkaline hydrolysis."
+        },
+        {
+          "q": "A by-product of soap making is",
+          "options": [
+            "ethanol",
+            "glycerol (propane-1,2,3-triol)",
+            "methane",
+            "ethanoic acid"
+          ],
+          "answer": 1,
+          "explanation": "Glycerol."
+        },
+        {
+          "q": "Brine is added to",
+          "options": [
+            "dissolve the soap",
+            "precipitate (salt out) the soap",
+            "neutralise acid",
+            "add colour"
+          ],
+          "answer": 1,
+          "explanation": "Soap is less soluble in salt water."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-chem-preparation-of-ammonia",
+      "title": "Laboratory preparation and properties of ammonia",
+      "topic": "Nitrogen",
+      "kind": "LAB",
+      "skills": [
+        "procedure",
+        "observation",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To prepare ammonia from an ammonium salt and an alkali, dry and collect it, and demonstrate its properties.",
+      "apparatus": [
+        "Hard-glass test tube or round-bottom flask with bung and delivery tube",
+        "Drying tower containing quicklime (CaO)",
+        "Gas jars (inverted)",
+        "Bunsen burner",
+        "Trough (fountain experiment)"
+      ],
+      "materials": [
+        "Ammonium chloride",
+        "Calcium hydroxide (slaked lime)",
+        "Red litmus paper",
+        "Concentrated HCl on a glass rod",
+        "Phenolphthalein in water (fountain)"
+      ],
+      "safety": [
+        "Wear safety goggles throughout.",
+        "Ammonia irritates eyes and lungs — prepare in a fume cupboard or near an open window.",
+        "Clamp the tube sloping downwards so condensed water does not run back on to the hot glass."
+      ],
+      "procedure": [
+        "Mix NH₄Cl and Ca(OH)₂ (about 1 : 1 by mass) and put the mixture in the tube clamped with its mouth slightly downwards.",
+        "Heat gently; pass the gas through a tower of quicklime to dry it.",
+        "Collect the gas by upward delivery (downward displacement of air) in an inverted gas jar, since ammonia is lighter than air.",
+        "Test with damp red litmus at the mouth of the jar and with a rod dipped in conc. HCl.",
+        "Demonstrate high solubility with the fountain experiment."
+      ],
+      "expectedObservations": "A colourless gas with a pungent smell turns damp red litmus blue and forms dense white fumes (NH₄Cl) with HCl. In the fountain experiment, water rushes into the flask and turns pink with phenolphthalein.",
+      "dataAndCalculations": "2NH₄Cl + Ca(OH)₂ → CaCl₂ + 2H₂O + 2NH₃. 5.35 g NH₄Cl (M = 53.5) = 0.100 mol → 0.100 mol NH₃ = 0.100 × 24.0 = 2.40 dm³ at r.t.p. Ca(OH)₂ needed = 0.0500 mol × 74 = 3.70 g.",
+      "precautions": [
+        "Dried with quicklime (not conc. H₂SO₄ or CaCl₂, which react with NH₃).",
+        "Tube sloping downward.",
+        "Collected by upward delivery."
+      ],
+      "sourcesOfError": [
+        "Leaks in the apparatus.",
+        "Damp collecting jars."
+      ],
+      "commonMistakes": [
+        "Collecting ammonia over water (it is very soluble).",
+        "Drying with conc. H₂SO₄."
+      ],
+      "examTips": [
+        "Uses of ammonia: fertilisers (urea, NH₄NO₃), Haber process, cleaning agents.",
+        "Draw a labelled diagram of the set-up — it frequently carries several marks."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Ammonia is dried with",
+          "options": [
+            "conc. H₂SO₄",
+            "anhydrous CaCl₂",
+            "quicklime (CaO)",
+            "P₄O₁₀"
+          ],
+          "answer": 2,
+          "explanation": "The others react with ammonia."
+        },
+        {
+          "q": "Ammonia is collected by",
+          "options": [
+            "downward delivery",
+            "upward delivery",
+            "over water",
+            "in a syringe only"
+          ],
+          "answer": 1,
+          "explanation": "Less dense than air."
+        },
+        {
+          "q": "Volume of NH₃ at r.t.p. from 0.050 mol NH₄Cl",
+          "options": [
+            "1.2 dm³",
+            "2.4 dm³",
+            "0.60 dm³",
+            "24 dm³"
+          ],
+          "answer": 0,
+          "explanation": "0.050 × 24.0 = 1.2 dm³."
+        }
+      ],
+      "simulator": null
+    }
+  ]
+}

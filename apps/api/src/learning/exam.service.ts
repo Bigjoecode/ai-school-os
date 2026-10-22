@@ -450,15 +450,26 @@ export class ExamService {
 
   // ---------------------------------------------------------- theory practice
 
-  /** Published theory questions for a written practice attempt (students need the exam's prep pack). */
-  async startTheory(access: ResolvedAccess, input: { exam: ExamBody; subject: string; questions: number }) {
-    if (!access.exams.includes(input.exam)) throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: input.exam, message: `Theory practice with AI marking comes with ${EXAM_LABELS[input.exam]} Prep.` });
+  /**
+   * Published theory questions for a written practice attempt (students need
+   * the exam's prep pack). PRACTICAL: WAEC "alternative to practical"
+   * questions, preferring the given topic (with its subtopics) and topping up
+   * from the rest of the subject; licensed past ones carry their year.
+   */
+  async startTheory(access: ResolvedAccess, input: { exam: ExamBody; subject: string; questions: number; type?: 'THEORY' | 'PRACTICAL'; topicId?: string | null }) {
+    const practical = input.type === 'PRACTICAL';
+    if (!access.exams.includes(input.exam)) throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: input.exam, message: `${practical ? 'Practical' : 'Theory'} practice with AI marking comes with ${EXAM_LABELS[input.exam]} Prep.` });
     const subject = subjectKey(input.subject);
-    const pool = await this.prisma.root.examQuestion.findMany({ where: { exam: input.exam, subject, status: 'PUBLISHED', type: 'THEORY' }, include: { topic: { select: { name: true } } } });
-    if (!pool.length) throw new BadRequestException(`There are no ${EXAM_LABELS[input.exam]} theory questions for ${subject} yet`);
-    const chosen = shuffle(pool).slice(0, input.questions);
-    const questions: StoredQuestion[] = chosen.map((q) => ({ questionId: q.id, stem: q.stem, options: [], answer: -1, explanation: q.explanation, topicId: q.topicId, topic: q.topic?.name ?? null, marks: q.marks, markingGuide: q.markingGuide }));
-    return this.study.createAttempt(access, { mode: 'THEORY', exam: input.exam, subject, title: `${EXAM_LABELS[input.exam]} theory: ${subject}`, questions });
+    const type = practical ? 'PRACTICAL' : 'THEORY';
+    const pool = await this.prisma.root.examQuestion.findMany({ where: { exam: input.exam, subject, status: 'PUBLISHED', type }, include: { topic: { select: { name: true } } } });
+    if (!pool.length) throw new BadRequestException(`There are no ${EXAM_LABELS[input.exam]} ${practical ? 'practical' : 'theory'} questions for ${subject} yet`);
+    const topicIds = input.topicId ? new Set([input.topicId, ...(await this.prisma.root.syllabusTopic.findMany({ where: { parentId: input.topicId }, select: { id: true } })).map((t) => t.id)]) : null;
+    const onTopic = topicIds ? pool.filter((q) => q.topicId && topicIds.has(q.topicId)) : [];
+    const chosen = [...shuffle(onTopic), ...shuffle(pool.filter((q) => !onTopic.includes(q)))].slice(0, input.questions);
+    const questions: StoredQuestion[] = chosen.map((q) => ({ questionId: q.id, stem: q.stem, options: [], answer: -1, explanation: q.explanation, topicId: q.topicId, topic: q.topic?.name ?? null, marks: q.marks, markingGuide: q.markingGuide, year: q.source === 'LICENSED' ? q.year : null }));
+    const topicName = onTopic.length && input.topicId ? (await this.prisma.root.syllabusTopic.findUnique({ where: { id: input.topicId }, select: { name: true } }))?.name : null;
+    const title = practical ? `${EXAM_LABELS[input.exam]} practical: ${subject}${topicName ? ` — ${topicName}` : ''}` : `${EXAM_LABELS[input.exam]} theory: ${subject}`;
+    return this.study.createAttempt(access, { mode: 'THEORY', exam: input.exam, subject, topicId: onTopic.length ? (input.topicId ?? null) : null, title, questions });
   }
 
   /** A full mock paper's spec (marks, how many answers count), or null for an attempt outside a sitting. */

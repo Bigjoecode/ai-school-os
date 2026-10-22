@@ -1,0 +1,1586 @@
+{
+ "exam": "WAEC",
+ "subject": "Refrigeration and Air Conditioning",
+ "practicalPaper": "Paper 3 offers two practical questions of which one is answered in 2 hours for 100 marks; the materials list is released at least two weeks before. Candidates service, test, pipe or install refrigeration and air-conditioning units, take gauge and electrical readings and diagnose faults; where facilities are lacking an alternative paper may require free-hand sketches of tools, circuits and wiring diagrams.",
+ "practicals": [
+  {
+   "id": "pr-rac-operating-fire-extinguishers-and-applying-first-aid",
+   "title": "Operating fire extinguishers and applying first aid",
+   "topic": "Safety and First Aid in the Workshop",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To identify safety devices and first aid materials in a refrigeration workshop and demonstrate the use of fire extinguishers and simple first aid.",
+   "apparatus": [
+    "CO₂, dry powder and foam extinguishers",
+    "Sand bag",
+    "First aid box",
+    "Helmet, goggles, safety boots, gloves, overall, apron"
+   ],
+   "materials": [
+    "First aid charts and posters",
+    "Bandages, plasters, antiseptic, burn dressing"
+   ],
+   "safety": [
+    "Fire demonstrations are carried out only by the teacher in an open area.",
+    "Liquid refrigerant causes frostbite: wear gloves and goggles when handling cylinders."
+   ],
+   "procedure": [
+    "Identify each item of PPE and the hazard it guards against.",
+    "Read extinguisher labels and match them to fire classes.",
+    "Demonstrate PASS (pull, aim, squeeze, sweep) on a controlled fire.",
+    "Demonstrate first aid for a minor cut, a burn (cool under running water for 20 minutes) and refrigerant frostbite (warm gently with lukewarm water, do not rub).",
+    "Show the emergency action for electric shock: switch off first, then help the casualty.",
+    "Record the workshop rules."
+   ],
+   "expectedObservations": "Students correctly select CO₂ or dry powder for electrical fires and follow the first aid steps in order.",
+   "dataAndCalculations": "A 9 kg dry powder extinguisher discharging in about 18 s releases about 9/18 = 0.5 kg per second, so it must be aimed correctly from the start.",
+   "precautions": [
+    "Isolate electrical supply before tackling an electrical fire.",
+    "Restock the first aid box after use."
+   ],
+   "sourcesOfError": [
+    "Selecting the wrong extinguisher type."
+   ],
+   "commonMistakes": [
+    "Using water on an electrical fire.",
+    "Rubbing frostbitten skin."
+   ],
+   "examTips": [
+    "List causes of workshop accidents and their prevention.",
+    "State the contents of a first aid box."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The best extinguisher for a fire in a live air-conditioner is",
+     "options": [
+      "water",
+      "foam",
+      "wet sand",
+      "CO₂"
+     ],
+     "answer": 3,
+     "explanation": "CO₂ does not conduct electricity."
+    },
+    {
+     "q": "Refrigerant frostbite should be treated by",
+     "options": [
+      "applying ice",
+      "applying oil",
+      "gentle warming with lukewarm water",
+      "rubbing hard"
+     ],
+     "answer": 2,
+     "explanation": "Rubbing damages frozen tissue."
+    },
+    {
+     "q": "Before helping a person receiving an electric shock you must",
+     "options": [
+      "call the customer",
+      "switch off the supply",
+      "pull them with bare hands",
+      "pour water on them"
+     ],
+     "answer": 1,
+     "explanation": "Otherwise you may be shocked too."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-energy-conversion-and-change-of-state-of-matter",
+   "title": "Energy conversion and change of state of matter",
+   "topic": "Nature of Matter",
+   "kind": "LAB",
+   "skills": [
+    "observation",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To demonstrate conversion of mechanical energy to heat and the change of state of ice to water, and to distinguish sensible and latent heat.",
+   "apparatus": [
+    "Thermometer (−10 to 110 °C)",
+    "Beaker",
+    "Electric heater or burner",
+    "Stop-watch",
+    "Balance"
+   ],
+   "materials": [
+    "Crushed ice (about 0.5 kg)",
+    "Water"
+   ],
+   "safety": [
+    "Handle the heater and hot water with care."
+   ],
+   "procedure": [
+    "Rub your palms together briskly for 20 s and note the warming (mechanical → heat).",
+    "Weigh the crushed ice and place it in the beaker with the thermometer.",
+    "Heat gently, stirring, and record temperature every 30 s.",
+    "Note the temperature while ice is melting and after it has all melted.",
+    "Plot temperature against time.",
+    "Identify the flat (latent) and rising (sensible) parts of the graph."
+   ],
+   "expectedObservations": "Temperature stays at about 0 °C until all the ice has melted, then rises steadily. Heat absorbed during melting does not change the temperature (latent heat).",
+   "dataAndCalculations": "Latent heat to melt 0.5 kg of ice: Q = mL = 0.5 × 334 = 167 kJ. Sensible heat to warm the water from 0 °C to 20 °C: Q = mcΔT = 0.5 × 4.2 × 20 = 42 kJ. Melting needs about four times more heat than this warming.",
+   "precautions": [
+    "Stir continuously for uniform temperature.",
+    "Keep the thermometer bulb off the beaker base."
+   ],
+   "sourcesOfError": [
+    "Heat gained from the surroundings.",
+    "Thermometer lag."
+   ],
+   "commonMistakes": [
+    "Expecting temperature to rise while ice is melting."
+   ],
+   "examTips": [
+    "Link latent heat to the evaporator, where refrigerant absorbs heat while boiling at constant temperature.",
+    "Label the graph sections clearly."
+   ],
+   "checkQuestions": [
+    {
+     "q": "While ice melts at constant temperature it absorbs",
+     "options": [
+      "radiant cold",
+      "latent heat",
+      "sensible heat only",
+      "no heat"
+     ],
+     "answer": 1,
+     "explanation": "Energy changes state, not temperature."
+    },
+    {
+     "q": "Heat to melt 2 kg of ice (L = 334 kJ/kg) is",
+     "options": [
+      "668 kJ",
+      "167 kJ",
+      "334 kJ",
+      "8.4 kJ"
+     ],
+     "answer": 0,
+     "explanation": "2 × 334 = 668 kJ."
+    },
+    {
+     "q": "Rubbing palms together demonstrates conversion of",
+     "options": [
+      "heat to electricity",
+      "light to heat",
+      "chemical to sound",
+      "mechanical energy to heat"
+     ],
+     "answer": 3,
+     "explanation": "Friction produces heat."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-measuring-temperature-and-converting-scales",
+   "title": "Measuring temperature and converting scales",
+   "topic": "Temperature and its Measurement",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To use different thermometers to measure temperatures in a refrigeration system and convert between Celsius, Fahrenheit, Kelvin and Rankine.",
+   "apparatus": [
+    "Liquid-in-glass thermometer",
+    "Digital thermocouple thermometer with clamp probe",
+    "Bimetal dial thermometer",
+    "Infrared thermometer"
+   ],
+   "materials": [
+    "Running refrigerator or air-conditioner",
+    "Ice-water mixture and boiling water for checks"
+   ],
+   "safety": [
+    "Keep probes away from fan blades; avoid hot discharge lines."
+   ],
+   "procedure": [
+    "Identify each thermometer type and its operating principle.",
+    "Check each in ice-water (0 °C) and boiling water (about 100 °C).",
+    "Measure suction line, discharge line, evaporator air and condenser air temperatures.",
+    "Record readings in °C and convert to °F, K and °R.",
+    "Plot a chart of the temperature scales against each other."
+   ],
+   "expectedObservations": "Suction line is cold, discharge line hot; all thermometers agree within about 1 °C after calibration checks.",
+   "dataAndCalculations": "25 °C → °F = 25 × 9/5 + 32 = 77 °F; K = 25 + 273.15 = 298.15 K; °R = 77 + 459.67 = 536.67 °R. Note −40 °C = −40 °F.",
+   "precautions": [
+    "Insulate clamp probes from ambient air.",
+    "Allow readings to stabilise."
+   ],
+   "sourcesOfError": [
+    "Poor probe contact.",
+    "Calibration errors."
+   ],
+   "commonMistakes": [
+    "Adding 32 before multiplying by 9/5.",
+    "Writing K with a degree sign."
+   ],
+   "examTips": [
+    "State the fixed points: triple point of water 0.01 °C, boiling point of water 100 °C, boiling point of oxygen −182.97 °C.",
+    "Show every conversion formula."
+   ],
+   "checkQuestions": [
+    {
+     "q": "−10 °C in Fahrenheit is",
+     "options": [
+      "−10 °F",
+      "14 °F",
+      "−18 °F",
+      "50 °F"
+     ],
+     "answer": 1,
+     "explanation": "−10 × 1.8 + 32 = 14 °F."
+    },
+    {
+     "q": "300 K is",
+     "options": [
+      "26.85 °C",
+      "573 °C",
+      "300 °C",
+      "−26.85 °C"
+     ],
+     "answer": 0,
+     "explanation": "300 − 273.15 = 26.85 °C."
+    },
+    {
+     "q": "A thermocouple produces",
+     "options": [
+      "a pressure reading",
+      "a change of colour",
+      "a magnetic field only",
+      "a small voltage that depends on temperature"
+     ],
+     "answer": 3,
+     "explanation": "Dissimilar metal junction gives an e.m.f."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-using-suction-and-high-pressure-gauges",
+   "title": "Using suction and high-pressure gauges",
+   "topic": "Pressure and its Measurement",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To connect a gauge manifold to a running system, read suction and discharge pressures and relate them to saturation temperature and the gas laws.",
+   "apparatus": [
+    "Gauge manifold set (compound and high-pressure gauges)",
+    "Charging hoses",
+    "Service valve key",
+    "Thermometer",
+    "Barometer (classroom)"
+   ],
+   "materials": [
+    "Running refrigeration or split AC unit with service ports",
+    "Pressure–temperature (P–T) chart for the refrigerant"
+   ],
+   "safety": [
+    "Wear gloves and goggles; refrigerant can freeze skin and eyes.",
+    "Never connect the low-side gauge to the high side with valves open."
+   ],
+   "procedure": [
+    "Close both manifold valves; connect blue hose to suction port, red to discharge port (if accessible).",
+    "Purge hoses briefly as instructed.",
+    "Run the system for 10 minutes and read both gauges.",
+    "Convert gauge pressures to absolute using the barometer reading.",
+    "Use the P–T chart to find the saturation (evaporating/condensing) temperatures.",
+    "Compare with normal values and record the performance.",
+    "Disconnect hoses quickly to minimise loss."
+   ],
+   "expectedObservations": "Suction pressure is low and discharge pressure high; saturation temperatures match the expected evaporator and condenser conditions.",
+   "dataAndCalculations": "Absolute pressure = gauge + atmospheric: 250 kPa(g) + 101.3 kPa = 351.3 kPa(abs). General gas law: P₁V₁/T₁ = P₂V₂/T₂. With P₁ = 300 kPa(abs), V₁ = 2.0 L, T₁ = 300 K compressed to V₂ = 1.5 L at T₂ = 330 K: P₂ = 300 × 2.0 × 330/(300 × 1.5) = 440 kPa(abs).",
+   "precautions": [
+    "Always use absolute pressure and kelvin in gas law calculations.",
+    "Keep hoses and gauges clean and capped."
+   ],
+   "sourcesOfError": [
+    "Gauge calibration.",
+    "Readings taken before the system stabilises."
+   ],
+   "commonMistakes": [
+    "Using gauge pressure in gas law calculations.",
+    "Using °C instead of K."
+   ],
+   "examTips": [
+    "State Boyle's, Charles' and Dalton's laws.",
+    "Name pressure instruments: barometer, manometer, Bourdon gauge."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A gauge reading of 150 kPa at atmospheric 100 kPa is",
+     "options": [
+      "50 kPa absolute",
+      "150 kPa absolute",
+      "1.5 kPa absolute",
+      "250 kPa absolute"
+     ],
+     "answer": 3,
+     "explanation": "Absolute = gauge + atmospheric."
+    },
+    {
+     "q": "The compound gauge reads",
+     "options": [
+      "temperature",
+      "current",
+      "pressure and vacuum",
+      "only high pressure"
+     ],
+     "answer": 2,
+     "explanation": "It is used on the suction side."
+    },
+    {
+     "q": "In gas law calculations temperature must be in",
+     "options": [
+      "Rankine only",
+      "kelvin",
+      "Celsius",
+      "Fahrenheit"
+     ],
+     "answer": 1,
+     "explanation": "Absolute temperature is required."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-measuring-the-power-used-by-a-compressor",
+   "title": "Measuring the power used by a compressor",
+   "topic": "Power",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To measure the voltage and current of a running compressor and calculate its power and energy consumption.",
+   "apparatus": [
+    "Clamp meter",
+    "Multimeter",
+    "Plug-in energy meter (optional)"
+   ],
+   "materials": [
+    "Refrigerator or window air-conditioner"
+   ],
+   "safety": [
+    "Use the clamp meter so live conductors are not disturbed; keep covers on terminals."
+   ],
+   "procedure": [
+    "Run the unit for 10 minutes to stabilise.",
+    "Measure supply voltage at the socket.",
+    "Clamp around the live conductor only and read the running current.",
+    "Read the power factor from the nameplate or energy meter.",
+    "Calculate power and energy per day.",
+    "Compare with the nameplate rating."
+   ],
+   "expectedObservations": "Running current is close to the nameplate value; starting current is several times higher for a fraction of a second.",
+   "dataAndCalculations": "P = V × I × power factor = 230 × 4.5 × 0.85 = 880 W ≈ 0.88 kW. If the compressor runs 10 h a day: E = 0.88 × 10 = 8.8 kWh per day. 1 kW = 1 000 W; 1 kJ = 1 000 J.",
+   "precautions": [
+    "Clamp one conductor only.",
+    "Allow the unit to reach steady running."
+   ],
+   "sourcesOfError": [
+    "Mains voltage fluctuation.",
+    "Estimated power factor."
+   ],
+   "commonMistakes": [
+    "Forgetting power factor.",
+    "Confusing kW and kWh."
+   ],
+   "examTips": [
+    "State units: power in W or kW; heat in J or kJ.",
+    "Show formula, substitution and unit."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A compressor at 220 V, 5 A, pf 0.8 uses",
+     "options": [
+      "44 W",
+      "275 W",
+      "880 W",
+      "1 100 W"
+     ],
+     "answer": 2,
+     "explanation": "220 × 5 × 0.8 = 880 W."
+    },
+    {
+     "q": "The SI unit of power is the",
+     "options": [
+      "pascal",
+      "watt",
+      "joule",
+      "kelvin"
+     ],
+     "answer": 1,
+     "explanation": "1 W = 1 J/s."
+    },
+    {
+     "q": "A 1.2 kW unit running 5 hours uses",
+     "options": [
+      "6 kWh",
+      "1.2 kWh",
+      "0.24 kWh",
+      "60 kWh"
+     ],
+     "answer": 0,
+     "explanation": "1.2 × 5 = 6 kWh."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-tracing-the-vapour-compression-refrigeration-cycle",
+   "title": "Tracing the vapour-compression refrigeration cycle",
+   "topic": "Introduction to Refrigeration",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "drawing",
+    "observation"
+   ],
+   "aim": "To identify the components of a domestic refrigerator, trace the refrigerant path and draw the layout of the vapour-compression cycle.",
+   "apparatus": [
+    "Domestic refrigerator (running)",
+    "Thermometer",
+    "Screwdriver set",
+    "Torch"
+   ],
+   "materials": [
+    "Drawing paper"
+   ],
+   "safety": [
+    "Do not cut or open refrigerant lines.",
+    "Unplug before removing covers."
+   ],
+   "procedure": [
+    "Locate the compressor, condenser, filter-drier, capillary tube, evaporator and suction line.",
+    "Identify electrical accessories: relay, overload protector, thermostat, capacitor (if fitted).",
+    "Run the fridge and feel (carefully) or measure temperatures of each line.",
+    "Trace the flow: compressor → condenser → drier → capillary → evaporator → compressor.",
+    "Draw and label the layout, marking high and low pressure sides.",
+    "State the function of each component."
+   ],
+   "expectedObservations": "Discharge line and condenser are hot, the capillary outlet and evaporator are cold, and the suction line is cool.",
+   "dataAndCalculations": "Coefficient of performance: a refrigerator removing 300 W of heat from the cabinet while the compressor takes 120 W has COP = 300/120 = 2.5.",
+   "precautions": [
+    "Avoid touching the hot discharge line."
+   ],
+   "sourcesOfError": [
+    "Ambient temperature affecting line temperatures."
+   ],
+   "commonMistakes": [
+    "Placing the capillary tube on the low-pressure side before the drier.",
+    "Calling the condenser the evaporator."
+   ],
+   "examTips": [
+    "Name the four processes: evaporation, compression, condensation, expansion.",
+    "Draw arrows showing refrigerant direction."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a refrigerator, heat is absorbed from the cabinet at the",
+     "options": [
+      "condenser",
+      "compressor",
+      "drier",
+      "evaporator"
+     ],
+     "answer": 3,
+     "explanation": "Refrigerant boils there."
+    },
+    {
+     "q": "The capillary tube acts as the",
+     "options": [
+      "condenser",
+      "thermostat",
+      "expansion (metering) device",
+      "compressor"
+     ],
+     "answer": 2,
+     "explanation": "It drops pressure."
+    },
+    {
+     "q": "Heat removed 400 W, compressor 160 W. COP =",
+     "options": [
+      "560",
+      "2.5",
+      "0.4",
+      "240"
+     ],
+     "answer": 1,
+     "explanation": "400/160 = 2.5."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-identifying-refrigerants-and-flow-controls",
+   "title": "Identifying refrigerants and flow controls",
+   "topic": "Refrigerants",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "safety"
+   ],
+   "aim": "To identify refrigerants from cylinder labels and colours, state their names and formulae, and identify refrigerant flow controls.",
+   "apparatus": [
+    "Refrigerant cylinders (empty or sealed) and labels",
+    "Capillary tube, thermostatic expansion valve (TEV), automatic expansion valve (AEV) samples"
+   ],
+   "materials": [
+    "Refrigerant data chart"
+   ],
+   "safety": [
+    "Never heat cylinders or store them in sun; keep them upright and capped.",
+    "R600a (isobutane) is flammable — no flames or sparks."
+   ],
+   "procedure": [
+    "Read each cylinder label: refrigerant number, name, safety class.",
+    "Note the colour against the older AHRI colour code (still widely seen in Nigeria).",
+    "Record chemical name and formula.",
+    "Identify each flow control and state where it is used.",
+    "Explain how a TEV senses superheat through its bulb."
+   ],
+   "expectedObservations": "Older colour code: R-22 light green, R-134a light blue, R-410A rose (pink), R-404A orange. Since 2020 many new cylinders are a uniform light grey/green, so the label is the reliable identifier.",
+   "dataAndCalculations": "Formulae: R-22 = CHClF₂ (chlorodifluoromethane), R-134a = CH₂FCF₃ (1,1,1,2-tetrafluoroethane), R-600a = C₄H₁₀ (isobutane), R-717 = NH₃ (ammonia). R-410A is a 50/50 blend of R-32 and R-125.",
+   "precautions": [
+    "Never mix refrigerants in a system.",
+    "Use dedicated gauges for flammable refrigerants."
+   ],
+   "sourcesOfError": [
+    "Faded cylinder colours."
+   ],
+   "commonMistakes": [
+    "Relying on colour alone.",
+    "Charging R-22 into an R-134a system."
+   ],
+   "examTips": [
+    "State properties of a good refrigerant: low boiling point, non-toxic, non-flammable, high latent heat, ozone-safe.",
+    "Explain the operation of TEV, AEV and capillary tube."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The chemical name of R-600a is",
+     "options": [
+      "isobutane",
+      "ammonia",
+      "chlorodifluoromethane",
+      "tetrafluoroethane"
+     ],
+     "answer": 0,
+     "explanation": "R-600a is C₄H₁₀."
+    },
+    {
+     "q": "Since 2020 the safest way to identify a refrigerant cylinder is the",
+     "options": [
+      "colour only",
+      "weight",
+      "smell",
+      "label"
+     ],
+     "answer": 3,
+     "explanation": "Colour coding is no longer reliable."
+    },
+    {
+     "q": "A TEV controls refrigerant flow by sensing",
+     "options": [
+      "compressor current",
+      "condenser fan speed",
+      "suction superheat",
+      "room humidity"
+     ],
+     "answer": 2,
+     "explanation": "Its bulb on the suction line senses superheat."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-measuring-humidity-with-a-sling-psychrometer",
+   "title": "Measuring humidity with a sling psychrometer",
+   "topic": "Air-Conditioning Processes",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To measure dry-bulb and wet-bulb temperatures with a sling psychrometer, find relative humidity and compare air before and after an air-conditioner.",
+   "apparatus": [
+    "Sling psychrometer",
+    "Psychrometric chart or humidity table",
+    "Distilled water"
+   ],
+   "materials": [
+    "Running room air-conditioner"
+   ],
+   "safety": [
+    "Whirl the psychrometer clear of people and objects."
+   ],
+   "procedure": [
+    "Wet the wick of the wet-bulb thermometer with distilled water.",
+    "Whirl the psychrometer for about 1 minute in the room air.",
+    "Read the wet-bulb first, then the dry-bulb.",
+    "Repeat until the wet-bulb reading is steady (lowest).",
+    "Find RH from the table or chart.",
+    "Repeat in the air leaving the AC indoor unit.",
+    "Explain the sensible and latent heat removed."
+   ],
+   "expectedObservations": "The wet bulb reads lower than the dry bulb because of evaporative cooling; the AC outlet air is cooler and drier.",
+   "dataAndCalculations": "Room: dry bulb 32 °C, wet bulb 26 °C (depression 6 °C) → RH ≈ 62% from the chart. AC outlet: dry 15 °C, wet 13 °C → RH ≈ 80% but much lower moisture content, because water condenses on the cold evaporator (latent heat removed).",
+   "precautions": [
+    "Use clean wick and distilled water.",
+    "Read promptly before the wet bulb warms."
+   ],
+   "sourcesOfError": [
+    "Dirty wick.",
+    "Insufficient whirling speed."
+   ],
+   "commonMistakes": [
+    "Reading the dry bulb first and allowing the wet bulb to rise."
+   ],
+   "examTips": [
+    "Define relative humidity, dew point, sensible and latent heat.",
+    "Explain heating, cooling, humidifying and dehumidifying processes."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When dry and wet bulb readings are equal, RH is",
+     "options": [
+      "undefined",
+      "100%",
+      "0%",
+      "50%"
+     ],
+     "answer": 1,
+     "explanation": "Saturated air allows no evaporation."
+    },
+    {
+     "q": "Heat that changes temperature without change of state is",
+     "options": [
+      "sensible heat",
+      "latent heat",
+      "specific gravity",
+      "enthalpy of fusion"
+     ],
+     "answer": 0,
+     "explanation": "It can be sensed by a thermometer."
+    },
+    {
+     "q": "Water dripping from an AC indoor unit shows",
+     "options": [
+      "a refrigerant leak",
+      "overcharging",
+      "electrical fault",
+      "latent heat removal (dehumidification)"
+     ],
+     "answer": 3,
+     "explanation": "Moisture condenses on the evaporator."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-servicing-a-condenser",
+   "title": "Servicing a condenser",
+   "topic": "Condensers",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To clean and service an air-cooled condenser and estimate the condenser heat load.",
+   "apparatus": [
+    "Fin comb",
+    "Soft brush",
+    "Coil cleaner sprayer",
+    "Low-pressure water hose or blower",
+    "Thermometer",
+    "Clamp meter"
+   ],
+   "materials": [
+    "Air-cooled condenser (outdoor unit or fridge back)",
+    "Non-acid coil cleaner"
+   ],
+   "safety": [
+    "Isolate power and lock off before cleaning.",
+    "Protect electrical parts from water."
+   ],
+   "procedure": [
+    "Isolate the supply; remove covers.",
+    "Brush off dust and debris; straighten bent fins with the fin comb.",
+    "Apply coil cleaner and rinse gently from the inside outwards.",
+    "Check the fan blades and motor bearings; clean.",
+    "Dry, refit covers and restore power.",
+    "Measure air temperature in and out of the condenser and compressor current before and after cleaning."
+   ],
+   "expectedObservations": "After cleaning, condenser air temperature rise and compressor current fall, showing better heat rejection.",
+   "dataAndCalculations": "Condenser heat load = evaporator load + compressor work: 2.5 kW + 0.8 kW = 3.3 kW. Heat rejection ratio = 3.3/2.5 = 1.32.",
+   "precautions": [
+    "Do not use high-pressure water that bends fins.",
+    "Use non-corrosive cleaner."
+   ],
+   "sourcesOfError": [
+    "Ambient temperature changes between readings."
+   ],
+   "commonMistakes": [
+    "Spraying water onto live electrics.",
+    "Flattening fins with a stiff brush."
+   ],
+   "examTips": [
+    "Name condenser types: air-cooled, water-cooled, evaporative.",
+    "State the functions of the liquid receiver and service valves."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A dirty condenser causes",
+     "options": [
+      "frosted condenser",
+      "high head pressure and poor cooling",
+      "lower current",
+      "better efficiency"
+     ],
+     "answer": 1,
+     "explanation": "Heat is not rejected."
+    },
+    {
+     "q": "Evaporator load 3 kW, compressor 1 kW. Condenser load =",
+     "options": [
+      "4 kW",
+      "2 kW",
+      "3 kW",
+      "1 kW"
+     ],
+     "answer": 0,
+     "explanation": "Both heats are rejected."
+    },
+    {
+     "q": "Bent condenser fins are straightened with a",
+     "options": [
+      "hacksaw",
+      "flaring tool",
+      "pipe cutter",
+      "fin comb"
+     ],
+     "answer": 3,
+     "explanation": "It restores airflow."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-servicing-an-evaporator-and-estimating-heat-load",
+   "title": "Servicing an evaporator and estimating heat load",
+   "topic": "Evaporators",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To defrost and clean an evaporator, clear the drain and estimate the heat load for cooling a product.",
+   "apparatus": [
+    "Soft brush",
+    "Coil cleaner",
+    "Drain line cleaner or blower",
+    "Thermometer",
+    "Stop-watch"
+   ],
+   "materials": [
+    "Refrigerator or AC indoor unit",
+    "Towels and tray"
+   ],
+   "safety": [
+    "Isolate supply before opening the unit.",
+    "Never chip ice with sharp tools — it punctures evaporator tubes."
+   ],
+   "procedure": [
+    "Switch off and allow ice to melt (or use the defrost cycle).",
+    "Clean the coil and filters; check fins.",
+    "Clear the condensate drain and check water flows freely.",
+    "Check the evaporator fan.",
+    "Restart and record evaporator air in/out temperatures.",
+    "Estimate the heat load to cool a given product."
+   ],
+   "expectedObservations": "A clean evaporator frosts evenly (fridge) or gives a good air temperature drop (AC); a blocked drain causes water leaks.",
+   "dataAndCalculations": "Cooling 50 kg of water from 30 °C to 5 °C: Q = mcΔT = 50 × 4.18 × 25 = 5 225 kJ. Over 4 hours: 5 225/(4 × 3 600) = 0.363 kW of evaporator load.",
+   "precautions": [
+    "Do not use sharp tools to remove ice.",
+    "Dry electrical parts before restarting."
+   ],
+   "sourcesOfError": [
+    "Door openings adding heat."
+   ],
+   "commonMistakes": [
+    "Puncturing the evaporator.",
+    "Ignoring the drain line."
+   ],
+   "examTips": [
+    "Name evaporator types: plate, finned tube, bare tube; flooded and dry expansion.",
+    "Show Q = mcΔT and convert kJ to kW."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Ice should be removed from an evaporator by",
+     "options": [
+      "boiling water from a kettle on the tubes",
+      "defrosting",
+      "chipping with a knife",
+      "hammering"
+     ],
+     "answer": 1,
+     "explanation": "Sharp tools puncture the tubes."
+    },
+    {
+     "q": "Cooling 10 kg of water by 20 °C (c = 4.2 kJ/kg K) removes",
+     "options": [
+      "840 kJ",
+      "84 kJ",
+      "200 kJ",
+      "8 400 kJ"
+     ],
+     "answer": 0,
+     "explanation": "10 × 4.2 × 20 = 840 kJ."
+    },
+    {
+     "q": "A blocked condensate drain causes",
+     "options": [
+      "high head pressure",
+      "low voltage",
+      "noisy compressor",
+      "water leaking from the indoor unit"
+     ],
+     "answer": 3,
+     "explanation": "Water overflows the tray."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-cutting-bending-flaring-and-brazing-copper-tube",
+   "title": "Cutting, bending, flaring and brazing copper tube",
+   "topic": "Piping, Ducting and Trunking",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To cut, bend, flare and braze copper refrigeration tubing to make leak-free joints.",
+   "apparatus": [
+    "Tube cutter",
+    "Reamer/deburring tool",
+    "Spring benders and lever bender",
+    "Flaring tool (45°)",
+    "Swaging tool",
+    "Brazing torch",
+    "Torque wrench"
+   ],
+   "materials": [
+    "Soft copper tube (¼ in and ⅜ in)",
+    "Flare nuts",
+    "Silver brazing rods (with flux for copper–brass)",
+    "Nitrogen (for purging while brazing)",
+    "Refrigeration oil"
+   ],
+   "safety": [
+    "Wear goggles and gloves when brazing; ventilate.",
+    "Purge with dry nitrogen, never oxygen, while brazing."
+   ],
+   "procedure": [
+    "Measure and cut the tube square with the tube cutter.",
+    "Ream the end and blow out chips.",
+    "Bend with a spring or lever bender to the required angle without kinking.",
+    "Slide on the flare nut, clamp the tube in the flaring block and form a 45° flare; check it is smooth and even.",
+    "Swage a tube end and braze a joint while purging with nitrogen.",
+    "Tighten flare nuts to the specified torque with a drop of refrigeration oil on the flare face.",
+    "Pressure-test the joints."
+   ],
+   "expectedObservations": "Flares are smooth, concentric and crack-free; brazed joints show a complete fillet round the joint.",
+   "dataAndCalculations": "Minimum bend radius ≈ 5 × tube diameter for spring bending: ⅜ in (9.52 mm) tube → about 48 mm radius. Length of tube in a 90° bend = (π/2) × R = 1.571 × 48 ≈ 75 mm.",
+   "precautions": [
+    "Slide the flare nut on before flaring.",
+    "Deburr all cut ends."
+   ],
+   "sourcesOfError": [
+    "Uneven clamping giving off-centre flares."
+   ],
+   "commonMistakes": [
+    "Kinking tube by bending too tightly.",
+    "Brazing without nitrogen purge (oxide scale inside)."
+   ],
+   "examTips": [
+    "Name the tools listed in the syllabus with uses.",
+    "Describe ducting and trunking in AC installation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Copper refrigeration tube is cut with a",
+     "options": [
+      "wood saw",
+      "tin snips",
+      "tube cutter",
+      "cold chisel"
+     ],
+     "answer": 2,
+     "explanation": "It gives a square, clean cut."
+    },
+    {
+     "q": "The standard refrigeration flare angle is",
+     "options": [
+      "60°",
+      "45°",
+      "90°",
+      "30°"
+     ],
+     "answer": 1,
+     "explanation": "SAE 45° flares are used."
+    },
+    {
+     "q": "Nitrogen is passed through tubes during brazing to",
+     "options": [
+      "prevent internal oxidation",
+      "cool the flame",
+      "add refrigerant",
+      "test for leaks only"
+     ],
+     "answer": 0,
+     "explanation": "Oxide flakes block capillaries."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-leak-testing-evacuation-and-charging-a-system",
+   "title": "Leak testing, evacuation and charging a system",
+   "topic": "Maintenance and Testing",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To pressure-test a refrigeration system for leaks, evacuate it and charge the correct mass of refrigerant.",
+   "apparatus": [
+    "Gauge manifold",
+    "Nitrogen cylinder with regulator",
+    "Vacuum pump",
+    "Micron gauge",
+    "Charging scale",
+    "Electronic leak detector",
+    "Soap solution"
+   ],
+   "materials": [
+    "Small refrigeration system with service access",
+    "Refrigerant as stated on the nameplate"
+   ],
+   "safety": [
+    "Always use a nitrogen regulator; never connect nitrogen directly at cylinder pressure.",
+    "Never use oxygen to pressure-test (explosion risk with oil).",
+    "For flammable refrigerants (R600a), no sparks or flames."
+   ],
+   "procedure": [
+    "Pressurise with dry nitrogen to the test pressure on the nameplate/manual.",
+    "Check joints with soap solution; watch the gauge for 15–30 minutes.",
+    "Release nitrogen and connect the vacuum pump.",
+    "Evacuate to about 500 microns and hold to confirm no rise.",
+    "Weigh in the refrigerant charge shown on the nameplate.",
+    "Run the system and check pressures, temperatures and current.",
+    "Test electrical polarity, insulation and continuity."
+   ],
+   "expectedObservations": "No bubbles and a steady pressure confirm a tight system; vacuum holds below about 1 000 microns; the unit cools normally after charging.",
+   "dataAndCalculations": "Nameplate charge 150 g of R600a. Cylinder on the scale reads 2 350 g before charging, so stop charging when the scale reads 2 350 − 150 = 2 200 g.",
+   "precautions": [
+    "Charge by weight, not by guesswork.",
+    "Evacuate long enough to remove moisture."
+   ],
+   "sourcesOfError": [
+    "Temperature changes affecting test pressure."
+   ],
+   "commonMistakes": [
+    "Charging without evacuating (moisture and air remain).",
+    "Overcharging."
+   ],
+   "examTips": [
+    "List the tests: leakage, polarity, insulation, continuity, pressure and efficiency.",
+    "Explain why moisture must be removed."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Systems are pressure-tested with",
+     "options": [
+      "LPG",
+      "dry nitrogen",
+      "oxygen",
+      "compressed air with oil"
+     ],
+     "answer": 1,
+     "explanation": "Nitrogen is dry and inert."
+    },
+    {
+     "q": "Evacuation removes",
+     "options": [
+      "air and moisture",
+      "oil",
+      "refrigerant only",
+      "copper"
+     ],
+     "answer": 0,
+     "explanation": "Non-condensables and water harm the system."
+    },
+    {
+     "q": "A 200 g charge from a cylinder reading 3 000 g ends at",
+     "options": [
+      "3 200 g",
+      "200 g",
+      "2 000 g",
+      "2 800 g"
+     ],
+     "answer": 3,
+     "explanation": "3 000 − 200 = 2 800 g."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-diagnosing-compressor-and-electrical-faults",
+   "title": "Diagnosing compressor and electrical faults",
+   "topic": "Fault Diagnosis and Trouble Shooting",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "identification"
+   ],
+   "aim": "To identify compressor terminals by resistance, test windings and diagnose common faults by systematic and observation methods.",
+   "apparatus": [
+    "Multimeter",
+    "Insulation resistance tester",
+    "Clamp meter",
+    "Test cord"
+   ],
+   "materials": [
+    "Hermetic compressor",
+    "Relay and overload protector",
+    "Faulty unit for diagnosis"
+   ],
+   "safety": [
+    "Isolate and discharge capacitors before testing.",
+    "Do not run a compressor with the terminal cover off."
+   ],
+   "procedure": [
+    "Measure resistance between the three terminals.",
+    "Identify common (C), start (S) and run (R).",
+    "Test each terminal to the compressor body for earth faults.",
+    "Test the relay and overload for continuity.",
+    "Observe symptoms of a faulty unit (no cooling, short cycling, noisy, tripping) and list possible causes.",
+    "Confirm the fault with tests and record the remedy."
+   ],
+   "expectedObservations": "The highest reading is between S and R; the terminal not in that pair is C; the lowest reading C–R identifies run. Any continuity to the body shows an earthed winding.",
+   "dataAndCalculations": "Readings: C–R = 3.5 Ω, C–S = 12.5 Ω, S–R = 16.0 Ω. S–R is highest, so C is the remaining terminal; C–R (lowest) is the run winding; check: 3.5 + 12.5 = 16.0 Ω.",
+   "precautions": [
+    "Clean terminals before measuring low resistances.",
+    "Test insulation at the correct voltage."
+   ],
+   "sourcesOfError": [
+    "Lead resistance on low ranges."
+   ],
+   "commonMistakes": [
+    "Identifying C as one end of the highest pair.",
+    "Replacing the compressor when the relay is faulty."
+   ],
+   "examTips": [
+    "List common faults: leakage, faulty compressor, poor cooling, current leakage, with symptoms.",
+    "Explain systematic vs observation diagnosis."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The highest resistance between compressor terminals is across",
+     "options": [
+      "run and body",
+      "start and run",
+      "common and run",
+      "common and start"
+     ],
+     "answer": 1,
+     "explanation": "It is both windings in series."
+    },
+    {
+     "q": "C–R 4 Ω, C–S 10 Ω. S–R should read",
+     "options": [
+      "14 Ω",
+      "6 Ω",
+      "40 Ω",
+      "2.5 Ω"
+     ],
+     "answer": 0,
+     "explanation": "S–R = C–R + C–S."
+    },
+    {
+     "q": "Continuity between a terminal and the compressor body indicates",
+     "options": [
+      "a good compressor",
+      "low refrigerant",
+      "a dirty condenser",
+      "an earthed winding"
+     ],
+     "answer": 3,
+     "explanation": "Insulation has failed."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-servicing-a-window-air-conditioner",
+   "title": "Servicing a window air-conditioner",
+   "topic": "Basic Tools Used in Refrigeration and Air-conditioning Workshops",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "identification",
+    "safety"
+   ],
+   "aim": "To select the right tools and carry out routine service on a window air-conditioner.",
+   "apparatus": [
+    "Screwdrivers and spanners",
+    "Fin comb",
+    "Coil cleaner sprayer",
+    "Multimeter and clamp meter",
+    "Thermometer",
+    "Hacksaw, tube cutter, reamer, spring benders (for identification)"
+   ],
+   "materials": [
+    "Window air-conditioner",
+    "Filter",
+    "Coil cleaner",
+    "Fan motor oil (if oil ports fitted)"
+   ],
+   "safety": [
+    "Unit is heavy — lift with two people.",
+    "Isolate the supply and discharge capacitors before work."
+   ],
+   "procedure": [
+    "Identify the basic tools and state their uses.",
+    "Remove the front grille and wash the filter.",
+    "Slide out the chassis; clean evaporator and condenser coils; straighten fins.",
+    "Clean the base pan and drain holes.",
+    "Check fan blades, motor bearings and capacitor.",
+    "Reassemble, run and measure supply air temperature drop and current."
+   ],
+   "expectedObservations": "After service, airflow increases, the temperature drop across the evaporator is about 8–12 °C and current is within the nameplate rating.",
+   "dataAndCalculations": "Return air 28 °C, supply air 17 °C → temperature drop = 11 °C, within the normal 8–12 °C range.",
+   "precautions": [
+    "Protect electrical parts from water.",
+    "Do not bend refrigerant tubes when sliding the chassis."
+   ],
+   "sourcesOfError": [
+    "Measuring too close to the louvres."
+   ],
+   "commonMistakes": [
+    "Running the unit without the filter."
+   ],
+   "examTips": [
+    "List the tools and procedure for servicing in order.",
+    "Explain why clean coils save energy."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A clogged AC filter causes",
+     "options": [
+      "reduced airflow and possible icing",
+      "more cooling",
+      "lower current always",
+      "higher airflow"
+     ],
+     "answer": 0,
+     "explanation": "The evaporator gets too cold."
+    },
+    {
+     "q": "Normal supply–return temperature difference for room AC is about",
+     "options": [
+      "0–1 °C",
+      "30–40 °C",
+      "50 °C",
+      "8–12 °C"
+     ],
+     "answer": 3,
+     "explanation": "Typical design range."
+    },
+    {
+     "q": "A tube reamer is used to",
+     "options": [
+      "flare tubes",
+      "measure pressure",
+      "remove burrs after cutting",
+      "bend tubes"
+     ],
+     "answer": 2,
+     "explanation": "Burrs restrict flow and damage flares."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-installing-a-split-air-conditioner",
+   "title": "Installing a split air-conditioner",
+   "topic": "Piping, Ducting and Trunking",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To install the indoor and outdoor units of a split air-conditioner, connect piping and wiring, evacuate and commission the unit.",
+   "apparatus": [
+    "Drill with core bit",
+    "Spirit level",
+    "Flaring tool and torque wrench",
+    "Vacuum pump and gauge manifold",
+    "Multimeter and clamp meter",
+    "Ladder",
+    "Mallet, dot punch, hacksaw"
+   ],
+   "materials": [
+    "Split AC (e.g. 1.5 hp, 12 000 BTU/h)",
+    "Insulated copper pipes",
+    "Interconnecting cable",
+    "Drain hose",
+    "Wall bracket and fixings",
+    "PVC trunking",
+    "Insulation tape (amaflex)"
+   ],
+   "safety": [
+    "Use a secure ladder and harness when mounting outdoor units at height.",
+    "Isolate the supply; use correct cable and circuit breaker."
+   ],
+   "procedure": [
+    "Choose positions: indoor unit level and clear of obstructions; outdoor unit with good airflow.",
+    "Fix the indoor bracket level; drill the wall hole sloping slightly outward for drainage.",
+    "Mount the outdoor unit on brackets or a pad.",
+    "Run pipes, cable and drain hose together through the hole and trunking; flare and connect pipes, torquing nuts.",
+    "Evacuate the indoor unit and pipes with the vacuum pump; open service valves.",
+    "Connect the cable to the terminals per the diagram; fit the breaker.",
+    "Commission: run, check current, pressures, air temperature drop and drainage."
+   ],
+   "expectedObservations": "The unit cools quietly with no leaks; condensate drains outside; current is within rating.",
+   "dataAndCalculations": "12 000 BTU/h = 1 ton of refrigeration ≈ 3.517 kW of cooling. Room 4 m × 5 m (20 m²) at a rule-of-thumb 600 BTU/h per m² needs 20 × 600 = 12 000 BTU/h — one 1.5 hp (12 000 BTU/h) unit.",
+   "precautions": [
+    "Slope the drain hose downward without loops.",
+    "Keep pipe lengths within the maker's limit or add refrigerant."
+   ],
+   "sourcesOfError": [
+    "Unlevel indoor unit causing water leaks."
+   ],
+   "commonMistakes": [
+    "Not evacuating the lines.",
+    "Over-tightening flare nuts and cracking flares."
+   ],
+   "examTips": [
+    "List installation steps in order.",
+    "Identify piping/ducting tools named in the syllabus."
+   ],
+   "checkQuestions": [
+    {
+     "q": "One ton of refrigeration equals about",
+     "options": [
+      "0.35 kW",
+      "3.5 kW",
+      "1 kW",
+      "12 kW"
+     ],
+     "answer": 1,
+     "explanation": "12 000 BTU/h ≈ 3.517 kW."
+    },
+    {
+     "q": "The wall hole for the pipes should slope",
+     "options": [
+      "slightly downwards to the outside",
+      "upwards to the outside",
+      "horizontally exactly",
+      "downwards into the room"
+     ],
+     "answer": 0,
+     "explanation": "So water drains outside."
+    },
+    {
+     "q": "After connecting pipes, the indoor unit and lines are",
+     "options": [
+      "filled with water",
+      "painted",
+      "pressurised with oxygen",
+      "evacuated"
+     ],
+     "answer": 3,
+     "explanation": "To remove air and moisture."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-servicing-fan-motors-and-testing-capacitors",
+   "title": "Servicing fan motors and testing capacitors",
+   "topic": "Motors and Generators",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "safety"
+   ],
+   "aim": "To service a fan motor used in refrigeration equipment and test its run capacitor.",
+   "apparatus": [
+    "Multimeter with capacitance range",
+    "Insulation tester",
+    "Screwdrivers and spanners",
+    "Bearing puller",
+    "Oil can"
+   ],
+   "materials": [
+    "Fan motor (condenser or evaporator)",
+    "Run capacitor",
+    "Light machine oil"
+   ],
+   "safety": [
+    "Discharge capacitors through a resistor before testing.",
+    "Isolate supply and lock off."
+   ],
+   "procedure": [
+    "Remove the fan motor and blade.",
+    "Check shaft rotation and bearing play; clean and oil if oil ports are fitted.",
+    "Measure winding resistances and insulation to frame.",
+    "Discharge and measure the capacitor; compare with its marked value and tolerance.",
+    "Reassemble with the blade correctly positioned; check direction of rotation.",
+    "Run and measure current."
+   ],
+   "expectedObservations": "A good motor turns freely with no grinding; a weak capacitor causes slow running or failure to start.",
+   "dataAndCalculations": "Capacitor marked 35 µF ±5% must read between 33.25 and 36.75 µF. A reading of 30.1 µF is (35 − 30.1)/35 × 100 = 14% low → replace.",
+   "precautions": [
+    "Replace capacitors with the same µF and voltage rating.",
+    "Refit the blade at the same position on the shaft."
+   ],
+   "sourcesOfError": [
+    "Meter accuracy on capacitance range."
+   ],
+   "commonMistakes": [
+    "Testing a charged capacitor.",
+    "Fitting a lower voltage rating."
+   ],
+   "examTips": [
+    "State types and applications of motors used in refrigeration (split-phase, PSC, shaded-pole).",
+    "Describe installation and maintenance of motors and generators."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A run capacitor marked 20 µF ±5% is acceptable between",
+     "options": [
+      "20 and 40 µF",
+      "19 and 21 µF",
+      "15 and 25 µF",
+      "0 and 20 µF"
+     ],
+     "answer": 1,
+     "explanation": "±5% of 20 = ±1 µF."
+    },
+    {
+     "q": "Before testing a capacitor you must",
+     "options": [
+      "discharge it",
+      "charge it fully",
+      "heat it",
+      "oil it"
+     ],
+     "answer": 0,
+     "explanation": "Stored charge can shock you and damage the meter."
+    },
+    {
+     "q": "A weak run capacitor causes a fan motor to",
+     "options": [
+      "run faster",
+      "use less current always",
+      "reverse direction only",
+      "run slowly or fail to start"
+     ],
+     "answer": 3,
+     "explanation": "Phase shift is insufficient."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-calculating-heat-gain-through-cold-room-insulation",
+   "title": "Calculating heat gain through cold room insulation",
+   "topic": "Insulation Processes",
+   "kind": "LAB",
+   "skills": [
+    "calculation",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To identify insulating materials and calculate heat gain through an insulated cold room wall.",
+   "apparatus": [
+    "Steel rule",
+    "Thermometers",
+    "Calculator"
+   ],
+   "materials": [
+    "Samples: glass wool, fibre glass, polystyrene foam, polyurethane foam, wood, cork, bitumen"
+   ],
+   "safety": [
+    "Wear gloves and dust mask when handling glass wool and fibre glass."
+   ],
+   "procedure": [
+    "Identify each insulating material and list its properties.",
+    "Measure sample thicknesses.",
+    "Look up thermal conductivity (k) values.",
+    "Calculate heat gain through a wall using Q = kAΔT/x.",
+    "Compare heat gain for different materials and thicknesses.",
+    "Describe the procedure for insulating a pipe or cold room, including vapour barrier."
+   ],
+   "expectedObservations": "Materials with low k and greater thickness give much lower heat gain; foams are the most effective common insulants.",
+   "dataAndCalculations": "Cold room wall: polyurethane k = 0.035 W/m K, area 20 m², inside 2 °C, outside 32 °C (ΔT = 30 K), thickness 0.10 m. Q = 0.035 × 20 × 30/0.10 = 210 W. Doubling the thickness to 0.20 m halves the heat gain to 105 W.",
+   "precautions": [
+    "Use consistent SI units (m, W, K)."
+   ],
+   "sourcesOfError": [
+    "k values vary with density and moisture."
+   ],
+   "commonMistakes": [
+    "Using thickness in mm without converting to m."
+   ],
+   "examTips": [
+    "State the importance of insulation and properties of good insulants.",
+    "Explain the need for a vapour barrier on the warm side."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Heat flow through insulation is reduced by",
+     "options": [
+      "larger area",
+      "greater thickness and lower k",
+      "thinner insulation",
+      "higher k"
+     ],
+     "answer": 1,
+     "explanation": "Q = kAΔT/x."
+    },
+    {
+     "q": "k = 0.04, A = 10 m², ΔT = 20 K, x = 0.1 m. Q =",
+     "options": [
+      "80 W",
+      "8 W",
+      "800 W",
+      "0.8 W"
+     ],
+     "answer": 0,
+     "explanation": "0.04 × 10 × 20/0.1 = 80 W."
+    },
+    {
+     "q": "Wet insulation",
+     "options": [
+      "insulates better",
+      "is unchanged",
+      "stops all heat",
+      "insulates poorly"
+     ],
+     "answer": 3,
+     "explanation": "Water conducts heat."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rac-commercial-marketing-survey-for-a-refrigeration-business",
+   "title": "Commercial marketing survey for a refrigeration business",
+   "topic": "Marketing",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To carry out a simple market survey for setting up a refrigeration and air-conditioning repair business and analyse the results.",
+   "apparatus": [
+    "Questionnaire",
+    "Notebook or phone",
+    "Calculator"
+   ],
+   "materials": [
+    "List of households, shops and offices in the area"
+   ],
+   "safety": [
+    "Work in pairs, with permission, during daylight; respect respondents' privacy."
+   ],
+   "procedure": [
+    "Prepare a short questionnaire: appliances owned, frequency of faults, current repairers, prices paid, satisfaction.",
+    "Survey a sample (e.g. 40 respondents).",
+    "Visit existing service shops to note prices and services.",
+    "Tabulate and calculate percentages.",
+    "Identify demand, competition and a good location.",
+    "Write a short report with a recommendation."
+   ],
+   "expectedObservations": "Results show the demand for services such as AC servicing and fridge gas recharge, and gaps in existing service quality.",
+   "dataAndCalculations": "Of 40 respondents, 28 own an air-conditioner (28/40 × 100 = 70%) and 18 service it at least twice a year (18/28 × 100 = 64% of AC owners). Average price quoted ₦8 000 per service.",
+   "precautions": [
+    "Use a fair, representative sample.",
+    "Ask clear, unbiased questions."
+   ],
+   "sourcesOfError": [
+    "Small sample size.",
+    "Respondent bias."
+   ],
+   "commonMistakes": [
+    "Calculating percentages from the wrong base."
+   ],
+   "examTips": [
+    "State types and functions of marketing; low-cost marketing ideas (referrals, social media, signboards).",
+    "Present results in a table."
+   ],
+   "checkQuestions": [
+    {
+     "q": "12 out of 48 respondents is",
+     "options": [
+      "25%",
+      "12%",
+      "48%",
+      "4%"
+     ],
+     "answer": 0,
+     "explanation": "12/48 × 100 = 25%."
+    },
+    {
+     "q": "A market survey helps a new business to",
+     "options": [
+      "avoid paying tax",
+      "fix compressors",
+      "design circuits",
+      "estimate demand and competition"
+     ],
+     "answer": 3,
+     "explanation": "It guides decisions."
+    },
+    {
+     "q": "A low-cost marketing method is",
+     "options": [
+      "billboards in every city",
+      "buying a competitor",
+      "customer referrals",
+      "national TV adverts"
+     ],
+     "answer": 2,
+     "explanation": "Word of mouth costs little."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

@@ -230,6 +230,7 @@ model Tenant {
   flashcardDecks        FlashcardDeck[]
   practiceAttempts      PracticeAttempt[]
   examSittings          ExamSitting[]
+  practicalAttempts     PracticalAttempt[]
   kbDocuments           KbDocument[]
   reportCardTemplates   ReportCardTemplate[]
   admissionApplications AdmissionApplication[]
@@ -728,6 +729,7 @@ model Student {
   flashcardDecks      FlashcardDeck[]
   practiceAttempts    PracticeAttempt[]
   examSittings        ExamSitting[]
+  practicalAttempts   PracticalAttempt[]
   traitRatings        StudentTraitRating[]
   homeworkSubmissions HomeworkSubmission[]
   promotions          StudentPromotion[]
@@ -3274,6 +3276,7 @@ model SyllabusTopic {
   children  SyllabusTopic[]   @relation("TopicTree")
   mastery   MasteryRecord[]
   questions ExamQuestion[]
+  practicals PracticalLesson[]
   evidence  MasteryEvidence[]
   homework  Homework[]
 
@@ -3379,6 +3382,68 @@ model PracticeAttempt {
   // One attempt per paper of a sitting (a double click must not set a paper twice).
   @@unique([sittingId, paper])
   @@map("practice_attempts")
+}
+
+/// A WAEC Practical Academy lesson (platform content), installed from prisma/practicals/<exam>/*.json at start-up.
+model PracticalLesson {
+  /// The content's stable id, e.g. pr-chem-acid-base-titration.
+  id        String   @id
+  exam      String
+  subject   String
+  topicId   String?
+  /// The syllabus topic name as written in the content (kept when no topic matches).
+  topicName String
+  title     String
+  /// LAB | FIELD | WORKSHOP | STUDIO | PERFORMANCE | COMPUTER | DRAWING
+  kind      String
+  /// Virtual lab id (SimulatorId), when one exists.
+  simulator String?
+  order     Int      @default(0)
+  /// The whole lesson as shipped (aim, apparatus, procedure, checks…).
+  data      Json
+  /// Source file (exam/slug.json): lessons dropped from a file are removed.
+  file      String
+  updatedAt DateTime @updatedAt
+
+  topic SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  @@index([exam, subject])
+  @@map("practical_lessons")
+}
+
+/// A student's virtual-lab attempt (LAB practice or timed EXAM) or quick check (CHECK) on a practical lesson.
+model PracticalAttempt {
+  id           String    @id @default(cuid())
+  tenantId     String
+  studentId    String
+  /// PracticalLesson id (not a foreign key: attempts outlive content changes).
+  practicalId  String
+  simulatorId  String?
+  /// Variant seed: the lab's hidden values derive from it (packages/shared simulators).
+  seed         Int
+  /// LAB | EXAM | CHECK
+  mode         String
+  /// The student's recorded work (simulator state, or quick-check answers).
+  state        Json
+  /// Per criterion: { id, label, awarded, max, how, note }[] plus the worked solution.
+  scores       Json?
+  score        Float?
+  maxScore     Float
+  aiFeedback   String?
+  startedAt    DateTime  @default(now())
+  endsAt       DateTime?
+  submittedAt  DateTime?
+  /// A teacher's review: { score, note, byUserId, by, at }.
+  override     Json?
+  reviewedById String?
+  reviewedAt   DateTime?
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, startedAt])
+  @@index([tenantId, startedAt])
+  @@map("practical_attempts")
 }
 
 /// A full WASSCE mock in one subject: each paper is a PracticeAttempt on its own clock; the grade is kept once every in-app paper is marked.

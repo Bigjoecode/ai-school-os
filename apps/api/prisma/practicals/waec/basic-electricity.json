@@ -1,0 +1,1966 @@
+{
+ "exam": "WAEC",
+ "subject": "Basic Electricity",
+ "practicalPaper": "Paper 3 is a 3-hour practical paper of two experiments, both carried out, for 100 marks. Candidates set up circuits or installations from instructions, take and tabulate readings, plot graphs where asked, calculate results with units, and state precautions; workmanship and safe practice are also marked.",
+ "practicals": [
+  {
+   "id": "pr-bel-resistor-colour-code-and-measured-resistance",
+   "title": "Resistor colour code and measured resistance",
+   "topic": "Resistors",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To read the nominal values of carbon-film resistors from their colour bands and compare them with values measured on a multimeter.",
+   "apparatus": [
+    "Digital multimeter (ohms range)",
+    "Breadboard or connector block",
+    "Crocodile-clip test leads"
+   ],
+   "materials": [
+    "Assorted 4-band carbon-film resistors (e.g. 100 Ω, 470 Ω, 1 kΩ, 4.7 kΩ, 10 kΩ)",
+    "Resistor colour code chart"
+   ],
+   "safety": [
+    "Measure resistance only with the resistor out of circuit and no supply connected.",
+    "Keep fingers off both probe tips while measuring high values."
+   ],
+   "procedure": [
+    "Hold each resistor with the tolerance band (gold or silver) to your right.",
+    "Write down the colours of bands 1 to 4 in order.",
+    "Convert: band 1 = first digit, band 2 = second digit, band 3 = multiplier (number of zeros), band 4 = tolerance.",
+    "Calculate the nominal value and the permitted range (nominal ± tolerance).",
+    "Zero-check the meter by touching the probes together; note any lead resistance.",
+    "Select a suitable ohms range, clip the probes to the resistor leads and record the measured value.",
+    "Calculate the percentage deviation and state whether the resistor is within tolerance.",
+    "Tabulate: colours, nominal value, tolerance, permitted range, measured value, % deviation."
+   ],
+   "expectedObservations": "Most good resistors read within their tolerance band (±5% for gold). A reading outside the range, or an open-circuit (OL) reading, shows a damaged or wrongly marked resistor.",
+   "dataAndCalculations": "Brown–black–red–gold: 1, 0, ×10² = 1000 Ω = 1 kΩ, tolerance ±5% → 950 Ω to 1050 Ω. Measured value = 985 Ω. % deviation = (985 − 1000)/1000 × 100 = −1.5%, which lies within ±5%, so the resistor is good.",
+   "precautions": [
+    "Do not hold both leads of the resistor with your fingers during measurement (body resistance adds in parallel).",
+    "Choose the range that gives the most significant figures.",
+    "Ensure clean, firm contact between probes and leads."
+   ],
+   "sourcesOfError": [
+    "Body resistance in parallel with high-value resistors.",
+    "Lead or contact resistance on low values.",
+    "Misreading similar colours (red/orange, brown/red) under poor light."
+   ],
+   "commonMistakes": [
+    "Reading the bands from the wrong end.",
+    "Treating the third band as a digit instead of a multiplier.",
+    "Leaving the unit (Ω, kΩ) off the recorded value."
+   ],
+   "examTips": [
+    "Always show the working from colours to value; examiners award a mark for the method.",
+    "State the tolerance range and a clear conclusion (within/outside tolerance).",
+    "Record measured values to the precision shown on the meter."
+   ],
+   "checkQuestions": [
+    {
+     "q": "What is the value of a resistor coded yellow–violet–red–gold?",
+     "options": [
+      "47 Ω ±5%",
+      "470 Ω ±10%",
+      "47 kΩ ±5%",
+      "4.7 kΩ ±5%"
+     ],
+     "answer": 3,
+     "explanation": "Yellow = 4, violet = 7, red = ×100, so 4700 Ω = 4.7 kΩ; gold = ±5%."
+    },
+    {
+     "q": "A 1 kΩ ±5% resistor measures 1 080 Ω. It is",
+     "options": [
+      "short-circuited",
+      "open-circuited",
+      "within tolerance",
+      "outside tolerance"
+     ],
+     "answer": 3,
+     "explanation": "The permitted maximum is 1 050 Ω, so 1 080 Ω is outside tolerance."
+    },
+    {
+     "q": "Why should the resistor be removed from the circuit before measuring?",
+     "options": [
+      "To increase the tolerance",
+      "Other components in parallel would affect the reading",
+      "The meter only works on loose components",
+      "To keep the colour bands clean"
+     ],
+     "answer": 1,
+     "explanation": "Parallel paths in the circuit change the resistance the meter sees, and a live circuit can damage the meter."
+    },
+    {
+     "q": "The fourth band on a carbon resistor shows the",
+     "options": [
+      "tolerance",
+      "power rating",
+      "first digit",
+      "temperature"
+     ],
+     "answer": 0,
+     "explanation": "Band 4 gives the tolerance: gold ±5%, silver ±10%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-resistors-in-series-and-parallel",
+   "title": "Resistors in series and parallel",
+   "topic": "Resistors",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To verify the formulae for the effective resistance of resistors connected in series, in parallel and in series–parallel.",
+   "apparatus": [
+    "Digital multimeter",
+    "Breadboard or terminal block",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Resistors R1 = 100 Ω, R2 = 220 Ω, R3 = 330 Ω (any three known values)"
+   ],
+   "safety": [
+    "Make all resistance measurements with the supply disconnected."
+   ],
+   "procedure": [
+    "Measure and record the actual value of each resistor separately.",
+    "Connect R1, R2 and R3 end to end (series) and measure the total resistance across the ends.",
+    "Connect R2 and R3 side by side (parallel) and measure across the pair.",
+    "Connect R1 in series with the R2–R3 parallel pair and measure the total.",
+    "Calculate the expected value for each arrangement from the measured individual values.",
+    "Compare measured and calculated values and find the percentage difference."
+   ],
+   "expectedObservations": "The series total is larger than the largest resistor; the parallel total is smaller than the smallest resistor; the measured totals agree with calculated values within a few per cent.",
+   "dataAndCalculations": "Series: R = 100 + 220 + 330 = 650 Ω. Parallel: R = (220 × 330)/(220 + 330) = 72 600/550 = 132 Ω. Series–parallel: R = 100 + 132 = 232 Ω. If 230 Ω is measured, % difference = (232 − 230)/232 × 100 ≈ 0.9%.",
+   "precautions": [
+    "Use the measured (not coded) values in the calculations.",
+    "Make firm connections; loose joints add resistance.",
+    "Zero-check the meter before use."
+   ],
+   "sourcesOfError": [
+    "Contact resistance at joints.",
+    "Resistor tolerance.",
+    "Meter resolution on the chosen range."
+   ],
+   "commonMistakes": [
+    "Adding parallel resistances directly.",
+    "Forgetting to take the reciprocal at the end of 1/R = 1/R1 + 1/R2."
+   ],
+   "examTips": [
+    "Draw a neat circuit diagram for each arrangement before the table.",
+    "For two resistors in parallel, use product/sum to save time.",
+    "Comment on agreement between theory and measurement in your conclusion."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Two 100 Ω resistors in parallel give",
+     "options": [
+      "100 Ω",
+      "10 Ω",
+      "50 Ω",
+      "200 Ω"
+     ],
+     "answer": 2,
+     "explanation": "Product/sum = 10 000/200 = 50 Ω."
+    },
+    {
+     "q": "The effective resistance of resistors in parallel is always",
+     "options": [
+      "equal to the average",
+      "less than the smallest resistor",
+      "greater than the largest resistor",
+      "equal to the sum"
+     ],
+     "answer": 1,
+     "explanation": "Adding parallel paths reduces the overall resistance."
+    },
+    {
+     "q": "A 100 Ω resistor in series with (220 Ω ∥ 330 Ω) gives",
+     "options": [
+      "232 Ω",
+      "650 Ω",
+      "132 Ω",
+      "550 Ω"
+     ],
+     "answer": 0,
+     "explanation": "220 ∥ 330 = 132 Ω; 132 + 100 = 232 Ω."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-verification-of-ohms-law",
+   "title": "Verification of Ohm's law",
+   "topic": "Ohm's law and Kirchhoff's laws",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "graph",
+    "calculation"
+   ],
+   "aim": "To show that the current through a metallic resistor is directly proportional to the potential difference across it and to determine its resistance from a graph.",
+   "apparatus": [
+    "Variable d.c. supply (0–6 V) or 4 dry cells with a rheostat",
+    "Ammeter (0–200 mA) or multimeter",
+    "Voltmeter (0–10 V)",
+    "Switch (key)",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Fixed resistor of about 47 Ω, 1 W"
+   ],
+   "safety": [
+    "Switch off between readings so the resistor does not heat up.",
+    "Connect the ammeter in series and the voltmeter in parallel before switching on."
+   ],
+   "procedure": [
+    "Connect the supply, switch, rheostat, ammeter and resistor in series; connect the voltmeter across the resistor.",
+    "Have the circuit checked, then close the switch.",
+    "Adjust the rheostat to give V = 1.0 V and record the current I.",
+    "Repeat for V = 2.0, 3.0, 4.0 and 5.0 V, opening the switch between readings.",
+    "Tabulate V, I and V/I.",
+    "Plot V (y-axis) against I (x-axis) and draw the best straight line.",
+    "Determine the slope of the line; this is the resistance R."
+   ],
+   "expectedObservations": "The graph is a straight line through the origin, showing V ∝ I at constant temperature. V/I is nearly constant.",
+   "dataAndCalculations": "Readings: V/V = 1.0, 2.0, 3.0, 4.0, 5.0; I/A = 0.021, 0.043, 0.064, 0.085, 0.106. V/I ≈ 47.6, 46.5, 46.9, 47.1, 47.2 Ω. Slope from two points on the line, (0.020 A, 0.94 V) and (0.100 A, 4.70 V): R = (4.70 − 0.94)/(0.100 − 0.020) = 3.76/0.080 = 47 Ω.",
+   "precautions": [
+    "Open the switch between readings to avoid heating.",
+    "Read meters at eye level to avoid parallax.",
+    "Ensure tight connections.",
+    "Check meter zero before switching on."
+   ],
+   "sourcesOfError": [
+    "Heating of the resistor changes its resistance.",
+    "Meter calibration and parallax errors.",
+    "Internal resistance of the supply drifting."
+   ],
+   "commonMistakes": [
+    "Connecting the ammeter in parallel (this can blow its fuse).",
+    "Using two widely separated table points rather than points on the drawn line for the slope.",
+    "Forcing the line through every point."
+   ],
+   "examTips": [
+    "Use a sensible scale so the graph covers at least half the paper.",
+    "Show the slope triangle on the graph and state R with unit Ω.",
+    "State the conclusion in words: V is directly proportional to I."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A resistor carries 0.25 A when 12 V is across it. Its resistance is",
+     "options": [
+      "48 Ω",
+      "3 Ω",
+      "0.02 Ω",
+      "12.25 Ω"
+     ],
+     "answer": 0,
+     "explanation": "R = V/I = 12/0.25 = 48 Ω."
+    },
+    {
+     "q": "In this experiment the voltmeter must be connected",
+     "options": [
+      "in series with the resistor",
+      "across the supply only",
+      "in series with the ammeter",
+      "in parallel with the resistor"
+     ],
+     "answer": 3,
+     "explanation": "A voltmeter measures p.d. across a component, so it is connected in parallel."
+    },
+    {
+     "q": "Why is the switch opened between readings?",
+     "options": [
+      "To discharge the voltmeter",
+      "To reverse the current",
+      "To prevent the resistor heating up",
+      "To reset the ammeter"
+     ],
+     "answer": 2,
+     "explanation": "Ohm's law holds at constant temperature; heating changes resistance."
+    },
+    {
+     "q": "On a V–I graph for an ohmic conductor, the slope gives",
+     "options": [
+      "charge",
+      "resistance",
+      "power",
+      "current"
+     ],
+     "answer": 1,
+     "explanation": "Slope = ΔV/ΔI = R."
+    }
+   ],
+   "simulator": "phy-ohms-law"
+  },
+  {
+   "id": "pr-bel-verification-of-kirchhoffs-current-and-voltage-laws",
+   "title": "Verification of Kirchhoff's current and voltage laws",
+   "topic": "Ohm's law and Kirchhoff's laws",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To verify Kirchhoff's current law at a junction and Kirchhoff's voltage law around a closed loop.",
+   "apparatus": [
+    "12 V d.c. supply",
+    "Three ammeters (or one multimeter moved between positions)",
+    "Voltmeter",
+    "Switch",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Resistors R1 = 100 Ω, R2 = 200 Ω, R3 = 300 Ω, each rated 1 W or more"
+   ],
+   "safety": [
+    "Switch off before moving the ammeter to a new position.",
+    "Check resistor power ratings: R1 dissipates about 0.3 W."
+   ],
+   "procedure": [
+    "Connect R1 in series with the parallel pair R2 and R3 across the 12 V supply.",
+    "Measure the supply current I through R1.",
+    "Measure the branch currents I2 (through R2) and I3 (through R3).",
+    "Measure the p.d. V1 across R1 and Vp across the parallel pair, and the supply voltage Vs.",
+    "Check KCL: I = I2 + I3.",
+    "Check KVL: Vs = V1 + Vp.",
+    "Compare measured values with values calculated from Ohm's law."
+   ],
+   "expectedObservations": "The current entering the junction equals the sum of currents leaving it; the sum of p.d.s around the loop equals the supply e.m.f., within meter accuracy.",
+   "dataAndCalculations": "R2 ∥ R3 = (200 × 300)/500 = 120 Ω; total R = 100 + 120 = 220 Ω. I = 12/220 = 0.0545 A (54.5 mA). V1 = 0.0545 × 100 = 5.45 V; Vp = 0.0545 × 120 = 6.55 V; V1 + Vp = 12.0 V (KVL). I2 = 6.55/200 = 32.7 mA, I3 = 6.55/300 = 21.8 mA; I2 + I3 = 54.5 mA = I (KCL).",
+   "precautions": [
+    "Use the same meter range for currents being compared.",
+    "Read meters without parallax.",
+    "Keep the supply voltage constant throughout."
+   ],
+   "sourcesOfError": [
+    "Ammeter internal resistance slightly changes branch currents.",
+    "Resistor tolerances.",
+    "Supply voltage drop under load."
+   ],
+   "commonMistakes": [
+    "Ignoring the signs (directions) of currents at the junction.",
+    "Measuring branch p.d.s across the wrong pair of points."
+   ],
+   "examTips": [
+    "State both laws clearly before the results.",
+    "Present a single table showing measured and calculated values side by side.",
+    "Give answers to 3 significant figures with units."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Kirchhoff's current law is based on conservation of",
+     "options": [
+      "charge",
+      "energy",
+      "momentum",
+      "mass"
+     ],
+     "answer": 0,
+     "explanation": "Charge cannot accumulate at a junction."
+    },
+    {
+     "q": "Currents of 2 A and 3 A enter a junction and one wire leaves it. The current leaving is",
+     "options": [
+      "1 A",
+      "6 A",
+      "1.5 A",
+      "5 A"
+     ],
+     "answer": 3,
+     "explanation": "Sum in = sum out: 2 + 3 = 5 A."
+    },
+    {
+     "q": "In a loop with 12 V supply, p.d.s of 5.45 V and x V. x is",
+     "options": [
+      "5.45 V",
+      "12 V",
+      "6.55 V",
+      "17.45 V"
+     ],
+     "answer": 2,
+     "explanation": "KVL: 12 − 5.45 = 6.55 V."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-measuring-electrical-power-and-energy-consumption",
+   "title": "Measuring electrical power and energy consumption",
+   "topic": "Power and energy",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To measure the power taken by a load using the voltmeter–ammeter method and to calculate energy used and its cost.",
+   "apparatus": [
+    "A.C. voltmeter (0–300 V) or multimeter",
+    "Clamp meter or a.c. ammeter (0–5 A)",
+    "Energy meter (optional)",
+    "Stop-watch"
+   ],
+   "materials": [
+    "60 W filament lamp in a lampholder on a board",
+    "Electric kettle (about 2 kW)"
+   ],
+   "safety": [
+    "Work under teacher supervision on 230 V mains; all live parts must be enclosed.",
+    "Use a clamp meter so that the circuit need not be opened.",
+    "Never touch the kettle body while it is heating; keep water away from connections."
+   ],
+   "procedure": [
+    "Connect the lamp board to the supply through a switched socket.",
+    "Measure the supply voltage V across the lamp terminals.",
+    "Clamp the meter round the phase conductor only and read the current I.",
+    "Calculate P = VI.",
+    "Repeat with the kettle, timing how long it runs.",
+    "Calculate the energy in kWh and the cost at the stated tariff."
+   ],
+   "expectedObservations": "The lamp takes about 0.26 A and close to its rated 60 W; the kettle takes over 8 A. Measured power is close to the rated value printed on the appliance.",
+   "dataAndCalculations": "Lamp: V = 230 V, I = 0.26 A, P = 230 × 0.26 = 59.8 W ≈ 60 W. Kettle: 2 kW for 15 min uses E = 2 × 0.25 = 0.5 kWh; at an assumed tariff of ₦225 per kWh the cost is 0.5 × 225 = ₦112.50. A 75 W fan used 8 h a day for 30 days: E = 75 × 8 × 30/1000 = 18 kWh, cost = 18 × 225 = ₦4 050.",
+   "precautions": [
+    "Clamp only one conductor (phase), not the whole flex.",
+    "Let readings settle before recording.",
+    "Convert minutes to hours and watts to kilowatts before calculating kWh."
+   ],
+   "sourcesOfError": [
+    "Mains voltage fluctuation.",
+    "Meter accuracy at low currents.",
+    "Timing errors with the stop-watch."
+   ],
+   "commonMistakes": [
+    "Multiplying watts by minutes and calling it kWh.",
+    "Clamping round the full flex, which gives a reading of zero."
+   ],
+   "examTips": [
+    "Always state the formula, substitute with units and convert units before the final answer.",
+    "1 kWh = 3.6 MJ is often needed.",
+    "Express cost to the nearest kobo or naira as the question asks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 1.5 kW heater used for 4 hours consumes",
+     "options": [
+      "0.375 kWh",
+      "6000 kWh",
+      "1.5 kWh",
+      "6 kWh"
+     ],
+     "answer": 3,
+     "explanation": "E = Pt = 1.5 × 4 = 6 kWh."
+    },
+    {
+     "q": "One kilowatt-hour is equal to",
+     "options": [
+      "3600 J",
+      "36 MJ",
+      "3.6 MJ",
+      "1000 J"
+     ],
+     "answer": 2,
+     "explanation": "1000 W × 3600 s = 3.6 × 10⁶ J."
+    },
+    {
+     "q": "A lamp takes 0.5 A from a 230 V supply. Its power is",
+     "options": [
+      "0.0022 W",
+      "115 W",
+      "460 W",
+      "230.5 W"
+     ],
+     "answer": 1,
+     "explanation": "P = VI = 230 × 0.5 = 115 W."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-charging-and-discharging-a-capacitor",
+   "title": "Charging and discharging a capacitor",
+   "topic": "Capacitors",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "graph",
+    "calculation"
+   ],
+   "aim": "To study how the voltage across a capacitor rises during charging and falls during discharge through a resistor, and to determine the time constant.",
+   "apparatus": [
+    "9 V d.c. supply or battery",
+    "Digital voltmeter",
+    "Two-way switch (or flying lead)",
+    "Stop-watch"
+   ],
+   "materials": [
+    "Electrolytic capacitor 470 µF, 25 V",
+    "Resistor 100 kΩ"
+   ],
+   "safety": [
+    "Connect the electrolytic capacitor with the correct polarity; reverse connection can make it burst.",
+    "Discharge the capacitor through a resistor before handling it."
+   ],
+   "procedure": [
+    "Discharge the capacitor fully by shorting it through a resistor.",
+    "Connect the capacitor in series with the 100 kΩ resistor and the switch to the 9 V supply; connect the voltmeter across the capacitor.",
+    "Close the switch and start the stop-watch at the same moment.",
+    "Record the capacitor voltage every 10 s for about 4 minutes.",
+    "Switch the circuit so that the capacitor discharges through the resistor and record the voltage every 10 s again.",
+    "Plot V against t for charge and discharge.",
+    "Read off the time for V to reach 63% of the supply voltage (charging) or fall to 37% (discharging)."
+   ],
+   "expectedObservations": "Charging: V rises quickly at first and then levels off towards 9 V (exponential growth). Discharging: V falls quickly and then more slowly towards zero (exponential decay).",
+   "dataAndCalculations": "Time constant τ = RC = 100 × 10³ × 470 × 10⁻⁶ = 47 s. At t = τ the capacitor reaches 0.632 × 9 = 5.69 V. Full charge Q = CV = 470 × 10⁻⁶ × 9 = 4.23 × 10⁻³ C. Energy stored E = ½CV² = 0.5 × 470 × 10⁻⁶ × 81 = 0.019 J.",
+   "precautions": [
+    "Start the stop-watch exactly as the switch is closed.",
+    "Use a high-resistance digital voltmeter so that it does not discharge the capacitor.",
+    "Ensure the capacitor is fully discharged before each run."
+   ],
+   "sourcesOfError": [
+    "Leakage current of the electrolytic capacitor.",
+    "Voltmeter resistance in parallel with the capacitor.",
+    "Capacitor tolerance (often ±20%).",
+    "Reaction time in reading the watch."
+   ],
+   "commonMistakes": [
+    "Connecting the electrolytic capacitor the wrong way round.",
+    "Drawing straight lines instead of smooth curves.",
+    "Using kΩ and µF without converting to Ω and F."
+   ],
+   "examTips": [
+    "Label axes with quantity and unit, e.g. V/V and t/s.",
+    "Mark 63% and 37% points on the graph to show how τ was found.",
+    "Quote E = ½CV² with correct powers of ten."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The time constant of a 10 kΩ resistor and 100 µF capacitor is",
+     "options": [
+      "10 s",
+      "1000 s",
+      "1 s",
+      "0.1 s"
+     ],
+     "answer": 2,
+     "explanation": "τ = RC = 10⁴ × 10⁻⁴ = 1 s."
+    },
+    {
+     "q": "After one time constant of charging, the capacitor voltage is about",
+     "options": [
+      "100% of the supply",
+      "63% of the supply",
+      "37% of the supply",
+      "50% of the supply"
+     ],
+     "answer": 1,
+     "explanation": "V = V₀(1 − e⁻¹) ≈ 0.632 V₀."
+    },
+    {
+     "q": "Energy stored in a 100 µF capacitor at 20 V is",
+     "options": [
+      "0.02 J",
+      "0.002 J",
+      "2 J",
+      "0.2 J"
+     ],
+     "answer": 0,
+     "explanation": "E = ½CV² = 0.5 × 10⁻⁴ × 400 = 0.02 J."
+    },
+    {
+     "q": "An electrolytic capacitor must be connected",
+     "options": [
+      "in parallel only",
+      "on a.c. only",
+      "without a resistor",
+      "with correct polarity"
+     ],
+     "answer": 3,
+     "explanation": "Electrolytics are polarised and can fail if reversed."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-capacitors-in-series-and-parallel",
+   "title": "Capacitors in series and parallel",
+   "topic": "Capacitors",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To identify capacitor types and markings and to verify the formulae for capacitors in series and parallel using a capacitance meter.",
+   "apparatus": [
+    "Digital multimeter with capacitance range or LCR meter",
+    "Breadboard",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Capacitors 10 µF and 22 µF (electrolytic), ceramic and polyester samples",
+    "Marking chart (e.g. 104 = 100 nF)"
+   ],
+   "safety": [
+    "Discharge every capacitor before connecting it to the meter."
+   ],
+   "procedure": [
+    "Identify each sample by type (electrolytic, ceramic, polyester, variable) and note its marked capacitance and voltage rating.",
+    "Decode three-digit codes on small capacitors.",
+    "Measure C1 and C2 individually.",
+    "Connect them in parallel and measure the total.",
+    "Connect them in series and measure the total.",
+    "Compare with calculated values."
+   ],
+   "expectedObservations": "Parallel capacitance is larger than either capacitor; series capacitance is smaller than the smaller capacitor.",
+   "dataAndCalculations": "Parallel: C = 10 + 22 = 32 µF. Series: C = (10 × 22)/(10 + 22) = 220/32 = 6.875 µF ≈ 6.9 µF. Code \"104\" means 10 × 10⁴ pF = 100 000 pF = 100 nF = 0.1 µF.",
+   "precautions": [
+    "Discharge capacitors before measurement.",
+    "Keep leads short to reduce stray capacitance.",
+    "Do not exceed the voltage rating if a supply is used."
+   ],
+   "sourcesOfError": [
+    "Capacitor tolerance of up to ±20%.",
+    "Stray capacitance of leads and breadboard."
+   ],
+   "commonMistakes": [
+    "Using the resistor formulae the wrong way round (capacitors in parallel add directly).",
+    "Misreading 104 as 104 pF."
+   ],
+   "examTips": [
+    "Remember the formulae are the reverse of resistors.",
+    "State the unit (µF, nF, pF) and convert consistently."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Two 4 µF capacitors in series give",
+     "options": [
+      "8 µF",
+      "4 µF",
+      "16 µF",
+      "2 µF"
+     ],
+     "answer": 3,
+     "explanation": "Product/sum = 16/8 = 2 µF."
+    },
+    {
+     "q": "A ceramic capacitor marked 103 has a value of",
+     "options": [
+      "1 µF",
+      "100 nF",
+      "10 nF",
+      "103 pF"
+     ],
+     "answer": 2,
+     "explanation": "10 × 10³ pF = 10 000 pF = 10 nF."
+    },
+    {
+     "q": "Capacitors in parallel have a total capacitance that is",
+     "options": [
+      "always 1 µF",
+      "the sum of the individual values",
+      "less than the smallest",
+      "the reciprocal sum"
+     ],
+     "answer": 1,
+     "explanation": "C = C1 + C2 + … in parallel."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-magnetic-field-of-a-current-carrying-conductor-and-electromagnetic-induction",
+   "title": "Magnetic field of a current-carrying conductor and electromagnetic induction",
+   "topic": "Electromagnetic field",
+   "kind": "LAB",
+   "skills": [
+    "observation",
+    "drawing",
+    "procedure"
+   ],
+   "aim": "To plot the magnetic field around a straight conductor and a solenoid, and to show that relative motion between a magnet and a coil induces an e.m.f.",
+   "apparatus": [
+    "Plotting compasses",
+    "Cardboard sheet",
+    "Low-voltage d.c. supply (up to 6 A)",
+    "Solenoid coil of about 200 turns",
+    "Centre-zero galvanometer",
+    "Bar magnet"
+   ],
+   "materials": [
+    "Iron filings",
+    "Thick copper wire",
+    "Plain paper and pencil"
+   ],
+   "safety": [
+    "Switch on the high current only briefly; the wire can become hot.",
+    "Keep iron filings away from eyes and wash hands afterwards."
+   ],
+   "procedure": [
+    "Pass a thick wire vertically through a horizontal card; sprinkle iron filings, switch on and tap the card gently.",
+    "Place plotting compasses around the wire and mark the direction of the needles; reverse the current and observe.",
+    "Repeat with the solenoid and sketch the field pattern, marking N and S ends.",
+    "Connect the solenoid to the galvanometer.",
+    "Push the magnet into the coil, hold it still, then withdraw it; note the deflections.",
+    "Repeat faster and with more turns; record the effect on the deflection."
+   ],
+   "expectedObservations": "Concentric circles form around the straight wire; the direction reverses with the current (right-hand grip rule). The solenoid field resembles that of a bar magnet. The galvanometer deflects only while the magnet moves; withdrawal gives the opposite deflection; faster motion gives a larger deflection.",
+   "dataAndCalculations": "Force on a conductor: F = BIL sin θ = 0.5 T × 2 A × 0.1 m × sin 90° = 0.1 N. Induced e.m.f. for a conductor moving across a field: E = BLv sin θ = 0.5 × 0.2 × 3 × 1 = 0.3 V.",
+   "precautions": [
+    "Keep other magnets and steel objects away from the compasses.",
+    "Tap the card gently so filings align.",
+    "Keep the galvanometer away from the magnet."
+   ],
+   "sourcesOfError": [
+    "Earth's magnetic field affects compass directions.",
+    "Uneven tapping of filings.",
+    "Varying speed of hand-held magnet."
+   ],
+   "commonMistakes": [
+    "Drawing field lines that cross.",
+    "Forgetting arrows on field lines.",
+    "Saying a stationary magnet in a coil induces current."
+   ],
+   "examTips": [
+    "State Faraday's and Lenz's laws when explaining the deflections.",
+    "Field-line sketches need arrows and labelled N/S poles.",
+    "Show F = BIL sin θ with units N, T, A, m."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When the magnet is held still inside the coil, the galvanometer reads",
+     "options": [
+      "zero",
+      "maximum",
+      "a steady positive value",
+      "a steady negative value"
+     ],
+     "answer": 0,
+     "explanation": "An e.m.f. is induced only while the flux linkage changes."
+    },
+    {
+     "q": "A 0.2 m conductor carries 5 A at right angles to a 0.4 T field. The force is",
+     "options": [
+      "10 N",
+      "2 N",
+      "0.04 N",
+      "0.4 N"
+     ],
+     "answer": 3,
+     "explanation": "F = BIL = 0.4 × 5 × 0.2 = 0.4 N."
+    },
+    {
+     "q": "Lenz's law states that the induced current",
+     "options": [
+      "is always zero",
+      "flows only in straight conductors",
+      "opposes the change producing it",
+      "aids the change producing it"
+     ],
+     "answer": 2,
+     "explanation": "This is a consequence of conservation of energy."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-converting-a-moving-coil-meter-into-an-ammeter-and-a-voltmeter",
+   "title": "Converting a moving-coil meter into an ammeter and a voltmeter",
+   "topic": "Moving-coil instrument",
+   "kind": "LAB",
+   "skills": [
+    "calculation",
+    "measurement",
+    "procedure"
+   ],
+   "aim": "To calculate and connect a shunt and a multiplier that extend the range of a moving-coil milliammeter, and to check the new ranges against standard meters.",
+   "apparatus": [
+    "Moving-coil meter (1 mA f.s.d., about 50 Ω)",
+    "Standard ammeter and voltmeter",
+    "Variable d.c. supply",
+    "Rheostat",
+    "Resistance box"
+   ],
+   "materials": [
+    "Manganin or constantan wire for the shunt",
+    "Multiplier resistor (about 10 kΩ)"
+   ],
+   "safety": [
+    "Start with maximum rheostat resistance to protect the sensitive meter.",
+    "Never connect the basic meter directly across a supply."
+   ],
+   "procedure": [
+    "Note the meter's full-scale current Im and coil resistance Rm (measure Rm if not given).",
+    "Calculate the shunt Rs needed for a 1 A range and the multiplier Rse for a 10 V range.",
+    "Connect the shunt in parallel with the meter; put the combination in series with a standard ammeter and rheostat.",
+    "Vary the current and compare the converted meter reading with the standard ammeter.",
+    "Connect the multiplier in series with the meter; put the combination in parallel with a standard voltmeter across the supply.",
+    "Compare readings over the range and tabulate the errors."
+   ],
+   "expectedObservations": "With the correct shunt the meter reads full scale at 1 A; with the correct multiplier it reads full scale at 10 V. Readings agree with the standard meters to within a few per cent.",
+   "dataAndCalculations": "Shunt: Rs = Im Rm/(I − Im) = (0.001 × 50)/(1 − 0.001) = 0.05/0.999 = 0.0501 Ω. Multiplier: Rse = V/Im − Rm = 10/0.001 − 50 = 10 000 − 50 = 9 950 Ω.",
+   "precautions": [
+    "Keep shunt connections short and thick, because the shunt resistance is very small.",
+    "Begin with low current or voltage and increase slowly.",
+    "Read meters at eye level."
+   ],
+   "sourcesOfError": [
+    "Contact resistance at the shunt affects the very small resistance.",
+    "Temperature change of shunt wire.",
+    "Tolerance of the multiplier resistor."
+   ],
+   "commonMistakes": [
+    "Putting the shunt in series or the multiplier in parallel.",
+    "Forgetting to subtract Rm when calculating the multiplier."
+   ],
+   "examTips": [
+    "Draw the circuit for each conversion; a correct diagram earns marks.",
+    "Show the formula and substitution clearly; answers for shunts often need 3–4 significant figures."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A shunt is connected to a galvanometer",
+     "options": [
+      "across the supply",
+      "in place of the coil",
+      "in parallel",
+      "in series"
+     ],
+     "answer": 2,
+     "explanation": "The shunt carries most of the current in parallel with the coil."
+    },
+    {
+     "q": "A 5 mA, 20 Ω meter is to read 10 V. The multiplier is",
+     "options": [
+      "0.1 Ω",
+      "1 980 Ω",
+      "2 000 Ω",
+      "200 Ω"
+     ],
+     "answer": 1,
+     "explanation": "Rse = 10/0.005 − 20 = 2 000 − 20 = 1 980 Ω."
+    },
+    {
+     "q": "An ideal ammeter should have",
+     "options": [
+      "very low resistance",
+      "very high resistance",
+      "infinite resistance",
+      "resistance equal to the load"
+     ],
+     "answer": 0,
+     "explanation": "Low resistance avoids changing the circuit current."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-using-a-digital-multimeter-for-d-c-and-a-c-measurements",
+   "title": "Using a digital multimeter for d.c. and a.c. measurements",
+   "topic": "Digital instrument",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "identification",
+    "safety"
+   ],
+   "aim": "To use a digital multimeter correctly to measure voltage, current, resistance and continuity.",
+   "apparatus": [
+    "Digital multimeter with probes",
+    "Dry cells (1.5 V) and a 9 V battery",
+    "12 V a.c. transformer output",
+    "Small lamp circuit"
+   ],
+   "materials": [
+    "Resistors and a length of flex for continuity checks"
+   ],
+   "safety": [
+    "Select the function and range before connecting the probes.",
+    "Never measure resistance on a live circuit.",
+    "Move the red lead back to the V/Ω socket after a current measurement."
+   ],
+   "procedure": [
+    "Identify the meter sockets (COM, VΩ, mA, 10 A) and function switch positions.",
+    "Measure the e.m.f. of each cell on d.c. volts; note the polarity sign when the leads are reversed.",
+    "Measure the transformer output on a.c. volts.",
+    "Break the lamp circuit, insert the meter on the d.c. current range in series and record the current.",
+    "Switch off and measure the lamp and resistor resistances.",
+    "Use the continuity (buzzer) setting to test the flex conductors.",
+    "Record all readings with units in a table."
+   ],
+   "expectedObservations": "Fresh 1.5 V cells read about 1.5–1.6 V; reversing leads shows a minus sign. The a.c. output reads about 12 V r.m.s. A cold lamp filament has a much lower resistance than its hot value calculated from V/I.",
+   "dataAndCalculations": "Lamp circuit: 6.0 V across lamp, 0.30 A through it → hot resistance R = 6.0/0.30 = 20 Ω. The cold reading on the ohms range may be only about 2–3 Ω, because tungsten resistance rises with temperature.",
+   "precautions": [
+    "Start on the highest range and step down.",
+    "Check the battery-low indicator.",
+    "Keep fingers behind the probe guards."
+   ],
+   "sourcesOfError": [
+    "Meter accuracy (e.g. ±0.5% + 2 digits).",
+    "Poor probe contact.",
+    "Low internal battery giving wrong readings."
+   ],
+   "commonMistakes": [
+    "Trying to measure voltage with the lead in the 10 A socket (short circuit).",
+    "Measuring current in parallel."
+   ],
+   "examTips": [
+    "State the advantages of digital meters: no parallax, high input resistance, auto-polarity.",
+    "Disadvantages: need a battery, readings can flicker on changing quantities."
+   ],
+   "checkQuestions": [
+    {
+     "q": "To measure current, the multimeter must be connected",
+     "options": [
+      "in parallel with a resistor",
+      "in series with the load",
+      "across the load",
+      "across the supply"
+     ],
+     "answer": 1,
+     "explanation": "Current meters go in series."
+    },
+    {
+     "q": "A minus sign on a d.c. voltage reading means",
+     "options": [
+      "the leads are reversed",
+      "the cell is flat",
+      "the meter is faulty",
+      "it is an a.c. voltage"
+     ],
+     "answer": 0,
+     "explanation": "Digital meters show polarity automatically."
+    },
+    {
+     "q": "One advantage of a digital meter over an analogue meter is",
+     "options": [
+      "no battery needed",
+      "it shows trends better",
+      "it never needs a range",
+      "no parallax error"
+     ],
+     "answer": 3,
+     "explanation": "The value is displayed as digits, so there is no parallax."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-logic-gates-with-switches-and-lamps",
+   "title": "Logic gates with switches and lamps",
+   "topic": "Logic gates",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "observation",
+    "drawing"
+   ],
+   "aim": "To build AND, OR and NOT functions using switches and a lamp and to draw their truth tables.",
+   "apparatus": [
+    "6 V battery or d.c. supply",
+    "Two single-pole switches (A and B)",
+    "6 V lamp and holder",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Resistor 47 Ω (for the NOT circuit)",
+    "Optional: 74LS08, 74LS32, 74LS04 ICs with LED and 5 V supply"
+   ],
+   "safety": [
+    "Use only low-voltage supplies.",
+    "In the NOT circuit, include the series resistor so that closing the switch does not short-circuit the battery."
+   ],
+   "procedure": [
+    "AND: connect switches A and B in series with the lamp; try all four combinations and record lamp ON (1) or OFF (0).",
+    "OR: connect A and B in parallel, in series with the lamp; record all four combinations.",
+    "NOT: connect the lamp in series with a resistor and put switch A across the lamp; record the lamp state for A = 0 and A = 1.",
+    "Draw the truth table and standard symbol for each gate.",
+    "Write the Boolean expression for each: Y = A·B, Y = A + B, Y = Ā.",
+    "If ICs are available, confirm the tables using an LED on each gate output."
+   ],
+   "expectedObservations": "Series switches light the lamp only when both are closed (AND). Parallel switches light it when either is closed (OR). With the shunting switch the lamp is ON when the switch is open and OFF when closed (NOT).",
+   "dataAndCalculations": "Truth tables (A B → Y): AND 00→0, 01→0, 10→0, 11→1; OR 00→0, 01→1, 10→1, 11→1; NOT A=0→1, A=1→0. NAND is AND followed by NOT: 11→0, all others → 1.",
+   "precautions": [
+    "Check each switch with a meter before use.",
+    "List all input combinations in binary order."
+   ],
+   "sourcesOfError": [
+    "Faulty switch contacts.",
+    "Weak battery giving a dim lamp that is misread."
+   ],
+   "commonMistakes": [
+    "Missing a combination in the truth table.",
+    "Drawing the NOT symbol without the bubble."
+   ],
+   "examTips": [
+    "A two-input table has 2² = 4 rows; three inputs need 8.",
+    "Draw gate symbols neatly with a template; marks are given for correct shape and bubble."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Two switches in series controlling a lamp represent",
+     "options": [
+      "a NOR gate",
+      "an AND gate",
+      "an OR gate",
+      "a NOT gate"
+     ],
+     "answer": 1,
+     "explanation": "Both switches must be closed for the lamp to light."
+    },
+    {
+     "q": "The output of a NOR gate is 1 only when",
+     "options": [
+      "all inputs are 0",
+      "all inputs are 1",
+      "any input is 1",
+      "inputs differ"
+     ],
+     "answer": 0,
+     "explanation": "NOR = NOT(A + B)."
+    },
+    {
+     "q": "The Boolean expression for an OR gate is",
+     "options": [
+      "Y = A·B",
+      "Y = Ā",
+      "Y = A ⊕ B",
+      "Y = A + B"
+     ],
+     "answer": 3,
+     "explanation": "OR is written with +."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-measuring-a-c-quantities-with-an-oscilloscope",
+   "title": "Measuring a.c. quantities with an oscilloscope",
+   "topic": "A.C. quantities",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To display an a.c. waveform and determine its peak value, r.m.s. value, period and frequency.",
+   "apparatus": [
+    "Cathode-ray or digital oscilloscope with probe",
+    "Low-voltage a.c. source (signal generator or 6 V transformer)",
+    "A.C. voltmeter"
+   ],
+   "materials": [
+    "Graph paper for sketching the trace"
+   ],
+   "safety": [
+    "Connect only low-voltage sources to the oscilloscope; never connect mains directly.",
+    "Ensure the oscilloscope earth is connected."
+   ],
+   "procedure": [
+    "Switch on and obtain a sharp horizontal trace; centre it with the Y-shift.",
+    "Connect the a.c. source and adjust volts/div and time/div until one or two cycles fill the screen.",
+    "Count the vertical divisions from centre line to peak; multiply by volts/div to get Vp.",
+    "Count the horizontal divisions for one complete cycle; multiply by time/div to get T.",
+    "Calculate Vrms, f and the peak-to-peak value.",
+    "Compare Vrms with the a.c. voltmeter reading.",
+    "Sketch one labelled cycle showing peak, period and r.m.s. level."
+   ],
+   "expectedObservations": "A sine wave is displayed; the voltmeter reading agrees with the calculated r.m.s. value.",
+   "dataAndCalculations": "Peak = 4.0 div × 2 V/div = 8.0 V. Vrms = Vp/√2 = 8.0/1.414 = 5.66 V. Average (half cycle) = 0.637 × 8.0 = 5.10 V. One cycle = 4.0 div × 5 ms/div = 20 ms, so f = 1/T = 1/0.020 = 50 Hz. Form factor = Vrms/Vav = 5.66/5.10 = 1.11.",
+   "precautions": [
+    "Ensure the variable (uncalibrated) knobs are in the CAL position.",
+    "Read divisions to the nearest 0.2 div at the centre graticule.",
+    "Use a stable trigger setting."
+   ],
+   "sourcesOfError": [
+    "Thickness of the trace.",
+    "Calibration of the time base.",
+    "Parallax in reading the graticule."
+   ],
+   "commonMistakes": [
+    "Reading peak-to-peak and calling it peak.",
+    "Measuring half a cycle as the period."
+   ],
+   "examTips": [
+    "State Vrms = 0.707 Vp, Vav = 0.637 Vp, form factor 1.11, peak factor 1.414.",
+    "Label a sketched waveform with amplitude, period and time axis."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A sine wave has a peak of 10 V. Its r.m.s. value is",
+     "options": [
+      "7.07 V",
+      "6.37 V",
+      "14.14 V",
+      "5 V"
+     ],
+     "answer": 0,
+     "explanation": "Vrms = 0.707 × 10 = 7.07 V."
+    },
+    {
+     "q": "One cycle occupies 4 div at 5 ms/div. The frequency is",
+     "options": [
+      "20 Hz",
+      "200 Hz",
+      "5 Hz",
+      "50 Hz"
+     ],
+     "answer": 3,
+     "explanation": "T = 20 ms, f = 1/0.02 = 50 Hz."
+    },
+    {
+     "q": "The form factor of a sine wave is",
+     "options": [
+      "0.637",
+      "0.707",
+      "1.11",
+      "1.414"
+     ],
+     "answer": 2,
+     "explanation": "Form factor = r.m.s./average = 0.707/0.637 ≈ 1.11."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-voltage-relationships-in-a-series-rc-circuit",
+   "title": "Voltage relationships in a series RC circuit",
+   "topic": "RLC circuits",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To show that in a series a.c. circuit the supply voltage is the phasor (not arithmetic) sum of the component voltages.",
+   "apparatus": [
+    "Low-voltage a.c. supply (10–12 V, 50 Hz)",
+    "A.C. voltmeter (high resistance)",
+    "A.C. milliammeter"
+   ],
+   "materials": [
+    "Resistor 1 kΩ",
+    "Non-polarised capacitor of about 2.2 µF",
+    "Optional inductor (choke) for an RL test"
+   ],
+   "safety": [
+    "Use only a low-voltage isolated supply.",
+    "Use a non-polarised capacitor; an electrolytic on a.c. can fail."
+   ],
+   "procedure": [
+    "Connect R and C in series across the a.c. supply with the milliammeter.",
+    "Measure the supply voltage V, the voltage across R (VR) and across C (VC), and the current I.",
+    "Note that VR + VC is greater than V.",
+    "Calculate √(VR² + VC²) and compare with V.",
+    "Draw the phasor diagram to scale with VR along the reference and VC at 90°.",
+    "Calculate Z = V/I and the phase angle φ = tan⁻¹(VC/VR)."
+   ],
+   "expectedObservations": "The arithmetic sum of VR and VC exceeds the supply voltage, but their phasor sum equals it.",
+   "dataAndCalculations": "Readings VR = 6.0 V, VC = 8.0 V, I = 6.0 mA: V = √(6.0² + 8.0²) = √100 = 10 V (not 14 V). Z = V/I = 10/0.006 ≈ 1 667 Ω, XC = VC/I = 8.0/0.006 ≈ 1 333 Ω (so C = 1/(2π × 50 × 1 333) ≈ 2.4 µF) and φ = tan⁻¹(8/6) = 53.1° (current leads voltage). At resonance in an RLC circuit XL = XC and f₀ = 1/(2π√(LC)).",
+   "precautions": [
+    "Use a high-resistance voltmeter.",
+    "Keep the supply frequency constant.",
+    "Record readings quickly before the supply drifts."
+   ],
+   "sourcesOfError": [
+    "Voltmeter loading.",
+    "Resistance of the capacitor or inductor windings.",
+    "Harmonics in the supply."
+   ],
+   "commonMistakes": [
+    "Adding voltages arithmetically.",
+    "Drawing VC leading instead of lagging the current."
+   ],
+   "examTips": [
+    "Draw phasors to scale with arrows and the angle marked.",
+    "Remember: in a capacitor current leads voltage (ICE); in an inductor voltage leads current (ELI)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a series RL circuit VR = 3 V and VL = 4 V. The supply is",
+     "options": [
+      "5 V",
+      "7 V",
+      "1 V",
+      "12 V"
+     ],
+     "answer": 0,
+     "explanation": "√(9 + 16) = 5 V."
+    },
+    {
+     "q": "At series resonance",
+     "options": [
+      "XL = 0",
+      "R = 0",
+      "current is minimum",
+      "XL = XC"
+     ],
+     "answer": 3,
+     "explanation": "The reactances cancel, so current is maximum."
+    },
+    {
+     "q": "In a pure capacitor the current",
+     "options": [
+      "is in phase",
+      "is zero on a.c.",
+      "leads the voltage by 90°",
+      "lags the voltage by 90°"
+     ],
+     "answer": 2,
+     "explanation": "ICE: current leads in a capacitor."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-transformer-turns-ratio-and-efficiency",
+   "title": "Transformer turns ratio and efficiency",
+   "topic": "Efficiency of transformers",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To determine the voltage ratio of a step-down transformer and its efficiency on load.",
+   "apparatus": [
+    "Step-down transformer 230 V/12 V, about 150 VA",
+    "A.C. voltmeters (0–300 V and 0–20 V)",
+    "A.C. ammeters (0–1 A and 0–10 A)",
+    "Wattmeter (optional)"
+   ],
+   "materials": [
+    "Load: 12 V lamps or a rheostat rated for 10 A"
+   ],
+   "safety": [
+    "Primary circuit is at mains voltage: enclosed terminals and teacher supervision only.",
+    "Switch off before changing the load.",
+    "The transformer may become warm on load."
+   ],
+   "procedure": [
+    "Connect the primary to the mains through a switch and fuse; connect meters on the primary and secondary.",
+    "With no load, measure Vp and Vs; calculate the voltage ratio.",
+    "Connect the load, adjust it to near rated current and record Vp, Ip, Vs and Is (and primary watts if a wattmeter is used).",
+    "Calculate input and output power and efficiency.",
+    "Repeat for two other load values."
+   ],
+   "expectedObservations": "Vp/Vs is close to the turns ratio. Efficiency is high (often above 90% for a well-loaded transformer) and the core warms slightly because of iron and copper losses.",
+   "dataAndCalculations": "No load: Vp = 230 V, Vs = 11.5 V → ratio 230/11.5 = 20:1. On load (resistive, unity power factor assumed): input from wattmeter = 115 W; output = 12 V × 8.8 A = 105.6 W. η = 105.6/115 × 100 = 91.8%. Losses = 115 − 105.6 = 9.4 W (copper + iron).",
+   "precautions": [
+    "Use a wattmeter for input power, because primary current includes magnetising current.",
+    "Allow readings to settle.",
+    "Do not exceed the transformer VA rating."
+   ],
+   "sourcesOfError": [
+    "Meter accuracy on low ranges.",
+    "Power factor of the primary current.",
+    "Temperature rise changing winding resistance."
+   ],
+   "commonMistakes": [
+    "Taking efficiency as Vs/Vp.",
+    "Using Vp × Ip as input power when the power factor is not 1."
+   ],
+   "examTips": [
+    "Name the losses: copper (I²R) and iron (hysteresis and eddy current).",
+    "Efficiency must be quoted as a percentage less than 100%."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A transformer has 1000 primary turns and 50 secondary turns on 240 V. The secondary voltage is",
+     "options": [
+      "12 V",
+      "48 V",
+      "4 800 V",
+      "24 V"
+     ],
+     "answer": 0,
+     "explanation": "Vs = 240 × 50/1000 = 12 V."
+    },
+    {
+     "q": "Eddy-current losses are reduced by",
+     "options": [
+      "using thicker wire",
+      "increasing the turns",
+      "using a solid iron core",
+      "laminating the core"
+     ],
+     "answer": 3,
+     "explanation": "Thin insulated laminations restrict eddy currents."
+    },
+    {
+     "q": "Output 180 W, input 200 W. Efficiency is",
+     "options": [
+      "10%",
+      "20%",
+      "90%",
+      "111%"
+     ],
+     "answer": 2,
+     "explanation": "η = 180/200 × 100 = 90%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-half-wave-and-full-wave-rectification-with-smoothing",
+   "title": "Half-wave and full-wave rectification with smoothing",
+   "topic": "Rectification",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "observation",
+    "measurement"
+   ],
+   "aim": "To build half-wave and bridge rectifier circuits, observe the output waveforms and measure the effect of a smoothing capacitor.",
+   "apparatus": [
+    "12 V a.c. transformer",
+    "Oscilloscope",
+    "Digital multimeter",
+    "Breadboard or tag board"
+   ],
+   "materials": [
+    "Four 1N4001 diodes (or a bridge rectifier)",
+    "Electrolytic capacitor 1 000 µF, 25 V",
+    "Load resistor 1 kΩ"
+   ],
+   "safety": [
+    "Use only the low-voltage secondary.",
+    "Observe diode and capacitor polarity."
+   ],
+   "procedure": [
+    "Connect one diode in series with the load across the 12 V secondary (half-wave).",
+    "View the output on the oscilloscope and measure the d.c. output voltage.",
+    "Build the bridge rectifier from four diodes and view the output again.",
+    "Connect the 1 000 µF capacitor across the load and observe the ripple.",
+    "Record the d.c. voltages with and without the capacitor.",
+    "Sketch the input and output waveforms for each case."
+   ],
+   "expectedObservations": "Half-wave output has one pulse per cycle; the bridge gives two pulses per cycle (100 Hz ripple). The capacitor raises the d.c. level towards the peak and greatly reduces ripple.",
+   "dataAndCalculations": "Secondary 12 V r.m.s. → peak = 12 × √2 = 16.97 V. Bridge with smoothing (light load): Vdc ≈ 16.97 − 2 × 0.7 = 15.57 V. Without smoothing, ideal averages: half-wave 0.318 × 16.97 = 5.40 V; full-wave 0.637 × 16.97 = 10.80 V (less a diode drop in practice).",
+   "precautions": [
+    "Connect the electrolytic capacitor with its positive to the positive output.",
+    "Use diodes rated for the current and peak inverse voltage."
+   ],
+   "sourcesOfError": [
+    "Diode forward-voltage drops.",
+    "Transformer regulation under load.",
+    "Meter response to rippled d.c."
+   ],
+   "commonMistakes": [
+    "Wiring bridge diodes the wrong way round, which can short the transformer.",
+    "Sketching full-wave output with gaps like half-wave."
+   ],
+   "examTips": [
+    "Draw the block diagram: transformer → rectifier → filter → regulator → load.",
+    "Label diode current paths for each half cycle in the bridge."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The ripple frequency of a full-wave rectifier on 50 Hz mains is",
+     "options": [
+      "25 Hz",
+      "200 Hz",
+      "100 Hz",
+      "50 Hz"
+     ],
+     "answer": 2,
+     "explanation": "There are two output pulses per cycle."
+    },
+    {
+     "q": "The capacitor in a power supply acts as a",
+     "options": [
+      "transformer",
+      "filter (smoother)",
+      "rectifier",
+      "regulator"
+     ],
+     "answer": 1,
+     "explanation": "It stores charge and fills in the gaps between pulses."
+    },
+    {
+     "q": "A bridge rectifier uses",
+     "options": [
+      "four diodes",
+      "one diode",
+      "two transistors",
+      "one zener diode"
+     ],
+     "answer": 0,
+     "explanation": "Four diodes arranged in a bridge."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-wiring-a-one-way-and-a-two-way-lighting-circuit",
+   "title": "Wiring a one-way and a two-way lighting circuit",
+   "topic": "Wiring",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "drawing"
+   ],
+   "aim": "To install a lamp controlled by a one-way switch and a lamp controlled from two positions by two-way switches, using surface wiring on a board.",
+   "apparatus": [
+    "Wiring board",
+    "Screwdrivers (flat and Phillips)",
+    "Combination pliers",
+    "Side cutters",
+    "Wire strippers",
+    "Bradawl",
+    "Multimeter or continuity tester",
+    "Tape rule"
+   ],
+   "materials": [
+    "1.5 mm² single-core PVC cables (red/brown, black/blue, green-yellow)",
+    "One-way switch, two two-way switches",
+    "Batten lampholders and lamps",
+    "PVC mini-trunking or cable clips",
+    "Ceiling rose",
+    "Wood screws"
+   ],
+   "safety": [
+    "Never connect to the supply until the teacher has tested the work.",
+    "Switch in the phase (live) conductor only.",
+    "Earth all metal accessories."
+   ],
+   "procedure": [
+    "Draw the circuit and wiring diagrams; plan the positions of the switches and lamps.",
+    "Fix the trunking or clips in straight lines, plumb and level.",
+    "Run the cables: for one-way, phase → switch → switch wire → lamp; neutral directly to the lamp.",
+    "For two-way, take phase to the common terminal of switch 1, run two strappers between L1 and L2 of both switches, and take the common of switch 2 to the lamp.",
+    "Strip insulation to the correct length; terminate cleanly with no bare copper showing.",
+    "Connect the earth conductors to all earth terminals.",
+    "Test continuity and polarity with the supply off, then insulation resistance.",
+    "With teacher approval, energise and test the switching."
+   ],
+   "expectedObservations": "The one-way switch turns its lamp on and off. Operating either two-way switch changes the state of the second lamp. Tests show continuity and correct polarity.",
+   "dataAndCalculations": "Lighting load check: 4 lamps × 60 W = 240 W; I = P/V = 240/230 = 1.04 A, well within the 6 A rating of a 1.0–1.5 mm² lighting circuit protected by a 6 A MCB.",
+   "precautions": [
+    "Keep runs straight and fixings evenly spaced.",
+    "Do not over-tighten terminal screws on stranded conductors.",
+    "Identify the switch wire with red sleeving if a black/blue core is used as a switch wire."
+   ],
+   "sourcesOfError": [
+    "Loose terminations giving intermittent faults.",
+    "Strappers crossed at one switch."
+   ],
+   "commonMistakes": [
+    "Switching the neutral instead of the phase.",
+    "Connecting strappers to the common terminal.",
+    "Leaving bare conductor outside terminals."
+   ],
+   "examTips": [
+    "Workmanship marks: neatness, straight runs, correct colours, tight terminals.",
+    "Always show the circuit diagram with the standard symbols on your answer sheet.",
+    "Report the test results you carried out."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a lighting circuit the switch must be placed in the",
+     "options": [
+      "lamp holder",
+      "phase conductor",
+      "neutral conductor",
+      "earth conductor"
+     ],
+     "answer": 1,
+     "explanation": "So that the lamp is dead when switched off."
+    },
+    {
+     "q": "Two-way switching is used to",
+     "options": [
+      "control one lamp from two places",
+      "control two lamps from one place",
+      "dim a lamp",
+      "protect the circuit"
+     ],
+     "answer": 0,
+     "explanation": "Typical use: a staircase or corridor."
+    },
+    {
+     "q": "The wires joining two two-way switches are called",
+     "options": [
+      "tails",
+      "drops",
+      "loops",
+      "strappers"
+     ],
+     "answer": 3,
+     "explanation": "Strappers link the L1 and L2 terminals."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-wiring-a-socket-outlet-and-connecting-a-13-a-plug",
+   "title": "Wiring a socket outlet and connecting a 13 A plug",
+   "topic": "Wiring",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To install a 13 A switched socket outlet on a radial circuit and to wire a three-pin plug with the correct fuse.",
+   "apparatus": [
+    "Screwdrivers",
+    "Wire strippers",
+    "Side cutters",
+    "Multimeter",
+    "Tape rule"
+   ],
+   "materials": [
+    "2.5 mm² PVC cables",
+    "13 A switched socket and mounting box",
+    "13 A three-pin plug",
+    "3-core flexible cord",
+    "Fuses: 3 A and 13 A"
+   ],
+   "safety": [
+    "Work dead; test before energising.",
+    "The earth conductor must be the longest in the plug so that it is the last to pull out."
+   ],
+   "procedure": [
+    "Fix the socket box level at a suitable height.",
+    "Run the cables from the distribution board position (radial) and terminate L, N and E on the socket terminals.",
+    "Strip the flex outer sheath so that it is held by the cord grip.",
+    "Connect brown to L (fuse side), blue to N, green-yellow to E in the plug.",
+    "Choose the fuse from the appliance power rating and fit it.",
+    "Check: no loose strands, cord grip on the sheath, screws tight.",
+    "Test continuity and polarity with a meter."
+   ],
+   "expectedObservations": "The plug is correctly wired with the sheath gripped; continuity tests show L to L, N to N and E to E.",
+   "dataAndCalculations": "Kettle 2 000 W: I = 2 000/230 = 8.7 A → fit a 13 A fuse. Table lamp 60 W: I = 60/230 = 0.26 A → fit a 3 A fuse. Choose the standard fuse just above the working current.",
+   "precautions": [
+    "Keep the correct colour code: brown live, blue neutral, green-yellow earth.",
+    "Fit the right fuse rating, not always 13 A."
+   ],
+   "sourcesOfError": [
+    "Loose terminal screws.",
+    "Insulation trapped under terminals giving poor contact."
+   ],
+   "commonMistakes": [
+    "Connecting live to the earth pin.",
+    "Gripping the coloured cores instead of the outer sheath.",
+    "Fitting a 13 A fuse to a small appliance."
+   ],
+   "examTips": [
+    "State why the fuse is in the live conductor.",
+    "Show the current calculation that justifies the fuse choice."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The brown wire in a 3-core flex is the",
+     "options": [
+      "neutral",
+      "earth",
+      "switch wire",
+      "live (phase)"
+     ],
+     "answer": 3,
+     "explanation": "Brown = live, blue = neutral, green-yellow = earth."
+    },
+    {
+     "q": "A 100 W radio on 230 V should have a fuse of",
+     "options": [
+      "30 A",
+      "1 A",
+      "3 A",
+      "13 A"
+     ],
+     "answer": 2,
+     "explanation": "I ≈ 0.43 A, so a 3 A fuse is suitable."
+    },
+    {
+     "q": "The fuse in a plug is connected in the",
+     "options": [
+      "cord grip",
+      "live conductor",
+      "neutral conductor",
+      "earth conductor"
+     ],
+     "answer": 1,
+     "explanation": "It disconnects the live supply when it blows."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-conduit-installation-cutting-threading-and-bending",
+   "title": "Conduit installation: cutting, threading and bending",
+   "topic": "Electrical installation",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To cut, thread and bend steel or PVC conduit and install a short run with a lamp point and switch.",
+   "apparatus": [
+    "Hacksaw",
+    "Pipe vice",
+    "Stocks and dies (20 mm)",
+    "Reamer",
+    "Bending machine or bending spring (PVC)",
+    "Spirit level",
+    "Draw wire",
+    "Tape rule"
+   ],
+   "materials": [
+    "20 mm conduit",
+    "Couplers, bends, circular boxes",
+    "Saddles and screws",
+    "1.5 mm² single-core cables"
+   ],
+   "safety": [
+    "Wear gloves; cut ends are sharp.",
+    "Ream all cut ends to remove burrs that would damage cable insulation."
+   ],
+   "procedure": [
+    "Measure the run and mark the conduit.",
+    "Cut square with a hacksaw held in a pipe vice.",
+    "Ream the inside of the cut end.",
+    "Thread steel conduit with stocks and dies, applying cutting oil; or for PVC insert a bending spring and bend by hand.",
+    "Make a 90° bend and a set (offset) to suit the board.",
+    "Fix the conduit with saddles at regular intervals, level and plumb.",
+    "Pull in the cables using a draw wire; terminate at the switch and lamp.",
+    "Test continuity and insulation."
+   ],
+   "expectedObservations": "A neat, level conduit run with smooth bends, no flattening, and cables drawn in without damage.",
+   "dataAndCalculations": "Saddle spacing: a 2.4 m horizontal run between boxes, with saddles no more than 0.75 m apart (typical for 20 mm PVC): 2.4/0.75 = 3.2, so round up to 4 equal spaces of 2.4/4 = 0.6 m, which needs 5 saddles (one near each box and three between).",
+   "precautions": [
+    "Keep bends to a radius that does not flatten the conduit.",
+    "Do not draw in cables until the conduit system is complete.",
+    "Do not exceed the conduit space factor (about 40%)."
+   ],
+   "sourcesOfError": [
+    "Inaccurate measurement giving misaligned boxes.",
+    "Over-heating or kinking PVC during bending."
+   ],
+   "commonMistakes": [
+    "Leaving burrs that strip cable insulation.",
+    "Too many bends between draw-in points."
+   ],
+   "examTips": [
+    "Workmanship, correct saddle spacing and smooth bends earn most of the practical marks.",
+    "Name the tools and their uses in your report."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A reamer is used in conduit work to",
+     "options": [
+      "pull cables",
+      "remove burrs from cut ends",
+      "cut threads",
+      "bend conduit"
+     ],
+     "answer": 1,
+     "explanation": "Burrs could cut cable insulation."
+    },
+    {
+     "q": "A bending spring is used with",
+     "options": [
+      "PVC conduit",
+      "steel conduit",
+      "trunking",
+      "mineral-insulated cable"
+     ],
+     "answer": 0,
+     "explanation": "It stops PVC conduit flattening when bent."
+    },
+    {
+     "q": "Cables are drawn into conduit",
+     "options": [
+      "before fixing the conduit",
+      "while threading",
+      "before cutting",
+      "after the conduit system is complete"
+     ],
+     "answer": 3,
+     "explanation": "The conduit system is erected first, then wired."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-inspection-and-testing-of-an-installation",
+   "title": "Inspection and testing of an installation",
+   "topic": "Testing of an installation",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "safety",
+    "procedure"
+   ],
+   "aim": "To carry out continuity, insulation resistance, polarity and earth fault loop tests on a completed installation.",
+   "apparatus": [
+    "Low-resistance ohmmeter or multimeter",
+    "Insulation resistance tester (500 V)",
+    "Earth loop impedance tester",
+    "Test lamp or approved voltage indicator"
+   ],
+   "materials": [
+    "Completed wiring board or classroom installation",
+    "Test record sheet"
+   ],
+   "safety": [
+    "Dead tests (continuity, insulation, polarity) are done with the supply isolated and locked off.",
+    "Disconnect sensitive equipment before insulation testing at 500 V.",
+    "Only the teacher should energise the circuit for the loop test."
+   ],
+   "procedure": [
+    "Isolate the supply and confirm it is dead with an approved tester.",
+    "Continuity of protective conductors: measure R1 + R2 from each point back to the board.",
+    "Insulation resistance: test between L–N, L–E and N–E at 500 V d.c. with lamps removed and switches on.",
+    "Polarity: confirm switches and fuses are in the phase conductor and the centre contact of Edison-screw holders is connected to phase.",
+    "Energise under supervision and measure the earth fault loop impedance Zs.",
+    "Record all results and compare with required values."
+   ],
+   "expectedObservations": "Protective conductors are continuous with low resistance; insulation resistance is high (normally many megohms); polarity is correct; Zs is low enough for the protective device to operate quickly.",
+   "dataAndCalculations": "Ze = 0.35 Ω, R1 + R2 = 0.48 Ω → Zs = 0.35 + 0.48 = 0.83 Ω. Prospective fault current = 230/0.83 ≈ 277 A, which will trip a 6 A or 16 A Type B MCB instantly. Insulation resistance must be at least 1 MΩ at 500 V for a 230 V circuit (BS 7671 minimum).",
+   "precautions": [
+    "Follow the test sequence: dead tests before live tests.",
+    "Null the test leads before low-resistance readings.",
+    "Restore all links and accessories after testing."
+   ],
+   "sourcesOfError": [
+    "Test lead resistance.",
+    "Temperature of conductors.",
+    "Parallel paths through bonded metalwork."
+   ],
+   "commonMistakes": [
+    "Insulation testing with lamps still in circuit (gives a false low reading).",
+    "Not proving the voltage tester before and after use."
+   ],
+   "examTips": [
+    "List the tests in the correct order and give the instrument for each.",
+    "State acceptable values with units (Ω, MΩ)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Insulation resistance is measured with",
+     "options": [
+      "an insulation resistance tester at 500 V d.c.",
+      "an ammeter",
+      "a wattmeter",
+      "a test lamp"
+     ],
+     "answer": 0,
+     "explanation": "A high-voltage d.c. tester (megger) is used."
+    },
+    {
+     "q": "The polarity test confirms that",
+     "options": [
+      "insulation is high",
+      "earth is continuous",
+      "the fuse is the right size",
+      "switches are in the phase conductor"
+     ],
+     "answer": 3,
+     "explanation": "Single-pole devices must be in the phase."
+    },
+    {
+     "q": "With Zs = 1.15 Ω on 230 V the fault current is",
+     "options": [
+      "2 A",
+      "115 A",
+      "200 A",
+      "264 A"
+     ],
+     "answer": 2,
+     "explanation": "I = 230/1.15 = 200 A."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-installing-and-testing-an-earth-electrode",
+   "title": "Installing and testing an earth electrode",
+   "topic": "Earthing",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To drive an earth rod, connect the earthing conductor and measure the electrode resistance.",
+   "apparatus": [
+    "Copper-clad earth rod (1.2–1.8 m) and clamp",
+    "Sledge hammer with rod driving head",
+    "Three-terminal earth resistance tester with spikes and leads",
+    "Spanner"
+   ],
+   "materials": [
+    "Green-yellow earthing conductor (e.g. 16 mm²)",
+    "Inspection pit or cover",
+    "Water and bentonite or charcoal (to improve dry soil)"
+   ],
+   "safety": [
+    "Check for buried cables and pipes before driving.",
+    "Wear safety boots and gloves when using the sledge hammer."
+   ],
+   "procedure": [
+    "Choose a damp spot away from foundations; dig a small inspection pit.",
+    "Drive the rod vertically to its full depth.",
+    "Fit the clamp and connect the earthing conductor; label it \"Safety electrical connection – do not remove\".",
+    "Lay out the tester spikes in a straight line: current spike about 25–30 m away, potential spike at about 62% of that distance.",
+    "Take readings with the potential spike at 52%, 62% and 72% of the distance.",
+    "If the three readings agree within about 5%, take their average as the electrode resistance."
+   ],
+   "expectedObservations": "Readings at the three positions are close, showing the spikes are outside the electrode's resistance area. Moist soil gives lower resistance.",
+   "dataAndCalculations": "Readings: 18.2 Ω, 18.6 Ω, 19.1 Ω. Average = (18.2 + 18.6 + 19.1)/3 = 18.63 Ω ≈ 18.6 Ω. If a value below the design target is needed, drive a second rod or treat the soil.",
+   "precautions": [
+    "Ensure tight, corrosion-protected clamp connections.",
+    "Do not place spikes near buried metal."
+   ],
+   "sourcesOfError": [
+    "Dry or seasonal soil conditions.",
+    "Spikes too close to the electrode."
+   ],
+   "commonMistakes": [
+    "Taking one reading only.",
+    "Using an undersized earthing conductor."
+   ],
+   "examTips": [
+    "Give reasons for earthing: to make exposed metal safe and allow protective devices to operate.",
+    "Describe the rod, plate and strip methods."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The main purpose of earthing is to",
+     "options": [
+      "reduce the electricity bill",
+      "increase voltage",
+      "improve lamp brightness",
+      "protect people from electric shock"
+     ],
+     "answer": 3,
+     "explanation": "Fault current flows to earth and operates the protection."
+    },
+    {
+     "q": "Earth electrode resistance is lowered by",
+     "options": [
+      "painting the rod",
+      "a smaller rod",
+      "moist soil and deeper rods",
+      "dry sand"
+     ],
+     "answer": 2,
+     "explanation": "Moisture and depth improve contact with the earth."
+    },
+    {
+     "q": "Three readings 20, 21, 22 Ω have an average of",
+     "options": [
+      "22 Ω",
+      "21 Ω",
+      "63 Ω",
+      "20 Ω"
+     ],
+     "answer": 1,
+     "explanation": "(20 + 21 + 22)/3 = 21 Ω."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bel-fault-diagnosis-and-repair-of-an-electric-iron-and-a-fluorescent-fitting",
+   "title": "Fault diagnosis and repair of an electric iron and a fluorescent fitting",
+   "topic": "Maintenance, fault diagnosis and repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety",
+    "identification"
+   ],
+   "aim": "To locate and repair open-circuit, short-circuit and earth faults in an electric iron and a fluorescent lamp fitting.",
+   "apparatus": [
+    "Multimeter",
+    "Insulation resistance tester",
+    "Screwdrivers and pliers",
+    "Soldering iron"
+   ],
+   "materials": [
+    "Faulty electric iron",
+    "Fluorescent fitting with choke, starter, tube and capacitor",
+    "Spare starter and flex"
+   ],
+   "safety": [
+    "Unplug the appliance before opening it.",
+    "Discharge the power-factor capacitor of the fluorescent fitting.",
+    "Carry out an earth continuity and insulation test after repair."
+   ],
+   "procedure": [
+    "Inspect visually: flex, plug, fuse, burnt terminals, cracked parts.",
+    "Check the plug fuse and the flex continuity, core by core.",
+    "Iron: measure element resistance between the supply terminals; check thermostat contacts; check element-to-body insulation.",
+    "Fluorescent: check tube filaments for continuity, test the choke and replace the starter.",
+    "Repair or replace the faulty part and reassemble.",
+    "Test earth continuity (plug E pin to metal body) and insulation resistance before switching on.",
+    "Run the appliance and confirm normal operation."
+   ],
+   "expectedObservations": "An open element or broken flex reads OL; a healthy 1 000 W iron element reads about 53 Ω; the body-to-element insulation reads many megohms. A flickering tube that will not strike is often cured by replacing the starter.",
+   "dataAndCalculations": "Expected element resistance of a 1 000 W, 230 V iron: R = V²/P = 230²/1 000 = 52.9 Ω. Normal current = 1 000/230 = 4.35 A, so the plug fuse should be 13 A (5 A where available).",
+   "precautions": [
+    "Replace parts with the same rating.",
+    "Re-make terminations tightly and replace damaged insulation (asbestos-free sleeving)."
+   ],
+   "sourcesOfError": [
+    "Resistance of a hot element is higher than cold.",
+    "Intermittent faults not visible at test time."
+   ],
+   "commonMistakes": [
+    "Testing with the appliance plugged in.",
+    "Omitting the earth continuity test after repair."
+   ],
+   "examTips": [
+    "Name the fault type (open circuit, short circuit or earth fault) and the test that shows it.",
+    "Write a logical sequence: symptom → test → result → remedy."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A meter reads OL across an iron element. The fault is",
+     "options": [
+      "earth fault",
+      "normal",
+      "open circuit",
+      "short circuit"
+     ],
+     "answer": 2,
+     "explanation": "Infinite resistance means a break."
+    },
+    {
+     "q": "The element resistance of a 2 000 W, 230 V heater is about",
+     "options": [
+      "0.115 Ω",
+      "26.5 Ω",
+      "8.7 Ω",
+      "460 Ω"
+     ],
+     "answer": 1,
+     "explanation": "R = 230²/2 000 = 26.45 Ω."
+    },
+    {
+     "q": "The starter in a fluorescent fitting",
+     "options": [
+      "pre-heats the filaments and triggers the strike",
+      "reduces flicker",
+      "corrects power factor",
+      "protects against overload"
+     ],
+     "answer": 0,
+     "explanation": "It closes then opens, letting the choke produce a high voltage pulse."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

@@ -146,6 +146,12 @@ const FlashcardsPage = lazy(() => import('@/features/learning/flashcards-page'))
 const AttemptPage = lazy(() => import('@/features/learning/attempt-page'));
 const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
 const SittingPage = lazy(() => import('@/features/learning/sitting-page'));
+const PracticalHubPage = lazy(() => import('@/features/practicals/hub-page'));
+const PracticalSubjectPage = lazy(() => import('@/features/practicals/hub-page').then((m) => ({ default: m.PracticalSubjectPage })));
+const PracticalLessonPage = lazy(() => import('@/features/practicals/lesson-page'));
+const PracticalLabPage = lazy(() => import('@/features/practicals/lab-page'));
+const PracticalTeachingPage = lazy(() => import('@/features/practicals/teaching-page'));
+const PracticalReviewPage = lazy(() => import('@/features/practicals/teaching-page').then((m) => ({ default: m.PracticalReviewPage })));
 const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
 const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
 const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
@@ -864,6 +870,11 @@ export const router = createBrowserRouter(withRouteErrors([
           ['learn/attempts/:id', <AttemptPage key="attempt" />],
           ['learn/exams', <ExamAcademyPage key="exams" />],
           ['learn/sittings/:id', <SittingPage key="sitting" />],
+          // WAEC Practical Academy: lessons, quick checks and virtual labs.
+          ['learn/practicals', <PracticalHubPage key="practicals" />],
+          ['learn/practicals/subjects/:subject', <PracticalSubjectPage key="practical-subject" />],
+          ['learn/practicals/lesson/:id', <PracticalLessonPage key="practical-lesson" />],
+          ['learn/practicals/labs/:id', <PracticalLabPage key="practical-lab" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
       // Phase 23: careers guidance for students (and the staff overview below).
@@ -895,6 +906,9 @@ export const router = createBrowserRouter(withRouteErrors([
       ).map(([path, page]) => ({ path, element: <RequirePermission permission={['learning.use', 'family.manage', 'school.read']}>{page}</RequirePermission> })),
       { path: 'careers-guidance', element: <RequirePermission permission="students.read"><CareersGuidancePage /></RequirePermission> },
       { path: 'class-insights', element: <RequirePermission permission={['academics.read', 'homework.manage']}><ClassInsightsPage /></RequirePermission> },
+      // Teachers' view of the Practical Academy (labs, practical questions, reviews).
+      { path: 'practical-work', element: <RequirePermission permission={['academics.read', 'homework.manage']}><PracticalTeachingPage /></RequirePermission> },
+      { path: 'practical-work/attempts/:id', element: <RequirePermission permission={['academics.read', 'homework.manage']}><PracticalReviewPage /></RequirePermission> },
       // School success dashboard and term impact report (API: school.read + results.publish).
       { path: 'success', element: <RequirePermission permission="results.publish"><SuccessPage /></RequirePermission> },
       { path: 'success/report', element: <RequirePermission permission="results.publish"><SuccessReportPage /></RequirePermission> },

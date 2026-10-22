@@ -25,6 +25,7 @@ import { LedgerModule } from './ledger/ledger.service';
 import { EntitlementsModule } from './student-ai/entitlements.service';
 import { CommerceModule } from './commerce/commerce.module';
 import { LearningModule } from './learning/learning.module';
+import { PracticalsModule } from './practicals/practicals.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
 import { OnboardingModule } from './onboarding/onboarding.module';
 import { AdmissionsModule } from './admissions/admissions.module';
@@ -151,6 +152,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     ConsoleModule,
     CommerceModule,
     LearningModule,
+    PracticalsModule,
     KnowledgeModule,
     OnboardingModule,
     AdmissionsModule,

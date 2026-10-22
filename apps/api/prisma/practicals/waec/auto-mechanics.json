@@ -1,0 +1,2201 @@
+{
+ "exam": "WAEC",
+ "subject": "Auto Mechanics",
+ "practicalPaper": "Paper 3 consists of two practical tests, both carried out in 2 hours for 100 marks, with materials supplied locally by schools. Candidates identify components, carry out servicing, measurement, adjustment and fault diagnosis tasks on engines and vehicle systems, record readings and state findings, and are marked on correct procedure, accuracy, use of tools and safety.",
+ "practicals": [
+  {
+   "id": "pr-amech-using-fire-extinguishers-and-workshop-safety-devices",
+   "title": "Using fire extinguishers and workshop safety devices",
+   "topic": "Workshop Regulations and Safety",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To identify workshop safety devices and fire extinguisher types and demonstrate the correct use of an extinguisher.",
+   "apparatus": [
+    "Foam, dry powder, CO₂ and water extinguishers",
+    "Fire blanket and sand bucket",
+    "Goggles, face shield, overalls, apron, safety boots, gloves"
+   ],
+   "materials": [
+    "Small controlled fire tray (teacher demonstration in an open area)",
+    "Safety signs"
+   ],
+   "safety": [
+    "Demonstrations with fire are conducted only by the teacher in an open area with backup extinguishers.",
+    "Never use water on petrol, oil or electrical fires."
+   ],
+   "procedure": [
+    "Identify each safety device and state what it protects against.",
+    "Read the label and colour band of each extinguisher; state the fire classes it suits.",
+    "Demonstrate PASS: Pull the pin, Aim at the base of the fire, Squeeze the handle, Sweep side to side.",
+    "Smother a small oil fire tray with a fire blanket or sand (teacher).",
+    "Locate the workshop fire exits and assembly point.",
+    "Record the correct extinguisher for petrol, electrical and wood fires."
+   ],
+   "expectedObservations": "Extinguishers act quickly when aimed at the base of the fire; the blanket starves the fire of oxygen.",
+   "dataAndCalculations": "A 6 kg dry powder extinguisher typically discharges in about 15 seconds, so aim correctly from the start — only about 0.4 kg is released each second.",
+   "precautions": [
+    "Stand with your back to an exit and the wind behind you.",
+    "Report used extinguishers for refilling."
+   ],
+   "sourcesOfError": [
+    "Wrong extinguisher selection."
+   ],
+   "commonMistakes": [
+    "Aiming at the flames instead of the base.",
+    "Using water on a fuel fire."
+   ],
+   "examTips": [
+    "Match extinguisher types to fire classes in a table.",
+    "List general workshop rules: no horse-play, clean floors, proper dress, correct tool use."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A petrol fire should be put out with",
+     "options": [
+      "a wet cloth only",
+      "compressed air",
+      "foam or dry powder",
+      "water"
+     ],
+     "answer": 2,
+     "explanation": "Water spreads burning fuel."
+    },
+    {
+     "q": "PASS stands for",
+     "options": [
+      "Press, Aim, Squeeze, Stay",
+      "Pull, Aim, Squeeze, Sweep",
+      "Push, Aim, Spray, Stop",
+      "Pull, Adjust, Shoot, Stand"
+     ],
+     "answer": 1,
+     "explanation": "The standard extinguisher sequence."
+    },
+    {
+     "q": "CO₂ extinguishers are preferred for",
+     "options": [
+      "electrical fires",
+      "wood fires only",
+      "paper fires only",
+      "cooking oil fires only"
+     ],
+     "answer": 0,
+     "explanation": "CO₂ leaves no residue and does not conduct."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-using-measuring-instruments-and-lifting-equipment",
+   "title": "Using measuring instruments and lifting equipment",
+   "topic": "Basic Tools, Instruments and Equipment",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "identification",
+    "safety"
+   ],
+   "aim": "To use the micrometer, vernier caliper, feeler gauge and dial gauge, and to lift a vehicle safely with a jack and axle stands.",
+   "apparatus": [
+    "Outside micrometer (0–25, 25–50 mm)",
+    "Vernier caliper",
+    "Feeler gauge set",
+    "Dial gauge with magnetic base",
+    "Hydraulic trolley jack",
+    "Axle stands",
+    "Wheel chocks"
+   ],
+   "materials": [
+    "Engine components: crankshaft journal, valve, piston, spark plug"
+   ],
+   "safety": [
+    "Never work under a vehicle supported only by a jack; always use axle stands.",
+    "Chock the wheels and apply the handbrake before lifting."
+   ],
+   "procedure": [
+    "Check the zero of each instrument.",
+    "Measure a piston diameter with the micrometer and a valve stem with the vernier.",
+    "Measure a spark plug gap with the feeler gauge.",
+    "Set up the dial gauge to measure crankshaft end float.",
+    "Chock the wheels, jack the car at the specified jacking point and place axle stands.",
+    "Lower the vehicle onto the stands and test stability before going under."
+   ],
+   "expectedObservations": "Readings are recorded to the instrument resolution; the vehicle rests firmly on stands.",
+   "dataAndCalculations": "Micrometer reading: sleeve 74.5 mm + thimble 37 × 0.01 = 74.87 mm. Crankshaft end float from dial gauge = 0.15 mm (limit e.g. 0.05–0.25 mm) → acceptable.",
+   "precautions": [
+    "Clean surfaces before measuring.",
+    "Use the ratchet on the micrometer for consistent pressure."
+   ],
+   "sourcesOfError": [
+    "Zero error.",
+    "Temperature differences."
+   ],
+   "commonMistakes": [
+    "Jacking at non-designated points.",
+    "Forcing feeler blades."
+   ],
+   "examTips": [
+    "Name tools in classes: hand tools, power tools, measuring instruments, equipment.",
+    "Show reading working."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Sleeve 23.5 mm, thimble 12. Reading =",
+     "options": [
+      "35.5 mm",
+      "24.7 mm",
+      "23.12 mm",
+      "23.62 mm"
+     ],
+     "answer": 3,
+     "explanation": "23.5 + 0.12 = 23.62 mm."
+    },
+    {
+     "q": "A feeler gauge measures",
+     "options": [
+      "pressure",
+      "voltage",
+      "small gaps",
+      "diameters"
+     ],
+     "answer": 2,
+     "explanation": "E.g. valve clearance, plug gap."
+    },
+    {
+     "q": "After jacking a car you must",
+     "options": [
+      "release the handbrake",
+      "support it on axle stands",
+      "start the engine",
+      "remove the chocks"
+     ],
+     "answer": 1,
+     "explanation": "Jacks can fail or slip."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-inspecting-vehicle-layout-and-drive-arrangements",
+   "title": "Inspecting vehicle layout and drive arrangements",
+   "topic": "Layout of a Motor Vehicle",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation",
+    "drawing"
+   ],
+   "aim": "To identify the main components of a vehicle and its drive arrangement.",
+   "apparatus": [
+    "Vehicles or cut-away models (front-engine rear-drive, front-wheel drive, 4WD)",
+    "Inspection lamp",
+    "Jack and stands"
+   ],
+   "materials": [
+    "Record sheet"
+   ],
+   "safety": [
+    "Engine off and key removed during inspection.",
+    "Use stands when going under vehicles."
+   ],
+   "procedure": [
+    "Open the bonnet and identify engine, radiator, battery, gearbox position.",
+    "From underneath, trace the drive from gearbox to driven wheels.",
+    "Identify propeller shaft, differential, drive shafts, suspension and steering parts.",
+    "Classify the drive arrangement.",
+    "Sketch a block layout showing power flow."
+   ],
+   "expectedObservations": "Front-engine rear-wheel drive has a propeller shaft and rear axle; front-wheel drive has a transaxle and drive shafts with CV joints.",
+   "dataAndCalculations": "Weight distribution example: front axle load 7 200 N, rear axle load 4 800 N. Total = 12 000 N; front proportion = 7 200/12 000 × 100 = 60%, typical of front-engine front-wheel-drive cars.",
+   "precautions": [
+    "Use a lamp; do not touch hot exhausts."
+   ],
+   "sourcesOfError": [
+    "Mistaking drive shafts for steering rods."
+   ],
+   "commonMistakes": [
+    "Calling a transaxle a gearbox only."
+   ],
+   "examTips": [
+    "Draw labelled layout diagrams for each drive type with merits.",
+    "State functions of main components."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A front-wheel-drive car does not usually have a",
+     "options": [
+      "long propeller shaft",
+      "gearbox",
+      "clutch",
+      "drive shaft"
+     ],
+     "answer": 0,
+     "explanation": "Drive goes directly to the front wheels via shafts."
+    },
+    {
+     "q": "The component combining gearbox and final drive is the",
+     "options": [
+      "differential only",
+      "flywheel",
+      "carburettor",
+      "transaxle"
+     ],
+     "answer": 3,
+     "explanation": "Common in FWD vehicles."
+    },
+    {
+     "q": "In front-engine rear-wheel drive, power reaches the rear axle through the",
+     "options": [
+      "steering column",
+      "exhaust pipe",
+      "propeller shaft",
+      "radiator"
+     ],
+     "answer": 2,
+     "explanation": "It connects gearbox to rear axle."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-engine-compression-test",
+   "title": "Engine compression test",
+   "topic": "Engine",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To measure the compression pressure of each cylinder and diagnose worn rings, valves or a blown gasket.",
+   "apparatus": [
+    "Compression tester with adaptor",
+    "Spark plug spanner",
+    "Oil can",
+    "Battery charger"
+   ],
+   "materials": [
+    "Engine oil (small amount)"
+   ],
+   "safety": [
+    "Disable the ignition and fuel injection before cranking.",
+    "Keep hands clear of fan and belts."
+   ],
+   "procedure": [
+    "Warm the engine to normal temperature, then switch off.",
+    "Remove all spark plugs; disable ignition/injection.",
+    "Screw the tester into cylinder 1; open the throttle fully.",
+    "Crank the engine 4–6 compression strokes; record the peak reading.",
+    "Repeat for all cylinders.",
+    "For a low cylinder, add a teaspoon of oil and retest (wet test)."
+   ],
+   "expectedObservations": "Healthy cylinders read close to each other. A low reading that rises with oil indicates worn rings; one that does not rise indicates leaking valves or gasket. Two adjacent low cylinders suggest a blown gasket between them.",
+   "dataAndCalculations": "Readings (kPa): 1 050, 1 030, 780, 1 040. Variation from the highest: cylinder 3 = (1 050 − 780)/1 050 × 100 = 25.7% low, beyond the usual 10% limit. If wet test raises it to 1 000 kPa, the piston rings are worn.",
+   "precautions": [
+    "Throttle wide open and battery fully charged.",
+    "Same number of strokes for each cylinder."
+   ],
+   "sourcesOfError": [
+    "Weak battery giving low cranking speed."
+   ],
+   "commonMistakes": [
+    "Testing with a cold engine.",
+    "Leaving the ignition live (coil damage or shock)."
+   ],
+   "examTips": [
+    "Tabulate readings and state the diagnosis for any low cylinder.",
+    "Explain the wet test reasoning."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A low cylinder that improves with oil indicates",
+     "options": [
+      "faulty plug lead",
+      "worn piston rings",
+      "burnt valve",
+      "blown gasket"
+     ],
+     "answer": 1,
+     "explanation": "Oil seals the rings temporarily."
+    },
+    {
+     "q": "Two adjacent low cylinders usually indicate",
+     "options": [
+      "a blown head gasket between them",
+      "worn rings in both",
+      "bad fuel",
+      "low oil"
+     ],
+     "answer": 0,
+     "explanation": "Gas leaks between neighbouring cylinders."
+    },
+    {
+     "q": "During a compression test the throttle should be",
+     "options": [
+      "closed",
+      "half open",
+      "removed",
+      "fully open"
+     ],
+     "answer": 3,
+     "explanation": "Air must enter freely."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-measuring-cylinder-bore-and-crankshaft-journal-wear",
+   "title": "Measuring cylinder bore and crankshaft journal wear",
+   "topic": "Engine",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To measure cylinder bore wear (taper and ovality) and crankshaft journal wear, and decide whether reconditioning is needed.",
+   "apparatus": [
+    "Telescopic gauges or bore gauge",
+    "Outside micrometer (75–100 mm and 50–75 mm)",
+    "Inside micrometer",
+    "Clean rags"
+   ],
+   "materials": [
+    "Stripped engine block and crankshaft",
+    "Manufacturer's specifications"
+   ],
+   "safety": [
+    "Lift heavy parts with assistance or a hoist."
+   ],
+   "procedure": [
+    "Clean the bores and journals.",
+    "Measure each bore at the top (below the ridge), middle and bottom, in the thrust and axial directions.",
+    "Record readings and calculate taper and ovality.",
+    "Measure each crankshaft journal at two positions 90° apart and at both ends.",
+    "Compare with specifications.",
+    "Recommend rebore/regrind or acceptance."
+   ],
+   "expectedObservations": "Bores wear most at the top on the thrust side; journals may become oval.",
+   "dataAndCalculations": "Nominal bore 80.00 mm. Top thrust 80.12, top axial 80.06, bottom thrust 80.04. Ovality (top) = 80.12 − 80.06 = 0.06 mm; taper (thrust) = 80.12 − 80.04 = 0.08 mm; maximum wear = 0.12 mm. Compare with the maker's limit (e.g. 0.10 mm taper) before deciding to rebore.",
+   "precautions": [
+    "Hold the gauge square to the bore axis.",
+    "Measure at the same temperature."
+   ],
+   "sourcesOfError": [
+    "Gauge not square to the bore."
+   ],
+   "commonMistakes": [
+    "Measuring only in one direction.",
+    "Confusing ovality and taper."
+   ],
+   "examTips": [
+    "Define ovality (out-of-round) and taper (difference top to bottom).",
+    "Present readings in a table."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Cylinder bores wear most at the",
+     "options": [
+      "middle",
+      "water jacket",
+      "top of ring travel",
+      "bottom of the bore"
+     ],
+     "answer": 2,
+     "explanation": "Combustion pressure and poor lubrication at the top."
+    },
+    {
+     "q": "Bore readings 76.10 mm (top) and 76.02 mm (bottom) give a taper of",
+     "options": [
+      "0.02 mm",
+      "0.08 mm",
+      "0.12 mm",
+      "152.12 mm"
+     ],
+     "answer": 1,
+     "explanation": "76.10 − 76.02 = 0.08 mm."
+    },
+    {
+     "q": "Worn crankshaft journals are corrected by",
+     "options": [
+      "regrinding to undersize",
+      "reboring",
+      "decarbonising",
+      "lapping valves"
+     ],
+     "answer": 0,
+     "explanation": "Undersize bearings are fitted after regrinding."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-valve-clearance-adjustment-and-firing-order",
+   "title": "Valve clearance adjustment and firing order",
+   "topic": "Engine",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To determine the firing order from valve operation and to adjust the valve (tappet) clearances of a four-cylinder engine.",
+   "apparatus": [
+    "Feeler gauges",
+    "Ring spanner and screwdriver",
+    "Socket set to turn the crankshaft",
+    "Torque wrench"
+   ],
+   "materials": [
+    "Four-cylinder in-line engine",
+    "Rocker cover gasket"
+   ],
+   "safety": [
+    "Disconnect the battery; remove spark plugs to make turning easy."
+   ],
+   "procedure": [
+    "Remove the rocker cover and identify inlet and exhaust valves.",
+    "Turn the crankshaft and note the order in which inlet valves open: this gives the firing order.",
+    "Use the \"rocking\" method: when the valves of cylinder 4 are rocking (overlap), cylinder 1 is at TDC compression; adjust both valves of cylinder 1.",
+    "Insert the feeler gauge between rocker and valve stem; slacken the lock nut and adjust until there is a slight drag.",
+    "Tighten the lock nut and recheck.",
+    "Turn the crankshaft half a turn and continue in firing order.",
+    "Refit the cover with a new gasket."
+   ],
+   "expectedObservations": "For a typical in-line four the inlet valves open in the order 1-3-4-2. After adjustment the feeler slides with light drag on every valve.",
+   "dataAndCalculations": "Rule of nine (4-cylinder): valves rocking on cylinder X → adjust cylinder 5 − X (e.g. rocking on 3 → adjust 2). Valve timing: inlet opens 10° BTDC, closes 50° ABDC → inlet period = 10 + 180 + 50 = 240°. Exhaust opens 45° BBDC, closes 15° ATDC → 240°. Valve overlap = 10 + 15 = 25°.",
+   "precautions": [
+    "Check whether clearances are specified hot or cold.",
+    "Recheck after tightening the lock nut."
+   ],
+   "sourcesOfError": [
+    "Cupped rocker tips giving false readings."
+   ],
+   "commonMistakes": [
+    "Adjusting a valve that is open.",
+    "Mixing inlet and exhaust clearances."
+   ],
+   "examTips": [
+    "State firing orders: 1-3-4-2 (in-line 4), 1-5-3-6-2-4 (in-line 6).",
+    "Show valve timing calculations with a timing diagram."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A common firing order for an in-line 4-cylinder engine is",
+     "options": [
+      "4-3-2-1",
+      "1-3-4-2",
+      "1-2-3-4",
+      "1-4-2-3"
+     ],
+     "answer": 1,
+     "explanation": "This balances the crankshaft."
+    },
+    {
+     "q": "Inlet opens 5° BTDC and closes 45° ABDC. Inlet period =",
+     "options": [
+      "230°",
+      "180°",
+      "50°",
+      "225°"
+     ],
+     "answer": 0,
+     "explanation": "5 + 180 + 45 = 230°."
+    },
+    {
+     "q": "Too small a valve clearance can cause",
+     "options": [
+      "noisy tappets",
+      "low oil pressure",
+      "flat battery",
+      "burnt valves"
+     ],
+     "answer": 3,
+     "explanation": "Valves may not seat fully when hot."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-decarbonising-a-cylinder-head",
+   "title": "Decarbonising a cylinder head",
+   "topic": "Engine",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To remove a cylinder head, decarbonise combustion chambers and valves, grind (lap) the valves and refit the head with correct torque.",
+   "apparatus": [
+    "Socket set and torque wrench",
+    "Valve spring compressor",
+    "Scraper (soft)",
+    "Wire brush",
+    "Valve lapping stick",
+    "Straight edge and feeler gauge"
+   ],
+   "materials": [
+    "Grinding paste (coarse and fine)",
+    "Paraffin",
+    "New head gasket",
+    "Engine oil"
+   ],
+   "safety": [
+    "Allow the engine to cool before removing the head.",
+    "Wear goggles when wire-brushing carbon."
+   ],
+   "procedure": [
+    "Drain coolant; disconnect pipes and remove the rocker gear.",
+    "Slacken head bolts in reverse of the tightening sequence and lift off the head.",
+    "Compress springs, remove collets and valves, keeping them in order.",
+    "Scrape carbon from chambers and piston crowns (leave a ring at the edge of the piston).",
+    "Lap each valve to its seat until a continuous grey ring appears.",
+    "Check head flatness with a straight edge.",
+    "Reassemble, fit a new gasket and torque the bolts in sequence; adjust valve clearances."
+   ],
+   "expectedObservations": "Clean chambers; valves and seats show an even, unbroken grey band after lapping.",
+   "dataAndCalculations": "Head flatness: a 0.10 mm feeler slides under the straight edge, but the limit is 0.05 mm → the head must be skimmed. Torque head bolts in stages, e.g. 30 N·m, then 60 N·m, then 90 N·m, in a spiral from the centre out.",
+   "precautions": [
+    "Keep valves in order.",
+    "Remove all grinding paste before assembly."
+   ],
+   "sourcesOfError": [
+    "Uneven torque warping the head."
+   ],
+   "commonMistakes": [
+    "Reusing the old gasket.",
+    "Tightening bolts from one end."
+   ],
+   "examTips": [
+    "List signs that decarbonising is needed: loss of power, pinking, high fuel use.",
+    "State the bolt tightening sequence rule."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Head bolts are tightened",
+     "options": [
+      "only by hand",
+      "in stages from the centre outwards",
+      "all at once from one end",
+      "in any order"
+     ],
+     "answer": 1,
+     "explanation": "This prevents distortion."
+    },
+    {
+     "q": "After lapping, a good valve seat shows",
+     "options": [
+      "a continuous grey ring",
+      "shiny spots",
+      "carbon",
+      "a broken line"
+     ],
+     "answer": 0,
+     "explanation": "Indicating full contact."
+    },
+    {
+     "q": "Carbon deposits can cause",
+     "options": [
+      "better economy",
+      "cooler running",
+      "more oil pressure",
+      "pinking (detonation)"
+     ],
+     "answer": 3,
+     "explanation": "Glowing carbon and higher compression cause knock."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-servicing-a-mechanical-fuel-pump-and-carburettor",
+   "title": "Servicing a mechanical fuel pump and carburettor",
+   "topic": "Fuel Supply Systems",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To dismantle, inspect and reassemble a mechanical fuel pump and a simple carburettor, and to diagnose fuel supply faults.",
+   "apparatus": [
+    "Screwdrivers and spanners",
+    "Compressed air",
+    "Fuel pressure gauge",
+    "Clean tray"
+   ],
+   "materials": [
+    "Mechanical fuel pump",
+    "Carburettor",
+    "Gasket/repair kit",
+    "Carburettor cleaner"
+   ],
+   "safety": [
+    "Petrol is highly flammable: no smoking or naked flames; work in a ventilated area.",
+    "Wipe up spills immediately."
+   ],
+   "procedure": [
+    "Test pump delivery and pressure before removal.",
+    "Dismantle the pump; inspect diaphragm, valves and spring.",
+    "Dismantle the carburettor; identify float chamber, needle valve, jets, choke and throttle valves.",
+    "Clean jets and passages with cleaner and air (never wire).",
+    "Reassemble with new gaskets; set the float level.",
+    "Refit, start the engine and adjust idle speed and mixture.",
+    "Check for leaks."
+   ],
+   "expectedObservations": "A torn diaphragm or sticking valve gives low delivery; blocked jets cause poor running or stalling.",
+   "dataAndCalculations": "Chemically correct (stoichiometric) air–fuel ratio for petrol ≈ 14.7:1 by mass. Burning 1 kg of petrol needs 14.7 kg of air; at an air density of 1.2 kg/m³ that is 14.7/1.2 = 12.25 m³ of air.",
+   "precautions": [
+    "Never clean jets with wire (it enlarges them).",
+    "Replace all gaskets."
+   ],
+   "sourcesOfError": [
+    "Incorrect float level giving rich or weak mixture."
+   ],
+   "commonMistakes": [
+    "Losing small parts.",
+    "Reversing pump valves."
+   ],
+   "examTips": [
+    "Draw the layout of a force-feed petrol system.",
+    "Explain rich and weak mixture symptoms (black smoke vs overheating/backfire)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The stoichiometric air–fuel ratio for petrol is about",
+     "options": [
+      "50:1",
+      "14.7:1",
+      "1:14.7",
+      "5:1"
+     ],
+     "answer": 1,
+     "explanation": "By mass."
+    },
+    {
+     "q": "Carburettor jets should be cleaned with",
+     "options": [
+      "compressed air and solvent",
+      "a steel wire",
+      "a drill bit",
+      "sand paper"
+     ],
+     "answer": 0,
+     "explanation": "Wire enlarges the calibrated hole."
+    },
+    {
+     "q": "Black exhaust smoke from a petrol engine usually indicates",
+     "options": [
+      "a weak mixture",
+      "worn tyres",
+      "low coolant",
+      "a rich mixture"
+     ],
+     "answer": 3,
+     "explanation": "Unburnt carbon from excess fuel."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-bleeding-a-diesel-fuel-system-and-servicing-injectors",
+   "title": "Bleeding a diesel fuel system and servicing injectors",
+   "topic": "Fuel Supply Systems",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To bleed air from a diesel fuel system and test an injector for spray pattern and opening pressure.",
+   "apparatus": [
+    "Spanners",
+    "Injector tester (pop tester) with gauge",
+    "Clean container",
+    "Brass wire brush"
+   ],
+   "materials": [
+    "Diesel engine or test rig",
+    "Clean diesel fuel",
+    "Fuel filters",
+    "New copper washers"
+   ],
+   "safety": [
+    "Never put hands in an injector spray — high-pressure diesel can penetrate skin.",
+    "Wear goggles; work in a ventilated area."
+   ],
+   "procedure": [
+    "Replace the fuel filters.",
+    "Open the bleed screw on the filter; operate the hand primer until fuel flows free of bubbles; close it.",
+    "Bleed at the injection pump bleed screw in the same way.",
+    "Slacken injector pipe unions and crank until fuel spurts; tighten.",
+    "Remove an injector and mount it on the tester.",
+    "Pump slowly and note the opening pressure; observe spray pattern, chatter and dribble.",
+    "Clean the nozzle, adjust if needed and refit with new washers."
+   ],
+   "expectedObservations": "After bleeding the engine starts and runs smoothly. A good injector gives a fine, even atomised spray with no dribbling at the specified pressure.",
+   "dataAndCalculations": "Specified opening pressure 150 bar; tested 128 bar. Deviation = (150 − 128)/150 × 100 = 14.7% low → adjust shims/spring to raise the pressure.",
+   "precautions": [
+    "Bleed in order from tank towards injectors.",
+    "Keep everything clean; dirt damages injection components."
+   ],
+   "sourcesOfError": [
+    "Gauge accuracy."
+   ],
+   "commonMistakes": [
+    "Starting to crank before bleeding the filter and pump.",
+    "Reusing old washers."
+   ],
+   "examTips": [
+    "Draw the diesel fuel system layout: tank, lift pump, filters, injection pump, injectors, leak-off.",
+    "State symptoms of air in diesel fuel."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Air in a diesel fuel system causes",
+     "options": [
+      "cooler running",
+      "better economy",
+      "hard starting or stopping",
+      "more power"
+     ],
+     "answer": 2,
+     "explanation": "Air prevents correct injection pressure."
+    },
+    {
+     "q": "Injector spray should be",
+     "options": [
+      "intermittent dribble",
+      "finely atomised without dribble",
+      "a solid jet",
+      "dripping"
+     ],
+     "answer": 1,
+     "explanation": "Good atomisation gives complete combustion."
+    },
+    {
+     "q": "Why keep hands away from injector spray?",
+     "options": [
+      "High-pressure fuel can penetrate skin",
+      "It is cold",
+      "It is magnetic",
+      "It is radioactive"
+     ],
+     "answer": 0,
+     "explanation": "Injection injuries are serious."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-inspecting-the-exhaust-system-for-leaks",
+   "title": "Inspecting the exhaust system for leaks",
+   "topic": "Exhaust System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "observation",
+    "identification",
+    "safety"
+   ],
+   "aim": "To identify exhaust system components and check them for leaks, corrosion and secure mounting.",
+   "apparatus": [
+    "Jack and axle stands or pit",
+    "Inspection lamp",
+    "Spanners",
+    "Rag"
+   ],
+   "materials": [
+    "Vehicle with exhaust system",
+    "Exhaust assembly paste"
+   ],
+   "safety": [
+    "Exhausts get very hot — inspect a cold system or wear gloves.",
+    "Never run an engine in a closed space (carbon monoxide)."
+   ],
+   "procedure": [
+    "Identify exhaust manifold, inlet manifold, down pipe, catalytic converter, silencers and tail pipe.",
+    "Check mountings and rubber hangers.",
+    "With the engine idling (outdoors), briefly block the tail pipe with a rag and listen for leaks.",
+    "Look for soot marks at joints and holes from corrosion.",
+    "Tighten clamps or repair as needed.",
+    "Record findings."
+   ],
+   "expectedObservations": "Leaks show as puffing sounds and soot deposits around joints; broken hangers allow the pipe to knock.",
+   "dataAndCalculations": "A 1.6-litre four-stroke engine at 3 000 rev/min draws in about 1.6 × 3 000/2 = 2 400 L of air–fuel mixture per minute (at 100% volumetric efficiency), all of which leaves through the exhaust — explaining why even a small leak is noisy.",
+   "precautions": [
+    "Only block the tail pipe for a few seconds."
+   ],
+   "sourcesOfError": [
+    "Background noise hiding leaks."
+   ],
+   "commonMistakes": [
+    "Confusing exhaust and inlet manifolds."
+   ],
+   "examTips": [
+    "State the purposes of the exhaust system: carry gases away, reduce noise, reduce pollutants.",
+    "Name silencer types: absorption, baffle (reactive)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The silencer reduces",
+     "options": [
+      "oil pressure",
+      "noise",
+      "engine power only",
+      "fuel supply"
+     ],
+     "answer": 1,
+     "explanation": "It damps pressure pulses."
+    },
+    {
+     "q": "Carbon monoxide is dangerous because it",
+     "options": [
+      "is odourless and poisonous",
+      "smells strongly",
+      "is harmless",
+      "is heavier than lead"
+     ],
+     "answer": 0,
+     "explanation": "It binds to haemoglobin."
+    },
+    {
+     "q": "Soot marks at an exhaust joint indicate",
+     "options": [
+      "a good seal",
+      "a rich mixture only",
+      "coolant loss",
+      "a leak"
+     ],
+     "answer": 3,
+     "explanation": "Gas escaping deposits soot."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-changing-engine-oil-and-filter-and-comparing-lubricants",
+   "title": "Changing engine oil and filter and comparing lubricants",
+   "topic": "Lubrication",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "observation",
+    "identification"
+   ],
+   "aim": "To change the engine oil and oil filter correctly and to compare fresh and used oil and different lubricants.",
+   "apparatus": [
+    "Drain tray",
+    "Ring spanner for sump plug",
+    "Oil filter wrench",
+    "Funnel",
+    "Grease gun and oil can",
+    "Dipstick"
+   ],
+   "materials": [
+    "Engine oil of correct SAE grade (e.g. 15W-40)",
+    "New oil filter",
+    "New sump plug washer",
+    "Grease",
+    "Samples: gear oil, ATF, brake fluid (for identification only)"
+   ],
+   "safety": [
+    "Hot oil scalds: warm the engine slightly but not fully hot.",
+    "Collect used oil for recycling; never pour it on the ground."
+   ],
+   "procedure": [
+    "Run the engine briefly, then switch off.",
+    "Remove the sump plug and drain into the tray.",
+    "Remove the old filter; oil the new filter seal and fit hand-tight plus about ¾ turn.",
+    "Refit the plug with a new washer.",
+    "Fill with the correct quantity of oil; check the dipstick.",
+    "Run the engine, check for leaks and the oil warning light, recheck the level.",
+    "Compare fresh and used oil for colour, smell and feel; identify other lubricants."
+   ],
+   "expectedObservations": "Used oil is dark and thin and may contain metal particles; fresh oil is clear amber. The oil light goes out within seconds of starting.",
+   "dataAndCalculations": "Sump capacity with filter 4.5 L; without filter 4.0 L. After draining and changing the filter, add 4.5 L, then top up to the full mark. The grade 15W-40 means viscosity of SAE 15 at low (winter) temperature and SAE 40 at 100 °C.",
+   "precautions": [
+    "Do not overfill.",
+    "Use the grade specified by the maker."
+   ],
+   "sourcesOfError": [
+    "Reading the dipstick with the car not level."
+   ],
+   "commonMistakes": [
+    "Over-tightening the filter with a wrench.",
+    "Forgetting the sump plug washer."
+   ],
+   "examTips": [
+    "Explain SAE numbers and multigrade oils.",
+    "Name lubrication systems: splash, forced (pressure), petroil."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In 10W-30, \"W\" refers to",
+     "options": [
+      "water resistance",
+      "width",
+      "winter (low temperature) rating",
+      "weight"
+     ],
+     "answer": 2,
+     "explanation": "Cold-flow rating."
+    },
+    {
+     "q": "A new oil filter is tightened",
+     "options": [
+      "not at all",
+      "by hand plus about ¾ turn",
+      "with a hammer",
+      "as hard as possible with a wrench"
+     ],
+     "answer": 1,
+     "explanation": "Over-tightening damages the seal."
+    },
+    {
+     "q": "Used engine oil should be",
+     "options": [
+      "collected for recycling",
+      "poured into drains",
+      "burnt in the open",
+      "buried"
+     ],
+     "answer": 0,
+     "explanation": "It pollutes soil and water."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-cooling-system-service-flushing-fan-belt-and-thermostat-test",
+   "title": "Cooling system service: flushing, fan belt and thermostat test",
+   "topic": "Cooling System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "observation"
+   ],
+   "aim": "To flush a radiator, replace a hose and fan belt with correct tension, and test a thermostat.",
+   "apparatus": [
+    "Drain tray",
+    "Hose clips and screwdriver",
+    "Spanners",
+    "Ruler (belt deflection)",
+    "Thermometer (0–110 °C)",
+    "Beaker and heater",
+    "Radiator pressure tester"
+   ],
+   "materials": [
+    "Coolant/antifreeze",
+    "Clean water",
+    "New hose and fan belt",
+    "Thermostat"
+   ],
+   "safety": [
+    "Never open a hot radiator cap — pressurised coolant can scald.",
+    "Keep hands clear of the fan and belts when the engine runs."
+   ],
+   "procedure": [
+    "With the engine cold, drain the coolant.",
+    "Flush the radiator and block with clean water until it runs clear.",
+    "Replace a perished hose; tighten clips.",
+    "Fit the fan belt and adjust tension so deflection midway on the longest run is about 10–15 mm under thumb pressure.",
+    "Heat the thermostat in water with a thermometer; note opening temperature and full-open lift.",
+    "Refit, refill with coolant mixture and bleed air; pressure-test the system."
+   ],
+   "expectedObservations": "The thermostat starts to open near its stamped temperature (e.g. 82 °C) and is fully open about 10–13 °C higher. A correctly tensioned belt does not squeal.",
+   "dataAndCalculations": "Coolant mix 50%: system capacity 6 L → 3 L antifreeze + 3 L water. A pressure cap rated 100 kPa raises the boiling point of water from 100 °C to about 120 °C.",
+   "precautions": [
+    "Use the correct coolant mixture.",
+    "Do not over-tighten the belt (bearing wear)."
+   ],
+   "sourcesOfError": [
+    "Thermometer touching the beaker base."
+   ],
+   "commonMistakes": [
+    "Opening the cap while hot.",
+    "Fitting the thermostat upside down."
+   ],
+   "examTips": [
+    "Compare air and water cooling.",
+    "State thermostat types: bellows and wax pellet."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The thermostat in the cooling system",
+     "options": [
+      "cools oil",
+      "filters air",
+      "controls engine temperature",
+      "pumps coolant"
+     ],
+     "answer": 2,
+     "explanation": "It restricts flow until the engine warms up."
+    },
+    {
+     "q": "A pressurised cooling system",
+     "options": [
+      "stops the fan",
+      "raises the boiling point",
+      "lowers the boiling point",
+      "removes the need for coolant"
+     ],
+     "answer": 1,
+     "explanation": "Higher pressure raises boiling temperature."
+    },
+    {
+     "q": "Fan belt deflection is typically",
+     "options": [
+      "10–15 mm",
+      "50–60 mm",
+      "0 mm",
+      "100 mm"
+     ],
+     "answer": 0,
+     "explanation": "Measured midway on the longest run."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-servicing-a-single-plate-clutch-and-adjusting-pedal-free-play",
+   "title": "Servicing a single-plate clutch and adjusting pedal free play",
+   "topic": "Transmission System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To dismantle and inspect a single-plate clutch, reassemble it with the plate centred, and adjust pedal free play and bleed a hydraulic clutch.",
+   "apparatus": [
+    "Clutch alignment tool",
+    "Socket set and torque wrench",
+    "Vernier caliper",
+    "Ruler",
+    "Bleeding tube and jar"
+   ],
+   "materials": [
+    "Clutch assembly (cover, plate, release bearing)",
+    "Brake/clutch fluid of specified grade"
+   ],
+   "safety": [
+    "Clutch dust may contain harmful fibres — clean with a damp cloth, do not blow with air.",
+    "Support the gearbox securely when removing it."
+   ],
+   "procedure": [
+    "Remove the gearbox and clutch cover bolts evenly.",
+    "Inspect the friction plate (lining thickness, rivets, oil contamination, cushion springs), pressure plate and flywheel face.",
+    "Check the release bearing for roughness.",
+    "Refit using the alignment tool to centre the plate; torque cover bolts evenly.",
+    "Refit the gearbox.",
+    "Adjust pedal free play to specification (e.g. 10–20 mm).",
+    "For hydraulic clutches, bleed at the slave cylinder until no bubbles appear."
+   ],
+   "expectedObservations": "Clutch engages smoothly without slip or judder; gears select without crunching.",
+   "dataAndCalculations": "Torque capacity T = μ W n Rm. With μ = 0.3, spring force W = 4 000 N, n = 2 friction faces and mean radius Rm = 0.1 m: T = 0.3 × 4 000 × 2 × 0.1 = 240 N·m.",
+   "precautions": [
+    "Keep oil and grease off the linings.",
+    "Tighten cover bolts diagonally."
+   ],
+   "sourcesOfError": [
+    "Worn alignment tool."
+   ],
+   "commonMistakes": [
+    "Fitting the plate the wrong way round.",
+    "No free play, causing clutch slip."
+   ],
+   "examTips": [
+    "State symptoms: slip, drag, judder, fierce engagement and their causes.",
+    "Show torque calculation with units."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Insufficient pedal free play can cause",
+     "options": [
+      "clutch slip",
+      "clutch drag",
+      "gear jumping",
+      "brake failure"
+     ],
+     "answer": 0,
+     "explanation": "The release bearing keeps pressure off the plate."
+    },
+    {
+     "q": "A single-plate clutch has how many friction faces?",
+     "options": [
+      "1",
+      "4",
+      "6",
+      "2"
+     ],
+     "answer": 3,
+     "explanation": "One on each side of the plate."
+    },
+    {
+     "q": "μ = 0.25, W = 3 000 N, n = 2, Rm = 0.1 m. T =",
+     "options": [
+      "300 N·m",
+      "600 N·m",
+      "150 N·m",
+      "75 N·m"
+     ],
+     "answer": 2,
+     "explanation": "0.25 × 3 000 × 2 × 0.1 = 150 N·m."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-gearbox-components-and-gear-ratio-calculation",
+   "title": "Gearbox components and gear ratio calculation",
+   "topic": "Transmission System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To identify the components of a manual gearbox, inspect gear teeth for wear and calculate gear and overall ratios by counting teeth.",
+   "apparatus": [
+    "Dismantled or cut-away gearbox",
+    "Inspection lamp",
+    "Magnifying glass"
+   ],
+   "materials": [
+    "Final drive (crown wheel and pinion) assembly"
+   ],
+   "safety": [
+    "Gearbox parts are heavy and oily — lift carefully and keep the floor clean."
+   ],
+   "procedure": [
+    "Identify input (primary) shaft, layshaft, main shaft, synchromesh hubs, selector forks.",
+    "Trace the power flow in each gear.",
+    "Count the teeth on each meshing pair and calculate ratios.",
+    "Inspect teeth for pitting, chipping and wear.",
+    "Count crown wheel and pinion teeth to find the final drive ratio.",
+    "Calculate overall ratio in first gear."
+   ],
+   "expectedObservations": "Lower gears have large reduction ratios; worn synchro rings cause crunching when changing gear.",
+   "dataAndCalculations": "Gear ratio = teeth on driven gear/teeth on driver. Driver 15 teeth, driven 45 teeth → 45/15 = 3:1. Final drive: crown wheel 41, pinion 10 → 4.1:1. Overall ratio = 3 × 4.1 = 12.3:1. With an engine speed of 3 000 rev/min, wheel speed = 3 000/12.3 = 244 rev/min.",
+   "precautions": [
+    "Count teeth twice.",
+    "Do not mix parts between gearboxes."
+   ],
+   "sourcesOfError": [
+    "Miscounting teeth."
+   ],
+   "commonMistakes": [
+    "Dividing driver by driven.",
+    "For a compound train, adding instead of multiplying ratios."
+   ],
+   "examTips": [
+    "Compare sliding-mesh, constant-mesh and synchromesh gearboxes.",
+    "Always state ratios in the form x:1."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 12-tooth driver drives a 36-tooth gear. Ratio =",
+     "options": [
+      "24:1",
+      "0.33:1",
+      "3:1",
+      "1:3"
+     ],
+     "answer": 2,
+     "explanation": "36/12 = 3."
+    },
+    {
+     "q": "Gear ratio 2.5:1 and final drive 4:1 give an overall ratio of",
+     "options": [
+      "2.5:1",
+      "10:1",
+      "6.5:1",
+      "1.6:1"
+     ],
+     "answer": 1,
+     "explanation": "Multiply: 2.5 × 4 = 10."
+    },
+    {
+     "q": "Synchromesh units",
+     "options": [
+      "equalise gear speeds before engagement",
+      "reverse the car",
+      "lubricate gears",
+      "reduce engine speed"
+     ],
+     "answer": 0,
+     "explanation": "They allow quiet gear changes."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-wheel-changing-tyre-pressure-and-puncture-repair",
+   "title": "Wheel changing, tyre pressure and puncture repair",
+   "topic": "Wheels and Tyres",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To change a road wheel safely, check and set tyre pressures, repair a tube puncture and read tyre markings.",
+   "apparatus": [
+    "Wheel brace",
+    "Jack and axle stand",
+    "Wheel chocks",
+    "Tyre pressure gauge",
+    "Tyre levers",
+    "Air compressor",
+    "Water bath"
+   ],
+   "materials": [
+    "Tube repair patch kit (rubber solution, patches, abrasive)",
+    "Valve cores",
+    "Spare wheel"
+   ],
+   "safety": [
+    "Chock wheels and use stands.",
+    "Never inflate a tyre beyond its rated pressure; stand to one side when seating beads."
+   ],
+   "procedure": [
+    "Loosen wheel nuts slightly before lifting.",
+    "Jack up, remove nuts and wheel; fit spare; tighten nuts diagonally, lower and torque.",
+    "Remove the tube with tyre levers; inflate and find the leak in water.",
+    "Roughen the area, apply solution, wait until tacky and apply the patch firmly.",
+    "Check inside the tyre for the cause; refit the tube and tyre.",
+    "Inflate to the recommended cold pressure; check for leaks at the valve.",
+    "Read and interpret the sidewall markings."
+   ],
+   "expectedObservations": "No bubbles from the repaired tube; nuts tight; pressure matches the placard.",
+   "dataAndCalculations": "Marking 195/65 R15: width 195 mm, sidewall height = 0.65 × 195 = 126.75 mm, rim 15 in (381 mm). Overall diameter = 381 + 2 × 126.75 = 634.5 mm; circumference = π × 0.6345 = 1.993 m.",
+   "precautions": [
+    "Check pressure when tyres are cold.",
+    "Tighten wheel nuts in a star pattern."
+   ],
+   "sourcesOfError": [
+    "Gauge inaccuracy."
+   ],
+   "commonMistakes": [
+    "Patching before solution becomes tacky.",
+    "Not removing the object that caused the puncture."
+   ],
+   "examTips": [
+    "Compare tubed and tubeless tyres.",
+    "Explain wheel balancing and its effect on steering."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In 185/70 R14, the \"70\" is the",
+     "options": [
+      "aspect ratio (%)",
+      "rim diameter",
+      "speed rating",
+      "load index"
+     ],
+     "answer": 0,
+     "explanation": "Sidewall height is 70% of width."
+    },
+    {
+     "q": "Wheel nuts are tightened",
+     "options": [
+      "clockwise one by one fully",
+      "before the wheel is fitted",
+      "only by hand",
+      "diagonally (star pattern)"
+     ],
+     "answer": 3,
+     "explanation": "This seats the wheel evenly."
+    },
+    {
+     "q": "Tyre pressures should be checked",
+     "options": [
+      "only when flat",
+      "once a year",
+      "when tyres are cold",
+      "after a long drive"
+     ],
+     "answer": 2,
+     "explanation": "Heat raises pressure."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-replacing-brake-pads-and-bleeding-hydraulic-brakes",
+   "title": "Replacing brake pads and bleeding hydraulic brakes",
+   "topic": "Braking System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To inspect disc and drum brakes, replace brake pads and bleed the hydraulic system.",
+   "apparatus": [
+    "Jack and axle stands",
+    "Socket set",
+    "G-clamp or piston retractor",
+    "Bleeding tube and jar",
+    "Vernier caliper",
+    "Torque wrench"
+   ],
+   "materials": [
+    "Brake pads",
+    "Brake fluid (DOT 3/4)",
+    "Brake cleaner"
+   ],
+   "safety": [
+    "Brake fluid damages paint and eyes — wear goggles and wipe spills.",
+    "Do not blow brake dust with compressed air.",
+    "Test brakes at low speed before road use."
+   ],
+   "procedure": [
+    "Remove the wheel and inspect disc, caliper and pad thickness.",
+    "Remove the caliper; take out old pads.",
+    "Push the piston back, watching the reservoir level.",
+    "Fit new pads and refit the caliper; torque bolts.",
+    "Bleed: start at the wheel farthest from the master cylinder; open bleed screw while an assistant presses the pedal; close before the pedal is released.",
+    "Repeat until fluid is free of bubbles; keep the reservoir topped up.",
+    "Pump the pedal to restore firmness; spot-test the brakes."
+   ],
+   "expectedObservations": "A firm, high pedal after bleeding; no leaks; car stops straight.",
+   "dataAndCalculations": "Hydraulic advantage: pedal push on master cylinder piston 1 000 N, piston Ø20 mm → p = 1 000/(π × 0.010²) = 3.18 MN/m². Wheel cylinder Ø50 mm: F = 3.18 × 10⁶ × π × 0.025² ≈ 6 250 N (force multiplied 6.25 times = (50/20)²).",
+   "precautions": [
+    "Use only the specified fluid; never mix mineral oil with brake fluid.",
+    "Never let the reservoir run dry while bleeding."
+   ],
+   "sourcesOfError": [
+    "Air re-entering through a loose bleed screw."
+   ],
+   "commonMistakes": [
+    "Starting bleeding at the nearest wheel.",
+    "Contaminating pads with grease."
+   ],
+   "examTips": [
+    "Compare disc and drum brakes.",
+    "Explain the purpose of the servo (vacuum booster)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A spongy brake pedal usually indicates",
+     "options": [
+      "a full reservoir",
+      "air in the hydraulic system",
+      "new pads",
+      "high tyre pressure"
+     ],
+     "answer": 1,
+     "explanation": "Air compresses."
+    },
+    {
+     "q": "Bleeding usually starts at the wheel",
+     "options": [
+      "farthest from the master cylinder",
+      "nearest to the master cylinder",
+      "front left always",
+      "with the spare"
+     ],
+     "answer": 0,
+     "explanation": "This pushes air out of the longest line first."
+    },
+    {
+     "q": "If the wheel cylinder area is 4 times the master cylinder area, the force is multiplied",
+     "options": [
+      "2 times",
+      "16 times",
+      "not at all",
+      "4 times"
+     ],
+     "answer": 3,
+     "explanation": "Pressure is the same, force ∝ area."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-front-wheel-alignment-and-tyre-wear-patterns",
+   "title": "Front wheel alignment and tyre wear patterns",
+   "topic": "Steering System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To check and adjust front wheel toe-in and relate tyre wear patterns to steering faults.",
+   "apparatus": [
+    "Wheel alignment gauge (trammel or optical)",
+    "Spanners",
+    "Chalk",
+    "Tape measure",
+    "Tyre tread depth gauge"
+   ],
+   "materials": [
+    "Vehicle on level floor",
+    "Tyres with various wear patterns"
+   ],
+   "safety": [
+    "Engine off, handbrake on; take care with track-rod lock nuts."
+   ],
+   "procedure": [
+    "Inflate tyres correctly; set wheels straight ahead on level ground.",
+    "Measure distance between front tyre centres at the rear of the wheels (hub height).",
+    "Roll the car so the marks move to the front and measure again.",
+    "Calculate toe-in = rear measurement − front measurement.",
+    "Adjust track rods equally to bring toe-in to specification; tighten lock nuts.",
+    "Examine tyres for wear patterns and diagnose causes."
+   ],
+   "expectedObservations": "Excessive toe-in causes feathered wear on the outer edges; camber faults cause wear on one shoulder; under-inflation wears both shoulders.",
+   "dataAndCalculations": "Rear measurement 1 243 mm, front 1 240 mm → toe-in = 1 243 − 1 240 = 3 mm (within a typical 1–4 mm specification).",
+   "precautions": [
+    "Measure at the same tyre point by rolling, not turning, the wheels.",
+    "Adjust both track rods equally to keep the steering wheel centred."
+   ],
+   "sourcesOfError": [
+    "Uneven floor; tyre run-out."
+   ],
+   "commonMistakes": [
+    "Subtracting the wrong way and calling toe-out toe-in."
+   ],
+   "examTips": [
+    "Define castor, camber, KPI, toe-in, toe-out on turns and Ackermann principle.",
+    "Relate each wear pattern to a cause."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Front 1 250 mm, rear 1 254 mm. Toe-in =",
+     "options": [
+      "0 mm",
+      "4 mm",
+      "−4 mm",
+      "2 504 mm"
+     ],
+     "answer": 1,
+     "explanation": "1 254 − 1 250 = 4 mm."
+    },
+    {
+     "q": "Wear on both tyre shoulders indicates",
+     "options": [
+      "under-inflation",
+      "over-inflation",
+      "correct pressure",
+      "excessive castor"
+     ],
+     "answer": 0,
+     "explanation": "The centre lifts off the road."
+    },
+    {
+     "q": "The Ackermann principle ensures",
+     "options": [
+      "equal wheel angles",
+      "straight-line stability only",
+      "brake balance",
+      "inner and outer wheels turn about a common centre"
+     ],
+     "answer": 3,
+     "explanation": "This prevents tyre scrub on turns."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-inspecting-suspension-and-testing-shock-absorbers",
+   "title": "Inspecting suspension and testing shock absorbers",
+   "topic": "Suspension System",
+   "kind": "WORKSHOP",
+   "skills": [
+    "observation",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To distinguish rigid beam and independent suspension systems and check springs and dampers for faults.",
+   "apparatus": [
+    "Jack and axle stands",
+    "Inspection lamp",
+    "Pry bar",
+    "Tape measure"
+   ],
+   "materials": [
+    "Vehicles or models with leaf spring rigid axle and coil spring independent suspension"
+   ],
+   "safety": [
+    "Never release a compressed coil spring without a proper compressor."
+   ],
+   "procedure": [
+    "Identify the suspension type at front and rear.",
+    "Inspect leaf springs for broken leaves and worn shackles; coil springs for cracks.",
+    "Check bushes and ball joints for play with a pry bar.",
+    "Bounce test: push down each corner firmly and release; count oscillations.",
+    "Measure ride height at each corner and compare sides.",
+    "Record faults."
+   ],
+   "expectedObservations": "A good damper lets the body rise and settle in about one oscillation; a worn one bounces several times. Sagging corners indicate weak springs.",
+   "dataAndCalculations": "Ride height (hub centre to wheel arch): left front 365 mm, right front 341 mm. Difference = 24 mm, beyond a typical 10 mm limit → the right front spring is weak.",
+   "precautions": [
+    "Bounce each corner the same way.",
+    "Measure on level ground."
+   ],
+   "sourcesOfError": [
+    "Uneven tyre pressures affecting ride height."
+   ],
+   "commonMistakes": [
+    "Mistaking normal bush flexibility for wear."
+   ],
+   "examTips": [
+    "Compare leaf and coil springs.",
+    "State functions of shock absorbers."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A damper (shock absorber) is used to",
+     "options": [
+      "support the car weight",
+      "steer the wheels",
+      "brake the wheels",
+      "control spring oscillation"
+     ],
+     "answer": 3,
+     "explanation": "It dissipates spring energy."
+    },
+    {
+     "q": "Independent suspension allows",
+     "options": [
+      "no movement",
+      "only steering",
+      "each wheel to move separately",
+      "wheels to move together"
+     ],
+     "answer": 2,
+     "explanation": "Improves comfort and road holding."
+    },
+    {
+     "q": "Continued bouncing after the bounce test indicates",
+     "options": [
+      "a tight steering",
+      "worn shock absorbers",
+      "good dampers",
+      "over-inflated tyres"
+     ],
+     "answer": 1,
+     "explanation": "Damping is lost."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-battery-testing-and-preparing-electrolyte",
+   "title": "Battery testing and preparing electrolyte",
+   "topic": "Battery (motor vehicle)",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "safety",
+    "procedure"
+   ],
+   "aim": "To test a lead-acid battery with a hydrometer and voltmeter, and to prepare electrolyte safely.",
+   "apparatus": [
+    "Hydrometer",
+    "Digital voltmeter",
+    "High-rate discharge tester",
+    "Glass or plastic container",
+    "Glass stirring rod",
+    "Goggles, gloves, apron"
+   ],
+   "materials": [
+    "Lead-acid battery",
+    "Concentrated sulphuric acid (teacher only)",
+    "Distilled water"
+   ],
+   "safety": [
+    "Always add acid to water, slowly, never water to acid — the heat can make it boil and spit.",
+    "Wear goggles, gloves and apron; keep sodium bicarbonate and water ready.",
+    "No sparks or flames near batteries (hydrogen)."
+   ],
+   "procedure": [
+    "Inspect the case, terminals and electrolyte level.",
+    "Measure open-circuit voltage after the battery has rested.",
+    "Read specific gravity of each cell with the hydrometer at eye level.",
+    "Perform a high-rate discharge test and note the voltage after 10–15 s.",
+    "Prepare electrolyte (teacher demonstration): pour acid slowly into distilled water while stirring, to the required SG.",
+    "Top up cells with distilled water only to the correct level."
+   ],
+   "expectedObservations": "A charged battery reads about 12.6 V and SG ≈ 1.270–1.280 in each cell; a cell 0.050 lower than the others is faulty.",
+   "dataAndCalculations": "SG readings 1.275, 1.270, 1.210, 1.275, 1.270, 1.275. Cell 3 is 0.060 below the highest → faulty cell. A 12 V battery has 6 cells × 2.1 V = 12.6 V when fully charged.",
+   "precautions": [
+    "Do not take SG readings immediately after topping up.",
+    "Correct readings for temperature if required."
+   ],
+   "sourcesOfError": [
+    "Parallax reading the hydrometer float.",
+    "Temperature effects."
+   ],
+   "commonMistakes": [
+    "Adding water to acid.",
+    "Topping up with acid instead of distilled water."
+   ],
+   "examTips": [
+    "State electrolyte composition (dilute sulphuric acid) and SG for charged/discharged states.",
+    "List battery maintenance tasks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When preparing electrolyte, always",
+     "options": [
+      "add water to acid",
+      "mix quickly without stirring",
+      "heat the acid first",
+      "add acid slowly to water"
+     ],
+     "answer": 3,
+     "explanation": "This controls the heat released."
+    },
+    {
+     "q": "A fully charged cell has SG of about",
+     "options": [
+      "1.000",
+      "2.100",
+      "1.280",
+      "1.100"
+     ],
+     "answer": 2,
+     "explanation": "Discharged is around 1.120."
+    },
+    {
+     "q": "Batteries are topped up with",
+     "options": [
+      "engine oil",
+      "distilled water",
+      "sulphuric acid",
+      "tap water with salt"
+     ],
+     "answer": 1,
+     "explanation": "Only water is lost in normal use."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-setting-contact-breaker-and-spark-plug-gaps-and-ignition-timing",
+   "title": "Setting contact breaker and spark plug gaps and ignition timing",
+   "topic": "Ignition system (coil)",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To set the contact breaker gap (or dwell), gap the spark plugs and set static and dynamic ignition timing.",
+   "apparatus": [
+    "Feeler gauges",
+    "Spark plug gauge and spanner",
+    "Dwell meter",
+    "Timing light (stroboscope)",
+    "Test lamp",
+    "Screwdrivers"
+   ],
+   "materials": [
+    "Engine with contact-breaker ignition",
+    "New plugs and contact set"
+   ],
+   "safety": [
+    "Keep hands, hair and leads clear of the fan and belt when using the timing light.",
+    "The ignition coil secondary produces very high voltage — do not hold plug leads while cranking."
+   ],
+   "procedure": [
+    "Remove the distributor cap; turn the engine until the contact heel is on a cam peak.",
+    "Set the gap (e.g. 0.40 mm) with feeler gauges; check dwell with a meter.",
+    "Clean and gap spark plugs (e.g. 0.7–0.8 mm) and refit to correct torque.",
+    "Static timing: align timing marks; connect a test lamp across the points; rotate the distributor until the lamp just lights.",
+    "Dynamic timing: run the engine, aim the timing light at the marks and adjust to specification.",
+    "Tighten the distributor clamp and recheck."
+   ],
+   "expectedObservations": "Correct timing gives smooth running and good acceleration without pinking. Retarded timing causes sluggishness; over-advanced causes pinking.",
+   "dataAndCalculations": "Four-cylinder engine: each cam lobe cycle = 360°/4 = 90° of distributor rotation. A 60% dwell gives 0.6 × 90 = 54° dwell angle. Increasing the points gap reduces dwell.",
+   "precautions": [
+    "Ensure contacts are clean and aligned.",
+    "Recheck timing after setting dwell (changing dwell changes timing)."
+   ],
+   "sourcesOfError": [
+    "Worn distributor bushes causing dwell variation."
+   ],
+   "commonMistakes": [
+    "Setting the gap with the heel not on the cam peak.",
+    "Using a feeler on an oily contact surface."
+   ],
+   "examTips": [
+    "Draw the coil ignition circuit with primary and secondary windings.",
+    "Explain retarded and over-advanced ignition symptoms."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Increasing the contact breaker gap",
+     "options": [
+      "increases dwell angle",
+      "has no effect",
+      "stops the spark",
+      "reduces dwell angle"
+     ],
+     "answer": 3,
+     "explanation": "The points open earlier and close later."
+    },
+    {
+     "q": "Pinking (knocking) under load can result from",
+     "options": [
+      "a new air filter",
+      "correct timing",
+      "over-advanced ignition",
+      "retarded ignition"
+     ],
+     "answer": 2,
+     "explanation": "Combustion starts too early."
+    },
+    {
+     "q": "Dwell for a 6-cylinder engine at 60% is",
+     "options": [
+      "90°",
+      "36°",
+      "54°",
+      "60°"
+     ],
+     "answer": 1,
+     "explanation": "360/6 = 60°, × 0.6 = 36°."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-headlamp-focusing-and-replacing-bulbs-and-fuses",
+   "title": "Headlamp focusing and replacing bulbs and fuses",
+   "topic": "Lighting system (motor vehicle)",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To replace bulbs and fuses of the correct rating and to aim (focus) headlamps using a screen.",
+   "apparatus": [
+    "Aiming screen or wall marked with lines",
+    "Tape measure",
+    "Screwdrivers",
+    "Test lamp or multimeter",
+    "Spirit level"
+   ],
+   "materials": [
+    "Bulbs (H4 60/55 W, side lamp 5 W, indicator 21 W)",
+    "Blade fuses of various ratings"
+   ],
+   "safety": [
+    "Do not touch halogen bulb glass with fingers; it shortens bulb life and gets very hot.",
+    "Disconnect the battery when working on wiring."
+   ],
+   "procedure": [
+    "Identify the failed bulb and fuse using the test lamp.",
+    "Replace with the same type and rating.",
+    "Park the car on level ground 5 m (or as specified) from the screen, tyres correctly inflated, driver's weight in seat.",
+    "Mark the headlamp centres on the screen.",
+    "Switch on dipped beam; adjust the screws so the cut-off line is at the specified drop below the centre mark and the kink on the correct side.",
+    "Check main beam and the other lamp."
+   ],
+   "expectedObservations": "Both lamps aimed evenly, dipped beam not dazzling oncoming traffic.",
+   "dataAndCalculations": "Two 55 W dipped headlamps on 12 V draw I = 110/12 = 9.17 A, so a 15 A fuse is chosen. A 1% downward aim at 10 m drops the beam 0.01 × 10 000 = 100 mm.",
+   "precautions": [
+    "Use the correct bulb type.",
+    "Check aim with the vehicle loaded normally."
+   ],
+   "sourcesOfError": [
+    "Uneven floor affecting aim."
+   ],
+   "commonMistakes": [
+    "Fitting a higher-rated fuse to stop it blowing.",
+    "Touching halogen glass."
+   ],
+   "examTips": [
+    "Classify lights: obligatory and non-obligatory.",
+    "Show fuse current calculations."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 21 W indicator bulb on 12 V draws",
+     "options": [
+      "0.57 A",
+      "9 A",
+      "1.75 A",
+      "252 A"
+     ],
+     "answer": 2,
+     "explanation": "21/12 = 1.75 A."
+    },
+    {
+     "q": "A fuse that keeps blowing should be",
+     "options": [
+      "ignored",
+      "investigated for a fault",
+      "replaced with a bigger one",
+      "bridged with wire"
+     ],
+     "answer": 1,
+     "explanation": "It signals an overload or short."
+    },
+    {
+     "q": "Headlamp aiming is done with the car",
+     "options": [
+      "on level ground with correct tyre pressures",
+      "on a slope",
+      "with flat tyres",
+      "with the engine off and doors open"
+     ],
+     "answer": 0,
+     "explanation": "This gives accurate settings."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-joining-and-soldering-auto-cables",
+   "title": "Joining and soldering auto cables",
+   "topic": "Auto wiring system",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To join automotive cables by crimping, soldering and using connectors, following the colour code, and to estimate voltage drop.",
+   "apparatus": [
+    "Wire strippers",
+    "Crimping tool",
+    "Soldering iron",
+    "Heat gun",
+    "Multimeter"
+   ],
+   "materials": [
+    "Auto cables of different gauges and colours",
+    "Crimp terminals and connectors",
+    "Solder",
+    "Heat-shrink sleeving"
+   ],
+   "safety": [
+    "Disconnect the battery before working on vehicle wiring.",
+    "Use the soldering iron stand; avoid burns."
+   ],
+   "procedure": [
+    "Select cable of the correct size for the current.",
+    "Strip insulation to the terminal length without nicking strands.",
+    "Crimp terminals with the correct die; pull-test.",
+    "Make a soldered joint: twist, solder, and insulate with heat-shrink.",
+    "Test continuity and measure resistance of the joint.",
+    "Route and secure cables away from heat and sharp edges."
+   ],
+   "expectedObservations": "Joints pass the pull test; resistance is negligible; insulation is neat and secure.",
+   "dataAndCalculations": "Copper cable 5 m long, 1.0 mm²: R = ρL/A = 1.72 × 10⁻⁸ × 5/1 × 10⁻⁶ = 0.086 Ω. At 10 A, voltage drop = 10 × 0.086 = 0.86 V per conductor — large for a 12 V system, so a thicker cable or relay is used for headlamps.",
+   "precautions": [
+    "Use the correct crimp size.",
+    "Avoid cold solder joints."
+   ],
+   "sourcesOfError": [
+    "Poor crimp increasing resistance."
+   ],
+   "commonMistakes": [
+    "Twisting and taping wires without crimping or soldering.",
+    "Using undersized cable."
+   ],
+   "examTips": [
+    "State reasons for colour coding and wire gauges.",
+    "Distinguish earth-return and insulated-return systems."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Most modern cars use",
+     "options": [
+      "no fuses",
+      "a.c. wiring",
+      "earth-return wiring",
+      "insulated-return only"
+     ],
+     "answer": 2,
+     "explanation": "The body is the return path."
+    },
+    {
+     "q": "A thicker cable has",
+     "options": [
+      "no current",
+      "lower resistance",
+      "higher resistance",
+      "same resistance"
+     ],
+     "answer": 1,
+     "explanation": "R ∝ 1/A."
+    },
+    {
+     "q": "Heat-shrink sleeving is used to",
+     "options": [
+      "insulate and protect joints",
+      "solder wires",
+      "measure current",
+      "clean terminals"
+     ],
+     "answer": 0,
+     "explanation": "It shrinks tightly over joints."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-identifying-electronic-fuel-injection-components",
+   "title": "Identifying electronic fuel injection components",
+   "topic": "Electronic fuel injection",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation"
+   ],
+   "aim": "To identify the components of single-point and multi-point fuel injection systems and state their functions.",
+   "apparatus": [
+    "Vehicle with EFI or training board",
+    "Multimeter",
+    "Diagnostic scan tool (if available)"
+   ],
+   "materials": [
+    "Workshop manual"
+   ],
+   "safety": [
+    "EFI fuel lines are under pressure: relieve pressure before disconnecting.",
+    "Do not probe ECU connectors with sharp objects."
+   ],
+   "procedure": [
+    "Locate the ECU, fuel pump, pressure regulator, fuel rail and injectors.",
+    "Identify sensors: MAP/MAF, throttle position, coolant temperature, oxygen (lambda), crankshaft position.",
+    "Determine whether the system is single-point (throttle body) or multi-point (one injector per cylinder).",
+    "Measure injector resistance and compare with specification.",
+    "Read live data or fault codes with the scan tool if available.",
+    "Record each component and function."
+   ],
+   "expectedObservations": "Multi-point systems have an injector in each inlet port; single-point systems have one injector in the throttle body.",
+   "dataAndCalculations": "Injector resistance specification 12–16 Ω; measured 14.2 Ω → good. An injector open for 3 ms at 3 000 rev/min (one injection every two revolutions) is open for 3/40 = 7.5% of each cycle, since one cycle takes 2/50 s = 40 ms.",
+   "precautions": [
+    "Relieve fuel pressure before disconnecting.",
+    "Do not disconnect sensors with the ignition on."
+   ],
+   "sourcesOfError": [
+    "Meter lead resistance on low values."
+   ],
+   "commonMistakes": [
+    "Confusing MAP and MAF sensors."
+   ],
+   "examTips": [
+    "List merits of EFI: economy, lower emissions, better starting.",
+    "Draw a block diagram: sensors → ECU → injectors."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a multi-point system there is",
+     "options": [
+      "one injector per cylinder",
+      "one injector for all cylinders",
+      "no ECU",
+      "a carburettor"
+     ],
+     "answer": 0,
+     "explanation": "Injectors spray into each inlet port."
+    },
+    {
+     "q": "The lambda sensor measures",
+     "options": [
+      "coolant temperature",
+      "engine speed",
+      "air pressure in tyres",
+      "oxygen in the exhaust"
+     ],
+     "answer": 3,
+     "explanation": "It helps control the mixture."
+    },
+    {
+     "q": "The ECU",
+     "options": [
+      "pumps oil",
+      "cools the engine",
+      "controls injection timing and duration",
+      "stores fuel"
+     ],
+     "answer": 2,
+     "explanation": "It processes sensor signals."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-inspecting-an-auto-air-conditioning-system",
+   "title": "Inspecting an auto air-conditioning system",
+   "topic": "Auto Air-Conditioning",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation",
+    "safety"
+   ],
+   "aim": "To identify the components of a car air-conditioning system and check its basic operation.",
+   "apparatus": [
+    "Vehicle with A/C",
+    "Thermometer",
+    "Manifold gauge set (teacher)",
+    "Inspection lamp"
+   ],
+   "materials": [
+    "Workshop manual"
+   ],
+   "safety": [
+    "Refrigerant can cause frostbite and must not be vented; only trained persons handle it.",
+    "Keep clear of the fan and belts with the engine running."
+   ],
+   "procedure": [
+    "Identify compressor, condenser (in front of the radiator), receiver-drier, expansion valve or orifice tube, evaporator, and pipes.",
+    "Check the compressor clutch engages when A/C is switched on.",
+    "Feel the pipes (carefully): the low side should be cool, the high side warm.",
+    "Measure vent air temperature with the thermometer.",
+    "Check the condenser for blockage and the drive belt condition.",
+    "Record components and findings."
+   ],
+   "expectedObservations": "With A/C on, the clutch engages and vent air drops to about 6–10 °C on a working system.",
+   "dataAndCalculations": "Ambient 32 °C, vent air 8 °C → temperature drop = 32 − 8 = 24 °C, indicating normal cooling.",
+   "precautions": [
+    "Do not disconnect any refrigerant line."
+   ],
+   "sourcesOfError": [
+    "Thermometer placed too far into the vent."
+   ],
+   "commonMistakes": [
+    "Mixing up condenser and radiator."
+   ],
+   "examTips": [
+    "Describe the refrigeration cycle: compression, condensation, expansion, evaporation.",
+    "State the function of the drier."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a car A/C system, heat is released to outside air at the",
+     "options": [
+      "condenser",
+      "evaporator",
+      "drier",
+      "compressor clutch"
+     ],
+     "answer": 0,
+     "explanation": "Refrigerant condenses and gives off heat."
+    },
+    {
+     "q": "The evaporator is located",
+     "options": [
+      "in front of the radiator",
+      "in the boot",
+      "under the engine",
+      "inside the dashboard/cabin unit"
+     ],
+     "answer": 3,
+     "explanation": "It absorbs heat from cabin air."
+    },
+    {
+     "q": "The receiver-drier removes",
+     "options": [
+      "dust from the cabin",
+      "heat from the exhaust",
+      "moisture from the refrigerant",
+      "oil from the engine"
+     ],
+     "answer": 2,
+     "explanation": "Moisture would freeze and corrode."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-amech-identifying-safety-related-vehicle-defects-and-road-signs",
+   "title": "Identifying safety-related vehicle defects and road signs",
+   "topic": "Safe Motoring",
+   "kind": "FIELD",
+   "skills": [
+    "identification",
+    "observation",
+    "safety"
+   ],
+   "aim": "To carry out a pre-trip safety check of a vehicle and interpret common road signs.",
+   "apparatus": [
+    "Tyre tread depth gauge",
+    "Pressure gauge",
+    "Inspection lamp"
+   ],
+   "materials": [
+    "Vehicle",
+    "Highway Code / road sign chart (FRSC)"
+   ],
+   "safety": [
+    "Carry out checks in a safe area away from traffic."
+   ],
+   "procedure": [
+    "Check tyres (pressure, tread depth, cuts), lights, indicators and horn.",
+    "Check brakes (pedal feel, handbrake), steering play and wipers.",
+    "Check seat belts, mirrors and windscreen.",
+    "Check fluids: oil, coolant, brake fluid, washer.",
+    "Identify warning, regulatory and information signs from the chart.",
+    "Record defects that could cause accidents and the action needed."
+   ],
+   "expectedObservations": "Defects such as smooth tyres, faulty brake lights or excessive steering play are identified as accident risks.",
+   "dataAndCalculations": "Tread depth readings 2.4, 1.4, 3.0 and 0.9 mm against a legal minimum of 1.6 mm: two tyres (1.4 mm and 0.9 mm) must be replaced.",
+   "precautions": [
+    "Use a checklist so nothing is missed."
+   ],
+   "sourcesOfError": [
+    "Measuring tread on a wear bar."
+   ],
+   "commonMistakes": [
+    "Ignoring warning lamps."
+   ],
+   "examTips": [
+    "Classify road signs by shape and colour: triangles warn, circles order, rectangles inform.",
+    "List causes of accidents: human, vehicle, road, weather."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A triangular road sign with a red border is a",
+     "options": [
+      "information sign",
+      "direction sign",
+      "warning sign",
+      "regulatory sign"
+     ],
+     "answer": 2,
+     "explanation": "Triangles give warnings."
+    },
+    {
+     "q": "The legal minimum tread depth commonly used is",
+     "options": [
+      "10 mm",
+      "1.6 mm",
+      "0.5 mm",
+      "5 mm"
+     ],
+     "answer": 1,
+     "explanation": "Below this, grip is greatly reduced."
+    },
+    {
+     "q": "A circular sign with a red ring generally",
+     "options": [
+      "prohibits an action",
+      "gives information",
+      "shows directions",
+      "marks a hospital"
+     ],
+     "answer": 0,
+     "explanation": "Circles give orders; red rings prohibit."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

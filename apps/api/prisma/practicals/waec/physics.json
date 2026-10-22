@@ -1,0 +1,3380 @@
+{
+  "exam": "WAEC",
+  "subject": "Physics",
+  "practicalPaper": "Paper 3 is a 2¾-hour practical test (alternative to practical for private candidates) of three questions, of which candidates answer any two, for 50 marks. Questions typically cover mechanics, heat, optics/waves and electricity: candidates take and tabulate readings, plot a graph, determine a slope or intercept, evaluate a physical constant and state precautions, then answer short related theory parts.",
+  "practicals": [
+    {
+      "id": "pr-phy-vernier-micrometer",
+      "title": "Using the vernier calipers and micrometer screw gauge",
+      "topic": "Measurement of distance",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To measure small lengths accurately with a vernier calipers (to 0.01 cm) and a micrometer screw gauge (to 0.01 mm), correct for zero error, and use the readings to find the volume of a small object.",
+      "apparatus": [
+        "Vernier calipers",
+        "Micrometer screw gauge",
+        "Metre rule"
+      ],
+      "materials": [
+        "Glass marble or ball bearing",
+        "Short length of copper wire",
+        "Small wooden cylinder (e.g. a cut broom handle or dowel)",
+        "Cotton cloth for cleaning jaws"
+      ],
+      "safety": [
+        "Close the micrometer with the ratchet only; forcing the thimble damages the screw.",
+        "Do not drop ball bearings on the floor where people walk."
+      ],
+      "procedure": [
+        "Close the jaws of the vernier calipers fully and check whether the vernier zero coincides with the main-scale zero. Record any zero error with its sign.",
+        "Place the wooden cylinder between the outside jaws and close them gently until they just touch. Lock the screw.",
+        "Read the main scale just before the vernier zero (e.g. 2.3 cm), then find the vernier division that lines up exactly with a main-scale line (e.g. the 7th). Add 7 × 0.01 cm to give 2.37 cm.",
+        "Repeat the diameter measurement at three different places and orientations and find the mean.",
+        "For the micrometer, close the spindle onto the anvil with the ratchet and note the zero error (thimble reading when fully closed).",
+        "Place the ball bearing (or wire) between anvil and spindle, turn the ratchet until it clicks, then read the sleeve (whole and half millimetres) and the thimble division in line with the datum line.",
+        "Add sleeve and thimble readings, subtract the zero error, repeat at different orientations and average.",
+        "Use the mean diameter to calculate the volume of the sphere or the cross-sectional area of the wire."
+      ],
+      "expectedObservations": "Only one vernier line coincides exactly with a main-scale line. Repeated micrometer readings of a good ball bearing agree to within 0.01 mm; wire diameters may vary slightly along its length.",
+      "dataAndCalculations": "Vernier: main scale 2.3 cm, 7th vernier division coincides, zero error 0.00 cm → diameter = 2.3 + 0.07 = 2.37 cm. Micrometer: sleeve 5.5 mm, thimble 28 divisions (0.28 mm) → 5.78 mm; zero error +0.02 mm → corrected diameter d = 5.78 − 0.02 = 5.76 mm. Radius r = 2.88 mm = 0.288 cm. Volume of ball bearing V = (4/3)πr³ = (4/3) × 3.142 × 0.288³ = 0.100 cm³ (3 s.f.).",
+      "precautions": [
+        "Corrected for zero error.",
+        "Used the ratchet so the object was not squeezed.",
+        "Took readings at several positions and found the mean.",
+        "Read scales with the eye perpendicular to avoid parallax."
+      ],
+      "sourcesOfError": [
+        "Zero error not corrected.",
+        "Over-tightening compresses soft objects.",
+        "Object not perfectly round or uniform."
+      ],
+      "commonMistakes": [
+        "Adding the zero error instead of subtracting a positive zero error.",
+        "Forgetting the half-millimetre mark on the micrometer sleeve.",
+        "Reporting a vernier reading to the wrong number of decimal places (it should be to 0.01 cm)."
+      ],
+      "examTips": [
+        "Always state readings to the precision of the instrument: vernier to 2 d.p. in cm, micrometer to 2 d.p. in mm.",
+        "Show the sum \"main scale + vernier/thimble\" explicitly; examiners award marks for the method.",
+        "State the zero error and how it was corrected; it is a common precaution mark."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A micrometer reads 3.50 mm on the sleeve and 16 on the thimble. What is the reading?",
+          "options": [
+            "3.16 mm",
+            "3.66 mm",
+            "3.516 mm",
+            "5.16 mm"
+          ],
+          "answer": 1,
+          "explanation": "3.50 + 0.16 = 3.66 mm."
+        },
+        {
+          "q": "A micrometer has a zero error of +0.03 mm. A measured reading is 4.27 mm. The correct value is",
+          "options": [
+            "4.30 mm",
+            "4.27 mm",
+            "4.24 mm",
+            "4.03 mm"
+          ],
+          "answer": 2,
+          "explanation": "Subtract a positive zero error: 4.27 − 0.03 = 4.24 mm."
+        },
+        {
+          "q": "The least count of a standard vernier calipers is",
+          "options": [
+            "0.1 cm",
+            "0.01 cm",
+            "0.001 cm",
+            "0.01 mm"
+          ],
+          "answer": 1,
+          "explanation": "Ten vernier divisions span nine main-scale millimetres, so it reads to 0.1 mm = 0.01 cm."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-simple-pendulum",
+      "title": "Determining g with a simple pendulum",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To investigate how the period T of a simple pendulum depends on its length l and hence determine the acceleration due to gravity g from a graph of T² against l.",
+      "apparatus": [
+        "Retort stand with clamp",
+        "Split cork (or two thin wooden blocks)",
+        "Metre rule",
+        "Stopwatch (or phone stopwatch)",
+        "Pendulum bob (metal ball or nut)"
+      ],
+      "materials": [
+        "Light inextensible thread about 1.2 m long",
+        "Plasticine or masking tape to mark a fiducial point"
+      ],
+      "safety": [
+        "Clamp the retort stand firmly or weight its base so it does not topple.",
+        "Keep a clear space so the swinging bob does not hit anyone."
+      ],
+      "procedure": [
+        "Tie the bob to the thread and clamp the thread between the two halves of a split cork held in the retort stand.",
+        "Adjust the thread so that the length l from the point of suspension to the centre of the bob is 0.30 m (measure to the top of the bob and add its radius).",
+        "Place a fiducial mark (a vertical pin or line) behind the rest position of the bob.",
+        "Displace the bob through a small angle (less than 10°) and release it so it swings in a vertical plane without spinning.",
+        "Start the stopwatch as the bob passes the fiducial mark and time 20 complete oscillations. Repeat and take the mean time t.",
+        "Calculate T = t/20 and T².",
+        "Repeat for l = 0.50, 0.70 and 0.90 m (and further lengths if time allows), recording in a table.",
+        "Plot T² (vertical axis) against l (horizontal axis), draw the best straight line and find its slope s. Then g = 4π²/s."
+      ],
+      "expectedObservations": "The period increases as the length increases. T² against l gives a straight line passing through (or very close to) the origin.",
+      "dataAndCalculations": "Readings for 20 oscillations: l = 0.30, 0.50, 0.70, 0.90 m; t = 22.0, 28.4, 33.6, 38.1 s. So T = 1.100, 1.420, 1.680, 1.905 s and T² = 1.210, 2.016, 2.822, 3.629 s². Slope s = (3.629 − 1.210)/(0.90 − 0.30) = 2.419/0.60 = 4.03 s² m⁻¹. g = 4π²/s = 39.48/4.03 = 9.79 m s⁻² (accepted value about 9.8 m s⁻²).",
+      "precautions": [
+        "Used a small angle of displacement.",
+        "Timed 20 oscillations and repeated the timing.",
+        "Measured the length to the centre of the bob.",
+        "Ensured the bob swung in a vertical plane and that the point of suspension was rigid (split cork).",
+        "Avoided parallax when reading the metre rule."
+      ],
+      "sourcesOfError": [
+        "Reaction time in starting and stopping the stopwatch.",
+        "Large amplitude makes the motion only approximately simple harmonic.",
+        "Draughts (e.g. ceiling fan) disturbing the swing.",
+        "Miscounting oscillations."
+      ],
+      "commonMistakes": [
+        "Counting the first pass as \"1\" instead of \"0\".",
+        "Measuring l only to the top of the bob.",
+        "Plotting T instead of T² against l and still expecting a straight line.",
+        "Taking the slope from table values rather than from the best-fit line."
+      ],
+      "examTips": [
+        "Tabulate l, t, T and T² with units in the column headings (e.g. T²/s²).",
+        "Choose graph scales that make the plot cover at least half of the graph sheet; marks are given for scale, axes, plotting and line.",
+        "Show the large triangle used for the slope on the graph.",
+        "Explain why many oscillations are timed: it reduces the effect of reaction-time error."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If the slope of a T² against l graph is 4.00 s² m⁻¹, g is",
+          "options": [
+            "9.87 m s⁻²",
+            "10.0 m s⁻²",
+            "4.00 m s⁻²",
+            "0.101 m s⁻²"
+          ],
+          "answer": 0,
+          "explanation": "g = 4π²/slope = 39.48/4.00 = 9.87 m s⁻²."
+        },
+        {
+          "q": "Which change has (almost) no effect on the period of a simple pendulum?",
+          "options": [
+            "Increasing the length",
+            "Taking it to the Moon",
+            "Doubling the mass of the bob",
+            "Moving it to a place with larger g"
+          ],
+          "answer": 2,
+          "explanation": "T = 2π√(l/g) does not depend on the mass of the bob."
+        },
+        {
+          "q": "Why is the time for 20 oscillations measured rather than for one?",
+          "options": [
+            "To make the bob swing faster",
+            "To reduce the effect of reaction-time error",
+            "To increase the amplitude",
+            "Because the first oscillation is always wrong"
+          ],
+          "answer": 1,
+          "explanation": "The fixed human reaction error becomes a smaller fraction of a longer measured time."
+        }
+      ],
+      "simulator": "phy-pendulum"
+    },
+    {
+      "id": "pr-phy-hookes-law",
+      "title": "Hooke's law and the spring constant",
+      "topic": "Elastic properties of solids",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To verify Hooke's law for a helical spring and determine its spring constant k from a graph of extension against load.",
+      "apparatus": [
+        "Helical spring",
+        "Retort stand and clamp",
+        "Metre rule clamped vertically",
+        "Pointer (pin or matchstick fixed with plasticine)",
+        "Slotted masses (50 g) with hanger"
+      ],
+      "materials": [
+        "Plasticine",
+        "Masking tape"
+      ],
+      "safety": [
+        "Do not stretch the spring beyond its elastic limit.",
+        "Place a box or tray under the hanger in case masses fall; keep feet clear."
+      ],
+      "procedure": [
+        "Hang the spring from the clamp and fix the vertical metre rule close to it. Attach a pointer to the bottom of the spring.",
+        "Record the pointer reading R₀ with no load (or with the hanger only).",
+        "Add a 50 g mass (load W = 0.50 N, taking g = 10 m s⁻²) and record the new pointer reading R.",
+        "Add masses in 50 g steps up to 250 g, recording R each time; then remove them one at a time and record again to check that the spring returns.",
+        "Calculate the extension e = R − R₀ for each load using the mean of loading and unloading readings.",
+        "Plot e (vertical) against W (horizontal), draw the best straight line and find the slope; k = 1/slope."
+      ],
+      "expectedObservations": "Extension increases in equal steps for equal increases in load; the graph is a straight line through the origin, showing e ∝ W within the elastic limit. Unloading readings agree with loading readings.",
+      "dataAndCalculations": "W/N: 0.50, 1.00, 1.50, 2.00, 2.50; e/cm: 2.0, 4.1, 6.0, 8.1, 10.0. Slope = (10.0 − 2.0) cm/(2.50 − 0.50) N = 4.0 cm N⁻¹ = 0.040 m N⁻¹. Spring constant k = 1/0.040 = 25 N m⁻¹. Check: a 1.50 N load should give e = 1.50/25 = 0.060 m = 6.0 cm, as observed.",
+      "precautions": [
+        "Read the pointer with the eye level with it to avoid parallax.",
+        "Allowed the spring to come to rest before each reading.",
+        "Checked readings on unloading to confirm the elastic limit was not exceeded.",
+        "Ensured the metre rule was vertical."
+      ],
+      "sourcesOfError": [
+        "Parallax in reading the pointer.",
+        "Spring oscillating when reading.",
+        "Masses not exactly their nominal values."
+      ],
+      "commonMistakes": [
+        "Plotting pointer readings instead of extensions.",
+        "Forcing the line through a bad point.",
+        "Forgetting to convert grams to newtons or cm to m before calculating k."
+      ],
+      "examTips": [
+        "State Hooke's law precisely: extension is proportional to the applied force provided the elastic limit is not exceeded.",
+        "Give k with unit N m⁻¹.",
+        "Mention checking on unloading as evidence the elastic limit was not exceeded."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A spring extends 3.0 cm under a load of 1.5 N. Its spring constant is",
+          "options": [
+            "0.50 N m⁻¹",
+            "2.0 N m⁻¹",
+            "45 N m⁻¹",
+            "50 N m⁻¹"
+          ],
+          "answer": 3,
+          "explanation": "k = F/e = 1.5/0.030 = 50 N m⁻¹."
+        },
+        {
+          "q": "On a graph of extension against load, the slope equals",
+          "options": [
+            "k",
+            "1/k",
+            "k²",
+            "the elastic limit"
+          ],
+          "answer": 1,
+          "explanation": "e = W/k, so slope = 1/k."
+        },
+        {
+          "q": "Beyond the elastic limit, a spring",
+          "options": [
+            "obeys Hooke's law more closely",
+            "does not return to its original length",
+            "has zero extension",
+            "becomes perfectly rigid"
+          ],
+          "answer": 1,
+          "explanation": "Permanent deformation occurs beyond the elastic limit."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-loaded-spring-oscillation",
+      "title": "Oscillations of a loaded spring",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To investigate how the period of vertical oscillation of a loaded spring depends on the mass and hence determine the spring constant.",
+      "apparatus": [
+        "Helical spring",
+        "Retort stand and clamp",
+        "Slotted masses and hanger",
+        "Stopwatch",
+        "Fiducial pointer"
+      ],
+      "materials": [
+        "Plasticine",
+        "Thread"
+      ],
+      "safety": [
+        "Use small displacements so masses do not fly off the hanger.",
+        "Keep the stand stable on the bench."
+      ],
+      "procedure": [
+        "Suspend the spring from the clamp and hang a total mass m = 0.10 kg on it.",
+        "Pull the mass down about 1–2 cm and release so it oscillates vertically without swinging sideways.",
+        "Time 10 complete oscillations using a fiducial mark at the rest position; repeat and find the mean time t.",
+        "Calculate T = t/10 and T².",
+        "Repeat for m = 0.20, 0.30 and 0.40 kg.",
+        "Plot T² against m and find the slope s; k = 4π²/s."
+      ],
+      "expectedObservations": "The period increases with mass. T² against m is a straight line (passing near the origin; a small intercept may appear because of the spring's own mass).",
+      "dataAndCalculations": "m/kg: 0.10, 0.20, 0.30, 0.40; t(10 osc.)/s: 3.97, 5.62, 6.88, 7.95; T/s: 0.397, 0.562, 0.688, 0.795; T²/s²: 0.158, 0.316, 0.473, 0.632. Slope s = (0.632 − 0.158)/(0.40 − 0.10) = 1.58 s² kg⁻¹. k = 4π²/s = 39.48/1.58 = 25.0 N m⁻¹.",
+      "precautions": [
+        "Small amplitude, vertical oscillations only.",
+        "Timed many oscillations and repeated.",
+        "Allowed the motion to settle before starting the stopwatch."
+      ],
+      "sourcesOfError": [
+        "Reaction time.",
+        "Sideways swinging of the mass.",
+        "Mass of the spring itself not included."
+      ],
+      "commonMistakes": [
+        "Using T instead of T² for the linear graph.",
+        "Mixing grams and kilograms on the axis.",
+        "Counting half oscillations."
+      ],
+      "examTips": [
+        "Quote T = 2π√(m/k) and rearrange to T² = (4π²/k)m before using the slope.",
+        "Label the axes with quantities and units, e.g. T²/s² and m/kg."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If the mass on a spring is made four times larger, the period becomes",
+          "options": [
+            "four times larger",
+            "twice as large",
+            "half as large",
+            "unchanged"
+          ],
+          "answer": 1,
+          "explanation": "T ∝ √m, so √4 = 2."
+        },
+        {
+          "q": "Slope of T² against m is 1.60 s² kg⁻¹. k is about",
+          "options": [
+            "0.04 N m⁻¹",
+            "6.3 N m⁻¹",
+            "24.7 N m⁻¹",
+            "63 N m⁻¹"
+          ],
+          "answer": 2,
+          "explanation": "k = 4π²/1.60 = 24.7 N m⁻¹."
+        },
+        {
+          "q": "Why might the T² against m line not pass exactly through the origin?",
+          "options": [
+            "g varies",
+            "The spring has mass of its own",
+            "The stopwatch is digital",
+            "The masses are slotted"
+          ],
+          "answer": 1,
+          "explanation": "Part of the spring's mass also oscillates, adding to the effective mass."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-principle-of-moments",
+      "title": "Principle of moments with a metre rule",
+      "topic": "Principle of moments",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To verify the principle of moments and use it to determine an unknown mass.",
+      "apparatus": [
+        "Metre rule",
+        "Knife edge (or triangular wooden prism)",
+        "Known mass (50 g)",
+        "Unknown mass (labelled M)",
+        "Thread"
+      ],
+      "materials": [
+        "Thread loops for hanging masses"
+      ],
+      "safety": [
+        "Keep masses low over the bench so they do not fall far."
+      ],
+      "procedure": [
+        "Balance the metre rule alone on the knife edge and record the balance point G (its centre of gravity, about 50.0 cm).",
+        "Keep the pivot at G. Hang the 50 g mass at a distance d₁ from the pivot on one side, e.g. at the 30.0 cm mark (d₁ = 20.0 cm).",
+        "Hang the unknown mass M on the other side and slide it until the rule balances horizontally. Record its distance d₂ from the pivot.",
+        "Repeat for at least five different values of d₁.",
+        "Plot d₁ against d₂; the slope equals M/m, so M = m × slope. Also calculate M from each pair and average."
+      ],
+      "expectedObservations": "For balance, the larger mass is always nearer the pivot. Clockwise moment equals anticlockwise moment; d₁ against d₂ is a straight line through the origin.",
+      "dataAndCalculations": "m = 50 g at d₁ = 20.0 cm balances M at d₂ = 25.0 cm. Anticlockwise moment = clockwise moment: 50 × 20.0 = M × 25.0 → M = 1000/25.0 = 40 g. With a graph: d₁/cm = 8.0, 12.0, 16.0, 20.0, 24.0 and d₂/cm = 10.0, 15.0, 20.0, 25.0, 30.0 → slope d₁/d₂ = 0.80 = M/m, so M = 0.80 × 50 = 40 g.",
+      "precautions": [
+        "Ensured the rule was horizontal (balanced) before each reading.",
+        "Thread loops kept thin and vertical so distances are measured to a definite line.",
+        "Avoided draughts.",
+        "Read positions with eye perpendicular to the scale."
+      ],
+      "sourcesOfError": [
+        "Friction at the knife edge allowing a range of balance positions.",
+        "Thickness of thread loops making distances uncertain.",
+        "Rule not uniform."
+      ],
+      "commonMistakes": [
+        "Measuring distances from the zero end of the rule instead of from the pivot.",
+        "Ignoring the weight of the rule when the pivot is not at its centre of gravity."
+      ],
+      "examTips": [
+        "State the principle: for a body in equilibrium, the sum of clockwise moments about any point equals the sum of anticlockwise moments about the same point.",
+        "Show the moment equation with values before solving."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A 60 g mass is 20 cm from the pivot. What mass at 30 cm on the other side balances it?",
+          "options": [
+            "40 g",
+            "90 g",
+            "20 g",
+            "60 g"
+          ],
+          "answer": 0,
+          "explanation": "60 × 20 = M × 30 → M = 40 g."
+        },
+        {
+          "q": "The moment of a force is",
+          "options": [
+            "force ÷ distance",
+            "force × perpendicular distance from the pivot",
+            "mass × acceleration",
+            "force × time"
+          ],
+          "answer": 1,
+          "explanation": "Moment = F × perpendicular distance."
+        },
+        {
+          "q": "If d₁ against d₂ has slope 0.5 and m = 100 g, M is",
+          "options": [
+            "200 g",
+            "50 g",
+            "150 g",
+            "100 g"
+          ],
+          "answer": 1,
+          "explanation": "M = m × slope = 50 g."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-mass-of-metre-rule",
+      "title": "Centre of gravity and mass of a metre rule",
+      "topic": "Centre of gravity and stability",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To locate the centre of gravity of a metre rule and determine its mass using moments.",
+      "apparatus": [
+        "Metre rule",
+        "Knife edge",
+        "100 g mass",
+        "Thread"
+      ],
+      "materials": [
+        "Thread loop"
+      ],
+      "safety": [
+        "Keep the hanging mass close to the bench."
+      ],
+      "procedure": [
+        "Balance the rule alone on the knife edge and record the balance point G (centre of gravity).",
+        "Hang the 100 g mass at a fixed mark near one end (e.g. the 5.0 cm mark).",
+        "Move the rule over the knife edge until it balances horizontally and record the new pivot position P.",
+        "Repeat with the mass at two other marks (e.g. 10.0 cm and 15.0 cm).",
+        "Take moments about P: weight of mass × its distance from P = weight of rule × distance PG. Calculate the mass of the rule each time and average."
+      ],
+      "expectedObservations": "The rule balances alone near the 50 cm mark. With the mass attached, the balance point shifts towards the mass.",
+      "dataAndCalculations": "G = 50.0 cm. 100 g at 5.0 cm; balance at P = 28.0 cm. Distance of mass from P = 23.0 cm; distance PG = 22.0 cm. 100 × 23.0 = M × 22.0 → M = 2300/22.0 = 104.5 g ≈ 105 g.",
+      "precautions": [
+        "Rule balanced horizontally each time.",
+        "Avoided parallax when reading positions.",
+        "Repeated with different positions and averaged."
+      ],
+      "sourcesOfError": [
+        "Friction at the knife edge.",
+        "Non-uniform rule."
+      ],
+      "commonMistakes": [
+        "Assuming the centre of gravity is exactly at 50.0 cm without checking.",
+        "Using the distance from the zero end instead of from the pivot."
+      ],
+      "examTips": [
+        "Draw a labelled force diagram showing the pivot, the weight of the rule acting at G and the hanging mass.",
+        "Note that the weight of the rule acts at its centre of gravity; this idea earns a mark."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A uniform rule balances at 30.0 cm when 50 g hangs at 10.0 cm. Its mass is",
+          "options": [
+            "50 g",
+            "25 g",
+            "100 g",
+            "20 g"
+          ],
+          "answer": 0,
+          "explanation": "50 × 20 = M × 20 → M = 50 g."
+        },
+        {
+          "q": "The centre of gravity of a body is the point",
+          "options": [
+            "where its mass is greatest",
+            "through which its whole weight appears to act",
+            "at its geometrical edge",
+            "where friction acts"
+          ],
+          "answer": 1,
+          "explanation": "Definition of centre of gravity."
+        },
+        {
+          "q": "A body is most stable when it has",
+          "options": [
+            "a high centre of gravity and narrow base",
+            "a low centre of gravity and wide base",
+            "a high centre of gravity and wide base",
+            "no base"
+          ],
+          "answer": 1,
+          "explanation": "A low C.G. and wide base keep the line of action of the weight inside the base."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-archimedes-relative-density",
+      "title": "Archimedes' principle: relative density of a solid and a liquid",
+      "topic": "Archimedes' principle",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To verify Archimedes' principle and determine the relative density of a stone and of a liquid (salt solution) from apparent losses in weight.",
+      "apparatus": [
+        "Spring balance (0–10 N)",
+        "Eureka (displacement) can",
+        "Beaker",
+        "Measuring cylinder",
+        "Retort stand"
+      ],
+      "materials": [
+        "Stone or metal sinker tied with thread",
+        "Water",
+        "Concentrated salt (NaCl) solution",
+        "Tissue paper"
+      ],
+      "safety": [
+        "Wipe spills at once; wet floors are slippery."
+      ],
+      "procedure": [
+        "Hang the stone from the spring balance and record its weight in air W₁.",
+        "Fill the eureka can with water to the spout. Lower the stone fully into the water (not touching the sides or bottom) and collect the displaced water in a weighed beaker.",
+        "Record the apparent weight in water W₂. The upthrust is W₁ − W₂.",
+        "Weigh the displaced water and compare with W₁ − W₂ (verifies Archimedes' principle).",
+        "Dry the stone and repeat in salt solution to get the apparent weight W₃.",
+        "Relative density of stone = W₁/(W₁ − W₂); relative density of liquid = (W₁ − W₃)/(W₁ − W₂)."
+      ],
+      "expectedObservations": "The stone appears lighter in water and even lighter in salt solution. The weight of water displaced equals the loss in weight of the stone.",
+      "dataAndCalculations": "W₁ = 2.60 N, W₂ = 1.60 N, W₃ = 1.50 N. Upthrust in water = 1.00 N; weight of displaced water ≈ 1.00 N. RD of stone = 2.60/1.00 = 2.60. Upthrust in salt solution = 1.10 N, so RD of solution = 1.10/1.00 = 1.10 (density 1.10 × 10³ kg m⁻³).",
+      "precautions": [
+        "Stone fully immersed and not touching the container.",
+        "Eureka can filled to the spout and allowed to stop dripping before use.",
+        "Stone dried before immersion in the second liquid.",
+        "Balance read at eye level."
+      ],
+      "sourcesOfError": [
+        "Water clinging to the stone or beaker.",
+        "Air bubbles on the stone reducing apparent weight.",
+        "Zero error of spring balance."
+      ],
+      "commonMistakes": [
+        "Dividing by W₂ instead of by the loss in weight.",
+        "Allowing the stone to rest on the bottom of the can."
+      ],
+      "examTips": [
+        "State Archimedes' principle fully: a body wholly or partially immersed in a fluid experiences an upthrust equal to the weight of fluid displaced.",
+        "Relative density has no unit — do not add one."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A body weighs 5.0 N in air and 3.0 N in water. Its relative density is",
+          "options": [
+            "1.67",
+            "2.5",
+            "0.6",
+            "2.0"
+          ],
+          "answer": 1,
+          "explanation": "5.0/(5.0 − 3.0) = 2.5."
+        },
+        {
+          "q": "The same body weighs 3.4 N in oil. The relative density of the oil is",
+          "options": [
+            "0.80",
+            "1.25",
+            "0.68",
+            "1.6"
+          ],
+          "answer": 0,
+          "explanation": "Loss in oil 1.6 N ÷ loss in water 2.0 N = 0.80."
+        },
+        {
+          "q": "Upthrust on a fully immersed body depends on",
+          "options": [
+            "the mass of the body",
+            "the volume of the body and density of the fluid",
+            "the shape only",
+            "the depth only"
+          ],
+          "answer": 1,
+          "explanation": "Upthrust = Vρg of fluid displaced."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-flotation-test-tube",
+      "title": "Law of flotation with a loaded test tube",
+      "topic": "Law of flotation",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To show that a floating body displaces its own weight of fluid and to determine the density of water (or another liquid) from the depth of immersion of a loaded test tube.",
+      "apparatus": [
+        "Flat-bottomed test tube (or glass tube sealed at one end)",
+        "Tall measuring cylinder or jar",
+        "Vernier calipers",
+        "Ruler (paper scale inside the tube)",
+        "Beam or electronic balance"
+      ],
+      "materials": [
+        "Lead shot or small metal washers",
+        "Water",
+        "Paper scale strip"
+      ],
+      "safety": [
+        "Handle lead shot with care and wash hands afterwards.",
+        "Do not overload the tube so that it sinks and breaks."
+      ],
+      "procedure": [
+        "Measure the external diameter of the tube and calculate its cross-sectional area A; weigh the empty tube with its paper scale.",
+        "Add 10 g of lead shot, float the tube upright in water and read the depth h at which it floats.",
+        "Increase the load in 10 g steps and record h each time.",
+        "Plot h against the added mass m and find the slope and intercept.",
+        "Use mass floating = ρAh: slope = 1/(ρA) so ρ = 1/(A × slope); the intercept gives the mass of the tube."
+      ],
+      "expectedObservations": "The tube sinks deeper as load increases; h increases linearly with m. The weight of water displaced equals the total weight of the tube and load.",
+      "dataAndCalculations": "A = 4.0 cm². m/g: 10, 20, 30, 40; h/cm: 7.6, 10.0, 12.4, 15.1. Slope ≈ (15.1 − 7.6)/(40 − 10) = 0.25 cm g⁻¹. ρ = 1/(4.0 × 0.25) = 1.0 g cm⁻³ (1000 kg m⁻³). Intercept on h axis ≈ 5.0 cm, so tube mass = ρAh = 1.0 × 4.0 × 5.0 = 20 g (agrees with weighing).",
+      "precautions": [
+        "Tube floated upright without touching the sides.",
+        "Read the depth with eye level with the water surface (bottom of meniscus).",
+        "Load distributed evenly at the bottom of the tube."
+      ],
+      "sourcesOfError": [
+        "Meniscus around the tube making h uncertain.",
+        "Tube base not flat, so the immersed volume is not exactly Ah."
+      ],
+      "commonMistakes": [
+        "Using internal instead of external diameter for A.",
+        "Forgetting to include the mass of the tube."
+      ],
+      "examTips": [
+        "State the law of flotation: a floating body displaces its own weight of the fluid in which it floats.",
+        "Explain the hydrometer as a direct application — a frequent theory follow-up."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A floating body of mass 50 g displaces",
+          "options": [
+            "less than 50 g of water",
+            "exactly 50 g of the liquid",
+            "50 cm³ of any liquid",
+            "more than 50 g of liquid"
+          ],
+          "answer": 1,
+          "explanation": "Law of flotation."
+        },
+        {
+          "q": "The same loaded tube is moved from water to kerosene. It will",
+          "options": [
+            "float higher",
+            "sink deeper",
+            "float at the same level",
+            "sink completely in all cases"
+          ],
+          "answer": 1,
+          "explanation": "Kerosene is less dense, so a larger volume must be displaced."
+        },
+        {
+          "q": "A hydrometer measures",
+          "options": [
+            "pressure",
+            "relative density of liquids",
+            "temperature",
+            "humidity"
+          ],
+          "answer": 1,
+          "explanation": "It floats deeper in less dense liquids."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-density-bottle",
+      "title": "Relative density of a liquid with a density bottle",
+      "topic": "Volume, density and relative density",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To determine the relative density of kerosene (or palm oil) using a density (specific gravity) bottle.",
+      "apparatus": [
+        "Density bottle (50 cm³) with stopper",
+        "Electronic or beam balance",
+        "Beaker",
+        "Dropper"
+      ],
+      "materials": [
+        "Distilled water",
+        "Kerosene or palm oil",
+        "Tissue paper"
+      ],
+      "safety": [
+        "Kerosene is flammable — no naked flames nearby.",
+        "Dispose of kerosene into the residue bottle, not the sink."
+      ],
+      "procedure": [
+        "Weigh the clean, dry, empty density bottle with its stopper: m₁.",
+        "Fill it completely with water, insert the stopper so excess escapes through the capillary, wipe dry and weigh: m₂.",
+        "Empty, dry thoroughly (rinse with a little of the liquid), fill with kerosene, stopper, wipe and weigh: m₃.",
+        "RD = mass of liquid / mass of equal volume of water = (m₃ − m₁)/(m₂ − m₁)."
+      ],
+      "expectedObservations": "The bottle full of kerosene is lighter than when full of water; kerosene has RD less than 1.",
+      "dataAndCalculations": "m₁ = 25.20 g, m₂ = 75.20 g, m₃ = 65.20 g. Mass of water = 50.00 g; mass of kerosene = 40.00 g. RD = 40.00/50.00 = 0.800; density = 0.800 × 1000 = 800 kg m⁻³.",
+      "precautions": [
+        "Bottle completely dry before each filling.",
+        "Outside wiped dry before weighing.",
+        "No air bubbles trapped inside.",
+        "Same temperature for both liquids."
+      ],
+      "sourcesOfError": [
+        "Liquid on the outside of the bottle.",
+        "Temperature changes altering volume.",
+        "Air bubbles."
+      ],
+      "commonMistakes": [
+        "Forgetting to subtract the mass of the empty bottle.",
+        "Giving relative density a unit."
+      ],
+      "examTips": [
+        "Write the formula in words before substituting.",
+        "Relate RD to density: density = RD × density of water (1000 kg m⁻³)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Empty bottle 20.0 g, full of water 70.0 g, full of liquid 80.0 g. RD of liquid is",
+          "options": [
+            "1.14",
+            "1.20",
+            "0.83",
+            "1.60"
+          ],
+          "answer": 1,
+          "explanation": "(80 − 20)/(70 − 20) = 60/50 = 1.20."
+        },
+        {
+          "q": "Why does a density bottle have a capillary hole in its stopper?",
+          "options": [
+            "To let air in when weighing",
+            "So that it always holds exactly the same volume",
+            "To cool the liquid",
+            "To prevent evaporation"
+          ],
+          "answer": 1,
+          "explanation": "Excess liquid escapes so the volume is fixed."
+        },
+        {
+          "q": "The SI unit of density is",
+          "options": [
+            "g",
+            "kg m⁻³",
+            "N m⁻²",
+            "no unit"
+          ],
+          "answer": 1,
+          "explanation": "Density = mass/volume."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-coefficient-of-friction",
+      "title": "Coefficient of static friction",
+      "topic": "Solid friction",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To determine the coefficient of static friction between a wooden block and a plane, using (a) a horizontal pull and (b) the angle of an inclined plane.",
+      "apparatus": [
+        "Wooden block with hook",
+        "Spring balance (0–10 N)",
+        "Smooth wooden plank",
+        "Protractor",
+        "Slotted masses"
+      ],
+      "materials": [
+        "Thread",
+        "Sandpaper (optional, to compare surfaces)"
+      ],
+      "safety": [
+        "Keep fingers clear when the block slips suddenly.",
+        "Support the raised plank firmly."
+      ],
+      "procedure": [
+        "Weigh the block with the spring balance to get its normal reaction R (on a horizontal plane R = weight).",
+        "Place the block on the horizontal plank and pull horizontally with the spring balance, increasing the pull slowly. Record the force F just as the block starts to move (limiting friction).",
+        "Add masses on top of the block in steps and repeat, recording R and F each time.",
+        "Plot F against R; the slope gives μ.",
+        "Remove the masses, place the block on the plank and slowly raise one end until the block just begins to slide. Measure the angle θ; μ = tan θ."
+      ],
+      "expectedObservations": "Limiting friction increases in proportion to the normal reaction. The block starts to slide at a fixed angle that does not depend on the load.",
+      "dataAndCalculations": "R/N: 6.0, 8.0, 10.0, 12.0; F/N: 2.4, 3.2, 4.0, 4.9. Slope ≈ (4.9 − 2.4)/(12.0 − 6.0) = 0.42 (from the best line ≈ 0.40). Inclined plane: block slips at θ = 22°, so μ = tan 22° = 0.404. Both methods give μ ≈ 0.40.",
+      "precautions": [
+        "Pulled horizontally and gradually.",
+        "Plank surface clean and dry.",
+        "Repeated each reading and averaged.",
+        "Raised the plank slowly."
+      ],
+      "sourcesOfError": [
+        "Jerky pulling gives readings above the true limiting value.",
+        "Uneven surface.",
+        "Spring balance zero error."
+      ],
+      "commonMistakes": [
+        "Reading the spring balance after the block is already sliding (that is kinetic friction).",
+        "Using sin θ instead of tan θ."
+      ],
+      "examTips": [
+        "Define limiting friction and coefficient of static friction μ = F/R.",
+        "State two laws of solid friction; they appear frequently in Section B."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A block of weight 20 N needs 8 N to start moving on a level surface. μ is",
+          "options": [
+            "0.25",
+            "0.40",
+            "2.5",
+            "160"
+          ],
+          "answer": 1,
+          "explanation": "μ = 8/20 = 0.40."
+        },
+        {
+          "q": "A block just slips at 30° on an incline. μ is",
+          "options": [
+            "0.50",
+            "0.58",
+            "0.87",
+            "1.73"
+          ],
+          "answer": 1,
+          "explanation": "tan 30° = 0.577."
+        },
+        {
+          "q": "Friction is useful in",
+          "options": [
+            "wearing car tyres",
+            "walking without slipping",
+            "heating engine parts",
+            "reducing efficiency"
+          ],
+          "answer": 1,
+          "explanation": "Grip between feet and ground depends on friction."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-viscosity-terminal-velocity",
+      "title": "Terminal velocity of a ball bearing in a viscous liquid",
+      "topic": "Viscosity (friction in fluids)",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To observe terminal velocity of a steel ball falling through glycerine (or thick palm oil) and to compare the viscosity of liquids.",
+      "apparatus": [
+        "Tall measuring cylinder (500 cm³ or 1000 cm³)",
+        "Stopwatch",
+        "Micrometer screw gauge",
+        "Metre rule",
+        "Two rubber bands as markers",
+        "Magnet to recover balls"
+      ],
+      "materials": [
+        "Glycerine",
+        "Palm oil or engine oil",
+        "Water",
+        "Steel ball bearings of different sizes"
+      ],
+      "safety": [
+        "Wipe up spilt glycerine or oil immediately — it is very slippery."
+      ],
+      "procedure": [
+        "Fill the cylinder with glycerine. Place one rubber band about 8 cm below the surface (to allow the ball to reach terminal velocity) and a second one 20.0 cm below the first.",
+        "Measure the diameter of a ball bearing with the micrometer.",
+        "Release the ball gently at the centre of the surface and time its fall between the two bands.",
+        "Repeat with the same ball size and average; then repeat with other sizes and with a different liquid.",
+        "Calculate the terminal velocity v = distance/time."
+      ],
+      "expectedObservations": "The ball accelerates briefly, then falls at a steady (terminal) speed between the markers. Larger balls reach a higher terminal velocity; balls fall much faster in water than in glycerine.",
+      "dataAndCalculations": "Distance between markers = 20.0 cm = 0.200 m; time = 20.0 s → v = 0.200/20.0 = 0.010 m s⁻¹. Extension (Stokes' law): η = 2r²(ρs − ρl)g/(9v) with r = 1.0 × 10⁻³ m, ρs = 7800 kg m⁻³, ρl = 1260 kg m⁻³, g = 9.81 m s⁻²: η = 2 × (1.0 × 10⁻³)² × 6540 × 9.81/(9 × 0.010) = 1.43 Pa s.",
+      "precautions": [
+        "Upper marker placed well below the surface so the ball had reached terminal velocity.",
+        "Ball dropped along the axis of the cylinder, away from the walls.",
+        "Eye level with each marker when timing.",
+        "Temperature of the liquid kept constant."
+      ],
+      "sourcesOfError": [
+        "Reaction time with a short fall.",
+        "Wall effect slowing the ball.",
+        "Viscosity changes with temperature."
+      ],
+      "commonMistakes": [
+        "Timing from the surface, where the ball is still accelerating.",
+        "Using diameter instead of radius in Stokes' law."
+      ],
+      "examTips": [
+        "Name the three forces on the falling ball (weight, upthrust, viscous drag) and state that at terminal velocity they balance.",
+        "Sketch the velocity–time graph rising to a constant value."
+      ],
+      "checkQuestions": [
+        {
+          "q": "At terminal velocity, the resultant force on the ball is",
+          "options": [
+            "equal to its weight",
+            "zero",
+            "equal to the upthrust",
+            "increasing"
+          ],
+          "answer": 1,
+          "explanation": "Weight = upthrust + drag, so acceleration is zero."
+        },
+        {
+          "q": "Viscosity of most liquids, when heated,",
+          "options": [
+            "increases",
+            "decreases",
+            "stays the same",
+            "becomes zero"
+          ],
+          "answer": 1,
+          "explanation": "Warm oil flows more easily."
+        },
+        {
+          "q": "Why is the first marker placed some distance below the surface?",
+          "options": [
+            "To reduce evaporation",
+            "To allow the ball to reach terminal velocity",
+            "To avoid the meniscus",
+            "To make the ball faster"
+          ],
+          "answer": 1,
+          "explanation": "The ball accelerates at first."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-inclined-plane-acceleration",
+      "title": "Uniform acceleration of a ball rolling down an incline",
+      "topic": "Uniform and non-uniform acceleration",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To show that a ball rolling from rest down a uniform incline has constant acceleration, by plotting distance s against t², and to determine the acceleration.",
+      "apparatus": [
+        "Grooved wooden plank or curtain rail (about 2 m)",
+        "Wooden blocks to raise one end",
+        "Metre rule",
+        "Stopwatch",
+        "Stopping block"
+      ],
+      "materials": [
+        "Steel ball or marble",
+        "Chalk or masking tape for marks"
+      ],
+      "safety": [
+        "Catch the ball at the bottom so it does not roll off the bench."
+      ],
+      "procedure": [
+        "Raise one end of the plank slightly (a small, fixed angle) and mark distances s = 0.40, 0.80, 1.20 and 1.60 m from a start line.",
+        "Place the stopping block at the first mark. Release the ball from rest at the start line and time it until it hits the block.",
+        "Repeat three times and average.",
+        "Repeat for the other distances.",
+        "Plot s against t²; the slope equals ½a, so a = 2 × slope."
+      ],
+      "expectedObservations": "Time increases with distance but not proportionally; s against t² is a straight line through the origin, showing uniform acceleration.",
+      "dataAndCalculations": "s/m: 0.40, 0.80, 1.20, 1.60; mean t/s: 1.26, 1.79, 2.19, 2.53; t²/s²: 1.59, 3.20, 4.80, 6.40. Slope = (1.60 − 0.40)/(6.40 − 1.59) = 0.249 m s⁻² ≈ 0.25. a = 2 × 0.25 = 0.50 m s⁻². Check: s = ½at² = ½ × 0.50 × 2.53² = 1.60 m.",
+      "precautions": [
+        "Ball released from rest without pushing.",
+        "Angle of incline kept constant.",
+        "Each time repeated and averaged."
+      ],
+      "sourcesOfError": [
+        "Reaction time.",
+        "Ball not rolling in a straight line.",
+        "Friction and uneven groove."
+      ],
+      "commonMistakes": [
+        "Plotting s against t (a curve) and calling it linear.",
+        "Forgetting the ½ when getting a from the slope."
+      ],
+      "examTips": [
+        "Quote s = ut + ½at² with u = 0.",
+        "In ticker-tape questions, remember each dot interval is 1/50 s for a 50 Hz timer."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A body starts from rest and travels 9.0 m in 3.0 s with uniform acceleration. a is",
+          "options": [
+            "1.0 m s⁻²",
+            "2.0 m s⁻²",
+            "3.0 m s⁻²",
+            "6.0 m s⁻²"
+          ],
+          "answer": 1,
+          "explanation": "a = 2s/t² = 18/9 = 2.0 m s⁻²."
+        },
+        {
+          "q": "The slope of a velocity–time graph gives",
+          "options": [
+            "displacement",
+            "acceleration",
+            "speed",
+            "force"
+          ],
+          "answer": 1,
+          "explanation": "a = Δv/Δt."
+        },
+        {
+          "q": "The area under a velocity–time graph gives",
+          "options": [
+            "acceleration",
+            "distance travelled",
+            "momentum",
+            "power"
+          ],
+          "answer": 1,
+          "explanation": "Area = displacement."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-parallelogram-of-forces",
+      "title": "Resultant of two forces (parallelogram of forces)",
+      "topic": "Addition of vectors",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "drawing",
+        "calculation"
+      ],
+      "aim": "To verify the parallelogram law of vector addition using three forces in equilibrium.",
+      "apparatus": [
+        "Drawing board fixed vertically",
+        "Two pulleys clamped to the board",
+        "Slotted masses with hangers (or three spring balances on a horizontal table)",
+        "Protractor",
+        "Ruler"
+      ],
+      "materials": [
+        "Thread",
+        "Drawing paper",
+        "Drawing pins",
+        "Sharp pencil"
+      ],
+      "safety": [
+        "Ensure the board is secure; masses may fall if threads snap."
+      ],
+      "procedure": [
+        "Tie three threads to a small ring. Pass two over the pulleys and hang loads P and Q; hang a load W from the third thread.",
+        "Allow the system to settle at rest (the knot in equilibrium) and mark the lines of the three threads on the paper with pencil dots.",
+        "Remove the paper and draw the lines of action from the junction point.",
+        "Using a scale (e.g. 1 cm = 0.5 N), mark lengths for P and Q along their lines and complete the parallelogram.",
+        "Measure the diagonal (resultant R) and compare it in size and direction with the third force W, which should be equal and opposite."
+      ],
+      "expectedObservations": "The diagonal of the parallelogram is vertical and its length represents a force equal to W (within experimental error).",
+      "dataAndCalculations": "P = 3.0 N and Q = 4.0 N at 90° to each other. By calculation R = √(3.0² + 4.0²) = 5.0 N at tan⁻¹(3/4) = 36.9° to the 4.0 N force. Measured equilibrant W = 4.9 N, so the percentage difference = (5.0 − 4.9)/5.0 × 100 = 2%.",
+      "precautions": [
+        "Pulleys free from friction.",
+        "Thread lines marked with well-separated dots.",
+        "A suitable large scale used for the drawing.",
+        "Knot allowed to settle without touching the board."
+      ],
+      "sourcesOfError": [
+        "Friction in the pulleys.",
+        "Inaccurate marking of thread directions.",
+        "Thickness of pencil lines."
+      ],
+      "commonMistakes": [
+        "Drawing the forces to different scales.",
+        "Measuring angles from the wrong line.",
+        "Forgetting that the equilibrant is opposite to the resultant."
+      ],
+      "examTips": [
+        "State the parallelogram law: if two vectors are represented by two adjacent sides of a parallelogram, their resultant is represented by the diagonal drawn from their common point.",
+        "Always state your scale on the diagram."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Two forces 6 N and 8 N act at right angles. Their resultant is",
+          "options": [
+            "2 N",
+            "10 N",
+            "14 N",
+            "48 N"
+          ],
+          "answer": 1,
+          "explanation": "√(36 + 64) = 10 N."
+        },
+        {
+          "q": "The equilibrant of a set of forces is",
+          "options": [
+            "equal to the largest force",
+            "equal and opposite to the resultant",
+            "always zero",
+            "perpendicular to the resultant"
+          ],
+          "answer": 1,
+          "explanation": "It balances the resultant."
+        },
+        {
+          "q": "Two forces 5 N and 5 N act in opposite directions. The resultant is",
+          "options": [
+            "10 N",
+            "5 N",
+            "0 N",
+            "25 N"
+          ],
+          "answer": 2,
+          "explanation": "They cancel."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-specific-heat-mixtures",
+      "title": "Specific heat capacity of a metal by the method of mixtures",
+      "topic": "Measurement of heat energy",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety",
+        "procedure"
+      ],
+      "aim": "To determine the specific heat capacity of a metal block by the method of mixtures.",
+      "apparatus": [
+        "Copper calorimeter with stirrer and lagging (or polystyrene cup)",
+        "Thermometer (0–110 °C)",
+        "Beaker, tripod, wire gauze and Bunsen burner (or electric kettle)",
+        "Balance",
+        "Thread"
+      ],
+      "materials": [
+        "Metal block (e.g. iron or aluminium) with thread",
+        "Water",
+        "Cotton wool for lagging"
+      ],
+      "safety": [
+        "Handle boiling water and the hot block with tongs; boiling water scalds.",
+        "Keep the burner away from the thread and paper."
+      ],
+      "procedure": [
+        "Weigh the empty calorimeter with stirrer (m_c), then with water about two-thirds full (to get the mass of water m_w).",
+        "Weigh the metal block (m) and suspend it in boiling water for several minutes so it reaches 100 °C (θ₁).",
+        "Record the initial temperature of the water in the calorimeter (θ₂).",
+        "Transfer the hot block quickly into the calorimeter water without splashing, cover, stir and record the highest steady temperature θ₃.",
+        "Heat lost by block = heat gained by water + calorimeter; solve for the specific heat capacity c of the metal."
+      ],
+      "expectedObservations": "The water temperature rises and settles at a final value between the initial water temperature and 100 °C.",
+      "dataAndCalculations": "Block m = 0.200 kg at 100.0 °C; water 0.100 kg at 28.0 °C; copper calorimeter 0.050 kg (c = 400 J kg⁻¹ K⁻¹); final temperature 40.0 °C. Heat gained = 0.100 × 4200 × 12.0 + 0.050 × 400 × 12.0 = 5040 + 240 = 5280 J. Heat lost = 0.200 × c × 60.0 = 12.0c. So c = 5280/12.0 = 440 J kg⁻¹ K⁻¹ (close to iron, 450 J kg⁻¹ K⁻¹).",
+      "precautions": [
+        "Transferred the block quickly to reduce heat loss.",
+        "Lagged and covered the calorimeter.",
+        "Stirred before reading the final temperature.",
+        "Avoided splashing water out of the calorimeter.",
+        "Read the thermometer with the eye level with the mercury meniscus."
+      ],
+      "sourcesOfError": [
+        "Heat lost to the surroundings during transfer.",
+        "Boiling water carried over on the block.",
+        "Thermometer not reading the true maximum."
+      ],
+      "commonMistakes": [
+        "Leaving out the heat gained by the calorimeter.",
+        "Using the wrong temperature changes for the block and water.",
+        "Mixing grams with J kg⁻¹ K⁻¹."
+      ],
+      "examTips": [
+        "Write the heat-balance equation in words first, then substitute.",
+        "Give the unit J kg⁻¹ K⁻¹ (or J kg⁻¹ °C⁻¹).",
+        "A good precaution answer is specific: \"the calorimeter was lagged with cotton wool\", not \"heat loss was prevented\"."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Heat needed to raise 2.0 kg of water by 5.0 K (c = 4200 J kg⁻¹ K⁻¹) is",
+          "options": [
+            "42 000 J",
+            "8400 J",
+            "2100 J",
+            "420 J"
+          ],
+          "answer": 0,
+          "explanation": "2.0 × 4200 × 5.0 = 42 000 J."
+        },
+        {
+          "q": "Heat lost to the surroundings in this experiment makes the calculated c of the metal",
+          "options": [
+            "too high",
+            "too low",
+            "unaffected",
+            "negative"
+          ],
+          "answer": 1,
+          "explanation": "The water gains less heat than the metal lost, so the computed heat lost (and c) comes out lower."
+        },
+        {
+          "q": "Why is copper used for calorimeters?",
+          "options": [
+            "It is cheap",
+            "It is a good conductor with low specific heat capacity",
+            "It is an insulator",
+            "It does not rust"
+          ],
+          "answer": 1,
+          "explanation": "It quickly reaches the temperature of its contents and absorbs little heat."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-latent-heat-of-fusion",
+      "title": "Specific latent heat of fusion of ice",
+      "topic": "Latent heat",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the specific latent heat of fusion of ice by the method of mixtures.",
+      "apparatus": [
+        "Lagged copper calorimeter with stirrer",
+        "Thermometer",
+        "Balance"
+      ],
+      "materials": [
+        "Warm water (about 40 °C)",
+        "Ice cubes (from a freezer or ice-block seller)",
+        "Blotting paper or tissue"
+      ],
+      "safety": [
+        "Handle ice with a dry cloth to avoid cold burns on wet skin; mop spills."
+      ],
+      "procedure": [
+        "Weigh the calorimeter with stirrer, then with warm water at about 40 °C.",
+        "Record the initial water temperature θ₁.",
+        "Dry small pieces of melting ice (at 0 °C) with blotting paper and add them one at a time, stirring, until the temperature falls to about 10 °C.",
+        "Record the lowest steady temperature θ₂ once all ice has melted.",
+        "Reweigh to find the mass of ice added, then apply heat lost by warm water and calorimeter = heat to melt ice + heat to warm melted ice from 0 °C to θ₂."
+      ],
+      "expectedObservations": "The temperature falls steadily as ice melts; the mass of the calorimeter contents increases by the mass of ice added.",
+      "dataAndCalculations": "Water 0.200 kg at 40.0 °C; calorimeter 0.050 kg (c = 400 J kg⁻¹ K⁻¹); final temperature 10.0 °C; mass of ice 0.068 kg. Heat lost = 0.200 × 4200 × 30.0 + 0.050 × 400 × 30.0 = 25 200 + 600 = 25 800 J. Heat gained = 0.068L + 0.068 × 4200 × 10.0 = 0.068L + 2856. So L = (25 800 − 2856)/0.068 = 3.37 × 10⁵ J kg⁻¹ (accepted value 3.34 × 10⁵ J kg⁻¹).",
+      "precautions": [
+        "Ice dried before adding so no water at 0 °C was added.",
+        "Used melting ice (already at 0 °C).",
+        "Stirred continuously; calorimeter lagged.",
+        "Started a few degrees above room temperature and finished a few degrees below, so heat gains and losses roughly cancel."
+      ],
+      "sourcesOfError": [
+        "Water clinging to the ice.",
+        "Heat gained from the surroundings.",
+        "Ice colder than 0 °C."
+      ],
+      "commonMistakes": [
+        "Forgetting the heat needed to warm the melted ice from 0 °C to the final temperature.",
+        "Using the mass of ice before drying."
+      ],
+      "examTips": [
+        "Define specific latent heat of fusion: heat required to change unit mass of a solid at its melting point to liquid at the same temperature.",
+        "Explain why temperature stays constant during melting (energy breaks bonds; no increase in kinetic energy)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Heat needed to melt 0.50 kg of ice at 0 °C (L = 3.34 × 10⁵ J kg⁻¹) is",
+          "options": [
+            "1.67 × 10⁵ J",
+            "6.68 × 10⁵ J",
+            "3.34 × 10⁵ J",
+            "1.67 × 10⁴ J"
+          ],
+          "answer": 0,
+          "explanation": "0.50 × 3.34 × 10⁵ = 1.67 × 10⁵ J."
+        },
+        {
+          "q": "During melting, the temperature of ice",
+          "options": [
+            "rises steadily",
+            "remains constant",
+            "falls",
+            "rises then falls"
+          ],
+          "answer": 1,
+          "explanation": "Latent heat changes state, not temperature."
+        },
+        {
+          "q": "Why is the ice dried before adding?",
+          "options": [
+            "To make it colder",
+            "So that only ice, not water, is added",
+            "To make it melt faster",
+            "To reduce its volume"
+          ],
+          "answer": 1,
+          "explanation": "Water at 0 °C added with the ice is counted as ice but needs no latent heat, so the calculated L would be too low."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-cooling-curve",
+      "title": "Cooling curve and melting point of naphthalene (or candle wax)",
+      "topic": "Effects of heat on matter",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "observation"
+      ],
+      "aim": "To plot the cooling curve of a substance and determine its melting (freezing) point.",
+      "apparatus": [
+        "Boiling tube",
+        "Thermometer (0–110 °C)",
+        "Beaker water bath",
+        "Bunsen burner or spirit lamp, tripod and gauze",
+        "Stopwatch",
+        "Clamp and stand"
+      ],
+      "materials": [
+        "Naphthalene (moth balls) or paraffin wax from a candle"
+      ],
+      "safety": [
+        "Heat naphthalene only in a water bath, never directly — its vapour is flammable.",
+        "Work in a well-ventilated room.",
+        "Do not pull the thermometer out of the solidified substance."
+      ],
+      "procedure": [
+        "Half-fill a boiling tube with powdered naphthalene and heat it in a boiling water bath until it has completely melted and reaches about 90 °C.",
+        "Remove the tube, clamp it in air (or in an empty beaker) and insert the thermometer.",
+        "Record the temperature every 30 s while gently stirring with the thermometer until the substance is solid and below about 65 °C.",
+        "Plot temperature against time and read the temperature of the flat part of the curve."
+      ],
+      "expectedObservations": "Temperature falls, then stays constant at about 80 °C while the liquid solidifies (crystals form), then falls again.",
+      "dataAndCalculations": "Readings (°C) every 30 s: 90, 87, 84, 82, 80, 80, 80, 80, 80, 78, 75, 71. The plateau lasts from 2.0 min to 4.0 min at 80 °C, so the freezing (melting) point of naphthalene = 80 °C. Average cooling rate before the plateau = (90 − 80)/2.0 = 5.0 °C per minute.",
+      "precautions": [
+        "Stirred gently until solidification began.",
+        "Thermometer bulb fully immersed and not touching the glass.",
+        "Readings taken at regular intervals."
+      ],
+      "sourcesOfError": [
+        "Impure naphthalene lowers and blurs the freezing point.",
+        "Supercooling may cause a small dip before the plateau.",
+        "Draughts change the cooling rate."
+      ],
+      "commonMistakes": [
+        "Heating naphthalene directly over a flame.",
+        "Drawing straight lines point-to-point instead of a smooth curve."
+      ],
+      "examTips": [
+        "Label the three regions: liquid cooling, liquid + solid (freezing), solid cooling.",
+        "Explain the plateau using latent heat released during freezing."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The flat part of a cooling curve shows",
+          "options": [
+            "boiling",
+            "change of state at constant temperature",
+            "that the thermometer is broken",
+            "that heat is no longer lost"
+          ],
+          "answer": 1,
+          "explanation": "Latent heat released balances the heat lost."
+        },
+        {
+          "q": "Impurities in a solid usually",
+          "options": [
+            "raise its melting point",
+            "lower its melting point",
+            "have no effect",
+            "make it boil"
+          ],
+          "answer": 1,
+          "explanation": "E.g. salt lowers the melting point of ice."
+        },
+        {
+          "q": "Why is naphthalene heated in a water bath?",
+          "options": [
+            "To heat it faster",
+            "Because its vapour is flammable",
+            "To make it purer",
+            "To reach 200 °C"
+          ],
+          "answer": 1,
+          "explanation": "Avoids direct flame contact."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-linear-expansivity",
+      "title": "Linear expansivity of a metal rod",
+      "topic": "Thermal expansion",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To determine the linear expansivity of a metal rod.",
+      "apparatus": [
+        "Metal rod (brass or copper, about 60 cm) in a steam jacket",
+        "Steam generator (can with boiling water)",
+        "Micrometer screw gauge or dial gauge fitted at one end",
+        "Thermometer",
+        "Metre rule",
+        "Heat source"
+      ],
+      "materials": [
+        "Water",
+        "Rubber tubing"
+      ],
+      "safety": [
+        "Steam scalds — keep hands away from the steam outlet and direct the outlet away from people.",
+        "Allow the apparatus to cool before dismantling."
+      ],
+      "procedure": [
+        "Measure the length l₀ of the rod at room temperature θ₁ with a metre rule.",
+        "Place the rod in the jacket with one end fixed and the other touching the micrometer (or dial gauge); take the initial reading.",
+        "Pass steam through the jacket for several minutes until the rod reaches steam temperature θ₂ (read the thermometer).",
+        "Screw the micrometer forward until it just touches the rod again (or read the dial gauge); the difference gives the expansion e.",
+        "Calculate α = e/(l₀ × (θ₂ − θ₁))."
+      ],
+      "expectedObservations": "The rod lengthens by a fraction of a millimetre when heated to 100 °C.",
+      "dataAndCalculations": "l₀ = 600.0 mm, θ₁ = 30 °C, θ₂ = 100 °C, expansion e = 0.84 mm. α = 0.84/(600.0 × 70) = 2.0 × 10⁻⁵ K⁻¹ (brass is about 1.9 × 10⁻⁵ K⁻¹).",
+      "precautions": [
+        "Waited until the thermometer reading was steady before final reading.",
+        "Used the ratchet of the micrometer to avoid over-tightening.",
+        "Rod fixed firmly at one end."
+      ],
+      "sourcesOfError": [
+        "Rod not uniformly at steam temperature.",
+        "Expansion of the apparatus itself.",
+        "Backlash in the micrometer."
+      ],
+      "commonMistakes": [
+        "Mixing mm and m in the same calculation without converting both.",
+        "Using final length instead of original length as l₀."
+      ],
+      "examTips": [
+        "Give α with unit K⁻¹ (or °C⁻¹).",
+        "Mention practical applications: gaps in railway lines, bimetallic strips in pressing irons and thermostats, sagging of overhead cables."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A 2.0 m steel rail (α = 1.2 × 10⁻⁵ K⁻¹) is heated by 50 K. Its expansion is",
+          "options": [
+            "1.2 mm",
+            "0.6 mm",
+            "12 mm",
+            "0.12 mm"
+          ],
+          "answer": 0,
+          "explanation": "2.0 × 1.2 × 10⁻⁵ × 50 = 1.2 × 10⁻³ m."
+        },
+        {
+          "q": "A bimetallic strip bends because the two metals have different",
+          "options": [
+            "densities",
+            "linear expansivities",
+            "colours",
+            "masses"
+          ],
+          "answer": 1,
+          "explanation": "Unequal expansion causes bending."
+        },
+        {
+          "q": "Cubic expansivity is approximately",
+          "options": [
+            "α",
+            "2α",
+            "3α",
+            "α/3"
+          ],
+          "answer": 2,
+          "explanation": "γ ≈ 3α."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-charles-law",
+      "title": "Charles's law using a capillary tube",
+      "topic": "The gas laws",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To investigate how the volume of a fixed mass of air at constant pressure varies with temperature and to estimate absolute zero.",
+      "apparatus": [
+        "Capillary tube sealed at one end containing an air column trapped by a thread of concentrated sulphuric acid (or oil)",
+        "Thermometer",
+        "Ruler",
+        "Large beaker of water",
+        "Bunsen burner, tripod and gauze",
+        "Rubber bands",
+        "Stirrer"
+      ],
+      "materials": [
+        "Water",
+        "Ice (optional)"
+      ],
+      "safety": [
+        "The index liquid may be corrosive — never open the tube.",
+        "Handle hot water carefully."
+      ],
+      "procedure": [
+        "Fix the capillary tube and thermometer to the ruler with rubber bands, open end up, and immerse in a beaker of water so the air column is fully covered.",
+        "Stir and record the temperature θ and the length l of the air column (proportional to its volume).",
+        "Heat the water gently; at intervals of about 20 °C remove the flame, stir well and record θ and l.",
+        "Plot l against θ (°C), extend the line backwards and read the temperature where l = 0."
+      ],
+      "expectedObservations": "The length of the air column increases uniformly with temperature; the extrapolated line cuts the temperature axis at about −273 °C.",
+      "dataAndCalculations": "θ/°C: 30, 50, 70, 90; l/cm: 10.00, 10.66, 11.32, 11.98. Slope = (11.98 − 10.00)/(90 − 30) = 0.033 cm °C⁻¹. Extrapolating: θ at l = 0 = 30 − 10.00/0.033 = 30 − 303 = −273 °C. Check with V/T = constant: 10.00/303 = 11.98/363 = 0.0330 cm K⁻¹.",
+      "precautions": [
+        "Stirred and waited for steady temperature before each reading.",
+        "Whole air column immersed.",
+        "Read lengths with eye level to avoid parallax."
+      ],
+      "sourcesOfError": [
+        "Air column not at water temperature.",
+        "Uneven bore of capillary.",
+        "Parallax."
+      ],
+      "commonMistakes": [
+        "Plotting against kelvin and then expecting −273 as the intercept.",
+        "Taking readings while still heating."
+      ],
+      "examTips": [
+        "State Charles's law: the volume of a fixed mass of gas is directly proportional to its absolute temperature at constant pressure.",
+        "Convert °C to K by adding 273 in calculations."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A gas occupies 300 cm³ at 27 °C. At constant pressure, its volume at 127 °C is",
+          "options": [
+            "400 cm³",
+            "1411 cm³",
+            "225 cm³",
+            "350 cm³"
+          ],
+          "answer": 0,
+          "explanation": "V₂ = 300 × 400/300 = 400 cm³."
+        },
+        {
+          "q": "Absolute zero is",
+          "options": [
+            "0 °C",
+            "−273 °C",
+            "273 °C",
+            "−100 °C"
+          ],
+          "answer": 1,
+          "explanation": "0 K = −273 °C."
+        },
+        {
+          "q": "In this experiment, the pressure of the trapped air is kept constant because",
+          "options": [
+            "the tube is sealed at both ends",
+            "the open end is to the atmosphere through the index",
+            "the temperature is constant",
+            "water is incompressible"
+          ],
+          "answer": 1,
+          "explanation": "Atmospheric pressure + index pressure stays constant."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-plane-mirror-reflection",
+      "title": "Laws of reflection with a plane mirror (pin method)",
+      "topic": "Reflection of light at plane surfaces",
+      "kind": "LAB",
+      "skills": [
+        "drawing",
+        "measurement",
+        "observation"
+      ],
+      "aim": "To verify the laws of reflection and locate the image in a plane mirror by the no-parallax method.",
+      "apparatus": [
+        "Plane mirror with holder",
+        "Drawing board",
+        "Optical pins (4)",
+        "Protractor",
+        "Ruler"
+      ],
+      "materials": [
+        "White drawing paper",
+        "Drawing pins",
+        "Sharp pencil"
+      ],
+      "safety": [
+        "Optical pins are sharp — push them in vertically and store them in the pin box.",
+        "Do not look at the Sun or a bright lamp through lenses or prisms."
+      ],
+      "procedure": [
+        "Pin a sheet of paper on the board, draw a straight line MM' and stand the reflecting surface of the mirror on it.",
+        "Draw a normal at a point O on MM' and draw an incident ray AO at angle i = 20° to the normal; fix two pins P₁ and P₂ on AO well apart.",
+        "Looking into the mirror from the other side, fix pins P₃ and P₄ so that they appear in line with the images of P₁ and P₂.",
+        "Remove the mirror and pins, join P₃P₄ to meet MM' at O and measure the angle of reflection r.",
+        "Repeat for i = 30°, 40°, 50° and 60° and tabulate i and r. Plot r against i."
+      ],
+      "expectedObservations": "For every ray r = i, and the incident ray, reflected ray and normal lie in the plane of the paper. The graph of r against i is a straight line through the origin with slope 1.",
+      "dataAndCalculations": "i/°: 20, 30, 40, 50, 60; r/°: 20, 31, 40, 49, 60. Slope of r against i = (60 − 20)/(60 − 20) = 1.0, so r = i within ±1°.",
+      "precautions": [
+        "Pins fixed vertically and well apart.",
+        "Viewed the bases of the pins/images to avoid parallax.",
+        "Line drawn along the reflecting (back silvered) surface of the mirror.",
+        "Sharp pencil used for thin lines."
+      ],
+      "sourcesOfError": [
+        "Thickness of the mirror glass (reflection from the silvered back).",
+        "Pins not exactly vertical.",
+        "Protractor reading errors."
+      ],
+      "commonMistakes": [
+        "Measuring angles from the mirror surface instead of from the normal.",
+        "Placing pins too close together."
+      ],
+      "examTips": [
+        "Trace sheets are often attached to the answer booklet — label every ray, normal and angle clearly.",
+        "State both laws of reflection."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A ray strikes a plane mirror at 35° to the mirror surface. The angle of reflection is",
+          "options": [
+            "35°",
+            "55°",
+            "90°",
+            "70°"
+          ],
+          "answer": 1,
+          "explanation": "Angle of incidence = 90 − 35 = 55° from the normal."
+        },
+        {
+          "q": "The image in a plane mirror is",
+          "options": [
+            "real and inverted",
+            "virtual, upright and laterally inverted",
+            "magnified",
+            "behind the observer"
+          ],
+          "answer": 1,
+          "explanation": "Plane mirror image properties."
+        },
+        {
+          "q": "If a mirror is rotated by 10°, the reflected ray turns through",
+          "options": [
+            "5°",
+            "10°",
+            "20°",
+            "40°"
+          ],
+          "answer": 2,
+          "explanation": "The reflected ray rotates through twice the mirror angle."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-concave-mirror-focal-length",
+      "title": "Focal length of a concave mirror",
+      "topic": "Reflection of light at curved surfaces",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To determine the focal length of a concave mirror from object and image distances.",
+      "apparatus": [
+        "Concave mirror in holder",
+        "Illuminated object (cross-wire in front of a lamp) or optical pin",
+        "White screen",
+        "Metre rule"
+      ],
+      "materials": [
+        "Cardboard screen",
+        "Plasticine"
+      ],
+      "safety": [
+        "Do not focus sunlight on paper or skin — it can burn."
+      ],
+      "procedure": [
+        "Get a rough focal length by focusing the image of a distant window or tree on the screen.",
+        "Place the illuminated object at u = 15.0 cm in front of the mirror, slightly off the axis.",
+        "Move the screen until a sharp image is formed and measure the image distance v.",
+        "Repeat for u = 20.0, 25.0 and 30.0 cm.",
+        "Calculate 1/u and 1/v, plot 1/v against 1/u, and find the intercepts; f = 1/intercept."
+      ],
+      "expectedObservations": "A real inverted image is obtained beyond f. When u = 2f, the image is the same size and v = u. The graph of 1/v against 1/u is a straight line with slope −1.",
+      "dataAndCalculations": "u/cm: 15.0, 20.0, 25.0, 30.0; v/cm: 30.0, 20.0, 16.7, 15.0. 1/u (cm⁻¹): 0.0667, 0.0500, 0.0400, 0.0333; 1/v: 0.0333, 0.0500, 0.0599, 0.0667. Intercept on either axis = 0.100 cm⁻¹, so f = 10.0 cm. Check with the mirror formula: u = 15.0 cm → 1/v = 1/10.0 − 1/15.0 = 0.0333 → v = 30.0 cm.",
+      "precautions": [
+        "Rough focal length found first.",
+        "Image located by sharp focus (or no parallax).",
+        "Mirror and screen kept upright and on the same axis."
+      ],
+      "sourcesOfError": [
+        "Judging the sharpest image position.",
+        "Distances measured from the edge rather than the pole of the mirror."
+      ],
+      "commonMistakes": [
+        "Using the wrong sign convention in the formula.",
+        "Plotting u against v and trying to read f directly."
+      ],
+      "examTips": [
+        "State the convention you use (\"real is positive\").",
+        "Applications: shaving and dental mirrors, torch and car headlamp reflectors, solar cookers."
+      ],
+      "checkQuestions": [
+        {
+          "q": "An object 30 cm from a concave mirror of focal length 10 cm forms an image at",
+          "options": [
+            "15 cm",
+            "20 cm",
+            "7.5 cm",
+            "30 cm"
+          ],
+          "answer": 0,
+          "explanation": "1/v = 1/10 − 1/30 = 2/30 → v = 15 cm."
+        },
+        {
+          "q": "An object at 2f from a concave mirror gives an image that is",
+          "options": [
+            "virtual and magnified",
+            "real, inverted and same size",
+            "at infinity",
+            "upright and diminished"
+          ],
+          "answer": 1,
+          "explanation": "Image also at 2f."
+        },
+        {
+          "q": "A convex mirror is used as a driving mirror because it",
+          "options": [
+            "magnifies",
+            "gives a wide field of view with upright images",
+            "forms real images",
+            "focuses light"
+          ],
+          "answer": 1,
+          "explanation": "Diminished upright virtual image over a wide field."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-glass-block-refractive-index",
+      "title": "Refractive index of a glass block (Snell's law)",
+      "topic": "Refraction of light at plane surfaces",
+      "kind": "LAB",
+      "skills": [
+        "drawing",
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To trace rays through a rectangular glass block, verify Snell's law and determine the refractive index of glass.",
+      "apparatus": [
+        "Rectangular glass block",
+        "Drawing board",
+        "Optical pins (4)",
+        "Protractor",
+        "Ruler"
+      ],
+      "materials": [
+        "White drawing paper",
+        "Drawing pins",
+        "Sharp pencil"
+      ],
+      "safety": [
+        "Optical pins are sharp — push them in vertically and store them in the pin box.",
+        "Do not look at the Sun or a bright lamp through lenses or prisms.",
+        "Check the block for chipped edges before handling."
+      ],
+      "procedure": [
+        "Place the block on the paper and trace its outline ABCD. Remove the block.",
+        "Draw a normal at a point on AB and draw an incident ray at i = 20°; fix pins P₁ and P₂ on it.",
+        "Replace the block. Looking through face CD, fix pins P₃ and P₄ in line with the images of P₁ and P₂.",
+        "Remove the block; join P₃P₄ to meet CD, join the point of emergence to the point of incidence to get the refracted ray, and measure r.",
+        "Repeat for i = 30°, 40°, 50° and 60°. Tabulate i, r, sin i and sin r.",
+        "Plot sin i against sin r; the slope is the refractive index n."
+      ],
+      "expectedObservations": "The ray bends towards the normal on entering glass and away from it on leaving; the emergent ray is parallel to the incident ray but laterally displaced. sin i/sin r is constant.",
+      "dataAndCalculations": "i/°: 20, 30, 40, 50, 60; r/°: 13.2, 19.5, 25.4, 30.7, 35.3; sin i: 0.342, 0.500, 0.643, 0.766, 0.866; sin r: 0.228, 0.334, 0.429, 0.511, 0.578. Slope n = (0.866 − 0.342)/(0.578 − 0.228) = 0.524/0.350 = 1.50.",
+      "precautions": [
+        "Pins vertical and at least 5 cm apart.",
+        "Looked at the bases of the pins.",
+        "Outline of the block traced accurately and the block not moved during an observation."
+      ],
+      "sourcesOfError": [
+        "Pins not in line (parallax).",
+        "Block shifted between tracings.",
+        "Thick pencil lines."
+      ],
+      "commonMistakes": [
+        "Measuring r inside the block from the wrong normal.",
+        "Plotting i against r (not linear) instead of sin i against sin r.",
+        "Giving n a unit."
+      ],
+      "examTips": [
+        "State Snell's law: sin i/sin r is constant for a given pair of media.",
+        "Attach the traced paper and make sure all rays and normals are labelled — many marks are for the diagram.",
+        "Compute sin values to 3 d.p."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Light enters glass (n = 1.5) at 30°. The angle of refraction is about",
+          "options": [
+            "19.5°",
+            "45°",
+            "20°",
+            "30°"
+          ],
+          "answer": 0,
+          "explanation": "sin r = 0.5/1.5 = 0.333, r = 19.5°."
+        },
+        {
+          "q": "The emergent ray from a parallel-sided block is",
+          "options": [
+            "perpendicular to the incident ray",
+            "parallel to the incident ray",
+            "along the normal",
+            "totally reflected"
+          ],
+          "answer": 1,
+          "explanation": "Opposite faces are parallel."
+        },
+        {
+          "q": "Light travels in glass of n = 1.5 at (c = 3.0 × 10⁸ m s⁻¹)",
+          "options": [
+            "4.5 × 10⁸ m s⁻¹",
+            "2.0 × 10⁸ m s⁻¹",
+            "3.0 × 10⁸ m s⁻¹",
+            "1.5 × 10⁸ m s⁻¹"
+          ],
+          "answer": 1,
+          "explanation": "v = c/n."
+        }
+      ],
+      "simulator": "phy-glass-block"
+    },
+    {
+      "id": "pr-phy-real-apparent-depth",
+      "title": "Real and apparent depth",
+      "topic": "Refraction of light at plane surfaces",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To determine the refractive index of glass (or water) using real and apparent depth.",
+      "apparatus": [
+        "Glass block (or tall beaker of water)",
+        "Travelling microscope or two optical pins with a cork",
+        "Metre rule"
+      ],
+      "materials": [
+        "Paper with a cross mark",
+        "Water",
+        "Lycopodium powder or chalk dust (to locate the water surface)"
+      ],
+      "safety": [
+        "Optical pins are sharp — push them in vertically and store them in the pin box.",
+        "Do not look at the Sun or a bright lamp through lenses or prisms."
+      ],
+      "procedure": [
+        "Place a mark (cross) at the bottom of the beaker or under the glass block.",
+        "Measure the real depth of the mark below the top surface.",
+        "Looking vertically down, move a search pin along the side until its image (seen above the surface) shows no parallax with the image of the mark.",
+        "Measure the apparent depth from the surface to the search pin position.",
+        "Repeat for different depths; n = real depth/apparent depth (or slope of real against apparent depth)."
+      ],
+      "expectedObservations": "The mark appears raised. The ratio of real to apparent depth is constant.",
+      "dataAndCalculations": "Glass block: real depth 6.0 cm, apparent depth 4.0 cm → n = 6.0/4.0 = 1.50; displacement = 6.0 − 4.0 = 2.0 cm. Water: real depth 12.0 cm, apparent depth 9.0 cm → n = 12.0/9.0 = 1.33.",
+      "precautions": [
+        "Viewed vertically from above.",
+        "No-parallax method used carefully.",
+        "Measurements repeated and averaged."
+      ],
+      "sourcesOfError": [
+        "Difficulty in judging no-parallax.",
+        "Water surface hard to locate."
+      ],
+      "commonMistakes": [
+        "Dividing apparent depth by real depth.",
+        "Measuring the apparent depth from the bottom."
+      ],
+      "examTips": [
+        "Explain why a swimming pool appears shallower than it is.",
+        "Displacement = real − apparent = t(1 − 1/n)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A coin under 8.0 cm of water (n = 4/3) appears to be at depth",
+          "options": [
+            "10.7 cm",
+            "6.0 cm",
+            "2.0 cm",
+            "8.0 cm"
+          ],
+          "answer": 1,
+          "explanation": "Apparent = 8.0/(4/3) = 6.0 cm."
+        },
+        {
+          "q": "Real depth 9 cm, apparent 6 cm. n is",
+          "options": [
+            "0.67",
+            "1.5",
+            "3",
+            "15"
+          ],
+          "answer": 1,
+          "explanation": "9/6 = 1.5."
+        },
+        {
+          "q": "A pool looks shallower because of",
+          "options": [
+            "reflection",
+            "refraction",
+            "diffraction",
+            "dispersion"
+          ],
+          "answer": 1,
+          "explanation": "Light bends away from the normal leaving water."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-prism-minimum-deviation",
+      "title": "Angle of deviation through a triangular prism",
+      "topic": "Refraction of light at plane surfaces",
+      "kind": "LAB",
+      "skills": [
+        "drawing",
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To investigate how the angle of deviation D through a triangular glass prism varies with the angle of incidence i and to find the refractive index from minimum deviation.",
+      "apparatus": [
+        "Equilateral glass prism (A = 60°)",
+        "Drawing board",
+        "Optical pins",
+        "Protractor",
+        "Ruler"
+      ],
+      "materials": [
+        "Drawing paper",
+        "Drawing pins"
+      ],
+      "safety": [
+        "Optical pins are sharp — push them in vertically and store them in the pin box.",
+        "Do not look at the Sun or a bright lamp through lenses or prisms."
+      ],
+      "procedure": [
+        "Trace the outline of the prism; draw a normal on one refracting face.",
+        "Draw an incident ray at i = 35°, fix two pins on it, and with the prism in place fix two more pins in line with their images seen through the other face.",
+        "Remove the prism, draw the emergent ray and extend incident and emergent rays to meet; measure the angle of deviation D.",
+        "Repeat for i = 40°, 45°, 50°, 55°, 60° and 65°.",
+        "Plot D against i and read the minimum deviation Dₘ; calculate n = sin((A + Dₘ)/2)/sin(A/2)."
+      ],
+      "expectedObservations": "D first decreases as i increases, reaches a minimum, then increases. At minimum deviation the ray passes symmetrically through the prism.",
+      "dataAndCalculations": "i/°: 35, 40, 45, 50, 55, 60, 65; D/°: 43.8, 40.6, 39.3, 38.9, 39.4, 40.5, 42.1. From the curve Dₘ = 38.9° at i ≈ 50°. n = sin((60 + 38.9)/2)/sin 30° = sin 49.45°/0.5 = 0.760/0.5 = 1.52.",
+      "precautions": [
+        "Pins upright and well spaced.",
+        "Prism outline traced carefully and not moved.",
+        "Smooth curve drawn through the points."
+      ],
+      "sourcesOfError": [
+        "Small errors in tracing rays give large errors in D near the minimum.",
+        "Pin alignment."
+      ],
+      "commonMistakes": [
+        "Drawing a straight line through a curved set of points.",
+        "Using A instead of A/2 in the formula."
+      ],
+      "examTips": [
+        "Sketch the U-shaped curve and label Dₘ.",
+        "State that at minimum deviation i = e and r₁ = r₂ = A/2."
+      ],
+      "checkQuestions": [
+        {
+          "q": "For a 60° prism with minimum deviation 30°, n is",
+          "options": [
+            "1.41",
+            "1.50",
+            "1.73",
+            "1.33"
+          ],
+          "answer": 0,
+          "explanation": "sin 45°/sin 30° = 0.707/0.5 = 1.41."
+        },
+        {
+          "q": "The graph of D against i is",
+          "options": [
+            "a straight line",
+            "U-shaped with a minimum",
+            "a horizontal line",
+            "a hyperbola through the origin"
+          ],
+          "answer": 1,
+          "explanation": "Deviation passes through a minimum."
+        },
+        {
+          "q": "At minimum deviation, the ray inside the prism is",
+          "options": [
+            "along a face",
+            "parallel to the base (for an isosceles prism)",
+            "totally reflected",
+            "normal to the first face"
+          ],
+          "answer": 1,
+          "explanation": "Symmetrical passage."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-dispersion-prism",
+      "title": "Dispersion of white light by a prism",
+      "topic": "Dispersion of white light by a triangular glass prism",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "drawing",
+        "calculation"
+      ],
+      "aim": "To produce a spectrum of white light with a triangular prism and to explain dispersion in terms of different refractive indices for different colours.",
+      "apparatus": [
+        "Triangular glass prism",
+        "Ray box with single slit (or a torch with a slit card)",
+        "White screen"
+      ],
+      "materials": [
+        "White card",
+        "Coloured filters (red, green, blue) — optional"
+      ],
+      "safety": [
+        "Never use direct sunlight looked at through the prism.",
+        "The ray box lamp gets hot."
+      ],
+      "procedure": [
+        "In a darkened room, direct a narrow beam of white light from the ray box on to one face of the prism.",
+        "Rotate the prism until the emergent light is spread out most clearly, and catch it on a white screen.",
+        "Record the order of colours and note which colour is deviated most.",
+        "Place a red filter in the beam and note that only red light passes and is not further dispersed.",
+        "Draw a ray diagram showing red and violet paths."
+      ],
+      "expectedObservations": "A band of colours appears in the order red, orange, yellow, green, blue, indigo, violet; violet is deviated most and red least. A single colour from a filter is not split further.",
+      "dataAndCalculations": "For a 60° prism with n(red) = 1.51 and n(violet) = 1.53, minimum deviation D = 2 sin⁻¹(n sin 30°) − 60°: red D = 2 sin⁻¹(0.755) − 60° = 38.1°; violet D = 2 sin⁻¹(0.765) − 60° = 39.8°. Angular dispersion ≈ 39.8° − 38.1° = 1.7°.",
+      "precautions": [
+        "Room darkened and narrow slit used.",
+        "Screen placed at a suitable distance for a clear spectrum."
+      ],
+      "sourcesOfError": [
+        "Wide beam causes overlapping colours (impure spectrum).",
+        "Stray room light."
+      ],
+      "commonMistakes": [
+        "Saying the prism \"adds\" colour to light.",
+        "Reversing the order (violet deviated least)."
+      ],
+      "examTips": [
+        "Define dispersion: separation of white light into its component colours because each colour has a different speed (refractive index) in glass.",
+        "Rainbow formation by raindrops is a common follow-up."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which colour is deviated most by a prism?",
+          "options": [
+            "Red",
+            "Yellow",
+            "Green",
+            "Violet"
+          ],
+          "answer": 3,
+          "explanation": "Violet has the highest refractive index."
+        },
+        {
+          "q": "Dispersion occurs because",
+          "options": [
+            "glass absorbs some colours",
+            "different colours travel at different speeds in glass",
+            "light is reflected",
+            "the prism is coloured"
+          ],
+          "answer": 1,
+          "explanation": "Refractive index depends on wavelength."
+        },
+        {
+          "q": "The colours of a pure spectrum, in order, start with",
+          "options": [
+            "violet, blue, red",
+            "red, orange, yellow",
+            "green, blue, red",
+            "red, green, blue"
+          ],
+          "answer": 1,
+          "explanation": "ROYGBIV."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-converging-lens-focal-length",
+      "title": "Focal length of a converging lens",
+      "topic": "Refraction of light at curved surfaces",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To determine the focal length of a converging (convex) lens by the u–v method and graph of 1/v against 1/u.",
+      "apparatus": [
+        "Converging lens in holder",
+        "Illuminated object (lamp and cross-wire)",
+        "White screen",
+        "Metre rule"
+      ],
+      "materials": [
+        "Plasticine",
+        "Cardboard"
+      ],
+      "safety": [
+        "Do not focus sunlight on paper or skin.",
+        "The lamp housing gets hot."
+      ],
+      "procedure": [
+        "Find a rough focal length by focusing a distant object (window) on the screen.",
+        "Place the object at u = 20.0 cm from the lens and adjust the screen for a sharp image; record v.",
+        "Repeat for u = 25.0, 30.0, 40.0 and 50.0 cm.",
+        "Calculate 1/u and 1/v, plot 1/v against 1/u and find the intercepts; f = 1/intercept.",
+        "Also calculate f from each pair using 1/f = 1/u + 1/v and compare."
+      ],
+      "expectedObservations": "As u decreases towards f, the image moves further away and gets larger. At u = 2f, v = 2f. The graph is a straight line with slope about −1.",
+      "dataAndCalculations": "u/cm: 20.0, 25.0, 30.0, 40.0, 50.0; v/cm: 60.0, 37.5, 30.0, 24.0, 21.4. For u = 25.0: 1/f = 1/25.0 + 1/37.5 = 0.0400 + 0.0267 = 0.0667 → f = 15.0 cm. Graph intercepts 0.0667 cm⁻¹ → f = 15.0 cm. Power P = 1/f(m) = 1/0.150 = +6.7 D.",
+      "precautions": [
+        "Lens, object and screen centres on the same horizontal axis.",
+        "Lens clean.",
+        "Image located at sharpest focus; readings repeated."
+      ],
+      "sourcesOfError": [
+        "Judging sharp focus.",
+        "Lens thickness (measure to its optical centre)."
+      ],
+      "commonMistakes": [
+        "Measuring from the edge of the lens holder.",
+        "Using u < f, which gives a virtual image that cannot be caught on a screen."
+      ],
+      "examTips": [
+        "Know the uses of converging lenses: magnifying glass, camera, projector, correcting long sight.",
+        "Magnification m = v/u; a graph of m against v has slope 1/f."
+      ],
+      "checkQuestions": [
+        {
+          "q": "An object 30 cm from a lens of focal length 20 cm forms an image at",
+          "options": [
+            "60 cm",
+            "12 cm",
+            "50 cm",
+            "10 cm"
+          ],
+          "answer": 0,
+          "explanation": "1/v = 1/20 − 1/30 = 1/60."
+        },
+        {
+          "q": "A lens of focal length 25 cm has power",
+          "options": [
+            "+0.25 D",
+            "+4 D",
+            "+25 D",
+            "−4 D"
+          ],
+          "answer": 1,
+          "explanation": "P = 1/0.25 m = 4 D."
+        },
+        {
+          "q": "To use a converging lens as a magnifying glass, the object must be",
+          "options": [
+            "beyond 2f",
+            "at 2f",
+            "between f and 2f",
+            "nearer than f"
+          ],
+          "answer": 3,
+          "explanation": "Then a virtual magnified upright image forms."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-resonance-tube",
+      "title": "Speed of sound with a resonance tube",
+      "topic": "Vibration of air in pipes: open and closed pipes",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To determine the speed of sound in air and the end correction of a tube closed at one end using resonance.",
+      "apparatus": [
+        "Resonance tube (glass or PVC pipe) in a tall jar of water",
+        "Set of tuning forks (256–512 Hz)",
+        "Rubber pad (to strike forks)",
+        "Metre rule",
+        "Clamp and stand"
+      ],
+      "materials": [
+        "Water"
+      ],
+      "safety": [
+        "Strike forks only on a rubber pad, never on the bench or the glass tube."
+      ],
+      "procedure": [
+        "Clamp the tube vertically in the jar so its length above the water can be varied.",
+        "Strike a 512 Hz fork and hold it horizontally over the open end. Raise the tube slowly from a short length until the sound is loudest (first resonance). Measure the air column length l₁.",
+        "Repeat with the other forks (256, 288, 320, 384 Hz), each time finding the first resonance length.",
+        "If the tube is long enough, also find the second resonance l₂ for the 512 Hz fork.",
+        "Plot l against 1/f. Since l + e = v/(4f), the slope is v/4 and the intercept on the l-axis is −e."
+      ],
+      "expectedObservations": "At certain lengths the sound becomes very loud (resonance). The resonance length is longer for lower-frequency forks. l against 1/f is a straight line with a small negative intercept.",
+      "dataAndCalculations": "f/Hz: 256, 288, 320, 384, 512; l₁/cm: 32.6, 28.9, 26.0, 21.5, 16.0. Slope from (1/512 = 0.001953 s, 16.0 cm) and (1/256 = 0.003906 s, 32.6 cm) = 16.6/0.001953 = 8500 cm s⁻¹ = 85.0 m s⁻¹, so v = 4 × 85.0 = 340 m s⁻¹. Intercept = 32.6 − 8500 × 0.003906 = −0.6 cm, so e = 0.6 cm. Two-resonance method (512 Hz): l₂ − l₁ = λ/2 → if l₂ = 49.2 cm, λ = 2 × 33.2 = 66.4 cm, v = 512 × 0.664 = 340 m s⁻¹.",
+      "precautions": [
+        "Fork held just above (not touching) the mouth of the tube.",
+        "Approached resonance from short lengths and checked by moving back and forth.",
+        "Tube kept vertical."
+      ],
+      "sourcesOfError": [
+        "Judging maximum loudness by ear.",
+        "Temperature of air changes the speed of sound.",
+        "Fork striking producing overtones."
+      ],
+      "commonMistakes": [
+        "Forgetting the end correction.",
+        "Plotting l against f (a curve)."
+      ],
+      "examTips": [
+        "For a closed pipe, the first resonance is at λ/4 (plus end correction); the second at 3λ/4.",
+        "Speed of sound increases with temperature — mention when comparing with 330 m s⁻¹."
+      ],
+      "checkQuestions": [
+        {
+          "q": "First resonance occurs at 17.0 cm with a 500 Hz fork (ignore end correction). Speed of sound is",
+          "options": [
+            "340 m s⁻¹",
+            "85 m s⁻¹",
+            "170 m s⁻¹",
+            "8500 m s⁻¹"
+          ],
+          "answer": 0,
+          "explanation": "λ = 4l = 0.68 m; v = 500 × 0.68 = 340 m s⁻¹."
+        },
+        {
+          "q": "The difference between the first two resonance lengths of a closed pipe is",
+          "options": [
+            "λ/4",
+            "λ/2",
+            "λ",
+            "2λ"
+          ],
+          "answer": 1,
+          "explanation": "3λ/4 − λ/4 = λ/2."
+        },
+        {
+          "q": "The end correction arises because",
+          "options": [
+            "water absorbs sound",
+            "the antinode forms slightly above the open end",
+            "the fork is loud",
+            "air is denser at the bottom"
+          ],
+          "answer": 1,
+          "explanation": "The vibrating air extends beyond the mouth."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-sonometer",
+      "title": "Frequency and length of a vibrating string (sonometer)",
+      "topic": "Vibration in strings",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To verify that the frequency of a stretched string at constant tension is inversely proportional to its vibrating length and to determine the speed of the transverse wave.",
+      "apparatus": [
+        "Sonometer with wire, two bridges and a hanger of masses",
+        "Set of tuning forks",
+        "Metre rule",
+        "Rubber pad"
+      ],
+      "materials": [
+        "Small paper rider (folded paper)"
+      ],
+      "safety": [
+        "Load the wire gradually; a snapping wire can whip and cause eye injury."
+      ],
+      "procedure": [
+        "Keep the tension constant with a fixed load on the hanger.",
+        "Place a paper rider on the middle of the wire between the bridges.",
+        "Strike a 256 Hz fork and press its stem on the sonometer box; move the bridges until the rider is thrown off (resonance). Measure the length l.",
+        "Repeat for forks of 320, 384 and 512 Hz.",
+        "Plot f against 1/l; the slope equals v/2 and v = 2fl."
+      ],
+      "expectedObservations": "Higher-frequency forks resonate with shorter lengths; f × l is constant; f against 1/l is a straight line through the origin.",
+      "dataAndCalculations": "f/Hz: 256, 320, 384, 512; l/m: 0.602, 0.480, 0.401, 0.300; fl = 154, 154, 154, 154 Hz m. Slope = 154 Hz m, so v = 2 × 154 = 308 m s⁻¹. If tension T = 40 N, mass per unit length μ = T/v² = 40/308² = 4.2 × 10⁻⁴ kg m⁻¹.",
+      "precautions": [
+        "Tension kept constant throughout.",
+        "Rider placed at the centre of the vibrating length.",
+        "Fork held on the box, not touching the wire."
+      ],
+      "sourcesOfError": [
+        "Judging resonance by eye.",
+        "Non-uniform wire.",
+        "Friction at the bridges."
+      ],
+      "commonMistakes": [
+        "Plotting f against l (a curve).",
+        "Changing the tension when changing forks."
+      ],
+      "examTips": [
+        "Quote f = (1/2l)√(T/μ) and the three laws of vibrating strings.",
+        "Relate to guitar or \"goje\" strings: shortening the string raises the pitch."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A string resonates with a 300 Hz fork at 0.50 m. At 0.30 m (same tension) its frequency is",
+          "options": [
+            "180 Hz",
+            "500 Hz",
+            "450 Hz",
+            "600 Hz"
+          ],
+          "answer": 1,
+          "explanation": "fl constant: 300 × 0.50/0.30 = 500 Hz."
+        },
+        {
+          "q": "If the tension is increased four times, the frequency",
+          "options": [
+            "doubles",
+            "quadruples",
+            "halves",
+            "is unchanged"
+          ],
+          "answer": 0,
+          "explanation": "f ∝ √T."
+        },
+        {
+          "q": "The paper rider is thrown off when",
+          "options": [
+            "the wire is slack",
+            "the wire resonates with the fork",
+            "the fork stops",
+            "the bridges touch"
+          ],
+          "answer": 1,
+          "explanation": "Large amplitude at resonance."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-ohms-law",
+      "title": "Verifying Ohm's law",
+      "topic": "Potential difference and electric current",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To investigate the relationship between the potential difference across a resistor and the current through it, and to determine its resistance.",
+      "apparatus": [
+        "Two or three 1.5 V dry cells (or 0–6 V d.c. supply)",
+        "Standard resistor (about 5 Ω)",
+        "Ammeter (0–1 A)",
+        "Voltmeter (0–3 V)",
+        "Rheostat",
+        "Key (switch)",
+        "Connecting wires"
+      ],
+      "materials": [
+        "Sandpaper to clean wire ends"
+      ],
+      "safety": [
+        "Open the key (switch) between readings so the wires and cells do not heat up.",
+        "Never connect an ammeter directly across a cell — it is a short circuit.",
+        "Use only low-voltage cells or a low-voltage d.c. supply; never use mains sockets."
+      ],
+      "procedure": [
+        "Connect the cells, key, rheostat, ammeter and resistor in series; connect the voltmeter in parallel across the resistor only. Have the circuit checked before closing the key.",
+        "Close the key and adjust the rheostat so the ammeter reads I = 0.10 A. Record the voltmeter reading V.",
+        "Open the key. Repeat for I = 0.20, 0.30, 0.40 and 0.50 A.",
+        "Tabulate V and I and plot V (vertical) against I (horizontal).",
+        "Draw the best straight line and determine its slope, which equals the resistance R."
+      ],
+      "expectedObservations": "V increases in proportion to I; the graph is a straight line through the origin, so V/I is constant for the resistor (at constant temperature).",
+      "dataAndCalculations": "I/A: 0.10, 0.20, 0.30, 0.40, 0.50; V/V: 0.50, 1.02, 1.49, 2.01, 2.50. Slope R = (2.50 − 0.50)/(0.50 − 0.10) = 2.00/0.40 = 5.0 Ω. Check: V/I at 0.30 A = 1.49/0.30 = 4.97 Ω.",
+      "precautions": [
+        "Opened the key between readings to avoid heating the resistor.",
+        "Cleaned wire ends and tightened terminals.",
+        "Ammeter in series and voltmeter in parallel, with + terminals towards the positive of the supply.",
+        "Avoided parallax when reading meters; checked meter zero errors."
+      ],
+      "sourcesOfError": [
+        "Heating changes resistance.",
+        "Loose or dirty connections.",
+        "Meter zero errors and parallax."
+      ],
+      "commonMistakes": [
+        "Connecting the voltmeter across the resistor and ammeter together.",
+        "Reading the wrong scale on dual-range meters.",
+        "Plotting I against V and then calling the slope R (it would be 1/R)."
+      ],
+      "examTips": [
+        "State Ohm's law with the condition \"provided temperature and other physical conditions remain constant\".",
+        "Draw the circuit diagram with standard symbols; examiners award marks for correct meter placement.",
+        "Quote R with unit Ω."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A p.d. of 6.0 V drives 0.30 A through a resistor. Its resistance is",
+          "options": [
+            "1.8 Ω",
+            "20 Ω",
+            "0.05 Ω",
+            "6.3 Ω"
+          ],
+          "answer": 1,
+          "explanation": "R = V/I = 20 Ω."
+        },
+        {
+          "q": "In a circuit to verify Ohm's law, the voltmeter is connected",
+          "options": [
+            "in series with the resistor",
+            "in parallel with the resistor",
+            "across the cell only",
+            "in series with the ammeter"
+          ],
+          "answer": 1,
+          "explanation": "A voltmeter measures p.d. across a component."
+        },
+        {
+          "q": "The slope of an I against V graph for an ohmic conductor is",
+          "options": [
+            "R",
+            "1/R",
+            "P",
+            "V²"
+          ],
+          "answer": 1,
+          "explanation": "I = V/R."
+        }
+      ],
+      "simulator": "phy-ohms-law"
+    },
+    {
+      "id": "pr-phy-resistivity-of-wire",
+      "title": "Resistivity of a wire",
+      "topic": "Resistivity and conductivity",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To show that the resistance of a uniform wire is proportional to its length and to determine the resistivity of the material.",
+      "apparatus": [
+        "Constantan (eureka) wire on a metre rule",
+        "Micrometer screw gauge",
+        "Ammeter",
+        "Voltmeter",
+        "Dry cell",
+        "Key",
+        "Jockey or crocodile clip",
+        "Rheostat"
+      ],
+      "materials": [
+        "Connecting wires",
+        "Sandpaper"
+      ],
+      "safety": [
+        "Open the key (switch) between readings so the wires and cells do not heat up.",
+        "Never connect an ammeter directly across a cell — it is a short circuit.",
+        "Use only low-voltage cells or a low-voltage d.c. supply; never use mains sockets."
+      ],
+      "procedure": [
+        "Measure the diameter d of the wire at several points with the micrometer and find the mean; calculate the cross-sectional area A = πd²/4.",
+        "Connect the circuit so that a length l of the wire is in series with the ammeter and the voltmeter is across that length.",
+        "For l = 0.20 m, close the key, record V and I, and open the key. R = V/I.",
+        "Repeat for l = 0.40, 0.60, 0.80 and 1.00 m.",
+        "Plot R against l; the slope is ρ/A, so ρ = slope × A."
+      ],
+      "expectedObservations": "R increases in proportion to l; the graph is a straight line through the origin.",
+      "dataAndCalculations": "d = 0.40 mm → A = π(0.20 × 10⁻³)² = 1.257 × 10⁻⁷ m². l/m: 0.20, 0.40, 0.60, 0.80, 1.00; R/Ω: 0.79, 1.55, 2.35, 3.11, 3.90. Slope = (3.90 − 0.79)/(1.00 − 0.20) = 3.89 Ω m⁻¹. ρ = 3.89 × 1.257 × 10⁻⁷ = 4.9 × 10⁻⁷ Ω m (constantan).",
+      "precautions": [
+        "Diameter measured at several places and averaged; micrometer zero error corrected.",
+        "Current kept small and key opened between readings to avoid heating.",
+        "Lengths measured from the point of contact, avoiding parallax."
+      ],
+      "sourcesOfError": [
+        "Wire not uniform.",
+        "Contact resistance at the jockey.",
+        "Heating of the wire."
+      ],
+      "commonMistakes": [
+        "Using the diameter instead of the radius in πr².",
+        "Forgetting to convert mm to m (squaring the conversion)."
+      ],
+      "examTips": [
+        "Write R = ρl/A and show the rearrangement.",
+        "Unit of resistivity is Ω m; conductivity σ = 1/ρ has unit Ω⁻¹ m⁻¹ (S m⁻¹)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "If a wire's length is doubled and its area halved, its resistance becomes",
+          "options": [
+            "the same",
+            "twice",
+            "four times",
+            "half"
+          ],
+          "answer": 2,
+          "explanation": "R ∝ l/A → 2/(1/2) = 4."
+        },
+        {
+          "q": "The unit of resistivity is",
+          "options": [
+            "Ω",
+            "Ω m",
+            "Ω m⁻¹",
+            "Ω⁻¹"
+          ],
+          "answer": 1,
+          "explanation": "ρ = RA/l."
+        },
+        {
+          "q": "Wire diameter 0.50 mm. Its cross-sectional area is",
+          "options": [
+            "1.96 × 10⁻⁷ m²",
+            "7.85 × 10⁻⁷ m²",
+            "1.96 × 10⁻⁴ m²",
+            "0.785 m²"
+          ],
+          "answer": 0,
+          "explanation": "π(0.25 × 10⁻³)² = 1.96 × 10⁻⁷ m²."
+        }
+      ],
+      "simulator": "phy-ohms-law"
+    },
+    {
+      "id": "pr-phy-metre-bridge",
+      "title": "Unknown resistance with a metre bridge",
+      "topic": "Measurement of electric current, p.d., resistance, e.m.f. and internal resistance of a cell",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine an unknown resistance using a metre bridge (Wheatstone bridge principle).",
+      "apparatus": [
+        "Metre bridge",
+        "Resistance box (or standard resistors)",
+        "Unknown resistor X",
+        "Centre-zero galvanometer",
+        "Jockey",
+        "Dry cell",
+        "Key",
+        "Connecting wires"
+      ],
+      "materials": [
+        "Sandpaper"
+      ],
+      "safety": [
+        "Open the key (switch) between readings so the wires and cells do not heat up.",
+        "Never connect an ammeter directly across a cell — it is a short circuit.",
+        "Use only low-voltage cells or a low-voltage d.c. supply; never use mains sockets.",
+        "Tap the jockey lightly; dragging it scrapes the bridge wire."
+      ],
+      "procedure": [
+        "Connect X in the left gap and a known resistance R (e.g. 4.0 Ω) in the right gap; connect the cell and key across the bridge wire and the galvanometer between the junction of X and R and the jockey.",
+        "Close the key and tap the jockey along the wire to find the balance point where the galvanometer shows no deflection.",
+        "Measure the balance length l from the left end.",
+        "Interchange X and R and find the new balance length to check; repeat with other values of R.",
+        "Calculate X = R l/(100 − l) for each and find the mean."
+      ],
+      "expectedObservations": "The galvanometer deflects in opposite directions on either side of the balance point; at balance it reads zero.",
+      "dataAndCalculations": "R = 4.0 Ω, balance at l = 40.0 cm. X/R = l/(100 − l) → X = 4.0 × 40.0/60.0 = 2.67 Ω. Check with X and R interchanged (R now in the left gap): balance at 60.0 cm, so R/X = 60.0/40.0 → X = 4.0 × 40.0/60.0 = 2.67 Ω, confirming the result.",
+      "precautions": [
+        "Chose R so that the balance point was near the middle of the wire.",
+        "Jockey tapped, not dragged.",
+        "Key opened between readings.",
+        "Interchanged X and R to reduce end errors."
+      ],
+      "sourcesOfError": [
+        "End resistances of the bridge wire.",
+        "Non-uniform wire.",
+        "Heating of the wire."
+      ],
+      "commonMistakes": [
+        "Measuring l from the wrong end for the gap being considered.",
+        "Taking a reading with the galvanometer still deflecting."
+      ],
+      "examTips": [
+        "Explain why the balance point should be near the middle: the percentage error in l is smaller.",
+        "At balance no current flows through the galvanometer, so the meter's own resistance does not matter."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Balance is at 25.0 cm with R = 6.0 Ω in the right gap. X (left gap) is",
+          "options": [
+            "2.0 Ω",
+            "18 Ω",
+            "1.5 Ω",
+            "8.0 Ω"
+          ],
+          "answer": 0,
+          "explanation": "X = 6.0 × 25/75 = 2.0 Ω."
+        },
+        {
+          "q": "At balance, the galvanometer current is",
+          "options": [
+            "maximum",
+            "zero",
+            "equal to the cell current",
+            "reversed"
+          ],
+          "answer": 1,
+          "explanation": "No p.d. across it."
+        },
+        {
+          "q": "The metre bridge is based on the principle of",
+          "options": [
+            "the potentiometer",
+            "the Wheatstone bridge",
+            "the transformer",
+            "the moving-coil motor"
+          ],
+          "answer": 1,
+          "explanation": "Ratio arms balance."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-emf-internal-resistance",
+      "title": "E.m.f. and internal resistance of a cell",
+      "topic": "Measurement of electric current, p.d., resistance, e.m.f. and internal resistance of a cell",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation"
+      ],
+      "aim": "To determine the e.m.f. E and internal resistance r of a dry cell from a graph of terminal p.d. against current.",
+      "apparatus": [
+        "Dry cell (1.5 V)",
+        "Rheostat or resistance box",
+        "Ammeter (0–1 A)",
+        "High-resistance voltmeter (0–3 V)",
+        "Key",
+        "Connecting wires"
+      ],
+      "materials": [
+        "Sandpaper"
+      ],
+      "safety": [
+        "Open the key (switch) between readings so the wires and cells do not heat up.",
+        "Never connect an ammeter directly across a cell — it is a short circuit.",
+        "Use only low-voltage cells or a low-voltage d.c. supply; never use mains sockets."
+      ],
+      "procedure": [
+        "Connect the cell, key, ammeter and rheostat in series, with the voltmeter directly across the cell terminals.",
+        "With the key open, read the voltmeter (approximately the e.m.f.).",
+        "Close the key and adjust the rheostat to give I = 0.20 A; record the terminal p.d. V. Open the key.",
+        "Repeat for I = 0.40, 0.60 and 0.80 A.",
+        "Plot V against I. The intercept on the V-axis is E and the magnitude of the slope is r (V = E − Ir)."
+      ],
+      "expectedObservations": "The terminal p.d. falls as the current increases; the graph is a straight line with negative slope.",
+      "dataAndCalculations": "I/A: 0.20, 0.40, 0.60, 0.80; V/V: 1.40, 1.30, 1.20, 1.10. Slope = (1.10 − 1.40)/(0.80 − 0.20) = −0.50 V A⁻¹, so r = 0.50 Ω. Intercept: E = 1.40 + 0.20 × 0.50 = 1.50 V.",
+      "precautions": [
+        "Key closed only while reading, so the cell does not run down or polarise.",
+        "Voltmeter connected directly across the cell terminals.",
+        "Avoided parallax."
+      ],
+      "sourcesOfError": [
+        "Cell e.m.f. falling during the experiment (polarisation).",
+        "Meter zero errors."
+      ],
+      "commonMistakes": [
+        "Taking the slope as positive r without noting the sign.",
+        "Thinking the open-circuit voltmeter reading equals the terminal p.d. on load."
+      ],
+      "examTips": [
+        "Define e.m.f. and \"lost volts\" (Ir).",
+        "Explain why a car battery has very low internal resistance (to supply large starting currents)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A cell of e.m.f. 2.0 V and internal resistance 0.5 Ω supplies 1.0 A. The terminal p.d. is",
+          "options": [
+            "2.5 V",
+            "1.5 V",
+            "2.0 V",
+            "0.5 V"
+          ],
+          "answer": 1,
+          "explanation": "V = E − Ir = 2.0 − 0.5 = 1.5 V."
+        },
+        {
+          "q": "The intercept on the V-axis of a V against I graph gives",
+          "options": [
+            "r",
+            "E",
+            "R",
+            "zero"
+          ],
+          "answer": 1,
+          "explanation": "When I = 0, V = E."
+        },
+        {
+          "q": "A 1.5 V cell with r = 0.5 Ω is connected to a 2.5 Ω resistor. The current is",
+          "options": [
+            "0.5 A",
+            "0.6 A",
+            "3.0 A",
+            "0.75 A"
+          ],
+          "answer": 0,
+          "explanation": "I = E/(R + r) = 1.5/3.0."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-series-parallel-resistors",
+      "title": "Resistors in series and in parallel",
+      "topic": "Electric circuit",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the effective resistance of resistors connected in series and in parallel and compare with the formulae.",
+      "apparatus": [
+        "Two resistors (2.0 Ω and 3.0 Ω)",
+        "Dry cells",
+        "Ammeter",
+        "Voltmeter",
+        "Key",
+        "Connecting wires"
+      ],
+      "materials": [
+        "Sandpaper"
+      ],
+      "safety": [
+        "Open the key (switch) between readings so the wires and cells do not heat up.",
+        "Never connect an ammeter directly across a cell — it is a short circuit.",
+        "Use only low-voltage cells or a low-voltage d.c. supply; never use mains sockets."
+      ],
+      "procedure": [
+        "Measure the resistance of each resistor separately using V/I.",
+        "Connect the two resistors in series with the ammeter and cell; place the voltmeter across the combination. Record V and I.",
+        "Reconnect the resistors in parallel and repeat.",
+        "Calculate effective resistance R = V/I for each arrangement and compare with R = R₁ + R₂ and 1/R = 1/R₁ + 1/R₂."
+      ],
+      "expectedObservations": "The series combination has a larger resistance than either resistor; the parallel combination has a smaller resistance than either.",
+      "dataAndCalculations": "Series: V = 1.50 V, I = 0.30 A → R = 5.0 Ω (theory 2.0 + 3.0 = 5.0 Ω). Parallel: V = 1.44 V, I = 1.20 A → R = 1.2 Ω (theory 2.0 × 3.0/(2.0 + 3.0) = 1.2 Ω).",
+      "precautions": [
+        "Key opened between readings.",
+        "Clean, tight connections.",
+        "Meters on suitable ranges."
+      ],
+      "sourcesOfError": [
+        "Resistance of connecting wires and meters.",
+        "Heating of resistors."
+      ],
+      "commonMistakes": [
+        "Adding resistances directly for a parallel circuit.",
+        "Forgetting to take the reciprocal at the end of 1/R = 1/R₁ + 1/R₂."
+      ],
+      "examTips": [
+        "Explain why household appliances are connected in parallel (each gets full mains voltage and can be switched independently).",
+        "For two resistors in parallel use R = R₁R₂/(R₁ + R₂)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Three 6 Ω resistors in parallel have an effective resistance of",
+          "options": [
+            "18 Ω",
+            "2 Ω",
+            "6 Ω",
+            "0.5 Ω"
+          ],
+          "answer": 1,
+          "explanation": "6/3 = 2 Ω."
+        },
+        {
+          "q": "A 4 Ω and a 12 Ω resistor in parallel give",
+          "options": [
+            "16 Ω",
+            "3 Ω",
+            "8 Ω",
+            "48 Ω"
+          ],
+          "answer": 1,
+          "explanation": "48/16 = 3 Ω."
+        },
+        {
+          "q": "In a series circuit, the quantity that is the same through each resistor is",
+          "options": [
+            "p.d.",
+            "current",
+            "power",
+            "resistance"
+          ],
+          "answer": 1,
+          "explanation": "Only one path for charge."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-electrical-heating",
+      "title": "Electrical energy: specific heat capacity of water by electrical method",
+      "topic": "Electric energy and power",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To determine the specific heat capacity of water by electrical heating and to relate electrical energy to heat produced.",
+      "apparatus": [
+        "Low-voltage immersion heater (12 V)",
+        "12 V d.c. supply or battery",
+        "Ammeter",
+        "Voltmeter",
+        "Lagged calorimeter or polystyrene cup with lid",
+        "Thermometer",
+        "Stopwatch",
+        "Balance"
+      ],
+      "materials": [
+        "Water",
+        "Cotton wool lagging"
+      ],
+      "safety": [
+        "Use only a low-voltage heater; never place a mains heater in a calorimeter.",
+        "Switch on the heater only when it is fully immersed.",
+        "Hot water scalds."
+      ],
+      "procedure": [
+        "Weigh 0.200 kg of water into the lagged calorimeter and record its initial temperature.",
+        "Immerse the heater, connect it with the ammeter in series and the voltmeter across it.",
+        "Switch on and start the stopwatch; record V and I (keep them steady).",
+        "Stir continuously; after 300 s switch off and record the highest temperature reached.",
+        "Electrical energy = VIt; heat gained = mcΔθ; calculate c."
+      ],
+      "expectedObservations": "The temperature of the water rises steadily while the heater is on and continues to rise slightly just after switching off.",
+      "dataAndCalculations": "V = 12.0 V, I = 2.0 A, t = 300 s → energy = 12.0 × 2.0 × 300 = 7200 J. m = 0.200 kg, Δθ = 8.4 K. c = 7200/(0.200 × 8.4) = 4.29 × 10³ J kg⁻¹ K⁻¹ (accepted 4.2 × 10³; the higher value comes from heat losses, so the water warms less than ideal). Power = VI = 24 W.",
+      "precautions": [
+        "Calorimeter lagged and covered.",
+        "Stirred continuously.",
+        "Heater fully immersed before switching on.",
+        "Recorded the highest temperature after switching off."
+      ],
+      "sourcesOfError": [
+        "Heat lost to the surroundings.",
+        "Heat absorbed by the calorimeter and heater.",
+        "Fluctuating current."
+      ],
+      "commonMistakes": [
+        "Using minutes for t instead of seconds.",
+        "Forgetting that heat losses make the calculated c too large in this method."
+      ],
+      "examTips": [
+        "1 kWh = 3.6 × 10⁶ J; NEPA/DisCo bill calculations are common theory follow-ups.",
+        "Power P = IV = I²R = V²/R."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A 2 kW kettle used for 30 minutes uses",
+          "options": [
+            "1 kWh",
+            "60 kWh",
+            "2 kWh",
+            "0.5 kWh"
+          ],
+          "answer": 0,
+          "explanation": "2 kW × 0.5 h = 1 kWh."
+        },
+        {
+          "q": "Energy supplied by 6 V, 2 A for 50 s is",
+          "options": [
+            "600 J",
+            "150 J",
+            "24 J",
+            "12 J"
+          ],
+          "answer": 0,
+          "explanation": "VIt = 600 J."
+        },
+        {
+          "q": "A heater has resistance 24 Ω on 12 V. Its power is",
+          "options": [
+            "6 W",
+            "288 W",
+            "2 W",
+            "0.5 W"
+          ],
+          "answer": 0,
+          "explanation": "V²/R = 144/24 = 6 W."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-magnetic-field-plotting",
+      "title": "Plotting magnetic field lines and neutral points",
+      "topic": "Concept of magnetic field",
+      "kind": "LAB",
+      "skills": [
+        "drawing",
+        "observation",
+        "measurement"
+      ],
+      "aim": "To plot the magnetic field lines around a bar magnet using a plotting compass and to locate the neutral points.",
+      "apparatus": [
+        "Bar magnet",
+        "Small plotting compass",
+        "Drawing board",
+        "Ruler"
+      ],
+      "materials": [
+        "White paper",
+        "Sharp pencil",
+        "Iron filings (for a quick pattern)"
+      ],
+      "safety": [
+        "Keep iron filings away from eyes; do not blow them.",
+        "Keep phones, keys and steel objects away from the board."
+      ],
+      "procedure": [
+        "Place the paper on the board away from iron objects and mark the magnetic meridian using the compass alone.",
+        "Place the magnet on the paper with its N pole pointing geographic north (along the meridian) and draw its outline.",
+        "Put the compass near the N pole; mark dots at both ends of the needle. Move the compass so its tail is at the last dot and mark again; continue to the S pole.",
+        "Join the dots with a smooth curve and add arrows from N to S. Repeat from other starting points.",
+        "Find the points where the compass sets in any direction (neutral points) and measure their distance from the centre of the magnet."
+      ],
+      "expectedObservations": "Lines leave the N pole and enter the S pole and never cross. With N pole pointing north, two neutral points appear on the east–west line (equatorial axis) through the centre of the magnet, where the magnet's field cancels the Earth's horizontal field.",
+      "dataAndCalculations": "Neutral points X (east) and Y (west) found 8.0 cm and 8.2 cm from the centre of the magnet; mean distance = (8.0 + 8.2)/2 = 8.1 cm. With the magnet reversed (N pole pointing south) the neutral points moved to the axis of the magnet at 10.4 cm and 10.6 cm from the centre (mean 10.5 cm).",
+      "precautions": [
+        "Board far from iron objects and electrical wires.",
+        "Compass tapped gently to free the needle before marking.",
+        "Small compass used for fine plotting."
+      ],
+      "sourcesOfError": [
+        "Nearby steel (desk frames, reinforcement) distorting the field.",
+        "Large compass needle."
+      ],
+      "commonMistakes": [
+        "Drawing lines that cross.",
+        "Missing arrows on field lines.",
+        "Placing neutral points on the wrong axis."
+      ],
+      "examTips": [
+        "Define a neutral point: a point where the resultant magnetic flux density is zero.",
+        "Draw the pattern for two like poles and two unlike poles."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Magnetic field lines outside a magnet run",
+          "options": [
+            "from S to N",
+            "from N to S",
+            "in circles around the middle",
+            "parallel to the magnet only"
+          ],
+          "answer": 1,
+          "explanation": "Convention: N to S."
+        },
+        {
+          "q": "At a neutral point, a compass needle",
+          "options": [
+            "points north",
+            "points to the magnet",
+            "rests in any direction",
+            "spins rapidly"
+          ],
+          "answer": 2,
+          "explanation": "No resultant field."
+        },
+        {
+          "q": "With the N pole of a magnet pointing geographic north, neutral points lie",
+          "options": [
+            "on the axis of the magnet",
+            "on the equatorial (east–west) line",
+            "inside the magnet",
+            "nowhere"
+          ],
+          "answer": 1,
+          "explanation": "Earth's field cancels the magnet's there."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-electromagnet-strength",
+      "title": "Strength of an electromagnet",
+      "topic": "Use of electromagnets",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "observation"
+      ],
+      "aim": "To investigate how the strength of an electromagnet depends on the current and on the number of turns.",
+      "apparatus": [
+        "Large iron nail (soft-iron core)",
+        "Insulated copper wire (about 2 m)",
+        "Dry cells or low-voltage supply",
+        "Ammeter",
+        "Rheostat",
+        "Key"
+      ],
+      "materials": [
+        "Steel paper clips or small pins"
+      ],
+      "safety": [
+        "The coil and cells get warm — close the key only briefly.",
+        "Do not short-circuit the cells."
+      ],
+      "procedure": [
+        "Wind 30 turns of insulated wire tightly on the nail and connect it in series with the ammeter, rheostat, key and cells.",
+        "Set the current to 0.5 A, dip the nail into a pile of clips, lift it and count the clips held.",
+        "Repeat for 1.0, 1.5 and 2.0 A.",
+        "Increase the turns to 60 at a fixed current and repeat.",
+        "Plot the number of clips against current."
+      ],
+      "expectedObservations": "More clips are lifted as the current increases and as the number of turns increases. At high currents the increase slows (the core approaches saturation). When switched off, almost all clips fall (soft iron loses its magnetism).",
+      "dataAndCalculations": "30 turns: I/A = 0.5, 1.0, 1.5, 2.0; clips = 3, 6, 9, 11. Initial slope = (9 − 3)/(1.5 − 0.5) = 6 clips per ampere. 60 turns at 1.0 A: 12 clips — doubling the turns roughly doubled the strength.",
+      "precautions": [
+        "Same size clips used.",
+        "Key opened between readings.",
+        "Turns wound in the same direction and tightly."
+      ],
+      "sourcesOfError": [
+        "Clips magnetising one another (chains).",
+        "Coil heating changing the current."
+      ],
+      "commonMistakes": [
+        "Using a steel core (it stays magnetised).",
+        "Winding some turns in opposite directions so fields cancel."
+      ],
+      "examTips": [
+        "List uses of electromagnets: electric bell, relay, magnetic crane in scrap yards, loudspeaker, circuit breaker.",
+        "Explain why soft iron is used: easily magnetised and demagnetised."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which change makes an electromagnet stronger?",
+          "options": [
+            "Fewer turns",
+            "Smaller current",
+            "Soft-iron core and more turns",
+            "Removing the core"
+          ],
+          "answer": 2,
+          "explanation": "Turns × current and an iron core increase strength."
+        },
+        {
+          "q": "Soft iron is used as the core because it",
+          "options": [
+            "keeps its magnetism",
+            "is easily magnetised and demagnetised",
+            "is a good insulator",
+            "is light"
+          ],
+          "answer": 1,
+          "explanation": "Low retentivity."
+        },
+        {
+          "q": "A device that uses an electromagnet is",
+          "options": [
+            "a filament lamp",
+            "an electric bell",
+            "a dry cell",
+            "a fuse"
+          ],
+          "answer": 1,
+          "explanation": "The armature is attracted by the electromagnet."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-electromagnetic-induction",
+      "title": "Electromagnetic induction with a coil and magnet",
+      "topic": "Electromagnetic induction",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "procedure",
+        "calculation"
+      ],
+      "aim": "To demonstrate that a changing magnetic flux induces an e.m.f. in a coil and to investigate the factors that affect its size and direction.",
+      "apparatus": [
+        "Coil of 200–600 turns",
+        "Centre-zero galvanometer",
+        "Bar magnets (one and two together)",
+        "Connecting wires"
+      ],
+      "materials": [
+        "Cardboard tube (former) if winding your own coil"
+      ],
+      "safety": [
+        "Do not drop magnets — they lose strength and may chip."
+      ],
+      "procedure": [
+        "Connect the coil to the galvanometer.",
+        "Push the N pole of the magnet into the coil and note the size and direction of the deflection; hold it still inside and note the reading; pull it out.",
+        "Repeat faster, then with the S pole, then with two magnets together.",
+        "Repeat with a coil of more turns.",
+        "Record the observations in a table and state the factors affecting the induced e.m.f."
+      ],
+      "expectedObservations": "The galvanometer deflects only while the magnet moves; the deflection reverses when the magnet is withdrawn or the pole is changed; it is larger for faster movement, stronger magnets and more turns.",
+      "dataAndCalculations": "Faraday's law: E = NΔΦ/Δt. For N = 200 turns and a flux change of 3.0 × 10⁻⁴ Wb in 0.10 s, E = 200 × 3.0 × 10⁻⁴/0.10 = 0.60 V. If the magnet is moved twice as fast (0.05 s), E = 1.2 V.",
+      "precautions": [
+        "Coil and galvanometer connected firmly.",
+        "Magnet moved along the axis of the coil.",
+        "Galvanometer kept away from the magnet."
+      ],
+      "sourcesOfError": [
+        "Unequal speeds of movement by hand.",
+        "Galvanometer needle overshooting."
+      ],
+      "commonMistakes": [
+        "Saying a stationary magnet in a coil induces a current.",
+        "Confusing Faraday's law (size) with Lenz's law (direction)."
+      ],
+      "examTips": [
+        "State Lenz's law: the induced current flows in a direction to oppose the change producing it.",
+        "Applications: generators (dynamo on a bicycle), transformers, induction cookers."
+      ],
+      "checkQuestions": [
+        {
+          "q": "No e.m.f. is induced when the magnet",
+          "options": [
+            "moves into the coil",
+            "is held stationary inside the coil",
+            "moves out of the coil",
+            "is reversed quickly"
+          ],
+          "answer": 1,
+          "explanation": "No change of flux."
+        },
+        {
+          "q": "The direction of the induced current is given by",
+          "options": [
+            "Ohm's law",
+            "Lenz's law",
+            "Coulomb's law",
+            "Hooke's law"
+          ],
+          "answer": 1,
+          "explanation": "Lenz's law."
+        },
+        {
+          "q": "A 500-turn coil has a flux change of 2.0 × 10⁻³ Wb in 0.5 s. The e.m.f. is",
+          "options": [
+            "2.0 V",
+            "0.5 V",
+            "1.0 V",
+            "4.0 V"
+          ],
+          "answer": 0,
+          "explanation": "500 × 2.0 × 10⁻³/0.5 = 2.0 V."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-phy-diode-characteristics",
+      "title": "Current–voltage characteristic of a junction diode",
+      "topic": "Electrical conduction through materials (electronics)",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "graph",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To obtain the forward and reverse I–V characteristics of a silicon junction diode.",
+      "apparatus": [
+        "Silicon diode (e.g. 1N4001)",
+        "Protective resistor (100 Ω)",
+        "Variable d.c. supply (0–3 V) or cells with a potentiometer",
+        "Milliammeter (0–50 mA)",
+        "Voltmeter (0–1 V and 0–10 V)",
+        "Key"
+      ],
+      "materials": [
+        "Breadboard or connecting block",
+        "Connecting wires"
+      ],
+      "safety": [
+        "Always include the protective resistor; a forward-biased diode without one can draw a damaging current.",
+        "Do not exceed the diode's rated current."
+      ],
+      "procedure": [
+        "Connect the diode in forward bias (anode to positive) in series with the protective resistor and milliammeter; place the voltmeter across the diode.",
+        "Increase the p.d. across the diode in small steps (0.1 V up to 0.5 V, then 0.05 V steps) and record the current.",
+        "Reverse the diode and record the (very small) current for p.d.s up to about 5 V.",
+        "Plot I against V for both directions on the same axes.",
+        "Find the \"knee\" (turn-on) voltage and calculate the resistance of the diode at a point on the steep part."
+      ],
+      "expectedObservations": "Almost no current flows below about 0.5–0.6 V in forward bias; above that the current rises steeply. In reverse bias the current is practically zero.",
+      "dataAndCalculations": "Forward: V/V = 0.50, 0.55, 0.60, 0.65, 0.70, 0.72; I/mA = 0.5, 2, 5, 12, 25, 33. Turn-on voltage ≈ 0.6 V. Dynamic resistance between 0.65 V and 0.72 V = (0.72 − 0.65)/((33 − 12) × 10⁻³) = 0.07/0.021 = 3.3 Ω. Static resistance at 0.70 V = 0.70/0.025 = 28 Ω.",
+      "precautions": [
+        "Protective resistor used.",
+        "Small steps near the knee.",
+        "Key opened between readings to avoid heating."
+      ],
+      "sourcesOfError": [
+        "Diode heating changes its characteristic.",
+        "Meter resolution near zero current."
+      ],
+      "commonMistakes": [
+        "Connecting the voltmeter across both diode and resistor.",
+        "Joining points with straight segments instead of a smooth curve."
+      ],
+      "examTips": [
+        "Explain rectification: a diode lets current pass in one direction only — used in phone chargers to convert a.c. to d.c.",
+        "Name the majority carriers: electrons in n-type, holes in p-type."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A silicon diode starts to conduct appreciably at about",
+          "options": [
+            "0.1 V",
+            "0.6 V",
+            "3.0 V",
+            "12 V"
+          ],
+          "answer": 1,
+          "explanation": "Typical knee voltage for silicon."
+        },
+        {
+          "q": "A diode is used in a",
+          "options": [
+            "transformer",
+            "rectifier",
+            "fuse",
+            "thermostat"
+          ],
+          "answer": 1,
+          "explanation": "It converts a.c. to d.c."
+        },
+        {
+          "q": "In reverse bias, a diode",
+          "options": [
+            "conducts strongly",
+            "conducts very little",
+            "acts as a short circuit",
+            "emits light always"
+          ],
+          "answer": 1,
+          "explanation": "Depletion layer widens."
+        }
+      ],
+      "simulator": null
+    }
+  ]
+}

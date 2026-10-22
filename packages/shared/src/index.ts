@@ -55,3 +55,5 @@ export * from './birthdays';
 export * from './pricing';
 export * from './gate';
 export * from './wassce';
+export * from './practicals';
+export * from './simulators/chem-titration';

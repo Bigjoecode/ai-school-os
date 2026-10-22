@@ -24,6 +24,8 @@ export interface StoredQuestion {
   /** Theory questions: marks available and the points that earn them. */
   marks?: number;
   markingGuide?: string | null;
+  /** A licensed past question's exam year (shown with the question). */
+  year?: number | null;
 }
 
 const MOCK_GRACE_MS = 2 * 60_000;
@@ -190,6 +192,7 @@ export class StudyService {
           options: [],
           topic: q.topic,
           marks: q.marks ?? 0,
+          year: q.year ?? null,
           written: typeof written[i] === 'string' ? written[i] : null,
           ...(done ? { explanation: q.explanation, markingGuide: q.markingGuide ?? null, marking: m ? { score: m.score, outOf: m.outOf, strengths: m.strengths, missing: m.missing, feedback: m.feedback } : null } : {}),
         };

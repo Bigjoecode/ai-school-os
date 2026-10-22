@@ -1,0 +1,2068 @@
+{
+ "exam": "WAEC",
+ "subject": "Health Education",
+ "practicalPaper": "Paper 3 is a 1 3/4-hour practical test for 80 marks: school candidates handle and identify specimens, models, charts and first aid materials, carry out simple tests (such as food tests) and interpret health data, while private candidates take an alternative test of practical work based on drawings, photographs and data. Marks are earned for correct identification, clear labelled drawings, accurate procedures, observations and inferences, and correct calculations of health indices.",
+ "practicals": [
+  {
+   "id": "pr-hed-food-tests-starch-sugars",
+   "title": "Food tests for starch and reducing sugars",
+   "topic": "Nutrition",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "observation",
+    "safety",
+    "identification"
+   ],
+   "aim": "To test common Nigerian foods for the presence of starch (iodine test) and reducing sugars (Benedict's or Fehling's test) and relate the results to their nutrient class.",
+   "apparatus": [
+    "Test tubes and test-tube rack",
+    "Test-tube holder",
+    "Beaker for water bath",
+    "Bunsen burner, spirit lamp or hot plate",
+    "Dropping pipettes",
+    "Mortar and pestle",
+    "Measuring cylinder (10 cm3)",
+    "White tile"
+   ],
+   "materials": [
+    "Iodine solution",
+    "Benedict's solution",
+    "Food samples: yam, garri, rice, ripe banana, orange juice, glucose powder, table sugar",
+    "Distilled or clean water"
+   ],
+   "safety": [
+    "Wear eye protection and use a test-tube holder when heating",
+    "Heat in a water bath, never point the tube at anyone",
+    "Iodine stains skin and clothes; wipe spills at once",
+    "Do not taste any laboratory sample"
+   ],
+   "procedure": [
+    "Grind a small piece of each solid food with about 5 cm3 of water and filter or allow to settle; use the liquid as the food solution.",
+    "Starch test: place a little of each solid sample (or 2 cm3 of solution) on a white tile or in a test tube and add 2-3 drops of iodine solution.",
+    "Record the colour: blue-black means starch present; yellow-brown (unchanged iodine) means starch absent.",
+    "Reducing sugar test: put 2 cm3 of each food solution in a clean test tube and add an equal volume (2 cm3) of Benedict's solution.",
+    "Heat the tubes in a boiling water bath for about 5 minutes.",
+    "Observe the colour change: blue (none) through green, yellow, orange to brick-red (much reducing sugar).",
+    "Repeat with table sugar (sucrose); it stays blue unless first boiled with dilute hydrochloric acid and neutralised.",
+    "Record all results in a table of test, observation and inference."
+   ],
+   "expectedObservations": "Yam, garri and rice turn blue-black with iodine. Glucose, ripe banana and orange juice give green to brick-red precipitates with Benedict's solution. Table sugar remains blue with Benedict's solution because sucrose is a non-reducing sugar.",
+   "dataAndCalculations": "Results table example (7 samples): starch positive - yam, garri, rice = 3 of 7 = 42.9%; reducing sugar positive - glucose, ripe banana, orange juice = 3 of 7 = 42.9%; table sugar negative for both. Volumes: 2 cm3 food solution + 2 cm3 Benedict's = 4 cm3 in each tube, so for 7 tubes you need 7 x 2 = 14 cm3 of Benedict's solution.",
+   "precautions": [
+    "Use clean test tubes for each sample to avoid contamination",
+    "Use equal volumes of food solution and reagent",
+    "Heat in a water bath, not directly in a flame"
+   ],
+   "sourcesOfError": [
+    "Dirty test tubes carrying sugar from one sample to another",
+    "Heating for too short a time",
+    "Very dilute food solutions giving faint colours"
+   ],
+   "commonMistakes": [
+    "Writing \"starch is present\" without stating the colour observed",
+    "Expecting table sugar to give a brick-red colour",
+    "Not heating the Benedict's test"
+   ],
+   "examTips": [
+    "Use a three-column table: Test, Observation, Inference",
+    "Quote exact colours (blue-black, brick-red) - vague words lose marks",
+    "Name the reagent and state the need for heating"
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which colour shows starch is present in the iodine test?",
+     "options": [
+      "Brick-red",
+      "Blue-black",
+      "Purple",
+      "Translucent spot"
+     ],
+     "answer": 1,
+     "explanation": "Iodine turns blue-black with starch."
+    },
+    {
+     "q": "Which sample gives a negative Benedict's test without acid hydrolysis?",
+     "options": [
+      "Glucose",
+      "Ripe banana",
+      "Table sugar",
+      "Orange juice"
+     ],
+     "answer": 2,
+     "explanation": "Sucrose is a non-reducing sugar."
+    },
+    {
+     "q": "Why is the Benedict's test carried out in a water bath?",
+     "options": [
+      "The reaction needs heat and the bath heats safely and evenly",
+      "To cool the mixture",
+      "To dissolve iodine",
+      "To remove fat"
+     ],
+     "answer": 0,
+     "explanation": "Heat is required; a water bath avoids spitting and cracking."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-food-tests-protein-fat",
+   "title": "Food tests for protein and fats/oils",
+   "topic": "Nutrition",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "observation",
+    "safety",
+    "identification"
+   ],
+   "aim": "To test foods for protein (Biuret test) and for fats and oils (grease-spot and Sudan III tests).",
+   "apparatus": [
+    "Test tubes and rack",
+    "Dropping pipettes",
+    "Measuring cylinder",
+    "Filter paper or plain paper",
+    "Mortar and pestle"
+   ],
+   "materials": [
+    "Sodium hydroxide solution (dilute)",
+    "Copper(II) sulphate solution (1%)",
+    "Sudan III solution (if available)",
+    "Egg white, beans, groundnut, palm oil, milk, garri",
+    "Water"
+   ],
+   "safety": [
+    "Sodium hydroxide is corrosive: wear goggles and wash spills off skin with plenty of water",
+    "Keep Sudan III (in alcohol) away from flames",
+    "Do not taste samples"
+   ],
+   "procedure": [
+    "Prepare food solutions or suspensions by grinding each sample with water.",
+    "Biuret test: to 2 cm3 of food solution add 2 cm3 of dilute sodium hydroxide and shake.",
+    "Add 1% copper(II) sulphate solution drop by drop, shaking after each drop.",
+    "Record the colour: violet/purple means protein present; blue (unchanged) means absent.",
+    "Grease-spot test: rub a small piece of groundnut or a drop of palm oil on paper, leave to dry for 10 minutes and hold the paper up to the light.",
+    "A translucent spot that does not disappear on drying shows fat or oil; a water spot dries off.",
+    "Sudan III test (optional): shake the sample with water and 3 drops of Sudan III; a red-stained oily layer floating on top shows fat.",
+    "Record results in a table."
+   ],
+   "expectedObservations": "Egg white, beans and milk give a violet colour with the Biuret test. Groundnut, palm oil and milk leave a permanent translucent spot and a red layer with Sudan III. Garri gives negative results for both.",
+   "dataAndCalculations": "Energy link: 10 g of groundnut contains roughly 5 g fat, 2.5 g protein and 1.5 g carbohydrate, giving 5 x 9 + 2.5 x 4 + 1.5 x 4 = 45 + 10 + 6 = 61 kcal. Fat supplies 45 / 61 x 100 = 73.8% of the energy, explaining why groundnut gives a strong grease-spot result.",
+   "precautions": [
+    "Add copper(II) sulphate drop by drop",
+    "Let the paper dry before judging the grease spot",
+    "Use clean apparatus for each food"
+   ],
+   "sourcesOfError": [
+    "Excess copper(II) sulphate masking the violet colour with blue",
+    "Water spots mistaken for grease spots if not dried"
+   ],
+   "commonMistakes": [
+    "Adding copper(II) sulphate before sodium hydroxide",
+    "Judging the grease spot while still wet"
+   ],
+   "examTips": [
+    "State \"violet/purple\" for protein - not \"pink\" or \"blue\"",
+    "Explain why the paper is dried in the grease-spot test"
+   ],
+   "checkQuestions": [
+    {
+     "q": "A positive Biuret test gives",
+     "options": [
+      "blue-black colour",
+      "brick-red precipitate",
+      "violet colour",
+      "red oily layer"
+     ],
+     "answer": 2,
+     "explanation": "Peptide bonds react with alkaline copper(II) to give violet."
+    },
+    {
+     "q": "In the grease-spot test the paper is left to dry so that",
+     "options": [
+      "the fat evaporates",
+      "any water spot disappears",
+      "the colour changes",
+      "starch is removed"
+     ],
+     "answer": 1,
+     "explanation": "Only fat leaves a permanent translucent spot."
+    },
+    {
+     "q": "How many kilocalories does 1 g of fat supply?",
+     "options": [
+      "4",
+      "7",
+      "17",
+      "9"
+     ],
+     "answer": 3,
+     "explanation": "Fat yields about 9 kcal per gram."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-meal-energy-balanced-diet",
+   "title": "Planning a balanced meal and calculating its energy value",
+   "topic": "Balanced/Adequate Diets",
+   "kind": "LAB",
+   "skills": [
+    "calculation",
+    "identification"
+   ],
+   "aim": "To plan a balanced meal from local foods, classify its foods into nutrient classes and calculate its energy value.",
+   "apparatus": [
+    "Kitchen scale",
+    "Calculator",
+    "Food composition table or labels"
+   ],
+   "materials": [
+    "Sample foods or pictures: rice, beans, fish, vegetables (ugu/spinach), palm oil, orange",
+    "Worksheet"
+   ],
+   "safety": [
+    "Wash hands before handling food samples"
+   ],
+   "procedure": [
+    "Choose a meal for a named person (e.g. an SS3 student) containing all six classes of food.",
+    "List each food with its main nutrient class (carbohydrate, protein, fat/oil, vitamins, mineral salts, water).",
+    "Weigh or estimate the portion of each food.",
+    "Use a food composition table to find grams of carbohydrate, protein and fat in each portion.",
+    "Calculate the energy using 4 kcal/g for carbohydrate and protein and 9 kcal/g for fat.",
+    "Compare the total with the person's needs and suggest adjustments."
+   ],
+   "expectedObservations": "The meal includes an energy food, a body-building food, a protective food (vegetables/fruit) and water; most energy comes from carbohydrate.",
+   "dataAndCalculations": "Meal of jollof rice, beans, fish and vegetable: 75 g carbohydrate, 20 g protein, 15 g fat. Energy = 75 x 4 + 20 x 4 + 15 x 9 = 300 + 80 + 135 = 515 kcal. Share from carbohydrate = 300 / 515 x 100 = 58.3%; from fat = 135 / 515 x 100 = 26.2%; from protein = 15.5%. If a student needs about 2,400 kcal a day, this meal supplies 515 / 2400 x 100 = 21.5%.",
+   "precautions": [
+    "Use the correct energy factor for each nutrient",
+    "Weigh foods raw or cooked consistently with the table used"
+   ],
+   "sourcesOfError": [
+    "Estimated portion sizes",
+    "Composition tables differ from local varieties"
+   ],
+   "commonMistakes": [
+    "Using 9 kcal/g for protein",
+    "Omitting water and fruits/vegetables from the meal"
+   ],
+   "examTips": [
+    "Show each multiplication step and units (kcal)",
+    "Name a local example for each food class"
+   ],
+   "checkQuestions": [
+    {
+     "q": "What is the energy from 20 g of protein?",
+     "options": [
+      "80 kcal",
+      "180 kcal",
+      "40 kcal",
+      "20 kcal"
+     ],
+     "answer": 0,
+     "explanation": "20 x 4 = 80 kcal."
+    },
+    {
+     "q": "Which food in jollof rice, beans and fish is mainly body-building?",
+     "options": [
+      "Rice",
+      "Palm oil",
+      "Fish",
+      "Tomato"
+     ],
+     "answer": 2,
+     "explanation": "Fish is rich in protein."
+    },
+    {
+     "q": "A meal providing 75 g carbohydrate, 20 g protein and 15 g fat supplies",
+     "options": [
+      "415 kcal",
+      "455 kcal",
+      "600 kcal",
+      "515 kcal"
+     ],
+     "answer": 3,
+     "explanation": "300 + 80 + 135 = 515 kcal."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-snellen-vision-screening",
+   "title": "Vision screening with the Snellen chart",
+   "topic": "Health Screening",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "procedure",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To screen the visual acuity of each eye using a Snellen chart and record results as Snellen fractions.",
+   "apparatus": [
+    "Snellen chart (or E-chart for those who cannot read letters)",
+    "Measuring tape",
+    "Eye occluder or clean card",
+    "Pointer"
+   ],
+   "materials": [
+    "Record sheet",
+    "Masking tape to mark the 6 m line"
+   ],
+   "safety": [
+    "Do not press on the eye being covered",
+    "Clean the occluder between students",
+    "Refer, do not diagnose - any defect goes to an eye specialist"
+   ],
+   "procedure": [
+    "Hang the chart at eye level in a well-lit place, avoiding glare from windows.",
+    "Measure 6 metres from the chart and mark the standing line.",
+    "Let the student stand at the line (with glasses on if usually worn) and cover the left eye with the occluder.",
+    "Point to letters from the top line downwards; the student reads each one aloud.",
+    "Record the smallest line on which the student reads most letters correctly (e.g. at least 4 of 5).",
+    "Repeat for the left eye, then both eyes.",
+    "Record each result as a fraction: testing distance / line number (e.g. 6/12).",
+    "Refer anyone with 6/12 or worse in either eye, or who squints or strains, to an optometrist or ophthalmologist."
+   ],
+   "expectedObservations": "A normal eye reads the 6 m line (6/6). A short-sighted (myopic) student reads only the larger lines, e.g. 6/18; some students may show a difference between the two eyes.",
+   "dataAndCalculations": "A result of 6/18 means the student reads at 6 m what a normal eye reads at 18 m. Decimal acuity = 6 / 18 = 0.33 (normal = 6/6 = 1.0). In a class of 40 screened, 6 students scored 6/12 or worse: referral rate = 6 / 40 x 100 = 15%.",
+   "precautions": [
+    "Keep exactly 6 m distance",
+    "Test each eye separately",
+    "Ensure good, even lighting",
+    "Prevent the student from memorising the chart"
+   ],
+   "sourcesOfError": [
+    "Poor lighting",
+    "Student peeping through fingers",
+    "Incorrect distance"
+   ],
+   "commonMistakes": [
+    "Writing the fraction upside down (18/6)",
+    "Testing both eyes together only"
+   ],
+   "examTips": [
+    "Explain the meaning of the numerator (testing distance) and the denominator",
+    "Link results to defects: myopia - difficulty with distant objects, corrected with concave lenses"
+   ],
+   "checkQuestions": [
+    {
+     "q": "At what distance is the standard Snellen test usually done?",
+     "options": [
+      "1 m",
+      "3 m",
+      "10 m",
+      "6 m"
+     ],
+     "answer": 3,
+     "explanation": "The standard testing distance is 6 metres (20 feet)."
+    },
+    {
+     "q": "A result of 6/24 means the student",
+     "options": [
+      "has perfect vision",
+      "reads at 6 m what a normal eye reads at 24 m",
+      "reads at 24 m what others read at 6 m",
+      "is long-sighted"
+     ],
+     "answer": 1,
+     "explanation": "The denominator is the distance a normal eye could read that line."
+    },
+    {
+     "q": "If 8 of 50 students are referred, the referral rate is",
+     "options": [
+      "16%",
+      "8%",
+      "6.25%",
+      "42%"
+     ],
+     "answer": 0,
+     "explanation": "8 / 50 x 100 = 16%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-auditory-screening",
+   "title": "Simple auditory screening (watch-tick and tuning-fork tests)",
+   "topic": "Health Screening",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "procedure",
+    "observation"
+   ],
+   "aim": "To screen hearing using a ticking watch and a tuning fork (Rinne and Weber tests) and distinguish possible conductive from sensorineural impairment.",
+   "apparatus": [
+    "Mechanical ticking watch or clock",
+    "Tuning fork (512 Hz)",
+    "Measuring tape",
+    "Stopwatch"
+   ],
+   "materials": [
+    "Record sheet"
+   ],
+   "safety": [
+    "Never strike the tuning fork on a hard surface or near the ear; strike on the knee or rubber pad",
+    "Do not insert anything into the ear canal"
+   ],
+   "procedure": [
+    "Work in a quiet room. Ask the student to close the eyes and cover one ear.",
+    "Watch-tick test: bring the watch slowly towards the uncovered ear and measure the distance at which the tick is first heard; repeat for the other ear.",
+    "Rinne test: strike the fork, place its base on the mastoid bone behind the ear and time how long the sound is heard (bone conduction).",
+    "When the sound fades, move the prongs 2-3 cm from the ear canal and time how long it is still heard (air conduction).",
+    "Weber test: place the base of the vibrating fork on the middle of the forehead and ask in which ear the sound is louder.",
+    "Record results and refer abnormal findings to an ENT doctor or audiologist (audiometry)."
+   ],
+   "expectedObservations": "Normal: air conduction lasts about twice as long as bone conduction (Rinne positive) and the Weber sound is central. In conductive loss (e.g. wax, otitis media) bone conduction is longer and the Weber sound goes to the affected ear; in sensorineural loss Weber goes to the better ear.",
+   "dataAndCalculations": "Rinne example: bone conduction heard for 15 s, then air conduction for a further 15 s, so total air conduction = 30 s. AC : BC = 30 : 15 = 2 : 1, normal (Rinne positive). If BC = 25 s and AC = 10 s, AC < BC - suggests conductive loss. Watch test: right ear 90 cm, left ear 30 cm; the left ear hears at only 30 / 90 = one third of the distance and should be referred.",
+   "precautions": [
+    "Use a quiet room",
+    "Keep the fork prongs from touching the ear or hair",
+    "Test each ear separately"
+   ],
+   "sourcesOfError": [
+    "Background noise",
+    "Student guessing",
+    "Striking the fork with different strength"
+   ],
+   "commonMistakes": [
+    "Confusing which test is Rinne and which is Weber",
+    "Drawing conclusions instead of referring"
+   ],
+   "examTips": [
+    "State the frequency of the fork (512 Hz) and where it is placed",
+    "Name the specialist (otologist/ENT, audiologist)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a normal Rinne test",
+     "options": [
+      "bone conduction is longer than air conduction",
+      "neither is heard",
+      "air conduction is longer than bone conduction",
+      "both are equal"
+     ],
+     "answer": 2,
+     "explanation": "AC > BC is normal (Rinne positive)."
+    },
+    {
+     "q": "The tuning fork usually used in screening is",
+     "options": [
+      "512 Hz",
+      "50 Hz",
+      "5,000 Hz",
+      "128 kHz"
+     ],
+     "answer": 0,
+     "explanation": "512 Hz is standard for Rinne and Weber tests."
+    },
+    {
+     "q": "Wax blocking the ear canal causes",
+     "options": [
+      "sensorineural loss",
+      "conductive loss",
+      "myopia",
+      "astigmatism"
+     ],
+     "answer": 1,
+     "explanation": "Wax blocks the conduction of sound."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-posture-assessment",
+   "title": "Posture assessment and identification of postural defects",
+   "topic": "Posture and Postural Defects",
+   "kind": "LAB",
+   "skills": [
+    "observation",
+    "identification",
+    "measurement"
+   ],
+   "aim": "To assess standing, sitting and lifting posture using a plumb line and simple observations, and identify signs of kyphosis, lordosis, scoliosis and flat foot.",
+   "apparatus": [
+    "Plumb line (string with a weight)",
+    "Measuring tape",
+    "Mirror",
+    "Chair and table",
+    "Box (about 5 kg) for lifting practice"
+   ],
+   "materials": [
+    "Posture checklist",
+    "Water and a tray or paper for footprints"
+   ],
+   "safety": [
+    "Lift only light loads; bend the knees, keep the back straight",
+    "Respect privacy: assess over PE kit, same-sex pairs where appropriate"
+   ],
+   "procedure": [
+    "Side view: hang the plumb line beside the standing student; in good posture it passes through the ear lobe, shoulder, hip, slightly behind the knee and in front of the ankle.",
+    "Back view: check that shoulders and hips are level; measure the height of each shoulder from the floor.",
+    "Ask the student to bend forward; a rib hump on one side suggests scoliosis.",
+    "Footprint test: wet the feet and stand on paper; a full sole print with no inner arch suggests flat foot.",
+    "Observe sitting posture at a desk and correct lifting technique with the box.",
+    "Record findings on the checklist and suggest corrective exercises or referral to a physiotherapist."
+   ],
+   "expectedObservations": "Good posture shows a vertical alignment and level shoulders. Kyphosis shows rounded upper back; lordosis an exaggerated lower-back curve; scoliosis a sideways curve with uneven shoulders; flat foot a full footprint.",
+   "dataAndCalculations": "Shoulder height: right 142 cm, left 140 cm, difference = 2 cm, which may indicate scoliosis and needs referral. Class results: 9 of 36 students showed rounded shoulders = 9 / 36 x 100 = 25%.",
+   "precautions": [
+    "Students should stand relaxed in their usual posture",
+    "Use a still plumb line",
+    "Measure on a level floor"
+   ],
+   "sourcesOfError": [
+    "Students correcting posture because they are observed",
+    "Uneven floor"
+   ],
+   "commonMistakes": [
+    "Confusing kyphosis with lordosis",
+    "Not linking defects to their causes (bad sitting, heavy bags)"
+   ],
+   "examTips": [
+    "Draw and label the plumb-line points",
+    "For each defect state a cause and a correction"
+   ],
+   "checkQuestions": [
+    {
+     "q": "An exaggerated inward curve of the lower back is",
+     "options": [
+      "kyphosis",
+      "scoliosis",
+      "flat foot",
+      "lordosis"
+     ],
+     "answer": 3,
+     "explanation": "Lordosis affects the lumbar curve."
+    },
+    {
+     "q": "A sideways curvature of the spine is",
+     "options": [
+      "scoliosis",
+      "kyphosis",
+      "lordosis",
+      "rickets"
+     ],
+     "answer": 0,
+     "explanation": "Scoliosis is lateral curvature."
+    },
+    {
+     "q": "If 9 of 36 students have a defect, the percentage is",
+     "options": [
+      "9%",
+      "36%",
+      "25%",
+      "30%"
+     ],
+     "answer": 2,
+     "explanation": "9 / 36 x 100 = 25%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-pulse-exercise",
+   "title": "Measuring pulse rate at rest and after exercise",
+   "topic": "Circulatory System",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "graph",
+    "procedure"
+   ],
+   "aim": "To measure the radial pulse at rest and after exercise and show how heart rate changes and recovers.",
+   "apparatus": [
+    "Stopwatch or watch with seconds hand",
+    "Graph paper"
+   ],
+   "materials": [
+    "Record table"
+   ],
+   "safety": [
+    "Students with asthma, sickle cell disease or heart conditions should not do vigorous exercise",
+    "Stop if dizzy or breathless"
+   ],
+   "procedure": [
+    "Sit quietly for 5 minutes.",
+    "Find the radial pulse on the thumb side of the wrist using two fingers (not the thumb).",
+    "Count the beats for 15 seconds and multiply by 4 to get beats per minute; repeat twice and average.",
+    "Do 2 minutes of step-ups or skipping.",
+    "Immediately measure the pulse again for 15 seconds.",
+    "Measure every minute for 5 minutes while resting.",
+    "Plot pulse rate (y-axis) against time (x-axis)."
+   ],
+   "expectedObservations": "The pulse rises sharply after exercise and falls back towards the resting value within a few minutes; fitter students recover faster.",
+   "dataAndCalculations": "Rest: 18 beats in 15 s = 18 x 4 = 72 beats/min. After exercise: 33 beats in 15 s = 132 beats/min. Increase = 132 - 72 = 60 beats/min = 60 / 72 x 100 = 83.3% rise. After 3 minutes: 20 beats in 15 s = 80 beats/min, only 8 above rest.",
+   "precautions": [
+    "Use fingers not the thumb (the thumb has its own pulse)",
+    "Start counting immediately after exercise",
+    "Repeat counts and average"
+   ],
+   "sourcesOfError": [
+    "Miscounting beats",
+    "Delay before counting after exercise",
+    "Pulse missed when pressing too hard"
+   ],
+   "commonMistakes": [
+    "Forgetting to multiply 15-second counts by 4",
+    "Joining graph points carelessly or not labelling axes"
+   ],
+   "examTips": [
+    "Show the multiplication from the count to beats per minute",
+    "Explain the rise: muscles need more oxygen and glucose"
+   ],
+   "checkQuestions": [
+    {
+     "q": "21 beats counted in 15 seconds give a pulse rate of",
+     "options": [
+      "63 /min",
+      "84 /min",
+      "42 /min",
+      "105 /min"
+     ],
+     "answer": 1,
+     "explanation": "21 x 4 = 84."
+    },
+    {
+     "q": "Why should the thumb not be used to feel the pulse?",
+     "options": [
+      "It is too weak",
+      "It is too cold",
+      "It has its own pulse",
+      "It presses too lightly"
+     ],
+     "answer": 2,
+     "explanation": "You may count your own pulse."
+    },
+    {
+     "q": "Heart rate rises during exercise mainly because",
+     "options": [
+      "muscles need more oxygen",
+      "blood becomes thicker",
+      "the body cools",
+      "digestion speeds up"
+     ],
+     "answer": 0,
+     "explanation": "More blood delivers oxygen and removes carbon dioxide."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-bmi-growth",
+   "title": "Measuring height and weight and calculating Body Mass Index",
+   "topic": "Promotion and Maintenance of Health",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To measure height and weight accurately and calculate Body Mass Index (BMI) as an indicator of nutritional status.",
+   "apparatus": [
+    "Bathroom or health scale (zeroed)",
+    "Stadiometer or measuring tape fixed to a wall",
+    "Set square or flat book"
+   ],
+   "materials": [
+    "Record sheet",
+    "Calculator"
+   ],
+   "safety": [
+    "Respect privacy and sensitivity about weight; results are confidential",
+    "Ensure the scale is on a firm level floor"
+   ],
+   "procedure": [
+    "Check the scale reads zero; weigh the student without shoes and in light clothing; record to 0.1 kg.",
+    "Measure height without shoes, heels together against the wall, looking straight ahead; lower a set square onto the head; record to 0.1 cm.",
+    "Convert height to metres.",
+    "Calculate BMI = weight (kg) / height (m) squared.",
+    "Classify the result (adults: under 18.5 underweight, 18.5-24.9 normal, 25-29.9 overweight, 30 and above obese; for teenagers use BMI-for-age charts).",
+    "Discuss diet and exercise advice for each category."
+   ],
+   "expectedObservations": "Most students fall in the normal range; some may be underweight or overweight, showing the need for balanced diet and exercise.",
+   "dataAndCalculations": "Student A: 60 kg, 1.65 m. BMI = 60 / (1.65 x 1.65) = 60 / 2.7225 = 22.0 kg/m2 (normal). Student B: 45 kg, 1.52 m: BMI = 45 / 2.3104 = 19.5 (normal). Adult C: 78 kg, 1.70 m: BMI = 78 / 2.89 = 27.0 (overweight).",
+   "precautions": [
+    "Zero the scale",
+    "Remove shoes and heavy items",
+    "Read height at eye level"
+   ],
+   "sourcesOfError": [
+    "Uncalibrated scale",
+    "Head not level when measuring height",
+    "Heavy clothing"
+   ],
+   "commonMistakes": [
+    "Using height in centimetres in the formula",
+    "Not squaring the height"
+   ],
+   "examTips": [
+    "Write the formula and units kg/m2",
+    "Round sensibly (1 decimal place)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "The BMI of a person weighing 60 kg with a height of 1.65 m is about",
+     "options": [
+      "36.4",
+      "22.0",
+      "18.2",
+      "27.0"
+     ],
+     "answer": 1,
+     "explanation": "60 / 2.7225 = 22.0."
+    },
+    {
+     "q": "For an adult, a BMI of 27 is classified as",
+     "options": [
+      "underweight",
+      "normal",
+      "obese",
+      "overweight"
+     ],
+     "answer": 3,
+     "explanation": "25-29.9 is overweight."
+    },
+    {
+     "q": "In the BMI formula height must be in",
+     "options": [
+      "metres, squared",
+      "centimetres",
+      "feet",
+      "metres, not squared"
+     ],
+     "answer": 0,
+     "explanation": "BMI = kg / m2."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-teeth-dental-check",
+   "title": "Identifying types of teeth and simple dental inspection",
+   "topic": "Dental Health Education",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "drawing",
+    "observation"
+   ],
+   "aim": "To identify incisors, canines, premolars and molars on a skull, jaw model or chart, draw a tooth in section and inspect the mouth for signs of caries and gingivitis.",
+   "apparatus": [
+    "Human or animal jaw/skull or dental model",
+    "Hand lens",
+    "Small mirror",
+    "Torch"
+   ],
+   "materials": [
+    "Wall chart of a tooth in longitudinal section",
+    "Disposable gloves",
+    "Toothbrush and paste for demonstration"
+   ],
+   "safety": [
+    "Wear gloves when handling specimens and wash hands afterwards",
+    "Use your own mirror; never share toothbrushes"
+   ],
+   "procedure": [
+    "Examine the model and identify each type of tooth by shape: chisel-shaped incisors, pointed canines, two-cusped premolars and broad multi-cusped molars.",
+    "Count the teeth in one half of each jaw and write the dental formula.",
+    "Draw and label a longitudinal section of a molar: enamel, dentine, pulp cavity, gum, cement, root, blood vessels and nerves.",
+    "With a mirror and torch, look at your own teeth and gums for black spots/holes (caries), bleeding or swollen gums (gingivitis) and plaque.",
+    "Demonstrate correct brushing for 2 minutes twice daily.",
+    "Record findings and advice."
+   ],
+   "expectedObservations": "An adult has 32 permanent teeth; children have 20 milk teeth. Signs of caries are dark cavities; gingivitis shows red, swollen, bleeding gums.",
+   "dataAndCalculations": "Adult dental formula (one side, upper/lower): incisors 2/2, canine 1/1, premolars 2/2, molars 3/3 = 8 teeth per half-jaw; total = (2 + 1 + 2 + 3) x 2 x 2 = 32. Milk teeth: (2 + 1 + 2) x 2 x 2 = 20. Survey: 14 of 40 students with visible caries = 35%.",
+   "precautions": [
+    "Handle specimens gently",
+    "Label drawings with ruled lines"
+   ],
+   "sourcesOfError": [
+    "Missing or damaged teeth in specimens",
+    "Poor light for mouth inspection"
+   ],
+   "commonMistakes": [
+    "Confusing premolars and molars",
+    "Unlabelled or shaded drawings"
+   ],
+   "examTips": [
+    "Draw large, clear outlines with labels on the right",
+    "State a function for each tooth type"
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many permanent teeth does an adult human normally have?",
+     "options": [
+      "28",
+      "20",
+      "32",
+      "36"
+     ],
+     "answer": 2,
+     "explanation": "8 per half-jaw x 4 = 32."
+    },
+    {
+     "q": "The hardest substance in the body is",
+     "options": [
+      "enamel",
+      "dentine",
+      "bone",
+      "cement"
+     ],
+     "answer": 0,
+     "explanation": "Enamel covers the crown and is the hardest tissue."
+    },
+    {
+     "q": "Bleeding, swollen gums suggest",
+     "options": [
+      "dental caries",
+      "scurvy only",
+      "pyorrhoea of the ear",
+      "gingivitis"
+     ],
+     "answer": 3,
+     "explanation": "Gingivitis is inflammation of the gums."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-skeleton-joints",
+   "title": "Study of the skeleton, bones and joints",
+   "topic": "Skeletal System and Muscles",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "drawing",
+    "observation"
+   ],
+   "aim": "To identify the main bones of the axial and appendicular skeleton and the types of joints on a skeleton model or chart.",
+   "apparatus": [
+    "Human skeleton model or chart",
+    "Mammalian bones (e.g. cow femur, goat vertebrae from the market)",
+    "Hand lens"
+   ],
+   "materials": [
+    "Drawing paper and pencil",
+    "Disposable gloves"
+   ],
+   "safety": [
+    "Wear gloves when handling real bones; wash hands afterwards",
+    "Handle models carefully"
+   ],
+   "procedure": [
+    "Divide the skeleton into axial (skull, vertebral column, ribs, sternum) and appendicular (limbs, girdles) parts.",
+    "Identify named bones: cranium, mandible, clavicle, scapula, humerus, radius, ulna, pelvis, femur, tibia, fibula.",
+    "Identify the regions of the vertebral column: cervical, thoracic, lumbar, sacral, coccygeal.",
+    "Locate examples of joints: ball-and-socket (shoulder, hip), hinge (elbow, knee), pivot (atlas-axis), gliding (wrist bones), fixed (skull sutures).",
+    "Draw and label a synovial joint: bone, cartilage, synovial membrane, synovial fluid, capsule, ligament.",
+    "Demonstrate the movement allowed at each joint on your own body."
+   ],
+   "expectedObservations": "The adult skeleton has 206 bones; ball-and-socket joints allow movement in all planes, hinge joints in one plane, and sutures allow no movement.",
+   "dataAndCalculations": "Adult skeleton: 206 bones = 80 axial + 126 appendicular. Axial share = 80 / 206 x 100 = 38.8%. Vertebral column: 7 cervical + 12 thoracic + 5 lumbar = 24 movable vertebrae, plus the fused sacrum and coccyx.",
+   "precautions": [
+    "Use correct orientation when identifying left and right bones",
+    "Label drawings clearly"
+   ],
+   "sourcesOfError": [
+    "Incomplete or damaged specimens",
+    "Charts with simplified details"
+   ],
+   "commonMistakes": [
+    "Calling the radius the ulna",
+    "Confusing tendons (muscle to bone) with ligaments (bone to bone)"
+   ],
+   "examTips": [
+    "State the type of joint and the movement it allows",
+    "Give the function of synovial fluid (lubrication, reduces friction)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many bones are in the adult human skeleton?",
+     "options": [
+      "300",
+      "206",
+      "126",
+      "80"
+     ],
+     "answer": 1,
+     "explanation": "About 206 bones in adults."
+    },
+    {
+     "q": "The knee is an example of a",
+     "options": [
+      "hinge joint",
+      "ball-and-socket joint",
+      "pivot joint",
+      "fixed joint"
+     ],
+     "answer": 0,
+     "explanation": "It moves mainly in one plane."
+    },
+    {
+     "q": "Which structure joins bone to bone?",
+     "options": [
+      "Tendon",
+      "Cartilage",
+      "Synovial fluid",
+      "Ligament"
+     ],
+     "answer": 3,
+     "explanation": "Ligaments link bones at joints."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-reproductive-organs",
+   "title": "Study of mammalian reproductive organs and pregnancy dating",
+   "topic": "Human Reproduction",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "drawing",
+    "calculation"
+   ],
+   "aim": "To identify the parts of the male and female reproductive systems on models, charts or a dissected small mammal and calculate ovulation and expected delivery dates.",
+   "apparatus": [
+    "Models or charts of human reproductive systems",
+    "Dissected rat or rabbit (teacher demonstration, preserved)",
+    "Dissecting tray",
+    "Hand lens"
+   ],
+   "materials": [
+    "Gloves",
+    "Drawing paper",
+    "Calendar"
+   ],
+   "safety": [
+    "Specimens are preserved in chemicals; wear gloves and do not touch the face",
+    "Teacher alone handles scalpels",
+    "Treat the topic maturely and respectfully"
+   ],
+   "procedure": [
+    "Identify on the female model: ovaries, oviducts (fallopian tubes), uterus, cervix, vagina; state the function of each.",
+    "Identify on the male model: testes, scrotum, epididymis, sperm duct, seminal vesicle, prostate gland, urethra, penis.",
+    "Observe the teacher's dissected mammal and compare its organs with the human models.",
+    "Draw and label either system.",
+    "Use a calendar to work out the likely ovulation day and the expected date of delivery from given dates."
+   ],
+   "expectedObservations": "The specimen shows paired gonads and ducts similar to the human pattern; the rat and rabbit have two separate uterine horns (a duplex uterus) that hold several embryos, unlike the single pear-shaped human uterus.",
+   "dataAndCalculations": "Ovulation occurs about 14 days before the next period: in a 28-day cycle on day 28 - 14 = 14; in a 32-day cycle on day 32 - 14 = 18. Expected delivery date (Naegele's rule): first day of last period 10 January 2026 + 1 year - 3 months + 7 days = 17 October 2026, which equals 280 days (40 weeks) after 10 January 2026.",
+   "precautions": [
+    "Do not damage organs when moving them",
+    "Label using ruled lines"
+   ],
+   "sourcesOfError": [
+    "Shrinkage and colour change in preserved specimens",
+    "Irregular cycles making ovulation estimates unreliable"
+   ],
+   "commonMistakes": [
+    "Confusing the oviduct and the ureter",
+    "Calling the scrotum the testis"
+   ],
+   "examTips": [
+    "Give the function with each labelled part",
+    "Show date calculations step by step"
+   ],
+   "checkQuestions": [
+    {
+     "q": "Fertilisation normally takes place in the",
+     "options": [
+      "uterus",
+      "vagina",
+      "oviduct",
+      "ovary"
+     ],
+     "answer": 2,
+     "explanation": "The egg meets sperm in the oviduct (fallopian tube)."
+    },
+    {
+     "q": "In a 30-day cycle, ovulation is likely on day",
+     "options": [
+      "16",
+      "14",
+      "10",
+      "30"
+     ],
+     "answer": 0,
+     "explanation": "30 - 14 = 16."
+    },
+    {
+     "q": "Normal human gestation is about",
+     "options": [
+      "180 days",
+      "365 days",
+      "210 days",
+      "280 days"
+     ],
+     "answer": 3,
+     "explanation": "40 weeks = 280 days from the last period."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-first-aid-bleeding-burns",
+   "title": "First aid for cuts, bleeding, burns and scalds",
+   "topic": "First Aid",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "safety",
+    "identification"
+   ],
+   "aim": "To identify first aid kit items and demonstrate correct first aid for cuts, severe bleeding, burns and scalds.",
+   "apparatus": [
+    "First aid box: sterile dressings, crepe and triangular bandages, gauze, adhesive plasters, cotton wool, scissors, safety pins, gloves, antiseptic, cling film"
+   ],
+   "materials": [
+    "Clean running water",
+    "Clean cloth",
+    "Partner for role play"
+   ],
+   "safety": [
+    "Wear disposable gloves to avoid contact with blood",
+    "Never burst blisters or apply oil, toothpaste or raw egg to burns",
+    "Call for help (e.g. 112 in Nigeria) for serious injuries"
+   ],
+   "procedure": [
+    "Identify each item in the first aid box and state its use.",
+    "Minor cut: wash hands, put on gloves, rinse the wound under clean running water, pat dry and cover with a sterile plaster or dressing.",
+    "Severe bleeding: apply firm direct pressure with a pad, raise the injured part above the heart if no fracture, and bandage the pad firmly; add another pad if blood soaks through.",
+    "Keep the casualty lying down and watch for shock (pale, cold, clammy skin, fast weak pulse).",
+    "Burn or scald: cool under cool running water for at least 20 minutes; remove rings or tight items before swelling.",
+    "Cover the burn loosely with cling film or a clean non-fluffy dressing and seek medical help for large, deep or facial burns."
+   ],
+   "expectedObservations": "Firm pressure and elevation slow bleeding; cooled burns become less painful and damage is reduced.",
+   "dataAndCalculations": "Timing: maintain direct pressure for at least 10 minutes; cool a burn for at least 20 minutes - from 13:05 cooling should continue until 13:25. A survey of a class first aid box listing 15 standard items found 9 present: 9 / 15 x 100 = 60% complete, so 6 items need replacing.",
+   "precautions": [
+    "Protect yourself first",
+    "Use sterile materials",
+    "Do not remove objects embedded in a wound - pad around them"
+   ],
+   "sourcesOfError": [
+    "Role play may not reflect real stress"
+   ],
+   "commonMistakes": [
+    "Applying a tight tourniquet first",
+    "Using ice or butter on burns",
+    "Removing clothing stuck to a burn"
+   ],
+   "examTips": [
+    "State the aims of first aid: preserve life, prevent worsening, promote recovery",
+    "Give steps in correct order with reasons"
+   ],
+   "checkQuestions": [
+    {
+     "q": "For how long should a burn be cooled with running water?",
+     "options": [
+      "1 minute",
+      "5 minutes",
+      "At least 20 minutes",
+      "It should not be cooled"
+     ],
+     "answer": 2,
+     "explanation": "At least 20 minutes of cool running water is advised."
+    },
+    {
+     "q": "The first action for severe bleeding is",
+     "options": [
+      "direct pressure on the wound",
+      "giving water",
+      "applying oil",
+      "washing with hot water"
+     ],
+     "answer": 0,
+     "explanation": "Direct pressure controls bleeding."
+    },
+    {
+     "q": "Which should NOT be put on a burn?",
+     "options": [
+      "Cool water",
+      "Cling film",
+      "Clean dressing",
+      "Butter or oil"
+     ],
+     "answer": 3,
+     "explanation": "Oils retain heat and increase infection risk."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-first-aid-fractures",
+   "title": "First aid for fractures and dislocations: slings and splints",
+   "topic": "First Aid",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "safety",
+    "identification"
+   ],
+   "aim": "To recognise signs of fractures and dislocations and immobilise injured limbs with slings and improvised splints.",
+   "apparatus": [
+    "Triangular bandages",
+    "Padding (cotton wool, folded cloth)",
+    "Splints (flat wood, rolled newspaper or cardboard)",
+    "Crepe bandage"
+   ],
+   "materials": [
+    "Partner for role play",
+    "Mat"
+   ],
+   "safety": [
+    "Do not try to straighten a deformed limb or push back a dislocated joint",
+    "Do not move a casualty with suspected spinal injury unless in danger"
+   ],
+   "procedure": [
+    "Recognise signs: pain, swelling, deformity, loss of function, abnormal movement, grating.",
+    "Keep the casualty still and support the injured part in the position found.",
+    "Arm or collarbone injury: support the forearm across the chest with an arm sling tied at the hollow above the collarbone on the uninjured side.",
+    "Leg injury: pad between the legs and tie the injured leg to the good leg (or to a padded splint) above and below the injury, knots on the uninjured side.",
+    "Check circulation beyond the bandage (colour, warmth, capillary refill) every 10 minutes and loosen if needed.",
+    "Arrange transport to hospital and treat for shock."
+   ],
+   "expectedObservations": "The limb is immobilised comfortably, circulation remains normal and pain from movement is reduced.",
+   "dataAndCalculations": "Capillary refill: press the nail bed for 5 seconds; colour should return within 2 seconds. If it takes 4 seconds after bandaging, the bandage is too tight - loosen it. For a lower-leg fracture use at least 4 ties: 2 above and 2 below the fracture (including the ankle and knee).",
+   "precautions": [
+    "Pad bony areas",
+    "Tie knots away from the injury",
+    "Check circulation repeatedly"
+   ],
+   "sourcesOfError": [
+    "Role play cannot reproduce real swelling or pain"
+   ],
+   "commonMistakes": [
+    "Tying bandages over the fracture site",
+    "Moving the casualty unnecessarily",
+    "Bandages too tight"
+   ],
+   "examTips": [
+    "Distinguish open (compound) from closed (simple) fractures",
+    "Mention checking circulation"
+   ],
+   "checkQuestions": [
+    {
+     "q": "A fracture where the bone breaks through the skin is",
+     "options": [
+      "simple/closed",
+      "greenstick",
+      "compound/open",
+      "complicated"
+     ],
+     "answer": 2,
+     "explanation": "An open fracture has a wound connecting to the bone."
+    },
+    {
+     "q": "Colour returning to a pressed nail bed should take no more than about",
+     "options": [
+      "2 seconds",
+      "10 seconds",
+      "30 seconds",
+      "1 minute"
+     ],
+     "answer": 0,
+     "explanation": "Delay over 2 s suggests poor circulation."
+    },
+    {
+     "q": "A dislocated shoulder should be",
+     "options": [
+      "pushed back by the first aider",
+      "massaged",
+      "exercised",
+      "supported and the casualty taken to hospital"
+     ],
+     "answer": 3,
+     "explanation": "Only trained medical staff reduce dislocations."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-first-aid-cpr-recovery",
+   "title": "Asphyxia: recovery position and cardiopulmonary resuscitation (CPR)",
+   "topic": "First Aid",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement"
+   ],
+   "aim": "To demonstrate the recovery position and adult CPR on a manikin, and first aid for choking and suffocation.",
+   "apparatus": [
+    "CPR manikin (or firm pillow for rhythm practice)",
+    "Face shield",
+    "Mat",
+    "Stopwatch or metronome app set to 110 bpm"
+   ],
+   "materials": [
+    "Antiseptic wipes for the manikin",
+    "Partner"
+   ],
+   "safety": [
+    "Practise compressions only on a manikin, never on a person",
+    "Check for danger before approaching a casualty (traffic, electricity, smoke)"
+   ],
+   "procedure": [
+    "Use DRABC: check Danger, Response (shout and tap shoulders), shout for help, open the Airway (head tilt, chin lift), check Breathing for up to 10 seconds.",
+    "If breathing normally, place the casualty in the recovery position (on the side, top leg bent, head tilted back) and monitor.",
+    "If not breathing normally, call 112 and start CPR: hands in the centre of the chest, arms straight.",
+    "Give 30 compressions at 100-120 per minute, 5-6 cm deep, allowing full recoil.",
+    "Give 2 rescue breaths (seal the mouth, pinch the nose, watch the chest rise), or continue compressions only if unwilling or untrained.",
+    "Continue 30:2 until help arrives or the person recovers; choking adults: up to 5 back blows then up to 5 abdominal thrusts."
+   ],
+   "expectedObservations": "Correct hand position and rhythm cause the manikin chest to compress and recoil fully; the recovery position keeps the airway open and allows fluids to drain.",
+   "dataAndCalculations": "Compression rate: 30 compressions at 110 per minute take 30 / 110 x 60 = 16.4 seconds. Five cycles of 30:2 = 150 compressions and 10 breaths; at 110/min compressions alone take 150 / 110 = 1.36 minutes (about 82 s), plus roughly 5 x 5 s for breaths = about 107 s, close to 2 minutes, which is when rescuers should swap.",
+   "precautions": [
+    "Keep interruptions to compressions under 10 seconds",
+    "Allow full chest recoil",
+    "Use a face shield"
+   ],
+   "sourcesOfError": [
+    "Manikins differ from real chest resistance",
+    "Counting aloud too fast"
+   ],
+   "commonMistakes": [
+    "Bending the elbows",
+    "Compressing too shallowly or too fast",
+    "Spending too long checking breathing"
+   ],
+   "examTips": [
+    "Quote the ratio 30:2 and the rate 100-120 per minute",
+    "Mention calling for help early"
+   ],
+   "checkQuestions": [
+    {
+     "q": "The compression-to-breath ratio for adult CPR is",
+     "options": [
+      "15:1",
+      "30:2",
+      "5:1",
+      "10:2"
+     ],
+     "answer": 1,
+     "explanation": "Current guidance is 30 compressions to 2 breaths."
+    },
+    {
+     "q": "The recommended compression rate is",
+     "options": [
+      "60-80 per minute",
+      "140-160 per minute",
+      "100-120 per minute",
+      "40 per minute"
+     ],
+     "answer": 2,
+     "explanation": "100-120 compressions per minute."
+    },
+    {
+     "q": "An unconscious casualty who is breathing normally should be",
+     "options": [
+      "placed in the recovery position",
+      "given CPR",
+      "given water",
+      "left on their back unattended"
+     ],
+     "answer": 0,
+     "explanation": "The recovery position keeps the airway open."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-ors-preparation",
+   "title": "Preparing oral rehydration solution (ORS)",
+   "topic": "Family Health",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "procedure",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To prepare oral rehydration solution from a WHO/UNICEF sachet and by the home salt-sugar method, and explain its use in diarrhoea.",
+   "apparatus": [
+    "1-litre measuring jug or clean 1-litre bottle (e.g. empty water bottle)",
+    "Level teaspoon (5 ml)",
+    "Clean cup and spoon",
+    "Pot for boiling water"
+   ],
+   "materials": [
+    "ORS sachet (for 1 litre)",
+    "Clean (boiled and cooled) water",
+    "Table salt",
+    "Granulated sugar"
+   ],
+   "safety": [
+    "Wash hands with soap before preparing",
+    "Use exactly the stated amount of water; too little water makes the solution too salty",
+    "Discard ORS after 24 hours"
+   ],
+   "procedure": [
+    "Boil water and allow it to cool.",
+    "Sachet method: pour the whole sachet into exactly 1 litre of cooled boiled water and stir until dissolved.",
+    "Home method: measure 1 litre of cooled boiled water; add 6 level teaspoons of sugar and half a level teaspoon of salt; stir well.",
+    "Taste: it should be no saltier than tears.",
+    "Give in small, frequent sips with a cup and spoon; continue breastfeeding and normal feeding.",
+    "Give zinc tablets as advised by a health worker and seek care if the child shows danger signs (blood in stool, sunken eyes, inability to drink, lethargy)."
+   ],
+   "expectedObservations": "A clear, slightly sweet and slightly salty solution; with ORS the dehydrated child gradually passes urine and becomes more alert.",
+   "dataAndCalculations": "Home recipe for 1 litre: 6 level teaspoons sugar (about 6 x 5 ml = 30 ml) and 1/2 level teaspoon salt (about 2.5 ml). For 500 ml halve it: 3 teaspoons sugar and 1/4 teaspoon salt. Fluid guide: after each loose stool a child under 2 years gets 50-100 ml; a child who passes 6 loose stools in a day at 100 ml each needs 600 ml extra.",
+   "precautions": [
+    "Measure accurately with level spoons",
+    "Use safe water",
+    "Prepare fresh daily"
+   ],
+   "sourcesOfError": [
+    "Heaped instead of level spoons",
+    "Using a container that is not exactly 1 litre"
+   ],
+   "commonMistakes": [
+    "Dissolving a sachet in less water",
+    "Stopping feeding during diarrhoea",
+    "Giving soft drinks instead of ORS"
+   ],
+   "examTips": [
+    "Quote the exact proportions and the volume of water",
+    "State that ORS replaces water and salts lost and prevents dehydration"
+   ],
+   "checkQuestions": [
+    {
+     "q": "The home ORS recipe for 1 litre of water is",
+     "options": [
+      "1 teaspoon sugar and 6 teaspoons salt",
+      "6 level teaspoons sugar and 1/2 level teaspoon salt",
+      "3 teaspoons sugar and 3 teaspoons salt",
+      "Sugar only"
+     ],
+     "answer": 1,
+     "explanation": "WHO home recipe: 6 level teaspoons sugar, half a level teaspoon salt."
+    },
+    {
+     "q": "Prepared ORS should be discarded after",
+     "options": [
+      "1 hour",
+      "1 week",
+      "24 hours",
+      "3 days"
+     ],
+     "answer": 2,
+     "explanation": "Make it fresh every 24 hours."
+    },
+    {
+     "q": "For 500 ml of water, the salt needed is",
+     "options": [
+      "1/4 level teaspoon",
+      "1 teaspoon",
+      "2 teaspoons",
+      "1/2 teaspoon"
+     ],
+     "answer": 0,
+     "explanation": "Half of 1/2 teaspoon = 1/4 teaspoon."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-water-purification",
+   "title": "Simple household water purification",
+   "topic": "Water Supply",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "observation",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To purify muddy water by sedimentation, filtration and boiling and compare the clarity of water from different sources.",
+   "apparatus": [
+    "Transparent bottles or beakers",
+    "Funnel",
+    "Sand-gravel-charcoal filter (cut plastic bottle)",
+    "Clean cloth",
+    "Pot and stove",
+    "Measuring jug"
+   ],
+   "materials": [
+    "Samples from a stream, well, borehole and rain",
+    "Alum (if available)",
+    "Clean sand, gravel, charcoal"
+   ],
+   "safety": [
+    "Never drink unboiled test samples",
+    "Take care with boiling water and stoves",
+    "Wash hands after handling stream water"
+   ],
+   "procedure": [
+    "Collect equal volumes (500 ml) of water from different sources and note colour, smell and particles.",
+    "Sedimentation: leave samples to stand for 1 hour (or add a pinch of alum and stir) and observe settling.",
+    "Decant the top water carefully into the filter made of layers: gravel at the bottom, sand, charcoal and cloth at top (or as constructed), and collect the filtrate.",
+    "Boil the filtered water at a rolling boil for at least 1 minute, cover and allow to cool.",
+    "Store in a clean covered container and draw with a clean cup.",
+    "Compare clarity before and after each stage."
+   ],
+   "expectedObservations": "Mud settles at the bottom; filtered water is clearer; boiling kills most germs though it does not remove dissolved chemicals. Borehole and rainwater are usually clearer than stream water.",
+   "dataAndCalculations": "Household needs: a family of 6 using 20 litres per person per day needs 6 x 20 = 120 litres daily and 120 x 30 = 3,600 litres in 30 days. Filtration rate example: 500 ml collected in 4 minutes = 125 ml per minute, so 10 litres would take 10,000 / 125 = 80 minutes.",
+   "precautions": [
+    "Do not stir the sediment when decanting",
+    "Clean the filter regularly",
+    "Cover stored water"
+   ],
+   "sourcesOfError": [
+    "Dirty containers recontaminating water",
+    "Filters channelling water through gaps"
+   ],
+   "commonMistakes": [
+    "Believing clear water is always safe",
+    "Storing treated water in uncovered buckets"
+   ],
+   "examTips": [
+    "List purification stages in order with the purpose of each",
+    "Name water-borne diseases prevented (cholera, typhoid, dysentery)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which method kills most disease germs in water at home?",
+     "options": [
+      "Sedimentation",
+      "Boiling",
+      "Decanting",
+      "Adding salt"
+     ],
+     "answer": 1,
+     "explanation": "Boiling kills bacteria, viruses and parasites."
+    },
+    {
+     "q": "A family of 5 using 20 litres per person per day needs daily",
+     "options": [
+      "25 litres",
+      "200 litres",
+      "4 litres",
+      "100 litres"
+     ],
+     "answer": 3,
+     "explanation": "5 x 20 = 100 litres."
+    },
+    {
+     "q": "Alum is added to water to",
+     "options": [
+      "make suspended particles settle",
+      "kill germs",
+      "add taste",
+      "soften it"
+     ],
+     "answer": 0,
+     "explanation": "Alum coagulates particles (flocculation)."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-waste-disposal-survey",
+   "title": "Household and school waste disposal survey",
+   "topic": "Waste Disposal",
+   "kind": "FIELD",
+   "skills": [
+    "observation",
+    "calculation",
+    "graph"
+   ],
+   "aim": "To survey methods of refuse and sewage disposal used by households near the school and assess their health hazards.",
+   "apparatus": [
+    "Questionnaire",
+    "Clipboard",
+    "Camera or phone",
+    "Graph paper"
+   ],
+   "materials": [
+    "Gloves and face mask",
+    "Map of the area"
+   ],
+   "safety": [
+    "Work in groups with a teacher; do not enter dumpsites or open drains",
+    "Wear gloves and masks; wash hands after the survey"
+   ],
+   "procedure": [
+    "Prepare a short questionnaire on refuse disposal (bin collection/PSP, open dumping, burning, burying, composting) and toilet type.",
+    "Visit a sample of households (e.g. 40) with permission and record answers.",
+    "Observe drains, dumpsites and pests (flies, rats, mosquitoes) and take photographs.",
+    "Tally the results and calculate percentages.",
+    "Draw a bar chart or pie chart of disposal methods.",
+    "Write a short report with recommendations to the community or local government."
+   ],
+   "expectedObservations": "Common methods include open dumping and burning; blocked drains and refuse heaps attract flies, rats and mosquitoes and cause odour and flooding.",
+   "dataAndCalculations": "Survey of 40 households: open dumping 28 (28 / 40 x 100 = 70%), collection by waste vendor 6 (15%), burning 4 (10%), burying 2 (5%); total 40 = 100%. Pie chart angles: 70% x 360 = 252 degrees, 15% = 54, 10% = 36, 5% = 18 (sum 360).",
+   "precautions": [
+    "Ask permission and keep answers confidential",
+    "Use a fair sample of streets"
+   ],
+   "sourcesOfError": [
+    "Respondents giving socially acceptable answers",
+    "Small sample size"
+   ],
+   "commonMistakes": [
+    "Percentages not adding to 100",
+    "Charts without titles or keys"
+   ],
+   "examTips": [
+    "State a health hazard and a remedy for each method",
+    "Show percentage and angle calculations"
+   ],
+   "checkQuestions": [
+    {
+     "q": "If 12 of 40 households burn refuse, the percentage is",
+     "options": [
+      "12%",
+      "40%",
+      "30%",
+      "28%"
+     ],
+     "answer": 2,
+     "explanation": "12 / 40 x 100 = 30%."
+    },
+    {
+     "q": "The pie-chart angle for 15% is",
+     "options": [
+      "54 degrees",
+      "15 degrees",
+      "45 degrees",
+      "60 degrees"
+     ],
+     "answer": 0,
+     "explanation": "0.15 x 360 = 54."
+    },
+    {
+     "q": "Open refuse dumps mainly encourage",
+     "options": [
+      "clean air",
+      "better drainage",
+      "soil fertility",
+      "flies and rats that spread disease"
+     ],
+     "answer": 3,
+     "explanation": "Dumps breed vectors and pests."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-vector-survey",
+   "title": "Mosquito breeding site survey and vector control",
+   "topic": "Pests and Vectors Control",
+   "kind": "FIELD",
+   "skills": [
+    "observation",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To locate mosquito breeding sites around homes and the school, calculate larval indices and recommend control measures.",
+   "apparatus": [
+    "Torch",
+    "White dish or ladle (dipper)",
+    "Hand lens",
+    "Clipboard and record sheet"
+   ],
+   "materials": [
+    "Gloves",
+    "Specimen tubes (optional)",
+    "Charts of vectors: Anopheles, Aedes, Culex, housefly, cockroach, rat, tsetse fly"
+   ],
+   "safety": [
+    "Wear gloves and long sleeves; avoid stagnant drains and deep water",
+    "Do not handle rats or dead animals"
+   ],
+   "procedure": [
+    "Identify vectors from charts and the diseases they spread (Anopheles - malaria; Aedes - yellow fever, dengue; Culex - filariasis; housefly - cholera, typhoid; tsetse - sleeping sickness).",
+    "Inspect compounds for water-holding containers: tyres, tins, flower pots, water drums, gutters, blocked drains.",
+    "Dip water from each container and look for larvae and pupae; record positive containers and houses.",
+    "Use a hand lens to tell Anopheles larvae (lie parallel to the water surface) from Culex/Aedes larvae (hang at an angle with a siphon).",
+    "Calculate the larval indices.",
+    "Recommend and, where possible, carry out control: emptying and covering containers, clearing drains, insecticide-treated nets, indoor spraying."
+   ],
+   "expectedObservations": "Larvae are often found in discarded tyres, tins and uncovered water drums; Anopheles larvae lie flat at the surface; Culex larvae are common in dirty drains.",
+   "dataAndCalculations": "Survey of 60 houses: 12 houses had larvae; 45 containers inspected, 9 positive; 18 positive containers counted across all 60 houses. House index = 12 / 60 x 100 = 20%. Container index = 9 / 45 x 100 = 20%. Breteau index = 18 positive containers per 60 houses x 100 = 30 per 100 houses.",
+   "precautions": [
+    "Inspect every container systematically",
+    "Record data immediately"
+   ],
+   "sourcesOfError": [
+    "Missing hidden containers (roof gutters)",
+    "Misidentifying larvae"
+   ],
+   "commonMistakes": [
+    "Confusing pests (nuisance) with vectors (transmit disease)",
+    "Listing only insecticide spraying as control"
+   ],
+   "examTips": [
+    "Distinguish physical, chemical and biological control with examples",
+    "Link each vector to its disease and pathogen"
+   ],
+   "checkQuestions": [
+    {
+     "q": "Anopheles larvae can be recognised because they",
+     "options": [
+      "hang at an angle with a siphon",
+      "live only in salt water",
+      "lie parallel to the water surface",
+      "have no breathing tubes and sink"
+     ],
+     "answer": 2,
+     "explanation": "Anopheles larvae lack a siphon and lie flat."
+    },
+    {
+     "q": "If 15 of 75 houses have larvae, the house index is",
+     "options": [
+      "15%",
+      "20%",
+      "5%",
+      "75%"
+     ],
+     "answer": 1,
+     "explanation": "15 / 75 x 100 = 20%."
+    },
+    {
+     "q": "Yellow fever is transmitted by",
+     "options": [
+      "Aedes mosquito",
+      "Anopheles mosquito",
+      "tsetse fly",
+      "housefly"
+     ],
+     "answer": 0,
+     "explanation": "Aedes aegypti transmits yellow fever."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-vital-statistics",
+   "title": "Calculating and interpreting vital statistics",
+   "topic": "Epidemiology and Vital Statistics",
+   "kind": "LAB",
+   "skills": [
+    "calculation",
+    "graph"
+   ],
+   "aim": "To calculate crude birth rate, crude death rate, infant mortality rate, rate of natural increase and morbidity rates from given community data.",
+   "apparatus": [
+    "Calculator",
+    "Graph paper"
+   ],
+   "materials": [
+    "Local health records or given data set (e.g. from a primary health centre)"
+   ],
+   "safety": [
+    "Keep personal health records confidential; use anonymised data"
+   ],
+   "procedure": [
+    "Collect or read the data: mid-year population, live births, deaths, infant deaths and new cases of a disease in one year.",
+    "Crude birth rate = live births / population x 1,000.",
+    "Crude death rate = deaths / population x 1,000.",
+    "Infant mortality rate = deaths under 1 year / live births x 1,000.",
+    "Rate of natural increase (%) = (births - deaths) / population x 100.",
+    "Incidence of a disease = new cases / population at risk x 1,000; draw a bar chart and interpret the results."
+   ],
+   "expectedObservations": "The figures show whether the population is growing and highlight health problems such as high infant mortality, guiding health planning.",
+   "dataAndCalculations": "Community of 50,000: 1,250 live births, 400 deaths, 30 infant deaths, 600 new malaria cases. CBR = 1,250 / 50,000 x 1,000 = 25 per 1,000. CDR = 400 / 50,000 x 1,000 = 8 per 1,000. IMR = 30 / 1,250 x 1,000 = 24 per 1,000 live births. Natural increase = (1,250 - 400) / 50,000 x 100 = 1.7%. Malaria incidence = 600 / 50,000 x 1,000 = 12 per 1,000.",
+   "precautions": [
+    "Use the correct denominator (live births for IMR)",
+    "Give rates with \"per 1,000\""
+   ],
+   "sourcesOfError": [
+    "Under-registration of births and deaths",
+    "Inaccurate population estimates"
+   ],
+   "commonMistakes": [
+    "Dividing infant deaths by the total population",
+    "Omitting units"
+   ],
+   "examTips": [
+    "Write each formula before substituting",
+    "State one use of each statistic (planning, evaluating programmes)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "A town of 20,000 with 600 live births has a crude birth rate of",
+     "options": [
+      "3 per 1,000",
+      "60 per 1,000",
+      "12 per 1,000",
+      "30 per 1,000"
+     ],
+     "answer": 3,
+     "explanation": "600 / 20,000 x 1,000 = 30."
+    },
+    {
+     "q": "Infant mortality rate uses which denominator?",
+     "options": [
+      "Live births in the year",
+      "Total population",
+      "Number of women",
+      "Total deaths"
+     ],
+     "answer": 0,
+     "explanation": "IMR = infant deaths per 1,000 live births."
+    },
+    {
+     "q": "With 1,000 births and 300 deaths in a population of 35,000, natural increase is",
+     "options": [
+      "0.2%",
+      "3.7%",
+      "2.0%",
+      "7%"
+     ],
+     "answer": 2,
+     "explanation": "700 / 35,000 x 100 = 2.0%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-worm-life-cycles",
+   "title": "Study of parasitic worms and their life cycles",
+   "topic": "Communicable Diseases",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "drawing",
+    "observation"
+   ],
+   "aim": "To identify preserved specimens or charts of roundworm, tapeworm, hookworm and guinea worm and describe their life cycles and prevention.",
+   "apparatus": [
+    "Preserved specimens in labelled jars (if available)",
+    "Charts of life cycles",
+    "Hand lens"
+   ],
+   "materials": [
+    "Drawing paper",
+    "Gloves"
+   ],
+   "safety": [
+    "Do not open specimen jars; preservatives are toxic",
+    "Wash hands after the practical"
+   ],
+   "procedure": [
+    "Observe each specimen or chart and note shape, size, segmentation and special features (tapeworm scolex with hooks and suckers, hookworm mouth hooks).",
+    "Trace the life cycle on the chart: source of infection, entry route, site in the body, how eggs or larvae leave the host.",
+    "Draw and label one worm and its life cycle as a flow diagram.",
+    "Relate each stage to a preventive measure (e.g. wearing shoes prevents hookworm larvae entering through the skin).",
+    "Summarise in a table: worm, mode of infection, symptoms, prevention."
+   ],
+   "expectedObservations": "Ascaris is a long, unsegmented, creamy roundworm; Taenia is a flat, ribbon-like segmented worm with a scolex; hookworm is small with a curved front end; guinea worm emerges through a skin blister.",
+   "dataAndCalculations": "A female Ascaris lays about 200,000 eggs per day: in one week 200,000 x 7 = 1,400,000 eggs pass in the stool, showing why proper faeces disposal is vital. Taenia solium can grow to 2-7 m; a 3 m worm with segments about 5 mm long would have roughly 3,000 / 5 = 600 segments.",
+   "precautions": [
+    "Handle jars carefully",
+    "Draw from the specimen, not memory"
+   ],
+   "sourcesOfError": [
+    "Preserved specimens shrink and lose colour",
+    "Simplified charts"
+   ],
+   "commonMistakes": [
+    "Confusing the intermediate host of Taenia solium (pig) with the definitive host (human)",
+    "Unlabelled flow diagrams"
+   ],
+   "examTips": [
+    "Write life cycles as clear arrows with stage names",
+    "Give one specific prevention for each stage"
+   ],
+   "checkQuestions": [
+    {
+     "q": "Hookworm larvae mainly enter the body through",
+     "options": [
+      "the skin of bare feet",
+      "eating undercooked pork",
+      "mosquito bites",
+      "drinking water with Cyclops"
+     ],
+     "answer": 0,
+     "explanation": "Larvae in soil penetrate bare skin."
+    },
+    {
+     "q": "Guinea worm infection is acquired by",
+     "options": [
+      "eating pork",
+      "walking barefoot",
+      "drinking water containing infected Cyclops",
+      "sexual contact"
+     ],
+     "answer": 2,
+     "explanation": "Cyclops water fleas carry the larvae."
+    },
+    {
+     "q": "The intermediate host of Taenia solium is the",
+     "options": [
+      "cow",
+      "snail",
+      "mosquito",
+      "pig"
+     ],
+     "answer": 3,
+     "explanation": "Pork tapeworm cysts develop in pigs."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-consumer-labels",
+   "title": "Reading health product labels and checking expiry dates",
+   "topic": "Consumer Health Products and Services",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To examine labels of drugs, foods and cosmetics for NAFDAC registration numbers, manufacturing and expiry dates, ingredients and storage instructions, and detect signs of fake or expired products.",
+   "apparatus": [
+    "Hand lens",
+    "Calendar",
+    "Phone (for NAFDAC Mas/scratch-code verification where available)"
+   ],
+   "materials": [
+    "Empty packets and containers of paracetamol, ORS, multivitamin syrup, tinned tomato, body cream, bottled water"
+   ],
+   "safety": [
+    "Use empty or sealed containers only; do not open or taste medicines"
+   ],
+   "procedure": [
+    "Examine each label and record: product name, manufacturer, NAFDAC registration number, batch number, manufacturing date, expiry date, ingredients, dosage, storage.",
+    "Check for signs of fakes: spelling errors, poor printing, missing NAFDAC number, broken seals, unusual price.",
+    "Calculate the shelf life and whether each product is still safe on the date of the practical.",
+    "Read the storage instructions (e.g. \"store below 25 degrees C, away from sunlight\").",
+    "Discuss the agencies protecting consumers: NAFDAC, Standards Organisation of Nigeria (SON), Federal Competition and Consumer Protection Commission (FCCPC).",
+    "Record results in a table and state which products should not be bought or used."
+   ],
+   "expectedObservations": "Genuine products have clear printing, a NAFDAC number, batch number and readable dates; some samples may be expired or lack details.",
+   "dataAndCalculations": "A syrup manufactured in March 2025 with an 18-month shelf life expires in September 2026 (March 2025 + 18 months). On a practical date of 22 October 2026 it has been expired for about 1 month and must not be used. Of 12 products examined, 2 were expired: 2 / 12 x 100 = 16.7%.",
+   "precautions": [
+    "Read dates carefully - formats differ (DD/MM/YY, MM/YYYY)",
+    "Note \"use before\" versus \"best before\""
+   ],
+   "sourcesOfError": [
+    "Faded or smudged printing",
+    "Different date formats"
+   ],
+   "commonMistakes": [
+    "Confusing manufacturing date with expiry date",
+    "Assuming a high price means the product is genuine"
+   ],
+   "examTips": [
+    "Name the agency and its role",
+    "List label features of a genuine product"
+   ],
+   "checkQuestions": [
+    {
+     "q": "The Nigerian agency that registers food and drugs is",
+     "options": [
+      "SON",
+      "NAFDAC",
+      "NDLEA",
+      "FRSC"
+     ],
+     "answer": 1,
+     "explanation": "NAFDAC regulates food, drugs and cosmetics."
+    },
+    {
+     "q": "A drug made in June 2025 with a 24-month shelf life expires in",
+     "options": [
+      "June 2026",
+      "December 2026",
+      "June 2028",
+      "June 2027"
+     ],
+     "answer": 3,
+     "explanation": "June 2025 + 24 months = June 2027."
+    },
+    {
+     "q": "Which is a sign of a possibly fake drug?",
+     "options": [
+      "Spelling errors on the label",
+      "Clear batch number",
+      "Intact seal",
+      "Printed expiry date"
+     ],
+     "answer": 0,
+     "explanation": "Poor printing and spelling errors suggest counterfeit."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-housing-inspection",
+   "title": "Inspection of housing for health standards",
+   "topic": "Housing",
+   "kind": "FIELD",
+   "skills": [
+    "measurement",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To inspect a room or house for siting, ventilation, lighting, sanitation and overcrowding against health criteria.",
+   "apparatus": [
+    "Measuring tape",
+    "Checklist",
+    "Calculator",
+    "Camera or phone"
+   ],
+   "materials": [
+    "Notebook"
+   ],
+   "safety": [
+    "Work in groups with permission of occupants; respect privacy",
+    "Do not enter unsafe or collapsing structures"
+   ],
+   "procedure": [
+    "Measure the floor length and width of a room and calculate the floor area.",
+    "Measure all window openings and calculate the total window area.",
+    "Compare window area with floor area (a common guide is at least 10% for ventilation/lighting).",
+    "Count occupants and calculate floor space per person.",
+    "Check toilet, bathroom, kitchen, drainage, refuse disposal, water source and distance of pit latrine from wells (at least 30 m).",
+    "Write a report with recommendations."
+   ],
+   "expectedObservations": "Some rooms have too few windows or are overcrowded; poor drainage and close latrines threaten health.",
+   "dataAndCalculations": "Room 4 m x 3.5 m = 14 m2. Minimum window area at 10% = 1.4 m2. Two windows of 1.0 m x 0.6 m = 2 x 0.6 = 1.2 m2, which is below 1.4 m2 - ventilation is inadequate. If 4 people sleep there, space per person = 14 / 4 = 3.5 m2.",
+   "precautions": [
+    "Measure accurately",
+    "Record all openings, including doors used for ventilation separately"
+   ],
+   "sourcesOfError": [
+    "Irregular room shapes",
+    "Windows kept permanently closed"
+   ],
+   "commonMistakes": [
+    "Confusing area (m2) with length (m)",
+    "Ignoring sanitation facilities"
+   ],
+   "examTips": [
+    "Show area calculations with units",
+    "Link poor housing to diseases (TB, CSM, cholera)"
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 5 m by 4 m room needs a minimum window area (10% rule) of",
+     "options": [
+      "2 m2",
+      "9 m2",
+      "0.2 m2",
+      "20 m2"
+     ],
+     "answer": 0,
+     "explanation": "20 m2 x 0.1 = 2 m2."
+    },
+    {
+     "q": "Overcrowded, poorly ventilated rooms favour the spread of",
+     "options": [
+      "guinea worm",
+      "tuberculosis",
+      "scurvy",
+      "tapeworm"
+     ],
+     "answer": 1,
+     "explanation": "Airborne diseases spread in crowded rooms."
+    },
+    {
+     "q": "A recommended minimum distance between a pit latrine and a well is about",
+     "options": [
+      "3 m",
+      "1 m",
+      "30 m",
+      "300 m"
+     ],
+     "answer": 2,
+     "explanation": "About 30 m reduces contamination."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-hed-health-facility-visit",
+   "title": "Visit to a primary health centre or school clinic",
+   "topic": "Community Health Services",
+   "kind": "FIELD",
+   "skills": [
+    "observation",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To observe the services of a primary health care centre (immunisation, antenatal care, health education, records) and analyse immunisation coverage data.",
+   "apparatus": [
+    "Notebook",
+    "Observation checklist",
+    "Calculator"
+   ],
+   "materials": [
+    "Letter of permission",
+    "Questions for health workers"
+   ],
+   "safety": [
+    "Follow staff instructions; do not touch equipment or patients",
+    "Wash hands on arrival and departure; wear a mask if advised"
+   ],
+   "procedure": [
+    "Obtain permission and prepare questions in advance.",
+    "Observe services offered: immunisation, antenatal and postnatal clinics, family planning, treatment of common illnesses, health talks.",
+    "Note how records (immunisation cards, registers) are kept.",
+    "Obtain anonymised summary figures (e.g. children due for immunisation and those fully immunised).",
+    "Calculate coverage and compare with the national target.",
+    "Write a report with recommendations."
+   ],
+   "expectedObservations": "The centre provides preventive and curative services; immunisation schedules and health records are kept; coverage may fall short of targets.",
+   "dataAndCalculations": "Of 240 children aged 12-23 months registered, 180 were fully immunised: coverage = 180 / 240 x 100 = 75%. To reach a 90% target, 0.9 x 240 = 216 children must be fully immunised - 36 more.",
+   "precautions": [
+    "Keep patient information confidential",
+    "Ask questions politely and record answers accurately"
+   ],
+   "sourcesOfError": [
+    "Incomplete records",
+    "Short visit not representative"
+   ],
+   "commonMistakes": [
+    "Listing curative services only",
+    "Not linking findings to primary health care components"
+   ],
+   "examTips": [
+    "Name components of PHC (immunisation, MCH, health education, safe water, essential drugs)",
+    "Show coverage calculations"
+   ],
+   "checkQuestions": [
+    {
+     "q": "If 150 of 200 children are fully immunised, coverage is",
+     "options": [
+      "50%",
+      "150%",
+      "25%",
+      "75%"
+     ],
+     "answer": 3,
+     "explanation": "150 / 200 x 100 = 75%."
+    },
+    {
+     "q": "Which is a preventive service of primary health care?",
+     "options": [
+      "Immunisation",
+      "Heart surgery",
+      "Organ transplant",
+      "Dialysis"
+     ],
+     "answer": 0,
+     "explanation": "Immunisation prevents disease."
+    },
+    {
+     "q": "To reach 90% coverage of 300 children, how many must be immunised?",
+     "options": [
+      "240",
+      "270",
+      "290",
+      "300"
+     ],
+     "answer": 1,
+     "explanation": "0.9 x 300 = 270."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

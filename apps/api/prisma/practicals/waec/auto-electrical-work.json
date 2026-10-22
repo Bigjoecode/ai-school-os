@@ -1,0 +1,1324 @@
+{
+ "exam": "WAEC",
+ "subject": "Auto Electrical Work",
+ "practicalPaper": "Paper 3 is a 2-hour practical test of three skill-based questions, two answered, for 90 marks (a theoretical alternative may be set); industrial attachment adds 10 marks. Candidates test, dismantle, repair and reassemble vehicle electrical units, draw and trace circuits and diagnose faults, and are marked on correct procedure, use of instruments, results and safety.",
+ "practicals": [
+  {
+   "id": "pr-aew-identifying-battery-construction-and-ratings",
+   "title": "Identifying battery construction and ratings",
+   "topic": "Types, constructional details and ratings of battery",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To identify the parts of lead-acid and nickel-alkaline batteries and interpret battery rating labels.",
+   "apparatus": [
+    "Sectioned lead-acid battery or cut-away model",
+    "Nickel-cadmium cell sample",
+    "Magnifying glass"
+   ],
+   "materials": [
+    "Battery labels/data sheets"
+   ],
+   "safety": [
+    "Handle sectioned batteries with gloves; residual acid may be present."
+   ],
+   "procedure": [
+    "Identify the case, cell partitions, positive and negative plates, separators, connector straps, vent plugs and terminals.",
+    "Note the colour of plates: positive (lead dioxide, chocolate brown), negative (spongy lead, grey).",
+    "Compare with the nickel-alkaline cell construction.",
+    "Read the label: voltage, ampere-hour capacity, cold cranking amps (CCA), reserve capacity.",
+    "Identify the positive terminal (larger diameter, marked +).",
+    "Record findings in a table."
+   ],
+   "expectedObservations": "Lead-acid batteries have six 2 V cells in series for 12 V; positive plates are brown and negative plates grey.",
+   "dataAndCalculations": "A 12 V, 60 Ah battery can in theory supply 3 A for 60/3 = 20 hours (the 20-hour rating). Energy stored ≈ 12 × 60 = 720 Wh. Nickel-alkaline cells are about 1.2 V each, so ten cells are needed for 12 V.",
+   "precautions": [
+    "Do not touch plates with bare hands."
+   ],
+   "sourcesOfError": [
+    "Faded labels."
+   ],
+   "commonMistakes": [
+    "Confusing Ah capacity with CCA.",
+    "Assuming nickel-alkaline cells are 2 V."
+   ],
+   "examTips": [
+    "Sketch the internal construction with labels.",
+    "Compare lead-acid and nickel-alkaline batteries in a table (voltage, cost, weight, life)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 12 V lead-acid battery has",
+     "options": [
+      "10 cells",
+      "6 cells",
+      "12 cells",
+      "2 cells"
+     ],
+     "answer": 1,
+     "explanation": "Each cell is about 2 V."
+    },
+    {
+     "q": "The positive plate material in a charged lead-acid cell is",
+     "options": [
+      "lead dioxide",
+      "spongy lead",
+      "nickel",
+      "carbon"
+     ],
+     "answer": 0,
+     "explanation": "PbO₂ is chocolate brown."
+    },
+    {
+     "q": "A 40 Ah battery delivering 2 A lasts about",
+     "options": [
+      "80 h",
+      "2 h",
+      "40 h",
+      "20 h"
+     ],
+     "answer": 3,
+     "explanation": "40/2 = 20 h."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-connecting-and-charging-batteries-safely",
+   "title": "Connecting and charging batteries safely",
+   "topic": "Charging of battery",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To clean and connect batteries in series and parallel and to charge a battery at the correct rate while observing safety rules.",
+   "apparatus": [
+    "Battery charger with ammeter",
+    "Hydrometer",
+    "Voltmeter",
+    "Terminal brush",
+    "Spanners",
+    "Goggles, gloves"
+   ],
+   "materials": [
+    "Two 12 V batteries",
+    "Distilled water",
+    "Sodium bicarbonate solution",
+    "Petroleum jelly"
+   ],
+   "safety": [
+    "Charge in a ventilated area; hydrogen is explosive — no sparks or flames.",
+    "Switch the charger off before connecting or disconnecting clips.",
+    "Wear goggles and gloves; neutralise spills with bicarbonate."
+   ],
+   "procedure": [
+    "Clean terminals and case with bicarbonate solution; rinse and dry.",
+    "Check and top up electrolyte with distilled water.",
+    "Connect two batteries in series (+ to −) and measure the voltage; then in parallel (+ to +, − to −) and measure.",
+    "Connect the charger: red to +, black to −; then switch on.",
+    "Set the charging current (about 10% of Ah capacity).",
+    "Check SG and temperature hourly; stop when SG and voltage stop rising for 2–3 readings.",
+    "Switch off, disconnect, and grease terminals."
+   ],
+   "expectedObservations": "Series connection gives 24 V; parallel gives 12 V with double capacity. During charging, SG and voltage rise and the cells gas freely near full charge.",
+   "dataAndCalculations": "Charging rate ≈ 10% of capacity: 60 Ah battery → 6 A. If the battery is half discharged (30 Ah missing) and charging efficiency needs 20% extra, time ≈ 30 × 1.2/6 = 6 h. Two 12 V 60 Ah batteries: series = 24 V, 60 Ah; parallel = 12 V, 120 Ah.",
+   "precautions": [
+    "Keep electrolyte temperature below about 45 °C.",
+    "Loosen vent plugs if required by the battery type."
+   ],
+   "sourcesOfError": [
+    "Charger ammeter inaccuracy."
+   ],
+   "commonMistakes": [
+    "Connecting clips with the charger on, causing sparks.",
+    "Charging a frozen or damaged battery."
+   ],
+   "examTips": [
+    "State charging modes: constant current, constant voltage, trickle, fast.",
+    "Recognise overcharging symptoms: excessive gassing, heat, loss of water, buckled plates."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Two 12 V, 50 Ah batteries in parallel give",
+     "options": [
+      "24 V, 50 Ah",
+      "24 V, 100 Ah",
+      "12 V, 50 Ah",
+      "12 V, 100 Ah"
+     ],
+     "answer": 3,
+     "explanation": "Parallel adds capacity, keeps voltage."
+    },
+    {
+     "q": "A suitable charging current for an 80 Ah battery is about",
+     "options": [
+      "0.8 A",
+      "40 A",
+      "8 A",
+      "80 A"
+     ],
+     "answer": 2,
+     "explanation": "About 10% of capacity."
+    },
+    {
+     "q": "Hydrogen gas from charging batteries is",
+     "options": [
+      "non-flammable",
+      "explosive",
+      "harmless",
+      "heavier than air"
+     ],
+     "answer": 1,
+     "explanation": "Keep sparks and flames away."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-hydrometer-cell-voltage-and-polarity-tests",
+   "title": "Hydrometer, cell voltage and polarity tests",
+   "topic": "Testing and maintenance of battery",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To test a battery's state of charge by specific gravity and voltage, identify polarity and carry out routine maintenance.",
+   "apparatus": [
+    "Hydrometer",
+    "Thermometer",
+    "Digital voltmeter",
+    "High-rate discharge tester",
+    "Terminal puller and brush"
+   ],
+   "materials": [
+    "Lead-acid battery",
+    "Distilled water",
+    "Petroleum jelly"
+   ],
+   "safety": [
+    "Wear goggles and gloves; acid burns skin and eyes.",
+    "Keep sparks away from vents."
+   ],
+   "procedure": [
+    "Inspect case, terminals and hold-down; clean corrosion.",
+    "Check polarity marks and confirm with a voltmeter.",
+    "Measure open-circuit voltage after resting.",
+    "Draw electrolyte into the hydrometer; read SG at eye level for each cell; note electrolyte temperature.",
+    "Correct SG for temperature.",
+    "Perform a high-rate discharge test (voltage after 15 s).",
+    "Top up with distilled water; store idle batteries charged in a cool place and recharge monthly."
+   ],
+   "expectedObservations": "Fully charged: about 12.6 V and SG ≈ 1.270–1.280. Variation over 0.050 between cells indicates a faulty cell.",
+   "dataAndCalculations": "Temperature correction (+0.0007 per °C above 25 °C): reading 1.255 at 35 °C → corrected SG = 1.255 + 0.0007 × 10 = 1.262. High-rate test: voltage should stay above about 9.6 V for a 12 V battery.",
+   "precautions": [
+    "Return electrolyte to the same cell.",
+    "Do not test immediately after topping up."
+   ],
+   "sourcesOfError": [
+    "Parallax on hydrometer float.",
+    "Temperature effects."
+   ],
+   "commonMistakes": [
+    "Reading SG with the float touching the tube.",
+    "Topping up with acid."
+   ],
+   "examTips": [
+    "Show how to read and interpret a hydrometer.",
+    "Name the tools for battery maintenance and their uses."
+   ],
+   "checkQuestions": [
+    {
+     "q": "SG of a discharged lead-acid cell is about",
+     "options": [
+      "1.000",
+      "1.500",
+      "1.120",
+      "1.280"
+     ],
+     "answer": 2,
+     "explanation": "Acid is used up during discharge."
+    },
+    {
+     "q": "In a high-rate discharge test, a good 12 V battery stays above about",
+     "options": [
+      "14.4 V",
+      "9.6 V",
+      "3 V",
+      "12.6 V"
+     ],
+     "answer": 1,
+     "explanation": "A sharp drop indicates a weak battery."
+    },
+    {
+     "q": "An idle battery should be",
+     "options": [
+      "stored charged and recharged periodically",
+      "stored flat",
+      "emptied of acid",
+      "kept in sunlight"
+     ],
+     "answer": 0,
+     "explanation": "This prevents sulphation."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-drawing-and-tracing-the-starting-system-circuit",
+   "title": "Drawing and tracing the starting system circuit",
+   "topic": "Circuit diagram of starting system",
+   "kind": "WORKSHOP",
+   "skills": [
+    "drawing",
+    "measurement",
+    "identification"
+   ],
+   "aim": "To draw the starting system circuit and carry out voltage-drop tests on the starter circuit in a vehicle.",
+   "apparatus": [
+    "Digital voltmeter",
+    "Inductive clamp ammeter",
+    "Remote starter switch",
+    "Drawing instruments"
+   ],
+   "materials": [
+    "Vehicle or starting system training board"
+   ],
+   "safety": [
+    "Disable ignition/fuel before cranking for tests.",
+    "Keep clear of the fan and belts; vehicle in neutral with handbrake on."
+   ],
+   "procedure": [
+    "Draw the circuit: battery → main cable → solenoid → starter motor → earth; control circuit: ignition switch → solenoid winding.",
+    "Locate each component in the vehicle.",
+    "Measure battery voltage at rest.",
+    "Crank and measure voltage drop across the insulated (positive) side: battery + to starter terminal.",
+    "Measure drop across the earth side: starter body to battery −.",
+    "Measure cranking current with the clamp meter.",
+    "Compare with limits and record."
+   ],
+   "expectedObservations": "Good circuits show small drops (each side under about 0.5 V). High drop on one side points to a corroded terminal or bad cable.",
+   "dataAndCalculations": "Cranking current 150 A; insulated-side drop 0.3 V; earth-side drop 0.2 V → acceptable. Resistance of insulated side = 0.3/150 = 0.002 Ω. Power delivered to starter ≈ 10 V × 150 A = 1 500 W.",
+   "precautions": [
+    "Crank for no more than 10–15 s at a time.",
+    "Connect meter probes to terminal posts, not clamps."
+   ],
+   "sourcesOfError": [
+    "Battery state of charge affecting readings."
+   ],
+   "commonMistakes": [
+    "Measuring the drop with the engine not cranking.",
+    "Omitting the solenoid control circuit in the drawing."
+   ],
+   "examTips": [
+    "Use standard symbols; show both main and control circuits.",
+    "Explain why cables are thick in the starter circuit."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The solenoid in a starting system",
+     "options": [
+      "controls headlamps",
+      "reduces voltage",
+      "switches the heavy starter current and engages the pinion",
+      "charges the battery"
+     ],
+     "answer": 2,
+     "explanation": "A small current controls a large one."
+    },
+    {
+     "q": "A voltage drop of 1.5 V across the starter earth side indicates",
+     "options": [
+      "a short circuit in lights",
+      "a poor earth connection",
+      "a good circuit",
+      "a full battery"
+     ],
+     "answer": 1,
+     "explanation": "High resistance at earth."
+    },
+    {
+     "q": "Starter cables are thick because",
+     "options": [
+      "they carry very high current",
+      "they carry high voltage",
+      "they are cheaper",
+      "they are earthed"
+     ],
+     "answer": 0,
+     "explanation": "To keep voltage drop low."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-dismantling-and-overhauling-a-starter-motor",
+   "title": "Dismantling and overhauling a starter motor",
+   "topic": "Repair of starter motors",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "identification"
+   ],
+   "aim": "To dismantle a starter motor, test its armature and field windings, replace brushes and bushes, and reassemble it.",
+   "apparatus": [
+    "Spanners and screwdrivers",
+    "Growler",
+    "Multimeter/test lamp",
+    "Vernier caliper",
+    "Bench vice with soft jaws",
+    "Bush puller",
+    "Soldering iron"
+   ],
+   "materials": [
+    "Starter motor",
+    "Brushes and bushes",
+    "Fine glass paper",
+    "Light grease"
+   ],
+   "safety": [
+    "Clamp the starter in soft jaws; it is heavy.",
+    "Wear goggles when cleaning with compressed air."
+   ],
+   "procedure": [
+    "Remove the solenoid, end covers, brush gear and through bolts.",
+    "Withdraw the armature and pinion/drive assembly.",
+    "Measure brush length and commutator diameter; check undercut between segments.",
+    "Test the armature on the growler for shorts and with a meter for earth faults; test field windings for continuity and earth.",
+    "Clean the commutator with fine glass paper; undercut mica if needed.",
+    "Replace worn brushes (solder leads) and bushes; lubricate the drive.",
+    "Reassemble and bench test (no-load test)."
+   ],
+   "expectedObservations": "Worn brushes, burnt commutator segments or a shorted armature cause slow cranking; a hacksaw blade vibrates over a shorted armature coil on the growler.",
+   "dataAndCalculations": "Brush minimum length 8 mm; measured 6 mm → replace. Mica undercut should be about 0.5–0.8 mm. No-load test: 11 V, 60 A at 5 000 rev/min within specification → motor serviceable.",
+   "precautions": [
+    "Do not lubricate the commutator or brushes.",
+    "Mark end covers for correct reassembly."
+   ],
+   "sourcesOfError": [
+    "Meter lead resistance on low-ohm field windings."
+   ],
+   "commonMistakes": [
+    "Using emery cloth (conductive) on the commutator.",
+    "Forgetting to fit the thrust washers."
+   ],
+   "examTips": [
+    "Distinguish inertia and pre-engaged (axial) starters and pinion engagement methods.",
+    "Write the fault–cause–remedy for slow cranking."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A growler is used to test",
+     "options": [
+      "headlamp aim",
+      "armatures for shorted coils",
+      "battery SG",
+      "ignition timing"
+     ],
+     "answer": 1,
+     "explanation": "It induces currents in the armature."
+    },
+    {
+     "q": "The commutator should be cleaned with",
+     "options": [
+      "fine glass paper",
+      "emery cloth",
+      "oil",
+      "a file"
+     ],
+     "answer": 0,
+     "explanation": "Emery particles are conductive."
+    },
+    {
+     "q": "An inertia starter engages its pinion by",
+     "options": [
+      "a solenoid fork only",
+      "hand lever",
+      "hydraulic pressure",
+      "inertia on a helix"
+     ],
+     "answer": 3,
+     "explanation": "The pinion spins along the helical shaft."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-testing-an-ignition-coil-and-drawing-the-ignition-circuit",
+   "title": "Testing an ignition coil and drawing the ignition circuit",
+   "topic": "Construction and operation of ignition coil",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "drawing",
+    "calculation"
+   ],
+   "aim": "To test the primary and secondary windings of an ignition coil and draw the conventional coil ignition circuit.",
+   "apparatus": [
+    "Multimeter (low and high ohms)",
+    "Spark tester",
+    "Drawing instruments"
+   ],
+   "materials": [
+    "Ignition coil (canister or block type)",
+    "Manufacturer's resistance data"
+   ],
+   "safety": [
+    "The secondary can produce over 20 kV — never hold an HT lead while cranking."
+   ],
+   "procedure": [
+    "Identify coil terminals: +15 (switch), −1 (contact breaker), and the HT tower.",
+    "Measure primary resistance between + and −.",
+    "Measure secondary resistance between + (or −) and the HT tower.",
+    "Check insulation from each terminal to the case.",
+    "Fit the spark tester and check the spark across a set gap.",
+    "Draw the circuit: battery, ignition switch, ballast resistor, coil primary, contact breaker with capacitor, coil secondary, distributor, plugs."
+   ],
+   "expectedObservations": "Typical primary 1–3 Ω, secondary 6–12 kΩ; a strong blue spark jumps the tester gap.",
+   "dataAndCalculations": "Primary 1.5 Ω plus 1.5 Ω ballast on 12 V: I = 12/3.0 = 4 A. With a turns ratio of about 1:100, a 300 V self-induced primary voltage at the instant the points open produces about 300 × 100 = 30 000 V at the secondary.",
+   "precautions": [
+    "Check resistance at room temperature.",
+    "Inspect the HT tower for cracks and tracking."
+   ],
+   "sourcesOfError": [
+    "Meter lead resistance on the primary range."
+   ],
+   "commonMistakes": [
+    "Reversing coil primary connections (gives poorer spark).",
+    "Omitting the capacitor in the circuit drawing."
+   ],
+   "examTips": [
+    "Explain mutual induction in the coil and the role of the capacitor (prevents arcing at points, speeds collapse of field).",
+    "Use correct symbols."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The ignition coil works on the principle of",
+     "options": [
+      "rectification",
+      "mutual induction",
+      "electrolysis",
+      "thermionic emission"
+     ],
+     "answer": 1,
+     "explanation": "Collapse of primary flux induces secondary voltage."
+    },
+    {
+     "q": "The capacitor across the contact breaker",
+     "options": [
+      "reduces arcing at the points",
+      "increases dwell",
+      "stores fuel",
+      "charges the battery"
+     ],
+     "answer": 0,
+     "explanation": "It absorbs the self-induced surge."
+    },
+    {
+     "q": "Typical secondary resistance is about",
+     "options": [
+      "1–3 Ω",
+      "0 Ω",
+      "1 MΩ",
+      "6–12 kΩ"
+     ],
+     "answer": 3,
+     "explanation": "Thousands of turns of fine wire."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-setting-ignition-timing-with-a-timing-light",
+   "title": "Setting ignition timing with a timing light",
+   "topic": "Ignition timing",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "observation"
+   ],
+   "aim": "To check and adjust ignition timing using static (test lamp) and dynamic (stroboscopic timing light) methods.",
+   "apparatus": [
+    "Timing light",
+    "Test lamp",
+    "Tachometer",
+    "Spanners",
+    "Chalk or white paint"
+   ],
+   "materials": [
+    "Engine with adjustable distributor",
+    "Manufacturer's timing specification"
+   ],
+   "safety": [
+    "Keep hands, clothes and the timing light leads clear of the fan and belt.",
+    "Work outdoors or with exhaust extraction."
+   ],
+   "procedure": [
+    "Mark the timing notch and pointer with chalk.",
+    "Static: turn the engine to the specified mark on No. 1 compression; connect the test lamp across the points; turn the distributor until the lamp just lights; clamp.",
+    "Dynamic: connect the timing light to No. 1 plug lead; run at specified idle speed with vacuum advance disconnected (if specified).",
+    "Aim the light at the marks; rotate the distributor until the marks align.",
+    "Raise engine speed and observe centrifugal advance.",
+    "Reconnect vacuum pipe and road test."
+   ],
+   "expectedObservations": "The marks appear stationary under the strobe; they move as speed rises, showing advance working.",
+   "dataAndCalculations": "Specification 8° BTDC at 800 rev/min. If the light shows 2° BTDC, the timing is retarded by 8 − 2 = 6°; rotate the distributor against its direction of rotation to advance it.",
+   "precautions": [
+    "Set idle speed first.",
+    "Recheck after tightening the clamp."
+   ],
+   "sourcesOfError": [
+    "Parallax reading marks."
+   ],
+   "commonMistakes": [
+    "Turning the distributor the wrong way.",
+    "Leaving the vacuum pipe disconnected."
+   ],
+   "examTips": [
+    "Explain effects of retarded (loss of power, overheating) and over-advanced (pinking) timing.",
+    "Mention centrifugal and vacuum advance."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Over-advanced ignition can cause",
+     "options": [
+      "pinking (knocking)",
+      "cool running",
+      "higher idle only",
+      "battery overcharge"
+     ],
+     "answer": 0,
+     "explanation": "Combustion starts too early."
+    },
+    {
+     "q": "To advance timing, the distributor is turned",
+     "options": [
+      "with its direction of rotation",
+      "up and down",
+      "it cannot be changed",
+      "against its direction of rotation"
+     ],
+     "answer": 3,
+     "explanation": "The points open earlier."
+    },
+    {
+     "q": "The timing light is connected to",
+     "options": [
+      "the fuel pump",
+      "the headlamp",
+      "No. 1 spark plug lead",
+      "the battery only"
+     ],
+     "answer": 2,
+     "explanation": "It flashes each time No. 1 fires."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-diagnosing-ignition-faults",
+   "title": "Diagnosing ignition faults",
+   "topic": "Ignition faults and repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "observation",
+    "measurement"
+   ],
+   "aim": "To diagnose hard starting, misfiring, jerking and backfiring faults in the ignition system using a test lamp, multimeter and scan tool.",
+   "apparatus": [
+    "Test lamp",
+    "Multimeter",
+    "Spark tester",
+    "Scan tool (for electronic systems)",
+    "Spark plug spanner"
+   ],
+   "materials": [
+    "Vehicle or ignition training rig",
+    "Spare plugs, leads, rotor, cap"
+   ],
+   "safety": [
+    "Avoid HT shocks; use insulated tools.",
+    "Prevent fuel spray onto hot parts."
+   ],
+   "procedure": [
+    "Confirm the complaint and check battery voltage.",
+    "Check for spark at a plug lead with the spark tester while cranking.",
+    "If no spark: test for 12 V at coil +; test switching at coil − with a test lamp (flashes when cranking).",
+    "Inspect cap, rotor and HT leads for cracks and tracking; measure HT lead resistance.",
+    "Remove and read the spark plugs.",
+    "For electronic ignition, read fault codes and check crank sensor.",
+    "Repair and retest."
+   ],
+   "expectedObservations": "A test lamp at coil − that does not flash shows a points/pick-up fault; sooty plugs suggest a rich mixture or weak spark; cracked caps cause misfire in damp weather.",
+   "dataAndCalculations": "HT lead specification ≤ 25 kΩ per metre. A 0.6 m lead measuring 32 kΩ has 32/0.6 = 53 kΩ per metre → replace.",
+   "precautions": [
+    "Test one item at a time; do not change many parts at once."
+   ],
+   "sourcesOfError": [
+    "Intermittent faults not present during testing."
+   ],
+   "commonMistakes": [
+    "Replacing parts without testing.",
+    "Ignoring plug condition clues."
+   ],
+   "examTips": [
+    "Present a logical fault-finding flow: symptom → test → result → remedy.",
+    "Relate backfiring to timing or crossed leads."
+   ],
+   "checkQuestions": [
+    {
+     "q": "If there is no 12 V at coil + with ignition on, the fault is likely in the",
+     "options": [
+      "rotor arm",
+      "ignition switch or supply wire",
+      "spark plugs",
+      "HT leads"
+     ],
+     "answer": 1,
+     "explanation": "The supply to the coil is missing."
+    },
+    {
+     "q": "Crossed HT leads can cause",
+     "options": [
+      "backfiring",
+      "a flat tyre",
+      "brake failure",
+      "overcharging"
+     ],
+     "answer": 0,
+     "explanation": "Plugs fire on the wrong stroke."
+    },
+    {
+     "q": "A 0.5 m HT lead reading 10 kΩ is",
+     "options": [
+      "open circuit",
+      "shorted",
+      "too high",
+      "within a 25 kΩ/m limit"
+     ],
+     "answer": 3,
+     "explanation": "10/0.5 = 20 kΩ/m."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-testing-charging-system-output",
+   "title": "Testing charging system output",
+   "topic": "Circuit diagram of charging system",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "drawing",
+    "procedure"
+   ],
+   "aim": "To draw the charging circuit, remove and refit the alternator and test its regulated voltage and current output.",
+   "apparatus": [
+    "Digital voltmeter",
+    "Clamp ammeter",
+    "Carbon-pile load tester",
+    "Belt tension gauge",
+    "Spanners"
+   ],
+   "materials": [
+    "Vehicle with alternator",
+    "Drive belt"
+   ],
+   "safety": [
+    "Disconnect the battery before removing the alternator.",
+    "Never disconnect the battery with the engine running (voltage spikes damage electronics)."
+   ],
+   "procedure": [
+    "Draw the circuit: alternator (B+, D+/IG, warning lamp), regulator, battery, ignition switch.",
+    "Check belt condition and tension.",
+    "Measure battery voltage engine off.",
+    "Start and run at about 2 000 rev/min; measure regulated voltage at the battery.",
+    "Apply a load and measure maximum output current.",
+    "Check warning lamp operation.",
+    "If faulty, remove the alternator for repair and refit with correct belt tension."
+   ],
+   "expectedObservations": "A good system regulates at about 13.8–14.4 V and delivers near its rated current under load; the warning lamp goes out when the engine runs.",
+   "dataAndCalculations": "Rated 40 A at 14.2 V gives a maximum output of 14.2 × 40 ≈ 568 W. Measured 13.2 V at 2 000 rev/min is below 13.8 V → undercharging (check belt, regulator, diodes).",
+   "precautions": [
+    "Keep loads within tester ratings.",
+    "Re-tension the belt correctly after refitting."
+   ],
+   "sourcesOfError": [
+    "Battery state affecting current reading."
+   ],
+   "commonMistakes": [
+    "Running the engine with the battery disconnected.",
+    "Confusing B+ and D+ terminals."
+   ],
+   "examTips": [
+    "Explain the need for circuit diagrams (fault finding, communication).",
+    "State symptoms of overcharging and undercharging."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Normal regulated charging voltage is about",
+     "options": [
+      "24 V",
+      "11 V",
+      "13.8–14.4 V",
+      "6 V"
+     ],
+     "answer": 2,
+     "explanation": "Slightly above battery voltage."
+    },
+    {
+     "q": "The ignition warning lamp should",
+     "options": [
+      "never light",
+      "go out once the engine runs and charges",
+      "stay on while driving",
+      "flash continuously"
+     ],
+     "answer": 1,
+     "explanation": "It indicates no charge when lit."
+    },
+    {
+     "q": "Undercharging can be caused by",
+     "options": [
+      "a slipping belt",
+      "a new battery",
+      "correct regulator",
+      "clean terminals"
+     ],
+     "answer": 0,
+     "explanation": "The alternator turns too slowly."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-dismantling-an-alternator-and-testing-its-diodes",
+   "title": "Dismantling an alternator and testing its diodes",
+   "topic": "Charging system faults and repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "identification"
+   ],
+   "aim": "To dismantle an alternator, test the rotor, stator and rectifier diodes, replace brushes and bearings, and reassemble it.",
+   "apparatus": [
+    "Spanners and screwdrivers",
+    "Multimeter with diode test",
+    "Soldering iron",
+    "Bearing puller",
+    "Vernier caliper",
+    "Vice with soft jaws"
+   ],
+   "materials": [
+    "Alternator",
+    "Brushes, bearings",
+    "Fine glass paper"
+   ],
+   "safety": [
+    "Use soft jaws on the vice; wear goggles when using the bearing puller."
+   ],
+   "procedure": [
+    "Mark the end housings and separate them.",
+    "Remove the rotor; inspect slip rings and measure rotor field resistance (e.g. 2.5–4 Ω).",
+    "Check rotor insulation to shaft (no continuity).",
+    "Unsolder stator leads; check stator windings for continuity and earth.",
+    "Test each rectifier diode in both directions.",
+    "Measure brush length; replace worn brushes and rough bearings.",
+    "Reassemble and bench or vehicle test."
+   ],
+   "expectedObservations": "Good diodes conduct one way only (about 0.5–0.7 V forward); a shorted or open diode reduces output and may cause a whining noise.",
+   "dataAndCalculations": "A three-phase alternator with a bridge rectifier uses 6 main diodes. If one diode is open, maximum output may fall by about a third; a rated 60 A unit may give only about 40 A.",
+   "precautions": [
+    "Avoid overheating diodes when soldering (use a heat sink).",
+    "Clean slip rings with fine glass paper only."
+   ],
+   "sourcesOfError": [
+    "Meter test voltage too low to forward-bias some diodes."
+   ],
+   "commonMistakes": [
+    "Testing diodes still connected to the stator.",
+    "Losing the brush springs."
+   ],
+   "examTips": [
+    "Explain rectification of a.c. to d.c. in the alternator.",
+    "State faults: bearing seizure, charging failure, diode failure."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The alternator converts a.c. to d.c. using",
+     "options": [
+      "diodes",
+      "a commutator",
+      "a capacitor only",
+      "a fuse"
+     ],
+     "answer": 0,
+     "explanation": "A diode bridge rectifies the output."
+    },
+    {
+     "q": "Field current enters the rotor through",
+     "options": [
+      "the stator",
+      "diodes",
+      "the belt",
+      "slip rings and brushes"
+     ],
+     "answer": 3,
+     "explanation": "Slip rings rotate with the rotor."
+    },
+    {
+     "q": "A diode that conducts in both directions is",
+     "options": [
+      "open-circuited",
+      "a zener",
+      "short-circuited",
+      "good"
+     ],
+     "answer": 2,
+     "explanation": "It has lost its blocking property."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-setting-head-lamps",
+   "title": "Setting head lamps",
+   "topic": "Head lamps",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "identification"
+   ],
+   "aim": "To identify head lamp types and set (aim) head lamps using a beam setter or aiming screen.",
+   "apparatus": [
+    "Beam setter or aiming screen",
+    "Tape measure",
+    "Screwdrivers",
+    "Tyre pressure gauge"
+   ],
+   "materials": [
+    "Vehicle",
+    "Halogen bulbs (H4) and sealed-beam unit samples"
+   ],
+   "safety": [
+    "Do not touch halogen glass; it gets very hot.",
+    "Avoid staring into the beam."
+   ],
+   "procedure": [
+    "Identify head lamp type: sealed beam, semi-sealed with halogen bulb, projector, LED.",
+    "Check tyre pressures and set the vehicle on level ground; unload the boot.",
+    "Position the beam setter square to the lamp (or the car at the set distance from the screen).",
+    "Switch on dipped beam; note the cut-off and hot-spot position.",
+    "Adjust vertical and horizontal screws to bring the pattern to the marks.",
+    "Repeat for the other lamp; check main beam."
+   ],
+   "expectedObservations": "Dipped beam cut-off falls just below the lamp centre line, with the kick-up towards the kerb side.",
+   "dataAndCalculations": "Lamp centre 650 mm above ground; required dip 1.2% at 10 m → cut-off at 650 − 0.012 × 10 000 = 650 − 120 = 530 mm on the screen.",
+   "precautions": [
+    "Adjust with the vehicle at normal ride height."
+   ],
+   "sourcesOfError": [
+    "Floor not level."
+   ],
+   "commonMistakes": [
+    "Adjusting the wrong screw (horizontal vs vertical)."
+   ],
+   "examTips": [
+    "State head lamp features: reflector, lens, bulb filaments (dip/main), shield.",
+    "Explain why aim affects safety."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Head lamp aiming should be done",
+     "options": [
+      "with the boot fully loaded always",
+      "on level ground at normal ride height",
+      "on a hill",
+      "with flat tyres"
+     ],
+     "answer": 1,
+     "explanation": "Load changes the beam angle."
+    },
+    {
+     "q": "An H4 bulb has",
+     "options": [
+      "two filaments for dip and main beam",
+      "one filament",
+      "no filament",
+      "four filaments"
+     ],
+     "answer": 0,
+     "explanation": "Typically 60/55 W."
+    },
+    {
+     "q": "A 1% dip at 10 m lowers the beam by",
+     "options": [
+      "10 mm",
+      "1 m",
+      "1 mm",
+      "100 mm"
+     ],
+     "answer": 3,
+     "explanation": "0.01 × 10 000 mm = 100 mm."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-tracing-and-troubleshooting-the-lighting-circuit",
+   "title": "Tracing and troubleshooting the lighting circuit",
+   "topic": "Circuit diagram of lighting system",
+   "kind": "WORKSHOP",
+   "skills": [
+    "drawing",
+    "procedure",
+    "measurement"
+   ],
+   "aim": "To draw a head lamp circuit with relay and dip switch and use it to locate open circuits.",
+   "apparatus": [
+    "Multimeter",
+    "Test lamp",
+    "Jumper lead with fuse",
+    "Wiring diagram"
+   ],
+   "materials": [
+    "Vehicle or lighting training board",
+    "Relay, fuses, bulbs"
+   ],
+   "safety": [
+    "Use a fused jumper lead; never bridge a fuse with plain wire."
+   ],
+   "procedure": [
+    "Draw the circuit: battery → fuse → relay contacts → dip switch → dip/main filaments → earth; relay coil fed from light switch.",
+    "Classify the circuit as parallel (each lamp has its own path).",
+    "With the fault (e.g. one dipped beam not working), check the bulb and fuse.",
+    "Test for voltage at the lamp connector with the switch on.",
+    "If voltage is present, test the earth; if not, trace back through switch and relay.",
+    "Repair and test all lamps."
+   ],
+   "expectedObservations": "Voltage present at the connector but lamp off indicates a bulb or earth fault; no voltage points upstream (fuse, relay, switch, wire).",
+   "dataAndCalculations": "Voltage-drop test on a working lamp circuit: 12.4 V at the battery, 11.6 V at the lamp → total drop 0.8 V. A drop above about 0.5 V suggests corroded connections, reducing lamp output.",
+   "precautions": [
+    "Work from the simplest checks (bulb, fuse) first."
+   ],
+   "sourcesOfError": [
+    "Intermittent connections."
+   ],
+   "commonMistakes": [
+    "Assuming a lit test lamp proves a good earth.",
+    "Testing with the light switch off."
+   ],
+   "examTips": [
+    "Draw circuits with standard symbols and colour codes.",
+    "Explain why lamps are wired in parallel."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Vehicle lamps are connected in",
+     "options": [
+      "series–parallel only",
+      "no circuit",
+      "parallel",
+      "series"
+     ],
+     "answer": 2,
+     "explanation": "Each lamp gets full voltage and works independently."
+    },
+    {
+     "q": "A relay in the head lamp circuit",
+     "options": [
+      "acts as a fuse",
+      "lets a small switch current control a large lamp current",
+      "charges the battery",
+      "dims lamps"
+     ],
+     "answer": 1,
+     "explanation": "It protects the switch and reduces voltage drop."
+    },
+    {
+     "q": "Voltage at the bulb connector but the lamp does not light suggests",
+     "options": [
+      "a faulty bulb or bad earth",
+      "a blown fuse",
+      "a faulty relay",
+      "a flat battery"
+     ],
+     "answer": 0,
+     "explanation": "Supply reaches the lamp."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-locating-a-short-circuit-in-the-lighting-system",
+   "title": "Locating a short circuit in the lighting system",
+   "topic": "Maintenance and repairs of lighting system",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement"
+   ],
+   "aim": "To locate and repair a short circuit that repeatedly blows a lighting fuse, and replace a broken lamp lens or unit.",
+   "apparatus": [
+    "Test lamp or short-circuit finder",
+    "Multimeter",
+    "Fused jumper",
+    "Screwdrivers",
+    "Crimping tool"
+   ],
+   "materials": [
+    "Spare fuses",
+    "Cable, connectors, insulating sleeving",
+    "Replacement lamp unit"
+   ],
+   "safety": [
+    "Disconnect the battery before cutting into wiring.",
+    "Never fit a higher-rated fuse."
+   ],
+   "procedure": [
+    "Remove the blown fuse; connect a test lamp across the fuse terminals (it lights if the short is present).",
+    "Disconnect sections of the circuit one at a time (unplug lamps, connectors).",
+    "When the test lamp goes out, the short is in the last section disconnected.",
+    "Inspect that section for chafed insulation touching the body.",
+    "Repair the wire and protect it with sleeving and clips.",
+    "Fit the correct fuse and test.",
+    "Replace a broken lens or lamp unit and re-aim."
+   ],
+   "expectedObservations": "The test lamp lights while the short is present and goes out once the faulty section is isolated.",
+   "dataAndCalculations": "Fuse rating: two 21 W stop lamps and two 5 W tail lamps on 12 V draw (42 + 10)/12 = 4.33 A, so a 10 A fuse is suitable. A dead short through 0.05 Ω would draw 12/0.05 = 240 A — which is why the fuse blows instantly.",
+   "precautions": [
+    "Work systematically; record which section was disconnected."
+   ],
+   "sourcesOfError": [
+    "Intermittent short only when moving parts flex the harness."
+   ],
+   "commonMistakes": [
+    "Replacing fuses repeatedly without finding the cause."
+   ],
+   "examTips": [
+    "Distinguish open circuit and short circuit symptoms.",
+    "Describe repair of a broken lens and non-aligned lamps."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A fuse that blows immediately on switching on indicates",
+     "options": [
+      "a correct circuit",
+      "a short circuit",
+      "an open circuit",
+      "a weak battery"
+     ],
+     "answer": 1,
+     "explanation": "Excessive current flows."
+    },
+    {
+     "q": "The correct action for a repeatedly blowing fuse is to",
+     "options": [
+      "find and repair the short",
+      "fit a larger fuse",
+      "bridge it with wire",
+      "remove it"
+     ],
+     "answer": 0,
+     "explanation": "The fuse protects wiring from fire."
+    },
+    {
+     "q": "Two 21 W lamps on 12 V draw",
+     "options": [
+      "42 A",
+      "1.75 A",
+      "252 A",
+      "3.5 A"
+     ],
+     "answer": 3,
+     "explanation": "42/12 = 3.5 A."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-testing-fuel-and-temperature-gauges",
+   "title": "Testing fuel and temperature gauges",
+   "topic": "Constructional details and operation of auxiliary system components",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To describe the operation of fuel and temperature gauge systems and test the gauges and senders.",
+   "apparatus": [
+    "Multimeter",
+    "Gauge tester or decade resistance box",
+    "Thermometer",
+    "Container of hot water"
+   ],
+   "materials": [
+    "Fuel tank sender unit",
+    "Temperature sender",
+    "Instrument cluster or gauges",
+    "Voltage stabiliser"
+   ],
+   "safety": [
+    "Fuel sender removal: work away from flames and ventilate.",
+    "Handle hot water carefully."
+   ],
+   "procedure": [
+    "Identify gauge type (thermal/bimetal or moving-iron) and the voltage stabiliser.",
+    "Remove the fuel sender; measure resistance with the float at empty and full.",
+    "Heat the temperature sender in water; record resistance against temperature.",
+    "Substitute known resistances at the gauge wire to check the gauge reads correctly.",
+    "Check the stabiliser output voltage.",
+    "Record and diagnose."
+   ],
+   "expectedObservations": "Sender resistance changes smoothly with float position or temperature. A gauge that does not move when known resistances are substituted is faulty; a gauge that responds correctly points to a faulty sender or wiring.",
+   "dataAndCalculations": "Example fuel sender: empty 240 Ω, full 33 Ω. Midway float position should read about (240 + 33)/2 ≈ 137 Ω (half tank). Thermistor temperature sender: resistance falls as temperature rises (e.g. 300 Ω cold, 50 Ω hot).",
+   "precautions": [
+    "Check the specification for the sender type; ranges differ between makers."
+   ],
+   "sourcesOfError": [
+    "Float arm bent changing readings."
+   ],
+   "commonMistakes": [
+    "Connecting the gauge wire straight to earth without a resistor (can damage the gauge)."
+   ],
+   "examTips": [
+    "Explain the bimetal gauge and voltage stabiliser.",
+    "Describe oil pressure switch vs gauge."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A thermistor temperature sender's resistance",
+     "options": [
+      "depends on fuel level",
+      "falls as temperature rises",
+      "rises as temperature rises",
+      "is constant"
+     ],
+     "answer": 1,
+     "explanation": "NTC thermistor behaviour."
+    },
+    {
+     "q": "A voltage stabiliser is used in gauge circuits to",
+     "options": [
+      "keep gauge supply constant",
+      "charge the battery",
+      "protect lamps",
+      "drive the horn"
+     ],
+     "answer": 0,
+     "explanation": "Readings would vary with charging voltage otherwise."
+    },
+    {
+     "q": "A sender reads 240 Ω empty and 33 Ω full. At half tank it should read about",
+     "options": [
+      "273 Ω",
+      "207 Ω",
+      "33 Ω",
+      "137 Ω"
+     ],
+     "answer": 3,
+     "explanation": "(240 + 33)/2 ≈ 137 Ω for a linear sender."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-aew-troubleshooting-horn-and-wiper-circuits",
+   "title": "Troubleshooting horn and wiper circuits",
+   "topic": "Maintenance and repairs of auxiliary components",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To troubleshoot and repair faults in the horn relay circuit and windscreen wiper system.",
+   "apparatus": [
+    "Multimeter",
+    "Test lamp",
+    "Fused jumper lead",
+    "Spanners and screwdrivers"
+   ],
+   "materials": [
+    "Horn, horn relay, wiper motor and switch",
+    "Wiring diagram"
+   ],
+   "safety": [
+    "Keep fingers away from the wiper linkage when testing.",
+    "Use fused jumpers only."
+   ],
+   "procedure": [
+    "Horn: check the fuse; bridge relay terminals 30–87 with a fused jumper; if the horn sounds, test relay and horn button.",
+    "Test the horn directly from the battery; adjust the tone screw if fitted.",
+    "Wiper: check fuse and supply at the motor plug in each switch position.",
+    "Test the motor directly; check the park switch and linkage for seizure.",
+    "Repair loose connections or replace faulty components.",
+    "Record fault, test and remedy."
+   ],
+   "expectedObservations": "Bridging the relay identifies whether the fault is in the control (button/relay) or load (horn) side; a seized linkage makes the motor hum and blow the fuse.",
+   "dataAndCalculations": "Relay coil 80 Ω on 12 V draws 12/80 = 0.15 A through the horn button, while a 48 W horn draws 48/12 = 4 A through the relay contacts — the relay protects the button and steering-column wiring.",
+   "precautions": [
+    "Do not hold the jumper on for long periods."
+   ],
+   "sourcesOfError": [
+    "Poor horn earth through the mounting."
+   ],
+   "commonMistakes": [
+    "Replacing the motor when the fault is a seized linkage."
+   ],
+   "examTips": [
+    "Draw the horn relay circuit with terminals 30, 85, 86, 87.",
+    "Give fault–cause–remedy tables."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Relay terminal 30 is usually connected to",
+     "options": [
+      "earth",
+      "the horn button",
+      "the coil",
+      "the battery supply"
+     ],
+     "answer": 3,
+     "explanation": "30 is the main feed; 87 the output."
+    },
+    {
+     "q": "A 36 W horn on 12 V draws",
+     "options": [
+      "432 A",
+      "24 A",
+      "3 A",
+      "0.33 A"
+     ],
+     "answer": 2,
+     "explanation": "36/12 = 3 A."
+    },
+    {
+     "q": "A wiper motor that hums but does not move may have",
+     "options": [
+      "too much oil in engine",
+      "a seized linkage",
+      "a perfect fuse",
+      "a flat tyre"
+     ],
+     "answer": 1,
+     "explanation": "The motor is stalled."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

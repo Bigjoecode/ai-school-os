@@ -228,7 +228,15 @@ export interface SubmissionBoard {
 export const QUESTION_KINDS = ['OBJECTIVE', 'THEORY', 'PRACTICAL'] as const;
 export type QuestionKind = (typeof QUESTION_KINDS)[number];
 
-export const theoryStartSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2), questions: z.number().int().min(1).max(5).default(2) });
+export const theoryStartSchema = z.object({
+  exam: z.enum(EXAMS),
+  subject: z.string().trim().min(2),
+  questions: z.number().int().min(1).max(5).default(2),
+  /** PRACTICAL: WAEC "alternative to practical" questions (Practical Academy), marked the same way. */
+  type: z.enum(['THEORY', 'PRACTICAL']).default('THEORY'),
+  /** Questions on this syllabus topic (and its subtopics) first. */
+  topicId: z.string().nullish(),
+});
 export const theoryAnswerSchema = z.object({ answers: z.array(z.string().trim().max(10_000)).max(20) });
 export interface TheoryMarking {
   index: number;

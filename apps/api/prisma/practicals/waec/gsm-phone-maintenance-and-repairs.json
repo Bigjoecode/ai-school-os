@@ -1,0 +1,1212 @@
+{
+ "exam": "WAEC",
+ "subject": "GSM Phone Maintenance and Repairs",
+ "practicalPaper": "There is no separate practical paper: Paper 2 Section B has two practical-work questions, both answered in 50 minutes for 40 marks. These test hands-on knowledge such as identifying tools and components, disassembly and reassembly order, fault-finding steps, measurements on the PCB and software repair procedures, alongside the essay questions in Section A.",
+ "practicals": [
+  {
+   "id": "pr-gsm-workshop-safety-and-protection-against-static",
+   "title": "Workshop safety and protection against static",
+   "topic": "Safety in Mobile Phone Workshop",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To set up a safe phone repair bench, use anti-static protection and identify basic safety facilities.",
+   "apparatus": [
+    "Anti-static (ESD) mat and wrist strap",
+    "Fume extractor",
+    "Soldering station with stand",
+    "Hot-air rework station",
+    "Fire extinguisher (CO₂)",
+    "First aid box",
+    "Magnifying lamp"
+   ],
+   "materials": [
+    "Isopropyl alcohol (IPA)",
+    "Battery fire bag or metal container with sand"
+   ],
+   "safety": [
+    "Disconnect the battery before working on any board.",
+    "Never puncture or bend a lithium battery; a swollen battery must be removed and stored safely.",
+    "Keep IPA away from hot tools; it is flammable."
+   ],
+   "procedure": [
+    "Ground the ESD mat and wear the wrist strap connected to it.",
+    "Arrange tools so hot tools are on stands away from cables and IPA.",
+    "Switch on the fume extractor before soldering.",
+    "Check the location of the extinguisher, first aid box and battery fire container.",
+    "Demonstrate safe handling of a phone battery.",
+    "Write the workshop rules on a chart."
+   ],
+   "expectedObservations": "Bench is organised, grounded and safe; the wrist strap tester shows a good connection.",
+   "dataAndCalculations": "A typical ESD wrist strap contains a 1 MΩ safety resistor. If a person touches 230 V by accident, the current through the strap is limited to 230/1 000 000 = 0.23 mA — far below dangerous levels.",
+   "precautions": [
+    "Test the wrist strap regularly.",
+    "Do not wear the wrist strap when working on mains-powered equipment that is live."
+   ],
+   "sourcesOfError": [
+    "Poor earth connection of the mat."
+   ],
+   "commonMistakes": [
+    "Touching ICs without ESD protection.",
+    "Leaving the hot-air gun on the bench."
+   ],
+   "examTips": [
+    "List safety rules and safety facilities (first aid box, fire extinguisher, ESD mat).",
+    "Explain why static damages phone ICs."
+   ],
+   "checkQuestions": [
+    {
+     "q": "An anti-static wrist strap protects",
+     "options": [
+      "the technician from cuts",
+      "the screen from scratches",
+      "the battery from overcharge",
+      "components from electrostatic discharge"
+     ],
+     "answer": 3,
+     "explanation": "It drains static charge safely."
+    },
+    {
+     "q": "A swollen phone battery should be",
+     "options": [
+      "charged fully",
+      "punctured to release gas",
+      "removed carefully and stored in a safe container",
+      "pressed flat"
+     ],
+     "answer": 2,
+     "explanation": "Damage can cause fire."
+    },
+    {
+     "q": "The best extinguisher for electronic equipment fires is",
+     "options": [
+      "wet sand",
+      "CO₂",
+      "water",
+      "foam"
+     ],
+     "answer": 1,
+     "explanation": "CO₂ is non-conductive and leaves no residue."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-identifying-phone-repair-tools-and-equipment",
+   "title": "Identifying phone repair tools and equipment",
+   "topic": "Common Tools and Equipment for Hardware and Software Repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "procedure"
+   ],
+   "aim": "To identify hardware and software repair tools and state the use of each.",
+   "apparatus": [
+    "Precision screwdriver set (Phillips, star/pentalobe, Torx, tri-point)",
+    "Spudgers and opening picks",
+    "Suction cup",
+    "Tweezers",
+    "Multimeter",
+    "Oscilloscope",
+    "Soldering iron and solder sucker",
+    "Hot-air station",
+    "DC power supply",
+    "Computer with repair software"
+   ],
+   "materials": [
+    "Labels and record sheet"
+   ],
+   "safety": [
+    "Keep sharp picks and tweezers capped.",
+    "Hot tools on stands only."
+   ],
+   "procedure": [
+    "Lay out each tool and write its name.",
+    "Classify as opening, holding, measuring, soldering or software tools.",
+    "State one use and one care rule for each.",
+    "Match screwdriver bits to sample phone screws.",
+    "Identify software tools: flashing software, firmware packages, drivers.",
+    "Present results in a table."
+   ],
+   "expectedObservations": "Each tool is correctly named, classified and its use stated.",
+   "dataAndCalculations": "Using the wrong bit damages screw heads: if a phone has 12 screws and a technician strips 1 in 4 by using wrong bits, 12/4 = 3 screws will need replacement — a cost avoided by matching bits.",
+   "precautions": [
+    "Use plastic tools near flex cables and batteries."
+   ],
+   "sourcesOfError": [
+    "Confusing similar bits (Torx and pentalobe)."
+   ],
+   "commonMistakes": [
+    "Prying with metal tools near the battery."
+   ],
+   "examTips": [
+    "Name tools listed in the syllabus with uses.",
+    "Separate hardware and software tools in your answer."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A spudger is used to",
+     "options": [
+      "open housings and disconnect flex cables safely",
+      "solder components",
+      "measure voltage",
+      "flash software"
+     ],
+     "answer": 0,
+     "explanation": "It is a non-conductive prying tool."
+    },
+    {
+     "q": "A DC power supply is used to",
+     "options": [
+      "clean the board",
+      "flash firmware",
+      "remove screws",
+      "power a phone board and show its current draw"
+     ],
+     "answer": 3,
+     "explanation": "Current draw helps diagnose faults."
+    },
+    {
+     "q": "Flashing software is a",
+     "options": [
+      "measuring instrument",
+      "soldering tool",
+      "software repair tool",
+      "hardware tool"
+     ],
+     "answer": 2,
+     "explanation": "It loads firmware."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-disassembling-and-reassembling-a-mobile-phone",
+   "title": "Disassembling and reassembling a mobile phone",
+   "topic": "Basic Trouble-shooting",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "identification",
+    "safety"
+   ],
+   "aim": "To disassemble a phone in the correct sequence, identify the parts and reassemble it in working order.",
+   "apparatus": [
+    "Precision screwdriver set",
+    "Spudgers and picks",
+    "Suction cup",
+    "Heat pad or hot-air (low setting)",
+    "Magnetic screw mat",
+    "Tweezers"
+   ],
+   "materials": [
+    "Practice phone (straight or slide type)",
+    "Adhesive strips"
+   ],
+   "safety": [
+    "Power off and disconnect the battery first.",
+    "Use gentle heat to soften adhesive; do not overheat the battery."
+   ],
+   "procedure": [
+    "Switch off; remove SIM tray and back cover (heat and suction cup if glued).",
+    "Remove screws, placing each on the screw mat in position.",
+    "Disconnect the battery connector first.",
+    "Disconnect flex cables (display, charging port, cameras) with a spudger.",
+    "Remove the board; identify speakers, vibrator, microphone, buzzer, SIM socket, keypad/display.",
+    "Reassemble in reverse, reconnecting the battery last.",
+    "Test all functions."
+   ],
+   "expectedObservations": "The phone works fully after reassembly; no screws left over and all flexes seated.",
+   "dataAndCalculations": "Screws of different lengths: a 3.0 mm screw placed where a 2.0 mm one belongs protrudes 3.0 − 2.0 = 1.0 mm and can pierce the board or display — which is why the screw map is kept.",
+   "precautions": [
+    "Record screw positions.",
+    "Never pull flex cables by the cable; lift by the connector."
+   ],
+   "sourcesOfError": [
+    "Hidden clips or screws under labels."
+   ],
+   "commonMistakes": [
+    "Reconnecting the battery before other flexes.",
+    "Using long screws in short holes."
+   ],
+   "examTips": [
+    "Write the disassembly sequence in numbered steps.",
+    "Note special maintenance needs of flip and slide phones (hinge flex)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When disassembling, the first connector to unplug is the",
+     "options": [
+      "battery",
+      "display",
+      "camera",
+      "speaker"
+     ],
+     "answer": 0,
+     "explanation": "This removes power from the board."
+    },
+    {
+     "q": "A magnetic screw mat helps to",
+     "options": [
+      "heat the phone",
+      "test the battery",
+      "clean the board",
+      "keep screws in their correct positions"
+     ],
+     "answer": 3,
+     "explanation": "Screws differ in length."
+    },
+    {
+     "q": "Flip phones often fail at the",
+     "options": [
+      "battery cover",
+      "antenna",
+      "hinge flex cable",
+      "SIM card"
+     ],
+     "answer": 2,
+     "explanation": "Repeated opening wears the flex."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-drawing-the-block-diagram-of-a-mobile-phone",
+   "title": "Drawing the block diagram of a mobile phone",
+   "topic": "Structure of Mobile Phones",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "identification"
+   ],
+   "aim": "To draw the block diagram of a mobile phone (power, logic/memory and radio sections) and locate each section on a real board.",
+   "apparatus": [
+    "Ruler, pencil, eraser",
+    "Magnifying lamp"
+   ],
+   "materials": [
+    "Phone PCB (from a scrap phone)",
+    "Plain paper"
+   ],
+   "safety": [
+    "Handle scrap boards carefully; edges can be sharp."
+   ],
+   "procedure": [
+    "Draw the power section: battery, charging IC, power management IC (PMIC).",
+    "Draw the logic/memory section: CPU, memory (RAM, flash), SIM interface, display, keypad, audio.",
+    "Draw the radio section: antenna, antenna switch, power amplifier, transceiver.",
+    "Connect blocks with arrows to show signal and power flow.",
+    "Label each block and state its function.",
+    "Locate the sections on the scrap board; shielding cans usually cover radio and CPU areas."
+   ],
+   "expectedObservations": "The diagram clearly separates the power, memory/logic and radio units, matching the layout on the board.",
+   "dataAndCalculations": "Board area estimate: a board measuring 120 mm × 60 mm = 7 200 mm²; if the radio section occupies a 30 mm × 25 mm area, it is 750/7 200 × 100 ≈ 10% of the board.",
+   "precautions": [
+    "Use a ruler for neat blocks and arrows."
+   ],
+   "sourcesOfError": [
+    "Different phone models arrange sections differently."
+   ],
+   "commonMistakes": [
+    "Missing arrows showing direction.",
+    "Leaving out the antenna switch or PA."
+   ],
+   "examTips": [
+    "A neat labelled diagram with functions earns full marks.",
+    "State the function of each block in one line."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The power amplifier belongs to the",
+     "options": [
+      "radio section",
+      "power section",
+      "memory section",
+      "display section"
+     ],
+     "answer": 0,
+     "explanation": "It boosts the transmit signal."
+    },
+    {
+     "q": "The PMIC",
+     "options": [
+      "stores contacts",
+      "receives radio signals",
+      "drives the vibrator only",
+      "distributes and regulates power on the board"
+     ],
+     "answer": 3,
+     "explanation": "Power management IC."
+    },
+    {
+     "q": "Data such as the operating system is stored in",
+     "options": [
+      "the PA",
+      "the speaker",
+      "flash memory",
+      "the antenna"
+     ],
+     "answer": 2,
+     "explanation": "Non-volatile storage."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-identifying-electronic-components-on-a-phone-board",
+   "title": "Identifying electronic components on a phone board",
+   "topic": "Electronic Components in Mobile Phones",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To identify surface-mount resistors, capacitors, diodes, transistors, coils and ICs on a phone board and decode their markings.",
+   "apparatus": [
+    "Magnifying lamp or microscope",
+    "Tweezers",
+    "Multimeter"
+   ],
+   "materials": [
+    "Scrap phone boards",
+    "Component data chart"
+   ],
+   "safety": [
+    "Use ESD protection."
+   ],
+   "procedure": [
+    "View the board under magnification.",
+    "Identify SMD resistors (often black with code), capacitors (brown/tan, unmarked), coils, diodes, transistors and ICs (BGA and QFN packages).",
+    "Decode resistor codes.",
+    "Measure a removed resistor and compare.",
+    "Locate ICs by their location and markings (CPU, PMIC, charging IC, audio IC).",
+    "Tabulate findings."
+   ],
+   "expectedObservations": "Most passive parts are tiny SMDs; ICs are BGA packages with balls underneath.",
+   "dataAndCalculations": "SMD resistor codes: \"103\" = 10 × 10³ = 10 kΩ; \"472\" = 4.7 kΩ; \"4R7\" = 4.7 Ω (R marks the decimal point); \"000\" = 0 Ω link.",
+   "precautions": [
+    "Do not lose tiny components; use tweezers over a tray."
+   ],
+   "sourcesOfError": [
+    "Unmarked capacitors cannot be identified by value without measurement."
+   ],
+   "commonMistakes": [
+    "Treating a 0 Ω link as faulty."
+   ],
+   "examTips": [
+    "Name packages: SMD, BGA, QFN.",
+    "Decode resistor codes with working shown."
+   ],
+   "checkQuestions": [
+    {
+     "q": "An SMD resistor marked 222 is",
+     "options": [
+      "22 kΩ",
+      "2.22 Ω",
+      "2.2 kΩ",
+      "222 Ω"
+     ],
+     "answer": 2,
+     "explanation": "22 × 10² = 2 200 Ω."
+    },
+    {
+     "q": "\"R10\" on an SMD resistor means",
+     "options": [
+      "10 kΩ",
+      "0.10 Ω",
+      "10 Ω",
+      "100 Ω"
+     ],
+     "answer": 1,
+     "explanation": "R marks the decimal point."
+    },
+    {
+     "q": "BGA stands for",
+     "options": [
+      "Ball Grid Array",
+      "Base Gate Amplifier",
+      "Battery Ground Adaptor",
+      "Binary Gate Array"
+     ],
+     "answer": 0,
+     "explanation": "Solder balls under the IC."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-continuity-short-circuit-and-voltage-tests-on-a-phone-board",
+   "title": "Continuity, short-circuit and voltage tests on a phone board",
+   "topic": "Tracing and Fault Finding in Hardware",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To find faulty components by visual inspection, continuity and short-circuit tests, voltage measurement and current-draw analysis.",
+   "apparatus": [
+    "Multimeter (continuity, diode, DC volts)",
+    "DC power supply with current display",
+    "Microscope",
+    "Schematic and board layout"
+   ],
+   "materials": [
+    "Faulty phone board (e.g. dead phone)",
+    "IPA"
+   ],
+   "safety": [
+    "Set the power supply current limit before connecting.",
+    "ESD protection."
+   ],
+   "procedure": [
+    "Inspect the board for corrosion, burnt or missing parts.",
+    "Check the battery connector line for a short to ground (diode mode).",
+    "Connect the DC supply at battery voltage (e.g. 3.8 V) with current limit; press power and observe current.",
+    "Measure regulator output voltages at test points from the schematic.",
+    "Locate a shorted capacitor by feeling heat or using IPA evaporation when voltage is applied.",
+    "Replace the faulty component and retest."
+   ],
+   "expectedObservations": "A dead short shows high current immediately with no power-on; a normal board draws a rising, fluctuating current as it boots.",
+   "dataAndCalculations": "Battery 3.7 V, 4 000 mAh stores 3.7 × 4.0 = 14.8 Wh. Charging at 2 A, charge time ≈ 4 000/2 000 × 1.2 = 2.4 h (allowing 20% for losses and tapering).",
+   "precautions": [
+    "Begin with a low current limit.",
+    "Compare readings with a known good board."
+   ],
+   "sourcesOfError": [
+    "Meter probes slipping on tiny pads."
+   ],
+   "commonMistakes": [
+    "Applying full current to a shorted board (burns tracks)."
+   ],
+   "examTips": [
+    "Name methods: metering, signal tracing/injection, component testing, visual inspection.",
+    "Read PCB layouts and schematics to locate test points."
+   ],
+   "checkQuestions": [
+    {
+     "q": "High current with no power-on usually indicates",
+     "options": [
+      "a short circuit on the board",
+      "a normal boot",
+      "a software fault only",
+      "a weak signal"
+     ],
+     "answer": 0,
+     "explanation": "A shorted component draws current."
+    },
+    {
+     "q": "A 3.7 V, 3 000 mAh battery stores",
+     "options": [
+      "3 Wh",
+      "370 Wh",
+      "0.81 Wh",
+      "11.1 Wh"
+     ],
+     "answer": 3,
+     "explanation": "3.7 × 3 = 11.1 Wh."
+    },
+    {
+     "q": "The continuity test is done with",
+     "options": [
+      "charger plugged in",
+      "phone switched on",
+      "power removed",
+      "battery connected"
+     ],
+     "answer": 2,
+     "explanation": "Resistance tests need a dead circuit."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-replacing-a-damaged-phone-screen",
+   "title": "Replacing a damaged phone screen",
+   "topic": "Common Hardware Problems",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To remove a damaged display assembly and fit a replacement safely.",
+   "apparatus": [
+    "Heat pad or hot-air gun",
+    "Suction cup",
+    "Opening picks and spudger",
+    "Precision screwdrivers",
+    "Tweezers"
+   ],
+   "materials": [
+    "Replacement display assembly",
+    "Adhesive strips or B-7000/T-7000 adhesive",
+    "IPA"
+   ],
+   "safety": [
+    "Wear safety glasses; broken glass splinters.",
+    "Disconnect the battery before disconnecting the display."
+   ],
+   "procedure": [
+    "Tape over cracked glass to hold fragments.",
+    "Warm the edges to soften adhesive; lift with suction cup and picks.",
+    "Disconnect battery, then display flex.",
+    "Clean old adhesive with IPA.",
+    "Connect the new display and test before sealing.",
+    "Apply adhesive, fit and clamp gently.",
+    "Test touch, brightness and proximity sensor."
+   ],
+   "expectedObservations": "The new display works fully; touch responds over the whole surface.",
+   "dataAndCalculations": "Quote calculation: screen ₦25 000 + adhesive ₦1 500 + labour ₦5 000 = ₦31 500.",
+   "precautions": [
+    "Test before final sealing.",
+    "Avoid excess heat near the battery."
+   ],
+   "sourcesOfError": [
+    "Faulty replacement parts."
+   ],
+   "commonMistakes": [
+    "Prying near flex cables and cutting them.",
+    "Sealing before testing."
+   ],
+   "examTips": [
+    "List common hardware faults: screen, charging port, mouthpiece, earpiece, keypad.",
+    "State symptoms and remedy for each."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Before sealing a new screen you should",
+     "options": [
+      "charge the phone fully",
+      "flash the software",
+      "remove the SIM tray",
+      "test it"
+     ],
+     "answer": 3,
+     "explanation": "Re-opening risks damage."
+    },
+    {
+     "q": "Cracked glass is taped first to",
+     "options": [
+      "protect the battery",
+      "cool the phone",
+      "hold fragments together",
+      "improve touch"
+     ],
+     "answer": 2,
+     "explanation": "It makes removal safer."
+    },
+    {
+     "q": "Adhesive is softened using",
+     "options": [
+      "a hammer",
+      "gentle heat",
+      "water",
+      "oil"
+     ],
+     "answer": 1,
+     "explanation": "Heat loosens glue."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-replacing-a-charging-port-with-hot-air-rework",
+   "title": "Replacing a charging port with hot-air rework",
+   "topic": "Corrective Maintenance",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement"
+   ],
+   "aim": "To desolder and replace a faulty charging port or SMD component using a hot-air station.",
+   "apparatus": [
+    "Hot-air rework station",
+    "Soldering iron with fine tip",
+    "Tweezers",
+    "Microscope",
+    "Multimeter",
+    "USB charging tester"
+   ],
+   "materials": [
+    "Replacement charging port",
+    "Flux",
+    "Solder paste/wire",
+    "Kapton tape",
+    "IPA"
+   ],
+   "safety": [
+    "Shield nearby plastic parts with Kapton tape.",
+    "Use fume extraction; flux smoke is irritating."
+   ],
+   "procedure": [
+    "Inspect the port for bent pins, dirt or broken joints.",
+    "Protect nearby parts with Kapton tape; apply flux.",
+    "Heat evenly with hot air (about 330–380 °C, moderate airflow) until solder melts; lift the port.",
+    "Clean pads with solder wick and IPA.",
+    "Apply flux and solder, place the new port and reflow.",
+    "Inspect joints for bridges under the microscope.",
+    "Test with the USB charging tester."
+   ],
+   "expectedObservations": "The phone charges normally; the tester shows correct voltage and current.",
+   "dataAndCalculations": "Charger 5 V, 2 A gives a maximum of 5 × 2 = 10 W. The USB tester showing 5.05 V and 1.6 A means the phone is drawing 5.05 × 1.6 = 8.1 W.",
+   "precautions": [
+    "Keep the hot-air nozzle moving to avoid burning the board.",
+    "Use enough flux."
+   ],
+   "sourcesOfError": [
+    "Hidden pads under the connector not reflowed."
+   ],
+   "commonMistakes": [
+    "Too high airflow blowing tiny parts away.",
+    "Not cleaning flux afterwards."
+   ],
+   "examTips": [
+    "Define corrective maintenance and its procedures (cleaning, soldering, de-soldering, re-balling).",
+    "Describe the test after repair."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Kapton tape is used during hot-air rework to",
+     "options": [
+      "insulate the battery permanently",
+      "clean the board",
+      "protect nearby components from heat",
+      "hold the phone shut"
+     ],
+     "answer": 2,
+     "explanation": "It is heat-resistant."
+    },
+    {
+     "q": "A USB tester shows 5 V and 1.5 A. Power =",
+     "options": [
+      "0.3 W",
+      "7.5 W",
+      "3.3 W",
+      "6.5 W"
+     ],
+     "answer": 1,
+     "explanation": "P = VI = 7.5 W."
+    },
+    {
+     "q": "Corrective maintenance is done",
+     "options": [
+      "after a fault occurs",
+      "before any fault",
+      "only on new phones",
+      "only by the manufacturer"
+     ],
+     "answer": 0,
+     "explanation": "It corrects faults."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-preventive-maintenance-routine-for-a-phone",
+   "title": "Preventive maintenance routine for a phone",
+   "topic": "Preventive Maintenance",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To carry out preventive maintenance: cleaning ports and contacts, checking battery health and updating software.",
+   "apparatus": [
+    "Soft brush",
+    "Plastic pick",
+    "Air blower",
+    "Microfibre cloth",
+    "Computer or Wi-Fi for updates"
+   ],
+   "materials": [
+    "IPA (99%)",
+    "Customer phone"
+   ],
+   "safety": [
+    "Power off before cleaning ports.",
+    "Never use metal pins inside charging ports."
+   ],
+   "procedure": [
+    "Back up the customer's data (with permission).",
+    "Clean the charging port, speaker grilles and SIM tray with brush and blower.",
+    "Wipe contacts with IPA.",
+    "Check battery health in settings or with a diagnostic app.",
+    "Check storage and remove unnecessary files (with permission).",
+    "Install software updates.",
+    "Record and advise the customer."
+   ],
+   "expectedObservations": "Charging becomes reliable after removing lint; battery health and storage status are reported to the customer.",
+   "dataAndCalculations": "Battery design capacity 4 000 mAh; measured full-charge capacity 3 200 mAh. Health = 3 200/4 000 × 100 = 80%, the level at which replacement is often advised.",
+   "precautions": [
+    "Use plastic, not metal, tools.",
+    "Back up before updating."
+   ],
+   "sourcesOfError": [
+    "Battery estimates vary between apps."
+   ],
+   "commonMistakes": [
+    "Updating without backup or sufficient battery charge."
+   ],
+   "examTips": [
+    "Define preventive maintenance and state its advantages.",
+    "List the procedures in order."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Preventive maintenance is done",
+     "options": [
+      "only on dead phones",
+      "never",
+      "before faults occur",
+      "only after a fault"
+     ],
+     "answer": 2,
+     "explanation": "It prevents faults."
+    },
+    {
+     "q": "Measured 2 400 mAh of a 3 000 mAh design gives health of",
+     "options": [
+      "60%",
+      "80%",
+      "20%",
+      "125%"
+     ],
+     "answer": 1,
+     "explanation": "2 400/3 000 = 0.8."
+    },
+    {
+     "q": "Lint in a charging port is removed with",
+     "options": [
+      "a plastic pick or soft brush",
+      "a steel needle",
+      "water",
+      "a soldering iron"
+     ],
+     "answer": 0,
+     "explanation": "Plastic avoids shorting pins."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-using-phone-menus-and-codes-for-fault-finding",
+   "title": "Using phone menus and codes for fault finding",
+   "topic": "Fault Finding in Software",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To use standard codes and phone menus to read the IMEI, check hardware through test menus and diagnose software faults.",
+   "apparatus": [
+    "Phones of different makes",
+    "Service manual"
+   ],
+   "materials": [
+    "Record sheet"
+   ],
+   "safety": [
+    "Never use codes that erase data without customer consent and backup."
+   ],
+   "procedure": [
+    "Dial *#06# to display the IMEI and compare it with the label and box.",
+    "Verify the IMEI check digit (Luhn algorithm).",
+    "Open the manufacturer's test/diagnostic menu to test display, touch, speaker, microphone, vibrator and sensors.",
+    "Check SIM status and network settings in the menu.",
+    "Note symptoms: hanging, restart loops, SIM rejected.",
+    "Recommend a remedy (cache clear, update, reflash)."
+   ],
+   "expectedObservations": "The IMEI matches the label; the test menu identifies which hardware works.",
+   "dataAndCalculations": "Luhn check for IMEI 49015420323751_: double every second digit from the left (9, 1, 4, 0, 2, 7, 1 → 18, 2, 8, 0, 4, 14, 2; digits of 18 and 14 summed to 9 and 5), add all digits to get 52; check digit = (10 − 52 mod 10) mod 10 = 8. Full IMEI = 490154203237518.",
+   "precautions": [
+    "Record settings before changing them."
+   ],
+   "sourcesOfError": [
+    "Different makes use different test codes."
+   ],
+   "commonMistakes": [
+    "Using unknown codes that reset the phone."
+   ],
+   "examTips": [
+    "Explain software faults: SIM locked, SIM rejected, hanging, restart problem.",
+    "State the use of the IMEI."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The code to display the IMEI on most phones is",
+     "options": [
+      "*#06#",
+      "*123#",
+      "#31#",
+      "*#0#"
+     ],
+     "answer": 0,
+     "explanation": "*#06# is standard."
+    },
+    {
+     "q": "The IMEI last digit is a",
+     "options": [
+      "network code",
+      "year of manufacture",
+      "colour code",
+      "check digit"
+     ],
+     "answer": 3,
+     "explanation": "Calculated by the Luhn algorithm."
+    },
+    {
+     "q": "A phone that restarts repeatedly is said to have a",
+     "options": [
+      "weak speaker",
+      "loose SIM tray",
+      "boot loop (restart problem)",
+      "cracked screen"
+     ],
+     "answer": 2,
+     "explanation": "Often a software fault."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-flashing-firmware-on-a-mobile-phone",
+   "title": "Flashing firmware on a mobile phone",
+   "topic": "Fault Finding in Software",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "safety"
+   ],
+   "aim": "To install (flash) official firmware to repair software faults such as boot loops, using the correct flashing tool.",
+   "apparatus": [
+    "Computer with USB drivers and the maker's official flashing/repair tool",
+    "Original USB cable",
+    "Charged phone"
+   ],
+   "materials": [
+    "Official firmware for the exact model",
+    "Customer consent and proof of ownership form"
+   ],
+   "safety": [
+    "Only flash phones with the owner's consent and proof of ownership; bypassing theft protection or changing IMEI is illegal.",
+    "Ensure at least 50% battery; never disconnect during flashing (can \"brick\" the phone)."
+   ],
+   "procedure": [
+    "Confirm the exact model number and region.",
+    "Back up user data if the phone is accessible.",
+    "Install drivers and the official tool on the computer.",
+    "Download the correct firmware and verify it.",
+    "Put the phone into download/recovery mode and connect.",
+    "Load the firmware and start flashing; wait until complete.",
+    "Reboot, complete setup with the owner's account and test."
+   ],
+   "expectedObservations": "The phone boots normally after flashing; the boot loop is cleared.",
+   "dataAndCalculations": "Download time: a 2 GB firmware file at 10 Mbit/s takes 2 × 1 024 × 8/10 = 1 638 s ≈ 27 minutes.",
+   "precautions": [
+    "Use only firmware for the exact model.",
+    "Use a stable power supply for the computer."
+   ],
+   "sourcesOfError": [
+    "Corrupted downloads."
+   ],
+   "commonMistakes": [
+    "Flashing wrong-region firmware.",
+    "Interrupting the process."
+   ],
+   "examTips": [
+    "State the uses of flashing devices and software.",
+    "Mention the ethical and legal limits of unlocking."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Before flashing, the phone battery should be",
+     "options": [
+      "removed",
+      "frozen",
+      "at least about 50% charged",
+      "empty"
+     ],
+     "answer": 2,
+     "explanation": "Power loss can brick the phone."
+    },
+    {
+     "q": "Flashing a phone means",
+     "options": [
+      "testing the speaker",
+      "installing firmware",
+      "cleaning the screen",
+      "replacing the battery"
+     ],
+     "answer": 1,
+     "explanation": "It rewrites the system software."
+    },
+    {
+     "q": "Changing a phone's IMEI is",
+     "options": [
+      "illegal",
+      "a routine repair",
+      "required after flashing",
+      "done with *#06#"
+     ],
+     "answer": 0,
+     "explanation": "IMEI tampering is an offence."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-diagnosing-sim-and-network-problems",
+   "title": "Diagnosing SIM and network problems",
+   "topic": "Common Software Problems",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "observation",
+    "identification"
+   ],
+   "aim": "To diagnose and clear faults such as \"Invalid SIM\", \"SIM card rejected\", \"Contact service provider\" and phone lock code problems.",
+   "apparatus": [
+    "Known good SIM card",
+    "Multimeter",
+    "Tweezers",
+    "IPA and brush"
+   ],
+   "materials": [
+    "Faulty phones showing SIM messages"
+   ],
+   "safety": [
+    "Power off before removing the SIM tray."
+   ],
+   "procedure": [
+    "Insert a known good SIM: if it works, the customer's SIM is faulty.",
+    "Inspect the SIM socket pins; clean and gently re-tension.",
+    "Check if the phone is network-locked (works only with one network).",
+    "Check settings: airplane mode, network mode, APN.",
+    "For \"SIM card rejected\", check the IMEI and network registration.",
+    "For a forgotten lock code, reset only with owner verification and their account credentials.",
+    "Record the cause and remedy."
+   ],
+   "expectedObservations": "Most SIM errors are traced to a faulty SIM, dirty/bent socket pins, a network lock or settings.",
+   "dataAndCalculations": "Of 20 phones with SIM errors, 9 had faulty SIMs, 6 dirty or bent pins, 3 network locks and 2 software faults. Faulty SIMs = 9/20 × 100 = 45% of cases — so testing with a good SIM first saves time.",
+   "precautions": [
+    "Test with a known good SIM before opening the phone."
+   ],
+   "sourcesOfError": [
+    "Intermittent socket contact."
+   ],
+   "commonMistakes": [
+    "Reflashing before checking the SIM."
+   ],
+   "examTips": [
+    "Give a step-by-step fault-finding sequence.",
+    "Explain service provider codes for checking balance and network services."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The first test for \"Invalid SIM\" is to",
+     "options": [
+      "change the battery",
+      "try a known good SIM",
+      "reflash the phone",
+      "replace the screen"
+     ],
+     "answer": 1,
+     "explanation": "Simplest test first."
+    },
+    {
+     "q": "A phone that works only with one network is",
+     "options": [
+      "network-locked",
+      "flashed",
+      "bricked",
+      "dual-band"
+     ],
+     "answer": 0,
+     "explanation": "Locked to an operator."
+    },
+    {
+     "q": "9 out of 20 cases is",
+     "options": [
+      "9%",
+      "20%",
+      "55%",
+      "45%"
+     ],
+     "answer": 3,
+     "explanation": "9/20 × 100 = 45%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-testing-chargers-batteries-and-accessories",
+   "title": "Testing chargers, batteries and accessories",
+   "topic": "Phone Accessories and Their Functions",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To identify phone accessories and test chargers, cables and batteries.",
+   "apparatus": [
+    "USB tester (voltage/current meter)",
+    "Multimeter",
+    "Electronic load (optional)"
+   ],
+   "materials": [
+    "Chargers, USB cables, power bank, earpiece/headset, Bluetooth headset, batteries"
+   ],
+   "safety": [
+    "Do not open mains chargers; they contain high voltages.",
+    "Do not short battery terminals."
+   ],
+   "procedure": [
+    "Identify each accessory and state its function.",
+    "Measure the charger output voltage with no load.",
+    "Connect a phone through the USB tester and read voltage and current.",
+    "Test cables by swapping with a known good one and checking for voltage drop.",
+    "Measure a battery's open-circuit voltage.",
+    "Record and judge each item."
+   ],
+   "expectedObservations": "A good charger holds about 5 V under load; a poor cable shows a larger voltage drop and lower current.",
+   "dataAndCalculations": "Charger 5.10 V at no load, 4.60 V while delivering 1.0 A through a cheap cable → drop = 0.50 V, so cable resistance ≈ 0.50/1.0 = 0.5 Ω. A good cable might drop only 0.15 V (0.15 Ω).",
+   "precautions": [
+    "Use certified chargers."
+   ],
+   "sourcesOfError": [
+    "Tester accuracy at low currents."
+   ],
+   "commonMistakes": [
+    "Judging a charger by its label alone."
+   ],
+   "examTips": [
+    "State functions of headsets, earpiece, Bluetooth headset, batteries, chargers and cables."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A standard USB charger outputs about",
+     "options": [
+      "1.5 V",
+      "5 V",
+      "230 V",
+      "12 V"
+     ],
+     "answer": 1,
+     "explanation": "USB is 5 V nominal."
+    },
+    {
+     "q": "Voltage drop of 0.4 V at 2 A means cable resistance of",
+     "options": [
+      "0.2 Ω",
+      "0.8 Ω",
+      "5 Ω",
+      "2.4 Ω"
+     ],
+     "answer": 0,
+     "explanation": "R = 0.4/2 = 0.2 Ω."
+    },
+    {
+     "q": "A Bluetooth headset connects to the phone",
+     "options": [
+      "through the SIM",
+      "through the charger only",
+      "with an HDMI cable",
+      "wirelessly"
+     ],
+     "answer": 3,
+     "explanation": "Short-range radio."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-gsm-costing-and-return-on-investment-for-a-phone-repair-shop",
+   "title": "Costing and return on investment for a phone repair shop",
+   "topic": "Managing a Mobile Phone Business",
+   "kind": "FIELD",
+   "skills": [
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To estimate the start-up cost of a phone repair workshop, its profit and return on investment, and identify risks.",
+   "apparatus": [
+    "Calculator",
+    "Price lists from local markets"
+   ],
+   "materials": [
+    "Survey sheet for shop rent, tools, equipment and parts prices"
+   ],
+   "safety": [
+    "Collect prices in pairs in safe market areas."
+   ],
+   "procedure": [
+    "List capital items: tools, equipment, furniture, rent, registration.",
+    "Collect current prices and total the start-up capital.",
+    "Estimate monthly income from repairs and sales.",
+    "Estimate monthly expenses: rent, power, wages, parts.",
+    "Calculate monthly profit and return on investment.",
+    "List risks (theft, faulty parts, competition) and how to reduce them."
+   ],
+   "expectedObservations": "A realistic budget shows how long it takes to recover the capital.",
+   "dataAndCalculations": "Start-up capital ₦1 200 000. Yearly income ₦3 000 000; yearly expenses ₦1 200 000 → yearly profit ₦1 800 000. ROI = 1 800 000/1 200 000 × 100 = 150%; payback time = 1 200 000/(1 800 000/12) = 8 months.",
+   "precautions": [
+    "Use up-to-date local prices."
+   ],
+   "sourcesOfError": [
+    "Income estimates may be optimistic."
+   ],
+   "commonMistakes": [
+    "Forgetting recurring costs such as power and rent."
+   ],
+   "examTips": [
+    "State factors for choosing a shop location.",
+    "Show ROI formula and working."
+   ],
+   "checkQuestions": [
+    {
+     "q": "ROI is calculated as",
+     "options": [
+      "profit ÷ investment × 100",
+      "investment ÷ profit",
+      "income − expenses only",
+      "capital × 100"
+     ],
+     "answer": 0,
+     "explanation": "Return on investment percentage."
+    },
+    {
+     "q": "Profit ₦500 000 on capital ₦2 000 000 gives ROI of",
+     "options": [
+      "400%",
+      "4%",
+      "50%",
+      "25%"
+     ],
+     "answer": 3,
+     "explanation": "0.5/2 × 100 = 25%."
+    },
+    {
+     "q": "A good location for a phone repair shop is",
+     "options": [
+      "far from customers",
+      "inside a forest",
+      "a busy, accessible commercial area",
+      "a hidden back street"
+     ],
+     "answer": 2,
+     "explanation": "Customers must find it easily."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

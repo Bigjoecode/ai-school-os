@@ -1,0 +1,2282 @@
+{
+  "exam": "WAEC",
+  "subject": "Geography",
+  "practicalPaper": "Paper 3 (Elements of Practical and Physical Geography) lasts 1 hour 50 minutes for 70 marks: candidates answer four of eight questions, including the compulsory Question 1 on reading and interpreting a topographical map (25 marks); the others (15 marks each) cover statistical diagrams, weather and climate data, rocks and physical geography. Field work on local geography is examined by schools as part of continuous assessment.",
+  "practicals": [
+    {
+      "id": "pr-geo-map-scale-conversion",
+      "title": "Map scales: types and conversion",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "calculation",
+        "drawing",
+        "measurement"
+      ],
+      "aim": "To recognise the three ways of showing a map scale (statement, representative fraction and linear scale) and convert from one form to another.",
+      "apparatus": [
+        "Ruler",
+        "Sharp pencil",
+        "Topographical map sheets with different scales"
+      ],
+      "materials": [
+        "Exercise book or graph paper"
+      ],
+      "safety": [
+        "Handle maps carefully and avoid folding them along new lines."
+      ],
+      "procedure": [
+        "Locate the scale in the margin of the map and identify how it is shown.",
+        "To convert a statement (e.g. 1 cm to 0.5 km) to a representative fraction (RF), express both sides in the same unit: 0.5 km = 50 000 cm, so RF = 1:50 000.",
+        "To convert an RF to a statement, divide the denominator by 100 000 to get kilometres per centimetre.",
+        "To draw a linear scale, choose a convenient length (e.g. 10 cm), work out the ground distance it represents and divide it into equal primary divisions.",
+        "Divide the left-hand primary division into smaller secondary divisions and label 0 at the junction.",
+        "Label the scale with units and the RF."
+      ],
+      "expectedObservations": "Large-scale maps (e.g. 1:25 000) show small areas in great detail; small-scale maps (e.g. 1:1 000 000) show large areas with little detail.",
+      "dataAndCalculations": "Statement 1 cm to 2.5 km: 2.5 km = 250 000 cm → RF 1:250 000.\nRF 1:50 000 → 50 000 cm = 0.5 km, so 1 cm represents 0.5 km (2 cm to 1 km).\nLinear scale for 1:50 000: a 10 cm line represents 10 × 0.5 = 5 km; mark primary divisions every 2 cm (1 km) and divide the first 2 cm into 5 parts of 200 m.",
+      "precautions": [
+        "Always convert to the same unit before writing an RF.",
+        "Begin the linear scale with 0 between the primary and secondary divisions.",
+        "Use a sharp pencil."
+      ],
+      "sourcesOfError": [
+        "Incorrect unit conversions (1 km = 100 000 cm).",
+        "Inaccurate division of the linear scale."
+      ],
+      "commonMistakes": [
+        "Writing RF with units, e.g. 1 cm : 50 000 cm.",
+        "Calling 1:1 000 000 a large scale.",
+        "Placing 0 at the far left of the linear scale."
+      ],
+      "examTips": [
+        "Show each conversion step; marks are given for method.",
+        "Remember: 1 km = 1000 m = 100 000 cm."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A scale of 1 cm to 5 km written as an RF is",
+          "options": [
+            "1:500 000",
+            "1:5000",
+            "1:50 000",
+            "1:5 000 000"
+          ],
+          "answer": 0,
+          "explanation": "5 km = 500 000 cm."
+        },
+        {
+          "q": "On a 1:25 000 map, 1 cm represents",
+          "options": [
+            "2.5 km",
+            "0.25 km",
+            "25 km",
+            "0.025 km"
+          ],
+          "answer": 1,
+          "explanation": "25 000 cm = 250 m = 0.25 km."
+        },
+        {
+          "q": "Which is the largest scale?",
+          "options": [
+            "1:1 000 000",
+            "1:250 000",
+            "1:10 000",
+            "1:50 000"
+          ],
+          "answer": 2,
+          "explanation": "The smaller the denominator, the larger the scale."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-measuring-distance",
+      "title": "Measuring straight and curved distances on a map",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To measure straight-line (as the crow flies) and curved distances (roads, rivers, railways) on a topographical map and convert them to ground distances.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Strip of paper with a straight edge"
+      ],
+      "safety": [
+        "Use dividers carefully; their points are sharp."
+      ],
+      "procedure": [
+        "For a straight distance, place a ruler between the two points and read the length in cm.",
+        "For a curved route, place the straight edge of a paper strip at the starting point and mark it.",
+        "Pivot the paper at each bend, marking the paper where the route changes direction, until the end point is reached.",
+        "Alternatively, lay a thread along the route, mark the end and straighten it against a ruler.",
+        "Measure the total length on the paper or thread.",
+        "Convert to ground distance using the scale, or lay the paper against the linear scale directly."
+      ],
+      "expectedObservations": "Curved routes such as roads and rivers are longer on the ground than the straight-line distance between their ends; the ratio indicates how winding the route is.",
+      "dataAndCalculations": "Scale 1:50 000 (1 cm = 0.5 km).\nStraight distance between two settlements = 7.4 cm → 7.4 × 0.5 = 3.7 km.\nRoad distance between them = 12.6 cm → 12.6 × 0.5 = 6.3 km.\nSinuosity = 6.3 ÷ 3.7 ≈ 1.70, so the road is about 70% longer than the direct line.",
+      "precautions": [
+        "Mark the paper strip carefully at each bend.",
+        "Start and end at the exact points named in the question (e.g. the centre of a settlement or a road junction).",
+        "Use small straight segments on very winding routes."
+      ],
+      "sourcesOfError": [
+        "Slipping of the paper strip at bends.",
+        "Thread stretching.",
+        "Map paper shrinking or expanding."
+      ],
+      "commonMistakes": [
+        "Giving an answer in cm instead of km.",
+        "Measuring from the edge of a settlement instead of the point stated.",
+        "Using the wrong scale for the map."
+      ],
+      "examTips": [
+        "WAEC allows a small tolerance (often ±0.1 to 0.2 km); show your measured map distance as well as the ground distance.",
+        "State the answer in the unit requested, usually km."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A road measures 9.2 cm on a 1:50 000 map. The ground distance is",
+          "options": [
+            "0.46 km",
+            "9.2 km",
+            "18.4 km",
+            "4.6 km"
+          ],
+          "answer": 3,
+          "explanation": "9.2 × 0.5 = 4.6 km."
+        },
+        {
+          "q": "The best simple method of measuring a winding river on a map is",
+          "options": [
+            "the paper-strip method or a thread",
+            "a straight ruler from source to mouth",
+            "counting grid squares",
+            "estimating by eye"
+          ],
+          "answer": 0,
+          "explanation": "Paper strip or thread follows the bends."
+        },
+        {
+          "q": "On a 1:100 000 map a distance of 3.5 cm represents",
+          "options": [
+            "35 km",
+            "3.5 km",
+            "0.35 km",
+            "350 km"
+          ],
+          "answer": 1,
+          "explanation": "1 cm = 1 km at this scale."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-direction-bearing",
+      "title": "Direction and bearing",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "measurement",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To determine the direction (cardinal points) and whole-circle bearing of one point from another on a map, and to calculate back bearings.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Compass rose diagram"
+      ],
+      "safety": [
+        "Keep the protractor and dividers in the geometry set when not in use."
+      ],
+      "procedure": [
+        "Draw a north–south line through the starting point parallel to the grid eastings (grid north).",
+        "Join the starting point to the destination with a straight pencil line.",
+        "Place the protractor centre on the starting point with 0° on north.",
+        "Measure the angle clockwise from north to the line; this is the bearing, written with three figures (e.g. 065°).",
+        "State the direction using the 16 points of the compass.",
+        "Calculate the back bearing by adding or subtracting 180°."
+      ],
+      "expectedObservations": "Bearings range from 000° to 360°; a point exactly north-east has a bearing of 045°, south-west 225°.",
+      "dataAndCalculations": "Bearing of B from A = 065° (direction ENE).\nBack bearing (A from B) = 065° + 180° = 245° (WSW).\nBearing of C from A = 300°; back bearing = 300° − 180° = 120°.",
+      "precautions": [
+        "Always measure clockwise from north.",
+        "Draw the north line through the point you are measuring FROM.",
+        "Write bearings with three digits."
+      ],
+      "sourcesOfError": [
+        "Inaccurate north line.",
+        "Thick pencil lines.",
+        "Protractor not centred."
+      ],
+      "commonMistakes": [
+        "Measuring from the wrong point (bearing of A from B instead of B from A).",
+        "Measuring anticlockwise.",
+        "Writing 65° instead of 065°."
+      ],
+      "examTips": [
+        "Read the question wording carefully: 'the bearing of X from Y' means stand at Y.",
+        "Allow your answer to fall within the expected range by measuring accurately with a sharp pencil."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The bearing of a point due south-east is",
+          "options": [
+            "045°",
+            "225°",
+            "135°",
+            "315°"
+          ],
+          "answer": 2,
+          "explanation": "SE lies midway between E (090°) and S (180°)."
+        },
+        {
+          "q": "If the bearing of Q from P is 210°, the bearing of P from Q is",
+          "options": [
+            "120°",
+            "390°",
+            "150°",
+            "030°"
+          ],
+          "answer": 3,
+          "explanation": "210° − 180° = 030°."
+        },
+        {
+          "q": "Bearings are measured",
+          "options": [
+            "clockwise from north",
+            "anticlockwise from east",
+            "clockwise from south",
+            "anticlockwise from north"
+          ],
+          "answer": 0,
+          "explanation": "Whole-circle bearings run clockwise from north."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-grid-reference-area",
+      "title": "Grid references and measuring area",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "measurement",
+        "calculation",
+        "identification"
+      ],
+      "aim": "To locate features with four- and six-figure grid references and to estimate the area of a feature by counting grid squares.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Tracing paper",
+        "Romer (grid reference scale) if available"
+      ],
+      "safety": [
+        "Handle tracing paper and maps with clean, dry hands."
+      ],
+      "procedure": [
+        "Read the easting (vertical line number) to the left of the feature first, then the northing (horizontal line number) below it: 'along the corridor, then up the stairs'.",
+        "For a six-figure reference, divide the square into tenths and estimate the position in each direction.",
+        "To find an area, outline the feature (e.g. a forest reserve) on tracing paper over the grid.",
+        "Count the complete squares inside the outline.",
+        "Count the part squares and divide by 2 (or estimate each part).",
+        "Multiply the total number of squares by the ground area of one square."
+      ],
+      "expectedObservations": "Each grid square on a 1:50 000 sheet with 2 cm grid lines represents 1 km × 1 km = 1 km² on the ground.",
+      "dataAndCalculations": "A church is 4 tenths east of easting 23 and 7 tenths north of northing 58 → six-figure reference 234587.\nArea of a forest: 14 complete squares + 10 part squares → 14 + 10 ÷ 2 = 19 squares; each square = 1 km² → area ≈ 19 km².",
+      "precautions": [
+        "Always give eastings before northings.",
+        "Use the grid line to the left and below the feature.",
+        "Count part squares consistently."
+      ],
+      "sourcesOfError": [
+        "Estimating tenths by eye.",
+        "Irregular outlines making part squares hard to judge."
+      ],
+      "commonMistakes": [
+        "Reversing eastings and northings.",
+        "Using the line to the right or above the feature.",
+        "Forgetting the area unit km²."
+      ],
+      "examTips": [
+        "Give the six-figure reference exactly as six digits without spaces or commas unless the map uses letters.",
+        "Show the counting method for area to earn method marks."
+      ],
+      "checkQuestions": [
+        {
+          "q": "In a grid reference the first figures are the",
+          "options": [
+            "northings",
+            "eastings",
+            "heights",
+            "bearings"
+          ],
+          "answer": 1,
+          "explanation": "Eastings (read along) come first."
+        },
+        {
+          "q": "A feature covers 8 whole squares and 6 part squares of 1 km² each. Its approximate area is",
+          "options": [
+            "14 km²",
+            "8 km²",
+            "11 km²",
+            "6 km²"
+          ],
+          "answer": 2,
+          "explanation": "8 + 6 ÷ 2 = 11 km²."
+        },
+        {
+          "q": "On a 1:50 000 map, a grid square with sides of 2 cm represents",
+          "options": [
+            "2 km²",
+            "4 km²",
+            "0.5 km²",
+            "1 km²"
+          ],
+          "answer": 3,
+          "explanation": "2 cm = 1 km on each side, so 1 km²."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-map-reduction-enlargement",
+      "title": "Map reduction and enlargement",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "drawing",
+        "calculation",
+        "measurement"
+      ],
+      "aim": "To reduce or enlarge part of a map using the square (grid) method and calculate the new scale and area.",
+      "apparatus": [
+        "Topographical map extract",
+        "Ruler",
+        "Sharp pencil",
+        "Eraser",
+        "Set square"
+      ],
+      "materials": [
+        "Graph paper or plain paper"
+      ],
+      "safety": [
+        "No special hazards; keep work area tidy."
+      ],
+      "procedure": [
+        "Draw a frame around the map area to be copied and divide it into squares (e.g. 2 cm).",
+        "For reduction to half, draw a frame with sides half as long and divide it into the same number of squares (1 cm).",
+        "Copy the detail in each square into the corresponding small square, noting where lines cross the square edges.",
+        "Calculate and write the new RF and draw a new linear scale.",
+        "Add a title, north arrow and key."
+      ],
+      "expectedObservations": "The copied map has the same shape and relative positions of features, but linear dimensions are halved (reduction) or doubled (enlargement).",
+      "dataAndCalculations": "Original 1:50 000. Reduced to half (linear): new RF = 1:(50 000 × 2) = 1:100 000. A frame 12 cm × 8 cm becomes 6 cm × 4 cm. Area on paper becomes (1/2)² = 1/4 of the original (96 cm² → 24 cm²).\nEnlarged twice: new RF = 1:25 000; the area on paper becomes 4 times larger.",
+      "precautions": [
+        "Use exactly the same number of squares in both frames.",
+        "Draw faint construction lines that can be erased.",
+        "Transfer details square by square."
+      ],
+      "sourcesOfError": [
+        "Inaccurate square size.",
+        "Misplacing details within squares."
+      ],
+      "commonMistakes": [
+        "Halving the area instead of the length.",
+        "Writing the reduced scale as 1:25 000.",
+        "Omitting the title, key, scale or north arrow."
+      ],
+      "examTips": [
+        "State the new scale both as an RF and as a linear scale.",
+        "Neatness and accuracy of detail transfer earn marks."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A 1:50 000 map reduced to one-half linear size has a scale of",
+          "options": [
+            "1:100 000",
+            "1:25 000",
+            "1:200 000",
+            "1:50 000"
+          ],
+          "answer": 0,
+          "explanation": "Halving the map doubles the denominator."
+        },
+        {
+          "q": "If the linear size is halved, the area on paper becomes",
+          "options": [
+            "one-half",
+            "one-quarter",
+            "twice",
+            "four times"
+          ],
+          "answer": 1,
+          "explanation": "Area scales with the square of the linear factor."
+        },
+        {
+          "q": "Enlarging a 1:100 000 map three times gives a scale of about",
+          "options": [
+            "1:300 000",
+            "1:30 000",
+            "1:33 333",
+            "1:10 000"
+          ],
+          "answer": 2,
+          "explanation": "100 000 ÷ 3 ≈ 33 333."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-relief-features",
+      "title": "Identifying relief features from contours",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "identification",
+        "observation",
+        "drawing"
+      ],
+      "aim": "To identify relief features (hill, ridge, spur, valley, saddle, escarpment, plateau, plain, conical hill) from contour patterns on a topographical map.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Contour sketch sheets"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Find the contour interval from the map margin or by comparing two labelled contours.",
+        "Note the values of contours to find which way the land slopes.",
+        "Look for patterns: closed rings (hills), V-shapes pointing uphill (valleys), V-shapes pointing downhill (spurs), contours close together (steep slope).",
+        "Identify each feature, give its grid reference and its height.",
+        "Draw a simple contour sketch of a spur and a valley side by side and label them."
+      ],
+      "expectedObservations": "Closely spaced contours show steep slopes; widely spaced contours show gentle slopes. Concentric closed contours with the highest in the centre show a hill; a gap between two hills on a ridge shows a saddle (col). Contours bunched on one side and widely spaced on the other show an escarpment.",
+      "dataAndCalculations": "Contour interval: two labelled contours 300 m and 400 m with four intervals between them → interval = (400 − 300) ÷ 4 = 25 m.\nHeight of a spot between the 350 m and 375 m contours, halfway → about 362.5 m (≈ 363 m).",
+      "precautions": [
+        "Check contour values before deciding direction of slope.",
+        "Use spot heights and trigonometrical stations to confirm summits."
+      ],
+      "sourcesOfError": [
+        "Unlabelled contours.",
+        "Confusing spurs and valleys where no rivers are shown."
+      ],
+      "commonMistakes": [
+        "Calling a V pointing downhill a valley — that is a spur.",
+        "Ignoring the contour interval.",
+        "Naming features without giving their location."
+      ],
+      "examTips": [
+        "Rivers flow in valleys; V-shapes of contours along rivers point upstream.",
+        "Support each identification with evidence from the map (contour values, grid references)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Contour V-shapes pointing towards higher ground indicate a",
+          "options": [
+            "spur",
+            "hill",
+            "plateau",
+            "valley"
+          ],
+          "answer": 3,
+          "explanation": "Valleys cut back into high ground."
+        },
+        {
+          "q": "Contours very close together indicate",
+          "options": [
+            "a steep slope",
+            "a gentle slope",
+            "a plain",
+            "a lake"
+          ],
+          "answer": 0,
+          "explanation": "Height changes rapidly over a short distance."
+        },
+        {
+          "q": "Labelled contours of 200 m and 300 m have four gaps between them. The contour interval is",
+          "options": [
+            "50 m",
+            "25 m",
+            "100 m",
+            "20 m"
+          ],
+          "answer": 1,
+          "explanation": "100 ÷ 4 = 25 m."
+        },
+        {
+          "q": "A low point on a ridge between two hills is a",
+          "options": [
+            "escarpment",
+            "spur",
+            "saddle",
+            "knoll"
+          ],
+          "answer": 2,
+          "explanation": "A saddle or col lies between two summits."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-gradient",
+      "title": "Calculating gradient",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To calculate the average gradient between two points on a topographical map and express it as a ratio and as an angle.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Calculator"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Find the heights of the two points from contours or spot heights.",
+        "Calculate the vertical interval (VI) = difference in height in metres.",
+        "Measure the map distance between the points and convert to horizontal equivalent (HE) in metres.",
+        "Gradient = VI ÷ HE, expressed as 1 in (HE ÷ VI).",
+        "If required, find the angle of slope as tan⁻¹(VI ÷ HE)."
+      ],
+      "expectedObservations": "Steeper slopes give a smaller number in '1 in x' (e.g. 1 in 5 is steeper than 1 in 20).",
+      "dataAndCalculations": "Point X = 450 m, Point Y = 200 m → VI = 250 m.\nMap distance = 5.0 cm on 1:50 000 → HE = 5.0 × 500 m = 2500 m.\nGradient = 250 ÷ 2500 = 1/10, i.e. 1 in 10.\nAngle = tan⁻¹(0.1) ≈ 5.7°.",
+      "precautions": [
+        "Convert VI and HE to the same unit (metres).",
+        "Measure the straight-line distance between the exact points."
+      ],
+      "sourcesOfError": [
+        "Estimating heights between contours.",
+        "Inaccurate measurement of map distance."
+      ],
+      "commonMistakes": [
+        "Leaving HE in km while VI is in m.",
+        "Writing the gradient upside down (10 in 1).",
+        "Using the contour interval as the VI."
+      ],
+      "examTips": [
+        "Present the formula, substitution and answer as '1 in ...'; each line earns marks.",
+        "Round the final ratio sensibly (e.g. 1 in 10, not 1 in 10.0003)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "VI = 100 m and HE = 2 km. The gradient is",
+          "options": [
+            "1 in 2",
+            "1 in 50",
+            "1 in 200",
+            "1 in 20"
+          ],
+          "answer": 3,
+          "explanation": "2000 ÷ 100 = 20, so 1 in 20."
+        },
+        {
+          "q": "Which gradient is steepest?",
+          "options": [
+            "1 in 8",
+            "1 in 25",
+            "1 in 40",
+            "1 in 100"
+          ],
+          "answer": 0,
+          "explanation": "A smaller HE per unit rise means steeper."
+        },
+        {
+          "q": "On a 1:50 000 map, 3 cm represents a horizontal equivalent of",
+          "options": [
+            "150 m",
+            "1500 m",
+            "15 000 m",
+            "3000 m"
+          ],
+          "answer": 1,
+          "explanation": "3 × 500 m = 1500 m."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-cross-profile",
+      "title": "Drawing a cross profile and testing inter-visibility",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "drawing",
+        "measurement",
+        "calculation",
+        "graph"
+      ],
+      "aim": "To draw an accurate cross profile (section) between two points on a contour map, calculate vertical exaggeration and determine whether the points are inter-visible.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Strip of plain paper",
+        "Graph paper"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Join the two points with a faint straight line on the map.",
+        "Lay the straight edge of a paper strip along the line and mark the ends, every contour crossed (with its value), rivers, roads and hilltops.",
+        "Draw a horizontal base line on graph paper the same length as the strip.",
+        "Choose a vertical scale (e.g. 1 cm to 50 m) and draw a vertical axis with heights.",
+        "Transfer each mark and plot its height above the base line.",
+        "Join the points with a smooth freehand curve, label features and give a title, scales and vertical exaggeration.",
+        "Draw a straight line from the start to the end point to test inter-visibility."
+      ],
+      "expectedObservations": "The profile shows the shape of the land, e.g. steep slopes and valleys. If any ground rises above the line of sight between the two points, they are not inter-visible.",
+      "dataAndCalculations": "Horizontal scale 1:50 000 (1 cm = 500 m). Vertical scale 1 cm to 50 m = 1:5000.\nVertical exaggeration = horizontal scale denominator ÷ vertical scale denominator = 50 000 ÷ 5000 = 10 times.\nInter-visibility: points at 300 m and 250 m, 6 km apart; a ridge of 320 m lies 2 km from the 300 m point. Line of sight height at 2 km = 300 − (50 × 2 ÷ 6) ≈ 283 m < 320 m, so the points are not inter-visible.",
+      "precautions": [
+        "Keep the vertical scale reasonable (exaggeration about 5–10).",
+        "Draw a smooth curve, not straight lines between points.",
+        "Remember the profile continues the trend beyond the highest contour on a hilltop."
+      ],
+      "sourcesOfError": [
+        "Paper strip slipping.",
+        "Misreading contour values."
+      ],
+      "commonMistakes": [
+        "Flat-topping hills at the highest contour.",
+        "Omitting title, scales and vertical exaggeration.",
+        "Joining points with a ruler."
+      ],
+      "examTips": [
+        "Marks are given for correct base length, vertical scale, plotting, smooth curve, labels and vertical exaggeration.",
+        "State clearly whether the points are inter-visible and give the reason."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Horizontal scale 1:50 000 and vertical scale 1:2500 give a vertical exaggeration of",
+          "options": [
+            "×10",
+            "×2",
+            "×20",
+            "×125"
+          ],
+          "answer": 2,
+          "explanation": "50 000 ÷ 2500 = 20."
+        },
+        {
+          "q": "Two points are not inter-visible if",
+          "options": [
+            "they are at the same height",
+            "they are more than 5 km apart",
+            "a road joins them",
+            "high ground rises above the line joining them on the profile"
+          ],
+          "answer": 3,
+          "explanation": "Intervening high ground blocks the line of sight."
+        },
+        {
+          "q": "Points on a profile should be joined with",
+          "options": [
+            "a smooth freehand curve",
+            "ruled straight lines",
+            "dots only",
+            "a bar chart"
+          ],
+          "answer": 0,
+          "explanation": "Land surfaces are smooth curves."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-drainage-patterns",
+      "title": "Drainage characteristics and patterns",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To describe the drainage of a mapped area: river direction, patterns (dendritic, trellis, radial, parallel, rectangular), features and drainage density.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Tracing paper",
+        "Thread"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Trace the main river and its tributaries.",
+        "Use contours to decide the direction of flow (rivers flow from high to low ground).",
+        "Identify the drainage pattern from the arrangement of tributaries.",
+        "Note features: confluences, meanders, waterfalls, rapids, swamps, dams, wide or narrow valleys.",
+        "Measure the total length of all streams with a thread and calculate drainage density.",
+        "Describe the drainage in a short paragraph with grid references."
+      ],
+      "expectedObservations": "A dendritic pattern looks like the branches of a tree and forms on uniform rocks; radial patterns flow outwards from a central hill; trellis patterns have tributaries joining at right angles in areas of alternating hard and soft rock.",
+      "dataAndCalculations": "Total stream length in an area of 24 km² = 72 cm on 1:50 000 → 72 × 0.5 = 36 km.\nDrainage density = 36 km ÷ 24 km² = 1.5 km per km².",
+      "precautions": [
+        "Use contours, not only the map orientation, to decide flow direction.",
+        "Include all streams in the area for drainage density."
+      ],
+      "sourcesOfError": [
+        "Seasonal streams shown inconsistently on the map.",
+        "Thread stretching."
+      ],
+      "commonMistakes": [
+        "Saying rivers flow north because north is at the top of the map.",
+        "Naming a pattern without describing evidence.",
+        "Listing features without grid references."
+      ],
+      "examTips": [
+        "Organise answers: direction of flow, pattern, main river and tributaries, features with grid references, valley shape.",
+        "Use the key to confirm features such as waterfalls and swamps."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A tree-like arrangement of tributaries is a",
+          "options": [
+            "radial pattern",
+            "dendritic pattern",
+            "trellis pattern",
+            "parallel pattern"
+          ],
+          "answer": 1,
+          "explanation": "Dendritic means tree-like."
+        },
+        {
+          "q": "Streams flowing outwards in all directions from a hill form a",
+          "options": [
+            "dendritic pattern",
+            "trellis pattern",
+            "radial pattern",
+            "centripetal pattern"
+          ],
+          "answer": 2,
+          "explanation": "Radial drainage spreads from a central high point."
+        },
+        {
+          "q": "Total stream length 20 km in an area of 16 km² gives a drainage density of",
+          "options": [
+            "0.8 km/km²",
+            "320 km/km²",
+            "4 km/km²",
+            "1.25 km/km²"
+          ],
+          "answer": 3,
+          "explanation": "20 ÷ 16 = 1.25."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-settlement-landuse",
+      "title": "Settlement, communication and land-use patterns on a map",
+      "topic": "Maps: meaning, types and uses",
+      "kind": "DRAWING",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To describe and explain patterns of settlement, communication and land use on a topographical map and relate them to relief and drainage.",
+      "apparatus": [
+        "Topographical map (e.g. 1:50 000 sheet of part of Nigeria or West Africa)",
+        "Ruler (cm and mm)",
+        "Pair of dividers",
+        "Thread or string",
+        "Protractor",
+        "Sharp HB pencil and eraser",
+        "Graph paper"
+      ],
+      "materials": [
+        "Map key",
+        "Tracing paper"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Identify settlements and classify them as nucleated, dispersed or linear using the key.",
+        "Note the sites of settlements (river banks, road junctions, gentle slopes, hilltops).",
+        "Identify communication routes (roads, tracks, railways, footpaths) and their alignment with relief.",
+        "Identify land uses: farming, forest reserves, plantations, quarrying, markets, schools, churches, mosques.",
+        "Count settlements in sample squares and calculate density.",
+        "Write explanations linking patterns to relief, drainage and human activities."
+      ],
+      "expectedObservations": "Settlements often cluster along roads and rivers and avoid steep slopes and swamps; roads follow valleys and gentle slopes; forest reserves occupy steep or hilly land.",
+      "dataAndCalculations": "Settlement density: 18 settlements in 12 km² of lowland → 1.5 per km²; 2 settlements in 8 km² of upland → 0.25 per km².\nLowland density is 1.5 ÷ 0.25 = 6 times that of the upland.",
+      "precautions": [
+        "Use the key to confirm symbols.",
+        "Refer to specific places with grid references."
+      ],
+      "sourcesOfError": [
+        "Out-of-date maps may not show recent growth.",
+        "Symbols for small settlements may be missed."
+      ],
+      "commonMistakes": [
+        "Describing without explaining.",
+        "Mixing up settlement pattern (shape) and settlement site (location).",
+        "Ignoring evidence from the map."
+      ],
+      "examTips": [
+        "Answers must refer to evidence on the map provided (names, grid references, symbols).",
+        "Relate human features to physical features: 'the road follows the valley of River X to avoid steep slopes'."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Settlements arranged along a road form a",
+          "options": [
+            "linear pattern",
+            "dispersed pattern",
+            "nucleated pattern",
+            "radial drainage"
+          ],
+          "answer": 0,
+          "explanation": "Linear settlements follow a line such as a road or river."
+        },
+        {
+          "q": "Roads on a map tend to avoid",
+          "options": [
+            "gentle slopes",
+            "steep slopes and swamps",
+            "valleys",
+            "towns"
+          ],
+          "answer": 1,
+          "explanation": "Construction is difficult and costly on steep or swampy land."
+        },
+        {
+          "q": "12 settlements in 4 km² give a density of",
+          "options": [
+            "0.33 per km²",
+            "48 per km²",
+            "3 per km²",
+            "16 per km²"
+          ],
+          "answer": 2,
+          "explanation": "12 ÷ 4 = 3."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-bar-line-graphs",
+      "title": "Bar graphs and line graphs",
+      "topic": "Statistical maps and diagrams",
+      "kind": "DRAWING",
+      "skills": [
+        "graph",
+        "drawing",
+        "calculation"
+      ],
+      "aim": "To represent geographical data with simple, compound (divided) and multiple bar graphs and line graphs, and to choose the appropriate type.",
+      "apparatus": [
+        "Graph paper",
+        "Ruler",
+        "Sharp pencil",
+        "Coloured pencils"
+      ],
+      "materials": [
+        "Data table, e.g. crop production by state or monthly rainfall"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Study the data and decide whether it is discrete categories (bar graph) or a continuous series over time (line graph).",
+        "Choose a scale that uses most of the graph paper; start the value axis at zero for bar graphs.",
+        "Draw and label both axes with units.",
+        "Draw bars of equal width with equal gaps (or plot points and join them for a line graph).",
+        "For a compound bar, divide each bar into its components in the same order and shade with a key.",
+        "Add a title, scale and key."
+      ],
+      "expectedObservations": "Bar graphs make comparisons between places or items easy; line graphs show trends over time such as rising or falling production.",
+      "dataAndCalculations": "Cocoa output (thousand tonnes): 2019: 250, 2020: 270, 2021: 280, 2022: 260, 2023: 290.\nMean = 1350 ÷ 5 = 270 thousand tonnes. Percentage change 2019–2023 = (290 − 250) ÷ 250 × 100 = 16%.\nScale: 1 cm to 20 thousand tonnes → the 290 bar is 14.5 cm high.\nCompound bar: a state producing 400 t (maize 240, yam 100, cassava 60) has segments of 240, 100 and 60 on a bar of total height 400.",
+      "precautions": [
+        "Use equal bar widths and gaps.",
+        "Choose a suitable scale and state it.",
+        "Keep the order of components the same in every compound bar."
+      ],
+      "sourcesOfError": [
+        "Inaccurate plotting due to awkward scales.",
+        "Rounding of data."
+      ],
+      "commonMistakes": [
+        "Starting the vertical axis above zero on a bar graph, which exaggerates differences.",
+        "No title, key or units.",
+        "Joining points on a bar graph."
+      ],
+      "examTips": [
+        "WAEC marks: title, scale, labelled axes, accurate plotting, key/shading, and neatness.",
+        "Be ready to state one advantage and one disadvantage of the method."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Data showing change in rainfall over 12 months is best shown with a",
+          "options": [
+            "dot map",
+            "proportional circle",
+            "flow map",
+            "line graph or bar graph"
+          ],
+          "answer": 3,
+          "explanation": "Monthly data form a time series."
+        },
+        {
+          "q": "Values 40, 60 and 80 have a mean of",
+          "options": [
+            "60",
+            "180",
+            "40",
+            "70"
+          ],
+          "answer": 0,
+          "explanation": "180 ÷ 3 = 60."
+        },
+        {
+          "q": "With a scale of 1 cm to 25 units, a bar for 175 units is",
+          "options": [
+            "17.5 cm",
+            "7 cm",
+            "1.75 cm",
+            "4.4 cm"
+          ],
+          "answer": 1,
+          "explanation": "175 ÷ 25 = 7 cm."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-pie-proportional-circles",
+      "title": "Pie charts and proportional circles",
+      "topic": "Statistical maps and diagrams",
+      "kind": "DRAWING",
+      "skills": [
+        "calculation",
+        "drawing",
+        "graph"
+      ],
+      "aim": "To draw pie charts to show proportions of a total and proportional circles to compare totals between places.",
+      "apparatus": [
+        "Pair of compasses",
+        "Protractor",
+        "Ruler",
+        "Calculator",
+        "Coloured pencils"
+      ],
+      "materials": [
+        "Data table, e.g. land use of a local government area, population of towns"
+      ],
+      "safety": [
+        "Handle the compass point carefully."
+      ],
+      "procedure": [
+        "Total the data.",
+        "Calculate each sector angle: value ÷ total × 360°.",
+        "Draw a circle, draw a starting radius at 12 o'clock and measure sectors clockwise from largest to smallest.",
+        "Shade sectors and add a key, title and percentages.",
+        "For proportional circles, calculate the square root of each total.",
+        "Choose a scale for the radius and draw each circle with radius proportional to the square root."
+      ],
+      "expectedObservations": "The size of each sector shows its share of the whole; proportional circles let the reader compare totals by area.",
+      "dataAndCalculations": "Land use (ha): farmland 450, forest 270, settlement 150, other 30. Total = 900.\nAngles: farmland 450 ÷ 900 × 360 = 180°; forest 108°; settlement 60°; other 12° (sum 360°).\nProportional circles: Town A 400 000 people, Town B 100 000. √400 000 ≈ 632.5, √100 000 ≈ 316.2. If B has a radius of 1.0 cm, A has 632.5 ÷ 316.2 = 2.0 cm.",
+      "precautions": [
+        "Check that angles add up to 360°.",
+        "Use square roots (not raw values) for proportional circle radii.",
+        "Draw sectors in a consistent order with a key."
+      ],
+      "sourcesOfError": [
+        "Rounding of angles.",
+        "Inaccurate protractor reading."
+      ],
+      "commonMistakes": [
+        "Making circle radius directly proportional to the value (this greatly exaggerates large values).",
+        "Angles that do not total 360°.",
+        "Missing key."
+      ],
+      "examTips": [
+        "Show a table of calculated angles before drawing.",
+        "State one advantage (clear comparison of parts of a whole) and one disadvantage (hard to compare small sectors)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A value of 30 out of a total of 120 gives a pie-chart angle of",
+          "options": [
+            "30°",
+            "120°",
+            "90°",
+            "25°"
+          ],
+          "answer": 2,
+          "explanation": "30 ÷ 120 × 360 = 90°."
+        },
+        {
+          "q": "The radius of a proportional circle is proportional to the",
+          "options": [
+            "value",
+            "logarithm of the value",
+            "square of the value",
+            "square root of the value"
+          ],
+          "answer": 3,
+          "explanation": "The area then represents the value."
+        },
+        {
+          "q": "If town X has 9 times the population of town Y, the radius of X's circle is",
+          "options": [
+            "3 times Y's",
+            "9 times Y's",
+            "81 times Y's",
+            "the same as Y's"
+          ],
+          "answer": 0,
+          "explanation": "√9 = 3."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-dot-density-isopleth",
+      "title": "Dot maps, density (choropleth) maps and isopleth maps",
+      "topic": "Statistical maps and diagrams",
+      "kind": "DRAWING",
+      "skills": [
+        "calculation",
+        "drawing",
+        "graph"
+      ],
+      "aim": "To show the distribution of data on maps using dots, shaded density classes and lines joining places of equal value.",
+      "apparatus": [
+        "Outline map of an area (e.g. states or local government areas)",
+        "Fine-tip pen",
+        "Coloured pencils",
+        "Ruler",
+        "Calculator"
+      ],
+      "materials": [
+        "Data tables of population, area and values at points (e.g. rainfall)"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Dot map: choose a dot value (e.g. 1 dot = 5000 people), calculate the number of dots for each area and place them where the feature actually occurs.",
+        "Density (choropleth) map: calculate density = value ÷ area for each region.",
+        "Group densities into 4–5 classes and choose a graded shading scheme from light (low) to dark (high).",
+        "Shade each region and add a key.",
+        "Isopleth map: plot point values, choose an interval and draw smooth lines through places of equal value by interpolating between points."
+      ],
+      "expectedObservations": "Dot maps show where things are concentrated; choropleth maps show average density per area; isopleths show gradual change, e.g. rainfall decreasing northwards in Nigeria.",
+      "dataAndCalculations": "Dot map: 1 dot = 5000 people. An area with 85 000 people needs 85 000 ÷ 5000 = 17 dots.\nDensity: a state with 2 400 000 people and 12 000 km² → 2 400 000 ÷ 12 000 = 200 persons/km².\nIsopleth interpolation: stations 20 km apart record 1200 mm and 1400 mm; the 1300 mm isohyet passes halfway, 10 km from each.",
+      "precautions": [
+        "Use dots of equal size.",
+        "Use a graded shading that gets darker with higher values.",
+        "Interpolate proportionally between points."
+      ],
+      "sourcesOfError": [
+        "Choice of dot value or class intervals can change the visual impression.",
+        "Too few points for isopleths."
+      ],
+      "commonMistakes": [
+        "Spreading dots evenly over an area regardless of where people live.",
+        "Random colours for choropleth classes.",
+        "Crossing isopleths."
+      ],
+      "examTips": [
+        "Explain why the dot value was chosen (avoid too many or too few dots).",
+        "Give an advantage and disadvantage of each method."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A town of 36 000 people on a dot map where 1 dot = 2000 people has",
+          "options": [
+            "72 dots",
+            "18 dots",
+            "36 dots",
+            "2 dots"
+          ],
+          "answer": 1,
+          "explanation": "36 000 ÷ 2000 = 18."
+        },
+        {
+          "q": "Lines joining places with equal rainfall are called",
+          "options": [
+            "isotherms",
+            "isobars",
+            "isohyets",
+            "contours"
+          ],
+          "answer": 2,
+          "explanation": "Isohyets are isopleths of rainfall."
+        },
+        {
+          "q": "Population 900 000 in 3000 km² gives a density of",
+          "options": [
+            "0.003 per km²",
+            "3000 per km²",
+            "30 per km²",
+            "300 per km²"
+          ],
+          "answer": 3,
+          "explanation": "900 000 ÷ 3000 = 300."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-flow-chart-map",
+      "title": "Flow charts and flow maps",
+      "topic": "Statistical maps and diagrams",
+      "kind": "DRAWING",
+      "skills": [
+        "drawing",
+        "calculation"
+      ],
+      "aim": "To show movement of goods, people or traffic with flow lines whose width is proportional to the quantity moved, and to draw a flow chart of a process.",
+      "apparatus": [
+        "Outline map",
+        "Ruler",
+        "Coloured pencils",
+        "Calculator"
+      ],
+      "materials": [
+        "Traffic count data or trade data",
+        "Process description (e.g. groundnut to oil and cake)"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Choose a scale for line width, e.g. 1 mm = 1000 vehicles per day.",
+        "Calculate the width of each flow line.",
+        "Draw the lines along the actual routes with arrows showing direction.",
+        "Add a key showing the width scale.",
+        "For a flow chart, arrange boxes showing stages of a process and join them with arrows."
+      ],
+      "expectedObservations": "Wide bands show major routes, e.g. Lagos–Ibadan Expressway carries much more traffic than rural roads.",
+      "dataAndCalculations": "Scale 1 mm = 1000 vehicles/day. Route A: 12 000 vehicles → 12 mm; Route B: 4500 → 4.5 mm; Route C: 800 → 0.8 mm (shown as a thin line).\nPercentage of total on Route A = 12 000 ÷ (12 000 + 4500 + 800) × 100 = 12 000 ÷ 17 300 × 100 ≈ 69.4%.",
+      "precautions": [
+        "Choose a scale so the largest band does not cover the map.",
+        "Show direction with arrows."
+      ],
+      "sourcesOfError": [
+        "Counts taken on unrepresentative days.",
+        "Overlapping bands near junctions."
+      ],
+      "commonMistakes": [
+        "Lines not proportional to values.",
+        "Missing scale key for widths."
+      ],
+      "examTips": [
+        "State the scale used and show calculations of widths.",
+        "A flow chart for a process must be in the correct sequence with arrows."
+      ],
+      "checkQuestions": [
+        {
+          "q": "With a scale of 1 mm = 500 tonnes, a flow of 3000 tonnes is drawn",
+          "options": [
+            "6 mm wide",
+            "3 mm wide",
+            "1.5 mm wide",
+            "60 mm wide"
+          ],
+          "answer": 0,
+          "explanation": "3000 ÷ 500 = 6 mm."
+        },
+        {
+          "q": "In a flow map, the width of a line represents",
+          "options": [
+            "distance",
+            "quantity moved",
+            "speed",
+            "height"
+          ],
+          "answer": 1,
+          "explanation": "Width is proportional to volume of flow."
+        },
+        {
+          "q": "Flow maps are most suitable for showing",
+          "options": [
+            "rainfall distribution",
+            "relief",
+            "traffic or trade movements",
+            "rock types"
+          ],
+          "answer": 2,
+          "explanation": "They show movement along routes."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-gis-layers",
+      "title": "GIS: building map layers and measuring area",
+      "topic": "Geographic Information System (GIS)",
+      "kind": "COMPUTER",
+      "skills": [
+        "procedure",
+        "calculation",
+        "identification"
+      ],
+      "aim": "To understand GIS components and data by creating simple layers (roads, settlements, land use) from a map or satellite image using free GIS or online mapping software, and to calculate area from raster cells.",
+      "apparatus": [
+        "Computer or tablet",
+        "Free GIS software (e.g. QGIS) or an online mapping tool",
+        "Scanner or phone camera",
+        "GPS-enabled phone"
+      ],
+      "materials": [
+        "Scanned topographical map or satellite image of the school area",
+        "Table of GPS points collected around the school"
+      ],
+      "safety": [
+        "Follow computer room rules; keep liquids away from equipment.",
+        "When collecting GPS points outside, stay within the school compound with permission."
+      ],
+      "procedure": [
+        "Identify the five components of GIS available: hardware, software, data, procedures and people.",
+        "Load the scanned map or satellite image as a base layer (raster data).",
+        "Create a point layer and add GPS points of buildings, gates and the borehole.",
+        "Digitise roads as a line layer and the sports field as a polygon layer (vector data).",
+        "Add attributes (name, type) to each feature in the attribute table.",
+        "Use the measuring tool to find lengths and areas, and print or export a map with title, scale, key and north arrow."
+      ],
+      "expectedObservations": "Each layer can be switched on or off; queries show features meeting a condition (e.g. all classrooms); the software computes areas and distances automatically.",
+      "dataAndCalculations": "Raster area: a land-use class covers 1250 cells of 30 m × 30 m. Area of one cell = 900 m². Total = 1250 × 900 = 1 125 000 m² = 112.5 ha = 1.125 km².\nScale check: a 100 m school fence digitised as 4.0 cm on screen at 1:2500 → 4.0 × 2500 = 10 000 cm = 100 m.",
+      "precautions": [
+        "Set the correct coordinate system before digitising.",
+        "Save work regularly.",
+        "Check the accuracy of GPS points (wait for a good signal)."
+      ],
+      "sourcesOfError": [
+        "GPS error of several metres.",
+        "Inaccurate digitising of boundaries.",
+        "Old satellite images."
+      ],
+      "commonMistakes": [
+        "Confusing raster (cells) with vector (points, lines, polygons) data.",
+        "Forgetting map elements: title, key, scale, north arrow.",
+        "Calling GIS only software."
+      ],
+      "examTips": [
+        "List the components of GIS, sources of data (remote sensing, surveys, digitising, scanning, field work) and uses (defence, census, agriculture, urban planning).",
+        "Mention problems in Nigeria: power supply, cost, trained personnel."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which is NOT a component of GIS?",
+          "options": [
+            "Hardware",
+            "Software",
+            "People",
+            "Rainfall"
+          ],
+          "answer": 3,
+          "explanation": "GIS components are hardware, software, data, procedures and people."
+        },
+        {
+          "q": "200 raster cells of 10 m × 10 m cover an area of",
+          "options": [
+            "20 000 m²",
+            "2000 m²",
+            "200 m²",
+            "2 000 000 m²"
+          ],
+          "answer": 0,
+          "explanation": "200 × 100 m² = 20 000 m² (2 ha)."
+        },
+        {
+          "q": "Roads are best stored in a GIS as",
+          "options": [
+            "points",
+            "lines",
+            "polygons",
+            "raster only"
+          ],
+          "answer": 1,
+          "explanation": "Roads are linear features."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-longitude-time",
+      "title": "Latitude and distance; longitude and time",
+      "topic": "The earth as a planet",
+      "kind": "DRAWING",
+      "skills": [
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To calculate north–south distances from latitude and local time differences from longitude, and to illustrate them on a globe diagram.",
+      "apparatus": [
+        "Globe or atlas",
+        "Calculator",
+        "Ruler and compasses"
+      ],
+      "materials": [
+        "Table of places with latitudes and longitudes"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Find the latitude and longitude of the places from an atlas.",
+        "For distance along a meridian, find the difference in latitude (subtract if on the same side of the equator, add if on opposite sides) and multiply by 111 km.",
+        "For time, find the difference in longitude (subtract if both east or both west, add if on opposite sides of Greenwich).",
+        "Convert degrees to time: 15° = 1 hour, 1° = 4 minutes.",
+        "Add time for places to the east; subtract for places to the west.",
+        "Draw a labelled diagram of the earth showing the lines used."
+      ],
+      "expectedObservations": "Places east of a given point have later local times because the earth rotates from west to east.",
+      "dataAndCalculations": "Lagos is about 3°E, a place at 45°E: difference = 42° → 42 × 4 = 168 min = 2 h 48 min. When it is 12 noon in Lagos, it is 2:48 p.m. at 45°E.\nA place at 30°W: difference from 3°E = 33° → 132 min = 2 h 12 min earlier → 9:48 a.m.\nLatitude: Lagos 6.5°N, Kano 12°N → 5.5° × 111 km ≈ 610.5 km apart (north–south).",
+      "precautions": [
+        "Check whether places are on the same or opposite sides of the prime meridian or equator.",
+        "Convert remaining minutes correctly (60 min = 1 h)."
+      ],
+      "sourcesOfError": [
+        "Rounded coordinates from small-scale atlases.",
+        "The 111 km value is an approximation."
+      ],
+      "commonMistakes": [
+        "Subtracting time for places to the east.",
+        "Subtracting longitudes when places are on opposite sides of Greenwich.",
+        "Confusing local time with standard (zone) time."
+      ],
+      "examTips": [
+        "Set out: difference in longitude → time difference → answer with a.m./p.m.",
+        "Explain that the earth rotates 360° in 24 hours, so 15° per hour."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A longitude difference of 30° corresponds to a time difference of",
+          "options": [
+            "30 minutes",
+            "4 hours",
+            "2 hours",
+            "1 hour"
+          ],
+          "answer": 2,
+          "explanation": "30 ÷ 15 = 2 hours."
+        },
+        {
+          "q": "When it is noon at 0°, the local time at 60°E is",
+          "options": [
+            "8:00 a.m.",
+            "6:00 p.m.",
+            "12 midnight",
+            "4:00 p.m."
+          ],
+          "answer": 3,
+          "explanation": "60° = 4 hours ahead to the east."
+        },
+        {
+          "q": "The distance between 5°N and 10°S along a meridian is about",
+          "options": [
+            "1665 km",
+            "555 km",
+            "1110 km",
+            "15 km"
+          ],
+          "answer": 0,
+          "explanation": "5 + 10 = 15°, × 111 = 1665 km."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-weather-station",
+      "title": "The school weather station: Stevenson screen and thermometers",
+      "topic": "Weather",
+      "kind": "FIELD",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure",
+        "identification"
+      ],
+      "aim": "To describe the siting of a Stevenson screen, read maximum and minimum and wet-and-dry bulb thermometers, and calculate daily mean temperature, range and relative humidity.",
+      "apparatus": [
+        "Stevenson screen",
+        "Six's maximum and minimum thermometer (or separate maximum and minimum thermometers)",
+        "Wet-and-dry bulb hygrometer",
+        "Magnet (to reset Six's thermometer)",
+        "Relative humidity table"
+      ],
+      "materials": [
+        "Weather record sheet",
+        "Distilled water for the wet-bulb reservoir"
+      ],
+      "safety": [
+        "Handle glass thermometers carefully; report breakages so mercury can be cleaned up safely.",
+        "Do not lean on the screen's stand."
+      ],
+      "procedure": [
+        "Inspect the Stevenson screen: white, louvred wooden box on legs about 1.2 m above short grass, door facing away from the sun, sited in the open away from buildings and trees.",
+        "At the same time each day (e.g. 9 a.m.), read the maximum and minimum temperatures at the bottom of each index.",
+        "Reset the indices with the magnet.",
+        "Read the dry-bulb and wet-bulb thermometers and calculate the wet-bulb depression.",
+        "Use the table to find relative humidity.",
+        "Record and calculate daily mean temperature and daily range; at the end of a week, find weekly means."
+      ],
+      "expectedObservations": "Maximum temperatures occur in the early afternoon and minimum temperatures just before dawn. The wet bulb reads lower than the dry bulb because evaporation cools it; a small depression means high humidity.",
+      "dataAndCalculations": "Max 32 °C, min 22 °C → daily mean = (32 + 22) ÷ 2 = 27 °C; daily range = 32 − 22 = 10 °C.\nDry bulb 30 °C, wet bulb 26 °C → depression 4 °C → relative humidity ≈ 73% (from table).\nWeekly maxima 31, 32, 33, 30, 32, 31, 31 °C → mean maximum = 220 ÷ 7 ≈ 31.4 °C.",
+      "precautions": [
+        "Read thermometers at eye level to avoid parallax.",
+        "Keep the wet-bulb muslin clean and wet with distilled water.",
+        "Take readings at the same time daily."
+      ],
+      "sourcesOfError": [
+        "Parallax errors.",
+        "Dirty or dry muslin on the wet bulb.",
+        "Screen placed too close to buildings."
+      ],
+      "commonMistakes": [
+        "Reading the top instead of the bottom of the index in Six's thermometer.",
+        "Calculating range as max + min.",
+        "Saying the screen is painted white to look clean (it reflects sunlight)."
+      ],
+      "examTips": [
+        "Describe the screen's features with reasons: white to reflect heat, louvres for free air circulation, legs to avoid ground heat, door facing away from direct sun.",
+        "Name the instrument, what it measures and its unit."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The Stevenson screen is painted white to",
+          "options": [
+            "absorb heat",
+            "reflect sunlight",
+            "attract attention",
+            "keep insects away"
+          ],
+          "answer": 1,
+          "explanation": "Reflection prevents direct heating of the thermometers."
+        },
+        {
+          "q": "A maximum of 34 °C and minimum of 24 °C give a daily range of",
+          "options": [
+            "29 °C",
+            "58 °C",
+            "10 °C",
+            "24 °C"
+          ],
+          "answer": 2,
+          "explanation": "34 − 24 = 10 °C."
+        },
+        {
+          "q": "A large difference between dry- and wet-bulb readings indicates",
+          "options": [
+            "high relative humidity",
+            "strong wind",
+            "heavy rainfall",
+            "low relative humidity"
+          ],
+          "answer": 3,
+          "explanation": "Rapid evaporation from the wet bulb occurs in dry air."
+        },
+        {
+          "q": "In Six's thermometer, readings are taken from the",
+          "options": [
+            "bottom of the steel indices",
+            "top of the mercury",
+            "alcohol bulb",
+            "magnet"
+          ],
+          "answer": 0,
+          "explanation": "The indices are pushed by the mercury and remain at the extremes."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-rain-gauge-wind",
+      "title": "Measuring rainfall, wind direction and wind speed",
+      "topic": "Weather",
+      "kind": "FIELD",
+      "skills": [
+        "measurement",
+        "calculation",
+        "identification",
+        "procedure"
+      ],
+      "aim": "To use a rain gauge, wind vane and anemometer, record daily observations and calculate rainfall totals and averages.",
+      "apparatus": [
+        "Rain gauge with measuring cylinder (mm)",
+        "Wind vane",
+        "Cup anemometer",
+        "Compass",
+        "Barometer (aneroid)"
+      ],
+      "materials": [
+        "Weather record sheet",
+        "Beaufort scale chart"
+      ],
+      "safety": [
+        "Do not climb on roofs or poles to read instruments.",
+        "Avoid the station during thunderstorms."
+      ],
+      "procedure": [
+        "Sink the rain gauge in open ground with its rim about 30 cm above the surface, away from trees and buildings.",
+        "Each morning at a fixed time, pour the collected water into the graduated cylinder and read the rainfall in mm at eye level.",
+        "Note the wind direction from the wind vane (the direction the wind blows FROM).",
+        "Count anemometer revolutions or read the dial for wind speed; estimate force with the Beaufort scale.",
+        "Read the barometer pressure in millibars.",
+        "Record daily data and compute weekly and monthly totals and means."
+      ],
+      "expectedObservations": "During the rainy season most rain falls in heavy afternoon or evening storms; south-west winds dominate in the wet season and north-east (harmattan) winds in the dry season.",
+      "dataAndCalculations": "Daily rainfall in a week (mm): 0, 12, 25, 0, 8, 30, 5 → total = 80 mm; mean = 80 ÷ 7 ≈ 11.4 mm/day; rain days = 5.\nAnemometer: cups on a circle of radius 0.15 m make 120 revolutions per minute → circumference = 2π × 0.15 ≈ 0.942 m → speed ≈ 0.942 × 120 ÷ 60 ≈ 1.9 m/s (approximate; real anemometers are calibrated).",
+      "precautions": [
+        "Site the gauge in the open to avoid splash and shelter.",
+        "Read the measuring cylinder at eye level at the bottom of the meniscus.",
+        "Record at the same time each day."
+      ],
+      "sourcesOfError": [
+        "Evaporation from the gauge in hot weather.",
+        "Splash-in or overflow during storms.",
+        "Obstacles affecting wind readings."
+      ],
+      "commonMistakes": [
+        "Saying the wind vane points to where the wind is going.",
+        "Adding daily means instead of daily totals for monthly rainfall.",
+        "Confusing the barometer (pressure) with the hygrometer (humidity)."
+      ],
+      "examTips": [
+        "Draw and label a rain gauge: funnel, collecting jar, outer case, measuring cylinder.",
+        "Winds are named after the direction they blow from."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A wind vane pointing towards the south-west shows a",
+          "options": [
+            "north-east wind",
+            "south-west wind",
+            "north wind",
+            "west wind"
+          ],
+          "answer": 1,
+          "explanation": "The arrow points into the wind, i.e. where it comes from."
+        },
+        {
+          "q": "Rainfall of 10, 0, 15 and 5 mm on four days gives a total of",
+          "options": [
+            "15 mm",
+            "7.5 mm",
+            "30 mm",
+            "40 mm"
+          ],
+          "answer": 2,
+          "explanation": "10 + 0 + 15 + 5 = 30 mm."
+        },
+        {
+          "q": "Atmospheric pressure is measured with a",
+          "options": [
+            "hygrometer",
+            "rain gauge",
+            "anemometer",
+            "barometer"
+          ],
+          "answer": 3,
+          "explanation": "Barometers measure pressure in millibars."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-climate-data",
+      "title": "Interpreting climatic data and drawing a climograph",
+      "topic": "Elements of climate",
+      "kind": "DRAWING",
+      "skills": [
+        "graph",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To plot monthly temperature (line) and rainfall (bars) on one graph and calculate annual mean temperature, annual range and total rainfall.",
+      "apparatus": [
+        "Graph paper",
+        "Ruler",
+        "Calculator",
+        "Coloured pencils"
+      ],
+      "materials": [
+        "Table of mean monthly temperature and rainfall for a station"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Draw the horizontal axis with the 12 months (J–D).",
+        "Draw a left vertical axis for rainfall (mm) and a right vertical axis for temperature (°C) with suitable scales.",
+        "Draw rainfall as bars for each month.",
+        "Plot temperature as points at mid-month and join them with a smooth line.",
+        "Calculate annual total rainfall, annual mean temperature and annual range of temperature.",
+        "Describe the climate and identify the season pattern."
+      ],
+      "expectedObservations": "A southern Nigerian station shows high temperatures throughout the year with a small range and two rainfall peaks; a northern station shows a single rainy season and a long dry season with a larger temperature range.",
+      "dataAndCalculations": "Station data, temperature (°C): 27, 28, 28, 28, 27, 26, 25, 25, 26, 26, 27, 27 → sum = 320, mean ≈ 26.7 °C; range = 28 − 25 = 3 °C.\nRainfall (mm): 25, 45, 100, 150, 270, 460, 270, 65, 140, 205, 70, 25 → total = 1825 mm.\nMonths with more than 100 mm: 6 (April–July, September, October), with peaks in June and October.",
+      "precautions": [
+        "Use clearly different symbols and a key for rainfall and temperature.",
+        "Choose scales that fit the largest values.",
+        "Label both vertical axes with units."
+      ],
+      "sourcesOfError": [
+        "Rounding of data.",
+        "Plotting errors with dual axes."
+      ],
+      "commonMistakes": [
+        "Calculating range as the difference between highest and lowest rainfall.",
+        "Adding temperatures and calling the sum the 'total'.",
+        "Plotting temperature as bars."
+      ],
+      "examTips": [
+        "When identifying the climate, quote the data: e.g. 'annual range 3 °C, total 1825 mm, double maxima — equatorial/tropical wet'.",
+        "Annual range = highest monthly mean − lowest monthly mean."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Highest monthly mean 32 °C and lowest 21 °C give an annual range of",
+          "options": [
+            "11 °C",
+            "53 °C",
+            "26.5 °C",
+            "21 °C"
+          ],
+          "answer": 0,
+          "explanation": "32 − 21 = 11 °C."
+        },
+        {
+          "q": "On a climograph, rainfall is normally shown as",
+          "options": [
+            "a line",
+            "bars",
+            "dots only",
+            "a pie chart"
+          ],
+          "answer": 1,
+          "explanation": "Bars for rainfall, line for temperature."
+        },
+        {
+          "q": "Twelve monthly temperatures totalling 330 °C give an annual mean of",
+          "options": [
+            "30 °C",
+            "33 °C",
+            "27.5 °C",
+            "25 °C"
+          ],
+          "answer": 2,
+          "explanation": "330 ÷ 12 = 27.5 °C."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-climate-classification",
+      "title": "Identifying climate types from data",
+      "topic": "Classification of climate",
+      "kind": "DRAWING",
+      "skills": [
+        "identification",
+        "calculation",
+        "graph"
+      ],
+      "aim": "To use temperature and rainfall statistics to identify the climate type (equatorial, tropical continental/savanna, desert, Mediterranean, etc.) of a station and its hemisphere.",
+      "apparatus": [
+        "Calculator",
+        "Graph paper",
+        "Atlas"
+      ],
+      "materials": [
+        "Climatic tables for several unnamed stations"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Calculate annual mean temperature, annual range and total rainfall for each station.",
+        "Note the months of maximum rainfall and the length of the dry season.",
+        "Decide the hemisphere from when the hottest months and the rainy season occur.",
+        "Compare the figures with the characteristics of each climate type.",
+        "Name the climate and give evidence from the figures."
+      ],
+      "expectedObservations": "Equatorial: all months hot (about 27 °C), range below 3 °C, rain all year (over 1500 mm). Tropical continental: hot, range 5–10 °C, rainy season in summer, long dry season. Desert: very low rainfall (under 250 mm), large daily range. Mediterranean: winter rain and dry hot summers.",
+      "dataAndCalculations": "Station X: temperatures 22 °C (Jan) to 33 °C (May); rainfall total 750 mm, falling in June–September; dry season 7 months. Range = 33 − 22 = 11 °C → tropical continental (Sudan savanna) climate, Northern Hemisphere (rain in June–September).\nStation Y: temperatures 26–28 °C, total 2400 mm, no month under 60 mm → equatorial.",
+      "precautions": [
+        "Read the units carefully (mm vs cm).",
+        "Use all the evidence: range, total, seasonality."
+      ],
+      "sourcesOfError": [
+        "Stations at high altitude have lower temperatures than expected for their latitude.",
+        "Unusual years in short records."
+      ],
+      "commonMistakes": [
+        "Identifying a climate from temperature alone.",
+        "Forgetting to state the hemisphere when asked.",
+        "Calling every hot climate 'equatorial'."
+      ],
+      "examTips": [
+        "Give at least three pieces of statistical evidence for the identification.",
+        "Know Köppen letters for the main types: Af (equatorial), Aw (tropical wet-and-dry), BW (desert), Cs (Mediterranean)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A station with heavy rain in every month and an annual temperature range of 2 °C has",
+          "options": [
+            "a tropical continental climate",
+            "a desert climate",
+            "a Mediterranean climate",
+            "an equatorial climate"
+          ],
+          "answer": 3,
+          "explanation": "These are typical equatorial features."
+        },
+        {
+          "q": "Rain mainly in December–February with hottest months at the same time suggests the station is in the",
+          "options": [
+            "Southern Hemisphere",
+            "Northern Hemisphere",
+            "Arctic",
+            "equator exactly"
+          ],
+          "answer": 0,
+          "explanation": "Summer (and summer rain) occurs in December–February south of the equator."
+        },
+        {
+          "q": "Total annual rainfall below 250 mm indicates a",
+          "options": [
+            "savanna climate",
+            "desert climate",
+            "equatorial climate",
+            "monsoon climate"
+          ],
+          "answer": 1,
+          "explanation": "Deserts receive very little rain."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-rock-identification",
+      "title": "Identifying common rocks",
+      "topic": "Rocks",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify igneous, sedimentary and metamorphic rock samples from their characteristics and test simple properties such as reaction with acid, hardness and density.",
+      "apparatus": [
+        "Hand lens",
+        "Steel nail or penknife",
+        "Dropper",
+        "Electronic balance",
+        "Measuring cylinder (250 cm³)",
+        "Thread"
+      ],
+      "materials": [
+        "Rock samples: granite, basalt, sandstone, shale, limestone, marble, quartzite, laterite",
+        "Dilute hydrochloric acid (0.5 mol/dm³)",
+        "Water"
+      ],
+      "safety": [
+        "Wear eye protection when using acid; rinse spills with water.",
+        "Scratch away from your body; do not hammer rocks without goggles."
+      ],
+      "procedure": [
+        "Examine each rock with a hand lens for crystals, grains, layers, fossils and colour.",
+        "Scratch each rock with a steel nail to compare hardness.",
+        "Add a drop of dilute acid; record fizzing.",
+        "Weigh a rock sample, then find its volume by displacement in a measuring cylinder of water.",
+        "Calculate density = mass ÷ volume.",
+        "Classify each rock and state one use."
+      ],
+      "expectedObservations": "Granite: coarse, interlocking crystals of quartz, feldspar and mica; hard (igneous intrusive). Basalt: dark, fine-grained (igneous extrusive). Sandstone: gritty grains, may show layers. Shale: fine layers that split easily. Limestone and marble fizz with acid; marble has sugary crystals. Quartzite: very hard, does not fizz.",
+      "dataAndCalculations": "Granite sample: mass 260 g; water level rises from 150 cm³ to 250 cm³ → volume 100 cm³. Density = 260 ÷ 100 = 2.6 g/cm³.\nBasalt sample: 150 g, volume 50 cm³ → 3.0 g/cm³, denser than granite.",
+      "precautions": [
+        "Use fresh surfaces for observation.",
+        "Rinse the rock after the acid test.",
+        "Read the measuring cylinder at eye level."
+      ],
+      "sourcesOfError": [
+        "Weathered surfaces hiding features.",
+        "Air bubbles trapped during displacement."
+      ],
+      "commonMistakes": [
+        "Calling all layered rocks sedimentary — gneiss is banded metamorphic rock.",
+        "Confusing marble (metamorphic) with limestone (sedimentary).",
+        "Omitting the uses of rocks."
+      ],
+      "examTips": [
+        "Give the rock type, mode of formation and an example of its location in Nigeria (e.g. granite in Jos Plateau, limestone at Ewekoro and Sokoto).",
+        "Relate rock characteristics to the landforms they produce (e.g. inselbergs on granite)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A rock that fizzes with dilute acid is most likely",
+          "options": [
+            "granite",
+            "basalt",
+            "limestone",
+            "quartzite"
+          ],
+          "answer": 2,
+          "explanation": "Calcium carbonate reacts with acid to give carbon dioxide."
+        },
+        {
+          "q": "A rock with 312 g mass and 120 cm³ volume has density",
+          "options": [
+            "26 g/cm³",
+            "0.38 g/cm³",
+            "3.6 g/cm³",
+            "2.6 g/cm³"
+          ],
+          "answer": 3,
+          "explanation": "312 ÷ 120 = 2.6 g/cm³."
+        },
+        {
+          "q": "Marble is formed from limestone by",
+          "options": [
+            "heat and pressure (metamorphism)",
+            "weathering",
+            "cooling of magma",
+            "deposition"
+          ],
+          "answer": 0,
+          "explanation": "Marble is metamorphosed limestone."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-population-data",
+      "title": "Population calculations: density, growth and pyramids",
+      "topic": "World population",
+      "kind": "DRAWING",
+      "skills": [
+        "calculation",
+        "graph",
+        "drawing"
+      ],
+      "aim": "To calculate population density, natural increase and doubling time, and to draw and interpret an age–sex pyramid.",
+      "apparatus": [
+        "Graph paper",
+        "Ruler",
+        "Calculator"
+      ],
+      "materials": [
+        "Census or survey data tables"
+      ],
+      "safety": [
+        "No special hazards."
+      ],
+      "procedure": [
+        "Calculate population density = population ÷ area.",
+        "Calculate rate of natural increase = (birth rate − death rate) ÷ 10, as a percentage.",
+        "Estimate doubling time = 70 ÷ growth rate (%).",
+        "Draw an age–sex pyramid: horizontal bars for 5-year age groups, males left and females right, as percentages of the total population.",
+        "Describe the shape and explain what it shows about births, deaths and dependency.",
+        "Calculate the dependency ratio."
+      ],
+      "expectedObservations": "Developing countries such as Nigeria show a broad-based, triangular pyramid (high birth rates, many young dependants); developed countries show narrower bases and wider tops.",
+      "dataAndCalculations": "Birth rate 38 per 1000, death rate 12 per 1000 → natural increase = 26 per 1000 = 2.6% per year. Doubling time ≈ 70 ÷ 2.6 ≈ 27 years.\nDependency ratio: aged 0–14 = 43%, 65+ = 3%, 15–64 = 54% → (43 + 3) ÷ 54 × 100 ≈ 85.2 dependants per 100 workers.\nDensity: 2 400 000 people in 12 000 km² → 200 per km².",
+      "precautions": [
+        "Use percentages for pyramids so countries can be compared.",
+        "Keep bars of equal height for each age group."
+      ],
+      "sourcesOfError": [
+        "Inaccurate census data, especially age reporting.",
+        "Rounding."
+      ],
+      "commonMistakes": [
+        "Confusing birth rate per 1000 with percentage.",
+        "Placing males on the right.",
+        "Ignoring migration when explaining population change."
+      ],
+      "examTips": [
+        "Explain the factors behind the pattern (fertility, health care, migration).",
+        "State the implications: e.g. a youthful population needs more schools and jobs."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Birth rate 40 and death rate 15 per 1000 give a natural increase of",
+          "options": [
+            "25%",
+            "2.5%",
+            "5.5%",
+            "0.25%"
+          ],
+          "answer": 1,
+          "explanation": "25 per 1000 = 2.5%."
+        },
+        {
+          "q": "A population growing at 3.5% a year doubles in about",
+          "options": [
+            "35 years",
+            "7 years",
+            "20 years",
+            "70 years"
+          ],
+          "answer": 2,
+          "explanation": "70 ÷ 3.5 = 20."
+        },
+        {
+          "q": "A broad-based population pyramid indicates",
+          "options": [
+            "low birth rate",
+            "zero growth",
+            "many elderly people",
+            "high birth rate"
+          ],
+          "answer": 3,
+          "explanation": "Many young children result from high fertility."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-fieldwork-land-use",
+      "title": "Field work: land-use survey along a transect",
+      "topic": "Field work",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "observation",
+        "measurement",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To survey and map rural or urban land use along a transect in the school locality, present the data and explain the pattern.",
+      "apparatus": [
+        "Base map or sketch map of the area",
+        "Measuring tape (30 m) or pacing record",
+        "Compass",
+        "Clipboard and recording sheet",
+        "Phone camera (optional)",
+        "Coloured pencils"
+      ],
+      "materials": [
+        "Land-use classification key (e.g. residential, commercial, industrial, farmland, open space, institutional)"
+      ],
+      "safety": [
+        "Work in groups with a teacher's permission and a letter of introduction where needed.",
+        "Keep away from moving traffic; stand on the pavement or verge and wear bright clothing.",
+        "Be polite to residents and traders; respect privacy and do not record names without consent."
+      ],
+      "procedure": [
+        "Choose a topic and hypothesis, e.g. 'Commercial land use decreases with distance from the market'.",
+        "Plan a transect line on the base map from the centre outward and divide it into equal sections (e.g. 50 m).",
+        "Walk the transect, recording the dominant land use on each side of each section with the key.",
+        "Measure the length of each land-use type along the transect.",
+        "Transfer the data to a land-use map with colours and a key; draw a bar graph or pie chart.",
+        "Analyse the pattern, test the hypothesis and write a report: introduction, methods, results, discussion, conclusion and problems encountered."
+      ],
+      "expectedObservations": "Commercial uses (shops, banks, market stalls) dominate near the town centre; residential uses increase outwards; farmland and open space appear at the edge.",
+      "dataAndCalculations": "Transect of 1000 m: commercial 350 m, residential 400 m, institutional 100 m, farmland 150 m.\nPercentages: commercial 35%, residential 40%, institutional 10%, farmland 15%.\nPie-chart angles: 126°, 144°, 36°, 54° (total 360°).",
+      "precautions": [
+        "Use a clear, agreed classification key.",
+        "Record data immediately on the sheet.",
+        "Visit at a time when uses are visible (e.g. market day noted)."
+      ],
+      "sourcesOfError": [
+        "Mixed land use in one building (shop below, home above).",
+        "Pacing errors.",
+        "Personal judgement in classifying land uses."
+      ],
+      "commonMistakes": [
+        "No hypothesis or aim.",
+        "Presenting raw data only without maps or diagrams.",
+        "Conclusions not linked to the data collected."
+      ],
+      "examTips": [
+        "Field work is assessed by the school (continuous assessment); a well-structured report with aim, methods, results, analysis and conclusion earns most marks.",
+        "Be ready to describe the methods and problems of field work in Paper 3 questions."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Residential land along 450 m of a 1500 m transect is",
+          "options": [
+            "30%",
+            "45%",
+            "15%",
+            "3.3%"
+          ],
+          "answer": 0,
+          "explanation": "450 ÷ 1500 × 100 = 30%."
+        },
+        {
+          "q": "The first step in a field work project is to",
+          "options": [
+            "write the conclusion",
+            "state the aim or hypothesis",
+            "draw the pie chart",
+            "photograph the market"
+          ],
+          "answer": 1,
+          "explanation": "An aim or hypothesis guides data collection."
+        },
+        {
+          "q": "A transect is",
+          "options": [
+            "a rain gauge",
+            "a type of map scale",
+            "a line along which observations are made at intervals",
+            "a questionnaire"
+          ],
+          "answer": 2,
+          "explanation": "Transects allow systematic sampling across an area."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-fieldwork-market-traffic",
+      "title": "Field work: market survey and traffic count",
+      "topic": "Field work",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "graph"
+      ],
+      "aim": "To carry out a market survey (goods, origins of traders) and a traffic flow count at a road junction, and present the results.",
+      "apparatus": [
+        "Questionnaires",
+        "Tally sheets",
+        "Stopwatch or watch",
+        "Clipboard",
+        "Base map"
+      ],
+      "materials": [
+        "Classification of vehicles (cars, buses, motorcycles, trucks, tricycles)",
+        "List of commodity groups"
+      ],
+      "safety": [
+        "Work in groups with a teacher's permission and a letter of introduction where needed.",
+        "Keep away from moving traffic; stand on the pavement or verge and wear bright clothing.",
+        "Be polite to residents and traders; respect privacy and do not record names without consent."
+      ],
+      "procedure": [
+        "Design a short questionnaire for traders: goods sold, where goods come from, distance travelled, mode of transport.",
+        "Interview a sample of traders (e.g. every fifth stall) and record answers.",
+        "For traffic flow, choose a safe count point at a junction.",
+        "Count vehicles by type in each direction for 15-minute periods at morning peak, midday and evening peak.",
+        "Convert counts to vehicles per hour and draw bar graphs and a flow map.",
+        "Analyse the results and draw conclusions about the market's sphere of influence and traffic peaks."
+      ],
+      "expectedObservations": "Most foodstuffs come from nearby villages while manufactured goods come from larger cities; traffic peaks in the morning and evening when people travel to and from work and school; motorcycles and tricycles dominate on local roads.",
+      "dataAndCalculations": "Traffic count in 15 min (morning): cars 45, motorcycles 80, buses 20, trucks 5 → total 150 → 150 × 4 = 600 vehicles per hour.\nMotorcycles = 80 ÷ 150 × 100 ≈ 53.3%.\nMarket survey: 24 of 40 traders came from within 10 km → 60%.",
+      "precautions": [
+        "Use a systematic sample of traders to avoid bias.",
+        "Count at the same times and for the same durations.",
+        "Use tally marks in groups of five."
+      ],
+      "sourcesOfError": [
+        "Respondents giving inaccurate answers.",
+        "Missing vehicles in heavy traffic.",
+        "Unusual days (festivals, rain)."
+      ],
+      "commonMistakes": [
+        "Counting for unequal periods and comparing totals directly.",
+        "Asking leading or too many questions.",
+        "No map of the study area."
+      ],
+      "examTips": [
+        "Explain why sampling is needed and how it was done.",
+        "Present results with appropriate diagrams: bar graphs for counts, flow maps for directions."
+      ],
+      "checkQuestions": [
+        {
+          "q": "120 vehicles counted in 15 minutes is a rate of",
+          "options": [
+            "120 per hour",
+            "30 per hour",
+            "8 per hour",
+            "480 per hour"
+          ],
+          "answer": 3,
+          "explanation": "120 × 4 = 480 per hour."
+        },
+        {
+          "q": "Interviewing every fifth trader is an example of",
+          "options": [
+            "systematic sampling",
+            "random sampling",
+            "stratified sampling",
+            "no sampling"
+          ],
+          "answer": 0,
+          "explanation": "A fixed interval is systematic sampling."
+        },
+        {
+          "q": "Traffic counts are usually highest",
+          "options": [
+            "at midnight",
+            "during morning and evening peaks",
+            "at midday only",
+            "on public holidays"
+          ],
+          "answer": 1,
+          "explanation": "Journeys to and from work and school concentrate at these times."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-geo-fieldwork-erosion-rate",
+      "title": "Field work: measuring the rate of soil erosion",
+      "topic": "Field work",
+      "kind": "FIELD",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure",
+        "observation"
+      ],
+      "aim": "To measure the rate of soil erosion on bare and vegetated slopes in the locality using erosion pins (pegs) and relate it to slope and cover.",
+      "apparatus": [
+        "Metal or wooden pins (pegs) 30 cm long",
+        "Mallet",
+        "Ruler (mm)",
+        "Measuring tape",
+        "Clinometer or simple protractor-and-plumb-line clinometer",
+        "Notebook"
+      ],
+      "materials": [
+        "Paint to mark pins",
+        "Sketch map of the site"
+      ],
+      "safety": [
+        "Choose slopes that are safe to walk on; avoid gully edges.",
+        "Get permission from the landowner.",
+        "Wear covered shoes; watch for snakes."
+      ],
+      "procedure": [
+        "Select two plots of equal size on similar slopes: one bare, one grassed.",
+        "Measure the slope angle with the clinometer.",
+        "Drive 10 pins into each plot in a grid so that exactly 10 cm stands above the surface; record the exposed length.",
+        "Measure the exposed length of each pin after each month of the rainy season.",
+        "Calculate the mean loss of soil depth and the rate per month.",
+        "Present the results as a line graph and explain the differences."
+      ],
+      "expectedObservations": "Pins on the bare plot become more exposed than those on the grassed plot; erosion is fastest after heavy storms and on steeper slopes; rills may form on bare ground.",
+      "dataAndCalculations": "Bare plot: mean exposure increased from 10.0 cm to 13.2 cm in 8 months → loss = 3.2 cm → rate = 3.2 ÷ 8 = 0.4 cm per month.\nGrassed plot: 10.0 → 10.4 cm → 0.4 cm in 8 months = 0.05 cm per month. Bare-plot erosion is 0.4 ÷ 0.05 = 8 times faster.\nVolume of soil lost from a 10 m × 10 m bare plot = 100 m² × 0.032 m = 3.2 m³.",
+      "precautions": [
+        "Hammer pins vertically and to the same initial height.",
+        "Measure from the same side of each pin.",
+        "Take readings at the same intervals."
+      ],
+      "sourcesOfError": [
+        "Pins disturbed by people or animals.",
+        "Soil deposited around some pins.",
+        "Measurement to the nearest mm only."
+      ],
+      "commonMistakes": [
+        "Not having a control (vegetated) plot.",
+        "Using unequal plot sizes or slopes.",
+        "Explaining results without reference to rainfall."
+      ],
+      "examTips": [
+        "Link findings to causes (rainfall intensity, slope, vegetation cover, human activity) and control measures (cover crops, terraces, contour ploughing, afforestation).",
+        "Show the rate calculation with units."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Pin exposure increases by 1.8 cm in 6 months. The rate of erosion is",
+          "options": [
+            "3.3 cm/month",
+            "10.8 cm/month",
+            "0.3 cm/month",
+            "1.8 cm/month"
+          ],
+          "answer": 2,
+          "explanation": "1.8 ÷ 6 = 0.3 cm per month."
+        },
+        {
+          "q": "Why is a grassed plot also studied?",
+          "options": [
+            "To measure rainfall",
+            "To save pins",
+            "Because bare plots cannot be measured",
+            "To act as a comparison (control)"
+          ],
+          "answer": 3,
+          "explanation": "It shows the effect of vegetation cover on erosion."
+        },
+        {
+          "q": "Which measure reduces erosion on slopes?",
+          "options": [
+            "Terracing and cover crops",
+            "Bush burning",
+            "Overgrazing",
+            "Ploughing down the slope"
+          ],
+          "answer": 0,
+          "explanation": "Terraces and cover reduce runoff speed."
+        }
+      ],
+      "simulator": null
+    }
+  ]
+}

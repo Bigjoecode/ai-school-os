@@ -196,6 +196,7 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-[12px] text-muted-foreground">
                 <span className="font-medium">
                   Question {i + 1} of {a.questions.length}
+                  {q.year ? <span className="ml-1.5 rounded-full bg-warning-soft px-2 py-0.5 text-[11px] text-warning">{a.exam ?? 'WAEC'} {q.year}</span> : null}
                 </span>
                 <Badge variant="secondary" className="tabular">
                   {q.marks ?? 0} {q.marks === 1 ? 'mark' : 'marks'}
@@ -340,6 +341,7 @@ function MarkedQuestion({ q }: { q: PracticeQuestion }) {
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <span className="text-[12px] font-medium text-muted-foreground">
           Question {q.index + 1}
+          {q.year ? ` · past question ${q.year}` : ''}
           {q.topic ? ` · ${q.topic}` : ''}
         </span>
         {m ? (

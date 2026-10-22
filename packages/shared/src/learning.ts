@@ -440,6 +440,8 @@ export interface PracticeQuestion {
   flagged?: boolean;
   /** Theory questions: marks available, the student's written answer and, after marking, the guide and the AI's marking. */
   marks?: number;
+  /** A licensed past question's exam year. */
+  year?: number | null;
   written?: string | null;
   markingGuide?: string | null;
   marking?: { score: number; outOf: number; strengths: string[]; missing: string[]; feedback: string } | null;

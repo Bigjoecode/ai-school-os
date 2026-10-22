@@ -1,0 +1,4022 @@
+{
+  "exam": "WAEC",
+  "subject": "Agricultural Science",
+  "practicalPaper": "Paper 3 is a 1½-hour practical paper of four compulsory questions for 60 marks (an alternative-to-practical paper for private candidates). Candidates identify and draw specimens (soils, rocks, crops, weeds, pests, tools, feeds, parasites), interpret experiments and data on soil properties, seed quality and animal production, and carry out related calculations such as percentages, seed rates and ration formulation.",
+  "practicals": [
+    {
+      "id": "pr-agr-soil-texture-by-feel",
+      "title": "Soil texture by feel and sieving; fertile versus infertile soil",
+      "topic": "Practical: Soil",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "identification",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify soil samples as sandy, loamy or clayey by feeling them wet and dry, to estimate the proportion of particle sizes by sieving, and to compare a fertile with an infertile soil.",
+      "apparatus": [
+        "Set of soil sieves (2 mm, 0.2 mm, 0.05 mm) with pan",
+        "Top-pan balance (0.1 g)",
+        "Petri dishes or white tiles",
+        "Hand lens",
+        "Wash bottle of water",
+        "Trowel",
+        "Labels and marker"
+      ],
+      "materials": [
+        "Air-dried samples of sandy, loamy and clay soil from the school farm (labelled X, Y, Z)",
+        "A dark, crumbly topsoil from under a fallow or compost heap",
+        "A pale, hard subsoil or eroded soil from a footpath"
+      ],
+      "safety": [
+        "Wash hands after handling soil; cover cuts, as soil may carry tetanus spores.",
+        "Do not taste soil or rub eyes with soiled hands.",
+        "Pick out sharp stones, glass and nails before handling."
+      ],
+      "procedure": [
+        "Rub a pinch of each dry soil between thumb and fingers and note whether it feels gritty, smooth (floury) or hard and lumpy.",
+        "Moisten a teaspoon of each soil with a few drops of water and knead it into a ball; note whether it falls apart, holds together, or becomes sticky and plastic.",
+        "Try to roll each moist ball into a thread about 3 mm thick and bend it into a ring; record whether it breaks at once, cracks, or forms an unbroken ring.",
+        "Weigh 50.0 g of the air-dried loamy soil, crush clods gently and pass it through the stack of sieves by shaking for five minutes.",
+        "Weigh the fraction retained on each sieve and in the pan, and calculate each as a percentage of the 50.0 g.",
+        "Spread the fertile and infertile samples side by side on white tiles; compare colour, crumb structure, plant remains and living organisms (earthworms, termites, roots) using a hand lens.",
+        "Record all observations in a table and draw conclusions."
+      ],
+      "expectedObservations": "Sandy soil feels gritty, will not form a ball and falls apart. Loamy soil feels smooth to slightly gritty and forms a ball that cracks when rolled into a thread. Clay soil is hard and lumpy when dry, sticky and plastic when wet, and rolls into an unbroken ring. The fertile soil is dark brown to black, crumbly, smells earthy and contains humus, roots and earthworms; the infertile soil is pale, compact or loose, and has few or no living organisms.",
+      "dataAndCalculations": "Worked example: 50.0 g of loamy soil gave coarse sand 12.5 g, fine sand 18.0 g, silt 9.0 g and clay (pan) 10.5 g. Percentage = mass of fraction ÷ 50.0 × 100: coarse sand 25 %, fine sand 36 %, silt 18 %, clay 21 %. Total sand = 25 + 36 = 61 %. A soil with about 61 % sand, 18 % silt and 21 % clay is a sandy clay loam. Check: 25 + 36 + 18 + 21 = 100 %.",
+      "precautions": [
+        "Use air-dried soil and crush clods gently without grinding the particles.",
+        "Shake the sieves for the same length of time for every sample.",
+        "Brush every sieve clean before the next sample to avoid carry-over.",
+        "Add water to the feel test drop by drop so the soil is moist, not runny."
+      ],
+      "sourcesOfError": [
+        "Clay aggregates not broken up, so they are counted as sand.",
+        "Loss of fine particles as dust during sieving.",
+        "The feel test is subjective and depends on the amount of water added."
+      ],
+      "commonMistakes": [
+        "Calling a dark soil 'clay' because of its colour; colour indicates humus, not texture.",
+        "Forgetting that the percentages must add up to 100.",
+        "Describing sandy soil as 'sticky'."
+      ],
+      "examTips": [
+        "WAEC often gives three labelled samples: name each and give one feel feature as the reason.",
+        "State fertility indicators in pairs: dark colour (humus), crumb structure, presence of earthworms.",
+        "Show the formula (mass of fraction ÷ total mass × 100) before substituting."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A moist soil sample rolls into a thin unbroken ring. The soil is most likely",
+          "options": [
+            "sandy",
+            "loamy",
+            "clayey",
+            "gravelly"
+          ],
+          "answer": 2,
+          "explanation": "Only clay has enough plasticity to bend into a ring without breaking."
+        },
+        {
+          "q": "40.0 g of soil gave 10.0 g of clay. The percentage of clay is",
+          "options": [
+            "40 %",
+            "25 %",
+            "10 %",
+            "4 %"
+          ],
+          "answer": 1,
+          "explanation": "10.0 ÷ 40.0 × 100 = 25 %."
+        },
+        {
+          "q": "Which feature best indicates a fertile soil?",
+          "options": [
+            "Pale colour and hard surface",
+            "Loose grains that do not stick",
+            "Many earthworms and dark crumbly structure",
+            "Wide cracks when dry"
+          ],
+          "answer": 2,
+          "explanation": "Earthworms and dark crumbs show organic matter and good structure."
+        },
+        {
+          "q": "Sandy soil feels gritty because it",
+          "options": [
+            "has large particles",
+            "contains much humus",
+            "holds much water",
+            "is acidic"
+          ],
+          "answer": 0,
+          "explanation": "Sand particles (0.05–2 mm) are large enough to be felt."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-soil-profile",
+      "title": "Describing and drawing a soil profile",
+      "topic": "Practical: Soil profile",
+      "kind": "FIELD",
+      "skills": [
+        "observation",
+        "identification",
+        "drawing",
+        "measurement"
+      ],
+      "aim": "To dig a soil pit, identify the horizons of the soil profile and draw the profile to scale.",
+      "apparatus": [
+        "Spade and shovel",
+        "Pickaxe",
+        "Measuring tape (2 m)",
+        "Cutlass",
+        "Pegs and string",
+        "Drawing board, ruler and pencil",
+        "Small polythene bags for samples"
+      ],
+      "materials": [
+        "A level site on the school farm away from paths and buildings",
+        "Water for testing texture"
+      ],
+      "safety": [
+        "Work in pairs; cut steps into one side of the pit so nobody is trapped.",
+        "Keep tools away from the edge so they do not fall on anyone.",
+        "Fill the pit or fence it off after the lesson so no person or animal falls in."
+      ],
+      "procedure": [
+        "Peg out a pit about 1 m wide and 1.5 m long and dig it to about 1.5 m or to bedrock, leaving one face smooth and vertical (the study face) and the opposite side stepped.",
+        "Clean the study face with a cutlass from top to bottom so fresh soil is exposed.",
+        "Note changes in colour, texture, structure, root density and stones down the face, and push pegs in where each horizon changes.",
+        "Measure the depth of the top and bottom of each horizon from the ground surface with the tape.",
+        "Collect a small sample from each horizon in labelled bags for texture and colour tests.",
+        "Draw the profile to scale (e.g. 1 cm on paper = 10 cm of soil), shading each horizon and labelling it O, A, B, C and R.",
+        "Write a short description of each horizon beside the drawing."
+      ],
+      "expectedObservations": "O horizon: thin layer of leaves and decaying litter. A horizon (topsoil): dark, crumbly, rich in humus, roots and soil organisms. B horizon (subsoil): lighter brown, red or yellow, more compact, often with accumulated clay and iron and few roots. C horizon: partly weathered parent material with rock fragments. R: solid bedrock (not always reached).",
+      "dataAndCalculations": "Worked example: in a 150 cm pit the horizons measured O 0–5 cm, A 5–30 cm, B 30–90 cm and C 90–150 cm. Thicknesses: O = 5 cm, A = 25 cm, B = 60 cm, C = 60 cm (total 150 cm). At a scale of 1 cm : 10 cm the drawing is 15.0 cm tall, with A drawn 2.5 cm and B drawn 6.0 cm. The A horizon makes up 25 ÷ 150 × 100 = 16.7 % of the profile depth.",
+      "precautions": [
+        "Choose an undisturbed site (not a refuse dump or recently filled ground).",
+        "Study a freshly cleaned face in good daylight.",
+        "Measure all depths from the same ground-surface reference."
+      ],
+      "sourcesOfError": [
+        "Horizon boundaries are often gradual, so depths are estimates.",
+        "Soil smeared by the spade hides true colour and structure.",
+        "Moist and dry soil differ in colour."
+      ],
+      "commonMistakes": [
+        "Drawing horizons of equal thickness instead of to scale.",
+        "Omitting the scale and title on the drawing.",
+        "Labelling the subsoil as 'topsoil'."
+      ],
+      "examTips": [
+        "Drawings need a title, a stated scale, clean continuous lines and labels with ruled guidelines.",
+        "Give one distinguishing feature per horizon, e.g. 'A: dark due to humus'.",
+        "Know that most plant roots and soil organisms are in the A horizon."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The horizon richest in humus is the",
+          "options": [
+            "A horizon",
+            "B horizon",
+            "C horizon",
+            "R horizon"
+          ],
+          "answer": 0,
+          "explanation": "Decomposed organic matter accumulates in the topsoil (A)."
+        },
+        {
+          "q": "Leached clay and iron oxides commonly accumulate in the",
+          "options": [
+            "O horizon",
+            "A horizon",
+            "B horizon",
+            "bedrock"
+          ],
+          "answer": 2,
+          "explanation": "Materials washed down from A are deposited in the subsoil (B)."
+        },
+        {
+          "q": "A 40 cm horizon drawn at a scale of 1 cm : 10 cm should measure",
+          "options": [
+            "0.4 cm",
+            "4 cm",
+            "40 cm",
+            "10 cm"
+          ],
+          "answer": 1,
+          "explanation": "40 ÷ 10 = 4 cm."
+        },
+        {
+          "q": "Partly weathered parent rock forms the",
+          "options": [
+            "O horizon",
+            "A horizon",
+            "humus layer",
+            "C horizon"
+          ],
+          "answer": 3,
+          "explanation": "The C horizon is weathering parent material above bedrock."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-rock-identification",
+      "title": "Identifying igneous, sedimentary and metamorphic rocks",
+      "topic": "Practical: Rocks",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify common rock specimens by their visible features and simple tests, and relate them to the soils they form.",
+      "apparatus": [
+        "Hand lens",
+        "Steel nail or penknife",
+        "Dropping bottle of dilute hydrochloric acid",
+        "Top-pan balance",
+        "100 cm³ measuring cylinder",
+        "Thread"
+      ],
+      "materials": [
+        "Rock specimens: granite, basalt, sandstone, shale, limestone, marble, quartzite, gneiss (collected locally or from a rock kit)",
+        "Water"
+      ],
+      "safety": [
+        "Wear goggles when using acid and wipe spills at once.",
+        "Handle the knife carefully when scratching rocks.",
+        "Do not strike rocks with hammers near other students."
+      ],
+      "procedure": [
+        "Examine each specimen with a hand lens and record colour, grain size, whether grains are crystals or rounded particles, layering (bedding or banding) and any fossils.",
+        "Scratch each rock with a steel nail; record whether it scratches easily (soft) or not (hard).",
+        "Add a drop of dilute acid to each rock and look for effervescence.",
+        "Weigh one rock, then find its volume by lowering it on a thread into a measuring cylinder of water and reading the rise in water level.",
+        "Calculate its density.",
+        "Classify each rock as igneous, sedimentary or metamorphic and record the evidence."
+      ],
+      "expectedObservations": "Granite: hard, speckled with interlocking crystals (pink/white feldspar, glassy quartz, black mica), no layers – igneous. Basalt: dark, fine-grained, heavy – igneous. Sandstone: rounded sand grains cemented together, gritty, may show layers – sedimentary. Shale: fine, soft, splits into thin layers – sedimentary. Limestone: fizzes with acid, may contain fossils – sedimentary. Marble: crystalline, fizzes with acid – metamorphic. Gneiss: alternating light and dark bands – metamorphic. Quartzite: very hard, sugary texture, does not fizz – metamorphic.",
+      "dataAndCalculations": "Worked example: a rock weighed 81.0 g. Water in the cylinder rose from 50.0 cm³ to 80.0 cm³, so its volume = 80.0 − 50.0 = 30.0 cm³. Density = mass ÷ volume = 81.0 ÷ 30.0 = 2.70 g/cm³, typical of granite, limestone or marble; a fizz with acid would point to limestone or marble.",
+      "precautions": [
+        "Use clean, freshly broken surfaces for observation.",
+        "Read the measuring cylinder at eye level at the bottom of the meniscus.",
+        "Make sure the rock is fully submerged with no air bubbles clinging to it."
+      ],
+      "sourcesOfError": [
+        "Weathered surfaces hide true colour and texture.",
+        "Porous rocks absorb water, lowering the volume reading.",
+        "Parallax when reading the cylinder."
+      ],
+      "commonMistakes": [
+        "Confusing bedding in sedimentary rock with banding in gneiss.",
+        "Saying granite fizzes with acid.",
+        "Giving density without units."
+      ],
+      "examTips": [
+        "Give the rock type AND one observable reason, e.g. 'igneous – interlocking crystals, no layers'.",
+        "Link rocks to soils: granite weathers to sandy or loamy soils, shale to clay soils, limestone to alkaline soils.",
+        "Remember metamorphic means changed by heat and pressure: marble from limestone, slate from shale."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A rock that fizzes with dilute acid is likely to be",
+          "options": [
+            "granite",
+            "marble",
+            "basalt",
+            "quartzite"
+          ],
+          "answer": 1,
+          "explanation": "Marble and limestone contain calcium carbonate, which reacts with acid releasing carbon dioxide."
+        },
+        {
+          "q": "Interlocking crystals and no layers suggest a rock that is",
+          "options": [
+            "sedimentary",
+            "metamorphic",
+            "igneous",
+            "organic"
+          ],
+          "answer": 2,
+          "explanation": "Igneous rocks form by cooling of magma into crystals."
+        },
+        {
+          "q": "A rock of mass 52.0 g raises water from 40.0 to 60.0 cm³. Its density is",
+          "options": [
+            "2.60 g/cm³",
+            "1.30 g/cm³",
+            "0.38 g/cm³",
+            "20.0 g/cm³"
+          ],
+          "answer": 0,
+          "explanation": "Volume = 20.0 cm³; 52.0 ÷ 20.0 = 2.60 g/cm³."
+        },
+        {
+          "q": "Slate is formed by metamorphism of",
+          "options": [
+            "sandstone",
+            "limestone",
+            "granite",
+            "shale"
+          ],
+          "answer": 3,
+          "explanation": "Heat and pressure turn shale into slate."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-mechanical-analysis",
+      "title": "Mechanical analysis of soil by sedimentation",
+      "topic": "Practical: Laboratory work on physical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "observation",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To separate a soil sample into gravel, sand, silt and clay by sedimentation and estimate their proportions.",
+      "apparatus": [
+        "250 cm³ measuring cylinder or tall transparent bottle with stopper",
+        "Ruler (mm)",
+        "Spatula",
+        "Clock"
+      ],
+      "materials": [
+        "About 50 cm³ of air-dried soil",
+        "Water",
+        "A pinch of washing soda (dispersing agent, optional)"
+      ],
+      "safety": [
+        "Hold the cylinder firmly when shaking; glass breaks easily.",
+        "Wipe up spilled water to avoid slipping."
+      ],
+      "procedure": [
+        "Put soil into the cylinder to about one-quarter of its height.",
+        "Add water until the cylinder is about three-quarters full and add a pinch of dispersing agent.",
+        "Stopper and shake vigorously for two minutes to break up aggregates.",
+        "Stand the cylinder on a level bench and leave it undisturbed for at least 24 hours.",
+        "Observe the layers that settle and measure the thickness of each with a ruler.",
+        "Calculate each layer as a percentage of the total settled height and draw a labelled diagram of the cylinder."
+      ],
+      "expectedObservations": "Gravel and coarse sand settle first at the bottom, then fine sand, then silt; clay settles last as the top layer and some stays suspended, so the water remains cloudy. Organic matter (humus) floats on the surface.",
+      "dataAndCalculations": "Worked example: after 24 hours the layers measured gravel 4 mm, sand 20 mm, silt 10 mm and clay 6 mm. Total = 4 + 20 + 10 + 6 = 40 mm. Gravel = 4 ÷ 40 × 100 = 10 %; sand = 20 ÷ 40 × 100 = 50 %; silt = 25 %; clay = 15 %. The soil is mainly sand with moderate silt and some clay, so it is a sandy loam.",
+      "precautions": [
+        "Shake thoroughly so all aggregates are dispersed.",
+        "Do not disturb the cylinder while particles are settling.",
+        "Measure each layer at eye level against the ruler."
+      ],
+      "sourcesOfError": [
+        "Boundaries between layers are not sharp.",
+        "Some clay remains suspended and is not measured.",
+        "Settled particles are loosely packed, so heights only approximate mass proportions."
+      ],
+      "commonMistakes": [
+        "Drawing clay at the bottom of the cylinder.",
+        "Forgetting to label the floating organic matter.",
+        "Calculating percentages from the height of water instead of the settled soil."
+      ],
+      "examTips": [
+        "Explain the order of settling: larger, heavier particles settle faster.",
+        "Your diagram must show the layers in the correct order with labels and a title.",
+        "State why the water stays cloudy: fine clay particles remain in suspension as colloids."
+      ],
+      "checkQuestions": [
+        {
+          "q": "In sedimentation the particles that settle first are",
+          "options": [
+            "clay",
+            "silt",
+            "gravel and coarse sand",
+            "humus"
+          ],
+          "answer": 2,
+          "explanation": "Heavier, larger particles sink fastest."
+        },
+        {
+          "q": "The material that floats on the water surface is",
+          "options": [
+            "silt",
+            "organic matter",
+            "fine sand",
+            "clay"
+          ],
+          "answer": 1,
+          "explanation": "Humus is less dense than water."
+        },
+        {
+          "q": "A sand layer of 18 mm in a total settled height of 45 mm represents",
+          "options": [
+            "40 %",
+            "18 %",
+            "25 %",
+            "60 %"
+          ],
+          "answer": 0,
+          "explanation": "18 ÷ 45 × 100 = 40 %."
+        },
+        {
+          "q": "Water above the settled soil stays cloudy because of",
+          "options": [
+            "dissolved air",
+            "gravel",
+            "sand",
+            "suspended clay particles"
+          ],
+          "answer": 3,
+          "explanation": "Colloidal clay settles very slowly."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-bulk-density-pore-space",
+      "title": "Bulk density and total pore space of soil",
+      "topic": "Practical: Laboratory work on physical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the bulk density of an undisturbed soil core and calculate its total pore space.",
+      "apparatus": [
+        "Metal core sampler (cylinder) of known dimensions",
+        "Mallet and wooden block",
+        "Knife or spatula",
+        "Oven at 105 °C",
+        "Top-pan balance (0.1 g)",
+        "Ruler or vernier callipers",
+        "Desiccator"
+      ],
+      "materials": [
+        "Field soil on the school farm",
+        "Moisture can or foil tray"
+      ],
+      "safety": [
+        "Use oven gloves when removing samples from the oven.",
+        "Keep fingers clear when driving the core in with the mallet."
+      ],
+      "procedure": [
+        "Measure the internal radius and height of the core sampler and calculate its volume (V = πr²h).",
+        "Drive the sampler vertically into the soil with the mallet over a wooden block until its top is level with the soil surface.",
+        "Dig the core out carefully, trim both ends flush with a knife and transfer all the soil to a weighed can.",
+        "Dry at 105 °C to constant mass (about 24 hours), cool in a desiccator and weigh.",
+        "Calculate bulk density = oven-dry mass ÷ core volume.",
+        "Calculate total pore space = (1 − bulk density ÷ particle density) × 100, taking particle density as 2.65 g/cm³."
+      ],
+      "expectedObservations": "Sandy soils give higher bulk density (about 1.5–1.7 g/cm³) than loams and clays (about 1.1–1.4 g/cm³). Compacted soil from a footpath gives a higher bulk density and lower pore space than soil from a cultivated bed.",
+      "dataAndCalculations": "Worked example: core radius 2.5 cm, height 10.0 cm. Volume = 3.142 × 2.5² × 10.0 = 196.4 cm³. Oven-dry soil = 255.3 g. Bulk density = 255.3 ÷ 196.4 = 1.30 g/cm³. Total pore space = (1 − 1.30 ÷ 2.65) × 100 = (1 − 0.491) × 100 = 50.9 %.",
+      "precautions": [
+        "Do not compress the core while driving it in.",
+        "Trim the ends exactly level with the cylinder.",
+        "Dry to constant mass so all water is removed."
+      ],
+      "sourcesOfError": [
+        "Compaction or loss of soil while sampling changes the true volume.",
+        "Stones inside the core raise the mass.",
+        "Incomplete drying gives a high mass."
+      ],
+      "commonMistakes": [
+        "Using moist mass instead of oven-dry mass.",
+        "Using diameter instead of radius in πr²h.",
+        "Writing pore space without the % sign."
+      ],
+      "examTips": [
+        "Always state the formula, substitute with units and give the answer to the required decimal places.",
+        "Remember: higher bulk density means more compaction and less pore space.",
+        "Particle density of most mineral soils is about 2.65 g/cm³."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A core of 200 cm³ contains 280 g of oven-dry soil. The bulk density is",
+          "options": [
+            "0.71 g/cm³",
+            "1.40 g/cm³",
+            "2.65 g/cm³",
+            "1.20 g/cm³"
+          ],
+          "answer": 1,
+          "explanation": "280 ÷ 200 = 1.40 g/cm³."
+        },
+        {
+          "q": "If bulk density is 1.59 g/cm³ and particle density 2.65 g/cm³, total pore space is",
+          "options": [
+            "60 %",
+            "59 %",
+            "26.5 %",
+            "40 %"
+          ],
+          "answer": 3,
+          "explanation": "(1 − 1.59 ÷ 2.65) × 100 = (1 − 0.60) × 100 = 40 %."
+        },
+        {
+          "q": "Compaction of soil by heavy machinery",
+          "options": [
+            "lowers bulk density",
+            "increases pore space",
+            "increases bulk density",
+            "has no effect"
+          ],
+          "answer": 2,
+          "explanation": "Particles are pressed together, so more mass occupies the same volume."
+        },
+        {
+          "q": "The soil is dried at 105 °C in order to",
+          "options": [
+            "remove all soil water",
+            "kill microorganisms only",
+            "burn off organic matter",
+            "measure particle density"
+          ],
+          "answer": 0,
+          "explanation": "105 °C drives off water without burning organic matter."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-soil-moisture-content",
+      "title": "Determining the moisture content of a moist soil",
+      "topic": "Practical: Laboratory work on physical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the percentage moisture content of a fresh soil sample by oven drying.",
+      "apparatus": [
+        "Moisture can or evaporating dish with lid",
+        "Top-pan balance (0.01 g)",
+        "Oven at 105 °C",
+        "Desiccator",
+        "Tongs"
+      ],
+      "materials": [
+        "Freshly collected moist soil in a sealed polythene bag"
+      ],
+      "safety": [
+        "Use tongs or gloves to handle hot cans.",
+        "Do not open the oven door with your face close to it."
+      ],
+      "procedure": [
+        "Weigh a clean, dry, empty can (W1).",
+        "Add about 50 g of fresh moist soil, close the lid and weigh again (W2).",
+        "Remove the lid and dry the can and soil in an oven at 105 °C for 24 hours.",
+        "Cool in a desiccator, replace the lid and weigh (W3).",
+        "Re-heat, cool and re-weigh until two weighings agree (constant mass).",
+        "Calculate the mass of water and the moisture content on a dry-mass basis and on a wet-mass basis."
+      ],
+      "expectedObservations": "The soil becomes lighter in colour and loses mass on drying. Clay and humus-rich soils lose more water than sandy soil collected at the same time.",
+      "dataAndCalculations": "Worked example: W1 = 25.00 g, W2 = 75.00 g, W3 = 65.00 g. Mass of water = W2 − W3 = 10.00 g. Mass of dry soil = W3 − W1 = 40.00 g. Moisture content (dry basis) = 10.00 ÷ 40.00 × 100 = 25.0 %. Moisture content (wet basis) = 10.00 ÷ (W2 − W1 = 50.00) × 100 = 20.0 %. State which basis the question asks for.",
+      "precautions": [
+        "Keep the fresh sample sealed until weighing so it does not dry out.",
+        "Cool the can in a desiccator so it does not absorb moisture from the air.",
+        "Heat to constant mass."
+      ],
+      "sourcesOfError": [
+        "Water lost from the sample between field and laboratory.",
+        "Weighing while still warm (convection currents lower the reading).",
+        "Some organic matter may be lost if overheated."
+      ],
+      "commonMistakes": [
+        "Subtracting in the wrong order (W3 − W2).",
+        "Using the mass of soil plus can as the soil mass.",
+        "Mixing up dry-basis and wet-basis percentages."
+      ],
+      "examTips": [
+        "Set out the subtraction steps clearly; method marks are given for each step.",
+        "Moisture is usually expressed as a percentage of the dry soil unless the question says otherwise – read carefully.",
+        "A common follow-up asks why the soil is cooled in a desiccator: to prevent re-absorption of moisture."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Can = 20.0 g, can + moist soil = 70.0 g, can + dry soil = 60.0 g. Moisture content on a dry basis is",
+          "options": [
+            "20 %",
+            "25 %",
+            "10 %",
+            "16.7 %"
+          ],
+          "answer": 1,
+          "explanation": "Water 10.0 g; dry soil 40.0 g; 10 ÷ 40 × 100 = 25 %."
+        },
+        {
+          "q": "The soil is heated until",
+          "options": [
+            "it changes colour",
+            "it starts to smoke",
+            "two successive weighings agree",
+            "it cracks"
+          ],
+          "answer": 2,
+          "explanation": "Constant mass shows all the water has gone."
+        },
+        {
+          "q": "Why is a desiccator used?",
+          "options": [
+            "To heat the soil",
+            "To weigh the can",
+            "To measure pH",
+            "To keep the dried soil from absorbing moisture as it cools"
+          ],
+          "answer": 3,
+          "explanation": "The desiccant keeps the air around the sample dry."
+        },
+        {
+          "q": "Which soil usually holds the most water when field-moist?",
+          "options": [
+            "Clay soil",
+            "Coarse sand",
+            "Gravel",
+            "Sandy loam"
+          ],
+          "answer": 0,
+          "explanation": "Clay has a huge surface area and many micropores."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-water-holding-capacity",
+      "title": "Water-holding capacity and drainage of sand, loam and clay",
+      "topic": "Practical: Laboratory work on physical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "observation",
+        "drawing"
+      ],
+      "aim": "To compare the volume of water retained and the rate of drainage of sandy, loamy and clay soils.",
+      "apparatus": [
+        "Three filter funnels",
+        "Three 100 cm³ measuring cylinders",
+        "Retort stands with clamps",
+        "Cotton wool",
+        "Top-pan balance",
+        "Stopwatch"
+      ],
+      "materials": [
+        "100 g each of oven-dried sandy, loamy and clay soil",
+        "Water"
+      ],
+      "safety": [
+        "Clamp funnels firmly so the stands do not topple.",
+        "Mop up spilled water."
+      ],
+      "procedure": [
+        "Plug the neck of each funnel loosely with the same amount of cotton wool and place each over a measuring cylinder.",
+        "Put 100 g of each dry soil into a funnel and label them A (sand), B (loam) and C (clay).",
+        "Pour 100 cm³ of water gently and at the same time onto each soil.",
+        "Start the stopwatch and record the time the first drop falls and the volume collected after 5, 10, 30 and 60 minutes.",
+        "After 60 minutes record the final volume in each cylinder.",
+        "Calculate the water retained and the water-holding capacity as a percentage of the dry soil mass."
+      ],
+      "expectedObservations": "Water drains quickest through sand and the largest volume is collected below it. Clay drains slowly, the least water is collected and water may stand on its surface. Loam is intermediate.",
+      "dataAndCalculations": "Worked example: after 1 hour the volumes collected were sand 70 cm³, loam 58 cm³, clay 40 cm³. Water retained = 100 − volume collected: sand 30 cm³, loam 42 cm³, clay 60 cm³. Taking 1 cm³ of water = 1 g, water-holding capacity = retained ÷ 100 g × 100: sand 30 %, loam 42 %, clay 60 %. Average drainage rate through sand = 70 cm³ ÷ 60 min = 1.17 cm³/min.",
+      "precautions": [
+        "Use equal masses of soil and equal volumes of water for all funnels.",
+        "Use the same amount of cotton wool in each funnel.",
+        "Pour water gently so soil is not washed through."
+      ],
+      "sourcesOfError": [
+        "Some water evaporates or wets the cotton wool and funnel.",
+        "Soils packed to different degrees.",
+        "Water not added to all funnels at exactly the same time."
+      ],
+      "commonMistakes": [
+        "Reporting the volume collected as the volume retained.",
+        "Concluding that sand is best for crops because it drains well, ignoring drought risk.",
+        "Not using oven-dried soil."
+      ],
+      "examTips": [
+        "Expect a labelled set-up diagram: funnel, cotton wool, soil, cylinder and stand.",
+        "Link results to farming: clay waterlogs, sand dries out, loam is ideal.",
+        "Give at least two precautions, worded as actions."
+      ],
+      "checkQuestions": [
+        {
+          "q": "100 cm³ of water is poured on 100 g of clay and 35 cm³ is collected. The water-holding capacity is",
+          "options": [
+            "35 %",
+            "65 %",
+            "100 %",
+            "135 %"
+          ],
+          "answer": 1,
+          "explanation": "Retained = 65 cm³ = 65 g; 65 ÷ 100 × 100 = 65 %."
+        },
+        {
+          "q": "Which soil drains fastest?",
+          "options": [
+            "Clay",
+            "Loam",
+            "Sand",
+            "Silty clay"
+          ],
+          "answer": 2,
+          "explanation": "Sand has large pore spaces between its grains."
+        },
+        {
+          "q": "The cotton wool in the funnel",
+          "options": [
+            "absorbs all the water",
+            "stops soil particles passing through",
+            "speeds up drainage",
+            "adds nutrients"
+          ],
+          "answer": 1,
+          "explanation": "It holds the soil while allowing water through."
+        },
+        {
+          "q": "Which soil is most likely to become waterlogged?",
+          "options": [
+            "Clay soil",
+            "Sandy soil",
+            "Gravelly soil",
+            "Sandy loam"
+          ],
+          "answer": 0,
+          "explanation": "Fine pores in clay slow drainage."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-capillarity",
+      "title": "Capillary rise of water in different soils",
+      "topic": "Practical: Laboratory work on physical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "graph",
+        "observation"
+      ],
+      "aim": "To compare the rate and height of capillary rise of water in sandy, loamy and clay soils.",
+      "apparatus": [
+        "Three glass or clear plastic tubes about 30–50 cm long",
+        "Cotton wool or muslin and rubber bands",
+        "Trough or basin",
+        "Retort stand",
+        "Metre rule",
+        "Stopwatch"
+      ],
+      "materials": [
+        "Dry, finely crushed sandy, loamy and clay soil",
+        "Water"
+      ],
+      "safety": [
+        "Handle glass tubes carefully; check for chipped ends.",
+        "Keep the trough stable on the bench."
+      ],
+      "procedure": [
+        "Tie cotton wool or muslin over the lower end of each tube.",
+        "Fill each tube with one dry soil, tapping gently and equally to pack it.",
+        "Clamp the tubes upright with their lower ends dipping to the same depth (about 2 cm) in water in the trough.",
+        "Start the stopwatch and measure the height of the wetted soil above the water surface after 10, 20, 30 and 60 minutes, and again after 24 hours.",
+        "Record the results in a table and plot height against time for each soil on the same axes.",
+        "Calculate the rate of rise for the stated time intervals."
+      ],
+      "expectedObservations": "Water rises fastest at first in sand because its wide pores offer little resistance, but it stops at a low height. Water rises slowly in clay but eventually reaches the greatest height because its pores are very fine. Loam is intermediate.",
+      "dataAndCalculations": "Worked example: in sand the water rose 3.0 cm in the first 10 minutes, so the initial rate = 3.0 ÷ 10 = 0.30 cm/min. In loam the height was 8.4 cm after 60 minutes, so the average rate = 8.4 ÷ 60 = 0.14 cm/min. After 24 hours clay had reached 21.0 cm compared with sand 7.0 cm: clay rose 21.0 ÷ 7.0 = 3 times as high.",
+      "precautions": [
+        "Pack all tubes to the same degree.",
+        "Dip all tubes to the same depth and start timing together.",
+        "Measure from the water surface, not from the bottom of the tube."
+      ],
+      "sourcesOfError": [
+        "Unequal packing.",
+        "The wetting front is irregular, making readings approximate.",
+        "The water level in the trough falls as water is taken up."
+      ],
+      "commonMistakes": [
+        "Concluding that sand has the highest capillarity because it rose fastest at first.",
+        "Plotting time on the vertical axis.",
+        "Joining graph points with ruled straight lines instead of a smooth curve."
+      ],
+      "examTips": [
+        "Distinguish rate (speed) of rise from final height – a favourite WAEC trap.",
+        "On graphs: title, labelled axes with units, sensible scale and a key for the three soils.",
+        "Relate capillarity to the water supply to plant roots during dry periods."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Water rises 4.5 cm in 15 minutes. The rate of capillary rise is",
+          "options": [
+            "0.3 cm/min",
+            "3.3 cm/min",
+            "67.5 cm/min",
+            "0.03 cm/min"
+          ],
+          "answer": 0,
+          "explanation": "4.5 ÷ 15 = 0.3 cm/min."
+        },
+        {
+          "q": "Over 24 hours the greatest capillary height is usually reached in",
+          "options": [
+            "sand",
+            "gravel",
+            "clay",
+            "pebbles"
+          ],
+          "answer": 2,
+          "explanation": "Fine pores give the greatest capillary pull."
+        },
+        {
+          "q": "Capillary rise is important to crops because it",
+          "options": [
+            "removes salts",
+            "supplies water from lower layers to roots",
+            "aerates the soil",
+            "kills weeds"
+          ],
+          "answer": 1,
+          "explanation": "Water moves up towards the root zone as surface soil dries."
+        },
+        {
+          "q": "Which is a precaution in this experiment?",
+          "options": [
+            "Use tubes of different lengths",
+            "Use moist soil",
+            "Dip the tubes to different depths",
+            "Pack the soils to the same degree"
+          ],
+          "answer": 3,
+          "explanation": "Equal packing makes the comparison fair."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-soil-ph",
+      "title": "Determining soil pH and liming needs",
+      "topic": "Practical: Laboratory work on chemical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "observation",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the pH of soil samples using universal indicator (or a pH meter) and decide whether liming is needed.",
+      "apparatus": [
+        "Test tubes and rack",
+        "Funnel and filter paper",
+        "Beakers",
+        "Glass rod",
+        "pH meter (if available) or universal indicator with colour chart",
+        "Top-pan balance",
+        "Measuring cylinder"
+      ],
+      "materials": [
+        "Soil samples from different plots",
+        "Distilled water",
+        "Barium sulphate powder (optional, to settle clay)"
+      ],
+      "safety": [
+        "Do not taste or swallow the indicator; wash off skin contact.",
+        "Handle the pH electrode gently; it is made of glass."
+      ],
+      "procedure": [
+        "Weigh 10 g of air-dried soil into a beaker and add 25 cm³ of distilled water (1 : 2.5 ratio).",
+        "Stir well for one minute and allow to stand for 30 minutes, stirring occasionally.",
+        "Filter into a clean test tube (add a little barium sulphate first if the filtrate is cloudy).",
+        "Add three drops of universal indicator, shake and match the colour against the chart; or dip a calibrated pH meter electrode into the suspension and read.",
+        "Repeat for each sample and record the pH.",
+        "Use the pH to classify each soil and recommend liming where the pH is below about 5.5 for most crops."
+      ],
+      "expectedObservations": "Universal indicator gives red/orange (pH 4–5) for strongly acidic soils common in high-rainfall southern Nigeria, yellow-green (pH 6–7) for near-neutral soils, and blue (pH 8 and above) for alkaline soils found in some northern areas or over limestone.",
+      "dataAndCalculations": "Worked example: Plot A had pH 5.0 and Plot B pH 6.0. Since pH is logarithmic, the hydrogen ion concentration in A is 10^(6.0 − 5.0) = 10 times that in B. The extension officer recommends 2.0 t/ha of agricultural lime for Plot A. Plot A measures 50 m × 50 m = 2 500 m² = 0.25 ha, so lime needed = 2.0 × 0.25 = 0.5 t = 500 kg.",
+      "precautions": [
+        "Use distilled water, not tap water, which may alter the pH.",
+        "Rinse the electrode or test tube between samples.",
+        "Calibrate the pH meter with buffer solutions before use."
+      ],
+      "sourcesOfError": [
+        "Colour matching is subjective.",
+        "A muddy filtrate masks the indicator colour.",
+        "The sample may not represent the whole plot."
+      ],
+      "commonMistakes": [
+        "Saying a soil of pH 8 is acidic.",
+        "Assuming a pH difference of 1 means twice as acidic.",
+        "Recommending lime for an alkaline soil."
+      ],
+      "examTips": [
+        "State the colour observed AND the inference (e.g. 'orange – acidic, pH about 5').",
+        "Give the correction: acidic soil – liming; alkaline soil – sulphur or acid-forming fertilisers such as ammonium sulphate.",
+        "Show the unit conversion: 10 000 m² = 1 ha."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A soil filtrate turns universal indicator blue. The soil is",
+          "options": [
+            "strongly acidic",
+            "slightly acidic",
+            "neutral",
+            "alkaline"
+          ],
+          "answer": 3,
+          "explanation": "Blue indicates a pH above 7."
+        },
+        {
+          "q": "Compared with soil of pH 5.5, soil of pH 4.5 has a hydrogen ion concentration that is",
+          "options": [
+            "equal",
+            "twice as high",
+            "ten times higher",
+            "ten times lower"
+          ],
+          "answer": 2,
+          "explanation": "One pH unit is a factor of 10."
+        },
+        {
+          "q": "A strongly acidic soil can be corrected by adding",
+          "options": [
+            "ammonium sulphate",
+            "agricultural lime",
+            "sulphur",
+            "sodium chloride"
+          ],
+          "answer": 1,
+          "explanation": "Lime (calcium carbonate) neutralises acidity."
+        },
+        {
+          "q": "Lime at 4 t/ha for a 0.2 ha plot requires",
+          "options": [
+            "0.8 t",
+            "8 t",
+            "4.2 t",
+            "20 t"
+          ],
+          "answer": 0,
+          "explanation": "4 × 0.2 = 0.8 t."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-soil-organic-matter",
+      "title": "Organic matter content of soil by loss on ignition",
+      "topic": "Practical: Laboratory work on chemical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "calculation",
+        "safety",
+        "procedure"
+      ],
+      "aim": "To determine the percentage of organic matter in a soil sample by heating it strongly.",
+      "apparatus": [
+        "Crucible with lid",
+        "Bunsen burner, tripod and pipe-clay triangle",
+        "Tongs",
+        "Top-pan balance (0.01 g)",
+        "Desiccator",
+        "Oven at 105 °C"
+      ],
+      "materials": [
+        "Oven-dried topsoil sample (sieved through 2 mm)"
+      ],
+      "safety": [
+        "Wear goggles; hot crucibles can crack.",
+        "Use tongs and place hot crucibles on a heat-proof mat.",
+        "Keep hair and clothing away from the flame."
+      ],
+      "procedure": [
+        "Weigh a clean, dry crucible (W1).",
+        "Add about 20 g of oven-dried soil and weigh again (W2).",
+        "Heat strongly over a Bunsen burner for 20–30 minutes, stirring occasionally, until no more smoke is seen and the soil turns reddish or grey.",
+        "Cool in a desiccator and weigh (W3).",
+        "Re-heat, cool and re-weigh until constant mass.",
+        "Calculate the loss in mass and the percentage of organic matter."
+      ],
+      "expectedObservations": "Smoke and a burning smell are given off as organic matter burns; the soil becomes lighter in colour (often reddish-brown) and loses mass.",
+      "dataAndCalculations": "Worked example: W1 = 18.40 g, W2 = 38.40 g, W3 = 37.20 g. Mass of dry soil = 38.40 − 18.40 = 20.00 g. Loss in mass = 38.40 − 37.20 = 1.20 g. Organic matter = 1.20 ÷ 20.00 × 100 = 6.0 %.",
+      "precautions": [
+        "Use oven-dried soil so the loss in mass is due to organic matter, not water.",
+        "Heat to constant mass.",
+        "Cool in a desiccator before weighing."
+      ],
+      "sourcesOfError": [
+        "Some soil may spit out of the crucible.",
+        "Loss of water held within clay minerals overestimates organic matter.",
+        "Incomplete burning underestimates it."
+      ],
+      "commonMistakes": [
+        "Using fresh moist soil.",
+        "Dividing the loss by W2 instead of by the soil mass.",
+        "Weighing the crucible while hot."
+      ],
+      "examTips": [
+        "Explain why the soil was oven-dried first – examiners often ask this.",
+        "Write the three subtraction steps separately.",
+        "Link high organic matter to fertility: better structure, water retention and nutrient supply."
+      ],
+      "checkQuestions": [
+        {
+          "q": "25.00 g of dry soil lost 2.00 g on ignition. The organic matter content is",
+          "options": [
+            "2 %",
+            "8 %",
+            "12.5 %",
+            "25 %"
+          ],
+          "answer": 1,
+          "explanation": "2.00 ÷ 25.00 × 100 = 8 %."
+        },
+        {
+          "q": "The soil is oven-dried before ignition to",
+          "options": [
+            "kill bacteria",
+            "make it heavier",
+            "break up clods",
+            "remove water so the loss is due only to organic matter"
+          ],
+          "answer": 3,
+          "explanation": "Otherwise water loss would be counted as organic matter."
+        },
+        {
+          "q": "During ignition the soil gives off",
+          "options": [
+            "oxygen",
+            "smoke from burning organic matter",
+            "chlorine",
+            "ammonia only"
+          ],
+          "answer": 1,
+          "explanation": "Organic matter burns to carbon dioxide and smoke."
+        },
+        {
+          "q": "Which soil would lose most mass on ignition?",
+          "options": [
+            "Forest topsoil",
+            "Beach sand",
+            "Subsoil",
+            "Gravel"
+          ],
+          "answer": 0,
+          "explanation": "Forest topsoil is rich in humus."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-fertilisers-and-manures",
+      "title": "Identifying fertilisers and manures and calculating application rates",
+      "topic": "Practical: Laboratory work on chemical properties of soil",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To identify common inorganic fertilisers and organic manures and calculate the quantity required for a given plot.",
+      "apparatus": [
+        "Petri dishes or watch glasses",
+        "Hand lens",
+        "Spatula",
+        "Test tubes",
+        "Top-pan balance",
+        "Measuring tape"
+      ],
+      "materials": [
+        "Samples of urea, ammonium sulphate, calcium ammonium nitrate, single superphosphate, muriate of potash, NPK 15-15-15 and NPK 20-10-10",
+        "Samples of poultry droppings, cow dung (farmyard manure), compost and green manure (e.g. Mucuna leaves)",
+        "Water"
+      ],
+      "safety": [
+        "Wear gloves; some fertilisers irritate skin and eyes.",
+        "Wash hands after handling manures, which carry pathogens.",
+        "Never taste fertilisers."
+      ],
+      "procedure": [
+        "Examine each fertiliser for colour, granule shape and size, smell and whether it absorbs moisture from the air.",
+        "Dissolve a little of each in water in a test tube and note its solubility.",
+        "Read the bag label for the nutrient grade (N-P₂O₅-K₂O) and record it.",
+        "Examine each manure for colour, odour, texture and visible plant remains.",
+        "Measure the length and breadth of a demonstration plot.",
+        "Calculate the mass of fertiliser and manure needed for the plot at the recommended rates.",
+        "State the method of application (broadcasting, side placement, ring placement, foliar spray, or working manure into the soil during land preparation)."
+      ],
+      "expectedObservations": "Urea: white, round prills, very soluble, absorbs moisture. Muriate of potash: pink-red crystals. Single superphosphate: grey granules, partly soluble. NPK: mixed-coloured granules. Poultry droppings: grey-white with a strong ammonia smell. Compost: dark, crumbly, earthy smell with little odour.",
+      "dataAndCalculations": "Worked example 1: a maize plot of 20 m × 15 m = 300 m² = 0.03 ha needs 60 kg N/ha from NPK 15-15-15. Fertiliser per hectare = 60 ÷ 0.15 = 400 kg/ha; for the plot = 400 × 0.03 = 12 kg. Worked example 2: urea contains 46 % N, so to supply 46 kg N/ha you need 46 ÷ 0.46 = 100 kg urea/ha. Worked example 3: compost at 20 t/ha = 2 kg/m², so a 10 m × 1 m bed (10 m²) needs 20 kg.",
+      "precautions": [
+        "Keep fertiliser bags sealed and dry to prevent caking.",
+        "Apply fertiliser a few centimetres away from the plant stem to avoid scorching.",
+        "Use well-rotted manure, not fresh dung."
+      ],
+      "sourcesOfError": [
+        "Fertilisers that have absorbed moisture look different from fresh samples.",
+        "Plot measurements rounded off."
+      ],
+      "commonMistakes": [
+        "Treating the fertiliser grade as kilograms of nutrient instead of a percentage.",
+        "Forgetting to convert m² to hectares.",
+        "Confusing muriate of potash (KCl) with a nitrogen fertiliser."
+      ],
+      "examTips": [
+        "Specimen questions often ask: identify, state one nutrient supplied, state one method of application.",
+        "Learn the conversions 1 ha = 10 000 m² and 1 t = 1 000 kg.",
+        "For manures, give one advantage (improves structure) and one disadvantage (bulky, slow release)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "How much NPK 20-10-10 supplies 40 kg N per hectare?",
+          "options": [
+            "200 kg",
+            "400 kg",
+            "80 kg",
+            "20 kg"
+          ],
+          "answer": 0,
+          "explanation": "40 ÷ 0.20 = 200 kg."
+        },
+        {
+          "q": "Pink crystals labelled 'KCl' are",
+          "options": [
+            "urea",
+            "superphosphate",
+            "ammonium sulphate",
+            "muriate of potash"
+          ],
+          "answer": 3,
+          "explanation": "Muriate of potash is potassium chloride."
+        },
+        {
+          "q": "The fertiliser most likely to scorch seedlings if placed against the stem is",
+          "options": [
+            "compost",
+            "green manure",
+            "urea",
+            "farmyard manure"
+          ],
+          "answer": 2,
+          "explanation": "Concentrated soluble nitrogen draws water out of plant tissues."
+        },
+        {
+          "q": "A plot of 500 m² is",
+          "options": [
+            "0.5 ha",
+            "0.05 ha",
+            "5 ha",
+            "0.005 ha"
+          ],
+          "answer": 1,
+          "explanation": "500 ÷ 10 000 = 0.05 ha."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-irrigation-drainage-equipment",
+      "title": "Irrigation and drainage equipment and water application",
+      "topic": "Practical: Irrigation and drainage",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To identify irrigation and drainage equipment, state their uses and calculate the water needed for a bed.",
+      "apparatus": [
+        "Watering can with rose",
+        "Hose pipe",
+        "Sprinkler head",
+        "Water pump (or picture)",
+        "PVC and perforated drainage pipes",
+        "Drip line and emitters",
+        "Spade, shovel and measuring tape",
+        "Rain gauge"
+      ],
+      "materials": [
+        "A vegetable bed on the school farm",
+        "Water source (tap or well)"
+      ],
+      "safety": [
+        "Keep electric pumps away from water spills; switch off before handling.",
+        "Do not drink untreated well or drainage water.",
+        "Wear boots when digging drainage channels."
+      ],
+      "procedure": [
+        "Identify each piece of equipment and state one use and one maintenance practice.",
+        "Measure the length and width of a seedbed and calculate its area.",
+        "Decide the depth of water to apply (e.g. 10 mm) and calculate the volume needed.",
+        "Find the volume of the watering can by filling it from a measuring container.",
+        "Calculate the number of cans needed, then water the bed evenly with the rose held low.",
+        "Dig a short open drain (about 30 cm deep) along the lower side of a waterlogged area and observe the water flow.",
+        "Clean and store the equipment after use."
+      ],
+      "expectedObservations": "A rose breaks the water into fine drops that do not wash out seeds. Sprinklers wet a circular area. Drip lines wet only the root zone and save water. Water collects in the drain and flows away, leaving the surrounding soil less soggy.",
+      "dataAndCalculations": "Worked example: bed 5 m × 1 m = 5 m². 10 mm of water = 0.010 m depth, so volume = 5 × 0.010 = 0.05 m³ = 50 litres (1 mm over 1 m² = 1 litre). With a 10-litre can, 50 ÷ 10 = 5 cans are needed per watering. Watering twice daily for 7 days uses 50 × 2 × 7 = 700 litres.",
+      "precautions": [
+        "Water in the early morning or evening to reduce evaporation.",
+        "Hold the rose close to the soil so seedlings are not damaged.",
+        "Drain and coil hoses after use; keep pumps oiled and covered."
+      ],
+      "sourcesOfError": [
+        "Uneven watering across the bed.",
+        "The can not filled to the same level every time.",
+        "Evaporation and run-off reduce the water reaching the soil."
+      ],
+      "commonMistakes": [
+        "Confusing irrigation (adding water) with drainage (removing excess water).",
+        "Forgetting that 1 mm of water on 1 m² equals 1 litre.",
+        "Using a can without a rose on young seedlings."
+      ],
+      "examTips": [
+        "For each item: name, one use, one maintenance practice – three easy marks.",
+        "Name the types of irrigation: surface (furrow, basin, flood), sprinkler, drip and sub-surface.",
+        "Name the types of drainage: surface (open ditches) and sub-surface (tile or pipe drains)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The water needed to apply 20 mm to a 4 m² bed is",
+          "options": [
+            "80 litres",
+            "20 litres",
+            "8 litres",
+            "800 litres"
+          ],
+          "answer": 0,
+          "explanation": "20 mm × 4 m² = 80 litres."
+        },
+        {
+          "q": "The irrigation method that delivers water directly to the root zone is",
+          "options": [
+            "flood",
+            "sprinkler",
+            "drip",
+            "basin"
+          ],
+          "answer": 2,
+          "explanation": "Drip emitters release water slowly at each plant."
+        },
+        {
+          "q": "A rose is fitted to a watering can to",
+          "options": [
+            "increase pressure",
+            "break the water into fine drops",
+            "store water",
+            "measure water"
+          ],
+          "answer": 1,
+          "explanation": "Fine drops do not wash out seeds or damage seedlings."
+        },
+        {
+          "q": "Perforated pipes laid underground on a farm are used for",
+          "options": [
+            "sprinkling",
+            "spraying pesticides",
+            "fish harvesting",
+            "sub-surface drainage"
+          ],
+          "answer": 3,
+          "explanation": "They carry away excess water from waterlogged soil."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-farm-tools",
+      "title": "Identification, use and maintenance of simple farm tools",
+      "topic": "Practical: Farm tools and equipment",
+      "kind": "WORKSHOP",
+      "skills": [
+        "identification",
+        "drawing",
+        "procedure",
+        "safety",
+        "calculation"
+      ],
+      "aim": "To identify common farm tools, state their uses, draw them and carry out routine maintenance.",
+      "apparatus": [
+        "Hoe, long-handled hoe, cutlass, garden trowel, hand fork, shovel, spade, rake, sickle, secateurs, shears, pruner, budding knife, emasculator, wheelbarrow, watering can",
+        "File and sharpening stone",
+        "Wire brush, rags, used engine oil or grease",
+        "Drawing materials"
+      ],
+      "materials": [
+        "A small overgrown plot on the school farm"
+      ],
+      "safety": [
+        "Carry cutlasses and sickles with the blade pointing down and away from the body.",
+        "Keep a safe distance (at least 2 m) between students working with cutting tools.",
+        "Wear boots and gloves; never leave tools lying in grass."
+      ],
+      "procedure": [
+        "Lay the tools out on a bench, identify each and state its main use (e.g. cutlass – clearing bush; hand fork – loosening soil around seedlings).",
+        "Draw and label one tool (e.g. a hoe: blade, handle, socket/tang) with a title and magnification or scale.",
+        "Use the cutlass and hoe to clear and till a measured strip of the plot, noting the time taken.",
+        "After use, wash off soil, dry the tools and scrape off rust with a wire brush.",
+        "Sharpen the cutlass and hoe with a file at the correct angle, filing away from the body.",
+        "Oil or grease metal parts, tighten loose handles and store the tools in a dry, roofed store, hanging long-handled tools."
+      ],
+      "expectedObservations": "Sharp, clean tools cut and till faster and with less effort. Tools left unwashed rust and handles crack if left in the sun and rain.",
+      "dataAndCalculations": "Worked example: a student cleared a 10 m × 5 m strip (50 m²) in 1 hour. At this rate one worker clears 50 × 8 = 400 m² in an 8-hour day, so the class figure is taken as about 0.05 ha (500 m²) per man-day for a fitter adult. To clear 0.25 ha: 0.25 ÷ 0.05 = 5 man-days. Two workers need 5 ÷ 2 = 2.5 days. At ₦3 000 per man-day the labour cost is 5 × ₦3 000 = ₦15 000.",
+      "precautions": [
+        "Use each tool only for its intended purpose.",
+        "File the blade away from the body.",
+        "Store tools clean, dry and oiled."
+      ],
+      "sourcesOfError": [
+        "Work rate depends on vegetation density and the worker's fitness.",
+        "Time recorded loosely."
+      ],
+      "commonMistakes": [
+        "Confusing a spade (flat blade, for digging) with a shovel (scooped blade, for moving loose material).",
+        "Giving 'cleaning' as the only maintenance practice for every tool.",
+        "Drawing tools without labels or title."
+      ],
+      "examTips": [
+        "Typical question: identify specimens A–D, state one use and one maintenance practice each.",
+        "Maintenance answers that score: wash after use, oil metal parts, sharpen blades, replace broken handles, store in a dry place.",
+        "In drawings, show proportions correctly and label at least three parts."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which tool is best for cutting tall grass and bush?",
+          "options": [
+            "Hand trowel",
+            "Cutlass",
+            "Rake",
+            "Hand fork"
+          ],
+          "answer": 1,
+          "explanation": "The cutlass is the main clearing tool."
+        },
+        {
+          "q": "Which is a maintenance practice for a hoe?",
+          "options": [
+            "Painting the blade",
+            "Leaving it in the sun",
+            "Washing, drying and oiling the blade",
+            "Soaking it in water overnight"
+          ],
+          "answer": 2,
+          "explanation": "This prevents rusting."
+        },
+        {
+          "q": "At 0.05 ha per man-day, clearing 0.4 ha needs",
+          "options": [
+            "8 man-days",
+            "2 man-days",
+            "20 man-days",
+            "0.02 man-days"
+          ],
+          "answer": 0,
+          "explanation": "0.4 ÷ 0.05 = 8 man-days."
+        },
+        {
+          "q": "A budding knife is used mainly for",
+          "options": [
+            "clearing bush",
+            "harvesting yam",
+            "levelling soil",
+            "propagating fruit trees"
+          ],
+          "answer": 3,
+          "explanation": "It cuts the T-slit and removes the bud in budding."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-tractor-implements",
+      "title": "Tractor- and animal-drawn implements and field capacity",
+      "topic": "Practical: Tractor and animal drawn implements",
+      "kind": "WORKSHOP",
+      "skills": [
+        "identification",
+        "drawing",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To identify ploughs, harrows, ridgers, planters and cultivators, name their main parts and calculate the field capacity of an implement.",
+      "apparatus": [
+        "Disc plough, mouldboard plough, disc harrow, spike-tooth harrow, ridger, planter, cultivator (actual implements at a farm centre, or clear pictures)",
+        "Measuring tape",
+        "Grease gun, spanners",
+        "Drawing materials"
+      ],
+      "materials": [
+        "Grease and engine oil",
+        "Rags"
+      ],
+      "safety": [
+        "Never stand between a tractor and an implement during hitching.",
+        "Lower implements to the ground before inspecting them.",
+        "Keep clear of sharp discs and tines."
+      ],
+      "procedure": [
+        "Identify each implement and state its use and whether it is used for primary or secondary tillage, planting or weeding.",
+        "Name the main parts: e.g. disc plough – frame, discs, scrapers, hitch points, depth wheel; mouldboard plough – share, mouldboard, landside, frog.",
+        "Measure the working width of the plough or harrow.",
+        "Draw and label one implement.",
+        "Grease the bearings and nipples, check bolts and clean off soil; coat discs with used oil if they are to be stored.",
+        "Calculate the field capacity using the formula below."
+      ],
+      "expectedObservations": "Ploughs cut and invert the soil (primary tillage); harrows break clods into fine tilth (secondary tillage); ridgers throw soil into ridges; planters meter and place seed; cultivators loosen soil and remove weeds between rows. Animal-drawn implements are lighter and narrower than tractor-drawn ones.",
+      "dataAndCalculations": "Worked example: a disc plough with a working width of 1.2 m moves at 5 km/h with a field efficiency of 75 %. Theoretical field capacity = width (m) × speed (km/h) ÷ 10 = 1.2 × 5 ÷ 10 = 0.60 ha/h. Effective field capacity = 0.60 × 0.75 = 0.45 ha/h. Time to plough a 3.6 ha field = 3.6 ÷ 0.45 = 8 hours.",
+      "precautions": [
+        "Inspect implements only when they are lowered and the tractor engine is off.",
+        "Use the correct spanner size to avoid rounding bolt heads.",
+        "Store implements under a roof, raised off the ground."
+      ],
+      "sourcesOfError": [
+        "Field efficiency varies with turning, overlaps and stoppages.",
+        "Speed is not constant in the field."
+      ],
+      "commonMistakes": [
+        "Calling a harrow a plough because both have discs.",
+        "Forgetting to divide by 10 in the field-capacity formula.",
+        "Mixing up primary and secondary tillage."
+      ],
+      "examTips": [
+        "State one difference between a disc plough and a disc harrow (plough discs larger and fewer, set at an angle to cut and turn the soil; harrow discs smaller, in gangs).",
+        "Maintenance answers: grease bearings, tighten bolts, replace worn shares or discs, clean after use, store under shed.",
+        "Show the formula, the substitution and the unit (ha/h)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "An implement used for primary tillage is the",
+          "options": [
+            "harrow",
+            "plough",
+            "planter",
+            "cultivator"
+          ],
+          "answer": 1,
+          "explanation": "The plough breaks and turns untilled soil."
+        },
+        {
+          "q": "A harrow with 2.0 m width at 6 km/h has a theoretical field capacity of",
+          "options": [
+            "1.2 ha/h",
+            "12 ha/h",
+            "0.12 ha/h",
+            "3 ha/h"
+          ],
+          "answer": 0,
+          "explanation": "2.0 × 6 ÷ 10 = 1.2 ha/h."
+        },
+        {
+          "q": "The part of a mouldboard plough that cuts the furrow slice horizontally is the",
+          "options": [
+            "landside",
+            "frog",
+            "share",
+            "hitch"
+          ],
+          "answer": 2,
+          "explanation": "The share makes the horizontal cut."
+        },
+        {
+          "q": "Which implement is used to make ridges for yam or cassava?",
+          "options": [
+            "Disc harrow",
+            "Planter",
+            "Sprayer",
+            "Ridger"
+          ],
+          "answer": 3,
+          "explanation": "The ridger throws soil to both sides to form ridges."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-farm-tractor",
+      "title": "Major components and routine servicing of the farm tractor",
+      "topic": "Practical: Farm tractor",
+      "kind": "WORKSHOP",
+      "skills": [
+        "identification",
+        "procedure",
+        "safety",
+        "calculation"
+      ],
+      "aim": "To identify the major parts of a farm tractor and carry out daily and periodic servicing checks.",
+      "apparatus": [
+        "A farm tractor (at the school or a nearby farm centre/ADP station)",
+        "Dipstick, tyre pressure gauge, grease gun",
+        "Spanners, funnel, drain pan",
+        "Operator's manual"
+      ],
+      "materials": [
+        "Engine oil of the grade in the manual",
+        "Diesel",
+        "Distilled water for the battery",
+        "Grease, clean rags"
+      ],
+      "safety": [
+        "Only carry out checks with the engine off, key removed and handbrake on.",
+        "Allow the engine to cool before opening the radiator cap.",
+        "No smoking or naked flames near fuel; wipe spills immediately."
+      ],
+      "procedure": [
+        "Walk round the tractor and identify the engine, radiator, air cleaner, fuel tank, battery, clutch, gear box, power take-off (PTO), three-point linkage, hydraulic lift, drawbar, steering, brakes and tyres.",
+        "Check the engine oil level with the dipstick and top up to the mark if low.",
+        "Check the radiator coolant level (engine cold) and the battery electrolyte level.",
+        "Clean or check the air cleaner and check the fan belt tension.",
+        "Check tyre pressures with a gauge and inspect for cuts.",
+        "Grease all grease nipples on the front axle, steering and linkage.",
+        "Record the hour-meter reading in the service log and work out when the next periodic service (e.g. oil change) is due."
+      ],
+      "expectedObservations": "All fluid levels between the minimum and maximum marks; correct tyre pressures; fresh grease seen emerging at each joint after greasing.",
+      "dataAndCalculations": "Worked example: the manual says change the engine oil every 250 hours. The last change was at 1 000 h and the hour meter now reads 1 180 h, so the next change is due at 1 250 h, i.e. in 1 250 − 1 180 = 70 hours. If the tractor uses 6 litres of diesel per hour and works 8 hours, fuel used = 6 × 8 = 48 litres; at ₦1 000 per litre this costs ₦48 000.",
+      "precautions": [
+        "Check oil with the tractor on level ground.",
+        "Use only the fuel and oil grades recommended by the manufacturer.",
+        "Keep a written service record."
+      ],
+      "sourcesOfError": [
+        "Oil reading taken on a slope or immediately after running.",
+        "Inaccurate hour meter."
+      ],
+      "commonMistakes": [
+        "Opening a hot radiator.",
+        "Confusing the PTO (drives implements) with the drawbar (pulls implements).",
+        "Listing 'washing the tractor' as the only maintenance practice."
+      ],
+      "examTips": [
+        "Name a part and give its function, e.g. 'PTO – transmits power to rotating implements such as a slasher'.",
+        "Separate daily checks (oil, water, fuel, tyres) from periodic servicing (oil and filter change, greasing).",
+        "Hour-meter arithmetic questions reward clear steps."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The tractor part that transmits engine power to drive a rotary slasher is the",
+          "options": [
+            "drawbar",
+            "power take-off",
+            "radiator",
+            "air cleaner"
+          ],
+          "answer": 1,
+          "explanation": "The PTO shaft drives rotating implements."
+        },
+        {
+          "q": "Oil is changed every 200 h. Last change at 600 h; meter now 730 h. Hours to next change:",
+          "options": [
+            "70 h",
+            "130 h",
+            "200 h",
+            "800 h"
+          ],
+          "answer": 0,
+          "explanation": "Next due at 800 h; 800 − 730 = 70 h."
+        },
+        {
+          "q": "Before removing the radiator cap you should",
+          "options": [
+            "rev the engine",
+            "pour in cold water",
+            "allow the engine to cool",
+            "remove the battery"
+          ],
+          "answer": 2,
+          "explanation": "Hot coolant under pressure can scald."
+        },
+        {
+          "q": "Ploughs and harrows are attached to the tractor through the",
+          "options": [
+            "three-point linkage",
+            "steering wheel",
+            "fan belt",
+            "fuel tank"
+          ],
+          "answer": 0,
+          "explanation": "The hydraulic three-point linkage carries mounted implements."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-harvesting-processing-storage",
+      "title": "Harvesting, processing and storage equipment",
+      "topic": "Practical: Harvesting, processing and storage equipment",
+      "kind": "WORKSHOP",
+      "skills": [
+        "identification",
+        "measurement",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To identify harvesting, processing and storage equipment, state their uses, and measure shelling percentage and drying loss for maize.",
+      "apparatus": [
+        "Maize sheller (hand or motorised)",
+        "Winnower or winnowing tray",
+        "Cassava grater (or picture)",
+        "Groundnut lifter, scythe, cutlass, sickle",
+        "Dehusker",
+        "Solar or mechanical dryer",
+        "Moisture meter (if available)",
+        "Weighing scale (kg)",
+        "Jute and hermetic bags, crib (picture)"
+      ],
+      "materials": [
+        "Dry maize cobs from the school farm",
+        "Tarpaulin"
+      ],
+      "safety": [
+        "Keep fingers away from the moving parts of shellers and graters.",
+        "Wear a dust mask when shelling and winnowing.",
+        "Never use pesticide containers to store grain."
+      ],
+      "procedure": [
+        "Identify each item and state its use and the crop it is used for.",
+        "Weigh a batch of dehusked maize cobs.",
+        "Shell the cobs with the sheller, winnow the grain to remove chaff and weigh the clean grain.",
+        "Calculate the shelling percentage.",
+        "Measure the grain moisture with a meter (or note the value given), spread the grain thinly on a tarpaulin or in a dryer, and dry to safe storage moisture (about 13 %).",
+        "Calculate the expected mass after drying and compare with the actual mass.",
+        "Store the dry grain in hermetic or clean jute bags on pallets in a ventilated store."
+      ],
+      "expectedObservations": "The sheller separates grain from the cob; the winnower blows off light chaff. Dried grain rattles and is hard when bitten; the batch loses mass as water evaporates.",
+      "dataAndCalculations": "Worked example 1: 50 kg of cobs gave 38 kg of grain. Shelling percentage = 38 ÷ 50 × 100 = 76 %. Worked example 2: 100 kg of grain at 20 % moisture is dried to 13 %. Dry matter = 100 × (100 − 20) ÷ 100 = 80 kg, which stays the same. Final mass = 80 ÷ (100 − 13) × 100 = 91.95 kg. Water removed = 100 − 91.95 = 8.05 kg.",
+      "precautions": [
+        "Dry grain on a clean tarpaulin, not bare ground, to avoid contamination and aflatoxin moulds.",
+        "Weigh on the same scale before and after.",
+        "Store grain only when it is properly dry."
+      ],
+      "sourcesOfError": [
+        "Grain lost during shelling and winnowing.",
+        "Moisture meter not calibrated.",
+        "Uneven drying."
+      ],
+      "commonMistakes": [
+        "Calculating moisture loss as 20 − 13 = 7 % of the original mass (7 kg) instead of using the dry-matter method.",
+        "Confusing a dehusker with a sheller.",
+        "Storing grain in old fertiliser or chemical sacks."
+      ],
+      "examTips": [
+        "Identification questions: name, use, and the crop handled (e.g. groundnut lifter – lifting groundnut pods from the soil).",
+        "Explain why grain is dried before storage: prevents moulds, germination and insect build-up.",
+        "Show the dry-matter step in drying calculations."
+      ],
+      "checkQuestions": [
+        {
+          "q": "40 kg of cobs gave 30 kg of grain. The shelling percentage is",
+          "options": [
+            "75 %",
+            "70 %",
+            "133 %",
+            "25 %"
+          ],
+          "answer": 0,
+          "explanation": "30 ÷ 40 × 100 = 75 %."
+        },
+        {
+          "q": "The equipment used to separate chaff from grain by air current is the",
+          "options": [
+            "sheller",
+            "grater",
+            "winnower",
+            "dehusker"
+          ],
+          "answer": 2,
+          "explanation": "Winnowing uses air to blow away light chaff."
+        },
+        {
+          "q": "Grain is dried to about 13 % moisture before storage mainly to",
+          "options": [
+            "make it heavier",
+            "prevent mould growth and spoilage",
+            "improve its colour",
+            "increase germination in store"
+          ],
+          "answer": 1,
+          "explanation": "Low moisture stops fungi and slows insects."
+        },
+        {
+          "q": "A cassava grater is used to",
+          "options": [
+            "peel cassava",
+            "harvest cassava",
+            "plant cassava",
+            "reduce peeled cassava to a mash"
+          ],
+          "answer": 3,
+          "explanation": "Grating is a step in garri and fufu processing."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-horticultural-tools",
+      "title": "Using and maintaining horticultural tools",
+      "topic": "Practical: Uses and maintenance of horticultural tools and implements",
+      "kind": "WORKSHOP",
+      "skills": [
+        "identification",
+        "procedure",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify and correctly use horticultural tools for planting, pruning and trimming, and to maintain them.",
+      "apparatus": [
+        "Hedge shears, secateurs, pruning knife, budding knife, dibber, hand trowel, hand fork, measuring tape, garden line and pegs, hoe, garden fork",
+        "Oil can, sharpening stone, rags"
+      ],
+      "materials": [
+        "Ornamental hedge (e.g. Ixora, Duranta, Acalypha) in the school compound",
+        "Seedlings for planting"
+      ],
+      "safety": [
+        "Close secateurs and shears with the safety catch when not in use.",
+        "Cut away from the body and keep the other hand behind the blade.",
+        "Pass sharp tools handle-first."
+      ],
+      "procedure": [
+        "Identify each tool and state its use.",
+        "Stretch a garden line along a planned hedge row, measure it and mark planting points with pegs at the recommended spacing.",
+        "Use the dibber or hand trowel to make planting holes and transplant seedlings at each peg.",
+        "Trim an overgrown hedge with shears to an even height and shape, and remove thick branches with secateurs, cutting just above a bud at a slant.",
+        "Clean sap and soil off the blades, dry them, sharpen on a stone and oil the pivot and blades.",
+        "Store tools closed, in a dry place."
+      ],
+      "expectedObservations": "Shears give a smooth, even hedge surface; secateurs make clean cuts that heal quickly; blunt tools crush and tear stems, leaving ragged wounds that admit disease.",
+      "dataAndCalculations": "Worked example: a hedge row is 30 m long and the plants are spaced 0.5 m apart with a plant at each end. Number of plants = 30 ÷ 0.5 + 1 = 61 plants. If each seedling costs ₦150, the cost is 61 × ₦150 = ₦9 150.",
+      "precautions": [
+        "Sterilise blades (e.g. wipe with methylated spirit) when moving from a diseased plant to a healthy one.",
+        "Keep a straight line with a garden line.",
+        "Sharpen at the original bevel angle."
+      ],
+      "sourcesOfError": [
+        "Tape not pulled taut gives wrong spacing.",
+        "Uneven trimming when the shears are not held level."
+      ],
+      "commonMistakes": [
+        "Forgetting the '+1' plant at the end of a row.",
+        "Using shears to cut thick branches (damages the blades).",
+        "Cutting far above a bud, leaving a stub that dies back."
+      ],
+      "examTips": [
+        "Specimen questions: identify, state use, state one maintenance practice.",
+        "Row-count questions: number of plants = length ÷ spacing + 1 when both ends are planted.",
+        "Link pruning to shape, flowering and removal of diseased parts."
+      ],
+      "checkQuestions": [
+        {
+          "q": "How many plants are needed for a 20 m row at 0.5 m spacing, planting both ends?",
+          "options": [
+            "40",
+            "41",
+            "10",
+            "21"
+          ],
+          "answer": 1,
+          "explanation": "20 ÷ 0.5 + 1 = 41."
+        },
+        {
+          "q": "The tool used to make planting holes for seedlings in a nursery bed is the",
+          "options": [
+            "dibber",
+            "shears",
+            "rake",
+            "budding knife"
+          ],
+          "answer": 0,
+          "explanation": "A dibber is a pointed stick or tool for holes."
+        },
+        {
+          "q": "A pruning cut should be made",
+          "options": [
+            "far above a bud",
+            "just above a bud at a slant",
+            "through the middle of a node",
+            "with blunt tools"
+          ],
+          "answer": 1,
+          "explanation": "This avoids dieback and sheds water."
+        },
+        {
+          "q": "Blades should be wiped with methylated spirit between plants to",
+          "options": [
+            "sharpen them",
+            "oil them",
+            "prevent the spread of disease",
+            "make them shine"
+          ],
+          "answer": 2,
+          "explanation": "It kills pathogens on the blade."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-livestock-fishing-equipment",
+      "title": "Livestock and fishing equipment; egg candling",
+      "topic": "Practical: Livestock and fishing equipment",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To identify livestock and fishing equipment, state their uses and care, and use an egg candler to determine fertility and hatchability.",
+      "apparatus": [
+        "Feeders and drinkers (waterers), brooder, egg candler, incubator, debeaker, burdizzo, branding iron, ear tag applicator, milking machine (or picture)",
+        "Cast net, gill net, hook and line, fish trap, scoop net",
+        "Torch or candling box",
+        "Notebook"
+      ],
+      "materials": [
+        "Fertile hatching eggs from a local hatchery (or a record of a hatch)"
+      ],
+      "safety": [
+        "Handle hot branding irons and incubators carefully.",
+        "Wash hands after handling eggs and poultry equipment.",
+        "Keep hooks covered; nets can entangle feet near water."
+      ],
+      "procedure": [
+        "Identify each piece of equipment and state its use and how it is cleaned and maintained (e.g. drinkers washed daily and disinfected).",
+        "In a darkened room, hold each egg (day 7 of incubation) broad end against the candler light.",
+        "Classify eggs as fertile (dark spot with spider-like blood vessels), clear/infertile (no development) or dead germ (blood ring).",
+        "Remove clear eggs and record the numbers.",
+        "Record the number of chicks hatched at day 21.",
+        "Calculate fertility and hatchability percentages and the feeder space needed for the chicks."
+      ],
+      "expectedObservations": "Fertile eggs show a dark embryo with a network of red blood vessels; clear eggs look uniformly bright; dead embryos show a blood ring. Gill nets catch fish of a selected size by the gills; cast nets are thrown in shallow water.",
+      "dataAndCalculations": "Worked example: 120 eggs were set; 18 were clear at day 7, so fertile eggs = 102. Fertility = 102 ÷ 120 × 100 = 85.0 %. 90 chicks hatched. Hatchability of fertile eggs = 90 ÷ 102 × 100 = 88.2 %; hatchability of total eggs set = 90 ÷ 120 × 100 = 75.0 %. Feeder space: at 5 cm per chick, 90 chicks need 450 cm; a trough feeder with two 50 cm sides gives 100 cm, so 5 feeders are needed (4.5 rounded up).",
+      "precautions": [
+        "Candle quickly and return eggs to the incubator to avoid chilling.",
+        "Handle eggs with clean, dry hands.",
+        "Clean and disinfect feeders, drinkers and the incubator between batches."
+      ],
+      "sourcesOfError": [
+        "Very early embryos or dark-shelled eggs are hard to read.",
+        "Miscounting cracked or abnormal eggs."
+      ],
+      "commonMistakes": [
+        "Dividing chicks hatched by eggs set and calling it 'hatchability of fertile eggs'.",
+        "Rounding the number of feeders down.",
+        "Confusing a burdizzo (castration) with a debeaker."
+      ],
+      "examTips": [
+        "State which base you used (fertile eggs or total eggs set) when giving hatchability.",
+        "For each item give name, use and maintenance.",
+        "Fishing gear questions often ask which gear is selective (gill net) and why."
+      ],
+      "checkQuestions": [
+        {
+          "q": "200 eggs were set and 160 were fertile. Fertility is",
+          "options": [
+            "80 %",
+            "20 %",
+            "125 %",
+            "60 %"
+          ],
+          "answer": 0,
+          "explanation": "160 ÷ 200 × 100 = 80 %."
+        },
+        {
+          "q": "An egg candler is used to",
+          "options": [
+            "incubate eggs",
+            "detect fertile and infertile eggs",
+            "clean eggs",
+            "weigh eggs"
+          ],
+          "answer": 1,
+          "explanation": "Light through the shell shows the developing embryo."
+        },
+        {
+          "q": "Of 150 fertile eggs, 135 hatched. Hatchability of fertile eggs is",
+          "options": [
+            "85 %",
+            "90 %",
+            "111 %",
+            "15 %"
+          ],
+          "answer": 1,
+          "explanation": "135 ÷ 150 × 100 = 90 %."
+        },
+        {
+          "q": "The fishing gear that catches fish by the gills according to mesh size is the",
+          "options": [
+            "hook and line",
+            "fish trap",
+            "cast net",
+            "gill net"
+          ],
+          "answer": 3,
+          "explanation": "Fish swim in and are held by the gill covers."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-farm-surveying-chain",
+      "title": "Chain surveying a plot and calculating its area",
+      "topic": "Practical: Farm surveying equipment",
+      "kind": "FIELD",
+      "skills": [
+        "measurement",
+        "identification",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To identify simple surveying equipment and use it to measure a rectangular farm plot and calculate its area.",
+      "apparatus": [
+        "Gunter's chain or 30 m measuring tape",
+        "Ranging poles",
+        "Arrows (pins)",
+        "Pegs and mallet",
+        "Plumb bob",
+        "Offset staff",
+        "Prismatic compass",
+        "Field book and pencil"
+      ],
+      "materials": [
+        "An open area of the school farm"
+      ],
+      "safety": [
+        "Do not throw ranging poles or arrows.",
+        "Watch for snakes and holes in long grass; wear boots.",
+        "Handle the chain carefully to avoid kinks that injure hands."
+      ],
+      "procedure": [
+        "Identify each piece of equipment and state its use.",
+        "Place ranging poles at the four corners of the plot so that each side can be seen in a straight line.",
+        "Two students chain each side: the leader carries the chain and arrows, the follower holds the zero end at the station; insert an arrow at each full chain length.",
+        "Count arrows to find the number of full chains and add the remaining links or metres.",
+        "Use the plumb bob when chaining on slopes, and the compass to take the bearing of each side.",
+        "Record measurements in the field book and draw the plot to scale.",
+        "Calculate the area in square metres and hectares."
+      ],
+      "expectedObservations": "Opposite sides of a true rectangle have equal lengths. A Gunter's chain is 20.12 m (66 ft) long with 100 links.",
+      "dataAndCalculations": "Worked example: a plot measured 4 chains by 2.5 chains with a Gunter's chain. Length = 4 × 20.12 = 80.48 m; breadth = 2.5 × 20.12 = 50.30 m. Area = 80.48 × 50.30 = 4 048.1 m² = 4 048.1 ÷ 10 000 = 0.405 ha. Check: 4 × 2.5 = 10 square chains = 1 acre ≈ 0.405 ha.",
+      "precautions": [
+        "Keep the chain straight and taut, without kinks.",
+        "Line up the ranging poles so you chain in a straight line.",
+        "Hold the chain horizontally on slopes and use a plumb bob."
+      ],
+      "sourcesOfError": [
+        "Sag or slack in the chain gives longer readings.",
+        "Not following a straight line between stations.",
+        "Miscounting arrows."
+      ],
+      "commonMistakes": [
+        "Using 20 m instead of 20.12 m for a Gunter's chain.",
+        "Dividing m² by 1 000 instead of 10 000 to get hectares.",
+        "Recording links as metres."
+      ],
+      "examTips": [
+        "Know the uses: ranging poles – mark stations and straight lines; arrows – count chain lengths; offset staff – measure short perpendicular offsets.",
+        "Maintenance: clean and dry the chain, oil it, straighten bent poles, store in a case.",
+        "Write units at every step of area calculations."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A plot is 50 m by 40 m. Its area in hectares is",
+          "options": [
+            "0.2 ha",
+            "2 ha",
+            "0.02 ha",
+            "20 ha"
+          ],
+          "answer": 0,
+          "explanation": "2 000 m² ÷ 10 000 = 0.2 ha."
+        },
+        {
+          "q": "Arrows (pins) in chain surveying are used to",
+          "options": [
+            "measure angles",
+            "count the number of chain lengths",
+            "measure height",
+            "mark boundaries permanently"
+          ],
+          "answer": 1,
+          "explanation": "An arrow is inserted at the end of each chain length."
+        },
+        {
+          "q": "The length of a Gunter's chain is",
+          "options": [
+            "30.00 m",
+            "10.00 m",
+            "20.12 m",
+            "100 m"
+          ],
+          "answer": 2,
+          "explanation": "66 feet = 20.12 m, divided into 100 links."
+        },
+        {
+          "q": "The instrument used to find the bearing of a survey line is the",
+          "options": [
+            "plumb bob",
+            "ranging pole",
+            "offset staff",
+            "prismatic compass"
+          ],
+          "answer": 3,
+          "explanation": "A compass gives direction relative to north."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-seeds-fruits-storage-organs",
+      "title": "Identifying seeds, seedlings, fruits and storage organs of crops",
+      "topic": "Practical: Seeds, seedlings, fruits and storage organs of crops",
+      "kind": "DRAWING",
+      "skills": [
+        "identification",
+        "drawing",
+        "observation",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify seeds, seedlings, fruits and storage organs of common crops, pasture grasses and legumes, and to draw and label them.",
+      "apparatus": [
+        "Hand lens",
+        "Razor blade or scalpel",
+        "White tiles",
+        "Top-pan balance",
+        "Drawing materials"
+      ],
+      "materials": [
+        "Seeds of maize, cowpea, groundnut, rice, sorghum, soya bean, okra, Centrosema and Stylosanthes",
+        "Seedlings of maize and bean (7 days old)",
+        "Fruits: orange, tomato, pawpaw, okra pod, oil palm fruit",
+        "Storage organs: yam tuber, cassava root, sweet potato root, cocoyam corm, onion bulb, ginger rhizome, Irish potato tuber"
+      ],
+      "safety": [
+        "Cut away from fingers on a tile.",
+        "Do not eat treated seeds; many are dressed with fungicide.",
+        "Wash hands after handling seeds and cassava (contains cyanogenic compounds)."
+      ],
+      "procedure": [
+        "Examine each seed and note its shape, colour, size and whether it is monocotyledonous or dicotyledonous; split soaked seeds to see cotyledons or endosperm.",
+        "Compare a maize seedling (hypogeal germination, single leaf, fibrous roots) with a bean seedling (epigeal, cotyledons raised above ground, tap root).",
+        "Cut fruits in section and identify the fruit type and the edible part.",
+        "Identify each storage organ, state whether it is a stem or a root, and look for buds or nodes.",
+        "Draw and label one seed, one seedling and one storage organ, stating the magnification.",
+        "Weigh 100 seeds of maize and of cowpea and calculate the number of seeds per kilogram."
+      ],
+      "expectedObservations": "Maize grain: a fruit (caryopsis) with endosperm and one cotyledon (scutellum). Cowpea: kidney-shaped seed with two fleshy cotyledons, hilum and micropyle. Yam and Irish potato are stem tubers (have buds/'eyes'); cassava and sweet potato are root tubers; cocoyam is a corm; onion is a bulb; ginger is a rhizome.",
+      "dataAndCalculations": "Worked example: 100 maize grains weighed 30.0 g, so 1 000 grains weigh 300 g and 1 kg contains 1 000 ÷ 0.30 = 3 333 grains (about 3 300). 100 cowpea seeds weighed 20.0 g, so 1 kg contains 1 000 ÷ 0.20 = 5 000 seeds. To sow 10 000 cowpea stands at 2 seeds per stand: 20 000 seeds ÷ 5 000 per kg = 4 kg.",
+      "precautions": [
+        "Use soaked seeds for sectioning so they cut cleanly.",
+        "Draw from the specimen, not from memory.",
+        "Weigh a fresh count of seeds that are clean and whole."
+      ],
+      "sourcesOfError": [
+        "Seeds of uneven size or moisture content.",
+        "Miscounting seeds."
+      ],
+      "commonMistakes": [
+        "Calling the yam a root (it is a stem tuber).",
+        "Calling the maize grain a seed without mentioning it is a fruit (caryopsis).",
+        "Drawings too small or shaded instead of clean lines."
+      ],
+      "examTips": [
+        "Give a reason with each identification, e.g. 'stem tuber – has buds'.",
+        "Label at least four parts and give a title and magnification for drawings.",
+        "State one use for each specimen when asked (e.g. Centrosema – pasture legume, cover crop)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which of these is a stem tuber?",
+          "options": [
+            "Cassava",
+            "Sweet potato",
+            "Irish potato",
+            "Carrot"
+          ],
+          "answer": 2,
+          "explanation": "It has buds (eyes) at nodes, so it is a stem."
+        },
+        {
+          "q": "Germination in which the cotyledons are raised above the soil is",
+          "options": [
+            "hypogeal",
+            "epigeal",
+            "vivipary",
+            "dormancy"
+          ],
+          "answer": 1,
+          "explanation": "Bean shows epigeal germination."
+        },
+        {
+          "q": "If 100 seeds weigh 25 g, the number of seeds per kg is",
+          "options": [
+            "2 500",
+            "4 000",
+            "400",
+            "25 000"
+          ],
+          "answer": 1,
+          "explanation": "1 000 ÷ 0.25 = 4 000."
+        },
+        {
+          "q": "Cocoyam is an example of a",
+          "options": [
+            "corm",
+            "bulb",
+            "rhizome",
+            "root tuber"
+          ],
+          "answer": 0,
+          "explanation": "It is a short, swollen, upright underground stem."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-crop-pests",
+      "title": "Field and storage pests of crops and damage assessment",
+      "topic": "Practical: Main pests and diseases of crops",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation",
+        "drawing"
+      ],
+      "aim": "To identify the main field and storage pests of crops, describe their damage and control, and estimate the percentage of damage.",
+      "apparatus": [
+        "Hand lens",
+        "Specimen bottles",
+        "Insect net",
+        "Forceps",
+        "Tray",
+        "Counter",
+        "Drawing materials"
+      ],
+      "materials": [
+        "Preserved or live specimens: cotton stainer, yam beetle, maize stem borer larva, grasshopper, variegated grasshopper, pod borer, aphids, maize weevil, cowpea bruchid, rodent damage samples",
+        "Damaged plant parts and stored grain"
+      ],
+      "safety": [
+        "Wear gloves when handling grain treated with insecticide.",
+        "Do not taste stored produce.",
+        "Use forceps for insects that bite or sting."
+      ],
+      "procedure": [
+        "Examine each pest specimen with a hand lens and identify it.",
+        "State the crop it attacks, the part attacked, its mouthparts (biting/chewing or piercing/sucking) and the damage symptoms.",
+        "Walk a cowpea plot, pick 200 pods at random and count those with pod-borer holes.",
+        "Take 50 maize grains at random from a store and count those with weevil exit holes.",
+        "Calculate the percentage damage in each case.",
+        "Draw and label one pest and state one cultural, one chemical and one biological control method."
+      ],
+      "expectedObservations": "Cotton stainer: red and black bug with piercing mouthparts that stains cotton lint. Yam beetle: black beetle that bores holes in yam tubers. Stem borer larvae tunnel in maize stems (dead heart, broken stems). Weevils and bruchids leave small round exit holes and powdery frass in stored grain.",
+      "dataAndCalculations": "Worked example: 34 of 200 cowpea pods were damaged: damage = 34 ÷ 200 × 100 = 17 %. 12 of 50 maize grains had weevil holes: 12 ÷ 50 × 100 = 24 %. If a store holds 500 kg of maize, the estimated damaged grain = 0.24 × 500 = 120 kg.",
+      "precautions": [
+        "Sample at random across the whole plot or store, not just the obviously damaged parts.",
+        "Handle specimens gently to keep legs and antennae intact.",
+        "Label all specimen bottles."
+      ],
+      "sourcesOfError": [
+        "Non-random sampling.",
+        "Small or hidden holes missed.",
+        "Damage by one pest mistaken for another."
+      ],
+      "commonMistakes": [
+        "Describing aphids as having biting mouthparts.",
+        "Recommending insecticide alone without cultural control.",
+        "Giving the damage percentage without showing the counts."
+      ],
+      "examTips": [
+        "A full answer: name of pest, crop attacked, nature of damage, one control.",
+        "Match mouthparts to damage: biting → holes and tunnels; sucking → wilting, curling, stained lint.",
+        "Integrated pest management (IPM) answers score well."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A red and black bug that stains cotton lint is the",
+          "options": [
+            "yam beetle",
+            "cotton stainer",
+            "maize weevil",
+            "stem borer"
+          ],
+          "answer": 1,
+          "explanation": "It sucks the seeds and introduces a staining fungus."
+        },
+        {
+          "q": "Small round holes with powder in stored maize indicate",
+          "options": [
+            "weevil damage",
+            "aphid damage",
+            "rodent damage",
+            "mould"
+          ],
+          "answer": 0,
+          "explanation": "Adult weevils bore exit holes and leave frass."
+        },
+        {
+          "q": "15 of 60 sampled pods were damaged. The percentage damage is",
+          "options": [
+            "15 %",
+            "4 %",
+            "25 %",
+            "45 %"
+          ],
+          "answer": 2,
+          "explanation": "15 ÷ 60 × 100 = 25 %."
+        },
+        {
+          "q": "Pests with piercing and sucking mouthparts typically cause",
+          "options": [
+            "holes in leaves",
+            "tunnels in stems",
+            "chewed tubers",
+            "leaf curling and wilting"
+          ],
+          "answer": 3,
+          "explanation": "They remove sap and may transmit viruses."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-crop-diseases",
+      "title": "Crop diseases: symptoms, causal agents and disease incidence",
+      "topic": "Practical: Main pests and diseases of crops",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To identify the main crop diseases from their symptoms, name the causal agents and estimate disease incidence on a plot.",
+      "apparatus": [
+        "Hand lens",
+        "Polythene bags and labels",
+        "Secateurs",
+        "Counter or tally sheet"
+      ],
+      "materials": [
+        "Diseased specimens or fresh samples: cassava mosaic, maize streak, rice blast, groundnut rosette, black pod of cocoa, leaf spot (Cercospora), damping-off seedlings, tomato wilt"
+      ],
+      "safety": [
+        "Wash hands after handling diseased material.",
+        "Bag diseased samples so spores are not spread to healthy plants.",
+        "Burn or bury removed diseased material."
+      ],
+      "procedure": [
+        "Examine each specimen and describe the symptoms (mottling, streaks, spots, rot, wilting, stunting).",
+        "Name the disease, its causal organism type (virus, fungus, bacterium) and any vector.",
+        "On a cassava plot, examine 150 plants along fixed rows and count those with mosaic symptoms.",
+        "Calculate disease incidence.",
+        "Recommend prevention and control measures for each disease."
+      ],
+      "expectedObservations": "Cassava mosaic: yellow-green mottled, distorted leaves, stunting (virus spread by whitefly). Maize streak: narrow yellow streaks along leaves (virus spread by leafhoppers). Black pod: brown-black rotting cocoa pods (fungus, Phytophthora). Damping-off: seedlings collapse at soil level (fungi). Groundnut rosette: stunted, bushy, yellowed plants (virus spread by aphids).",
+      "dataAndCalculations": "Worked example: 27 of 150 cassava plants showed mosaic. Disease incidence = 27 ÷ 150 × 100 = 18 %. If the whole field has 10 000 plants, the expected number infected = 0.18 × 10 000 = 1 800 plants.",
+      "precautions": [
+        "Inspect plants systematically so none is counted twice.",
+        "Examine both leaf surfaces.",
+        "Use clean tools between plants."
+      ],
+      "sourcesOfError": [
+        "Nutrient deficiency symptoms mistaken for disease.",
+        "Early infections without visible symptoms missed."
+      ],
+      "commonMistakes": [
+        "Recommending fungicide for a viral disease.",
+        "Confusing the vector with the causal agent.",
+        "Not stating the organism type."
+      ],
+      "examTips": [
+        "Answer format: disease – causal agent – symptoms – control.",
+        "Viral diseases are controlled by resistant varieties, vector control and rogueing, not by curing.",
+        "Know the vectors: whitefly (cassava mosaic), leafhopper (maize streak), aphid (groundnut rosette)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Maize streak disease is caused by a",
+          "options": [
+            "fungus",
+            "bacterium",
+            "virus",
+            "nematode"
+          ],
+          "answer": 2,
+          "explanation": "Maize streak virus is spread by leafhoppers."
+        },
+        {
+          "q": "The vector of cassava mosaic disease is the",
+          "options": [
+            "whitefly",
+            "weevil",
+            "aphid",
+            "locust"
+          ],
+          "answer": 0,
+          "explanation": "Whiteflies transmit the cassava mosaic virus."
+        },
+        {
+          "q": "12 of 80 plants were diseased. Disease incidence is",
+          "options": [
+            "12 %",
+            "15 %",
+            "6.7 %",
+            "80 %"
+          ],
+          "answer": 1,
+          "explanation": "12 ÷ 80 × 100 = 15 %."
+        },
+        {
+          "q": "Black pod disease of cocoa is best controlled by",
+          "options": [
+            "planting maize nearby",
+            "spraying insecticide",
+            "adding urea",
+            "removing infected pods and spraying copper fungicide"
+          ],
+          "answer": 3,
+          "explanation": "It is a fungal disease spread by spores in wet weather."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-seed-rate-plant-population",
+      "title": "Plant population, seed rate and planting dates",
+      "topic": "Practical: Planting dates, seed rates, plant population and seed quality tests",
+      "kind": "FIELD",
+      "skills": [
+        "calculation",
+        "measurement",
+        "procedure"
+      ],
+      "aim": "To calculate plant population and seed rate for a crop from its spacing, seed weight and germination percentage, and relate them to the planting date.",
+      "apparatus": [
+        "Measuring tape",
+        "Garden line and pegs",
+        "Top-pan balance",
+        "Calculator"
+      ],
+      "materials": [
+        "Maize seed of known 1 000-seed weight and germination percentage",
+        "A 20 m × 15 m plot"
+      ],
+      "safety": [
+        "Wear gloves when handling seeds dressed with fungicide or insecticide.",
+        "Wash hands before eating."
+      ],
+      "procedure": [
+        "Note the recommended planting date for the crop in your area (e.g. maize in southern Nigeria at the onset of rains, March–April for the early season).",
+        "Note the recommended spacing (e.g. maize 75 cm × 25 cm, one seed per hole).",
+        "Calculate the plant population per hectare and per plot.",
+        "Weigh 1 000 seeds (or 100 seeds × 10) to obtain the 1 000-seed weight.",
+        "Calculate the seed rate, adjusting for germination percentage.",
+        "Mark out the plot with lines and pegs at the chosen spacing and sow the plot."
+      ],
+      "expectedObservations": "Plots sown at the correct spacing have uniform stands; seeds of low germination percentage need a higher seed rate to give the same stand.",
+      "dataAndCalculations": "Worked example: spacing 0.75 m × 0.25 m. Area per plant = 0.1875 m². Plant population = 10 000 ÷ 0.1875 = 53 333 plants/ha. 1 000-seed weight = 300 g. Seed needed = 53 333 × 0.300 g = 16 000 g = 16.0 kg/ha at 100 % germination. With 90 % germination, seed rate = 16.0 ÷ 0.90 = 17.8 kg/ha. For a 20 m × 15 m plot (300 m²): stands = 300 ÷ 0.1875 = 1 600.",
+      "precautions": [
+        "Use a taut garden line so rows are straight and evenly spaced.",
+        "Weigh a fresh, representative sample of seeds.",
+        "Use the germination percentage of the actual seed lot."
+      ],
+      "sourcesOfError": [
+        "Uneven spacing in the field.",
+        "Seed weight varies between lots.",
+        "Losses to pests and birds after sowing."
+      ],
+      "commonMistakes": [
+        "Using cm instead of m in the population formula.",
+        "Multiplying by germination percentage instead of dividing.",
+        "Forgetting to account for seeds per hole."
+      ],
+      "examTips": [
+        "Formula: plant population = area ÷ (inter-row × intra-row spacing) × seeds per stand.",
+        "Convert all spacings to metres before dividing into 10 000 m².",
+        "Planting dates: explain that sowing at the start of reliable rains reduces drought stress and some pest and disease attacks."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Cowpea at 60 cm × 30 cm, one plant per stand, gives a population per hectare of about",
+          "options": [
+            "55 556",
+            "18 000",
+            "5 556",
+            "1 800"
+          ],
+          "answer": 0,
+          "explanation": "10 000 ÷ (0.6 × 0.3) = 10 000 ÷ 0.18 = 55 556."
+        },
+        {
+          "q": "If 20 kg/ha of seed is needed at 100 % germination, how much is needed at 80 %?",
+          "options": [
+            "16 kg",
+            "25 kg",
+            "20 kg",
+            "100 kg"
+          ],
+          "answer": 1,
+          "explanation": "20 ÷ 0.80 = 25 kg."
+        },
+        {
+          "q": "Area per plant at 1 m × 1 m spacing for one hectare gives",
+          "options": [
+            "1 000 plants",
+            "100 plants",
+            "10 000 plants",
+            "100 000 plants"
+          ],
+          "answer": 2,
+          "explanation": "10 000 m² ÷ 1 m² = 10 000."
+        },
+        {
+          "q": "Seeds are best sown",
+          "options": [
+            "at the end of the rainy season",
+            "in the middle of the dry season",
+            "at any time",
+            "at the onset of reliable rains"
+          ],
+          "answer": 3,
+          "explanation": "Moisture is then available for germination and early growth."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-seed-viability-test",
+      "title": "Seed quality tests: germination percentage and purity",
+      "topic": "Practical: Planting dates, seed rates, plant population and seed quality tests",
+      "kind": "LAB",
+      "skills": [
+        "measurement",
+        "observation",
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To determine the germination percentage and purity of a seed lot and calculate the pure live seed percentage.",
+      "apparatus": [
+        "Petri dishes or shallow trays",
+        "Filter paper or cotton wool",
+        "Wash bottle",
+        "Top-pan balance (0.01 g)",
+        "Forceps",
+        "Hand lens"
+      ],
+      "materials": [
+        "A seed lot of maize, cowpea or rice (from the market or school store)",
+        "Water",
+        "Sand (optional, for a sand-tray test)"
+      ],
+      "safety": [
+        "Wear gloves when handling treated seed.",
+        "Keep the trays where they will not be knocked over."
+      ],
+      "procedure": [
+        "Weigh a 50 g working sample and separate it into pure seed, weed seeds, other crop seeds and inert matter (stones, chaff); weigh the pure seed.",
+        "Calculate the purity percentage.",
+        "Count 100 pure seeds at random (or 4 lots of 25) and place them evenly on moist filter paper or cotton wool in Petri dishes.",
+        "Keep the dishes moist at room temperature and cover them to reduce drying.",
+        "After 5–7 days count the normal seedlings (with healthy radicle and plumule).",
+        "Calculate the germination percentage and the pure live seed (PLS) percentage, then adjust the seed rate."
+      ],
+      "expectedObservations": "Most viable seeds swell and show a radicle within 2–4 days; dead or damaged seeds become soft, mouldy or remain hard and unchanged.",
+      "dataAndCalculations": "Worked example: of a 50.0 g sample, pure seed weighed 47.5 g (inert matter and weed seeds 2.5 g). Purity = 47.5 ÷ 50.0 × 100 = 95 %. Of 100 seeds, 84 germinated normally: germination = 84 %. Pure live seed = 0.95 × 0.84 × 100 = 79.8 %. If 16 kg/ha of perfect seed is needed, the actual seed rate = 16 ÷ 0.798 = 20.1 kg/ha.",
+      "precautions": [
+        "Keep the filter paper moist but not flooded.",
+        "Choose seeds at random, not the biggest ones.",
+        "Count only normal seedlings as germinated."
+      ],
+      "sourcesOfError": [
+        "Fungal growth spreads from dead to healthy seeds.",
+        "Uneven moisture or temperature.",
+        "Too few seeds in the sample."
+      ],
+      "commonMistakes": [
+        "Counting swollen seeds without a radicle as germinated.",
+        "Using percentage purity alone to adjust the seed rate.",
+        "Leaving the dishes uncovered so they dry out."
+      ],
+      "examTips": [
+        "Show the set-up: Petri dish, moist cotton wool or filter paper, evenly spaced seeds.",
+        "State the conditions for germination tested: water, oxygen, suitable temperature.",
+        "Give two reasons for a seed quality test: to decide seed rate and to avoid poor stands."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Of 50 seeds tested, 45 germinated. Germination percentage is",
+          "options": [
+            "45 %",
+            "90 %",
+            "95 %",
+            "5 %"
+          ],
+          "answer": 1,
+          "explanation": "45 ÷ 50 × 100 = 90 %."
+        },
+        {
+          "q": "Purity 90 % and germination 80 % give a pure live seed of",
+          "options": [
+            "72 %",
+            "85 %",
+            "170 %",
+            "10 %"
+          ],
+          "answer": 0,
+          "explanation": "0.90 × 0.80 × 100 = 72 %."
+        },
+        {
+          "q": "Which is NOT required for germination?",
+          "options": [
+            "Water",
+            "Oxygen",
+            "Suitable temperature",
+            "Light for most crop seeds"
+          ],
+          "answer": 3,
+          "explanation": "Most crop seeds germinate in darkness; light is needed later for photosynthesis."
+        },
+        {
+          "q": "Seeds for the test should be selected",
+          "options": [
+            "only the largest",
+            "only the smallest",
+            "at random",
+            "only cracked ones"
+          ],
+          "answer": 2,
+          "explanation": "Random selection gives a representative result."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-seedbed-and-husbandry",
+      "title": "Seedbed preparation, transplanting and routine crop husbandry",
+      "topic": "Practical: Seedbed preparation and crop husbandry operations",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To prepare a raised seedbed, transplant vegetable seedlings and carry out fertiliser application, mulching, watering and pest control.",
+      "apparatus": [
+        "Cutlass, hoe, spade, rake, garden fork",
+        "Measuring tape, garden line, pegs",
+        "Watering can",
+        "Hand trowel",
+        "Knapsack sprayer",
+        "Top-pan balance or measuring cup"
+      ],
+      "materials": [
+        "Tomato or pepper seedlings from the nursery (4–6 weeks old)",
+        "NPK 15-15-15",
+        "Dry grass for mulch",
+        "Well-rotted poultry manure",
+        "A recommended insecticide"
+      ],
+      "safety": [
+        "Wear gloves, mask and boots when spraying; spray with the wind behind you.",
+        "Keep pesticides locked away and never transfer them into drink bottles.",
+        "Do not eat or drink while handling chemicals; wash afterwards."
+      ],
+      "procedure": [
+        "Clear the site, remove stumps and debris and dig the soil to about 20 cm deep.",
+        "Mark out a bed 10 m long and 1.2 m wide with pegs and line; raise it about 15–20 cm, breaking clods and working in manure.",
+        "Level the bed with a rake and mark two rows 60 cm apart with plants 50 cm apart in each row.",
+        "Water the nursery and the bed; lift seedlings with a ball of soil and transplant them in the evening at the marked points.",
+        "Water immediately and mulch between the rows with dry grass.",
+        "Two weeks after transplanting, apply NPK in a ring about 5–10 cm from each plant and cover with soil.",
+        "Weed regularly, stake tomato plants and spray against pests when needed, following the label."
+      ],
+      "expectedObservations": "Well-raised, fine-tilth beds drain well and seedlings establish quickly. Seedlings transplanted with a ball of soil in the evening suffer less wilting. Mulched areas stay moist longer and have fewer weeds.",
+      "dataAndCalculations": "Worked example: bed 10 m long with plants every 0.5 m including both ends gives 10 ÷ 0.5 + 1 = 21 plants per row; with 2 rows = 42 plants. At 5 g of NPK per plant, fertiliser needed = 42 × 5 = 210 g. With 5 such beds, total = 5 × 210 = 1 050 g = 1.05 kg.",
+      "precautions": [
+        "Transplant in the cool of the evening or on a cloudy day.",
+        "Do not let fertiliser touch the stem.",
+        "Harden off seedlings before transplanting."
+      ],
+      "sourcesOfError": [
+        "Uneven spacing.",
+        "Rough estimate of fertiliser using cups instead of weighing."
+      ],
+      "commonMistakes": [
+        "Planting seedlings deeper or shallower than in the nursery.",
+        "Applying fertiliser on dry soil without watering.",
+        "Spraying against the wind."
+      ],
+      "examTips": [
+        "Number the steps of seedbed preparation in the correct order: clearing, tilling, bed making, levelling.",
+        "Give reasons for operations: mulching conserves moisture, suppresses weeds, adds organic matter.",
+        "Calculation questions often combine row count and fertiliser per plant."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Mulching helps to",
+          "options": [
+            "increase weed growth",
+            "conserve soil moisture",
+            "raise soil temperature greatly",
+            "remove nutrients"
+          ],
+          "answer": 1,
+          "explanation": "Mulch reduces evaporation and suppresses weeds."
+        },
+        {
+          "q": "Transplanting is best done",
+          "options": [
+            "at midday",
+            "in the evening",
+            "during a dry wind",
+            "at any time"
+          ],
+          "answer": 1,
+          "explanation": "Cool conditions reduce transpiration and wilting."
+        },
+        {
+          "q": "A bed has 30 plants and each needs 10 g of fertiliser. The total is",
+          "options": [
+            "300 g",
+            "40 g",
+            "3 g",
+            "3 000 g"
+          ],
+          "answer": 0,
+          "explanation": "30 × 10 = 300 g."
+        },
+        {
+          "q": "Hardening-off seedlings means",
+          "options": [
+            "applying fertiliser",
+            "gradually exposing them to field conditions",
+            "watering them heavily",
+            "pruning their roots"
+          ],
+          "answer": 1,
+          "explanation": "It toughens seedlings before transplanting."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-forest-products",
+      "title": "Identifying forest products and by-products; log volume",
+      "topic": "Practical: Forest products and by-products",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify common forest products and by-products and calculate the volume and value of a log.",
+      "apparatus": [
+        "Measuring tape",
+        "Diameter tape or callipers",
+        "Hand lens",
+        "Specimen table"
+      ],
+      "materials": [
+        "Specimens: sawn timber, plywood, particle board, charcoal, firewood, rattan cane, chewing stick, kola nuts, honey, shea butter, gum arabic, raffia, bamboo, bush mango (ogbono) seeds, medicinal bark, a short log section"
+      ],
+      "safety": [
+        "Beware of splinters; wear gloves.",
+        "Keep charcoal and firewood specimens away from flames."
+      ],
+      "procedure": [
+        "Identify each specimen and classify it as a timber product, non-timber forest product (NTFP) or by-product (e.g. sawdust).",
+        "State one use of each and the tree or plant it comes from.",
+        "Measure the length of the log section and its mid-length diameter.",
+        "Calculate the log volume with Huber's formula, V = π(d/2)²L.",
+        "Calculate the value of the log at a given price per cubic metre."
+      ],
+      "expectedObservations": "Timber products show wood grain (sawn wood, plywood layers, particle board chips). NTFPs include food (kola, bush mango, honey), materials (rattan, raffia, bamboo), medicines (bark) and fuel (charcoal, firewood).",
+      "dataAndCalculations": "Worked example: a log is 6.0 m long with a mid-diameter of 0.50 m. Radius = 0.25 m. Volume = 3.142 × 0.25² × 6.0 = 1.178 m³. At ₦60 000 per m³ the log is worth 1.178 × ₦60 000 = ₦70 680.",
+      "precautions": [
+        "Measure diameter at the middle of the log, perpendicular to the length.",
+        "Record units in metres before calculating.",
+        "Handle specimens gently to keep them for future classes."
+      ],
+      "sourcesOfError": [
+        "Logs are not perfect cylinders.",
+        "Bark thickness included in the diameter."
+      ],
+      "commonMistakes": [
+        "Using the diameter in place of the radius.",
+        "Mixing centimetres and metres.",
+        "Listing plywood as a non-timber product."
+      ],
+      "examTips": [
+        "Specimen questions: identify, state the source plant and one use.",
+        "Know the difference between products (timber, NTFPs) and by-products (sawdust, wood shavings, bark).",
+        "Give the formula with units in log-volume questions."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Which of these is a non-timber forest product?",
+          "options": [
+            "Plywood",
+            "Sawn plank",
+            "Honey",
+            "Particle board"
+          ],
+          "answer": 2,
+          "explanation": "Honey is gathered from the forest without felling timber."
+        },
+        {
+          "q": "A log 4 m long with mid-diameter 0.4 m has volume about",
+          "options": [
+            "0.50 m³",
+            "2.01 m³",
+            "0.13 m³",
+            "5.03 m³"
+          ],
+          "answer": 0,
+          "explanation": "3.142 × 0.2² × 4 = 0.50 m³."
+        },
+        {
+          "q": "Sawdust from a sawmill is a",
+          "options": [
+            "timber product",
+            "by-product",
+            "NTFP",
+            "wildlife product"
+          ],
+          "answer": 1,
+          "explanation": "It is a by-product of sawing."
+        },
+        {
+          "q": "Chewing sticks are obtained from",
+          "options": [
+            "animals",
+            "minerals",
+            "forest trees and shrubs",
+            "fish"
+          ],
+          "answer": 2,
+          "explanation": "They are cut from stems and roots of certain trees."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-propagation-methods",
+      "title": "Propagation of horticultural plants: layering, budding and grafting",
+      "topic": "Practical: Methods of propagation of horticultural plants",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "observation",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To carry out direct sowing, transplanting, layering, budding and grafting and calculate the success rate.",
+      "apparatus": [
+        "Budding knife",
+        "Grafting knife or sharp razor",
+        "Secateurs",
+        "Budding tape or polythene strips",
+        "Polybags",
+        "Rooting medium (topsoil, sand, sawdust)",
+        "Watering can"
+      ],
+      "materials": [
+        "Citrus rootstock seedlings (e.g. rough lemon) and budwood from a high-yielding sweet orange",
+        "Mango rootstocks and scions",
+        "Ixora or Bougainvillea for layering",
+        "Seeds for direct sowing"
+      ],
+      "safety": [
+        "Cut away from the body on a firm support.",
+        "Close and sheath knives when not in use.",
+        "Treat cuts on hands immediately."
+      ],
+      "procedure": [
+        "Direct sowing: sow seeds in polybags or beds at the correct depth and water.",
+        "Simple layering: bend a low branch of Ixora, wound the underside, peg it into the soil, cover with soil and keep moist; sever after roots form.",
+        "Air layering (marcotting): ring the bark of a branch, wrap moist rooting medium in polythene around the wound, tie both ends.",
+        "T-budding: make a T-shaped cut on the rootstock 20–25 cm above the soil, lift the bark flaps, slide in a shield bud from the budwood and tie firmly with budding tape, leaving the bud exposed.",
+        "Cleft grafting: cut the rootstock across, split it, insert a wedge-shaped scion with matching cambium and tie.",
+        "After 2–3 weeks remove ties and check whether buds and scions remain green (successful 'take'); cut back the rootstock above successful buds.",
+        "Record numbers and calculate the percentage success."
+      ],
+      "expectedObservations": "Successful buds stay green and plump and later sprout; failed buds turn brown and shrivel. Layered branches form roots at the wound in 4–8 weeks.",
+      "dataAndCalculations": "Worked example: 40 citrus seedlings were budded and 32 buds took. Success = 32 ÷ 40 × 100 = 80 %. Materials cost ₦8 000, so the cost per successful budded plant = ₦8 000 ÷ 32 = ₦250.",
+      "precautions": [
+        "Use clean, sharp knives so cuts are smooth.",
+        "Match the cambium layers of stock and scion.",
+        "Tie firmly to exclude air and water, and shade newly grafted plants."
+      ],
+      "sourcesOfError": [
+        "Differences in skill between students.",
+        "Budwood allowed to dry out."
+      ],
+      "commonMistakes": [
+        "Covering the bud with tape so it cannot sprout.",
+        "Using a diseased or low-yielding budwood source.",
+        "Leaving the tie on too long so it strangles the stem."
+      ],
+      "examTips": [
+        "Know the terms: stock (rootstock), scion, budwood, cambium, union.",
+        "State advantages: early fruiting, true-to-type plants, combining good root and shoot qualities.",
+        "Drawings of a T-bud and cleft graft are commonly requested; label stock, scion/bud and tie."
+      ],
+      "checkQuestions": [
+        {
+          "q": "In grafting, the part that provides the root system is the",
+          "options": [
+            "scion",
+            "rootstock",
+            "bud",
+            "cambium"
+          ],
+          "answer": 1,
+          "explanation": "The scion forms the shoot; the rootstock provides roots."
+        },
+        {
+          "q": "25 of 30 grafts succeeded. The success rate is",
+          "options": [
+            "83.3 %",
+            "75 %",
+            "120 %",
+            "16.7 %"
+          ],
+          "answer": 0,
+          "explanation": "25 ÷ 30 × 100 = 83.3 %."
+        },
+        {
+          "q": "For a graft to succeed, the stock and scion must have matching",
+          "options": [
+            "leaves",
+            "flowers",
+            "cambium layers",
+            "fruits"
+          ],
+          "answer": 2,
+          "explanation": "Cambium cells unite the two parts."
+        },
+        {
+          "q": "Marcotting is another name for",
+          "options": [
+            "cleft grafting",
+            "T-budding",
+            "direct sowing",
+            "air layering"
+          ],
+          "answer": 3,
+          "explanation": "Roots form on a branch still attached to the parent."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-common-weeds",
+      "title": "Identifying common weeds and estimating weed density",
+      "topic": "Practical: Common weeds",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "observation",
+        "measurement",
+        "calculation"
+      ],
+      "aim": "To identify common weeds by their external features, state their modes of dispersal and control, and estimate weed density with a quadrat.",
+      "apparatus": [
+        "1 m × 1 m quadrat",
+        "Hand lens",
+        "Trowel",
+        "Polythene bags",
+        "Tally sheet",
+        "Press or old newspapers"
+      ],
+      "materials": [
+        "Weedy plot on the school farm",
+        "Specimens: spear grass (Imperata cylindrica), goat weed (Ageratum conyzoides), Siam weed (Chromolaena odorata), Tridax procumbens, sedge (Cyperus rotundus), Euphorbia heterophylla, Striga, water hyacinth (picture)"
+      ],
+      "safety": [
+        "Wear gloves; some weeds have sharp edges or irritant sap.",
+        "Watch out for snakes and stinging insects in tall weeds."
+      ],
+      "procedure": [
+        "Examine each weed specimen: leaf shape and venation, stem, root type, flower or seed, any underground organs (rhizome, tuber).",
+        "State whether it is a grass, sedge or broadleaf weed and annual or perennial.",
+        "State its mode of dispersal (wind, animals, water, rhizomes).",
+        "Throw the quadrat at random five times in the weedy plot and count all weeds inside, recording each species.",
+        "Calculate the mean weed density and the frequency of each species.",
+        "Recommend cultural, mechanical, chemical and biological control methods."
+      ],
+      "expectedObservations": "Spear grass: narrow leaves with sharp tips and an extensive white rhizome system – perennial, hard to control. Tridax: hairy broadleaf with yellow flower heads and plumed fruits spread by wind. Cyperus: triangular stem, tubers (nuts). Chromolaena: aromatic shrub with tiny wind-dispersed fruits.",
+      "dataAndCalculations": "Worked example: weed counts in five 1 m² quadrats were 12, 8, 15, 10 and 5. Total = 50, so mean density = 50 ÷ 5 = 10 weeds/m². Tridax was present in 4 of the 5 quadrats, giving a frequency of 4 ÷ 5 × 100 = 80 %. For a 0.1 ha (1 000 m²) plot, the estimated weed population = 10 × 1 000 = 10 000 weeds.",
+      "precautions": [
+        "Throw the quadrat at random without aiming.",
+        "Count weeds rooted inside the quadrat only; decide a rule for plants on the edge.",
+        "Use the same quadrat size throughout."
+      ],
+      "sourcesOfError": [
+        "Too few quadrats for a patchy weed distribution.",
+        "Seedlings missed or misidentified."
+      ],
+      "commonMistakes": [
+        "Using botanical names without the common name (or vice versa) when both are asked.",
+        "Recommending hand-pulling for spear grass (rhizomes regrow).",
+        "Dividing the total by the number of species instead of the number of quadrats."
+      ],
+      "examTips": [
+        "Give an identifying feature with each name.",
+        "Link dispersal method to a structure: plumed fruit – wind; hooks – animals.",
+        "List harmful effects: competition, harbouring pests, reducing quality, parasitism (Striga)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A weed with a triangular stem and underground tubers is",
+          "options": [
+            "spear grass",
+            "Cyperus rotundus",
+            "Tridax",
+            "goat weed"
+          ],
+          "answer": 1,
+          "explanation": "Sedges have triangular stems; nut grass has tubers."
+        },
+        {
+          "q": "Weed counts of 6, 9, 3 and 2 in four 1 m² quadrats give a mean density of",
+          "options": [
+            "5 per m²",
+            "20 per m²",
+            "4 per m²",
+            "2 per m²"
+          ],
+          "answer": 0,
+          "explanation": "20 ÷ 4 = 5 per m²."
+        },
+        {
+          "q": "Striga is a problem because it",
+          "options": [
+            "is poisonous to cattle",
+            "has rhizomes",
+            "is spread by water only",
+            "is a parasite on cereal roots"
+          ],
+          "answer": 3,
+          "explanation": "Striga attaches to roots of maize, sorghum and millet."
+        },
+        {
+          "q": "Imperata cylindrica is difficult to control by slashing because it",
+          "options": [
+            "has deep rhizomes",
+            "is an annual",
+            "has no leaves",
+            "only grows in water"
+          ],
+          "answer": 0,
+          "explanation": "Rhizomes regenerate new shoots."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-breeds-handling",
+      "title": "Identifying breeds of farm animals; restraint, handling and growth records",
+      "topic": "Practical: Common breeds and types of animals",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "observation",
+        "measurement",
+        "calculation",
+        "safety"
+      ],
+      "aim": "To identify common local and exotic breeds of farm animals, restrain and handle them safely, and calculate daily weight gain.",
+      "apparatus": [
+        "Halter and rope",
+        "Weighing scale (spring balance or platform scale)",
+        "Weigh band (heart-girth tape)",
+        "Grooming brush",
+        "Notebook"
+      ],
+      "materials": [
+        "Animals on the school farm or a nearby farm: e.g. White Fulani and N'Dama cattle, West African Dwarf and Red Sokoto goats, Yankasa and Balami sheep, Large White pig, Isa Brown layers, broilers, local chickens (or clear pictures)"
+      ],
+      "safety": [
+        "Approach animals calmly from the side, never directly from behind.",
+        "Keep clear of horns, hooves and kicking legs; work with the farm attendant.",
+        "Wash hands after handling animals (zoonoses)."
+      ],
+      "procedure": [
+        "Observe each animal and record its colour, size, horn shape, ears, hump, hair or wool, and its main use (meat, milk, eggs, draught).",
+        "Name the breed and state whether it is local (indigenous) or exotic.",
+        "Restrain a goat by holding it under the jaw and around the rump against your legs; halter cattle; hold poultry with wings folded against the body and legs held.",
+        "Groom the animal with a brush and examine the skin, eyes and feet for health signs.",
+        "Weigh the animal (or estimate weight with a weigh band) and record it.",
+        "Use two weight records to calculate the average daily gain."
+      ],
+      "expectedObservations": "White Fulani: white with black ears and muzzle, large lyre-shaped horns and a hump – dual purpose. N'Dama: humpless, fawn-coloured, trypanotolerant. West African Dwarf goat: small, short-legged, hardy. Red Sokoto: reddish-brown, prized skin. Large White pig: white, erect ears, long body.",
+      "dataAndCalculations": "Worked example: a West African Dwarf goat weighed 18.0 kg on 1 March and 24.6 kg 60 days later. Weight gain = 24.6 − 18.0 = 6.6 kg. Average daily gain = 6.6 ÷ 60 = 0.110 kg = 110 g per day.",
+      "precautions": [
+        "Weigh animals at the same time of day, before feeding.",
+        "Use gentle, firm restraint to avoid injuring the animal.",
+        "Check that the scale reads zero before weighing."
+      ],
+      "sourcesOfError": [
+        "Gut fill varies with feeding and drinking.",
+        "Weigh-band estimates are approximate.",
+        "Animal moving on the scale."
+      ],
+      "commonMistakes": [
+        "Confusing N'Dama (humpless) with White Fulani (humped).",
+        "Dividing weight gain by weeks when the question asks per day.",
+        "Handling poultry by the wings or neck."
+      ],
+      "examTips": [
+        "Identification questions: breed, one distinguishing feature, one use.",
+        "Know local versus exotic advantages: hardiness and disease tolerance versus higher productivity.",
+        "Give daily gain in g/day or kg/day with units."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A humpless, trypanotolerant cattle breed found in West Africa is",
+          "options": [
+            "White Fulani",
+            "N'Dama",
+            "Red Bororo",
+            "Sokoto Gudali"
+          ],
+          "answer": 1,
+          "explanation": "N'Dama tolerates trypanosomiasis and lacks a hump."
+        },
+        {
+          "q": "A pig grew from 20 kg to 50 kg in 100 days. Its average daily gain is",
+          "options": [
+            "300 g/day",
+            "500 g/day",
+            "30 g/day",
+            "3 kg/day"
+          ],
+          "answer": 0,
+          "explanation": "30 kg ÷ 100 = 0.3 kg = 300 g/day."
+        },
+        {
+          "q": "The safest way to approach cattle is",
+          "options": [
+            "from directly behind",
+            "running towards them",
+            "calmly from the side",
+            "shouting loudly"
+          ],
+          "answer": 2,
+          "explanation": "Cattle kick backwards and are startled by noise."
+        },
+        {
+          "q": "Red Sokoto goats are especially valued for their",
+          "options": [
+            "milk",
+            "wool",
+            "eggs",
+            "skin"
+          ],
+          "answer": 3,
+          "explanation": "Their skin makes high-quality leather (Morocco leather)."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-internal-organs",
+      "title": "Major internal organs of farm animals (dissection and dressing percentage)",
+      "topic": "Practical: Major internal organs of farm animals",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "drawing",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To identify the digestive, reproductive and excretory organs of a ruminant and a bird, state their functions and calculate dressing percentage.",
+      "apparatus": [
+        "Dissecting kit (scalpel, scissors, forceps)",
+        "Dissecting tray",
+        "Gloves and apron",
+        "Weighing scale",
+        "Drawing materials"
+      ],
+      "materials": [
+        "A freshly slaughtered chicken from the school farm or market",
+        "Ruminant viscera from an abattoir (or a goat being processed), or charts"
+      ],
+      "safety": [
+        "Wear gloves and an apron; cover cuts.",
+        "Use sharp instruments carefully and cut away from yourself.",
+        "Dispose of offal hygienically and disinfect the tray and benches."
+      ],
+      "procedure": [
+        "Weigh the live bird or animal before slaughter (or record the given live weight).",
+        "After slaughter and bleeding, open the body cavity along the mid-ventral line.",
+        "Identify the organs of the digestive system: in the bird – oesophagus, crop, proventriculus, gizzard, small intestine, caeca, cloaca; in the ruminant – rumen, reticulum, omasum, abomasum, small and large intestines.",
+        "Identify the liver, heart, lungs, kidneys and reproductive organs (ovary and oviduct in the hen; testes in males).",
+        "Draw and label the digestive system of the fowl and state the function of each part.",
+        "Weigh the dressed carcass (without head, feet, skin or feathers and viscera) and calculate the dressing percentage."
+      ],
+      "expectedObservations": "The fowl has a crop for storage, a glandular proventriculus and a muscular gizzard containing grit for grinding. The ruminant stomach has four compartments; the rumen is the largest and is full of fermenting feed. Kidneys are paired and bean-shaped in mammals, lobed in birds.",
+      "dataAndCalculations": "Worked example: a goat with a live weight of 30.0 kg gave a carcass of 14.4 kg. Dressing percentage = carcass weight ÷ live weight × 100 = 14.4 ÷ 30.0 × 100 = 48 %. A broiler of 2.0 kg live weight dressed at 72 % gives a carcass of 2.0 × 0.72 = 1.44 kg.",
+      "precautions": [
+        "Make shallow cuts so the gut is not pierced.",
+        "Spread out the organs in their natural positions before drawing.",
+        "Weigh carcasses on a calibrated scale."
+      ],
+      "sourcesOfError": [
+        "Differences in what is removed in dressing.",
+        "Gut fill affecting live weight."
+      ],
+      "commonMistakes": [
+        "Calling the gizzard the 'stomach' without noting it is muscular and grinds food.",
+        "Drawing the ruminant stomach with three compartments.",
+        "Dividing live weight by carcass weight."
+      ],
+      "examTips": [
+        "Function marks: crop – stores and softens food; gizzard – grinds food; rumen – microbial fermentation of cellulose.",
+        "Drawings: title, clear lines, at least six labels.",
+        "Compare ruminant and non-ruminant (pig, fowl) digestion in a table."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The compartment of the ruminant stomach known as the 'true stomach' is the",
+          "options": [
+            "rumen",
+            "reticulum",
+            "omasum",
+            "abomasum"
+          ],
+          "answer": 3,
+          "explanation": "The abomasum secretes digestive enzymes like a simple stomach."
+        },
+        {
+          "q": "The organ in the fowl that grinds food with grit is the",
+          "options": [
+            "crop",
+            "gizzard",
+            "proventriculus",
+            "caecum"
+          ],
+          "answer": 1,
+          "explanation": "The muscular gizzard grinds food."
+        },
+        {
+          "q": "A sheep weighing 40 kg gave a 20 kg carcass. Dressing percentage is",
+          "options": [
+            "50 %",
+            "20 %",
+            "200 %",
+            "40 %"
+          ],
+          "answer": 0,
+          "explanation": "20 ÷ 40 × 100 = 50 %."
+        },
+        {
+          "q": "Microbial digestion of cellulose in ruminants occurs mainly in the",
+          "options": [
+            "abomasum",
+            "small intestine",
+            "rumen",
+            "oesophagus"
+          ],
+          "answer": 2,
+          "explanation": "Rumen microbes ferment fibre."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-animal-by-products",
+      "title": "Identifying animal by-products and their uses",
+      "topic": "Practical: Animal by-products",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "calculation"
+      ],
+      "aim": "To identify animal by-products and state their uses, and estimate the quantity of a by-product from a batch of animals.",
+      "apparatus": [
+        "Specimen table",
+        "Hand lens",
+        "Weighing scale",
+        "Labels"
+      ],
+      "materials": [
+        "Specimens: hides and skins, feathers, horns, hooves, bones (bone meal), blood meal, wool or hair, poultry droppings, cow dung, snail shells"
+      ],
+      "safety": [
+        "Wear gloves; raw by-products can carry anthrax and other pathogens.",
+        "Wash hands thoroughly after the practical.",
+        "Keep specimens dry and covered to avoid flies."
+      ],
+      "procedure": [
+        "Examine each specimen and name it.",
+        "State the animal it comes from.",
+        "State at least one use (e.g. hides – leather; feathers – feather meal, pillows; horns and hooves – buttons, glue; bones – bone meal; blood – blood meal; dung – manure, biogas).",
+        "State how each is processed or preserved (e.g. salting and drying hides).",
+        "Calculate the expected quantity of a by-product from a batch of animals."
+      ],
+      "expectedObservations": "Hides (cattle) are thick and heavy; skins (goats, sheep) are thinner. Feathers are light with a central shaft and vanes. Horns are hollow and keratinous; hooves are hard and horny. Bone meal is a grey-white powder.",
+      "dataAndCalculations": "Worked example: feathers make up about 7 % of the live weight of a broiler. A batch of 500 broilers each weighing 2.0 kg gives feathers of 500 × 2.0 × 0.07 = 70 kg. If processed feather meal sells at ₦400 per kg and processing yields 80 % of the raw mass, income = 70 × 0.80 × ₦400 = ₦22 400.",
+      "precautions": [
+        "Handle raw by-products with gloves.",
+        "Label every specimen clearly.",
+        "Store dried specimens in airtight containers."
+      ],
+      "sourcesOfError": [
+        "Percentages of by-products vary with breed, age and processing method."
+      ],
+      "commonMistakes": [
+        "Calling meat, milk and eggs 'by-products' (they are main products).",
+        "Confusing hides (large animals) with skins (small animals).",
+        "Giving 'fertiliser' as the only use for every by-product."
+      ],
+      "examTips": [
+        "Give the by-product, its source animal and one use – three marks per specimen.",
+        "Mention that blood meal and bone meal are feed ingredients (protein, calcium and phosphorus).",
+        "Hides are preserved by salting, sun-drying or wet-salting before tanning."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Bone meal is used in livestock feed as a source of",
+          "options": [
+            "energy",
+            "calcium and phosphorus",
+            "vitamin A",
+            "fibre"
+          ],
+          "answer": 1,
+          "explanation": "Bones are rich in calcium phosphate."
+        },
+        {
+          "q": "The skin of a cow is called a",
+          "options": [
+            "pelt",
+            "fleece",
+            "hide",
+            "fur"
+          ],
+          "answer": 2,
+          "explanation": "Large animals give hides; small animals give skins."
+        },
+        {
+          "q": "If feathers are 6 % of live weight, 200 birds of 2.5 kg give",
+          "options": [
+            "30 kg of feathers",
+            "12 kg of feathers",
+            "500 kg of feathers",
+            "3 kg of feathers"
+          ],
+          "answer": 0,
+          "explanation": "200 × 2.5 × 0.06 = 30 kg."
+        },
+        {
+          "q": "Which is a use of cow dung?",
+          "options": [
+            "Making buttons",
+            "Making leather",
+            "Making glue",
+            "Producing biogas"
+          ],
+          "answer": 3,
+          "explanation": "Dung is fermented to produce methane (biogas) and manure."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-feeds-pearson-square",
+      "title": "Identifying feedstuffs and formulating a ration by Pearson square",
+      "topic": "Practical: Animal feeds and feed stuffs",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To identify common feedstuffs and their main nutrients and use the Pearson square to formulate a ration of a given crude protein level.",
+      "apparatus": [
+        "Specimen dishes",
+        "Hand lens",
+        "Weighing scale",
+        "Calculator"
+      ],
+      "materials": [
+        "Samples: maize, sorghum, wheat offal, rice bran, groundnut cake, soya bean meal, palm kernel cake, fish meal, blood meal, bone meal, oyster shell, salt, vitamin–mineral premix, cassava peel"
+      ],
+      "safety": [
+        "Wear a dust mask when handling dusty feeds.",
+        "Do not taste feeds; fish meal and blood meal may carry Salmonella.",
+        "Keep feeds away from rodents and moisture (aflatoxin)."
+      ],
+      "procedure": [
+        "Examine each feedstuff and record colour, texture and smell.",
+        "Classify each as an energy feed, protein concentrate (plant or animal), mineral supplement, vitamin supplement or roughage.",
+        "State the local source of each (e.g. groundnut cake from groundnut oil mills).",
+        "Choose an energy source and a protein source and note their crude protein (CP) contents.",
+        "Draw a Pearson square with the target CP in the centre and calculate the parts and percentages of each ingredient.",
+        "Calculate the mass of each ingredient for the batch size required and check the CP of the mixture."
+      ],
+      "expectedObservations": "Maize: yellow grains, high energy, about 9 % CP. Soya bean meal and groundnut cake: brown flakes or powder, 40–45 % CP. Fish meal: brown, strong fishy smell, about 60–65 % CP. Oyster shell: white fragments (calcium). Wheat offal and rice bran: fibrous brown powder.",
+      "dataAndCalculations": "Worked example: make 100 kg of an 18 % CP ration from maize (9 % CP) and soya bean meal (44 % CP). Pearson square: maize parts = 44 − 18 = 26; soya parts = 18 − 9 = 9; total parts = 35. Maize = 26 ÷ 35 × 100 = 74.29 %; soya = 9 ÷ 35 × 100 = 25.71 %. For 100 kg: 74.3 kg maize and 25.7 kg soya bean meal. Check: 0.7429 × 9 + 0.2571 × 44 = 6.69 + 11.31 = 18.0 % CP.",
+      "precautions": [
+        "The target CP must lie between the CP values of the two ingredients.",
+        "Subtract diagonally and ignore negative signs.",
+        "Mix ingredients thoroughly so every portion has the same composition."
+      ],
+      "sourcesOfError": [
+        "Actual CP of local feedstuffs differs from book values.",
+        "Weighing errors when mixing."
+      ],
+      "commonMistakes": [
+        "Placing the parts against the wrong ingredient (parts go across the diagonal to the opposite corner).",
+        "Choosing a target CP outside the range of the two feeds.",
+        "Forgetting to check the answer."
+      ],
+      "examTips": [
+        "Draw the square neatly with labels; examiners award marks for the diagram.",
+        "Classify feeds correctly: maize – energy; fish meal – animal protein; oyster shell – mineral.",
+        "State factors in ration formulation: age and class of animal, nutrient needs, cost, availability, palatability."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Using the Pearson square, a 20 % CP ration from maize (10 %) and groundnut cake (40 %) needs maize and groundnut cake in the ratio",
+          "options": [
+            "2 : 1",
+            "1 : 2",
+            "1 : 1",
+            "3 : 1"
+          ],
+          "answer": 0,
+          "explanation": "Maize parts 40 − 20 = 20; groundnut cake parts 20 − 10 = 10; ratio 20 : 10 = 2 : 1."
+        },
+        {
+          "q": "Which feedstuff is mainly a source of calcium?",
+          "options": [
+            "Maize",
+            "Fish meal",
+            "Oyster shell",
+            "Rice bran"
+          ],
+          "answer": 2,
+          "explanation": "Oyster shell is calcium carbonate."
+        },
+        {
+          "q": "Fish meal is classified as",
+          "options": [
+            "an energy feed",
+            "a roughage",
+            "a plant protein",
+            "an animal protein concentrate"
+          ],
+          "answer": 3,
+          "explanation": "It is about 60–65 % crude protein of animal origin."
+        },
+        {
+          "q": "Proper storage of feeds prevents aflatoxin, which is produced by",
+          "options": [
+            "bacteria",
+            "moulds (fungi)",
+            "viruses",
+            "insects"
+          ],
+          "answer": 1,
+          "explanation": "Aspergillus moulds produce aflatoxin in damp feeds."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-livestock-parasites",
+      "title": "Ectoparasites and endoparasites of farm animals and deworming doses",
+      "topic": "Practical: Main pests and parasites of farm animals",
+      "kind": "LAB",
+      "skills": [
+        "identification",
+        "observation",
+        "drawing",
+        "calculation"
+      ],
+      "aim": "To identify common ecto- and endoparasites of farm animals, describe their damage and life cycles, and calculate drug doses for control.",
+      "apparatus": [
+        "Hand lens",
+        "Microscope (if available)",
+        "Specimen bottles",
+        "Forceps",
+        "Petri dishes",
+        "Drawing materials"
+      ],
+      "materials": [
+        "Preserved specimens or charts: ticks, lice, mites, fleas, tsetse fly, tapeworm segments, liver fluke, roundworm (Ascaris)",
+        "A dewormer bottle label (for dose reading)"
+      ],
+      "safety": [
+        "Handle parasites with forceps; wear gloves.",
+        "Preserved specimens are often in formalin – avoid inhaling or skin contact.",
+        "Wash hands thoroughly; several parasites infect humans."
+      ],
+      "procedure": [
+        "Examine each specimen with a hand lens and record size, segmentation, number of legs, mouthparts and body shape.",
+        "Classify each as an ectoparasite or endoparasite and name its host(s).",
+        "State the damage caused and the disease it may transmit.",
+        "Outline the life cycle of the tick or the tapeworm (eggs, intermediate host, adult).",
+        "Draw and label one parasite.",
+        "Read the dose rate from the dewormer label and calculate doses for animals of given weights."
+      ],
+      "expectedObservations": "Ticks: eight legs, unsegmented oval body, swell when engorged with blood. Lice: small, flattened, six legs, cling to hair. Tapeworm: long, flat, ribbon-like, segmented (proglottids). Liver fluke: flat, leaf-shaped, found in bile ducts. Roundworm: cylindrical, unsegmented, pointed at both ends.",
+      "dataAndCalculations": "Worked example: a dewormer label states 1 mL per 10 kg body weight. A 35 kg goat needs 35 ÷ 10 × 1 = 3.5 mL. A flock of 20 goats averaging 25 kg needs 20 × 2.5 mL = 50 mL in total, so one 100 mL bottle is enough with 50 mL left.",
+      "precautions": [
+        "Weigh animals (or estimate weight accurately) before dosing to avoid under- or over-dosing.",
+        "Follow the label withdrawal period before slaughter or selling milk.",
+        "Store specimens in labelled bottles."
+      ],
+      "sourcesOfError": [
+        "Estimated body weights lead to wrong doses.",
+        "Damaged specimens are hard to identify."
+      ],
+      "commonMistakes": [
+        "Calling a tick an insect (it is an arachnid with eight legs).",
+        "Confusing the intermediate host of the liver fluke (water snail) with the final host.",
+        "Using the same dose for all animals regardless of weight."
+      ],
+      "examTips": [
+        "Answer pattern: name – host – damage – control.",
+        "Know intermediate hosts: liver fluke – snail; beef tapeworm – cattle (human final host).",
+        "Control of ectoparasites: dipping, spraying, hand-picking; endoparasites: deworming (drenching), rotational grazing, hygiene."
+      ],
+      "checkQuestions": [
+        {
+          "q": "Ticks are distinguished from insects by having",
+          "options": [
+            "six legs",
+            "eight legs",
+            "wings",
+            "antennae"
+          ],
+          "answer": 1,
+          "explanation": "Ticks are arachnids."
+        },
+        {
+          "q": "The intermediate host of the liver fluke is the",
+          "options": [
+            "water snail",
+            "housefly",
+            "tick",
+            "earthworm"
+          ],
+          "answer": 0,
+          "explanation": "Larval stages develop in freshwater snails."
+        },
+        {
+          "q": "At 1 mL per 10 kg, a 60 kg sheep needs",
+          "options": [
+            "0.6 mL",
+            "60 mL",
+            "6 mL",
+            "10 mL"
+          ],
+          "answer": 2,
+          "explanation": "60 ÷ 10 = 6 mL."
+        },
+        {
+          "q": "Which is an endoparasite?",
+          "options": [
+            "Louse",
+            "Flea",
+            "Mite",
+            "Tapeworm"
+          ],
+          "answer": 3,
+          "explanation": "Tapeworms live inside the intestine."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-disease-prevention-dipping",
+      "title": "Preventing and controlling livestock diseases: dipping, spraying, drenching and sanitation",
+      "topic": "Practical: Diseases of farm animals",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "safety",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To carry out (or demonstrate) disease prevention and control practices and correctly dilute an acaricide for spraying.",
+      "apparatus": [
+        "Knapsack sprayer",
+        "Measuring cylinder (100 mL) and bucket",
+        "Drenching gun or bottle",
+        "Footbath",
+        "Gloves, boots, goggles, overalls",
+        "Thermometer (clinical)"
+      ],
+      "materials": [
+        "Acaricide concentrate (label read for dilution)",
+        "Disinfectant",
+        "Water",
+        "Animals on the school or nearby farm"
+      ],
+      "safety": [
+        "Wear protective clothing and do not eat, drink or smoke while handling chemicals.",
+        "Spray downwind of yourself and keep chemicals away from water sources and children.",
+        "Dispose of empty containers safely (puncture and bury); never reuse them."
+      ],
+      "procedure": [
+        "Observe animals for signs of ill-health: dullness, loss of appetite, discharges, diarrhoea, coughing, rough coat, abnormal temperature.",
+        "Take the rectal temperature of a goat and compare it with the normal range (about 38.5–40 °C).",
+        "Read the acaricide label and measure the correct volume of concentrate for the volume of water in the sprayer.",
+        "Spray the animals thoroughly, especially the ears, under the tail, between the legs and the udder or scrotum.",
+        "Demonstrate drenching: hold the head level, insert the drenching gun at the corner of the mouth over the tongue and deliver slowly.",
+        "Clean and disinfect pens, feeders and drinkers; refill the footbath with disinfectant at the pen entrance.",
+        "Record treatments and dates in the health record."
+      ],
+      "expectedObservations": "Healthy animals are alert with bright eyes and a smooth coat; sick animals isolate themselves, have dull eyes and may have a raised temperature. Ticks die and drop off within days of correct acaricide treatment.",
+      "dataAndCalculations": "Worked example: the label states 2 mL of concentrate per litre of water. A 15-litre knapsack sprayer needs 2 × 15 = 30 mL. To spray a herd requiring 4 full tanks, total concentrate = 4 × 30 = 120 mL.",
+      "precautions": [
+        "Use the exact label dilution; too strong is toxic, too weak causes resistance.",
+        "Do not drench too fast or with the head raised high, or liquid may enter the lungs.",
+        "Isolate sick animals and new arrivals (quarantine)."
+      ],
+      "sourcesOfError": [
+        "Inaccurate measurement of the concentrate.",
+        "Incomplete coverage of the animal's body."
+      ],
+      "commonMistakes": [
+        "Mixing the concentrate without measuring.",
+        "Raising the animal's head high during drenching.",
+        "Confusing prevention (vaccination, sanitation) with treatment (drugs)."
+      ],
+      "examTips": [
+        "Describe each control method with a purpose: dipping/spraying – ectoparasites; drenching – endoparasites; vaccination – viral and bacterial diseases.",
+        "List farm sanitation practices: cleaning pens, footbaths, proper disposal of dead animals, quarantine.",
+        "Dilution questions: concentrate = rate × volume of water."
+      ],
+      "checkQuestions": [
+        {
+          "q": "An acaricide is used at 1.5 mL per litre. For a 20 L sprayer you need",
+          "options": [
+            "30 mL",
+            "15 mL",
+            "21.5 mL",
+            "13.3 mL"
+          ],
+          "answer": 0,
+          "explanation": "1.5 × 20 = 30 mL."
+        },
+        {
+          "q": "Drenching is used mainly to control",
+          "options": [
+            "ticks",
+            "internal worms",
+            "lice",
+            "flies"
+          ],
+          "answer": 1,
+          "explanation": "A liquid dewormer is given by mouth."
+        },
+        {
+          "q": "A footbath at the entrance of a pen",
+          "options": [
+            "feeds the animals",
+            "waters the animals",
+            "reduces the spread of disease on footwear",
+            "cools the pen"
+          ],
+          "answer": 2,
+          "explanation": "Disinfectant kills pathogens on boots and hooves."
+        },
+        {
+          "q": "The practice of keeping new animals apart before mixing them with the herd is",
+          "options": [
+            "culling",
+            "castration",
+            "flushing",
+            "quarantine"
+          ],
+          "answer": 3,
+          "explanation": "Quarantine allows signs of disease to appear before contact."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-routine-management",
+      "title": "Routine management practices: identification, debeaking, castration and culling",
+      "topic": "Practical: Routine management practices in farm animals",
+      "kind": "FIELD",
+      "skills": [
+        "identification",
+        "procedure",
+        "safety",
+        "calculation"
+      ],
+      "aim": "To identify tools for routine management practices, describe how the practices are done, and read and assign ear-notch numbers.",
+      "apparatus": [
+        "Ear-notcher, ear tags and applicator, tattoo pliers and ink, branding iron",
+        "Burdizzo (emasculatome), elastrator and rubber rings",
+        "Debeaker",
+        "Dehorning iron",
+        "Hoof trimmer",
+        "Weighing scale"
+      ],
+      "materials": [
+        "Piglets, kids or chicks on the school farm (demonstration by the farm attendant or veterinarian), or pictures",
+        "Antiseptic spray or wound oil"
+      ],
+      "safety": [
+        "Only trained staff should perform castration, debeaking and dehorning; students observe.",
+        "Restrain animals properly to avoid injury to animal and handler.",
+        "Apply antiseptic to wounds and keep pens clean to prevent infection."
+      ],
+      "procedure": [
+        "Identify each tool and state the practice it is used for.",
+        "Observe ear-notching of piglets and note where notches are placed according to the farm's numbering system.",
+        "Observe debeaking of pullets (removing the tip of the upper beak) to prevent cannibalism and feather pecking.",
+        "Observe bloodless castration of a buck or bull calf using the burdizzo, or castration with an elastrator ring in young lambs.",
+        "Examine the flock or herd records and select animals for breeding or culling (poor layers, sick, old, infertile animals).",
+        "Record each practice, the date and the animal identity."
+      ],
+      "expectedObservations": "Ear notches remain as permanent marks that identify each pig. Debeaked birds peck less at each other. Castrated males become calmer and fatten better. Poor layers have a pale, small, dry comb, yellow-pigmented shanks and narrow pubic bones.",
+      "dataAndCalculations": "Worked example (using the system on this farm): right ear – notch on lower edge = 1, upper edge = 3; left ear – lower edge = 10, upper edge = 30. Pig number 47 = 30 + 10 (left ear, one upper and one lower notch) + 3 + 3 + 1 (right ear, two upper and one lower notch) = 40 + 7 = 47. Culling: a flock of 500 layers produced 300 eggs a day. Hen-day production = 300 ÷ 500 × 100 = 60 %; after culling 50 poor layers egg output fell only to 295, giving 295 ÷ 450 × 100 = 65.6 %.",
+      "precautions": [
+        "Use clean, disinfected tools.",
+        "Perform practices at the recommended age (e.g. castration and notching of piglets in the first weeks).",
+        "Keep accurate identity records."
+      ],
+      "sourcesOfError": [
+        "Different farms use different ear-notch systems; always use the stated key.",
+        "Misreading notches on dirty or torn ears."
+      ],
+      "commonMistakes": [
+        "Confusing the burdizzo (castration) with the debeaker.",
+        "Adding notch values from the wrong ear.",
+        "Culling only on age rather than performance."
+      ],
+      "examTips": [
+        "For each practice give: tool, animal, reason and age.",
+        "Ear-notch questions always provide the key – read it carefully before adding.",
+        "List methods of identification: ear-notching, tagging, tattooing, branding, leg bands (poultry)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The tool used for bloodless castration is the",
+          "options": [
+            "debeaker",
+            "burdizzo",
+            "ear-notcher",
+            "hoof trimmer"
+          ],
+          "answer": 1,
+          "explanation": "It crushes the spermatic cords without cutting the skin."
+        },
+        {
+          "q": "Debeaking is done in poultry to",
+          "options": [
+            "increase feed intake",
+            "prevent cannibalism",
+            "improve egg colour",
+            "identify birds"
+          ],
+          "answer": 1,
+          "explanation": "Trimming the beak reduces pecking injuries."
+        },
+        {
+          "q": "With the farm key above (right: lower 1, upper 3; left: lower 10, upper 30), one left-upper and two right-lower notches give",
+          "options": [
+            "32",
+            "33",
+            "13",
+            "62"
+          ],
+          "answer": 0,
+          "explanation": "30 + 1 + 1 = 32."
+        },
+        {
+          "q": "Removing unproductive animals from a flock is called",
+          "options": [
+            "flushing",
+            "steaming up",
+            "culling",
+            "crutching"
+          ],
+          "answer": 2,
+          "explanation": "Culling improves overall productivity and profitability."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-fish-harvest-preservation",
+      "title": "Fish harvesting, processing and preservation (smoking)",
+      "topic": "Practical: Fish harvesting and preservation",
+      "kind": "FIELD",
+      "skills": [
+        "procedure",
+        "measurement",
+        "calculation",
+        "observation"
+      ],
+      "aim": "To describe and carry out methods of harvesting and preserving fish, and calculate the weight loss and moisture content after smoking.",
+      "apparatus": [
+        "Drag net or scoop net",
+        "Basins and ice chest",
+        "Knife and cutting board",
+        "Smoking kiln (drum or Chorkor smoker)",
+        "Weighing scale"
+      ],
+      "materials": [
+        "Catfish (Clarias) or tilapia from the school pond or a local fish farm",
+        "Clean water, salt",
+        "Firewood or charcoal"
+      ],
+      "safety": [
+        "Take care near ponds; never work alone at the water's edge.",
+        "Catfish have sharp pectoral spines – hold firmly behind the head.",
+        "Keep a safe distance from the kiln fire and smoke; ensure good ventilation."
+      ],
+      "procedure": [
+        "Lower the pond water level, drag the net from one end to the other and scoop out the fish.",
+        "Sort fish by size; keep those for sale chilled on ice.",
+        "Weigh the fish to be preserved (fresh weight).",
+        "Kill humanely, gut, wash and, if required, salt the fish lightly.",
+        "Arrange the fish on the wire racks of the smoking kiln and smoke-dry over a slow fire, turning them, for several hours until dry and golden brown.",
+        "Cool and weigh the smoked fish.",
+        "Calculate the percentage weight loss and the moisture content of the product; store in a cool, dry, airy place."
+      ],
+      "expectedObservations": "Smoked fish become firm, dry, golden to dark brown, with a smoky smell, and lose much of their weight. Poorly smoked fish remain soft and quickly turn mouldy.",
+      "dataAndCalculations": "Worked example: 20.0 kg of fresh catfish (75 % water) was smoked to 7.0 kg. Weight loss = 20.0 − 7.0 = 13.0 kg = 13.0 ÷ 20.0 × 100 = 65 %. Dry matter = 20.0 × 0.25 = 5.0 kg, which is unchanged, so water left = 7.0 − 5.0 = 2.0 kg and the moisture content of the smoked fish = 2.0 ÷ 7.0 × 100 = 28.6 %.",
+      "precautions": [
+        "Process fish quickly after harvest to prevent spoilage.",
+        "Use a slow, even fire so fish dry rather than burn.",
+        "Store smoked fish off the floor in insect-proof containers."
+      ],
+      "sourcesOfError": [
+        "Fish not uniformly dried.",
+        "Weighing smoked fish while still hot."
+      ],
+      "commonMistakes": [
+        "Calling smoking 'cooking' – its purpose is to remove water.",
+        "Using a fierce fire that chars the outside and leaves the inside moist.",
+        "Confusing weight loss with moisture content of the product."
+      ],
+      "examTips": [
+        "List preservation methods: chilling/icing, freezing, smoking, sun-drying, salting, canning, frying.",
+        "Explain the principle: removing water or lowering temperature slows bacteria and enzymes.",
+        "Name harvesting gear: drag (seine) net, cast net, scoop net, hook and line, traps."
+      ],
+      "checkQuestions": [
+        {
+          "q": "10 kg of fresh fish smoked down to 4 kg represents a weight loss of",
+          "options": [
+            "40 %",
+            "60 %",
+            "6 %",
+            "4 %"
+          ],
+          "answer": 1,
+          "explanation": "6 ÷ 10 × 100 = 60 %."
+        },
+        {
+          "q": "Smoking preserves fish mainly by",
+          "options": [
+            "adding water",
+            "removing water and adding preservative smoke compounds",
+            "killing all bacteria permanently",
+            "raising pH"
+          ],
+          "answer": 1,
+          "explanation": "Dryness and smoke chemicals slow microbial growth."
+        },
+        {
+          "q": "The net dragged through a pond to harvest fish is the",
+          "options": [
+            "gill net",
+            "cast net",
+            "seine (drag) net",
+            "hook and line"
+          ],
+          "answer": 2,
+          "explanation": "A seine net is pulled across the pond."
+        },
+        {
+          "q": "Fresh fish for sale should be kept",
+          "options": [
+            "in the sun",
+            "on ice",
+            "in warm water",
+            "in plastic bags in the sun"
+          ],
+          "answer": 1,
+          "explanation": "Chilling slows spoilage."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-farm-records-accounts",
+      "title": "Keeping farm records; depreciation and profit and loss account",
+      "topic": "Farm records and accounts",
+      "kind": "LAB",
+      "skills": [
+        "calculation",
+        "procedure"
+      ],
+      "aim": "To design farm records and use them to calculate depreciation and prepare a simple profit and loss account for a broiler enterprise.",
+      "apparatus": [
+        "Record books (inventory, production, sales and purchases)",
+        "Calculator",
+        "Ruler and pencil"
+      ],
+      "materials": [
+        "Data from the school poultry unit or the worked example below"
+      ],
+      "safety": [
+        "Keep records in a dry, secure place; back up important figures."
+      ],
+      "procedure": [
+        "Design an inventory record listing each asset, date bought, cost, expected life and salvage value.",
+        "Design a production record (e.g. daily feed use, mortality, weights) and a sales and purchases record.",
+        "Calculate annual depreciation of equipment using the straight-line method.",
+        "Calculate the book value after a given number of years.",
+        "List all costs (variable and fixed) and all revenue for one batch.",
+        "Prepare a profit and loss account and state whether the enterprise made a profit."
+      ],
+      "expectedObservations": "Complete records show where money is spent and earned, allow profit to be measured and support loan applications.",
+      "dataAndCalculations": "Worked example 1: an incubator cost ₦500 000, has a salvage value of ₦50 000 and a life of 5 years. Annual depreciation = (500 000 − 50 000) ÷ 5 = ₦90 000. Book value after 2 years = 500 000 − 2 × 90 000 = ₦320 000. Worked example 2 (400 broilers): costs – day-old chicks 400 × ₦800 = ₦320 000; feed 400 × 4 kg × ₦600 = ₦960 000; drugs and vaccines ₦60 000; labour ₦120 000; depreciation share ₦30 000; total ₦1 490 000. With 5 % mortality, 380 birds sold at ₦5 500 = ₦2 090 000. Profit = 2 090 000 − 1 490 000 = ₦600 000.",
+      "precautions": [
+        "Record transactions on the day they happen.",
+        "Keep receipts for all purchases.",
+        "Separate fixed costs from variable costs."
+      ],
+      "sourcesOfError": [
+        "Unrecorded small expenses.",
+        "Estimated useful life and salvage values."
+      ],
+      "commonMistakes": [
+        "Forgetting to subtract the salvage value in straight-line depreciation.",
+        "Counting all birds as sold despite mortality.",
+        "Treating the full price of equipment as a cost of one batch."
+      ],
+      "examTips": [
+        "Show the formula: depreciation = (cost − salvage value) ÷ useful life.",
+        "Lay out profit and loss in two columns (expenditure and income) with totals.",
+        "Know the record types: inventory, production, income and expenditure, and special records (e.g. breeding, health)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "A sprayer costs ₦60 000, salvage ₦10 000, life 5 years. Annual depreciation is",
+          "options": [
+            "₦12 000",
+            "₦10 000",
+            "₦14 000",
+            "₦50 000"
+          ],
+          "answer": 1,
+          "explanation": "(60 000 − 10 000) ÷ 5 = ₦10 000."
+        },
+        {
+          "q": "A record listing all farm assets and their values is the",
+          "options": [
+            "production record",
+            "inventory record",
+            "sales record",
+            "health record"
+          ],
+          "answer": 1,
+          "explanation": "An inventory lists what the farm owns."
+        },
+        {
+          "q": "Total revenue ₦800 000 and total cost ₦650 000 give",
+          "options": [
+            "a profit of ₦150 000",
+            "a loss of ₦150 000",
+            "a profit of ₦1 450 000",
+            "break-even"
+          ],
+          "answer": 0,
+          "explanation": "800 000 − 650 000 = ₦150 000 profit."
+        },
+        {
+          "q": "Which is a variable cost in poultry production?",
+          "options": [
+            "Cost of the poultry house",
+            "Depreciation of the incubator",
+            "Land rent",
+            "Feed"
+          ],
+          "answer": 3,
+          "explanation": "Feed cost changes with the number of birds."
+        }
+      ],
+      "simulator": null
+    },
+    {
+      "id": "pr-agr-mendelian-ratios",
+      "title": "Crop improvement: monohybrid and dihybrid ratios with seeds",
+      "topic": "Crop improvement",
+      "kind": "LAB",
+      "skills": [
+        "observation",
+        "calculation",
+        "identification"
+      ],
+      "aim": "To demonstrate Mendel's laws by counting seed phenotypes in segregating maize cobs (or model beads) and comparing them with expected ratios.",
+      "apparatus": [
+        "Counter or tally sheet",
+        "Trays",
+        "Calculator"
+      ],
+      "materials": [
+        "F2 maize cobs segregating for purple and yellow kernels (and smooth/wrinkled where available), or two colours of beads/beans in bags as a model"
+      ],
+      "safety": [
+        "Do not eat treated or coloured seeds.",
+        "Wash hands after handling seeds."
+      ],
+      "procedure": [
+        "Explain the cross: a pure purple (PP) parent crossed with pure yellow (pp) gives F1 all purple (Pp); F1 self-pollinated gives the F2 cob.",
+        "Count purple and yellow kernels on an F2 cob (or draw pairs of beads at random from two bags each containing equal numbers of P and p beads).",
+        "Record the totals and calculate the observed ratio.",
+        "Compare with the expected 3 : 1 ratio.",
+        "For a dihybrid cob (colour and texture), count the four classes and compare with 9 : 3 : 3 : 1.",
+        "Relate the results to selection and breeding in crop improvement."
+      ],
+      "expectedObservations": "About three-quarters of the kernels are purple and one-quarter yellow, close to 3 : 1. Dihybrid cobs show four kernel types in roughly 9 : 3 : 3 : 1 proportion.",
+      "dataAndCalculations": "Worked example 1: an F2 cob had 312 purple and 104 yellow kernels. Total = 416; ratio = 312 ÷ 104 = 3.0 : 1. Expected purple = 3/4 × 416 = 312, yellow = 104 – an exact fit. Worked example 2: a cross of tall (TT) × dwarf (tt) gives F1 Tt; among 400 F2 plants expect 3/4 × 400 = 300 tall and 100 dwarf. Worked example 3: among 320 dihybrid F2 seeds expect 9/16 × 320 = 180, 3/16 × 320 = 60, 60 and 1/16 × 320 = 20.",
+      "precautions": [
+        "Count each kernel once only; mark the starting row.",
+        "Draw beads without looking and replace them each time.",
+        "Use large numbers so the ratio approaches the expected value."
+      ],
+      "sourcesOfError": [
+        "Kernels damaged or of intermediate colour.",
+        "Small samples deviate from expected ratios by chance."
+      ],
+      "commonMistakes": [
+        "Expecting exact ratios in small samples.",
+        "Confusing genotype ratio (1 : 2 : 1) with phenotype ratio (3 : 1).",
+        "Writing the dominant allele in lower case."
+      ],
+      "examTips": [
+        "Show the cross with a Punnett square, gametes and the F2 ratio.",
+        "State Mendel's first law (segregation) and second law (independent assortment) in words.",
+        "Link to crop improvement: selection, hybridisation, introduction and their aims (yield, disease resistance, quality)."
+      ],
+      "checkQuestions": [
+        {
+          "q": "The F2 phenotypic ratio of a monohybrid cross with complete dominance is",
+          "options": [
+            "1 : 2 : 1",
+            "3 : 1",
+            "9 : 3 : 3 : 1",
+            "1 : 1"
+          ],
+          "answer": 1,
+          "explanation": "Three dominant phenotypes to one recessive."
+        },
+        {
+          "q": "Among 240 F2 plants from Tt × Tt, the expected number of dwarf plants is",
+          "options": [
+            "60",
+            "180",
+            "120",
+            "80"
+          ],
+          "answer": 0,
+          "explanation": "1/4 × 240 = 60."
+        },
+        {
+          "q": "A cross of Tt × tt gives offspring in the ratio",
+          "options": [
+            "3 : 1",
+            "1 : 2 : 1",
+            "1 : 1",
+            "all tall"
+          ],
+          "answer": 2,
+          "explanation": "Half Tt (tall), half tt (dwarf)."
+        },
+        {
+          "q": "Mendel's second law describes",
+          "options": [
+            "segregation of alleles",
+            "dominance",
+            "mutation",
+            "independent assortment of genes"
+          ],
+          "answer": 3,
+          "explanation": "Genes for different characters assort independently into gametes."
+        }
+      ],
+      "simulator": null
+    }
+  ]
+}

@@ -1,0 +1,1788 @@
+{
+ "exam": "WAEC",
+ "subject": "Radio, Television and Electronics Works",
+ "practicalPaper": "Paper 3 is a 2-hour practical test of three skill-based questions, two answered, for 90 marks; the materials list is released at least two weeks before. Candidates identify and test components, build or repair circuits, take measurements and diagnose faults, and are marked on procedure, workmanship, results and safety (a theory alternative may be set where materials cannot be obtained).",
+ "practicals": [
+  {
+   "id": "pr-rtv-safe-discharge-of-capacitors-before-servicing",
+   "title": "Safe discharge of capacitors before servicing",
+   "topic": "Safety Checks in Servicing Radio Receiver",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To prepare a safe work area and discharge the filter capacitors of a mains-powered set before working on it.",
+   "apparatus": [
+    "Insulated discharge tool (10 kΩ, 5 W resistor on insulated leads with probes)",
+    "Digital multimeter",
+    "Insulated screwdrivers",
+    "Isolation transformer (if available)"
+   ],
+   "materials": [
+    "Mains-powered radio or amplifier with large filter capacitors",
+    "Rubber mat"
+   ],
+   "safety": [
+    "Unplug the set and wait before opening it.",
+    "Never short a charged high-voltage capacitor with a screwdriver: it can weld the blade and spray molten metal.",
+    "Work with one hand where possible and stand on a rubber mat."
+   ],
+   "procedure": [
+    "Clear the bench of liquids and loose metal; check the soldering iron is in its stand.",
+    "Unplug the set and remove the back cover.",
+    "Locate the main filter capacitors and note their voltage ratings.",
+    "Measure the voltage across each capacitor on the d.c. range.",
+    "Connect the discharge resistor across the capacitor terminals for at least five time constants.",
+    "Re-measure to confirm the voltage is below about 2 V.",
+    "Only then begin servicing."
+   ],
+   "expectedObservations": "The capacitor voltage falls steadily while the resistor is connected; after about five time constants it reads almost zero.",
+   "dataAndCalculations": "A 220 µF capacitor charged to 400 V stores E = ½CV² = 0.5 × 220 × 10⁻⁶ × 400² = 17.6 J — enough to cause a dangerous shock. Through 10 kΩ, τ = RC = 10 000 × 220 × 10⁻⁶ = 2.2 s, so wait at least 5τ = 11 s before re-measuring.",
+   "precautions": [
+    "Use a resistor with an adequate power rating.",
+    "Hold only the insulated parts of the probes.",
+    "Re-check after discharging, as some capacitors recover a small charge."
+   ],
+   "sourcesOfError": [
+    "Meter loading slowly discharging the capacitor during measurement.",
+    "Hidden capacitors on other boards still charged."
+   ],
+   "commonMistakes": [
+    "Discharging with a bare screwdriver.",
+    "Assuming a set is safe because it has been switched off."
+   ],
+   "examTips": [
+    "List safety rules in order: isolate, discharge, verify, then work.",
+    "Quote the formula E = ½CV² to show why capacitors are dangerous."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The safest way to discharge a filter capacitor is through",
+     "options": [
+      "a suitable resistor",
+      "a screwdriver blade",
+      "your fingers",
+      "a fuse wire"
+     ],
+     "answer": 0,
+     "explanation": "A resistor limits the discharge current."
+    },
+    {
+     "q": "A 100 µF capacitor discharging through 10 kΩ has a time constant of",
+     "options": [
+      "0.1 s",
+      "10 s",
+      "100 s",
+      "1 s"
+     ],
+     "answer": 3,
+     "explanation": "τ = RC = 10⁴ × 10⁻⁴ = 1 s."
+    },
+    {
+     "q": "After about how many time constants is a capacitor regarded as discharged?",
+     "options": [
+      "0.5",
+      "50",
+      "5",
+      "1"
+     ],
+     "answer": 2,
+     "explanation": "After 5τ less than 1% of the voltage remains."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-identification-of-electronic-components-and-symbols",
+   "title": "Identification of electronic components and symbols",
+   "topic": "Electronic Components",
+   "kind": "LAB",
+   "skills": [
+    "identification",
+    "drawing"
+   ],
+   "aim": "To identify common electronic components by appearance, name, graphical symbol, value and rating.",
+   "apparatus": [
+    "Magnifying glass",
+    "Digital multimeter",
+    "Component data book or phone data sheets"
+   ],
+   "materials": [
+    "Resistors (carbon, wire-wound, variable), capacitors (ceramic, electrolytic, variable), inductors, diodes, LED, zener, transistors (NPN, PNP), transformer, ICs (e.g. 555, LM7805, LM386)",
+    "Old radio circuit board for spotting components"
+   ],
+   "safety": [
+    "Discharge capacitors on salvaged boards before handling.",
+    "Handle ICs by the body to avoid static damage."
+   ],
+   "procedure": [
+    "Lay out the components on numbered cards.",
+    "For each, write the name, type and draw the graphical symbol.",
+    "Read and record the marked value and rating (e.g. 1 000 µF 25 V; 1N4007; BC547).",
+    "Identify the leads: anode/cathode, emitter/base/collector, pin 1 of an IC.",
+    "Spot the same components on the old radio board.",
+    "Present the results in a table."
+   ],
+   "expectedObservations": "Electrolytic capacitors show a stripe at the negative lead; diodes have a band at the cathode; ICs have a notch or dot at pin 1; transistors have their type number printed on the flat face.",
+   "dataAndCalculations": "Decoding markings: ceramic \"473\" = 47 × 10³ pF = 47 nF; resistor yellow–violet–orange–gold = 47 × 10³ Ω = 47 kΩ ±5%; electrolytic \"470 µF 16 V\" must not be used above 16 V.",
+   "precautions": [
+    "Identify polarity before connecting any component.",
+    "Check the data sheet for transistor pin-out; it differs between types."
+   ],
+   "sourcesOfError": [
+    "Faded or tiny markings misread.",
+    "Similar-looking packages (e.g. transistor and regulator in TO-92)."
+   ],
+   "commonMistakes": [
+    "Drawing the zener symbol like an ordinary diode.",
+    "Confusing a variable resistor symbol with a preset."
+   ],
+   "examTips": [
+    "Neat, correct symbols attract marks; use a ruler and a template.",
+    "Always state value and rating, not just the name."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The band on a diode marks the",
+     "options": [
+      "anode",
+      "gate",
+      "base",
+      "cathode"
+     ],
+     "answer": 3,
+     "explanation": "Conventional current flows from anode to cathode (towards the band)."
+    },
+    {
+     "q": "A ceramic capacitor marked 104 is",
+     "options": [
+      "10 nF",
+      "1 µF",
+      "100 nF",
+      "104 pF"
+     ],
+     "answer": 2,
+     "explanation": "10 × 10⁴ pF = 100 000 pF = 100 nF."
+    },
+    {
+     "q": "Pin 1 of a dual-in-line IC is found",
+     "options": [
+      "on the underside label",
+      "next to the notch or dot",
+      "in the middle",
+      "at the opposite end from the notch"
+     ],
+     "answer": 1,
+     "explanation": "Pins are numbered anticlockwise from pin 1 viewed from the top."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-comparing-colour-code-and-measured-values-testing-capacitors",
+   "title": "Comparing colour-code and measured values; testing capacitors",
+   "topic": "Resistors and Capacitors",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To compare colour-coded and meter-measured resistor values and to test capacitors for short, open and leakage faults.",
+   "apparatus": [
+    "Analogue multimeter",
+    "Digital multimeter with capacitance range"
+   ],
+   "materials": [
+    "Ten assorted resistors",
+    "Electrolytic capacitors (good and faulty samples)"
+   ],
+   "safety": [
+    "Discharge capacitors before testing."
+   ],
+   "procedure": [
+    "Decode each resistor and calculate its tolerance range.",
+    "Measure each resistor and record the % difference.",
+    "Discharge an electrolytic capacitor; connect an analogue meter on a high ohms range (black probe to + for most analogue meters).",
+    "Watch the needle: it should kick towards zero ohms then return slowly towards infinity.",
+    "Reverse the probes after discharging and repeat.",
+    "Measure capacitance on the digital meter and compare with the marked value.",
+    "Classify each capacitor: good, shorted, open or leaky."
+   ],
+   "expectedObservations": "Good capacitor: needle kicks and returns to a very high resistance. Shorted: needle stays at zero. Open: no kick at all. Leaky: needle returns only part-way.",
+   "dataAndCalculations": "A 2.2 kΩ ±5% resistor (red–red–red–gold) may lie between 2 090 Ω and 2 310 Ω; a reading of 2 170 Ω gives (2 170 − 2 200)/2 200 × 100 = −1.4%, within tolerance. A 100 µF ±20% capacitor is acceptable between 80 µF and 120 µF.",
+   "precautions": [
+    "Do not touch both probes when measuring high values.",
+    "Allow the needle to settle fully before judging leakage."
+   ],
+   "sourcesOfError": [
+    "Analogue meter scale non-linearity.",
+    "Residual charge giving false kicks."
+   ],
+   "commonMistakes": [
+    "Testing a capacitor in circuit with parallel components.",
+    "Taking the needle kick as a fault."
+   ],
+   "examTips": [
+    "Tabulate coded value, tolerance range, measured value and verdict.",
+    "Describe the needle behaviour that shows each capacitor fault."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A capacitor whose needle stays at 0 Ω is",
+     "options": [
+      "open-circuited",
+      "good",
+      "leaky only slightly",
+      "short-circuited"
+     ],
+     "answer": 3,
+     "explanation": "A shorted capacitor conducts like a wire."
+    },
+    {
+     "q": "Red–red–red–gold represents",
+     "options": [
+      "22 kΩ ±10%",
+      "220 Ω ±5%",
+      "2.2 kΩ ±5%",
+      "222 Ω ±5%"
+     ],
+     "answer": 2,
+     "explanation": "2, 2, ×100 = 2 200 Ω."
+    },
+    {
+     "q": "When no kick at all is seen on a large electrolytic, it is probably",
+     "options": [
+      "over-charged",
+      "open-circuited",
+      "good",
+      "short-circuited"
+     ],
+     "answer": 1,
+     "explanation": "No charging current flows."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-testing-diodes-and-transistors-with-a-multimeter",
+   "title": "Testing diodes and transistors with a multimeter",
+   "topic": "Diodes and Transistors",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To test diodes and bipolar transistors with a multimeter, identify their terminals and type, and measure transistor current gain.",
+   "apparatus": [
+    "Digital multimeter with diode-test and hFE ranges",
+    "Breadboard",
+    "9 V battery"
+   ],
+   "materials": [
+    "1N4001 and 1N4148 diodes, LED, BC547 (NPN), BC557 (PNP), a known faulty transistor",
+    "Resistors 330 kΩ and 1 kΩ"
+   ],
+   "safety": [
+    "Use the low-voltage diode-test range; do not test components in a live circuit."
+   ],
+   "procedure": [
+    "Diode: on diode-test, measure forward (red to anode) and reverse readings.",
+    "Transistor: find the base as the lead that conducts (forward-biased junction) to both other leads with the same probe.",
+    "If the red probe on the base gives forward readings, the transistor is NPN; if black, PNP.",
+    "Check C–E in both directions; it should not conduct.",
+    "Measure hFE in the meter socket, or set up a circuit and measure IB and IC.",
+    "Record and classify each device as good, open or shorted."
+   ],
+   "expectedObservations": "Good silicon junctions read about 0.55–0.70 V forward and OL in reverse. A shorted junction reads near 0 V both ways; an open junction reads OL both ways.",
+   "dataAndCalculations": "With IB = 25 µA and IC = 5.0 mA, hFE = IC/IB = 5.0 × 10⁻³/25 × 10⁻⁶ = 200. IE = IB + IC = 5.025 mA.",
+   "precautions": [
+    "Hold leads apart so they do not touch.",
+    "Use the data sheet pin-out to confirm your findings."
+   ],
+   "sourcesOfError": [
+    "Meter test voltage differs between models.",
+    "Temperature changes hFE."
+   ],
+   "commonMistakes": [
+    "Assuming all TO-92 transistors have the same pin order.",
+    "Concluding a C–E reading of OL means a fault."
+   ],
+   "examTips": [
+    "A table of forward/reverse readings for each pair of leads earns marks.",
+    "State that a transistor behaves like two back-to-back diodes for testing."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A good silicon diode on the diode-test range reads about",
+     "options": [
+      "OL both ways",
+      "0 V both ways",
+      "0.6 V both ways",
+      "0.6 V forward, OL reverse"
+     ],
+     "answer": 3,
+     "explanation": "It conducts only one way."
+    },
+    {
+     "q": "If IB = 20 µA and IC = 3 mA, hFE is",
+     "options": [
+      "0.0067",
+      "1 500",
+      "150",
+      "60"
+     ],
+     "answer": 2,
+     "explanation": "3 × 10⁻³/20 × 10⁻⁶ = 150."
+    },
+    {
+     "q": "In an NPN transistor the base is",
+     "options": [
+      "metallic",
+      "P-type",
+      "N-type",
+      "intrinsic"
+     ],
+     "answer": 1,
+     "explanation": "N–P–N: the base is the P layer."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-testing-cells-and-batteries",
+   "title": "Testing cells and batteries",
+   "topic": "Battery",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To test dry and wet cells by measuring open-circuit and on-load voltages and to calculate internal resistance.",
+   "apparatus": [
+    "Digital multimeter",
+    "Hydrometer (for lead-acid)",
+    "Load resistor 47 Ω, 2 W",
+    "Switch"
+   ],
+   "materials": [
+    "9 V battery, 1.5 V dry cells (new and used)",
+    "12 V lead-acid battery"
+   ],
+   "safety": [
+    "Lead-acid electrolyte is corrosive: wear goggles and gloves.",
+    "Do not short-circuit any battery.",
+    "No naked flames near charging batteries (hydrogen gas)."
+   ],
+   "procedure": [
+    "Measure the open-circuit e.m.f. E of each cell.",
+    "Connect the load resistor and immediately measure the terminal voltage V.",
+    "Calculate the load current I = V/R and internal resistance r = (E − V)/I.",
+    "For the lead-acid battery, read the specific gravity of each cell with the hydrometer.",
+    "Classify each cell as good, weak or flat."
+   ],
+   "expectedObservations": "Used cells show a bigger drop on load (higher internal resistance) even when their open-circuit voltage looks acceptable. A fully charged lead-acid cell reads about 1.26–1.28 specific gravity.",
+   "dataAndCalculations": "E = 9.4 V, V = 8.6 V on 47 Ω: I = 8.6/47 = 0.183 A; r = (9.4 − 8.6)/0.183 = 0.8/0.183 = 4.37 Ω. A healthy 12 V lead-acid battery at rest reads about 12.6 V.",
+   "precautions": [
+    "Read the on-load voltage quickly so the battery does not run down.",
+    "Hold the hydrometer vertical and read at eye level."
+   ],
+   "sourcesOfError": [
+    "Battery voltage recovers after load is removed.",
+    "Temperature affects specific gravity."
+   ],
+   "commonMistakes": [
+    "Judging a cell good from open-circuit voltage alone.",
+    "Spilling electrolyte while using the hydrometer."
+   ],
+   "examTips": [
+    "Distinguish primary (non-rechargeable) and secondary (rechargeable) cells with examples.",
+    "Draw the battery symbol correctly: long line = positive."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Internal resistance shows up as",
+     "options": [
+      "a rise in e.m.f.",
+      "no change",
+      "a change in polarity",
+      "a fall in terminal voltage on load"
+     ],
+     "answer": 3,
+     "explanation": "V = E − Ir."
+    },
+    {
+     "q": "A lead-acid cell is a",
+     "options": [
+      "dry cell",
+      "solar cell",
+      "secondary cell",
+      "primary cell"
+     ],
+     "answer": 2,
+     "explanation": "It can be recharged."
+    },
+    {
+     "q": "E = 1.5 V, V = 1.2 V on load with I = 0.3 A. r =",
+     "options": [
+      "5 Ω",
+      "1 Ω",
+      "0.3 Ω",
+      "4 Ω"
+     ],
+     "answer": 1,
+     "explanation": "(1.5 − 1.2)/0.3 = 1 Ω."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-ohms-law-and-series-parallel-resistor-circuits",
+   "title": "Ohm's law and series–parallel resistor circuits",
+   "topic": "Ohm's Law",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "graph"
+   ],
+   "aim": "To verify Ohm's law and check calculated currents and voltages in series and parallel resistor circuits.",
+   "apparatus": [
+    "Variable d.c. power supply 0–12 V",
+    "Two multimeters",
+    "Breadboard",
+    "Connecting wires"
+   ],
+   "materials": [
+    "Resistors 1 kΩ and 2.2 kΩ, ¼ W"
+   ],
+   "safety": [
+    "Keep supply voltage within component ratings (¼ W at 1 kΩ allows up to about 15 V)."
+   ],
+   "procedure": [
+    "Connect the 1 kΩ resistor to the supply with an ammeter in series and voltmeter across it.",
+    "Record I for V = 2, 4, 6, 8 and 10 V and plot V against I.",
+    "Connect 1 kΩ and 2.2 kΩ in series across 9 V; measure I, V1 and V2.",
+    "Connect them in parallel across 9 V; measure the total and branch currents.",
+    "Compare all readings with calculated values."
+   ],
+   "expectedObservations": "V–I graph is a straight line through the origin. In series, V1 + V2 = 9 V and the same current flows; in parallel, branch currents add to the total.",
+   "dataAndCalculations": "Series: RT = 1 000 + 2 200 = 3 200 Ω, I = 9/3 200 = 2.81 mA, V1 = 2.81 V, V2 = 6.19 V (sum 9.0 V). Parallel: RT = (1 000 × 2 200)/3 200 = 687.5 Ω; I1 = 9 mA, I2 = 4.09 mA, total = 13.1 mA = 9/687.5.",
+   "precautions": [
+    "Switch off between readings.",
+    "Use the same meter ranges for compared readings."
+   ],
+   "sourcesOfError": [
+    "Resistor tolerance.",
+    "Meter loading."
+   ],
+   "commonMistakes": [
+    "Mixing mA and A in calculations.",
+    "Connecting the voltmeter in series."
+   ],
+   "examTips": [
+    "State Ohm's law with the condition \"at constant temperature\".",
+    "Show the formula, substitution and unit for every calculated value."
+   ],
+   "checkQuestions": [
+    {
+     "q": "9 V across 4.5 kΩ gives a current of",
+     "options": [
+      "2 mA",
+      "0.5 mA",
+      "40.5 mA",
+      "2 A"
+     ],
+     "answer": 0,
+     "explanation": "I = 9/4 500 = 0.002 A."
+    },
+    {
+     "q": "In a series circuit, the quantity that is the same everywhere is",
+     "options": [
+      "voltage",
+      "power",
+      "resistance",
+      "current"
+     ],
+     "answer": 3,
+     "explanation": "There is only one path."
+    },
+    {
+     "q": "1 kΩ and 1 kΩ in parallel give",
+     "options": [
+      "1 kΩ",
+      "250 Ω",
+      "500 Ω",
+      "2 kΩ"
+     ],
+     "answer": 2,
+     "explanation": "Equal resistors in parallel: R/2."
+    }
+   ],
+   "simulator": "phy-ohms-law"
+  },
+  {
+   "id": "pr-rtv-measuring-voltage-current-and-resistance-in-d-c-and-a-c-circuits",
+   "title": "Measuring voltage, current and resistance in d.c. and a.c. circuits",
+   "topic": "Electronic Measuring Instruments",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "safety",
+    "identification"
+   ],
+   "aim": "To operate a multimeter correctly and to identify a faulty meter by checking it against known values.",
+   "apparatus": [
+    "Analogue and digital multimeters",
+    "Low-voltage a.c./d.c. supply",
+    "Known reference resistors (1 % tolerance)"
+   ],
+   "materials": [
+    "Simple transistor circuit or radio board",
+    "Fresh 1.5 V cell"
+   ],
+   "safety": [
+    "Set the function and range before connecting.",
+    "Never use the ohms or current range on a voltage source."
+   ],
+   "procedure": [
+    "Check both meters against a fresh cell and reference resistors.",
+    "Measure the d.c. supply rails and a.c. transformer output.",
+    "Measure circuit current by breaking the supply line and inserting the meter.",
+    "Measure resistance of components out of circuit.",
+    "Note readings that disagree with the reference values to identify a faulty meter or flat meter battery.",
+    "Tabulate all readings."
+   ],
+   "expectedObservations": "Both meters agree within their stated accuracy; a meter with a flat battery gives unstable ohms readings or fails to zero.",
+   "dataAndCalculations": "An analogue meter on its 10 V range with sensitivity 20 kΩ/V has a resistance of 10 × 20 000 = 200 kΩ. Measuring across a 100 kΩ resistor in a divider would load the circuit and read low, so a high-impedance digital meter (about 10 MΩ) is preferred.",
+   "precautions": [
+    "Zero the analogue meter on each ohms range.",
+    "Read analogue scales at eye level."
+   ],
+   "sourcesOfError": [
+    "Meter loading in high-resistance circuits.",
+    "Parallax on analogue scales."
+   ],
+   "commonMistakes": [
+    "Leaving the meter on a current range, which shorts the circuit when measuring voltage.",
+    "Reading the wrong analogue scale."
+   ],
+   "examTips": [
+    "Explain ohms-per-volt sensitivity and loading in theory answers.",
+    "Record units and range used."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A meter with 20 kΩ/V on the 50 V range has resistance",
+     "options": [
+      "2.5 kΩ",
+      "1 MΩ",
+      "20 kΩ",
+      "50 kΩ"
+     ],
+     "answer": 1,
+     "explanation": "50 × 20 000 = 1 000 000 Ω."
+    },
+    {
+     "q": "Loading error is reduced by using a voltmeter of",
+     "options": [
+      "high resistance",
+      "low resistance",
+      "zero resistance",
+      "any resistance"
+     ],
+     "answer": 0,
+     "explanation": "It draws little current from the circuit."
+    },
+    {
+     "q": "Before measuring resistance with an analogue meter you should",
+     "options": [
+      "switch on the circuit",
+      "select a.c. volts",
+      "remove its battery",
+      "zero the meter with probes shorted"
+     ],
+     "answer": 3,
+     "explanation": "Zero adjustment compensates for battery condition."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-using-an-oscilloscope-and-signal-generator",
+   "title": "Using an oscilloscope and signal generator",
+   "topic": "Fault Finding Equipment",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To operate an oscilloscope to measure the amplitude and frequency of signals from a signal generator and to trace a signal through an amplifier.",
+   "apparatus": [
+    "Oscilloscope with ×1/×10 probe",
+    "Audio signal generator",
+    "Frequency counter (optional)",
+    "Logic probe"
+   ],
+   "materials": [
+    "Simple audio amplifier board (e.g. LM386 kit)",
+    "Digital IC board for the logic probe"
+   ],
+   "safety": [
+    "Use low-voltage signals; never connect the scope earth clip to a live mains point."
+   ],
+   "procedure": [
+    "Obtain a focused trace and set the probe attenuation correctly.",
+    "Feed a sine wave from the generator; adjust V/div and time/div.",
+    "Measure peak-to-peak voltage and period; compute frequency and r.m.s. value.",
+    "Compare with the generator dial and frequency counter.",
+    "Inject the signal into the amplifier input and view input and output to find the gain.",
+    "Use the logic probe to check HIGH/LOW/pulsing states on the digital board."
+   ],
+   "expectedObservations": "Measured frequency agrees with the counter; the amplifier output is a larger, similar waveform; clipping appears if the input is too large.",
+   "dataAndCalculations": "Trace height 6 div at 1 V/div → Vpp = 6 V, Vp = 3 V, Vrms = 3/√2 = 2.12 V. One cycle = 2.5 div at 0.2 ms/div → T = 0.5 ms, f = 1/0.0005 = 2 000 Hz.",
+   "precautions": [
+    "Ensure variable controls are in the calibrated position.",
+    "Use the ×10 probe setting consistently with the scope channel setting."
+   ],
+   "sourcesOfError": [
+    "Trace thickness.",
+    "Probe compensation not adjusted."
+   ],
+   "commonMistakes": [
+    "Forgetting the ×10 factor of the probe.",
+    "Measuring half a cycle as the period."
+   ],
+   "examTips": [
+    "Name each instrument and state its use (oscilloscope, signal tracer, frequency counter, logic probe, TV analyser).",
+    "Show working from divisions to volts and seconds."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A logic probe is used to check",
+     "options": [
+      "digital logic levels",
+      "insulation resistance",
+      "antenna gain",
+      "tube emission"
+     ],
+     "answer": 0,
+     "explanation": "It shows HIGH, LOW or pulsing."
+    },
+    {
+     "q": "T = 0.25 ms. The frequency is",
+     "options": [
+      "400 Hz",
+      "25 Hz",
+      "40 kHz",
+      "4 kHz"
+     ],
+     "answer": 3,
+     "explanation": "f = 1/0.000 25 = 4 000 Hz."
+    },
+    {
+     "q": "A peak-to-peak value of 10 V corresponds to an r.m.s. value of about",
+     "options": [
+      "5 V",
+      "10 V",
+      "3.54 V",
+      "7.07 V"
+     ],
+     "answer": 2,
+     "explanation": "Vp = 5 V; Vrms = 5 × 0.707 = 3.54 V."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-soldering-and-desoldering-components-on-a-circuit-board",
+   "title": "Soldering and desoldering components on a circuit board",
+   "topic": "Soldering and Desoldering in Electronic Circuits",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To make good soldered joints on a printed circuit board and to remove components without damaging the board.",
+   "apparatus": [
+    "Soldering iron (25–40 W) with stand and damp sponge",
+    "Solder sucker (desoldering pump)",
+    "Desoldering wick (braid)",
+    "Long-nose pliers",
+    "Side cutters",
+    "Magnifying glass"
+   ],
+   "materials": [
+    "Rosin-cored solder (lead-free or 60/40)",
+    "Practice PCB or stripboard",
+    "Resistors, capacitors and transistors",
+    "Flux"
+   ],
+   "safety": [
+    "Always return the iron to its stand.",
+    "Work in a ventilated area; avoid breathing flux fumes.",
+    "Wash hands after handling leaded solder."
+   ],
+   "procedure": [
+    "Clean and tin the iron tip.",
+    "Bend component leads and insert them through the board.",
+    "Heat the pad and lead together for 1–2 seconds, then feed solder to the joint (not to the tip).",
+    "Remove the solder, then the iron; do not move the joint while it cools.",
+    "Trim the leads just above the joint.",
+    "To desolder, heat the joint and remove solder with the pump or wick; lift the component out.",
+    "Inspect all joints with the magnifier and check continuity."
+   ],
+   "expectedObservations": "A good joint is smooth, bright (or satin for lead-free) and concave like a small volcano; a dry joint looks dull, grainy or balled and may be cracked.",
+   "dataAndCalculations": "A 60/40 solder contains 60% tin and 40% lead; a 50 g reel therefore contains 30 g of tin. Joint heating time of about 2 s at 330–350 °C is usually enough; longer can lift the copper pad.",
+   "precautions": [
+    "Do not overheat semiconductors; use a heat-shunt clip on sensitive leads.",
+    "Use the right amount of solder.",
+    "Keep the tip clean and tinned."
+   ],
+   "sourcesOfError": [
+    "Oxidised tip giving poor heat transfer.",
+    "Moving the joint while solidifying."
+   ],
+   "commonMistakes": [
+    "Carrying solder on the tip to the joint (gives dry joints).",
+    "Solder bridges between adjacent pads."
+   ],
+   "examTips": [
+    "Workmanship is judged on joint quality, neat lead forming and no bridges.",
+    "Name types of solder and flux: rosin (resin) flux is used for electronics; acid fluxes are not."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A dull, grainy joint is likely a",
+     "options": [
+      "good joint",
+      "solder bridge",
+      "cold resistor",
+      "dry joint"
+     ],
+     "answer": 3,
+     "explanation": "Dry joints have poor electrical contact."
+    },
+    {
+     "q": "The flux used for electronic soldering is",
+     "options": [
+      "salt water",
+      "engine oil",
+      "rosin (resin)",
+      "hydrochloric acid"
+     ],
+     "answer": 2,
+     "explanation": "Acid fluxes corrode copper tracks."
+    },
+    {
+     "q": "A desoldering pump is used to",
+     "options": [
+      "bend leads",
+      "remove molten solder",
+      "cool the iron",
+      "add flux"
+     ],
+     "answer": 1,
+     "explanation": "It sucks molten solder away from the joint."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-constructing-a-stabilised-low-voltage-d-c-power-supply",
+   "title": "Constructing a stabilised low-voltage d.c. power supply",
+   "topic": "Power Supply Unit",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "measurement"
+   ],
+   "aim": "To build a transformer–bridge rectifier–filter–regulator power supply and measure its output.",
+   "apparatus": [
+    "Soldering kit",
+    "Multimeter",
+    "Oscilloscope"
+   ],
+   "materials": [
+    "230 V/12 V transformer, 4 × 1N4001 or bridge rectifier, 1 000 µF 25 V capacitor",
+    "5.1 V zener (or LM7805 regulator), 220 Ω 0.5 W resistor, 0.1 µF capacitors",
+    "Veroboard, fuse and holder, LED indicator with 1 kΩ resistor"
+   ],
+   "safety": [
+    "All mains connections must be insulated and fused; the teacher checks before switch-on.",
+    "Observe capacitor and diode polarity."
+   ],
+   "procedure": [
+    "Draw the circuit and block diagram.",
+    "Mount and solder the bridge rectifier and filter capacitor.",
+    "Add the regulator (zener with series resistor, or LM7805 with input/output capacitors).",
+    "Add the LED indicator.",
+    "Check for bridges and polarity, then power up through the fuse.",
+    "Measure the unregulated and regulated voltages and view the ripple on the scope.",
+    "Load the output and check that the voltage stays constant."
+   ],
+   "expectedObservations": "The unregulated output is about 16 V with some ripple; the regulated output stays near 5 V with very little ripple even when the load changes.",
+   "dataAndCalculations": "Zener series resistor for Vin = 12 V, Vz = 5.1 V, load 20 mA + zener 10 mA = 30 mA: R = (12 − 5.1)/0.030 = 230 Ω → choose 220 Ω (nearest preferred value). Then I = 6.9/220 = 31.4 mA and resistor power P = I²R = 0.0314² × 220 = 0.22 W, so a 0.5 W resistor is needed.",
+   "precautions": [
+    "Fit a heat sink to the regulator if the current is high.",
+    "Keep mains and low-voltage wiring apart."
+   ],
+   "sourcesOfError": [
+    "Zener voltage tolerance.",
+    "Transformer output varies with mains voltage."
+   ],
+   "commonMistakes": [
+    "Reversing the electrolytic capacitor.",
+    "Omitting the zener series resistor."
+   ],
+   "examTips": [
+    "Label blocks: transformer, rectifier, filter, regulator, load.",
+    "Explain filtration and stabilisation in one line each."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The function of the zener diode in a power supply is to",
+     "options": [
+      "keep the output voltage constant",
+      "rectify a.c.",
+      "step down voltage",
+      "store charge"
+     ],
+     "answer": 0,
+     "explanation": "It operates in reverse breakdown as a voltage reference."
+    },
+    {
+     "q": "The LM7805 gives an output of",
+     "options": [
+      "−5 V",
+      "+12 V",
+      "+7.8 V",
+      "+5 V"
+     ],
+     "answer": 3,
+     "explanation": "78xx regulators give +xx volts."
+    },
+    {
+     "q": "Vin = 9 V, Vz = 6 V, I = 30 mA. The series resistor is",
+     "options": [
+      "200 Ω",
+      "30 Ω",
+      "100 Ω",
+      "300 Ω"
+     ],
+     "answer": 2,
+     "explanation": "(9 − 6)/0.03 = 100 Ω."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-common-emitter-amplifier-voltages-and-gain",
+   "title": "Common-emitter amplifier voltages and gain",
+   "topic": "Amplifiers",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To set up a single-stage common-emitter amplifier, measure its d.c. bias voltages and determine its voltage gain.",
+   "apparatus": [
+    "9–12 V d.c. supply",
+    "Signal generator",
+    "Dual-trace oscilloscope",
+    "Multimeter",
+    "Breadboard"
+   ],
+   "materials": [
+    "BC547 transistor",
+    "Bias resistors (e.g. 47 kΩ, 10 kΩ, RC 4.7 kΩ, RE 1 kΩ)",
+    "Coupling capacitors 10 µF, emitter bypass 100 µF"
+   ],
+   "safety": [
+    "Check polarity of electrolytics and supply before switching on."
+   ],
+   "procedure": [
+    "Build the voltage-divider-biased amplifier on the breadboard.",
+    "With no signal, measure VB, VE and VC to earth.",
+    "Apply a 1 kHz sine wave of 20 mV peak to the input.",
+    "Display input and output together; note the phase.",
+    "Measure the output amplitude and calculate the gain.",
+    "Increase the input until clipping appears and note the maximum undistorted output."
+   ],
+   "expectedObservations": "VE is about 0.6–0.7 V below VB; VC sits near the middle of the supply. Output is larger and inverted (180° out of phase) relative to the input.",
+   "dataAndCalculations": "Vin = 20 mV, Vout = 1.2 V: Av = 1.2/0.020 = 60. In decibels, gain = 20 log₁₀ 60 = 35.6 dB.",
+   "precautions": [
+    "Keep input small to avoid distortion.",
+    "Use short leads to avoid pick-up of hum."
+   ],
+   "sourcesOfError": [
+    "Transistor hFE variation.",
+    "Oscilloscope reading errors."
+   ],
+   "commonMistakes": [
+    "Forgetting to convert mV to V.",
+    "Not noticing the phase inversion."
+   ],
+   "examTips": [
+    "Name amplifier classes and state their conduction angles: A 360°, AB between, B 180°, C less than 180°.",
+    "Show the gain calculation with units cancelling."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A common-emitter amplifier gives a phase shift of",
+     "options": [
+      "45°",
+      "180°",
+      "0°",
+      "90°"
+     ],
+     "answer": 1,
+     "explanation": "The output is inverted."
+    },
+    {
+     "q": "Vin = 10 mV, Vout = 2 V. Gain =",
+     "options": [
+      "200",
+      "20",
+      "0.005",
+      "2 000"
+     ],
+     "answer": 0,
+     "explanation": "2/0.01 = 200."
+    },
+    {
+     "q": "A Class A amplifier conducts for",
+     "options": [
+      "half the cycle",
+      "less than half",
+      "no part of the cycle",
+      "the whole cycle (360°)"
+     ],
+     "answer": 3,
+     "explanation": "Class A is biased for continuous conduction."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-building-a-transistor-astable-multivibrator-led-flasher",
+   "title": "Building a transistor astable multivibrator (LED flasher)",
+   "topic": "Oscillators and Multivibrators",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To construct a two-transistor astable multivibrator and relate its flashing rate to the timing components.",
+   "apparatus": [
+    "Breadboard or veroboard",
+    "Soldering kit",
+    "9 V battery",
+    "Stop-watch",
+    "Oscilloscope (optional)"
+   ],
+   "materials": [
+    "2 × BC547",
+    "2 × 47 kΩ base resistors",
+    "2 × 10 µF capacitors",
+    "2 × 1 kΩ collector resistors",
+    "2 LEDs"
+   ],
+   "safety": [
+    "Observe LED and capacitor polarity.",
+    "Use only a 9 V battery."
+   ],
+   "procedure": [
+    "Draw the cross-coupled circuit.",
+    "Assemble the components, LEDs in the collector circuits.",
+    "Check the wiring, then connect the battery.",
+    "Count the number of flashes of one LED in 30 s.",
+    "Calculate the measured frequency and compare with theory.",
+    "Replace the capacitors with 22 µF and repeat.",
+    "View the collector waveform on the oscilloscope if available."
+   ],
+   "expectedObservations": "The LEDs flash alternately. Larger capacitors make them flash more slowly. The collector voltage is a square wave.",
+   "dataAndCalculations": "T = 0.69(R1C1 + R2C2) = 0.69 × 2 × 47 000 × 10 × 10⁻⁶ = 0.649 s, so f = 1/0.649 = 1.54 Hz, i.e. about 46 flashes of each LED in 30 s.",
+   "precautions": [
+    "Check the transistor pin-out before soldering.",
+    "Count flashes over a long period to reduce timing error."
+   ],
+   "sourcesOfError": [
+    "Capacitor tolerance (±20%).",
+    "Reaction time when counting."
+   ],
+   "commonMistakes": [
+    "Connecting both capacitors to the same transistor.",
+    "Wrong LED polarity, so one side never lights."
+   ],
+   "examTips": [
+    "Distinguish astable (no stable state), monostable (one) and bistable (two).",
+    "State that positive feedback sustains oscillation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "An astable multivibrator has",
+     "options": [
+      "one stable state",
+      "two stable states",
+      "three stable states",
+      "no stable state"
+     ],
+     "answer": 3,
+     "explanation": "It switches continuously."
+    },
+    {
+     "q": "Doubling both timing capacitors makes the frequency",
+     "options": [
+      "stay the same",
+      "quadruple",
+      "halve",
+      "double"
+     ],
+     "answer": 2,
+     "explanation": "T ∝ C, so f ∝ 1/C."
+    },
+    {
+     "q": "Oscillators require",
+     "options": [
+      "a rectifier",
+      "positive feedback",
+      "negative feedback only",
+      "no feedback"
+     ],
+     "answer": 1,
+     "explanation": "In-phase feedback sustains oscillation."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-resonance-and-bandwidth-of-a-series-tuned-circuit",
+   "title": "Resonance and bandwidth of a series tuned circuit",
+   "topic": "Resonant Circuit",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "graph",
+    "calculation"
+   ],
+   "aim": "To find the resonant frequency and bandwidth of a series LCR circuit from a response curve.",
+   "apparatus": [
+    "Audio signal generator",
+    "A.C. millivoltmeter or oscilloscope",
+    "Frequency counter"
+   ],
+   "materials": [
+    "Inductor 10 mH",
+    "Capacitor 0.1 µF",
+    "Resistor 100 Ω"
+   ],
+   "safety": [
+    "Use low signal levels only."
+   ],
+   "procedure": [
+    "Connect L, C and R in series across the generator output; measure the voltage across R (proportional to current).",
+    "Keep the generator output constant.",
+    "Vary the frequency from 2 kHz to 9 kHz in steps, taking closer readings near the peak.",
+    "Plot VR against frequency.",
+    "Read f₀ at the peak and the two frequencies where VR = 0.707 of the peak.",
+    "Calculate bandwidth and Q, and compare with theory."
+   ],
+   "expectedObservations": "VR rises to a sharp maximum at resonance and falls on either side, giving a bell-shaped curve.",
+   "dataAndCalculations": "f₀ = 1/(2π√(LC)) = 1/(2π√(0.01 × 0.1 × 10⁻⁶)) = 1/(2π × 3.16 × 10⁻⁵) = 5 033 Hz. Bandwidth = R/(2πL) = 100/(2π × 0.01) = 1 592 Hz, so Q = f₀/BW = 5 033/1 592 = 3.16. A radio tuner with L = 250 µH and C = 100 pF resonates at about 1.007 MHz.",
+   "precautions": [
+    "Keep generator output constant at each frequency.",
+    "Take more readings close to resonance."
+   ],
+   "sourcesOfError": [
+    "Resistance of the inductor adds to R, lowering Q.",
+    "Generator output varying with frequency."
+   ],
+   "commonMistakes": [
+    "Using 0.5 instead of 0.707 for half-power points.",
+    "Drawing a jagged curve through every point."
+   ],
+   "examTips": [
+    "Mark f₀, f₁ and f₂ on the graph.",
+    "Explain that high Q gives better selectivity in a receiver."
+   ],
+   "checkQuestions": [
+    {
+     "q": "At series resonance the circuit current is",
+     "options": [
+      "zero",
+      "unchanged",
+      "maximum",
+      "minimum"
+     ],
+     "answer": 2,
+     "explanation": "Impedance is minimum (equal to R)."
+    },
+    {
+     "q": "Half-power points occur at",
+     "options": [
+      "1.414 of peak current",
+      "0.707 of peak current",
+      "0.5 of peak current",
+      "0.637 of peak current"
+     ],
+     "answer": 1,
+     "explanation": "Power ∝ I², and 0.707² = 0.5."
+    },
+    {
+     "q": "f₁ = 990 kHz, f₂ = 1 010 kHz. The bandwidth is",
+     "options": [
+      "20 kHz",
+      "2 000 kHz",
+      "10 kHz",
+      "1 000 kHz"
+     ],
+     "answer": 0,
+     "explanation": "BW = f₂ − f₁."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-observing-amplitude-modulation-and-calculating-modulation-index",
+   "title": "Observing amplitude modulation and calculating modulation index",
+   "topic": "Modulation and Demodulation",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To display an AM waveform and determine its modulation index.",
+   "apparatus": [
+    "RF signal generator with AM facility (or AM trainer kit)",
+    "Oscilloscope",
+    "Audio generator"
+   ],
+   "materials": [
+    "Graph paper"
+   ],
+   "safety": [
+    "Use low-level signals only."
+   ],
+   "procedure": [
+    "Set the RF carrier and display it on the oscilloscope.",
+    "Apply a 1 kHz audio modulating signal.",
+    "Adjust the time base to show several modulating cycles (the envelope).",
+    "Measure Vmax and Vmin of the envelope (peak-to-peak).",
+    "Calculate the modulation index.",
+    "Increase the audio level and observe over-modulation.",
+    "Sketch the waveforms."
+   ],
+   "expectedObservations": "The carrier amplitude varies in step with the audio. When m exceeds 1 the envelope is cut off (over-modulation), causing distortion.",
+   "dataAndCalculations": "Vmax = 6 div, Vmin = 2 div: m = (Vmax − Vmin)/(Vmax + Vmin) = (6 − 2)/(6 + 2) = 0.5, i.e. 50% modulation.",
+   "precautions": [
+    "Trigger on the modulating signal for a stable envelope.",
+    "Measure both Vmax and Vmin peak-to-peak on the same scale."
+   ],
+   "sourcesOfError": [
+    "Trace thickness at Vmin.",
+    "Unstable display."
+   ],
+   "commonMistakes": [
+    "Using Vmax/Vmin as the index.",
+    "Confusing AM with FM displays."
+   ],
+   "examTips": [
+    "Sketch carrier, modulating signal and modulated wave one under another.",
+    "State the advantages of FM (less noise) and AM (simpler, longer range)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Vmax = 10 V, Vmin = 2 V. m =",
+     "options": [
+      "0.8",
+      "5",
+      "1.2",
+      "0.67"
+     ],
+     "answer": 3,
+     "explanation": "(10 − 2)/(10 + 2) = 8/12 = 0.67."
+    },
+    {
+     "q": "Over-modulation occurs when m is",
+     "options": [
+      "less than 0.3",
+      "equal to 0",
+      "greater than 1",
+      "equal to 0.5"
+     ],
+     "answer": 2,
+     "explanation": "The envelope is clipped and distorted."
+    },
+    {
+     "q": "The carrier in radio transmission",
+     "options": [
+      "is removed at the transmitter",
+      "carries the information to the receiver",
+      "is the audio signal",
+      "is always audible"
+     ],
+     "answer": 1,
+     "explanation": "The high-frequency carrier is modulated by the audio."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-dismantling-and-reassembling-a-radio-receiver",
+   "title": "Dismantling and reassembling a radio receiver",
+   "topic": "Electronic Repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "identification",
+    "safety"
+   ],
+   "aim": "To dismantle a transistor radio, identify its stages (power supply, RF, mixer/oscillator, IF, detector, AF) and reassemble it in working order.",
+   "apparatus": [
+    "Screwdriver set",
+    "Small containers for screws",
+    "Multimeter",
+    "Soldering kit",
+    "Phone camera for photographs"
+   ],
+   "materials": [
+    "AM/FM transistor radio",
+    "Service diagram (if available)",
+    "Masking tape and marker"
+   ],
+   "safety": [
+    "Remove batteries or unplug before opening.",
+    "Discharge capacitors on mains models."
+   ],
+   "procedure": [
+    "Photograph the set before and during dismantling.",
+    "Remove the back cover, knobs and screws, keeping them in labelled containers.",
+    "Lift out the board carefully, noting the wires to speaker, battery and antenna.",
+    "Identify the stages on the board: transformer/rectifier, RF and oscillator coils, IF transformers (coloured cans), detector diode, AF amplifier IC/transistors.",
+    "Inspect for dry joints and damaged parts.",
+    "Reassemble in reverse order, reconnecting all wires.",
+    "Test the radio on several stations."
+   ],
+   "expectedObservations": "The set works as before; all screws refitted; dial and tuning move freely.",
+   "dataAndCalculations": "In a superheterodyne AM receiver with IF = 455 kHz tuned to 1 000 kHz, the local oscillator runs at 1 000 + 455 = 1 455 kHz and the image frequency is 1 000 + 2 × 455 = 1 910 kHz.",
+   "precautions": [
+    "Do not force plastic clips.",
+    "Avoid turning IF transformer cores while handling."
+   ],
+   "sourcesOfError": [
+    "Lost screws or reversed wires.",
+    "Breaking the dial cord."
+   ],
+   "commonMistakes": [
+    "Not recording wire positions before disconnecting.",
+    "Over-tightening screws into plastic."
+   ],
+   "examTips": [
+    "Draw the superhet block diagram and name each stage you identified.",
+    "Mention the IF frequencies: 455 kHz (AM), 10.7 MHz (FM)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The standard AM intermediate frequency is",
+     "options": [
+      "50 Hz",
+      "1 MHz",
+      "455 kHz",
+      "10.7 MHz"
+     ],
+     "answer": 2,
+     "explanation": "AM IF is 455 kHz (some sets use 465 kHz)."
+    },
+    {
+     "q": "Local oscillator for 800 kHz with 455 kHz IF is",
+     "options": [
+      "1 710 kHz",
+      "1 255 kHz",
+      "345 kHz",
+      "455 kHz"
+     ],
+     "answer": 1,
+     "explanation": "800 + 455 = 1 255 kHz."
+    },
+    {
+     "q": "Before dismantling a set you should",
+     "options": [
+      "photograph and note wire positions",
+      "apply flux to all joints",
+      "turn all IF cores",
+      "remove all solder"
+     ],
+     "answer": 0,
+     "explanation": "Records make reassembly accurate."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-installing-a-car-radio",
+   "title": "Installing a car radio",
+   "topic": "Electronic Repairs",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "identification"
+   ],
+   "aim": "To install a car radio with correct power, earth, speaker and antenna connections and an in-line fuse.",
+   "apparatus": [
+    "Screwdrivers",
+    "Wire strippers and crimping tool",
+    "Multimeter",
+    "Test lamp"
+   ],
+   "materials": [
+    "Car radio with harness",
+    "In-line fuse holder and fuse (e.g. 10 A)",
+    "Crimp connectors",
+    "Insulating tape and cable ties",
+    "Antenna and extension lead"
+   ],
+   "safety": [
+    "Disconnect the vehicle battery negative terminal before wiring.",
+    "Fuse the supply close to its source."
+   ],
+   "procedure": [
+    "Identify the permanent 12 V (memory), switched (ignition/accessory) 12 V and earth wires with a meter.",
+    "Fit the in-line fuse in the supply.",
+    "Connect the radio harness: yellow permanent, red switched, black earth (follow the radio's colour chart).",
+    "Connect speakers with correct polarity.",
+    "Connect the antenna lead.",
+    "Secure wiring away from moving parts and hot surfaces.",
+    "Reconnect the battery and test all functions."
+   ],
+   "expectedObservations": "The radio switches on with the ignition key, keeps its presets when the key is removed, and both speakers play in phase.",
+   "dataAndCalculations": "A 60 W (maximum) car radio on 12 V draws about I = 60/12 = 5 A at full output, so a 10 A fuse protects the wiring while allowing normal operation.",
+   "precautions": [
+    "Use crimped or soldered joints, not twisted wires.",
+    "Keep speaker wires isolated from the chassis."
+   ],
+   "sourcesOfError": [
+    "Different colour codes between makes.",
+    "Poor earth giving noise."
+   ],
+   "commonMistakes": [
+    "Connecting the radio before disconnecting the battery.",
+    "Earthing speaker negatives to the chassis on bridged amplifiers."
+   ],
+   "examTips": [
+    "Mention maintenance: check fuse, connections, antenna and speaker cones.",
+    "Draw a simple connection diagram."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which battery terminal should be disconnected first?",
+     "options": [
+      "Neither",
+      "Negative",
+      "Positive",
+      "Either"
+     ],
+     "answer": 1,
+     "explanation": "Removing the earth first prevents shorts from tools touching the body."
+    },
+    {
+     "q": "The memory wire of a car radio is connected to",
+     "options": [
+      "a permanent 12 V supply",
+      "the ignition coil",
+      "the speaker",
+      "the antenna"
+     ],
+     "answer": 0,
+     "explanation": "It keeps presets when the ignition is off."
+    },
+    {
+     "q": "A 36 W radio on 12 V draws",
+     "options": [
+      "0.33 A",
+      "432 A",
+      "48 A",
+      "3 A"
+     ],
+     "answer": 3,
+     "explanation": "I = 36/12 = 3 A."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-fault-finding-and-alignment-in-a-radio-receiver",
+   "title": "Fault finding and alignment in a radio receiver",
+   "topic": "Fault Finding and Repairs in Radio Receiver",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "observation"
+   ],
+   "aim": "To locate faults in a radio receiver using voltage checks and signal injection/tracing, and to align the IF stage.",
+   "apparatus": [
+    "Multimeter",
+    "Signal generator (455 kHz modulated)",
+    "Signal tracer or oscilloscope",
+    "Plastic trimming tool",
+    "Soldering kit"
+   ],
+   "materials": [
+    "Faulty radio receiver",
+    "Service manual or circuit diagram",
+    "Replacement components"
+   ],
+   "safety": [
+    "Discharge filter capacitors on mains sets.",
+    "Use a plastic (non-metallic) trimming tool on coil cores."
+   ],
+   "procedure": [
+    "Note the symptom (dead set, hum, no stations, weak or distorted sound).",
+    "Check the power supply voltages first.",
+    "Inject an audio signal at the volume control: sound means the AF stage is good.",
+    "Inject a modulated 455 kHz signal at the IF stages, then RF at the antenna, working back towards the aerial.",
+    "Measure transistor bias voltages in the faulty stage and compare with the diagram.",
+    "Replace the faulty component and retest.",
+    "Align: inject 455 kHz, adjust each IF transformer core for maximum output (last stage first), then align the oscillator and RF trimmers at the band ends."
+   ],
+   "expectedObservations": "The stage at which the injected signal is no longer heard contains the fault. After alignment, sensitivity and selectivity improve.",
+   "dataAndCalculations": "Normal readings for a stage on a 9 V supply (from the diagram): VB = 1.6 V, VE = 1.0 V, VC = 5.0 V. Measured: VB = 1.9 V, VE = 0 V, VC = 9.0 V. VE = 0 V means no emitter current, and VC at the full supply means no collector current; VB has risen because no base current is drawn. Together these point to an open base–emitter junction, so the transistor is replaced.",
+   "precautions": [
+    "Make only small adjustments to coil cores.",
+    "Work methodically from the output towards the input (or vice versa)."
+   ],
+   "sourcesOfError": [
+    "Intermittent faults not present during test.",
+    "Meter loading changing bias voltages."
+   ],
+   "commonMistakes": [
+    "Replacing parts by guesswork.",
+    "Turning every core without a signal source."
+   ],
+   "examTips": [
+    "Present fault, test, cause and remedy in a table.",
+    "Use the terms signal injection and signal tracing correctly."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When aligning IF transformers, adjust for",
+     "options": [
+      "zero current",
+      "maximum output",
+      "minimum output",
+      "maximum hum"
+     ],
+     "answer": 1,
+     "explanation": "Peak response at 455 kHz."
+    },
+    {
+     "q": "A tool for adjusting coil cores should be",
+     "options": [
+      "non-metallic",
+      "magnetised steel",
+      "a soldering iron",
+      "brass"
+     ],
+     "answer": 0,
+     "explanation": "Metal tools detune the coil."
+    },
+    {
+     "q": "A dead set with no supply voltage at the board suggests a fault in the",
+     "options": [
+      "IF stage",
+      "detector",
+      "speaker cone",
+      "power supply or battery leads"
+     ],
+     "answer": 3,
+     "explanation": "Check the supply first."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-diagnosing-faults-in-a-black-and-white-television-receiver",
+   "title": "Diagnosing faults in a black and white television receiver",
+   "topic": "Diagnosis and Repair of Black and White TV Receiver",
+   "kind": "WORKSHOP",
+   "skills": [
+    "observation",
+    "procedure",
+    "safety"
+   ],
+   "aim": "To relate symptoms on a monochrome TV to the faulty stage using the service manual and test instruments.",
+   "apparatus": [
+    "Multimeter",
+    "Oscilloscope",
+    "Pattern generator",
+    "Isolation transformer",
+    "High-voltage probe"
+   ],
+   "materials": [
+    "Monochrome TV receiver (CRT)",
+    "Service manual and circuit diagram"
+   ],
+   "safety": [
+    "The CRT anode holds up to about 25 kV even after switch-off; discharge it with an earthed lead under supervision.",
+    "Use an isolation transformer; many TV chassis are live.",
+    "Handle the picture tube by its body, not the neck."
+   ],
+   "procedure": [
+    "Connect the set through the isolation transformer and observe the symptom.",
+    "Classify the symptom: no raster, no picture with raster, no sound, horizontal line, vertical line, rolling picture.",
+    "Use the block diagram to choose the suspect stage.",
+    "Check supply voltages to that stage.",
+    "Use the oscilloscope to check signals at test points shown in the manual.",
+    "Replace the faulty part and retest with the pattern generator."
+   ],
+   "expectedObservations": "A single horizontal bright line indicates vertical deflection failure; a vertical line indicates horizontal yoke failure; sound but no raster points to the line output/EHT section.",
+   "dataAndCalculations": "Line frequency for a 625-line, 25 frames-per-second system: 625 × 25 = 15 625 Hz, so one line lasts 1/15 625 = 64 µs. Field frequency = 50 Hz (two interlaced fields per frame).",
+   "precautions": [
+    "Discharge the CRT before handling.",
+    "Do not leave the set running with the vertical stage dead (screen burn)."
+   ],
+   "sourcesOfError": [
+    "Misreading symptoms that have two causes.",
+    "Scope probe loading on high-impedance points."
+   ],
+   "commonMistakes": [
+    "Working on a live chassis without isolation.",
+    "Assuming no picture means a bad CRT."
+   ],
+   "examTips": [
+    "A symptom–stage–remedy table is a good answer format.",
+    "Mention the use of the service manual and test points."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A single horizontal line on the screen indicates a fault in the",
+     "options": [
+      "tuner",
+      "vertical (field) deflection stage",
+      "horizontal deflection stage",
+      "audio stage"
+     ],
+     "answer": 1,
+     "explanation": "Without vertical scan the beam stays on one line."
+    },
+    {
+     "q": "The line frequency of a 625-line, 25 frame/s system is",
+     "options": [
+      "15 625 Hz",
+      "50 Hz",
+      "625 Hz",
+      "25 Hz"
+     ],
+     "answer": 0,
+     "explanation": "625 × 25 = 15 625 Hz."
+    },
+    {
+     "q": "Why is an isolation transformer used when servicing a TV?",
+     "options": [
+      "To increase picture brightness",
+      "To tune channels",
+      "To discharge the CRT",
+      "The chassis may be connected to mains"
+     ],
+     "answer": 3,
+     "explanation": "It isolates the chassis from earth so touching it is safer."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-colour-television-fault-diagnosis-with-a-colour-bar-generator",
+   "title": "Colour television fault diagnosis with a colour bar generator",
+   "topic": "Diagnosis and Repair of a Colour Television Receiver",
+   "kind": "WORKSHOP",
+   "skills": [
+    "observation",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To use a colour bar generator to identify colour, convergence and purity faults in a colour TV and to clear them.",
+   "apparatus": [
+    "Colour bar/pattern generator",
+    "Degaussing coil",
+    "Multimeter",
+    "Oscilloscope"
+   ],
+   "materials": [
+    "Colour TV receiver",
+    "Service manual"
+   ],
+   "safety": [
+    "Treat the high-voltage section and CRT with caution; discharge before handling.",
+    "Use an isolation transformer."
+   ],
+   "procedure": [
+    "Feed the colour bar signal to the aerial input and tune it in.",
+    "Check the order of bars: white, yellow, cyan, green, magenta, red, blue, black.",
+    "Note missing colours or wrong hues and relate them to the colour decoder or RGB output stages.",
+    "Use the crosshatch pattern to check convergence (static at centre, dynamic at edges).",
+    "Use a plain red raster to check purity; degauss if patches appear.",
+    "Measure voltages at the RGB output transistors to locate a dead channel."
+   ],
+   "expectedObservations": "A missing primary colour turns white bars a complementary colour (e.g. missing blue gives yellowish white). Coloured fringes on crosshatch lines show misconvergence.",
+   "dataAndCalculations": "Colour mixing check: R + G = yellow, G + B = cyan, R + B = magenta, R + G + B = white. If blue fails, the white bar appears yellow (R + G) and the cyan bar appears green.",
+   "precautions": [
+    "Degauss with the set on and the coil moved away slowly.",
+    "Adjust convergence only after purity."
+   ],
+   "sourcesOfError": [
+    "Ambient magnetic fields affecting purity.",
+    "Generator signal level incorrect."
+   ],
+   "commonMistakes": [
+    "Confusing static (centre) with dynamic (edge) convergence.",
+    "Moving speakers or magnets near the CRT."
+   ],
+   "examTips": [
+    "State the three primary colours (red, green, blue) and the PAL/NTSC/SECAM systems.",
+    "Write the bar sequence correctly."
+   ],
+   "checkQuestions": [
+    {
+     "q": "If the blue gun fails, white areas look",
+     "options": [
+      "black",
+      "yellow",
+      "cyan",
+      "magenta"
+     ],
+     "answer": 1,
+     "explanation": "White minus blue = red + green = yellow."
+    },
+    {
+     "q": "Static convergence is adjusted at the",
+     "options": [
+      "centre of the screen",
+      "corners",
+      "tuner",
+      "sound stage"
+     ],
+     "answer": 0,
+     "explanation": "Dynamic convergence deals with the edges."
+    },
+    {
+     "q": "The colour TV system used in Nigeria is",
+     "options": [
+      "NTSC",
+      "SECAM",
+      "MAC",
+      "PAL"
+     ],
+     "answer": 3,
+     "explanation": "Nigeria adopted PAL (B/G, I standards)."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-rtv-installing-and-aligning-a-satellite-dish",
+   "title": "Installing and aligning a satellite dish",
+   "topic": "Satellite Communication Systems",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement"
+   ],
+   "aim": "To mount a satellite dish and LNB, align it to a given satellite and connect it to a decoder.",
+   "apparatus": [
+    "Spanners and drill",
+    "Compass and inclinometer (or phone app)",
+    "Satellite finder meter",
+    "Coaxial cable stripper and F-connector tool",
+    "Ladder and safety harness"
+   ],
+   "materials": [
+    "Dish (e.g. 60–90 cm), LNB and mounting pole",
+    "RG6 coaxial cable and F-connectors",
+    "Decoder and TV",
+    "Cable clips"
+   ],
+   "safety": [
+    "Use a secure ladder with someone holding it; wear a harness on roofs.",
+    "Keep away from overhead power lines.",
+    "Avoid working in rain or strong wind."
+   ],
+   "procedure": [
+    "Choose a site with a clear view of the sky in the satellite's direction.",
+    "Fix the pole truly vertical using a spirit level.",
+    "Assemble the dish and LNB; set the elevation and LNB skew from the installer chart for your town.",
+    "Point the dish to the given azimuth with a compass.",
+    "Connect the finder meter between LNB and decoder; sweep slowly for maximum signal.",
+    "Tighten all bolts without moving the dish; weatherproof connectors.",
+    "Run the cable neatly to the decoder and check signal strength and quality on the menu."
+   ],
+   "expectedObservations": "Signal quality rises sharply when the dish is on target; small movements of 1–2° cause large changes.",
+   "dataAndCalculations": "A Ku-band LNB with a 9.75 GHz local oscillator receiving 11.00 GHz gives an intermediate frequency of 11.00 − 9.75 = 1.25 GHz (1 250 MHz), which travels down the coaxial cable to the decoder.",
+   "precautions": [
+    "Make small, slow adjustments.",
+    "Prevent water entering connectors.",
+    "Keep the pole vertical, or elevation readings are wrong."
+   ],
+   "sourcesOfError": [
+    "Magnetic interference with the compass near metal roofs.",
+    "Obstructions such as trees."
+   ],
+   "commonMistakes": [
+    "Tightening bolts unevenly so the dish moves.",
+    "Poorly crimped F-connectors."
+   ],
+   "examTips": [
+    "Name the elements: dish (reflector), LNB, cable, decoder (IRD).",
+    "Explain uplink, transponder and downlink."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The LNB on a satellite dish",
+     "options": [
+      "powers the TV",
+      "amplifies and down-converts the signal",
+      "transmits to the satellite",
+      "decodes pictures"
+     ],
+     "answer": 1,
+     "explanation": "Low Noise Block down-converter."
+    },
+    {
+     "q": "Received 11.7 GHz, LO 10.6 GHz. IF =",
+     "options": [
+      "1.1 GHz",
+      "22.3 GHz",
+      "0.9 GHz",
+      "10.6 GHz"
+     ],
+     "answer": 0,
+     "explanation": "11.7 − 10.6 = 1.1 GHz."
+    },
+    {
+     "q": "A geostationary satellite",
+     "options": [
+      "orbits the poles",
+      "moves across the sky daily",
+      "is only visible at night",
+      "appears fixed above the equator"
+     ],
+     "answer": 3,
+     "explanation": "It orbits once every 24 hours above the equator."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

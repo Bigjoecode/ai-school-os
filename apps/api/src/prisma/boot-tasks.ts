@@ -10,6 +10,7 @@ import { installSyllabi } from './syllabus-install';
 import { installCareers } from './careers-install';
 import { installJamb } from './jamb-install';
 import { installQuestionBank } from './question-bank-install';
+import { installPracticals } from './practicals-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
 import { autoSeedDemoBece } from './demo-bece';
@@ -158,6 +159,14 @@ export function installSyllabiInBackground(config: Env): void {
         } catch (err) {
           new Logger('QuestionBank').error(`Question bank could not be installed: ${(err as Error).message}`);
           raiseAlert('boot', 'question-bank', 'Question bank could not be installed', (err as Error).message.slice(0, 1000));
+        }
+        // Practical Academy lessons (prisma/practicals), linked to the syllabus topics installed above.
+        try {
+          const practicals = await installPracticals(prisma);
+          if (practicals) new Logger('Practicals').log(practicals);
+        } catch (err) {
+          new Logger('Practicals').error(`Practical lessons could not be installed: ${(err as Error).message}`);
+          raiseAlert('boot', 'practicals', 'Practical lessons could not be installed', (err as Error).message.slice(0, 1000));
         }
         // Demo school only, once ever: topic-mastery history so Class insights and learning updates can be shown.
         // Skipped while demo logins are off (nothing is created then; it runs once they are back on).

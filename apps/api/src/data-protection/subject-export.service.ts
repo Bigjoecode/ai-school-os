@@ -236,6 +236,7 @@ export class SubjectExportService {
           P('FlashcardDeck', 'flashcards.csv', 'Flashcard decks', bySt),
           P('PracticeAttempt', 'practice_attempts.csv', 'Practice attempts', bySt),
           P('ExamSitting', 'wassce_mocks.csv', 'Full WASSCE, NECO and BECE mocks (papers and grades)', bySt),
+          P('PracticalAttempt', 'practical_attempts.csv', 'Practical Academy virtual labs and quick checks (work, marks, teacher reviews)', bySt),
           P('ModuleProgress', 'lesson_module_progress.csv', 'Lesson module progress', bySt),
           P('CheckInAttempt', 'lesson_check_ins.csv', 'Lesson check-in answers and scores', bySt),
           P('OfflineExamSeat', 'offline_exam_seats.csv', 'Offline exam downloads and hand-ins (no PINs or keys)', bySt),

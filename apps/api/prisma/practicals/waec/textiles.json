@@ -1,0 +1,1288 @@
+{
+ "exam": "WAEC",
+ "subject": "Textiles",
+ "practicalPaper": "Paper 3 is a practical paper. Two projects are set and the candidate executes one over five days at six hours a day, for 80 marks. The questions reach the school two weeks early, and the sketches and preparatory notes done in that time carry 20 marks, giving 100 marks in all.",
+ "practicals": [
+  {
+   "id": "pr-tex-fibre-burning-test",
+   "title": "Identifying fibres by the burning test",
+   "topic": "Textile Fibres and Yarns",
+   "kind": "LAB",
+   "skills": [
+    "observation",
+    "identification",
+    "safety",
+    "measurement"
+   ],
+   "aim": "To identify cotton, wool or silk, polyester and nylon fibres from how they burn, the smell, the ash, and their moisture regain.",
+   "apparatus": [
+    "Candle or spirit lamp",
+    "Pair of metal tweezers",
+    "Tile or metal tray",
+    "Hand lens",
+    "Electronic balance (0.01 g)",
+    "Oven or hot, sunny window sill for drying",
+    "Matches"
+   ],
+   "materials": [
+    "Short yarn or fabric samples (about 5 cm) of cotton, wool or silk, polyester and nylon, labelled A to D",
+    "Cotton fabric sample of about 5 g for the moisture test",
+    "Bowl of water"
+   ],
+   "safety": [
+    "Work on a tile, away from loose paper and fabric, with a bowl of water nearby.",
+    "Hold each sample with tweezers, never with your fingers. Melting synthetics drip and stick to skin.",
+    "Tie back long hair and loose sleeves. Keep the room ventilated, because burning synthetics give off irritating fumes."
+   ],
+   "procedure": [
+    "Look at each sample under the hand lens and note its lustre, crimp and whether it is a staple or a filament.",
+    "Hold sample A in the tweezers and bring it slowly towards the side of the flame. Note whether it shrinks or curls away before it touches the flame.",
+    "Put the sample in the flame for 2 to 3 seconds and note how it burns: quickly or slowly, melting or not, and the flame colour.",
+    "Remove it from the flame and note whether it keeps burning or goes out by itself.",
+    "Waft the smoke gently towards your nose and note the smell: burning paper, burning hair, or a chemical or sweet smell.",
+    "Let the residue cool on the tile. Note whether it is soft grey ash, a crushable black bead, or a hard bead.",
+    "Repeat for samples B, C and D, and record everything in a table.",
+    "For the moisture test, weigh the cotton sample as conditioned in the room, then dry it until its mass stops changing and weigh it again."
+   ],
+   "expectedObservations": "Cotton (cellulose) burns quickly with a yellow flame and an afterglow, smells like burning paper and leaves soft grey ash. Wool and silk (protein) burn slowly, curl away from the flame and often go out by themselves. They smell like burning hair or feathers and leave a black bead that crushes easily. Polyester and nylon shrink away from the flame and melt. Polyester gives sooty black smoke and a sweetish smell, while nylon smells of celery. Both leave a hard bead that cannot be crushed.",
+   "dataAndCalculations": "Moisture regain = (conditioned mass - dry mass) / dry mass x 100%. Worked example: a cotton sample weighs 5.40 g conditioned and 5.00 g after drying. Regain = (5.40 - 5.00) / 5.00 x 100 = 0.40 / 5.00 x 100 = 8.0%. The standard value for cotton is about 8.5%, which supports cotton. Polyester regains only about 0.4%, so its dry and conditioned masses would be almost the same.",
+   "precautions": [
+    "Use samples of the same size so that burning rates can be compared fairly.",
+    "Bring each sample to the flame slowly so that you can see any shrinking away.",
+    "Dry the moisture sample to constant mass before taking the final weighing."
+   ],
+   "sourcesOfError": [
+    "Blended yarns (for example polyester and cotton) show mixed behaviour.",
+    "Finishes and dyes can change the smell and the residue.",
+    "Draughts change how the flame behaves.",
+    "Fabric picks up moisture again quickly while it is being weighed."
+   ],
+   "commonMistakes": [
+    "Confusing the soft ash of cotton with the crushable bead of wool.",
+    "Writing \"burns\" without describing how it burns, the smell and the residue.",
+    "Testing a large piece of fabric, which flares up and is unsafe."
+   ],
+   "examTips": [
+    "Tabulate the results under the headings: approach to flame, in flame, removed from flame, smell, residue, identity.",
+    "Classify each fibre as natural (cellulose or protein) or man-made (synthetic or regenerated). Examiners often ask for the class as well as the name.",
+    "State at least one safety precaution. It earns easy marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A fibre burns quickly, smells like burning paper and leaves soft grey ash. It is most likely",
+     "options": [
+      "Cotton",
+      "Wool",
+      "Nylon",
+      "Polyester"
+     ],
+     "answer": 0,
+     "explanation": "Cellulose fibres such as cotton burn like paper and leave soft ash."
+    },
+    {
+     "q": "A fibre shrinks from the flame, melts and leaves a hard bead that cannot be crushed. It is",
+     "options": [
+      "Silk",
+      "A synthetic such as polyester",
+      "Linen",
+      "Cotton"
+     ],
+     "answer": 1,
+     "explanation": "Thermoplastic synthetics melt and leave hard beads."
+    },
+    {
+     "q": "A sample weighs 2.20 g conditioned and 2.00 g dry. Its moisture regain is",
+     "options": [
+      "9.1%",
+      "20%",
+      "10%",
+      "2.2%"
+     ],
+     "answer": 2,
+     "explanation": "(2.20 - 2.00) / 2.00 x 100 = 10%."
+    },
+    {
+     "q": "A smell of burning hair shows that a fibre is",
+     "options": [
+      "Cellulose",
+      "Mineral",
+      "Synthetic",
+      "Protein"
+     ],
+     "answer": 3,
+     "explanation": "Wool and silk are protein fibres and smell like burning hair."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-yarn-preparation-and-count",
+   "title": "Preparing and spinning a yarn and finding its count",
+   "topic": "Textile Fibres and Yarns",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To clean, card and spin raw cotton into a yarn on a drop spindle, then find its linear density (tex) and twist.",
+   "apparatus": [
+    "Pair of hand cards or two stiff wire brushes",
+    "Drop spindle (a local spindle made from a stick and a clay or wooden whorl will do)",
+    "Metre rule",
+    "Electronic balance (0.01 g)",
+    "Hand lens",
+    "Niddy-noddy or a chair back for skeining"
+   ],
+   "materials": [
+    "Raw cotton bolls (seed cotton)",
+    "Short length of starter yarn (leader)",
+    "Labels"
+   ],
+   "safety": [
+    "Hand cards have sharp teeth, so keep your fingers clear when you stroke the cards together.",
+    "Keep cotton fibre away from naked flames, as it catches fire easily."
+   ],
+   "procedure": [
+    "Gin the cotton by hand: pull the lint away from the seeds and remove leaves and dirt.",
+    "Card the lint by stroking it between the cards several times until the fibres lie parallel, then roll it into a soft rolag.",
+    "Tie the leader to the spindle shaft above the whorl and take it up through the hook or notch.",
+    "Overlap the end of the rolag with the leader. Spin the spindle clockwise (Z twist) and draw fibres out gently so that the twist runs up into them.",
+    "When the spindle nears the floor, wind the spun yarn onto the shaft and continue until you have about 50 m.",
+    "Wind the yarn into a skein, measure its length, and weigh it.",
+    "Count the turns in 10 cm of yarn under the hand lens at three places and find the average."
+   ],
+   "expectedObservations": "Carding turns tangled lint into an airy web of parallel fibres. More twist gives a firmer, thinner and harder yarn, while too little twist lets the yarn drift apart. Hand-spun yarn is uneven, with thick and thin places, unlike machine-spun yarn.",
+   "dataAndCalculations": "Tex = mass in grams of 1000 m of yarn. Worked example: a 50 m skein weighs 1.5 g. Tex = 1.5 x 1000 / 50 = 30 tex. Twist: 5, 6 and 7 turns were counted in 10 cm, giving an average of 6 turns per 10 cm, which is 60 turns per metre.",
+   "precautions": [
+    "Draft the fibres evenly so that the yarn thickness stays uniform.",
+    "Spin in one direction only, so that the twist does not undo itself.",
+    "Measure the skein without stretching it."
+   ],
+   "sourcesOfError": [
+    "Uneven drafting makes the tex vary along the yarn.",
+    "Moisture in the yarn changes its mass.",
+    "Stretching the yarn while measuring its length."
+   ],
+   "commonMistakes": [
+    "Confusing tex, where a bigger number means a thicker yarn, with cotton count (Ne), where a bigger number means a finer yarn.",
+    "Forgetting to remove seeds and trash before carding."
+   ],
+   "examTips": [
+    "Describe the processes in order: ginning, cleaning, carding, drafting, spinning, plying, skeining.",
+    "Use yarn terms correctly: S and Z twist, ply, staple, filament, count."
+   ],
+   "checkQuestions": [
+    {
+     "q": "100 m of yarn weighs 2.5 g. Its count in tex is",
+     "options": [
+      "25",
+      "2.5",
+      "40",
+      "250"
+     ],
+     "answer": 0,
+     "explanation": "2.5 x 1000 / 100 = 25 tex."
+    },
+    {
+     "q": "The process that makes fibres lie parallel before spinning is",
+     "options": [
+      "Ginning",
+      "Carding",
+      "Plying",
+      "Sizing"
+     ],
+     "answer": 1,
+     "explanation": "Carding straightens and parallels the fibres."
+    },
+    {
+     "q": "Removing cotton seeds from the lint is called",
+     "options": [
+      "Retting",
+      "Scouring",
+      "Ginning",
+      "Mercerising"
+     ],
+     "answer": 2,
+     "explanation": "Ginning separates the lint from the seeds."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-point-paper-designs",
+   "title": "Plain, twill and satin weaves on point paper",
+   "topic": "Fabric Construction Processes",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To draft plain, 2/2 twill and five-end satin weaves on point paper, and work out the repeats for a set width.",
+   "apparatus": [
+    "Point paper or graph paper (squares of 2 to 5 mm)",
+    "HB pencil",
+    "Black fine liner",
+    "Ruler",
+    "Eraser"
+   ],
+   "materials": [
+    "Coloured pencils, if needed to show the warp and weft colours"
+   ],
+   "safety": [
+    "No special hazards. Sit upright and use good light to avoid eye strain."
+   ],
+   "procedure": [
+    "Mark a block of squares for each weave. The vertical columns are warp ends and the horizontal rows are weft picks.",
+    "Plain weave: fill alternate squares like a chessboard, so the repeat is 2 ends by 2 picks. A filled square means the warp is lifted over the weft.",
+    "2/2 twill: on pick 1, fill ends 1 and 2. On each following pick, move the pair one end to the right. The repeat is 4 by 4 and the diagonal runs at 45 degrees.",
+    "Five-end satin: on pick 1 fill end 1, then step forward by a move number of 2 (ends 1, 3, 5, 2, 4). The repeat is 5 by 5 and no two marks touch.",
+    "Draw a heavy border around one repeat of each weave and label the weave, the repeat size and the move number.",
+    "Under each draft, calculate how many repeats fit a fabric 40 ends wide."
+   ],
+   "expectedObservations": "Plain weave gives the most interlacings and a firm fabric. Twill shows a clear diagonal line. Satin has long floats and scattered interlacings, so it looks smooth and lustrous but snags easily.",
+   "dataAndCalculations": "Repeats across the width = number of ends / ends per repeat. Worked example for 40 ends: plain 40 / 2 = 20 repeats, 2/2 twill 40 / 4 = 10 repeats, five-end satin 40 / 5 = 8 repeats. A satin move number must share no factor with the repeat and must not be 1 or (repeat - 1). For 5 ends, moves of 2 or 3 work, but a move of 1 would just give a twill.",
+   "precautions": [
+    "Always count from the same corner, which is normally the bottom left.",
+    "Keep the key, filled square equals warp up, the same for every draft.",
+    "Mark one complete repeat clearly."
+   ],
+   "sourcesOfError": [
+    "Miscounting squares on fine paper.",
+    "Using an invalid move number, which puts satin marks next to each other."
+   ],
+   "commonMistakes": [
+    "Drawing twill with the step going the wrong way on alternate picks, which makes a zigzag (herringbone) by accident.",
+    "Giving no key, or no labels for the warp and weft directions."
+   ],
+   "examTips": [
+    "Label the warp and weft directions, the repeat and the type of weave. A neat, labelled draft earns most of the marks.",
+    "Be ready to name one end use of each weave, for example plain for calico, twill for denim and khaki, satin for linings."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The repeat size of a 2/2 twill is",
+     "options": [
+      "2 x 2",
+      "3 x 3",
+      "5 x 5",
+      "4 x 4"
+     ],
+     "answer": 3,
+     "explanation": "Two up and two down repeats on four ends and four picks."
+    },
+    {
+     "q": "A valid move number for a five-end satin is",
+     "options": [
+      "2",
+      "1",
+      "4",
+      "5"
+     ],
+     "answer": 0,
+     "explanation": "Move 2 (or 3) shares no factor with 5 and is not 1 or 4."
+    },
+    {
+     "q": "How many plain-weave repeats fit across 60 ends?",
+     "options": [
+      "15",
+      "30",
+      "60",
+      "12"
+     ],
+     "answer": 1,
+     "explanation": "60 / 2 = 30."
+    },
+    {
+     "q": "The weave with long floats and a lustrous surface is",
+     "options": [
+      "Plain",
+      "Hopsack",
+      "Satin",
+      "Twill"
+     ],
+     "answer": 2,
+     "explanation": "Satin weave has long floats."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-warp-weft-calculations",
+   "title": "Calculating the weight and cost of warp, weft and fabric",
+   "topic": "Fabric Construction Processes",
+   "kind": "WORKSHOP",
+   "skills": [
+    "calculation",
+    "measurement"
+   ],
+   "aim": "To work out the length, weight and cost of the warp and weft yarns needed to weave a planned length of fabric.",
+   "apparatus": [
+    "Calculator",
+    "Tape measure",
+    "Balance",
+    "Notebook"
+   ],
+   "materials": [
+    "Specification sheet: width, length, ends per cm, picks per cm, yarn count, take-up allowances, yarn price"
+   ],
+   "safety": [
+    "No special hazards."
+   ],
+   "procedure": [
+    "Record the specification: fabric width 50 cm, finished length 10 m, 8 ends per cm, 7 picks per cm, yarn of 30 tex for both warp and weft, warp allowance 10%, weft take-up 5%, yarn price N8,000 per kg.",
+    "Number of warp ends = width x ends per cm.",
+    "Warp length per end = fabric length x (1 + warp allowance). Total warp length = ends x warp length per end.",
+    "Warp weight in g = total warp length in m x tex / 1000.",
+    "Number of picks = fabric length in cm x picks per cm. Weft length = picks x width in m x (1 + weft take-up). Weft weight = weft length x tex / 1000.",
+    "Add the warp and weft weights and convert them to cost using the price per kg."
+   ],
+   "expectedObservations": "The warp usually needs more yarn than the weft, because each end carries an extra allowance for loom waste, tying on and take-up.",
+   "dataAndCalculations": "Ends = 50 x 8 = 400. Warp length per end = 10 x 1.10 = 11 m, so total warp = 400 x 11 = 4,400 m. Warp weight = 4,400 x 30 / 1000 = 132 g. Picks = 1,000 cm x 7 = 7,000. Weft length = 7,000 x 0.5 m x 1.05 = 3,675 m. Weft weight = 3,675 x 30 / 1000 = 110.25 g. Total yarn = 242.25 g. Cost: warp 0.132 kg x N8,000 = N1,056, weft 0.11025 kg x N8,000 = N882, total N1,938.",
+   "precautions": [
+    "Use the same units throughout (metres, grams, kilograms).",
+    "Add the allowances before you multiply.",
+    "Round only the final answers."
+   ],
+   "sourcesOfError": [
+    "Real take-up depends on the weave and the tension.",
+    "The yarn count varies along a hand-spun yarn.",
+    "Waste at knots and when tying on."
+   ],
+   "commonMistakes": [
+    "Multiplying width by picks instead of length by picks.",
+    "Forgetting to divide by 1000 when converting from tex.",
+    "Mixing up centimetres and metres for the width."
+   ],
+   "examTips": [
+    "Set out each formula, then substitute, then give the answer with units. Method marks are awarded even if the arithmetic slips.",
+    "State any assumption you make, such as an allowance percentage."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A fabric 40 cm wide with 10 ends per cm needs how many warp ends?",
+     "options": [
+      "50",
+      "4",
+      "4,000",
+      "400"
+     ],
+     "answer": 3,
+     "explanation": "40 x 10 = 400."
+    },
+    {
+     "q": "2,000 m of 25 tex yarn weighs",
+     "options": [
+      "50 g",
+      "80 g",
+      "500 g",
+      "25 g"
+     ],
+     "answer": 0,
+     "explanation": "2,000 x 25 / 1000 = 50 g."
+    },
+    {
+     "q": "Yarn costs N6,000 per kg. 250 g costs",
+     "options": [
+      "N2,400",
+      "N1,500",
+      "N1,000",
+      "N15,000"
+     ],
+     "answer": 1,
+     "explanation": "0.25 x 6,000 = N1,500."
+    },
+    {
+     "q": "An allowance is added to the warp length mainly for",
+     "options": [
+      "Colour",
+      "Lustre",
+      "Loom waste and take-up",
+      "Strength of fibre"
+     ],
+     "answer": 2,
+     "explanation": "The extra length covers loom waste, tying on and crimp."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-frame-loom-weaving",
+   "title": "Weaving a sampler on a frame loom",
+   "topic": "Fabric Construction Processes",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "observation"
+   ],
+   "aim": "To warp a simple frame loom and weave a sampler showing plain weave, twill and a tapestry colour change.",
+   "apparatus": [
+    "Wooden frame loom (for example 40 cm x 30 cm, with nails 2.5 mm apart or notches)",
+    "Shed stick or flat ruler",
+    "Shuttle or stick shuttle",
+    "Wide-toothed comb or fork as a beater",
+    "Tapestry needle",
+    "Scissors",
+    "Tape measure"
+   ],
+   "materials": [
+    "Cotton warp yarn",
+    "Weft yarns in two or three colours (cotton, wool, or raffia for texture)",
+    "Strips of card for the heading"
+   ],
+   "safety": [
+    "Check that there are no protruding nails or splinters on the frame.",
+    "Handle scissors carefully."
+   ],
+   "procedure": [
+    "Plan a sampler 20 cm wide at 4 ends per cm. Mark the 80 warp positions on the frame.",
+    "Tie the warp yarn to the bottom left nail and wind it continuously up and down around the nails, keeping the tension firm and even. Tie off at the end.",
+    "Weave 2 cm of card strips or thick yarn at the bottom as a heading, so that the warp spaces evenly.",
+    "Weave plain weave (over 1, under 1). Lay each pick in at an angle (a bubble or arc) so that the edges do not pull in, then beat it down.",
+    "Weave 4 cm of 2/2 twill by stepping the over 2, under 2 pattern one end along on each pick.",
+    "Weave a slit or interlocked tapestry colour change to form a simple shape.",
+    "Finish with another heading. Cut the warp in pairs and tie overhand knots to secure the weft, then weave or trim the loose ends at the back.",
+    "Measure the finished width and compare it with 20 cm."
+   ],
+   "expectedObservations": "With even tension and properly bubbled picks the edges stay straight. Pulling the weft too tight draws the selvedges in (waisting). Twill shows a diagonal line, and slit tapestry leaves small gaps where the colours meet.",
+   "dataAndCalculations": "Ends = 20 cm x 4 ends per cm = 80. With the warp wound continuously over a 40 cm frame, each end is about 40 cm long, so the warp needs about 80 x 0.40 = 32 m plus about 10% for knots, roughly 35 m. Draw-in: if the finished width is 19 cm, draw-in = (20 - 19) / 20 x 100 = 5%.",
+   "precautions": [
+    "Keep the warp tension even.",
+    "Bubble every pick of weft before beating.",
+    "Beat evenly so that the picks per cm stay constant.",
+    "Do not pull the weft tight at the selvedges."
+   ],
+   "sourcesOfError": [
+    "Loose warp makes an uneven fabric.",
+    "Beating force varies.",
+    "Yarn thickness varies."
+   ],
+   "commonMistakes": [
+    "Waisting (the edges pulling in) from a tight weft.",
+    "Skipping a warp end, which causes a float.",
+    "Starting a new weft at the selvedge, which leaves a lump."
+   ],
+   "examTips": [
+    "Name the loom parts and the motions: primary (shedding, picking, beating), secondary and auxiliary.",
+    "Submit neat preparatory sketches with the measurements and colour plan."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Shedding, picking and beating are the loom motions called",
+     "options": [
+      "Secondary",
+      "Auxiliary",
+      "Finishing",
+      "Primary"
+     ],
+     "answer": 3,
+     "explanation": "These three are the primary motions."
+    },
+    {
+     "q": "Edges pulling inwards during weaving is called",
+     "options": [
+      "Waisting or draw-in",
+      "Floating",
+      "Felting",
+      "Pilling"
+     ],
+     "answer": 0,
+     "explanation": "A tight weft draws the selvedges in."
+    },
+    {
+     "q": "A sampler 15 cm wide at 6 ends per cm needs",
+     "options": [
+      "21 ends",
+      "90 ends",
+      "60 ends",
+      "9 ends"
+     ],
+     "answer": 1,
+     "explanation": "15 x 6 = 90."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-tie-dye",
+   "title": "Tie-dye (adire oniko) with vat dye",
+   "topic": "Fabric Decoration and Finishing Techniques",
+   "kind": "STUDIO",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To decorate cotton fabric by resist tying and vat dyeing, and to calculate a dye bath recipe.",
+   "apparatus": [
+    "Enamel or plastic dye bucket",
+    "Measuring jug",
+    "Kitchen scale",
+    "Stirring stick",
+    "Rubber gloves, apron and goggles",
+    "Basin for rinsing",
+    "Iron"
+   ],
+   "materials": [
+    "250 g of scoured white cotton fabric",
+    "Raffia, string or rubber bands",
+    "Marbles, seeds or stones for circles",
+    "Vat dye (for example indigo-blue)",
+    "Caustic soda",
+    "Sodium hydrosulphite (hydros)",
+    "Soap"
+   ],
+   "safety": [
+    "Caustic soda is corrosive. Wear gloves and goggles, add the chemical to water (never water to the chemical), and wash any splashes off at once with plenty of water.",
+    "Mix the dye in the open air or a well-ventilated room, because hydros releases irritating fumes.",
+    "Label all containers and keep the chemicals away from food."
+   ],
+   "procedure": [
+    "Scour the fabric (boil it with soap or wash it well) to remove the size, then rinse. Keep it damp.",
+    "Plan the motifs and tie them: tie seeds or stones in to make circles, pleat and bind for stripes, and twist and tie for marbling. Tie tightly.",
+    "Calculate and weigh the recipe. Dissolve the dye in a little warm water, add the caustic soda solution, then the hydros, and stir gently. Leave it for 10 to 15 minutes until the liquor turns yellow-green (reduced).",
+    "Wet the tied fabric and immerse it for 10 to 15 minutes, moving it gently below the surface.",
+    "Lift it out and let it oxidise in the air for 10 minutes. It will change from green to blue. Dip again for a deeper shade.",
+    "Rinse in cold water, untie the ties, then wash with soap, rinse, dry in the shade, and iron."
+   ],
+   "expectedObservations": "The tied areas resist the dye and stay white or pale. Tight ties give sharp edges. The fabric comes out of the bath yellow-green and turns blue as the leuco dye oxidises in air.",
+   "dataAndCalculations": "A liquor ratio of 1:20 for 250 g of fabric gives 250 x 20 = 5,000 g, or about 5 litres of water. Dye at 2% of the fabric weight = 0.02 x 250 = 5 g. With a school recipe of 5 g/L each of caustic soda and hydros: 5 L x 5 g/L = 25 g caustic soda and 25 g hydros. (Follow the supplier's recipe for your dye where it differs.)",
+   "precautions": [
+    "Scour the fabric so that it takes the dye evenly.",
+    "Keep the fabric below the surface of the liquor, because air exposure in the bath causes streaks.",
+    "Tie firmly.",
+    "Do not stir vigorously, as this puts oxygen into the bath and spoils the reduction."
+   ],
+   "sourcesOfError": [
+    "Weighing errors in small quantities of chemical.",
+    "Dye bath exhausted by over-use.",
+    "Uneven wetting of the fabric."
+   ],
+   "commonMistakes": [
+    "Untying before rinsing, so dye bleeds into the resisted areas.",
+    "Using loose ties.",
+    "Dyeing unscoured fabric."
+   ],
+   "examTips": [
+    "Show the resist tying in the preparatory sketches, with the motif layout drawn to scale.",
+    "Examiners mark technique, design and originality, colour, and finish. Present the work pressed and neatly hemmed."
+   ],
+   "checkQuestions": [
+    {
+     "q": "For 400 g of fabric at a liquor ratio of 1:20, the water needed is about",
+     "options": [
+      "2 L",
+      "20 L",
+      "8 L",
+      "4 L"
+     ],
+     "answer": 2,
+     "explanation": "400 x 20 = 8,000 g, about 8 L."
+    },
+    {
+     "q": "Dye at 3% of the weight of 200 g of fabric is",
+     "options": [
+      "60 g",
+      "0.6 g",
+      "3 g",
+      "6 g"
+     ],
+     "answer": 3,
+     "explanation": "0.03 x 200 = 6 g."
+    },
+    {
+     "q": "A vat-dyed fabric turns from green to blue because of",
+     "options": [
+      "Oxidation in air",
+      "Reduction",
+      "Bleaching",
+      "Rinsing"
+     ],
+     "answer": 0,
+     "explanation": "The reduced dye oxidises back to the insoluble blue form."
+    },
+    {
+     "q": "The purpose of the ties in tie-dye is to",
+     "options": [
+      "Fix the dye",
+      "Resist the dye",
+      "Strengthen the fabric",
+      "Reduce the dye"
+     ],
+     "answer": 1,
+     "explanation": "Tied areas resist the dye."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-batik-wax-resist",
+   "title": "Batik with a hot wax resist",
+   "topic": "Fabric Decoration and Finishing Techniques",
+   "kind": "STUDIO",
+   "skills": [
+    "procedure",
+    "safety",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To produce a two-colour batik using a hot wax resist, applied with a tjanting, brush or foam stamp.",
+   "apparatus": [
+    "Double boiler or a wax pot on a controlled heater",
+    "Tjanting tool, brushes or local foam or wooden stamps",
+    "Frame or old newspapers",
+    "Dye buckets",
+    "Iron and newsprint",
+    "Gloves and apron"
+   ],
+   "materials": [
+    "Scoured cotton fabric",
+    "Paraffin wax and beeswax",
+    "Cold-water dyes in two colours (for example a reactive yellow, then blue)",
+    "Soda ash and salt (as the dye instructions require)",
+    "Pencil or chalk"
+   ],
+   "safety": [
+    "Hot wax can cause burns and can catch fire. Never heat wax over an open flame without a water bath. Do not let it smoke. Keep a lid and a fire blanket close by.",
+    "Do not leave hot wax unattended.",
+    "Iron out wax in a ventilated area."
+   ],
+   "procedure": [
+    "Transfer the design lightly onto the fabric with a pencil or chalk.",
+    "Melt the wax mixture in the double boiler until it flows freely.",
+    "Wax the areas that are to stay white. The wax must look transparent on the cloth, which shows that it has penetrated.",
+    "Dye the fabric in the lighter colour, then rinse and dry it.",
+    "Wax the areas that are to stay in the first colour.",
+    "Crackle the wax if you want veining, then dye in the darker colour.",
+    "Rinse and dry. Remove the wax by ironing between sheets of newsprint, then boil-wash or soap-wash to remove the residue."
+   ],
+   "expectedObservations": "Waxed areas resist the dye. Cracks in the wax let thin lines of dye in, producing the characteristic crackle. Colours build from light to dark.",
+   "dataAndCalculations": "Wax blend at 7 parts paraffin to 3 parts beeswax (paraffin cracks more, beeswax sticks better). For 1 kg of blend: paraffin = 7/10 x 1000 = 700 g and beeswax = 3/10 x 1000 = 300 g. Layout: a 2 m length of fabric with a 25 cm motif spaced every 25 cm takes 200 / 25 = 8 motifs along the length.",
+   "precautions": [
+    "Keep the wax hot enough to penetrate, but never smoking.",
+    "Dye light colours first and dark colours last.",
+    "Use cold or lukewarm dye baths so that the wax does not melt."
+   ],
+   "sourcesOfError": [
+    "Cool wax sits on the surface and lets dye through.",
+    "Unwanted crackle from folding.",
+    "Uneven dye uptake."
+   ],
+   "commonMistakes": [
+    "Using hot dye, which melts the resist.",
+    "Waxing in the wrong order of colours.",
+    "Leaving wax residue that makes the fabric stiff."
+   ],
+   "examTips": [
+    "Explain the colour sequence (light to dark) in your preparatory notes. Examiners reward planning.",
+    "Mention cassava-paste adire (adire eleko) as the indigenous starch resist that parallels wax batik."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In multi-colour batik, colours are dyed in the order",
+     "options": [
+      "Dark to light",
+      "Any order",
+      "Light to dark",
+      "Primary first"
+     ],
+     "answer": 2,
+     "explanation": "Each later dye goes over the earlier colours, so light comes first."
+    },
+    {
+     "q": "A blend of 3 parts paraffin to 2 parts beeswax for 500 g needs paraffin of",
+     "options": [
+      "200 g",
+      "250 g",
+      "150 g",
+      "300 g"
+     ],
+     "answer": 3,
+     "explanation": "3/5 x 500 = 300 g."
+    },
+    {
+     "q": "Wax that looks transparent on the cloth shows that it has",
+     "options": [
+      "Penetrated the fibres",
+      "Burnt",
+      "Cracked",
+      "Not melted"
+     ],
+     "answer": 0,
+     "explanation": "Proper penetration makes waxed cloth look translucent."
+    },
+    {
+     "q": "The Yoruba resist that uses cassava paste is",
+     "options": [
+      "Aso oke",
+      "Adire eleko",
+      "Akwete",
+      "Kente"
+     ],
+     "answer": 1,
+     "explanation": "Adire eleko uses starch paste as the resist."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-block-screen-printing",
+   "title": "Block and screen printing a repeat pattern",
+   "topic": "Fabric Decoration and Finishing Techniques",
+   "kind": "STUDIO",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To cut a printing block, make a paper stencil for a screen, and print a planned repeat on fabric.",
+   "apparatus": [
+    "Lino or wood block and cutting tools (V- and U-gouges)",
+    "Bench hook",
+    "Silk screen frame with mesh",
+    "Squeegee",
+    "Rubber roller (brayer)",
+    "Padded printing table",
+    "Metre rule, chalk and set square"
+   ],
+   "materials": [
+    "Cotton fabric (2 m x 1.1 m)",
+    "Fabric printing paste or textile ink",
+    "Stencil paper or film",
+    "Masking tape",
+    "Kerosene and rags for cleaning oil-based ink"
+   ],
+   "safety": [
+    "Always cut away from the hand that holds the block, and use a bench hook.",
+    "Use solvents in ventilated areas, away from flames."
+   ],
+   "procedure": [
+    "Design a 15 cm square motif that repeats well. Trace it in reverse onto the block.",
+    "Cut away the parts that are not to print, then make a test print on paper.",
+    "Iron the fabric, pin it to the padded table, and chalk a 15 cm grid (straight or half-drop).",
+    "Roll ink evenly onto the block and press it onto the fabric on each grid square. Apply even pressure, for example by tapping with a mallet.",
+    "For the screen, cut a stencil of a second motif, tape it under the mesh, put ink at one end and pull the squeegee firmly at 45 degrees. Lift the screen and move to the next registration mark.",
+    "Dry the prints and fix them by ironing on the reverse, or as the paste directions say."
+   ],
+   "expectedObservations": "Prints are crisp when the ink is even and the pressure is firm. Too much ink fills fine lines and too little gives a broken print. Accurate registration gives a continuous pattern without gaps or overlaps.",
+   "dataAndCalculations": "Fabric 200 cm x 110 cm with a 15 cm block: across the width 110 / 15 = 7.33, so 7 full repeats; along the length 200 / 15 = 13.33, so 13 full repeats. A straight repeat therefore needs 7 x 13 = 91 full impressions. The leftover 5 cm (110 - 105) of width can be split as 2.5 cm borders on each side.",
+   "precautions": [
+    "Re-ink the block for every impression.",
+    "Keep the fabric taut and flat.",
+    "Clean the screen at once after printing so that the mesh does not clog."
+   ],
+   "sourcesOfError": [
+    "Uneven pressure.",
+    "Grid drawn out of square.",
+    "Block or screen moving during printing."
+   ],
+   "commonMistakes": [
+    "Forgetting to reverse lettering on the block.",
+    "Printing onto unironed fabric.",
+    "Smudging prints by working over wet ones."
+   ],
+   "examTips": [
+    "Show the repeat layout (straight, half-drop, brick) in your sketches with measurements.",
+    "Neat registration and evenly spaced motifs score highly."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many full 20 cm repeats fit across 90 cm of fabric?",
+     "options": [
+      "5",
+      "4.5",
+      "4",
+      "3"
+     ],
+     "answer": 2,
+     "explanation": "90 / 20 = 4.5, so 4 full repeats."
+    },
+    {
+     "q": "In a half-drop repeat, each alternate column is moved down by",
+     "options": [
+      "A full motif",
+      "A quarter of the motif",
+      "Nothing",
+      "Half the motif height"
+     ],
+     "answer": 3,
+     "explanation": "Half-drop shifts alternate columns by half a repeat."
+    },
+    {
+     "q": "The tool that pushes ink through a screen is a",
+     "options": [
+      "Squeegee",
+      "Brayer",
+      "Gouge",
+      "Bench hook"
+     ],
+     "answer": 0,
+     "explanation": "The squeegee forces ink through the mesh."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-applique-embroidery",
+   "title": "Appliqué and embroidery panel",
+   "topic": "Fabric Decoration and Finishing Techniques",
+   "kind": "STUDIO",
+   "skills": [
+    "procedure",
+    "drawing",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To decorate a foundation fabric with appliquéd motifs and embroidery stitches based on an indigenous motif.",
+   "apparatus": [
+    "Embroidery frame (hoop)",
+    "Needles (crewel and sharps)",
+    "Pins",
+    "Scissors",
+    "Iron",
+    "Tracing paper and dressmaker's carbon"
+   ],
+   "materials": [
+    "Foundation fabric (for example 40 cm x 40 cm calico)",
+    "Contrasting fabric scraps",
+    "Fusible web (optional)",
+    "Embroidery threads",
+    "Sewing thread"
+   ],
+   "safety": [
+    "Store needles and pins in a pin cushion, never in your mouth.",
+    "Switch the iron off after use."
+   ],
+   "procedure": [
+    "Enlarge a small motif sketch (for example an adinkra- or uli-inspired shape) to full size using a grid.",
+    "Trace the motifs onto the coloured fabrics. Add 0.5 cm turnings all round for turned-edge appliqué.",
+    "Cut out, clip the curves, turn the edges under, and tack the pieces onto the foundation in position.",
+    "Slip-stitch or satin-stitch the edges of each motif.",
+    "Mount the work in the hoop and add embroidery: stem stitch for lines, chain stitch, French knots for dots, and satin stitch for small solid areas.",
+    "Remove the tacking, press on the wrong side over a towel, and neaten the edges."
+   ],
+   "expectedObservations": "Clipped curves turn smoothly. Without clipping they pucker. Work held in a hoop stays flat, while unhooped stitching puckers the foundation.",
+   "dataAndCalculations": "Enlargement: a 5 cm sketch motif enlarged to 20 cm has a scale factor of 20 / 5 = 4, and its area grows 4 x 4 = 16 times. Cutting size with 0.5 cm turnings on each side: 20 + 0.5 + 0.5 = 21 cm.",
+   "precautions": [
+    "Match the grain of the motif fabric to the foundation fabric.",
+    "Keep the stitch tension even.",
+    "Press on the wrong side."
+   ],
+   "sourcesOfError": [
+    "Inaccurate enlargement.",
+    "Fabric stretching while it is being cut on the bias."
+   ],
+   "commonMistakes": [
+    "Leaving out the turning allowance.",
+    "Tight stitches that pucker the work.",
+    "Knots visible on the right side."
+   ],
+   "examTips": [
+    "Name and sample each stitch in your preparatory notes.",
+    "Finishing (pressing, neat back, hemmed edges) carries marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 4 cm motif enlarged by a scale factor of 3 becomes",
+     "options": [
+      "7 cm",
+      "12 cm",
+      "9 cm",
+      "16 cm"
+     ],
+     "answer": 1,
+     "explanation": "4 x 3 = 12 cm."
+    },
+    {
+     "q": "The stitch best for small dots is the",
+     "options": [
+      "Stem stitch",
+      "Running stitch",
+      "French knot",
+      "Herringbone"
+     ],
+     "answer": 2,
+     "explanation": "French knots make raised dots."
+    },
+    {
+     "q": "Curves are clipped in turned-edge appliqué so that they",
+     "options": [
+      "Fray",
+      "Are stronger",
+      "Shrink",
+      "Lie flat when turned"
+     ],
+     "answer": 3,
+     "explanation": "Clipping lets the turning spread round the curve."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-finishing-shrinkage-test",
+   "title": "Fabric finishing: starching and a shrinkage test",
+   "topic": "Fabric Decoration and Finishing Techniques",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "observation",
+    "procedure"
+   ],
+   "aim": "To measure the shrinkage of a cotton fabric on washing, and to compare unfinished cotton with cotton finished with starch.",
+   "apparatus": [
+    "Metre rule or tape",
+    "Basin",
+    "Iron",
+    "Indelible marker or tailor's tacks"
+   ],
+   "materials": [
+    "Two 60 cm x 60 cm pieces of unshrunk cotton",
+    "Cassava or maize starch",
+    "Detergent",
+    "Water"
+   ],
+   "safety": [
+    "Handle the hot iron carefully.",
+    "Mix the hot starch with care."
+   ],
+   "procedure": [
+    "Mark a 50 cm square on each piece, with lines in both the warp and weft directions.",
+    "Wash one piece in warm water and detergent for 10 minutes, rinse, dry flat, and iron.",
+    "Re-measure the marked lengths in both directions.",
+    "Make a starch solution (one tablespoon of starch made into a paste, then added to 500 ml of boiling water). Dip the second piece, wring it out, dry it, and iron it while damp.",
+    "Compare the stiffness, lustre and handle of the starched and unstarched fabrics."
+   ],
+   "expectedObservations": "Unshrunk cotton contracts after washing, usually more in the warp direction. Starched fabric is crisper and smoother and resists soiling better, but the starch washes out. That makes it a temporary finish, whereas sanforising is a permanent mechanical finish.",
+   "dataAndCalculations": "Shrinkage % = (original length - new length) / original length x 100. Worked example: warp 50.0 cm to 47.5 cm gives (50 - 47.5) / 50 x 100 = 5%. Weft 50.0 cm to 49.0 cm gives 2%. A garment needing 1.0 m of fabric after shrinkage would need 1.0 / 0.95, about 1.05 m, of this fabric bought unshrunk.",
+   "precautions": [
+    "Measure along the same marked lines before and after.",
+    "Dry flat without stretching.",
+    "Keep the water temperature constant."
+   ],
+   "sourcesOfError": [
+    "Stretching while measuring.",
+    "Uneven drying.",
+    "Thickness of the marking lines."
+   ],
+   "commonMistakes": [
+    "Calculating shrinkage on the new length instead of the original length.",
+    "Ironing before measuring, which can stretch the fabric."
+   ],
+   "examTips": [
+    "Classify finishes as mechanical (calendering, sanforising, brushing) or chemical (mercerising, bleaching, crease resistance, starching).",
+    "State whether each finish is permanent, durable or temporary."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A strip of 80 cm shrinks to 76 cm. The shrinkage is",
+     "options": [
+      "5%",
+      "4%",
+      "5.3%",
+      "6%"
+     ],
+     "answer": 0,
+     "explanation": "4 / 80 x 100 = 5%."
+    },
+    {
+     "q": "Which is a mechanical finish?",
+     "options": [
+      "Mercerising",
+      "Calendering",
+      "Bleaching",
+      "Crease resistance"
+     ],
+     "answer": 1,
+     "explanation": "Calendering presses the fabric between rollers."
+    },
+    {
+     "q": "Starching is a",
+     "options": [
+      "Permanent finish",
+      "Weave",
+      "Temporary finish",
+      "Dye"
+     ],
+     "answer": 2,
+     "explanation": "Starch washes out and must be renewed."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-preparatory-sketches-portfolio",
+   "title": "Preparatory sketches and building a portfolio",
+   "topic": "Portfolio and Exhibition",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To prepare the sketches and notes for a Paper 3 project, then mount finished work for a portfolio or exhibition.",
+   "apparatus": [
+    "Sketchbook",
+    "Pencils (HB to 4B)",
+    "Coloured pencils or poster colours",
+    "Ruler and craft knife",
+    "Cutting mat",
+    "Camera or phone"
+   ],
+   "materials": [
+    "Mounting card",
+    "Glue",
+    "Swatches of yarn and fabric",
+    "Clear sleeves or a folder"
+   ],
+   "safety": [
+    "Cut with a steel ruler and keep your fingers behind the blade."
+   ],
+   "procedure": [
+    "Read the project question and underline the key requirements: item, size, technique and theme.",
+    "Collect research: indigenous motifs, local textiles (aso oke, akwete, adire) and colour ideas.",
+    "Make at least three thumbnail design ideas, then develop the chosen one into a full-colour design to scale.",
+    "Write the preparatory notes: materials and quantities, tools, step-by-step method, colour plan and a time plan for the five days.",
+    "After the practical, photograph the finished work in good daylight.",
+    "Mount the sketches and swatches on card, label every sheet, and put them in order in the portfolio (hard copy) and as images (soft copy)."
+   ],
+   "expectedObservations": "A clear plan reduces mistakes during the five practical days. A labelled, well-mounted portfolio communicates the development of ideas.",
+   "dataAndCalculations": "Mount size: an A4 work (30 cm x 21 cm) with 5 cm borders at the top and sides and a 6 cm bottom border (a weighted bottom margin). Width = 21 + 5 + 5 = 31 cm. Height = 30 + 5 + 6 = 41 cm. Scale drawing: a 2 m wrapper drawn at 1:10 is 200 / 10 = 20 cm long on paper.",
+   "precautions": [
+    "Keep the sketches in the order of development.",
+    "Label each sheet with your name, index number and title.",
+    "Photograph without glare."
+   ],
+   "sourcesOfError": [
+    "Colour shifts in photographs.",
+    "Inaccurate scale drawings."
+   ],
+   "commonMistakes": [
+    "Submitting only the final design without showing how it developed.",
+    "Notes that leave out quantities or a time plan."
+   ],
+   "examTips": [
+    "The sketches and preparatory notes are worth 20 marks. Treat them as a separate exam.",
+    "Make sure the finished piece matches the approved design, or explain any changes."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In the WAEC Textiles practical, the preparatory sketches and notes carry",
+     "options": [
+      "10 marks",
+      "40 marks",
+      "80 marks",
+      "20 marks"
+     ],
+     "answer": 3,
+     "explanation": "They carry 20 of the 100 marks."
+    },
+    {
+     "q": "A 150 cm design drawn at 1:5 measures",
+     "options": [
+      "30 cm",
+      "15 cm",
+      "75 cm",
+      "750 cm"
+     ],
+     "answer": 0,
+     "explanation": "150 / 5 = 30 cm."
+    },
+    {
+     "q": "A soft-copy portfolio is one stored",
+     "options": [
+      "In a folder of card",
+      "Digitally",
+      "On a wall",
+      "In a frame"
+     ],
+     "answer": 1,
+     "explanation": "Soft copies are digital files."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-costing-pricing",
+   "title": "Costing and pricing tie-dye wrappers",
+   "topic": "Entrepreneurial Skills in Practice",
+   "kind": "WORKSHOP",
+   "skills": [
+    "calculation"
+   ],
+   "aim": "To calculate the total cost, unit cost and selling price of a batch of tie-dye wrappers.",
+   "apparatus": [
+    "Calculator",
+    "Record book"
+   ],
+   "materials": [
+    "Receipts and price list for fabric, dye, chemicals and ties"
+   ],
+   "safety": [
+    "No special hazards."
+   ],
+   "procedure": [
+    "List every material with its quantity and cost.",
+    "Add labour (hours x rate) and overheads (water, fuel, transport, rent share).",
+    "Total all the costs and divide by the number of items to get the unit cost.",
+    "Add the chosen profit margin to the unit cost to get the selling price, and compare it with market prices."
+   ],
+   "expectedObservations": "Hidden costs such as overheads often turn an apparent profit into a loss if they are left out.",
+   "dataAndCalculations": "Batch of 4 wrappers, each 2 m. Fabric 8 m x N1,500 = N12,000. Dye N2,500, chemicals N1,800, ties N300, labour 4 x N1,500 = N6,000, overheads N2,000. Total = N24,600. Unit cost = 24,600 / 4 = N6,150. At a 30% markup, price = 6,150 x 1.30 = N7,995 (sell at about N8,000). Profit per batch = 0.30 x 24,600 = N7,380.",
+   "precautions": [
+    "Include every cost, including labour and overheads.",
+    "Check market prices before you fix the price."
+   ],
+   "sourcesOfError": [
+    "Price changes.",
+    "Wastage not recorded."
+   ],
+   "commonMistakes": [
+    "Confusing markup on cost with margin on selling price.",
+    "Leaving out your own labour."
+   ],
+   "examTips": [
+    "Show a costing table with headings.",
+    "Distinguish fixed costs from variable costs."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Total costs of N18,000 for 6 items give a unit cost of",
+     "options": [
+      "N6,000",
+      "N1,800",
+      "N3,000",
+      "N108,000"
+     ],
+     "answer": 2,
+     "explanation": "18,000 / 6 = N3,000."
+    },
+    {
+     "q": "A unit cost of N5,000 with a 20% markup gives a price of",
+     "options": [
+      "N5,200",
+      "N7,000",
+      "N1,000",
+      "N6,000"
+     ],
+     "answer": 3,
+     "explanation": "5,000 x 1.2 = N6,000."
+    },
+    {
+     "q": "Which is an overhead?",
+     "options": [
+      "Workshop rent",
+      "Dye",
+      "Fabric",
+      "Thread"
+     ],
+     "answer": 0,
+     "explanation": "Rent is an indirect, fixed cost."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-tex-natural-dye-extraction",
+   "title": "Extracting a natural dye and handling dye waste safely",
+   "topic": "Sustainable Development",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "safety",
+    "measurement",
+    "observation"
+   ],
+   "aim": "To extract a dye from a local plant source, dye cotton with it using a mordant, and dispose of the waste responsibly.",
+   "apparatus": [
+    "Pot and heat source",
+    "Sieve or cloth strainer",
+    "Measuring jug",
+    "Kitchen scale",
+    "Gloves",
+    "Thermometer"
+   ],
+   "materials": [
+    "Onion skins, camwood (osun) powder or bark, or teak leaves",
+    "Alum (mordant)",
+    "100 g of scoured cotton",
+    "Water"
+   ],
+   "safety": [
+    "Handle hot liquids carefully.",
+    "Wear gloves when handling the mordant.",
+    "Do not pour dye or mordant waste into drinking-water sources."
+   ],
+   "procedure": [
+    "Weigh the plant material: use about the same mass as the fabric, 100 g.",
+    "Simmer it in 3 litres of water for 45 minutes, then strain.",
+    "Mordant the fabric: dissolve alum at 10% of the fabric weight in warm water, simmer the fabric for 30 minutes, then rinse.",
+    "Put the damp mordanted fabric into the dye bath and simmer for 45 minutes, stirring now and then.",
+    "Cool, rinse until the water runs clear, and dry in the shade.",
+    "Let the spent dye bath cool, dilute it, and pour it onto a soak-away or garden bed, not into a stream."
+   ],
+   "expectedObservations": "Onion skins give gold to brown and camwood gives red-brown. Mordanted fabric is deeper in colour and faster to washing than unmordanted fabric.",
+   "dataAndCalculations": "Alum at 10% of the fabric weight = 0.10 x 100 g = 10 g. Liquor ratio 3,000 ml / 100 g = 1:30. If 40 g of fabric is dyed instead, alum = 4 g and water at 1:30 = 1.2 litres.",
+   "precautions": [
+    "Mordant before dyeing.",
+    "Keep a steady simmer, not a rolling boil.",
+    "Stir gently to avoid patchiness."
+   ],
+   "sourcesOfError": [
+    "Variable dye content of plant material.",
+    "Uneven heating."
+   ],
+   "commonMistakes": [
+    "Skipping the mordant.",
+    "Overcrowding the pot."
+   ],
+   "examTips": [
+    "Link to sustainability: renewable dyes, less toxic waste, and replanting dye plants.",
+    "Mention healthy studio practices: ventilation, protective clothing and safe disposal."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A mordant is used to",
+     "options": [
+      "Bleach fabric",
+      "Fix the dye to the fibre",
+      "Make the dye bath boil",
+      "Thicken paste"
+     ],
+     "answer": 1,
+     "explanation": "The mordant binds the dye to the fibre."
+    },
+    {
+     "q": "Alum at 8% for 250 g of fabric is",
+     "options": [
+      "8 g",
+      "25 g",
+      "20 g",
+      "31 g"
+     ],
+     "answer": 2,
+     "explanation": "0.08 x 250 = 20 g."
+    },
+    {
+     "q": "Camwood (osun) gives a colour that is",
+     "options": [
+      "Blue",
+      "Green",
+      "Black",
+      "Red-brown"
+     ],
+     "answer": 3,
+     "explanation": "Camwood yields red-brown shades."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

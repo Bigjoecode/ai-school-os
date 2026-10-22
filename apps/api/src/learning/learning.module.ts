@@ -19,6 +19,6 @@ import { TutorService } from './tutor.service';
   imports: [AiModule, AssessmentModule, FilesModule],
   controllers: [LearningController, ChildProgressController, FamilyLanguageController, ContentController, SchoolEvidenceController, QuestionPipelineController],
   providers: [SyllabusService, MasteryService, StudyService, TutorService, ExamService, SittingService, SchoolEvidenceService, QuestionPipelineService],
-  exports: [MasteryService, SchoolEvidenceService],
+  exports: [MasteryService, SchoolEvidenceService, StudyService, ExamService],
 })
 export class LearningModule {}

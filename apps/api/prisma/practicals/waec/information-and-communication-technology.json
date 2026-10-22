@@ -1,0 +1,1195 @@
+{
+ "exam": "WAEC",
+ "subject": "Information and Communication Technology",
+ "practicalPaper": "WAEC ICT is written in two papers taken together; practical skill is tested in Paper 2, which contains four compulsory test-of-practical-knowledge questions (on tasks such as word processing, spreadsheets, presentations and Internet use) plus six essay questions of which two are chosen, in 2 hours for 80 marks. Candidates write the exact steps, commands, formulae and expected results rather than working at a computer.",
+ "practicals": [
+  {
+   "id": "pr-ict-information-processing-cycle",
+   "title": "Tracing the information processing cycle at a POS terminal",
+   "topic": "Introduction to Basic ICT Concepts and Computers",
+   "kind": "COMPUTER",
+   "skills": [
+    "observation",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To identify input, processing, output and storage in a real ICT system and distinguish data from information.",
+   "apparatus": [
+    "Computer with a spreadsheet program",
+    "Access to (or a picture of) a shop POS terminal or a school canteen till"
+   ],
+   "materials": [
+    "A sample shop receipt",
+    "Worksheet with an input-process-output-storage (IPOS) table"
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Observe (or study a video/picture of) a cashier selling items with a barcode scanner and POS machine.",
+    "List the input devices (barcode scanner, keypad, card reader) and the data entered (item codes, quantities, card PIN).",
+    "Describe the processing: looking up prices, multiplying by quantity, adding VAT, authorising the card payment.",
+    "List the outputs (screen total, printed receipt, SMS debit alert) and storage (sales database, stock records).",
+    "Recreate the sale in a spreadsheet: item, quantity, unit price, amount, subtotal, VAT, total.",
+    "Fill in the IPOS table and label each item as data or information."
+   ],
+   "expectedObservations": "Item codes and quantities alone are data; the printed receipt with prices and the total is information. The same sale also updates stored stock levels, which later becomes information for reordering.",
+   "dataAndCalculations": "Sale: bread N2,500, milk N1,200, sugar N800. Subtotal = 2,500 + 1,200 + 800 = N4,500. VAT at 7.5% = 4,500 x 0.075 = N337.50. Total = 4,500 + 337.50 = N4,837.50. Spreadsheet formulae: subtotal =SUM(D2:D4), VAT =D5*7.5%, total =D5+D6.",
+   "precautions": [
+    "Do not photograph customers or card details when observing a real shop.",
+    "Check that VAT is applied to the subtotal only once."
+   ],
+   "sourcesOfError": [
+    "Wrong barcode scanned or quantity typed incorrectly.",
+    "Rounding differences on receipts."
+   ],
+   "commonMistakes": [
+    "Calling the receipt \"data\"; it is processed, meaningful information.",
+    "Listing the monitor as an input device."
+   ],
+   "examTips": [
+    "Draw the cycle as Input -> Processing -> Output with Storage linked to processing.",
+    "Give real Nigerian examples: ATM, POS, BVN registration, JAMB CBT, e-payment of school fees."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a POS sale, the barcode scanner is a(n)",
+     "options": [
+      "output device",
+      "storage device",
+      "input device",
+      "processing device"
+     ],
+     "answer": 2,
+     "explanation": "It captures item codes into the system."
+    },
+    {
+     "q": "Subtotal N4,500 with 7.5% VAT gives a total of",
+     "options": [
+      "N4,837.00",
+      "N4,837.50",
+      "N4,575.00",
+      "N4,950.00"
+     ],
+     "answer": 1,
+     "explanation": "4500 x 1.075 = 4837.50."
+    },
+    {
+     "q": "Which is information rather than data?",
+     "options": [
+      "A printed receipt showing items, prices and total",
+      "The barcode digits 5012345678900",
+      "A PIN typed on the keypad",
+      "A list of unsorted item codes"
+     ],
+     "answer": 0,
+     "explanation": "Information is processed and meaningful."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-hardware-identification",
+   "title": "Identifying hardware: system unit, peripherals and storage media",
+   "topic": "Computer Hardware",
+   "kind": "COMPUTER",
+   "skills": [
+    "identification",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To identify and classify computer hardware, recognise ports and connectors, and compare storage capacities.",
+   "apparatus": [
+    "Desktop computer (system unit, monitor, keyboard, mouse)",
+    "Printer, scanner, speakers, webcam",
+    "Old opened system unit for display (power supply removed)",
+    "Flash drive, memory card, external hard drive, DVD"
+   ],
+   "materials": [
+    "Labelled pictures of RAM, processor, motherboard, hard disk and SSD",
+    "Classification worksheet"
+   ],
+   "safety": [
+    "Only examine an opened system unit that has been unplugged and has its power supply removed.",
+    "Hold circuit boards by the edges and touch earthed metal first (static).",
+    "Do not touch processor pins or force connectors."
+   ],
+   "procedure": [
+    "Sort the devices into input, output, storage and processing/system unit components on the worksheet.",
+    "At the back of the system unit, identify ports: USB, HDMI/VGA, Ethernet (RJ-45), audio jacks and power socket.",
+    "In the opened unit identify the motherboard, processor (CPU) with heat sink, RAM modules, storage drive, power supply bay and expansion slots.",
+    "Open This PC > Properties (or Settings > System > About) to read the processor type, installed RAM and system type.",
+    "Open This PC to read the capacity and free space of each drive and of a flash drive.",
+    "Record the details and calculate storage capacities as below."
+   ],
+   "expectedObservations": "System information shows, for example, \"Intel Core i5, 8.00 GB RAM, 64-bit\". Drives show total and free space. Each connector fits only its matching port.",
+   "dataAndCalculations": "A 16 GB flash drive holds 16 x 1,024 = 16,384 MB. Photos of 3.5 MB each: 16,384 / 3.5 = 4,681.1, so 4,681 whole photos. A 1 TB hard disk = 1,024 GB, which is 1,024 / 16 = 64 times the flash drive.",
+   "precautions": [
+    "Use the same units when comparing capacities.",
+    "Replace covers and tidy cables after the practical."
+   ],
+   "sourcesOfError": [
+    "Manufacturers use 1 GB = 1,000 MB, so Windows reports slightly less capacity than printed on the label.",
+    "Some space on a drive is used by the file system."
+   ],
+   "commonMistakes": [
+    "Calling the system unit \"the CPU\"; the CPU is the processor chip inside it.",
+    "Classifying a touch screen only as output; it is both input and output."
+   ],
+   "examTips": [
+    "Group hardware as system unit, peripherals (input/output) and storage media, as in the syllabus.",
+    "Know unit conversions: 8 bits = 1 byte; 1 KB = 1,024 bytes; 1 MB = 1,024 KB; 1 GB = 1,024 MB; 1 TB = 1,024 GB."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many 3.5 MB photos fit on a 16 GB flash drive (1 GB = 1,024 MB)?",
+     "options": [
+      "4,571",
+      "5,600",
+      "457",
+      "4,681"
+     ],
+     "answer": 3,
+     "explanation": "16384 / 3.5 = 4681.1, so 4681."
+    },
+    {
+     "q": "Which connector is used for a wired network (Ethernet) cable?",
+     "options": [
+      "RJ-11",
+      "HDMI",
+      "RJ-45",
+      "VGA"
+     ],
+     "answer": 2,
+     "explanation": "RJ-45 is used for Ethernet; RJ-11 for telephone lines."
+    },
+    {
+     "q": "Which device is both an input and an output device?",
+     "options": [
+      "Scanner",
+      "Touch screen",
+      "Plotter",
+      "Microphone"
+     ],
+     "answer": 1,
+     "explanation": "It displays output and accepts touch input."
+    },
+    {
+     "q": "Where is RAM found?",
+     "options": [
+      "Plugged into slots on the motherboard",
+      "Inside the monitor",
+      "In the printer cartridge",
+      "On the keyboard"
+     ],
+     "answer": 0,
+     "explanation": "RAM modules sit in DIMM/SODIMM slots on the motherboard."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-software-installation",
+   "title": "Installing open-source and proprietary software",
+   "topic": "Computer Software",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To install, run and uninstall an application, and compare open-source and proprietary software in terms of licence, cost and source code.",
+   "apparatus": [
+    "Computer with administrator access",
+    "Internet connection or installer on flash drive"
+   ],
+   "materials": [
+    "Installer for LibreOffice (open source)",
+    "Trial or school-licensed proprietary package (e.g. Microsoft Office)"
+   ],
+   "safety": [
+    "Download software only from the official publisher's website or a trusted store.",
+    "Never use \"cracked\" or pirated software; it is illegal and often carries malware.",
+    "Scan installers with antivirus before running."
+   ],
+   "procedure": [
+    "Check system requirements (operating system, processor, RAM, free disk space) and compare with This PC > Properties.",
+    "Download the LibreOffice installer from the official site; note the file size and time taken.",
+    "Run the installer, read and accept the licence (note it is the Mozilla Public Licence), choose Typical install and finish.",
+    "Start LibreOffice Writer from the Start menu; confirm it runs.",
+    "Look at a proprietary package's licence agreement (EULA) and note restrictions on copying and number of devices.",
+    "Uninstall a test program via Settings > Apps > Installed apps > Uninstall.",
+    "Complete a comparison table: open-source vs proprietary (source code, cost, licence, support, examples)."
+   ],
+   "expectedObservations": "The open-source licence allows free use, study, modification and sharing; the proprietary EULA forbids copying and modification and limits installation to licensed devices. Installed programs appear in the Start menu and Apps list.",
+   "dataAndCalculations": "Download time for a 340 MB installer at 5 Mbps: 340 x 8 = 2,720 megabits; 2,720 / 5 = 544 s, about 9 minutes 4 seconds. Licence cost for 30 laboratory computers at an illustrative N150,000 per proprietary licence = 30 x 150,000 = N4,500,000, compared with N0 licence cost for open-source software (training and support may still cost money).",
+   "precautions": [
+    "Make sure there is enough free space for the installed size, not just the installer.",
+    "Create a restore point before installing on a shared school computer."
+   ],
+   "sourcesOfError": [
+    "Network speed fluctuates, so real download time differs.",
+    "Prices of proprietary licences change and vary by edition."
+   ],
+   "commonMistakes": [
+    "Equating \"open source\" with \"freeware\"; freeware may be free of charge but its source code is closed.",
+    "Calling the operating system an application package."
+   ],
+   "examTips": [
+    "Examples: system software (Windows, Linux, Android, utility programs, drivers); application software (Word, Excel, CorelDRAW, Sage).",
+    "Open source examples: Linux, LibreOffice, Firefox, GIMP; proprietary: Windows, Microsoft Office, Adobe Photoshop."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which is open-source software?",
+     "options": [
+      "Microsoft Office",
+      "Adobe Photoshop",
+      "CorelDRAW",
+      "LibreOffice"
+     ],
+     "answer": 3,
+     "explanation": "LibreOffice's source code is publicly available."
+    },
+    {
+     "q": "A 340 MB file at 5 Mbps downloads in about",
+     "options": [
+      "68 seconds",
+      "1 hour",
+      "9 minutes",
+      "3 minutes"
+     ],
+     "answer": 2,
+     "explanation": "340 x 8 / 5 = 544 s, about 9 minutes."
+    },
+    {
+     "q": "A key feature of proprietary software is that",
+     "options": [
+      "anyone may modify and resell it",
+      "its source code is kept secret and use is limited by licence",
+      "it is always free of charge",
+      "it cannot run on Windows"
+     ],
+     "answer": 1,
+     "explanation": "Proprietary software is owned and licensed with restrictions."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-threats-protection",
+   "title": "Protecting computers: antivirus, updates, backup and power protection",
+   "topic": "Threats to Computers and Users",
+   "kind": "COMPUTER",
+   "skills": [
+    "safety",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To apply remedies to human and natural threats: antivirus scanning, updates, strong passwords, backups and surge protection.",
+   "apparatus": [
+    "Computer with antivirus (e.g. Microsoft Defender)",
+    "External drive or cloud storage",
+    "Surge protector/AVR and UPS"
+   ],
+   "materials": [
+    "Threat checklist",
+    "Backup log sheet"
+   ],
+   "safety": [
+    "Use only safe test files; never deliberately run malware.",
+    "Switch off and unplug equipment before connecting surge protectors."
+   ],
+   "procedure": [
+    "Classify threats on the checklist as natural (lightning, floods, heat, dust) or human (viruses, worms, hacking, theft, intentional damage).",
+    "Update the antivirus and run a quick scan; record items scanned and threats found.",
+    "Turn on Windows Update and the firewall; check their status in Windows Security.",
+    "Create a strong password (at least 12 characters with upper and lower case, numbers and a symbol) and explain why \"password123\" is weak.",
+    "Back up a folder to an external drive or cloud folder; record size and time.",
+    "Show how the computer is connected through a surge protector/AVR and UPS to guard against power surges from NEPA/grid fluctuations."
+   ],
+   "expectedObservations": "Windows Security shows green ticks when protection is on. The backup copy can be opened from the external drive. A UPS beeps and keeps the computer running briefly when mains power fails.",
+   "dataAndCalculations": "Backup planning: a student has 25 GB of files and adds about 300 MB of new work each school day. Over 20 school days new data = 20 x 300 = 6,000 MB = 6,000 / 1,024 = about 5.86 GB. Total after a month = 25 + 5.86 = about 30.86 GB, which still fits on a 32 GB drive but leaves little space, so a 64 GB drive or cloud backup is advisable.",
+   "precautions": [
+    "Keep at least one backup in a different place from the computer (e.g. cloud or home).",
+    "Never share passwords or write them on the monitor."
+   ],
+   "sourcesOfError": [
+    "Daily data growth varies.",
+    "Formatted capacity of a drive is less than the label."
+   ],
+   "commonMistakes": [
+    "Thinking antivirus alone protects against theft, floods or power surges.",
+    "Backing up to a folder on the same hard disk."
+   ],
+   "examTips": [
+    "Match each threat with a remedy: virus -> antivirus; hacking -> passwords/firewall/encryption; power surge -> surge protector/UPS; theft -> burglar-proofing, locks; heat/dust -> air conditioning, covers."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which is a natural threat to computers?",
+     "options": [
+      "Lightning",
+      "Hacking",
+      "Computer worm",
+      "Data theft"
+     ],
+     "answer": 0,
+     "explanation": "Lightning is natural; the others are human threats."
+    },
+    {
+     "q": "300 MB of new work is added each day for 20 days. About how much is this in GB?",
+     "options": [
+      "6.00 GB",
+      "0.59 GB",
+      "60 GB",
+      "5.86 GB"
+     ],
+     "answer": 3,
+     "explanation": "6000 / 1024 = 5.86 GB."
+    },
+    {
+     "q": "Which device protects a computer against sudden power surges?",
+     "options": [
+      "Scanner",
+      "Router",
+      "Surge protector",
+      "Webcam"
+     ],
+     "answer": 2,
+     "explanation": "It diverts excess voltage away from the equipment."
+    },
+    {
+     "q": "Which password is strongest?",
+     "options": [
+      "password123",
+      "Lag0s!Rain#2026",
+      "chinedu",
+      "12345678"
+     ],
+     "answer": 1,
+     "explanation": "It is long and mixes cases, numbers and symbols."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-ergonomics-health",
+   "title": "Workstation ergonomics and preventing health hazards",
+   "topic": "Threats to Computers and Users",
+   "kind": "FIELD",
+   "skills": [
+    "measurement",
+    "observation",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To assess a computer user's posture and workstation and recommend remedies for eye strain, back pain and repetitive strain injury.",
+   "apparatus": [
+    "Measuring tape",
+    "Adjustable chair",
+    "Computer workstation",
+    "Stopwatch"
+   ],
+   "materials": [
+    "Ergonomics checklist",
+    "Pen"
+   ],
+   "safety": [
+    "Adjust chairs gently; do not stand on chairs.",
+    "Stop if any exercise causes pain."
+   ],
+   "procedure": [
+    "Working in pairs, let one student type normally for 5 minutes while the partner observes.",
+    "Measure the eye-to-screen distance (target 50-70 cm, about an arm's length).",
+    "Check that the top of the screen is at or just below eye level, the back is supported, feet are flat and elbows are at about 90 degrees.",
+    "Check that wrists are straight and the mouse is close to the keyboard.",
+    "Check lighting: no glare or reflections on the screen; adjust blinds or screen angle.",
+    "Record findings, recommend changes and demonstrate the 20-20-20 rule and simple wrist and neck stretches."
+   ],
+   "expectedObservations": "Common problems are screens too close or too low, slouching, dangling feet, bent wrists and glare. After adjustment users report less neck and eye strain.",
+   "dataAndCalculations": "The 20-20-20 rule: every 20 minutes look at something 20 feet (about 6 m) away for 20 seconds. In a 2-hour lab session (120 minutes) this gives 120 / 20 = 6 eye breaks. Distance measured 42 cm is 50 - 42 = 8 cm too close to the minimum recommended distance.",
+   "precautions": [
+    "Take a short break away from the screen at least every hour.",
+    "Reduce screen brightness to match the room."
+   ],
+   "sourcesOfError": [
+    "Users sit better when they know they are being watched.",
+    "Tape measurements to the eye are approximate."
+   ],
+   "commonMistakes": [
+    "Naming hazards without their causes and remedies.",
+    "Placing the monitor high above eye level, which strains the neck."
+   ],
+   "examTips": [
+    "Health hazards: eye strain, headache, backache, neck pain, repetitive strain injury (carpal tunnel), radiation worries, obesity from inactivity; give a cause and remedy for each."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many 20-20-20 eye breaks occur in a 2-hour session?",
+     "options": [
+      "6",
+      "20",
+      "3",
+      "12"
+     ],
+     "answer": 0,
+     "explanation": "120 / 20 = 6."
+    },
+    {
+     "q": "Recommended distance from eyes to screen is about",
+     "options": [
+      "10-20 cm",
+      "1.5-2 m",
+      "25-30 cm",
+      "50-70 cm"
+     ],
+     "answer": 3,
+     "explanation": "About an arm's length."
+    },
+    {
+     "q": "Repetitive strain injury is mainly linked to",
+     "options": [
+      "bright room lighting",
+      "using a flash drive",
+      "long periods of keyboard and mouse use with bent wrists",
+      "loud speakers"
+     ],
+     "answer": 2,
+     "explanation": "Repeated movements in poor posture strain tendons."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-typing-speed-test",
+   "title": "Measuring typing speed and accuracy",
+   "topic": "Word Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To type a set passage with correct touch-typing technique and calculate gross speed, net speed and accuracy against the target of 30-35 words per minute.",
+   "apparatus": [
+    "Computer with a word processor (Word or Writer)",
+    "Stopwatch or online typing tutor"
+   ],
+   "materials": [
+    "Printed practice passage of about 250 words"
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Sit correctly with fingers on the home keys (ASDF and JKL;) and thumbs on the space bar.",
+    "Open a blank document and place the passage on a copy holder beside the screen.",
+    "Start the stopwatch and type the passage for exactly 5 minutes without looking at the keys; do not correct errors.",
+    "Stop and use Review > Word Count to read \"Characters (with spaces)\".",
+    "Compare with the original and count uncorrected errors.",
+    "Calculate gross and net words per minute and accuracy; repeat weekly and record progress."
+   ],
+   "expectedObservations": "Speed improves with regular practice; looking at the keys slows typing and increases errors.",
+   "dataAndCalculations": "Standard word = 5 characters including spaces. Example: 800 characters in 5 minutes with 4 errors. Gross wpm = (800 / 5) / 5 = 32. Net wpm = 32 - (4 / 5) = 31.2, which meets the 30-35 wpm target. Words typed = 800 / 5 = 160; accuracy = (160 - 4) / 160 x 100 = 97.5%. A faster typist: 1,050 characters, 6 errors gives gross 42 and net 42 - 1.2 = 40.8 wpm.",
+   "precautions": [
+    "Keep wrists straight and do not rest them heavily while typing.",
+    "Use the same passage length and time for fair comparisons."
+   ],
+   "sourcesOfError": [
+    "Stopwatch started or stopped late.",
+    "Miscounting errors."
+   ],
+   "commonMistakes": [
+    "Counting words with the word counter instead of 5-character standard words.",
+    "Forgetting to divide errors by the number of minutes when calculating net speed."
+   ],
+   "examTips": [
+    "Show the formula: gross wpm = (characters / 5) / minutes; net wpm = gross - (errors / minutes).",
+    "Explain home keys and the role of the F and J bumps."
+   ],
+   "checkQuestions": [
+    {
+     "q": "800 characters are typed in 5 minutes. What is the gross speed?",
+     "options": [
+      "160 wpm",
+      "32 wpm",
+      "40 wpm",
+      "20 wpm"
+     ],
+     "answer": 1,
+     "explanation": "(800 / 5) / 5 = 32."
+    },
+    {
+     "q": "Gross speed 32 wpm, 4 errors in 5 minutes. What is the net speed?",
+     "options": [
+      "31.2 wpm",
+      "28 wpm",
+      "30.4 wpm",
+      "36 wpm"
+     ],
+     "answer": 0,
+     "explanation": "32 - 4/5 = 31.2."
+    },
+    {
+     "q": "Which keys are the home keys for the left hand?",
+     "options": [
+      "Q W E R",
+      "Z X C V",
+      "J K L ;",
+      "A S D F"
+     ],
+     "answer": 3,
+     "explanation": "The left fingers rest on A, S, D, F."
+    },
+    {
+     "q": "160 words typed with 4 errors gives an accuracy of",
+     "options": [
+      "96%",
+      "99.4%",
+      "97.5%",
+      "2.5%"
+     ],
+     "answer": 2,
+     "explanation": "(160 - 4) / 160 = 97.5%."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-word-tables-graphics",
+   "title": "Inserting tables and graphics in a document",
+   "topic": "Word Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To create a document with a formatted table (including a simple table formula) and a correctly sized picture with text wrapping, then print it.",
+   "apparatus": [
+    "Computer with Microsoft Word",
+    "Printer"
+   ],
+   "materials": [
+    "Stationery stock list for the school bookshop",
+    "A logo or photograph (1600 x 1200 pixels)"
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Type the heading \"Bookshop Stock, First Term\" and format it (bold, 16 pt, centred).",
+    "Insert > Table > 4 x 5 (4 columns, 5 rows); type headings Item, Quantity, Unit Price (N), Amount (N).",
+    "Enter: Exercise book 40, 250; Biro 60, 100; Ruler 25, 150; Eraser 30, 50; compute each Amount (or use Layout > Formula =PRODUCT(LEFT)).",
+    "Add a row at the bottom (Tab in the last cell), type Total and use Layout > Formula =SUM(ABOVE) in the Amount column.",
+    "Apply a table style, make the header row bold and right-align number columns.",
+    "Insert > Pictures > This Device and choose the logo; set Width to 8 cm with Lock aspect ratio ticked; set Wrap Text to Square.",
+    "Insert a page number and header, check Print Preview (Ctrl+P), then save and print."
+   ],
+   "expectedObservations": "The table expands as rows are added; =SUM(ABOVE) totals the column (press F9 to update after changes). With aspect ratio locked, the picture resizes without distortion and text flows around it.",
+   "dataAndCalculations": "Amounts: 40 x 250 = 10,000; 60 x 100 = 6,000; 25 x 150 = 3,750; 30 x 50 = 1,500. Total = 21,250. Picture 1600 x 1200 px (ratio 4:3) set to 8 cm wide becomes 8 x 1200 / 1600 = 6 cm high. A4 portrait usable width with 2.54 cm margins = 21 - 5.08 = 15.92 cm, so four equal columns are 15.92 / 4 = 3.98 cm wide each.",
+   "precautions": [
+    "Lock the aspect ratio to avoid stretched pictures.",
+    "Update table formulae (F9) after changing numbers."
+   ],
+   "sourcesOfError": [
+    "Word table formulae do not update automatically.",
+    "Typing commas as text inside numbers can stop formulae working."
+   ],
+   "commonMistakes": [
+    "Drawing a table with tabs and spaces instead of the Table feature.",
+    "Dragging only one corner handle sideways, which distorts the picture."
+   ],
+   "examTips": [
+    "Know Table Tools: insert/delete rows and columns, merge/split cells, borders and shading, sort, formula.",
+    "Name text-wrapping options: In line with text, Square, Tight, Behind text, In front of text, Top and bottom."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which Word table formula totals the numbers in the cells above?",
+     "options": [
+      "=TOTAL(UP)",
+      "=SUM(ABOVE)",
+      "=SUM(LEFT)",
+      "=ADD(ABOVE)"
+     ],
+     "answer": 1,
+     "explanation": "ABOVE refers to the cells above in the same column."
+    },
+    {
+     "q": "A 1600 x 1200 px picture is set to 8 cm wide with aspect ratio locked. Its height is",
+     "options": [
+      "6 cm",
+      "8 cm",
+      "4.5 cm",
+      "10.7 cm"
+     ],
+     "answer": 0,
+     "explanation": "8 x 1200 / 1600 = 6 cm."
+    },
+    {
+     "q": "Total of 10,000, 6,000, 3,750 and 1,500 is",
+     "options": [
+      "20,250",
+      "21,750",
+      "19,250",
+      "21,250"
+     ],
+     "answer": 3,
+     "explanation": "Sum = 21,250."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-spreadsheet-formulae",
+   "title": "Data types, formulae and functions in a market price list",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "procedure",
+    "identification"
+   ],
+   "aim": "To identify labels, values and formulae, and construct formulae and functions with relative and absolute references.",
+   "apparatus": [
+    "Computer with Microsoft Excel or LibreOffice Calc"
+   ],
+   "materials": [
+    "A market shopping list with quantities and unit prices"
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Type in A1 Discount and in B1 5% (a value). In row 3 type the headings Item, Qty, Unit Price, Amount.",
+    "Enter: Garri (paint) 5, 1500; Palm oil (litre) 4, 2200; Tomatoes (basket) 1, 18000; Onions (bag, small) 3, 700 in rows 4 to 7.",
+    "In D4 type =B4*C4 and copy to D7.",
+    "In D8 =SUM(D4:D7); D9 =D8*$B$1 (discount); D10 =D8-D9 (amount payable).",
+    "In D12 =MAX(D4:D7), D13 =MIN(D4:D7), D14 =AVERAGE(D4:D7), D15 =COUNT(D4:D7).",
+    "Click cells and read the formula bar to see the difference between a formula and its displayed value; note the alignment of labels (left) and numbers (right).",
+    "Change B1 to 10% and observe all dependent cells recalculate."
+   ],
+   "expectedObservations": "Labels align left and values align right by default. Formulae display results in the cell but show the formula in the formula bar. Changing the discount rate updates D9 and D10 automatically because of the absolute reference.",
+   "dataAndCalculations": "Amounts: 5 x 1,500 = 7,500; 4 x 2,200 = 8,800; 1 x 18,000 = 18,000; 3 x 700 = 2,100. Total = 36,400. Discount 5% = 1,820; payable = 34,580. MAX = 18,000; MIN = 2,100; AVERAGE = 36,400 / 4 = 9,100; COUNT = 4. At 10% discount: 3,640 and payable 32,760.",
+   "precautions": [
+    "Use $B$1 for the discount cell before copying formulae that refer to it.",
+    "Enter numbers without the naira sign or commas; format them afterwards."
+   ],
+   "sourcesOfError": [
+    "A number typed as text (e.g. with a leading apostrophe) is ignored by SUM.",
+    "Wrong cell reference after inserting rows."
+   ],
+   "commonMistakes": [
+    "Writing formulae without \"=\".",
+    "Using COUNT on text cells (COUNT counts numbers only; COUNTA counts non-empty cells)."
+   ],
+   "examTips": [
+    "Data types: label (text), value (number/date/currency), formula/function.",
+    "Explain relative vs absolute vs mixed references ($A1, A$1) with an example.",
+    "State results with units where appropriate (naira)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Total N36,400 with a 5% discount. What is the amount payable?",
+     "options": [
+      "N36,220",
+      "N34,400",
+      "N34,580",
+      "N1,820"
+     ],
+     "answer": 2,
+     "explanation": "36400 - 1820 = 34580."
+    },
+    {
+     "q": "Which function returns the number of numeric cells in D4:D7?",
+     "options": [
+      "=SUM(D4:D7)",
+      "=COUNT(D4:D7)",
+      "=MAX(D4:D7)",
+      "=LEN(D4:D7)"
+     ],
+     "answer": 1,
+     "explanation": "COUNT counts cells containing numbers."
+    },
+    {
+     "q": "By default, text labels in a cell are aligned",
+     "options": [
+      "left",
+      "right",
+      "centre",
+      "justified"
+     ],
+     "answer": 0,
+     "explanation": "Text aligns left, numbers align right."
+    },
+    {
+     "q": "What is the average of 7,500, 8,800, 18,000 and 2,100?",
+     "options": [
+      "9,200",
+      "36,400",
+      "8,150",
+      "9,100"
+     ],
+     "answer": 3,
+     "explanation": "36400 / 4 = 9100."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-spreadsheet-format-print",
+   "title": "Formatting and printing a worksheet",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To format a class score sheet (number formats, borders, conditional formatting, freeze panes) and set it up to print neatly on the right number of pages.",
+   "apparatus": [
+    "Computer with a spreadsheet program",
+    "Printer"
+   ],
+   "materials": [
+    "A score sheet of 120 students (provided file)"
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Open the score sheet; widen columns that show ##### by double-clicking the column border (AutoFit).",
+    "Format the heading row bold with fill colour; apply All Borders to the table.",
+    "Format score columns to 0 decimal places and the fees column as currency (N) with 2 decimal places.",
+    "Apply Conditional Formatting > Highlight Cells Rules > Less Than 50 with light red fill to the average column.",
+    "Freeze the top row (View > Freeze Panes > Freeze Top Row) and scroll to check.",
+    "In Page Layout set orientation Portrait, Print Titles > Rows to repeat at top: $1:$1, and Fit All Columns on One Page.",
+    "Use Print Preview to check page breaks and page count, then print the number of copies required."
+   ],
+   "expectedObservations": "##### disappears when the column is wide enough. Averages below 50 are highlighted automatically. The header row stays visible while scrolling and appears at the top of every printed page.",
+   "dataAndCalculations": "120 student rows with a repeated header leave space for 45 student rows per printed page: pages = ceiling(120 / 45) = ceiling(2.67) = 3 pages. Two copies (form teacher and principal) = 3 x 2 = 6 sheets.",
+   "precautions": [
+    "Always preview before printing to avoid wasting paper.",
+    "Do not change numbers when formatting; formatting changes display only."
+   ],
+   "sourcesOfError": [
+    "Different printers and margins change rows per page.",
+    "Hidden rows still affecting totals."
+   ],
+   "commonMistakes": [
+    "Typing numbers with the naira sign as text, which stops calculations.",
+    "Confusing \"Wrap Text\" with \"Merge & Centre\"."
+   ],
+   "examTips": [
+    "Give exact steps for print setup: File > Print, choose printer, copies, pages, orientation, scaling.",
+    "Explain why ##### appears and how to fix it."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A cell shows #####. The best fix is to",
+     "options": [
+      "delete the formula",
+      "change the font colour",
+      "widen the column",
+      "freeze panes"
+     ],
+     "answer": 2,
+     "explanation": "The value is too wide for the column."
+    },
+    {
+     "q": "120 rows print at 45 rows per page. How many pages?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "2.67"
+     ],
+     "answer": 1,
+     "explanation": "Pages must be whole: ceiling(2.67) = 3."
+    },
+    {
+     "q": "Which feature keeps the heading row visible while scrolling?",
+     "options": [
+      "Freeze Panes",
+      "Conditional Formatting",
+      "AutoSum",
+      "Wrap Text"
+     ],
+     "answer": 0,
+     "explanation": "Freeze Panes locks rows/columns in view."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-presentation-master-slides",
+   "title": "Using master slides and running a slide show",
+   "topic": "Presentation",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To create a presentation whose common design is set on the slide master, insert objects, and run and print it.",
+   "apparatus": [
+    "Computer with PowerPoint or Impress",
+    "Projector (optional)",
+    "Printer"
+   ],
+   "materials": [
+    "School logo picture",
+    "Notes on \"Road safety for students\""
+   ],
+   "safety": [
+    "No food or drinks near computers; spills cause short circuits.",
+    "Report damaged cables, sparking sockets or overheating equipment to the teacher; do not fix them yourself.",
+    "Sit correctly and take short eye breaks (look 6 m away for 20 seconds every 20 minutes)."
+   ],
+   "procedure": [
+    "Create a new presentation and open View > Slide Master.",
+    "On the top (master) slide set the title font and colour, insert the school logo at the bottom right and add a footer with the school name; close Master View.",
+    "Add 10 slides using suitable layouts; insert a table, a picture and a SmartArt or shape diagram.",
+    "Check that the logo and footer appear on every slide without being copied by hand.",
+    "Apply one transition to all slides and set each to advance after 30 seconds.",
+    "Save as Road_Safety.pptx; run the show with F5 and navigate with arrow keys, B (black screen) and Esc.",
+    "Print handouts with 6 slides per page."
+   ],
+   "expectedObservations": "Changes on the master (font, logo, footer) update all slides at once. Handouts print several slide thumbnails per page.",
+   "dataAndCalculations": "10 slides x 30 s = 300 s = 5 minutes of slide show; with a 2-minute introduction and 3 minutes for questions, the talk fills a 10-minute slot. Handouts: 10 slides at 6 per page = ceiling(10 / 6) = 2 pages per student; for 35 students = 70 pages.",
+   "precautions": [
+    "Use readable font sizes (titles about 36-44 pt, body at least 24 pt) and good contrast.",
+    "Test the file on the presentation computer before the event."
+   ],
+   "sourcesOfError": [
+    "Projector resolution may cut off or distort slides.",
+    "Fonts missing on another computer change the layout."
+   ],
+   "commonMistakes": [
+    "Pasting the logo on every slide instead of using the master.",
+    "Overloading slides with text and animations."
+   ],
+   "examTips": [
+    "State factors to consider before delivering a presentation: audience, purpose, time, venue/equipment, rehearsal, backup copy.",
+    "Know how to start the show (F5, Shift+F5) and end it (Esc)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "To place a logo on every slide in one step, you should use the",
+     "options": [
+      "slide sorter",
+      "notes page",
+      "reading view",
+      "slide master"
+     ],
+     "answer": 3,
+     "explanation": "The master controls layout elements common to all slides."
+    },
+    {
+     "q": "10 slides printed as handouts at 6 per page need how many pages per student?",
+     "options": [
+      "1",
+      "6",
+      "2",
+      "10"
+     ],
+     "answer": 2,
+     "explanation": "ceiling(10 / 6) = 2."
+    },
+    {
+     "q": "Pressing B during a PowerPoint slide show",
+     "options": [
+      "goes back one slide",
+      "turns the screen black",
+      "ends the show",
+      "opens the master"
+     ],
+     "answer": 1,
+     "explanation": "B blacks out the screen; press again to return."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-internet-search-engines",
+   "title": "Using browser features and search engines effectively",
+   "topic": "The Internet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "observation",
+    "calculation"
+   ],
+   "aim": "To identify the features of a browser window, use a search engine with refining operators, and evaluate the reliability of web sources.",
+   "apparatus": [
+    "Computer or smartphone with a browser",
+    "Internet connection"
+   ],
+   "materials": [
+    "Research task: \"Causes and prevention of cholera in Nigeria\"",
+    "Source evaluation checklist"
+   ],
+   "safety": [
+    "Avoid clicking pop-up adverts and \"You have won\" messages.",
+    "Do not share personal details on websites."
+   ],
+   "procedure": [
+    "Open the browser and label the title bar, tabs, address bar, navigation buttons, bookmarks bar, menu and status bar.",
+    "Search for: cholera prevention Nigeria; note the first five results.",
+    "Refine: \"cholera\" prevention site:ncdc.gov.ng ; then cholera -vaccine ; then filetype:pdf cholera Nigeria.",
+    "Open two sources in new tabs; check the author/organisation, date and evidence using the checklist.",
+    "Bookmark the most reliable page and copy a short quotation with its URL and date of access.",
+    "Estimate data used, as below, and log out/clear history."
+   ],
+   "expectedObservations": "Operators narrow results to official or relevant pages. Official health sites (e.g. NCDC, WHO) are more reliable than anonymous blogs.",
+   "dataAndCalculations": "If each page averages 2.5 MB and you open 40 pages, data used = 40 x 2.5 = 100 MB. On a 1 GB (1,024 MB) bundle this is 100 / 1,024 x 100 = about 9.8% of the bundle.",
+   "precautions": [
+    "Always cite the source of information used in assignments.",
+    "Check that information is current."
+   ],
+   "sourcesOfError": [
+    "Search results differ by location and time.",
+    "Page sizes vary greatly (videos use much more data)."
+   ],
+   "commonMistakes": [
+    "Typing a search phrase into the address bar of an old browser that does not search.",
+    "Trusting the first result without checking the source."
+   ],
+   "examTips": [
+    "Define Internet terms: URL, browser, search engine, website, web page, home page, hyperlink, ISP, download/upload.",
+    "State the requirements for Internet access: computer/phone, ISP subscription, modem/router or SIM, browser."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which operator finds only PDF files?",
+     "options": [
+      "filetype:pdf",
+      "site:pdf",
+      "-pdf",
+      "\"pdf\""
+     ],
+     "answer": 0,
+     "explanation": "filetype: restricts the result type."
+    },
+    {
+     "q": "40 pages at 2.5 MB each use how much data?",
+     "options": [
+      "42.5 MB",
+      "16 MB",
+      "1,000 MB",
+      "100 MB"
+     ],
+     "answer": 3,
+     "explanation": "40 x 2.5 = 100 MB."
+    },
+    {
+     "q": "The part of a browser where a web address is typed is the",
+     "options": [
+      "title bar",
+      "status bar",
+      "address bar",
+      "task bar"
+     ],
+     "answer": 2,
+     "explanation": "URLs are entered in the address bar."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-email-attachments",
+   "title": "Sending and receiving e-mail with attachments",
+   "topic": "The Internet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To compose, address (To, Cc, Bcc), attach files to, send, reply to and forward e-mail while observing netiquette and size limits.",
+   "apparatus": [
+    "Computer or smartphone with Internet access",
+    "A school or personal e-mail account (e.g. Gmail, Outlook)"
+   ],
+   "materials": [
+    "Three photographs (4.2 MB each) and a PDF report (9.5 MB)",
+    "Teacher's e-mail address"
+   ],
+   "safety": [
+    "Do not open attachments or links from unknown senders.",
+    "Sign out of e-mail on shared computers."
+   ],
+   "procedure": [
+    "Sign in and identify the inbox, sent, drafts, spam and compose button; note the parts of an address (username@domain).",
+    "Click Compose; type the teacher's address in To, a classmate in Cc and a parent in Bcc.",
+    "Write a clear Subject, a polite greeting, a short message and your name.",
+    "Attach the PDF using the paperclip icon; try attaching all three photos as well and note the size warning.",
+    "Compress (zip) the photos or share them as a cloud link, then send.",
+    "Open a received message; use Reply, Reply All and Forward appropriately and download an attachment.",
+    "Create a contact and a folder/label for school mail."
+   ],
+   "expectedObservations": "The message appears in Sent. Bcc recipients are hidden from others. Very large attachments are refused or converted to cloud links.",
+   "dataAndCalculations": "Attachments: 3 x 4.2 + 9.5 = 22.1 MB. E-mail encoding enlarges attachments by about one-third: 22.1 x 4 / 3 = about 29.5 MB, which exceeds a typical 25 MB limit, so the photos should be compressed or sent as a shared link.",
+   "precautions": [
+    "Check addresses before sending; a wrong letter sends mail to a stranger.",
+    "Avoid writing in capital letters (seen as shouting) and keep messages brief and polite."
+   ],
+   "sourcesOfError": [
+    "Different providers have different size limits.",
+    "Compression of photos varies with content."
+   ],
+   "commonMistakes": [
+    "Confusing an e-mail address (name@domain) with a website address (www.domain).",
+    "Using Reply All for a private reply."
+   ],
+   "examTips": [
+    "List steps to create an e-mail account and to send a message with an attachment, in order.",
+    "Explain To, Cc, Bcc, Subject, Attachment, Inbox, Spam/Junk, Forward."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which field hides a recipient's address from other recipients?",
+     "options": [
+      "Cc",
+      "Bcc",
+      "To",
+      "Subject"
+     ],
+     "answer": 1,
+     "explanation": "Blind carbon copy recipients are not shown."
+    },
+    {
+     "q": "Three 4.2 MB photos and a 9.5 MB PDF total",
+     "options": [
+      "22.1 MB",
+      "17.9 MB",
+      "13.7 MB",
+      "26.3 MB"
+     ],
+     "answer": 0,
+     "explanation": "12.6 + 9.5 = 22.1 MB."
+    },
+    {
+     "q": "In amina.yusuf@unilag.edu.ng, the part after @ is the",
+     "options": [
+      "username",
+      "subject",
+      "protocol",
+      "domain name"
+     ],
+     "answer": 3,
+     "explanation": "The domain identifies the mail server."
+    },
+    {
+     "q": "Which is good netiquette?",
+     "options": [
+      "Typing everything in capitals",
+      "Forwarding chain messages",
+      "Writing a clear subject line",
+      "Sending large files without warning"
+     ],
+     "answer": 2,
+     "explanation": "Clear subjects help the recipient."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-ict-download-upload-social-media",
+   "title": "Downloading, uploading and responsible social media use",
+   "topic": "The Internet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To download and upload files, compare transfer times, and practise netiquette and privacy settings on communication tools.",
+   "apparatus": [
+    "Computer or smartphone with Internet access",
+    "Cloud storage account (e.g. Google Drive) or school learning platform"
+   ],
+   "materials": [
+    "A short video project (180 MB)",
+    "Netiquette checklist"
+   ],
+   "safety": [
+    "Do not upload photos of other people without their permission.",
+    "Never share passwords, home address or school timetable publicly.",
+    "Report cyberbullying to a teacher or parent."
+   ],
+   "procedure": [
+    "Run a speed test (e.g. fast.com or speedtest) and record download and upload speeds.",
+    "Upload the video to the cloud folder; time the upload.",
+    "Share the file with \"view only\" permission to the teacher's address.",
+    "Download a document from the class folder; find it in the Downloads folder.",
+    "Review privacy settings on a social media or chat app: who can see posts, profile photo and phone number.",
+    "Discuss netiquette rules and compose a respectful group chat message."
+   ],
+   "expectedObservations": "Upload speed is usually much lower than download speed, so uploads take longer. Shared files open for the recipient only with the chosen permission.",
+   "dataAndCalculations": "Speeds: download 8 Mbps, upload 2 Mbps. Uploading 180 MB: 180 x 8 = 1,440 megabits; 1,440 / 2 = 720 s = 12 minutes. Downloading the same file: 1,440 / 8 = 180 s = 3 minutes.",
+   "precautions": [
+    "Pause large uploads when the network is needed for lessons.",
+    "Check copyright before downloading or sharing music, films or books."
+   ],
+   "sourcesOfError": [
+    "Speeds change with network traffic and signal strength.",
+    "Protocol overheads make real transfers slower than calculated."
+   ],
+   "commonMistakes": [
+    "Mixing up downloading (to your device) and uploading (from your device).",
+    "Using MB and Mb interchangeably."
+   ],
+   "examTips": [
+    "State netiquette rules: be polite, no capitals, respect privacy, no spam, cite sources, avoid fake news.",
+    "Give examples of communication tools: e-mail, WhatsApp, Telegram, Facebook, X (Twitter), Zoom, Google Meet."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How long does a 180 MB upload take at 2 Mbps?",
+     "options": [
+      "90 seconds",
+      "12 minutes",
+      "3 minutes",
+      "6 minutes"
+     ],
+     "answer": 1,
+     "explanation": "180 x 8 / 2 = 720 s = 12 min."
+    },
+    {
+     "q": "Copying a file from a website to your phone is called",
+     "options": [
+      "downloading",
+      "uploading",
+      "streaming",
+      "browsing"
+     ],
+     "answer": 0,
+     "explanation": "Downloading brings data to your device."
+    },
+    {
+     "q": "Which is good practice on social media?",
+     "options": [
+      "Sharing your password with friends",
+      "Posting your home address",
+      "Forwarding unverified news",
+      "Asking permission before posting someone's photo"
+     ],
+     "answer": 3,
+     "explanation": "Respect for privacy is basic netiquette."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

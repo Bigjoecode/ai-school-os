@@ -1,0 +1,2362 @@
+{
+ "exam": "WAEC",
+ "subject": "Computer Studies",
+ "practicalPaper": "Paper 3 is a 2-hour practical paper of three questions for 45 marks: school candidates carry out real tasks on the computer (word processing, spreadsheet, database, graphics, presentation, BASIC programming and file handling), while private candidates answer questions testing knowledge of the same practical work. Marks are earned for correct procedures, accurate printed or written output, correct formulae and code, and neat, labelled work.",
+ "practicals": [
+  {
+   "id": "pr-cst-booting-and-shutting-down",
+   "title": "Cold booting, warm booting and shutting down a computer",
+   "topic": "Booting and Shutting Down Process",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "observation",
+    "identification",
+    "safety"
+   ],
+   "aim": "To boot a desktop computer from cold, restart it (warm boot), identify the main features of the Windows desktop and shut it down correctly.",
+   "apparatus": [
+    "Desktop computer (system unit, monitor, keyboard, mouse)",
+    "Uninterruptible power supply (UPS) or surge protector",
+    "Stopwatch or phone timer"
+   ],
+   "materials": [
+    "Practical notebook and pen"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes.",
+    "Never switch off at the wall socket or UPS while Windows is still running; it can corrupt files."
+   ],
+   "procedure": [
+    "Check that the UPS is connected to the mains and the system unit and monitor are plugged into the UPS.",
+    "Switch on the UPS, then the monitor, then press the power button on the system unit. Start the timer.",
+    "Observe the power-on self-test (POST): the fans start, the manufacturer's logo appears and a single short beep is heard on most machines.",
+    "Watch the operating system load. Stop the timer when the desktop is ready and the pointer stops showing a busy circle. Record this cold-boot time.",
+    "Identify and write down the desktop features: icons (This PC, Recycle Bin), Start button, taskbar, notification area with the clock, and wallpaper.",
+    "Warm boot: click Start > Power > Restart (or press Ctrl + Alt + Delete and choose Restart). Time how long it takes to return to the desktop.",
+    "Save and close any open files, then click Start > Power > Shut down. Wait until the power light goes off before switching off the monitor and UPS."
+   ],
+   "expectedObservations": "During a cold boot the POST runs first (memory check, keyboard lights flash) before Windows loads. A warm boot skips the full power-off and is usually quicker. On shut-down the screen shows \"Shutting down\" and the system unit switches itself off.",
+   "dataAndCalculations": "Worked example: cold-boot time = 48 s; warm-boot time = 22 s. Time saved by a warm boot = 48 - 22 = 26 s. As a fraction of the cold-boot time: 26 / 48 x 100 = 54.2% quicker. Record results in a table: Boot type | Start method | Time (s).",
+   "precautions": [
+    "Close all programs and save work before restarting or shutting down.",
+    "Wait about 10 seconds after shut-down before switching the computer on again.",
+    "Use the Start menu, not the power button, for a normal shut-down."
+   ],
+   "sourcesOfError": [
+    "Reaction time when starting and stopping the timer.",
+    "Background updates can make one boot slower than another."
+   ],
+   "commonMistakes": [
+    "Confusing cold booting (starting from power off) with warm booting (restarting a machine that is already on).",
+    "Holding the power button to switch off a working computer.",
+    "Listing hardware (keyboard, mouse) when asked for desktop features."
+   ],
+   "examTips": [
+    "Write the shut-down steps in order with the exact menu names (Start > Power > Shut down); each correct step usually earns a mark.",
+    "Give Ctrl + Alt + Delete or the Restart option/reset button as the methods of a warm boot.",
+    "When asked for differences, set them out in a two-column table."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which of these is a warm boot?",
+     "options": [
+      "Choosing Restart from the Start menu",
+      "Pressing the power button on a computer that is off",
+      "Switching on the UPS",
+      "Plugging in the monitor"
+     ],
+     "answer": 0,
+     "explanation": "A warm boot restarts a computer that is already running."
+    },
+    {
+     "q": "The self-test the computer runs when first switched on is called",
+     "options": [
+      "BIOS update",
+      "POST",
+      "Defragmentation",
+      "Formatting"
+     ],
+     "answer": 1,
+     "explanation": "POST means power-on self-test."
+    },
+    {
+     "q": "A cold boot took 50 s and a warm boot 20 s. How much time did the warm boot save?",
+     "options": [
+      "20 s",
+      "70 s",
+      "30 s",
+      "2.5 s"
+     ],
+     "answer": 2,
+     "explanation": "50 - 20 = 30 s."
+    },
+    {
+     "q": "Which is NOT a desktop feature?",
+     "options": [
+      "Taskbar",
+      "Recycle Bin",
+      "Start button",
+      "Keyboard"
+     ],
+     "answer": 3,
+     "explanation": "The keyboard is a hardware input device."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-keyboard-and-mouse-skills",
+   "title": "Using the keyboard and mouse; measuring typing speed",
+   "topic": "Input Devices",
+   "kind": "COMPUTER",
+   "skills": [
+    "identification",
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To classify the keys on a keyboard, carry out the main mouse operations and measure typing speed in words per minute.",
+   "apparatus": [
+    "Computer with keyboard and mouse",
+    "Word processor or Notepad",
+    "Stopwatch"
+   ],
+   "materials": [
+    "A printed passage of about 300 words (e.g. a short paragraph on Nigerian independence)"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Study the keyboard and list examples of each group: function keys (F1-F12), alphabetic keys, numeric keys (top row and numeric keypad), cursor/arrow keys, and special keys (Enter, Shift, Ctrl, Alt, Esc, Tab, Backspace, Delete).",
+    "Mouse practice: point to an icon, single-click to select it, double-click to open it, right-click to show the shortcut menu, and drag a file icon to a new place on the desktop.",
+    "Open Notepad. Start the stopwatch and type the passage for exactly 5 minutes without looking at the keyboard as much as possible.",
+    "Stop typing at 5 minutes. Use the word processor's word/character count to find how many characters you typed.",
+    "Compare your work with the original and count the uncorrected errors.",
+    "Calculate gross and net speed as shown below."
+   ],
+   "expectedObservations": "Single-click selects (the icon is highlighted); double-click opens; right-click shows a context menu; drag-and-drop moves the item. Caps Lock and Num Lock lights turn on and off when the keys are pressed.",
+   "dataAndCalculations": "A standard \"word\" is 5 characters (including spaces). Worked example: 1 500 characters typed in 5 minutes with 6 uncorrected errors. Words typed = 1 500 / 5 = 300 words. Gross speed = 300 / 5 = 60 wpm. Net speed = gross - (errors / minutes) = 60 - 6/5 = 58.8 wpm.",
+   "precautions": [
+    "Keep fingers on the home keys (ASDF and JKL;) and return to them after each stroke.",
+    "Use the correct timing; stop exactly at the time limit.",
+    "Hold the mouse lightly with the wrist straight."
+   ],
+   "sourcesOfError": [
+    "Miscounting errors",
+    "Starting or stopping the stopwatch late"
+   ],
+   "commonMistakes": [
+    "Calling the numeric keypad \"function keys\".",
+    "Dividing characters by minutes and forgetting to divide by 5 to get words.",
+    "Using Backspace and Delete as if they were the same (Backspace deletes to the left, Delete to the right of the cursor)."
+   ],
+   "examTips": [
+    "Give two named examples for each key group.",
+    "For mouse operations, state both the action and its result (e.g. \"double-click - opens a file or program\").",
+    "Always show the formula before substituting numbers in speed calculations."
+   ],
+   "checkQuestions": [
+    {
+     "q": "F1 to F12 are called",
+     "options": [
+      "function keys",
+      "cursor keys",
+      "numeric keys",
+      "toggle keys"
+     ],
+     "answer": 0,
+     "explanation": "They perform program-defined functions, e.g. F1 for Help."
+    },
+    {
+     "q": "A student typed 1 200 characters in 4 minutes. Gross speed is",
+     "options": [
+      "300 wpm",
+      "60 wpm",
+      "48 wpm",
+      "240 wpm"
+     ],
+     "answer": 1,
+     "explanation": "1 200 / 5 = 240 words; 240 / 4 = 60 wpm."
+    },
+    {
+     "q": "Which mouse action normally displays a shortcut menu?",
+     "options": [
+      "Double-click",
+      "Drag",
+      "Right-click",
+      "Scroll"
+     ],
+     "answer": 2,
+     "explanation": "Right-clicking opens the context (shortcut) menu."
+    },
+    {
+     "q": "Which key deletes the character to the LEFT of the cursor?",
+     "options": [
+      "Delete",
+      "Esc",
+      "Tab",
+      "Backspace"
+     ],
+     "answer": 3,
+     "explanation": "Delete removes the character to the right."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-word-processing-format-document",
+   "title": "Creating, formatting, saving and printing a document",
+   "topic": "Word Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To create a one-page notice in Microsoft Word, apply character and paragraph formatting, set page margins, save it in a named folder and print it.",
+   "apparatus": [
+    "Computer with Microsoft Word (or LibreOffice Writer)",
+    "Printer with A4 paper",
+    "Flash drive"
+   ],
+   "materials": [
+    "Text of a notice, e.g. \"Inter-House Sports: Friday 14 March, 10 a.m., school field\""
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start Word: Start > Word (or double-click its icon) and choose Blank document.",
+    "Type the heading and body text. Do not press Enter at the end of each line; let word wrap work.",
+    "Select the heading; make it bold (Ctrl + B), 16-point size and centred (Ctrl + E). Make the body 12-point Times New Roman, justified (Ctrl + J), with 1.5 line spacing.",
+    "Layout > Margins > Custom Margins: set all four margins to 2.54 cm on A4 portrait.",
+    "Insert a bulleted list of the events and a page border; use Find and Replace to change \"House\" to \"house\" where needed; run Spelling & Grammar (F7).",
+    "File > Save As: browse to Documents, create a folder named SS3 and save the file as Sports_Notice.docx.",
+    "File > Print: choose the printer, 1 copy, then click Print. Close the document (Ctrl + W) and exit Word."
+   ],
+   "expectedObservations": "The heading appears bold, larger and centred; justified text has straight left and right edges; the title bar shows the file name after saving; the printout matches the screen (WYSIWYG).",
+   "dataAndCalculations": "Text width on A4 = page width - left margin - right margin = 21.0 - 2.54 - 2.54 = 15.92 cm. Font size: 72 points = 1 inch = 2.54 cm, so 12 pt = 12/72 x 2.54 = 0.42 cm high. A 16-pt heading is 16/12 = 1.33 times the height of 12-pt body text.",
+   "precautions": [
+    "Select text before applying formatting.",
+    "Save early and often (Ctrl + S) to avoid losing work during a power cut.",
+    "Use Print Preview before printing to avoid wasting paper."
+   ],
+   "sourcesOfError": [
+    "Printer scaling (\"fit to page\") changing the printed sizes",
+    "Different default fonts on different computers"
+   ],
+   "commonMistakes": [
+    "Pressing Enter at the end of every line instead of letting text wrap.",
+    "Using Save instead of Save As when asked to save with a new name.",
+    "Writing \"click Bold\" without first selecting the text."
+   ],
+   "examTips": [
+    "Write steps using exact menu or ribbon names (Home > Font > Bold) or correct shortcuts; vague steps lose marks.",
+    "Know the shortcuts: Ctrl + C copy, Ctrl + V paste, Ctrl + X cut, Ctrl + Z undo, Ctrl + S save, Ctrl + A select all, Ctrl + P print.",
+    "Hand in the printout with your name and index number in the header or footer if instructed."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which shortcut centres selected text in Word?",
+     "options": [
+      "Ctrl + E",
+      "Ctrl + C",
+      "Ctrl + J",
+      "Ctrl + L"
+     ],
+     "answer": 0,
+     "explanation": "Ctrl + E centres; Ctrl + J justifies; Ctrl + L aligns left."
+    },
+    {
+     "q": "A4 is 21.0 cm wide. With 3.0 cm left and 2.0 cm right margins, the text width is",
+     "options": [
+      "26.0 cm",
+      "16.0 cm",
+      "18.0 cm",
+      "15.0 cm"
+     ],
+     "answer": 1,
+     "explanation": "21.0 - 3.0 - 2.0 = 16.0 cm."
+    },
+    {
+     "q": "\"Save As\" is used to",
+     "options": [
+      "print a file",
+      "close a file without saving",
+      "save a file with a new name or location",
+      "check spelling"
+     ],
+     "answer": 2,
+     "explanation": "Save overwrites the existing file; Save As creates a new copy."
+    },
+    {
+     "q": "The feature that moves words to the next line automatically is",
+     "options": [
+      "justification",
+      "mail merge",
+      "autosave",
+      "word wrap"
+     ],
+     "answer": 3,
+     "explanation": "Word wrap avoids pressing Enter at the end of every line."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-mail-merge",
+   "title": "Mail merge: personalised letters to parents",
+   "topic": "Word Processing",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To produce personalised letters to many parents by merging a main letter with a data source.",
+   "apparatus": [
+    "Computer with Microsoft Word and Excel",
+    "Printer"
+   ],
+   "materials": [
+    "Excel list of parents (Title, Surname, StudentName, Class)",
+    "Draft letter inviting parents to the PTA meeting"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Prepare the data source in Excel with headings in row 1: Title, Surname, StudentName, Class. Enter the records and save as Parents.xlsx.",
+    "In Word, type the main letter, leaving blanks for the personal details.",
+    "Mailings > Start Mail Merge > Letters. Then Select Recipients > Use an Existing List and choose Parents.xlsx.",
+    "Place the cursor where each detail goes and use Insert Merge Field to insert <<Title>> <<Surname>>, <<StudentName>> and <<Class>>.",
+    "Click Preview Results and use the arrows to check several letters.",
+    "Click Finish & Merge > Edit Individual Documents > All to create the merged document; save it and print."
+   ],
+   "expectedObservations": "In preview each letter shows a different parent's name and child; the merged document contains one letter per record.",
+   "dataAndCalculations": "Worked example: 40 parents, one-page letter each. Pages = 40 x 1 = 40. A printer rated 20 pages per minute needs 40 / 20 = 2 minutes. Paper at about N4 000 per ream of 500 sheets costs 4 000 / 500 = N8 per sheet, so 40 x 8 = N320.",
+   "precautions": [
+    "Use one row per record with no blank rows in the data source.",
+    "Keep field names short and without spaces.",
+    "Preview before merging to catch spacing mistakes such as \"Mr.Okeke\"."
+   ],
+   "sourcesOfError": [
+    "Typing errors in the data source appear in every affected letter",
+    "Blank rows produce empty letters"
+   ],
+   "commonMistakes": [
+    "Typing the angled brackets << >> by hand instead of inserting merge fields.",
+    "Forgetting to name the two files combined: the main document and the data source."
+   ],
+   "examTips": [
+    "State clearly that mail merge combines a main document (form letter) with a data source (list of names and addresses).",
+    "Number the steps and use the Mailings tab names."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Mail merge combines a main document with a",
+     "options": [
+      "data source",
+      "template",
+      "macro",
+      "header"
+     ],
+     "answer": 0,
+     "explanation": "The data source holds the names and addresses."
+    },
+    {
+     "q": "Which tab in Word holds the mail merge tools?",
+     "options": [
+      "Review",
+      "Mailings",
+      "Insert",
+      "View"
+     ],
+     "answer": 1,
+     "explanation": "Mailings contains Start Mail Merge, Insert Merge Field and Finish & Merge."
+    },
+    {
+     "q": "A printer prints 25 pages per minute. How long for 100 one-page letters?",
+     "options": [
+      "2.5 minutes",
+      "25 minutes",
+      "4 minutes",
+      "0.25 minutes"
+     ],
+     "answer": 2,
+     "explanation": "100 / 25 = 4 minutes."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-spreadsheet-result-sheet",
+   "title": "Spreadsheet result sheet with SUM, AVERAGE, MAX and IF",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To build a class result sheet in Excel using formulae and built-in functions, copy formulae with the fill handle and add a remark using IF.",
+   "apparatus": [
+    "Computer with Microsoft Excel (or LibreOffice Calc)",
+    "Printer"
+   ],
+   "materials": [
+    "Scores of five students in three subjects"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "In row 1 type the headings: A1 Name, B1 Maths, C1 English, D1 Biology, E1 Total, F1 Average, G1 Remark.",
+    "Enter the data in A2:D6: Ngozi 72, 65, 80; Tunde 55, 48, 61; Hauwa 38, 52, 45; Emeka 90, 84, 77; Zainab 61, 59, 70.",
+    "In E2 type =SUM(B2:D2) and press Enter. In F2 type =AVERAGE(B2:D2). In G2 type =IF(F2>=50,\"PASS\",\"FAIL\").",
+    "Select E2:G2 and drag the fill handle down to row 6.",
+    "In B7 type =MAX(B2:B6) and in B8 type =AVERAGE(B2:B6). Label A7 \"Highest\" and A8 \"Mean\".",
+    "Format F2:F6 to 2 decimal places; make row 1 bold; add borders; save as Results.xlsx and print with gridlines."
+   ],
+   "expectedObservations": "When the formula is copied down, the cell references change (B2:D2 becomes B3:D3 and so on); results update automatically if a score is changed. The formula appears in the formula bar while the value appears in the cell.",
+   "dataAndCalculations": "Totals: Ngozi 217, Tunde 164, Hauwa 135, Emeka 251, Zainab 190. Averages (2 d.p.): 72.33, 54.67, 45.00, 83.67, 63.33. Remarks: PASS, PASS, FAIL, PASS, PASS. Highest Maths =MAX(B2:B6) = 90; mean Maths =AVERAGE(B2:B6) = 316/5 = 63.2.",
+   "precautions": [
+    "Begin every formula with an equals sign (=).",
+    "Use cell references, not typed numbers, so results update automatically.",
+    "Put text inside IF in double quotation marks."
+   ],
+   "sourcesOfError": [
+    "Typing a score into the wrong cell",
+    "Rounding displayed values versus stored values"
+   ],
+   "commonMistakes": [
+    "Writing =B2+C2+D2/3 for the average (only D2 is divided by 3).",
+    "Leaving out the quotation marks around \"PASS\".",
+    "Writing SUM(B2:D2) without the = sign, so Excel shows it as text."
+   ],
+   "examTips": [
+    "Write formulas exactly as they would be typed, e.g. =AVERAGE(B2:D2), and state the value produced.",
+    "When asked what appears after copying, give both the new formula and the values.",
+    "Show the arithmetic for each value; marks are given for both formula and result."
+   ],
+   "checkQuestions": [
+    {
+     "q": "=SUM(B2:D2) entered in E2 is copied to E4. The formula in E4 is",
+     "options": [
+      "=SUM(B2:D2)",
+      "=SUM(B2:D4)",
+      "=SUM(E4:G4)",
+      "=SUM(B4:D4)"
+     ],
+     "answer": 3,
+     "explanation": "Relative references change by the number of rows moved."
+    },
+    {
+     "q": "A student scored 40, 55 and 61. =AVERAGE of the three is",
+     "options": [
+      "52",
+      "156",
+      "51",
+      "55"
+     ],
+     "answer": 0,
+     "explanation": "(40 + 55 + 61)/3 = 156/3 = 52."
+    },
+    {
+     "q": "=IF(F2>=50,\"PASS\",\"FAIL\") with F2 = 49.5 gives",
+     "options": [
+      "PASS",
+      "FAIL",
+      "49.5",
+      "an error"
+     ],
+     "answer": 1,
+     "explanation": "49.5 is not greater than or equal to 50."
+    },
+    {
+     "q": "What does every Excel formula begin with?",
+     "options": [
+      "#",
+      "$",
+      "=",
+      "\""
+     ],
+     "answer": 2,
+     "explanation": "The equals sign tells Excel that a formula follows."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-spreadsheet-absolute-reference-vat",
+   "title": "Relative and absolute cell references: VAT calculation",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To use an absolute reference ($B$1) to calculate 7.5% VAT on a list of prices and compare the result with a relative reference.",
+   "apparatus": [
+    "Computer with a spreadsheet program"
+   ],
+   "materials": [
+    "Price list of four items in naira"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "In A1 type VAT Rate and in B1 type 7.5%.",
+    "In A3:A6 enter the prices 2000, 3500, 1200 and 8000. Type headings Price, VAT and Total in row 2.",
+    "In B3 type =A3*$B$1 and copy it down to B6. Click B5 and read the formula in the formula bar.",
+    "In C3 type =A3+B3 and copy down to C6. In C7 type =SUM(C3:C6).",
+    "In D3 type =A3*B1 (no dollar signs) and copy it down to D6. Note what happens.",
+    "Format B3:C7 as Currency (N) with 2 decimal places and save as VAT.xlsx."
+   ],
+   "expectedObservations": "The formula in B5 is =A5*$B$1: A changes but $B$1 stays fixed. In the relative version the rate reference moves too: D4 becomes =A4*B2 (an empty cell, so 0) and D5, D6 multiply by VAT values instead of the rate, giving wrong answers.",
+   "dataAndCalculations": "VAT = price x 7.5%: 2000 -> 150.00; 3500 -> 262.50; 1200 -> 90.00; 8000 -> 600.00. Totals: 2150.00, 3762.50, 1290.00, 8600.00. =SUM(C3:C6) = 15 802.50. With =A3*B1 copied down: D3 = 150 is correct, but D4 = A4*B2 = 3500 x 0 = 0 (B2 is empty), D5 = A5*B3 = 1200 x 150 = 180 000 and D6 = A6*B4 = 8000 x 262.5 = 2 100 000, which are nonsense values. This shows why an absolute reference is needed.",
+   "precautions": [
+    "Press F4 after typing a cell reference to add the $ signs.",
+    "Enter percentages with the % sign or as a decimal (0.075)."
+   ],
+   "sourcesOfError": [
+    "Typing 7.5 instead of 7.5% gives VAT 100 times too big"
+   ],
+   "commonMistakes": [
+    "Leaving out the $ signs, so the rate cell reference moves when copied.",
+    "Placing $ only before the column ($B1), which still lets the row change when copied down."
+   ],
+   "examTips": [
+    "Explain the difference in one sentence: a relative reference changes when copied; an absolute reference ($B$1) does not.",
+    "When asked for the formula in another cell after copying, adjust only the relative parts."
+   ],
+   "checkQuestions": [
+    {
+     "q": "=A3*$B$1 in B3 is copied to B6. The formula in B6 is",
+     "options": [
+      "=A3*$B$1",
+      "=A6*$B$4",
+      "=A6*B4",
+      "=A6*$B$1"
+     ],
+     "answer": 3,
+     "explanation": "Only the relative reference A3 changes."
+    },
+    {
+     "q": "VAT at 7.5% on N4 000 is",
+     "options": [
+      "N300",
+      "N30",
+      "N3 000",
+      "N7 500"
+     ],
+     "answer": 0,
+     "explanation": "4 000 x 0.075 = 300."
+    },
+    {
+     "q": "Which key adds dollar signs to a cell reference while editing in Excel?",
+     "options": [
+      "F2",
+      "F4",
+      "F7",
+      "F12"
+     ],
+     "answer": 1,
+     "explanation": "F4 cycles through absolute and mixed references."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-spreadsheet-charts",
+   "title": "Drawing a pie chart and a bar chart in a spreadsheet",
+   "topic": "Spreadsheet",
+   "kind": "COMPUTER",
+   "skills": [
+    "graph",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To create, title and label a pie chart and a column (bar) chart from tuck-shop sales data.",
+   "apparatus": [
+    "Computer with a spreadsheet program",
+    "Printer"
+   ],
+   "materials": [
+    "Daily tuck-shop sales for one week"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Enter Day in A1 and Sales (N) in B1. Enter Monday-Friday in A2:A6 and 12000, 9000, 15000, 6000, 18000 in B2:B6.",
+    "In B7 type =SUM(B2:B6). In C2 type =B2/$B$7*360 and copy down to C6 to find each sector angle.",
+    "Select A1:B6, then Insert > Charts > Pie. Add the chart title \"Tuck-shop sales, one week\" and show data labels as percentages.",
+    "Select A1:B6 again and Insert > Column (clustered). Add axis titles \"Day\" and \"Sales (N)\".",
+    "Move each chart to sit beside the data, save and print."
+   ],
+   "expectedObservations": "Friday has the largest pie sector and the tallest column; Thursday the smallest. The percentages on the pie add up to 100%.",
+   "dataAndCalculations": "Total = 12 000 + 9 000 + 15 000 + 6 000 + 18 000 = N60 000. Angles: Monday 12 000/60 000 x 360 = 72 degrees; Tuesday 54; Wednesday 90; Thursday 36; Friday 108. Check: 72 + 54 + 90 + 36 + 108 = 360. Percentages: 20%, 15%, 25%, 10%, 30%.",
+   "precautions": [
+    "Select only the labels and values, not the total row, before inserting a pie chart.",
+    "Always add a chart title and axis titles."
+   ],
+   "sourcesOfError": [
+    "Including the total in the selected range makes it a slice worth half the pie"
+   ],
+   "commonMistakes": [
+    "Using a pie chart for data that changes over time instead of a column or line chart.",
+    "Leaving charts untitled."
+   ],
+   "examTips": [
+    "Name the chart type that suits the data and give a reason.",
+    "Show the sector-angle working: value / total x 360."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Sales of N15 000 out of a total of N60 000 give a pie sector of",
+     "options": [
+      "25 degrees",
+      "150 degrees",
+      "90 degrees",
+      "60 degrees"
+     ],
+     "answer": 2,
+     "explanation": "15 000/60 000 x 360 = 90 degrees."
+    },
+    {
+     "q": "The sector angles of a pie chart must add up to",
+     "options": [
+      "100 degrees",
+      "180 degrees",
+      "90 degrees",
+      "360 degrees"
+     ],
+     "answer": 3,
+     "explanation": "A full circle is 360 degrees."
+    },
+    {
+     "q": "Which chart best compares sales on different days?",
+     "options": [
+      "Column (bar) chart",
+      "Scatter chart",
+      "Pie chart of one day",
+      "No chart"
+     ],
+     "answer": 0,
+     "explanation": "Bars allow direct comparison of separate categories."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-database-create-and-query",
+   "title": "Creating a database table, sorting and querying records",
+   "topic": "Database",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To create a STUDENTS table in Microsoft Access with suitable field types and a primary key, enter records, sort them, run a query and produce a report.",
+   "apparatus": [
+    "Computer with Microsoft Access (or LibreOffice Base)",
+    "Printer"
+   ],
+   "materials": [
+    "Records of eight students"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start Access, choose Blank database and name it School.accdb.",
+    "In Design View create table STUDENTS with fields: AdmNo (Short Text, size 6, primary key), Surname (Short Text, 20), Class (Short Text, 3), Sex (Short Text, 1), Age (Number, Integer).",
+    "Switch to Datasheet View and enter the records, e.g. 1001 Bello SS2 M 16; 1002 Okon SS3 F 17; 1003 Adeyemi SS2 F 15; 1004 Nwosu SS3 M 18; 1005 Garba SS3 M 16; 1006 Eze SS2 F 16; 1007 Usman SS3 F 15; 1008 Ojo SS3 M 17.",
+    "Sort by Surname ascending (Home > Ascending).",
+    "Create > Query Design: add STUDENTS, include all fields, set Criteria for Class \"SS3\" and for Age >=16; run the query and save it as SS3_16plus.",
+    "Create > Report Wizard on the query; group by Sex; print the report."
+   ],
+   "expectedObservations": "Access refuses a duplicate AdmNo because it is the primary key. The query returns only SS3 students aged 16 or more.",
+   "dataAndCalculations": "Query result: Okon (17), Nwosu (18), Garba (16), Ojo (17) = 4 records; Usman (SS3, 15) is excluded by Age >=16. Storage estimate: record length = 6 + 20 + 3 + 1 + 2 (integer) = 32 bytes; 1 200 records x 32 = 38 400 bytes = 38 400 / 1 024 = 37.5 KB.",
+   "precautions": [
+    "Choose the primary key before entering data.",
+    "Use the Number type only for values used in calculations; admission numbers are text.",
+    "Type criteria carefully; text criteria go in quotation marks."
+   ],
+   "sourcesOfError": [
+    "Extra spaces in data (\"SS3 \") make records fail to match a query"
+   ],
+   "commonMistakes": [
+    "Confusing a field (column) with a record (row).",
+    "Putting both criteria on different \"or\" rows when both must be true."
+   ],
+   "examTips": [
+    "Define file, record, field and key using the table you created as the example.",
+    "List the records a query returns and state the criteria used."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a database table, a single row is a",
+     "options": [
+      "field",
+      "record",
+      "file",
+      "key"
+     ],
+     "answer": 1,
+     "explanation": "A row holds all the data about one item (record); a column is a field."
+    },
+    {
+     "q": "Which field is best as the primary key?",
+     "options": [
+      "Surname",
+      "Class",
+      "AdmNo",
+      "Age"
+     ],
+     "answer": 2,
+     "explanation": "Admission numbers are unique to each student."
+    },
+    {
+     "q": "Each record uses 40 bytes. How many KB do 512 records take?",
+     "options": [
+      "40 KB",
+      "12.8 KB",
+      "2 KB",
+      "20 KB"
+     ],
+     "answer": 3,
+     "explanation": "512 x 40 = 20 480 bytes; 20 480/1 024 = 20 KB."
+    },
+    {
+     "q": "A query criterion \">=16\" in the Age field returns students whose age is",
+     "options": [
+      "16 or more",
+      "less than 16",
+      "exactly 16 only",
+      "not 16"
+     ],
+     "answer": 0,
+     "explanation": ">= means greater than or equal to."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-coreldraw-business-card",
+   "title": "Designing a business card and logo in CorelDRAW",
+   "topic": "Graphics",
+   "kind": "COMPUTER",
+   "skills": [
+    "drawing",
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To design a business card for a computer business centre, including a simple logo, using CorelDRAW tools.",
+   "apparatus": [
+    "Computer with CorelDRAW (or Inkscape)",
+    "Colour printer",
+    "Card paper"
+   ],
+   "materials": [
+    "Business details: name, address in Ilorin, phone number, e-mail"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start CorelDRAW and create a new document; set the page size to 90 mm x 55 mm (landscape).",
+    "Draw the logo: use the Ellipse tool with Ctrl held down for a perfect circle, the Rectangle tool (Ctrl for a square) and the Text tool for initials. Fill with colours from the palette; remove outlines by right-clicking the X swatch.",
+    "Group the logo parts (Ctrl + G) and place it at the top left.",
+    "Type the business name with the Text tool in a bold font; add the address, phone and e-mail in smaller text. Use Align and Distribute (Ctrl + Shift + A) to line them up.",
+    "Save as BusinessCard.cdr. To print several, create an A4 page and duplicate the card (Ctrl + D) in a grid, then print."
+   ],
+   "expectedObservations": "Holding Ctrl constrains the ellipse to a circle and the rectangle to a square. Grouped objects move together.",
+   "dataAndCalculations": "Cards per A4 sheet (210 mm x 297 mm) with 90 x 55 mm cards: portrait arrangement floor(210/90) x floor(297/55) = 2 x 5 = 10 cards; turned round floor(210/55) x floor(297/90) = 3 x 3 = 9 cards. Choose 10 per sheet. For 200 cards: 200 / 10 = 20 sheets.",
+   "precautions": [
+    "Keep text at least 3 mm from the edges so it is not cut off.",
+    "Use no more than two or three fonts and colours that contrast.",
+    "Save before printing."
+   ],
+   "sourcesOfError": [
+    "Printer margins can shift the grid of cards",
+    "Screen colours differ from printed colours"
+   ],
+   "commonMistakes": [
+    "Using a crowded design with too many fonts.",
+    "Forgetting to group the logo before moving it."
+   ],
+   "examTips": [
+    "Name the exact tool for each task: Pick tool, Shape tool, Rectangle, Ellipse, Text, Fill.",
+    "State the effect of holding Ctrl while drawing."
+   ],
+   "checkQuestions": [
+    {
+     "q": "To draw a perfect circle in CorelDRAW, use the Ellipse tool while holding",
+     "options": [
+      "Alt",
+      "Ctrl",
+      "Tab",
+      "Esc"
+     ],
+     "answer": 1,
+     "explanation": "Ctrl constrains the shape."
+    },
+    {
+     "q": "How many 90 mm x 50 mm cards fit on a 180 mm x 250 mm sheet (same orientation)?",
+     "options": [
+      "5",
+      "8",
+      "10",
+      "12"
+     ],
+     "answer": 2,
+     "explanation": "floor(180/90) x floor(250/50) = 2 x 5 = 10."
+    },
+    {
+     "q": "Which shortcut groups selected objects?",
+     "options": [
+      "Ctrl + D",
+      "Ctrl + U",
+      "Ctrl + B",
+      "Ctrl + G"
+     ],
+     "answer": 3,
+     "explanation": "Ctrl + G groups; Ctrl + U ungroups; Ctrl + D duplicates."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-powerpoint-slide-show",
+   "title": "Creating and running a PowerPoint presentation",
+   "topic": "Presentation Package",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To create a short presentation on malaria prevention with text, a picture, a chart, transitions and animation, then run and print it.",
+   "apparatus": [
+    "Computer with Microsoft PowerPoint",
+    "Projector (optional)",
+    "Printer"
+   ],
+   "materials": [
+    "Notes and a picture of a treated mosquito net"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start PowerPoint and choose Blank Presentation. Type the title \"Malaria Prevention\" and your name on the title slide.",
+    "Home > New Slide > Title and Content. Add bullet points on preventing malaria.",
+    "Insert > Pictures to add the net picture; Insert > Chart to add a column chart of cases per month.",
+    "Apply a design theme; add a transition (Transitions tab) to all slides and an entrance animation (Animations tab) to the bullet points.",
+    "Save as Malaria.pptx. Press F5 to run the slide show from the beginning; press Esc to end it.",
+    "File > Print: choose Handouts, 3 slides per page, then print."
+   ],
+   "expectedObservations": "The slide show fills the screen; transitions play between slides; animated bullets appear one at a time on clicks.",
+   "dataAndCalculations": "Timing worked example: a 10-minute talk with 12 slides allows 10 x 60 / 12 = 50 s per slide. Handouts at 3 slides per page need 12 / 3 = 4 pages; at 6 per page, 2 pages.",
+   "precautions": [
+    "Use large, readable text (at least 24 pt for bullets) and few words per slide.",
+    "Do not overuse animations and sounds."
+   ],
+   "sourcesOfError": [
+    "Projector colours differ from the screen"
+   ],
+   "commonMistakes": [
+    "Confusing transitions (between slides) with animations (objects on a slide).",
+    "Pressing F5 when asked to start from the current slide (Shift + F5)."
+   ],
+   "examTips": [
+    "Give the steps to insert a new slide, add a picture and run the show using exact tab names.",
+    "State that F5 starts the show from the first slide and Esc ends it."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which key starts a slide show from the first slide?",
+     "options": [
+      "F5",
+      "F7",
+      "F1",
+      "F12"
+     ],
+     "answer": 0,
+     "explanation": "Shift + F5 starts from the current slide."
+    },
+    {
+     "q": "An effect applied as you move from one slide to the next is a",
+     "options": [
+      "animation",
+      "transition",
+      "template",
+      "layout"
+     ],
+     "answer": 1,
+     "explanation": "Animations apply to objects on a slide."
+    },
+    {
+     "q": "A 15-minute talk uses 10 slides. Average time per slide is",
+     "options": [
+      "150 s",
+      "60 s",
+      "90 s",
+      "1.5 s"
+     ],
+     "answer": 2,
+     "explanation": "15 x 60 / 10 = 90 s."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-file-handling-and-backup",
+   "title": "Folders, file paths, copying and backing up files",
+   "topic": "Handling Computer Files",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To create folders, save, copy, move, rename, delete and restore files, write full file paths and back up work to a flash drive.",
+   "apparatus": [
+    "Computer running Windows",
+    "Flash drive (8 GB)"
+   ],
+   "materials": [
+    "Practical files from earlier lessons"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes.",
+    "Use \"Eject\" before removing a flash drive to prevent data corruption."
+   ],
+   "procedure": [
+    "Open File Explorer (Windows key + E). On drive D create a folder School and inside it a folder SS3.",
+    "Save Project.docx into D:\\School\\SS3. Write its full path.",
+    "Copy the file (Ctrl + C) and paste (Ctrl + V) it into a new folder Backup; rename the copy (F2) to Project_backup.docx.",
+    "Delete the original (Delete key) and restore it from the Recycle Bin.",
+    "Insert the flash drive, copy the SS3 folder to it, then right-click the drive and choose Eject.",
+    "Right-click the SS3 folder > Properties to read its size and number of files."
+   ],
+   "expectedObservations": "A copy leaves the original in place; a move (cut and paste) removes it from the source. Deleted files from the hard disk go to the Recycle Bin; files deleted from a flash drive are removed permanently.",
+   "dataAndCalculations": "Full path: D:\\School\\SS3\\Project.docx (drive \\ folder \\ subfolder \\ file name.extension). Backup size: 120 files averaging 2.5 MB = 300 MB. An 8 GB flash drive holds 8 x 1 024 = 8 192 MB, so the folder uses 300 / 8 192 x 100 = 3.7% of it, and about 8 192 / 300 = 27 such backups would fit.",
+   "precautions": [
+    "Label storage devices and keep at least one backup in a different place.",
+    "Check that you are in the correct folder before deleting.",
+    "Use clear file names without the characters \\ / : * ? \" < > |."
+   ],
+   "sourcesOfError": [
+    "Overwriting a file of the same name when copying",
+    "Removing a flash drive while copying"
+   ],
+   "commonMistakes": [
+    "Writing the path with forward slashes or leaving out the drive letter.",
+    "Thinking files deleted from a flash drive go to the Recycle Bin."
+   ],
+   "examTips": [
+    "Learn the causes of data loss (overwriting, accidental deletion, virus, power failure) and the matching security methods (backup, antivirus, passwords, labelling).",
+    "Write paths exactly: drive letter, colon, backslashes, file extension."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A file Report.xlsx is in folder Term1 inside folder Accounts on drive C. Its path is",
+     "options": [
+      "C:\\Term1\\Accounts\\Report.xlsx",
+      "Accounts:\\C\\Term1\\Report.xlsx",
+      "C/Accounts/Term1/Report",
+      "C:\\Accounts\\Term1\\Report.xlsx"
+     ],
+     "answer": 3,
+     "explanation": "Path goes from drive to outer folder to inner folder to file."
+    },
+    {
+     "q": "Which key renames a selected file in Windows?",
+     "options": [
+      "F2",
+      "F5",
+      "F4",
+      "F10"
+     ],
+     "answer": 0,
+     "explanation": "F2 puts the name into edit mode."
+    },
+    {
+     "q": "How many 250 MB backups fit on a 4 GB (4 096 MB) flash drive?",
+     "options": [
+      "17",
+      "16",
+      "160",
+      "4"
+     ],
+     "answer": 1,
+     "explanation": "4 096 / 250 = 16.38, so 16 whole backups."
+    },
+    {
+     "q": "Which is a method of file security?",
+     "options": [
+      "Overwriting files",
+      "Sharing passwords",
+      "Keeping a backup copy",
+      "Removing drives while copying"
+     ],
+     "answer": 2,
+     "explanation": "Backups protect against data loss."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-storage-unit-conversion",
+   "title": "Units of storage and comparing storage devices",
+   "topic": "Memory Unit",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "identification",
+    "observation"
+   ],
+   "aim": "To read the capacities of the RAM and storage devices on a computer and convert between bits, nibbles, bytes, KB, MB, GB and TB.",
+   "apparatus": [
+    "Computer running Windows",
+    "Flash drive",
+    "CD and DVD (to examine)"
+   ],
+   "materials": [
+    "Table for recording capacities"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Open Settings > System > About (or right-click This PC > Properties) and record the installed RAM.",
+    "Open This PC and record the total size and free space of drive C and of the flash drive.",
+    "Examine the labels on the CD (700 MB) and DVD (4.7 GB) and record them.",
+    "Copy a file of known size to the flash drive and note the change in free space.",
+    "Convert each capacity into MB and KB using 1 KB = 1 024 bytes, 1 MB = 1 024 KB, 1 GB = 1 024 MB, 1 TB = 1 024 GB."
+   ],
+   "expectedObservations": "RAM is much smaller than the hard disk; the free space on the flash drive falls by roughly the size of the copied file.",
+   "dataAndCalculations": "1 byte = 8 bits = 2 nibbles. 2 GB RAM = 2 x 1 024 = 2 048 MB = 2 048 x 1 024 = 2 097 152 KB. A 4.7 GB DVD = 4.7 x 1 024 = 4 812.8 MB; 4 812.8 / 700 = 6.88, so 7 CDs are needed to hold the same data.",
+   "precautions": [
+    "Use 1 024 (not 1 000) for computer storage conversions unless told otherwise."
+   ],
+   "sourcesOfError": [
+    "Manufacturers quote capacities using 1 000, so Windows shows slightly less"
+   ],
+   "commonMistakes": [
+    "Multiplying when converting to a larger unit (you divide).",
+    "Rounding 6.88 down to 6 CDs, which would not hold all the data."
+   ],
+   "examTips": [
+    "Show each conversion step with its factor of 1 024.",
+    "Compare devices by capacity, speed and technology (magnetic, optical, flash)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many bits are in a nibble?",
+     "options": [
+      "8",
+      "2",
+      "16",
+      "4"
+     ],
+     "answer": 3,
+     "explanation": "A nibble is half a byte."
+    },
+    {
+     "q": "3 GB is equal to",
+     "options": [
+      "3 072 MB",
+      "3 000 KB",
+      "307.2 MB",
+      "3 072 KB"
+     ],
+     "answer": 0,
+     "explanation": "3 x 1 024 = 3 072 MB."
+    },
+    {
+     "q": "Which storage device uses optical technology?",
+     "options": [
+      "Flash drive",
+      "DVD",
+      "Hard disk",
+      "RAM"
+     ],
+     "answer": 1,
+     "explanation": "CDs and DVDs are read by a laser."
+    },
+    {
+     "q": "2 048 KB is the same as",
+     "options": [
+      "2 GB",
+      "20.48 MB",
+      "2 MB",
+      "2 048 MB"
+     ],
+     "answer": 2,
+     "explanation": "2 048 / 1 024 = 2 MB."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-number-base-conversion",
+   "title": "Number base conversions (binary, octal, decimal, hexadecimal)",
+   "topic": "Computer Data Conversion",
+   "kind": "COMPUTER",
+   "skills": [
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To convert numbers between base 10, base 2, base 8 and base 16 by hand and check the answers with the Windows Calculator in Programmer mode.",
+   "apparatus": [
+    "Computer with Windows Calculator",
+    "Scientific calculator (optional)"
+   ],
+   "materials": [
+    "Exercise sheet and pencil"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Convert 45 (base 10) to binary by repeated division by 2, writing each remainder.",
+    "Read the remainders from bottom to top to obtain the binary number.",
+    "Convert 11011 (base 2) to decimal by multiplying each digit by its place value (16, 8, 4, 2, 1) and adding.",
+    "Convert 237 (base 8) to decimal using place values 64, 8, 1, then convert the result to hexadecimal by dividing by 16.",
+    "Open Calculator > Programmer. Select DEC, type each number and read the HEX, OCT and BIN values to check your work."
+   ],
+   "expectedObservations": "Calculator in Programmer mode shows the same value in HEX, DEC, OCT and BIN at the same time.",
+   "dataAndCalculations": "45 / 2 = 22 r1; 22/2 = 11 r0; 11/2 = 5 r1; 5/2 = 2 r1; 2/2 = 1 r0; 1/2 = 0 r1. Reading upwards: 45 = 101101 (base 2). 11011 (base 2) = 16 + 8 + 0 + 2 + 1 = 27. 237 (base 8) = 2 x 64 + 3 x 8 + 7 = 159. 159 / 16 = 9 r15, so 159 = 9F (base 16).",
+   "precautions": [
+    "Write the base as a subscript on every number.",
+    "Read remainders from the last to the first."
+   ],
+   "sourcesOfError": [
+    "Arithmetic slips in division",
+    "Writing 15 instead of F in hexadecimal"
+   ],
+   "commonMistakes": [
+    "Reading the binary remainders from top to bottom (giving 101101 reversed).",
+    "Using digit 8 or 9 in a base-8 number."
+   ],
+   "examTips": [
+    "Show every division and remainder; the method earns marks even if the final digit is wrong.",
+    "Check the answer by converting back."
+   ],
+   "checkQuestions": [
+    {
+     "q": "101 (base 2) in base 10 is",
+     "options": [
+      "3",
+      "101",
+      "6",
+      "5"
+     ],
+     "answer": 3,
+     "explanation": "4 + 0 + 1 = 5."
+    },
+    {
+     "q": "13 (base 10) in binary is",
+     "options": [
+      "1101",
+      "1011",
+      "1110",
+      "1001"
+     ],
+     "answer": 0,
+     "explanation": "8 + 4 + 0 + 1 = 13."
+    },
+    {
+     "q": "17 (base 8) in base 10 is",
+     "options": [
+      "17",
+      "15",
+      "9",
+      "23"
+     ],
+     "answer": 1,
+     "explanation": "1 x 8 + 7 = 15."
+    },
+    {
+     "q": "The decimal value of hexadecimal A is",
+     "options": [
+      "11",
+      "1",
+      "10",
+      "16"
+     ],
+     "answer": 2,
+     "explanation": "A = 10, B = 11 ... F = 15."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-logic-gates-truth-table",
+   "title": "Logic circuits and truth tables",
+   "topic": "Logic Circuits",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To draw the standard logic gate symbols, construct truth tables and find the output of a combined circuit X = A.B + C'.",
+   "apparatus": [
+    "Ruler, pencil and logic-gate stencil (or drawing software)",
+    "Optional: online logic simulator or a breadboard with 7408 (AND), 7432 (OR) and 7404 (NOT) chips, LEDs and a 5 V supply"
+   ],
+   "materials": [
+    "Graph or plain paper"
+   ],
+   "safety": [
+    "If using chips, connect the 5 V supply correctly (pin 14 to +5 V, pin 7 to 0 V) and switch off before changing wiring."
+   ],
+   "procedure": [
+    "Draw and label the symbols for AND, OR, NOT, NAND, NOR and XOR gates.",
+    "Write the truth tables for two-input AND, OR, NAND, NOR and XOR, and for NOT.",
+    "Draw the circuit: A and B into an AND gate; C into a NOT gate; both outputs into an OR gate giving X.",
+    "Write its Boolean expression and list all 2^3 = 8 input combinations from 000 to 111.",
+    "Work out columns A.B, C' and finally X = A.B + C' for every row.",
+    "If using a simulator or breadboard, set each input combination and confirm X with the LED."
+   ],
+   "expectedObservations": "X is 1 whenever C = 0 or when both A and B are 1. The LED lights for 5 of the 8 combinations.",
+   "dataAndCalculations": "Truth table (A B C -> X): 000 -> 1; 001 -> 0; 010 -> 1; 011 -> 0; 100 -> 1; 101 -> 0; 110 -> 1; 111 -> 1. Number of rows = 2^n = 2^3 = 8; X = 1 in 5 rows. A simple 1-bit comparator: XOR gives 1 when A and B differ; feeding XOR into a NOT (or using XNOR) gives 1 when A = B.",
+   "precautions": [
+    "List inputs in binary counting order so no combination is missed.",
+    "Draw symbols with clear input and output lines."
+   ],
+   "sourcesOfError": [
+    "Missing or repeated input rows",
+    "Loose breadboard connections"
+   ],
+   "commonMistakes": [
+    "Drawing the OR symbol with a flat back (that is AND).",
+    "Forgetting the small circle (bubble) on NOT, NAND and NOR.",
+    "Giving 6 rows for three inputs instead of 8."
+   ],
+   "examTips": [
+    "Include intermediate columns (A.B, C') in the truth table; they earn method marks.",
+    "Write Boolean expressions with standard notation: . for AND, + for OR, bar or prime for NOT."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many rows does the truth table of a 4-input circuit have?",
+     "options": [
+      "8",
+      "4",
+      "32",
+      "16"
+     ],
+     "answer": 3,
+     "explanation": "2^4 = 16."
+    },
+    {
+     "q": "A NAND gate gives output 0 only when",
+     "options": [
+      "all inputs are 1",
+      "all inputs are 0",
+      "any input is 0",
+      "inputs differ"
+     ],
+     "answer": 0,
+     "explanation": "NAND is NOT(AND)."
+    },
+    {
+     "q": "For X = A.B + C', what is X when A = 1, B = 0, C = 1?",
+     "options": [
+      "1",
+      "0",
+      "2",
+      "undefined"
+     ],
+     "answer": 1,
+     "explanation": "A.B = 0 and C' = 0, so X = 0."
+    },
+    {
+     "q": "Which gate gives 1 only when its two inputs are different?",
+     "options": [
+      "AND",
+      "NOR",
+      "XOR",
+      "NOT"
+     ],
+     "answer": 2,
+     "explanation": "Exclusive OR."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-algorithm-and-flowchart",
+   "title": "Writing algorithms and drawing flowcharts",
+   "topic": "Algorithm and Flowchart",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To write algorithms and draw flowcharts for the average of a set of numbers, y = a(b - c)^2/(d + 2), and the first ten odd numbers, then dry-run them.",
+   "apparatus": [
+    "Ruler, pencil and flowchart template (or drawing software)"
+   ],
+   "materials": [
+    "Plain paper"
+   ],
+   "safety": [
+    "Normal classroom rules; no special hazards."
+   ],
+   "procedure": [
+    "Draw and name the flowchart symbols: terminal (oval), input/output (parallelogram), process (rectangle), decision (diamond), connector (circle) and flow lines (arrows).",
+    "Write an algorithm to read 5 numbers, add them and print their average. Draw its flowchart with a counter and a decision box \"Is COUNT = 5?\".",
+    "Write an algorithm and flowchart to input a, b, c and d and output y = a(b - c)^2/(d + 2).",
+    "Write an algorithm and flowchart that prints the first ten odd numbers using N = 1 and adding 2 each time, stopping after ten numbers.",
+    "Dry-run each flowchart with test data in a trace table and check the outputs."
+   ],
+   "expectedObservations": "Each flowchart has exactly one Start and one Stop, the loops return to the decision box, and the trace tables give the expected outputs.",
+   "dataAndCalculations": "Average: inputs 12, 15, 9, 20, 14 -> SUM = 70, average = 70 / 5 = 14. Equation: a = 3, b = 7, c = 2, d = 4 -> y = 3 x (7 - 2)^2 / (4 + 2) = 3 x 25 / 6 = 12.5. Odd numbers: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 (their sum is 100, a useful check).",
+   "precautions": [
+    "Arrows should show the direction of flow clearly.",
+    "Every decision box has exactly two labelled exits (Yes/No)."
+   ],
+   "sourcesOfError": [
+    "Off-by-one errors in loop counters"
+   ],
+   "commonMistakes": [
+    "Using a rectangle for input/output instead of a parallelogram.",
+    "Forgetting to initialise SUM and COUNT to 0.",
+    "Computing (b - c)^2 as b^2 - c^2."
+   ],
+   "examTips": [
+    "State the characteristics of a good algorithm: finite, effective (definite) and unambiguous.",
+    "Label every symbol in the flowchart; neat, correctly-shaped symbols earn marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which flowchart symbol is used for a decision?",
+     "options": [
+      "Rectangle",
+      "Oval",
+      "Parallelogram",
+      "Diamond"
+     ],
+     "answer": 3,
+     "explanation": "A decision has Yes/No exits."
+    },
+    {
+     "q": "With a = 2, b = 5, c = 1, d = 2, the value of y = a(b - c)^2/(d + 2) is",
+     "options": [
+      "8",
+      "32",
+      "4",
+      "16"
+     ],
+     "answer": 0,
+     "explanation": "2 x 16 / 4 = 8."
+    },
+    {
+     "q": "The tenth odd number is",
+     "options": [
+      "20",
+      "19",
+      "21",
+      "17"
+     ],
+     "answer": 1,
+     "explanation": "The nth odd number is 2n - 1 = 19."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-basic-input-let-print",
+   "title": "Simple BASIC programs with INPUT, LET and PRINT",
+   "topic": "BASIC Programming",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To write, run and test BASIC programs that compute the area of a triangle and the average of three numbers.",
+   "apparatus": [
+    "Computer with a BASIC interpreter (QBasic/QB64 or an online BASIC)"
+   ],
+   "materials": [
+    "Test data"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Start the BASIC interpreter and type the program:\n10 REM AREA OF A TRIANGLE\n20 INPUT \"BASE\"; B\n30 INPUT \"HEIGHT\"; H\n40 LET A = 0.5 * B * H\n50 PRINT \"AREA =\"; A\n60 END",
+    "Run it (F5 or RUN) and enter base 10 and height 7.",
+    "Write a second program:\n10 REM AVERAGE OF THREE NUMBERS\n20 INPUT X, Y, Z\n30 LET M = (X + Y + Z) / 3\n40 PRINT \"AVERAGE =\"; M\n50 END",
+    "Run it with 45, 60 and 72.",
+    "Save both programs (e.g. TRIANGLE.BAS, AVERAGE.BAS) and copy the output into your notebook."
+   ],
+   "expectedObservations": "The program pauses at each INPUT with a question mark prompt and prints the results after the last input.",
+   "dataAndCalculations": "Triangle: A = 0.5 x 10 x 7 = 35, output \"AREA = 35\". Average: M = (45 + 60 + 72) / 3 = 177 / 3 = 59, output \"AVERAGE = 59\". Without brackets, X + Y + Z / 3 = 45 + 60 + 24 = 129, which is wrong.",
+   "precautions": [
+    "Use brackets to control the order of operations.",
+    "Separate multiple inputs with commas when typing them."
+   ],
+   "sourcesOfError": [
+    "Typing letters where numbers are expected gives \"Redo from start\""
+   ],
+   "commonMistakes": [
+    "Writing 1/2BH (BASIC needs * for multiplication).",
+    "Leaving out END or line numbers in exam answers."
+   ],
+   "examTips": [
+    "Number lines in tens (10, 20, 30...) and include REM and END.",
+    "Write BASIC notation correctly: * multiply, / divide, ^ power, SQR() square root."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In BASIC, which statement is used to make comments?",
+     "options": [
+      "LET",
+      "PRINT",
+      "REM",
+      "DATA"
+     ],
+     "answer": 2,
+     "explanation": "REM lines are ignored when running."
+    },
+    {
+     "q": "What is printed by: 10 LET P = 4 + 6 / 2 20 PRINT P?",
+     "options": [
+      "5",
+      "10",
+      "3",
+      "7"
+     ],
+     "answer": 3,
+     "explanation": "Division first: 6/2 = 3; 4 + 3 = 7."
+    },
+    {
+     "q": "The BASIC form of the expression b^2 - 4ac is",
+     "options": [
+      "B^2 - 4*A*C",
+      "B2 - 4AC",
+      "B*2 - 4*A*C",
+      "B^2 - 4AC"
+     ],
+     "answer": 0,
+     "explanation": "Use ^ for powers and * for every multiplication."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-basic-read-data-for-next",
+   "title": "BASIC loops: READ/DATA and FOR-NEXT",
+   "topic": "BASIC Programming",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To use READ/DATA with a FOR-NEXT loop to process several sets of data and to trace a loop by hand.",
+   "apparatus": [
+    "Computer with a BASIC interpreter"
+   ],
+   "materials": [
+    "Trace-table sheet"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Type and run:\n10 REM AREA AND PERIMETER\n20 FOR I = 1 TO 3\n30 READ L, B\n40 LET A = L * B\n50 LET P = 2 * (L + B)\n60 PRINT L, B, A, P\n70 NEXT I\n80 DATA 8, 5, 6.5, 4, 9, 9\n90 END",
+    "Record the output for each pass of the loop in a trace table (I, L, B, A, P).",
+    "Type and run:\n10 LET S = 0\n20 FOR K = 1 TO 9 STEP 2\n30 LET S = S + K * K\n40 NEXT K\n50 PRINT \"SUM =\"; S\n60 END",
+    "Trace the second program by hand first, then compare with the computer output.",
+    "Modify it to compute the sum of the first 100 integers: FOR K = 1 TO 100 and LET S = S + K. Run it."
+   ],
+   "expectedObservations": "The first program prints three lines, one per DATA pair. The second prints a single line after the loop ends.",
+   "dataAndCalculations": "Program 1: (8, 5) -> A = 40, P = 26; (6.5, 4) -> A = 26, P = 21; (9, 9) -> A = 81, P = 36. Program 2: K takes 1, 3, 5, 7, 9; S = 1 + 9 + 25 + 49 + 81 = 165, output \"SUM = 165\". Sum of 1 to 100 = 100 x 101 / 2 = 5 050.",
+   "precautions": [
+    "Make sure the DATA list has exactly enough values for every READ.",
+    "Initialise accumulators (S = 0) before the loop."
+   ],
+   "sourcesOfError": [
+    "\"Out of DATA\" error when there are too few values"
+   ],
+   "commonMistakes": [
+    "Putting PRINT inside the loop when only the final total is wanted.",
+    "Forgetting STEP 2, so K takes every integer."
+   ],
+   "examTips": [
+    "Draw a trace table with one row per pass; trace tables earn method marks.",
+    "State the number of times a loop runs: FOR K = 1 TO 9 STEP 2 runs 5 times."
+   ],
+   "checkQuestions": [
+    {
+     "q": "How many times does FOR K = 2 TO 10 STEP 2 run?",
+     "options": [
+      "4",
+      "5",
+      "10",
+      "9"
+     ],
+     "answer": 1,
+     "explanation": "K = 2, 4, 6, 8, 10."
+    },
+    {
+     "q": "Which statement supplies values to READ?",
+     "options": [
+      "INPUT",
+      "LET",
+      "DATA",
+      "DIM"
+     ],
+     "answer": 2,
+     "explanation": "READ takes values from DATA lines in order."
+    },
+    {
+     "q": "After: S = 0, FOR K = 1 TO 4, S = S + K, NEXT K, S equals",
+     "options": [
+      "4",
+      "16",
+      "24",
+      "10"
+     ],
+     "answer": 3,
+     "explanation": "1 + 2 + 3 + 4 = 10."
+    },
+    {
+     "q": "Rectangle L = 7, B = 3. What is P = 2 * (L + B)?",
+     "options": [
+      "20",
+      "21",
+      "10",
+      "17"
+     ],
+     "answer": 0,
+     "explanation": "2 x 10 = 20."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-basic-arrays-dim",
+   "title": "One-dimensional arrays in BASIC using DIM",
+   "topic": "BASIC Programming",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To store a vector of 10 numbers in an array, then find their sum, mean and largest value.",
+   "apparatus": [
+    "Computer with a BASIC interpreter"
+   ],
+   "materials": [
+    "Ten test scores"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Type the program:\n10 DIM N(10)\n20 LET S = 0\n30 FOR I = 1 TO 10\n40 READ N(I)\n50 LET S = S + N(I)\n60 NEXT I\n70 LET BIG = N(1)\n80 FOR I = 2 TO 10\n90 IF N(I) > BIG THEN BIG = N(I)\n100 NEXT I\n110 PRINT \"SUM =\"; S; \"MEAN =\"; S / 10; \"LARGEST =\"; BIG\n120 DATA 12, 7, 15, 9, 20, 11, 8, 14, 6, 18\n130 END",
+    "Run the program and record the output.",
+    "Add lines to print the array elements in reverse order using FOR I = 10 TO 1 STEP -1.",
+    "Change the DATA values and check the new output by hand."
+   ],
+   "expectedObservations": "The program prints one line of results; the reverse loop prints 18, 6, 14 ... 12.",
+   "dataAndCalculations": "Sum = 12 + 7 + 15 + 9 + 20 + 11 + 8 + 14 + 6 + 18 = 120. Mean = 120 / 10 = 12. Largest = 20 (element N(5)).",
+   "precautions": [
+    "Declare the array with DIM before using it.",
+    "Keep the subscript within 1 to 10."
+   ],
+   "sourcesOfError": [
+    "\"Subscript out of range\" if I exceeds the DIM size"
+   ],
+   "commonMistakes": [
+    "Setting BIG = 0 when all values could be negative (start with the first element).",
+    "Confusing the subscript I with the value N(I)."
+   ],
+   "examTips": [
+    "Explain DIM N(10) as reserving space for ten elements named N(1) to N(10).",
+    "Show the sum and mean calculations beside the program output."
+   ],
+   "checkQuestions": [
+    {
+     "q": "DIM A(5) is used to",
+     "options": [
+      "print 5 values",
+      "reserve space for an array of 5 elements",
+      "repeat a loop 5 times",
+      "read 5 DATA lines"
+     ],
+     "answer": 1,
+     "explanation": "DIM declares array size."
+    },
+    {
+     "q": "An array holds 4, 9, 2, 5. Its mean is",
+     "options": [
+      "20",
+      "4",
+      "5",
+      "9"
+     ],
+     "answer": 2,
+     "explanation": "(4 + 9 + 2 + 5)/4 = 5."
+    },
+    {
+     "q": "In N(3), the number 3 is the",
+     "options": [
+      "value",
+      "counter limit",
+      "data type",
+      "subscript"
+     ],
+     "answer": 3,
+     "explanation": "The subscript identifies the element."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-basic-built-in-functions",
+   "title": "BASIC built-in functions and tabulating a sine curve",
+   "topic": "BASIC Programming",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "graph"
+   ],
+   "aim": "To use SQR, INT, ABS and SIN in BASIC and tabulate values of sin x for plotting a sine curve.",
+   "apparatus": [
+    "Computer with a BASIC interpreter",
+    "Graph paper"
+   ],
+   "materials": [
+    "Test values"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Run: PRINT SQR(144), INT(7.8), INT(-7.8), ABS(-5) and record the results.",
+    "Type:\n10 LET PI = 3.14159\n20 FOR D = 0 TO 360 STEP 30\n30 LET R = D * PI / 180\n40 PRINT D, SIN(R)\n50 NEXT D\n60 END",
+    "Run the program and copy the table of D and SIN(R).",
+    "Plot SIN(R) against D on graph paper and join the points with a smooth curve.",
+    "Optionally, add a line printing a star at position INT(20 * SIN(R)) + 21 to draw the curve on screen with TAB."
+   ],
+   "expectedObservations": "SIN rises from 0 at 0 degrees to 1 at 90 degrees, returns to 0 at 180, falls to -1 at 270 and returns to 0 at 360.",
+   "dataAndCalculations": "SQR(144) = 12; INT(7.8) = 7; INT(-7.8) = -8 (INT rounds down to the next lower integer); ABS(-5) = 5. SIN values: 0 deg -> 0; 30 -> 0.5; 60 -> 0.866; 90 -> 1. Conversion: 30 x 3.14159 / 180 = 0.5236 radians.",
+   "precautions": [
+    "Convert degrees to radians before using SIN, COS or TAN.",
+    "Use a sensible STEP so the loop runs a manageable number of times."
+   ],
+   "sourcesOfError": [
+    "Small rounding errors from the value of pi (SIN(180 deg) may show a tiny number instead of 0)"
+   ],
+   "commonMistakes": [
+    "Giving INT(-7.8) as -7.",
+    "Passing degrees directly to SIN."
+   ],
+   "examTips": [
+    "Know the meaning of each built-in function in the syllabus: SQR, INT, SIN, COS, TAN, ABS, RND, LOG, EXP.",
+    "Write BASIC notation for formulas, e.g. SQR(B^2 - 4*A*C)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "INT(-3.2) in BASIC returns",
+     "options": [
+      "-4",
+      "-3",
+      "3",
+      "-3.2"
+     ],
+     "answer": 0,
+     "explanation": "INT rounds down to the next lower integer."
+    },
+    {
+     "q": "SQR(81) returns",
+     "options": [
+      "81",
+      "9",
+      "6561",
+      "40.5"
+     ],
+     "answer": 1,
+     "explanation": "Square root of 81."
+    },
+    {
+     "q": "Why multiply by PI/180 before using SIN?",
+     "options": [
+      "To make the answer an integer",
+      "To round the result",
+      "BASIC trigonometric functions use radians",
+      "To convert to grads"
+     ],
+     "answer": 2,
+     "explanation": "SIN expects an angle in radians."
+    },
+    {
+     "q": "ABS(-12) returns",
+     "options": [
+      "-12",
+      "0",
+      "144",
+      "12"
+     ],
+     "answer": 3,
+     "explanation": "ABS gives the absolute (positive) value."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-basic-while-wend-desk-check",
+   "title": "WHILE-WEND loop and desk checking a program",
+   "topic": "Program Development Cycle",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "calculation",
+    "observation"
+   ],
+   "aim": "To follow the program development steps (define, analyse, flowchart, desk check, code, test, document) for a savings program using WHILE-WEND.",
+   "apparatus": [
+    "Computer with a BASIC interpreter"
+   ],
+   "materials": [
+    "Trace-table sheet"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Problem definition: find how many years N1 000 takes to grow above N2 000 at 10% compound interest per year.",
+    "Analyse: inputs (amount 1000, rate 10%), process (multiply by 1.1 each year, count years), output (years and final amount). Draw a flowchart.",
+    "Desk check with a trace table (Year, Amount) before typing the program.",
+    "Code:\n10 LET M = 1000\n20 LET Y = 0\n30 WHILE M <= 2000\n40 LET M = M * 1.1\n50 LET Y = Y + 1\n60 WEND\n70 PRINT \"YEARS =\"; Y; \"AMOUNT =\"; M\n80 END",
+    "Run and test; compare with your trace table. Add REM lines as documentation."
+   ],
+   "expectedObservations": "The loop runs while M <= 2000 and stops once M passes 2000; the program prints the years and the amount.",
+   "dataAndCalculations": "Trace: Y1 1100.00; Y2 1210.00; Y3 1331.00; Y4 1464.10; Y5 1610.51; Y6 1771.56; Y7 1948.72; Y8 2143.59. Output: YEARS = 8, AMOUNT = 2143.59 (8 iterations). Desk-check example of a bug: LET A = X + Y + Z / 3 with 45, 60, 72 gives 129 instead of 59, found before running.",
+   "precautions": [
+    "Make sure the loop condition will eventually become false to avoid an endless loop.",
+    "Desk check before running."
+   ],
+   "sourcesOfError": [
+    "Floating-point display may show more decimal places"
+   ],
+   "commonMistakes": [
+    "Updating the counter outside the loop.",
+    "Mixing the order of the program development steps."
+   ],
+   "examTips": [
+    "List the program development steps in the correct order: problem definition, analysis, flowcharting, desk checking, coding, compilation, testing/debugging, documentation.",
+    "State the characteristics of a good program: accuracy, readability, maintainability, efficiency, generality and clarity."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Checking a program by hand before running it is called",
+     "options": [
+      "desk checking",
+      "compiling",
+      "documentation",
+      "debugging on the computer"
+     ],
+     "answer": 0,
+     "explanation": "Desk checking uses a trace table."
+    },
+    {
+     "q": "M = 500; WHILE M < 1000: M = M * 2: WEND. Final M is",
+     "options": [
+      "500",
+      "1000",
+      "2000",
+      "999"
+     ],
+     "answer": 1,
+     "explanation": "500 x 2 = 1000, then the condition is false."
+    },
+    {
+     "q": "Which step comes immediately after problem definition?",
+     "options": [
+      "Coding",
+      "Testing",
+      "Problem analysis",
+      "Documentation"
+     ],
+     "answer": 2,
+     "explanation": "Define, then analyse."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-email-send-receive",
+   "title": "Creating an e-mail account, sending and receiving e-mail",
+   "topic": "Electronic Mail (E-mail) Services",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To create an e-mail account, compose and send a message with Cc, Bcc and an attachment, and read and reply to received mail.",
+   "apparatus": [
+    "Computer with Internet access and a web browser"
+   ],
+   "materials": [
+    "A file to attach (e.g. project report)"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes.",
+    "Never share your password; do not open attachments from unknown senders."
+   ],
+   "procedure": [
+    "Open a browser and go to a free e-mail provider. Click Create account and fill in the form (name, username, strong password, phone recovery).",
+    "Identify the parts of your address, e.g. amina.yusuf@gmail.com: username, @ symbol, domain name.",
+    "Click Compose. Enter the recipient in To, your teacher in Cc and a parent in Bcc. Type a clear Subject and message.",
+    "Click the paper-clip icon to attach the report, check its size, then click Send.",
+    "Open the Inbox, read a received message, click Reply and send a short answer; use Forward to send it to a classmate.",
+    "Sign out of the account at the end of the lesson."
+   ],
+   "expectedObservations": "Sent mail appears in the Sent folder; recipients in To and Cc can see each other but nobody sees the Bcc address.",
+   "dataAndCalculations": "Attachment limit worked example: the provider allows 25 MB. Files of 8.4 MB, 10.2 MB and 7.1 MB total 25.7 MB, which is over the limit by 0.7 MB, so compress (zip) them or send in two e-mails, e.g. 8.4 + 10.2 = 18.6 MB and then 7.1 MB.",
+   "precautions": [
+    "Use a strong password of mixed letters, numbers and symbols.",
+    "Always sign out on shared computers."
+   ],
+   "sourcesOfError": [
+    "Typing errors in an address cause messages to bounce"
+   ],
+   "commonMistakes": [
+    "Confusing Cc with Bcc.",
+    "Including spaces in an e-mail address.",
+    "Leaving the subject line empty."
+   ],
+   "examTips": [
+    "Name the parts of an e-mail address and state the difference between an e-mail address and a website address.",
+    "List the steps to create an account and open a mailbox in order."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In amina.yusuf@unilag.edu.ng, the domain name is",
+     "options": [
+      "amina.yusuf",
+      "@",
+      "edu",
+      "unilag.edu.ng"
+     ],
+     "answer": 3,
+     "explanation": "The domain comes after @."
+    },
+    {
+     "q": "Recipients in which field are hidden from other recipients?",
+     "options": [
+      "Bcc",
+      "Cc",
+      "To",
+      "Subject"
+     ],
+     "answer": 0,
+     "explanation": "Bcc means blind carbon copy."
+    },
+    {
+     "q": "Attachments of 12 MB, 9 MB and 6 MB are sent with a 25 MB limit. By how much is the limit exceeded?",
+     "options": [
+      "27 MB",
+      "2 MB",
+      "0 MB",
+      "3 MB"
+     ],
+     "answer": 1,
+     "explanation": "12 + 9 + 6 = 27 MB; 27 - 25 = 2 MB."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-internet-browsing-and-search",
+   "title": "Using a web browser and search engine",
+   "topic": "Internet Access",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To identify the features of a browser window, visit websites by URL, search for information, bookmark and download a file.",
+   "apparatus": [
+    "Computer with Internet access and a browser (Chrome, Firefox, Edge or Opera)"
+   ],
+   "materials": [
+    "List of research questions"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes.",
+    "Visit only school-approved sites; never download software without the teacher's permission."
+   ],
+   "procedure": [
+    "Open the browser and identify the title bar, tabs, address bar, back/forward/refresh buttons, menu and status bar.",
+    "Type a website address (URL) in the address bar and press Enter; note the padlock for https sites.",
+    "Use a search engine with precise keywords, e.g. \"WAEC syllabus computer studies\", and open a result in a new tab (Ctrl + click).",
+    "Bookmark the page (Ctrl + D) and view your history (Ctrl + H).",
+    "Download a PDF file and locate it in the Downloads folder."
+   ],
+   "expectedObservations": "The page title appears on the tab; secure sites show a padlock and https; downloads appear in the browser's download list.",
+   "dataAndCalculations": "Download time = file size in bits / speed. A 50 MB file at 2 Mbps: 50 x 8 = 400 megabits; 400 / 2 = 200 s (3 min 20 s). Data use: viewing 15 pages averaging 2.5 MB uses 15 x 2.5 = 37.5 MB of the data bundle.",
+   "precautions": [
+    "Check that a site is reliable before using its information.",
+    "Do not save passwords on shared computers."
+   ],
+   "sourcesOfError": [
+    "Actual speeds vary with network traffic"
+   ],
+   "commonMistakes": [
+    "Typing a URL into the search box instead of the address bar.",
+    "Forgetting to convert bytes to bits (x 8)."
+   ],
+   "examTips": [
+    "Define terms such as browser, homepage, website, webpage, ISP, HTTP and HTML with examples.",
+    "List browser features exactly: title bar, menu bar, tool bar, address bar, status bar."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which is a web browser?",
+     "options": [
+      "Microsoft Excel",
+      "CorelDRAW",
+      "Mozilla Firefox",
+      "Windows Explorer"
+     ],
+     "answer": 2,
+     "explanation": "Firefox displays web pages."
+    },
+    {
+     "q": "A 20 MB file is downloaded at 4 Mbps. Time taken is",
+     "options": [
+      "5 s",
+      "80 s",
+      "20 s",
+      "40 s"
+     ],
+     "answer": 3,
+     "explanation": "20 x 8 = 160 Mb; 160 / 4 = 40 s."
+    },
+    {
+     "q": "The company that provides Internet connection is the",
+     "options": [
+      "ISP",
+      "HTML",
+      "URL",
+      "HTTP"
+     ],
+     "answer": 0,
+     "explanation": "ISP = Internet service provider."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-www-url-structure",
+   "title": "Exploring the World Wide Web: URLs, HTTP and HTML",
+   "topic": "Introduction to the Worldwide Web (W.W.W.)",
+   "kind": "COMPUTER",
+   "skills": [
+    "identification",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To identify the parts of a URL, navigate websites using hyperlinks and view the HTML source of a simple web page.",
+   "apparatus": [
+    "Computer with a browser and a text editor (Notepad)"
+   ],
+   "materials": [
+    "Sample URL: https://www.example.edu.ng/admissions/index.html"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes."
+   ],
+   "procedure": [
+    "Write down the parts of the sample URL: protocol (https), domain name (www.example.edu.ng), path (/admissions/) and file name (index.html).",
+    "Visit a school or government website and navigate using hyperlinks; note how the address bar changes.",
+    "Right-click a page and choose View page source (Ctrl + U) to see HTML tags.",
+    "In Notepad type:\n<html><head><title>My Page</title></head><body><h1>Welcome</h1><p>SS3 Computer Club</p></body></html>\nSave as mypage.html and open it in the browser.",
+    "Compare an e-mail address with a website address and write the differences."
+   ],
+   "expectedObservations": "The title text appears on the browser tab; h1 text appears large and bold; the address bar shows file:/// for a local page.",
+   "dataAndCalculations": "Load time worked example: a 2.5 MB page on a 4 Mbps link: 2.5 x 8 = 20 megabits; 20 / 4 = 5 s. Domain levels in www.example.edu.ng: ng (country), edu (education), example (organisation), www (host) = 4 parts.",
+   "precautions": [
+    "Save the HTML file with the .html extension, not .txt."
+   ],
+   "sourcesOfError": [
+    "Notepad adding .txt to the file name"
+   ],
+   "commonMistakes": [
+    "Confusing HTTP (the transfer protocol) with HTML (the page language).",
+    "Thinking the Internet and the WWW are the same thing."
+   ],
+   "examTips": [
+    "Expand acronyms in full: WWW, HTTP, HTML, URL.",
+    "Name web development software (e.g. Adobe Dreamweaver, Microsoft FrontPage, Notepad)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In https://www.example.edu.ng/index.html, \"https\" is the",
+     "options": [
+      "domain",
+      "protocol",
+      "path",
+      "file name"
+     ],
+     "answer": 1,
+     "explanation": "It specifies how the page is transferred."
+    },
+    {
+     "q": "HTML stands for",
+     "options": [
+      "HyperText Transfer Language",
+      "High Transfer Markup Language",
+      "HyperText Markup Language",
+      "Home Tool Markup Language"
+     ],
+     "answer": 2,
+     "explanation": "HTML describes web pages."
+    },
+    {
+     "q": "A 5 MB page loads over a 10 Mbps link in",
+     "options": [
+      "0.5 s",
+      "2 s",
+      "50 s",
+      "4 s"
+     ],
+     "answer": 3,
+     "explanation": "5 x 8 = 40 Mb; 40/10 = 4 s."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-crimping-rj45-cable",
+   "title": "Making a straight-through network cable (RJ45, T568B)",
+   "topic": "Cables and Connectors",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "identification",
+    "measurement",
+    "safety"
+   ],
+   "aim": "To identify common computer and network cables and connectors, and to crimp and test a straight-through Cat 6 patch cable.",
+   "apparatus": [
+    "Crimping tool",
+    "Cable stripper",
+    "Network cable tester",
+    "Measuring tape",
+    "Sample cables: USB, HDMI/VGA, power, coaxial, telephone (RJ11)"
+   ],
+   "materials": [
+    "Cat 5e/Cat 6 UTP cable",
+    "RJ45 connectors",
+    "Connector boots"
+   ],
+   "safety": [
+    "Handle the stripper and crimper blades carefully; cut away from your body.",
+    "Collect off-cuts of copper wire; they can cause short circuits if they fall into equipment.",
+    "Do not test cables connected to mains equipment."
+   ],
+   "procedure": [
+    "Identify and label the sample cables and their connectors (male/female): USB, VGA/HDMI, power (IEC), coaxial with T-connector/BNC, telephone RJ11, network RJ45.",
+    "Measure and cut the UTP cable to length; slide on the boots.",
+    "Strip about 2.5 cm of the outer jacket without nicking the inner wires; untwist the pairs.",
+    "Arrange the wires in T568B order: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown. Trim them straight to about 1.3 cm.",
+    "Push the wires fully into the RJ45 plug (clip facing down) so each reaches the end; crimp firmly. Repeat at the other end in the same order.",
+    "Test with the cable tester: lights 1 to 8 should light in the same order on both units."
+   ],
+   "expectedObservations": "A good cable shows lights 1-8 in sequence on both ends. A missing light shows an open wire; lights out of order show a crossed pair.",
+   "dataAndCalculations": "Lab of 12 computers, each about 6 m from the switch plus 0.5 m slack: cable = 12 x 6.5 = 78 m. Connectors: 2 per cable = 24; adding 10% for mistakes, 24 x 1.1 = 26.4, so buy 27. A 305 m box of cable leaves 305 - 78 = 227 m.",
+   "precautions": [
+    "Keep the untwisted length short to reduce interference.",
+    "Check the colour order twice before crimping."
+   ],
+   "sourcesOfError": [
+    "Wires not pushed fully into the plug",
+    "Damaged insulation when stripping"
+   ],
+   "commonMistakes": [
+    "Using T568A at one end and T568B at the other (that makes a crossover cable).",
+    "Crimping with the outer jacket outside the plug, so the strain relief fails."
+   ],
+   "examTips": [
+    "Name each cable with its connector: twisted pair - RJ45; telephone - RJ11; coaxial - BNC/T-connector; fibre optic - ST/SC.",
+    "Recite the T568B colour order."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which connector is used on twisted-pair network cable?",
+     "options": [
+      "RJ45",
+      "RJ11",
+      "BNC",
+      "VGA"
+     ],
+     "answer": 0,
+     "explanation": "RJ45 has 8 pins."
+    },
+    {
+     "q": "In T568B, the first wire (pin 1) is",
+     "options": [
+      "white-green",
+      "white-orange",
+      "orange",
+      "blue"
+     ],
+     "answer": 1,
+     "explanation": "T568B starts white-orange, orange."
+    },
+    {
+     "q": "Ten computers each need 5.5 m of cable. Total length is",
+     "options": [
+      "50 m",
+      "15.5 m",
+      "55 m",
+      "5.5 m"
+     ],
+     "answer": 2,
+     "explanation": "10 x 5.5 = 55 m."
+    },
+    {
+     "q": "Which cable carries data as light?",
+     "options": [
+      "Coaxial",
+      "Twisted pair",
+      "Telephone",
+      "Fibre optic"
+     ],
+     "answer": 3,
+     "explanation": "Fibre optic uses glass fibres."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-network-topology",
+   "title": "Drawing and comparing network topologies",
+   "topic": "Networking",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "identification",
+    "calculation"
+   ],
+   "aim": "To identify the network devices in the school laboratory and draw star, bus and ring topologies, comparing their cabling needs.",
+   "apparatus": [
+    "School computer laboratory network (or pictures)",
+    "Ruler and pencil"
+   ],
+   "materials": [
+    "Plain paper"
+   ],
+   "safety": [
+    "Do not unplug network devices without permission."
+   ],
+   "procedure": [
+    "Tour the laboratory and identify the switch/hub, router, modem and network interface cards (NIC) on the computers.",
+    "Draw the laboratory as a star topology with 12 computers connected to a central switch.",
+    "Draw a bus topology with the same computers on a single backbone with terminators at both ends.",
+    "Draw a ring topology with each computer joined to two neighbours.",
+    "Count the cables or links needed for each and list one advantage and one disadvantage of each."
+   ],
+   "expectedObservations": "The laboratory uses a star layout: every cable runs from a computer to the switch, so one faulty cable affects only one computer.",
+   "dataAndCalculations": "Star with 12 PCs: 12 cables; a 16-port switch leaves 16 - 12 = 4 free ports. Ring with 12 PCs: 12 links. Bus: 1 backbone, 12 drop connections and 2 terminators.",
+   "precautions": [
+    "Label each device in drawings."
+   ],
+   "sourcesOfError": [
+    "Hidden cabling in trunking may be miscounted"
+   ],
+   "commonMistakes": [
+    "Drawing a hub/switch in a bus topology.",
+    "Confusing a LAN (one building) with a WAN (wide area)."
+   ],
+   "examTips": [
+    "Draw neat, labelled diagrams; each correct diagram usually earns separate marks.",
+    "Give the function of each device: switch, router, modem, NIC, bridge."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In which topology does every computer connect to a central device?",
+     "options": [
+      "Star",
+      "Bus",
+      "Ring",
+      "Mesh with no centre"
+     ],
+     "answer": 0,
+     "explanation": "A star uses a hub or switch."
+    },
+    {
+     "q": "A 24-port switch connects 18 computers. Free ports remaining:",
+     "options": [
+      "18",
+      "6",
+      "42",
+      "4"
+     ],
+     "answer": 1,
+     "explanation": "24 - 18 = 6."
+    },
+    {
+     "q": "Which device connects a LAN to the Internet?",
+     "options": [
+      "Hub",
+      "Keyboard",
+      "Router",
+      "Terminator"
+     ],
+     "answer": 2,
+     "explanation": "A router forwards traffic between networks."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-cst-antivirus-scan",
+   "title": "Running an antivirus scan and securing a computer",
+   "topic": "Preventive Measures",
+   "kind": "COMPUTER",
+   "skills": [
+    "procedure",
+    "observation",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To update antivirus software, scan a flash drive and the hard disk, deal with detected threats and check the firewall.",
+   "apparatus": [
+    "Computer with antivirus software (e.g. Microsoft Defender, Avast)",
+    "Flash drive"
+   ],
+   "materials": [
+    "Record sheet"
+   ],
+   "safety": [
+    "Keep food and drinks out of the computer laboratory; a spilt drink can short-circuit a keyboard or system unit.",
+    "Do not touch power sockets, cables or the back of the system unit with wet hands; report frayed cables to the teacher.",
+    "Sit upright with the monitor at about arm's length and the top of the screen at eye level; rest your eyes every 20 minutes.",
+    "Never deliberately open a suspected virus file."
+   ],
+   "procedure": [
+    "Open the antivirus program and update its virus definitions.",
+    "Insert the flash drive; right-click it in This PC and choose Scan with the antivirus before opening any files.",
+    "Run a Quick scan of the computer, then start a Full scan; note the number of files scanned, threats found and time taken.",
+    "Quarantine or delete any threats as advised by the program.",
+    "Open Windows Security > Firewall & network protection and confirm that the firewall is on.",
+    "Record the result and list three habits that prevent infection."
+   ],
+   "expectedObservations": "The program shows progress, files scanned and threats found; a quarantined file is moved to a safe area where it cannot run.",
+   "dataAndCalculations": "Scan time worked example: 120 GB of data scanned at 40 MB/s takes 120 x 1 024 / 40 = 3 072 s = 51.2 minutes. Scanning only the 8 GB flash drive at the same rate: 8 x 1 024 / 40 = 204.8 s, about 3.4 minutes.",
+   "precautions": [
+    "Update definitions before scanning.",
+    "Do not interrupt a full scan."
+   ],
+   "sourcesOfError": [
+    "Scan speed varies with file types and disk speed"
+   ],
+   "commonMistakes": [
+    "Opening files on a flash drive before scanning it.",
+    "Confusing a firewall with antivirus software."
+   ],
+   "examTips": [
+    "Name examples of antivirus software (Norton, McAfee, Avast) and preventive measures such as firewalls, encryption and care with attachments.",
+    "Distinguish viruses, worms and Trojan horses."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which is an example of antivirus software?",
+     "options": [
+      "Excel",
+      "Firefox",
+      "CorelDRAW",
+      "Avast"
+     ],
+     "answer": 3,
+     "explanation": "Avast detects and removes malware."
+    },
+    {
+     "q": "Moving an infected file to an isolated area is called",
+     "options": [
+      "quarantine",
+      "formatting",
+      "encryption",
+      "defragmenting"
+     ],
+     "answer": 0,
+     "explanation": "Quarantined files cannot run."
+    },
+    {
+     "q": "Scanning 60 GB at 30 MB/s takes about",
+     "options": [
+      "2 minutes",
+      "34 minutes",
+      "20 minutes",
+      "3 hours"
+     ],
+     "answer": 1,
+     "explanation": "60 x 1 024 / 30 = 2 048 s = 34.1 minutes."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

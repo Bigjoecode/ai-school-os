@@ -1,0 +1,1698 @@
+{
+ "exam": "WAEC",
+ "subject": "Welding and Fabrication",
+ "practicalPaper": "Paper 3 is a practical test of 3 hours 10 minutes with one compulsory question for 100 marks; the materials list is released at least two weeks before. Candidates mark out, cut, form, join (weld, rivet, solder or bolt) and finish a job from a drawing, and are marked on accuracy, weld/joint quality, finish and safe working (an alternative paper may be used where materials cannot be acquired).",
+ "practicals": [
+  {
+   "id": "pr-wfab-use-of-protective-wear-and-workshop-safety-in-welding",
+   "title": "Use of protective wear and workshop safety in welding",
+   "topic": "Safety Precautions in Welding and Fabrication Workshop",
+   "kind": "WORKSHOP",
+   "skills": [
+    "safety",
+    "identification",
+    "procedure"
+   ],
+   "aim": "To identify and correctly wear the protective equipment for welding and fabrication and to apply workshop safety rules.",
+   "apparatus": [
+    "Welding helmet with correct shade filter (arc) and gas welding goggles",
+    "Leather gauntlets, apron, spats",
+    "Safety boots",
+    "Ear defenders",
+    "Fire extinguishers (CO₂, dry powder)",
+    "Welding screens",
+    "First aid box"
+   ],
+   "materials": [
+    "Safety posters and checklist"
+   ],
+   "safety": [
+    "Never look at an arc with the naked eye — arc eye can result within seconds.",
+    "Keep flammable materials at least 10 m from welding or shield them.",
+    "Ensure good ventilation to remove fumes."
+   ],
+   "procedure": [
+    "Identify each item of PPE and state the hazard it protects against.",
+    "Put on PPE in order: overalls (cotton, no turn-ups), boots, apron, gauntlets, helmet.",
+    "Check the helmet filter shade for the welding current.",
+    "Inspect the work area: screens, ventilation, fire extinguisher, no oil on floor.",
+    "Locate the main isolator and the first aid box.",
+    "Demonstrate the action on discovering a fire or burn."
+   ],
+   "expectedObservations": "All PPE is worn correctly and the work area meets the checklist.",
+   "dataAndCalculations": "Filter shade guide (typical): MMA welding at 60–150 A uses shade 10–11; 150–250 A uses shade 12; gas welding uses shade 4–6 goggles. A student welding at 100 A therefore uses at least shade 10.",
+   "precautions": [
+    "Replace cracked filter lenses immediately.",
+    "Keep sleeves rolled down and collars buttoned."
+   ],
+   "sourcesOfError": [
+    "Using too light a filter for the current."
+   ],
+   "commonMistakes": [
+    "Wearing synthetic clothing that melts.",
+    "Using gas goggles for arc welding."
+   ],
+   "examTips": [
+    "List hazards with matching protection: UV/IR radiation, spatter, fumes, electric shock, fire, noise.",
+    "Mention environmental pollution control: fume extraction and proper disposal of slag and scraps."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Arc eye is caused by",
+     "options": [
+      "ultraviolet radiation from the arc",
+      "noise",
+      "heat of the electrode holder",
+      "spatter on boots"
+     ],
+     "answer": 0,
+     "explanation": "UV burns the cornea."
+    },
+    {
+     "q": "The suitable fire extinguisher for an electrical fire is",
+     "options": [
+      "water",
+      "foam",
+      "sand mixed with water",
+      "CO₂ or dry powder"
+     ],
+     "answer": 3,
+     "explanation": "They do not conduct electricity."
+    },
+    {
+     "q": "Gas welding goggles are",
+     "options": [
+      "the same as arc filters",
+      "unnecessary",
+      "not suitable for arc welding",
+      "darker than arc helmets"
+     ],
+     "answer": 2,
+     "explanation": "Arc welding needs much darker shades."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-identifying-metals-by-appearance-and-spark-test",
+   "title": "Identifying metals by appearance and spark test",
+   "topic": "Ferrous and Non-ferrous Metals",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "observation",
+    "safety"
+   ],
+   "aim": "To identify common workshop metals by appearance, weight, magnet test and the grinder spark test.",
+   "apparatus": [
+    "Bench grinder",
+    "Magnet",
+    "File",
+    "Balance"
+   ],
+   "materials": [
+    "Samples: mild steel, high-carbon (tool) steel, cast iron, stainless steel, aluminium, copper, brass, zinc"
+   ],
+   "safety": [
+    "Wear goggles and keep the tool rest close to the wheel during spark tests.",
+    "Do not grind non-ferrous metals on the wheel (they clog it)."
+   ],
+   "procedure": [
+    "Observe colour and surface of each sample.",
+    "Test each with a magnet.",
+    "File a corner and note hardness and colour of the filed surface.",
+    "Spark-test ferrous samples with light pressure in a dim area.",
+    "Compare relative weights of equal-sized samples.",
+    "Record and identify each metal."
+   ],
+   "expectedObservations": "Mild steel gives long straw-coloured streaks with few bursts; high-carbon steel gives many bright bushy bursts; cast iron gives short dull red streaks. Aluminium, copper and brass are non-magnetic.",
+   "dataAndCalculations": "Relative weight check: equal 50 × 50 × 10 mm blocks (25 cm³) weigh about 196 g (steel, 7.85 g/cm³), 68 g (aluminium, 2.70 g/cm³) and 224 g (copper, 8.96 g/cm³).",
+   "precautions": [
+    "Use light pressure for spark tests.",
+    "Compare against known samples."
+   ],
+   "sourcesOfError": [
+    "Ambient light hiding spark colour.",
+    "Surface coatings misleading appearance."
+   ],
+   "commonMistakes": [
+    "Spark-testing aluminium on the grinder.",
+    "Assuming stainless steel is always magnetic."
+   ],
+   "examTips": [
+    "Classify metals as ferrous/non-ferrous with examples and uses.",
+    "Describe the spark pattern for mild steel, high-carbon steel and cast iron."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which metal is non-ferrous?",
+     "options": [
+      "Copper",
+      "Mild steel",
+      "Cast iron",
+      "Tool steel"
+     ],
+     "answer": 0,
+     "explanation": "Non-ferrous metals contain no iron."
+    },
+    {
+     "q": "Many bright, bursting sparks indicate",
+     "options": [
+      "mild steel",
+      "aluminium",
+      "copper",
+      "high-carbon steel"
+     ],
+     "answer": 3,
+     "explanation": "Carbon bursts produce the forks."
+    },
+    {
+     "q": "Brass is an alloy of",
+     "options": [
+      "iron and carbon",
+      "lead and tin",
+      "copper and zinc",
+      "copper and tin"
+     ],
+     "answer": 2,
+     "explanation": "Bronze is copper and tin."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-annealing-hardening-and-tempering-steel",
+   "title": "Annealing, hardening and tempering steel",
+   "topic": "Heat Treatment of Metals",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "observation",
+    "safety"
+   ],
+   "aim": "To harden and temper a high-carbon steel cold chisel and to anneal and normalise samples, observing the changes in properties.",
+   "apparatus": [
+    "Forge or brazing hearth",
+    "Tongs",
+    "Quenching tank (water/oil)",
+    "File",
+    "Emery cloth",
+    "Vice"
+   ],
+   "materials": [
+    "High-carbon steel bar (e.g. old file or chisel blank)",
+    "Mild steel samples",
+    "Copper strip"
+   ],
+   "safety": [
+    "Wear apron, gloves and goggles; quenching oil may flash.",
+    "Treat all metal as hot; mark hot pieces."
+   ],
+   "procedure": [
+    "Anneal: heat a steel sample to cherry red and cool slowly in ashes or sand; test with a file and by bending.",
+    "Normalise: heat to the same temperature and cool in still air.",
+    "Harden: heat the chisel tip to cherry red (about 780–820 °C) and quench vertically in water.",
+    "Test with a file: it should skate.",
+    "Clean one side bright with emery cloth.",
+    "Temper: reheat the shank slowly and watch the oxide colours run to the tip; quench when the tip is purple to dark blue.",
+    "Compare the properties of each sample."
+   ],
+   "expectedObservations": "Annealed steel is soft and bends easily; hardened steel is file-hard but brittle; tempered steel is tough. Tempering colours appear in sequence: pale straw, dark straw, brown, purple, blue.",
+   "dataAndCalculations": "Approximate tempering colours: pale straw ≈ 230 °C (lathe tools), dark straw ≈ 245 °C (drills), brown ≈ 255 °C, purple ≈ 270 °C (cold chisels), dark blue ≈ 300 °C (springs). A cold chisel is quenched at purple, about 270 °C.",
+   "precautions": [
+    "Quench with a vertical up-and-down motion to avoid distortion.",
+    "Clean the surface bright before tempering so colours are visible."
+   ],
+   "sourcesOfError": [
+    "Judging temperature by colour in bright light."
+   ],
+   "commonMistakes": [
+    "Skipping tempering, leaving a brittle tool.",
+    "Overheating and burning the steel."
+   ],
+   "examTips": [
+    "Define each process with heating, soaking and cooling method and resulting property.",
+    "Note: copper is annealed by heating and quenching."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Annealing makes steel",
+     "options": [
+      "hard and brittle",
+      "magnetic",
+      "rust-proof",
+      "soft and ductile"
+     ],
+     "answer": 3,
+     "explanation": "Slow cooling produces a soft structure."
+    },
+    {
+     "q": "Tempering is done after hardening to",
+     "options": [
+      "remove carbon",
+      "add carbon",
+      "reduce brittleness",
+      "increase brittleness"
+     ],
+     "answer": 2,
+     "explanation": "It trades some hardness for toughness."
+    },
+    {
+     "q": "A cold chisel is tempered to about",
+     "options": [
+      "room temperature",
+      "purple (≈270 °C)",
+      "pale straw (≈230 °C)",
+      "white heat"
+     ],
+     "answer": 1,
+     "explanation": "It needs toughness for impact."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-setting-up-oxy-acetylene-equipment-and-adjusting-flames",
+   "title": "Setting up oxy-acetylene equipment and adjusting flames",
+   "topic": "Equipment Set-up for Gas and Arc Welding and Fabrication",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "identification"
+   ],
+   "aim": "To assemble oxy-acetylene equipment safely, light the blowpipe and produce carburising, neutral and oxidising flames.",
+   "apparatus": [
+    "Oxygen (black) and acetylene (maroon) cylinders on a trolley",
+    "Regulators with gauges",
+    "Flashback arrestors",
+    "Hoses (blue oxygen, red acetylene)",
+    "Blowpipe and nozzles",
+    "Spark lighter",
+    "Leak-test solution"
+   ],
+   "materials": [
+    "Clean mild steel scrap"
+   ],
+   "safety": [
+    "Keep cylinders upright and chained; acetylene must never lie on its side.",
+    "Never use oil or grease on oxygen fittings — risk of explosion.",
+    "Fit flashback arrestors; know how to shut down in a backfire."
+   ],
+   "procedure": [
+    "Crack each cylinder valve briefly to blow out dust (away from people and flames).",
+    "Fit regulators (acetylene left-hand thread, oxygen right-hand thread), arrestors, hoses and blowpipe.",
+    "Open cylinder valves slowly; set working pressures for the nozzle size.",
+    "Test all joints with leak-test solution.",
+    "Purge each hose; open acetylene, light with the spark lighter; then add oxygen.",
+    "Adjust to carburising, then neutral (inner cone clear, feather just gone), then oxidising.",
+    "Shut down: acetylene off first, then oxygen; close cylinders, bleed lines and release regulator screws."
+   ],
+   "expectedObservations": "Carburising flame has a feather around the inner cone; neutral flame has a clear rounded inner cone; oxidising flame has a short pointed cone and a hissing sound.",
+   "dataAndCalculations": "Acetylene should not be withdrawn faster than about one-fifth of the cylinder content per hour. From a 7 m³ cylinder the maximum withdrawal is 7/5 = 1.4 m³/h; larger nozzles need cylinders coupled in a manifold.",
+   "precautions": [
+    "Light acetylene first and shut it off first.",
+    "Never use acetylene above 1.0 bar (15 psi)."
+   ],
+   "sourcesOfError": [
+    "Incorrect pressure for the nozzle giving backfires."
+   ],
+   "commonMistakes": [
+    "Using matches or cigarette lighters.",
+    "Testing for leaks with a flame."
+   ],
+   "examTips": [
+    "Give the colour codes of cylinders and hoses and the thread directions.",
+    "Describe the three flames and their uses (neutral for steel, oxidising for brass, carburising for hard-facing)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "When shutting down, the first valve closed is the",
+     "options": [
+      "regulator screw",
+      "acetylene valve",
+      "oxygen valve",
+      "cylinder key"
+     ],
+     "answer": 1,
+     "explanation": "Fuel off first to avoid soot and flashback."
+    },
+    {
+     "q": "The flame used for welding mild steel is",
+     "options": [
+      "neutral",
+      "oxidising",
+      "carburising",
+      "reducing with a long feather"
+     ],
+     "answer": 0,
+     "explanation": "It neither adds carbon nor oxidises the weld."
+    },
+    {
+     "q": "Oxygen fittings must never be lubricated with oil because",
+     "options": [
+      "oil blocks the gas",
+      "oil changes the gas colour",
+      "oil is expensive",
+      "oil can ignite violently in pure oxygen"
+     ],
+     "answer": 3,
+     "explanation": "Oxygen and oil react explosively."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-preparing-acetylene-gas-from-calcium-carbide",
+   "title": "Preparing acetylene gas from calcium carbide",
+   "topic": "Preparation of Acetylene Gas from Carbide",
+   "kind": "LAB",
+   "skills": [
+    "procedure",
+    "safety",
+    "calculation"
+   ],
+   "aim": "To demonstrate on a small scale the production of acetylene from calcium carbide and water and to calculate the theoretical yield.",
+   "apparatus": [
+    "Small flask with dropping funnel",
+    "Delivery tube",
+    "Gas jar or test tubes over water (trough)",
+    "Splint (for testing small samples only, under supervision)"
+   ],
+   "materials": [
+    "A few lumps of calcium carbide",
+    "Water"
+   ],
+   "safety": [
+    "Demonstration only, done by the teacher in the open air or a fume cupboard.",
+    "Acetylene is highly flammable and forms explosive mixtures with air; no flames near the apparatus.",
+    "Store carbide in a sealed dry tin; it reacts with moisture."
+   ],
+   "procedure": [
+    "Place a few small lumps of carbide in the dry flask.",
+    "Add water drop by drop from the funnel.",
+    "Collect the gas over water.",
+    "Observe the gas (colourless, garlic-like smell from impurities).",
+    "Test a small test tube of gas at arm's length: it burns with a smoky yellow flame.",
+    "Dispose of the lime residue safely."
+   ],
+   "expectedObservations": "Effervescence occurs as water touches the carbide; a white sludge of calcium hydroxide remains. The gas burns with a very smoky flame in air.",
+   "dataAndCalculations": "CaC₂ + 2H₂O → C₂H₂ + Ca(OH)₂. Molar mass CaC₂ = 64.1 g/mol. 1 kg of pure carbide = 1 000/64.1 = 15.6 mol, giving 15.6 mol C₂H₂ = 15.6 × 22.4 ≈ 349 L at s.t.p. (commercial carbide gives less because it is not pure).",
+   "precautions": [
+    "Add water slowly to control the rate.",
+    "Keep the generator cool."
+   ],
+   "sourcesOfError": [
+    "Impure carbide lowering yield.",
+    "Gas dissolving partly in water."
+   ],
+   "commonMistakes": [
+    "Adding a large amount of water at once.",
+    "Storing carbide in damp containers."
+   ],
+   "examTips": [
+    "Write the balanced equation.",
+    "Explain why cylinder acetylene is dissolved in acetone in a porous mass."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Calcium carbide reacts with water to give",
+     "options": [
+      "oxygen and lime",
+      "hydrogen and carbon",
+      "methane and calcium",
+      "acetylene and calcium hydroxide"
+     ],
+     "answer": 3,
+     "explanation": "CaC₂ + 2H₂O → C₂H₂ + Ca(OH)₂."
+    },
+    {
+     "q": "Acetylene in cylinders is dissolved in",
+     "options": [
+      "oil",
+      "alcohol",
+      "acetone",
+      "water"
+     ],
+     "answer": 2,
+     "explanation": "Acetone in a porous filler stabilises it."
+    },
+    {
+     "q": "One mole of CaC₂ produces how many moles of C₂H₂?",
+     "options": [
+      "4",
+      "1",
+      "2",
+      "0.5"
+     ],
+     "answer": 1,
+     "explanation": "The equation ratio is 1:1."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-using-measuring-and-marking-out-tools",
+   "title": "Using measuring and marking-out tools",
+   "topic": "Measuring Instruments, Marking Out and Cutting Tools",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "identification"
+   ],
+   "aim": "To use the steel rule, vernier caliper, micrometer, scriber, dividers, centre punch and try square to mark out and check a job.",
+   "apparatus": [
+    "Steel rule",
+    "Vernier caliper (0.02 mm)",
+    "Outside micrometer (0.01 mm)",
+    "Scriber",
+    "Dividers",
+    "Centre punch and hammer",
+    "Engineer's square",
+    "Surface plate and surface gauge"
+   ],
+   "materials": [
+    "Mild steel plate",
+    "Marking blue or chalk"
+   ],
+   "safety": [
+    "Keep scriber points covered when not in use."
+   ],
+   "procedure": [
+    "Coat the plate with marking blue.",
+    "Establish a datum edge and square lines from it.",
+    "Scribe lines using the rule and square.",
+    "Mark hole centres and circles with dividers; centre-punch lightly.",
+    "Measure the plate thickness with the micrometer and width with the vernier.",
+    "Record readings and compare with the drawing."
+   ],
+   "expectedObservations": "Clean, fine lines visible against the blue; measurements agree with the drawing to within ±0.1 mm.",
+   "dataAndCalculations": "Vernier reading: main scale 23 mm, vernier line 14 coincides at 0.02 mm per division → 23 + 14 × 0.02 = 23.28 mm. Micrometer: sleeve 5.5 mm + thimble 28 × 0.01 = 5.78 mm.",
+   "precautions": [
+    "Measure from a datum to avoid accumulated errors.",
+    "Do not over-tighten measuring instruments."
+   ],
+   "sourcesOfError": [
+    "Parallax when reading scales.",
+    "Zero error of instruments."
+   ],
+   "commonMistakes": [
+    "Ignoring zero error.",
+    "Heavy centre punching that distorts thin sheet."
+   ],
+   "examTips": [
+    "Show the reading working clearly.",
+    "Name each tool and its use."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Main scale 12 mm, vernier coincidence 7 (0.02 mm). Reading =",
+     "options": [
+      "12.70 mm",
+      "19 mm",
+      "12.14 mm",
+      "12.07 mm"
+     ],
+     "answer": 2,
+     "explanation": "12 + 7 × 0.02 = 12.14 mm."
+    },
+    {
+     "q": "Marking blue is used to",
+     "options": [
+      "harden steel",
+      "make scribed lines visible",
+      "prevent rust",
+      "lubricate tools"
+     ],
+     "answer": 1,
+     "explanation": "It contrasts with bright scribed lines."
+    },
+    {
+     "q": "Dividers are used for",
+     "options": [
+      "scribing circles and stepping off distances",
+      "cutting sheet",
+      "measuring thickness to 0.01 mm",
+      "punching holes"
+     ],
+     "answer": 0,
+     "explanation": "They transfer and step distances."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-striking-an-arc-and-running-straight-beads",
+   "title": "Striking an arc and running straight beads",
+   "topic": "Practical Work/Project",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To strike and maintain an arc with a manual metal arc (MMA) welder and deposit straight, uniform beads on a mild steel plate.",
+   "apparatus": [
+    "MMA welding set (transformer or inverter)",
+    "Electrode holder and earth clamp",
+    "Chipping hammer",
+    "Wire brush",
+    "Tongs",
+    "Welding helmet and full PPE"
+   ],
+   "materials": [
+    "Mild steel plate 6 mm",
+    "E6013 electrodes 2.5 mm and 3.2 mm"
+   ],
+   "safety": [
+    "Wear full PPE; erect screens to protect others.",
+    "Keep cables dry and undamaged; do not change electrodes with bare hands.",
+    "Chip slag with goggles on, away from your face."
+   ],
+   "procedure": [
+    "Clean the plate and attach the earth clamp securely.",
+    "Set the current for the electrode size.",
+    "Strike the arc by the scratching or tapping method.",
+    "Hold an arc length about equal to the electrode core diameter at 70–80° travel angle.",
+    "Travel steadily to run a straight bead; re-start correctly when the electrode is changed.",
+    "Chip slag and brush; inspect the bead width, ripples and spatter.",
+    "Run parallel beads, adjusting current and speed to compare results."
+   ],
+   "expectedObservations": "With correct settings the bead is even in width with fine, regular ripples and little spatter. Too long an arc gives spatter and a wide, flat bead; too fast travel gives a narrow, thin bead.",
+   "dataAndCalculations": "Rule of thumb: current ≈ 40 A per mm of electrode diameter. For 3.2 mm electrodes: 40 × 3.2 = 128 A (practical range about 90–130 A). For 2.5 mm electrodes: 40 × 2.5 = 100 A (range about 70–100 A).",
+   "precautions": [
+    "Keep arc length constant.",
+    "Store electrodes dry."
+   ],
+   "sourcesOfError": [
+    "Damp electrodes causing porosity.",
+    "Poor earth contact."
+   ],
+   "commonMistakes": [
+    "Electrode sticking from too low current.",
+    "Not chipping slag between runs."
+   ],
+   "examTips": [
+    "Describe arc length, travel speed, current and electrode angle effects.",
+    "Neat, uniform beads earn workmanship marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A long arc tends to produce",
+     "options": [
+      "spatter and poor penetration",
+      "deep penetration",
+      "no slag",
+      "narrow beads"
+     ],
+     "answer": 0,
+     "explanation": "The arc wanders and loses concentration."
+    },
+    {
+     "q": "Suggested current for a 4 mm electrode is about",
+     "options": [
+      "40 A",
+      "400 A",
+      "16 A",
+      "160 A"
+     ],
+     "answer": 3,
+     "explanation": "40 × 4 = 160 A."
+    },
+    {
+     "q": "The flux coating on an electrode",
+     "options": [
+      "conducts the current only",
+      "cools the weld rapidly",
+      "shields the weld and forms slag",
+      "is removed before welding"
+     ],
+     "answer": 2,
+     "explanation": "It produces shielding gas and protective slag."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-preparing-a-single-v-butt-joint-and-welding-it",
+   "title": "Preparing a single-V butt joint and welding it",
+   "topic": "Preparation of Welding Surfaces and Edges",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To prepare the edges of two plates for a single-V butt weld, tack them and complete the weld in several runs.",
+   "apparatus": [
+    "Angle grinder",
+    "File",
+    "Wire brush",
+    "Engineer's square and bevel protractor",
+    "MMA welding set",
+    "Chipping hammer"
+   ],
+   "materials": [
+    "Two mild steel plates 150 × 75 × 10 mm",
+    "E6013 electrodes",
+    "Light oil"
+   ],
+   "safety": [
+    "Wear goggles and gloves when grinding; keep guards in place.",
+    "Full arc-welding PPE when welding."
+   ],
+   "procedure": [
+    "Clean the plate edges of rust, mill scale and oil with wire brush, emery and file.",
+    "Mark and grind a 30° bevel on each plate (60° included angle), leaving a 1.5 mm root face.",
+    "Set the plates with a 2 mm root gap; tack weld at both ends.",
+    "Deposit the root run; chip and brush.",
+    "Deposit filling and capping runs, cleaning between runs.",
+    "Inspect the weld; clean and oil the surface to prevent rust."
+   ],
+   "expectedObservations": "Full penetration visible on the underside; the cap is slightly convex with even ripples and no undercut.",
+   "dataAndCalculations": "Bevel width on the face for 10 mm plate with a 1.5 mm root face: (10 − 1.5) × tan 30° = 8.5 × 0.577 = 4.91 mm on each plate. Total gap at the top = 2 × 4.91 + 2 (root gap) ≈ 11.8 mm.",
+   "precautions": [
+    "Keep a uniform root gap.",
+    "Clean slag thoroughly between runs."
+   ],
+   "sourcesOfError": [
+    "Distortion pulling the plates out of line."
+   ],
+   "commonMistakes": [
+    "No root gap, giving lack of penetration.",
+    "Skipping post-weld cleaning and oiling."
+   ],
+   "examTips": [
+    "Sketch the edge preparation with angles, root face and gap labelled.",
+    "Name edge preparations: square, single-V, double-V, J, U, fillet."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The included angle of a standard single-V preparation is about",
+     "options": [
+      "120°",
+      "60°",
+      "30°",
+      "90°"
+     ],
+     "answer": 1,
+     "explanation": "Two 30° bevels."
+    },
+    {
+     "q": "The purpose of the root gap is to",
+     "options": [
+      "allow full penetration",
+      "save electrodes",
+      "reduce spatter",
+      "hold the plates"
+     ],
+     "answer": 0,
+     "explanation": "Weld metal must reach the underside."
+    },
+    {
+     "q": "Double-V preparation is used for",
+     "options": [
+      "thin sheet",
+      "soldering",
+      "riveting",
+      "thick plates"
+     ],
+     "answer": 3,
+     "explanation": "It reduces weld metal volume and distortion on thick plate."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-fillet-welding-a-t-joint-and-a-lap-joint",
+   "title": "Fillet welding a T-joint and a lap joint",
+   "topic": "Types of Joints",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To weld fillet welds on T and lap joints and check leg length and throat thickness.",
+   "apparatus": [
+    "MMA welding set",
+    "Fillet weld gauge",
+    "Engineer's square",
+    "Clamps",
+    "Chipping hammer and wire brush"
+   ],
+   "materials": [
+    "Mild steel plates 6 mm",
+    "E6013 electrodes 3.2 mm"
+   ],
+   "safety": [
+    "Full arc welding PPE; screens; ventilation."
+   ],
+   "procedure": [
+    "Clean and square the plates.",
+    "Set up the T-joint at 90° and tack at both ends.",
+    "Weld with the electrode at about 45° between the plates and 70–80° in the direction of travel.",
+    "Chip and inspect; repeat on the opposite side.",
+    "Set up a lap joint with the overlap at least 3–5 times the plate thickness.",
+    "Weld and inspect; measure leg length and throat with the gauge."
+   ],
+   "expectedObservations": "Equal leg lengths, slightly mitred profile, good fusion into both plates, no undercut.",
+   "dataAndCalculations": "For an equal-leg fillet weld with 6 mm legs, throat thickness = 0.707 × 6 = 4.24 mm. Lap overlap for 6 mm plate: at least 3 × 6 = 18 mm (5 × 6 = 30 mm preferred).",
+   "precautions": [
+    "Keep the electrode angle at 45° to give equal legs.",
+    "Control heat to avoid distortion."
+   ],
+   "sourcesOfError": [
+    "Unequal leg lengths from wrong angle."
+   ],
+   "commonMistakes": [
+    "Too large a weld causing distortion and waste.",
+    "Undercut on the vertical plate."
+   ],
+   "examTips": [
+    "Name joints: butt, lap, tee, corner, edge; sketch each.",
+    "Show throat calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The throat of an 8 mm equal-leg fillet is about",
+     "options": [
+      "8 mm",
+      "11.3 mm",
+      "4 mm",
+      "5.66 mm"
+     ],
+     "answer": 3,
+     "explanation": "0.707 × 8 = 5.66 mm."
+    },
+    {
+     "q": "Electrode angle between the plates for a T-joint is about",
+     "options": [
+      "90°",
+      "0°",
+      "45°",
+      "10°"
+     ],
+     "answer": 2,
+     "explanation": "It bisects the 90° corner."
+    },
+    {
+     "q": "A groove melted into the base metal beside the weld is",
+     "options": [
+      "overlap",
+      "undercut",
+      "porosity",
+      "slag inclusion"
+     ],
+     "answer": 1,
+     "explanation": "Usually caused by excessive current or wrong angle."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-gas-welding-by-the-leftward-and-rightward-methods",
+   "title": "Gas welding by the leftward and rightward methods",
+   "topic": "Welding Techniques and Application",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "observation",
+    "safety"
+   ],
+   "aim": "To make butt welds in mild steel sheet by the leftward and rightward techniques and compare them.",
+   "apparatus": [
+    "Oxy-acetylene equipment",
+    "Nozzles to suit thickness",
+    "Spark lighter",
+    "Tongs",
+    "Goggles (shade 5)"
+   ],
+   "materials": [
+    "Mild steel sheet 1.6–3 mm and 5 mm",
+    "Copper-coated mild steel filler rod (1.6–3.2 mm)"
+   ],
+   "safety": [
+    "Follow lighting and shut-down sequences.",
+    "Keep hoses away from the flame and hot work."
+   ],
+   "procedure": [
+    "Set a neutral flame for the nozzle size.",
+    "Tack the sheets with a small gap.",
+    "Leftward: start at the right, move the blowpipe to the left with the rod ahead of the flame; blowpipe 60–70°, rod 30–40°.",
+    "Rightward: start at the left, move to the right with the rod following the flame; blowpipe 40–50°.",
+    "Maintain a molten pool; feed rod into the pool, not the flame.",
+    "Inspect bead and penetration and compare."
+   ],
+   "expectedObservations": "Leftward gives a neat bead on thin sheet; rightward gives better penetration on thicker plate with less filler and faster travel.",
+   "dataAndCalculations": "Typical guide: leftward for steel up to about 5 mm; rightward for steel over 5 mm. A 3 mm sheet uses a nozzle of about size 3 (consuming roughly 85 L/h of each gas); in 30 minutes this uses about 42 L of acetylene.",
+   "precautions": [
+    "Keep the inner cone 2–3 mm from the pool.",
+    "Use a neutral flame."
+   ],
+   "sourcesOfError": [
+    "Flame not neutral causing oxidised or hard welds."
+   ],
+   "commonMistakes": [
+    "Melting the rod in the flame and dripping it on.",
+    "Using leftward on thick plate."
+   ],
+   "examTips": [
+    "Compare the two methods in a table: thickness, angles, speed, filler use.",
+    "Sketch blowpipe and rod angles."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The rightward method is preferred for",
+     "options": [
+      "plastics",
+      "thicker plate over 5 mm",
+      "very thin sheet",
+      "soldering"
+     ],
+     "answer": 1,
+     "explanation": "It gives better penetration on thick sections."
+    },
+    {
+     "q": "In leftward welding, the filler rod is",
+     "options": [
+      "ahead of the flame",
+      "behind the flame",
+      "not used",
+      "held vertical"
+     ],
+     "answer": 0,
+     "explanation": "The rod leads the blowpipe."
+    },
+    {
+     "q": "Filler rod should be melted",
+     "options": [
+      "in the flame above the pool",
+      "before lighting",
+      "in water",
+      "in the weld pool"
+     ],
+     "answer": 3,
+     "explanation": "This gives fusion with the parent metal."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-marking-out-cutting-and-folding-a-sheet-metal-tray",
+   "title": "Marking out, cutting and folding a sheet metal tray",
+   "topic": "Marking Out Techniques",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To develop, mark out, cut and fold a rectangular open tray with corner joints from sheet metal.",
+   "apparatus": [
+    "Scriber",
+    "Steel rule",
+    "Engineer's square",
+    "Tin snips",
+    "Folding machine or folding bars",
+    "Mallet",
+    "Stakes",
+    "Files"
+   ],
+   "materials": [
+    "Galvanised or black mild steel sheet (e.g. 0.6 mm, 24 SWG)",
+    "Solder or rivets for corners"
+   ],
+   "safety": [
+    "Wear gloves; sheet edges are razor-sharp.",
+    "Remove burrs immediately after cutting."
+   ],
+   "procedure": [
+    "Draw the development (net) of the tray with corner tabs.",
+    "Mark out on the sheet from a datum edge.",
+    "Cut the outline and corner notches with snips.",
+    "File edges free of burrs.",
+    "Fold the sides to 90° on the folding machine in the correct sequence.",
+    "Fold tabs and join the corners by soldering or riveting.",
+    "Check dimensions and squareness."
+   ],
+   "expectedObservations": "A square tray with straight folds and tight corners, matching the drawing.",
+   "dataAndCalculations": "Tray 200 × 150 mm base, 30 mm deep: blank size = (200 + 2 × 30) × (150 + 2 × 30) = 260 × 210 mm, plus 10 mm corner tabs. If a wired edge is required on 3 mm wire, add 2.5 × 3 = 7.5 mm to each side: 275 × 225 mm.",
+   "precautions": [
+    "Plan the fold sequence so later folds are possible.",
+    "Mark fold lines on the outside face."
+   ],
+   "sourcesOfError": [
+    "Material thickness not allowed for in bend lines."
+   ],
+   "commonMistakes": [
+    "Cutting off tabs needed for joints.",
+    "Folding in the wrong order."
+   ],
+   "examTips": [
+    "A neat development drawing with fold lines dotted earns marks.",
+    "State the sheet gauge used."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A flat pattern of a 3D object is called a",
+     "options": [
+      "template only",
+      "development",
+      "section",
+      "elevation"
+     ],
+     "answer": 1,
+     "explanation": "It shows the shape before folding."
+    },
+    {
+     "q": "Sheet edges are made safe by",
+     "options": [
+      "filing off burrs or wiring/folding the edge",
+      "painting",
+      "heating",
+      "oiling"
+     ],
+     "answer": 0,
+     "explanation": "This removes sharp edges."
+    },
+    {
+     "q": "A higher SWG number means the sheet is",
+     "options": [
+      "thicker",
+      "stronger",
+      "longer",
+      "thinner"
+     ],
+     "answer": 3,
+     "explanation": "Gauge numbers increase as thickness decreases."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-making-a-wired-edge-on-sheet-metal",
+   "title": "Making a wired edge on sheet metal",
+   "topic": "Techniques in Fabrication Work",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "measurement"
+   ],
+   "aim": "To strengthen and make safe the edge of a sheet metal article by forming a wired edge.",
+   "apparatus": [
+    "Folding bars or folding machine",
+    "Mallet",
+    "Hatchet stake",
+    "Pliers",
+    "Rule and scriber",
+    "Wiring machine (if available)"
+   ],
+   "materials": [
+    "Sheet metal",
+    "Mild steel or galvanised wire (e.g. 3 mm)"
+   ],
+   "safety": [
+    "Wear gloves; keep fingers clear of the folding machine."
+   ],
+   "procedure": [
+    "Calculate and mark the wiring allowance along the edge.",
+    "Fold the allowance through about 90° then further over a hatchet stake.",
+    "Lay the wire in the fold and close the metal around it with a mallet.",
+    "Tuck the edge tightly using the wiring machine or the peen of the mallet.",
+    "Cut wire ends flush and file smooth."
+   ],
+   "expectedObservations": "A smooth, round edge fully enclosing the wire, stiffening the article.",
+   "dataAndCalculations": "Wiring allowance ≈ 2.5 × wire diameter. For 3 mm wire: 2.5 × 3 = 7.5 mm. For 4 mm wire: 10 mm.",
+   "precautions": [
+    "Keep the allowance uniform along the edge.",
+    "Close the edge gradually to avoid kinking."
+   ],
+   "sourcesOfError": [
+    "Uneven allowance giving loose sections."
+   ],
+   "commonMistakes": [
+    "Too small an allowance — wire not covered.",
+    "Hammering marks on the visible face."
+   ],
+   "examTips": [
+    "Explain why edges are wired: strength, safety, appearance.",
+    "Show allowance calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The wiring allowance for 2 mm wire is about",
+     "options": [
+      "5 mm",
+      "2 mm",
+      "20 mm",
+      "0.5 mm"
+     ],
+     "answer": 0,
+     "explanation": "2.5 × 2 = 5 mm."
+    },
+    {
+     "q": "A wired edge is mainly used to",
+     "options": [
+      "join two sheets",
+      "decorate only",
+      "seal against water",
+      "strengthen and make the edge safe"
+     ],
+     "answer": 3,
+     "explanation": "It stiffens and removes the sharp edge."
+    },
+    {
+     "q": "A safe edge made by folding back the metal is a",
+     "options": [
+      "seam weld",
+      "flange joint",
+      "hem (safe edge)",
+      "rivet"
+     ],
+     "answer": 2,
+     "explanation": "Single or double hems are used where wire is not needed."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-producing-a-riveted-lap-joint",
+   "title": "Producing a riveted lap joint",
+   "topic": "Rivets, Bolts and Nuts, and Screws",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To mark out, drill and close snap-head (or pop) rivets in a lap joint.",
+   "apparatus": [
+    "Drilling machine and drills",
+    "Centre punch",
+    "Rivet set and snap (dolly)",
+    "Ball-peen hammer",
+    "Pop-rivet gun",
+    "Rule and scriber"
+   ],
+   "materials": [
+    "Two mild steel strips 1.5 mm thick",
+    "4 mm snap-head rivets",
+    "Pop rivets"
+   ],
+   "safety": [
+    "Clamp the work for drilling; never hold by hand.",
+    "Wear goggles when drilling and riveting."
+   ],
+   "procedure": [
+    "Mark the overlap and rivet centres (pitch and edge distance).",
+    "Centre punch and drill one plate; clamp both plates and drill through.",
+    "De-burr holes.",
+    "Insert the rivet; support the head on the dolly.",
+    "Draw the plates together with the rivet set.",
+    "Upset the tail with the hammer and form the head with the snap.",
+    "Repeat; check the joint is tight and heads are central."
+   ],
+   "expectedObservations": "Rivets are tight, with full, centred heads; plates are drawn together with no gap.",
+   "dataAndCalculations": "Rivet length = grip + 1.5d for a snap head. Grip = 2 × 1.5 = 3 mm; d = 4 mm → length = 3 + 1.5 × 4 = 9 mm. Pitch ≈ 3d = 12 mm; edge distance ≈ 2d = 8 mm.",
+   "precautions": [
+    "Drill holes slightly larger than the rivet (e.g. 4.1 mm).",
+    "Draw plates together before heading."
+   ],
+   "sourcesOfError": [
+    "Misaligned holes."
+   ],
+   "commonMistakes": [
+    "Rivets too long (bent heads) or too short (incomplete heads).",
+    "Edge distance too small, tearing out."
+   ],
+   "examTips": [
+    "Name rivet types: snap, pan, countersunk, flat, pop; give uses.",
+    "Classify fasteners as permanent (rivets, welds) or temporary (bolts, screws)."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Rivet length for a 6 mm grip and 5 mm rivet (snap head) is",
+     "options": [
+      "11 mm",
+      "6 mm",
+      "20 mm",
+      "13.5 mm"
+     ],
+     "answer": 3,
+     "explanation": "6 + 1.5 × 5 = 13.5 mm."
+    },
+    {
+     "q": "Pop rivets are useful when",
+     "options": [
+      "plates are very thick",
+      "heat is required",
+      "only one side of the work is accessible",
+      "joints must be removable"
+     ],
+     "answer": 2,
+     "explanation": "They are set from one side."
+    },
+    {
+     "q": "Riveting is a",
+     "options": [
+      "heat treatment",
+      "permanent fastening",
+      "temporary fastening",
+      "welding method"
+     ],
+     "answer": 1,
+     "explanation": "Rivets must be cut or drilled out to remove."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-cutting-threads-to-make-a-bolt-and-nut",
+   "title": "Cutting threads to make a bolt and nut",
+   "topic": "Rivets, Bolts and Nuts, and Screws",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To cut an external thread with a die and an internal thread with taps to produce a matching bolt and nut.",
+   "apparatus": [
+    "Die stock and M10 die",
+    "Tap wrench and M10 taps (taper, second, plug)",
+    "Drilling machine and 8.5 mm drill",
+    "Vice",
+    "File",
+    "Vernier caliper"
+   ],
+   "materials": [
+    "10 mm mild steel round bar",
+    "Mild steel hexagon or square blank",
+    "Cutting oil"
+   ],
+   "safety": [
+    "Clamp the work; wear goggles when drilling.",
+    "Remove swarf with a brush, not fingers."
+   ],
+   "procedure": [
+    "Chamfer the end of the bar to help the die start.",
+    "Hold the bar vertically in the vice; start the die square, turning forward half a turn and back a quarter to break chips.",
+    "Use cutting oil; cut the thread to the required length.",
+    "Drill the tapping hole in the nut blank (8.5 mm for M10 × 1.5).",
+    "Tap the hole using the taper tap, then second and plug taps, keeping the tap square.",
+    "Clean and test the bolt and nut together."
+   ],
+   "expectedObservations": "The nut runs smoothly on the bolt without wobble or binding.",
+   "dataAndCalculations": "Tapping drill size ≈ major diameter − pitch. For M10 × 1.5: 10 − 1.5 = 8.5 mm. For M8 × 1.25: 8 − 1.25 = 6.75 mm (use 6.8 mm).",
+   "precautions": [
+    "Keep tap and die square to the work.",
+    "Back off regularly to break chips."
+   ],
+   "sourcesOfError": [
+    "Drunken thread from tilted die."
+   ],
+   "commonMistakes": [
+    "Wrong tapping drill size (stripped or broken tap).",
+    "Forcing the tap, breaking it in the hole."
+   ],
+   "examTips": [
+    "Name parts of a thread: major/minor diameter, pitch, crest, root, flank.",
+    "Show the tapping drill calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The tapping drill for M12 × 1.75 is about",
+     "options": [
+      "13.75 mm",
+      "8 mm",
+      "10.2 mm",
+      "12 mm"
+     ],
+     "answer": 2,
+     "explanation": "12 − 1.75 = 10.25, so 10.2 mm."
+    },
+    {
+     "q": "The first tap used is the",
+     "options": [
+      "die",
+      "taper tap",
+      "plug tap",
+      "second tap"
+     ],
+     "answer": 1,
+     "explanation": "Its long lead helps it start straight."
+    },
+    {
+     "q": "External threads are cut with a",
+     "options": [
+      "die",
+      "tap",
+      "reamer",
+      "drift"
+     ],
+     "answer": 0,
+     "explanation": "Taps cut internal threads."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-soft-soldering-sheet-metal",
+   "title": "Soft soldering sheet metal",
+   "topic": "Practical Work/Project",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "safety",
+    "observation"
+   ],
+   "aim": "To make a soldered lap seam on tinplate or galvanised sheet using a soldering iron and flux.",
+   "apparatus": [
+    "Copper bit soldering iron (or electric iron)",
+    "Brazing hearth or gas heater",
+    "File",
+    "Wire brush",
+    "Tongs"
+   ],
+   "materials": [
+    "Tinplate or galvanised sheet",
+    "Soft solder (tin–lead or lead-free)",
+    "Flux (zinc chloride \"killed spirits\" or paste flux)"
+   ],
+   "safety": [
+    "Zinc chloride flux is corrosive: wear gloves and goggles; wash off after soldering.",
+    "Ventilate to remove fumes."
+   ],
+   "procedure": [
+    "Clean the joint area with emery cloth to bright metal.",
+    "File and tin the copper bit.",
+    "Apply flux to the joint.",
+    "Heat the bit to working temperature (solder flows freely on it).",
+    "Tack the seam, then draw the bit slowly along so solder flows into the joint by capillary action.",
+    "Wash off flux residue and inspect."
+   ],
+   "expectedObservations": "Solder runs smoothly into the seam forming a thin, continuous line.",
+   "dataAndCalculations": "A 60/40 tin–lead solder melts at about 183–190 °C — far below the melting point of steel (about 1 400–1 500 °C) — so soft soldering does not melt the parent metal.",
+   "precautions": [
+    "Keep the bit at the correct temperature.",
+    "Clean thoroughly; solder will not wet dirty metal."
+   ],
+   "sourcesOfError": [
+    "Bit too cold causing lumpy joints."
+   ],
+   "commonMistakes": [
+    "Using corrosive flux on electronics.",
+    "Leaving flux residue causing corrosion."
+   ],
+   "examTips": [
+    "Distinguish soldering, brazing and welding by temperature and whether parent metal melts.",
+    "Name active and passive fluxes."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In soldering, the parent metal",
+     "options": [
+      "melts fully",
+      "is vaporised",
+      "is hardened",
+      "does not melt"
+     ],
+     "answer": 3,
+     "explanation": "Only the solder melts."
+    },
+    {
+     "q": "Zinc chloride flux is",
+     "options": [
+      "an abrasive",
+      "a solder",
+      "active (corrosive)",
+      "passive"
+     ],
+     "answer": 2,
+     "explanation": "It cleans actively but must be washed off."
+    },
+    {
+     "q": "Solder fills a lap joint by",
+     "options": [
+      "gravity only",
+      "capillary action",
+      "magnetism",
+      "pressure"
+     ],
+     "answer": 1,
+     "explanation": "Molten solder is drawn into narrow gaps."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-forging-an-eye-on-a-mild-steel-bar",
+   "title": "Forging an eye on a mild steel bar",
+   "topic": "Forging Process Operations",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To forge an eye on the end of a round bar by bending over the beak of the anvil.",
+   "apparatus": [
+    "Forge (hearth) with blower",
+    "Anvil",
+    "Hand hammer and sledge",
+    "Tongs",
+    "Fullers and swages",
+    "Scriber, rule, chalk"
+   ],
+   "materials": [
+    "10 mm mild steel round bar",
+    "Coal or charcoal"
+   ],
+   "safety": [
+    "Wear apron, gloves, goggles and boots.",
+    "Hold work firmly in correct tongs; keep the floor clear.",
+    "Quench or label hot pieces."
+   ],
+   "procedure": [
+    "Calculate the length of bar needed for the eye; mark it with a centre punch.",
+    "Heat the end to bright red.",
+    "Bend the marked length to 90° over the anvil edge.",
+    "Reheat and form the eye progressively over the beak (bick), working from the end.",
+    "Close the eye and centre it on the bar axis.",
+    "Check the inside diameter with a mandrel or gauge; true up and allow to cool."
+   ],
+   "expectedObservations": "A round, closed eye of uniform section, centred on the bar.",
+   "dataAndCalculations": "Length for an eye = π × mean diameter. Inside diameter 20 mm, bar diameter 10 mm → mean diameter = 20 + 10 = 30 mm. Length = π × 30 = 94.2 mm.",
+   "precautions": [
+    "Work only at the correct heat; do not hammer below red heat.",
+    "Do not overheat (burning)."
+   ],
+   "sourcesOfError": [
+    "Stretching of the bar during bending."
+   ],
+   "commonMistakes": [
+    "Using the inside diameter instead of the mean diameter.",
+    "Hammering cold metal, causing cracks."
+   ],
+   "examTips": [
+    "Name forging operations: drawing down, upsetting, bending, twisting, punching, forming an eye.",
+    "Show the length calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The length of bar for an eye uses the",
+     "options": [
+      "mean diameter",
+      "inside diameter",
+      "outside diameter",
+      "bar diameter only"
+     ],
+     "answer": 0,
+     "explanation": "The neutral axis lies near the mean diameter."
+    },
+    {
+     "q": "Upsetting means",
+     "options": [
+      "reducing thickness by stretching",
+      "twisting the bar",
+      "cutting the bar",
+      "increasing thickness by reducing length"
+     ],
+     "answer": 3,
+     "explanation": "The bar is \"jumped up\"."
+    },
+    {
+     "q": "The conical part of the anvil is the",
+     "options": [
+      "hardie hole",
+      "pritchel hole",
+      "beak (bick)",
+      "face"
+     ],
+     "answer": 2,
+     "explanation": "Used for bending curves and eyes."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-fabricating-a-funnel-using-a-template",
+   "title": "Fabricating a funnel using a template",
+   "topic": "Use of Templates",
+   "kind": "WORKSHOP",
+   "skills": [
+    "drawing",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To develop the pattern of a conical frustum by radial-line development, make a template and fabricate a funnel.",
+   "apparatus": [
+    "Drawing instruments or trammels",
+    "Tin snips",
+    "Folding bars",
+    "Funnel stake",
+    "Mallet",
+    "Soldering equipment"
+   ],
+   "materials": [
+    "Galvanised sheet",
+    "Card for the template",
+    "Solder and flux"
+   ],
+   "safety": [
+    "Wear gloves when cutting and forming sheet."
+   ],
+   "procedure": [
+    "Draw the elevation of the frustum and extend the sides to find the apex.",
+    "Calculate the slant heights and sector angle (or develop graphically).",
+    "Draw the development on card with seam allowance and cut it out as a template.",
+    "Transfer to sheet and cut.",
+    "Roll the cone on the funnel stake.",
+    "Lock or solder the seam; add the spout and a wired or hemmed top edge."
+   ],
+   "expectedObservations": "The cone forms with the seam edges meeting evenly; top and bottom openings are circular.",
+   "dataAndCalculations": "Funnel cone: top Ø150 mm, bottom Ø30 mm, height 100 mm. Full cone height = 100 × 150/(150 − 30) = 125 mm. Slant height L = √(125² + 75²) = 145.8 mm; small slant l = 145.8 × 30/150 = 29.2 mm. Sector angle = 360 × 75/145.8 = 185.2°.",
+   "precautions": [
+    "Add seam allowance to one edge only.",
+    "Check template by rolling before cutting metal."
+   ],
+   "sourcesOfError": [
+    "Small angle errors widening the seam gap."
+   ],
+   "commonMistakes": [
+    "Using the vertical height instead of slant height as the radius.",
+    "Forgetting seam allowance."
+   ],
+   "examTips": [
+    "Show the development method clearly; examiners award marks for construction.",
+    "Name development methods: parallel line, radial line, triangulation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A cone is developed by",
+     "options": [
+      "triangulation only",
+      "orthographic projection only",
+      "radial-line development",
+      "parallel-line development"
+     ],
+     "answer": 2,
+     "explanation": "Radial lines from the apex."
+    },
+    {
+     "q": "The radius used for the development of a cone is the",
+     "options": [
+      "diameter",
+      "slant height",
+      "vertical height",
+      "base radius"
+     ],
+     "answer": 1,
+     "explanation": "True length of the sloping side."
+    },
+    {
+     "q": "A template is used to",
+     "options": [
+      "mark out identical shapes accurately",
+      "weld seams",
+      "harden metal",
+      "measure temperature"
+     ],
+     "answer": 0,
+     "explanation": "It saves time and ensures repeatability."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-inspecting-welds-for-defects",
+   "title": "Inspecting welds for defects",
+   "topic": "Defects in Welding Surfaces",
+   "kind": "WORKSHOP",
+   "skills": [
+    "observation",
+    "identification"
+   ],
+   "aim": "To identify common weld defects by visual inspection and simple tests and state their causes and remedies.",
+   "apparatus": [
+    "Magnifying glass",
+    "Fillet weld gauge",
+    "Hacksaw",
+    "Vice",
+    "Hammer (bend test)",
+    "Etching solution (teacher only)"
+   ],
+   "materials": [
+    "Sample welds with defects: porosity, undercut, overlap, slag inclusion, lack of penetration, cracks, excessive spatter"
+   ],
+   "safety": [
+    "Wear goggles during bend or break tests.",
+    "Etching chemicals are handled only by the teacher."
+   ],
+   "procedure": [
+    "Clean each weld of slag and spatter.",
+    "Examine the face and root visually with the lens.",
+    "Measure bead size and leg length.",
+    "Saw a cross-section of some samples to reveal inclusions and penetration.",
+    "Perform a nick-break or bend test on a sample.",
+    "Record defect, likely cause and remedy."
+   ],
+   "expectedObservations": "Porosity shows as holes; undercut as a groove at the toe; slag inclusion as dark spots in the section; lack of penetration as an unfused root.",
+   "dataAndCalculations": "Acceptance example: a specification allows undercut no deeper than 0.5 mm. A measured undercut of 0.8 mm exceeds this by 0.3 mm, so the weld is rejected and repaired.",
+   "precautions": [
+    "Clean welds before inspection.",
+    "Use good lighting."
+   ],
+   "sourcesOfError": [
+    "Hidden internal defects not visible from the surface."
+   ],
+   "commonMistakes": [
+    "Confusing spatter with porosity."
+   ],
+   "examTips": [
+    "Table: defect – cause – remedy is the expected format.",
+    "Mention destructive and non-destructive tests."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Porosity is mainly caused by",
+     "options": [
+      "damp electrodes or contaminated metal",
+      "correct current",
+      "neutral flame",
+      "clean plate"
+     ],
+     "answer": 0,
+     "explanation": "Gas is trapped in the weld."
+    },
+    {
+     "q": "Slag inclusion is prevented by",
+     "options": [
+      "higher arc length",
+      "damp electrodes",
+      "faster cooling",
+      "thorough cleaning between runs"
+     ],
+     "answer": 3,
+     "explanation": "Slag trapped under later runs causes inclusions."
+    },
+    {
+     "q": "Undercut is often caused by",
+     "options": [
+      "clean plates",
+      "correct angle",
+      "excessive current",
+      "low current"
+     ],
+     "answer": 2,
+     "explanation": "High current melts away the toe."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-wfab-interpreting-welding-symbols-on-drawings",
+   "title": "Interpreting welding symbols on drawings",
+   "topic": "Standard Welding Codes and Symbols",
+   "kind": "DRAWING",
+   "skills": [
+    "identification",
+    "drawing"
+   ],
+   "aim": "To read and draw standard welding symbols showing weld type, size, location and finish.",
+   "apparatus": [
+    "Drawing instruments",
+    "Welding symbol chart"
+   ],
+   "materials": [
+    "Sample fabrication drawings",
+    "Paper"
+   ],
+   "safety": [
+    "Not applicable beyond normal classroom safety."
+   ],
+   "procedure": [
+    "Identify the parts of a welding symbol: arrow line, reference line, basic symbol, dimensions, supplementary symbols.",
+    "Identify basic symbols: fillet, square butt, single-V, double-V, plug, spot.",
+    "Interpret whether the weld is on the arrow side or other side.",
+    "Read the size and length dimensions.",
+    "Draw symbols for given joints.",
+    "Sketch the actual welds that the symbols describe."
+   ],
+   "expectedObservations": "Symbols match the welds required; arrow-side and other-side conventions are correctly applied.",
+   "dataAndCalculations": "A fillet symbol marked \"6 ◺ 4 × 50 (100)\" means a 6 mm fillet, 4 welds each 50 mm long at 100 mm pitch: total weld length = 4 × 50 = 200 mm.",
+   "precautions": [
+    "Follow the standard (ISO 2553 or AWS A2.4) used on the drawing."
+   ],
+   "sourcesOfError": [
+    "Mixing ISO and AWS conventions."
+   ],
+   "commonMistakes": [
+    "Confusing arrow side and other side."
+   ],
+   "examTips": [
+    "Sketch the basic symbols accurately.",
+    "State the meaning of the field-weld flag and weld-all-round circle."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A small circle at the junction of arrow and reference line means",
+     "options": [
+      "field weld",
+      "weld all round",
+      "spot weld",
+      "grind flush"
+     ],
+     "answer": 1,
+     "explanation": "The weld goes completely round the joint."
+    },
+    {
+     "q": "The triangle symbol represents a",
+     "options": [
+      "fillet weld",
+      "butt weld",
+      "plug weld",
+      "spot weld"
+     ],
+     "answer": 0,
+     "explanation": "It looks like the fillet cross-section."
+    },
+    {
+     "q": "Four 50 mm welds have a total length of",
+     "options": [
+      "54 mm",
+      "50 mm",
+      "100 mm",
+      "200 mm"
+     ],
+     "answer": 3,
+     "explanation": "4 × 50 = 200 mm."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

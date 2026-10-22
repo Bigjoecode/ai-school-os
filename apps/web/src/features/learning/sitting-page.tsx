@@ -1,5 +1,5 @@
 import { EXAM_LABELS, MOCK_GRADE_LABEL, MOCK_NAME, type ExamSittingView, type SittingPaperView } from '@aischool/shared';
-import { ArrowLeft, Ban, CheckCircle2, Clock, FileText, Info, ListChecks, PenLine, RotateCcw, Timer } from 'lucide-react';
+import { ArrowLeft, Ban, CheckCircle2, Clock, FileText, FlaskConical, Info, ListChecks, PenLine, RotateCcw, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -12,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { errorMessage } from '@/lib/api';
 import { formatDate } from '@/lib/format';
 import { cn } from '@/lib/utils';
+import { usePracticalSubjects } from '../practicals/api';
 import { examLockError, useSitting, useStartSitting, useStartSittingPaper } from './api';
 import { clock, minutesText, scoreTone, useCountdown } from './components';
 
@@ -60,7 +61,7 @@ function Sitting({ s }: { s: ExamSittingView }) {
       {s.result && <ResultCard s={s} />}
       <div className="space-y-4">
         {s.papers.map((p) => (
-          <PaperCard key={p.paper} sittingId={s.id} p={p} />
+          <PaperCard key={p.paper} sittingId={s.id} p={p} practicals={s.exam === 'WAEC' && (p.kind === 'PRACTICAL' || /practical/i.test(p.title)) ? s.subject : null} />
         ))}
       </div>
       {s.notes.length > 0 && (
@@ -148,7 +149,18 @@ function ResultCard({ s }: { s: ExamSittingView }) {
   );
 }
 
-function PaperCard({ sittingId, p }: { sittingId: string; p: SittingPaperView }) {
+/** A WAEC practical paper links to the subject's Practical Academy lessons, when it has any. */
+function PracticalLink({ subject }: { subject: string }) {
+  const q = usePracticalSubjects();
+  if (!q.data?.some((x) => x.subject === subject)) return null;
+  return (
+    <Link to={`/learn/practicals/subjects/${encodeURIComponent(subject)}`} className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-brand hover:underline">
+      <FlaskConical className="size-3.5" aria-hidden /> Prepare in the Practical Academy: guided practicals and virtual labs
+    </Link>
+  );
+}
+
+function PaperCard({ sittingId, p, practicals }: { sittingId: string; p: SittingPaperView; practicals?: string | null }) {
   const navigate = useNavigate();
   const start = useStartSittingPaper(sittingId);
   const [confirm, setConfirm] = useState(false);
@@ -185,6 +197,7 @@ function PaperCard({ sittingId, p }: { sittingId: string; p: SittingPaperView })
           </div>
         )}
       </div>
+      {practicals && <PracticalLink subject={practicals} />}
       {away ? (
         <p className="mt-3 rounded-xl bg-muted p-3 text-[12.5px] text-muted-foreground">{p.note}</p>
       ) : (

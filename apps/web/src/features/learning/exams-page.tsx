@@ -1,5 +1,5 @@
 import { ENTITLEMENTS, MOCK_APPROXIMATE_NOTE, MOCK_EXAMS, MOCK_NAME, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow, type MockExam } from '@aischool/shared';
-import { AlertTriangle, Ban, CalendarClock, CheckCircle2, ChevronRight, Clock, FileText, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
+import { AlertTriangle, Ban, CalendarClock, CheckCircle2, ChevronRight, Clock, FileText, FlaskConical, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -215,6 +215,13 @@ function ExamCard({ exam, freeLeft, level, onStart }: { exam: Exam; freeLeft: nu
         <Button variant="outline" onClick={() => onStart('THEORY')} className="w-full sm:w-auto" title={exam.entitled ? 'Write full answers; AI marks them against the marking guide' : `Theory practice comes with ${ent.label}`}>
           {exam.entitled ? <PenLine /> : <Lock />} Theory practice <span className="font-normal text-muted-foreground">(AI-marked)</span>
         </Button>
+        {exam.exam === 'WAEC' && (
+          <Button asChild variant="outline" className="w-full sm:w-auto" title="Guided WAEC practicals, practical questions and virtual labs">
+            <Link to="/learn/practicals">
+              <FlaskConical /> Practical Academy
+            </Link>
+          </Button>
+        )}
       </div>
     </Card>
   );

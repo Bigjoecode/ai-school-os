@@ -1,0 +1,1888 @@
+{
+ "exam": "WAEC",
+ "subject": "Building Construction",
+ "practicalPaper": "Paper 3 is a 2½-hour practical test for 100 marks; in Nigeria, Sierra Leone and The Gambia it is on Building Drawing, with four questions of which the compulsory one and any two others are answered. Candidates produce plans, elevations, sections, details and pictorial views to scale with correct symbols, line types, dimensions, title block and lettering; site and workshop practicals support the theory papers.",
+ "practicals": [
+  {
+   "id": "pr-bcon-using-drawing-instruments-and-building-geometry",
+   "title": "Using drawing instruments and building geometry",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "measurement",
+    "procedure"
+   ],
+   "aim": "To use drawing instruments correctly and construct the plane-geometry figures used in building drawing (perpendiculars, angles, polygons, arches).",
+   "apparatus": [
+    "Drawing board and T-square (or drafting machine)",
+    "Set squares (45° and 30°/60°)",
+    "Compasses and dividers",
+    "Scale rule",
+    "Protractor",
+    "Clutch pencils or 2H, HB pencils",
+    "Eraser and erasing shield"
+   ],
+   "materials": [
+    "A2 or A3 cartridge paper",
+    "Masking tape"
+   ],
+   "safety": [
+    "Carry compasses and dividers with points protected.",
+    "Keep the T-square edge free of nicks; do not use it for cutting."
+   ],
+   "procedure": [
+    "Fix the paper square to the board using the T-square.",
+    "Draw the border and title block.",
+    "Bisect a line and an angle; erect a perpendicular at a point.",
+    "Construct 30°, 45°, 60° and 90° angles with set squares and compasses.",
+    "Construct a regular hexagon on a given side.",
+    "Construct a semicircular arch and a segmental arch of given span and rise.",
+    "Line in with firm, uniform lines; add neat lettering and dimensions."
+   ],
+   "expectedObservations": "Constructions are accurate, with light construction lines left visible and outlines lined in firmly.",
+   "dataAndCalculations": "Segmental arch: span 1 200 mm, rise 200 mm. Radius r = (s²/4 + h²)/(2h) = (600² + 200²)/(2 × 200) = (360 000 + 40 000)/400 = 1 000 mm.",
+   "precautions": [
+    "Keep pencils sharp.",
+    "Do not erase construction lines unless asked.",
+    "Work from the left so the T-square does not smudge lines."
+   ],
+   "sourcesOfError": [
+    "Blunt pencils widening lines.",
+    "Paper moving on the board."
+   ],
+   "commonMistakes": [
+    "Uneven line weights.",
+    "Untidy freehand lettering."
+   ],
+   "examTips": [
+    "Marks are awarded for accuracy, line quality, lettering and title block.",
+    "Show construction arcs; they prove the method."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Which instrument is used to draw horizontal lines on a board?",
+     "options": [
+      "Protractor",
+      "Dividers",
+      "French curve",
+      "T-square"
+     ],
+     "answer": 3,
+     "explanation": "The T-square slides along the board edge."
+    },
+    {
+     "q": "A 30°/60° set square together with a T-square cannot directly produce",
+     "options": [
+      "a 60° line",
+      "a 90° line",
+      "a 15° line",
+      "a 30° line"
+     ],
+     "answer": 2,
+     "explanation": "15° needs both set squares combined (45° − 30°) or bisection."
+    },
+    {
+     "q": "Construction lines should be",
+     "options": [
+      "dashed",
+      "light and thin",
+      "thick and dark",
+      "in ink"
+     ],
+     "answer": 1,
+     "explanation": "They guide the final outline and should not dominate."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-using-scales-in-building-drawing",
+   "title": "Using scales in building drawing",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "measurement",
+    "calculation",
+    "drawing"
+   ],
+   "aim": "To convert between real and drawn sizes at common building scales (1:5, 1:20, 1:50, 1:100, 1:200, 1:1250) and to apply them on drawings and on site.",
+   "apparatus": [
+    "Scale rule with 1:5/1:50 and 1:100/1:200 faces",
+    "Drawing instruments"
+   ],
+   "materials": [
+    "Dimensioned sketch of a room",
+    "Drawing paper"
+   ],
+   "safety": [
+    "Handle the scale rule edges gently; do not use it as a straight-edge for cutting."
+   ],
+   "procedure": [
+    "Select a scale that fits the drawing on the sheet.",
+    "Convert each real dimension to drawing size.",
+    "Draw the room plan at 1:50 using the scale rule directly.",
+    "Re-draw a detail at 1:5.",
+    "Measure a dimension from a given drawing and convert back to real size.",
+    "State the scale in the title block."
+   ],
+   "expectedObservations": "Drawn sizes match the converted values; measuring back from the drawing returns the original real dimension.",
+   "dataAndCalculations": "A 4 500 mm wall at 1:50 is drawn 4 500/50 = 90 mm long. A 12.6 m frontage at 1:100 is 12 600/100 = 126 mm. A line 75 mm long on a 1:50 drawing represents 75 × 50 = 3 750 mm = 3.75 m.",
+   "precautions": [
+    "Always read the scale written on the drawing before measuring.",
+    "Write dimensions in millimetres on building drawings."
+   ],
+   "sourcesOfError": [
+    "Paper shrinkage or photocopy enlargement.",
+    "Reading the wrong face of the scale rule."
+   ],
+   "commonMistakes": [
+    "Dividing when you should multiply when converting back.",
+    "Mixing metres and millimetres."
+   ],
+   "examTips": [
+    "Typical uses: 1:100/1:50 plans and elevations, 1:20/1:5 details, 1:200–1:2500 site/location plans.",
+    "Write the scale clearly in the title block."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 3.6 m room drawn at 1:50 is",
+     "options": [
+      "180 mm",
+      "36 mm",
+      "7.2 mm",
+      "72 mm"
+     ],
+     "answer": 3,
+     "explanation": "3 600/50 = 72 mm."
+    },
+    {
+     "q": "A line 40 mm long at 1:100 represents",
+     "options": [
+      "40 m",
+      "400 m",
+      "4 m",
+      "0.4 m"
+     ],
+     "answer": 2,
+     "explanation": "40 × 100 = 4 000 mm."
+    },
+    {
+     "q": "Construction details are usually drawn at",
+     "options": [
+      "1:2500",
+      "1:5 or 1:10",
+      "1:500",
+      "1:1250"
+     ],
+     "answer": 1,
+     "explanation": "Large scales show detail clearly."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-drawing-the-floor-plan-of-a-bungalow",
+   "title": "Drawing the floor plan of a bungalow",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "measurement",
+    "identification"
+   ],
+   "aim": "To draw to scale the floor plan of a small residential bungalow from a sketch, using correct symbols, wall thicknesses and dimensioning.",
+   "apparatus": [
+    "Drawing instruments",
+    "Scale rule",
+    "Circle and symbol templates"
+   ],
+   "materials": [
+    "A2 paper",
+    "Dimensioned sketch of a two-bedroom bungalow"
+   ],
+   "safety": [
+    "Keep the drawing area tidy; protect compasses."
+   ],
+   "procedure": [
+    "Choose scale 1:100 (or 1:50) and plan the layout on the sheet.",
+    "Draw the external walls (225 mm) and internal walls (150 mm) with thin lines first.",
+    "Locate door and window openings; insert door swings and window symbols.",
+    "Add sanitary fittings and kitchen fittings using standard symbols.",
+    "Line in walls firmly; hatch or shade cut walls.",
+    "Add running and overall dimensions, room names and floor areas.",
+    "Add a north point, scale and title block."
+   ],
+   "expectedObservations": "The plan shows clear rooms with correct wall thicknesses, door swings, windows and complete dimensions.",
+   "dataAndCalculations": "Bedroom internal size 3 600 × 3 300 mm → floor area 3.6 × 3.3 = 11.88 m². External dimension of a 3 600 mm room between two 225 mm external walls = 3 600 + 2 × 225 = 4 050 mm.",
+   "precautions": [
+    "Check that running dimensions add up to the overall dimension.",
+    "Draw door swings opening into rooms, not into corridors where they would obstruct."
+   ],
+   "sourcesOfError": [
+    "Accumulated measuring errors along long walls."
+   ],
+   "commonMistakes": [
+    "Same line weight for walls and fittings.",
+    "Missing or contradictory dimensions.",
+    "Forgetting the north point."
+   ],
+   "examTips": [
+    "The compulsory question often asks for a plan; finish it first.",
+    "Neat lettering of room names and a correct title block carry marks."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A common external sandcrete wall thickness in Nigeria is",
+     "options": [
+      "600 mm",
+      "15 mm",
+      "225 mm",
+      "50 mm"
+     ],
+     "answer": 2,
+     "explanation": "The 9-inch (225 mm) block is standard for external walls."
+    },
+    {
+     "q": "A room 4 m × 3.5 m has a floor area of",
+     "options": [
+      "12 m²",
+      "14 m²",
+      "7.5 m²",
+      "15 m²"
+     ],
+     "answer": 1,
+     "explanation": "4 × 3.5 = 14 m²."
+    },
+    {
+     "q": "On a floor plan, the north point shows",
+     "options": [
+      "orientation of the building",
+      "the scale",
+      "the roof pitch",
+      "the drainage fall"
+     ],
+     "answer": 0,
+     "explanation": "It orients the plan on the site."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-drawing-elevations-and-a-vertical-section",
+   "title": "Drawing elevations and a vertical section",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "identification",
+    "measurement"
+   ],
+   "aim": "To project front and side elevations from a plan and draw a vertical section through a building showing foundation, floor, wall, lintel and roof.",
+   "apparatus": [
+    "Drawing instruments",
+    "Scale rule",
+    "Hatching templates"
+   ],
+   "materials": [
+    "Floor plan from the previous exercise",
+    "A2 paper"
+   ],
+   "safety": [
+    "Keep instruments clean to avoid smudging."
+   ],
+   "procedure": [
+    "Fix the plan at the top of the sheet; project the openings and wall ends downwards.",
+    "Set out ground level, floor level (damp-proof course), sill, lintel and wall plate heights.",
+    "Draw the roof outline from the given pitch.",
+    "Complete the elevation with windows, doors, fascia and steps.",
+    "Choose a section line (A–A) on the plan through a window and door.",
+    "Draw the section showing strip foundation, blockwork, oversite concrete, DPM, floor screed, lintel, wall plate, roof truss and ceiling.",
+    "Hatch cut materials with standard symbols and label every element with leaders."
+   ],
+   "expectedObservations": "Elevations align with the plan, and the section shows all elements in their correct relationship and materials.",
+   "dataAndCalculations": "Heights (typical): foundation depth 900 mm below ground, DPC 150 mm above ground, window sill 900 mm above floor, lintel 2 100 mm above floor, wall plate 3 000 mm. Rise of a 30° roof over a 4 m half-span = 4 × tan 30° = 2.31 m.",
+   "precautions": [
+    "Project rather than re-measure, so views agree.",
+    "Use standard hatching for concrete, blockwork, earth and timber."
+   ],
+   "sourcesOfError": [
+    "Misaligned projections.",
+    "Inconsistent heights between elevation and section."
+   ],
+   "commonMistakes": [
+    "Not showing the DPC and DPM.",
+    "Hatching uncut items."
+   ],
+   "examTips": [
+    "Label section elements fully; marks are given for each correct label.",
+    "Show the section line on the plan with direction arrows."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A DPC is placed in walls to",
+     "options": [
+      "support the roof",
+      "carry the lintel",
+      "decorate the wall",
+      "prevent rising damp"
+     ],
+     "answer": 3,
+     "explanation": "It is a damp-proof course."
+    },
+    {
+     "q": "The member that spans over a window opening is the",
+     "options": [
+      "jamb",
+      "threshold",
+      "lintel",
+      "sill"
+     ],
+     "answer": 2,
+     "explanation": "It carries the wall above the opening."
+    },
+    {
+     "q": "Section lines on a plan carry arrows that show",
+     "options": [
+      "the scale",
+      "the direction of viewing",
+      "the slope of the floor",
+      "the north point"
+     ],
+     "answer": 1,
+     "explanation": "They show which way the section is viewed."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-door-and-window-details-and-schedule",
+   "title": "Door and window details and schedule",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "identification",
+    "measurement"
+   ],
+   "aim": "To draw the details of a panelled door and a casement window to a large scale and prepare a door and window schedule.",
+   "apparatus": [
+    "Drawing instruments",
+    "Scale rule (1:5, 1:10, 1:20)"
+   ],
+   "materials": [
+    "A3 paper",
+    "Sample timber door and window (or photographs)"
+   ],
+   "safety": [
+    "Handle sample joinery with care; check for nails and splinters."
+   ],
+   "procedure": [
+    "Draw the elevation of the door at 1:20 showing stiles, rails and panels.",
+    "Draw a horizontal section through the frame and stile at 1:5 showing rebates and mouldings.",
+    "Draw a casement window elevation and a vertical section through head, sill and transom.",
+    "Number the doors (D1, D2…) and windows (W1, W2…) on the plan.",
+    "Prepare a schedule table: reference, size, type, material, ironmongery, quantity.",
+    "Add notes on fixing methods."
+   ],
+   "expectedObservations": "Details clearly show members, rebates and glazing; the schedule lists every opening with consistent sizes.",
+   "dataAndCalculations": "Standard sizes: external door 900 × 2 100 mm, internal door 800 × 2 100 mm, window 1 200 × 1 200 mm. Schedule example: D1 – 900 × 2 100 – panelled hardwood – 1 No.; D2 – 800 × 2 100 – flush – 4 No.; W1 – 1 200 × 1 200 – casement – 6 No.",
+   "precautions": [
+    "Keep sizes consistent between plan, elevation and schedule.",
+    "Use a larger scale for sections so rebates are visible."
+   ],
+   "sourcesOfError": [
+    "Mis-numbered openings."
+   ],
+   "commonMistakes": [
+    "Omitting ironmongery in the schedule.",
+    "Drawing the door frame without a rebate."
+   ],
+   "examTips": [
+    "A neat ruled schedule table is quick marks.",
+    "Label stile, rail, muntin, panel, head, sill, jamb, transom, mullion."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The vertical outer members of a door are",
+     "options": [
+      "lintels",
+      "stiles",
+      "rails",
+      "muntins"
+     ],
+     "answer": 1,
+     "explanation": "Rails are horizontal; muntins are intermediate vertical members."
+    },
+    {
+     "q": "A horizontal bar dividing a window frame is a",
+     "options": [
+      "transom",
+      "mullion",
+      "jamb",
+      "stile"
+     ],
+     "answer": 0,
+     "explanation": "A mullion is vertical."
+    },
+    {
+     "q": "A door and window schedule lists",
+     "options": [
+      "the roof pitch",
+      "concrete mix ratios",
+      "soil types",
+      "references, sizes, types and quantities of openings"
+     ],
+     "answer": 3,
+     "explanation": "It is a table for ordering and fixing joinery."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-isometric-and-perspective-drawing-of-a-building",
+   "title": "Isometric and perspective drawing of a building",
+   "topic": "Building Drawing",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "procedure"
+   ],
+   "aim": "To produce an isometric view and a simple two-point perspective of a small building from its plan and elevations.",
+   "apparatus": [
+    "Drawing instruments",
+    "30°/60° set square",
+    "Scale rule"
+   ],
+   "materials": [
+    "Plan and elevations of a gatehouse or small shop",
+    "A3 paper"
+   ],
+   "safety": [
+    "Keep the drawing area clear of loose instruments."
+   ],
+   "procedure": [
+    "Draw the isometric axes: one vertical, two at 30° to the horizontal.",
+    "Measure true lengths along the axes from the orthographic views.",
+    "Box in the building, then cut out openings and add the roof.",
+    "For perspective, fix the horizon line, two vanishing points and the leading vertical edge.",
+    "Project heights from the measuring line and widths from the plan to the vanishing points.",
+    "Line in visible edges and add simple rendering."
+   ],
+   "expectedObservations": "The isometric view shows true lengths along axes; the perspective looks natural, with parallel lines converging to the vanishing points.",
+   "dataAndCalculations": "Isometric uses true lengths along the axes (scale factor 1 in isometric drawing; 0.816 in a true isometric projection). A 4 m wall at 1:50 is drawn 80 mm along its axis.",
+   "precautions": [
+    "Measure only along isometric axes; non-isometric lines are found by plotting end points.",
+    "Keep vanishing points far apart to avoid distortion."
+   ],
+   "sourcesOfError": [
+    "Small angle errors growing over long lines."
+   ],
+   "commonMistakes": [
+    "Measuring sloping lines directly.",
+    "Placing the horizon line too high."
+   ],
+   "examTips": [
+    "State the type of pictorial view used.",
+    "Clean, well-proportioned pictorials score well."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Isometric axes are inclined at",
+     "options": [
+      "45° to the horizontal",
+      "60° to the vertical only",
+      "90°",
+      "30° to the horizontal"
+     ],
+     "answer": 3,
+     "explanation": "Two axes at 30°, one vertical."
+    },
+    {
+     "q": "In two-point perspective, horizontal lines converge to",
+     "options": [
+      "no point",
+      "the ground line",
+      "two vanishing points",
+      "one vanishing point"
+     ],
+     "answer": 2,
+     "explanation": "One for each set of horizontal edges."
+    },
+    {
+     "q": "Circles in isometric appear as",
+     "options": [
+      "triangles",
+      "ellipses",
+      "circles",
+      "squares"
+     ],
+     "answer": 1,
+     "explanation": "They are drawn using the four-centre method."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-setting-out-a-building-by-the-3-4-5-method",
+   "title": "Setting out a building by the 3:4:5 method",
+   "topic": "Setting Out",
+   "kind": "FIELD",
+   "skills": [
+    "measurement",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To set out the corners of a rectangular building on site using the 3:4:5 method and profile boards, and to check squareness with diagonals.",
+   "apparatus": [
+    "30 m measuring tape",
+    "Builder's square",
+    "Ranging rods",
+    "Pegs and mallet",
+    "Builder's line",
+    "Spirit level",
+    "Profile boards"
+   ],
+   "materials": [
+    "Timber pegs",
+    "Nails",
+    "Lime or chalk powder",
+    "Site plan"
+   ],
+   "safety": [
+    "Wear safety boots and gloves.",
+    "Mark pegs with bright tape so people do not trip over them."
+   ],
+   "procedure": [
+    "Locate the building line from the site plan and fix the front corner pegs A and B.",
+    "From A, measure 3.6 m along AB and mark point C.",
+    "With one tape from A (4.8 m) and another from C (6.0 m), find the point where they meet, D; line AD is at 90° to AB.",
+    "Extend AD to the building width and fix corner pegs; repeat at the other corners.",
+    "Check the diagonals; they must be equal.",
+    "Erect profile boards clear of the trench and transfer wall and trench lines with nails.",
+    "Mark trench widths on the ground with lime."
+   ],
+   "expectedObservations": "All corners are right angles and the two diagonals agree within a few millimetres.",
+   "dataAndCalculations": "Using 3:4:5 multiplied by 1.2: 3.6 m, 4.8 m and 6.0 m. For a 9 m × 6 m building, each diagonal = √(9² + 6²) = √117 = 10.82 m; both diagonals must equal 10.82 m.",
+   "precautions": [
+    "Keep tapes taut and level.",
+    "Drive pegs vertically.",
+    "Use the largest practicable triangle for accuracy."
+   ],
+   "sourcesOfError": [
+    "Tape sag.",
+    "Pegs disturbed after setting."
+   ],
+   "commonMistakes": [
+    "Setting profiles inside the trench area.",
+    "Not checking diagonals."
+   ],
+   "examTips": [
+    "Name all tools and explain profile boards.",
+    "Show the diagonal check calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The 3:4:5 method is based on",
+     "options": [
+      "Archimedes' principle",
+      "Hooke's law",
+      "Pythagoras' theorem",
+      "Ohm's law"
+     ],
+     "answer": 2,
+     "explanation": "3² + 4² = 5²."
+    },
+    {
+     "q": "A 12 m × 5 m building has a diagonal of",
+     "options": [
+      "60 m",
+      "13 m",
+      "17 m",
+      "7 m"
+     ],
+     "answer": 1,
+     "explanation": "√(144 + 25) = 13 m."
+    },
+    {
+     "q": "Profile boards are fixed",
+     "options": [
+      "outside the trench line",
+      "inside the trench",
+      "on the roof",
+      "on the foundation concrete"
+     ],
+     "answer": 0,
+     "explanation": "So they are not disturbed by excavation."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-site-levelling-with-a-dumpy-level",
+   "title": "Site levelling with a dumpy level",
+   "topic": "Site Clearing and Levelling",
+   "kind": "FIELD",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To determine reduced levels of points on a site using a dumpy (or automatic) level and staff, and to establish a datum for building.",
+   "apparatus": [
+    "Dumpy or automatic level with tripod",
+    "Levelling staff",
+    "Measuring tape",
+    "Pegs",
+    "Field book"
+   ],
+   "materials": [
+    "Temporary bench mark (TBM) of known level",
+    "Pencils"
+   ],
+   "safety": [
+    "Keep clear of moving plant on site.",
+    "Hold the staff vertical and watch for overhead cables when extending it."
+   ],
+   "procedure": [
+    "Set up the level on firm ground and level it with the foot screws and bubble.",
+    "Take a back sight (BS) on the TBM.",
+    "Calculate the height of plane of collimation (HPC = RL of TBM + BS).",
+    "Take intermediate sights (IS) and fore sights (FS) on the site points.",
+    "Calculate reduced levels: RL = HPC − staff reading.",
+    "Close back on the TBM to check for errors.",
+    "Record in the field book and draw a simple level plan."
+   ],
+   "expectedObservations": "Reduced levels show the high and low parts of the site; the closing error on the TBM is small.",
+   "dataAndCalculations": "TBM RL = 100.000 m, BS = 1.250 m → HPC = 101.250 m. IS at point P = 0.950 m → RL = 101.250 − 0.950 = 100.300 m. FS at point Q = 1.850 m → RL = 101.250 − 1.850 = 99.400 m. Q is 0.900 m lower than P.",
+   "precautions": [
+    "Level the instrument carefully before every reading.",
+    "Keep sight lengths roughly equal to cancel collimation error.",
+    "Read the staff to the nearest millimetre."
+   ],
+   "sourcesOfError": [
+    "Staff not vertical.",
+    "Instrument out of adjustment.",
+    "Heat shimmer."
+   ],
+   "commonMistakes": [
+    "Adding instead of subtracting staff readings from HPC.",
+    "Moving the instrument without a change point."
+   ],
+   "examTips": [
+    "Lay out the booking table neatly: BS, IS, FS, HPC, RL, remarks.",
+    "Apply the arithmetic check: ΣBS − ΣFS = last RL − first RL."
+   ],
+   "checkQuestions": [
+    {
+     "q": "HPC = 50.000 m and a staff reading is 1.500 m. The RL is",
+     "options": [
+      "1.500 m",
+      "48.500 m",
+      "51.500 m",
+      "50.000 m"
+     ],
+     "answer": 1,
+     "explanation": "RL = HPC − reading."
+    },
+    {
+     "q": "The first reading after setting up on a known level is the",
+     "options": [
+      "back sight",
+      "fore sight",
+      "intermediate sight",
+      "change point"
+     ],
+     "answer": 0,
+     "explanation": "It fixes the height of collimation."
+    },
+    {
+     "q": "A larger staff reading means the point is",
+     "options": [
+      "higher",
+      "at the same level",
+      "closer",
+      "lower"
+     ],
+     "answer": 3,
+     "explanation": "The point is further below the line of sight."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-trench-excavation-for-a-strip-foundation",
+   "title": "Trench excavation for a strip foundation",
+   "topic": "Excavation and Earth-work",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To excavate a trench to a given width and depth, support it where necessary and calculate the volume of spoil.",
+   "apparatus": [
+    "Pick-axe",
+    "Shovels",
+    "Digger (diggers' hoe)",
+    "Wheelbarrow",
+    "Measuring tape",
+    "Spirit level and straight edge",
+    "Timber for earthwork support"
+   ],
+   "materials": [
+    "Pegs and lines from the setting out",
+    "Planks and struts"
+   ],
+   "safety": [
+    "Support trench sides deeper than about 1.2 m or in loose soil.",
+    "Keep spoil at least 0.6 m from the trench edge.",
+    "Wear helmets and boots; provide a ladder for access."
+   ],
+   "procedure": [
+    "Mark trench lines from the profile boards with lime.",
+    "Excavate to the required depth in layers.",
+    "Trim sides vertical and bottom level; check with level and staff or gauge rod.",
+    "Place earthwork support (poling boards and struts) if the soil is loose.",
+    "Remove water by bailing or pumping if present.",
+    "Measure the finished trench and calculate the volume.",
+    "Ram the trench bottom before concreting."
+   ],
+   "expectedObservations": "A clean trench with vertical sides and a level, firm bottom ready for foundation concrete.",
+   "dataAndCalculations": "Trench 600 mm wide × 900 mm deep, total centre-line length 40 m: volume = 40 × 0.6 × 0.9 = 21.6 m³ (bank). With 25% bulking, loose spoil = 21.6 × 1.25 = 27.0 m³ to be carted.",
+   "precautions": [
+    "Do not over-excavate; backfilling weakens the base.",
+    "Protect the trench from rain."
+   ],
+   "sourcesOfError": [
+    "Uneven trench bottom.",
+    "Collapse of sides."
+   ],
+   "commonMistakes": [
+    "Piling spoil at the trench edge.",
+    "Working alone in deep trenches."
+   ],
+   "examTips": [
+    "Name the methods of earthwork support: timbering, battering, sheet piling; and dewatering.",
+    "Show the volume formula with units."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Spoil should be kept away from the trench edge to",
+     "options": [
+      "improve drainage only",
+      "prevent collapse and falling material",
+      "make the trench deeper",
+      "save time"
+     ],
+     "answer": 1,
+     "explanation": "Extra load at the edge causes collapse."
+    },
+    {
+     "q": "A trench 30 m × 0.5 m × 1 m has a volume of",
+     "options": [
+      "15 m³",
+      "31.5 m³",
+      "1.5 m³",
+      "150 m³"
+     ],
+     "answer": 0,
+     "explanation": "30 × 0.5 × 1 = 15 m³."
+    },
+    {
+     "q": "Sloping trench sides to a safe angle is called",
+     "options": [
+      "timbering",
+      "dewatering",
+      "blinding",
+      "battering"
+     ],
+     "answer": 3,
+     "explanation": "Battering avoids the need for support."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-casting-a-strip-foundation",
+   "title": "Casting a strip foundation",
+   "topic": "Foundation",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "calculation",
+    "measurement"
+   ],
+   "aim": "To place and level concrete in a strip foundation trench to the specified thickness and calculate the materials required.",
+   "apparatus": [
+    "Level pegs or datum pegs",
+    "Spirit level",
+    "Straight edge",
+    "Shovels",
+    "Head pans",
+    "Wheelbarrows",
+    "Rammer"
+   ],
+   "materials": [
+    "Cement, sharp sand, granite (1:3:6 or 1:2:4 as specified)",
+    "Water"
+   ],
+   "safety": [
+    "Wear gloves and boots; wet cement burns skin.",
+    "Lift head pans correctly to avoid back injury."
+   ],
+   "procedure": [
+    "Drive level pegs in the trench bottom to the top of the concrete.",
+    "Batch and mix concrete.",
+    "Place concrete in layers and compact with a rammer or vibrator.",
+    "Level off to the tops of the pegs with a straight edge.",
+    "Check levels across the trench and around the corners.",
+    "Cure the concrete by keeping it damp."
+   ],
+   "expectedObservations": "A uniform, level concrete strip at the correct thickness.",
+   "dataAndCalculations": "Strip 40 m long × 0.6 m wide × 0.15 m thick: volume = 40 × 0.6 × 0.15 = 3.6 m³ of concrete.",
+   "precautions": [
+    "Do not drop concrete from a great height (segregation).",
+    "Remove level pegs or ensure they are concreted in cleanly."
+   ],
+   "sourcesOfError": [
+    "Poor compaction leaving voids.",
+    "Mis-set level pegs."
+   ],
+   "commonMistakes": [
+    "Too much water in the mix.",
+    "Not curing the concrete."
+   ],
+   "examTips": [
+    "State factors affecting choice of foundation: soil type, load, cost, water table.",
+    "Name foundation types: strip, pad, raft, pile."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A foundation spread under the whole building is a",
+     "options": [
+      "strip foundation",
+      "pad foundation",
+      "pile foundation",
+      "raft foundation"
+     ],
+     "answer": 3,
+     "explanation": "Used on weak soils."
+    },
+    {
+     "q": "Concrete 20 m × 0.6 m × 0.2 m =",
+     "options": [
+      "0.24 m³",
+      "12 m³",
+      "2.4 m³",
+      "24 m³"
+     ],
+     "answer": 2,
+     "explanation": "20 × 0.6 × 0.2 = 2.4 m³."
+    },
+    {
+     "q": "Pile foundations are used where",
+     "options": [
+      "the building is a shed",
+      "firm soil is deep down",
+      "the soil is rock at the surface",
+      "loads are very small"
+     ],
+     "answer": 1,
+     "explanation": "Piles transfer loads to deep firm strata."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-concrete-batching-mixing-and-the-slump-test",
+   "title": "Concrete batching, mixing and the slump test",
+   "topic": "Concrete",
+   "kind": "WORKSHOP",
+   "skills": [
+    "measurement",
+    "procedure",
+    "calculation"
+   ],
+   "aim": "To batch and mix a 1:2:4 concrete by volume, measure its workability with the slump test and calculate materials for one cubic metre.",
+   "apparatus": [
+    "Gauge box (batch box)",
+    "Shovels",
+    "Mixing platform or concrete mixer",
+    "Slump cone (100 mm top, 200 mm base, 300 mm high)",
+    "Tamping rod (16 mm)",
+    "Steel rule",
+    "Watering can"
+   ],
+   "materials": [
+    "Ordinary Portland cement",
+    "Clean sharp sand",
+    "Granite (20 mm)",
+    "Clean water"
+   ],
+   "safety": [
+    "Wear gloves, boots and a dust mask when handling cement.",
+    "Wash cement off skin promptly."
+   ],
+   "procedure": [
+    "Measure 1 part cement, 2 parts sand and 4 parts granite with the gauge box.",
+    "Mix sand and cement dry until uniform in colour; add granite and mix again.",
+    "Add water gradually while turning until the mix is uniform and workable.",
+    "Fill the slump cone in three equal layers, rodding each layer 25 times.",
+    "Strike off the top, lift the cone vertically and steadily.",
+    "Measure the slump: difference between cone height and the highest point of the slumped concrete.",
+    "Record the type of slump: true, shear or collapse."
+   ],
+   "expectedObservations": "A true slump of 25–75 mm is typical for normal reinforced work; a collapse indicates too much water.",
+   "dataAndCalculations": "Dry volume for 1 m³ of wet concrete ≈ 1.54 m³. Sum of parts = 1 + 2 + 4 = 7. Cement = 1.54/7 = 0.22 m³ × 1 440 kg/m³ = 316.8 kg ≈ 6.3 bags (50 kg). Sand = 1.54 × 2/7 = 0.44 m³; granite = 1.54 × 4/7 = 0.88 m³.",
+   "precautions": [
+    "Use clean water and aggregates.",
+    "Do not jerk or twist the cone when lifting.",
+    "Carry out the test within a few minutes of mixing."
+   ],
+   "sourcesOfError": [
+    "Bulking of damp sand.",
+    "Inconsistent rodding."
+   ],
+   "commonMistakes": [
+    "Adding all the water at once.",
+    "Measuring slump from the wrong point."
+   ],
+   "examTips": [
+    "Name the concrete tests: slump, compacting factor, cube crushing.",
+    "Show the 1.54 dry-volume factor and the bag calculation."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The slump test measures",
+     "options": [
+      "compressive strength",
+      "setting time",
+      "density",
+      "workability"
+     ],
+     "answer": 3,
+     "explanation": "It is a field test of consistency."
+    },
+    {
+     "q": "In a 1:2:4 mix, the \"2\" refers to",
+     "options": [
+      "granite",
+      "water",
+      "sand",
+      "cement"
+     ],
+     "answer": 2,
+     "explanation": "Order is cement : sand : coarse aggregate."
+    },
+    {
+     "q": "A slump that collapses completely suggests",
+     "options": [
+      "perfect mix",
+      "too much water",
+      "too little water",
+      "too much cement"
+     ],
+     "answer": 1,
+     "explanation": "Excess water makes the concrete flow."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-concrete-cube-crushing-test",
+   "title": "Concrete cube crushing test",
+   "topic": "Concrete",
+   "kind": "LAB",
+   "skills": [
+    "measurement",
+    "calculation",
+    "procedure"
+   ],
+   "aim": "To make, cure and crush concrete cubes and calculate the compressive strength.",
+   "apparatus": [
+    "150 mm steel cube moulds",
+    "Tamping bar",
+    "Trowel",
+    "Curing tank",
+    "Compression testing machine"
+   ],
+   "materials": [
+    "Fresh concrete from the mix",
+    "Mould oil"
+   ],
+   "safety": [
+    "Wear goggles; fragments may fly when cubes fail.",
+    "Keep hands clear of the machine platens."
+   ],
+   "procedure": [
+    "Oil the moulds.",
+    "Fill each mould in three layers, compacting each layer with 35 strokes of the tamping bar.",
+    "Smooth the top and label the cube with date and mix.",
+    "Demould after 24 hours and cure in water.",
+    "Crush cubes at 7 and 28 days, recording the maximum load.",
+    "Calculate the compressive strength of each cube and the average."
+   ],
+   "expectedObservations": "Strength increases with age; a well-made 1:2:4 mix gains about two-thirds of its 28-day strength by 7 days.",
+   "dataAndCalculations": "Failure load = 337.5 kN on a 150 mm cube: area = 150 × 150 = 22 500 mm². Strength = 337 500 N/22 500 mm² = 15 N/mm² (15 MPa).",
+   "precautions": [
+    "Compact fully to avoid honeycombing.",
+    "Keep cubes wet throughout curing.",
+    "Centre the cube on the platen."
+   ],
+   "sourcesOfError": [
+    "Poor compaction.",
+    "Uneven cube faces.",
+    "Machine calibration."
+   ],
+   "commonMistakes": [
+    "Using kN without converting to N.",
+    "Crushing on the trowelled face."
+   ],
+   "examTips": [
+    "Strength = load/area; show units N/mm².",
+    "Explain curing and why it matters."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 100 mm cube fails at 250 kN. Strength =",
+     "options": [
+      "2.5 N/mm²",
+      "250 N/mm²",
+      "0.25 N/mm²",
+      "25 N/mm²"
+     ],
+     "answer": 3,
+     "explanation": "250 000/10 000 = 25 N/mm²."
+    },
+    {
+     "q": "Curing concrete means",
+     "options": [
+      "adding more cement",
+      "vibrating it after setting",
+      "keeping it moist while it gains strength",
+      "heating it to dry quickly"
+     ],
+     "answer": 2,
+     "explanation": "Hydration needs water."
+    },
+    {
+     "q": "Cube tests are commonly done at",
+     "options": [
+      "3 minutes",
+      "7 and 28 days",
+      "1 and 2 hours",
+      "1 year only"
+     ],
+     "answer": 1,
+     "explanation": "Standard testing ages."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-mixing-mortar-and-laying-blockwork-in-stretcher-bond",
+   "title": "Mixing mortar and laying blockwork in stretcher bond",
+   "topic": "Walls",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To mix a cement–sand mortar and build a short sandcrete block wall in stretcher bond, plumb and level, and estimate block quantities.",
+   "apparatus": [
+    "Trowel",
+    "Spirit level",
+    "Plumb bob",
+    "Builder's line and pins",
+    "Gauge rod",
+    "Head pan",
+    "Shovel",
+    "Tape measure"
+   ],
+   "materials": [
+    "225 mm (9-inch) sandcrete blocks",
+    "Cement and sharp sand (1:6)",
+    "Water"
+   ],
+   "safety": [
+    "Lift blocks with bent knees.",
+    "Wear gloves; keep cement out of eyes."
+   ],
+   "procedure": [
+    "Mix 1 part cement to 6 parts sand dry, then add water to a workable consistency.",
+    "Spread a mortar bed on the foundation and set the corner blocks level.",
+    "Fix the line between corner blocks and lay the first course to the line.",
+    "Build up the corners (racking back), checking plumb and level each course.",
+    "Lay subsequent courses with half-block overlap (stretcher bond) and 10 mm joints.",
+    "Fill perpend joints fully; strike off excess mortar.",
+    "Check the finished wall for plumb, level, alignment and joint thickness."
+   ],
+   "expectedObservations": "Vertical joints are staggered by half a block; the wall is plumb, level and straight.",
+   "dataAndCalculations": "Wall 6 m long × 3 m high = 18 m². Block 450 × 225 mm plus 10 mm joints → face area per block = 0.46 × 0.235 = 0.1081 m². Blocks = 18/0.1081 = 166.5 → 167 blocks; add 5% for breakage → about 175 blocks.",
+   "precautions": [
+    "Keep joints a uniform 10 mm.",
+    "Use mortar within about 1 hour of mixing.",
+    "Wet blocks lightly in hot weather."
+   ],
+   "sourcesOfError": [
+    "Line sagging over long lengths.",
+    "Uneven block sizes."
+   ],
+   "commonMistakes": [
+    "Continuous vertical joints (no bond).",
+    "Not checking plumb at the corners."
+   ],
+   "examTips": [
+    "Define bond and name types: stretcher, English, Flemish, header.",
+    "Show block estimate with waste allowance."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In stretcher bond, vertical joints are staggered by",
+     "options": [
+      "half a block",
+      "a full block",
+      "a quarter block",
+      "none"
+     ],
+     "answer": 0,
+     "explanation": "Half-bond overlap."
+    },
+    {
+     "q": "A typical mortar mix for sandcrete blockwork is",
+     "options": [
+      "1:1",
+      "1:20",
+      "1:2:4",
+      "1:6"
+     ],
+     "answer": 3,
+     "explanation": "1:6 cement:sand is common."
+    },
+    {
+     "q": "The tool used to check that a wall is vertical is a",
+     "options": [
+      "float",
+      "slump cone",
+      "plumb bob or spirit level",
+      "gauge box"
+     ],
+     "answer": 2,
+     "explanation": "Plumbness is vertical alignment."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-moulding-sandcrete-blocks",
+   "title": "Moulding sandcrete blocks",
+   "topic": "Walls",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To mould sandcrete blocks with a hand mould and cure them correctly.",
+   "apparatus": [
+    "Hand block mould (6-inch or 9-inch)",
+    "Shovels",
+    "Gauge box",
+    "Rammer",
+    "Pallets",
+    "Watering can"
+   ],
+   "materials": [
+    "Ordinary Portland cement",
+    "Sharp sand (free of clay)",
+    "Water"
+   ],
+   "safety": [
+    "Wear gloves and boots.",
+    "Stack blocks no higher than about 6 courses."
+   ],
+   "procedure": [
+    "Batch cement and sand by volume (e.g. 1:6) and mix dry.",
+    "Add water until the mix holds its shape when squeezed but does not ooze water.",
+    "Fill the oiled mould in layers, ramming each layer.",
+    "Strike off the top and lift the mould carefully.",
+    "Leave blocks in shade for 24 hours.",
+    "Water-cure for at least 7 days, then stack to dry."
+   ],
+   "expectedObservations": "Blocks have sharp arrises, uniform texture and no cracks.",
+   "dataAndCalculations": "A solid 450 × 150 × 225 mm (6-inch) block has a volume of 0.45 × 0.15 × 0.225 = 0.0152 m³.",
+   "precautions": [
+    "Use clean sand without clay or organic matter.",
+    "Avoid drying in direct sun."
+   ],
+   "sourcesOfError": [
+    "Variable compaction between blocks.",
+    "Inaccurate batching."
+   ],
+   "commonMistakes": [
+    "Using too little cement, giving weak, crumbly blocks.",
+    "Skipping the curing stage."
+   ],
+   "examTips": [
+    "Describe the manufacturing process step by step.",
+    "State standard block sizes: 450 × 225 × 225 mm and 450 × 150 × 225 mm."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Freshly moulded blocks should be cured by",
+     "options": [
+      "painting them",
+      "keeping them moist for several days",
+      "drying in strong sun",
+      "baking in an oven"
+     ],
+     "answer": 1,
+     "explanation": "Cement needs water to hydrate."
+    },
+    {
+     "q": "The standard length of a sandcrete block face is",
+     "options": [
+      "450 mm",
+      "225 mm",
+      "100 mm",
+      "900 mm"
+     ],
+     "answer": 0,
+     "explanation": "450 × 225 mm face."
+    },
+    {
+     "q": "Clay in block sand",
+     "options": [
+      "strengthens the blocks",
+      "has no effect",
+      "is required",
+      "weakens the blocks"
+     ],
+     "answer": 3,
+     "explanation": "Clay coats grains and prevents bonding."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-plastering-and-rendering-a-wall",
+   "title": "Plastering and rendering a wall",
+   "topic": "Wall finishes",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "calculation",
+    "safety"
+   ],
+   "aim": "To apply a two-coat cement–sand plaster to a blockwork wall and finish it with a wooden float.",
+   "apparatus": [
+    "Steel trowel",
+    "Wooden float",
+    "Hawk",
+    "Straight edge (screed board)",
+    "Spirit level",
+    "Plumb bob",
+    "Scratcher"
+   ],
+   "materials": [
+    "Cement and plaster sand",
+    "Water"
+   ],
+   "safety": [
+    "Wear goggles when throwing mortar overhead.",
+    "Use a stable working platform."
+   ],
+   "procedure": [
+    "Brush the wall clean and wet it.",
+    "Fix plaster dots and screeds to give the finished plane.",
+    "Apply the first (scratch) coat about 10 mm thick and key it with a scratcher.",
+    "After it has stiffened, apply the second coat to the screeds.",
+    "Rule off with the straight edge.",
+    "Finish with a wooden float in circular movements.",
+    "Keep the plaster damp for three days."
+   ],
+   "expectedObservations": "A flat, even surface with no hollows, cracks or ridges.",
+   "dataAndCalculations": "Area 10 m² at 12 mm total thickness: wet mortar = 10 × 0.012 = 0.12 m³ (add about 25–30% for dry volume and wastage when ordering materials).",
+   "precautions": [
+    "Do not plaster over a dry, dusty wall.",
+    "Do not over-trowel cement-rich plaster (it crazes)."
+   ],
+   "sourcesOfError": [
+    "Uneven screeds.",
+    "Rapid drying in hot sun."
+   ],
+   "commonMistakes": [
+    "Applying one thick coat that sags.",
+    "Skipping the key on the first coat."
+   ],
+   "examTips": [
+    "Distinguish plastering (internal) and rendering (external) and name rendering types: smooth, pebble-dash, roughcast, tyrolean.",
+    "Describe defects: crazing, blistering, efflorescence."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The first coat of plaster is scratched to",
+     "options": [
+      "speed drying",
+      "remove sand",
+      "provide a key for the next coat",
+      "decorate the wall"
+     ],
+     "answer": 2,
+     "explanation": "The key improves bond."
+    },
+    {
+     "q": "External plaster is called",
+     "options": [
+      "grouting",
+      "rendering",
+      "screeding",
+      "pointing"
+     ],
+     "answer": 1,
+     "explanation": "Rendering protects external walls."
+    },
+    {
+     "q": "Area 20 m² plastered 15 mm thick requires",
+     "options": [
+      "0.3 m³ wet mortar",
+      "3 m³",
+      "0.03 m³",
+      "30 m³"
+     ],
+     "answer": 0,
+     "explanation": "20 × 0.015 = 0.3 m³."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-laying-floor-tiles",
+   "title": "Laying floor tiles",
+   "topic": "Floor finishes",
+   "kind": "WORKSHOP",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To set out and lay ceramic floor tiles on a screed and estimate the number of tiles needed.",
+   "apparatus": [
+    "Notched trowel",
+    "Rubber mallet",
+    "Tile cutter",
+    "Spirit level",
+    "Tile spacers",
+    "Grout float",
+    "Tape measure",
+    "Chalk line"
+   ],
+   "materials": [
+    "Ceramic tiles 400 × 400 mm",
+    "Tile adhesive or cement mortar",
+    "Grout"
+   ],
+   "safety": [
+    "Wear gloves and goggles when cutting tiles.",
+    "Kneel on knee pads."
+   ],
+   "procedure": [
+    "Check the screed is level, clean and sound.",
+    "Find the centre of the room and snap chalk lines at right angles.",
+    "Dry-lay a row each way to balance cut tiles at the edges.",
+    "Spread adhesive with the notched trowel over about 1 m² at a time.",
+    "Bed tiles with a slight twist; use spacers; tap level with the mallet.",
+    "Cut and fit edge tiles.",
+    "Grout the joints after 24 hours and clean the surface."
+   ],
+   "expectedObservations": "Tiles are level, joints straight and even, and cut tiles at opposite walls are of similar size.",
+   "dataAndCalculations": "Room 4.0 m × 3.6 m = 14.4 m². Tile area = 0.4 × 0.4 = 0.16 m². Tiles = 14.4/0.16 = 90; add 10% for cutting and breakage → 99 tiles.",
+   "precautions": [
+    "Check level frequently.",
+    "Do not walk on new tiles for 24 hours."
+   ],
+   "sourcesOfError": [
+    "Out-of-square room walls.",
+    "Uneven adhesive bed causing lippage."
+   ],
+   "commonMistakes": [
+    "Starting from one wall so cuts end up thin on the other side.",
+    "Not using spacers."
+   ],
+   "examTips": [
+    "List floor finish types: terrazzo, ceramic tiles, PVC tiles, screed, timber.",
+    "Show quantity calculation with waste."
+   ],
+   "checkQuestions": [
+    {
+     "q": "Tiling usually starts from",
+     "options": [
+      "a corner without setting out",
+      "the ceiling",
+      "the centre lines of the room",
+      "the door"
+     ],
+     "answer": 2,
+     "explanation": "This balances the cut tiles."
+    },
+    {
+     "q": "A room 5 m × 4 m with 0.5 m × 0.5 m tiles needs (no waste)",
+     "options": [
+      "100 tiles",
+      "80 tiles",
+      "20 tiles",
+      "40 tiles"
+     ],
+     "answer": 1,
+     "explanation": "20/0.25 = 80."
+    },
+    {
+     "q": "The material filling the joints between tiles is",
+     "options": [
+      "grout",
+      "putty",
+      "filler",
+      "size"
+     ],
+     "answer": 0,
+     "explanation": "Grout seals joints."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-designing-and-drawing-a-straight-flight-staircase",
+   "title": "Designing and drawing a straight flight staircase",
+   "topic": "Staircases",
+   "kind": "DRAWING",
+   "skills": [
+    "calculation",
+    "drawing",
+    "measurement"
+   ],
+   "aim": "To calculate risers and goings for a given floor-to-floor height and draw the plan and section of a straight flight concrete staircase.",
+   "apparatus": [
+    "Drawing instruments",
+    "Scale rule",
+    "Calculator"
+   ],
+   "materials": [
+    "A3 paper",
+    "Brief: floor-to-floor height 3.0 m"
+   ],
+   "safety": [
+    "Note design safety: uniform risers, handrails, adequate headroom (at least 2.0 m)."
+   ],
+   "procedure": [
+    "Choose the number of risers so each is 150–190 mm.",
+    "Calculate the going using 2R + G ≈ 600 mm (550–700 mm).",
+    "Find the total going (number of treads × going).",
+    "Draw the plan showing treads numbered and the direction of travel (\"UP\").",
+    "Draw the section showing waist, risers, treads, landings and handrail.",
+    "Check headroom and pitch."
+   ],
+   "expectedObservations": "All risers are equal, the pitch is under about 42°, and the staircase fits the space.",
+   "dataAndCalculations": "Height 3 000 mm with 17 risers: R = 3 000/17 = 176.5 mm. Going: 2R + G = 600 → G = 600 − 2 × 176.5 = 247 mm. Number of treads = 17 − 1 = 16; total going = 16 × 247 = 3 952 mm. Pitch = tan⁻¹(176.5/247) ≈ 35.5°.",
+   "precautions": [
+    "Keep all risers and goings equal.",
+    "Provide a landing where the flight exceeds about 16 risers in some codes."
+   ],
+   "sourcesOfError": [
+    "Rounding risers to whole millimetres causing a cumulative error."
+   ],
+   "commonMistakes": [
+    "Using the number of risers as the number of treads.",
+    "Forgetting nosings and landings."
+   ],
+   "examTips": [
+    "Show the 2R + G check.",
+    "Label riser, tread, going, nosing, waist, string, handrail, baluster."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a straight flight, the number of treads is",
+     "options": [
+      "one less than the number of risers",
+      "equal to the risers",
+      "one more than the risers",
+      "twice the risers"
+     ],
+     "answer": 0,
+     "explanation": "The top landing provides the last step."
+    },
+    {
+     "q": "With R = 175 mm, the going from 2R + G = 600 is",
+     "options": [
+      "425 mm",
+      "350 mm",
+      "175 mm",
+      "250 mm"
+     ],
+     "answer": 3,
+     "explanation": "600 − 350 = 250 mm."
+    },
+    {
+     "q": "Minimum headroom over a stair is about",
+     "options": [
+      "3.5 m",
+      "0.5 m",
+      "2.0 m",
+      "1.0 m"
+     ],
+     "answer": 2,
+     "explanation": "Regulations typically require 2.0 m."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-roof-truss-geometry-and-roof-plan",
+   "title": "Roof truss geometry and roof plan",
+   "topic": "Roofs",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "calculation",
+    "identification"
+   ],
+   "aim": "To calculate roof rise and rafter lengths for a given span and pitch, and to draw a king-post truss and a hipped roof plan.",
+   "apparatus": [
+    "Drawing instruments",
+    "Scale rule",
+    "Calculator"
+   ],
+   "materials": [
+    "A3 paper",
+    "Building plan"
+   ],
+   "safety": [
+    "On site, roofing work needs secure scaffolding and harnesses."
+   ],
+   "procedure": [
+    "Note the span and pitch from the brief.",
+    "Calculate the rise and rafter length.",
+    "Draw the king-post truss to scale, labelling tie beam, rafters, king post, struts, wall plate.",
+    "Draw the roof plan with ridges, hips and valleys at 45° on plan.",
+    "Indicate roof covering and fall direction.",
+    "Add overhang and fascia."
+   ],
+   "expectedObservations": "A correctly proportioned truss with members labelled and a roof plan with hips meeting the ridge correctly.",
+   "dataAndCalculations": "Span 8 m, pitch 30°: half-span = 4 m. Rise = 4 × tan 30° = 2.31 m. Rafter length (to wall plate) = 4/cos 30° = 4.62 m, plus overhang.",
+   "precautions": [
+    "Keep the hip lines at 45° on plan for equal pitches."
+   ],
+   "sourcesOfError": [
+    "Angle errors on long lines."
+   ],
+   "commonMistakes": [
+    "Using full span instead of half-span.",
+    "Unlabelled truss members."
+   ],
+   "examTips": [
+    "State roof types: flat, pitched (gable, hipped), and roof coverings: aluminium, long-span, clay tiles, asbestos-free sheets.",
+    "State protection against wind uplift: holding-down straps."
+   ],
+   "checkQuestions": [
+    {
+     "q": "The horizontal bottom member of a truss is the",
+     "options": [
+      "ridge",
+      "purlin",
+      "strut",
+      "tie beam"
+     ],
+     "answer": 3,
+     "explanation": "It resists the outward thrust of rafters."
+    },
+    {
+     "q": "Span 6 m, pitch 45°. The rise is",
+     "options": [
+      "4.24 m",
+      "1.5 m",
+      "3 m",
+      "6 m"
+     ],
+     "answer": 2,
+     "explanation": "Half-span × tan 45° = 3 × 1 = 3 m."
+    },
+    {
+     "q": "On a hipped roof plan with equal pitches, the hips are drawn at",
+     "options": [
+      "90°",
+      "45° to the walls",
+      "30°",
+      "60°"
+     ],
+     "answer": 1,
+     "explanation": "Equal pitches meet on the bisector."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-laying-and-testing-a-drain-line",
+   "title": "Laying and testing a drain line",
+   "topic": "Plumbing Installations and Drainage System",
+   "kind": "FIELD",
+   "skills": [
+    "procedure",
+    "measurement",
+    "calculation"
+   ],
+   "aim": "To lay a PVC drain to a given gradient between two inspection chambers and test it for leaks.",
+   "apparatus": [
+    "Spirit level",
+    "Boning rods (sight rails and traveller)",
+    "Tape measure",
+    "Hacksaw",
+    "Shovels"
+   ],
+   "materials": [
+    "100 mm PVC drain pipes and couplers",
+    "Solvent cement",
+    "Pea gravel bedding",
+    "Drain plugs",
+    "Water"
+   ],
+   "safety": [
+    "Ventilate when using solvent cement; no smoking.",
+    "Support deep trenches."
+   ],
+   "procedure": [
+    "Calculate the total fall from the length and gradient.",
+    "Set up sight rails at each end at the correct heights.",
+    "Excavate the trench and lay a gravel bed.",
+    "Lay pipes using the traveller to check the gradient between the sight rails.",
+    "Join pipes with solvent cement or ring seals.",
+    "Plug the lower end and fill the line with water; check for leaks over a set time (water test).",
+    "Backfill carefully in layers."
+   ],
+   "expectedObservations": "Water level stays steady during the test; the drain has a uniform fall towards the outlet.",
+   "dataAndCalculations": "Gradient 1 in 40 over 12 m: fall = 12/40 = 0.30 m (300 mm). If invert at chamber A is 99.600 m, invert at chamber B = 99.600 − 0.300 = 99.300 m.",
+   "precautions": [
+    "Keep pipe interiors clean.",
+    "Support pipes evenly on the bed."
+   ],
+   "sourcesOfError": [
+    "Sight rails disturbed.",
+    "Settlement of bedding."
+   ],
+   "commonMistakes": [
+    "Uneven fall causing blockages.",
+    "Backfilling with large stones on the pipe."
+   ],
+   "examTips": [
+    "Describe septic tank and soakaway functions.",
+    "Name drain tests: water, air, smoke."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A 20 m drain at 1 in 50 falls",
+     "options": [
+      "1 m",
+      "0.04 m",
+      "0.4 m",
+      "2.5 m"
+     ],
+     "answer": 2,
+     "explanation": "20/50 = 0.4 m."
+    },
+    {
+     "q": "The water test checks a drain for",
+     "options": [
+      "strength of soil",
+      "leaks",
+      "gradient only",
+      "colour"
+     ],
+     "answer": 1,
+     "explanation": "A drop in water level shows a leak."
+    },
+    {
+     "q": "Boning rods are used to",
+     "options": [
+      "check the gradient of trenches and pipes",
+      "measure pipe diameter",
+      "test water pressure",
+      "cut pipes"
+     ],
+     "answer": 0,
+     "explanation": "Sighting along rods gives a uniform fall."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-identification-and-care-of-building-tools-and-safety-equipment",
+   "title": "Identification and care of building tools and safety equipment",
+   "topic": "Basic Tools, Equipment and Machines",
+   "kind": "WORKSHOP",
+   "skills": [
+    "identification",
+    "safety"
+   ],
+   "aim": "To identify building tools, equipment and machines, state their uses and demonstrate correct care and storage.",
+   "apparatus": [
+    "Trowels, floats, spirit level, plumb bob, line and pins, tape, square",
+    "Shovel, pick-axe, head pan, wheelbarrow",
+    "Concrete mixer, vibrator, block moulding machine (or photographs)"
+   ],
+   "materials": [
+    "Labels and record sheet",
+    "Oil and rags"
+   ],
+   "safety": [
+    "Carry edged tools with blades down.",
+    "Never operate machines without training and supervision.",
+    "Wear helmet, boots, gloves and high-visibility vest on site."
+   ],
+   "procedure": [
+    "Identify each tool or machine and write its name.",
+    "Classify it: measuring/setting-out, excavation, concreting, walling, finishing.",
+    "State its use and one safety rule.",
+    "Clean tools after use and lightly oil steel parts.",
+    "Store tools on racks; report damaged tools.",
+    "Demonstrate the use of PPE and the first aid box."
+   ],
+   "expectedObservations": "Each tool is correctly named, classified and stored; PPE is worn correctly.",
+   "dataAndCalculations": "A spirit level is checked by reversal: place it on a surface, note the bubble, turn it end-for-end. If the bubble reads the same, the level is accurate; if it shifts, the error is half the difference between the two readings.",
+   "precautions": [
+    "Do not leave cement to harden on tools.",
+    "Keep spirit levels from knocks."
+   ],
+   "sourcesOfError": [
+    "Confusing similar tools (float and trowel)."
+   ],
+   "commonMistakes": [
+    "Wrong classification of tools.",
+    "Leaving wheelbarrows and shovels in walkways."
+   ],
+   "examTips": [
+    "Give use and care for each tool named.",
+    "Mention site safety signs and first aid."
+   ],
+   "checkQuestions": [
+    {
+     "q": "A wooden float is used for",
+     "options": [
+      "checking plumb",
+      "measuring",
+      "finishing plaster or screed surfaces",
+      "cutting blocks"
+     ],
+     "answer": 2,
+     "explanation": "It gives an even textured finish."
+    },
+    {
+     "q": "PPE stands for",
+     "options": [
+      "primary plaster equipment",
+      "personal protective equipment",
+      "plant pipe equipment",
+      "portable power engine"
+     ],
+     "answer": 1,
+     "explanation": "Helmets, boots, gloves, goggles, etc."
+    },
+    {
+     "q": "Steel tools should be stored",
+     "options": [
+      "clean and lightly oiled",
+      "wet",
+      "buried in sand",
+      "with cement on them"
+     ],
+     "answer": 0,
+     "explanation": "Oil prevents rusting."
+    }
+   ],
+   "simulator": null
+  },
+  {
+   "id": "pr-bcon-drawing-an-electrical-layout-with-installation-symbols",
+   "title": "Drawing an electrical layout with installation symbols",
+   "topic": "Electrical Installation and Solar Energy System",
+   "kind": "DRAWING",
+   "skills": [
+    "drawing",
+    "identification"
+   ],
+   "aim": "To prepare an electrical layout drawing of a small house using standard symbols, and to sketch a simple solar power system.",
+   "apparatus": [
+    "Drawing instruments",
+    "Symbol template",
+    "Scale rule"
+   ],
+   "materials": [
+    "Floor plan of a bungalow",
+    "Table of electrical symbols"
+   ],
+   "safety": [
+    "On site, electrical installation is carried out only by qualified electricians."
+   ],
+   "procedure": [
+    "Trace the floor plan at 1:100.",
+    "Place lighting points, switches, socket outlets, ceiling fans and the distribution board using symbols.",
+    "Draw switch wiring links as dashed lines from switches to the lights they control.",
+    "Add a legend explaining each symbol.",
+    "Sketch a solar system: panels → charge controller → battery → inverter → distribution board.",
+    "Label each component and its function."
+   ],
+   "expectedObservations": "A clear layout showing every point, linked to its switch, with a complete legend.",
+   "dataAndCalculations": "Solar sizing example: daily load = 10 LED lamps × 10 W × 6 h + 1 fan × 60 W × 8 h = 600 + 480 = 1 080 Wh. With 5 peak sun hours, panel power ≈ 1 080/5 = 216 W, so at least two 150 W panels are needed allowing for losses.",
+   "precautions": [
+    "Use symbols consistently and include the legend.",
+    "Do not cross switch links unnecessarily."
+   ],
+   "sourcesOfError": [
+    "Mixing symbol standards."
+   ],
+   "commonMistakes": [
+    "Missing legend.",
+    "Lights not linked to switches."
+   ],
+   "examTips": [
+    "Name components of a solar system and state their functions.",
+    "Include the distribution board symbol and meter position."
+   ],
+   "checkQuestions": [
+    {
+     "q": "In a solar system, the device that converts d.c. to a.c. is the",
+     "options": [
+      "panel",
+      "inverter",
+      "charge controller",
+      "battery"
+     ],
+     "answer": 1,
+     "explanation": "Inverters supply a.c. appliances."
+    },
+    {
+     "q": "The charge controller",
+     "options": [
+      "prevents battery over-charge and deep discharge",
+      "converts a.c. to d.c.",
+      "stores energy",
+      "lights the house"
+     ],
+     "answer": 0,
+     "explanation": "It protects the battery."
+    },
+    {
+     "q": "Dashed lines on an electrical layout usually show",
+     "options": [
+      "walls",
+      "water pipes",
+      "gas lines",
+      "switch links to lights"
+     ],
+     "answer": 3,
+     "explanation": "They connect switches to the points they control."
+    }
+   ],
+   "simulator": null
+  }
+ ]
+}

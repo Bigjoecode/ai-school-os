@@ -60,6 +60,8 @@ cpSync(resolve(root, 'prisma/migrations'), resolve(out, 'prisma/migrations'), { 
 if (existsSync(resolve(root, 'prisma/syllabi'))) cpSync(resolve(root, 'prisma/syllabi'), resolve(out, 'prisma/syllabi'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/jamb'))) cpSync(resolve(root, 'prisma/jamb'), resolve(out, 'prisma/jamb'), { recursive: true });
 if (existsSync(resolve(root, 'prisma/question-bank'))) cpSync(resolve(root, 'prisma/question-bank'), resolve(out, 'prisma/question-bank'), { recursive: true });
+// Practical Academy lessons (installed at start-up into practical_lessons).
+if (existsSync(resolve(root, 'prisma/practicals'))) cpSync(resolve(root, 'prisma/practicals'), resolve(out, 'prisma/practicals'), { recursive: true });
 // Database backup/restore scripts, for a cPanel cron job (see DEPLOYMENT.md → Backups).
 mkdirSync(resolve(out, 'scripts'), { recursive: true });
 for (const f of ['backup-db.sh', 'restore-db.sh']) cpSync(resolve(root, 'scripts', f), resolve(out, 'scripts', f));

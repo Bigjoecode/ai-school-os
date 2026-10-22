@@ -1,0 +1,667 @@
+{
+  "exam": "WAEC",
+  "subject": "Radio, Television and Electronics Works",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wo-rtv-0001",
+      "type": "OBJECTIVE",
+      "topic": "Sources and Prevention of Hazards",
+      "stem": "Which of the following is a common source of electric shock in an electronics workshop?",
+      "options": [
+        "Wearing rubber-soled shoes",
+        "Working on a live chassis while standing on a wet floor",
+        "Using an isolation transformer",
+        "Switching off the mains before work"
+      ],
+      "answer": 1,
+      "explanation": "A wet floor provides a path to earth through the body; rubber soles, isolation transformers and switching off reduce risk.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0002",
+      "type": "OBJECTIVE",
+      "topic": "Safety Checks in Servicing Radio Receiver",
+      "stem": "Before touching components in the power supply section of a mains radio that has just been switched off, the technician should",
+      "options": [
+        "touch the capacitor terminals with both hands",
+        "increase the volume to drain the power",
+        "discharge the large filter capacitors through a suitable resistor",
+        "spray water on the board to cool it"
+      ],
+      "answer": 2,
+      "explanation": "Filter capacitors can hold a dangerous charge after switch-off; discharging through a resistor is safe.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0003",
+      "type": "OBJECTIVE",
+      "topic": "Safety Precautions in Television Workshop",
+      "stem": "The final anode of a CRT television picture tube may hold a dangerous charge long after switch-off because",
+      "options": [
+        "the tube contains a battery",
+        "the deflection coils store chemical energy",
+        "the screen phosphor generates electricity in darkness",
+        "the tube acts as a high-voltage capacitor charged to many kilovolts by the EHT supply"
+      ],
+      "answer": 3,
+      "explanation": "The aquadag coatings form a capacitor charged to the EHT (tens of kilovolts); it must be discharged to chassis with an insulated lead.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0004",
+      "type": "OBJECTIVE",
+      "topic": "Conductors, Insulators and Semiconductors",
+      "stem": "Silicon and germanium are classified as",
+      "options": [
+        "semiconductors",
+        "good conductors",
+        "perfect insulators",
+        "superconductors"
+      ],
+      "answer": 0,
+      "explanation": "Their conductivity lies between that of conductors and insulators and can be controlled by doping.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0005",
+      "type": "OBJECTIVE",
+      "topic": "Current, Voltage and Resistance",
+      "stem": "According to the law of electric charges,",
+      "options": [
+        "like charges attract and unlike charges repel",
+        "all charges attract",
+        "charges have no effect on one another",
+        "like charges repel and unlike charges attract"
+      ],
+      "answer": 3,
+      "explanation": "Two positive or two negative charges repel; a positive and a negative attract.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0006",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Components",
+      "stem": "A ceramic capacitor is marked \"104\". Its value is",
+      "options": [
+        "100 nF (0.1 microfarad)",
+        "104 pF",
+        "10 nF",
+        "104 microfarads"
+      ],
+      "answer": 0,
+      "explanation": "The code means 10 followed by 4 zeros pF = 100,000 pF = 100 nF = 0.1 microfarad.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0007",
+      "type": "OBJECTIVE",
+      "topic": "Resistors and Capacitors",
+      "stem": "A resistor with colour bands brown, black, orange and gold has a value of",
+      "options": [
+        "1 kilohm +/- 5%",
+        "100 kilohms +/- 10%",
+        "10 kilohms +/- 5%",
+        "103 ohms +/- 5%"
+      ],
+      "answer": 2,
+      "explanation": "Brown = 1, black = 0, orange multiplier = x1000: 10 x 1000 = 10 kilohms; gold = 5%.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0008",
+      "type": "OBJECTIVE",
+      "topic": "Kirchhoff's Current and Voltage Laws",
+      "stem": "A current of 3.5 A enters a junction. One branch leaving the junction carries 1.2 A. The current in the only other branch is",
+      "options": [
+        "4.7 A",
+        "2.3 A",
+        "4.2 A",
+        "2.9 A"
+      ],
+      "answer": 1,
+      "explanation": "By Kirchhoff's current law, current in = current out: 3.5 - 1.2 = 2.3 A.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0009",
+      "type": "OBJECTIVE",
+      "topic": "Diodes and Transistors",
+      "stem": "The transistor configuration with a voltage gain of about one, high input impedance and low output impedance, used as a buffer, is the",
+      "options": [
+        "common emitter",
+        "common base",
+        "common anode",
+        "common collector (emitter follower)"
+      ],
+      "answer": 3,
+      "explanation": "The emitter follower gives current gain but unity voltage gain; common emitter gives high voltage gain with phase inversion.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0010",
+      "type": "OBJECTIVE",
+      "topic": "Battery",
+      "stem": "A zinc-carbon torch cell that cannot be recharged is an example of a",
+      "options": [
+        "secondary (wet) cell",
+        "lead-acid accumulator",
+        "primary (dry) cell",
+        "solar cell"
+      ],
+      "answer": 2,
+      "explanation": "Primary cells are used once and discarded; secondary cells such as lead-acid can be recharged.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0011",
+      "type": "OBJECTIVE",
+      "topic": "Ohm's Law",
+      "stem": "Resistors of 1 kilohm and 2 kilohms are connected in parallel across a 9 V battery. The total current is",
+      "options": [
+        "3 mA",
+        "13.5 mA",
+        "9 mA",
+        "4.5 mA"
+      ],
+      "answer": 1,
+      "explanation": "R = (1 x 2)/(1 + 2) = 0.667 kilohms; I = 9 / 667 = 13.5 mA (also 9 mA + 4.5 mA).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0012",
+      "type": "OBJECTIVE",
+      "topic": "Electric Power",
+      "stem": "A current of 0.5 A flows through a 40 ohm resistor. The power dissipated is",
+      "options": [
+        "10 W",
+        "20 W",
+        "80 W",
+        "800 W"
+      ],
+      "answer": 0,
+      "explanation": "P = I^2 R = 0.25 x 40 = 10 W; I x R gives the voltage (20 V), not power.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0013",
+      "type": "OBJECTIVE",
+      "topic": "Alternating Waveform",
+      "stem": "On an oscilloscope, a sine wave measures 20 V peak-to-peak and one cycle occupies 4 ms. Its r.m.s. voltage and frequency are",
+      "options": [
+        "14.14 V and 250 Hz",
+        "7.07 V and 4 Hz",
+        "10 V and 125 Hz",
+        "7.07 V and 250 Hz"
+      ],
+      "answer": 3,
+      "explanation": "Peak = 10 V, r.m.s. = 0.707 x 10 = 7.07 V; f = 1/T = 1/0.004 = 250 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0014",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Hand Tools",
+      "stem": "The braided copper strip used with a soldering iron to soak up molten solder from a joint is the",
+      "options": [
+        "desoldering (solder) wick",
+        "wire stripper",
+        "diagonal cutter",
+        "heat sink clip"
+      ],
+      "answer": 0,
+      "explanation": "Solder wick draws molten solder up by capillary action; a sucker uses suction.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0015",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Measuring Instruments",
+      "stem": "When an analogue ohmmeter is used to test a good silicon diode, it shows",
+      "options": [
+        "zero resistance both ways",
+        "low resistance one way and high resistance when the leads are reversed",
+        "infinite resistance both ways",
+        "the same medium resistance both ways"
+      ],
+      "answer": 1,
+      "explanation": "A good diode conducts in forward bias only; zero both ways means shorted and infinite both ways means open.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0016",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding Equipment",
+      "stem": "The instrument that indicates whether a point in a digital circuit is at logic HIGH, logic LOW or pulsing is the",
+      "options": [
+        "signal tracer",
+        "TV analyser",
+        "logic probe",
+        "ohmmeter"
+      ],
+      "answer": 2,
+      "explanation": "A logic probe uses LEDs to show logic states and pulses; a signal tracer follows audio/RF signals.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0017",
+      "type": "OBJECTIVE",
+      "topic": "Concept of Emission and Photoelectric Devices",
+      "stem": "The release of electrons from the heated cathode of a cathode ray tube is called",
+      "options": [
+        "photoelectric emission",
+        "secondary emission",
+        "field emission",
+        "thermionic emission"
+      ],
+      "answer": 3,
+      "explanation": "Heat gives electrons enough energy to escape the cathode surface; photoelectric emission uses light.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0018",
+      "type": "OBJECTIVE",
+      "topic": "Semiconductor Devices",
+      "stem": "An n-type semiconductor is produced by doping pure silicon with",
+      "options": [
+        "a pentavalent impurity such as phosphorus",
+        "a trivalent impurity such as boron",
+        "pure copper",
+        "more silicon atoms"
+      ],
+      "answer": 0,
+      "explanation": "Five-valence-electron impurities donate free electrons, giving n-type material; trivalent impurities give p-type.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0019",
+      "type": "OBJECTIVE",
+      "topic": "Power Supply Unit",
+      "stem": "In a d.c. power supply unit, the stage that follows the rectifier and smooths the pulsating d.c. is the",
+      "options": [
+        "step-down transformer",
+        "filter (reservoir capacitor)",
+        "oscillator",
+        "modulator"
+      ],
+      "answer": 1,
+      "explanation": "Order: transformer, rectifier, filter, regulator; the filter capacitor reduces ripple.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0020",
+      "type": "OBJECTIVE",
+      "topic": "Amplifiers",
+      "stem": "A Class B push-pull output stage is often biased slightly into Class AB in order to",
+      "options": [
+        "reduce efficiency deliberately",
+        "increase the input frequency",
+        "remove crossover distortion",
+        "make it oscillate"
+      ],
+      "answer": 2,
+      "explanation": "In pure Class B each transistor is off near zero crossing, causing crossover distortion; a small bias current removes it.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0021",
+      "type": "OBJECTIVE",
+      "topic": "Feedback",
+      "stem": "Applying NEGATIVE feedback to an amplifier",
+      "options": [
+        "increases gain and causes oscillation",
+        "reduces gain but increases bandwidth and reduces distortion",
+        "reduces bandwidth and increases noise",
+        "has no effect on gain"
+      ],
+      "answer": 1,
+      "explanation": "Negative feedback trades gain for stability, wider bandwidth and lower distortion and noise; positive feedback can cause oscillation.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0022",
+      "type": "OBJECTIVE",
+      "topic": "Oscillators and Multivibrators",
+      "stem": "A multivibrator that has NO stable state and continuously produces square waves is the",
+      "options": [
+        "monostable multivibrator",
+        "bistable multivibrator",
+        "astable multivibrator",
+        "Schmitt trigger with one stable state"
+      ],
+      "answer": 2,
+      "explanation": "The astable is free-running; the monostable has one stable state (one-shot) and the bistable two (flip-flop).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0023",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Communication Systems (Block Diagram and Noise)",
+      "stem": "Noise generated by the random motion of electrons in resistors and conductors is called",
+      "options": [
+        "atmospheric noise",
+        "man-made noise",
+        "cosmic noise",
+        "thermal (Johnson) noise"
+      ],
+      "answer": 3,
+      "explanation": "Thermal noise is internal and rises with temperature and bandwidth; atmospheric and man-made noise are external.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0024",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic Spectrum",
+      "stem": "FM radio broadcasting in Nigeria (88 to 108 MHz) takes place in the",
+      "options": [
+        "VHF band",
+        "MF band",
+        "HF band",
+        "SHF band"
+      ],
+      "answer": 0,
+      "explanation": "VHF covers 30 to 300 MHz; MF (300 kHz to 3 MHz) carries AM medium-wave broadcasting.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0025",
+      "type": "OBJECTIVE",
+      "topic": "Transducer",
+      "stem": "A microphone is a transducer that converts",
+      "options": [
+        "sound energy into electrical signals",
+        "electrical signals into sound",
+        "light into sound",
+        "heat into electrical signals"
+      ],
+      "answer": 0,
+      "explanation": "The microphone is an input transducer; the loudspeaker does the reverse.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0026",
+      "type": "OBJECTIVE",
+      "topic": "Modulation and Demodulation",
+      "stem": "The envelope of an AM wave has a maximum amplitude of 15 V and a minimum amplitude of 5 V. The percentage modulation is",
+      "options": [
+        "33.3%",
+        "66.7%",
+        "50%",
+        "200%"
+      ],
+      "answer": 2,
+      "explanation": "m = (Vmax - Vmin)/(Vmax + Vmin) = 10/20 = 0.5 = 50%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0027",
+      "type": "OBJECTIVE",
+      "topic": "Selectivity and Sensitivity",
+      "stem": "The ability of a radio receiver to pick out the wanted station and reject stations on nearby frequencies is its",
+      "options": [
+        "sensitivity",
+        "fidelity",
+        "stability",
+        "selectivity"
+      ],
+      "answer": 3,
+      "explanation": "Selectivity rejects adjacent signals; sensitivity is the ability to receive weak signals.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0028",
+      "type": "OBJECTIVE",
+      "topic": "Resonant Circuit",
+      "stem": "A tuned circuit resonates at 600 kHz and has a Q-factor of 40. Its bandwidth is",
+      "options": [
+        "24 MHz",
+        "15 kHz",
+        "300 kHz",
+        "40 kHz"
+      ],
+      "answer": 1,
+      "explanation": "Bandwidth = f0 / Q = 600 / 40 = 15 kHz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0029",
+      "type": "OBJECTIVE",
+      "topic": "Satellite Communication Systems",
+      "stem": "Communication satellites that appear fixed above one point on the equator orbit at a height of about",
+      "options": [
+        "360 km",
+        "3,600 km",
+        "36,000 km",
+        "360,000 km"
+      ],
+      "answer": 2,
+      "explanation": "Geostationary orbit is about 35,786 km above the equator, where the period equals one day.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0030",
+      "type": "OBJECTIVE",
+      "topic": "Television Transmitter",
+      "stem": "In an analogue PAL television transmitter of the type used in Nigeria, the picture and sound signals are",
+      "options": [
+        "both frequency-modulated on one carrier",
+        "picture amplitude-modulated and sound frequency-modulated on separate carriers",
+        "both amplitude-modulated on one carrier",
+        "picture frequency-modulated and sound amplitude-modulated"
+      ],
+      "answer": 1,
+      "explanation": "The video carrier is AM (vestigial sideband) and the sound carrier is FM, a few megahertz above it.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0031",
+      "type": "OBJECTIVE",
+      "topic": "Image and Sound Reproduction in TV Receiver",
+      "stem": "In the 625-line PAL system, each picture (frame) is built up from two interlaced fields, and the number of fields per second is",
+      "options": [
+        "25",
+        "625",
+        "15,625",
+        "50"
+      ],
+      "answer": 3,
+      "explanation": "There are 25 frames per second, each of two fields, giving 50 fields per second (and 15,625 lines per second).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0032",
+      "type": "OBJECTIVE",
+      "topic": "Monochrome Television Receiver",
+      "stem": "A black-and-white TV shows only a bright horizontal line across the middle of the screen, while sound is normal. The fault is in the",
+      "options": [
+        "vertical (field) deflection stage",
+        "horizontal (line) deflection stage",
+        "sound IF stage",
+        "tuner"
+      ],
+      "answer": 0,
+      "explanation": "Without vertical scanning the beam traces only one horizontal line; a vertical line would indicate a horizontal deflection fault.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0033",
+      "type": "OBJECTIVE",
+      "topic": "Principle of Colour Signal, Transmission and Reception",
+      "stem": "The three primary colours used in colour television are",
+      "options": [
+        "red, yellow and blue",
+        "cyan, magenta and yellow",
+        "red, green and blue",
+        "orange, green and violet"
+      ],
+      "answer": 2,
+      "explanation": "Television uses additive mixing of red, green and blue light.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0034",
+      "type": "OBJECTIVE",
+      "topic": "Principles of Operation of Colour Television Receiver",
+      "stem": "In a PAL colour television receiver, the stage that switches off the colour circuits when a black-and-white transmission is received is the",
+      "options": [
+        "sync separator",
+        "EHT tripler",
+        "audio amplifier",
+        "colour killer"
+      ],
+      "answer": 3,
+      "explanation": "The colour killer prevents coloured noise appearing on a monochrome picture when no colour burst is received.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0035",
+      "type": "OBJECTIVE",
+      "topic": "Soldering and Desoldering in Electronic Circuits",
+      "stem": "When soldering a transistor into a circuit board, a pair of long-nose pliers gripping its lead acts as a",
+      "options": [
+        "heat sink to protect the transistor from overheating",
+        "solder feeder",
+        "flux applicator",
+        "continuity tester"
+      ],
+      "answer": 0,
+      "explanation": "The pliers conduct heat away from the junction so the device is not damaged.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0036",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding and Repairs in Radio Receiver",
+      "stem": "A mains radio produces a loud 100 Hz hum in the loudspeaker. The most likely faulty component is the",
+      "options": [
+        "volume control",
+        "dried-out filter capacitor in the power supply",
+        "ferrite rod aerial",
+        "tuning dial cord"
+      ],
+      "answer": 1,
+      "explanation": "A failed reservoir/filter capacitor leaves large ripple at twice mains frequency (full-wave), heard as hum.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0037",
+      "type": "OBJECTIVE",
+      "topic": "Diagnosis and Repair of Black and White TV Receiver",
+      "stem": "Sound is present on a monochrome TV but there is no raster (screen completely dark). The section to check first is the",
+      "options": [
+        "line output/EHT stage and the CRT heater supply",
+        "audio output stage",
+        "vertical hold control",
+        "sound IF stage"
+      ],
+      "answer": 0,
+      "explanation": "No light at all means no EHT or no CRT heater; since sound works, the common power supply is probably good.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0038",
+      "type": "OBJECTIVE",
+      "topic": "Diagnosis and Repair of a Colour Television Receiver",
+      "stem": "The instrument that produces a standard pattern of coloured vertical stripes used to check and adjust a colour TV is the",
+      "options": [
+        "logic probe",
+        "colour bar generator",
+        "frequency counter",
+        "hydrometer"
+      ],
+      "answer": 1,
+      "explanation": "Colour bar patterns show whether each colour and its saturation are reproduced correctly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0039",
+      "type": "OBJECTIVE",
+      "topic": "Business Management and Finance",
+      "stem": "The document a repair shop fills when receiving a customer's faulty television, recording the fault, date and estimated cost, is the",
+      "options": [
+        "inventory sheet",
+        "bank statement",
+        "ledger of fixed assets",
+        "repair order form"
+      ],
+      "answer": 3,
+      "explanation": "The repair order (job card) is the record and receipt for equipment left for repair.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0040",
+      "type": "OBJECTIVE",
+      "topic": "Business Opportunities in Radio, TV and Electronics Works",
+      "stem": "Which of the following is a business opportunity open to a trained radio and television technician?",
+      "options": [
+        "Commercial poultry vaccination",
+        "Road surveying",
+        "Satellite dish and decoder installation",
+        "Pharmaceutical dispensing"
+      ],
+      "answer": 2,
+      "explanation": "Installing satellite TV systems, antennas and repairing electronics are direct openings for RTV graduates.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rtv-0201",
+      "type": "THEORY",
+      "topic": "Resistive, Inductive, Capacitive (RLC) Circuits",
+      "stem": "A 100 ohm resistor, a 0.1 H inductor and a 10 microfarad capacitor are connected in series across a 12 V, 50 Hz supply.\n(a) Calculate (i) the inductive reactance (ii) the capacitive reactance (iii) the impedance (iv) the current. [8 marks]\n(b) Calculate the resonant frequency of the circuit. [3 marks]\n(c) State whether the circuit is inductive or capacitive at 50 Hz, giving a reason. [2 marks]\n(d) What happens to the current at resonance? [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) X_L = 2 x pi x f x L = 2 x 3.142 x 50 x 0.1 = 31.4 ohms\n2 marks: (a)(ii) X_C = 1/(2 x pi x f x C) = 1/(2 x 3.142 x 50 x 10 x 10^-6) = 318.3 ohms\n2 marks: (a)(iii) Z = sqrt(R^2 + (X_C - X_L)^2) = sqrt(100^2 + 286.9^2) = 303.8 ohms\n2 marks: (a)(iv) I = V/Z = 12/303.8 = 0.0395 A (about 39.5 mA)\n3 marks: (b) f0 = 1/(2 x pi x sqrt(LC)) = 1/(2 x 3.142 x sqrt(0.1 x 10 x 10^-6)) = 159.2 Hz\n2 marks: (c) Capacitive, because X_C is greater than X_L at 50 Hz (current leads the voltage)\n2 marks: (d) At resonance X_L = X_C, impedance is minimum (= R) so the current is maximum (12/100 = 0.12 A) and in phase with the voltage",
+      "explanation": "X_L = 31.4 ohms, X_C = 318.3 ohms, Z = 303.8 ohms, I = 39.5 mA. f0 = 159.2 Hz. At 50 Hz the circuit is capacitive (X_C > X_L). At resonance the current is maximum, 0.12 A, in phase with V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rtv-0202",
+      "type": "THEORY",
+      "topic": "Radio Transmitter and Receiver",
+      "stem": "(a) List in order the stages of an AM superheterodyne receiver from aerial to loudspeaker. [7 marks]\n(b) State the function of (i) the mixer (ii) the local oscillator (iii) the IF amplifier (iv) the detector. [4 marks]\n(c) State two advantages of the superheterodyne receiver over the tuned radio frequency (TRF) receiver. [4 marks]",
+      "marks": 15,
+      "markingGuide": "7 marks: (a) 1 mark each in correct order: aerial; RF amplifier/tuner; mixer (frequency changer); local oscillator (feeding mixer); IF amplifier; detector (demodulator) with AGC; AF amplifier driving loudspeaker\n1 mark: (b)(i) Mixer: combines the incoming RF and local oscillator signals to produce the intermediate frequency\n1 mark: (b)(ii) Local oscillator: generates a frequency higher than the signal by the IF (e.g. 455 kHz) and tracks the tuning\n1 mark: (b)(iii) IF amplifier: provides most of the gain and selectivity at a fixed frequency\n1 mark: (b)(iv) Detector: recovers the audio signal from the IF (demodulation) and supplies AGC voltage\n4 marks: (c) Any two, 2 marks each: better selectivity; higher sensitivity/gain; uniform performance across the band because amplification is at a fixed IF; easier and more stable tuning",
+      "explanation": "Aerial, RF stage, mixer with local oscillator, IF amplifier, detector, AF amplifier, loudspeaker. The mixer produces the IF, the oscillator runs at signal + IF, the IF amplifier gives gain and selectivity, the detector recovers audio. The superhet has better selectivity, sensitivity and uniform performance than the TRF.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0203",
+      "type": "THEORY",
+      "topic": "Direct and Alternating Current",
+      "stem": "(a) Distinguish between direct current and alternating current. [4 marks]\n(b) State two uses of each. [4 marks]\n(c) An alternating voltage has a peak value of 170 V and a frequency of 60 Hz. Calculate (i) its r.m.s. value (ii) its average value over a half-cycle (iii) its periodic time. [7 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Direct current flows in one direction only with constant (or unidirectional) magnitude, e.g. from a battery\n2 marks: (a) Alternating current reverses direction periodically and its magnitude varies, usually sinusoidally, e.g. from the mains\n2 marks: (b) D.C., any two: charging batteries; electronic circuits/radios; electroplating; torches; vehicle electrical systems\n2 marks: (b) A.C., any two: domestic mains supply; electric motors; transformers/power transmission; heating and lighting\n3 marks: (c)(i) V_rms = 0.707 x 170 = 120.2 V\n2 marks: (c)(ii) V_av = 0.637 x 170 = 108.3 V\n2 marks: (c)(iii) T = 1/f = 1/60 = 0.0167 s (16.7 ms)",
+      "explanation": "D.C. flows one way (battery); a.c. reverses periodically (mains). D.C. for batteries and electronics; a.c. for mains, motors and transformers. V_rms = 120.2 V, V_av = 108.3 V, T = 16.7 ms.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0204",
+      "type": "THEORY",
+      "topic": "Electronic Repairs",
+      "stem": "(a) Draw up, in words, the block arrangement of a regulated d.c. power supply unit and state the function of each block. [8 marks]\n(b) A radio power supply gives no output voltage. Describe four checks you would make to locate the fault. [4 marks]\n(c) State three precautions when dismantling the power supply of a radio set. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Transformer: steps the mains voltage down to the required level and isolates the circuit\n2 marks: (a) Rectifier: converts a.c. to pulsating d.c. (diode bridge/half-wave)\n2 marks: (a) Filter: smooths the pulsating d.c. using reservoir capacitor (and choke/resistor)\n2 marks: (a) Regulator/stabiliser: keeps the output voltage constant despite load or mains changes (zener or IC regulator)\n4 marks: (b) Any four, 1 mark each: check mains supply, plug and fuse; check transformer primary and secondary continuity/voltage; test rectifier diodes with ohmmeter; check filter capacitor for short/open; check regulator input and output voltages; check for shorted load\n3 marks: (c) Any three, 1 mark each: disconnect from mains; discharge capacitors; note/label wire positions before removal; use correct tools; avoid overheating components when desoldering; keep screws and parts orderly",
+      "explanation": "Transformer (step down), rectifier (a.c. to d.c.), filter (smoothing), regulator (constant output). For no output: check mains and fuse, transformer windings, diodes, capacitor, regulator and load. Precautions: unplug, discharge capacitors, label wires, use correct tools, avoid overheating.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0205",
+      "type": "THEORY",
+      "topic": "Electronic Measuring Instruments (Use in Maintenance)",
+      "stem": "(a) Describe how a multimeter is used to measure (i) the d.c. voltage across a resistor in a working circuit (ii) the current through it (iii) the resistance of the resistor. [9 marks]\n(b) State four precautions to take when using a multimeter. [4 marks]\n(c) State two advantages of a digital multimeter over an analogue multimeter. [2 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a)(i) Select d.c. volts on a range above the expected value (1); connect the meter in parallel across the resistor (1); red probe to the more positive end, black to the negative, and read (1)\n3 marks: (a)(ii) Switch off, break the circuit at one end of the resistor (1); select d.c. current range and insert the meter in series (1); observe polarity, switch on and read (1)\n3 marks: (a)(iii) Switch off and disconnect at least one end of the resistor from the circuit (1); select ohms range and zero the meter (analogue) (1); connect probes across the resistor and read, multiplying by the range factor (1)\n4 marks: (b) Any four, 1 mark each: start on highest range; never measure resistance in a live circuit; never connect an ammeter in parallel; observe polarity; select correct function before connecting; switch off/to a.c. volts after use; check battery and probes\n2 marks: (c) Any two, 1 mark each: no parallax error/easy to read; higher accuracy; high input impedance causing little loading; auto-ranging and polarity indication",
+      "explanation": "Volts: parallel, correct range and polarity. Current: break circuit, meter in series. Resistance: power off, isolate the resistor, zero and measure. Precautions: highest range first, no ohms on live circuits, no ammeter in parallel, observe polarity. Digital meters are easier to read, more accurate and load circuits less.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rtv-0206",
+      "type": "THEORY",
+      "topic": "Customer Relations",
+      "stem": "(a) Explain why good customer relations are important to a radio and TV repair business. [4 marks]\n(b) State four rules of telephone courtesy for a technician answering business calls. [4 marks]\n(c) Describe how a technician should handle a customer who complains that a repaired television has developed the same fault again. [7 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) Any two, 2 marks each: retains customers and brings repeat business; customers recommend the shop to others; builds trust and reputation; reduces complaints and disputes\n4 marks: (b) Any four, 1 mark each: answer promptly and greet politely; identify yourself and the business; speak clearly and listen attentively; take accurate messages/notes; avoid eating or shouting; end the call politely and follow up\n7 marks: (c) 1 mark each: listen calmly without arguing; apologise for the inconvenience; check the repair records/warranty on the job card; re-test the set in the customer's presence where possible; identify the fault and explain it simply; repair free of charge if under warranty or agree on fair terms; follow up to confirm satisfaction",
+      "explanation": "Good relations retain customers, bring referrals and build reputation. Telephone: answer promptly, identify yourself, speak clearly, take notes, end politely. For a repeat fault: listen, apologise, check records and warranty, test and explain, repair free if under warranty, follow up.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

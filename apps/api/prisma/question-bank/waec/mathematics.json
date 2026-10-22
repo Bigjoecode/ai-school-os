@@ -1,0 +1,3207 @@
+{
+ "exam": "WAEC",
+ "subject": "Mathematics",
+ "source": "AUTHORED",
+ "questions": [
+  {
+   "id": "wo-math-0001",
+   "type": "OBJECTIVE",
+   "topic": "Number Bases",
+   "stem": "Convert 213 (base 5) to a number in base ten.",
+   "options": [
+    "43",
+    "58",
+    "63",
+    "53"
+   ],
+   "answer": 1,
+   "explanation": "213_5 = 2 x 25 + 1 x 5 + 3 = 58. Reading the digits as if in base ten, or multiplying by the wrong powers, gives the other values.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0002",
+   "type": "OBJECTIVE",
+   "topic": "Number Bases",
+   "stem": "Evaluate 132 (base 4) + 213 (base 4), giving the answer in base 4.",
+   "options": [
+    "345",
+    "1001",
+    "1011",
+    "1103"
+   ],
+   "answer": 2,
+   "explanation": "132_4 = 30 and 213_4 = 39, total 69 = 1 x 64 + 0 x 16 + 1 x 4 + 1 = 1011_4. Adding digit by digit without carrying in fours gives the invalid 345.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0003",
+   "type": "OBJECTIVE",
+   "topic": "Number Bases",
+   "stem": "If 2x1 (base 5) = 71 (base ten), find the value of the digit x.",
+   "options": [
+    "4",
+    "3",
+    "2",
+    "1"
+   ],
+   "answer": 0,
+   "explanation": "2 x 25 + 5x + 1 = 71, so 5x = 20 and x = 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0004",
+   "type": "OBJECTIVE",
+   "topic": "Number Bases",
+   "stem": "Find the product of 23 (base 6) and 14 (base 6), leaving the answer in base 6.",
+   "options": [
+    "322",
+    "1050",
+    "362",
+    "410"
+   ],
+   "answer": 3,
+   "explanation": "23_6 = 15 and 14_6 = 10, so the product is 150 = 4 x 36 + 1 x 6 + 0 = 410_6. Multiplying as if in base ten gives 322.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0005",
+   "type": "OBJECTIVE",
+   "topic": "Number Bases",
+   "stem": "In what base b is 25 (base b) equal to 21 (base ten)?",
+   "options": [
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "answer": 2,
+   "explanation": "2b + 5 = 21 gives b = 8. Note that the base must exceed every digit used.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0006",
+   "type": "OBJECTIVE",
+   "topic": "Modular Arithmetic",
+   "stem": "Find the value of 47 (mod 6).",
+   "options": [
+    "1",
+    "7",
+    "3",
+    "5"
+   ],
+   "answer": 3,
+   "explanation": "47 = 7 x 6 + 5, so 47 is congruent to 5 (mod 6).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0007",
+   "type": "OBJECTIVE",
+   "topic": "Modular Arithmetic",
+   "stem": "Find the remainder when 3^5 is divided by 7.",
+   "options": [
+    "3",
+    "5",
+    "1",
+    "6"
+   ],
+   "answer": 1,
+   "explanation": "3^5 = 243 = 34 x 7 + 5, so the remainder is 5.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0008",
+   "type": "OBJECTIVE",
+   "topic": "Modular Arithmetic",
+   "stem": "Solve 3x = 2 (mod 7) for x, where 0 <= x < 7.",
+   "options": [
+    "3",
+    "5",
+    "4",
+    "6"
+   ],
+   "answer": 0,
+   "explanation": "Testing values: 3 x 3 = 9 = 2 (mod 7). Hence x = 3.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0009",
+   "type": "OBJECTIVE",
+   "topic": "Modular Arithmetic",
+   "stem": "Today is a Tuesday. What day of the week will it be 100 days from today?",
+   "options": [
+    "Wednesday",
+    "Friday",
+    "Saturday",
+    "Thursday"
+   ],
+   "answer": 3,
+   "explanation": "100 = 14 x 7 + 2, so the day moves forward by 2: Tuesday becomes Thursday.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0010",
+   "type": "OBJECTIVE",
+   "topic": "Fractions, Decimals and Approximations",
+   "stem": "Simplify 2 1/3 - 1 3/4 + 5/6.",
+   "options": [
+    "1 5/12",
+    "1 1/12",
+    "7/12",
+    "1 7/12"
+   ],
+   "answer": 0,
+   "explanation": "Using the LCM 12: 28/12 - 21/12 + 10/12 = 17/12 = 1 5/12.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0011",
+   "type": "OBJECTIVE",
+   "topic": "Fractions, Decimals and Approximations",
+   "stem": "Express the recurring decimal 0.363636... as a fraction in its lowest terms.",
+   "options": [
+    "9/25",
+    "36/100",
+    "4/11",
+    "3/8"
+   ],
+   "answer": 2,
+   "explanation": "Let n = 0.3636...; 100n - n = 36, so n = 36/99 = 4/11.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0012",
+   "type": "OBJECTIVE",
+   "topic": "Fractions, Decimals and Approximations",
+   "stem": "A pupil measured a length of 5.0 cm as 4.8 cm. Calculate the percentage error.",
+   "options": [
+    "0.2%",
+    "4%",
+    "4.2%",
+    "2%"
+   ],
+   "answer": 1,
+   "explanation": "Percentage error = (0.2/5.0) x 100 = 4%. Dividing by the measured value (4.8) instead of the true value is a common mistake.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0013",
+   "type": "OBJECTIVE",
+   "topic": "Fractions, Decimals and Approximations",
+   "stem": "Evaluate (0.36 x 0.025) / 0.0012.",
+   "options": [
+    "0.75",
+    "75",
+    "7.5",
+    "0.075"
+   ],
+   "answer": 2,
+   "explanation": "0.36 x 0.025 = 0.009 and 0.009 / 0.0012 = 7.5. Careful counting of decimal places avoids the factor-of-ten errors.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0014",
+   "type": "OBJECTIVE",
+   "topic": "Fractions, Decimals and Approximations",
+   "stem": "Find the value of (2/3 of 4 1/2) / (1 1/4 - 5/8), leaving the answer as a mixed number where necessary.",
+   "options": [
+    "1 7/8",
+    "3 3/4",
+    "5 1/3",
+    "4 4/5"
+   ],
+   "answer": 3,
+   "explanation": "2/3 of 9/2 = 3; 5/4 - 5/8 = 5/8; 3 / (5/8) = 24/5 = 4 4/5.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0015",
+   "type": "OBJECTIVE",
+   "topic": "Indices",
+   "stem": "Evaluate 27^(2/3).",
+   "options": [
+    "18",
+    "9",
+    "6",
+    "3"
+   ],
+   "answer": 1,
+   "explanation": "27^(2/3) = (cube root of 27)^2 = 3^2 = 9.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0016",
+   "type": "OBJECTIVE",
+   "topic": "Indices",
+   "stem": "Simplify (8^(1/3) x 16^(3/4)) / 4^(-1/2).",
+   "options": [
+    "32",
+    "8",
+    "16",
+    "4"
+   ],
+   "answer": 0,
+   "explanation": "8^(1/3) = 2, 16^(3/4) = 8 and 4^(-1/2) = 1/2. So (2 x 8) / (1/2) = 32.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0017",
+   "type": "OBJECTIVE",
+   "topic": "Indices",
+   "stem": "Solve for x: 9^x x 3^(x - 1) = 81.",
+   "options": [
+    "4/3",
+    "5/2",
+    "5/3",
+    "1"
+   ],
+   "answer": 2,
+   "explanation": "Write everything in base 3: 3^(2x) x 3^(x - 1) = 3^4, so 3x - 1 = 4 and x = 5/3.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0018",
+   "type": "OBJECTIVE",
+   "topic": "Indices",
+   "stem": "Simplify (x^3 y^(-2))^2 / (x^4 y^(-5)).",
+   "options": [
+    "x^2 y",
+    "x^2 y^9",
+    "x^10 y^(-9)",
+    "x y^(-1)"
+   ],
+   "answer": 0,
+   "explanation": "(x^3 y^-2)^2 = x^6 y^-4. Dividing by x^4 y^-5 gives x^(6-4) y^(-4+5) = x^2 y.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0019",
+   "type": "OBJECTIVE",
+   "topic": "Indices",
+   "stem": "Solve the equation 5^(2x) - 6(5^x) + 5 = 0.",
+   "options": [
+    "x = 1 or x = 5",
+    "x = -1 or x = 1",
+    "x = 0 or x = 5",
+    "x = 0 or x = 1"
+   ],
+   "answer": 3,
+   "explanation": "Let p = 5^x: p^2 - 6p + 5 = 0 gives p = 1 or p = 5, so 5^x = 1 (x = 0) or 5^x = 5 (x = 1). Giving the values of p as the answer is the trap.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0020",
+   "type": "OBJECTIVE",
+   "topic": "Logarithms",
+   "stem": "Evaluate log_2 64.",
+   "options": [
+    "8",
+    "6",
+    "5",
+    "32"
+   ],
+   "answer": 1,
+   "explanation": "2^6 = 64, so log_2 64 = 6.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0021",
+   "type": "OBJECTIVE",
+   "topic": "Logarithms",
+   "stem": "Given that log10 2 = 0.3010 and log10 3 = 0.4771, find log10 18.",
+   "options": [
+    "0.7781",
+    "1.2552",
+    "1.0791",
+    "0.9542"
+   ],
+   "answer": 1,
+   "explanation": "log 18 = log (2 x 3^2) = 0.3010 + 2(0.4771) = 1.2552.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0022",
+   "type": "OBJECTIVE",
+   "topic": "Logarithms",
+   "stem": "Solve log10 x + log10 (x - 3) = 1.",
+   "options": [
+    "5",
+    "-2",
+    "5 or -2",
+    "10"
+   ],
+   "answer": 0,
+   "explanation": "log x(x - 3) = 1 gives x^2 - 3x - 10 = 0, so x = 5 or x = -2. The logarithm of a negative number is undefined, so only x = 5 is valid.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0023",
+   "type": "OBJECTIVE",
+   "topic": "Logarithms",
+   "stem": "Simplify (log 27) / (log 9).",
+   "options": [
+    "3",
+    "log 3",
+    "2/3",
+    "3/2"
+   ],
+   "answer": 3,
+   "explanation": "log 27 / log 9 = 3 log 3 / (2 log 3) = 3/2. It is not log (27/9) = log 3.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0024",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "Find the 15th term of the arithmetic progression 5, 9, 13, ...",
+   "options": [
+    "65",
+    "57",
+    "61",
+    "60"
+   ],
+   "answer": 2,
+   "explanation": "T15 = a + 14d = 5 + 14(4) = 61. Using 15d instead of 14d gives 65.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0025",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "Find the sum of the first 20 terms of the arithmetic progression 3, 7, 11, ...",
+   "options": [
+    "820",
+    "800",
+    "780",
+    "840"
+   ],
+   "answer": 0,
+   "explanation": "S20 = (20/2)[2(3) + 19(4)] = 10 x 82 = 820.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0026",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "Find the sum to infinity of the geometric progression 24, 12, 6, ...",
+   "options": [
+    "42",
+    "36",
+    "48",
+    "96"
+   ],
+   "answer": 2,
+   "explanation": "r = 1/2, so S = 24 / (1 - 1/2) = 48.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0027",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "The third term of an arithmetic progression is 11 and the eighth term is 31. Find the common difference.",
+   "options": [
+    "5",
+    "4",
+    "3",
+    "20"
+   ],
+   "answer": 1,
+   "explanation": "a + 2d = 11 and a + 7d = 31, so 5d = 20 and d = 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0028",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "How many terms are there in the arithmetic progression 4, 7, 10, ..., 85?",
+   "options": [
+    "27",
+    "29",
+    "81",
+    "28"
+   ],
+   "answer": 3,
+   "explanation": "85 = 4 + (n - 1)3, so n - 1 = 27 and n = 28.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0029",
+   "type": "OBJECTIVE",
+   "topic": "Sequence and Series",
+   "stem": "The second term of a geometric progression is 6 and the fifth term is 162. Find the first term.",
+   "options": [
+    "3",
+    "1",
+    "2",
+    "18"
+   ],
+   "answer": 2,
+   "explanation": "ar = 6 and ar^4 = 162, so r^3 = 27, r = 3 and a = 6/3 = 2.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0030",
+   "type": "OBJECTIVE",
+   "topic": "Sets",
+   "stem": "In a class of 40 students, 25 offer Biology, 20 offer Chemistry and 8 offer neither subject. How many offer both subjects?",
+   "options": [
+    "13",
+    "5",
+    "12",
+    "17"
+   ],
+   "answer": 0,
+   "explanation": "40 - 8 = 32 offer at least one subject. 25 + 20 - x = 32, so x = 13.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0031",
+   "type": "OBJECTIVE",
+   "topic": "Sets",
+   "stem": "How many subsets has the set {a, b, c, d}?",
+   "options": [
+    "8",
+    "4",
+    "15",
+    "16"
+   ],
+   "answer": 3,
+   "explanation": "A set with n elements has 2^n subsets: 2^4 = 16 (this includes the empty set and the set itself).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0032",
+   "type": "OBJECTIVE",
+   "topic": "Sets",
+   "stem": "Of 60 students at a sports club in Ibadan, 30 like football, 25 like basketball and 20 like volleyball. 10 like football and basketball, 8 like football and volleyball, 6 like basketball and volleyball, and 3 like all three. How many like none of the three games?",
+   "options": [
+    "9",
+    "6",
+    "3",
+    "12"
+   ],
+   "answer": 1,
+   "explanation": "n(F u B u V) = 30 + 25 + 20 - 10 - 8 - 6 + 3 = 54, so 60 - 54 = 6 like none.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0033",
+   "type": "OBJECTIVE",
+   "topic": "Sets",
+   "stem": "A = {x : x is a factor of 12} and B = {x : x is a multiple of 3, x < 15}. Find A n B (A intersection B).",
+   "options": [
+    "{3, 6, 12}",
+    "{3, 6, 9, 12}",
+    "{1, 2, 3, 4, 6, 12}",
+    "{3, 6}"
+   ],
+   "answer": 0,
+   "explanation": "A = {1, 2, 3, 4, 6, 12} and B = {3, 6, 9, 12}; the common elements are 3, 6 and 12.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0034",
+   "type": "OBJECTIVE",
+   "topic": "Logical Reasoning",
+   "stem": "What is the negation of the statement 'All the students passed the test'?",
+   "options": [
+    "No student passed the test",
+    "Some students did not pass the test",
+    "All the students failed the test",
+    "Some students passed the test"
+   ],
+   "answer": 1,
+   "explanation": "The negation of 'all ... passed' is 'at least one did not pass', i.e. 'some students did not pass'. 'No student passed' is too strong.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0035",
+   "type": "OBJECTIVE",
+   "topic": "Logical Reasoning",
+   "stem": "p: It is raining. q: The ground is wet. Which statement is the contrapositive of p => q?",
+   "options": [
+    "If the ground is wet, then it is raining",
+    "If it is not raining, then the ground is not wet",
+    "It is raining and the ground is not wet",
+    "If the ground is not wet, then it is not raining"
+   ],
+   "answer": 3,
+   "explanation": "The contrapositive of p => q is ~q => ~p, which is logically equivalent to p => q. The others are the converse, the inverse and the negation.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0036",
+   "type": "OBJECTIVE",
+   "topic": "Logical Reasoning",
+   "stem": "Given that all traders in a certain market are honest and that Musa is a trader in that market, which conclusion is valid?",
+   "options": [
+    "All honest people are traders",
+    "Musa is not honest",
+    "Musa is honest",
+    "Some traders are not honest"
+   ],
+   "answer": 2,
+   "explanation": "Musa belongs to the set of traders in the market, which lies inside the set of honest people, so Musa is honest.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0037",
+   "type": "OBJECTIVE",
+   "topic": "Logical Reasoning",
+   "stem": "If p is true and q is false, which of the following statements is true?",
+   "options": [
+    "p ^ q",
+    "p => q",
+    "~p v q",
+    "p v q"
+   ],
+   "answer": 3,
+   "explanation": "A disjunction (or) is true when at least one part is true. p ^ q needs both true, and p => q is false only when p is true and q is false, which is this case.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0038",
+   "type": "OBJECTIVE",
+   "topic": "Logical Reasoning",
+   "stem": "Which of the following is logically equivalent to the implication p => q?",
+   "options": [
+    "~q => ~p",
+    "q => p",
+    "~p => ~q",
+    "p ^ ~q"
+   ],
+   "answer": 0,
+   "explanation": "An implication is equivalent to its contrapositive ~q => ~p. The converse (q => p) and the inverse (~p => ~q) are not equivalent to it.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0039",
+   "type": "OBJECTIVE",
+   "topic": "Positive and Negative Integers, Rational Numbers",
+   "stem": "Which of the following is an irrational number?",
+   "options": [
+    "sqrt(49)",
+    "sqrt(12)",
+    "0.25",
+    "22/7"
+   ],
+   "answer": 1,
+   "explanation": "sqrt(12) = 2 sqrt(3) cannot be written as a ratio of integers. sqrt(49) = 7 and 22/7 is a fraction, so both are rational.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0040",
+   "type": "OBJECTIVE",
+   "topic": "Positive and Negative Integers, Rational Numbers",
+   "stem": "Arrange -2/3, -3/4 and -1/2 in ascending order.",
+   "options": [
+    "-1/2, -2/3, -3/4",
+    "-2/3, -3/4, -1/2",
+    "-3/4, -2/3, -1/2",
+    "-3/4, -1/2, -2/3"
+   ],
+   "answer": 2,
+   "explanation": "As decimals: -0.75 < -0.667 < -0.5. With negative numbers, the larger the size, the smaller the number.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0041",
+   "type": "OBJECTIVE",
+   "topic": "Positive and Negative Integers, Rational Numbers",
+   "stem": "The temperature in Jos was 7 degrees Celsius at noon. By midnight it had fallen by 12 degrees. What was the temperature at midnight?",
+   "options": [
+    "5 degrees Celsius",
+    "-5 degrees Celsius",
+    "-19 degrees Celsius",
+    "19 degrees Celsius"
+   ],
+   "answer": 1,
+   "explanation": "7 - 12 = -5, i.e. 5 degrees below zero.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0042",
+   "type": "OBJECTIVE",
+   "topic": "Surds (Radicals)",
+   "stem": "Simplify sqrt(50) + sqrt(18) - sqrt(8).",
+   "options": [
+    "sqrt(60)",
+    "10sqrt(2)",
+    "4sqrt(2)",
+    "6sqrt(2)"
+   ],
+   "answer": 3,
+   "explanation": "sqrt(50) = 5 sqrt(2), sqrt(18) = 3 sqrt(2) and sqrt(8) = 2 sqrt(2): 5 + 3 - 2 = 6, giving 6 sqrt(2).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0043",
+   "type": "OBJECTIVE",
+   "topic": "Surds (Radicals)",
+   "stem": "Rationalise the denominator of (1 + sqrt(2)) / (sqrt(2) - 1).",
+   "options": [
+    "3 + 2sqrt(2)",
+    "1 + 2sqrt(2)",
+    "3 - 2sqrt(2)",
+    "-1 - sqrt(2)"
+   ],
+   "answer": 0,
+   "explanation": "Multiply top and bottom by sqrt(2) + 1: (1 + sqrt(2))^2 / (2 - 1) = 1 + 2 sqrt(2) + 2 = 3 + 2 sqrt(2).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0044",
+   "type": "OBJECTIVE",
+   "topic": "Surds (Radicals)",
+   "stem": "Simplify sqrt(75) - 2sqrt(12) + sqrt(27).",
+   "options": [
+    "2sqrt(3)",
+    "6sqrt(3)",
+    "4sqrt(3)",
+    "sqrt(3)"
+   ],
+   "answer": 2,
+   "explanation": "5 sqrt(3) - 2(2 sqrt(3)) + 3 sqrt(3) = (5 - 4 + 3) sqrt(3) = 4 sqrt(3).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0045",
+   "type": "OBJECTIVE",
+   "topic": "Surds (Radicals)",
+   "stem": "Simplify 1/(sqrt(5) - 2) + 1/(sqrt(5) + 2).",
+   "options": [
+    "4",
+    "sqrt(5)",
+    "2sqrt(5)/9",
+    "2sqrt(5)"
+   ],
+   "answer": 3,
+   "explanation": "Common denominator (sqrt(5) - 2)(sqrt(5) + 2) = 5 - 4 = 1, numerator = 2 sqrt(5). So the sum is 2 sqrt(5).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0046",
+   "type": "OBJECTIVE",
+   "topic": "Matrices and Determinants",
+   "stem": "Evaluate the determinant of the matrix (3, 2; 4, 5), where rows are separated by semicolons.",
+   "options": [
+    "7",
+    "23",
+    "-7",
+    "15"
+   ],
+   "answer": 0,
+   "explanation": "det = 3 x 5 - 2 x 4 = 15 - 8 = 7.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0047",
+   "type": "OBJECTIVE",
+   "topic": "Matrices and Determinants",
+   "stem": "Given A = (2, 1; 3, 4) and B = (1, 0; 2, -1), where rows are separated by semicolons, find AB.",
+   "options": [
+    "(2, 1; 1, -2)",
+    "(2, 0; 6, -4)",
+    "(4, -1; 11, -4)",
+    "(4, 1; 11, 4)"
+   ],
+   "answer": 2,
+   "explanation": "Row 1: (2)(1) + (1)(2) = 4, (2)(0) + (1)(-1) = -1; Row 2: 3 + 8 = 11, 0 - 4 = -4. Multiplying entry by entry or computing BA are common errors.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0048",
+   "type": "OBJECTIVE",
+   "topic": "Matrices and Determinants",
+   "stem": "If the determinant of (x, 3; 2, 4) is 10, find x.",
+   "options": [
+    "1",
+    "4",
+    "-1",
+    "5"
+   ],
+   "answer": 1,
+   "explanation": "4x - 6 = 10, so x = 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0049",
+   "type": "OBJECTIVE",
+   "topic": "Matrices and Determinants",
+   "stem": "Find the inverse of the matrix (3, 1; 5, 2), where rows are separated by semicolons.",
+   "options": [
+    "(2, -1; -5, 3)",
+    "(2, 1; 5, 3)",
+    "(-2, 1; 5, -3)",
+    "(3, -5; -1, 2)"
+   ],
+   "answer": 0,
+   "explanation": "det = 6 - 5 = 1. Swap the leading diagonal, change the signs of the other entries and divide by 1: (2, -1; -5, 3).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0050",
+   "type": "OBJECTIVE",
+   "topic": "Ratio, Proportions and Rates",
+   "stem": "Share ₦36,000 among three traders in the ratio 2 : 3 : 4. What is the largest share?",
+   "options": [
+    "₦12,000",
+    "₦18,000",
+    "₦16,000",
+    "₦9,000"
+   ],
+   "answer": 2,
+   "explanation": "Total parts = 9; one part = ₦4,000; largest share = 4 x ₦4,000 = ₦16,000.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0051",
+   "type": "OBJECTIVE",
+   "topic": "Ratio, Proportions and Rates",
+   "stem": "Six men can complete a job in 15 days. Working at the same rate, how many days will 9 men take?",
+   "options": [
+    "22.5",
+    "10",
+    "12",
+    "9"
+   ],
+   "answer": 1,
+   "explanation": "Total work = 6 x 15 = 90 man-days; 90 / 9 = 10 days. More men means fewer days (inverse proportion).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0052",
+   "type": "OBJECTIVE",
+   "topic": "Ratio, Proportions and Rates",
+   "stem": "On a map drawn to a scale of 1 : 50,000, two villages are 6 cm apart. Find the actual distance between them.",
+   "options": [
+    "30 km",
+    "0.3 km",
+    "300 km",
+    "3 km"
+   ],
+   "answer": 3,
+   "explanation": "6 x 50,000 = 300,000 cm = 3,000 m = 3 km.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0053",
+   "type": "OBJECTIVE",
+   "topic": "Ratio, Proportions and Rates",
+   "stem": "At an exchange rate of ₦1,600 to US$1, how many US dollars will ₦240,000 buy?",
+   "options": [
+    "$1,500",
+    "$15",
+    "$384",
+    "$150"
+   ],
+   "answer": 3,
+   "explanation": "240,000 / 1,600 = 150 dollars.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0054",
+   "type": "OBJECTIVE",
+   "topic": "Ratio, Proportions and Rates",
+   "stem": "If x : y = 3 : 4 and y : z = 6 : 5, find x : z.",
+   "options": [
+    "9 : 10",
+    "3 : 5",
+    "18 : 24",
+    "1 : 2"
+   ],
+   "answer": 0,
+   "explanation": "Make y the same: x : y = 9 : 12 and y : z = 12 : 10, so x : z = 9 : 10.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0055",
+   "type": "OBJECTIVE",
+   "topic": "Percentages",
+   "stem": "A trader in Onitsha buys a bag of rice for ₦2,500 and sells it for ₦3,000. Find the percentage profit.",
+   "options": [
+    "16%",
+    "20%",
+    "25%",
+    "50%"
+   ],
+   "answer": 1,
+   "explanation": "Profit = ₦500; percentage profit = 500/2,500 x 100 = 20%. Profit is calculated on the cost price, not the selling price.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0056",
+   "type": "OBJECTIVE",
+   "topic": "Percentages",
+   "stem": "The price of an item is increased by 20% and the new price is then reduced by 20%. What is the overall percentage change?",
+   "options": [
+    "No change",
+    "4% increase",
+    "4% decrease",
+    "20% decrease"
+   ],
+   "answer": 2,
+   "explanation": "1.2 x 0.8 = 0.96 of the original price, i.e. a 4% decrease. The two 20% changes act on different bases.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0057",
+   "type": "OBJECTIVE",
+   "topic": "Percentages",
+   "stem": "A shirt was sold for ₦5,175 at a loss of 10%. Find the cost price.",
+   "options": [
+    "₦5,692.50",
+    "₦4,657.50",
+    "₦5,750",
+    "₦5,500"
+   ],
+   "answer": 2,
+   "explanation": "Selling price = 90% of cost, so cost = 5,175 / 0.9 = ₦5,750. Adding 10% of the selling price gives the wrong figure ₦5,692.50.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0058",
+   "type": "OBJECTIVE",
+   "topic": "Percentages",
+   "stem": "After a discount of 12.5%, a phone costs ₦14,000. What was the price before the discount?",
+   "options": [
+    "₦16,000",
+    "₦15,750",
+    "₦12,250",
+    "₦15,000"
+   ],
+   "answer": 0,
+   "explanation": "₦14,000 is 87.5% of the original price: 14,000 / 0.875 = ₦16,000.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0059",
+   "type": "OBJECTIVE",
+   "topic": "Percentages",
+   "stem": "The population of a town is 80,000. If it increases by 5% each year, find the population after 2 years.",
+   "options": [
+    "88,000",
+    "88,200",
+    "84,000",
+    "168,000"
+   ],
+   "answer": 1,
+   "explanation": "80,000 x 1.05^2 = 88,200. Adding 10% once (88,000) ignores the growth on the first year's increase.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0060",
+   "type": "OBJECTIVE",
+   "topic": "Financial Arithmetic",
+   "stem": "Calculate the amount when ₦200,000 is invested for 3 years at 10% per annum compound interest, compounded annually.",
+   "options": [
+    "₦260,000",
+    "₦266,000",
+    "₦242,000",
+    "₦266,200"
+   ],
+   "answer": 3,
+   "explanation": "A = 200,000 x 1.1^3 = ₦266,200. ₦260,000 is the simple interest amount.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0061",
+   "type": "OBJECTIVE",
+   "topic": "Financial Arithmetic",
+   "stem": "A grinding machine bought for ₦1,200,000 depreciates by 15% of its value at the start of each year. Find its value after 2 years.",
+   "options": [
+    "₦840,000",
+    "₦1,020,000",
+    "₦900,000",
+    "₦867,000"
+   ],
+   "answer": 3,
+   "explanation": "Value = 1,200,000 x 0.85^2 = ₦867,000. Subtracting 15% of the original price twice gives ₦840,000.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0062",
+   "type": "OBJECTIVE",
+   "topic": "Financial Arithmetic",
+   "stem": "In how many years will ₦40,000 earn a simple interest of ₦9,600 at 6% per annum?",
+   "options": [
+    "4",
+    "3",
+    "5",
+    "6"
+   ],
+   "answer": 0,
+   "explanation": "T = 100I/(PR) = 960,000/240,000 = 4 years.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0063",
+   "type": "OBJECTIVE",
+   "topic": "Financial Arithmetic",
+   "stem": "The cash price of a refrigerator is ₦180,000. On hire purchase, a buyer pays a deposit of 25% of the cash price and 12 monthly instalments of ₦12,500. How much more than the cash price does the buyer pay?",
+   "options": [
+    "₦30,000",
+    "₦45,000",
+    "₦15,000",
+    "₦150,000"
+   ],
+   "answer": 2,
+   "explanation": "Deposit = ₦45,000; instalments = 12 x 12,500 = ₦150,000; total = ₦195,000, which is ₦15,000 more.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0064",
+   "type": "OBJECTIVE",
+   "topic": "Financial Arithmetic",
+   "stem": "At what rate of simple interest per annum will ₦25,000 amount to ₦31,000 in 4 years?",
+   "options": [
+    "24%",
+    "6%",
+    "5%",
+    "7.75%"
+   ],
+   "answer": 1,
+   "explanation": "Interest = ₦6,000. R = 100 x 6,000 / (25,000 x 4) = 6%.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0065",
+   "type": "OBJECTIVE",
+   "topic": "Variation",
+   "stem": "The brightness B of a lamp seen from a distance d metres varies inversely as d^2. B = 8 units when d = 3 m. Find B when d = 6 m.",
+   "options": [
+    "2",
+    "4",
+    "16",
+    "1"
+   ],
+   "answer": 0,
+   "explanation": "B = k/d^2, k = 8 x 9 = 72, so B = 72/36 = 2. Using inverse (not inverse square) variation gives 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0066",
+   "type": "OBJECTIVE",
+   "topic": "Variation",
+   "stem": "P varies jointly as Q and R. P = 24 when Q = 2 and R = 3. Find P when Q = 5 and R = 1.5.",
+   "options": [
+    "20",
+    "30",
+    "60",
+    "45"
+   ],
+   "answer": 1,
+   "explanation": "P = kQR; k = 24/6 = 4, so P = 4 x 5 x 1.5 = 30.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0067",
+   "type": "OBJECTIVE",
+   "topic": "Variation",
+   "stem": "The cost C of printing n copies of a school magazine is partly constant and partly varies as n. C = ₦5,000 when n = 20 and C = ₦8,000 when n = 50. Find C when n = 80.",
+   "options": [
+    "₦12,800",
+    "₦13,000",
+    "₦10,000",
+    "₦11,000"
+   ],
+   "answer": 3,
+   "explanation": "C = a + bn: 30b = 3,000 gives b = 100 and a = 3,000. Then C = 3,000 + 100 x 80 = ₦11,000. Treating C as directly proportional to n (8,000/50 x 80) gives ₦12,800.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0068",
+   "type": "OBJECTIVE",
+   "topic": "Variation",
+   "stem": "P is directly proportional to sqrt(Q). When Q = 9, P = 6. Find Q when P = 10.",
+   "options": [
+    "15",
+    "100",
+    "25",
+    "5"
+   ],
+   "answer": 2,
+   "explanation": "P = k sqrt(Q); k = 6/3 = 2. Then 10 = 2 sqrt(Q), sqrt(Q) = 5 and Q = 25.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0069",
+   "type": "OBJECTIVE",
+   "topic": "Variation",
+   "stem": "x varies inversely as y. If y is increased by 25%, what is the percentage change in x?",
+   "options": [
+    "25% decrease",
+    "20% decrease",
+    "25% increase",
+    "20% increase"
+   ],
+   "answer": 1,
+   "explanation": "x = k/y. New x = k/(1.25y) = 0.8(k/y), a 20% decrease. A 25% rise in y does not cause a 25% fall in x.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0070",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Expressions",
+   "stem": "If a = 2, b = -3 and c = 4, evaluate (a^2 - bc) / (a - b).",
+   "options": [
+    "16/5",
+    "-8/5",
+    "8",
+    "-16/5"
+   ],
+   "answer": 0,
+   "explanation": "a^2 - bc = 4 - (-12) = 16 and a - b = 2 - (-3) = 5, giving 16/5.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0071",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Expressions",
+   "stem": "Factorise 6x^2 - x - 2.",
+   "options": [
+    "(2x - 1)(3x + 2)",
+    "(6x + 1)(x - 2)",
+    "(3x + 1)(2x - 2)",
+    "(2x + 1)(3x - 2)"
+   ],
+   "answer": 3,
+   "explanation": "Find two numbers with product -12 and sum -1: -4 and 3. 6x^2 - 4x + 3x - 2 = 2x(3x - 2) + 1(3x - 2).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0072",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Expressions",
+   "stem": "Factorise completely 3x^3 - 12x.",
+   "options": [
+    "3x(x - 2)^2",
+    "3x(x - 4)(x + 1)",
+    "3x(x - 2)(x + 2)",
+    "x(3x - 2)(x + 6)"
+   ],
+   "answer": 2,
+   "explanation": "3x^3 - 12x = 3x(x^2 - 4) = 3x(x - 2)(x + 2).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0073",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Expressions",
+   "stem": "If (x - 2) is a factor of x^3 - kx + 6, find the value of k.",
+   "options": [
+    "5",
+    "-7",
+    "3",
+    "7"
+   ],
+   "answer": 3,
+   "explanation": "By the factor theorem, f(2) = 0: 8 - 2k + 6 = 0, so k = 7.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0074",
+   "type": "OBJECTIVE",
+   "topic": "Simple Operations on Algebraic Expressions",
+   "stem": "Simplify 3(2x - y) - 2(x - 4y).",
+   "options": [
+    "4x - 11y",
+    "4x - 5y",
+    "4x + 5y",
+    "8x + 5y"
+   ],
+   "answer": 2,
+   "explanation": "6x - 3y - 2x + 8y = 4x + 5y. The sign of -2 must multiply both terms in the bracket.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0075",
+   "type": "OBJECTIVE",
+   "topic": "Simple Operations on Algebraic Expressions",
+   "stem": "Subtract 2a - 3b + c from 5a + b - 2c.",
+   "options": [
+    "3a + 4b - 3c",
+    "3a - 2b - c",
+    "-3a - 4b + 3c",
+    "3a + 4b - c"
+   ],
+   "answer": 0,
+   "explanation": "(5a + b - 2c) - (2a - 3b + c) = 3a + 4b - 3c. 'Subtract P from Q' means Q - P.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0076",
+   "type": "OBJECTIVE",
+   "topic": "Simple Operations on Algebraic Expressions",
+   "stem": "Divide x^3 - 8 by x - 2.",
+   "options": [
+    "x^2 - 2x + 4",
+    "x^2 + 2x + 4",
+    "x^2 + 4",
+    "x^2 + 4x + 4"
+   ],
+   "answer": 1,
+   "explanation": "x^3 - 8 = (x - 2)(x^2 + 2x + 4), a difference of two cubes.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0077",
+   "type": "OBJECTIVE",
+   "topic": "Solution of Linear Equations",
+   "stem": "Solve 3(x - 2) = 2x + 5.",
+   "options": [
+    "1",
+    "11",
+    "-1",
+    "7"
+   ],
+   "answer": 1,
+   "explanation": "3x - 6 = 2x + 5 gives x = 11.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0078",
+   "type": "OBJECTIVE",
+   "topic": "Solution of Linear Equations",
+   "stem": "Solve (x + 1)/3 - (x - 2)/4 = 1.",
+   "options": [
+    "-2",
+    "5",
+    "14",
+    "2"
+   ],
+   "answer": 3,
+   "explanation": "Multiply by 12: 4(x + 1) - 3(x - 2) = 12, so x + 10 = 12 and x = 2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0079",
+   "type": "OBJECTIVE",
+   "topic": "Solution of Linear Equations",
+   "stem": "Solve the simultaneous equations 2x + 3y = 12 and 3x - y = 7.",
+   "options": [
+    "x = 2, y = 3",
+    "x = 3, y = -2",
+    "x = 3, y = 2",
+    "x = 1, y = 4"
+   ],
+   "answer": 2,
+   "explanation": "From the second equation y = 3x - 7. Then 2x + 9x - 21 = 12, 11x = 33, x = 3 and y = 2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0080",
+   "type": "OBJECTIVE",
+   "topic": "Solution of Linear Equations",
+   "stem": "Mrs Adebayo is three times as old as her son. In 12 years' time she will be twice as old as he will be. How old is the son now?",
+   "options": [
+    "12",
+    "24",
+    "36",
+    "6"
+   ],
+   "answer": 0,
+   "explanation": "3s + 12 = 2(s + 12) gives s = 12.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0081",
+   "type": "OBJECTIVE",
+   "topic": "Solution of Linear Equations",
+   "stem": "Solve the simultaneous equations 2/x + 3/y = 2 and 4/x - 3/y = 1.",
+   "options": [
+    "x = 1/2, y = 1/3",
+    "x = 3, y = 2",
+    "x = 2, y = 3",
+    "x = 2, y = 1"
+   ],
+   "answer": 2,
+   "explanation": "Let p = 1/x and q = 1/y: 2p + 3q = 2 and 4p - 3q = 1, so 6p = 3, p = 1/2, q = 1/3. Hence x = 2 and y = 3 (not p and q themselves).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0082",
+   "type": "OBJECTIVE",
+   "topic": "Change of Subject of a Formula/Relation",
+   "stem": "Make u the subject of the formula v^2 = u^2 + 2as.",
+   "options": [
+    "u = sqrt(v^2 - 2as)",
+    "u = v - sqrt(2as)",
+    "u = sqrt(v^2 + 2as)",
+    "u = v^2 - 2as"
+   ],
+   "answer": 0,
+   "explanation": "u^2 = v^2 - 2as, then take square roots. The square root of a difference is not the difference of square roots.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0083",
+   "type": "OBJECTIVE",
+   "topic": "Change of Subject of a Formula/Relation",
+   "stem": "Make x the subject of the relation y = (2x + 3)/(x - 1).",
+   "options": [
+    "x = (y - 3)/(y + 2)",
+    "x = (y + 3)/(2 - y)",
+    "x = (3 - y)/(y - 2)",
+    "x = (y + 3)/(y - 2)"
+   ],
+   "answer": 3,
+   "explanation": "y(x - 1) = 2x + 3, so xy - 2x = y + 3, x(y - 2) = y + 3 and x = (y + 3)/(y - 2).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0084",
+   "type": "OBJECTIVE",
+   "topic": "Change of Subject of a Formula/Relation",
+   "stem": "Make g the subject of the formula T = 2 pi sqrt(l/g).",
+   "options": [
+    "g = 2pi l/T",
+    "g = 4pi^2 l/T^2",
+    "g = 4pi^2 T^2/l",
+    "g = l T^2/(4pi^2)"
+   ],
+   "answer": 1,
+   "explanation": "Square both sides: T^2 = 4 pi^2 l/g, so g = 4 pi^2 l/T^2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0085",
+   "type": "OBJECTIVE",
+   "topic": "Change of Subject of a Formula/Relation",
+   "stem": "Make b the subject of the formula a = (b - c)/(b + c).",
+   "options": [
+    "b = c(1 + a)/(1 - a)",
+    "b = c(1 - a)/(1 + a)",
+    "b = c(a - 1)/(a + 1)",
+    "b = (a + c)/(1 - a)"
+   ],
+   "answer": 0,
+   "explanation": "ab + ac = b - c, so ab - b = -c - ac, b(a - 1) = -c(1 + a) and b = c(1 + a)/(1 - a).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0086",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "Solve x^2 - 5x + 6 = 0.",
+   "options": [
+    "x = -2 or x = -3",
+    "x = 1 or x = 6",
+    "x = 2 or x = 3",
+    "x = -1 or x = 6"
+   ],
+   "answer": 2,
+   "explanation": "(x - 2)(x - 3) = 0, so x = 2 or 3.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0087",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "Solve 2x^2 + x - 6 = 0.",
+   "options": [
+    "x = -3/2 or x = 2",
+    "x = 3/2 or x = -2",
+    "x = 3 or x = -2",
+    "x = 2/3 or x = -2"
+   ],
+   "answer": 1,
+   "explanation": "(2x - 3)(x + 2) = 0, so x = 3/2 or x = -2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0088",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "Find the quadratic equation whose roots are 2/3 and -1.",
+   "options": [
+    "3x^2 - x - 2 = 0",
+    "3x^2 + 5x + 2 = 0",
+    "x^2 + x - 2 = 0",
+    "3x^2 + x - 2 = 0"
+   ],
+   "answer": 3,
+   "explanation": "(x - 2/3)(x + 1) = 0; multiply by 3: (3x - 2)(x + 1) = 3x^2 + x - 2 = 0.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0089",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "If alpha and beta are the roots of 2x^2 - 7x + 3 = 0, find alpha^2 + beta^2.",
+   "options": [
+    "49/4",
+    "37/4",
+    "43/4",
+    "25/4"
+   ],
+   "answer": 1,
+   "explanation": "alpha + beta = 7/2 and alpha x beta = 3/2. alpha^2 + beta^2 = (7/2)^2 - 2(3/2) = 49/4 - 3 = 37/4.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0090",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "Find the values of k for which x^2 - kx + 9 = 0 has equal roots.",
+   "options": [
+    "k = 6 or k = -6",
+    "k = 3 or k = -3",
+    "k = 9 or k = -9",
+    "k = 36 or k = -36"
+   ],
+   "answer": 0,
+   "explanation": "Equal roots need b^2 - 4ac = 0: k^2 - 36 = 0, so k = 6 or -6.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0091",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "The product of two consecutive positive integers is 132. Find the smaller integer.",
+   "options": [
+    "12",
+    "10",
+    "13",
+    "11"
+   ],
+   "answer": 3,
+   "explanation": "n(n + 1) = 132 gives n^2 + n - 132 = 0, (n + 12)(n - 11) = 0, so n = 11.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0092",
+   "type": "OBJECTIVE",
+   "topic": "Quadratic Equations",
+   "stem": "Solve 3x^2 - 4x - 2 = 0, giving the roots correct to two decimal places.",
+   "options": [
+    "x = 1.72 or x = 0.39",
+    "x = -1.72 or x = 0.39",
+    "x = 1.72 or x = -0.39",
+    "x = 2.39 or x = -1.06"
+   ],
+   "answer": 2,
+   "explanation": "x = (4 +/- sqrt(16 + 24))/6 = (4 +/- 6.325)/6, giving 1.72 or -0.39.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0093",
+   "type": "OBJECTIVE",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "Find the minimum value of y = x^2 - 4x + 3.",
+   "options": [
+    "-1",
+    "3",
+    "2",
+    "-4"
+   ],
+   "answer": 0,
+   "explanation": "y = (x - 2)^2 - 1, so the minimum value is -1 (at x = 2). The x-value 2 is not the minimum value of y.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0094",
+   "type": "OBJECTIVE",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "State the equation of the line of symmetry of the curve y = 2x^2 - 8x + 5.",
+   "options": [
+    "x = -2",
+    "x = 4",
+    "x = 2",
+    "y = 2"
+   ],
+   "answer": 2,
+   "explanation": "x = -b/(2a) = 8/4 = 2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0095",
+   "type": "OBJECTIVE",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "At which values of x does the graph of y = x^2 - x - 6 cut the x-axis?",
+   "options": [
+    "x = 2 and x = -3",
+    "x = -2 and x = 3",
+    "x = -6 and x = 1",
+    "x = 6 and x = -1"
+   ],
+   "answer": 1,
+   "explanation": "Set y = 0: (x - 3)(x + 2) = 0, so x = 3 or x = -2.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0096",
+   "type": "OBJECTIVE",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "Find the maximum value of y = 3 - 2x - x^2.",
+   "options": [
+    "3",
+    "-1",
+    "2",
+    "4"
+   ],
+   "answer": 3,
+   "explanation": "y = 4 - (x + 1)^2, so the maximum is 4 when x = -1.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0097",
+   "type": "OBJECTIVE",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "The graph of y = x^2 - 2x - 3 has been drawn. Which straight line must be drawn on the same axes to solve the equation x^2 - 3x - 4 = 0?",
+   "options": [
+    "y = x - 1",
+    "y = -x + 1",
+    "y = x + 1",
+    "y = 3x + 4"
+   ],
+   "answer": 2,
+   "explanation": "x^2 - 3x - 4 = 0 can be written as x^2 - 2x - 3 = x + 1, so draw y = x + 1 and read the x-values of the intersections.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0098",
+   "type": "OBJECTIVE",
+   "topic": "Linear Inequalities",
+   "stem": "Solve the inequality 2(x - 3) >= 5x + 6.",
+   "options": [
+    "x >= -4",
+    "x <= 4",
+    "x >= 4",
+    "x <= -4"
+   ],
+   "answer": 3,
+   "explanation": "2x - 6 >= 5x + 6 gives -3x >= 12. Dividing by -3 reverses the sign: x <= -4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0099",
+   "type": "OBJECTIVE",
+   "topic": "Linear Inequalities",
+   "stem": "List the integer values of x that satisfy -3 < 2x + 1 <= 7.",
+   "options": [
+    "{-1, 0, 1, 2, 3}",
+    "{-2, -1, 0, 1, 2, 3}",
+    "{-1, 0, 1, 2}",
+    "{-2, -1, 0, 1, 2}"
+   ],
+   "answer": 0,
+   "explanation": "Subtract 1 and divide by 2: -2 < x <= 3, so x = -1, 0, 1, 2, 3.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0100",
+   "type": "OBJECTIVE",
+   "topic": "Linear Inequalities",
+   "stem": "Solve the inequality (x - 1)/2 - (x + 1)/3 > 1.",
+   "options": [
+    "x > 7",
+    "x > 11",
+    "x < 11",
+    "x > 1"
+   ],
+   "answer": 1,
+   "explanation": "Multiply by 6: 3x - 3 - 2x - 2 > 6, so x > 11.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0101",
+   "type": "OBJECTIVE",
+   "topic": "Linear Inequalities",
+   "stem": "Which inequality describes the region below the line y = 2x + 1, not including points on the line?",
+   "options": [
+    "y > 2x + 1",
+    "y < 2x + 1",
+    "y <= 2x + 1",
+    "y >= 2x + 1"
+   ],
+   "answer": 1,
+   "explanation": "Points below the line have y-values less than 2x + 1; a strict inequality excludes the line itself (drawn broken).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0102",
+   "type": "OBJECTIVE",
+   "topic": "Linear Inequalities",
+   "stem": "A trader has at most ₦60,000 to buy x bags of beans at ₦3,000 each and y bags of garri at ₦2,000 each. Which inequality represents this condition?",
+   "options": [
+    "3x + 2y >= 60",
+    "2x + 3y <= 60",
+    "3x + 2y < 6",
+    "3x + 2y <= 60"
+   ],
+   "answer": 3,
+   "explanation": "Cost = 3,000x + 2,000y <= 60,000. Dividing through by 1,000 gives 3x + 2y <= 60. 'At most' means 'less than or equal to'.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0103",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Fractions",
+   "stem": "Simplify (x^2 - 9)/(x^2 + x - 6).",
+   "options": [
+    "(x - 3)/(x - 2)",
+    "(x + 3)/(x - 2)",
+    "(x - 3)/(x + 2)",
+    "3/2"
+   ],
+   "answer": 0,
+   "explanation": "(x - 3)(x + 3) / ((x + 3)(x - 2)) = (x - 3)/(x - 2). Only common factors, not terms, may be cancelled.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0104",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Fractions",
+   "stem": "Simplify 1/(x - 1) - 1/(x + 1).",
+   "options": [
+    "-2/(x^2 - 1)",
+    "2x/(x^2 - 1)",
+    "2/(x^2 - 1)",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "((x + 1) - (x - 1))/((x - 1)(x + 1)) = 2/(x^2 - 1).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0105",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Fractions",
+   "stem": "For what values of x is (x + 2)/(x^2 - 5x + 6) undefined?",
+   "options": [
+    "x = -2",
+    "x = 2 or x = 3",
+    "x = -2 or x = -3",
+    "x = 6 or x = -1"
+   ],
+   "answer": 1,
+   "explanation": "The fraction is undefined when the denominator is zero: (x - 2)(x - 3) = 0.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0106",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Fractions",
+   "stem": "Simplify x/(x + y) + y/(x - y).",
+   "options": [
+    "(x^2 + y^2)/(x^2 - y^2)",
+    "(x + y)/(x - y)",
+    "(x^2 - y^2)/(x^2 + y^2)",
+    "1"
+   ],
+   "answer": 0,
+   "explanation": "x(x - y) + y(x + y) = x^2 + y^2 over (x + y)(x - y) = x^2 - y^2.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0107",
+   "type": "OBJECTIVE",
+   "topic": "Algebraic Fractions",
+   "stem": "Solve 3/(x - 1) = 2/(x + 2).",
+   "options": [
+    "8",
+    "-4",
+    "-8",
+    "4"
+   ],
+   "answer": 2,
+   "explanation": "Cross-multiply: 3x + 6 = 2x - 2, so x = -8.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0108",
+   "type": "OBJECTIVE",
+   "topic": "Functions and Relations",
+   "stem": "Given f(x) = 3x - 4 and g(x) = x^2, find f(g(2)).",
+   "options": [
+    "4",
+    "2",
+    "12",
+    "8"
+   ],
+   "answer": 3,
+   "explanation": "g(2) = 4 and f(4) = 12 - 4 = 8. Working out g(f(2)) = 4 gives a different value.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0109",
+   "type": "OBJECTIVE",
+   "topic": "Functions and Relations",
+   "stem": "Find the inverse of f(x) = (2x + 1)/3.",
+   "options": [
+    "f^-1(x) = (3x + 1)/2",
+    "f^-1(x) = 3/(2x + 1)",
+    "f^-1(x) = (2x - 1)/3",
+    "f^-1(x) = (3x - 1)/2"
+   ],
+   "answer": 3,
+   "explanation": "Let y = (2x + 1)/3, so 3y = 2x + 1 and x = (3y - 1)/2. Replace y by x.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0110",
+   "type": "OBJECTIVE",
+   "topic": "Functions and Relations",
+   "stem": "Which of the following relations is a function?",
+   "options": [
+    "{(1, 2), (1, 3), (2, 4)}",
+    "{(1, 2), (2, 3), (3, 4)}",
+    "{(2, 1), (2, 5), (3, 1)}",
+    "{(0, 0), (1, 1), (1, -1)}"
+   ],
+   "answer": 1,
+   "explanation": "In a function each input has exactly one image. The other sets each map one input to two different outputs.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0111",
+   "type": "OBJECTIVE",
+   "topic": "Functions and Relations",
+   "stem": "The function f is defined by f: x -> 2x + 1 on the domain {-1, 0, 1, 2}. Find the range of f.",
+   "options": [
+    "{-1, 1, 3, 5}",
+    "{-1, 0, 1, 2}",
+    "{1, 3, 5}",
+    "{0, 1, 3, 5}"
+   ],
+   "answer": 0,
+   "explanation": "Images: f(-1) = -1, f(0) = 1, f(1) = 3, f(2) = 5.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0112",
+   "type": "OBJECTIVE",
+   "topic": "Lengths and Perimeters",
+   "stem": "An arc of a circle of radius 21 cm subtends an angle of 60 degrees at the centre. Find the length of the arc. [Take pi = 22/7]",
+   "options": [
+    "44 cm",
+    "11 cm",
+    "22 cm",
+    "231 cm"
+   ],
+   "answer": 2,
+   "explanation": "Arc = (60/360) x 2 x 22/7 x 21 = 22 cm.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0113",
+   "type": "OBJECTIVE",
+   "topic": "Lengths and Perimeters",
+   "stem": "Find the perimeter of a sector of a circle of radius 7 cm whose angle is 90 degrees. [Take pi = 22/7]",
+   "options": [
+    "11 cm",
+    "18 cm",
+    "25 cm",
+    "38.5 cm"
+   ],
+   "answer": 2,
+   "explanation": "Arc = (90/360) x 2 x 22/7 x 7 = 11 cm; perimeter = 11 + 7 + 7 = 25 cm. Forgetting the two radii gives 11 cm.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0114",
+   "type": "OBJECTIVE",
+   "topic": "Lengths and Perimeters",
+   "stem": "A rectangular plot measures 12 m by 5 m. Find the length of its diagonal.",
+   "options": [
+    "17 m",
+    "34 m",
+    "sqrt(119) m",
+    "13 m"
+   ],
+   "answer": 3,
+   "explanation": "d = sqrt(12^2 + 5^2) = sqrt(169) = 13 m.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0115",
+   "type": "OBJECTIVE",
+   "topic": "Lengths and Perimeters",
+   "stem": "A bicycle wheel has a diameter of 70 cm. How many complete revolutions does it make in covering a distance of 440 m? [Take pi = 22/7]",
+   "options": [
+    "200",
+    "100",
+    "400",
+    "628"
+   ],
+   "answer": 0,
+   "explanation": "Circumference = 22/7 x 70 = 220 cm. 44,000 cm / 220 cm = 200 revolutions. Using the radius in place of the diameter gives 400.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0116",
+   "type": "OBJECTIVE",
+   "topic": "Lengths and Perimeters",
+   "stem": "Two towns on the equator are on longitudes 15 degrees E and 35 degrees E. Calculate the distance between them along the equator, correct to the nearest kilometre. [Take the radius of the earth as 6400 km and pi = 22/7]",
+   "options": [
+    "4,469 km",
+    "2,235 km",
+    "1,117 km",
+    "6,705 km"
+   ],
+   "answer": 1,
+   "explanation": "The angle between the longitudes is 20 degrees. Distance = (20/360) x 2 x 22/7 x 6400 = 2,234.9 km, i.e. 2,235 km.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0117",
+   "type": "OBJECTIVE",
+   "topic": "Areas",
+   "stem": "Find the area of a triangle with two sides 7 cm and 8 cm and an included angle of 30 degrees.",
+   "options": [
+    "14 cm^2",
+    "28 cm^2",
+    "56 cm^2",
+    "24.2 cm^2"
+   ],
+   "answer": 0,
+   "explanation": "Area = 1/2 ab sin C = 1/2 x 7 x 8 x 1/2 = 14 cm^2.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0118",
+   "type": "OBJECTIVE",
+   "topic": "Areas",
+   "stem": "Find the area of a sector of a circle of radius 14 cm which subtends an angle of 45 degrees at the centre. [Take pi = 22/7]",
+   "options": [
+    "11 cm^2",
+    "77 cm^2",
+    "154 cm^2",
+    "38.5 cm^2"
+   ],
+   "answer": 1,
+   "explanation": "A = (45/360) x 22/7 x 14^2 = 77 cm^2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0119",
+   "type": "OBJECTIVE",
+   "topic": "Areas",
+   "stem": "Find the area of a triangle whose sides are 13 cm, 14 cm and 15 cm.",
+   "options": [
+    "91 cm^2",
+    "105 cm^2",
+    "84 cm^2",
+    "42 cm^2"
+   ],
+   "answer": 2,
+   "explanation": "s = 21; area = sqrt(21 x 8 x 7 x 6) = sqrt(7056) = 84 cm^2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0120",
+   "type": "OBJECTIVE",
+   "topic": "Areas",
+   "stem": "Find the total surface area of a closed cylinder of radius 7 cm and height 10 cm. [Take pi = 22/7]",
+   "options": [
+    "440 cm^2",
+    "594 cm^2",
+    "1540 cm^2",
+    "748 cm^2"
+   ],
+   "answer": 3,
+   "explanation": "TSA = 2 pi r (r + h) = 2 x 22/7 x 7 x 17 = 748 cm^2. 440 cm^2 is only the curved surface.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0121",
+   "type": "OBJECTIVE",
+   "topic": "Areas",
+   "stem": "A chord of a circle of radius 14 cm subtends a right angle at the centre. Find the area of the minor segment cut off by the chord. [Take pi = 22/7]",
+   "options": [
+    "154 cm^2",
+    "98 cm^2",
+    "56 cm^2",
+    "252 cm^2"
+   ],
+   "answer": 2,
+   "explanation": "Sector = (90/360) x 22/7 x 196 = 154 cm^2; triangle = 1/2 x 14 x 14 = 98 cm^2; segment = 154 - 98 = 56 cm^2.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0122",
+   "type": "OBJECTIVE",
+   "topic": "Volumes",
+   "stem": "Find the volume of a cone of base radius 3 cm and height 7 cm. [Take pi = 22/7]",
+   "options": [
+    "198 cm^3",
+    "22 cm^3",
+    "132 cm^3",
+    "66 cm^3"
+   ],
+   "answer": 3,
+   "explanation": "V = 1/3 pi r^2 h = 1/3 x 22/7 x 9 x 7 = 66 cm^3. Omitting the 1/3 gives 198 cm^3.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0123",
+   "type": "OBJECTIVE",
+   "topic": "Volumes",
+   "stem": "Find the volume of a hemispherical bowl of radius 21 cm. [Take pi = 22/7]",
+   "options": [
+    "38,808 cm^3",
+    "19,404 cm^3",
+    "2,772 cm^3",
+    "9,702 cm^3"
+   ],
+   "answer": 1,
+   "explanation": "V = 2/3 pi r^3 = 2/3 x 22/7 x 9,261 = 19,404 cm^3. 38,808 cm^3 is the full sphere.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0124",
+   "type": "OBJECTIVE",
+   "topic": "Volumes",
+   "stem": "A cylindrical water tank has a diameter of 1.4 m and a height of 2 m. Find its capacity in litres. [Take pi = 22/7]",
+   "options": [
+    "3,080 litres",
+    "12,320 litres",
+    "308 litres",
+    "4,400 litres"
+   ],
+   "answer": 0,
+   "explanation": "V = 22/7 x 0.7^2 x 2 = 3.08 m^3 = 3,080 litres (1 m^3 = 1,000 litres).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0125",
+   "type": "OBJECTIVE",
+   "topic": "Volumes",
+   "stem": "Two similar cones have heights 4 cm and 6 cm. If the volume of the smaller cone is 64 cm^3, find the volume of the larger cone.",
+   "options": [
+    "96 cm^3",
+    "216 cm^3",
+    "144 cm^3",
+    "128 cm^3"
+   ],
+   "answer": 1,
+   "explanation": "Volume ratio = (length ratio)^3 = (6/4)^3 = 27/8; 64 x 27/8 = 216 cm^3. Using the square of the ratio gives 144 cm^3.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0126",
+   "type": "OBJECTIVE",
+   "topic": "Volumes",
+   "stem": "A cone of height 12 cm and base radius 6 cm has a small cone of height 4 cm cut off from its top, parallel to the base. Find the volume of the frustum that remains, in terms of pi.",
+   "options": [
+    "144pi cm^3",
+    "128pi cm^3",
+    "416pi/3 cm^3",
+    "16pi/3 cm^3"
+   ],
+   "answer": 2,
+   "explanation": "The small cone has radius 2 cm (similar triangles). V = 1/3 pi (36 x 12) - 1/3 pi (4 x 4) = 144pi - 16pi/3 = 416pi/3 cm^3.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0127",
+   "type": "OBJECTIVE",
+   "topic": "Angles",
+   "stem": "The angles at a point are x, 2x, 3x and 120 degrees. Find x.",
+   "options": [
+    "40 degrees",
+    "60 degrees",
+    "30 degrees",
+    "20 degrees"
+   ],
+   "answer": 0,
+   "explanation": "Angles at a point sum to 360: 6x + 120 = 360, so x = 40.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0128",
+   "type": "OBJECTIVE",
+   "topic": "Angles",
+   "stem": "Find the smaller angle between the hour hand and the minute hand of a clock at 3:30.",
+   "options": [
+    "90 degrees",
+    "105 degrees",
+    "60 degrees",
+    "75 degrees"
+   ],
+   "answer": 3,
+   "explanation": "Minute hand at 180 degrees; hour hand at 90 + 30 x 0.5 = 105 degrees. The angle is 180 - 105 = 75 degrees. The hour hand also moves.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0129",
+   "type": "OBJECTIVE",
+   "topic": "Angles",
+   "stem": "Two angles (2x + 10) degrees and (3x - 30) degrees are supplementary. Find x.",
+   "options": [
+    "20",
+    "28",
+    "40",
+    "44"
+   ],
+   "answer": 2,
+   "explanation": "(2x + 10) + (3x - 30) = 180, so 5x = 200 and x = 40.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0130",
+   "type": "OBJECTIVE",
+   "topic": "Angles and Intercepts on Parallel Lines",
+   "stem": "A transversal cuts two parallel lines. A pair of alternate angles are (3x - 20) degrees and (x + 40) degrees. Find x.",
+   "options": [
+    "15",
+    "40",
+    "50",
+    "30"
+   ],
+   "answer": 3,
+   "explanation": "Alternate angles are equal: 3x - 20 = x + 40, so x = 30.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0131",
+   "type": "OBJECTIVE",
+   "topic": "Angles and Intercepts on Parallel Lines",
+   "stem": "Two co-interior (allied) angles between parallel lines are (2x + 15) degrees and (x + 30) degrees. Find x.",
+   "options": [
+    "45",
+    "15",
+    "55",
+    "35"
+   ],
+   "answer": 0,
+   "explanation": "Co-interior angles are supplementary: 3x + 45 = 180, so x = 45. Setting them equal (as for alternate angles) gives the trap answer 15.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0132",
+   "type": "OBJECTIVE",
+   "topic": "Angles and Intercepts on Parallel Lines",
+   "stem": "Three parallel lines cut a transversal AB into segments of 4 cm and 6 cm. They cut another transversal CD into segments of which the first is 6 cm. Find the second segment on CD.",
+   "options": [
+    "4 cm",
+    "9 cm",
+    "8 cm",
+    "12 cm"
+   ],
+   "answer": 1,
+   "explanation": "Parallel lines cut transversals in the same ratio: 4 : 6 = 6 : x, so x = 9 cm.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0133",
+   "type": "OBJECTIVE",
+   "topic": "Angles and Intercepts on Parallel Lines",
+   "stem": "When a transversal cuts two parallel lines, which pair of angles is always equal?",
+   "options": [
+    "Corresponding angles",
+    "Co-interior angles",
+    "Adjacent angles on the line",
+    "Exterior angles on the same side of the transversal"
+   ],
+   "answer": 0,
+   "explanation": "Corresponding angles are equal. Co-interior angles are supplementary, not equal.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0134",
+   "type": "OBJECTIVE",
+   "topic": "Triangles and Polygons",
+   "stem": "Each interior angle of a regular polygon is 140 degrees. Find the number of sides.",
+   "options": [
+    "7",
+    "9",
+    "8",
+    "10"
+   ],
+   "answer": 1,
+   "explanation": "Exterior angle = 40 degrees; n = 360/40 = 9.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0135",
+   "type": "OBJECTIVE",
+   "topic": "Triangles and Polygons",
+   "stem": "A ladder 10 m long leans against a vertical wall and reaches 8 m up the wall. How far is the foot of the ladder from the wall?",
+   "options": [
+    "2 m",
+    "18 m",
+    "sqrt(164) m",
+    "6 m"
+   ],
+   "answer": 3,
+   "explanation": "Pythagoras: sqrt(10^2 - 8^2) = sqrt(36) = 6 m.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0136",
+   "type": "OBJECTIVE",
+   "topic": "Triangles and Polygons",
+   "stem": "Triangles ABC and PQR are similar, with AB = 6 cm and PQ = 9 cm. If the area of triangle ABC is 32 cm^2, find the area of triangle PQR.",
+   "options": [
+    "48 cm^2",
+    "108 cm^2",
+    "72 cm^2",
+    "21 1/3 cm^2"
+   ],
+   "answer": 2,
+   "explanation": "Area ratio = (9/6)^2 = 9/4, so area of PQR = 32 x 9/4 = 72 cm^2. Using the linear ratio gives 48 cm^2.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0137",
+   "type": "OBJECTIVE",
+   "topic": "Triangles and Polygons",
+   "stem": "The interior angles of a pentagon are x, (x + 20), 2x, 100 and 120 degrees. Find x.",
+   "options": [
+    "70",
+    "80",
+    "85",
+    "75"
+   ],
+   "answer": 3,
+   "explanation": "Sum = 540: 4x + 240 = 540, so x = 75.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0138",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "One angle of a cyclic quadrilateral is 112 degrees. Find the angle opposite to it.",
+   "options": [
+    "112 degrees",
+    "248 degrees",
+    "68 degrees",
+    "56 degrees"
+   ],
+   "answer": 2,
+   "explanation": "Opposite angles of a cyclic quadrilateral are supplementary: 180 - 112 = 68.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0139",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "AB is a diameter of a circle and C is a point on the circumference. If angle CAB = 34 degrees, find angle CBA.",
+   "options": [
+    "34 degrees",
+    "56 degrees",
+    "146 degrees",
+    "68 degrees"
+   ],
+   "answer": 1,
+   "explanation": "The angle in a semicircle (ACB) is 90 degrees, so angle CBA = 180 - 90 - 34 = 56 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0140",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "A point P is 13 cm from the centre of a circle of radius 5 cm. Find the length of a tangent from P to the circle.",
+   "options": [
+    "12 cm",
+    "8 cm",
+    "18 cm",
+    "sqrt(194) cm"
+   ],
+   "answer": 0,
+   "explanation": "The tangent is perpendicular to the radius: sqrt(13^2 - 5^2) = 12 cm.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0141",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "A tangent to a circle at T makes an angle of 58 degrees with a chord TA. Find the angle subtended by chord TA at a point B on the major arc.",
+   "options": [
+    "32 degrees",
+    "122 degrees",
+    "116 degrees",
+    "58 degrees"
+   ],
+   "answer": 3,
+   "explanation": "Alternate segment theorem: the angle between a tangent and a chord equals the angle in the alternate segment, 58 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0142",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "A chord of a circle of radius 10 cm is 6 cm from the centre. Find the length of the chord.",
+   "options": [
+    "8 cm",
+    "sqrt(136) cm",
+    "16 cm",
+    "12 cm"
+   ],
+   "answer": 2,
+   "explanation": "Half-chord = sqrt(10^2 - 6^2) = 8 cm, so the chord is 16 cm. The perpendicular from the centre bisects the chord.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0143",
+   "type": "OBJECTIVE",
+   "topic": "Circles",
+   "stem": "Two chords AB and CD of a circle intersect at X inside the circle. If AX = 4 cm, XB = 6 cm and CX = 3 cm, find XD.",
+   "options": [
+    "8 cm",
+    "4.5 cm",
+    "2 cm",
+    "7 cm"
+   ],
+   "answer": 0,
+   "explanation": "Intersecting chords: AX x XB = CX x XD, so 24 = 3 x XD and XD = 8 cm.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0144",
+   "type": "OBJECTIVE",
+   "topic": "Construction",
+   "stem": "Bisecting an angle of 60 degrees and then bisecting one of the resulting angles produces an angle of",
+   "options": [
+    "30 degrees",
+    "15 degrees",
+    "20 degrees",
+    "45 degrees"
+   ],
+   "answer": 1,
+   "explanation": "60/2 = 30 and 30/2 = 15 degrees.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0145",
+   "type": "OBJECTIVE",
+   "topic": "Construction",
+   "stem": "Which of the following angles cannot be constructed using a pair of compasses and a ruler only?",
+   "options": [
+    "75 degrees",
+    "105 degrees",
+    "22.5 degrees",
+    "50 degrees"
+   ],
+   "answer": 3,
+   "explanation": "Constructible angles come from 60 and 90 degrees by bisecting, adding and subtracting: 75 = 60 + 15, 105 = 90 + 15, 22.5 = 45/2. 50 degrees cannot be obtained this way.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0146",
+   "type": "OBJECTIVE",
+   "topic": "Construction",
+   "stem": "In constructing an angle of 60 degrees at a point A on a line with ruler and compasses, the construction actually produces",
+   "options": [
+    "a right-angled triangle",
+    "an equilateral triangle",
+    "a square",
+    "an isosceles triangle with a 30 degree angle"
+   ],
+   "answer": 1,
+   "explanation": "The same radius is used for both arcs, so the three points form an equilateral triangle, each of whose angles is 60 degrees.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0147",
+   "type": "OBJECTIVE",
+   "topic": "Loci",
+   "stem": "The locus of points equidistant from two fixed points A and B is",
+   "options": [
+    "the circle with AB as diameter",
+    "the line AB",
+    "the perpendicular bisector of AB",
+    "a line parallel to AB"
+   ],
+   "answer": 2,
+   "explanation": "Every point on the perpendicular bisector of AB is the same distance from A and from B.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0148",
+   "type": "OBJECTIVE",
+   "topic": "Loci",
+   "stem": "A point P moves in a plane so that it is always 3 cm from a fixed point O. The locus of P is",
+   "options": [
+    "a circle with centre O and radius 3 cm",
+    "a straight line 3 cm from O",
+    "a pair of parallel lines",
+    "a circle with diameter 3 cm"
+   ],
+   "answer": 0,
+   "explanation": "All points at a fixed distance from a fixed point form a circle with that point as centre.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0149",
+   "type": "OBJECTIVE",
+   "topic": "Loci",
+   "stem": "The locus of points equidistant from two intersecting straight lines is",
+   "options": [
+    "a circle through the point of intersection",
+    "a line parallel to one of them",
+    "the perpendicular bisector of the lines",
+    "the pair of bisectors of the angles between the lines"
+   ],
+   "answer": 3,
+   "explanation": "Points equidistant from two intersecting lines lie on the bisectors of the angles they form; there are two such bisectors, at right angles.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0150",
+   "type": "OBJECTIVE",
+   "topic": "Loci",
+   "stem": "A and B are fixed points. A point P moves so that angle APB is always 90 degrees. The locus of P is",
+   "options": [
+    "the perpendicular bisector of AB",
+    "a circle with AB as diameter",
+    "a circle with centre A and radius AB",
+    "a line parallel to AB"
+   ],
+   "answer": 1,
+   "explanation": "The angle in a semicircle is a right angle, so P lies on the circle having AB as diameter (excluding A and B).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0151",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "Find the midpoint of the line joining (-4, 7) and (6, -1).",
+   "options": [
+    "(1, 3)",
+    "(5, -4)",
+    "(1, 4)",
+    "(2, 6)"
+   ],
+   "answer": 0,
+   "explanation": "Midpoint = ((-4 + 6)/2, (7 - 1)/2) = (1, 3).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0152",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "Find the equation of the line passing through (1, 4) with gradient -2.",
+   "options": [
+    "y = -2x + 4",
+    "y = -2x - 6",
+    "y = -2x + 6",
+    "y = 2x + 2"
+   ],
+   "answer": 2,
+   "explanation": "y - 4 = -2(x - 1), so y = -2x + 6.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0153",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "Find the equation of the line through (3, 2) perpendicular to y = 3x - 1.",
+   "options": [
+    "y = 3x - 7",
+    "y = -x/3 + 3",
+    "y = -3x + 11",
+    "y = x/3 + 1"
+   ],
+   "answer": 1,
+   "explanation": "Perpendicular gradient = -1/3. y - 2 = -1/3 (x - 3), so y = -x/3 + 3.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0154",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "The line joining (2, k) and (5, 7) has gradient 2. Find k.",
+   "options": [
+    "13",
+    "3",
+    "-1",
+    "1"
+   ],
+   "answer": 3,
+   "explanation": "(7 - k)/3 = 2, so 7 - k = 6 and k = 1.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0155",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "The lines 2y = kx + 5 and y = 4x - 1 are parallel. Find k.",
+   "options": [
+    "4",
+    "2",
+    "8",
+    "-1/4"
+   ],
+   "answer": 2,
+   "explanation": "The first line has gradient k/2; parallel lines have equal gradients, so k/2 = 4 and k = 8.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0156",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "Find the acute angle that the line y = sqrt(3) x + 2 makes with the positive x-axis.",
+   "options": [
+    "60 degrees",
+    "30 degrees",
+    "45 degrees",
+    "120 degrees"
+   ],
+   "answer": 0,
+   "explanation": "tan theta = sqrt(3), so theta = 60 degrees.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0157",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "If sin theta = 3/5 and theta is acute, find tan theta.",
+   "options": [
+    "3/4",
+    "4/5",
+    "4/3",
+    "5/4"
+   ],
+   "answer": 0,
+   "explanation": "The sides are 3, 4, 5 (opposite 3, hypotenuse 5, adjacent 4), so tan theta = 3/4.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0158",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "Find the value of cos 300 degrees.",
+   "options": [
+    "-1/2",
+    "1/2",
+    "sqrt(3)/2",
+    "-sqrt(3)/2"
+   ],
+   "answer": 1,
+   "explanation": "300 degrees is in the fourth quadrant where cosine is positive: cos 300 = cos 60 = 1/2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0159",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "Solve 2 sin theta - 1 = 0 for 0 <= theta <= 360 degrees.",
+   "options": [
+    "theta = 30 or theta = 330",
+    "theta = 60 or theta = 120",
+    "theta = 30 or theta = 150",
+    "theta = 30 or theta = 210"
+   ],
+   "answer": 2,
+   "explanation": "sin theta = 1/2, positive in the first and second quadrants: 30 and 180 - 30 = 150 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0160",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "In triangle ABC, angle A = 30 degrees, angle B = 45 degrees and a = 6 cm. Find b.",
+   "options": [
+    "3sqrt(2) cm",
+    "6sqrt(3) cm",
+    "12 cm",
+    "6sqrt(2) cm"
+   ],
+   "answer": 3,
+   "explanation": "Sine rule: b = a sin B / sin A = 6 x (sqrt(2)/2) / (1/2) = 6 sqrt(2) cm.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0161",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "Two sides of a triangle are 5 cm and 7 cm and the angle between them is 60 degrees. Find the third side.",
+   "options": [
+    "sqrt(74) cm",
+    "sqrt(109) cm",
+    "6 cm",
+    "sqrt(39) cm"
+   ],
+   "answer": 3,
+   "explanation": "Cosine rule: c^2 = 25 + 49 - 2(5)(7)(1/2) = 39, so c = sqrt(39) cm.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0162",
+   "type": "OBJECTIVE",
+   "topic": "Sine, Cosine and Tangent of an Angle",
+   "stem": "Find the value of tan 135 degrees.",
+   "options": [
+    "-1",
+    "1",
+    "-sqrt(3)",
+    "1/sqrt(3)"
+   ],
+   "answer": 0,
+   "explanation": "135 degrees is in the second quadrant where tangent is negative: tan 135 = -tan 45 = -1.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0163",
+   "type": "OBJECTIVE",
+   "topic": "Angles of Elevation and Depression",
+   "stem": "From a point 30 m from the foot of a vertical mast, the angle of elevation of the top is 60 degrees. Find the height of the mast.",
+   "options": [
+    "10sqrt(3) m",
+    "30sqrt(3) m",
+    "15 m",
+    "60 m"
+   ],
+   "answer": 1,
+   "explanation": "h = 30 tan 60 = 30 sqrt(3) m.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0164",
+   "type": "OBJECTIVE",
+   "topic": "Angles of Elevation and Depression",
+   "stem": "From the top of a cliff 80 m high, the angle of depression of a boat is 45 degrees. How far is the boat from the foot of the cliff?",
+   "options": [
+    "40 m",
+    "80sqrt(2) m",
+    "80 m",
+    "160 m"
+   ],
+   "answer": 2,
+   "explanation": "tan 45 = 80/d = 1, so d = 80 m.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0165",
+   "type": "OBJECTIVE",
+   "topic": "Angles of Elevation and Depression",
+   "stem": "A vertical pole is 20 m high. Find the angle of elevation of its top from a point on level ground 20sqrt(3) m from its foot.",
+   "options": [
+    "30 degrees",
+    "60 degrees",
+    "45 degrees",
+    "15 degrees"
+   ],
+   "answer": 0,
+   "explanation": "tan theta = 20/(20 sqrt(3)) = 1/sqrt(3), so theta = 30 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0166",
+   "type": "OBJECTIVE",
+   "topic": "Angles of Elevation and Depression",
+   "stem": "The angle of elevation of the top of a building from a point A on level ground is 30 degrees. From a point B, 20 m nearer the building, the angle of elevation is 45 degrees. Find the height of the building.",
+   "options": [
+    "10(sqrt(3) - 1) m",
+    "20sqrt(3) m",
+    "10(sqrt(3) + 1) m",
+    "20 m"
+   ],
+   "answer": 2,
+   "explanation": "h/tan 30 - h/tan 45 = 20 gives h(sqrt(3) - 1) = 20, so h = 20/(sqrt(3) - 1) = 10(sqrt(3) + 1) m, about 27.3 m.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0167",
+   "type": "OBJECTIVE",
+   "topic": "Bearings",
+   "stem": "The bearing of town A from town B is 065°. Find the bearing of B from A.",
+   "options": [
+    "115°",
+    "295°",
+    "025°",
+    "245°"
+   ],
+   "answer": 3,
+   "explanation": "Back bearing = 065 + 180 = 245 degrees.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0168",
+   "type": "OBJECTIVE",
+   "topic": "Bearings",
+   "stem": "A boat sails 8 km due north and then 6 km due east. How far is it from its starting point?",
+   "options": [
+    "14 km",
+    "10 km",
+    "2 km",
+    "sqrt(28) km"
+   ],
+   "answer": 1,
+   "explanation": "sqrt(8^2 + 6^2) = 10 km.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0169",
+   "type": "OBJECTIVE",
+   "topic": "Bearings",
+   "stem": "Town Q is 12 km from town P on a bearing of 060°. How far east of P is Q?",
+   "options": [
+    "6 km",
+    "12sqrt(3) km",
+    "6sqrt(3) km",
+    "4sqrt(3) km"
+   ],
+   "answer": 2,
+   "explanation": "The eastward component is 12 sin 60 = 6 sqrt(3) km. The northward component is 12 cos 60 = 6 km.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0170",
+   "type": "OBJECTIVE",
+   "topic": "Bearings",
+   "stem": "A girl walks 5 km on a bearing of 090° and then 12 km on a bearing of 180°. Find, correct to the nearest degree, the bearing of her starting point from her final position.",
+   "options": [
+    "023°",
+    "337°",
+    "157°",
+    "203°"
+   ],
+   "answer": 1,
+   "explanation": "She ends 5 km east and 12 km south of the start. From the end, the start is 12 km north and 5 km west: tan theta = 5/12, theta = 22.6 degrees west of north, a bearing of 360 - 22.6 = 337 degrees.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0171",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "Find the gradient of the curve y = x^2 - 3x at the point where x = 2.",
+   "options": [
+    "1",
+    "-2",
+    "7",
+    "-1"
+   ],
+   "answer": 0,
+   "explanation": "dy/dx = 2x - 3 = 4 - 3 = 1 at x = 2.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0172",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "Find the integral of (4x^3 + 2x) with respect to x.",
+   "options": [
+    "12x^2 + 2 + c",
+    "x^4 + 2x^2 + c",
+    "4x^4 + x^2 + c",
+    "x^4 + x^2 + c"
+   ],
+   "answer": 3,
+   "explanation": "Increase each power by 1 and divide by the new power: x^4 + x^2, plus the constant c.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0173",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "Evaluate the integral of 3x^2 from x = 0 to x = 2.",
+   "options": [
+    "12",
+    "6",
+    "4",
+    "8"
+   ],
+   "answer": 3,
+   "explanation": "[x^3] from 0 to 2 = 8 - 0 = 8.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0174",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "Find the coordinates of the turning point of the curve y = x^2 - 6x + 4.",
+   "options": [
+    "(3, -5)",
+    "(-3, 31)",
+    "(3, 4)",
+    "(6, 4)"
+   ],
+   "answer": 0,
+   "explanation": "dy/dx = 2x - 6 = 0 at x = 3; y = 9 - 18 + 4 = -5. So the turning point is (3, -5).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0175",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "The distance s metres of a particle from a fixed point after t seconds is s = t^3 - 2t^2 + 5. Find its velocity when t = 3.",
+   "options": [
+    "14 m/s",
+    "15 m/s",
+    "23 m/s",
+    "21 m/s"
+   ],
+   "answer": 1,
+   "explanation": "v = ds/dt = 3t^2 - 4t = 27 - 12 = 15 m/s. Substituting t = 3 into s gives 14, which is a distance.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0176",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "Find the equation of the tangent to the curve y = x^2 + 1 at the point (1, 2).",
+   "options": [
+    "y = 2x + 2",
+    "y = x + 1",
+    "y = 2x",
+    "y = 2x - 1"
+   ],
+   "answer": 2,
+   "explanation": "dy/dx = 2x = 2 at x = 1. y - 2 = 2(x - 1), so y = 2x.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0177",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "Find the median of 3, 8, 5, 12, 9 and 6.",
+   "options": [
+    "8",
+    "6",
+    "7.5",
+    "7"
+   ],
+   "answer": 3,
+   "explanation": "In order: 3, 5, 6, 8, 9, 12. The median is the mean of the middle two: (6 + 8)/2 = 7.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0178",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "The table shows the number of children (x) in 20 families in a village: x = 1, 2, 3, 4, 5 with frequencies 3, 5, 8, 3, 1 respectively. Find the mean number of children.",
+   "options": [
+    "3",
+    "2.5",
+    "2.7",
+    "3.2"
+   ],
+   "answer": 2,
+   "explanation": "Sum of fx = 3 + 10 + 24 + 12 + 5 = 54; mean = 54/20 = 2.7.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0179",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "A family spends ₦30,000 of its monthly income of ₦120,000 on food. In a pie chart of the income, find the angle of the sector representing food.",
+   "options": [
+    "90 degrees",
+    "30 degrees",
+    "120 degrees",
+    "45 degrees"
+   ],
+   "answer": 0,
+   "explanation": "Angle = (30,000/120,000) x 360 = 90 degrees.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0180",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "Using the frequency table x = 1, 2, 3, 4, 5 with frequencies 3, 5, 8, 3, 1, find the mode of the distribution.",
+   "options": [
+    "8",
+    "3",
+    "5",
+    "2"
+   ],
+   "answer": 1,
+   "explanation": "The mode is the value with the highest frequency (8), which is x = 3. The frequency itself is not the mode.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0181",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "Find the standard deviation of the numbers 2, 4, 6, 8 and 10.",
+   "options": [
+    "8",
+    "2sqrt(2)",
+    "4",
+    "sqrt(10)"
+   ],
+   "answer": 1,
+   "explanation": "Mean = 6; deviations squared: 16, 4, 0, 4, 16; variance = 40/5 = 8; standard deviation = sqrt(8) = 2 sqrt(2). 8 is the variance.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0182",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "The mean of five numbers is 12. When a sixth number is added the mean becomes 13. Find the sixth number.",
+   "options": [
+    "13",
+    "1",
+    "25",
+    "18"
+   ],
+   "answer": 3,
+   "explanation": "6 x 13 - 5 x 12 = 78 - 60 = 18.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0183",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "Find the variance of 3, 5 and 7.",
+   "options": [
+    "4",
+    "2",
+    "8/3",
+    "sqrt(8/3)"
+   ],
+   "answer": 2,
+   "explanation": "Mean = 5; squared deviations 4, 0, 4; variance = 8/3.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0184",
+   "type": "OBJECTIVE",
+   "topic": "Probability",
+   "stem": "A bag contains 5 red, 3 blue and 2 green beads. A bead is picked at random. Find the probability that it is not red.",
+   "options": [
+    "1/2",
+    "3/10",
+    "1/5",
+    "2/5"
+   ],
+   "answer": 0,
+   "explanation": "Not red = 5 out of 10 = 1/2.",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0185",
+   "type": "OBJECTIVE",
+   "topic": "Probability",
+   "stem": "Two fair dice are thrown. Find the probability that the sum of the scores is 8.",
+   "options": [
+    "1/6",
+    "1/9",
+    "7/36",
+    "5/36"
+   ],
+   "answer": 3,
+   "explanation": "Favourable pairs: (2,6), (3,5), (4,4), (5,3), (6,2) - five of 36 outcomes.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0186",
+   "type": "OBJECTIVE",
+   "topic": "Probability",
+   "stem": "A box contains 4 red and 6 white balls. Two balls are drawn one after the other without replacement. Find the probability that both are red.",
+   "options": [
+    "4/25",
+    "2/15",
+    "1/5",
+    "2/5"
+   ],
+   "answer": 1,
+   "explanation": "4/10 x 3/9 = 12/90 = 2/15. With replacement it would be 4/25.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0187",
+   "type": "OBJECTIVE",
+   "topic": "Probability",
+   "stem": "The probabilities that Chidi and Bola pass an examination are 0.8 and 0.6 respectively. Find the probability that only one of them passes.",
+   "options": [
+    "0.48",
+    "0.32",
+    "0.44",
+    "0.92"
+   ],
+   "answer": 2,
+   "explanation": "P = 0.8 x 0.4 + 0.2 x 0.6 = 0.32 + 0.12 = 0.44.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0188",
+   "type": "OBJECTIVE",
+   "topic": "Probability",
+   "stem": "A fair die is thrown twice. Find the probability of getting at least one six.",
+   "options": [
+    "11/36",
+    "1/3",
+    "1/36",
+    "25/36"
+   ],
+   "answer": 0,
+   "explanation": "P = 1 - (5/6)^2 = 1 - 25/36 = 11/36.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0189",
+   "type": "OBJECTIVE",
+   "topic": "Vectors in a Plane",
+   "stem": "Given a = (3, -2) and b = (-1, 4), as column vectors written in brackets, find 2a + b.",
+   "options": [
+    "(2, 2)",
+    "(5, 0)",
+    "(7, -8)",
+    "(5, 2)"
+   ],
+   "answer": 1,
+   "explanation": "2a = (6, -4); adding b gives (5, 0).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0190",
+   "type": "OBJECTIVE",
+   "topic": "Vectors in a Plane",
+   "stem": "P is the point (2, 3) and Q is the point (7, -1). Find the vector PQ.",
+   "options": [
+    "(5, -4)",
+    "(-5, 4)",
+    "(9, 2)",
+    "(5, 4)"
+   ],
+   "answer": 0,
+   "explanation": "PQ = Q - P = (7 - 2, -1 - 3) = (5, -4).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0191",
+   "type": "OBJECTIVE",
+   "topic": "Vectors in a Plane",
+   "stem": "Given a = (2, 3) and b = (4, 5), find |a + b|.",
+   "options": [
+    "14",
+    "sqrt(54)",
+    "sqrt(13) + sqrt(41)",
+    "10"
+   ],
+   "answer": 3,
+   "explanation": "a + b = (6, 8) and |a + b| = sqrt(36 + 64) = 10. |a| + |b| is not equal to |a + b|.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0192",
+   "type": "OBJECTIVE",
+   "topic": "Vectors in a Plane",
+   "stem": "If (x, 3) + 2(1, y) = (5, 7), find x and y.",
+   "options": [
+    "x = 4, y = 2",
+    "x = 3, y = 4",
+    "x = 3, y = 2",
+    "x = 5, y = 2"
+   ],
+   "answer": 2,
+   "explanation": "x + 2 = 5 gives x = 3; 3 + 2y = 7 gives y = 2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0193",
+   "type": "OBJECTIVE",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "Find the image of the point (3, -5) under a reflection in the x-axis.",
+   "options": [
+    "(-3, -5)",
+    "(-3, 5)",
+    "(-5, 3)",
+    "(3, 5)"
+   ],
+   "answer": 3,
+   "explanation": "Reflection in the x-axis maps (x, y) to (x, -y).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0194",
+   "type": "OBJECTIVE",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "Find the image of the point (2, 5) under a rotation of 90 degrees anticlockwise about the origin.",
+   "options": [
+    "(5, -2)",
+    "(-2, -5)",
+    "(-5, 2)",
+    "(5, 2)"
+   ],
+   "answer": 2,
+   "explanation": "An anticlockwise quarter turn maps (x, y) to (-y, x).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0195",
+   "type": "OBJECTIVE",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "Find the image of the point (3, -1) under an enlargement with centre the origin and scale factor -2.",
+   "options": [
+    "(6, -2)",
+    "(-6, 2)",
+    "(1, -3)",
+    "(-6, -2)"
+   ],
+   "answer": 1,
+   "explanation": "Multiply each coordinate by -2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0196",
+   "type": "OBJECTIVE",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "Find the image of (4, -7) under a reflection in the line y = x.",
+   "options": [
+    "(-7, 4)",
+    "(7, -4)",
+    "(-4, 7)",
+    "(4, 7)"
+   ],
+   "answer": 0,
+   "explanation": "Reflection in y = x interchanges the coordinates.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0197",
+   "type": "OBJECTIVE",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "A triangle of area 5 cm^2 is enlarged with scale factor 3. Find the area of the image.",
+   "options": [
+    "15 cm^2",
+    "45 cm^2",
+    "135 cm^2",
+    "8 cm^2"
+   ],
+   "answer": 1,
+   "explanation": "Areas are multiplied by the square of the scale factor: 5 x 9 = 45 cm^2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0198",
+   "type": "OBJECTIVE",
+   "topic": "Statistics",
+   "stem": "The ages (in years) of 20 pupils in a lesson club are grouped as 1-5, 6-10, 11-15 and 16-20 with frequencies 4, 7, 6 and 3 respectively. Using the class mid-points, calculate the mean age.",
+   "options": [
+    "10 years",
+    "8 years",
+    "12.5 years",
+    "10.5 years"
+   ],
+   "answer": 0,
+   "explanation": "Mid-points are 3, 8, 13 and 18. Sum of fx = 12 + 56 + 78 + 54 = 200, so the mean = 200/20 = 10 years. Using class boundaries instead of mid-points gives wrong values.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0199",
+   "type": "OBJECTIVE",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "Find the equation of the perpendicular bisector of the line segment joining A(1, 2) and B(5, 6).",
+   "options": [
+    "y = x + 1",
+    "y = -x + 4",
+    "y = -x + 7",
+    "y = x - 7"
+   ],
+   "answer": 2,
+   "explanation": "Midpoint = (3, 4); gradient AB = 1, so the perpendicular gradient is -1. y - 4 = -(x - 3) gives y = -x + 7. y = x + 1 is the line AB itself.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0200",
+   "type": "OBJECTIVE",
+   "topic": "Introductory Calculus",
+   "stem": "A farmer in Kano has 40 m of fencing to enclose a rectangular garden. Find the maximum area he can enclose.",
+   "options": [
+    "400 m^2",
+    "96 m^2",
+    "200 m^2",
+    "100 m^2"
+   ],
+   "answer": 3,
+   "explanation": "If one side is w, the other is 20 - w, so A = w(20 - w) = 20w - w^2. dA/dw = 20 - 2w = 0 gives w = 10 and A = 100 m^2 (a square).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0201",
+   "type": "THEORY",
+   "topic": "Logarithms",
+   "stem": "(a) Without using tables or a calculator, evaluate log_2 8 + log_3 (1/9) - log_5 125. [3 marks]\n(b) Solve the equation log_2 (x^2 - 4x) = 5. [5 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) log_2 8 = 3 and log_3 (1/9) = -2\n1 mark: (a) log_5 125 = 3\n1 mark: (a) 3 - 2 - 3 = -2\n1 mark: (b) x^2 - 4x = 2^5 = 32\n1 mark: (b) x^2 - 4x - 32 = 0\n1 mark: (b) (x - 8)(x + 4) = 0\n1 mark: (b) x = 8 or x = -4\n1 mark: (b) both values checked: x^2 - 4x = 32 > 0, so both are valid",
+   "explanation": "(a) 3 + (-2) - 3 = -2. (b) Convert to index form: x^2 - 4x = 32, so (x - 8)(x + 4) = 0 and x = 8 or x = -4. For both values x^2 - 4x = 32, which is positive, so both solutions are acceptable.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0202",
+   "type": "THEORY",
+   "topic": "Financial Arithmetic",
+   "stem": "Mrs Okafor invested ₦500,000 in a savings scheme that pays 12% per annum compound interest, compounded annually.\n(a) Calculate the amount in her account at the end of the third year. [5 marks]\n(b) Find the compound interest earned in the three years. [2 marks]\n(c) Find the simple interest she would have earned on the same sum at 12% per annum for 3 years. [3 marks]\n(d) By how much does the compound interest exceed the simple interest? [2 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) end of year 1: 500,000 x 1.12 = ₦560,000\n1 mark: (a) end of year 2: 560,000 x 1.12 = ₦627,200\n1 mark: (a) end of year 3: 627,200 x 1.12\n2 marks: (a) amount = ₦702,464\n2 marks: (b) interest = 702,464 - 500,000 = ₦202,464\n1 mark: (c) I = PRT/100\n2 marks: (c) 500,000 x 12 x 3/100 = ₦180,000\n2 marks: (d) 202,464 - 180,000 = ₦22,464",
+   "explanation": "(a) A = 500,000 x (1.12)^3 = ₦702,464. (b) CI = ₦202,464. (c) SI = 500,000 x 12 x 3/100 = ₦180,000. (d) The compound interest is ₦22,464 more, because interest is earned on previous interest.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0203",
+   "type": "THEORY",
+   "topic": "Sets",
+   "stem": "In a survey of 100 traders in Aba market, 52 sell shoes, 45 sell bags and 40 sell clothes. 18 sell shoes and bags, 15 sell shoes and clothes, 14 sell bags and clothes, x sell all three items and 7 sell none of the three.\n(a) Illustrate the information in a Venn diagram (describe the regions in terms of x). [3 marks]\n(b) Find the value of x. [3 marks]\n(c) How many traders sell exactly one of the items? [4 marks]\n(d) How many traders sell exactly two of the items? [2 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) only shoes 19 + x, only bags 13 + x, only clothes 11 + x\n1 mark: (a) shoes and bags only 18 - x, shoes and clothes only 15 - x, bags and clothes only 14 - x\n1 mark: (a) centre x and 7 outside the circles\n1 mark: (b) 52 + 45 + 40 - 18 - 15 - 14 + x = 100 - 7\n1 mark: (b) 90 + x = 93\n1 mark: (b) x = 3\n1 mark: (c) only shoes = 52 - 18 - 15 + 3 = 22\n1 mark: (c) only bags = 45 - 18 - 14 + 3 = 16\n1 mark: (c) only clothes = 40 - 15 - 14 + 3 = 14\n1 mark: (c) exactly one = 22 + 16 + 14 = 52\n1 mark: (d) (18 - 3) + (15 - 3) + (14 - 3)\n1 mark: (d) exactly two = 38",
+   "explanation": "n(S u B u C) = 93, so 52 + 45 + 40 - 18 - 15 - 14 + x = 93, giving x = 3. Exactly one: 22 + 16 + 14 = 52. Exactly two: 15 + 12 + 11 = 38. Check: 52 + 38 + 3 + 7 = 100.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0204",
+   "type": "THEORY",
+   "topic": "Quadratic Equations",
+   "stem": "(a) Solve 2x^2 - 5x - 3 = 0 by factorisation. [3 marks]\n(b) Using the quadratic formula, solve x^2 + 4x - 7 = 0, giving your answers correct to two decimal places. [5 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) 2x^2 - 6x + x - 3 = 0, i.e. (2x + 1)(x - 3) = 0\n1 mark: (a) x = 3\n1 mark: (a) x = -1/2\n1 mark: (b) a = 1, b = 4, c = -7 substituted: x = (-4 +/- sqrt(16 + 28))/2\n1 mark: (b) sqrt(44) = 6.633\n1 mark: (b) x = (-4 + 6.633)/2\n1 mark: (b) x = 1.32\n1 mark: (b) x = -5.32",
+   "explanation": "(a) (2x + 1)(x - 3) = 0, so x = -1/2 or 3. (b) x = (-4 +/- sqrt(44))/2 = -2 +/- sqrt(11) = 1.32 or -5.32 (2 d.p.).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0205",
+   "type": "THEORY",
+   "topic": "Graphs of Linear and Quadratic Functions",
+   "stem": "Consider the relation y = 2x^2 - x - 6.\n(a) Copy and complete the table of values for -3 <= x <= 3: x = -3, -2, -1, 0, 1, 2, 3. [4 marks]\n(b) From your table (or otherwise), find the roots of the equation 2x^2 - x - 6 = 0. [3 marks]\n(c) Find the equation of the line of symmetry and the minimum value of y. [3 marks]\n(d) State the equation of the straight line which, drawn on the same axes as the curve, would give the solution of 2x^2 - 3x - 2 = 0. [2 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) y = 15 at x = -3 and y = 4 at x = -2\n1 mark: (a) y = -3 at x = -1 and y = -6 at x = 0\n1 mark: (a) y = -5 at x = 1\n1 mark: (a) y = 0 at x = 2 and y = 9 at x = 3\n1 mark: (b) (2x + 3)(x - 2) = 0 or reading where the curve crosses y = 0\n1 mark: (b) x = 2\n1 mark: (b) x = -1.5\n1 mark: (c) line of symmetry x = 1/4 (i.e. x = 0.25)\n2 marks: (c) minimum value y = 2(1/16) - 1/4 - 6 = -6.125 (-49/8)\n1 mark: (d) 2x^2 - x - 6 = 2x - 4\n1 mark: (d) the line y = 2x - 4",
+   "explanation": "(a) y-values: 15, 4, -3, -6, -5, 0, 9. (b) The curve crosses the x-axis at x = -1.5 and x = 2. (c) x = -b/2a = 1/4; minimum y = -49/8 = -6.125. (d) 2x^2 - 3x - 2 = 0 is the same as 2x^2 - x - 6 = 2x - 4, so draw y = 2x - 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0206",
+   "type": "THEORY",
+   "topic": "Variation",
+   "stem": "y varies directly as x and inversely as the square of z. When x = 4 and z = 2, y = 6.\n(a) Find the relationship between x, y and z. [4 marks]\n(b) Find y when x = 9 and z = 3. [2 marks]\n(c) Find the positive value of z when y = 12 and x = 8. [2 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) y = kx/z^2\n1 mark: (a) 6 = 4k/4 (substitution)\n1 mark: (a) k = 6\n1 mark: (a) y = 6x/z^2\n1 mark: (b) y = 6(9)/9\n1 mark: (b) y = 6\n1 mark: (c) z^2 = 6(8)/12 = 4\n1 mark: (c) z = 2",
+   "explanation": "y = kx/z^2; 6 = 4k/4 gives k = 6, so y = 6x/z^2. (b) y = 54/9 = 6. (c) 12 = 48/z^2, z^2 = 4, z = 2.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0207",
+   "type": "THEORY",
+   "topic": "Volumes",
+   "stem": "A sector of a circle of radius 21 cm subtends an angle of 120 degrees at the centre. The sector is folded so that its two straight edges meet without overlap to form a cone. [Take pi = 22/7]\n(a) Calculate the length of the arc of the sector. [3 marks]\n(b) Find the base radius of the cone. [3 marks]\n(c) Calculate the height of the cone, correct to two decimal places. [3 marks]\n(d) Calculate the volume of the cone, correct to one decimal place. [3 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) arc = (theta/360) x 2 pi r\n1 mark: (a) (120/360) x 2 x 22/7 x 21\n1 mark: (a) arc = 44 cm\n1 mark: (b) circumference of base = arc length: 2 pi r = 44\n1 mark: (b) r = 44 x 7/44\n1 mark: (b) r = 7 cm\n1 mark: (c) slant height = 21 cm, so h^2 = 21^2 - 7^2\n1 mark: (c) h = sqrt(392)\n1 mark: (c) h = 19.80 cm\n1 mark: (d) V = 1/3 pi r^2 h\n1 mark: (d) 1/3 x 22/7 x 49 x 19.80\n1 mark: (d) V = 1016.3 cm^3 (accept 1016.4 from h = 19.80)",
+   "explanation": "Arc = 44 cm becomes the base circumference, so 2 x 22/7 x r = 44 and r = 7 cm. The radius of the sector (21 cm) is the slant height, so h = sqrt(441 - 49) = sqrt(392) = 19.80 cm. V = 1/3 x 22/7 x 49 x 19.799 = 1016.3 cm^3 (1016.4 if the rounded height 19.80 is used).",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0208",
+   "type": "THEORY",
+   "topic": "Circles",
+   "stem": "(a) Prove that the opposite angles of a cyclic quadrilateral are supplementary. [5 marks]\n(b) ABCD is a cyclic quadrilateral in which angle ABC = (3x + 10) degrees, angle ADC = (2x + 20) degrees and angle BAD = (x + 50) degrees. Find: (i) x; (ii) angle BCD. [4 marks]\n(c) TA is a tangent to a circle with centre O at the point A, and AB is a chord such that angle TAB = 55 degrees. Find angle AOB. [3 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) correct diagram described: cyclic quadrilateral ABCD with centre O joined to B and D\n1 mark: (a) angle BOD = 2 x angle BAD (angle at centre is twice the angle at the circumference)\n1 mark: (a) reflex angle BOD = 2 x angle BCD, and angle BOD + reflex angle BOD = 360 degrees\n1 mark: (a) 2(angle BAD) + 2(angle BCD) = 360 degrees\n1 mark: (a) angle BAD + angle BCD = 180 degrees (similarly for the other pair)\n1 mark: (b)(i) (3x + 10) + (2x + 20) = 180\n1 mark: (b)(i) x = 30\n1 mark: (b)(ii) angle BAD = 80 degrees\n1 mark: (b)(ii) angle BCD = 180 - 80 = 100 degrees\n1 mark: (c) angle in alternate segment = 55 degrees (or angle OAB = 90 - 55 = 35 degrees)\n1 mark: (c) angle AOB = 2 x 55 (or 180 - 2 x 35)\n1 mark: (c) angle AOB = 110 degrees",
+   "explanation": "(a) Join O to B and D. The angle subtended at the centre by arc BCD is 2 x angle BAD, and the reflex angle subtended by arc BAD is 2 x angle BCD. These two angles at O make 360 degrees, so angle BAD + angle BCD = 180 degrees. (b) 5x + 30 = 180, x = 30; angle BAD = 80 degrees so angle BCD = 100 degrees. (c) The radius OA is perpendicular to the tangent, so angle OAB = 35 degrees; triangle OAB is isosceles, so angle AOB = 180 - 70 = 110 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0209",
+   "type": "THEORY",
+   "topic": "Bearings",
+   "stem": "A ship sails from port P on a bearing of 060 degrees to a point Q, 30 km away. It then sails on a bearing of 150 degrees to a point R, 40 km from Q.\n(a) Show that angle PQR = 90 degrees. [3 marks]\n(b) Calculate the distance PR. [3 marks]\n(c) Find, correct to the nearest degree, the bearing of R from P. [6 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) bearing of P from Q = 060 + 180 = 240 degrees\n1 mark: (a) angle PQR = 240 - 150\n1 mark: (a) = 90 degrees\n1 mark: (b) PR^2 = 30^2 + 40^2\n1 mark: (b) PR^2 = 2500\n1 mark: (b) PR = 50 km\n1 mark: (c) tan(angle QPR) = 40/30\n2 marks: (c) angle QPR = 53.13 degrees\n1 mark: (c) bearing = 060 + 53.13\n1 mark: (c) = 113.13 degrees\n1 mark: (c) bearing of R from P = 113 degrees",
+   "explanation": "From Q, P is on a bearing of 240 degrees and R on 150 degrees, so angle PQR = 90 degrees. PR = sqrt(900 + 1600) = 50 km. Angle QPR = tan^-1 (40/30) = 53.13 degrees, so the bearing of R from P is 060 + 53.13 = 113 degrees.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0210",
+   "type": "THEORY",
+   "topic": "Angles of Elevation and Depression",
+   "stem": "A man whose eye level is 1.6 m above the ground stands on level ground 25 m from the foot of a vertical tree. The angle of elevation of the top of the tree from his eye is 38 degrees.\n(a) Calculate, correct to one decimal place, the height of the tree. [4 marks]\n(b) He walks 10 m directly towards the tree. Calculate, correct to one decimal place, the new angle of elevation of the top of the tree. [4 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) tan 38 = h/25\n1 mark: (a) h = 25 tan 38 = 19.53 m\n1 mark: (a) height = 19.53 + 1.6\n1 mark: (a) = 21.1 m\n1 mark: (b) new horizontal distance = 15 m\n1 mark: (b) tan theta = 19.53/15\n1 mark: (b) tan theta = 1.302\n1 mark: (b) theta = 52.5 degrees",
+   "explanation": "(a) The part above eye level is 25 tan 38 = 19.53 m, so the tree is 19.53 + 1.6 = 21.1 m tall. (b) Now 15 m away: tan theta = 19.53/15 = 1.302, theta = 52.5 degrees. Forgetting to add (or wrongly using) the eye height is the common error.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0211",
+   "type": "THEORY",
+   "topic": "Statistics",
+   "stem": "The marks scored by 40 students in a test were grouped as follows: 10-19: 3; 20-29: 6; 30-39: 9; 40-49: 11; 50-59: 7; 60-69: 4.\n(a) Using an assumed mean of 44.5, calculate the mean mark. [5 marks]\n(b) State the modal class. [1 mark]\n(c) Calculate the median mark, correct to one decimal place. [4 marks]\n(d) A student is chosen at random. Find the probability that the student scored at least 50 marks. [2 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) class marks 14.5, 24.5, 34.5, 44.5, 54.5, 64.5\n1 mark: (a) deviations d = -30, -20, -10, 0, 10, 20\n1 mark: (a) sum fd = -90 - 120 - 90 + 0 + 70 + 80 = -150\n1 mark: (a) mean = 44.5 + (-150/40) = 44.5 - 3.75\n1 mark: (a) mean = 40.75\n1 mark: (b) modal class 40-49\n1 mark: (c) median position N/2 = 20; median class 40-49 (cumulative frequencies 3, 9, 18, 29, 36, 40)\n1 mark: (c) median = 39.5 + ((20 - 18)/11) x 10\n1 mark: (c) = 39.5 + 1.82\n1 mark: (c) median = 41.3\n1 mark: (d) 7 + 4 = 11 students scored 50 or more\n1 mark: (d) probability = 11/40",
+   "explanation": "With A = 44.5, sum fd = -150, so mean = 44.5 - 3.75 = 40.75. The modal class is 40-49 (frequency 11). Median = 39.5 + (2/11) x 10 = 41.3. P(at least 50) = 11/40.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0212",
+   "type": "THEORY",
+   "topic": "Probability",
+   "stem": "A bag contains 5 red, 4 green and 3 yellow balls of the same size. Two balls are picked at random one after the other without replacement. Find the probability that:\n(a) both balls are green; [2 marks]\n(b) the two balls are of different colours; [3 marks]\n(c) at least one of the balls is red. [3 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) 4/12 x 3/11\n1 mark: (a) = 1/11\n1 mark: (b) P(same colour) = (5/12)(4/11) + (4/12)(3/11) + (3/12)(2/11)\n1 mark: (b) = 38/132 = 19/66\n1 mark: (b) P(different) = 1 - 19/66 = 47/66\n1 mark: (c) P(no red) = 7/12 x 6/11\n1 mark: (c) = 42/132 = 7/22\n1 mark: (c) P(at least one red) = 1 - 7/22 = 15/22",
+   "explanation": "(a) 4/12 x 3/11 = 1/11. (b) P(same) = (20 + 12 + 6)/132 = 19/66, so P(different) = 47/66. (c) P(no red) = 7/12 x 6/11 = 7/22, so P(at least one red) = 15/22.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0213",
+   "type": "THEORY",
+   "topic": "Introductory Calculus",
+   "stem": "A curve has equation y = x^3 - 3x^2 - 9x + 5.\n(a) Find dy/dx. [2 marks]\n(b) Find the coordinates of the turning points of the curve. [5 marks]\n(c) Determine the nature of each turning point. [3 marks]\n(d) Find the gradient of the curve at the point where x = 2. [2 marks]",
+   "marks": 12,
+   "markingGuide": "2 marks: (a) dy/dx = 3x^2 - 6x - 9\n1 mark: (b) 3x^2 - 6x - 9 = 0, i.e. x^2 - 2x - 3 = 0\n1 mark: (b) (x - 3)(x + 1) = 0, x = 3 or x = -1\n1 mark: (b) at x = -1, y = 10\n1 mark: (b) at x = 3, y = -22\n1 mark: (b) turning points (-1, 10) and (3, -22)\n1 mark: (c) d2y/dx2 = 6x - 6\n1 mark: (c) at x = -1, d2y/dx2 = -12 < 0: (-1, 10) is a maximum\n1 mark: (c) at x = 3, d2y/dx2 = 12 > 0: (3, -22) is a minimum\n1 mark: (d) 3(4) - 6(2) - 9\n1 mark: (d) gradient = -9",
+   "explanation": "dy/dx = 3x^2 - 6x - 9 = 3(x - 3)(x + 1), so the turning points are at x = -1 (y = 10) and x = 3 (y = -22). d2y/dx2 = 6x - 6 is -12 at x = -1 (maximum) and 12 at x = 3 (minimum). At x = 2 the gradient is 12 - 12 - 9 = -9.",
+   "difficulty": "HARD"
+  },
+  {
+   "id": "wo-math-0214",
+   "type": "THEORY",
+   "topic": "Vectors in a Plane",
+   "stem": "The position vectors of points A and B relative to the origin O are OA = (3, 4) and OB = (-1, 7), written as column vectors.\n(a) Find the vector AB and its magnitude |AB|. [3 marks]\n(b) Find the position vector of M, the midpoint of AB. [2 marks]\n(c) Find the scalar k such that 2OA + kOB = (2, 36). [3 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) AB = OB - OA\n1 mark: (a) AB = (-4, 3)\n1 mark: (a) |AB| = sqrt(16 + 9) = 5\n1 mark: (b) OM = 1/2 (OA + OB)\n1 mark: (b) OM = (1, 5.5)\n1 mark: (c) (6 - k, 8 + 7k) = (2, 36)\n1 mark: (c) 6 - k = 2 gives k = 4\n1 mark: (c) check: 8 + 7(4) = 36",
+   "explanation": "AB = (-1 - 3, 7 - 4) = (-4, 3) and |AB| = 5. OM = ((3 - 1)/2, (4 + 7)/2) = (1, 5.5). 2OA + kOB = (6 - k, 8 + 7k) = (2, 36) gives k = 4 from both components.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0215",
+   "type": "THEORY",
+   "topic": "Transformation in the Cartesian Plane",
+   "stem": "Triangle ABC has vertices A(1, 1), B(3, 1) and C(1, 4).\n(a) Find the coordinates of the vertices of triangle A1B1C1, the image of ABC under a reflection in the y-axis. [3 marks]\n(b) Find the coordinates of A2B2C2, the image of ABC under a rotation of 90 degrees clockwise about the origin. [3 marks]\n(c) Triangle ABC is enlarged with centre the origin and scale factor 2 to give A3B3C3. State the coordinates of A3, B3 and C3. [3 marks]\n(d) Calculate the area of triangle ABC and hence the area of triangle A3B3C3. [3 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) (x, y) -> (-x, y)\n2 marks: (a) A1(-1, 1), B1(-3, 1), C1(-1, 4)\n1 mark: (b) (x, y) -> (y, -x)\n2 marks: (b) A2(1, -1), B2(1, -3), C2(4, -1)\n1 mark: (c) multiply coordinates by 2\n2 marks: (c) A3(2, 2), B3(6, 2), C3(2, 8)\n1 mark: (d) area ABC = 1/2 x 2 x 3 = 3 square units\n1 mark: (d) area scale factor = 2^2 = 4\n1 mark: (d) area A3B3C3 = 12 square units",
+   "explanation": "(a) (-1, 1), (-3, 1), (-1, 4). (b) A clockwise quarter turn maps (x, y) to (y, -x): (1, -1), (1, -3), (4, -1). (c) (2, 2), (6, 2), (2, 8). (d) ABC is right-angled at A with legs 2 and 3, area 3; the image area is 3 x 4 = 12 square units.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0216",
+   "type": "THEORY",
+   "topic": "Coordinate Geometry of Straight Lines",
+   "stem": "P and Q are the points (-2, 5) and (4, -3) respectively.\n(a) Find the gradient of PQ. [2 marks]\n(b) Find the equation of the line PQ in the form ax + by = c. [3 marks]\n(c) Calculate the length of PQ. [2 marks]\n(d) Write down the gradient of a line perpendicular to PQ. [1 mark]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) m = (-3 - 5)/(4 - (-2))\n1 mark: (a) m = -4/3\n1 mark: (b) y - 5 = -4/3 (x + 2)\n1 mark: (b) 3y - 15 = -4x - 8\n1 mark: (b) 4x + 3y = 7\n1 mark: (c) PQ = sqrt(6^2 + 8^2)\n1 mark: (c) PQ = 10 units\n1 mark: (d) gradient = 3/4",
+   "explanation": "m = -8/6 = -4/3. y - 5 = -4/3 (x + 2) gives 4x + 3y = 7. PQ = sqrt(36 + 64) = 10. A perpendicular line has gradient 3/4 (product of gradients = -1).",
+   "difficulty": "EASY"
+  },
+  {
+   "id": "wo-math-0217",
+   "type": "THEORY",
+   "topic": "Sequence and Series",
+   "stem": "(a) The sum of the first 10 terms of an arithmetic progression is 175 and the fifth term is 16. Find: (i) the first term and the common difference; (ii) the 20th term. [7 marks]\n(b) A geometric progression has first term 3 and common ratio 2. Find the least number of terms whose sum exceeds 3000. [5 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) S10 = 10/2 (2a + 9d) = 175, i.e. 2a + 9d = 35\n1 mark: (a) a + 4d = 16\n1 mark: (a) solving: d = 3\n1 mark: (a) a = 4\n1 mark: (a)(ii) T20 = a + 19d\n1 mark: (a)(ii) 4 + 19(3)\n1 mark: (a)(ii) T20 = 61\n1 mark: (b) Sn = 3(2^n - 1)/(2 - 1)\n1 mark: (b) 3(2^n - 1) > 3000, so 2^n > 1001\n1 mark: (b) 2^9 = 512 < 1001\n1 mark: (b) 2^10 = 1024 > 1001\n1 mark: (b) n = 10",
+   "explanation": "(a) 2a + 9d = 35 and 2a + 8d = 32 give d = 3 and a = 4; T20 = 4 + 57 = 61. (b) 3(2^n - 1) > 3000 means 2^n > 1001; 2^9 = 512 is too small but 2^10 = 1024 works, so 10 terms (S10 = 3069, while S9 = 1533).",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0218",
+   "type": "THEORY",
+   "topic": "Matrices and Determinants",
+   "stem": "(a) Find the determinant of the matrix M = (3, 2; 5, -4), where rows are separated by semicolons. [2 marks]\n(b) Hence, use the matrix method to solve the simultaneous equations 3x + 2y = 7 and 5x - 4y = 19. [6 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) det M = (3)(-4) - (2)(5)\n1 mark: (a) det M = -22\n1 mark: (b) M (x; y) = (7; 19)\n1 mark: (b) M^-1 = (1/-22)(-4, -2; -5, 3)\n1 mark: (b) (x; y) = M^-1 (7; 19)\n1 mark: (b) = (1/-22)(-28 - 38; -35 + 57) = (1/-22)(-66; 22)\n1 mark: (b) x = 3\n1 mark: (b) y = -1",
+   "explanation": "det M = -12 - 10 = -22. M^-1 = (-1/22)(-4, -2; -5, 3). Multiplying by (7; 19) gives (-1/22)(-66; 22) = (3; -1), so x = 3 and y = -1. Check: 9 - 2 = 7 and 15 + 4 = 19.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0219",
+   "type": "THEORY",
+   "topic": "Surds (Radicals)",
+   "stem": "(a) Simplify (sqrt(12) + sqrt(75)) / sqrt(3). [2 marks]\n(b) Rationalise the denominator of (3 + sqrt(2)) / (3 - sqrt(2)), giving your answer in the form (a + b sqrt(2))/c. [3 marks]\n(c) Given that x = 2 + sqrt(3), find the value of x + 1/x. [3 marks]",
+   "marks": 8,
+   "markingGuide": "1 mark: (a) 2 sqrt(3) + 5 sqrt(3) = 7 sqrt(3)\n1 mark: (a) 7 sqrt(3)/sqrt(3) = 7\n1 mark: (b) multiply numerator and denominator by 3 + sqrt(2)\n1 mark: (b) numerator 9 + 6 sqrt(2) + 2 = 11 + 6 sqrt(2); denominator 9 - 2 = 7\n1 mark: (b) (11 + 6 sqrt(2))/7\n1 mark: (c) 1/x = 1/(2 + sqrt(3)) = (2 - sqrt(3))/(4 - 3)\n1 mark: (c) 1/x = 2 - sqrt(3)\n1 mark: (c) x + 1/x = 4",
+   "explanation": "(a) (2 sqrt(3) + 5 sqrt(3))/sqrt(3) = 7. (b) (3 + sqrt(2))^2/(9 - 2) = (11 + 6 sqrt(2))/7. (c) 1/(2 + sqrt(3)) = 2 - sqrt(3), so x + 1/x = 4.",
+   "difficulty": "MEDIUM"
+  },
+  {
+   "id": "wo-math-0220",
+   "type": "THEORY",
+   "topic": "Percentages",
+   "stem": "A yam seller in Benue bought 200 tubers of yam at ₦1,500 each. She sold 120 of them at a profit of 25% on each tuber and the rest at a loss of 10% on each tuber.\n(a) Calculate the total cost price. [1 mark]\n(b) Calculate her total selling price. [5 marks]\n(c) Find her overall percentage profit. [3 marks]\n(d) At what price should she have sold each of the remaining 80 tubers to make an overall profit of 20%? [3 marks]",
+   "marks": 12,
+   "markingGuide": "1 mark: (a) 200 x 1,500 = ₦300,000\n1 mark: (b) selling price of one tuber at 25% profit = ₦1,875\n1 mark: (b) 120 x 1,875 = ₦225,000\n1 mark: (b) selling price of one tuber at 10% loss = ₦1,350\n1 mark: (b) 80 x 1,350 = ₦108,000\n1 mark: (b) total = ₦333,000\n1 mark: (c) profit = 333,000 - 300,000 = ₦33,000\n1 mark: (c) (33,000/300,000) x 100\n1 mark: (c) = 11%\n1 mark: (d) required total = 1.2 x 300,000 = ₦360,000\n1 mark: (d) 360,000 - 225,000 = ₦135,000 for 80 tubers\n1 mark: (d) price per tuber = ₦1,687.50",
+   "explanation": "Cost = ₦300,000. Sales: 120 x 1,875 = ₦225,000 and 80 x 1,350 = ₦108,000, total ₦333,000, a profit of 11%. For a 20% profit she needs ₦360,000, so the remaining 80 must bring ₦135,000, i.e. ₦1,687.50 each.",
+   "difficulty": "MEDIUM"
+  }
+ ]
+}

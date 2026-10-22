@@ -1,0 +1,667 @@
+{
+  "exam": "WAEC",
+  "subject": "Auto Mechanics",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wo-amech-0001",
+      "type": "OBJECTIVE",
+      "topic": "Workshop Regulations and Safety",
+      "stem": "A small petrol fire breaks out under a car in a workshop in Kaduna. Which extinguisher should NOT be used on it?",
+      "options": [
+        "Dry powder extinguisher",
+        "Foam extinguisher",
+        "Water (jet) extinguisher",
+        "Sand bucket"
+      ],
+      "answer": 2,
+      "explanation": "Water spreads burning petrol because petrol floats on it; foam, dry powder or sand smother the fire.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0002",
+      "type": "OBJECTIVE",
+      "topic": "Workshop Regulations and Safety",
+      "stem": "Before working under a vehicle raised on a trolley jack, the mechanic must",
+      "options": [
+        "leave the engine running in neutral",
+        "release the handbrake",
+        "deflate the tyres slightly",
+        "support the vehicle on axle stands placed at the correct points"
+      ],
+      "answer": 3,
+      "explanation": "Jacks can fail or be knocked; axle stands at the jacking points give secure support.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0003",
+      "type": "OBJECTIVE",
+      "topic": "Basic Tools, Instruments and Equipment",
+      "stem": "Which instrument is used to tighten cylinder head bolts to the manufacturer's specified value?",
+      "options": [
+        "Feeler gauge",
+        "Torque wrench",
+        "Vernier calliper",
+        "Ring spanner"
+      ],
+      "answer": 1,
+      "explanation": "A torque wrench measures the tightening torque; a ring spanner gives no measure of torque.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0004",
+      "type": "OBJECTIVE",
+      "topic": "Layout of a Motor Vehicle",
+      "stem": "In a front-engine, front-wheel-drive car, the drive is taken to the front wheels through",
+      "options": [
+        "a transaxle and drive shafts with constant-velocity joints",
+        "a long propeller shaft and a live rear axle",
+        "a chain from the engine to the rear wheels",
+        "a rear-mounted gearbox only"
+      ],
+      "answer": 0,
+      "explanation": "FWD combines gearbox and final drive in a transaxle and uses CV-jointed drive shafts; a propeller shaft and live axle belong to rear-wheel drive.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0005",
+      "type": "OBJECTIVE",
+      "topic": "Engine",
+      "stem": "In a four-stroke engine, the camshaft rotates at",
+      "options": [
+        "the same speed as the crankshaft",
+        "twice the speed of the crankshaft",
+        "half the speed of the crankshaft",
+        "a quarter of the speed of the crankshaft"
+      ],
+      "answer": 2,
+      "explanation": "Each valve opens once every two crankshaft revolutions, so the camshaft is geared at half crankshaft speed.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0006",
+      "type": "OBJECTIVE",
+      "topic": "Engine",
+      "stem": "Which statement correctly compares a diesel engine with a petrol engine of similar size?",
+      "options": [
+        "The diesel uses spark plugs and a carburettor",
+        "The diesel has a lower compression ratio to avoid knocking",
+        "The diesel is lighter and quieter",
+        "The diesel uses a higher compression ratio and ignites its fuel by the heat of compression"
+      ],
+      "answer": 3,
+      "explanation": "Diesel engines (about 14:1 to 22:1) rely on compression ignition; they are usually heavier and noisier than petrol engines.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0007",
+      "type": "OBJECTIVE",
+      "topic": "Engine",
+      "stem": "An engine's inlet valve opens 12 degrees before TDC and closes 48 degrees after BDC. Its exhaust valve opens 50 degrees before BDC and closes 10 degrees after TDC. The valve overlap is",
+      "options": [
+        "240 degrees",
+        "22 degrees",
+        "40 degrees",
+        "36 degrees"
+      ],
+      "answer": 1,
+      "explanation": "Overlap is the period both valves are open around TDC: inlet opens 12 degrees BTDC + exhaust closes 10 degrees ATDC = 22 degrees. (The inlet is open for 240 degrees.)",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0008",
+      "type": "OBJECTIVE",
+      "topic": "Engine",
+      "stem": "A cylinder has a swept volume of 450 cm^3 and a clearance volume of 50 cm^3. Its compression ratio is",
+      "options": [
+        "10 : 1",
+        "9 : 1",
+        "8 : 1",
+        "11.11 : 1"
+      ],
+      "answer": 0,
+      "explanation": "CR = (swept + clearance) / clearance = (450 + 50) / 50 = 10 : 1; 9 : 1 forgets to add the clearance volume.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0009",
+      "type": "OBJECTIVE",
+      "topic": "Engine",
+      "stem": "A common firing order for a four-cylinder in-line engine whose cylinders are numbered from the front is",
+      "options": [
+        "1-2-3-4",
+        "1-4-2-3",
+        "1-5-3-6-2-4",
+        "1-3-4-2"
+      ],
+      "answer": 3,
+      "explanation": "With crank throws 1 and 4 together and 2 and 3 together, firing 1-3-4-2 (or 1-2-4-3) spaces the power strokes evenly; 1-5-3-6-2-4 is a six-cylinder order.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0010",
+      "type": "OBJECTIVE",
+      "topic": "Fuel Supply Systems",
+      "stem": "The chemically correct (stoichiometric) air-fuel ratio for petrol is about",
+      "options": [
+        "1 : 14.7 by mass",
+        "5 : 1 by mass",
+        "14.7 : 1 by mass",
+        "30 : 1 by mass"
+      ],
+      "answer": 2,
+      "explanation": "About 14.7 kg of air burns 1 kg of petrol completely; richer or weaker mixtures depart from this.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0011",
+      "type": "OBJECTIVE",
+      "topic": "Fuel Supply Systems",
+      "stem": "In a multi-point electronic fuel injection system, petrol is injected",
+      "options": [
+        "by one injector per cylinder into each inlet port",
+        "by a single injector above the throttle valve",
+        "directly into the exhaust manifold",
+        "through the carburettor main jet"
+      ],
+      "answer": 0,
+      "explanation": "Multi-point systems have an injector for each cylinder; single-point (throttle body) systems use one injector for all cylinders.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0012",
+      "type": "OBJECTIVE",
+      "topic": "Fuel Supply Systems",
+      "stem": "Heater (glow) plugs are fitted to many indirect-injection diesel engines to",
+      "options": [
+        "ignite the fuel at every power stroke",
+        "heat the combustion chamber air for easier cold starting",
+        "warm the diesel in the fuel tank",
+        "raise the injection pump pressure"
+      ],
+      "answer": 1,
+      "explanation": "Glow plugs only assist cold starting; normal combustion is by heat of compression.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0013",
+      "type": "OBJECTIVE",
+      "topic": "Exhaust System",
+      "stem": "A silencer that reduces noise by passing exhaust gas through perforated tubes surrounded by glass fibre or steel wool is the",
+      "options": [
+        "baffle (reflective) type",
+        "absorption type",
+        "catalytic type",
+        "resonator flap type"
+      ],
+      "answer": 1,
+      "explanation": "Absorption silencers soak up sound energy in packing; baffle types reflect pressure waves through chambers.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0014",
+      "type": "OBJECTIVE",
+      "topic": "Lubrication",
+      "stem": "In the oil grade SAE 20W-50, the letter W indicates that the oil",
+      "options": [
+        "contains water-based additives",
+        "is for use in two-stroke petroil mixtures",
+        "meets a viscosity requirement at low (winter) temperature",
+        "has a weight of 20 grams"
+      ],
+      "answer": 2,
+      "explanation": "W means winter: the oil behaves like SAE 20 when cold and like SAE 50 at operating temperature.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0015",
+      "type": "OBJECTIVE",
+      "topic": "Lubrication",
+      "stem": "Lubrication of a two-stroke motorcycle engine by mixing oil with the petrol is known as",
+      "options": [
+        "forced-feed lubrication",
+        "dry-sump lubrication",
+        "splash lubrication",
+        "petroil lubrication"
+      ],
+      "answer": 3,
+      "explanation": "In petroil systems the oil travels with the fuel through the crankcase to lubricate bearings and cylinder walls.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0016",
+      "type": "OBJECTIVE",
+      "topic": "Cooling System",
+      "stem": "The thermostat in a water-cooled engine",
+      "options": [
+        "keeps the coolant from flowing to the radiator until the engine reaches working temperature",
+        "pumps coolant round the engine",
+        "raises the boiling point of the coolant",
+        "drives the cooling fan"
+      ],
+      "answer": 0,
+      "explanation": "The thermostat valve stays closed when cold so the engine warms up quickly, then opens to the radiator.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0017",
+      "type": "OBJECTIVE",
+      "topic": "Cooling System",
+      "stem": "The main purpose of a pressure cap on the radiator is to",
+      "options": [
+        "lower the boiling point of the coolant",
+        "stop the water pump from leaking",
+        "raise the boiling point of the coolant",
+        "measure coolant temperature"
+      ],
+      "answer": 2,
+      "explanation": "Pressurising the system raises the boiling point, so the engine can run hotter without boiling the coolant.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0018",
+      "type": "OBJECTIVE",
+      "topic": "Transmission System",
+      "stem": "A car has a first-gear ratio of 3.2 : 1 and a final drive ratio of 4.1 : 1. When the engine turns at 2952 rev/min in first gear, the road wheels turn at",
+      "options": [
+        "922.5 rev/min",
+        "225 rev/min",
+        "720 rev/min",
+        "404 rev/min"
+      ],
+      "answer": 1,
+      "explanation": "Overall ratio = 3.2 x 4.1 = 13.12 : 1; wheel speed = 2952 / 13.12 = 225 rev/min. Ratios multiply, they do not add.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0019",
+      "type": "OBJECTIVE",
+      "topic": "Transmission System",
+      "stem": "A driving gear with 14 teeth meshes with a driven gear of 42 teeth. The gear ratio is",
+      "options": [
+        "3 : 1",
+        "1 : 3",
+        "28 : 1",
+        "3.3 : 1"
+      ],
+      "answer": 0,
+      "explanation": "Gear ratio = driven teeth / driver teeth = 42 / 14 = 3 : 1 (speed reduction, torque increase).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0020",
+      "type": "OBJECTIVE",
+      "topic": "Transmission System",
+      "stem": "A single-plate clutch has two friction surfaces, coefficient of friction 0.3, total spring force 4000 N and mean radius 100 mm. The torque it can transmit is",
+      "options": [
+        "120 N m",
+        "120000 N m",
+        "800 N m",
+        "240 N m"
+      ],
+      "answer": 3,
+      "explanation": "T = mu x W x R x n = 0.3 x 4000 x 0.1 x 2 = 240 N m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0021",
+      "type": "OBJECTIVE",
+      "topic": "Transmission System",
+      "stem": "The device in the gearbox that equalises the speeds of the gear and the shaft before they lock together is the",
+      "options": [
+        "synchromesh unit (baulk ring cone)",
+        "selector fork",
+        "interlock ball",
+        "layshaft"
+      ],
+      "answer": 0,
+      "explanation": "The synchroniser's cone clutch matches speeds so dog teeth engage quietly; the interlock prevents two gears being selected together.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0022",
+      "type": "OBJECTIVE",
+      "topic": "Wheels and Tyres",
+      "stem": "A tyre is marked 195/65 R15. Taking 1 inch = 25.4 mm, the overall diameter of the inflated tyre is about",
+      "options": [
+        "507.8 mm",
+        "634.5 mm",
+        "771 mm",
+        "381 mm"
+      ],
+      "answer": 1,
+      "explanation": "Sidewall height = 195 x 0.65 = 126.75 mm; diameter = 15 x 25.4 + 2 x 126.75 = 634.5 mm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0023",
+      "type": "OBJECTIVE",
+      "topic": "Wheels and Tyres",
+      "stem": "One advantage of a tubeless tyre over a tubed tyre is that it",
+      "options": [
+        "can be fitted to any spoked wheel",
+        "never needs its pressure checked",
+        "loses air slowly when punctured by a nail",
+        "is cheaper to repair on the road without tools"
+      ],
+      "answer": 2,
+      "explanation": "The tyre seals around the object so air escapes slowly; spoked wheels normally need tubes.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0024",
+      "type": "OBJECTIVE",
+      "topic": "Braking System",
+      "stem": "In a hydraulic brake system a force of 600 N acts on a master cylinder piston of 20 mm diameter. The force on a wheel-cylinder piston of 40 mm diameter is",
+      "options": [
+        "1200 N",
+        "150 N",
+        "600 N",
+        "2400 N"
+      ],
+      "answer": 3,
+      "explanation": "Pressure is the same throughout; force is proportional to area, i.e. to diameter squared: 600 x (40/20)^2 = 2400 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0025",
+      "type": "OBJECTIVE",
+      "topic": "Braking System",
+      "stem": "A spongy brake pedal that can be pumped up is most likely caused by",
+      "options": [
+        "worn brake drums",
+        "an over-tight wheel bearing",
+        "a seized handbrake cable",
+        "air in the hydraulic system"
+      ],
+      "answer": 3,
+      "explanation": "Air compresses, so the pedal feels spongy; bleeding the brakes removes it.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0026",
+      "type": "OBJECTIVE",
+      "topic": "Steering System",
+      "stem": "The backward tilt of the king pin (steering axis) when viewed from the side of the vehicle, which gives the steering a self-centring action, is",
+      "options": [
+        "camber",
+        "castor",
+        "toe-in",
+        "king pin inclination"
+      ],
+      "answer": 1,
+      "explanation": "Castor places the steering axis ahead of the tyre contact point so the wheel trails and self-centres; camber is the tilt of the wheel viewed from the front.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0027",
+      "type": "OBJECTIVE",
+      "topic": "Steering System",
+      "stem": "The type of steering gearbox in which a pinion on the steering column meshes with a toothed bar is",
+      "options": [
+        "rack and pinion",
+        "recirculating ball",
+        "worm and roller",
+        "cam and peg"
+      ],
+      "answer": 0,
+      "explanation": "In rack and pinion steering the rotating pinion moves the rack sideways to push the track rods.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0028",
+      "type": "OBJECTIVE",
+      "topic": "Suspension System",
+      "stem": "The main function of a shock absorber (damper) is to",
+      "options": [
+        "carry the weight of the vehicle",
+        "steer the front wheels",
+        "reduce the oscillation of the spring after a bump",
+        "increase tyre grip by raising pressure"
+      ],
+      "answer": 2,
+      "explanation": "Springs carry the load; the damper converts the spring's oscillation energy into heat so the body stops bouncing.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0029",
+      "type": "OBJECTIVE",
+      "topic": "Fundamentals of electrical systems",
+      "stem": "Two lamps, each of resistance 6 ohms, are connected in parallel across a 12 V battery. The total current drawn is",
+      "options": [
+        "4 A",
+        "1 A",
+        "2 A",
+        "72 A"
+      ],
+      "answer": 0,
+      "explanation": "Parallel resistance = 6/2 = 3 ohms; I = 12 / 3 = 4 A.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0030",
+      "type": "OBJECTIVE",
+      "topic": "Auto wiring system",
+      "stem": "In the earth-return wiring system used on most cars, the return path for current to the battery is through",
+      "options": [
+        "a second insulated cable for every circuit",
+        "the tyres to the road",
+        "the metal body and chassis",
+        "the fuel lines"
+      ],
+      "answer": 2,
+      "explanation": "Using the body as the return conductor saves cable and weight; the battery negative is bonded to the body.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0031",
+      "type": "OBJECTIVE",
+      "topic": "Battery (motor vehicle)",
+      "stem": "The electrolyte in a lead-acid battery is a mixture of",
+      "options": [
+        "hydrochloric acid and tap water",
+        "sulphuric acid and distilled water",
+        "potassium hydroxide and water",
+        "engine oil and water"
+      ],
+      "answer": 1,
+      "explanation": "Lead-acid batteries use dilute sulphuric acid; potassium hydroxide is the alkaline-cell electrolyte.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0032",
+      "type": "OBJECTIVE",
+      "topic": "Ignition system (coil)",
+      "stem": "The sparking plug gap is checked and set with a",
+      "options": [
+        "micrometer screw gauge",
+        "torque wrench",
+        "hydrometer",
+        "feeler gauge (or wire gauge)"
+      ],
+      "answer": 3,
+      "explanation": "Feeler or wire gauges are slid into the gap; the side electrode is bent to adjust it.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0033",
+      "type": "OBJECTIVE",
+      "topic": "Charging system (motor vehicle)",
+      "stem": "One advantage of an alternator over a dynamo (d.c. generator) for vehicle charging is that the alternator",
+      "options": [
+        "needs a commutator to give direct current",
+        "has no need for a voltage regulator",
+        "produces alternating current that the battery can store directly",
+        "gives a useful charging output even at engine idling speed"
+      ],
+      "answer": 3,
+      "explanation": "Alternators can be geared to spin fast and give output at idle; they use diodes, not a commutator, and still need a regulator.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0034",
+      "type": "OBJECTIVE",
+      "topic": "Lighting system (motor vehicle)",
+      "stem": "A blade-type fuse coloured red in a car fuse box is normally rated at",
+      "options": [
+        "10 A",
+        "5 A",
+        "20 A",
+        "30 A"
+      ],
+      "answer": 0,
+      "explanation": "Standard blade fuse colours: tan 5 A, red 10 A, blue 15 A, yellow 20 A, green 30 A.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0035",
+      "type": "OBJECTIVE",
+      "topic": "Auxiliary unit",
+      "stem": "The windscreen wiper blades always stop at the bottom of the screen when switched off because of the",
+      "options": [
+        "washer pump",
+        "park (limit) switch in the wiper motor",
+        "horn relay",
+        "flasher unit"
+      ],
+      "answer": 1,
+      "explanation": "The park switch keeps the motor running until the blades reach the rest position.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0036",
+      "type": "OBJECTIVE",
+      "topic": "Fundamentals of electronics",
+      "stem": "An electronic component that allows current to flow in one direction only is a",
+      "options": [
+        "resistor",
+        "capacitor",
+        "diode",
+        "transformer"
+      ],
+      "answer": 2,
+      "explanation": "A diode conducts in its forward direction and blocks reverse current; this is used in rectifiers.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-amech-0037",
+      "type": "OBJECTIVE",
+      "topic": "Electronic ignition",
+      "stem": "An advantage of a Hall-effect trigger over an inductive (magnetic pulse) trigger in electronic ignition is that the Hall-effect signal",
+      "options": [
+        "needs no power supply",
+        "does not depend on engine speed, so it can be checked with the engine stationary",
+        "gives a larger voltage as engine speed rises",
+        "removes the need for an ignition coil"
+      ],
+      "answer": 1,
+      "explanation": "A Hall sensor switches according to the presence of the vane, giving a constant-amplitude square wave even at zero speed; an inductive pickup's output rises with speed.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0038",
+      "type": "OBJECTIVE",
+      "topic": "Electronic fuel injection",
+      "stem": "Compared with a carburettor, electronic fuel injection gives",
+      "options": [
+        "a simpler system that needs no sensors",
+        "richer mixtures at all speeds",
+        "no need for an electrical supply",
+        "more accurate mixture control, better economy and lower emissions"
+      ],
+      "answer": 3,
+      "explanation": "The ECU meters fuel from sensor inputs, giving precise mixtures; it is more complex and depends on electrical power.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0039",
+      "type": "OBJECTIVE",
+      "topic": "Auto Air-Conditioning",
+      "stem": "In a vehicle air-conditioning system, the component inside the passenger compartment that absorbs heat from the cabin air is the",
+      "options": [
+        "condenser",
+        "compressor",
+        "evaporator",
+        "receiver-dryer"
+      ],
+      "answer": 2,
+      "explanation": "Refrigerant evaporates in the evaporator, absorbing heat; the condenser at the front of the car releases it outside.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0040",
+      "type": "OBJECTIVE",
+      "topic": "Safe Motoring",
+      "stem": "According to the highway code, a triangular road sign with a red border is a",
+      "options": [
+        "warning sign",
+        "regulatory (mandatory) sign",
+        "information sign",
+        "direction sign"
+      ],
+      "answer": 0,
+      "explanation": "Triangles warn of hazards ahead; circles give orders and rectangles give information or directions.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0201",
+      "type": "THEORY",
+      "topic": "Engine",
+      "stem": "(a) With the aid of a description, explain the operation of a four-stroke cycle petrol engine. [8 marks]\n(b) The inlet valve of an engine opens 8 degrees before TDC and closes 42 degrees after BDC, while the exhaust valve opens 45 degrees before BDC and closes 12 degrees after TDC. Calculate (i) the inlet valve open period (ii) the exhaust valve open period (iii) the valve overlap. [6 marks]\n(c) State the purpose of valve overlap. [1 mark]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Induction: piston moves down, inlet valve open, air-fuel mixture drawn in\n2 marks: (a) Compression: both valves closed, piston moves up compressing the mixture\n2 marks: (a) Power: spark ignites mixture near TDC, expanding gases force piston down\n2 marks: (a) Exhaust: exhaust valve open, piston moves up expelling burnt gases; cycle takes two crankshaft revolutions\n2 marks: (b)(i) Inlet period = 8 + 180 + 42 = 230 degrees\n2 marks: (b)(ii) Exhaust period = 45 + 180 + 12 = 237 degrees\n2 marks: (b)(iii) Overlap = 8 + 12 = 20 degrees\n1 mark: (c) Uses gas momentum to scavenge exhaust gases and improve cylinder filling at speed",
+      "explanation": "Induction, compression, power and exhaust strokes over two revolutions. Inlet open 8 + 180 + 42 = 230 degrees; exhaust 45 + 180 + 12 = 237 degrees; overlap 8 + 12 = 20 degrees, which helps scavenging and filling.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0202",
+      "type": "THEORY",
+      "topic": "Transmission System",
+      "stem": "(a) State three functions of the clutch. [3 marks]\n(b) Describe the operation of a single-plate coil-spring clutch when the pedal is depressed and released. [6 marks]\n(c) A gearbox has the following teeth: constant-mesh pinion 18, layshaft constant-mesh gear 36, layshaft second gear 24, mainshaft second gear 36. Calculate the second-gear ratio. [4 marks]\n(d) State two causes of clutch slip. [2 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: allows smooth take-up of drive from rest; disconnects engine from gearbox for gear changing; allows engine to run while vehicle is stationary in gear; protects transmission from shock loads\n3 marks: (b) Released: springs press pressure plate against driven plate and flywheel, friction locks them and drive passes to the gearbox input shaft\n3 marks: (b) Depressed: release bearing pushes levers/diaphragm, pressure plate is pulled back against spring force, driven plate is freed and drive is disconnected\n3 marks: (c) Ratio = (36/18) x (36/24) (2) = 2 x 1.5 (1) = 3 : 1 (1)\n1 mark: (c) Statement that ratios multiply: driven/driver for each pair\n2 marks: (d) Any two, 1 mark each: worn or oil-contaminated linings; weak/broken springs; no free play at pedal; warped pressure plate",
+      "explanation": "Clutch: smooth take-up, disconnects drive for gear changes, isolates engine when stationary. Pedal released - springs clamp driven plate between flywheel and pressure plate; depressed - release bearing withdraws pressure plate. Second gear = (36/18) x (36/24) = 3 : 1. Slip: worn/oily linings, weak springs, no free play.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-amech-0203",
+      "type": "THEORY",
+      "topic": "Braking System",
+      "stem": "(a) Describe the operation of a hydraulic braking system from the pedal to the wheels. [6 marks]\n(b) State three advantages of disc brakes over drum brakes. [3 marks]\n(c) Explain the purpose of a vacuum servo in a braking system. [2 marks]\n(d) State four brake faults and one cause of each. [4 marks]",
+      "marks": 15,
+      "markingGuide": "6 marks: (a) Driver presses pedal (1); pushrod moves master cylinder piston (1); pressure is created in brake fluid (1); pressure transmitted equally through pipes and hoses (Pascal's principle) (1); wheel cylinder/caliper pistons move out (1); shoes/pads pressed against drums/discs, friction slows the wheel; springs/seals return them on release (1)\n3 marks: (b) Any three, 1 mark each: better heat dissipation so less fade; self-cleaning, sheds water; self-adjusting; easier pad replacement; more even braking\n2 marks: (c) Uses engine manifold vacuum (pressure difference) to add force to the driver's pedal effort, reducing pedal effort\n4 marks: (d) Any four, 1 mark each fault with cause: spongy pedal - air in system; pulling to one side - contaminated/unevenly worn linings or seized piston; brake fade - overheating; squeal - glazed/worn pads; low pedal - worn linings or fluid leak; brakes binding - seized pistons or no pedal free play",
+      "explanation": "Pedal moves the master cylinder piston, pressurising fluid that acts equally on wheel cylinders or calipers, forcing linings against drums/discs. Discs dissipate heat better, shed water and self-adjust. A vacuum servo uses manifold vacuum to boost pedal force. Faults: spongy pedal (air), pulling (contaminated lining), fade (overheating), squeal (glazed pads).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0204",
+      "type": "THEORY",
+      "topic": "Cooling System",
+      "stem": "(a) State three methods of heat transfer and give an example of each in an engine cooling system. [6 marks]\n(b) Describe the operation of a wax-pellet thermostat. [4 marks]\n(c) Compare air cooling and water cooling, giving two advantages of each. [4 marks]\n(d) State one reason for flushing a radiator. [1 mark]",
+      "marks": 15,
+      "markingGuide": "6 marks: (a) 2 marks each: conduction - heat through cylinder wall to coolant/fins; convection - circulation of coolant (thermosyphon) or air flow; radiation - heat given off from radiator/engine surfaces\n4 marks: (b) Wax sealed in a copper capsule (1); when heated the wax melts and expands (1); expansion pushes the valve open against a spring, letting coolant flow to the radiator (1); on cooling the wax contracts and the spring closes the valve (1)\n2 marks: (c) Air cooling, any two: lighter; no coolant leaks/freezing; fewer parts; warms up quickly\n2 marks: (c) Water cooling, any two: more even temperature control; quieter; easier cabin heating; suits high-output multi-cylinder engines\n1 mark: (d) To remove rust, scale and sludge that block the tubes and reduce cooling",
+      "explanation": "Conduction through metal, convection of coolant/air, radiation from radiator. Wax pellet expands when hot, opening the valve; spring closes it when cool. Air cooling is light and simple; water cooling is quieter with better temperature control. Flushing clears scale and rust.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0205",
+      "type": "THEORY",
+      "topic": "Starting system (motor vehicle)",
+      "stem": "(a) State the function of each of the following in the starting system: (i) battery (ii) solenoid (iii) starter motor (iv) flywheel ring gear. [4 marks]\n(b) Explain why the starter motor is series wound. [2 marks]\n(c) Name two types of starter motor drive. [2 marks]\n(d) A starter motor cranks the engine very slowly. State four possible causes. [4 marks]\n(e) State three safety precautions when testing a starting system. [3 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) 1 mark each: battery - supplies cranking current; solenoid - heavy-duty switch, also engages pinion in pre-engaged type; starter motor - converts electrical energy to mechanical torque to turn engine; ring gear - receives drive from pinion to turn crankshaft\n2 marks: (b) Series motor gives very high torque at low speed/at start, needed to overcome engine compression and friction\n2 marks: (c) 1 mark each: inertia (Bendix) drive; pre-engaged drive (also axial/sliding armature)\n4 marks: (d) Any four, 1 mark each: low battery charge; corroded/loose terminals or earth strap; worn brushes; dirty commutator; worn bushes letting armature drag; thick oil/tight engine; undersized cables\n3 marks: (e) Any three, 1 mark each: gearbox in neutral and handbrake on; disconnect ignition/fuel so engine does not start when testing; keep hands and leads clear of moving parts; avoid sparks near battery; remove watches and rings",
+      "explanation": "Battery supplies current, solenoid switches heavy current, motor turns the engine via pinion and ring gear. Series winding gives maximum torque at low speed. Drives: inertia and pre-engaged. Slow cranking: weak battery, bad connections, worn brushes, dirty commutator, worn bushes. Precautions: neutral, handbrake, disable ignition, keep clear, avoid sparks.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-amech-0206",
+      "type": "THEORY",
+      "topic": "Suspension System",
+      "stem": "(a) State three purposes of a suspension system. [3 marks]\n(b) Distinguish between rigid beam axle and independent suspension, giving one advantage of each. [6 marks]\n(c) Compare the semi-elliptic leaf spring with the coil spring, giving two advantages of each. [4 marks]\n(d) State two symptoms of worn shock absorbers. [2 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: absorb road shocks; give passenger comfort; keep tyres in contact with the road; support vehicle weight; maintain wheel alignment/stability\n3 marks: (b) Rigid beam: wheels on both sides joined by one solid axle so a bump on one wheel affects the other (2); advantage - simple, strong, cheap, suits heavy loads (1)\n3 marks: (b) Independent: each wheel moves up and down without affecting the other (2); advantage - better ride and road holding, lower unsprung weight (1)\n2 marks: (c) Leaf spring, any two: also locates the axle; carries heavy loads; inter-leaf friction gives some damping; simple\n2 marks: (c) Coil spring, any two: lighter; softer ride; compact; no lubrication needed; long life\n2 marks: (d) Any two, 1 mark each: excessive bouncing after bumps; nose diving on braking; oil leaking from damper; uneven tyre wear; poor road holding",
+      "explanation": "Suspension absorbs shocks, gives comfort, keeps tyres on the road and supports the weight. Rigid axle links both wheels (strong, simple); independent lets each wheel move on its own (better ride). Leaf springs locate the axle and carry heavy loads; coil springs are light and compact. Worn dampers cause bouncing, nose-dive, leaks and uneven tyre wear.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

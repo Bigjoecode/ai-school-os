@@ -1,0 +1,667 @@
+{
+  "exam": "WAEC",
+  "subject": "GSM Phone Maintenance and Repairs",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wo-gsm-0001",
+      "type": "OBJECTIVE",
+      "topic": "Mobile Phone Acronyms and Terminologies",
+      "stem": "The acronym GSM stands for",
+      "options": [
+        "General Service for Mobile Calls",
+        "Global Signal Messaging",
+        "Ground Station Mobile",
+        "Global System for Mobile Communications"
+      ],
+      "answer": 3,
+      "explanation": "GSM is the Global System for Mobile Communications standard used by Nigerian networks.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0002",
+      "type": "OBJECTIVE",
+      "topic": "Mobile Phone Acronyms and Terminologies",
+      "stem": "Diverting incoming calls to another number when a subscriber is busy or unreachable is called",
+      "options": [
+        "call barring",
+        "call waiting",
+        "call forwarding",
+        "conference calling"
+      ],
+      "answer": 2,
+      "explanation": "Call forwarding (divert) redirects calls; call barring blocks selected incoming or outgoing calls.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0003",
+      "type": "OBJECTIVE",
+      "topic": "Mobile Phone Acronyms and Terminologies",
+      "stem": "A message that carries pictures, audio or video clips between phones is sent by",
+      "options": [
+        "SMS",
+        "MMS",
+        "USSD",
+        "IMEI"
+      ],
+      "answer": 1,
+      "explanation": "MMS (Multimedia Messaging Service) carries media; SMS carries short text only; IMEI is the handset identity number.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0004",
+      "type": "OBJECTIVE",
+      "topic": "Mobile Phone Bands and Their Uses",
+      "stem": "A quad-band GSM phone is useful to a traveller because it",
+      "options": [
+        "can operate on the 850, 900, 1800 and 1900 MHz bands used in different countries",
+        "can hold four SIM cards at once",
+        "charges four times faster",
+        "has four cameras"
+      ],
+      "answer": 0,
+      "explanation": "Different regions use different GSM bands; a quad-band handset covers all four main ones.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0005",
+      "type": "OBJECTIVE",
+      "topic": "Types of Mobile Phones",
+      "stem": "A phone whose two halves are hinged so that it opens like a clam shell is a",
+      "options": [
+        "slide phone",
+        "flip phone",
+        "bar (straight) phone",
+        "swivel phone"
+      ],
+      "answer": 1,
+      "explanation": "Flip (clamshell) phones fold on a hinge; their flex cable through the hinge needs special care.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0006",
+      "type": "OBJECTIVE",
+      "topic": "Types of Mobile Phones",
+      "stem": "The flex (ribbon) cable of a flip or slide phone needs special attention during maintenance mainly because",
+      "options": [
+        "repeated opening and closing bends it and causes cracks and display faults",
+        "it carries the high-voltage antenna signal",
+        "it stores the phone's software",
+        "it is soldered to the SIM card"
+      ],
+      "answer": 0,
+      "explanation": "Constant flexing fatigues the cable, a common cause of display or keypad failure in folding phones.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0007",
+      "type": "OBJECTIVE",
+      "topic": "Phone Accessories and Their Functions",
+      "stem": "The accessory that allows a phone user to make calls without holding the phone, through a wire or Bluetooth link, is the",
+      "options": [
+        "charger",
+        "memory card",
+        "screen protector",
+        "hands-free headset"
+      ],
+      "answer": 3,
+      "explanation": "A headset/hands-free kit provides microphone and earpiece away from the handset.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0008",
+      "type": "OBJECTIVE",
+      "topic": "Types of Menus and Sub-menus",
+      "stem": "The menu used to store names and telephone numbers on a phone is the",
+      "options": [
+        "settings",
+        "messages",
+        "phone book (contacts)",
+        "call log"
+      ],
+      "answer": 2,
+      "explanation": "Contacts (phone book) stores names and numbers; settings changes how the phone works.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0009",
+      "type": "OBJECTIVE",
+      "topic": "Service Providers and Their Codes",
+      "stem": "The government agency that regulates mobile network operators such as MTN, Airtel, Glo and 9mobile in Nigeria is the",
+      "options": [
+        "Standards Organisation of Nigeria (SON)",
+        "Nigerian Ports Authority (NPA)",
+        "Nigerian Communications Commission (NCC)",
+        "Federal Road Safety Corps (FRSC)"
+      ],
+      "answer": 2,
+      "explanation": "The NCC licenses and regulates telecommunications operators in Nigeria.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0010",
+      "type": "OBJECTIVE",
+      "topic": "Service Providers and Their Codes",
+      "stem": "The national emergency telephone number that can be dialled free from any network in Nigeria is",
+      "options": [
+        "911",
+        "999",
+        "000",
+        "112"
+      ],
+      "answer": 3,
+      "explanation": "Nigeria uses 112 as its toll-free national emergency number.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0011",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Computer",
+      "stem": "Which of the following is an example of computer SOFTWARE?",
+      "options": [
+        "Operating system",
+        "Keyboard",
+        "Monitor",
+        "System unit"
+      ],
+      "answer": 0,
+      "explanation": "Software is a set of programs, such as the operating system; keyboard and monitor are hardware.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0012",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Computer",
+      "stem": "A computer is needed in a phone repair workshop mainly to",
+      "options": [
+        "solder components on the circuit board",
+        "run flashing and diagnostic software connected to the phone",
+        "measure the battery voltage directly",
+        "heat BGA chips during re-balling"
+      ],
+      "answer": 1,
+      "explanation": "Flashing and diagnostic tools run on a PC connected to the phone by cable or box; soldering and heating need other tools.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0013",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Internet",
+      "stem": "Arrange the following mobile data technologies from SLOWEST to FASTEST.",
+      "options": [
+        "3G, EDGE, GPRS",
+        "EDGE, GPRS, 3G",
+        "3G, GPRS, EDGE",
+        "GPRS, EDGE, 3G"
+      ],
+      "answer": 3,
+      "explanation": "GPRS (2.5G) is slowest, EDGE (2.75G) improves on it, and 3G is faster still.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0014",
+      "type": "OBJECTIVE",
+      "topic": "Browsing the Web",
+      "stem": "Copying a file from a website on the internet onto a phone's memory is called",
+      "options": [
+        "uploading",
+        "downloading",
+        "formatting",
+        "flashing"
+      ],
+      "answer": 1,
+      "explanation": "Downloading receives data from the internet; uploading sends data to it.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0015",
+      "type": "OBJECTIVE",
+      "topic": "Structure of Mobile Phones",
+      "stem": "In the basic block diagram of a mobile phone, the block that transmits and receives radio signals through the antenna is the",
+      "options": [
+        "power unit",
+        "memory unit",
+        "radio (RF) unit",
+        "user interface unit"
+      ],
+      "answer": 2,
+      "explanation": "The radio unit contains the transceiver and power amplifier; the power unit manages battery supply.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0016",
+      "type": "OBJECTIVE",
+      "topic": "Hardware Components",
+      "stem": "The component in a phone that produces silent alerts by shaking the handset is the",
+      "options": [
+        "vibrator motor",
+        "buzzer",
+        "earpiece",
+        "microphone"
+      ],
+      "answer": 0,
+      "explanation": "A small motor with an off-centre weight produces vibration; the buzzer produces sound.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0017",
+      "type": "OBJECTIVE",
+      "topic": "Hardware Components",
+      "stem": "The part of a phone that holds the subscriber identity module and connects it to the circuit board is the",
+      "options": [
+        "charging port",
+        "antenna switch",
+        "SIM socket (SIM card reader)",
+        "earpiece"
+      ],
+      "answer": 2,
+      "explanation": "The SIM socket contacts connect the SIM chip to the phone; dirty or bent contacts cause \"insert SIM\" errors.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0018",
+      "type": "OBJECTIVE",
+      "topic": "Software Components",
+      "stem": "Android and iOS are examples of mobile phone",
+      "options": [
+        "operating systems",
+        "application programs only",
+        "flashing boxes",
+        "hardware drivers on the SIM card"
+      ],
+      "answer": 0,
+      "explanation": "They are operating systems that manage the hardware and run applications.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0019",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Components in Mobile Phones",
+      "stem": "On a phone circuit board, a tiny two-terminal component marked with a stripe at one end, used to allow current in one direction, is a",
+      "options": [
+        "resistor",
+        "capacitor",
+        "crystal",
+        "diode"
+      ],
+      "answer": 3,
+      "explanation": "The stripe (band) marks the cathode of a diode; resistors and most SMD capacitors have no polarity mark.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0020",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Components in Mobile Phones",
+      "stem": "The large IC that controls the battery charging, voltage regulation and power distribution in a smartphone is the",
+      "options": [
+        "RF power amplifier",
+        "power management IC (PMIC)",
+        "audio codec",
+        "flash memory IC"
+      ],
+      "answer": 1,
+      "explanation": "The PMIC manages supplies; faults in it often cause no-power or charging problems.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0021",
+      "type": "OBJECTIVE",
+      "topic": "Preventive Maintenance",
+      "stem": "Which of these is an example of PREVENTIVE maintenance of a mobile phone?",
+      "options": [
+        "Replacing a broken screen",
+        "Re-balling a failed CPU",
+        "Cleaning dust from the charging port before it causes a fault",
+        "Flashing a phone that will not boot"
+      ],
+      "answer": 2,
+      "explanation": "Preventive maintenance is done before a fault occurs; the others repair existing faults.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0022",
+      "type": "OBJECTIVE",
+      "topic": "Corrective Maintenance",
+      "stem": "Removing a BGA chip, cleaning its pads and re-applying solder balls with a stencil before refitting it is called",
+      "options": [
+        "flashing",
+        "formatting",
+        "unlocking",
+        "re-balling"
+      ],
+      "answer": 3,
+      "explanation": "Re-balling restores the solder ball array of BGA chips, usually with a stencil and hot air.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0023",
+      "type": "OBJECTIVE",
+      "topic": "Common Tools and Equipment for Hardware and Software Repairs",
+      "stem": "The tool used to remove and refit small surface-mount components using a stream of heated air is the",
+      "options": [
+        "hot-air rework station",
+        "precision screwdriver",
+        "multimeter",
+        "oscilloscope"
+      ],
+      "answer": 0,
+      "explanation": "Hot-air stations melt solder around SMD components; multimeters and oscilloscopes only measure.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0024",
+      "type": "OBJECTIVE",
+      "topic": "Common Tools and Equipment for Hardware and Software Repairs",
+      "stem": "A regulated d.c. power supply with an ammeter is useful in phone repair because it",
+      "options": [
+        "flashes the firmware",
+        "shows the current the board draws when powered, helping to locate shorts and dead faults",
+        "cleans corrosion from the board",
+        "unlocks network-locked phones"
+      ],
+      "answer": 1,
+      "explanation": "Abnormal current readings point to short circuits or dead sections of the board.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0025",
+      "type": "OBJECTIVE",
+      "topic": "Safety in Mobile Phone Workshop",
+      "stem": "A phone technician wears an anti-static wrist strap connected to earth mainly to",
+      "options": [
+        "protect against mains electric shock",
+        "prevent electrostatic discharge from damaging sensitive ICs",
+        "keep the hands warm",
+        "stop solder fumes"
+      ],
+      "answer": 1,
+      "explanation": "Static charge on the body can destroy CMOS chips; the strap drains it to earth safely through a high resistance.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0026",
+      "type": "OBJECTIVE",
+      "topic": "Safety in Mobile Phone Workshop",
+      "stem": "Which safety facility must be provided in every phone repair workshop?",
+      "options": [
+        "Car jack",
+        "Welding helmet",
+        "Concrete mixer",
+        "First aid box and fire extinguisher"
+      ],
+      "answer": 3,
+      "explanation": "First aid and fire-fighting equipment are basic workshop safety requirements.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0027",
+      "type": "OBJECTIVE",
+      "topic": "Common Hardware Problems",
+      "stem": "A phone charges only when the cable is held at a particular angle. The most likely fault is",
+      "options": [
+        "a corrupted operating system",
+        "a damaged SIM card",
+        "a loose or worn charging port",
+        "a faulty earpiece"
+      ],
+      "answer": 2,
+      "explanation": "Intermittent contact depending on cable position indicates a worn or poorly soldered charging port.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0028",
+      "type": "OBJECTIVE",
+      "topic": "Common Software Problems",
+      "stem": "A phone bought abroad displays \"SIM not supported\" with a Nigerian SIM but works with its original network's SIM. The phone is most likely",
+      "options": [
+        "network locked to the original operator",
+        "suffering from a broken screen",
+        "in need of a new battery",
+        "missing its earpiece"
+      ],
+      "answer": 0,
+      "explanation": "A network (carrier) lock restricts the phone to one operator's SIMs; the hardware is otherwise working.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0029",
+      "type": "OBJECTIVE",
+      "topic": "Basic Trouble-shooting",
+      "stem": "The first step in troubleshooting a phone brought in as \"dead\" is to",
+      "options": [
+        "check the battery and charging system with a known-good battery or power supply",
+        "replace the CPU",
+        "flash new firmware immediately",
+        "re-ball the memory chip"
+      ],
+      "answer": 0,
+      "explanation": "Start with simple, likely causes; a flat or faulty battery is the most common reason for a dead phone.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0030",
+      "type": "OBJECTIVE",
+      "topic": "Tracing and Fault Finding in Hardware",
+      "stem": "With the battery removed, a technician measures 0.2 ohms between the battery positive (VBAT) line and ground on the phone board. This indicates",
+      "options": [
+        "a normal healthy board",
+        "an open circuit in the VBAT line",
+        "a short circuit on the VBAT line, often a shorted capacitor or IC",
+        "a fully charged battery"
+      ],
+      "answer": 2,
+      "explanation": "A near-zero reading between supply and ground shows a short; components on that line are then checked, e.g. by injecting a small voltage and feeling for heat.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0031",
+      "type": "OBJECTIVE",
+      "topic": "Tracing and Fault Finding in Hardware",
+      "stem": "A continuity test with a multimeter is used to check whether",
+      "options": [
+        "a battery is fully charged",
+        "a conductor or track forms a complete path with very low resistance",
+        "the network signal is strong",
+        "the software is up to date"
+      ],
+      "answer": 1,
+      "explanation": "Continuity mode beeps when the resistance is very low, showing a complete path; a broken track gives no beep.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0032",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding in Software",
+      "stem": "Re-installing the firmware (operating software) of a phone using a computer and suitable software is called",
+      "options": [
+        "re-balling",
+        "jumpering",
+        "reflowing",
+        "flashing"
+      ],
+      "answer": 3,
+      "explanation": "Flashing writes new firmware into the phone's flash memory, curing boot loops and corrupted software.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0033",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding in Software",
+      "stem": "Before flashing a customer's phone, the technician should first",
+      "options": [
+        "remove the screen",
+        "back up the user's data where possible and confirm the correct firmware for the exact model",
+        "change the IMEI number",
+        "charge the battery to 5%"
+      ],
+      "answer": 1,
+      "explanation": "Flashing may erase data and the wrong firmware can damage the phone; changing an IMEI is illegal.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0034",
+      "type": "OBJECTIVE",
+      "topic": "Setting up a Mobile Phone Workshop",
+      "stem": "Which factor is MOST important when choosing a location for a phone repair shop?",
+      "options": [
+        "Distance from all roads",
+        "Presence of farmland",
+        "Closeness to a river",
+        "Nearness to customers in a busy commercial area"
+      ],
+      "answer": 3,
+      "explanation": "Customers must find and reach the shop easily; busy commercial areas give more patronage.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-gsm-0035",
+      "type": "OBJECTIVE",
+      "topic": "Facilities and Equipment for Mobile Phone Workshop",
+      "stem": "An ultrasonic cleaner is used in a phone workshop to",
+      "options": [
+        "remove corrosion and dirt from water-damaged circuit boards",
+        "test the battery capacity",
+        "flash software",
+        "check signal strength"
+      ],
+      "answer": 0,
+      "explanation": "Ultrasonic waves in isopropyl alcohol or cleaning fluid dislodge corrosion from under components.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0036",
+      "type": "OBJECTIVE",
+      "topic": "Managing a Mobile Phone Business",
+      "stem": "A technician buys a replacement screen for ₦18,500, sets labour at ₦6,000 and allows ₦1,500 for overheads (power, rent share). What should the customer be charged?",
+      "options": [
+        "₦24,500",
+        "₦20,000",
+        "₦26,000",
+        "₦18,500"
+      ],
+      "answer": 2,
+      "explanation": "Charge = parts + labour + overheads = 18,500 + 6,000 + 1,500 = ₦26,000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0037",
+      "type": "OBJECTIVE",
+      "topic": "Managing a Mobile Phone Business",
+      "stem": "A phone repair business was set up with ₦1,200,000 and made a net profit of ₦300,000 in its first year. The return on investment is",
+      "options": [
+        "4%",
+        "100%",
+        "2.5%",
+        "25%"
+      ],
+      "answer": 3,
+      "explanation": "ROI = net profit / investment x 100 = 300,000 / 1,200,000 x 100 = 25%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0038",
+      "type": "OBJECTIVE",
+      "topic": "Phone Accessories and Their Functions",
+      "stem": "A replacement phone battery is rated 4500 mAh. If the phone draws an average of 250 mA, about how long will a full charge last?",
+      "options": [
+        "9 hours",
+        "1125 hours",
+        "18 hours",
+        "5.6 hours"
+      ],
+      "answer": 2,
+      "explanation": "Time = capacity / current = 4500 mAh / 250 mA = 18 hours (ideal).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0039",
+      "type": "OBJECTIVE",
+      "topic": "Corrective Maintenance",
+      "stem": "A customer brings in a phone that fell into a bucket of water ten minutes ago. Which action should the technician take FIRST?",
+      "options": [
+        "Switch it on to test whether it still works",
+        "Disconnect the battery, open the phone and clean the board with isopropyl alcohol before any power is applied",
+        "Plug it into a charger to dry it out",
+        "Heat the whole phone in an oven"
+      ],
+      "answer": 1,
+      "explanation": "Applying power to a wet board causes short circuits and rapid corrosion; disconnecting power and cleaning with isopropyl alcohol gives the best chance of recovery.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0040",
+      "type": "OBJECTIVE",
+      "topic": "Common Hardware Problems",
+      "stem": "During calls, the user hears the other person clearly but the other person cannot hear the user. The component MOST likely to be faulty is the",
+      "options": [
+        "microphone (mouthpiece)",
+        "earpiece",
+        "loudspeaker (ringer)",
+        "vibrator"
+      ],
+      "answer": 0,
+      "explanation": "Outgoing voice is picked up by the microphone; the earpiece reproduces incoming voice, which is working.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0201",
+      "type": "THEORY",
+      "topic": "Structure of Mobile Phones",
+      "stem": "(a) Name the three main blocks in the basic block diagram of a mobile phone. [3 marks]\n(b) State one function of each block named in (a). [3 marks]",
+      "marks": 6,
+      "markingGuide": "3 marks: (a) 1 mark each: power unit (battery, charging and power management); memory unit (storage and processing/logic); radio (RF) unit (transmitter/receiver and antenna)\n3 marks: (b) 1 mark each: power unit - supplies and regulates voltages to all sections and controls charging; memory unit - stores operating software, user data and instructions for the processor; radio unit - transmits and receives signals between phone and base station",
+      "explanation": "Power unit: supplies and regulates power and charging. Memory unit: stores software and data used by the processor. Radio unit: transmits and receives RF signals through the antenna.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0202",
+      "type": "THEORY",
+      "topic": "Preventive Maintenance",
+      "stem": "(a) Define preventive maintenance. [2 marks]\n(b) State four advantages of preventive maintenance of mobile phones. [4 marks]",
+      "marks": 6,
+      "markingGuide": "2 marks: (a) Routine care carried out on a phone before faults occur, e.g. cleaning and inspection, to keep it working and prevent breakdown\n4 marks: (b) Any four, 1 mark each: prevents sudden breakdown; extends the life of the phone; reduces repair cost; detects faults early; keeps performance high; protects user data",
+      "explanation": "Preventive maintenance is planned care done before faults occur. It prevents breakdowns, extends life, lowers cost, finds faults early and keeps the phone performing well.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0203",
+      "type": "THEORY",
+      "topic": "Common Tools and Equipment for Hardware and Software Repairs",
+      "stem": "State the use of each of the following in a phone repair workshop: (a) soldering iron (b) desoldering pump (sucker) (c) multimeter (d) precision screwdriver set (e) flashing software (f) magnifying lamp or microscope. [6 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) Soldering iron: melts solder to join components and wires to the board\n1 mark: (b) Desoldering pump: sucks molten solder away to remove components\n1 mark: (c) Multimeter: measures voltage, current, resistance and tests continuity of components\n1 mark: (d) Precision screwdriver set: opens and assembles phones with tiny screws (star/Torx, Phillips etc.)\n1 mark: (e) Flashing software: installs or reinstalls the phone's firmware/operating system\n1 mark: (f) Magnifier/microscope: enlarges small SMD components and solder joints for inspection and repair",
+      "explanation": "Soldering iron joins; sucker removes solder; multimeter measures and tests; precision screwdrivers open the phone; flashing software reinstalls firmware; magnifier aids inspection of tiny parts.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0204",
+      "type": "THEORY",
+      "topic": "Common Software Problems",
+      "stem": "(a) State three common software problems of mobile phones. [3 marks]\n(b) Explain three possible causes of the message \"SIM card rejected\" or \"Invalid SIM\". [3 marks]",
+      "marks": 6,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: phone hanging/freezing; restarting (boot loop); \"contact service provider\"; phone lock code forgotten; \"SIM card rejected\"/\"invalid SIM\"; apps crashing; corrupted firmware\n3 marks: (b) Any three, 1 mark each: phone network-locked to another operator; damaged or deactivated/unregistered SIM; corrupted firmware or invalid IMEI; dirty or faulty SIM socket",
+      "explanation": "Software problems include freezing, boot loops, network lock messages, forgotten lock codes and SIM errors. \"SIM rejected/invalid\" can be due to network lock, a damaged or deactivated SIM, corrupted firmware/IMEI, or a dirty SIM socket.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-gsm-0205",
+      "type": "THEORY",
+      "topic": "Tracing and Fault Finding in Hardware",
+      "stem": "Describe how a technician would trace the fault in a phone that does not power on, using visual inspection and metering methods. [6 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: Visual inspection under magnification for corrosion, burnt or missing components, cracked solder or physical damage\n1 mark: Test the battery voltage with a multimeter or try a known-good battery\n1 mark: Connect a regulated d.c. power supply and observe current draw when the power key is pressed\n1 mark: Measure resistance between VBAT and ground to check for a short circuit\n1 mark: Check the power key switch and track continuity to the PMIC\n1 mark: Measure output voltages of the power management IC/regulators and compare with specification; replace/re-ball faulty component",
+      "explanation": "Inspect visually for damage and corrosion, test the battery, power the board from a d.c. supply and watch the current, check VBAT for shorts, test the power switch and its tracks, then measure regulator/PMIC outputs against specification and replace the faulty part.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-gsm-0206",
+      "type": "THEORY",
+      "topic": "Setting up a Mobile Phone Workshop",
+      "stem": "(a) State three factors to consider when choosing a location for a mobile phone workshop. [3 marks]\n(b) List three items of equipment needed to set up the workshop. [3 marks]",
+      "marks": 6,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: nearness to customers/market; security; steady power supply; accessibility; cost of rent; competition; availability of spare parts suppliers\n3 marks: (b) Any three, 1 mark each: soldering station; hot-air rework station; multimeter; regulated d.c. power supply; computer with flashing software; ultrasonic cleaner; microscope/magnifier; ESD mat and wrist strap",
+      "explanation": "Location: customers, security, power, access, rent, competition, parts supply. Equipment: soldering and hot-air stations, multimeter, d.c. supply, computer and software, ultrasonic cleaner, magnifier, ESD protection.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

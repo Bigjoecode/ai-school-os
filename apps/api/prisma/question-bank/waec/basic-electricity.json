@@ -1,0 +1,667 @@
+{
+  "exam": "WAEC",
+  "subject": "Basic Electricity",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wo-bel-0001",
+      "type": "OBJECTIVE",
+      "topic": "Structure of matter",
+      "stem": "In a metallic conductor, electric current is the flow of",
+      "options": [
+        "protons",
+        "neutrons",
+        "free electrons",
+        "positive ions only"
+      ],
+      "answer": 2,
+      "explanation": "Metals contain loosely bound outer (free) electrons that drift when a p.d. is applied; protons and neutrons stay in the nucleus.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0002",
+      "type": "OBJECTIVE",
+      "topic": "Conductors and insulators",
+      "stem": "Which of the following is a good electrical insulator?",
+      "options": [
+        "Porcelain",
+        "Copper",
+        "Aluminium",
+        "Graphite"
+      ],
+      "answer": 0,
+      "explanation": "Porcelain has very few free electrons and is used for line insulators; copper, aluminium and graphite conduct.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0003",
+      "type": "OBJECTIVE",
+      "topic": "Resistors",
+      "stem": "A carbon resistor has bands coloured yellow, violet, red and gold. Its value is",
+      "options": [
+        "47 ohms +/- 5%",
+        "4.7 kilohms +/- 5%",
+        "472 ohms +/- 10%",
+        "4.7 megohms +/- 5%"
+      ],
+      "answer": 1,
+      "explanation": "Yellow = 4, violet = 7, red multiplier = x100, so 47 x 100 = 4700 ohms; gold tolerance = 5%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0004",
+      "type": "OBJECTIVE",
+      "topic": "Resistors",
+      "stem": "A 6 ohm resistor in parallel with a 12 ohm resistor is connected in series with an 8 ohm resistor. The total resistance is",
+      "options": [
+        "26 ohms",
+        "2.67 ohms",
+        "14 ohms",
+        "12 ohms"
+      ],
+      "answer": 3,
+      "explanation": "6 // 12 = 72/18 = 4 ohms; 4 + 8 = 12 ohms.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0005",
+      "type": "OBJECTIVE",
+      "topic": "Electrical installation",
+      "stem": "The wiring system in which PVC-insulated cables are drawn through PVC or steel tubes fixed on or buried in the walls is",
+      "options": [
+        "surface (clip) wiring",
+        "trunking wiring",
+        "catenary wiring",
+        "conduit wiring"
+      ],
+      "answer": 3,
+      "explanation": "Conduit wiring encloses cables in tubes, protecting them mechanically and allowing rewiring.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0006",
+      "type": "OBJECTIVE",
+      "topic": "General workshop safety",
+      "stem": "Before replacing a faulty socket outlet, the electrician should FIRST",
+      "options": [
+        "isolate the circuit, lock it off and prove it dead with a tester",
+        "remove the faceplate while the circuit is live",
+        "wet the hands to improve grip",
+        "ask a colleague to hold the live conductor"
+      ],
+      "answer": 0,
+      "explanation": "Safe isolation (switch off, lock off, test dead) prevents electric shock; never work on live conductors.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0007",
+      "type": "OBJECTIVE",
+      "topic": "Power and energy",
+      "stem": "A 2 kW water heater is used for 1.5 hours every day for 30 days. If electricity costs ₦68 per kWh, the cost of the energy used is",
+      "options": [
+        "₦612",
+        "₦6,120",
+        "₦204,000",
+        "₦204"
+      ],
+      "answer": 1,
+      "explanation": "Energy = 2 kW x 1.5 h x 30 = 90 kWh; cost = 90 x 68 = ₦6,120.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0008",
+      "type": "OBJECTIVE",
+      "topic": "Fundamentals of magnetism",
+      "stem": "A magnetic flux of 0.6 mWb passes through an iron core of cross-sectional area 4 cm^2. The flux density is",
+      "options": [
+        "0.15 T",
+        "0.67 T",
+        "1.5 T",
+        "15 T"
+      ],
+      "answer": 2,
+      "explanation": "B = flux / area = 0.6 x 10^-3 / 4 x 10^-4 = 1.5 T (remember 1 cm^2 = 10^-4 m^2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0009",
+      "type": "OBJECTIVE",
+      "topic": "Concept of electric field",
+      "stem": "In comparing magnetic and electric circuits, magnetomotive force in a magnetic circuit corresponds to",
+      "options": [
+        "resistance in an electric circuit",
+        "current density",
+        "conductance",
+        "electromotive force in an electric circuit"
+      ],
+      "answer": 3,
+      "explanation": "m.m.f. drives flux as e.m.f. drives current; reluctance corresponds to resistance and flux to current.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0010",
+      "type": "OBJECTIVE",
+      "topic": "Capacitors",
+      "stem": "A 20 microfarad capacitor is charged to 100 V. The energy stored is",
+      "options": [
+        "0.1 J",
+        "0.002 J",
+        "0.2 J",
+        "0.001 J"
+      ],
+      "answer": 0,
+      "explanation": "E = 1/2 CV^2 = 0.5 x 20 x 10^-6 x 100^2 = 0.1 J; CV gives the charge in coulombs, not energy.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0011",
+      "type": "OBJECTIVE",
+      "topic": "D.C. generators",
+      "stem": "In a d.c. generator, the part that converts the alternating e.m.f. induced in the armature coils into direct current at the terminals is the",
+      "options": [
+        "field winding",
+        "commutator",
+        "yoke",
+        "bearing"
+      ],
+      "answer": 1,
+      "explanation": "The split-ring commutator reverses the coil connections every half turn so the output stays in one direction.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0012",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic field",
+      "stem": "A conductor 30 cm long carries 5 A in a uniform field of 0.8 T and lies at 30 degrees to the field. The force on it is",
+      "options": [
+        "1.2 N",
+        "1.04 N",
+        "0.6 N",
+        "13.33 N"
+      ],
+      "answer": 2,
+      "explanation": "F = BIL sin(theta) = 0.8 x 5 x 0.3 x 0.5 = 0.6 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0013",
+      "type": "OBJECTIVE",
+      "topic": "Self and mutual induction",
+      "stem": "An inductor of 0.5 H carries a current of 4 A. The energy stored in its magnetic field is",
+      "options": [
+        "2 J",
+        "8 J",
+        "4 J",
+        "16 J"
+      ],
+      "answer": 2,
+      "explanation": "W = 1/2 LI^2 = 0.5 x 0.5 x 16 = 4 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0014",
+      "type": "OBJECTIVE",
+      "topic": "Moving-coil instrument",
+      "stem": "A moving-coil meter of resistance 5 ohms gives full-scale deflection at 10 mA. The shunt needed to convert it to read up to 2 A is about",
+      "options": [
+        "1000 ohms",
+        "195 ohms",
+        "2.5 ohms",
+        "0.0251 ohms"
+      ],
+      "answer": 3,
+      "explanation": "R_sh = I_m R_m / (I - I_m) = 0.01 x 5 / 1.99 = 0.0251 ohms, a low resistance in parallel.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0015",
+      "type": "OBJECTIVE",
+      "topic": "Moving-iron instrument",
+      "stem": "An advantage of the moving-iron instrument over the moving-coil instrument is that it",
+      "options": [
+        "has a perfectly uniform scale",
+        "can measure both a.c. and d.c.",
+        "consumes less power",
+        "is more accurate on low readings"
+      ],
+      "answer": 1,
+      "explanation": "The iron is attracted or repelled whatever the current direction, so it reads a.c. and d.c.; its scale is non-uniform.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0016",
+      "type": "OBJECTIVE",
+      "topic": "Digital instrument",
+      "stem": "One advantage of a digital multimeter over an analogue meter is that it",
+      "options": [
+        "eliminates parallax error in reading",
+        "needs no battery",
+        "never needs range selection",
+        "cannot be damaged by overload"
+      ],
+      "answer": 0,
+      "explanation": "Readings appear as digits so there is no pointer parallax; digital meters need batteries and can be damaged.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0017",
+      "type": "OBJECTIVE",
+      "topic": "Binary number",
+      "stem": "The decimal number 45 written in binary is",
+      "options": [
+        "110110",
+        "101100",
+        "101001",
+        "101101"
+      ],
+      "answer": 3,
+      "explanation": "45 = 32 + 8 + 4 + 1 = 101101 in binary.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0018",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance",
+      "stem": "Replacing the worn bearings of a standing fan only after they have seized and stopped the fan is an example of",
+      "options": [
+        "preventive maintenance",
+        "corrective maintenance",
+        "predictive maintenance",
+        "planned maintenance"
+      ],
+      "answer": 1,
+      "explanation": "Corrective maintenance repairs equipment after a failure; preventive work is done on a schedule before failure.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0019",
+      "type": "OBJECTIVE",
+      "topic": "Logic gates",
+      "stem": "Two switches A and B connected in PARALLEL to control a lamp behave like a(n)",
+      "options": [
+        "OR gate",
+        "AND gate",
+        "NOT gate",
+        "NAND gate"
+      ],
+      "answer": 0,
+      "explanation": "The lamp lights if A OR B is closed, so Y = A + B; series switches give AND.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0020",
+      "type": "OBJECTIVE",
+      "topic": "A.C. quantities",
+      "stem": "The peak value of a 230 V r.m.s. sinusoidal supply is about",
+      "options": [
+        "163 V",
+        "147 V",
+        "325 V",
+        "460 V"
+      ],
+      "answer": 2,
+      "explanation": "V_peak = sqrt(2) x V_rms = 1.414 x 230 = 325.3 V.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0021",
+      "type": "OBJECTIVE",
+      "topic": "Distribution of electricity",
+      "stem": "In an electricity distribution network, the equipment that steps 11 kV down to the low voltage supplied to houses is the",
+      "options": [
+        "circuit breaker",
+        "lightning arrester",
+        "distribution transformer",
+        "feeder pillar fuse"
+      ],
+      "answer": 2,
+      "explanation": "Pole-mounted or ground distribution transformers step the 11 kV feeder voltage down for consumers; breakers and arresters protect the network.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0022",
+      "type": "OBJECTIVE",
+      "topic": "Generation of e.m.f. in a single turn coil",
+      "stem": "A single-turn coil rotates at constant speed in a uniform magnetic field. The e.m.f. induced is maximum when the plane of the coil is",
+      "options": [
+        "perpendicular to the magnetic field",
+        "at 45 degrees to the field",
+        "stationary",
+        "parallel to the magnetic field"
+      ],
+      "answer": 3,
+      "explanation": "When the coil plane is parallel to the field, its sides cut flux at the greatest rate, so the e.m.f. is maximum.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0023",
+      "type": "OBJECTIVE",
+      "topic": "RLC circuits",
+      "stem": "A series circuit has R = 30 ohms, X_L = 70 ohms and X_C = 30 ohms and is connected to a 100 V a.c. supply. The current is",
+      "options": [
+        "0.77 A",
+        "2 A",
+        "0.96 A",
+        "3.33 A"
+      ],
+      "answer": 1,
+      "explanation": "Z = sqrt(30^2 + (70 - 30)^2) = 50 ohms; I = 100 / 50 = 2 A.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0024",
+      "type": "OBJECTIVE",
+      "topic": "Types of transformer",
+      "stem": "The core of a transformer is laminated mainly to reduce",
+      "options": [
+        "eddy current loss",
+        "copper loss",
+        "the number of turns",
+        "the output voltage"
+      ],
+      "answer": 0,
+      "explanation": "Thin insulated laminations break up eddy current paths; copper loss is in the windings.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0025",
+      "type": "OBJECTIVE",
+      "topic": "Principles of operation of a transformer",
+      "stem": "A transformer has 1200 primary turns and 60 secondary turns. If the primary voltage is 240 V, the secondary voltage is",
+      "options": [
+        "4800 V",
+        "12 V",
+        "4 V",
+        "20 V"
+      ],
+      "answer": 1,
+      "explanation": "V_s = V_p x N_s / N_p = 240 x 60 / 1200 = 12 V.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0026",
+      "type": "OBJECTIVE",
+      "topic": "Losses and temperature rise in transformers",
+      "stem": "In a transformer, the loss that varies with the square of the load current is the",
+      "options": [
+        "hysteresis loss",
+        "eddy current loss",
+        "iron loss",
+        "copper loss"
+      ],
+      "answer": 3,
+      "explanation": "Copper loss = I^2 R in the windings; iron (hysteresis and eddy) losses are almost constant at fixed voltage and frequency.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0027",
+      "type": "OBJECTIVE",
+      "topic": "Efficiency of transformers",
+      "stem": "A transformer delivers 9.6 kW with copper losses of 250 W and iron losses of 150 W. Its efficiency is",
+      "options": [
+        "96%",
+        "95.8%",
+        "97.5%",
+        "98.5%"
+      ],
+      "answer": 0,
+      "explanation": "Efficiency = output / (output + losses) = 9600 / 10000 x 100 = 96%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0028",
+      "type": "OBJECTIVE",
+      "topic": "Power supply units",
+      "stem": "A solar cell converts",
+      "options": [
+        "chemical energy into light energy",
+        "electrical energy into heat",
+        "light energy into electrical energy",
+        "sound energy into electrical energy"
+      ],
+      "answer": 2,
+      "explanation": "Photovoltaic cells produce an e.m.f. when light falls on them.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0029",
+      "type": "OBJECTIVE",
+      "topic": "Rectification",
+      "stem": "For a 50 Hz mains supply, the ripple frequency at the output of a full-wave bridge rectifier is",
+      "options": [
+        "100 Hz",
+        "50 Hz",
+        "25 Hz",
+        "200 Hz"
+      ],
+      "answer": 0,
+      "explanation": "Both half-cycles are used, giving two output pulses per input cycle: 2 x 50 = 100 Hz (half-wave gives 50 Hz).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0030",
+      "type": "OBJECTIVE",
+      "topic": "A.C. motors (single phase)",
+      "stem": "The single-phase motor commonly used in domestic ceiling fans is the",
+      "options": [
+        "d.c. series motor",
+        "three-phase slip-ring motor",
+        "synchronous alternator",
+        "capacitor-run motor"
+      ],
+      "answer": 3,
+      "explanation": "Ceiling fans use a permanently connected capacitor (capacitor-run) for quiet running and starting.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0031",
+      "type": "OBJECTIVE",
+      "topic": "Alternators",
+      "stem": "An alternator with 4 poles must supply 50 Hz. Its speed must be",
+      "options": [
+        "3000 rev/min",
+        "1500 rev/min",
+        "750 rev/min",
+        "200 rev/min"
+      ],
+      "answer": 1,
+      "explanation": "n = 120f / p = 120 x 50 / 4 = 1500 rev/min.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0032",
+      "type": "OBJECTIVE",
+      "topic": "A.C. motors (three phase)",
+      "stem": "A 6-pole, 50 Hz three-phase induction motor runs at 960 rev/min. Its percentage slip is",
+      "options": [
+        "4.2%",
+        "96%",
+        "4%",
+        "40%"
+      ],
+      "answer": 2,
+      "explanation": "Synchronous speed = 120 x 50 / 6 = 1000 rev/min; slip = (1000 - 960)/1000 x 100 = 4%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0033",
+      "type": "OBJECTIVE",
+      "topic": "D.C. motors",
+      "stem": "A d.c. series motor must never be started without a load because",
+      "options": [
+        "it draws no current",
+        "its torque falls to zero",
+        "its field winding burns open",
+        "its speed rises to a dangerously high value"
+      ],
+      "answer": 3,
+      "explanation": "With no load the series field weakens as current falls, so speed rises without limit (runaway).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0034",
+      "type": "OBJECTIVE",
+      "topic": "Generating station",
+      "stem": "The Kainji and Jebba power stations on the River Niger generate electricity by",
+      "options": [
+        "nuclear power",
+        "hydro-electric power",
+        "diesel engines",
+        "coal-fired steam turbines"
+      ],
+      "answer": 1,
+      "explanation": "Both are hydro-electric stations using the energy of water held behind dams.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0035",
+      "type": "OBJECTIVE",
+      "topic": "Protection",
+      "stem": "Discrimination between protective devices in an installation means that",
+      "options": [
+        "only the device nearest the fault operates, leaving the rest of the installation supplied",
+        "all fuses blow together to give maximum safety",
+        "circuit breakers are used instead of fuses",
+        "the main switch trips before any final circuit fuse"
+      ],
+      "answer": 0,
+      "explanation": "Correct grading ensures the smallest device closest to the fault clears it first.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0036",
+      "type": "OBJECTIVE",
+      "topic": "Earthing",
+      "stem": "The main reason for earthing the metal casing of an electric iron is to",
+      "options": [
+        "reduce the electricity bill",
+        "make the iron heat faster",
+        "provide a low-resistance path for fault current so the fuse blows or breaker trips",
+        "prevent the element from corroding"
+      ],
+      "answer": 2,
+      "explanation": "If a live wire touches the case, the earth path lets a large current flow to operate the protection, preventing shock.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-bel-0037",
+      "type": "OBJECTIVE",
+      "topic": "Testing of an installation",
+      "stem": "The instrument used to measure the insulation resistance of an installation is the",
+      "options": [
+        "insulation resistance tester (megger)",
+        "moving-iron ammeter",
+        "wattmeter",
+        "frequency meter"
+      ],
+      "answer": 0,
+      "explanation": "A megger applies a high d.c. test voltage (e.g. 500 V) and reads megohms; low readings show insulation breakdown.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0038",
+      "type": "OBJECTIVE",
+      "topic": "Wiring",
+      "stem": "For the same length, why is 2.5 mm^2 cable used for socket-outlet circuits while 1.5 mm^2 cable is used for lighting circuits?",
+      "options": [
+        "Thicker cable is cheaper",
+        "Socket circuits carry larger currents, so a larger cross-section is needed to limit heating and voltage drop",
+        "Lighting circuits work at a higher voltage",
+        "Thinner cable has a lower resistance"
+      ],
+      "answer": 1,
+      "explanation": "Current-carrying capacity rises with cross-sectional area; resistance falls as area increases.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0039",
+      "type": "OBJECTIVE",
+      "topic": "Transmission",
+      "stem": "Electricity is transmitted over long distances in Nigeria at 132 kV and 330 kV mainly because",
+      "options": [
+        "high voltage is safer for people near the lines",
+        "transformers only work at high voltage",
+        "high voltage means low current, reducing I^2R losses and conductor size",
+        "consumers use 330 kV appliances"
+      ],
+      "answer": 2,
+      "explanation": "For a given power, raising voltage lowers current, so line losses (I^2R) and conductor cost fall.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0040",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance and repair of electrical appliances",
+      "stem": "An electric kettle trips the circuit breaker each time it is switched on. The most likely fault is",
+      "options": [
+        "an open-circuit element",
+        "a loose handle",
+        "low supply voltage",
+        "an earth fault or short circuit in the element"
+      ],
+      "answer": 3,
+      "explanation": "A short or earth fault draws a large current that trips protection; an open circuit would simply not heat.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0201",
+      "type": "THEORY",
+      "topic": "Ohm's law and Kirchhoff's laws",
+      "stem": "(a) State Kirchhoff's voltage law. [2 marks]\n(b) A 12 V battery of negligible internal resistance in series with a 2 ohm resistor, and a 6 V battery of negligible internal resistance in series with a 3 ohm resistor, are connected in parallel (positive terminals joined) across a 6 ohm load. Using Kirchhoff's laws, calculate (i) the voltage across the load (ii) the current in each battery (iii) the current in the load. [8 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: (a) In any closed loop, the algebraic sum of the e.m.f.s equals the algebraic sum of the p.d.s (IR drops)\n2 marks: (b) Correct equations, e.g. 12 = 2I1 + 6(I1 + I2) and 6 = 3I2 + 6(I1 + I2), or the nodal equation (12 - V)/2 + (6 - V)/3 = V/6\n2 marks: (b)(i) Solving: V = 8 V across the load\n2 marks: (b)(ii) I1 = (12 - 8)/2 = 2 A from the 12 V battery; I2 = (6 - 8)/3 = -0.67 A, i.e. 0.67 A flows INTO the 6 V battery (it is being charged)\n2 marks: (b)(iii) Load current = 8/6 = 1.33 A (check: 2 - 0.67 = 1.33 A)",
+      "explanation": "KVL: sum of e.m.f.s = sum of IR drops round any loop. Nodal: (12 - V)/2 + (6 - V)/3 = V/6 gives V = 8.000000000000002 V; I1 = 1.9999999999999991 A, I2 = -0.67 A (the 6 V battery is charged at 0.67 A), load current = 1.33 A.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0202",
+      "type": "THEORY",
+      "topic": "Efficiency of transformers",
+      "stem": "(a) Explain the principle of operation of a transformer. [3 marks]\n(b) A 10 kVA, 2200/220 V single-phase transformer has 500 turns on its primary. Assuming it is ideal, calculate (i) the number of secondary turns (ii) the full-load primary and secondary currents. [4 marks]\n(c) State three methods of cooling transformers. [3 marks]",
+      "marks": 10,
+      "markingGuide": "3 marks: (a) Alternating current in the primary sets up an alternating flux in the core (1); the flux links the secondary winding (1); by mutual induction an e.m.f. is induced in the secondary, proportional to its number of turns (1)\n2 marks: (b)(i) Ns = Np x Vs/Vp = 500 x 220/2200 = 50 turns\n2 marks: (b)(ii) Ip = 10000/2200 = 4.55 A (1); Is = 10000/220 = 45.45 A (1)\n3 marks: (c) Any three, 1 mark each: natural air cooling (AN); air blast/forced air (AF); oil immersed natural cooling (ONAN); oil immersed with forced air (ONAF); forced oil circulation (OFAF); water cooling of oil (OFW)",
+      "explanation": "An alternating primary current produces an alternating flux that links the secondary and induces an e.m.f. by mutual induction. Ns = 50; Ip = 4.55 A; Is = 45.45 A. Cooling: natural air, air blast, oil natural, oil with forced air or forced oil.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0203",
+      "type": "THEORY",
+      "topic": "RLC circuits",
+      "stem": "A series circuit of resistance 40 ohms, inductance 0.2 H and capacitance 50 microfarads is connected to a 220 V, 50 Hz supply.\n(a) Calculate (i) the inductive reactance (ii) the capacitive reactance (iii) the impedance (iv) the current. [6 marks]\n(b) Calculate the resonant frequency of the circuit. [2 marks]\n(c) State two conditions that exist in a series circuit at resonance. [2 marks]",
+      "marks": 10,
+      "markingGuide": "1 mark: (a)(i) X_L = 2 x pi x f x L = 2 x 3.142 x 50 x 0.2 = 62.8 ohms\n1 mark: (a)(ii) X_C = 1/(2 x pi x f x C) = 1/(2 x 3.142 x 50 x 50 x 10^-6) = 63.7 ohms\n2 marks: (a)(iii) Z = sqrt(R^2 + (X_L - X_C)^2) = sqrt(40^2 + -0.83^2) = 40.01 ohms\n2 marks: (a)(iv) I = V/Z = 220/40.01 = 5.5 A\n2 marks: (b) f0 = 1/(2 x pi x sqrt(LC)) = 1/(2 x 3.142 x sqrt(0.2 x 50 x 10^-6)) = 50.3 Hz\n2 marks: (c) Any two, 1 mark each: X_L = X_C; impedance is minimum and equal to R; current is maximum; current is in phase with the supply voltage (unity power factor)",
+      "explanation": "X_L = 62.8 ohms, X_C = 63.7 ohms, Z = 40.01 ohms (almost purely resistive), I = 5.5 A. f0 = 50.3 Hz, very close to 50 Hz, which is why the circuit is nearly resonant. At resonance X_L = X_C, Z = R (minimum), current is maximum and in phase with V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-bel-0204",
+      "type": "THEORY",
+      "topic": "Moving-coil instrument",
+      "stem": "(a) State two advantages and two disadvantages of the moving-coil instrument. [4 marks]\n(b) A moving-coil instrument has a resistance of 50 ohms and gives full-scale deflection with 2 mA. Calculate the resistance required to convert it into (i) a voltmeter reading up to 100 V (ii) an ammeter reading up to 5 A, and state how each resistance is connected. [6 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: (a) Advantages, any two: uniform (linear) scale; high accuracy and sensitivity; low power consumption; not affected by stray fields; effective eddy-current damping\n2 marks: (a) Disadvantages, any two: measures d.c. only (needs rectifier for a.c.); more expensive; delicate hairsprings/coil easily damaged by overload\n3 marks: (b)(i) Multiplier R = V/Im - Rm = 100/0.002 - 50 = 49950 ohms (2), connected in series with the coil (1)\n3 marks: (b)(ii) Shunt R = Im Rm/(I - Im) = 0.002 x 50/4.998 = 0.02 ohms (2), connected in parallel with the coil (1)",
+      "explanation": "Moving coil: linear scale, accurate, low consumption; but d.c. only, costly and delicate. Multiplier = 100/0.002 - 50 = 49950 ohms in series; shunt = 0.1/4.998 = 0.02 ohms in parallel.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0205",
+      "type": "THEORY",
+      "topic": "Earthing",
+      "stem": "(a) State three reasons for earthing an electrical installation. [3 marks]\n(b) Describe the earth-rod (earth electrode) method of earthing a domestic installation. [4 marks]\n(c) Explain the meaning of earth loop impedance and why it must be low. [3 marks]",
+      "marks": 10,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: to protect people from electric shock; to ensure protective devices operate quickly on an earth fault; to maintain metalwork at earth potential; to protect against lightning/static; to stabilise system voltage\n4 marks: (b) Copper or copper-clad steel rod driven vertically into moist ground (1); earthing conductor (green/yellow) clamped to the rod with a clamp/label (1); conductor run to the main earthing terminal in the consumer unit (1); earth electrode resistance tested and pit protected/kept moist (1)\n2 marks: (c) Earth loop impedance is the total impedance of the path taken by fault current: from the fault through the protective conductor, earth return, supply transformer winding and phase conductor back to the fault\n1 mark: (c) It must be low so that a large enough fault current flows to operate the fuse or circuit breaker quickly",
+      "explanation": "Earthing protects against shock, makes protective devices operate, keeps metalwork at zero potential and helps with lightning. An earth rod is driven into moist ground and connected by a green/yellow conductor to the main earthing terminal. Earth loop impedance is the impedance of the whole fault-current path; it must be low so the protective device trips quickly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-bel-0206",
+      "type": "THEORY",
+      "topic": "A.C. motors (three phase)",
+      "stem": "(a) Explain how a rotating magnetic field causes the rotor of a three-phase induction motor to turn. [4 marks]\n(b) State three methods of starting three-phase induction motors. [3 marks]\n(c) A 4-pole, 50 Hz induction motor runs with a slip of 3%. Calculate its rotor speed. [3 marks]",
+      "marks": 10,
+      "markingGuide": "4 marks: (a) Three-phase currents in the stator windings produce a magnetic field rotating at synchronous speed (1); the field cuts the rotor conductors and induces e.m.f. (Faraday) (1); induced currents flow in the closed rotor circuit (1); interaction of rotor currents with the field produces torque, so the rotor turns in the direction of the field but slightly slower (1)\n3 marks: (b) 1 mark each: direct-on-line (DOL); star-delta starter; auto-transformer starter (also rotor resistance for slip-ring motors)\n1 mark: (c) Synchronous speed Ns = 120f/p = 120 x 50/4 = 1500 rev/min\n2 marks: (c) Rotor speed = Ns(1 - s) = 1500 x 0.97 = 1455 rev/min",
+      "explanation": "The stator's three-phase currents create a rotating field that induces rotor currents; the resulting force turns the rotor slightly slower than synchronous speed. Starting: DOL, star-delta, auto-transformer. Ns = 1500 rev/min, rotor = 1500 x 0.97 = 1455 rev/min.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

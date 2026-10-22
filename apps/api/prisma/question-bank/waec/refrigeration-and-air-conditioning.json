@@ -1,0 +1,667 @@
+{
+  "exam": "WAEC",
+  "subject": "Refrigeration and Air Conditioning",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wo-rac-0001",
+      "type": "OBJECTIVE",
+      "topic": "Safety and First Aid in the Workshop",
+      "stem": "Liquid refrigerant escaping from a charging hose onto bare skin can cause",
+      "options": [
+        "sunburn",
+        "frostbite",
+        "electric shock",
+        "malaria"
+      ],
+      "answer": 1,
+      "explanation": "Liquid refrigerant boils at very low temperature, freezing the skin; gloves and goggles must be worn.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0002",
+      "type": "OBJECTIVE",
+      "topic": "Safety and First Aid in the Workshop",
+      "stem": "A refrigeration system should be pressure-tested for leaks with dry nitrogen and NEVER with oxygen because",
+      "options": [
+        "oxygen can react violently with compressor oil and cause an explosion",
+        "oxygen is too expensive",
+        "nitrogen is a refrigerant",
+        "oxygen freezes inside the pipes"
+      ],
+      "answer": 0,
+      "explanation": "Oil and oxygen under pressure can ignite explosively; dry nitrogen is inert and moisture-free.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0003",
+      "type": "OBJECTIVE",
+      "topic": "Safety and First Aid in the Workshop",
+      "stem": "Which fire extinguisher is suitable for a fire in the electrical control panel of a cold room?",
+      "options": [
+        "Water extinguisher",
+        "Foam extinguisher",
+        "Carbon dioxide (CO2) extinguisher",
+        "Wet blanket soaked in water"
+      ],
+      "answer": 2,
+      "explanation": "CO2 does not conduct electricity and leaves no residue; water and foam conduct and are dangerous on live equipment.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0004",
+      "type": "OBJECTIVE",
+      "topic": "Energy",
+      "stem": "The total heat content of a refrigerant per kilogram, used on the pressure-enthalpy (p-h) chart, is its",
+      "options": [
+        "specific volume",
+        "density",
+        "relative humidity",
+        "specific enthalpy"
+      ],
+      "answer": 3,
+      "explanation": "Enthalpy (internal energy plus pressure-volume energy) is plotted on the horizontal axis of the p-h chart.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0005",
+      "type": "OBJECTIVE",
+      "topic": "Nature of Matter",
+      "stem": "The change of state from vapour to liquid that takes place in the condenser is called",
+      "options": [
+        "condensation",
+        "evaporation",
+        "sublimation",
+        "melting"
+      ],
+      "answer": 0,
+      "explanation": "In the condenser the refrigerant vapour gives up heat and condenses to liquid.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0006",
+      "type": "OBJECTIVE",
+      "topic": "Power",
+      "stem": "A single-phase compressor motor draws 4.5 A from a 230 V supply at a power factor of 0.8. The power consumed is",
+      "options": [
+        "1035 W",
+        "1294 W",
+        "828 W",
+        "51.1 W"
+      ],
+      "answer": 2,
+      "explanation": "P = V x I x power factor = 230 x 4.5 x 0.8 = 828 W.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0007",
+      "type": "OBJECTIVE",
+      "topic": "Power",
+      "stem": "How much heat must be removed to cool 3 kg of water from 25 degrees C to 5 degrees C? (Specific heat capacity of water = 4.2 kJ/kg K)",
+      "options": [
+        "315.00000000000006 kJ",
+        "252.00000000000003 kJ",
+        "63 kJ",
+        "60 kJ"
+      ],
+      "answer": 1,
+      "explanation": "Q = m c dT = 3 x 4.2 x 20 = 252.00000000000003 kJ (sensible heat only).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0008",
+      "type": "OBJECTIVE",
+      "topic": "Temperature and its Measurement",
+      "stem": "A freezer compartment is at -18 degrees C. This temperature on the Fahrenheit scale is about",
+      "options": [
+        "-27.8 degrees F",
+        "-32.4 degrees F",
+        "14 degrees F",
+        "-0.4 degrees F"
+      ],
+      "answer": 3,
+      "explanation": "F = (9/5)C + 32 = -32.4 + 32 = -0.4 degrees F (about 0 degrees F).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0009",
+      "type": "OBJECTIVE",
+      "topic": "Temperature and its Measurement",
+      "stem": "The temperature of 27 degrees C expressed in kelvin (to the nearest whole number) is",
+      "options": [
+        "246 K",
+        "27 K",
+        "300 K",
+        "81 K"
+      ],
+      "answer": 2,
+      "explanation": "K = degrees C + 273 = 300 K.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0010",
+      "type": "OBJECTIVE",
+      "topic": "Pressure and its Measurement",
+      "stem": "A gas at 200 kPa (absolute) and 300 K occupies 0.5 m^3. It is compressed to 0.25 m^3 and its temperature rises to 330 K. Its new absolute pressure is",
+      "options": [
+        "440 kPa",
+        "400 kPa",
+        "363.6 kPa",
+        "220 kPa"
+      ],
+      "answer": 0,
+      "explanation": "p2 = p1 V1 T2 / (T1 V2) = 200 x 0.5 x 330 / (300 x 0.25) = 440 kPa (general gas law).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0011",
+      "type": "OBJECTIVE",
+      "topic": "Pressure and its Measurement",
+      "stem": "A gauge on the high side of a system reads 1500 kPa. Taking atmospheric pressure as 101 kPa, the absolute pressure is",
+      "options": [
+        "1399 kPa",
+        "1601 kPa",
+        "1500 kPa",
+        "101 kPa"
+      ],
+      "answer": 1,
+      "explanation": "Absolute pressure = gauge pressure + atmospheric pressure = 1500 + 101 = 1601 kPa.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0012",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Refrigeration",
+      "stem": "In the vapour-compression refrigeration cycle, the refrigerant absorbs heat from the space being cooled in the",
+      "options": [
+        "condenser",
+        "compressor",
+        "liquid receiver",
+        "evaporator"
+      ],
+      "answer": 3,
+      "explanation": "Low-pressure liquid boils in the evaporator, taking in latent heat; the condenser rejects heat outside.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0013",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Refrigeration",
+      "stem": "Refrigerators that use a kerosene or gas flame as the energy source, with ammonia, water and hydrogen, work on the",
+      "options": [
+        "absorption system",
+        "vapour-compression system",
+        "thermoelectric system",
+        "steam-jet system"
+      ],
+      "answer": 0,
+      "explanation": "Absorption refrigerators are driven by heat instead of a mechanical compressor.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0014",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to Refrigeration",
+      "stem": "The component that switches the compressor on and off to keep the cabinet at the set temperature is the",
+      "options": [
+        "start relay",
+        "liquid receiver",
+        "drier",
+        "thermostat"
+      ],
+      "answer": 3,
+      "explanation": "The thermostat senses evaporator or cabinet temperature and cycles the compressor.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0015",
+      "type": "OBJECTIVE",
+      "topic": "Refrigerants",
+      "stem": "The chemical name of refrigerant R-134a is",
+      "options": [
+        "chlorodifluoromethane",
+        "tetrafluoroethane",
+        "dichlorodifluoromethane",
+        "isobutane"
+      ],
+      "answer": 1,
+      "explanation": "R-134a is CH2FCF3, tetrafluoroethane; R-22 is chlorodifluoromethane and R-12 dichlorodifluoromethane.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0016",
+      "type": "OBJECTIVE",
+      "topic": "Refrigerants",
+      "stem": "The flow control device that keeps the superheat of vapour leaving the evaporator constant, using a sensing bulb clamped to the suction line, is the",
+      "options": [
+        "capillary tube",
+        "automatic expansion valve (AEV)",
+        "thermostatic expansion valve (TEV)",
+        "hand expansion valve"
+      ],
+      "answer": 2,
+      "explanation": "The TEV bulb senses suction-line temperature to control superheat; the AEV holds constant evaporator pressure and the capillary is a fixed restriction.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0017",
+      "type": "OBJECTIVE",
+      "topic": "Refrigerants",
+      "stem": "R-22 is being phased out worldwide under the Montreal Protocol mainly because it",
+      "options": [
+        "is not a refrigerant",
+        "freezes at room temperature",
+        "contains chlorine, which depletes the ozone layer",
+        "is too cheap to produce"
+      ],
+      "answer": 2,
+      "explanation": "R-22 is an HCFC; its chlorine damages stratospheric ozone, so production is being phased out.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0018",
+      "type": "OBJECTIVE",
+      "topic": "Air-Conditioning Processes",
+      "stem": "Heat that changes the temperature of air without changing its moisture content is",
+      "options": [
+        "sensible heat",
+        "latent heat",
+        "heat of fusion",
+        "superheat of vapour only"
+      ],
+      "answer": 0,
+      "explanation": "Sensible heat changes temperature; latent heat changes state, e.g. moisture condensing on the cooling coil.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0019",
+      "type": "OBJECTIVE",
+      "topic": "Air-Conditioning Processes",
+      "stem": "The instrument with dry-bulb and wet-bulb thermometers that is whirled in air to find the relative humidity is the",
+      "options": [
+        "manometer",
+        "sling psychrometer",
+        "bourdon gauge",
+        "hydrometer"
+      ],
+      "answer": 1,
+      "explanation": "Comparing the two readings (wet-bulb depression) with a chart gives relative humidity.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0020",
+      "type": "OBJECTIVE",
+      "topic": "Compressors",
+      "stem": "A compressor whose motor and compressor are sealed together inside a welded steel shell, as in domestic refrigerators, is a",
+      "options": [
+        "open-type compressor",
+        "centrifugal compressor",
+        "belt-driven compressor",
+        "hermetic compressor"
+      ],
+      "answer": 3,
+      "explanation": "Hermetic units are welded shut, preventing refrigerant leakage at a shaft seal.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0021",
+      "type": "OBJECTIVE",
+      "topic": "Condensers",
+      "stem": "A refrigeration system absorbs 3.5 kW in the evaporator and the compressor adds 1 kW of work to the refrigerant. The heat rejected in the condenser is",
+      "options": [
+        "2.5 kW",
+        "3.5 kW",
+        "4.5 kW",
+        "5.5 kW"
+      ],
+      "answer": 2,
+      "explanation": "Condenser load = evaporator load + compressor work = 3.5 + 1.0 = 4.5 kW (COP = 3.5).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0022",
+      "type": "OBJECTIVE",
+      "topic": "Condensers",
+      "stem": "The liquid receiver in a refrigeration system is used to",
+      "options": [
+        "compress the vapour",
+        "store liquid refrigerant from the condenser",
+        "evaporate the liquid",
+        "remove heat from the cabinet"
+      ],
+      "answer": 1,
+      "explanation": "The receiver stores surplus liquid and allows refrigerant to be pumped down for servicing.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0023",
+      "type": "OBJECTIVE",
+      "topic": "Evaporators",
+      "stem": "An evaporator coated with a thick layer of ice causes poor cooling because ice",
+      "options": [
+        "acts as an insulator and blocks air flow over the coil",
+        "increases the heat transfer",
+        "raises the refrigerant pressure to the high side",
+        "acts as a refrigerant"
+      ],
+      "answer": 0,
+      "explanation": "Frost insulates the coil and restricts air flow; regular defrosting restores performance.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0024",
+      "type": "OBJECTIVE",
+      "topic": "Basic Tools Used in Refrigeration and Air-conditioning Workshops",
+      "stem": "The tool that cuts copper tubing squarely without leaving filings inside is the",
+      "options": [
+        "hacksaw",
+        "flaring tool",
+        "bending spring",
+        "tube cutter"
+      ],
+      "answer": 3,
+      "explanation": "A tube cutter gives a clean square cut; hacksaws leave burrs and filings.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0025",
+      "type": "OBJECTIVE",
+      "topic": "Basic Tools Used in Refrigeration and Air-conditioning Workshops",
+      "stem": "A flaring tool is used to",
+      "options": [
+        "expand a tube end so another tube fits inside",
+        "bend tubes without kinking",
+        "form a cone-shaped end on copper tube for a flare nut joint",
+        "pinch off the process tube"
+      ],
+      "answer": 2,
+      "explanation": "Flares form a 45-degree cone seal; swaging tools expand tube ends for brazed joints.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0026",
+      "type": "OBJECTIVE",
+      "topic": "Fault Diagnosis and Trouble Shooting",
+      "stem": "A refrigerator compressor runs continuously, the evaporator is only partly frosted and cooling is poor. The most likely cause is",
+      "options": [
+        "shortage of refrigerant due to a leak",
+        "an overcharged system with excess refrigerant",
+        "a faulty door light",
+        "too low a room temperature"
+      ],
+      "answer": 0,
+      "explanation": "With too little refrigerant only part of the evaporator is fed, so cooling is poor and the compressor never cycles off.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0027",
+      "type": "OBJECTIVE",
+      "topic": "Fault Diagnosis and Trouble Shooting",
+      "stem": "A compressor hums but does not start, and the overload protector trips after a few seconds. A likely cause is",
+      "options": [
+        "a dirty door gasket",
+        "a faulty start relay or start capacitor",
+        "a blocked drain tube",
+        "a weak thermostat lamp"
+      ],
+      "answer": 1,
+      "explanation": "Without the start winding being energised, the motor stalls (locked rotor) and draws high current, tripping the overload.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0028",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance and Testing",
+      "stem": "When testing a single-phase hermetic compressor, a technician measures 4.5 ohms between terminals C and S and 2.5 ohms between C and R. A healthy compressor will show between S and R about",
+      "options": [
+        "2 ohms",
+        "1.61 ohms",
+        "0 ohms",
+        "7 ohms"
+      ],
+      "answer": 3,
+      "explanation": "S to R measures the start and run windings in series, so it equals the sum: 4.5 + 2.5 = 7.0 ohms.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0029",
+      "type": "OBJECTIVE",
+      "topic": "Piping, Ducting and Trunking",
+      "stem": "After installing a split air-conditioner, the pipes and indoor coil are evacuated with a vacuum pump mainly to",
+      "options": [
+        "add oil to the compressor",
+        "remove air and moisture from the system",
+        "increase the refrigerant pressure",
+        "test the electrical wiring"
+      ],
+      "answer": 1,
+      "explanation": "Air and moisture cause high pressures, acid formation and ice blockage; evacuation removes them before opening the service valves.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0030",
+      "type": "OBJECTIVE",
+      "topic": "Piping, Ducting and Trunking",
+      "stem": "The flexible closed-cell foam tube slipped over the copper suction line of a split air-conditioner is used to",
+      "options": [
+        "prevent heat gain and condensation on the cold pipe",
+        "support the weight of the pipe",
+        "conduct electricity to the outdoor unit",
+        "reduce the refrigerant pressure"
+      ],
+      "answer": 0,
+      "explanation": "Elastomeric (e.g. Armaflex) insulation keeps the suction line cold and dry.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0031",
+      "type": "OBJECTIVE",
+      "topic": "Motors and Generators",
+      "stem": "The capacitor permanently connected in the circuit of the outdoor fan motor of an air-conditioner is a",
+      "options": [
+        "start capacitor",
+        "filter capacitor",
+        "run capacitor",
+        "tantalum capacitor"
+      ],
+      "answer": 2,
+      "explanation": "Permanent split capacitor (PSC) fan motors use a run capacitor to improve running torque and power factor.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0032",
+      "type": "OBJECTIVE",
+      "topic": "Cold Room",
+      "stem": "In a walk-in cold room, the vapour barrier is placed on the",
+      "options": [
+        "cold (inner) side of the insulation",
+        "floor drain only",
+        "evaporator fins",
+        "warm (outer) side of the insulation"
+      ],
+      "answer": 3,
+      "explanation": "The barrier stops warm moist air diffusing into the insulation, where it would condense and freeze.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0033",
+      "type": "OBJECTIVE",
+      "topic": "Insulation Processes",
+      "stem": "The insulating material injected as foam between the inner and outer walls of a domestic refrigerator cabinet is",
+      "options": [
+        "copper wool",
+        "polyurethane foam",
+        "asbestos cement sheet",
+        "glass windowpane"
+      ],
+      "answer": 1,
+      "explanation": "Rigid polyurethane foam has very low thermal conductivity and also stiffens the cabinet.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0034",
+      "type": "OBJECTIVE",
+      "topic": "Insulation Processes",
+      "stem": "A good insulating material for refrigeration should have",
+      "options": [
+        "high thermal conductivity",
+        "high density and high moisture absorption",
+        "good electrical conductivity",
+        "low thermal conductivity and low moisture absorption"
+      ],
+      "answer": 3,
+      "explanation": "Insulation must resist heat flow and stay dry, since wet insulation conducts heat.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0035",
+      "type": "OBJECTIVE",
+      "topic": "Business Concept",
+      "stem": "A refrigeration repair business owned and controlled by one person who bears all profits and losses is a",
+      "options": [
+        "partnership",
+        "public limited company",
+        "sole proprietorship",
+        "cooperative"
+      ],
+      "answer": 2,
+      "explanation": "Sole proprietors own and manage alone, with unlimited liability.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0036",
+      "type": "OBJECTIVE",
+      "topic": "Marketing",
+      "stem": "A low-cost way for a new refrigeration repair shop to reach customers in its neighbourhood is",
+      "options": [
+        "handbills, signboards and satisfied customers' referrals",
+        "national television adverts during the news",
+        "billboards in another state",
+        "sponsoring a foreign football club"
+      ],
+      "answer": 0,
+      "explanation": "Local, low-cost promotion suits a small business; national campaigns are too expensive.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0037",
+      "type": "OBJECTIVE",
+      "topic": "Accounting",
+      "stem": "The accounting principle that the owner's personal transactions must be kept separate from those of the business is the",
+      "options": [
+        "business entity concept",
+        "going concern concept",
+        "double entry principle",
+        "matching concept"
+      ],
+      "answer": 0,
+      "explanation": "The business is treated as separate from its owner; going concern assumes it will continue operating.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0038",
+      "type": "OBJECTIVE",
+      "topic": "Motors and Generators",
+      "stem": "A standby generator used to keep a cold room running during power outages converts",
+      "options": [
+        "electrical energy into mechanical energy",
+        "heat energy into chemical energy",
+        "mechanical energy into electrical energy",
+        "light energy into heat"
+      ],
+      "answer": 2,
+      "explanation": "The engine turns the alternator, which converts mechanical energy into electricity; a motor does the reverse.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wo-rac-0039",
+      "type": "OBJECTIVE",
+      "topic": "Evaporators",
+      "stem": "An evaporator made by fixing refrigerant tubing to, or forming passages inside, flat metal sheets, as in many chest freezers and ice-cream cabinets, is a",
+      "options": [
+        "finned-tube forced-air evaporator",
+        "shell-and-tube flooded evaporator",
+        "evaporative condenser",
+        "plate evaporator"
+      ],
+      "answer": 3,
+      "explanation": "Plate evaporators give a flat cold surface for direct contact with products; finned coils use fans to cool air.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0040",
+      "type": "OBJECTIVE",
+      "topic": "Nature of Matter",
+      "stem": "How much heat must be supplied to melt 5 kg of ice at 0 degrees C into water at 0 degrees C? (Specific latent heat of fusion of ice = 334 kJ/kg)",
+      "options": [
+        "21 kJ",
+        "1670 kJ",
+        "334 kJ",
+        "11300 kJ"
+      ],
+      "answer": 1,
+      "explanation": "Q = mL = 5 x 334 = 1670 kJ; the temperature stays at 0 degrees C because this is latent heat.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0201",
+      "type": "THEORY",
+      "topic": "Introduction to Refrigeration",
+      "stem": "(a) With the aid of a described layout, explain the vapour-compression refrigeration cycle, naming the four main components. [10 marks]\n(b) State the condition (pressure and state) of the refrigerant at the outlet of (i) the compressor (ii) the condenser (iii) the expansion device. [3 marks]\n(c) State two applications of refrigeration. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Compressor: draws low-pressure vapour from the evaporator and compresses it to high pressure and temperature\n2 marks: (a) Condenser: hot high-pressure vapour rejects heat to the surroundings and condenses to liquid\n2 marks: (a) Expansion device (capillary tube/TEV): reduces pressure of the liquid and meters it into the evaporator\n2 marks: (a) Evaporator: low-pressure liquid boils, absorbing heat from the space/product, becoming vapour\n2 marks: (a) Vapour returns to the compressor and the cycle repeats; correct sequence/layout described\n3 marks: (b) 1 mark each: (i) high-pressure, high-temperature superheated vapour; (ii) high-pressure (sub-cooled) liquid; (iii) low-pressure, low-temperature liquid-vapour mixture\n2 marks: (c) Any two, 1 mark each: food preservation; cold rooms for fish/meat; ice making; air conditioning; medical storage (vaccines, blood); chemical industries",
+      "explanation": "The compressor raises vapour to high pressure/temperature; the condenser rejects heat and liquefies it; the expansion device drops pressure; the evaporator boils the liquid, absorbing heat; vapour returns to the compressor. Outlets: superheated HP vapour, HP liquid, LP mixture. Uses: food storage, ice, air conditioning, vaccines.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0202",
+      "type": "THEORY",
+      "topic": "Refrigerants",
+      "stem": "(a) Define a refrigerant. [2 marks]\n(b) State five properties of a good refrigerant. [5 marks]\n(c) Give the chemical name of each of the following refrigerants: (i) R-22 (ii) R-134a (iii) R-600a (iv) R-717. [4 marks]\n(d) Distinguish between a capillary tube and a thermostatic expansion valve as flow control devices. [4 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) A working fluid that absorbs heat at low temperature and pressure by evaporating and rejects it at higher temperature and pressure by condensing\n5 marks: (b) Any five, 1 mark each: low boiling point; high latent heat of vaporisation; non-toxic; non-flammable; non-corrosive; chemically stable; easy leak detection; zero/low ozone depletion and global warming potential; moderate working pressures; cheap and available\n4 marks: (c) 1 mark each: R-22 chlorodifluoromethane; R-134a tetrafluoroethane; R-600a isobutane; R-717 ammonia\n2 marks: (d) Capillary tube: fixed-bore long thin tube giving a fixed restriction; no moving parts; used in domestic fridges and small ACs; cannot adjust to load\n2 marks: (d) TEV: valve with sensing bulb on suction line that varies refrigerant flow to keep evaporator superheat constant; adjusts to load; used in larger systems",
+      "explanation": "A refrigerant absorbs heat by evaporating and rejects it by condensing. Good properties: low boiling point, high latent heat, non-toxic, non-flammable, stable, environmentally safe. R-22 chlorodifluoromethane, R-134a tetrafluoroethane, R-600a isobutane, R-717 ammonia. The capillary is a fixed restriction; the TEV modulates flow to hold superheat.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0203",
+      "type": "THEORY",
+      "topic": "Pressure and its Measurement",
+      "stem": "(a) State (i) Boyle's law (ii) Charles' law. [4 marks]\n(b) A refrigerant vapour at 150 kPa absolute and 27 degrees C occupies 0.06 m^3. It is compressed to 0.02 m^3 and its temperature rises to 87 degrees C. Calculate its final absolute pressure. [6 marks]\n(c) Convert 35 degrees C to (i) degrees Fahrenheit (ii) degrees Rankine. [5 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) Boyle's law: the volume of a fixed mass of gas is inversely proportional to its pressure at constant temperature (pV = constant)\n2 marks: (a)(ii) Charles' law: the volume of a fixed mass of gas is directly proportional to its absolute temperature at constant pressure (V/T = constant)\n2 marks: (b) Convert to kelvin: T1 = 27 + 273 = 300 K; T2 = 87 + 273 = 360 K\n2 marks: (b) p1V1/T1 = p2V2/T2, so p2 = p1V1T2/(T1V2)\n2 marks: (b) p2 = 150 x 0.06 x 360 / (300 x 0.02) = 540 kPa absolute\n3 marks: (c)(i) F = (9/5) x 35 + 32 = 95 degrees F\n2 marks: (c)(ii) degrees R = F + 460 = 555 degrees R (459.67 accepted, 554.67)",
+      "explanation": "Boyle: pV constant at constant T; Charles: V/T constant at constant p. With T1 = 300 K, T2 = 360 K: p2 = 540 kPa. 35 degrees C = 95 degrees F = 555 degrees R.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wo-rac-0204",
+      "type": "THEORY",
+      "topic": "Fault Diagnosis and Trouble Shooting",
+      "stem": "(a) Distinguish between systematic and observation methods of fault diagnosis. [4 marks]\n(b) For each of the following faults in a domestic refrigerator, state one likely cause and one remedy: (i) compressor runs but there is no cooling (ii) compressor does not start and there is no hum (iii) water collects at the bottom of the fresh food compartment (iv) the refrigerator gives an electric shock when touched. [8 marks]\n(c) State three methods of detecting refrigerant leaks. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Systematic: following a logical step-by-step sequence of tests from the supply through each component using instruments\n2 marks: (a) Observation: using the senses - looking, listening, feeling and smelling - for symptoms such as frost pattern, noise, oil stains, heat\n2 marks: (b)(i) Cause: refrigerant leak/shortage or blocked capillary or inefficient compressor; remedy: locate and repair leak, evacuate and recharge, or replace capillary/drier or compressor\n2 marks: (b)(ii) Cause: no supply, faulty thermostat, open overload or open-circuit winding; remedy: check supply/fuse, replace thermostat or overload, replace compressor if winding open\n2 marks: (b)(iii) Cause: blocked defrost drain tube; remedy: clear the drain tube with warm water/wire\n2 marks: (b)(iv) Cause: current leakage - live wire touching the body or no earth; remedy: test insulation, repair wiring, ensure proper earthing\n3 marks: (c) Any three, 1 mark each: soap (bubble) solution; electronic leak detector; halide torch; nitrogen pressure test with gauge; ultraviolet dye; oil stain inspection",
+      "explanation": "Systematic diagnosis follows logical tests; observation uses the senses. No cooling: leak or blockage - repair, evacuate, recharge. No start: supply, thermostat, overload or winding - replace faulty part. Water inside: blocked drain - clear it. Shock: leakage/no earth - repair insulation and earth. Leak detection: soap, electronic detector, halide torch, nitrogen pressure test, UV dye.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0205",
+      "type": "THEORY",
+      "topic": "Piping, Ducting and Trunking",
+      "stem": "Describe the procedure for installing a split-unit air-conditioner, from selecting the positions of the units to testing the system. [15 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: Select indoor unit position high on a wall clear of obstruction, near outside wall, with good air distribution; outdoor unit on firm level base in a ventilated, shaded place\n2 marks: Fix mounting plate level; drill wall hole with slight downward slope to outside for pipes and drain\n2 marks: Measure, cut and route copper pipes, drain hose and interconnecting cable; insulate suction and liquid lines with foam insulation and wrap with tape\n2 marks: Flare pipe ends correctly and tighten flare nuts to the specified torque using two spanners\n2 marks: Connect interconnecting cable to correct terminals; earth the unit; provide a suitable isolator/breaker\n2 marks: Evacuate the pipes and indoor coil with a vacuum pump and manifold gauge; check vacuum holds\n1 mark: Open the service valves to release the refrigerant charge from the outdoor unit\n1 mark: Leak test all joints with soap solution or electronic detector\n1 mark: Switch on and test: check running current, suction pressure, air temperature difference and drainage",
+      "explanation": "Choose suitable indoor and outdoor positions; fix the mounting plate and drill a sloping hole; run and insulate pipes, drain and cable; flare and torque joints; connect and earth wiring; evacuate with a vacuum pump; open service valves; leak test; run and check current, pressures, temperature drop and drainage.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wo-rac-0206",
+      "type": "THEORY",
+      "topic": "Accounting",
+      "stem": "(a) State three principles (concepts) of accounting. [3 marks]\n(b) A technician started a refrigeration repair business by paying ₦500,000 of her savings into a business bank account. She then bought tools for ₦180,000 by cheque, received a loan of ₦200,000 from a microfinance bank into the account, and bought a van for ₦450,000 by cheque. Prepare a simple statement showing her assets, liabilities and capital to show that the accounting equation balances. [9 marks]\n(c) State three sources of finance for the business. [3 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) Any three, 1 mark each: business entity; going concern; double entry/duality; money measurement; historical cost; accruals/matching; consistency; prudence\n2 marks: (b) Opening: bank 500,000 = capital 500,000\n3 marks: (b) Assets after transactions: tools 180,000; van 450,000; bank balance 70,000 (500,000 - 180,000 + 200,000 - 450,000); total assets 700,000\n2 marks: (b) Liabilities: microfinance loan 200,000\n2 marks: (b) Capital 500,000; liabilities + capital = 700,000 = total assets, so the equation Assets = Capital + Liabilities balances\n3 marks: (c) Any three, 1 mark each: personal savings; loans from banks/microfinance; cooperative societies; family and friends; partners/shares; government grants; overdraft; hire purchase",
+      "explanation": "Concepts: entity, going concern, duality, money measurement, cost. Assets: tools 180,000 + van 450,000 + bank 70,000 = 700,000; liabilities 200,000; capital 500,000; 700,000 = 500,000 + 200,000. Finance: savings, loans, cooperatives, family, partners, grants.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

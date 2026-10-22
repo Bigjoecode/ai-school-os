@@ -9,6 +9,7 @@ import { QuestionPipelineController } from './question-pipeline.controller';
 import { QuestionPipelineService } from './question-pipeline.service';
 import { SchoolEvidenceController } from './school-evidence.controller';
 import { SchoolEvidenceService } from './school-evidence.service';
+import { SittingService } from './sitting.service';
 import { StudyService } from './study.service';
 import { SyllabusService } from './syllabus.service';
 import { TutorService } from './tutor.service';
@@ -17,7 +18,7 @@ import { TutorService } from './tutor.service';
 @Module({
   imports: [AiModule, AssessmentModule, FilesModule],
   controllers: [LearningController, ChildProgressController, FamilyLanguageController, ContentController, SchoolEvidenceController, QuestionPipelineController],
-  providers: [SyllabusService, MasteryService, StudyService, TutorService, ExamService, SchoolEvidenceService, QuestionPipelineService],
+  providers: [SyllabusService, MasteryService, StudyService, TutorService, ExamService, SittingService, SchoolEvidenceService, QuestionPipelineService],
   exports: [MasteryService, SchoolEvidenceService],
 })
 export class LearningModule {}

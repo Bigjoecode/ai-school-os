@@ -145,6 +145,7 @@ const StudyPlansPage = lazy(() => import('@/features/learning/plans-page'));
 const FlashcardsPage = lazy(() => import('@/features/learning/flashcards-page'));
 const AttemptPage = lazy(() => import('@/features/learning/attempt-page'));
 const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
+const SittingPage = lazy(() => import('@/features/learning/sitting-page'));
 const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
 const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
 const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
@@ -862,6 +863,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['learn/flashcards', <FlashcardsPage key="flashcards" />],
           ['learn/attempts/:id', <AttemptPage key="attempt" />],
           ['learn/exams', <ExamAcademyPage key="exams" />],
+          ['learn/sittings/:id', <SittingPage key="sitting" />],
         ] as const
       ).map(([path, page]) => ({ path, element: <RequirePermission permission="learning.use">{page}</RequirePermission> })),
       // Phase 23: careers guidance for students (and the staff overview below).

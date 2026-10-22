@@ -2,6 +2,8 @@ import type {
   AllowanceExhausted,
   ExamBody,
   ExamCatalog,
+  ExamSittingRow,
+  ExamSittingView,
   LanguageCode,
   FlashcardDeckRow,
   MasteryEvidenceRow,
@@ -55,6 +57,8 @@ export const lk = {
   attempts: ['learning', 'attempts'] as const,
   attempt: (id: string) => ['learning', 'attempt', id] as const,
   exams: ['learning', 'exams'] as const,
+  sittings: ['learning', 'sittings'] as const,
+  sitting: (id: string) => ['learning', 'sitting', id] as const,
   voice: ['learning', 'voice'] as const,
 };
 
@@ -142,6 +146,8 @@ export function useSubmitAttempt(id: string) {
     mutationFn: (answers: (number | null)[]) => api.post<PracticeAttemptView>(`/learning/attempts/${id}/submit`, { answers }),
     onSuccess: (v) => {
       qc.setQueryData(lk.attempt(id), v);
+      if (v.sitting) void qc.invalidateQueries({ queryKey: lk.sitting(v.sitting.sittingId) });
+      void qc.invalidateQueries({ queryKey: lk.sittings });
       void qc.invalidateQueries({ queryKey: lk.attempts });
       void qc.invalidateQueries({ queryKey: lk.home });
       void qc.invalidateQueries({ queryKey: lk.mastery });
@@ -240,6 +246,8 @@ export function useMarkTheory(id: string) {
     mutationFn: (answers: string[]) => api.post<PracticeAttemptView>(`/learning/attempts/${id}/theory`, { answers }),
     onSuccess: (v) => {
       qc.setQueryData(lk.attempt(id), v);
+      if (v.sitting) void qc.invalidateQueries({ queryKey: lk.sitting(v.sitting.sittingId) });
+      void qc.invalidateQueries({ queryKey: lk.sittings });
       void qc.invalidateQueries({ queryKey: lk.attempts });
       void qc.invalidateQueries({ queryKey: lk.home });
       void qc.invalidateQueries({ queryKey: lk.mastery });
@@ -371,6 +379,41 @@ export function useStartUtme() {
 export function utmeShortfall(error: unknown): UtmeShortfall[] | null {
   if (!(error instanceof ApiError) || error.status !== 400 || error.details.code !== 'UTME_SHORTFALL') return null;
   return (error.details.shortfalls as UtmeShortfall[]) ?? [];
+}
+
+// ------------------------------------------------------------------ full WASSCE mock
+
+/** Written answers saved on the server as the student writes (errors are returned, not toasted). */
+export const saveTheoryDraft = (id: string, answers: string[]) => api.put<{ ok: boolean }>(`/learning/attempts/${id}/draft`, { answers });
+
+export const useSittings = () => useQuery({ queryKey: lk.sittings, queryFn: () => api.get<ExamSittingRow[]>('/learning/exams/sittings') });
+export const useSitting = (id: string) => useQuery({ queryKey: lk.sitting(id), queryFn: () => api.get<ExamSittingView>(`/learning/exams/sittings/${id}`) });
+
+/** A full WASSCE mock in one subject (needs WAEC Prep: 403 EXAM_NOT_INCLUDED otherwise). */
+export function useStartSitting() {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: { exam: 'WAEC'; subject: string }) => api.post<ExamSittingView>('/learning/exams/sittings', body),
+    onSuccess: (v) => {
+      qc.setQueryData(lk.sitting(v.id), v);
+      void qc.invalidateQueries({ queryKey: lk.sittings });
+    },
+  });
+}
+
+/** Starts one paper of a sitting on its own clock (or returns the one already started). */
+export function useStartSittingPaper(sittingId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (paper: number) => api.post<PracticeAttemptView>(`/learning/exams/sittings/${sittingId}/papers/${paper}/start`),
+    onSuccess: (v) => {
+      qc.setQueryData(lk.attempt(v.id), v);
+      void qc.invalidateQueries({ queryKey: lk.sitting(sittingId) });
+      void qc.invalidateQueries({ queryKey: lk.attempts });
+    },
+  });
 }
 
 /** Approved questions per topic for one exam subject (practice by topic). */

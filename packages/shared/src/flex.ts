@@ -225,11 +225,11 @@ export interface SubmissionBoard {
 
 // ============================================================ Exam Academy theory & syllabus
 
-export const QUESTION_KINDS = ['OBJECTIVE', 'THEORY'] as const;
+export const QUESTION_KINDS = ['OBJECTIVE', 'THEORY', 'PRACTICAL'] as const;
 export type QuestionKind = (typeof QUESTION_KINDS)[number];
 
 export const theoryStartSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2), questions: z.number().int().min(1).max(5).default(2) });
-export const theoryAnswerSchema = z.object({ answers: z.array(z.string().trim().max(10_000)).max(10) });
+export const theoryAnswerSchema = z.object({ answers: z.array(z.string().trim().max(10_000)).max(20) });
 export interface TheoryMarking {
   index: number;
   score: number;

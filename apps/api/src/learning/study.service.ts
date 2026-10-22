@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { utmeLabel, type Flashcard, type FlashcardDeckRow, type PracticeAttemptRow, type PracticeAttemptView, type PracticeQuestion, type StudyPlanRow, type UtmeScore, type UtmeSection } from '@aischool/shared';
+import { utmeLabel, type AttemptSittingInfo, type Flashcard, type FlashcardDeckRow, type PracticeAttemptRow, type PracticeAttemptView, type PracticeQuestion, type StudyPlanRow, type UtmeScore, type UtmeSection, type WasscePaper } from '@aischool/shared';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
@@ -27,6 +27,8 @@ export interface StoredQuestion {
 }
 
 const MOCK_GRACE_MS = 2 * 60_000;
+/** A timed written paper may still be handed in this long after its clock ends; after that the saved draft is marked. */
+export const THEORY_GRACE_MS = 5 * 60_000;
 
 /** UTME scoring: each subject out of 100 (correct / questions x 100, rounded); the total is their sum (out of 400). */
 export function utmeScore(items: { subject?: string | null; correct: number; total: number }[]): UtmeScore {
@@ -148,19 +150,32 @@ export class StudyService {
     };
   }
 
-  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class). */
+  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class) or the paper of a WASSCE mock. */
   async present(a: Prisma.PracticeAttemptGetPayload<object>): Promise<PracticeAttemptView> {
     const v = this.view(a);
+    if (a.sittingId) return { ...v, sitting: await this.sittingInfo(a) };
     if (a.mode !== 'UTME') return v;
     const s = await this.prisma.root.student.findUnique({ where: { id: a.studentId }, select: { firstName: true, lastName: true, admissionNumber: true, classArm: { select: { name: true, classLevel: { select: { name: true } } } } } });
     return { ...v, candidate: { name: s ? `${s.lastName.toUpperCase()} ${s.firstName}` : 'Candidate', number: s?.admissionNumber ?? null, className: s?.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}` : null } };
+  }
+
+  /** Which paper of a WASSCE mock this is, its rubric, and the next paper still to sit. */
+  private async sittingInfo(a: Prisma.PracticeAttemptGetPayload<object>): Promise<AttemptSittingInfo | null> {
+    const s = await this.prisma.root.examSitting.findUnique({ where: { id: a.sittingId! }, select: { id: true, spec: true, attempts: { select: { paper: true, submittedAt: true } } } });
+    const spec = (s?.spec as unknown as WasscePaper[] | undefined) ?? [];
+    const paper = spec.find((p) => p.paper === a.paper);
+    if (!s || !paper) return null;
+    const done = new Set(s.attempts.filter((x) => x.submittedAt).map((x) => x.paper));
+    const next = spec.find((p) => p.kind !== 'NOT_IN_APP' && p.paper !== a.paper && !done.has(p.paper));
+    return { sittingId: s.id, paper: paper.paper, title: paper.title, instructions: paper.instructions, answer: paper.kind === 'OBJECTIVE' ? null : Math.min(paper.answer ?? a.total, (a.questions as unknown[]).length), marks: paper.marks, nextPaper: next?.paper ?? null };
   }
 
   /** Written practice: the guide and model answer stay hidden until the answers are marked. */
   private theoryView(a: Prisma.PracticeAttemptGetPayload<object>, qs: StoredQuestion[], done: boolean): PracticeAttemptView {
     const written = (a.answers as (string | null)[] | null) ?? [];
     const marking = done ? ((a.perTopic as unknown as (NonNullable<PracticeQuestion['marking']> & { index: number })[] | null) ?? []) : [];
-    const total = qs.reduce((t, q) => t + (q.marks ?? 0), 0);
+    // A WASSCE mock paper is scored out of its WAEC marks (the best `answer` questions count).
+    const total = a.sittingId ? a.total : qs.reduce((t, q) => t + (q.marks ?? 0), 0);
     return {
       id: a.id,
       mode: 'THEORY',
@@ -179,10 +194,11 @@ export class StudyService {
           ...(done ? { explanation: q.explanation, markingGuide: q.markingGuide ?? null, marking: m ? { score: m.score, outOf: m.outOf, strengths: m.strengths, missing: m.missing, feedback: m.feedback } : null } : {}),
         };
       }),
-      durationMinutes: null,
+      durationMinutes: a.durationMinutes,
       startedAt: a.startedAt.toISOString(),
       submittedAt: a.submittedAt?.toISOString() ?? null,
-      endsAt: null,
+      endsAt: a.endsAt?.toISOString() ?? null,
+      serverNow: new Date().toISOString(),
       score: a.score,
       total,
       percent: a.score !== null && total ? Math.round((a.score / total) * 100) : null,
@@ -204,6 +220,7 @@ export class StudyService {
       startedAt: a.startedAt.toISOString(),
       submittedAt: a.submittedAt?.toISOString() ?? null,
       utme: a.mode === 'UTME' && a.submittedAt && Array.isArray(a.perTopic) ? this.utmeRow(a.perTopic as unknown as { subject?: string | null; correct: number; total: number }[]) : null,
+      sittingId: a.sittingId,
     };
   }
 
@@ -212,7 +229,7 @@ export class StudyService {
     return { total: s.total, outOf: s.outOf, subjects: s.subjects.map(({ subject, label, score }) => ({ subject, label, score })) };
   }
 
-  async createAttempt(access: ResolvedAccess, data: { mode: string; exam?: string | null; subject?: string | null; topicId?: string | null; title: string; questions: StoredQuestion[]; durationMinutes?: number | null }) {
+  async createAttempt(access: ResolvedAccess, data: { mode: string; exam?: string | null; subject?: string | null; topicId?: string | null; title: string; questions: StoredQuestion[]; durationMinutes?: number | null; sittingId?: string | null; paper?: number | null; total?: number }) {
     const now = new Date();
     return this.prisma.root.practiceAttempt.create({
       data: {
@@ -224,8 +241,10 @@ export class StudyService {
         topicId: data.topicId ?? null,
         title: data.title,
         questions: data.questions as unknown as Prisma.InputJsonValue,
-        total: data.questions.length,
+        total: data.total ?? data.questions.length,
         durationMinutes: data.durationMinutes ?? null,
+        sittingId: data.sittingId ?? null,
+        paper: data.paper ?? null,
         endsAt: data.durationMinutes ? new Date(now.getTime() + data.durationMinutes * 60_000) : null,
       },
     });
@@ -234,8 +253,8 @@ export class StudyService {
   async attempt(studentId: string, id: string) {
     let a = await this.prisma.root.practiceAttempt.findFirst({ where: { id, studentId } });
     if (!a) throw new NotFoundException('Attempt not found');
-    // A timed mock left open past its time is marked with what was saved.
-    if (!a.submittedAt && a.endsAt && Date.now() > a.endsAt.getTime() + MOCK_GRACE_MS) a = await this.grade(a, (a.answers as (number | null)[] | null) ?? []);
+    // A timed mock left open past its time is marked with what was saved (written papers need AI marking: ExamService.settle).
+    if (!a.submittedAt && a.mode !== 'THEORY' && a.endsAt && Date.now() > a.endsAt.getTime() + MOCK_GRACE_MS) a = await this.grade(a, (a.answers as (number | null)[] | null) ?? []);
     return a;
   }
 
@@ -244,6 +263,17 @@ export class StudyService {
     if (a.submittedAt) throw new BadRequestException('This attempt is already marked');
     if (a.mode === 'THEORY') throw new BadRequestException('Send written answers to the theory marking endpoint');
     await this.prisma.root.practiceAttempt.update({ where: { id }, data: { answers } });
+    return { ok: true };
+  }
+
+  /** Written answers saved as the student writes, so a refresh or the clock running out loses nothing. */
+  async saveDraft(studentId: string, id: string, answers: string[]) {
+    const a = await this.prisma.root.practiceAttempt.findFirst({ where: { id, studentId }, select: { mode: true, submittedAt: true, endsAt: true } });
+    if (!a) throw new NotFoundException('Attempt not found');
+    if (a.mode !== 'THEORY') throw new BadRequestException('Only written answers are saved as drafts');
+    if (a.submittedAt) throw new BadRequestException('This attempt is already marked');
+    if (a.endsAt && Date.now() > a.endsAt.getTime() + THEORY_GRACE_MS) throw new BadRequestException('Time is up for this paper: what was saved before the end will be marked');
+    await this.prisma.root.practiceAttempt.updateMany({ where: { id, submittedAt: null }, data: { answers } });
     return { ok: true };
   }
 

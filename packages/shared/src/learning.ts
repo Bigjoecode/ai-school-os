@@ -472,6 +472,20 @@ export interface PracticeAttemptView {
   utme?: UtmeScore | null;
   /** Seconds between starting and handing in (after marking). */
   timeUsedSeconds?: number | null;
+  /** One paper of a full WASSCE mock (see ExamSittingView). */
+  sitting?: AttemptSittingInfo | null;
+}
+export interface AttemptSittingInfo {
+  sittingId: string;
+  paper: number;
+  title: string;
+  instructions: string;
+  /** Theory and practical papers: how many questions count ("answer any N"). */
+  answer: number | null;
+  /** WAEC marks for the paper. */
+  marks: number;
+  /** The next in-app paper not yet handed in, if any. */
+  nextPaper: number | null;
 }
 export interface UtmeSection {
   subject: string;
@@ -502,6 +516,8 @@ export interface PracticeAttemptRow {
   submittedAt: string | null;
   /** UTME mocks, after marking: total out of 400 and each subject out of 100. */
   utme?: { total: number; outOf: number; subjects: { subject: string; label: string; score: number }[] } | null;
+  /** A paper of a full WASSCE mock (listed with the mock). */
+  sittingId?: string | null;
 }
 
 export const practiceStartSchema = z.object({
@@ -567,8 +583,11 @@ export interface ExamCatalog {
     exam: ExamBody;
     label: string;
     entitled: boolean;
-    /** `objective`: approved objective questions (what practice and mocks draw from). */
-    subjects: { subject: string; questions: number; objective?: number }[];
+    /**
+     * `objective`: approved objective questions (what practice and mocks draw from).
+     * `fullMock` (WAEC): the subject has a paper-by-paper WASSCE mock and enough Paper 1 questions for it.
+     */
+    subjects: { subject: string; questions: number; objective?: number; fullMock?: boolean }[];
     /** Subjects with a syllabus but too few published questions yet. */
     comingSoon?: { subject: string; questions: number; topics: number }[];
     /** Past papers by year (licensed past questions only). */
@@ -581,8 +600,8 @@ export interface ExamCatalog {
 
 export const examQuestionSchema = z.object({
   exam: z.enum(EXAMS),
-  /** OBJECTIVE (options + answer) | THEORY (written answer marked against the guide). */
-  type: z.enum(['OBJECTIVE', 'THEORY']).default('OBJECTIVE'),
+  /** OBJECTIVE (options + answer) | THEORY (written answer marked against the guide) | PRACTICAL (like THEORY, for a WASSCE Paper 3 alternative to practical). */
+  type: z.enum(['OBJECTIVE', 'THEORY', 'PRACTICAL']).default('OBJECTIVE'),
   marks: z.number().int().min(1).max(100).default(1),
   markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
   subject: z.string().trim().min(2).max(60),
@@ -604,7 +623,7 @@ export interface ExamQuestionRow extends ExamQuestionInput {
   /** When a person approved it for students (null for drafts and older rows). */
   reviewedAt?: string | null;
 }
-export const examDraftSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60), topicId: z.string().nullish(), count: z.number().int().min(1).max(20).default(5), difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM'), type: z.enum(['OBJECTIVE', 'THEORY']).default('OBJECTIVE') });
+export const examDraftSchema = z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60), topicId: z.string().nullish(), count: z.number().int().min(1).max(20).default(5), difficulty: z.enum(QUESTION_DIFFICULTIES).default('MEDIUM'), type: z.enum(['OBJECTIVE', 'THEORY', 'PRACTICAL']).default('OBJECTIVE') });
 
 export interface SyllabusTopicRow {
   id: string;

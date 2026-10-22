@@ -1,6 +1,6 @@
 import type { PracticeAttemptView, PracticeQuestion } from '@aischool/shared';
-import { ArrowLeft, BookOpenCheck, Check, CheckCircle2, ChevronDown, CircleAlert, Loader2, MessageCircleQuestion, PenLine, Sparkles } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, BookOpenCheck, Check, CheckCircle2, ChevronDown, CircleAlert, Clock, ListChecks, Loader2, MessageCircleQuestion, PenLine, Sparkles } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { Markdown } from '@/components/ai/markdown';
 import { PageHeader } from '@/components/layout/page-header';
@@ -12,8 +12,8 @@ import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { allowanceError, examLockError, useMarkTheory } from './api';
-import { MODE_LABEL, scoreTone, UpgradeCard } from './components';
+import { allowanceError, examLockError, saveTheoryDraft, useMarkTheory } from './api';
+import { MODE_LABEL, SittingNav, clock, scoreTone, UpgradeCard, useCountdown } from './components';
 
 const draftKey = (id: string) => `aischool:theory-draft:${id}`;
 const words = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
@@ -57,6 +57,15 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
   const mark = useMarkTheory(a.id);
   const first = useRef(true);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [serverSaved, setServerSaved] = useState(false);
+  const [timeUp, setTimeUp] = useState(false);
+  const latest = useRef(answers);
+  latest.current = answers;
+  const dirty = useRef(false);
+  const submitted = useRef(false);
+  const timed = !!a.endsAt;
+  const left = useCountdown(a.endsAt);
+  const need = a.sitting?.answer ?? null;
 
   // Keep a draft on this device as the student writes.
   useEffect(() => {
@@ -64,12 +73,28 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
       first.current = false;
       return;
     }
+    dirty.current = true;
+    setServerSaved(false);
     const t = setTimeout(() => {
       saveDraft(a.id, answers);
       setSavedAt(Date.now());
     }, 500);
     return () => clearTimeout(t);
   }, [a.id, answers]);
+
+  // And on the server every 20 seconds (and when a box loses focus), so a refresh or the clock running out loses nothing.
+  const flush = useCallback(() => {
+    if (!dirty.current || submitted.current) return;
+    dirty.current = false;
+    saveTheoryDraft(a.id, latest.current).then(
+      () => setServerSaved(true),
+      () => (dirty.current = true),
+    );
+  }, [a.id]);
+  useEffect(() => {
+    const t = setInterval(flush, 20_000);
+    return () => clearInterval(t);
+  }, [flush]);
 
   // Marking takes a while: walk through what's happening.
   useEffect(() => {
@@ -79,15 +104,26 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
   }, [mark.isPending]);
 
   const answered = answers.filter((x) => x.trim()).length;
-  const totalMarks = a.questions.reduce((t, q) => t + (q.marks ?? 0), 0);
+  const totalMarks = a.sitting ? a.total : a.questions.reduce((t, q) => t + (q.marks ?? 0), 0);
   const upgrade = allowanceError(mark.error);
   const lock = examLockError(mark.error);
+  const lowTime = left != null && left < 5 * 60_000;
 
-  const submit = () => {
+  const submit = useCallback(() => {
+    if (submitted.current) return;
+    submitted.current = true;
     setConfirm(false);
-    saveDraft(a.id, answers);
-    mark.mutate(answers, { onSuccess: () => clearDraft(a.id) });
-  };
+    saveDraft(a.id, latest.current);
+    mark.mutate(latest.current, { onSuccess: () => clearDraft(a.id), onError: () => (submitted.current = false) });
+  }, [a.id, mark]);
+
+  // Time's up: hand in what is written.
+  useEffect(() => {
+    if (left != null && left <= 0 && !submitted.current && !mark.isError) {
+      setTimeUp(true);
+      submit();
+    }
+  }, [left, submit, mark.isError]);
 
   if (mark.isPending) {
     return (
@@ -96,36 +132,62 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
           <Loader2 className="size-7 animate-spin" aria-hidden />
         </div>
         <div>
-          <p className="font-display text-lg font-semibold tracking-tight">Marking your answers</p>
+          <p className="font-display text-lg font-semibold tracking-tight">{timeUp ? 'Time’s up — your answers have been handed in' : 'Marking your answers'}</p>
           <p className="mt-1 text-[13.5px] text-muted-foreground">{MARKING_STEPS[step]}</p>
         </div>
-        <p className="max-w-sm text-[12.5px] text-muted-foreground">This usually takes 10–30 seconds. Please keep this page open — your answers are saved on this device.</p>
+        <p className="max-w-sm text-[12.5px] text-muted-foreground">This usually takes 10–30 seconds. Please keep this page open — your answers are saved.</p>
       </Card>
     );
   }
 
+  const confirmText =
+    need !== null && answered < need
+      ? `The paper asks for ${need} answer${need === 1 ? '' : 's'} and you’ve written ${answered}. Each one you leave out scores zero. You can’t change your answers after marking.`
+      : need === null && answered < a.questions.length
+        ? `You’ve answered ${answered} of ${a.questions.length}. Blank answers score zero. You can’t change your answers after marking.`
+        : 'AI will mark each answer against the marking guide. You can’t change your answers after marking.';
+
   return (
     <>
+      <SittingNav a={a} className="mb-3" />
       <div className="sticky top-14 z-10 -mx-4 mb-5 border-b border-border bg-background/85 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div className="flex items-center gap-3">
           <div className="min-w-0 flex-1">
             <p className="truncate font-display text-[15px] font-semibold tracking-tight">{a.title}</p>
             <p className="text-[12px] text-muted-foreground">
-              {MODE_LABEL.THEORY} · {answered}/{a.questions.length} answered · {totalMarks} marks{savedAt ? ' · draft saved' : ''}
+              {a.sitting ? 'Written paper' : MODE_LABEL.THEORY} · {need !== null ? `${answered} of ${need} answered` : `${answered}/${a.questions.length} answered`} · {totalMarks} marks
+              {serverSaved ? ' · saved' : savedAt ? ' · draft saved' : ''}
             </p>
           </div>
-          <Button size="sm" onClick={() => setConfirm(true)} disabled={answered === 0} className="shrink-0">
+          {left != null && (
+            <span className={cn('inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[13px] font-semibold tabular', lowTime ? 'bg-danger-soft text-danger' : 'bg-muted')} role="timer" aria-label="Time left">
+              <Clock className="size-3.5" aria-hidden />
+              {clock(left)}
+            </span>
+          )}
+          <Button size="sm" onClick={() => setConfirm(true)} disabled={answered === 0 && !timed} className="shrink-0">
             <Check /> <span className="hidden sm:inline">Submit for marking</span>
             <span className="sm:hidden">Submit</span>
           </Button>
         </div>
-        <Progress value={(answered / Math.max(1, a.questions.length)) * 100} className="mt-2.5" label="Answered" />
+        <Progress value={(Math.min(answered, need ?? answered) / Math.max(1, need ?? a.questions.length)) * 100} className="mt-2.5" label="Answered" />
       </div>
 
-      <p className="mb-4 flex items-start gap-2 rounded-xl bg-muted/60 px-3 py-2.5 text-[12.5px] text-muted-foreground">
-        <PenLine className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-        <span>Answer in full sentences and make each point clearly — marks are awarded for every point in the marking guide your answer makes. Use (a), (b)… where the question has parts.</span>
-      </p>
+      {a.sitting ? (
+        <p className="mb-4 flex items-start gap-2 rounded-xl border border-border bg-card px-3 py-2.5 text-[13px]" data-testid="paper-rubric">
+          <ListChecks className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
+          <span>
+            <span className="font-medium">{a.sitting.instructions}</span>
+            {need !== null && need < a.questions.length && <span className="text-muted-foreground"> Your best {need} answers count.</span>}
+            {timed && <span className="text-muted-foreground"> When the clock reaches zero, what you’ve written is handed in for you.</span>}
+          </span>
+        </p>
+      ) : (
+        <p className="mb-4 flex items-start gap-2 rounded-xl bg-muted/60 px-3 py-2.5 text-[12.5px] text-muted-foreground">
+          <PenLine className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+          <span>Answer in full sentences and make each point clearly — marks are awarded for every point in the marking guide your answer makes. Use (a), (b)… where the question has parts.</span>
+        </p>
+      )}
 
       <ol className="space-y-4">
         {a.questions.map((q, i) => (
@@ -148,8 +210,10 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
                 id={`ans-${i}`}
                 value={answers[i] ?? ''}
                 onChange={(e) => setAnswers((x) => x.map((v, j) => (j === i ? e.target.value : v)))}
-                placeholder="Write your answer here…"
+                onBlur={flush}
+                placeholder={need !== null && need < a.questions.length ? 'Write your answer here, or leave it blank if you choose other questions…' : 'Write your answer here…'}
                 maxLength={10_000}
+                disabled={timeUp}
                 className="mt-4 min-h-[220px] text-[15px] sm:min-h-[260px]"
                 spellCheck
               />
@@ -164,29 +228,19 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
       ) : lock ? (
         <p className="mt-5 rounded-xl border border-warning/30 bg-warning-soft/60 p-3 text-[13px] text-warning">{lock.message}</p>
       ) : mark.error ? (
-        <p className="mt-5 rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(mark.error)} Your answers are still here — try again.</p>
+        <p className="mt-5 rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">
+          {errorMessage(mark.error)} {timeUp ? 'Your answers are saved: submit again to have them marked.' : 'Your answers are still here — try again.'}
+        </p>
       ) : null}
 
       <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[12px] text-muted-foreground">Drafts are kept on this device until you submit.</p>
-        <Button onClick={() => setConfirm(true)} disabled={answered === 0} className="w-full sm:w-auto">
+        <p className="text-[12px] text-muted-foreground">{a.sitting ? 'Your answers save as you write, on this device and on the server.' : 'Drafts are kept on this device until you submit.'}</p>
+        <Button onClick={() => setConfirm(true)} disabled={answered === 0 && !timed} className="w-full sm:w-auto">
           <Sparkles /> Submit for marking
         </Button>
       </div>
 
-      <ConfirmDialog
-        open={confirm}
-        onOpenChange={setConfirm}
-        title="Submit for marking?"
-        description={
-          answered < a.questions.length
-            ? `You’ve answered ${answered} of ${a.questions.length}. Blank answers score zero. You can’t change your answers after marking.`
-            : 'AI will mark each answer against the marking guide. You can’t change your answers after marking.'
-        }
-        confirmLabel="Submit"
-        destructive={false}
-        onConfirm={submit}
-      />
+      <ConfirmDialog open={confirm} onOpenChange={setConfirm} title="Submit for marking?" description={confirmText} confirmLabel="Submit" destructive={false} onConfirm={submit} />
     </>
   );
 }
@@ -195,7 +249,8 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
 
 export function TheoryResults({ a }: { a: PracticeAttemptView }) {
   const pct = a.percent ?? 0;
-  const scored = a.questions.reduce((t, q) => t + (q.marking?.score ?? 0), 0);
+  // A WASSCE mock paper is scored out of its WAEC marks: the best answers the rubric asks for count.
+  const scored = a.sitting ? (a.score ?? 0) : a.questions.reduce((t, q) => t + (q.marking?.score ?? 0), 0);
   const message = pct >= 75 ? 'Excellent writing — examiners would be pleased.' : pct >= 60 ? 'Solid answers. Tighten the points you missed.' : pct >= 45 ? 'A fair start. The marking guide shows what earns the rest.' : 'Keep going — study the guide and model answers below.';
   return (
     <>
@@ -206,8 +261,9 @@ export function TheoryResults({ a }: { a: PracticeAttemptView }) {
           </Link>
         }
         title={a.title}
-        description={`${MODE_LABEL.THEORY}${a.subject ? ` · ${a.subject}` : ''}`}
+        description={`${a.sitting ? 'Written paper, AI-marked' : MODE_LABEL.THEORY}${a.subject ? ` · ${a.subject}` : ''}`}
       />
+      <SittingNav a={a} className="mb-5" />
       <Card className="mb-5 overflow-hidden">
         <div className="grid gap-5 p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
           <div className="relative mx-auto grid size-28 place-items-center">
@@ -224,6 +280,11 @@ export function TheoryResults({ a }: { a: PracticeAttemptView }) {
           </div>
           <div className="min-w-0 text-center sm:text-left">
             <p className="font-display text-lg font-semibold tracking-tight">{message}</p>
+            {a.sitting?.answer != null && a.sitting.answer < a.questions.length && (
+              <p className="mt-1 text-[12.5px] text-muted-foreground">
+                Your best {a.sitting.answer} answers count towards the paper’s {a.sitting.marks} marks.
+              </p>
+            )}
             <ul className="mt-3 space-y-2">
               {a.questions.map((q) => {
                 const m = q.marking;

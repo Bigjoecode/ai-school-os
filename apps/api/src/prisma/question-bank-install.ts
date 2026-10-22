@@ -19,7 +19,7 @@ interface BankFile {
   subject: string;
   /** AUTHORED (written for the app) or LICENSED (official past questions used with permission). */
   source?: string;
-  questions: { id: string; topic: string; stem: string; options?: string[]; answer?: number; explanation?: string; difficulty?: string; year?: number | null; type?: 'OBJECTIVE' | 'THEORY'; marks?: number; markingGuide?: string }[];
+  questions: { id: string; topic: string; stem: string; options?: string[]; answer?: number; explanation?: string; difficulty?: string; year?: number | null; type?: 'OBJECTIVE' | 'THEORY' | 'PRACTICAL'; marks?: number; markingGuide?: string }[];
 }
 
 const SOURCES = new Set(['AUTHORED', 'LICENSED']);
@@ -64,12 +64,13 @@ export async function installQuestionBank(prisma: PrismaClient): Promise<string>
         const topics = await prisma.syllabusTopic.findMany({ where: { subject, level }, select: { id: true, name: true } });
         const topicId = new Map(topics.map((t) => [t.name.toLowerCase(), t.id]));
         for (const q of data.questions) {
-          const theory = q.type === 'THEORY';
+          // Practical (WASSCE Paper 3 alternative to practical) questions are written answers like theory.
+          const theory = q.type === 'THEORY' || q.type === 'PRACTICAL';
           if (!q.id || !q.stem) continue;
           if (theory ? !q.markingGuide : !Array.isArray(q.options) || q.options.length < 2 || q.answer === undefined || q.answer < 0 || q.answer >= q.options.length) continue;
           const content = {
             exam: examCode,
-            type: theory ? 'THEORY' : 'OBJECTIVE',
+            type: theory ? q.type! : 'OBJECTIVE',
             marks: theory ? Math.max(1, Math.min(100, Math.round(q.marks ?? 10))) : 1,
             markingGuide: theory ? q.markingGuide!.trim() : null,
             subject,

@@ -290,7 +290,8 @@ export class QuestionPipelineService implements OnModuleInit {
       const key = `${g.subject}|${g.topicId ?? ''}`;
       const c = by.get(key) ?? emptyCounts();
       const n = g._count._all;
-      const kind = g.type === 'THEORY' ? 'theory' : 'objective';
+      // Practical (WASSCE Paper 3) questions are written answers: they count with theory.
+      const kind = g.type === 'OBJECTIVE' ? 'objective' : 'theory';
       if (g.status === 'PUBLISHED') c.published[kind] += n;
       else c.draft[kind] += n;
       if (g.status === 'PUBLISHED' && (QUESTION_DIFFICULTIES as readonly string[]).includes(g.difficulty)) c.difficulty[g.difficulty as 'EASY'] += n;
@@ -681,7 +682,7 @@ export class QuestionPipelineService implements OnModuleInit {
   /** Solves the drafts independently with the standard model; stores the outcome per draft. Returns how many disagree. */
   private async selfCheck(job: PipelineJob, rows: { id: string; type: string; stem: string; options: Prisma.JsonValue; answer: number; marks: number; markingGuide: string | null }[]): Promise<number> {
     const objective = rows.filter((r) => r.type === 'OBJECTIVE');
-    const theory = rows.filter((r) => r.type === 'THEORY');
+    const theory = rows.filter((r) => r.type !== 'OBJECTIVE');
     const checks: { id: string; check: SelfCheck }[] = [];
     const at = new Date().toISOString();
     if (objective.length) {
@@ -738,7 +739,7 @@ export class QuestionPipelineService implements OnModuleInit {
     const w: NonNullable<ReviewItem['warnings']> = [];
     const add = (flag: QuestionFlag, detail: string) => (flag === 'LONG_STEM' && q.stem.length <= LONG_STEM_WARNING_MAX ? w : f).push({ flag, detail });
     const options = (q.options as string[]) ?? [];
-    if (q.type !== 'THEORY') {
+    if (q.type === 'OBJECTIVE') {
       // Our own questions have exactly four options; licensed past papers (e.g. 1983–85 JAMB) may have five (A–E).
       const shapeOk = q.source === 'LICENSED' ? options.length === 4 || options.length === 5 : options.length === 4;
       if (!shapeOk || q.answer < 0 || q.answer >= options.length) add('BAD_SHAPE', `${options.length} options, key ${q.answer + 1}`);
@@ -898,8 +899,8 @@ export class QuestionPipelineService implements OnModuleInit {
     if (q.status !== 'DRAFT') throw new ConflictException(`This question is already ${q.status.toLowerCase()}`);
     let data: Prisma.ExamQuestionUpdateInput = {};
     if (edits) {
-      if (edits.type === 'THEORY') {
-        if (!edits.markingGuide) throw new BadRequestException('Theory questions need a marking guide');
+      if (edits.type !== 'OBJECTIVE') {
+        if (!edits.markingGuide) throw new BadRequestException(`${edits.type === 'PRACTICAL' ? 'Practical' : 'Theory'} questions need a marking guide`);
       } else {
         if (q.source === 'LICENSED' ? edits.options.length !== 4 && edits.options.length !== 5 : edits.options.length !== 4) throw new BadRequestException(q.source === 'LICENSED' ? 'Give four or five options' : 'Give exactly four options');
         if (new Set(edits.options.map(normalise)).size !== edits.options.length) throw new BadRequestException('Two options are the same');

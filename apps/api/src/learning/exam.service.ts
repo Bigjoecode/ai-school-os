@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type UtmeShortfall } from '@aischool/shared';
+import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, UTME, WASSCE_PAPERS, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type UtmeShortfall, type WasscePaper } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
@@ -8,14 +8,15 @@ import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { EntitlementService, type ResolvedAccess } from '../student-ai/entitlements.service';
 import { MasteryService, levelOf, subjectKey } from './mastery.service';
-import { StudyService, type StoredQuestion } from './study.service';
+import { StudyService, THEORY_GRACE_MS, type StoredQuestion } from './study.service';
 
 /** Without an exam pack every student still gets a taste: a few short practice sets a term. */
 const FREE_SETS_PER_TERM = 3;
 const FREE_QUESTIONS = 5;
 /** Minutes per question in a mock, by exam (JAMB CBT is fastest). */
 const MINUTES_PER_QUESTION: Record<ExamBody, number> = { JAMB: 0.9, WAEC: 1.2, NECO: 1.2, BECE: 1.2 };
-
+/** Fewest Paper 1 questions for a full WASSCE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
+export const MIN_SITTING_OBJECTIVE = 10;
 const theoryDraftSchema = z.object({
   questions: z.array(
     z.object({
@@ -50,7 +51,7 @@ const draftSchema = z.object({
   ),
 });
 
-function shuffle<T>(xs: T[]): T[] {
+export function shuffle<T>(xs: T[]): T[] {
   const a = [...xs];
   for (let i = a.length - 1; i > 0; i--) {
     const j = randomInt(i + 1);
@@ -94,6 +95,7 @@ export class ExamService {
     };
     // Past papers by year: licensed past questions only (our own questions carry no year).
     const papers = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject', 'year'], where: { status: 'PUBLISHED', type: 'OBJECTIVE', source: 'LICENSED', year: { not: null } }, _count: { _all: true }, orderBy: [{ subject: 'asc' }, { year: 'desc' }] });
+    const fullMock = await this.fullMockSubjects(counts.filter((c) => c.exam === 'WAEC' && c.type === 'OBJECTIVE').map((c) => ({ subject: c.subject, n: c._count._all })));
     // Only known when the student is in a class (no guessing for unplaced students).
     const placed = await this.prisma.root.student.findUnique({ where: { id: access.studentId }, select: { classArm: { select: { classLevel: { select: { stage: true, name: true } } } } } });
     const level = placed?.classArm ? levelOf(placed.classArm.classLevel.stage, placed.classArm.classLevel.name) : null;
@@ -105,7 +107,7 @@ export class ExamService {
         for (const c of counts.filter((x) => x.exam === exam)) {
           const m = mine.get(c.subject) ?? { objective: 0, all: 0 };
           m.all += c._count._all;
-          if (c.type !== 'THEORY') m.objective += c._count._all;
+          if (c.type === 'OBJECTIVE') m.objective += c._count._all;
           mine.set(c.subject, m);
         }
         const topics = topicsFor(exam);
@@ -118,7 +120,7 @@ export class ExamService {
           exam,
           label: EXAM_LABELS[exam],
           entitled: access.exams.includes(exam),
-          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective })),
+          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective, ...(exam === 'WAEC' ? { fullMock: fullMock.has(subject) } : {}) })),
           comingSoon: soon,
           pastPapers: papers.filter((p) => p.exam === exam && p.year !== null).map((p) => ({ subject: p.subject, year: p.year!, questions: p._count._all })),
         };
@@ -127,8 +129,48 @@ export class ExamService {
     };
   }
 
+  /** WAEC subjects whose WASSCE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
+  private async fullMockSubjects(objective: { subject: string; n: number }[]) {
+    const out = new Set<string>();
+    for (const { subject, n } of objective) {
+      const p1 = WASSCE_PAPERS[subject]?.find((p) => p.kind === 'OBJECTIVE' && p.paper === 1);
+      if (!p1 || n < MIN_SITTING_OBJECTIVE) continue;
+      const enough = p1.topics?.length || p1.excludeTopics?.length ? (await this.prisma.root.examQuestion.count({ where: await this.poolWhere('WAEC', subject, p1) })) >= MIN_SITTING_OBJECTIVE : true;
+      if (enough) out.add(subject);
+    }
+    return out;
+  }
+
+  /**
+   * The published questions a WASSCE paper draws from: its question type
+   * (objective, theory or practical) and any topic restriction, a named topic
+   * taking in its subtopics.
+   */
+  async poolWhere(exam: ExamBody, subject: string, paper: WasscePaper): Promise<Prisma.ExamQuestionWhereInput> {
+    const type = paper.kind === 'NOT_IN_APP' ? 'OBJECTIVE' : paper.kind;
+    const ids = async (names: string[]) => {
+      let found = (await this.prisma.root.syllabusTopic.findMany({ where: { subject, name: { in: names, mode: 'insensitive' } }, select: { id: true } })).map((t) => t.id);
+      for (let depth = 0, next = found; depth < 2 && next.length; depth++) {
+        next = (await this.prisma.root.syllabusTopic.findMany({ where: { parentId: { in: next } }, select: { id: true } })).map((t) => t.id);
+        found = [...found, ...next];
+      }
+      return found;
+    };
+    const only = paper.topics?.length ? await ids(paper.topics) : null;
+    const not = paper.excludeTopics?.length ? await ids(paper.excludeTopics) : null;
+    return {
+      exam,
+      subject,
+      status: 'PUBLISHED',
+      type,
+      ...(only ? { topicId: { in: only } } : {}),
+      // NOT IN leaves out rows without a topic, so those are let back in.
+      ...(not?.length ? { OR: [{ topicId: null }, { topicId: { notIn: not } }] } : {}),
+    };
+  }
+
   /** A question for an attempt; options are shuffled (so a remembered letter is no help) unless `keepOrder` (past papers). */
-  private stored(q: { id: string; stem: string; options: Prisma.JsonValue; answer: number; explanation: string | null; topicId: string | null; subject: string; topic: { name: string } | null }, keepOrder = false): StoredQuestion {
+  stored(q: { id: string; stem: string; options: Prisma.JsonValue; answer: number; explanation: string | null; topicId: string | null; subject: string; topic: { name: string } | null }, keepOrder = false): StoredQuestion {
     const opts = (q.options as string[]).map((text, i) => ({ text, right: i === q.answer }));
     const mixed = keepOrder ? opts : shuffle(opts);
     return { questionId: q.id, stem: q.stem, options: mixed.map((o) => o.text), answer: mixed.findIndex((o) => o.right), explanation: q.explanation, topicId: q.topicId, topic: q.topic?.name ?? null, subject: q.subject };
@@ -322,8 +364,8 @@ export class ExamService {
   }
 
   private check(input: ExamQuestionInput) {
-    if (input.type === 'THEORY') {
-      if (!input.markingGuide) throw new BadRequestException('Theory questions need a marking guide: what a full-mark answer contains');
+    if (input.type !== 'OBJECTIVE') {
+      if (!input.markingGuide) throw new BadRequestException(`${input.type === 'PRACTICAL' ? 'Practical' : 'Theory'} questions need a marking guide: what a full-mark answer contains`);
       return;
     }
     if (input.options.length < 2) throw new BadRequestException('Give at least two options');
@@ -364,15 +406,16 @@ export class ExamService {
   }
 
   /** AI drafts for the content team: saved as DRAFT, never shown to students until a person publishes them. */
-  async draft(input: { exam: ExamBody; subject: string; topicId?: string | null; count: number; difficulty: string; type?: 'OBJECTIVE' | 'THEORY' }, userId: string) {
+  async draft(input: { exam: ExamBody; subject: string; topicId?: string | null; count: number; difficulty: string; type?: 'OBJECTIVE' | 'THEORY' | 'PRACTICAL' }, userId: string) {
     const topic = input.topicId ? await this.prisma.root.syllabusTopic.findUnique({ where: { id: input.topicId } }) : null;
     const subject = subjectKey(input.subject);
-    if (input.type === 'THEORY') {
+    if (input.type === 'THEORY' || input.type === 'PRACTICAL') {
+      const practical = input.type === 'PRACTICAL';
       const t = await this.gateway.generateJson(
         {
           tier: 'advanced',
-          system: `You write original ${EXAM_LABELS[input.exam]}-style theory (essay/structured) questions for ${subject}${topic ? `, topic: ${topic.name}${topic.objectives.length ? `; objectives: ${topic.objectives.slice(0, 8).join('; ')}` : ''}` : ''}, at ${input.difficulty.toLowerCase()} difficulty, following the Nigerian syllabus. Do not copy past papers. Give each question its marks and a marking guide listing the points that earn marks (e.g. "1 mark: …"), adding up to the total.`,
-          messages: [{ role: 'user', content: `Write ${input.count} theory questions.` }],
+          system: `You write original ${EXAM_LABELS[input.exam]}-style ${practical ? '"alternative to practical" questions (a described experiment, specimen or task with readings, tables or diagrams in words; the candidate records, calculates, interprets and states precautions)' : 'theory (essay/structured) questions'} for ${subject}${topic ? `, topic: ${topic.name}${topic.objectives.length ? `; objectives: ${topic.objectives.slice(0, 8).join('; ')}` : ''}` : ''}, at ${input.difficulty.toLowerCase()} difficulty, following the Nigerian syllabus. Do not copy past papers. Give each question its marks and a marking guide listing the points that earn marks (e.g. "1 mark: …"), adding up to the total.`,
+          messages: [{ role: 'user', content: `Write ${input.count} ${practical ? 'practical' : 'theory'} questions.` }],
           maxOutputTokens: 5000,
         },
         theoryDraftSchema,
@@ -380,7 +423,7 @@ export class ExamService {
       );
       const rows = t.data.questions.filter((q) => q.stem && q.markingGuide).slice(0, input.count);
       await this.prisma.root.examQuestion.createMany({
-        data: rows.map((q) => ({ exam: input.exam, type: 'THEORY', subject, topicId: topic?.id ?? null, stem: q.stem, options: [], answer: 0, marks: Math.max(1, Math.min(100, Math.round(q.marks))), markingGuide: q.markingGuide, explanation: q.modelAnswer, difficulty: input.difficulty, source: 'AI_REVIEWED', status: 'DRAFT', createdById: userId })),
+        data: rows.map((q) => ({ exam: input.exam, type: input.type, subject, topicId: topic?.id ?? null, stem: q.stem, options: [], answer: 0, marks: Math.max(1, Math.min(100, Math.round(q.marks))), markingGuide: q.markingGuide, explanation: q.modelAnswer, difficulty: input.difficulty, source: 'AI_REVIEWED', status: 'DRAFT', createdById: userId })),
       });
       return { drafted: rows.length, provider: t.provider, model: t.model };
     }
@@ -414,44 +457,94 @@ export class ExamService {
     return this.study.createAttempt(access, { mode: 'THEORY', exam: input.exam, subject, title: `${EXAM_LABELS[input.exam]} theory: ${subject}`, questions });
   }
 
+  /** A WASSCE mock paper's spec (marks, how many answers count), or null for an attempt outside a sitting. */
+  async sittingPaper(a: { sittingId: string | null; paper: number | null }): Promise<WasscePaper | null> {
+    if (!a.sittingId || !a.paper) return null;
+    const s = await this.prisma.root.examSitting.findUnique({ where: { id: a.sittingId }, select: { spec: true } });
+    return (s?.spec as unknown as WasscePaper[] | undefined)?.find((p) => p.paper === a.paper) ?? null;
+  }
+
   /**
    * Marks written answers against each question's guide (one AI request for
-   * the set, on the student's allowance). Topic mastery gets the evidence;
+   * the answered questions, on the student's allowance; blanks score zero
+   * without asking). Topic mastery gets the evidence from answered questions;
    * the marking guide and model answer are shown after marking.
+   *
+   * A paper of a WASSCE mock counts the best `answer` questions (blanks as
+   * zero when fewer were answered), scaled to the paper's WAEC marks. A timed
+   * paper is accepted up to THEORY_GRACE_MS after its clock; after that, the
+   * draft saved in time is what gets marked.
    */
-  async markTheory(access: ResolvedAccess, attemptId: string, answers: string[]) {
+  async markTheory(access: ResolvedAccess, attemptId: string, posted: string[]) {
     const a = await this.study.attempt(access.studentId, attemptId);
     if (a.mode !== 'THEORY') throw new BadRequestException('This is not a theory attempt');
     if (a.submittedAt) return a;
+    const late = !!a.endsAt && Date.now() > a.endsAt.getTime() + THEORY_GRACE_MS;
+    const answers = (late ? ((a.answers as (string | null)[] | null) ?? []) : posted).map((x) => (typeof x === 'string' ? x : ''));
     const qs = a.questions as unknown as (StoredQuestion & { marks: number; markingGuide: string | null })[];
-    if (!answers.some((x) => x?.trim())) throw new BadRequestException('Write at least one answer');
-    const marking = await this.study.withAllowance(access, {}, (tier) =>
-      this.gateway.generateJson(
-        {
-          tier,
-          system: 'You are an experienced Nigerian exam marker. Mark each answer strictly against its marking guide: award a mark only for a point the answer actually makes (equivalent wording is fine). Be fair and specific; never invent content the student did not write.',
-          messages: [{ role: 'user', content: qs.map((q, i) => `QUESTION ${i + 1} (${q.marks} marks): ${q.stem}\nMARKING GUIDE: ${q.markingGuide}\nSTUDENT'S ANSWER: ${answers[i]?.trim() || '(no answer)'}`).join('\n\n') }],
-          maxOutputTokens: 3000,
-        },
-        theoryMarkSchema,
-        'exam-theory-mark',
-      ),
-    );
-    const marks = qs.map((q, i) => {
-      const m = marking.data.marks.find((x) => x.index === i + 1) ?? marking.data.marks[i];
-      return { index: i, score: Math.max(0, Math.min(q.marks, Math.round((m?.score ?? 0) * 2) / 2)), outOf: q.marks, strengths: m?.strengths ?? [], missing: m?.missing ?? [], feedback: m?.feedback ?? '' };
+    const answered = qs.map((_, i) => i).filter((i) => answers[i]?.trim());
+    if (!answered.length && !a.endsAt) throw new BadRequestException('Write at least one answer');
+    const marks = qs.map((q, i) => ({ index: i, score: 0, outOf: q.marks, strengths: [] as string[], missing: [] as string[], feedback: 'Not answered.' }));
+    let overall = 'No answers were written before time ran out, so this paper scores zero.';
+    if (answered.length) {
+      const marking = await this.study.withAllowance(access, {}, (tier) =>
+        this.gateway.generateJson(
+          {
+            tier,
+            system: 'You are an experienced Nigerian exam marker. Mark each answer strictly against its marking guide: award a mark only for a point the answer actually makes (equivalent wording is fine). Be fair and specific; never invent content the student did not write.',
+            messages: [{ role: 'user', content: answered.map((qi, k) => `QUESTION ${k + 1} (${qs[qi]!.marks} marks): ${qs[qi]!.stem}\nMARKING GUIDE: ${qs[qi]!.markingGuide}\nSTUDENT'S ANSWER: ${answers[qi]!.trim()}`).join('\n\n') }],
+            maxOutputTokens: Math.min(8000, 1000 + 500 * answered.length),
+          },
+          theoryMarkSchema,
+          'exam-theory-mark',
+        ),
+      );
+      answered.forEach((qi, k) => {
+        const q = qs[qi]!;
+        const m = marking.data.marks.find((x) => x.index === k + 1) ?? marking.data.marks[k];
+        marks[qi] = { index: qi, score: Math.max(0, Math.min(q.marks, Math.round((m?.score ?? 0) * 2) / 2)), outOf: q.marks, strengths: m?.strengths ?? [], missing: m?.missing ?? [], feedback: m?.feedback ?? '' };
+      });
+      overall = marking.data.overall;
+    }
+    const paper = await this.sittingPaper(a);
+    let score: number;
+    let total: number;
+    if (paper) {
+      // WAEC counts the questions the rubric asks for: the best `answer` of them, blanks as zero.
+      const counted = Math.max(1, Math.min(paper.answer ?? qs.length, qs.length));
+      const best = marks.map((m) => (m.outOf ? m.score / m.outOf : 0)).sort((x, y) => y - x).slice(0, counted);
+      total = paper.marks;
+      score = Math.round((best.reduce((t, f) => t + f, 0) / counted) * paper.marks);
+    } else {
+      score = Math.round(marks.reduce((t, m) => t + m.score, 0));
+      total = qs.reduce((t, q) => t + q.marks, 0);
+    }
+    const saved = await this.prisma.root.practiceAttempt.updateMany({
+      where: { id: a.id, submittedAt: null },
+      data: { answers: answers as unknown as Prisma.InputJsonValue, score, total, submittedAt: new Date(), perTopic: marks as unknown as Prisma.InputJsonValue, review: overall },
     });
-    const score = marks.reduce((t, m) => t + m.score, 0);
-    const total = qs.reduce((t, q) => t + q.marks, 0);
-    await this.prisma.root.practiceAttempt.update({
-      where: { id: a.id },
-      data: { answers: answers as unknown as Prisma.InputJsonValue, score: Math.round(score), total, submittedAt: new Date(), perTopic: marks as unknown as Prisma.InputJsonValue, review: marking.data.overall },
-    });
-    for (const [i, q] of qs.entries()) {
-      const topicId = q.topicId ?? (q.topic && a.subject ? (await this.mastery.topicFor(a.studentId, a.subject, q.topic)).id : null);
-      if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, marks[i]!.score, q.marks, { source: 'PRACTICE', sourceId: a.id });
+    if (saved.count) {
+      for (const qi of answered) {
+        const q = qs[qi]!;
+        try {
+          const topicId = q.topicId ?? (q.topic && a.subject ? (await this.mastery.topicFor(a.studentId, a.subject, q.topic)).id : null);
+          if (topicId) await this.mastery.record(a.tenantId, a.studentId, topicId, marks[qi]!.score, q.marks, { source: 'PRACTICE', sourceId: a.id });
+        } catch {
+          /* mastery is a side effect: the marked result stands */
+        }
+      }
     }
     return this.prisma.root.practiceAttempt.findUniqueOrThrow({ where: { id: a.id } });
+  }
+
+  /** A timed written paper left past its clock and grace: marks the saved draft (zero if blank). If marking can't run now, it stays open to submit later. */
+  async settle(access: ResolvedAccess, a: Prisma.PracticeAttemptGetPayload<object>) {
+    if (a.mode !== 'THEORY' || a.submittedAt || !a.endsAt || Date.now() <= a.endsAt.getTime() + THEORY_GRACE_MS) return a;
+    try {
+      return await this.markTheory(access, a.id, []);
+    } catch {
+      return a;
+    }
   }
 
   async remove(id: string) {

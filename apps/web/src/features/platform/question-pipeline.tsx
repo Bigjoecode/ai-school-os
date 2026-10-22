@@ -785,7 +785,7 @@ export function ReviewTab({ filter, onFilter }: { filter: ReviewFilter; onFilter
                     <p className="line-clamp-2 text-[13px]">{it.stem}</p>
                     <p className="mt-0.5 truncate text-[11.5px] text-muted-foreground">
                       <span className={cn('font-medium', it.source === 'LICENSED' && 'text-info')}>{sourceLabel(it)}</span> · {it.exam} · {it.subject}
-                      {it.topic ? ` · ${it.topic}` : ''} · {it.type === 'THEORY' ? `${plural(it.marks, 'mark')}` : `Key ${LETTERS[it.answer]}: ${it.options[it.answer] ?? '—'}`} · {it.difficulty.toLowerCase()}
+                      {it.topic ? ` · ${it.topic}` : ''} · {it.type !== 'OBJECTIVE' ? `${it.type === 'PRACTICAL' ? 'Practical · ' : ''}${plural(it.marks, 'mark')}` : `Key ${LETTERS[it.answer]}: ${it.options[it.answer] ?? '—'}`} · {it.difficulty.toLowerCase()}
                     </p>
                     {(it.flags.length > 0 || (it.warnings?.length ?? 0) > 0) && (
                       <div className="mt-1 flex flex-wrap gap-1">
@@ -883,7 +883,7 @@ function ReviewCard({ item }: { item: ReviewItem }) {
         <div className="flex flex-wrap items-center gap-1.5">
           <Badge variant="secondary">{item.exam}</Badge>
           <Badge variant="outline">{item.subject}</Badge>
-          <Badge variant={item.type === 'THEORY' ? 'info' : 'secondary'}>{item.type === 'THEORY' ? `Theory · ${plural(item.marks, 'mark')}` : 'Objective'}</Badge>
+          <Badge variant={item.type === 'OBJECTIVE' ? 'secondary' : 'info'}>{item.type === 'OBJECTIVE' ? 'Objective' : `${item.type === 'PRACTICAL' ? 'Practical' : 'Theory'} · ${plural(item.marks, 'mark')}`}</Badge>
           <Badge variant="outline">{item.difficulty.toLowerCase()}</Badge>
           <Badge variant={item.source === 'LICENSED' ? 'info' : 'outline'}>{sourceLabel(item)}</Badge>
           {item.aiDraft && (
@@ -919,7 +919,7 @@ function ReviewCard({ item }: { item: ReviewItem }) {
           </ul>
         )}
         <p className="whitespace-pre-wrap text-[15px] leading-relaxed">{item.stem}</p>
-        {item.type !== 'THEORY' ? (
+        {item.type === 'OBJECTIVE' ? (
           <ol className="space-y-1.5">
             {item.options.map((o, i) => (
               <li key={i} className={cn('flex items-start gap-2.5 rounded-xl border px-3 py-2 text-[14px]', i === item.answer ? 'border-success/50 bg-success-soft/60' : 'border-border')}>
@@ -937,7 +937,7 @@ function ReviewCard({ item }: { item: ReviewItem }) {
           </div>
         )}
         <div className="rounded-xl bg-muted/50 p-3">
-          <p className="mb-1 text-[12px] font-medium text-muted-foreground">{item.type === 'THEORY' ? 'Model answer' : 'Explanation'}</p>
+          <p className="mb-1 text-[12px] font-medium text-muted-foreground">{item.type !== 'OBJECTIVE' ? 'Model answer' : 'Explanation'}</p>
           <p className="whitespace-pre-wrap text-[13.5px]">{item.explanation || <span className="text-danger">Missing</span>}</p>
         </div>
       </div>
@@ -990,7 +990,7 @@ function EditApproveDialog({ item, onOpenChange }: { item: ReviewItem | null; on
         year: item.year,
         stem: item.stem,
         // Licensed past papers can have five options (A–E); our own questions have four.
-        options: item.type === 'THEORY' ? [] : [...item.options, '', '', '', ''].slice(0, item.source === 'LICENSED' && item.options.length === 5 ? 5 : 4),
+        options: item.type !== 'OBJECTIVE' ? [] : [...item.options, '', '', '', ''].slice(0, item.source === 'LICENSED' && item.options.length === 5 ? 5 : 4),
         answer: item.answer,
         explanation: item.explanation,
         difficulty: item.difficulty,
@@ -998,7 +998,8 @@ function EditApproveDialog({ item, onOpenChange }: { item: ReviewItem | null; on
         status: 'DRAFT',
       });
   }, [item]);
-  const theory = v?.type === 'THEORY';
+  // Theory and practical (WASSCE Paper 3) questions: marks and a marking guide, no options.
+  const theory = v?.type === 'THEORY' || v?.type === 'PRACTICAL';
   return (
     <FormDialog
       open={!!item}

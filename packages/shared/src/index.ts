@@ -54,3 +54,4 @@ export * from './ambassadors';
 export * from './birthdays';
 export * from './pricing';
 export * from './gate';
+export * from './wassce';

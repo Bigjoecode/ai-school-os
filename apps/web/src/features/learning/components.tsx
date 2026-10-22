@@ -5,14 +5,15 @@ import {
   type MasteryTopic,
   type MemoryKind,
   type PracticeAttemptRow,
+  type PracticeAttemptView,
   type StudentAccess,
   type StudentMemoryRow,
   MEMORY_KINDS,
   PRODUCT_PERIOD_LABELS,
   SCHOOL_EVIDENCE_SOURCES,
 } from '@aischool/shared';
-import { ArrowRight, Brain, Crown, Gauge, HeartHandshake, Lock, PenLine, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
+import { ArrowLeft, ArrowRight, Brain, Crown, Gauge, GraduationCap, HeartHandshake, Lock, PenLine, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -27,7 +28,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { errorMessage } from '@/lib/api';
 import { formatDate, formatMoney, formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { allowanceError, useEvidence, useQuickQuiz } from './api';
+import { allowanceError, useEvidence, useQuickQuiz, useStartSittingPaper } from './api';
 
 export const naira = (kobo: number) => formatMoney(kobo / 100, 'NGN', { maximumFractionDigits: 0 });
 
@@ -543,5 +544,63 @@ export function SeeAll({ to, label = 'See all' }: { to: string; label?: string }
     <Link to={to} className="inline-flex shrink-0 items-center gap-1 text-[12.5px] font-medium text-brand hover:underline">
       {label} <ArrowRight className="size-3.5" aria-hidden />
     </Link>
+  );
+}
+
+// ------------------------------------------------------------------ timed papers & the full WASSCE mock
+
+/** Milliseconds left until `endsAt` (null when untimed), updated every second. */
+export function useCountdown(endsAt: string | null) {
+  const [left, setLeft] = useState(() => (endsAt ? new Date(endsAt).getTime() - Date.now() : null));
+  useEffect(() => {
+    if (!endsAt) return;
+    const t = setInterval(() => setLeft(new Date(endsAt).getTime() - Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [endsAt]);
+  return left;
+}
+export const clock = (ms: number) => {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return h ? `${h}:${pad(m)}:${pad(s % 60)}` : `${pad(m)}:${pad(s % 60)}`;
+};
+
+/** "1 h 15 min", "45 min". */
+export function minutesText(m: number) {
+  const h = Math.floor(m / 60);
+  const r = m % 60;
+  return h ? `${h} h${r ? ` ${r} min` : ''}` : `${r} min`;
+}
+
+/** On a paper of a full WASSCE mock: which paper it is, the way back to the mock and, once handed in, on to the next paper. */
+export function SittingNav({ a, className }: { a: PracticeAttemptView; className?: string }) {
+  const navigate = useNavigate();
+  const start = useStartSittingPaper(a.sitting?.sittingId ?? '');
+  const s = a.sitting;
+  if (!s) return null;
+  const done = !!a.submittedAt;
+  return (
+    <div className={cn('rounded-xl border border-brand/20 bg-brand-soft/50 px-3 py-2.5 text-[13px]', className)} data-testid="sitting-nav">
+      <div className="flex flex-wrap items-center gap-2">
+        <GraduationCap className="size-4 shrink-0 text-brand" aria-hidden />
+        <span className="min-w-0 flex-1">
+          <span className="font-medium">Paper {s.paper} of your WASSCE mock</span>
+          <span className="text-muted-foreground"> · {s.marks} marks</span>
+        </span>
+        <Button asChild variant="outline" size="sm">
+          <Link to={`/learn/sittings/${s.sittingId}`}>
+            <ArrowLeft /> {done ? 'Back to your mock' : 'Your mock'}
+          </Link>
+        </Button>
+        {done && s.nextPaper && (
+          <Button size="sm" loading={start.isPending} onClick={() => start.mutate(s.nextPaper!, { onSuccess: (v) => navigate(`/learn/attempts/${v.id}`) })}>
+            Start Paper {s.nextPaper} <ArrowRight />
+          </Button>
+        )}
+      </div>
+      {start.error && <p className="mt-2 text-[12.5px] text-danger">{errorMessage(start.error)}</p>}
+    </div>
   );
 }

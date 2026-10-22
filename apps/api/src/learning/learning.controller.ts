@@ -18,10 +18,12 @@ import {
   flashcardReviewSchema,
   practiceStartSchema,
   practiceSubmitSchema,
+  sittingStartSchema,
   studyPlanRequestSchema,
   syllabusImportSchema,
   syllabusSaveSchema,
   theoryAnswerSchema,
+  theoryDraftSaveSchema,
   theoryStartSchema,
   tutorChatSchema,
   tutorSpeakSchema,
@@ -43,6 +45,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { EntitlementService, type ResolvedAccess } from '../student-ai/entitlements.service';
 import { ExamService } from './exam.service';
 import { MasteryService, subjectKey } from './mastery.service';
+import { SittingService } from './sitting.service';
 import { StudyService } from './study.service';
 import { SyllabusService } from './syllabus.service';
 import { MAX_SPEAK_CHARS, VoiceService } from '../ai/voice.service';
@@ -60,6 +63,7 @@ export class LearningController {
     private readonly study: StudyService,
     private readonly mastery: MasteryService,
     private readonly exams: ExamService,
+    private readonly sittings: SittingService,
     private readonly files: FilesService,
     private readonly voice: VoiceService,
     private readonly prisma: PrismaService,
@@ -184,7 +188,15 @@ export class LearningController {
 
   @Get('attempts/:id')
   async attempt(@Param('id') id: string) {
-    return this.study.present(await this.study.attempt(await this.entitlements.me(), id));
+    const { id: studentId, access } = await this.me();
+    // A timed written paper left past its time is marked from its saved draft.
+    return this.study.present(await this.exams.settle(access, await this.study.attempt(studentId, id)));
+  }
+
+  /** Written answers saved as the student writes (theory and practical papers). */
+  @Put('attempts/:id/draft')
+  async draft(@Param('id') id: string, @Body(new ZodPipe(theoryDraftSaveSchema)) body: z.infer<typeof theoryDraftSaveSchema>) {
+    return this.study.saveDraft(await this.entitlements.me(), id, body.answers);
   }
 
   @Put('attempts/:id/progress')
@@ -197,6 +209,8 @@ export class LearningController {
   async submit(@Param('id') id: string, @Body(new ZodPipe(practiceSubmitSchema)) body: z.infer<typeof practiceSubmitSchema>) {
     const { id: studentId, access } = await this.me();
     const a = await this.study.submit(studentId, id, body.answers, body.flags);
+    // A paper of a WASSCE mock: the sitting's result is worked out once every paper is in.
+    if (a.sittingId) await this.sittings.view(access, a.sittingId);
     // Exam practice gets a short AI review when allowance remains.
     return this.study.present(a.exam ? await this.exams.review(access, a.id) : a);
   }
@@ -276,12 +290,44 @@ export class LearningController {
     return this.study.view(await this.exams.startTheory(access, body));
   }
 
+  // ---------------------------------------------------------- full WASSCE mock (WAEC Prep)
+
+  @Get('exams/sittings')
+  async sittingList() {
+    return this.sittings.list(await this.entitlements.me());
+  }
+
+  /** A full WASSCE mock in one subject: every paper as WAEC sets it, each on its own clock. */
+  @Post('exams/sittings')
+  @Throttle({ default: { limit: 6, ttl: 60_000 } })
+  async startSitting(@Body(new ZodPipe(sittingStartSchema)) body: z.infer<typeof sittingStartSchema>) {
+    const { access } = await this.me();
+    return this.sittings.create(access, body);
+  }
+
+  @Get('exams/sittings/:id')
+  async sitting(@Param('id') id: string) {
+    const { access } = await this.me();
+    return this.sittings.view(access, id);
+  }
+
+  @Post('exams/sittings/:id/papers/:paper/start')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  async startPaper(@Param('id') id: string, @Param('paper') paper: string) {
+    const n = Number(paper);
+    if (![1, 2, 3].includes(n)) throw new BadRequestException('Paper must be 1, 2 or 3');
+    const { access } = await this.me();
+    return this.study.present(await this.sittings.startPaper(access, id, n));
+  }
+
   @Post('attempts/:id/theory')
   @HttpCode(200)
   @Throttle({ default: { limit: 6, ttl: 60_000 } })
   async markTheory(@Param('id') id: string, @Body(new ZodPipe(theoryAnswerSchema)) body: z.infer<typeof theoryAnswerSchema>) {
     const { access } = await this.me();
-    return this.study.view(await this.exams.markTheory(access, id, body.answers));
+    const a = await this.exams.markTheory(access, id, body.answers);
+    if (a.sittingId) await this.sittings.view(access, a.sittingId);
+    return this.study.present(a);
   }
 }
 
@@ -360,7 +406,7 @@ export class ContentController {
   ) {}
 
   @Get('questions')
-  questions(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS).optional(), subject: z.string().optional(), status: z.enum(['DRAFT', 'PUBLISHED', 'RETIRED']).optional(), q: z.string().max(100).optional(), type: z.enum(['OBJECTIVE', 'THEORY']).optional() }))) q: { exam?: ExamBody; subject?: string; status?: string; q?: string; type?: string }) {
+  questions(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS).optional(), subject: z.string().optional(), status: z.enum(['DRAFT', 'PUBLISHED', 'RETIRED']).optional(), q: z.string().max(100).optional(), type: z.enum(['OBJECTIVE', 'THEORY', 'PRACTICAL']).optional() }))) q: { exam?: ExamBody; subject?: string; status?: string; q?: string; type?: string }) {
     return this.exams.bank(q);
   }
 

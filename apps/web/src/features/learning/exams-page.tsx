@@ -1,7 +1,7 @@
-import { ENTITLEMENTS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog } from '@aischool/shared';
-import { AlertTriangle, CalendarClock, CheckCircle2, Clock, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
+import { ENTITLEMENTS, UTME, WASSCE_PAPERS, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow } from '@aischool/shared';
+import { AlertTriangle, Ban, CalendarClock, CheckCircle2, ChevronRight, Clock, FileText, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,12 +13,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { examLockError, useAttempts, useExamCatalog, useExamTopics, useStartExam, useStartTheory, useStartUtme, utmeShortfall } from './api';
-import { AttemptList, SectionTitle } from './components';
+import { examLockError, useAttempts, useExamCatalog, useExamTopics, useSittings, useStartExam, useStartSitting, useStartTheory, useStartUtme, utmeShortfall } from './api';
+import { AttemptList, SectionTitle, minutesText } from './components';
 import { UtmeTrend } from './utme-results';
 
 type Exam = ExamCatalog['exams'][number];
-type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY' | 'UTME' | 'PAST';
+type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY' | 'UTME' | 'PAST' | 'WASSCE';
 type Level = ExamCatalog['level'];
 
 /** Which school level an exam is meant for (JAMB, WAEC and NECO: SS 1–3; BECE: JSS). Null when it fits or the class is unknown. */
@@ -31,10 +31,12 @@ function levelNote(exam: ExamBody, level: Level): string | null {
 export default function ExamsPage() {
   const cat = useExamCatalog();
   const attempts = useAttempts();
+  const sittings = useSittings();
   const [start, setStart] = useState<{ exam: Exam; mode: StartMode } | null>(null);
   const fp = cat.data?.freePractice;
   const freeLeft = fp ? Math.max(0, fp.setsPerTerm - fp.used) : 0;
-  const examAttempts = (attempts.data ?? []).filter((a) => a.exam);
+  // Papers of a WASSCE mock are listed with their mock, not as loose practice.
+  const examAttempts = (attempts.data ?? []).filter((a) => a.exam && !a.sittingId);
   const utmeDone = examAttempts.filter((a) => a.mode === 'UTME' && a.submittedAt && a.utme);
 
   return (
@@ -63,6 +65,12 @@ export default function ExamsPage() {
               <ExamCard key={e.exam} exam={e} freeLeft={freeLeft} level={cat.data.level ?? null} onStart={(mode) => setStart({ exam: e, mode })} />
             ))}
           </div>
+          {!!sittings.data?.length && (
+            <Card className="p-5">
+              <SectionTitle icon={GraduationCap} title="Your WASSCE mocks" />
+              <SittingList rows={sittings.data} />
+            </Card>
+          )}
           {utmeDone.length > 0 && (
             <Card className="p-5">
               <UtmeTrend rows={utmeDone} />
@@ -75,6 +83,7 @@ export default function ExamsPage() {
         </div>
       )}
       {start && start.mode === 'THEORY' && <TheoryDialog key={`${start.exam.exam}-theory`} exam={start.exam} onClose={() => setStart(null)} />}
+      {start && start.mode === 'WASSCE' && <SittingDialog key="wassce" exam={start.exam} onClose={() => setStart(null)} />}
       {start && start.mode === 'UTME' && <UtmeDialog key="utme" exam={start.exam} onClose={() => setStart(null)} />}
       {start && start.mode === 'PAST' && <PastPaperDialog key={`${start.exam.exam}-past`} exam={start.exam} onClose={() => setStart(null)} />}
       {start && (start.mode === 'PRACTICE' || start.mode === 'MOCK') && <StartDialog key={`${start.exam.exam}-${start.mode}`} exam={start.exam} mode={start.mode} freeQuestions={fp?.questionsPerSet ?? 5} onClose={() => setStart(null)} />}
@@ -168,6 +177,16 @@ function ExamCard({ exam, freeLeft, level, onStart }: { exam: Exam; freeLeft: nu
           ) : (
             <Button variant="outline" disabled className="w-full" title={`Full UTME mocks come with ${ent.label}`}>
               <Lock /> Full UTME CBT mock
+            </Button>
+          ))}
+        {exam.exam === 'WAEC' &&
+          (exam.entitled ? (
+            <Button onClick={() => onStart('WASSCE')} className="w-full" data-testid="wassce-start">
+              <GraduationCap /> Full WASSCE mock <span className="font-normal opacity-80">· every paper, graded A1–F9</span>
+            </Button>
+          ) : (
+            <Button variant="outline" disabled className="w-full" title={`Full WASSCE mocks come with ${ent.label}`}>
+              <Lock /> Full WASSCE mock
             </Button>
           ))}
         <Button variant={exam.entitled ? 'outline' : 'default'} onClick={() => onStart('PRACTICE')} disabled={!exam.entitled && freeLeft === 0} className="flex-1 sm:flex-none">
@@ -623,6 +642,136 @@ function PastPaperDialog({ exam, onClose }: { exam: Exam; onClose: () => void })
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>
             Close
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** Recent full WASSCE mocks: progress, or the grade once every paper is marked. */
+function SittingList({ rows }: { rows: ExamSittingRow[] }) {
+  return (
+    <ul className="divide-y divide-border" data-testid="sitting-list">
+      {rows.map((s) => (
+        <li key={s.id}>
+          <Link to={`/learn/sittings/${s.id}`} className="-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-muted/60">
+            <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+              <GraduationCap className="size-4" aria-hidden />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[13.5px] font-medium">{s.subject}</p>
+              <p className="text-[12px] text-muted-foreground">
+                {s.finishedAt ? 'Complete' : `${s.papersDone} of ${s.papersInApp} paper${s.papersInApp === 1 ? '' : 's'} done`} · {new Date(s.startedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+              </p>
+            </div>
+            {s.grade ? (
+              <span className="shrink-0 text-right">
+                <span className="block font-display text-[16px] font-bold">{s.grade}</span>
+                <span className="block text-[11.5px] tabular text-muted-foreground">{s.percent}%</span>
+              </span>
+            ) : (
+              <ChevronRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+            )}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The full WASSCE mock: one subject, every paper as WAEC sets it (real
+ * counts, times and marks), each on its own clock. Shows the papers before
+ * starting, including any that are only assessed in school.
+ */
+function SittingDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
+  const navigate = useNavigate();
+  const start = useStartSitting();
+  const ready = exam.subjects.filter((s) => s.fullMock);
+  const [subject, setSubject] = useState(ready[0]?.subject ?? '');
+  const papers = WASSCE_PAPERS[subject] ?? [];
+  const lock = examLockError(start.error);
+  const away = papers.filter((p) => p.kind === 'NOT_IN_APP');
+
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent size="lg">
+        <DialogHeader>
+          <div className="mb-2 grid size-10 place-items-center rounded-xl bg-success text-white [&_svg]:size-5">
+            <GraduationCap />
+          </div>
+          <DialogTitle>Full WASSCE mock</DialogTitle>
+          <DialogDescription>Sit one subject the way WAEC sets it: Paper 1, Paper 2 and, where there is one, Paper 3, each on its own clock with WAEC’s real time and marks. When every paper is marked you get a WAEC grade from A1 to F9.</DialogDescription>
+        </DialogHeader>
+        <DialogBody className="space-y-5">
+          {ready.length === 0 ? (
+            <p className="text-[13px] text-muted-foreground">No subject has enough approved questions for a full mock yet. Check back soon.</p>
+          ) : (
+            <div>
+              <p className="mb-2 text-[13px] font-medium">Subject</p>
+              <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Subject" data-testid="wassce-subject-picker">
+                {ready.map((s) => {
+                  const on = subject === s.subject;
+                  return (
+                    <button
+                      key={s.subject}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      onClick={() => (setSubject(s.subject), start.reset())}
+                      className={cn('rounded-full border px-3 py-1.5 text-[13px] transition-colors', on ? 'border-brand bg-brand-soft text-brand' : 'border-border hover:bg-muted')}
+                    >
+                      {s.subject}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          {papers.length > 0 && (
+            <ol className="space-y-2" data-testid="wassce-papers">
+              {papers.map((p) => (
+                <li key={p.paper} className={cn('rounded-xl border border-border p-3', p.kind === 'NOT_IN_APP' && 'bg-muted/50')}>
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+                    <p className="flex items-center gap-1.5 text-[13.5px] font-medium">
+                      {p.kind === 'NOT_IN_APP' ? <Ban className="size-3.5 text-muted-foreground" aria-hidden /> : <FileText className="size-3.5 text-brand" aria-hidden />} {p.title}
+                    </p>
+                    <p className="text-[12px] tabular text-muted-foreground">
+                      {p.kind !== 'NOT_IN_APP' || p.minutes < 600 ? `${minutesText(p.minutes)} · ` : ''}
+                      {p.marks} marks
+                    </p>
+                  </div>
+                  <p className="mt-1 text-[12.5px] text-muted-foreground">{p.kind === 'NOT_IN_APP' ? p.note : p.instructions}</p>
+                </li>
+              ))}
+            </ol>
+          )}
+          {away.length > 0 && papers.length > away.length && (
+            <p className="flex items-start gap-1.5 text-[12.5px] text-muted-foreground">
+              <School className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {away.map((p) => p.title.split(':')[0]).join(' and ')} is assessed in school, so your mock grade uses the other papers only.
+            </p>
+          )}
+          {lock ? (
+            <p className="rounded-xl border border-warning/30 bg-warning-soft/60 p-3 text-[13px] font-medium text-warning">{lock.message}</p>
+          ) : start.error ? (
+            <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(start.error)}</p>
+          ) : null}
+          <ul className="space-y-1 text-[12.5px] text-muted-foreground">
+            <li className="flex gap-1.5">
+              <Clock className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Nothing is timed yet: each paper’s clock starts when you open that paper, so you can sit them on different days.
+            </li>
+            <li className="flex gap-1.5">
+              <Sparkles className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Written papers are marked by AI against the marking guide (one session of your AI learning allowance each).
+            </li>
+          </ul>
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button loading={start.isPending} disabled={!subject || !!lock} data-testid="wassce-go" onClick={() => start.mutate({ exam: 'WAEC', subject }, { onSuccess: (s) => navigate(`/learn/sittings/${s.id}`) })}>
+            <Trophy /> Set up my mock
           </Button>
         </DialogFooter>
       </DialogContent>

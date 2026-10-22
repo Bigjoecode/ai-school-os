@@ -13,7 +13,7 @@ import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useAttempt, useAttempts, useSaveProgress, useSubmitAttempt } from './api';
-import { MODE_LABEL, scoreTone } from './components';
+import { MODE_LABEL, SittingNav, clock, scoreTone, useCountdown } from './components';
 import { TheoryResults, TheoryWriter } from './theory';
 import { UtmeResults } from './utme-results';
 
@@ -47,23 +47,6 @@ export default function AttemptPage() {
     </Page>
   );
 }
-
-function useCountdown(endsAt: string | null) {
-  const [left, setLeft] = useState(() => (endsAt ? new Date(endsAt).getTime() - Date.now() : null));
-  useEffect(() => {
-    if (!endsAt) return;
-    const t = setInterval(() => setLeft(new Date(endsAt).getTime() - Date.now()), 1000);
-    return () => clearInterval(t);
-  }, [endsAt]);
-  return left;
-}
-const clock = (ms: number) => {
-  const s = Math.max(0, Math.floor(ms / 1000));
-  const h = Math.floor(s / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return h ? `${h}:${pad(m)}:${pad(s % 60)}` : `${pad(m)}:${pad(s % 60)}`;
-};
 
 function Player({ a }: { a: PracticeAttemptView }) {
   const [answers, setAnswers] = useState<(number | null)[]>(() => a.questions.map((q) => q.chosen ?? null));
@@ -107,6 +90,7 @@ function Player({ a }: { a: PracticeAttemptView }) {
 
   return (
     <>
+      <SittingNav a={a} className="mb-3" />
       <div className="sticky top-14 z-10 -mx-4 mb-5 border-b border-border bg-background/85 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div className="flex items-center gap-3">
           <div className="min-w-0 flex-1">
@@ -243,6 +227,7 @@ function Results({ a }: { a: PracticeAttemptView }) {
         title={a.title}
         description={`${MODE_LABEL[a.mode]}${a.subject ? ` · ${a.subject}` : ''}`}
       />
+      <SittingNav a={a} className="mb-5" />
       <Card className="mb-5 overflow-hidden">
         <div className="grid gap-5 p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
           <div className="relative mx-auto grid size-28 place-items-center">

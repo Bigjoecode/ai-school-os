@@ -1,0 +1,157 @@
+{
+  "exam": "WAEC",
+  "subject": "Computer Studies",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "wx-cst-001",
+      "type": "PRACTICAL",
+      "topic": "Spreadsheet",
+      "stem": "A teacher entered the following data in a spreadsheet. Row 1 holds the headings: A1 Name, B1 Maths, C1 English, D1 Total, E1 Average, F1 Remark.\nRow 2: Ade, 65, 58\nRow 3: Bola, 48, 61\nRow 4: Chidi, 72, 45\nRow 5: Danjuma, 39, 70\nRow 6: Efe, 80, 66\n(a) Write the formula to be entered in D2 to find Ade's total, and state the values that appear in D2 to D6 when it is copied down. [4 marks]\n(b) Write a formula, using a function, for E2 to find Ade's average, and state the value in E2 to E6. [4 marks]\n(c) The formula =IF(E2>=55,\"PASS\",\"FAIL\") is entered in F2 and copied to F6. State the remark for each student. [3 marks]\n(d) State the result of each of the following formulas: (i) =MAX(D2:D6); (ii) =MIN(B2:B6); (iii) =AVERAGE(B2:B6); (iv) =COUNTIF(C2:C6,\">60\"). [4 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) =B2+C2 or =SUM(B2:C2) (2); 123, 109, 117, 109, 146 (2)\n4 marks: (b) =AVERAGE(B2:C2) (2); 61.5, 54.5, 58.5, 54.5, 73 (2)\n3 marks: (c) Ade PASS, Bola FAIL, Chidi PASS, Danjuma FAIL, Efe PASS (all five 3 marks; three or four correct 2 marks)\n4 marks: (d)(i) 146; (ii) 39; (iii) 60.8; (iv) 3 (1 mark each)",
+      "explanation": "(a) D2: =B2+C2 (or =SUM(B2:C2)); copied down gives 123, 109, 117, 109, 146. (b) E2: =AVERAGE(B2:C2) gives 61.5, 54.5, 58.5, 54.5, 73. (c) Averages of 55 or more pass: Ade PASS, Bola FAIL (54.5), Chidi PASS, Danjuma FAIL (54.5), Efe PASS. (d) MAX of totals = 146; MIN of Maths = 39; AVERAGE of Maths = 304/5 = 60.8; English scores above 60 are 61, 70, 66, so COUNTIF = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-002",
+      "type": "PRACTICAL",
+      "topic": "Spreadsheet",
+      "stem": "A shop uses a spreadsheet to calculate VAT on goods. Cell A1 contains the label VAT Rate and cell B1 contains 7.5%. Cell B2 is empty. Cells A3 to A6 contain the prices (in naira) of four items: 2000, 3500, 1200 and 8000.\n(a) The formula =A3*$B$1 is entered in B3 and copied to B4:B6. (i) State the formula that appears in B5. (ii) State the values displayed in B3 to B6. [5 marks]\n(b) The formula =A3+B3 is entered in C3 and copied to C4:C6. State the values in C3 to C6. [2 marks]\n(c) Write a formula for C7 to find the total of C3 to C6 and state its value. [3 marks]\n(d) If =A3*B1 had been entered in B3 instead and copied to B4, state the formula in B4 and the value it would display. Explain why. [3 marks]\n(e) What is the type of cell reference $B$1 called? [2 marks]",
+      "marks": 15,
+      "markingGuide": "5 marks: (a)(i) =A5*$B$1 (2); (ii) 150, 262.5, 90, 600 (3)\n2 marks: (b) 2150, 3762.5, 1290, 8600\n3 marks: (c) =SUM(C3:C6) (2); 15802.5 (1)\n3 marks: (d) =A4*B2 (1); 0 (1); the relative reference B1 changes to B2, which is empty (treated as 0) (1)\n2 marks: (e) Absolute cell reference",
+      "explanation": "(a) The dollar signs keep B1 fixed, so B5 holds =A5*$B$1; values: 2000 x 0.075 = 150, 3500 x 0.075 = 262.5, 1200 x 0.075 = 90, 8000 x 0.075 = 600. (b) Price + VAT: 2150, 3762.5, 1290, 8600. (c) =SUM(C3:C6) = 15802.5. (d) A relative reference shifts on copying, so B4 would contain =A4*B2; B2 is empty, so the result is 0. (e) $B$1 is an absolute reference.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wx-cst-003",
+      "type": "PRACTICAL",
+      "topic": "Word Processing",
+      "stem": "Mrs Okafor typed a letter in Microsoft Word on a Windows computer and wants to format and send copies to 40 parents.\n(a) State the steps to make the heading bold, centred and in 16-point font size. [3 marks]\n(b) Give the keyboard shortcut for each of the following: (i) copy; (ii) paste; (iii) undo; (iv) save; (v) select all. [5 marks]\n(c) Name the feature used to produce 40 personalised copies of the letter from a list of names and addresses, and state the two files it combines. [3 marks]\n(d) State the difference between \"Save\" and \"Save As\". [2 marks]\n(e) Name the feature that automatically checks for misspelt words and how such words are shown. [2 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) Select (highlight) the heading (1); click Bold (B) / Ctrl+B and Center / Ctrl+E (1); choose 16 from the font size box on the Home tab (1)\n5 marks: (b)(i) Ctrl+C; (ii) Ctrl+V; (iii) Ctrl+Z; (iv) Ctrl+S; (v) Ctrl+A (1 mark each)\n3 marks: (c) Mail merge (1); main document (letter) and data source (list of names/addresses) (2)\n2 marks: (d) Save stores changes to the existing file under the same name/location; Save As saves a copy with a new name, location or format\n2 marks: (e) Spelling and grammar check (spell checker) (1); misspelt words are underlined with a red wavy line (1)",
+      "explanation": "(a) Highlight the heading, click Bold and Center on the Home tab, and choose 16 in the font size box. (b) Copy Ctrl+C, paste Ctrl+V, undo Ctrl+Z, save Ctrl+S, select all Ctrl+A. (c) Mail merge combines the main document with a data source of names and addresses. (d) Save updates the current file; Save As creates a new file name, location or format. (e) The spell checker underlines misspelt words in red.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wx-cst-004",
+      "type": "PRACTICAL",
+      "topic": "Database",
+      "stem": "A school database contains a table named STUDENTS with the fields: AdmNo, Surname, Class, Sex, Age. The records are:\n1001, Bello, SS2, M, 16\n1002, Okon, SS3, F, 17\n1003, Adeyemi, SS2, F, 15\n1004, Nwosu, SS1, M, 14\n1005, Garba, SS3, M, 18\n(a) State the number of (i) records; (ii) fields in the table. [2 marks]\n(b) Which field is most suitable as the primary key? Give a reason. [3 marks]\n(c) State the data type suitable for each of AdmNo and Surname. [2 marks]\n(d) List the surnames returned by each query: (i) Class = \"SS3\"; (ii) Sex = \"F\" AND Age < 17; (iii) Age > 15 OR Class = \"SS1\". [6 marks]\n(e) If the records are sorted in ascending order of Surname, which record comes first? [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) 5; (ii) 5 (1 mark each)\n3 marks: (b) AdmNo (1); it is unique for every student and never empty (2)\n2 marks: (c) AdmNo - number (or text); Surname - text (1 mark each)\n6 marks: (d)(i) Okon, Garba; (ii) Adeyemi; (iii) Bello, Okon, Nwosu, Garba (2 marks each)\n2 marks: (e) Adeyemi (1003)",
+      "explanation": "(a) There are 5 records and 5 fields. (b) AdmNo is unique for each student, so it is the primary key. (c) AdmNo is numeric (or text); Surname is text. (d) (i) SS3: Okon, Garba. (ii) Female and under 17: Adeyemi (Okon is 17). (iii) Age over 15 (Bello 16, Okon 17, Garba 18) or SS1 (Nwosu): Bello, Okon, Nwosu, Garba. (e) Alphabetically Adeyemi comes first.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-005",
+      "type": "PRACTICAL",
+      "topic": "BASIC Programming",
+      "stem": "Study the BASIC program below and answer the questions.\n10 LET S = 0\n20 FOR K = 1 TO 9 STEP 2\n30 LET S = S + K * K\n40 NEXT K\n50 PRINT \"SUM =\"; S\n60 END\n(a) List the values taken by K as the program runs. [2 marks]\n(b) How many times is line 30 executed? [2 marks]\n(c) Trace the value of S after each pass of the loop. [4 marks]\n(d) State the exact output of the program. [2 marks]\n(e) Rewrite line 20 so that the program adds the squares of the even numbers from 2 to 10, and state the new output. [3 marks]\n(f) What is the purpose of line 10? [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) 1, 3, 5, 7, 9\n2 marks: (b) 5 times\n4 marks: (c) 1, 10, 35, 84, 165 (deduct 1 mark per wrong value)\n2 marks: (d) SUM = 165\n3 marks: (e) 20 FOR K = 2 TO 10 STEP 2 (2); output SUM = 220 (1)\n2 marks: (f) Initialises the sum (S) to zero before accumulating",
+      "explanation": "(a) K takes 1, 3, 5, 7, 9. (b) Line 30 runs 5 times. (c) S = 0+1 = 1; 1+9 = 10; 10+25 = 35; 35+49 = 84; 84+81 = 165. (d) Output: SUM = 165. (e) 20 FOR K = 2 TO 10 STEP 2 gives 4+16+36+64+100 = 220, so SUM = 220. (f) Line 10 initialises S to zero.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-006",
+      "type": "PRACTICAL",
+      "topic": "BASIC Programming",
+      "stem": "Study the BASIC program below.\n10 REM AREA AND PERIMETER\n20 FOR I = 1 TO 3\n30 READ L, B\n40 LET A = L * B\n50 LET P = 2 * (L + B)\n60 PRINT L, B, A, P\n70 NEXT I\n80 DATA 12, 5, 7.5, 4, 10, 10\n90 END\n(a) State the purpose of line 10. [1 mark]\n(b) State the output of the program, line by line. [6 marks]\n(c) Which line(s) supply the values for L and B? [2 marks]\n(d) Write a line 65 that prints \"SQUARE\" only when the length and breadth are equal, and state on which pass it is printed. [3 marks]\n(e) What would happen if line 80 contained only four numbers? [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) REM - a remark/comment; it is not executed\n6 marks: (b) 12 5 60 34 (2); 7.5 4 30 23 (2); 10 10 100 40 (2)\n2 marks: (c) Line 30 (READ) takes values from line 80 (DATA) (1 mark each)\n3 marks: (d) 65 IF L = B THEN PRINT \"SQUARE\" (2); printed on the third pass (I = 3) (1)\n3 marks: (e) The first two passes run normally (1); on the third pass READ finds no data and the program stops with an \"Out of DATA\" error (2)",
+      "explanation": "(a) REM is a comment that the computer ignores. (b) Pass 1: L = 12, B = 5, A = 60, P = 2 x 17 = 34. Pass 2: 7.5, 4, 30, 2 x 11.5 = 23. Pass 3: 10, 10, 100, 40. (c) READ in line 30 takes values from DATA in line 80. (d) 65 IF L = B THEN PRINT \"SQUARE\" prints on the third pass. (e) With only four numbers, the third READ fails with an \"Out of DATA\" error.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "wx-cst-007",
+      "type": "PRACTICAL",
+      "topic": "Algorithm and Flowchart",
+      "stem": "The following algorithm is written in words.\nStep 1: Start.\nStep 2: Set SUM to 0 and COUNT to 0.\nStep 3: Input a number N.\nStep 4: If N = -1, go to Step 7.\nStep 5: Add N to SUM and add 1 to COUNT.\nStep 6: Go to Step 3.\nStep 7: Set AVG to SUM / COUNT.\nStep 8: Output SUM, COUNT and AVG.\nStep 9: Stop.\n(a) The numbers 15, 8, 22, 5 and -1 are input in that order. Trace the values of SUM and COUNT after each number is processed. [4 marks]\n(b) State the final output. [3 marks]\n(c) What is the purpose of the value -1? [2 marks]\n(d) Name the flowchart symbol used for (i) Step 1; (ii) Step 3; (iii) Step 4; (iv) Step 5. [4 marks]\n(e) What would happen if -1 were the first number input? [2 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) After 15: SUM 15, COUNT 1; after 8: 23, 2; after 22: 45, 3; after 5: 50, 4 (1 mark each)\n3 marks: (b) SUM = 50, COUNT = 4, AVG = 12.5 (1 mark each)\n2 marks: (c) It is a sentinel (rogue/terminating) value that signals the end of input\n4 marks: (d)(i) Terminal (oval); (ii) input/output (parallelogram); (iii) decision (diamond); (iv) process (rectangle) (1 mark each)\n2 marks: (e) COUNT would be 0, so Step 7 would attempt division by zero, causing an error",
+      "explanation": "(a) SUM/COUNT: 15/1, 23/2, 45/3, 50/4. (b) Output SUM = 50, COUNT = 4, AVG = 50/4 = 12.5. (c) -1 is a sentinel marking the end of data. (d) Start uses the terminal (oval), input the parallelogram, the test the diamond and the calculation the rectangle. (e) If -1 came first, COUNT would be 0 and dividing by zero would give an error.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-008",
+      "type": "PRACTICAL",
+      "topic": "Computer Data Conversion",
+      "stem": "Answer the following on number bases. Show all working.\n(a) Convert 45 (base 10) to binary by repeated division by 2. [3 marks]\n(b) Convert 11011 (base 2) to decimal. [3 marks]\n(c) Convert 237 (base 8) to decimal. [3 marks]\n(d) Convert your answer in (c) to hexadecimal. [3 marks]\n(e) Add 101101 (base 2) and 11011 (base 2), giving the answer in binary, and check it in decimal. [3 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) 45/2 = 22 r1; 22/2 = 11 r0; 11/2 = 5 r1; 5/2 = 2 r1; 2/2 = 1 r0; 1/2 = 0 r1 (2); reading upward 101101 (1)\n3 marks: (b) 1x16 + 1x8 + 0x4 + 1x2 + 1x1 (2) = 27 (1)\n3 marks: (c) 2x64 + 3x8 + 7x1 (2) = 159 (1)\n3 marks: (d) 159/16 = 9 r15 (F); 9/16 = 0 r9 (2); 9F (1)\n3 marks: (e) 1001000 (2); 45 + 27 = 72 = 1001000 (1)",
+      "explanation": "(a) Remainders from dividing 45 by 2 are 1, 0, 1, 1, 0, 1; read upward, 45 = 101101. (b) 11011 = 16 + 8 + 0 + 2 + 1 = 27. (c) 237 (base 8) = 2 x 64 + 3 x 8 + 7 = 128 + 24 + 7 = 159. (d) 159 = 9 x 16 + 15, so 9F (base 16). (e) 101101 + 11011 = 1001000; check: 45 + 27 = 72 = 64 + 8 = 1001000.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-009",
+      "type": "PRACTICAL",
+      "topic": "Logic Circuits",
+      "stem": "A logic circuit has three inputs A, B and C. A and B go into an AND gate; C goes into a NOT gate; the outputs of the AND gate and the NOT gate go into an OR gate whose output is X.\n(a) Write the Boolean expression for X. [2 marks]\n(b) Complete a truth table for the circuit, listing all eight input combinations (A, B, C from 000 to 111) and the outputs of the AND gate, the NOT gate and X. [8 marks]\n(c) For how many input combinations is X = 1? [2 marks]\n(d) Name the gate whose output is 1 only when all its inputs are 1, and state the number of input combinations possible for a circuit with four inputs. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) X = (A AND B) OR (NOT C), i.e. X = A.B + C'\n8 marks: (b) A B C: AND, NOT C, X - 000: 0,1,1; 001: 0,0,0; 010: 0,1,1; 011: 0,0,0; 100: 0,1,1; 101: 0,0,0; 110: 1,1,1; 111: 1,0,1 (1 mark per correct row)\n2 marks: (c) 5\n3 marks: (d) AND gate (1); 2^4 = 16 combinations (2)",
+      "explanation": "(a) X = A.B + NOT C. (b) NOT C is 1 whenever C = 0; A.B is 1 only for A = B = 1. Rows (A B C -> X): 000 -> 1, 001 -> 0, 010 -> 1, 011 -> 0, 100 -> 1, 101 -> 0, 110 -> 1, 111 -> 1. (c) X = 1 in 5 rows (the four with C = 0 plus 111). (d) The AND gate gives 1 only when all inputs are 1; four inputs give 2^4 = 16 combinations.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-010",
+      "type": "PRACTICAL",
+      "topic": "Handling Computer Files",
+      "stem": "On a Windows computer, a student saved a file named Project.docx in a folder named SS3, which is inside a folder named School on drive D.\n(a) Write the full path of the file. [2 marks]\n(b) Name the (i) file name; (ii) file extension; and state what the extension indicates. [3 marks]\n(c) State the type of file indicated by each extension: (i) .xlsx; (ii) .jpg; (iii) .exe; (iv) .pdf. [4 marks]\n(d) Describe the steps to copy Project.docx to a flash drive (drive E) using File Explorer. [3 marks]\n(e) State the difference between copying and moving a file. [2 marks]\n(f) Name one way of protecting the file from loss. [1 mark]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) D:\\School\\SS3\\Project.docx\n3 marks: (b)(i) Project (1); (ii) .docx (1); a Microsoft Word document (1)\n4 marks: (c)(i) Excel spreadsheet; (ii) image/picture (JPEG); (iii) executable program; (iv) Portable Document Format document (1 mark each)\n3 marks: (d) Open File Explorer and locate D:\\School\\SS3 (1); right-click Project.docx and choose Copy (Ctrl+C) (1); open drive E, right-click and choose Paste (Ctrl+V) (1) - or right-click > Send to > drive E\n2 marks: (e) Copying leaves the original in place and creates a duplicate; moving removes it from the original location to the new one\n1 mark: (f) Any one: keep backup copies (external drive/cloud); use password/antivirus; save regularly",
+      "explanation": "(a) D:\\School\\SS3\\Project.docx. (b) The name is Project and the extension .docx shows it is a Word document. (c) .xlsx is an Excel workbook, .jpg an image, .exe an executable program and .pdf a PDF document. (d) Locate the file in File Explorer, copy it, open drive E and paste. (e) Copying keeps the original; moving relocates it. (f) Keep a backup copy.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wx-cst-011",
+      "type": "PRACTICAL",
+      "topic": "Booting and Shutting Down Process",
+      "stem": "A computer in a school laboratory shows the following problems.\nProblem 1: when the power button is pressed, the fans run and the computer beeps several times, but nothing appears on the screen.\nProblem 2: the screen shows \"Operating system not found\" after switching on.\nProblem 3: the computer was switched off at the wall socket while Windows was running; the next time it started, it ran a disk check.\nProblem 4: the computer freezes and does not respond to the mouse or keyboard.\n(a) Distinguish between cold booting and warm booting, and give one way of performing each. [4 marks]\n(b) Name the test carried out when the computer is switched on and which Problem 1 suggests has failed. [2 marks]\n(c) Suggest one cause of Problem 2. [2 marks]\n(d) Explain why Problem 3 occurred, and describe the correct shutdown procedure. [4 marks]\n(e) Suggest how Problem 4 could be resolved without switching off the power. [3 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) Cold booting - starting a computer that was switched off, by pressing the power button (2); warm booting - restarting a computer that is already on, e.g. Ctrl+Alt+Del then Restart or Start > Restart (2)\n2 marks: (b) Power-On Self Test (POST) (1); failure of a hardware component e.g. RAM or display card shown by the beeps (1)\n2 marks: (c) Any one: hard disk not detected/failed; wrong boot order in BIOS; operating system files corrupted/deleted; bootable flash drive/disk left in\n4 marks: (d) Improper shutdown left files open/unsaved, so the system checks the disk for errors (2); save work, close programs, click Start > Power > Shut down, wait for the system to turn off before switching off the mains (2)\n3 marks: (e) Press Ctrl+Alt+Del (or Ctrl+Shift+Esc) to open Task Manager (1); select the program that is not responding and click End task (1); if still frozen, restart from the Ctrl+Alt+Del screen (1)",
+      "explanation": "(a) Cold booting starts a powered-off computer with the power button; warm booting restarts a running computer, e.g. Start > Restart or Ctrl+Alt+Del. (b) The POST checks hardware; beeps with no display suggest RAM or display card failure. (c) \"Operating system not found\" may mean a failed hard disk, wrong boot order or corrupted system files. (d) Cutting power while Windows ran left files open, so a disk check ran; correct shutdown is to save, close programs and use Start > Shut down. (e) Use Task Manager to end the non-responding program, or restart via Ctrl+Alt+Del.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-012",
+      "type": "PRACTICAL",
+      "topic": "Cables and Connectors",
+      "stem": "A school is setting up a computer laboratory network. Study the items described below.\nItem A: a cable with four twisted pairs of copper wires, ending in an 8-pin clear plastic plug.\nItem B: a cable with a central copper core, insulation, braided metal shield and outer jacket, ending in a twist-on connector.\nItem C: a cable that carries data as light through thin glass strands.\nItem D: a flat rectangular connector, used to connect a flash drive or printer to a computer.\nItem E: a 15-pin connector in three rows, used to connect older monitors to a computer.\n(a) Identify items A to E (name of cable or connector). [5 marks]\n(b) Name the connector on item A. [1 mark]\n(c) State two advantages of item C over item A. [2 marks]\n(d) Name the device that connects all the computers in a star network. [2 marks]\n(e) State three safety precautions when working with cables in the laboratory. [3 marks]\n(f) Name the newer connector that replaces item E for high-definition video and audio. [2 marks]",
+      "marks": 15,
+      "markingGuide": "5 marks: (a) A - twisted pair (UTP/Ethernet) cable; B - coaxial cable; C - fibre optic cable; D - USB connector; E - VGA connector (1 mark each)\n1 mark: (b) RJ45\n2 marks: (c) Any two: higher bandwidth/speed; longer distances without signal loss; not affected by electromagnetic interference; more secure (1 mark each)\n2 marks: (d) Switch (or hub)\n3 marks: (e) Any three: switch off power before connecting/disconnecting; avoid trailing cables (tripping); do not overload sockets; replace damaged insulation; keep away from water (1 mark each)\n2 marks: (f) HDMI",
+      "explanation": "(a) A is UTP twisted-pair cable, B coaxial cable, C fibre optic cable, D a USB connector, E a VGA connector. (b) The UTP plug is RJ45. (c) Fibre is faster, works over longer distances and is immune to interference. (d) A switch is the central device in a star network. (e) Switch off power, avoid trailing cables and replace damaged cables. (f) HDMI replaces VGA.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "wx-cst-013",
+      "type": "PRACTICAL",
+      "topic": "Presentation Package",
+      "stem": "A student is preparing a slide show on \"Malaria Prevention\" using Microsoft PowerPoint for a school health club meeting.\n(a) State the steps to insert a new slide with the \"Title and Content\" layout. [2 marks]\n(b) Distinguish between a transition and an animation. [4 marks]\n(c) State the keyboard key used to (i) start the slide show from the first slide; (ii) end the slide show. [2 marks]\n(d) Name the view used to (i) rearrange slides by dragging; (ii) type speaker notes. [2 marks]\n(e) State three rules for designing readable slides. [3 marks]\n(f) State the file extension of a PowerPoint presentation. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Home tab (1) > New Slide drop-down > Title and Content (1)\n4 marks: (b) Transition - visual effect when moving from one slide to the next (2); animation - effect applied to an object (text/picture) within a slide (2)\n2 marks: (c)(i) F5; (ii) Esc (1 mark each)\n2 marks: (d)(i) Slide Sorter view; (ii) Notes Page view (or Normal view notes pane) (1 mark each)\n3 marks: (e) Any three: few words/bullet points per slide; large readable font; contrasting text and background colours; consistent design; relevant pictures; avoid too many animations (1 mark each)\n2 marks: (f) .pptx",
+      "explanation": "(a) On the Home tab click New Slide and choose Title and Content. (b) A transition is the effect between slides; an animation is the effect on an object within a slide. (c) F5 starts the show; Esc ends it. (d) Slide Sorter rearranges slides; Notes Page view is for speaker notes. (e) Use few words, large fonts and contrasting colours. (f) .pptx.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wx-cst-014",
+      "type": "PRACTICAL",
+      "topic": "Electronic Mail (E-mail) Services",
+      "stem": "Study the e-mail address and message details below.\nE-mail address: amina.yusuf@unilag.edu.ng\nTo: principal@ssschool.edu.ng\nCc: vp.academics@ssschool.edu.ng\nBcc: parent.yusuf@gmail.com\nSubject: Request for transcript\nAttachment: result.pdf\n(a) Identify (i) the user name; (ii) the domain name in Amina's address; and state what \".edu\" and \".ng\" indicate. [4 marks]\n(b) Explain the difference between Cc and Bcc. [3 marks]\n(c) Will the principal know that the message was sent to parent.yusuf@gmail.com? Give a reason. [2 marks]\n(d) State what each of the following does: (i) Reply; (ii) Reply All; (iii) Forward. [3 marks]\n(e) State three precautions to take against e-mail fraud (phishing). [3 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a)(i) amina.yusuf (1); (ii) unilag.edu.ng (1); .edu - educational institution (1); .ng - Nigeria (country code) (1)\n3 marks: (b) Cc (carbon copy) sends a copy and all recipients can see the addresses (1.5); Bcc (blind carbon copy) sends a copy but the address is hidden from other recipients (1.5)\n2 marks: (c) No (1); the address is in the Bcc field, which is hidden (1)\n3 marks: (d)(i) Replies only to the sender; (ii) replies to the sender and everyone in To and Cc; (iii) sends the received message (with attachments) to a new recipient (1 mark each)\n3 marks: (e) Any three: do not click links/attachments from unknown senders; never send passwords/bank details by e-mail; check the sender's address carefully; use spam filters/antivirus; enable two-factor authentication (1 mark each)",
+      "explanation": "(a) The user name is amina.yusuf, the domain is unilag.edu.ng; .edu shows an educational institution and .ng Nigeria. (b) Cc recipients are visible to all; Bcc recipients are hidden. (c) No, because the parent was in Bcc. (d) Reply answers only the sender; Reply All answers everyone in To and Cc; Forward sends the message to someone new. (e) Avoid unknown links, never share passwords by e-mail and check sender addresses.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "wx-cst-015",
+      "type": "PRACTICAL",
+      "topic": "Graphics",
+      "stem": "A student is to design a simple logo for the school's science club using a graphics package such as CorelDRAW (or Microsoft Paint for basic tasks).\n(a) Name the tool used to (i) draw a perfect circle; (ii) fill a shape with colour; (iii) add the club's name; (iv) select and move an object. [4 marks]\n(b) State the key held down while drawing an ellipse to obtain a perfect circle. [1 mark]\n(c) Distinguish between vector graphics and bitmap (raster) graphics, and state which type CorelDRAW mainly produces. [4 marks]\n(d) Name two file formats in which the finished logo could be saved for use on a website. [2 marks]\n(e) State the function of each of the following commands: (i) Group; (ii) Weld; (iii) Undo; (iv) Zoom. [4 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a)(i) Ellipse tool; (ii) Fill (paint bucket/interactive fill) tool; (iii) Text tool; (iv) Pick (selection) tool (1 mark each)\n1 mark: (b) Ctrl (Shift in some packages)\n4 marks: (c) Vector - made of mathematically defined lines/shapes, can be resized without loss of quality (1.5); bitmap - made of pixels, becomes blurred/pixelated when enlarged (1.5); CorelDRAW - vector (1)\n2 marks: (d) Any two: PNG, JPG/JPEG, SVG, GIF (1 mark each)\n4 marks: (e)(i) Group - joins objects so they move/resize as one; (ii) Weld - merges overlapping shapes into a single shape outline; (iii) Undo - reverses the last action; (iv) Zoom - enlarges/reduces the view without changing the object size (1 mark each)",
+      "explanation": "(a) Ellipse tool for circles, fill tool for colour, text tool for the name, pick tool to select and move. (b) Hold Ctrl in CorelDRAW for a perfect circle. (c) Vector graphics use mathematical shapes and scale without loss; bitmaps are pixel grids that blur when enlarged; CorelDRAW is vector-based. (d) PNG and SVG (also JPG, GIF). (e) Group binds objects together; Weld merges shapes into one outline; Undo reverses the last action; Zoom changes the view magnification.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

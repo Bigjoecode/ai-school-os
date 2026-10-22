@@ -166,7 +166,7 @@ export const useImportQuestions = () =>
 
 export const useDraftQuestions = () =>
   useMutation({
-    mutationFn: (body: { exam: string; subject: string; topicId?: string | null; count: number; difficulty: string; type?: 'OBJECTIVE' | 'THEORY' }) =>
+    mutationFn: (body: { exam: string; subject: string; topicId?: string | null; count: number; difficulty: string; type?: 'OBJECTIVE' | 'THEORY' | 'PRACTICAL' }) =>
       api.post<{ drafted: number; provider: string; model: string }>('/platform/content/questions/draft', body),
     onSuccess: afterContent,
   });

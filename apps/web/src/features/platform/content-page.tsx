@@ -1,5 +1,5 @@
 import { EXAM_LABELS, EXAMS, examQuestionSchema, QUESTION_DIFFICULTIES, QUESTION_KINDS, type ExamBody, type ExamQuestionInput, type ExamQuestionRow, type SyllabusTopicRow } from '@aischool/shared';
-import { Archive, BookMarked, Check, ClipboardCheck, Gauge, ChevronDown, FileJson, FilePen, FileUp, ListChecks, ListTree, MoreHorizontal, PenLine, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
+import { Archive, BookMarked, Check, ClipboardCheck, Gauge, ChevronDown, FileJson, FilePen, FileUp, FlaskConical, ListChecks, ListTree, MoreHorizontal, PenLine, Pencil, Plus, ScanSearch, Send, Sparkles, Trash2, Undo2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -30,7 +30,9 @@ import { FilterSelect, Toolbar, useTabParam } from './ui';
 type QStatus = 'DRAFT' | 'PUBLISHED' | 'RETIRED';
 const TABS = ['questions', 'coverage', 'review', 'topics', 'syllabus'] as const;
 type QKind = (typeof QUESTION_KINDS)[number];
-const KIND: Record<QKind, { label: string; variant: BadgeProps['variant'] }> = { OBJECTIVE: { label: 'Objective', variant: 'secondary' }, THEORY: { label: 'Theory', variant: 'info' } };
+const KIND: Record<QKind, { label: string; variant: BadgeProps['variant'] }> = { OBJECTIVE: { label: 'Objective', variant: 'secondary' }, THEORY: { label: 'Theory', variant: 'info' }, PRACTICAL: { label: 'Practical', variant: 'brand' } };
+/** Theory and practical (WASSCE Paper 3) questions are written answers: marks and a marking guide, no options. */
+const written = (t?: string) => t === 'THEORY' || t === 'PRACTICAL';
 const STATUS: Record<QStatus, { label: string; variant: BadgeProps['variant'] }> = {
   DRAFT: { label: 'Draft', variant: 'warning' },
   PUBLISHED: { label: 'Published', variant: 'success' },
@@ -181,7 +183,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
         <div className="min-w-0 max-w-[460px]">
           <p className="line-clamp-2 text-[13px]">{r.stem}</p>
           <p className="mt-0.5 truncate text-[11.5px] text-muted-foreground">
-            {r.type === 'THEORY' ? `${plural(r.marks, 'mark')} · ${r.markingGuide ? `Guide: ${r.markingGuide}` : 'No marking guide'}` : `Answer ${LETTERS[r.answer]}: ${r.options[r.answer] ?? '—'}`}
+            {written(r.type) ? `${plural(r.marks, 'mark')} · ${r.markingGuide ? `Guide: ${r.markingGuide}` : 'No marking guide'}` : `Answer ${LETTERS[r.answer]}: ${r.options[r.answer] ?? '—'}`}
           </p>
         </div>
       ),
@@ -307,7 +309,7 @@ function QuestionsTab({ onEdit }: { onEdit: (q: ExamQuestionRow) => void }) {
                 <p className="line-clamp-2 text-[13.5px]">{r.stem}</p>
                 <p className="truncate text-[12px] text-muted-foreground">
                   {r.exam} · {KIND[r.type ?? 'OBJECTIVE'].label}
-                  {r.type === 'THEORY' ? ` (${plural(r.marks, 'mark')})` : ''} · {titleCase(r.subject)}
+                  {written(r.type) ? ` (${plural(r.marks, 'mark')})` : ''} · {titleCase(r.subject)}
                   {r.topic ? ` · ${r.topic}` : ''} · {sourceLabel(r)}
                 </p>
               </div>
@@ -412,7 +414,7 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
 
   const submit = (e?: React.BaseSyntheticEvent) => {
     e?.preventDefault();
-    const theory = v.type === 'THEORY';
+    const theory = written(v.type);
     const parsed = examQuestionSchema.safeParse({
       ...v,
       topicId: v.topicId || null,
@@ -447,10 +449,10 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
     <FormDialog open={!!question} onOpenChange={onOpenChange} title={existing ? 'Edit question' : 'New question'} icon={<FilePen />} submitLabel={existing ? 'Save question' : 'Create question'} pending={save.isPending} onSubmit={submit} size="xl">
       <div className="grid gap-4">
         <FormError message={errors.form} />
-        <div role="radiogroup" aria-label="Question type" className="grid grid-cols-2 gap-2">
+        <div role="radiogroup" aria-label="Question type" className="grid gap-2 sm:grid-cols-3">
           {QUESTION_KINDS.map((k) => {
             const on = v.type === k;
-            const Icon = k === 'THEORY' ? PenLine : ListChecks;
+            const Icon = k === 'OBJECTIVE' ? ListChecks : k === 'PRACTICAL' ? FlaskConical : PenLine;
             return (
               <button
                 key={k}
@@ -463,7 +465,7 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
                 <Icon className={cn('mt-0.5 size-4 shrink-0', on ? 'text-brand' : 'text-muted-foreground')} aria-hidden />
                 <span className="min-w-0">
                   <span className="block text-[13.5px] font-medium">{KIND[k].label}</span>
-                  <span className="block text-[12px] text-muted-foreground">{k === 'THEORY' ? 'Written answer, AI-marked against your guide' : 'Multiple choice with one right answer'}</span>
+                  <span className="block text-[12px] text-muted-foreground">{k === 'THEORY' ? 'Written answer, AI-marked against your guide' : k === 'PRACTICAL' ? 'Alternative to practical (WASSCE Paper 3), AI-marked' : 'Multiple choice with one right answer'}</span>
                 </span>
               </button>
             );
@@ -486,7 +488,7 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
         <Field label="Question" htmlFor="q-stem" error={errors.stem}>
           <Textarea id="q-stem" rows={3} value={v.stem} onChange={(e) => set('stem', e.target.value)} />
         </Field>
-        {v.type === 'THEORY' ? (
+        {written(v.type) ? (
           <>
             <div className="grid gap-4 sm:grid-cols-[120px_minmax(0,1fr)]">
               <Field label="Marks" htmlFor="q-marks" error={errors.marks}>
@@ -536,13 +538,13 @@ function QuestionDialog({ question, onOpenChange }: { question: ExamQuestionRow 
         </Field>
         )}
         <Field
-          label={v.type === 'THEORY' ? 'Model answer' : 'Explanation'}
+          label={written(v.type) ? 'Model answer' : 'Explanation'}
           htmlFor="q-expl"
           error={errors.explanation}
           optional
-          hint={v.type === 'THEORY' ? 'A concise full-mark answer, shown with the marking guide after marking.' : 'Shown after the student answers.'}
+          hint={written(v.type) ? 'A concise full-mark answer, shown with the marking guide after marking.' : 'Shown after the student answers.'}
         >
-          <Textarea id="q-expl" rows={v.type === 'THEORY' ? 5 : 3} value={v.explanation} onChange={(e) => set('explanation', e.target.value)} />
+          <Textarea id="q-expl" rows={written(v.type) ? 5 : 3} value={v.explanation} onChange={(e) => set('explanation', e.target.value)} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-3">
           <Field label="Difficulty" htmlFor="q-diff">
@@ -640,9 +642,9 @@ function ImportDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o:
     data.forEach((item, i) => {
       const r = examQuestionSchema.safeParse(item);
       if (!r.success) errs.push(...r.error.issues.slice(0, 3).map((x) => `#${i + 1} ${x.path.join('.') || 'item'}: ${x.message}`));
-      else if (r.data.type === 'THEORY' && !r.data.markingGuide) errs.push(`#${i + 1} markingGuide: theory questions need a marking guide`);
-      else if (r.data.type !== 'THEORY' && r.data.options.length < 2) errs.push(`#${i + 1} options: give at least two`);
-      else if (r.data.type !== 'THEORY' && r.data.answer >= r.data.options.length) errs.push(`#${i + 1} answer: points past the last option`);
+      else if (written(r.data.type) && !r.data.markingGuide) errs.push(`#${i + 1} markingGuide: theory and practical questions need a marking guide`);
+      else if (!written(r.data.type) && r.data.options.length < 2) errs.push(`#${i + 1} options: give at least two`);
+      else if (!written(r.data.type) && r.data.answer >= r.data.options.length) errs.push(`#${i + 1} answer: points past the last option`);
       else out.push(r.data);
     });
     setProblems(errs);
@@ -741,21 +743,21 @@ function DraftDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
     );
   };
   return (
-    <FormDialog open={open} onOpenChange={onOpenChange} title="Draft questions with AI" icon={<Sparkles />} submitLabel={v.type === 'THEORY' ? 'Draft theory questions' : 'Draft questions'} pending={draft.isPending} onSubmit={submit} size="lg">
+    <FormDialog open={open} onOpenChange={onOpenChange} title="Draft questions with AI" icon={<Sparkles />} submitLabel={v.type === 'PRACTICAL' ? 'Draft practical questions' : v.type === 'THEORY' ? 'Draft theory questions' : 'Draft questions'} pending={draft.isPending} onSubmit={submit} size="lg">
       <div className="grid gap-4">
         <div className="flex items-start gap-2.5 rounded-xl border border-warning/30 bg-warning-soft/50 p-3 text-[12.5px]">
           <BookMarked className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
           <p>
             AI drafts land as <strong>Draft</strong> and are never shown to students until a person checks{' '}
-            {v.type === 'THEORY' ? 'the question, its marks, the marking guide and the model answer' : 'the stem, the options, the marked answer and the explanation'}, then publishes them. Expect to fix or delete some.
+            {written(v.type) ? 'the question, its marks, the marking guide and the model answer' : 'the stem, the options, the marked answer and the explanation'}, then publishes them. Expect to fix or delete some.
           </p>
         </div>
         <FormError message={errors.form} />
         <Field label="Type">
-          <div role="radiogroup" aria-label="Question type" className="grid grid-cols-2 gap-2">
+          <div role="radiogroup" aria-label="Question type" className="grid gap-2 sm:grid-cols-3">
             {QUESTION_KINDS.map((k) => (
               <Button key={k} type="button" variant={v.type === k ? 'default' : 'outline'} role="radio" aria-checked={v.type === k} onClick={() => setV((p) => ({ ...p, type: k }))}>
-                {k === 'THEORY' ? <PenLine /> : <ListChecks />} {KIND[k].label}
+                {k === 'OBJECTIVE' ? <ListChecks /> : k === 'PRACTICAL' ? <FlaskConical /> : <PenLine />} {KIND[k].label}
               </Button>
             ))}
           </div>

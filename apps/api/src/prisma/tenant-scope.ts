@@ -49,6 +49,7 @@ export const TENANT_MODELS = new Set<string>([
   'StudyPlan',
   'FlashcardDeck',
   'PracticeAttempt',
+  'ExamSitting',
   'KbDocument',
   'KbChunk',
   'PlatformInvoice',

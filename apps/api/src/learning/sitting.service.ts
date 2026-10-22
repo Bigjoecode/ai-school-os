@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAM_LABELS, MOCK_NAME, MOCK_PAPERS, inAppPapers, mockGrade, type ExamSittingRow, type ExamSittingView, type MockExam, type MockPaper, type SittingPaperView, type SittingResult } from '@aischool/shared';
+import { EXAM_LABELS, MOCK_APPROXIMATE_NOTE, MOCK_NAME, MOCK_PAPERS, inAppPapers, mockGrade, type ExamSittingRow, type ExamSittingView, type MockExam, type MockPaper, type SittingPaperView, type SittingResult } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import type { ResolvedAccess } from '../student-ai/entitlements.service';
@@ -13,10 +13,10 @@ const KIND_WORD: Record<MockPaper['kind'], string> = { OBJECTIVE: 'objective', T
 
 /**
  * The full mock: one subject, paper by paper as the exam body sets it
- * (WASSCE_PAPERS for WAEC, BECE_PAPERS for BECE). Each paper is its own
- * timed attempt; once every in-app paper is marked, the marks are added up
- * (marks earned over the papers' marks) and graded on the exam's own scale:
- * WAEC A1–F9, BECE A/C/P/F. Papers sat only in person are listed and left
+ * (WASSCE_PAPERS for WAEC, NECO_PAPERS for NECO, BECE_PAPERS for BECE). Each
+ * paper is its own timed attempt; once every in-app paper is marked, the marks
+ * are added up (marks earned over the papers' marks) and graded on the exam's
+ * own scale: WAEC and NECO A1–F9, BECE A/C/P/F. Papers sat only in person are listed and left
  * out of the grade.
  */
 @Injectable()
@@ -145,8 +145,9 @@ export class SittingService {
     if (left.length) out.push(`${left.map((p) => p.title.split(':')[0]).join(' and ')} ${left.length === 1 ? 'isn’t' : 'aren’t'} sat in the app, so this grade uses ${inApp.map((p) => p.title.split(':')[0]).join(' and ')} only.`);
     for (const p of inApp) {
       const full = p.kind === 'OBJECTIVE' ? p.questions : p.offered;
-      if (p.set !== null && full && p.set < full) out.push(`${p.title.split(':')[0]} has ${p.set} of ${exam === 'BECE' ? 'BECE' : 'WAEC'}’s ${full} questions while our bank grows, timed at ${p.clockMinutes} minutes.`);
+      if (p.set !== null && full && p.set < full) out.push(`${p.title.split(':')[0]} has ${p.set} of ${exam === 'WAEC' ? 'WAEC' : exam}’s ${full} questions while our bank grows, timed at ${p.clockMinutes} minutes.`);
     }
+    if (papers.some((p) => p.approximate)) out.push(MOCK_APPROXIMATE_NOTE);
     if (inApp.some((p) => p.kind !== 'OBJECTIVE')) out.push('Written papers are marked by AI against the marking guide: treat the grade as a strong guide, not an official result.');
     return out;
   }

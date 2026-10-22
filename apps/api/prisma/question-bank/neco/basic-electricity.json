@@ -1,0 +1,707 @@
+{
+  "exam": "NECO",
+  "subject": "Basic Electricity",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-bel-0001",
+      "type": "OBJECTIVE",
+      "topic": "Structure of matter",
+      "stem": "Copper conducts electricity well because each of its atoms has",
+      "options": [
+        "no electrons at all",
+        "loosely held outer electrons that can drift freely",
+        "more protons than neutrons",
+        "a positively charged outer shell",
+        "tightly bound outer electrons"
+      ],
+      "answer": 1,
+      "explanation": "Free (valence) electrons in metals drift under an applied e.m.f., forming the current.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0002",
+      "type": "OBJECTIVE",
+      "topic": "Conductors and insulators",
+      "stem": "Which material is used to make the outer covering of house wiring cables because it is a good insulator?",
+      "options": [
+        "Aluminium",
+        "Copper",
+        "Graphite",
+        "Brass",
+        "PVC"
+      ],
+      "answer": 4,
+      "explanation": "PVC has very high resistivity and is flexible, so it is used to insulate cables.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0003",
+      "type": "OBJECTIVE",
+      "topic": "Resistors",
+      "stem": "A carbon resistor is marked brown, black, orange, gold. Its value is",
+      "options": [
+        "1 kΩ ± 5%",
+        "100 Ω ± 10%",
+        "10 Ω ± 5%",
+        "10 kΩ ± 5%",
+        "100 kΩ ± 10%"
+      ],
+      "answer": 3,
+      "explanation": "Brown 1, black 0, orange multiplier 1000: 10 x 1000 = 10 kΩ; gold = ±5%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0004",
+      "type": "OBJECTIVE",
+      "topic": "Resistors",
+      "stem": "Resistors of 4 Ω, 6 Ω and 12 Ω are connected in parallel. The combined resistance is",
+      "options": [
+        "2 Ω",
+        "22 Ω",
+        "0.5 Ω",
+        "7.3 Ω",
+        "3 Ω"
+      ],
+      "answer": 0,
+      "explanation": "1/R = 1/4 + 1/6 + 1/12 = 6/12, so R = 2 Ω.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0005",
+      "type": "OBJECTIVE",
+      "topic": "Ohm's law and Kirchhoff's laws",
+      "stem": "At a junction, 5 A flows in. Two of the three outgoing branches carry 2 A and 1.5 A. By Kirchhoff's current law the third branch carries",
+      "options": [
+        "3.5 A",
+        "8.5 A",
+        "1.5 A",
+        "0.5 A",
+        "2.0 A"
+      ],
+      "answer": 2,
+      "explanation": "Current in = current out: 5 = 2 + 1.5 + I, so I = 1.5 A.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0006",
+      "type": "OBJECTIVE",
+      "topic": "Power and energy",
+      "stem": "A 60 W, 240 V filament lamp is working normally. The resistance of its filament when hot is",
+      "options": [
+        "4 Ω",
+        "0.25 Ω",
+        "14 400 Ω",
+        "960 Ω",
+        "240 Ω"
+      ],
+      "answer": 3,
+      "explanation": "R = V²/P = 57 600/60 = 960 Ω.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0007",
+      "type": "OBJECTIVE",
+      "topic": "Power and energy",
+      "stem": "A 1.5 kW pressing iron is used for 40 minutes a day for 30 days. At ₦120 per kWh the cost of energy is",
+      "options": [
+        "₦5,400",
+        "₦2,400",
+        "₦3,600",
+        "₦7,200",
+        "₦120"
+      ],
+      "answer": 2,
+      "explanation": "Energy = 1.5 x (40/60) x 30 = 30 kWh; cost = 30 x 120 = ₦3,600.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0008",
+      "type": "OBJECTIVE",
+      "topic": "Fundamentals of magnetism",
+      "stem": "The pole face of an electromagnet measures 5 cm² and carries a total flux of 0.9 mWb. The flux density at the pole face is",
+      "options": [
+        "0.18 T",
+        "4.5 T",
+        "18 T",
+        "0.45 T",
+        "1.8 T"
+      ],
+      "answer": 4,
+      "explanation": "B = Φ/A = 0.9 x 10^-3 / 5 x 10^-4 = 1.8 T.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0009",
+      "type": "OBJECTIVE",
+      "topic": "Concept of electric field",
+      "stem": "The ratio of the permittivity of a dielectric to the permittivity of free space is the",
+      "options": [
+        "dielectric constant (relative permittivity)",
+        "electric flux density",
+        "potential gradient",
+        "electric field strength",
+        "reluctance"
+      ],
+      "answer": 0,
+      "explanation": "εr = ε/ε0 is the relative permittivity or dielectric constant.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0010",
+      "type": "OBJECTIVE",
+      "topic": "Capacitors",
+      "stem": "Capacitors of 6 µF and 3 µF are connected in series across 50 V. The charge on each capacitor is",
+      "options": [
+        "450 µC",
+        "100 µC",
+        "150 µC",
+        "300 µC",
+        "50 µC"
+      ],
+      "answer": 1,
+      "explanation": "C = 6 x 3/9 = 2 µF; Q = CV = 2 µF x 50 V = 100 µC (same on each in series).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0011",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic field",
+      "stem": "A conductor 0.25 m long carrying 8 A lies at right angles to a field of 0.5 T. The force on it is",
+      "options": [
+        "16 N",
+        "0.25 N",
+        "4.0 N",
+        "2.0 N",
+        "1.0 N"
+      ],
+      "answer": 4,
+      "explanation": "F = BIL sin 90° = 0.5 x 8 x 0.25 = 1.0 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0012",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic field",
+      "stem": "A conductor 0.5 m long moves at 10 m/s at right angles to a field of 0.4 T. The e.m.f. induced is",
+      "options": [
+        "20 V",
+        "0.2 V",
+        "2 V",
+        "8 V",
+        "12.5 V"
+      ],
+      "answer": 2,
+      "explanation": "E = BLv = 0.4 x 0.5 x 10 = 2 V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0013",
+      "type": "OBJECTIVE",
+      "topic": "Self and mutual induction",
+      "stem": "A 2 H coil carries a steady current of 3 A. The energy stored in its magnetic field is",
+      "options": [
+        "9 J",
+        "6 J",
+        "3 J",
+        "18 J",
+        "12 J"
+      ],
+      "answer": 0,
+      "explanation": "E = 1/2 L I² = 0.5 x 2 x 9 = 9 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0014",
+      "type": "OBJECTIVE",
+      "topic": "Moving-coil instrument",
+      "stem": "A moving-coil meter of resistance 20 Ω reads full scale at 5 mA. To use it as a 0–10 V voltmeter, the series multiplier needed is",
+      "options": [
+        "2000 Ω",
+        "1980 Ω",
+        "1960 Ω",
+        "50 Ω",
+        "200 Ω"
+      ],
+      "answer": 1,
+      "explanation": "Total R = 10/0.005 = 2000 Ω; multiplier = 2000 - 20 = 1980 Ω.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0015",
+      "type": "OBJECTIVE",
+      "topic": "Moving-iron instrument",
+      "stem": "A moving-iron instrument has a scale that is",
+      "options": [
+        "perfectly uniform",
+        "only for d.c.",
+        "marked in ohms only",
+        "non-linear (cramped at the start)",
+        "reversed for a.c."
+      ],
+      "answer": 3,
+      "explanation": "Deflecting torque is proportional to I², so the scale is crowded at the lower end.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0016",
+      "type": "OBJECTIVE",
+      "topic": "Digital instrument",
+      "stem": "A disadvantage of a digital multimeter compared with an analogue meter is that it",
+      "options": [
+        "is easier to read",
+        "needs a battery to work on every range",
+        "has a higher input resistance",
+        "gives a numerical display",
+        "has auto-ranging on many models"
+      ],
+      "answer": 1,
+      "explanation": "Digital meters need a power source and show rapidly changing readings poorly; the other features are advantages.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0017",
+      "type": "OBJECTIVE",
+      "topic": "Binary number",
+      "stem": "The binary number 1101101 in decimal is",
+      "options": [
+        "107",
+        "93",
+        "117",
+        "91",
+        "109"
+      ],
+      "answer": 4,
+      "explanation": "64 + 32 + 8 + 4 + 1 = 109.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0018",
+      "type": "OBJECTIVE",
+      "topic": "Logic gates",
+      "stem": "A two-input gate gives output 0 ONLY when both inputs are 1. The gate is",
+      "options": [
+        "NAND",
+        "AND",
+        "OR",
+        "NOR",
+        "NOT"
+      ],
+      "answer": 0,
+      "explanation": "NAND is the inverse of AND: output is 0 only when all inputs are 1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0019",
+      "type": "OBJECTIVE",
+      "topic": "A.C. quantities",
+      "stem": "A sinusoidal voltage has a peak value of 100 V. Its r.m.s. value is about",
+      "options": [
+        "63.7 V",
+        "141.4 V",
+        "50.0 V",
+        "70.7 V",
+        "111 V"
+      ],
+      "answer": 3,
+      "explanation": "Vrms = 0.707 x Vpeak = 70.7 V; 63.7 V is the average value.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0020",
+      "type": "OBJECTIVE",
+      "topic": "RLC circuits",
+      "stem": "A series circuit has L = 0.1 H and C = 10 µF. Its resonant frequency is about",
+      "options": [
+        "50 Hz",
+        "1000 Hz",
+        "159 Hz",
+        "318 Hz",
+        "15.9 Hz"
+      ],
+      "answer": 2,
+      "explanation": "f = 1/(2π√LC) = 1/(2π x 10^-3) = 159 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0021",
+      "type": "OBJECTIVE",
+      "topic": "Types of transformer",
+      "stem": "A transformer in which the windings are placed on the central limb and surrounded by the core is the",
+      "options": [
+        "core-type transformer",
+        "shell-type transformer",
+        "auto-transformer",
+        "current transformer",
+        "isolating transformer"
+      ],
+      "answer": 1,
+      "explanation": "In shell type the core surrounds the windings; in core type the windings surround the core limbs.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0022",
+      "type": "OBJECTIVE",
+      "topic": "Principles of operation of a transformer",
+      "stem": "A transformer with a turns ratio of 20 : 1 is fed from 240 V. The secondary voltage is",
+      "options": [
+        "4800 V",
+        "24 V",
+        "12 V",
+        "20 V",
+        "220 V"
+      ],
+      "answer": 2,
+      "explanation": "Vs = Vp x Ns/Np = 240/20 = 12 V.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0023",
+      "type": "OBJECTIVE",
+      "topic": "Losses and temperature rise in transformers",
+      "stem": "The transformer loss caused by the resistance of the windings is the",
+      "options": [
+        "hysteresis loss",
+        "eddy current loss",
+        "iron loss",
+        "copper loss",
+        "dielectric loss"
+      ],
+      "answer": 3,
+      "explanation": "I²R loss in the windings is copper loss.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0024",
+      "type": "OBJECTIVE",
+      "topic": "Efficiency of transformers",
+      "stem": "A transformer delivers 4 kW while its total losses are 200 W. Its efficiency is about",
+      "options": [
+        "95.0%",
+        "98.0%",
+        "80.0%",
+        "105%",
+        "95.2%"
+      ],
+      "answer": 4,
+      "explanation": "η = output/(output + losses) = 4000/4200 = 95.2%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0025",
+      "type": "OBJECTIVE",
+      "topic": "Power supply units",
+      "stem": "In the block diagram of a d.c. power supply, the block that smooths the pulsating output of the rectifier is the",
+      "options": [
+        "filter",
+        "transformer",
+        "load",
+        "stabiliser input fuse",
+        "mains switch"
+      ],
+      "answer": 0,
+      "explanation": "A filter (usually a reservoir capacitor) smooths ripple; the regulator then stabilises the voltage.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0026",
+      "type": "OBJECTIVE",
+      "topic": "A.C. motors (single phase)",
+      "stem": "Which single-phase motor uses a capacitor in series with its auxiliary winding only while starting?",
+      "options": [
+        "Capacitor-run motor",
+        "Shaded-pole motor",
+        "Universal motor",
+        "Capacitor-start motor",
+        "Split-phase resistance motor"
+      ],
+      "answer": 3,
+      "explanation": "In a capacitor-start motor the centrifugal switch disconnects the capacitor and auxiliary winding once up to speed.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0027",
+      "type": "OBJECTIVE",
+      "topic": "Alternators",
+      "stem": "A 6-pole alternator is driven at 1000 rev/min. The frequency of its output is",
+      "options": [
+        "60 Hz",
+        "100 Hz",
+        "50 Hz",
+        "6000 Hz",
+        "25 Hz"
+      ],
+      "answer": 2,
+      "explanation": "f = PN/120 = 6 x 1000/120 = 50 Hz.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0028",
+      "type": "OBJECTIVE",
+      "topic": "A.C. motors (three phase)",
+      "stem": "A 4-pole, 50 Hz induction motor runs with 4% slip. Its rotor speed is",
+      "options": [
+        "1440 rev/min",
+        "1500 rev/min",
+        "1560 rev/min",
+        "960 rev/min",
+        "60 rev/min"
+      ],
+      "answer": 0,
+      "explanation": "Ns = 120 x 50/4 = 1500 rev/min; N = 1500 x (1 - 0.04) = 1440 rev/min.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0029",
+      "type": "OBJECTIVE",
+      "topic": "D.C. generators",
+      "stem": "A d.c. generator whose field winding is connected in parallel with the armature is a",
+      "options": [
+        "series generator",
+        "shunt generator",
+        "separately excited generator",
+        "permanent-magnet generator",
+        "alternator"
+      ],
+      "answer": 1,
+      "explanation": "A shunt-wound machine has its field across the armature terminals.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0030",
+      "type": "OBJECTIVE",
+      "topic": "D.C. motors",
+      "stem": "The d.c. motor best suited to a lathe needing nearly constant speed under changing load is the",
+      "options": [
+        "series motor",
+        "universal motor",
+        "shaded-pole motor",
+        "stepper motor",
+        "shunt motor"
+      ],
+      "answer": 4,
+      "explanation": "Speed of a shunt motor falls only slightly with load.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0031",
+      "type": "OBJECTIVE",
+      "topic": "Generating station",
+      "stem": "The Shiroro power station on the Kaduna River generates electricity mainly by",
+      "options": [
+        "diesel engines",
+        "nuclear reactors",
+        "solar panels",
+        "wind turbines",
+        "water turbines (hydro-electric)"
+      ],
+      "answer": 4,
+      "explanation": "Shiroro is a hydro-electric station; falling water drives turbines coupled to alternators.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0032",
+      "type": "OBJECTIVE",
+      "topic": "Electrical installation",
+      "stem": "Rectangular PVC or metal channels with removable covers, fixed to walls to carry many cables, are called",
+      "options": [
+        "conduit",
+        "ducting under the floor",
+        "cleat wiring",
+        "trunking",
+        "catenary"
+      ],
+      "answer": 3,
+      "explanation": "Trunking is an enclosure with a removable lid; conduit is a tube.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0033",
+      "type": "OBJECTIVE",
+      "topic": "Protection",
+      "stem": "Compared with a rewirable fuse, a miniature circuit breaker (MCB) has the advantage that it",
+      "options": [
+        "is cheaper to buy",
+        "can be reset after tripping without replacing anything",
+        "cannot trip on overload",
+        "needs no enclosure",
+        "works only on d.c."
+      ],
+      "answer": 1,
+      "explanation": "An MCB is reset with a switch; a fuse element must be replaced.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0034",
+      "type": "OBJECTIVE",
+      "topic": "Earthing",
+      "stem": "Earth loop impedance must be kept low so that, during an earth fault,",
+      "options": [
+        "no current flows in the earth wire",
+        "the voltage at the socket rises",
+        "enough current flows to operate the protective device quickly",
+        "the meter stops counting",
+        "the fault current is limited to 1 mA"
+      ],
+      "answer": 2,
+      "explanation": "A low loop impedance ensures high fault current, so the fuse or breaker disconnects rapidly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0035",
+      "type": "OBJECTIVE",
+      "topic": "Testing of an installation",
+      "stem": "The test carried out to ensure that switches and fuses are connected in the phase conductor only is the",
+      "options": [
+        "polarity test",
+        "insulation resistance test",
+        "continuity test",
+        "earth electrode test",
+        "load test"
+      ],
+      "answer": 0,
+      "explanation": "A polarity test checks that single-pole devices are in the phase (live) conductor.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0036",
+      "type": "OBJECTIVE",
+      "topic": "General workshop safety",
+      "stem": "Before working on a lighting circuit, an electrician should",
+      "options": [
+        "wear wet gloves",
+        "test with bare fingers",
+        "remove the earth wire",
+        "isolate the supply and lock off the switch",
+        "ask someone to hold the live cable"
+      ],
+      "answer": 3,
+      "explanation": "Safe isolation with lock-off prevents someone re-energising the circuit.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0037",
+      "type": "OBJECTIVE",
+      "topic": "Transmission",
+      "stem": "On overhead transmission towers, insulators are used to",
+      "options": [
+        "step up the voltage",
+        "carry the current",
+        "prevent current flowing from the conductors to the tower",
+        "store energy",
+        "measure power"
+      ],
+      "answer": 2,
+      "explanation": "Porcelain or glass insulators support the conductors while isolating them from the earthed tower.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0038",
+      "type": "OBJECTIVE",
+      "topic": "Distribution of electricity",
+      "stem": "In a distribution substation, the feeder is",
+      "options": [
+        "the transformer core",
+        "a circuit carrying power from the substation to an area",
+        "the meter in a house",
+        "the lightning conductor",
+        "a circuit breaker coil"
+      ],
+      "answer": 1,
+      "explanation": "Feeders carry power from the substation to distribution transformers or load areas.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0039",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance",
+      "stem": "Cleaning and oiling the bearings of a ceiling fan every six months, before any fault appears, is",
+      "options": [
+        "preventive maintenance",
+        "corrective maintenance",
+        "breakdown maintenance",
+        "emergency repair",
+        "redesign"
+      ],
+      "answer": 0,
+      "explanation": "Preventive maintenance is planned in advance to stop faults occurring.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-bel-0040",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance and repair of electrical appliances",
+      "stem": "An electric iron gives a mild shock when touched but still heats. The fault is MOST likely",
+      "options": [
+        "an open-circuit element",
+        "a blown fuse",
+        "a low supply voltage",
+        "a faulty thermostat contact that never closes",
+        "an earth fault with a broken earth connection"
+      ],
+      "answer": 4,
+      "explanation": "The live part touches the metal casing and the earth path is broken, so the casing becomes live.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0501",
+      "type": "THEORY",
+      "topic": "Ohm's law and Kirchhoff's laws",
+      "stem": "(a) State Ohm's law. [2 marks]\n(b) A 24 V supply feeds a 4 Ω resistor in series with a parallel combination of 6 Ω and 3 Ω. Calculate (i) the total resistance, (ii) the supply current, (iii) the current in the 6 Ω resistor. [6 marks]\n(c) Calculate the power dissipated in the 4 Ω resistor. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: (a) current through a conductor is directly proportional to the p.d. across it provided temperature and physical conditions are constant\n2 marks: (b)(i) parallel = 6 x 3/9 = 2 Ω; total = 6 Ω\n2 marks: (b)(ii) I = 24/6 = 4 A\n2 marks: (b)(iii) p.d. across parallel = 4 x 2 = 8 V; I6 = 8/6 = 1.33 A\n2 marks: (c) P = I²R = 16 x 4 = 64 W",
+      "explanation": "Parallel 6‖3 = 2 Ω, total 6 Ω, I = 4 A. Parallel p.d. 8 V, I in 6 Ω = 1.33 A. P in 4 Ω = 64 W.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0502",
+      "type": "THEORY",
+      "topic": "Capacitors",
+      "stem": "(a) Define capacitance and state its unit. [2 marks]\n(b) Capacitors of 4 µF, 6 µF and 12 µF are connected (i) in series, (ii) in parallel. Calculate the equivalent capacitance in each case. [4 marks]\n(c) Calculate the energy stored when the parallel combination is charged to 200 V. [2 marks]\n(d) State two applications of capacitors. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: (a) ratio of charge to p.d. C = Q/V; farad\n2 marks: (b)(i) 1/C = 1/4 + 1/6 + 1/12 = 1/2; C = 2 µF\n2 marks: (b)(ii) C = 4 + 6 + 12 = 22 µF\n2 marks: (c) E = 1/2 CV² = 0.5 x 22 x 10^-6 x 40 000 = 0.44 J\n2 marks: (d) any two: power supply filtering, motor starting, tuning circuits, power factor correction, coupling (1 each)",
+      "explanation": "Capacitance is Q/V (farad). Series 2 µF; parallel 22 µF. Energy = 0.5 x 22 µF x 200² = 0.44 J. Used in filters, motor starting, tuning.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0503",
+      "type": "THEORY",
+      "topic": "Moving-coil instrument",
+      "stem": "(a) With a labelled description, explain the construction of a permanent-magnet moving-coil instrument. [4 marks]\n(b) A moving-coil meter has a resistance of 10 Ω and gives full-scale deflection with 15 mA. Calculate the shunt resistance needed to convert it into an ammeter reading up to 1.5 A. [4 marks]\n(c) State two disadvantages of the moving-coil instrument. [2 marks]",
+      "marks": 10,
+      "markingGuide": "4 marks: (a) permanent magnet with soft iron pole pieces and cylindrical core; light coil on aluminium former pivoted in jewelled bearings; control springs (hairsprings) also carry current; pointer and scale; eddy-current damping (1 each for four features)\n1 mark: (b) shunt current = 1.5 - 0.015 = 1.485 A\n1 mark: (b) p.d. across meter = 0.015 x 10 = 0.15 V\n2 marks: (b) Rs = 0.15/1.485 = 0.101 Ω\n2 marks: (c) any two: d.c. only without rectifier, costly/delicate, errors from ageing springs/magnet (1 each)",
+      "explanation": "Construction: permanent magnet, pole pieces and core, pivoted coil, hairsprings, pointer, damping by aluminium former. Shunt = 0.15/1.485 = 0.101 Ω. Disadvantages: d.c. only, delicate, costly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0504",
+      "type": "THEORY",
+      "topic": "Efficiency of transformers",
+      "stem": "A 5 kVA single-phase transformer has iron loss of 120 W and full-load copper loss of 180 W.\n(a) Calculate its efficiency at full load and unity power factor. [4 marks]\n(b) Calculate its efficiency at half load, unity power factor. [4 marks]\n(c) State two methods of cooling transformers. [2 marks]",
+      "marks": 10,
+      "markingGuide": "1 mark: (a) output = 5000 W\n1 mark: (a) losses = 120 + 180 = 300 W\n2 marks: (a) η = 5000/5300 x 100 = 94.3%\n1 mark: (b) output = 2500 W\n1 mark: (b) copper loss = 180 x (0.5)² = 45 W; total = 165 W\n2 marks: (b) η = 2500/2665 x 100 = 93.8%\n2 marks: (c) any two: natural air (AN), oil-immersed natural (ON), oil with forced air (OFAF), forced oil/water (1 each)",
+      "explanation": "Full load: 5000/(5000 + 300) = 94.3%. Half load: copper loss is quartered to 45 W, so 2500/2665 = 93.8%. Cooling by air, oil natural, forced air or oil.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-bel-0505",
+      "type": "THEORY",
+      "topic": "A.C. motors (three phase)",
+      "stem": "(a) Name the two main parts of a three-phase induction motor. [2 marks]\n(b) Explain why the rotor of an induction motor can never run at synchronous speed. [3 marks]\n(c) A 2-pole, 50 Hz motor runs at 2880 rev/min. Calculate the slip. [3 marks]\n(d) Name two methods of starting three-phase induction motors. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: (a) stator and rotor (1 each)\n3 marks: (b) at synchronous speed there would be no relative motion between field and rotor, so no e.m.f., no rotor current and no torque; rotor must slip behind\n1 mark: (c) Ns = 120f/P = 3000 rev/min\n2 marks: (c) slip = (3000 - 2880)/3000 = 0.04 = 4%\n2 marks: (d) any two: direct-on-line, star-delta, auto-transformer (1 each)",
+      "explanation": "Stator and rotor. With no relative motion there is no induced current and no torque. Ns = 3000, slip 4%. Starters: DOL, star-delta, auto-transformer.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-bel-0506",
+      "type": "THEORY",
+      "topic": "Testing of an installation",
+      "stem": "(a) List four tests carried out on a new domestic installation before it is connected to the supply. [4 marks]\n(b) Describe how the insulation resistance test is carried out. [4 marks]\n(c) State two safety precautions during installation testing. [2 marks]",
+      "marks": 10,
+      "markingGuide": "4 marks: (a) continuity of protective conductors/ring, insulation resistance, polarity, earth electrode resistance/earth loop impedance (1 each)\n1 mark: (b) isolate supply, remove lamps/disconnect equipment, close switches\n1 mark: (b) use insulation resistance tester (megger) at 500 V d.c.\n1 mark: (b) test between phase and neutral, and between each conductor and earth\n1 mark: (b) reading should be not less than about 1 MΩ (regulation minimum)\n2 marks: (c) any two: ensure supply is off and locked, warn occupants, use correct instrument range, discharge cables after test (1 each)",
+      "explanation": "Tests: continuity, insulation resistance, polarity, earth. Insulation test with a 500 V megger between conductors and to earth, expecting at least about 1 MΩ. Isolate, warn others and discharge after testing.",
+      "difficulty": "EASY"
+    }
+  ]
+}

@@ -290,14 +290,14 @@ export class LearningController {
     return this.study.view(await this.exams.startTheory(access, body));
   }
 
-  // ---------------------------------------------------------- full WASSCE and BECE mocks (WAEC or BECE Prep)
+  // ---------------------------------------------------------- full WASSCE, NECO and BECE mocks (WAEC, NECO or BECE Prep)
 
   @Get('exams/sittings')
   async sittingList() {
     return this.sittings.list(await this.entitlements.me());
   }
 
-  /** A full WASSCE or BECE mock in one subject: every paper as the exam sets it, each on its own clock. */
+  /** A full WASSCE, NECO or BECE mock in one subject: every paper as the exam sets it, each on its own clock. */
   @Post('exams/sittings')
   @Throttle({ default: { limit: 6, ttl: 60_000 } })
   async startSitting(@Body(new ZodPipe(sittingStartSchema)) body: z.infer<typeof sittingStartSchema>) {

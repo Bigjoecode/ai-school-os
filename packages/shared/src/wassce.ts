@@ -5,8 +5,8 @@ import { z } from 'zod';
  * paper, each on its own clock, with the real counts, times and marks from
  * the subject's syllabus ("scheme of examination").
  *
- * WASSCE (WAEC): Paper 1 objective, Paper 2 theory, Paper 3 practical, orals
- * or a second theory paper. BECE (NECO, junior secondary): mostly two or more
+ * WASSCE (WAEC) and NECO's SSCE: Paper 1 objective, Paper 2 theory, Paper 3
+ * practical, orals or a second theory paper. BECE (NECO, junior secondary): mostly two or more
  * objective papers, composite subjects drawing each paper from its own
  * component (Basic Science and Technology Paper 1 from Basic Science and PHE).
  * Papers that can only be done in person (studio, workshop, kitchen,
@@ -38,6 +38,8 @@ export interface MockPaper {
   instructions: string;
   /** e.g. why a paper isn't sat in the app. */
   note?: string;
+  /** Time and count not yet checked against the exam body's own syllabus (NECO's follow its usual format until then). */
+  approximate?: boolean;
 }
 /** The WASSCE names, kept for the code written before BECE mocks. */
 export type WasscePaperKind = MockPaperKind;
@@ -324,15 +326,43 @@ export const BECE_PAPERS: Record<string, MockPaper[]> = {
   Hausa: bece60(['Paper 1: Language', BECE_L1_P1, { topics: HA_P1 }], ['Paper 2: Literature and Culture', 'Answer all 60 questions: oral literature (15), written literature (25) and culture and tradition (20).', { topics: HA_P2 }]),
 };
 
+// ============================================================ NECO SSCE
+
+/*
+ * NECO sets the SSCE on the same NERDC senior curriculum as WAEC, so until NECO's own syllabus files are added
+ * each subject draws on the WAEC syllabus topics and follows WAEC's paper structure (NECO's 2025 SSCE timetable
+ * gives the objective and essay papers one combined time, so their separate times and counts aren't published
+ * there). What differs: NECO's objective items have five options (A–E), and English Paper 1 has 80 items in 50
+ * minutes from the 2026 SSCE. Papers keep the app's numbering (NECO itself calls the objective paper Paper III,
+ * the essay Paper II and the practical Paper I). Every paper is marked approximate until checked against NECO's syllabus.
+ */
+const toNeco = (p: MockPaper): MockPaper => ({
+  ...p,
+  instructions: p.instructions.replace('four options lettered A to D', 'five options lettered A to E'),
+  ...(p.note ? { note: p.note.replace(/WAEC/g, 'NECO') } : {}),
+  approximate: true,
+});
+/** NECO overrides of the WAEC structure. */
+const NECO_OVERRIDES: Record<string, MockPaper[]> = {
+  'English Language': WASSCE_PAPERS['English Language']!.map((p) =>
+    p.paper === 1 ? { ...p, questions: 80, minutes: 50, instructions: 'Answer all 80 questions: antonyms, synonyms, register, idioms and phrasal verbs, grammatical structures and cloze. Choose the option that best completes or answers each one.' } : p,
+  ),
+};
+
+/** Every subject with a WAEC syllabus, set the way NECO sets the SSCE. */
+export const NECO_PAPERS: Record<string, MockPaper[]> = Object.fromEntries(Object.entries(WASSCE_PAPERS).map(([subject, papers]) => [subject, (NECO_OVERRIDES[subject] ?? papers).map(toNeco)]));
+
 /** The papers sat in the app (objective, theory and practical). */
 export const inAppPapers = (papers: MockPaper[]) => papers.filter((p) => p.kind !== 'NOT_IN_APP');
 
-/** Exams with a full, paper-by-paper mock: WAEC's WASSCE and NECO's BECE. */
-export const MOCK_EXAMS = ['WAEC', 'BECE'] as const;
+/** Exams with a full, paper-by-paper mock: WAEC's WASSCE, NECO's SSCE and NECO's BECE. */
+export const MOCK_EXAMS = ['WAEC', 'NECO', 'BECE'] as const;
 export type MockExam = (typeof MOCK_EXAMS)[number];
-export const MOCK_PAPERS: Record<MockExam, Record<string, MockPaper[]>> = { WAEC: WASSCE_PAPERS, BECE: BECE_PAPERS };
-/** What the mock is called: "Full WASSCE mock", "Full BECE mock". */
-export const MOCK_NAME: Record<MockExam, string> = { WAEC: 'WASSCE', BECE: 'BECE' };
+export const MOCK_PAPERS: Record<MockExam, Record<string, MockPaper[]>> = { WAEC: WASSCE_PAPERS, NECO: NECO_PAPERS, BECE: BECE_PAPERS };
+/** What the mock is called: "Full WASSCE mock", "Full NECO mock", "Full BECE mock". */
+export const MOCK_NAME: Record<MockExam, string> = { WAEC: 'WASSCE', NECO: 'NECO', BECE: 'BECE' };
+/** Shown with a mock whose paper times and counts aren't yet checked against the exam body's syllabus. */
+export const MOCK_APPROXIMATE_NOTE = 'Paper times and counts follow NECO’s usual format; they’ll be checked against NECO’s syllabus.';
 
 export const WAEC_GRADES = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'] as const;
 export type WaecGrade = (typeof WAEC_GRADES)[number];
@@ -364,8 +394,10 @@ export function beceGrade(percent: number): { grade: BeceGrade; remark: string }
 }
 
 export type MockGrade = WaecGrade | BeceGrade;
-/** The grade on the exam's own scale (WAEC A1–F9, BECE A/C/P/F). */
+/** The grade on the exam's own scale (WAEC and NECO A1–F9, BECE A/C/P/F). */
 export const mockGrade = (exam: MockExam, percent: number): { grade: MockGrade; remark: string } => (exam === 'BECE' ? beceGrade(percent) : waecGrade(percent));
+/** What the grade is called on the result: "WAEC grade", "NECO grade", "BECE grade". */
+export const MOCK_GRADE_LABEL: Record<MockExam, string> = { WAEC: 'WAEC grade', NECO: 'NECO grade', BECE: 'BECE grade' };
 
 // ============================================================ sittings
 
@@ -393,7 +425,7 @@ export interface SittingResult {
   percent: number;
   grade: MockGrade;
   remark: string;
-  /** The grading scale used (WAEC A1–F9 or BECE A/C/P/F); absent on WASSCE mocks graded before BECE mocks existed. */
+  /** The grading scale used (WAEC or NECO A1–F9, BECE A/C/P/F); absent on WASSCE mocks graded before BECE mocks existed. */
   scale?: MockExam;
   papers: { paper: number; title: string; earned: number; marks: number; percent: number }[];
   /** Topics with the most missed objective questions, weakest first. */

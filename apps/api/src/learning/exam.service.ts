@@ -15,7 +15,7 @@ const FREE_SETS_PER_TERM = 3;
 const FREE_QUESTIONS = 5;
 /** Minutes per question in a mock, by exam (JAMB CBT is fastest). */
 const MINUTES_PER_QUESTION: Record<ExamBody, number> = { JAMB: 0.9, WAEC: 1.2, NECO: 1.2, BECE: 1.2 };
-/** Fewest Paper 1 questions for a full WASSCE or BECE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
+/** Fewest Paper 1 questions for a full WASSCE, NECO or BECE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
 export const MIN_SITTING_OBJECTIVE = 10;
 const theoryDraftSchema = z.object({
   questions: z.array(
@@ -44,7 +44,7 @@ const draftSchema = z.object({
   questions: z.array(
     z.object({
       stem: z.string(),
-      options: z.array(z.string()).describe('Exactly 4 options (WAEC/NECO/BECE) or 4 (JAMB), without letters'),
+      options: z.array(z.string()).describe('Exactly 4 options (5 for NECO), without letters'),
       answer: z.number().int().describe('Index of the correct option'),
       explanation: z.string().describe('Why the answer is right, in 1–3 sentences'),
     }),
@@ -130,7 +130,7 @@ export class ExamService {
     };
   }
 
-  /** Subjects whose full WASSCE or BECE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
+  /** Subjects whose full WASSCE, NECO or BECE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
   private async fullMockSubjects(exam: MockExam, objective: { subject: string; n: number }[]) {
     const out = new Set<string>();
     for (const { subject, n } of objective) {
@@ -146,11 +146,12 @@ export class ExamService {
    * The published questions a mock paper draws from: its question type
    * (objective, theory or practical) and any topic restriction, a named topic
    * taking in its subtopics. BECE papers name junior topics (WAEC's senior
-   * syllabus can share a subject and topic names).
+   * syllabus can share a subject and topic names); NECO papers name senior
+   * ones, from WAEC's syllabus until NECO's own is loaded.
    */
   async poolWhere(exam: ExamBody, subject: string, paper: MockPaper): Promise<Prisma.ExamQuestionWhereInput> {
     const type = paper.kind === 'NOT_IN_APP' ? 'OBJECTIVE' : paper.kind;
-    const level = exam === 'BECE' ? { level: 'JUNIOR' } : {};
+    const level = exam === 'BECE' ? { level: 'JUNIOR' } : exam === 'NECO' ? { level: 'SENIOR' } : {};
     const ids = async (names: string[]) => {
       let found = (await this.prisma.root.syllabusTopic.findMany({ where: { subject, ...level, name: { in: names, mode: 'insensitive' } }, select: { id: true } })).map((t) => t.id);
       for (let depth = 0, next = found; depth < 2 && next.length; depth++) {
@@ -433,7 +434,7 @@ export class ExamService {
     const r = await this.gateway.generateJson(
       {
         tier: 'advanced',
-        system: `You write original ${EXAM_LABELS[input.exam]}-style multiple-choice questions for ${subject}${topic ? `, topic: ${topic.name}${topic.objectives.length ? `; objectives: ${topic.objectives.slice(0, 8).join('; ')}` : ''}` : ''}, at ${input.difficulty.toLowerCase()} difficulty, following the Nigerian syllabus. Do not copy past papers. Exactly 4 options. Double-check each answer and keep explanations accurate.`,
+        system: `You write original ${EXAM_LABELS[input.exam]}-style multiple-choice questions for ${subject}${topic ? `, topic: ${topic.name}${topic.objectives.length ? `; objectives: ${topic.objectives.slice(0, 8).join('; ')}` : ''}` : ''}, at ${input.difficulty.toLowerCase()} difficulty, following the Nigerian syllabus. Do not copy past papers. Exactly ${input.exam === 'NECO' ? 5 : 4} options. Double-check each answer and keep explanations accurate.`,
         messages: [{ role: 'user', content: `Write ${input.count} questions.` }],
         maxOutputTokens: 4000,
       },

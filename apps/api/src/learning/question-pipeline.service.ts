@@ -81,7 +81,7 @@ const DIFFICULTY_MIX: [(typeof QUESTION_DIFFICULTIES)[number], number][] = [
 
 const EXAM_STYLE: Record<ExamBody, string> = {
   WAEC: 'WASSCE (WAEC) for SS3 candidates. Objective items are Paper 1 style: a clear stem and four options with one best answer. Theory items are Paper 2 style: structured questions with parts (a), (b), (c), using command words such as state, explain, describe, calculate, distinguish.',
-  NECO: 'NECO SSCE for SS3 candidates. Objective items have a clear stem and four options with one best answer. Theory items are structured with parts (a), (b), (c), using command words such as state, explain, describe, calculate.',
+  NECO: 'NECO SSCE for SS3 candidates. Objective items have a clear stem and five options (A–E) with one best answer. Theory items are structured with parts (a), (b), (c), using command words such as state, explain, describe, calculate.',
   BECE: 'BECE (Junior WAEC) for JSS3 candidates: plain language a 14-year-old reads easily. Objective items have four options with one best answer. Theory items are short structured questions with parts.',
   JAMB: 'JAMB UTME computer-based test for university entry: concise stems, four options with one best answer, testing understanding and application rather than recall alone, with plausible distractors built from common misconceptions.',
 };
@@ -90,7 +90,7 @@ const objectiveBatchSchema = z.object({
   questions: z.array(
     z.object({
       stem: z.string().describe('The question stem; self-contained; no option letters'),
-      options: z.array(z.string()).describe('Exactly 4 options, plain text, without A/B/C/D letters'),
+      options: z.array(z.string()).describe('Exactly 4 options (5 for NECO), plain text, without letters'),
       answer: z.number().int().describe('0-based index of the single correct option (0 = first option)'),
       explanation: z.string().describe('Why the keyed option is right (and, briefly, why a tempting distractor is wrong), 1–3 sentences'),
       difficulty: z.enum(QUESTION_DIFFICULTIES),
@@ -574,7 +574,8 @@ export class QuestionPipelineService implements OnModuleInit {
           this.track(job, r);
           for (const q of r.data.questions.slice(0, ask)) {
             const options = q.options.map(stripLetter);
-            const okShape = q.stem.trim().length >= 10 && options.length === 4 && options.every((o) => o.length > 0) && new Set(options.map(normalise)).size === 4 && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < 4 && q.explanation.trim().length >= 10;
+            const n = job.exam === 'NECO' ? 5 : 4;
+            const okShape = q.stem.trim().length >= 10 && options.length === n && options.every((o) => o.length > 0) && new Set(options.map(normalise)).size === n && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < n && q.explanation.trim().length >= 10;
             if (!okShape) {
               out.invalid++;
               job.counts.invalid++;
@@ -663,7 +664,7 @@ export class QuestionPipelineService implements OnModuleInit {
     ];
     if (kind === 'OBJECTIVE') {
       common.push(
-        '- Exactly four options, plain text without letters, similar in length and form; exactly ONE is correct.',
+        `- Exactly ${exam === 'NECO' ? 'five' : 'four'} options, plain text without letters, similar in length and form; exactly ONE is correct.`,
         '- Distractors are plausible: built from common misconceptions or calculation slips, never silly.',
         '- Never use "all of the above", "none of the above" or "both A and B"; avoid negative stems unless the word NOT is in capitals.',
         '- Vary the position of the correct option. Solve each question yourself before giving the key; make sure the key is right and unique.',
@@ -740,8 +741,8 @@ export class QuestionPipelineService implements OnModuleInit {
     const add = (flag: QuestionFlag, detail: string) => (flag === 'LONG_STEM' && q.stem.length <= LONG_STEM_WARNING_MAX ? w : f).push({ flag, detail });
     const options = (q.options as string[]) ?? [];
     if (q.type === 'OBJECTIVE') {
-      // Our own questions have exactly four options; licensed past papers (e.g. 1983–85 JAMB) may have five (A–E).
-      const shapeOk = q.source === 'LICENSED' ? options.length === 4 || options.length === 5 : options.length === 4;
+      // Our own questions have four options, NECO's five (A–E, as NECO sets them); licensed past papers (e.g. 1983–85 JAMB) may have five.
+      const shapeOk = q.source === 'LICENSED' ? options.length === 4 || options.length === 5 : options.length === (q.exam === 'NECO' ? 5 : 4);
       if (!shapeOk || q.answer < 0 || q.answer >= options.length) add('BAD_SHAPE', `${options.length} options, key ${q.answer + 1}`);
       // Exactly as written (spacing aside): symbols and capitals matter ("10^-4" is not "10^4", "BB" is not "bb").
       const norm = options.map((o) => String(o).replace(/\s+/g, ' ').trim());
@@ -902,7 +903,9 @@ export class QuestionPipelineService implements OnModuleInit {
       if (edits.type !== 'OBJECTIVE') {
         if (!edits.markingGuide) throw new BadRequestException(`${edits.type === 'PRACTICAL' ? 'Practical' : 'Theory'} questions need a marking guide`);
       } else {
-        if (q.source === 'LICENSED' ? edits.options.length !== 4 && edits.options.length !== 5 : edits.options.length !== 4) throw new BadRequestException(q.source === 'LICENSED' ? 'Give four or five options' : 'Give exactly four options');
+        // As the review checks: NECO's own questions have five options (A–E), everyone else's four.
+        const five = edits.exam === 'NECO';
+        if (q.source === 'LICENSED' ? edits.options.length !== 4 && edits.options.length !== 5 : edits.options.length !== (five ? 5 : 4)) throw new BadRequestException(q.source === 'LICENSED' ? 'Give four or five options' : five ? 'Give exactly five options' : 'Give exactly four options');
         if (new Set(edits.options.map(normalise)).size !== edits.options.length) throw new BadRequestException('Two options are the same');
         if (edits.answer >= edits.options.length) throw new BadRequestException('The answer must be one of the options');
         if (!edits.explanation) throw new BadRequestException('Add an explanation: students see it after marking');

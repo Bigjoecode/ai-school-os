@@ -548,7 +548,7 @@ export function SeeAll({ to, label = 'See all' }: { to: string; label?: string }
   );
 }
 
-// ------------------------------------------------------------------ timed papers & the full WASSCE and BECE mocks
+// ------------------------------------------------------------------ timed papers & the full WASSCE, NECO and BECE mocks
 
 /** Milliseconds left until `endsAt` (null when untimed), updated every second. */
 export function useCountdown(endsAt: string | null) {
@@ -575,7 +575,7 @@ export function minutesText(m: number) {
   return h ? `${h} h${r ? ` ${r} min` : ''}` : `${r} min`;
 }
 
-/** On a paper of a full WASSCE or BECE mock: which paper it is, the way back to the mock and, once handed in, on to the next paper. */
+/** On a paper of a full WASSCE, NECO or BECE mock: which paper it is, the way back to the mock and, once handed in, on to the next paper. */
 export function SittingNav({ a, className }: { a: PracticeAttemptView; className?: string }) {
   const navigate = useNavigate();
   const start = useStartSittingPaper(a.sitting?.sittingId ?? '');

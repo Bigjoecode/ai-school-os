@@ -477,8 +477,8 @@ export interface PracticeAttemptView {
 }
 export interface AttemptSittingInfo {
   sittingId: string;
-  /** WAEC (a WASSCE mock) or BECE. */
-  exam: 'WAEC' | 'BECE';
+  /** WAEC (a WASSCE mock), NECO (an SSCE mock) or BECE. */
+  exam: 'WAEC' | 'NECO' | 'BECE';
   paper: number;
   title: string;
   instructions: string;

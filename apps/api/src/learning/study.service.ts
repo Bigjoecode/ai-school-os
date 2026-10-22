@@ -150,7 +150,7 @@ export class StudyService {
     };
   }
 
-  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class) or the paper of a full WASSCE or BECE mock. */
+  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class) or the paper of a full WASSCE, NECO or BECE mock. */
   async present(a: Prisma.PracticeAttemptGetPayload<object>): Promise<PracticeAttemptView> {
     const v = this.view(a);
     if (a.sittingId) return { ...v, sitting: await this.sittingInfo(a) };

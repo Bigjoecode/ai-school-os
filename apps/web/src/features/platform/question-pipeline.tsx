@@ -464,7 +464,7 @@ function FillDialog({ open, onOpenChange, exam, subject, topicIds, onStarted }: 
             <Bot className="mt-0.5 size-3.5 shrink-0" /> Original questions from each topic's objectives, in {EXAM_LABELS[exam]} style, with a mix of easy, medium and hard.
           </li>
           <li className="flex gap-2">
-            <ListChecks className="mt-0.5 size-3.5 shrink-0" /> Each is checked (four distinct options, a valid key, an explanation; theory guides that add up), near-duplicates are dropped, and a second model solves it independently.
+            <ListChecks className="mt-0.5 size-3.5 shrink-0" /> Each is checked (four distinct options, five for NECO; a valid key, an explanation; theory guides that add up), near-duplicates are dropped, and a second model solves it independently.
           </li>
           <li className="flex gap-2">
             <ClipboardCheck className="mt-0.5 size-3.5 shrink-0" /> Everything lands in Review as a draft. Nothing reaches students until someone approves it.
@@ -989,8 +989,8 @@ function EditApproveDialog({ item, onOpenChange }: { item: ReviewItem | null; on
         topicId: item.topicId,
         year: item.year,
         stem: item.stem,
-        // Licensed past papers can have five options (A–E); our own questions have four.
-        options: item.type !== 'OBJECTIVE' ? [] : [...item.options, '', '', '', ''].slice(0, item.source === 'LICENSED' && item.options.length === 5 ? 5 : 4),
+        // Licensed past papers can have five options (A–E); our own questions have four, NECO's five.
+        options: item.type !== 'OBJECTIVE' ? [] : [...item.options, '', '', '', '', ''].slice(0, (item.source === 'LICENSED' ? item.options.length === 5 : item.exam === 'NECO') ? 5 : 4),
         answer: item.answer,
         explanation: item.explanation,
         difficulty: item.difficulty,

@@ -1,0 +1,3407 @@
+{
+  "exam": "NECO",
+  "subject": "Further Mathematics",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-fmath-0001",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "U = {1, 2, ..., 12}, A = {even numbers} and B = {multiples of 3}. Find (A u B)', the complement of A union B.",
+      "options": [
+        "{1, 3, 5, 7, 9, 11}",
+        "{5, 7, 11}",
+        "{1, 5, 7, 9, 11}",
+        "{6, 12}",
+        "{1, 5, 7, 11}"
+      ],
+      "answer": 4,
+      "explanation": "A u B = {2, 3, 4, 6, 8, 9, 10, 12}; the remaining elements of U are 1, 5, 7, 11.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0002",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "How many subsets with exactly two elements has the set {a, b, c, d, e, f}?",
+      "options": [
+        "15",
+        "30",
+        "64",
+        "36",
+        "12"
+      ],
+      "answer": 0,
+      "explanation": "6C2 = 15.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0003",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "If A and B are subsets of a universal set U, which of the following is equal to (A u B)'?",
+      "options": [
+        "(A n B)'",
+        "A' n B",
+        "A n B'",
+        "A' n B'",
+        "A' u B'"
+      ],
+      "answer": 3,
+      "explanation": "De Morgan's law: the complement of a union is the intersection of the complements.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0004",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "How many proper subsets has a set with 4 elements?",
+      "options": [
+        "4",
+        "15",
+        "8",
+        "14",
+        "16"
+      ],
+      "answer": 1,
+      "explanation": "Total subsets = 2^4 = 16; excluding the set itself leaves 15 proper subsets.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0005",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "In a group of 60 market women, 34 sell pepper, 29 sell tomatoes and 9 sell neither. How many sell pepper but not tomatoes?",
+      "options": [
+        "34",
+        "25",
+        "22",
+        "17",
+        "12"
+      ],
+      "answer": 2,
+      "explanation": "Those selling at least one = 51, so both = 34 + 29 - 51 = 12; pepper only = 34 - 12 = 22.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0006",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "P = {1, 2, 3, 4, 5} and Q = {4, 5, 6, 7}. Find (P n Q') u (P' n Q).",
+      "options": [
+        "{4, 5}",
+        "{1, 2, 3}",
+        "{1, 2, 3, 6, 7}",
+        "{1, 2, 3, 4, 5, 6, 7}",
+        "{6, 7}"
+      ],
+      "answer": 2,
+      "explanation": "P n Q' = {1, 2, 3} and P' n Q = {6, 7}; their union is {1, 2, 3, 6, 7}.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0007",
+      "type": "OBJECTIVE",
+      "topic": "Sets",
+      "stem": "n(U) = 40, n(X) = 25 and n(Y) = 22. What is the least possible value of n(X n Y)?",
+      "options": [
+        "0",
+        "15",
+        "3",
+        "7",
+        "22"
+      ],
+      "answer": 3,
+      "explanation": "n(X u Y) <= 40, so n(X n Y) = 25 + 22 - n(X u Y) >= 47 - 40 = 7.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0008",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Express sqrt(13 + 2 sqrt 42) as the sum of two simple surds.",
+      "options": [
+        "sqrt 13 + sqrt 42",
+        "sqrt 6 + sqrt 7",
+        "sqrt 3 + sqrt 14",
+        "1 + sqrt 42",
+        "2 sqrt 6 + sqrt 7"
+      ],
+      "answer": 1,
+      "explanation": "We need a + b = 13 and ab = 42, so a = 6 and b = 7: (sqrt 6 + sqrt 7)^2 = 13 + 2 sqrt 42.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0009",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Rationalise (2 sqrt 3 + 1)/(2 sqrt 3 - 1).",
+      "options": [
+        "13 + 4 sqrt 3",
+        "(13 + 4 sqrt 3)/13",
+        "(11 + 4 sqrt 3)/13",
+        "(12 + 4 sqrt 3)/11",
+        "(13 + 4 sqrt 3)/11"
+      ],
+      "answer": 4,
+      "explanation": "Multiply top and bottom by 2 sqrt 3 + 1: (12 + 4 sqrt 3 + 1)/(12 - 1) = (13 + 4 sqrt 3)/11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0010",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Write sqrt 162 - sqrt 50 + sqrt 8 as a multiple of sqrt 2.",
+      "options": [
+        "6 sqrt 2",
+        "2 sqrt 30",
+        "4 sqrt 2",
+        "sqrt 120",
+        "8 sqrt 2"
+      ],
+      "answer": 0,
+      "explanation": "9 sqrt 2 - 5 sqrt 2 + 2 sqrt 2 = 6 sqrt 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0011",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Express (3 + sqrt 2)(2 - sqrt 2) in the form a + b sqrt 2.",
+      "options": [
+        "4 - 5 sqrt 2",
+        "4 + sqrt 2",
+        "6 - sqrt 2",
+        "4 - sqrt 2",
+        "8 - sqrt 2"
+      ],
+      "answer": 3,
+      "explanation": "6 - 3 sqrt 2 + 2 sqrt 2 - 2 = 4 - sqrt 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0012",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Given that (1 + sqrt 3)^3 = p + q sqrt 3, where p and q are integers, find p + q.",
+      "options": [
+        "12",
+        "6",
+        "16",
+        "28",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "(1 + sqrt 3)^3 = 1 + 3 sqrt 3 + 9 + 3 sqrt 3 = 10 + 6 sqrt 3, so p + q = 16.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0013",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Simplify 1/(sqrt 5 - sqrt 3) - 1/(sqrt 5 + sqrt 3).",
+      "options": [
+        "sqrt 3",
+        "sqrt 5 - sqrt 3",
+        "sqrt 5",
+        "2 sqrt 5",
+        "2 sqrt 3"
+      ],
+      "answer": 0,
+      "explanation": "Common denominator 5 - 3 = 2; numerator (sqrt 5 + sqrt 3) - (sqrt 5 - sqrt 3) = 2 sqrt 3; result sqrt 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0014",
+      "type": "OBJECTIVE",
+      "topic": "Surds",
+      "stem": "Solve sqrt(x + 7) = x - 5.",
+      "options": [
+        "x = 9 or x = 2",
+        "x = 9",
+        "x = 2",
+        "x = -2",
+        "x = 18"
+      ],
+      "answer": 1,
+      "explanation": "Squaring gives x + 7 = x^2 - 10x + 25, x^2 - 11x + 18 = 0, x = 9 or 2. x = 2 makes the right side negative, so x = 9 only.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0015",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "On the set of real numbers, m o n = m + n - 2mn. Find the value of 4 o (-1/2).",
+      "options": [
+        "-1/2",
+        "7/2",
+        "-9/2",
+        "11/2",
+        "15/2"
+      ],
+      "answer": 4,
+      "explanation": "4 - 1/2 - 2(4)(-1/2) = 7/2 + 4 = 15/2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0016",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "The operation # is defined on R by a # b = a + b + 4. Find the identity element.",
+      "options": [
+        "1",
+        "-4",
+        "0",
+        "-8",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "a # e = a gives a + e + 4 = a, so e = -4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0017",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "Under the operation a # b = a + b + 4 on R (identity -4), find the inverse of 3.",
+      "options": [
+        "-7",
+        "-3",
+        "-11",
+        "1/3",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "3 + b + 4 = -4 gives b = -11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0018",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "For which of the following operations, defined on the positive integers, is a o b always equal to b o a?",
+      "options": [
+        "a o b = ab + a + b",
+        "a o b = 2a + b",
+        "a o b = a/b",
+        "a o b = a - 2b",
+        "a o b = a^2 - b"
+      ],
+      "answer": 0,
+      "explanation": "ab + a + b is symmetric in a and b; for the others, e.g. a = 1, b = 2, the two orders give different results.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0019",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "Under multiplication modulo 5 on the set {1, 2, 3, 4}, find the inverse of 3.",
+      "options": [
+        "1",
+        "5",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 4,
+      "explanation": "3 x 2 = 6 = 1 (mod 5), and 1 is the identity.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0020",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "A binary operation is defined on R by m o n = 2m + 3n - mn. Find x if x o 4 = 6.",
+      "options": [
+        "9",
+        "-3",
+        "6",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "2x + 12 - 4x = 6 gives -2x = -6, so x = 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0021",
+      "type": "OBJECTIVE",
+      "topic": "Binary Operations",
+      "stem": "The operation * is defined by a * b = a + b + ab. Evaluate (1 * 2) * 3.",
+      "options": [
+        "35",
+        "23",
+        "20",
+        "17",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "1 * 2 = 1 + 2 + 2 = 5; 5 * 3 = 5 + 3 + 15 = 23.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0022",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "What is the inverse of the statement 'If a number is even, then it is divisible by 2'?",
+      "options": [
+        "If a number is even, then it is not divisible by 2",
+        "If a number is not divisible by 2, then it is not even",
+        "If a number is not even, then it is not divisible by 2",
+        "If a number is divisible by 2, then it is even",
+        "A number is even and not divisible by 2"
+      ],
+      "answer": 2,
+      "explanation": "The inverse of p -> q is ~p -> ~q.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0023",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "In the truth table of p -> q, in how many of the four rows is the statement true?",
+      "options": [
+        "1",
+        "2",
+        "4",
+        "0",
+        "3"
+      ],
+      "answer": 4,
+      "explanation": "p -> q is false only when p is true and q is false.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0024",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "The statement 'If it rains, the road is wet' is logically equivalent to which of the following?",
+      "options": [
+        "If it does not rain, the road is not wet",
+        "The road is wet only if it does not rain",
+        "If the road is wet, it rained",
+        "If the road is not wet, it did not rain",
+        "It rains and the road is not wet"
+      ],
+      "answer": 3,
+      "explanation": "p -> q is equivalent to its contrapositive ~q -> ~p. The converse and inverse are not equivalent to it.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0025",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "Which of the following statements is a tautology?",
+      "options": [
+        "p v ~p",
+        "p ^ q",
+        "p -> ~p",
+        "~(p v ~p)",
+        "p ^ ~p"
+      ],
+      "answer": 0,
+      "explanation": "p v ~p is true whatever the truth value of p.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0026",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "What is the negation of 'Bisi is tall and Bisi is clever'?",
+      "options": [
+        "Bisi is short and clever",
+        "Bisi is not tall and Bisi is not clever",
+        "If Bisi is tall then Bisi is clever",
+        "Bisi is not tall or Bisi is not clever",
+        "Bisi is tall or Bisi is clever"
+      ],
+      "answer": 3,
+      "explanation": "~(p ^ q) is equivalent to ~p v ~q (De Morgan).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0027",
+      "type": "OBJECTIVE",
+      "topic": "Logical Reasoning",
+      "stem": "Given that p -> q and q -> r are both true, and r is false, which of the following must be true?",
+      "options": [
+        "q",
+        "p",
+        "p ^ ~r",
+        "q v r",
+        "~p"
+      ],
+      "answer": 4,
+      "explanation": "r false and q -> r true force q false; then p -> q true forces p false, so ~p is true.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0028",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "f(x) = 3x - 2 and g(x) = x^2 + 1. Find (g o f)(2), i.e. g(f(2)).",
+      "options": [
+        "13",
+        "10",
+        "17",
+        "5",
+        "26"
+      ],
+      "answer": 2,
+      "explanation": "f(2) = 4 and g(4) = 17.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0029",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "Find f^-1(x) if f(x) = (2x + 3)/(x - 1), x not equal to 1.",
+      "options": [
+        "(x + 3)/(x - 2), x not equal to 2",
+        "(x + 3)/(x + 2), x not equal to -2",
+        "(2x + 3)/(x + 1), x not equal to -1",
+        "(x - 1)/(2x + 3), x not equal to -3/2",
+        "(x - 3)/(x - 2), x not equal to 2"
+      ],
+      "answer": 0,
+      "explanation": "y(x - 1) = 2x + 3 gives x(y - 2) = y + 3, so f^-1(x) = (x + 3)/(x - 2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0030",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "What is the domain of the function f(x) = 1/(x^2 - 9) on the real numbers?",
+      "options": [
+        "x > 3",
+        "all real x except 3 and -3",
+        "all real x except 9",
+        "all real x except 0",
+        "-3 < x < 3"
+      ],
+      "answer": 1,
+      "explanation": "The function is undefined where x^2 - 9 = 0, i.e. x = 3 or x = -3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0031",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "Which of the following functions from R to R is one-to-one?",
+      "options": [
+        "f(x) = x^2 - 4x",
+        "f(x) = |x|",
+        "f(x) = x^2",
+        "f(x) = 5x - 2",
+        "f(x) = cos x"
+      ],
+      "answer": 3,
+      "explanation": "A linear function with non-zero gradient never takes the same value twice; each of the others does (e.g. x and -x).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0032",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "Find the range of f(x) = x^2 + 4 for x in R.",
+      "options": [
+        "f(x) <= 4",
+        "f(x) >= 0",
+        "f(x) >= 4",
+        "f(x) > 0",
+        "all real numbers"
+      ],
+      "answer": 2,
+      "explanation": "x^2 >= 0, so x^2 + 4 >= 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0033",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "f(x) = x + 1 and g(x) = x^2 - 3. Solve g(f(x)) = 6.",
+      "options": [
+        "x = 8 or x = -10",
+        "x = 3 or x = -3",
+        "x = -2 or x = 4",
+        "x = 2 only",
+        "x = 2 or x = -4"
+      ],
+      "answer": 4,
+      "explanation": "g(f(x)) = (x + 1)^2 - 3 = 6 gives (x + 1)^2 = 9, so x + 1 = 3 or -3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0034",
+      "type": "OBJECTIVE",
+      "topic": "Functions",
+      "stem": "If h(x) = 4x - 7, for what value of x is h(x) = h^-1(x)?",
+      "options": [
+        "0",
+        "7/3",
+        "7",
+        "7/4",
+        "-7/3"
+      ],
+      "answer": 1,
+      "explanation": "For a linear function this occurs on y = x: 4x - 7 = x gives x = 7/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0035",
+      "type": "OBJECTIVE",
+      "topic": "Linear Functions, Equations and Inequalities",
+      "stem": "A tailor makes x shirts and y trousers a day, subject to x + y <= 8, x + 3y <= 12, x >= 0 and y >= 0. Her profit is P = 300x + 500y naira. Find the maximum daily profit.",
+      "options": [
+        "N2,800",
+        "N4,000",
+        "N2,000",
+        "N3,300",
+        "N2,400"
+      ],
+      "answer": 0,
+      "explanation": "The vertices of the feasible region are (0, 0), (8, 0), (6, 2) and (0, 4), giving P = 0, 2400, 2800 and 2000; the maximum is N2,800 at (6, 2).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0036",
+      "type": "OBJECTIVE",
+      "topic": "Linear Functions, Equations and Inequalities",
+      "stem": "For what value of k does the line kx + 2y = 7 have gradient -3?",
+      "options": [
+        "-6",
+        "6",
+        "7/3",
+        "-3/2",
+        "3/2"
+      ],
+      "answer": 1,
+      "explanation": "Gradient = -k/2 = -3, so k = 6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0037",
+      "type": "OBJECTIVE",
+      "topic": "Linear Functions, Equations and Inequalities",
+      "stem": "Solve |2x - 5| < 3.",
+      "options": [
+        "-1 < x < 4",
+        "x < 1 or x > 4",
+        "x < 4",
+        "1 < x < 3",
+        "1 < x < 4"
+      ],
+      "answer": 4,
+      "explanation": "-3 < 2x - 5 < 3 gives 2 < 2x < 8, i.e. 1 < x < 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0038",
+      "type": "OBJECTIVE",
+      "topic": "Linear Functions, Equations and Inequalities",
+      "stem": "Which point lies on the line 3x - 4y = 12?",
+      "options": [
+        "(4, 0)",
+        "(4, 3)",
+        "(-4, 0)",
+        "(3, -4)",
+        "(0, 3)"
+      ],
+      "answer": 0,
+      "explanation": "3(4) - 4(0) = 12.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0039",
+      "type": "OBJECTIVE",
+      "topic": "Linear Functions, Equations and Inequalities",
+      "stem": "A taxi charges a fixed fee plus a rate per kilometre. A 4 km trip costs N1,700 and a 10 km trip costs N3,500. What is the fixed fee?",
+      "options": [
+        "N1,200",
+        "N300",
+        "N350",
+        "N500",
+        "N425"
+      ],
+      "answer": 3,
+      "explanation": "Rate = (3500 - 1700)/6 = N300 per km; fixed fee = 1700 - 4(300) = N500.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0040",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "The roots of 3x^2 - 5x - 4 = 0 are p and q. Find p + q.",
+      "options": [
+        "5",
+        "3/5",
+        "5/3",
+        "-5/3",
+        "-4/3"
+      ],
+      "answer": 2,
+      "explanation": "Sum of roots = -b/a = 5/3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0041",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "p and q are the roots of 3x^2 - 5x - 4 = 0. Evaluate p^2 + q^2.",
+      "options": [
+        "11/3",
+        "49/9",
+        "1/9",
+        "65/9",
+        "25/9"
+      ],
+      "answer": 1,
+      "explanation": "p + q = 5/3 and pq = -4/3, so p^2 + q^2 = 25/9 + 8/3 = 49/9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0042",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "For what values of m does the equation 4x^2 + mx + 1 = 0 have two equal roots?",
+      "options": [
+        "m = 4 or m = -4",
+        "m = 2 or m = -2",
+        "m = 8 or m = -8",
+        "m = 16 only",
+        "m = 1 or m = -1"
+      ],
+      "answer": 0,
+      "explanation": "Equal roots need m^2 - 4(4)(1) = 0, so m^2 = 16.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0043",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Find the set of values of x for which x^2 + x < 20.",
+      "options": [
+        "x < 4",
+        "4 < x < 5",
+        "x < -5 or x > 4",
+        "-5 < x < 4",
+        "-4 < x < 5"
+      ],
+      "answer": 3,
+      "explanation": "x^2 + x - 20 = (x + 5)(x - 4) < 0 between the roots -5 and 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0044",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Find the nature of the roots of 3x^2 - 5x + 4 = 0.",
+      "options": [
+        "two equal real roots",
+        "two distinct rational roots",
+        "no real roots",
+        "two distinct irrational roots",
+        "one positive and one negative root"
+      ],
+      "answer": 2,
+      "explanation": "b^2 - 4ac = 25 - 48 = -23 < 0.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0045",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "The roots of x^2 + 4x - 2 = 0 are alpha and beta. Form the quadratic equation whose roots are alpha + 1 and beta + 1.",
+      "options": [
+        "x^2 + 6x - 5 = 0",
+        "x^2 - 2x - 5 = 0",
+        "x^2 + 4x - 1 = 0",
+        "x^2 + 2x + 5 = 0",
+        "x^2 + 2x - 5 = 0"
+      ],
+      "answer": 4,
+      "explanation": "alpha + beta = -4 and alpha beta = -2. New sum = -4 + 2 = -2; new product = alpha beta + (alpha + beta) + 1 = -5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0046",
+      "type": "OBJECTIVE",
+      "topic": "Quadratic Functions, Equations and Inequalities",
+      "stem": "Find the maximum value of f(x) = -2x^2 + 12x - 7.",
+      "options": [
+        "25",
+        "29",
+        "11",
+        "-7",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "f(x) = -2(x - 3)^2 + 11, so the maximum is 11 at x = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0047",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "What is the remainder when 2x^3 - 3x^2 + 4x - 5 is divided by (2x - 1)?",
+      "options": [
+        "7/2",
+        "1",
+        "-3",
+        "-5",
+        "-7/2"
+      ],
+      "answer": 4,
+      "explanation": "By the remainder theorem the remainder is f(1/2) = 1/4 - 3/4 + 2 - 5 = -7/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0048",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "If (x + 1) is a factor of x^3 + kx^2 - 4x + 6, find k.",
+      "options": [
+        "1",
+        "9",
+        "-1",
+        "-9",
+        "-11"
+      ],
+      "answer": 3,
+      "explanation": "f(-1) = -1 + k + 4 + 6 = 0 gives k = -9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0049",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "Given that (x + 1) is a factor of x^3 + 2x^2 - 5x - 6, find the other two roots of x^3 + 2x^2 - 5x - 6 = 0.",
+      "options": [
+        "2 and 3",
+        "2 and -3",
+        "3 and -1",
+        "1 and 6",
+        "-2 and 3"
+      ],
+      "answer": 1,
+      "explanation": "Dividing by (x + 1) leaves x^2 + x - 6 = (x - 2)(x + 3).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0050",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "The roots of 2x^3 - 5x^2 + 3x + 7 = 0 are alpha, beta and gamma. Find alpha beta gamma.",
+      "options": [
+        "-7/2",
+        "5/2",
+        "-5/2",
+        "3/2",
+        "7/2"
+      ],
+      "answer": 0,
+      "explanation": "For ax^3 + bx^2 + cx + d = 0, the product of the roots is -d/a = -7/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0051",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "x^3 + ax^2 + bx - 6 is exactly divisible by (x - 1) and by (x + 2). Find a and b.",
+      "options": [
+        "a = 4, b = -1",
+        "a = 4, b = 1",
+        "a = 2, b = 3",
+        "a = 1, b = 4",
+        "a = -4, b = 9"
+      ],
+      "answer": 1,
+      "explanation": "f(1) = 1 + a + b - 6 = 0 gives a + b = 5; f(-2) = -8 + 4a - 2b - 6 = 0 gives 2a - b = 7. Hence a = 4 and b = 1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0052",
+      "type": "OBJECTIVE",
+      "topic": "Cubic Functions and Equations",
+      "stem": "At how many points does the graph of y = x^3 - 4x cross the x-axis?",
+      "options": [
+        "4",
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "x^3 - 4x = x(x - 2)(x + 2) = 0 at x = 0, 2 and -2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0053",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "(5x + 7)/((x + 1)(x + 3)) = A/(x + 1) + B/(x + 3). Find A and B.",
+      "options": [
+        "A = -1, B = 6",
+        "A = 2, B = 3",
+        "A = 1, B = 4",
+        "A = 1, B = -4",
+        "A = 4, B = 1"
+      ],
+      "answer": 2,
+      "explanation": "5x + 7 = A(x + 3) + B(x + 1). x = -1 gives 2 = 2A, A = 1; x = -3 gives -8 = -2B, B = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0054",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "State the values of x excluded from the domain of r(x) = (2x - 1)/(x^2 + x - 12).",
+      "options": [
+        "3 and -4",
+        "1/2",
+        "-3 and 4",
+        "4 and 3",
+        "12 and -1"
+      ],
+      "answer": 0,
+      "explanation": "r is undefined where x^2 + x - 12 = (x - 3)(x + 4) = 0.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0055",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "Write (2x + 7)/(x + 2)^2 in the form A/(x + 2) + B/(x + 2)^2.",
+      "options": [
+        "3/(x + 2) + 2/(x + 2)^2",
+        "7/(x + 2) + 2/(x + 2)^2",
+        "2/(x + 2) - 3/(x + 2)^2",
+        "2/(x + 2) + 7/(x + 2)^2",
+        "2/(x + 2) + 3/(x + 2)^2"
+      ],
+      "answer": 4,
+      "explanation": "2x + 7 = 2(x + 2) + 3, so A = 2 and B = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0056",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "When (x^2 + 2x + 9)/((x - 1)(x^2 + 3)) is expressed as A/(x - 1) + (Bx + C)/(x^2 + 3), find A.",
+      "options": [
+        "3",
+        "1",
+        "9/4",
+        "-2",
+        "2"
+      ],
+      "answer": 0,
+      "explanation": "Put x = 1 in x^2 + 2x + 9 = A(x^2 + 3) + (Bx + C)(x - 1): 12 = 4A, so A = 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0057",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "Which of the following is a proper rational function?",
+      "options": [
+        "(2x^2)/(x + 5)",
+        "(x^3 + 1)/(x^2 - 4)",
+        "(x + 3)/(x^2 + 1)",
+        "(x^4 - 1)/(x^3)",
+        "(x^2 + 2)/(x^2 - 1)"
+      ],
+      "answer": 2,
+      "explanation": "A rational function is proper when the degree of the numerator is less than that of the denominator.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0058",
+      "type": "OBJECTIVE",
+      "topic": "Rational Functions",
+      "stem": "Evaluate g(-1) if g(x) = (2x - 1)/(x + 3).",
+      "options": [
+        "-3/4",
+        "-1/2",
+        "3/2",
+        "-3/2",
+        "1/2"
+      ],
+      "answer": 3,
+      "explanation": "g(-1) = (-2 - 1)/(-1 + 3) = -3/2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0059",
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Solve 9^x = 27^(x - 1).",
+      "options": [
+        "3/2",
+        "3",
+        "1",
+        "-3",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "3^(2x) = 3^(3x - 3), so 2x = 3x - 3 and x = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0060",
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Solve 5^(2x) - 26(5^x) + 25 = 0.",
+      "options": [
+        "x = 1 or x = 2",
+        "x = 1 or x = 25",
+        "x = 2 only",
+        "x = 0 or x = 1",
+        "x = 0 or x = 2"
+      ],
+      "answer": 4,
+      "explanation": "Let u = 5^x: u^2 - 26u + 25 = 0, u = 1 or 25, so x = 0 or 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0061",
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Evaluate (32^(3/5) x 125^(-1/3)) / 4^(-1/2).",
+      "options": [
+        "16/5",
+        "4/5",
+        "5/16",
+        "32/5",
+        "8/5"
+      ],
+      "answer": 0,
+      "explanation": "32^(3/5) = 8, 125^(-1/3) = 1/5 and 4^(-1/2) = 1/2; (8/5)/(1/2) = 16/5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0062",
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Simplify (2^(n + 2) - 2^n)/(2^(n + 1) - 2^n).",
+      "options": [
+        "2^n",
+        "3",
+        "4",
+        "3/2",
+        "2"
+      ],
+      "answer": 1,
+      "explanation": "Factor out 2^n: (4 - 1)/(2 - 1) = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0063",
+      "type": "OBJECTIVE",
+      "topic": "Indices",
+      "stem": "Find x and y if 3^(x + y) = 81 and 2^(x - y) = 1/4.",
+      "options": [
+        "x = -1, y = 5",
+        "x = 3, y = 1",
+        "x = 1, y = -3",
+        "x = 2, y = 2",
+        "x = 1, y = 3"
+      ],
+      "answer": 4,
+      "explanation": "x + y = 4 and x - y = -2, so x = 1 and y = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0064",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Find the value of log_8 4 + log_9 27.",
+      "options": [
+        "1",
+        "13/12",
+        "5/6",
+        "13/6",
+        "7/6"
+      ],
+      "answer": 3,
+      "explanation": "log_8 4 = 2/3 and log_9 27 = 3/2; the sum is 13/6.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0065",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Evaluate log_25 125 + log_2 (1/8).",
+      "options": [
+        "0",
+        "3/2",
+        "-3/2",
+        "-9/2",
+        "-1/2"
+      ],
+      "answer": 2,
+      "explanation": "log_25 125 = 3/2 and log_2 (1/8) = -3, so the sum is -3/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0066",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Find the value of x that satisfies log_5 (x + 3) + log_5 (x - 1) = 1.",
+      "options": [
+        "4",
+        "2",
+        "3",
+        "-4",
+        "2 or -4"
+      ],
+      "answer": 1,
+      "explanation": "(x + 3)(x - 1) = 5 gives x^2 + 2x - 8 = 0, so x = 2 or -4. x = -4 makes the logarithms undefined, so x = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0067",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Given that log_10 2 = 0.3010 and log_10 7 = 0.8451, find log_2 7, correct to 3 decimal places.",
+      "options": [
+        "0.356",
+        "2.546",
+        "0.544",
+        "2.808",
+        "1.146"
+      ],
+      "answer": 3,
+      "explanation": "Change of base: log_2 7 = 0.8451/0.3010 = 2.808 (to 3 d.p.).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0068",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Solve 3^(2x) = 7, correct to 3 significant figures.",
+      "options": [
+        "0.886",
+        "1.77",
+        "1.17",
+        "0.423",
+        "0.590"
+      ],
+      "answer": 0,
+      "explanation": "2x log 3 = log 7, so x = 0.8451/(2 x 0.4771) = 0.886.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0069",
+      "type": "OBJECTIVE",
+      "topic": "Logarithms",
+      "stem": "Without tables, find the product log_3 81 x log_5 (1/25).",
+      "options": [
+        "-6",
+        "2",
+        "-2",
+        "8",
+        "-8"
+      ],
+      "answer": 4,
+      "explanation": "log_3 81 = 4 and log_5 (1/25) = -2; 4 x (-2) = -8.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0070",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "In how many ways can a president, a secretary and a treasurer be chosen from 7 members of a club?",
+      "options": [
+        "5040",
+        "343",
+        "210",
+        "21",
+        "35"
+      ],
+      "answer": 2,
+      "explanation": "Order matters: 7P3 = 7 x 6 x 5 = 210.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0071",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "In how many ways can a committee of 4 be selected from 9 teachers?",
+      "options": [
+        "36",
+        "3024",
+        "84",
+        "126",
+        "252"
+      ],
+      "answer": 3,
+      "explanation": "9C4 = 126.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0072",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "A committee of 4 is to be formed from 5 men and 4 women. In how many ways can this be done if it must have exactly 2 women?",
+      "options": [
+        "126",
+        "36",
+        "10",
+        "120",
+        "60"
+      ],
+      "answer": 4,
+      "explanation": "5C2 x 4C2 = 10 x 6 = 60.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0073",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "How many different arrangements of the letters of the word KADUNANA are possible?",
+      "options": [
+        "6720",
+        "10080",
+        "3360",
+        "20160",
+        "40320"
+      ],
+      "answer": 2,
+      "explanation": "8 letters with A repeated 3 times and N twice: 8!/(3! 2!) = 3360.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0074",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "In how many ways can 6 students sit in a row if two particular friends must sit together?",
+      "options": [
+        "240",
+        "480",
+        "720",
+        "60",
+        "120"
+      ],
+      "answer": 0,
+      "explanation": "Treat the friends as one unit: 5! arrangements, times 2! for the friends' order = 240.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0075",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "In how many ways can 6 people be seated round a circular table?",
+      "options": [
+        "360",
+        "120",
+        "36",
+        "720",
+        "60"
+      ],
+      "answer": 1,
+      "explanation": "Circular arrangements of n objects: (n - 1)! = 5! = 120.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0076",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "If nC2 = 45, find n.",
+      "options": [
+        "10",
+        "90",
+        "15",
+        "9",
+        "45"
+      ],
+      "answer": 0,
+      "explanation": "n(n - 1)/2 = 45 gives n^2 - n - 90 = 0, so n = 10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0077",
+      "type": "OBJECTIVE",
+      "topic": "Permutation and Combinations",
+      "stem": "How many 3-digit even numbers can be formed from the digits 1, 2, 3, 4, 5 if no digit is repeated?",
+      "options": [
+        "48",
+        "60",
+        "24",
+        "36",
+        "12"
+      ],
+      "answer": 2,
+      "explanation": "The last digit is 2 or 4 (2 ways); the other two places can be filled in 4 x 3 = 12 ways; 2 x 12 = 24.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0078",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "In the expansion of (3 + x)^5 in ascending powers of x, find the coefficient of x^2.",
+      "options": [
+        "90",
+        "270",
+        "10",
+        "135",
+        "405"
+      ],
+      "answer": 1,
+      "explanation": "5C2 x 3^3 = 10 x 27 = 270.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0079",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "When (2x + 1/x^2)^6 is expanded in powers of x, which term does not contain x?",
+      "options": [
+        "15",
+        "480",
+        "160",
+        "240",
+        "60"
+      ],
+      "answer": 3,
+      "explanation": "General term 6Cr (2x)^(6 - r) x^(-2r) has power 6 - 3r = 0 when r = 2: 15 x 2^4 = 240.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0080",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "Use the first three terms of the binomial expansion of (1 + x)^5 to evaluate (1.02)^5, correct to 3 decimal places.",
+      "options": [
+        "1.108",
+        "1.100",
+        "1.010",
+        "1.040",
+        "1.104"
+      ],
+      "answer": 4,
+      "explanation": "1 + 5(0.02) + 10(0.02)^2 = 1 + 0.1 + 0.004 = 1.104.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0081",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "What is the coefficient of x^3 when (1 - 2x)^6 is expanded?",
+      "options": [
+        "-20",
+        "-480",
+        "160",
+        "-120",
+        "-160"
+      ],
+      "answer": 4,
+      "explanation": "6C3 (-2)^3 = 20 x (-8) = -160.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0082",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "Obtain the first three terms of the expansion of (1 - 2x)^(1/2) in ascending powers of x.",
+      "options": [
+        "1 - x + x^2/2",
+        "1 - x - x^2/2",
+        "1 - x - x^2/8",
+        "1 + x - x^2/2",
+        "1 - 2x - x^2"
+      ],
+      "answer": 1,
+      "explanation": "1 + (1/2)(-2x) + [(1/2)(-1/2)/2](-2x)^2 = 1 - x - x^2/2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0083",
+      "type": "OBJECTIVE",
+      "topic": "Binomial Theorem",
+      "stem": "When (1 + kx)^6 is expanded, the coefficient of x^2 is 60. Find the possible values of k.",
+      "options": [
+        "k = 4 or k = -4",
+        "k = 1/2 or k = -1/2",
+        "k = 2 only",
+        "k = 2 or k = -2",
+        "k = 4"
+      ],
+      "answer": 3,
+      "explanation": "6C2 k^2 = 15k^2 = 60, so k^2 = 4.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0084",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "Find the next term of the sequence 2, 6, 18, 54, ...",
+      "options": [
+        "162",
+        "216",
+        "72",
+        "108",
+        "158"
+      ],
+      "answer": 0,
+      "explanation": "Each term is 3 times the previous: 54 x 3 = 162.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0085",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "Evaluate the sum of (2r + 3) for r = 1 to r = 20.",
+      "options": [
+        "440",
+        "423",
+        "480",
+        "460",
+        "500"
+      ],
+      "answer": 2,
+      "explanation": "2(1 + 2 + ... + 20) + 3(20) = 2(210) + 60 = 480.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0086",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "The 3rd and 6th terms of a geometric progression are 12 and -96. Find the sum of its first 8 terms.",
+      "options": [
+        "-765",
+        "-383",
+        "765",
+        "-255",
+        "255"
+      ],
+      "answer": 3,
+      "explanation": "r^3 = -8 gives r = -2 and a = 3. S_8 = 3(1 - 256)/(1 + 2) = -255.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0087",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "Four numbers are inserted between 5 and 30 so that the six numbers form an arithmetic progression. Find the common difference.",
+      "options": [
+        "4",
+        "25/4",
+        "25/6",
+        "6",
+        "5"
+      ],
+      "answer": 4,
+      "explanation": "30 = 5 + 5d, so d = 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0088",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "By treating it as the sum of a geometric series, write 0.454545... as a common fraction in its lowest terms.",
+      "options": [
+        "5/11",
+        "9/20",
+        "4/9",
+        "1/2",
+        "45/100"
+      ],
+      "answer": 0,
+      "explanation": "0.4545... = 45/100 + 45/10000 + ... = (45/100)/(1 - 1/100) = 45/99 = 5/11.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0089",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "For what values of x does the geometric series 1 + 2x + 4x^2 + 8x^3 + ... have a sum to infinity?",
+      "options": [
+        "-2 < x < 2",
+        "x < 1/2",
+        "-1/2 < x < 1/2",
+        "-1 < x < 1",
+        "0 < x < 1/2"
+      ],
+      "answer": 2,
+      "explanation": "The common ratio is 2x and |2x| < 1 is required.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0090",
+      "type": "OBJECTIVE",
+      "topic": "Sequences and Series",
+      "stem": "How many terms of the AP 4, 7, 10, ... must be taken for the sum to be 246?",
+      "options": [
+        "11",
+        "12",
+        "15",
+        "82",
+        "13"
+      ],
+      "answer": 1,
+      "explanation": "n/2 [8 + 3(n - 1)] = 246 gives 3n^2 + 5n - 492 = 0, (n - 12)(3n + 41) = 0, so n = 12.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0091",
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "A = (1 2 / 3 -1) and B = (0 4 / -2 1), rows separated by '/'. Find 2A - B.",
+      "options": [
+        "(2 0 / 4 -3)",
+        "(2 0 / 8 -3)",
+        "(1 -2 / 5 -2)",
+        "(2 0 / 8 -1)",
+        "(2 8 / 4 -1)"
+      ],
+      "answer": 1,
+      "explanation": "2A = (2 4 / 6 -2); subtract B entry by entry.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0092",
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "If A = (1 2 / 3 -1), find A^2.",
+      "options": [
+        "(2 4 / 6 -2)",
+        "(5 0 / 0 5)",
+        "(7 0 / 0 -5)",
+        "(1 4 / 9 1)",
+        "(7 0 / 0 7)"
+      ],
+      "answer": 4,
+      "explanation": "Row 1: 1 + 6 = 7, 2 - 2 = 0; row 2: 3 - 3 = 0, 6 + 1 = 7.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0093",
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "A matrix P has order 3 x 2 and a matrix Q has order 2 x 4. What is the order of PQ?",
+      "options": [
+        "4 x 3",
+        "3 x 2",
+        "3 x 4",
+        "PQ is not defined",
+        "2 x 2"
+      ],
+      "answer": 2,
+      "explanation": "The inner dimensions agree (2), and the product takes the outer dimensions 3 x 4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0094",
+      "type": "OBJECTIVE",
+      "topic": "Matrices",
+      "stem": "Find x and y if (x 3 / 2 y) multiplied by the column vector (1, 2) gives the column vector (10, 8).",
+      "options": [
+        "x = 4, y = 3",
+        "x = 4, y = 6",
+        "x = 10, y = 4",
+        "x = 3, y = 4",
+        "x = 7, y = 3"
+      ],
+      "answer": 0,
+      "explanation": "x + 6 = 10 gives x = 4; 2 + 2y = 8 gives y = 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0095",
+      "type": "OBJECTIVE",
+      "topic": "Determinants",
+      "stem": "Calculate |A|, where A is the 3 x 3 matrix whose rows are (2 1 3), (0 -1 4) and (1 2 0).",
+      "options": [
+        "-25",
+        "-13",
+        "-3",
+        "-9",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "Expanding along row 1: 2[(-1)(0) - 4(2)] - 1[(0)(0) - 4(1)] + 3[(0)(2) - (-1)(1)] = -16 + 4 + 3 = -9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0096",
+      "type": "OBJECTIVE",
+      "topic": "Determinants",
+      "stem": "Find the values of k for which the matrix (k 4 / 3 k + 4) is singular.",
+      "options": [
+        "k = 2 or k = -6",
+        "k = -2 or k = 6",
+        "k = 4 or k = -3",
+        "k = 3 or k = -4",
+        "k = 12 only"
+      ],
+      "answer": 0,
+      "explanation": "k(k + 4) - 12 = 0 gives k^2 + 4k - 12 = 0, (k + 6)(k - 2) = 0.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0097",
+      "type": "OBJECTIVE",
+      "topic": "Determinants",
+      "stem": "A is a 2 x 2 matrix with |A| = 6. Evaluate the determinant of -2A.",
+      "options": [
+        "12",
+        "-12",
+        "36",
+        "24",
+        "-24"
+      ],
+      "answer": 3,
+      "explanation": "For a 2 x 2 matrix, det(kA) = k^2 det A = 4 x 6 = 24.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0098",
+      "type": "OBJECTIVE",
+      "topic": "Inverse of 2 x 2 Matrices",
+      "stem": "Given that M = (5 4 / 2 2), rows separated by '/', determine M^-1.",
+      "options": [
+        "(-1 2 / 1 -5/2)",
+        "(1 -2 / -1 5/2)",
+        "(2 -4 / -2 5)",
+        "(1/5 1/4 / 1/2 1/2)",
+        "(1 2 / 1 5/2)"
+      ],
+      "answer": 1,
+      "explanation": "Determinant = 10 - 8 = 2; M^-1 = (1/2)(2 -4 / -2 5) = (1 -2 / -1 5/2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0099",
+      "type": "OBJECTIVE",
+      "topic": "Inverse of 2 x 2 Matrices",
+      "stem": "Which of the following matrices has no inverse?",
+      "options": [
+        "(6 4 / 9 5)",
+        "(2 3 / 1 2)",
+        "(6 4 / 9 6)",
+        "(5 1 / 4 1)",
+        "(1 0 / 0 1)"
+      ],
+      "answer": 2,
+      "explanation": "(6)(6) - (4)(9) = 0, so it is singular.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0100",
+      "type": "OBJECTIVE",
+      "topic": "Inverse of 2 x 2 Matrices",
+      "stem": "Using the inverse of (3 -2 / 1 4), solve 3x - 2y = 8 and x + 4y = 12.",
+      "options": [
+        "x = 4, y = -2",
+        "x = 8, y = 1",
+        "x = 3, y = 1",
+        "x = 2, y = 4",
+        "x = 4, y = 2"
+      ],
+      "answer": 4,
+      "explanation": "Determinant = 14; (x, y) = (1/14)(4 2 / -1 3)(8, 12) = (1/14)(56, 28) = (4, 2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0101",
+      "type": "OBJECTIVE",
+      "topic": "Inverse of 2 x 2 Matrices",
+      "stem": "If A = (2 1 / 5 3), find (A^-1)^-1 - A^-1.",
+      "options": [
+        "(-1 2 / 10 1)",
+        "(5 0 / 0 5)",
+        "(1 2 / 10 -1)",
+        "(-1 0 / 0 1)",
+        "(0 0 / 0 0)"
+      ],
+      "answer": 0,
+      "explanation": "(A^-1)^-1 = A and A^-1 = (3 -1 / -5 2); A - A^-1 = (2 - 3, 1 + 1 / 5 + 5, 3 - 2) = (-1 2 / 10 1).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0102",
+      "type": "OBJECTIVE",
+      "topic": "Linear Transformation",
+      "stem": "The linear transformation T is given by the matrix (2 1 / -1 3). Find the image of the point (3, -2).",
+      "options": [
+        "(8, -9)",
+        "(4, -9)",
+        "(6, -6)",
+        "(4, 3)",
+        "(-4, 9)"
+      ],
+      "answer": 1,
+      "explanation": "(2(3) + 1(-2), -1(3) + 3(-2)) = (4, -9).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0103",
+      "type": "OBJECTIVE",
+      "topic": "Linear Transformation",
+      "stem": "A transformation maps every point (a, b) of the plane onto (b, a). Which matrix represents it?",
+      "options": [
+        "(0 -1 / -1 0)",
+        "(-1 0 / 0 1)",
+        "(0 1 / 1 0)",
+        "(0 -1 / 1 0)",
+        "(1 0 / 0 -1)"
+      ],
+      "answer": 2,
+      "explanation": "The images of (1, 0) and (0, 1) are (0, 1) and (1, 0), which form the columns of the matrix.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0104",
+      "type": "OBJECTIVE",
+      "topic": "Linear Transformation",
+      "stem": "Write down the matrix of an anticlockwise rotation of 90 degrees about the origin.",
+      "options": [
+        "(1 0 / 0 -1)",
+        "(0 1 / -1 0)",
+        "(0 1 / 1 0)",
+        "(0 -1 / 1 0)",
+        "(-1 0 / 0 -1)"
+      ],
+      "answer": 3,
+      "explanation": "(cos 90 -sin 90 / sin 90 cos 90) = (0 -1 / 1 0).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0105",
+      "type": "OBJECTIVE",
+      "topic": "Linear Transformation",
+      "stem": "A triangle of area 6 square units is mapped by the transformation with matrix (3 1 / 2 4). Find the area of the image.",
+      "options": [
+        "84 square units",
+        "36 square units",
+        "10 square units",
+        "14 square units",
+        "60 square units"
+      ],
+      "answer": 4,
+      "explanation": "Area scale factor = |det| = |12 - 2| = 10, so the image has area 60.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0106",
+      "type": "OBJECTIVE",
+      "topic": "Linear Transformation",
+      "stem": "A rotation R = (0 -1 / 1 0) is followed by the shear S = (1 2 / 0 1). Find the matrix of the combined transformation SR.",
+      "options": [
+        "(2 1 / -1 0)",
+        "(0 1 / -1 2)",
+        "(0 -1 / 1 2)",
+        "(2 -1 / 1 0)",
+        "(1 2 / 0 1)"
+      ],
+      "answer": 3,
+      "explanation": "SR = (1(0) + 2(1), 1(-1) + 2(0) / 0 + 1, 0 + 0) = (2 -1 / 1 0).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0107",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "Without tables, write down the exact value of cos 330 degrees.",
+      "options": [
+        "-1/2",
+        "1/2",
+        "sqrt 3/2",
+        "-sqrt 3/2",
+        "sqrt 3"
+      ],
+      "answer": 2,
+      "explanation": "330 degrees is in the fourth quadrant where cosine is positive: cos 330 = cos 30 = sqrt 3/2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0108",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "If tan theta = -3/4 and theta lies between 90 and 180 degrees, find cos theta.",
+      "options": [
+        "4/5",
+        "-4/5",
+        "-5/4",
+        "-3/5",
+        "3/5"
+      ],
+      "answer": 1,
+      "explanation": "In the second quadrant cosine is negative; with sides 3, 4, 5, cos theta = -4/5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0109",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "Find the area of a triangle with two sides 6 cm and 10 cm containing an angle of 150 degrees.",
+      "options": [
+        "51.96 cm^2",
+        "7.5 cm^2",
+        "30 cm^2",
+        "25.98 cm^2",
+        "15 cm^2"
+      ],
+      "answer": 4,
+      "explanation": "(1/2)(6)(10) sin 150 = 30 x 1/2 = 15 cm^2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0110",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "A triangular field has sides 5 m, 7 m and 8 m. Find the angle opposite the 7 m side.",
+      "options": [
+        "60 degrees",
+        "90 degrees",
+        "45 degrees",
+        "120 degrees",
+        "30 degrees"
+      ],
+      "answer": 0,
+      "explanation": "cos theta = (5^2 + 8^2 - 7^2)/(2 x 5 x 8) = 40/80 = 1/2, so theta = 60 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0111",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Ratios and Rules",
+      "stem": "In triangle PQR, side q = 9 cm and angle Q = 30 degrees. Find the radius of the circumcircle of the triangle.",
+      "options": [
+        "5.2 cm",
+        "10.39 cm",
+        "18 cm",
+        "9 cm",
+        "4.5 cm"
+      ],
+      "answer": 3,
+      "explanation": "By the extended sine rule, q/sin Q = 2R, so 2R = 9/0.5 = 18 and R = 9 cm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0112",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "By writing 75 degrees as 45 + 30 degrees, express sin 75 degrees in surd form.",
+      "options": [
+        "sqrt 3/4 + 1/2",
+        "(sqrt 6 + sqrt 2)/4",
+        "(sqrt 2 + 1)/4",
+        "(sqrt 3 + 1)/2",
+        "(sqrt 6 - sqrt 2)/4"
+      ],
+      "answer": 1,
+      "explanation": "sin(45 + 30) = sin 45 cos 30 + cos 45 sin 30 = (sqrt 2/2)(sqrt 3/2) + (sqrt 2/2)(1/2) = (sqrt 6 + sqrt 2)/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0113",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "Find tan 15 degrees in surd form.",
+      "options": [
+        "1 - sqrt 3",
+        "(sqrt 3 - 1)/2",
+        "2 - sqrt 3",
+        "2 + sqrt 3",
+        "sqrt 3 - 1"
+      ],
+      "answer": 2,
+      "explanation": "tan(45 - 30) = (1 - 1/sqrt 3)/(1 + 1/sqrt 3) = (sqrt 3 - 1)/(sqrt 3 + 1) = 2 - sqrt 3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0114",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "Given that cos A = 5/13 and 0 < A < 90 degrees, find sin 2A.",
+      "options": [
+        "24/13",
+        "119/169",
+        "10/13",
+        "60/169",
+        "120/169"
+      ],
+      "answer": 4,
+      "explanation": "sin A = 12/13, so sin 2A = 2(12/13)(5/13) = 120/169.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0115",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "Given cos A = 5/13 with A acute, evaluate cos 2A.",
+      "options": [
+        "-119/169",
+        "-7/13",
+        "119/169",
+        "25/169",
+        "120/169"
+      ],
+      "answer": 0,
+      "explanation": "cos 2A = 2cos^2 A - 1 = 50/169 - 1 = -119/169.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0116",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "A and B are acute angles with sin A = 8/17 and cos B = 3/5. Evaluate cos(A - B).",
+      "options": [
+        "77/85",
+        "9/17",
+        "36/85",
+        "13/85",
+        "-13/85"
+      ],
+      "answer": 0,
+      "explanation": "cos A = 15/17 and sin B = 4/5; cos(A - B) = (15/17)(3/5) + (8/17)(4/5) = 45/85 + 32/85 = 77/85.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0117",
+      "type": "OBJECTIVE",
+      "topic": "Compound and Multiple Angles",
+      "stem": "Simplify sin 2theta / (1 + cos 2theta).",
+      "options": [
+        "sin theta",
+        "cot theta",
+        "tan theta",
+        "cos theta",
+        "2 tan theta"
+      ],
+      "answer": 2,
+      "explanation": "sin 2theta = 2 sin theta cos theta and 1 + cos 2theta = 2 cos^2 theta; the ratio is tan theta.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0118",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "Find all angles x with 0 <= x <= 360 degrees satisfying tan x = -1.",
+      "options": [
+        "x = 135 or 225 degrees",
+        "x = 135 or 315 degrees",
+        "x = 225 or 315 degrees",
+        "x = 45 or 315 degrees",
+        "x = 45 or 225 degrees"
+      ],
+      "answer": 1,
+      "explanation": "tan is negative in the second and fourth quadrants; the reference angle is 45 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0119",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "Find every value of x in the interval 0 to 360 degrees inclusive for which 2 sin^2 x + 3 cos x = 3.",
+      "options": [
+        "x = 60 or 300 degrees only",
+        "x = 30 or 150 degrees",
+        "x = 0, 120, 240 or 360 degrees",
+        "x = 0, 60, 300 or 360 degrees",
+        "x = 0, 180 or 360 degrees"
+      ],
+      "answer": 3,
+      "explanation": "2(1 - cos^2 x) + 3 cos x - 3 = 0 gives 2cos^2 x - 3 cos x + 1 = 0, so cos x = 1 (0, 360) or cos x = 1/2 (60, 300).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0120",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "What is the period of y = sin 3x (x in degrees)?",
+      "options": [
+        "60 degrees",
+        "360 degrees",
+        "3 degrees",
+        "1080 degrees",
+        "120 degrees"
+      ],
+      "answer": 4,
+      "explanation": "The period of sin kx is 360/k = 120 degrees.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0121",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "What is the least value of 7 + 2 sin 3x?",
+      "options": [
+        "-2",
+        "9",
+        "1",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "explanation": "sin 3x >= -1, so the least value is 7 - 2 = 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0122",
+      "type": "OBJECTIVE",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "Find the greatest value of 5 sin x + 12 cos x.",
+      "options": [
+        "60",
+        "17",
+        "7",
+        "12",
+        "13"
+      ],
+      "answer": 4,
+      "explanation": "5 sin x + 12 cos x = 13 sin(x + alpha), so the greatest value is sqrt(25 + 144) = 13.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0123",
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "Find the perpendicular distance from the point (2, -1) to the line 3x + 4y - 12 = 0.",
+      "options": [
+        "5 units",
+        "2 units",
+        "2/5 units",
+        "10 units",
+        "14/5 units"
+      ],
+      "answer": 1,
+      "explanation": "|3(2) + 4(-1) - 12| / sqrt(9 + 16) = 10/5 = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0124",
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "Find, to the nearest degree, the acute angle between the lines y = 3x + 1 and 2y + x = 5.",
+      "options": [
+        "82 degrees",
+        "8 degrees",
+        "72 degrees",
+        "98 degrees",
+        "45 degrees"
+      ],
+      "answer": 0,
+      "explanation": "Gradients 3 and -1/2; tan theta = |(3 + 1/2)/(1 - 3/2)| = 7, so theta = 81.9, about 82 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0125",
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "Find the equation of the line with gradient -2 that passes through (-1, 4).",
+      "options": [
+        "y = -2x + 4",
+        "y = -2x - 2",
+        "y = -2x + 2",
+        "y = 2x + 6",
+        "y = -2x + 6"
+      ],
+      "answer": 2,
+      "explanation": "y - 4 = -2(x + 1) gives y = -2x + 2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0126",
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "A is (3, -2) and B is (9, 7). Find the point that divides AB internally in the ratio 2 : 1.",
+      "options": [
+        "(6, 2.5)",
+        "(4, 1)",
+        "(7, 4)",
+        "(15, 16)",
+        "(5, 1)"
+      ],
+      "answer": 2,
+      "explanation": "((1 x 3 + 2 x 9)/3, (1 x (-2) + 2 x 7)/3) = (21/3, 12/3) = (7, 4).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0127",
+      "type": "OBJECTIVE",
+      "topic": "Straight Lines",
+      "stem": "Find the point of intersection of the lines 2x - y = 1 and x + 3y = 11.",
+      "options": [
+        "(3, 2)",
+        "(5, 2)",
+        "(-2, -5)",
+        "(2, 3)",
+        "(1, 1)"
+      ],
+      "answer": 3,
+      "explanation": "y = 2x - 1; x + 6x - 3 = 11 gives x = 2, y = 3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0128",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "The circle x^2 + y^2 + 10x - 4y + 20 = 0 has centre C and radius r. Find C and r.",
+      "options": [
+        "C(-10, 4), r = 20",
+        "C(-5, 2), r = sqrt 20",
+        "C(-5, 2), r = 9",
+        "C(5, -2), r = 3",
+        "C(-5, 2), r = 3"
+      ],
+      "answer": 4,
+      "explanation": "(x + 5)^2 + (y - 2)^2 = 25 + 4 - 20 = 9.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0129",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "A circle has its centre at (4, -1) and passes through the point (1, 3). Find its equation.",
+      "options": [
+        "x^2 + y^2 - 8x + 2y - 8 = 0",
+        "x^2 + y^2 - 8x + 2y + 12 = 0",
+        "x^2 + y^2 - 4x + y - 8 = 0",
+        "x^2 + y^2 - 8x + 2y - 25 = 0",
+        "x^2 + y^2 + 8x - 2y - 8 = 0"
+      ],
+      "answer": 0,
+      "explanation": "r^2 = (1 - 4)^2 + (3 + 1)^2 = 25; (x - 4)^2 + (y + 1)^2 = 25 expands to x^2 + y^2 - 8x + 2y - 8 = 0.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0130",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "Find the focus of the parabola y^2 = 12x.",
+      "options": [
+        "(-3, 0)",
+        "(3, 0)",
+        "(12, 0)",
+        "(0, 3)",
+        "(6, 0)"
+      ],
+      "answer": 1,
+      "explanation": "y^2 = 4ax with 4a = 12 gives a = 3; the focus is (a, 0).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0131",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "The point T(4, 2) lies on the circle x^2 + y^2 - 2x + 4y - 20 = 0. Which line touches the circle at T?",
+      "options": [
+        "3x - 4y = 4",
+        "3x + 4y = 5",
+        "4x - 3y = 10",
+        "4x + 3y = 22",
+        "3x + 4y = 20"
+      ],
+      "answer": 4,
+      "explanation": "The centre is (1, -2); the radius to T has gradient 4/3, so the tangent has gradient -3/4: y - 2 = -3/4 (x - 4), i.e. 3x + 4y = 20.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0132",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "What kind of conic is represented by x^2/16 + y^2/9 = 1?",
+      "options": [
+        "a circle",
+        "a pair of straight lines",
+        "a hyperbola",
+        "an ellipse",
+        "a parabola"
+      ],
+      "answer": 3,
+      "explanation": "Both squared terms are positive with different denominators, giving an ellipse.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0133",
+      "type": "OBJECTIVE",
+      "topic": "Conic Sections",
+      "stem": "Find the length of the major axis of the ellipse x^2/25 + y^2/9 = 1.",
+      "options": [
+        "10 units",
+        "25 units",
+        "5 units",
+        "6 units",
+        "8 units"
+      ],
+      "answer": 0,
+      "explanation": "a^2 = 25, a = 5; the major axis has length 2a = 10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0134",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "If y = (3x^2 - 1)^4, find the rate of change of y with respect to x when x = 1.",
+      "options": [
+        "32",
+        "96",
+        "192",
+        "24",
+        "384"
+      ],
+      "answer": 2,
+      "explanation": "dy/dx = 4(3x^2 - 1)^3(6x) = 24x(3x^2 - 1)^3; at x = 1 this is 24 x 8 = 192.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0135",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "Find dy/dx if y = x^2 sin x.",
+      "options": [
+        "2x sin x - x^2 cos x",
+        "2x sin x + x^2 cos x",
+        "2x sin x + 2x cos x",
+        "x^2 cos x",
+        "2x cos x"
+      ],
+      "answer": 1,
+      "explanation": "Product rule: (2x)(sin x) + (x^2)(cos x).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0136",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "Calculate dy/dx for y = (2x + 1)/(x - 3) when x = 4.",
+      "options": [
+        "-5",
+        "-1/7",
+        "-7",
+        "9",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "dy/dx = [2(x - 3) - (2x + 1)]/(x - 3)^2 = -7/(x - 3)^2, which is -7 at x = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0137",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "Find the derivative of e^(5x) + ln x.",
+      "options": [
+        "5e^(5x) + 1/x",
+        "e^(5x) + 1/x",
+        "e^(5x)/5 + 1/x",
+        "5e^(4x) + 1/x",
+        "5e^(5x) + ln x"
+      ],
+      "answer": 0,
+      "explanation": "d/dx e^(5x) = 5e^(5x) and d/dx ln x = 1/x.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0138",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "The curve x^2 + xy + y^2 = 7 passes through (1, 2). Find the gradient of the curve at this point.",
+      "options": [
+        "-1",
+        "-4/5",
+        "-2",
+        "4/5",
+        "-5/4"
+      ],
+      "answer": 1,
+      "explanation": "Differentiating implicitly: 2x + y + x dy/dx + 2y dy/dx = 0, so dy/dx = -(2x + y)/(x + 2y) = -4/5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0139",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "The radius of a circular oil spill increases at 0.2 m/s. How fast is its area increasing when the radius is 5 m?",
+      "options": [
+        "0.4 pi m^2/s",
+        "5 pi m^2/s",
+        "10 pi m^2/s",
+        "pi m^2/s",
+        "2 pi m^2/s"
+      ],
+      "answer": 4,
+      "explanation": "dA/dt = 2 pi r dr/dt = 2 pi (5)(0.2) = 2 pi m^2/s.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0140",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "Find the second derivative of y = 2x^4 - 3x^2 + x.",
+      "options": [
+        "24x^2 - 6x",
+        "8x^2 - 6",
+        "24x - 6",
+        "24x^2 - 6",
+        "8x^3 - 6x + 1"
+      ],
+      "answer": 3,
+      "explanation": "dy/dx = 8x^3 - 6x + 1 and d^2y/dx^2 = 24x^2 - 6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0141",
+      "type": "OBJECTIVE",
+      "topic": "Differentiation",
+      "stem": "The point P(2, 2) lies on y = 2x^2 - 3x. Which line is perpendicular to the curve at P?",
+      "options": [
+        "x + 5y = 12",
+        "5x - y = 8",
+        "x + 5y = 2",
+        "x - 5y = -8",
+        "5x + y = 12"
+      ],
+      "answer": 0,
+      "explanation": "dy/dx = 4x - 3 = 5 at x = 2, so the normal has gradient -1/5: y - 2 = -(1/5)(x - 2), i.e. x + 5y = 12.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0142",
+      "type": "OBJECTIVE",
+      "topic": "Indefinite Integral",
+      "stem": "Integrate 4x^3 - 6/x^2 with respect to x.",
+      "options": [
+        "x^4 - 6/x + c",
+        "x^4 + 3/x + c",
+        "x^4 + 6/x + c",
+        "12x^2 + 12/x^3 + c",
+        "x^4 - 2/x^3 + c"
+      ],
+      "answer": 2,
+      "explanation": "The integral of x^3 is x^4/4 and of x^-2 is -x^-1, so -6 x (-1/x) = 6/x.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0143",
+      "type": "OBJECTIVE",
+      "topic": "Indefinite Integral",
+      "stem": "Find the integral of cos 2x dx.",
+      "options": [
+        "-(1/2) sin 2x + c",
+        "-2 sin 2x + c",
+        "sin 2x + c",
+        "2 sin 2x + c",
+        "(1/2) sin 2x + c"
+      ],
+      "answer": 4,
+      "explanation": "d/dx [sin 2x] = 2 cos 2x, so the integral is (1/2) sin 2x + c.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0144",
+      "type": "OBJECTIVE",
+      "topic": "Indefinite Integral",
+      "stem": "Find the integral of (2x + 1)^3 dx.",
+      "options": [
+        "3(2x + 1)^2 + c",
+        "(2x + 1)^4/2 + c",
+        "(2x + 1)^4/4 + c",
+        "(2x + 1)^4/8 + c",
+        "6(2x + 1)^2 + c"
+      ],
+      "answer": 3,
+      "explanation": "Let u = 2x + 1, du = 2 dx: integral of u^3 du/2 = u^4/8 + c.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0145",
+      "type": "OBJECTIVE",
+      "topic": "Indefinite Integral",
+      "stem": "For a certain curve, dy/dx = 4x + 3. If the curve passes through (1, 2), find y in terms of x.",
+      "options": [
+        "y = x^2 + 3x - 2",
+        "y = 2x^2 + 3x - 3",
+        "y = 2x^2 + 3x + 3",
+        "y = 4x^2 + 3x - 5",
+        "y = 2x^2 + 3x + 2"
+      ],
+      "answer": 1,
+      "explanation": "y = 2x^2 + 3x + c and 2 = 2 + 3 + c gives c = -3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0146",
+      "type": "OBJECTIVE",
+      "topic": "Indefinite Integral",
+      "stem": "Find the integral of e^(-2x) dx.",
+      "options": [
+        "-(1/2)e^(-2x) + c",
+        "-(1/2)e^(2x) + c",
+        "-2e^(-2x) + c",
+        "e^(-2x) + c",
+        "(1/2)e^(-2x) + c"
+      ],
+      "answer": 0,
+      "explanation": "The integral of e^(ax) is (1/a)e^(ax) with a = -2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0147",
+      "type": "OBJECTIVE",
+      "topic": "Definite Integral",
+      "stem": "Given that I is the integral of (x^2 + 2x) with respect to x between the limits 0 and 3, find I.",
+      "options": [
+        "12",
+        "15",
+        "9",
+        "27",
+        "18"
+      ],
+      "answer": 4,
+      "explanation": "[x^3/3 + x^2] from 0 to 3 = 9 + 9 = 18.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0148",
+      "type": "OBJECTIVE",
+      "topic": "Definite Integral",
+      "stem": "Find the integral of 1/x with respect to x between the limits x = 1 and x = e^2.",
+      "options": [
+        "1/2",
+        "e^2 - 1",
+        "2",
+        "1",
+        "e^2"
+      ],
+      "answer": 2,
+      "explanation": "[ln x] from 1 to e^2 = 2 - 0 = 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0149",
+      "type": "OBJECTIVE",
+      "topic": "Definite Integral",
+      "stem": "Find the positive value of k for which the integral of (2x + 1) dx from 1 to k equals 10.",
+      "options": [
+        "4",
+        "10",
+        "2",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "explanation": "[x^2 + x] from 1 to k = k^2 + k - 2 = 10, so k^2 + k - 12 = 0, (k + 4)(k - 3) = 0 and k = 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0150",
+      "type": "OBJECTIVE",
+      "topic": "Definite Integral",
+      "stem": "Find the integral of e^(2x) with respect to x between the limits 0 and ln 3.",
+      "options": [
+        "9/2",
+        "4",
+        "9",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "[e^(2x)/2] from 0 to ln 3 = 9/2 - 1/2 = 4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0151",
+      "type": "OBJECTIVE",
+      "topic": "Applications of the Definite Integral",
+      "stem": "Find the area enclosed by the curve y = 4x - x^2 and the x-axis.",
+      "options": [
+        "32/3 square units",
+        "32 square units",
+        "64/3 square units",
+        "8 square units",
+        "16/3 square units"
+      ],
+      "answer": 0,
+      "explanation": "The curve meets the x-axis at x = 0 and 4; integral of (4x - x^2) from 0 to 4 = 32 - 64/3 = 32/3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0152",
+      "type": "OBJECTIVE",
+      "topic": "Applications of the Definite Integral",
+      "stem": "Find the area of the region enclosed by y = x^2 and y = x + 2.",
+      "options": [
+        "9 square units",
+        "9/2 square units",
+        "27/2 square units",
+        "5/6 square units",
+        "7/2 square units"
+      ],
+      "answer": 1,
+      "explanation": "They meet at x = -1 and x = 2; integral of (x + 2 - x^2) from -1 to 2 = 9/2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0153",
+      "type": "OBJECTIVE",
+      "topic": "Applications of the Definite Integral",
+      "stem": "The triangle bounded by the line y = 2x, the x-axis and the line x = 3 is rotated through 360 degrees about the x-axis to form a cone. Find its volume.",
+      "options": [
+        "108 pi cubic units",
+        "18 pi cubic units",
+        "12 pi cubic units",
+        "9 pi cubic units",
+        "36 pi cubic units"
+      ],
+      "answer": 4,
+      "explanation": "V = pi times the integral of (2x)^2 from 0 to 3 = 4 pi [x^3/3] from 0 to 3 = 36 pi.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0154",
+      "type": "OBJECTIVE",
+      "topic": "Applications of the Definite Integral",
+      "stem": "A particle moving in a straight line has velocity v = (6t^2 - 4t + 1) m/s at time t seconds. How far does it travel between t = 0 and t = 3?",
+      "options": [
+        "13 m",
+        "37 m",
+        "39 m",
+        "45 m",
+        "43 m"
+      ],
+      "answer": 2,
+      "explanation": "v is never zero (its discriminant is negative), so distance = integral of v from 0 to 3 = [2t^3 - 2t^2 + t] = 54 - 18 + 3 = 39 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0155",
+      "type": "OBJECTIVE",
+      "topic": "Applications of the Definite Integral",
+      "stem": "Find the area bounded by y = x^3, the x-axis and the line x = 2.",
+      "options": [
+        "16 square units",
+        "8 square units",
+        "2 square units",
+        "4 square units",
+        "12 square units"
+      ],
+      "answer": 3,
+      "explanation": "integral of x^3 from 0 to 2 = 16/4 = 4.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0156",
+      "type": "OBJECTIVE",
+      "topic": "Tabulation and Graphical Representation of Data",
+      "stem": "In a histogram drawn with unequal class widths, the height of each bar represents",
+      "options": [
+        "the class frequency",
+        "the cumulative frequency",
+        "the class boundary",
+        "the frequency density of the class",
+        "the class mark"
+      ],
+      "answer": 3,
+      "explanation": "With unequal widths the area must be proportional to frequency, so height = frequency/class width.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0157",
+      "type": "OBJECTIVE",
+      "topic": "Tabulation and Graphical Representation of Data",
+      "stem": "In a histogram, a class of width 10 has frequency 24. What is the height of its bar if heights are frequency densities?",
+      "options": [
+        "10",
+        "240",
+        "2.4",
+        "24",
+        "0.24"
+      ],
+      "answer": 2,
+      "explanation": "Frequency density = frequency/width = 24/10 = 2.4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0158",
+      "type": "OBJECTIVE",
+      "topic": "Tabulation and Graphical Representation of Data",
+      "stem": "An ogive is drawn from a cumulative frequency table. Which of the following is read from the ogive at half the total frequency?",
+      "options": [
+        "the median",
+        "the standard deviation",
+        "the range",
+        "the mode",
+        "the mean"
+      ],
+      "answer": 0,
+      "explanation": "The median corresponds to the cumulative frequency n/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0159",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Location",
+      "stem": "Using an assumed mean of 40, the sum of fd for a distribution is 72 and the sum of f is 48, where d = x - 40. Find the mean.",
+      "options": [
+        "40.5",
+        "41.2",
+        "38.5",
+        "43",
+        "41.5"
+      ],
+      "answer": 4,
+      "explanation": "Mean = 40 + 72/48 = 40 + 1.5 = 41.5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0160",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Location",
+      "stem": "Find the median of 13, 7, 21, 9, 15, 18, 10.",
+      "options": [
+        "14",
+        "13",
+        "9",
+        "13.3",
+        "15"
+      ],
+      "answer": 1,
+      "explanation": "Arranged: 7, 9, 10, 13, 15, 18, 21; the middle value is 13.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0161",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Location",
+      "stem": "For a grouped distribution of 50 scores, the median class is 30-39 (lower class boundary 29.5) with frequency 14, and the cumulative frequency before it is 18. Find the median.",
+      "options": [
+        "32.5",
+        "35",
+        "29.5",
+        "34.5",
+        "37.0"
+      ],
+      "answer": 3,
+      "explanation": "Median = 29.5 + (25 - 18)/14 x 10 = 29.5 + 5 = 34.5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0162",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Location",
+      "stem": "The mean of x, x + 3, x + 5, x + 7 and x + 10 is 13. Find x.",
+      "options": [
+        "8",
+        "7",
+        "5",
+        "13",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "(5x + 25)/5 = 13 gives x + 5 = 13, so x = 8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0163",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Dispersion",
+      "stem": "Five sacks of garri weigh 43, 45, 46, 48 and 53 kg. Calculate the variance of their masses.",
+      "options": [
+        "7 kg^2",
+        "14.5 kg^2",
+        "11.6 kg^2",
+        "58 kg^2",
+        "3.41 kg^2"
+      ],
+      "answer": 2,
+      "explanation": "Mean = 47; squared deviations 16, 4, 1, 1, 36 sum to 58; variance = 58/5 = 11.6.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0164",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Dispersion",
+      "stem": "Find the range of the set of numbers 17, 4, 25, 11, 9, 30.",
+      "options": [
+        "13",
+        "16",
+        "30",
+        "21",
+        "26"
+      ],
+      "answer": 4,
+      "explanation": "Range = 30 - 4 = 26.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0165",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Dispersion",
+      "stem": "The lower and upper quartiles of a distribution are 24 and 41. Find the semi-interquartile range.",
+      "options": [
+        "4.25",
+        "8.5",
+        "32.5",
+        "65",
+        "17"
+      ],
+      "answer": 1,
+      "explanation": "(41 - 24)/2 = 8.5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0166",
+      "type": "OBJECTIVE",
+      "topic": "Measures of Dispersion",
+      "stem": "Each of a set of numbers with standard deviation 4 is multiplied by 3 and then increased by 5. What is the standard deviation of the new set?",
+      "options": [
+        "9",
+        "12",
+        "36",
+        "17",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "Adding a constant does not change spread; multiplying by 3 multiplies the standard deviation by 3.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0167",
+      "type": "OBJECTIVE",
+      "topic": "Correlation",
+      "stem": "In ranking six cakes at a baking contest, two judges' ranks differ by 1 for every cake, so the sum of d^2 is 6. Find Spearman's rank correlation coefficient.",
+      "options": [
+        "6/35",
+        "1/35",
+        "34/35",
+        "-29/35",
+        "29/35"
+      ],
+      "answer": 4,
+      "explanation": "rho = 1 - 6(6)/(6(36 - 1)) = 1 - 36/210 = 1 - 6/35 = 29/35.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0168",
+      "type": "OBJECTIVE",
+      "topic": "Correlation",
+      "stem": "A rank correlation coefficient of -0.95 indicates",
+      "options": [
+        "strong positive correlation",
+        "no correlation",
+        "strong negative correlation",
+        "perfect positive correlation",
+        "weak negative correlation"
+      ],
+      "answer": 2,
+      "explanation": "Values close to -1 show a strong inverse relationship.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0169",
+      "type": "OBJECTIVE",
+      "topic": "Correlation",
+      "stem": "Which of the following can NOT be a value of a correlation coefficient?",
+      "options": [
+        "-0.3",
+        "0",
+        "0.85",
+        "1.2",
+        "-1"
+      ],
+      "answer": 3,
+      "explanation": "Correlation coefficients lie between -1 and 1 inclusive.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0170",
+      "type": "OBJECTIVE",
+      "topic": "Correlation",
+      "stem": "On a scatter diagram, as x increases the points tend to fall close to a straight line sloping downwards. The correlation is best described as",
+      "options": [
+        "strong negative",
+        "curvilinear positive",
+        "strong positive",
+        "zero",
+        "weak positive"
+      ],
+      "answer": 0,
+      "explanation": "A downward trend with points close to a line indicates strong negative correlation.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0171",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "Two independent events A and B have P(A) = 2/5 and P(B) = 1/3. What is the probability that at least one of them occurs?",
+      "options": [
+        "4/5",
+        "3/5",
+        "2/15",
+        "7/15",
+        "11/15"
+      ],
+      "answer": 1,
+      "explanation": "P(A u B) = 2/5 + 1/3 - (2/5)(1/3) = 9/15 = 3/5.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0172",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "10% of the mangoes in a large basket are spoilt. Four mangoes are picked at random. Find the probability that at least one is spoilt.",
+      "options": [
+        "0.6561",
+        "0.4",
+        "0.0001",
+        "0.3439",
+        "0.2916"
+      ],
+      "answer": 3,
+      "explanation": "P(none spoilt) = 0.9^4 = 0.6561, so P(at least one) = 0.3439.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0173",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "A box has 4 red and 6 blue pens. Three pens are chosen at random together. Find the probability that exactly two are red.",
+      "options": [
+        "3/10",
+        "2/15",
+        "1/5",
+        "1/2",
+        "9/50"
+      ],
+      "answer": 0,
+      "explanation": "4C2 x 6C1 / 10C3 = 36/120 = 3/10.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0174",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "X is a binomial random variable with n = 20 and p = 1/4. Find the variance of X.",
+      "options": [
+        "20/3",
+        "sqrt 15/2",
+        "5",
+        "15/16",
+        "15/4"
+      ],
+      "answer": 4,
+      "explanation": "Var(X) = npq = 20 x 1/4 x 3/4 = 15/4.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0175",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "If P(A) = 0.35, find P(A'), the probability that A does not occur.",
+      "options": [
+        "0.35",
+        "0.0",
+        "0.65",
+        "1.35",
+        "0.30"
+      ],
+      "answer": 2,
+      "explanation": "P(A') = 1 - 0.35 = 0.65.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0176",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "P(A n B) = 3/20 and P(B) = 1/4. Find P(A | B).",
+      "options": [
+        "3/5",
+        "3/80",
+        "5/3",
+        "1/4",
+        "3/20"
+      ],
+      "answer": 0,
+      "explanation": "P(A | B) = P(A n B)/P(B) = (3/20)/(1/4) = 3/5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0177",
+      "type": "OBJECTIVE",
+      "topic": "Probability",
+      "stem": "Events A and B cannot occur together. P(A) = 0.3 and the probability that A or B occurs is 0.75. Find P(B).",
+      "options": [
+        "1.05",
+        "0.45",
+        "0.25",
+        "0.225",
+        "0.5"
+      ],
+      "answer": 1,
+      "explanation": "For mutually exclusive events P(A or B) = P(A) + P(B), so P(B) = 0.75 - 0.3 = 0.45.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0178",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Find the scalar product of a = 3i - 4j and b = 2i + 5j.",
+      "options": [
+        "26",
+        "-26",
+        "14",
+        "6i - 20j",
+        "-14"
+      ],
+      "answer": 4,
+      "explanation": "a.b = 3(2) + (-4)(5) = 6 - 20 = -14.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0179",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Find a vector of unit length in the same direction as 5i + 12j.",
+      "options": [
+        "(12/13)i + (5/13)j",
+        "(5/13)i - (12/13)j",
+        "(5/13)i + (12/13)j",
+        "5i + 12j",
+        "(5/17)i + (12/17)j"
+      ],
+      "answer": 2,
+      "explanation": "|5i + 12j| = 13; divide the vector by its magnitude.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0180",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Calculate the angle between the vectors p = 2i + j and q = i + 3j.",
+      "options": [
+        "90 degrees",
+        "60 degrees",
+        "135 degrees",
+        "45 degrees",
+        "30 degrees"
+      ],
+      "answer": 3,
+      "explanation": "p.q = 2 + 3 = 5 and |p||q| = sqrt 5 x sqrt 10 = 5 sqrt 2, so cos theta = 1/sqrt 2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0181",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Find k if the vectors 4i - 3j and ki + 6j are perpendicular.",
+      "options": [
+        "-9/2",
+        "-8",
+        "2",
+        "9/2",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "4k - 18 = 0 gives k = 9/2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0182",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "For what value of m are the vectors 2i + mj and 6i - 9j parallel?",
+      "options": [
+        "27",
+        "3",
+        "-3",
+        "-27",
+        "-1/3"
+      ],
+      "answer": 2,
+      "explanation": "Parallel means 2/6 = m/(-9), so m = -3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0183",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "A and B have position vectors 2i + j and 8i + 10j. P lies on AB with AP : PB = 1 : 2. Find the position vector of P.",
+      "options": [
+        "3i + 3j",
+        "10i + 11j",
+        "6i + 7j",
+        "5i + 5.5j",
+        "4i + 4j"
+      ],
+      "answer": 4,
+      "explanation": "OP = OA + (1/3)AB = (2i + j) + (1/3)(6i + 9j) = 4i + 4j.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0184",
+      "type": "OBJECTIVE",
+      "topic": "Vectors",
+      "stem": "Find the scalar projection (component) of 5i + j in the direction of 3i + 4j.",
+      "options": [
+        "19/5",
+        "4",
+        "19",
+        "19/25",
+        "19/26"
+      ],
+      "answer": 0,
+      "explanation": "(5i + j).(3i + 4j) / |3i + 4j| = (15 + 4)/5 = 19/5.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0185",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "Two forces of 6 N and 8 N act at a point with an angle of 60 degrees between them. Find the magnitude of their resultant, correct to 2 decimal places.",
+      "options": [
+        "13.23 N",
+        "12.17 N",
+        "14.00 N",
+        "10.00 N",
+        "7.21 N"
+      ],
+      "answer": 1,
+      "explanation": "R^2 = 36 + 64 + 2(6)(8) cos 60 = 148, R = 12.17 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0186",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "A particle is at rest under the action of three forces: (6i - 2j) N, (-i + 7j) N and R. Find R.",
+      "options": [
+        "(7i - 9j) N",
+        "(5i + 5j) N",
+        "(-5i - 5j) N",
+        "(5i - 5j) N",
+        "(-5i + 5j) N"
+      ],
+      "answer": 2,
+      "explanation": "The resultant must be zero: R = -[(6 - 1)i + (-2 + 7)j] = -5i - 5j.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0187",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "A block is just on the point of slipping down a rough plane inclined at 30 degrees to the horizontal. Find the coefficient of friction, correct to 3 decimal places.",
+      "options": [
+        "0.577",
+        "0.300",
+        "0.866",
+        "1.732",
+        "0.500"
+      ],
+      "answer": 0,
+      "explanation": "In limiting equilibrium mu = tan of the angle of inclination = tan 30 = 0.577.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0188",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "A light rod AB is pivoted at a point C. A load of 120 N hangs from A, 0.5 m from C. What load must hang from B, 0.75 m from C on the other side, for the rod to rest horizontally?",
+      "options": [
+        "90 N",
+        "80 N",
+        "180 N",
+        "60 N",
+        "45 N"
+      ],
+      "answer": 1,
+      "explanation": "Moments about C: 120 x 0.5 = W x 0.75, so W = 80 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0189",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "A weight of 50 N hangs from two strings that make angles of 30 degrees and 60 degrees with the horizontal. Find the tension in the string inclined at 60 degrees to the horizontal, correct to 2 decimal places.",
+      "options": [
+        "25.00 N",
+        "28.87 N",
+        "50.00 N",
+        "86.60 N",
+        "43.30 N"
+      ],
+      "answer": 4,
+      "explanation": "The strings are perpendicular. Resolving: T1 cos 30 = T2 cos 60 and T1 sin 30 + T2 sin 60 = 50 give T2 = 50 sin 60 = 43.30 N for the 60-degree string.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0190",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "The limiting frictional force on a 20 kg box resting on a rough horizontal floor is 50 N. Find the coefficient of friction. [Take g = 10 m/s^2]",
+      "options": [
+        "4",
+        "0.5",
+        "0.4",
+        "0.25",
+        "2.5"
+      ],
+      "answer": 3,
+      "explanation": "mu = F/R = 50/(20 x 10) = 0.25.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0191",
+      "type": "OBJECTIVE",
+      "topic": "Statics",
+      "stem": "Find the magnitude of the resultant of the forces (5i + 2j) N and (7i + 3j) N.",
+      "options": [
+        "sqrt 89 N",
+        "13 N",
+        "sqrt 173 N",
+        "17 N",
+        "12 N"
+      ],
+      "answer": 1,
+      "explanation": "Resultant = 12i + 5j; magnitude sqrt(144 + 25) = 13 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0192",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A car moving at 4 m/s accelerates uniformly at 2.5 m/s^2 for 6 s. Find its final velocity.",
+      "options": [
+        "49 m/s",
+        "10.5 m/s",
+        "19 m/s",
+        "25 m/s",
+        "15 m/s"
+      ],
+      "answer": 2,
+      "explanation": "v = u + at = 4 + 15 = 19 m/s.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0193",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A lorry travelling at 20 m/s brakes with a uniform retardation of 5 m/s^2. How far does it travel before stopping?",
+      "options": [
+        "40 m",
+        "80 m",
+        "100 m",
+        "4 m",
+        "20 m"
+      ],
+      "answer": 0,
+      "explanation": "v^2 = u^2 - 2as gives 0 = 400 - 10s, so s = 40 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0194",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A stone is thrown vertically upwards at 30 m/s. Find the greatest height reached. [Take g = 10 m/s^2]",
+      "options": [
+        "30 m",
+        "90 m",
+        "3 m",
+        "150 m",
+        "45 m"
+      ],
+      "answer": 4,
+      "explanation": "h = u^2/(2g) = 900/20 = 45 m.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0195",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A car of mass 1500 kg accelerates at 2 m/s^2 against a resistance of 600 N. Find the driving force of the engine.",
+      "options": [
+        "900 N",
+        "3750 N",
+        "3000 N",
+        "3600 N",
+        "2400 N"
+      ],
+      "answer": 3,
+      "explanation": "F - 600 = 1500 x 2, so F = 3600 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0196",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A 1.5 kg lump of clay moving at 6 m/s on a smooth horizontal surface strikes and sticks to a stationary 2.5 kg block. Find the speed of the combined mass immediately afterwards.",
+      "options": [
+        "3.6 m/s",
+        "6 m/s",
+        "2.25 m/s",
+        "1.5 m/s",
+        "4 m/s"
+      ],
+      "answer": 2,
+      "explanation": "Momentum is conserved: 1.5 x 6 = 4v, so v = 2.25 m/s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0197",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A ball is projected from level ground at 50 m/s at 30 degrees to the horizontal. Find its horizontal range, correct to 2 decimal places. [Take g = 10 m/s^2]",
+      "options": [
+        "108.25 m",
+        "250.00 m",
+        "433.01 m",
+        "125.00 m",
+        "216.51 m"
+      ],
+      "answer": 4,
+      "explanation": "R = u^2 sin 2theta / g = 2500 sin 60 / 10 = 216.51 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0198",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "For the same projectile (50 m/s at 30 degrees to the horizontal), find the time of flight. [Take g = 10 m/s^2]",
+      "options": [
+        "10 s",
+        "2.5 s",
+        "8.66 s",
+        "5 s",
+        "4.33 s"
+      ],
+      "answer": 3,
+      "explanation": "T = 2u sin theta / g = 2(50)(0.5)/10 = 5 s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0199",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "Two bodies of masses 7 kg and 3 kg are tied to the ends of a light inextensible string over a smooth fixed pulley and released from rest. Find their acceleration. [Take g = 10 m/s^2]",
+      "options": [
+        "2.5 m/s^2",
+        "4 m/s^2",
+        "7 m/s^2",
+        "3 m/s^2",
+        "10 m/s^2"
+      ],
+      "answer": 1,
+      "explanation": "a = (7 - 3)g/(7 + 3) = 40/10 = 4 m/s^2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0200",
+      "type": "OBJECTIVE",
+      "topic": "Dynamics",
+      "stem": "A ball of mass 0.2 kg moving at 10 m/s strikes a wall normally and rebounds at 15 m/s. Find the magnitude of the impulse on the ball.",
+      "options": [
+        "5 Ns",
+        "2 Ns",
+        "1 Ns",
+        "3 Ns",
+        "25 Ns"
+      ],
+      "answer": 0,
+      "explanation": "Impulse = change of momentum = 0.2(15 - (-10)) = 5 Ns.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0501",
+      "type": "THEORY",
+      "topic": "Binary Operations",
+      "stem": "A binary operation * is defined on the set of real numbers by a * b = a + b - 3.\n(a) Evaluate (2 * 5) * 4. [2 marks]\n(b) Find the identity element e under *. [2 marks]\n(c) Find the inverse of 7 under *. [2 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) 2 * 5 = 2 + 5 - 3 = 4\n1 mark: (a) 4 * 4 = 4 + 4 - 3 = 5\n1 mark: (b) a * e = a gives a + e - 3 = a\n1 mark: (b) e = 3\n1 mark: (c) 7 * b = e gives 7 + b - 3 = 3\n1 mark: (c) b = -1",
+      "explanation": "(a) (2 * 5) * 4 = 4 * 4 = 5. (b) a + e - 3 = a gives e = 3. (c) 7 + b - 3 = 3 gives b = -1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0502",
+      "type": "THEORY",
+      "topic": "Cubic Functions and Equations",
+      "stem": "(x - 3) is a factor of f(x) = 2x^3 + kx^2 - 11x + 6.\n(a) Find the value of k. [2 marks]\n(b) Find the remainder when f(x) is divided by (x + 1). [1 mark]\n(c) Factorise f(x) completely. [3 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) f(3) = 54 + 9k - 33 + 6 = 0\n1 mark: (a) 9k = -27, k = -3\n1 mark: (b) remainder = f(-1) = -2 - 3 + 11 + 6 = 12\n1 mark: (c) dividing 2x^3 - 3x^2 - 11x + 6 by (x - 3) gives 2x^2 + 3x - 2\n1 mark: (c) 2x^2 + 3x - 2 = (2x - 1)(x + 2)\n1 mark: (c) f(x) = (x - 3)(2x - 1)(x + 2)",
+      "explanation": "f(3) = 27 + 9k = 0 gives k = -3. The remainder is f(-1) = 12. Division gives 2x^2 + 3x - 2 = (2x - 1)(x + 2), so f(x) = (x - 3)(2x - 1)(x + 2).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0503",
+      "type": "THEORY",
+      "topic": "Binomial Theorem",
+      "stem": "(a) Expand (1 + 2x)^6 in ascending powers of x up to and including the term in x^3. [3 marks]\n(b) Use your expansion to evaluate (1.02)^6, correct to 4 decimal places. [3 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) 1 + 6(2x) = 1 + 12x\n1 mark: (a) 15(2x)^2 = 60x^2\n1 mark: (a) 20(2x)^3 = 160x^3\n1 mark: (b) 1 + 2x = 1.02 gives x = 0.01\n1 mark: (b) 1 + 0.12 + 0.006 + 0.00016\n1 mark: (b) = 1.1262",
+      "explanation": "(1 + 2x)^6 = 1 + 12x + 60x^2 + 160x^3 + ... With x = 0.01: 1 + 0.12 + 0.006 + 0.00016 = 1.12616, i.e. 1.1262.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0504",
+      "type": "THEORY",
+      "topic": "Rational Functions",
+      "stem": "(a) Express (x + 7)/((x - 1)(x + 3)) in partial fractions. [4 marks]\n(b) State the values of x for which the expression is undefined. [2 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) x + 7 = A(x + 3) + B(x - 1)\n1 mark: (a) x = 1: 8 = 4A, A = 2\n1 mark: (a) x = -3: 4 = -4B, B = -1\n1 mark: (a) 2/(x - 1) - 1/(x + 3)\n1 mark: (b) denominator zero when (x - 1)(x + 3) = 0\n1 mark: (b) x = 1 or x = -3",
+      "explanation": "Putting x = 1 gives A = 2 and x = -3 gives B = -1, so the expression is 2/(x - 1) - 1/(x + 3). It is undefined at x = 1 and x = -3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0505",
+      "type": "THEORY",
+      "topic": "Measures of Dispersion",
+      "stem": "The numbers of customers served by a POS operator in Ilorin on six days were 12, 15, 9, 18, 21 and 15.\n(a) Calculate the mean. [2 marks]\n(b) Calculate the standard deviation, correct to 2 decimal places. [4 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) sum = 90\n1 mark: (a) mean = 90/6 = 15\n1 mark: (b) deviations -3, 0, -6, 3, 6, 0\n1 mark: (b) squares 9, 0, 36, 9, 36, 0, sum 90\n1 mark: (b) variance = 90/6 = 15\n1 mark: (b) standard deviation = sqrt 15 = 3.87",
+      "explanation": "Mean = 90/6 = 15. Sum of squared deviations = 90, variance 15, standard deviation 3.87.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0506",
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "The probability that a seed of a certain variety of maize germinates is 0.2. Six seeds are planted.\n(a) Find, correct to 4 decimal places, the probability that exactly 2 germinate. [3 marks]\n(b) Find, correct to 4 decimal places, the probability that at least one germinates. [3 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) binomial with n = 6, p = 0.2, q = 0.8\n1 mark: (a) P(X = 2) = 6C2 (0.2)^2 (0.8)^4 = 15 x 0.04 x 0.4096\n1 mark: (a) = 0.2458\n1 mark: (b) P(X = 0) = 0.8^6 = 0.262144\n1 mark: (b) P(X >= 1) = 1 - 0.262144\n1 mark: (b) = 0.7379",
+      "explanation": "P(X = 2) = 15(0.04)(0.4096) = 0.24576 = 0.2458. P(X >= 1) = 1 - 0.8^6 = 1 - 0.262144 = 0.7379.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0507",
+      "type": "THEORY",
+      "topic": "Vectors",
+      "stem": "Given that a = 3i + 4j, b = -2i + 5j and c = 5i - 6j:\n(a) find 2a - b + c. [2 marks]\n(b) Find, correct to the nearest degree, the angle between a and b. [4 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) 2a = 6i + 8j\n1 mark: (a) 2a - b + c = (6 + 2 + 5)i + (8 - 5 - 6)j = 13i - 3j\n1 mark: (b) a.b = 3(-2) + 4(5) = 14\n1 mark: (b) |a| = 5, |b| = sqrt 29\n1 mark: (b) cos theta = 14/(5 sqrt 29) = 0.5200\n1 mark: (b) theta = 59 degrees",
+      "explanation": "2a - b + c = 13i - 3j. a.b = 14, |a| = 5, |b| = sqrt 29 = 5.385; cos theta = 0.5200 so theta = 58.7, i.e. 59 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0508",
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "A particle starts with velocity 2 m/s and moves in a straight line with uniform acceleration 3 m/s^2.\n(a) Find its velocity after 5 seconds. [2 marks]\n(b) Find the distance it travels in the first 5 seconds. [2 marks]\n(c) Find the distance it travels in the 5th second. [2 marks]",
+      "marks": 6,
+      "markingGuide": "1 mark: (a) v = u + at = 2 + 3(5)\n1 mark: (a) = 17 m/s\n1 mark: (b) s = ut + (1/2)at^2 = 10 + 37.5\n1 mark: (b) = 47.5 m\n1 mark: (c) s_4 = 8 + 24 = 32 m\n1 mark: (c) distance in 5th second = 47.5 - 32 = 15.5 m",
+      "explanation": "v = 17 m/s; s_5 = 47.5 m; s_4 = 32 m, so the distance in the 5th second is 15.5 m.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-fmath-0509",
+      "type": "THEORY",
+      "topic": "Sequences and Series",
+      "stem": "(a) The sum of the first n terms of a sequence is S_n = 3n^2 + 2n.\n(i) Find the first three terms.\n(ii) Show that the sequence is an arithmetic progression and find its 20th term. [7 marks]\n(b) The sum to infinity of a geometric progression is 24 and its second term is 6. Find the common ratio and the first term. [6 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) T_1 = S_1 = 5\n1 mark: (a)(i) S_2 = 16, so T_2 = 11\n1 mark: (a)(i) S_3 = 33, so T_3 = 17\n1 mark: (a)(ii) T_n = S_n - S_(n-1) = 6n - 1\n1 mark: (a)(ii) T_n - T_(n-1) = 6, a constant, so it is an AP\n1 mark: (a)(ii) T_20 = 6(20) - 1\n1 mark: (a)(ii) = 119\n1 mark: (b) a/(1 - r) = 24 and ar = 6\n1 mark: (b) a = 6/r, so 6/(r(1 - r)) = 24\n1 mark: (b) 4r^2 - 4r + 1 = 0\n1 mark: (b) (2r - 1)^2 = 0\n1 mark: (b) r = 1/2\n1 mark: (b) a = 12",
+      "explanation": "(a) T_1 = 5, T_2 = 11, T_3 = 17; T_n = 6n - 1 has constant difference 6, so the sequence is an AP and T_20 = 119. (b) From a = 6/r and a/(1 - r) = 24, 4r^2 - 4r + 1 = 0, so r = 1/2 and a = 12.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0510",
+      "type": "THEORY",
+      "topic": "Linear Transformation",
+      "stem": "A linear transformation T maps (x, y) to (2x + y, x + 3y).\n(a) Write down the matrix M of T. [1 mark]\n(b) Find the images of A(1, 0), B(3, 1) and C(2, 3) under T. [3 marks]\n(c) Calculate the area of triangle ABC and hence the area of its image. [4 marks]\n(d) Find M^-1 and hence the point which T maps onto (9, 7). [5 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) M = (2 1 / 1 3)\n1 mark: (b) A' = (2, 1)\n1 mark: (b) B' = (7, 6)\n1 mark: (b) C' = (7, 11)\n1 mark: (c) area ABC = (1/2)|(3 - 1)(3 - 0) - (2 - 1)(1 - 0)|\n1 mark: (c) = (1/2)(6 - 1) = 5/2 square units\n1 mark: (c) det M = 6 - 1 = 5 (area scale factor)\n1 mark: (c) area of image = 5 x 5/2 = 25/2 square units\n1 mark: (d) M^-1 = (1/5)(3 -1 / -1 2)\n1 mark: (d) (x, y) = M^-1 (9, 7)\n1 mark: (d) x = (27 - 7)/5 = 4\n1 mark: (d) y = (-9 + 14)/5 = 1\n1 mark: (d) the point is (4, 1); check: (8 + 1, 4 + 3) = (9, 7)",
+      "explanation": "M = (2 1 / 1 3). Images: (2, 1), (7, 6), (7, 11). Area of ABC = 5/2; det M = 5, so the image has area 25/2. M^-1 = (1/5)(3 -1 / -1 2), and M^-1(9, 7) = (4, 1).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0511",
+      "type": "THEORY",
+      "topic": "Trigonometric Functions and Equations",
+      "stem": "(a) Solve cos 2x + 3 sin x = 2 for 0 <= x <= 360 degrees. [6 marks]\n(b) (i) Express 3 cos x + 4 sin x in the form R cos(x - alpha), where R > 0 and 0 < alpha < 90 degrees.\n(ii) Hence solve 3 cos x + 4 sin x = 2.5 for 0 <= x <= 360 degrees, giving answers to 2 decimal places. [7 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) cos 2x = 1 - 2 sin^2 x\n1 mark: (a) 1 - 2 sin^2 x + 3 sin x - 2 = 0, i.e. 2 sin^2 x - 3 sin x + 1 = 0\n1 mark: (a) (2 sin x - 1)(sin x - 1) = 0\n1 mark: (a) sin x = 1/2 or sin x = 1\n1 mark: (a) sin x = 1/2: x = 30 or 150 degrees\n1 mark: (a) sin x = 1: x = 90 degrees\n1 mark: (b)(i) R = sqrt(3^2 + 4^2) = 5\n1 mark: (b)(i) tan alpha = 4/3, alpha = 53.13 degrees\n1 mark: (b)(ii) 5 cos(x - 53.13) = 2.5, so cos(x - 53.13) = 0.5\n1 mark: (b)(ii) x - 53.13 = 60 or 300 (or -60)\n1 mark: (b)(ii) x = 113.13 degrees\n1 mark: (b)(ii) x = 353.13 degrees\n1 mark: (b)(ii) both answers in the given range stated",
+      "explanation": "(a) 2 sin^2 x - 3 sin x + 1 = 0 gives sin x = 1/2 or 1, so x = 30, 90 or 150 degrees. (b) 3 cos x + 4 sin x = 5 cos(x - 53.13). Then cos(x - 53.13) = 0.5, so x - 53.13 = 60 or 300 (equivalently -60), giving x = 113.13 or 353.13 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0512",
+      "type": "THEORY",
+      "topic": "Conic Sections",
+      "stem": "A circle passes through the points P(1, 1), Q(5, 1) and R(5, 5).\n(a) Find the equation of the circle in the form x^2 + y^2 + 2gx + 2fy + c = 0. [6 marks]\n(b) Find the equation of the tangent to the circle at R. [3 marks]\n(c) Find the length of the chord cut off by the line y = x + 2, leaving your answer in surd form. [4 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) substituting P: 2 + 2g + 2f + c = 0\n1 mark: (a) substituting Q: 26 + 10g + 2f + c = 0\n1 mark: (a) substituting R: 50 + 10g + 10f + c = 0\n1 mark: (a) Q - P: 24 + 8g = 0, g = -3; R - Q: 24 + 8f = 0, f = -3\n1 mark: (a) c = -2 + 6 + 6 = 10\n1 mark: (a) x^2 + y^2 - 6x - 6y + 10 = 0\n1 mark: (b) centre (3, 3); gradient of radius to R(5, 5) = 1\n1 mark: (b) tangent gradient = -1\n1 mark: (b) y - 5 = -(x - 5), i.e. x + y = 10\n1 mark: (c) substitute y = x + 2: x^2 + (x + 2)^2 - 6x - 6(x + 2) + 10 = 0\n1 mark: (c) 2x^2 - 8x + 2 = 0, x^2 - 4x + 1 = 0, x = 2 +/- sqrt 3\n1 mark: (c) the x-difference of the end points is 2 sqrt 3, and so is the y-difference\n1 mark: (c) chord length = sqrt(12 + 12) = 2 sqrt 6 units",
+      "explanation": "Solving the three equations gives g = f = -3 and c = 10, so x^2 + y^2 - 6x - 6y + 10 = 0 (centre (3, 3), radius 2 sqrt 2). The tangent at R(5, 5) is x + y = 10. The line y = x + 2 meets the circle where x^2 - 4x + 1 = 0, so the chord length is sqrt[(2 sqrt 3)^2 + (2 sqrt 3)^2] = 2 sqrt 6.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0513",
+      "type": "THEORY",
+      "topic": "Differentiation",
+      "stem": "An open rectangular tray is made from a square sheet of tin of side 18 cm by cutting out a square of side x cm from each corner and folding up the sides.\n(a) Show that the volume V cm^3 of the tray is V = x(18 - 2x)^2. [3 marks]\n(b) Find dV/dx. [3 marks]\n(c) Find the value of x for which V is a maximum, and show that it gives a maximum. [5 marks]\n(d) Find the maximum volume. [2 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) the base of the tray is a square of side (18 - 2x) cm\n1 mark: (a) the height of the tray is x cm\n1 mark: (a) V = base area x height = x(18 - 2x)^2\n1 mark: (b) V = 324x - 72x^2 + 4x^3\n1 mark: (b) dV/dx = 324 - 144x + 12x^2\n1 mark: (b) i.e. dV/dx = 12(x^2 - 12x + 27)\n1 mark: (c) dV/dx = 0: x^2 - 12x + 27 = 0\n1 mark: (c) (x - 3)(x - 9) = 0, x = 3 or x = 9\n1 mark: (c) x = 9 gives zero base (18 - 18 = 0), so it is rejected\n1 mark: (c) d^2V/dx^2 = 24x - 144\n1 mark: (c) at x = 3, d^2V/dx^2 = -72 < 0, so V is a maximum\n1 mark: (d) V = 3(18 - 6)^2 = 3 x 144\n1 mark: (d) = 432 cm^3",
+      "explanation": "V = x(18 - 2x)^2 = 4x^3 - 72x^2 + 324x, dV/dx = 12(x - 3)(x - 9). x = 9 is impossible, and at x = 3 the second derivative is -72, so V is greatest when x = 3 cm, giving V = 432 cm^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0514",
+      "type": "THEORY",
+      "topic": "Applications of the Definite Integral",
+      "stem": "(a) Find the points of intersection of the curve y = x^2 and the line y = 6 - x. [3 marks]\n(b) Calculate the area of the region enclosed by the curve and the line. [6 marks]\n(c) The region bounded by y = x^2, the x-axis and the line x = 2 is rotated through 360 degrees about the x-axis. Find the volume generated, in terms of pi. [4 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) x^2 = 6 - x, so x^2 + x - 6 = 0\n1 mark: (a) (x + 3)(x - 2) = 0, x = -3 or 2\n1 mark: (a) points (-3, 9) and (2, 4)\n1 mark: (b) area = integral from -3 to 2 of [(6 - x) - x^2] dx\n1 mark: (b) = [6x - x^2/2 - x^3/3] from -3 to 2\n1 mark: (b) at x = 2: 12 - 2 - 8/3 = 22/3\n1 mark: (b) at x = -3: -18 - 9/2 + 9 = -27/2\n1 mark: (b) area = 22/3 + 27/2\n1 mark: (b) = 125/6 square units\n1 mark: (c) V = pi times the integral from 0 to 2 of y^2 dx = pi times the integral of x^4 dx\n1 mark: (c) = pi [x^5/5] from 0 to 2\n1 mark: (c) = 32/5 pi\n1 mark: (c) units: cubic units (6.4 pi)",
+      "explanation": "The curve and line meet at (-3, 9) and (2, 4). Area = [6x - x^2/2 - x^3/3] from -3 to 2 = 22/3 + 27/2 = 125/6. Volume = pi times integral of x^4 from 0 to 2 = 32 pi/5 cubic units.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0515",
+      "type": "THEORY",
+      "topic": "Permutation and Combinations",
+      "stem": "(a) A team of 5 is to be chosen from 5 girls and 7 boys in an SS3 class. In how many ways can the team be chosen if:\n(i) there is no restriction;\n(ii) it must contain exactly 2 girls;\n(iii) it must contain at least one girl? [7 marks]\n(b) (i) How many different arrangements of the letters of the word ABAKALIKI are possible?\n(ii) How many of these arrangements begin and end with the letter A? [6 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) 12C5\n1 mark: (a)(i) = 792\n1 mark: (a)(ii) 5C2 x 7C3\n1 mark: (a)(ii) = 10 x 35 = 350\n1 mark: (a)(iii) all-boy teams = 7C5 = 21\n1 mark: (a)(iii) at least one girl = 792 - 21\n1 mark: (a)(iii) = 771\n1 mark: (b)(i) 9 letters with A three times, K twice and I twice\n1 mark: (b)(i) 9!/(3! 2! 2!)\n1 mark: (b)(i) = 15120\n1 mark: (b)(ii) fix A at both ends; 7 letters remain with one A, K twice and I twice\n1 mark: (b)(ii) 7!/(2! 2!)\n1 mark: (b)(ii) = 1260",
+      "explanation": "(a) 12C5 = 792; 5C2 x 7C3 = 350; 792 - 7C5 = 771. (b) ABAKALIKI has A x3, K x2, I x2, B, L: 9!/(3!2!2!) = 15120. With A at both ends the middle 7 letters (A, B, L, K, K, I, I) give 7!/(2!2!) = 1260.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0516",
+      "type": "THEORY",
+      "topic": "Correlation",
+      "stem": "Eight students of a school in Calabar were ranked by their Mathematics and Physics teachers as follows (student: Mathematics rank, Physics rank): P: 1, 2; Q: 2, 1; R: 3, 4; S: 4, 3; T: 5, 7; U: 6, 5; V: 7, 8; W: 8, 6.\n(a) Tabulate the differences d between the ranks and their squares. [5 marks]\n(b) Calculate Spearman's rank correlation coefficient, correct to 3 decimal places. [5 marks]\n(c) Interpret your result. [3 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) d values: -1, 1, -1, 1, -2, 1, -1, 2\n1 mark: (a) d^2 values: 1, 1, 1, 1\n1 mark: (a) d^2 values continued: 4, 1, 1, 4\n1 mark: (a) sum of d = 0 (check)\n1 mark: (a) sum of d^2 = 14\n1 mark: (b) rho = 1 - 6(sum d^2)/(n(n^2 - 1))\n1 mark: (b) n = 8, n^2 - 1 = 63\n1 mark: (b) rho = 1 - 84/504\n1 mark: (b) = 1 - 0.1667\n1 mark: (b) = 0.833\n1 mark: (c) the coefficient is positive\n1 mark: (c) and close to 1, indicating strong positive correlation\n1 mark: (c) students ranked high in Mathematics tend to be ranked high in Physics",
+      "explanation": "Sum of d^2 = 14, so rho = 1 - 6(14)/(8 x 63) = 1 - 84/504 = 5/6 = 0.833. This is a strong positive correlation: students who do well in Mathematics also tend to do well in Physics.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0517",
+      "type": "THEORY",
+      "topic": "Measures of Location",
+      "stem": "The marks of 40 candidates in a test are grouped as follows: 1-10: 5; 11-20: 9; 21-30: 14; 31-40: 8; 41-50: 4.\n(a) Calculate the mean mark. [5 marks]\n(b) Calculate the median mark, correct to 2 decimal places. [4 marks]\n(c) Estimate the mode, correct to 2 decimal places. [4 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) class marks 5.5, 15.5, 25.5, 35.5, 45.5\n1 mark: (a) fx: 27.5, 139.5, 357, 284, 182\n1 mark: (a) sum of f = 40\n1 mark: (a) sum of fx = 990\n1 mark: (a) mean = 990/40 = 24.75\n1 mark: (b) median position n/2 = 20; median class 21-30 (cumulative frequencies 5, 14, 28, ...)\n1 mark: (b) L = 20.5, F = 14, f = 14, c = 10\n1 mark: (b) median = 20.5 + (20 - 14)/14 x 10\n1 mark: (b) = 24.79\n1 mark: (c) modal class 21-30; d1 = 14 - 9 = 5, d2 = 14 - 8 = 6\n1 mark: (c) mode = L + d1/(d1 + d2) x c\n1 mark: (c) = 20.5 + 5/11 x 10\n1 mark: (c) = 25.05",
+      "explanation": "Sum of fx = 990 over 40 candidates, so the mean is 24.75. The 20th mark lies in 21-30: median = 20.5 + (6/14)(10) = 24.79. Mode = 20.5 + (5/11)(10) = 25.05.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-fmath-0518",
+      "type": "THEORY",
+      "topic": "Probability",
+      "stem": "(a) In a factory in Aba, machine A produces 60% of the bolts and machine B the rest. 3% of the bolts from A and 5% of those from B are defective. A bolt is picked at random.\n(i) Find the probability that it is defective.\n(ii) Given that it is defective, find the probability that it was produced by machine A. [8 marks]\n(b) The probability that an archer hits a target is 1/4. If she shoots 3 times, find the probability that she hits the target exactly twice. [5 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a)(i) P(A and defective) = 0.6 x 0.03 = 0.018\n1 mark: (a)(i) P(B and defective) = 0.4 x 0.05 = 0.020\n1 mark: (a)(i) P(defective) = 0.018 + 0.020\n1 mark: (a)(i) = 0.038 (19/500)\n1 mark: (a)(ii) P(A | defective) = P(A and defective)/P(defective)\n1 mark: (a)(ii) = 0.018/0.038\n1 mark: (a)(ii) = 9/19\n1 mark: (a)(ii) = 0.474 approximately\n1 mark: (b) binomial with n = 3, p = 1/4, q = 3/4\n1 mark: (b) P(X = 2) = 3C2 (1/4)^2 (3/4)\n1 mark: (b) = 3 x 1/16 x 3/4\n1 mark: (b) = 9/64\n1 mark: (b) = 0.141 approximately",
+      "explanation": "(a) P(D) = 0.6(0.03) + 0.4(0.05) = 0.038. P(A | D) = 0.018/0.038 = 9/19 = 0.474. (b) P(X = 2) = 3(1/16)(3/4) = 9/64 = 0.141.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0519",
+      "type": "THEORY",
+      "topic": "Statics",
+      "stem": "A box of mass 8 kg rests on a rough plane inclined at 30 degrees to the horizontal. The coefficient of friction between the box and the plane is 0.25. [Take g = 10 m/s^2]\n(a) Find the normal reaction between the box and the plane. [3 marks]\n(b) Show that the box will slide down the plane if released, explaining your reasoning. [3 marks]\n(c) Find, correct to 2 decimal places, the force P acting up the line of greatest slope that will just prevent the box from sliding down. [3 marks]\n(d) Find, correct to 2 decimal places, the force acting up the line of greatest slope that will just move the box up the plane. [4 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) weight = 8 x 10 = 80 N\n1 mark: (a) R = 80 cos 30\n1 mark: (a) R = 69.28 N\n1 mark: (b) component of weight down the plane = 80 sin 30 = 40 N\n1 mark: (b) limiting friction = 0.25 x 69.28 = 17.32 N\n1 mark: (b) 40 N > 17.32 N, so friction cannot hold the box and it slides\n1 mark: (c) friction acts up the plane: P + 17.32 = 40\n1 mark: (c) P = 40 - 17.32\n1 mark: (c) P = 22.68 N\n1 mark: (d) friction now acts down the plane\n1 mark: (d) P = 80 sin 30 + 0.25 x 80 cos 30\n1 mark: (d) P = 40 + 17.32\n1 mark: (d) P = 57.32 N",
+      "explanation": "R = 80 cos 30 = 69.28 N; limiting friction = 17.32 N, less than the 40 N component down the plane, so the box slides. To prevent sliding P = 40 - 17.32 = 22.68 N; to move it up P = 40 + 17.32 = 57.32 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-fmath-0520",
+      "type": "THEORY",
+      "topic": "Dynamics",
+      "stem": "A stone is thrown from the top of a cliff 25 m above sea level with a speed of 20 m/s at an angle of 30 degrees above the horizontal. [Take g = 10 m/s^2]\n(a) Find the greatest height of the stone above sea level. [4 marks]\n(b) Find, correct to 2 decimal places, the time taken for the stone to reach the sea. [4 marks]\n(c) Find, correct to 2 decimal places, the horizontal distance from the foot of the cliff to the point where the stone enters the sea. [2 marks]\n(d) Find the speed with which the stone hits the water. [3 marks]",
+      "marks": 13,
+      "markingGuide": "1 mark: (a) vertical component of velocity = 20 sin 30 = 10 m/s\n1 mark: (a) height above the cliff top = 10^2/(2 x 10)\n1 mark: (a) = 5 m\n1 mark: (a) greatest height above sea level = 25 + 5 = 30 m\n1 mark: (b) taking upward as positive, -25 = 10t - 5t^2\n1 mark: (b) t^2 - 2t - 5 = 0\n1 mark: (b) t = 1 + sqrt 6 (the positive root)\n1 mark: (b) t = 3.45 s\n1 mark: (c) horizontal velocity = 20 cos 30 = 17.32 m/s\n1 mark: (c) distance = 17.32 x 3.449 = 59.74 m\n1 mark: (d) speed at water: v^2 = u^2 + 2gh = 20^2 + 2(10)(25) (energy, or components 17.32 and -24.49)\n1 mark: (d) v^2 = 400 + 500 = 900\n1 mark: (d) v = 30 m/s",
+      "explanation": "Vertical component 10 m/s gives a further rise of 5 m, so the greatest height is 30 m above sea level. -25 = 10t - 5t^2 gives t = 1 + sqrt 6 = 3.45 s. Horizontal distance = 17.32 x 3.449 = 59.74 m. Speed at the water = sqrt(400 + 500) = 30 m/s.",
+      "difficulty": "HARD"
+    }
+  ]
+}

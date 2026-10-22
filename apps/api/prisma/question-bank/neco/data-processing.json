@@ -1,0 +1,1387 @@
+{
+  "exam": "NECO",
+  "subject": "Data Processing",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-dpr-0001",
+      "type": "OBJECTIVE",
+      "topic": "History of Computers",
+      "stem": "ENIAC, completed in the 1940s and filling a large room, belongs to which generation of computers?",
+      "options": [
+        "Second",
+        "Third",
+        "First",
+        "Fourth",
+        "Fifth"
+      ],
+      "answer": 2,
+      "explanation": "ENIAC used vacuum tubes, a first-generation feature.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0002",
+      "type": "OBJECTIVE",
+      "topic": "History of Computers",
+      "stem": "Which pairing of computer generation and main technology is correct?",
+      "options": [
+        "Third generation and integrated circuits",
+        "First generation and microprocessors",
+        "Second generation and vacuum tubes",
+        "Fourth generation and transistors only",
+        "Fifth generation and punched-card relays"
+      ],
+      "answer": 0,
+      "explanation": "Integrated circuits characterise the third generation.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0003",
+      "type": "OBJECTIVE",
+      "topic": "History of Computers",
+      "stem": "In the hexadecimal number system used in computing, the digit B represents the decimal value",
+      "options": [
+        "12",
+        "10",
+        "13",
+        "16",
+        "11"
+      ],
+      "answer": 4,
+      "explanation": "Hexadecimal digits A to F stand for 10 to 15, so B = 11.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0004",
+      "type": "OBJECTIVE",
+      "topic": "Data and Information",
+      "stem": "The scores recorded on a teacher's mark sheet before any adding or ranking are best described as",
+      "options": [
+        "information",
+        "data",
+        "output",
+        "software",
+        "a report card"
+      ],
+      "answer": 1,
+      "explanation": "Unprocessed facts are data.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0005",
+      "type": "OBJECTIVE",
+      "topic": "Data and Information",
+      "stem": "A principal must decide which pupils need extra lessons. Which of these items would serve her directly as information?",
+      "options": [
+        "A pile of unmarked answer scripts",
+        "The number 67 written on a scrap of paper with no name or subject attached",
+        "A tally of pupils' heights taken at random",
+        "A printed list showing each student's average and class position",
+        "A set of unsorted receipts in a drawer"
+      ],
+      "answer": 3,
+      "explanation": "Information is data processed into a meaningful, usable form.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0006",
+      "type": "OBJECTIVE",
+      "topic": "Data and Information",
+      "stem": "Information that reaches a manager two weeks after the decision it was meant to support has failed mainly in the quality of",
+      "options": [
+        "accuracy",
+        "timeliness",
+        "completeness",
+        "relevance",
+        "clarity"
+      ],
+      "answer": 1,
+      "explanation": "Information must be available when needed.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0007",
+      "type": "OBJECTIVE",
+      "topic": "Classification of Computers",
+      "stem": "Classified by size, a desktop computer used in a school office is a",
+      "options": [
+        "mainframe computer",
+        "supercomputer",
+        "minicomputer used by banks",
+        "microcomputer",
+        "analogue computer"
+      ],
+      "answer": 3,
+      "explanation": "Personal desktop computers are microcomputers.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0008",
+      "type": "OBJECTIVE",
+      "topic": "Classification of Computers",
+      "stem": "A computer designed to carry out only one type of task, such as controlling a washing machine, is a",
+      "options": [
+        "special-purpose computer",
+        "general-purpose computer",
+        "mainframe computer",
+        "supercomputer",
+        "server farm"
+      ],
+      "answer": 0,
+      "explanation": "Special-purpose (dedicated) computers do one job.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0009",
+      "type": "OBJECTIVE",
+      "topic": "Classification of Computers",
+      "stem": "Large organisations such as banks traditionally used which class of computer to process thousands of transactions for many users at the same time?",
+      "options": [
+        "Palmtop computer",
+        "Laptop computer",
+        "Analogue computer",
+        "Embedded controller",
+        "Mainframe computer"
+      ],
+      "answer": 4,
+      "explanation": "Mainframes support many simultaneous users and heavy transaction loads.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0010",
+      "type": "OBJECTIVE",
+      "topic": "Application of ICT in Everyday Life",
+      "stem": "Paying for goods with a debit card at a shop terminal is an application of ICT in",
+      "options": [
+        "agriculture",
+        "weather forecasting and climate studies",
+        "banking (electronic funds transfer)",
+        "sports coaching",
+        "printing"
+      ],
+      "answer": 2,
+      "explanation": "EFT at point of sale is a banking application.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0011",
+      "type": "OBJECTIVE",
+      "topic": "Application of ICT in Everyday Life",
+      "stem": "JAMB candidates writing their examination on computers in accredited centres is an example of ICT application in",
+      "options": [
+        "manufacturing and assembly of goods",
+        "e-agriculture",
+        "transportation",
+        "entertainment",
+        "education (computer-based testing)"
+      ],
+      "answer": 4,
+      "explanation": "CBT is an educational application of ICT.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0012",
+      "type": "OBJECTIVE",
+      "topic": "Application of ICT in Everyday Life",
+      "stem": "Which ICT application allows workers to do office tasks from home and send their work to the employer through the Internet?",
+      "options": [
+        "Telemedicine",
+        "E-banking",
+        "Teleworking",
+        "Computer-aided manufacturing",
+        "Robotics"
+      ],
+      "answer": 2,
+      "explanation": "Teleworking or telecommuting uses ICT to work remotely.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0013",
+      "type": "OBJECTIVE",
+      "topic": "Components of Computers",
+      "stem": "Which of these is a hardware component of a computer?",
+      "options": [
+        "Antivirus program",
+        "Hard disk",
+        "Word processor",
+        "Operating system",
+        "Spreadsheet"
+      ],
+      "answer": 1,
+      "explanation": "The hard disk is a physical part.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0014",
+      "type": "OBJECTIVE",
+      "topic": "Components of Computers",
+      "stem": "The component that holds the CPU, memory slots and expansion slots and connects them together is the",
+      "options": [
+        "power supply unit",
+        "heat sink",
+        "hard disk",
+        "motherboard",
+        "monitor"
+      ],
+      "answer": 3,
+      "explanation": "The motherboard is the main circuit board.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0015",
+      "type": "OBJECTIVE",
+      "topic": "Components of Computers",
+      "stem": "Which unit of the CPU decides, after a comparison, whether a program should jump to another instruction?",
+      "options": [
+        "The control unit acting on the result of the arithmetic and logic unit",
+        "The keyboard controller reading the next key that is pressed",
+        "The power supply unit",
+        "The video card",
+        "The read-only memory alone"
+      ],
+      "answer": 0,
+      "explanation": "The ALU compares; the control unit directs the jump based on the result.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0016",
+      "type": "OBJECTIVE",
+      "topic": "The Art of Information Processing",
+      "stem": "Which stage of information processing involves gathering data from its sources?",
+      "options": [
+        "Data collection",
+        "Data output",
+        "Data storage",
+        "Data retrieval",
+        "Data dissemination"
+      ],
+      "answer": 0,
+      "explanation": "Collection is the first stage.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0017",
+      "type": "OBJECTIVE",
+      "topic": "The Art of Information Processing",
+      "stem": "Checking that an entered age is between 10 and 25 before it is accepted is an example of",
+      "options": [
+        "data collation",
+        "data dissemination",
+        "data output",
+        "data archiving",
+        "data validation"
+      ],
+      "answer": 4,
+      "explanation": "Validation checks that input is reasonable or within limits.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0018",
+      "type": "OBJECTIVE",
+      "topic": "The Art of Information Processing",
+      "stem": "Arranging student records in alphabetical order of surname is called",
+      "options": [
+        "merging",
+        "validation",
+        "collation of forms",
+        "sorting",
+        "transmission"
+      ],
+      "answer": 3,
+      "explanation": "Sorting puts records in order on a key.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0019",
+      "type": "OBJECTIVE",
+      "topic": "The Art of Information Processing",
+      "stem": "Which list shows the stages of information processing in the correct order?",
+      "options": [
+        "Input, collection, storage, processing, output, preparation",
+        "Processing, collection, output, input, preparation, storage",
+        "Collection, preparation, input, processing, output, storage",
+        "Output, storage, collection, input, preparation, processing",
+        "Preparation, output, processing, input, storage, collection"
+      ],
+      "answer": 2,
+      "explanation": "Data is collected, prepared, input, processed, output and stored.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0020",
+      "type": "OBJECTIVE",
+      "topic": "Process of Information Transmission",
+      "stem": "Radio broadcasting transmits information mainly in which mode?",
+      "options": [
+        "Visual",
+        "Audio",
+        "Audio-visual",
+        "Tactile",
+        "Written"
+      ],
+      "answer": 1,
+      "explanation": "Radio carries sound only.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0021",
+      "type": "OBJECTIVE",
+      "topic": "Process of Information Transmission",
+      "stem": "Television is classified as which mode of information transmission?",
+      "options": [
+        "Audio only",
+        "Visual only",
+        "Print",
+        "Audio-visual",
+        "Semaphore"
+      ],
+      "answer": 3,
+      "explanation": "Television carries both sound and pictures.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0022",
+      "type": "OBJECTIVE",
+      "topic": "Process of Information Transmission",
+      "stem": "Two security guards talk on hand-held radios; each must wait for the other to release the button before replying. This mode of transmission is",
+      "options": [
+        "simplex",
+        "half-duplex",
+        "full-duplex",
+        "broadcast only",
+        "serial printing"
+      ],
+      "answer": 1,
+      "explanation": "Half-duplex allows two-way communication, one direction at a time.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0023",
+      "type": "OBJECTIVE",
+      "topic": "Medium of Information Transmission",
+      "stem": "Which of these is a print medium of information transmission?",
+      "options": [
+        "Radio",
+        "Television",
+        "Newspaper",
+        "Telephone",
+        "Satellite"
+      ],
+      "answer": 2,
+      "explanation": "Newspapers are print media.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0024",
+      "type": "OBJECTIVE",
+      "topic": "Medium of Information Transmission",
+      "stem": "Signals sent from a ground station to a satellite and back to another station on Earth use which medium?",
+      "options": [
+        "Satellite (microwave) link",
+        "Coaxial cable laid underground only",
+        "Optical fibre only",
+        "Twisted pair",
+        "Copper telegraph line"
+      ],
+      "answer": 0,
+      "explanation": "Satellite communication uses microwave links through space.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0025",
+      "type": "OBJECTIVE",
+      "topic": "Medium of Information Transmission",
+      "stem": "Which transmission medium offers the greatest bandwidth and is used for undersea Internet links between continents?",
+      "options": [
+        "Twisted pair cable",
+        "Infrared",
+        "Bluetooth",
+        "Coaxial television cable",
+        "Optical fibre cable"
+      ],
+      "answer": 4,
+      "explanation": "Submarine fibre cables carry most intercontinental data.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0026",
+      "type": "OBJECTIVE",
+      "topic": "Networking",
+      "stem": "Which network type would connect computers spread across a city such as Port Harcourt?",
+      "options": [
+        "LAN",
+        "PAN",
+        "MAN",
+        "WAN covering continents only",
+        "Intranet only"
+      ],
+      "answer": 2,
+      "explanation": "A metropolitan area network covers a city.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0027",
+      "type": "OBJECTIVE",
+      "topic": "Networking",
+      "stem": "The device that forwards data between different networks, for example between a school LAN and the Internet, is a",
+      "options": [
+        "monitor",
+        "scanner",
+        "UPS",
+        "keyboard",
+        "router"
+      ],
+      "answer": 4,
+      "explanation": "Routers connect different networks.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0028",
+      "type": "OBJECTIVE",
+      "topic": "Networking",
+      "stem": "Which of the following is a benefit of networking computers in an office?",
+      "options": [
+        "Several users can share one printer and one Internet connection",
+        "Each computer must have its own printer and its own separate Internet line",
+        "Files cannot be shared between staff",
+        "Viruses can never spread between computers",
+        "Electricity consumption falls to zero"
+      ],
+      "answer": 0,
+      "explanation": "Networks enable resource sharing.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0029",
+      "type": "OBJECTIVE",
+      "topic": "Internet",
+      "stem": "To open the NECO results portal on a laptop, a candidate first launches which program?",
+      "options": [
+        "Microsoft Excel",
+        "CorelDRAW",
+        "Windows Defender",
+        "Google Chrome",
+        "Adobe Photoshop"
+      ],
+      "answer": 3,
+      "explanation": "Chrome is a browser.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0030",
+      "type": "OBJECTIVE",
+      "topic": "Internet",
+      "stem": "Using the Internet to post false and damaging statements about a classmate is an example of",
+      "options": [
+        "Internet security",
+        "Internet abuse (cyberbullying)",
+        "online banking and payments",
+        "e-learning",
+        "web hosting"
+      ],
+      "answer": 1,
+      "explanation": "Cyberbullying is a form of Internet abuse.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0031",
+      "type": "OBJECTIVE",
+      "topic": "Internet",
+      "stem": "A padlock symbol beside the web address in a browser indicates that",
+      "options": [
+        "the site has no advertisements",
+        "the connection to the site is encrypted",
+        "the website has been checked and is free from all viruses",
+        "the page cannot be printed",
+        "the user is logged in as administrator"
+      ],
+      "answer": 1,
+      "explanation": "The padlock shows an HTTPS/TLS encrypted connection; it does not guarantee the site is trustworthy.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0032",
+      "type": "OBJECTIVE",
+      "topic": "Operating System",
+      "stem": "Which task in this list is carried out by the operating system rather than by an application package?",
+      "options": [
+        "Managing files and folders",
+        "Typing letters to customers",
+        "Designing logos",
+        "Calculating payroll only",
+        "Browsing a website"
+      ],
+      "answer": 0,
+      "explanation": "File management is an OS function.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0033",
+      "type": "OBJECTIVE",
+      "topic": "Operating System",
+      "stem": "MS-DOS, where users type commands such as COPY and DEL, is an example of a",
+      "options": [
+        "graphical user interface with icons",
+        "touch interface",
+        "voice interface",
+        "text (character)-based interface",
+        "web interface"
+      ],
+      "answer": 3,
+      "explanation": "MS-DOS uses a command-line, character-based interface.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0034",
+      "type": "OBJECTIVE",
+      "topic": "Operating System",
+      "stem": "Which is an advantage of a graphical user interface over a character-based interface?",
+      "options": [
+        "It uses less memory and processing power than a command-line system",
+        "It requires users to memorise many commands",
+        "It is easier for beginners because commands are chosen with icons and menus",
+        "It works only without a mouse",
+        "It cannot display pictures"
+      ],
+      "answer": 2,
+      "explanation": "GUIs are user-friendly; command-line interfaces need fewer resources.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0035",
+      "type": "OBJECTIVE",
+      "topic": "Word Processing",
+      "stem": "Which of these is a word processing application?",
+      "options": [
+        "Excel",
+        "Access",
+        "PowerPoint",
+        "Paint",
+        "WordPad"
+      ],
+      "answer": 4,
+      "explanation": "WordPad is a basic word processor in Windows.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0036",
+      "type": "OBJECTIVE",
+      "topic": "Word Processing",
+      "stem": "To save an existing document under a different name while keeping the original, a user should choose",
+      "options": [
+        "Save",
+        "Close",
+        "New",
+        "Print",
+        "Save As"
+      ],
+      "answer": 4,
+      "explanation": "Save As creates a copy with a new name or location.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0037",
+      "type": "OBJECTIVE",
+      "topic": "Word Processing",
+      "stem": "A typist wants a heading such as \"INTRODUCTION\" to always start at the top of a new page. The best method is to insert",
+      "options": [
+        "several blank lines with the Enter key",
+        "a section of spaces",
+        "a text box",
+        "a page break before it",
+        "a footnote"
+      ],
+      "answer": 3,
+      "explanation": "A page break forces following text to a new page without fragile blank lines.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0038",
+      "type": "OBJECTIVE",
+      "topic": "Spreadsheet",
+      "stem": "The file created in Microsoft Excel, made up of one or more worksheets, is called a",
+      "options": [
+        "document",
+        "database",
+        "workbook",
+        "presentation",
+        "template slide"
+      ],
+      "answer": 2,
+      "explanation": "An Excel file is a workbook.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0039",
+      "type": "OBJECTIVE",
+      "topic": "Spreadsheet",
+      "stem": "Cells B2 to B5 contain 4, 9, 6 and 1. What will =SUM(B2:B5)/COUNT(B2:B5) give?",
+      "options": [
+        "20",
+        "5",
+        "4",
+        "6",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "Sum 20, count 4, 20 / 4 = 5.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0040",
+      "type": "OBJECTIVE",
+      "topic": "Spreadsheet",
+      "stem": "A trader enters =C2*(1+D2) where C2 is cost price N2,400 and D2 is a profit margin of 25%. The value shown is",
+      "options": [
+        "3000",
+        "2425",
+        "600",
+        "2400",
+        "3600"
+      ],
+      "answer": 0,
+      "explanation": "2400 x 1.25 = 3000.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0041",
+      "type": "OBJECTIVE",
+      "topic": "Database Management System",
+      "stem": "Microsoft Access is an example of a",
+      "options": [
+        "spreadsheet",
+        "word processor",
+        "database management system",
+        "graphics package",
+        "web browser"
+      ],
+      "answer": 2,
+      "explanation": "Access is a DBMS.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0042",
+      "type": "OBJECTIVE",
+      "topic": "Database Management System",
+      "stem": "In a database, a screen designed for entering and viewing one record at a time in a friendly layout is a",
+      "options": [
+        "form",
+        "report",
+        "query",
+        "table relationship",
+        "macro"
+      ],
+      "answer": 0,
+      "explanation": "Forms simplify data entry and viewing.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0043",
+      "type": "OBJECTIVE",
+      "topic": "Database Management System",
+      "stem": "Which DBMS object is mainly used to produce a formatted printout of records, such as a class list with totals?",
+      "options": [
+        "Form",
+        "Table",
+        "Query by example grid",
+        "Module",
+        "Report"
+      ],
+      "answer": 4,
+      "explanation": "Reports present data for printing.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0044",
+      "type": "OBJECTIVE",
+      "topic": "Presentation Package",
+      "stem": "Which of these is used to prepare slide shows?",
+      "options": [
+        "Microsoft Access",
+        "Microsoft PowerPoint",
+        "Notepad",
+        "Windows Explorer",
+        "Calculator"
+      ],
+      "answer": 1,
+      "explanation": "PowerPoint is a presentation package.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0045",
+      "type": "OBJECTIVE",
+      "topic": "Presentation Package",
+      "stem": "In a presentation package, the Rehearse Timings feature helps a presenter to",
+      "options": [
+        "check the spelling on every slide before the show starts",
+        "compress pictures",
+        "change the slide size",
+        "record how long each slide is shown during practice",
+        "add new fonts to the computer"
+      ],
+      "answer": 3,
+      "explanation": "Rehearse Timings records time spent on each slide.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0046",
+      "type": "OBJECTIVE",
+      "topic": "Presentation Package",
+      "stem": "A presenter wants slide 7 to be skipped during the show without deleting it. She should",
+      "options": [
+        "apply a transition to it",
+        "hide the slide",
+        "change its layout",
+        "move it to the slide master",
+        "reduce its font size"
+      ],
+      "answer": 1,
+      "explanation": "Hidden slides remain in the file but are not shown.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0047",
+      "type": "OBJECTIVE",
+      "topic": "Web Design Packages",
+      "stem": "Which language is the standard for structuring web pages?",
+      "options": [
+        "BASIC",
+        "COBOL",
+        "SQL",
+        "HTML",
+        "FORTRAN"
+      ],
+      "answer": 3,
+      "explanation": "HyperText Markup Language structures web pages.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0048",
+      "type": "OBJECTIVE",
+      "topic": "Web Design Packages",
+      "stem": "Which of these is a web design package?",
+      "options": [
+        "Adobe Dreamweaver",
+        "Microsoft Excel",
+        "Peachtree Accounting",
+        "Windows Media Player",
+        "WinRAR"
+      ],
+      "answer": 0,
+      "explanation": "Dreamweaver is used to design websites.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0049",
+      "type": "OBJECTIVE",
+      "topic": "Web Design Packages",
+      "stem": "A web design package that shows the page exactly as it will look while it is being built is described as",
+      "options": [
+        "command-line based editing of code",
+        "text-only",
+        "compiler-based",
+        "machine-coded",
+        "WYSIWYG (what you see is what you get)"
+      ],
+      "answer": 4,
+      "explanation": "WYSIWYG editors display the final appearance during editing.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0050",
+      "type": "OBJECTIVE",
+      "topic": "Graphic Packages",
+      "stem": "CorelDRAW is mainly used for",
+      "options": [
+        "managing databases and spreadsheets of records",
+        "typing long reports only",
+        "creating vector drawings, logos and designs",
+        "browsing the Internet",
+        "checking for viruses"
+      ],
+      "answer": 2,
+      "explanation": "CorelDRAW is a vector graphics package.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0051",
+      "type": "OBJECTIVE",
+      "topic": "Graphic Packages",
+      "stem": "In CorelDRAW, the tool used to draw perfect circles and ellipses is the",
+      "options": [
+        "Pick tool",
+        "Text tool",
+        "Zoom tool",
+        "Crop tool",
+        "Ellipse tool"
+      ],
+      "answer": 4,
+      "explanation": "The Ellipse tool draws ellipses; hold Ctrl for a circle.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0052",
+      "type": "OBJECTIVE",
+      "topic": "Graphic Packages",
+      "stem": "Which statement correctly distinguishes vector graphics from bitmap (raster) graphics?",
+      "options": [
+        "Bitmaps are made of mathematical paths, while vectors are made of grids of pixels",
+        "Vector images cannot be coloured",
+        "Vector images can be enlarged without losing quality, bitmaps become pixelated",
+        "Bitmaps are always smaller in file size than vectors",
+        "Vectors can only be black and white"
+      ],
+      "answer": 2,
+      "explanation": "Vectors are defined by paths and scale cleanly; bitmaps are grids of pixels.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0053",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance of Computer",
+      "stem": "Cleaning dust from a computer keyboard and system unit is an example of",
+      "options": [
+        "software piracy",
+        "preventive maintenance",
+        "data entry",
+        "networking",
+        "formatting"
+      ],
+      "answer": 1,
+      "explanation": "Routine cleaning prevents faults.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0054",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance of Computer",
+      "stem": "Which tool reorganises scattered parts of files on a hard disk so they can be read faster?",
+      "options": [
+        "Antivirus",
+        "Firewall",
+        "Compiler",
+        "Disk defragmenter",
+        "Screen saver"
+      ],
+      "answer": 3,
+      "explanation": "Defragmentation places file fragments together on HDDs.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0055",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance of Computer",
+      "stem": "After a system crash, the quickest way for a company to recover its records with little loss is to",
+      "options": [
+        "restore them from a recent back-up",
+        "reinstall the word processor",
+        "buy a new monitor",
+        "re-type all the records from memory",
+        "format the hard disk again"
+      ],
+      "answer": 0,
+      "explanation": "Back-ups allow data recovery after a crash.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0056",
+      "type": "OBJECTIVE",
+      "topic": "Computer Ethics",
+      "stem": "Which of these is an ethical use of computers?",
+      "options": [
+        "Using only licensed software",
+        "Reading another person's private files",
+        "Spreading false news online",
+        "Copying classmates' projects",
+        "Hacking into the school portal"
+      ],
+      "answer": 0,
+      "explanation": "Ethical use respects law and the rights of others.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0057",
+      "type": "OBJECTIVE",
+      "topic": "Computer Ethics",
+      "stem": "Presenting another person's work copied from the Internet as one's own is",
+      "options": [
+        "encryption",
+        "downloading",
+        "formatting",
+        "compression",
+        "plagiarism"
+      ],
+      "answer": 4,
+      "explanation": "Plagiarism is passing off others' work as one's own.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0058",
+      "type": "OBJECTIVE",
+      "topic": "Computer Ethics",
+      "stem": "Which of the following is a responsible way of securing a shared office computer?",
+      "options": [
+        "Writing the password on the monitor",
+        "Disabling the antivirus so that the computer starts up more quickly",
+        "Sharing user accounts with visitors",
+        "Logging off or locking the screen when leaving the desk",
+        "Leaving files open for anyone to edit"
+      ],
+      "answer": 3,
+      "explanation": "Locking the screen prevents unauthorised use.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0059",
+      "type": "OBJECTIVE",
+      "topic": "Safety Measures",
+      "stem": "Which of the following is a safety measure in a computer room?",
+      "options": [
+        "Overload sockets with many plugs",
+        "Leave cables lying across walkways where they are easy to reach",
+        "Avoid eating and drinking near the computers",
+        "Open the system unit while it is on",
+        "Block the ventilation holes"
+      ],
+      "answer": 2,
+      "explanation": "Food and drinks can damage equipment.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0060",
+      "type": "OBJECTIVE",
+      "topic": "Safety Measures",
+      "stem": "A UPS is installed in a computer centre mainly to",
+      "options": [
+        "increase the speed of the processor",
+        "supply power for a short time and protect against sudden power failure",
+        "print documents faster",
+        "connect the computers to the Internet through the electricity cables",
+        "scan documents into the computer"
+      ],
+      "answer": 1,
+      "explanation": "An uninterruptible power supply prevents data loss in outages.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0061",
+      "type": "OBJECTIVE",
+      "topic": "Safety Measures",
+      "stem": "Which of the following is the most suitable type of fire extinguisher for an electrical fire in a computer laboratory?",
+      "options": [
+        "Water extinguisher",
+        "Foam extinguisher for flammable liquids only",
+        "Bucket of sand thrown on running computers",
+        "Carbon dioxide extinguisher",
+        "Wet blanket on live equipment"
+      ],
+      "answer": 3,
+      "explanation": "CO2 extinguishers are safe for electrical fires; water conducts electricity.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0062",
+      "type": "OBJECTIVE",
+      "topic": "Career Opportunities in Data Processing",
+      "stem": "The professional who writes and tests computer programs is a",
+      "options": [
+        "data entry clerk",
+        "programmer",
+        "computer engineer",
+        "network cabler",
+        "librarian"
+      ],
+      "answer": 1,
+      "explanation": "Programmers write program code.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0063",
+      "type": "OBJECTIVE",
+      "topic": "Career Opportunities in Data Processing",
+      "stem": "The officer who studies an organisation's existing system and designs a better computer-based one is a",
+      "options": [
+        "computer operator",
+        "data entry clerk",
+        "systems analyst",
+        "web surfer",
+        "hardware salesman"
+      ],
+      "answer": 2,
+      "explanation": "Systems analysts analyse and design information systems.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0064",
+      "type": "OBJECTIVE",
+      "topic": "Career Opportunities in Data Processing",
+      "stem": "Which professional body in Nigeria regulates and registers computing professionals?",
+      "options": [
+        "Computer Professionals (Registration Council of Nigeria)",
+        "Nigerian Medical Association",
+        "Institute of Chartered Accountants of Nigeria and its computer audit faculty",
+        "Nigerian Society of Engineers only",
+        "Nigerian Bar Association"
+      ],
+      "answer": 0,
+      "explanation": "CPN registers and regulates IT practitioners in Nigeria.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0065",
+      "type": "OBJECTIVE",
+      "topic": "Computer Virus",
+      "stem": "Which of these is a common way through which computer viruses spread?",
+      "options": [
+        "Clean keyboards",
+        "Unused monitors",
+        "Switched-off printers",
+        "Mouse pads",
+        "Infected flash drives and e-mail attachments"
+      ],
+      "answer": 4,
+      "explanation": "Removable media and attachments carry viruses.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0066",
+      "type": "OBJECTIVE",
+      "topic": "Computer Virus",
+      "stem": "Which of these is a destructive effect of virus infection?",
+      "options": [
+        "Faster start-up of the computer",
+        "Automatic cleaning and updating of the keyboard driver files",
+        "Corruption or deletion of data files",
+        "Increase in available disk space",
+        "Better screen resolution"
+      ],
+      "answer": 2,
+      "explanation": "Viruses can corrupt or delete data.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0067",
+      "type": "OBJECTIVE",
+      "topic": "Computer Virus",
+      "stem": "A program that remains hidden and activates to delete files only when a particular date is reached is a",
+      "options": [
+        "worm",
+        "firewall",
+        "compiler",
+        "cookie",
+        "logic (time) bomb"
+      ],
+      "answer": 4,
+      "explanation": "A logic or time bomb triggers on a condition such as a date.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0068",
+      "type": "OBJECTIVE",
+      "topic": "Relational Model",
+      "stem": "In the relational model, data is arranged in",
+      "options": [
+        "tables (relations)",
+        "paragraphs",
+        "slides",
+        "charts",
+        "folders of images"
+      ],
+      "answer": 0,
+      "explanation": "Relations are tables of rows and columns.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0069",
+      "type": "OBJECTIVE",
+      "topic": "Relational Model",
+      "stem": "In a relational table, each row is also called a",
+      "options": [
+        "attribute",
+        "domain",
+        "key field",
+        "tuple (record)",
+        "relation schema"
+      ],
+      "answer": 3,
+      "explanation": "A row is a tuple or record.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0070",
+      "type": "OBJECTIVE",
+      "topic": "Relational Model",
+      "stem": "The STUDENTS table has primary key StudentID. The FEES table includes a StudentID column to show which student paid. In FEES, StudentID is a",
+      "options": [
+        "primary key of STUDENTS",
+        "foreign key",
+        "candidate tuple",
+        "derived attribute",
+        "composite key of FEES only"
+      ],
+      "answer": 1,
+      "explanation": "A field that refers to another table's primary key is a foreign key.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0071",
+      "type": "OBJECTIVE",
+      "topic": "Relational Model",
+      "stem": "One class has many students but each student belongs to only one class. The relationship between CLASS and STUDENT is",
+      "options": [
+        "one-to-one",
+        "one-to-many",
+        "many-to-many",
+        "zero-to-zero",
+        "none-to-many"
+      ],
+      "answer": 1,
+      "explanation": "One class record is linked to many student records.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0072",
+      "type": "OBJECTIVE",
+      "topic": "File Organization",
+      "stem": "File organisation refers to",
+      "options": [
+        "the way records are arranged in a file on a storage medium",
+        "the colour and shape of the icons that represent files",
+        "the speed of the printer",
+        "the size of the monitor",
+        "the number of keys on a keyboard"
+      ],
+      "answer": 0,
+      "explanation": "File organisation is the arrangement of records for storage and access.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0073",
+      "type": "OBJECTIVE",
+      "topic": "File Organization",
+      "stem": "Records stored one after another in order of a key field, such as payroll number, use",
+      "options": [
+        "random file organisation",
+        "indexed file organisation only",
+        "hashed organisation",
+        "sequential file organisation",
+        "networked organisation"
+      ],
+      "answer": 3,
+      "explanation": "Sequential files keep records in key order.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0074",
+      "type": "OBJECTIVE",
+      "topic": "File Organization",
+      "stem": "Which file organisation uses a separate index to locate records quickly while still allowing sequential processing?",
+      "options": [
+        "Serial",
+        "Pure random",
+        "Indexed sequential",
+        "Heap only",
+        "Linear list"
+      ],
+      "answer": 2,
+      "explanation": "Indexed sequential files combine an index with ordered records.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0075",
+      "type": "OBJECTIVE",
+      "topic": "File Organization",
+      "stem": "Which type of file organisation is most suitable for an airline seat-booking system that must find any record instantly?",
+      "options": [
+        "Serial organisation",
+        "Sequential organisation on magnetic tape",
+        "Unordered heap on tape",
+        "Paper file organisation",
+        "Random (direct) organisation"
+      ],
+      "answer": 4,
+      "explanation": "Direct access gives immediate retrieval of any record.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0076",
+      "type": "OBJECTIVE",
+      "topic": "Database Security",
+      "stem": "Requiring a user name and password before anyone can open a database is a form of",
+      "options": [
+        "data redundancy",
+        "data sorting",
+        "normalisation",
+        "printing",
+        "access control"
+      ],
+      "answer": 4,
+      "explanation": "Authentication controls access to data.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0077",
+      "type": "OBJECTIVE",
+      "topic": "Database Security",
+      "stem": "Giving the bursar permission to change fees records while clerks may only view them is an example of",
+      "options": [
+        "data redundancy",
+        "file compression",
+        "defragmentation",
+        "assigning user privileges",
+        "data duplication"
+      ],
+      "answer": 3,
+      "explanation": "Privileges control what each user can do.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0078",
+      "type": "OBJECTIVE",
+      "topic": "Database Security",
+      "stem": "Why should a database administrator keep an audit trail?",
+      "options": [
+        "To increase the size of the database so that more records fit in it",
+        "To delete old users automatically",
+        "To record who accessed or changed data and when",
+        "To speed up the printer",
+        "To change all passwords every hour"
+      ],
+      "answer": 2,
+      "explanation": "Audit trails support accountability and detection of misuse.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0079",
+      "type": "OBJECTIVE",
+      "topic": "Parallel and Distributed Databases",
+      "stem": "A database whose data is stored on several computers at different sites but appears to users as one database is a",
+      "options": [
+        "centralised database",
+        "distributed database",
+        "flat-file database",
+        "spreadsheet",
+        "personal database"
+      ],
+      "answer": 1,
+      "explanation": "Distributed databases spread data across sites.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0080",
+      "type": "OBJECTIVE",
+      "topic": "Parallel and Distributed Databases",
+      "stem": "Why does a parallel database answer a large query faster than a single-processor database?",
+      "options": [
+        "the work is divided among several processors and disks operating at the same time",
+        "all of the data is kept on one disk to avoid any movement between devices",
+        "allowing only one user at a time",
+        "removing all indexes",
+        "printing every query result"
+      ],
+      "answer": 0,
+      "explanation": "Parallel databases split work across multiple processors.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-dpr-0501",
+      "type": "THEORY",
+      "topic": "The Art of Information Processing",
+      "stem": "(a) List the six stages of information processing in their correct order. [6 marks]\n(b) Explain any two methods of data validation. [4 marks]",
+      "marks": 10,
+      "markingGuide": "1 mark: data collection\n1 mark: data preparation (collation/editing)\n1 mark: data input\n1 mark: processing\n1 mark: output (information)\n1 mark: storage\n2 marks: range check: ensures values fall between set limits, e.g. age 10 to 25\n2 marks: type/format/presence/length check: ensures data is of correct type or format, or is not left blank",
+      "explanation": "Stages: collection, preparation, input, processing, output, storage (with retrieval/dissemination where taught). Validation methods include range checks, type checks, format checks, presence checks, length checks and check digits.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0502",
+      "type": "THEORY",
+      "topic": "Networking",
+      "stem": "(a) Define computer networking. [2 marks]\n(b) Distinguish between LAN, MAN and WAN. [6 marks]\n(c) Name two devices used in setting up a network. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: linking two or more computers and devices to share resources and exchange data\n2 marks: LAN: covers a small area such as a building or school\n2 marks: MAN: covers a city or town\n2 marks: WAN: covers a large area such as a country or continents\n1 mark: router / switch\n1 mark: hub / network interface card / modem / cables / access point",
+      "explanation": "Networking links computers to share data and resources. LANs serve a building or campus, MANs a city, WANs countries or the world (the Internet is the largest WAN). Devices include switches, routers, NICs, modems, access points and cabling.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0503",
+      "type": "THEORY",
+      "topic": "Computer Virus",
+      "stem": "(a) What is a computer virus? [2 marks]\n(b) Name two examples of computer viruses or malware. [2 marks]\n(c) State three ways by which a virus can enter a computer. [3 marks]\n(d) State three destructive effects of virus infection. [3 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: a program written to replicate and cause damage or disruption to a computer system\n1 mark: e.g. ILOVEYOU worm / Trojan horse\n1 mark: e.g. ransomware (WannaCry) / Melissa / boot-sector virus\n1 mark: infected removable storage\n1 mark: e-mail attachments and links\n1 mark: downloads from untrusted websites / pirated software / networks\n1 mark: corrupts or deletes files\n1 mark: slows down or crashes the computer\n1 mark: steals data / displays unwanted messages / encrypts files for ransom",
+      "explanation": "A virus is self-replicating malicious code. Examples: ILOVEYOU, Melissa, WannaCry ransomware, Trojans. Entry routes: flash drives, attachments, downloads, pirated software, networks. Effects: corrupted or deleted files, slowness, crashes, data theft, ransom demands.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0504",
+      "type": "THEORY",
+      "topic": "File Organization",
+      "stem": "(a) Define file organisation. [2 marks]\n(b) Describe three types of file organisation. [6 marks]\n(c) Give one application suitable for each of two types described. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: the way records are arranged on a storage medium so they can be stored and retrieved\n2 marks: serial/sequential: records stored one after another (in key order for sequential) and read in order\n2 marks: indexed sequential: records in key order with an index allowing direct access\n2 marks: random (direct): records placed at addresses calculated from the key and accessed directly\n1 mark: sequential: payroll processing\n1 mark: random: airline/hotel booking or bank enquiries",
+      "explanation": "File organisation is how records are arranged for storage and retrieval. Serial/sequential stores records one after another; indexed sequential adds an index for direct access; random/direct uses an address calculated from the key. Payroll suits sequential; reservation systems suit random access.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0505",
+      "type": "THEORY",
+      "topic": "Relational Model",
+      "stem": "(a) Explain the following terms as used in the relational model: (i) entity; (ii) attribute; (iii) primary key; (iv) foreign key. [8 marks]\n(b) State two advantages of the relational database model. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: entity: a person, object or thing about which data is stored, e.g. a student\n2 marks: attribute: a property or characteristic of an entity, shown as a column\n2 marks: primary key: field whose value uniquely identifies each record in a table\n2 marks: foreign key: field in one table that refers to the primary key of another table\n1 mark: reduces data redundancy\n1 mark: easy to query with SQL / flexible relationships / data integrity",
+      "explanation": "An entity is a thing about which data is held; attributes are its properties (columns); a primary key uniquely identifies records; a foreign key links to another table's primary key. Advantages: less redundancy, flexibility, integrity and simple querying with SQL.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0506",
+      "type": "THEORY",
+      "topic": "Career Opportunities in Data Processing",
+      "stem": "(a) Name four careers in data processing and state one duty of each. [8 marks]\n(b) Name one professional body for computing practitioners in Nigeria. [2 marks]",
+      "marks": 10,
+      "markingGuide": "2 marks: systems analyst: studies and designs information systems\n2 marks: programmer: writes, tests and maintains programs\n2 marks: database administrator: manages and secures databases\n2 marks: computer engineer / network administrator / data entry operator with correct duty\n2 marks: Computer Professionals (Registration Council of Nigeria) or Nigeria Computer Society",
+      "explanation": "Careers include systems analyst (analyses and designs systems), programmer (writes code), database administrator (maintains and secures databases), network administrator (runs networks), computer engineer (builds and repairs hardware) and data entry operator. Professional bodies: CPN and the Nigeria Computer Society.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0507",
+      "type": "THEORY",
+      "topic": "Spreadsheet",
+      "stem": "(Test of practical work) A cooperative shop records its weekly sales in a spreadsheet:\nA2: Rice, B2: 52000, C2: 61000\nA3: Beans, B3: 38000, C3: 33500\nA4: Garri, B4: 24500, C4: 30000\nA5: Palm oil, B5: 41000, C5: 46500\nColumn B is Week 1 sales (N) and column C is Week 2 sales (N).\n(a) Write the formula in D2 to find the total sales of rice for the two weeks, and compute the totals for all four items. [6 marks]\n(b) Write the formula in E2 to find the percentage change from Week 1 to Week 2 for rice and compute its value to one decimal place. [4 marks]\n(c) Write the formula in D6 to find the grand total and compute its value. [3 marks]\n(d) State which item had a fall in sales and by how much. [3 marks]\n(e) Describe how to sort the table in descending order of total sales. [4 marks]",
+      "marks": 20,
+      "markingGuide": "1 mark: =B2+C2 or =SUM(B2:C2)\n1 mark: copy formula down to D5\n1 mark: Rice 113000\n1 mark: Beans 71500\n1 mark: Garri 54500\n1 mark: Palm oil 87500\n2 marks: =(C2-B2)/B2*100\n2 marks: 17.3 per cent\n2 marks: =SUM(D2:D5)\n1 mark: 326500\n2 marks: Beans\n1 mark: fell by N4500\n1 mark: select A1:D5\n1 mark: Data tab > Sort\n1 mark: sort by the Total column\n1 mark: choose Largest to Smallest and click OK",
+      "explanation": "Totals: Rice 113000, Beans 71500, Garri 54500, Palm oil 87500; grand total 326500 with =SUM(D2:D5). Rice change = (61000 - 52000) / 52000 x 100 = 17.3%. Beans fell from 38000 to 33500, a drop of N4500. Sort: select the data, Data > Sort, by Total, Largest to Smallest.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0508",
+      "type": "THEORY",
+      "topic": "Database Management System",
+      "stem": "(Test of practical work) A school wants a database of its staff with the fields StaffNo, Surname, FirstName, Department, DateEmployed, Salary.\n(a) State a suitable data type for each field. [6 marks]\n(b) Describe the steps to create the table in Microsoft Access. [5 marks]\n(c) Describe how to create a query that lists only staff in the Science department, and write the criterion. [4 marks]\n(d) Describe how to produce a report of all staff sorted by Surname. [3 marks]\n(e) State two differences between a table and a query. [2 marks]",
+      "marks": 20,
+      "markingGuide": "1 mark: StaffNo: Short Text/AutoNumber\n1 mark: Surname: Short Text\n1 mark: FirstName: Short Text\n1 mark: Department: Short Text\n1 mark: DateEmployed: Date/Time\n1 mark: Salary: Currency\n1 mark: open Access and create a blank database\n1 mark: Create > Table Design\n1 mark: enter field names and data types\n1 mark: set StaffNo as primary key\n1 mark: save the table with a name, e.g. STAFF\n1 mark: Create > Query Design and add the STAFF table\n1 mark: add the required fields to the grid\n1 mark: type \"Science\" in the Criteria row under Department\n1 mark: run the query\n1 mark: Create > Report Wizard and choose the STAFF table/fields\n1 mark: choose Surname as the sort field (ascending)\n1 mark: finish and view/print the report\n1 mark: a table stores the data permanently\n1 mark: a query extracts/selects data from tables based on criteria",
+      "explanation": "Types: StaffNo Short Text or AutoNumber, names and Department Short Text, DateEmployed Date/Time, Salary Currency. Create a blank database, Create > Table Design, enter fields, set StaffNo as primary key, save. Query Design: add table, fields, Criteria \"Science\" under Department, Run. Report Wizard: choose fields, sort by Surname, Finish. A table stores data; a query retrieves selected data.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-dpr-0509",
+      "type": "THEORY",
+      "topic": "Word Processing",
+      "stem": "(Test of practical work) A secretary is to type a two-page notice for a Parents-Teachers Association meeting.\n(a) Describe how to start the word processor and open a new blank document. [3 marks]\n(b) Describe how to: (i) set all margins to 2.5 cm; (ii) set the font of the whole document to Times New Roman, size 12; (iii) number the agenda items automatically. [9 marks]\n(c) Describe how to insert the school name as a footer on both pages. [3 marks]\n(d) Describe how to print three copies of only page 2. [3 marks]\n(e) State two advantages of a word processor over a typewriter. [2 marks]",
+      "marks": 20,
+      "markingGuide": "1 mark: click Start\n1 mark: select Microsoft Word (or the word processor)\n1 mark: choose Blank document\n1 mark: Layout > Margins\n1 mark: Custom Margins\n1 mark: enter 2.5 cm for top, bottom, left and right and click OK\n1 mark: press Ctrl + A to select all\n1 mark: choose Times New Roman from the font box\n1 mark: choose 12 from the size box\n1 mark: select the agenda items\n1 mark: Home > Numbering\n1 mark: choose a number format\n1 mark: Insert > Footer\n1 mark: choose a footer style\n1 mark: type the school name and close the footer\n1 mark: File > Print\n1 mark: in Pages box type 2\n1 mark: set Copies to 3 and click Print\n1 mark: errors can be corrected easily before printing\n1 mark: documents can be saved, reused and formatted in many ways",
+      "explanation": "Start > Word > Blank document. Layout > Margins > Custom Margins, 2.5 cm on all sides. Ctrl + A then Times New Roman, 12. Select agenda items, Home > Numbering. Insert > Footer, type school name. File > Print, Pages: 2, Copies: 3, Print. Word processors allow easy correction, saving, reuse, formatting and multiple copies.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-dpr-0510",
+      "type": "THEORY",
+      "topic": "Internet",
+      "stem": "(Test of practical work)\n(a) Describe how a student would use a browser to visit the website of the National Examinations Council and bookmark it. [5 marks]\n(b) Describe how to search for \"data processing past syllabus\" and open the third result in a new tab. [4 marks]\n(c) Describe how to send an e-mail with a document attached to a teacher. [6 marks]\n(d) State five ways of staying safe while using the Internet. [5 marks]",
+      "marks": 20,
+      "markingGuide": "1 mark: open a browser\n1 mark: click the address bar\n1 mark: type the web address of NECO (e.g. www.neco.gov.ng) and press Enter\n1 mark: click the star/bookmark icon\n1 mark: save the bookmark\n1 mark: open a search engine\n1 mark: type the search phrase and press Enter\n1 mark: right-click the third result\n1 mark: choose Open link in new tab\n1 mark: sign in to the e-mail account\n1 mark: click Compose\n1 mark: enter the teacher's address in To\n1 mark: enter a subject and message\n1 mark: click Attach and select the document\n1 mark: click Send\n1 mark: use strong passwords\n1 mark: do not share personal information with strangers\n1 mark: avoid clicking suspicious links/attachments\n1 mark: use secure (https) sites and antivirus software\n1 mark: log out of accounts on shared computers",
+      "explanation": "Open a browser, type the NECO address (neco.gov.ng) in the address bar, Enter, and click the star to bookmark. Search via a search engine; right-click the third result > Open link in new tab. E-mail: sign in, Compose, To, subject, message, Attach, Send. Safety: strong passwords, privacy of personal data, caution with links, https and antivirus, log out on shared devices.",
+      "difficulty": "EASY"
+    }
+  ]
+}

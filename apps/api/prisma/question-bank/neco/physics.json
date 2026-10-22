@@ -1,0 +1,3527 @@
+{
+  "exam": "NECO",
+  "subject": "Physics",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-phy-0001",
+      "type": "OBJECTIVE",
+      "topic": "Concepts of matter",
+      "stem": "Which of the following is NOT a property that distinguishes a liquid from a gas?",
+      "options": [
+        "A gas fills any container completely",
+        "A liquid has a free surface",
+        "Both consist of moving particles",
+        "A gas is far more compressible",
+        "A liquid has a fixed volume"
+      ],
+      "answer": 2,
+      "explanation": "Particles of both liquids and gases are in motion, so that feature does not distinguish them; the others are genuine differences.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0002",
+      "type": "OBJECTIVE",
+      "topic": "Concepts of matter",
+      "stem": "A sealed syringe of air can be squeezed into a smaller volume, but a sealed syringe of water cannot. The best explanation is that",
+      "options": [
+        "water molecules are much heavier",
+        "air molecules are much smaller",
+        "water molecules repel the plunger",
+        "air molecules stop moving when squeezed",
+        "air molecules are widely spaced"
+      ],
+      "answer": 4,
+      "explanation": "Gas molecules have large spaces between them which can be reduced; liquid molecules are already in near contact.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0003",
+      "type": "OBJECTIVE",
+      "topic": "Fundamental quantities and units",
+      "stem": "Which of the following units is a base S.I. unit?",
+      "options": [
+        "kelvin",
+        "newton",
+        "volt",
+        "coulomb",
+        "joule"
+      ],
+      "answer": 0,
+      "explanation": "The kelvin (temperature) is one of the seven S.I. base units; the others listed are derived units.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0004",
+      "type": "OBJECTIVE",
+      "topic": "Fundamental quantities and units",
+      "stem": "Which of the following lists contains only fundamental quantities?",
+      "options": [
+        "Length, speed, current",
+        "Mass, time, amount of substance",
+        "Current, charge, time",
+        "Mass, density, length",
+        "Time, force, temperature"
+      ],
+      "answer": 1,
+      "explanation": "Speed, force, density and charge are derived; mass, time and amount of substance are base quantities.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0005",
+      "type": "OBJECTIVE",
+      "topic": "Derived quantities and units",
+      "stem": "The S.I. unit of work can be written in base units as",
+      "options": [
+        "kg m^-1 s^-2",
+        "kg m^2 s^-3",
+        "kg s^-2",
+        "kg m^2 s^-2",
+        "kg m s^-2"
+      ],
+      "answer": 3,
+      "explanation": "Work = force x distance = (kg m s^-2)(m) = kg m^2 s^-2. kg m s^-2 is the newton; kg m^2 s^-3 is the watt.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0006",
+      "type": "OBJECTIVE",
+      "topic": "Derived quantities and dimensional analysis",
+      "stem": "The dimensions of momentum are",
+      "options": [
+        "M L^2 T^-2",
+        "M L^2 T^-1",
+        "M L^-1 T^-1",
+        "M L T^-1",
+        "M L T^-2"
+      ],
+      "answer": 3,
+      "explanation": "Momentum = mass x velocity = M x L T^-1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0007",
+      "type": "OBJECTIVE",
+      "topic": "Derived quantities and dimensional analysis",
+      "stem": "The speed v of a wave on a stretched string depends on the tension F and the mass per unit length mu as v = k F^a mu^b, where k is dimensionless. The values of a and b are",
+      "options": [
+        "a = 1, b = -1",
+        "a = 1/2, b = 1/2",
+        "a = 1/2, b = -1/2",
+        "a = 2, b = -2",
+        "a = -1/2, b = 1/2"
+      ],
+      "answer": 2,
+      "explanation": "F = M L T^-2 and mu = M L^-1. L T^-1 = M^(a+b) L^(a-b) T^(-2a): -2a = -1 gives a = 1/2, a + b = 0 gives b = -1/2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0008",
+      "type": "OBJECTIVE",
+      "topic": "Concept of position",
+      "stem": "On a map grid, a market is located 3 km east and 4 km north of a school. Its straight-line distance from the school is",
+      "options": [
+        "1 km",
+        "7 km",
+        "25 km",
+        "12 km",
+        "5 km"
+      ],
+      "answer": 4,
+      "explanation": "Distance = sqrt(3^2 + 4^2) = 5 km.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0009",
+      "type": "OBJECTIVE",
+      "topic": "Measurement of distance",
+      "stem": "The main scale of a pair of vernier calipers reads 2.4 cm and the 7th vernier division coincides with a main scale mark. If the least count is 0.01 cm, the reading is",
+      "options": [
+        "2.47 cm",
+        "2.40 cm",
+        "2.07 cm",
+        "3.10 cm",
+        "2.17 cm"
+      ],
+      "answer": 0,
+      "explanation": "Reading = main scale + (coinciding division x least count) = 2.4 + 7 x 0.01 = 2.47 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0010",
+      "type": "OBJECTIVE",
+      "topic": "Distinction between distance and displacement",
+      "stem": "A taxi leaves a park, drives round the town and returns to the same park. Which statement about the trip is true?",
+      "options": [
+        "Its displacement is greater than its distance",
+        "Its displacement is zero but its distance is not",
+        "Its distance and displacement are both zero",
+        "Its displacement equals the reading of its odometer",
+        "Its distance is a vector quantity"
+      ],
+      "answer": 1,
+      "explanation": "Returning to the starting point gives zero displacement, though a non-zero distance has been covered.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0011",
+      "type": "OBJECTIVE",
+      "topic": "Mass and weight",
+      "stem": "A spring balance on the earth measures the",
+      "options": [
+        "mass of a body",
+        "inertia of a body",
+        "volume of a body",
+        "weight of a body",
+        "density of a body"
+      ],
+      "answer": 3,
+      "explanation": "A spring balance measures force, i.e. the weight; a beam balance compares masses.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0012",
+      "type": "OBJECTIVE",
+      "topic": "Mass and weight",
+      "stem": "An astronaut of mass 70 kg moves to a planet where the acceleration due to gravity is 4.0 m s^-2. Her mass and weight on that planet are respectively",
+      "options": [
+        "280 kg and 70 N",
+        "17.5 kg and 70 N",
+        "28 kg and 280 N",
+        "70 kg and 700 N",
+        "70 kg and 280 N"
+      ],
+      "answer": 4,
+      "explanation": "Mass is unchanged (70 kg); weight = mg = 70 x 4.0 = 280 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0013",
+      "type": "OBJECTIVE",
+      "topic": "Time",
+      "stem": "The S.I. unit of time is defined in terms of",
+      "options": [
+        "the swing of a seconds pendulum",
+        "the rotation of the earth",
+        "the radiation of the caesium-133 atom",
+        "the flow of sand in an hourglass",
+        "the orbit of the moon"
+      ],
+      "answer": 2,
+      "explanation": "The second is defined from a fixed frequency of the radiation from the caesium-133 atom.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0014",
+      "type": "OBJECTIVE",
+      "topic": "Time",
+      "stem": "A simple pendulum makes 40 complete oscillations in 56.0 s. Its period is",
+      "options": [
+        "1.40 s",
+        "1.12 s",
+        "2.80 s",
+        "0.56 s",
+        "0.71 s"
+      ],
+      "answer": 0,
+      "explanation": "Period = 56.0/40 = 1.40 s.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0015",
+      "type": "OBJECTIVE",
+      "topic": "Time",
+      "stem": "Which of the following is a natural periodic event that can be used to measure time?",
+      "options": [
+        "The burning of a candle",
+        "The rising and setting of the sun",
+        "The flow of a river",
+        "The cooling of hot water",
+        "The growth of a plant"
+      ],
+      "answer": 1,
+      "explanation": "Sunrise and sunset recur at regular intervals; the others are not repeating events of fixed period.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0016",
+      "type": "OBJECTIVE",
+      "topic": "Volume, density and relative density",
+      "stem": "A block of wood of mass 360 g has dimensions 10 cm x 6 cm x 8 cm. Its density is",
+      "options": [
+        "0.60 g cm^-3",
+        "0.48 g cm^-3",
+        "1.33 g cm^-3",
+        "4.50 g cm^-3",
+        "0.75 g cm^-3"
+      ],
+      "answer": 4,
+      "explanation": "Volume = 480 cm^3; density = 360/480 = 0.75 g cm^-3.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0017",
+      "type": "OBJECTIVE",
+      "topic": "Volume, density and relative density",
+      "stem": "A relative density bottle weighs 20 g empty, 70 g full of water and 60 g full of a liquid. The relative density of the liquid is",
+      "options": [
+        "1.17",
+        "0.86",
+        "0.80",
+        "1.25",
+        "0.67"
+      ],
+      "answer": 2,
+      "explanation": "R.D. = mass of liquid/mass of equal volume of water = (60 - 20)/(70 - 20) = 40/50 = 0.80.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0018",
+      "type": "OBJECTIVE",
+      "topic": "Pressure in fluids",
+      "stem": "The pressure due to water at the bottom of a well 12 m deep is (density of water = 1000 kg m^-3, g = 10 m s^-2)",
+      "options": [
+        "1.2 x 10^6 Pa",
+        "1.2 x 10^5 Pa",
+        "8.3 x 10^2 Pa",
+        "1.2 x 10^4 Pa",
+        "1.2 x 10^3 Pa"
+      ],
+      "answer": 1,
+      "explanation": "p = h rho g = 12 x 1000 x 10 = 1.2 x 10^5 Pa.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0019",
+      "type": "OBJECTIVE",
+      "topic": "Pressure in fluids",
+      "stem": "In a hydraulic press the small piston has area 4 cm^2 and the large piston 200 cm^2. The force needed on the small piston to lift a load of 6000 N on the large piston is",
+      "options": [
+        "240 N",
+        "300 000 N",
+        "30 N",
+        "120 N",
+        "1500 N"
+      ],
+      "answer": 3,
+      "explanation": "Pressure is transmitted equally: F/4 = 6000/200, so F = 6000 x 4/200 = 120 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0020",
+      "type": "OBJECTIVE",
+      "topic": "Archimedes' principle",
+      "stem": "A stone weighs 5.0 N in air and 3.2 N when fully immersed in water. The relative density of the stone is",
+      "options": [
+        "2.8",
+        "1.8",
+        "0.36",
+        "1.6",
+        "3.6"
+      ],
+      "answer": 0,
+      "explanation": "Upthrust = 5.0 - 3.2 = 1.8 N; R.D. = weight in air/upthrust = 5.0/1.8 = 2.8.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0021",
+      "type": "OBJECTIVE",
+      "topic": "Archimedes' principle",
+      "stem": "A metal cube of side 5.0 cm and density 8000 kg m^-3 is hung from a spring balance and fully immersed in oil of density 800 kg m^-3. The reading of the balance is (g = 10 m s^-2)",
+      "options": [
+        "9.0 N",
+        "8.0 N",
+        "1.0 N",
+        "11.0 N",
+        "10.0 N"
+      ],
+      "answer": 0,
+      "explanation": "V = 1.25 x 10^-4 m^3. Weight = 8000 x 1.25e-4 x 10 = 10.0 N; upthrust = 800 x 1.25e-4 x 10 = 1.0 N; reading = 9.0 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0022",
+      "type": "OBJECTIVE",
+      "topic": "Law of flotation",
+      "stem": "A plank of iroko wood with density 720 kg m^-3 floats in a freshwater lagoon (density 1000 kg m^-3). What percentage of the plank's volume is submerged?",
+      "options": [
+        "58%",
+        "39%",
+        "86%",
+        "28%",
+        "72%"
+      ],
+      "answer": 4,
+      "explanation": "For a floating body the fraction submerged = density of body/density of liquid = 720/1000 = 0.72, i.e. 72%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0023",
+      "type": "OBJECTIVE",
+      "topic": "Law of flotation",
+      "stem": "A loaded canoe floats lower in a freshwater creek than in sea water because",
+      "options": [
+        "the canoe weighs more in fresh water",
+        "upthrust in sea water is greater than the weight",
+        "sea water has a lower surface tension",
+        "sea water is denser than fresh water",
+        "fresh water is denser than sea water"
+      ],
+      "answer": 3,
+      "explanation": "The upthrust must equal the same weight in both; the denser sea water needs a smaller displaced volume.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0024",
+      "type": "OBJECTIVE",
+      "topic": "Types of motion",
+      "stem": "The movement of the blades of a ceiling fan is an example of",
+      "options": [
+        "oscillatory motion",
+        "rectilinear motion",
+        "rotational motion",
+        "random motion",
+        "translational motion"
+      ],
+      "answer": 2,
+      "explanation": "The blades turn about a fixed axis, which is rotational motion.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0025",
+      "type": "OBJECTIVE",
+      "topic": "Types of motion",
+      "stem": "The motion of smoke particles observed under a microscope is",
+      "options": [
+        "oscillatory motion",
+        "random motion",
+        "translational motion",
+        "rotational motion",
+        "circular motion"
+      ],
+      "answer": 1,
+      "explanation": "Smoke particles show irregular zig-zag (Brownian) movement, which is random motion.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0026",
+      "type": "OBJECTIVE",
+      "topic": "Relative motion",
+      "stem": "A cyclist rides north at 6 m s^-1 while a lorry ahead of him moves north at 15 m s^-1. As seen by the cyclist, the lorry moves",
+      "options": [
+        "north at 9 m s^-1",
+        "north at 15 m s^-1",
+        "south at 9 m s^-1",
+        "north at 21 m s^-1",
+        "south at 21 m s^-1"
+      ],
+      "answer": 0,
+      "explanation": "Velocity of lorry relative to cyclist = 15 - 6 = 9 m s^-1 in the northward direction.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0027",
+      "type": "OBJECTIVE",
+      "topic": "Types of force",
+      "stem": "Which of the following is a contact force?",
+      "options": [
+        "Magnetic force",
+        "Nuclear force",
+        "Gravitational force",
+        "Electrostatic force",
+        "Friction"
+      ],
+      "answer": 4,
+      "explanation": "Friction acts only where surfaces touch; the others act at a distance (field forces).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0028",
+      "type": "OBJECTIVE",
+      "topic": "Solid friction",
+      "stem": "A box of mass 40 kg rests on a horizontal floor. The coefficient of static friction is 0.35. The least horizontal force that will just move the box is (g = 10 m s^-2)",
+      "options": [
+        "1143 N",
+        "140 N",
+        "400 N",
+        "35 N",
+        "114 N"
+      ],
+      "answer": 1,
+      "explanation": "Limiting friction = mu R = 0.35 x 40 x 10 = 140 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0029",
+      "type": "OBJECTIVE",
+      "topic": "Viscosity (friction in fluids)",
+      "stem": "A steel ball falling through glycerine reaches terminal velocity when",
+      "options": [
+        "its weight equals the upthrust",
+        "the acceleration equals g",
+        "the upthrust equals the viscous drag",
+        "weight equals viscous drag plus upthrust",
+        "the viscous drag becomes zero"
+      ],
+      "answer": 3,
+      "explanation": "At terminal velocity the resultant force is zero: weight = upthrust + viscous drag, so acceleration is zero.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0030",
+      "type": "OBJECTIVE",
+      "topic": "Simple ideas of circular motion",
+      "stem": "A stone of mass 0.2 kg is whirled in a horizontal circle of radius 0.8 m at a constant speed of 4 m s^-1. The centripetal force on the stone is",
+      "options": [
+        "1.0 N",
+        "3.2 N",
+        "4.0 N",
+        "0.64 N",
+        "20 N"
+      ],
+      "answer": 2,
+      "explanation": "F = m v^2/r = 0.2 x 16/0.8 = 4.0 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0031",
+      "type": "OBJECTIVE",
+      "topic": "Concept of speed",
+      "stem": "A keke travels 15 km in 20 minutes. Its average speed is",
+      "options": [
+        "45 m s^-1",
+        "12.5 m s^-1",
+        "7.5 m s^-1",
+        "0.75 m s^-1",
+        "20 m s^-1"
+      ],
+      "answer": 1,
+      "explanation": "15 000 m/1200 s = 12.5 m s^-1.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0032",
+      "type": "OBJECTIVE",
+      "topic": "Concept of velocity",
+      "stem": "Two runners have the same speed of 5 m s^-1 but run in opposite directions along a straight track. Their velocities are",
+      "options": [
+        "the same because their speeds are equal",
+        "different because their masses may differ",
+        "both zero",
+        "different because their directions differ",
+        "equal and both scalar"
+      ],
+      "answer": 3,
+      "explanation": "Velocity is a vector; equal speeds in opposite directions give different (opposite) velocities.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0033",
+      "type": "OBJECTIVE",
+      "topic": "Uniform and non-uniform speed/velocity",
+      "stem": "A car moving round a circular track at a constant 15 m s^-1 has",
+      "options": [
+        "zero acceleration",
+        "non-uniform speed and non-uniform velocity",
+        "non-uniform speed and uniform velocity",
+        "uniform speed and uniform velocity",
+        "uniform speed but non-uniform velocity"
+      ],
+      "answer": 4,
+      "explanation": "The speed is constant but the direction changes continuously, so the velocity is not uniform.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0034",
+      "type": "OBJECTIVE",
+      "topic": "Distance/displacement-time graph",
+      "stem": "On a displacement-time graph, a straight line parallel to the time axis indicates that the body is",
+      "options": [
+        "at rest",
+        "moving with uniform velocity",
+        "decelerating",
+        "moving in a circle",
+        "accelerating uniformly"
+      ],
+      "answer": 0,
+      "explanation": "Displacement does not change with time, so the velocity (slope) is zero.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0035",
+      "type": "OBJECTIVE",
+      "topic": "Concept of acceleration and deceleration",
+      "stem": "A car moving at 25 m s^-1 is brought to rest in 5 s. Its deceleration is",
+      "options": [
+        "30 m s^-2",
+        "125 m s^-2",
+        "5 m s^-2",
+        "20 m s^-2",
+        "0.2 m s^-2"
+      ],
+      "answer": 2,
+      "explanation": "a = (0 - 25)/5 = -5 m s^-2, i.e. a deceleration of 5 m s^-2.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0036",
+      "type": "OBJECTIVE",
+      "topic": "Velocity-time graph",
+      "stem": "The area under a velocity-time graph represents",
+      "options": [
+        "force",
+        "momentum",
+        "displacement",
+        "speed",
+        "acceleration"
+      ],
+      "answer": 2,
+      "explanation": "Area under v-t graph = velocity x time = displacement.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0037",
+      "type": "OBJECTIVE",
+      "topic": "Velocity-time graph",
+      "stem": "A train accelerates uniformly from rest to 20 m s^-1 in 40 s, travels at that speed for 60 s and then decelerates uniformly to rest in 20 s. The total distance covered is",
+      "options": [
+        "1600 m",
+        "1200 m",
+        "2400 m",
+        "2000 m",
+        "1800 m"
+      ],
+      "answer": 4,
+      "explanation": "Area = 0.5 x 40 x 20 + 20 x 60 + 0.5 x 20 x 20 = 400 + 1200 + 200 = 1800 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0038",
+      "type": "OBJECTIVE",
+      "topic": "Equations of motion with constant acceleration",
+      "stem": "A ball is thrown vertically upwards with a speed of 30 m s^-1. The maximum height reached is (g = 10 m s^-2)",
+      "options": [
+        "150 m",
+        "45 m",
+        "30 m",
+        "3 m",
+        "90 m"
+      ],
+      "answer": 1,
+      "explanation": "h = u^2/(2g) = 900/20 = 45 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0039",
+      "type": "OBJECTIVE",
+      "topic": "Equations of motion with constant acceleration",
+      "stem": "A motorcycle starting from rest accelerates uniformly at 3 m s^-2. The distance covered in the first 8 s is",
+      "options": [
+        "96 m",
+        "48 m",
+        "192 m",
+        "12 m",
+        "24 m"
+      ],
+      "answer": 0,
+      "explanation": "s = ut + 0.5at^2 = 0 + 0.5 x 3 x 64 = 96 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0040",
+      "type": "OBJECTIVE",
+      "topic": "Equations of motion with constant acceleration",
+      "stem": "A stone dropped from rest falls the last 35 m of its fall in 1 s. The total height from which it was dropped is (g = 10 m s^-2)",
+      "options": [
+        "35 m",
+        "125 m",
+        "45 m",
+        "80 m",
+        "61 m"
+      ],
+      "answer": 3,
+      "explanation": "Let total time be t: 5t^2 - 5(t - 1)^2 = 35 gives 10t - 5 = 35, t = 4 s; height = 5 x 16 = 80 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0041",
+      "type": "OBJECTIVE",
+      "topic": "Concept of scalars",
+      "stem": "From the list mass, displacement, acceleration, force and torque, the only scalar is",
+      "options": [
+        "displacement",
+        "torque",
+        "force",
+        "mass",
+        "acceleration"
+      ],
+      "answer": 3,
+      "explanation": "Mass has magnitude only; the others are vectors.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0042",
+      "type": "OBJECTIVE",
+      "topic": "Concept of vectors",
+      "stem": "Of the quantities impulse, time, volume, heat and speed, the one that must be described by both size and direction is",
+      "options": [
+        "volume",
+        "heat",
+        "impulse",
+        "speed",
+        "time"
+      ],
+      "answer": 2,
+      "explanation": "Impulse (force x time) is a vector; the others are scalars.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0043",
+      "type": "OBJECTIVE",
+      "topic": "Addition of vectors",
+      "stem": "Forces of 9 N and 12 N act together on a nail. The magnitude of their resultant could be any of the following EXCEPT",
+      "options": [
+        "21 N",
+        "23 N",
+        "15 N",
+        "3 N",
+        "10 N"
+      ],
+      "answer": 1,
+      "explanation": "The resultant must lie between 12 - 9 = 3 N and 12 + 9 = 21 N, so 23 N is impossible.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0044",
+      "type": "OBJECTIVE",
+      "topic": "Resolution of vectors",
+      "stem": "A boy pulls a loaded sack along the ground with a rope inclined at 60 degrees to the ground. If the tension in the rope is 80 N, the component of the pull along the ground is",
+      "options": [
+        "69 N",
+        "80 N",
+        "160 N",
+        "46 N",
+        "40 N"
+      ],
+      "answer": 4,
+      "explanation": "Horizontal component = 80 cos 60 = 80 x 0.5 = 40 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0045",
+      "type": "OBJECTIVE",
+      "topic": "Resultant velocity using vector representation",
+      "stem": "A canoe that can travel at 4 m s^-1 in still water heads straight across a river flowing at 3 m s^-1. The magnitude of its resultant velocity is",
+      "options": [
+        "5 m s^-1",
+        "7 m s^-1",
+        "12 m s^-1",
+        "1 m s^-1",
+        "2.6 m s^-1"
+      ],
+      "answer": 0,
+      "explanation": "The velocities are perpendicular: sqrt(4^2 + 3^2) = 5 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0046",
+      "type": "OBJECTIVE",
+      "topic": "Vector representation",
+      "stem": "A vector is represented graphically by",
+      "options": [
+        "a number written with its unit",
+        "a point with a label",
+        "a line drawn to scale with an arrow-head",
+        "a line of any length without direction",
+        "a circle of suitable radius"
+      ],
+      "answer": 2,
+      "explanation": "The length (to scale) gives the magnitude and the arrow-head gives the direction.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0047",
+      "type": "OBJECTIVE",
+      "topic": "Principle of moments",
+      "stem": "A metre rule pivoted at its centre carries a 60 g mass at the 15 cm mark. Where must a 70 g mass be placed for the rule to balance horizontally?",
+      "options": [
+        "85 cm mark",
+        "65 cm mark",
+        "70 cm mark",
+        "35 cm mark",
+        "80 cm mark"
+      ],
+      "answer": 4,
+      "explanation": "60 x (50 - 15) = 70 x d gives d = 30 cm from the pivot, i.e. the 80 cm mark.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0048",
+      "type": "OBJECTIVE",
+      "topic": "Centre of gravity and stability",
+      "stem": "A loaded lorry is most stable when its",
+      "options": [
+        "centre of gravity is high and base is wide",
+        "centre of gravity is high and base is narrow",
+        "tyres are narrow",
+        "centre of gravity is low and base is wide",
+        "load is placed on the roof"
+      ],
+      "answer": 3,
+      "explanation": "Stability increases with a low centre of gravity and a wide base.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0049",
+      "type": "OBJECTIVE",
+      "topic": "Centre of gravity and stability",
+      "stem": "A cone resting on its slant side on a table is in",
+      "options": [
+        "dynamic equilibrium",
+        "neutral equilibrium",
+        "stable equilibrium",
+        "thermal equilibrium",
+        "unstable equilibrium"
+      ],
+      "answer": 1,
+      "explanation": "When rolled, its centre of gravity stays at the same height, so it remains in any new position: neutral equilibrium.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0050",
+      "type": "OBJECTIVE",
+      "topic": "Illustration, explanation and definition of simple harmonic motion",
+      "stem": "Which equation, with a the acceleration, x the displacement and w a constant, describes simple harmonic motion?",
+      "options": [
+        "a = -w^2 x",
+        "a = constant",
+        "a = -w x^2",
+        "a = w/x",
+        "a = w^2 x"
+      ],
+      "answer": 0,
+      "explanation": "In S.H.M. acceleration is proportional to displacement and directed opposite to it: a = -w^2 x.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0051",
+      "type": "OBJECTIVE",
+      "topic": "Speed and acceleration of S.H.M.",
+      "stem": "The prong of a tuning fork vibrates with S.H.M. of amplitude 0.40 mm at a frequency of 250 Hz. Its maximum speed is (pi = 3.14)",
+      "options": [
+        "0.63 m s^-1",
+        "0.10 m s^-1",
+        "6.28 m s^-1",
+        "1.26 m s^-1",
+        "0.16 m s^-1"
+      ],
+      "answer": 0,
+      "explanation": "v max = 2 pi f A = 2 x 3.14 x 250 x 0.40e-3 = 0.63 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0052",
+      "type": "OBJECTIVE",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "stem": "A simple pendulum of length 0.90 m swings where g = 10 m s^-2. Its period is (pi = 3.14)",
+      "options": [
+        "0.94 s",
+        "1.88 s",
+        "5.65 s",
+        "3.77 s",
+        "0.60 s"
+      ],
+      "answer": 1,
+      "explanation": "T = 2 pi sqrt(l/g) = 6.28 x sqrt(0.09) = 6.28 x 0.3 = 1.88 s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0053",
+      "type": "OBJECTIVE",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "stem": "A body in S.H.M. completes 25 oscillations in 10 s. Its frequency is",
+      "options": [
+        "15 Hz",
+        "250 Hz",
+        "2.5 Hz",
+        "0.4 Hz",
+        "35 Hz"
+      ],
+      "answer": 2,
+      "explanation": "f = 25/10 = 2.5 Hz.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0054",
+      "type": "OBJECTIVE",
+      "topic": "Forced vibration and resonance",
+      "stem": "A radio is tuned to a station by adjusting a circuit until its natural frequency equals that of the incoming signal. This is an application of",
+      "options": [
+        "beats",
+        "diffraction",
+        "damping",
+        "resonance",
+        "refraction"
+      ],
+      "answer": 3,
+      "explanation": "Tuning matches the natural frequency of the circuit to the signal frequency, giving maximum response: resonance.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0055",
+      "type": "OBJECTIVE",
+      "topic": "First Law: inertia of rest and inertia of motion",
+      "stem": "Passengers in a danfo bus that brakes suddenly lurch forward. This is explained by",
+      "options": [
+        "conservation of energy",
+        "Newton's third law",
+        "the principle of moments",
+        "inertia of rest",
+        "inertia of motion"
+      ],
+      "answer": 4,
+      "explanation": "The passengers tend to continue moving forward when the bus stops: inertia of motion (first law).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0056",
+      "type": "OBJECTIVE",
+      "topic": "Second Law: force, acceleration, momentum and impulse",
+      "stem": "A net force of 24 N acts on a body of mass 6 kg initially at rest. Its velocity after 5 s is",
+      "options": [
+        "30 m s^-1",
+        "4 m s^-1",
+        "120 m s^-1",
+        "0.8 m s^-1",
+        "20 m s^-1"
+      ],
+      "answer": 4,
+      "explanation": "a = 24/6 = 4 m s^-2; v = at = 20 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0057",
+      "type": "OBJECTIVE",
+      "topic": "Second Law: force, acceleration, momentum and impulse",
+      "stem": "A ball of mass 0.15 kg moving at 20 m s^-1 is hit straight back at 30 m s^-1. If contact lasts 0.05 s, the average force on the ball is",
+      "options": [
+        "90 N",
+        "150 N",
+        "7.5 N",
+        "60 N",
+        "30 N"
+      ],
+      "answer": 1,
+      "explanation": "Change in momentum = 0.15 x (30 + 20) = 7.5 N s; F = 7.5/0.05 = 150 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0058",
+      "type": "OBJECTIVE",
+      "topic": "Third Law: action and reaction",
+      "stem": "A rifle of mass 4 kg fires a bullet of mass 0.02 kg at 500 m s^-1. The recoil velocity of the rifle is",
+      "options": [
+        "2.5 m s^-1",
+        "100 m s^-1",
+        "10 m s^-1",
+        "25 m s^-1",
+        "0.16 m s^-1"
+      ],
+      "answer": 0,
+      "explanation": "Momentum conserved: 4v = 0.02 x 500, v = 2.5 m s^-1 backwards.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0059",
+      "type": "OBJECTIVE",
+      "topic": "Third Law: action and reaction",
+      "stem": "The working of a rocket engine is best explained by",
+      "options": [
+        "Newton's first law of motion",
+        "the law of flotation",
+        "Hooke's law",
+        "Newton's third law of motion",
+        "Ohm's law"
+      ],
+      "answer": 3,
+      "explanation": "The exhaust gases are pushed backwards and the gases push the rocket forwards with an equal and opposite force.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0060",
+      "type": "OBJECTIVE",
+      "topic": "Forms of energy",
+      "stem": "In a dry cell, the energy conversion taking place when it drives a current is",
+      "options": [
+        "heat to electrical",
+        "mechanical to electrical",
+        "chemical to electrical",
+        "light to electrical",
+        "electrical to chemical"
+      ],
+      "answer": 2,
+      "explanation": "A cell converts stored chemical energy into electrical energy.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0061",
+      "type": "OBJECTIVE",
+      "topic": "World energy resources",
+      "stem": "Which of the following energy sources is renewable?",
+      "options": [
+        "Natural gas",
+        "Coal",
+        "Solar energy",
+        "Uranium",
+        "Crude oil"
+      ],
+      "answer": 2,
+      "explanation": "Solar energy is continually replenished; fossil fuels and uranium are finite.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0062",
+      "type": "OBJECTIVE",
+      "topic": "World energy resources",
+      "stem": "The Zungeru power station on the Kaduna River converts",
+      "options": [
+        "the potential energy of stored water into electrical energy",
+        "wind energy into heat energy",
+        "chemical energy of coal into electrical energy",
+        "nuclear energy into electrical energy",
+        "solar energy into chemical energy"
+      ],
+      "answer": 0,
+      "explanation": "Zungeru is a hydroelectric station: water stored behind the dam falls through turbines that drive generators.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0063",
+      "type": "OBJECTIVE",
+      "topic": "Conservation of energy",
+      "stem": "A falling coconut gains kinetic energy as it loses height. Which principle best accounts for this?",
+      "options": [
+        "Action and reaction are equal and opposite",
+        "Momentum is always conserved in collisions",
+        "Mass and weight are equal",
+        "Energy is neither created nor destroyed, only changed in form",
+        "Pressure is transmitted equally in all directions"
+      ],
+      "answer": 3,
+      "explanation": "Loss of gravitational potential energy equals the gain in kinetic energy (ignoring air resistance): conservation of energy.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0064",
+      "type": "OBJECTIVE",
+      "topic": "Concept of work",
+      "stem": "A porter carries a load of 300 N up a stairway of vertical height 6 m. The work done against gravity is",
+      "options": [
+        "306 J",
+        "50 J",
+        "180 J",
+        "294 J",
+        "1800 J"
+      ],
+      "answer": 4,
+      "explanation": "W = mgh = 300 x 6 = 1800 J.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0065",
+      "type": "OBJECTIVE",
+      "topic": "Work done in a gravitational field",
+      "stem": "A 5 kg mass is raised from a height of 2 m to 7 m above the ground. The gain in potential energy is (g = 10 m s^-2)",
+      "options": [
+        "100 J",
+        "250 J",
+        "350 J",
+        "450 J",
+        "25 J"
+      ],
+      "answer": 1,
+      "explanation": "Delta P.E. = mg Delta h = 5 x 10 x 5 = 250 J.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0066",
+      "type": "OBJECTIVE",
+      "topic": "Types of mechanical energy",
+      "stem": "The kinetic energy of a 1200 kg car travelling at 15 m s^-1 is",
+      "options": [
+        "9 kJ",
+        "270 kJ",
+        "135 kJ",
+        "18 kJ",
+        "1.35 kJ"
+      ],
+      "answer": 2,
+      "explanation": "K.E. = 0.5 x 1200 x 225 = 135 000 J = 135 kJ.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0067",
+      "type": "OBJECTIVE",
+      "topic": "Conservation of mechanical energy",
+      "stem": "A body is released from rest at a height of 20 m. Neglecting air resistance, its speed when it is 5 m above the ground is (g = 10 m s^-2)",
+      "options": [
+        "15.0 m s^-1",
+        "20.0 m s^-1",
+        "10.0 m s^-1",
+        "300 m s^-1",
+        "17.3 m s^-1"
+      ],
+      "answer": 4,
+      "explanation": "It has fallen 15 m: v = sqrt(2 g h) = sqrt(300) = 17.3 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0068",
+      "type": "OBJECTIVE",
+      "topic": "Concept of power",
+      "stem": "A pumping machine raises 600 kg of water through 15 m in 1 minute. Its useful power output is (g = 10 m s^-2)",
+      "options": [
+        "150 W",
+        "600 W",
+        "90 000 W",
+        "1500 W",
+        "9000 W"
+      ],
+      "answer": 3,
+      "explanation": "Power = mgh/t = 600 x 10 x 15/60 = 1500 W.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0069",
+      "type": "OBJECTIVE",
+      "topic": "Application of mechanical energy: machines",
+      "stem": "A pulley system has a velocity ratio of 5 and an efficiency of 80%. The effort needed to raise a load of 1200 N is",
+      "options": [
+        "192 N",
+        "300 N",
+        "1500 N",
+        "240 N",
+        "960 N"
+      ],
+      "answer": 1,
+      "explanation": "M.A. = 0.8 x 5 = 4; effort = 1200/4 = 300 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0070",
+      "type": "OBJECTIVE",
+      "topic": "Temperature and its measurement",
+      "stem": "Convert 300 K to the Celsius scale.",
+      "options": [
+        "27 degrees C",
+        "300 degrees C",
+        "573 degrees C",
+        "-27 degrees C",
+        "127 degrees C"
+      ],
+      "answer": 0,
+      "explanation": "theta = T - 273 = 27 degrees C.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0071",
+      "type": "OBJECTIVE",
+      "topic": "Temperature and its measurement",
+      "stem": "On a faulty thermometer the ice point reads 5 degrees and the steam point reads 95 degrees. When it reads 50 degrees, the true temperature is",
+      "options": [
+        "47.5 degrees C",
+        "45 degrees C",
+        "55 degrees C",
+        "60 degrees C",
+        "50 degrees C"
+      ],
+      "answer": 4,
+      "explanation": "theta = (50 - 5)/(95 - 5) x 100 = 45/90 x 100 = 50 degrees C.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0072",
+      "type": "OBJECTIVE",
+      "topic": "Temperature and its measurement",
+      "stem": "Alcohol is preferred to mercury in thermometers for very cold regions because alcohol",
+      "options": [
+        "is a good conductor of heat",
+        "does not wet glass",
+        "has a much lower freezing point",
+        "has a higher boiling point",
+        "is opaque"
+      ],
+      "answer": 2,
+      "explanation": "Alcohol freezes at about -115 degrees C, whereas mercury freezes at about -39 degrees C.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0073",
+      "type": "OBJECTIVE",
+      "topic": "Effects of heat on matter",
+      "stem": "When an iron rod is heated strongly, which of the following does NOT happen?",
+      "options": [
+        "Its length increases",
+        "Its mass increases",
+        "Its electrical resistance increases",
+        "It may begin to glow",
+        "Its temperature rises"
+      ],
+      "answer": 1,
+      "explanation": "Heating does not change mass; it causes expansion, a temperature rise, increased resistance and eventually incandescence.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0074",
+      "type": "OBJECTIVE",
+      "topic": "Thermal expansion",
+      "stem": "A steel rod 2.0 m long at 25 degrees C is heated to 75 degrees C. If the linear expansivity of steel is 1.2 x 10^-5 K^-1, the increase in length is",
+      "options": [
+        "1.8 x 10^-3 m",
+        "6.0 x 10^-4 m",
+        "1.2 x 10^-4 m",
+        "1.2 x 10^-3 m",
+        "2.4 x 10^-3 m"
+      ],
+      "answer": 3,
+      "explanation": "Delta l = alpha l Delta theta = 1.2e-5 x 2.0 x 50 = 1.2 x 10^-3 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0075",
+      "type": "OBJECTIVE",
+      "topic": "Heat transfer",
+      "stem": "The process by which heat from the sun reaches the earth is",
+      "options": [
+        "radiation",
+        "evaporation",
+        "convection",
+        "conduction",
+        "diffusion"
+      ],
+      "answer": 0,
+      "explanation": "Space is a vacuum, so only radiation can carry the energy.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0076",
+      "type": "OBJECTIVE",
+      "topic": "Heat transfer",
+      "stem": "Sea breezes blow from the sea to the land during the day because",
+      "options": [
+        "the land heats up faster and the air above it rises",
+        "the land loses heat by radiation",
+        "the air over the sea is less dense",
+        "the sea heats up faster than the land",
+        "cool air over the land sinks"
+      ],
+      "answer": 0,
+      "explanation": "Land has a lower specific heat capacity; warm air over the land rises by convection and cooler sea air moves in.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0077",
+      "type": "OBJECTIVE",
+      "topic": "The gas laws",
+      "stem": "A gas occupies 300 cm^3 at 27 degrees C. At constant pressure, its volume at 127 degrees C is",
+      "options": [
+        "1411 cm^3",
+        "600 cm^3",
+        "225 cm^3",
+        "333 cm^3",
+        "400 cm^3"
+      ],
+      "answer": 4,
+      "explanation": "V2 = V1 T2/T1 = 300 x 400/300 = 400 cm^3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0078",
+      "type": "OBJECTIVE",
+      "topic": "Measurement of heat energy",
+      "stem": "An electric kettle supplies 3.15 x 10^5 J of heat to 1.5 kg of water at 25 degrees C. Neglecting losses, the final temperature of the water is (c = 4200 J kg^-1 K^-1)",
+      "options": [
+        "50 degrees C",
+        "60 degrees C",
+        "75 degrees C",
+        "100 degrees C",
+        "125 degrees C"
+      ],
+      "answer": 2,
+      "explanation": "Rise = Q/(mc) = 3.15e5/(1.5 x 4200) = 50 K, so final temperature = 25 + 50 = 75 degrees C.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0079",
+      "type": "OBJECTIVE",
+      "topic": "Measurement of heat energy",
+      "stem": "A 0.5 kg block of metal at 100 degrees C is dropped into 0.4 kg of water at 25 degrees C. The final temperature is 32 degrees C. Neglecting heat losses, the specific heat capacity of the metal is (c of water = 4200 J kg^-1 K^-1)",
+      "options": [
+        "276 J kg^-1 K^-1",
+        "346 J kg^-1 K^-1",
+        "432 J kg^-1 K^-1",
+        "840 J kg^-1 K^-1",
+        "198 J kg^-1 K^-1"
+      ],
+      "answer": 1,
+      "explanation": "0.5 x c x 68 = 0.4 x 4200 x 7 gives c = 11 760/34 = 346 J kg^-1 K^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0080",
+      "type": "OBJECTIVE",
+      "topic": "Latent heat",
+      "stem": "The heat needed to melt 0.25 kg of ice at 0 degrees C is (specific latent heat of fusion = 3.36 x 10^5 J kg^-1)",
+      "options": [
+        "8.4 x 10^3 J",
+        "3.36 x 10^5 J",
+        "1.05 x 10^4 J",
+        "8.4 x 10^4 J",
+        "1.34 x 10^6 J"
+      ],
+      "answer": 3,
+      "explanation": "Q = mL = 0.25 x 3.36e5 = 8.4 x 10^4 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0081",
+      "type": "OBJECTIVE",
+      "topic": "Latent heat",
+      "stem": "Steam at 100 degrees C causes more severe burns than the same mass of water at 100 degrees C because steam",
+      "options": [
+        "is at a higher temperature",
+        "is denser than boiling water",
+        "conducts heat better than water",
+        "gives out its latent heat of vaporisation as it condenses",
+        "has a higher specific heat capacity"
+      ],
+      "answer": 3,
+      "explanation": "On condensing on the skin, steam releases a large latent heat in addition to the heat given out by cooling water.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0082",
+      "type": "OBJECTIVE",
+      "topic": "Vapour and vapour pressure",
+      "stem": "A liquid boils when its saturated vapour pressure becomes equal to the",
+      "options": [
+        "external atmospheric pressure",
+        "vapour pressure at 0 degrees C",
+        "pressure of dry air only",
+        "critical pressure",
+        "pressure at the bottom of the liquid"
+      ],
+      "answer": 0,
+      "explanation": "Bubbles of vapour can form and grow when s.v.p. equals the external pressure.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0083",
+      "type": "OBJECTIVE",
+      "topic": "Humidity and the weather",
+      "stem": "An instrument used to measure relative humidity is the",
+      "options": [
+        "barometer",
+        "thermocouple",
+        "manometer",
+        "anemometer",
+        "wet-and-dry bulb hygrometer"
+      ],
+      "answer": 4,
+      "explanation": "The difference between the wet and dry bulb readings is used with tables to find relative humidity.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0084",
+      "type": "OBJECTIVE",
+      "topic": "Production and propagation of mechanical waves",
+      "stem": "A cork floating on a pond bobs up and down as ripples pass but does not travel with them. This shows that a wave carries",
+      "options": [
+        "the medium but not energy",
+        "electric charge",
+        "energy but not the medium",
+        "both energy and the medium",
+        "only sound"
+      ],
+      "answer": 2,
+      "explanation": "The particles of the medium oscillate about their mean positions; only energy is transferred.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0085",
+      "type": "OBJECTIVE",
+      "topic": "Waveform",
+      "stem": "In a wave diagram, the distance between a crest and the next trough measured along the direction of travel is",
+      "options": [
+        "one amplitude",
+        "half a wavelength",
+        "one wavelength",
+        "a quarter of a wavelength",
+        "two wavelengths"
+      ],
+      "answer": 1,
+      "explanation": "Successive crests are one wavelength apart, so a crest and the next trough are half a wavelength apart.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0086",
+      "type": "OBJECTIVE",
+      "topic": "Mathematical relationship connecting f, wavelength, T and v",
+      "stem": "A radio station broadcasts at 99.3 MHz. The wavelength of the waves is (c = 3.0 x 10^8 m s^-1)",
+      "options": [
+        "3.31 m",
+        "3.02 m",
+        "302 m",
+        "0.33 m",
+        "29.8 m"
+      ],
+      "answer": 1,
+      "explanation": "lambda = c/f = 3.0e8/99.3e6 = 3.02 m.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0087",
+      "type": "OBJECTIVE",
+      "topic": "Mathematical relationship connecting f, wavelength, T and v",
+      "stem": "A wave has a period of 0.02 s and a wavelength of 1.5 m. Its speed is",
+      "options": [
+        "75 m s^-1",
+        "133 m s^-1",
+        "0.03 m s^-1",
+        "30 m s^-1",
+        "7.5 m s^-1"
+      ],
+      "answer": 0,
+      "explanation": "v = lambda/T = 1.5/0.02 = 75 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0088",
+      "type": "OBJECTIVE",
+      "topic": "Transverse and longitudinal waves",
+      "stem": "In which of these waves do the particles of the medium vibrate parallel to the direction in which the wave travels?",
+      "options": [
+        "Light from the sun",
+        "Radio signals",
+        "A wave on a guitar string",
+        "Ripples on water",
+        "Sound in air"
+      ],
+      "answer": 4,
+      "explanation": "Sound in air is longitudinal (compressions and rarefactions); the others are transverse.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0089",
+      "type": "OBJECTIVE",
+      "topic": "Transverse and longitudinal waves",
+      "stem": "Which property can be shown by transverse waves but NOT by longitudinal waves?",
+      "options": [
+        "Interference",
+        "Refraction",
+        "Diffraction",
+        "Polarisation",
+        "Reflection"
+      ],
+      "answer": 3,
+      "explanation": "Only transverse waves can be polarised, since their vibrations can be restricted to one plane.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0090",
+      "type": "OBJECTIVE",
+      "topic": "Mathematical representation of wave motion",
+      "stem": "A progressive wave is described by y = 0.04 sin(200 pi t - 0.5 pi x), with x and y in metres and t in seconds. Its speed is",
+      "options": [
+        "200 m s^-1",
+        "100 m s^-1",
+        "400 m s^-1",
+        "4 m s^-1",
+        "800 m s^-1"
+      ],
+      "answer": 2,
+      "explanation": "w = 200 pi gives f = 100 Hz; k = 0.5 pi gives lambda = 4 m; v = f lambda = 400 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0091",
+      "type": "OBJECTIVE",
+      "topic": "Properties of waves",
+      "stem": "A person standing round the corner of a building can hear people talking but cannot see them. The effect on the sound waves is",
+      "options": [
+        "polarisation",
+        "diffraction",
+        "absorption",
+        "dispersion",
+        "refraction"
+      ],
+      "answer": 1,
+      "explanation": "Sound waves have long wavelengths, comparable with the doorway/corner, so they spread round it by diffraction.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0092",
+      "type": "OBJECTIVE",
+      "topic": "Properties of waves",
+      "stem": "When water waves pass from deep to shallow water, which of the following remains unchanged?",
+      "options": [
+        "Direction",
+        "Speed",
+        "Frequency",
+        "Amplitude only",
+        "Wavelength"
+      ],
+      "answer": 2,
+      "explanation": "The frequency is set by the source; speed and wavelength decrease in shallow water.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0093",
+      "type": "OBJECTIVE",
+      "topic": "Properties of waves",
+      "stem": "Two coherent sources produce waves that meet at a point with a path difference of 1.5 wavelengths. At that point there is",
+      "options": [
+        "polarisation",
+        "constructive interference",
+        "no superposition",
+        "total internal reflection",
+        "destructive interference"
+      ],
+      "answer": 4,
+      "explanation": "A path difference of an odd number of half wavelengths gives destructive interference.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0094",
+      "type": "OBJECTIVE",
+      "topic": "Sources of light",
+      "stem": "Which of these produces its own light?",
+      "options": [
+        "A glass of water",
+        "A polished mirror",
+        "A white wall",
+        "A burning candle flame",
+        "The full moon"
+      ],
+      "answer": 3,
+      "explanation": "A candle flame is luminous; the others are seen only by the light they reflect or transmit.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0095",
+      "type": "OBJECTIVE",
+      "topic": "Rectilinear propagation of light",
+      "stem": "A pinhole camera 20 cm long forms an image of a tree 15 m high standing 60 m away. The height of the image is",
+      "options": [
+        "5.0 cm",
+        "2.0 cm",
+        "0.5 cm",
+        "8.0 cm",
+        "45 cm"
+      ],
+      "answer": 0,
+      "explanation": "Magnification = image distance/object distance = 0.20/60; image height = 15 x 0.20/60 = 0.05 m = 5.0 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0096",
+      "type": "OBJECTIVE",
+      "topic": "Reflection of light at plane surfaces",
+      "stem": "A barber's customer sees 5 images of his head between two plane mirrors placed at an angle to each other. The angle between the mirrors is",
+      "options": [
+        "60 degrees",
+        "72 degrees",
+        "30 degrees",
+        "90 degrees",
+        "45 degrees"
+      ],
+      "answer": 0,
+      "explanation": "n = 360/theta - 1 = 5, so 360/theta = 6 and theta = 60 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0097",
+      "type": "OBJECTIVE",
+      "topic": "Reflection of light at plane surfaces",
+      "stem": "The image formed by a plane mirror is",
+      "options": [
+        "real, upright and the same size",
+        "virtual, upright and laterally inverted",
+        "virtual, inverted and diminished",
+        "real, inverted and magnified",
+        "virtual, upright and magnified"
+      ],
+      "answer": 1,
+      "explanation": "A plane mirror forms a virtual, erect, same-size and laterally inverted image.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0098",
+      "type": "OBJECTIVE",
+      "topic": "Reflection of light at curved surfaces",
+      "stem": "A concave mirror of radius of curvature 24 cm forms a real image 36 cm from the mirror. The object distance is",
+      "options": [
+        "9 cm",
+        "12 cm",
+        "24 cm",
+        "18 cm",
+        "36 cm"
+      ],
+      "answer": 3,
+      "explanation": "f = 12 cm; 1/u = 1/12 - 1/36 = 2/36, u = 18 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0099",
+      "type": "OBJECTIVE",
+      "topic": "Reflection of light at curved surfaces",
+      "stem": "The driving mirror of a vehicle is usually convex because it",
+      "options": [
+        "has a long focal length",
+        "produces magnified images",
+        "gives a wide field of view",
+        "focuses light to a point",
+        "forms real images"
+      ],
+      "answer": 2,
+      "explanation": "A convex mirror gives an upright, diminished image over a wide field of view.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0100",
+      "type": "OBJECTIVE",
+      "topic": "Refraction of light at plane surfaces",
+      "stem": "A ray of light passes from air into glass of refractive index 1.5 at an angle of incidence of 45 degrees. The angle of refraction is",
+      "options": [
+        "62.1 degrees",
+        "41.8 degrees",
+        "45.0 degrees",
+        "30.0 degrees",
+        "28.1 degrees"
+      ],
+      "answer": 4,
+      "explanation": "sin r = sin 45/1.5 = 0.4714, so r = 28.1 degrees.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0101",
+      "type": "OBJECTIVE",
+      "topic": "Refraction of light at plane surfaces",
+      "stem": "The critical angle for a diamond of refractive index 2.42 is approximately",
+      "options": [
+        "66 degrees",
+        "42 degrees",
+        "49 degrees",
+        "34 degrees",
+        "24 degrees"
+      ],
+      "answer": 4,
+      "explanation": "sin C = 1/2.42 = 0.413, C = 24.4 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0102",
+      "type": "OBJECTIVE",
+      "topic": "Refraction of light at plane surfaces",
+      "stem": "A swimming pool appears 1.5 m deep to a person looking vertically down. If the refractive index of water is 4/3, the real depth is",
+      "options": [
+        "2.5 m",
+        "2.0 m",
+        "3.0 m",
+        "1.1 m",
+        "1.5 m"
+      ],
+      "answer": 1,
+      "explanation": "Real depth = n x apparent depth = (4/3) x 1.5 = 2.0 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0103",
+      "type": "OBJECTIVE",
+      "topic": "Refraction of light at curved surfaces",
+      "stem": "A converging lens of focal length 8 cm forms a sharp image of a 2 cm tall candle on a screen 24 cm from the lens. The height of the image is",
+      "options": [
+        "6 cm",
+        "8 cm",
+        "1 cm",
+        "4 cm",
+        "2 cm"
+      ],
+      "answer": 3,
+      "explanation": "1/u = 1/8 - 1/24 = 2/24, u = 12 cm; m = 24/12 = 2; image height = 4 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0104",
+      "type": "OBJECTIVE",
+      "topic": "Application of lenses in optical instruments",
+      "stem": "A short-sighted person can be helped by wearing spectacles with",
+      "options": [
+        "diverging lenses",
+        "plane glass",
+        "converging lenses",
+        "cylindrical lenses",
+        "bifocal prisms"
+      ],
+      "answer": 0,
+      "explanation": "Myopia (short sight) is corrected with a concave (diverging) lens so that distant objects appear at the far point.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0105",
+      "type": "OBJECTIVE",
+      "topic": "Dispersion of white light by a triangular glass prism",
+      "stem": "In the spectrum formed when sunlight passes through a glass prism, the colour that travels slowest in the glass is",
+      "options": [
+        "yellow",
+        "red",
+        "violet",
+        "orange",
+        "green"
+      ],
+      "answer": 2,
+      "explanation": "Violet has the highest refractive index in glass, so it travels slowest and is deviated most.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0106",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic waves",
+      "stem": "Which of the following electromagnetic radiations has the shortest wavelength?",
+      "options": [
+        "Radio waves",
+        "Gamma rays",
+        "Visible light",
+        "Microwaves",
+        "Infrared rays"
+      ],
+      "answer": 1,
+      "explanation": "Gamma rays are at the high-frequency, short-wavelength end of the spectrum.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0107",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic waves",
+      "stem": "Infrared radiation can be detected by",
+      "options": [
+        "a fluorescent screen",
+        "a gold-leaf electroscope",
+        "a photographic film only",
+        "a Geiger-Muller tube",
+        "a blackened-bulb thermometer"
+      ],
+      "answer": 4,
+      "explanation": "Infrared is heat radiation and is absorbed by a blackened surface, raising the thermometer reading.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0108",
+      "type": "OBJECTIVE",
+      "topic": "Sources of sound",
+      "stem": "The sound from a talking drum is produced by",
+      "options": [
+        "heat from the drummer's hands",
+        "reflection of sound from the ground",
+        "the vibration of its stretched membrane",
+        "electric charges on the membrane",
+        "air flowing through holes in its side"
+      ],
+      "answer": 2,
+      "explanation": "Striking the stretched skin makes it vibrate; the vibrations set up sound waves in the air.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0109",
+      "type": "OBJECTIVE",
+      "topic": "Transmission of sound waves",
+      "stem": "An electric bell ringing in a bell jar becomes fainter as the air is pumped out. This shows that sound",
+      "options": [
+        "requires a material medium",
+        "can be polarised",
+        "is an electromagnetic wave",
+        "travels faster in a vacuum",
+        "is a transverse wave"
+      ],
+      "answer": 0,
+      "explanation": "Sound cannot travel through a vacuum.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0110",
+      "type": "OBJECTIVE",
+      "topic": "Speed of sound in solid, liquid and air",
+      "stem": "Sound travels fastest in",
+      "options": [
+        "kerosene",
+        "a vacuum",
+        "air",
+        "steel",
+        "water"
+      ],
+      "answer": 3,
+      "explanation": "Sound is fastest in solids because of their high elastic moduli.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0111",
+      "type": "OBJECTIVE",
+      "topic": "Echoes and reverberation",
+      "stem": "A girl standing 170 m from a high wall claps and hears the echo 1.0 s later. The speed of sound in air is",
+      "options": [
+        "680 m s^-1",
+        "340 m s^-1",
+        "170 m s^-1",
+        "85 m s^-1",
+        "330 m s^-1"
+      ],
+      "answer": 1,
+      "explanation": "v = 2d/t = 340/1.0 = 340 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0112",
+      "type": "OBJECTIVE",
+      "topic": "Noise and music",
+      "stem": "The quality (timbre) of a musical note depends on the",
+      "options": [
+        "distance from the source",
+        "amplitude of vibration",
+        "frequency of the fundamental only",
+        "speed of sound",
+        "number and relative strength of overtones"
+      ],
+      "answer": 4,
+      "explanation": "Different instruments give the same note with different overtones, giving different quality.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0113",
+      "type": "OBJECTIVE",
+      "topic": "Vibration in strings",
+      "stem": "A stretched wire 0.60 m long vibrates in its fundamental mode at 250 Hz. The speed of the transverse wave on the wire is",
+      "options": [
+        "600 m s^-1",
+        "417 m s^-1",
+        "300 m s^-1",
+        "150 m s^-1",
+        "208 m s^-1"
+      ],
+      "answer": 2,
+      "explanation": "lambda = 2l = 1.2 m; v = f lambda = 250 x 1.2 = 300 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0114",
+      "type": "OBJECTIVE",
+      "topic": "Vibration of air in pipes: open and closed pipes",
+      "stem": "A pipe closed at one end is 0.25 m long. Taking the speed of sound as 340 m s^-1 and neglecting end correction, the frequency of its fundamental note is",
+      "options": [
+        "170 Hz",
+        "680 Hz",
+        "1360 Hz",
+        "340 Hz",
+        "85 Hz"
+      ],
+      "answer": 3,
+      "explanation": "For a closed pipe lambda = 4l = 1.0 m; f = 340/1.0 = 340 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0115",
+      "type": "OBJECTIVE",
+      "topic": "Resonance, harmonics and overtones",
+      "stem": "A pipe closed at one end can produce",
+      "options": [
+        "only odd harmonics",
+        "all harmonics",
+        "no harmonics",
+        "only the second harmonic",
+        "only even harmonics"
+      ],
+      "answer": 0,
+      "explanation": "A closed pipe has a node at the closed end and an antinode at the open end, giving f, 3f, 5f, ...",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0116",
+      "type": "OBJECTIVE",
+      "topic": "Concept of fields",
+      "stem": "A region of space in which a force is experienced by a suitable object is called a",
+      "options": [
+        "boundary",
+        "potential",
+        "field",
+        "medium",
+        "vacuum"
+      ],
+      "answer": 2,
+      "explanation": "A field is a region where a force acts on a mass, charge or magnetic pole placed in it.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0117",
+      "type": "OBJECTIVE",
+      "topic": "Properties of a force field",
+      "stem": "Which of the following is a property common to gravitational, electric and magnetic fields?",
+      "options": [
+        "Each acts only on charged bodies",
+        "Each requires a material medium",
+        "Each acts only on moving bodies",
+        "Each exerts only attractive forces",
+        "Each can be represented by lines of force"
+      ],
+      "answer": 4,
+      "explanation": "All three can be represented by lines of force showing direction and strength.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0118",
+      "type": "OBJECTIVE",
+      "topic": "Acceleration due to gravity",
+      "stem": "The acceleration due to gravity at the surface of a planet of mass 6.4 x 10^23 kg and radius 3.4 x 10^6 m is (G = 6.67 x 10^-11 N m^2 kg^-2)",
+      "options": [
+        "3.7 m s^-2",
+        "12.6 m s^-2",
+        "1.3 m s^-2",
+        "0.37 m s^-2",
+        "9.8 m s^-2"
+      ],
+      "answer": 0,
+      "explanation": "g = GM/R^2 = 6.67e-11 x 6.4e23/(3.4e6)^2 = 3.7 m s^-2.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0119",
+      "type": "OBJECTIVE",
+      "topic": "Gravitational force between two masses: Newton's law of gravitation",
+      "stem": "If the distance between two masses is tripled, the gravitational force between them becomes",
+      "options": [
+        "one-third of its original value",
+        "one-ninth of its original value",
+        "unchanged",
+        "three times its original value",
+        "nine times its original value"
+      ],
+      "answer": 1,
+      "explanation": "F is proportional to 1/r^2; tripling r divides F by 9.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0120",
+      "type": "OBJECTIVE",
+      "topic": "Gravitational potential and escape velocity",
+      "stem": "The escape velocity from a planet of radius 2.0 x 10^6 m where g at the surface is 4.0 m s^-2 is",
+      "options": [
+        "1.6 km s^-1",
+        "16 km s^-1",
+        "8.0 km s^-1",
+        "4.0 km s^-1",
+        "2.8 km s^-1"
+      ],
+      "answer": 3,
+      "explanation": "v = sqrt(2 g R) = sqrt(2 x 4 x 2e6) = sqrt(1.6e7) = 4000 m s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0121",
+      "type": "OBJECTIVE",
+      "topic": "Gravitational potential and escape velocity",
+      "stem": "The gravitational potential at a point at a distance r from the centre of a planet of mass M is",
+      "options": [
+        "GM^2/r",
+        "GMr",
+        "-GM/r^2",
+        "GM/r^2",
+        "-GM/r"
+      ],
+      "answer": 4,
+      "explanation": "V = -GM/r; it is zero at infinity and negative everywhere else.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0122",
+      "type": "OBJECTIVE",
+      "topic": "Production of electric charges",
+      "stem": "When a plastic comb is rubbed with dry hair, the comb becomes charged because",
+      "options": [
+        "heat is produced",
+        "the comb is magnetised",
+        "electrons are transferred between the comb and the hair",
+        "the comb gains neutrons",
+        "protons move from the hair to the comb"
+      ],
+      "answer": 2,
+      "explanation": "Friction transfers electrons from one material to the other; protons are fixed in the nuclei.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0123",
+      "type": "OBJECTIVE",
+      "topic": "Types of distribution of charges",
+      "stem": "Lightning conductors on tall buildings have sharp spikes because charge on a conductor",
+      "options": [
+        "cannot leak from points",
+        "concentrates at sharp points",
+        "concentrates at the flattest part",
+        "spreads evenly over flat surfaces",
+        "collects inside hollow parts"
+      ],
+      "answer": 1,
+      "explanation": "Charge density is greatest at points of high curvature, where the strong field ionises the air (action of points).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0124",
+      "type": "OBJECTIVE",
+      "topic": "Electric lines of force",
+      "stem": "Which of the following statements about electric lines of force is correct?",
+      "options": [
+        "They never cross one another",
+        "They are densest where the field is weakest",
+        "They start on negative charges",
+        "They form closed loops",
+        "They are parallel near a point charge"
+      ],
+      "answer": 0,
+      "explanation": "Two lines cannot cross, since the field has a single direction at any point; lines start on positive charges.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0125",
+      "type": "OBJECTIVE",
+      "topic": "Electric force between point charges: Coulomb's law",
+      "stem": "Two point charges of +4 uC and -6 uC are 0.30 m apart in air. The magnitude of the force between them is (k = 9 x 10^9 N m^2 C^-2)",
+      "options": [
+        "24 N",
+        "0.72 N",
+        "7.2 N",
+        "2.4 N",
+        "0.24 N"
+      ],
+      "answer": 3,
+      "explanation": "F = k q1 q2/r^2 = 9e9 x 4e-6 x 6e-6/0.09 = 2.4 N (attractive).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0126",
+      "type": "OBJECTIVE",
+      "topic": "Concepts of electric field, electric field intensity and electric potential",
+      "stem": "The electric field intensity between two parallel plates 5 mm apart with a potential difference of 200 V across them is",
+      "options": [
+        "4.0 x 10^2 V m^-1",
+        "4.0 x 10^4 V m^-1",
+        "1.0 x 10^3 V m^-1",
+        "2.5 x 10^-5 V m^-1",
+        "40 V m^-1"
+      ],
+      "answer": 1,
+      "explanation": "E = V/d = 200/0.005 = 4.0 x 10^4 V m^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0127",
+      "type": "OBJECTIVE",
+      "topic": "Capacitance",
+      "stem": "Two 4 uF capacitors are joined in series and the pair is then joined in parallel with a 5 uF capacitor. The total capacitance is",
+      "options": [
+        "13 uF",
+        "2 uF",
+        "1.4 uF",
+        "9 uF",
+        "7 uF"
+      ],
+      "answer": 4,
+      "explanation": "Series pair: 2 uF; parallel with 5 uF gives 7 uF.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0128",
+      "type": "OBJECTIVE",
+      "topic": "Capacitance",
+      "stem": "A 50 uF capacitor in a camera flash stores 0.90 J of energy. The p.d. across it is",
+      "options": [
+        "6000 V",
+        "36 V",
+        "190 V",
+        "18 V",
+        "134 V"
+      ],
+      "answer": 2,
+      "explanation": "E = 0.5 C V^2 gives V = sqrt(2 x 0.90/50e-6) = sqrt(36 000) = 190 V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0129",
+      "type": "OBJECTIVE",
+      "topic": "Capacitance",
+      "stem": "The capacitance of a parallel-plate capacitor is increased by",
+      "options": [
+        "reducing the charge on it",
+        "reducing the area of overlap of the plates",
+        "removing the dielectric",
+        "inserting a dielectric between the plates",
+        "increasing the separation of the plates"
+      ],
+      "answer": 3,
+      "explanation": "C = epsilon A/d; a dielectric increases the permittivity epsilon.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0130",
+      "type": "OBJECTIVE",
+      "topic": "Production of electric current from primary and secondary cells",
+      "stem": "The defect of a simple cell in which hydrogen bubbles collect on the copper plate is called",
+      "options": [
+        "polarisation",
+        "sulphation",
+        "depolarisation",
+        "electrolysis",
+        "local action"
+      ],
+      "answer": 0,
+      "explanation": "Hydrogen bubbles on the copper plate increase internal resistance and set up a back e.m.f.: polarisation.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0131",
+      "type": "OBJECTIVE",
+      "topic": "Potential difference and electric current",
+      "stem": "A charge of 360 C flows through a lamp in 2 minutes. The current is",
+      "options": [
+        "720 A",
+        "3 A",
+        "0.33 A",
+        "6 A",
+        "180 A"
+      ],
+      "answer": 1,
+      "explanation": "I = Q/t = 360/120 = 3 A.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0132",
+      "type": "OBJECTIVE",
+      "topic": "Electric circuit",
+      "stem": "Resistors of 4 ohms, 6 ohms and 12 ohms are connected in parallel. The effective resistance is",
+      "options": [
+        "4 ohms",
+        "7.3 ohms",
+        "22 ohms",
+        "0.5 ohms",
+        "2 ohms"
+      ],
+      "answer": 4,
+      "explanation": "1/R = 1/4 + 1/6 + 1/12 = 6/12, so R = 2 ohms.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0133",
+      "type": "OBJECTIVE",
+      "topic": "Electric circuit",
+      "stem": "A battery of e.m.f. 9.0 V gives a terminal p.d. of 7.5 V when a current of 1.5 A flows. Its internal resistance is",
+      "options": [
+        "1.0 ohm",
+        "0.5 ohm",
+        "6.0 ohms",
+        "1.5 ohms",
+        "5.0 ohms"
+      ],
+      "answer": 0,
+      "explanation": "Lost volts = 9.0 - 7.5 = 1.5 V; r = 1.5/1.5 = 1.0 ohm.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0134",
+      "type": "OBJECTIVE",
+      "topic": "Electric conduction through materials",
+      "stem": "In an electrolyte, electric current is carried by",
+      "options": [
+        "free electrons only",
+        "holes only",
+        "neutral molecules",
+        "positive and negative ions",
+        "protons only"
+      ],
+      "answer": 3,
+      "explanation": "Electrolytes conduct by movement of ions towards the electrodes.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0135",
+      "type": "OBJECTIVE",
+      "topic": "Electric energy and power",
+      "stem": "An electric iron rated 1000 W is used for 3 hours a day for 30 days. If electricity costs N80 per kWh, the cost is",
+      "options": [
+        "N2400",
+        "N240",
+        "N7200",
+        "N720",
+        "N90 000"
+      ],
+      "answer": 2,
+      "explanation": "Energy = 1 kW x 90 h = 90 kWh; cost = 90 x 80 = N7200.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0136",
+      "type": "OBJECTIVE",
+      "topic": "Shunt and multiplier",
+      "stem": "A moving-coil meter of resistance 50 ohms reads up to 2 mA. The series resistance needed to make it read up to 20 V is",
+      "options": [
+        "1000 ohms",
+        "950 ohms",
+        "0.005 ohms",
+        "10 000 ohms",
+        "9950 ohms"
+      ],
+      "answer": 4,
+      "explanation": "R = V/I - r = 20/0.002 - 50 = 9950 ohms.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0137",
+      "type": "OBJECTIVE",
+      "topic": "Shunt and multiplier",
+      "stem": "To convert a galvanometer into an ammeter, one should connect",
+      "options": [
+        "a low resistance in parallel with it",
+        "a high resistance in series with it",
+        "a low resistance in series with it",
+        "a high resistance in parallel with it",
+        "a capacitor in series with it"
+      ],
+      "answer": 0,
+      "explanation": "A low-resistance shunt in parallel carries most of the current.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0138",
+      "type": "OBJECTIVE",
+      "topic": "Resistivity and conductivity",
+      "stem": "A wire of length 2.0 m and cross-sectional area 1.0 x 10^-7 m^2 has resistance 34 ohms. The resistivity of the material is",
+      "options": [
+        "3.4 x 10^-7 ohm m",
+        "1.7 x 10^-8 ohm m",
+        "5.9 x 10^-9 ohm m",
+        "1.7 x 10^-6 ohm m",
+        "6.8 x 10^-6 ohm m"
+      ],
+      "answer": 3,
+      "explanation": "rho = RA/l = 34 x 1e-7/2.0 = 1.7 x 10^-6 ohm m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0139",
+      "type": "OBJECTIVE",
+      "topic": "Measurement of electric current, p.d., resistance, e.m.f. and internal resistance of a cell",
+      "stem": "A metre bridge balances when the unknown resistor X is in the left gap, a 6 ohm resistor is in the right gap and the balance point is 40 cm from the left end. X is",
+      "options": [
+        "9 ohms",
+        "4 ohms",
+        "2.4 ohms",
+        "3.6 ohms",
+        "15 ohms"
+      ],
+      "answer": 1,
+      "explanation": "X/6 = 40/60, so X = 4 ohms.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0140",
+      "type": "OBJECTIVE",
+      "topic": "Measurement of electric current, p.d., resistance, e.m.f. and internal resistance of a cell",
+      "stem": "The potentiometer is preferred to a voltmeter for measuring the e.m.f. of a cell because at balance it",
+      "options": [
+        "measures current directly",
+        "has a very low resistance",
+        "draws no current from the cell",
+        "uses alternating current",
+        "is more portable"
+      ],
+      "answer": 2,
+      "explanation": "At balance no current flows through the cell, so there is no lost volts and the true e.m.f. is measured.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0141",
+      "type": "OBJECTIVE",
+      "topic": "Properties of magnets and magnetic materials",
+      "stem": "The only sure test that a steel bar is a magnet is",
+      "options": [
+        "repulsion with a known magnet",
+        "attraction of iron filings",
+        "attraction with a known magnet",
+        "it being heavier than an unmagnetised bar",
+        "attraction with a copper rod"
+      ],
+      "answer": 0,
+      "explanation": "Attraction happens between a magnet and any magnetic material; repulsion occurs only between like poles of two magnets.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0142",
+      "type": "OBJECTIVE",
+      "topic": "Magnetization and demagnetization",
+      "stem": "A student wants to destroy the magnetism of an old steel bar magnet. The best method is to",
+      "options": [
+        "dip it in cold water",
+        "heat it to red heat and let it cool lying east-west",
+        "stroke it repeatedly with a strong magnet",
+        "put it inside a coil carrying direct current",
+        "store it with soft-iron keepers"
+      ],
+      "answer": 1,
+      "explanation": "Strong heating agitates the domains into random directions; cooling east-west avoids remagnetisation by the earth's field.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0143",
+      "type": "OBJECTIVE",
+      "topic": "Concept of magnetic field",
+      "stem": "A neutral point in the field of a bar magnet placed with its north pole pointing to geographic north is located",
+      "options": [
+        "at the north pole of the magnet",
+        "at the centre of the magnet",
+        "at the south pole of the magnet",
+        "on the east-west axis of the magnet",
+        "on the axis beyond the north pole"
+      ],
+      "answer": 3,
+      "explanation": "With N pointing north, the magnet's field opposes the earth's field on the equatorial (east-west) line, giving neutral points there.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0144",
+      "type": "OBJECTIVE",
+      "topic": "Magnetic force on a current-carrying conductor and between parallel conductors",
+      "stem": "A conductor 0.25 m long carries 8 A at 30 degrees to a uniform magnetic field of 0.5 T. The force on it is",
+      "options": [
+        "2.0 N",
+        "1.0 N",
+        "0.5 N",
+        "0.87 N",
+        "0.25 N"
+      ],
+      "answer": 2,
+      "explanation": "F = BIl sin theta = 0.5 x 8 x 0.25 x 0.5 = 0.5 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0145",
+      "type": "OBJECTIVE",
+      "topic": "Magnetic force on a current-carrying conductor and between parallel conductors",
+      "stem": "Two parallel overhead cables carry currents in opposite directions. The force between them is",
+      "options": [
+        "along the cables",
+        "attractive",
+        "perpendicular to both cables and the line joining them",
+        "zero",
+        "repulsive"
+      ],
+      "answer": 4,
+      "explanation": "Antiparallel currents repel; parallel currents attract.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0146",
+      "type": "OBJECTIVE",
+      "topic": "Use of electromagnets",
+      "stem": "The core of an electromagnet is made of soft iron because soft iron",
+      "options": [
+        "has a high melting point",
+        "is a poor conductor of electricity",
+        "is non-magnetic",
+        "is easily magnetised and demagnetised",
+        "retains its magnetism permanently"
+      ],
+      "answer": 3,
+      "explanation": "Soft iron loses its magnetism when the current is switched off, which is needed in bells, relays and cranes.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0147",
+      "type": "OBJECTIVE",
+      "topic": "The earth's magnetic field",
+      "stem": "The angle between the magnetic meridian and the geographic meridian at a place is the",
+      "options": [
+        "angle of inclination",
+        "angle of declination",
+        "angle of deviation",
+        "angle of dip",
+        "critical angle"
+      ],
+      "answer": 1,
+      "explanation": "Declination (variation) is the angle between magnetic north and true north.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0148",
+      "type": "OBJECTIVE",
+      "topic": "Magnetic force on a moving charged particle",
+      "stem": "An electron moves at 2.0 x 10^6 m s^-1 at right angles to a magnetic field of 0.05 T. The force on it is (e = 1.6 x 10^-19 C)",
+      "options": [
+        "1.6 x 10^-14 N",
+        "8.0 x 10^-15 N",
+        "3.2 x 10^-14 N",
+        "6.4 x 10^-15 N",
+        "1.6 x 10^-12 N"
+      ],
+      "answer": 0,
+      "explanation": "F = Bqv = 0.05 x 1.6e-19 x 2e6 = 1.6 x 10^-14 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0149",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic induction",
+      "stem": "The direction of an induced current is such as to oppose the change producing it. This is",
+      "options": [
+        "Ohm's law",
+        "Fleming's left-hand rule",
+        "Lenz's law",
+        "Faraday's first law",
+        "Coulomb's law"
+      ],
+      "answer": 2,
+      "explanation": "Lenz's law follows from the conservation of energy.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0150",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic induction",
+      "stem": "A coil of 200 turns has the magnetic flux through each turn changed uniformly from 0.06 Wb to 0.01 Wb in 0.25 s. The magnitude of the induced e.m.f. is",
+      "options": [
+        "50 V",
+        "56 V",
+        "0.2 V",
+        "10 V",
+        "40 V"
+      ],
+      "answer": 4,
+      "explanation": "E = N Delta phi/Delta t = 200 x 0.05/0.25 = 40 V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0151",
+      "type": "OBJECTIVE",
+      "topic": "Inductance",
+      "stem": "One henry is the inductance of a coil in which an e.m.f. of 1 V is induced when the current changes at the rate of",
+      "options": [
+        "1 Wb s^-1",
+        "1 V s^-1",
+        "1 A",
+        "1 C s^-1",
+        "1 A s^-1"
+      ],
+      "answer": 4,
+      "explanation": "L = E/(dI/dt); 1 H = 1 V/(1 A s^-1).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0152",
+      "type": "OBJECTIVE",
+      "topic": "Eddy currents",
+      "stem": "Energy losses due to eddy currents in a transformer are reduced by",
+      "options": [
+        "laminating the core",
+        "increasing the number of turns",
+        "using thick copper wire",
+        "using a steel core",
+        "using a hollow core"
+      ],
+      "answer": 0,
+      "explanation": "Thin insulated laminations increase the resistance to eddy currents in the core.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0153",
+      "type": "OBJECTIVE",
+      "topic": "Power transmission and distribution",
+      "stem": "A transformer steps 240 V down to 12 V. If the secondary current is 4.0 A and the transformer is 100% efficient, the primary current is",
+      "options": [
+        "0.05 A",
+        "4.0 A",
+        "2.0 A",
+        "0.2 A",
+        "80 A"
+      ],
+      "answer": 3,
+      "explanation": "Ip = Vs Is/Vp = 12 x 4/240 = 0.2 A.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0154",
+      "type": "OBJECTIVE",
+      "topic": "Power transmission and distribution",
+      "stem": "A power line of resistance 5 ohms carries 200 kW. The power wasted in the line when the transmission voltage is 20 kV is",
+      "options": [
+        "5000 W",
+        "50 000 W",
+        "500 W",
+        "10 W",
+        "2000 W"
+      ],
+      "answer": 2,
+      "explanation": "I = P/V = 200 000/20 000 = 10 A; loss = I^2 R = 100 x 5 = 500 W.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0155",
+      "type": "OBJECTIVE",
+      "topic": "Peak and r.m.s. values",
+      "stem": "The peak value of a mains supply whose r.m.s. voltage is 230 V is",
+      "options": [
+        "230 V",
+        "325 V",
+        "115 V",
+        "163 V",
+        "460 V"
+      ],
+      "answer": 1,
+      "explanation": "V0 = sqrt(2) x Vrms = 1.414 x 230 = 325 V.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0156",
+      "type": "OBJECTIVE",
+      "topic": "Graphical representation of e.m.f. and current in an a.c. circuit",
+      "stem": "When an a.c. voltage is applied across a pure inductor, the current",
+      "options": [
+        "lags behind the voltage by a quarter of a cycle",
+        "is in phase with the voltage",
+        "is half a cycle ahead of the voltage",
+        "is always zero",
+        "leads the voltage by a quarter of a cycle"
+      ],
+      "answer": 0,
+      "explanation": "In a pure inductor the current lags the voltage by 90 degrees (a quarter cycle).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0157",
+      "type": "OBJECTIVE",
+      "topic": "Reactance and impedance",
+      "stem": "The inductive reactance of a 0.2 H coil at a frequency of 50 Hz is (pi = 3.14)",
+      "options": [
+        "31.4 ohms",
+        "62.8 ohms",
+        "0.016 ohms",
+        "125.6 ohms",
+        "10 ohms"
+      ],
+      "answer": 1,
+      "explanation": "XL = 2 pi f L = 2 x 3.14 x 50 x 0.2 = 62.8 ohms.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0158",
+      "type": "OBJECTIVE",
+      "topic": "Resonance in an a.c. circuit",
+      "stem": "A 0.1 H inductor and a 10 uF capacitor are in series. The resonant frequency is (pi = 3.14)",
+      "options": [
+        "1000 Hz",
+        "50 Hz",
+        "159 Hz",
+        "318 Hz",
+        "16 Hz"
+      ],
+      "answer": 2,
+      "explanation": "f0 = 1/(2 pi sqrt(LC)) = 1/(6.28 x sqrt(1e-6)) = 1/(6.28 x 0.001) = 159 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0159",
+      "type": "OBJECTIVE",
+      "topic": "Power in an a.c. circuit",
+      "stem": "A coil takes 2 A r.m.s. from a 240 V r.m.s. supply and consumes 288 W. The power factor of the circuit is",
+      "options": [
+        "1.2",
+        "0.8",
+        "0.5",
+        "0.3",
+        "0.6"
+      ],
+      "answer": 4,
+      "explanation": "Power factor = P/(V I) = 288/(240 x 2) = 0.6.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0160",
+      "type": "OBJECTIVE",
+      "topic": "Models of the atom",
+      "stem": "In Rutherford's alpha-particle scattering experiment, the fact that most alpha particles passed straight through the gold foil showed that",
+      "options": [
+        "the atom is a solid sphere",
+        "alpha particles have no mass",
+        "the nucleus is negatively charged",
+        "the atom is mostly empty space",
+        "electrons are spread through the atom"
+      ],
+      "answer": 3,
+      "explanation": "Most particles were undeflected because the atom is mostly empty space, with its mass in a tiny nucleus.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0161",
+      "type": "OBJECTIVE",
+      "topic": "Models of the atom",
+      "stem": "The atomic model described as a 'plum pudding' was proposed by",
+      "options": [
+        "John Dalton",
+        "Niels Bohr",
+        "Ernest Rutherford",
+        "James Chadwick",
+        "J. J. Thomson"
+      ],
+      "answer": 4,
+      "explanation": "Thomson pictured electrons embedded in a sphere of positive charge.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0162",
+      "type": "OBJECTIVE",
+      "topic": "Energy quantization",
+      "stem": "An electron in a hydrogen atom falls from the level of energy -3.4 eV to the level of energy -13.6 eV. The wavelength of the photon emitted is (h = 6.6 x 10^-34 J s, c = 3.0 x 10^8 m s^-1, 1 eV = 1.6 x 10^-19 J)",
+      "options": [
+        "3.6 x 10^-7 m",
+        "1.21 x 10^-7 m",
+        "9.1 x 10^-8 m",
+        "6.6 x 10^-7 m",
+        "1.21 x 10^-6 m"
+      ],
+      "answer": 1,
+      "explanation": "Energy = 10.2 eV = 1.632e-18 J; lambda = hc/E = 1.98e-25/1.632e-18 = 1.21 x 10^-7 m (ultraviolet).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0163",
+      "type": "OBJECTIVE",
+      "topic": "Photoelectric effect",
+      "stem": "Electrons are emitted from a caesium surface with maximum kinetic energy 0.9 eV when light of photon energy 2.8 eV falls on it. The work function of caesium is",
+      "options": [
+        "3.7 eV",
+        "2.8 eV",
+        "1.9 eV",
+        "3.1 eV",
+        "0.9 eV"
+      ],
+      "answer": 2,
+      "explanation": "W = hf - K.E. max = 2.8 - 0.9 = 1.9 eV.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0164",
+      "type": "OBJECTIVE",
+      "topic": "Photoelectric effect",
+      "stem": "In the photoelectric effect, increasing the intensity of the incident light (above threshold frequency) increases the",
+      "options": [
+        "number of electrons emitted per second",
+        "maximum kinetic energy of the electrons",
+        "threshold frequency",
+        "wavelength of the light",
+        "work function of the metal"
+      ],
+      "answer": 0,
+      "explanation": "More photons per second release more electrons, but each photon's energy, and so the maximum K.E., is unchanged.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0165",
+      "type": "OBJECTIVE",
+      "topic": "Thermionic emission",
+      "stem": "The emission of electrons from a heated metal surface is called",
+      "options": [
+        "secondary emission",
+        "radioactivity",
+        "photoelectric emission",
+        "thermionic emission",
+        "field emission"
+      ],
+      "answer": 3,
+      "explanation": "Heating gives electrons enough energy to escape from the surface.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0166",
+      "type": "OBJECTIVE",
+      "topic": "X-rays",
+      "stem": "In an X-ray tube, the hardness (penetrating power) of the X-rays is increased by",
+      "options": [
+        "cooling the target",
+        "increasing the accelerating voltage",
+        "reducing the tube voltage",
+        "using a lighter target",
+        "increasing the filament current"
+      ],
+      "answer": 1,
+      "explanation": "Higher accelerating voltage gives electrons more energy, producing higher-frequency (harder) X-rays.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0167",
+      "type": "OBJECTIVE",
+      "topic": "X-rays",
+      "stem": "The target in an X-ray tube is usually made of tungsten because tungsten has a",
+      "options": [
+        "low atomic number",
+        "low density",
+        "low thermal conductivity",
+        "high melting point",
+        "high electrical resistance"
+      ],
+      "answer": 3,
+      "explanation": "Most of the electron energy becomes heat in the target, so a metal with a very high melting point is needed.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0168",
+      "type": "OBJECTIVE",
+      "topic": "Composition of the nucleus",
+      "stem": "A nuclide is represented as 238/92 U (mass number 238, atomic number 92). The number of neutrons in its nucleus is",
+      "options": [
+        "238",
+        "330",
+        "92",
+        "54",
+        "146"
+      ],
+      "answer": 4,
+      "explanation": "Neutrons = 238 - 92 = 146.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0169",
+      "type": "OBJECTIVE",
+      "topic": "Radioactivity: natural and artificial",
+      "stem": "Thorium-234 (proton number 90) decays by beta emission. The proton number and nucleon number of the daughter nucleus are",
+      "options": [
+        "91 and 234",
+        "88 and 230",
+        "91 and 235",
+        "89 and 234",
+        "90 and 233"
+      ],
+      "answer": 0,
+      "explanation": "Beta emission raises the proton number by 1 and leaves the nucleon number unchanged.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0170",
+      "type": "OBJECTIVE",
+      "topic": "Radioactivity: natural and artificial",
+      "stem": "A radioactive sample has a half-life of 6 days. The fraction remaining after 24 days is",
+      "options": [
+        "1/32",
+        "1/24",
+        "1/16",
+        "1/8",
+        "1/4"
+      ],
+      "answer": 2,
+      "explanation": "24 days = 4 half-lives, so the fraction left is (1/2)^4 = 1/16.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0171",
+      "type": "OBJECTIVE",
+      "topic": "Radioactivity: natural and artificial",
+      "stem": "The activity of a sample falls from 640 counts per minute to 40 counts per minute in 20 hours. Its half-life is",
+      "options": [
+        "16 hours",
+        "10 hours",
+        "4 hours",
+        "5 hours",
+        "2.5 hours"
+      ],
+      "answer": 3,
+      "explanation": "640 to 40 is a factor of 16 = 2^4, so 4 half-lives in 20 h: half-life = 5 h.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0172",
+      "type": "OBJECTIVE",
+      "topic": "Radioactivity: natural and artificial",
+      "stem": "Which of the following radiations is deflected most by a magnetic field?",
+      "options": [
+        "Beta particles",
+        "X-rays",
+        "Neutrons",
+        "Alpha particles",
+        "Gamma rays"
+      ],
+      "answer": 0,
+      "explanation": "Beta particles have a very small mass and so are deflected most; gamma rays, X-rays and neutrons are not deflected.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0173",
+      "type": "OBJECTIVE",
+      "topic": "Nuclear reactions: fusion and fission",
+      "stem": "The source of the sun's energy is",
+      "options": [
+        "radioactive decay of radium",
+        "nuclear fusion of light nuclei",
+        "combustion of hydrogen",
+        "nuclear fission of uranium",
+        "chemical reactions of carbon"
+      ],
+      "answer": 1,
+      "explanation": "In the sun hydrogen nuclei fuse to form helium, releasing energy.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0174",
+      "type": "OBJECTIVE",
+      "topic": "Electron diffraction",
+      "stem": "When a beam of electrons is passed through a thin graphite film, rings similar to those of X-ray diffraction appear on a screen. This is evidence that electrons",
+      "options": [
+        "travel faster than light",
+        "are positively charged",
+        "behave as waves",
+        "are absorbed by carbon",
+        "have zero mass"
+      ],
+      "answer": 2,
+      "explanation": "Diffraction rings are a wave effect, confirming de Broglie's prediction of matter waves.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0175",
+      "type": "OBJECTIVE",
+      "topic": "Duality of matter",
+      "stem": "The de Broglie wavelength of a particle of momentum 3.3 x 10^-24 kg m s^-1 is (h = 6.6 x 10^-34 J s)",
+      "options": [
+        "5.0 x 10^-11 m",
+        "2.0 x 10^-9 m",
+        "5.0 x 10^9 m",
+        "2.2 x 10^-57 m",
+        "2.0 x 10^-10 m"
+      ],
+      "answer": 4,
+      "explanation": "lambda = h/p = 6.6e-34/3.3e-24 = 2.0 x 10^-10 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0176",
+      "type": "OBJECTIVE",
+      "topic": "Wave-particle paradox (harmonised topic)",
+      "stem": "Which of the following phenomena is best explained by treating light as a stream of particles?",
+      "options": [
+        "Diffraction",
+        "Photoelectric emission",
+        "Polarisation",
+        "Interference",
+        "Refraction"
+      ],
+      "answer": 1,
+      "explanation": "The photoelectric effect needs light energy to be delivered in packets (photons).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0177",
+      "type": "OBJECTIVE",
+      "topic": "Projectile motion",
+      "stem": "A stone is thrown horizontally at 15 m s^-1 from the top of a cliff 45 m high. The time taken to reach the ground is (g = 10 m s^-2)",
+      "options": [
+        "9 s",
+        "1.5 s",
+        "3 s",
+        "4.5 s",
+        "6 s"
+      ],
+      "answer": 2,
+      "explanation": "Vertical motion: 45 = 0.5 x 10 x t^2, t = 3 s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0178",
+      "type": "OBJECTIVE",
+      "topic": "Projectile motion",
+      "stem": "A ball is kicked at 20 m s^-1 at 30 degrees to the horizontal. Its range on level ground is (g = 10 m s^-2)",
+      "options": [
+        "17.3 m",
+        "40.0 m",
+        "5.0 m",
+        "34.6 m",
+        "20.0 m"
+      ],
+      "answer": 3,
+      "explanation": "R = u^2 sin 2 theta/g = 400 x sin 60/10 = 34.6 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0179",
+      "type": "OBJECTIVE",
+      "topic": "Projectile motion",
+      "stem": "At the highest point of the path of a projectile, its",
+      "options": [
+        "speed is zero",
+        "kinetic energy is zero",
+        "horizontal velocity is zero",
+        "acceleration is zero",
+        "vertical velocity is zero"
+      ],
+      "answer": 4,
+      "explanation": "The vertical component is momentarily zero; the horizontal component remains, and the acceleration is still g.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0180",
+      "type": "OBJECTIVE",
+      "topic": "Satellites and rockets",
+      "stem": "A geostationary communication satellite such as NigComSat-1R has an orbital period of about",
+      "options": [
+        "24 hours",
+        "27 days",
+        "12 hours",
+        "365 days",
+        "1 hour"
+      ],
+      "answer": 0,
+      "explanation": "A geostationary satellite orbits once per day, staying above a fixed point on the equator.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0181",
+      "type": "OBJECTIVE",
+      "topic": "Satellites and rockets",
+      "stem": "A satellite moves in a circular orbit of radius 7.0 x 10^6 m where the acceleration due to gravity is 8.0 m s^-2. Its orbital speed is",
+      "options": [
+        "10.6 km s^-1",
+        "56 km s^-1",
+        "7.5 km s^-1",
+        "2.6 km s^-1",
+        "0.88 km s^-1"
+      ],
+      "answer": 2,
+      "explanation": "v = sqrt(g r) = sqrt(8 x 7e6) = 7483 m s^-1 = 7.5 km s^-1.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0182",
+      "type": "OBJECTIVE",
+      "topic": "Satellites and rockets",
+      "stem": "Astronauts in an orbiting spacecraft feel weightless because",
+      "options": [
+        "air resistance cancels their weight",
+        "they and the spacecraft are falling freely together",
+        "the spacecraft shields them from gravity",
+        "there is no gravity in space",
+        "their mass becomes zero"
+      ],
+      "answer": 1,
+      "explanation": "Both are in free fall towards the earth, so there is no contact force on the astronauts.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0183",
+      "type": "OBJECTIVE",
+      "topic": "Elastic properties of solids",
+      "stem": "A spring of force constant 400 N m^-1 is stretched by 5 cm. The force applied is",
+      "options": [
+        "8 N",
+        "0.5 N",
+        "80 N",
+        "20 N",
+        "2000 N"
+      ],
+      "answer": 3,
+      "explanation": "F = kx = 400 x 0.05 = 20 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0184",
+      "type": "OBJECTIVE",
+      "topic": "Elastic properties of solids",
+      "stem": "A copper wire 3.0 m long with cross-sectional area 1.5 x 10^-6 m^2 is stretched by a force of 60 N. If Young's modulus for copper is 1.2 x 10^11 Pa, the extension is",
+      "options": [
+        "4.0 x 10^-3 m",
+        "2.5 x 10^-4 m",
+        "1.5 x 10^-3 m",
+        "1.0 x 10^-4 m",
+        "1.0 x 10^-3 m"
+      ],
+      "answer": 4,
+      "explanation": "e = F l/(A E) = 60 x 3.0/(1.5e-6 x 1.2e11) = 180/1.8e5 = 1.0 x 10^-3 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0185",
+      "type": "OBJECTIVE",
+      "topic": "Elastic properties of solids",
+      "stem": "The work done in stretching a spring of force constant 300 N m^-1 by 0.2 m is",
+      "options": [
+        "6 J",
+        "12 J",
+        "30 J",
+        "3 J",
+        "60 J"
+      ],
+      "answer": 0,
+      "explanation": "W = 0.5 k x^2 = 0.5 x 300 x 0.04 = 6 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0186",
+      "type": "OBJECTIVE",
+      "topic": "Elastic properties of solids",
+      "stem": "The point beyond which a wire does not return to its original length when the load is removed is the",
+      "options": [
+        "elastic limit",
+        "yield point only",
+        "neutral point",
+        "breaking point",
+        "fixed point"
+      ],
+      "answer": 0,
+      "explanation": "Beyond the elastic limit, deformation is permanent (plastic).",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0187",
+      "type": "OBJECTIVE",
+      "topic": "Thermal conductivity",
+      "stem": "A cooking pot is made of aluminium with a wooden handle because",
+      "options": [
+        "wood expands more than aluminium",
+        "aluminium conducts heat well and wood conducts poorly",
+        "aluminium has a high specific heat capacity",
+        "aluminium is a poor conductor of heat",
+        "wood is a good conductor of heat"
+      ],
+      "answer": 1,
+      "explanation": "The pot transfers heat quickly to the food while the poorly conducting handle stays cool.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0188",
+      "type": "OBJECTIVE",
+      "topic": "Thermal conductivity",
+      "stem": "Heat flows through a copper slab 0.02 m thick and 0.5 m^2 in area whose faces are at 80 degrees C and 30 degrees C. If the thermal conductivity of copper is 400 W m^-1 K^-1, the rate of heat flow is",
+      "options": [
+        "5.0 x 10^3 W",
+        "8.0 x 10^5 W",
+        "1.0 x 10^4 W",
+        "2.0 x 10^5 W",
+        "5.0 x 10^5 W"
+      ],
+      "answer": 4,
+      "explanation": "Q/t = kA Delta theta/x = 400 x 0.5 x 50/0.02 = 5.0 x 10^5 W.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0189",
+      "type": "OBJECTIVE",
+      "topic": "Fibre optics",
+      "stem": "Light is kept inside an optical fibre by",
+      "options": [
+        "dispersion",
+        "refraction at the core axis",
+        "absorption by the cladding",
+        "total internal reflection",
+        "diffraction"
+      ],
+      "answer": 3,
+      "explanation": "Light meets the core-cladding boundary at angles greater than the critical angle and is totally internally reflected.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0190",
+      "type": "OBJECTIVE",
+      "topic": "Fibre optics",
+      "stem": "For total internal reflection in an optical fibre, the cladding must have",
+      "options": [
+        "a metallic coating",
+        "a higher refractive index than the core",
+        "a lower refractive index than the core",
+        "a refractive index of zero",
+        "the same refractive index as the core"
+      ],
+      "answer": 2,
+      "explanation": "TIR only happens when light travels towards a medium of lower refractive index.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0191",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to LASER",
+      "stem": "In the word LASER, the letter S stands for",
+      "options": [
+        "spontaneous",
+        "scattering",
+        "source",
+        "stimulated",
+        "spectrum"
+      ],
+      "answer": 3,
+      "explanation": "LASER means Light Amplification by Stimulated Emission of Radiation.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0192",
+      "type": "OBJECTIVE",
+      "topic": "Introduction to LASER",
+      "stem": "Laser light is used for delicate eye surgery mainly because it",
+      "options": [
+        "travels faster than ordinary light",
+        "is invisible",
+        "is a narrow, intense, coherent beam that can be focused precisely",
+        "spreads out quickly",
+        "contains every colour of the spectrum"
+      ],
+      "answer": 2,
+      "explanation": "A laser beam is monochromatic, coherent and highly directional, so it can be focused to a tiny, intense spot.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0193",
+      "type": "OBJECTIVE",
+      "topic": "Magnetic materials",
+      "stem": "A bismuth rod suspended between the poles of a strong magnet sets itself at right angles to the field because bismuth is",
+      "options": [
+        "diamagnetic",
+        "ferromagnetic",
+        "a superconductor",
+        "a permanent magnet",
+        "paramagnetic"
+      ],
+      "answer": 0,
+      "explanation": "Diamagnetic materials are weakly repelled, so the rod turns across the field.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0194",
+      "type": "OBJECTIVE",
+      "topic": "Magnetic materials",
+      "stem": "Steel rather than soft iron is used for making permanent magnets because steel",
+      "options": [
+        "is cheaper than iron",
+        "is easily demagnetised",
+        "has a low hysteresis loss",
+        "is non-magnetic",
+        "retains its magnetism"
+      ],
+      "answer": 4,
+      "explanation": "Steel has a high retentivity and coercivity, so it keeps its magnetism.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0195",
+      "type": "OBJECTIVE",
+      "topic": "Electrical conduction through materials (electronics)",
+      "stem": "An example of a semiconductor is",
+      "options": [
+        "copper",
+        "silicon",
+        "glass",
+        "rubber",
+        "mercury"
+      ],
+      "answer": 1,
+      "explanation": "Silicon and germanium are the common semiconductors.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0196",
+      "type": "OBJECTIVE",
+      "topic": "Electrical conduction through materials (electronics)",
+      "stem": "In a p-type semiconductor, the majority charge carriers are",
+      "options": [
+        "negative ions",
+        "free electrons",
+        "holes",
+        "protons",
+        "positive ions"
+      ],
+      "answer": 2,
+      "explanation": "Doping with a trivalent element creates holes, which are the majority carriers in p-type material.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0197",
+      "type": "OBJECTIVE",
+      "topic": "Electrical conduction through materials (electronics)",
+      "stem": "A p-n junction diode is used in a circuit mainly to",
+      "options": [
+        "store charge",
+        "measure resistance",
+        "step up voltage",
+        "amplify voltage",
+        "rectify alternating current"
+      ],
+      "answer": 4,
+      "explanation": "A diode conducts in one direction only, converting a.c. to d.c.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0198",
+      "type": "OBJECTIVE",
+      "topic": "Electrical conduction through materials (electronics)",
+      "stem": "As the temperature of a pure semiconductor is raised, its resistance",
+      "options": [
+        "first decreases then becomes infinite",
+        "remains constant",
+        "becomes zero",
+        "decreases",
+        "increases"
+      ],
+      "answer": 3,
+      "explanation": "More electron-hole pairs are produced as temperature rises, so conductivity increases and resistance falls.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0199",
+      "type": "OBJECTIVE",
+      "topic": "Structure of matter (kinetic theory and diffusion)",
+      "stem": "Hydrogen diffuses faster than oxygen at the same temperature because hydrogen molecules",
+      "options": [
+        "have a smaller mass and so move faster",
+        "are attracted by air molecules",
+        "are positively charged",
+        "have more kinetic energy",
+        "are larger than oxygen molecules"
+      ],
+      "answer": 0,
+      "explanation": "At the same temperature both have the same average K.E., so the lighter hydrogen molecules move faster.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0200",
+      "type": "OBJECTIVE",
+      "topic": "Structure of matter (kinetic theory and diffusion)",
+      "stem": "The rise of water in a narrow glass tube is due to",
+      "options": [
+        "cohesion being greater than adhesion",
+        "adhesion being greater than cohesion",
+        "evaporation of water",
+        "the weight of the water",
+        "atmospheric pressure pushing down the water"
+      ],
+      "answer": 1,
+      "explanation": "Water molecules are attracted more strongly to glass than to one another, so water wets the glass and rises (capillarity).",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0501",
+      "type": "THEORY",
+      "topic": "Archimedes' principle",
+      "stem": "(a) State Archimedes' principle. [2 marks]\n(b) Explain why a steel ship floats although steel is denser than water. [2 marks]\n(c) A rectangular plastic water tank of length 0.6 m, width 0.4 m and height 0.2 m has a mass of 30 kg. It is placed upright in a fishpond. (Density of water = 1000 kg m^-3, g = 10 m s^-2.)\n(i) Calculate the weight of the tank. [2 marks]\n(ii) Calculate the depth to which the tank sinks when it floats. [4 marks]\n(iii) Calculate the upthrust on the tank when it is pushed down until it is just completely submerged (water not entering it). [3 marks]\n(iv) Hence find the extra downward force needed to hold it in this position. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) When a body is wholly or partially immersed in a fluid it experiences an upthrust equal to the weight of fluid displaced\n2 marks: (b) The hull is hollow, so it displaces a large volume of water whose weight equals the ship's weight before it is fully submerged (average density of ship less than water)\n1 mark: (c)(i) W = mg = 30 x 10\n1 mark: = 300 N\n1 mark: (c)(ii) Floating: upthrust = weight = 300 N\n1 mark: Volume displaced = 300/(1000 x 10) = 0.030 m^3\n1 mark: Base area = 0.6 x 0.4 = 0.24 m^2\n1 mark: Depth = 0.030/0.24 = 0.125 m (12.5 cm)\n1 mark: (c)(iii) Volume of tank = 0.6 x 0.4 x 0.2 = 0.048 m^3\n2 marks: Upthrust = 0.048 x 1000 x 10 = 480 N\n2 marks: (c)(iv) Extra force = 480 - 300 = 180 N",
+      "explanation": "(a) Upthrust equals weight of fluid displaced. (b) Hollow hull displaces enough water. (c) W = 300 N; floating depth = 300/(1000 x 10 x 0.24) = 0.125 m; full upthrust = 480 N; extra force 180 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0502",
+      "type": "THEORY",
+      "topic": "Solid friction",
+      "stem": "(a) Distinguish between static friction and dynamic (sliding) friction. [2 marks]\n(b) State two laws of solid friction. [2 marks]\n(c) A crate of mass 25 kg rests on a rough plank inclined at 30 degrees to the horizontal at a loading bay in Apapa. The coefficient of sliding friction between crate and plank is 0.2. (g = 10 m s^-2)\n(i) Calculate the component of the weight of the crate acting down the plank. [2 marks]\n(ii) Calculate the normal reaction and the sliding friction. [3 marks]\n(iii) Calculate the force parallel to the plank needed to push the crate up the plank at constant speed. [3 marks]\n(iv) If the crate is released and slides down, calculate its acceleration. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) Static friction: the force that opposes the start of motion between surfaces at rest relative to each other\n1 mark: Dynamic friction: the force opposing motion when one surface is already sliding over the other (it is slightly less than limiting static friction)\n2 marks: (b) Any two: friction opposes relative motion; is independent of area of contact; is proportional to the normal reaction; depends on the nature of the surfaces; dynamic friction is independent of speed (1 mark each)\n1 mark: (c)(i) mg sin 30 = 25 x 10 x 0.5\n1 mark: = 125 N\n1 mark: (c)(ii) R = mg cos 30 = 250 x 0.866 = 216.5 N\n1 mark: F = mu R = 0.2 x 216.5\n1 mark: = 43.3 N\n2 marks: (c)(iii) Force = mg sin 30 + F = 125 + 43.3\n1 mark: = 168.3 N\n1 mark: (c)(iv) Net force down the plank = 125 - 43.3 = 81.7 N\n2 marks: a = 81.7/25 = 3.27 m s^-2",
+      "explanation": "Down-slope component 125 N; R = 216.5 N; friction 43.3 N; push up at steady speed = 168.3 N; sliding down a = 81.7/25 = 3.27 m s^-2.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0503",
+      "type": "THEORY",
+      "topic": "Equations of motion with constant acceleration",
+      "stem": "(a) Write down the three equations of uniformly accelerated motion, defining each symbol. [3 marks]\n(b) A BRT bus starts from rest at a bus stop and accelerates uniformly at 2.5 m s^-2 for 8 s. It then moves at constant velocity for 12 s before the driver brakes, producing a uniform deceleration of 4 m s^-2 until it stops.\n(i) Calculate the maximum velocity reached. [2 marks]\n(ii) Calculate the time taken during braking. [2 marks]\n(iii) Calculate the total distance travelled. [5 marks]\n(iv) Calculate the average speed for the whole journey. [3 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) v = u + at; s = ut + (1/2)at^2; v^2 = u^2 + 2as, where u = initial velocity, v = final velocity, a = acceleration, t = time, s = displacement (1 mark per equation with symbols)\n1 mark: (b)(i) v = u + at = 0 + 2.5 x 8\n1 mark: = 20 m s^-1\n1 mark: (b)(ii) t = (v - u)/a = 20/4\n1 mark: = 5 s\n1 mark: (b)(iii) First stage: s = (1/2) x 2.5 x 8^2 = 80 m\n1 mark: Second stage: s = 20 x 12 = 240 m\n2 marks: Third stage: s = v^2/(2a) = 400/8 = 50 m\n1 mark: Total distance = 370 m\n1 mark: (b)(iv) Total time = 8 + 12 + 5 = 25 s\n2 marks: Average speed = 370/25 = 14.8 m s^-1",
+      "explanation": "(b) v max = 20 m s^-1; braking time 5 s; distances 80 + 240 + 50 = 370 m; total time 25 s; average speed 14.8 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0504",
+      "type": "THEORY",
+      "topic": "Principle of moments",
+      "stem": "(a) State the principle of moments. [2 marks]\n(b) Define the moment of a force about a point and state its S.I. unit. [2 marks]\n(c) A uniform metre rule of mass 120 g is pivoted at the 40 cm mark and is balanced horizontally by hanging a mass M at the 10 cm mark.\n(i) Name the forces acting on the rule and state where each acts. [2 marks]\n(ii) Calculate M. [4 marks]\n(d) A non-uniform rod of mass 120 g balances on a knife-edge at its 45 cm mark when a 30 g mass hangs at its 5 cm mark. Calculate the position of the centre of gravity of the rod. [5 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) When a body is in equilibrium, the sum of the clockwise moments about any point equals the sum of the anticlockwise moments about the same point\n1 mark: (b) Moment = force x perpendicular distance of its line of action from the point\n1 mark: Unit: newton metre (N m)\n2 marks: (c)(i) Weight of rule (120 g) acting at the 50 cm mark, 10 cm right of pivot; M at 10 cm mark, 30 cm left of pivot; upward reaction at the pivot (40 cm)\n2 marks: (c)(ii) Taking moments about pivot: M x (40 - 10) = 120 x (50 - 40)\n1 mark: 30M = 1200\n1 mark: M = 40 g\n1 mark: (d) The 30 g mass is 45 - 5 = 40 cm from the knife-edge (anticlockwise moment = 30 x 40 = 1200 g cm)\n1 mark: The centre of gravity must lie on the other side of the knife-edge at distance d\n2 marks: 120 x d = 1200, so d = 10 cm\n1 mark: Centre of gravity at the 55 cm mark",
+      "explanation": "(c) M x 30 = 120 x 10 gives M = 40 g. (d) 30 x 40 = 120 d, d = 10 cm, so the centre of gravity is at the 55 cm mark.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0505",
+      "type": "THEORY",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "stem": "(a) Define the following terms as applied to simple harmonic motion: (i) amplitude; (ii) period; (iii) frequency. [3 marks]\n(b) State two examples of simple harmonic motion in everyday life. [2 marks]\n(c) A simple pendulum of length 1.6 m oscillates with amplitude 5.0 cm at a place where g = 10 m s^-2. Calculate:\n(i) the period; [3 marks]\n(ii) the frequency; [2 marks]\n(iii) the angular velocity (angular frequency); [2 marks]\n(iv) the maximum speed of the bob. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a)(i) Amplitude: maximum displacement from the equilibrium position\n1 mark: (ii) Period: time for one complete oscillation\n1 mark: (iii) Frequency: number of complete oscillations per second\n2 marks: (b) Any two: swinging pendulum of a clock; vibrating guitar string; loaded spring bobbing; vibrating tuning fork prong; oscillating loaded test tube in water (1 mark each)\n1 mark: (c)(i) T = 2 pi sqrt(l/g) = 2 pi sqrt(1.6/10)\n1 mark: = 2 pi x 0.4\n1 mark: = 2.51 s\n1 mark: (c)(ii) f = 1/T = 1/2.51\n1 mark: = 0.40 Hz\n1 mark: (c)(iii) w = 2 pi/T = sqrt(g/l)\n1 mark: = 2.5 rad s^-1\n1 mark: (c)(iv) v max = w A\n1 mark: = 2.5 x 0.050\n1 mark: = 0.125 m s^-1",
+      "explanation": "T = 2 pi x 0.4 = 2.51 s; f = 0.40 Hz; w = 2.5 rad s^-1; v max = w A = 0.125 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0506",
+      "type": "THEORY",
+      "topic": "Second Law: force, acceleration, momentum and impulse",
+      "stem": "(a) State Newton's second law of motion. [2 marks]\n(b) Show from the law that F = ma, stating any assumption made. [3 marks]\n(c) A car of mass 1500 kg travelling at 20 m s^-1 runs into the back of a stationary car of mass 1000 kg on the Lagos-Ibadan expressway. The two cars lock together after the collision.\n(i) Calculate their common velocity just after the collision. [3 marks]\n(ii) Calculate the loss of kinetic energy in the collision. [4 marks]\n(iii) If the impact lasted 0.40 s, calculate the average force exerted on the stationary car. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) The rate of change of momentum of a body is directly proportional to the resultant force acting on it and takes place in the direction of the force\n1 mark: (b) F is proportional to (mv - mu)/t\n1 mark: With constant mass, F is proportional to m(v - u)/t = ma\n1 mark: With the unit of force (newton) chosen so that the constant is 1, F = ma\n1 mark: (c)(i) Total momentum before = 1500 x 20 + 0 = 30 000 kg m s^-1\n1 mark: (1500 + 1000) v = 30 000\n1 mark: v = 12 m s^-1\n1 mark: (c)(ii) K.E. before = 0.5 x 1500 x 20^2 = 300 000 J\n1 mark: K.E. after = 0.5 x 2500 x 12^2 = 180 000 J\n2 marks: Loss = 300 000 - 180 000 = 120 000 J (1.2 x 10^5 J)\n1 mark: (c)(iii) Change in momentum of stationary car = 1000 x 12 = 12 000 kg m s^-1\n2 marks: F = 12 000/0.40 = 30 000 N (3.0 x 10^4 N)",
+      "explanation": "Common velocity 12 m s^-1; K.E. loss 300 000 - 180 000 = 120000 J; force on the stationary car = 12 000/0.40 = 30000 N.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0507",
+      "type": "THEORY",
+      "topic": "Application of mechanical energy: machines",
+      "stem": "(a) Define (i) mechanical advantage; (ii) velocity ratio; (iii) efficiency of a machine. [3 marks]\n(b) Explain why the efficiency of a pulley system is always less than 100%. [2 marks]\n(c) A block-and-tackle pulley system with a velocity ratio of 5 is used on a building site to raise a load of 900 N through a height of 2.0 m. The effort applied is 250 N. Calculate:\n(i) the mechanical advantage; [2 marks]\n(ii) the efficiency; [2 marks]\n(iii) the work done on the load; [2 marks]\n(iv) the work done by the effort; [2 marks]\n(v) the energy wasted. [2 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a)(i) M.A. = load/effort\n1 mark: (ii) V.R. = distance moved by effort/distance moved by load\n1 mark: (iii) Efficiency = work output/work input x 100%\n2 marks: (b) Some of the work input is wasted in overcoming friction at the pulley bearings and in lifting the lower (movable) pulley block and rope\n1 mark: (c)(i) M.A. = 900/250\n1 mark: = 3.6\n1 mark: (c)(ii) Efficiency = 3.6/5 x 100%\n1 mark: = 72%\n1 mark: (c)(iii) Work output = 900 x 2.0\n1 mark: = 1800 J\n1 mark: (c)(iv) Effort distance = 5 x 2.0 = 10 m; work input = 250 x 10\n1 mark: = 2500 J\n1 mark: (c)(v) Energy wasted = 2500 - 1800\n1 mark: = 700 J",
+      "explanation": "M.A. = 3.6; efficiency = 72%; work output 1800 J; work input 2500 J; energy wasted 700 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0508",
+      "type": "THEORY",
+      "topic": "Latent heat",
+      "stem": "(a) Define specific latent heat of fusion. [2 marks]\n(b) Using the kinetic theory, explain why the temperature of melting ice remains constant although heat is being supplied. [3 marks]\n(c) A 500 W electric heater is used to melt 0.20 kg of ice at 0 degrees C and then to heat the resulting water to 100 degrees C. Assuming no heat is lost, calculate:\n(i) the heat required to melt the ice; [2 marks]\n(ii) the time taken to melt the ice; [2 marks]\n(iii) the heat required to raise the water from 0 degrees C to 100 degrees C; [2 marks]\n(iv) the time taken for this heating. [2 marks]\n(d) State one reason why the actual time taken would be longer. [2 marks]\n[Specific latent heat of fusion of ice = 3.36 x 10^5 J kg^-1; specific heat capacity of water = 4200 J kg^-1 K^-1]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) The quantity of heat required to change unit mass (1 kg) of a substance from solid to liquid at its melting point without change of temperature\n3 marks: (b) The heat supplied is used to break the bonds/overcome the intermolecular forces holding the molecules in fixed positions (1); it increases the potential energy, not the average kinetic energy, of the molecules (1); since temperature depends on average K.E., it remains constant (1)\n1 mark: (c)(i) Q = mL = 0.20 x 3.36 x 10^5\n1 mark: = 6.72 x 10^4 J (67 200 J)\n1 mark: (c)(ii) t = Q/P = 67 200/500\n1 mark: = 134.4 s\n1 mark: (c)(iii) Q = mc Delta theta = 0.20 x 4200 x 100\n1 mark: = 84 000 J\n1 mark: (c)(iv) t = 84 000/500\n1 mark: = 168 s\n2 marks: (d) Heat is lost to the surroundings and to the container (any one valid reason)",
+      "explanation": "Melting needs 67 200 J, taking 134.4 s; heating to 100 degrees C needs 84 000 J, taking 168 s. Heat losses make the actual times longer.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0509",
+      "type": "THEORY",
+      "topic": "The gas laws",
+      "stem": "(a) State (i) Charles' law; (ii) the pressure law. [4 marks]\n(b) Explain, using the kinetic theory, why the pressure of a gas in a closed vessel rises when it is heated. [3 marks]\n(c) A bicycle pump contains 400 cm^3 of air at a pressure of 1.0 x 10^5 Pa and temperature 27 degrees C. The air is compressed to 300 cm^3 and its temperature rises to 87 degrees C.\n(i) Write down the general gas equation. [2 marks]\n(ii) Calculate the new pressure of the air. [4 marks]\n(iii) State one assumption made in the calculation. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) The volume of a fixed mass of gas at constant pressure is directly proportional to its absolute temperature\n2 marks: (a)(ii) The pressure of a fixed mass of gas at constant volume is directly proportional to its absolute temperature\n3 marks: (b) Heating increases the average kinetic energy (speed) of the molecules (1); they collide with the walls more frequently (1) and with greater force/momentum change, so pressure increases (1)\n2 marks: (c)(i) p1V1/T1 = p2V2/T2 (temperatures in kelvin)\n1 mark: (c)(ii) T1 = 300 K, T2 = 360 K\n1 mark: p2 = p1 V1 T2/(V2 T1)\n1 mark: = 1.0 x 10^5 x 400 x 360/(300 x 300)\n1 mark: = 1.6 x 10^5 Pa\n2 marks: (c)(iii) The mass of air is constant (no leakage) / air behaves as an ideal gas",
+      "explanation": "p2 = 1.0 x 10^5 x 400 x 360/(300 x 300) = 1.6 x 10^5 Pa.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0510",
+      "type": "THEORY",
+      "topic": "Refraction of light at curved surfaces",
+      "stem": "(a) Explain the terms (i) principal focus of a converging lens; (ii) power of a lens. [4 marks]\n(b) An object 3.0 cm tall is placed 20 cm from a converging lens of focal length 15 cm.\n(i) Calculate the image distance. [3 marks]\n(ii) Calculate the magnification and the height of the image. [3 marks]\n(iii) State two characteristics of the image. [2 marks]\n(c) The object is moved to 10 cm from the lens. Calculate the new image distance and state the nature of the image. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) The point on the principal axis to which rays parallel and close to the axis converge after refraction through the lens\n2 marks: (a)(ii) The reciprocal of the focal length in metres; unit dioptre (D)\n1 mark: (b)(i) 1/v = 1/f - 1/u = 1/15 - 1/20\n1 mark: = 1/60\n1 mark: v = 60 cm\n1 mark: (b)(ii) m = v/u = 60/20\n1 mark: = 3\n1 mark: Image height = 3 x 3.0 = 9.0 cm\n2 marks: (b)(iii) Real, inverted, magnified (any two, 1 mark each)\n1 mark: (c) 1/v = 1/15 - 1/10 = -1/30\n1 mark: v = -30 cm\n1 mark: Image is virtual, upright and magnified, on the same side as the object",
+      "explanation": "(b) v = 60 cm, m = 3, image 9.0 cm tall, real and inverted. (c) v = -30 cm: virtual, erect and magnified (magnifying-glass use).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0511",
+      "type": "THEORY",
+      "topic": "Vibration of air in pipes: open and closed pipes",
+      "stem": "(a) Explain what is meant by resonance. [2 marks]\n(b) Explain the term end correction as applied to a resonance tube. [2 marks]\n(c) A tuning fork of frequency 512 Hz is held over a resonance tube closed at its lower end by water. The first resonance is heard when the air column is 16.0 cm long and the second when it is 50.0 cm long.\n(i) Calculate the wavelength of the sound. [3 marks]\n(ii) Calculate the speed of sound in the air. [2 marks]\n(iii) Calculate the end correction of the tube. [3 marks]\n(d) State how the first resonance length would change if the experiment were repeated on a hotter day, giving a reason. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Resonance occurs when a body is set into vibration by a periodic force whose frequency equals its natural frequency, so it vibrates with maximum amplitude\n2 marks: (b) The antinode at the open end forms slightly above the mouth of the tube; the extra distance (about 0.3 x diameter) is the end correction\n1 mark: (c)(i) l2 - l1 = lambda/2\n1 mark: lambda = 2 x (0.500 - 0.160)\n1 mark: = 0.68 m\n1 mark: (c)(ii) v = f lambda = 512 x 0.68\n1 mark: = 348 m s^-1\n1 mark: (c)(iii) l1 + c = lambda/4 and l2 + c = 3 lambda/4\n1 mark: c = (l2 - 3 l1)/2 = (0.500 - 0.480)/2\n1 mark: = 0.010 m (1.0 cm)\n1 mark: (d) The first resonance length would increase\n2 marks: Speed of sound increases with temperature, so for the same frequency the wavelength (and hence lambda/4) is longer",
+      "explanation": "lambda = 2(0.50 - 0.16) = 0.68 m; v = 512 x 0.68 = 348 m s^-1; end correction = (0.50 - 0.48)/2 = 0.010 m. On a hotter day the speed of sound and the resonance length increase.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0512",
+      "type": "THEORY",
+      "topic": "Electric circuit",
+      "stem": "(a) Define (i) electromotive force of a cell; (ii) internal resistance of a cell. [4 marks]\n(b) A battery of e.m.f. 12 V and internal resistance 1 ohm is connected to a 3 ohm resistor in series with a parallel combination of a 6 ohm and a 3 ohm resistor. Calculate:\n(i) the effective external resistance; [3 marks]\n(ii) the current drawn from the battery; [2 marks]\n(iii) the terminal potential difference of the battery; [2 marks]\n(iv) the current in the 6 ohm resistor; [2 marks]\n(v) the power wasted inside the battery. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) The e.m.f. is the total energy converted to electrical energy per unit charge driven round a complete circuit / p.d. across the terminals on open circuit\n2 marks: (a)(ii) The opposition to current flow offered by the materials (electrolyte) inside the cell itself\n1 mark: (b)(i) Parallel: 6 x 3/(6 + 3) = 2 ohms\n1 mark: External resistance = 2 + 3\n1 mark: = 5 ohms\n1 mark: (b)(ii) I = E/(R + r) = 12/(5 + 1)\n1 mark: = 2 A\n1 mark: (b)(iii) V = E - Ir = 12 - 2 x 1\n1 mark: = 10 V\n1 mark: (b)(iv) p.d. across parallel part = 2 x 2 = 4 V\n1 mark: I(6 ohm) = 4/6 = 0.67 A\n1 mark: (b)(v) P = I^2 r = 2^2 x 1\n1 mark: = 4 W",
+      "explanation": "External R = 5 ohms; I = 2 A; terminal p.d. 10 V; 0.67 A in the 6 ohm resistor; 4 W wasted in the battery.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0513",
+      "type": "THEORY",
+      "topic": "Electric energy and power",
+      "stem": "(a) Define the kilowatt-hour and express it in joules. [3 marks]\n(b) A household in Enugu uses the following each day: four 60 W bulbs for 6 hours, a 1500 W pressing iron for 2 hours and a 100 W television set for 10 hours. Calculate:\n(i) the energy used per day in kWh; [4 marks]\n(ii) the cost of electricity for 30 days if one unit costs N209.50; [3 marks]\n(iii) the current drawn by the iron on a 230 V supply. [2 marks]\n(c) Explain why a fuse is connected in the live wire. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) The kilowatt-hour is the energy used when a device of power 1 kW works for 1 hour\n2 marks: 1 kWh = 1000 W x 3600 s = 3.6 x 10^6 J\n1 mark: (b)(i) Bulbs: 4 x 60 x 6 = 1440 Wh\n1 mark: Iron: 1500 x 2 = 3000 Wh\n1 mark: TV: 100 x 10 = 1000 Wh\n1 mark: Total = 5440 Wh = 5.44 kWh\n1 mark: (b)(ii) 30 days: 5.44 x 30 = 163.2 kWh\n2 marks: Cost = 163.2 x 209.50 = N34,190.40\n1 mark: (b)(iii) I = P/V = 1500/230\n1 mark: = 6.5 A\n3 marks: (c) The fuse melts when excess current flows (1); placing it in the live wire disconnects the appliance from the high-potential supply (1), so that the appliance is not left live/dangerous to touch after the fuse blows (1)",
+      "explanation": "Daily energy 5.44 kWh; 30 days 163.2 kWh costing N34,190.40; iron current 6.5 A. The fuse in the live wire isolates the appliance when it blows.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0514",
+      "type": "THEORY",
+      "topic": "Capacitance",
+      "stem": "(a) Define capacitance and state its S.I. unit. [2 marks]\n(b) State three factors that affect the capacitance of a parallel-plate capacitor. [3 marks]\n(c) A 3 uF capacitor and a 6 uF capacitor are connected in series, and the pair is connected in parallel with a 2 uF capacitor. The combination is connected to a 12 V d.c. supply. Calculate:\n(i) the effective capacitance; [3 marks]\n(ii) the total charge stored; [2 marks]\n(iii) the potential difference across the 6 uF capacitor; [3 marks]\n(iv) the total energy stored. [2 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) Capacitance = charge stored per unit potential difference, C = Q/V\n1 mark: Unit: farad (F)\n3 marks: (b) Area of overlap of the plates; separation of the plates; the dielectric (permittivity) between the plates (1 mark each)\n1 mark: (c)(i) Series: 1/C = 1/3 + 1/6 = 1/2, C = 2 uF\n1 mark: Parallel with 2 uF: C = 2 + 2\n1 mark: = 4 uF\n1 mark: (c)(ii) Q = CV = 4 x 10^-6 x 12\n1 mark: = 4.8 x 10^-5 C (48 uC)\n1 mark: (c)(iii) Charge on series pair = 2 x 10^-6 x 12 = 24 uC\n1 mark: V(6 uF) = 24 x 10^-6/6 x 10^-6\n1 mark: = 4 V\n1 mark: (c)(iv) E = (1/2) C V^2 = 0.5 x 4 x 10^-6 x 144\n1 mark: = 2.88 x 10^-4 J",
+      "explanation": "Series pair 2 uF; total 4 uF; Q = 48 uC; 24 uC on the series pair gives 4 V across the 6 uF capacitor (8 V across 3 uF); energy = 2.88 x 10^-4 J.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0515",
+      "type": "THEORY",
+      "topic": "Electromagnetic induction",
+      "stem": "(a) State Faraday's laws of electromagnetic induction. [3 marks]\n(b) Describe briefly how a transformer works. [3 marks]\n(c) A transformer with 1200 turns in the primary coil is used to operate a 12 V, 36 W lamp from a 240 V mains supply.\n(i) Calculate the number of turns in the secondary coil. [2 marks]\n(ii) Calculate the current in the lamp. [2 marks]\n(iii) If the transformer is 90% efficient, calculate the current in the primary coil. [3 marks]\n(iv) State two causes of energy loss in a transformer. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Whenever the magnetic flux linked with a circuit changes, an e.m.f. is induced in it (1); the magnitude of the induced e.m.f. is proportional to the rate of change of flux linkage (1)\n1 mark: The induced current flows to oppose the change (Lenz's law, accepted as a statement of direction)\n3 marks: (b) Alternating current in the primary coil produces a changing magnetic flux in the soft-iron core (1); this flux links the secondary coil (1); a changing flux induces an alternating e.m.f. in the secondary whose size depends on the turns ratio (1)\n1 mark: (c)(i) Ns/Np = Vs/Vp; Ns = 1200 x 12/240\n1 mark: = 60 turns\n1 mark: (c)(ii) I = P/V = 36/12\n1 mark: = 3.0 A\n1 mark: (c)(iii) Input power = 36/0.9 = 40 W\n1 mark: Ip = 40/240\n1 mark: = 0.167 A (0.17 A)\n2 marks: (c)(iv) Any two: eddy currents in the core; hysteresis loss; resistance (I^2 R) of the windings; flux leakage (1 mark each)",
+      "explanation": "Ns = 60 turns; lamp current 3.0 A; input power 40 W gives a primary current of 0.17 A.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0516",
+      "type": "THEORY",
+      "topic": "Series circuit containing resistor, inductor and capacitor",
+      "stem": "(a) Explain the terms (i) reactance; (ii) impedance. [2 marks]\n(b) A 40 ohm resistor, a 0.10 H inductor and a 50 uF capacitor are connected in series to a 220 V, 50 Hz supply. Calculate:\n(i) the inductive reactance; [2 marks]\n(ii) the capacitive reactance; [2 marks]\n(iii) the impedance of the circuit; [3 marks]\n(iv) the r.m.s. current; [2 marks]\n(v) the resonant frequency of the circuit. [2 marks]\n(vi) the average power dissipated. [2 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a)(i) Reactance: the opposition to a.c. offered by an inductor or a capacitor\n1 mark: (a)(ii) Impedance: the total (effective) opposition to a.c. in a circuit containing resistance and reactance\n1 mark: (b)(i) XL = 2 pi f L = 2 pi x 50 x 0.10\n1 mark: = 31.4 ohms\n1 mark: (b)(ii) XC = 1/(2 pi f C) = 1/(2 pi x 50 x 50 x 10^-6)\n1 mark: = 63.7 ohms\n1 mark: (b)(iii) Z = sqrt(R^2 + (XL - XC)^2)\n1 mark: = sqrt(40^2 + (31.4 - 63.7)^2)\n1 mark: = 51.4 ohms\n1 mark: (b)(iv) I = V/Z = 220/51.4\n1 mark: = 4.28 A\n1 mark: (b)(v) f0 = 1/(2 pi sqrt(LC)) = 1/(2 pi sqrt(0.10 x 50 x 10^-6))\n1 mark: = 71 Hz\n1 mark: (b)(vi) P = I^2 R = 4.28^2 x 40\n1 mark: = 733 W",
+      "explanation": "XL = 31.4 ohms, XC = 63.7 ohms, Z = 51.4 ohms, I = 4.28 A, f0 = 71 Hz, P = 733 W.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0517",
+      "type": "THEORY",
+      "topic": "Photoelectric effect",
+      "stem": "(a) What is meant by (i) photoelectric effect; (ii) work function; (iii) threshold frequency? [3 marks]\n(b) State two observations of the photoelectric effect that cannot be explained by the wave theory of light. [2 marks]\n(c) Light of wavelength 4.0 x 10^-7 m falls on a metal surface of work function 2.2 eV. Calculate:\n(i) the energy of each photon in joules and in eV; [3 marks]\n(ii) the maximum kinetic energy of the emitted electrons in eV; [2 marks]\n(iii) the stopping potential; [2 marks]\n(iv) the threshold frequency of the metal. [3 marks]\n[h = 6.6 x 10^-34 J s; c = 3.0 x 10^8 m s^-1; 1 eV = 1.6 x 10^-19 J]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a)(i) Emission of electrons from a metal surface when light of suitable frequency falls on it\n1 mark: (ii) Minimum energy required to remove an electron from the surface of the metal\n1 mark: (iii) Minimum frequency of light that can cause photoelectric emission from the metal\n2 marks: (b) Any two: emission is instantaneous; no emission below threshold frequency however intense the light; maximum K.E. depends on frequency, not intensity (1 mark each)\n1 mark: (c)(i) E = hc/lambda = 6.6 x 10^-34 x 3.0 x 10^8/4.0 x 10^-7\n1 mark: = 4.95 x 10^-19 J\n1 mark: = 3.09 eV\n1 mark: (c)(ii) K.E. max = hf - W = 3.09 - 2.2\n1 mark: = 0.89 eV\n1 mark: (c)(iii) eV_s = K.E. max\n1 mark: V_s = 0.89 V\n1 mark: (c)(iv) f0 = W/h = 2.2 x 1.6 x 10^-19/6.6 x 10^-34\n1 mark: = 3.52 x 10^-19/6.6 x 10^-34\n1 mark: = 5.33 x 10^14 Hz",
+      "explanation": "Photon energy 4.95 x 10^-19 J = 3.09 eV; K.E. max = 0.89 eV; stopping potential 0.89 V; threshold frequency 5.33 x 10^14 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0518",
+      "type": "THEORY",
+      "topic": "Radioactivity: natural and artificial",
+      "stem": "(a) Explain what is meant by (i) radioactivity; (ii) half-life. [4 marks]\n(b) Copy and complete in words: when radium-226 (atomic number 88) emits an alpha particle, the daughter nucleus has mass number ... and atomic number .... [2 marks]\n(c) Iodine-131, used in hospitals to treat thyroid disorders, has a half-life of 8 days. A sample initially contains 3.2 x 10^20 undecayed atoms.\n(i) Calculate the number of undecayed atoms after 32 days. [3 marks]\n(ii) Calculate the number of atoms that have decayed in that time. [2 marks]\n(d) State two precautions that should be taken when handling radioactive sources. [2 marks]\n(e) State two uses of radioactive isotopes other than in medicine. [2 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a)(i) Spontaneous disintegration of unstable nuclei with the emission of alpha, beta particles and/or gamma rays\n2 marks: (a)(ii) Time taken for half the number of radioactive nuclei in a sample to decay (or for the activity to fall to half)\n2 marks: (b) Mass number 222, atomic number 86 (1 mark each; radon-222)\n1 mark: (c)(i) 32 days = 4 half-lives\n1 mark: N = 3.2 x 10^20 x (1/2)^4\n1 mark: = 2.0 x 10^19 atoms\n1 mark: (c)(ii) Decayed = 3.2 x 10^20 - 2.0 x 10^19\n1 mark: = 3.0 x 10^20 atoms\n2 marks: (d) Any two: handle with long tongs; store in lead-lined containers; wear protective clothing/film badges; do not eat or drink near sources; minimise exposure time (1 mark each)\n2 marks: (e) Any two: carbon dating; thickness gauging in industry; detecting leaks in pipes (tracers); sterilisation of food; smoke detectors; power generation (1 mark each)",
+      "explanation": "Ra-226 -> Rn-222 + He-4. After 4 half-lives 3.2 x 10^20/16 = 2.0 x 10^19 atoms remain, so 3.0 x 10^20 have decayed.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0519",
+      "type": "THEORY",
+      "topic": "Projectile motion",
+      "stem": "(a) What is a projectile? Give two examples. [3 marks]\n(b) A footballer kicks a ball from level ground with a velocity of 30 m s^-1 at an angle theta to the horizontal, where sin theta = 0.8 and cos theta = 0.6. Neglecting air resistance and taking g = 10 m s^-2, calculate:\n(i) the horizontal and vertical components of the initial velocity; [2 marks]\n(ii) the time of flight; [3 marks]\n(iii) the maximum height reached; [3 marks]\n(iv) the horizontal range. [2 marks]\n(c) State the angle of projection that gives the maximum range for a given speed. [2 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) A projectile is a body thrown into space which then moves under the influence of gravity alone (with an initial velocity at an angle to the horizontal)\n2 marks: Any two examples: kicked football; bullet fired from a gun; javelin; shot put; water from a hose (1 mark each)\n1 mark: (b)(i) Horizontal: 30 x 0.6 = 18 m s^-1\n1 mark: Vertical: 30 x 0.8 = 24 m s^-1\n1 mark: (b)(ii) T = 2u sin theta/g\n1 mark: = 2 x 24/10\n1 mark: = 4.8 s\n1 mark: (b)(iii) H = (u sin theta)^2/(2g)\n1 mark: = 24^2/20\n1 mark: = 28.8 m\n1 mark: (b)(iv) R = horizontal velocity x time of flight = 18 x 4.8\n1 mark: = 86.4 m\n2 marks: (c) 45 degrees",
+      "explanation": "Components 18 and 24 m s^-1; time of flight 4.8 s; maximum height 28.8 m; range 86.4 m; maximum range at 45 degrees.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0520",
+      "type": "THEORY",
+      "topic": "Elastic properties of solids",
+      "stem": "(a) State Hooke's law. [2 marks]\n(b) Define (i) tensile stress; (ii) tensile strain. [2 marks]\n(c) A steel wire of length 1.50 m and diameter 0.50 mm is stretched by 3.8 mm when a load of 100 N is hung from it. Calculate:\n(i) the cross-sectional area of the wire; [2 marks]\n(ii) the tensile stress; [2 marks]\n(iii) the tensile strain; [2 marks]\n(iv) the Young's modulus of steel; [2 marks]\n(v) the energy stored in the stretched wire. [3 marks]\n(Take pi = 3.142)",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) Provided the elastic limit is not exceeded, the extension of an elastic material is directly proportional to the applied load\n1 mark: (b)(i) Tensile stress = force/cross-sectional area\n1 mark: (ii) Tensile strain = extension/original length\n1 mark: (c)(i) A = pi d^2/4 = 3.142 x (0.50 x 10^-3)^2/4\n1 mark: = 1.96 x 10^-7 m^2\n1 mark: (c)(ii) Stress = 100/1.964 x 10^-7\n1 mark: = 5.09 x 10^8 Pa\n1 mark: (c)(iii) Strain = 3.8 x 10^-3/1.50\n1 mark: = 0.00253\n1 mark: (c)(iv) E = stress/strain = 5.09 x 10^8/2.53 x 10^-3\n1 mark: = 2.01 x 10^11 Pa\n1 mark: (c)(v) Energy = (1/2) F e\n1 mark: = 0.5 x 100 x 3.8 x 10^-3\n1 mark: = 0.19 J",
+      "explanation": "A = 1.96 x 10^-7 m^2; stress = 5.09 x 10^8 Pa; strain = 0.00253; E = 2.01 x 10^11 Pa; energy stored = 0.19 J.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0801",
+      "type": "PRACTICAL",
+      "topic": "Period, frequency and amplitude of S.H.M.",
+      "stem": "In an experiment to determine the force constant k of a spiral spring, a student suspended the spring from a clamp and attached a mass hanger to its lower end. For each total mass m on the spring, the mass was pulled down slightly and released, and the time t for 20 complete oscillations was measured. The readings were: m/kg: 0.050, 0.100, 0.150, 0.200, 0.250, 0.300; t/s: 7.5, 9.7, 11.6, 13.1, 14.6, 15.9.\n(a)(i) Calculate the period T for each mass. [3 marks]\n(ii) Calculate T^2 for each mass. [3 marks]\n(iii) A graph of T^2 (vertical axis) against m (horizontal axis) gives a best-fit straight line passing through (0.050 kg, 0.138 s^2) and (0.300 kg, 0.630 s^2). Calculate the slope s of the line. [3 marks]\n(iv) Given that T^2 = (4 pi^2/k) m + constant, use your slope to determine k. [3 marks]\n(v) State two precautions taken to obtain accurate results. [2 marks]\n(vi) Why is the time for 20 oscillations measured rather than for one oscillation? [2 marks]\n(b)(i) Define simple harmonic motion. [2 marks]\n(ii) The same spring is used to support a mass of 0.40 kg. Using your value of k and neglecting the mass of the spring, calculate the period of oscillation. [3 marks]\n(iii) State Hooke's law and use your value of k to find the extension produced by a load of 2.0 N. [4 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) T = t/20: 0.375, 0.485, 0.580, 0.655, 0.730, 0.795 s (deduct 1 mark for each wrong value, minimum 0)\n3 marks: (a)(ii) T^2: 0.141, 0.235, 0.336, 0.429, 0.533, 0.632 s^2 (deduct 1 mark for each wrong value)\n1 mark: (a)(iii) s = (0.630 - 0.138)/(0.300 - 0.050)\n2 marks: = 1.97 s^2 kg^-1 (value 1, unit 1)\n1 mark: (a)(iv) k = 4 pi^2/s\n2 marks: = 39.48/1.97 = 20.1 N m^-1 (accept 19.1 to 21.1)\n2 marks: (a)(v) Any two: small vertical displacement so oscillations are vertical without swinging; clamp held rigidly; count from the equilibrium position using a pointer/fiducial mark; repeat timings and average; avoid parallax error (1 mark each)\n2 marks: (a)(vi) It reduces the error due to reaction time in starting and stopping the stopwatch, so the period is more accurate\n2 marks: (b)(i) Motion in which the acceleration is proportional to the displacement from a fixed point and always directed towards that point\n1 mark: (b)(ii) T = 2 pi sqrt(m/k)\n2 marks: = 2 pi sqrt(0.40/20.1) = 0.89 s\n2 marks: (b)(iii) Provided the elastic limit is not exceeded, extension is directly proportional to the applied force\n2 marks: e = F/k = 2.0/20.1 = 0.100 m (10.0 cm)",
+      "explanation": "T values 0.375, 0.485, 0.580, 0.655, 0.730, 0.795 s; T^2 0.141, 0.235, 0.336, 0.429, 0.533, 0.632 s^2. Slope = 1.97 s^2 kg^-1, so k = 4 pi^2/slope = 20.1 N m^-1. For 0.40 kg, T = 0.89 s; a 2.0 N load stretches it 10.0 cm.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0802",
+      "type": "PRACTICAL",
+      "topic": "Elastic properties of solids",
+      "stem": "A spiral spring hangs vertically beside a vertical metre rule. A pointer attached to the lower end of the spring reads 10.8 cm when no load is attached. Loads W were added in turn and the pointer readings R recorded as follows: W/N: 0.5, 1.0, 1.5, 2.0, 2.5, 3.0; R/cm: 12.4, 13.9, 15.5, 17.1, 18.6, 20.2.\n(a)(i) Calculate the extension e for each load. [3 marks]\n(ii) A graph of e (vertical axis) against W (horizontal axis) is a straight line through (0.5 N, 1.58 cm) and (3.0 N, 9.39 cm). Calculate the slope of the line. [3 marks]\n(iii) Calculate the force constant of the spring in N m^-1. [2 marks]\n(iv) When an unknown object was hung on the spring alone, the pointer read 16.3 cm. Use your slope to determine the weight of the object and hence its mass (g = 10 m s^-2). [4 marks]\n(v) State two precautions taken in this experiment. [2 marks]\n(vi) What does the straight-line graph show about the spring? [2 marks]\n(b)(i) Define the elastic limit of a material. [2 marks]\n(ii) Calculate the energy stored in the spring when the load is 3.0 N, using your force constant. [3 marks]\n(iii) State two everyday uses of springs. [2 marks]\n(iv) Explain why the spring should not be loaded beyond its elastic limit in this experiment. [2 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) e = R - 10.8: 1.6, 3.1, 4.7, 6.3, 7.8, 9.4 cm (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (9.39 - 1.58)/(3.0 - 0.5)\n2 marks: = 3.12 cm N^-1 (value 1, unit 1)\n1 mark: (a)(iii) k = 1/slope = 0.320 N cm^-1\n1 mark: = 32 N m^-1\n1 mark: (a)(iv) e = 16.3 - 10.8 = 5.5 cm\n1 mark: W = e/slope = 5.5/3.12\n1 mark: = 1.76 N\n1 mark: m = W/g = 0.176 kg (176 g)\n2 marks: (a)(v) Any two: read pointer at eye level to avoid parallax; ensure spring is at rest before reading; add loads gently; check pointer returns to zero reading after unloading; keep metre rule vertical (1 mark each)\n2 marks: (a)(vi) Extension is directly proportional to load, i.e. the spring obeys Hooke's law within the range used\n2 marks: (b)(i) The maximum load (stress) a material can take and still return to its original length/shape when the load is removed\n1 mark: (b)(ii) e = 3.0 x slope = 9.37 cm = 0.0937 m\n2 marks: E = (1/2) F e = 0.5 x 3.0 x 0.0937 = 0.141 J\n2 marks: (b)(iii) Any two: spring balance; vehicle suspension/shock absorbers; mattresses; clocks and watches; retractable pens; door closers (1 mark each)\n2 marks: (b)(iv) Beyond the elastic limit the spring is permanently deformed, extension is no longer proportional to load and the results/spring would be spoilt",
+      "explanation": "Extensions 1.6, 3.1, 4.7, 6.3, 7.8, 9.4 cm; slope 3.12 cm N^-1 so k = 32 N m^-1. Unknown: e = 5.5 cm gives W = 1.76 N, mass 176 g. Energy at 3.0 N = 0.141 J.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-phy-0803",
+      "type": "PRACTICAL",
+      "topic": "Principle of moments",
+      "stem": "A uniform metre rule is balanced horizontally on a knife-edge at its 50.0 cm mark. An object Q is hung at a fixed distance of 20.0 cm to the left of the knife-edge. A known mass m is hung to the right of the knife-edge and its distance y from the knife-edge is adjusted until the rule balances horizontally again. The readings were: m/g: 20, 30, 40, 50, 60, 70; y/cm: 60.2, 39.9, 30.1, 23.9, 20.1, 17.1.\n(a)(i) Calculate 1/m (in g^-1) for each mass, to 4 decimal places. [3 marks]\n(ii) A graph of y (vertical axis) against 1/m (horizontal axis) is a straight line through the origin, passing through (0.0150 g^-1, 18.0 cm) and (0.0500 g^-1, 60.2 cm). Calculate its slope. [3 marks]\n(iii) Using the principle of moments, show that y = (20 M)/m, where M is the mass of Q. [2 marks]\n(iv) Hence determine M. [3 marks]\n(v) Why was the metre rule first balanced on the knife-edge without any masses? [2 marks]\n(vi) State two precautions taken. [2 marks]\n(b)(i) State the two conditions for the equilibrium of a rigid body under coplanar parallel forces. [2 marks]\n(ii) A uniform plank of weight 300 N and length 6.0 m rests on two supports, one at each end. A boy of weight 450 N stands 2.0 m from the left end. Calculate the reaction at each support. [6 marks]\n(iii) Define centre of gravity. [2 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) 1/m: 0.0500, 0.0333, 0.0250, 0.0200, 0.0167, 0.0143 g^-1 (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (60.2 - 18.0)/(0.0500 - 0.0150)\n2 marks: = 1206 g cm\n2 marks: (a)(iii) Clockwise moment = anticlockwise moment: m g y = M g x 20, so y = 20M/m\n1 mark: (a)(iv) slope = 20 M\n2 marks: M = 1206/20 = 60.3 g (accept 57 to 63 g)\n2 marks: (a)(v) So that the weight of the rule acts through the knife-edge and produces no moment (its moment can be ignored)\n2 marks: (a)(vi) Any two: rule balanced horizontally before reading; thread loops kept thin and vertical; readings taken with eye perpendicular to the scale; masses not touching the bench; draughts avoided (1 mark each)\n1 mark: (b)(i) The sum of upward forces equals the sum of downward forces\n1 mark: The sum of clockwise moments about any point equals the sum of anticlockwise moments about that point\n2 marks: (b)(ii) Moments about left support: R_right x 6.0 = 450 x 2.0 + 300 x 3.0 = 1800 N m\n1 mark: R_right = 300 N\n2 marks: R_left + R_right = 750 N\n1 mark: R_left = 450 N\n2 marks: (b)(iii) The point through which the resultant weight of a body appears to act",
+      "explanation": "1/m values 0.0500, 0.0333, 0.0250, 0.0200, 0.0167, 0.0143 g^-1; slope = 1206 g cm = 20M, so M = 60.3 g. Plank: R_right = 1800/6 = 300 N, R_left = 450 N.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0804",
+      "type": "PRACTICAL",
+      "topic": "Refraction of light at plane surfaces",
+      "stem": "A student traced the outline ABCD of a rectangular glass block on a sheet of paper fixed to a drawing board. A normal was drawn at a point O on AB, and pins were used to trace rays incident at O at angles i to the normal. For each angle of incidence the corresponding angle of refraction r inside the block was measured with a protractor. The readings were: i/degrees: 20, 30, 40, 50, 60, 70; r/degrees: 13.0, 19.0, 25.0, 30.5, 34.5, 38.5.\n(a)(i) Find sin i and sin r for each pair, to 3 decimal places. [4 marks]\n(ii) A graph of sin i (vertical axis) against sin r (horizontal axis) gives a straight line through (0.200, 0.307) and (0.600, 0.910). Calculate its slope. [3 marks]\n(iii) What physical quantity does the slope represent? [1 mark]\n(iv) Use your result to calculate the critical angle for the glass. [3 marks]\n(v) State two precautions taken to obtain accurate results with the pins. [2 marks]\n(b)(i) State Snell's law. [2 marks]\n(ii) Explain, with reference to speed, why light bends towards the normal on entering glass from air. [2 marks]\n(iii) The speed of light in air is 3.0 x 10^8 m s^-1. Calculate the speed of light in the glass, using your value from (a)(ii). [3 marks]\n(iv) State two conditions necessary for total internal reflection. [2 marks]\n(v) Name one application of total internal reflection. [3 marks]",
+      "marks": 25,
+      "markingGuide": "2 marks: (a)(i) sin i: 0.342, 0.500, 0.643, 0.766, 0.866, 0.940\n2 marks: sin r: 0.225, 0.326, 0.423, 0.508, 0.566, 0.623 (deduct 1 mark per two wrong values)\n1 mark: (a)(ii) slope = (0.910 - 0.307)/(0.600 - 0.200)\n2 marks: = 1.51 (accept 1.45 to 1.60)\n1 mark: (a)(iii) The refractive index of the glass (from air to glass)\n1 mark: (a)(iv) sin C = 1/n\n1 mark: = 1/1.51 = 0.663\n1 mark: C = 41.6 degrees\n2 marks: (a)(v) Any two: pins placed upright and well separated (at least 6 cm apart); viewed the bases of the pins when aligning; pins aligned with eye at the level of the board; outline of block traced accurately and block not moved (1 mark each)\n2 marks: (b)(i) For two given media, the ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant (refractive index)\n2 marks: (b)(ii) Light travels more slowly in glass than in air, so the wavefront is slowed on entering and the ray is deviated towards the normal\n1 mark: (b)(iii) v = c/n\n2 marks: = 3.0 x 10^8/1.51 = 1.99 x 10^8 m s^-1\n2 marks: (b)(iv) Light travels from an optically denser to a less dense medium; the angle of incidence exceeds the critical angle (1 mark each)\n3 marks: (b)(v) Any one, with brief explanation: optical fibres (endoscopes/telecommunication); prism periscopes and binoculars; sparkling of diamonds; mirages (1 mark for naming, 2 marks for explanation)",
+      "explanation": "sin i 0.342, 0.500, 0.643, 0.766, 0.866, 0.940; sin r 0.225, 0.326, 0.423, 0.508, 0.566, 0.623. Slope = n = 1.51; critical angle = 41.6 degrees; speed in glass = 1.99 x 10^8 m s^-1.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0805",
+      "type": "PRACTICAL",
+      "topic": "Refraction of light at curved surfaces",
+      "stem": "In an experiment to determine the focal length f of a converging lens, an illuminated object was placed at a distance u from the lens and a white screen was moved until a sharp image was obtained at a distance v from the lens. The readings were: u/cm: 15.0, 20.0, 25.0, 30.0, 35.0, 40.0; v/cm: 60.2, 29.9, 23.1, 19.9, 18.3, 17.1.\n(a)(i) Calculate 1/u and 1/v for each pair, to 4 decimal places. [4 marks]\n(ii) A graph of 1/v (vertical axis) against 1/u (horizontal axis) is a straight line through (0.0250 cm^-1, 0.0584 cm^-1) and (0.0650 cm^-1, 0.0183 cm^-1). Calculate the slope and the intercept on the 1/v axis. [4 marks]\n(iii) Calculate the intercept on the 1/u axis. [2 marks]\n(iv) Using the lens formula, find f from each intercept and hence the mean value of f. [4 marks]\n(v) State two precautions taken in this experiment. [2 marks]\n(b)(i) Explain why no image could be focused on the screen when the object was 10 cm from this lens. [2 marks]\n(ii) Calculate the power of the lens using your mean f. [2 marks]\n(iii) State two uses of converging lenses. [2 marks]\n(iv) Using your mean f, calculate the magnification when u = 18.0 cm. [3 marks]",
+      "marks": 25,
+      "markingGuide": "2 marks: (a)(i) 1/u: 0.0667, 0.0500, 0.0400, 0.0333, 0.0286, 0.0250 cm^-1\n2 marks: 1/v: 0.0166, 0.0334, 0.0433, 0.0503, 0.0546, 0.0585 cm^-1 (deduct 1 mark per two wrong values)\n2 marks: (a)(ii) slope = (0.0183 - 0.0584)/(0.0650 - 0.0250) = -1.00 (about -1)\n2 marks: Intercept on 1/v axis = 0.0584 - (-1.00)(0.0250) = 0.0835 cm^-1\n2 marks: (a)(iii) Intercept on 1/u axis = -c/slope = 0.0833 cm^-1\n1 mark: (a)(iv) When 1/u = 0, 1/v = 1/f: f = 1/0.0835 = 12.0 cm\n1 mark: When 1/v = 0, 1/u = 1/f: f = 1/0.0833 = 12.0 cm\n2 marks: Mean f = 12.0 cm (accept 11.5 to 12.5 cm)\n2 marks: (a)(v) Any two: lens, object and screen centres in a straight line (coaxial); sharp image obtained by moving screen to and fro; distances measured to the optical centre of the lens; experiment done in a darkened room; avoided parallax in reading the rule (1 mark each)\n2 marks: (b)(i) The object was inside the focal length (u < f), so the image is virtual and cannot be formed on a screen\n1 mark: (b)(ii) P = 1/f (in m) = 1/0.120\n1 mark: = 8.3 D\n2 marks: (b)(iii) Any two: magnifying glass; camera; projector; spectacles for long sight; microscope/telescope objective (1 mark each)\n1 mark: (b)(iv) 1/v = 1/12.0 - 1/18.0, v = 36.0 cm\n2 marks: m = v/u = 2.00",
+      "explanation": "1/u 0.0667, 0.0500, 0.0400, 0.0333, 0.0286, 0.0250; 1/v 0.0166, 0.0334, 0.0433, 0.0503, 0.0546, 0.0585. Intercepts 0.0835 and 0.0833 cm^-1 give f = 12.0 cm and 12.0 cm; mean 12.0 cm; power 8.3 D.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0806",
+      "type": "PRACTICAL",
+      "topic": "Reflection of light at curved surfaces",
+      "stem": "A concave mirror was mounted vertically facing an illuminated cross-wire object. For various object distances u, a screen was adjusted until a sharp image was obtained at a distance v from the mirror. The readings were: u/cm: 14.0, 16.0, 18.0, 20.0, 25.0, 30.0; v/cm: 35.1, 26.6, 22.5, 19.9, 16.7, 15.0.\n(a)(i) Calculate the magnification m = v/u for each pair, to 2 decimal places. [3 marks]\n(ii) A graph of m (vertical axis) against v (horizontal axis) is a straight line through (15.0 cm, 0.50) and (35.0 cm, 2.50). Calculate the slope. [3 marks]\n(iii) Given that m = v/f - 1, determine the focal length f of the mirror from the slope. [3 marks]\n(iv) Calculate the intercept on the m axis and comment on its value. [3 marks]\n(v) State two precautions taken in the experiment. [2 marks]\n(b)(i) Define the radius of curvature of a concave mirror and state its relation to f. [2 marks]\n(ii) An object 2.0 cm tall is placed 6.0 cm from this mirror. Using your value of f, calculate the image distance and image height, and state the nature of the image. [6 marks]\n(iii) Give one use of a concave mirror. [3 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) m: 2.51, 1.66, 1.25, 0.99, 0.67, 0.50 (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (2.50 - 0.50)/(35.0 - 15.0)\n2 marks: = 0.1000 cm^-1\n1 mark: (a)(iii) slope = 1/f\n2 marks: f = 1/0.1000 = 10.0 cm (accept 9.5 to 10.5 cm)\n2 marks: (a)(iv) intercept = 0.50 - 0.1000 x 15.0 = -1.00\n1 mark: Close to -1, as predicted by m = v/f - 1\n2 marks: (a)(v) Any two: object, mirror and screen centres in line; sharp image located by moving screen to and fro; distances measured from the pole of the mirror; darkened room; avoid parallax in reading the rule (1 mark each)\n1 mark: (b)(i) The radius of the sphere of which the mirror is a part (distance from pole to centre of curvature)\n1 mark: r = 2f\n2 marks: (b)(ii) 1/v = 1/f - 1/u = 1/10.0 - 1/6.0, v = -15.0 cm\n2 marks: m = |v|/u = 2.50; image height = 5.0 cm\n2 marks: Image is virtual, upright and magnified (behind the mirror)\n3 marks: (b)(iii) Any one with explanation: shaving/make-up mirror (magnified upright image when close); reflector in torch/headlamp (lamp at focus gives parallel beam); dentist's mirror; solar concentrator (1 mark for use, 2 marks for explanation)",
+      "explanation": "m values 2.51, 1.66, 1.25, 0.99, 0.67, 0.50; slope 0.1000 cm^-1 = 1/f so f = 10.0 cm; intercept -1.00 (about -1). At u = 6.0 cm, v = -15.0 cm (virtual), image 5.0 cm tall.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0807",
+      "type": "PRACTICAL",
+      "topic": "Resistivity and conductivity",
+      "stem": "In an experiment to determine the resistivity of the material of a wire of diameter 0.40 mm, a length l of the wire was connected in series with an accumulator, an ammeter, a key and a rheostat, and a voltmeter was connected across the length l. For each length, the current I and potential difference V were recorded: l/cm: 20.0, 40.0, 60.0, 80.0, 100.0; V/V: 1.05, 1.81, 2.37, 2.79, 3.16; I/A: 0.60, 0.52, 0.45, 0.40, 0.36.\n(a)(i) Calculate the resistance R = V/I for each length, to 2 decimal places. [3 marks]\n(ii) A graph of R (vertical axis) against l (horizontal axis) is a straight line through (20.0 cm, 1.74 ohms) and (100.0 cm, 8.76 ohms). Calculate the slope in ohm m^-1. [3 marks]\n(iii) Calculate the cross-sectional area of the wire (pi = 3.142). [2 marks]\n(iv) Determine the resistivity of the material of the wire. [3 marks]\n(v) Why was the key opened between readings? [2 marks]\n(vi) State one other precaution. [1 mark]\n(b)(i) Define resistivity and state its S.I. unit. [2 marks]\n(ii) State two factors other than length on which the resistance of a wire depends. [2 marks]\n(iii) A 2.0 m length of this wire is connected across a 3.0 V cell of negligible internal resistance. Using your slope, calculate the current and the power dissipated. [5 marks]\n(iv) Why is nichrome used in heating elements? [2 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) R: 1.75, 3.48, 5.27, 6.97, 8.78 ohms (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (8.76 - 1.74)/(100.0 - 20.0) = 0.0877 ohm cm^-1\n2 marks: = 8.77 ohm m^-1\n1 mark: (a)(iii) A = pi d^2/4 = 3.142 x (0.40 x 10^-3)^2/4\n1 mark: = 1.257 x 10^-7 m^2\n1 mark: (a)(iv) rho = slope x A (since R = rho l/A)\n2 marks: = 8.77 x 1.257 x 10^-7 = 1.10 x 10^-6 ohm m\n2 marks: (a)(v) To prevent the wire heating up, since a rise in temperature changes its resistance (and to save the accumulator)\n1 mark: (a)(vi) Any one: clean wire contacts/tight connections; avoid parallax in reading meters; diameter measured at several points with a micrometer screw gauge\n1 mark: (b)(i) Resistivity is the resistance of a conductor of unit length and unit cross-sectional area (rho = RA/l)\n1 mark: Unit: ohm metre\n2 marks: (b)(ii) Cross-sectional area (thickness); nature of material; temperature (any two, 1 mark each)\n2 marks: (b)(iii) R = 8.77 x 2.0 = 17.55 ohms\n1 mark: I = 3.0/17.55 = 0.17 A\n2 marks: P = V I = 3.0 x 0.17 = 0.51 W\n2 marks: (b)(iv) It has a high resistivity and a high melting point, and does not oxidise readily when red hot",
+      "explanation": "R values 1.75, 3.48, 5.27, 6.97, 8.78 ohms; slope 8.77 ohm m^-1; A = 1.257 x 10^-7 m^2; resistivity = 1.10 x 10^-6 ohm m (nichrome-like). 2.0 m of wire on 3.0 V draws 0.17 A, dissipating 0.51 W.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0808",
+      "type": "PRACTICAL",
+      "topic": "Measurement of electric current, p.d., resistance, e.m.f. and internal resistance of a cell",
+      "stem": "A dry cell was connected in series with an ammeter, a key and a rheostat, and a high-resistance voltmeter was connected across the terminals of the cell. The rheostat was adjusted to give different currents I and the terminal potential difference V was recorded each time: I/A: 0.20, 0.30, 0.40, 0.50, 0.60, 0.70; V/V: 1.40, 1.32, 1.25, 1.17, 1.10, 1.02.\n(a)(i) Calculate the external resistance R = V/I for each reading, to 2 decimal places. [3 marks]\n(ii) A graph of V (vertical axis) against I (horizontal axis) gives a straight line through (0.20 A, 1.399 V) and (0.70 A, 1.021 V). Calculate its slope. [3 marks]\n(iii) Using V = E - Ir, determine the internal resistance r of the cell. [2 marks]\n(iv) Determine the e.m.f. E of the cell from the intercept on the V axis. [3 marks]\n(v) State two precautions taken in this experiment. [2 marks]\n(b)(i) Distinguish between the e.m.f. of a cell and its terminal potential difference. [2 marks]\n(ii) Using your values of E and r, calculate the current when the cell is short-circuited. [2 marks]\n(iii) Using your values of E and r, calculate the power delivered to an external resistor of 2.0 ohms. [4 marks]\n(iv) State two ways of reducing the internal resistance of a battery. [2 marks]\n(v) Why should a dry cell not be short-circuited? [2 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) R: 7.00, 4.40, 3.12, 2.34, 1.83, 1.46 ohms (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (1.021 - 1.399)/(0.70 - 0.20)\n2 marks: = -0.756 V A^-1 (ohms)\n2 marks: (a)(iii) r = -slope = 0.76 ohm (accept 0.70 to 0.85 ohm)\n1 mark: (a)(iv) At I = 0, V = E\n2 marks: E = 1.399 + 0.756 x 0.20 = 1.55 V (accept 1.50 to 1.60 V)\n2 marks: (a)(v) Any two: key opened between readings to avoid running down the cell; tight, clean connections; meters read at eye level avoiding parallax; pointer adjusted to zero before use (1 mark each)\n2 marks: (b)(i) The e.m.f. is the p.d. across the terminals when no current is drawn (open circuit); terminal p.d. is the p.d. when the cell delivers current and is less than the e.m.f. by Ir\n1 mark: (b)(ii) I = E/r\n1 mark: = 1.55/0.76 = 2.1 A\n2 marks: (b)(iii) I = E/(R + r) = 1.55/(2.0 + 0.76) = 0.562 A\n2 marks: P = I^2 R = 0.562^2 x 2.0 = 0.63 W\n2 marks: (b)(iv) Connect cells in parallel; use plates of larger area / plates closer together; keep electrolyte at proper concentration (any two)\n2 marks: (b)(v) A very large current flows, the cell overheats and is quickly exhausted/damaged",
+      "explanation": "R values 7.00, 4.40, 3.12, 2.34, 1.83, 1.46 ohms. Slope -0.756 ohm gives r = 0.76 ohm; intercept E = 1.55 V. Short-circuit current 2.1 A; power in 2.0 ohm = 0.63 W.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0809",
+      "type": "PRACTICAL",
+      "topic": "Measurement of heat energy",
+      "stem": "A lagged copper calorimeter of negligible heat capacity contains 0.40 kg of a liquid (kerosene). An immersion heater, through which a steady current of 3.0 A flows from a 12.0 V supply, is placed in the liquid. The liquid is stirred and its temperature theta recorded every minute: t/s: 0, 60, 120, 180, 240, 300; theta/degrees C: 27.0, 29.6, 32.1, 34.7, 37.2, 39.9.\n(a)(i) Calculate the rise in temperature (theta - 27.0) for each reading. [3 marks]\n(ii) A graph of theta (vertical axis) against t (horizontal axis) gives a straight line through (0 s, 27.0 degrees C) and (300 s, 39.8 degrees C). Calculate its slope. [3 marks]\n(iii) Calculate the power of the heater. [2 marks]\n(iv) Assuming no heat loss, determine the specific heat capacity of the liquid. [4 marks]\n(v) Why was the liquid stirred continuously? [1 mark]\n(vi) State two precautions to reduce heat losses. [2 marks]\n(b)(i) Define specific heat capacity. [2 marks]\n(ii) State one reason why the value obtained would be higher than the true value. [2 marks]\n(iii) The same heater is placed in 0.40 kg of water (c = 4200 J kg^-1 K^-1) at 27.0 degrees C. Calculate the time it would take to raise the temperature of the water to 39.8 degrees C. [4 marks]\n(iv) Explain why water is used as a coolant in car radiators. [2 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) Rise: 0.0, 2.6, 5.1, 7.7, 10.2, 12.9 degrees C (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (39.8 - 27.0)/(300 - 0)\n2 marks: = 0.0427 K s^-1\n1 mark: (a)(iii) P = IV = 3.0 x 12.0\n1 mark: = 36 W\n2 marks: (a)(iv) Power = m c (rate of rise): 36 = 0.40 x c x slope\n2 marks: c = 36/(0.40 x 0.0427) = 2109 J kg^-1 K^-1 (accept 2000 to 2200)\n1 mark: (a)(v) To distribute heat evenly so that the thermometer reads the uniform temperature of the liquid\n2 marks: (a)(vi) Any two: lagging the calorimeter; using a lid; polishing the outside of the calorimeter; keeping the temperature rise small/starting below room temperature (1 mark each)\n2 marks: (b)(i) The quantity of heat required to raise the temperature of unit mass (1 kg) of a substance by 1 K\n2 marks: (b)(ii) Some heat is lost to the surroundings (and calorimeter), so more energy appears to be needed per kelvin than is really absorbed by the liquid\n2 marks: (b)(iii) Q = mc Delta theta = 0.40 x 4200 x 12.8 = 21 504 J\n2 marks: t = Q/P = 21 504/36 = 597 s\n2 marks: (b)(iv) Water has a high specific heat capacity, so it absorbs much heat from the engine with only a small rise in temperature",
+      "explanation": "Slope 0.0427 K s^-1; heater power 36 W; c = 36/(0.40 x slope) = 2109 J kg^-1 K^-1, typical of kerosene. Water needs 21 504 J, taking 597 s.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0810",
+      "type": "PRACTICAL",
+      "topic": "Vibration of air in pipes: open and closed pipes",
+      "stem": "A long glass tube, open at both ends, is clamped vertically with its lower end in a tall jar of water. A sounding tuning fork of frequency f is held over the top of the tube and the tube is raised gradually until the first loud resonance is heard. The length l of the air column above the water is then measured. The readings for six tuning forks were: f/Hz: 256, 288, 320, 384, 426, 512; l/cm: 32.1, 28.2, 25.4, 20.9, 18.9, 15.4.\n(a)(i) Calculate 1/f for each fork, to 5 decimal places. [3 marks]\n(ii) A graph of l (vertical axis) against 1/f (horizontal axis) is a straight line through (0.00200 s, 15.8 cm) and (0.00390 s, 31.9 cm). Calculate its slope in m s^-1. [3 marks]\n(iii) Given that l = v/(4f) - c, where c is the end correction, determine the speed of sound v. [3 marks]\n(iv) Determine the end correction c from the intercept. [3 marks]\n(v) State two precautions taken in this experiment. [2 marks]\n(b)(i) Explain why a loud sound is heard at resonance. [2 marks]\n(ii) Calculate the length of air column at which the second resonance would be heard with the 512 Hz fork, using your values of v and c. [3 marks]\n(iii) State two factors that affect the speed of sound in air. [2 marks]\n(iv) Distinguish between a stationary wave and a progressive wave. [4 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) 1/f: 0.00391, 0.00347, 0.00313, 0.00260, 0.00235, 0.00195 s (deduct 1 mark for each wrong value)\n1 mark: (a)(ii) slope = (31.9 - 15.8)/(0.00390 - 0.00200) = 8474 cm s^-1\n2 marks: = 84.7 m s^-1\n1 mark: (a)(iii) slope = v/4\n2 marks: v = 4 x 84.7 = 339 m s^-1 (accept 335 to 350)\n1 mark: (a)(iv) The intercept on the l axis is -c\n2 marks: intercept = 15.8 - 8474 x 0.00200 = -1.15 cm, so c = 1.15 cm\n2 marks: (a)(v) Any two: fork struck on a rubber pad, not a hard surface; fork held horizontally just above the tube without touching it; tube raised slowly and loudest point located by moving up and down; meniscus read at eye level; avoided parallax (1 mark each)\n2 marks: (b)(i) The natural frequency of the air column equals the frequency of the fork, so the air column vibrates with maximum amplitude (stationary wave formed)\n1 mark: (b)(ii) l2 + c = 3v/(4f)\n2 marks: l2 = 3 x 339/(4 x 512) - 0.0115 = 0.485 m\n2 marks: (b)(iii) Any two: temperature; humidity; wind (pressure has no effect at constant temperature) (1 mark each)\n2 marks: (b)(iv) A progressive wave transfers energy from the source and all particles have the same amplitude\n2 marks: A stationary wave does not transfer energy; it has nodes and antinodes with amplitude varying from zero to maximum",
+      "explanation": "1/f values 0.00391, 0.00347, 0.00313, 0.00260, 0.00235, 0.00195 s; slope 84.7 m s^-1 = v/4, v = 339 m s^-1; end correction 1.15 cm. Second resonance with 512 Hz at 0.485 m.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-phy-0811",
+      "type": "PRACTICAL",
+      "topic": "Law of flotation",
+      "stem": "A flat-bottomed test tube containing some sand was floated upright in water (density 1.00 g cm^-3) in a measuring cylinder. Lead shots of total mass m were added in turn and the depth h of the bottom of the tube below the water surface was measured each time: m/g: 5.0, 10.0, 15.0, 20.0, 25.0, 30.0; h/cm: 7.0, 8.6, 10.4, 12.0, 13.6, 15.3.\n(a)(i) A graph of h (vertical axis) against m (horizontal axis) is a straight line through (5.0 g, 7.00 cm) and (30.0 g, 15.30 cm). Calculate its slope. [3 marks]\n(ii) Calculate the intercept on the h axis. [2 marks]\n(iii) Using the law of flotation, show that h = m/(A rho) + M/(A rho), where A is the cross-sectional area of the tube, rho the density of water and M the mass of the tube and sand. [3 marks]\n(iv) Use your slope to determine A. [2 marks]\n(v) Use the intercept to determine M. [3 marks]\n(vi) Why was sand put in the tube? [1 mark]\n(vii) State two precautions taken. [2 marks]\n(b)(i) State the law of flotation. [2 marks]\n(ii) With 20.0 g of shots, the tube was transferred to brine and floated with 10.6 cm immersed. Using your values of A and M, calculate the density of the brine. [4 marks]\n(iii) Name an instrument that uses this principle and state one use. [3 marks]",
+      "marks": 25,
+      "markingGuide": "1 mark: (a)(i) slope = (15.30 - 7.00)/(30.0 - 5.0)\n2 marks: = 0.332 cm g^-1\n2 marks: (a)(ii) intercept = 7.00 - 0.332 x 5.0 = 5.34 cm\n1 mark: (a)(iii) Floating: weight of tube + sand + shots = weight of water displaced\n1 mark: (M + m) g = A h rho g\n1 mark: h = m/(A rho) + M/(A rho)\n2 marks: (a)(iv) slope = 1/(A rho); A = 1/(0.332 x 1.00) = 3.01 cm^2\n1 mark: (a)(v) intercept = M/(A rho)\n2 marks: M = 5.34 x 3.01 x 1.00 = 16.1 g\n1 mark: (a)(vi) To lower the centre of gravity so the tube floats upright (stable)\n2 marks: (a)(vii) Any two: tube floated freely without touching the sides; depth read at eye level/bottom of meniscus; shots added gently; tube dried before reading (1 mark each)\n2 marks: (b)(i) A floating body displaces its own weight of the fluid in which it floats\n2 marks: (b)(ii) Total mass = 16.1 + 20.0 = 36.1 g = A h rho_b\n2 marks: rho_b = 36.1/(3.01 x 10.6) = 1.13 g cm^-3\n1 mark: (b)(iii) Hydrometer\n2 marks: Used to measure the relative density of liquids, e.g. testing the acid in a car battery, or milk and palm wine for dilution",
+      "explanation": "Slope 0.332 cm g^-1 = 1/(A rho), so A = 3.01 cm^2; intercept 5.34 cm gives M = 16.1 g. In brine: rho = 36.1/(3.01 x 10.6) = 1.13 g cm^-3.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-phy-0812",
+      "type": "PRACTICAL",
+      "topic": "The gas laws",
+      "stem": "In an experiment to verify Boyle's law, air was trapped in a glass tube by a column of oil connected to a pressure gauge and a pump. The temperature was kept constant. For different pressures p, the volume V of the trapped air was recorded: p/kPa: 100, 120, 140, 160, 180, 200; V/cm^3: 30.1, 25.0, 21.4, 18.7, 16.7, 15.0.\n(a)(i) Calculate 1/p (in kPa^-1) for each reading, to 5 decimal places. [3 marks]\n(ii) Calculate the product pV for each reading. [3 marks]\n(iii) A graph of V (vertical axis) against 1/p (horizontal axis) is a straight line through (0.00500 kPa^-1, 15.0 cm^3) and (0.01000 kPa^-1, 30.1 cm^3). Calculate its slope. [3 marks]\n(iv) What do the results of (ii) and (iii) show? [2 marks]\n(v) Why was a short time allowed after each change of pressure before reading the volume? [2 marks]\n(vi) State one other precaution. [1 mark]\n(b)(i) State Boyle's law. [2 marks]\n(ii) Use your slope to find the volume of the air at a pressure of 250 kPa. [2 marks]\n(iii) Explain Boyle's law using the kinetic theory of gases. [3 marks]\n(iv) A bubble of gas of volume 2.0 cm^3 is released at the bottom of a lake where the total pressure is 300 kPa. Calculate its volume just below the surface where the pressure is 100 kPa, assuming constant temperature. [4 marks]",
+      "marks": 25,
+      "markingGuide": "3 marks: (a)(i) 1/p: 0.01000, 0.00833, 0.00714, 0.00625, 0.00556, 0.00500 kPa^-1 (deduct 1 mark for each wrong value)\n3 marks: (a)(ii) pV: 3010, 3000, 2996, 2992, 3006, 3000 kPa cm^3 (deduct 1 mark for each wrong value)\n1 mark: (a)(iii) slope = (30.1 - 15.0)/(0.01000 - 0.00500)\n2 marks: = 3020 kPa cm^3\n2 marks: (a)(iv) pV is constant (about 3000 kPa cm^3) and V is proportional to 1/p: the gas obeys Boyle's law\n2 marks: (a)(v) Compressing the gas warms it slightly; waiting allows it to return to room temperature so that temperature stays constant\n1 mark: (a)(vi) Any one: read the oil meniscus at eye level; change pressure slowly; ensure no leaks in the apparatus\n2 marks: (b)(i) The volume of a fixed mass of gas is inversely proportional to its pressure, provided the temperature remains constant\n2 marks: (b)(ii) V = slope/p = 3020/250 = 12.1 cm^3\n3 marks: (b)(iii) At constant temperature the mean speed of the molecules is constant (1); reducing the volume makes molecules hit the walls more often per unit area (1); so the pressure increases as volume decreases (1)\n2 marks: (b)(iv) p1V1 = p2V2: 300 x 2.0 = 100 x V2\n2 marks: V2 = 6.0 cm^3",
+      "explanation": "1/p 0.01000, 0.00833, 0.00714, 0.00625, 0.00556, 0.00500 kPa^-1; pV 3010, 3000, 2996, 2992, 3006, 3000 kPa cm^3 (constant); slope 3020 kPa cm^3. At 250 kPa, V = 12.1 cm^3. The bubble expands to 6.0 cm^3.",
+      "difficulty": "MEDIUM"
+    }
+  ]
+}

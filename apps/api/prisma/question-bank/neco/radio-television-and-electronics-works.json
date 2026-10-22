@@ -1,0 +1,707 @@
+{
+  "exam": "NECO",
+  "subject": "Radio, Television and Electronics Works",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-rtv-0001",
+      "type": "OBJECTIVE",
+      "topic": "Sources and Prevention of Hazards",
+      "stem": "Which of the following is a HUMAN cause of accidents in an electronics workshop?",
+      "options": [
+        "A worn mains cable with exposed copper strands",
+        "A wet floor near the sink",
+        "A faulty earth connection",
+        "Horse play near benches",
+        "Poor lighting at the bench"
+      ],
+      "answer": 3,
+      "explanation": "Horse play is a human factor; the others are faulty equipment or workshop conditions.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0002",
+      "type": "OBJECTIVE",
+      "topic": "Safety Checks in Servicing Radio Receiver",
+      "stem": "When working on a live mains radio chassis for fault-finding, the technician should preferably power it through",
+      "options": [
+        "an isolating transformer",
+        "a longer extension cable",
+        "a dimmer switch",
+        "a bigger fuse",
+        "a car battery charger"
+      ],
+      "answer": 0,
+      "explanation": "An isolating transformer separates the chassis from the mains earth reference, reducing shock risk.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0003",
+      "type": "OBJECTIVE",
+      "topic": "Safety Precautions in Television Workshop",
+      "stem": "Before replacing a component in the line output stage of a CRT television, the technician should",
+      "options": [
+        "touch the anode cap with a finger to test it for charge",
+        "leave the set running to keep it warm",
+        "remove the picture tube by the neck",
+        "increase the brightness to maximum",
+        "unplug it and discharge the EHT"
+      ],
+      "answer": 4,
+      "explanation": "The EHT and large capacitors hold dangerous charges; discharge to chassis with an insulated lead after unplugging.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0004",
+      "type": "OBJECTIVE",
+      "topic": "Conductors, Insulators and Semiconductors",
+      "stem": "At room temperature, the resistivity of a pure semiconductor such as silicon is",
+      "options": [
+        "lower than that of copper at the same temperature",
+        "higher than that of glass",
+        "between conductor and insulator values",
+        "exactly zero",
+        "the same as that of air"
+      ],
+      "answer": 2,
+      "explanation": "Semiconductors lie between conductors and insulators in conductivity.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0005",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Components",
+      "stem": "The graphical symbol consisting of a triangle pointing to a short bar represents a",
+      "options": [
+        "resistor",
+        "diode",
+        "capacitor",
+        "fuse",
+        "transformer"
+      ],
+      "answer": 1,
+      "explanation": "The diode symbol is an arrow-head (triangle) against a bar marking the cathode.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0006",
+      "type": "OBJECTIVE",
+      "topic": "Resistors and Capacitors",
+      "stem": "A resistor has bands green, blue, red and silver. Its value is",
+      "options": [
+        "56 Ω ± 10%",
+        "5.6 kΩ ± 10%",
+        "560 Ω ± 5%",
+        "56 kΩ ± 5%",
+        "6.5 kΩ ± 10%"
+      ],
+      "answer": 1,
+      "explanation": "Green 5, blue 6, red x100: 5600 Ω = 5.6 kΩ; silver ±10%.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0007",
+      "type": "OBJECTIVE",
+      "topic": "Resistors and Capacitors",
+      "stem": "A small ceramic capacitor is marked 223. Its capacitance is",
+      "options": [
+        "223 pF",
+        "22 µF",
+        "2.2 nF",
+        "220 nF",
+        "22 nF"
+      ],
+      "answer": 4,
+      "explanation": "22 x 10^3 pF = 22 000 pF = 22 nF.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0008",
+      "type": "OBJECTIVE",
+      "topic": "Kirchhoff's Current and Voltage Laws",
+      "stem": "Three resistors in series are fed from 12 V. The p.d.s across two of them are 4.5 V and 3.2 V. The p.d. across the third is",
+      "options": [
+        "4.3 V",
+        "7.7 V",
+        "19.7 V",
+        "1.3 V",
+        "3.85 V"
+      ],
+      "answer": 0,
+      "explanation": "By Kirchhoff's voltage law the drops sum to the supply: 12 - 4.5 - 3.2 = 4.3 V.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0009",
+      "type": "OBJECTIVE",
+      "topic": "Diodes and Transistors",
+      "stem": "A transistor has a current gain β of 100. If its base current is 40 µA, the collector current is",
+      "options": [
+        "0.4 mA",
+        "40 mA",
+        "4 mA",
+        "2.5 mA",
+        "140 µA"
+      ],
+      "answer": 2,
+      "explanation": "IC = β x IB = 100 x 40 µA = 4 mA.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0010",
+      "type": "OBJECTIVE",
+      "topic": "Battery",
+      "stem": "A lead-acid accumulator is an example of a",
+      "options": [
+        "primary dry cell",
+        "solar cell",
+        "photo cell",
+        "secondary (rechargeable) cell",
+        "thermocouple"
+      ],
+      "answer": 3,
+      "explanation": "Accumulators can be recharged; primary cells cannot.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0011",
+      "type": "OBJECTIVE",
+      "topic": "Ohm's Law",
+      "stem": "Resistors of 220 Ω and 330 Ω are in series across 11 V. The current is",
+      "options": [
+        "50 mA",
+        "33 mA",
+        "2 mA",
+        "20 mA",
+        "0.2 mA"
+      ],
+      "answer": 3,
+      "explanation": "I = 11/550 = 0.02 A = 20 mA.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0012",
+      "type": "OBJECTIVE",
+      "topic": "Electric Power",
+      "stem": "A 48 Ω resistor is connected across a 12 V supply. The power it dissipates is",
+      "options": [
+        "0.25 W",
+        "4 W",
+        "3 W",
+        "576 W",
+        "12 W"
+      ],
+      "answer": 2,
+      "explanation": "P = V²/R = 144/48 = 3 W.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0013",
+      "type": "OBJECTIVE",
+      "topic": "Alternating Waveform",
+      "stem": "On an oscilloscope a sine wave is 34 V peak-to-peak with a period of 2.5 ms. Its r.m.s. value and frequency are about",
+      "options": [
+        "24 V and 400 Hz",
+        "12 V and 400 Hz",
+        "17 V and 250 Hz",
+        "12 V and 40 Hz",
+        "34 V and 2.5 kHz"
+      ],
+      "answer": 1,
+      "explanation": "Peak = 17 V, rms = 17 x 0.707 = 12.0 V; f = 1/0.0025 = 400 Hz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0014",
+      "type": "OBJECTIVE",
+      "topic": "Direct and Alternating Current",
+      "stem": "Which of these supplies DIRECT current?",
+      "options": [
+        "The NEPA/DisCo wall socket",
+        "A generator's 230 V output socket",
+        "The secondary of a mains transformer",
+        "An alternator before rectification",
+        "A torch battery"
+      ],
+      "answer": 4,
+      "explanation": "Batteries give d.c.; mains and transformer outputs are a.c.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0015",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Hand Tools",
+      "stem": "The tool used to remove the plastic insulation from the end of a wire without cutting the conductor is the",
+      "options": [
+        "wire stripper",
+        "diagonal cutter",
+        "soldering gun",
+        "lead sucker",
+        "screwdriver"
+      ],
+      "answer": 0,
+      "explanation": "Wire strippers remove insulation cleanly.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0016",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Measuring Instruments",
+      "stem": "To measure the current in a resistor, an ammeter must be connected",
+      "options": [
+        "in parallel with the resistor, across its two leads",
+        "across the supply terminals only",
+        "in series with the resistor",
+        "with the circuit switched off",
+        "between the resistor and earth with no circuit"
+      ],
+      "answer": 2,
+      "explanation": "Current is measured with the meter in series, so all the current passes through it.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0017",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding Equipment",
+      "stem": "A digital frequency counter is used in radio servicing to",
+      "options": [
+        "measure the resistance of the loudspeaker voice coil",
+        "test a fuse",
+        "clean the tuning capacitor",
+        "show logic levels",
+        "read the local oscillator frequency"
+      ],
+      "answer": 4,
+      "explanation": "It counts cycles per second and displays the frequency directly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0018",
+      "type": "OBJECTIVE",
+      "topic": "Meaning of Electronics and Electronic Circuit",
+      "stem": "Electronics is the branch of technology dealing with",
+      "options": [
+        "mechanical gears and pulleys in machines",
+        "controlling electron flow in devices",
+        "the study of rocks",
+        "building houses",
+        "farming"
+      ],
+      "answer": 1,
+      "explanation": "Electronics deals with circuits using active devices to control electrons.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0019",
+      "type": "OBJECTIVE",
+      "topic": "Concept of Emission and Photoelectric Devices",
+      "stem": "The emission of electrons from a metal surface when light falls on it is",
+      "options": [
+        "thermionic emission",
+        "secondary emission",
+        "field emission",
+        "photoelectric emission",
+        "radioactive decay"
+      ],
+      "answer": 3,
+      "explanation": "Photoelectric emission is used in photocells.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0020",
+      "type": "OBJECTIVE",
+      "topic": "Semiconductor Devices",
+      "stem": "A Zener diode is mainly used in power supplies as a",
+      "options": [
+        "voltage regulator",
+        "rectifier of high current",
+        "light source",
+        "amplifier",
+        "oscillator"
+      ],
+      "answer": 0,
+      "explanation": "Operated in reverse breakdown, a Zener holds a steady voltage.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0021",
+      "type": "OBJECTIVE",
+      "topic": "Power Supply Unit",
+      "stem": "A transformer secondary gives 12 V r.m.s. to a bridge rectifier with a reservoir capacitor. Ignoring diode drops, the d.c. output on no load is about",
+      "options": [
+        "12 V",
+        "24 V",
+        "8.5 V",
+        "6 V",
+        "17 V"
+      ],
+      "answer": 4,
+      "explanation": "The capacitor charges to the peak: 12 x 1.414 = 17 V.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0022",
+      "type": "OBJECTIVE",
+      "topic": "Amplifiers",
+      "stem": "A Class C amplifier is used mainly in",
+      "options": [
+        "hi-fi audio output stages",
+        "RF transmitter output stages",
+        "microphone pre-amplifiers",
+        "power supplies",
+        "battery chargers"
+      ],
+      "answer": 1,
+      "explanation": "Class C is very efficient but highly distorted, so it is used with tuned RF loads.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0023",
+      "type": "OBJECTIVE",
+      "topic": "Resistive, Inductive, Capacitive (RLC) Circuits",
+      "stem": "A coil of 200 µH and a capacitor of 500 pF form a tuned circuit. Its resonant frequency is about",
+      "options": [
+        "50 kHz",
+        "5.03 MHz",
+        "1.59 MHz",
+        "503 kHz",
+        "159 kHz"
+      ],
+      "answer": 3,
+      "explanation": "f = 1/(2π√LC) = 1/(2π√(1 x 10^-13)) ≈ 503 kHz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0024",
+      "type": "OBJECTIVE",
+      "topic": "Feedback",
+      "stem": "Positive feedback in an amplifier",
+      "options": [
+        "reduces gain and distortion together",
+        "always widens bandwidth",
+        "raises gain, may cause oscillation",
+        "removes all noise",
+        "stabilises the gain"
+      ],
+      "answer": 2,
+      "explanation": "In-phase feedback raises gain; enough of it makes the circuit oscillate.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0025",
+      "type": "OBJECTIVE",
+      "topic": "Oscillators and Multivibrators",
+      "stem": "A multivibrator that changes state once when triggered and then returns to its stable state after a set time is",
+      "options": [
+        "monostable",
+        "astable",
+        "bistable",
+        "Colpitts",
+        "crystal"
+      ],
+      "answer": 0,
+      "explanation": "The monostable (one-shot) has one stable state.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0026",
+      "type": "OBJECTIVE",
+      "topic": "Electronic Communication Systems (Block Diagram and Noise)",
+      "stem": "In a communication system, the part that carries the signal from transmitter to receiver, such as air or a cable, is the",
+      "options": [
+        "input transducer",
+        "channel",
+        "modulator",
+        "demodulator",
+        "power supply"
+      ],
+      "answer": 1,
+      "explanation": "The channel is the transmission medium.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0027",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic Spectrum",
+      "stem": "The wavelength of a 100 MHz FM signal is",
+      "options": [
+        "3 m",
+        "30 m",
+        "0.3 m",
+        "300 m",
+        "3 km"
+      ],
+      "answer": 0,
+      "explanation": "λ = c/f = 3 x 10^8/1 x 10^8 = 3 m.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0028",
+      "type": "OBJECTIVE",
+      "topic": "Electromagnetic Spectrum",
+      "stem": "Short-wave broadcasting that reaches distant countries by sky-wave reflection uses the",
+      "options": [
+        "VHF band",
+        "UHF band",
+        "HF band (3–30 MHz)",
+        "SHF band",
+        "VLF band"
+      ],
+      "answer": 2,
+      "explanation": "HF signals are reflected by the ionosphere, giving long-distance coverage.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0029",
+      "type": "OBJECTIVE",
+      "topic": "Modulation and Demodulation",
+      "stem": "A modulated carrier is displayed on a CRO. The envelope peaks reach 18 V and the troughs fall to 6 V. The depth of modulation is",
+      "options": [
+        "33%",
+        "67%",
+        "75%",
+        "200%",
+        "50%"
+      ],
+      "answer": 4,
+      "explanation": "m = (18 - 6)/(18 + 6) = 12/24 = 0.5 = 50%.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0030",
+      "type": "OBJECTIVE",
+      "topic": "Radio Transmitter and Receiver",
+      "stem": "An AM superheterodyne receiver with IF 455 kHz is tuned to 900 kHz, with the local oscillator above the signal. The local oscillator frequency is",
+      "options": [
+        "445 kHz",
+        "1810 kHz",
+        "455 kHz",
+        "1355 kHz",
+        "900 kHz"
+      ],
+      "answer": 3,
+      "explanation": "fLO = fs + IF = 900 + 455 = 1355 kHz.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0031",
+      "type": "OBJECTIVE",
+      "topic": "Selectivity and Sensitivity",
+      "stem": "The ability of a radio to receive weak signals from distant stations is its",
+      "options": [
+        "selectivity",
+        "fidelity",
+        "stability",
+        "sensitivity",
+        "bandwidth"
+      ],
+      "answer": 3,
+      "explanation": "Sensitivity is the minimum signal needed for a usable output.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0032",
+      "type": "OBJECTIVE",
+      "topic": "Resonant Circuit",
+      "stem": "A tuned circuit resonates at 455 kHz with a Q of 91. Its bandwidth is",
+      "options": [
+        "91 kHz",
+        "5 kHz",
+        "41.4 kHz",
+        "0.2 kHz",
+        "455 kHz"
+      ],
+      "answer": 1,
+      "explanation": "BW = f0/Q = 455/91 = 5 kHz.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0033",
+      "type": "OBJECTIVE",
+      "topic": "Satellite Communication Systems",
+      "stem": "The dish antenna and LNB at a home receive satellite TV signals on the",
+      "options": [
+        "downlink",
+        "uplink",
+        "telephone line",
+        "medium wave band",
+        "mains supply"
+      ],
+      "answer": 0,
+      "explanation": "The satellite transmits to earth on the downlink; the uplink is from the earth station to the satellite.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0034",
+      "type": "OBJECTIVE",
+      "topic": "Principle of Colour Signal, Transmission and Reception",
+      "stem": "The colour television system used in Nigeria is",
+      "options": [
+        "NTSC",
+        "SECAM",
+        "PAL",
+        "MAC",
+        "HDMI"
+      ],
+      "answer": 2,
+      "explanation": "Nigeria adopted the PAL analogue colour system.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0035",
+      "type": "OBJECTIVE",
+      "topic": "Monochrome Television Receiver",
+      "stem": "In a monochrome TV receiver, the stage that produces the sawtooth current for horizontal scanning is the",
+      "options": [
+        "audio output stage",
+        "tuner",
+        "video detector only",
+        "field sync separator",
+        "line (horizontal) output stage"
+      ],
+      "answer": 4,
+      "explanation": "The line output stage drives the horizontal deflection coils (and generates EHT).",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0036",
+      "type": "OBJECTIVE",
+      "topic": "Soldering and Desoldering in Electronic Circuits",
+      "stem": "Resin-cored solder is preferred for electronics because the flux in it",
+      "options": [
+        "cleans without corroding",
+        "is acidic and etches the copper tracks away",
+        "makes the solder melt at 1000 °C",
+        "insulates the joint",
+        "replaces the need for heat"
+      ],
+      "answer": 0,
+      "explanation": "Rosin flux removes oxide and leaves non-corrosive residue; acid fluxes damage electronic circuits.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0037",
+      "type": "OBJECTIVE",
+      "topic": "Fault Finding and Repairs in Radio Receiver",
+      "stem": "A radio receives stations but the volume is very low and distorted. A signal injected at the AF amplifier input is also weak at the speaker. The fault is in the",
+      "options": [
+        "RF stage",
+        "audio amplifier stage",
+        "mixer",
+        "local oscillator",
+        "IF transformer"
+      ],
+      "answer": 1,
+      "explanation": "If injection at the AF input gives a poor output, the fault lies in the AF (audio) amplifier or speaker.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0038",
+      "type": "OBJECTIVE",
+      "topic": "Diagnosis and Repair of Black and White TV Receiver",
+      "stem": "A monochrome TV has a raster and sound but no picture. The stage MOST likely at fault is the",
+      "options": [
+        "line output stage",
+        "power supply",
+        "vertical output stage",
+        "video amplifier",
+        "EHT tripler"
+      ],
+      "answer": 3,
+      "explanation": "Raster and sound present mean scanning and the sound IF work; the picture signal path (video amp) is suspect.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0039",
+      "type": "OBJECTIVE",
+      "topic": "Business Management and Finance",
+      "stem": "A technician who buys a bulk quantity of parts at a discount from a wholesaler is using",
+      "options": [
+        "cash flow forecasting",
+        "depreciation",
+        "auditing",
+        "insurance",
+        "bulk purchasing"
+      ],
+      "answer": 4,
+      "explanation": "Bulk purchasing lowers unit cost.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0040",
+      "type": "OBJECTIVE",
+      "topic": "Business Opportunities in Radio, TV and Electronics Works",
+      "stem": "Installing dish antennas and decoders for customers is a business opportunity called",
+      "options": [
+        "body painting",
+        "cobbling",
+        "satellite installation",
+        "tailoring",
+        "car washing"
+      ],
+      "answer": 2,
+      "explanation": "Satellite TV installation is a common opportunity for trained technicians.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-rtv-0501",
+      "type": "THEORY",
+      "topic": "Diodes and Transistors",
+      "stem": "(a) Draw, in words, the structure of an NPN transistor and name its terminals. [3 marks]\n(b) Describe how an analogue multimeter on the ohms range can be used to test an NPN transistor. [6 marks]\n(c) Compare the common emitter, common base and common collector configurations in terms of input impedance, output impedance and voltage gain. [6 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) thin P-type base sandwiched between N-type emitter and N-type collector; terminals emitter, base, collector\n2 marks: (b) base-emitter junction: low resistance one way, high reversed (like a diode)\n2 marks: (b) base-collector junction: low resistance one way, high reversed\n2 marks: (b) collector-emitter: high resistance both ways; low in both directions indicates short\n2 marks: (c) CE: medium input impedance, medium-high output, high voltage gain\n2 marks: (c) CB: low input impedance, high output, high voltage gain\n2 marks: (c) CC: high input impedance, low output, voltage gain about 1",
+      "explanation": "NPN: thin P base between N emitter and collector. Test each junction as a diode; C-E should be high both ways. CE gives high gain; CB low input impedance; CC high input, low output, unity gain.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0502",
+      "type": "THEORY",
+      "topic": "Power Supply Unit",
+      "stem": "(a) Name, in order, the blocks of a regulated d.c. power supply. [4 marks]\n(b) A 230 V mains transformer has 1150 primary turns and 60 secondary turns and feeds a bridge rectifier. Calculate (i) the secondary r.m.s. voltage, (ii) the peak voltage, (iii) the ripple frequency on 50 Hz mains. [6 marks]\n(c) Explain how a reservoir capacitor smooths the output. [5 marks]",
+      "marks": 15,
+      "markingGuide": "4 marks: (a) transformer, rectifier, filter (smoothing), regulator (stabiliser) (1 each)\n2 marks: (b)(i) Vs = 230 x 60/1150 = 12 V\n2 marks: (b)(ii) peak = 12 x 1.414 = 17 V\n2 marks: (b)(iii) ripple = 2 x 50 = 100 Hz\n3 marks: (c) capacitor charges to peak when rectifier output rises\n2 marks: (c) discharges slowly into the load between peaks, filling the gaps and reducing ripple",
+      "explanation": "Blocks: transformer, rectifier, filter, regulator. Vs = 12 V, peak 17 V, ripple 100 Hz. Capacitor charges at peaks and supplies the load between them.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0503",
+      "type": "THEORY",
+      "topic": "Modulation and Demodulation",
+      "stem": "(a) Define modulation and state two reasons why it is necessary. [5 marks]\n(b) Distinguish between amplitude modulation and frequency modulation. [4 marks]\n(c) An AM carrier of 20 V amplitude is modulated so that the envelope varies between 30 V and 10 V. Calculate the modulation index. [3 marks]\n(d) State three advantages of FM over AM. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) modulation: varying a property of a high-frequency carrier in step with the information signal\n4 marks: (a) reasons any two: practical antenna size, allows many stations by frequency division, long-distance propagation (2 each)\n2 marks: (b) AM: amplitude of carrier varies, frequency constant\n2 marks: (b) FM: frequency of carrier varies, amplitude constant\n3 marks: (c) m = (30 - 10)/(30 + 10) = 0.5\n3 marks: (d) any three: less noise, better fidelity, constant amplitude so efficient transmitter, capture effect (1 each)",
+      "explanation": "Modulation impresses information on a carrier, enabling small antennas and multiple stations. AM varies amplitude; FM varies frequency. m = 20/40 = 0.5. FM has less noise and better fidelity.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0504",
+      "type": "THEORY",
+      "topic": "Principles of Operation of Colour Television Receiver",
+      "stem": "(a) Name the three primary colours used in colour television. [3 marks]\n(b) Write the luminance equation for the PAL system. [3 marks]\n(c) State the function of each of the following stages of a colour TV receiver: (i) tuner, (ii) video IF amplifier, (iii) chroma decoder. [6 marks]\n(d) Name the three colour television standards. [3 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) red, green, blue\n3 marks: (b) Y = 0.30R + 0.59G + 0.11B\n2 marks: (c)(i) tuner selects the channel and converts it to IF\n2 marks: (c)(ii) video IF amplifies the IF signal and provides selectivity\n2 marks: (c)(iii) chroma decoder recovers colour difference signals from the chrominance signal\n3 marks: (d) PAL, NTSC, SECAM",
+      "explanation": "Primaries R, G, B; Y = 0.30R + 0.59G + 0.11B. Tuner selects channel, IF amplifies, chroma decoder recovers colour difference signals. Standards PAL, NTSC, SECAM.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-rtv-0505",
+      "type": "THEORY",
+      "topic": "Fault Finding and Repairs in Radio Receiver",
+      "stem": "(a) Explain the logical steps of fault-finding in a radio receiver. [6 marks]\n(b) A transistor radio is completely dead. State five checks you would carry out. [5 marks]\n(c) Explain what is meant by alignment of a radio receiver and name two instruments used. [4 marks]",
+      "marks": 15,
+      "markingGuide": "6 marks: (a) gather symptoms from customer; visual inspection; check power supply; signal injection/tracing stage by stage from speaker back to aerial; measure voltages; replace faulty component and test (1 each)\n5 marks: (b) battery/power supply, on/off switch and volume control, fuse/power cable, loudspeaker continuity, supply rail voltages and output transistors (1 each)\n2 marks: (c) alignment: adjusting tuned circuits (IF transformers, oscillator and RF trimmers) for maximum output at correct frequencies\n2 marks: (c) signal generator and output meter/oscilloscope/frequency counter (1 each)",
+      "explanation": "Fault-finding: symptoms, inspection, power checks, signal injection/tracing, voltage measurement, repair and test. Dead set: power, switch, fuse, speaker, rails. Alignment tunes IF/RF/oscillator circuits using a signal generator and output meter.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-rtv-0506",
+      "type": "THEORY",
+      "topic": "Business Management and Finance",
+      "stem": "(a) Name four business records a radio and TV repair shop should keep and state the use of each. [8 marks]\n(b) State three sources of capital for starting the business. [3 marks]\n(c) State four qualities of good customer relations. [4 marks]",
+      "marks": 15,
+      "markingGuide": "8 marks: (a) any four with use: repair order form (records customer item and fault), inventory sheet (tracks stock of parts), ledger (records transactions), cash book (receipts and payments), receipts/invoices (proof of payment) (2 each)\n3 marks: (b) any three: personal savings, bank loan, credit union/cooperative, family and friends, government grants (1 each)\n4 marks: (c) any four: neat appearance, politeness, honesty, keeping promised dates, telephone courtesy, listening to complaints (1 each)",
+      "explanation": "Records: repair order forms, inventory sheets, ledger, cash book, receipts. Capital: savings, banks, cooperatives, family. Good relations: neatness, politeness, honesty, punctuality, courtesy.",
+      "difficulty": "EASY"
+    }
+  ]
+}

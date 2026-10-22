@@ -1,0 +1,707 @@
+{
+  "exam": "NECO",
+  "subject": "Auto Electrical Work",
+  "source": "AUTHORED",
+  "questions": [
+    {
+      "id": "no-aew-0001",
+      "type": "OBJECTIVE",
+      "topic": "Concept of battery",
+      "stem": "A motor vehicle battery differs from a torch battery mainly because the vehicle battery",
+      "options": [
+        "produces alternating current for the starter",
+        "contains no electrolyte at all",
+        "is used only once and then thrown away",
+        "is rechargeable and can deliver a very large current",
+        "gives exactly 1.5 V in every model and size of vehicle"
+      ],
+      "answer": 3,
+      "explanation": "A lead-acid vehicle battery is a secondary cell that is recharged by the alternator and can supply hundreds of amperes for cranking.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0002",
+      "type": "OBJECTIVE",
+      "topic": "Uses of battery",
+      "stem": "Which of the following is NOT a function of the battery in a motor vehicle?",
+      "options": [
+        "Supplying current to the starter motor",
+        "Powering lights when the engine is stopped",
+        "Steadying the voltage of the electrical system",
+        "Supplying the ignition system during starting",
+        "Converting a.c. from the alternator into d.c."
+      ],
+      "answer": 4,
+      "explanation": "Rectification is done by the alternator's diode pack, not by the battery.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0003",
+      "type": "OBJECTIVE",
+      "topic": "Types, constructional details and ratings of battery",
+      "stem": "Each cell of a lead-acid battery has a nominal voltage of about 2 V. The number of cells in a 12 V battery is",
+      "options": [
+        "6",
+        "2",
+        "4",
+        "8",
+        "12"
+      ],
+      "answer": 0,
+      "explanation": "12 V / 2 V per cell = 6 cells connected in series.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0004",
+      "type": "OBJECTIVE",
+      "topic": "Types, constructional details and ratings of battery",
+      "stem": "A technician cuts open a scrap but fully charged lead-acid battery and finds chocolate-brown plates. These plates are the",
+      "options": [
+        "negative plates, made of spongy lead",
+        "separators, made of porous plastic",
+        "positive plates, made of lead dioxide",
+        "negative plates, coated with lead sulphate",
+        "positive plates, made of pure antimony"
+      ],
+      "answer": 2,
+      "explanation": "Charged positive plates are lead dioxide, PbO2, which is chocolate brown; negative plates are grey spongy lead.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0005",
+      "type": "OBJECTIVE",
+      "topic": "Types, constructional details and ratings of battery",
+      "stem": "A battery rated 60 Ah at the 20-hour rate should be able to deliver a steady current of",
+      "options": [
+        "60 A for 20 hours",
+        "3 A for 20 hours",
+        "20 A for 3 hours",
+        "1 A for 20 hours",
+        "6 A for 20 hours"
+      ],
+      "answer": 1,
+      "explanation": "Capacity / time = 60 Ah / 20 h = 3 A.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0006",
+      "type": "OBJECTIVE",
+      "topic": "Charging of battery",
+      "stem": "When preparing battery electrolyte, the correct practice is to",
+      "options": [
+        "pour water quickly into the concentrated acid to save time",
+        "pour the acid slowly into the water while stirring",
+        "mix acid and water in a metal bucket",
+        "heat the water first to speed up mixing",
+        "add salt to the water before the acid"
+      ],
+      "answer": 1,
+      "explanation": "Adding water to concentrated acid can boil and spit acid; acid is always added slowly to water in a glass or plastic vessel.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0007",
+      "type": "OBJECTIVE",
+      "topic": "Charging of battery",
+      "stem": "A discharged 45 Ah battery is put on a constant-current charge of 4.5 A. Allowing 25% extra for charging losses, the charging time needed is about",
+      "options": [
+        "10 hours",
+        "7.5 hours",
+        "12.5 hours",
+        "15 hours",
+        "20 hours"
+      ],
+      "answer": 2,
+      "explanation": "Time = 45/4.5 = 10 h; plus 25% = 12.5 h.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0008",
+      "type": "OBJECTIVE",
+      "topic": "Testing and maintenance of battery",
+      "stem": "The instrument used to measure the specific gravity of battery electrolyte is the",
+      "options": [
+        "hydrometer",
+        "ammeter",
+        "ohmmeter",
+        "stroboscope",
+        "feeler gauge"
+      ],
+      "answer": 0,
+      "explanation": "A hydrometer float shows the relative density of the electrolyte, which indicates state of charge.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0009",
+      "type": "OBJECTIVE",
+      "topic": "Testing and maintenance of battery",
+      "stem": "A car that has stood for three weeks will not crank. Every cell of its battery gives a hydrometer reading of about 1.12 and the readings are within 0.01 of one another. The correct action is to",
+      "options": [
+        "replace the battery at once because one cell is dead",
+        "add concentrated acid to every cell",
+        "pour away the electrolyte and refill with water",
+        "reverse the battery connections",
+        "recharge the battery and retest it"
+      ],
+      "answer": 4,
+      "explanation": "Uniform low readings near 1.12 mean the whole battery is discharged, not that a cell is faulty; it should be recharged and retested.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0010",
+      "type": "OBJECTIVE",
+      "topic": "Testing and maintenance of battery",
+      "stem": "An idle battery that will be stored for some weeks should be",
+      "options": [
+        "left discharged so that it will not overheat",
+        "drained of its electrolyte and stored upside down",
+        "kept on the bare floor in a damp corner of the store",
+        "charged, kept cool and dry, and recharged regularly",
+        "connected to a load to keep it working"
+      ],
+      "answer": 3,
+      "explanation": "A battery left discharged sulphates; it should be stored charged and refreshed regularly.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0011",
+      "type": "OBJECTIVE",
+      "topic": "Purpose and components of starting system",
+      "stem": "A driver turns the key and hears the engine being turned over but it does not fire. Which system has done its job correctly?",
+      "options": [
+        "The charging system",
+        "The lighting system",
+        "The auxiliary system",
+        "The braking system",
+        "The starting system"
+      ],
+      "answer": 4,
+      "explanation": "The starter cranks the engine to the minimum speed at which it can fire and run on its own.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0012",
+      "type": "OBJECTIVE",
+      "topic": "Purpose and components of starting system",
+      "stem": "The solenoid in a starting system",
+      "options": [
+        "lets a small switch current control the heavy starter current",
+        "stores electrical energy for cranking until the key is turned again",
+        "converts a.c. into d.c.",
+        "reduces engine speed during starting",
+        "controls the charging rate of the battery"
+      ],
+      "answer": 0,
+      "explanation": "The solenoid is an electromagnetic switch (and often engages the pinion) so that the ignition switch carries only a small current.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0013",
+      "type": "OBJECTIVE",
+      "topic": "Circuit diagram of starting system",
+      "stem": "On a starting circuit diagram, the thin wire marked \"50\" or \"S\" connects the ignition switch to the",
+      "options": [
+        "battery earth strap",
+        "alternator output terminal",
+        "head lamp relay",
+        "solenoid winding terminal",
+        "distributor cap centre"
+      ],
+      "answer": 3,
+      "explanation": "Terminal 50 (S) feeds the solenoid pull-in and hold-in windings when the key is turned to START; the heavy cable goes to the main terminal.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0014",
+      "type": "OBJECTIVE",
+      "topic": "Types of starter motor",
+      "stem": "Which starter type has a pinion that is thrown out of mesh as soon as the engine fires and spins the ring gear faster than the armature?",
+      "options": [
+        "Pre-engaged type",
+        "Axial (sliding armature) type",
+        "Inertia type",
+        "Permanent-magnet pre-engaged type with reduction gears",
+        "Coaxial pre-engaged type"
+      ],
+      "answer": 2,
+      "explanation": "In the inertia drive the faster ring gear screws the pinion back along its helix and out of mesh.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0015",
+      "type": "OBJECTIVE",
+      "topic": "Types of starter motor",
+      "stem": "Diesel engines are usually fitted with pre-engaged rather than inertia starters because the pre-engaged type",
+      "options": [
+        "draws no current at all from the battery during cranking",
+        "meshes the pinion before full current flows",
+        "has no armature, brushes or commutator to wear out",
+        "disengages itself the moment the starter current begins to flow",
+        "turns the crankshaft directly without needing a ring gear"
+      ],
+      "answer": 1,
+      "explanation": "In the pre-engaged type the solenoid pushes the pinion into mesh first, reducing gear wear and preventing premature ejection on high-compression engines.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0016",
+      "type": "OBJECTIVE",
+      "topic": "Repair of starter motors",
+      "stem": "After a starter commutator has been skimmed, the insulation between the segments is cut slightly below the copper. This operation is called",
+      "options": [
+        "lapping",
+        "tinning",
+        "undercutting",
+        "growling",
+        "reaming"
+      ],
+      "answer": 2,
+      "explanation": "Undercutting keeps the mica/insulation below the copper surface so it does not lift the brushes as the copper wears.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0017",
+      "type": "OBJECTIVE",
+      "topic": "Repair of starter motors",
+      "stem": "A growler is used when repairing starter motors to test the",
+      "options": [
+        "battery for specific gravity of the electrolyte",
+        "pinion for worn or chipped teeth",
+        "bushes for wear and ovality",
+        "solenoid return spring tension",
+        "armature for shorted windings"
+      ],
+      "answer": 4,
+      "explanation": "A shorted armature coil placed on a growler causes a hacksaw blade held over it to vibrate.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0018",
+      "type": "OBJECTIVE",
+      "topic": "Purpose and components of ignition system",
+      "stem": "High-tension current in a contact-breaker system flows: coil tower, HT king lead, ______, plug lead, spark plug. The missing item is the",
+      "options": [
+        "rotor arm and cap",
+        "capacitor",
+        "ignition switch",
+        "ballast resistor",
+        "battery terminal"
+      ],
+      "answer": 0,
+      "explanation": "The rotor arm turns inside the distributor cap and passes HT current to each plug lead in firing order.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0019",
+      "type": "OBJECTIVE",
+      "topic": "Circuit diagram of ignition system",
+      "stem": "In the ignition circuit, the primary winding of the coil is connected between the ignition switch and the",
+      "options": [
+        "spark plugs through the HT lead",
+        "contact breaker points",
+        "rotor arm and cap",
+        "high-tension king lead",
+        "starter motor solenoid"
+      ],
+      "answer": 1,
+      "explanation": "The low-tension primary circuit runs battery – switch – coil primary – contact breaker – earth.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0020",
+      "type": "OBJECTIVE",
+      "topic": "Construction and operation of ignition coil",
+      "stem": "An ignition coil steps 12 V up to high voltage mainly because its secondary winding has",
+      "options": [
+        "fewer turns of thick wire than the primary winding",
+        "the same number of turns as the primary",
+        "no iron core inside it",
+        "far more turns than the primary",
+        "a permanent magnet instead of a core"
+      ],
+      "answer": 3,
+      "explanation": "A high secondary-to-primary turns ratio, together with rapid collapse of the field, induces a very high voltage.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0021",
+      "type": "OBJECTIVE",
+      "topic": "Construction and operation of ignition coil",
+      "stem": "A replacement coil must give 24 kV at the plug when a self-induced e.m.f. of 240 V appears across its 180-turn primary. Ignoring losses, the number of secondary turns needed is",
+      "options": [
+        "1 800",
+        "24 000",
+        "10 000",
+        "43 200",
+        "18 000"
+      ],
+      "answer": 4,
+      "explanation": "Ns = Np x Vs/Vp = 180 x 24 000/240 = 18 000 turns.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0022",
+      "type": "OBJECTIVE",
+      "topic": "Types of ignition system",
+      "stem": "In a breakerless electronic ignition system, the job done by the contact breaker in older cars is performed by a",
+      "options": [
+        "pulse generator (magnetic or Hall-effect sensor) and transistor module",
+        "condenser connected across the coil",
+        "ballast resistor in the feed",
+        "centrifugal advance weights",
+        "vacuum unit on the distributor"
+      ],
+      "answer": 0,
+      "explanation": "A pulse generator signals the electronic module, whose power transistor switches the coil primary current, so there are no points to wear.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0023",
+      "type": "OBJECTIVE",
+      "topic": "Ignition timing",
+      "stem": "If the spark occurs too late in the compression stroke, the engine is said to have",
+      "options": [
+        "over-advanced ignition",
+        "pre-ignition",
+        "detonation",
+        "retarded ignition",
+        "valve float"
+      ],
+      "answer": 3,
+      "explanation": "A late spark is retarded timing, causing loss of power, overheating and high fuel use.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0024",
+      "type": "OBJECTIVE",
+      "topic": "Ignition timing",
+      "stem": "A taxi driver in Enugu complains of a metallic rattle from the engine whenever he climbs a steep hill at full throttle. The timing fault MOST likely responsible is",
+      "options": [
+        "retarded ignition",
+        "a weak battery that cannot hold voltage",
+        "over-advanced ignition",
+        "a faulty fuel gauge sender unit",
+        "a blown headlamp fuse in the fuse box"
+      ],
+      "answer": 2,
+      "explanation": "Too much advance makes peak pressure occur early, causing detonation heard as pinking.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0025",
+      "type": "OBJECTIVE",
+      "topic": "Ignition faults and repairs",
+      "stem": "Which instrument is most suitable for checking whether there is continuity in a high-tension lead?",
+      "options": [
+        "Hydrometer with temperature scale",
+        "Ohmmeter",
+        "Tyre gauge",
+        "Vernier calliper",
+        "Compression gauge"
+      ],
+      "answer": 1,
+      "explanation": "Continuity and resistance are measured with an ohmmeter.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0026",
+      "type": "OBJECTIVE",
+      "topic": "Ignition faults and repairs",
+      "stem": "A loud bang from the exhaust when the ignition is switched off at speed (backfiring) may be caused by",
+      "options": [
+        "too much oil in the sump splashing onto the hot crankshaft",
+        "a fully charged battery",
+        "unburnt mixture igniting in a hot exhaust",
+        "correctly adjusted valve clearance",
+        "a new air filter"
+      ],
+      "answer": 2,
+      "explanation": "Unburnt fuel reaching the hot exhaust ignites there, causing backfire; timing and mixture faults are typical causes.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0027",
+      "type": "OBJECTIVE",
+      "topic": "Purpose and components of charging system",
+      "stem": "If the voltage regulator of a car failed so that full field current flowed all the time, the MOST likely result would be",
+      "options": [
+        "the starter motor refusing to turn the engine",
+        "the engine pinking on hills",
+        "the fuel gauge reading empty all the time",
+        "overcharging and boiling of the battery",
+        "the head lamps going out completely at once"
+      ],
+      "answer": 3,
+      "explanation": "The regulator limits field current; without it the alternator voltage rises too high and overcharges the battery.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0028",
+      "type": "OBJECTIVE",
+      "topic": "Alternator",
+      "stem": "In an alternator, the brushes rub on the slip rings in order to feed current to the",
+      "options": [
+        "stator output windings",
+        "rotor field winding",
+        "battery positive terminal directly",
+        "diode heat sink plates",
+        "cooling fan bearings"
+      ],
+      "answer": 1,
+      "explanation": "Brushes and slip rings carry the small field current into the rotating rotor winding; output comes from the stationary stator.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0029",
+      "type": "OBJECTIVE",
+      "topic": "Alternator",
+      "stem": "The alternator output is converted from a.c. to d.c. by",
+      "options": [
+        "the slip rings and carbon brushes",
+        "the brushes",
+        "the drive belt",
+        "the voltage regulator alone",
+        "a diode rectifier bridge"
+      ],
+      "answer": 4,
+      "explanation": "Silicon diodes in a bridge allow current to flow in one direction only.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0030",
+      "type": "OBJECTIVE",
+      "topic": "Alternator",
+      "stem": "A technician finds that one of the six main rectifier diodes in an alternator has gone open circuit. The MOST likely effect is",
+      "options": [
+        "reduced output with extra ripple",
+        "no effect at all on the output",
+        "the alternator producing pure a.c. at the terminal",
+        "the engine refusing to crank",
+        "the battery discharging through the stator when parked"
+      ],
+      "answer": 0,
+      "explanation": "With one diode open, one half of one phase is lost: output falls and ripple increases. A shorted diode, not an open one, lets the battery discharge.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0031",
+      "type": "OBJECTIVE",
+      "topic": "Circuit diagram of charging system",
+      "stem": "Diagrams are used to represent charging circuits mainly because they",
+      "options": [
+        "make the circuit cheaper to produce",
+        "increase the output of the alternator",
+        "replace the need for test instruments",
+        "show the true size of each part",
+        "show how parts connect so faults are traced"
+      ],
+      "answer": 4,
+      "explanation": "Circuit diagrams show how components are connected so that technicians can follow and test the circuit.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0032",
+      "type": "OBJECTIVE",
+      "topic": "Charging system faults and repairs",
+      "stem": "The ignition (charge) warning light stays on with the engine running fast. The MOST likely fault is",
+      "options": [
+        "a broken alternator drive belt",
+        "a blown brake light bulb",
+        "a faulty fuel gauge sender",
+        "a stuck horn button",
+        "a discharged spare battery"
+      ],
+      "answer": 0,
+      "explanation": "If the alternator is not turning or not charging, the warning lamp stays lit.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0033",
+      "type": "OBJECTIVE",
+      "topic": "Charging system faults and repairs",
+      "stem": "When testing an alternator diode with a multimeter on the diode range, a good diode should show",
+      "options": [
+        "low reading in both directions",
+        "open circuit in both directions",
+        "a reading one way only",
+        "exactly 12 V in both directions",
+        "a reading that keeps rising"
+      ],
+      "answer": 2,
+      "explanation": "A healthy diode conducts in forward bias only; reading both ways means shorted, neither way means open.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0034",
+      "type": "OBJECTIVE",
+      "topic": "Purpose and classification of lighting in a motor vehicle",
+      "stem": "A road safety officer stops a lorry at night. The lorry would be breaking the law if it were driving without its",
+      "options": [
+        "fog lamps",
+        "spot lamp",
+        "cab interior lamp",
+        "rear number plate lamp",
+        "roof marker beacon for display"
+      ],
+      "answer": 3,
+      "explanation": "Lights required by law include head, side, tail, stop, number plate and indicator lights.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0035",
+      "type": "OBJECTIVE",
+      "topic": "Head lamps",
+      "stem": "In a quartz-halogen head lamp bulb, the filament life is extended because",
+      "options": [
+        "the bulb works at a low temperature",
+        "the halogen redeposits tungsten on the filament",
+        "the filament is made of copper",
+        "the glass is painted black inside",
+        "the lamp contains no gas at all"
+      ],
+      "answer": 1,
+      "explanation": "The halogen cycle redeposits tungsten on the filament and keeps the glass clear.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0036",
+      "type": "OBJECTIVE",
+      "topic": "Head lamps",
+      "stem": "Head lamp beam setting should be checked with the vehicle",
+      "options": [
+        "on a slope facing upwards",
+        "loaded with heavy goods on the roof rack and boot",
+        "with the engine removed",
+        "jacked up on one side",
+        "unladen, level and at correct tyre pressures"
+      ],
+      "answer": 4,
+      "explanation": "Correct setting needs the vehicle level, at the right load and tyre pressure, so that beams are aimed accurately.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0037",
+      "type": "OBJECTIVE",
+      "topic": "Circuit diagram of lighting system",
+      "stem": "Two 55 W head lamp bulbs are supplied from a 12 V system. The current through the head lamp fuse is about",
+      "options": [
+        "4.6 A",
+        "6.6 A",
+        "13.2 A",
+        "9.2 A",
+        "110 A"
+      ],
+      "answer": 3,
+      "explanation": "I = P/V = 110/12 = 9.17 A.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0038",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance and repairs of lighting system",
+      "stem": "Both head lamps fail together but the side lights work. The FIRST check should be the",
+      "options": [
+        "starter motor brushes and commutator",
+        "head lamp fuse and relay",
+        "fuel gauge",
+        "battery electrolyte",
+        "wiper motor"
+      ],
+      "answer": 1,
+      "explanation": "A common fault affecting both lamps is in the shared supply: fuse, relay or switch.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0039",
+      "type": "OBJECTIVE",
+      "topic": "Constructional details and operation of auxiliary system components",
+      "stem": "In a windscreen wiper motor, the \"park\" switch ensures that the blades",
+      "options": [
+        "stop at the bottom of the screen",
+        "sweep faster when it rains heavily",
+        "move only when the engine is running",
+        "spray water before each wipe",
+        "stop in whatever position the switch is turned off"
+      ],
+      "answer": 0,
+      "explanation": "The park (limit) switch keeps the motor running after switch-off until the blades reach the rest position.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0040",
+      "type": "OBJECTIVE",
+      "topic": "Maintenance and repairs of auxiliary components",
+      "stem": "The fuel gauge needle stays at FULL even when the tank is nearly empty. The fault is MOST likely",
+      "options": [
+        "a blown horn fuse",
+        "a worn wiper blade",
+        "an earthed sender lead or stuck float",
+        "a discharged battery",
+        "retarded ignition timing"
+      ],
+      "answer": 2,
+      "explanation": "In many gauges a grounded sender wire or jammed float gives a permanently full reading.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0501",
+      "type": "THEORY",
+      "topic": "Testing and maintenance of battery",
+      "stem": "(a) Describe how a hydrometer is used to test a lead-acid battery. [5 marks]\n(b) State three symptoms of over-charging a battery. [3 marks]\n(c) A 12 V battery shows cell readings of 1.27, 1.27, 1.26, 1.10, 1.27 and 1.26. State, with reason, what this indicates and what should be done. [4 marks]\n(d) State three safety precautions when charging batteries. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) remove vent plugs\n1 mark: (a) squeeze bulb, insert nozzle into cell\n1 mark: (a) release bulb to draw electrolyte so float rides freely\n1 mark: (a) read at eye level the mark at liquid surface\n1 mark: (a) return electrolyte to same cell; repeat for each cell\n3 marks: (b) any three: excessive gassing/bubbling, overheating, loss of water, buckled plates, corrosion of terminals (1 each)\n2 marks: (c) one cell (1.10) much lower than others: that cell is faulty/shorted (difference above about 0.05)\n2 marks: (c) recharge and retest; if still low, replace battery\n3 marks: (d) any three: ventilated area, no naked flame/sparks, switch off charger before connecting/disconnecting, wear goggles/gloves, correct polarity (1 each)",
+      "explanation": "The hydrometer draws electrolyte so the float reads specific gravity. Over-charging shows as gassing, heat and water loss. A single cell at 1.10 with others near 1.27 indicates a defective cell; recharge and retest, then replace if it stays low. Charge in ventilation, avoid sparks, switch off before connecting, wear PPE.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0502",
+      "type": "THEORY",
+      "topic": "Types of starter motor",
+      "stem": "(a) With the aid of a labelled description, explain the operation of a pre-engaged starter motor. [7 marks]\n(b) Distinguish between the axial and inertia types of starter motor. [4 marks]\n(c) State four faults that can prevent a starter motor from cranking the engine. [4 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) ignition key energises solenoid pull-in and hold-in windings\n2 marks: (a) plunger moves; engagement lever pushes pinion along shaft into mesh with ring gear\n1 mark: (a) plunger closes main contacts at end of travel\n1 mark: (a) full current flows to motor; armature cranks engine\n1 mark: (a) roller/overrun clutch protects armature when engine fires\n1 mark: (a) key released: spring returns plunger and pinion\n2 marks: (b) axial: whole armature moves axially to engage pinion (sliding armature)\n2 marks: (b) inertia: pinion moves on helix by its inertia; armature does not slide\n4 marks: (c) any four: flat battery, loose/corroded terminals, faulty solenoid, worn brushes, burnt commutator, open armature/field, faulty ignition switch (1 each)",
+      "explanation": "Key on: solenoid pulls plunger, lever shifts pinion into mesh, contacts close, motor cranks; overrun clutch protects; release returns all. Axial starters move the armature; inertia starters throw the pinion on a helix. Faults: flat battery, poor connections, solenoid, brushes, commutator, windings, switch.",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "no-aew-0503",
+      "type": "THEORY",
+      "topic": "Construction and operation of ignition coil",
+      "stem": "(a) Describe the internal construction of a conventional ignition coil. [5 marks]\n(b) Explain how the coil produces a high voltage when the contact breaker opens. [6 marks]\n(c) State the function of the capacitor in the contact-breaker system. [4 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) laminated soft iron core\n1 mark: (a) secondary winding of many thousand turns of fine wire wound next to core\n1 mark: (a) primary winding of a few hundred turns of thicker wire outside\n1 mark: (a) windings insulated, case filled with oil/compound\n1 mark: (a) terminals: LT +/− and HT tower\n2 marks: (b) current in primary builds magnetic field in core\n2 marks: (b) points open, primary current stops, field collapses rapidly\n2 marks: (b) collapsing field cuts secondary turns inducing high voltage (mutual induction, turns ratio)\n2 marks: (c) reduces arcing/burning at the points\n2 marks: (c) speeds collapse of the field, giving higher secondary voltage",
+      "explanation": "The coil has a laminated core, fine secondary and thick primary windings in an oil-filled can. Primary current builds a field; when points open it collapses quickly, inducing a high secondary voltage by mutual induction. The capacitor stops arcing at points and makes collapse faster.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0504",
+      "type": "THEORY",
+      "topic": "Charging system faults and repairs",
+      "stem": "(a) Name four components of a charging system and state the function of each. [8 marks]\n(b) Describe how to test whether an alternator is charging, using a voltmeter. [4 marks]\n(c) State three causes of alternator bearing failure. [3 marks]",
+      "marks": 15,
+      "markingGuide": "2 marks: (a) alternator: generates electrical energy\n2 marks: (a) regulator: controls output voltage\n2 marks: (a) battery: stores energy and stabilises voltage\n2 marks: (a) warning lamp/switch/cables: indicate charge, connect circuit (any one)\n1 mark: (b) measure battery voltage engine off (about 12.6 V)\n1 mark: (b) start engine, raise to about 2000 rev/min\n1 mark: (b) voltage should rise to about 13.8–14.5 V\n1 mark: (b) no rise means not charging; too high means regulator fault\n3 marks: (c) any three: belt over-tight, lack of lubrication, contamination by dirt/water, wear with age, misalignment (1 each)",
+      "explanation": "Alternator generates, regulator limits voltage, battery stores, lamp indicates. Voltmeter: about 12.6 V static, rising to 13.8–14.5 V at fast idle if charging. Bearings fail from over-tight belts, dirt, poor lubrication and age.",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "no-aew-0505",
+      "type": "THEORY",
+      "topic": "Head lamps",
+      "stem": "(a) Distinguish between obligatory and non-obligatory lights, giving two examples of each. [6 marks]\n(b) Describe how head lamps can be set using a screen marked on a wall. [6 marks]\n(c) State three causes of dim head lamps. [3 marks]",
+      "marks": 15,
+      "markingGuide": "1 mark: (a) obligatory: required by law\n2 marks: (a) examples: head lamps, tail lamps, stop lamps, indicators, number plate lamp (any two)\n1 mark: (a) non-obligatory: optional/accessory lights\n2 marks: (a) examples: fog lamps, spot lamps, reversing lamp in some cases, interior lights (any two)\n1 mark: (b) vehicle on level floor, unladen, correct tyre pressures\n1 mark: (b) park at specified distance facing wall\n1 mark: (b) mark centre lines of lamps on wall\n1 mark: (b) mark cut-off line below lamp centre height as specified\n2 marks: (b) switch on dipped beam and adjust screws until beam meets marks\n3 marks: (c) any three: poor earth, corroded connections, low voltage/weak battery, dirty or discoloured reflectors, wrong bulb (1 each)",
+      "explanation": "Obligatory lights are required by law (head, tail, stop, indicators); others are optional (fog, spot). Screen setting: level vehicle at set distance, mark lamp centres and cut-off line, adjust beams. Dim lamps result from poor earths, corrosion, low voltage or dull reflectors.",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "no-aew-0506",
+      "type": "THEORY",
+      "topic": "Maintenance and repairs of auxiliary components",
+      "stem": "(a) Explain the need for an auxiliary system in a motor vehicle. [3 marks]\n(b) Describe the operation of a thermal-type water temperature gauge. [6 marks]\n(c) The horn of a car does not sound when the horn button is pressed. Outline six checks you would carry out in a logical order. [6 marks]",
+      "marks": 15,
+      "markingGuide": "3 marks: (a) provides driver information (gauges), safety (horn, wipers, indicators) and comfort/convenience\n2 marks: (b) sender unit in water jacket contains thermistor whose resistance falls as temperature rises\n2 marks: (b) current through gauge heater coil increases, heating bimetal strip\n2 marks: (b) bimetal bends, moving needle to higher reading; voltage stabiliser keeps reading steady\n6 marks: (c) check fuse; check relay clicks; check supply at horn with test lamp; check horn earth; check button/earth contact; bridge relay to test horn directly; adjust or replace horn (1 each, logical order)",
+      "explanation": "Auxiliaries give information, safety and convenience. The sender thermistor resistance drops with heat, more current heats the gauge bimetal and moves the needle. Horn fault: fuse, relay, supply, earth, button, direct test, then adjust or replace the horn.",
+      "difficulty": "HARD"
+    }
+  ]
+}

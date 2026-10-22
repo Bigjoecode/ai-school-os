@@ -1,4 +1,4 @@
-import { ENTITLEMENTS, MOCK_EXAMS, MOCK_NAME, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow, type MockExam } from '@aischool/shared';
+import { ENTITLEMENTS, MOCK_APPROXIMATE_NOTE, MOCK_EXAMS, MOCK_NAME, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow, type MockExam } from '@aischool/shared';
 import { AlertTriangle, Ban, CalendarClock, CheckCircle2, ChevronRight, Clock, FileText, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
@@ -20,10 +20,10 @@ import { UtmeTrend } from './utme-results';
 type Exam = ExamCatalog['exams'][number];
 type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY' | 'UTME' | 'PAST' | 'SITTING';
 
-/** The exam's full, paper-by-paper mock (WAEC: WASSCE, BECE), if it has one. */
+/** The exam's full, paper-by-paper mock (WAEC: WASSCE, NECO: SSCE, BECE), if it has one. */
 const mockExam = (exam: ExamBody): MockExam | null => ((MOCK_EXAMS as readonly string[]).includes(exam) ? (exam as MockExam) : null);
 /** How the exam's full mock is graded. */
-const GRADED: Record<MockExam, string> = { WAEC: 'graded A1–F9', BECE: 'graded A, C, P or F' };
+const GRADED: Record<MockExam, string> = { WAEC: 'graded A1–F9', NECO: 'graded A1–F9', BECE: 'graded A, C, P or F' };
 type Level = ExamCatalog['level'];
 
 /** Which school level an exam is meant for (JAMB, WAEC and NECO: SS 1–3; BECE: JSS). Null when it fits or the class is unknown. */
@@ -655,7 +655,7 @@ function PastPaperDialog({ exam, onClose }: { exam: Exam; onClose: () => void })
   );
 }
 
-/** Recent full WASSCE and BECE mocks: progress, or the grade once every paper is marked. */
+/** Recent full WASSCE, NECO and BECE mocks: progress, or the grade once every paper is marked. */
 function SittingList({ rows }: { rows: ExamSittingRow[] }) {
   return (
     <ul className="divide-y divide-border" data-testid="sitting-list">
@@ -687,7 +687,7 @@ function SittingList({ rows }: { rows: ExamSittingRow[] }) {
 }
 
 /**
- * The full WASSCE or BECE mock: one subject, every paper as the exam sets
+ * The full WASSCE, NECO or BECE mock: one subject, every paper as the exam sets
  * it (real counts, times and marks), each on its own clock. Shows the papers
  * before starting, including any that are only assessed in school.
  */
@@ -714,7 +714,9 @@ function SittingDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
           <DialogDescription>
             {mock === 'BECE'
               ? 'Sit one subject the way NECO sets the BECE: every paper, each on its own clock with the real time and marks. When every paper is marked you get a BECE grade: A (Distinction), C (Credit), P (Pass) or F (Fail).'
-              : 'Sit one subject the way WAEC sets it: Paper 1, Paper 2 and, where there is one, Paper 3, each on its own clock with WAEC’s real time and marks. When every paper is marked you get a WAEC grade from A1 to F9.'}
+              : mock === 'NECO'
+                ? 'Sit one subject the way NECO sets the SSCE: the objective paper (five options, A to E), the essay paper and, where there is one, Paper 3, each on its own clock. When every paper is marked you get a NECO grade from A1 to F9.'
+                : 'Sit one subject the way WAEC sets it: Paper 1, Paper 2 and, where there is one, Paper 3, each on its own clock with WAEC’s real time and marks. When every paper is marked you get a WAEC grade from A1 to F9.'}
           </DialogDescription>
         </DialogHeader>
         <DialogBody className="space-y-5">
@@ -758,6 +760,11 @@ function SittingDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
                 </li>
               ))}
             </ol>
+          )}
+          {papers.some((p) => p.approximate) && (
+            <p className="flex items-start gap-1.5 text-[12.5px] text-muted-foreground" data-testid={`${tid}-approximate`}>
+              <AlertTriangle className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {MOCK_APPROXIMATE_NOTE}
+            </p>
           )}
           {away.length > 0 && papers.length > away.length && (
             <p className="flex items-start gap-1.5 text-[12.5px] text-muted-foreground">

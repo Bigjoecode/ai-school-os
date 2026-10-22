@@ -40,16 +40,20 @@ export async function autoSeedDemoJamb(prisma: PrismaClient): Promise<string> {
     created = true;
   }
 
-  // JAMB Prep (a platform grant), renewed when it has run out.
+  // JAMB Prep and WAEC Prep (platform grants), each renewed when it has run out.
   const student = await prisma.student.findFirst({ where: { tenantId, user: { email: EMAIL } }, select: { id: true } });
   if (!student) return '';
   const now = new Date();
-  const active = await prisma.studentEntitlement.findFirst({ where: { studentId: student.id, key: 'EXAM_JAMB', status: 'ACTIVE', startsAt: { lte: now }, endsAt: { gt: now } } });
-  let granted = false;
-  if (!active) {
-    await prisma.studentEntitlement.create({ data: { tenantId, studentId: student.id, key: 'EXAM_JAMB', source: 'PLATFORM', startsAt: now, endsAt: new Date(now.getTime() + YEAR_MS), note: 'Demo: JAMB Prep for trying the full UTME CBT mock' } });
-    granted = true;
+  const granted: string[] = [];
+  for (const [key, note] of [
+    ['EXAM_JAMB', 'Demo: JAMB Prep for trying the full UTME CBT mock'],
+    ['EXAM_WAEC', 'Demo: WAEC Prep for trying objective, mock and theory practice'],
+  ] as const) {
+    const active = await prisma.studentEntitlement.findFirst({ where: { studentId: student.id, key, status: 'ACTIVE', startsAt: { lte: now }, endsAt: { gt: now } } });
+    if (active) continue;
+    await prisma.studentEntitlement.create({ data: { tenantId, studentId: student.id, key, source: 'PLATFORM', startsAt: now, endsAt: new Date(now.getTime() + YEAR_MS), note } });
+    granted.push(key === 'EXAM_JAMB' ? 'JAMB Prep' : 'WAEC Prep');
   }
-  if (!created && !granted) return '';
-  return `${created ? `Demo SS 3 JAMB candidate ready (${EMAIL})` : `Demo JAMB candidate (${EMAIL})`}${granted ? ' with JAMB Prep for a year' : ''}`;
+  if (!created && !granted.length) return '';
+  return `${created ? `Demo SS 3 JAMB candidate ready (${EMAIL})` : `Demo JAMB candidate (${EMAIL})`}${granted.length ? ` with ${granted.join(' and ')} for a year` : ''}`;
 }

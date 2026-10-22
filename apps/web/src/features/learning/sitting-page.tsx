@@ -1,4 +1,4 @@
-import { type ExamSittingView, type SittingPaperView } from '@aischool/shared';
+import { EXAM_LABELS, MOCK_NAME, type ExamSittingView, type SittingPaperView } from '@aischool/shared';
 import { ArrowLeft, Ban, CheckCircle2, Clock, FileText, Info, ListChecks, PenLine, RotateCcw, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
@@ -19,10 +19,10 @@ const KIND_LABEL: Record<SittingPaperView['kind'], string> = { OBJECTIVE: 'Objec
 
 const marksText = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(1)}`;
 
-/** The grade's tone: credits (A1–C6) green, passes amber, F9 red. */
-const gradeTone = (g: string) => (/^(A|B|C)/.test(g) ? 'text-success' : /^(D|E)/.test(g) ? 'text-warning' : 'text-danger');
+/** The grade's tone: credits and better (WAEC A1–C6, BECE A and C) green, passes (D7, E8, P) amber, fails red. */
+const gradeTone = (g: string) => (/^(A|B|C)/.test(g) ? 'text-success' : /^(D|E|P)/.test(g) ? 'text-warning' : 'text-danger');
 
-/** One full WASSCE mock: its papers (each on its own clock) and, once every in-app paper is marked, the WAEC grade. */
+/** One full WASSCE or BECE mock: its papers (each on its own clock) and, once every in-app paper is marked, the grade on the exam's scale. */
 export default function SittingPage() {
   const { id = '' } = useParams();
   const q = useSitting(id);
@@ -54,8 +54,8 @@ function Sitting({ s }: { s: ExamSittingView }) {
             <ArrowLeft className="size-3.5" /> Exam Academy
           </Link>
         }
-        title={`${s.subject}: WASSCE mock`}
-        description={`WAEC (SSCE) · started ${formatDate(s.startedAt)} · ${s.result ? 'complete' : `${done} of ${inApp.length} paper${inApp.length === 1 ? '' : 's'} done`}`}
+        title={`${s.subject}: ${MOCK_NAME[s.exam]} mock`}
+        description={`Full ${MOCK_NAME[s.exam]} mock · ${EXAM_LABELS[s.exam]} · started ${formatDate(s.startedAt)} · ${s.result ? 'complete' : `${done} of ${inApp.length} paper${inApp.length === 1 ? '' : 's'} done`}`}
       />
       {s.result && <ResultCard s={s} />}
       <div className="space-y-4">
@@ -78,6 +78,8 @@ function Sitting({ s }: { s: ExamSittingView }) {
 
 function ResultCard({ s }: { s: ExamSittingView }) {
   const r = s.result!;
+  // WASSCE mocks graded before BECE mocks existed carry no scale: they are WAEC grades.
+  const scale = r.scale ?? 'WAEC';
   const navigate = useNavigate();
   const retake = useStartSitting();
   const lock = examLockError(retake.error);
@@ -86,6 +88,7 @@ function ResultCard({ s }: { s: ExamSittingView }) {
       <div className="grid gap-5 p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
         <div className="mx-auto grid size-32 place-items-center rounded-2xl border border-border bg-muted/40 text-center">
           <div>
+            <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{scale === 'BECE' ? 'BECE grade' : 'WAEC grade'}</p>
             <p className={cn('font-display text-5xl font-bold tracking-tight', gradeTone(r.grade))} data-testid="sitting-grade">
               {r.grade}
             </p>
@@ -135,8 +138,8 @@ function ResultCard({ s }: { s: ExamSittingView }) {
         </div>
       )}
       <div className="flex flex-col gap-2 border-t border-border bg-muted/30 px-5 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p className="text-[12px] text-muted-foreground">A mock grade is a guide to where you stand, not an official WAEC result.</p>
-        <Button size="sm" variant="outline" loading={retake.isPending} onClick={() => retake.mutate({ exam: 'WAEC', subject: s.subject }, { onSuccess: (v) => navigate(`/learn/sittings/${v.id}`) })}>
+        <p className="text-[12px] text-muted-foreground">A mock grade is a guide to where you stand, not an official {scale === 'BECE' ? 'BECE' : 'WAEC'} result.</p>
+        <Button size="sm" variant="outline" loading={retake.isPending} onClick={() => retake.mutate({ exam: s.exam, subject: s.subject }, { onSuccess: (v) => navigate(`/learn/sittings/${v.id}`) })}>
           <RotateCcw /> Retake {s.subject}
         </Button>
       </div>
@@ -169,7 +172,8 @@ function PaperCard({ sittingId, p }: { sittingId: string; p: SittingPaperView })
           <p className="mt-0.5 text-[12.5px] text-muted-foreground">
             {KIND_LABEL[p.kind]}
             {size ? ` · ${size}` : ''}
-            {!away || p.minutes < 600 ? ` · ${minutesText(p.clockMinutes)}` : ''} · {p.marks} marks
+            {!away || p.minutes < 600 ? ` · ${minutesText(p.clockMinutes)}` : ''}
+            {p.marks ? ` · ${p.marks} marks` : ''}
           </p>
         </div>
         {p.status === 'SUBMITTED' && p.earned !== null && (

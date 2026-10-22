@@ -10,6 +10,7 @@ import type {
   MasteryMap,
   MasteryTopic,
   MemoryKind,
+  MockExam,
   PracticeAttemptRow,
   PracticeAttemptView,
   StudentAccess,
@@ -381,7 +382,7 @@ export function utmeShortfall(error: unknown): UtmeShortfall[] | null {
   return (error.details.shortfalls as UtmeShortfall[]) ?? [];
 }
 
-// ------------------------------------------------------------------ full WASSCE mock
+// ------------------------------------------------------------------ full WASSCE and BECE mocks
 
 /** Written answers saved on the server as the student writes (errors are returned, not toasted). */
 export const saveTheoryDraft = (id: string, answers: string[]) => api.put<{ ok: boolean }>(`/learning/attempts/${id}/draft`, { answers });
@@ -389,12 +390,12 @@ export const saveTheoryDraft = (id: string, answers: string[]) => api.put<{ ok: 
 export const useSittings = () => useQuery({ queryKey: lk.sittings, queryFn: () => api.get<ExamSittingRow[]>('/learning/exams/sittings') });
 export const useSitting = (id: string) => useQuery({ queryKey: lk.sitting(id), queryFn: () => api.get<ExamSittingView>(`/learning/exams/sittings/${id}`) });
 
-/** A full WASSCE mock in one subject (needs WAEC Prep: 403 EXAM_NOT_INCLUDED otherwise). */
+/** A full WASSCE or BECE mock in one subject (needs WAEC or BECE Prep: 403 EXAM_NOT_INCLUDED otherwise). */
 export function useStartSitting() {
   const qc = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (body: { exam: 'WAEC'; subject: string }) => api.post<ExamSittingView>('/learning/exams/sittings', body),
+    mutationFn: (body: { exam: MockExam; subject: string }) => api.post<ExamSittingView>('/learning/exams/sittings', body),
     onSuccess: (v) => {
       qc.setQueryData(lk.sitting(v.id), v);
       void qc.invalidateQueries({ queryKey: lk.sittings });

@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, UTME, WASSCE_PAPERS, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type UtmeShortfall, type WasscePaper } from '@aischool/shared';
+import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, MOCK_EXAMS, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type MockExam, type MockPaper, type UtmeShortfall } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
@@ -15,7 +15,7 @@ const FREE_SETS_PER_TERM = 3;
 const FREE_QUESTIONS = 5;
 /** Minutes per question in a mock, by exam (JAMB CBT is fastest). */
 const MINUTES_PER_QUESTION: Record<ExamBody, number> = { JAMB: 0.9, WAEC: 1.2, NECO: 1.2, BECE: 1.2 };
-/** Fewest Paper 1 questions for a full WASSCE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
+/** Fewest Paper 1 questions for a full WASSCE or BECE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
 export const MIN_SITTING_OBJECTIVE = 10;
 const theoryDraftSchema = z.object({
   questions: z.array(
@@ -95,7 +95,8 @@ export class ExamService {
     };
     // Past papers by year: licensed past questions only (our own questions carry no year).
     const papers = await this.prisma.root.examQuestion.groupBy({ by: ['exam', 'subject', 'year'], where: { status: 'PUBLISHED', type: 'OBJECTIVE', source: 'LICENSED', year: { not: null } }, _count: { _all: true }, orderBy: [{ subject: 'asc' }, { year: 'desc' }] });
-    const fullMock = await this.fullMockSubjects(counts.filter((c) => c.exam === 'WAEC' && c.type === 'OBJECTIVE').map((c) => ({ subject: c.subject, n: c._count._all })));
+    const fullMock = new Map<string, Set<string>>();
+    for (const exam of MOCK_EXAMS) fullMock.set(exam, await this.fullMockSubjects(exam, counts.filter((c) => c.exam === exam && c.type === 'OBJECTIVE').map((c) => ({ subject: c.subject, n: c._count._all }))));
     // Only known when the student is in a class (no guessing for unplaced students).
     const placed = await this.prisma.root.student.findUnique({ where: { id: access.studentId }, select: { classArm: { select: { classLevel: { select: { stage: true, name: true } } } } } });
     const level = placed?.classArm ? levelOf(placed.classArm.classLevel.stage, placed.classArm.classLevel.name) : null;
@@ -120,7 +121,7 @@ export class ExamService {
           exam,
           label: EXAM_LABELS[exam],
           entitled: access.exams.includes(exam),
-          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective, ...(exam === 'WAEC' ? { fullMock: fullMock.has(subject) } : {}) })),
+          subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective, ...(fullMock.has(exam) ? { fullMock: fullMock.get(exam)!.has(subject) } : {}) })),
           comingSoon: soon,
           pastPapers: papers.filter((p) => p.exam === exam && p.year !== null).map((p) => ({ subject: p.subject, year: p.year!, questions: p._count._all })),
         };
@@ -129,27 +130,29 @@ export class ExamService {
     };
   }
 
-  /** WAEC subjects whose WASSCE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
-  private async fullMockSubjects(objective: { subject: string; n: number }[]) {
+  /** Subjects whose full WASSCE or BECE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
+  private async fullMockSubjects(exam: MockExam, objective: { subject: string; n: number }[]) {
     const out = new Set<string>();
     for (const { subject, n } of objective) {
-      const p1 = WASSCE_PAPERS[subject]?.find((p) => p.kind === 'OBJECTIVE' && p.paper === 1);
+      const p1 = MOCK_PAPERS[exam][subject]?.find((p) => p.kind === 'OBJECTIVE' && p.paper === 1);
       if (!p1 || n < MIN_SITTING_OBJECTIVE) continue;
-      const enough = p1.topics?.length || p1.excludeTopics?.length ? (await this.prisma.root.examQuestion.count({ where: await this.poolWhere('WAEC', subject, p1) })) >= MIN_SITTING_OBJECTIVE : true;
+      const enough = p1.topics?.length || p1.excludeTopics?.length ? (await this.prisma.root.examQuestion.count({ where: await this.poolWhere(exam, subject, p1) })) >= MIN_SITTING_OBJECTIVE : true;
       if (enough) out.add(subject);
     }
     return out;
   }
 
   /**
-   * The published questions a WASSCE paper draws from: its question type
+   * The published questions a mock paper draws from: its question type
    * (objective, theory or practical) and any topic restriction, a named topic
-   * taking in its subtopics.
+   * taking in its subtopics. BECE papers name junior topics (WAEC's senior
+   * syllabus can share a subject and topic names).
    */
-  async poolWhere(exam: ExamBody, subject: string, paper: WasscePaper): Promise<Prisma.ExamQuestionWhereInput> {
+  async poolWhere(exam: ExamBody, subject: string, paper: MockPaper): Promise<Prisma.ExamQuestionWhereInput> {
     const type = paper.kind === 'NOT_IN_APP' ? 'OBJECTIVE' : paper.kind;
+    const level = exam === 'BECE' ? { level: 'JUNIOR' } : {};
     const ids = async (names: string[]) => {
-      let found = (await this.prisma.root.syllabusTopic.findMany({ where: { subject, name: { in: names, mode: 'insensitive' } }, select: { id: true } })).map((t) => t.id);
+      let found = (await this.prisma.root.syllabusTopic.findMany({ where: { subject, ...level, name: { in: names, mode: 'insensitive' } }, select: { id: true } })).map((t) => t.id);
       for (let depth = 0, next = found; depth < 2 && next.length; depth++) {
         next = (await this.prisma.root.syllabusTopic.findMany({ where: { parentId: { in: next } }, select: { id: true } })).map((t) => t.id);
         found = [...found, ...next];
@@ -457,11 +460,11 @@ export class ExamService {
     return this.study.createAttempt(access, { mode: 'THEORY', exam: input.exam, subject, title: `${EXAM_LABELS[input.exam]} theory: ${subject}`, questions });
   }
 
-  /** A WASSCE mock paper's spec (marks, how many answers count), or null for an attempt outside a sitting. */
-  async sittingPaper(a: { sittingId: string | null; paper: number | null }): Promise<WasscePaper | null> {
+  /** A full mock paper's spec (marks, how many answers count), or null for an attempt outside a sitting. */
+  async sittingPaper(a: { sittingId: string | null; paper: number | null }): Promise<MockPaper | null> {
     if (!a.sittingId || !a.paper) return null;
     const s = await this.prisma.root.examSitting.findUnique({ where: { id: a.sittingId }, select: { spec: true } });
-    return (s?.spec as unknown as WasscePaper[] | undefined)?.find((p) => p.paper === a.paper) ?? null;
+    return (s?.spec as unknown as MockPaper[] | undefined)?.find((p) => p.paper === a.paper) ?? null;
   }
 
   /**
@@ -470,8 +473,8 @@ export class ExamService {
    * without asking). Topic mastery gets the evidence from answered questions;
    * the marking guide and model answer are shown after marking.
    *
-   * A paper of a WASSCE mock counts the best `answer` questions (blanks as
-   * zero when fewer were answered), scaled to the paper's WAEC marks. A timed
+   * A paper of a full mock counts the best `answer` questions (blanks as
+   * zero when fewer were answered), scaled to the paper's marks. A timed
    * paper is accepted up to THEORY_GRACE_MS after its clock; after that, the
    * draft saved in time is what gets marked.
    */
@@ -510,7 +513,7 @@ export class ExamService {
     let score: number;
     let total: number;
     if (paper) {
-      // WAEC counts the questions the rubric asks for: the best `answer` of them, blanks as zero.
+      // The exam counts the questions the rubric asks for: the best `answer` of them, blanks as zero.
       const counted = Math.max(1, Math.min(paper.answer ?? qs.length, qs.length));
       const best = marks.map((m) => (m.outOf ? m.score / m.outOf : 0)).sort((x, y) => y - x).slice(0, counted);
       total = paper.marks;

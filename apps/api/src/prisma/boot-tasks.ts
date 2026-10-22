@@ -12,6 +12,7 @@ import { installJamb } from './jamb-install';
 import { installQuestionBank } from './question-bank-install';
 import { autoSeedDemoLearning } from '../class-insights/demo-learning';
 import { autoSeedDemoYoung } from './demo-young';
+import { autoSeedDemoBece } from './demo-bece';
 import { autoSeedDemoJamb } from './demo-jamb';
 import { autoDemoBirthdays } from '../birthdays/demo-birthdays';
 import { demoLoginsOff } from '../auth/demo-mode.service';
@@ -180,6 +181,13 @@ export function installSyllabiInBackground(config: Env): void {
           if (jamb) new Logger('Demo').log(jamb);
         } catch (err) {
           new Logger('Demo').error(`Demo JAMB candidate could not be added: ${(err as Error).message}`);
+        }
+        // Demo school only: a JSS 3 BECE candidate (bece@greenfield.demo) with BECE Prep, to try the full BECE mock.
+        try {
+          const bece = demosOff ? '' : await autoSeedDemoBece(prisma);
+          if (bece) new Logger('Demo').log(bece);
+        } catch (err) {
+          new Logger('Demo').error(`Demo BECE candidate could not be added: ${(err as Error).message}`);
         }
         // Demo school only, once ever: birthday greetings on (app channels only, no SMS).
         try {

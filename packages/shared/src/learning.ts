@@ -472,17 +472,19 @@ export interface PracticeAttemptView {
   utme?: UtmeScore | null;
   /** Seconds between starting and handing in (after marking). */
   timeUsedSeconds?: number | null;
-  /** One paper of a full WASSCE mock (see ExamSittingView). */
+  /** One paper of a full WASSCE or BECE mock (see ExamSittingView). */
   sitting?: AttemptSittingInfo | null;
 }
 export interface AttemptSittingInfo {
   sittingId: string;
+  /** WAEC (a WASSCE mock) or BECE. */
+  exam: 'WAEC' | 'BECE';
   paper: number;
   title: string;
   instructions: string;
   /** Theory and practical papers: how many questions count ("answer any N"). */
   answer: number | null;
-  /** WAEC marks for the paper. */
+  /** The exam's marks for the paper. */
   marks: number;
   /** The next in-app paper not yet handed in, if any. */
   nextPaper: number | null;
@@ -585,7 +587,7 @@ export interface ExamCatalog {
     entitled: boolean;
     /**
      * `objective`: approved objective questions (what practice and mocks draw from).
-     * `fullMock` (WAEC): the subject has a paper-by-paper WASSCE mock and enough Paper 1 questions for it.
+     * `fullMock` (WAEC, BECE): the subject has a paper-by-paper WASSCE or BECE mock and enough Paper 1 questions for it.
      */
     subjects: { subject: string; questions: number; objective?: number; fullMock?: boolean }[];
     /** Subjects with a syllabus but too few published questions yet. */

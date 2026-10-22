@@ -2,7 +2,8 @@ import type { PrismaClient } from '../generated/prisma/client';
 import { hashPassword } from '../auth/password';
 
 const EMAIL = 'jamb@greenfield.demo';
-const PASSWORD = 'Greenfield#2026';
+/** The demo students' password (also the BECE candidate's, demo-bece.ts). */
+export const DEMO_PASSWORD = 'Greenfield#2026';
 const YEAR_MS = 365 * 86_400_000;
 
 /**
@@ -27,7 +28,7 @@ export async function autoSeedDemoJamb(prisma: PrismaClient): Promise<string> {
     const arm = await prisma.classArm.findFirst({ where: { tenantId, classLevelId: level.id }, orderBy: { name: 'asc' } });
     if (!arm) return '';
     let user = await prisma.user.findUnique({ where: { email: EMAIL } });
-    if (!user) user = await prisma.user.create({ data: { email: EMAIL, firstName: 'Amaka', lastName: 'Okonkwo', passwordHash: await hashPassword(PASSWORD) } });
+    if (!user) user = await prisma.user.create({ data: { email: EMAIL, firstName: 'Amaka', lastName: 'Okonkwo', passwordHash: await hashPassword(DEMO_PASSWORD) } });
     if (!(await prisma.student.findFirst({ where: { tenantId, userId: user.id } }))) {
       await prisma.student.create({
         data: { tenantId, firstName: 'Amaka', lastName: 'Okonkwo', gender: 'FEMALE', admissionNumber: 'GIS/SS3/UTME01', classArmId: arm.id, userId: user.id, status: 'ACTIVE', admittedOn: new Date() },

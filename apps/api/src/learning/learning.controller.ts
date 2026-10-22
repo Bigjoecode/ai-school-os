@@ -209,7 +209,7 @@ export class LearningController {
   async submit(@Param('id') id: string, @Body(new ZodPipe(practiceSubmitSchema)) body: z.infer<typeof practiceSubmitSchema>) {
     const { id: studentId, access } = await this.me();
     const a = await this.study.submit(studentId, id, body.answers, body.flags);
-    // A paper of a WASSCE mock: the sitting's result is worked out once every paper is in.
+    // A paper of a full mock: the sitting's result is worked out once every paper is in.
     if (a.sittingId) await this.sittings.view(access, a.sittingId);
     // Exam practice gets a short AI review when allowance remains.
     return this.study.present(a.exam ? await this.exams.review(access, a.id) : a);
@@ -290,14 +290,14 @@ export class LearningController {
     return this.study.view(await this.exams.startTheory(access, body));
   }
 
-  // ---------------------------------------------------------- full WASSCE mock (WAEC Prep)
+  // ---------------------------------------------------------- full WASSCE and BECE mocks (WAEC or BECE Prep)
 
   @Get('exams/sittings')
   async sittingList() {
     return this.sittings.list(await this.entitlements.me());
   }
 
-  /** A full WASSCE mock in one subject: every paper as WAEC sets it, each on its own clock. */
+  /** A full WASSCE or BECE mock in one subject: every paper as the exam sets it, each on its own clock. */
   @Post('exams/sittings')
   @Throttle({ default: { limit: 6, ttl: 60_000 } })
   async startSitting(@Body(new ZodPipe(sittingStartSchema)) body: z.infer<typeof sittingStartSchema>) {
@@ -315,7 +315,7 @@ export class LearningController {
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async startPaper(@Param('id') id: string, @Param('paper') paper: string) {
     const n = Number(paper);
-    if (![1, 2, 3].includes(n)) throw new BadRequestException('Paper must be 1, 2 or 3');
+    if (![1, 2, 3, 4].includes(n)) throw new BadRequestException('Paper must be 1, 2, 3 or 4');
     const { access } = await this.me();
     return this.study.present(await this.sittings.startPaper(access, id, n));
   }

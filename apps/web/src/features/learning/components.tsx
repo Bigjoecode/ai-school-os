@@ -9,6 +9,7 @@ import {
   type StudentAccess,
   type StudentMemoryRow,
   MEMORY_KINDS,
+  MOCK_NAME,
   PRODUCT_PERIOD_LABELS,
   SCHOOL_EVIDENCE_SOURCES,
 } from '@aischool/shared';
@@ -547,7 +548,7 @@ export function SeeAll({ to, label = 'See all' }: { to: string; label?: string }
   );
 }
 
-// ------------------------------------------------------------------ timed papers & the full WASSCE mock
+// ------------------------------------------------------------------ timed papers & the full WASSCE and BECE mocks
 
 /** Milliseconds left until `endsAt` (null when untimed), updated every second. */
 export function useCountdown(endsAt: string | null) {
@@ -574,7 +575,7 @@ export function minutesText(m: number) {
   return h ? `${h} h${r ? ` ${r} min` : ''}` : `${r} min`;
 }
 
-/** On a paper of a full WASSCE mock: which paper it is, the way back to the mock and, once handed in, on to the next paper. */
+/** On a paper of a full WASSCE or BECE mock: which paper it is, the way back to the mock and, once handed in, on to the next paper. */
 export function SittingNav({ a, className }: { a: PracticeAttemptView; className?: string }) {
   const navigate = useNavigate();
   const start = useStartSittingPaper(a.sitting?.sittingId ?? '');
@@ -586,7 +587,9 @@ export function SittingNav({ a, className }: { a: PracticeAttemptView; className
       <div className="flex flex-wrap items-center gap-2">
         <GraduationCap className="size-4 shrink-0 text-brand" aria-hidden />
         <span className="min-w-0 flex-1">
-          <span className="font-medium">Paper {s.paper} of your WASSCE mock</span>
+          <span className="font-medium">
+            Paper {s.paper} of your {MOCK_NAME[s.exam] ?? 'WASSCE'} mock
+          </span>
           <span className="text-muted-foreground"> · {s.marks} marks</span>
         </span>
         <Button asChild variant="outline" size="sm">

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { utmeLabel, type AttemptSittingInfo, type Flashcard, type FlashcardDeckRow, type PracticeAttemptRow, type PracticeAttemptView, type PracticeQuestion, type StudyPlanRow, type UtmeScore, type UtmeSection, type WasscePaper } from '@aischool/shared';
+import { utmeLabel, type AttemptSittingInfo, type Flashcard, type FlashcardDeckRow, type MockExam, type MockPaper, type PracticeAttemptRow, type PracticeAttemptView, type PracticeQuestion, type StudyPlanRow, type UtmeScore, type UtmeSection } from '@aischool/shared';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
@@ -150,7 +150,7 @@ export class StudyService {
     };
   }
 
-  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class) or the paper of a WASSCE mock. */
+  /** The view, plus the candidate panel for a UTME mock (name, admission number as the registration number, class) or the paper of a full WASSCE or BECE mock. */
   async present(a: Prisma.PracticeAttemptGetPayload<object>): Promise<PracticeAttemptView> {
     const v = this.view(a);
     if (a.sittingId) return { ...v, sitting: await this.sittingInfo(a) };
@@ -159,22 +159,22 @@ export class StudyService {
     return { ...v, candidate: { name: s ? `${s.lastName.toUpperCase()} ${s.firstName}` : 'Candidate', number: s?.admissionNumber ?? null, className: s?.classArm ? `${s.classArm.classLevel.name} ${s.classArm.name}` : null } };
   }
 
-  /** Which paper of a WASSCE mock this is, its rubric, and the next paper still to sit. */
+  /** Which paper of a full mock this is, its rubric, and the next paper still to sit. */
   private async sittingInfo(a: Prisma.PracticeAttemptGetPayload<object>): Promise<AttemptSittingInfo | null> {
-    const s = await this.prisma.root.examSitting.findUnique({ where: { id: a.sittingId! }, select: { id: true, spec: true, attempts: { select: { paper: true, submittedAt: true } } } });
-    const spec = (s?.spec as unknown as WasscePaper[] | undefined) ?? [];
+    const s = await this.prisma.root.examSitting.findUnique({ where: { id: a.sittingId! }, select: { id: true, exam: true, spec: true, attempts: { select: { paper: true, submittedAt: true } } } });
+    const spec = (s?.spec as unknown as MockPaper[] | undefined) ?? [];
     const paper = spec.find((p) => p.paper === a.paper);
     if (!s || !paper) return null;
     const done = new Set(s.attempts.filter((x) => x.submittedAt).map((x) => x.paper));
     const next = spec.find((p) => p.kind !== 'NOT_IN_APP' && p.paper !== a.paper && !done.has(p.paper));
-    return { sittingId: s.id, paper: paper.paper, title: paper.title, instructions: paper.instructions, answer: paper.kind === 'OBJECTIVE' ? null : Math.min(paper.answer ?? a.total, (a.questions as unknown[]).length), marks: paper.marks, nextPaper: next?.paper ?? null };
+    return { sittingId: s.id, exam: s.exam as MockExam, paper: paper.paper, title: paper.title, instructions: paper.instructions, answer: paper.kind === 'OBJECTIVE' ? null : Math.min(paper.answer ?? a.total, (a.questions as unknown[]).length), marks: paper.marks, nextPaper: next?.paper ?? null };
   }
 
   /** Written practice: the guide and model answer stay hidden until the answers are marked. */
   private theoryView(a: Prisma.PracticeAttemptGetPayload<object>, qs: StoredQuestion[], done: boolean): PracticeAttemptView {
     const written = (a.answers as (string | null)[] | null) ?? [];
     const marking = done ? ((a.perTopic as unknown as (NonNullable<PracticeQuestion['marking']> & { index: number })[] | null) ?? []) : [];
-    // A WASSCE mock paper is scored out of its WAEC marks (the best `answer` questions count).
+    // A full mock paper is scored out of its marks (the best `answer` questions count).
     const total = a.sittingId ? a.total : qs.reduce((t, q) => t + (q.marks ?? 0), 0);
     return {
       id: a.id,

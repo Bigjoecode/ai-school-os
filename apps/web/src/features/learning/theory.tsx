@@ -249,7 +249,7 @@ export function TheoryWriter({ a }: { a: PracticeAttemptView }) {
 
 export function TheoryResults({ a }: { a: PracticeAttemptView }) {
   const pct = a.percent ?? 0;
-  // A WASSCE mock paper is scored out of its WAEC marks: the best answers the rubric asks for count.
+  // A full mock paper is scored out of its marks: the best answers the rubric asks for count.
   const scored = a.sitting ? (a.score ?? 0) : a.questions.reduce((t, q) => t + (q.marking?.score ?? 0), 0);
   const message = pct >= 75 ? 'Excellent writing — examiners would be pleased.' : pct >= 60 ? 'Solid answers. Tighten the points you missed.' : pct >= 45 ? 'A fair start. The marking guide shows what earns the rest.' : 'Keep going — study the guide and model answers below.';
   return (

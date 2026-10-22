@@ -27,6 +27,7 @@ export const DEMO_LOGIN_HINTS: DemoLoginHint[] = [
   { label: 'Parent (two schools)', email: 'parent@greenfield.demo', password: DEMO_PASSWORD, school: '' },
   { label: 'Student (AI Plus)', email: 'student@greenfield.demo', password: DEMO_PASSWORD, school: 'greenfield' },
   { label: 'SS 3 student (JAMB Prep)', email: 'jamb@greenfield.demo', password: DEMO_PASSWORD, school: 'greenfield' },
+  { label: 'JSS 3 student (BECE Prep)', email: 'bece@greenfield.demo', password: DEMO_PASSWORD, school: 'greenfield' },
 ];
 
 const CACHE_MS = 10_000;

@@ -230,7 +230,7 @@ function LessonView({ l }: { l: LessonDetail }) {
 // ------------------------------------------------------------------ document
 
 function DocHeader({ l }: { l: LessonDetail }) {
-  const meta: [React.ElementType, string, string][] = [
+  const meta: [React.ComponentType<React.SVGProps<SVGSVGElement>>, string, string][] = [
     [BookMarked, 'Subject', l.subject.name],
     [Users, 'Class', `${l.classArm.levelName} ${l.classArm.name}`],
     [CalendarDays, 'Date', l.date ? formatDate(l.date, { weekday: 'short' }) : 'Not scheduled'],
@@ -269,7 +269,7 @@ function Section({
   className,
   aside,
 }: {
-  icon: React.ElementType;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: string;
   children: React.ReactNode;
   className?: string;

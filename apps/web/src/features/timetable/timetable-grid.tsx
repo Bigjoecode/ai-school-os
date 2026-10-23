@@ -75,8 +75,8 @@ interface LessonActions {
   onOpenMove: (entry: TimetableEntryView) => void;
 }
 
-function secondaryLines(e: TimetableEntryView, view: ViewKind): { icon: React.ElementType; text: string }[] {
-  const lines: { icon: React.ElementType; text: string }[] = [];
+function secondaryLines(e: TimetableEntryView, view: ViewKind): { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; text: string }[] {
+  const lines: { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; text: string }[] = [];
   if (view !== 'class') lines.push({ icon: GraduationCap, text: armLabel(e) });
   if (view !== 'teacher') lines.push({ icon: User, text: e.teacher?.name ?? 'No teacher' });
   if (view !== 'room' && e.room) lines.push({ icon: DoorOpen, text: e.room.name });

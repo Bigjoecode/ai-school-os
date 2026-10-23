@@ -17,7 +17,7 @@ const EXAMPLES = [
   'Chemistry should use the lab as a double',
 ];
 
-const KIND: Record<TimetableChange['kind'], { icon: React.ElementType; label: string }> = {
+const KIND: Record<TimetableChange['kind'], { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; label: string }> = {
   teacher_unavailable: { icon: Ban, label: 'Block periods' },
   teacher_available: { icon: CalendarCheck2, label: 'Free up periods' },
   set_periods: { icon: ListOrdered, label: 'Weekly periods' },

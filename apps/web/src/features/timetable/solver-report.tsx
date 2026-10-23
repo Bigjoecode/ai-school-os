@@ -20,7 +20,7 @@ function QualityChip({
   good,
   hint,
 }: {
-  icon: React.ElementType;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   label: string;
   value: React.ReactNode;
   good: boolean;

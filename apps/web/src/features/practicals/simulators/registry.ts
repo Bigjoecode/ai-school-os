@@ -16,7 +16,13 @@ import type { SimulatorEntry } from './types';
 export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'bio-microscope': { id: 'bio-microscope', component: lazy(() => import('./bio-microscope')), empty: emptyBioMicroscopeState, missing: bioMicroscopeMissing },
   'bio-specimens': { id: 'bio-specimens', component: lazy(() => import('./bio-specimens')), empty: emptyBioSpecimensState, missing: bioSpecimensMissing },
-  'chem-titration': { id: 'chem-titration', component: lazy(() => import('./chem-titration')), empty: emptyChemTitrationState, missing: chemTitrationMissing },
+  'chem-titration': {
+    id: 'chem-titration',
+    component: lazy(() => import('./chem-titration')),
+    component3d: lazy(() => import('./chem-titration/lab3d')),
+    empty: emptyChemTitrationState,
+    missing: chemTitrationMissing,
+  },
   'chem-qualitative': { id: 'chem-qualitative', component: lazy(() => import('./chem-qualitative')), empty: emptyChemQualitativeState, missing: chemQualitativeMissing },
   'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
   'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },

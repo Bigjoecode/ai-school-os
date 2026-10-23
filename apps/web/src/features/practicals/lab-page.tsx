@@ -1,6 +1,6 @@
 import type { PracticalAttemptView, SimulatorId, SimulatorStates } from '@aischool/shared';
-import { ArrowLeft, CheckCircle2, Clock, Eye, FlaskConical, Loader2, Send } from 'lucide-react';
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { ArrowLeft, Box, CheckCircle2, Clock, Eye, FlaskConical, Loader2, Send, Square } from 'lucide-react';
+import { Component, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,7 @@ import { clock, useCountdown } from '../learning/components';
 import { saveLabDraft, useLabAttempt, useSubmitLab } from './api';
 import { LabResult } from './result';
 import { simulatorUi } from './simulators/registry';
+import { defaultLabView, gpuTier, saveLabView } from './simulators/webgl';
 
 /** The virtual lab: loads the attempt, mounts its simulator, autosaves, times EXAM mode, hands in and shows the marked result. */
 export default function LabPage() {
@@ -50,6 +51,13 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
   const submit = useSubmitLab(a.id);
   const done = !!a.submittedAt;
   const left = useCountdown(done ? null : a.endsAt);
+  // Labs with a 3D view open in 3D on a capable device (or as this device last chose); the 2D lab is always one tap away.
+  const can3d = !!entry.component3d && gpuTier() !== 'none';
+  const [use3d, setUse3d] = useState(() => can3d && defaultLabView() === '3d');
+  const chooseView = (v: '3d' | '2d') => {
+    saveLabView(v);
+    setUse3d(v === '3d');
+  };
 
   const flush = useCallback(() => {
     if (!dirty.current || handedIn.current) return;
@@ -94,6 +102,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
   }, [left, handIn, submit.isError]);
 
   const Sim = entry.component;
+  const Sim3d = entry.component3d;
   const missing = done ? [] : entry.missing(state as never, a.seed);
   const lowTime = left != null && left < 5 * 60_000;
   const view = submit.data ?? a;
@@ -150,25 +159,47 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
               </span>
             )}
             <span className="text-[12px] text-muted-foreground">{saved === 'saving' ? 'Saving…' : saved === 'saved' ? 'Saved' : saved === 'error' ? 'Not saved — will retry' : ''}</span>
-            <Button size="sm" className="ml-auto" onClick={() => setConfirm(true)}>
+            {can3d && (
+              <div className="ml-auto inline-flex rounded-lg border border-border p-0.5" role="group" aria-label="Lab view">
+                {(['3d', '2d'] as const).map((v) => (
+                  <Button key={v} size="sm" variant={(v === '3d') === use3d ? 'secondary' : 'ghost'} className="h-7 px-2.5" onClick={() => chooseView(v)} aria-pressed={(v === '3d') === use3d}>
+                    {v === '3d' ? <Box /> : <Square />} {v === '3d' ? '3D lab' : '2D lab'}
+                  </Button>
+                ))}
+              </div>
+            )}
+            <Button size="sm" className={cn(!can3d && 'ml-auto')} onClick={() => setConfirm(true)}>
               <Send /> Hand in
             </Button>
           </div>
           {submit.error && <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(submit.error)}</p>}
-          <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
-            <Sim
-              seed={a.seed}
-              mode={a.mode}
-              state={state as never}
-              onChange={(next) => {
+          {(() => {
+            const props = {
+              seed: a.seed,
+              mode: a.mode,
+              state: state as never,
+              onChange: (next: SimulatorStates[SimulatorId]) => {
                 dirty.current = true;
                 setState(next);
-              }}
-              readOnly={false}
-              startedAt={a.startedAt}
-              practicalId={a.practicalId}
-            />
-          </Suspense>
+              },
+              readOnly: false,
+              startedAt: a.startedAt,
+              practicalId: a.practicalId,
+            };
+            const flat = (
+              <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
+                <Sim {...props} />
+              </Suspense>
+            );
+            if (!use3d || !Sim3d) return flat;
+            return (
+              <Lab3DBoundary fallback={flat} onError={() => setUse3d(false)}>
+                <Suspense fallback={<Skeleton className="h-[min(78dvh,780px)] min-h-[480px] rounded-2xl" />}>
+                  <Sim3d {...props} endsAt={a.endsAt} onHandIn={() => setConfirm(true)} onUse2d={() => chooseView('2d')} />
+                </Suspense>
+              </Lab3DBoundary>
+            );
+          })()}
         </div>
       )}
       <ConfirmDialog
@@ -194,4 +225,18 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
       />
     </>
   );
+}
+
+/** If the 3D view fails (no WebGL after all, a driver or memory error), the 2D lab takes over with the same work. */
+class Lab3DBoundary extends Component<{ fallback: ReactNode; onError: () => void; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onError();
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
 }

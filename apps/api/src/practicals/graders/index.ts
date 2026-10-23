@@ -1,10 +1,22 @@
 import type { SimulatorId } from '@aischool/shared';
 import { chemTitrationGrader } from './chem-titration';
+import { bioMicroscopeGrader } from './bio-microscope';
+import { bioSpecimensGrader } from './bio-specimens';
+import { chemQualitativeGrader } from './chem-qualitative';
+import { phyGlassGrader } from './phy-glass-block';
+import { phyOhmsGrader } from './phy-ohms-law';
+import { phyPendulumGrader } from './phy-pendulum';
 import type { SimulatorGrader } from './types';
 
 /** Every simulator's grader. A new virtual lab adds its grader here (the record type makes a missing one a compile error). */
 export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-titration': chemTitrationGrader,
+  'bio-microscope': bioMicroscopeGrader,
+  'bio-specimens': bioSpecimensGrader,
+  'chem-qualitative': chemQualitativeGrader,
+  'phy-pendulum': phyPendulumGrader,
+  'phy-ohms-law': phyOhmsGrader,
+  'phy-glass-block': phyGlassGrader,
 };
 
 export function graderFor<Id extends SimulatorId>(id: Id): SimulatorGrader<Id> {

@@ -15,6 +15,8 @@ export interface SimulatorProps<Id extends SimulatorId = SimulatorId> {
   readOnly: boolean;
   /** When the attempt opened (ISO): log times are measured from it. */
   startedAt: string;
+  /** The lesson the lab was opened from (labs that serve several lessons pick their slide or specimens from it). */
+  practicalId?: string;
 }
 
 export interface SimulatorEntry<Id extends SimulatorId = SimulatorId> {

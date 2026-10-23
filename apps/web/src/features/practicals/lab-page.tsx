@@ -134,7 +134,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
           </Button>
           {showWork && view.state && (
             <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
-              <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} />
+              <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} />
             </Suspense>
           )}
         </div>
@@ -166,6 +166,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
               }}
               readOnly={false}
               startedAt={a.startedAt}
+              practicalId={a.practicalId}
             />
           </Suspense>
         </div>

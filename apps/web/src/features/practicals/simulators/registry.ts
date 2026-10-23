@@ -1,11 +1,26 @@
 import { emptyChemTitrationState, type SimulatorId } from '@aischool/shared';
+import { emptyPhyGlassState, emptyPhyOhmsState, emptyPhyPendulumState } from '@aischool/shared';
+import { emptyChemQualitativeState } from '@aischool/shared';
+import { emptyBioMicroscopeState, emptyBioSpecimensState } from '@aischool/shared';
 import { lazy } from 'react';
+import { bioMicroscopeMissing } from './bio-microscope/missing';
+import { bioSpecimensMissing } from './bio-specimens/missing';
 import { chemTitrationMissing } from './chem-titration/missing';
+import { chemQualitativeMissing } from './chem-qualitative/missing';
+import { phyGlassMissing } from './phy-glass-block/missing';
+import { phyOhmsMissing } from './phy-ohms-law/missing';
+import { phyPendulumMissing } from './phy-pendulum/missing';
 import type { SimulatorEntry } from './types';
 
 /** Every virtual lab's web side. A new simulator adds its entry here (the mapped type makes a missing one a compile error). */
 export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
+  'bio-microscope': { id: 'bio-microscope', component: lazy(() => import('./bio-microscope')), empty: emptyBioMicroscopeState, missing: bioMicroscopeMissing },
+  'bio-specimens': { id: 'bio-specimens', component: lazy(() => import('./bio-specimens')), empty: emptyBioSpecimensState, missing: bioSpecimensMissing },
   'chem-titration': { id: 'chem-titration', component: lazy(() => import('./chem-titration')), empty: emptyChemTitrationState, missing: chemTitrationMissing },
+  'chem-qualitative': { id: 'chem-qualitative', component: lazy(() => import('./chem-qualitative')), empty: emptyChemQualitativeState, missing: chemQualitativeMissing },
+  'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
+  'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },
+  'phy-glass-block': { id: 'phy-glass-block', component: lazy(() => import('./phy-glass-block')), empty: emptyPhyGlassState, missing: phyGlassMissing },
 };
 
 export function simulatorUi<Id extends SimulatorId>(id: Id): SimulatorEntry<Id> {

@@ -1,5 +1,11 @@
 import { z } from 'zod';
 import { CHEM_TITRATION, chemTitrationStateSchema, type ChemTitrationState } from './simulators/chem-titration';
+import { BIO_MICROSCOPE, bioMicroscopeStateSchema, type BioMicroscopeState } from './simulators/bio-microscope';
+import { BIO_SPECIMENS, bioSpecimensStateSchema, type BioSpecimensState } from './simulators/bio-specimens';
+import { CHEM_QUALITATIVE, chemQualitativeStateSchema, type ChemQualitativeState } from './simulators/chem-qualitative';
+import { PHY_PENDULUM, phyPendulumStateSchema, type PhyPendulumState } from './simulators/phy-pendulum';
+import { PHY_OHMS_LAW, phyOhmsStateSchema, type PhyOhmsState } from './simulators/phy-ohms-law';
+import { PHY_GLASS_BLOCK, phyGlassStateSchema, type PhyGlassState } from './simulators/phy-glass-block';
 
 /**
  * WAEC Practical Academy: a guided lesson for every syllabus topic with
@@ -27,7 +33,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'bio-microscope', 'bio-specimens'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -55,18 +61,36 @@ export interface SimulatorSpec {
 
 /** Every simulator's spec. */
 export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
+  'bio-microscope': BIO_MICROSCOPE,
+  'bio-specimens': BIO_SPECIMENS,
   'chem-titration': CHEM_TITRATION,
+  'chem-qualitative': CHEM_QUALITATIVE,
+  'phy-pendulum': PHY_PENDULUM,
+  'phy-ohms-law': PHY_OHMS_LAW,
+  'phy-glass-block': PHY_GLASS_BLOCK,
 };
 
 /** The state each simulator saves and submits (typed per simulator). */
 export interface SimulatorStates {
+  'bio-microscope': BioMicroscopeState;
+  'bio-specimens': BioSpecimensState;
   'chem-titration': ChemTitrationState;
+  'chem-qualitative': ChemQualitativeState;
+  'phy-pendulum': PhyPendulumState;
+  'phy-ohms-law': PhyOhmsState;
+  'phy-glass-block': PhyGlassState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
 
 /** Server-side validation of what the web submits for each simulator. */
 export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = {
+  'bio-microscope': bioMicroscopeStateSchema,
+  'bio-specimens': bioSpecimensStateSchema,
   'chem-titration': chemTitrationStateSchema,
+  'chem-qualitative': chemQualitativeStateSchema,
+  'phy-pendulum': phyPendulumStateSchema,
+  'phy-ohms-law': phyOhmsStateSchema,
+  'phy-glass-block': phyGlassStateSchema,
 };
 
 export const rubricTotal = (rubric: RubricCriterion[]) => rubric.reduce((t, c) => t + c.marks, 0);

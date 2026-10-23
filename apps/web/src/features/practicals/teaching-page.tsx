@@ -240,7 +240,7 @@ export function PracticalReviewPage() {
               {a.state && (
                 <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
                   <h2 className="font-display text-[15px] font-semibold tracking-tight">The student’s lab record</h2>
-                  <Sim seed={a.seed} mode={a.mode} state={a.state as never} onChange={() => undefined} readOnly startedAt={a.startedAt} />
+                  <Sim seed={a.seed} mode={a.mode} state={a.state as never} onChange={() => undefined} readOnly startedAt={a.startedAt} practicalId={a.practicalId} />
                 </Suspense>
               )}
             </div>

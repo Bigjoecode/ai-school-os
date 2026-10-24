@@ -1,4 +1,4 @@
-import type { PracticalMode, SimulatorId, SimulatorStates } from '@aischool/shared';
+import type { PracticalMode, PracticalResult, SimulatorId, SimulatorStates } from '@aischool/shared';
 import type { ComponentType, LazyExoticComponent } from 'react';
 
 /**
@@ -19,10 +19,12 @@ export interface SimulatorProps<Id extends SimulatorId = SimulatorId> {
   practicalId?: string;
   /** Timed practicals: when time runs out (ISO). A full-screen 3D view shows its own clock; the host still hands in. */
   endsAt?: string | null;
-  /** Hand in from inside a full-screen 3D view (the host asks for confirmation). */
+  /** Hand in from inside a full-screen 3D view (the 3D view shows what is missing and confirms first). */
   onHandIn?: () => void;
   /** Leave the 3D view for the 2D lab (same state, nothing is lost). */
   onUse2d?: () => void;
+  /** Read-only after marking: the result, for a lab that walks the student through it. */
+  result?: PracticalResult | null;
 }
 
 export interface SimulatorEntry<Id extends SimulatorId = SimulatorId> {

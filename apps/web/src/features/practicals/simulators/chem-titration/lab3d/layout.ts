@@ -57,6 +57,8 @@ export const SHELF = { x: HALF_W - 0.2, z: -1.6, w: 2.2, h: 1.9, d: 0.36 };
 export const FUME = { x: 4.6, z: -HALF_D + 0.45, w: 1.6, h: 2.35, d: 0.85 };
 export const DESK = { x: -1.8, z: -3.5, w: 1.7, d: 0.8, h: 0.78 };
 export const WINDOWS_Z = [-3, 0, 3];
+/** Mrs Ada, the lab technician, stands beside the teacher's desk (out of the bench view's line of sight). */
+export const ASSISTANT_POS: [number, number, number] = [DESK.x - DESK.w / 2 - 0.5, 0, DESK.z + 0.2];
 
 /** Axis-aligned boxes the player cannot walk into (x0, x1, z0, z1). */
 export const OBSTACLES: [number, number, number, number][] = [
@@ -65,6 +67,7 @@ export const OBSTACLES: [number, number, number, number][] = [
   [CUPBOARD.x - CUPBOARD.d / 2, HALF_W, CUPBOARD.z - CUPBOARD.w / 2, CUPBOARD.z + CUPBOARD.w / 2],
   [SHELF.x - SHELF.d / 2, HALF_W, SHELF.z - SHELF.w / 2, SHELF.z + SHELF.w / 2],
   [FUME.x - FUME.w / 2, FUME.x + FUME.w / 2, -HALF_D, FUME.z + FUME.d / 2],
+  [ASSISTANT_POS[0] - 0.25, ASSISTANT_POS[0] + 0.25, ASSISTANT_POS[2] - 0.25, ASSISTANT_POS[2] + 0.25],
 ];
 export const PLAYER_R = 0.28;
 

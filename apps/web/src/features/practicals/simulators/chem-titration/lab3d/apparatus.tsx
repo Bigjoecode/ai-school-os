@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import { CylinderGeometry, LatheGeometry, Matrix4, Vector2, type InstancedMesh, type Mesh } from 'three';
 import { colourMaterial, liquidMaterial, mat } from './materials';
+import { useLabView } from './store';
 import { blobTexture, buretteNumbersTexture, labelTexture } from './textures';
 
 /**
@@ -83,7 +84,8 @@ function AcidColumn({ level }: { level: number }) {
   );
 }
 
-export function Burette({ level, bubble, tapOpen, detail = true, glow }: { level: number | null; bubble: boolean; tapOpen: boolean; detail?: boolean; glow?: boolean }) {
+/** `live`: the tap follows the lab's tap control (angle and the hold-to-run button). */
+export function Burette({ level, bubble, live = false, detail = true, glow }: { level: number | null; bubble: boolean; live?: boolean; detail?: boolean; glow?: boolean }) {
   const glass = useMemo(() => {
     const p = [v2(0.0016, 0), v2(0.0022, 0.004), v2(0.0026, 0.04), v2(0.0034, BU.tap - 0.008), v2(0.0034, BU.tap + 0.01), v2(0.003, BU.y50 - 0.03), v2(BU.rOut, BU.y50 - 0.006), v2(BU.rOut, BU.top - 0.004), v2(BU.rOut + 0.0012, BU.top)];
     return lathe(p, 28);
@@ -92,7 +94,8 @@ export function Burette({ level, bubble, tapOpen, detail = true, glow }: { level
   useFrame((_, dt) => {
     const key = tapRef.current;
     if (!key) return;
-    const target = tapOpen ? Math.PI / 2 : 0;
+    const v = live ? useLabView.getState() : null;
+    const target = v ? Math.max(v.tap, v.streaming ? 1 : 0) * (Math.PI / 2) : 0;
     key.rotation.x += (target - key.rotation.x) * Math.min(1, dt * 12);
   });
   return (

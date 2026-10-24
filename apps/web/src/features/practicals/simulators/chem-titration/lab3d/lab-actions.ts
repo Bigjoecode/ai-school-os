@@ -1,6 +1,7 @@
 import { TITRATION_INDICATORS, TITRATION_INDICATOR_INFO, type ChemTitrationState, type TitrationIndicator, type TitrationRinse } from '@aischool/shared';
 import { nextHint, type Titration } from '../actions';
 import { APPARATUS, APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
+import { play } from './sound';
 import { notify, useLabView } from './store';
 
 /**
@@ -17,6 +18,8 @@ export interface LabAction {
   /** Why it can't be done now (shown instead of running). */
   blocked?: string;
   tone?: 'brand' | 'danger';
+  /** Press and hold to do it (e.g. squeezing the pipette filler). */
+  hold?: boolean;
 }
 export interface ObjectPanel {
   title: string;
@@ -81,6 +84,7 @@ export function objectPanel(id: string, ctx: ActionCtx): ObjectPanel | null {
           tone: 'brand',
           run: () => {
             t.note(`collect:${a}`);
+            play('clink');
             setView({ selected: null });
             notify(`${APPARATUS_LABEL[a]} is on your bench.`, 'success', 1600);
           },
@@ -104,6 +108,7 @@ export function objectPanel(id: string, ctx: ActionCtx): ObjectPanel | null {
               run: () => {
                 t.chooseIndicator(i);
                 t.addIndicator();
+                play('drip');
               },
             },
           ]
@@ -231,6 +236,7 @@ function buretteActions(ctx: ActionCtx, held: ApparatusId | null): ObjectPanel {
         blocked: !scene.collected.has('stand') ? 'Get the retort stand and clamp from the cupboard.' : undefined,
         run: () => {
           t.note('clamp-burette');
+          play('clink');
           setView({ held: null, focus: 'burette' });
         },
       });
@@ -255,6 +261,7 @@ function buretteActions(ctx: ActionCtx, held: ApparatusId | null): ObjectPanel {
       run: () => {
         safetyNudge(ctx);
         t.fill();
+        play('success');
       },
     });
     actions.push({
@@ -290,6 +297,7 @@ function flaskActions(ctx: ActionCtx): ObjectPanel {
       run: () => {
         setView({ held: null, focus: 'flask' });
         t.note('flask-to-tile');
+        play('clink');
       },
     });
   } else actions.push({ key: 'off', label: 'Take it off the tile', blocked: view().streaming ? 'Close the tap first.' : undefined, run: () => t.note('flask-off-tile') });
@@ -343,8 +351,9 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
     }
     actions.push({
       key: 'draw',
-      label: `Draw B up to the mark (${kind === 'ROUGH' ? 'rough' : 'accurate'} titration)`,
+      label: `Hold to squeeze the filler: draw B up to the mark (${kind === 'ROUGH' ? 'rough' : 'accurate'})`,
       tone: 'brand',
+      hold: true,
       blocked: !scene.fillerOn ? 'Fit the pipette filler first — never by mouth.' : t.open ? 'The flask already holds B for this titration.' : !scene.collected.has('flask') ? 'Get a conical flask first.' : scene.flaskUnder ? 'Take the flask off the tile.' : undefined,
       run: () => {
         safetyNudge(ctx);
@@ -354,7 +363,8 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
     if (t.doneRuns > 0 && !t.open)
       actions.push({
         key: 'draw-rough',
-        label: 'Draw B up for another rough titration',
+        label: 'Hold to draw B up for another rough titration',
+        hold: true,
         blocked: !scene.fillerOn ? 'Fit the pipette filler first.' : !scene.collected.has('flask') ? 'Get a conical flask first.' : scene.flaskUnder ? 'Take the flask off the tile.' : undefined,
         run: () => setView({ pip: 'filled', pipRough: true, focus: 'pipetting' }),
       });

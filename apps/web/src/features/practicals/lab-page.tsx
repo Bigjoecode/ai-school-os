@@ -47,7 +47,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
   const handedIn = useRef(false);
   const [saved, setSaved] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [confirm, setConfirm] = useState(false);
-  const [showWork, setShowWork] = useState(false);
+  const [showWork, setShowWork] = useState<'2d' | '3d' | null>(null);
   const submit = useSubmitLab(a.id);
   const done = !!a.submittedAt;
   const left = useCountdown(done ? null : a.endsAt);
@@ -138,13 +138,27 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
       {view.submittedAt ? (
         <div className="space-y-4">
           <LabResult a={view} />
-          <Button variant="outline" onClick={() => setShowWork((s) => !s)}>
-            <Eye /> {showWork ? 'Hide' : 'Show'} your lab record
-          </Button>
-          {showWork && view.state && (
+          <div className="flex flex-wrap gap-2">
+            <Button variant={showWork === '2d' ? 'secondary' : 'outline'} onClick={() => setShowWork((s) => (s === '2d' ? null : '2d'))}>
+              <Eye /> {showWork === '2d' ? 'Hide' : 'Show'} your lab record
+            </Button>
+            {can3d && Sim3d && view.state && (
+              <Button variant={showWork === '3d' ? 'secondary' : 'brand'} onClick={() => setShowWork((s) => (s === '3d' ? null : '3d'))}>
+                <Box /> {showWork === '3d' ? 'Close the 3D walkthrough' : 'Walk through it in 3D'}
+              </Button>
+            )}
+          </div>
+          {showWork === '2d' && view.state && (
             <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
               <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} />
             </Suspense>
+          )}
+          {showWork === '3d' && view.state && Sim3d && (
+            <Lab3DBoundary fallback={null} onError={() => setShowWork('2d')}>
+              <Suspense fallback={<Skeleton className="h-[min(78dvh,780px)] min-h-[480px] rounded-2xl" />}>
+                <Sim3d seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} result={view.result} />
+              </Suspense>
+            </Lab3DBoundary>
           )}
         </div>
       ) : (
@@ -195,7 +209,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
             return (
               <Lab3DBoundary fallback={flat} onError={() => setUse3d(false)}>
                 <Suspense fallback={<Skeleton className="h-[min(78dvh,780px)] min-h-[480px] rounded-2xl" />}>
-                  <Sim3d {...props} endsAt={a.endsAt} onHandIn={() => setConfirm(true)} onUse2d={() => chooseView('2d')} />
+                  <Sim3d {...props} endsAt={a.endsAt} onHandIn={handIn} onUse2d={() => chooseView('2d')} />
                 </Suspense>
               </Lab3DBoundary>
             );

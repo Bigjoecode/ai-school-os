@@ -24,6 +24,14 @@ const EYE_RANGE = 0.05;
 /** Portrait phones: widen the view (walking) or step back (bench) so the same width of the room stays in shot. */
 const portrait = (aspect: number) => MathUtils.clamp(1.15 / aspect, 1, 1.7);
 const fovFor = (mode: CameraMode, aspect: number) => (mode === 'read' ? FOV.read : Math.min(80, FOV[mode] * Math.sqrt(portrait(aspect))));
+/** Adds to the tour's walked / looked counters (the store is only touched every 0.25 so the HUD doesn't re-render each frame). */
+const pending = { walked: 0, looked: 0 };
+function bump(key: 'walked' | 'looked', d: number) {
+  pending[key] += d;
+  if (pending[key] < 0.25) return;
+  useLabView.setState((v) => ({ [key]: v[key] + pending[key] }));
+  pending[key] = 0;
+}
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 
 export function CameraRig({ meniscusY }: { meniscusY: number }) {
@@ -63,6 +71,11 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
     const move = (e: PointerEvent) => {
       const p = pts.get(e.pointerId);
       if (!p) return;
+      if (useLabView.getState().drag) {
+        p.x = e.clientX;
+        p.y = e.clientY;
+        return;
+      }
       const dx = e.clientX - p.x;
       const dy = e.clientY - p.y;
       p.x = e.clientX;
@@ -79,6 +92,7 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
       if (s.mode === 'walk') {
         s.yaw -= dx * k;
         s.pitch = MathUtils.clamp(s.pitch - dy * k, -1.1, 1.0);
+        bump('looked', Math.abs(dx * k) + Math.abs(dy * k));
       } else if (s.mode === 'bench') {
         s.oYaw = MathUtils.clamp(s.oYaw - dx * k, -0.95, 0.95);
         s.oPitch = MathUtils.clamp(s.oPitch + dy * k, -0.2, 1.15);
@@ -184,6 +198,7 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
       let r = (k.has('d') ? 1 : 0) - (k.has('a') ? 1 : 0) + view.stick.x;
       if (k.has('arrowleft')) s.yaw += dt * 1.8;
       if (k.has('arrowright')) s.yaw -= dt * 1.8;
+      if (k.has('arrowleft') || k.has('arrowright')) bump('looked', dt * 1.8);
       const len = Math.hypot(f, r);
       if (len > 1) {
         f /= len;
@@ -194,7 +209,9 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
         const cos = Math.cos(s.yaw);
         const dx = (-sin * f + cos * r) * WALK_SPEED * dt;
         const dz = (-cos * f - sin * r) * WALK_SPEED * dt;
-        [s.x, s.z] = collide(s.x, s.z, dx, dz);
+        const [nx, nz] = collide(s.x, s.z, dx, dz);
+        bump('walked', Math.hypot(nx - s.x, nz - s.z));
+        [s.x, s.z] = [nx, nz];
       }
       p.set(s.x, EYE, s.z);
       q.setFromEuler(e.set(s.pitch, s.yaw, 0, 'YXZ'));

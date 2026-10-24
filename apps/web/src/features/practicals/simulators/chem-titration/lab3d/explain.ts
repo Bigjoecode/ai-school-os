@@ -1,0 +1,106 @@
+import type { PracticalLessonView } from '@aischool/shared';
+
+/**
+ * "What is this?" cards for everything the student can tap: what it is, what
+ * it is for, how to use it and the usual mistake. Lines from the practical's
+ * own lesson (safety, precautions, common mistakes) that mention the object
+ * are added underneath, so the lab and the lesson say the same thing.
+ */
+
+export interface Explainer {
+  name: string;
+  purpose: string;
+  how: string;
+  mistake: string;
+  /** Words that find this object's lines in the lesson. */
+  keys: string[];
+}
+
+const E: Record<string, Explainer> = {
+  burette: {
+    name: 'Burette (50 cm³)',
+    purpose: 'Delivers a measured, variable volume of a solution — here acid A — into the flask.',
+    how: 'Rinse with A, clamp it upright, fill through a funnel to near 0.00, clear the air bubble, remove the funnel, then read the bottom of the meniscus at eye level. 0.00 is at the top.',
+    mistake: 'Reading from above or below eye level (parallax), or leaving the funnel in.',
+    keys: ['burette', 'meniscus', 'air', 'funnel'],
+  },
+  tap: {
+    name: 'Burette tap (stopcock)',
+    purpose: 'Controls how fast the acid runs out: closed, drop by drop or a stream.',
+    how: 'Turn it a little for single drops, further for a stream. Use a stream only well before the end point.',
+    mistake: 'Running a stream near the end point and overshooting.',
+    keys: ['dropwise', 'drop'],
+  },
+  pipette: {
+    name: 'Pipette (25.0 cm³)',
+    purpose: 'Measures exactly 25.0 cm³ of B into the flask.',
+    how: 'Rinse with B. With the filler, draw B above the mark, let it down until the bottom of the meniscus sits on the mark, run it into the flask and touch the tip on the flask — do not blow out the last drop.',
+    mistake: 'Rinsing it with water, or blowing out the drop left in the tip.',
+    keys: ['pipette'],
+  },
+  filler: {
+    name: 'Pipette filler',
+    purpose: 'Sucks liquid into the pipette safely.',
+    how: 'Fit it on top of the pipette, squeeze to draw the liquid up, then release it slowly to the mark.',
+    mistake: 'Pipetting by mouth — never do it.',
+    keys: ['filler', 'mouth'],
+  },
+  flask: {
+    name: 'Conical flask (250 cm³)',
+    purpose: 'Holds the 25.0 cm³ of B and the indicator while you titrate.',
+    how: 'Rinse it with distilled water only, stand it on the white tile under the burette and swirl it as the acid runs in.',
+    mistake: 'Rinsing it with B — that adds extra base.',
+    keys: ['conical flask', 'flask', 'swirl'],
+  },
+  funnel: {
+    name: 'Filter funnel',
+    purpose: 'Lets you pour acid into the narrow burette without spilling.',
+    how: 'Put it in the top of the burette to fill it, then take it out before the initial reading.',
+    mistake: 'Leaving it in: drops from it change the reading.',
+    keys: ['funnel'],
+  },
+  stand: {
+    name: 'Retort stand and clamp',
+    purpose: 'Holds the burette vertical and steady.',
+    how: 'Clamp the burette near its top half so the scale faces you and the jet reaches into the flask.',
+    mistake: 'A tilted burette — readings are wrong and acid misses the flask.',
+    keys: ['stand', 'clamp'],
+  },
+  tile: {
+    name: 'White tile',
+    purpose: 'A white background under the flask so the colour change is easy to see.',
+    how: 'Stand the flask on it, under the burette.',
+    mistake: 'Titrating without it and missing the first permanent colour change.',
+    keys: ['white tile', 'tile'],
+  },
+  beaker: { name: 'Beaker', purpose: 'Catches waste — e.g. the acid run through the jet to clear air bubbles.', how: 'Hold it under the jet and open the tap briefly.', mistake: 'Running the waste into the conical flask.', keys: ['air'] },
+  washBottle: { name: 'Wash bottle', purpose: 'Distilled water for rinsing the conical flask and washing down its sides.', how: 'Squeeze to direct a jet of water.', mistake: 'Using tap water, or adding water to the burette or pipette.', keys: ['distilled water', 'rinsed'] },
+  bottleA: { name: 'Solution A (the acid)', purpose: 'The standard solution: its concentration is given on the paper.', how: 'Rinse the burette with it and fill the burette with it.', mistake: 'Spilling it: wipe spills and wash skin with plenty of water.', keys: ['spill', 'skin'] },
+  bottleB: { name: 'Solution B (the base)', purpose: 'The solution of unknown concentration you are finding.', how: 'Rinse the pipette with it and pipette 25.0 cm³ into the flask.', mistake: 'Rinsing the flask with it.', keys: ['base'] },
+  indicator: { name: 'Indicators', purpose: 'Change colour at the end point, when the acid has just neutralised the base.', how: 'Add 2–3 drops to the flask. Choose one that changes at this reaction’s end point.', mistake: 'Adding too much, or choosing one that changes too early.', keys: ['indicator', 'methyl orange', 'phenolphthalein'] },
+  book: { name: 'Practical notebook', purpose: 'Your table of burette readings, calculations and answers — this is what is marked.', how: 'Record every reading to 2 decimal places as you take it.', mistake: 'Writing readings to 1 decimal place, or averaging the rough titre.', keys: ['record', 'decimal'] },
+  card: { name: 'Task card', purpose: 'The question paper: what A and B are and what to calculate.', how: 'Read it before you start, and again before the calculations.', mistake: 'Missing the mole ratio in the equation.', keys: [] },
+  coat: { name: 'Lab coat', purpose: 'Protects your skin and clothes from splashes.', how: 'Wear it buttoned for the whole practical.', mistake: 'Leaving it open or on the hook.', keys: [] },
+  goggles: { name: 'Safety goggles', purpose: 'Protect your eyes from acid and alkali splashes.', how: 'Wear them over your eyes the whole time you handle solutions.', mistake: 'Pushing them up onto your forehead.', keys: ['goggles', 'eyes'] },
+  extinguisher: { name: 'Fire extinguisher', purpose: 'Puts out small fires.', how: 'Pull the pin, aim at the base of the fire, squeeze, sweep. Tell the teacher first.', mistake: 'Not knowing where it is before you start.', keys: [] },
+  firstaid: { name: 'First-aid box', purpose: 'Plasters, dressings and eye pads for small injuries.', how: 'Tell the teacher about every cut or burn.', mistake: 'Hiding a small cut from broken glass.', keys: [] },
+  eyewash: { name: 'Eye-wash station', purpose: 'Rinses chemicals out of the eyes.', how: 'Rinse the eye with plenty of water for at least 10 minutes and tell the teacher.', mistake: 'Rubbing the eye instead of rinsing it.', keys: ['eyes'] },
+  fume: { name: 'Fume cupboard', purpose: 'Draws away harmful fumes from concentrated or volatile chemicals.', how: 'Work with the glass sash pulled down low.', mistake: 'Using concentrated acids on the open bench.', keys: [] },
+  cylinder: { name: 'Measuring cylinder', purpose: 'Measures volumes roughly (to about 1 cm³).', how: 'Not accurate enough for a titration — use the pipette for B.', mistake: 'Using it instead of the pipette.', keys: [] },
+  testTubes: { name: 'Test tubes', purpose: 'Small-scale tests (e.g. qualitative analysis).', how: 'Not needed for a titration.', mistake: 'Cluttering the bench with apparatus you do not need.', keys: [] },
+  thermometer: { name: 'Thermometer', purpose: 'Measures temperature.', how: 'Not needed for this titration.', mistake: 'Using it to stir.', keys: [] },
+  burner: { name: 'Bunsen burner', purpose: 'Heats things.', how: 'No heating is needed in a titration.', mistake: 'Lighting a flame near flammable reagents.', keys: [] },
+};
+
+/** The card for a selected object id (cupboard copies and indicator bottles share their apparatus' card). */
+export function explainer(id: string): Explainer | null {
+  const key = id.startsWith('cup:') ? id.slice(4) : id.startsWith('ind:') ? 'indicator' : id;
+  return E[key] ?? null;
+}
+
+/** Lesson lines (safety, precautions, common mistakes) that mention this object. */
+export function lessonLines(lesson: Pick<PracticalLessonView, 'safety' | 'precautions' | 'commonMistakes'> | undefined, e: Explainer): string[] {
+  if (!lesson || !e.keys.length) return [];
+  const lines = [...(lesson.safety ?? []), ...(lesson.precautions ?? []), ...(lesson.commonMistakes ?? [])].filter((l): l is string => typeof l === 'string');
+  return lines.filter((l) => e.keys.some((k) => l.toLowerCase().includes(k))).slice(0, 2);
+}

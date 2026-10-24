@@ -1,14 +1,16 @@
 import { TITRATION_INDICATOR_INFO, type ChemTitrationState } from '@aischool/shared';
-import { ArrowDown, ArrowUp, Check, Droplet, Eye, Footprints, MapPin, RotateCw, Square, Waves, X } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { ArrowDown, ArrowUp, Check, Droplet, Eye, Footprints, Info, MapPin, PackageOpen, RotateCw, Square, Waves, X } from 'lucide-react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Kbd } from '@/components/ui/kbd';
 import { cn } from '@/lib/utils';
 import { DROP, type Titration } from '../actions';
 import { swirl, type ObjectPanel } from './lab-actions';
-import { APPARATUS, type SceneState } from './scene-state';
-import { notify, useLabView } from './store';
+import { APPARATUS, APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
+import type { Explainer } from './explain';
+import { play, startPour, stopPour } from './sound';
+import { notify, tapLevel, useLabView } from './store';
 
 const say = (m: string) => notify(m, 'info', 2200);
 
@@ -36,44 +38,174 @@ export function Panel({ title, onClose, children, className, side = 'right' }: {
 }
 
 /** The actions for the selected object. */
-export function ContextMenu({ panel, onClose }: { panel: ObjectPanel; onClose: () => void }) {
+export function ContextMenu({ panel, onClose, explain, readOnly = false }: { panel: ObjectPanel; onClose: () => void; explain?: { e: Explainer; lesson: string[] } | null; readOnly?: boolean }) {
+  const [info, setInfo] = useState(false);
+  const actions = readOnly ? [] : panel.actions;
   return (
-    <section className="pointer-events-auto absolute inset-x-2 bottom-2 z-20 mx-auto max-w-md rounded-2xl border border-border bg-card/97 p-3 text-card-foreground shadow-2xl backdrop-blur sm:bottom-4" role="dialog" aria-label={panel.title}>
+    <section className="pointer-events-auto absolute inset-x-2 bottom-2 z-20 mx-auto max-h-[70%] max-w-md overflow-y-auto overscroll-contain rounded-2xl border border-border bg-card/97 p-3 text-card-foreground shadow-2xl backdrop-blur sm:bottom-4" role="dialog" aria-label={panel.title}>
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="font-display text-[15px] font-semibold tracking-tight">{panel.title}</p>
           {panel.info && <p className="mt-0.5 text-[12.5px] leading-snug text-muted-foreground">{panel.info}</p>}
         </div>
-        <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close">
-          <X />
-        </Button>
-      </div>
-      {panel.actions.length > 0 && (
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
-          {panel.actions.map((a) => (
-            <Button
-              key={a.key}
-              size="sm"
-              variant={!a.blocked && a.tone === 'brand' ? 'brand' : 'outline'}
-              className={cn(a.blocked && 'opacity-55', a.tone === 'danger' && !a.blocked && 'text-danger')}
-              aria-disabled={!!a.blocked}
-              title={a.blocked}
-              onClick={() => {
-                if (a.blocked) {
-                  say(a.blocked);
-                  return;
-                }
-                a.run();
-              }}
-            >
-              {a.label}
+        <div className="flex shrink-0 gap-1">
+          {explain && (
+            <Button variant={info ? 'secondary' : 'ghost'} size="sm" className="h-8 px-2 text-[12px]" onClick={() => setInfo((x) => !x)} aria-expanded={info}>
+              <Info /> What is this?
             </Button>
-          ))}
+          )}
+          <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close">
+            <X />
+          </Button>
+        </div>
+      </div>
+      {info && explain && (
+        <dl className="mt-2 space-y-1.5 rounded-xl bg-info-soft/60 p-2.5 text-[12.5px] leading-snug">
+          <div>
+            <dt className="font-semibold">{explain.e.name}</dt>
+            <dd className="text-muted-foreground">{explain.e.purpose}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold">How to use it</dt>
+            <dd className="text-muted-foreground">{explain.e.how}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-warning">Common mistake</dt>
+            <dd className="text-muted-foreground">{explain.e.mistake}</dd>
+          </div>
+          {explain.lesson.length > 0 && (
+            <div>
+              <dt className="font-semibold">From your lesson</dt>
+              {explain.lesson.map((l) => (
+                <dd key={l} className="text-muted-foreground">
+                  {l}
+                </dd>
+              ))}
+            </div>
+          )}
+        </dl>
+      )}
+      {actions.length > 0 && (
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          {actions.map((a) =>
+            a.hold ? (
+              <HoldButton key={a.key} label={a.label} blocked={a.blocked} onDone={a.run} />
+            ) : (
+              <Button
+                key={a.key}
+                size="sm"
+                variant={!a.blocked && a.tone === 'brand' ? 'brand' : 'outline'}
+                className={cn(a.blocked && 'opacity-55', a.tone === 'danger' && !a.blocked && 'text-danger')}
+                aria-disabled={!!a.blocked}
+                title={a.blocked}
+                onClick={() => {
+                  if (a.blocked) {
+                    say(a.blocked);
+                    return;
+                  }
+                  play('tick');
+                  a.run();
+                }}
+              >
+                {a.label}
+              </Button>
+            ),
+          )}
         </div>
       )}
     </section>
   );
 }
+
+/** Press and hold (e.g. squeezing the pipette filler); Enter or Space completes it at once for keyboard users. */
+function HoldButton({ label, blocked, onDone, ms = 1200 }: { label: string; blocked?: string; onDone: () => void; ms?: number }) {
+  const [p, setP] = useState(0);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const stop = () => {
+    if (timer.current) clearInterval(timer.current);
+    timer.current = null;
+    setP(0);
+  };
+  useEffect(() => stop, []);
+  const start = () => {
+    if (blocked) return say(blocked);
+    const t0 = performance.now();
+    stop();
+    timer.current = setInterval(() => {
+      const f = (performance.now() - t0) / ms;
+      if (f >= 1) {
+        stop();
+        play('success');
+        onDone();
+      } else setP(f);
+    }, 40);
+  };
+  return (
+    <Button
+      size="sm"
+      variant={blocked ? 'outline' : 'brand'}
+      className={cn('relative touch-none select-none overflow-hidden', blocked && 'opacity-55')}
+      aria-disabled={!!blocked}
+      onPointerDown={(e) => {
+        e.currentTarget.setPointerCapture?.(e.pointerId);
+        start();
+      }}
+      onPointerUp={stop}
+      onPointerCancel={stop}
+      onKeyDown={(e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && !e.repeat) {
+          e.preventDefault();
+          if (blocked) say(blocked);
+          else onDone();
+        }
+      }}
+    >
+      <span className="absolute inset-y-0 left-0 bg-white/30" style={{ width: `${p * 100}%` }} aria-hidden />
+      <span className="relative">{label}</span>
+    </Button>
+  );
+}
+
+/** Feedback while dragging: the carry tray, the filler squeeze, the pour tilt and the tap setting. */
+export function DragOverlay() {
+  const drag = useLabView((v) => v.drag);
+  const tap = useLabView((v) => v.tap);
+  if (!drag) return null;
+  const pill = 'rounded-full bg-black/70 px-3 py-1.5 text-[12.5px] font-medium text-white shadow-lg';
+  return (
+    <div className="pointer-events-none absolute inset-0 z-30">
+      {drag.kind === 'carry' && drag.moved > 8 && (
+        <>
+          <div className="pointer-events-auto absolute inset-x-0 bottom-3 mx-auto flex h-20 w-[min(320px,90%)] items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-300/20 text-[13px] font-semibold text-white backdrop-blur" data-drop="tray">
+            <PackageOpen className="size-5" aria-hidden /> Drop here to carry it to your bench
+          </div>
+          <span className={cn(pill, 'fixed -translate-x-1/2 -translate-y-full')} style={{ left: drag.x, top: drag.y - 8 }}>
+            {APPARATUS_LABEL[drag.id.slice(4) as ApparatusId]}
+          </span>
+        </>
+      )}
+      {drag.kind === 'squeeze' && (
+        <div className="absolute inset-x-0 top-24 mx-auto w-60 rounded-xl bg-black/70 p-2.5 text-center text-[12.5px] text-white">
+          Squeezing the filler — keep holding…
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-white/20">
+            <div className="h-full bg-amber-300" style={{ width: `${drag.value * 100}%` }} />
+          </div>
+        </div>
+      )}
+      {drag.kind === 'pour' && (
+        <div className="absolute inset-x-0 top-24 mx-auto w-64 rounded-xl bg-black/70 p-2.5 text-center text-[12.5px] text-white">
+          {drag.value < 0.7 ? 'Drag up to tilt the bottle over the funnel' : 'Pouring… hold it there'}
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-white/20">
+            <div className={cn('h-full', drag.value < 0.7 ? 'bg-sky-300' : 'bg-emerald-300')} style={{ width: `${drag.value * 100}%` }} />
+          </div>
+        </div>
+      )}
+      {drag.kind === 'tap' && <span className={cn(pill, 'absolute left-1/2 top-24 -translate-x-1/2')}>Tap: {tapLabel(tap)} — drag left to close, right to open</span>}
+      {drag.kind === 'swirl' && <span className={cn(pill, 'absolute left-1/2 top-24 -translate-x-1/2')}>Swirling — keep moving in circles</span>}
+    </div>
+  );
+}
+export const tapLabel = (tap: number) => ({ closed: 'closed', drops: 'drop by drop', stream: 'running' })[tapLevel(tap)];
 
 /** Tap controls while titrating: hold to run, one drop, swirl, finish. */
 export function TitrationDock({ t, scene, s, compact }: { t: Titration; scene: SceneState; s: ChemTitrationState; compact: boolean }) {
@@ -88,21 +220,41 @@ export function TitrationDock({ t, scene, s, compact }: { t: Titration; scene: S
     }
     set({ streaming: true });
     t.startStream();
+    startPour();
   };
   const stop = () => {
-    if (!useLabView.getState().streaming) return;
+    if (!useLabView.getState().streaming || tapLevel(useLabView.getState().tap) === 'stream') return;
     set({ streaming: false });
     t.stopStream();
+    stopPour();
   };
-  const delivered = t.open?.initial != null && s.burette !== null ? s.burette - t.open.initial : null;
+  const tap = useLabView((v) => v.tap);
+  const level = tapLevel(tap);
+  const setTap = (to: number) => {
+    if (to > 0 && !can) return why && say(why);
+    if (Math.abs(to - tap) > 0.05) play('creak');
+    set({ tap: to });
+  };
   return (
     <div className="pointer-events-auto flex flex-wrap items-center justify-end gap-1.5 rounded-2xl border border-white/15 bg-black/55 p-2 text-white shadow-xl backdrop-blur">
       {t.open && (
         <span className="px-1.5 text-[12px] text-white/80">
-          {t.open.kind === 'ROUGH' ? 'Rough' : 'Accurate'} titration{t.open.indicator ? ` · ${TITRATION_INDICATOR_INFO[t.open.indicator].label}` : ''}
-          {delivered !== null && !compact ? ' · tap open: watch the flask' : ''}
+          {t.open.kind === 'ROUGH' ? 'Rough' : 'Accurate'} titration{t.open.indicator && !compact ? ` · ${TITRATION_INDICATOR_INFO[t.open.indicator].label}` : ''}
         </span>
       )}
+      <div className="flex overflow-hidden rounded-lg border border-white/20" role="group" aria-label="Burette tap (or drag the tap itself)">
+        {(['closed', 'drops', 'stream'] as const).map((l) => (
+          <button
+            key={l}
+            type="button"
+            onClick={() => setTap(l === 'closed' ? 0 : l === 'drops' ? 0.35 : 0.9)}
+            aria-pressed={level === l}
+            className={cn('px-2 py-1.5 text-[12px] font-medium', level === l ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/20', l !== 'closed' && !can && 'opacity-55')}
+          >
+            {l === 'closed' ? 'Tap shut' : l === 'drops' ? 'Dropwise' : 'Stream'}
+          </button>
+        ))}
+      </div>
       <Button
         size="sm"
         variant="brand"
@@ -135,6 +287,7 @@ export function TitrationDock({ t, scene, s, compact }: { t: Titration; scene: S
           if (!can) return why && say(why);
           t.deliver(DROP, false);
           set({ dropAt: performance.now() });
+          play('drip');
         }}
       >
         <Droplet /> 1 drop
@@ -142,7 +295,7 @@ export function TitrationDock({ t, scene, s, compact }: { t: Titration; scene: S
       <Button size="sm" variant="outline" className="border-white/20 bg-white/10 text-white hover:bg-white/20" disabled={!t.open} onClick={() => swirl(t)}>
         <RotateCw /> Swirl
       </Button>
-      <Button size="sm" variant="outline" className="border-white/20 bg-white/10 text-white hover:bg-white/20" disabled={!t.open || t.open.initial === null} onClick={() => (stop(), t.finish())}>
+      <Button size="sm" variant="outline" className="border-white/20 bg-white/10 text-white hover:bg-white/20" disabled={!t.open || t.open.initial === null} onClick={() => (set({ tap: 0 }), stop(), t.finish())}>
         <Square /> Close tap · finish
       </Button>
     </div>
@@ -269,19 +422,21 @@ export function ModeBar({ canRead, onRead }: { canRead: boolean; onRead: () => v
   const glass = 'border-white/20 bg-black/45 text-white backdrop-blur hover:bg-black/60';
   if (mode === 'walk')
     return (
-      <Button size="sm" variant="outline" className={glass} onClick={() => set({ mode: 'bench', focus: 'bench', selected: null })}>
+      <Button size="sm" variant="outline" className={glass} onClick={() => set({ mode: 'bench', focus: 'bench', selected: null })} data-tour="bench">
         <MapPin /> Go to my bench
       </Button>
     );
   if (mode === 'read') return null;
   return (
     <div className="flex flex-wrap justify-end gap-1.5">
-      {(['bench', 'burette', 'flask'] as const).map((f) => (
-        <Button key={f} size="sm" variant="outline" className={cn(glass, focus === f && 'bg-white/25')} onClick={() => set({ focus: f })} aria-pressed={focus === f}>
-          {f === 'bench' ? 'Whole bench' : f === 'burette' ? 'Burette' : 'Flask'}
-        </Button>
-      ))}
-      <Button size="sm" variant="outline" className={cn(glass, !canRead && 'opacity-55')} aria-disabled={!canRead} onClick={onRead}>
+      <div className="flex gap-1.5" data-tour="focus">
+        {(['bench', 'burette', 'flask'] as const).map((f) => (
+          <Button key={f} size="sm" variant="outline" className={cn(glass, focus === f && 'bg-white/25')} onClick={() => set({ focus: f })} aria-pressed={focus === f}>
+            {f === 'bench' ? 'Whole bench' : f === 'burette' ? 'Burette' : 'Flask'}
+          </Button>
+        ))}
+      </div>
+      <Button size="sm" variant="outline" className={cn(glass, !canRead && 'opacity-55')} aria-disabled={!canRead} onClick={onRead} data-tour="read">
         <Eye /> Read burette
       </Button>
       <Button size="sm" variant="outline" className={glass} onClick={() => set({ mode: 'walk', selected: null, held: null })}>

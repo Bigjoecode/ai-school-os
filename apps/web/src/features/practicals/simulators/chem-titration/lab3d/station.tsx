@@ -28,7 +28,8 @@ import { BENCH, CUPBOARD, SPOT, STATION } from './layout';
 import { liquidMaterial, mat } from './materials';
 import { CUPBOARD_SHELVES } from './room';
 import { APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
-import { useLabView } from './store';
+import { tapLevel, useLabView } from './store';
+import { dragFor, flaskDrag } from './drag';
 import { bookTexture, taskCardTexture } from './textures';
 
 type V3 = [number, number, number];
@@ -53,13 +54,22 @@ const CUPBOARD_SLOT: Record<ApparatusId, { p: V3; r?: V3 }> = {
   filler: { p: [-0.35, CUPBOARD_SHELVES[2]!, 0.04] },
   burner: { p: [0.2, CUPBOARD_SHELVES[2]!, 0.02] },
 };
+/** Invisible grip boxes (size, centre) for picking apparatus out of the cupboard. */
+const GRIP: Partial<Record<ApparatusId, [[number, number, number], [number, number, number]]>> = {
+  burette: [[0.05, 0.66, 0.05], [0, 0.33, 0]],
+  pipette: [[0.05, 0.46, 0.05], [0, 0.23, 0]],
+  stand: [[0.9, 0.06, 0.3], [0, 0.03, 0]],
+  thermometer: [[0.3, 0.04, 0.04], [0, 0.01, 0]],
+  tile: [[0.16, 0.16, 0.05], [0, 0.08, -0.04]],
+};
+
 /** Distractors taken to the bench line up at its west end. */
 const EXTRA_ORDER: ApparatusId[] = ['cylinder', 'testTubes', 'thermometer', 'burner'];
 
 function ApparatusModel({ id, glow }: { id: ApparatusId; glow?: boolean }) {
   switch (id) {
     case 'burette':
-      return <Burette level={null} bubble={false} tapOpen={false} detail={false} glow={glow} />;
+      return <Burette level={null} bubble={false} detail={false} glow={glow} />;
     case 'stand':
       return (
         <group rotation={[0, 0, Math.PI / 2]} position={[0.46, 0.012, 0]}>
@@ -97,11 +107,14 @@ function ApparatusModel({ id, glow }: { id: ApparatusId; glow?: boolean }) {
 
 /** The apparatus still in the cupboard (each can be taken to the bench). */
 export function CupboardContents({ scene }: { scene: SceneState }) {
+  const carry = () => 'carry' as const;
   return (
     <group position={[CUPBOARD.x, 0, CUPBOARD.z]} rotation={[0, -Math.PI / 2, 0]}>
       <Interactive id="cupboard" label="Apparatus cupboard" labelY={2.25}>
-        <mesh position={[0, 1.0, 0.24]} visible={false}>
+        {/* hit area at the back, so the apparatus in front is picked first */}
+        <mesh position={[0, 1.0, -0.2]}>
           <boxGeometry args={[CUPBOARD.w, 1.9, 0.02]} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
       </Interactive>
       {/* spare stock (not for taking: one of each is enough) */}
@@ -120,8 +133,17 @@ export function CupboardContents({ scene }: { scene: SceneState }) {
         .map((id) => {
           const slot = CUPBOARD_SLOT[id];
           return (
-            <Interactive key={id} id={`cup:${id}`} label={APPARATUS_LABEL[id]} labelY={0.25} position={slot.p} rotation={slot.r}>
-              {(active) => <ApparatusModel id={id} glow={active} />}
+            <Interactive key={id} id={`cup:${id}`} label={APPARATUS_LABEL[id]} labelY={0.25} position={slot.p} rotation={slot.r} drag={carry}>
+              {(active) => (
+                <group>
+                  <ApparatusModel id={id} glow={active} />
+                  {/* an easy-to-hit invisible grip around thin glassware */}
+                  <mesh position={GRIP[id]?.[1] ?? [0, 0.07, 0]}>
+                    <boxGeometry args={GRIP[id]?.[0] ?? [0.12, 0.15, 0.12]} />
+                    <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+                  </mesh>
+                </group>
+              )}
             </Interactive>
           );
         })}
@@ -174,7 +196,7 @@ function Delivery({ from, to }: { from: number; to: number }) {
       d.visible = t >= 0 && t <= 1;
       if (d.visible) d.position.y = from - (from - to) * t * t;
     }
-    if (stream.current) stream.current.visible = streaming;
+    if (stream.current) stream.current.visible = streaming || tapLevel(useLabView.getState().tap) === 'stream';
   });
   return (
     <group>
@@ -186,6 +208,40 @@ function Delivery({ from, to }: { from: number; to: number }) {
       </mesh>
     </group>
   );
+}
+
+/** Follows the pointer while the flask is being dragged across the bench. */
+function FlaskMover({ home, children }: { home: V3; children: ReactNode }) {
+  const ref = useRef<Group>(null);
+  useFrame(() => {
+    const g = ref.current;
+    if (!g) return;
+    const d = useLabView.getState().drag;
+    if (d?.kind === 'flask' && flaskDrag.active) g.position.set(flaskDrag.x - home[0], 0.012, flaskDrag.z - home[2]);
+    else g.position.set(0, 0, 0);
+  });
+  return <group ref={ref}>{children}</group>;
+}
+
+/** Bottle A lifted over the funnel and tilted while it is being poured (drag up to tilt). */
+function PourMotion({ from, children }: { from: V3; children: ReactNode }) {
+  const ref = useRef<Group>(null);
+  useFrame((_, dt) => {
+    const g = ref.current;
+    if (!g) return;
+    const d = useLabView.getState().drag;
+    const pouring = d?.kind === 'pour';
+    const tx = pouring ? SPOT.buretteAxis[0] - from[0] - 0.07 : 0;
+    const ty = pouring ? SPOT.jetHeight + BU.top + 0.06 : 0;
+    const tz = pouring ? SPOT.buretteAxis[2] - from[2] : 0;
+    const k = Math.min(1, dt * 8);
+    g.position.x += (tx - g.position.x) * k;
+    g.position.y += (ty - g.position.y) * k;
+    g.position.z += (tz - g.position.z) * k;
+    const tilt = pouring ? -d!.value * 1.9 : 0;
+    g.rotation.z += (tilt - g.rotation.z) * k;
+  });
+  return <group ref={ref}>{children}</group>;
 }
 
 /** Small swirling motion while "Swirl" runs. */
@@ -208,9 +264,9 @@ function Swirler({ children }: { children: ReactNode }) {
 }
 
 export function Station({ state, scene, t, v, detail }: { state: ChemTitrationState; scene: SceneState; t: Titration; v: ChemTitrationVariant; detail: boolean }) {
+  const dk = (id: string) => dragFor(id, state, scene, t);
   const held = useLabView((s) => s.held);
   const pip = useLabView((s) => s.pip);
-  const streaming = useLabView((s) => s.streaming);
   const has = (id: ApparatusId) => scene.collected.has(id) && held !== id;
   const card = useMemo(() => taskCardTexture([v.given.A, v.given.B.replace(' of unknown concentration', ' (unknown concentration)'), `Titrate A against 25.0 cm³ of B. Indicator: your choice.`]), [v]);
   const book = useMemo(() => bookTexture(), []);
@@ -232,8 +288,12 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
       </Interactive>
 
       {/* reagents A and B, indicators, task card and notebook are always on the bench */}
-      <Interactive id="bottleA" label={`Solution A — ${v.acid.formula}`} bench position={at(SPOT.bottleA)} labelY={0.2}>
-        {(active) => <ReagentBottle name="A" band="#c62828" sub={v.acid.formula} glow={active} />}
+      <Interactive id="bottleA" label={`Solution A — ${v.acid.formula}`} bench position={at(SPOT.bottleA)} labelY={0.2} drag={dk}>
+        {(active) => (
+          <PourMotion from={at(SPOT.bottleA)}>
+            <ReagentBottle name="A" band="#c62828" sub={v.acid.formula} glow={active} />
+          </PourMotion>
+        )}
       </Interactive>
       <Interactive id="bottleB" label={`Solution B — ${v.base.formula}`} bench position={at(SPOT.bottleB)} labelY={0.2}>
         {(active) => <ReagentBottle name="B" band="#2a7fc9" sub={v.base.formula} glow={active} />}
@@ -289,9 +349,9 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
       {has('burette') && scene.clamped && has('stand') ? (
         <group position={[SPOT.buretteAxis[0], jet, SPOT.buretteAxis[2]]}>
           <Interactive id="burette" label="Burette" bench labelY={BU.top + 0.05}>
-            {(active) => <Burette level={state.burette} bubble={scene.bubble} tapOpen={streaming} detail={detail} glow={active} />}
+            {(active) => <Burette level={state.burette} bubble={scene.bubble} live detail={detail} glow={active} />}
           </Interactive>
-          <Interactive id="tap" label="Burette tap" bench position={[0, BU.tap, 0]} labelY={0.03}>
+          <Interactive id="tap" label="Burette tap — drag sideways to turn" bench position={[0, BU.tap, 0]} labelY={0.03} drag={dk}>
             <mesh position={[0.01, 0, 0]}>
               <boxGeometry args={[0.05, 0.03, 0.03]} />
               <meshBasicMaterial transparent opacity={0} depthWrite={false} />
@@ -307,7 +367,7 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
       ) : (
         has('burette') && (
           <Interactive id="burette" label="Burette" bench position={at(SPOT.buretteLying, BU.rOut + 0.001)} rotation={[0, 0, Math.PI / 2]} labelY={0.05}>
-            {(active) => <Burette level={null} bubble={false} tapOpen={false} detail={false} glow={active} />}
+            {(active) => <Burette level={null} bubble={false} detail={false} glow={active} />}
           </Interactive>
         )
       )}
@@ -327,11 +387,13 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
 
       {/* conical flask */}
       {has('flask') && (
-        <Interactive id="flask" label={contents ? 'Conical flask (with B)' : 'Conical flask'} bench position={flaskPos} labelY={0.18}>
+        <Interactive id="flask" label={contents ? 'Conical flask (with B)' : 'Conical flask'} bench position={flaskPos} labelY={0.18} drag={dk}>
           {(active) => (
-            <Swirler>
-              <ConicalFlask volume={volume} colour={shownColour} flash={flash} glow={active} />
-            </Swirler>
+            <FlaskMover home={flaskPos}>
+              <Swirler>
+                <ConicalFlask volume={volume} colour={shownColour} flash={flash} glow={active} />
+              </Swirler>
+            </FlaskMover>
           )}
         </Interactive>
       )}
@@ -339,10 +401,15 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
       {/* pipette (lying, or upright over the flask while pipetting) and filler */}
       {has('pipette') &&
         (pip === 'idle' ? (
-          <Interactive key="pipette-lying" id="pipette" label="25.0 cm³ pipette" bench position={at(SPOT.pipette, 0.013)} rotation={[0, 0, Math.PI / 2]} labelY={0.04}>
+          <Interactive key="pipette-lying" id="pipette" label="25.0 cm³ pipette" bench position={at(SPOT.pipette, 0.013)} rotation={[0, 0, Math.PI / 2]} labelY={0.04} drag={dk}>
             {(active) => (
               <group position={[0, -0.23, 0]}>
                 <Pipette filled={0} glow={active} />
+                {/* a thicker invisible grip: the stem is only 7 mm across */}
+                <mesh position={[0, 0.23, 0]}>
+                  <cylinderGeometry args={[0.02, 0.02, 0.46, 8]} />
+                  <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+                </mesh>
                 {scene.fillerOn && has('filler') && (
                   <group position={[0, 0.46, 0]}>
                     <Filler />
@@ -366,7 +433,7 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
           </Interactive>
         ))}
       {has('filler') && !scene.fillerOn && (
-        <Interactive id="filler" label="Pipette filler" bench position={at(SPOT.filler)} labelY={0.1}>
+        <Interactive id="filler" label="Pipette filler" bench position={at(SPOT.filler)} labelY={0.1} drag={dk}>
           {(active) => <Filler glow={active} />}
         </Interactive>
       )}

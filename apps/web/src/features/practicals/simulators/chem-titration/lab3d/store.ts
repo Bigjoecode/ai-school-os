@@ -31,6 +31,19 @@ interface LabView {
   swirlUntil: number;
   dropAt: number;
   streaming: boolean;
+  /** Burette tap angle, 0 (closed) to 1 (fully open): < 0.15 closed, < 0.55 dropwise, else a stream. */
+  tap: number;
+  /** A drag in progress on an object (the camera ignores the pointer meanwhile). */
+  drag: DragState | null;
+  /** The object the guide points at (beacon and floor path). */
+  target: string | null;
+  /** For the tour: metres walked and radians looked around since the lab opened. */
+  walked: number;
+  looked: number;
+  /** Objects picked (clicked / tapped) — the tour waits for the first one. */
+  picked: number;
+  /** The lab assistant's current line. */
+  line: { text: string; at: number } | null;
   /** The short message shown under the hint bar (in place of page toasts, which would cover the lab's buttons). */
   notice: { text: string; tone: Tone; until: number } | null;
   set: (patch: Partial<Omit<LabView, 'set'>>) => void;
@@ -52,8 +65,29 @@ export const useLabView = create<LabView>((set) => ({
   dropAt: 0,
   streaming: false,
   notice: null,
+  tap: 0,
+  drag: null,
+  target: null,
+  walked: 0,
+  looked: 0,
+  picked: 0,
+  line: null,
   set: (patch) => set(patch),
 }));
+
+export type DragKind = 'carry' | 'flask' | 'tap' | 'swirl' | 'pour' | 'squeeze';
+export interface DragState {
+  kind: DragKind;
+  /** The object being dragged (e.g. the apparatus id being carried). */
+  id: string;
+  x: number;
+  y: number;
+  /** Pointer travel so far (px): a drag that hardly moved is a tap. */
+  moved: number;
+  /** Kind-specific progress: swirl angle, pour tilt 0–1, squeeze 0–1. */
+  value: number;
+}
+export const tapLevel = (tap: number) => (tap < 0.15 ? 'closed' : tap < 0.55 ? 'drops' : 'stream');
 
 export type Tone = 'info' | 'success' | 'warning' | 'danger';
 /** Shows a short message over the lab. */

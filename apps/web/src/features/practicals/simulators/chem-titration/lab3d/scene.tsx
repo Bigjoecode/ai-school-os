@@ -6,12 +6,16 @@ import { PMREMGenerator } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import type { Titration } from '../actions';
 import { buretteY } from './apparatus';
+import { Assistant } from './assistant';
+import { Beacon } from './beacon';
 import { CameraRig } from './controls';
+import { DragController } from './drag';
 import { SPOT, STATION } from './layout';
 import { Room, SafetyCorner } from './room';
 import type { SceneState } from './scene-state';
 import { CupboardContents, Held, Station } from './station';
 import { useLabView, type Quality } from './store';
+import { objectPosition } from './targets';
 
 /** A reflection map made on the GPU from three's built-in procedural room (no HDRI download). */
 function Environment({ intensity }: { intensity: number }) {
@@ -33,9 +37,30 @@ function Environment({ intensity }: { intensity: number }) {
   return null;
 }
 
+/** Development only: screen position of an object by id, so an automated browser check can drag it. */
+function DevProbe() {
+  const camera = useThree((s) => s.camera);
+  const gl = useThree((s) => s.gl);
+  useEffect(() => {
+    const w = window as Window & { __lab3dProject?: (id: string, dy?: number) => { x: number; y: number } | null };
+    w.__lab3dProject = (id, dy = 0) => {
+      const p = objectPosition(id);
+      if (!p) return null;
+      p.y += dy;
+      p.project(camera);
+      const r = gl.domElement.getBoundingClientRect();
+      return { x: r.left + ((p.x + 1) / 2) * r.width, y: r.top + ((1 - p.y) / 2) * r.height };
+    };
+    return () => {
+      delete w.__lab3dProject;
+    };
+  }, [camera, gl]);
+  return null;
+}
+
 const DOWN: Record<Quality, Quality> = { high: 'medium', medium: 'low', low: 'low' };
 
-export function LabScene({ state, scene, t, v, onSlow }: { state: ChemTitrationState; scene: SceneState; t: Titration; v: ChemTitrationVariant; onSlow: () => void }) {
+export function LabScene({ state, scene, t, v, guided, interactive, onSlow }: { state: ChemTitrationState; scene: SceneState; t: Titration; v: ChemTitrationVariant; guided: boolean; interactive: boolean; onSlow: () => void }) {
   const quality = useLabView((s) => s.quality);
   const mode = useLabView((s) => s.mode);
   const set = useLabView((s) => s.set);
@@ -60,6 +85,10 @@ export function LabScene({ state, scene, t, v, onSlow }: { state: ChemTitrationS
       <CupboardContents scene={scene} />
       <Station state={state} scene={scene} t={t} v={v} detail={quality !== 'low' || mode !== 'walk'} />
       <Held />
+      {import.meta.env.DEV && <DevProbe />}
+      <Assistant />
+      {guided && <Beacon />}
+      {interactive && <DragController t={t} s={state} scene={scene} />}
       <CameraRig meniscusY={meniscusY} />
       {watch && (
         <PerformanceMonitor

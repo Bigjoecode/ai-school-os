@@ -14,9 +14,11 @@ export interface LabPrefs {
   voice: boolean;
   /** Practice mode: step checklist, beacons and corrections. */
   guided: boolean;
+  /** Per practical: the Learn and demo stages finished on this device. */
+  journey: Record<string, { learn?: boolean; demo?: boolean }>;
 }
 const KEY = 'aischool:lab3d-prefs';
-const DEFAULTS: LabPrefs = { tourDone: false, safetyDone: false, muted: false, voice: false, guided: true };
+const DEFAULTS: LabPrefs = { tourDone: false, safetyDone: false, muted: false, voice: false, guided: true, journey: {} };
 
 export function loadPrefs(): LabPrefs {
   try {

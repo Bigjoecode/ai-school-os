@@ -23,6 +23,8 @@ export interface SimulatorProps<Id extends SimulatorId = SimulatorId> {
   onHandIn?: () => void;
   /** Leave the 3D view for the 2D lab (same state, nothing is lost). */
   onUse2d?: () => void;
+  /** The attempt on screen (the 3D lab's "Ask Mrs Ada" sends it so a timed practical can be refused). */
+  attemptId?: string;
   /** Read-only after marking: the result, for a lab that walks the student through it. */
   result?: PracticalResult | null;
 }

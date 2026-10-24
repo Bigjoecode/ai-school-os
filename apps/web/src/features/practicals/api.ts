@@ -1,4 +1,6 @@
 import type {
+  PracticalAskInput,
+  PracticalAskResult,
   PracticalAttemptView,
   PracticalCheckResult,
   PracticalClassView,
@@ -32,6 +34,22 @@ export function usePracticalCheck(id: string) {
   return useMutation({
     mutationFn: (answers: number[]) => api.post<PracticalCheckResult>(`/learning/practicals/lessons/${encodeURIComponent(id)}/check`, { answers }),
     onSuccess: () => void qc.invalidateQueries({ queryKey: pk.all }),
+  });
+}
+
+/** A short check on some of the lesson's questions (inside the 3D lab's Learn stage): marked, not recorded. */
+export function usePracticalMiniCheck(id: string) {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: { answers: number[]; questions: number[] }) => api.post<PracticalCheckResult>(`/learning/practicals/lessons/${encodeURIComponent(id)}/check`, body),
+  });
+}
+
+/** "Ask Mrs Ada": a short AI answer from the practical's lesson (refused in timed practicals). */
+export function usePracticalAsk(id: string) {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: PracticalAskInput) => api.post<PracticalAskResult>(`/learning/practicals/lessons/${encodeURIComponent(id)}/ask`, body),
   });
 }
 

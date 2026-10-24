@@ -199,6 +199,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
               readOnly: false,
               startedAt: a.startedAt,
               practicalId: a.practicalId,
+              attemptId: a.id,
             };
             const flat = (
               <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>

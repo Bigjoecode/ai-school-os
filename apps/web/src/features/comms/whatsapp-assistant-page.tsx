@@ -429,7 +429,9 @@ function ThreadPane({ phone, onBack }: { phone: string; onBack: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const end = useRef<HTMLDivElement>(null);
   const t = q.data?.phone === phone ? q.data : undefined;
-  useEffect(() => end.current?.scrollIntoView({ block: 'nearest' }), [t?.messages.length]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: 'nearest' });
+  }, [t?.messages.length]);
 
   if (q.error && !t) return <ErrorState error={q.error} onRetry={() => void q.refetch()} />;
   if (!t) return <Skeleton className="h-96 w-full" />;

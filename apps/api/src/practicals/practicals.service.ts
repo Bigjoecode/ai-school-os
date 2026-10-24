@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 import {
   EXAM_LABELS,
   FREE_LABS_PER_TERM,
@@ -8,6 +8,8 @@ import {
   isSimulatorId,
   rubricTotal,
   type CriterionScore,
+  type PracticalAskInput,
+  type PracticalAskResult,
   type PracticalAttemptView,
   type PracticalCheckResult,
   type PracticalContent,
@@ -31,6 +33,7 @@ import { MasteryService, subjectKey } from '../learning/mastery.service';
 import { StudyService } from '../learning/study.service';
 import { PrismaService } from '../prisma/prisma.service';
 import type { ResolvedAccess } from '../student-ai/entitlements.service';
+import { askPrompt } from './ask';
 import { graderFor, type GraderOutput } from './graders';
 import { keywordMarks } from './graders/helpers';
 
@@ -230,17 +233,43 @@ export class PracticalsService {
 
   // ---------------------------------------------------------- quick checks
 
-  async check(access: ResolvedAccess, id: string, answers: number[]): Promise<PracticalCheckResult> {
+  /** `only`: mark just these questions (a short check inside a lab, answers in the same order); it is not recorded as an attempt. */
+  async check(access: ResolvedAccess, id: string, answers: number[], only?: number[]): Promise<PracticalCheckResult> {
     const l = await this.lesson(id);
-    const checks = lessonData(l).checkQuestions ?? [];
-    if (!checks.length) throw new BadRequestException('This practical has no quick check questions');
+    const all = lessonData(l).checkQuestions ?? [];
+    if (!all.length) throw new BadRequestException('This practical has no quick check questions');
+    const partial = !!only && only.some((q, i) => q !== i || only.length !== all.length);
+    const checks = only ? only.map((q) => all[q]).filter((c): c is NonNullable<typeof c> => !!c) : all;
+    if (!checks.length) throw new BadRequestException('Choose questions from this practical’s quick check');
     const items = checks.map((c, i) => ({ correct: answers[i] === c.answer, answer: c.answer, explanation: c.explanation }));
     const correct = items.filter((x) => x.correct).length;
+    if (partial) return { correct, total: checks.length, passed: correct >= CHECK_PASS * checks.length, items };
     await this.prisma.root.practicalAttempt.create({
       data: { tenantId: access.tenantId, studentId: access.studentId, practicalId: id, seed: 0, mode: 'CHECK', state: { answers } as Prisma.InputJsonValue, score: correct, maxScore: checks.length, submittedAt: new Date() },
     });
     if (l.topicId) await this.mastery.record(access.tenantId, access.studentId, l.topicId, correct, checks.length, { source: 'PRACTICE', sourceId: id }).catch(() => undefined);
     return { correct, total: checks.length, passed: correct >= CHECK_PASS * checks.length, items };
+  }
+
+  // ---------------------------------------------------------- Ask Mrs Ada
+
+  /**
+   * The lab assistant's answer to a question about a practical, on the
+   * student's AI allowance. Refused during a timed practical: the open attempt
+   * named in the request, or any timed lab the student has running.
+   */
+  async ask(access: ResolvedAccess, id: string, input: PracticalAskInput): Promise<PracticalAskResult> {
+    const l = await this.lesson(id);
+    const timed = await this.prisma.root.practicalAttempt.findFirst({
+      where: { studentId: access.studentId, mode: 'EXAM', submittedAt: null, OR: [{ id: input.attemptId ?? '' }, { endsAt: { gt: new Date(Date.now() - LAB_GRACE_MS) } }] },
+      select: { id: true },
+    });
+    if (timed) throw new ForbiddenException({ statusCode: 403, code: 'ASK_NOT_IN_EXAM', message: 'Mrs Ada can’t help during a timed practical. Follow the instructions on your task card.' });
+    const { system, messages } = askPrompt(l.title, lessonData(l), input);
+    const res = await this.study.withAllowance(access, {}, (tier) => this.gateway.generate({ tier, system, messages, maxOutputTokens: 350 }, 'practical-ask'));
+    const answer = res.text.trim();
+    if (!answer) throw new ServiceUnavailableException('Mrs Ada could not answer just now. Please try again.');
+    return { answer: answer.slice(0, 1500) };
   }
 
   // ---------------------------------------------------------- virtual labs

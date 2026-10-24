@@ -49,6 +49,7 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
     mode: 'walk' as CameraMode,
     focus: 'bench' as BenchFocus,
     reset: 0,
+    spotKey: '',
     keys: new Set<string>(),
     fromP: new Vector3(),
     fromQ: new Quaternion(),
@@ -184,6 +185,15 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
       s.oYaw = 0.1;
       startTransition();
     }
+    const spotKey = view.spot ? JSON.stringify(view.spot) : '';
+    if (spotKey !== s.spotKey) {
+      s.spotKey = spotKey;
+      const sp = view.spot ?? FOCUS[s.focus];
+      s.dist = sp.dist;
+      s.oPitch = sp.pitch;
+      s.oYaw = view.spot?.yaw ?? 0.1;
+      startTransition();
+    }
     if (view.mode !== s.mode) {
       // Leaving the bench on foot: stand where the student was sitting, facing the bench.
       if (view.mode === 'walk' && s.mode !== 'walk') Object.assign(s, { x: BENCH_STAND[0], z: BENCH_STAND[1], yaw: 0, pitch: -0.35 });
@@ -216,7 +226,7 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
       p.set(s.x, EYE, s.z);
       q.setFromEuler(e.set(s.pitch, s.yaw, 0, 'YXZ'));
     } else if (s.mode === 'bench') {
-      const fc = FOCUS[s.focus];
+      const fc = view.spot ?? FOCUS[s.focus];
       look.set(STATION[0] + fc.target[0], STATION[1] + fc.target[1], STATION[2] + fc.target[2]);
       p.set(Math.sin(s.oYaw) * Math.cos(s.oPitch), Math.sin(s.oPitch), Math.cos(s.oYaw) * Math.cos(s.oPitch)).multiplyScalar(s.dist * portrait(camera.aspect)).add(look);
       q.setFromRotationMatrix(m4.lookAt(p, look, UP));

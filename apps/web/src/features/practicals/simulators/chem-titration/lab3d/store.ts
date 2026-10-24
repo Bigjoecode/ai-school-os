@@ -44,11 +44,16 @@ interface LabView {
   picked: number;
   /** The lab assistant's current line. */
   line: { text: string; at: number } | null;
+  /** Mrs Ada: at the teacher's desk or behind the student's bench (Learn and demo), what she points at, goggles on. */
+  ada: { at: 'desk' | 'bench'; point: string | null; goggles: boolean };
+  /** A camera spot at the bench (station-local target), overriding `focus` — the Learn stage and the demo move the camera with it. */
+  spot: Spot | null;
   /** The short message shown under the hint bar (in place of page toasts, which would cover the lab's buttons). */
   notice: { text: string; tone: Tone; until: number } | null;
   set: (patch: Partial<Omit<LabView, 'set'>>) => void;
 }
 
+export type LabViewState = Omit<LabView, 'set'>;
 export const useLabView = create<LabView>((set) => ({
   mode: 'walk',
   focus: 'bench',
@@ -65,6 +70,8 @@ export const useLabView = create<LabView>((set) => ({
   dropAt: 0,
   streaming: false,
   notice: null,
+  spot: null,
+  ada: { at: 'desk', point: null, goggles: false },
   tap: 0,
   drag: null,
   target: null,
@@ -74,6 +81,13 @@ export const useLabView = create<LabView>((set) => ({
   line: null,
   set: (patch) => set(patch),
 }));
+
+export interface Spot {
+  target: [number, number, number];
+  dist: number;
+  pitch: number;
+  yaw?: number;
+}
 
 export type DragKind = 'carry' | 'flask' | 'tap' | 'swirl' | 'pour' | 'squeeze';
 export interface DragState {

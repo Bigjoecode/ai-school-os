@@ -155,6 +155,42 @@ export function chemTitrationVariant(seed: number): ChemTitrationVariant {
   };
 }
 
+/**
+ * A variant built from the student's own choices (the 3D lab's unmarked
+ * sandbox): a pair from TITRATION_PAIRS and both concentrations in mol dm⁻³.
+ * The titre follows from the same mole-ratio maths as the seeded variants,
+ * and titrationEndpoint / titrationFillLevel work on it unchanged.
+ */
+export function chemTitrationCustomVariant(seed: number, pairIndex: number, acidConc: number, baseConc: number): ChemTitrationVariant {
+  const pair = TITRATION_PAIRS[Math.max(0, Math.min(TITRATION_PAIRS.length - 1, pairIndex))]!;
+  const acid = ACIDS[pair.acid];
+  const base = BASES[pair.base];
+  const trueTitre = roundDp((baseConc * TITRATION_PIPETTE * pair.a) / (pair.b * acidConc), 2);
+  const v = chemTitrationVariant(seed);
+  return {
+    ...v,
+    seed,
+    acid,
+    base,
+    a: pair.a,
+    b: pair.b,
+    equation: pair.equation,
+    indicators: pair.indicators,
+    acidMassConc: roundDp(acidConc * acid.molarMass, 2),
+    acidConc,
+    trueTitre,
+    baseConc,
+    baseMassConc: baseConc * base.molarMass,
+    finalTask: 'MASS_CONC',
+    impureMassConc: null,
+    purity: null,
+    given: { A: `A is ${acid.name} (${acid.formula}), ${acidConc.toFixed(3)} mol dm⁻³ (your choice).`, B: `B is ${base.name} (${base.formula}), ${baseConc.toFixed(3)} mol dm⁻³ (your choice).` },
+    tasks: v.tasks.map((t) => (t.id === 'final' ? { id: 'final', label: `Concentration of B in g dm⁻³`, unit: 'g/dm3' } : t)),
+  };
+}
+/** Readable names of each pair in TITRATION_PAIRS (same order). */
+export const TITRATION_PAIR_LABELS = TITRATION_PAIRS.map((p) => `${ACIDS[p.acid].formula} against ${BASES[p.base].formula}`);
+
 /** True answers for the calculation tasks. */
 export function chemTitrationAnswers(v: ChemTitrationVariant): Record<TitrationTaskId, number> {
   return { meanTitre: v.trueTitre, concA: v.acidConc, concB: v.baseConc, final: v.finalTask === 'PURITY' ? v.purity! : v.baseMassConc };

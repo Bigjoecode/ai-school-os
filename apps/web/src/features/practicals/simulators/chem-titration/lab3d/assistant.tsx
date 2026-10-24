@@ -3,9 +3,10 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useReducer, useRef } from 'react';
 import { MeshStandardMaterial, Vector3, type Group } from 'three';
 import { Interactive } from './interact';
-import { ASSISTANT_POS } from './layout';
+import { ASSISTANT_POS, STATION } from './layout';
 import { mat } from './materials';
 import { useLabView } from './store';
+import { objectPosition } from './targets';
 
 /**
  * Mrs Ada, the lab technician: a simple procedural figure in a lab coat by
@@ -25,6 +26,10 @@ const scarf = new MeshStandardMaterial({ color: '#0f7a55', roughness: 0.7 });
 
 export function Assistant() {
   const line = useLabView((v) => v.line);
+  const ada = useLabView((v) => v.ada);
+  // Behind the student's bench (facing them across it) when she teaches or demonstrates.
+  const pos: [number, number, number] = ada.at === 'bench' ? [STATION[0] - 0.55, 0, STATION[2] - 1.3] : ASSISTANT_POS;
+  const point = useMemo(() => new Vector3(), []);
   const body = useRef<Group>(null);
   const head = useRef<Group>(null);
   const arm = useRef<Group>(null);
@@ -44,20 +49,24 @@ export function Assistant() {
     const b = body.current;
     if (b) {
       // Turn the whole body slowly toward the student, the head the rest of the way.
-      tmp.set(camera.position.x - ASSISTANT_POS[0], 0, camera.position.z - ASSISTANT_POS[2]);
+      const { ada: a } = useLabView.getState();
+      const aim = a.point ? objectPosition(a.point, point) : null;
+      if (aim) tmp.set(aim.x - pos[0], 0, aim.z - pos[2]);
+      else tmp.set(camera.position.x - pos[0], 0, camera.position.z - pos[2]);
       const want = Math.atan2(tmp.x, tmp.z);
-      b.rotation.y += (want * 0.6 - b.rotation.y) * 0.03;
+      b.rotation.y += ((aim ? want : want * 0.6) - b.rotation.y) * (a.at === 'bench' ? 0.08 : 0.03);
       if (head.current) head.current.rotation.y = Math.max(-0.7, Math.min(0.7, want - b.rotation.y));
       b.position.y = Math.sin(t * 1.6) * 0.004;
     }
     const speaking = useLabView.getState().line;
     const live = !!speaking && Date.now() - speaking.at < LINE_MS;
-    if (arm.current) arm.current.rotation.x = live ? -0.9 + Math.sin(t * 4) * 0.25 : -0.05;
+    const pointing = !!useLabView.getState().ada.point;
+    if (arm.current) arm.current.rotation.x = pointing ? -1.25 + Math.sin(t * 2) * 0.05 : live ? -0.9 + Math.sin(t * 4) * 0.25 : -0.05;
     if (head.current) head.current.rotation.x = live ? Math.sin(t * 6) * 0.04 : 0;
   });
 
   return (
-    <Interactive id="assistant" label={`${ASSISTANT_NAME}, lab technician — tap for help`} labelY={1.95} position={ASSISTANT_POS}>
+    <Interactive id="assistant" label={`${ASSISTANT_NAME}, lab technician — tap for help`} labelY={1.95} position={pos}>
       <group ref={body}>
         {/* legs and shoes */}
         {[-0.08, 0.08].map((x) => (
@@ -119,6 +128,19 @@ export function Assistant() {
               <torusGeometry args={[0.022, 0.004, 6, 16]} />
             </mesh>
           ))}
+          {ada.goggles && (
+            <group position={[0, 0.18, 0.1]}>
+              {[-0.042, 0.042].map((x) => (
+                <mesh key={x} position={[x, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+                  <cylinderGeometry args={[0.034, 0.034, 0.03, 16]} />
+                  <meshStandardMaterial color="#cfe9f7" transparent opacity={0.55} roughness={0.1} />
+                </mesh>
+              ))}
+              <mesh position={[0, 0, -0.02]} material={mat.black()}>
+                <boxGeometry args={[0.24, 0.014, 0.012]} />
+              </mesh>
+            </group>
+          )}
           <mesh position={[0, 0.1, 0.098]} material={mat.red()}>
             <boxGeometry args={[0.035, 0.008, 0.01]} />
           </mesh>

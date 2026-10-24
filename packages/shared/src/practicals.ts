@@ -144,7 +144,26 @@ export const FREE_LABS_PER_TERM = 2;
 export const practicalLabStartSchema = z.object({ practicalId: z.string().trim().min(3).max(120), mode: z.enum(PRACTICAL_MODES) });
 /** Autosave: the whole state (validated against the simulator's schema on submit; size-capped here). */
 export const practicalDraftSchema = z.object({ state: z.record(z.string(), z.unknown()) });
-export const practicalCheckSchema = z.object({ answers: z.array(z.number().int().min(-1).max(9)).min(1).max(10) });
+/** `questions`: mark only these questions (by index), e.g. a short check inside a lab; such a partial check is not recorded. */
+export const practicalCheckSchema = z.object({ answers: z.array(z.number().int().min(-1).max(9)).min(1).max(10), questions: z.array(z.number().int().min(0).max(9)).min(1).max(10).optional() });
+/** Where in the lab journey a question to the lab assistant was asked. */
+export const PRACTICAL_ASK_STAGES = ['LEARN', 'DEMO', 'TRY', 'SANDBOX'] as const;
+export type PracticalAskStage = (typeof PRACTICAL_ASK_STAGES)[number];
+/** "Ask Mrs Ada": a short question about the practical, answered from its lesson (not in timed practicals). */
+export const practicalAskSchema = z.object({
+  question: z.string().trim().min(2).max(400),
+  stage: z.enum(PRACTICAL_ASK_STAGES),
+  /** The step the student is on (e.g. "Clear the air bubble from the jet"). */
+  step: z.string().trim().max(200).optional(),
+  /** The lab attempt open on screen, so a timed one can be refused. */
+  attemptId: z.string().trim().max(60).optional(),
+  /** The last few questions and answers of this session, for follow-ups. */
+  history: z.array(z.object({ q: z.string().max(400), a: z.string().max(1200) })).max(4).optional(),
+});
+export type PracticalAskInput = z.infer<typeof practicalAskSchema>;
+export interface PracticalAskResult {
+  answer: string;
+}
 export const practicalPracticeSchema = z.object({ questions: z.number().int().min(1).max(5).default(2) });
 export const practicalOverrideSchema = z.object({ score: z.number().min(0).max(1000), note: z.string().trim().min(3).max(1000) });
 

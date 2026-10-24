@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { practicalCheckSchema, practicalDraftSchema, practicalLabStartSchema, practicalOverrideSchema, practicalPracticeSchema, type PracticalExam } from '@aischool/shared';
+import { practicalAskSchema, practicalCheckSchema, practicalDraftSchema, practicalLabStartSchema, practicalOverrideSchema, practicalPracticeSchema, type PracticalAskInput, type PracticalExam } from '@aischool/shared';
 import { z } from 'zod';
 import { RequirePermissions } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
@@ -44,7 +44,15 @@ export class PracticalsController {
   @HttpCode(200)
   @Throttle({ default: { limit: 20, ttl: 60_000 } })
   async check(@Param('id') id: string, @Body(new ZodPipe(practicalCheckSchema)) body: z.infer<typeof practicalCheckSchema>) {
-    return this.practicals.check(await this.access(), id, body.answers);
+    return this.practicals.check(await this.access(), id, body.answers, body.questions);
+  }
+
+  /** "Ask Mrs Ada" in the 3D lab: a short answer from the practical's lesson, on the student's AI allowance (refused in timed practicals). */
+  @Post('lessons/:id/ask')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 8, ttl: 60_000 } })
+  async ask(@Param('id') id: string, @Body(new ZodPipe(practicalAskSchema)) body: PracticalAskInput) {
+    return this.practicals.ask(await this.access(), id, body);
   }
 
   /** WAEC practical (alternative-to-practical) questions on the lesson's topic, AI-marked through the theory flow (needs WAEC Prep). */

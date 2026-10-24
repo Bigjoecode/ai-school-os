@@ -59,8 +59,9 @@ export function nextHint(s: ChemTitrationState, open: TitrationRun | null): stri
 
 export type TitrationUpdate = (fn: (s: ChemTitrationState) => ChemTitrationState, log?: string) => void;
 
-export function useTitration({ seed, state, onChange, readOnly, startedAt }: Pick<SimulatorProps<'chem-titration'>, 'seed' | 'state' | 'onChange' | 'readOnly' | 'startedAt'>) {
-  const v = useMemo(() => chemTitrationVariant(seed), [seed]);
+/** `variant`: use these values instead of the seed's (the 3D lab's unmarked sandbox). */
+export function useTitration({ seed, state, onChange, readOnly, startedAt, variant }: Pick<SimulatorProps<'chem-titration'>, 'seed' | 'state' | 'onChange' | 'readOnly' | 'startedAt'> & { variant?: ChemTitrationVariant }) {
+  const v = useMemo(() => variant ?? chemTitrationVariant(seed), [variant, seed]);
   const t0 = useMemo(() => new Date(startedAt).getTime(), [startedAt]);
   const ref = useRef(state);
   ref.current = state;

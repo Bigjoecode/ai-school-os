@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
-import { ClipboardList, Clock, Compass, HelpCircle, Lightbulb, ListChecks, Maximize2, Menu, Minimize2, MonitorSmartphone, NotebookPen, Send, ShieldCheck, Volume2, VolumeX } from 'lucide-react';
+import { ClipboardList, Clock, Compass, GraduationCap, HelpCircle, PlayCircle, Lightbulb, ListChecks, Maximize2, Menu, Minimize2, MonitorSmartphone, NotebookPen, Send, ShieldCheck, Volume2, VolumeX } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { CriterionScore } from '@aischool/shared';
+import { TITRATION_INDICATOR_INFO, type CriterionScore, type PracticalAskStage } from '@aischool/shared';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
@@ -12,7 +12,12 @@ import { gpuTier, isTouchDevice } from '../../webgl';
 import { DROP, useTitration } from '../actions';
 import { chemTitrationMissing } from '../missing';
 import { Notebook, TaskBrief } from '../notebook';
+import { AskPanel, type AskTurn } from './ask';
 import { ASSISTANT_NAME } from './assistant';
+import { DemoPlayer, useDemo } from './demo-player';
+import { JourneyBar, type Stage } from './journey';
+import { LEARN_STATE, LearnStage } from './learn';
+import { SandboxResults, SandboxSetupForm, useSandbox } from './sandbox';
 import { Joystick } from './controls';
 import { justDragged } from './drag';
 import { explainer, lessonLines } from './explain';
@@ -42,20 +47,41 @@ import { say, setVoice, voiceAvailable } from './voice';
  * After marking, the same lab opens read-only with a debrief walkthrough.
  */
 
-type Sheet = 'notebook' | 'task' | 'cupboard' | 'help' | 'menu' | 'handin' | null;
+type Sheet = 'notebook' | 'task' | 'cupboard' | 'help' | 'menu' | 'handin' | 'ask' | 'sandbox' | null;
+const noop = () => undefined;
 const DPR: Record<Quality, [number, number]> = { low: [1, 1], medium: [1, 1.5], high: [1, 2] };
 const LINE_SHOW_MS = 14_000;
 const EXAM_LINE = 'This is a timed practical, so I can’t help with the method. Follow the instructions on your task card — you can do it!';
 
 export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration'>) {
-  const { seed, mode, state, onChange, readOnly, startedAt, endsAt, onHandIn, onUse2d, practicalId, result } = props;
-  const t = useTitration({ seed, state, onChange, readOnly, startedAt });
-  const scene = useMemo(() => sceneFromState(state), [state]);
+  const { seed, mode, state: attemptState, onChange, readOnly, startedAt, endsAt, onHandIn, onUse2d, practicalId, attemptId, result } = props;
   const touch = useMemo(isTouchDevice, []);
   const practice = mode === 'LAB' && !readOnly;
   const [prefs, setPrefs] = useState<LabPrefs>(loadPrefs);
   const updatePrefs = useCallback((p: Partial<LabPrefs>) => setPrefs((x) => (savePrefs({ ...x, ...p }), { ...x, ...p })), []);
-  const guided = practice && prefs.guided;
+  const lesson = usePracticalLesson(practicalId ?? '').data;
+
+  // ---- the journey: Learn -> Watch demo -> Try (and the unmarked sandbox); timed practicals only Try
+  const [stage, setStage] = useState<Stage>('try');
+  const journey = prefs.journey?.[practicalId ?? ''] ?? {};
+  const markJourney = useCallback((k: 'learn' | 'demo') => setPrefs((x) => {
+    const next = { ...x, journey: { ...x.journey, [practicalId ?? '']: { ...x.journey?.[practicalId ?? ''], [k]: true } } };
+    savePrefs(next);
+    return next;
+  }), [practicalId]);
+  const tAttempt = useTitration({ seed, state: attemptState, onChange, readOnly, startedAt });
+  const sandbox = useSandbox(startedAt);
+  const learnT = useTitration({ seed, state: LEARN_STATE, onChange: noop, readOnly: true, startedAt });
+  const precautions = useMemo(() => lesson?.precautions ?? [], [lesson]);
+  const demo = useDemo({ studentSeed: seed, startedAt, precautions, active: stage === 'demo', onFinished: () => markJourney('demo') });
+  const work = stage === 'try' || stage === 'sandbox';
+  // Try and the sandbox share the bench UI; Learn and the demo show their own bench.
+  const t = stage === 'sandbox' ? sandbox.t : tAttempt;
+  const state = stage === 'sandbox' ? sandbox.state : attemptState;
+  const scene = useMemo(() => sceneFromState(state), [state]);
+  const shown = stage === 'learn' ? { t: learnT, state: LEARN_STATE } : stage === 'demo' ? { t: demo.t, state: demo.state } : { t, state };
+  const shownScene = useMemo(() => sceneFromState(shown.state), [shown.state]);
+  const guided = practice && prefs.guided && work;
   const [sheet, setSheet] = useState<Sheet>(null);
   const [intro, setIntro] = useState(!readOnly);
   const [tour, setTour] = useState(false);
@@ -65,6 +91,8 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   const [correction, setCorrection] = useState<Correction | null>(null);
   const [stripHidden, setStripHidden] = useState(false);
   const [debrief, setDebrief] = useState(!!result);
+  const [learnStep, setLearnStep] = useState<string | null>(null);
+  const [askTurns, setAskTurns] = useState<AskTurn[]>([]);
   const camMode = useLabView((v) => v.mode);
   const selected = useLabView((v) => v.selected);
   const quality = useLabView((v) => v.quality);
@@ -75,7 +103,6 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   useLabView((v) => v.pip);
   useLabView((v) => v.held);
   const left = useCountdown(endsAt ?? null);
-  const lesson = usePracticalLesson(practicalId ?? '').data;
 
   // A fresh view for every visit; the quality tier from the device.
   useEffect(() => {
@@ -115,9 +142,10 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   }, [immersive]);
 
   // ---- the tap: turned by dragging (closed / drop by drop / stream) or held open with the button
-  const canRun = t.canDeliver && scene.flaskUnder;
+  const canRun = work && t.canDeliver && scene.flaskUnder;
   const level = tapLevel(tap);
   useEffect(() => {
+    if (!work) return;
     if (!canRun) {
       if (useLabView.getState().streaming) t.stopStream();
       if (useLabView.getState().tap || useLabView.getState().streaming) set({ streaming: false, tap: 0 });
@@ -143,13 +171,15 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
       return () => clearInterval(id);
     }
     // t's actions read the latest state through a ref, so the ones from this render stay valid.
-  }, [level, canRun]);
+  }, [level, canRun, work]);
 
   // ---- guidance
   const v = t.v;
   const steps = useMemo(() => (guided ? guideSteps(state, scene, camMode, v) : []), [guided, state, scene, camMode, v]);
   const cur = currentStep(steps);
-  useEffect(() => set({ target: guided && cur?.target ? cur.target : null }), [guided, cur?.target, set]);
+  useEffect(() => {
+    if (work) set({ target: guided && cur?.target ? cur.target : null });
+  }, [guided, cur?.target, set, work]);
   const speak = useCallback(
     (text: string) => {
       set({ line: { text, at: Date.now() } });
@@ -172,7 +202,15 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   // Corrections: look at what was just recorded (never at work done before this visit).
   const lastSeen = useRef(state.log.at(-1)?.t ?? -1);
   const sceneBefore = useRef(scene);
+  const seenStage = useRef(stage);
   useEffect(() => {
+    if (seenStage.current !== stage) {
+      // A different bench (sandbox / attempt): only what is done from now on is looked at.
+      seenStage.current = stage;
+      lastSeen.current = state.log.at(-1)?.t ?? -1;
+      sceneBefore.current = scene;
+      return;
+    }
     const fresh = state.log.filter((e) => e.t > lastSeen.current);
     lastSeen.current = state.log.at(-1)?.t ?? lastSeen.current;
     if (guided && fresh.length) {
@@ -185,17 +223,39 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
       }
     }
     sceneBefore.current = scene;
-  }, [state, scene, guided, v, speak]);
+  }, [state, scene, guided, v, speak, stage]);
 
   // ---- first visit: the tour, then the safety briefing at the door
   const [briefAgain, setBriefAgain] = useState(false);
-  const briefed = state.log.some((e) => e.a.startsWith('safety-briefing'));
-  const showBriefing = practice && !intro && !tour && (!briefed || briefAgain);
-  const enter = (bench: boolean) => {
+  const briefed = attemptState.log.some((e) => e.a.startsWith('safety-briefing'));
+  const showBriefing = practice && stage === 'try' && !intro && !tour && (!briefed || briefAgain);
+  const goStage = (next: Stage, opts: { bench?: boolean } = {}) => {
+    setSheet(null);
+    setCorrection(null);
+    t.stopStream();
+    stopPour();
+    const teaching = next === 'learn' || next === 'demo';
+    const started = attemptState.log.some((e) => !e.a.startsWith('safety-briefing'));
+    useLabView.setState((x) => ({
+      spot: null,
+      selected: null,
+      held: null,
+      pip: 'idle',
+      streaming: false,
+      tap: 0,
+      target: null,
+      ada: { at: teaching ? 'bench' : 'desk', point: null, goggles: teaching },
+      mode: teaching || next === 'sandbox' || opts.bench || (next === 'try' && started) ? 'bench' : 'walk',
+      focus: 'bench',
+      resetTick: next === 'try' && !started ? x.resetTick + 1 : x.resetTick,
+    }));
+    setStage(next);
+    if (next === 'try' && practice && !prefs.tourDone) startTour();
+  };
+  const enter = (next: Stage, bench = false) => {
     setIntro(false);
     if (touch) setImmersive(true);
-    if (bench) set({ mode: 'bench', focus: 'bench' });
-    if (practice && !prefs.tourDone) startTour();
+    goStage(next, { bench });
   };
   const closeSheet = useCallback(() => setSheet(null), []);
   const startTour = () => {
@@ -205,7 +265,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   };
   const greeted = useRef(false);
   useEffect(() => {
-    if (!practice || intro || tour || showBriefing || greeted.current) return;
+    if (!practice || stage !== 'try' || intro || tour || showBriefing || greeted.current) return;
     greeted.current = true;
     const started = state.log.some((e) => !e.a.startsWith('safety-briefing'));
     speak(
@@ -213,7 +273,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
         ? `Welcome back! ${cur ? `Next: ${cur.label.toLowerCase()}.` : 'Everything is recorded — hand in when you are ready.'} Tap me any time for help.`
         : `Welcome! I’m ${ASSISTANT_NAME}, the lab technician. ${cur ? `First: ${cur.label.toLowerCase()}.` : ''} Tap me any time for help.`,
     );
-  }, [practice, intro, tour, showBriefing, cur, state.log, speak]);
+  }, [practice, stage, intro, tour, showBriefing, cur, state.log, speak]);
 
   // ---- after marking: the debrief camera
   const showMe = (c: CriterionScore) => {
@@ -227,7 +287,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
     }
   };
 
-  if (import.meta.env.DEV) (window as Window & { __lab3dState?: unknown }).__lab3dState = state;
+  if (import.meta.env.DEV) Object.assign(window, { __lab3dState: attemptState, __lab3dShown: shown.state, __lab3dStage: stage });
   const canRead = scene.clamped && state.burette !== null;
   const goRead = () => {
     if (!canRead) return;
@@ -235,10 +295,10 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
     setSheet(null);
   };
   const ctx = { t, s: state, scene, open: (w: 'notebook' | 'task' | 'cupboard') => (set({ selected: null }), setSheet(w)) };
-  const panel = selected && selected !== 'assistant' ? objectPanel(selected, ctx) : null;
+  const panel = work && selected && selected !== 'assistant' ? objectPanel(selected, ctx) : null;
   // "What is this?" cards teach the method: practice and review only, not in a timed practical.
   const explained = selected && mode === 'LAB' ? explainer(selected) : null;
-  const missing = chemTitrationMissing(state, seed);
+  const missing = chemTitrationMissing(attemptState, seed);
 
   // Keyboard shortcuts.
   useEffect(() => {
@@ -252,7 +312,8 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
         else if (vw.selected) vw.set({ selected: null });
         else if (vw.mode === 'read') vw.set({ mode: 'bench' });
         else setSheet('menu');
-      } else if (k === 'b' && vw.mode === 'walk') vw.set({ mode: 'bench', focus: 'bench' });
+      } else if (!work) return;
+      else if (k === 'b' && vw.mode === 'walk') vw.set({ mode: 'bench', focus: 'bench' });
       else if (k === 'r') goRead();
       else if (k === 'n') setSheet((x) => (x === 'notebook' ? null : 'notebook'));
       else if (k === 't') setSheet((x) => (x === 'task' ? null : 'task'));
@@ -295,6 +356,9 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
   }, [line]);
   const showLine = !!line && !stripHidden && Date.now() - line.at < LINE_SHOW_MS && (practice || line.text === EXAM_LINE) && !tour;
   const blocking = intro || tour || showBriefing;
+  const askOk = practice && !!practicalId;
+  const askStage: PracticalAskStage = stage === 'learn' ? 'LEARN' : stage === 'demo' ? 'DEMO' : stage === 'sandbox' ? 'SANDBOX' : 'TRY';
+  const askStep = stage === 'learn' ? learnStep : stage === 'demo' ? demo.step.title : (cur?.label ?? null);
 
   return (
     <div className={cn('relative isolate overflow-hidden bg-[#1b2328] text-white', immersive ? 'fixed inset-0 z-50' : 'h-[min(70dvh,780px)] min-h-[400px] rounded-2xl border border-border sm:h-[min(78dvh,780px)] sm:min-h-[480px]')}>
@@ -308,7 +372,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
           className="touch-none"
           aria-label="3D chemistry laboratory"
         >
-          <LabScene state={state} scene={scene} t={t} v={v} guided={guided} interactive={!readOnly} onSlow={() => setSlow(true)} />
+          <LabScene state={shown.state} scene={shownScene} t={shown.t} v={shown.t.v} guided={guided || stage === 'learn'} interactive={!readOnly && work} onSlow={() => setSlow(true)} />
         </Canvas>
       )}
       {lost && (
@@ -340,7 +404,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
           )}
           <div className="min-w-0 truncate whitespace-nowrap rounded-full bg-black/45 px-3 py-1 text-[12.5px] backdrop-blur">
             <span className="font-semibold">Chemistry lab</span>
-            <span className="hidden text-white/70 sm:inline"> · {readOnly ? 'your lab record' : camMode === 'walk' ? 'walking' : camMode === 'bench' ? 'at your bench' : 'reading the burette'}</span>
+            <span className="hidden text-white/70 sm:inline"> · {readOnly ? 'your lab record' : stage === 'learn' ? 'learning' : stage === 'demo' ? 'demonstration' : stage === 'sandbox' ? 'sandbox (unmarked)' : camMode === 'walk' ? 'walking' : camMode === 'bench' ? 'at your bench' : 'reading the burette'}</span>
           </div>
           {left != null && (
             <span className={cn('inline-flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 font-display text-[14px] font-semibold tabular backdrop-blur', lowTime && 'bg-danger text-white')} aria-label="Time left">
@@ -365,14 +429,17 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
             </Button>
           </div>
         </div>
-        {hint && !blocking && (
+        {practice && !intro && !tour && (
+          <JourneyBar stage={stage} learned={!!journey.learn} demoed={!!journey.demo} onStage={(x) => (x === 'sandbox' ? setSheet('sandbox') : goStage(x))} onAsk={askOk ? () => setSheet(sheet === 'ask' ? null : 'ask') : undefined} asking={sheet === 'ask'} />
+        )}
+        {hint && !blocking && work && (
           <p className="mx-auto flex max-w-xl items-start gap-1.5 rounded-xl bg-black/55 px-3 py-1.5 text-[12.5px] leading-snug backdrop-blur">
             <Lightbulb className="mt-0.5 size-3.5 shrink-0 text-amber-300" aria-hidden /> {hint}
           </p>
         )}
         <Notice />
         {correction && !blocking && <CorrectionCard c={correction} onClose={() => setCorrection(null)} onAsk={() => speak(correction.why)} />}
-        {showLine && !correction && !blocking && camMode !== 'read' && (
+        {showLine && !correction && !blocking && work && camMode !== 'read' && (
           <div className="mx-auto">
             <AssistantStrip text={line!.text} onNext={nextTip} voice={prefs.voice} voiceOk={voiceAvailable()} onVoice={() => updatePrefs({ voice: !prefs.voice })} onClose={() => setStripHidden(true)} />
           </div>
@@ -397,7 +464,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
       )}
 
       {/* bottom: joystick, Mrs Ada, mode buttons, tap controls */}
-      {!intro && (
+      {!intro && work && (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-2 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:p-3">
           <div className="pointer-events-auto flex flex-col items-start gap-2">
             {touch && camMode === 'walk' && !panel && (
@@ -415,7 +482,14 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
         </div>
       )}
       <DragOverlay />
-      {camMode === 'read' && !sheet && !debrief && <ReadingPanel t={t} s={state} onBack={() => set({ mode: 'bench', focus: 'burette' })} />}
+      {stage === 'sandbox' && !intro && !panel && (
+        <div className="pointer-events-none absolute right-2 top-[6.5rem] z-[5] sm:right-3 sm:top-28">
+          <SandboxResults sandbox={sandbox} />
+        </div>
+      )}
+      {stage === 'learn' && <LearnStage lesson={lesson} practicalId={practicalId ?? ''} onCard={setLearnStep} onClose={() => goStage('try')} onDone={() => (markJourney('learn'), goStage('demo'))} />}
+      {stage === 'demo' && !sheet && <DemoPlayer demo={demo} onClose={() => goStage('try')} />}
+      {camMode === 'read' && work && !sheet && !debrief && <ReadingPanel t={t} s={state} onBack={() => set({ mode: 'bench', focus: 'burette' })} />}
       {panel && !sheet && camMode !== 'read' && !debrief && (
         <ContextMenu panel={panel} readOnly={readOnly} onClose={() => set({ selected: null })} explain={explained ? { e: explained, lesson: lessonLines(lesson, explained) } : null} />
       )}
@@ -439,6 +513,22 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
         <Panel title="Apparatus cupboard" onClose={() => setSheet(null)}>
           <p className="mb-2 text-[13px] text-muted-foreground">Take what you need for this titration to your bench — or drag things from the cupboard onto the tray.</p>
           <CupboardList scene={scene} t={t} />
+        </Panel>
+      )}
+      {sheet === 'ask' && askOk && (
+        <Panel title={`Ask ${ASSISTANT_NAME}`} onClose={() => setSheet(null)}>
+          <AskPanel practicalId={practicalId!} stage={askStage} step={askStep} attemptId={attemptId} turns={askTurns} setTurns={setAskTurns} indicatorHint={stage === 'try' ? undefined : TITRATION_INDICATOR_INFO[shown.t.v.indicators[0]!].label.toLowerCase()} />
+        </Panel>
+      )}
+      {sheet === 'sandbox' && (
+        <Panel title="Sandbox — your own values" onClose={() => setSheet(null)}>
+          <SandboxSetupForm
+            initial={sandbox.setup}
+            onStart={(x) => {
+              sandbox.start(x);
+              goStage('sandbox');
+            }}
+          />
         </Panel>
       )}
       {sheet === 'help' && (
@@ -568,6 +658,7 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-2xl sm:p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">3D virtual lab{mode === 'EXAM' ? ' · timed practical' : ''}</p>
             <h2 className="mt-1 font-display text-xl font-semibold tracking-tight">Chemistry laboratory</h2>
+            {practice && <p className="mt-2 text-[13.5px] text-muted-foreground">New to this practical? Learn it first, watch {ASSISTANT_NAME} do it, then try it yourself — you can jump to any stage.</p>}
             <p className="mt-2 text-[13.5px] text-muted-foreground sm:hidden">Put on your coat and goggles, collect apparatus, then titrate at your bench.</p>
             <ol className="mt-3 hidden list-decimal space-y-1 pl-5 text-[13.5px] text-muted-foreground sm:block">
               <li>Put on your lab coat and goggles (hooks by the door).</li>
@@ -577,14 +668,24 @@ export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration
             </ol>
             <p className="mt-3 hidden text-[12.5px] text-muted-foreground sm:block">{touch ? 'Joystick to walk, drag to look, tap things to use them.' : 'WASD or arrows to walk, drag to look, click things to use them.'}</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button variant="brand" onClick={() => enter(false)}>
-                Enter the lab
+              {practice && (
+                <>
+                  <Button variant={journey.learn ? 'outline' : 'brand'} onClick={() => enter('learn')}>
+                    <GraduationCap /> 1. Learn first{journey.learn ? ' ✓' : ''}
+                  </Button>
+                  <Button variant={journey.learn && !journey.demo ? 'brand' : 'outline'} onClick={() => enter('demo')}>
+                    <PlayCircle /> 2. Watch {ASSISTANT_NAME}{journey.demo ? ' ✓' : ''}
+                  </Button>
+                </>
+              )}
+              <Button variant={!practice || (journey.learn && journey.demo) ? 'brand' : 'outline'} onClick={() => enter('try')}>
+                {practice ? '3. Try it: enter the lab' : 'Enter the lab'}
               </Button>
-              <Button variant="outline" onClick={() => enter(true)}>
+              <Button variant="ghost" onClick={() => enter('try', true)}>
                 Go straight to my bench
               </Button>
               {!practice && (
-                <Button variant="ghost" onClick={() => (enter(false), startTour())}>
+                <Button variant="ghost" onClick={() => (enter('try'), startTour())}>
                   <Compass /> New here? 1-minute controls tour
                 </Button>
               )}

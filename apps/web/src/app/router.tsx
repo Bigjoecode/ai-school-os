@@ -148,6 +148,7 @@ const ExamAcademyPage = lazy(() => import('@/features/learning/exams-page'));
 const SittingPage = lazy(() => import('@/features/learning/sitting-page'));
 const PracticalHubPage = lazy(() => import('@/features/practicals/hub-page'));
 const PracticalSubjectPage = lazy(() => import('@/features/practicals/hub-page').then((m) => ({ default: m.PracticalSubjectPage })));
+const PracticalCategoryPage = lazy(() => import('@/features/practicals/hub-page').then((m) => ({ default: m.PracticalCategoryPage })));
 const PracticalLessonPage = lazy(() => import('@/features/practicals/lesson-page'));
 const PracticalLabPage = lazy(() => import('@/features/practicals/lab-page'));
 const PracticalTeachingPage = lazy(() => import('@/features/practicals/teaching-page'));
@@ -872,6 +873,7 @@ export const router = createBrowserRouter(withRouteErrors([
           ['learn/sittings/:id', <SittingPage key="sitting" />],
           // WAEC Practical Academy: lessons, quick checks and virtual labs.
           ['learn/practicals', <PracticalHubPage key="practicals" />],
+          ['learn/practicals/categories/:category', <PracticalCategoryPage key="practical-category" />],
           ['learn/practicals/subjects/:subject', <PracticalSubjectPage key="practical-subject" />],
           ['learn/practicals/lesson/:id', <PracticalLessonPage key="practical-lesson" />],
           ['learn/practicals/labs/:id', <PracticalLabPage key="practical-lab" />],

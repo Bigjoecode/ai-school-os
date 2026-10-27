@@ -17,12 +17,14 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'bio-microscope': {
     id: 'bio-microscope',
     component: lazy(() => import('./bio-microscope')),
+    component3d: lazy(() => import('./bio-microscope/lab3d')),
     empty: emptyBioMicroscopeState,
     missing: bioMicroscopeMissing,
   },
   'bio-specimens': {
     id: 'bio-specimens',
     component: lazy(() => import('./bio-specimens')),
+    component3d: lazy(() => import('./bio-specimens/lab3d')),
     empty: emptyBioSpecimensState,
     missing: bioSpecimensMissing,
   },

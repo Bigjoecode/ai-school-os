@@ -8,41 +8,24 @@ import {
   MICRO_SLIDE_INFO,
   bioMicroscopeVariant,
   emptyBioMicroscopeState,
-  microBrightness,
   type BioMicroscopeState,
   type BioMicroscopeVariant,
   type MicroObjective,
   type MicroScope,
-  type MicroTaskId,
 } from '@aischool/shared';
 import { Camera, ChevronDown, Lightbulb, Microscope, Minus, Plus, Ruler } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input, inputClass } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { DrawingChecklist, LabelBoard, Step } from '../bio-common';
+import { Step } from '../bio-common';
 import type { SimulatorProps } from '../types';
-import { FieldContent, FieldView, VIEW_R, viewScale } from './field';
+import { captureView, nextHint, placeSlide, scopeChange, type ScopeKind } from './actions';
+import { FieldView } from './field';
+import { Notebook } from './notebook';
 
 type Update = (fn: (s: BioMicroscopeState) => BioMicroscopeState, log?: string) => void;
-
-/** What to do next (practice mode only). */
-function nextHint(s: BioMicroscopeState, v: BioMicroscopeVariant): string {
-  const info = v.info;
-  if (!s.prep.medium) return 'Choose what to mount the specimen in: think about what each stain shows.';
-  if (!s.prep.coverslip) return 'Add the cover slip.';
-  if (!s.prep.placed) return 'Place the slide on the stage and clip it.';
-  const dz = s.scope.coarse + s.scope.fine - v.focus[s.scope.objective];
-  const b = microBrightness(s.scope.lamp, s.scope.diaphragm, s.scope.objective);
-  if (b < 0.3) return 'The field is dark: turn up the lamp (or open the diaphragm).';
-  if (!s.flags.focusedLow) return s.scope.objective === 40 ? 'Go back to a low-power objective and focus there first.' : 'Raise the stage with the coarse focus until the specimen appears, then sharpen it with the fine focus.';
-  if (!s.captures.some((c) => c.objective === info.measureObjective)) return s.scope.objective !== info.measureObjective ? `Turn to the ×${info.measureObjective} objective.` : Math.abs(dz) > MICRO_FOCUS_TOL[s.scope.objective] ? 'Sharpen the image with the fine focus.' : `Capture this ×${info.measureObjective} view for measuring.`;
-  if (!s.captures.some((c) => c.objective === info.labelObjective)) return s.scope.objective !== info.labelObjective ? `Turn to the ×${info.labelObjective} objective — use only the fine focus at high power.` : Math.abs(dz) > MICRO_FOCUS_TOL[s.scope.objective] ? 'Use the fine focus until the edges are sharp.' : `Capture this ×${info.labelObjective} view for labelling.`;
-  return 'Label the structures, measure, calculate, then write your observations and precautions.';
-}
 
 export default function BioMicroscopeLab({ seed, mode, state, onChange, readOnly, startedAt, practicalId }: SimulatorProps<'bio-microscope'>) {
   const t0 = useMemo(() => new Date(startedAt).getTime(), [startedAt]);
@@ -93,25 +76,9 @@ function Lab({ v, mode, state, readOnly, update, canChange, t0 }: { v: BioMicros
   const dz = sc.coarse + sc.fine - v.focus[sc.objective];
   const inFocus = state.prep.placed && Math.abs(dz) <= MICRO_FOCUS_TOL[sc.objective];
 
-  const setScope = (patch: Partial<MicroScope>, kind: 'coarse' | 'fine' | 'objective' | 'light', log?: string) =>
-    update((s) => {
-      const scope = { ...s.scope, ...patch };
-      const flags = { ...s.flags };
-      if (kind === 'objective' && scope.objective === 40 && !flags.focusedLow) flags.highBeforeLow = true;
-      if (kind === 'coarse' && scope.objective === 40) flags.coarseAtHigh = Math.min(100_000, flags.coarseAtHigh + 1);
-      if (kind === 'light') flags.lightAdjusted = true;
-      if (s.prep.placed) {
-        const d = scope.coarse + scope.fine - v.focus[scope.objective];
-        if (scope.objective !== 40 && Math.abs(d) <= MICRO_FOCUS_TOL[scope.objective]) flags.focusedLow = true;
-        if (scope.objective === 40 && kind === 'coarse' && d > 1.5 && !flags.crashed) {
-          flags.crashed = true;
-          log = 'crash';
-        }
-      }
-      return { ...s, scope, flags };
-    }, log);
-  const capture = () =>
-    update((s) => ({ ...s, captures: [...s.captures.filter((c) => c.objective !== s.scope.objective), { ...s.scope, t: Math.max(0, Date.now() - t0) }].slice(-3) }), `capture:${sc.objective}`);
+  const setScope = (patch: Partial<MicroScope>, kind: ScopeKind, log?: string) =>
+    update((s) => scopeChange(s, v, patch, kind, log).next, log);
+  const capture = () => update((s) => captureView(s, Math.max(0, Date.now() - t0)), `capture:${sc.objective}`);
 
   const labelCap = state.captures.find((c) => c.objective === info.labelObjective) ?? null;
   const measureCap = state.captures.find((c) => c.objective === info.measureObjective) ?? null;
@@ -190,7 +157,7 @@ function Lab({ v, mode, state, readOnly, update, canChange, t0 }: { v: BioMicros
                 variant="outline"
                 className="h-auto min-h-8 whitespace-normal py-1 text-left"
                 disabled={readOnly || state.prep.placed || !state.prep.coverslip}
-                onClick={() => update((s) => ({ ...s, prep: { ...s.prep, placed: true, clipped: true }, scope: { ...s.scope, objective: 4 } }), 'place-slide')}
+                onClick={() => update(placeSlide, 'place-slide')}
               >
                 Place the slide over the hole and clip it (×4 objective in place)
               </Button>
@@ -266,7 +233,7 @@ function Lab({ v, mode, state, readOnly, update, canChange, t0 }: { v: BioMicros
   );
 }
 
-function Slider({ label, min, max, step, value, onChange, nudge, suffix, hint }: { label: string; min: number; max: number; step: number; value: number; onChange: (x: number) => void; nudge: number; suffix?: string; hint?: string }) {
+export function Slider({ label, min, max, step, value, onChange, nudge, suffix, hint }: { label: string; min: number; max: number; step: number; value: number; onChange: (x: number) => void; nudge: number; suffix?: string; hint?: string }) {
   const id = `sl-${label.replace(/\s+/g, '-').toLowerCase()}`;
   const clamp = (x: number) => Math.round(Math.max(min, Math.min(max, x)) / step) * step;
   return (
@@ -310,125 +277,3 @@ function ScopeSvg({ scope, placed }: { scope: MicroScope; placed: boolean }) {
   );
 }
 
-function Notebook({
-  v,
-  state,
-  readOnly,
-  update,
-  labelCap,
-  measureCap,
-  fieldBase,
-}: {
-  v: BioMicroscopeVariant;
-  state: BioMicroscopeState;
-  readOnly: boolean;
-  update: Update;
-  labelCap: MicroScope | null;
-  measureCap: MicroScope | null;
-  fieldBase: { v: BioMicroscopeVariant; medium: BioMicroscopeState['prep']['medium']; coverslip: BioMicroscopeState['prep']['coverslip']; placed: boolean; crashed: boolean };
-}) {
-  const info = v.info;
-  const s = viewScale(v, info.labelObjective);
-  const setAnswer = (id: MicroTaskId, key: 'value' | 'unit', value: string) => update((x) => ({ ...x, answers: { ...x.answers, [id]: { ...x.answers[id], [key]: value.slice(0, 40) } } }));
-  const setWritten = (key: 'observations' | 'precautions', value: string) => update((x) => ({ ...x, written: { ...x.written, [key]: value.slice(0, 2000) } }));
-  const unitHint: Record<string, string> = { '': '', length: 'µm or mm', 'per-mm2': 'per mm²' };
-  // Small structures: show an enlarged part of the captured view so the numbered parts can be told apart.
-  const zoomed = useMemo(() => {
-    const pts = v.targets.map((t) => ({ x: t.x * s, y: t.y * s }));
-    const xs = pts.map((p) => p.x);
-    const ys = pts.map((p) => p.y);
-    const spread = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), 1);
-    const z = Math.max(1, Math.min(3.2, 150 / spread));
-    const c = z > 1 ? { x: (Math.max(...xs) + Math.min(...xs)) / 2, y: (Math.max(...ys) + Math.min(...ys)) / 2 } : { x: 0, y: 0 };
-    return { z, c, targets: pts.map((p) => ({ x: (p.x - c.x) * z, y: (p.y - c.y) * z })) };
-  }, [v, s]);
-  return (
-    <Card className="p-4 sm:p-5">
-      <h3 className="mb-3 font-display text-[15px] font-semibold tracking-tight">Your record</h3>
-
-      <section className="space-y-2">
-        <p className="text-[12.5px] font-semibold">
-          Label the structures (×{info.labelObjective} view{zoomed.z > 1.05 ? `, the part in the middle enlarged ${zoomed.z.toFixed(1)} times` : ''})
-        </p>
-        {labelCap ? (
-          <LabelBoard
-            box={{ x: -VIEW_R - 6, y: -VIEW_R - 6, w: VIEW_R * 2 + 12, h: VIEW_R * 2 + 12 }}
-            targets={zoomed.targets}
-            options={v.labelOptions}
-            value={v.targets.map((_, i) => state.labels[i] ?? '')}
-            onChange={(next) => update((x) => ({ ...x, labels: next }), 'labels')}
-            readOnly={readOnly}
-            label={`Captured ×${info.labelObjective} view with ${v.targets.length} numbered structures`}
-          >
-            <defs>
-              <clipPath id="micro-label-clip">
-                <circle cx={0} cy={0} r={VIEW_R} />
-              </clipPath>
-            </defs>
-            <g clipPath="url(#micro-label-clip)">
-              <g transform={`scale(${zoomed.z}) translate(${-zoomed.c.x} ${-zoomed.c.y})`}>
-                <FieldContent {...fieldBase} scope={labelCap} graticule={false} pointer={false} />
-              </g>
-            </g>
-            <circle cx={0} cy={0} r={VIEW_R} fill="none" stroke="#111" strokeWidth={3} />
-          </LabelBoard>
-        ) : (
-          <p className="rounded-lg bg-muted px-3 py-2 text-[12.5px] text-muted-foreground">Capture a sharp ×{info.labelObjective} view to label it.</p>
-        )}
-        <label className="block text-[12.5px] text-muted-foreground" htmlFor="identity">
-          {v.identity.question}
-        </label>
-        <select id="identity" className={inputClass} value={state.identity} disabled={readOnly} onChange={(e) => update((x) => ({ ...x, identity: e.target.value }), `identity:${e.target.value}`)}>
-          <option value="">Choose…</option>
-          {v.identity.options.map((o) => (
-            <option key={o} value={o}>
-              {o}
-            </option>
-          ))}
-        </select>
-      </section>
-
-      <section className="mt-5 space-y-3">
-        <p className="text-[12.5px] font-semibold">Measurement and magnification</p>
-        {measureCap ? (
-          <FieldView {...fieldBase} scope={measureCap} graticule={info.method === 'GRATICULE'} pointer={info.method === 'COUNT'} label={`Captured ×${info.measureObjective} view for measuring`} className="mx-auto w-full max-w-[420px]" />
-        ) : (
-          <p className="rounded-lg bg-muted px-3 py-2 text-[12.5px] text-muted-foreground">Capture a sharp ×{info.measureObjective} view to measure from.</p>
-        )}
-        {v.tasks.map((t, n) => (
-          <div key={t.id}>
-            <label className="mb-1 block text-[12.5px] text-muted-foreground" htmlFor={`ans-${t.id}`}>
-              ({['i', 'ii', 'iii', 'iv'][n]}) {t.label}
-            </label>
-            <div className="flex gap-2">
-              <Input id={`ans-${t.id}`} value={state.answers[t.id].value} onChange={(e) => setAnswer(t.id, 'value', e.target.value)} disabled={readOnly} inputMode={t.id === 'totalMag' || t.id === 'drawingMag' ? 'text' : 'decimal'} placeholder="value" className="tabular" />
-              {t.id !== 'reading' && (
-                <Input value={state.answers[t.id].unit} onChange={(e) => setAnswer(t.id, 'unit', e.target.value)} disabled={readOnly} placeholder={unitHint[t.unit] || 'unit (if any)'} className="w-32 shrink-0" aria-label={`Unit for ${t.label}`} />
-              )}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      <section className="mt-5">
-        <p className="mb-1 text-[12.5px] font-semibold">Biological drawing</p>
-        <DrawingChecklist shown={v.drawing} value={state.drawing} onChange={(next) => update((x) => ({ ...x, drawing: next }), 'drawing')} readOnly={readOnly} />
-      </section>
-
-      <section className="mt-5 space-y-3">
-        <div>
-          <label className="mb-1 block text-[12.5px] font-semibold" htmlFor="obs">
-            Three observations
-          </label>
-          <Textarea id="obs" value={state.written.observations} onChange={(e) => setWritten('observations', e.target.value)} disabled={readOnly} rows={3} placeholder="Shape and arrangement, structures seen, colours, what is absent…" />
-        </div>
-        <div>
-          <label className="mb-1 block text-[12.5px] font-semibold" htmlFor="prec">
-            Two precautions you took
-          </label>
-          <Textarea id="prec" value={state.written.precautions} onChange={(e) => setWritten('precautions', e.target.value)} disabled={readOnly} rows={3} />
-        </div>
-      </section>
-    </Card>
-  );
-}

@@ -30,11 +30,12 @@ import { QUAL_APPARATUS, QUAL_APPARATUS_LABEL, qualSceneFromState, type QualAppa
  * Try, plus an unmarked sandbox and Ask; timed practicals are Try only.
  */
 
-setAssistant({ name: 'Mrs Ada', role: 'lab technician', look: 'ada', pronoun: 'her' });
 const noop = () => undefined;
 const CUPBOARD_ITEMS = QUAL_APPARATUS.map((a) => ({ id: a.id, label: a.label }));
 
 export default function ChemQualitativeLab3D(props: SimulatorProps<'chem-qualitative'>) {
+  // Set on every render: another lab (biology, physics) may have changed it in this tab.
+  setAssistant({ name: 'Mrs Ada', role: 'lab technician', look: 'ada', pronoun: 'her' });
   const { seed, mode, state: attemptState, onChange, readOnly, startedAt, endsAt, onHandIn, onUse2d, practicalId, attemptId, result } = props;
   const started = attemptState.log.some((e) => !e.a.startsWith('safety-briefing'));
   const qAttempt = useQualitative({ seed, state: attemptState, onChange, readOnly, startedAt });

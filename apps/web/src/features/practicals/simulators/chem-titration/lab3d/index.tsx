@@ -38,7 +38,6 @@ import { TITRATION_VIEW_BUTTONS } from './views';
  * guidance. After marking, the same lab opens read-only with a debrief.
  */
 
-setAssistant({ name: 'Mrs Ada', role: 'lab technician', look: 'ada', pronoun: 'her' });
 const noop = () => undefined;
 const TOUR = defaultTourSteps({
   focusId: 'burette',
@@ -53,6 +52,8 @@ const HELP_ROWS: [string, React.ReactNode][] = [
 const CUPBOARD_ITEMS = APPARATUS.map((a) => ({ id: a.id, label: a.label }));
 
 export default function ChemTitrationLab3D(props: SimulatorProps<'chem-titration'>) {
+  // Set on every render: another lab (biology, physics) may have changed it in this tab.
+  setAssistant({ name: 'Mrs Ada', role: 'lab technician', look: 'ada', pronoun: 'her' });
   const { seed, mode, state: attemptState, onChange, readOnly, startedAt, endsAt, onHandIn, onUse2d, practicalId, attemptId, result } = props;
   const started = attemptState.log.some((e) => !e.a.startsWith('safety-briefing'));
   const tAttempt = useTitration({ seed, state: attemptState, onChange, readOnly, startedAt });

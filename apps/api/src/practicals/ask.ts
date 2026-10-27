@@ -1,14 +1,14 @@
 import type { PracticalAskInput, PracticalContent } from '@aischool/shared';
 
 /**
- * "Ask Mrs Ada": the lab assistant's answer to a student's question about a
+ * "Ask the lab assistant" (Mrs Ada, Mr Bayo, Mrs Okon): the answer to a student's question about a
  * practical, grounded in that practical's lesson. Pure prompt building (the
  * service runs it on the student's AI allowance), so it can be tested alone.
  */
 
 export const ASK_STAGE_LABEL: Record<PracticalAskInput['stage'], string> = {
   LEARN: 'reading the "Learn first" introduction',
-  DEMO: "watching Mrs Ada's demonstration",
+  DEMO: "watching the lab assistant's demonstration",
   TRY: 'doing the practice lab with their own values',
   SANDBOX: 'experimenting in the sandbox with values they chose',
 };
@@ -36,12 +36,20 @@ export function lessonBrief(title: string, d: Partial<PracticalContent>): string
     .slice(0, 9000);
 }
 
-export function askPrompt(title: string, d: Partial<PracticalContent>, input: PracticalAskInput) {
+/** The assistant the student sees in each subject's 3D lab (matches the web labs' assistant profiles). */
+const ASSISTANT: Record<string, { name: string; role: string }> = {
+  chemistry: { name: 'Mrs Ada', role: 'laboratory technician' },
+  physics: { name: 'Mr Bayo', role: 'physics laboratory assistant' },
+  biology: { name: 'Mrs Okon', role: 'biology laboratory technician' },
+};
+
+export function askPrompt(title: string, d: Partial<PracticalContent>, input: PracticalAskInput, subject = 'Chemistry') {
+  const who = ASSISTANT[subject.toLowerCase()] ?? { name: 'the lab assistant', role: 'laboratory assistant' };
   const system = [
-    'You are Mrs Ada, a friendly, patient laboratory technician in a Nigerian secondary school, helping a student with a WAEC chemistry practical in a virtual lab.',
+    `You are ${who.name}, a friendly, patient ${who.role} in a Nigerian secondary school, helping a student with a WAEC ${subject} practical in a virtual lab.`,
     'Answer the student’s question in simple British English: short (at most about 90 words), encouraging and practical. Explain the reason ("why"), not just the rule.',
-    'Stay within the practical lesson below and standard school chemistry. If the question is not about this practical or laboratory work, say kindly that you can only help with the practical.',
-    'Never work out, guess or confirm the numbers for the student’s own lab (their burette readings, titres, mean titre, concentrations or final answer). If asked, explain the method or the formula step by step and encourage them to do the calculation themselves. You may use the lesson’s own worked example to show the method.',
+    `Stay within the practical lesson below and standard school ${subject}. If the question is not about this practical or laboratory work, say kindly that you can only help with the practical.`,
+    'Never work out, guess or confirm the numbers for the student’s own lab (their readings, measurements, titres, plotted values, calculated results or final answer). If asked, explain the method or the formula step by step and encourage them to do the calculation themselves. You may use the lesson’s own worked example to show the method.',
     'Never give instructions that would be unsafe in a real laboratory. Plain text only, no headings.',
     '',
     lessonBrief(title, d),

@@ -86,7 +86,7 @@ export function AssistantStrip({ text, onNext, voice, onVoice, voiceOk, onClose 
   return (
     <section className="pointer-events-auto flex w-[min(340px,calc(100vw-1rem))] items-start gap-2 rounded-2xl border border-white/15 bg-white/95 p-2.5 text-slate-900 shadow-xl" aria-live="polite" aria-label={`${assistantProfile.name} says`}>
       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-emerald-700 text-[13px] font-bold text-white" aria-hidden>
-        A
+        {assistantProfile.name.replace(/^(Mrs|Mr|Ms|Miss|Dr)\.?\s+/, '').charAt(0)}
       </span>
       <div className="min-w-0 flex-1">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{assistantProfile.name}</p>

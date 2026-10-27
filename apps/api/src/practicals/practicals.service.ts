@@ -251,7 +251,7 @@ export class PracticalsService {
     return { correct, total: checks.length, passed: correct >= CHECK_PASS * checks.length, items };
   }
 
-  // ---------------------------------------------------------- Ask Mrs Ada
+  // ---------------------------------------------------------- Ask the lab assistant
 
   /**
    * The lab assistant's answer to a question about a practical, on the
@@ -264,11 +264,11 @@ export class PracticalsService {
       where: { studentId: access.studentId, mode: 'EXAM', submittedAt: null, OR: [{ id: input.attemptId ?? '' }, { endsAt: { gt: new Date(Date.now() - LAB_GRACE_MS) } }] },
       select: { id: true },
     });
-    if (timed) throw new ForbiddenException({ statusCode: 403, code: 'ASK_NOT_IN_EXAM', message: 'Mrs Ada can’t help during a timed practical. Follow the instructions on your task card.' });
-    const { system, messages } = askPrompt(l.title, lessonData(l), input);
+    if (timed) throw new ForbiddenException({ statusCode: 403, code: 'ASK_NOT_IN_EXAM', message: 'The lab assistant can’t help during a timed practical. Follow the instructions on your task card.' });
+    const { system, messages } = askPrompt(l.title, lessonData(l), input, l.subject);
     const res = await this.study.withAllowance(access, {}, (tier) => this.gateway.generate({ tier, system, messages, maxOutputTokens: 350 }, 'practical-ask'));
     const answer = res.text.trim();
-    if (!answer) throw new ServiceUnavailableException('Mrs Ada could not answer just now. Please try again.');
+    if (!answer) throw new ServiceUnavailableException('The lab assistant could not answer just now. Please try again.');
     return { answer: answer.slice(0, 1500) };
   }
 

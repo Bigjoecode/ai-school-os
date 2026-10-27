@@ -28,6 +28,14 @@ test('the prompt is grounded in the lesson and refuses the student’s own numbe
   assert.match(messages[0]!.content, /Question: Why rinse the burette with the acid\?$/);
 });
 
+test('the assistant and subject follow the practical', () => {
+  const phy = askPrompt('Simple pendulum', lesson, { question: 'Why time 20 swings?', stage: 'TRY' }, 'Physics').system;
+  assert.match(phy, /You are Mr Bayo/);
+  assert.match(phy, /WAEC Physics practical/);
+  assert.match(phy, /standard school Physics/);
+  assert.match(askPrompt('Microscope', lesson, { question: 'q', stage: 'LEARN' }, 'Biology').system, /You are Mrs Okon/);
+});
+
 test('history becomes earlier turns, newest question last', () => {
   const { messages } = askPrompt('T', lesson, { question: 'And the pipette?', stage: 'DEMO', history: [{ q: 'Why rinse the burette?', a: 'So water does not dilute A.' }] });
   assert.deepEqual(

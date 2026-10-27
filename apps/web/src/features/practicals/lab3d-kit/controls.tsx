@@ -2,22 +2,20 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Euler, MathUtils, Matrix4, Quaternion, Vector3, type PerspectiveCamera } from 'three';
 import { cn } from '@/lib/utils';
-import { BENCH_STAND, EYE, SPOT, START, STATION, collide } from './layout';
-import { useLabView, type BenchFocus, type CameraMode } from './store';
+import { BENCH_STAND, EYE, START, STATION, collide } from './layout';
+import { useLabView, type BenchFocus, type CameraMode, type Spot } from './store';
 
 /**
  * The camera: first-person walking (WASD / arrows / joystick, drag to look),
- * the bench view (orbit within limits, zoom) and the burette-reading view (the
- * eye moves up and down past the meniscus). Mode changes glide in 0.7 s.
+ * the bench view (orbit within limits, zoom, the lab's presets) and the
+ * eye-level reading view (the eye moves up and down past the line being read,
+ * e.g. a meniscus). Mode changes glide in 0.7 s.
  */
 
-const FOCUS: Record<BenchFocus, { target: [number, number, number]; dist: number; pitch: number }> = {
-  bench: { target: [0.2, 0.14, -0.06], dist: 1.0, pitch: 0.62 },
-  burette: { target: [SPOT.buretteAxis[0], 0.42, SPOT.buretteAxis[2]], dist: 0.85, pitch: 0.1 },
-  flask: { target: [SPOT.buretteAxis[0], 0.13, SPOT.buretteAxis[2]], dist: 0.42, pitch: 0.38 },
-  /** The flask on the bench while B is pipetted into it. */
-  pipetting: { target: [SPOT.flaskHome[0], 0.22, SPOT.flaskHome[2]], dist: 0.75, pitch: 0.3 },
-};
+/** The whole bench: the preset every lab has (named 'bench'). */
+export const BENCH_PRESET: Spot = { target: [0.2, 0.14, -0.06], dist: 1.0, pitch: 0.62 };
+/** Camera presets at the bench, by name (station-local targets). A lab passes its own; 'bench' is always there. */
+export type CameraPresets = Record<BenchFocus, Spot>;
 const FOV: Record<CameraMode, number> = { walk: 62, bench: 50, read: 26 };
 const WALK_SPEED = 1.7;
 const EYE_RANGE = 0.05;
@@ -34,7 +32,14 @@ function bump(key: 'walked' | 'looked', d: number) {
 }
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 
-export function CameraRig({ meniscusY }: { meniscusY: number }) {
+/**
+ * `presets`: the lab's bench views (station-local). `read`: the eye-level
+ * reading view — the world point read (e.g. the bottom of a meniscus); the eye
+ * sits 13 cm in front of it (+z) and moves up and down with `eye`.
+ */
+export function CameraRig({ presets, read }: { presets: CameraPresets; read: [number, number, number] }) {
+  const FOCUS: CameraPresets = { bench: BENCH_PRESET, ...presets };
+  const focusOf = (f: BenchFocus) => FOCUS[f] ?? BENCH_PRESET;
   const camera = useThree((s) => s.camera) as PerspectiveCamera;
   const gl = useThree((s) => s.gl);
   const st = useRef({
@@ -43,8 +48,8 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
     yaw: START.yaw,
     pitch: -0.1,
     oYaw: 0.12,
-    oPitch: FOCUS.bench.pitch,
-    dist: FOCUS.bench.dist,
+    oPitch: BENCH_PRESET.pitch,
+    dist: BENCH_PRESET.dist,
     trans: 1,
     mode: 'walk' as CameraMode,
     focus: 'bench' as BenchFocus,
@@ -95,8 +100,9 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
         s.pitch = MathUtils.clamp(s.pitch - dy * k, -1.1, 1.0);
         bump('looked', Math.abs(dx * k) + Math.abs(dy * k));
       } else if (s.mode === 'bench') {
-        s.oYaw = MathUtils.clamp(s.oYaw - dx * k, -0.95, 0.95);
-        s.oPitch = MathUtils.clamp(s.oPitch + dy * k, -0.2, 1.15);
+        const lim = useLabView.getState().spot?.limits;
+        s.oYaw = MathUtils.clamp(s.oYaw - dx * k, ...(lim?.yaw ?? [-0.95, 0.95]));
+        s.oPitch = MathUtils.clamp(s.oPitch + dy * k, ...(lim?.pitch ?? [-0.2, 1.15]));
       } else {
         const { eye, set } = useLabView.getState();
         set({ eye: MathUtils.clamp(eye - dy * 0.00025, -EYE_RANGE, EYE_RANGE) });
@@ -142,10 +148,13 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
         s.keys.add(key);
         e.preventDefault();
       } else if (s.mode === 'bench') {
-        if (key === 'arrowleft') s.oYaw = MathUtils.clamp(s.oYaw + 0.08, -0.95, 0.95);
-        else if (key === 'arrowright') s.oYaw = MathUtils.clamp(s.oYaw - 0.08, -0.95, 0.95);
-        else if (key === 'arrowup') s.oPitch = MathUtils.clamp(s.oPitch + 0.06, -0.2, 1.15);
-        else if (key === 'arrowdown') s.oPitch = MathUtils.clamp(s.oPitch - 0.06, -0.2, 1.15);
+        const lim = useLabView.getState().spot?.limits;
+        const yl = lim?.yaw ?? [-0.95, 0.95];
+        const pl = lim?.pitch ?? [-0.2, 1.15];
+        if (key === 'arrowleft') s.oYaw = MathUtils.clamp(s.oYaw + 0.08, ...yl);
+        else if (key === 'arrowright') s.oYaw = MathUtils.clamp(s.oYaw - 0.08, ...yl);
+        else if (key === 'arrowup') s.oPitch = MathUtils.clamp(s.oPitch + 0.06, ...pl);
+        else if (key === 'arrowdown') s.oPitch = MathUtils.clamp(s.oPitch - 0.06, ...pl);
         else if (key === '+' || key === '=') s.dist = MathUtils.clamp(s.dist * 0.9, 0.22, 1.7);
         else if (key === '-') s.dist = MathUtils.clamp(s.dist * 1.1, 0.22, 1.7);
         else return;
@@ -180,15 +189,15 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
     }
     if (view.focus !== s.focus) {
       s.focus = view.focus;
-      s.dist = FOCUS[view.focus].dist;
-      s.oPitch = FOCUS[view.focus].pitch;
+      s.dist = focusOf(view.focus).dist;
+      s.oPitch = focusOf(view.focus).pitch;
       s.oYaw = 0.1;
       startTransition();
     }
     const spotKey = view.spot ? JSON.stringify(view.spot) : '';
     if (spotKey !== s.spotKey) {
       s.spotKey = spotKey;
-      const sp = view.spot ?? FOCUS[s.focus];
+      const sp = view.spot ?? focusOf(s.focus);
       s.dist = sp.dist;
       s.oPitch = sp.pitch;
       s.oYaw = view.spot?.yaw ?? 0.1;
@@ -226,13 +235,13 @@ export function CameraRig({ meniscusY }: { meniscusY: number }) {
       p.set(s.x, EYE, s.z);
       q.setFromEuler(e.set(s.pitch, s.yaw, 0, 'YXZ'));
     } else if (s.mode === 'bench') {
-      const fc = view.spot ?? FOCUS[s.focus];
+      const fc = view.spot ?? focusOf(s.focus);
       look.set(STATION[0] + fc.target[0], STATION[1] + fc.target[1], STATION[2] + fc.target[2]);
       p.set(Math.sin(s.oYaw) * Math.cos(s.oPitch), Math.sin(s.oPitch), Math.cos(s.oYaw) * Math.cos(s.oPitch)).multiplyScalar(s.dist * portrait(camera.aspect)).add(look);
       q.setFromRotationMatrix(m4.lookAt(p, look, UP));
     } else {
-      look.set(STATION[0] + SPOT.buretteAxis[0], meniscusY, STATION[2] + SPOT.buretteAxis[2]);
-      p.set(look.x, meniscusY + view.eye, look.z + 0.13);
+      look.set(read[0], read[1], read[2]);
+      p.set(look.x, read[1] + view.eye, look.z + 0.13);
       q.setFromRotationMatrix(m4.lookAt(p, look, UP));
     }
 

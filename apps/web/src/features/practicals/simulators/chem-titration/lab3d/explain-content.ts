@@ -1,21 +1,6 @@
-import type { PracticalLessonView } from '@aischool/shared';
+import { makeExplainer, type Explainer } from '../../../lab3d-kit/explain';
 
-/**
- * "What is this?" cards for everything the student can tap: what it is, what
- * it is for, how to use it and the usual mistake. Lines from the practical's
- * own lesson (safety, precautions, common mistakes) that mention the object
- * are added underneath, so the lab and the lesson say the same thing.
- */
-
-export interface Explainer {
-  name: string;
-  purpose: string;
-  how: string;
-  mistake: string;
-  /** Words that find this object's lines in the lesson. */
-  keys: string[];
-}
-
+/** The titration lab's "What is this?" cards. */
 const E: Record<string, Explainer> = {
   burette: {
     name: 'Burette (50 cm³)',
@@ -92,15 +77,4 @@ const E: Record<string, Explainer> = {
   burner: { name: 'Bunsen burner', purpose: 'Heats things.', how: 'No heating is needed in a titration.', mistake: 'Lighting a flame near flammable reagents.', keys: [] },
 };
 
-/** The card for a selected object id (cupboard copies and indicator bottles share their apparatus' card). */
-export function explainer(id: string): Explainer | null {
-  const key = id.startsWith('cup:') ? id.slice(4) : id.startsWith('ind:') ? 'indicator' : id;
-  return E[key] ?? null;
-}
-
-/** Lesson lines (safety, precautions, common mistakes) that mention this object. */
-export function lessonLines(lesson: Pick<PracticalLessonView, 'safety' | 'precautions' | 'commonMistakes'> | undefined, e: Explainer): string[] {
-  if (!lesson || !e.keys.length) return [];
-  const lines = [...(lesson.safety ?? []), ...(lesson.precautions ?? []), ...(lesson.commonMistakes ?? [])].filter((l): l is string => typeof l === 'string');
-  return lines.filter((l) => e.keys.some((k) => l.toLowerCase().includes(k))).slice(0, 2);
-}
+export const explainer = makeExplainer(E, { 'ind:': 'indicator' });

@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import type { ApparatusId } from './scene-state';
 
 /**
  * The 3D lab's view state (camera mode, what is hovered / selected / held):
@@ -7,7 +6,8 @@ import type { ApparatusId } from './scene-state';
  * is saved; the attempt's work lives in the simulator state.
  */
 export type CameraMode = 'walk' | 'bench' | 'read';
-export type BenchFocus = 'bench' | 'burette' | 'flask' | 'pipetting';
+/** A camera preset at the bench (the lab defines them: e.g. 'bench', 'burette', 'flask'). */
+export type BenchFocus = string;
 export type Quality = 'low' | 'medium' | 'high';
 
 interface LabView {
@@ -15,24 +15,15 @@ interface LabView {
   focus: BenchFocus;
   hover: string | null;
   selected: string | null;
-  held: ApparatusId | null;
-  /** Reading view: the eye's height above (+) or below (−) the meniscus, in metres. */
+  /** The object in the student's hands (an apparatus id of the lab). */
+  held: string | null;
+  /** Reading view: the eye's height above (+) or below (−) the reading line, in metres. */
   eye: number;
   /** On-screen joystick (−1…1). */
   stick: { x: number; y: number };
   /** Bumped to ask the camera rig to walk back to the start / to the bench. */
   resetTick: number;
   quality: Quality;
-  /** Pipette sequence in progress: drawn up to the mark, drained into the flask. */
-  pip: 'idle' | 'filled' | 'drained';
-  /** The pipetting in progress is for an extra rough titration. */
-  pipRough: boolean;
-  /** Animations: swirling until (ms timestamp), the last single drop (ms timestamp). */
-  swirlUntil: number;
-  dropAt: number;
-  streaming: boolean;
-  /** Burette tap angle, 0 (closed) to 1 (fully open): < 0.15 closed, < 0.55 dropwise, else a stream. */
-  tap: number;
   /** A drag in progress on an object (the camera ignores the pointer meanwhile). */
   drag: DragState | null;
   /** The object the guide points at (beacon and floor path). */
@@ -44,7 +35,7 @@ interface LabView {
   picked: number;
   /** The lab assistant's current line. */
   line: { text: string; at: number } | null;
-  /** Mrs Ada: at the teacher's desk or behind the student's bench (Learn and demo), what she points at, goggles on. */
+  /** The lab assistant: at the teacher's desk or behind the student's bench (Learn and demo), what she points at, goggles on. */
   ada: { at: 'desk' | 'bench'; point: string | null; goggles: boolean };
   /** A camera spot at the bench (station-local target), overriding `focus` — the Learn stage and the demo move the camera with it. */
   spot: Spot | null;
@@ -64,15 +55,9 @@ export const useLabView = create<LabView>((set) => ({
   stick: { x: 0, y: 0 },
   resetTick: 0,
   quality: 'high',
-  pip: 'idle',
-  pipRough: false,
-  swirlUntil: 0,
-  dropAt: 0,
-  streaming: false,
   notice: null,
   spot: null,
   ada: { at: 'desk', point: null, goggles: false },
-  tap: 0,
   drag: null,
   target: null,
   walked: 0,
@@ -87,9 +72,12 @@ export interface Spot {
   dist: number;
   pitch: number;
   yaw?: number;
+  /** While this spot is on, how far the student may orbit (radians; default: the bench's own limits). */
+  limits?: { yaw?: [number, number]; pitch?: [number, number] };
 }
 
-export type DragKind = 'carry' | 'flask' | 'tap' | 'swirl' | 'pour' | 'squeeze';
+/** A drag kind of the lab ('carry' is the kit's own: apparatus from the cupboard to the tray). */
+export type DragKind = string;
 export interface DragState {
   kind: DragKind;
   /** The object being dragged (e.g. the apparatus id being carried). */
@@ -101,7 +89,6 @@ export interface DragState {
   /** Kind-specific progress: swirl angle, pour tilt 0–1, squeeze 0–1. */
   value: number;
 }
-export const tapLevel = (tap: number) => (tap < 0.15 ? 'closed' : tap < 0.55 ? 'drops' : 'stream');
 
 export type Tone = 'info' | 'success' | 'warning' | 'danger';
 /** Shows a short message over the lab. */

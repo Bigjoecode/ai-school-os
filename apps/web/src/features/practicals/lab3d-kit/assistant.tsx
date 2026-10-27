@@ -2,6 +2,7 @@ import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useReducer, useRef } from 'react';
 import { MeshStandardMaterial, Vector3, type Group } from 'three';
+import { assistantProfile } from './assistant-profile';
 import { Interactive } from './interact';
 import { ASSISTANT_POS, STATION } from './layout';
 import { mat } from './materials';
@@ -9,13 +10,12 @@ import { useLabView } from './store';
 import { objectPosition } from './targets';
 
 /**
- * Mrs Ada, the lab technician: a simple procedural figure in a lab coat by
+ * The lab assistant (Mrs Ada by default, see assistant-profile.ts): a simple procedural figure in a lab coat by
  * the teacher's desk. She turns to face the student, gestures while talking
  * and shows her current line in a speech bubble. Tapping her asks for the
  * next instruction (handled by the HUD, which owns the guide).
  */
 
-export const ASSISTANT_NAME = 'Mrs Ada';
 const LINE_MS = 9000;
 
 const skin = new MeshStandardMaterial({ color: '#6b4128', roughness: 0.6 });
@@ -23,12 +23,15 @@ const hair = new MeshStandardMaterial({ color: '#141010', roughness: 0.9 });
 const trousers = new MeshStandardMaterial({ color: '#2d3a4f', roughness: 0.8 });
 const shoes = new MeshStandardMaterial({ color: '#1b1b1b', roughness: 0.5 });
 const scarf = new MeshStandardMaterial({ color: '#0f7a55', roughness: 0.7 });
+const tie = new MeshStandardMaterial({ color: '#1d3f8a', roughness: 0.6 });
 
-export function Assistant() {
+/** `benchSpot`: where the assistant stands at the student's bench, from the bench-top centre (x along it, z towards the student). */
+export function Assistant({ benchSpot = [-0.55, -1.3] }: { benchSpot?: [number, number] } = {}) {
   const line = useLabView((v) => v.line);
   const ada = useLabView((v) => v.ada);
   // Behind the student's bench (facing them across it) when she teaches or demonstrates.
-  const pos: [number, number, number] = ada.at === 'bench' ? [STATION[0] - 0.55, 0, STATION[2] - 1.3] : ASSISTANT_POS;
+  const [bx, bz] = benchSpot;
+  const pos: [number, number, number] = ada.at === 'bench' ? [STATION[0] + bx, 0, STATION[2] + bz] : ASSISTANT_POS;
   const point = useMemo(() => new Vector3(), []);
   const body = useRef<Group>(null);
   const head = useRef<Group>(null);
@@ -66,7 +69,7 @@ export function Assistant() {
   });
 
   return (
-    <Interactive id="assistant" label={`${ASSISTANT_NAME}, lab technician — tap for help`} labelY={1.95} position={pos}>
+    <Interactive id="assistant" label={`${assistantProfile.name}, ${assistantProfile.role} — tap for help`} labelY={1.95} position={pos}>
       <group ref={body}>
         {/* legs and shoes */}
         {[-0.08, 0.08].map((x) => (
@@ -86,9 +89,15 @@ export function Assistant() {
         <mesh position={[0, 0.72, 0]} material={mat.white()}>
           <cylinderGeometry args={[0.2, 0.24, 0.26, 16, 1, true]} />
         </mesh>
-        <mesh position={[0, 1.38, 0.02]} material={scarf}>
-          <cylinderGeometry args={[0.075, 0.09, 0.06, 12]} />
-        </mesh>
+        {assistantProfile.look === 'ada' ? (
+          <mesh position={[0, 1.38, 0.02]} material={scarf}>
+            <cylinderGeometry args={[0.075, 0.09, 0.06, 12]} />
+          </mesh>
+        ) : (
+          <mesh position={[0, 1.27, 0.175]} rotation={[0.08, 0, 0]} material={tie}>
+            <boxGeometry args={[0.04, 0.2, 0.01]} />
+          </mesh>
+        )}
         {/* left arm by the side (holding a clipboard), right arm gestures when talking */}
         <group position={[-0.215, 1.36, 0]} rotation={[-0.35, 0, 0.08]}>
           <mesh position={[0, -0.25, 0]} material={mat.white()}>
@@ -120,9 +129,11 @@ export function Assistant() {
           <mesh position={[0, 0.215, -0.02]} scale={[1.05, 0.9, 1.05]} material={hair}>
             <sphereGeometry args={[0.105, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
           </mesh>
-          <mesh position={[0, 0.28, -0.08]} material={hair}>
-            <sphereGeometry args={[0.06, 12, 10]} />
-          </mesh>
+          {assistantProfile.look === 'ada' && (
+            <mesh position={[0, 0.28, -0.08]} material={hair}>
+              <sphereGeometry args={[0.06, 12, 10]} />
+            </mesh>
+          )}
           {[-0.04, 0.04].map((x) => (
             <mesh key={x} position={[x, 0.18, 0.1]} rotation={[Math.PI / 2, 0, 0]} material={mat.black()}>
               <torusGeometry args={[0.022, 0.004, 6, 16]} />
@@ -149,7 +160,7 @@ export function Assistant() {
       {talking && line && (
         <Html position={[0, 2.05, 0]} center zIndexRange={[15, 0]} style={{ pointerEvents: 'none' }}>
           <div className="relative w-[230px] rounded-2xl border border-black/10 bg-white px-3 py-2 text-[12.5px] leading-snug text-slate-900 shadow-xl">
-            <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{ASSISTANT_NAME}</p>
+            <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{assistantProfile.name}</p>
             {line.text}
             <span className="absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 rotate-45 border-b border-r border-black/10 bg-white" />
           </div>

@@ -3,23 +3,22 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Plane, Raycaster, Vector2, Vector3 } from 'three';
 import type { Titration } from '../actions';
+import { dragClock, dragInit } from '../../../lab3d-kit/drag';
+import { STATION } from '../../../lab3d-kit/layout';
+import { play, startPour, stopPour } from '../../../lab3d-kit/sound';
+import { notify, useLabView, type DragKind } from '../../../lab3d-kit/store';
+import { useBench } from './bench-store';
 import { swirl } from './lab-actions';
-import { SPOT, STATION } from './layout';
-import { APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
-import { play, startPour, stopPour } from './sound';
-import { notify, useLabView, type DragKind } from './store';
+import type { SceneState } from './scene-state';
+import { SPOT } from './spots';
 
 /**
- * Hands-on dragging, alongside the buttons (which stay for accessibility):
- * carry apparatus from the cupboard to the tray, slide the flask onto the
+ * Hands-on dragging, alongside the buttons (which stay for accessibility;
+ * carrying from the cupboard is the kit's): slide the flask onto the
  * tile, turn the burette tap, swirl the flask in circles, tilt bottle A to
  * pour into the funnel, and press and hold to squeeze the pipette filler.
  * A drag that hardly moves is a tap (the object is selected as usual).
  */
-
-/** When the last drag ended: the click that ends a drag must not select something else. */
-export const dragClock = { endedAt: 0, /** a timed drag finished while the pointer is still down */ pendingRelease: false };
-export const justDragged = () => performance.now() - dragClock.endedAt < 350;
 
 /** Where the flask is while being dragged (station-local x, z), read by the station. */
 export const flaskDrag = { active: false, x: 0, z: 0 };
@@ -27,21 +26,18 @@ const TILE: [number, number] = [SPOT.buretteAxis[0], SPOT.buretteAxis[2]];
 const SQUEEZE_S = 1.2;
 const POUR_S = 0.9;
 
-/** Starts a drag of `kind` on object `id` from a pointer event on it. */
-export function beginDrag(kind: DragKind, id: string, x: number, y: number) {
-  useLabView.setState({ drag: { kind, id, x, y, moved: 0, value: kind === 'tap' ? useLabView.getState().tap : 0 } });
-}
+// Turning the tap starts from where it is.
+dragInit.value = (kind) => (kind === 'tap' ? useBench.getState().tap : 0);
 
 /** Which drag (if any) a press on `id` starts, given what is on the bench. */
 export function dragFor(id: string, s: ChemTitrationState, scene: SceneState, t: Titration): DragKind | null {
   const v = useLabView.getState();
   if (v.held) return null;
-  if (id.startsWith('cup:')) return 'carry';
   if (v.mode === 'walk') return null;
   if (id === 'flask') return scene.flaskUnder && t.open ? 'swirl' : 'flask';
   if (id === 'tap') return 'tap';
   if (id === 'bottleA' && scene.clamped && s.funnelIn && !(t.open && t.open.initial !== null)) return 'pour';
-  if ((id === 'pipette' || id === 'filler') && scene.fillerOn && v.pip === 'idle' && !t.open && scene.collected.has('flask') && !scene.flaskUnder) return 'squeeze';
+  if ((id === 'pipette' || id === 'filler') && scene.fillerOn && useBench.getState().pip === 'idle' && !t.open && scene.collected.has('flask') && !scene.flaskUnder) return 'squeeze';
   return null;
 }
 
@@ -55,16 +51,17 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
   useEffect(() => {
     const move = (e: PointerEvent) => {
       const d = useLabView.getState().drag;
-      if (!d) return;
+      if (!d || d.kind === 'carry') return;
       const dx = e.clientX - d.x;
       const dy = e.clientY - d.y;
       const moved = d.moved + Math.hypot(dx, dy);
       const { ray, ndc, plane, hit, centre } = tools.current;
       if (d.kind === 'tap') {
         const value = Math.max(0, Math.min(1, d.value + dx / 140));
-        const before = useLabView.getState().tap;
+        const before = useBench.getState().tap;
         if (Math.abs(value - before) > 0.12 || (value === 0) !== (before === 0)) play('creak');
-        useLabView.setState({ tap: value, drag: { ...d, x: e.clientX, y: e.clientY, moved, value } });
+        useBench.setState({ tap: value });
+        useLabView.setState({ drag: { ...d, x: e.clientX, y: e.clientY, moved, value } });
         return;
       }
       if (d.kind === 'flask') {
@@ -90,7 +87,7 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
           if (da > Math.PI) da -= Math.PI * 2;
           if (da < -Math.PI) da += Math.PI * 2;
           let value = d.value + Math.abs(da);
-          useLabView.setState({ swirlUntil: performance.now() + 250 });
+          useBench.setState({ swirlUntil: performance.now() + 250 });
           if (value >= Math.PI * 2) {
             value -= Math.PI * 2;
             swirl(ref.current.t);
@@ -106,13 +103,13 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
       }
       useLabView.setState({ drag: { ...d, x: e.clientX, y: e.clientY, moved } });
     };
-    const up = (e: PointerEvent) => {
+    const up = () => {
       const d = useLabView.getState().drag;
       if (dragClock.pendingRelease) {
         dragClock.pendingRelease = false;
         dragClock.endedAt = performance.now();
       }
-      if (!d) return;
+      if (!d || d.kind === 'carry') return;
       useLabView.setState({ drag: null });
       if (d.moved >= 8 || d.kind === 'squeeze' || d.kind === 'pour') dragClock.endedAt = performance.now();
       tools.current.lastAngle = null;
@@ -120,15 +117,7 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
       stopPour();
       const { t: tt, s: ss, scene: sc } = ref.current;
       const tap = d.moved < 8;
-      if (d.kind === 'carry' && !tap) {
-        const over = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-drop="tray"]');
-        const id = d.id.slice(4) as ApparatusId;
-        if (over) {
-          tt.note(`collect:${id}`);
-          play('clink');
-          notify(`${APPARATUS_LABEL[id]} is on your bench.`, 'success', 1500);
-        } else notify('Drop it on the tray at the bottom of the screen to carry it to your bench.', 'info', 2200);
-      } else if (d.kind === 'flask') {
+      if (d.kind === 'flask') {
         const was = flaskDrag.active;
         flaskDrag.active = false;
         if (!was || tap) return;
@@ -142,7 +131,7 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
             play('clink');
           }
         } else if (!near && sc.flaskUnder) {
-          if (useLabView.getState().tap >= 0.15) notify('Close the tap first.', 'warning');
+          if (useBench.getState().tap >= 0.15) notify('Close the tap first.', 'warning');
           else {
             tt.note('flask-off-tile');
             play('clink');
@@ -168,7 +157,8 @@ export function DragController({ t, s, scene }: { t: Titration; s: ChemTitration
       const value = Math.min(1, d.value + dt / SQUEEZE_S);
       if (value >= 1) {
         dragClock.pendingRelease = true;
-        useLabView.setState({ drag: null, pip: 'filled', pipRough: false, focus: 'pipetting', selected: 'pipette' });
+        useLabView.setState({ drag: null, focus: 'pipetting', selected: 'pipette' });
+        useBench.setState({ pip: 'filled', pipRough: false });
         play('success');
       } else useLabView.setState({ drag: { ...d, value } });
     } else if (d.kind === 'pour') {

@@ -3,7 +3,7 @@ import { AlertTriangle, Check, ChevronDown, ChevronLeft, ChevronRight, Circle, E
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ASSISTANT_NAME } from './assistant';
+import { assistantProfile } from './assistant-profile';
 import { currentStep, type Correction, type GuideStep } from './guide';
 
 /**
@@ -84,12 +84,12 @@ export function CorrectionCard({ c, onClose, onAsk }: { c: Correction; onClose: 
 /** Mrs Ada's latest line, with "next tip" and the voice toggle (always reachable, even far from her desk). */
 export function AssistantStrip({ text, onNext, voice, onVoice, voiceOk, onClose }: { text: string; onNext: () => void; voice: boolean; onVoice: () => void; voiceOk: boolean; onClose: () => void }) {
   return (
-    <section className="pointer-events-auto flex w-[min(340px,calc(100vw-1rem))] items-start gap-2 rounded-2xl border border-white/15 bg-white/95 p-2.5 text-slate-900 shadow-xl" aria-live="polite" aria-label={`${ASSISTANT_NAME} says`}>
+    <section className="pointer-events-auto flex w-[min(340px,calc(100vw-1rem))] items-start gap-2 rounded-2xl border border-white/15 bg-white/95 p-2.5 text-slate-900 shadow-xl" aria-live="polite" aria-label={`${assistantProfile.name} says`}>
       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-emerald-700 text-[13px] font-bold text-white" aria-hidden>
         A
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{ASSISTANT_NAME}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{assistantProfile.name}</p>
         <p className="text-[12.5px] leading-snug">{text}</p>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           <Button size="sm" variant="outline" className="h-7 px-2 text-[12px]" onClick={onNext}>

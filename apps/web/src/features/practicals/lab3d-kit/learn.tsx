@@ -1,14 +1,12 @@
-import { emptyChemTitrationState, type ChemTitrationState, type PracticalCheckResult, type PracticalLessonView } from '@aischool/shared';
+import type { PracticalCheckResult, PracticalLessonView } from '@aischool/shared';
 import { Check, ChevronLeft, ChevronRight, GraduationCap, X } from 'lucide-react';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { usePracticalMiniCheck } from '../../../api';
-import { ASSISTANT_NAME } from './assistant';
-import { explainer } from './explain';
-import { SPOT } from './layout';
-import { APPARATUS } from './scene-state';
+import { usePracticalMiniCheck } from '../api';
+import { assistantProfile } from './assistant-profile';
+import type { Explainer } from './explain';
 import { useLabView, type Spot } from './store';
 import { say } from './voice';
 
@@ -20,35 +18,28 @@ import { say } from './voice';
  * three-question check from the lesson's quick check.
  */
 
-/** The bench as Mrs Ada sets it out for the introduction (display only, never saved). */
-export const LEARN_STATE: ChemTitrationState = {
-  ...emptyChemTitrationState(),
-  log: [...APPARATUS.filter((a) => a.needed).map((a) => ({ t: 0, a: `collect:${a.id}` })), { t: 0, a: 'clamp-burette' }, { t: 0, a: 'safety:goggles' }],
-};
-
-/** Lesson apparatus lines → the object on the bench (first match wins). */
-const ITEM_KEYS: [RegExp, string][] = [
-  [/burette/i, 'burette'],
-  [/pipette filler|filler/i, 'filler'],
-  [/pipette/i, 'pipette'],
-  [/conical flask|flask/i, 'flask'],
-  [/retort|stand|clamp/i, 'stand'],
-  [/white tile|tile/i, 'tile'],
-  [/funnel/i, 'funnel'],
-  [/wash bottle|distilled water/i, 'washBottle'],
-  [/beaker/i, 'beaker'],
-];
-const ITEM_SPOT: Record<string, Spot> = {
-  burette: { target: [SPOT.buretteAxis[0], 0.45, SPOT.buretteAxis[2]], dist: 0.85, pitch: 0.12 },
-  pipette: { target: [SPOT.pipette[0], 0.02, SPOT.pipette[2]], dist: 0.55, pitch: 0.55 },
-  filler: { target: [SPOT.pipette[0], 0.02, SPOT.pipette[2]], dist: 0.55, pitch: 0.55 },
-  flask: { target: [SPOT.flaskHome[0], 0.07, SPOT.flaskHome[2]], dist: 0.42, pitch: 0.35 },
-  stand: { target: [SPOT.standBase[0], 0.35, SPOT.standBase[2]], dist: 0.95, pitch: 0.2 },
-  tile: { target: [SPOT.buretteAxis[0], 0.02, SPOT.buretteAxis[2]], dist: 0.42, pitch: 0.6 },
-  funnel: { target: [SPOT.funnelHome[0], 0.05, SPOT.funnelHome[2]], dist: 0.4, pitch: 0.45 },
-  washBottle: { target: [SPOT.washBottle[0], 0.08, SPOT.washBottle[2]], dist: 0.5, pitch: 0.3 },
-  beaker: { target: [SPOT.beaker[0], 0.04, SPOT.beaker[2]], dist: 0.42, pitch: 0.4 },
-};
+/** An apparatus line of the lesson (matched by `match`) → the object on the bench, where the camera goes, what Mrs Ada points at. */
+export interface LearnItem {
+  match: RegExp;
+  id: string;
+  spot: Spot;
+}
+/**
+ * What the Learn stage needs from a lab: its apparatus items (first match per
+ * lesson line wins), the "What is this?" table for their texts, and camera
+ * spots for the procedure and observation cards.
+ */
+export interface LearnConfig {
+  items: LearnItem[];
+  explain: (id: string) => Explainer | null;
+  /** Procedure card 1 (and 2 when the procedure is long), and "What to observe": spot + what to point at. */
+  procedure: [{ spot: Spot; point: string | null }, { spot: Spot; point: string | null }];
+  observe: { spot: Spot; point: string | null };
+  /** Title of the observation card (e.g. "At the end point"). */
+  observeTitle?: string;
+  /** The lesson's data card, for labs whose data is not a calculation (default: "The calculation" / "A worked example (sample data)"). */
+  dataCard?: { kicker: string; title: string; speech: string };
+}
 const BENCH_SPOT: Spot = { target: [0.12, 0.14, -0.06], dist: 1.05, pitch: 0.55 };
 
 interface LearnCard {
@@ -77,16 +68,17 @@ const List = ({ items, ordered }: { items: string[]; ordered?: boolean }) =>
     </ul>
   );
 
-export function learnCards(l: PracticalLessonView): LearnCard[] {
+export function learnCards(l: PracticalLessonView, cfg: LearnConfig): LearnCard[] {
   const cards: LearnCard[] = [
     { id: 'aim', kicker: 'The aim', title: l.title, body: <p>{l.aim}</p>, speech: `Welcome! Today's practical: ${l.aim}`, spot: BENCH_SPOT, point: null },
   ];
   const seen = new Set<string>();
   for (const line of l.apparatus ?? []) {
-    const id = ITEM_KEYS.find(([re]) => re.test(line))?.[1];
-    if (!id || seen.has(id)) continue;
+    const item = cfg.items.find((x) => x.match.test(line));
+    const id = item?.id;
+    if (!item || !id || seen.has(id)) continue;
     seen.add(id);
-    const e = explainer(id);
+    const e = cfg.explain(id);
     cards.push({
       id: `item-${id}`,
       kicker: 'Apparatus',
@@ -104,7 +96,7 @@ export function learnCards(l: PracticalLessonView): LearnCard[] {
         </dl>
       ) : null,
       speech: e ? `This is the ${line.toLowerCase()}. ${e.purpose} ${e.how}` : line,
-      spot: ITEM_SPOT[id] ?? BENCH_SPOT,
+      spot: item.spot,
       point: id,
     });
   }
@@ -112,7 +104,7 @@ export function learnCards(l: PracticalLessonView): LearnCard[] {
   const proc = l.procedure ?? [];
   const half = Math.ceil(proc.length / 2);
   if (proc.length)
-    cards.push({ id: 'procedure-1', kicker: 'Procedure', title: proc.length > 4 ? 'What you will do (1 of 2)' : 'What you will do', body: <List ordered items={proc.length > 4 ? proc.slice(0, half) : proc} />, speech: (proc.length > 4 ? proc.slice(0, half) : proc).join(' '), spot: ITEM_SPOT.burette!, point: 'burette' });
+    cards.push({ id: 'procedure-1', kicker: 'Procedure', title: proc.length > 4 ? 'What you will do (1 of 2)' : 'What you will do', body: <List ordered items={proc.length > 4 ? proc.slice(0, half) : proc} />, speech: (proc.length > 4 ? proc.slice(0, half) : proc).join(' '), spot: cfg.procedure[0].spot, point: cfg.procedure[0].point });
   if (proc.length > 4)
     cards.push({
       id: 'procedure-2',
@@ -126,11 +118,11 @@ export function learnCards(l: PracticalLessonView): LearnCard[] {
         </ol>
       ),
       speech: proc.slice(half).join(' '),
-      spot: ITEM_SPOT.flask!,
-      point: 'flask',
+      spot: cfg.procedure[1].spot,
+      point: cfg.procedure[1].point,
     });
-  if (l.expectedObservations) cards.push({ id: 'observe', kicker: 'What to observe', title: 'At the end point', body: <p>{l.expectedObservations}</p>, speech: l.expectedObservations, spot: ITEM_SPOT.tile!, point: 'flask' });
-  if (l.dataAndCalculations) cards.push({ id: 'calc', kicker: 'The calculation', title: 'A worked example (sample data)', body: <p className="whitespace-pre-line">{l.dataAndCalculations}</p>, speech: 'Here is how the calculation works, with sample data.', spot: BENCH_SPOT, point: 'book' });
+  if (l.expectedObservations) cards.push({ id: 'observe', kicker: 'What to observe', title: cfg.observeTitle ?? 'What you should see', body: <p>{l.expectedObservations}</p>, speech: l.expectedObservations, spot: cfg.observe.spot, point: cfg.observe.point });
+  if (l.dataAndCalculations) cards.push({ id: 'calc', kicker: cfg.dataCard?.kicker ?? 'The calculation', title: cfg.dataCard?.title ?? 'A worked example (sample data)', body: <p className="whitespace-pre-line">{l.dataAndCalculations}</p>, speech: cfg.dataCard?.speech ?? 'Here is how the calculation works, with sample data.', spot: BENCH_SPOT, point: 'book' });
   if (l.precautions?.length || l.commonMistakes?.length)
     cards.push({
       id: 'precautions',
@@ -159,8 +151,8 @@ export function learnCards(l: PracticalLessonView): LearnCard[] {
   return cards;
 }
 
-export function LearnStage({ lesson, practicalId, onDone, onClose, onCard }: { lesson: PracticalLessonView | undefined; practicalId: string; onDone: () => void; onClose: () => void; onCard: (title: string) => void }) {
-  const cards = useMemo(() => (lesson ? learnCards(lesson) : []), [lesson]);
+export function LearnStage({ lesson, config, practicalId, onDone, onClose, onCard }: { lesson: PracticalLessonView | undefined; config: LearnConfig; practicalId: string; onDone: () => void; onClose: () => void; onCard: (title: string) => void }) {
+  const cards = useMemo(() => (lesson ? learnCards(lesson, config) : []), [lesson, config]);
   const checks = useMemo(() => (lesson?.checkQuestions ?? []).slice(0, 3), [lesson]);
   const total = cards.length + (checks.length ? 1 : 0);
   const [i, setI] = useState(0);
@@ -203,7 +195,7 @@ export function LearnStage({ lesson, practicalId, onDone, onClose, onCard }: { l
           <>
             <h3 className="font-display text-[16px] font-semibold tracking-tight">{card.title}</h3>
             <div className="mt-1.5">{card.body}</div>
-            <p className="mt-2 text-[11.5px] text-muted-foreground">{ASSISTANT_NAME} is showing you this at your bench.</p>
+            <p className="mt-2 text-[11.5px] text-muted-foreground">{assistantProfile.name} is showing you this at your bench.</p>
           </>
         )}
         {onCheck && <MiniCheck practicalId={practicalId} questions={checks} onPassed={onDone} />}

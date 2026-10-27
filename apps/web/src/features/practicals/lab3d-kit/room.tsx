@@ -1,11 +1,11 @@
 import { useFrame } from '@react-three/fiber';
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef, type ReactNode } from 'react';
 import { BoxGeometry, Color, CylinderGeometry, Euler, Matrix4, Quaternion, Vector3, type BufferGeometry, type Group, type InstancedMesh, type Material } from 'three';
 import { BlobShadow, ReagentBottle } from './apparatus';
 import { Interactive } from './interact';
 import { BENCH, BENCHES, COAT_HOOKS, CUPBOARD, DESK, DOOR, FUME, HALF_D, HALF_W, MY_BENCH, ROOM, SHELF, WINDOWS_Z } from './layout';
 import { mat } from './materials';
-import { boxShadowTexture, floorTexture, periodicTexture, posterTexture, signTexture, whiteboardTexture, windowTexture } from './textures';
+import { boxShadowTexture, customPosterTexture, floorTexture, periodicTexture, posterTexture, signTexture, whiteboardTexture, windowTexture, type PosterKind, type PosterSpec } from './textures';
 
 /**
  * The chemistry laboratory itself, all procedural: tiled floor, two-tone
@@ -156,22 +156,22 @@ function Windows({ winH, winW }: { winH: [number, number]; winW: number }) {
 }
 
 // ------------------------------------------------------------------ lights and fans
-function CeilingFittings() {
+function CeilingFittings({ fans = true }: { fans?: boolean }) {
   const panels = useMemo<Item[]>(() => [-4.2, 0, 4.2].flatMap((x) => [-2.2, 1.2].map((z): Item => ({ p: [x, ROOM.h - 0.03, z], s: [1.25, 0.05, 0.22] }))), []);
   const housings = useMemo<Item[]>(() => panels.map((p) => ({ p: [p.p[0], ROOM.h - 0.015, p.p[2]], s: [1.32, 0.03, 0.3] })), [panels]);
   return (
     <group>
       <Repeat geometry={box} material={mat.windowFrame()} items={housings} />
       <Repeat geometry={box} material={mat.light()} items={panels} />
-      <Fan x={-2.1} z={0.5} />
-      <Fan x={2.1} z={0.5} />
+      <Fan x={-2.1} z={0.5} spin={fans} />
+      <Fan x={2.1} z={0.5} spin={fans} />
     </group>
   );
 }
-function Fan({ x, z }: { x: number; z: number }) {
+function Fan({ x, z, spin = true }: { x: number; z: number; spin?: boolean }) {
   const ref = useRef<Group>(null);
   useFrame((_, dt) => {
-    if (ref.current) ref.current.rotation.y += dt * 3.2;
+    if (ref.current && spin) ref.current.rotation.y += dt * 3.2;
   });
   return (
     <group position={[x, ROOM.h, z]}>
@@ -187,7 +187,7 @@ function Fan({ x, z }: { x: number; z: number }) {
 }
 
 // ------------------------------------------------------------------ benches and stools
-function Benches() {
+function Benches({ sinks: withSinks = true, racks: withRacks = true }: { sinks?: boolean; racks?: boolean }) {
   const shadow = useMemo(() => boxShadowTexture(), []);
   const parts = useMemo(() => {
     const tops: Item[] = [];
@@ -210,12 +210,12 @@ function Benches() {
         handles.push({ p: [dx + 0.2, 0.72, z + BENCH.d / 2 - 0.04], s: [0.012, 0.09, 0.012] });
       }
       // sink at the west end, gooseneck tap behind it
-      sinks.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.001, z + 0.02], s: [0.34, 0.004, 0.36] });
-      taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.15, z - 0.22], s: [0.012, 0.3, 0.012] });
-      taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.3, z - 0.15], r: [Math.PI / 2, 0, 0], s: [0.011, 0.15, 0.011] });
-      taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.26, z - 0.075], s: [0.01, 0.08, 0.01] });
+      if (withSinks) sinks.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.001, z + 0.02], s: [0.34, 0.004, 0.36] });
+      if (withSinks) taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.15, z - 0.22], s: [0.012, 0.3, 0.012] });
+      if (withSinks) taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.3, z - 0.15], r: [Math.PI / 2, 0, 0], s: [0.011, 0.15, 0.011] });
+      if (withSinks) taps.push({ p: [x - BENCH.w / 2 + 0.24, BENCH.h + 0.26, z - 0.075], s: [0.01, 0.08, 0.01] });
       // shelf rack down the middle of the other benches (the student's own bench is kept clear)
-      if (x !== MY_BENCH[0] || z !== MY_BENCH[1]) racks.push({ p: [x + 0.3, BENCH.h + 0.16, z - 0.3], s: [1.2, 0.02, 0.2] });
+      if (withRacks && (x !== MY_BENCH[0] || z !== MY_BENCH[1])) racks.push({ p: [x + 0.3, BENCH.h + 0.16, z - 0.3], s: [1.2, 0.02, 0.2] });
       // two stools on the student side
       for (const sx of [-0.55, 0.55]) {
         const px = x + sx;
@@ -226,7 +226,7 @@ function Benches() {
       }
     }
     return { tops, bodies, doors, handles, sinks, taps, seats, posts, feet, racks };
-  }, []);
+  }, [withSinks, withRacks]);
   const rackBottles = useMemo<Item[]>(() => {
     const colours = ['#e7eef2', '#d0e2ea', '#6b3a12', '#e7eef2', '#f3e6b0', '#6b3a12'];
     const out: Item[] = [];
@@ -259,8 +259,11 @@ function Benches() {
 }
 
 // ------------------------------------------------------------------ front of the room
-function FrontWall() {
-  const board = useMemo(() => whiteboardTexture(['Chemistry — SS3 Practical', 'Volumetric analysis: acid–base titration', 'Rough titration first, then accurate ones', 'Record burette readings to 2 d.p.']), []);
+function FrontWall({ config }: { config: RoomConfig }) {
+  const key = config.whiteboard.join('|');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const board = useMemo(() => whiteboardTexture(config.whiteboard, config.whiteboardNote), [key, config.whiteboardNote]);
+  const poster = useMemo(() => (typeof config.frontPoster === 'object' ? customPosterTexture(config.frontPoster) : posterTexture(config.frontPoster ?? 'titration')), [config.frontPoster]);
   return (
     <group>
       <Interactive id="whiteboard" label="Whiteboard" labelY={0.8} position={[0, 1.55, -HALF_D + 0.03]}>
@@ -271,13 +274,15 @@ function FrontWall() {
         <Box p={[0, 0, -0.02]} s={[3.28, 1.48, 0.03]} m={mat.metal()} />
         <Box p={[0, -0.74, 0.04]} s={[1.6, 0.03, 0.07]} m={mat.metal()} />
       </Interactive>
-      <mesh position={[-4.2, 1.75, -HALF_D + 0.012]}>
-        <planeGeometry args={[2.0, 1.0]} />
-        <meshStandardMaterial map={periodicTexture()} roughness={0.6} />
-      </mesh>
+      {config.periodicTable !== false && (
+        <mesh position={[-4.2, 1.75, -HALF_D + 0.012]}>
+          <planeGeometry args={[2.0, 1.0]} />
+          <meshStandardMaterial map={periodicTexture()} roughness={0.6} />
+        </mesh>
+      )}
       <mesh position={[2.55, 1.75, -HALF_D + 0.012]}>
         <planeGeometry args={[0.6, 0.8]} />
-        <meshStandardMaterial map={posterTexture('titration')} roughness={0.6} />
+        <meshStandardMaterial map={poster} roughness={0.6} />
       </mesh>
       {/* teacher's desk and chair */}
       <Interactive id="desk" label="Teacher’s desk" labelY={1.0} position={[DESK.x, 0, DESK.z]}>
@@ -302,7 +307,16 @@ function FrontWall() {
 }
 
 // ------------------------------------------------------------------ east wall: reagent shelf, apparatus cupboard, fume cupboard
-const SHELF_BOTTLES: { name: string; band: string; sub?: string; amber?: boolean; liquid?: string }[] = [
+/** A labelled stock bottle on the reagent shelf. */
+export interface ShelfBottle {
+  name: string;
+  band: string;
+  sub?: string;
+  amber?: boolean;
+  liquid?: string;
+}
+/** The chemistry stock (the default shelf). */
+export const CHEM_SHELF: ShelfBottle[] = [
   { name: 'HCl', band: '#c62828', sub: '2.0 mol dm⁻³' },
   { name: 'H₂SO₄', band: '#c62828', sub: 'dilute' },
   { name: 'HNO₃', band: '#c62828', sub: 'dilute', amber: true },
@@ -316,7 +330,7 @@ const SHELF_BOTTLES: { name: string; band: string; sub?: string; amber?: boolean
   { name: 'Methyl orange', band: '#ef8a17', liquid: '#f08a24' },
   { name: 'Phenolphthalein', band: '#d63384', liquid: '#f6f0f5' },
 ];
-function ReagentShelf() {
+function ReagentShelf({ bottles }: { bottles: ShelfBottle[] }) {
   const rows = [0.55, 1.05, 1.55];
   return (
     <Interactive id="shelf" label="Reagent shelf" labelY={2.05} position={[SHELF.x, 0, SHELF.z]} rotation={[0, -Math.PI / 2, 0]}>
@@ -329,7 +343,7 @@ function ReagentShelf() {
         <Box key={y} p={[0, y - 0.015, 0]} s={[SHELF.w, 0.03, SHELF.d]} m={mat.wood()} />
       ))}
       <Box p={[0, SHELF.h, 0]} s={[SHELF.w + 0.04, 0.03, SHELF.d + 0.02]} m={mat.woodDark()} />
-      {SHELF_BOTTLES.map((b, i) => {
+      {bottles.slice(0, 12).map((b, i) => {
         const row = Math.floor(i / 4);
         const col = i % 4;
         return (
@@ -380,7 +394,7 @@ export function CupboardBody() {
 }
 export const CUPBOARD_SHELVES = [0.62, 1.05, 1.5];
 
-function FumeCupboard() {
+function FumeCupboard({ bottle }: { bottle: ShelfBottle | null }) {
   return (
     <Interactive id="fume" label="Fume cupboard" labelY={2.5} position={[FUME.x, 0, FUME.z]}>
       <Box p={[0, 0.45, 0]} s={[FUME.w, 0.9, FUME.d]} m={mat.cabinet()} />
@@ -401,7 +415,7 @@ function FumeCupboard() {
         <boxGeometry args={[FUME.w - 0.3, 0.03, 0.05]} />
       </mesh>
       <group position={[-0.4, 0.925, 0]}>
-        <ReagentBottle name="Conc. HCl" band="#c62828" sub="fuming — use here" amber r={0.05} h={0.18} />
+        {bottle && <ReagentBottle name={bottle.name} band={bottle.band} sub={bottle.sub} amber={bottle.amber} liquid={bottle.liquid} r={0.05} h={0.18} />}
       </group>
       <BlobShadow r={1.1} opacity={0.5} />
     </Interactive>
@@ -419,7 +433,8 @@ function LabCoat({ x }: { x: number }) {
     </group>
   );
 }
-export function SafetyCorner({ coatOn, gogglesOn }: { coatOn: boolean; gogglesOn: boolean }) {
+export function SafetyCorner({ coatOn, gogglesOn, poster = 'goggles' }: { coatOn: boolean; gogglesOn: boolean; /** The poster above the coat hooks (default: wear your goggles). */ poster?: PosterKind | PosterSpec }) {
+  const doorPoster = useMemo(() => (typeof poster === 'object' ? customPosterTexture(poster) : posterTexture(poster)), [poster]);
   const [hx, hy, hz] = COAT_HOOKS;
   return (
     <group>
@@ -468,7 +483,7 @@ export function SafetyCorner({ coatOn, gogglesOn }: { coatOn: boolean; gogglesOn
       </group>
       <mesh position={[hx, hy + 0.55, hz]} rotation={[0, Math.PI, 0]}>
         <planeGeometry args={[0.6, 0.8]} />
-        <meshStandardMaterial map={posterTexture('goggles')} roughness={0.6} />
+        <meshStandardMaterial map={doorPoster} roughness={0.6} />
       </mesh>
       <mesh position={[1.4, 1.7, HALF_D - 0.012]} rotation={[0, Math.PI, 0]}>
         <planeGeometry args={[0.6, 0.8]} />
@@ -515,17 +530,50 @@ export function SafetyCorner({ coatOn, gogglesOn }: { coatOn: boolean; gogglesOn
   );
 }
 
+/**
+ * What a lab can change in the room: the whiteboard, the poster to the right
+ * of it, the stock on the reagent shelf and the bottle in the fume cupboard.
+ * The room's shape (benches, cupboard, safety corner, windows) is fixed.
+ */
+export interface RoomConfig {
+  /** The first line is the board's title. */
+  whiteboard: string[];
+  /** In red at the bottom right (default "Read at eye level!"). */
+  whiteboardNote?: string;
+  frontPoster?: PosterKind | PosterSpec;
+  shelfBottles?: ShelfBottle[];
+  fumeBottle?: ShelfBottle | null;
+  /** Optional, for other subjects' rooms (all default to the chemistry room): sinks and taps on the benches, the bottle racks on the other benches, the reagent shelf, the fume cupboard, the periodic table, the ceiling fans turning. */
+  sinks?: boolean;
+  benchRacks?: boolean;
+  reagentShelf?: boolean;
+  fumeCupboard?: boolean;
+  periodicTable?: boolean;
+  fans?: boolean;
+  /** The poster above the coat hooks by the door (default 'goggles'). */
+  doorPoster?: PosterKind | PosterSpec;
+  /** The lab's own static room furniture (world coordinates), e.g. posters, a notice board, bench fittings. */
+  extras?: ReactNode;
+}
+export const DEFAULT_ROOM: RoomConfig = {
+  whiteboard: ['Chemistry — SS3 Practical', 'Volumetric analysis: acid–base titration', 'Rough titration first, then accurate ones', 'Record burette readings to 2 d.p.'],
+  frontPoster: 'titration',
+  shelfBottles: CHEM_SHELF,
+  fumeBottle: { name: 'Conc. HCl', band: '#c62828', sub: 'fuming — use here', amber: true },
+};
+
 /** Everything static in the room. */
-export function Room() {
+export function Room({ config = DEFAULT_ROOM }: { config?: RoomConfig }) {
   return (
     <group>
       <Shell />
-      <CeilingFittings />
-      <Benches />
-      <FrontWall />
-      <ReagentShelf />
+      <CeilingFittings fans={config.fans !== false} />
+      <Benches sinks={config.sinks !== false} racks={config.benchRacks !== false} />
+      <FrontWall config={config} />
+      {config.reagentShelf !== false && <ReagentShelf bottles={config.shelfBottles ?? CHEM_SHELF} />}
       <CupboardBody />
-      <FumeCupboard />
+      {config.fumeCupboard !== false && <FumeCupboard bottle={config.fumeBottle === undefined ? DEFAULT_ROOM.fumeBottle! : config.fumeBottle} />}
+      {config.extras}
     </group>
   );
 }

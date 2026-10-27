@@ -1,17 +1,11 @@
 import {
-  QUAL_ANIONS,
-  QUAL_CATIONS,
-  QUAL_GASES,
-  QUAL_GAS_LABEL,
   QUAL_GAS_TEST_LABEL,
-  QUAL_GAS_TESTS,
-  QUAL_ION_LABEL,
   QUAL_MAX_TESTS,
+  QUAL_SAMPLE_LABEL,
+  type ChemQualitativeVariant,
+  QUAL_GAS_TESTS,
   QUAL_REAGENTS,
   QUAL_REAGENT_INFO,
-  QUAL_SAMPLE_LABEL,
-  chemQualitativeVariant,
-  emptyQualRecord,
   isSolidSample,
   qualObserve,
   qualReagentFits,
@@ -19,52 +13,25 @@ import {
   qualSamples,
   qualTestText,
   type ChemQualitativeState,
-  type ChemQualitativeVariant,
-  type QualGas,
   type QualGasTest,
-  type QualIon,
   type QualReagent,
-  type QualRecord,
   type QualSample,
   type QualStep,
   type QualVisual,
 } from '@aischool/shared';
 import { ChevronDown, FlaskConical, Lightbulb, TestTube, Trash2, Wind } from 'lucide-react';
-import { useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import type { SimulatorProps } from '../types';
-
-type Update = (fn: (s: ChemQualitativeState) => ChemQualitativeState, log?: string) => void;
-const lcFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
-
-/** What to do next (practice mode only). */
-function nextHint(v: ChemQualitativeVariant, s: ChemQualitativeState): string {
-  const samples = qualSamples(v, s.tests);
-  const did = (r: QualReagent, on?: QualSample) => s.tests.some((t) => t.reagent === r && (!on || t.sample === on));
-  if (!s.tests.length) return v.kind === 'MIXTURE' ? 'Start by adding distilled water to C, shaking and filtering: note the filtrate and the residue.' : 'Start by adding distilled water to C and shaking: does it dissolve? What colour is the solution?';
-  if (v.kind === 'SALT' && !samples.includes('SOLUTION')) return 'C does not dissolve in water: dissolve some in dilute HNO₃ and watch for effervescence (test the gas).';
-  if (v.kind === 'MIXTURE' && !samples.includes('RESIDUE_SOLN')) return 'Dissolve the residue in dilute HNO₃ so that its cation can be tested.';
-  const sol: QualSample[] = v.kind === 'SALT' ? ['SOLUTION'] : ['FILTRATE', 'RESIDUE_SOLN'];
-  for (const x of sol) {
-    if (!s.tests.some((t) => t.sample === x && t.reagent === 'NAOH' && t.steps.includes('EXCESS'))) return `Add NaOH(aq) to the ${lcFirst(QUAL_SAMPLE_LABEL[x])} in drops, then in excess.`;
-    if (!s.tests.some((t) => t.sample === x && t.reagent === 'NH3' && t.steps.includes('EXCESS'))) return `Add NH₃(aq) to the ${lcFirst(QUAL_SAMPLE_LABEL[x])} in drops, then in excess.`;
-  }
-  if (!did('HEAT')) return 'Heat a little of the solid in a dry test tube and test any gas given off.';
-  if (s.tests.some((t) => qualObserve(v, t).gases.length && !t.gasTests.length)) return 'A gas was given off: test it (lime water, damp litmus, splints, dichromate paper…).';
-  if (!did('AGNO3') && !did('BACL2') && !did('BROWN_RING')) return 'Now test for the anion: AgNO₃ (Cl⁻), BaCl₂ then HCl (SO₄²⁻, SO₃²⁻, CO₃²⁻), the brown-ring test (NO₃⁻).';
-  return 'Record each observation and inference, then name the ions and write an ionic equation.';
-}
+import { nextHint, useQualitative } from './actions';
+import { Conclusion, Notebook } from './notebook';
 
 export default function ChemQualitativeLab({ seed, mode, state, onChange, readOnly, startedAt }: SimulatorProps<'chem-qualitative'>) {
-  const v = useMemo(() => chemQualitativeVariant(seed), [seed]);
-  const t0 = useMemo(() => new Date(startedAt).getTime(), [startedAt]);
-  const ref = useRef(state);
-  ref.current = state;
+  const q = useQualitative({ seed, state, onChange, readOnly, startedAt });
+  const { v, update, addStep, addGasTest } = q;
   const [brief, setBrief] = useState(true);
   const [sample, setSample] = useState<QualSample>('SOLID');
   const [active, setActive] = useState<number>(state.tests.length - 1);
@@ -72,23 +39,12 @@ export default function ChemQualitativeLab({ seed, mode, state, onChange, readOn
   const cur = samples.includes(sample) ? sample : 'SOLID';
   const activeTest = active >= 0 && active < state.tests.length ? state.tests[active]! : null;
 
-  const update: Update = (fn, log) => {
-    if (readOnly) return;
-    let next = fn(ref.current);
-    if (log) next = { ...next, log: [...next.log, { t: Math.max(0, Date.now() - t0), a: log.slice(0, 80) }].slice(-600) };
-    ref.current = next;
-    onChange(next);
-  };
   const doTest = (reagent: QualReagent) => {
-    if (ref.current.tests.length >= QUAL_MAX_TESTS) return;
-    const i = ref.current.tests.length;
-    update((s) => ({ ...s, tests: [...s.tests, { sample: cur, reagent, steps: [], gasTests: [] }], table: [...s.table, emptyQualRecord()] }), `test:${reagent}@${cur}`);
-    setActive(i);
+    const i = q.doTest(cur, reagent);
+    if (i >= 0) setActive(i);
   };
-  const addStep = (i: number, step: QualStep) => update((s) => ({ ...s, tests: s.tests.map((t, k) => (k === i && !t.steps.includes(step) ? { ...t, steps: [...t.steps, step] } : t)) }), `step:${step}#${i + 1}`);
-  const addGasTest = (i: number, g: QualGasTest) => update((s) => ({ ...s, tests: s.tests.map((t, k) => (k === i && !t.gasTests.includes(g) ? { ...t, gasTests: [...t.gasTests, g] } : t)) }), `gas:${g}#${i + 1}`);
   const discard = (i: number) => {
-    update((s) => ({ ...s, tests: s.tests.filter((_, k) => k !== i), table: s.table.filter((_, k) => k !== i) }), `discard#${i + 1}`);
+    q.discard(i);
     setActive((a) => (a >= i ? a - 1 : a));
   };
 
@@ -302,122 +258,5 @@ function TubeSvg({ vis, heating, flameTest }: { vis: QualVisual; heating: boolea
         </g>
       )}
     </svg>
-  );
-}
-
-const CHIP = 'rounded-full border px-2 py-0.5 text-[12px] transition-colors disabled:opacity-60';
-function IonChip({ ion, rec, onCycle, disabled }: { ion: QualIon; rec: QualRecord; onCycle: () => void; disabled: boolean }) {
-  const p = rec.present.includes(ion);
-  const a = rec.absent.includes(ion);
-  return (
-    <button type="button" disabled={disabled} onClick={onCycle} className={cn(CHIP, p ? 'border-success bg-success/15 text-foreground' : a ? 'border-danger bg-danger/10 text-foreground line-through' : 'border-border text-muted-foreground hover:bg-muted')} aria-label={`${QUAL_ION_LABEL[ion]}: ${p ? 'present' : a ? 'absent' : 'not stated'}`}>
-      {QUAL_ION_LABEL[ion]}
-      {p ? ' ✓' : a ? ' ✗' : ''}
-    </button>
-  );
-}
-
-function Notebook({ v, state, readOnly, update, active, setActive }: { v: ChemQualitativeVariant; state: ChemQualitativeState; readOnly: boolean; update: Update; active: number; setActive: (i: number) => void }) {
-  const setRec = (i: number, patch: Partial<QualRecord>) => update((s) => ({ ...s, table: s.table.map((r, k) => (k === i ? { ...r, ...patch } : r)) }));
-  const cycle = (i: number, ion: QualIon) => {
-    const r = state.table[i] ?? emptyQualRecord();
-    if (r.present.includes(ion)) setRec(i, { present: r.present.filter((x) => x !== ion), absent: [...r.absent, ion] });
-    else if (r.absent.includes(ion)) setRec(i, { absent: r.absent.filter((x) => x !== ion) });
-    else setRec(i, { present: [...r.present, ion] });
-  };
-  const toggleGas = (i: number, g: QualGas) => {
-    const r = state.table[i] ?? emptyQualRecord();
-    setRec(i, { gases: r.gases.includes(g) ? r.gases.filter((x) => x !== g) : [...r.gases, g] });
-  };
-  const summary = (r: QualRecord) =>
-    [r.gases.length ? `${r.gases.map((g) => QUAL_GAS_LABEL[g]).join(', ')} given off` : '', r.present.length ? `${r.present.map((x) => QUAL_ION_LABEL[x]).join(' or ')} present` : '', r.absent.length ? `${r.absent.map((x) => QUAL_ION_LABEL[x]).join(', ')} absent` : '', r.note.trim()].filter(Boolean).join('; ') || '—';
-  return (
-    <Card className="p-4 sm:p-5">
-      <h3 className="mb-1 font-display text-[15px] font-semibold tracking-tight">Test · Observation · Inference</h3>
-      <p className="mb-3 text-[12px] text-muted-foreground">Tap an ion once for “present (or possibly present)”, twice for “absent”, again to clear.</p>
-      {state.tests.length === 0 && <p className="py-3 text-[13px] text-muted-foreground">Rows appear as you carry out tests.</p>}
-      <div className="space-y-3">
-        {state.tests.map((t, i) => {
-          const r = state.table[i] ?? emptyQualRecord();
-          const open = i === active;
-          return (
-            <div key={i} className={cn('rounded-xl border p-3', open ? 'border-brand/60' : 'border-border')}>
-              <button type="button" className="w-full text-left text-[12.5px]" onClick={() => setActive(i)} aria-expanded={open}>
-                <span className="font-semibold">Test {i + 1}.</span> {qualTestText(v, t)}
-              </button>
-              <label className="mt-2 block text-[11.5px] font-medium text-muted-foreground" htmlFor={`obs-${i}`}>
-                Observation
-              </label>
-              <Textarea id={`obs-${i}`} rows={2} value={r.observation} disabled={readOnly} onChange={(e) => setRec(i, { observation: e.target.value.slice(0, 600) })} onFocus={() => setActive(i)} placeholder="What you saw: colours, precipitate, solubility in excess, gas, smell…" />
-              {open ? (
-                <div className="mt-2 space-y-2">
-                  <p className="text-[11.5px] font-medium text-muted-foreground">Inference</p>
-                  <div className="flex flex-wrap gap-1" role="group" aria-label="Cations">
-                    {QUAL_CATIONS.map((x) => (
-                      <IonChip key={x} ion={x} rec={r} disabled={readOnly} onCycle={() => cycle(i, x)} />
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-1" role="group" aria-label="Anions">
-                    {QUAL_ANIONS.map((x) => (
-                      <IonChip key={x} ion={x} rec={r} disabled={readOnly} onCycle={() => cycle(i, x)} />
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-1" role="group" aria-label="Gases given off">
-                    {QUAL_GASES.map((g) => (
-                      <button key={g} type="button" disabled={readOnly} onClick={() => toggleGas(i, g)} aria-pressed={r.gases.includes(g)} className={cn(CHIP, r.gases.includes(g) ? 'border-info bg-info/15 text-foreground' : 'border-border text-muted-foreground hover:bg-muted')}>
-                        {QUAL_GAS_LABEL[g]}
-                        {r.gases.includes(g) ? ' gas' : ''}
-                      </button>
-                    ))}
-                  </div>
-                  <Input value={r.note} disabled={readOnly} onChange={(e) => setRec(i, { note: e.target.value.slice(0, 300) })} placeholder="Other inference (e.g. water of crystallisation; stable to heat)" aria-label={`Other inference for test ${i + 1}`} />
-                </div>
-              ) : (
-                <p className="mt-2 text-[12.5px]">
-                  <span className="text-muted-foreground">Inference: </span>
-                  {summary(r)}
-                </p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </Card>
-  );
-}
-
-function Conclusion({ v, state, readOnly, update }: { v: ChemQualitativeVariant; state: ChemQualitativeState; readOnly: boolean; update: Update }) {
-  const slots = v.kind === 'SALT' ? ([['A', 'C']] as const) : ([['A', 'Soluble salt (filtrate)'], ['B', 'Insoluble salt (residue)']] as const);
-  const set = (k: 'A' | 'B', key: 'cation' | 'anion', val: string) => update((s) => ({ ...s, answer: { ...s.answer, [k]: { ...s.answer[k], [key]: s.answer[k][key] === val ? null : val } } }), `answer:${k}.${key}=${val}`);
-  return (
-    <Card className="p-4 sm:p-5">
-      <h3 className="mb-3 font-display text-[15px] font-semibold tracking-tight">Conclusion</h3>
-      <div className="space-y-4">
-        {slots.map(([k, name]) => (
-          <div key={k}>
-            <p className="mb-1.5 text-[12.5px] font-semibold">{name}</p>
-            {(['cation', 'anion'] as const).map((key) => (
-              <div key={key} className="mb-1.5 flex flex-wrap items-center gap-1" role="radiogroup" aria-label={`${name}: ${key}`}>
-                <span className="w-14 text-[12px] capitalize text-muted-foreground">{key}</span>
-                {(key === 'cation' ? QUAL_CATIONS : QUAL_ANIONS).map((x) => {
-                  const on = state.answer[k][key] === x;
-                  return (
-                    <button key={x} type="button" role="radio" aria-checked={on} disabled={readOnly} onClick={() => set(k, key, x)} className={cn(CHIP, on ? 'border-brand bg-brand/15 text-foreground' : 'border-border text-muted-foreground hover:bg-muted')}>
-                      {QUAL_ION_LABEL[x]}
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        ))}
-        <div>
-          <label className="mb-1 block text-[12.5px] font-semibold" htmlFor="qual-eq">
-            Ionic equations (a confirmatory test for the cation and for the anion{v.kind === 'MIXTURE' ? ' of the soluble salt' : ''})
-          </label>
-          <Textarea id="qual-eq" rows={3} value={state.answer.equation} disabled={readOnly} onChange={(e) => update((s) => ({ ...s, answer: { ...s.answer, equation: e.target.value.slice(0, 1000) } }))} placeholder="e.g. Zn²⁺(aq) + 2OH⁻(aq) → Zn(OH)₂(s)" />
-        </div>
-      </div>
-    </Card>
   );
 }

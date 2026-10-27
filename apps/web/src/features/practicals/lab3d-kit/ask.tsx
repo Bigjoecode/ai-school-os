@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { usePracticalAsk } from '../../../api';
-import { ASSISTANT_NAME } from './assistant';
+import { usePracticalAsk } from '../api';
+import { assistantProfile } from './assistant-profile';
 import { say } from './voice';
 
 /**
@@ -22,14 +22,10 @@ export interface AskTurn {
   error?: string;
 }
 
-const SUGGESTIONS: Record<PracticalAskStage, string[]> = {
-  LEARN: ['Why rinse the burette with the acid?', 'Why read the meniscus at eye level?', 'What is a concordant titre?', 'Why use a white tile?'],
-  DEMO: ['Why do you swirl the flask?', 'Why add the acid drop by drop near the end?', 'Why is the rough titre not used in the average?', 'Why remove the funnel before reading?'],
-  TRY: ['Why rinse the burette with the acid?', 'Why read the meniscus at eye level?', 'How do I know I have reached the end point?', 'How do I work out the mean titre?'],
-  SANDBOX: ['What happens if the acid is more concentrated?', 'Why does the mole ratio matter?', 'What if I choose the wrong indicator?', 'Why do titres need to be concordant?'],
-};
+/** Suggested questions per stage (a lab passes its own; at most four are shown, plus `extra` and one about the current step in Try). */
+export type AskSuggestions = Record<PracticalAskStage, string[]>;
 
-export function AskPanel({ practicalId, stage, step, attemptId, turns, setTurns, indicatorHint }: { practicalId: string; stage: PracticalAskStage; step: string | null; attemptId?: string; turns: AskTurn[]; setTurns: (fn: (t: AskTurn[]) => AskTurn[]) => void; indicatorHint?: string }) {
+export function AskPanel({ practicalId, stage, step, attemptId, turns, setTurns, suggestions: SUGGESTIONS, extra }: { practicalId: string; stage: PracticalAskStage; step: string | null; attemptId?: string; turns: AskTurn[]; setTurns: (fn: (t: AskTurn[]) => AskTurn[]) => void; suggestions: AskSuggestions; extra?: string }) {
   const [q, setQ] = useState('');
   const ask = usePracticalAsk(practicalId);
   const end = useRef<HTMLDivElement>(null);
@@ -37,7 +33,7 @@ export function AskPanel({ practicalId, stage, step, attemptId, turns, setTurns,
   useEffect(() => {
     end.current?.scrollIntoView({ block: 'end' });
   }, [turns.length, ask.isPending]);
-  const suggestions = [...SUGGESTIONS[stage].slice(0, indicatorHint ? 3 : 4), ...(indicatorHint ? [`Why is ${indicatorHint} used here?`] : []), ...(step && stage === 'TRY' ? [`Why do I need to: ${step.toLowerCase()}?`] : [])];
+  const suggestions = [...SUGGESTIONS[stage].slice(0, extra ? 3 : 4), ...(extra ? [extra] : []), ...(step && stage === 'TRY' ? [`Why do I need to: ${step.toLowerCase()}?`] : [])];
 
   const send = (question: string) => {
     const text = question.trim();
@@ -70,14 +66,14 @@ export function AskPanel({ practicalId, stage, step, attemptId, turns, setTurns,
             <p className="ml-8 rounded-2xl rounded-tr-sm bg-brand px-3 py-2 text-[13px] text-brand-foreground">{t.q}</p>
             {t.a ? (
               <p className="mr-6 rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-[13px] leading-snug">
-                <span className="block text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{ASSISTANT_NAME}</span>
+                <span className="block text-[11px] font-semibold uppercase tracking-wide text-emerald-700">{assistantProfile.name}</span>
                 {t.a}
               </p>
             ) : t.error ? (
               <p className="mr-6 rounded-2xl bg-danger-soft px-3 py-2 text-[13px] text-danger">{t.error}</p>
             ) : (
               <p className="mr-6 inline-flex items-center gap-2 rounded-2xl bg-muted px-3 py-2 text-[13px] text-muted-foreground">
-                <Loader2 className="size-3.5 animate-spin" aria-hidden /> {ASSISTANT_NAME} is thinking…
+                <Loader2 className="size-3.5 animate-spin" aria-hidden /> {assistantProfile.name} is thinking…
               </p>
             )}
           </div>
@@ -98,7 +94,7 @@ export function AskPanel({ practicalId, stage, step, attemptId, turns, setTurns,
           send(q);
         }}
       >
-        <Input value={q} onChange={(e) => setQ(e.target.value.slice(0, 400))} placeholder={`Ask ${ASSISTANT_NAME} a question…`} aria-label={`Ask ${ASSISTANT_NAME} a question`} />
+        <Input value={q} onChange={(e) => setQ(e.target.value.slice(0, 400))} placeholder={`Ask ${assistantProfile.name} a question…`} aria-label={`Ask ${assistantProfile.name} a question`} />
         <Button type="submit" variant="brand" disabled={!q.trim() || ask.isPending} aria-label="Ask">
           <Send />
         </Button>

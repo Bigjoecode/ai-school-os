@@ -262,7 +262,8 @@ function hazardDiamond(g: CanvasRenderingContext2D, cx: number, cy: number, s: n
 }
 
 /** Wall posters (portrait 3:4 unless stated). */
-export const posterTexture = (kind: 'goggles' | 'hazards' | 'rules' | 'titration') =>
+export type PosterKind = 'goggles' | 'hazards' | 'rules' | 'titration';
+export const posterTexture = (kind: PosterKind) =>
   canvasTexture(`poster-${kind}`, 384, 512, (g, w, h) => {
     g.fillStyle = kind === 'goggles' ? '#ffd23f' : '#fdfdf8';
     g.fillRect(0, 0, w, h);
@@ -395,9 +396,33 @@ export const periodicTexture = () =>
     );
   });
 
+/** A lab's own poster: a coloured title band and short lines (portrait 3:4). */
+export interface PosterSpec {
+  title: string;
+  band: string;
+  lines: string[];
+}
+export const customPosterTexture = (p: PosterSpec) =>
+  canvasTexture(`poster-${p.title}-${p.lines.join('|')}`, 384, 512, (g, w) => {
+    g.fillStyle = '#fdfdf8';
+    g.fillRect(0, 0, w, 512);
+    g.fillStyle = p.band;
+    g.fillRect(0, 0, w, 80);
+    g.fillStyle = '#fff';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.font = `800 ${p.title.length > 14 ? 26 : 32}px ${FONT}`;
+    g.fillText(p.title.toUpperCase(), w / 2, 42);
+    g.fillStyle = '#16202a';
+    g.textAlign = 'left';
+    g.font = `500 21px ${FONT}`;
+    let y = 124;
+    for (const line of p.lines) y = wrapText(g, line, 26, y, w - 52, 28) + 44;
+  });
+
 /** The whiteboard: today's practical in marker. */
-export const whiteboardTexture = (lines: string[]) =>
-  canvasTexture(`whiteboard-${lines.join('|')}`, 1024, 448, (g, w, h) => {
+export const whiteboardTexture = (lines: string[], note = 'Read at eye level!') =>
+  canvasTexture(`whiteboard-${lines.join('|')}-${note}`, 1024, 448, (g, w, h) => {
     g.fillStyle = '#f7f8f9';
     g.fillRect(0, 0, w, h);
     const sheen = g.createLinearGradient(0, 0, w, h);
@@ -416,7 +441,8 @@ export const whiteboardTexture = (lines: string[]) =>
     lines.slice(1).forEach((line, i) => g.fillText(line, 56, 160 + i * 60));
     g.fillStyle = '#c62828';
     g.font = `700 30px "Segoe Print", "Comic Sans MS", ${FONT}`;
-    g.fillText('Read at eye level!', w - 330, h - 40);
+    g.textAlign = 'right';
+    g.fillText(note, w - 40, h - 40);
   });
 
 /** Small signs: first aid, eye wash, fire extinguisher, fume cupboard. */

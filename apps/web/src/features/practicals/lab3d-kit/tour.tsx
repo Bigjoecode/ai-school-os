@@ -1,7 +1,8 @@
 import { ArrowDown, ArrowUp, Check } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { assistantProfile } from './assistant-profile';
 import { useLabView } from './store';
 
 /**
@@ -16,7 +17,7 @@ export interface TourCtx {
   touch: boolean;
   practice: boolean;
 }
-interface TourStep {
+export interface TourStep {
   id: string;
   title: string;
   body: (c: TourCtx) => string;
@@ -28,7 +29,17 @@ interface TourStep {
   practiceOnly?: boolean;
 }
 
-const STEPS: TourStep[] = [
+/** What the default tour says about the lab's own bench views and reading (e.g. 'burette' / 'Burette' / 'Read burette'). */
+export interface TourOptions {
+  /** A camera preset id to try, and its button label. */
+  focusId: string;
+  focusLabel: string;
+  /** The reading view's button label and what is read, if the lab has one. */
+  readLabel?: string;
+  readText?: string;
+}
+/** The standard controls tour; a lab can pass it as is, or edit / add steps. */
+export const defaultTourSteps = (o: TourOptions): TourStep[] => [
   { id: 'welcome', title: 'Welcome to the chemistry lab', body: () => 'This is a real school lab in 3D. A one-minute tour shows you how to move and work. You can skip it and replay it any time from Help.' },
   {
     id: 'walk',
@@ -38,20 +49,20 @@ const STEPS: TourStep[] = [
     done: () => useLabView.getState().walked >= 0.9,
   },
   { id: 'look', title: 'Look around', body: (c) => (c.touch ? 'Drag anywhere on the room to turn your head. Look around now.' : 'Drag with the mouse to look around. Try it now.'), done: () => useLabView.getState().looked >= 0.6 },
-  { id: 'tap', title: 'Use things', body: (c) => `${c.touch ? 'Tap' : 'Click'} anything to see what it is and what you can do with it — try Mrs Ada, the lab technician by the teacher’s desk, or a poster.`, done: () => useLabView.getState().picked > 0 },
+  { id: 'tap', title: 'Use things', body: (c) => `${c.touch ? 'Tap' : 'Click'} anything to see what it is and what you can do with it — try ${assistantProfile.name}, the ${assistantProfile.role} by the teacher’s desk, or a poster.`, done: () => useLabView.getState().picked > 0 },
   { id: 'task', title: 'Your task card', body: () => 'The task card is the question paper: what A and B are and what to calculate. Open it now.', target: 'task', done: (c) => c.sheet === 'task' },
   { id: 'notebook', title: 'Your notebook', body: () => 'Every reading and answer goes in your notebook — it is what gets marked. Open it now.', target: 'notebook', done: (c) => c.sheet === 'notebook' },
   { id: 'bench', title: 'Go to your bench', body: () => 'This takes you straight to your bench and sits you down to work. Try it.', target: 'bench', done: () => useLabView.getState().mode === 'bench' },
-  { id: 'views', title: 'Bench views', body: (c) => `Use these to look closely at the burette or the flask. ${c.touch ? 'Drag to look around the bench, pinch to zoom.' : 'Drag to look around the bench, scroll to zoom.'} Choose Burette now.`, target: 'focus', done: () => useLabView.getState().focus === 'burette' },
-  { id: 'read', title: 'Reading at eye level', body: () => 'Once the burette is filled, “Read burette” brings your eye level with the meniscus. Move your eye up and down until the ring marks look like straight lines, then read the bottom of the curve.', target: 'read' },
-  { id: 'hints', title: 'Hints and your checklist', body: () => 'In practice mode this checklist shows each step, and a yellow arrow points at what to use next. Tap Mrs Ada for help at any time.', target: 'guide', practiceOnly: true },
+  { id: 'views', title: 'Bench views', body: (c) => `Use these to look closely at ${o.focusLabel === 'Burette' ? 'the burette or the flask' : 'your apparatus'}. ${c.touch ? 'Drag to look around the bench, pinch to zoom.' : 'Drag to look around the bench, scroll to zoom.'} Choose ${o.focusLabel} now.`, target: 'focus', done: () => useLabView.getState().focus === o.focusId },
+  ...(o.readLabel ? [{ id: 'read', title: 'Reading at eye level', body: () => o.readText ?? `“${o.readLabel}” brings your eye level with the scale.`, target: 'read' } satisfies TourStep] : []),
+  { id: 'hints', title: 'Hints and your checklist', body: () => `In practice mode this checklist shows each step, and a yellow arrow points at what to use next. Tap ${assistantProfile.name} for help at any time.`, target: 'guide', practiceOnly: true },
   { id: 'menu', title: 'Pause, 2D lab and help', body: () => 'The menu pauses the lab, switches to the 2D lab (your work is kept) and replays this tour. Open it now.', target: 'menu', done: (c) => c.sheet === 'menu' },
   { id: 'handin', title: 'Hand in', body: () => 'When everything is recorded, hand in from here. You will see a checklist of anything missing first. That’s it — enjoy the lab!', target: 'handin' },
 ];
 
 /** `closeSheet` tidies away a panel the previous step opened, so it never covers the next control. */
-export function Tour({ ctx, onClose, closeSheet }: { ctx: TourCtx; onClose: (finished: boolean) => void; closeSheet: () => void }) {
-  const steps = STEPS.filter((s) => ctx.practice || !s.practiceOnly);
+export function Tour({ steps: all, ctx, onClose, closeSheet }: { steps: TourStep[]; ctx: TourCtx; onClose: (finished: boolean) => void; closeSheet: () => void }) {
+  const steps = useMemo(() => all.filter((s) => ctx.practice || !s.practiceOnly), [all, ctx.practice]);
   const [i, setI] = useState(0);
   const step = steps[i]!;
   const [rect, setRect] = useState<DOMRect | null>(null);

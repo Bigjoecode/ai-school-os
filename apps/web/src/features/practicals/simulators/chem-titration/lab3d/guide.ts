@@ -1,6 +1,7 @@
 import { TITRATION_INDICATOR_INFO, titrationEndpoint, type ChemTitrationState, type ChemTitrationVariant, type TitrationIndicator } from '@aischool/shared';
+import type { Correction, GuideStep } from '../../../lab3d-kit/guide';
+import type { CameraMode } from '../../../lab3d-kit/store';
 import { APPARATUS, APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
-import type { CameraMode } from './store';
 
 /**
  * Guided mode (practice only): the titration as a checklist with the object
@@ -8,18 +9,6 @@ import type { CameraMode } from './store';
  * the wrong way. Everything is worked out from the state the lab already
  * records; nothing here changes what is marked.
  */
-
-export interface GuideStep {
-  id: string;
-  label: string;
-  /** The object to use (a selectable id in the scene), if any. */
-  target: string | null;
-  /** Why the step matters (shown under the current step and said by the assistant). */
-  why: string;
-  done: boolean;
-  /** Steps of the same titration run share a group heading. */
-  group?: string;
-}
 
 export function guideSteps(s: ChemTitrationState, scene: SceneState, mode: CameraMode, v: ChemTitrationVariant): GuideStep[] {
   const filled = s.burette !== null;
@@ -74,14 +63,6 @@ export function guideSteps(s: ChemTitrationState, scene: SceneState, mode: Camer
     { id: 'handin', label: 'Hand in your lab', target: null, why: 'Open the menu and choose Hand in when everything is recorded.', done: false },
   );
   return steps;
-}
-export const currentStep = (steps: GuideStep[]) => steps.find((x) => !x.done) ?? null;
-
-export interface Correction {
-  title: string;
-  why: string;
-  /** What the camera should look at, for the debrief "show me". */
-  focus?: 'burette' | 'flask' | 'bench';
 }
 
 /** A gentle correction for a step just recorded in the log (null: nothing wrong). */

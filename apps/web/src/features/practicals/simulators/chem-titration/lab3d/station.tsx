@@ -22,15 +22,17 @@ import {
   WashBottle,
   WhiteTile,
   flaskLevel,
-} from './apparatus';
-import { Interactive } from './interact';
-import { BENCH, CUPBOARD, SPOT, STATION } from './layout';
-import { liquidMaterial, mat } from './materials';
-import { CUPBOARD_SHELVES } from './room';
-import { APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
-import { tapLevel, useLabView } from './store';
+} from '../../../lab3d-kit/apparatus';
+import { Interactive } from '../../../lab3d-kit/interact';
+import { BENCH, CUPBOARD, STATION } from '../../../lab3d-kit/layout';
+import { liquidMaterial, mat } from '../../../lab3d-kit/materials';
+import { CUPBOARD_SHELVES } from '../../../lab3d-kit/room';
+import { useLabView } from '../../../lab3d-kit/store';
+import { bookTexture, taskCardTexture } from '../../../lab3d-kit/textures';
+import { tapLevel, useBench } from './bench-store';
 import { dragFor, flaskDrag } from './drag';
-import { bookTexture, taskCardTexture } from './textures';
+import { APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
+import { SPOT } from './spots';
 
 type V3 = [number, number, number];
 const at = (spot: readonly [number, number, number], dy = 0): V3 => [spot[0], spot[1] + dy, spot[2]];
@@ -61,6 +63,12 @@ const GRIP: Partial<Record<ApparatusId, [[number, number, number], [number, numb
   stand: [[0.9, 0.06, 0.3], [0, 0.03, 0]],
   thermometer: [[0.3, 0.04, 0.04], [0, 0.01, 0]],
   tile: [[0.16, 0.16, 0.05], [0, 0.08, -0.04]],
+};
+
+/** How far the burette tap is open (the tap control, or the hold-to-run button). */
+const tapOpen = () => {
+  const b = useBench.getState();
+  return Math.max(b.tap, b.streaming ? 1 : 0);
 };
 
 /** Distractors taken to the bench line up at its west end. */
@@ -184,19 +192,19 @@ function flaskContents(s: ChemTitrationState) {
 
 /** The falling stream / drop from the burette jet into the flask. */
 function Delivery({ from, to }: { from: number; to: number }) {
-  const streaming = useLabView((s) => s.streaming);
+  const streaming = useBench((s) => s.streaming);
   const drop = useRef<Mesh>(null);
   const stream = useRef<Mesh>(null);
   useFrame(() => {
     const now = performance.now();
-    const { dropAt } = useLabView.getState();
+    const { dropAt } = useBench.getState();
     const d = drop.current;
     if (d) {
       const t = (now - dropAt) / 260;
       d.visible = t >= 0 && t <= 1;
       if (d.visible) d.position.y = from - (from - to) * t * t;
     }
-    if (stream.current) stream.current.visible = streaming || tapLevel(useLabView.getState().tap) === 'stream';
+    if (stream.current) stream.current.visible = streaming || tapLevel(useBench.getState().tap) === 'stream';
   });
   return (
     <group>
@@ -250,7 +258,7 @@ function Swirler({ children }: { children: ReactNode }) {
   useFrame(() => {
     const g = ref.current;
     if (!g) return;
-    const left = useLabView.getState().swirlUntil - performance.now();
+    const left = useBench.getState().swirlUntil - performance.now();
     if (left > 0) {
       const a = performance.now() / 70;
       g.position.set(Math.cos(a) * 0.006, 0, Math.sin(a) * 0.006);
@@ -266,7 +274,7 @@ function Swirler({ children }: { children: ReactNode }) {
 export function Station({ state, scene, t, v, detail }: { state: ChemTitrationState; scene: SceneState; t: Titration; v: ChemTitrationVariant; detail: boolean }) {
   const dk = (id: string) => dragFor(id, state, scene, t);
   const held = useLabView((s) => s.held);
-  const pip = useLabView((s) => s.pip);
+  const pip = useBench((s) => s.pip);
   const has = (id: ApparatusId) => scene.collected.has(id) && held !== id;
   const card = useMemo(() => taskCardTexture([v.given.A, v.given.B.replace(' of unknown concentration', ' (unknown concentration)'), `Titrate A against 25.0 cm³ of B. Indicator: your choice.`]), [v]);
   const book = useMemo(() => bookTexture(), []);
@@ -349,7 +357,7 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
       {has('burette') && scene.clamped && has('stand') ? (
         <group position={[SPOT.buretteAxis[0], jet, SPOT.buretteAxis[2]]}>
           <Interactive id="burette" label="Burette" bench labelY={BU.top + 0.05}>
-            {(active) => <Burette level={state.burette} bubble={scene.bubble} live detail={detail} glow={active} />}
+            {(active) => <Burette level={state.burette} bubble={scene.bubble} tapOpen={tapOpen} detail={detail} glow={active} />}
           </Interactive>
           <Interactive id="tap" label="Burette tap — drag sideways to turn" bench position={[0, BU.tap, 0]} labelY={0.03} drag={dk}>
             <mesh position={[0.01, 0, 0]}>
@@ -459,5 +467,5 @@ export function Station({ state, scene, t, v, detail }: { state: ChemTitrationSt
 /** The object in the student's hands (drawn in world space, in front of the camera). */
 export function Held() {
   const held = useLabView((s) => s.held);
-  return held ? <HeldItem id={held} /> : null;
+  return held ? <HeldItem id={held as ApparatusId} /> : null;
 }

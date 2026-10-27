@@ -1,18 +1,18 @@
-import { Check, Glasses, Hand, ShieldAlert, Utensils, X } from 'lucide-react';
+import { Check, ShieldAlert, X } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { play } from './sound';
 
 /**
- * The safety briefing at the lab door: three quick cards, then a mini check
- * (pick the corrosive symbol, what to do after a spill, how to fill a
- * pipette). A wrong answer explains why and lets the student try again.
+ * The safety briefing at the lab door: quick cards, then a mini check (the
+ * lab's own content: SafetyContent; CHEM_SAFETY in safety-content.tsx for
+ * chemistry). A wrong answer explains why and lets the student try again.
  * Lines from the practical's own lesson are used where they fit.
  */
 
-type Hazard = 'flame' | 'corrosive' | 'toxic' | 'harmful';
-function HazardIcon({ kind }: { kind: Hazard }) {
+export type Hazard = 'flame' | 'corrosive' | 'toxic' | 'harmful';
+export function HazardIcon({ kind }: { kind: Hazard }) {
   return (
     <svg viewBox="0 0 100 100" className="size-full" aria-hidden>
       <rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)" fill="#fff" stroke="#d4202a" strokeWidth="7" />
@@ -42,51 +42,31 @@ function HazardIcon({ kind }: { kind: Hazard }) {
   );
 }
 
-const CARDS: { icon: ReactNode; title: string; lines: string[] }[] = [
-  { icon: <Glasses className="size-6" />, title: 'Protect yourself', lines: ['Wear your safety goggles over your eyes the whole time.', 'Wear your lab coat, buttoned. Tie back long hair.'] },
-  { icon: <Utensils className="size-6" />, title: 'Behave safely', lines: ['No eating or drinking in the lab.', 'Report every spill and every breakage to the teacher at once.', 'Wash your hands before you leave.'] },
-  { icon: <Hand className="size-6" />, title: 'Pipettes and spills', lines: ['Never pipette by mouth: always use the pipette filler.', 'Acid or alkali on your skin: rinse with plenty of water and tell the teacher.'] },
-];
-
-interface Question {
+export interface SafetyCard {
+  icon: ReactNode;
+  title: string;
+  lines: string[];
+  /** The practical lesson's safety lines that match are added to this card (the first one). */
+  lessonMatch?: RegExp;
+}
+export interface SafetyQuestion {
   q: string;
   options: { label: ReactNode; aria: string; right: boolean; why: string }[];
+  /** Options laid out as a 4-up grid of pictures (e.g. hazard symbols). */
   grid?: boolean;
 }
-const QUESTIONS: Question[] = [
-  {
-    q: 'Tap the symbol that means CORROSIVE (acids and alkalis carry it).',
-    grid: true,
-    options: (['flame', 'corrosive', 'toxic', 'harmful'] as Hazard[]).map((k) => ({
-      label: <HazardIcon kind={k} />,
-      aria: k,
-      right: k === 'corrosive',
-      why: k === 'corrosive' ? 'Right: liquid eating into a surface and a hand.' : k === 'flame' ? 'That is the flame: flammable. Corrosive shows liquid eating into a surface and a hand.' : k === 'toxic' ? 'That is the skull: toxic. Corrosive shows liquid eating into a surface and a hand.' : 'That is the exclamation mark: harmful or irritant. Corrosive shows liquid eating into a surface and a hand.',
-    })),
-  },
-  {
-    q: 'A little acid splashes onto your hand. What do you do first?',
-    options: [
-      { label: 'Wipe it on my lab coat and carry on', aria: 'wipe', right: false, why: 'The acid keeps burning your skin and soaks into the coat.' },
-      { label: 'Rinse with plenty of running water, then tell the teacher', aria: 'rinse', right: true, why: 'Right: water dilutes and washes the acid away quickly.' },
-      { label: 'Add some alkali to neutralise it', aria: 'alkali', right: false, why: 'Never: alkalis burn too, and the reaction gives out heat.' },
-    ],
-  },
-  {
-    q: 'How do you draw 25.0 cm³ of B into the pipette?',
-    options: [
-      { label: 'Suck it up gently by mouth', aria: 'mouth', right: false, why: 'Never pipette by mouth — B is corrosive.' },
-      { label: 'Use the pipette filler', aria: 'filler', right: true, why: 'Right: the filler draws the liquid up safely.' },
-    ],
-  },
-];
+export interface SafetyContent {
+  cards: SafetyCard[];
+  questions: SafetyQuestion[];
+}
 
-export function SafetyBriefing({ lessonSafety, onDone, onSkip }: { lessonSafety: string[]; onDone: () => void; onSkip: () => void }) {
+export function SafetyBriefing({ content, lessonSafety, onDone, onSkip }: { content: SafetyContent; lessonSafety: string[]; onDone: () => void; onSkip: () => void }) {
+  const { cards: CARDS, questions: QUESTIONS } = content;
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const card = step < CARDS.length ? CARDS[step]! : null;
   const question = step >= CARDS.length ? QUESTIONS[step - CARDS.length]! : null;
-  const extra = step === 2 ? lessonSafety.filter((l) => /pipette|spill|skin|goggles/i.test(l)).slice(0, 1) : [];
+  const extra = card?.lessonMatch ? lessonSafety.filter((l) => card.lessonMatch!.test(l)).slice(0, 1) : [];
   const total = CARDS.length + QUESTIONS.length;
   const answer = question && picked !== null ? question.options[picked]! : null;
 

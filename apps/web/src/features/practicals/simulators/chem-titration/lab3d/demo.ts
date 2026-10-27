@@ -1,8 +1,9 @@
 import { TITRATION_INDICATOR_INFO, chemTitrationVariant, emptyChemTitrationState, titrationEndpoint, type ChemTitrationState, type ChemTitrationVariant, type TitrationIndicator } from '@aischool/shared';
+import type { DemoBeat, DemoStep as KitDemoStep } from '../../../lab3d-kit/demo-player';
 import type { Titration } from '../actions';
-import { SPOT } from './layout';
+import { useBench, type BenchState } from './bench-store';
 import { APPARATUS } from './scene-state';
-import { useLabView, type LabViewState } from './store';
+import { SPOT } from './spots';
 
 /**
  * Mrs Ada's demonstration: the whole titration, step by step, on its own
@@ -32,27 +33,13 @@ export interface DemoCtx {
   /** The demo state as the beats have left it. */
   s: () => ChemTitrationState;
 }
-interface Beat {
-  at: number;
-  run: (c: DemoCtx) => void;
-}
-export interface DemoStep {
-  id: string;
-  title: string;
-  /** Narration: what Mrs Ada says (worked out from the demo state when the step starts). */
-  say: (c: DemoCtx) => string;
-  ms: number;
-  view: Partial<LabViewState>;
-  /** What Mrs Ada points at. */
-  point?: string;
-  /** Show the demo notebook / the worked calculation while this step plays. */
-  panel?: 'notebook' | 'calc';
-  beats: Beat[];
-}
+type Beat = DemoBeat<DemoCtx>;
+/** A demo step ('notebook' / 'calc' panels show the demo notebook / the worked calculation). */
+export type DemoStep = KitDemoStep<DemoCtx>;
 
 const r2 = (x: number) => Math.round(x * 100) / 100;
 const fmt = (x: number) => x.toFixed(2);
-const view = (p: Partial<LabViewState>) => useLabView.setState(p);
+const view = (p: Partial<BenchState>) => useBench.setState(p);
 const bench = (target: [number, number, number], dist: number, pitch = 0.32, yaw = 0.1) => ({ mode: 'bench' as const, spot: { target, dist, pitch, yaw } });
 const AT_BURETTE = bench([SPOT.buretteAxis[0], 0.5, SPOT.buretteAxis[2]], 0.9, 0.12);
 const AT_FLASK = bench([SPOT.buretteAxis[0], 0.12, SPOT.buretteAxis[2]], 0.45, 0.4);

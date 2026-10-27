@@ -1,8 +1,10 @@
 import { TITRATION_INDICATORS, TITRATION_INDICATOR_INFO, type ChemTitrationState, type TitrationIndicator, type TitrationRinse } from '@aischool/shared';
 import { nextHint, type Titration } from '../actions';
+import type { LabAction, ObjectPanel } from '../../../lab3d-kit/hud';
+import { play } from '../../../lab3d-kit/sound';
+import { notify, useLabView } from '../../../lab3d-kit/store';
+import { useBench } from './bench-store';
 import { APPARATUS, APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
-import { play } from './sound';
-import { notify, useLabView } from './store';
 
 /**
  * What can be done with each object in the 3D lab. Every action is also a
@@ -11,21 +13,7 @@ import { notify, useLabView } from './store';
  * (safety, collecting, clamping, the air bubble, the filler) through `note`.
  */
 
-export interface LabAction {
-  key: string;
-  label: string;
-  run: () => void;
-  /** Why it can't be done now (shown instead of running). */
-  blocked?: string;
-  tone?: 'brand' | 'danger';
-  /** Press and hold to do it (e.g. squeezing the pipette filler). */
-  hold?: boolean;
-}
-export interface ObjectPanel {
-  title: string;
-  info?: string;
-  actions: LabAction[];
-}
+export type { LabAction, ObjectPanel };
 export interface ActionCtx {
   t: Titration;
   s: ChemTitrationState;
@@ -62,7 +50,7 @@ function pickUp(id: ApparatusId): LabAction {
   const held = view().held;
   return held === id
     ? { key: 'put-down', label: 'Put it down', run: () => setView({ held: null }) }
-    : { key: 'pick-up', label: 'Pick up', run: () => setView({ held: id }), blocked: held ? `You are holding the ${APPARATUS_LABEL[held].toLowerCase()}.` : undefined };
+    : { key: 'pick-up', label: 'Pick up', run: () => setView({ held: id }), blocked: held ? `You are holding the ${APPARATUS_LABEL[held as ApparatusId].toLowerCase()}.` : undefined };
 }
 
 /** The panel for the object `id` (null: nothing to show). */
@@ -205,7 +193,7 @@ export function objectPanel(id: string, ctx: ActionCtx): ObjectPanel | null {
       };
     case 'burette':
     case 'tap':
-      return buretteActions(ctx, held);
+      return buretteActions(ctx, held as ApparatusId | null);
     case 'flask':
       return flaskActions(ctx);
     case 'pipette':
@@ -300,7 +288,7 @@ function flaskActions(ctx: ActionCtx): ObjectPanel {
         play('clink');
       },
     });
-  } else actions.push({ key: 'off', label: 'Take it off the tile', blocked: view().streaming ? 'Close the tap first.' : undefined, run: () => t.note('flask-off-tile') });
+  } else actions.push({ key: 'off', label: 'Take it off the tile', blocked: useBench.getState().streaming ? 'Close the tap first.' : undefined, run: () => t.note('flask-off-tile') });
   if (open) {
     actions.push({ key: 'swirl', label: 'Swirl the flask', run: () => swirl(t) });
     actions.push({ key: 'pour', label: 'Pour away and start again', tone: 'danger', run: t.pourAway });
@@ -323,7 +311,7 @@ function flaskActions(ctx: ActionCtx): ObjectPanel {
 
 function pipetteActions(ctx: ActionCtx): ObjectPanel {
   const { t, s, scene } = ctx;
-  const pip = view().pip;
+  const pip = useBench.getState().pip;
   const kind = t.doneRuns === 0 ? 'ROUGH' : 'ACCURATE';
   const actions: LabAction[] = [];
   if (pip === 'idle') {
@@ -357,7 +345,7 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
       blocked: !scene.fillerOn ? 'Fit the pipette filler first — never by mouth.' : t.open ? 'The flask already holds B for this titration.' : !scene.collected.has('flask') ? 'Get a conical flask first.' : scene.flaskUnder ? 'Take the flask off the tile.' : undefined,
       run: () => {
         safetyNudge(ctx);
-        setView({ pip: 'filled', pipRough: false, focus: 'pipetting' });
+        (useBench.setState({ pip: 'filled', pipRough: false }), setView({ focus: 'pipetting' }));
       },
     });
     if (t.doneRuns > 0 && !t.open)
@@ -366,19 +354,20 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
         label: 'Hold to draw B up for another rough titration',
         hold: true,
         blocked: !scene.fillerOn ? 'Fit the pipette filler first.' : !scene.collected.has('flask') ? 'Get a conical flask first.' : scene.flaskUnder ? 'Take the flask off the tile.' : undefined,
-        run: () => setView({ pip: 'filled', pipRough: true, focus: 'pipetting' }),
+        run: () => (useBench.setState({ pip: 'filled', pipRough: true }), setView({ focus: 'pipetting' })),
       });
     if (scene.fillerOn) actions.push({ key: 'filler-off', label: 'Take the filler off', run: () => t.note('filler-off') });
     actions.push(returnAction(ctx, 'pipette'));
   } else if (pip === 'filled') {
-    const rough = view().pipRough;
+    const rough = useBench.getState().pipRough;
     actions.push({
       key: 'drain',
       label: 'Let it run into the conical flask',
       tone: 'brand',
       run: () => {
         t.pipette(rough || kind === 'ROUGH' ? 'ROUGH' : 'ACCURATE');
-        setView({ pip: 'drained', selected: 'pipette' });
+        useBench.setState({ pip: 'drained' });
+        setView({ selected: 'pipette' });
       },
     });
   } else {
@@ -388,10 +377,11 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
       tone: 'brand',
       run: () => {
         t.note('touch-tip');
-        setView({ pip: 'idle', selected: null });
+        useBench.setState({ pip: 'idle' });
+        setView({ selected: null });
       },
     });
-    actions.push({ key: 'skip', label: 'Put the pipette down', run: () => setView({ pip: 'idle', selected: null }) });
+    actions.push({ key: 'skip', label: 'Put the pipette down', run: () => (useBench.setState({ pip: 'idle' }), setView({ selected: null })) });
   }
   const info = pip === 'filled' ? '25.0 cm³ of B, the bottom of the meniscus on the mark.' : pip === 'drained' ? 'Drained. Do not blow out the last drop: touch the tip on the flask.' : `Rinsed with: ${s.setup.pipette ? rinseName(s.setup.pipette) : 'not yet'}.${scene.fillerOn ? ' Filler fitted.' : ''}`;
   return { title: '25.0 cm³ pipette', info, actions };
@@ -399,7 +389,7 @@ function pipetteActions(ctx: ActionCtx): ObjectPanel {
 
 export function swirl(t: Titration) {
   t.swirl();
-  setView({ swirlUntil: performance.now() + 900 });
+  useBench.setState({ swirlUntil: performance.now() + 900 });
 }
 
 let nudged = false;

@@ -1,0 +1,47 @@
+import type { OhmsTask, PhyOhmsState } from '@aischool/shared';
+import { useMemo, useState } from 'react';
+import { useDemoPlayer } from '../../../lab3d-kit/demo-player';
+import { Notebook } from '../index';
+import { useOhms } from '../actions';
+import { BENCH_IDLE, useBench } from './bench-store';
+import { demoCalculation, demoEmpty, demoScript, demoSeed, type DemoCtx } from './demo';
+
+const noop = () => undefined;
+
+/** The demo: its own seed and in-memory state, played by the kit's demo engine. */
+export function useOhmsDemo({ studentSeed, startedAt, task, active, onFinished }: { studentSeed: number; startedAt: string; task: OhmsTask; active: boolean; onFinished: () => void }) {
+  const seed = useMemo(() => demoSeed(studentSeed), [studentSeed]);
+  const [state, setState] = useState<PhyOhmsState>(() => demoEmpty(task));
+  const o = useOhms({ seed, state, onChange: setState, readOnly: false, startedAt, autoTask: false });
+  const steps = useMemo(() => demoScript(task), [task]);
+  const ctx = (): DemoCtx => ({ o, v: o.v, s: () => o.ref.current });
+  const player = useDemoPlayer<DemoCtx>({
+    steps,
+    ctx,
+    reset: () => {
+      useBench.setState(BENCH_IDLE);
+      o.ref.current = demoEmpty(task);
+      setState(o.ref.current);
+    },
+    goggles: () => false,
+    active,
+    onFinished,
+  });
+  const calc = useMemo(() => demoCalculation(state, o.v), [state, o.v]);
+  const panel = (id: string) =>
+    id === 'notebook' ? (
+      <section className="pointer-events-none absolute right-2 top-40 z-10 hidden max-h-[55%] w-[380px] overflow-hidden rounded-2xl bg-card p-3 text-card-foreground shadow-xl sm:block" aria-label="Demonstration notebook">
+        <Notebook task={state.task ?? 'OHM'} state={state} readOnly update={noop} removeReading={noop} />
+      </section>
+    ) : id === 'calc' && calc.length > 0 ? (
+      <section className="absolute inset-x-2 top-40 z-10 mx-auto max-w-lg rounded-2xl bg-card p-4 text-card-foreground shadow-xl" aria-label="Worked calculation">
+        <p className="font-display text-[15px] font-semibold tracking-tight">Worked calculation (demonstration values)</p>
+        <ol className="mt-2 list-decimal space-y-1 pl-5 text-[13px]">
+          {calc.map((l) => (
+            <li key={l}>{l}</li>
+          ))}
+        </ol>
+      </section>
+    ) : null;
+  return { player, state, o, panel };
+}

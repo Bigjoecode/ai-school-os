@@ -1,44 +1,34 @@
-import { PENDULUM_MEAN_ZONE, PENDULUM_OSCILLATIONS, PENDULUM_THREAD_MAX, PENDULUM_THREAD_MIN, pendulumPeriod, phyPendulumVariant, type PendulumRow, type PendulumTaskId, type PhyPendulumState } from '@aischool/shared';
+import { PENDULUM_MEAN_ZONE, PENDULUM_OSCILLATIONS, PENDULUM_THREAD_MAX, PENDULUM_THREAD_MIN, type PendulumRow, type PendulumTaskId, type PhyPendulumState, type PhyPendulumVariant } from '@aischool/shared';
 import { Lightbulb, Pause, Play, RotateCcw, Ruler, Timer, Wind } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints, useLabUpdate } from '../phy-common';
+import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints } from '../phy-common';
 import type { SimulatorProps } from '../types';
+import { pendulumHint, swingAngle, usePendulum } from './actions';
 
-interface Swing {
-  /** performance.now() at release. */
-  at: number;
-  period: number;
-  thread: number;
-  amplitude: number;
-  n: number;
-  shielded: boolean;
-}
-interface Watch {
-  start: number | null;
-  stop: number | null;
-  phase: number;
-}
-
-const r2 = (x: number) => Math.round(x * 100) / 100;
-
-function hint(s: PhyPendulumState, swing: Swing | null, watch: Watch): string {
-  if (!s.shielded && s.runs.length === 0) return 'There is a draught from the open window: close it before you time.';
-  if (!swing) return s.amplitude > 10 ? 'Make the angle of displacement small (10° or less), then release the bob.' : 'Set the thread length, then displace the bob slightly and release it.';
-  if (watch.start === null) return 'Let it settle, then start the stopwatch as the bob passes the fiducial mark (the mean position).';
-  if (watch.stop === null) return `Count the oscillations ("0" at the start) and stop the watch after ${swing.n} complete oscillations, as the bob passes the mark in the same direction.`;
-  return 'Record this timing, then change the length and repeat (at least five lengths).';
+/** The task as the paper sets it (2D task card and the 3D lab's task card). */
+export function PendulumTaskText({ v }: { v: PhyPendulumVariant }) {
+  return (
+    <>
+      <p>You are provided with a simple pendulum hanging from a split cork on a retort stand, a metre rule and a stopwatch. The diameter of the bob is {v.bobDiameter.toFixed(1)} cm.</p>
+      <ol className="list-[lower-roman] space-y-0.5 pl-6">
+        <li>Adjust the thread so that its length to the top of the bob is {v.suggested[0]} cm. Record the effective length l (to the centre of the bob).</li>
+        <li>Displace the bob slightly and release it. Time 20 complete oscillations; find the period T and T².</li>
+        <li>Repeat for thread lengths of {v.suggested.slice(1).join(', ')} cm.</li>
+        <li>Tabulate l, t, T and T². Plot T² against l and find the slope s of your graph.</li>
+        <li>Hence find g = 4π²/s. State two precautions you took.</li>
+      </ol>
+    </>
+  );
 }
 
 export default function PhyPendulumLab({ seed, mode, state, onChange, readOnly, startedAt }: SimulatorProps<'phy-pendulum'>) {
-  const v = useMemo(() => phyPendulumVariant(seed), [seed]);
-  const { update } = useLabUpdate(state, onChange, readOnly, startedAt);
-  const [swing, setSwing] = useState<Swing | null>(null);
-  const [watch, setWatch] = useState<Watch>({ start: null, stop: null, phase: 1 });
+  const p = usePendulum({ seed, state, onChange, readOnly, startedAt });
+  const { v, update, swing, watch, set, release, stopSwing, startWatch, stopWatch, resetWatch, record, removeRun } = p;
   const [now, setNow] = useState(() => performance.now());
 
   // Animate while the bob swings or the watch runs.
@@ -53,54 +43,16 @@ export default function PhyPendulumLab({ seed, mode, state, onChange, readOnly, 
     return () => cancelAnimationFrame(id);
   }, [swing]);
 
-  const theta = swing ? swing.amplitude * Math.cos((2 * Math.PI * (now - swing.at)) / 1000 / swing.period) : 0;
-  const elapsed = watch.start === null ? 0 : ((watch.stop ?? now) - watch.start) / 1000;
-  const counted = swing && watch.start !== null ? Math.floor(elapsed / swing.period + 1e-9) : 0;
-
-  const stopSwing = () => {
-    setSwing(null);
-    setWatch({ start: null, stop: null, phase: 1 });
-  };
-  const set = (patch: Partial<Pick<PhyPendulumState, 'thread' | 'amplitude' | 'n' | 'shielded'>>, log?: string) => {
-    stopSwing();
-    update((s) => ({ ...s, ...patch }), log);
-  };
-  const release = () => {
-    const s = state;
-    const period = pendulumPeriod(v, s.thread, s.amplitude, s.runs.length, s.shielded);
-    setWatch({ start: null, stop: null, phase: 1 });
-    setSwing({ at: performance.now(), period, thread: s.thread, amplitude: s.amplitude, n: s.n, shielded: s.shielded });
-    update((x) => x, `release:${s.thread}cm:${s.amplitude}deg`);
-  };
-  const startWatch = () => {
-    if (!swing) return;
-    const t = performance.now();
-    const phase = Math.abs(Math.cos((2 * Math.PI * (t - swing.at)) / 1000 / swing.period));
-    setWatch({ start: t, stop: null, phase });
-  };
-  const stopWatch = () => setWatch((w) => (w.start === null ? w : { ...w, stop: performance.now() }));
-  const resetWatch = () => setWatch({ start: null, stop: null, phase: 1 });
-  const record = () => {
-    if (!swing || watch.start === null || watch.stop === null) return;
-    const run = { thread: swing.thread, amplitude: swing.amplitude, n: swing.n, shielded: swing.shielded, elapsed: r2((watch.stop - watch.start) / 1000), startPhase: Math.round(watch.phase * 1000) / 1000 };
-    update((s) => ({ ...s, runs: [...s.runs, run].slice(0, 16), table: [...s.table, { l: '', t: '', T: '', T2: '' }].slice(0, 16) }), `record:${run.elapsed}s`);
-    // The swing dies down; release again for the next timing.
-    stopSwing();
-  };
-  const removeRun = (i: number) => update((s) => ({ ...s, runs: s.runs.filter((_, k) => k !== i), table: s.table.filter((_, k) => k !== i) }), `remove-run:${i}`);
+  const theta = swingAngle(swing, now);
+  const elapsed = p.elapsed(now);
+  const counted = p.counted(now);
+  const hint = pendulumHint;
 
   const fromMean = watch.start !== null && watch.phase <= PENDULUM_MEAN_ZONE;
   return (
     <div className="space-y-4">
       <TaskCard icon={<Ruler className="size-4 text-muted-foreground" aria-hidden />}>
-        <p>You are provided with a simple pendulum hanging from a split cork on a retort stand, a metre rule and a stopwatch. The diameter of the bob is {v.bobDiameter.toFixed(1)} cm.</p>
-        <ol className="list-[lower-roman] space-y-0.5 pl-6">
-          <li>Adjust the thread so that its length to the top of the bob is {v.suggested[0]} cm. Record the effective length l (to the centre of the bob).</li>
-          <li>Displace the bob slightly and release it. Time 20 complete oscillations; find the period T and T².</li>
-          <li>Repeat for thread lengths of {v.suggested.slice(1).join(', ')} cm.</li>
-          <li>Tabulate l, t, T and T². Plot T² against l and find the slope s of your graph.</li>
-          <li>Hence find g = 4π²/s. State two precautions you took.</li>
-        </ol>
+        <PendulumTaskText v={v} />
       </TaskCard>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start [&>*]:min-w-0">
@@ -166,7 +118,7 @@ export default function PhyPendulumLab({ seed, mode, state, onChange, readOnly, 
                     </Button>
                   ))}
                 </div>
-                <Button size="sm" variant={state.shielded ? 'outline' : 'secondary'} onClick={() => set({ shielded: !state.shielded }, state.shielded ? 'open-window' : 'close-window')}>
+                <Button size="sm" variant={state.shielded ? 'outline' : 'secondary'} onClick={p.toggleWindow}>
                   <Wind /> {state.shielded ? 'Window closed (no draught)' : 'Window open: close it'}
                 </Button>
               </Step>
@@ -175,7 +127,7 @@ export default function PhyPendulumLab({ seed, mode, state, onChange, readOnly, 
                   <Button size="sm" variant="outline" onClick={swing ? stopSwing : release}>
                     {swing ? 'Stop the bob' : 'Displace and release'}
                   </Button>
-                  <Button size="sm" variant="brand" onClick={watch.start === null ? startWatch : stopWatch} disabled={!swing || watch.stop !== null}>
+                  <Button size="sm" variant="brand" onClick={() => (watch.start === null ? startWatch() : stopWatch())} disabled={!swing || watch.stop !== null}>
                     {watch.start === null ? <Play /> : <Pause />} {watch.start === null ? 'Start stopwatch' : 'Stop stopwatch'}
                   </Button>
                   <Button size="sm" variant="ghost" onClick={resetWatch} disabled={watch.start === null}>
@@ -239,7 +191,7 @@ function PendulumSvg({ thread, radius, theta, shielded }: { thread: number; radi
   );
 }
 
-function Notebook({ state, readOnly, update, removeRun }: { state: PhyPendulumState; readOnly: boolean; update: (fn: (s: PhyPendulumState) => PhyPendulumState, log?: string) => void; removeRun: (i: number) => void }) {
+export function Notebook({ state, readOnly, update, removeRun }: { state: PhyPendulumState; readOnly: boolean; update: (fn: (s: PhyPendulumState) => PhyPendulumState, log?: string) => void; removeRun: (i: number) => void }) {
   const setCell = (i: number, key: keyof PendulumRow, value: string) => update((s) => ({ ...s, table: s.table.map((row, k) => (k === i ? { ...row, [key]: value } : row)) }));
   const setAnswer = (id: PendulumTaskId, key: 'value' | 'unit', value: string) => update((s) => ({ ...s, answers: { ...s.answers, [id]: { ...s.answers[id], [key]: value } } }));
   const points = numericPoints(state.table.map((r) => [r.l, r.T2]));

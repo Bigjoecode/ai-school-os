@@ -281,7 +281,7 @@ export function ModeBar({ views, read, onRead }: { views: { id: string; label: s
   if (mode === 'read') return null;
   return (
     <div className="flex flex-wrap justify-end gap-1.5">
-      <div className="flex gap-1.5" data-tour="focus">
+      <div className="flex flex-wrap justify-end gap-1.5" data-tour="focus">
         {views.map((f) => (
           <Button key={f.id} size="sm" variant="outline" className={cn(glass, focus === f.id && 'bg-white/25')} onClick={() => set({ focus: f.id })} aria-pressed={focus === f.id}>
             {f.label}

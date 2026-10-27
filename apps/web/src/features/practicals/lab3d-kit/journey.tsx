@@ -17,10 +17,13 @@ function Chip({ active, done, icon, label, onClick }: { active: boolean; done?: 
       type="button"
       onClick={onClick}
       aria-current={active ? 'step' : undefined}
-      className={cn('inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium transition-colors', active ? 'bg-white text-slate-900' : 'bg-black/45 text-white hover:bg-black/60')}
+      aria-label={label}
+      title={label}
+      className={cn('inline-flex shrink-0 items-center gap-1.5 rounded-full px-2 py-1 text-[12px] font-medium transition-colors sm:px-2.5', active ? 'bg-white text-slate-900' : 'bg-black/45 text-white hover:bg-black/60')}
     >
       {done ? <Check className={cn('size-3.5', active ? 'text-emerald-600' : 'text-emerald-300')} aria-label="done" /> : icon}
-      {label}
+      {/* phones: only the current stage is spelt out, the others are icons (the bar must fit 360 px) */}
+      <span className={cn(!active && 'hidden sm:inline')}>{label}</span>
     </button>
   );
 }
@@ -40,7 +43,7 @@ export function JourneyBar({ stage, learned, demoed, onStage, onAsk, asking, san
           type="button"
           onClick={onAsk}
           aria-pressed={asking}
-          className={cn('ml-1 inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold', asking ? 'bg-emerald-300 text-emerald-950' : 'bg-emerald-600 text-white hover:bg-emerald-500')}
+          className={cn('ml-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 sm:ml-1 text-[12px] font-semibold', asking ? 'bg-emerald-300 text-emerald-950' : 'bg-emerald-600 text-white hover:bg-emerald-500')}
         >
           <MessageCircleQuestion className="size-3.5" aria-hidden /> <span className="hidden sm:inline">Ask {assistantProfile.name}</span>
           <span className="sm:hidden">Ask</span>

@@ -1,27 +1,25 @@
 import {
   OHMS_AMMETER_FSD,
-  OHMS_BOARD,
   OHMS_VOLTMETER_FSD,
-  ohmsMeters,
-  ohmsWireKey,
-  phyOhmsVariant,
   type OhmsAnswerId,
   type OhmsRow,
   type OhmsTask,
   type OhmsTerminal,
   type PhyOhmsState,
+  type PhyOhmsVariant,
 } from '@aischool/shared';
 import { Cable, Gauge, Lightbulb, Trash2, Zap } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints, useLabUpdate } from '../phy-common';
+import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints } from '../phy-common';
+import { ohmsHint, useOhms } from './actions';
 import type { SimulatorProps } from '../types';
 
-const NAMES: Record<OhmsTerminal, string> = {
+export const NAMES: Record<OhmsTerminal, string> = {
   'cell+': 'battery +',
   'cell-': 'battery −',
   'key-a': 'key (left)',
@@ -38,7 +36,7 @@ const NAMES: Record<OhmsTerminal, string> = {
   'w-j': 'jockey',
   'w-100': 'wire, 100 cm end',
 };
-const WIRE_COLOURS = ['#d64545', '#2b2b2b', '#2f6fd6', '#2e9e5b', '#e08a1e', '#8a4fb0'];
+export const WIRE_COLOURS = ['#d64545', '#2b2b2b', '#2f6fd6', '#2e9e5b', '#e08a1e', '#8a4fb0'];
 
 function terminalAt(t: OhmsTerminal, s: Pick<PhyOhmsState, 'rheostat' | 'jockey'>): { x: number; y: number } {
   switch (t) {
@@ -60,74 +58,21 @@ function terminalAt(t: OhmsTerminal, s: Pick<PhyOhmsState, 'rheostat' | 'jockey'
   }
 }
 
-function hint(s: PhyOhmsState, on: boolean, I: number): string {
-  if (!s.task) return 'Choose the experiment first.';
-  if (s.wires.length < 6) return `Wire the circuit: tap one terminal, then another, to join them. Battery, key, rheostat, ammeter and the ${s.task === 'WIRE' ? 'wire (0 end to the jockey)' : 'resistor'} in series; the voltmeter across the ${s.task === 'WIRE' ? 'length of wire' : 'resistor'}.`;
-  if (!on) return s.readings.length ? 'Close the key, adjust and take the next reading.' : 'Close the key to switch on.';
-  if (I < 0.005) return 'No current: check that the circuit is a complete loop and the ammeter is in series (not across something).';
-  return s.readings.length < 5 ? `Read both meters, take the reading, then open the key. Change the ${s.task === 'WIRE' ? 'length L' : 'rheostat'} for the next one.` : 'Fill in the table, plot your graph and work out the answers.';
-}
-
-/** Lessons that open this lab on the resistance-wire task (every other lesson starts on Ohm's law). */
-const WIRE_LESSONS = ['pr-phy-resistivity-of-wire'];
-
 export default function PhyOhmsLab({ seed, mode, state, onChange, readOnly, startedAt, practicalId }: SimulatorProps<'phy-ohms-law'>) {
-  const v = useMemo(() => phyOhmsVariant(seed), [seed]);
-  const { update } = useLabUpdate(state, onChange, readOnly, startedAt);
+  const { v, update, task, board, meters, chooseTask, connect, removeWire, toggleKey, setRheostat, setJockey, takeReading, removeReading } = useOhms({ seed, state, onChange, readOnly, startedAt, practicalId });
   const [picked, setPicked] = useState<OhmsTerminal | null>(null);
-  // Pre-select the experiment from the lesson that opened the lab (the student can still change it before the first reading).
-  useEffect(() => {
-    if (!readOnly && !state.task && !state.readings.length) update((s) => (s.task ? s : { ...s, task: practicalId && WIRE_LESSONS.includes(practicalId) ? 'WIRE' : 'OHM' }), 'task:auto');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [readOnly, practicalId]);
-  const task: OhmsTask = state.task ?? 'OHM';
-  const board = OHMS_BOARD[task];
-  const meters = ohmsMeters(v, { task, wires: state.wires, key: state.key, rheostat: state.rheostat, jockey: state.jockey, heat: state.heat }, state.readings.length);
-
-  const chooseTask = (t: OhmsTask) => update((s) => ({ ...s, task: t, wires: [], key: false, heat: 0, line: null }), `task:${t}`);
   const tapTerminal = (t: OhmsTerminal) => {
     if (readOnly) return;
     if (!picked) return setPicked(t);
     if (picked === t) return setPicked(null);
-    const key = ohmsWireKey(picked, t);
     setPicked(null);
-    update((s) => (s.wires.includes(key) || s.wires.length >= 24 ? s : { ...s, wires: [...s.wires, key] }), `wire:${key}`);
+    connect(picked, t);
   };
-  const removeWire = (w: string) => update((s) => ({ ...s, wires: s.wires.filter((x) => x !== w) }), `unwire:${w}`);
-  const toggleKey = () => update((s) => ({ ...s, key: !s.key, heat: 0 }), state.key ? 'open-key' : 'close-key');
-  const takeReading = () =>
-    update(
-      (s) => ({ ...s, readings: [...s.readings, { wires: s.wires, rheostat: s.rheostat, jockey: s.jockey, heat: s.heat }].slice(0, 14), table: [...s.table, { L: '', I: '', V: '', R: '' }].slice(0, 14), heat: s.heat + 1 }),
-      `reading:${state.rheostat.toFixed(2)}:${state.jockey}`,
-    );
-  const removeReading = (i: number) => update((s) => ({ ...s, readings: s.readings.filter((_, k) => k !== i), table: s.table.filter((_, k) => k !== i) }), `remove-reading:${i}`);
 
   return (
     <div className="space-y-4">
       <TaskCard icon={<Zap className="size-4 text-muted-foreground" aria-hidden />}>
-        {state.task === 'WIRE' ? (
-          <>
-            <p>
-              You are provided with a {v.wire.material} wire of diameter d = {v.wire.diameterMm.toFixed(2)} mm stretched along a metre rule, a battery (2 × 1.5 V), a key, a rheostat, an ammeter (0–1 A), a voltmeter (0–3 V) and a jockey.
-            </p>
-            <ol className="list-[lower-roman] space-y-0.5 pl-6">
-              <li>Connect the circuit with a length L of the wire (from the 0 cm end to the jockey) in series with the ammeter, and the voltmeter across that length.</li>
-              <li>For L = 20, 40, 60, 80 and 100 cm, close the key, read I and V, then open the key. Work out R = V/I.</li>
-              <li>Plot R against L and find the slope. Work out the cross-sectional area A = πd²/4 in m², and hence ρ = slope × A.</li>
-              <li>State what your graph shows and two precautions you took.</li>
-            </ol>
-          </>
-        ) : (
-          <>
-            <p>You are provided with a battery (2 × 1.5 V), a key, a rheostat, an ammeter (0–1 A), a voltmeter (0–3 V) and a standard resistor R.</p>
-            <ol className="list-[lower-roman] space-y-0.5 pl-6">
-              <li>Connect the battery, key, rheostat, ammeter and R in series, with the voltmeter across R.</li>
-              <li>Close the key and adjust the rheostat; record the current I and p.d. V. Open the key. Obtain at least five pairs of readings.</li>
-              <li>Tabulate I, V and V/I. Plot V against I and find the slope. Hence find R.</li>
-              <li>State what your graph shows and two precautions you took.</li>
-            </ol>
-          </>
-        )}
+        <OhmsTaskText task={state.task} v={v} />
         {!readOnly && state.readings.length === 0 && (
           <div className="flex flex-wrap gap-1.5 pt-1">
             {(['OHM', 'WIRE'] as const).map((t) => (
@@ -150,7 +95,7 @@ export default function PhyOhmsLab({ seed, mode, state, onChange, readOnly, star
             </div>
             {!readOnly && mode === 'LAB' && (
               <p className="mb-3 flex items-start gap-2 rounded-xl bg-info-soft px-3 py-2 text-[12.5px] text-info">
-                <Lightbulb className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {hint(state, state.key, meters.I)}
+                <Lightbulb className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {ohmsHint(state, state.key, meters.I)}
               </p>
             )}
             {state.task ? (
@@ -172,12 +117,12 @@ export default function PhyOhmsLab({ seed, mode, state, onChange, readOnly, star
                   </div>
                   <label className="flex flex-wrap items-center gap-2 text-[12.5px]">
                     <span className="w-28 text-muted-foreground">Rheostat slider</span>
-                    <input type="range" min={0} max={100} step={1} value={Math.round(state.rheostat * 100)} onChange={(e) => update((s) => ({ ...s, rheostat: Number(e.target.value) / 100 }))} className="w-44 accent-[var(--brand)]" aria-label="Rheostat slider position" />
+                    <input type="range" min={0} max={100} step={1} value={Math.round(state.rheostat * 100)} onChange={(e) => setRheostat(Number(e.target.value) / 100)} className="w-44 accent-[var(--brand)]" aria-label="Rheostat slider position" />
                   </label>
                   {task === 'WIRE' && (
                     <label className="flex flex-wrap items-center gap-2 text-[12.5px]">
                       <span className="w-28 text-muted-foreground">Jockey at L =</span>
-                      <input type="range" min={5} max={100} step={0.5} value={state.jockey} onChange={(e) => update((s) => ({ ...s, jockey: Number(e.target.value) }))} className="w-44 accent-[var(--brand)]" aria-label="Jockey position along the wire (cm)" />
+                      <input type="range" min={5} max={100} step={0.5} value={state.jockey} onChange={(e) => setJockey(Number(e.target.value))} className="w-44 accent-[var(--brand)]" aria-label="Jockey position along the wire (cm)" />
                       <span className="tabular font-medium">{state.jockey.toFixed(1)} cm</span>
                     </label>
                   )}
@@ -346,7 +291,7 @@ function BoardSvg({ state, task, board, picked, onTerminal, onWire, meters }: { 
 }
 
 /** A large analogue meter face. */
-function Dial({ label, unit, value, fsd, minor, major, over, back }: { label: string; unit: string; value: number; fsd: number; minor: number; major: number; over: boolean; back: boolean }) {
+export function Dial({ label, unit, value, fsd, minor, major, over, back }: { label: string; unit: string; value: number; fsd: number; minor: number; major: number; over: boolean; back: boolean }) {
   const cx = 130;
   const cy = 150;
   const R = 112;
@@ -387,7 +332,7 @@ function Dial({ label, unit, value, fsd, minor, major, over, back }: { label: st
   );
 }
 
-function Notebook({ task, state, readOnly, update, removeReading }: { task: OhmsTask; state: PhyOhmsState; readOnly: boolean; update: (fn: (s: PhyOhmsState) => PhyOhmsState, log?: string) => void; removeReading: (i: number) => void }) {
+export function Notebook({ task, state, readOnly, update, removeReading }: { task: OhmsTask; state: PhyOhmsState; readOnly: boolean; update: (fn: (s: PhyOhmsState) => PhyOhmsState, log?: string) => void; removeReading: (i: number) => void }) {
   const wire = task === 'WIRE';
   const setCell = (i: number, key: keyof OhmsRow, value: string) => update((s) => ({ ...s, table: s.table.map((row, k) => (k === i ? { ...row, [key]: value } : row)) }));
   const setAnswer = (id: OhmsAnswerId, key: 'value' | 'unit', value: string) => update((s) => ({ ...s, answers: { ...s.answers, [id]: { ...s.answers[id], [key]: value } } }));
@@ -474,5 +419,36 @@ function Notebook({ task, state, readOnly, update, removeReading }: { task: Ohms
         </div>
       </div>
     </Card>
+  );
+}
+
+/** The task card's text for the chosen experiment (shared with the 3D lab's task card). */
+export function OhmsTaskText({ task, v }: { task: OhmsTask | null; v: PhyOhmsVariant }) {
+  return (
+    <>
+    {task === 'WIRE' ? (
+      <>
+        <p>
+          You are provided with a {v.wire.material} wire of diameter d = {v.wire.diameterMm.toFixed(2)} mm stretched along a metre rule, a battery (2 × 1.5 V), a key, a rheostat, an ammeter (0–1 A), a voltmeter (0–3 V) and a jockey.
+        </p>
+        <ol className="list-[lower-roman] space-y-0.5 pl-6">
+          <li>Connect the circuit with a length L of the wire (from the 0 cm end to the jockey) in series with the ammeter, and the voltmeter across that length.</li>
+          <li>For L = 20, 40, 60, 80 and 100 cm, close the key, read I and V, then open the key. Work out R = V/I.</li>
+          <li>Plot R against L and find the slope. Work out the cross-sectional area A = πd²/4 in m², and hence ρ = slope × A.</li>
+          <li>State what your graph shows and two precautions you took.</li>
+        </ol>
+      </>
+    ) : (
+      <>
+        <p>You are provided with a battery (2 × 1.5 V), a key, a rheostat, an ammeter (0–1 A), a voltmeter (0–3 V) and a standard resistor R.</p>
+        <ol className="list-[lower-roman] space-y-0.5 pl-6">
+          <li>Connect the battery, key, rheostat, ammeter and R in series, with the voltmeter across R.</li>
+          <li>Close the key and adjust the rheostat; record the current I and p.d. V. Open the key. Obtain at least five pairs of readings.</li>
+          <li>Tabulate I, V and V/I. Plot V against I and find the slope. Hence find R.</li>
+          <li>State what your graph shows and two precautions you took.</li>
+        </ol>
+      </>
+    )}
+    </>
   );
 }

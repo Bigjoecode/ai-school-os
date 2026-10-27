@@ -7,7 +7,6 @@ import {
   glassConstruction,
   glassImage,
   glassIncidentPoint,
-  phyGlassVariant,
   phyToDeg,
   phyToRad,
   type GlassPoint,
@@ -18,23 +17,17 @@ import {
   type PhyGlassVariant,
 } from '@aischool/shared';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Eye, Lightbulb, MapPin, Square } from 'lucide-react';
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { EYE_Y, PIN_LABEL, maxS, nextAngle, useGlass, type PinId } from './actions';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints, useLabUpdate } from '../phy-common';
+import { AnswerRow, Cell, PhyGraph, Step, TaskCard, numericPoints } from '../phy-common';
 import type { SimulatorProps } from '../types';
 
-type PinId = 'p1' | 'p2' | 'p3' | 'p4';
-const PIN_LABEL: Record<PinId, string> = { p1: 'P₁', p2: 'P₂', p3: 'P₃', p4: 'P₄' };
-const EYE_Y = GLASS_SHEET.bottom + 0.5;
-const r2 = (x: number) => Math.round(x * 100) / 100;
-/** How far along the incident ray a pin can go before leaving the sheet. */
-const maxS = (i: number) => Math.min((GLASS_SHEET.top - 0.5) / Math.cos(phyToRad(i)), (-GLASS_SHEET.left - 0.5) / Math.sin(phyToRad(i)));
-
-function hint(t: GlassTrace | null, done: number): string {
+export function hint(t: GlassTrace | null, done: number): string {
   if (!t) return done >= 5 ? 'Fill in the table, plot sin i against sin r and work out n.' : 'Choose an angle of incidence and start a new trace (a fresh outline of the block).';
   if (!t.normal) return 'Draw the normal at O, the point of incidence on face AB.';
   if (t.p1 === null || t.p2 === null) return 'Stick P₁ and P₂ on the incident ray (tap on the ray), well apart.';
@@ -43,8 +36,8 @@ function hint(t: GlassTrace | null, done: number): string {
 }
 
 export default function PhyGlassLab({ seed, mode, state, onChange, readOnly, startedAt }: SimulatorProps<'phy-glass-block'>) {
-  const v = useMemo(() => phyGlassVariant(seed), [seed]);
-  const { update } = useLabUpdate(state, onChange, readOnly, startedAt);
+  const g = useGlass({ seed, state, onChange, readOnly, startedAt });
+  const { v, update } = g;
   const [nextI, setNextI] = useState(20);
   const [tool, setTool] = useState<PinId | null>(null);
   const [eyeX, setEyeX] = useState(3);
@@ -57,38 +50,25 @@ export default function PhyGlassLab({ seed, mode, state, onChange, readOnly, sta
   const editable = !readOnly && !!open && shownIndex === openIndex;
   const done = state.traces.filter((t) => t.joined).length;
 
-  const setTrace = (patch: Partial<GlassTrace>, log?: string) => update((s) => ({ ...s, traces: s.traces.map((t, k) => (k === openIndex ? { ...t, ...patch } : t)) }), log);
   const newTrace = () => {
     setViewing(null);
     setTool(null);
-    update((s) => ({ ...s, traces: [...s.traces, { i: nextI, normal: false, p1: null, p2: null, p3: null, p4: null, joined: false }].slice(0, 10), table: [...s.table, { i: '', r: '', sini: '', sinr: '' }].slice(0, 10) }), `trace:${nextI}`);
-    setNextI((x) => Math.min(GLASS_ANGLE_MAX, x + 10));
+    g.newTrace(nextI);
+    setNextI((x) => nextAngle(x));
   };
   const removeTrace = (k: number) => {
     setViewing(null);
-    update((s) => ({ ...s, traces: s.traces.filter((_, j) => j !== k), table: s.table.filter((_, j) => j !== k) }), `remove-trace:${k}`);
+    g.removeTrace(k);
   };
   const placeAt = (p: GlassPoint) => {
     if (!editable || !open || !tool) return;
     setMsg(null);
-    if (tool === 'p1' || tool === 'p2') {
-      const a = phyToRad(open.i);
-      const s = -p.x * Math.sin(a) + p.y * Math.cos(a);
-      const perp = Math.abs(p.x * Math.cos(a) + p.y * Math.sin(a));
-      if (perp > 0.8 || s < 0.5 || s > maxS(open.i)) return setMsg('P₁ and P₂ go on the incident ray you drew (above face AB).');
-      setTrace({ [tool]: r2(s) }, `pin-${tool}`);
-      setTool(tool === 'p1' && open.p2 === null ? 'p2' : null);
-    } else {
-      if (p.y > -v.thickness - 0.3) return setMsg('P₃ and P₄ go on the far side of face CD (below the block).');
-      setTrace({ [tool]: { x: r2(p.x), y: r2(p.y) } }, `pin-${tool}`);
-      setTool(tool === 'p3' && !open.p4 ? 'p4' : null);
-    }
+    const err = g.placePin(tool, p);
+    if (err) return setMsg(err);
+    if (tool === 'p1' || tool === 'p2') setTool(tool === 'p1' && open.p2 === null ? 'p2' : null);
+    else setTool(tool === 'p3' && !open.p4 ? 'p4' : null);
   };
-  const nudge = (pin: 'p3' | 'p4', dx: number, dy: number) => {
-    const p = open?.[pin];
-    if (!p) return;
-    setTrace({ [pin]: { x: r2(p.x + dx), y: r2(Math.min(-v.thickness - 0.3, p.y + dy)) } });
-  };
+  const nudge = g.nudge;
   const [nudgePin, setNudgePin] = useState<'p3' | 'p4'>('p3');
 
   return (
@@ -129,7 +109,7 @@ export default function PhyGlassLab({ seed, mode, state, onChange, readOnly, sta
                 ))}
               </div>
             )}
-            <Board v={v} trace={shown} tool={editable ? tool : null} onPlace={placeAt} eyeX={editable ? eyeX : null} onDrag={editable ? (pin, p) => setTrace({ [pin]: { x: r2(p.x), y: r2(Math.min(-v.thickness - 0.3, p.y)) } }) : undefined} />
+            <Board v={v} trace={shown} tool={editable ? tool : null} onPlace={placeAt} eyeX={editable ? eyeX : null} onDrag={editable ? g.dragPin : undefined} />
             {msg && <p className="mt-2 text-[12.5px] text-warning">{msg}</p>}
 
             {!readOnly && (
@@ -154,7 +134,7 @@ export default function PhyGlassLab({ seed, mode, state, onChange, readOnly, sta
                   <>
                     <Step title={`1. On the paper (i = ${open.i}°)`}>
                       <div className="flex flex-wrap gap-1.5">
-                        <Button size="sm" variant={open.normal ? 'secondary' : 'outline'} onClick={() => setTrace({ normal: true }, 'normal')} disabled={open.normal}>
+                        <Button size="sm" variant={open.normal ? 'secondary' : 'outline'} onClick={g.drawNormal} disabled={open.normal}>
                           {open.normal ? 'Normal drawn' : 'Draw the normal at O'}
                         </Button>
                         {(['p1', 'p2'] as const).map((p) => (
@@ -205,7 +185,7 @@ export default function PhyGlassLab({ seed, mode, state, onChange, readOnly, sta
                     </Step>
                     <Step title="3. Construct">
                       <div className="flex flex-wrap gap-1.5">
-                        <Button size="sm" onClick={() => setTrace({ joined: true }, 'join')} disabled={!open.p1 || !open.p2 || !open.p3 || !open.p4}>
+                        <Button size="sm" onClick={g.join} disabled={!open.p1 || !open.p2 || !open.p3 || !open.p4}>
                           Remove the block and join the points
                         </Button>
                         <Button size="sm" variant="ghost" onClick={() => removeTrace(openIndex)}>
@@ -344,7 +324,7 @@ function Board({ v, trace, tool, onPlace, eyeX, onDrag }: { v: PhyGlassVariant; 
 }
 
 /** What the eye sees looking back through face CD: pins as vertical lines at their angular positions. */
-function EyeView({ v, trace, eyeX }: { v: PhyGlassVariant; trace: GlassTrace; eyeX: number }) {
+export function EyeView({ v, trace, eyeX }: { v: PhyGlassVariant; trace: GlassTrace; eyeX: number }) {
   const W = 320;
   const H = 90;
   const eye = { x: eyeX, y: EYE_Y };
@@ -399,7 +379,7 @@ function EyeView({ v, trace, eyeX }: { v: PhyGlassVariant; trace: GlassTrace; ey
 }
 
 /** A large protractor centred on O with the normal (0°) pointing into the block and the refracted ray OE. */
-function Protractor({ v, trace }: { v: PhyGlassVariant; trace: GlassTrace }) {
+export function Protractor({ v, trace }: { v: PhyGlassVariant; trace: GlassTrace }) {
   const built = glassConstruction(v, trace.p3, trace.p4);
   const W = 320;
   const H = 180;
@@ -436,7 +416,7 @@ function Protractor({ v, trace }: { v: PhyGlassVariant; trace: GlassTrace }) {
   );
 }
 
-function Notebook({ state, readOnly, update, removeTrace }: { state: PhyGlassState; readOnly: boolean; update: (fn: (s: PhyGlassState) => PhyGlassState, log?: string) => void; removeTrace: (k: number) => void }) {
+export function Notebook({ state, readOnly, update, removeTrace }: { state: PhyGlassState; readOnly: boolean; update: (fn: (s: PhyGlassState) => PhyGlassState, log?: string) => void; removeTrace: (k: number) => void }) {
   const setCell = (i: number, key: keyof GlassRow, value: string) => update((s) => ({ ...s, table: s.table.map((row, k) => (k === i ? { ...row, [key]: value } : row)) }));
   const setAnswer = (id: GlassTaskId, key: 'value' | 'unit', value: string) => update((s) => ({ ...s, answers: { ...s.answers, [id]: { ...s.answers[id], [key]: value } } }));
   const points = numericPoints(state.table.map((r) => [r.sinr, r.sini]));

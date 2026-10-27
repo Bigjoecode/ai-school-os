@@ -509,7 +509,7 @@ export function LabShell(p: LabShellProps) {
 
       {/* left: the step checklist (guided practice) */}
       {guided && !intro && !showBriefing && camMode !== 'read' && !(touch && (panel || showLine || sheet)) && (
-        <div className="pointer-events-none absolute left-2 top-14 z-[5] sm:left-3 sm:top-16">
+        <div className={cn('pointer-events-none absolute left-2 z-[5] sm:left-3', practice ? 'top-[5.6rem] sm:top-[6.2rem]' : 'top-14 sm:top-16')}>
           <GuideChecklist steps={p.steps} compact={touch} />
         </div>
       )}

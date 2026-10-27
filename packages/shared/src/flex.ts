@@ -168,9 +168,11 @@ export const importSchemeSchema = z.object({
 
 // ============================================================ assignments
 
-export const HOMEWORK_KINDS = ['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD'] as const;
+export const HOMEWORK_KINDS = ['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD', 'PRACTICAL'] as const;
 export type HomeworkKind = (typeof HOMEWORK_KINDS)[number];
-export const HOMEWORK_KIND_LABELS: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory (written answers)', PROJECT: 'Project', UPLOAD: 'Hand in a file or video' };
+export const HOMEWORK_KIND_LABELS: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory (written answers)', PROJECT: 'Project', UPLOAD: 'Hand in a file or video', PRACTICAL: 'Practical (virtual lab)' };
+/** PRACTICAL homework is marked out of this: the lab's score as a percentage. */
+export const PRACTICAL_HOMEWORK_MAX = 100;
 export const SUBMISSION_TYPES = ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT', 'LINK'] as const;
 export type SubmissionType = (typeof SUBMISSION_TYPES)[number];
 export const SUBMISSION_TYPE_LABELS: Record<SubmissionType, string> = { TEXT: 'Typed answer', IMAGE: 'Photo or image', VIDEO: 'Video', AUDIO: 'Audio recording', DOCUMENT: 'Document (PDF, Word…)', LINK: 'Link (YouTube, Google Drive…)' };
@@ -215,9 +217,11 @@ export interface SubmissionRow {
   feedback: string | null;
   gradedAt: string | null;
   aiSuggestion: { score: number; outOf: number; reasons: string[]; feedback: string } | null;
+  /** PRACTICAL homework: the lab attempt that handed it in (null for a quick check). */
+  labAttemptId?: string | null;
 }
 export interface SubmissionBoard {
-  homework: { id: string; title: string; kind: HomeworkKind; maxScore: number | null; dueDate: string; markingGuide: string | null };
+  homework: { id: string; title: string; kind: HomeworkKind; maxScore: number | null; dueDate: string; markingGuide: string | null; practical?: { id: string; title: string } | null };
   submissions: SubmissionRow[];
   /** Students in the class who haven't handed in. */
   missing: { id: string; name: string; admissionNumber: string }[];

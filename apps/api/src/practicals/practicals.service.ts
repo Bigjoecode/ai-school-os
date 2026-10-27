@@ -36,11 +36,11 @@ import type { ResolvedAccess } from '../student-ai/entitlements.service';
 import { askPrompt } from './ask';
 import { graderFor, type GraderOutput } from './graders';
 import { keywordMarks } from './graders/helpers';
+import { CHECK_PASS } from './practical-homework';
+import { PracticalHomeworkService } from './practical-homework.service';
 
 /** A timed (EXAM) lab may still be handed in this long after its clock; after that the saved state is marked. */
 export const LAB_GRACE_MS = 2 * 60_000;
-/** Quick checks passed at this fraction count as "learned". */
-const CHECK_PASS = 0.6;
 /** A lab weighs in topic mastery like this many questions. */
 const LAB_MASTERY_WEIGHT = 5;
 const MAX_STATE_BYTES = 200_000;
@@ -86,6 +86,7 @@ export class PracticalsService {
     private readonly gateway: AiGatewayService,
     private readonly study: StudyService,
     private readonly mastery: MasteryService,
+    private readonly homework: PracticalHomeworkService,
   ) {}
 
   private lessonInclude = { topic: { select: { name: true, parent: { select: { name: true } } } } } as const;
@@ -248,6 +249,8 @@ export class PracticalsService {
       data: { tenantId: access.tenantId, studentId: access.studentId, practicalId: id, seed: 0, mode: 'CHECK', state: { answers } as Prisma.InputJsonValue, score: correct, maxScore: checks.length, submittedAt: new Date() },
     });
     if (l.topicId) await this.mastery.record(access.tenantId, access.studentId, l.topicId, correct, checks.length, { source: 'PRACTICE', sourceId: id }).catch(() => undefined);
+    // A practical with no virtual lab is done once its quick check is passed: that hands in its homework.
+    if (!isSimulatorId(l.simulator)) await this.homework.handIn({ tenantId: access.tenantId, studentId: access.studentId, practicalId: id });
     return { correct, total: checks.length, passed: correct >= CHECK_PASS * checks.length, items };
   }
 
@@ -437,8 +440,19 @@ export class PracticalsService {
     if (saved.count) {
       const lesson = await this.prisma.root.practicalLesson.findUnique({ where: { id: a.practicalId }, select: { topicId: true } });
       if (lesson?.topicId) await this.mastery.record(a.tenantId, a.studentId, lesson.topicId, (score / max) * LAB_MASTERY_WEIGHT, LAB_MASTERY_WEIGHT, { source: 'PRACTICE', sourceId: a.id }).catch(() => undefined);
+      // Hands in the class's homework for this practical (never fails the lab).
+      await this.homework.handIn(a);
     }
     return this.prisma.root.practicalAttempt.findUniqueOrThrow({ where: { id: a.id } });
+  }
+
+  /** A teacher's reviewed score replaces the lab's mastery evidence (the marked score's row is taken back out, so it never counts twice). */
+  async remasterLab(a: { id: string; tenantId: string; studentId: string; practicalId: string; maxScore: number }, score: number) {
+    const lesson = await this.prisma.root.practicalLesson.findUnique({ where: { id: a.practicalId }, select: { topicId: true } });
+    if (!lesson?.topicId || a.maxScore <= 0) return;
+    await this.mastery
+      .replaceEvidence(a.tenantId, a.studentId, 'PRACTICE', a.id, [{ topicId: lesson.topicId, correct: (score / a.maxScore) * LAB_MASTERY_WEIGHT, total: LAB_MASTERY_WEIGHT }])
+      .catch(() => undefined);
   }
 
   /** The next practical to do in the subject: the next unlearned one after this, else the next one. */

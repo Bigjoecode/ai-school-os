@@ -1,5 +1,5 @@
 import { HOMEWORK_KIND_LABELS, type HomeworkRow, type SubmissionRow, type SubmissionType } from '@aischool/shared';
-import { AlertTriangle, ArrowLeft, Camera, CalendarClock, CheckCircle2, ChevronDown, ClipboardList, FileText, Film, Image as ImageIcon, Link2, Mic, Plus, RotateCcw, Send, Video, X } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, ArrowRight, Camera, CalendarClock, CheckCircle2, ChevronDown, ClipboardList, FileText, Film, FlaskConical, Image as ImageIcon, Link2, Mic, Plus, RotateCcw, Send, Video, X } from 'lucide-react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { toast } from 'sonner';
@@ -16,7 +16,7 @@ import { errorMessage } from '@/lib/api';
 import { formatDateTime } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { FormError } from '../operations/ui';
-import { useAssignment, useSubmitHomework } from './api';
+import { type AssignmentView, useAssignment, useSubmitHomework } from './api';
 import { ACCEPT, AttachmentList, type FileKind, hostOf, kindOfFile, kindOfMime, UploadRows, useUploads } from './files';
 import { fmtScore, HandInBadge, SubmissionContent } from './handin';
 import { addDays, dayLabel, relativeDay, schoolToday, useSchoolTz } from './ui';
@@ -47,7 +47,9 @@ export default function AssignmentPage() {
   const h = d?.homework;
   const sub = d?.submission ?? null;
   const closed = !!h && h.overdue && !h.allowLate;
-  const canHandIn = !!h && sub?.status !== 'GRADED' && !closed;
+  // PRACTICAL homework is handed in by the practical's lab (or quick check), not here.
+  const practical = h?.kind === 'PRACTICAL';
+  const canHandIn = !!h && sub?.status !== 'GRADED' && !closed && !practical;
   const formOpen = canHandIn && (!sub || sub.status === 'RETURNED' || editing);
 
   return (
@@ -97,6 +99,8 @@ export default function AssignmentPage() {
             )}
           </Card>
 
+          {practical && <PracticalCard h={h} status={d.practicalStatus} sub={sub} closed={closed} />}
+
           {sub?.status === 'GRADED' && (
             <Card className="border-success/30 p-4 sm:p-5">
               <div className="flex items-start gap-3">
@@ -116,6 +120,13 @@ export default function AssignmentPage() {
                 </div>
               </div>
               {sub.feedback && <p className="mt-3 whitespace-pre-wrap break-words rounded-xl bg-muted/40 px-3.5 py-3 text-[13.5px] leading-relaxed">{sub.feedback}</p>}
+              {sub.labAttemptId && (
+                <Button asChild variant="outline" size="sm" className="mt-3">
+                  <Link to={`/learn/practicals/labs/${sub.labAttemptId}`}>
+                    <FlaskConical /> Open the lab result
+                  </Link>
+                </Button>
+              )}
             </Card>
           )}
 
@@ -129,7 +140,7 @@ export default function AssignmentPage() {
             </Card>
           )}
 
-          {sub && !formOpen && (
+          {sub && !formOpen && !practical && (
             <Card className="p-4 sm:p-5">
               <div className="flex flex-wrap items-center gap-2">
                 <div className="min-w-0 flex-1">
@@ -165,7 +176,7 @@ export default function AssignmentPage() {
             </Card>
           )}
 
-          {!sub && closed && (
+          {!sub && closed && !practical && (
             <Card className="border-danger/30 p-4 sm:p-5">
               <p className="flex items-center gap-2 text-[14px] font-medium">
                 <AlertTriangle className="size-4 text-danger" aria-hidden /> Hand-ins have closed
@@ -178,6 +189,55 @@ export default function AssignmentPage() {
         </div>
       )}
     </Page>
+  );
+}
+
+/** PRACTICAL homework: open the practical, and whether its virtual lab (or quick check) has been done. */
+function PracticalCard({ h, status, sub, closed }: { h: HomeworkRow; status: AssignmentView['practicalStatus']; sub: SubmissionRow | null; closed: boolean }) {
+  const p = h.practical;
+  if (!p) {
+    return (
+      <Card className="p-4 sm:p-5">
+        <p className="text-[13.5px] text-muted-foreground">This practical is no longer in the Practical Academy. Speak to your teacher.</p>
+      </Card>
+    );
+  }
+  const lab = status?.lab ?? p.lab;
+  const doneText = !status?.done
+    ? lab
+      ? 'You haven’t handed in its virtual lab yet.'
+      : 'You haven’t passed its quick check yet.'
+    : lab
+      ? `Virtual lab done${status.attempts > 1 ? ` ${status.attempts} times` : ''}${status.best != null ? ` · best ${status.best}%` : ''}.`
+      : `Quick check passed${status.best != null ? ` · best ${status.best}%` : ''}.`;
+  return (
+    <Card className="p-4 sm:p-5">
+      <div className="flex flex-wrap items-start gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+          <FlaskConical className="size-5" aria-hidden />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-[12px] font-medium text-muted-foreground">Practical Academy · {p.subject}</p>
+          <p className="text-[14.5px] font-medium">{p.title}</p>
+          <p className={cn('mt-0.5 flex items-center gap-1.5 text-[12.5px]', status?.done ? 'text-success' : 'text-muted-foreground')}>
+            {status?.done && <CheckCircle2 className="size-3.5" aria-hidden />}
+            {doneText}
+          </p>
+        </div>
+        <Button asChild size="sm">
+          <Link to={`/learn/practicals/lesson/${encodeURIComponent(p.id)}`}>
+            Open the practical <ArrowRight />
+          </Link>
+        </Button>
+      </div>
+      <p className="mt-3 text-[12.5px] text-muted-foreground">
+        {closed && sub?.status !== 'GRADED'
+          ? 'The deadline has passed and this assignment doesn’t take late work, so a lab done now won’t hand it in.'
+          : lab
+            ? 'Submitting the virtual lab hands this in for you, and your best lab score is your mark (out of 100). Doing it again can only raise it.'
+            : 'Passing the lesson’s quick check hands this in for you, with your score as the mark (out of 100).'}
+      </p>
+    </Card>
   );
 }
 

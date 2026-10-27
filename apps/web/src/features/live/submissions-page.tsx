@@ -1,5 +1,5 @@
 import { HOMEWORK_KIND_LABELS, type SubmissionBoard, type SubmissionRow } from '@aischool/shared';
-import { ArrowLeft, ChevronDown, ChevronRight, Inbox, RotateCcw, Save, Users } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight, FlaskConical, Inbox, RotateCcw, Save, Users } from 'lucide-react';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
@@ -297,9 +297,24 @@ function MarkSheet({ board, row, onClose, onNext }: { board: SubmissionBoard; ro
         <SheetBody>
           {row && (
             <div className="grid gap-5">
-              <SubmissionContent s={row} />
+              {board.homework.kind === 'PRACTICAL' ? (
+                <div className="grid gap-2 rounded-xl border border-border bg-muted/20 p-3.5">
+                  <p className="text-[13px]">
+                    Handed in from the Practical Academy{board.homework.practical ? `: ${board.homework.practical.title}` : ''}. The mark is the student’s best lab score, as a percentage; reviewing the lab’s marks updates it.
+                  </p>
+                  {row.labAttemptId && (
+                    <Button asChild variant="outline" size="sm" className="justify-self-start">
+                      <Link to={`/practical-work/attempts/${row.labAttemptId}`}>
+                        <FlaskConical /> Review the lab
+                      </Link>
+                    </Button>
+                  )}
+                </div>
+              ) : (
+                <SubmissionContent s={row} />
+              )}
 
-              {canAi && (
+              {canAi && board.homework.kind !== 'PRACTICAL' && (
                 <section aria-label="AI suggestion" className="grid gap-2">
                   {sug ? (
                     <div className="rounded-xl border border-ai-2/30 bg-muted/30 p-3.5">

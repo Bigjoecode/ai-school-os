@@ -2599,8 +2599,10 @@ model Homework {
   title           String
   instructions    String
   questions       String[]
-  /// QUESTIONS | THEORY | PROJECT | UPLOAD (students hand in a file or link)
+  /// QUESTIONS | THEORY | PROJECT | UPLOAD (students hand in a file or link) | PRACTICAL (a Practical Academy lesson, handed in by its lab)
   kind            String         @default("QUESTIONS")
+  /// PRACTICAL: the Practical Academy lesson to do; the student's lab (or quick check) hands the homework in.
+  practicalId     String?
   /// Teacher's files and links: [{ type: FILE|LINK, fileId?, url, name, mimeType? }]
   attachments     Json           @default("[]")
   /// What students may hand in: TEXT, IMAGE, VIDEO, AUDIO, DOCUMENT, LINK
@@ -2623,9 +2625,11 @@ model Homework {
   classArm    ClassArm             @relation(fields: [classArmId], references: [id], onDelete: Cascade)
   subject     Subject?             @relation(fields: [subjectId], references: [id], onDelete: SetNull)
   teacher     Staff?               @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  practical   PracticalLesson?     @relation(fields: [practicalId], references: [id], onDelete: SetNull)
   submissions HomeworkSubmission[]
 
   @@index([tenantId, classArmId, dueDate])
+  @@index([practicalId])
   @@map("homework")
 }
 
@@ -3405,7 +3409,8 @@ model PracticalLesson {
   file      String
   updatedAt DateTime @updatedAt
 
-  topic SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  topic    SyllabusTopic? @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  homework Homework[]
 
   @@index([exam, subject])
   @@map("practical_lessons")

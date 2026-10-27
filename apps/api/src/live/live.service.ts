@@ -612,7 +612,10 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
     return n;
   }
 
-  homeworkRow(h: Prisma.HomeworkGetPayload<{ include: { classArm: { include: { classLevel: true } }; subject: true; teacher: true } }> & { topic?: { id: string; name: string } | null }, today: string): HomeworkRow {
+  homeworkRow(
+    h: Prisma.HomeworkGetPayload<{ include: { classArm: { include: { classLevel: true } }; subject: true; teacher: true } }> & { topic?: { id: string; name: string } | null; practical?: { id: string; title: string; subject: string; simulator: string | null } | null },
+    today: string,
+  ): HomeworkRow {
     const due = dateOnly(h.dueDate)!;
     return {
       id: h.id,
@@ -634,6 +637,7 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
       maxScore: h.maxScore,
       allowLate: h.allowLate,
       ...(h.topic !== undefined ? { topic: h.topic ? { id: h.topic.id, name: h.topic.name } : null } : {}),
+      ...(h.practical !== undefined ? { practical: h.practical ? { id: h.practical.id, title: h.practical.title, subject: h.practical.subject, lab: !!h.practical.simulator } : null } : {}),
     };
   }
 }

@@ -100,6 +100,13 @@ export class PracticalsTeachingController {
     return this.teaching.classView(q.classArmId, q.subject);
   }
 
+  /** Practicals to set as homework (the homework form's picker). */
+  @Get('lessons')
+  @RequirePermissions('homework.manage')
+  lessons(@Query(new ZodPipe(z.object({ subjectId: z.string().max(60).optional(), q: z.string().max(80).optional() }))) q: { subjectId?: string; q?: string }) {
+    return this.teaching.pickList(q.subjectId, q.q);
+  }
+
   @Get('attempts/:id')
   attempt(@Param('id') id: string) {
     return this.teaching.attempt(id);

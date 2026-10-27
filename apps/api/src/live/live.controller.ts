@@ -35,6 +35,7 @@ import { dateOnly, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
+import { subjectKey } from '../learning/mastery.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveProvidersService } from './providers.service';
@@ -47,7 +48,7 @@ interface OAuthState {
   origin: string;
 }
 
-const homeworkInclude = { classArm: { include: { classLevel: true } }, subject: true, teacher: true, topic: { select: { id: true, name: true } } } satisfies Prisma.HomeworkInclude;
+const homeworkInclude = { classArm: { include: { classLevel: true } }, subject: true, teacher: true, topic: { select: { id: true, name: true } }, practical: { select: { id: true, title: true, subject: true, simulator: true } } } satisfies Prisma.HomeworkInclude;
 const FREE: Channel[] = ['IN_APP', 'PUSH'];
 
 @Controller()
@@ -420,6 +421,18 @@ export class LiveController {
     return topicId;
   }
 
+  /** A PRACTICAL assignment's lesson must exist and be in the homework's subject (when it has one). */
+  private async checkPractical(body: HomeworkInput) {
+    if (body.kind !== 'PRACTICAL') return null;
+    const lesson = await this.prisma.root.practicalLesson.findUnique({ where: { id: body.practicalId ?? '' }, select: { id: true, subject: true } });
+    if (!lesson) throw new BadRequestException({ statusCode: 400, message: 'That practical was not found; choose it again', errors: [{ path: 'practicalId', message: 'That practical was not found; choose it again' }] });
+    if (body.subjectId) {
+      const subject = await this.prisma.db.subject.findUnique({ where: { id: body.subjectId }, select: { name: true } });
+      if (subject && subjectKey(subject.name) !== lesson.subject) throw new BadRequestException({ statusCode: 400, message: `That practical is in ${lesson.subject}, not ${subject.name}`, errors: [{ path: 'practicalId', message: `Choose a ${subject.name} practical` }] });
+    }
+    return lesson.id;
+  }
+
   private async checkTeaches(classArmId: string, subjectId: string | null) {
     const v = await this.live.viewer();
     if (v.manage) return v;
@@ -446,7 +459,8 @@ export class LiveController {
         questions: body.questions,
         kind: body.kind,
         attachments: await this.checkAttachments(body.attachments),
-        submissionTypes: body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        submissionTypes: body.kind === 'PRACTICAL' ? [] : body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        practicalId: await this.checkPractical(body),
         maxScore: body.maxScore,
         markingGuide: body.markingGuide,
         allowLate: body.allowLate,
@@ -478,7 +492,8 @@ export class LiveController {
         questions: body.questions,
         kind: body.kind,
         attachments: await this.checkAttachments(body.attachments),
-        submissionTypes: body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        submissionTypes: body.kind === 'PRACTICAL' ? [] : body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
+        practicalId: await this.checkPractical(body),
         maxScore: body.maxScore,
         markingGuide: body.markingGuide,
         allowLate: body.allowLate,
@@ -490,8 +505,8 @@ export class LiveController {
       include: homeworkInclude,
     });
     if (publishing) await this.notifyParents(h.classArmId, body.notifyParents as Channel[], this.homeworkMessage(h.title, h.subject?.name ?? null, body.dueDate, h.instructions));
-    // Marked hand-ins now count towards a different topic, or out of a different maximum.
-    if (h.topicId !== before.topicId || h.maxScore !== before.maxScore) await this.evidence.syncHomework(h.id);
+    // Marked hand-ins now count towards a different topic, out of a different maximum, or not at all (PRACTICAL).
+    if (h.topicId !== before.topicId || h.maxScore !== before.maxScore || h.kind !== before.kind) await this.evidence.syncHomework(h.id);
     return this.live.homeworkRow(h, school.today);
   }
 

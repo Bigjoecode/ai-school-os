@@ -305,6 +305,23 @@ export interface PracticalTeacherAttemptRow extends PracticalLabAttemptRow {
   kind: 'LAB' | 'QUESTIONS';
 }
 
+/** A practical a teacher can set as homework (the homework form's picker). */
+export interface PracticalPickItem {
+  id: string;
+  title: string;
+  /** Subject key, e.g. "Chemistry". */
+  subject: string;
+  topic: string;
+  topicId: string | null;
+  /** Has a virtual lab (otherwise the quick check hands it in). */
+  lab: boolean;
+}
+export interface PracticalPickList {
+  /** The homework subject's Practical Academy subject, when one was given (null: it has no practicals). */
+  subject: string | null;
+  practicals: PracticalPickItem[];
+}
+
 export interface PracticalClassView {
   classes: PracticalClassOption[];
   classArmId: string | null;

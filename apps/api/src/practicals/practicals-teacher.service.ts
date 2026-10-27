@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { isSimulatorId, type CriterionScore, type PracticalClassView, type PracticalTeacherAttemptRow, type PracticalTeacherAttemptView } from '@aischool/shared';
+import { isSimulatorId, type CriterionScore, type PracticalClassView, type PracticalPickList, type PracticalTeacherAttemptRow, type PracticalTeacherAttemptView } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
 import { ClassInsightsService } from '../class-insights/class-insights.service';
@@ -7,6 +7,7 @@ import { fullName } from '../common/format';
 import { currentContext, currentUserId } from '../common/request-context';
 import { subjectKey } from '../learning/mastery.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { PracticalHomeworkService } from './practical-homework.service';
 import { PracticalsService, effectiveScore, lessonData, percentOf, type StoredOverride } from './practicals.service';
 
 const avg = (xs: number[]) => (xs.length ? Math.round(xs.reduce((a, b) => a + b, 0) / xs.length) : null);
@@ -26,6 +27,7 @@ export class PracticalsTeacherService {
     private readonly insights: ClassInsightsService,
     private readonly practicals: PracticalsService,
     private readonly audit: AuditService,
+    private readonly homework: PracticalHomeworkService,
   ) {}
 
   async classView(classArmId?: string, subjectName?: string): Promise<PracticalClassView> {
@@ -101,6 +103,26 @@ export class PracticalsTeacherService {
     };
   }
 
+  /**
+   * Practicals to set as homework: those of the school subject (matched by
+   * subject key), or every subject's, filtered by title or topic.
+   */
+  async pickList(subjectId?: string, q?: string): Promise<PracticalPickList> {
+    const name = subjectId ? (await this.prisma.db.subject.findUnique({ where: { id: subjectId }, select: { name: true } }))?.name : null;
+    if (subjectId && !name) throw new NotFoundException('Subject not found');
+    const subject = name ? subjectKey(name) : null;
+    const words = (q ?? '').toLowerCase().split(/\s+/).filter(Boolean);
+    const lessons = await this.practicals.lessons(subject ? { subject } : {});
+    if (subject && !lessons.length) return { subject: null, practicals: [] };
+    return {
+      subject,
+      practicals: lessons
+        .map((l) => ({ id: l.id, title: l.title, subject: l.subject, topic: l.topic?.name ?? l.topicName, topicId: l.topicId, lab: isSimulatorId(l.simulator) }))
+        .filter((l) => words.every((w) => `${l.title} ${l.topic} ${l.subject}`.toLowerCase().includes(w)))
+        .slice(0, 100),
+    };
+  }
+
   /** The attempt, if the signed-in teacher may see this student's work in the practical's subject. */
   private async visible(id: string) {
     const a = await this.prisma.db.practicalAttempt.findFirst({ where: { id, mode: { in: ['LAB', 'EXAM'] } } });
@@ -132,6 +154,9 @@ export class PracticalsTeacherService {
     const before = effectiveScore(a);
     const value: StoredOverride = { score: Math.round(input.score * 2) / 2, note: input.note, byUserId: userId, by: me ? fullName(me) : 'Teacher', at: new Date().toISOString() };
     await this.prisma.db.practicalAttempt.update({ where: { id }, data: { override: value as unknown as Prisma.InputJsonValue, reviewedById: userId, reviewedAt: new Date() } });
+    await this.practicals.remasterLab(a, value.score);
+    // Homework this lab handed in follows the reviewed score.
+    await this.homework.handIn(a, { force: true });
     await this.audit.log({
       action: 'practical.override',
       summary: `Reviewed a ${isSimulatorId(a.simulatorId) ? a.simulatorId : 'lab'} attempt: ${before ?? '—'} → ${value.score}/${a.maxScore}`,

@@ -81,13 +81,17 @@ export class SchoolEvidenceService {
 
   // ---------------------------------------------------------- homework
 
-  /** A hand-in's evidence: score out of the maximum, for the homework's topic, once it is GRADED. */
+  /**
+   * A hand-in's evidence: score out of the maximum, for the homework's topic,
+   * once it is GRADED. PRACTICAL homework adds none: its lab is already
+   * PRACTICE evidence, so it would count twice.
+   */
   syncHomeworkSubmission(submissionId: string) {
     return this.safely(`homework submission ${submissionId}`, async () => {
-      const s = await this.prisma.root.homeworkSubmission.findUnique({ where: { id: submissionId }, include: { homework: { select: { topicId: true, maxScore: true } } } });
+      const s = await this.prisma.root.homeworkSubmission.findUnique({ where: { id: submissionId }, include: { homework: { select: { topicId: true, maxScore: true, kind: true } } } });
       if (!s) return false;
       const h = s.homework;
-      const counts = s.status === 'GRADED' && s.score != null && !!h.topicId && !!h.maxScore && h.maxScore > 0;
+      const counts = s.status === 'GRADED' && s.score != null && !!h.topicId && !!h.maxScore && h.maxScore > 0 && h.kind !== 'PRACTICAL';
       const items = counts ? [{ topicId: h.topicId!, correct: Math.min(s.score!, h.maxScore!), total: h.maxScore! }] : [];
       return this.mastery.replaceEvidence(s.tenantId, s.studentId, 'HOMEWORK', s.id, items);
     });

@@ -21,6 +21,7 @@ import { ZodPipe } from '../common/zod.pipe';
 import { FilesController } from '../files/files.module';
 import { FilesService } from '../files/files.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
+import { doneAttempts, splitLabLink } from '../practicals/practical-homework';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveService } from './live.service';
 
@@ -56,12 +57,14 @@ export class AssignmentsController {
   }
 
   private row(s: Sub): SubmissionRow {
+    // A PRACTICAL hand-in keeps its lab attempt as a link: shown as "Open the lab result", not as a link the student added.
+    const { labAttemptId, links } = splitLabLink(s.links);
     return {
       id: s.id,
       student: { id: s.student.id, name: fullName(s.student), admissionNumber: s.student.admissionNumber },
       text: s.text,
       files: this.filesOf(s),
-      links: s.links,
+      links,
       status: s.status as SubmissionRow['status'],
       late: s.late,
       submittedAt: s.submittedAt.toISOString(),
@@ -69,6 +72,7 @@ export class AssignmentsController {
       feedback: s.feedback,
       gradedAt: s.gradedAt?.toISOString() ?? null,
       aiSuggestion: s.aiSuggestion as SubmissionRow['aiSuggestion'],
+      ...(labAttemptId ? { labAttemptId } : {}),
     };
   }
 
@@ -98,13 +102,14 @@ export class AssignmentsController {
   @RequirePermissions('homework.manage')
   async board(@Param('id') id: string): Promise<SubmissionBoard> {
     const h = await this.mustTeach(id);
+    const practical = h.practicalId ? await this.prisma.root.practicalLesson.findUnique({ where: { id: h.practicalId }, select: { id: true, title: true } }) : null;
     const [subs, students] = await Promise.all([
       this.prisma.db.homeworkSubmission.findMany({ where: { homeworkId: id }, include: { student: true }, orderBy: { submittedAt: 'asc' } }),
       this.prisma.db.student.findMany({ where: { classArmId: h.classArmId, status: 'ACTIVE' }, orderBy: [{ lastName: 'asc' }, { firstName: 'asc' }] }),
     ]);
     const handed = new Set(subs.map((s) => s.studentId));
     return {
-      homework: { id: h.id, title: h.title, kind: h.kind as HomeworkKind, maxScore: h.maxScore, dueDate: dateOnly(h.dueDate)!, markingGuide: h.markingGuide },
+      homework: { id: h.id, title: h.title, kind: h.kind as HomeworkKind, maxScore: h.maxScore, dueDate: dateOnly(h.dueDate)!, markingGuide: h.markingGuide, practical },
       submissions: subs.map((s) => this.row(s)),
       missing: students.filter((s) => !handed.has(s.id)).map((s) => ({ id: s.id, name: fullName(s), admissionNumber: s.admissionNumber })),
     };
@@ -179,11 +184,22 @@ export class AssignmentsController {
   async myHomework(@Param('id') id: string) {
     const me = await this.meStudent();
     if (!me) throw new ForbiddenException('Only students hand in assignments');
-    const h = await this.prisma.db.homework.findFirst({ where: { id, classArmId: me.classArmId ?? '', status: 'PUBLISHED' }, include: { classArm: { include: { classLevel: true } }, subject: true, teacher: true } });
+    const h = await this.prisma.db.homework.findFirst({
+      where: { id, classArmId: me.classArmId ?? '', status: 'PUBLISHED' },
+      include: { classArm: { include: { classLevel: true } }, subject: true, teacher: true, practical: { select: { id: true, title: true, subject: true, simulator: true } } },
+    });
     if (!h) throw new NotFoundException('Assignment not found');
     const school = await this.live.school();
     const sub = await this.prisma.db.homeworkSubmission.findUnique({ where: { homeworkId_studentId: { homeworkId: id, studentId: me.id } }, include: { student: true } });
-    return { homework: { ...this.live.homeworkRow(h, school.today), attachments: this.attachmentsFor(h) }, submission: sub ? this.row(sub) : null };
+    return { homework: { ...this.live.homeworkRow(h, school.today), attachments: this.attachmentsFor(h) }, submission: sub ? this.row(sub) : null, practicalStatus: h.practical ? await this.practicalStatus(me.id, h.practical) : null };
+  }
+
+  /** PRACTICAL homework: whether the student has done the practical (a lab handed in, or the quick check passed when it has no lab). */
+  private async practicalStatus(studentId: string, p: { id: string; simulator: string | null }) {
+    const lab = !!p.simulator;
+    const attempts = await this.prisma.db.practicalAttempt.findMany({ where: { studentId, practicalId: p.id, submittedAt: { not: null } }, select: { id: true, mode: true, score: true, maxScore: true, override: true, submittedAt: true } });
+    const done = doneAttempts(attempts, lab);
+    return { lab, done: done.length > 0, attempts: done.length, best: done.length ? Math.max(...done.map((a) => a.percent)) : null };
   }
 
   private attachmentsFor(h: { id: string; attachments: Prisma.JsonValue }) {
@@ -198,6 +214,7 @@ export class AssignmentsController {
     if (!me) throw new ForbiddenException('Only students hand in assignments');
     const h = await this.prisma.db.homework.findFirst({ where: { id, classArmId: me.classArmId ?? '', status: 'PUBLISHED' } });
     if (!h) throw new NotFoundException('Assignment not found');
+    if (h.kind === 'PRACTICAL') throw new BadRequestException('This is handed in from the practical: open it and do the lab');
     const school = await this.live.school();
     const late = school.today > dateOnly(h.dueDate)!;
     if (late && !h.allowLate) throw new BadRequestException('The deadline has passed and this assignment doesn’t accept late work');
@@ -240,13 +257,13 @@ export class AssignmentsController {
       const school = await this.live.school();
       const rows = await this.prisma.db.homework.findMany({
         where: { classArmId: st.classArmId ?? '', status: 'PUBLISHED' },
-        include: { classArm: { include: { classLevel: true } }, subject: true, teacher: true, submissions: { where: { studentId } } },
+        include: { classArm: { include: { classLevel: true } }, subject: true, teacher: true, practical: { select: { id: true, title: true, subject: true, simulator: true } }, submissions: { where: { studentId } } },
         orderBy: { dueDate: 'desc' },
         take: 40,
       });
       return rows.map((h) => {
         const s = h.submissions[0];
-        return { ...this.live.homeworkRow(h, school.today), mine: s ? { id: s.id, status: s.status, late: s.late, score: s.score, feedback: s.feedback, submittedAt: s.submittedAt.toISOString(), text: s.text, files: this.filesOf(s), links: s.links } : null };
+        return { ...this.live.homeworkRow(h, school.today), mine: s ? { id: s.id, status: s.status, late: s.late, score: s.score, feedback: s.feedback, submittedAt: s.submittedAt.toISOString(), text: s.text, files: this.filesOf(s), links: splitLabLink(s.links).links } : null };
       });
     } finally {
       ctx.tenantId = before;

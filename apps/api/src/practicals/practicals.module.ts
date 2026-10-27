@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { ClassInsightsModule } from '../class-insights/class-insights.module';
 import { LearningModule } from '../learning/learning.module';
+import { PracticalHomeworkService } from './practical-homework.service';
 import { PracticalsController, PracticalsTeachingController } from './practicals.controller';
 import { PracticalsTeacherService } from './practicals-teacher.service';
 import { PracticalsService } from './practicals.service';
@@ -10,6 +11,6 @@ import { PracticalsService } from './practicals.service';
 @Module({
   imports: [AiModule, LearningModule, ClassInsightsModule],
   controllers: [PracticalsController, PracticalsTeachingController],
-  providers: [PracticalsService, PracticalsTeacherService],
+  providers: [PracticalsService, PracticalsTeacherService, PracticalHomeworkService],
 })
 export class PracticalsModule {}

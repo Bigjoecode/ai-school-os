@@ -13,6 +13,7 @@ import type {
   LiveProvider,
   LiveStatus,
   MyLearning,
+  PracticalPickList,
   SubmissionBoard,
   SubmissionRow,
   SyncResult,
@@ -310,6 +311,17 @@ export function useHomeworkTopics(classArmId: string, subjectId: string) {
   });
 }
 
+/** Practical Academy lessons to set as PRACTICAL homework: the subject's (or all), matching the search. */
+export function usePracticalPicks(subjectId: string, q: string, enabled: boolean) {
+  return useQuery({
+    queryKey: ['homework', 'practicals', subjectId, q] as const,
+    queryFn: ({ signal }) => api.get<PracticalPickList>('/practicals-teaching/lessons', { ...(subjectId ? { subjectId } : {}), ...(q ? { q } : {}) }, signal),
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: 10 * 60_000,
+  });
+}
+
 export function useSaveHomework() {
   return useMutation({
     meta: { silent: true },
@@ -351,6 +363,8 @@ export function useMyLearning(enabled = true) {
 export interface AssignmentView {
   homework: HomeworkRow;
   submission: SubmissionRow | null;
+  /** PRACTICAL homework: whether the student has done the practical (lab handed in, or quick check passed when it has no lab). */
+  practicalStatus: { lab: boolean; done: boolean; attempts: number; best: number | null } | null;
 }
 
 /** A child's homework for their parent, with the child's hand-in. */

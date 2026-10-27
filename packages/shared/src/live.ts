@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PRACTICAL_HOMEWORK_MAX } from './flex';
 
 /**
  * Live learning contracts: live classes on Google Meet, Zoom, BigBlueButton
@@ -141,28 +142,37 @@ export const publishHomeworkSchema = z.object({
   notifyParents: z.array(z.enum(['IN_APP', 'SMS', 'EMAIL', 'WHATSAPP', 'PUSH'])).default([]),
 });
 
-export const homeworkSchema = z.object({
-  classArmId: z.string().min(1),
-  subjectId: optionalId(),
-  title: z.string().trim().min(2).max(160),
-  instructions: z.string().trim().min(2).max(3000),
-  questions: z.array(z.string().trim().min(2).max(1000)).max(30).default([]),
-  dueDate: isoDate,
-  publish: z.boolean().default(true),
-  notifyParents: z.array(z.enum(['IN_APP', 'SMS', 'EMAIL', 'WHATSAPP', 'PUSH'])).default([]),
-  /** QUESTIONS | THEORY | PROJECT | UPLOAD */
-  kind: z.enum(['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD']).default('QUESTIONS'),
-  attachments: z
-    .array(z.object({ type: z.enum(['FILE', 'LINK']), fileId: z.string().nullish().transform((v) => v || null), url: z.string().trim().max(1000), name: z.string().trim().min(1).max(200), mimeType: z.string().max(100).nullish().transform((v) => v || null) }))
-    .max(10)
-    .default([]),
-  submissionTypes: z.array(z.enum(['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT', 'LINK'])).max(6).default([]),
-  maxScore: z.number().int().min(1).max(1000).nullish().transform((v) => v ?? null),
-  markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
-  allowLate: z.boolean().default(true),
-  /** The syllabus topic it practises: marked work counts towards the student's topic mastery. */
-  topicId: z.string().nullish().transform((v) => v || null),
-});
+export const homeworkSchema = z
+  .object({
+    classArmId: z.string().min(1),
+    subjectId: optionalId(),
+    title: z.string().trim().min(2).max(160),
+    instructions: z.string().trim().min(2).max(3000),
+    questions: z.array(z.string().trim().min(2).max(1000)).max(30).default([]),
+    dueDate: isoDate,
+    publish: z.boolean().default(true),
+    notifyParents: z.array(z.enum(['IN_APP', 'SMS', 'EMAIL', 'WHATSAPP', 'PUSH'])).default([]),
+    /** QUESTIONS | THEORY | PROJECT | UPLOAD | PRACTICAL (a Practical Academy lesson, handed in by its lab) */
+    kind: z.enum(['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD', 'PRACTICAL']).default('QUESTIONS'),
+    /** PRACTICAL: the Practical Academy lesson (its subject must be the homework's subject, checked by the API). */
+    practicalId: z.string().trim().max(120).nullish().transform((v) => v || null),
+    attachments: z
+      .array(z.object({ type: z.enum(['FILE', 'LINK']), fileId: z.string().nullish().transform((v) => v || null), url: z.string().trim().max(1000), name: z.string().trim().min(1).max(200), mimeType: z.string().max(100).nullish().transform((v) => v || null) }))
+      .max(10)
+      .default([]),
+    submissionTypes: z.array(z.enum(['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT', 'LINK'])).max(6).default([]),
+    maxScore: z.number().int().min(1).max(1000).nullish().transform((v) => v ?? null),
+    markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
+    allowLate: z.boolean().default(true),
+    /** The syllabus topic it practises: marked work counts towards the student's topic mastery. */
+    topicId: z.string().nullish().transform((v) => v || null),
+  })
+  .superRefine((v, ctx) => {
+    if (v.kind === 'PRACTICAL' && !v.practicalId) ctx.addIssue({ code: 'custom', path: ['practicalId'], message: 'Choose the practical to do' });
+    if (v.kind !== 'PRACTICAL' && v.practicalId) ctx.addIssue({ code: 'custom', path: ['practicalId'], message: 'Only a practical assignment has a practical' });
+  })
+  // A practical is marked as a percentage of its lab.
+  .transform((v) => (v.kind === 'PRACTICAL' ? { ...v, maxScore: PRACTICAL_HOMEWORK_MAX } : v));
 export type HomeworkInput = z.infer<typeof homeworkSchema>;
 
 export const homeworkListQuerySchema = z.object({
@@ -264,7 +274,9 @@ export interface HomeworkRow {
   liveClassId: string | null;
   publishedAt: string | null;
   overdue: boolean;
-  kind: 'QUESTIONS' | 'THEORY' | 'PROJECT' | 'UPLOAD';
+  kind: 'QUESTIONS' | 'THEORY' | 'PROJECT' | 'UPLOAD' | 'PRACTICAL';
+  /** PRACTICAL: the Practical Academy lesson; `lab` is false when it has only a quick check. */
+  practical?: { id: string; title: string; subject: string; lab: boolean } | null;
   attachments: { type: 'FILE' | 'LINK'; fileId: string | null; url: string; name: string; mimeType: string | null }[];
   submissionTypes: ('TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT' | 'LINK')[];
   maxScore: number | null;

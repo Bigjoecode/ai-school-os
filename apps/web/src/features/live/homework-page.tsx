@@ -1,5 +1,5 @@
-import { type Channel, HOMEWORK_KIND_LABELS, HOMEWORK_KINDS, type HomeworkKind, type HomeworkRow, homeworkSchema, SUBMISSION_TYPE_LABELS, SUBMISSION_TYPES, type SubmissionType } from '@aischool/shared';
-import { AlertTriangle, ArrowDown, ArrowUp, CalendarClock, ChevronDown, ClipboardList, Inbox, Link2, MoreHorizontal, Paperclip, Pencil, Plus, Send, Trash2, Video, X } from 'lucide-react';
+import { type Channel, HOMEWORK_KIND_LABELS, HOMEWORK_KINDS, type HomeworkKind, type HomeworkRow, homeworkSchema, PRACTICAL_HOMEWORK_MAX, type PracticalPickItem, SUBMISSION_TYPE_LABELS, SUBMISSION_TYPES, type SubmissionType } from '@aischool/shared';
+import { AlertTriangle, ArrowDown, ArrowUp, CalendarClock, ChevronDown, ClipboardList, FlaskConical, Inbox, Link2, MoreHorizontal, Paperclip, Pencil, Plus, Search, Send, Trash2, Video, X } from 'lucide-react';
 import { type FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { AiSparkle } from '@/components/ai/ai-sparkle';
@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils';
 import { armOptions, useStructure } from '../academics/api';
 import { apiFieldErrors, dateInput, FormError, Segmented, zodErrors } from '../operations/ui';
 import { useSearchFlag } from '../planning/ui';
-import { type HomeworkParams, useDeleteHomework, useHomework, useHomeworkTopics, useSaveHomework } from './api';
+import { type HomeworkParams, useDeleteHomework, useHomework, useHomeworkTopics, usePracticalPicks, useSaveHomework } from './api';
 import { ATTACH_ACCEPT, AttachmentList, hostOf, UploadRows, useUploads } from './files';
 import { addDays, ChannelChooser, dayLabel, relativeDay, schoolToday, useSchoolTz } from './ui';
 
@@ -339,14 +339,17 @@ interface Values {
   markingGuide: string;
   allowLate: boolean;
   links: { url: string; name: string }[];
+  /** PRACTICAL: the chosen Practical Academy lesson. */
+  practical: Pick<PracticalPickItem, 'id' | 'title' | 'subject' | 'lab'> & { topic?: { id: string; name: string } | null } | null;
 }
 
-export const KIND_SHORT: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory', PROJECT: 'Project', UPLOAD: 'Hand-in' };
+export const KIND_SHORT: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory', PROJECT: 'Project', UPLOAD: 'Hand-in', PRACTICAL: 'Practical' };
 const KIND_HINT: Record<HomeworkKind, string> = {
   QUESTIONS: 'Short questions to answer',
   THEORY: 'Longer written answers, typed or photographed',
   PROJECT: 'Make something; hand in photos, video or a write-up',
   UPLOAD: 'Hand in a worksheet, drawing, recording or file',
+  PRACTICAL: 'A Practical Academy lab: handed in and marked from the lab',
 };
 /** Sensible hand-in types for each kind of assignment. */
 const KIND_TYPES: Record<HomeworkKind, SubmissionType[]> = {
@@ -354,6 +357,7 @@ const KIND_TYPES: Record<HomeworkKind, SubmissionType[]> = {
   THEORY: ['TEXT', 'IMAGE'],
   PROJECT: ['TEXT', 'IMAGE', 'VIDEO', 'DOCUMENT', 'LINK'],
   UPLOAD: ['IMAGE', 'DOCUMENT'],
+  PRACTICAL: [],
 };
 
 export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean; onOpenChange: (o: boolean) => void; homework?: HomeworkRow | null }) {
@@ -414,6 +418,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
             markingGuide: homework.markingGuide ?? '',
             allowLate: homework.allowLate,
             links: homework.attachments.filter((a) => a.type === 'LINK').map((a) => ({ url: a.url, name: a.name })),
+            practical: homework.practical ? { ...homework.practical, topic: homework.topic ?? null } : null,
           }
         : {
             classArmId: '',
@@ -431,12 +436,27 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
             markingGuide: '',
             allowLate: true,
             links: [],
+            practical: null,
           },
     );
   }, [open, homework, tz, resetUploads]);
 
 
   const setKind = (kind: HomeworkKind) => set({ kind, submissionTypes: KIND_TYPES[kind] });
+  const isPractical = v?.kind === 'PRACTICAL';
+  /** Picking a practical fills in the title, instructions and topic (and the subject, when its name matches). */
+  const pickPractical = (p: PracticalPickItem) => {
+    const prev = v!.practical;
+    const subject = v!.subjectId ? null : subjects.find((x) => x.name.toLowerCase() === p.subject.toLowerCase());
+    set({
+      practical: { id: p.id, title: p.title, subject: p.subject, lab: p.lab, topic: p.topicId ? { id: p.topicId, name: p.topic } : null },
+      title: !v!.title.trim() || v!.title === prev?.title ? p.title : v!.title,
+      instructions: !v!.instructions.trim() || v!.instructions === practicalInstructions(prev) ? practicalInstructions(p) : v!.instructions,
+      ...(p.topicId ? { topicId: p.topicId } : {}),
+      ...(subject ? { subjectId: subject.id } : {}),
+    });
+    setErrors(({ practicalId: _, ...e }) => e);
+  };
   const toggleType = (t: SubmissionType, on: boolean) => set({ submissionTypes: on ? SUBMISSION_TYPES.filter((x) => x === t || v!.submissionTypes.includes(x)) : v!.submissionTypes.filter((x) => x !== t) });
   const addLink = () => {
     const url = linkUrl.trim();
@@ -468,7 +488,8 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
       topicId: (v.subjectId && v.topicId) || null,
       title: v.title,
       instructions: v.instructions,
-      questions: v.questions.map((q) => q.trim()).filter(Boolean),
+      questions: isPractical ? [] : v.questions.map((q) => q.trim()).filter(Boolean),
+      practicalId: isPractical ? (v.practical?.id ?? null) : null,
       dueDate: v.dueDate,
       publish,
       notifyParents: publish && !published ? v.notify : [],
@@ -487,7 +508,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
     if (!v.classArmId) errs.classArmId = 'Choose a class';
     if (!v.dueDate) errs.dueDate = 'Pick a due date';
     if (v.maxScore.trim() && !(Number.isInteger(Number(v.maxScore)) && Number(v.maxScore) >= 1 && Number(v.maxScore) <= 1000)) errs.maxScore = 'A whole number from 1 to 1000';
-    if (!v.submissionTypes.length) errs.submissionTypes = 'Choose at least one way to hand in';
+    if (!v.submissionTypes.length && !isPractical) errs.submissionTypes = 'Choose at least one way to hand in';
     if (uploads.busy) errs.form = 'Wait for the files to finish uploading';
     else if (uploads.items.some((x) => x.state === 'error')) errs.form = 'Remove the files that didn’t upload, or try them again';
     setErrors(errs);
@@ -525,7 +546,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                   </Select>
                 </Field>
                 <Field label="Subject" htmlFor="hw-subject" optional>
-                  <Select value={v.subjectId || NONE} onValueChange={(s) => set({ subjectId: s === NONE ? '' : s, topicId: '' })}>
+                  <Select value={v.subjectId || NONE} onValueChange={(s) => set({ subjectId: s === NONE ? '' : s, topicId: '', practical: null })}>
                     <SelectTrigger id="hw-subject">
                       <SelectValue />
                     </SelectTrigger>
@@ -546,7 +567,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                   htmlFor="hw-topic"
                   optional
                   error={errors.topicId}
-                  hint={v.topicId ? (v.maxScore.trim() ? 'Marked work counts towards each student’s mastery of this topic.' : 'Give it marks too: work marked out of a total counts towards this topic.') : topics.data && !topicOptions.length ? 'No syllabus topics for this subject yet.' : 'Pick one so marked work counts towards topic mastery.'}
+                  hint={isPractical ? 'The practical’s topic: its lab already counts towards each student’s mastery.' : v.topicId ? (v.maxScore.trim() ? 'Marked work counts towards each student’s mastery of this topic.' : 'Give it marks too: work marked out of a total counts towards this topic.') : topics.data && !topicOptions.length ? 'No syllabus topics for this subject yet.' : 'Pick one so marked work counts towards topic mastery.'}
                 >
                   <Select value={v.topicId || NONE} onValueChange={(t) => set({ topicId: t === NONE ? '' : t })} disabled={topics.isLoading || (!!topics.data && !topicOptions.length && !v.topicId)}>
                     <SelectTrigger id="hw-topic">
@@ -554,7 +575,10 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value={NONE}>No topic</SelectItem>
-                      {v.topicId && homework?.topic && !topicOptions.some((t) => t.id === v.topicId) && <SelectItem value={homework.topic.id}>{homework.topic.name}</SelectItem>}
+                      {v.topicId && homework?.topic && homework.topic.id === v.topicId && !topicOptions.some((t) => t.id === v.topicId) && <SelectItem value={homework.topic.id}>{homework.topic.name}</SelectItem>}
+                      {v.topicId && v.practical?.topic && v.practical.topic.id === v.topicId && v.practical.topic.id !== homework?.topic?.id && !topicOptions.some((t) => t.id === v.topicId) && (
+                        <SelectItem value={v.practical.topic.id}>{v.practical.topic.name}</SelectItem>
+                      )}
                       {topicOptions.map((t) => (
                         <SelectItem key={t.id} value={t.id} className={cn(t.sub && 'pl-6 text-muted-foreground')}>
                           {t.label}
@@ -588,6 +612,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                   })}
                 </div>
               </fieldset>
+              {isPractical && <PracticalPicker subjectId={v.subjectId} value={v.practical} onPick={pickPractical} onClear={() => set({ practical: null })} error={errors.practicalId} />}
               <Field label="Title" htmlFor="hw-title" error={errors.title}>
                 <Input id="hw-title" value={v.title} onChange={(e) => set({ title: e.target.value })} maxLength={160} placeholder="e.g. Simultaneous equations practice" invalid={!!errors.title} />
               </Field>
@@ -595,57 +620,59 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                 <Textarea id="hw-instr" rows={3} value={v.instructions} onChange={(e) => set({ instructions: e.target.value })} maxLength={3000} placeholder="What to do, and how to hand it in" invalid={!!errors.instructions} />
               </Field>
 
-              <fieldset className="grid gap-2">
-                <legend className="mb-1.5 flex w-full items-center justify-between text-[13px] font-medium">
-                  Questions <span className="text-[11px] font-normal text-muted-foreground">Optional · {v.questions.filter((q) => q.trim()).length}/30</span>
-                </legend>
-                <ol className="grid gap-2">
-                  {v.questions.map((q, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="mt-2.5 w-5 shrink-0 text-right text-[12px] font-semibold tabular text-muted-foreground">{i + 1}.</span>
-                      <Textarea
-                        rows={1}
-                        value={q}
-                        onChange={(e) => setQuestion(i, e.target.value)}
-                        maxLength={1000}
-                        aria-label={`Question ${i + 1}`}
-                        className="min-h-10 min-w-0 flex-1 resize-y py-2"
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey && i === v.questions.length - 1 && q.trim() && v.questions.length < 30) {
-                            e.preventDefault();
-                            set({ questions: [...v.questions, ''] });
-                          }
-                        }}
-                      />
-                      <div className="flex shrink-0 flex-col">
-                        <Button type="button" variant="ghost" size="icon-sm" className="size-5" disabled={i === 0} onClick={() => move(i, -1)} aria-label={`Move question ${i + 1} up`}>
-                          <ArrowUp className="!size-3" />
+              {!isPractical && (
+                <fieldset className="grid gap-2">
+                  <legend className="mb-1.5 flex w-full items-center justify-between text-[13px] font-medium">
+                    Questions <span className="text-[11px] font-normal text-muted-foreground">Optional · {v.questions.filter((q) => q.trim()).length}/30</span>
+                  </legend>
+                  <ol className="grid gap-2">
+                    {v.questions.map((q, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-2.5 w-5 shrink-0 text-right text-[12px] font-semibold tabular text-muted-foreground">{i + 1}.</span>
+                        <Textarea
+                          rows={1}
+                          value={q}
+                          onChange={(e) => setQuestion(i, e.target.value)}
+                          maxLength={1000}
+                          aria-label={`Question ${i + 1}`}
+                          className="min-h-10 min-w-0 flex-1 resize-y py-2"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey && i === v.questions.length - 1 && q.trim() && v.questions.length < 30) {
+                              e.preventDefault();
+                              set({ questions: [...v.questions, ''] });
+                            }
+                          }}
+                        />
+                        <div className="flex shrink-0 flex-col">
+                          <Button type="button" variant="ghost" size="icon-sm" className="size-5" disabled={i === 0} onClick={() => move(i, -1)} aria-label={`Move question ${i + 1} up`}>
+                            <ArrowUp className="!size-3" />
+                          </Button>
+                          <Button type="button" variant="ghost" size="icon-sm" className="size-5" disabled={i === v.questions.length - 1} onClick={() => move(i, 1)} aria-label={`Move question ${i + 1} down`}>
+                            <ArrowDown className="!size-3" />
+                          </Button>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => set({ questions: v.questions.length === 1 ? [''] : v.questions.filter((_, j) => j !== i) })}
+                          aria-label={`Remove question ${i + 1}`}
+                        >
+                          <X />
                         </Button>
-                        <Button type="button" variant="ghost" size="icon-sm" className="size-5" disabled={i === v.questions.length - 1} onClick={() => move(i, 1)} aria-label={`Move question ${i + 1} down`}>
-                          <ArrowDown className="!size-3" />
-                        </Button>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => set({ questions: v.questions.length === 1 ? [''] : v.questions.filter((_, j) => j !== i) })}
-                        aria-label={`Remove question ${i + 1}`}
-                      >
-                        <X />
-                      </Button>
-                    </li>
-                  ))}
-                </ol>
-                {errors.questions && (
-                  <p role="alert" className="text-[12px] font-medium text-danger">
-                    {errors.questions}
-                  </p>
-                )}
-                <Button type="button" variant="outline" size="sm" className="justify-self-start" disabled={v.questions.length >= 30} onClick={() => set({ questions: [...v.questions, ''] })}>
-                  <Plus /> Add a question
-                </Button>
-              </fieldset>
+                      </li>
+                    ))}
+                  </ol>
+                  {errors.questions && (
+                    <p role="alert" className="text-[12px] font-medium text-danger">
+                      {errors.questions}
+                    </p>
+                  )}
+                  <Button type="button" variant="outline" size="sm" className="justify-self-start" disabled={v.questions.length >= 30} onClick={() => set({ questions: [...v.questions, ''] })}>
+                    <Plus /> Add a question
+                  </Button>
+                </fieldset>
+              )}
 
               <fieldset className="grid gap-2">
                 <legend className="mb-1.5 flex w-full items-center justify-between text-[13px] font-medium">
@@ -715,30 +742,38 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                 </div>
               </fieldset>
 
-              <fieldset className="grid gap-2">
-                <legend className="mb-1.5 text-[13px] font-medium">How students can hand in</legend>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {SUBMISSION_TYPES.map((t) => (
-                    <label key={t} className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-border px-3 py-2 text-[13px] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring">
-                      <Checkbox checked={v.submissionTypes.includes(t)} onCheckedChange={(c) => toggleType(t, c === true)} />
-                      <span className="min-w-0">{SUBMISSION_TYPE_LABELS[t]}</span>
-                    </label>
-                  ))}
-                </div>
-                {errors.submissionTypes && (
-                  <p role="alert" className="text-[12px] font-medium text-danger">
-                    {errors.submissionTypes}
-                  </p>
-                )}
-              </fieldset>
+              {!isPractical && (
+                <fieldset className="grid gap-2">
+                  <legend className="mb-1.5 text-[13px] font-medium">How students can hand in</legend>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {SUBMISSION_TYPES.map((t) => (
+                      <label key={t} className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-border px-3 py-2 text-[13px] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring">
+                        <Checkbox checked={v.submissionTypes.includes(t)} onCheckedChange={(c) => toggleType(t, c === true)} />
+                        <span className="min-w-0">{SUBMISSION_TYPE_LABELS[t]}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {errors.submissionTypes && (
+                    <p role="alert" className="text-[12px] font-medium text-danger">
+                      {errors.submissionTypes}
+                    </p>
+                  )}
+                </fieldset>
+              )}
 
               <div className="grid grid-cols-2 gap-4 [&>*]:min-w-0">
                 <Field label="Due" htmlFor="hw-due" error={errors.dueDate}>
                   <Input id="hw-due" type="date" value={v.dueDate} min={editing ? undefined : schoolToday(tz)} onChange={(e) => set({ dueDate: e.target.value })} className={dateInput} invalid={!!errors.dueDate} />
                 </Field>
-                <Field label="Marks" htmlFor="hw-max" optional error={errors.maxScore}>
-                  <Input id="hw-max" type="number" inputMode="numeric" min={1} max={1000} step={1} value={v.maxScore} onChange={(e) => set({ maxScore: e.target.value })} placeholder="e.g. 20" invalid={!!errors.maxScore} className="tabular" />
-                </Field>
+                {isPractical ? (
+                  <Field label="Marks" htmlFor="hw-max" hint="The best lab score, as a percentage.">
+                    <Input id="hw-max" value={`Out of ${PRACTICAL_HOMEWORK_MAX}`} readOnly disabled className="tabular" />
+                  </Field>
+                ) : (
+                  <Field label="Marks" htmlFor="hw-max" optional error={errors.maxScore}>
+                    <Input id="hw-max" type="number" inputMode="numeric" min={1} max={1000} step={1} value={v.maxScore} onChange={(e) => set({ maxScore: e.target.value })} placeholder="e.g. 20" invalid={!!errors.maxScore} className="tabular" />
+                  </Field>
+                )}
               </div>
 
               <label className="flex cursor-pointer items-start justify-between gap-3 rounded-xl border border-border px-3.5 py-3">
@@ -749,23 +784,25 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                 <Switch checked={v.allowLate} onCheckedChange={(allowLate) => set({ allowLate })} aria-label="Accept late work" className="mt-0.5" />
               </label>
 
-              <Field
-                label="Marking guide"
-                htmlFor="hw-guide"
-                optional
-                error={errors.markingGuide}
-                hint="Only teachers see this. AI uses it when suggesting marks."
-              >
-                <Textarea
-                  id="hw-guide"
-                  rows={3}
-                  value={v.markingGuide}
-                  onChange={(e) => set({ markingGuide: e.target.value })}
-                  maxLength={5000}
-                  placeholder="e.g. 5 marks: labelled diagram; 10 marks: correct equation and explanation; 5 marks: neatness"
-                  invalid={!!errors.markingGuide}
-                />
-              </Field>
+              {!isPractical && (
+                <Field
+                  label="Marking guide"
+                  htmlFor="hw-guide"
+                  optional
+                  error={errors.markingGuide}
+                  hint="Only teachers see this. AI uses it when suggesting marks."
+                >
+                  <Textarea
+                    id="hw-guide"
+                    rows={3}
+                    value={v.markingGuide}
+                    onChange={(e) => set({ markingGuide: e.target.value })}
+                    maxLength={5000}
+                    placeholder="e.g. 5 marks: labelled diagram; 10 marks: correct equation and explanation; 5 marks: neatness"
+                    invalid={!!errors.markingGuide}
+                  />
+                </Field>
+              )}
 
               {!published && (
                 <div className="grid gap-3 rounded-xl border border-border bg-muted/20 p-3.5">
@@ -804,5 +841,88 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
         </SheetFooter>
       </SheetContent>
     </Sheet>
+  );
+}
+
+/** The instructions a practical fills in (kept up to date while the teacher hasn't changed them). */
+function practicalInstructions(p: { title: string; lab: boolean } | null | undefined) {
+  if (!p) return '';
+  return p.lab
+    ? `Open "${p.title}" in the Practical Academy and do its virtual lab. It is handed in when you submit the lab, and your best lab score is your mark.`
+    : `Open "${p.title}" in the Practical Academy, study the lesson and pass its quick check. Passing the check hands this in.`;
+}
+
+/** Searches the Practical Academy (the homework's subject, or every subject) and picks one practical. */
+function PracticalPicker({ subjectId, value, onPick, onClear, error }: { subjectId: string; value: Values['practical']; onPick: (p: PracticalPickItem) => void; onClear: () => void; error?: string }) {
+  const [q, setQ] = useState('');
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    const t = setTimeout(() => setQuery(q.trim()), 250);
+    return () => clearTimeout(t);
+  }, [q]);
+  const list = usePracticalPicks(subjectId, query, !value);
+  const rows = list.data?.practicals ?? [];
+  if (value) {
+    return (
+      <div className="grid gap-1.5">
+        <Label>Practical</Label>
+        <div className="flex items-center gap-3 rounded-xl border border-brand/40 bg-brand-soft/30 px-3 py-2.5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand">
+            <FlaskConical className="size-4" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[13px] font-medium">{value.title}</span>
+            <span className="block truncate text-[11.5px] text-muted-foreground">
+              {value.subject} · {value.lab ? 'Virtual lab' : 'Lesson and quick check (no virtual lab)'}
+            </span>
+          </span>
+          <Button type="button" variant="outline" size="sm" onClick={onClear}>
+            Change
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <fieldset className="grid gap-1.5">
+      <legend className="mb-1.5 text-[13px] font-medium">Practical</legend>
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by title or topic, e.g. titration" aria-label="Search practicals" className="pl-8" invalid={!!error} maxLength={80} />
+      </div>
+      <div className="max-h-60 overflow-y-auto rounded-xl border border-border" aria-busy={list.isFetching}>
+        {list.isLoading ? (
+          <div className="grid gap-1.5 p-2">
+            <Skeleton className="h-9 w-full" />
+            <Skeleton className="h-9 w-full" />
+          </div>
+        ) : !rows.length ? (
+          <p className="px-3 py-3 text-[12.5px] text-muted-foreground">
+            {subjectId && list.data && !list.data.subject ? 'The Practical Academy has no practicals for this subject.' : query ? 'No practicals match that search.' : 'No practicals found.'}
+          </p>
+        ) : (
+          <ul className="divide-y divide-border">
+            {rows.map((p) => (
+              <li key={p.id}>
+                <button
+                  type="button"
+                  onClick={() => onPick(p)}
+                  className="flex w-full items-center gap-2.5 px-3 py-2 text-left transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[13px] font-medium">{p.title}</span>
+                    <span className="block truncate text-[11.5px] text-muted-foreground">{subjectId ? p.topic : `${p.subject} · ${p.topic}`}</span>
+                  </span>
+                  {p.lab && <Badge variant="outline">Lab</Badge>}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <p className={cn('text-[12px]', error ? 'font-medium text-danger' : 'text-muted-foreground')} role={error ? 'alert' : undefined}>
+        {error ?? (subjectId ? 'Practicals for the chosen subject.' : 'Choose a subject first to see just its practicals.')}
+      </p>
+    </fieldset>
   );
 }

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Kbd } from '@/components/ui/kbd';
 import { ModeBar } from '../../../lab3d-kit/hud';
 import { KitScene } from '../../../lab3d-kit/scene';
+import { BAYO_SPOT } from '../../phy-common/lab3d/common';
 import { LabShell, useLabKit, useNewLogEntries } from '../../../lab3d-kit/shell';
 import { notify, useLabView } from '../../../lab3d-kit/store';
 import { physicsTour, usePhysicsAssistant } from '../../phy-common/lab3d/common';
@@ -45,7 +46,7 @@ const TASK_LINES = ['Trace ABCD; normal at O; ray at i = 20°; pins P₁, P₂.'
 function LabScene({ v, state, scene, g, ops, guided, interactive, onSlow }: { v: PhyGlassVariant; state: PhyGlassState; scene: SceneState; g: Glass; ops: Ops; guided: boolean; interactive: boolean; onSlow: () => void }) {
   const O = toLocal({ x: 0, y: 0 });
   return (
-    <KitScene room={GLASS_ROOM} coatOn={scene.coat} gogglesOn={false} presets={GLASS_VIEWS} read={[O[0], O[1], O[2]]} guided={guided} onSlow={onSlow}>
+    <KitScene room={GLASS_ROOM} coatOn={scene.coat} gogglesOn={false} presets={GLASS_VIEWS} read={[O[0], O[1], O[2]]} guided={guided} onSlow={onSlow} assistantSpot={BAYO_SPOT}>
       <GlassCupboard scene={scene} />
       <Station v={v} state={state} scene={scene} interactive={interactive} onPaper={ops.tapPaper} task={TASK_LINES} />
       {interactive && <DragController g={g} ops={ops} />}

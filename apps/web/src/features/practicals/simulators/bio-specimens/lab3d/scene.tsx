@@ -1,6 +1,7 @@
 import type { BioSpecimensState, BioSpecimensVariant } from '@aischool/shared';
 import { useMemo } from 'react';
 import { KitScene } from '../../../lab3d-kit/scene';
+import { OKON_SPOT } from '../../bio-common/lab3d/common';
 import { bioRoom } from '../../bio-common/lab3d/room';
 import { SPEC_VIEWS, useBench, type SceneState } from './scene-state';
 import { CupboardContents, Station, specimenWorld } from './station';
@@ -19,7 +20,7 @@ export function LabScene({ v, state, scene, guided, interactive, onSlow }: { v: 
     [title],
   );
   return (
-    <KitScene room={room} coatOn={scene.coat} gogglesOn={scene.goggles} presets={SPEC_VIEWS} read={specimenWorld(Math.min(current, v.specimens.length - 1), v.specimens.length)} guided={guided} onSlow={onSlow}>
+    <KitScene room={room} coatOn={scene.coat} gogglesOn={scene.goggles} presets={SPEC_VIEWS} read={specimenWorld(Math.min(current, v.specimens.length - 1), v.specimens.length)} guided={guided} onSlow={onSlow} assistantSpot={OKON_SPOT}>
       <CupboardContents scene={scene} />
       <Station v={v} state={state} scene={scene} interactive={interactive} />
     </KitScene>

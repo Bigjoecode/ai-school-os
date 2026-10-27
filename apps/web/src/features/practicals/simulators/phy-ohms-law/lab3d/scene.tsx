@@ -2,6 +2,7 @@ import { OHMS_AMMETER_FSD, OHMS_VOLTMETER_FSD, type OhmsTerminal, type PhyOhmsSt
 import { useMemo } from 'react';
 import { STATION } from '../../../lab3d-kit/layout';
 import { KitScene } from '../../../lab3d-kit/scene';
+import { BAYO_SPOT } from '../../phy-common/lab3d/common';
 import { useBench } from './bench-store';
 import { DragController, type DragCtx } from './drag';
 import { FACE, METER, PART } from './layout';
@@ -25,7 +26,7 @@ export function LabScene({ state, scene, meters, v, board, guided, interactive, 
   const task = state.task ?? 'OHM';
   const room = useMemo(() => OHMS_ROOM(task), [task]);
   return (
-    <KitScene room={room} coatOn={scene.coat} gogglesOn={false} presets={OHMS_VIEWS} read={readPoint(meter, meters)} guided={guided} onSlow={onSlow}>
+    <KitScene room={room} coatOn={scene.coat} gogglesOn={false} presets={OHMS_VIEWS} read={readPoint(meter, meters)} guided={guided} onSlow={onSlow} assistantSpot={BAYO_SPOT}>
       <Cupboard scene={scene} />
       <Station state={state} scene={scene} meters={meters} v={v} interactive={interactive} board={board} />
       {interactive && <DragController {...drag} />}

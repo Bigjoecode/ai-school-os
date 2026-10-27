@@ -82,6 +82,8 @@ export const trayAt = (i: number, n: number): [number, number, number] => {
   return [xs[i] ?? 0, 0, SPOT.trayZ];
 };
 export const SPEC_VIEWS: CameraPresets = {
+  // A little further back than the kit's bench view, so five specimens (trays and display stands) fit across a 1366-wide screen.
+  bench: { target: [0, 0.1, -0.04], dist: 1.35, pitch: 0.66 },
   trays: { target: [0, 0.04, SPOT.trayZ], dist: 1.0, pitch: 0.75 },
   tools: { target: [0.05, 0.02, 0.26], dist: 0.7, pitch: 0.85 },
 };
@@ -95,7 +97,7 @@ export const specSpot = (i: number, n: number): Spot => {
   return { target: [x, 0.03, z], dist: 0.45, pitch: 0.85, yaw: 0.05 };
 };
 export const SPOTS: Record<string, Spot> = {
-  bench: { target: [0.05, 0.1, -0.02], dist: 1.15, pitch: 0.62 },
+  bench: { target: [0, 0.1, -0.04], dist: 1.35, pitch: 0.66 },
   trays: { target: [0, 0.04, SPOT.trayZ], dist: 0.95, pitch: 0.78 },
   tools: { target: [0.08, 0.02, 0.26], dist: 0.6, pitch: 0.85 },
   gloves: { target: [SPOT.gloves[0], 0.04, SPOT.gloves[2]], dist: 0.5, pitch: 0.5, yaw: -0.3 },

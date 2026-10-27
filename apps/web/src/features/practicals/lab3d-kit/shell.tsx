@@ -332,7 +332,7 @@ export function LabShell(p: LabShellProps) {
     greeted.current = true;
     speak(
       o.started
-        ? `Welcome back! ${cur ? `Next: ${cur.label.toLowerCase()}.` : 'Everything is recorded — hand in when you are ready.'} Tap me any time for help.`
+        ? `Welcome back! ${cur ? `Next: ${/^[A-Z][a-z]/.test(cur.label) ? cur.label.charAt(0).toLowerCase() + cur.label.slice(1) : cur.label}.` : 'Everything is recorded — hand in when you are ready.'} Tap me any time for help.`
         : `Welcome! I’m ${assistantProfile.name}, the ${assistantProfile.role}. ${cur ? `First: ${cur.label.toLowerCase()}.` : ''} Tap me any time for help.`,
     );
   }, [practice, stage, intro, tour, showBriefing, cur, o.started, speak]);

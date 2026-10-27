@@ -298,6 +298,35 @@ test('glass: tolerance, units on n, misaligned pins and procedure errors', () =>
   assert.equal(by(wo, 'calculations').awarded, 2, by(wo, 'calculations').note);
 });
 
+test('every physics task earns every AUTO mark across 40 seeds (glass pins placed to the 0.01 cm the lab stores)', () => {
+  const seeds = Array.from({ length: 40 }, (_, k) => 5 + k * 7919);
+  const r2 = (x: number) => Math.round(x * 100) / 100; // glass-block/actions.ts: pinAt / dragPin
+  for (const seed of seeds) {
+    const p = phyPendulumGrader.grade(pendulum(seed), seed);
+    assert.equal(autoTotal(p), autoMax(PHY_PENDULUM), `pendulum ${seed}: ${lost(p)}`);
+    for (const task of ['OHM', 'WIRE'] as const) {
+      const o = phyOhmsGrader.grade(ohms(seed, task), seed);
+      assert.equal(autoTotal(o), autoMax(PHY_OHMS_LAW), `ohms ${task} ${seed}: ${lost(o)}`);
+    }
+    // The glass block as the lab records it: P₃/P₄ rounded to 0.01 cm, r read to the nearest degree from that drawing.
+    const v = phyGlassVariant(seed);
+    const s = glass(seed);
+    s.traces.forEach((t, k) => {
+      t.p3 = { x: r2(t.p3!.x), y: r2(t.p3!.y) };
+      t.p4 = { x: r2(t.p4!.x), y: r2(t.p4!.y) };
+      const rr = Number(glassConstruction(v, t.p3, t.p4)!.r.toFixed(0));
+      s.table[k] = { ...s.table[k]!, r: String(rr), sinr: phySin(rr).toFixed(3) };
+    });
+    const pts = s.table.map((r) => ({ x: Number(r.sinr), y: Number(r.sini) }));
+    s.line = lineThrough(pts);
+    const slope = phyFit(pts)!.slope;
+    s.answers = { slope: { value: slope.toFixed(2), unit: '' }, n: { value: slope.toFixed(2), unit: '' } };
+    assert.ok(phyGlassStateSchema.safeParse(s).success);
+    const g = phyGlassGrader.grade(s, seed);
+    assert.equal(autoTotal(g), autoMax(PHY_GLASS_BLOCK), `glass ${seed}: ${lost(g)}`);
+  }
+});
+
 test('phyUnit reads the physics units', () => {
   assert.equal(phyUnit('s² m⁻¹'), 's2/m');
   assert.equal(phyUnit('s^2/cm'), 's2/cm');

@@ -200,7 +200,7 @@ function tubePanel(ctx: QualCtx): ObjectPanel | null {
       tone: 'danger',
       run: () => (q.note(`sniff-refused:${i}`), notify('Never smell a gas directly: it can burn your nose and lungs. Waft it towards you instead.', 'danger', 3600), play('oops')),
     });
-    if (isToxicTest(q.v, s, i) && !scene.fume.has(i)) actions.push({ key: 'fume', label: 'Carry it to the fume cupboard', tone: 'brand', run: () => (q.note(`fume-cupboard:${i}`), notify('Done in the fume cupboard, with the sash pulled down.', 'success', 2200)) });
+    if (isToxicTest(q.v, s, i) && !scene.fume.has(i)) actions.push({ key: 'fume', label: 'Carry it to the fume cupboard', tone: 'brand', run: () => (q.note(`fume-cupboard:${i}`), setView({ selected: 'tube', focus: 'tube' }), notify('In the fume cupboard, with the sash pulled down: test the gas here.', 'success', 2200)) });
   }
   actions.push({ key: 'notebook', label: 'Write it in my notebook', run: () => ctx.open('notebook') });
   actions.push({ key: 'discard', label: 'Discard this test', tone: 'danger', run: () => (q.discard(i), useQualBench.setState({ active: -1 }), setView({ selected: null })) });

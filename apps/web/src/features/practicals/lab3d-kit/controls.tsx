@@ -21,7 +21,8 @@ const WALK_SPEED = 1.7;
 const EYE_RANGE = 0.05;
 /** Portrait phones: widen the view (walking) or step back (bench) so the same width of the room stays in shot. */
 const portrait = (aspect: number) => MathUtils.clamp(1.15 / aspect, 1, 1.7);
-const fovFor = (mode: CameraMode, aspect: number) => (mode === 'read' ? FOV.read : Math.min(80, FOV[mode] * Math.sqrt(portrait(aspect))));
+/** A bench spot may ask for a narrower view (`Spot.fov`, degrees): a close look at small things. */
+const fovFor = (mode: CameraMode, aspect: number, spot?: Spot | null) => (mode === 'read' ? FOV.read : Math.min(80, (mode === 'bench' && spot?.fov ? spot.fov : FOV[mode]) * Math.sqrt(portrait(aspect))));
 /** Adds to the tour's walked / looked counters (the store is only touched every 0.25 so the HUD doesn't re-render each frame). */
 const pending = { walked: 0, looked: 0 };
 function bump(key: 'walked' | 'looked', d: number) {
@@ -251,11 +252,11 @@ export function CameraRig({ presets, read }: { presets: CameraPresets; read: [nu
       const k = ease(s.trans);
       camera.position.lerpVectors(s.fromP, p, k);
       camera.quaternion.slerpQuaternions(s.fromQ, q, k);
-      camera.fov = MathUtils.lerp(s.fromFov, fovFor(s.mode, camera.aspect), k);
+      camera.fov = MathUtils.lerp(s.fromFov, fovFor(s.mode, camera.aspect, view.spot), k);
     } else {
       camera.position.copy(p);
       camera.quaternion.copy(q);
-      camera.fov = fovFor(s.mode, camera.aspect);
+      camera.fov = fovFor(s.mode, camera.aspect, view.spot);
     }
     const near = s.mode === 'read' ? 0.004 : s.mode === 'bench' ? 0.01 : 0.03;
     if (camera.near !== near || Math.abs(camera.fov - (camera.userData.fov ?? 0)) > 1e-4) {

@@ -9,7 +9,7 @@ import { mat } from '../../../lab3d-kit/materials';
 import { useLabView } from '../../../lab3d-kit/store';
 import { CardAndBook, CupboardItems, Protractor, Rule, type CupboardSlot } from '../../phy-common/lab3d/common';
 import { liveTex } from '../../phy-common/lab3d/tex';
-import { PIN_LABEL, type PinId } from '../actions';
+import { EYE_Y, PIN_LABEL, type PinId } from '../actions';
 import { useBench } from './bench-store';
 import { drawPaper, PAPER_H, PAPER_W, type DrawProgress } from './paper';
 import { APPARATUS_LABEL, type ApparatusId, type SceneState } from './scene-state';
@@ -31,14 +31,26 @@ const edgeMat = new MeshStandardMaterial({ color: '#7fc8c9', roughness: 0.1, tra
 const ANIM_MS = { normal: 1400, ray: 1600, join: 1600, pin: 500 };
 
 /** An optical pin standing on the paper (origin at its point); `from`/`to`: the visible part (cm above the paper). */
-function PinModel({ pin, from = 0, to = PIN_H, head = true, ghost = false }: { pin: PinId; from?: number; to?: number; head?: boolean; ghost?: boolean }) {
+function PinModel({ pin, from = 0, to = PIN_H, head = true, ghost = false, thick = 1 }: { pin: PinId; from?: number; to?: number; head?: boolean; ghost?: boolean; thick?: number }) {
   const h = (to - from) / 100;
+  const r = (ghost ? 0.0007 : 0.0005) * thick;
   return (
     <group>
-      {h > 0 && <mesh geometry={cyl} material={ghost ? HEADS[pin] : steel} position={[0, (from + to) / 200, 0]} scale={[ghost ? 0.0007 : 0.0005, h, ghost ? 0.0007 : 0.0005]} />}
-      {head && <mesh geometry={sphere} material={HEADS[pin]} position={[0, PIN_H / 100 + 0.0015, 0]} scale={0.0024} />}
+      {h > 0 && <mesh geometry={cyl} material={ghost ? HEADS[pin] : steel} position={[0, (from + to) / 200, 0]} scale={[r, h, r]} />}
+      {head && <mesh geometry={sphere} material={HEADS[pin]} position={[0, PIN_H / 100 + 0.0015 * thick, 0]} scale={0.0024 * Math.min(thick, 1.5)} />}
     </group>
   );
+}
+
+/**
+ * In the eye-level sighting view a pin (or a pin's image in the block) is
+ * drawn thicker the further it is from the eye, so every one looks at least
+ * about as wide as a near pin and the far ones stay clearly visible. A near
+ * pin still looks at least as wide as the images it must hide. Only how they
+ * are drawn changes, never where they stand.
+ */
+export function sightThickness(p: GlassPoint, eyeX: number): number {
+  return Math.max(1, Math.min(4, Math.hypot(p.x - eyeX, p.y - EYE_Y) / 5));
 }
 
 /** A trace's pins as points on the sheet. */
@@ -133,7 +145,7 @@ function Board({ v, state, scene, interactive, onPaper }: { v: PhyGlassVariant; 
               <Interactive id={`pin:${id}`} label={`${PIN_LABEL[id]}${dk ? ' — drag to move it' : ''}`} bench position={toLocal(p)} labelY={0.05} drag={dk}>
                 {(active) => (
                   <group>
-                    <PinModel pin={id} from={behind ? BLOCK_H : 0} />
+                    <PinModel pin={id} from={behind ? BLOCK_H : 0} thick={sight ? sightThickness(p, eyeX) : 1} />
                     <mesh position={[0, 0.02, 0]}>
                       <cylinderGeometry args={[0.006, 0.006, 0.04, 6]} />
                       <meshBasicMaterial transparent opacity={0} depthWrite={false} />
@@ -144,7 +156,7 @@ function Board({ v, state, scene, interactive, onPaper }: { v: PhyGlassVariant; 
               </Interactive>
               {img && seen && (
                 <group position={toLocal(img)}>
-                  <PinModel pin={id} from={0} to={BLOCK_H - 0.05} head={false} ghost />
+                  <PinModel pin={id} from={0} to={BLOCK_H - 0.05} head={false} ghost thick={sightThickness(img, eyeX)} />
                 </group>
               )}
             </group>

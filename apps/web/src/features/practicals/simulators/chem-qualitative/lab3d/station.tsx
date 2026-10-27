@@ -6,7 +6,7 @@ import { BENCH, CUPBOARD, STATION } from '../../../lab3d-kit/layout';
 import { mat } from '../../../lab3d-kit/materials';
 import { CUPBOARD_SHELVES } from '../../../lab3d-kit/room';
 import { bookTexture, taskCardTexture } from '../../../lab3d-kit/textures';
-import { QSPOT, useQualBench } from './bench';
+import { FUME_SPOT, QSPOT, useQualBench } from './bench';
 import { Burner, FilterFunnel, FlameWire, GasKit, GasProbe, HeldInHolder, Holder, NichromeWire, SampleBeaker, Spatula, TestTube, TUBE, TubeRack } from './models';
 import { QUAL_APPARATUS_LABEL, type QualApparatusId, type QualScene } from './scene-state';
 
@@ -118,6 +118,27 @@ export function QualCupboard({ scene }: { scene: QualScene }) {
   );
 }
 
+/** A small stand for the tube in use: base, post and a ring that holds the tube upright. */
+function TubeStand() {
+  return (
+    <group>
+      <mesh position={[0, 0.004, 0]} material={mat.wood()}>
+        <boxGeometry args={[0.07, 0.008, 0.05]} />
+      </mesh>
+      <mesh position={[0.026, 0.05, 0]} material={mat.metal()}>
+        <cylinderGeometry args={[0.0022, 0.0022, 0.092, 8]} />
+      </mesh>
+      <mesh position={[0.018, 0.092, 0]} material={mat.metal()}>
+        <boxGeometry args={[0.016, 0.003, 0.003]} />
+      </mesh>
+      <mesh position={[0, 0.092, 0]} rotation={[Math.PI / 2, 0, 0]} material={mat.metal()}>
+        <torusGeometry args={[TUBE.r + 0.0018, 0.0013, 6, 22]} />
+      </mesh>
+      <BlobShadow r={0.04} />
+    </group>
+  );
+}
+
 /** Colour of a prepared sample's liquid (from the water / acid test that made it). */
 function sampleColour(v: ChemQualitativeVariant, s: ChemQualitativeState, sample: QualSample): string {
   const made = s.tests.find((t) => (sample === 'RESIDUE_SOLN' ? t.sample === 'RESIDUE' && t.reagent === 'DIL_HNO3' : t.sample === 'SOLID' && (t.reagent === 'WATER' || t.reagent === 'DIL_HNO3')));
@@ -141,7 +162,12 @@ export function QualStation({ v, state, scene }: { v: ChemQualitativeVariant; st
     .map(({ t }) => qualObserve(v, t).visual);
   const card = useMemo(() => taskCardTexture([v.given, 'Carry out tests on C, test every gas, and record TEST | OBSERVATION | INFERENCE.', 'Then name the ions and write an ionic equation.']), [v]);
   const book = useMemo(() => bookTexture(), []);
-  const tubeAt: V3 = heating ? [QSPOT.burner[0] - 0.004, 0.196, QSPOT.burner[2]] : at(QSPOT.tube, 0.008);
+  // A test that gives off a harmful gas is carried to the fume cupboard: its tube (and the burner, when heating) and its gas tests are drawn there.
+  const inFume = !!cur && !flameTest && scene.fume.has(active);
+  const tubeSpot = inFume ? FUME_SPOT : QSPOT.tube;
+  const burnerSpot = inFume && heating ? ([FUME_SPOT[0] + 0.004, FUME_SPOT[1], FUME_SPOT[2]] as const) : QSPOT.burner;
+  const tubeAt: V3 = heating ? [burnerSpot[0] - 0.004, burnerSpot[1] + 0.196, burnerSpot[2]] : at(tubeSpot, 0.008);
+  const tilt = heating ? 0.62 : 0;
   const residue = samples.includes('RESIDUE') ? (v.partner?.solid.hex ?? '#f3f2ec') : null;
 
   return (
@@ -180,29 +206,28 @@ export function QualStation({ v, state, scene }: { v: ChemQualitativeVariant; st
       {/* the tube in use: in its stand, or held over the flame */}
       {has('rack') && (
         <group position={at(QSPOT.tube)}>
-          {/* a small stand: base, post and a ring that holds the tube upright */}
-          <mesh position={[0, 0.004, 0]} material={mat.wood()}>
-            <boxGeometry args={[0.07, 0.008, 0.05]} />
-          </mesh>
-          <mesh position={[0.026, 0.05, 0]} material={mat.metal()}>
-            <cylinderGeometry args={[0.0022, 0.0022, 0.092, 8]} />
-          </mesh>
-          <mesh position={[0.018, 0.092, 0]} material={mat.metal()}>
-            <boxGeometry args={[0.016, 0.003, 0.003]} />
-          </mesh>
-          <mesh position={[0, 0.092, 0]} rotation={[Math.PI / 2, 0, 0]} material={mat.metal()}>
-            <torusGeometry args={[TUBE.r + 0.0018, 0.0013, 6, 22]} />
-          </mesh>
-          <BlobShadow r={0.04} />
+          <TubeStand />
+        </group>
+      )}
+      {inFume && !heating && (
+        <group position={at(FUME_SPOT)}>
+          <TubeStand />
         </group>
       )}
       {cur && !flameTest && (
-        <Interactive id="tube" label={`Test ${active + 1}`} bench position={tubeAt} rotation={heating ? [0, 0, 0.62] : [0, 0, 0]} labelY={0.22}>
+        <Interactive id="tube" label={`Test ${active + 1}${inFume ? ' (in the fume cupboard)' : ''}`} bench position={tubeAt} rotation={[0, 0, tilt]} labelY={0.22}>
           {(a) => (
             <group>
               <TestTube vis={vis} hot={heating} glow={a} />
               {heating && <HeldInHolder />}
-              {vis?.probes.map((p, k) => <GasProbe key={p.test} test={p.test} colour={p.colour} k={k} />)}
+              {/* the gas tests stay upright at the mouth of the tube, even while it is tilted over the flame */}
+              {!!vis?.probes.length && (
+                <group position={[0, TUBE.h, 0]} rotation={[0, 0, -tilt]}>
+                  <group position={[0, -TUBE.h, 0]}>
+                    {vis.probes.map((p, k) => <GasProbe key={p.test} test={p.test} colour={p.colour} k={k} />)}
+                  </group>
+                </group>
+              )}
             </group>
           )}
         </Interactive>
@@ -213,7 +238,7 @@ export function QualStation({ v, state, scene }: { v: ChemQualitativeVariant; st
         </Interactive>
       )}
       {has('burner') && (
-        <Interactive id="burner" label={scene.burnerOn ? 'Bunsen burner (lit)' : 'Bunsen burner'} bench position={at(QSPOT.burner)} labelY={0.25}>
+        <Interactive id="burner" label={`${scene.burnerOn ? 'Bunsen burner (lit)' : 'Bunsen burner'}${burnerSpot !== QSPOT.burner ? ' — in the fume cupboard' : ''}`} bench position={at(burnerSpot)} labelY={0.25}>
           {(a) => <Burner lit={scene.burnerOn} colour={flameTest && scene.burnerOn ? (vis?.flame ?? null) : null} glow={a} />}
         </Interactive>
       )}

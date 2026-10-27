@@ -74,6 +74,8 @@ export interface Spot {
   yaw?: number;
   /** While this spot is on, how far the student may orbit (radians; default: the bench's own limits). */
   limits?: { yaw?: [number, number]; pitch?: [number, number] };
+  /** Optional narrower field of view (degrees) while this spot is on (default: the bench's own). */
+  fov?: number;
 }
 
 /** A drag kind of the lab ('carry' is the kit's own: apparatus from the cupboard to the tray). */

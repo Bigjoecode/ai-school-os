@@ -29,6 +29,28 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { bioMicroscopeGrader, isPerMm2, micronsPer, parseMag } from '../src/practicals/graders/bio-microscope';
 import { bioSpecimensGrader } from '../src/practicals/graders/bio-specimens';
+import { MICRO_BRIGHT_RANGE, MICRO_CONTRAST_DIAPHRAGM, microBrightness, type MicroObjective } from '@aischool/shared';
+import Module from 'node:module';
+import ts from 'typescript';
+import type * as MicroActions from '../../web/src/features/practicals/simulators/bio-microscope/actions';
+type ScopeKind = MicroActions.ScopeKind;
+
+/**
+ * The microscope's state transitions, shared by the 2D and the 3D lab
+ * (web/…/bio-microscope/actions.ts). The web package is an ES module, so the
+ * file is transpiled to CommonJS here and loaded with this package's resolver
+ * (only its pure functions are used, not the React hook).
+ */
+function loadWebModule<T>(rel: string): T {
+  const file = join(__dirname, rel);
+  const js = ts.transpileModule(readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
+  const m = new Module(file) as Module & { _compile(code: string, filename: string): void };
+  m.filename = file;
+  m.paths = (Module as unknown as { _nodeModulePaths(dir: string): string[] })._nodeModulePaths(__dirname);
+  m._compile(js, file);
+  return m.exports as T;
+}
+const { captureView, placeSlide, scopeChange } = loadWebModule<typeof MicroActions>('../../web/src/features/practicals/simulators/bio-microscope/actions.ts');
 
 type Out = ReturnType<typeof bioMicroscopeGrader.grade>;
 const by = (out: Out, id: string) => out.auto.find((c) => c.id === id)!;
@@ -289,4 +311,118 @@ test('content: every lesson linked to a biology lab can be served by its variant
   assert.ok(micro.length >= 6 && bench.length >= 17);
   for (const p of micro) assert.ok(MICRO_PRACTICAL_SLIDES[p.id], `${p.id} has no slide`);
   for (const p of bench) assert.ok(SPECIMEN_PRACTICAL_SETS[p.id], `${p.id} has no specimen set`);
+});
+
+// ------------------------------------------------------------------ the lab's own controls, every slide and every set
+
+const SWEEP = Array.from({ length: 40 }, (_, k) => 1 + k * 7919 + (k % 5) * 104729);
+/** The 2D/3D controls' steps (lab3d/lab-actions.ts): coarse 0.5, fine 0.02, lamp and diaphragm 10. */
+const stepTo = (from: number, to: number, step: number) => from + Math.round((to - from) / step) * step;
+
+/**
+ * A model student at the lab's own controls: the expected mounting liquid,
+ * cover slip at an angle, place the slide (×4 turns in), light by the lamp
+ * and diaphragm buttons, find the image with the coarse focus at ×4, then only
+ * the fine focus; capture the measuring and labelling views; pick every
+ * answer from the options the notebook offers; read the field as shown
+ * (whole cells / stomata, graticule to half a unit) and work out the rest.
+ */
+function scopeByControls(seed: number, slide: MicroSlide): BioMicroscopeState {
+  const v = bioMicroscopeVariant(seed, slide);
+  let s = emptyBioMicroscopeState();
+  const act = (patch: Partial<BioMicroscopeState['scope']>, kind: ScopeKind) => (s = scopeChange(s, v, patch, kind).next);
+  s = { ...s, slide, prep: { ...s.prep, medium: v.info.media[0]!, coverslip: 'ANGLE' } };
+  s = placeSlide(s);
+  const colourless = !v.info.coloured && !['IODINE', 'METHYLENE_BLUE', 'SAFRANIN'].includes(s.prep.medium!);
+  /** Lamp (and diaphragm for colourless specimens) by the ±10 buttons until the light is comfortable at this objective. */
+  const light = () => {
+    if (colourless && s.scope.diaphragm > MICRO_CONTRAST_DIAPHRAGM) act({ diaphragm: stepTo(s.scope.diaphragm, MICRO_CONTRAST_DIAPHRAGM, 10) }, 'light');
+    const mid = (MICRO_BRIGHT_RANGE[0] + MICRO_BRIGHT_RANGE[1]) / 2;
+    const b = (lamp: number) => Math.abs(microBrightness(lamp, s.scope.diaphragm, s.scope.objective) - mid);
+    let best = s.scope.lamp;
+    for (let lamp = s.scope.lamp % 10; lamp <= 100; lamp += 10) if (b(lamp) < b(best)) best = lamp;
+    act({ lamp: best }, 'light');
+  };
+  const fineFocus = (o: MicroObjective) => act({ fine: Math.max(-2, Math.min(2, Math.round((v.focus[o] - s.scope.coarse) / 0.02) * 0.02)) }, 'fine');
+  light();
+  act({ coarse: stepTo(s.scope.coarse, Math.floor(v.focus[4] * 2) / 2, 0.5) }, 'coarse');
+  fineFocus(4);
+  for (const o of [...new Set([v.info.measureObjective, v.info.labelObjective])].sort((a, b) => a - b)) {
+    if (s.scope.objective !== o) act({ objective: o }, 'objective');
+    light();
+    fineFocus(o);
+    s = captureView(s, 1000 * o);
+  }
+  // Every answer is one of the options the notebook shows.
+  s.labels = v.targets.map((t) => {
+    assert.ok(v.labelOptions.includes(t.label), `${slide} ${seed}: label “${t.label}” is not offered`);
+    return t.label;
+  });
+  const want = microIdentityAnswer(v, s.prep.medium);
+  assert.ok(v.identity.options.includes(want), `${slide} ${seed}: identity “${want}” is not offered`);
+  s.identity = want;
+  const reading = v.info.method === 'GRATICULE' ? Math.round(v.trueReading * 2) / 2 : Math.round(v.trueReading);
+  const fov = v.fov[v.info.measureObjective] * 1000;
+  const size = v.info.method === 'COUNT' ? fov / reading : v.info.method === 'GRATICULE' ? reading * v.calibration[v.info.measureObjective] : reading / (Math.PI * (v.fov[40] / 2) ** 2);
+  const actual = v.info.method === 'STOMATA' ? v.drawnActual : size;
+  s.answers = {
+    reading: { value: String(reading), unit: '' },
+    size: { value: size.toPrecision(3), unit: v.info.method === 'STOMATA' ? 'per mm²' : 'µm' },
+    totalMag: { value: `×${v.eyepiece * v.info.labelObjective}`, unit: '' },
+    drawingMag: { value: ((v.drawingLength * 1000) / actual).toPrecision(3), unit: '×' },
+  };
+  s.drawing = v.drawing.filter((d) => d.good).map((d) => d.id);
+  s.written = { observations: 'Cells seen clearly.', precautions: 'Cover slip at an angle; low power first.' };
+  return s;
+}
+
+test('microscope: every slide, worked through the lab’s own controls and options, earns every AUTO mark (40 seeds each)', () => {
+  assert.deepEqual([...new Set(Object.values(MICRO_PRACTICAL_SLIDES))].sort(), [...MICRO_SLIDES].sort(), 'every slide is some lesson’s');
+  for (const slide of MICRO_SLIDES)
+    for (const seed of SWEEP) {
+      const s = scopeByControls(seed, slide);
+      assert.ok(bioMicroscopeStateSchema.safeParse(s).success, `${slide} ${seed} schema`);
+      assert.ok(s.flags.focusedLow && !s.flags.highBeforeLow && s.flags.coarseAtHigh === 0 && !s.flags.crashed, `${slide} ${seed} flags ${JSON.stringify(s.flags)}`);
+      const out = bioMicroscopeGrader.grade(s, seed);
+      assert.equal(autoTotal(out), autoMax(BIO_MICROSCOPE.rubric), `${slide} ${seed}: ${lost(out)}`);
+    }
+});
+
+/**
+ * A model student at the specimen bench: the name typed as the specimen's
+ * name, the group and every label picked from the options shown, the length
+ * read off the ruler to the nearest millimetre (in cm, or in mm), the
+ * magnification from that reading, and the drawing checklist.
+ */
+function benchByControls(seed: number, set: SpecimenSet, unit: 'cm' | 'mm'): BioSpecimensState {
+  const v = bioSpecimensVariant(seed, set);
+  const s = emptyBioSpecimensState();
+  s.set = set;
+  s.examined = v.specimens.map((sp) => sp.letter);
+  s.entries = v.specimens.map((sp) => {
+    assert.ok(v.info.classify.options.includes(sp.classification), `${set} ${seed} ${sp.id}: group not offered`);
+    for (const p of sp.def.parts) assert.ok(sp.labelOptions.includes(p.label), `${set} ${seed} ${sp.id}: label “${p.label}” not offered`);
+    return { name: sp.def.name, classification: sp.classification, labels: sp.def.parts.map((p) => p.label), features: 'Seen with the lens.', functions: 'Its job.' };
+  });
+  const mm = Math.round(v.trueLength * 10);
+  const cm = mm / 10;
+  s.measure = {
+    length: unit === 'cm' ? { value: cm.toFixed(1), unit: 'cm' } : { value: String(mm), unit: 'mm' },
+    magnification: { value: `×${(v.drawingLength / cm).toPrecision(3)}`, unit: '' },
+  };
+  s.compare = { similarities: 'Both …', differences: 'A … whereas B …' };
+  s.drawing = v.drawing.filter((d) => d.good).map((d) => d.id);
+  return s;
+}
+
+test('specimens: every set, answered from the options shown and a ruler read to the millimetre, earns every AUTO mark (40 seeds each)', () => {
+  assert.deepEqual([...new Set(Object.values(SPECIMEN_PRACTICAL_SETS))].sort(), [...SPECIMEN_SETS].sort(), 'every set is some lesson’s');
+  for (const set of SPECIMEN_SETS)
+    for (const seed of SWEEP)
+      for (const unit of ['cm', 'mm'] as const) {
+        const s = benchByControls(seed, set, unit);
+        assert.ok(bioSpecimensStateSchema.safeParse(s).success, `${set} ${seed} schema`);
+        const out = bioSpecimensGrader.grade(s, seed);
+        assert.equal(autoTotal(out), autoMax(BIO_SPECIMENS.rubric), `${set} ${seed} ${unit}: ${lost(out)}`);
+      }
 });

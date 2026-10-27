@@ -59,8 +59,8 @@ function testStep(v: ChemQualitativeVariant, t: QualTest, n: number): Step {
       return `${how}${gas} I see: ${out.parts.map((p) => p.text).join('; ')}.`;
     },
     ms: Math.max(5600, at + 2600),
-    view: { mode: 'bench', focus: heat ? 'burner' : 'tube', spot: null },
-    point: heat ? 'burner' : 'tube',
+    view: { mode: 'bench', focus: heat && !toxic ? 'burner' : 'tube', spot: null },
+    point: heat && !toxic ? 'burner' : 'tube',
     beats,
   };
 }

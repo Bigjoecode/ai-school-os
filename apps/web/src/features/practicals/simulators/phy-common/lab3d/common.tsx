@@ -203,3 +203,6 @@ export function CardAndBook({ cardAt, bookAt, title, lines, bookTitle, heads }: 
 /** Glass-style classes for the docks over the 3D view. */
 export const dockClass = 'pointer-events-auto flex flex-wrap items-center justify-end gap-1.5 rounded-2xl border border-white/15 bg-black/55 p-2 text-white shadow-xl backdrop-blur';
 export const dockButton = 'border-white/20 bg-white/10 text-white hover:bg-white/20';
+
+/** Where Mr Bayo stands at the student's bench during Learn and the demo: beside its left end on your side, so he never stands behind the apparatus or reaches into the close bench shots (station-local x, z). */
+export const BAYO_SPOT: [number, number] = [-1.9, 0.2];

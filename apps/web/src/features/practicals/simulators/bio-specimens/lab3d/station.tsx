@@ -8,7 +8,7 @@ import { liquidMaterial, mat } from '../../../lab3d-kit/materials';
 import { CUPBOARD_SHELVES } from '../../../lab3d-kit/room';
 import { useLabView } from '../../../lab3d-kit/store';
 import { Box, Forceps, GlovesBox, HandLens, PetriDish, Rod, Ruler, Scalpel, Tray } from '../../bio-common/lab3d/apparatus';
-import { bioBookTexture, bioTaskCardTexture, letterCardTexture } from '../../bio-common/lab3d/textures';
+import { bioBookTexture, bioTaskCardTexture, displayCardTexture, letterCardTexture } from '../../bio-common/lab3d/textures';
 import { APPARATUS_LABEL, CUPBOARD, SPOT, trayAt, type ApparatusId, type SceneState } from './scene-state';
 import { specimenTexture } from './specimen-texture';
 
@@ -28,11 +28,32 @@ export function boxSize(sp: BenchSpecimen, v: BioSpecimensVariant, i: number): n
   return Math.max(0.03, Math.min(h === 'dish' ? 0.08 : h === 'jar' ? 0.13 : 0.24, box));
 }
 
-/** A specimen as it lies on the bench: its drawing as a cut-out in a jar, a dish or on a tray, with its letter card. */
-export function BenchSpecimenModel({ sp, size, glow }: { sp: BenchSpecimen; size: number; glow?: boolean }) {
+/** Smaller than this (drawing box, metres: a specimen under about 5.5 cm) and it is hard to see from the bench. */
+const SMALL_BOX = 0.07;
+/** The drawing box a small specimen is shown at on its display stand. */
+const DISPLAY_BOX = 0.11;
+/** Height of the display stand under the dish. */
+export const STAND_H = 0.07;
+
+/**
+ * How a specimen is shown on the bench. Small ones (insects, ticks, small
+ * vertebrae and teeth …) sit in a Petri dish on a raised display stand, drawn
+ * larger, with a card giving the display scale; the hand-lens and ruler views
+ * still show them at their true size (and the ruler reads the true length).
+ */
+export function benchDisplay(sp: BenchSpecimen, v: BioSpecimensVariant, i: number): { size: number; mag: number } {
+  const L = i === v.measured ? v.trueLength : sp.def.lengthCm ? (sp.def.lengthCm[0] + sp.def.lengthCm[1]) / 2 : 9;
+  const trueBox = (L / 100) * (200 / 160);
+  if (trueBox >= SMALL_BOX) return { size: boxSize(sp, v, i), mag: 1 };
+  return { size: DISPLAY_BOX, mag: Math.max(2, Math.round(DISPLAY_BOX / trueBox)) };
+}
+
+/** A specimen as it lies on the bench: its drawing as a cut-out in a jar, a dish or on a tray (small ones in a dish on a display stand), with its letter card. */
+export function BenchSpecimenModel({ sp, size, glow, mag = 1 }: { sp: BenchSpecimen; size: number; glow?: boolean; mag?: number }) {
   const tex = specimenTexture(sp.id);
   const card = useMemo(() => letterCardTexture(sp.letter), [sp.letter]);
-  const kind = holder(sp.id);
+  const magCard = useMemo(() => (mag > 1 ? displayCardTexture(mag) : null), [mag]);
+  const kind = mag > 1 ? 'stand' : holder(sp.id);
   const plane = (
     <mesh renderOrder={3}>
       <planeGeometry args={[size, size]} />
@@ -41,7 +62,27 @@ export function BenchSpecimenModel({ sp, size, glow }: { sp: BenchSpecimen; size
   );
   return (
     <group>
-      {kind === 'jar' ? (
+      {kind === 'stand' ? (
+        <group position={[0, 0, -0.01]}>
+          {/* a white display stand, its top tilted towards the student, with the dish on it */}
+          <mesh position={[0, STAND_H / 2, 0]} material={mat.white()}>
+            <cylinderGeometry args={[size * 0.62 + 0.012, size * 0.66 + 0.02, STAND_H, 28]} />
+          </mesh>
+          <group position={[0, STAND_H, 0]} rotation={[0.28, 0, 0]}>
+            <PetriDish r={size * 0.62 + 0.012} glow={false} />
+            <group position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+              {plane}
+            </group>
+          </group>
+          {magCard && (
+            <mesh position={[0, STAND_H * 0.5, size * 0.66 + 0.026]}>
+              <planeGeometry args={[0.075, 0.028]} />
+              <meshStandardMaterial map={magCard} roughness={0.8} />
+            </mesh>
+          )}
+          <BlobShadow r={size * 0.75 + 0.03} />
+        </group>
+      ) : kind === 'jar' ? (
         <group position={[0, 0, -0.01]}>
           <mesh position={[0, size * 0.6 + 0.01, 0]} scale={[size * 0.42 + 0.012, size * 1.2 + 0.02, size * 0.42 + 0.012]} material={mat.glass()} renderOrder={5}>
             <cylinderGeometry args={[1, 1, 1, 24]} />
@@ -71,7 +112,7 @@ export function BenchSpecimenModel({ sp, size, glow }: { sp: BenchSpecimen; size
         </group>
       )}
       {/* the letter card, folded, in front */}
-      <group position={[0, 0, 0.1]}>
+      <group position={[0, 0, kind === 'stand' ? size * 0.66 + 0.065 : 0.1]}>
         <mesh position={[0, 0.022, 0.008]} rotation={[-0.35, 0, 0]}>
           <planeGeometry args={[0.045, 0.045]} />
           <meshStandardMaterial map={card} roughness={0.8} />
@@ -80,7 +121,7 @@ export function BenchSpecimenModel({ sp, size, glow }: { sp: BenchSpecimen; size
           <planeGeometry args={[0.045, 0.045]} />
         </mesh>
       </group>
-      {glow && <GlowRing r={Math.max(0.1, size * 0.65)} />}
+      {glow && <GlowRing r={Math.max(0.1, size * (kind === 'stand' ? 0.8 : 0.65))} />}
     </group>
   );
 }
@@ -173,10 +214,10 @@ export function Station({ v, state, scene, interactive }: { v: BioSpecimensVaria
         </mesh>
       </Interactive>
       {v.specimens.map((sp, i) => {
-        const size = boxSize(sp, v, i);
+        const { size, mag } = benchDisplay(sp, v, i);
         return (
-          <Interactive key={sp.letter} id={`spec:${sp.letter}`} label={`Specimen ${sp.letter}${state.examined.includes(sp.letter) ? ' (examined)' : ''}`} bench position={trayAt(i, n)} labelY={holder(sp.id) === 'jar' ? size * 1.3 + 0.06 : 0.08}>
-            {(active) => <BenchSpecimenModel sp={sp} size={size} glow={active} />}
+          <Interactive key={sp.letter} id={`spec:${sp.letter}`} label={`Specimen ${sp.letter}${state.examined.includes(sp.letter) ? ' (examined)' : ''}${mag > 1 ? ` — shown ×${mag}` : ''}`} bench position={trayAt(i, n)} labelY={mag > 1 ? STAND_H + 0.1 : holder(sp.id) === 'jar' ? size * 1.3 + 0.06 : 0.08}>
+            {(active) => <BenchSpecimenModel sp={sp} size={size} glow={active} mag={mag} />}
           </Interactive>
         );
       })}

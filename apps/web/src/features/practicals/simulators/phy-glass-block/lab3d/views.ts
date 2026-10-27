@@ -62,7 +62,8 @@ export function sightSpot(v: PhyGlassVariant, t: GlassTrace | null, eyeX: number
   const dx = E[0] - T[0];
   const dz = E[2] - T[2];
   const yaw = Math.atan2(dx, dz);
-  return { target: T, dist: Math.hypot(dx, dz), pitch: 0, yaw, limits: { yaw: [yaw, yaw], pitch: [0, 0] } };
+  // A narrower view than the bench's (the pins are thin and some way off), aimed the same way.
+  return { target: T, dist: Math.hypot(dx, dz), pitch: 0, yaw, limits: { yaw: [yaw, yaw], pitch: [0, 0] }, fov: 36 };
 }
 /** The point on the line from the eye through the image of P₂ at depth `y` (cm) — where a pin "in line with what you see" goes. */
 export function inLine(v: PhyGlassVariant, t: GlassTrace, eyeX: number, y: number): GlassPoint {

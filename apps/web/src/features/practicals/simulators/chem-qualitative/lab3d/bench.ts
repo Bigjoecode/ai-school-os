@@ -1,6 +1,7 @@
 import { QUAL_SALTS, QUAL_SALT_BY_ID, chemQualitativeVariant, type ChemQualitativeVariant, type QualSample } from '@aischool/shared';
 import { create } from 'zustand';
 import type { CameraPresets } from '../../../lab3d-kit/controls';
+import { FUME, STATION } from '../../../lab3d-kit/layout';
 import { DEFAULT_ROOM, type RoomConfig } from '../../../lab3d-kit/room';
 
 /**
@@ -28,6 +29,15 @@ export const QSPOT = {
   book: [-0.95, 0, 0.27] as const,
   extras: [-1.05, 0, 0.0] as const,
 };
+
+/** Fume cupboard work top (kit room: top of its 3 cm slab at 0.925 m). */
+const FUME_TOP = 0.925;
+/** Where a harmful-gas test is done: on the fume cupboard's work top, right of its bottle, behind the sash (station-local). */
+export const FUME_SPOT = [FUME.x - STATION[0] + 0.15, FUME_TOP - STATION[1], FUME.z - STATION[2] + 0.08] as const;
+/** The camera on that test, looking in through the sash. */
+export const FUME_VIEW = { target: [FUME_SPOT[0] - 0.02, FUME_SPOT[1] + 0.11, FUME_SPOT[2]] as [number, number, number], dist: 0.62, pitch: 0.28 };
+/** …and on a tube heated there (held in the holder over the burner, its gas tests at the mouth). */
+export const FUME_HEAT_VIEW = { target: [FUME_SPOT[0] - 0.06, FUME_SPOT[1] + 0.25, FUME_SPOT[2]] as [number, number, number], dist: 0.62, pitch: 0.2 };
 
 export const QUAL_VIEWS: CameraPresets = {
   tube: { target: [QSPOT.tube[0], 0.1, QSPOT.tube[2]], dist: 0.42, pitch: 0.18 },

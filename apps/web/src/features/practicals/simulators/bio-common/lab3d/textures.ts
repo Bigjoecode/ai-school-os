@@ -237,6 +237,23 @@ export const letterCardTexture = (letter: string) =>
     g.fillText(letter, w / 2, h / 2 + 4);
   });
 
+/** The little sign on a display stand: a small specimen is shown enlarged on the bench (the lens and ruler show it at its true size). */
+export const displayCardTexture = (mag: number) =>
+  bioCanvas(`bio-display-${mag}`, 256, 96, (g, w, h) => {
+    g.fillStyle = '#fffbe8';
+    g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#8a6d1c';
+    g.lineWidth = 5;
+    g.strokeRect(4, 4, w - 8, h - 8);
+    g.fillStyle = '#1c1f22';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.font = `800 40px ${FONT}`;
+    g.fillText(`shown ×${mag}`, w / 2, h / 2 - 12);
+    g.font = `600 19px ${FONT}`;
+    g.fillText('measure with the ruler', w / 2, h / 2 + 24);
+  });
+
 /** A ruler's face: centimetre and millimetre marks (length in cm). */
 export const rulerTexture = (cm: number) =>
   bioCanvas(`bio-ruler-${cm}`, 64 * cm, 64, (g, w, h) => {

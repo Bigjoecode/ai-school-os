@@ -60,13 +60,24 @@ export interface SafetyContent {
   questions: SafetyQuestion[];
 }
 
+const words = (l: string) => new Set((l.toLowerCase().match(/[a-z]{4,}/g) ?? []).map((w) => w.replace(/s$/, '')));
+/** A lesson line that says what a briefing card already says (most of its words are on one card line), e.g. "Wear safety goggles throughout." beside "Wear your safety goggles over your eyes the whole time.". */
+export function repeatsCard(line: string, cards: SafetyCard[]): boolean {
+  const mine = [...words(line)];
+  if (!mine.length) return false;
+  return cards.some((c) => c.lines.some((cl) => {
+    const theirs = words(cl);
+    return mine.filter((w) => theirs.has(w)).length / mine.length >= 0.5;
+  }));
+}
+
 export function SafetyBriefing({ content, lessonSafety, onDone, onSkip }: { content: SafetyContent; lessonSafety: string[]; onDone: () => void; onSkip: () => void }) {
   const { cards: CARDS, questions: QUESTIONS } = content;
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const card = step < CARDS.length ? CARDS[step]! : null;
   const question = step >= CARDS.length ? QUESTIONS[step - CARDS.length]! : null;
-  const extra = card?.lessonMatch ? lessonSafety.filter((l) => card.lessonMatch!.test(l)).slice(0, 1) : [];
+  const extra = card?.lessonMatch ? lessonSafety.filter((l) => card.lessonMatch!.test(l) && !repeatsCard(l, CARDS)).slice(0, 1) : [];
   const total = CARDS.length + QUESTIONS.length;
   const answer = question && picked !== null ? question.options[picked]! : null;
 

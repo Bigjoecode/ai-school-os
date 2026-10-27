@@ -168,3 +168,6 @@ export function bioTour(o: TourOptions & { task: string }): TourStep[] {
           : s,
   );
 }
+
+/** Where Mrs Okon stands at the student's bench during Learn and the demo: beside its left end on your side, clear of the microscope and the specimens (station-local x, z). */
+export const OKON_SPOT: [number, number] = [-1.9, 0.2];

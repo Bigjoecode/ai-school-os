@@ -2,6 +2,7 @@ import { MICRO_SLIDE_INFO, type BioMicroscopeState } from '@aischool/shared';
 import { useMemo, type ReactNode } from 'react';
 import { Interactive } from '../../../lab3d-kit/interact';
 import { KitScene } from '../../../lab3d-kit/scene';
+import { OKON_SPOT } from '../../bio-common/lab3d/common';
 import { useLabView } from '../../../lab3d-kit/store';
 import { bioRoom } from '../../bio-common/lab3d/room';
 import type { Microscope } from '../actions';
@@ -45,7 +46,7 @@ export function LabScene({ state, scene, m, guided, interactive, readOnly, onSlo
     </Interactive>
   );
   return (
-    <KitScene room={room} coatOn={scene.coat} gogglesOn={scene.goggles} presets={MICRO_VIEWS} read={eyepieceWorld()} guided={guided} onSlow={onSlow}>
+    <KitScene room={room} coatOn={scene.coat} gogglesOn={scene.goggles} presets={MICRO_VIEWS} read={eyepieceWorld()} guided={guided} onSlow={onSlow} assistantSpot={OKON_SPOT}>
       <CupboardContents scene={scene} slide={state.slide} />
       <Station state={state} scene={scene} look={look} detail={quality !== 'low' || mode !== 'walk'} part={part} interactive={interactive} />
       {interactive && <DragController m={m} s={state} scene={scene} />}

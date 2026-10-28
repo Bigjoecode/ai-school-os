@@ -43,7 +43,26 @@ import {
   type PhyPendulumState,
   type SimulatorSpec,
 } from '@aischool/shared';
+import {
+  MOMENTS_CARD_X,
+  MOMENTS_KNOWN,
+  MOMENTS_TASKS,
+  PHY_MOMENTS,
+  emptyPhyMomentsState,
+  momentsBalanced,
+  momentsMassBalance,
+  momentsOtherBalance,
+  momentsRest,
+  momentsStep,
+  momentsStop,
+  momentsTorque,
+  phyMomentsStateSchema,
+  phyMomentsVariant,
+  type MomentsTask,
+  type PhyMomentsState,
+} from '@aischool/shared';
 import { phyGlassGrader } from '../src/practicals/graders/phy-glass-block';
+import { phyMomentsGrader } from '../src/practicals/graders/phy-moments';
 import { phyOhmsGrader } from '../src/practicals/graders/phy-ohms-law';
 import { phyOpticsGrader } from '../src/practicals/graders/phy-optics';
 import { phyPendulumGrader } from '../src/practicals/graders/phy-pendulum';
@@ -499,4 +518,174 @@ test('optics: the state schema rejects garbage; reciprocal units', () => {
   assert.equal(phyUnit('cm^-1'), 'cm-1');
   assert.equal(phyUnit('/cm'), 'cm-1');
   assert.equal(phyUnit('m-1'), 'm-1');
+});
+
+// ------------------------------------------------------------------ metre rule on a knife edge (principle of moments, mass of the rule)
+
+/** Exact work on the knife edge as the lab records it (marks to 0.1 cm); options introduce typical mistakes. */
+function moments(seed: number, task: MomentsTask, o: { noG?: boolean; pivot?: number; xs?: number[]; offBalance?: number; fromZero?: boolean; gLate?: boolean } = {}): PhyMomentsState {
+  const v = phyMomentsVariant(seed);
+  const s = emptyPhyMomentsState();
+  const m = MOMENTS_KNOWN[task];
+  s.task = task;
+  s.log.push({ t: 0, a: `task:${task}` });
+  const g = r1(v.g);
+  const doG = () => {
+    s.g = g;
+    s.log.push({ t: 1, a: `g:${g}` });
+    s.answers.g = { value: g.toFixed(1), unit: 'cm' };
+  };
+  if (!o.noG && !o.gLate) doG();
+  for (const x of o.xs ?? MOMENTS_CARD_X[task]) {
+    let pivot: number;
+    let other: number | null = null;
+    if (task === 'MASS') pivot = r1(momentsMassBalance(v, x) + (o.offBalance ?? 0));
+    else {
+      pivot = o.pivot ?? g;
+      other = r1(momentsOtherBalance(v, pivot, x) + (o.offBalance ?? 0));
+    }
+    s.pivot = pivot;
+    s.known = x;
+    s.other = other;
+    s.readings.push({ pivot, known: x, other });
+    const x2 = task === 'MASS' ? pivot : other!;
+    const ref = o.pivot ?? g;
+    const d1 = o.fromZero ? x : task === 'MASS' ? pivot - x : ref - x;
+    const d2 = o.fromZero ? x2 : task === 'MASS' ? g - pivot : x2 - ref;
+    s.table.push({ x1: x.toFixed(1), x2: x2.toFixed(1), d1: d1.toFixed(1), d2: d2.toFixed(1), m: ((m * r1(d1)) / r1(d2)).toFixed(1) });
+    s.log.push({ t: 2, a: `reading:${x}:${pivot}` });
+  }
+  if (o.gLate) doG();
+  const pts = s.table.map((r) => ({ x: Number(r.d2), y: Number(r.d1) }));
+  s.line = lineThrough(pts);
+  const fit = phyFit(pts)!;
+  const slope = Number(fit.slope.toPrecision(3));
+  s.answers.slope = { value: String(slope), unit: '' };
+  s.answers.mass = { value: (m * slope).toFixed(1), unit: 'g' };
+  const ms = s.table.map((r) => Number(r.m));
+  s.answers.mean = { value: (ms.reduce((t, x) => t + x, 0) / ms.length).toFixed(1), unit: 'g' };
+  s.written.precautions = 'The rule was balanced horizontally before each reading. The thread loops were thin and the distances measured from the pivot.';
+  return s;
+}
+
+test('moments: rubric 20; the hidden rule is fixed per seed and in range; the knife-edge physics', () => {
+  assert.equal(rubricTotal(PHY_MOMENTS.rubric), 20);
+  const a = phyMomentsVariant(11);
+  assert.deepEqual(a, phyMomentsVariant(11));
+  assert.notDeepEqual(a, phyMomentsVariant(12));
+  for (let seed = 1; seed < 300; seed += 7) {
+    const v = phyMomentsVariant(seed);
+    assert.ok(v.g >= 49.6 && v.g <= 50.6 && v.ruleMass >= 95 && v.ruleMass <= 130 && v.unknown >= 30 && v.unknown <= 70);
+    // The rule alone balances at G (to the nearest mm), and not 1 cm away.
+    assert.ok(momentsBalanced(v, 'MOMENTS', { pivot: r1(v.g), known: null, other: null }));
+    assert.ok(!momentsBalanced(v, 'MOMENTS', { pivot: r1(v.g) + 1, known: null, other: null }));
+    // Every card position has a balance point on the rule, reachable to 0.1 cm.
+    for (const x of MOMENTS_CARD_X.MOMENTS) {
+      const o2 = momentsOtherBalance(v, r1(v.g), x);
+      assert.ok(o2 > r1(v.g) && o2 < 99.5, `seed ${seed} x ${x}: ${o2}`);
+      assert.ok(momentsBalanced(v, 'MOMENTS', { pivot: r1(v.g), known: x, other: r1(o2) }));
+      assert.ok(!momentsBalanced(v, 'MOMENTS', { pivot: r1(v.g), known: x, other: r1(o2) + 1 }));
+    }
+    for (const x of MOMENTS_CARD_X.MASS) assert.ok(momentsBalanced(v, 'MASS', { pivot: r1(momentsMassBalance(v, x)), known: x, other: null }));
+  }
+  // Unbalanced, the rule tips towards the heavier side and comes to rest on the bench there.
+  const v = phyMomentsVariant(5);
+  const l = { pivot: r1(v.g), known: 30, other: null };
+  assert.ok(momentsTorque(v, 'MOMENTS', l) < 0);
+  assert.ok(momentsRest(v, 'MOMENTS', l) < 0);
+  let th = 0;
+  let om = 0;
+  for (let i = 0; i < 400; i++) ({ th, om } = momentsStep(v, 'MOMENTS', l, th, om, 0.02));
+  assert.ok(Math.abs(th - momentsRest(v, 'MOMENTS', l)) < 1e-9);
+  assert.ok(momentsStop(v, 'MOMENTS', l, -1) > 0.03 && momentsStop(v, 'MOMENTS', l, -1) < 0.3);
+  // Balanced, it stays level.
+  const b = { pivot: r1(v.g), known: 30, other: r1(momentsOtherBalance(v, r1(v.g), 30)) };
+  ({ th } = momentsStep(v, 'MOMENTS', b, 0, 0, 0.02));
+  assert.equal(th, 0);
+});
+
+test('moments: exact work earns every AUTO mark in both tasks across 40 seeds', () => {
+  for (let k = 0; k < 40; k++) {
+    const seed = 3 + k * 7919;
+    for (const task of MOMENTS_TASKS) {
+      const s = moments(seed, task);
+      assert.ok(phyMomentsStateSchema.safeParse(s).success);
+      const out = phyMomentsGrader.grade(s, seed);
+      assert.equal(autoTotal(out), autoMax(PHY_MOMENTS), `${task} ${seed}: ${lost(out)}`);
+      assert.equal(out.ai.length, 1);
+    }
+  }
+});
+
+test('moments: typical mistakes lose the right marks', () => {
+  const seed = 42;
+  const v = phyMomentsVariant(seed);
+  // No G found; G found only after the readings (the mass of the rule needs it first).
+  const noG = phyMomentsGrader.grade(moments(seed, 'MOMENTS', { noG: true }), seed);
+  assert.equal(by(noG, 'procedure').awarded, 3, by(noG, 'procedure').note);
+  assert.equal(by(phyMomentsGrader.grade(moments(seed, 'MASS', { gLate: true }), seed), 'procedure').awarded, 3);
+  // The knife edge left at the 45.0 cm mark (not G): the rule's weight then has a moment the student ignores.
+  const off = phyMomentsGrader.grade(moments(seed, 'MOMENTS', { pivot: 45 }), seed);
+  assert.equal(by(off, 'procedure').awarded, 3, by(off, 'procedure').note);
+  assert.equal(by(off, 'balancing').awarded, 3);
+  assert.equal(by(off, 'calculations').awarded, 3, by(off, 'calculations').note);
+  // Too few positions, close together.
+  const few = phyMomentsGrader.grade(moments(seed, 'MASS', { xs: [10, 12, 14] }), seed);
+  assert.equal(by(few, 'procedure').awarded, 2, by(few, 'procedure').note);
+  // Read off balance: the rule was tipped.
+  const tipped = phyMomentsGrader.grade(moments(seed, 'MOMENTS', { offBalance: 2 }), seed);
+  assert.equal(by(tipped, 'balancing').awarded, 0, by(tipped, 'balancing').note);
+  assert.equal(by(phyMomentsGrader.grade(moments(seed, 'MASS', { offBalance: 1.5 }), seed), 'balancing').awarded, 0);
+  // Distances from the zero end instead of the pivot.
+  const zero = phyMomentsGrader.grade(moments(seed, 'MOMENTS', { fromZero: true }), seed);
+  assert.equal(by(zero, 'readings').awarded, 3, by(zero, 'readings').note);
+  // A misread mark and a mark to the wrong number of decimal places.
+  const bad = moments(seed, 'MASS');
+  bad.table[0]!.x2 = (Number(bad.table[0]!.x2) + 1.5).toFixed(1);
+  bad.table[1]!.x1 = '10';
+  const bo = phyMomentsGrader.grade(bad, seed);
+  assert.equal(by(bo, 'readings').awarded, 1, by(bo, 'readings').note);
+  // Slope wrong, M not m × slope, the mean not worked, units missing.
+  const calc = moments(seed, 'MOMENTS');
+  calc.answers.slope.value = (Number(calc.answers.slope.value) * 1.2).toPrecision(3);
+  calc.answers.mass = { value: (v.unknown * 1.3).toFixed(1), unit: '' };
+  calc.answers.mean.value = '1';
+  const co = phyMomentsGrader.grade(calc, seed);
+  assert.equal(by(co, 'calculations').awarded, 0, by(co, 'calculations').note);
+  assert.equal(by(co, 'units').awarded, 0);
+  // Masses in kg are accepted; a unit on the slope is not.
+  const kg = moments(seed, 'MASS');
+  kg.answers.mass = { value: (Number(kg.answers.mass.value) / 1000).toFixed(4), unit: 'kg' };
+  const ko = phyMomentsGrader.grade(kg, seed);
+  assert.equal(by(ko, 'calculations').awarded, 4, by(ko, 'calculations').note);
+  assert.equal(by(ko, 'units').awarded, 1);
+  kg.answers.slope.unit = 'cm';
+  assert.equal(by(phyMomentsGrader.grade(kg, seed), 'units').awarded, 0);
+  // No line: no graph marks; the slope from the points still counts.
+  const noLine = moments(seed, 'MOMENTS');
+  noLine.line = null;
+  const nl = phyMomentsGrader.grade(noLine, seed);
+  assert.equal(by(nl, 'graph').awarded, 0);
+  assert.equal(by(nl, 'calculations').awarded, 4, by(nl, 'calculations').note);
+  // An empty attempt scores nothing and does not throw.
+  const empty = phyMomentsGrader.grade(emptyPhyMomentsState(), seed);
+  assert.equal(autoTotal(empty), 0, lost(empty));
+});
+
+test('moments: the state schema rejects garbage; mass units', () => {
+  const ok = moments(5, 'MOMENTS');
+  assert.ok(phyMomentsStateSchema.safeParse(ok).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, task: 'LEVER' }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, pivot: 120 }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, known: -1 }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, g: 'fifty' }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, readings: Array.from({ length: 13 }, () => ok.readings[0]) }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, table: [{ x1: '1', x2: '2' }] }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, answers: { ...ok.answers, mass: { value: 'x'.repeat(41), unit: 'g' } } }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse({ ...ok, v: 2 }).success);
+  assert.ok(!phyMomentsStateSchema.safeParse(undefined).success);
+  assert.equal(phyUnit('g'), 'g');
+  assert.equal(phyUnit('grams'), 'g');
+  assert.equal(phyUnit('kg'), 'kg');
+  assert.equal(phyUnit('cm'), 'cm');
 });

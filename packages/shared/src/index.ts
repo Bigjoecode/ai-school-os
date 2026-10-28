@@ -67,3 +67,4 @@ export * from './simulators/phy-ohms-law';
 export * from './simulators/phy-glass-block';
 export * from './simulators/phy-optics';
 export * from './simulators/phy-moments';
+export * from './simulators/phy-spring';

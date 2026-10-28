@@ -10,7 +10,7 @@ const SUP: Record<string, string> = { '⁰': '0', '¹': '1', '²': '2', '³': '3
 
 /**
  * A physics unit → canonical text: 's2/m', 's2/cm', 'm/s2', 'cm/s2', 'ohm', 'ohm/m', 'ohm/cm', 'ohm.m', 'ohm.cm',
- * 'm2', 'mm2', 'cm2', 'cm-1', 'm-1', 's', 'cm', 'm', 'g', 'kg', 'A', 'V', 'none' (written "no unit"/"—"/"nil"), '' (blank) or 'other:<text>'.
+ * 'm2', 'mm2', 'cm2', 'cm-1', 'm-1', 's', 'cm', 'm', 'g', 'kg', 'A', 'V', 'N', 'N/m', 'm/N', 'cm/N', 's2/kg', 's2/g', 'none' (written "no unit"/"—"/"nil"), '' (blank) or 'other:<text>'.
  */
 export function phyUnit(raw: string | null | undefined): string {
   let s = (raw ?? '')
@@ -28,6 +28,7 @@ export function phyUnit(raw: string | null | undefined): string {
     .replace(/(metres?|meters?)/g, 'm')
     .replace(/(centim)/g, 'cm')
     .replace(/(seconds?|secs?)/g, 's')
+    .replace(/newtons?/g, 'n')
     .replace(/squared/g, '2')
     .replace(/[·.*×x]/g, ' ')
     .replace(/\s+/g, ' ')
@@ -55,6 +56,12 @@ export function phyUnit(raw: string | null | undefined): string {
     [/^(kg|kilograms?|kilogrammes?)$/, 'kg'],
     [/^(a|amps?|amperes?)$/, 'A'],
     [/^(v|volts?)$/, 'V'],
+    [/^n$/, 'N'],
+    [/^(n\/m|nm-1|nperm)$/, 'N/m'],
+    [/^(m\/n|mn-1|mpern)$/, 'm/N'],
+    [/^(cm\/n|cmn-1|cmpern)$/, 'cm/N'],
+    [/^(s2\/kg|s2kg-1|s2perkg)$/, 's2/kg'],
+    [/^(s2\/g|s2g-1|s2perg)$/, 's2/g'],
   ];
   for (const [re, u] of table) if (re.test(c)) return u;
   return `other:${c}`;

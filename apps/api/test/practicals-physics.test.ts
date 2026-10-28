@@ -61,11 +61,28 @@ import {
   type MomentsTask,
   type PhyMomentsState,
 } from '@aischool/shared';
+import {
+  PHY_SPRING,
+  SPRING_CARD,
+  SPRING_MAX_LOAD,
+  emptyPhySpringState,
+  phySpringStateSchema,
+  phySpringVariant,
+  springForce,
+  springMassesFly,
+  springOffset,
+  springOverLimit,
+  springPeriod,
+  springReading,
+  springTrueMass,
+  type PhySpringState,
+} from '@aischool/shared';
 import { phyGlassGrader } from '../src/practicals/graders/phy-glass-block';
 import { phyMomentsGrader } from '../src/practicals/graders/phy-moments';
 import { phyOhmsGrader } from '../src/practicals/graders/phy-ohms-law';
 import { phyOpticsGrader } from '../src/practicals/graders/phy-optics';
 import { phyPendulumGrader } from '../src/practicals/graders/phy-pendulum';
+import { phySpringGrader } from '../src/practicals/graders/phy-spring';
 import { phyUnit } from '../src/practicals/graders/phy-common';
 import type { GraderOutput } from '../src/practicals/graders/types';
 
@@ -688,4 +705,224 @@ test('moments: the state schema rejects garbage; mass units', () => {
   assert.equal(phyUnit('grams'), 'g');
   assert.equal(phyUnit('kg'), 'kg');
   assert.equal(phyUnit('cm'), 'cm');
+});
+
+// ------------------------------------------------------------------ spiral spring (Hooke's law, oscillations of a loaded spring)
+
+const r2s = (x: number) => Math.round(x * 100) / 100;
+/** Exact Hooke's-law work as the lab records it (pointer read to 0.1 cm); options introduce typical mistakes. */
+function hooke(seed: number, o: { loads?: number[]; noR0?: boolean; noUnload?: boolean; moving?: boolean; over?: boolean; plotR?: boolean; wInGrams?: boolean; misread?: number; g?: number } = {}): PhySpringState {
+  const v = phySpringVariant(seed);
+  const s = emptyPhySpringState();
+  s.task = 'HOOKE';
+  s.log.push({ t: 0, a: 'task:HOOKE' });
+  const loads = o.loads ?? SPRING_CARD.HOOKE;
+  const g = o.g ?? 10;
+  if (!o.noR0) s.readings.push({ load: 0, peak: 0, moving: false });
+  const top = o.over ? 650 : Math.max(...loads);
+  for (const L of loads) {
+    s.readings.push({ load: L, peak: L, moving: !!o.moving });
+    s.rows.push(L);
+  }
+  if (o.over) s.readings.push({ load: 650, peak: 650, moving: false });
+  s.peak = top;
+  if (!o.noUnload) for (const L of [...loads].reverse().slice(o.over ? 0 : 1)) s.readings.push({ load: L, peak: top, moving: false });
+  const R0 = r1(springReading(v, 0, 0));
+  s.answers.r0 = { value: R0.toFixed(1), unit: 'cm' };
+  for (const L of loads) {
+    const Rl = r1(springReading(v, L, L) + (o.misread ?? 0));
+    const hasDown = !o.noUnload && (o.over || L !== top);
+    const Ru = hasDown ? r1(springReading(v, L, top) + (o.misread ?? 0)) : null;
+    const mean = Ru === null ? Rl : (Rl + Ru) / 2;
+    const W = (L / 1000) * g;
+    s.hooke.push({ m: String(L), W: o.wInGrams ? String(L * g) : W.toFixed(2), Rl: Rl.toFixed(1), Ru: Ru === null ? '' : Ru.toFixed(1), e: (o.plotR ? Rl : mean - R0).toFixed(2) });
+  }
+  const pts = s.hooke.map((r) => ({ x: Number(r.W), y: Number(r.e) }));
+  s.line = lineThrough(pts);
+  const slope = Number(phyFit(pts)!.slope.toPrecision(3));
+  s.answers.slope = { value: String(slope), unit: 'cm/N' };
+  s.answers.k = { value: (100 / slope).toFixed(1), unit: 'N/m' };
+  s.written.precautions = 'I read the pointer with my eye level with it to avoid parallax. I let the spring come to rest before each reading.';
+  return s;
+}
+
+/** Exact oscillation work: five masses, each timed twice for n oscillations from the rest position. */
+function osc(seed: number, o: { loads?: number[]; amp?: number; n?: number; once?: boolean; phase?: number; extra?: number; inGrams?: boolean } = {}): PhySpringState {
+  const v = phySpringVariant(seed);
+  const s = emptyPhySpringState();
+  s.task = 'OSC';
+  s.log.push({ t: 0, a: 'task:OSC' });
+  const n = o.n ?? 20;
+  const amp = o.amp ?? 1.5;
+  for (const L of o.loads ?? SPRING_CARD.OSC) {
+    const times: number[] = [];
+    for (let j = 0; j < (o.once ? 1 : 2); j++) {
+      const i = s.runs.length;
+      const elapsed = r2s((n + (o.extra ?? 0)) * springPeriod(v, L, i));
+      s.runs.push({ load: L, amp, n, elapsed, startPhase: o.phase ?? 0.1 });
+      times.push(elapsed);
+    }
+    s.peak = Math.max(s.peak, L);
+    s.rows.push(L);
+    const t = times.reduce((a, b) => a + b, 0) / times.length;
+    const T = t / n;
+    s.osc.push({ m: o.inGrams ? String(L) : (L / 1000).toFixed(3), t1: times[0]!.toFixed(2), t2: times[1]?.toFixed(2) ?? '', t: t.toFixed(3), T: T.toFixed(4), T2: (T * T).toFixed(4) });
+  }
+  const pts = s.osc.map((r) => ({ x: Number(r.m), y: Number(r.T2) }));
+  s.line = lineThrough(pts);
+  const slope = Number(phyFit(pts)!.slope.toPrecision(3));
+  s.answers.slope = { value: String(slope), unit: o.inGrams ? 's2/g' : 's2/kg' };
+  s.answers.k = { value: ((4 * Math.PI ** 2) / (o.inGrams ? slope * 1000 : slope)).toFixed(1), unit: 'N/m' };
+  s.written.precautions = 'Small vertical oscillations. I timed 20 oscillations from the fiducial mark and repeated.';
+  return s;
+}
+
+test('spring: rubric 20; the hidden spring is fixed per seed and in range; the spring physics', () => {
+  assert.equal(rubricTotal(PHY_SPRING.rubric), 20);
+  const a = phySpringVariant(11);
+  assert.deepEqual(a, phySpringVariant(11));
+  assert.notDeepEqual(a, phySpringVariant(12));
+  for (let seed = 1; seed < 400; seed += 7) {
+    const v = phySpringVariant(seed);
+    assert.ok(v.k >= 18 && v.k <= 40 && v.r0 >= 22 && v.r0 <= 34 && v.springMass >= 0.015 && v.springMass <= 0.045);
+    // Within the elastic limit for every card load (and a 2 cm swing); the heaviest load still reads on the rule.
+    for (const L of [...SPRING_CARD.HOOKE, ...SPRING_CARD.OSC]) assert.ok(!springOverLimit(v, L, L <= 400 ? 2 : 0), `seed ${seed} load ${L}`);
+    assert.ok(springOverLimit(v, SPRING_MAX_LOAD));
+    assert.ok(springReading(v, SPRING_MAX_LOAD, SPRING_MAX_LOAD) < 99);
+    // Linear: equal steps for equal loads; the extension is about W/k.
+    const e = (L: number) => springReading(v, L, L) - v.r0;
+    // (each slotted mass is a little off 50 g, so the steps are equal only to about 0.1 cm)
+    assert.ok(Math.abs(e(100) - 2 * e(50)) < 0.12 && Math.abs(e(300) - 3 * e(100)) < 0.25);
+    assert.ok(Math.abs(e(200) - (0.2 * 9.81 * 100) / v.k) < 0.15);
+    // Unloading inside the limit returns to the same reading; beyond it the spring keeps a permanent set.
+    assert.equal(springReading(v, 100, 300), springReading(v, 100, 100));
+    assert.ok(springReading(v, 0, 650) - v.r0 > 0.5);
+    assert.ok(springReading(v, 650, 650) - v.r0 > (springForce(v, 650) * 100) / v.k + 0.5);
+    // The period: T = 2π√((M + ms/3)/k); light masses jump off with a big displacement.
+    const T = springPeriod(v, 200, 0);
+    assert.ok(Math.abs(T - 2 * Math.PI * Math.sqrt((springTrueMass(v, 200) + v.springMass / 3) / v.k)) < 0.002 * T);
+    assert.ok(!springMassesFly(v, 100, 1) && springMassesFly(v, 100, 9));
+  }
+  // The damped SHM decays and returns to the rest position.
+  const v = phySpringVariant(5);
+  assert.ok(Math.abs(springOffset(v, 2, 0.5, 0)) === 2 && Math.abs(springOffset(v, 2, 0.5, 5 * v.tau)) < 0.02);
+});
+
+test('spring: exact work earns every AUTO mark in both tasks across 40 seeds', () => {
+  for (let k = 0; k < 40; k++) {
+    const seed = 3 + k * 7919;
+    for (const s of [hooke(seed), osc(seed), hooke(seed, { g: 9.8 }), osc(seed, { inGrams: true })]) {
+      assert.ok(phySpringStateSchema.safeParse(s).success);
+      const out = phySpringGrader.grade(s, seed);
+      assert.equal(autoTotal(out), autoMax(PHY_SPRING), `${s.task} ${seed}: ${lost(out)}`);
+      assert.equal(out.ai.length, 1);
+    }
+  }
+});
+
+test("spring: Hooke's law — typical mistakes lose the right marks", () => {
+  const seed = 42;
+  // No unloaded reading first.
+  assert.equal(by(phySpringGrader.grade(hooke(seed, { noR0: true }), seed), 'procedure').awarded, 3);
+  // Read while bouncing; overloaded past the elastic limit.
+  const mv = phySpringGrader.grade(hooke(seed, { moving: true }), seed);
+  assert.equal(by(mv, 'care').awarded, 1, by(mv, 'care').note);
+  const ov = phySpringGrader.grade(hooke(seed, { over: true }), seed);
+  assert.equal(by(ov, 'care').awarded, 1, by(ov, 'care').note);
+  // No unloading readings; too few loads, not far enough.
+  assert.equal(by(phySpringGrader.grade(hooke(seed, { noUnload: true }), seed), 'procedure').awarded, 3);
+  assert.equal(by(phySpringGrader.grade(hooke(seed, { loads: [50, 100, 150] }), seed), 'procedure').awarded, 2);
+  // Plotting the pointer readings instead of the extensions; W left in grams (not newtons).
+  const pr = phySpringGrader.grade(hooke(seed, { plotR: true }), seed);
+  assert.equal(by(pr, 'readings').awarded, 4, by(pr, 'readings').note);
+  assert.equal(by(phySpringGrader.grade(hooke(seed, { wInGrams: true }), seed), 'readings').awarded, 4);
+  // Parallax: every reading 0.3 cm off (R₀ read right).
+  const px = phySpringGrader.grade(hooke(seed, { misread: 0.3 }), seed);
+  assert.equal(by(px, 'readings').awarded, 3, by(px, 'readings').note);
+  // A reading to 2 decimal places.
+  const dp = hooke(seed);
+  dp.hooke[0]!.Rl = Number(dp.hooke[0]!.Rl).toFixed(2);
+  assert.equal(by(phySpringGrader.grade(dp, seed), 'readings').awarded, 4);
+  // k = 1/slope with the slope still in cm N⁻¹ (not converted to m N⁻¹); no units.
+  const kc = hooke(seed);
+  kc.answers.k = { value: (1 / Number(kc.answers.slope.value)).toFixed(3), unit: '' };
+  const ko = phySpringGrader.grade(kc, seed);
+  assert.equal(by(ko, 'calculations').awarded, 2, by(ko, 'calculations').note);
+  assert.equal(by(ko, 'units').awarded, 0);
+  // Slope in m N⁻¹ is accepted; no line: no graph marks, the slope from the points still counts.
+  const mN = hooke(seed);
+  mN.answers.slope = { value: (Number(mN.answers.slope.value) / 100).toPrecision(3), unit: 'm N⁻¹' };
+  mN.line = null;
+  const mo = phySpringGrader.grade(mN, seed);
+  assert.equal(by(mo, 'graph').awarded, 0);
+  assert.equal(by(mo, 'calculations').awarded, 4, by(mo, 'calculations').note);
+  assert.equal(by(mo, 'units').awarded, 1);
+  // An empty attempt scores nothing and does not throw.
+  const empty = phySpringGrader.grade(emptyPhySpringState(), seed);
+  assert.equal(autoTotal(empty), 0, lost(empty));
+  const emptyOsc = { ...emptyPhySpringState(), task: 'OSC' as const };
+  assert.equal(autoTotal(phySpringGrader.grade(emptyOsc, seed)), 0);
+});
+
+test('spring: oscillations — typical mistakes lose the right marks', () => {
+  const seed = 42;
+  const big = phySpringGrader.grade(osc(seed, { amp: 3 }), seed);
+  assert.equal(by(big, 'care').awarded, 1, by(big, 'care').note);
+  assert.equal(by(phySpringGrader.grade(osc(seed, { phase: 0.9 }), seed), 'care').awarded, 1);
+  // Timed once per mass; only 5 oscillations; four masses.
+  assert.equal(by(phySpringGrader.grade(osc(seed, { once: true }), seed), 'procedure').awarded, 3);
+  assert.equal(by(phySpringGrader.grade(osc(seed, { n: 5 }), seed), 'procedure').awarded, 3);
+  assert.equal(by(phySpringGrader.grade(osc(seed, { n: 10 }), seed), 'procedure').awarded, 4);
+  assert.equal(by(phySpringGrader.grade(osc(seed, { loads: [100, 200, 300, 400] }), seed), 'procedure').awarded, 3);
+  // Counted one oscillation too many.
+  const miss = phySpringGrader.grade(osc(seed, { extra: 1 }), seed);
+  assert.equal(by(miss, 'readings').awarded, 4, by(miss, 'readings').note);
+  // A time not copied from the stopwatch; T not t/n.
+  const bad = osc(seed);
+  bad.osc[0]!.t1 = (Number(bad.osc[0]!.t1) + 0.4).toFixed(2);
+  bad.osc[1]!.T = (Number(bad.osc[1]!.T) * 2).toFixed(4);
+  const bo = phySpringGrader.grade(bad, seed);
+  assert.equal(by(bo, 'readings').awarded, 3, by(bo, 'readings').note);
+  // Slope wrong; k not 4π²/slope; slope with the wrong unit.
+  const c = osc(seed);
+  c.answers.slope = { value: (Number(c.answers.slope.value) * 1.25).toPrecision(3), unit: 's' };
+  c.answers.k.value = '99';
+  const co = phySpringGrader.grade(c, seed);
+  assert.equal(by(co, 'calculations').awarded, 0, by(co, 'calculations').note);
+  assert.equal(by(co, 'units').awarded, 0);
+});
+
+test('spring: the state schema rejects garbage; spring units', () => {
+  const ok = hooke(5);
+  assert.ok(phySpringStateSchema.safeParse(ok).success);
+  assert.ok(phySpringStateSchema.safeParse(osc(5)).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, task: 'BUNGEE' }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, load: 5000 }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, peak: -1 }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, readings: [{ load: 50, peak: 50 }] }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, readings: Array.from({ length: 41 }, () => ok.readings[0]) }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, hooke: [{ m: '50', W: '0.5' }] }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, runs: [{ load: 100, amp: 1, n: 20, elapsed: -3, startPhase: 0 }] }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, answers: { ...ok.answers, k: { value: 'x'.repeat(41), unit: 'N/m' } } }).success);
+  assert.ok(!phySpringStateSchema.safeParse({ ...ok, v: 2 }).success);
+  assert.ok(!phySpringStateSchema.safeParse(null).success);
+  for (const [raw, want] of [
+    ['N/m', 'N/m'],
+    ['N m⁻¹', 'N/m'],
+    ['Nm-1', 'N/m'],
+    ['newtons per metre', 'N/m'],
+    ['cm/N', 'cm/N'],
+    ['cm N⁻¹', 'cm/N'],
+    ['m N⁻¹', 'm/N'],
+    ['s²/kg', 's2/kg'],
+    ['s² kg⁻¹', 's2/kg'],
+    ['s2/g', 's2/g'],
+    ['N', 'N'],
+    ['newtons', 'N'],
+  ] as const)
+    assert.equal(phyUnit(raw), want, raw);
+  // The earlier units are unchanged.
+  assert.equal(phyUnit('m'), 'm');
+  assert.equal(phyUnit('s2/m'), 's2/m');
+  assert.equal(phyUnit('m s⁻²'), 'm/s2');
 });

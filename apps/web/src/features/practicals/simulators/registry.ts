@@ -1,5 +1,5 @@
 import { emptyChemTitrationState, type SimulatorId } from '@aischool/shared';
-import { emptyPhyGlassState, emptyPhyOhmsState, emptyPhyPendulumState } from '@aischool/shared';
+import { emptyPhyGlassState, emptyPhyOhmsState, emptyPhyOpticsState, emptyPhyPendulumState } from '@aischool/shared';
 import { emptyChemQualitativeState } from '@aischool/shared';
 import { emptyBioMicroscopeState, emptyBioSpecimensState } from '@aischool/shared';
 import { lazy } from 'react';
@@ -9,6 +9,7 @@ import { chemTitrationMissing } from './chem-titration/missing';
 import { chemQualitativeMissing } from './chem-qualitative/missing';
 import { phyGlassMissing } from './phy-glass-block/missing';
 import { phyOhmsMissing } from './phy-ohms-law/missing';
+import { phyOpticsMissing } from './phy-optics/missing';
 import { phyPendulumMissing } from './phy-pendulum/missing';
 import type { SimulatorEntry } from './types';
 
@@ -39,6 +40,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), component3d: lazy(() => import('./phy-pendulum/lab3d')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
   'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), component3d: lazy(() => import('./phy-ohms-law/lab3d')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },
   'phy-glass-block': { id: 'phy-glass-block', component: lazy(() => import('./phy-glass-block')), component3d: lazy(() => import('./phy-glass-block/lab3d')), empty: emptyPhyGlassState, missing: phyGlassMissing },
+  'phy-optics': { id: 'phy-optics', component: lazy(() => import('./phy-optics')), component3d: lazy(() => import('./phy-optics/lab3d')), empty: emptyPhyOpticsState, missing: phyOpticsMissing },
 };
 
 export function simulatorUi<Id extends SimulatorId>(id: Id): SimulatorEntry<Id> {

@@ -83,11 +83,11 @@ const fmt = (x: number) => Number(x.toPrecision(3)).toString();
  * origin, and a straight line they place and drag by its two ends. The ends'
  * coordinates are shown so the slope can be read from two points far apart.
  */
-export function PhyGraph({ points, line, onLine, readOnly, xLabel, yLabel }: { points: { x: number; y: number }[]; line: PhyGraphLine | null; onLine: (l: PhyGraphLine | null) => void; readOnly: boolean; xLabel: string; yLabel: string }) {
+export function PhyGraph({ points, line, onLine, readOnly, xLabel, yLabel, extent }: { points: { x: number; y: number }[]; line: PhyGraphLine | null; onLine: (l: PhyGraphLine | null) => void; readOnly: boolean; xLabel: string; yLabel: string; /** Optional: axes at least this long (so a line can be extended to meet them). */ extent?: { x: number; y: number } }) {
   const svg = useRef<SVGSVGElement>(null);
   const [drag, setDrag] = useState<1 | 2 | null>(null);
-  const maxX = Math.max(...points.map((p) => p.x), line ? Math.max(line.x1, line.x2) : 0, 1e-9);
-  const maxY = Math.max(...points.map((p) => p.y), line ? Math.max(line.y1, line.y2) : 0, 1e-9);
+  const maxX = Math.max(...points.map((p) => p.x), line ? Math.max(line.x1, line.x2) : 0, extent?.x ?? 0, 1e-9);
+  const maxY = Math.max(...points.map((p) => p.y), line ? Math.max(line.y1, line.y2) : 0, extent?.y ?? 0, 1e-9);
   const sx = niceStep(maxX * 1.08);
   const sy = niceStep(maxY * 1.08);
   const xMax = Math.ceil((maxX * 1.08) / sx) * sx;

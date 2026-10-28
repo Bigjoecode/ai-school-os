@@ -10,7 +10,7 @@ const SUP: Record<string, string> = { '⁰': '0', '¹': '1', '²': '2', '³': '3
 
 /**
  * A physics unit → canonical text: 's2/m', 's2/cm', 'm/s2', 'cm/s2', 'ohm', 'ohm/m', 'ohm/cm', 'ohm.m', 'ohm.cm',
- * 'm2', 'mm2', 'cm2', 's', 'cm', 'm', 'A', 'V', 'none' (written "no unit"/"—"/"nil"), '' (blank) or 'other:<text>'.
+ * 'm2', 'mm2', 'cm2', 'cm-1', 'm-1', 's', 'cm', 'm', 'A', 'V', 'none' (written "no unit"/"—"/"nil"), '' (blank) or 'other:<text>'.
  */
 export function phyUnit(raw: string | null | undefined): string {
   let s = (raw ?? '')
@@ -46,6 +46,8 @@ export function phyUnit(raw: string | null | undefined): string {
     [/^m2$/, 'm2'],
     [/^mm2$/, 'mm2'],
     [/^cm2$/, 'cm2'],
+    [/^(cm-1|\/cm|1\/cm|percm)$/, 'cm-1'],
+    [/^(m-1|\/m|1\/m|perm)$/, 'm-1'],
     [/^s$/, 's'],
     [/^cm$/, 'cm'],
     [/^m$/, 'm'],

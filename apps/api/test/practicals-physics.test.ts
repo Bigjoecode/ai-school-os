@@ -2,36 +2,50 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
+  OPTICS_CARD_U,
   PHY_GLASS_BLOCK,
+  PHY_OPTICS,
   PHY_OHMS_LAW,
   PHY_PENDULUM,
   emptyPhyGlassState,
   emptyPhyOhmsState,
+  emptyPhyOpticsState,
   emptyPhyPendulumState,
   glassConstruction,
   glassRay,
   ohmsMeters,
   ohmsReadingSettings,
   ohmsWireKey,
+  opticsBlur,
+  opticsF,
+  opticsImage,
+  opticsScreenAt,
+  opticsV,
+  opticsWindowImage,
   pendulumPeriod,
   phyFit,
   phyGlassStateSchema,
   phyGlassVariant,
   phyOhmsStateSchema,
   phyOhmsVariant,
+  phyOpticsStateSchema,
+  phyOpticsVariant,
   phyPendulumStateSchema,
   phyPendulumVariant,
   phySin,
   rubricTotal,
   type OhmsTask,
   type OhmsTerminal,
+  type OpticsTask,
   type PhyGlassState,
   type PhyOhmsState,
+  type PhyOpticsState,
   type PhyPendulumState,
   type SimulatorSpec,
 } from '@aischool/shared';
 import { phyGlassGrader } from '../src/practicals/graders/phy-glass-block';
 import { phyOhmsGrader } from '../src/practicals/graders/phy-ohms-law';
+import { phyOpticsGrader } from '../src/practicals/graders/phy-optics';
 import { phyPendulumGrader } from '../src/practicals/graders/phy-pendulum';
 import { phyUnit } from '../src/practicals/graders/phy-common';
 import type { GraderOutput } from '../src/practicals/graders/types';
@@ -340,4 +354,149 @@ test('phyUnit reads the physics units', () => {
   assert.equal(phyUnit('m²'), 'm2');
   assert.equal(phyUnit('no unit'), 'none');
   assert.equal(phyUnit(''), '');
+});
+
+// ------------------------------------------------------------------ optical bench (lens and concave mirror)
+
+const r1 = (x: number) => Math.round(x * 10) / 10;
+/** Exact work on the optical bench as the lab records it (positions to 0.1 cm); options introduce typical mistakes. */
+function optics(seed: number, task: OpticsTask, o: { rough?: boolean; aligned?: boolean; offFocus?: number; us?: number[]; roughLate?: boolean } = {}): PhyOpticsState {
+  const v = phyOpticsVariant(seed);
+  const s = emptyPhyOpticsState();
+  s.task = task;
+  s.aligned = o.aligned ?? true;
+  s.log.push({ t: 0, a: `task:${task}` });
+  const rough = r1(opticsWindowImage(v, task));
+  const doRough = () => {
+    s.rough = rough;
+    s.log.push({ t: 1, a: `rough:${rough}` });
+    s.answers.rough = { value: rough.toFixed(1), unit: 'cm' };
+  };
+  if (o.rough !== false && !o.roughLate) doRough();
+  for (const u of o.us ?? OPTICS_CARD_U[task]) {
+    const img = opticsImage(v, task, u);
+    const at = img === null ? 40 : img + (o.offFocus ?? 0);
+    const screen = r1(opticsScreenAt(task, u, at));
+    s.readings.push({ u, screen, aligned: s.aligned });
+    const vr = opticsV(task, u, screen);
+    s.table.push({ u: u.toFixed(1), v: vr.toFixed(1), iu: (1 / u).toFixed(4), iv: (1 / vr).toFixed(4) });
+    s.log.push({ t: 2, a: `reading:${u}:${screen}` });
+  }
+  if (o.roughLate) doRough();
+  const pts = s.table.map((r) => ({ x: Number(r.iu), y: Number(r.iv) }));
+  const fit = phyFit(pts)!;
+  const xi = -fit.intercept / fit.slope;
+  s.line = { x1: 0, y1: Number(fit.intercept.toPrecision(4)), x2: Number(xi.toPrecision(4)), y2: 0 };
+  s.answers.xint = { value: xi.toPrecision(3), unit: 'cm⁻¹' };
+  s.answers.yint = { value: fit.intercept.toPrecision(3), unit: 'cm⁻¹' };
+  s.answers.f = { value: (2 / (xi + fit.intercept)).toFixed(1), unit: 'cm' };
+  s.written.precautions = 'The centres of the object, lens and screen were on the same horizontal axis. The screen was moved to and fro to find the sharpest image.';
+  return s;
+}
+
+test('optics: rubric 20; the hidden focal lengths are fixed per seed and in range; the image physics', () => {
+  assert.equal(rubricTotal(PHY_OPTICS.rubric), 20);
+  const a = phyOpticsVariant(11);
+  assert.deepEqual(a, phyOpticsVariant(11));
+  assert.notDeepEqual(a, phyOpticsVariant(12));
+  for (let seed = 1; seed < 200; seed += 7) {
+    const v = phyOpticsVariant(seed);
+    assert.ok(v.lensF >= 10 && v.lensF <= 15 && v.mirrorF >= 8 && v.mirrorF <= 12);
+    for (const task of ['LENS', 'MIRROR'] as const) {
+      // Every u on the card gives a real image that fits on the metre rule.
+      for (const u of OPTICS_CARD_U[task]) assert.ok(opticsScreenAt(task, u, opticsImage(v, task, u)!) <= 100, `${task} ${seed} u=${u}`);
+      // Best focus is within 0.4 % of the thin-lens value; blur grows either side of it.
+      const f = opticsF(v, task);
+      const img = opticsImage(v, task, 30)!;
+      assert.ok(Math.abs(img / ((30 * f) / (30 - f)) - 1) <= 0.004);
+      assert.ok(opticsBlur(v, task, 30, img) < 1e-9);
+      assert.ok(opticsBlur(v, task, 30, img + 2) > opticsBlur(v, task, 30, img + 1));
+      assert.ok(opticsBlur(v, task, 30, img - 2) > opticsBlur(v, task, 30, img - 1));
+      // No real image inside f.
+      assert.equal(opticsImage(v, task, f - 1), null);
+    }
+  }
+});
+
+test('optics: exact work earns every AUTO mark in both tasks across 40 seeds', () => {
+  for (let k = 0; k < 40; k++) {
+    const seed = 3 + k * 7919;
+    for (const task of ['LENS', 'MIRROR'] as const) {
+      const s = optics(seed, task);
+      assert.ok(phyOpticsStateSchema.safeParse(s).success);
+      const out = phyOpticsGrader.grade(s, seed);
+      assert.equal(autoTotal(out), autoMax(PHY_OPTICS), `${task} ${seed}: ${lost(out)}`);
+      assert.equal(out.ai.length, 1);
+    }
+  }
+});
+
+test('optics: typical mistakes lose the right marks', () => {
+  const seed = 42;
+  const v = phyOpticsVariant(seed);
+  // No rough focal length; found only after the readings.
+  assert.equal(by(phyOpticsGrader.grade(optics(seed, 'LENS', { rough: false }), seed), 'procedure').awarded, 3);
+  assert.equal(by(phyOpticsGrader.grade(optics(seed, 'LENS', { roughLate: true }), seed), 'procedure').awarded, 3);
+  // Centres not lined up.
+  assert.equal(by(phyOpticsGrader.grade(optics(seed, 'MIRROR', { aligned: false }), seed), 'procedure').awarded, 3);
+  // Too few values of u, too close together.
+  const few = phyOpticsGrader.grade(optics(seed, 'LENS', { us: [30, 32, 34] }), seed);
+  assert.equal(by(few, 'procedure').awarded, 2, by(few, 'procedure').note);
+  // An object inside f (no real image) among the readings.
+  const inside = phyOpticsGrader.grade(optics(seed, 'MIRROR', { us: [Math.floor(v.mirrorF) - 1, 15, 20, 25, 30, 35] }), seed);
+  assert.equal(by(inside, 'procedure').awarded, 3, by(inside, 'procedure').note);
+  assert.ok(by(inside, 'focusing').awarded < 3);
+  // The screen left 3 cm from the sharpest image every time.
+  const blurred = phyOpticsGrader.grade(optics(seed, 'LENS', { offFocus: 3 }), seed);
+  assert.equal(by(blurred, 'focusing').awarded, 0, by(blurred, 'focusing').note);
+  // Small focusing errors within the depth of focus still score.
+  assert.equal(by(phyOpticsGrader.grade(optics(seed, 'LENS', { offFocus: 0.2 }), seed), 'focusing').awarded, 3);
+  // Misread v, wrong decimal places, wrong reciprocals.
+  const bad = optics(seed, 'LENS');
+  bad.table[0]!.v = (Number(bad.table[0]!.v) + 1.5).toFixed(1);
+  bad.table[1]!.u = '25';
+  bad.table[2]!.iu = '0.0300';
+  const bo = phyOpticsGrader.grade(bad, seed);
+  assert.equal(by(bo, 'readings').awarded, 1, by(bo, 'readings').note);
+  // Wrong intercept, f not from the intercepts, f far from the truth, units missing.
+  const calc = optics(seed, 'MIRROR');
+  calc.answers.xint.value = (Number(calc.answers.xint.value) * 1.2).toPrecision(3);
+  calc.answers.f = { value: (v.mirrorF * 1.25).toFixed(1), unit: '' };
+  const co = phyOpticsGrader.grade(calc, seed);
+  assert.equal(by(co, 'calculations').awarded, 1, by(co, 'calculations').note);
+  assert.equal(by(co, 'units').awarded, 0);
+  // Answers in metres are accepted.
+  const metres = optics(seed, 'LENS');
+  metres.answers.xint = { value: (Number(metres.answers.xint.value) * 100).toPrecision(3), unit: 'm⁻¹' };
+  metres.answers.f = { value: (Number(metres.answers.f.value) / 100).toFixed(3), unit: 'm' };
+  const mo = phyOpticsGrader.grade(metres, seed);
+  assert.equal(by(mo, 'calculations').awarded, 4, by(mo, 'calculations').note);
+  assert.equal(by(mo, 'units').awarded, 1);
+  // No line: no graph marks; the intercepts still fit the points.
+  const noLine = optics(seed, 'LENS');
+  noLine.line = null;
+  const nl = phyOpticsGrader.grade(noLine, seed);
+  assert.equal(by(nl, 'graph').awarded, 0);
+  assert.equal(by(nl, 'calculations').awarded, 4);
+  // An empty attempt scores nothing and does not throw.
+  const empty = phyOpticsGrader.grade(emptyPhyOpticsState(), seed);
+  assert.equal(autoTotal(empty), 0, lost(empty));
+});
+
+test('optics: the state schema rejects garbage; reciprocal units', () => {
+  const ok = optics(5, 'LENS');
+  assert.ok(phyOpticsStateSchema.safeParse(ok).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, task: 'PRISM' }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, u: 150 }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, screen: -3 }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, rough: 400 }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, readings: Array.from({ length: 13 }, () => ok.readings[0]) }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, table: [{ u: '1', v: '2' }] }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, answers: { ...ok.answers, f: { value: 'x'.repeat(41), unit: 'cm' } } }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse({ ...ok, v: 2 }).success);
+  assert.ok(!phyOpticsStateSchema.safeParse(null).success);
+  assert.equal(phyUnit('cm⁻¹'), 'cm-1');
+  assert.equal(phyUnit('cm^-1'), 'cm-1');
+  assert.equal(phyUnit('/cm'), 'cm-1');
+  assert.equal(phyUnit('m-1'), 'm-1');
 });

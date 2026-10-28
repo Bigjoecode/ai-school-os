@@ -5,6 +5,7 @@ import { bioSpecimensGrader } from './bio-specimens';
 import { chemQualitativeGrader } from './chem-qualitative';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
+import { phyOpticsGrader } from './phy-optics';
 import { phyPendulumGrader } from './phy-pendulum';
 import type { SimulatorGrader } from './types';
 
@@ -17,6 +18,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,
+  'phy-optics': phyOpticsGrader,
 };
 
 export function graderFor<Id extends SimulatorId>(id: Id): SimulatorGrader<Id> {

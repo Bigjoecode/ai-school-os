@@ -2,7 +2,9 @@ import type { SimulatorId } from '@aischool/shared';
 import { chemTitrationGrader } from './chem-titration';
 import { bioMicroscopeGrader } from './bio-microscope';
 import { bioSpecimensGrader } from './bio-specimens';
+import { bioFoodGrader } from './bio-food-tests';
 import { chemQualitativeGrader } from './chem-qualitative';
+import { chemRatesGrader } from './chem-rates';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
 import { phyMomentsGrader } from './phy-moments';
@@ -16,7 +18,9 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-titration': chemTitrationGrader,
   'bio-microscope': bioMicroscopeGrader,
   'bio-specimens': bioSpecimensGrader,
+  'bio-food-tests': bioFoodGrader,
   'chem-qualitative': chemQualitativeGrader,
+  'chem-rates': chemRatesGrader,
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,

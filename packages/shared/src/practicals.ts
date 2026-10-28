@@ -11,6 +11,7 @@ import { PHY_GLASS_BLOCK, phyGlassStateSchema, type PhyGlassState } from './simu
 import { PHY_OPTICS, phyOpticsStateSchema, type PhyOpticsState } from './simulators/phy-optics';
 import { PHY_MOMENTS, phyMomentsStateSchema, type PhyMomentsState } from './simulators/phy-moments';
 import { PHY_SPRING, phySpringStateSchema, type PhySpringState } from './simulators/phy-spring';
+import { PHY_CIRCUITS, phyCircuitsStateSchema, type PhyCircuitsState } from './simulators/phy-circuits';
 
 /**
  * WAEC Practical Academy: a guided lesson for every syllabus topic with
@@ -38,7 +39,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'bio-microscope', 'bio-specimens', 'bio-food-tests'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'bio-microscope', 'bio-specimens', 'bio-food-tests'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -78,6 +79,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'phy-optics': PHY_OPTICS,
   'phy-moments': PHY_MOMENTS,
   'phy-spring': PHY_SPRING,
+  'phy-circuits': PHY_CIRCUITS,
 };
 
 /** The state each simulator saves and submits (typed per simulator). */
@@ -94,6 +96,7 @@ export interface SimulatorStates {
   'phy-optics': PhyOpticsState;
   'phy-moments': PhyMomentsState;
   'phy-spring': PhySpringState;
+  'phy-circuits': PhyCircuitsState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
 
@@ -111,6 +114,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'phy-optics': phyOpticsStateSchema,
   'phy-moments': phyMomentsStateSchema,
   'phy-spring': phySpringStateSchema,
+  'phy-circuits': phyCircuitsStateSchema,
 };
 
 export const rubricTotal = (rubric: RubricCriterion[]) => rubric.reduce((t, c) => t + c.marks, 0);

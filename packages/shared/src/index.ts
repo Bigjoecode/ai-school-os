@@ -70,3 +70,4 @@ export * from './simulators/phy-glass-block';
 export * from './simulators/phy-optics';
 export * from './simulators/phy-moments';
 export * from './simulators/phy-spring';
+export * from './simulators/phy-circuits';

@@ -2611,6 +2611,8 @@ model Homework {
   /// For theory and projects: what a good answer contains (used to mark, never shown to students).
   markingGuide    String?
   allowLate       Boolean        @default(true)
+  /// PRACTICAL: labs the student handed in before the homework was published count too (otherwise only later ones do).
+  countEarlierLabs Boolean       @default(false)
   dueDate         DateTime       @db.Date
   /// DRAFT, PUBLISHED
   status          String         @default("DRAFT")

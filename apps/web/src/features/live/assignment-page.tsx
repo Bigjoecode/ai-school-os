@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 import { FormError } from '../operations/ui';
 import { type AssignmentView, useAssignment, useSubmitHomework } from './api';
 import { ACCEPT, AttachmentList, type FileKind, hostOf, kindOfFile, kindOfMime, UploadRows, useUploads } from './files';
-import { fmtScore, HandInBadge, SubmissionContent } from './handin';
+import { fmtScore, HandInBadge, PracticalBadge, SubmissionContent } from './handin';
 import { addDays, dayLabel, relativeDay, schoolToday, useSchoolTz } from './ui';
 
 const MAX_FILES = 10;
@@ -79,7 +79,7 @@ export default function AssignmentPage() {
               <DueBadge h={h} today={today} />
               {h.kind !== 'QUESTIONS' && <Badge variant="brand">{HOMEWORK_KIND_LABELS[h.kind]}</Badge>}
               {h.maxScore != null && <Badge variant="outline">Out of {h.maxScore}</Badge>}
-              <HandInBadge mine={sub} overdue={h.overdue} maxScore={h.maxScore} />
+              {practical ? <PracticalBadge h={h} mine={sub} /> : <HandInBadge mine={sub} overdue={h.overdue} maxScore={h.maxScore} />}
             </div>
             <p className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-relaxed">{h.instructions}</p>
             {h.questions.length > 0 && (
@@ -203,28 +203,32 @@ function PracticalCard({ h, status, sub, closed }: { h: HomeworkRow; status: Ass
     );
   }
   const lab = status?.lab ?? p.lab;
-  const doneText = !status?.done
-    ? lab
-      ? 'You haven’t handed in its virtual lab yet.'
-      : 'You haven’t passed its quick check yet.'
-    : lab
-      ? `Virtual lab done${status.attempts > 1 ? ` ${status.attempts} times` : ''}${status.best != null ? ` · best ${status.best}%` : ''}.`
-      : `Quick check passed${status.best != null ? ` · best ${status.best}%` : ''}.`;
+  const handedIn = sub?.status === 'GRADED';
+  const doneText = handedIn
+    ? `Handed in from your ${lab ? 'lab' : 'quick check'}${sub.score != null ? ` · ${fmtScore(sub.score)}/100` : ''}${status && status.attempts > 1 ? ` (best of ${status.attempts})` : ''}.`
+    : !status?.done
+      ? lab
+        ? 'Not started: you haven’t handed in its virtual lab yet.'
+        : 'Not started: you haven’t passed its quick check yet.'
+      : h.countEarlierLabs
+        ? 'Not handed in yet.'
+        : `Not handed in yet: your ${lab ? 'lab' : 'quick check'} from before this was set doesn’t count, so do it again.`;
   return (
     <Card className="p-4 sm:p-5">
       <div className="flex flex-wrap items-start gap-3">
         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
           <FlaskConical className="size-5" aria-hidden />
         </span>
-        <div className="min-w-0 flex-1">
+        {/* The button drops below on a phone rather than squeezing the title. */}
+        <div className="min-w-[12rem] flex-1">
           <p className="text-[12px] font-medium text-muted-foreground">Practical Academy · {p.subject}</p>
           <p className="text-[14.5px] font-medium">{p.title}</p>
-          <p className={cn('mt-0.5 flex items-center gap-1.5 text-[12.5px]', status?.done ? 'text-success' : 'text-muted-foreground')}>
-            {status?.done && <CheckCircle2 className="size-3.5" aria-hidden />}
+          <p className={cn('mt-0.5 flex items-center gap-1.5 text-[12.5px]', handedIn ? 'text-success' : 'text-muted-foreground')}>
+            {handedIn && <CheckCircle2 className="size-3.5 shrink-0" aria-hidden />}
             {doneText}
           </p>
         </div>
-        <Button asChild size="sm">
+        <Button asChild size="sm" variant={handedIn ? 'outline' : 'default'}>
           <Link to={`/learn/practicals/lesson/${encodeURIComponent(p.id)}`}>
             Open the practical <ArrowRight />
           </Link>

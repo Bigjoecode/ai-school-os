@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { PRACTICAL_HOMEWORK_MAX, homeworkSchema } from '@aischool/shared';
-import { bestHandIn, doneAttempts, handInFeedback, labLink, shouldWrite, splitLabLink, type HandInAttempt } from '../src/practicals/practical-homework';
+import { bestHandIn, doneAttempts, handInFeedback, handInNotice, labLink, shouldNotify, shouldWrite, splitLabLink, type HandInAttempt } from '../src/practicals/practical-homework';
 
 const day = (d: Date) => d.toISOString().slice(0, 10);
 const at = (s: string) => new Date(`${s}Z`);
@@ -85,4 +85,37 @@ test('homework schema: PRACTICAL needs a practical and is marked out of 100', ()
   const theory = homeworkSchema.parse({ ...base, kind: 'THEORY', maxScore: 20 });
   assert.equal(theory.practicalId, null);
   assert.equal(theory.maxScore, 20);
+});
+
+test('"Count labs already done": a lab from before publishing hands it in, and the best still wins', () => {
+  const earlier = lab('old', 22, '2026-10-12T09:00:00');
+  assert.equal(bestHandIn([earlier], true, hw, day), null);
+  const best = bestHandIn([earlier], true, { ...hw, countEarlierLabs: true }, day);
+  assert.equal(best?.attemptId, 'old');
+  assert.equal(best?.percent, 88);
+  assert.equal(best?.late, false);
+  // A better lab after publishing still wins; a worse one doesn't.
+  assert.equal(bestHandIn([earlier, lab('new', 25, '2026-10-21T09:00:00')], true, { ...hw, countEarlierLabs: true }, day)?.attemptId, 'new');
+  assert.equal(bestHandIn([earlier, lab('new', 10, '2026-10-21T09:00:00')], true, { ...hw, countEarlierLabs: true }, day)?.attemptId, 'old');
+  // Still needs the homework to be published, and a handed-in lab.
+  assert.equal(bestHandIn([earlier], true, { ...hw, publishedAt: null, countEarlierLabs: true }, day), null);
+  assert.equal(bestHandIn([lab('open', 25, null)], true, { ...hw, countEarlierLabs: true }, day), null);
+});
+
+test('the student is told only when the hand-in is new or its mark changed', () => {
+  const best = bestHandIn([lab('a', 23, '2026-10-21T09:00:00')], true, hw, day)!;
+  assert.equal(shouldNotify(null, best), true);
+  assert.equal(shouldNotify({ score: 60 }, best), true);
+  assert.equal(shouldNotify({ score: null }, best), true);
+  assert.equal(shouldNotify({ score: 92 }, best), false);
+  assert.equal(handInNotice('Titration homework', best).title, 'Titration homework: handed in from your lab, 92/100');
+  const check = bestHandIn([{ id: 'c', mode: 'CHECK', score: 4, maxScore: 5, override: null, submittedAt: at('2026-10-21T09:00:00') }], false, hw, day)!;
+  assert.equal(handInNotice('Safety', check).title, 'Safety: handed in from your quick check, 80/100');
+});
+
+test('homework schema: only a practical counts labs already done', () => {
+  const base = { classArmId: 'arm1', title: 'Acid-base titration', instructions: 'Do the virtual lab', dueDate: '2026-10-30' };
+  assert.equal(homeworkSchema.parse({ ...base, kind: 'PRACTICAL', practicalId: 'pr-x' }).countEarlierLabs, false);
+  assert.equal(homeworkSchema.parse({ ...base, kind: 'PRACTICAL', practicalId: 'pr-x', countEarlierLabs: true }).countEarlierLabs, true);
+  assert.equal(homeworkSchema.parse({ ...base, kind: 'THEORY', countEarlierLabs: true }).countEarlierLabs, false);
 });

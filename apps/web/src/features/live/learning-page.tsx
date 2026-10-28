@@ -13,7 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useMyLearning } from './api';
 import { AttachmentList } from './files';
-import { HandInBadge } from './handin';
+import { HandInBadge, PracticalBadge } from './handin';
 import { addDays, dayLabel, JoinButton, LiveStatusBadge, NotesText, OpensHint, ProviderIcon, relativeDay, schoolDate, schoolToday, timeRange, useSchoolTz } from './ui';
 
 type LiveItem = MyLearning['liveClasses'][number];
@@ -175,6 +175,8 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
   // Students get their own hand-in (or null); parents don't.
   const student = h.mine !== undefined;
   const todo = student && (!h.mine || h.mine.status === 'RETURNED') && (!h.overdue || h.allowLate);
+  // PRACTICAL homework is handed in by its lab (or quick check).
+  const practical = h.kind === 'PRACTICAL' ? (h.practical ?? null) : undefined;
   return (
     <Card className={cn('overflow-hidden', h.overdue && 'opacity-80')}>
       <button
@@ -195,6 +197,7 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
             {h.teacher && ` · ${h.teacher}`}
             {h.children.length > 0 && ` · for ${names(h.children)}`}
           </span>
+          {practical && <span className="mt-0.5 block truncate text-[12.5px]">Practical: {practical.title}</span>}
           <span className="mt-2 flex flex-wrap gap-1.5">
             {h.overdue ? (
               <Badge variant="danger" className="gap-1">
@@ -212,7 +215,7 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
                 <Paperclip /> {h.attachments.length}
               </Badge>
             )}
-            {student && <HandInBadge mine={h.mine} overdue={h.overdue} maxScore={h.maxScore} />}
+            {student && (practical !== undefined ? <PracticalBadge h={h} mine={h.mine} /> : <HandInBadge mine={h.mine} overdue={h.overdue} maxScore={h.maxScore} />)}
           </span>
         </span>
         <ChevronDown className={cn('mt-1 size-4 shrink-0 text-muted-foreground transition-transform', open && 'rotate-180')} aria-hidden />
@@ -239,7 +242,7 @@ function HomeworkCard({ h, today }: { h: HomeworkItem; today: string }) {
         <div className={cn('flex justify-end border-t border-border px-4 py-2.5', todo && 'bg-brand-soft/20')}>
           <Button asChild size="sm" variant={todo ? 'default' : 'outline'}>
             <Link to={`/learning/homework/${h.id}`}>
-              {todo ? (h.mine?.status === 'RETURNED' ? 'Redo and hand in' : 'Open and hand in') : 'Open'} <ArrowRight />
+              {todo ? (practical !== undefined ? 'Open' : h.mine?.status === 'RETURNED' ? 'Redo and hand in' : 'Open and hand in') : 'Open'} <ArrowRight />
             </Link>
           </Button>
         </div>

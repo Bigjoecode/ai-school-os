@@ -164,6 +164,8 @@ export const homeworkSchema = z
     maxScore: z.number().int().min(1).max(1000).nullish().transform((v) => v ?? null),
     markingGuide: z.string().trim().max(5000).nullish().transform((v) => v || null),
     allowLate: z.boolean().default(true),
+    /** PRACTICAL: labs handed in before the homework was published count too (otherwise only later ones). */
+    countEarlierLabs: z.boolean().default(false),
     /** The syllabus topic it practises: marked work counts towards the student's topic mastery. */
     topicId: z.string().nullish().transform((v) => v || null),
   })
@@ -171,8 +173,8 @@ export const homeworkSchema = z
     if (v.kind === 'PRACTICAL' && !v.practicalId) ctx.addIssue({ code: 'custom', path: ['practicalId'], message: 'Choose the practical to do' });
     if (v.kind !== 'PRACTICAL' && v.practicalId) ctx.addIssue({ code: 'custom', path: ['practicalId'], message: 'Only a practical assignment has a practical' });
   })
-  // A practical is marked as a percentage of its lab.
-  .transform((v) => (v.kind === 'PRACTICAL' ? { ...v, maxScore: PRACTICAL_HOMEWORK_MAX } : v));
+  // A practical is marked as a percentage of its lab; only a practical counts earlier labs.
+  .transform((v) => (v.kind === 'PRACTICAL' ? { ...v, maxScore: PRACTICAL_HOMEWORK_MAX } : { ...v, countEarlierLabs: false }));
 export type HomeworkInput = z.infer<typeof homeworkSchema>;
 
 export const homeworkListQuerySchema = z.object({
@@ -281,6 +283,8 @@ export interface HomeworkRow {
   submissionTypes: ('TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT' | 'LINK')[];
   maxScore: number | null;
   allowLate: boolean;
+  /** PRACTICAL: labs handed in before it was published count too. */
+  countEarlierLabs: boolean;
   /** The syllabus topic it practises (marked work counts towards mastery). */
   topic?: { id: string; name: string } | null;
   /** Staff list only: the private marking guide (so editing keeps it). */

@@ -37,6 +37,7 @@ import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
 import { subjectKey } from '../learning/mastery.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
+import { PracticalHomeworkService } from '../practicals/practical-homework.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveProvidersService } from './providers.service';
 import { LiveService, displayStatus, liveInclude } from './live.service';
@@ -62,6 +63,7 @@ export class LiveController {
     private readonly jwt: JwtService,
     private readonly audit: AuditService,
     private readonly evidence: SchoolEvidenceService,
+    private readonly practicalHomework: PracticalHomeworkService,
   ) {}
 
   /** Paid channels (SMS, email, WhatsApp) need messaging permission. Checked before anything is saved. */
@@ -464,6 +466,7 @@ export class LiveController {
         maxScore: body.maxScore,
         markingGuide: body.markingGuide,
         allowLate: body.allowLate,
+        countEarlierLabs: body.countEarlierLabs,
         dueDate: parseDate(body.dueDate),
         status: body.publish ? 'PUBLISHED' : 'DRAFT',
         publishedAt: body.publish ? new Date() : null,
@@ -472,6 +475,8 @@ export class LiveController {
       include: homeworkInclude,
     });
     if (body.publish) await this.notifyParents(h.classArmId, body.notifyParents as Channel[], this.homeworkMessage(h.title, h.subject?.name ?? null, body.dueDate, h.instructions));
+    // Labs already done hand it in straight away (never fails the publish).
+    if (body.publish && h.kind === 'PRACTICAL' && h.countEarlierLabs) await this.practicalHomework.handInClass(h.tenantId, h.id);
     await this.audit.log({ action: 'homework.created', entityType: 'Homework', entityId: h.id, summary: `${body.publish ? 'Set' : 'Drafted'} homework "${h.title}" for ${h.classArm.classLevel.name} ${h.classArm.name}` });
     return this.live.homeworkRow(h, school.today);
   }
@@ -497,6 +502,7 @@ export class LiveController {
         maxScore: body.maxScore,
         markingGuide: body.markingGuide,
         allowLate: body.allowLate,
+        countEarlierLabs: body.countEarlierLabs,
         dueDate: parseDate(body.dueDate),
         subjectId: body.subjectId,
         topicId: await this.checkTopic(body.topicId, body.subjectId),
@@ -505,6 +511,8 @@ export class LiveController {
       include: homeworkInclude,
     });
     if (publishing) await this.notifyParents(h.classArmId, body.notifyParents as Channel[], this.homeworkMessage(h.title, h.subject?.name ?? null, body.dueDate, h.instructions));
+    // Published with labs already done counting (or switched on since): hand it in for those students (never fails the save).
+    if (h.status === 'PUBLISHED' && h.kind === 'PRACTICAL' && h.countEarlierLabs && (publishing || !before.countEarlierLabs || before.practicalId !== h.practicalId || before.kind !== 'PRACTICAL')) await this.practicalHomework.handInClass(h.tenantId, h.id);
     // Marked hand-ins now count towards a different topic, out of a different maximum, or not at all (PRACTICAL).
     if (h.topicId !== before.topicId || h.maxScore !== before.maxScore || h.kind !== before.kind) await this.evidence.syncHomework(h.id);
     return this.live.homeworkRow(h, school.today);

@@ -636,6 +636,7 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
       submissionTypes: h.submissionTypes as HomeworkRow['submissionTypes'],
       maxScore: h.maxScore,
       allowLate: h.allowLate,
+      countEarlierLabs: h.countEarlierLabs,
       ...(h.topic !== undefined ? { topic: h.topic ? { id: h.topic.id, name: h.topic.name } : null } : {}),
       ...(h.practical !== undefined ? { practical: h.practical ? { id: h.practical.id, title: h.practical.title, subject: h.practical.subject, lab: !!h.practical.simulator } : null } : {}),
     };

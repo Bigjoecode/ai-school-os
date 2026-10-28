@@ -12,5 +12,7 @@ import { PracticalsService } from './practicals.service';
   imports: [AiModule, LearningModule, ClassInsightsModule],
   controllers: [PracticalsController, PracticalsTeachingController],
   providers: [PracticalsService, PracticalsTeacherService, PracticalHomeworkService],
+  // Live homework hands a PRACTICAL assignment in for the class when it's published.
+  exports: [PracticalHomeworkService],
 })
 export class PracticalsModule {}

@@ -338,6 +338,8 @@ interface Values {
   maxScore: string;
   markingGuide: string;
   allowLate: boolean;
+  /** PRACTICAL: labs done before publishing count too. */
+  countEarlierLabs: boolean;
   links: { url: string; name: string }[];
   /** PRACTICAL: the chosen Practical Academy lesson. */
   practical: Pick<PracticalPickItem, 'id' | 'title' | 'subject' | 'lab'> & { topic?: { id: string; name: string } | null } | null;
@@ -417,6 +419,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
             maxScore: homework.maxScore != null ? String(homework.maxScore) : '',
             markingGuide: homework.markingGuide ?? '',
             allowLate: homework.allowLate,
+            countEarlierLabs: homework.countEarlierLabs,
             links: homework.attachments.filter((a) => a.type === 'LINK').map((a) => ({ url: a.url, name: a.name })),
             practical: homework.practical ? { ...homework.practical, topic: homework.topic ?? null } : null,
           }
@@ -435,6 +438,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
             maxScore: '',
             markingGuide: '',
             allowLate: true,
+            countEarlierLabs: false,
             links: [],
             practical: null,
           },
@@ -498,6 +502,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
       maxScore: v.maxScore.trim() ? Number(v.maxScore) : null,
       markingGuide: v.markingGuide,
       allowLate: v.allowLate,
+      countEarlierLabs: isPractical && v.countEarlierLabs,
       attachments: [
         ...uploads.done.map((f) => ({ type: 'FILE' as const, fileId: f.fileId, url: '', name: f.name, mimeType: f.mimeType })),
         ...v.links.map((l) => ({ type: 'LINK' as const, fileId: null, url: l.url, name: l.name.slice(0, 200) })),
@@ -529,7 +534,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
           {!v ? (
             <Skeleton className="h-80 w-full" />
           ) : (
-            <form id="hw-form" onSubmit={submit(v.publish)} noValidate className="grid gap-4">
+            <form id="hw-form" onSubmit={submit(v.publish)} noValidate className="grid gap-4 [&>*]:min-w-0">
               <div className="grid gap-4 sm:grid-cols-2 [&>*]:min-w-0">
                 <Field label="Class" htmlFor="hw-arm" error={errors.classArmId} hint={editing ? 'The class can’t be changed.' : undefined}>
                   <Select value={v.classArmId || undefined} onValueChange={(classArmId) => set({ classArmId })} disabled={editing}>
@@ -783,6 +788,18 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
                 </span>
                 <Switch checked={v.allowLate} onCheckedChange={(allowLate) => set({ allowLate })} aria-label="Accept late work" className="mt-0.5" />
               </label>
+
+              {isPractical && (
+                <label className="flex cursor-pointer items-start justify-between gap-3 rounded-xl border border-border px-3.5 py-3">
+                  <span className="min-w-0">
+                    <span className="block text-[13px] font-medium">Count labs already done</span>
+                    <span className="block text-[12px] text-muted-foreground">
+                      {v.countEarlierLabs ? 'A lab a student handed in before you set this counts too: they’re marked as soon as it’s published.' : 'Only labs handed in after you set this count.'}
+                    </span>
+                  </span>
+                  <Switch checked={v.countEarlierLabs} onCheckedChange={(countEarlierLabs) => set({ countEarlierLabs })} aria-label="Count labs already done" className="mt-0.5" />
+                </label>
+              )}
 
               {!isPractical && (
                 <Field

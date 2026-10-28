@@ -2,8 +2,10 @@ import type { CameraPresets } from '../../../lab3d-kit/controls';
 import { DEFAULT_ROOM, type RoomConfig } from '../../../lab3d-kit/room';
 import { SPOT } from './spots';
 
-/** The titration's camera presets at the bench (the kit adds 'bench'). */
+/** The titration's camera presets at the bench. */
 export const TITRATION_VIEWS: CameraPresets = {
+  /** The whole bench: stepped back from the kit's default so the notebook (front right) and the task card (back left) stay clear of the view buttons and the edges. */
+  bench: { target: [0.12, 0.1, 0.02], dist: 1.55, pitch: 0.68 },
   burette: { target: [SPOT.buretteAxis[0], 0.42, SPOT.buretteAxis[2]], dist: 0.85, pitch: 0.1 },
   flask: { target: [SPOT.buretteAxis[0], 0.13, SPOT.buretteAxis[2]], dist: 0.42, pitch: 0.38 },
   /** The flask on the bench while B is pipetted into it. */

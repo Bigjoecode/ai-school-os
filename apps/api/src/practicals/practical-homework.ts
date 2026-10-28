@@ -24,6 +24,8 @@ export interface HandInHomework {
   /** YYYY-MM-DD */
   dueDate: string;
   allowLate: boolean;
+  /** The teacher's "Count labs already done": attempts from before publishing count too. */
+  countEarlierLabs?: boolean;
 }
 
 export interface HandIn {
@@ -59,7 +61,8 @@ export function doneAttempts(attempts: HandInAttempt[], hasLab: boolean): (HandI
 
 /**
  * The attempt that hands the homework in: the best one handed in after the
- * homework was published, and by the due date unless late work is accepted
+ * homework was published (or any, when the teacher counts labs already done),
+ * and by the due date unless late work is accepted
  * (as a normal hand-in: late once the school's day is past the due date).
  * Ties keep the earlier attempt. `dayOf` gives an instant's date at the school.
  */
@@ -67,7 +70,7 @@ export function bestHandIn(attempts: HandInAttempt[], hasLab: boolean, h: HandIn
   if (!h.publishedAt) return null;
   let best: HandIn | null = null;
   for (const a of doneAttempts(attempts, hasLab)) {
-    if (a.submittedAt < h.publishedAt) continue;
+    if (!h.countEarlierLabs && a.submittedAt < h.publishedAt) continue;
     const late = dayOf(a.submittedAt) > h.dueDate;
     if (late && !h.allowLate) continue;
     if (best && (a.percent < best.percent || (a.percent === best.percent && a.submittedAt >= best.submittedAt))) continue;
@@ -94,6 +97,20 @@ export function handInFeedback(best: HandIn): string {
   if (best.mode === 'CHECK') return `Quick check passed: ${fmt(best.score)}/${fmt(best.maxScore)} (${best.percent}%). Handed in automatically from the Practical Academy.`;
   const what = best.mode === 'EXAM' ? 'Timed practical' : 'Virtual lab';
   return `${what}: ${fmt(best.score)}/${fmt(best.maxScore)} (${best.percent}%)${best.reviewed ? ', reviewed by your teacher' : ''}. Handed in automatically from the Practical Academy: open the lab result for the marks on each criterion.`;
+}
+
+/** Whether the student hears about the hand-in: it's new, or its mark changed. */
+export function shouldNotify(existing: { score: number | null } | null, best: HandIn): boolean {
+  return !existing || existing.score !== best.percent;
+}
+
+/** The student's in-app notice for an automatic hand-in. */
+export function handInNotice(title: string, best: HandIn): { title: string; body: string } {
+  const from = best.mode === 'CHECK' ? 'your quick check' : 'your lab';
+  return {
+    title: `${title}: handed in from ${from}, ${best.percent}/100`.slice(0, 160),
+    body: best.mode === 'CHECK' ? 'Your Practical Academy quick check handed in this homework for you.' : 'Your Practical Academy lab handed in this homework for you. Open it for the marks on each criterion.',
+  };
 }
 
 /** The student's lab result page, kept in the hand-in's links (the web shows it as "Open the lab result"). */

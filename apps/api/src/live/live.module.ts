@@ -6,11 +6,12 @@ import { LearningModule } from '../learning/learning.module';
 import { AssignmentsController } from './assignments.controller';
 import { LiveController } from './live.controller';
 import { LiveService } from './live.service';
+import { PracticalsModule } from '../practicals/practicals.module';
 import { LiveProvidersService } from './providers.service';
 
 /** Phase 11: live classes on Meet, Zoom and BigBlueButton; attendance, recordings, AI class summaries; homework. */
 @Module({
-  imports: [AiModule, CommsModule, FilesModule, LearningModule],
+  imports: [AiModule, CommsModule, FilesModule, LearningModule, PracticalsModule],
   controllers: [LiveController, AssignmentsController],
   providers: [LiveService, LiveProvidersService],
 })

@@ -1,5 +1,5 @@
 import type { HomeworkRow, SubmissionRow } from '@aischool/shared';
-import { AlertTriangle, CheckCircle2, Clock, RotateCcw } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Clock, FlaskConical, RotateCcw } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { FileView, LinkRow } from './files';
@@ -38,6 +38,31 @@ export function HandInBadge({ mine, overdue, maxScore, className }: { mine: Pick
   return (
     <Badge variant={mine.late ? 'warning' : 'info'} className={cn('gap-1', className)}>
       <Clock /> {mine.late ? 'Handed in late' : 'Handed in'}
+    </Badge>
+  );
+}
+
+/** PRACTICAL homework, for the student: "Lab done · 91/100", or what's still to do. */
+export function PracticalBadge({ h, mine, className }: { h: Pick<HomeworkRow, 'practical' | 'overdue' | 'allowLate'>; mine: Pick<Mine, 'status' | 'score'> | null | undefined; className?: string }) {
+  const lab = h.practical?.lab ?? true;
+  if (mine?.status === 'GRADED') {
+    return (
+      <Badge variant="success" className={cn('gap-1', className)}>
+        <CheckCircle2 /> {lab ? 'Lab done' : 'Quick check passed'}
+        {mine.score != null && <span className="tabular">· {fmtScore(mine.score)}/100</span>}
+      </Badge>
+    );
+  }
+  if (h.overdue && !h.allowLate) {
+    return (
+      <Badge variant="danger" className={cn('gap-1', className)}>
+        <AlertTriangle /> Not handed in
+      </Badge>
+    );
+  }
+  return (
+    <Badge variant={h.overdue ? 'warning' : 'outline'} className={cn('gap-1', className)}>
+      <FlaskConical /> {lab ? 'Do the lab' : 'Do the quick check'}
     </Badge>
   );
 }

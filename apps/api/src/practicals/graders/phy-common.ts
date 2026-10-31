@@ -62,6 +62,12 @@ export function phyUnit(raw: string | null | undefined): string {
     [/^(cm\/n|cmn-1|cmpern)$/, 'cm/N'],
     [/^(s2\/kg|s2kg-1|s2perkg)$/, 's2/kg'],
     [/^(s2\/g|s2g-1|s2perg)$/, 's2/g'],
+    // phy-sound: speeds (a slope of l against 1/f, or of f against 1/l, is in Hz m = m s⁻¹), frequency, mass per length
+    [/^(m\/s|ms-1|mpers|hzm|mhz|hz-m|m-hz)$/, 'm/s'],
+    [/^(cm\/s|cms-1|cmpers|hzcm|cmhz|hz-cm|cm-hz)$/, 'cm/s'],
+    [/^(hz|hertz|s-1|\/s|1\/s|cycles\/s)$/, 'Hz'],
+    [/^(kg\/m|kgm-1|kgperm|kilogramperm|kilogramsperm)$/, 'kg/m'],
+    [/^(g\/m|gm-1|gperm)$/, 'g/m'],
   ];
   for (const [re, u] of table) if (re.test(c)) return u;
   return `other:${c}`;

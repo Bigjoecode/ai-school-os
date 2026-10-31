@@ -29,6 +29,8 @@ export function setMuted(m: boolean) {
   muted = m;
   if (m) stopPour();
 }
+/** The lab's sound toggle as it is now (for a lab that makes its own continuous sounds, e.g. a tuning fork). */
+export const isMuted = () => muted;
 
 function tone(a: AudioContext, freq: number, start: number, dur: number, type: OscillatorType, vol: number, endFreq?: number) {
   const o = a.createOscillator();

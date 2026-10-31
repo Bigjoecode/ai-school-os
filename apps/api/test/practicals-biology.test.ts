@@ -308,7 +308,8 @@ test('content: every lesson linked to a biology lab can be served by its variant
   const file = JSON.parse(readFileSync(join(__dirname, '../prisma/practicals/waec/biology.json'), 'utf8')) as { practicals: { id: string; simulator: string | null }[] };
   const micro = file.practicals.filter((p) => p.simulator === 'bio-microscope');
   const bench = file.practicals.filter((p) => p.simulator === 'bio-specimens');
-  assert.ok(micro.length >= 6 && bench.length >= 17);
+  // pr-bio-plasmolysis moved to bio-osmosis, so five lessons remain on the microscope.
+  assert.ok(micro.length >= 5 && bench.length >= 17);
   for (const p of micro) assert.ok(MICRO_PRACTICAL_SLIDES[p.id], `${p.id} has no slide`);
   for (const p of bench) assert.ok(SPECIMEN_PRACTICAL_SETS[p.id], `${p.id} has no specimen set`);
 });

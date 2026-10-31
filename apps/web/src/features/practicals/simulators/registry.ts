@@ -7,6 +7,8 @@ import { bioMicroscopeMissing } from './bio-microscope/missing';
 import { bioSpecimensMissing } from './bio-specimens/missing';
 import { emptyBioFoodState } from '@aischool/shared';
 import { bioFoodMissing } from './bio-food-tests/missing';
+import { emptyBioOsmosisState } from '@aischool/shared';
+import { bioOsmosisMissing } from './bio-osmosis/missing';
 import { chemTitrationMissing } from './chem-titration/missing';
 import { chemQualitativeMissing } from './chem-qualitative/missing';
 import { emptyChemRatesState } from '@aischool/shared';
@@ -33,6 +35,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
     missing: bioMicroscopeMissing,
   },
   'bio-food-tests': { id: 'bio-food-tests', component: lazy(() => import('./bio-food-tests')), component3d: lazy(() => import('./bio-food-tests/lab3d')), empty: emptyBioFoodState, missing: bioFoodMissing },
+  'bio-osmosis': { id: 'bio-osmosis', component: lazy(() => import('./bio-osmosis')), component3d: lazy(() => import('./bio-osmosis/lab3d')), empty: emptyBioOsmosisState, missing: bioOsmosisMissing },
   'bio-specimens': {
     id: 'bio-specimens',
     component: lazy(() => import('./bio-specimens')),

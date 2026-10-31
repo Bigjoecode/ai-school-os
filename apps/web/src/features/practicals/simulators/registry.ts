@@ -11,6 +11,8 @@ import { chemTitrationMissing } from './chem-titration/missing';
 import { chemQualitativeMissing } from './chem-qualitative/missing';
 import { emptyChemRatesState } from '@aischool/shared';
 import { chemRatesMissing } from './chem-rates/missing';
+import { emptyChemRedoxState } from '@aischool/shared';
+import { chemRedoxMissing } from './chem-redox/missing';
 import { phyGlassMissing } from './phy-glass-block/missing';
 import { phyOhmsMissing } from './phy-ohms-law/missing';
 import { phyMomentsMissing } from './phy-moments/missing';
@@ -47,6 +49,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   },
   'chem-qualitative': { id: 'chem-qualitative', component: lazy(() => import('./chem-qualitative')), component3d: lazy(() => import('./chem-qualitative/lab3d')), empty: emptyChemQualitativeState, missing: chemQualitativeMissing },
   'chem-rates': { id: 'chem-rates', component: lazy(() => import('./chem-rates')), component3d: lazy(() => import('./chem-rates/lab3d')), empty: emptyChemRatesState, missing: chemRatesMissing },
+  'chem-redox': { id: 'chem-redox', component: lazy(() => import('./chem-redox')), component3d: lazy(() => import('./chem-redox/lab3d')), empty: emptyChemRedoxState, missing: chemRedoxMissing },
   'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), component3d: lazy(() => import('./phy-pendulum/lab3d')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
   'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), component3d: lazy(() => import('./phy-ohms-law/lab3d')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },
   'phy-glass-block': { id: 'phy-glass-block', component: lazy(() => import('./phy-glass-block')), component3d: lazy(() => import('./phy-glass-block/lab3d')), empty: emptyPhyGlassState, missing: phyGlassMissing },

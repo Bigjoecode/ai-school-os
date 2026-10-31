@@ -58,8 +58,19 @@ function Graduations({ detail }: { detail: boolean }) {
   );
 }
 
+/**
+ * Optional colour of the burette's solution (default: a colourless solution).
+ * `dark`: too dark to see through (e.g. KMnO₄), so only the top edge of the
+ * meniscus shows — no dark band at its bottom. The wall edge is 1.6 mm (0.16
+ * cm³) above the bottom of the curve.
+ */
+export interface BuretteLiquid {
+  colour: string;
+  opacity?: number;
+  dark?: boolean;
+}
 /** The column of acid with its concave meniscus (bottom of the curve exactly at the reading). */
-function AcidColumn({ level }: { level: number }) {
+function AcidColumn({ level, liquid }: { level: number; liquid?: BuretteLiquid }) {
   const geo = useMemo(() => {
     const y = buretteY(level);
     const r = BU.rIn - 0.0001;
@@ -73,18 +84,20 @@ function AcidColumn({ level }: { level: number }) {
   const y = buretteY(level);
   return (
     <group>
-      <mesh geometry={geo} material={liquidMaterial('#d5e9f7', 0.42)} renderOrder={2} />
+      <mesh geometry={geo} material={liquidMaterial(liquid?.colour ?? '#d5e9f7', liquid?.opacity ?? 0.42)} renderOrder={2} />
       {/* the meniscus line: the dark band you read the bottom of */}
-      <mesh position={[0, y + 0.0007, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={3}>
-        <torusGeometry args={[BU.rIn - 0.0012, 0.0006, 6, 40]} />
-        <meshBasicMaterial color="#22384f" transparent opacity={0.8} depthWrite={false} />
-      </mesh>
+      {!liquid?.dark && (
+        <mesh position={[0, y + 0.0007, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={3}>
+          <torusGeometry args={[BU.rIn - 0.0012, 0.0006, 6, 40]} />
+          <meshBasicMaterial color="#22384f" transparent opacity={0.8} depthWrite={false} />
+        </mesh>
+      )}
     </group>
   );
 }
 
 /** `tapOpen`: how far the tap is open now, 0–1 (read every frame; e.g. the lab's tap control). */
-export function Burette({ level, bubble, tapOpen, detail = true, glow }: { level: number | null; bubble: boolean; tapOpen?: () => number; detail?: boolean; glow?: boolean }) {
+export function Burette({ level, bubble, tapOpen, detail = true, glow, liquid }: { level: number | null; bubble: boolean; tapOpen?: () => number; detail?: boolean; glow?: boolean; liquid?: BuretteLiquid }) {
   const glass = useMemo(() => {
     const p = [v2(0.0016, 0), v2(0.0022, 0.004), v2(0.0026, 0.04), v2(0.0034, BU.tap - 0.008), v2(0.0034, BU.tap + 0.01), v2(0.003, BU.y50 - 0.03), v2(BU.rOut, BU.y50 - 0.006), v2(BU.rOut, BU.top - 0.004), v2(BU.rOut + 0.0012, BU.top)];
     return lathe(p, 28);
@@ -98,9 +111,9 @@ export function Burette({ level, bubble, tapOpen, detail = true, glow }: { level
   });
   return (
     <group>
-      {level !== null && <AcidColumn level={level} />}
+      {level !== null && <AcidColumn level={level} liquid={liquid} />}
       {level !== null && (
-        <mesh position={[0, 0.03, 0]} material={liquidMaterial('#d5e9f7', 0.42)}>
+        <mesh position={[0, 0.03, 0]} material={liquidMaterial(liquid?.colour ?? '#d5e9f7', liquid?.opacity ?? 0.42)}>
           <cylinderGeometry args={[0.0016, 0.0012, 0.06, 10]} />
         </mesh>
       )}
@@ -172,7 +185,8 @@ export function ConicalFlask({ volume, colour, flash, glow }: { volume: number; 
 
 // ------------------------------------------------------------------ pipette and filler
 /** A 25.0 cm³ bulb pipette standing on its tip (origin): 0.46 m long. */
-export function Pipette({ filled, glow }: { filled: number; glow?: boolean }) {
+/** `colour`: optional colour of the liquid drawn up (default: a colourless solution). */
+export function Pipette({ filled, glow, colour }: { filled: number; glow?: boolean; colour?: string }) {
   const glass = useMemo(
     () => lathe([v2(0.0012, 0), v2(0.0026, 0.03), v2(0.0034, 0.12), v2(0.012, 0.15), v2(0.013, 0.19), v2(0.012, 0.23), v2(0.0034, 0.26), v2(0.0034, 0.455), v2(0.0038, 0.46)], 24),
     [],
@@ -180,7 +194,7 @@ export function Pipette({ filled, glow }: { filled: number; glow?: boolean }) {
   return (
     <group>
       {filled > 0 && (
-        <mesh material={liquidMaterial('#dfeff8', 0.55)}>
+        <mesh material={liquidMaterial(colour ?? '#dfeff8', colour ? 0.75 : 0.55)}>
           <latheGeometry args={[[v2(0.001, 0.002), v2(0.0022, 0.03), v2(0.003, 0.12), v2(0.011, 0.15), v2(0.012, 0.19), v2(0.011, 0.23), v2(0.003, 0.26), v2(0.003, 0.26 + 0.12 * filled), v2(0, 0.26 + 0.12 * filled)], 16]} />
         </mesh>
       )}

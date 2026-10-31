@@ -5,6 +5,7 @@ import { bioSpecimensGrader } from './bio-specimens';
 import { bioFoodGrader } from './bio-food-tests';
 import { chemQualitativeGrader } from './chem-qualitative';
 import { chemRatesGrader } from './chem-rates';
+import { chemRedoxGrader } from './chem-redox';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
 import { phyMomentsGrader } from './phy-moments';
@@ -22,6 +23,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'bio-food-tests': bioFoodGrader,
   'chem-qualitative': chemQualitativeGrader,
   'chem-rates': chemRatesGrader,
+  'chem-redox': chemRedoxGrader,
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,

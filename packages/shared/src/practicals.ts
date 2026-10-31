@@ -14,6 +14,7 @@ import { PHY_OPTICS, phyOpticsStateSchema, type PhyOpticsState } from './simulat
 import { PHY_MOMENTS, phyMomentsStateSchema, type PhyMomentsState } from './simulators/phy-moments';
 import { PHY_SPRING, phySpringStateSchema, type PhySpringState } from './simulators/phy-spring';
 import { PHY_CIRCUITS, phyCircuitsStateSchema, type PhyCircuitsState } from './simulators/phy-circuits';
+import { PHY_HEAT, phyHeatStateSchema, type PhyHeatState } from './simulators/phy-heat';
 import { PHY_SOUND, phySoundStateSchema, type PhySoundState } from './simulators/phy-sound';
 
 /**
@@ -42,7 +43,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-sound', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -85,6 +86,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'phy-moments': PHY_MOMENTS,
   'phy-spring': PHY_SPRING,
   'phy-circuits': PHY_CIRCUITS,
+  'phy-heat': PHY_HEAT,
   'phy-sound': PHY_SOUND,
 };
 
@@ -105,6 +107,7 @@ export interface SimulatorStates {
   'phy-moments': PhyMomentsState;
   'phy-spring': PhySpringState;
   'phy-circuits': PhyCircuitsState;
+  'phy-heat': PhyHeatState;
   'phy-sound': PhySoundState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
@@ -126,6 +129,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'phy-moments': phyMomentsStateSchema,
   'phy-spring': phySpringStateSchema,
   'phy-circuits': phyCircuitsStateSchema,
+  'phy-heat': phyHeatStateSchema,
   'phy-sound': phySoundStateSchema,
 };
 

@@ -23,6 +23,8 @@ import { phyPendulumMissing } from './phy-pendulum/missing';
 import { phySpringMissing } from './phy-spring/missing';
 import { emptyPhyCircuitsState } from '@aischool/shared';
 import { phyCircuitsMissing } from './phy-circuits/missing';
+import { emptyPhyHeatState } from '@aischool/shared';
+import { phyHeatMissing } from './phy-heat/missing';
 import { emptyPhySoundState } from '@aischool/shared';
 import { phySoundMissing } from './phy-sound/missing';
 import type { SimulatorEntry } from './types';
@@ -62,6 +64,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'phy-moments': { id: 'phy-moments', component: lazy(() => import('./phy-moments')), component3d: lazy(() => import('./phy-moments/lab3d')), empty: emptyPhyMomentsState, missing: phyMomentsMissing },
   'phy-spring': { id: 'phy-spring', component: lazy(() => import('./phy-spring')), component3d: lazy(() => import('./phy-spring/lab3d')), empty: emptyPhySpringState, missing: phySpringMissing },
   'phy-circuits': { id: 'phy-circuits', component: lazy(() => import('./phy-circuits')), component3d: lazy(() => import('./phy-circuits/lab3d')), empty: emptyPhyCircuitsState, missing: phyCircuitsMissing },
+  'phy-heat': { id: 'phy-heat', component: lazy(() => import('./phy-heat')), component3d: lazy(() => import('./phy-heat/lab3d')), empty: emptyPhyHeatState, missing: phyHeatMissing },
   'phy-sound': { id: 'phy-sound', component: lazy(() => import('./phy-sound')), component3d: lazy(() => import('./phy-sound/lab3d')), empty: emptyPhySoundState, missing: phySoundMissing },
 };
 

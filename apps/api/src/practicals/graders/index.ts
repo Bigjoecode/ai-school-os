@@ -14,6 +14,7 @@ import { phyOpticsGrader } from './phy-optics';
 import { phyPendulumGrader } from './phy-pendulum';
 import { phySpringGrader } from './phy-spring';
 import { phyCircuitsGrader } from './phy-circuits';
+import { phyHeatGrader } from './phy-heat';
 import { phySoundGrader } from './phy-sound';
 import type { SimulatorGrader } from './types';
 
@@ -34,6 +35,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'phy-moments': phyMomentsGrader,
   'phy-spring': phySpringGrader,
   'phy-circuits': phyCircuitsGrader,
+  'phy-heat': phyHeatGrader,
   'phy-sound': phySoundGrader,
 };
 

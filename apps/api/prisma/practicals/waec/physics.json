@@ -1294,7 +1294,7 @@
           "explanation": "It quickly reaches the temperature of its contents and absorbs little heat."
         }
       ],
-      "simulator": null
+      "simulator": "phy-heat"
     },
     {
       "id": "pr-phy-latent-heat-of-fusion",
@@ -1383,7 +1383,7 @@
           "explanation": "Water at 0 °C added with the ice is counted as ice but needs no latent heat, so the calculated L would be too low."
         }
       ],
-      "simulator": null
+      "simulator": "phy-heat"
     },
     {
       "id": "pr-phy-cooling-curve",
@@ -1473,7 +1473,7 @@
           "explanation": "Avoids direct flame contact."
         }
       ],
-      "simulator": null
+      "simulator": "phy-heat"
     },
     {
       "id": "pr-phy-linear-expansivity",

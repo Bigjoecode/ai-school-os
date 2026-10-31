@@ -73,4 +73,5 @@ export * from './simulators/phy-optics';
 export * from './simulators/phy-moments';
 export * from './simulators/phy-spring';
 export * from './simulators/phy-circuits';
+export * from './simulators/phy-heat';
 export * from './simulators/phy-sound';

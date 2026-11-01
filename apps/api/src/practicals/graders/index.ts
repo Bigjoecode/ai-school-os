@@ -16,6 +16,7 @@ import { phySpringGrader } from './phy-spring';
 import { phyCircuitsGrader } from './phy-circuits';
 import { phyHeatGrader } from './phy-heat';
 import { phySoundGrader } from './phy-sound';
+import { phyDensityGrader } from './phy-density';
 import type { SimulatorGrader } from './types';
 
 /** Every simulator's grader. A new virtual lab adds its grader here (the record type makes a missing one a compile error). */
@@ -37,6 +38,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'phy-circuits': phyCircuitsGrader,
   'phy-heat': phyHeatGrader,
   'phy-sound': phySoundGrader,
+  'phy-density': phyDensityGrader,
 };
 
 export function graderFor<Id extends SimulatorId>(id: Id): SimulatorGrader<Id> {

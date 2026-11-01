@@ -9,6 +9,7 @@ import { chemQualitativeGrader } from './chem-qualitative';
 import { chemRatesGrader } from './chem-rates';
 import { chemRedoxGrader } from './chem-redox';
 import { chemEnergeticsGrader } from './chem-energetics';
+import { chemSaltsGrader } from './chem-salts';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
 import { phyMomentsGrader } from './phy-moments';
@@ -33,6 +34,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-rates': chemRatesGrader,
   'chem-redox': chemRedoxGrader,
   'chem-energetics': chemEnergeticsGrader,
+  'chem-salts': chemSaltsGrader,
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,

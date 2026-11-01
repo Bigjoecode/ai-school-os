@@ -7,6 +7,7 @@ import { bioOsmosisGrader } from './bio-osmosis';
 import { chemQualitativeGrader } from './chem-qualitative';
 import { chemRatesGrader } from './chem-rates';
 import { chemRedoxGrader } from './chem-redox';
+import { chemEnergeticsGrader } from './chem-energetics';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
 import { phyMomentsGrader } from './phy-moments';
@@ -29,6 +30,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-qualitative': chemQualitativeGrader,
   'chem-rates': chemRatesGrader,
   'chem-redox': chemRedoxGrader,
+  'chem-energetics': chemEnergeticsGrader,
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,

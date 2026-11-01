@@ -35,6 +35,8 @@ import { emptyPhySoundState } from '@aischool/shared';
 import { phySoundMissing } from './phy-sound/missing';
 import { emptyPhyDensityState } from '@aischool/shared';
 import { phyDensityMissing } from './phy-density/missing';
+import { emptyPhyPinsState } from '@aischool/shared';
+import { phyPinsMissing } from './phy-pins/missing';
 import type { SimulatorEntry } from './types';
 
 /** Every virtual lab's web side. A new simulator adds its entry here (the mapped type makes a missing one a compile error). */
@@ -78,6 +80,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'phy-heat': { id: 'phy-heat', component: lazy(() => import('./phy-heat')), component3d: lazy(() => import('./phy-heat/lab3d')), empty: emptyPhyHeatState, missing: phyHeatMissing },
   'phy-sound': { id: 'phy-sound', component: lazy(() => import('./phy-sound')), component3d: lazy(() => import('./phy-sound/lab3d')), empty: emptyPhySoundState, missing: phySoundMissing },
   'phy-density': { id: 'phy-density', component: lazy(() => import('./phy-density')), component3d: lazy(() => import('./phy-density/lab3d')), empty: emptyPhyDensityState, missing: phyDensityMissing },
+  'phy-pins': { id: 'phy-pins', component: lazy(() => import('./phy-pins')), component3d: lazy(() => import('./phy-pins/lab3d')), empty: emptyPhyPinsState, missing: phyPinsMissing },
 };
 
 export function simulatorUi<Id extends SimulatorId>(id: Id): SimulatorEntry<Id> {

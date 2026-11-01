@@ -20,6 +20,7 @@ import { PHY_CIRCUITS, phyCircuitsStateSchema, type PhyCircuitsState } from './s
 import { PHY_HEAT, phyHeatStateSchema, type PhyHeatState } from './simulators/phy-heat';
 import { PHY_SOUND, phySoundStateSchema, type PhySoundState } from './simulators/phy-sound';
 import { PHY_DENSITY, phyDensityStateSchema, type PhyDensityState } from './simulators/phy-density';
+import { PHY_PINS, phyPinsStateSchema, type PhyPinsState } from './simulators/phy-pins';
 
 /**
  * WAEC Practical Academy: a guided lesson for every syllabus topic with
@@ -47,7 +48,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -96,6 +97,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'phy-heat': PHY_HEAT,
   'phy-sound': PHY_SOUND,
   'phy-density': PHY_DENSITY,
+  'phy-pins': PHY_PINS,
 };
 
 /** The state each simulator saves and submits (typed per simulator). */
@@ -121,6 +123,7 @@ export interface SimulatorStates {
   'phy-heat': PhyHeatState;
   'phy-sound': PhySoundState;
   'phy-density': PhyDensityState;
+  'phy-pins': PhyPinsState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
 
@@ -147,6 +150,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'phy-heat': phyHeatStateSchema,
   'phy-sound': phySoundStateSchema,
   'phy-density': phyDensityStateSchema,
+  'phy-pins': phyPinsStateSchema,
 };
 
 export const rubricTotal = (rubric: RubricCriterion[]) => rubric.reduce((t, c) => t + c.marks, 0);

@@ -7,6 +7,7 @@ import { bioOsmosisGrader } from './bio-osmosis';
 import { bioPlantGrader } from './bio-plant';
 import { bioEcologyGrader } from './bio-ecology';
 import { bioHumanGrader } from './bio-human';
+import { bioGrowthGrader } from './bio-growth';
 import { chemQualitativeGrader } from './chem-qualitative';
 import { chemRatesGrader } from './chem-rates';
 import { chemRedoxGrader } from './chem-redox';
@@ -39,6 +40,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'bio-plant': bioPlantGrader,
   'bio-ecology': bioEcologyGrader,
   'bio-human': bioHumanGrader,
+  'bio-growth': bioGrowthGrader,
   'chem-qualitative': chemQualitativeGrader,
   'chem-rates': chemRatesGrader,
   'chem-redox': chemRedoxGrader,

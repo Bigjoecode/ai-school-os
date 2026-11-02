@@ -63,6 +63,7 @@ export * from './simulators/bio-specimens';
 export * from './simulators/bio-food-tests';
 export * from './simulators/bio-osmosis';
 export * from './simulators/bio-plant';
+export * from './simulators/bio-ecology';
 export * from './simulators/chem-qualitative';
 export * from './simulators/chem-rates';
 export * from './simulators/chem-redox';

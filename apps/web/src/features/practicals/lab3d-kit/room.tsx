@@ -554,6 +554,8 @@ export interface RoomConfig {
   doorPoster?: PosterKind | PosterSpec;
   /** The lab's own static room furniture (world coordinates), e.g. posters, a notice board, bench fittings. */
   extras?: ReactNode;
+  /** Optional: replaces the whole room (walls, benches, cupboard, front wall) with the lab's own surroundings, e.g. an outdoor field; the safety corner stays. */
+  custom?: ReactNode;
 }
 export const DEFAULT_ROOM: RoomConfig = {
   whiteboard: ['Chemistry — SS3 Practical', 'Volumetric analysis: acid–base titration', 'Rough titration first, then accurate ones', 'Record burette readings to 2 d.p.'],
@@ -564,6 +566,7 @@ export const DEFAULT_ROOM: RoomConfig = {
 
 /** Everything static in the room. */
 export function Room({ config = DEFAULT_ROOM }: { config?: RoomConfig }) {
+  if (config.custom) return <group>{config.custom}</group>;
   return (
     <group>
       <Shell />

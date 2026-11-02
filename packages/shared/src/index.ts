@@ -85,3 +85,4 @@ export * from './simulators/phy-sound';
 export * from './simulators/phy-density';
 export * from './simulators/phy-pins';
 export * from './simulators/phy-mechanics';
+export * from './simulators/phy-thermal';

@@ -69,6 +69,7 @@ export * from './simulators/chem-rates';
 export * from './simulators/chem-redox';
 export * from './simulators/chem-energetics';
 export * from './simulators/chem-salts';
+export * from './simulators/chem-electro';
 export * from './simulators/phy-common';
 export * from './simulators/phy-pendulum';
 export * from './simulators/phy-ohms-law';

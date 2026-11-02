@@ -6,6 +6,7 @@ import { BIO_FOOD_TESTS, bioFoodStateSchema, type BioFoodState } from './simulat
 import { BIO_OSMOSIS, bioOsmosisStateSchema, type BioOsmosisState } from './simulators/bio-osmosis';
 import { BIO_PLANT, bioPlantStateSchema, type BioPlantState } from './simulators/bio-plant';
 import { BIO_ECOLOGY, bioEcologyStateSchema, type BioEcologyState } from './simulators/bio-ecology';
+import { BIO_HUMAN, bioHumanStateSchema, type BioHumanState } from './simulators/bio-human';
 import { CHEM_QUALITATIVE, chemQualitativeStateSchema, type ChemQualitativeState } from './simulators/chem-qualitative';
 import { CHEM_RATES, chemRatesStateSchema, type ChemRatesState } from './simulators/chem-rates';
 import { CHEM_REDOX, chemRedoxStateSchema, type ChemRedoxState } from './simulators/chem-redox';
@@ -51,7 +52,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology', 'bio-human'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -85,6 +86,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'bio-osmosis': BIO_OSMOSIS,
   'bio-plant': BIO_PLANT,
   'bio-ecology': BIO_ECOLOGY,
+  'bio-human': BIO_HUMAN,
   'chem-titration': CHEM_TITRATION,
   'chem-qualitative': CHEM_QUALITATIVE,
   'chem-rates': CHEM_RATES,
@@ -114,6 +116,7 @@ export interface SimulatorStates {
   'bio-osmosis': BioOsmosisState;
   'bio-plant': BioPlantState;
   'bio-ecology': BioEcologyState;
+  'bio-human': BioHumanState;
   'chem-titration': ChemTitrationState;
   'chem-qualitative': ChemQualitativeState;
   'chem-rates': ChemRatesState;
@@ -144,6 +147,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'bio-osmosis': bioOsmosisStateSchema,
   'bio-plant': bioPlantStateSchema,
   'bio-ecology': bioEcologyStateSchema,
+  'bio-human': bioHumanStateSchema,
   'chem-titration': chemTitrationStateSchema,
   'chem-qualitative': chemQualitativeStateSchema,
   'chem-rates': chemRatesStateSchema,

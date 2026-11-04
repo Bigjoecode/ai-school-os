@@ -28,6 +28,7 @@ import { PHY_DENSITY, phyDensityStateSchema, type PhyDensityState } from './simu
 import { PHY_PINS, phyPinsStateSchema, type PhyPinsState } from './simulators/phy-pins';
 import { PHY_MECHANICS, phyMechanicsStateSchema, type PhyMechanicsState } from './simulators/phy-mechanics';
 import { PHY_THERMAL, phyThermalStateSchema, type PhyThermalState } from './simulators/phy-thermal';
+import { PHY_MAGNETISM, phyMagnetismStateSchema, type PhyMagnetismState } from './simulators/phy-magnetism';
 
 /**
  * WAEC Practical Academy: a guided lesson for every syllabus topic with
@@ -55,7 +56,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'chem-acids', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'phy-thermal', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology', 'bio-human', 'bio-growth'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'chem-acids', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'phy-thermal', 'phy-magnetism', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology', 'bio-human', 'bio-growth'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -112,6 +113,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'phy-pins': PHY_PINS,
   'phy-mechanics': PHY_MECHANICS,
   'phy-thermal': PHY_THERMAL,
+  'phy-magnetism': PHY_MAGNETISM,
 };
 
 /** The state each simulator saves and submits (typed per simulator). */
@@ -145,6 +147,7 @@ export interface SimulatorStates {
   'phy-pins': PhyPinsState;
   'phy-mechanics': PhyMechanicsState;
   'phy-thermal': PhyThermalState;
+  'phy-magnetism': PhyMagnetismState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
 
@@ -179,6 +182,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'phy-pins': phyPinsStateSchema,
   'phy-mechanics': phyMechanicsStateSchema,
   'phy-thermal': phyThermalStateSchema,
+  'phy-magnetism': phyMagnetismStateSchema,
 };
 
 export const rubricTotal = (rubric: RubricCriterion[]) => rubric.reduce((t, c) => t + c.marks, 0);

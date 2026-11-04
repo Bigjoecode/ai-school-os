@@ -19,6 +19,8 @@ import { emptyBioGrowthState } from '@aischool/shared';
 import { bioGrowthMissing } from './bio-growth/missing';
 import { emptyBioGeneticsState } from '@aischool/shared';
 import { bioGeneticsMissing } from './bio-genetics/missing';
+import { emptyBioDissectionState } from '@aischool/shared';
+import { bioDissectionMissing } from './bio-dissection/missing';
 import { chemTitrationMissing } from './chem-titration/missing';
 import { chemQualitativeMissing } from './chem-qualitative/missing';
 import { emptyChemRatesState } from '@aischool/shared';
@@ -77,6 +79,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'bio-human': { id: 'bio-human', component: lazy(() => import('./bio-human')), component3d: lazy(() => import('./bio-human/lab3d')), empty: emptyBioHumanState, missing: bioHumanMissing },
   'bio-growth': { id: 'bio-growth', component: lazy(() => import('./bio-growth')), component3d: lazy(() => import('./bio-growth/lab3d')), empty: emptyBioGrowthState, missing: bioGrowthMissing },
   'bio-genetics': { id: 'bio-genetics', component: lazy(() => import('./bio-genetics')), component3d: lazy(() => import('./bio-genetics/lab3d')), empty: emptyBioGeneticsState, missing: bioGeneticsMissing },
+  'bio-dissection': { id: 'bio-dissection', component: lazy(() => import('./bio-dissection')), component3d: lazy(() => import('./bio-dissection/lab3d')), empty: emptyBioDissectionState, missing: bioDissectionMissing },
   'bio-specimens': {
     id: 'bio-specimens',
     component: lazy(() => import('./bio-specimens')),

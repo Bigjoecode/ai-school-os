@@ -17,6 +17,7 @@ import { chemSaltsGrader } from './chem-salts';
 import { chemElectroGrader } from './chem-electro';
 import { chemAcidsGrader } from './chem-acids';
 import { chemOrganicGrader } from './chem-organic';
+import { chemPrepGrader } from './chem-prep';
 import { phyGlassGrader } from './phy-glass-block';
 import { phyOhmsGrader } from './phy-ohms-law';
 import { phyMomentsGrader } from './phy-moments';
@@ -53,6 +54,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-electro': chemElectroGrader,
   'chem-acids': chemAcidsGrader,
   'chem-organic': chemOrganicGrader,
+  'chem-prep': chemPrepGrader,
   'phy-pendulum': phyPendulumGrader,
   'phy-ohms-law': phyOhmsGrader,
   'phy-glass-block': phyGlassGrader,

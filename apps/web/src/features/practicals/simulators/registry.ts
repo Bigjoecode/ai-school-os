@@ -31,6 +31,8 @@ import { emptyChemElectroState } from '@aischool/shared';
 import { emptyChemAcidsState } from '@aischool/shared';
 import { chemElectroMissing } from './chem-electro/missing';
 import { chemAcidsMissing } from './chem-acids/missing';
+import { emptyChemOrganicState } from '@aischool/shared';
+import { chemOrganicMissing } from './chem-organic/missing';
 import { phyGlassMissing } from './phy-glass-block/missing';
 import { phyOhmsMissing } from './phy-ohms-law/missing';
 import { phyMomentsMissing } from './phy-moments/missing';
@@ -91,6 +93,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'chem-salts': { id: 'chem-salts', component: lazy(() => import('./chem-salts')), component3d: lazy(() => import('./chem-salts/lab3d')), empty: emptyChemSaltsState, missing: chemSaltsMissing },
   'chem-electro': { id: 'chem-electro', component: lazy(() => import('./chem-electro')), component3d: lazy(() => import('./chem-electro/lab3d')), empty: emptyChemElectroState, missing: chemElectroMissing },
   'chem-acids': { id: 'chem-acids', component: lazy(() => import('./chem-acids')), component3d: lazy(() => import('./chem-acids/lab3d')), empty: emptyChemAcidsState, missing: chemAcidsMissing },
+  'chem-organic': { id: 'chem-organic', component: lazy(() => import('./chem-organic')), component3d: lazy(() => import('./chem-organic/lab3d')), empty: emptyChemOrganicState, missing: chemOrganicMissing },
   'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), component3d: lazy(() => import('./phy-pendulum/lab3d')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
   'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), component3d: lazy(() => import('./phy-ohms-law/lab3d')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },
   'phy-glass-block': { id: 'phy-glass-block', component: lazy(() => import('./phy-glass-block')), component3d: lazy(() => import('./phy-glass-block/lab3d')), empty: emptyPhyGlassState, missing: phyGlassMissing },

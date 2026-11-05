@@ -1,5 +1,5 @@
 import type { CbtExamSummary, CbtPhase } from '@aischool/shared';
-import { CalendarClock, CheckCircle2, Clock, KeyRound, MonitorCheck, Plus, Users } from 'lucide-react';
+import { CalendarClock, CheckCircle2, Clock, FlaskConical, KeyRound, MonitorCheck, Plus, Users } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -47,7 +47,16 @@ export default function OnlineExamsPage() {
       <PageHeader
         title="Online Exams"
         description="Run computer-based tests in the lab or on phones. Objective questions are marked instantly, written answers by you with optional AI help, and scores can go straight to the score sheet."
-        actions={scheduleButton}
+        actions={
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline">
+              <Link to="/practical-tests">
+                <FlaskConical /> Practical tests
+              </Link>
+            </Button>
+            {scheduleButton}
+          </div>
+        }
       />
       {list.isLoading ? (
         <CardGridSkeleton />

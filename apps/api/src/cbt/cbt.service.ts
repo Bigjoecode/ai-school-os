@@ -6,7 +6,6 @@ import {
   type CbtAttemptStatus,
   type CbtExamStatus,
   type CbtExamSummary,
-  type CbtPhase,
   type CbtRosterRow,
   type CbtShowResults,
   type QuestionType,
@@ -19,6 +18,7 @@ import { registerTickTask } from '../common/tick-tasks';
 import { PrismaService } from '../prisma/prisma.service';
 import { AssessmentSettingsService } from '../assessment/assessment-settings.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
+import { phaseOf, resultVisibility } from './cbt-rules';
 
 /** One question as this student sees it: `order[displayed] = original option index`. */
 export interface LayoutItem {
@@ -69,31 +69,12 @@ function shuffle<T>(xs: T[]): T[] {
   return a;
 }
 
-export function phaseOf(e: Pick<OnlineExam, 'status' | 'opensAt' | 'closesAt'>, now = new Date()): CbtPhase {
-  if (e.status === 'DRAFT') return 'DRAFT';
-  if (e.status === 'CLOSED' || now >= e.closesAt) return 'ENDED';
-  return now < e.opensAt ? 'UPCOMING' : 'OPEN';
-}
+// Where an exam is in time and what a sitter may see: shared with practical assessments.
+export { phaseOf, resultVisibility } from './cbt-rules';
 
 export const layoutOf = (a: Pick<OnlineExamAttempt, 'layout'>) => a.layout as unknown as Layout;
 export const answersOf = (a: Pick<OnlineExamAttempt, 'answers'>) => (a.answers ?? {}) as unknown as StoredAnswers;
 export const theoryMarksOf = (a: Pick<OnlineExamAttempt, 'theoryMarks'>) => (a.theoryMarks ?? {}) as unknown as Record<string, number>;
-
-/**
- * What a student (and so their parents) may see of a handed-in attempt right
- * now: the score per the exam's "show results" choice, and the answers only
- * once nobody can still be sitting the exam (or the teacher released them).
- */
-export function resultVisibility(e: Pick<OnlineExam, 'status' | 'opensAt' | 'closesAt' | 'showResults' | 'resultsReleasedAt'>, a: Pick<OnlineExamAttempt, 'status'>, now = new Date()) {
-  if (a.status === 'IN_PROGRESS') return { score: false, review: false };
-  const ended = phaseOf(e, now) === 'ENDED';
-  const released = !!e.resultsReleasedAt;
-  const show = e.showResults as CbtShowResults;
-  return {
-    score: released || show === 'IMMEDIATE' || (show === 'AFTER_CLOSE' && ended),
-    review: released || (ended && show !== 'NEVER'),
-  };
-}
 
 export function isAnswered(v: number | string | null | undefined) {
   return typeof v === 'number' || (typeof v === 'string' && v.trim().length > 0);

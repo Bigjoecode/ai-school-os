@@ -140,7 +140,7 @@ export class PracticalsTeacherService {
 
   async attempt(id: string): Promise<PracticalTeacherAttemptView> {
     const { a, lesson, student, canOverride } = await this.visible(id);
-    return { ...(await this.practicals.view(a, lesson)), studentId: a.studentId, student: student ? fullName(student) : 'Student', canOverride: canOverride && !!a.submittedAt };
+    return { ...(await this.practicals.view(a, lesson, { staff: true })), studentId: a.studentId, student: student ? fullName(student) : 'Student', canOverride: canOverride && !!a.submittedAt };
   }
 
   /** A teacher's reviewed score replaces the marked one (kept alongside it) and is audited; the student sees "Reviewed by your teacher". */

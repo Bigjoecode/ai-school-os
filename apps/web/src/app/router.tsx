@@ -154,6 +154,8 @@ const PracticalLabPage = lazy(() => import('@/features/practicals/lab-page'));
 const PracticalTeachingPage = lazy(() => import('@/features/practicals/teaching-page'));
 const PracticalReviewPage = lazy(() => import('@/features/practicals/teaching-page').then((m) => ({ default: m.PracticalReviewPage })));
 const OnlineExamsPage = lazy(() => import('@/features/cbt/online-exams-page'));
+const PracticalTestsPage = lazy(() => import('@/features/practical-tests/list-page'));
+const PracticalTestPage = lazy(() => import('@/features/practical-tests/results-page'));
 const OnlineExamPage = lazy(() => import('@/features/cbt/exam-page'));
 const MyExamsPage = lazy(() => import('@/features/cbt/my-exams-page'));
 const ExamRoomPage = lazy(() => import('@/features/cbt/exam-room-page'));
@@ -559,6 +561,9 @@ export const router = createBrowserRouter(withRouteErrors([
           </RequirePermission>
         ),
       },
+      // Practical tests: a virtual lab set as a timed class test or exam.
+      { path: 'practical-tests', element: <RequirePermission permission="assessment.read"><PracticalTestsPage /></RequirePermission> },
+      { path: 'practical-tests/:id', element: <RequirePermission permission="assessment.read"><PracticalTestPage /></RequirePermission> },
       { path: 'my-exams', element: <RequirePermission permission="learning.use"><MyExamsPage /></RequirePermission> },
       {
         path: 'results',

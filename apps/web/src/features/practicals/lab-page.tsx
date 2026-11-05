@@ -124,18 +124,29 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
   return (
     <>
       <PageHeader
-        eyebrow={`${view.subject} · Virtual lab`}
+        eyebrow={`${view.subject} · ${view.assessment ? (view.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : 'Virtual lab'}`}
         title={view.title}
         description={view.topic ?? view.spec.title}
         actions={
           <Button asChild variant="outline" size="sm">
-            <Link to={`/learn/practicals/lesson/${encodeURIComponent(view.practicalId)}`}>
-              <ArrowLeft /> Lesson
+            <Link to={view.assessment ? '/my-exams' : `/learn/practicals/lesson/${encodeURIComponent(view.practicalId)}`}>
+              <ArrowLeft /> {view.assessment ? 'Exams' : 'Lesson'}
             </Link>
           </Button>
         }
       />
-      {view.submittedAt ? (
+      {view.submittedAt && !view.result ? (
+        <Card className="flex flex-col items-center gap-3 p-8 text-center" role="status">
+          <div className="grid size-14 place-items-center rounded-2xl bg-success-soft text-success">
+            <CheckCircle2 className="size-7" aria-hidden />
+          </div>
+          <p className="font-display text-lg font-semibold tracking-tight">Handed in{view.assessment ? `: ${view.assessment.title}` : ''}</p>
+          <p className="max-w-md text-[13.5px] text-muted-foreground">{view.assessment?.resultNote ?? 'Your lab has been marked.'}</p>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/my-exams">Back to Exams</Link>
+          </Button>
+        </Card>
+      ) : view.submittedAt ? (
         <div className="space-y-4">
           <LabResult a={view} />
           <div className="flex flex-wrap gap-2">
@@ -165,7 +176,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
         <div className="space-y-4">
           <div className="sticky top-2 z-10 flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/95 p-3 shadow-soft backdrop-blur">
             <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>
-              <FlaskConical /> {a.mode === 'EXAM' ? 'Timed practical' : 'Practice — untimed'}
+              <FlaskConical /> {a.assessment ? (a.mode === 'EXAM' ? 'Practical exam — one attempt' : 'Practical test — one attempt') : a.mode === 'EXAM' ? 'Timed practical' : 'Practice — untimed'}
             </Badge>
             {left != null && (
               <span className={cn('inline-flex items-center gap-1 font-display text-[15px] font-semibold tabular', lowTime ? 'text-danger' : 'text-foreground')} aria-live="off">

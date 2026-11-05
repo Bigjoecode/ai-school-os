@@ -16,7 +16,6 @@ import {
   type CbtPaperOption,
   type CbtResults,
   type CbtScorePreview,
-  type CbtScorePreviewRow,
   type CbtSendScoresResult,
   type CreateOnlineExamInput,
   type UpdateOnlineExamInput,
@@ -26,13 +25,14 @@ import { z } from 'zod';
 import type { OnlineExam } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AssessmentSettingsService } from '../assessment/assessment-settings.service';
-import { ResultsService } from '../assessment/results.service';
 import { AuditService } from '../audit/audit.service';
 import { RequirePermissions } from '../common/decorators';
 import { fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
+import { windowError } from './cbt-rules';
+import { ScoreSheetService } from '../assessment/score-sheet.service';
 import { CbtService, answersOf, isAnswered, isObjective, layoutOf, paperInclude, round1, theoryMarksOf, type PaperRow } from './cbt.service';
 
 const aiMarkSchema = z.object({
@@ -62,7 +62,7 @@ export class OnlineExamsController {
     private readonly prisma: PrismaService,
     private readonly cbt: CbtService,
     private readonly settings: AssessmentSettingsService,
-    private readonly results: ResultsService,
+    private readonly scoreSheet: ScoreSheetService,
     private readonly gateway: AiGatewayService,
     private readonly audit: AuditService,
   ) {}
@@ -483,66 +483,21 @@ export class OnlineExamsController {
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async sendScores(@Param('id') id: string, @Body(new ZodPipe(cbtSendScoresSchema)) body: z.output<typeof cbtSendScoresSchema>): Promise<CbtSendScoresResult> {
     const { exam, paper } = await this.cbt.staffExam(id, 'manage');
-    const preview = await this.preview(exam, paper);
-    const overwrite = new Set(body.overwriteStudentIds);
-    const write = preview.rows.filter((r) => r.status === 'NEW' || (r.status === 'CONFLICT' && overwrite.has(r.student.id)));
-    if (!write.length) return { written: 0, overwritten: 0, skipped: preview.rows.length };
-    const userId = currentContext().userId;
-    const tenantId = currentTenantId();
-    await this.prisma.db.$transaction(
-      write.map((r) =>
-        this.prisma.db.score.upsert({
-          where: { studentId_subjectId_termId_componentKey: { studentId: r.student.id, subjectId: paper.subjectId, termId: paper.termId, componentKey: paper.componentKey } },
-          update: { score: r.newScore!, classArmId: r.classArm!.id, enteredById: userId },
-          create: { tenantId, studentId: r.student.id, subjectId: paper.subjectId, termId: paper.termId, classArmId: r.classArm!.id, componentKey: paper.componentKey, score: r.newScore!, enteredById: userId },
-        }),
-      ),
-    );
-    const overwritten = write.filter((r) => r.status === 'CONFLICT').length;
-    await this.audit.log({
-      action: 'results.entered',
-      entityType: 'OnlineExam',
-      entityId: exam.id,
-      summary: `Sent ${write.length} ${paper.subject.name} ${preview.component.name} mark${write.length === 1 ? '' : 's'} from online exam "${exam.title}" to the score sheet${overwritten ? ` (replacing ${overwritten})` : ''}`,
-    });
-    return { written: write.length - overwritten, overwritten, skipped: preview.rows.length - write.length };
+    return this.scoreSheet.send(this.scoreTarget(paper), await this.scoreEntries(exam), body.overwriteStudentIds, { entityType: 'OnlineExam', entityId: exam.id, label: `online exam "${exam.title}"` });
   }
 
   private async preview(exam: OnlineExam, paper: PaperRow): Promise<CbtScorePreview> {
-    const { components } = await this.settings.get();
-    const component = components.find((c) => c.key === paper.componentKey);
-    if (!component) throw new BadRequestException('The assessment this paper feeds no longer exists in your assessment settings');
+    return this.scoreSheet.preview(this.scoreTarget(paper), await this.scoreEntries(exam));
+  }
+
+  private scoreTarget(paper: PaperRow) {
+    return { subjectId: paper.subjectId, termId: paper.termId, componentKey: paper.componentKey };
+  }
+
+  /** Handed-in attempts; only fully marked ones have a score to send. */
+  private async scoreEntries(exam: OnlineExam) {
     const attempts = await this.prisma.db.onlineExamAttempt.findMany({ where: { examId: exam.id, status: { not: 'IN_PROGRESS' } } });
-    const [students, existing] = await Promise.all([
-      this.prisma.db.student.findMany({
-        where: { id: { in: attempts.map((a) => a.studentId) } },
-        select: { id: true, firstName: true, lastName: true, admissionNumber: true, classArmId: true, classArm: { select: { id: true, name: true, classLevel: { select: { name: true } } } } },
-      }),
-      this.prisma.db.score.findMany({ where: { studentId: { in: attempts.map((a) => a.studentId) }, subjectId: paper.subjectId, termId: paper.termId, componentKey: paper.componentKey } }),
-    ]);
-    const byStudent = new Map(students.map((s) => [s.id, s]));
-    const existingBy = new Map(existing.map((s) => [s.studentId, Number(s.score)]));
-    const allowed = new Map<string, boolean>();
-    const rows: CbtScorePreviewRow[] = [];
-    for (const a of attempts) {
-      const s = byStudent.get(a.studentId);
-      if (!s) continue;
-      const arm = s.classArm ? { id: s.classArm.id, name: `${s.classArm.classLevel.name} ${s.classArm.name}` } : null;
-      const existingScore = existingBy.get(s.id) ?? null;
-      const newScore = a.status === 'MARKED' && a.score != null && a.total ? round1((a.score / a.total) * component.maxScore) : null;
-      let status: CbtScorePreviewRow['status'];
-      if (!arm) status = 'NO_CLASS';
-      else {
-        if (!allowed.has(arm.id)) allowed.set(arm.id, await this.results.canEnterScores(arm.id, paper.subjectId));
-        if (!allowed.get(arm.id)) status = 'NOT_ALLOWED';
-        else if (newScore == null) status = 'NOT_MARKED';
-        else if (existingScore == null) status = 'NEW';
-        else status = Math.abs(existingScore - newScore) < 0.005 ? 'SAME' : 'CONFLICT';
-      }
-      rows.push({ student: { id: s.id, name: fullName(s), admissionNumber: s.admissionNumber }, classArm: arm, status, newScore, existingScore });
-    }
-    rows.sort((x, y) => (x.classArm?.name ?? '').localeCompare(y.classArm?.name ?? '') || x.student.name.localeCompare(y.student.name));
-    return { component, subject: paper.subject, term: { id: paper.term.id, name: `${paper.term.name} · ${paper.term.session.name}` }, rows };
+    return attempts.map((a) => ({ studentId: a.studentId, score: a.status === 'MARKED' ? a.score : null, total: a.total }));
   }
 
   // ---------------------------------------------------------- helpers
@@ -556,11 +511,8 @@ export class OnlineExamsController {
   }
 
   private checkWindow(opensAt: string, closesAt: string, duration: number, scheduling: boolean) {
-    const open = Date.parse(opensAt);
-    const close = Date.parse(closesAt);
-    if (close <= open) throw new BadRequestException('The closing time must be after the opening time');
-    if (close - open < duration * 60_000) throw new BadRequestException(`The window must be at least ${duration} minutes long so everyone can get the full time`);
-    if (scheduling && close <= Date.now()) throw new BadRequestException('The closing time has already passed');
+    const err = windowError(opensAt, closesAt, duration, scheduling);
+    if (err) throw new BadRequestException(err);
   }
 
   private async when(d: Date) {

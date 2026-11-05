@@ -208,6 +208,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Question Bank', to: '/questions', icon: FileQuestionMark, permission: 'assessment.read', keywords: 'questions items objective theory' },
       { label: 'Exams', to: '/exams', icon: FileText, permission: 'assessment.read', keywords: 'exam papers tests' },
       { label: 'Online Exams', to: '/online-exams', icon: MonitorCheck, permission: 'assessment.read', keywords: 'cbt computer based test online exam lab timed live monitor marking' },
+      { label: 'Practical tests', to: '/practical-tests', icon: FlaskConical, permission: 'assessment.read', keywords: 'practical exam test virtual lab timed waec science chemistry physics biology score sheet' },
       { label: 'Results', to: '/results', icon: Trophy, permission: 'results.read', keywords: 'grades scores marks broadsheet analysis' },
       { label: 'Report Cards', to: '/report-cards', icon: Award, permission: 'results.read', keywords: 'reports remarks terminal' },
     ],

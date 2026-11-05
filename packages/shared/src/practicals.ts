@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { PracticalAttemptAssessment } from './practical-assessments';
 import { CHEM_TITRATION, chemTitrationStateSchema, type ChemTitrationState } from './simulators/chem-titration';
 import { BIO_MICROSCOPE, bioMicroscopeStateSchema, type BioMicroscopeState } from './simulators/bio-microscope';
 import { BIO_SPECIMENS, bioSpecimensStateSchema, type BioSpecimensState } from './simulators/bio-specimens';
@@ -396,6 +397,8 @@ export interface PracticalAttemptView<Id extends SimulatorId = SimulatorId> {
   submittedAt: string | null;
   serverNow: string;
   result: PracticalResult | null;
+  /** Set when this attempt is a sitting of a teacher-scheduled practical test or exam. */
+  assessment?: PracticalAttemptAssessment | null;
 }
 
 // ------------------------------------------------------------------ teachers

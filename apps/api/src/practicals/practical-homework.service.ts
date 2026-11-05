@@ -53,7 +53,7 @@ export class PracticalHomeworkService {
       const [tenant, attempts] = await Promise.all([
         db.tenant.findUniqueOrThrow({ where: { id: tenantId }, select: { timezone: true } }),
         db.practicalAttempt.findMany({
-          where: { tenantId, practicalId: h.practicalId, submittedAt: { not: null }, student: { classArmId: h.classArmId, status: 'ACTIVE' } },
+          where: { tenantId, practicalId: h.practicalId, submittedAt: { not: null }, assessmentId: null, student: { classArmId: h.classArmId, status: 'ACTIVE' } },
           select: { ...ATTEMPT, studentId: true, student: { select: { userId: true } } },
         }),
       ]);
@@ -95,7 +95,7 @@ export class PracticalHomeworkService {
     if (!homework.length) return 0;
     const [tenant, attempts] = await Promise.all([
       db.tenant.findUniqueOrThrow({ where: { id: a.tenantId }, select: { timezone: true } }),
-      db.practicalAttempt.findMany({ where: { tenantId: a.tenantId, studentId: a.studentId, practicalId: a.practicalId, submittedAt: { not: null } }, select: ATTEMPT }),
+      db.practicalAttempt.findMany({ where: { tenantId: a.tenantId, studentId: a.studentId, practicalId: a.practicalId, submittedAt: { not: null }, assessmentId: null }, select: ATTEMPT }),
     ]);
     const dayOf = (d: Date) => schoolNow(tenant.timezone, d).date;
     let written = 0;

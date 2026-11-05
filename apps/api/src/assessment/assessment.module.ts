@@ -10,12 +10,13 @@ import { ReportTemplatesController } from './report-templates.controller';
 import { ResultsController } from './results.controller';
 import { ResultsService } from './results.service';
 import { ReportCardService } from './report-card.service';
+import { ScoreSheetService } from './score-sheet.service';
 
 /** Phase 4: question bank, exam papers, scores, results, report cards and analysis. */
 @Module({
   imports: [AiModule, AttendanceModule, FilesModule],
   controllers: [QuestionsController, PapersController, ResultsController, ReportCardsController, ReportTemplatesController],
-  providers: [AssessmentSettingsService, ResultsService, ReportCardService],
-  exports: [ResultsService, AssessmentSettingsService, ReportCardService],
+  providers: [AssessmentSettingsService, ResultsService, ReportCardService, ScoreSheetService],
+  exports: [ResultsService, AssessmentSettingsService, ReportCardService, ScoreSheetService],
 })
 export class AssessmentModule {}

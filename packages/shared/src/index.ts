@@ -56,6 +56,7 @@ export * from './pricing';
 export * from './gate';
 export * from './wassce';
 export * from './practicals';
+export * from './practical-assessments';
 export * from './simulators/chem-titration';
 export * from './simulators/bio-common';
 export * from './simulators/bio-microscope';

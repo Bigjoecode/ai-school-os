@@ -231,6 +231,7 @@ model Tenant {
   practiceAttempts      PracticeAttempt[]
   examSittings          ExamSitting[]
   practicalAttempts     PracticalAttempt[]
+  practicalAssessments  PracticalAssessment[]
   kbDocuments           KbDocument[]
   reportCardTemplates   ReportCardTemplate[]
   admissionApplications AdmissionApplication[]
@@ -3444,13 +3445,55 @@ model PracticalAttempt {
   override     Json?
   reviewedById String?
   reviewedAt   DateTime?
+  /// Set when the attempt is a sitting of a teacher-scheduled practical test or exam (one per student).
+  assessmentId String?
 
-  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  tenant     Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  student    Student              @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  assessment PracticalAssessment? @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
 
+  @@unique([assessmentId, studentId])
   @@index([studentId, startedAt])
   @@index([tenantId, startedAt])
+  // The minute-by-minute sweep that hands in timed sittings whose clock ran out.
+  @@index([submittedAt, endsAt])
   @@map("practical_attempts")
+}
+
+/// A practical a teacher sets as a class test or exam for class arms: each student sits it once in the virtual lab, inside the window, on a fresh variant.
+model PracticalAssessment {
+  id                String    @id @default(cuid())
+  tenantId          String
+  /// PracticalLesson id (one with a virtual lab).
+  practicalId       String
+  /// The school subject it counts for (its name matches the lesson's subject).
+  subjectId         String
+  termId            String
+  title             String
+  /// TEST (the guided lab, assistant allowed) | EXAM (the lab's exam mode: Try only, no guidance)
+  kind              String    @default("EXAM")
+  classArmIds       String[]
+  opensAt           DateTime
+  closesAt          DateTime
+  durationMinutes   Int
+  /// Optional code the invigilator reads out.
+  accessCode        String?
+  /// IMMEDIATE (score after handing in), AFTER_CLOSE, NEVER (teacher releases later)
+  showResults       String    @default("AFTER_CLOSE")
+  /// Result component the marks can be copied into (ca1, exam…), scaled to its maximum; null: not for the score sheet.
+  componentKey      String?
+  /// DRAFT, SCHEDULED, CLOSED
+  status            String    @default("DRAFT")
+  resultsReleasedAt DateTime?
+  createdById       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  tenant   Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  attempts PracticalAttempt[]
+
+  @@index([tenantId, opensAt])
+  @@map("practical_assessments")
 }
 
 /// A full WASSCE mock in one subject: each paper is a PracticeAttempt on its own clock; the grade is kept once every in-app paper is marked.

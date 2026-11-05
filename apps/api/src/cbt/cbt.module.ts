@@ -13,5 +13,7 @@ import { OnlineExamsController } from './online-exams.controller';
   imports: [AiModule, AssessmentModule, LearningModule],
   controllers: [OfflineExamsStaffController, OnlineExamsController, MyExamsController, OfflineExamsController],
   providers: [CbtService, OfflineExamsService],
+  // Practical tests share the staff access rules (who teaches which class and subject).
+  exports: [CbtService],
 })
 export class CbtModule {}

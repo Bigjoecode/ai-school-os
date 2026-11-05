@@ -12,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { formatRelative } from '@/lib/format';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
+import { MyPracticalTests } from '../practical-tests/my-section';
 import { useMyExams } from './api';
 import { downloadMyPack } from './offline/api';
 import { windowLabel } from './ui';
@@ -42,6 +43,7 @@ export default function MyExamsPage() {
           </Button>
         }
       />
+      <MyPracticalTests />
       {q.isLoading ? (
         <div className="space-y-3">
           <Skeleton className="h-28 rounded-2xl" />

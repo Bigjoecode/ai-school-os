@@ -12,7 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { downloadResultsCsv, useCbtResults, useCbtScorePreview, useSendScores } from './api';
+import { downloadResultsCsv, useCbtResults, useScorePreview, useSendScores } from './api';
 import { AttemptBadge, LETTERS, minutesLabel } from './ui';
 
 export function ResultsPanel({ examId }: { examId: string }) {
@@ -135,7 +135,7 @@ export function ResultsPanel({ examId }: { examId: string }) {
         </ol>
       </section>
 
-      {sendOpen && <SendScoresDialog examId={examId} open={sendOpen} onOpenChange={setSendOpen} />}
+      {sendOpen && <SendScoresDialog base={`/online-exams/${examId}`} open={sendOpen} onOpenChange={setSendOpen} />}
     </div>
   );
 }
@@ -208,9 +208,10 @@ const STATUS_LABEL: Record<CbtScorePreviewRow['status'], string> = {
   NO_CLASS: 'Not in a class',
 };
 
-function SendScoresDialog({ examId, open, onOpenChange }: { examId: string; open: boolean; onOpenChange: (o: boolean) => void }) {
-  const p = useCbtScorePreview(examId, open);
-  const send = useSendScores(examId);
+/** Copies an assessment's marks to the score sheet (`base`: the online exam's or practical test's API path). */
+export function SendScoresDialog({ base, open, onOpenChange }: { base: string; open: boolean; onOpenChange: (o: boolean) => void }) {
+  const p = useScorePreview(base, open);
+  const send = useSendScores(base);
   const [overwrite, setOverwrite] = useState<Set<string>>(new Set());
   const rows = p.data?.rows ?? [];
   const by = (s: CbtScorePreviewRow['status']) => rows.filter((r) => r.status === s);

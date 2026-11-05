@@ -40,7 +40,7 @@ const invalidateExam = (id?: string) => {
     void queryClient.invalidateQueries({ queryKey: cbtKeys.exam(id) });
     void queryClient.invalidateQueries({ queryKey: cbtKeys.results(id) });
     void queryClient.invalidateQueries({ queryKey: cbtKeys.marking(id) });
-    void queryClient.invalidateQueries({ queryKey: cbtKeys.scores(id) });
+    void queryClient.invalidateQueries({ queryKey: ['score-copy', `/online-exams/${id}`] });
   }
 };
 
@@ -72,8 +72,9 @@ export function useCbtMarking(id: string, enabled = true) {
   return useQuery({ queryKey: cbtKeys.marking(id), queryFn: ({ signal }) => api.get<CbtMarkingSheet>(`/online-exams/${id}/marking`, undefined, signal), enabled });
 }
 
-export function useCbtScorePreview(id: string, enabled: boolean) {
-  return useQuery({ queryKey: cbtKeys.scores(id), queryFn: ({ signal }) => api.get<CbtScorePreview>(`/online-exams/${id}/scores/preview`, undefined, signal), enabled, staleTime: 0 });
+/** Score-sheet preview of any school assessment that copies marks (`base`: "/online-exams/<id>", "/practical-assessments/<id>"). */
+export function useScorePreview(base: string, enabled: boolean) {
+  return useQuery({ queryKey: ['score-copy', base], queryFn: ({ signal }) => api.get<CbtScorePreview>(`${base}/scores/preview`, undefined, signal), enabled, staleTime: 0 });
 }
 
 export function useCreateOnlineExam() {
@@ -127,7 +128,7 @@ export function useSaveMarks(id: string) {
       void queryClient.invalidateQueries({ queryKey: cbtKeys.marking(id) });
       void queryClient.invalidateQueries({ queryKey: cbtKeys.exam(id) });
       void queryClient.invalidateQueries({ queryKey: cbtKeys.results(id) });
-      void queryClient.invalidateQueries({ queryKey: cbtKeys.scores(id) });
+      void queryClient.invalidateQueries({ queryKey: ['score-copy', `/online-exams/${id}`] });
     },
   });
 }
@@ -138,11 +139,11 @@ export function useAiSuggest(id: string) {
   });
 }
 
-export function useSendScores(id: string) {
+export function useSendScores(base: string) {
   return useMutation({
-    mutationFn: (overwriteStudentIds: string[]) => api.post<CbtSendScoresResult>(`/online-exams/${id}/scores`, { overwriteStudentIds }),
+    mutationFn: (overwriteStudentIds: string[]) => api.post<CbtSendScoresResult>(`${base}/scores`, { overwriteStudentIds }),
     onSuccess: (r) => {
-      void queryClient.invalidateQueries({ queryKey: cbtKeys.scores(id) });
+      void queryClient.invalidateQueries({ queryKey: ['score-copy', base] });
       toast.success(`${r.written + r.overwritten} mark${r.written + r.overwritten === 1 ? '' : 's'} sent to the score sheet${r.overwritten ? ` (${r.overwritten} replaced)` : ''}`);
     },
   });

@@ -26,6 +26,8 @@ export interface StoredQuestion {
   markingGuide?: string | null;
   /** A licensed past question's exam year (shown with the question). */
   year?: number | null;
+  /** Where the question comes from, kept with the attempt ("WAEC past question 2011"). */
+  sourceLabel?: string;
 }
 
 const MOCK_GRACE_MS = 2 * 60_000;
@@ -130,6 +132,7 @@ export class StudyService {
         topic: q.topic,
         subject: q.subject ?? null,
         chosen: answers[i] ?? null,
+        ...(q.sourceLabel ? { sourceLabel: q.sourceLabel, year: q.year ?? null } : {}),
         ...(done ? { answer: q.answer, explanation: q.explanation, correct: answers[i] === q.answer, flagged: !!q.flagged } : {}),
       })),
       durationMinutes: a.durationMinutes,

@@ -28,6 +28,7 @@ import {
   tutorChatSchema,
   tutorSpeakSchema,
   utmeStartSchema,
+  waecPastStartSchema,
   type TutorVoiceInfo,
   type ExamBody,
   type ExamQuestionInput,
@@ -280,6 +281,20 @@ export class LearningController {
   async examTopics(@Query(new ZodPipe(z.object({ exam: z.enum(EXAMS), subject: z.string().trim().min(2).max(60) }))) q: { exam: ExamBody; subject: string }) {
     await this.entitlements.me();
     return this.exams.topics(q.exam, q.subject);
+  }
+
+  /** WAEC past questions for NECO revision (needs NECO Prep): the exam isn't a parameter, so nothing else of WAEC's can be reached this way. */
+  @Post('exams/waec-past/start')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  async startWaecPast(@Body(new ZodPipe(waecPastStartSchema)) body: z.infer<typeof waecPastStartSchema>) {
+    const { access } = await this.me();
+    return this.study.view(await this.exams.startWaecPast(access, body));
+  }
+
+  @Get('exams/waec-past/topics')
+  async waecPastTopics(@Query(new ZodPipe(z.object({ subject: z.string().trim().min(2).max(60) }))) q: { subject: string }) {
+    const { access } = await this.me();
+    return this.exams.waecPastTopics(access, q.subject);
   }
 
   /** Written (theory) practice, marked by AI against each question's marking guide. */

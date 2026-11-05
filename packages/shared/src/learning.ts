@@ -442,14 +442,16 @@ export interface PracticeQuestion {
   marks?: number;
   /** A licensed past question's exam year. */
   year?: number | null;
+  /** Where the question comes from, when that must be said with it ("WAEC past question 2011"). */
+  sourceLabel?: string;
   written?: string | null;
   markingGuide?: string | null;
   marking?: { score: number; outOf: number; strengths: string[]; missing: string[]; feedback: string } | null;
 }
 export interface PracticeAttemptView {
   id: string;
-  /** UTME: a full JAMB UTME CBT mock (Use of English + 3 subjects, one timer). */
-  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ' | 'THEORY' | 'UTME';
+  /** UTME: a full JAMB UTME CBT mock (Use of English + 3 subjects, one timer). WAEC_PAST: WAEC past questions practised with NECO Prep (exam stays WAEC). */
+  mode: 'PRACTICE' | 'MOCK' | 'AI_QUIZ' | 'THEORY' | 'UTME' | 'WAEC_PAST';
   exam: ExamBody | null;
   title: string;
   subject: string | null;
@@ -536,6 +538,20 @@ export const practiceStartSchema = z.object({
   year: z.number().int().min(1978).max(2100).nullish(),
 });
 
+/** What WAEC past questions are called wherever a NECO Prep holder meets them: they are never presented as NECO questions. */
+export const WAEC_PAST_NAME = 'WAEC past questions';
+/** One question's label, with its year where known. */
+export const waecPastLabel = (year?: number | null) => `WAEC past question${year ? ` ${year}` : ''}`;
+export const waecPastStartSchema = z.object({
+  subject: z.string().trim().min(2).max(60),
+  /** One year's questions, in their original order. */
+  year: z.number().int().min(1978).max(2100).nullish(),
+  /** Questions on this syllabus topic and its subtopics. */
+  topicId: z.string().nullish(),
+  /** Set size when no year is chosen. */
+  questions: z.number().int().min(5).max(100).default(20),
+});
+
 // ============================================================ JAMB UTME CBT mock
 
 /** The full UTME paper: Use of English (compulsory) 60 questions + 40 for each of three other subjects, one timer. */
@@ -596,6 +612,8 @@ export interface ExamCatalog {
     comingSoon?: { subject: string; questions: number; topics: number }[];
     /** Past papers by year (licensed past questions only). */
     pastPapers?: PastPaperRow[];
+    /** NECO, for NECO Prep holders only: subjects with published WAEC past questions to practise. */
+    waecPast?: { subject: string; questions: number; years: { year: number; questions: number }[] }[];
   }[];
   freePractice: { setsPerTerm: number; questionsPerSet: number; used: number };
   /** The student's school level (JAMB, WAEC and NECO are for senior classes, BECE for junior). */

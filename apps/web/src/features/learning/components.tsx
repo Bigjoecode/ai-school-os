@@ -12,6 +12,7 @@ import {
   MOCK_NAME,
   PRODUCT_PERIOD_LABELS,
   SCHOOL_EVIDENCE_SOURCES,
+  WAEC_PAST_NAME,
 } from '@aischool/shared';
 import { ArrowLeft, ArrowRight, Brain, Crown, Gauge, GraduationCap, HeartHandshake, Lock, PenLine, Sparkles, Trash2, Trophy, Zap } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -413,7 +414,7 @@ export function AddMemoryForm({ onAdd, pending, placeholder = 'e.g. I learn best
 
 // ------------------------------------------------------------------ attempts
 
-export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz', THEORY: 'Theory (AI-marked)', UTME: 'UTME CBT mock' };
+export const MODE_LABEL: Record<PracticeAttemptRow['mode'], string> = { PRACTICE: 'Practice', MOCK: 'Timed mock', AI_QUIZ: 'Quick quiz', THEORY: 'Theory (AI-marked)', UTME: 'UTME CBT mock', WAEC_PAST: WAEC_PAST_NAME };
 
 export function scoreTone(pct: number | null) {
   if (pct == null) return 'text-muted-foreground';

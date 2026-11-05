@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, MOCK_EXAMS, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type MockExam, type MockPaper, type UtmeShortfall } from '@aischool/shared';
+import { EXAMS, EXAM_LABELS, MIN_PUBLISHED_TO_LIST, MOCK_EXAMS, MOCK_PAPERS, UTME, WAEC_PAST_NAME, examEntitlement, utmeLabel, waecPastLabel, type ExamBody, type ExamCatalog, type ExamQuestionInput, type ExamQuestionRow, type ExamTopicRow, type MockExam, type MockPaper, type UtmeShortfall } from '@aischool/shared';
 import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
@@ -17,6 +17,13 @@ const FREE_QUESTIONS = 5;
 const MINUTES_PER_QUESTION: Record<ExamBody, number> = { JAMB: 0.9, WAEC: 1.2, NECO: 1.2, BECE: 1.2 };
 /** Fewest Paper 1 questions for a full WASSCE, NECO or BECE mock (a short bank gives a shorter, pro-rata timed Paper 1). */
 export const MIN_SITTING_OBJECTIVE = 10;
+/**
+ * All NECO Prep opens of WAEC: approved WAEC past-paper objectives (the two
+ * syllabi are similar). Rows stay exam WAEC and attempts on them are mode
+ * WAEC_PAST, so they never enter a NECO mock (poolWhere filters on the exam)
+ * and don't use up a free practice set (freeUsed counts PRACTICE).
+ */
+export const WAEC_PAST_POOL = { exam: 'WAEC', source: 'LICENSED', status: 'PUBLISHED', type: 'OBJECTIVE' } satisfies Prisma.ExamQuestionWhereInput;
 const theoryDraftSchema = z.object({
   questions: z.array(
     z.object({
@@ -100,6 +107,7 @@ export class ExamService {
     // Only known when the student is in a class (no guessing for unplaced students).
     const placed = await this.prisma.root.student.findUnique({ where: { id: access.studentId }, select: { classArm: { select: { classLevel: { select: { stage: true, name: true } } } } } });
     const level = placed?.classArm ? levelOf(placed.classArm.classLevel.stage, placed.classArm.classLevel.name) : null;
+    const waecPast = access.exams.includes('NECO') ? await this.waecPastSubjects() : [];
     return {
       level: (level as ExamCatalog['level']) ?? null,
       exams: EXAMS.map((exam) => {
@@ -124,10 +132,24 @@ export class ExamService {
           subjects: listed.map(([subject, m]) => ({ subject, questions: m.all, objective: m.objective, ...(fullMock.has(exam) ? { fullMock: fullMock.get(exam)!.has(subject) } : {}) })),
           comingSoon: soon,
           pastPapers: papers.filter((p) => p.exam === exam && p.year !== null).map((p) => ({ subject: p.subject, year: p.year!, questions: p._count._all })),
+          ...(exam === 'NECO' && waecPast.length ? { waecPast } : {}),
         };
       }),
       freePractice: { setsPerTerm: FREE_SETS_PER_TERM, questionsPerSet: FREE_QUESTIONS, used: await this.freeUsed(access) },
     };
+  }
+
+  /** Subjects with published WAEC past questions, with their years, newest first. */
+  private async waecPastSubjects() {
+    const rows = await this.prisma.root.examQuestion.groupBy({ by: ['subject', 'year'], where: WAEC_PAST_POOL, _count: { _all: true }, orderBy: [{ subject: 'asc' }, { year: 'desc' }] });
+    const out = new Map<string, { subject: string; questions: number; years: { year: number; questions: number }[] }>();
+    for (const r of rows) {
+      const s = out.get(r.subject) ?? { subject: r.subject, questions: 0, years: [] };
+      s.questions += r._count._all;
+      if (r.year !== null) s.years.push({ year: r.year, questions: r._count._all });
+      out.set(r.subject, s);
+    }
+    return [...out.values()];
   }
 
   /** Subjects whose full WASSCE, NECO or BECE mock has enough Paper 1 questions (topic-restricted papers are counted on their own pool). */
@@ -234,10 +256,42 @@ export class ExamService {
     return this.study.createAttempt(access, { mode: 'PRACTICE', exam: input.exam, subject, title: `${exam} ${input.year} — ${input.exam === 'JAMB' ? utmeLabel(subject) : subject}`, questions: chosen.map((q) => this.stored(q, true)) });
   }
 
-  /** Approved questions per topic for one exam subject (practice by topic). */
-  async topics(exam: ExamBody, subjectName: string): Promise<ExamTopicRow[]> {
+  private needsNecoPrep(access: ResolvedAccess) {
+    if (!access.exams.includes('NECO')) throw new ForbiddenException({ statusCode: 403, code: 'EXAM_NOT_INCLUDED', exam: 'NECO', message: `${WAEC_PAST_NAME} for NECO revision come with ${EXAM_LABELS.NECO} Prep.` });
+  }
+
+  /**
+   * WAEC past questions for a NECO Prep holder: a year's questions in their
+   * original order, or a set from a subject or topic. Untimed; every question
+   * says it is a WAEC past question, in the attempt and after marking. Topic
+   * mastery counts as it does for WAEC practice (the same syllabus topic).
+   */
+  async startWaecPast(access: ResolvedAccess, input: { subject: string; year?: number | null; topicId?: string | null; questions: number }) {
+    this.needsNecoPrep(access);
+    const subject = subjectKey(input.subject);
+    const topicIds = input.topicId ? [input.topicId, ...(await this.prisma.root.syllabusTopic.findMany({ where: { parentId: input.topicId }, select: { id: true } })).map((t) => t.id)] : null;
+    const rows = await this.prisma.root.examQuestion.findMany({
+      where: { ...WAEC_PAST_POOL, subject, ...(input.year ? { year: input.year } : {}), ...(topicIds ? { topicId: { in: topicIds } } : {}) },
+      include: { topic: { select: { name: true } } },
+      orderBy: [{ bankRef: { sort: 'asc', nulls: 'last' } }, { createdAt: 'asc' }, { id: 'asc' }],
+    });
+    if (!rows.length) throw new BadRequestException(`There are no published ${WAEC_PAST_NAME} for ${subject}${input.year || topicIds ? ' with these filters' : ''} yet`);
+    const chosen = input.year ? rows.slice(0, 200) : shuffle(rows).slice(0, input.questions);
+    const topicName = input.topicId ? (await this.prisma.root.syllabusTopic.findUnique({ where: { id: input.topicId }, select: { name: true } }))?.name : null;
+    const title = `${WAEC_PAST_NAME}${input.year ? ` ${input.year} —` : ':'} ${subject}${topicName ? ` (${topicName})` : ''}`;
+    return this.study.createAttempt(access, { mode: 'WAEC_PAST', exam: 'WAEC', subject, topicId: input.topicId, title, questions: chosen.map((q) => ({ ...this.stored(q, true), year: q.year, sourceLabel: waecPastLabel(q.year) })) });
+  }
+
+  /** The topics that have WAEC past questions in a subject (NECO Prep). */
+  async waecPastTopics(access: ResolvedAccess, subject: string) {
+    this.needsNecoPrep(access);
+    return this.topics('WAEC', subject, true);
+  }
+
+  /** Approved questions per topic for one exam subject (practice by topic); `pastOnly`: licensed past questions. */
+  async topics(exam: ExamBody, subjectName: string, pastOnly = false): Promise<ExamTopicRow[]> {
     const subject = subjectKey(subjectName);
-    const counts = await this.prisma.root.examQuestion.groupBy({ by: ['topicId'], where: { exam, subject, status: 'PUBLISHED', type: 'OBJECTIVE', topicId: { not: null } }, _count: { _all: true } });
+    const counts = await this.prisma.root.examQuestion.groupBy({ by: ['topicId'], where: { exam, subject, status: 'PUBLISHED', type: 'OBJECTIVE', topicId: { not: null }, ...(pastOnly ? { source: 'LICENSED' } : {}) }, _count: { _all: true } });
     const topics = await this.prisma.root.syllabusTopic.findMany({ where: { id: { in: counts.map((c) => c.topicId!) } }, select: { id: true, name: true, parent: { select: { name: true } } } });
     return counts
       .map((c) => {

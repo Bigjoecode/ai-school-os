@@ -116,13 +116,13 @@ function Player({ a }: { a: PracticeAttemptView }) {
         <ol className="space-y-4">
           {a.questions.map((qq, i) => (
             <li key={i}>
-              <QuestionCard index={i} total={a.questions.length} stem={qq.stem} topic={qq.topic} options={qq.options} chosen={answers[i] ?? null} onChoose={(oi) => choose(i, oi)} />
+              <QuestionCard index={i} total={a.questions.length} stem={qq.stem} topic={qq.topic} source={qq.sourceLabel} options={qq.options} chosen={answers[i] ?? null} onChoose={(oi) => choose(i, oi)} />
             </li>
           ))}
         </ol>
       ) : q ? (
         <>
-          <QuestionCard index={pos} total={a.questions.length} stem={q.stem} topic={q.topic} options={q.options} chosen={answers[pos] ?? null} onChoose={(oi) => choose(pos, oi)} />
+          <QuestionCard index={pos} total={a.questions.length} stem={q.stem} topic={q.topic} source={q.sourceLabel} options={q.options} chosen={answers[pos] ?? null} onChoose={(oi) => choose(pos, oi)} />
           <div className="mt-4 flex items-center justify-between gap-2">
             <Button variant="outline" disabled={pos === 0} onClick={() => setPos((p) => p - 1)}>
               <ArrowLeft /> Back
@@ -179,7 +179,16 @@ function Player({ a }: { a: PracticeAttemptView }) {
   );
 }
 
-function QuestionCard({ index, total, stem, topic, options, chosen, onChoose }: { index: number; total: number; stem: string; topic: string | null; options: string[]; chosen: number | null; onChoose: (i: number) => void }) {
+/** Where a question comes from, shown with it. */
+function SourceBadge({ label }: { label: string }) {
+  return (
+    <Badge variant="info" className="mb-2" data-testid="question-source">
+      {label}
+    </Badge>
+  );
+}
+
+function QuestionCard({ index, total, stem, topic, source, options, chosen, onChoose }: { index: number; total: number; stem: string; topic: string | null; source?: string; options: string[]; chosen: number | null; onChoose: (i: number) => void }) {
   return (
     <Card className="p-5 sm:p-6">
       <div className="mb-3 flex items-center justify-between gap-2 text-[12px] text-muted-foreground">
@@ -188,6 +197,7 @@ function QuestionCard({ index, total, stem, topic, options, chosen, onChoose }: 
         </span>
         {topic && <span className="truncate">{topic}</span>}
       </div>
+      {source && <SourceBadge label={source} />}
       <p className="whitespace-pre-wrap text-[15.5px] font-medium leading-relaxed">{stem}</p>
       <div className="mt-4 space-y-2" role="radiogroup" aria-label={`Question ${index + 1} options`}>
         {options.map((o, oi) => {
@@ -228,6 +238,11 @@ function Results({ a }: { a: PracticeAttemptView }) {
         description={`${MODE_LABEL[a.mode]}${a.subject ? ` · ${a.subject}` : ''}`}
       />
       <SittingNav a={a} className="mb-5" />
+      {a.mode === 'WAEC_PAST' && (
+        <p className="mb-5 rounded-xl bg-info-soft px-3 py-2 text-[13px] text-info" data-testid="waec-past-note">
+          These were WAEC past questions, not NECO questions. This score shows how you did on WAEC questions: it isn’t a NECO mock result or a NECO grade.
+        </p>
+      )}
       <Card className="mb-5 overflow-hidden">
         <div className="grid gap-5 p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
           <div className="relative mx-auto grid size-28 place-items-center">
@@ -303,6 +318,7 @@ function Results({ a }: { a: PracticeAttemptView }) {
                   </Badge>
                 )}
               </div>
+              {q.sourceLabel && <SourceBadge label={q.sourceLabel} />}
               <p className="whitespace-pre-wrap text-[14.5px] font-medium">{q.stem}</p>
               <ul className="mt-3 space-y-1.5">
                 {q.options.map((o, oi) => {

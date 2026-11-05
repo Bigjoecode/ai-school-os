@@ -1,4 +1,4 @@
-import { ENTITLEMENTS, MOCK_APPROXIMATE_NOTE, MOCK_EXAMS, MOCK_NAME, MOCK_PAPERS, UTME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow, type MockExam } from '@aischool/shared';
+import { ENTITLEMENTS, MOCK_APPROXIMATE_NOTE, MOCK_EXAMS, MOCK_NAME, MOCK_PAPERS, UTME, WAEC_PAST_NAME, examEntitlement, utmeLabel, type ExamBody, type ExamCatalog, type ExamSittingRow, type MockExam } from '@aischool/shared';
 import { AlertTriangle, Ban, CalendarClock, CheckCircle2, ChevronRight, Clock, FileText, FlaskConical, GraduationCap, HeartHandshake, Lock, Monitor, PenLine, School, Sparkles, Target, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
@@ -13,12 +13,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { examLockError, useAttempts, useExamCatalog, useExamTopics, useSittings, useStartExam, useStartSitting, useStartTheory, useStartUtme, utmeShortfall } from './api';
+import { examLockError, useAttempts, useExamCatalog, useExamTopics, useSittings, useStartExam, useStartSitting, useStartTheory, useStartUtme, useStartWaecPast, useWaecPastTopics, utmeShortfall } from './api';
 import { AttemptList, SectionTitle, minutesText } from './components';
 import { UtmeTrend } from './utme-results';
 
 type Exam = ExamCatalog['exams'][number];
-type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY' | 'UTME' | 'PAST' | 'SITTING';
+type StartMode = 'PRACTICE' | 'MOCK' | 'THEORY' | 'UTME' | 'PAST' | 'SITTING' | 'WAEC_PAST';
 
 /** The exam's full, paper-by-paper mock (WAEC: WASSCE, NECO: SSCE, BECE), if it has one. */
 const mockExam = (exam: ExamBody): MockExam | null => ((MOCK_EXAMS as readonly string[]).includes(exam) ? (exam as MockExam) : null);
@@ -91,6 +91,7 @@ export default function ExamsPage() {
       {start && start.mode === 'SITTING' && <SittingDialog key={`${start.exam.exam}-sitting`} exam={start.exam} onClose={() => setStart(null)} />}
       {start && start.mode === 'UTME' && <UtmeDialog key="utme" exam={start.exam} onClose={() => setStart(null)} />}
       {start && start.mode === 'PAST' && <PastPaperDialog key={`${start.exam.exam}-past`} exam={start.exam} onClose={() => setStart(null)} />}
+      {start && start.mode === 'WAEC_PAST' && <WaecPastDialog key="waec-past" exam={start.exam} onClose={() => setStart(null)} />}
       {start && (start.mode === 'PRACTICE' || start.mode === 'MOCK') && <StartDialog key={`${start.exam.exam}-${start.mode}`} exam={start.exam} mode={start.mode} freeQuestions={fp?.questionsPerSet ?? 5} onClose={() => setStart(null)} />}
     </Page>
   );
@@ -201,6 +202,14 @@ function ExamCard({ exam, freeLeft, level, onStart }: { exam: Exam; freeLeft: nu
         {papers.length > 0 && (
           <Button variant="outline" onClick={() => onStart('PAST')} disabled={!exam.entitled && freeLeft === 0} className="flex-1 sm:flex-none">
             <CalendarClock /> Past papers
+          </Button>
+        )}
+        {!!exam.waecPast?.length && (
+          <Button variant="outline" onClick={() => onStart('WAEC_PAST')} className="h-auto min-h-9 w-full whitespace-normal py-1.5 sm:w-auto" data-testid="waec-past-start">
+            <CalendarClock />
+            <span>
+              {WAEC_PAST_NAME} <span className="font-normal text-muted-foreground">(similar syllabus)</span>
+            </span>
           </Button>
         )}
         {exam.entitled ? (
@@ -651,6 +660,107 @@ function PastPaperDialog({ exam, onClose }: { exam: Exam; onClose: () => void })
           </ul>
           {!exam.entitled && <p className="text-[12px] text-muted-foreground">Without {ENTITLEMENTS[examEntitlement(exam.exam)].label} a past paper counts as a free practice set (its first few questions).</p>}
           {lock ? <p className="rounded-lg bg-warning-soft px-3 py-2 text-[13px] text-warning">{lock.message}</p> : startExam.error ? <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(startExam.error)}</p> : null}
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Close
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** WAEC past questions for NECO revision: a year's questions, or a set from a subject or topic. Always named as WAEC, never as NECO. */
+function WaecPastDialog({ exam, onClose }: { exam: Exam; onClose: () => void }) {
+  const navigate = useNavigate();
+  const start = useStartWaecPast();
+  const subjects = exam.waecPast ?? [];
+  const [subject, setSubject] = useState(subjects[0]?.subject ?? '');
+  const [count, setCount] = useState(10);
+  const [topicId, setTopicId] = useState<string | null>(null);
+  const topics = useWaecPastTopics(subject || null);
+  const years = subjects.find((s) => s.subject === subject)?.years ?? [];
+  const lock = examLockError(start.error);
+  const go = (body: { year?: number; topicId?: string | null }) => start.mutate({ subject, questions: count, ...body }, { onSuccess: (a) => navigate(`/learn/attempts/${a.id}`) });
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <div className="mb-2 grid size-10 place-items-center rounded-xl bg-brand-soft text-brand [&_svg]:size-5">
+            <CalendarClock />
+          </div>
+          <DialogTitle>{WAEC_PAST_NAME}</DialogTitle>
+          <DialogDescription>The NECO and WAEC syllabi are similar, so WAEC past questions make good NECO revision. They come with your NECO Prep.</DialogDescription>
+        </DialogHeader>
+        <DialogBody className="space-y-5">
+          <p className="rounded-xl bg-info-soft px-3 py-2 text-[13px] text-info" data-testid="waec-past-warning">
+            These are WAEC questions, not NECO questions. They aren’t part of your NECO mocks or your NECO grade.
+          </p>
+          <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Subject" data-testid="waec-past-subjects">
+            {subjects.map((s) => (
+              <button
+                key={s.subject}
+                type="button"
+                role="radio"
+                aria-checked={subject === s.subject}
+                onClick={() => (setSubject(s.subject), setTopicId(null), start.reset())}
+                className={cn('rounded-full border px-3 py-1.5 text-[13px] transition-colors', subject === s.subject ? 'border-brand bg-brand-soft text-brand' : 'border-border hover:bg-muted')}
+              >
+                {s.subject} <span className="tabular text-muted-foreground">· {s.questions}</span>
+              </button>
+            ))}
+          </div>
+          <div className="space-y-3 rounded-xl border border-border p-3">
+            <div>
+              <p className="mb-2 text-[13px] font-medium">Topic</p>
+              <Select value={topicId ?? 'ALL'} onValueChange={(v) => setTopicId(v === 'ALL' ? null : v)} disabled={!topics.data?.length}>
+                <SelectTrigger aria-label="Topic">
+                  <SelectValue placeholder="All topics" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">All topics</SelectItem>
+                  {(topics.data ?? []).map((t) => (
+                    <SelectItem key={t.topicId} value={t.topicId}>
+                      {t.parent ? `${t.parent} › ` : ''}
+                      {t.topic} ({t.questions})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {[10, 20, 40].map((n) => (
+                <Button key={n} type="button" size="sm" variant={count === n ? 'default' : 'outline'} aria-pressed={count === n} onClick={() => setCount(n)}>
+                  {n}
+                </Button>
+              ))}
+              <Button size="sm" className="ml-auto" disabled={start.isPending || !subject} data-testid="waec-past-go" onClick={() => go({ topicId })}>
+                Start practice
+              </Button>
+            </div>
+          </div>
+          {years.length > 0 && (
+            <div>
+              <p className="mb-2 text-[13px] font-medium">Or one year, in the original order</p>
+              <ul className="grid gap-2 sm:grid-cols-2" data-testid="waec-past-years">
+                {years.map((y) => (
+                  <li key={y.year}>
+                    <button
+                      type="button"
+                      disabled={start.isPending}
+                      onClick={() => go({ year: y.year })}
+                      className="flex w-full items-center justify-between gap-2 rounded-xl border border-border px-3 py-2.5 text-left text-[13.5px] transition-colors hover:border-brand hover:bg-brand-soft/50 disabled:opacity-60"
+                    >
+                      <span className="font-medium">WAEC {y.year}</span>
+                      <span className="shrink-0 text-[12px] tabular text-muted-foreground">{y.questions} questions</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {lock ? <p className="rounded-lg bg-warning-soft px-3 py-2 text-[13px] text-warning">{lock.message}</p> : start.error ? <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(start.error)}</p> : null}
         </DialogBody>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>

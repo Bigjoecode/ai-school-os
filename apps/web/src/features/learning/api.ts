@@ -226,6 +226,22 @@ export function useStartExam() {
   });
 }
 
+/** WAEC past questions for NECO revision; needs NECO Prep (403 EXAM_NOT_INCLUDED otherwise). */
+export function useStartWaecPast() {
+  const qc = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (body: { subject: string; year?: number | null; topicId?: string | null; questions: number }) => api.post<PracticeAttemptView>('/learning/exams/waec-past/start', body),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: lk.exams });
+      void qc.invalidateQueries({ queryKey: lk.attempts });
+    },
+  });
+}
+
+export const useWaecPastTopics = (subject: string | null) =>
+  useQuery({ queryKey: ['learning', 'exam-topics', 'waec-past', subject ?? ''] as const, queryFn: () => api.get<ExamTopicRow[]>('/learning/exams/waec-past/topics', { subject: subject ?? '' }), enabled: !!subject });
+
 /** Written (theory) practice for one exam subject; needs the exam's Prep pack (403 EXAM_NOT_INCLUDED otherwise). */
 export function useStartTheory() {
   const qc = useQueryClient();

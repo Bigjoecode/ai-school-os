@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { examLockError } from '../learning/api';
 import { SectionTitle, minutesText, scoreTone } from '../learning/components';
 import { usePracticalCheck, usePracticalLesson, usePracticalPractice, useStartLab } from './api';
+import { SittingLockCard, sittingLock } from './sitting';
 import { StatusBadges, subjectPath } from './hub-page';
 
 /** A practical lesson: the guided walk-through, quick checks, WAEC practical questions and the virtual lab. */
@@ -21,9 +22,12 @@ export default function PracticalLessonPage() {
   const { id = '' } = useParams();
   const q = usePracticalLesson(id);
   const d = q.data;
+  const lock = sittingLock(q.error);
   return (
     <Page className="max-w-5xl">
-      {q.error && !d ? (
+      {lock ? (
+        <SittingLockCard lock={lock} />
+      ) : q.error && !d ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />
       ) : !d ? (
         <div className="space-y-4">

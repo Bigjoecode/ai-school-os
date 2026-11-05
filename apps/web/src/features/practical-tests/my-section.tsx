@@ -1,5 +1,5 @@
 import type { PracticalMyAssessment } from '@aischool/shared';
-import { ArrowRight, CalendarClock, CheckCircle2, Clock, FlaskConical, KeyRound, PlayCircle } from 'lucide-react';
+import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, Clock, FlaskConical, KeyRound, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Badge } from '@/components/ui/badge';
@@ -80,7 +80,12 @@ function TestRow({ e }: { e: PracticalMyAssessment }) {
             <Clock className="size-3.5" /> {e.durationMinutes} min, one attempt
           </span>
         </p>
-        {handedIn && !e.result && e.resultNote && <p className="mt-2 text-[12.5px] text-muted-foreground">{e.resultNote}</p>}
+        {handedIn && e.resultNote && <p className="mt-2 text-[12.5px] text-muted-foreground">{e.resultNote}</p>}
+        {!e.attempt && !missed && e.kind === 'EXAM' && (
+          <p className="mt-2 flex items-start gap-1.5 text-[12.5px] text-warning">
+            <AlertTriangle className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Stay on this screen. Each time you switch to another app or tab is recorded for your teacher.
+          </p>
+        )}
         {error && (
           <p role="alert" className="mt-2 text-[12.5px] text-danger">
             {error}

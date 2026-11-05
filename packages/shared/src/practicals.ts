@@ -252,7 +252,8 @@ export const FREE_LABS_PER_TERM = 2;
 
 export const practicalLabStartSchema = z.object({ practicalId: z.string().trim().min(3).max(120), mode: z.enum(PRACTICAL_MODES) });
 /** Autosave: the whole state (validated against the simulator's schema on submit; size-capped here). */
-export const practicalDraftSchema = z.object({ state: z.record(z.string(), z.unknown()) });
+/** `focusLosses`: the device's count of times the student left a practical exam (only ever raises the stored count). */
+export const practicalDraftSchema = z.object({ state: z.record(z.string(), z.unknown()), focusLosses: z.number().int().min(0).max(10_000).optional() });
 /** `questions`: mark only these questions (by index), e.g. a short check inside a lab; such a partial check is not recorded. */
 export const practicalCheckSchema = z.object({ answers: z.array(z.number().int().min(-1).max(9)).min(1).max(10), questions: z.array(z.number().int().min(0).max(9)).min(1).max(10).optional() });
 /** Where in the lab journey a question to the lab assistant was asked. */
@@ -396,6 +397,8 @@ export interface PracticalAttemptView<Id extends SimulatorId = SimulatorId> {
   endsAt: string | null;
   submittedAt: string | null;
   serverNow: string;
+  /** Times the student has left the lab so far (practical exams only). */
+  focusLosses: number;
   result: PracticalResult | null;
   /** Set when this attempt is a sitting of a teacher-scheduled practical test or exam. */
   assessment?: PracticalAttemptAssessment | null;

@@ -59,7 +59,7 @@ export function SchedulePracticalTestDialog({ open, onOpenChange, item, started 
 
   const submit = async (publish: boolean) => {
     setFormError(null);
-    const errs = formErrors(f, !!item);
+    const errs = formErrors(f, !!item, started);
     setErrors(errs);
     if (Object.keys(errs).length) return;
     const common = { title: f.title.trim(), closesAt: fromLocalInput(f.closesAt), showResults: f.showResults, accessCode: f.accessCode.trim() || null, termId: f.termId, componentKey: f.componentKey || null };

@@ -17,6 +17,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { PaperStyle, ReportCardDocument } from '../report-cards/card-document';
 import { usePortalReportCard, usePortalResults, useUnlockPortalResult } from './api';
 import { OnlineTestReview, OnlineTestsList } from './online-tests';
+import { PracticalTestReview, PracticalTestsList } from './practical-tests';
 import { PortalShell, portalPath, positionText, type ShellCtx } from './ui';
 
 export default function PortalResultsPage() {
@@ -31,17 +32,19 @@ export default function PortalResultsPage() {
   );
 }
 
-/** Report cards and online tests (CBT); ?tab=online&exam=<id> opens one test, so notifications can link straight to it. */
+/** Report cards, online tests (CBT) and practical tests; ?tab=online&exam=<id> or &practical=<id> opens one test, so notifications can link straight to it. */
 function ResultsTabs(ctx: ShellCtx) {
   const [params, setParams] = useSearchParams();
   const exam = params.get('exam');
-  const tab = exam || params.get('tab') === 'online' ? 'online' : 'cards';
-  const go = (next: { tab?: string; exam?: string }) => {
+  const practical = params.get('practical');
+  const tab = exam || practical || params.get('tab') === 'online' ? 'online' : 'cards';
+  const go = (next: { tab?: string; exam?: string; practical?: string }) => {
     const p = new URLSearchParams();
     if (next.tab === 'online') p.set('tab', 'online');
     if (next.exam) p.set('exam', next.exam);
-    setParams(p, { replace: !next.exam });
-    if (next.exam) window.scrollTo({ top: 0 });
+    if (next.practical) p.set('practical', next.practical);
+    setParams(p, { replace: !next.exam && !next.practical });
+    if (next.exam || next.practical) window.scrollTo({ top: 0 });
   };
   return (
     <Tabs value={tab} onValueChange={(t) => go({ tab: t })}>
@@ -59,8 +62,13 @@ function ResultsTabs(ctx: ShellCtx) {
       <TabsContent value="online" className="mt-4">
         {exam ? (
           <OnlineTestReview child={ctx.child} isParent={ctx.isParent} examId={exam} onBack={() => go({ tab: 'online' })} />
+        ) : practical ? (
+          <PracticalTestReview child={ctx.child} isParent={ctx.isParent} id={practical} onBack={() => go({ tab: 'online' })} />
         ) : (
-          <OnlineTestsList child={ctx.child} isParent={ctx.isParent} onOpen={(id) => go({ tab: 'online', exam: id })} />
+          <>
+            <OnlineTestsList child={ctx.child} isParent={ctx.isParent} onOpen={(id) => go({ tab: 'online', exam: id })} />
+            <PracticalTestsList child={ctx.child} onOpen={(id) => go({ tab: 'online', practical: id })} />
+          </>
         )}
       </TabsContent>
     </Tabs>

@@ -42,6 +42,14 @@ export function resultNote(e: { showResults: string }, visible: boolean, what = 
   return e.showResults === 'AFTER_CLOSE' ? `Your results will be shown when the ${what} closes.` : 'Your results will be released by your teacher.';
 }
 
+/** Why the family can't see a result yet (or all of it), or null. `partial`: written answers are still being marked. */
+export function familyResultNote(e: { showResults: string }, vis: { score: boolean; review: boolean }, opts: { withheld: boolean; partial?: boolean }): string | null {
+  if (opts.withheld) return null;
+  if (!vis.score) return e.showResults === 'AFTER_CLOSE' ? 'The score will show when the test closes.' : 'The score will show when the teacher releases the results.';
+  if (opts.partial) return 'Written answers are still being marked; this is the score so far.';
+  return vis.review ? null : 'Answers can be reviewed once the test has closed.';
+}
+
 /** Why a window can't be used, or null: it must close after it opens, fit the whole duration, and (when scheduling) not be over. */
 export function windowError(opensAt: string | Date, closesAt: string | Date, durationMinutes: number, scheduling: boolean, now = Date.now()): string | null {
   const open = new Date(opensAt).getTime();

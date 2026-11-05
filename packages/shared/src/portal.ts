@@ -184,6 +184,34 @@ export interface PortalOnlineTests {
   tests: PortalOnlineTest[];
 }
 
+/** A practical test or exam (a virtual lab set by the teacher) as the family sees it: the same rules as an online test. */
+export interface PortalPracticalTest extends PortalOnlineTest {
+  kind: 'TEST' | 'EXAM';
+  practicalTitle: string;
+}
+export interface PortalPracticalTests {
+  /** Set when the school withholds results (e.g. fees owed): tests are listed without scores. */
+  withheld: string | null;
+  /** Newest first. */
+  tests: PortalPracticalTest[];
+}
+/** One marking criterion of a practical test. */
+export interface PortalPracticalCriterion {
+  id: string;
+  label: string;
+  awarded: number;
+  max: number;
+  note: string;
+}
+export interface PortalPracticalTestReview {
+  test: PortalPracticalTest;
+  /** Null when the marks in detail can't be seen yet (see test.note). */
+  criteria: PortalPracticalCriterion[] | null;
+  feedback: string | null;
+  /** A teacher's review of the mark, once the marks in detail can be seen. */
+  teacherNote: string | null;
+}
+
 export interface PortalOnlineTestQuestion {
   number: number;
   /** MULTIPLE_CHOICE, TRUE_FALSE, SHORT_ANSWER, THEORY… */

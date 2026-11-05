@@ -33,8 +33,8 @@ import { currentContext, currentTenantId } from '../common/request-context';
 import { registerTickTask } from '../common/tick-tasks';
 import { subjectKey } from '../learning/mastery.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { lockedChanges, overdue, sittingStatus, startDecision, studentView, timeTakenSeconds } from './practical-assessment';
-import { LAB_GRACE_MS, PracticalsService, effectiveScore, percentOf } from './practicals.service';
+import { lockedChanges, overdue, sameMinute, sittingStatus, startDecision, studentView, timeTakenSeconds } from './practical-assessment';
+import { LAB_GRACE_MS, PracticalsService, effectiveScore, percentOf, practicalNotice } from './practicals.service';
 
 type CreateBody = z.output<typeof createPracticalAssessmentSchema>;
 type UpdateBody = z.output<typeof updatePracticalAssessmentSchema>;
@@ -150,8 +150,12 @@ export class PracticalAssessmentsService implements OnModuleInit {
     return (await this.summaries([row], scope))[0]!;
   }
 
-  async update(id: string, body: UpdateBody): Promise<PracticalAssessmentSummary> {
+  async update(id: string, input: UpdateBody): Promise<PracticalAssessmentSummary> {
     const { row, scope } = await this.staffItem(id, 'manage');
+    // Times the form sends back unchanged aren't edits: fixing the title or marks target of an ended test must still work.
+    const body = { ...input };
+    if (body.closesAt && sameMinute(new Date(body.closesAt), row.closesAt)) delete body.closesAt;
+    if (body.opensAt && sameMinute(new Date(body.opensAt), row.opensAt)) delete body.opensAt;
     const started = await this.prisma.db.practicalAttempt.count({ where: { assessmentId: id } });
     if (started) {
       // Once anyone has started, only what can't disadvantage a sitter may change.
@@ -224,6 +228,8 @@ export class PracticalAssessmentsService implements OnModuleInit {
     await this.audit.log({ action: released ? 'practical_test.released' : 'practical_test.unreleased', entityType: 'PracticalAssessment', entityId: id, summary: `${released ? 'Released' : 'Withdrew'} results of practical test "${row.title}"` });
     if (released && !row.resultsReleasedAt) {
       const sat = await this.prisma.db.practicalAttempt.findMany({ where: { assessmentId: id, submittedAt: { not: null } }, select: { id: true, studentId: true } });
+      // Parents too; with results straight after handing in they were told then, and aren't told twice.
+      if (row.showResults !== 'IMMEDIATE') await this.cbt.notifyGuardians(currentTenantId(), updated, sat.map((s) => s.studentId), practicalNotice(id));
       await this.notify(
         sat.map((s) => s.studentId),
         `Results are out: ${row.title}`,
@@ -281,6 +287,9 @@ export class PracticalAssessmentsService implements OnModuleInit {
           reviewed: !!a?.override,
           criteria,
           timeTakenSeconds: a ? timeTakenSeconds(a) : null,
+          focusLosses: a?.focusLosses ?? 0,
+          lastSeenAt: a?.lastSeenAt?.toISOString() ?? null,
+          ip: a?.ip ?? null,
         };
       })
       .sort((x, y) => (x.student.classArm ?? '').localeCompare(y.student.classArm ?? '') || x.student.name.localeCompare(y.student.name));
@@ -307,7 +316,7 @@ export class PracticalAssessmentsService implements OnModuleInit {
       return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
     const mins = (s: number | null) => (s == null ? '' : `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s`);
-    const head = ['Student', 'Admission no.', 'Class', 'Status', 'Score', 'Out of', '%', 'Reviewed', ...r.criteria.map((c) => `${c.label} (/${c.max}${c.how === 'AI' ? ', AI-marked' : ''})`), 'Time taken', 'Started', 'Handed in'];
+    const head = ['Student', 'Admission no.', 'Class', 'Status', 'Score', 'Out of', '%', 'Reviewed', ...r.criteria.map((c) => `${c.label} (/${c.max}${c.how === 'AI' ? ', AI-marked' : ''})`), 'Time taken', ...(r.assessment.kind === 'EXAM' ? ['Focus losses'] : []), 'Started', 'Handed in'];
     const lines = r.rows.map((x) =>
       [
         x.student.name,
@@ -320,6 +329,7 @@ export class PracticalAssessmentsService implements OnModuleInit {
         x.reviewed ? 'yes' : '',
         ...r.criteria.map((c) => x.criteria.find((k) => k.id === c.id)?.awarded ?? ''),
         mins(x.timeTakenSeconds),
+        ...(r.assessment.kind === 'EXAM' ? [x.focusLosses] : []),
         x.startedAt,
         x.submittedAt,
       ]
@@ -407,7 +417,11 @@ export class PracticalAssessmentsService implements OnModuleInit {
     if (!row || (!existing && !row.classArmIds.includes(me.classArmId ?? ''))) throw new NotFoundException('Practical test not found');
     const lesson = await this.practicals.lesson(row.practicalId);
     const decision = startDecision(row, existing, accessCode);
-    if (decision.action === 'RESUME') return this.practicals.view(existing!, lesson);
+    if (decision.action === 'RESUME') {
+      // Time ran out while they were away: hand it in now rather than reopen the lab (the minute sweep would too).
+      if (existing && overdue(existing, LAB_GRACE_MS) && (await this.practicals.handInSaved(existing))) return this.practicals.view(await db.practicalAttempt.findUniqueOrThrow({ where: { id: existing.id } }), lesson);
+      return this.practicals.view(existing!, lesson);
+    }
     if (decision.action === 'REFUSE') {
       throw new BadRequestException({ statusCode: 400, code: decision.code, message: decision.message, ...(decision.code === 'ACCESS_CODE' ? { errors: [{ path: 'accessCode', message: 'Wrong access code' }] } : {}) });
     }
@@ -427,6 +441,7 @@ export class PracticalAssessmentsService implements OnModuleInit {
           startedAt: decision.startedAt,
           endsAt: decision.endsAt,
           assessmentId: row.id,
+          ip: currentContext().ip?.slice(0, 64) ?? null,
         },
       });
       return this.practicals.view(a, lesson);

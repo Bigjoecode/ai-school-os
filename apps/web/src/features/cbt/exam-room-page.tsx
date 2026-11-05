@@ -34,6 +34,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { queryClient } from '@/lib/query-client';
 import { cn } from '@/lib/utils';
 import { cbtKeys, saveAnswers, submitExam, useExamRoom, useStartExam } from './api';
+import { AwayNotice, useFocusLosses } from './focus';
 import { LETTERS, clock } from './ui';
 
 type AnswerValue = number | string | null;
@@ -207,9 +208,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
     if (backup && backup.pos >= 0 && backup.pos < questions.length) return backup.pos;
     return Math.max(0, questions.findIndex((x) => !answered(attempt.answers[x.id])));
   });
-  const focusLosses = useRef(Math.max(attempt.focusLosses, backup?.focusLosses ?? 0));
   const focusSent = useRef(attempt.focusLosses);
-  const [awayCount, setAwayCount] = useState(0);
 
   const [saveState, setSaveState] = useState<SaveState>(() => (Object.keys(pending.current).length ? 'saving' : 'saved'));
   const [savedAt, setSavedAt] = useState<number | null>(null);
@@ -239,7 +238,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
         pending: Object.keys(pending.current),
         flags: [...(next?.flags ?? flagsRef.current)],
         pos: next?.pos ?? posRef.current,
-        focusLosses: focusLosses.current,
+        focusLosses: focus.count.current,
       } satisfies Backup);
     },
     [key],
@@ -261,16 +260,16 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
     timer.current = null;
     const batch = { ...pending.current };
     const keys = Object.keys(batch);
-    if (!keys.length && focusLosses.current <= focusSent.current) {
+    if (!keys.length && focus.count.current <= focusSent.current) {
       setSaveState('saved');
       return;
     }
     inflight.current = true;
     setSaveState('saving');
     try {
-      const r = await saveAnswers(examId, { answers: batch, focusLosses: focusLosses.current });
+      const r = await saveAnswers(examId, { answers: batch, focusLosses: focus.count.current });
       for (const k of keys) if (pending.current[k] === batch[k]) delete pending.current[k];
-      focusSent.current = Math.max(focusSent.current, focusLosses.current);
+      focusSent.current = Math.max(focusSent.current, focus.count.current);
       persist();
       // Keep the countdown honest if the device clock drifts.
       const drift = Date.parse(r.serverNow) - Date.now() - offset.current;
@@ -344,29 +343,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
   };
 
   // ---- leaving the screen
-  useEffect(() => {
-    let last = 0;
-    const lost = () => {
-      if (submitting.current) return;
-      const t = Date.now();
-      if (t - last < 1500) return; // blur and visibilitychange fire together
-      last = t;
-      focusLosses.current += 1;
-      persist();
-      setAwayCount((n) => n + 1);
-    };
-    const vis = () => (document.visibilityState === 'hidden' ? lost() : schedule(0));
-    const blur = () => lost();
-    const focus = () => schedule(0);
-    document.addEventListener('visibilitychange', vis);
-    window.addEventListener('blur', blur);
-    window.addEventListener('focus', focus);
-    return () => {
-      document.removeEventListener('visibilitychange', vis);
-      window.removeEventListener('blur', blur);
-      window.removeEventListener('focus', focus);
-    };
-  }, [persist, schedule]);
+  const focus = useFocusLosses(Math.max(attempt.focusLosses, backup?.focusLosses ?? 0), { ignore: () => submitting.current, onLost: () => persist(), onBack: () => schedule(0) });
 
   // ---- handing in
   const submit = useCallback(
@@ -377,7 +354,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
       if (timer.current) window.clearTimeout(timer.current);
       const attemptOnce = async (): Promise<void> => {
         try {
-          const r = await submitExam(examId, { answers: { ...pending.current }, focusLosses: focusLosses.current });
+          const r = await submitExam(examId, { answers: { ...pending.current }, focusLosses: focus.count.current });
           store.remove(key);
           queryClient.setQueryData(cbtKeys.room(examId), r);
           void queryClient.invalidateQueries({ queryKey: cbtKeys.my });
@@ -519,17 +496,7 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
         </div>
       </header>
 
-      {awayCount > 0 && (
-        <div role="status" className="border-b border-warning/30 bg-warning-soft px-4 py-2 text-[13px] text-warning">
-          <div className="mx-auto flex max-w-6xl items-center gap-2">
-            <AlertTriangle className="size-4 shrink-0" />
-            <span className="flex-1">You left the exam screen. Please stay on this page until you hand in — your teacher can see how often this happens.</span>
-            <button type="button" className="shrink-0 font-medium underline-offset-2 hover:underline" onClick={() => setAwayCount(0)}>
-              OK
-            </button>
-          </div>
-        </div>
-      )}
+      {focus.away > 0 && <AwayNotice what="exam screen" onClose={focus.clearAway} className="border-b border-warning/30 bg-warning-soft px-4 py-2 text-[13px] text-warning" />}
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-3 py-4 sm:px-4 sm:py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-6">
         <section aria-live="polite">

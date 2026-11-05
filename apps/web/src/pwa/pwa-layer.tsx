@@ -21,7 +21,7 @@ function usePathname(router: RouterLike): string {
 }
 
 /** Exam rooms are left completely alone: no banners, no update prompts. */
-const isQuiet = (pathname: string) => pathname.startsWith('/exam-room/') || pathname === '/attendance/kiosk';
+const isQuiet = (pathname: string) => pathname.startsWith('/exam-room/') || pathname.startsWith('/learn/practicals/labs/') || pathname === '/attendance/kiosk';
 
 function savedLabel(iso: string | null): string {
   if (!iso) return '';

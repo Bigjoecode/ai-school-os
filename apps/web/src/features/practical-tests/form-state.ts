@@ -52,8 +52,8 @@ export function initialForm(e?: PracticalAssessmentSummary): FormState {
   return { subjectId: '', practicalId: '', title: '', kind: 'EXAM', arms: [], opensAt: toLocalInput(start), closesAt: toLocalInput(new Date(start.getTime() + 90 * 60_000)), duration: '45', termId: '', componentKey: '', showResults: 'AFTER_CLOSE', accessCode: '' };
 }
 
-/** Client-side checks before sending (the server checks again). */
-export function formErrors(f: FormState, editing: boolean): Record<string, string> {
+/** Client-side checks before sending (the server checks again). `started`: the window is history, and a test closed early is shorter than its duration. */
+export function formErrors(f: FormState, editing: boolean, started = false): Record<string, string> {
   const errs: Record<string, string> = {};
   if (!editing && !f.subjectId) errs.subjectId = 'Pick a subject';
   if (!editing && !f.practicalId) errs.practicalId = 'Pick a practical';
@@ -64,6 +64,7 @@ export function formErrors(f: FormState, editing: boolean): Record<string, strin
   if (!f.closesAt) errs.closesAt = 'When does it close?';
   const mins = Number(f.duration);
   if (!Number.isInteger(mins) || mins < 5 || mins > 240) errs.durationMinutes = 'Whole minutes, 5 to 240';
+  if (started) return errs;
   if (f.opensAt && f.closesAt && new Date(f.closesAt) <= new Date(f.opensAt)) errs.closesAt = 'Must be after the opening time';
   else if (f.opensAt && f.closesAt && Number.isInteger(mins) && new Date(f.closesAt).getTime() - new Date(f.opensAt).getTime() < mins * 60_000) errs.closesAt = `Leave at least ${mins} minutes`;
   return errs;

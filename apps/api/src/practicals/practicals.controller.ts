@@ -60,6 +60,7 @@ export class PracticalsController {
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async practice(@Param('id') id: string, @Body(new ZodPipe(practicalPracticeSchema)) body: z.infer<typeof practicalPracticeSchema>) {
     const access = await this.access();
+    await this.practicals.refuseDuringSitting(access.studentId, id);
     const l = await this.practicals.lesson(id);
     return this.study.view(await this.exams.startTheory(access, { exam: l.exam as PracticalExam, subject: l.subject, questions: body.questions, type: 'PRACTICAL', topicId: l.topicId }));
   }
@@ -79,14 +80,14 @@ export class PracticalsController {
   @Put('labs/:id/draft')
   @Throttle({ default: { limit: 60, ttl: 60_000 } })
   async draft(@Param('id') id: string, @Body(new ZodPipe(practicalDraftSchema)) body: z.infer<typeof practicalDraftSchema>) {
-    return this.practicals.saveDraft(await this.access(), id, body.state);
+    return this.practicals.saveDraft(await this.access(), id, body.state, body.focusLosses);
   }
 
   @Post('labs/:id/submit')
   @HttpCode(200)
   @Throttle({ default: { limit: 6, ttl: 60_000 } })
   async submit(@Param('id') id: string, @Body(new ZodPipe(practicalDraftSchema)) body: z.infer<typeof practicalDraftSchema>) {
-    return this.practicals.submit(await this.access(), id, body.state);
+    return this.practicals.submit(await this.access(), id, body.state, body.focusLosses);
   }
 }
 

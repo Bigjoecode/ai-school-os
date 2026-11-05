@@ -1,6 +1,7 @@
 import type { PracticalAttemptView, SimulatorId, SimulatorStates } from '@aischool/shared';
+import { useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Box, CheckCircle2, Clock, Eye, FlaskConical, Loader2, Send, Square } from 'lucide-react';
-import { Component, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Component, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
@@ -9,11 +10,13 @@ import { Card } from '@/components/ui/card';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
-import { errorMessage } from '@/lib/api';
+import { ApiError, errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
+import { AwayNotice, useFocusLosses } from '../cbt/focus';
 import { clock, useCountdown } from '../learning/components';
-import { saveLabDraft, useLabAttempt, useSubmitLab } from './api';
+import { pk, saveLabDraft, useLabAttempt, useSubmitLab } from './api';
 import { LabResult } from './result';
+import { LabSittingContext, SittingLockCard, sittingLock } from './sitting';
 import { simulatorUi } from './simulators/registry';
 import { defaultLabView, gpuTier, saveLabView } from './simulators/webgl';
 
@@ -22,9 +25,12 @@ export default function LabPage() {
   const { id = '' } = useParams();
   const q = useLabAttempt(id);
   const a = q.data;
+  const lock = sittingLock(q.error);
   return (
     <Page className="max-w-6xl">
-      {q.error && !a ? (
+      {lock ? (
+        <SittingLockCard lock={lock} />
+      ) : q.error && !a ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />
       ) : !a ? (
         <div className="space-y-4">
@@ -32,14 +38,25 @@ export default function LabPage() {
           <Skeleton className="h-[480px] rounded-2xl" />
         </div>
       ) : (
-        <LabHost key={a.id} a={a} />
+        <LabHost key={a.id} a={a} receivedAt={q.dataUpdatedAt} />
       )}
     </Page>
   );
 }
 
-function LabHost({ a }: { a: PracticalAttemptView }) {
+/** The device's copy of a practical exam's focus count, for when a save never made it. */
+const focusKey = (id: string) => `practical-focus:${id}`;
+const readFocus = (id: string) => {
+  try {
+    return Number(window.localStorage.getItem(focusKey(id))) || 0;
+  } catch {
+    return 0;
+  }
+};
+
+function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: number }) {
   const entry = simulatorUi(a.simulatorId);
+  const qc = useQueryClient();
   const [state, setState] = useState<SimulatorStates[SimulatorId]>(() => a.state ?? entry.empty());
   const latest = useRef(state);
   latest.current = state;
@@ -50,7 +67,11 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
   const [showWork, setShowWork] = useState<'2d' | '3d' | null>(null);
   const submit = useSubmitLab(a.id);
   const done = !!a.submittedAt;
-  const left = useCountdown(done ? null : a.endsAt);
+  // The clock runs on server time (device clocks can be minutes out): the deadline in device time.
+  const deviceEndsAt = useMemo(() => (a.endsAt ? new Date(Date.parse(a.endsAt) - (Date.parse(a.serverNow) - receivedAt)).toISOString() : null), [a.endsAt, a.serverNow, receivedAt]);
+  const left = useCountdown(done ? null : deviceEndsAt);
+  const sitting = !done && !!a.assessment;
+  const trackFocus = sitting && a.assessment?.kind === 'EXAM';
   // Labs with a 3D view open in 3D on a capable device (or as this device last chose); the 2D lab is always one tap away.
   const can3d = !!entry.component3d && gpuTier() !== 'none';
   const [use3d, setUse3d] = useState(() => can3d && defaultLabView() === '3d');
@@ -59,18 +80,36 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
     setUse3d(v === '3d');
   };
 
+  const [focusAtStart] = useState(() => Math.max(a.focusLosses, trackFocus ? readFocus(a.id) : 0));
+  const focus = useFocusLosses(focusAtStart, {
+    enabled: trackFocus,
+    ignore: () => handedIn.current,
+    onLost: () => {
+      dirty.current = true;
+      try {
+        window.localStorage.setItem(focusKey(a.id), String(focus.count.current));
+      } catch {
+        /* private mode or full: the server copy still counts */
+      }
+    },
+    onBack: () => flush(),
+  });
+  const focusCount = focus.count;
+
   const flush = useCallback(() => {
     if (!dirty.current || handedIn.current) return;
     dirty.current = false;
     setSaved('saving');
-    saveLabDraft(a.id, latest.current).then(
+    saveLabDraft(a.id, latest.current, trackFocus ? focusCount.current : undefined).then(
       () => setSaved('saved'),
-      () => {
+      (err: unknown) => {
         dirty.current = true;
         setSaved('error');
+        // Refused, not lost: the sitting may have been closed or handed in elsewhere. Look again rather than retry for ever.
+        if (a.assessment && err instanceof ApiError && err.status === 400) void qc.invalidateQueries({ queryKey: pk.lab(a.id) });
       },
     );
-  }, [a.id]);
+  }, [a.id, a.assessment, qc, trackFocus, focusCount]);
   // Autosave a moment after the student stops, and at least every 15 seconds while working.
   useEffect(() => {
     if (!dirty.current) return;
@@ -93,19 +132,40 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
     if (handedIn.current) return;
     handedIn.current = true;
     setConfirm(false);
-    submit.mutate(latest.current, { onError: () => (handedIn.current = false) });
-  }, [submit]);
+    submit.mutate(
+      { state: latest.current, focusLosses: trackFocus ? focusCount.current : undefined },
+      {
+        onError: () => (handedIn.current = false),
+        onSuccess: () => {
+          try {
+            window.localStorage.removeItem(focusKey(a.id));
+          } catch {
+            /* ignore */
+          }
+        },
+      },
+    );
+  }, [submit, trackFocus, focusCount, a.id]);
 
   // Time's up in a timed practical: hand in what is recorded.
   useEffect(() => {
     if (left != null && left <= 0 && !handedIn.current && !submit.isError) handIn();
   }, [left, handIn, submit.isError]);
+  // A hand-in at zero that failed (usually the network) is tried again, as in an online exam.
+  const { reset: resetSubmit, isError: submitFailed } = submit;
+  useEffect(() => {
+    if (left == null || left > 0 || !submitFailed) return;
+    const t = setTimeout(resetSubmit, 5000);
+    return () => clearTimeout(t);
+  }, [left, submitFailed, resetSubmit]);
 
   const Sim = entry.component;
   const Sim3d = entry.component3d;
   const missing = done ? [] : entry.missing(state as never, a.seed);
   const lowTime = left != null && left < 5 * 60_000;
   const view = submit.data ?? a;
+  // A practical test's score can show before the marks in detail: those, and the record, wait until nobody can still be sitting.
+  const canReview = !view.assessment || view.assessment.review;
 
   if (submit.isPending) {
     return (
@@ -149,16 +209,19 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
       ) : view.submittedAt ? (
         <div className="space-y-4">
           <LabResult a={view} />
-          <div className="flex flex-wrap gap-2">
-            <Button variant={showWork === '2d' ? 'secondary' : 'outline'} onClick={() => setShowWork((s) => (s === '2d' ? null : '2d'))}>
-              <Eye /> {showWork === '2d' ? 'Hide' : 'Show'} your lab record
-            </Button>
-            {can3d && Sim3d && view.state && (
-              <Button variant={showWork === '3d' ? 'secondary' : 'brand'} onClick={() => setShowWork((s) => (s === '3d' ? null : '3d'))}>
-                <Box /> {showWork === '3d' ? 'Close the 3D walkthrough' : 'Walk through it in 3D'}
+          {view.assessment?.resultNote && <p className="rounded-xl bg-muted px-4 py-3 text-[13.5px]">{view.assessment.resultNote}</p>}
+          {canReview && (
+            <div className="flex flex-wrap gap-2">
+              <Button variant={showWork === '2d' ? 'secondary' : 'outline'} onClick={() => setShowWork((s) => (s === '2d' ? null : '2d'))}>
+                <Eye /> {showWork === '2d' ? 'Hide' : 'Show'} your lab record
               </Button>
-            )}
-          </div>
+              {can3d && Sim3d && view.state && (
+                <Button variant={showWork === '3d' ? 'secondary' : 'brand'} onClick={() => setShowWork((s) => (s === '3d' ? null : '3d'))}>
+                  <Box /> {showWork === '3d' ? 'Close the 3D walkthrough' : 'Walk through it in 3D'}
+                </Button>
+              )}
+            </div>
+          )}
           {showWork === '2d' && view.state && (
             <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
               <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} />
@@ -198,6 +261,7 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
             </Button>
           </div>
           {submit.error && <p className="rounded-lg bg-danger-soft px-3 py-2 text-[13px] text-danger">{errorMessage(submit.error)}</p>}
+          {focus.away > 0 && <AwayNotice what="practical exam" onClose={focus.clearAway} className="fixed inset-x-2 top-16 z-[100] mx-auto max-w-xl rounded-lg border border-warning/30 bg-warning-soft px-3 py-2 text-[13px] text-warning shadow-soft" />}
           {(() => {
             const props = {
               seed: a.seed,
@@ -221,7 +285,9 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
             return (
               <Lab3DBoundary fallback={flat} onError={() => setUse3d(false)}>
                 <Suspense fallback={<Skeleton className="h-[min(78dvh,780px)] min-h-[480px] rounded-2xl" />}>
-                  <Sim3d {...props} endsAt={a.endsAt} onHandIn={handIn} onUse2d={() => chooseView('2d')} />
+                  <LabSittingContext.Provider value={sitting ? a.assessment! : null}>
+                    <Sim3d {...props} endsAt={deviceEndsAt} onHandIn={handIn} onUse2d={() => chooseView('2d')} />
+                  </LabSittingContext.Provider>
                 </Suspense>
               </Lab3DBoundary>
             );
@@ -235,11 +301,13 @@ function LabHost({ a }: { a: PracticalAttemptView }) {
         title={missing.length ? 'Hand in with work missing?' : 'Hand in your lab?'}
         description={
           missing.length ? (
-            <ul className="list-disc space-y-0.5 pl-5">
+            <span className="block list-disc space-y-0.5 pl-5">
               {missing.map((m) => (
-                <li key={m}>{m}</li>
+                <span key={m} className="list-item">
+                  {m}
+                </span>
               ))}
-            </ul>
+            </span>
           ) : (
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="size-4 text-success" aria-hidden /> Everything is recorded. It will be marked now.

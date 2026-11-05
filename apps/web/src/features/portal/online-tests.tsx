@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ApiError } from '@/lib/api';
 import { formatDate, formatPct } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import { usePortalOnlineTest, usePortalOnlineTests } from './api';
+import { usePortalOnlineTest, usePortalOnlineTests, usePortalPracticalTests } from './api';
 import type { ShellCtx } from './ui';
 
 /**
@@ -27,6 +27,7 @@ export const scoreTone = (pct: number) => (pct >= 70 ? 'text-success' : pct >= 5
 
 export function OnlineTestsList({ child, isParent, onOpen }: Pick<ShellCtx, 'child' | 'isParent'> & { onOpen: (examId: string) => void }) {
   const q = usePortalOnlineTests(child.id);
+  const practical = usePortalPracticalTests(child.id);
   if (q.error && !q.data) return <ErrorState error={q.error} onRetry={() => void q.refetch()} />;
   if (!q.data) {
     return (
@@ -38,6 +39,7 @@ export function OnlineTestsList({ child, isParent, onOpen }: Pick<ShellCtx, 'chi
   }
   const { tests, withheld } = q.data;
   if (tests.length === 0) {
+    if (practical.data?.tests.length) return null;
     return (
       <Card>
         <EmptyState
@@ -51,15 +53,7 @@ export function OnlineTestsList({ child, isParent, onOpen }: Pick<ShellCtx, 'chi
   const scored = tests.filter((t) => t.percent != null);
   return (
     <div className="space-y-3">
-      {withheld && (
-        <div className="flex gap-3 rounded-xl border border-warning/30 bg-warning-soft/40 p-3">
-          <Lock className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
-          <div className="min-w-0">
-            <p className="text-[13.5px] font-medium">Test scores are on hold</p>
-            <p className="mt-0.5 text-[13px] text-muted-foreground">{withheld}</p>
-          </div>
-        </div>
-      )}
+      {withheld && <WithheldNotice message={withheld} />}
       {scored.length >= 2 && <ScoresChart tests={scored} />}
       <ul className="space-y-2.5">
         {tests.map((t) => (
@@ -72,7 +66,7 @@ export function OnlineTestsList({ child, isParent, onOpen }: Pick<ShellCtx, 'chi
   );
 }
 
-function TestRow({ t, onOpen }: { t: PortalOnlineTest; onOpen: () => void }) {
+export function TestRow({ t, onOpen }: { t: PortalOnlineTest; onOpen: () => void }) {
   return (
     <button
       type="button"
@@ -204,35 +198,7 @@ export function OnlineTestReview({ child, isParent, examId, onBack }: Pick<Shell
   return (
     <div className="space-y-4">
       {back}
-      <Card className="p-5 text-center sm:p-6">
-        <p className="text-[12px] font-medium text-muted-foreground">
-          {t.subject}
-          {t.term ? ` · ${t.term}` : ''}
-        </p>
-        <h2 className="mt-1 font-display text-lg font-semibold tracking-tight">{t.title}</h2>
-        <p className="mt-0.5 text-[12.5px] text-muted-foreground">Sat {formatDate(t.satAt)}</p>
-        {t.percent != null ? (
-          <div className="mt-4">
-            <p className={cn('font-display text-4xl font-semibold tabular', scoreTone(t.percent))}>{formatPct(t.percent, Number.isInteger(t.percent) ? 0 : 1)}</p>
-            <p className="mt-1 text-[13.5px] tabular text-muted-foreground">
-              {t.score} out of {t.total} marks{t.status === 'MARKING' ? ' so far' : ''}
-            </p>
-          </div>
-        ) : null}
-        {(t.classAverage != null || t.classHighest != null) && (
-          <div className="mx-auto mt-4 grid max-w-xs grid-cols-2 gap-2">
-            <div className="min-w-0 rounded-xl bg-muted/60 px-3 py-2">
-              <p className="text-[11.5px] text-muted-foreground">Class average</p>
-              <p className="font-display text-lg font-semibold tabular">{formatPct(t.classAverage, 1)}</p>
-            </div>
-            <div className="min-w-0 rounded-xl bg-muted/60 px-3 py-2">
-              <p className="text-[11.5px] text-muted-foreground">Highest</p>
-              <p className="font-display text-lg font-semibold tabular">{formatPct(t.classHighest, 1)}</p>
-            </div>
-          </div>
-        )}
-        {t.note && <p className="mx-auto mt-4 max-w-md rounded-xl bg-muted px-4 py-3 text-[13px]">{t.note}</p>}
-      </Card>
+      <TestHeader t={t} />
 
       {v.questions && v.questions.length > 0 && (
         <section aria-labelledby="test-review-h">
@@ -248,6 +214,55 @@ export function OnlineTestReview({ child, isParent, examId, onBack }: Pick<Shell
           </ol>
         </section>
       )}
+    </div>
+  );
+}
+
+/** A test's title, score and class figures, at the top of its page. */
+export function TestHeader({ t, detail }: { t: PortalOnlineTest; detail?: string }) {
+  return (
+    <Card className="p-5 text-center sm:p-6">
+      <p className="text-[12px] font-medium text-muted-foreground">
+        {t.subject}
+        {t.term ? ` · ${t.term}` : ''}
+      </p>
+      <h2 className="mt-1 font-display text-lg font-semibold tracking-tight">{t.title}</h2>
+      {detail && <p className="mt-0.5 text-[13px] text-muted-foreground">{detail}</p>}
+      <p className="mt-0.5 text-[12.5px] text-muted-foreground">Sat {formatDate(t.satAt)}</p>
+      {t.percent != null ? (
+        <div className="mt-4">
+          <p className={cn('font-display text-4xl font-semibold tabular', scoreTone(t.percent))}>{formatPct(t.percent, Number.isInteger(t.percent) ? 0 : 1)}</p>
+          <p className="mt-1 text-[13.5px] tabular text-muted-foreground">
+            {t.score} out of {t.total} marks{t.status === 'MARKING' ? ' so far' : ''}
+          </p>
+        </div>
+      ) : null}
+      {(t.classAverage != null || t.classHighest != null) && (
+        <div className="mx-auto mt-4 grid max-w-xs grid-cols-2 gap-2">
+          <div className="min-w-0 rounded-xl bg-muted/60 px-3 py-2">
+            <p className="text-[11.5px] text-muted-foreground">Class average</p>
+            <p className="font-display text-lg font-semibold tabular">{formatPct(t.classAverage, 1)}</p>
+          </div>
+          <div className="min-w-0 rounded-xl bg-muted/60 px-3 py-2">
+            <p className="text-[11.5px] text-muted-foreground">Highest</p>
+            <p className="font-display text-lg font-semibold tabular">{formatPct(t.classHighest, 1)}</p>
+          </div>
+        </div>
+      )}
+      {t.note && <p className="mx-auto mt-4 max-w-md rounded-xl bg-muted px-4 py-3 text-[13px]">{t.note}</p>}
+    </Card>
+  );
+}
+
+/** Results are withheld (e.g. fees owed). */
+export function WithheldNotice({ message }: { message: string }) {
+  return (
+    <div className="flex gap-3 rounded-xl border border-warning/30 bg-warning-soft/40 p-3">
+      <Lock className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+      <div className="min-w-0">
+        <p className="text-[13.5px] font-medium">Test scores are on hold</p>
+        <p className="mt-0.5 text-[13px] text-muted-foreground">{message}</p>
+      </div>
     </div>
   );
 }

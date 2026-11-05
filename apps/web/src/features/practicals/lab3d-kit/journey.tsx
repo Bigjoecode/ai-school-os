@@ -28,16 +28,20 @@ function Chip({ active, done, icon, label, onClick }: { active: boolean; done?: 
   );
 }
 
-export function JourneyBar({ stage, learned, demoed, onStage, onAsk, asking, sandbox = true }: { stage: Stage; learned: boolean; demoed: boolean; onStage: (s: Stage) => void; onAsk?: () => void; asking: boolean; sandbox?: boolean }) {
+export function JourneyBar({ stage, learned, demoed, onStage, onAsk, asking, sandbox = true, sitting = false }: { stage: Stage; learned: boolean; demoed: boolean; onStage: (s: Stage) => void; onAsk?: () => void; asking: boolean; sandbox?: boolean; /** A practical test: only the assistant, no Learn, Demo or Sandbox. */ sitting?: boolean }) {
   const sep = <ChevronRight className="size-3.5 shrink-0 text-white/50" aria-hidden />;
   return (
     <nav className="pointer-events-auto mx-auto flex max-w-full items-center gap-1 overflow-x-auto rounded-full bg-black/35 p-1 backdrop-blur [scrollbar-width:none]" aria-label="Practical journey">
-      <Chip active={stage === 'learn'} done={learned} icon={<GraduationCap className="size-3.5" aria-hidden />} label="Learn" onClick={() => onStage('learn')} />
-      {sep}
-      <Chip active={stage === 'demo'} done={demoed} icon={<PlayCircle className="size-3.5" aria-hidden />} label="Demo" onClick={() => onStage('demo')} />
-      {sep}
+      {!sitting && (
+        <>
+          <Chip active={stage === 'learn'} done={learned} icon={<GraduationCap className="size-3.5" aria-hidden />} label="Learn" onClick={() => onStage('learn')} />
+          {sep}
+          <Chip active={stage === 'demo'} done={demoed} icon={<PlayCircle className="size-3.5" aria-hidden />} label="Demo" onClick={() => onStage('demo')} />
+          {sep}
+        </>
+      )}
       <Chip active={stage === 'try'} icon={<FlaskConical className="size-3.5" aria-hidden />} label="Try" onClick={() => onStage('try')} />
-      {sandbox && <Chip active={stage === 'sandbox'} icon={<Shapes className="size-3.5" aria-hidden />} label="Sandbox" onClick={() => onStage('sandbox')} />}
+      {sandbox && !sitting && <Chip active={stage === 'sandbox'} icon={<Shapes className="size-3.5" aria-hidden />} label="Sandbox" onClick={() => onStage('sandbox')} />}
       {onAsk && (
         <button
           type="button"

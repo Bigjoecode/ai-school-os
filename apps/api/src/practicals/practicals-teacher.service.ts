@@ -155,8 +155,8 @@ export class PracticalsTeacherService {
     const value: StoredOverride = { score: Math.round(input.score * 2) / 2, note: input.note, byUserId: userId, by: me ? fullName(me) : 'Teacher', at: new Date().toISOString() };
     await this.prisma.db.practicalAttempt.update({ where: { id }, data: { override: value as unknown as Prisma.InputJsonValue, reviewedById: userId, reviewedAt: new Date() } });
     await this.practicals.remasterLab(a, value.score);
-    // Homework this lab handed in follows the reviewed score.
-    await this.homework.handIn(a, { force: true });
+    // Homework this lab handed in follows the reviewed score (a practical test's sitting never counts as homework).
+    if (!a.assessmentId) await this.homework.handIn(a, { force: true });
     await this.audit.log({
       action: 'practical.override',
       summary: `Reviewed a ${isSimulatorId(a.simulatorId) ? a.simulatorId : 'lab'} attempt: ${before ?? '—'} → ${value.score}/${a.maxScore}`,

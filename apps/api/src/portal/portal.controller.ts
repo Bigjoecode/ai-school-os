@@ -14,6 +14,11 @@ import {
   type PortalOnlineTestQuestion,
   type PortalOnlineTestReview,
   type PortalOnlineTests,
+  type PortalPracticalCriterion,
+  type PortalPracticalTest,
+  type PortalPracticalTestReview,
+  type PortalPracticalTests,
+  type CriterionScore,
   type PortalOverview,
   type PortalResultTerm,
   type PortalSettings,
@@ -23,9 +28,12 @@ import {
 } from '@aischool/shared';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
-import type { ExamPaper, OnlineExam, OnlineExamAttempt } from '../generated/prisma/client';
+import type { ExamPaper, OnlineExam, OnlineExamAttempt, PracticalAttempt } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
+import { familyResultNote } from '../cbt/cbt-rules';
 import { answersOf, isObjective, layoutOf, resultVisibility, round1, theoryMarksOf } from '../cbt/cbt.service';
+import { familyTest } from '../practicals/practical-assessment';
+import { effectiveScore, type StoredOverride } from '../practicals/practicals.service';
 import { AttendanceService } from '../attendance/attendance.service';
 import { ReportCardService } from '../assessment/report-card.service';
 import { RequirePermissions } from '../common/decorators';
@@ -259,6 +267,60 @@ export class PortalController {
     return { test, questions };
   }
 
+  /** The child's practical tests (virtual labs set by a teacher), on the same rules as online tests. */
+  @Get('students/:id/practical-tests')
+  async practicalTests(@Param('id') id: string): Promise<PortalPracticalTests> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    const [sittings, withheld] = await Promise.all([this.prisma.db.practicalAttempt.findMany({ where: { studentId: id, assessmentId: { not: null }, submittedAt: { not: null } } }), this.withheld(id, settings)]);
+    if (!sittings.length) return { withheld, tests: [] };
+    const tests = await this.practicalRows(sittings, withheld);
+    return { withheld, tests: tests.sort((x, y) => y.satAt.localeCompare(x.satAt)) };
+  }
+
+  /** One practical test mark by mark, once the child may see the marks in detail. */
+  @Get('students/:id/practical-tests/:assessmentId')
+  async practicalTest(@Param('id') id: string, @Param('assessmentId') assessmentId: string): Promise<PortalPracticalTestReview> {
+    const v = await this.viewer();
+    this.mustSee(v, id);
+    const settings = await this.settings();
+    if (!settings.showResults) throw new ForbiddenException('The school has not shared results in the portal');
+    const a = await this.prisma.db.practicalAttempt.findUnique({ where: { assessmentId_studentId: { assessmentId, studentId: id } } });
+    if (!a?.submittedAt) throw new NotFoundException('Test not found');
+    const withheld = await this.withheld(id, settings);
+    if (withheld) throw new ForbiddenException({ statusCode: 403, code: 'RESULT_WITHHELD', message: withheld });
+    const [test] = await this.practicalRows([a], null);
+    if (!test) throw new NotFoundException('Test not found');
+    if (!test.canReview) return { test, criteria: null, feedback: null, teacherNote: null };
+    const criteria: PortalPracticalCriterion[] = ((a.scores as unknown as CriterionScore[] | null) ?? []).map((c) => ({ id: c.id, label: c.label, awarded: c.awarded, max: c.max, note: c.note }));
+    return { test, criteria, feedback: a.aiFeedback, teacherNote: (a.override as StoredOverride | null)?.note ?? null };
+  }
+
+  /** Handed-in sittings as the family sees them (drafts never show); class figures only where the score may be seen. */
+  private async practicalRows(sittings: PracticalAttempt[], withheld: string | null): Promise<PortalPracticalTest[]> {
+    const db = this.prisma.db;
+    const ids = [...new Set(sittings.map((s) => s.assessmentId!))];
+    const rows = await db.practicalAssessment.findMany({ where: { id: { in: ids }, status: { not: 'DRAFT' } } });
+    const [lessons, subjects, terms] = await Promise.all([
+      this.prisma.root.practicalLesson.findMany({ where: { id: { in: rows.map((r) => r.practicalId) } }, select: { id: true, title: true } }),
+      db.subject.findMany({ where: { id: { in: rows.map((r) => r.subjectId) } }, select: { id: true, name: true } }),
+      db.term.findMany({ where: { id: { in: rows.map((r) => r.termId) } }, include: { session: { select: { name: true } } } }),
+    ]);
+    const now = new Date();
+    const visible = withheld ? [] : rows.filter((r) => resultVisibility(r, { status: 'SUBMITTED' }, now).score).map((r) => r.id);
+    const peers = visible.length ? await db.practicalAttempt.findMany({ where: { assessmentId: { in: visible }, submittedAt: { not: null } }, select: { assessmentId: true, score: true, override: true, maxScore: true } }) : [];
+    return rows.flatMap((r) => {
+      const a = sittings.find((s) => s.assessmentId === r.id);
+      if (!a) return [];
+      const t = terms.find((x) => x.id === r.termId);
+      const names = { subject: subjects.find((s) => s.id === r.subjectId)?.name ?? '', term: t ? `${t.name} · ${t.session.name}` : null, practicalTitle: lessons.find((l) => l.id === r.practicalId)?.title ?? 'Practical' };
+      const percents = peers.filter((p) => p.assessmentId === r.id && p.maxScore > 0).map((p) => ((effectiveScore(p) ?? 0) / p.maxScore) * 100);
+      return [familyTest(r, a, effectiveScore(a), names, percents, withheld, now)];
+    });
+  }
+
   @Get('students/:id/calendar')
   async calendar(@Param('id') id: string): Promise<PortalEvent[]> {
     const v = await this.viewer();
@@ -477,17 +539,7 @@ function testRow(e: OnlineExam, p: TestPaper, a: OnlineExamAttempt, peers: { sco
   const show = vis.score && !withheld && total > 0;
   const pcts = peers.filter((x) => x.score != null && x.total).map((x) => (x.score! / x.total!) * 100);
   const stats = show && pcts.length >= 2;
-  const note = withheld
-    ? null
-    : !vis.score
-      ? e.showResults === 'AFTER_CLOSE'
-        ? 'The score will show when the test closes.'
-        : 'The score will show when the teacher releases the results.'
-      : partial
-        ? 'Written answers are still being marked; this is the score so far.'
-        : !vis.review
-          ? 'Answers can be reviewed once the test has closed.'
-          : null;
+  const note = familyResultNote(e, vis, { withheld: !!withheld, partial });
   return {
     id: e.id,
     title: e.title,

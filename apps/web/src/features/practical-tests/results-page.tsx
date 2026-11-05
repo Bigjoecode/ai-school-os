@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { formatRelative } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { PhaseBadge, minutesLabel, windowLabel } from '../cbt/ui';
 import { PracticalTestActions } from './actions';
@@ -112,17 +113,18 @@ function Body({ r }: { r: PracticalAssessmentResults }) {
 }
 
 function ResultsTable({ r, rows }: { r: PracticalAssessmentResults; rows: PracticalAssessmentResults['rows'] }) {
+  const exam = r.assessment.kind === 'EXAM';
   return (
     <Card className="overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="min-w-44">Student</TableHead>
+            <TableHead className="min-w-36 sm:min-w-44">Student</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Score</TableHead>
             <TableHead className="text-right">%</TableHead>
             {r.criteria.map((c) => (
-              <TableHead key={c.id} className="text-right" title={`${c.label}${c.how === 'AI' ? ' — written answer, AI-marked' : ' — marked exactly'}`}>
+              <TableHead key={c.id} className="hidden text-right md:table-cell" title={`${c.label}${c.how === 'AI' ? ' — written answer, AI-marked' : ' — marked exactly'}`}>
                 <span className="inline-flex items-center gap-1 whitespace-nowrap">
                   {c.how === 'AI' && <Bot className="size-3.5 text-brand" aria-label="AI-marked" />}
                   {c.label.length > 14 ? `${c.label.slice(0, 13)}…` : c.label} <span className="text-muted-foreground">/{c.max}</span>
@@ -130,6 +132,12 @@ function ResultsTable({ r, rows }: { r: PracticalAssessmentResults; rows: Practi
               </TableHead>
             ))}
             <TableHead className="text-right">Time</TableHead>
+            {exam && (
+              <TableHead className="text-right" title="Times the student left the lab during the exam. A signal to look into, not proof of anything.">
+                Focus losses
+              </TableHead>
+            )}
+            <TableHead className="whitespace-nowrap">Last saved</TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
@@ -156,12 +164,14 @@ function ResultsTable({ r, rows }: { r: PracticalAssessmentResults; rows: Practi
               {r.criteria.map((c) => {
                 const k = x.criteria.find((y) => y.id === c.id);
                 return (
-                  <TableCell key={c.id} className="text-right tabular text-muted-foreground">
+                  <TableCell key={c.id} className="hidden text-right tabular text-muted-foreground md:table-cell">
                     {k ? k.awarded : '—'}
                   </TableCell>
                 );
               })}
               <TableCell className="text-right tabular">{minutesLabel(x.timeTakenSeconds)}</TableCell>
+              {exam && <TableCell className={cn('text-right tabular', x.focusLosses >= 3 ? 'font-semibold text-danger' : x.focusLosses > 0 ? 'text-warning' : 'text-muted-foreground')}>{x.focusLosses}</TableCell>}
+              <TableCell className="whitespace-nowrap text-[12.5px] text-muted-foreground">{x.lastSeenAt ? formatRelative(x.lastSeenAt) : '—'}</TableCell>
               <TableCell>
                 {x.attemptId && x.status === 'SUBMITTED' && (
                   <Button asChild size="sm" variant="ghost">

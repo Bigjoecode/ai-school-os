@@ -1,5 +1,5 @@
-import type { PracticalAssessmentKind, PracticalAssessmentRowStatus } from '@aischool/shared';
-import { attemptDeadline, phaseOf, resultNote, resultVisibility, startRefusal, type WindowedAssessment } from '../cbt/cbt-rules';
+import type { PortalPracticalTest, PracticalAssessmentKind, PracticalAssessmentRowStatus } from '@aischool/shared';
+import { attemptDeadline, familyResultNote, phaseOf, resultNote, resultVisibility, startRefusal, type WindowedAssessment } from '../cbt/cbt-rules';
 
 /**
  * Practical assessments (a virtual lab set by a teacher as a timed class
@@ -58,11 +58,53 @@ export function timeTakenSeconds(s: SittingRow): number | null {
   return Math.max(0, Math.round((end.getTime() - s.startedAt.getTime()) / 1000));
 }
 
-/** What the student may see of their handed-in sitting right now: the score, and if not, why. */
-export function studentView(a: AssessmentRules, s: SittingRow | null, now = new Date()): { score: boolean; note: string | null } {
-  if (!s?.submittedAt) return { score: false, note: null };
-  const score = resultVisibility(a, { status: 'SUBMITTED' }, now).score;
-  return { score, note: resultNote(a, score, 'practical test') };
+/**
+ * What the student may see of their handed-in sitting right now: the score;
+ * the marks in detail, feedback and worked solution (`review`), which wait
+ * until nobody can still be sitting, as answers do in an online exam; and if
+ * not, why.
+ */
+export function studentView(a: AssessmentRules, s: SittingRow | null, now = new Date()): { score: boolean; review: boolean; note: string | null } {
+  if (!s?.submittedAt) return { score: false, review: false, note: null };
+  const { score, review } = resultVisibility(a, { status: 'SUBMITTED' }, now);
+  return { score, review, note: resultNote(a, score, 'practical test') ?? (review ? null : 'You can see your marks in detail once the practical test has closed.') };
+}
+
+/**
+ * A sitting as the family sees it: the same moment the child may see it,
+ * never while the school withholds results, and class figures only with at
+ * least two marks to average. The caller passes only handed-in sittings.
+ */
+export function familyTest(
+  a: AssessmentRules & { id: string; title: string },
+  s: { startedAt: Date; submittedAt: Date | null; maxScore: number },
+  score: number | null,
+  names: { subject: string; term: string | null; practicalTitle: string },
+  peerPercents: number[],
+  withheld: string | null,
+  now = new Date(),
+): PortalPracticalTest {
+  const vis = resultVisibility(a, { status: 'SUBMITTED' }, now);
+  const show = vis.score && !withheld && score != null && s.maxScore > 0;
+  const stats = show && peerPercents.length >= 2;
+  const round1 = (n: number) => Math.round(n * 10) / 10;
+  return {
+    id: a.id,
+    title: a.title,
+    kind: a.kind as PracticalAssessmentKind,
+    subject: names.subject,
+    term: names.term,
+    practicalTitle: names.practicalTitle,
+    satAt: (s.submittedAt ?? s.startedAt).toISOString(),
+    status: 'MARKED',
+    score: show ? score : null,
+    total: show ? s.maxScore : null,
+    percent: show ? round1((score / s.maxScore) * 100) : null,
+    classAverage: stats ? round1(peerPercents.reduce((x, y) => x + y, 0) / peerPercents.length) : null,
+    classHighest: stats ? round1(Math.max(...peerPercents)) : null,
+    canReview: !withheld && vis.review,
+    note: familyResultNote(a, vis, { withheld: !!withheld }),
+  };
 }
 
 /** Fields that can't change once a student has started (they would treat sitters differently). */
@@ -73,5 +115,8 @@ export function lockedChanges(body: Partial<Record<(typeof LOCKED_ONCE_STARTED)[
 
 /** A sitting is due to be handed in for the student once its clock and the grace period have passed. */
 export const overdue = (s: SittingRow, graceMs: number, now = Date.now()) => !s.submittedAt && !!s.endsAt && now > s.endsAt.getTime() + graceMs;
+
+/** The edit form sends times to the minute: a time left as it was is not a change (it may well be in the past by now). */
+export const sameMinute = (a: Date, b: Date) => Math.floor(a.getTime() / 60_000) === Math.floor(b.getTime() / 60_000);
 
 export { phaseOf };

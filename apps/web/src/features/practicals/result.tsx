@@ -25,7 +25,7 @@ export function LabResult({ a, teacher }: { a: PracticalAttemptView; teacher?: b
           </div>
           <div className="min-w-0 flex-1 space-y-1.5">
             <div className="flex flex-wrap gap-1.5">
-              <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>{a.mode === 'EXAM' ? 'Timed practical exam' : 'Practice lab'}</Badge>
+              <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>{a.assessment ? (a.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : a.mode === 'EXAM' ? 'Timed practical exam' : 'Practice lab'}</Badge>
               {r.review && (
                 <Badge variant="success">
                   <BadgeCheck /> Reviewed by {teacher ? r.review.by : 'your teacher'}
@@ -46,29 +46,31 @@ export function LabResult({ a, teacher }: { a: PracticalAttemptView; teacher?: b
         )}
       </Card>
 
-      <Card className="p-5">
-        <SectionTitle icon={ListChecks} title="How it was marked" />
-        <ul className="divide-y divide-border">
-          {r.criteria.map((c) => (
-            <li key={c.id} className="flex items-start gap-3 py-2.5">
-              <div className="min-w-0 flex-1">
-                <p className="flex flex-wrap items-center gap-1.5 text-[13.5px] font-medium">
-                  {c.label}
-                  {c.how === 'AI' && (
-                    <Badge variant="outline" title="A written answer, marked by AI against the marking guide">
-                      <Bot /> AI-assisted
-                    </Badge>
-                  )}
+      {r.criteria.length > 0 && (
+        <Card className="p-5">
+          <SectionTitle icon={ListChecks} title="How it was marked" />
+          <ul className="divide-y divide-border">
+            {r.criteria.map((c) => (
+              <li key={c.id} className="flex items-start gap-3 py-2.5">
+                <div className="min-w-0 flex-1">
+                  <p className="flex flex-wrap items-center gap-1.5 text-[13.5px] font-medium">
+                    {c.label}
+                    {c.how === 'AI' && (
+                      <Badge variant="outline" title="A written answer, marked by AI against the marking guide">
+                        <Bot /> AI-assisted
+                      </Badge>
+                    )}
+                  </p>
+                  <p className={cn('mt-0.5 text-[12.5px]', c.awarded < c.max ? 'text-foreground/80' : 'text-muted-foreground')}>{c.note}</p>
+                </div>
+                <p className={cn('shrink-0 font-display text-[15px] font-semibold tabular', c.awarded >= c.max ? 'text-success' : c.awarded > 0 ? 'text-warning' : 'text-danger')}>
+                  {marks(c.awarded)}/{c.max}
                 </p>
-                <p className={cn('mt-0.5 text-[12.5px]', c.awarded < c.max ? 'text-foreground/80' : 'text-muted-foreground')}>{c.note}</p>
-              </div>
-              <p className={cn('shrink-0 font-display text-[15px] font-semibold tabular', c.awarded >= c.max ? 'text-success' : c.awarded > 0 ? 'text-warning' : 'text-danger')}>
-                {marks(c.awarded)}/{c.max}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Card>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       {r.solution.length > 0 && (
         <Card className="p-5">

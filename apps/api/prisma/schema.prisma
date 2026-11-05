@@ -3447,6 +3447,12 @@ model PracticalAttempt {
   reviewedAt   DateTime?
   /// Set when the attempt is a sitting of a teacher-scheduled practical test or exam (one per student).
   assessmentId String?
+  /// Times the student left the lab during a practical exam (tab or app switch): a signal for the teacher.
+  focusLosses  Int       @default(0)
+  /// Where a sitting was started from.
+  ip           String?
+  /// A sitting's last autosave.
+  lastSeenAt   DateTime?
 
   tenant     Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   student    Student              @relation(fields: [studentId], references: [id], onDelete: Cascade)

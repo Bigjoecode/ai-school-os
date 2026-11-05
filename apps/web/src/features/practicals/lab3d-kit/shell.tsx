@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 import { clock, useCountdown } from '../../learning/components';
 import { usePracticalLesson } from '../api';
+import { useLabSitting } from '../sitting';
 import { gpuTier, isTouchDevice } from '../simulators/webgl';
 import { AskPanel, type AskSuggestions, type AskTurn } from './ask';
 import { assistantProfile } from './assistant-profile';
@@ -61,9 +62,12 @@ export function useLabKit(o: LabKitOptions) {
   const { mode, readOnly, practicalId, result, started } = o;
   const touch = useMemo(isTouchDevice, []);
   const practice = mode === 'LAB' && !readOnly;
+  // A practical test: guidance and the assistant stay (a class test), but not the lesson, demo or sandbox.
+  const sitting = !!useLabSitting();
+  const teach = practice && !sitting;
   const [prefs, setPrefs] = useState<LabPrefs>(loadPrefs);
   const updatePrefs = useCallback((p: Partial<LabPrefs>) => setPrefs((x) => (savePrefs({ ...x, ...p }), { ...x, ...p })), []);
-  const lesson = usePracticalLesson(practicalId ?? '').data;
+  const lesson = usePracticalLesson(sitting ? '' : (practicalId ?? '')).data;
   const [stage, setStage] = useState<Stage>('try');
   const journey = prefs.journey?.[practicalId ?? ''] ?? {};
   const markJourney = useCallback(
@@ -130,7 +134,7 @@ export function useLabKit(o: LabKitOptions) {
       resetTick: next === 'try' && !started ? x.resetTick + 1 : x.resetTick,
     }));
     setStage(next);
-    if (next === 'try' && practice && !prefs.tourDone) startTour();
+    if (next === 'try' && teach && !prefs.tourDone) startTour();
   };
   const enter = (next: Stage, bench = false) => {
     setIntro(false);
@@ -176,6 +180,8 @@ export function useLabKit(o: LabKitOptions) {
     o,
     touch,
     practice,
+    teach,
+    sitting,
     prefs,
     updatePrefs,
     lesson,
@@ -291,7 +297,7 @@ export interface LabShellProps {
 
 export function LabShell(p: LabShellProps) {
   const { kit } = p;
-  const { o, touch, practice, prefs, updatePrefs, lesson, stage, goStage, enter, journey, markJourney, work, guided, sheet, setSheet, intro, tour, setTour, startTour, immersive, setImmersive, correction, setCorrection, stripHidden, setStripHidden, debrief, setDebrief, speak } = kit;
+  const { o, touch, practice, teach, sitting, prefs, updatePrefs, lesson, stage, goStage, enter, journey, markJourney, work, guided, sheet, setSheet, intro, tour, setTour, startTour, immersive, setImmersive, correction, setCorrection, stripHidden, setStripHidden, debrief, setDebrief, speak } = kit;
   const { mode, readOnly, practicalId, result } = o;
   const { slow } = kit;
   const [lost, setLost] = useState(false);
@@ -324,7 +330,7 @@ export function LabShell(p: LabShellProps) {
   }, [selected, set, nextTip]);
 
   // ---- first visit: the tour, then the safety briefing at the door, then a greeting
-  const showBriefing = practice && stage === 'try' && !intro && !tour && (!p.briefed || briefAgain);
+  const showBriefing = teach && stage === 'try' && !intro && !tour && (!p.briefed || briefAgain);
   const closeSheet = useCallback(() => setSheet(null), [setSheet]);
   const greeted = useRef(false);
   useEffect(() => {
@@ -478,6 +484,7 @@ export function LabShell(p: LabShellProps) {
             learned={!!journey.learn}
             demoed={!!journey.demo}
             sandbox={!!p.sandbox}
+            sitting={sitting}
             onStage={(x) => (x === 'sandbox' ? setSheet('sandbox') : goStage(x))}
             onAsk={askOk ? () => setSheet(sheet === 'ask' ? null : 'ask') : undefined}
             asking={sheet === 'ask'}
@@ -627,7 +634,7 @@ export function LabShell(p: LabShellProps) {
                 <Switch checked={prefs.voice} onCheckedChange={(on) => updatePrefs({ voice: on })} />
               </label>
             )}
-            {practice && p.briefed && (
+            {teach && p.briefed && (
               <Button variant="outline" onClick={() => (setSheet(null), setBriefAgain(true))}>
                 <ShieldCheck /> Safety briefing again
               </Button>
@@ -697,9 +704,9 @@ export function LabShell(p: LabShellProps) {
       {intro && (
         <div className="absolute inset-0 z-40 grid place-items-center bg-black/45 p-4 backdrop-blur-[2px]">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-2xl sm:p-5">
-            <p className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">3D virtual lab{mode === 'EXAM' ? ' · timed practical' : ''}</p>
+            <p className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">3D virtual lab{mode === 'EXAM' || sitting ? ' · timed practical' : ''}</p>
             <h2 className="mt-1 font-display text-xl font-semibold tracking-tight">{p.heading}</h2>
-            {practice && <p className="mt-2 text-[13.5px] text-muted-foreground">New to this practical? Learn it first, watch {assistantProfile.name} do it, then try it yourself — you can jump to any stage.</p>}
+            {teach && <p className="mt-2 text-[13.5px] text-muted-foreground">New to this practical? Learn it first, watch {assistantProfile.name} do it, then try it yourself — you can jump to any stage.</p>}
             <p className="mt-2 text-[13.5px] text-muted-foreground sm:hidden">{p.intro.short}</p>
             <ol className="mt-3 hidden list-decimal space-y-1 pl-5 text-[13.5px] text-muted-foreground sm:block">
               {p.intro.steps.map((s) => (
@@ -708,7 +715,7 @@ export function LabShell(p: LabShellProps) {
             </ol>
             <p className="mt-3 hidden text-[12.5px] text-muted-foreground sm:block">{touch ? 'Joystick to walk, drag to look, tap things to use them.' : 'WASD or arrows to walk, drag to look, click things to use them.'}</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              {practice && (
+              {teach && (
                 <>
                   <Button variant={journey.learn ? 'outline' : 'brand'} onClick={() => enter('learn')}>
                     <GraduationCap /> 1. Learn first{journey.learn ? ' ✓' : ''}
@@ -719,13 +726,13 @@ export function LabShell(p: LabShellProps) {
                   </Button>
                 </>
               )}
-              <Button variant={!practice || (journey.learn && journey.demo) ? 'brand' : 'outline'} onClick={() => enter('try')}>
-                {practice ? '3. Try it: enter the lab' : 'Enter the lab'}
+              <Button variant={!teach || (journey.learn && journey.demo) ? 'brand' : 'outline'} onClick={() => enter('try')}>
+                {teach ? '3. Try it: enter the lab' : 'Enter the lab'}
               </Button>
               <Button variant="ghost" onClick={() => enter('try', true)}>
                 Go straight to my bench
               </Button>
-              {!practice && (
+              {!teach && (
                 <Button variant="ghost" onClick={() => (enter('try'), startTour())}>
                   <Compass /> New here? 1-minute controls tour
                 </Button>

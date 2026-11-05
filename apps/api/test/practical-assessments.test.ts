@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createPracticalAssessmentSchema, updatePracticalAssessmentSchema } from '@aischool/shared';
 import { scaleToComponent, scoreRowStatus } from '../src/assessment/score-copy';
-import { attemptDeadline, phaseOf, resultVisibility, windowError } from '../src/cbt/cbt-rules';
-import { lockedChanges, overdue, sittingMode, sittingStatus, startDecision, studentView, timeTakenSeconds, type AssessmentRules } from '../src/practicals/practical-assessment';
+import { attemptDeadline, familyResultNote, phaseOf, resultVisibility, windowError } from '../src/cbt/cbt-rules';
+import { familyTest, lockedChanges, overdue, sameMinute, sittingMode, sittingStatus, startDecision, studentView, timeTakenSeconds, type AssessmentRules } from '../src/practicals/practical-assessment';
 
 const at = (s: string) => new Date(`${s}Z`);
 const base: AssessmentRules = {
@@ -121,8 +121,12 @@ test('once anyone has started, the kind, classes, opening time and duration are 
 
 test('results: straight away, after the close, or only once released', () => {
   const done = { id: 'x', startedAt: during, endsAt: at('2026-11-10T10:15:00'), submittedAt: at('2026-11-10T10:00:00') };
+  // Straight away: the score, but the detail and worked solution only once nobody can still be sitting.
   const imm = studentView({ ...base, showResults: 'IMMEDIATE' }, done, during);
-  assert.deepEqual(imm, { score: true, note: null });
+  assert.equal(imm.score, true);
+  assert.equal(imm.review, false);
+  assert.match(imm.note!, /marks in detail once the practical test has closed/);
+  assert.deepEqual(studentView({ ...base, showResults: 'IMMEDIATE' }, done, base.closesAt), { score: true, review: true, note: null });
   const afterClose = studentView(base, done, during);
   assert.equal(afterClose.score, false);
   assert.match(afterClose.note!, /when the practical test closes/);
@@ -132,8 +136,48 @@ test('results: straight away, after the close, or only once released', () => {
   assert.match(never.note!, /released by your teacher/);
   assert.equal(studentView({ ...base, showResults: 'NEVER', resultsReleasedAt: at('2026-11-12T09:00:00') }, done, at('2026-11-12T10:00:00')).score, true);
   // Not handed in: nothing to show, released or not.
-  assert.deepEqual(studentView({ ...base, resultsReleasedAt: during }, { ...done, submittedAt: null }, during), { score: false, note: null });
+  assert.deepEqual(studentView({ ...base, resultsReleasedAt: during }, { ...done, submittedAt: null }, during), { score: false, review: false, note: null });
   assert.equal(resultVisibility({ ...base, resultsReleasedAt: during }, { status: 'IN_PROGRESS' }, during).score, false);
+});
+
+// ---------------------------------------------------------- what the family sees
+
+const pa = { ...base, id: 'pa1', title: 'Titration exam' };
+const sat = { startedAt: during, submittedAt: at('2026-11-10T10:00:00'), maxScore: 24 };
+const names = { subject: 'Chemistry', term: 'First Term · 2026/2027', practicalTitle: 'Titration' };
+
+test('the family sees the score exactly when the child may', () => {
+  const hidden = familyTest(pa, sat, 18, names, [75, 50], null, during);
+  assert.deepEqual([hidden.score, hidden.total, hidden.percent, hidden.classAverage, hidden.classHighest, hidden.canReview], [null, null, null, null, null, false]);
+  assert.match(hidden.note!, /when the test closes/);
+  const after = familyTest(pa, sat, 18, names, [75, 50], null, base.closesAt);
+  assert.deepEqual([after.score, after.total, after.percent, after.classAverage, after.classHighest, after.canReview, after.note], [18, 24, 75, 62.5, 75, true, null]);
+  const never = familyTest({ ...pa, showResults: 'NEVER' }, sat, 18, names, [], null, at('2026-12-01T09:00:00'));
+  assert.equal(never.score, null);
+  assert.match(never.note!, /teacher releases/);
+});
+
+test('straight-away results: the family gets the score, the detail waits; one mark alone gives no class figures', () => {
+  const t = familyTest({ ...pa, showResults: 'IMMEDIATE' }, sat, 18, names, [75], null, during);
+  assert.equal(t.percent, 75);
+  assert.equal(t.classAverage, null);
+  assert.equal(t.canReview, false);
+  assert.match(t.note!, /once the test has closed/);
+});
+
+test('results withheld for fees: no score, no detail, and no note saying when', () => {
+  const t = familyTest({ ...pa, resultsReleasedAt: during }, sat, 18, names, [75, 50], 'Please see the bursar.', during);
+  assert.deepEqual([t.score, t.total, t.percent, t.classAverage, t.canReview, t.note], [null, null, null, null, false, null]);
+});
+
+test('the family note is shared with online tests', () => {
+  assert.equal(familyResultNote({ showResults: 'AFTER_CLOSE' }, { score: true, review: true }, { withheld: false, partial: true }), 'Written answers are still being marked; this is the score so far.');
+  assert.equal(familyResultNote({ showResults: 'NEVER' }, { score: false, review: false }, { withheld: true }), null);
+});
+
+test('times the edit form sends back unchanged are not changes', () => {
+  assert.equal(sameMinute(at('2026-11-10T10:15:42'), at('2026-11-10T10:15:00')), true);
+  assert.equal(sameMinute(at('2026-11-10T10:15:42'), at('2026-11-10T10:16:00')), false);
 });
 
 // ---------------------------------------------------------- the score sheet

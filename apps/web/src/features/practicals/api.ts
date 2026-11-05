@@ -26,8 +26,10 @@ export const pk = {
 
 export const usePracticalSubjects = (enabled = true) => useQuery({ queryKey: pk.subjects, queryFn: () => api.get<PracticalSubjectRow[]>('/learning/practicals'), enabled });
 export const usePracticalSubject = (subject: string) => useQuery({ queryKey: pk.subject(subject), queryFn: () => api.get<PracticalSubjectView>(`/learning/practicals/subjects/${encodeURIComponent(subject)}`) });
-export const usePracticalLesson = (id: string) => useQuery({ queryKey: pk.lesson(id), queryFn: () => api.get<PracticalLessonView>(`/learning/practicals/lessons/${encodeURIComponent(id)}`) });
-export const useLabAttempt = (id: string) => useQuery({ queryKey: pk.lab(id), queryFn: () => api.get<PracticalAttemptView>(`/learning/practicals/labs/${id}`) });
+export const usePracticalLesson = (id: string) => useQuery({ queryKey: pk.lesson(id), queryFn: () => api.get<PracticalLessonView>(`/learning/practicals/lessons/${encodeURIComponent(id)}`), enabled: !!id });
+/** A practical test's sitting is re-read while it runs: the teacher may close it or move its closing time. */
+export const useLabAttempt = (id: string) =>
+  useQuery({ queryKey: pk.lab(id), queryFn: () => api.get<PracticalAttemptView>(`/learning/practicals/labs/${id}`), refetchInterval: (q) => (q.state.data?.assessment && !q.state.data.submittedAt ? 30_000 : false) });
 
 export function usePracticalCheck(id: string) {
   const qc = useQueryClient();
@@ -76,13 +78,13 @@ export function useStartLab() {
   });
 }
 
-export const saveLabDraft = (id: string, state: unknown) => api.put<{ ok: boolean }>(`/learning/practicals/labs/${id}/draft`, { state });
+export const saveLabDraft = (id: string, state: unknown, focusLosses?: number) => api.put<{ ok: boolean }>(`/learning/practicals/labs/${id}/draft`, { state, focusLosses });
 
 export function useSubmitLab(id: string) {
   const qc = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (state: unknown) => api.post<PracticalAttemptView>(`/learning/practicals/labs/${id}/submit`, { state }),
+    mutationFn: (body: { state: unknown; focusLosses?: number }) => api.post<PracticalAttemptView>(`/learning/practicals/labs/${id}/submit`, body),
     onSuccess: (v) => {
       qc.setQueryData(pk.lab(id), v);
       void qc.invalidateQueries({ queryKey: pk.all });

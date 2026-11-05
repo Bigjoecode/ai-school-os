@@ -1,4 +1,4 @@
-import type { ClassTimetable, PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOnlineTestReview, PortalOnlineTests, PortalOverview, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
+import type { ClassTimetable, PortalAttendance, PortalDownload, PortalEvent, PortalFees, PortalMe, PortalOnlineTestReview, PortalOnlineTests, PortalOverview, PortalPracticalTestReview, PortalPracticalTests, PortalResultTerm, PortalSettings, ReceiptView, ReportCardView } from '@aischool/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
@@ -19,6 +19,8 @@ export const pk = {
   card: (id: string, termId: string) => ['portal', 'card', id, termId] as const,
   onlineTests: (id: string) => ['portal', 'online-tests', id] as const,
   onlineTest: (id: string, examId: string) => ['portal', 'online-test', id, examId] as const,
+  practicalTests: (id: string) => ['portal', 'practical-tests', id] as const,
+  practicalTest: (id: string, testId: string) => ['portal', 'practical-test', id, testId] as const,
   calendar: (id: string) => ['portal', 'calendar', id] as const,
   downloads: (id?: string) => ['portal', 'downloads', id ?? 'all'] as const,
   fees: (id: string) => ['portal', 'fees', id] as const,
@@ -74,6 +76,13 @@ export const usePortalOnlineTest = (id: string, examId: string) =>
     queryFn: ({ signal }) => api.get<PortalOnlineTestReview>(`/portal/students/${id}/online-exams/${examId}`, undefined, signal),
     enabled: !!id && !!examId,
   });
+
+/** The child's practical tests, on the same rules as online tests. */
+export const usePortalPracticalTests = (id: string, enabled = true) =>
+  useQuery({ queryKey: pk.practicalTests(id), queryFn: ({ signal }) => api.get<PortalPracticalTests>(`/portal/students/${id}/practical-tests`, undefined, signal), enabled: enabled && !!id });
+
+export const usePortalPracticalTest = (id: string, testId: string) =>
+  useQuery({ queryKey: pk.practicalTest(id, testId), queryFn: ({ signal }) => api.get<PortalPracticalTestReview>(`/portal/students/${id}/practical-tests/${testId}`, undefined, signal), enabled: !!id && !!testId });
 
 export const usePortalCalendar = (id: string) =>
   useQuery({ queryKey: pk.calendar(id), queryFn: ({ signal }) => api.get<PortalEvent[]>(`/portal/students/${id}/calendar`, undefined, signal), enabled: !!id });

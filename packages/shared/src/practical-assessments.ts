@@ -125,6 +125,12 @@ export interface PracticalAssessmentRow {
   /** Per rubric criterion, in the rubric's order. */
   criteria: Pick<CriterionScore, 'id' | 'awarded' | 'max' | 'how'>[];
   timeTakenSeconds: number | null;
+  /** Times the student left the lab during a practical exam (a signal for the teacher: 0 for class tests, which don't track it). */
+  focusLosses: number;
+  /** When the lab last saved this sitting (while it runs, the student is still there). */
+  lastSeenAt: string | null;
+  /** The address the sitting was started from. */
+  ip: string | null;
 }
 export interface PracticalAssessmentResults {
   assessment: PracticalAssessmentSummary;
@@ -159,6 +165,18 @@ export interface PracticalAttemptAssessment {
   id: string;
   title: string;
   kind: PracticalAssessmentKind;
-  /** Why the result isn't shown yet (null once it is). */
+  /** Why the result (or the marks in detail) isn't shown yet (null once it is). */
   resultNote: string | null;
+  /** The marks in detail, feedback and worked solution may be seen: once nobody can still be sitting, or the teacher released them. */
+  review: boolean;
+}
+
+/** The API's code when something is locked while the student has a practical test running on that practical. */
+export const PRACTICAL_SITTING_OPEN = 'SITTING_OPEN';
+/** The body of that refusal (403): where to send the student back to. */
+export interface PracticalSittingLock {
+  code: typeof PRACTICAL_SITTING_OPEN;
+  message: string;
+  attemptId: string;
+  title: string;
 }

@@ -376,8 +376,9 @@ export class CbtService implements OnModuleInit {
    * that a test result can be seen in the family portal. Skipped when the
    * school doesn't share results in the portal. The score itself is not in
    * the message, so a school withholding results while fees are owed still can.
+   * `kind`: what it was and how the link opens it (practical tests share this).
    */
-  async notifyGuardians(tenantId: string, exam: Pick<OnlineExam, 'id' | 'title'>, studentIds: string[]) {
+  async notifyGuardians(tenantId: string, exam: Pick<OnlineExam, 'id' | 'title'>, studentIds: string[], kind: { label: string; query: string } = { label: 'online test', query: `exam=${exam.id}` }) {
     if (!studentIds.length) return;
     try {
       const db = this.prisma.root;
@@ -397,8 +398,8 @@ export class CbtService implements OnModuleInit {
             tenantId,
             userId: l.guardian.userId!,
             title: `${l.student.firstName}’s test result: ${exam.title}`.slice(0, 160),
-            body: `See how ${l.student.firstName} did in the online test, in My school › Results.`,
-            link: `/school/results/${l.studentId}?tab=online&exam=${exam.id}`,
+            body: `See how ${l.student.firstName} did in the ${kind.label}, in My school › Results.`,
+            link: `/school/results/${l.studentId}?tab=online&${kind.query}`,
           },
         ];
       });

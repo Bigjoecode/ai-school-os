@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException,
 import {
   EXAM_LABELS,
   FREE_LABS_PER_TERM,
+  PRACTICAL_SITTING_OPEN,
   SEED_MAX,
   SIMULATORS,
   SIMULATOR_STATE_SCHEMAS,
@@ -21,6 +22,7 @@ import {
   type PracticalListItem,
   type PracticalMode,
   type PracticalResult,
+  type PracticalSittingLock,
   type PracticalStatus,
   type PracticalSubjectRow,
   type PracticalSubjectView,
@@ -31,14 +33,16 @@ import { randomInt } from 'node:crypto';
 import { z } from 'zod';
 import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
+import { CbtService } from '../cbt/cbt.service';
 import { MasteryService, subjectKey } from '../learning/mastery.service';
 import { StudyService } from '../learning/study.service';
 import { PrismaService } from '../prisma/prisma.service';
 import type { ResolvedAccess } from '../student-ai/entitlements.service';
-import { resultNote, resultVisibility } from '../cbt/cbt-rules';
+import { resultVisibility } from '../cbt/cbt-rules';
 import { askPrompt } from './ask';
 import { graderFor, type GraderOutput } from './graders';
 import { keywordMarks } from './graders/helpers';
+import { studentView } from './practical-assessment';
 import { CHECK_PASS } from './practical-homework';
 import { PracticalHomeworkService } from './practical-homework.service';
 
@@ -69,6 +73,9 @@ export interface StoredOverride {
   at: string;
 }
 
+/** How a parent's notification about a practical test opens it. */
+export const practicalNotice = (assessmentId: string) => ({ label: 'practical test', query: `practical=${assessmentId}` });
+
 export const lessonData = (l: { data: Prisma.JsonValue }) => l.data as unknown as PracticalContent & { practicalPaper?: string };
 /** The score that counts: a teacher's review, else the marked score. */
 export const effectiveScore = (a: { score: number | null; override: Prisma.JsonValue | null }) => (a.override as StoredOverride | null)?.score ?? a.score;
@@ -90,6 +97,7 @@ export class PracticalsService {
     private readonly study: StudyService,
     private readonly mastery: MasteryService,
     private readonly homework: PracticalHomeworkService,
+    private readonly cbt: CbtService,
   ) {}
 
   private lessonInclude = { topic: { select: { name: true, parent: { select: { name: true } } } } } as const;
@@ -186,7 +194,30 @@ export class PracticalsService {
     return this.prisma.root.practicalAttempt.count({ where: { studentId: access.studentId, mode: 'LAB', assessmentId: null, startedAt: { gte: new Date(access.windowStart) } } });
   }
 
+  /**
+   * While a sitting of a practical test runs, its practical stays locked: the
+   * lesson, quick check, practical questions and any other lab or past result
+   * of it (worked solutions). It opens again as soon as the sitting is handed
+   * in or its time is up.
+   */
+  async refuseDuringSitting(studentId: string, practicalId: string) {
+    const open = await this.prisma.root.practicalAttempt.findFirst({
+      where: { studentId, practicalId, assessmentId: { not: null }, submittedAt: null, endsAt: { gte: new Date(Date.now() - LAB_GRACE_MS) } },
+      select: { id: true, assessment: { select: { title: true } } },
+    });
+    if (!open) return;
+    const title = open.assessment?.title ?? 'your practical test';
+    const lock: PracticalSittingLock = { code: PRACTICAL_SITTING_OPEN, message: `You are sitting ${title}. This practical's lesson and practice open again once you have handed in.`, attemptId: open.id, title };
+    throw new ForbiddenException({ statusCode: 403, ...lock });
+  }
+
+  /** An attempt is locked like the rest of its practical, unless it is a sitting still being worked on. */
+  private async refuseUnlessSitting(studentId: string, a: AttemptRow) {
+    if (!a.assessmentId || a.submittedAt) await this.refuseDuringSitting(studentId, a.practicalId);
+  }
+
   async lessonView(access: ResolvedAccess, id: string): Promise<PracticalLessonView> {
+    await this.refuseDuringSitting(access.studentId, id);
     const l = await this.lesson(id);
     const d = lessonData(l);
     const exam = l.exam as PracticalExam;
@@ -240,6 +271,7 @@ export class PracticalsService {
 
   /** `only`: mark just these questions (a short check inside a lab, answers in the same order); it is not recorded as an attempt. */
   async check(access: ResolvedAccess, id: string, answers: number[], only?: number[]): Promise<PracticalCheckResult> {
+    await this.refuseDuringSitting(access.studentId, id);
     const l = await this.lesson(id);
     const all = lessonData(l).checkQuestions ?? [];
     if (!all.length) throw new BadRequestException('This practical has no quick check questions');
@@ -287,6 +319,7 @@ export class PracticalsService {
    * the same practical and mode is resumed rather than re-rolled.
    */
   async startLab(access: ResolvedAccess, input: { practicalId: string; mode: PracticalMode }) {
+    await this.refuseDuringSitting(access.studentId, input.practicalId);
     const l = await this.lesson(input.practicalId);
     if (!isSimulatorId(l.simulator)) throw new BadRequestException('This practical has no virtual lab yet');
     const spec = SIMULATORS[l.simulator];
@@ -346,24 +379,36 @@ export class PracticalsService {
   }
 
   async attempt(access: ResolvedAccess, id: string): Promise<PracticalAttemptView> {
-    const a = await this.settle(access, await this.own(access.studentId, id));
+    const own = await this.own(access.studentId, id);
+    await this.refuseUnlessSitting(access.studentId, own);
+    const a = await this.settle(access, own);
     return this.view(a, await this.lesson(a.practicalId).catch(() => null));
   }
 
-  async saveDraft(access: ResolvedAccess, id: string, state: Record<string, unknown>) {
+  /** The device's count of times the student left a practical exam (it only ever goes up); a signal for the teacher, nothing more. */
+  private async recordFocus(a: AttemptRow, focusLosses: number | undefined) {
+    if (!focusLosses || !a.assessmentId || a.mode !== 'EXAM') return;
+    await this.prisma.root.$executeRaw`UPDATE practical_attempts SET "focusLosses" = GREATEST("focusLosses", ${focusLosses}) WHERE id = ${a.id} AND "submittedAt" IS NULL`;
+  }
+
+  async saveDraft(access: ResolvedAccess, id: string, state: Record<string, unknown>, focusLosses?: number) {
     const a = await this.own(access.studentId, id);
+    await this.refuseUnlessSitting(access.studentId, a);
     if (a.submittedAt) throw new BadRequestException('This lab is already marked');
     if (a.endsAt && Date.now() > a.endsAt.getTime() + LAB_GRACE_MS) throw new BadRequestException('Time is up for this lab: what was saved before the end will be marked');
     if (JSON.stringify(state).length > MAX_STATE_BYTES) throw new BadRequestException('This lab record is too large to save');
-    await this.prisma.root.practicalAttempt.updateMany({ where: { id, submittedAt: null }, data: { state: state as Prisma.InputJsonValue } });
+    await this.prisma.root.practicalAttempt.updateMany({ where: { id, submittedAt: null }, data: { state: state as Prisma.InputJsonValue, ...(a.assessmentId ? { lastSeenAt: new Date() } : {}) } });
+    await this.recordFocus(a, focusLosses);
     return { ok: true };
   }
 
-  async submit(access: ResolvedAccess, id: string, state: Record<string, unknown>): Promise<PracticalAttemptView> {
+  async submit(access: ResolvedAccess, id: string, state: Record<string, unknown>, focusLosses?: number): Promise<PracticalAttemptView> {
     let a = await this.own(access.studentId, id);
+    await this.refuseUnlessSitting(access.studentId, a);
     if (!a.submittedAt) {
       const late = !!a.endsAt && Date.now() > a.endsAt.getTime() + LAB_GRACE_MS;
       if (JSON.stringify(state).length > MAX_STATE_BYTES) throw new BadRequestException('This lab record is too large to mark');
+      await this.recordFocus(a, focusLosses);
       a = await this.mark(access, a, late ? a.state : state);
     }
     return this.view(a, await this.lesson(a.practicalId).catch(() => null));
@@ -390,10 +435,13 @@ export class PracticalsService {
     const spec = SIMULATORS[a.simulatorId];
     const state = this.parseState(a.simulatorId, rawState);
     if (!state) {
-      if (access) throw new BadRequestException('This lab record could not be read: refresh the page and try again');
+      // With time left the student can try again; with time up, what was saved is all there is.
+      const timeUp = !!a.endsAt && Date.now() > a.endsAt.getTime() + LAB_GRACE_MS;
+      if (access && !timeUp) throw new BadRequestException('This lab record could not be read: refresh the page and try again');
       // Handed in for the student (time-up sweep, teacher closing) with nothing readable recorded: marked as empty work.
       const criteria: CriterionScore[] = spec.rubric.map((c) => ({ id: c.id, label: c.label, awarded: 0, max: c.marks, how: c.how, note: 'Nothing was recorded before the time ran out.' }));
       await this.prisma.root.practicalAttempt.updateMany({ where: { id: a.id, submittedAt: null }, data: { scores: criteria as unknown as Prisma.InputJsonValue, score: 0, aiFeedback: 'Nothing was recorded in the lab before the time ran out.', submittedAt: a.endsAt && a.endsAt < new Date() ? a.endsAt : new Date() } });
+      await this.tellFamilies(a);
       return this.prisma.root.practicalAttempt.findUniqueOrThrow({ where: { id: a.id } });
     }
     const out = this.graded(a.simulatorId, state, a.seed);
@@ -464,8 +512,20 @@ export class PracticalsService {
       if (lesson?.topicId) await this.mastery.record(a.tenantId, a.studentId, lesson.topicId, (score / max) * LAB_MASTERY_WEIGHT, LAB_MASTERY_WEIGHT, { source: 'PRACTICE', sourceId: a.id }).catch(() => undefined);
       // Hands in the class's homework for this practical (never fails the lab); a practical test's sitting is its own mark.
       if (!a.assessmentId) await this.homework.handIn(a);
+      await this.tellFamilies(a);
     }
     return this.prisma.root.practicalAttempt.findUniqueOrThrow({ where: { id: a.id } });
+  }
+
+  /** A sitting has just been marked: if the child may already see the score, tell their parents, as for an online exam. Works outside a request too (the time-up sweep). */
+  private async tellFamilies(a: AttemptRow) {
+    if (!a.assessmentId) return;
+    try {
+      const pa = await this.prisma.root.practicalAssessment.findUnique({ where: { id: a.assessmentId } });
+      if (pa && resultVisibility(pa, { status: 'SUBMITTED' }).score) await this.cbt.notifyGuardians(a.tenantId, pa, [a.studentId], practicalNotice(pa.id));
+    } catch {
+      /* a courtesy: never fails the hand-in */
+    }
   }
 
   /** A teacher's reviewed score replaces the lab's mastery evidence (the marked score's row is taken back out, so it never counts twice). */
@@ -497,12 +557,15 @@ export class PracticalsService {
     const spec = SIMULATORS[a.simulatorId];
     let assessment: PracticalAttemptAssessment | null = null;
     let hidden = false;
+    // A score may show straight away, but the marks in detail and the worked solution wait until nobody can still be sitting.
+    let detail = true;
     if (a.assessmentId) {
       const pa = await this.prisma.root.practicalAssessment.findUnique({ where: { id: a.assessmentId } });
       if (pa) {
-        const visible = resultVisibility(pa, { status: a.submittedAt ? 'SUBMITTED' : 'IN_PROGRESS' }).score;
-        hidden = !opts.staff && !visible;
-        assessment = { id: pa.id, title: pa.title, kind: pa.kind as PracticalAssessmentKind, resultNote: a.submittedAt ? resultNote(pa, visible || !!opts.staff, 'practical test') : null };
+        const seen = studentView(pa, a);
+        hidden = !opts.staff && !seen.score;
+        detail = !!opts.staff || seen.review;
+        assessment = { id: pa.id, title: pa.title, kind: pa.kind as PracticalAssessmentKind, resultNote: opts.staff ? null : seen.note, review: detail };
       }
     }
     let result: PracticalResult | null = null;
@@ -516,11 +579,11 @@ export class PracticalsService {
         score,
         maxScore: a.maxScore,
         percent: percentOf(score, a.maxScore) ?? 0,
-        markedScore: marked,
-        criteria,
-        feedback: a.aiFeedback,
-        solution: state ? this.graded(a.simulatorId, state, a.seed).solution : [],
-        review: o ? { score: o.score, note: o.note, by: o.by, at: o.at } : null,
+        markedScore: detail ? marked : score,
+        criteria: detail ? criteria : [],
+        feedback: detail ? a.aiFeedback : null,
+        solution: detail && state ? this.graded(a.simulatorId, state, a.seed).solution : [],
+        review: detail && o ? { score: o.score, note: o.note, by: o.by, at: o.at } : null,
         next: l && !a.assessmentId ? await this.next(a.studentId, l) : null,
       };
     }
@@ -539,6 +602,7 @@ export class PracticalsService {
       endsAt: a.endsAt?.toISOString() ?? null,
       submittedAt: a.submittedAt?.toISOString() ?? null,
       serverNow: new Date().toISOString(),
+      focusLosses: a.focusLosses,
       result,
       assessment,
     };

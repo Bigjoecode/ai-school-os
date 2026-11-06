@@ -228,7 +228,7 @@ export function TestHeader({ t, detail }: { t: PortalOnlineTest; detail?: string
       </p>
       <h2 className="mt-1 font-display text-lg font-semibold tracking-tight">{t.title}</h2>
       {detail && <p className="mt-0.5 text-[13px] text-muted-foreground">{detail}</p>}
-      <p className="mt-0.5 text-[12.5px] text-muted-foreground">Sat {formatDate(t.satAt)}</p>
+      <p className="mt-0.5 text-[12.5px] text-muted-foreground">Sat on {formatDate(t.satAt)}</p>
       {t.percent != null ? (
         <div className="mt-4">
           <p className={cn('font-display text-4xl font-semibold tabular', scoreTone(t.percent))}>{formatPct(t.percent, Number.isInteger(t.percent) ? 0 : 1)}</p>

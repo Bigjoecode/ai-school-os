@@ -81,6 +81,12 @@ export function BuildPaperDialog({ open, onOpenChange, defaults }: { open: boole
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  // Opened straight from a link: the term list arrives after the dialog opens.
+  useEffect(() => {
+    if (open && !termId) setTermId(defaults?.termId ?? currentTerm(structure.data)?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, structure.data, defaults?.termId]);
+
   useEffect(() => setTopics([]), [subjectId, classLevelId]);
 
   const topicCounts = useQuestionTopics(open ? subjectId : undefined, classLevelId);

@@ -107,6 +107,25 @@ async function parse<T>(res: Response): Promise<T> {
 
 let refreshInFlight: Promise<AuthResponse | null> | null = null;
 
+/** One refresh at a time across every tab, so each sends the newest cookie and none replays an old one. */
+function oneTabAtATime<T>(run: () => Promise<T>): Promise<T> {
+  const locks = typeof navigator !== 'undefined' ? navigator.locks : undefined;
+  return locks ? (locks.request('auth-refresh', run) as Promise<T>) : run();
+}
+
+async function exchangeRefreshCookie(): Promise<AuthResponse | null> {
+  const res = await fetch(`${BASE}/auth/refresh`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { Accept: 'application/json' },
+  });
+  if (!res.ok) return null;
+  const session = await parse<AuthResponse>(res);
+  if (!session?.accessToken) return null;
+  useAuthStore.getState().setSession(session);
+  return session;
+}
+
 /**
  * Exchange the httpOnly refresh cookie for a new access token. Concurrent
  * callers share one request so the refresh token is never replayed.
@@ -115,16 +134,7 @@ export function refreshSession(): Promise<AuthResponse | null> {
   if (!refreshInFlight) {
     refreshInFlight = (async () => {
       try {
-        const res = await fetch(`${BASE}/auth/refresh`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { Accept: 'application/json' },
-        });
-        if (!res.ok) return null;
-        const session = await parse<AuthResponse>(res);
-        if (!session?.accessToken) return null;
-        useAuthStore.getState().setSession(session);
-        return session;
+        return await oneTabAtATime(exchangeRefreshCookie);
       } catch {
         return null;
       } finally {

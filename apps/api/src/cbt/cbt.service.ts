@@ -437,7 +437,7 @@ export class CbtService implements OnModuleInit {
       UPDATE online_exam_attempts
       SET answers = COALESCE(answers, '{}'::jsonb) || ${json}::jsonb,
           "focusLosses" = GREATEST("focusLosses", ${focusLosses ?? 0}),
-          "updatedAt" = now()
+          "updatedAt" = now() AT TIME ZONE 'UTC'
       WHERE id = ${attemptId} AND status = 'IN_PROGRESS'`;
   }
 

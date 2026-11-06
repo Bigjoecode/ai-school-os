@@ -364,6 +364,8 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
             /* ignore */
           }
         } catch (err) {
+          // Signed out: the sign-in page takes over and the unsent answers stay on this device.
+          if (err instanceof ApiError && err.status === 401) return;
           if (err instanceof ApiError && err.status > 0 && err.status < 500 && err.status !== 429) {
             // Already handed in, or no longer allowed: show the server's view.
             store.remove(key);

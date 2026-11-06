@@ -160,8 +160,15 @@ export function useMyExams() {
   return useQuery({ queryKey: cbtKeys.my, queryFn: ({ signal }) => api.get<CbtMyExam[]>('/cbt/my', undefined, signal), refetchInterval: 60_000 });
 }
 
+/** Polls while writing, so time the teacher adds or an early close reaches the student's page. */
 export function useExamRoom(id: string) {
-  return useQuery({ queryKey: cbtKeys.room(id), queryFn: ({ signal }) => api.get<CbtRoom>(`/cbt/my/${id}`, undefined, signal), staleTime: 0, retry: 3 });
+  return useQuery({
+    queryKey: cbtKeys.room(id),
+    queryFn: ({ signal }) => api.get<CbtRoom>(`/cbt/my/${id}`, undefined, signal),
+    staleTime: 0,
+    retry: 3,
+    refetchInterval: (q) => (q.state.data?.attempt?.status === 'IN_PROGRESS' ? 30_000 : false),
+  });
 }
 
 export function useStartExam(id: string) {

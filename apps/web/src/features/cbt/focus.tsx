@@ -27,8 +27,12 @@ export function useFocusLosses(initial: number, options: FocusOptions) {
   useEffect(() => {
     if (!enabled) return;
     let last = 0;
+    // A reload or closing the page also fires "hidden": that isn't leaving to look something up.
+    let unloading = false;
+    const pagehide = () => void (unloading = true);
+    const pageshow = () => void (unloading = false);
     const lost = () => {
-      if (o.current.ignore()) return;
+      if (unloading || o.current.ignore()) return;
       const t = Date.now();
       if (t - last < 1500) return; // blur and visibilitychange fire together
       last = t;
@@ -41,10 +45,14 @@ export function useFocusLosses(initial: number, options: FocusOptions) {
     document.addEventListener('visibilitychange', vis);
     window.addEventListener('blur', lost);
     window.addEventListener('focus', back);
+    window.addEventListener('pagehide', pagehide);
+    window.addEventListener('pageshow', pageshow);
     return () => {
       document.removeEventListener('visibilitychange', vis);
       window.removeEventListener('blur', lost);
       window.removeEventListener('focus', back);
+      window.removeEventListener('pagehide', pagehide);
+      window.removeEventListener('pageshow', pageshow);
     };
   }, [enabled]);
 

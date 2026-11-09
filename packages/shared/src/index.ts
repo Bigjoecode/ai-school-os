@@ -78,6 +78,7 @@ export * from './simulators/chem-electro';
 export * from './simulators/chem-acids';
 export * from './simulators/chem-organic';
 export * from './simulators/chem-prep';
+export * from './simulators/comp-code';
 export * from './simulators/phy-common';
 export * from './simulators/phy-pendulum';
 export * from './simulators/phy-ohms-law';

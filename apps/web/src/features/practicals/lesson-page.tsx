@@ -1,4 +1,4 @@
-import { PRACTICAL_KIND_LABELS, type PracticalCheckResult, type PracticalLessonView } from '@aischool/shared';
+import { GUIDED_PRACTICAL_LABEL, isGuidedPractical, PRACTICAL_KIND_LABELS, type PracticalCheckResult, type PracticalLessonView } from '@aischool/shared';
 import { AlertTriangle, ArrowLeft, ArrowRight, BookOpen, Calculator, CheckCircle2, ClipboardList, Eye, FlaskConical, GraduationCap, Lightbulb, ListOrdered, Lock, Microscope, PenLine, ShieldAlert, Target, Timer, XCircle } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
@@ -82,7 +82,7 @@ function Lesson({ d }: { d: PracticalLessonView }) {
             {s}
           </span>
         ))}
-        <StatusBadges s={d.status} lab={!!d.lab} />
+        <StatusBadges s={d.status} lab={!!d.lab} guided={isGuidedPractical(d.simulator)} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start [&>*]:min-w-0">
@@ -259,13 +259,14 @@ function LabCard({ d }: { d: PracticalLessonView }) {
   const navigate = useNavigate();
   const start = useStartLab();
   const lab = d.lab!;
+  const guidedLab = isGuidedPractical(lab.id);
   const lock = examLockError(start.error);
   const go = (mode: 'LAB' | 'EXAM') => start.mutate({ practicalId: d.id, mode }, { onSuccess: (a) => navigate(`/learn/practicals/labs/${a.id}`) });
   return (
     <Card className="border-ai-2/30 p-4">
-      <SectionTitle icon={Microscope} title="Virtual lab" />
+      <SectionTitle icon={Microscope} title={guidedLab ? GUIDED_PRACTICAL_LABEL : 'Virtual lab'} />
       <p className="text-[13px] text-muted-foreground">
-        {lab.title}: a new set of solutions and values every time, marked out of {lab.maxScore} like a WAEC practical.
+        {guidedLab ? `Six marked stages from safety to write-up, in a new order every time, marked out of ${lab.maxScore}. It trains the method and the judgement: it does not replace doing the real thing.` : `${lab.title}: a new set of solutions and values every time, marked out of ${lab.maxScore} like a WAEC practical.`}
       </p>
       <div className="mt-3 grid gap-2">
         <Button onClick={() => go('LAB')} loading={start.isPending && start.variables?.mode === 'LAB'} disabled={!d.access.entitled && d.access.freeLabsLeft === 0}>

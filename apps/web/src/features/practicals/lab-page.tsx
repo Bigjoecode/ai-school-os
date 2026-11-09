@@ -1,4 +1,4 @@
-import type { PracticalAttemptView, SimulatorId, SimulatorStates } from '@aischool/shared';
+import { isGuidedPractical, type PracticalAttemptView, type SimulatorId, type SimulatorStates } from '@aischool/shared';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Box, CheckCircle2, Clock, Eye, FlaskConical, Loader2, Send, Square } from 'lucide-react';
 import { Component, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
@@ -74,7 +74,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
   const trackFocus = sitting && a.assessment?.kind === 'EXAM';
   // Labs with a 3D view open in 3D on a capable device (or as this device last chose); the 2D lab is always one tap away.
   const can3d = !!entry.component3d && gpuTier() !== 'none';
-  const [use3d, setUse3d] = useState(() => can3d && defaultLabView() === '3d');
+  const [use3d, setUse3d] = useState(() => can3d && !entry.prefer2d && defaultLabView() === '3d');
   const chooseView = (v: '3d' | '2d') => {
     saveLabView(v);
     setUse3d(v === '3d');
@@ -161,7 +161,10 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
 
   const Sim = entry.component;
   const Sim3d = entry.component3d;
-  const missing = done ? [] : entry.missing(state as never, a.seed);
+  const missing = done ? [] : entry.missing(state as never, a.seed, a.paper);
+  // A Guided practical is a marked workflow, not a simulation, and is never called a lab here.
+  const guided = isGuidedPractical(a.simulatorId);
+  const word = guided ? 'practical' : 'lab';
   const lowTime = left != null && left < 5 * 60_000;
   const view = submit.data ?? a;
   // A practical test's score can show before the marks in detail: those, and the record, wait until nobody can still be sitting.
@@ -174,8 +177,8 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
           <Loader2 className="size-7 animate-spin" aria-hidden />
         </div>
         <div>
-          <p className="font-display text-lg font-semibold tracking-tight">{left != null && left <= 0 ? 'Time’s up — your lab has been handed in' : 'Marking your lab'}</p>
-          <p className="mt-1 text-[13.5px] text-muted-foreground">Readings and calculations are marked exactly; written answers are checked against the marking guide.</p>
+          <p className="font-display text-lg font-semibold tracking-tight">{left != null && left <= 0 ? `Time’s up — your ${word} has been handed in` : `Marking your ${word}`}</p>
+          <p className="mt-1 text-[13.5px] text-muted-foreground">{guided ? 'Your choices and results are marked exactly' : 'Readings and calculations are marked exactly'}; written answers are checked against the marking guide.</p>
         </div>
       </Card>
     );
@@ -184,7 +187,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
   return (
     <>
       <PageHeader
-        eyebrow={`${view.subject} · ${view.assessment ? (view.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : 'Virtual lab'}`}
+        eyebrow={`${view.subject} · ${view.assessment ? (view.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : guided ? 'Guided practical' : 'Virtual lab'}`}
         title={view.title}
         description={view.topic ?? view.spec.title}
         actions={
@@ -201,7 +204,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
             <CheckCircle2 className="size-7" aria-hidden />
           </div>
           <p className="font-display text-lg font-semibold tracking-tight">Handed in{view.assessment ? `: ${view.assessment.title}` : ''}</p>
-          <p className="max-w-md text-[13.5px] text-muted-foreground">{view.assessment?.resultNote ?? 'Your lab has been marked.'}</p>
+          <p className="max-w-md text-[13.5px] text-muted-foreground">{view.assessment?.resultNote ?? `Your ${word} has been marked.`}</p>
           <Button asChild variant="outline" size="sm">
             <Link to="/my-exams">Back to Exams</Link>
           </Button>
@@ -213,7 +216,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
           {canReview && (
             <div className="flex flex-wrap gap-2">
               <Button variant={showWork === '2d' ? 'secondary' : 'outline'} onClick={() => setShowWork((s) => (s === '2d' ? null : '2d'))}>
-                <Eye /> {showWork === '2d' ? 'Hide' : 'Show'} your lab record
+                <Eye /> {showWork === '2d' ? 'Hide' : 'Show'} your {word} record
               </Button>
               {can3d && Sim3d && view.state && (
                 <Button variant={showWork === '3d' ? 'secondary' : 'brand'} onClick={() => setShowWork((s) => (s === '3d' ? null : '3d'))}>
@@ -224,13 +227,13 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
           )}
           {showWork === '2d' && view.state && (
             <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
-              <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} />
+              <Sim seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} paper={view.paper} />
             </Suspense>
           )}
           {showWork === '3d' && view.state && Sim3d && (
             <Lab3DBoundary fallback={null} onError={() => setShowWork('2d')}>
               <Suspense fallback={<Skeleton className="h-[min(78dvh,780px)] min-h-[480px] rounded-2xl" />}>
-                <Sim3d seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} result={view.result} />
+                <Sim3d seed={view.seed} mode={view.mode} state={view.state as never} onChange={() => undefined} readOnly startedAt={view.startedAt} practicalId={view.practicalId} result={view.result} paper={view.paper} />
               </Suspense>
             </Lab3DBoundary>
           )}
@@ -251,7 +254,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
               <div className="ml-auto inline-flex rounded-lg border border-border p-0.5" role="group" aria-label="Lab view">
                 {(['3d', '2d'] as const).map((v) => (
                   <Button key={v} size="sm" variant={(v === '3d') === use3d ? 'secondary' : 'ghost'} className="h-7 px-2.5" onClick={() => chooseView(v)} aria-pressed={(v === '3d') === use3d}>
-                    {v === '3d' ? <Box /> : <Square />} {v === '3d' ? '3D lab' : '2D lab'}
+                    {v === '3d' ? <Box /> : <Square />} {v === '3d' ? (guided ? '3D room' : '3D lab') : guided ? '2D view' : '2D lab'}
                   </Button>
                 ))}
               </div>
@@ -275,6 +278,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
               startedAt: a.startedAt,
               practicalId: a.practicalId,
               attemptId: a.id,
+              paper: a.paper,
             };
             const flat = (
               <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
@@ -298,7 +302,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
         open={confirm}
         onOpenChange={setConfirm}
         destructive={missing.length > 0}
-        title={missing.length ? 'Hand in with work missing?' : 'Hand in your lab?'}
+        title={missing.length ? 'Hand in with work missing?' : `Hand in your ${word}?`}
         description={
           missing.length ? (
             <span className="block list-disc space-y-0.5 pl-5">

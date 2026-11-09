@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { isSimulatorId, type CriterionScore, type PracticalClassView, type PracticalPickList, type PracticalTeacherAttemptRow, type PracticalTeacherAttemptView } from '@aischool/shared';
+import { isGuidedPractical, isSimulatorId, type CriterionScore, type PracticalClassView, type PracticalPickList, type PracticalTeacherAttemptRow, type PracticalTeacherAttemptView } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { AuditService } from '../audit/audit.service';
 import { ClassInsightsService } from '../class-insights/class-insights.service';
@@ -117,7 +117,7 @@ export class PracticalsTeacherService {
     return {
       subject,
       practicals: lessons
-        .map((l) => ({ id: l.id, title: l.title, subject: l.subject, topic: l.topic?.name ?? l.topicName, topicId: l.topicId, lab: isSimulatorId(l.simulator) }))
+        .map((l) => ({ id: l.id, title: l.title, subject: l.subject, topic: l.topic?.name ?? l.topicName, topicId: l.topicId, lab: isSimulatorId(l.simulator), guided: isGuidedPractical(l.simulator) }))
         .filter((l) => words.every((w) => `${l.title} ${l.topic} ${l.subject}`.toLowerCase().includes(w)))
         .slice(0, 100),
     };

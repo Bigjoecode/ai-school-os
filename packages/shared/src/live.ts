@@ -278,7 +278,7 @@ export interface HomeworkRow {
   overdue: boolean;
   kind: 'QUESTIONS' | 'THEORY' | 'PROJECT' | 'UPLOAD' | 'PRACTICAL';
   /** PRACTICAL: the Practical Academy lesson; `lab` is false when it has only a quick check. */
-  practical?: { id: string; title: string; subject: string; lab: boolean } | null;
+  practical?: { id: string; title: string; subject: string; lab: boolean; guided?: boolean } | null;
   attachments: { type: 'FILE' | 'LINK'; fileId: string | null; url: string; name: string; mimeType: string | null }[];
   submissionTypes: ('TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'DOCUMENT' | 'LINK')[];
   maxScore: number | null;

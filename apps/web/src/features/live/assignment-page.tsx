@@ -203,12 +203,13 @@ function PracticalCard({ h, status, sub, closed }: { h: HomeworkRow; status: Ass
     );
   }
   const lab = status?.lab ?? p.lab;
+  const word = (status?.guided ?? p.guided) ? 'guided practical' : 'virtual lab';
   const handedIn = sub?.status === 'GRADED';
   const doneText = handedIn
-    ? `Handed in from your ${lab ? 'lab' : 'quick check'}${sub.score != null ? ` · ${fmtScore(sub.score)}/100` : ''}${status && status.attempts > 1 ? ` (best of ${status.attempts})` : ''}.`
+    ? `Handed in from your ${lab ? ((status?.guided ?? p.guided) ? 'practical' : 'lab') : 'quick check'}${sub.score != null ? ` · ${fmtScore(sub.score)}/100` : ''}${status && status.attempts > 1 ? ` (best of ${status.attempts})` : ''}.`
     : !status?.done
       ? lab
-        ? 'Not started: you haven’t handed in its virtual lab yet.'
+        ? `Not started: you haven’t handed in its ${word} yet.`
         : 'Not started: you haven’t passed its quick check yet.'
       : h.countEarlierLabs
         ? 'Not handed in yet.'
@@ -238,7 +239,7 @@ function PracticalCard({ h, status, sub, closed }: { h: HomeworkRow; status: Ass
         {closed && sub?.status !== 'GRADED'
           ? 'The deadline has passed and this assignment doesn’t take late work, so a lab done now won’t hand it in.'
           : lab
-            ? 'Submitting the virtual lab hands this in for you, and your best lab score is your mark (out of 100). Doing it again can only raise it.'
+            ? `Submitting the ${word} hands this in for you, and your best score is your mark (out of 100). Doing it again can only raise it.`
             : 'Passing the lesson’s quick check hands this in for you, with your score as the mark (out of 100).'}
       </p>
     </Card>

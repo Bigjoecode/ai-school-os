@@ -1,0 +1,4593 @@
+{
+ "subject": "Welding and Fabrication",
+ "room": "workshop",
+ "lessons": {
+  "pr-wfab-use-of-protective-wear-and-workshop-safety-in-welding": {
+   "safety": {
+    "correct": [
+     "Check the helmet for cracks and light leaks before you strike an arc."
+    ],
+    "wrong": [
+     {
+      "text": "Glance at a friend's arc for a second without a filter.",
+      "why": "Arc eye can result within seconds. Look away or use a filter."
+     },
+     {
+      "text": "Weld in a nylon shirt because it is cool in the heat.",
+      "why": "Synthetic cloth melts on to the skin. Wear cotton overalls."
+     },
+     {
+      "text": "Fold your trouser ends up so they stay clear of your boots.",
+      "why": "Turn-ups catch hot spatter and can smoulder. Wear them straight."
+     },
+     {
+      "text": "Keep using a filter lens with a small crack in the corner.",
+      "why": "A crack lets arc light through. Replace it immediately."
+     },
+     {
+      "text": "Leave the rags and thinner tin beside the welding bay.",
+      "why": "Sparks travel. Keep flammables well away or shield them."
+     },
+     {
+      "text": "Weld inside the closed store to stop the wind disturbing the arc.",
+      "why": "Fumes build up. Ventilation must remove them."
+     },
+     {
+      "text": "Wear gas welding goggles for a short arc weld.",
+      "why": "Gas goggles are far too light for an arc. Use the helmet with the correct shade."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Sunglasses",
+      "why": "They give no protection from arc radiation."
+     },
+     {
+      "name": "Canvas shoes",
+      "why": "Hot spatter and dropped plate go straight through them."
+     },
+     {
+      "name": "Nylon overall",
+      "why": "Synthetic cloth melts on to the skin."
+     },
+     {
+      "name": "Rubber kitchen gloves",
+      "why": "They melt and give no heat protection. Use leather gauntlets."
+     },
+     {
+      "name": "Cotton nose mask",
+      "why": "It does not deal with welding fumes. Ventilation removes them."
+     },
+     {
+      "name": "Water hose for electrical fires",
+      "why": "Water conducts. A CO₂ or dry powder extinguisher is used."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "shade",
+     "afterStep": 3,
+     "prompt": "You will weld at 100 A with MMA. Which filter do you check for?",
+     "options": [
+      {
+       "text": "At least shade 10",
+       "correct": true,
+       "consequence": "The guide gives shade 10 to 11 for 60 to 150 A, so your eyes are protected."
+      },
+      {
+       "text": "Shade 5, as for gas welding",
+       "consequence": "Too light for an arc, and arc eye can follow."
+      },
+      {
+       "text": "Shade 4, so you can see the joint",
+       "consequence": "A brighter view of the arc harms your eyes."
+      }
+     ]
+    },
+    {
+     "id": "floor",
+     "afterStep": 4,
+     "prompt": "You find oil on the floor by the welding bay. What do you do?",
+     "options": [
+      {
+       "text": "Clean it up before anyone welds",
+       "correct": true,
+       "consequence": "Spatter cannot light it, and nobody slips."
+      },
+      {
+       "text": "Weld at the far end of the bay",
+       "consequence": "Spatter travels, so the oil is still a fire risk."
+      },
+      {
+       "text": "Cover it with a sheet of cardboard",
+       "consequence": "Cardboard adds fuel and hides the hazard."
+      }
+     ]
+    },
+    {
+     "id": "isolator",
+     "afterStep": 5,
+     "prompt": "A student gets an electric shock at the welding set. What should you already know?",
+     "options": [
+      {
+       "text": "Where the main isolator is, so the power can be cut",
+       "correct": true,
+       "consequence": "You can switch off without touching the casualty."
+      },
+      {
+       "text": "How to pull the student away by the hand",
+       "consequence": "You could get a shock too. Isolate first."
+      },
+      {
+       "text": "Where the spare electrodes are kept",
+       "consequence": "That does nothing for the casualty."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "dress",
+     "prompt": "Which student is correctly dressed for arc welding?",
+     "options": [
+      {
+       "text": "Cotton overalls, sleeves down, collar buttoned, apron, gauntlets, boots",
+       "correct": true
+      },
+      {
+       "text": "Cotton overalls with sleeves rolled to the elbow, and gauntlets",
+       "why": "Bare forearms get arc burns and spatter."
+      },
+      {
+       "text": "Nylon overalls, buttoned, with leather gauntlets and boots",
+       "why": "Synthetic cloth melts on to the skin."
+      },
+      {
+       "text": "Cotton overalls with turn-ups, apron, gauntlets and boots",
+       "why": "Turn-ups trap hot spatter."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "shade-200",
+     "prompt": "The guide gives shade 10 to 11 for MMA at 60 to 150 A, and shade 12 for 150 to 250 A. Which shade do you use at 200 A?",
+     "answer": 12,
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "200 A lies in the 150 to 250 A band, so shade 12."
+    }
+   ],
+   "faults": [
+    {
+     "id": "burnt-eyes",
+     "scenario": "Ibrahim woke at night with sore, watering eyes and burns on his arm. Here is what he did that day.",
+     "lines": [
+      {
+       "text": "He used gas goggles for arc welding.",
+       "fault": true,
+       "why": "Gas goggles are too light for an arc."
+      },
+      {
+       "text": "He rolled up his sleeves in the heat.",
+       "fault": true,
+       "why": "Sleeves must stay down."
+      },
+      {
+       "text": "He wore a synthetic shirt.",
+       "fault": true,
+       "why": "Synthetic cloth melts."
+      },
+      {
+       "text": "He put up the welding screens.",
+       "why": "That protects others."
+      },
+      {
+       "text": "He located the first aid box first.",
+       "why": "That is part of the checklist."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for protecting yourself when welding.",
+    "explainPrompt": "Why must the filter shade be matched to the welding current?",
+    "explainGuide": "A higher current gives a brighter arc with more harmful radiation. Too light a filter lets it through and causes arc eye, so a darker shade is needed.",
+    "explainKeywords": [
+     [
+      "current",
+      "brighter",
+      "bright"
+     ],
+     [
+      "radiation",
+      "light",
+      "rays",
+      "ultraviolet"
+     ],
+     [
+      "arc eye",
+      "eyes",
+      "eye"
+     ],
+     [
+      "shade",
+      "darker",
+      "filter"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Use of protective wear and workshop safety in welding",
+    "Check your filter before you strike."
+   ]
+  },
+  "pr-wfab-identifying-metals-by-appearance-and-spark-test": {
+   "safety": {
+    "correct": [
+     "Stand to one side of the wheel when starting the grinder."
+    ],
+    "wrong": [
+     {
+      "text": "Spark-test the aluminium sample with the others.",
+      "why": "Non-ferrous metal clogs the wheel, which can make it burst or glaze."
+     },
+     {
+      "text": "Let the tool rest sit well back from the wheel.",
+      "why": "Work can be dragged into the gap. Keep it close."
+     },
+     {
+      "text": "Press hard on the wheel to make more sparks.",
+      "why": "It overheats the work and strains the wheel. Use light pressure."
+     },
+     {
+      "text": "Take off your goggles so you can see the spark colour better.",
+      "why": "Grit and sparks fly into your eyes."
+     },
+     {
+      "text": "Hold a tiny sample in your fingers against the wheel.",
+      "why": "Your fingers can be drawn in. Use a larger piece or hold it with pliers."
+     },
+     {
+      "text": "Wear loose gauntlets while holding work to the grinder.",
+      "why": "A loose glove can be snatched by the wheel."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests liquids, not metals."
+     },
+     {
+      "name": "Micrometer",
+      "why": "The job compares properties and does not need exact sizes."
+     },
+     {
+      "name": "Chipping hammer",
+      "why": "It is for removing slag, not for identifying metals."
+     },
+     {
+      "name": "Welding helmet",
+      "why": "No arc is struck. Goggles are worn for spark tests."
+     },
+     {
+      "name": "Angle grinder",
+      "why": "A fixed bench wheel gives a steady spark stream to read."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "non-ferrous",
+     "afterStep": 4,
+     "prompt": "Your next sample is copper. What do you do at the grinder?",
+     "options": [
+      {
+       "text": "Leave it out of the spark test",
+       "correct": true,
+       "consequence": "Non-ferrous metals clog the wheel and give no useful sparks."
+      },
+      {
+       "text": "Grind it lightly with less pressure",
+       "consequence": "Even light grinding clogs the wheel."
+      },
+      {
+       "text": "Grind it at the side of the wheel",
+       "consequence": "Side grinding is dangerous, and it clogs the wheel too."
+      }
+     ]
+    },
+    {
+     "id": "light",
+     "afterStep": 4,
+     "prompt": "The workshop is bright and sunny. Where do you do the spark test?",
+     "options": [
+      {
+       "text": "In a dim area",
+       "correct": true,
+       "consequence": "Spark colour and shape can be seen clearly."
+      },
+      {
+       "text": "In direct sunlight by the door",
+       "consequence": "Ambient light hides the spark colour."
+      },
+      {
+       "text": "Under the brightest lamp you can find",
+       "consequence": "Bright light hides the colour."
+      }
+     ]
+    },
+    {
+     "id": "stainless",
+     "afterStep": 2,
+     "prompt": "A bright sample is only weakly drawn to the magnet. What do you do?",
+     "options": [
+      {
+       "text": "Keep testing, as some stainless steels are hardly magnetic",
+       "correct": true,
+       "consequence": "You avoid the error of judging by one test."
+      },
+      {
+       "text": "Record it as aluminium, since the magnet hardly moved it at all",
+       "consequence": "Aluminium is not magnetic at all."
+      },
+      {
+       "text": "Record it as mild steel",
+       "consequence": "Mild steel pulls strongly on a magnet."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "sparks",
+     "prompt": "A sample gives many bright, bushy bursts. What is it?",
+     "options": [
+      {
+       "text": "High-carbon steel",
+       "correct": true
+      },
+      {
+       "text": "Mild steel (low carbon)",
+       "why": "Mild steel gives long straw streaks with few bursts."
+      },
+      {
+       "text": "Cast iron",
+       "why": "Cast iron gives short, dull red streaks."
+      },
+      {
+       "text": "Brass",
+       "why": "Brass should not be spark-tested."
+      }
+     ]
+    },
+    {
+     "id": "magnet",
+     "prompt": "Which group is non-magnetic?",
+     "options": [
+      {
+       "text": "Aluminium, copper and brass",
+       "correct": true
+      },
+      {
+       "text": "Mild steel, copper and brass",
+       "why": "Mild steel is magnetic."
+      },
+      {
+       "text": "Cast iron, aluminium and zinc",
+       "why": "Cast iron is magnetic."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "steel-mass",
+     "prompt": "A steel block has a volume of {v} cm³, and steel has a density of 7.85 g/cm³. What is its mass in g?",
+     "formula": "7.85 * v",
+     "vars": {
+      "v": {
+       "min": 10,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "7.85 × {v} = {answer} g."
+    },
+    {
+     "id": "alu-mass",
+     "prompt": "An aluminium block has a volume of {v} cm³, and aluminium has a density of 2.70 g/cm³. What is its mass in g?",
+     "formula": "2.7 * v",
+     "vars": {
+      "v": {
+       "min": 10,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "2.70 × {v} = {answer} g."
+    }
+   ],
+   "faults": [
+    {
+     "id": "clogged",
+     "scenario": "Halima's grinder wheel is clogged, and her table of metals has errors. Here is what she did.",
+     "lines": [
+      {
+       "text": "She spark-tested aluminium on the grinder.",
+       "fault": true,
+       "why": "It clogs the wheel."
+      },
+      {
+       "text": "She assumed a stainless sample must be magnetic.",
+       "fault": true,
+       "why": "Not all stainless steel is magnetic."
+      },
+      {
+       "text": "She did the test in bright sunlight.",
+       "fault": true,
+       "why": "Light hides the spark colour."
+      },
+      {
+       "text": "She filed a corner of each sample.",
+       "why": "That shows the true surface."
+      },
+      {
+       "text": "She compared against known samples.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for spark-testing metals.",
+    "explainPrompt": "Why are non-ferrous metals not spark-tested on the bench grinder?",
+    "explainGuide": "Soft non-ferrous metals clog the abrasive wheel and give no useful sparks, so the wheel is spoiled and can become unsafe.",
+    "explainKeywords": [
+     [
+      "clog",
+      "clogs",
+      "clogged"
+     ],
+     [
+      "wheel",
+      "grinder"
+     ],
+     [
+      "spark",
+      "sparks",
+      "unsafe",
+      "spoil",
+      "spoiled",
+      "spoils"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying metals by appearance and spark test",
+    "Light pressure, dim corner."
+   ]
+  },
+  "pr-wfab-annealing-hardening-and-tempering-steel": {
+   "safety": {
+    "correct": [
+     "Chalk a warning on any bench where hot metal has been laid."
+    ],
+    "wrong": [
+     {
+      "text": "Pick up a piece that has stopped glowing with your bare hand.",
+      "why": "It can still burn badly. Use tongs and treat all metal as hot."
+     },
+     {
+      "text": "Lean over the oil tank as the hot chisel goes in.",
+      "why": "Quenching oil may flash. Stand clear, with apron, gloves and goggles."
+     },
+     {
+      "text": "Hand a hot piece to a friend without saying anything.",
+      "why": "Warn people and mark hot pieces."
+     },
+     {
+      "text": "Quench over a wet floor with your feet in the runoff.",
+      "why": "Hot splashes and a slippery floor can injure you. Keep the area dry."
+     },
+     {
+      "text": "Drop the hot chisel into the tank from a height.",
+      "why": "It splashes and may flash. Lower it in with tongs."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bare hands for handling",
+      "why": "Metal stays hot long after the glow has gone."
+     },
+     {
+      "name": "Thermometer",
+      "why": "Steel is judged by its heat and oxide colours here."
+     },
+     {
+      "name": "Plastic bucket for quenching",
+      "why": "Hot metal melts it. Use the quenching tank."
+     },
+     {
+      "name": "Welding helmet",
+      "why": "Goggles are used, as there is no arc."
+     },
+     {
+      "name": "Wood rasp",
+      "why": "It would be ruined on steel, and it gives no hardness test."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "cool-anneal",
+     "afterStep": 1,
+     "prompt": "The sample is cherry red and you want it annealed. How do you cool it?",
+     "options": [
+      {
+       "text": "Slowly, in ashes or sand",
+       "correct": true,
+       "consequence": "Slow cooling leaves the steel at its softest."
+      },
+      {
+       "text": "In still air on the bench",
+       "consequence": "That is normalising, not annealing."
+      },
+      {
+       "text": "Quench it in the water tank",
+       "consequence": "That hardens high-carbon steel instead."
+      }
+     ]
+    },
+    {
+     "id": "quench-how",
+     "afterStep": 3,
+     "prompt": "You quench the chisel tip. How do you move it?",
+     "options": [
+      {
+       "text": "Vertically, up and down",
+       "correct": true,
+       "consequence": "Even cooling avoids distortion."
+      },
+      {
+       "text": "Sideways, sweeping it flat",
+       "consequence": "Uneven cooling bends the tip."
+      },
+      {
+       "text": "Hold it just above the surface",
+       "consequence": "The tip does not cool fast enough to harden."
+      }
+     ]
+    },
+    {
+     "id": "bright",
+     "afterStep": 5,
+     "prompt": "The chisel is hard and black with scale. What do you do before tempering?",
+     "options": [
+      {
+       "text": "Clean one side bright with emery cloth",
+       "correct": true,
+       "consequence": "The oxide colours can be seen."
+      },
+      {
+       "text": "Oil the surface to protect it",
+       "consequence": "Oil hides the colours and may flare."
+      },
+      {
+       "text": "Grind the tip until it is blue",
+       "consequence": "This overheats the tip and draws its hardness."
+      }
+     ]
+    },
+    {
+     "id": "stop-colour",
+     "afterStep": 6,
+     "prompt": "The colours are running to the tip of a cold chisel. When do you quench?",
+     "options": [
+      {
+       "text": "When the tip is purple to dark blue",
+       "correct": true,
+       "consequence": "The tip is tough, so it will not chip."
+      },
+      {
+       "text": "When the tip is pale straw",
+       "consequence": "It is still too hard and brittle for a chisel."
+      },
+      {
+       "text": "When all colours have gone from view",
+       "consequence": "The temper is lost and the tip is soft."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "file-test",
+     "prompt": "You test the quenched tip with a file. What shows it has hardened?",
+     "options": [
+      {
+       "text": "The file skates over it",
+       "correct": true
+      },
+      {
+       "text": "The file bites as it does on mild steel",
+       "why": "It has not hardened."
+      },
+      {
+       "text": "The tip bends under the file",
+       "why": "A bending tip is soft."
+      }
+     ]
+    },
+    {
+     "id": "order-colours",
+     "prompt": "In what order do the tempering colours appear as the steel heats?",
+     "options": [
+      {
+       "text": "Pale straw, dark straw, brown, purple, blue",
+       "correct": true
+      },
+      {
+       "text": "Blue, purple, brown, dark straw, pale straw",
+       "why": "That is the reverse order."
+      },
+      {
+       "text": "Brown, pale straw, blue, purple, dark straw",
+       "why": "This is not the sequence."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "colour-gap",
+     "prompt": "Pale straw appears at about 230 °C, and purple at about 270 °C. How many degrees hotter is purple?",
+     "answer": 40,
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "270 − 230 = 40 °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "snapped-chisel",
+     "scenario": "Dele's new cold chisel chipped on its first use. Here is what he did.",
+     "lines": [
+      {
+       "text": "He skipped tempering.",
+       "fault": true,
+       "why": "A hardened tool is left brittle."
+      },
+      {
+       "text": "He overheated the tip until it sparkled.",
+       "fault": true,
+       "why": "That burns the steel."
+      },
+      {
+       "text": "He judged the heat in bright sunlight.",
+       "fault": true,
+       "why": "Colours are misjudged in bright light."
+      },
+      {
+       "text": "He tested with a file after quenching.",
+       "why": "That is the test."
+      },
+      {
+       "text": "He wore an apron, gloves and goggles.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for hardening and tempering a chisel.",
+    "explainPrompt": "Why must a hardened chisel be tempered before use?",
+    "explainGuide": "Hardening leaves the steel brittle, so it may chip or shatter. Tempering reduces the brittleness and makes it tough, while keeping enough hardness.",
+    "explainKeywords": [
+     [
+      "brittle",
+      "brittleness"
+     ],
+     [
+      "tough",
+      "toughness"
+     ],
+     [
+      "chip",
+      "shatter",
+      "crack",
+      "hard",
+      "hardness"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Annealing, hardening and tempering steel",
+    "Harden, then temper."
+   ]
+  },
+  "pr-wfab-setting-up-oxy-acetylene-equipment-and-adjusting-flames": {
+   "safety": {
+    "correct": [
+     "Open cylinder valves while standing to one side of the regulator."
+    ],
+    "wrong": [
+     {
+      "text": "Wipe the oxygen fitting with an oily rag to clean it.",
+      "why": "Oil and oxygen can explode. Keep the fittings free from oil."
+     },
+     {
+      "text": "Look for a leak with a match.",
+      "why": "Use leak-test solution, never a flame."
+     },
+     {
+      "text": "Lay the acetylene cylinder flat to fit it on the trolley.",
+      "why": "Acetylene must never lie on its side."
+     },
+     {
+      "text": "Light the blowpipe with a cigarette lighter.",
+      "why": "Use the spark lighter, which keeps your hand back."
+     },
+     {
+      "text": "Leave the arrestors off as the hoses are short.",
+      "why": "Flashback arrestors are needed on any hose run."
+     },
+     {
+      "text": "Force a stiff regulator on with a hammer and spanner.",
+      "why": "Check the thread direction. Force damages the fitting and causes leaks."
+     },
+     {
+      "text": "Leave the blowpipe lit on the bench while you fetch the rod.",
+      "why": "A lit blowpipe can burn people and hoses. Shut it down."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Grease for oxygen threads",
+      "why": "Grease on oxygen fittings can explode."
+     },
+     {
+      "name": "Match box",
+      "why": "Matches bring your hand close to the flash."
+     },
+     {
+      "name": "Copper pipe joint for acetylene",
+      "why": "Copper can react with acetylene to form an explosive compound."
+     },
+     {
+      "name": "Arc welding electrode holder",
+      "why": "This is a gas welding set-up."
+     },
+     {
+      "name": "Pipe wrench for regulators",
+      "why": "It damages the nut and is too rough for regulator fittings."
+     },
+     {
+      "name": "Household gas hose",
+      "why": "Only the correct coloured welding hoses are used."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "thread",
+     "afterStep": 2,
+     "prompt": "The acetylene regulator will not screw on clockwise. What is happening?",
+     "options": [
+      {
+       "text": "Acetylene fittings are left-hand threaded",
+       "correct": true,
+       "consequence": "It goes on the correct way, without force."
+      },
+      {
+       "text": "The thread is dirty, so force it on with a spanner",
+       "consequence": "Force strips the thread and causes a leak."
+      },
+      {
+       "text": "It needs a drop of oil to start",
+       "consequence": "Oil near gas fittings is a danger."
+      }
+     ]
+    },
+    {
+     "id": "leak",
+     "afterStep": 4,
+     "prompt": "The joints are made and the cylinders are open. How do you test them?",
+     "options": [
+      {
+       "text": "Brush on leak-test solution and look for bubbles",
+       "correct": true,
+       "consequence": "A leak shows safely."
+      },
+      {
+       "text": "Pass a small flame along each joint and watch for flaring",
+       "consequence": "A flame can ignite the leak."
+      },
+      {
+       "text": "Smell each joint in turn",
+       "consequence": "Your nose cannot find or measure a leak safely."
+      }
+     ]
+    },
+    {
+     "id": "lighting",
+     "afterStep": 5,
+     "prompt": "You have purged the hoses. How do you light up?",
+     "options": [
+      {
+       "text": "Open acetylene, light it, then add oxygen",
+       "correct": true,
+       "consequence": "The flame lights smoothly and can be adjusted."
+      },
+      {
+       "text": "Open oxygen first, then light it",
+       "consequence": "Oxygen will not burn alone, and it risks a backfire."
+      },
+      {
+       "text": "Open both fully and then light",
+       "consequence": "This can give a violent pop or a backfire."
+      }
+     ]
+    },
+    {
+     "id": "neutral",
+     "afterStep": 6,
+     "prompt": "A white feather surrounds the inner cone. How do you get a neutral flame?",
+     "options": [
+      {
+       "text": "Add oxygen until the feather just goes",
+       "correct": true,
+       "consequence": "The inner cone is clear and rounded."
+      },
+      {
+       "text": "Add acetylene to enlarge the feather",
+       "consequence": "That makes the flame more carburising."
+      },
+      {
+       "text": "Add oxygen until the flame hisses",
+       "consequence": "That has gone past neutral and is oxidising."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "oxidising",
+     "prompt": "A flame has a short pointed cone and a hissing sound. Which is it?",
+     "options": [
+      {
+       "text": "An oxidising flame",
+       "correct": true
+      },
+      {
+       "text": "A neutral flame",
+       "why": "A neutral flame has a clear rounded cone."
+      },
+      {
+       "text": "A carburising flame",
+       "why": "A carburising flame has a feather."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "withdraw",
+     "prompt": "Acetylene should not be drawn faster than one-fifth of the cylinder content per hour. What is the maximum for a {c} m³ cylinder, in m³/h?",
+     "formula": "c / 5",
+     "vars": {
+      "c": {
+       "min": 5,
+       "max": 10,
+       "step": 1
+      }
+     },
+     "unit": "m³/h",
+     "unitAliases": [
+      "m3/h",
+      "cubic metres per hour"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{c} ÷ 5 = {answer} m³/h."
+    }
+   ],
+   "faults": [
+    {
+     "id": "backfire",
+     "scenario": "Amaka's blowpipe popped repeatedly, and the instructor stopped her. Here is what she did.",
+     "lines": [
+      {
+       "text": "She tested a joint with a flame.",
+       "fault": true,
+       "why": "Use leak-test solution."
+      },
+      {
+       "text": "She used a cigarette lighter.",
+       "fault": true,
+       "why": "Use the spark lighter."
+      },
+      {
+       "text": "She set pressures that did not suit the nozzle.",
+       "fault": true,
+       "why": "A wrong pressure causes backfires."
+      },
+      {
+       "text": "She chained the cylinders upright.",
+       "why": "That is required."
+      },
+      {
+       "text": "She shut acetylene off first.",
+       "why": "That is the correct sequence."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for setting up oxy-acetylene equipment.",
+    "explainPrompt": "Why must oil and grease be kept away from oxygen fittings?",
+    "explainGuide": "Oil and grease can ignite violently in pure oxygen under pressure, causing fire or an explosion at the regulator.",
+    "explainKeywords": [
+     [
+      "oil",
+      "grease"
+     ],
+     [
+      "oxygen"
+     ],
+     [
+      "explosion",
+      "explode",
+      "explosive",
+      "fire",
+      "ignite"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Setting up oxy-acetylene equipment and adjusting flames",
+    "Light acetylene first, shut it first."
+   ]
+  },
+  "pr-wfab-preparing-acetylene-gas-from-calcium-carbide": {
+   "safety": {
+    "correct": [
+     "Watch the demonstration from where the teacher tells you to stand."
+    ],
+    "wrong": [
+     {
+      "text": "Try the demonstration yourself with carbide from the tin.",
+      "why": "It is a demonstration done only by the teacher."
+     },
+     {
+      "text": "Move a Bunsen flame closer to see the gas better.",
+      "why": "Acetylene forms explosive mixtures with air. No flames near the apparatus."
+     },
+     {
+      "text": "Leave the carbide tin open on the bench.",
+      "why": "Carbide reacts with moisture in the air. Keep it sealed and dry."
+     },
+     {
+      "text": "Pick up a lump of carbide with wet fingers.",
+      "why": "It reacts with moisture and can burn the skin. Do not handle it."
+     },
+     {
+      "text": "Lean over the flask to smell the gas.",
+      "why": "The gas is flammable and harmful to breathe. Stay back."
+     },
+     {
+      "text": "Do the demonstration in a closed room to keep the wind out.",
+      "why": "It must be done in open air or a fume cupboard."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bunsen burner beside the flask",
+      "why": "No flames may be near the apparatus."
+     },
+     {
+      "name": "Steel drum generator",
+      "why": "This is a small-scale teacher demonstration only."
+     },
+     {
+      "name": "Damp cardboard box for carbide",
+      "why": "Carbide must stay in a sealed dry tin."
+     },
+     {
+      "name": "Copper delivery pipe",
+      "why": "Copper can form explosive compounds with acetylene."
+     },
+     {
+      "name": "Oxygen cylinder",
+      "why": "No oxygen is needed for this demonstration."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "add-water",
+     "afterStep": 2,
+     "prompt": "The teacher wants a steady gas flow. How is the water added?",
+     "options": [
+      {
+       "text": "Drop by drop",
+       "correct": true,
+       "consequence": "The reaction stays gentle and controlled."
+      },
+      {
+       "text": "All at once",
+       "consequence": "The reaction becomes violent and hot."
+      },
+      {
+       "text": "Until the carbide is well covered",
+       "consequence": "Too much water at once releases gas far too fast."
+      }
+     ]
+    },
+    {
+     "id": "store",
+     "afterStep": 6,
+     "prompt": "Some carbide is left after the demonstration. Where is it kept?",
+     "options": [
+      {
+       "text": "In a sealed dry tin",
+       "correct": true,
+       "consequence": "It cannot react with moisture."
+      },
+      {
+       "text": "In a damp cupboard",
+       "consequence": "Damp starts the reaction and makes gas."
+      },
+      {
+       "text": "In an open basin outside",
+       "consequence": "Moist air reacts with it."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "reaction",
+     "prompt": "What do you observe as water reaches the carbide?",
+     "options": [
+      {
+       "text": "Effervescence, leaving a white sludge of calcium hydroxide",
+       "correct": true
+      },
+      {
+       "text": "No reaction until the flask has been warmed over a small burner",
+       "why": "It reacts with water without heating."
+      },
+      {
+       "text": "A blue solution forms",
+       "why": "The residue is a white sludge."
+      }
+     ]
+    },
+    {
+     "id": "flame",
+     "prompt": "How does the gas burn in air?",
+     "options": [
+      {
+       "text": "With a smoky yellow flame",
+       "correct": true
+      },
+      {
+       "text": "With a clean blue flame",
+       "why": "Air alone gives a smoky flame."
+      },
+      {
+       "text": "It does not burn",
+       "why": "Acetylene is highly flammable."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mol",
+     "prompt": "Calcium carbide has a molar mass of 64.1 g/mol. How many moles are in {m} g?",
+     "formula": "m / 64.1",
+     "vars": {
+      "m": {
+       "min": 100,
+       "max": 500,
+       "step": 100
+      }
+     },
+     "unit": "mol",
+     "unitAliases": [
+      "moles"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "{m} ÷ 64.1 = {answer} mol."
+    },
+    {
+     "id": "yield",
+     "prompt": "One mole of carbide gives one mole of acetylene, and a mole of gas occupies 22.4 L at s.t.p. What volume comes from {n} mol of pure carbide, in L?",
+     "formula": "n * 22.4",
+     "vars": {
+      "n": {
+       "min": 2,
+       "max": 8,
+       "step": 2
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "{n} × 22.4 = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "low-yield",
+     "scenario": "Chidi's notes on the demonstration are wrong in places. Here is what he wrote.",
+     "lines": [
+      {
+       "text": "Water may be added in a large amount at once.",
+       "fault": true,
+       "why": "Add it slowly to control the rate."
+      },
+      {
+       "text": "Carbide can be stored in any container.",
+       "fault": true,
+       "why": "It must be sealed and dry."
+      },
+      {
+       "text": "The yield is low only because of bad luck.",
+       "fault": true,
+       "why": "Impure carbide and gas dissolving lower the yield."
+      },
+      {
+       "text": "The gas was collected over water.",
+       "why": "That is correct."
+      },
+      {
+       "text": "The lime residue must be disposed of safely.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions observed in this demonstration.",
+    "explainPrompt": "Why does commercial carbide give less acetylene than the theoretical yield?",
+    "explainGuide": "Commercial carbide is not pure, so less of it reacts. Some of the gas also dissolves in the water, so the volume collected is lower.",
+    "explainKeywords": [
+     [
+      "impure",
+      "impurities",
+      "pure"
+     ],
+     [
+      "dissolve",
+      "dissolves",
+      "dissolving"
+     ],
+     [
+      "less",
+      "lower"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Preparing acetylene gas from calcium carbide",
+    "Teacher demonstration only."
+   ]
+  },
+  "pr-wfab-using-measuring-and-marking-out-tools": {
+   "safety": {
+    "correct": [
+     "Lay sharp marking tools flat on the bench, pointing away from the edge."
+    ],
+    "wrong": [
+     {
+      "text": "Carry an uncovered scriber in your overall pocket.",
+      "why": "It can stab you. Keep the point covered."
+     },
+     {
+      "text": "Pass the dividers to a friend by throwing them.",
+      "why": "Their points can injure. Hand them over safely."
+     },
+     {
+      "text": "Test the scriber point on your thumb.",
+      "why": "It can pierce the skin. Look at the point."
+     },
+     {
+      "text": "Strike the centre punch while holding it loosely near the point.",
+      "why": "The hammer can hit your fingers. Hold it steady."
+     },
+     {
+      "text": "Lick marking blue off your fingers before eating.",
+      "why": "It is not food-safe. Wash your hands."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pencil on bare steel",
+      "why": "Pencil lines are thick and rub off. Use the scriber."
+     },
+     {
+      "name": "Cold chisel for marking lines",
+      "why": "It cuts rather than marks."
+     },
+     {
+      "name": "Tape measure for plate thickness",
+      "why": "Far too coarse. Use the micrometer."
+     },
+     {
+      "name": "Sledge hammer for punching",
+      "why": "It would drive the punch in far too deeply."
+     },
+     {
+      "name": "Wood marking gauge",
+      "why": "It is made for wood, and it would be ruined on steel."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "datum",
+     "afterStep": 2,
+     "prompt": "You have several lines to mark. Where do you measure from?",
+     "options": [
+      {
+       "text": "One datum edge",
+       "correct": true,
+       "consequence": "Errors do not add up from line to line."
+      },
+      {
+       "text": "Each line from the one before",
+       "consequence": "Errors accumulate along the job."
+      },
+      {
+       "text": "Whichever edge is nearest",
+       "consequence": "Different edges add their own errors."
+      }
+     ]
+    },
+    {
+     "id": "punch",
+     "afterStep": 4,
+     "prompt": "You are punching hole centres on thin sheet. How hard do you strike?",
+     "options": [
+      {
+       "text": "Lightly",
+       "correct": true,
+       "consequence": "The mark is clear and the sheet stays flat."
+      },
+      {
+       "text": "Heavily, for a deep mark",
+       "consequence": "Heavy punching distorts thin sheet."
+      },
+      {
+       "text": "Several hard blows in a row",
+       "consequence": "This distorts the sheet and moves the mark."
+      }
+     ]
+    },
+    {
+     "id": "zero-err",
+     "afterStep": 5,
+     "prompt": "The micrometer reads 0.03 mm when closed. What do you do?",
+     "options": [
+      {
+       "text": "Allow for the zero error",
+       "correct": true,
+       "consequence": "Your reading is then correct."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "Every reading carries the same error."
+      },
+      {
+       "text": "Tighten it harder until it reads zero",
+       "consequence": "This strains it and does not fix the error."
+      }
+     ]
+    },
+    {
+     "id": "eye",
+     "afterStep": 6,
+     "prompt": "How do you read the rule scale?",
+     "options": [
+      {
+       "text": "With your eye directly above the mark",
+       "correct": true,
+       "consequence": "Parallax is avoided."
+      },
+      {
+       "text": "From the side, in good light",
+       "consequence": "That introduces parallax."
+      },
+      {
+       "text": "From a distance, to see the whole scale",
+       "consequence": "Small errors are easily missed."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lines",
+     "prompt": "What shows good marking out?",
+     "options": [
+      {
+       "text": "Fine, clean lines on the blue, agreeing with the drawing within ±0.1 mm",
+       "correct": true
+      },
+      {
+       "text": "Thick double lines on the blue, close to the drawing but with no checks made",
+       "why": "Double lines mean you cannot tell which one is right."
+      },
+      {
+       "text": "Lines that have rubbed off the plate",
+       "why": "Scribe them clearly against the blue."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vernier",
+     "prompt": "A vernier reads {m} mm on the main scale, and line {n} coincides at 0.02 mm per division. What is the reading in mm?",
+     "formula": "m + n * 0.02",
+     "vars": {
+      "m": {
+       "min": 15,
+       "max": 30,
+       "step": 5
+      },
+      "n": {
+       "min": 8,
+       "max": 22,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{m} + {n} × 0.02 = {answer} mm."
+    },
+    {
+     "id": "micro",
+     "prompt": "A micrometer sleeve shows {s} mm, and the thimble {t} divisions of 0.01 mm. What is the reading in mm?",
+     "formula": "s + t * 0.01",
+     "vars": {
+      "s": {
+       "min": 4.5,
+       "max": 6.5,
+       "step": 0.5
+      },
+      "t": {
+       "min": 12,
+       "max": 42,
+       "step": 6
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{s} + {t} × 0.01 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "out-of-size",
+     "scenario": "Efe's marked plate came out oversize and buckled. Here is what he did.",
+     "lines": [
+      {
+       "text": "He ignored the zero error of his micrometer.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He centre-punched heavily on thin sheet.",
+       "fault": true,
+       "why": "That distorts it."
+      },
+      {
+       "text": "He measured each line from the last.",
+       "fault": true,
+       "why": "Use a datum to avoid accumulated error."
+      },
+      {
+       "text": "He coated the plate with marking blue.",
+       "why": "That makes the lines clear."
+      },
+      {
+       "text": "He kept his scriber point covered.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for accurate marking out.",
+    "explainPrompt": "Why are measurements taken from a datum edge?",
+    "explainGuide": "All lines then start from one true reference, so small errors do not add up from one measurement to the next.",
+    "explainKeywords": [
+     [
+      "datum",
+      "reference"
+     ],
+     [
+      "error",
+      "errors"
+     ],
+     [
+      "accumulate",
+      "add",
+      "accumulated",
+      "adding",
+      "build"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Using measuring and marking-out tools",
+    "Mark from a datum."
+   ]
+  },
+  "pr-wfab-striking-an-arc-and-running-straight-beads": {
+   "safety": {
+    "correct": [
+     "Switch the set off when leaving it, and lay the holder on an insulated rest."
+    ],
+    "wrong": [
+     {
+      "text": "Change the electrode with bare hands while the set is on.",
+      "why": "You can get a shock. Wear dry gauntlets."
+     },
+     {
+      "text": "Weld with a damaged cable taped over at the bench.",
+      "why": "Keep cables undamaged. Report and replace it."
+     },
+     {
+      "text": "Chip slag with your face close to see the bead.",
+      "why": "Hot slag flies. Wear goggles and chip away from your face."
+     },
+     {
+      "text": "Weld without the screens because nobody is near.",
+      "why": "Someone may walk by and get arc eye."
+     },
+     {
+      "text": "Stand in a puddle in order to keep cool.",
+      "why": "Water increases shock risk. Keep the area dry."
+     },
+     {
+      "text": "Pick up the finished plate with your gauntlets to check it soon after welding.",
+      "why": "Plate stays very hot. Use tongs."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gas welding goggles",
+      "why": "They are far too light for an arc."
+     },
+     {
+      "name": "Damp electrodes from the yard",
+      "why": "They cause porosity. Store electrodes dry."
+     },
+     {
+      "name": "Oxy-acetylene blowpipe",
+      "why": "This job is MMA welding."
+     },
+     {
+      "name": "Plastic-handled hammer with loose head",
+      "why": "A loose head can fly off, and slag needs the chipping hammer."
+     },
+     {
+      "name": "Household extension cable",
+      "why": "It cannot carry welding current."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "earth",
+     "afterStep": 1,
+     "prompt": "The earth clamp is on a rusty corner. What do you do?",
+     "options": [
+      {
+       "text": "Clean a spot and clamp it securely",
+       "correct": true,
+       "consequence": "Good contact gives a steady arc."
+      },
+      {
+       "text": "Weld anyway, as the arc will burn through",
+       "consequence": "Poor earth contact is a source of error."
+      },
+      {
+       "text": "Hold it on with your boot",
+       "consequence": "That is unsafe, and the contact is poor."
+      }
+     ]
+    },
+    {
+     "id": "stick",
+     "afterStep": 3,
+     "prompt": "The electrode keeps sticking to the plate. What is the likely cause?",
+     "options": [
+      {
+       "text": "Current too low",
+       "correct": true,
+       "consequence": "Raising it lets the arc strike and hold."
+      },
+      {
+       "text": "Current too high",
+       "consequence": "High current gives spatter and undercut, not sticking."
+      },
+      {
+       "text": "Plate too clean",
+       "consequence": "A clean plate helps the arc."
+      }
+     ]
+    },
+    {
+     "id": "arc-length",
+     "afterStep": 4,
+     "prompt": "How long an arc do you hold with a 3.2 mm electrode?",
+     "options": [
+      {
+       "text": "About 3 mm, equal to the core",
+       "correct": true,
+       "consequence": "An even bead with little spatter results."
+      },
+      {
+       "text": "About 10 mm, to see the pool",
+       "consequence": "Too long an arc gives spatter and a wide flat bead."
+      },
+      {
+       "text": "Touching the plate",
+       "consequence": "The electrode will stick."
+      }
+     ]
+    },
+    {
+     "id": "between",
+     "afterStep": 6,
+     "prompt": "You will run another bead beside the first. What do you do first?",
+     "options": [
+      {
+       "text": "Chip and brush the slag off",
+       "correct": true,
+       "consequence": "No slag gets trapped in the next run."
+      },
+      {
+       "text": "Weld straight beside it",
+       "consequence": "Slag can be trapped in the weld."
+      },
+      {
+       "text": "Oil the plate",
+       "consequence": "Oil causes porosity."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "bead",
+     "prompt": "Which bead shows correct settings?",
+     "options": [
+      {
+       "text": "Even width, fine regular ripples, little spatter",
+       "correct": true
+      },
+      {
+       "text": "Wide, flat and with much spatter",
+       "why": "That is too long an arc."
+      },
+      {
+       "text": "Narrow and thin",
+       "why": "That is too fast a travel."
+      },
+      {
+       "text": "Lumpy and high with little width, and no spatter at all",
+       "why": "Too slow, or too low a current."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "current",
+     "prompt": "A rule of thumb gives 40 A per mm of electrode diameter. What current is this for a {d} mm electrode, in A?",
+     "formula": "40 * d",
+     "vars": {
+      "d": {
+       "min": 2.5,
+       "max": 3.2,
+       "step": 0.7
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "40 × {d} = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "porous",
+     "scenario": "Sani's beads have holes and heavy spatter. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used electrodes kept in a damp corner.",
+       "fault": true,
+       "why": "Damp electrodes cause porosity."
+      },
+      {
+       "text": "He held a very long arc.",
+       "fault": true,
+       "why": "Long arcs give spatter."
+      },
+      {
+       "text": "He did not chip slag between runs.",
+       "fault": true,
+       "why": "Slag gets trapped."
+      },
+      {
+       "text": "He set the current for the electrode size.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He put up screens.",
+       "why": "That protects others."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for arc welding beads.",
+    "explainPrompt": "Why must electrodes be stored dry?",
+    "explainGuide": "Damp flux gives off hydrogen and steam in the arc. Gas is trapped in the weld, so it becomes porous and weak.",
+    "explainKeywords": [
+     [
+      "damp",
+      "moisture",
+      "wet"
+     ],
+     [
+      "porous",
+      "porosity",
+      "holes"
+     ],
+     [
+      "weak",
+      "gas",
+      "hydrogen",
+      "steam"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Striking an arc and running straight beads",
+    "Steady arc, steady travel."
+   ]
+  },
+  "pr-wfab-preparing-a-single-v-butt-joint-and-welding-it": {
+   "safety": {
+    "correct": [
+     "Let the disc stop fully before putting the grinder down."
+    ],
+    "wrong": [
+     {
+      "text": "Remove the grinder guard to reach the bevel better.",
+      "why": "Keep guards in place. A burst disc can kill."
+     },
+     {
+      "text": "Grind with no goggles, as you are holding it low.",
+      "why": "Sparks and grit fly in all directions. Wear goggles."
+     },
+     {
+      "text": "Grind towards a classmate standing beside you.",
+      "why": "Sparks can burn them. Direct them away from people."
+     },
+     {
+      "text": "Hold the plate between your knees while grinding.",
+      "why": "It can kick. Clamp the work."
+     },
+     {
+      "text": "Weld the root with only goggles as the arc is short.",
+      "why": "Full arc-welding PPE is needed."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw for the bevel",
+      "why": "It cannot give a clean 30° face."
+     },
+     {
+      "name": "Wood plane",
+      "why": "It is for wood, not steel."
+     },
+     {
+      "name": "Oxygen cylinder",
+      "why": "This job uses MMA."
+     },
+     {
+      "name": "Household oil tin for welding the root",
+      "why": "Oil on the joint causes porosity. Oil goes on only after the weld."
+     },
+     {
+      "name": "Gas welding goggles",
+      "why": "They are too light for an arc."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bevel",
+     "afterStep": 2,
+     "prompt": "What bevel do you grind on each plate?",
+     "options": [
+      {
+       "text": "30° with a 1.5 mm root face",
+       "correct": true,
+       "consequence": "That gives a 60° included angle."
+      },
+      {
+       "text": "60° on each plate",
+       "consequence": "That gives a 120° groove, and it wastes weld metal."
+      },
+      {
+       "text": "30° down to a knife edge",
+       "consequence": "Without a root face, the arc burns through."
+      }
+     ]
+    },
+    {
+     "id": "gap",
+     "afterStep": 3,
+     "prompt": "How do you set the plates?",
+     "options": [
+      {
+       "text": "With a uniform 2 mm root gap, tacked at both ends",
+       "correct": true,
+       "consequence": "The root penetrates evenly."
+      },
+      {
+       "text": "Butted hard together and tacked firmly at both ends",
+       "consequence": "No root gap gives lack of penetration."
+      },
+      {
+       "text": "With a gap wider at one end",
+       "consequence": "An uneven gap gives uneven penetration."
+      }
+     ]
+    },
+    {
+     "id": "between-runs",
+     "afterStep": 5,
+     "prompt": "The root run is done. What do you do before the fill?",
+     "options": [
+      {
+       "text": "Chip and brush the slag off",
+       "correct": true,
+       "consequence": "No slag is trapped between the runs."
+      },
+      {
+       "text": "Fill straight over it",
+       "consequence": "Slag becomes trapped."
+      },
+      {
+       "text": "Wash it with water and carry on",
+       "consequence": "Water causes rust and porosity."
+      }
+     ]
+    },
+    {
+     "id": "finish",
+     "afterStep": 6,
+     "prompt": "The weld is finished and inspected. What do you do?",
+     "options": [
+      {
+       "text": "Clean and oil it to prevent rust",
+       "correct": true,
+       "consequence": "Skipping this is a common mistake."
+      },
+      {
+       "text": "Leave it bare in the yard",
+       "consequence": "It will rust."
+      },
+      {
+       "text": "Paint over the slag",
+       "consequence": "Slag must be removed first."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-v",
+     "prompt": "Which result shows a good butt weld?",
+     "options": [
+      {
+       "text": "Full penetration on the underside, cap slightly convex, no undercut",
+       "correct": true
+      },
+      {
+       "text": "Cap very high and full, with no penetration below and no undercut at the toes",
+       "why": "The root has not fused."
+      },
+      {
+       "text": "Grooves along the toes of the weld",
+       "why": "That is undercut."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "bevel-width",
+     "prompt": "A plate {t} mm thick has a 1.5 mm root face and a 30° bevel (tan 30° = 0.577). What is the bevel width on each plate in mm?",
+     "formula": "(t - 1.5) * 0.577",
+     "vars": {
+      "t": {
+       "min": 8,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "({t} − 1.5) × 0.577 = {answer} mm."
+    },
+    {
+     "id": "top-gap",
+     "prompt": "Each plate has a bevel width of {w} mm, and the root gap is 2 mm. What is the total gap at the top in mm?",
+     "formula": "2 * w + 2",
+     "vars": {
+      "w": {
+       "min": 4,
+       "max": 6,
+       "step": 0.5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "2 × {w} + 2 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "no-pen",
+     "scenario": "Rita's butt weld failed the bend test, and the plates pulled out of line. Here is what she did.",
+     "lines": [
+      {
+       "text": "She left no root gap.",
+       "fault": true,
+       "why": "That gives lack of penetration."
+      },
+      {
+       "text": "She did not remove slag between runs.",
+       "fault": true,
+       "why": "Slag gets trapped."
+      },
+      {
+       "text": "She tacked at one end only.",
+       "fault": true,
+       "why": "Tacking both ends controls distortion."
+      },
+      {
+       "text": "She cleaned the edges of rust and oil.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She kept the grinder guard in place.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for preparing and welding a single-V butt joint.",
+    "explainPrompt": "Why is a thick plate bevelled before butt welding?",
+    "explainGuide": "Bevelling opens the joint, so the arc reaches the root. This gives full penetration through the plate and a stronger weld.",
+    "explainKeywords": [
+     [
+      "bevel",
+      "bevelling",
+      "opens"
+     ],
+     [
+      "root",
+      "reach",
+      "reaches"
+     ],
+     [
+      "penetration",
+      "penetrate",
+      "strong",
+      "stronger"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Preparing a single-V butt joint and welding it",
+    "Uniform root gap."
+   ]
+  },
+  "pr-wfab-fillet-welding-a-t-joint-and-a-lap-joint": {
+   "safety": {
+    "correct": [
+     "Check that the clamps cannot slide before striking the arc."
+    ],
+    "wrong": [
+     {
+      "text": "Touch the plate with your bare hand to see if it has cooled.",
+      "why": "It stays very hot. Use tongs."
+     },
+     {
+      "text": "Weld without screens with students watching close by.",
+      "why": "They can get arc eye."
+     },
+     {
+      "text": "Hold the upright plate by hand while tacking.",
+      "why": "It is unsafe, and the plate moves. Clamp it."
+     },
+     {
+      "text": "Weld with your head right in the fume plume.",
+      "why": "Keep your head out of it. Use ventilation."
+     },
+     {
+      "text": "Lean on the plate with a bare forearm when welding.",
+      "why": "Hot metal burns. Keep sleeves down and arms off it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gas welding goggles",
+      "why": "They are far too light for an arc."
+     },
+     {
+      "name": "Vernier for leg length alone",
+      "why": "A fillet weld gauge suits this."
+     },
+     {
+      "name": "Damp E6013 from the yard",
+      "why": "Electrodes must be stored dry."
+     },
+     {
+      "name": "Spirit level",
+      "why": "The square checks 90° here."
+     },
+     {
+      "name": "Oxy-acetylene blowpipe",
+      "why": "This job uses the arc welder."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "angle",
+     "afterStep": 3,
+     "prompt": "At what angle between the plates do you hold the electrode?",
+     "options": [
+      {
+       "text": "About 45°",
+       "correct": true,
+       "consequence": "The legs come out equal."
+      },
+      {
+       "text": "Almost flat on the base plate",
+       "consequence": "The legs come out unequal."
+      },
+      {
+       "text": "Pointing straight at the upright",
+       "consequence": "This gives undercut on the vertical plate."
+      }
+     ]
+    },
+    {
+     "id": "size",
+     "afterStep": 6,
+     "prompt": "Your first run is huge. What is the problem?",
+     "options": [
+      {
+       "text": "Too large a weld causes distortion and waste",
+       "correct": true,
+       "consequence": "A correct size saves rods and keeps the job flat."
+      },
+      {
+       "text": "None: bigger is always stronger, so leave it as it is",
+       "consequence": "Too large wastes metal and distorts the job."
+      },
+      {
+       "text": "It needs more filler",
+       "consequence": "It already has too much."
+      }
+     ]
+    },
+    {
+     "id": "overlap",
+     "afterStep": 5,
+     "prompt": "You are lapping 6 mm plate. How much overlap do you use?",
+     "options": [
+      {
+       "text": "At least 18 mm",
+       "correct": true,
+       "consequence": "That is 3 × the thickness."
+      },
+      {
+       "text": "6 mm, the same as the plate",
+       "consequence": "That is too small for a lap joint."
+      },
+      {
+       "text": "A touch, at the edge",
+       "consequence": "It leaves no overlap to weld."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fillet",
+     "prompt": "Which fillet weld is good?",
+     "options": [
+      {
+       "text": "Equal legs, slightly mitred, fused into both plates, no undercut",
+       "correct": true
+      },
+      {
+       "text": "Well fused into both plates, but one leg is twice the other",
+       "why": "That comes from the wrong electrode angle."
+      },
+      {
+       "text": "Equal legs and good fusion, with a groove along the top toe",
+       "why": "That is undercut on the vertical plate."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "throat",
+     "prompt": "An equal-leg fillet weld has legs of {l} mm. What is the throat thickness in mm?",
+     "formula": "0.707 * l",
+     "vars": {
+      "l": {
+       "min": 4,
+       "max": 8,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "0.707 × {l} = {answer} mm."
+    },
+    {
+     "id": "overlap-min",
+     "prompt": "A lap joint uses plate {t} mm thick, with an overlap of at least 3 times the thickness. What is the minimum overlap in mm?",
+     "formula": "3 * t",
+     "vars": {
+      "t": {
+       "min": 4,
+       "max": 10,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "3 × {t} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "uneven-legs",
+     "scenario": "Bala's T-joint was marked down. Here is what he did.",
+     "lines": [
+      {
+       "text": "He held the electrode at the wrong angle.",
+       "fault": true,
+       "why": "This gives unequal legs."
+      },
+      {
+       "text": "He let the arc cut into the vertical plate.",
+       "fault": true,
+       "why": "That is undercut."
+      },
+      {
+       "text": "He deposited far too much metal.",
+       "fault": true,
+       "why": "That causes distortion and waste."
+      },
+      {
+       "text": "He tacked both ends.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He measured the leg with the gauge.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for fillet welding.",
+    "explainPrompt": "Why is an electrode angle of about 45° used for a T-joint fillet weld?",
+    "explainGuide": "At 45° the arc heats both plates equally, so the legs are equal and the weld fuses into each plate.",
+    "explainKeywords": [
+     [
+      "45"
+     ],
+     [
+      "both plates",
+      "both",
+      "each plate",
+      "equally"
+     ],
+     [
+      "equal",
+      "fuses",
+      "fusion",
+      "legs"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Fillet welding a T-joint and a lap joint",
+    "Equal legs, no undercut."
+   ]
+  },
+  "pr-wfab-gas-welding-by-the-leftward-and-rightward-methods": {
+   "safety": {
+    "correct": [
+     "Shut the blowpipe down before putting it down."
+    ],
+    "wrong": [
+     {
+      "text": "Let the hoses lie across the hot plate.",
+      "why": "They can burn through. Keep them away from the flame."
+     },
+     {
+      "text": "Change the nozzle with the blowpipe still lit.",
+      "why": "Shut down first."
+     },
+     {
+      "text": "Weld in shade 2 sunglasses.",
+      "why": "Use the goggles, shade 5."
+     },
+     {
+      "text": "Light the blowpipe from a hot piece of plate.",
+      "why": "It can pop. Use the spark lighter."
+     },
+     {
+      "text": "Cool the blowpipe by dipping the lit nozzle in water.",
+      "why": "This can cause a backfire. Shut down first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Welding helmet with shade 12",
+      "why": "Too dark to see the molten pool."
+     },
+     {
+      "name": "E6013 electrode",
+      "why": "It is for the arc."
+     },
+     {
+      "name": "Aluminium rod",
+      "why": "It will not suit mild steel."
+     },
+     {
+      "name": "Electrode holder",
+      "why": "It is for the arc."
+     },
+     {
+      "name": "Grease for the blowpipe valves",
+      "why": "Grease is dangerous near oxygen."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "thick-method",
+     "afterStep": 3,
+     "prompt": "You are welding 8 mm plate. Which method do you use?",
+     "options": [
+      {
+       "text": "Rightward",
+       "correct": true,
+       "consequence": "It gives better penetration and uses less filler on thick plate."
+      },
+      {
+       "text": "Leftward",
+       "consequence": "Leftward on thick plate is a common mistake."
+      },
+      {
+       "text": "Whichever feels easiest",
+       "consequence": "Plate thickness decides the method."
+      }
+     ]
+    },
+    {
+     "id": "rod-where",
+     "afterStep": 5,
+     "prompt": "Where do you feed the rod?",
+     "options": [
+      {
+       "text": "Into the molten pool",
+       "correct": true,
+       "consequence": "It melts into the weld and is not oxidised."
+      },
+      {
+       "text": "Into the flame so it drips",
+       "consequence": "This common mistake gives a poor weld."
+      },
+      {
+       "text": "On top of the cold plate ahead",
+       "consequence": "It will not fuse."
+      }
+     ]
+    },
+    {
+     "id": "cone",
+     "afterStep": 5,
+     "prompt": "How far is the inner cone from the pool?",
+     "options": [
+      {
+       "text": "About 2 to 3 mm",
+       "correct": true,
+       "consequence": "It gives the correct heat."
+      },
+      {
+       "text": "Touching the pool",
+       "consequence": "It contaminates the weld and can cause a backfire."
+      },
+      {
+       "text": "About 30 mm",
+       "consequence": "The pool gets too little heat."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "compare",
+     "prompt": "You compare the two methods. Which is correct?",
+     "options": [
+      {
+       "text": "Leftward is neat on thin sheet; rightward penetrates better on thick plate",
+       "correct": true
+      },
+      {
+       "text": "Leftward penetrates better on thick plate; rightward is neat on thin sheet",
+       "why": "That is rightward."
+      },
+      {
+       "text": "Both are the same in every way",
+       "why": "They differ, as the test shows."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "use",
+     "prompt": "A nozzle uses 85 L/h of each gas. How many litres of acetylene does it use in {t} minutes?",
+     "formula": "85 * t / 60",
+     "vars": {
+      "t": {
+       "min": 20,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "85 × {t} ÷ 60 = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "hard-weld",
+     "scenario": "Oba's gas weld is hard and has poor penetration. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used a flame that was not neutral.",
+       "fault": true,
+       "why": "This gives oxidised or hard welds."
+      },
+      {
+       "text": "He dripped the rod into the weld from the flame.",
+       "fault": true,
+       "why": "Feed the rod into the pool."
+      },
+      {
+       "text": "He welded thick plate by the leftward method.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He tacked the sheets first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He wore shade 5 goggles.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for gas welding.",
+    "explainPrompt": "Why is rightward welding preferred for thick plate?",
+    "explainGuide": "In rightward welding the flame points back at the finished weld and heat goes into the plate, so it penetrates better with less filler and faster travel.",
+    "explainKeywords": [
+     [
+      "penetrate",
+      "penetrates",
+      "penetration"
+     ],
+     [
+      "filler",
+      "less"
+     ],
+     [
+      "heat",
+      "faster",
+      "speed",
+      "thick"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Gas welding by the leftward and rightward methods",
+    "Rod into the pool."
+   ]
+  },
+  "pr-wfab-marking-out-cutting-and-folding-a-sheet-metal-tray": {
+   "safety": {
+    "correct": [
+     "Collect sheet off-cuts in the scrap bin as you work."
+    ],
+    "wrong": [
+     {
+      "text": "Run your bare thumb along a cut edge to feel for burrs.",
+      "why": "Sheet edges are razor-sharp. Wear gloves and look for burrs."
+     },
+     {
+      "text": "Leave the burrs until the whole tray is folded.",
+      "why": "They cut you at every fold. Remove them immediately."
+     },
+     {
+      "text": "Keep your fingers on the sheet near the folding blade.",
+      "why": "They can be crushed. Hold it well back."
+     },
+     {
+      "text": "Leave off-cuts on the floor by the bench.",
+      "why": "Sharp pieces cut through thin soles. Clear them away."
+     },
+     {
+      "text": "Carry a large sheet flat against your bare forearm.",
+      "why": "Its edge can slice you. Wear gloves and sleeves."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw for the outline",
+      "why": "It tears thin sheet. Use tin snips."
+     },
+     {
+      "name": "Steel hammer on the folds",
+      "why": "It marks and stretches sheet. Use the mallet."
+     },
+     {
+      "name": "Chalk line on the sheet",
+      "why": "It is too thick for accurate folds. Use the scriber."
+     },
+     {
+      "name": "Welding helmet",
+      "why": "The corners here are soldered or riveted."
+     },
+     {
+      "name": "Micrometer for the net",
+      "why": "It cannot span the blank, and the rule is enough."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sequence",
+     "afterStep": 5,
+     "prompt": "Which folds do you plan first?",
+     "options": [
+      {
+       "text": "An order that leaves later folds possible",
+       "correct": true,
+       "consequence": "Each side can still reach the folding bars."
+      },
+      {
+       "text": "The two long sides, then whatever is left",
+       "consequence": "Without a plan, a raised side can block a later fold."
+      },
+      {
+       "text": "The corner tabs last of all, after closing the sides",
+       "consequence": "The tabs cannot then be folded."
+      }
+     ]
+    },
+    {
+     "id": "tabs",
+     "afterStep": 3,
+     "prompt": "You are cutting the corners. What must stay?",
+     "options": [
+      {
+       "text": "The tabs drawn on the net",
+       "correct": true,
+       "consequence": "The corners can then be joined."
+      },
+      {
+       "text": "Nothing: cut the corners off square",
+       "consequence": "Cutting off tabs is a common mistake."
+      },
+      {
+       "text": "Only one tab per side, chosen by eye",
+       "consequence": "The net must be followed."
+      }
+     ]
+    },
+    {
+     "id": "fold-face",
+     "afterStep": 2,
+     "prompt": "Where do you mark the fold lines?",
+     "options": [
+      {
+       "text": "On the outside face",
+       "correct": true,
+       "consequence": "This is the stated precaution, so a scribed line stays off the inside of the fold."
+      },
+      {
+       "text": "On both faces, deeply scored",
+       "consequence": "Deep scoring weakens the fold."
+      },
+      {
+       "text": "Wherever is easiest",
+       "consequence": "The fold lines can be lost or weaken the sheet."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tray",
+     "prompt": "What shows a well-made tray?",
+     "options": [
+      {
+       "text": "Square, with straight folds and tight corners matching the drawing",
+       "correct": true
+      },
+      {
+       "text": "Wavy folds and open corners, though the size matches the drawing",
+       "why": "This shows poor folding."
+      },
+      {
+       "text": "Square with tight corners, but 10 mm under the drawing size",
+       "why": "It must match the drawing."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "blank-l",
+     "prompt": "A tray base is {l} mm long and the tray is {d} mm deep. What is the blank length in mm, without tabs?",
+     "formula": "l + 2 * d",
+     "vars": {
+      "l": {
+       "min": 150,
+       "max": 250,
+       "step": 50
+      },
+      "d": {
+       "min": 20,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{l} + 2 × {d} = {answer} mm."
+    },
+    {
+     "id": "wire-add",
+     "prompt": "A wired edge uses {w} mm wire. The allowance is 2.5 × the wire diameter on each of the two sides. How much does the wire add to the blank length, in mm?",
+     "formula": "2 * 2.5 * w",
+     "vars": {
+      "w": {
+       "min": 2,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "2 × 2.5 × {w} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "crooked-tray",
+     "scenario": "Ifeoma's tray will not close at the corners. Here is what she did.",
+     "lines": [
+      {
+       "text": "She cut off tabs needed for the joints.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She folded in the wrong order.",
+       "fault": true,
+       "why": "Later folds became impossible."
+      },
+      {
+       "text": "She ignored the thickness of the sheet at the bend lines.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "She marked from a datum edge.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She filed the burrs off.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for making a sheet metal tray.",
+    "explainPrompt": "Why must the fold sequence of a tray be planned?",
+    "explainGuide": "Once some sides are raised they can block the machine or bars, so later folds become impossible. Planning leaves room for every fold.",
+    "explainKeywords": [
+     [
+      "sequence",
+      "order",
+      "plan"
+     ],
+     [
+      "block",
+      "impossible",
+      "prevent",
+      "room"
+     ],
+     [
+      "fold",
+      "folds",
+      "folding"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Marking out, cutting and folding a sheet metal tray",
+    "Plan the folds first."
+   ]
+  },
+  "pr-wfab-making-a-wired-edge-on-sheet-metal": {
+   "safety": {
+    "correct": [
+     "Cover or bend back cut wire ends until they are filed smooth."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the sheet close to the folding blade with your fingertips.",
+      "why": "Fingers can be crushed. Keep them clear."
+     },
+     {
+      "text": "Leave the wire ends sharp and proud at the edge.",
+      "why": "They can cut. Cut them flush and file them."
+     },
+     {
+      "text": "Work bare-handed as the edge will soon be safe.",
+      "why": "The edge stays sharp until it is closed. Wear gloves."
+     },
+     {
+      "text": "Strike the stake with your fingers wrapped around the sheet.",
+      "why": "The mallet can hit them. Hold it clear."
+     },
+     {
+      "text": "Reach into the wiring machine while it turns.",
+      "why": "Your fingers can be trapped. Stop it first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Ball-peen hammer on the visible face",
+      "why": "It leaves marks. Use the mallet."
+     },
+     {
+      "name": "Plastic cable for the edge",
+      "why": "A wired edge needs stiff metal wire."
+     },
+     {
+      "name": "Solder for the fold",
+      "why": "The sheet is folded round the wire."
+     },
+     {
+      "name": "Arc welding set",
+      "why": "Nothing here is welded."
+     },
+     {
+      "name": "Hand drill",
+      "why": "No holes are needed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "allow",
+     "afterStep": 1,
+     "prompt": "You have 3 mm wire. How much allowance do you mark?",
+     "options": [
+      {
+       "text": "7.5 mm, which is 2.5 × the wire",
+       "correct": true,
+       "consequence": "The metal wraps fully round the wire."
+      },
+      {
+       "text": "3 mm, the same as the wire",
+       "consequence": "Too small an allowance leaves the wire uncovered."
+      },
+      {
+       "text": "20 mm, to be safe",
+       "consequence": "Too much leaves a loose flap."
+      }
+     ]
+    },
+    {
+     "id": "close",
+     "afterStep": 3,
+     "prompt": "How do you close the metal round the wire?",
+     "options": [
+      {
+       "text": "Gradually along the edge",
+       "correct": true,
+       "consequence": "The edge stays straight without kinks."
+      },
+      {
+       "text": "All at once at one end",
+       "consequence": "This kinks the edge."
+      },
+      {
+       "text": "With hard hammer blows on the face",
+       "consequence": "Blows mark the visible face."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "edge",
+     "prompt": "What does a good wired edge look like?",
+     "options": [
+      {
+       "text": "Smooth and round, fully enclosing the wire",
+       "correct": true
+      },
+      {
+       "text": "The wire shows along part of the edge",
+       "why": "The allowance was too small."
+      },
+      {
+       "text": "Loose sections that rattle on the wire",
+       "why": "The allowance was uneven."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "allow-calc",
+     "prompt": "The wiring allowance is about 2.5 × the wire diameter. What is it for {d} mm wire, in mm?",
+     "formula": "2.5 * d",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "2.5 × {d} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "loose-wire",
+     "scenario": "Kolade's wired edge is uneven and shows hammer marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He marked too small an allowance.",
+       "fault": true,
+       "why": "The wire is not covered."
+      },
+      {
+       "text": "He let the allowance vary along the edge.",
+       "fault": true,
+       "why": "That gives loose sections."
+      },
+      {
+       "text": "He hammered the visible face.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He filed the wire ends smooth.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He wore gloves.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for making a wired edge.",
+    "explainPrompt": "Why is a wired edge used on sheet metal articles?",
+    "explainGuide": "The wire stiffens the edge and strengthens the article. It also removes the sharp edge, so the article is safe to handle.",
+    "explainKeywords": [
+     [
+      "stiffen",
+      "stiffens",
+      "strength",
+      "strengthen",
+      "strengthens"
+     ],
+     [
+      "safe",
+      "sharp"
+     ],
+     [
+      "edge"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Making a wired edge on sheet metal",
+    "Allowance = 2.5 × wire."
+   ]
+  },
+  "pr-wfab-producing-a-riveted-lap-joint": {
+   "safety": {
+    "correct": [
+     "Tie back long sleeves before using the drilling machine."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the strips by hand while drilling.",
+      "why": "The drill can snatch them. Clamp the work."
+     },
+     {
+      "text": "Drill with no goggles as the hole is small.",
+      "why": "Swarf flies. Wear goggles."
+     },
+     {
+      "text": "Clear swarf from the hole with your fingers.",
+      "why": "It is sharp. Use a brush."
+     },
+     {
+      "text": "Wear gloves at the drilling machine.",
+      "why": "A glove can be caught by the chuck."
+     },
+     {
+      "text": "Hit the set with a loose-headed hammer.",
+      "why": "The head can fly off. Check it first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Soft solder for the rivets",
+      "why": "This joint is held by rivets."
+     },
+     {
+      "name": "Chipping hammer",
+      "why": "It is for slag, not for closing rivets."
+     },
+     {
+      "name": "Wood screws",
+      "why": "They will not hold in steel strips."
+     },
+     {
+      "name": "Tin snips for holes",
+      "why": "Holes are drilled."
+     },
+     {
+      "name": "Mallet for heading",
+      "why": "It is too soft to form a rivet head."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "drill-both",
+     "afterStep": 2,
+     "prompt": "One plate is drilled. How do you drill the second?",
+     "options": [
+      {
+       "text": "Clamp both and drill through",
+       "correct": true,
+       "consequence": "The holes line up."
+      },
+      {
+       "text": "Mark it by eye and drill apart",
+       "consequence": "Misaligned holes are a source of error."
+      },
+      {
+       "text": "Punch it with a nail",
+       "consequence": "This makes a poor, ragged hole."
+      }
+     ]
+    },
+    {
+     "id": "draw",
+     "afterStep": 5,
+     "prompt": "Before heading the rivet, what do you do?",
+     "options": [
+      {
+       "text": "Draw the plates together with the rivet set",
+       "correct": true,
+       "consequence": "No gap is left between them."
+      },
+      {
+       "text": "Start heading straight away while the rivet is hot",
+       "consequence": "A gap gets locked into the joint."
+      },
+      {
+       "text": "Oil between the plates",
+       "consequence": "This does nothing for the fit."
+      }
+     ]
+    },
+    {
+     "id": "edge",
+     "afterStep": 1,
+     "prompt": "Where do you mark the rivet centre from the plate edge?",
+     "options": [
+      {
+       "text": "About 2 × the rivet diameter in",
+       "correct": true,
+       "consequence": "The plate will not tear at the edge."
+      },
+      {
+       "text": "Right at the plate edge",
+       "consequence": "Too small an edge distance tears out."
+      },
+      {
+       "text": "Anywhere in the overlap, as long as it is even",
+       "consequence": "The edge distance must be correct."
+      }
+     ]
+    },
+    {
+     "id": "hole-size",
+     "afterStep": 2,
+     "prompt": "Which drill do you use for a 4 mm rivet?",
+     "options": [
+      {
+       "text": "One slightly larger, such as 4.1 mm",
+       "correct": true,
+       "consequence": "The rivet enters without being forced."
+      },
+      {
+       "text": "One exactly 3.5 mm",
+       "consequence": "The rivet will not go in."
+      },
+      {
+       "text": "One of 6 mm, to give plenty of clearance",
+       "consequence": "The hole is far too big, so the joint is loose."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "rivet",
+     "prompt": "What shows a good riveted joint?",
+     "options": [
+      {
+       "text": "Tight rivets with full, centred heads and no gap between the plates",
+       "correct": true
+      },
+      {
+       "text": "Tight rivets with full heads that sit off to one side of the hole",
+       "why": "This shows poor heading."
+      },
+      {
+       "text": "Full, centred heads but a small gap left between the plates",
+       "why": "The plates were not drawn together."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "length",
+     "prompt": "A rivet's length = grip + 1.5d for a snap head. The grip is {g} mm and d is {d} mm. What rivet length do you need, in mm?",
+     "formula": "g + 1.5 * d",
+     "vars": {
+      "g": {
+       "min": 3,
+       "max": 5,
+       "step": 1
+      },
+      "d": {
+       "min": 3,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{g} + 1.5 × {d} = {answer} mm."
+    },
+    {
+     "id": "pitch",
+     "prompt": "Rivet pitch is about 3d. What is the pitch for a {d} mm rivet, in mm?",
+     "formula": "3 * d",
+     "vars": {
+      "d": {
+       "min": 3,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "3 × {d} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "torn-joint",
+     "scenario": "Tunde's joint tore at the edge, and one head bent over. Here is what he did.",
+     "lines": [
+      {
+       "text": "He drilled too near the plate edge.",
+       "fault": true,
+       "why": "This tears out."
+      },
+      {
+       "text": "He used a rivet that was too long.",
+       "fault": true,
+       "why": "This bends the heads."
+      },
+      {
+       "text": "He did not draw the plates together before heading.",
+       "fault": true,
+       "why": "A gap stays in the joint."
+      },
+      {
+       "text": "He de-burred the holes.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He clamped the work for drilling.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for riveting a lap joint.",
+    "explainPrompt": "Why is the rivet hole drilled slightly larger than the rivet?",
+    "explainGuide": "A small clearance lets the rivet enter freely. When upset it swells to fill the hole, so the joint is tight without forcing.",
+    "explainKeywords": [
+     [
+      "clearance",
+      "larger",
+      "bigger",
+      "slightly"
+     ],
+     [
+      "enter",
+      "enters",
+      "free",
+      "freely"
+     ],
+     [
+      "fill",
+      "fills",
+      "swells",
+      "tight"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Producing a riveted lap joint",
+    "Pitch 3d, edge 2d."
+   ]
+  },
+  "pr-wfab-cutting-threads-to-make-a-bolt-and-nut": {
+   "safety": {
+    "correct": [
+     "Wipe spilled cutting oil off the floor."
+    ],
+    "wrong": [
+     {
+      "text": "Pull swarf off the tap with your fingers.",
+      "why": "It is sharp. Use a brush."
+     },
+     {
+      "text": "Hold the blank by hand as it is drilled.",
+      "why": "It can spin. Clamp it."
+     },
+     {
+      "text": "Drill with no goggles as the hole is small.",
+      "why": "Chips fly. Wear goggles."
+     },
+     {
+      "text": "Blow chips out of the hole with your mouth.",
+      "why": "They can fly into your eyes. Use a brush."
+     },
+     {
+      "text": "Lean hard on a tap that has stopped.",
+      "why": "It can snap and cut your hand. Back it off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "10 mm drill for the nut",
+      "why": "That leaves no metal for the thread."
+     },
+     {
+      "name": "Hacksaw for the thread",
+      "why": "A thread is cut with a die."
+     },
+     {
+      "name": "Water for cutting",
+      "why": "Cutting oil is needed for a clean thread."
+     },
+     {
+      "name": "Chipping hammer",
+      "why": "It is for slag."
+     },
+     {
+      "name": "Grease gun",
+      "why": "It is not used for cutting threads."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "chamfer",
+     "afterStep": 1,
+     "prompt": "How do you prepare the end of the bar?",
+     "options": [
+      {
+       "text": "Chamfer it",
+       "correct": true,
+       "consequence": "The die starts easily and squarely."
+      },
+      {
+       "text": "Leave it square and rough",
+       "consequence": "The die will not start."
+      },
+      {
+       "text": "Grind it to a sharp point",
+       "consequence": "The die has nothing to grip."
+      }
+     ]
+    },
+    {
+     "id": "turn",
+     "afterStep": 2,
+     "prompt": "How do you turn the die?",
+     "options": [
+      {
+       "text": "Forward half a turn, back a quarter",
+       "correct": true,
+       "consequence": "Chips are broken and the thread is clean."
+      },
+      {
+       "text": "Forward all the way, without stopping",
+       "consequence": "Chips jam and tear the thread."
+      },
+      {
+       "text": "Backward first, for a full turn",
+       "consequence": "This does not start the cut."
+      }
+     ]
+    },
+    {
+     "id": "tap-seq",
+     "afterStep": 5,
+     "prompt": "Which tap goes first in the nut?",
+     "options": [
+      {
+       "text": "The taper tap",
+       "correct": true,
+       "consequence": "It starts the thread squarely."
+      },
+      {
+       "text": "The plug tap",
+       "consequence": "It will not start, and it can break."
+      },
+      {
+       "text": "The second tap",
+       "consequence": "It cuts too much for the start."
+      }
+     ]
+    },
+    {
+     "id": "stuck",
+     "afterStep": 5,
+     "prompt": "The tap goes stiff. What do you do?",
+     "options": [
+      {
+       "text": "Back it off, clean and oil it",
+       "correct": true,
+       "consequence": "It keeps cutting without breaking."
+      },
+      {
+       "text": "Force it harder",
+       "consequence": "Forcing breaks the tap in the hole."
+      },
+      {
+       "text": "Drill it out straight away",
+       "consequence": "The tap is hardened, so this is wrong."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fit",
+     "prompt": "What shows a good bolt and nut?",
+     "options": [
+      {
+       "text": "The nut runs smoothly on the bolt without wobble or binding",
+       "correct": true
+      },
+      {
+       "text": "The nut wobbles loosely",
+       "why": "The thread is too loose."
+      },
+      {
+       "text": "The nut jams halfway but frees off with a longer spanner on it",
+       "why": "The thread is tight or drunken."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "tap-m12",
+     "prompt": "Tapping drill size is about major diameter − pitch. What drill is needed for M12 × 1.75, in mm?",
+     "answer": 10.25,
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "12 − 1.75 = 10.25 mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "broken-tap",
+     "scenario": "Ade's tap broke, and his bolt is crooked. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used the wrong tapping drill size.",
+       "fault": true,
+       "why": "That strips or breaks the tap."
+      },
+      {
+       "text": "He forced the tap.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He let the die tilt.",
+       "fault": true,
+       "why": "This gives a drunken thread."
+      },
+      {
+       "text": "He used cutting oil.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He chamfered the bar.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for cutting threads.",
+    "explainPrompt": "Why is the die turned forward half a turn and back a quarter?",
+    "explainGuide": "Turning back breaks the chips and clears them from the cutting edges, so the thread is clean and the die does not jam.",
+    "explainKeywords": [
+     [
+      "chip",
+      "chips",
+      "swarf"
+     ],
+     [
+      "break",
+      "breaks",
+      "clear",
+      "clears"
+     ],
+     [
+      "jam",
+      "clean",
+      "tear"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Cutting threads to make a bolt and nut",
+    "Square, oiled, back off."
+   ]
+  },
+  "pr-wfab-soft-soldering-sheet-metal": {
+   "safety": {
+    "correct": [
+     "Rest the hot bit on a stand when not in use."
+    ],
+    "wrong": [
+     {
+      "text": "Touch the bit to see whether it is hot.",
+      "why": "It burns. Check if the solder flows."
+     },
+     {
+      "text": "Do the soldering in the closed store.",
+      "why": "Fumes build up. Ventilate."
+     },
+     {
+      "text": "Apply killed spirits with bare fingers.",
+      "why": "It is corrosive. Wear gloves and goggles."
+     },
+     {
+      "text": "Leave flux on your hands and eat your snack.",
+      "why": "Lead and flux can reach your mouth. Wash first."
+     },
+     {
+      "text": "Flick excess solder off the bit.",
+      "why": "It can burn someone."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Brazing rod",
+      "why": "It needs far more heat."
+     },
+     {
+      "name": "MMA electrode",
+      "why": "It is for arc welding."
+     },
+     {
+      "name": "Oil for the seam",
+      "why": "Solder will not wet oily metal."
+     },
+     {
+      "name": "Steel hammer on the seam",
+      "why": "It dents the sheet."
+     },
+     {
+      "name": "Household glue",
+      "why": "It does not make a soldered joint."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "clean",
+     "afterStep": 1,
+     "prompt": "The seam is dull. What do you do first?",
+     "options": [
+      {
+       "text": "Clean it to bright metal",
+       "correct": true,
+       "consequence": "Solder will wet it."
+      },
+      {
+       "text": "Add more solder",
+       "consequence": "Solder will not wet dirty metal."
+      },
+      {
+       "text": "Apply flux and hope",
+       "consequence": "Flux cannot replace cleaning."
+      }
+     ]
+    },
+    {
+     "id": "draw",
+     "afterStep": 5,
+     "prompt": "The bit is hot. How do you move it along?",
+     "options": [
+      {
+       "text": "Slowly, so solder flows into the seam",
+       "correct": true,
+       "consequence": "Capillary action fills the joint."
+      },
+      {
+       "text": "Quickly in short dabs",
+       "consequence": "It leaves lumps."
+      },
+      {
+       "text": "Hold it still at one end until it all melts through",
+       "consequence": "Only that part is soldered."
+      }
+     ]
+    },
+    {
+     "id": "lump",
+     "afterStep": 4,
+     "prompt": "The solder forms lumps. What is the cause?",
+     "options": [
+      {
+       "text": "The bit is too cold",
+       "correct": true,
+       "consequence": "Reheating lets the solder flow."
+      },
+      {
+       "text": "The bit is too clean",
+       "consequence": "A clean bit helps."
+      },
+      {
+       "text": "The sheet is too thin",
+       "consequence": "It is not the cause."
+      }
+     ]
+    },
+    {
+     "id": "residue",
+     "afterStep": 6,
+     "prompt": "You have finished the seam. What do you do?",
+     "options": [
+      {
+       "text": "Wash off the flux residue",
+       "correct": true,
+       "consequence": "No corrosion starts."
+      },
+      {
+       "text": "Leave it on to protect the joint",
+       "consequence": "Flux residue causes corrosion."
+      },
+      {
+       "text": "Polish it in with a rag",
+       "consequence": "This spreads the corrosive flux."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "seam",
+     "prompt": "What shows a good soldered seam?",
+     "options": [
+      {
+       "text": "A thin, continuous line of solder",
+       "correct": true
+      },
+      {
+       "text": "A row of separate lumps",
+       "why": "The bit was too cold."
+      },
+      {
+       "text": "Solder that sits apart in beads",
+       "why": "The metal was dirty."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "gap",
+     "prompt": "A solder melts at {m} °C, and steel at about {s} °C. How much lower is the solder's melting point, in °C?",
+     "formula": "s - m",
+     "vars": {
+      "m": {
+       "min": 183,
+       "max": 190,
+       "step": 7
+      },
+      "s": {
+       "min": 1400,
+       "max": 1500,
+       "step": 50
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{s} − {m} = {answer} °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "green-seam",
+     "scenario": "Sade's seam turned green and came apart. Here is what she did.",
+     "lines": [
+      {
+       "text": "She left flux residue on the seam.",
+       "fault": true,
+       "why": "This causes corrosion."
+      },
+      {
+       "text": "She soldered without cleaning the metal.",
+       "fault": true,
+       "why": "Solder will not wet dirty metal."
+      },
+      {
+       "text": "She used a cold bit.",
+       "fault": true,
+       "why": "A cold bit gives lumpy joints."
+      },
+      {
+       "text": "She tinned the copper bit.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She wore gloves and goggles.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for soft soldering.",
+    "explainPrompt": "Why must the metal be clean before soldering?",
+    "explainGuide": "Solder will not wet dirty or oxidised metal. Clean bright metal lets the solder flow and bond by capillary action.",
+    "explainKeywords": [
+     [
+      "clean",
+      "bright"
+     ],
+     [
+      "wet",
+      "bond",
+      "stick"
+     ],
+     [
+      "dirty",
+      "oxide",
+      "oxidised",
+      "flow",
+      "capillary"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Soft soldering sheet metal",
+    "Clean, flux, flow."
+   ]
+  },
+  "pr-wfab-forging-an-eye-on-a-mild-steel-bar": {
+   "safety": {
+    "correct": [
+     "Agree the signals with your striker before using the sledge."
+    ],
+    "wrong": [
+     {
+      "text": "Pick up a bar end that has lost its glow with bare hands.",
+      "why": "It still burns. Use tongs."
+     },
+     {
+      "text": "Use tongs that do not fit the bar.",
+      "why": "It can fly out of them. Use the correct tongs."
+     },
+     {
+      "text": "Leave a hot piece on the floor without a label.",
+      "why": "Someone can step on it. Quench or label it."
+     },
+     {
+      "text": "Swing the sledge with a classmate standing behind you.",
+      "why": "You can strike them. Keep the area clear."
+     },
+     {
+      "text": "Wear open sandals at the forge.",
+      "why": "Hot scale and dropped steel can burn and crush your feet."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Mallet",
+      "why": "It cannot shape hot steel."
+     },
+     {
+      "name": "Welding helmet",
+      "why": "Forging does not use an arc."
+     },
+     {
+      "name": "Water hose on the forge",
+      "why": "Water on a hot forge causes steam burns."
+     },
+     {
+      "name": "Tin snips",
+      "why": "They cannot cut a 10 mm bar."
+     },
+     {
+      "name": "Micrometer",
+      "why": "A mandrel or gauge checks the eye."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "mean",
+     "afterStep": 1,
+     "prompt": "What diameter do you use for the length of the eye?",
+     "options": [
+      {
+       "text": "The mean diameter",
+       "correct": true,
+       "consequence": "The bar's centre line sets the true length."
+      },
+      {
+       "text": "The inside diameter",
+       "consequence": "This common mistake leaves the bar too short."
+      },
+      {
+       "text": "The outside diameter",
+       "consequence": "This makes the bar too long."
+      }
+     ]
+    },
+    {
+     "id": "heat",
+     "afterStep": 4,
+     "prompt": "The bar has cooled below red. What do you do?",
+     "options": [
+      {
+       "text": "Reheat it before hammering",
+       "correct": true,
+       "consequence": "The steel moves without cracking."
+      },
+      {
+       "text": "Keep hammering cold",
+       "consequence": "Hammering cold metal causes cracks."
+      },
+      {
+       "text": "Hit it harder to warm it",
+       "consequence": "That does not reach forging heat."
+      }
+     ]
+    },
+    {
+     "id": "over",
+     "afterStep": 2,
+     "prompt": "The bar is sparking in the fire. What does this mean?",
+     "options": [
+      {
+       "text": "It is overheating, so remove it",
+       "correct": true,
+       "consequence": "This prevents burning."
+      },
+      {
+       "text": "It is at the correct heat",
+       "consequence": "Sparks show burning metal."
+      },
+      {
+       "text": "It needs more air",
+       "consequence": "That makes it worse."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 4,
+     "prompt": "How do you form the eye?",
+     "options": [
+      {
+       "text": "Progressively over the beak, from the end",
+       "correct": true,
+       "consequence": "The curve remains even."
+      },
+      {
+       "text": "In one blow on the anvil face, using a heavy hammer",
+       "consequence": "It cannot form a round eye."
+      },
+      {
+       "text": "From the middle out",
+       "consequence": "The eye comes out uneven."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "eye",
+     "prompt": "What shows a good eye?",
+     "options": [
+      {
+       "text": "A round, closed eye of uniform section, centred on the bar",
+       "correct": true
+      },
+      {
+       "text": "An oval eye off to one side",
+       "why": "It is not centred."
+      },
+      {
+       "text": "A thin, stretched section at the bend, in a round centred eye",
+       "why": "The bar was stretched."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "length",
+     "prompt": "An eye has an inside diameter of {i} mm, and the bar is {b} mm thick. What length of bar do you need in mm? Use length = π × mean diameter.",
+     "formula": "pi * (i + b)",
+     "vars": {
+      "i": {
+       "min": 15,
+       "max": 30,
+       "step": 5
+      },
+      "b": {
+       "min": 8,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "Mean diameter = {i} + {b}. Length = π × that = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "cracked-eye",
+     "scenario": "Nnamdi's eye came out too small and cracked. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used the inside diameter for the length.",
+       "fault": true,
+       "why": "Use the mean diameter."
+      },
+      {
+       "text": "He hammered the bar when cold.",
+       "fault": true,
+       "why": "This causes cracks."
+      },
+      {
+       "text": "He burned the bar in the fire.",
+       "fault": true,
+       "why": "Do not overheat it."
+      },
+      {
+       "text": "He wore an apron and goggles.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He marked the length with a centre punch.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for forging.",
+    "explainPrompt": "Why is the mean diameter used to calculate the length for an eye?",
+    "explainGuide": "When the bar bends, the inside compresses and the outside stretches. Only the centre line keeps its length, so the mean diameter gives the true length.",
+    "explainKeywords": [
+     [
+      "mean",
+      "centre",
+      "neutral"
+     ],
+     [
+      "compress",
+      "compresses",
+      "stretch",
+      "stretches"
+     ],
+     [
+      "length"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Forging an eye on a mild steel bar",
+    "Work only at red heat."
+   ]
+  },
+  "pr-wfab-fabricating-a-funnel-using-a-template": {
+   "safety": {
+    "correct": [
+     "Keep soldering tools on a stand while you form the sheet."
+    ],
+    "wrong": [
+     {
+      "text": "Handle the cut pattern without gloves as it is small.",
+      "why": "Edges are razor-sharp."
+     },
+     {
+      "text": "Leave burrs on the seam edges while rolling.",
+      "why": "They cut your hands."
+     },
+     {
+      "text": "Hold the sheet with your fingers between the stake and mallet.",
+      "why": "They will be struck."
+     },
+     {
+      "text": "Solder galvanised sheet in a closed room.",
+      "why": "Fumes build up. Ventilate."
+     },
+     {
+      "text": "Leave trimmings on the floor.",
+      "why": "They cut through soles. Clear them."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel hammer on the cone",
+      "why": "It marks and stretches the sheet."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Use tin snips on thin sheet."
+     },
+     {
+      "name": "MMA welding set",
+      "why": "The seam is locked or soldered."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It plays no part in pattern development."
+     },
+     {
+      "name": "Spirit level",
+      "why": "It is not used in development."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "radius",
+     "afterStep": 3,
+     "prompt": "What radius do you use for the pattern arc?",
+     "options": [
+      {
+       "text": "The slant height",
+       "correct": true,
+       "consequence": "The cone forms correctly."
+      },
+      {
+       "text": "The vertical height",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "The base diameter",
+       "consequence": "It gives a wrong pattern."
+      }
+     ]
+    },
+    {
+     "id": "allow",
+     "afterStep": 3,
+     "prompt": "Where do you add the seam allowance?",
+     "options": [
+      {
+       "text": "To one edge only",
+       "correct": true,
+       "consequence": "The seam closes neatly."
+      },
+      {
+       "text": "To both edges",
+       "consequence": "The cone comes out too big."
+      },
+      {
+       "text": "Nowhere",
+       "consequence": "Forgetting it is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "check",
+     "afterStep": 4,
+     "prompt": "How do you check the template before cutting metal?",
+     "options": [
+      {
+       "text": "Roll the card to test it",
+       "correct": true,
+       "consequence": "Errors show on card, not metal."
+      },
+      {
+       "text": "Cut the metal and see",
+       "consequence": "Errors waste sheet."
+      },
+      {
+       "text": "Trust the drawing",
+       "consequence": "Small angle errors can widen the seam gap."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cone",
+     "prompt": "What shows a good funnel?",
+     "options": [
+      {
+       "text": "Seam edges meet evenly, and both openings are circular",
+       "correct": true
+      },
+      {
+       "text": "Seam gaps wider at the top, though both openings are circular",
+       "why": "This comes from angle errors."
+      },
+      {
+       "text": "An oval top opening",
+       "why": "The cone was formed unevenly."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "slant",
+     "prompt": "A full cone has a vertical height of {h} mm and a base radius of 90 mm. What is its slant height in mm?",
+     "formula": "sqrt(h^2 + 90^2)",
+     "vars": {
+      "h": {
+       "min": 120,
+       "max": 160,
+       "step": 40
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "√({h}² + 90²) = {answer} mm."
+    },
+    {
+     "id": "sector",
+     "prompt": "A cone has a base radius of {r} mm and a slant height of {l} mm. What is the sector angle in degrees?",
+     "formula": "360 * r / l",
+     "vars": {
+      "r": {
+       "min": 60,
+       "max": 90,
+       "step": 15
+      },
+      "l": {
+       "min": 140,
+       "max": 180,
+       "step": 20
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees",
+      "deg"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "360 × {r} ÷ {l} = {answer}°."
+    }
+   ],
+   "faults": [
+    {
+     "id": "gap-seam",
+     "scenario": "Kemi's funnel seam would not close. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used the vertical height as the pattern radius.",
+       "fault": true,
+       "why": "Use slant height."
+      },
+      {
+       "text": "She forgot the seam allowance.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She cut the metal without testing the template.",
+       "fault": true,
+       "why": "Check the template first."
+      },
+      {
+       "text": "She rolled the cone on the funnel stake.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She wore gloves.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for making a funnel.",
+    "explainPrompt": "Why is the slant height used as the radius in developing a cone?",
+    "explainGuide": "The surface of the cone runs along the slant from apex to base. When flattened, every point on the base is one slant height from the apex, so it is the radius.",
+    "explainKeywords": [
+     [
+      "slant"
+     ],
+     [
+      "surface",
+      "flatten",
+      "flattened"
+     ],
+     [
+      "radius",
+      "apex"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Fabricating a funnel using a template",
+    "Use slant height."
+   ]
+  },
+  "pr-wfab-inspecting-welds-for-defects": {
+   "safety": {
+    "correct": [
+     "Clamp samples firmly before sawing or bending them."
+    ],
+    "wrong": [
+     {
+      "text": "Pour the etching solution on the sample yourself.",
+      "why": "Etching chemicals are handled only by the teacher."
+     },
+     {
+      "text": "Do the bend test with no goggles.",
+      "why": "A sample can snap and fly. Wear goggles."
+     },
+     {
+      "text": "Hold the sample in your hand as you saw it.",
+      "why": "It can slip. Use the vice."
+     },
+     {
+      "text": "Chip slag off a sample with your face close to it.",
+      "why": "Hot or sharp flakes fly. Wear goggles."
+     },
+     {
+      "text": "Stand in line with a sample being broken.",
+      "why": "Pieces can fly. Stand to one side."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Tram gauge",
+      "why": "It is for vehicle bodies."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests liquids."
+     },
+     {
+      "name": "Welding electrode",
+      "why": "This job inspects welds."
+     },
+     {
+      "name": "Oil for covering defects",
+      "why": "Oil hides defects. Clean welds before inspecting."
+     },
+     {
+      "name": "Paint brush",
+      "why": "Paint would hide the defects."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "clean-first",
+     "afterStep": 1,
+     "prompt": "A sample is covered in slag. What do you do first?",
+     "options": [
+      {
+       "text": "Clean off the slag and spatter",
+       "correct": true,
+       "consequence": "Defects can be seen."
+      },
+      {
+       "text": "Inspect it as it is",
+       "consequence": "Slag hides defects."
+      },
+      {
+       "text": "Paint it to show the cracks more clearly",
+       "consequence": "Paint hides them."
+      }
+     ]
+    },
+    {
+     "id": "spatter",
+     "afterStep": 2,
+     "prompt": "You see small round beads stuck on the plate. What are they?",
+     "options": [
+      {
+       "text": "Spatter",
+       "correct": true,
+       "consequence": "Beads on the surface are not holes."
+      },
+      {
+       "text": "Porosity",
+       "consequence": "Porosity shows as holes, not as beads."
+      },
+      {
+       "text": "Cracks",
+       "consequence": "Cracks are lines."
+      }
+     ]
+    },
+    {
+     "id": "reject",
+     "afterStep": 6,
+     "prompt": "A 0.8 mm undercut is measured. The limit is 0.5 mm. What do you record?",
+     "options": [
+      {
+       "text": "Reject and repair",
+       "correct": true,
+       "consequence": "It exceeds the limit by 0.3 mm."
+      },
+      {
+       "text": "Accept, since it is small",
+       "consequence": "It is over the limit."
+      },
+      {
+       "text": "Accept, if the bead looks neat",
+       "consequence": "Depth decides, not looks."
+      }
+     ]
+    },
+    {
+     "id": "internal",
+     "afterStep": 4,
+     "prompt": "The face looks perfect. Is the weld proved sound?",
+     "options": [
+      {
+       "text": "No: section or test it for hidden defects",
+       "correct": true,
+       "consequence": "Internal defects do not show at the surface."
+      },
+      {
+       "text": "Yes: a good face means a good weld",
+       "consequence": "Hidden defects are a known source of error."
+      },
+      {
+       "text": "Yes, if it is shiny",
+       "consequence": "Shine proves nothing."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "undercut",
+     "prompt": "A groove runs along the toe of a weld. What is the defect?",
+     "options": [
+      {
+       "text": "Undercut",
+       "correct": true
+      },
+      {
+       "text": "Porosity",
+       "why": "That shows as holes."
+      },
+      {
+       "text": "Overlap",
+       "why": "That is weld metal lying over the plate, unfused."
+      }
+     ]
+    },
+    {
+     "id": "slag",
+     "prompt": "Dark spots appear in a sawn section. What is the defect?",
+     "options": [
+      {
+       "text": "Slag inclusion",
+       "correct": true
+      },
+      {
+       "text": "Spatter",
+       "why": "That is on the surface."
+      },
+      {
+       "text": "Undercut along the weld",
+       "why": "That is at the toe."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "over",
+     "prompt": "A specification allows undercut no deeper than 0.5 mm. A weld measures {m} mm. By how many mm does it exceed the limit?",
+     "formula": "m - 0.5",
+     "vars": {
+      "m": {
+       "min": 0.6,
+       "max": 1,
+       "step": 0.1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{m} − 0.5 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-report",
+     "scenario": "Ola's inspection report was marked down. Here is what she did.",
+     "lines": [
+      {
+       "text": "She confused spatter with porosity.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She inspected without cleaning the slag off.",
+       "fault": true,
+       "why": "Clean welds first."
+      },
+      {
+       "text": "She worked in poor light.",
+       "fault": true,
+       "why": "Use good lighting."
+      },
+      {
+       "text": "She measured the leg length.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She recorded cause and remedy.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for inspecting welds.",
+    "explainPrompt": "Why is visual inspection alone not enough to accept a weld?",
+    "explainGuide": "Some defects, such as slag inclusions and lack of penetration, are hidden inside the weld. A section or break test is needed to reveal them.",
+    "explainKeywords": [
+     [
+      "hidden",
+      "inside",
+      "internal"
+     ],
+     [
+      "section",
+      "break",
+      "test"
+     ],
+     [
+      "inclusion",
+      "inclusions",
+      "penetration",
+      "slag"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Inspecting welds for defects",
+    "Clean it. Light it. Measure it."
+   ]
+  },
+  "pr-wfab-interpreting-welding-symbols-on-drawings": {
+   "safety": {
+    "correct": [
+     "Keep compass points inside their case when not drawing."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the compass point up on the desk.",
+      "why": "It can stab someone. Lay it flat."
+     },
+     {
+      "text": "Sharpen your pencil with a blade towards your hand.",
+      "why": "Cut away from yourself."
+     },
+     {
+      "text": "Pass the dividers by throwing them across the desk.",
+      "why": "Hand them over carefully."
+     },
+     {
+      "text": "Lean on the T-square so that it swings over the desk edge.",
+      "why": "It can hit someone. Keep it on the board."
+     },
+     {
+      "text": "Leave a bag in the aisle between the drawing desks.",
+      "why": "Someone can trip. Keep aisles clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Welding helmet",
+      "why": "No welding is done here."
+     },
+     {
+      "name": "Chipping hammer",
+      "why": "It is not a drawing tool."
+     },
+     {
+      "name": "Tin snips",
+      "why": "No sheet is cut in this job."
+     },
+     {
+      "name": "Fillet weld gauge",
+      "why": "This job reads symbols on paper."
+     },
+     {
+      "name": "Road map",
+      "why": "It holds no welding symbols."
+     }
+    ]
+   },
+   "room": "drawing",
+   "decisions": [
+    {
+     "id": "side",
+     "afterStep": 3,
+     "prompt": "The basic symbol sits below the reference line on an AWS drawing. Where is the weld?",
+     "options": [
+      {
+       "text": "On the arrow side",
+       "correct": true,
+       "consequence": "This is the AWS convention."
+      },
+      {
+       "text": "On the other side",
+       "consequence": "That is the common mistake."
+      },
+      {
+       "text": "On both sides",
+       "consequence": "That needs symbols on both sides of the line."
+      }
+     ]
+    },
+    {
+     "id": "code",
+     "afterStep": 4,
+     "prompt": "A drawing's title block names ISO 2553. How do you read it?",
+     "options": [
+      {
+       "text": "By the ISO convention stated on the drawing",
+       "correct": true,
+       "consequence": "You will not mix conventions."
+      },
+      {
+       "text": "By AWS, as you learned that first and know it best",
+       "consequence": "Mixing conventions is a source of error."
+      },
+      {
+       "text": "By whichever is easier",
+       "consequence": "The drawing's standard rules."
+      }
+     ]
+    },
+    {
+     "id": "read-size",
+     "afterStep": 4,
+     "prompt": "A symbol is marked 6 ◺ 4 × 50 (100). What is the 100?",
+     "options": [
+      {
+       "text": "The pitch of the welds, in mm",
+       "correct": true,
+       "consequence": "That is the spacing of the weld lengths."
+      },
+      {
+       "text": "The weld leg, in mm",
+       "consequence": "The leg is the 6."
+      },
+      {
+       "text": "The number of welds along the joint",
+       "consequence": "The number is the 4."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "symbol",
+     "prompt": "Which part of a welding symbol carries the basic weld symbol?",
+     "options": [
+      {
+       "text": "The reference line",
+       "correct": true
+      },
+      {
+       "text": "The arrow head",
+       "why": "It points at the joint."
+      },
+      {
+       "text": "The title block",
+       "why": "That holds the drawing details."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "total",
+     "prompt": "A weld symbol shows {n} welds, each {l} mm long. What is the total weld length, in mm?",
+     "formula": "n * l",
+     "vars": {
+      "n": {
+       "min": 2,
+       "max": 6,
+       "step": 1
+      },
+      "l": {
+       "min": 30,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} × {l} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-side",
+     "scenario": "Bello's welds were on the wrong side of the joint. Here is what he did.",
+     "lines": [
+      {
+       "text": "He confused the arrow side and the other side.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He mixed ISO and AWS conventions.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "He read the pitch as the weld length.",
+       "fault": true,
+       "why": "They are different dimensions."
+      },
+      {
+       "text": "He used the welding symbol chart.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He sketched the welds described.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two points of care when reading welding symbols.",
+    "explainPrompt": "Why are standard welding symbols used on drawings?",
+    "explainGuide": "They give weld type, size and location briefly and exactly, so the welder and designer understand the same thing with no long notes.",
+    "explainKeywords": [
+     [
+      "type",
+      "size",
+      "location"
+     ],
+     [
+      "standard",
+      "same",
+      "understand"
+     ],
+     [
+      "exact",
+      "exactly",
+      "clear",
+      "brief",
+      "briefly"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Interpreting welding symbols on drawings",
+    "Arrow side or other side?"
+   ]
+  }
+ }
+}

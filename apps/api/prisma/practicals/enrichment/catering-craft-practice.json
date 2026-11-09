@@ -1,0 +1,4873 @@
+{
+  "subject": "Catering Craft Practice",
+  "room": "kitchen",
+  "lessons": {
+    "pr-ccp-standard-measurements": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Carry a full bag of flour across the wet floor without wiping it first.",
+            "why": "You cannot see your feet and could slip. Wipe spills at once."
+          },
+          {
+            "text": "Wipe the wet scale platform with your apron and carry on weighing.",
+            "why": "Aprons carry dirt and the water stays on the scale. Dry it with a clean cloth."
+          },
+          {
+            "text": "Leave spilt rice on the floor until the end of the practical.",
+            "why": "Grains underfoot cause slips. Sweep up a spill at once."
+          },
+          {
+            "text": "Taste the flour and salt from the scoop to check them.",
+            "why": "Fingers and mouths spread germs to food others will eat."
+          },
+          {
+            "text": "Open the hot oven with a wet cloth to read the thermometer.",
+            "why": "A wet cloth passes heat straight to your hand. Use a dry cloth or oven gloves."
+          },
+          {
+            "text": "Stand the full jug of water on the edge of the table beside the scale.",
+            "why": "A knock tips it over the scale and floor. Stand it well in from the edge."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rolling pin",
+            "why": "Nothing is being rolled out: this practical is about measuring."
+          },
+          {
+            "name": "Food probe thermometer",
+            "why": "It reads the inside of food. Oven temperature is read with the oven thermometer."
+          },
+          {
+            "name": "Bathroom scale",
+            "why": "Far too coarse for ingredients: use the kitchen scale."
+          },
+          {
+            "name": "Serving ladle",
+            "why": "Ladle sizes vary and it is not a standard measure here."
+          },
+          {
+            "name": "Tea glass",
+            "why": "A drinking glass has no standard volume: use the 250 ml cup."
+          },
+          {
+            "name": "Sieve",
+            "why": "Sifting changes the mass in a cup, and this exercise levels the flour as it comes."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "level",
+          "afterStep": 1,
+          "prompt": "You have scooped flour into the 250 ml cup and it stands above the rim. What do you do before weighing?",
+          "options": [
+            {
+              "text": "Scrape it level with the back of a knife",
+              "correct": true,
+              "consequence": "The cup now holds a true cupful, so your mass can be compared with others."
+            },
+            {
+              "text": "Tap the cup hard so that it settles lower",
+              "consequence": "Tapping packs the flour, so the cup holds more and the mass reads high."
+            },
+            {
+              "text": "Press it down with a spoon, then top it up",
+              "consequence": "Packed flour gives a falsely high mass for one cup."
+            },
+            {
+              "text": "Weigh it as it is, heaped",
+              "consequence": "A heaped cup is not a standard measure, so every later conversion is wrong."
+            }
+          ]
+        },
+        {
+          "id": "jug",
+          "afterStep": 1,
+          "prompt": "You are measuring 500 ml of water in the jug. How do you read it?",
+          "options": [
+            {
+              "text": "On a flat surface with your eye level with the mark",
+              "correct": true,
+              "consequence": "You read the true volume with no angle error."
+            },
+            {
+              "text": "Held up in one hand, looking down from above",
+              "consequence": "Looking from above is a common mistake: the level appears wrong."
+            },
+            {
+              "text": "On the table, looking down into it from where you stand",
+              "consequence": "Reading from above gives a false level, so the measure is out."
+            }
+          ]
+        },
+        {
+          "id": "tare",
+          "afterStep": 2,
+          "prompt": "You have weighed the cup of sugar. You put the empty bowl back on the scale for the rice. What next?",
+          "options": [
+            {
+              "text": "Tare the scale to zero before adding the rice",
+              "correct": true,
+              "consequence": "Only the rice is now counted."
+            },
+            {
+              "text": "Add the rice and read the display directly",
+              "consequence": "The reading includes the bowl, so the rice mass is too high."
+            },
+            {
+              "text": "Wipe the bowl dry, then add the rice and read it",
+              "consequence": "The bowl is clean, but its mass is still in the reading."
+            }
+          ]
+        },
+        {
+          "id": "derica",
+          "afterStep": 3,
+          "prompt": "A trader's derica of rice and your derica weigh differently. What should a caterer do when costing?",
+          "options": [
+            {
+              "text": "Weigh the ingredient and cost it by mass",
+              "correct": true,
+              "consequence": "Mass is the same anywhere, so the recipe and cost stay consistent."
+            },
+            {
+              "text": "Assume every derica holds about the same",
+              "consequence": "Local measures are not standardised, so the cost would be guesswork."
+            },
+            {
+              "text": "Buy with the larger derica and cook with the smaller",
+              "consequence": "That mixes measures in one recipe and throws off the results."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "mass-cup",
+          "prompt": "You weigh one level cup each of sugar and flour. What do you find?",
+          "options": [
+            {
+              "text": "The cup of sugar is heavier than the cup of flour",
+              "correct": true
+            },
+            {
+              "text": "The two cups weigh exactly the same",
+              "why": "Equal volume does not mean equal mass: ingredients differ in density."
+            },
+            {
+              "text": "The cup of flour is about twice as heavy",
+              "why": "Flour is the lighter of the two per cup."
+            },
+            {
+              "text": "Both weigh exactly 250 g because the cup is 250 ml",
+              "why": "That holds roughly for water, not for dry ingredients."
+            }
+          ]
+        },
+        {
+          "id": "local",
+          "prompt": "Why do trained caterers prefer weighing to using a mudu or derica?",
+          "options": [
+            {
+              "text": "Local measures vary from one seller to the next",
+              "correct": true
+            },
+            {
+              "text": "A mudu is always smaller than a cup",
+              "why": "Mudu sizes vary: that is the point. They are not a fixed size."
+            },
+            {
+              "text": "Weighing means ingredients need no levelling or care",
+              "why": "Weighing still needs care. The reason is that local measures are not standardised."
+            },
+            {
+              "text": "Local measures cannot be used for grains",
+              "why": "They are used for grains every day in Nigerian markets."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cups",
+          "prompt": "One level cup of flour weighs about 125 g. How many cups hold {m} g of flour?",
+          "formula": "m / 125",
+          "vars": {
+            "m": {
+              "min": 250,
+              "max": 1000,
+              "step": 125
+            }
+          },
+          "unit": "cups",
+          "unitAliases": [
+            "cup"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 1,
+          "working": "{m} ÷ 125 = {answer} cups."
+        },
+        {
+          "id": "temp",
+          "prompt": "Convert {c} °C to °F.",
+          "formula": "c * 9 / 5 + 32",
+          "vars": {
+            "c": {
+              "min": 140,
+              "max": 220,
+              "step": 10
+            }
+          },
+          "unit": "°F",
+          "unitAliases": [
+            "F",
+            "deg F",
+            "degrees F",
+            "Fahrenheit"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} × 9/5 + 32 = {answer} °F."
+        },
+        {
+          "id": "scale",
+          "prompt": "A 10-portion recipe uses {m} g of rice. How much rice is needed for {p} portions?",
+          "formula": "m * p / 10",
+          "vars": {
+            "m": {
+              "min": 400,
+              "max": 800,
+              "step": 100
+            },
+            "p": {
+              "min": 30,
+              "max": 80,
+              "step": 10
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "Conversion factor = {p} ÷ 10. Rice = {m} × {p} ÷ 10 = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "scaled",
+          "scenario": "Bisi scaled a stew recipe from 10 to 50 portions for a school party. The stew came out thin and bland. Here is her record.",
+          "lines": [
+            {
+              "text": "She multiplied the meat and tomatoes by 5 but left the seasoning and oil as they were.",
+              "fault": true,
+              "why": "Scaling only some ingredients changes the balance. Every ingredient is multiplied by the factor."
+            },
+            {
+              "text": "She measured some ingredients in cups and others in a derica from home.",
+              "fault": true,
+              "why": "Use the same type of measure throughout a recipe."
+            },
+            {
+              "text": "She filled the spoons heaped because that was quicker.",
+              "fault": true,
+              "why": "Heaped spoons are not standard measures. Level them."
+            },
+            {
+              "text": "She worked out the conversion factor as 50 ÷ 10 = 5.",
+              "why": "That is correct, and showing it earns marks."
+            },
+            {
+              "text": "She zeroed the scale before each weighing.",
+              "why": "That is correct: tare before each weighing."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for measuring ingredients accurately.",
+        "explainPrompt": "Why do caterers weigh ingredients rather than rely on cups and local measures?",
+        "explainGuide": "Equal volumes of different ingredients have different masses, and local measures vary from seller to seller. Weighing gives the same quantity every time, so results and costs stay consistent.",
+        "explainKeywords": [
+          [
+            "mass",
+            "weigh",
+            "weight"
+          ],
+          [
+            "vary",
+            "differ",
+            "standard"
+          ],
+          [
+            "consistent",
+            "same",
+            "accurate"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Measuring and scaling",
+        "Level it. Tare it. Read at eye level.",
+        "Show your conversion factor."
+      ]
+    },
+    "pr-ccp-vegetable-cuts": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Rest the chopping board straight on the wet steel table without a cloth.",
+            "why": "The board can slide under the knife. Stabilise it with a damp cloth."
+          },
+          {
+            "text": "Drop the knife into the sink of soapy water to wash later.",
+            "why": "Hidden under water it will cut the next hand. Place it on the board."
+          },
+          {
+            "text": "Spread your fingers flat on the carrot to hold it firmly.",
+            "why": "Flat fingers are in the blade's path. Use the claw grip."
+          },
+          {
+            "text": "Use a blunt knife for practice because it cannot cut you.",
+            "why": "A blunt knife slips and needs more force, so it cuts more often. Keep knives sharp."
+          },
+          {
+            "text": "Walk across the kitchen with the knife pointing forward.",
+            "why": "A collision could stab someone. Carry it pointed down, close to your side."
+          },
+          {
+            "text": "Try to catch a knife that slides off the table.",
+            "why": "Catching it by the blade is a serious cut. Step back and let it fall."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bread knife",
+            "why": "Its serrated edge tears vegetables and cannot make neat dice."
+          },
+          {
+            "name": "Carving fork",
+            "why": "It is for holding roasts, not for vegetable work."
+          },
+          {
+            "name": "Grater",
+            "why": "It shreds unevenly: these cuts are done with a knife to exact sizes."
+          },
+          {
+            "name": "Meat cleaver",
+            "why": "Too heavy for 3 mm cuts."
+          },
+          {
+            "name": "Pastry brush",
+            "why": "There is nothing to glaze."
+          },
+          {
+            "name": "Wooden spoon",
+            "why": "Nothing is being stirred."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "square",
+          "afterStep": 1,
+          "prompt": "The carrot is peeled and rolls about on the board. What do you do before cutting julienne?",
+          "options": [
+            {
+              "text": "Square it off into a neat block",
+              "correct": true,
+              "consequence": "It sits still and every strip comes out the same size."
+            },
+            {
+              "text": "Stand it upright and slice downwards",
+              "consequence": "An upright, unsteady carrot can slip under the blade."
+            },
+            {
+              "text": "Pin it with your palm and slice quickly",
+              "consequence": "A rolling carrot and speed are how fingers get cut."
+            }
+          ]
+        },
+        {
+          "id": "brunoise",
+          "afterStep": 3,
+          "prompt": "You have julienne strips. The recipe now calls for brunoise. What do you do?",
+          "options": [
+            {
+              "text": "Cut the strips across into 2-3 mm dice",
+              "correct": true,
+              "consequence": "Brunoise are tiny dice made from julienne."
+            },
+            {
+              "text": "Cut the strips into 18-20 mm lengths",
+              "consequence": "That is near jardinière length, not brunoise."
+            },
+            {
+              "text": "Slice new rounds about 1 cm across",
+              "consequence": "That is paysanne."
+            },
+            {
+              "text": "Cut the strips across into 5 mm dice",
+              "consequence": "That size is macédoine, and julienne is too thin to give it."
+            }
+          ]
+        },
+        {
+          "id": "potato",
+          "afterStep": 6,
+          "prompt": "You have cut the Irish potatoes early and service is an hour away. How do you hold them?",
+          "options": [
+            {
+              "text": "Under cold water in a bowl",
+              "correct": true,
+              "consequence": "Water keeps air off, so they stay white."
+            },
+            {
+              "text": "Spread out on the board, uncovered",
+              "consequence": "Air turns cut potatoes brown."
+            },
+            {
+              "text": "In a dry bowl near the warm stove",
+              "consequence": "They brown and dry out, and warmth encourages bacteria."
+            }
+          ]
+        },
+        {
+          "id": "trim",
+          "afterStep": 7,
+          "prompt": "You have 80 g of clean carrot trimmings left. What is the best use?",
+          "options": [
+            {
+              "text": "Save them for stock or soup",
+              "correct": true,
+              "consequence": "That reduces waste and adds flavour to the stockpot."
+            },
+            {
+              "text": "Mix them into the brunoise to raise the yield",
+              "consequence": "Uneven pieces spoil the size check and look careless."
+            },
+            {
+              "text": "Bin them and leave them out of your record",
+              "consequence": "You lose food you paid for, and the wastage figure is wrong."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "julienne",
+          "prompt": "You lay out your cuts for the examiner. Which is correct julienne?",
+          "options": [
+            {
+              "text": "Thin strips about 3 mm x 3 mm x 40 mm",
+              "correct": true
+            },
+            {
+              "text": "Small dice about 2-3 mm",
+              "why": "That is brunoise. Confusing strips with dice is the common mistake."
+            },
+            {
+              "text": "Batons about 3-4 mm x 3-4 mm x 18-20 mm",
+              "why": "Those are jardinière."
+            },
+            {
+              "text": "Thin even squares about 1 cm across",
+              "why": "That is paysanne."
+            }
+          ]
+        },
+        {
+          "id": "why-even",
+          "prompt": "Why are vegetable cuts kept to one exact size?",
+          "options": [
+            {
+              "text": "Even pieces cook evenly and look professional",
+              "correct": true
+            },
+            {
+              "text": "Small pieces need no seasoning",
+              "why": "Seasoning is still needed. Size is about even cooking and appearance."
+            },
+            {
+              "text": "Even pieces hold more vitamins during the cooking",
+              "why": "That is not the reason: size is about cooking evenly and looking neat."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "yield",
+          "prompt": "You bought {b} g of carrots and have {t} g of trimmings after cutting. What is the yield percentage?",
+          "formula": "(b - t) / b * 100",
+          "vars": {
+            "b": {
+              "min": 400,
+              "max": 800,
+              "step": 100
+            },
+            "t": {
+              "min": 40,
+              "max": 80,
+              "step": 20
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "Usable = {b} − {t}. Yield = usable ÷ {b} × 100 = {answer}%."
+        },
+        {
+          "id": "waste",
+          "prompt": "From {b} g of Irish potatoes you get {u} g usable. What is the wastage percentage?",
+          "formula": "(b - u) / b * 100",
+          "vars": {
+            "b": {
+              "min": 500,
+              "max": 1000,
+              "step": 100
+            },
+            "u": {
+              "min": 300,
+              "max": 450,
+              "step": 50
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "Wastage = {b} − {u}. Wastage % = wastage ÷ {b} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "cuts",
+          "scenario": "Chidi was asked for julienne and brunoise of carrot for a soup garnish. The pieces cooked unevenly. Here is what he did.",
+          "lines": [
+            {
+              "text": "He sent small dice to the pot labelled julienne.",
+              "fault": true,
+              "why": "Julienne are strips. Dice of that size are brunoise."
+            },
+            {
+              "text": "He cut with his fingertips flat on the carrot.",
+              "fault": true,
+              "why": "Use the claw grip with fingertips tucked in."
+            },
+            {
+              "text": "He cut strips of many different thicknesses.",
+              "fault": true,
+              "why": "Uneven pieces cook unevenly and fail the size check."
+            },
+            {
+              "text": "He assembled his tools and washed the vegetables before starting.",
+              "why": "That is correct mise en place."
+            },
+            {
+              "text": "He set the board on a damp cloth.",
+              "why": "That is correct: the board cannot slide."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions to take when cutting vegetables.",
+        "explainPrompt": "What is mise en place, and why does it matter in a catering kitchen?",
+        "explainGuide": "Mise en place means putting everything in place: assembling tools and preparing ingredients before cooking. It saves time during service and means nothing is forgotten.",
+        "explainKeywords": [
+          [
+            "prepar",
+            "assembl",
+            "place",
+            "ready"
+          ],
+          [
+            "before",
+            "advance"
+          ],
+          [
+            "time",
+            "service",
+            "organis",
+            "forgot"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Classical vegetable cuts",
+        "Sizes matter: bring your ruler.",
+        "Claw grip at all times."
+      ]
+    },
+    "pr-ccp-stocks-and-sauces": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Carry the full stock pot to the sink by yourself to save time.",
+            "why": "Hot liquid in a heavy pot is a scald risk. Lift it with help."
+          },
+          {
+            "text": "Leave the stock out on the bench overnight to cool slowly.",
+            "why": "Slow cooling keeps it warm while bacteria multiply. Cool it quickly and refrigerate within 2 hours."
+          },
+          {
+            "text": "Put the stock into the refrigerator while it is still boiling hot.",
+            "why": "It warms everything else in the refrigerator. Cool it rapidly first."
+          },
+          {
+            "text": "Pour the hot stock through the strainer towards your chest.",
+            "why": "A splash scalds you. Strain away from the body."
+          },
+          {
+            "text": "Taste the sauce with the stirring spoon and put it back in the pot.",
+            "why": "That puts mouth germs into the food. Use a clean tasting spoon each time."
+          },
+          {
+            "text": "Reach over the steaming pot to fetch something from the shelf.",
+            "why": "Steam burns, and your sleeve is over the flame. Go round it."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Frying pan",
+            "why": "A stock needs depth and long simmering: use the stock pot."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "There is no dough here."
+          },
+          {
+            "name": "Fish slice",
+            "why": "There is nothing to turn or lift."
+          },
+          {
+            "name": "Pressure cooker",
+            "why": "Stock must simmer gently and be skimmed as it cooks."
+          },
+          {
+            "name": "Thin aluminium pot",
+            "why": "Thin pans scorch a milk sauce: use a heavy-based pan."
+          },
+          {
+            "name": "Colander with large holes",
+            "why": "It lets the fine sediment through: use a fine strainer or muslin."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "start",
+          "afterStep": 1,
+          "prompt": "The blanched, rinsed bones are in the stock pot. What goes on them?",
+          "options": [
+            {
+              "text": "3 litres of cold water",
+              "correct": true,
+              "consequence": "Cold water draws out flavour and lets scum rise for skimming."
+            },
+            {
+              "text": "3 litres of boiling water",
+              "consequence": "You lose the slow start that draws out flavour and brings up the scum."
+            },
+            {
+              "text": "3 litres of warm salted water",
+              "consequence": "Salt concentrates as the stock reduces, so it ends up too salty."
+            }
+          ]
+        },
+        {
+          "id": "heat",
+          "afterStep": 2,
+          "prompt": "The stock has come up and been skimmed. How do you keep it for the next 2 hours?",
+          "options": [
+            {
+              "text": "At a gentle simmer, skimming regularly",
+              "correct": true,
+              "consequence": "It stays clear and light."
+            },
+            {
+              "text": "At a rolling boil, to finish sooner",
+              "consequence": "Boiling drives fat and scum into the stock: it turns cloudy and greasy."
+            },
+            {
+              "text": "Tightly lidded, on full heat",
+              "consequence": "Trapped heat makes it boil, and you cannot skim."
+            }
+          ]
+        },
+        {
+          "id": "roux",
+          "afterStep": 4,
+          "prompt": "The fat has melted and the flour is in. What do you do now?",
+          "options": [
+            {
+              "text": "Cook gently for 2-3 minutes without colouring",
+              "correct": true,
+              "consequence": "You get a white roux that does not taste of raw flour."
+            },
+            {
+              "text": "Cook on high heat until it turns nut brown",
+              "consequence": "That is no longer a white roux, and the béchamel will not be white."
+            },
+            {
+              "text": "Add all the milk straight away",
+              "consequence": "The flour is still raw, so the sauce will taste floury."
+            }
+          ]
+        },
+        {
+          "id": "milk",
+          "afterStep": 4,
+          "prompt": "The white roux is ready and your 500 ml of milk is warm. How do you add it?",
+          "options": [
+            {
+              "text": "Gradually, whisking to keep it smooth",
+              "correct": true,
+              "consequence": "The roux takes up the milk evenly and the sauce stays smooth."
+            },
+            {
+              "text": "All at once, then stir when it boils",
+              "consequence": "The roux clumps and you get lumps."
+            },
+            {
+              "text": "All at once, then leave it to soften",
+              "consequence": "Dumped in together, the roux cannot disperse evenly, so lumps form."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "stock",
+          "prompt": "Which stock has been made correctly?",
+          "options": [
+            {
+              "text": "Clear and light, with no fat floating in it",
+              "correct": true
+            },
+            {
+              "text": "Cloudy, with a greasy film on top",
+              "why": "That shows it has been boiled, not simmered."
+            },
+            {
+              "text": "Dark brown with a burnt smell",
+              "why": "A white stock must not colour."
+            }
+          ]
+        },
+        {
+          "id": "sauce",
+          "prompt": "How do you know the béchamel has the right consistency?",
+          "options": [
+            {
+              "text": "It is smooth and glossy and coats the back of a spoon",
+              "correct": true
+            },
+            {
+              "text": "It runs off a spoon like milk, leaving nothing behind",
+              "why": "That is too thin: it has not thickened enough."
+            },
+            {
+              "text": "It sets firm and stands up on the spoon",
+              "why": "That is far too thick for a sauce."
+            },
+            {
+              "text": "It has a golden colour and small lumps",
+              "why": "It should be white and smooth, with no lumps."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ports",
+          "prompt": "You have {v} ml of sauce. How many full 60 ml portions does it give?",
+          "formula": "round(v / 60 - 0.5, 0)",
+          "vars": {
+            "v": {
+              "min": 500,
+              "max": 1040,
+              "step": 60
+            }
+          },
+          "unit": "portions",
+          "unitAliases": [
+            "portion"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{v} ÷ 60, rounded down because only full portions count = {answer} portions."
+        },
+        {
+          "id": "flour-qty",
+          "prompt": "Béchamel uses 100 g of fat and 100 g of flour per litre of milk. How much flour do you need for {v} ml of milk?",
+          "formula": "v / 10",
+          "vars": {
+            "v": {
+              "min": 250,
+              "max": 1500,
+              "step": 250
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "100 g per 1,000 ml, so {v} × 100 ÷ 1,000 = {answer} g."
+        },
+        {
+          "id": "evap",
+          "prompt": "You start with {a} litres of water. After simmering you strain {b} litres of stock. How much was lost to evaporation?",
+          "formula": "a - b",
+          "vars": {
+            "a": {
+              "min": 3,
+              "max": 5,
+              "step": 1
+            },
+            "b": {
+              "min": 1.5,
+              "max": 2.5,
+              "step": 0.5
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{a} − {b} = {answer} litres."
+        }
+      ],
+      "faults": [
+        {
+          "id": "bad-stock",
+          "scenario": "Amaka's chicken stock came out cloudy and too salty, and her béchamel had lumps. Here is what she did.",
+          "lines": [
+            {
+              "text": "She let the stock boil hard for the whole 2 hours.",
+              "fault": true,
+              "why": "Boiling makes stock cloudy and greasy. Simmer it."
+            },
+            {
+              "text": "She salted the water at the start.",
+              "fault": true,
+              "why": "Salt concentrates as stock reduces. Leave it unsalted."
+            },
+            {
+              "text": "She tipped cold milk all at once into the hot roux.",
+              "fault": true,
+              "why": "Add warm milk gradually, or the sauce goes lumpy."
+            },
+            {
+              "text": "She blanched and rinsed the bones first.",
+              "why": "That is correct: it removes scum early."
+            },
+            {
+              "text": "She used 50 g fat to 50 g flour for 500 ml of milk.",
+              "why": "That is the correct 1:1 ratio."
+            },
+            {
+              "text": "She covered the finished sauce with a film of butter.",
+              "why": "That is correct: it prevents a skin."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making stock and a roux sauce.",
+        "explainPrompt": "Why must stock be simmered and never boiled?",
+        "explainGuide": "Boiling mixes fat and scum into the liquid, so the stock turns cloudy and greasy. Gentle simmering keeps it clear, and the scum can be skimmed off.",
+        "explainKeywords": [
+          [
+            "cloud",
+            "greasy"
+          ],
+          [
+            "fat",
+            "scum"
+          ],
+          [
+            "clear",
+            "simmer"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "White stock and béchamel",
+        "Roux: fat and flour",
+        "Simmer. Skim. Strain."
+      ]
+    },
+    "pr-ccp-roasting-chicken": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Cut salad on the same board straight after preparing the raw chicken.",
+            "why": "Germs from raw poultry get into food that will not be cooked. Use a separate board."
+          },
+          {
+            "text": "Take the chicken out and serve once the skin looks golden.",
+            "why": "Colour does not prove the inside is cooked. Check it reaches at least 75 °C."
+          },
+          {
+            "text": "Pull out the hot tray with a damp cloth.",
+            "why": "A damp cloth lets heat through at once. Use oven gloves."
+          },
+          {
+            "text": "Open the oven door with your face close to look in.",
+            "why": "Hot air rushes out at your face. Stand back and lift trays away from it."
+          },
+          {
+            "text": "Rinse your hands with water only after trussing the raw bird.",
+            "why": "Water alone does not remove the germs. Wash hands and equipment properly."
+          },
+          {
+            "text": "Leave the raw chicken on the kitchen table all morning to warm up.",
+            "why": "Warmth lets bacteria multiply. Keep raw poultry chilled until it is needed."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Grill bars",
+            "why": "Roasting uses dry heat in an oven. Grill bars are for radiant-heat cooking."
+          },
+          {
+            "name": "Deep-fat fryer",
+            "why": "This bird is roasted, not fried."
+          },
+          {
+            "name": "Fish scaler",
+            "why": "It is for fish."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "There is no pastry in this dish."
+          },
+          {
+            "name": "Stock pot",
+            "why": "You are not cooking it in liquid."
+          },
+          {
+            "name": "Bread knife",
+            "why": "Serrated blades tear meat: use the carving knife."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "time",
+          "afterStep": 1,
+          "prompt": "Your chicken weighs 2.25 kg. What do you do with the weight before it goes in?",
+          "options": [
+            {
+              "text": "Work out 20 minutes per 450 g, plus 20 minutes",
+              "correct": true,
+              "consequence": "You get 120 minutes, and you can plan service."
+            },
+            {
+              "text": "Work out 10 minutes per 450 g, with nothing added",
+              "consequence": "That gives only 50 minutes, so the bird comes out undercooked."
+            },
+            {
+              "text": "Skip the sum: the colour will tell you",
+              "consequence": "Colour is no test. Undercooked poultry is a food poisoning risk."
+            }
+          ]
+        },
+        {
+          "id": "oven",
+          "afterStep": 3,
+          "prompt": "The bird is seasoned, trussed and on its roots. When does it go in?",
+          "options": [
+            {
+              "text": "Once the oven has fully preheated to 190 °C",
+              "correct": true,
+              "consequence": "It starts cooking at the right temperature, and your timing holds."
+            },
+            {
+              "text": "At once into a cold oven, then switch on",
+              "consequence": "Your timing fails, because the bird sits in low heat at the start."
+            },
+            {
+              "text": "After an hour on the warm top of the oven",
+              "consequence": "Raw poultry should not sit warm for that long."
+            }
+          ]
+        },
+        {
+          "id": "baste",
+          "afterStep": 4,
+          "prompt": "Forty minutes in, the skin is colouring. What is the correct routine?",
+          "options": [
+            {
+              "text": "Baste every 15-20 minutes",
+              "correct": true,
+              "consequence": "It keeps the surface moist as the meat cooks."
+            },
+            {
+              "text": "Keep the door open to watch it",
+              "consequence": "The oven loses heat and the time is wasted."
+            },
+            {
+              "text": "Pour cold water over the bird",
+              "consequence": "Water steams the skin and stops it crisping."
+            }
+          ]
+        },
+        {
+          "id": "test",
+          "afterStep": 5,
+          "prompt": "The time is up. Pink juice runs from the thigh when you test it. What do you do?",
+          "options": [
+            {
+              "text": "Put it back and test again later",
+              "correct": true,
+              "consequence": "Pink juices mean undercooked: it must reach at least 75 °C."
+            },
+            {
+              "text": "Carve it and let the hot plate finish it",
+              "consequence": "Plate heat cannot cook it, and diners risk food poisoning."
+            },
+            {
+              "text": "Rest it for 15 minutes so that the juices clear",
+              "consequence": "Resting is not cooking. The bird is not done."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "done",
+          "prompt": "Which of these shows that the chicken is fully cooked?",
+          "options": [
+            {
+              "text": "Juices at the thigh run clear and the probe reads at least 75 °C",
+              "correct": true
+            },
+            {
+              "text": "The skin is deep brown all over",
+              "why": "Colour says nothing about the inside."
+            },
+            {
+              "text": "The probe in the thickest part reads 60 °C",
+              "why": "60 °C is below the safe core temperature."
+            },
+            {
+              "text": "The full calculated time has passed on the clock and the skin is brown",
+              "why": "Ovens vary, so time alone does not prove it. Test the core."
+            }
+          ]
+        },
+        {
+          "id": "loss",
+          "prompt": "You weigh the bird after roasting. What do you find?",
+          "options": [
+            {
+              "text": "It weighs less because fat and water have cooked out",
+              "correct": true
+            },
+            {
+              "text": "It weighs more because it took in the oil",
+              "why": "Roasting loses mass overall."
+            },
+            {
+              "text": "It weighs exactly the same",
+              "why": "Cooking removes water and fat, so the mass falls."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "roast",
+          "prompt": "Using 20 minutes per 450 g plus 20 minutes, how long does a chicken of {g} g take?",
+          "formula": "g / 450 * 20 + 20",
+          "vars": {
+            "g": {
+              "min": 900,
+              "max": 2700,
+              "step": 450
+            }
+          },
+          "unit": "minutes",
+          "unitAliases": [
+            "min",
+            "mins",
+            "minute"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{g} ÷ 450 × 20 + 20 = {answer} minutes."
+        },
+        {
+          "id": "cooked",
+          "prompt": "A chicken of {g} g loses 25% of its mass in cooking. What is the cooked mass?",
+          "formula": "g * 0.75",
+          "vars": {
+            "g": {
+              "min": 1200,
+              "max": 2400,
+              "step": 400
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "{g} × 0.75 = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "sunday",
+          "scenario": "Kemi roasted a chicken for a small function. Two guests complained and the meat looked dry. Here is what she did.",
+          "lines": [
+            {
+              "text": "She carved it as soon as it left the oven.",
+              "fault": true,
+              "why": "Without resting, the juices run out and the meat is dry."
+            },
+            {
+              "text": "She chopped the salad on the board she had used for the raw bird.",
+              "fault": true,
+              "why": "That carries germs from raw poultry onto ready-to-eat food."
+            },
+            {
+              "text": "She served it when the skin looked done, with pink juice at the thigh.",
+              "fault": true,
+              "why": "Pink juices show it is undercooked. It must reach at least 75 °C."
+            },
+            {
+              "text": "She preheated the oven first.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She trussed the bird to keep its shape.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for roasting a chicken safely and well.",
+        "explainPrompt": "Why is a roast chicken rested before carving?",
+        "explainGuide": "During resting the juices settle back through the meat. Carved straight away, they run out, and the meat is dry.",
+        "explainKeywords": [
+          [
+            "juice"
+          ],
+          [
+            "settle",
+            "stay",
+            "run"
+          ],
+          [
+            "moist",
+            "dry"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Roasting a whole chicken",
+        "Dry heat in an oven",
+        "Weigh it. Time it. Test it."
+      ]
+    },
+    "pr-ccp-grilling-fish": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Splash a little petrol on the charcoal to get it going.",
+            "why": "Petrol flares explosively. Never use it to light charcoal."
+          },
+          {
+            "text": "Tuck the cooking cloth over your shoulder so that it hangs near the grill.",
+            "why": "Loose cloths catch fire. Keep them and long sleeves away from the grill."
+          },
+          {
+            "text": "Serve the marinade left in the raw-fish bowl as a table sauce.",
+            "why": "It has touched raw fish. Make a fresh sauce."
+          },
+          {
+            "text": "Fan hot coals with your face close above them.",
+            "why": "Sparks and hot ash fly up. Stand back from the grill."
+          },
+          {
+            "text": "Carry the lit charcoal grill indoors when it starts to rain.",
+            "why": "Burning charcoal gives off carbon monoxide, which can kill in a closed room. Never bring it indoors."
+          },
+          {
+            "text": "Leave the gutted fish out in the sun while the coals heat.",
+            "why": "Warm fish spoils fast. Keep it cool until it goes on the grill."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Deep frying basket",
+            "why": "This fish is grilled by radiant heat, not fried."
+          },
+          {
+            "name": "Wooden spoon",
+            "why": "It would break the fish. Use the fish slice."
+          },
+          {
+            "name": "Fish kettle",
+            "why": "That is for poaching whole fish."
+          },
+          {
+            "name": "Bread knife",
+            "why": "A serrated edge tears fish: use the sharp knife."
+          },
+          {
+            "name": "Trussing needle",
+            "why": "Fish is not trussed."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "It has no use here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "score",
+          "afterStep": 1,
+          "prompt": "The fish are scaled, gutted and washed. What do you do before marinating?",
+          "options": [
+            {
+              "text": "Make shallow diagonal cuts on both sides",
+              "correct": true,
+              "consequence": "Heat reaches the thick parts and the marinade gets in."
+            },
+            {
+              "text": "Slit one side deeply, right through to the bone",
+              "consequence": "Deep cuts make the fish break up when it is turned."
+            },
+            {
+              "text": "Leave the skin whole so that nothing escapes",
+              "consequence": "The thick parts stay undercooked while the outside burns."
+            }
+          ]
+        },
+        {
+          "id": "marinate",
+          "afterStep": 2,
+          "prompt": "How long should the fish sit in the pepper, garlic and ginger?",
+          "options": [
+            {
+              "text": "At least 20 minutes",
+              "correct": true,
+              "consequence": "The flavour gets into the flesh."
+            },
+            {
+              "text": "A quick rub, then straight on the grill",
+              "consequence": "The flavour stays on the surface."
+            },
+            {
+              "text": "All day on the table, so that it is really spicy",
+              "consequence": "Fish left out spoils."
+            }
+          ]
+        },
+        {
+          "id": "bars",
+          "afterStep": 3,
+          "prompt": "The grill is hot and you are ready to cook. What is your next move?",
+          "options": [
+            {
+              "text": "Oil the bars, then lay on the fish",
+              "correct": true,
+              "consequence": "The skin does not stick."
+            },
+            {
+              "text": "Lay the fish straight on to dry bars",
+              "consequence": "The skin sticks and tears."
+            },
+            {
+              "text": "Sprinkle water on the bars to cool them first",
+              "consequence": "Too low a heat stews the fish and makes it stick."
+            }
+          ]
+        },
+        {
+          "id": "turn",
+          "afterStep": 4,
+          "prompt": "The first side has had five minutes. How do you turn it?",
+          "options": [
+            {
+              "text": "Once only, with the fish slice",
+              "correct": true,
+              "consequence": "The fish stays whole."
+            },
+            {
+              "text": "Every minute, so that neither side burns",
+              "consequence": "Repeated turning breaks the fish."
+            },
+            {
+              "text": "With a fork through the thickest part",
+              "consequence": "That tears the flesh and lets out the juices."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "doneness",
+          "prompt": "How do you know that the fish is cooked?",
+          "options": [
+            {
+              "text": "The flesh is opaque and flakes easily at the bone",
+              "correct": true
+            },
+            {
+              "text": "The flesh looks clear and glassy at the bone",
+              "why": "That means it is not cooked yet."
+            },
+            {
+              "text": "The skin is black all over",
+              "why": "That is burning. The inside may still be raw."
+            },
+            {
+              "text": "The tail has started to curl upwards",
+              "why": "That is not a test. Look at the flesh at the bone."
+            }
+          ]
+        },
+        {
+          "id": "heat",
+          "prompt": "Which sign shows that the grill was hot enough?",
+          "options": [
+            {
+              "text": "The surface browns and shows grill marks",
+              "correct": true
+            },
+            {
+              "text": "Water runs out and the fish steams in it",
+              "why": "That is stewing, from too low a heat."
+            },
+            {
+              "text": "The fish sticks and comes away in pieces",
+              "why": "That comes from low heat and unoiled bars."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "oil",
+          "prompt": "Marinade oil is 15 ml per fish. How much oil is needed for {n} fish?",
+          "formula": "15 * n",
+          "vars": {
+            "n": {
+              "min": 3,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "ml",
+          "unitAliases": [
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 15 = {answer} ml."
+        },
+        {
+          "id": "raw",
+          "prompt": "What is the total raw mass of {n} fish of {g} g each, in kilograms?",
+          "formula": "n * g / 1000",
+          "vars": {
+            "n": {
+              "min": 4,
+              "max": 10,
+              "step": 2
+            },
+            "g": {
+              "min": 250,
+              "max": 400,
+              "step": 50
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 2,
+          "working": "{n} × {g} g ÷ 1,000 = {answer} kg."
+        },
+        {
+          "id": "batch",
+          "prompt": "Each fish takes about 10 minutes in all. The grill takes two at a time. How long do {n} fish take?",
+          "formula": "n / 2 * 10",
+          "vars": {
+            "n": {
+              "min": 4,
+              "max": 12,
+              "step": 2
+            }
+          },
+          "unit": "minutes",
+          "unitAliases": [
+            "min",
+            "mins"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} ÷ 2 = number of batches. Batches × 10 = {answer} minutes."
+        }
+      ],
+      "faults": [
+        {
+          "id": "roadside",
+          "scenario": "Yusuf grilled croaker for a class lunch on a charcoal grill. The fish stuck and fell apart. Here is what he did.",
+          "lines": [
+            {
+              "text": "He put the fish on before the grill was properly hot.",
+              "fault": true,
+              "why": "Low heat makes the fish stew and stick."
+            },
+            {
+              "text": "He turned each fish many times.",
+              "fault": true,
+              "why": "Turning repeatedly breaks the fish. Turn it once."
+            },
+            {
+              "text": "He did not oil the bars.",
+              "fault": true,
+              "why": "Oiling prevents sticking."
+            },
+            {
+              "text": "He scored both sides of the fish.",
+              "why": "That is correct: heat reaches the thick parts."
+            },
+            {
+              "text": "He kept his sleeves away from the grill.",
+              "why": "That is correct and safe."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for grilling whole fish.",
+        "explainPrompt": "Why is grilling called a fast, dry-heat method, and what are its advantages?",
+        "explainGuide": "Radiant heat reaches the surface directly, so food cooks quickly without liquid. It is quick and needs little fat.",
+        "explainKeywords": [
+          [
+            "radiant",
+            "direct"
+          ],
+          [
+            "quick",
+            "fast"
+          ],
+          [
+            "fat",
+            "oil"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Grilling fish",
+        "Radiant heat",
+        "Score. Oil the bars. Turn once."
+      ]
+    },
+    "pr-ccp-baking-sausage-rolls": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Take the sausage meat out in the morning and leave it on the bench until the pastry is rested.",
+            "why": "Warm raw meat lets bacteria multiply. Keep it chilled until needed."
+          },
+          {
+            "text": "Lift the tray out with a folded damp cloth.",
+            "why": "A damp cloth passes heat to your hand. Use oven gloves."
+          },
+          {
+            "text": "Pick a hot roll straight off the tray to check the filling.",
+            "why": "The filling burns the mouth and hands. Let trays and rolls cool first."
+          },
+          {
+            "text": "Handle the raw sausage meat, then rub the pastry without washing your hands.",
+            "why": "Raw meat germs pass to the pastry. Wash your hands between jobs."
+          },
+          {
+            "text": "Use the same brush for the egg glaze and to oil the cooked rolls.",
+            "why": "Raw egg on the brush touches cooked food. Keep tools for raw work separate."
+          },
+          {
+            "text": "Leave the hot tray on the edge of the table with no warning to others.",
+            "why": "Someone could grab or knock it. Set it well back on a heat-proof surface."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Wire whisk",
+            "why": "Pastry is rubbed in with fingertips, not whisked."
+          },
+          {
+            "name": "Electric blender",
+            "why": "It overworks the fat and flour into a paste."
+          },
+          {
+            "name": "Saucepan",
+            "why": "Nothing here is cooked on the hob."
+          },
+          {
+            "name": "Grater",
+            "why": "There is nothing to grate."
+          },
+          {
+            "name": "Cake tin",
+            "why": "Sausage rolls are baked flat on baking trays."
+          },
+          {
+            "name": "Stock pot",
+            "why": "It has no use in pastry work."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "rub",
+          "afterStep": 1,
+          "prompt": "You are making the shortcrust. How do you work the fat into the flour?",
+          "options": [
+            {
+              "text": "Rub it in with cool fingertips until it looks like breadcrumbs",
+              "correct": true,
+              "consequence": "The fat coats the flour and the pastry stays short."
+            },
+            {
+              "text": "Melt the margarine first and pour it into the flour",
+              "consequence": "Melted fat gives a greasy, hard pastry."
+            },
+            {
+              "text": "Knead it hard for ten minutes like bread dough",
+              "consequence": "Hard working toughens pastry."
+            }
+          ]
+        },
+        {
+          "id": "rest",
+          "afterStep": 1,
+          "prompt": "The dough has just come together. What next?",
+          "options": [
+            {
+              "text": "Rest it before rolling",
+              "correct": true,
+              "consequence": "Rested pastry rolls easily and does not shrink."
+            },
+            {
+              "text": "Roll it out at once as thin as it will go",
+              "consequence": "Unrested dough springs back and shrinks in the oven."
+            },
+            {
+              "text": "Add more water until it feels soft and sticky",
+              "consequence": "Extra water makes the pastry hard when baked."
+            }
+          ]
+        },
+        {
+          "id": "seal",
+          "afterStep": 4,
+          "prompt": "The meat is on the pastry strip. What do you do at the join?",
+          "options": [
+            {
+              "text": "Dampen the edge, fold over and press to seal",
+              "correct": true,
+              "consequence": "The seam holds, and nothing leaks in the oven."
+            },
+            {
+              "text": "Fold it over dry and rely on the egg glaze",
+              "consequence": "The seam opens and fat leaks out."
+            },
+            {
+              "text": "Leave the join open so that steam can get out",
+              "consequence": "The meat dries out and the roll falls open."
+            }
+          ]
+        },
+        {
+          "id": "cut",
+          "afterStep": 4,
+          "prompt": "You have to cut the sealed lengths into 24. How?",
+          "options": [
+            {
+              "text": "Measure so that all 24 are the same length",
+              "correct": true,
+              "consequence": "That gives proper portion control and even baking."
+            },
+            {
+              "text": "Cut by eye, as quickly as you can",
+              "consequence": "Uneven rolls mean uneven cooking and inconsistent portions."
+            },
+            {
+              "text": "Cut large ones for guests and small ones for staff",
+              "consequence": "That breaks the portion control the order needs."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "done",
+          "prompt": "Which batch is ready to take from the oven?",
+          "options": [
+            {
+              "text": "Golden, crisp pastry with the meat cooked through",
+              "correct": true
+            },
+            {
+              "text": "Pale, soft pastry with pink meat inside",
+              "why": "Underbaked: the pastry and the meat need more time."
+            },
+            {
+              "text": "Dark brown ends with raw pastry under the meat",
+              "why": "Too hot, or not preheated: the pastry under the meat is underbaked."
+            },
+            {
+              "text": "Burst seams with fat pooled on the tray",
+              "why": "Poor sealing lets the filling leak out."
+            }
+          ]
+        },
+        {
+          "id": "heat",
+          "prompt": "Baking cooks food mainly by which means?",
+          "options": [
+            {
+              "text": "Dry convected heat in an oven",
+              "correct": true
+            },
+            {
+              "text": "Steam from boiling liquid",
+              "why": "That is steaming."
+            },
+            {
+              "text": "Radiant heat from the top only",
+              "why": "That is grilling."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "per",
+          "prompt": "A batch of 24 rolls costs N{t} in ingredients. What is the cost per roll, in naira?",
+          "formula": "t / 24",
+          "vars": {
+            "t": {
+              "min": 4800,
+              "max": 7200,
+              "step": 600
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 2,
+          "working": "{t} ÷ 24 = N{answer}."
+        },
+        {
+          "id": "sell",
+          "prompt": "A roll costs N{c} in food. At a 40% food cost, what is the selling price, in naira?",
+          "formula": "c / 0.4",
+          "vars": {
+            "c": {
+              "min": 200,
+              "max": 320,
+              "step": 20
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ 0.40 = N{answer}."
+        },
+        {
+          "id": "total",
+          "prompt": "Flour costs N{f}, margarine N{m}, sausage meat N{s} and egg N200. What is the total, in naira?",
+          "formula": "f + m + s + 200",
+          "vars": {
+            "f": {
+              "min": 700,
+              "max": 900,
+              "step": 100
+            },
+            "m": {
+              "min": 800,
+              "max": 1000,
+              "step": 50
+            },
+            "s": {
+              "min": 3500,
+              "max": 4500,
+              "step": 250
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{f} + {m} + {s} + 200 = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "order",
+          "scenario": "Ada baked sausage rolls for a school party. Some were pale underneath and the order ran short. Here is what she did.",
+          "lines": [
+            {
+              "text": "She put the trays into an oven that had only just been switched on.",
+              "fault": true,
+              "why": "An oven that is not preheated leaves the pastry under the meat underbaked."
+            },
+            {
+              "text": "She cut the rolls by eye into large and small pieces.",
+              "fault": true,
+              "why": "Uneven rolls give inconsistent portions."
+            },
+            {
+              "text": "She did not count the small items such as the egg in her costing.",
+              "fault": true,
+              "why": "A full costing includes every ingredient."
+            },
+            {
+              "text": "She chilled the sausage meat until she needed it.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She dampened the edges before sealing.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for baking sausage rolls for an order.",
+        "explainPrompt": "Why must every roll be cut to the same size?",
+        "explainGuide": "Equal sizes give each customer the same portion, make costing per piece reliable, and let all the rolls bake evenly.",
+        "explainKeywords": [
+          [
+            "portion",
+            "customer",
+            "size"
+          ],
+          [
+            "cost",
+            "price"
+          ],
+          [
+            "even",
+            "uniform",
+            "same time"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Sausage rolls for an order",
+        "Shortcrust pastry",
+        "Bake. Cool. Cost."
+      ]
+    },
+    "pr-ccp-table-laying": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Carry a handful of glasses by their rims to save a trip.",
+            "why": "Fingers on the rim are unhygienic and glasses can break. Carry them on a tray."
+          },
+          {
+            "text": "Use a chipped plate at the back table where guests may not see it.",
+            "why": "Chips hold germs and can cut. Remove any chipped item."
+          },
+          {
+            "text": "Polish a glass by breathing into it and rubbing with your apron.",
+            "why": "That adds germs and fibres. Polish with a clean cloth."
+          },
+          {
+            "text": "Pick up the forks by the prongs so that you can lay them faster.",
+            "why": "Fingers touch the part that goes into the mouth. Handle cutlery by the handles."
+          },
+          {
+            "text": "Sweep broken glass off the table with your bare hand.",
+            "why": "You will cut yourself. Clear it with a dustpan and brush or thick cloth."
+          },
+          {
+            "text": "Stack a tall pile of plates on one arm to clear the table in one go.",
+            "why": "They can slide and break. Carry what you can hold safely."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Ice bucket",
+            "why": "It has no part in laying this cover."
+          },
+          {
+            "name": "Chafing dish",
+            "why": "That belongs on a buffet."
+          },
+          {
+            "name": "Punch bowl",
+            "why": "This is a cover, not a drinks table."
+          },
+          {
+            "name": "Carving knife",
+            "why": "That is for the kitchen or the carving trolley."
+          },
+          {
+            "name": "Soup tureen",
+            "why": "It comes with service. It is not laid on the cover."
+          },
+          {
+            "name": "Kitchen scale",
+            "why": "Nothing is weighed: spacing is checked with the tape."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "cloth",
+          "afterStep": 1,
+          "prompt": "You shake out the tablecloth. How should it lie?",
+          "options": [
+            {
+              "text": "Centre crease down the table, equal drop each side",
+              "correct": true,
+              "consequence": "The table looks balanced and covers line up."
+            },
+            {
+              "text": "Crease across the table, longer drop at the door side",
+              "consequence": "The crease guides nothing and the look is uneven."
+            },
+            {
+              "text": "Pulled to one side so that the slip cloth shows",
+              "consequence": "The cloth must sit even, with the slip cloth covered."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 3,
+          "prompt": "You are laying a table d'hôte cover. How does the cutlery go?",
+          "options": [
+            {
+              "text": "From the outside in, in the order of use",
+              "correct": true,
+              "consequence": "The guest works inwards through the courses."
+            },
+            {
+              "text": "From the inside out, in the order of use",
+              "consequence": "Guests would pick up the wrong tools for each course."
+            },
+            {
+              "text": "With all the knives on one side, longest first",
+              "consequence": "Size has nothing to do with it. Order of use does."
+            }
+          ]
+        },
+        {
+          "id": "alacarte",
+          "afterStep": 4,
+          "prompt": "The menu is à la carte. How much cutlery do you put out at first?",
+          "options": [
+            {
+              "text": "A basic cover. The rest follows the order",
+              "correct": true,
+              "consequence": "Cutlery is laid course by course after ordering."
+            },
+            {
+              "text": "All the cutlery for every course",
+              "consequence": "That is the common mistake: nobody has ordered yet."
+            },
+            {
+              "text": "No cutlery until the guest has eaten a course",
+              "consequence": "Guests must find a basic cover in place when they sit."
+            }
+          ]
+        },
+        {
+          "id": "glass",
+          "afterStep": 3,
+          "prompt": "Where does the wine or water glass go in the cover?",
+          "options": [
+            {
+              "text": "Above the joint knife",
+              "correct": true,
+              "consequence": "That is the standard place, within easy reach of the right hand."
+            },
+            {
+              "text": "On the side plate",
+              "consequence": "That is a named mistake: it blocks the side plate."
+            },
+            {
+              "text": "Above the side plate on the left",
+              "consequence": "A glass belongs above the joint knife."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "look",
+          "prompt": "You stand back to inspect. Which table is correct?",
+          "options": [
+            {
+              "text": "Identical covers, evenly spaced, cutlery 1-2 cm from the edge",
+              "correct": true
+            },
+            {
+              "text": "Cutlery touching the table edge on some covers",
+              "why": "The lesson's standard is 1-2 cm from the edge."
+            },
+            {
+              "text": "Covers bunched at one end to leave room for the cruet",
+              "why": "Allow about 60 cm per cover."
+            },
+            {
+              "text": "Each cover laid differently to suit the waiter",
+              "why": "Covers must be identical."
+            }
+          ]
+        },
+        {
+          "id": "difference",
+          "prompt": "What separates an à la carte cover from a table d'hôte cover?",
+          "options": [
+            {
+              "text": "Further cutlery is laid after the guest orders",
+              "correct": true
+            },
+            {
+              "text": "An à la carte cover has no glass",
+              "why": "It has a glass."
+            },
+            {
+              "text": "An à la carte cover has no napkin",
+              "why": "It has a napkin."
+            },
+            {
+              "text": "A table d'hôte cover has no side plate",
+              "why": "It has a side plate and side knife."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "side",
+          "prompt": "A table is {l} cm long. Allowing 60 cm per cover, how many covers fit on one long side?",
+          "formula": "l / 60",
+          "vars": {
+            "l": {
+              "min": 120,
+              "max": 300,
+              "step": 60
+            }
+          },
+          "unit": "covers",
+          "unitAliases": [
+            "cover"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ 60 = {answer} covers."
+        },
+        {
+          "id": "both",
+          "prompt": "A rectangular table is {l} cm long. Allowing 60 cm per cover, how many covers fit on both long sides together, without using the ends?",
+          "formula": "2 * l / 60",
+          "vars": {
+            "l": {
+              "min": 120,
+              "max": 360,
+              "step": 60
+            }
+          },
+          "unit": "covers",
+          "unitAliases": [
+            "cover"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ 60 for one side, then × 2 = {answer} covers."
+        }
+      ],
+      "faults": [
+        {
+          "id": "banquet",
+          "scenario": "Efe laid tables for a table d'hôte lunch. The supervisor made him redo them. Here is what she found.",
+          "lines": [
+            {
+              "text": "He stood the water glasses on the side plates.",
+              "fault": true,
+              "why": "The glass goes above the joint knife."
+            },
+            {
+              "text": "He laid the soup spoon next to the plate and the dessert spoon on the outside.",
+              "fault": true,
+              "why": "Cutlery goes in order of use from the outside inwards."
+            },
+            {
+              "text": "He picked up the forks by the prongs.",
+              "fault": true,
+              "why": "Handle cutlery by the handles."
+            },
+            {
+              "text": "He allowed about 60 cm per cover.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He laid the side plate and side knife on the left.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for laying a table for service.",
+        "explainPrompt": "Why is an à la carte cover laid with less cutlery than a table d'hôte cover?",
+        "explainGuide": "Guests on an à la carte menu choose their own dishes, so the waiter cannot know their courses. Cutlery is laid course by course after the order is taken.",
+        "explainKeywords": [
+          [
+            "choose",
+            "order"
+          ],
+          [
+            "course"
+          ],
+          [
+            "after",
+            "know"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Laying the cover",
+        "Table d'hôte and à la carte",
+        "Check every cover before service."
+      ]
+    },
+    "pr-ccp-dish-costing": {
+      "safety": {
+        "correct": [
+          "Wash your hands before handling food if the dish is also to be prepared."
+        ],
+        "wrong": [
+          {
+            "text": "Eat while filling in the costing sheet at the kitchen work table.",
+            "why": "Food work and paperwork stay apart, and eating at a work table spreads germs."
+          },
+          {
+            "text": "Leave the papers and calculator on the stove top while you cook the dish.",
+            "why": "Paper by a flame can catch fire. Keep it well clear of the cooker."
+          },
+          {
+            "text": "Spread your sheets on a wet floor beside the sink when the table is full.",
+            "why": "Wet floors and loose paper cause slips. Keep the walkway clear."
+          },
+          {
+            "text": "Keep the price list under the raw meat on the board.",
+            "why": "Paper cannot be cleaned and carries germs to food. Keep paperwork off food surfaces."
+          },
+          {
+            "text": "Taste the soup with a finger to check the recipe matches the costing.",
+            "why": "That is unhygienic. Use a clean tasting spoon."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rolling pin",
+            "why": "This is a desk exercise."
+          },
+          {
+            "name": "Kitchen scale",
+            "why": "Quantities come from the recipe card here."
+          },
+          {
+            "name": "Thermometer",
+            "why": "No temperature is being taken."
+          },
+          {
+            "name": "Stock pot",
+            "why": "No cooking is needed for the costing."
+          },
+          {
+            "name": "Measuring jug",
+            "why": "Quantities are already on the recipe."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Time is not being measured here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "small",
+          "afterStep": 2,
+          "prompt": "The egusi recipe has pinches of salt and spoonfuls of oil. What do you do with them?",
+          "options": [
+            {
+              "text": "Cost them with everything else",
+              "correct": true,
+              "consequence": "Leaving out small items makes every portion look cheaper than it is."
+            },
+            {
+              "text": "Ignore them because they are small",
+              "consequence": "Small items add up, and your profit is less than you think."
+            },
+            {
+              "text": "Add a guessed N2,000 for them",
+              "consequence": "A guess bears no relation to the recipe, so the cost is unreliable."
+            }
+          ]
+        },
+        {
+          "id": "sell",
+          "afterStep": 4,
+          "prompt": "Cost per portion is N600 and the food cost is 40%. How do you find the selling price?",
+          "options": [
+            {
+              "text": "Divide N600 by 0.40",
+              "correct": true,
+              "consequence": "N1,500. Food is 40% of what the guest pays."
+            },
+            {
+              "text": "Multiply N600 by 0.40",
+              "consequence": "N240 is below cost. That is the most common mistake."
+            },
+            {
+              "text": "Add N40 to N600",
+              "consequence": "A percentage is not a sum of naira. N640 leaves almost no profit."
+            }
+          ]
+        },
+        {
+          "id": "gp",
+          "afterStep": 5,
+          "prompt": "The selling price is N1,500 and the food cost is N600. How do you find the gross profit percentage?",
+          "options": [
+            {
+              "text": "(1,500 − 600) ÷ 1,500 × 100",
+              "correct": true,
+              "consequence": "That is 60% of the selling price."
+            },
+            {
+              "text": "(1,500 − 600) ÷ 600 × 100",
+              "consequence": "That is a percentage of cost, not of selling price."
+            },
+            {
+              "text": "1,500 ÷ 600 × 100",
+              "consequence": "That shows nothing about profit."
+            }
+          ]
+        },
+        {
+          "id": "prices",
+          "afterStep": 1,
+          "prompt": "The price list on the wall is two years old. What do you do?",
+          "options": [
+            {
+              "text": "Check today's market prices first",
+              "correct": true,
+              "consequence": "Prices change, so costing sheets must be updated."
+            },
+            {
+              "text": "Use it, since all lists are the same",
+              "consequence": "Old prices make the real cost higher than the sheet says."
+            },
+            {
+              "text": "Use it and add one naira to each item",
+              "consequence": "Prices do not move by one naira. That is still a guess."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "sheet",
+          "prompt": "What does a finished dish costing sheet show the caterer?",
+          "options": [
+            {
+              "text": "Exactly what each portion costs",
+              "correct": true
+            },
+            {
+              "text": "How many guests will come",
+              "why": "That is forecasting, not a costing."
+            },
+            {
+              "text": "How long the dish takes to cook",
+              "why": "That belongs to the recipe method."
+            },
+            {
+              "text": "Net profit after wages and rent",
+              "why": "Food costing gives gross profit. Net profit also needs other costs."
+            }
+          ]
+        },
+        {
+          "id": "term",
+          "prompt": "Selling price minus food cost is called:",
+          "options": [
+            {
+              "text": "Gross profit",
+              "correct": true
+            },
+            {
+              "text": "Net profit",
+              "why": "Net profit also takes off labour and overheads."
+            },
+            {
+              "text": "Food cost percentage",
+              "why": "That is food cost as a share of selling price."
+            },
+            {
+              "text": "Total sales",
+              "why": "That is all the money taken."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cpp",
+          "prompt": "Food for {n} portions costs N{t}. What is the cost per portion, in naira?",
+          "formula": "t / n",
+          "vars": {
+            "t": {
+              "min": 1800,
+              "max": 3600,
+              "step": 600
+            },
+            "n": {
+              "min": 3,
+              "max": 6,
+              "step": 3
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{t} ÷ {n} = N{answer}."
+        },
+        {
+          "id": "sp",
+          "prompt": "Cost per portion is N{c}. With a food cost of {f}%, what is the selling price, in naira?",
+          "formula": "c / (f / 100)",
+          "vars": {
+            "c": {
+              "min": 400,
+              "max": 900,
+              "step": 100
+            },
+            "f": {
+              "min": 40,
+              "max": 50,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {f}/100 = N{answer}."
+        },
+        {
+          "id": "gpp",
+          "prompt": "A dish sells at N{s} and its food cost is N{c}. What is the gross profit as a percentage of the selling price?",
+          "formula": "(s - c) / s * 100",
+          "vars": {
+            "s": {
+              "min": 1000,
+              "max": 2000,
+              "step": 500
+            },
+            "c": {
+              "min": 400,
+              "max": 600,
+              "step": 100
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "GP = {s} − {c}. GP ÷ {s} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "jollof",
+          "scenario": "Nkechi costed jollof rice for her school canteen and made a loss. Here is her sheet.",
+          "lines": [
+            {
+              "text": "She multiplied the cost per portion by the food-cost percentage to get the selling price.",
+              "fault": true,
+              "why": "You must divide by the percentage, not multiply."
+            },
+            {
+              "text": "She left out oil, salt and seasoning cubes.",
+              "fault": true,
+              "why": "All items count, even small ones."
+            },
+            {
+              "text": "She used prices from last year.",
+              "fault": true,
+              "why": "Use current prices."
+            },
+            {
+              "text": "She divided the total food cost by the number of portions.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She wrote the formula before putting in the numbers.",
+              "why": "That is correct and earns marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for costing a dish correctly.",
+        "explainPrompt": "Why does a caterer divide by the food-cost percentage instead of multiplying by it?",
+        "explainGuide": "Food cost is only a part of the selling price. Dividing the cost by the percentage gives the larger whole price, while multiplying gives a figure below the cost.",
+        "explainKeywords": [
+          [
+            "part",
+            "share",
+            "percent"
+          ],
+          [
+            "divid"
+          ],
+          [
+            "selling",
+            "price"
+          ],
+          [
+            "multipl",
+            "below",
+            "less"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Dish costing",
+        "Cost per portion",
+        "Food cost %, selling price, gross profit"
+      ]
+    },
+    "pr-ccp-portion-control-yield": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Cut towards your body because the beef is easier to hold that way.",
+            "why": "The knife can slip into you. Cut away from your body."
+          },
+          {
+            "text": "Keep the raw beef on the same tray as the cooked meat to weigh them together.",
+            "why": "Raw juices contaminate cooked meat. Keep them separate."
+          },
+          {
+            "text": "Leave the beef on the bench between weighings so that it is handy.",
+            "why": "Raw meat must stay chilled."
+          },
+          {
+            "text": "Use a blunt boning knife because it is less dangerous.",
+            "why": "Blunt knives slip. Use a sharp one."
+          },
+          {
+            "text": "Weigh the cooked meat on the scale without cleaning it after the raw meat.",
+            "why": "Raw juices pass to the cooked meat. Clean the scale or use a clean tray."
+          },
+          {
+            "text": "Taste the cooked meat using the fork you trimmed the raw meat with.",
+            "why": "That carries raw germs into your mouth. Use a clean utensil."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bread knife",
+            "why": "It tears raw meat: use the boning knife."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "There is no pastry in this job."
+          },
+          {
+            "name": "Vegetable peeler",
+            "why": "It cannot trim meat."
+          },
+          {
+            "name": "Measuring tape",
+            "why": "Meat yield is by mass, not by length."
+          },
+          {
+            "name": "Cocktail shaker",
+            "why": "It belongs at the bar."
+          },
+          {
+            "name": "Fish scaler",
+            "why": "It has no use on beef."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "weigh",
+          "afterStep": 1,
+          "prompt": "You have bought 5 kg of beef. What do you do before any knife touches it?",
+          "options": [
+            {
+              "text": "Weigh it and record the cost",
+              "correct": true,
+              "consequence": "Every later percentage depends on this mass."
+            },
+            {
+              "text": "Start trimming, and estimate the mass later",
+              "consequence": "You lose your starting figure and cannot work out the loss."
+            },
+            {
+              "text": "Cook it first and trim it when it is soft",
+              "consequence": "The trimming loss and cooking loss would be mixed together."
+            }
+          ]
+        },
+        {
+          "id": "stage",
+          "afterStep": 2,
+          "prompt": "You have trimmed the beef. What is the next action for an accurate test?",
+          "options": [
+            {
+              "text": "Weigh the trimmed meat before cooking",
+              "correct": true,
+              "consequence": "You can show each loss separately."
+            },
+            {
+              "text": "Go straight to the pot and weigh at the end",
+              "consequence": "You can no longer separate trimming loss from cooking loss."
+            },
+            {
+              "text": "Estimate 15% from the price list",
+              "consequence": "Different cuts lose different amounts, so measure it."
+            }
+          ]
+        },
+        {
+          "id": "true",
+          "afterStep": 5,
+          "prompt": "You have 31 cooked 100 g portions from N30,000 of beef. What is the true cost per portion?",
+          "options": [
+            {
+              "text": "N30,000 ÷ 31",
+              "correct": true,
+              "consequence": "That gives about N968, because you paid for all the meat you lost."
+            },
+            {
+              "text": "N30,000 ÷ 50",
+              "consequence": "50 is raw-mass portions. Trimming and cooking losses are ignored, so the cost looks too low."
+            },
+            {
+              "text": "N6,000 ÷ 10",
+              "consequence": "That is the raw price per 100 g, before any loss."
+            }
+          ]
+        },
+        {
+          "id": "serve",
+          "afterStep": 6,
+          "prompt": "Service is starting. How do you serve 100 g portions?",
+          "options": [
+            {
+              "text": "With scales and standard ladles or scoops",
+              "correct": true,
+              "consequence": "Each customer gets the same, and the costing holds."
+            },
+            {
+              "text": "By eye, with a generous hand",
+              "consequence": "Over-portioning loses money and you run out."
+            },
+            {
+              "text": "With whichever spoon is nearest",
+              "consequence": "Unequal portions spoil cost control."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "losses",
+          "prompt": "What does the yield test show?",
+          "options": [
+            {
+              "text": "The usable mass is well below the mass bought",
+              "correct": true
+            },
+            {
+              "text": "Trimming loses mass, but cooking adds it back",
+              "why": "Cooking also loses water and fat."
+            },
+            {
+              "text": "Cooked mass equals the mass bought",
+              "why": "Both trimming and cooking lose mass."
+            },
+            {
+              "text": "Only fat is ever lost",
+              "why": "Gristle, bone and water are lost as well."
+            }
+          ]
+        },
+        {
+          "id": "aid",
+          "prompt": "Which of these is an aid to portion control?",
+          "options": [
+            {
+              "text": "A standard ladle",
+              "correct": true
+            },
+            {
+              "text": "A bigger serving plate",
+              "why": "That hides the portion, it does not control it."
+            },
+            {
+              "text": "A blunt knife",
+              "why": "That only makes uneven cuts."
+            },
+            {
+              "text": "Filling plates by eye",
+              "why": "That is guessing."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "trim",
+          "prompt": "{k} kg of beef loses {t}% in trimming. What is the trimmed mass?",
+          "formula": "k * (1 - t / 100)",
+          "vars": {
+            "k": {
+              "min": 4,
+              "max": 10,
+              "step": 1
+            },
+            "t": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{k} × (100 − {t})/100 = {answer} kg."
+        },
+        {
+          "id": "cook",
+          "prompt": "{k} kg of beef loses 15% in trimming and then 25% in cooking. What is the cooked mass?",
+          "formula": "k * 0.85 * 0.75",
+          "vars": {
+            "k": {
+              "min": 4,
+              "max": 8,
+              "step": 2
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{k} × 0.85 × 0.75 = {answer} kg."
+        },
+        {
+          "id": "cost",
+          "prompt": "Beef costing N{t} gives {n} full portions. What is the true cost per portion, in naira?",
+          "formula": "t / n",
+          "vars": {
+            "t": {
+              "min": 24000,
+              "max": 36000,
+              "step": 6000
+            },
+            "n": {
+              "min": 25,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{t} ÷ {n} = N{answer}."
+        },
+        {
+          "id": "overall",
+          "prompt": "You buy {b} kg of beef and get {c} kg cooked. What is the overall yield percentage?",
+          "formula": "c / b * 100",
+          "vars": {
+            "b": {
+              "min": 4,
+              "max": 6,
+              "step": 1
+            },
+            "c": {
+              "min": 2.5,
+              "max": 3.5,
+              "step": 0.5
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "{c} ÷ {b} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "canteen",
+          "scenario": "Musa worked out the portions from 5 kg of beef and overspent. Here is what he did.",
+          "lines": [
+            {
+              "text": "He said 5 kg would give 50 portions of 100 g.",
+              "fault": true,
+              "why": "That ignores trimming and cooking losses."
+            },
+            {
+              "text": "He took the two losses together without showing each step.",
+              "fault": true,
+              "why": "Show each loss step separately."
+            },
+            {
+              "text": "He served by eye.",
+              "fault": true,
+              "why": "Use scales and standard ladles or scoops."
+            },
+            {
+              "text": "He weighed the meat at each stage.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He counted only full 100 g portions.",
+              "why": "That is correct: a part portion cannot be served."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a yield test on meat.",
+        "explainPrompt": "Why is the true cost per portion higher than the raw price suggests?",
+        "explainGuide": "Trimming and cooking both lose mass, so there are fewer portions than the purchased mass suggests. The full purchase cost must be divided by the actual cooked portions.",
+        "explainKeywords": [
+          [
+            "trim",
+            "cook"
+          ],
+          [
+            "loss",
+            "lose",
+            "lost",
+            "fewer"
+          ],
+          [
+            "portion"
+          ],
+          [
+            "cost",
+            "divid"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Yield test on beef",
+        "Weigh at every stage",
+        "Show each loss separately"
+      ]
+    },
+    "pr-ccp-menu-writing": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Leave groundnuts out of the dish name to keep the menu short.",
+            "why": "A guest with an allergy could eat it. Allergens must be marked on the menu."
+          },
+          {
+            "text": "Tell a guest with a shellfish allergy that a little crayfish does no harm.",
+            "why": "Even a small amount can cause a dangerous reaction. Tell the truth and offer a safe dish."
+          },
+          {
+            "text": "Write 'contains no nuts' without checking with the kitchen.",
+            "why": "A false allergy claim is dangerous. Check every ingredient."
+          },
+          {
+            "text": "Change the recipe at the last minute without updating the allergen note.",
+            "why": "The menu no longer tells the truth. Update it."
+          },
+          {
+            "text": "Serve a dish with the same name but swap in prawns without telling the guests.",
+            "why": "Guests rely on the menu. Hidden shellfish can harm an allergic guest."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rolling pin",
+            "why": "This is planning, not cooking."
+          },
+          {
+            "name": "Chef's knife",
+            "why": "Nothing is prepared at this stage."
+          },
+          {
+            "name": "Oven thermometer",
+            "why": "Nothing is cooked here."
+          },
+          {
+            "name": "Soup ladle",
+            "why": "Nothing is being served."
+          },
+          {
+            "name": "Stock pot",
+            "why": "Nothing is being cooked here."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is being timed at the planning stage."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "brief",
+          "afterStep": 1,
+          "prompt": "A client wants a function menu. What must you find out before picking a dish?",
+          "options": [
+            {
+              "text": "Occasion, guest numbers, budget, season and diets",
+              "correct": true,
+              "consequence": "A menu that fits the event and any special needs."
+            },
+            {
+              "text": "The chef's favourite dishes and what is easiest to cook",
+              "consequence": "The client's needs come first."
+            },
+            {
+              "text": "Which dishes are the costliest",
+              "consequence": "Cost must match the budget, not impress."
+            }
+          ]
+        },
+        {
+          "id": "sequence",
+          "afterStep": 2,
+          "prompt": "Which order of courses is correct?",
+          "options": [
+            {
+              "text": "Starter, soup, main course, sweet, coffee",
+              "correct": true,
+              "consequence": "That is the classical sequence."
+            },
+            {
+              "text": "Soup, sweet, starter, main course, coffee",
+              "consequence": "Courses out of order is a common mistake."
+            },
+            {
+              "text": "Main course, starter, soup, coffee, sweet",
+              "consequence": "The main course cannot come first."
+            }
+          ]
+        },
+        {
+          "id": "balance",
+          "afterStep": 3,
+          "prompt": "Your first draft has fried fish, then fried chicken, then fried plantain. What do you do?",
+          "options": [
+            {
+              "text": "Vary the cooking methods and main ingredients",
+              "correct": true,
+              "consequence": "Colour, texture and flavour now complement each other."
+            },
+            {
+              "text": "Keep it, because guests like fried food",
+              "consequence": "Repeated methods make a heavy, dull meal."
+            },
+            {
+              "text": "Add more fried dishes so that it looks generous",
+              "consequence": "That makes the problem worse."
+            }
+          ]
+        },
+        {
+          "id": "heavy",
+          "afterStep": 3,
+          "prompt": "The draft has a pounded yam starter and jollof rice with the main. What is the problem?",
+          "options": [
+            {
+              "text": "Two heavy starchy courses sit together",
+              "correct": true,
+              "consequence": "Guests feel overfull. Lighten one course."
+            },
+            {
+              "text": "There is too little starch",
+              "consequence": "It has too much, not too little."
+            },
+            {
+              "text": "Pounded yam cannot be on a menu",
+              "consequence": "It can: the trouble is pairing two heavy starches."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "features",
+          "prompt": "Which of these describes a table d'hôte menu?",
+          "options": [
+            {
+              "text": "A fixed number of courses at a set price",
+              "correct": true
+            },
+            {
+              "text": "Every dish is priced separately",
+              "why": "That is à la carte."
+            },
+            {
+              "text": "Unlimited choice of dishes",
+              "why": "Table d'hôte has limited choice."
+            },
+            {
+              "text": "The dish of the day only",
+              "why": "That is plat du jour."
+            }
+          ]
+        },
+        {
+          "id": "layout",
+          "prompt": "Which menu card earns the layout marks?",
+          "options": [
+            {
+              "text": "Neat, centred, spelt correctly, in one language",
+              "correct": true
+            },
+            {
+              "text": "Crowded to the left with dishes in mixed languages",
+              "why": "Do not mix languages within a dish name."
+            },
+            {
+              "text": "Handwritten with crossings-out and no courses shown",
+              "why": "Layout carries marks."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "head",
+          "prompt": "Food for {n} guests costs N{t}. What is the food cost per head, in naira?",
+          "formula": "t / n",
+          "vars": {
+            "t": {
+              "min": 120000,
+              "max": 240000,
+              "step": 30000
+            },
+            "n": {
+              "min": 30,
+              "max": 60,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{t} ÷ {n} = N{answer}."
+        },
+        {
+          "id": "price",
+          "prompt": "Food cost per head is N{c}. At a 40% food cost, what is the price per head, in naira?",
+          "formula": "c / 0.4",
+          "vars": {
+            "c": {
+              "min": 2000,
+              "max": 4000,
+              "step": 500
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ 0.40 = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wedding",
+          "scenario": "Tobi wrote a table d'hôte menu for a wedding. The client sent it back. Here is what was wrong and right.",
+          "lines": [
+            {
+              "text": "He placed the sweet before the main course.",
+              "fault": true,
+              "why": "Courses must follow the classical order."
+            },
+            {
+              "text": "He had rice in the starter and rice again in the main course.",
+              "fault": true,
+              "why": "Avoid repeating an ingredient in successive courses."
+            },
+            {
+              "text": "He wrote 'Soupe of the Day with crevettes' on the card.",
+              "fault": true,
+              "why": "Do not mix languages in a dish name."
+            },
+            {
+              "text": "He marked the groundnut dishes as containing nuts.",
+              "why": "That is correct: allergens must be shown."
+            },
+            {
+              "text": "He checked how many guests were coming and what the budget was.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when writing a menu.",
+        "explainPrompt": "Why should a menu avoid repeating ingredients or cooking methods in successive courses?",
+        "explainGuide": "Variety in colour, texture, flavour and method keeps the meal interesting and balanced, while repeats make it dull or heavy.",
+        "explainKeywords": [
+          [
+            "varied",
+            "variety",
+            "balance",
+            "different"
+          ],
+          [
+            "colour",
+            "texture",
+            "flavour"
+          ],
+          [
+            "dull",
+            "heavy",
+            "interest",
+            "boring"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Writing a table d'hôte menu",
+        "Balance colour, texture and flavour",
+        "Mark allergens"
+      ]
+    },
+    "pr-ccp-special-menus": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Stir the vegetable dish with the spoon you just used on the meat stew.",
+            "why": "That brings meat into a vegetarian dish. Keep utensils separate."
+          },
+          {
+            "text": "Fry the vegetarians' plantain in the oil used for the fish.",
+            "why": "Traces of fish pass into the food. Use clean oil and a clean pan."
+          },
+          {
+            "text": "Use meat stock in the vegetable sauce because nobody will taste it.",
+            "why": "A vegetarian has been misled. Use vegetable stock."
+          },
+          {
+            "text": "Keep the moin-moin warm on the bench all afternoon.",
+            "why": "Cooked food left warm can grow bacteria. Serve it hot or chill it."
+          },
+          {
+            "text": "Use the board from the raw fish for the vegetable salad after a wipe.",
+            "why": "A wipe does not clean a board. Use a clean, separate one."
+          },
+          {
+            "text": "Serve a vegan a sauce made with lard and call it a vegetable dish.",
+            "why": "Lard is an animal fat. Avoid it in vegetarian and vegan dishes."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Piping bag",
+            "why": "There is no icing or cream work in these menus."
+          },
+          {
+            "name": "Punch bowl",
+            "why": "This is a lunch menu, not a drinks service."
+          },
+          {
+            "name": "Deep-fat fryer",
+            "why": "None of these menus needs deep frying, and it adds oil."
+          },
+          {
+            "name": "Ice bucket",
+            "why": "It is not needed for lunch dishes."
+          },
+          {
+            "name": "Cocktail shaker",
+            "why": "It belongs at the bar."
+          },
+          {
+            "name": "Trussing needle",
+            "why": "No bird is being trussed."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "veg",
+          "afterStep": 1,
+          "prompt": "You are planning protein for a vegetarian lunch. What should you combine?",
+          "options": [
+            {
+              "text": "Beans with rice or maize",
+              "correct": true,
+              "consequence": "Legumes and cereals complement each other's amino acids."
+            },
+            {
+              "text": "Yam with plantain and a little pepper",
+              "consequence": "That is starch with starch, a classic mistake."
+            },
+            {
+              "text": "Rice with garri",
+              "consequence": "Two starchy foods give little good protein."
+            }
+          ]
+        },
+        {
+          "id": "lunch",
+          "afterStep": 2,
+          "prompt": "How do you estimate the energy for the lunch?",
+          "options": [
+            {
+              "text": "About one-third of the daily need",
+              "correct": true,
+              "consequence": "Then the menu can be sized for each worker."
+            },
+            {
+              "text": "The whole of the daily need",
+              "consequence": "One meal would hold a full day's energy."
+            },
+            {
+              "text": "About one-tenth of the daily need",
+              "consequence": "That is far too little for a main meal."
+            }
+          ]
+        },
+        {
+          "id": "manual",
+          "afterStep": 3,
+          "prompt": "Which lunch suits a bricklayer?",
+          "options": [
+            {
+              "text": "Pounded yam, egusi soup with fish",
+              "correct": true,
+              "consequence": "It is energy-dense for heavy physical work."
+            },
+            {
+              "text": "Boiled yam with vegetable sauce and fruit",
+              "consequence": "That lighter plate suits a sedentary worker."
+            },
+            {
+              "text": "A small vegetable salad alone",
+              "consequence": "Far too little energy for manual work."
+            }
+          ]
+        },
+        {
+          "id": "sedentary",
+          "afterStep": 3,
+          "prompt": "A bank clerk sits all day. Which adjustment fits?",
+          "options": [
+            {
+              "text": "Less oil, more vegetables and fibre",
+              "correct": true,
+              "consequence": "Sedentary workers need less energy and more fibre."
+            },
+            {
+              "text": "More fried food for strength",
+              "consequence": "Extra energy gets stored as fat."
+            },
+            {
+              "text": "Double the pounded yam",
+              "consequence": "That is more energy than the job needs."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "compare",
+          "prompt": "You set the three meals side by side. What should the examiner see?",
+          "options": [
+            {
+              "text": "The manual worker's meal is the largest and most energy-dense",
+              "correct": true
+            },
+            {
+              "text": "All three are the same size",
+              "why": "Needs differ, so the meals differ."
+            },
+            {
+              "text": "The sedentary worker's meal is the heaviest and most energy-dense",
+              "why": "It should be the lightest."
+            },
+            {
+              "text": "The vegetarian meal has no protein",
+              "why": "It combines legumes and cereals for protein."
+            }
+          ]
+        },
+        {
+          "id": "vegan",
+          "prompt": "A guest is a strict vegan. Which ingredient must you avoid as well as meat?",
+          "options": [
+            {
+              "text": "Eggs and milk",
+              "correct": true
+            },
+            {
+              "text": "Beans",
+              "why": "Beans are plant food."
+            },
+            {
+              "text": "Vegetable oil",
+              "why": "Plant oil is fine."
+            },
+            {
+              "text": "Rice",
+              "why": "Rice is plant food."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "third",
+          "prompt": "A worker needs {e} kcal a day. Lunch is one-third of the day. How many kilocalories is lunch?",
+          "formula": "e / 3",
+          "vars": {
+            "e": {
+              "min": 2100,
+              "max": 3600,
+              "step": 300
+            }
+          },
+          "unit": "kcal",
+          "unitAliases": [
+            "kilocalories"
+          ],
+          "tolerance": {
+            "abs": 2
+          },
+          "decimals": 0,
+          "working": "{e} ÷ 3 = {answer} kcal."
+        },
+        {
+          "id": "gap",
+          "prompt": "A manual worker needs 3,300 kcal a day and a sedentary worker {s} kcal. How many more kilocalories does the manual worker need at lunch, at one-third of the day?",
+          "formula": "(3300 - s) / 3",
+          "vars": {
+            "s": {
+              "min": 2100,
+              "max": 2400,
+              "step": 300
+            }
+          },
+          "unit": "kcal",
+          "unitAliases": [
+            "kilocalories"
+          ],
+          "tolerance": {
+            "abs": 2
+          },
+          "decimals": 0,
+          "working": "(3,300 − {s}) ÷ 3 = {answer} kcal."
+        }
+      ],
+      "faults": [
+        {
+          "id": "canteen-menu",
+          "scenario": "Hauwa planned three lunches for a factory canteen. Here is her work.",
+          "lines": [
+            {
+              "text": "She gave the vegetarians plain yam and rice with no legumes.",
+              "fault": true,
+              "why": "Giving vegetarians only starchy food is a named mistake."
+            },
+            {
+              "text": "She made the vegetarian soup with chicken stock.",
+              "fault": true,
+              "why": "Meat stock has no place in a vegetarian dish."
+            },
+            {
+              "text": "She gave the sedentary worker more oil than the manual worker.",
+              "fault": true,
+              "why": "Sedentary workers need less energy, so use less oil."
+            },
+            {
+              "text": "She used moin-moin in the vegetarian meal.",
+              "why": "That is correct: beans are a good protein source."
+            },
+            {
+              "text": "She justified each dish by naming its nutrients.",
+              "why": "That is correct and earns marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing vegetarian dishes.",
+        "explainPrompt": "Why does a manual worker need a larger meal than a sedentary worker?",
+        "explainGuide": "Heavy physical work uses far more energy, so the manual worker's meal must supply more. A sedentary worker uses less and would store the extra as fat.",
+        "explainKeywords": [
+          [
+            "energy",
+            "kcal",
+            "calor"
+          ],
+          [
+            "physical",
+            "work",
+            "activ"
+          ],
+          [
+            "more",
+            "larger",
+            "less"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Menus for different needs",
+        "Vegetarian. Manual. Sedentary.",
+        "Give a reason for each dish."
+      ]
+    },
+    "pr-ccp-accompaniments": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Leave the coleslaw on the table from breakfast until the lunch service.",
+            "why": "Mayonnaise items spoil at room temperature. Keep them chilled below 5 °C."
+          },
+          {
+            "text": "Take the guard off the mandolin so that you can shred faster.",
+            "why": "The blade will take your fingertips. Use the guard."
+          },
+          {
+            "text": "Mix the sauce with your bare hands because it is quicker.",
+            "why": "Hands add germs to a food that gets no more cooking. Use a clean spoon."
+          },
+          {
+            "text": "Top up the half-empty sauce boat with fresh sauce and put it back out.",
+            "why": "Old sauce contaminates the new. Use a clean boat."
+          },
+          {
+            "text": "Use the chicken board to chop the parsley for the tartare sauce.",
+            "why": "Raw meat germs reach food that is not cooked. Use a clean board."
+          },
+          {
+            "text": "Taste the mayonnaise with your finger and return it to the bowl.",
+            "why": "That puts germs in a chilled food that gets no further cooking."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Deep-fat fryer",
+            "why": "Nothing here is fried."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "It has no use in these cold items."
+          },
+          {
+            "name": "Carving fork",
+            "why": "It is for roast meat."
+          },
+          {
+            "name": "Trussing string",
+            "why": "Nothing is being trussed."
+          },
+          {
+            "name": "Oven tray",
+            "why": "These are cold accompaniments."
+          },
+          {
+            "name": "Soup tureen",
+            "why": "Sauces go in sauce boats on underplates."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "pair",
+          "afterStep": 1,
+          "prompt": "Fried fish is on the menu. Which accompaniment do you match to it?",
+          "options": [
+            {
+              "text": "Tartare sauce and lemon",
+              "correct": true,
+              "consequence": "That is the classic pairing."
+            },
+            {
+              "text": "Mint sauce",
+              "consequence": "Serving the wrong sauce, such as mint with fish, is a named mistake."
+            },
+            {
+              "text": "Horseradish sauce and Yorkshire pudding",
+              "consequence": "Those go with roast beef."
+            }
+          ]
+        },
+        {
+          "id": "suya",
+          "afterStep": 1,
+          "prompt": "A guest orders suya. What is the correct accompaniment?",
+          "options": [
+            {
+              "text": "Sliced onions and yaji pepper",
+              "correct": true,
+              "consequence": "That is what suya is served with."
+            },
+            {
+              "text": "Tartare sauce and lemon",
+              "consequence": "That goes with fried fish."
+            },
+            {
+              "text": "Eba and okra soup",
+              "consequence": "Swallows go with soups."
+            }
+          ]
+        },
+        {
+          "id": "time",
+          "afterStep": 2,
+          "prompt": "Service is at 1 p.m. When do you make the tartare sauce and coleslaw?",
+          "options": [
+            {
+              "text": "Close to service, then keep them chilled",
+              "correct": true,
+              "consequence": "Cold sauces stay fresh and safe."
+            },
+            {
+              "text": "The evening before, left out to blend",
+              "consequence": "Mayonnaise left at room temperature is a food poisoning risk."
+            },
+            {
+              "text": "At 8 a.m., on a shelf by the stove",
+              "consequence": "Warm storage gives bacteria hours to multiply."
+            }
+          ]
+        },
+        {
+          "id": "lay",
+          "afterStep": 4,
+          "prompt": "How do you put sauces on the table?",
+          "options": [
+            {
+              "text": "In sauce boats with underplates",
+              "correct": true,
+              "consequence": "That is the correct table service."
+            },
+            {
+              "text": "In the catering tins they came in",
+              "consequence": "That looks careless."
+            },
+            {
+              "text": "Poured straight on to each guest's plate",
+              "consequence": "The guest should choose how much."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "adds",
+          "prompt": "What do correctly matched accompaniments add to a dish?",
+          "options": [
+            {
+              "text": "Flavour, colour, texture and nutritive value",
+              "correct": true
+            },
+            {
+              "text": "Only extra cost",
+              "why": "They add more than that, and they improve the dish."
+            },
+            {
+              "text": "Only more salt",
+              "why": "They do a lot more than season."
+            },
+            {
+              "text": "They hide food that is not fresh or has lost flavour",
+              "why": "They complement a good dish. They do not hide bad food."
+            }
+          ]
+        },
+        {
+          "id": "terms",
+          "prompt": "Salt, pepper and sauces set out on the table are:",
+          "options": [
+            {
+              "text": "Table accompaniments",
+              "correct": true
+            },
+            {
+              "text": "Food accompaniments",
+              "why": "Those are served with the dish."
+            },
+            {
+              "text": "Garnishes",
+              "why": "Garnishes decorate the dish itself."
+            },
+            {
+              "text": "Hors d'oeuvres",
+              "why": "Those are starters."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "slaw",
+          "prompt": "How many grams of coleslaw are needed for {n} portions of 60 g each?",
+          "formula": "n * 60",
+          "vars": {
+            "n": {
+              "min": 15,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 60 = {answer} g."
+        },
+        {
+          "id": "buy",
+          "prompt": "You need {m} g of coleslaw vegetables and the trimming yield is 80%. How much must you buy?",
+          "formula": "m / 0.8",
+          "vars": {
+            "m": {
+              "min": 800,
+              "max": 2000,
+              "step": 200
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "{m} ÷ 0.8 = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "buffet",
+          "scenario": "Grace prepared accompaniments for a buffet. Here is what her supervisor recorded.",
+          "lines": [
+            {
+              "text": "She left the mayonnaise salad on the buffet in the warm hall all afternoon.",
+              "fault": true,
+              "why": "Mayonnaise items must stay chilled."
+            },
+            {
+              "text": "She put mint sauce beside the fried fish.",
+              "fault": true,
+              "why": "That is the wrong accompaniment."
+            },
+            {
+              "text": "She removed the mandolin guard to speed up.",
+              "fault": true,
+              "why": "Use the guard at all times."
+            },
+            {
+              "text": "She shredded the cabbage finely.",
+              "why": "That is correct for coleslaw."
+            },
+            {
+              "text": "She bound the coleslaw with mayonnaise and seasoned it.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing cold accompaniments.",
+        "explainPrompt": "What is the difference between a food accompaniment and a table accompaniment?",
+        "explainGuide": "A food accompaniment is served with a particular dish, such as tartare sauce with fried fish. A table accompaniment, such as a cruet, stays on the table for guests to use.",
+        "explainKeywords": [
+          [
+            "dish",
+            "served with"
+          ],
+          [
+            "table",
+            "cruet"
+          ],
+          [
+            "guest",
+            "salt",
+            "sauce"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Food and table accompaniments",
+        "Match them to the dish",
+        "Keep cold items cold"
+      ]
+    },
+    "pr-ccp-non-alcoholic-drinks": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Scoop the ice with a drinking glass when the tongs are not close by.",
+            "why": "The glass can chip into the ice, and nobody sees it. Use tongs or a scoop."
+          },
+          {
+            "text": "Serve from a glass with a small chip if it is the last one left.",
+            "why": "A chip can cut a guest's lip. Use only sound glassware."
+          },
+          {
+            "text": "Grab a handful of ice cubes after washing your hands.",
+            "why": "Hands contaminate ice. Use tongs or a scoop."
+          },
+          {
+            "text": "Hold each glass by the rim as you put it down.",
+            "why": "Fingers touch the part the guest drinks from. Hold it by the base."
+          },
+          {
+            "text": "Use a knife to chip at the block of ice in your hand.",
+            "why": "The blade can slip into your hand. Use the proper tools."
+          },
+          {
+            "text": "Serve chapman with bitters to a strict non-drinker without telling them.",
+            "why": "Angostura contains a little alcohol. Omit it for strictly non-alcoholic service."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Stock pot",
+            "why": "It has no part in bar work."
+          },
+          {
+            "name": "Wine corkscrew",
+            "why": "No bottle of wine is opened for this drink."
+          },
+          {
+            "name": "Fish slice",
+            "why": "It belongs to the kitchen."
+          },
+          {
+            "name": "Beer tankard",
+            "why": "This service uses highball glasses or tumblers."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "It has no use at the bar."
+          },
+          {
+            "name": "Roasting tray",
+            "why": "It belongs to the kitchen."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "chill",
+          "afterStep": 1,
+          "prompt": "You have identified the bar equipment. What comes before mixing?",
+          "options": [
+            {
+              "text": "Chill all the drinks and the glasses",
+              "correct": true,
+              "consequence": "The drinks stay cold with less ice to dilute them."
+            },
+            {
+              "text": "Mix everything warm and rely on ice",
+              "consequence": "The ice melts quickly and the drink turns weak."
+            },
+            {
+              "text": "Pour the drinks and leave them standing",
+              "consequence": "They go warm and flat before service."
+            }
+          ]
+        },
+        {
+          "id": "soda",
+          "afterStep": 4,
+          "prompt": "You are making the punch for a 2 p.m. reception. When do the soda water and ice go in?",
+          "options": [
+            {
+              "text": "Just before serving",
+              "correct": true,
+              "consequence": "The punch stays cold and fizzy."
+            },
+            {
+              "text": "At 9 a.m., to save time",
+              "consequence": "The ice melts and the soda goes flat."
+            },
+            {
+              "text": "Soda early, ice when guests come",
+              "consequence": "The soda loses its fizz."
+            }
+          ]
+        },
+        {
+          "id": "measure",
+          "afterStep": 3,
+          "prompt": "The bar is busy and the guests are waiting. How do you pour the chapman?",
+          "options": [
+            {
+              "text": "Use a jigger, so that each glass tastes the same",
+              "correct": true,
+              "consequence": "Measuring gives a consistent drink."
+            },
+            {
+              "text": "Free-pour by eye to save time",
+              "consequence": "Glasses will differ in taste and cost."
+            },
+            {
+              "text": "Fill the glass with lime drink alone",
+              "consequence": "The recipe is equal parts orange and lemon/lime."
+            }
+          ]
+        },
+        {
+          "id": "serve",
+          "afterStep": 5,
+          "prompt": "How do you put the drink in front of a guest?",
+          "options": [
+            {
+              "text": "From the right, holding the glass by its base",
+              "correct": true,
+              "consequence": "That is correct service and it is hygienic."
+            },
+            {
+              "text": "From the left, holding the rim",
+              "consequence": "Fingers on the rim are unhygienic, and the side is wrong."
+            },
+            {
+              "text": "Reaching across another guest, holding the stem",
+              "consequence": "Reaching across a guest is poor service."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "ready",
+          "prompt": "Which chapman meets the standard?",
+          "options": [
+            {
+              "text": "Cold, garnished with cucumber and orange, and correctly measured",
+              "correct": true
+            },
+            {
+              "text": "Warm and flat, with no garnish",
+              "why": "Chill the drinks, and add ice and garnish."
+            },
+            {
+              "text": "Weak and watery from ice left to melt",
+              "why": "Melting ice dilutes drinks."
+            },
+            {
+              "text": "Full of ice chips and a broken glass edge, but cold and well garnished",
+              "why": "Broken glass makes it unsafe."
+            }
+          ]
+        },
+        {
+          "id": "class",
+          "prompt": "Which of these is a non-alcoholic beverage?",
+          "options": [
+            {
+              "text": "Mineral water",
+              "correct": true
+            },
+            {
+              "text": "Spirit with a mixer",
+              "why": "Spirits are alcoholic."
+            },
+            {
+              "text": "Liqueur",
+              "why": "Liqueurs are alcoholic."
+            },
+            {
+              "text": "Wine",
+              "why": "Wine is alcoholic."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "batch",
+          "prompt": "How many litres of punch are needed for {n} guests at 200 ml each?",
+          "formula": "n * 200 / 1000",
+          "vars": {
+            "n": {
+              "min": 15,
+              "max": 60,
+              "step": 5
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 1,
+          "working": "{n} × 200 ml ÷ 1,000 = {answer} litres."
+        },
+        {
+          "id": "glasses",
+          "prompt": "How many 200 ml glasses does {v} litres of punch fill?",
+          "formula": "v * 1000 / 200",
+          "vars": {
+            "v": {
+              "min": 2,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "glasses",
+          "unitAliases": [
+            "glass"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{v} × 1,000 ÷ 200 = {answer} glasses."
+        }
+      ],
+      "faults": [
+        {
+          "id": "party",
+          "scenario": "Emeka ran the drinks table at a party. Guests complained that the chapman was warm and weak. Here is what happened.",
+          "lines": [
+            {
+              "text": "He put ice in the punch bowl an hour before guests came.",
+              "fault": true,
+              "why": "Melting ice dilutes the drink. Add it just before serving."
+            },
+            {
+              "text": "He scooped ice with a glass.",
+              "fault": true,
+              "why": "It can chip into the ice. Use tongs or a scoop."
+            },
+            {
+              "text": "He poured by eye, so no two glasses were the same.",
+              "fault": true,
+              "why": "Measure ingredients for consistency."
+            },
+            {
+              "text": "He garnished each glass with cucumber and orange slices.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He left out the bitters for guests who wanted no alcohol.",
+              "why": "That is correct: Angostura contains a little alcohol."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing and serving non-alcoholic drinks.",
+        "explainPrompt": "Why are soda water and ice added to punch only at the last moment?",
+        "explainGuide": "Added too early, the soda loses its fizz and the ice melts and dilutes the drink. Last-minute addition keeps it cold and fizzy.",
+        "explainKeywords": [
+          [
+            "fizz",
+            "gas",
+            "flat"
+          ],
+          [
+            "melt",
+            "dilut",
+            "water"
+          ],
+          [
+            "cold"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Non-alcoholic drinks",
+        "Chapman and fruit punch",
+        "Measure. Chill. Ice last."
+      ]
+    },
+    "pr-ccp-equipment-care": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Drain the fryer straight after service while the oil is still runny.",
+            "why": "Hot oil causes serious burns. Switch off and let it cool completely."
+          },
+          {
+            "text": "Wipe the mixer with a wet cloth while it is plugged in.",
+            "why": "Water and live electricity can give a shock. Unplug it first."
+          },
+          {
+            "text": "Pour the fryer's rinse water out and refill while the pan is still wet.",
+            "why": "Water in hot oil spits and can cause a flare. Dry it fully."
+          },
+          {
+            "text": "Scrub stainless steel with sand or a rough scourer.",
+            "why": "Abrasives scratch it, and scratches hold germs. Use a soft cloth."
+          },
+          {
+            "text": "Put raw meat above cooked food to make more room.",
+            "why": "Raw juices drip on to cooked food. Store raw below cooked."
+          },
+          {
+            "text": "Reach into the slicer to clear a blockage while it is plugged in.",
+            "why": "It can start. Switch off and unplug it first."
+          },
+          {
+            "text": "Pack the refrigerator full so that nothing is left out.",
+            "why": "Air must circulate, or food warms up. Do not overload it."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Wire brush",
+            "why": "It scratches stainless steel."
+          },
+          {
+            "name": "Blowlamp",
+            "why": "Heat has no place in cleaning this equipment."
+          },
+          {
+            "name": "Sand",
+            "why": "It is an abrasive and damages the surfaces."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "It is not part of equipment care."
+          },
+          {
+            "name": "Paraffin",
+            "why": "It is a fuel, not a cleaner, and it taints food areas."
+          },
+          {
+            "name": "Scouring powder",
+            "why": "It is abrasive on stainless steel."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "cool",
+          "afterStep": 2,
+          "prompt": "Service has ended and the fryer is off. The oil is still hot. What do you do?",
+          "options": [
+            {
+              "text": "Wait until it has cooled completely, then drain it",
+              "correct": true,
+              "consequence": "Cool oil cannot burn you."
+            },
+            {
+              "text": "Drain it now into a plastic bowl",
+              "consequence": "Hot oil can melt plastic and cause serious burns."
+            },
+            {
+              "text": "Add cold water to cool it faster, then drain it off",
+              "consequence": "Water in hot oil spits violently and can cause fire."
+            }
+          ]
+        },
+        {
+          "id": "dry",
+          "afterStep": 2,
+          "prompt": "You have washed and rinsed the fryer pan. What comes before refilling?",
+          "options": [
+            {
+              "text": "Dry it fully",
+              "correct": true,
+              "consequence": "No water remains to spit in the hot oil."
+            },
+            {
+              "text": "Refill it while it is damp",
+              "consequence": "Water and hot oil spit when it heats."
+            },
+            {
+              "text": "Rub it with a little sand to polish it",
+              "consequence": "Abrasives damage the surface."
+            }
+          ]
+        },
+        {
+          "id": "reload",
+          "afterStep": 3,
+          "prompt": "You have cleaned the refrigerator and switched it on. When can the food go back?",
+          "options": [
+            {
+              "text": "Once it is below 5 °C",
+              "correct": true,
+              "consequence": "The food stays out of the danger zone."
+            },
+            {
+              "text": "At once, so that the food does not warm up",
+              "consequence": "Food warms in a warm refrigerator."
+            },
+            {
+              "text": "Whenever it starts humming",
+              "consequence": "Noise does not show temperature."
+            }
+          ]
+        },
+        {
+          "id": "reading",
+          "afterStep": 5,
+          "prompt": "The log reads 3, 4, 4, 6 and 3 °C. What do you do about the 6 °C?",
+          "options": [
+            {
+              "text": "Investigate the door, loading and seal",
+              "correct": true,
+              "consequence": "6 °C is above 5 °C even though the mean is fine."
+            },
+            {
+              "text": "Ignore it because the mean is 4 °C",
+              "consequence": "A mean can hide a real problem."
+            },
+            {
+              "text": "Cross it out and write 4 °C",
+              "consequence": "A false log hides the fault."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "safe",
+          "prompt": "Which refrigerator reading is correct for chilled storage?",
+          "options": [
+            {
+              "text": "4 °C",
+              "correct": true
+            },
+            {
+              "text": "8 °C",
+              "why": "That is above the safe range of 1-5 °C."
+            },
+            {
+              "text": "12 °C",
+              "why": "Far above the safe range."
+            },
+            {
+              "text": "-18 °C",
+              "why": "That is a freezer temperature."
+            }
+          ]
+        },
+        {
+          "id": "why",
+          "prompt": "What is the main benefit of a well-maintained kitchen?",
+          "options": [
+            {
+              "text": "Equipment lasts longer, and fire and food poisoning risks fall",
+              "correct": true
+            },
+            {
+              "text": "Equipment no longer needs a thermometer or a regular safety check",
+              "why": "Thermometers are still needed."
+            },
+            {
+              "text": "Cleaning can be done less often",
+              "why": "Regular cleaning is part of maintenance."
+            },
+            {
+              "text": "There is no need to read the manual",
+              "why": "Follow the manufacturer's instructions."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "mean",
+          "prompt": "Refrigerator readings are {a}, {b}, 4, 3 and 4 °C. What is the mean?",
+          "formula": "(a + b + 4 + 3 + 4) / 5",
+          "vars": {
+            "a": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            },
+            "b": {
+              "min": 3,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees C",
+            "degrees Celsius"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "({a} + {b} + 4 + 3 + 4) ÷ 5 = {answer} °C."
+        }
+      ],
+      "faults": [
+        {
+          "id": "storeroom",
+          "scenario": "An inspector visited a school kitchen. Here is what she wrote.",
+          "lines": [
+            {
+              "text": "Raw meat was on the top shelf above cooked rice.",
+              "fault": true,
+              "why": "Raw food drips. Store it below cooked foods."
+            },
+            {
+              "text": "The fryer was drained while the oil was hot.",
+              "fault": true,
+              "why": "Oil must be cool before draining."
+            },
+            {
+              "text": "The refrigerator was packed so full the air could not circulate.",
+              "fault": true,
+              "why": "Do not overload a refrigerator."
+            },
+            {
+              "text": "The stainless table had been scoured with sand.",
+              "fault": true,
+              "why": "Abrasives damage stainless steel."
+            },
+            {
+              "text": "Temperatures were logged twice daily.",
+              "why": "That is correct."
+            },
+            {
+              "text": "The mixer was unplugged before cleaning.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for maintaining catering equipment.",
+        "explainPrompt": "Why must no water be left in a deep-fat fryer before it is refilled?",
+        "explainGuide": "Water in hot oil turns to steam at once, so the oil spits or erupts. This can cause burns and a fire, so the pan must be fully dry.",
+        "explainKeywords": [
+          [
+            "water",
+            "steam"
+          ],
+          [
+            "spit",
+            "erupt",
+            "splash",
+            "flare",
+            "spatter"
+          ],
+          [
+            "burn",
+            "fire"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Catering equipment care",
+        "Switch off. Cool. Unplug.",
+        "Log your temperatures."
+      ]
+    },
+    "pr-ccp-cleaning-sanitising": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Mix bleach with a descaler or other cleaner to make it stronger.",
+            "why": "That can give off dangerous gas. Never mix bleach with acids or other cleaners."
+          },
+          {
+            "text": "Pour bleach from the bottle by eye because extra makes it safer.",
+            "why": "Too strong a solution can taint food. Measure it."
+          },
+          {
+            "text": "Measure the bleach with bare hands because it is only a little.",
+            "why": "Bleach harms the skin. Wear gloves."
+          },
+          {
+            "text": "Pour leftover sanitiser into an unlabelled drink bottle.",
+            "why": "Someone could drink it. Label and date the diluted sanitiser."
+          },
+          {
+            "text": "Use the toilet cloth on the food table because it is the nearest.",
+            "why": "Germs spread. Use colour-coded cloths for different areas."
+          },
+          {
+            "text": "Keep yesterday's sanitiser because the bucket still smells of chlorine.",
+            "why": "Chlorine fades. Use fresh sanitiser each shift."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Wire wool",
+            "why": "It scratches surfaces and leaves metal bits."
+          },
+          {
+            "name": "Feather duster",
+            "why": "It only moves dirt around."
+          },
+          {
+            "name": "Fan heater",
+            "why": "A surface air-dries or is dried with paper towels."
+          },
+          {
+            "name": "Oven thermometer",
+            "why": "Food temperature is read with the probe."
+          },
+          {
+            "name": "Paraffin",
+            "why": "It is a fuel, not a cleaner."
+          },
+          {
+            "name": "Sandpaper",
+            "why": "It would damage the surface."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "first",
+          "afterStep": 1,
+          "prompt": "The table has food debris on it after service. What do you do first, once your hands are washed?",
+          "options": [
+            {
+              "text": "Remove the loose debris",
+              "correct": true,
+              "consequence": "Dirt must go before sanitiser can work."
+            },
+            {
+              "text": "Spray the sanitiser straight on",
+              "consequence": "Sanitiser cannot work through food and grease."
+            },
+            {
+              "text": "Rinse it down with cold water alone",
+              "consequence": "Food debris and grease stay behind."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 3,
+          "prompt": "The surface has been washed with hot detergent water. What is the next stage?",
+          "options": [
+            {
+              "text": "Rinse it with clean water",
+              "correct": true,
+              "consequence": "Detergent and loosened dirt are removed."
+            },
+            {
+              "text": "Sanitise it straight away",
+              "consequence": "Detergent left on the surface weakens the sanitiser."
+            },
+            {
+              "text": "Dry it with a used cloth",
+              "consequence": "A dirty cloth puts germs back."
+            }
+          ]
+        },
+        {
+          "id": "strength",
+          "afterStep": 5,
+          "prompt": "You need about 200 ppm from 5% bleach. How much bleach goes into 1 litre of water?",
+          "options": [
+            {
+              "text": "About 4 ml",
+              "correct": true,
+              "consequence": "That gives about 200 ppm."
+            },
+            {
+              "text": "About 40 ml",
+              "consequence": "That is ten times too strong and can taint food."
+            },
+            {
+              "text": "About 0.4 ml",
+              "consequence": "That is too weak to sanitise."
+            }
+          ]
+        },
+        {
+          "id": "time",
+          "afterStep": 5,
+          "prompt": "The sanitiser has been wiped on. What do you do now?",
+          "options": [
+            {
+              "text": "Leave it for the required contact time",
+              "correct": true,
+              "consequence": "Chlorine needs time on the surface."
+            },
+            {
+              "text": "Wipe it off straight away with a clean dry cloth",
+              "consequence": "It has had no time to work."
+            },
+            {
+              "text": "Add detergent to it",
+              "consequence": "Do not mix bleach with other cleaners."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "zone",
+          "prompt": "Which temperatures keep food out of the danger zone?",
+          "options": [
+            {
+              "text": "Hot held at 63 °C or above, cold held at 5 °C or below",
+              "correct": true
+            },
+            {
+              "text": "Hot held at 50 °C in the warmer, cold held at 10 °C on ice",
+              "why": "Both of these fall inside the danger zone."
+            },
+            {
+              "text": "Hot held at 40 °C, cold held at 15 °C",
+              "why": "Both of these are where bacteria multiply rapidly."
+            }
+          ]
+        },
+        {
+          "id": "clean",
+          "prompt": "How should a correctly sanitised surface be?",
+          "options": [
+            {
+              "text": "Visibly clean, with a faint smell of chlorine",
+              "correct": true
+            },
+            {
+              "text": "Greasy with a strong smell of chlorine",
+              "why": "It was not washed first."
+            },
+            {
+              "text": "Damp and covered in crumbs",
+              "why": "It has not been pre-cleaned."
+            },
+            {
+              "text": "Stained by strong bleach",
+              "why": "The solution was too strong."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "factor",
+          "prompt": "Bleach of {p}% strength holds {p} × 10,000 ppm of available chlorine. What dilution factor gives 200 ppm?",
+          "formula": "p * 10000 / 200",
+          "vars": {
+            "p": {
+              "min": 4,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "Dilution factor = {p} × 10,000 ÷ 200 = {answer}."
+        },
+        {
+          "id": "ml",
+          "prompt": "Using about 4 ml of bleach per litre of water, how much bleach do you need for {v} litres of sanitiser?",
+          "formula": "4 * v",
+          "vars": {
+            "v": {
+              "min": 2,
+              "max": 10,
+              "step": 1
+            }
+          },
+          "unit": "ml",
+          "unitAliases": [
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{v} × 4 = {answer} ml."
+        }
+      ],
+      "faults": [
+        {
+          "id": "cafeteria",
+          "scenario": "Blessing cleaned the serving tables. An inspector stopped her work. Here is what she did.",
+          "lines": [
+            {
+              "text": "She sprayed chlorine straight on to a greasy table.",
+              "fault": true,
+              "why": "Sanitising a greasy surface without washing first does not work."
+            },
+            {
+              "text": "She used about a cupful of bleach in a bucket for extra strength.",
+              "fault": true,
+              "why": "Too strong a solution can taint food. Measure it."
+            },
+            {
+              "text": "She mixed bleach with an acid cleaner.",
+              "fault": true,
+              "why": "Never mix bleach with acids or other cleaners."
+            },
+            {
+              "text": "She rinsed the surface between washing and sanitising.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She labelled and dated the bucket of diluted sanitiser.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for cleaning and sanitising a food surface.",
+        "explainPrompt": "Why must a surface be cleaned before it is sanitised?",
+        "explainGuide": "Grease and food debris shield germs and use up the sanitiser. Cleaning removes them first, so the sanitiser can reach the surface and work.",
+        "explainKeywords": [
+          [
+            "grease",
+            "dirt",
+            "debris",
+            "food"
+          ],
+          [
+            "sanitiser",
+            "chlorine"
+          ],
+          [
+            "reach",
+            "work",
+            "shield"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Cleaning and sanitising",
+        "Pre-clean, wash, rinse, sanitise",
+        "Bleach alone: never mix it."
+      ]
+    },
+    "pr-ccp-fire-safety": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Throw water on a burning pan of oil.",
+            "why": "Water on burning oil causes an explosive flare. Never use it on a fat fire."
+          },
+          {
+            "text": "Carry the burning pan outside before the fire spreads.",
+            "why": "You can spill burning oil on yourself. Leave it where it is."
+          },
+          {
+            "text": "Lift the fire blanket after a minute to check the fire is out.",
+            "why": "The fire can reignite. Leave it covered for at least 30 minutes."
+          },
+          {
+            "text": "Put a stack of crates in front of the kitchen exit during a busy service.",
+            "why": "Exits must stay clear for escape."
+          },
+          {
+            "text": "Put butter or oil on a burn.",
+            "why": "That holds heat in. Cool it under running water for at least 20 minutes."
+          },
+          {
+            "text": "Burst the blisters on a burn so that it heals faster.",
+            "why": "That lets in germs. Leave them and cover the burn."
+          },
+          {
+            "text": "Tie a hand towel tightly around a cut and carry on cooking.",
+            "why": "Cuts need pressure and a clean dressing, and must be reported."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bucket of water for pan fires",
+            "why": "Water must never be used on a fat fire."
+          },
+          {
+            "name": "Bag of flour",
+            "why": "It can flare and does not put out a fire."
+          },
+          {
+            "name": "Butter",
+            "why": "It has no place in treating a burn."
+          },
+          {
+            "name": "Toothpaste",
+            "why": "It does not treat a burn."
+          },
+          {
+            "name": "Palm oil",
+            "why": "It has no place in first aid or fire-fighting."
+          },
+          {
+            "name": "Cotton wool for burns",
+            "why": "Fibres stick to a burn."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "pan",
+          "afterStep": 2,
+          "prompt": "Oil in a frying pan catches fire. The heat control can be reached safely. What do you do?",
+          "options": [
+            {
+              "text": "Turn off the heat and smother it with the blanket",
+              "correct": true,
+              "consequence": "That cuts off the oxygen."
+            },
+            {
+              "text": "Pour a jug of water on it",
+              "consequence": "Water on burning oil causes an explosive flare."
+            },
+            {
+              "text": "Grab the pan and run to the back door",
+              "consequence": "Moving a burning pan is a named mistake."
+            }
+          ]
+        },
+        {
+          "id": "blanket",
+          "afterStep": 2,
+          "prompt": "The blanket is over the pan and the flames are gone. What now?",
+          "options": [
+            {
+              "text": "Leave it in place for at least 30 minutes",
+              "correct": true,
+              "consequence": "The oil cools and cannot reignite."
+            },
+            {
+              "text": "Lift a corner after a minute to check",
+              "consequence": "The fire can reignite."
+            },
+            {
+              "text": "Pull it off and clean the pan",
+              "consequence": "Removing it too soon is a common mistake."
+            }
+          ]
+        },
+        {
+          "id": "pass",
+          "afterStep": 3,
+          "prompt": "You are demonstrating the PASS method. Where do you aim?",
+          "options": [
+            {
+              "text": "At the base of the fire",
+              "correct": true,
+              "consequence": "That is where the fuel is."
+            },
+            {
+              "text": "At the top of the flames",
+              "consequence": "You miss the fuel and the fire carries on."
+            },
+            {
+              "text": "At the wall behind the fire",
+              "consequence": "The fuel is not there."
+            }
+          ]
+        },
+        {
+          "id": "burn",
+          "afterStep": 5,
+          "prompt": "A hot splash burns a colleague's forearm. What is the first aid?",
+          "options": [
+            {
+              "text": "Cool it under running water for at least 20 minutes",
+              "correct": true,
+              "consequence": "Cooling stops the burn getting worse."
+            },
+            {
+              "text": "Rub butter on it at once",
+              "consequence": "Fats hold the heat in."
+            },
+            {
+              "text": "Hold it under water for 20 seconds, then cover it",
+              "consequence": "That is far too short to cool it."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "blanket-why",
+          "prompt": "Why does a fire blanket put out a pan fire?",
+          "options": [
+            {
+              "text": "It cuts off the oxygen",
+              "correct": true
+            },
+            {
+              "text": "It cools the oil at once",
+              "why": "The oil stays hot for a long time."
+            },
+            {
+              "text": "It removes the fuel",
+              "why": "The oil is still under it."
+            },
+            {
+              "text": "It adds water to the fire",
+              "why": "It is dry."
+            }
+          ]
+        },
+        {
+          "id": "drill",
+          "prompt": "What should a well-run drill show?",
+          "options": [
+            {
+              "text": "The team leaves quickly and in order",
+              "correct": true
+            },
+            {
+              "text": "People stop to pick up their bags",
+              "why": "Leave belongings behind."
+            },
+            {
+              "text": "Everyone goes through one blocked exit",
+              "why": "Exits must be unobstructed."
+            },
+            {
+              "text": "The manager goes back in to check",
+              "why": "Nobody goes back in."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "rate",
+          "prompt": "{n} staff leave the kitchen in {t} minutes. What is the rate in people per minute?",
+          "formula": "n / t",
+          "vars": {
+            "n": {
+              "min": 30,
+              "max": 60,
+              "step": 15
+            },
+            "t": {
+              "min": 1,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "people per minute",
+          "unitAliases": [
+            "per minute",
+            "people/min",
+            "/min"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{n} ÷ {t} = {answer} people per minute."
+        },
+        {
+          "id": "target",
+          "prompt": "{n} staff must leave within {s} seconds. What rate in people per minute is needed?",
+          "formula": "n / (s / 60)",
+          "vars": {
+            "n": {
+              "min": 30,
+              "max": 60,
+              "step": 15
+            },
+            "s": {
+              "min": 30,
+              "max": 60,
+              "step": 30
+            }
+          },
+          "unit": "people per minute",
+          "unitAliases": [
+            "per minute",
+            "people/min",
+            "/min"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{s} seconds = {s} ÷ 60 minutes. {n} ÷ that time = {answer} people per minute."
+        }
+      ],
+      "faults": [
+        {
+          "id": "flare",
+          "scenario": "A pan of oil caught fire in a school kitchen. Here is the report.",
+          "lines": [
+            {
+              "text": "One cook threw water on the pan.",
+              "fault": true,
+              "why": "Water on burning oil causes an explosive flare."
+            },
+            {
+              "text": "Another took the blanket off after a few minutes.",
+              "fault": true,
+              "why": "It must stay in place for at least 30 minutes."
+            },
+            {
+              "text": "The exit had boxes in front of it.",
+              "fault": true,
+              "why": "Exits must be kept clear."
+            },
+            {
+              "text": "Someone turned off the heat before covering the pan.",
+              "why": "That is correct, if it can be done safely."
+            },
+            {
+              "text": "They cooled a burn under running water for at least 20 minutes.",
+              "why": "That is correct."
+            },
+            {
+              "text": "The accident was written up in the accident book.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for fire safety in a kitchen.",
+        "explainPrompt": "Why must water never be used on burning oil?",
+        "explainGuide": "Water sinks in the oil and turns instantly to steam, which throws burning oil out in an explosive flare. This spreads the fire and burns people.",
+        "explainKeywords": [
+          [
+            "steam",
+            "water"
+          ],
+          [
+            "flare",
+            "explo",
+            "throw",
+            "spread"
+          ],
+          [
+            "burn",
+            "fire",
+            "oil"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Fire safety and first aid",
+        "Know your extinguishers",
+        "Keep exits clear."
+      ]
+    }
+  }
+}

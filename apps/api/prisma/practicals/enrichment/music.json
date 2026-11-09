@@ -1,0 +1,834 @@
+{
+  "subject": "Music",
+  "room": "studio",
+  "lessons": {
+    "pr-mus-rhythmic-dictation": {
+      "safety": { "wrong": [
+        { "text": "Turn the speaker to full volume so that every note is clear.", "why": "Loud sound damages hearing. Keep it comfortable." },
+        { "text": "Carry on through a sore wrist while tapping.", "why": "Stop and rest if it hurts." },
+        { "text": "Leave your bag in the way of the keyboard lead.", "why": "That is a trip hazard." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Tuning fork", "why": "Pitch doesn't matter on a monotone." },
+        { "name": "Violin bow", "why": "This is a listening task." },
+        { "name": "Sketch pad", "why": "Rhythm goes on a line or stave paper." }
+      ] },
+      "decisions": [
+        { "id": "first", "afterStep": 1, "prompt": "The first hearing begins. What do you do?", "options": [
+          { "text": "Listen and tap the beat, without writing", "correct": true, "consequence": "You get the pulse and the shape before you commit to paper." },
+          { "text": "Write as fast as you can", "consequence": "You lose the pulse chasing the first bar." },
+          { "text": "Fill in the last bar first, then work backwards", "consequence": "With no beat in place, you can't know where it falls." }
+        ] },
+        { "id": "beams", "afterStep": 5, "prompt": "You have six quavers in a 6/8 bar. How do you beam them?", "options": [
+          { "text": "Two groups of three", "correct": true, "consequence": "That shows the two dotted-crotchet beats." },
+          { "text": "Three groups of two", "consequence": "That reads as 3/4, not 6/8." },
+          { "text": "Six separate tails", "consequence": "That hides the beat." }
+        ] }
+      ],
+      "observations": [
+        { "id": "sixeight", "prompt": "What does each bar of 6/8 hold?", "options": [
+          { "text": "Two dotted-crotchet beats", "correct": true },
+          { "text": "Six crotchet beats", "why": "The bottom 8 means quavers." },
+          { "text": "Three crotchet beats", "why": "That is 3/4." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "quavers", "prompt": "A {b}-bar exercise is in 6/8. How many quavers does it hold?", "formula": "b * 6", "vars": { "b": { "min": 4, "max": 12, "step": 2 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{b} × 6 = {answer}." },
+        { "id": "bar-check", "prompt": "A bar of {n}/4 already holds a minim (2 beats). How many more crotchet beats fill it?", "formula": "n - 2", "vars": { "n": { "min": 3, "max": 5, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{n} − 2 = {answer}." }
+      ],
+      "faults": [
+        { "id": "bars", "scenario": "Ada's dictation lost marks. Here is what she did.", "lines": [
+          { "text": "She beamed 6/8 quavers in twos.", "fault": true, "why": "Beam in threes to show the beats." },
+          { "text": "She left a bar with only five quavers' worth in 6/8.", "fault": true, "why": "Every bar must add up." },
+          { "text": "She tapped the beat on the first hearing.", "why": "That is correct." },
+          { "text": "She checked every bar on the last hearing.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should you write nothing on the first hearing of a dictation?",
+        "explainGuide": "It lets you find the beat and metre and hear the overall shape first, so that you can place the rhythms correctly on later hearings.",
+        "explainKeywords": [["beat", "pulse", "metre"], ["listen", "hear", "hearing"], ["shape", "overall", "later", "place"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-melodic-dictation": {
+      "safety": { "wrong": [
+        { "text": "Strike the tuning fork on the keyboard's case.", "why": "That marks the case and spoils the fork. Tap it on your knee." },
+        { "text": "Sit hunched with your ear on the speaker.", "why": "Loud sound close up damages hearing." },
+        { "text": "Sing at full strength for the whole period.", "why": "That strains the voice." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome set by the student", "why": "The exercise sets its own speed." },
+        { "name": "Drawing board", "why": "Manuscript paper is what you need." },
+        { "name": "Bow rosin", "why": "This is a listening task." }
+      ] },
+      "decisions": [
+        { "id": "solfa", "afterStep": 3, "prompt": "You hear a note you are unsure of. How do you find it?", "options": [
+          { "text": "Sing it in solfa, from doh", "correct": true, "consequence": "You place it by its relation to the key." },
+          { "text": "Guess the nearest letter", "consequence": "That ignores the key, and you drift." },
+          { "text": "Leave the whole bar blank", "consequence": "You lose marks you could still get." }
+        ] },
+        { "id": "key-sig", "afterStep": 4, "prompt": "In G major you hear 'te'. What do you write?", "options": [
+          { "text": "F sharp", "correct": true, "consequence": "Te in G major is F sharp." },
+          { "text": "F natural", "consequence": "That ignores the key signature." },
+          { "text": "G", "consequence": "That is doh." }
+        ] }
+      ],
+      "observations": [
+        { "id": "ending", "prompt": "Where does a melody usually end?", "options": [
+          { "text": "On the note heard at the cadence, usually the tonic", "correct": true },
+          { "text": "On any note you like, as long as the rhythm is correct", "why": "Write what you hear." },
+          { "text": "Always on soh", "why": "Soh suggests an imperfect ending." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "semis", "prompt": "How many semitones are in a perfect 5th, plus {o} extra octave(s) of 12 semitones?", "formula": "7 + 12 * o", "vars": { "o": { "min": 0, "max": 2, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "7 + 12 × {o} = {answer}." }
+      ],
+      "faults": [
+        { "id": "wrong-notes", "scenario": "Bayo's melody was marked down. Here is what he did.", "lines": [
+          { "text": "He ignored the key signature when turning solfa into notes.", "fault": true, "why": "Apply the key." },
+          { "text": "He forgot the raised 7th in the harmonic minor.", "fault": true, "why": "The 7th is raised." },
+          { "text": "He wrote the rhythm first.", "why": "That is correct." },
+          { "text": "He checked the leaps carefully.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is solfa so useful in melodic dictation?",
+        "explainGuide": "Solfa names each note by its place in the key, so you hear pitch relationships, and can then turn them into notes in any key.",
+        "explainKeywords": [["solfa", "doh"], ["key", "scale"], ["relation", "pitch", "interval", "place"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-two-part-dictation": {
+      "safety": { "wrong": [
+        { "text": "Stand between the singers and shout directions.", "why": "Keep voices at a safe level." },
+        { "text": "Share a recorder's mouthpiece without cleaning it.", "why": "That spreads infection." },
+        { "text": "Use a volume which hurts your ears.", "why": "Protect your hearing." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Drum sticks", "why": "This is a listening task." },
+        { "name": "Sketch pad", "why": "Use manuscript paper." },
+        { "name": "Tracing paper", "why": "Not needed here." }
+      ] },
+      "decisions": [
+        { "id": "rhythm", "afterStep": 3, "prompt": "The missing part has a different rhythm from the printed part. What do you do?", "options": [
+          { "text": "Write what you hear in the missing part", "correct": true, "consequence": "The parts move independently, as written." },
+          { "text": "Copy the printed rhythm into the missing part", "consequence": "That is a common fault: the parts aren't the same." },
+          { "text": "Leave the rests out", "consequence": "The bars don't add up." }
+        ] },
+        { "id": "interval", "afterStep": 4, "prompt": "How do you find the missing pitches?", "options": [
+          { "text": "Work out the interval from the given part", "correct": true, "consequence": "The heard harmony gives the note." },
+          { "text": "Double the given part", "consequence": "That gives only octaves." },
+          { "text": "Guess from the key the notes most likely to fit", "consequence": "Many notes fit the key, but only one is right." }
+        ] }
+      ],
+      "observations": [
+        { "id": "bass", "prompt": "At a perfect cadence, the lower part usually moves:", "options": [
+          { "text": "From soh to doh", "correct": true },
+          { "text": "From doh to te", "why": "That's not typical of a cadence bass." },
+          { "text": "Nowhere", "why": "A static bass doesn't sound final." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "third", "prompt": "A note is {n} semitones above the lower part. How many more semitones reach a perfect 5th (7) above the lower part?", "formula": "7 - n", "vars": { "n": { "min": 3, "max": 5, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "7 − {n} = {answer}." }
+      ],
+      "faults": [
+        { "id": "parallel", "scenario": "Ngozi's added part lost marks. Here is what she did.", "lines": [
+          { "text": "She copied the rhythm of the given part.", "fault": true, "why": "It had its own rhythm." },
+          { "text": "She wrote parallel 5ths she hadn't heard.", "fault": true, "why": "Write what you hear." },
+          { "text": "She checked the cadence.", "why": "That is correct." },
+          { "text": "She studied the printed part first.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How does the printed part help you to find the missing part?",
+        "explainGuide": "It gives a reference for the key and the intervals. You hear the missing note as an interval from the printed note.",
+        "explainKeywords": [["interval"], ["printed", "given", "reference"], ["key", "note", "harmony"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-chord-identification": {
+      "safety": { "wrong": [
+        { "text": "Set speakers to full so the bass is clear.", "why": "Protect your hearing." },
+        { "text": "Eat over the keyboard while you listen.", "why": "Crumbs and spills damage keys." },
+        { "text": "Trail the speaker lead across the doorway.", "why": "Keep leads out of walkways." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "This is about harmony, not speed." },
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Tracing paper", "why": "Not used here." }
+      ] },
+      "decisions": [
+        { "id": "bass-first", "afterStep": 1, "prompt": "What do you concentrate on first?", "options": [
+          { "text": "The bass line", "correct": true, "consequence": "The bass most often shows the chord's root." },
+          { "text": "The top melody", "consequence": "A melody note fits several chords." },
+          { "text": "The speed", "consequence": "That isn't the point here." }
+        ] },
+        { "id": "v7", "afterStep": 4, "prompt": "You hear chord V, with an added clashing note a 7th above the root. What do you write?", "options": [
+          { "text": "V7", "correct": true, "consequence": "The 7th is the key feature of it." },
+          { "text": "V", "consequence": "That loses the mark for the 7th." },
+          { "text": "IV", "consequence": "The bass isn't on the fourth degree." }
+        ] }
+      ],
+      "observations": [
+        { "id": "minor", "prompt": "In a major key, which of these chords is minor?", "options": [
+          { "text": "ii", "correct": true },
+          { "text": "IV", "why": "IV is major." },
+          { "text": "V", "why": "V is major." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "marks", "prompt": "A test gives {m} marks for 4 chords. How many marks is each chord worth?", "formula": "m / 4", "vars": { "m": { "min": 8, "max": 16, "step": 4 } }, "unit": "", "tolerance": { "abs": 0.01 }, "decimals": 0, "working": "{m} ÷ {c} = {answer}." }
+      ],
+      "faults": [
+        { "id": "answers", "scenario": "Nnamdi's chord grid lost marks. Here is what he did.", "lines": [
+          { "text": "He wrote letter names when Roman numerals were asked for.", "fault": true, "why": "Answer in the form asked for." },
+          { "text": "He called V7 simply V.", "fault": true, "why": "Say the 7th." },
+          { "text": "He played the tonic chord first.", "why": "That is correct." },
+          { "text": "He checked the last two chords.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does the bass line tell you so much about a chord?",
+        "explainGuide": "In root-position chords the bass is the root, so each bass note shows the chord's name in the key.",
+        "explainKeywords": [["bass"], ["root"], ["chord", "key"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-cadence-recognition": {
+      "safety": { "wrong": [
+        { "text": "Sit twisted at the keyboard for the whole lesson.", "why": "Keep a straight, relaxed back." },
+        { "text": "Lean heavily on the keys when thinking.", "why": "It strains the keys." },
+        { "text": "Use earphones at full volume.", "why": "Protect your hearing." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "Cadences aren't about speed." },
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Staff ruler for drawing bars", "why": "You write the cadence name." }
+      ] },
+      "decisions": [
+        { "id": "ends-v", "afterStep": 3, "prompt": "The phrase ends on chord V, sounding unfinished. What do you write?", "options": [
+          { "text": "Imperfect", "correct": true, "consequence": "An imperfect cadence ends on V." },
+          { "text": "Perfect", "consequence": "A perfect cadence ends V to I." },
+          { "text": "Plagal", "consequence": "Plagal ends IV to I." }
+        ] },
+        { "id": "surprise", "afterStep": 3, "prompt": "V moves to vi, and the phrase sounds surprising. What is this?", "options": [
+          { "text": "Interrupted", "correct": true, "consequence": "V goes to vi where I was expected." },
+          { "text": "Plagal", "consequence": "That is IV to I." },
+          { "text": "Perfect", "consequence": "That ends on I." }
+        ] }
+      ],
+      "observations": [
+        { "id": "amen", "prompt": "Which cadence is called the 'Amen' cadence?", "options": [
+          { "text": "Plagal", "correct": true },
+          { "text": "Perfect", "why": "That's V to I." },
+          { "text": "Interrupted", "why": "That's V to vi." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "marks", "prompt": "There are {c} cadences at 2 marks each. How many marks is that?", "formula": "c * 2", "vars": { "c": { "min": 3, "max": 6, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{c} × 2 = {answer}." }
+      ],
+      "faults": [
+        { "id": "cadence-sheet", "scenario": "Efe's answer sheet lost marks. Here is what he did.", "lines": [
+          { "text": "He named a phrase ending on V as perfect.", "fault": true, "why": "That is imperfect." },
+          { "text": "He wrote 'plagel'.", "fault": true, "why": "Spelling matters: plagal." },
+          { "text": "He focused on the last two chords.", "why": "That is correct." },
+          { "text": "He wrote full names.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How can you tell a perfect from an imperfect cadence by ear?",
+        "explainGuide": "A perfect cadence ends on the tonic and sounds finished. An imperfect cadence ends on the dominant and sounds unfinished.",
+        "explainKeywords": [["perfect"], ["imperfect", "dominant"], ["finished", "final", "tonic"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-modulation-recognition": {
+      "safety": { "wrong": [
+        { "text": "Pull a keyboard across the desk by its lead.", "why": "Lift it." },
+        { "text": "Practise singing with a sore throat until it goes.", "why": "Rest your voice." },
+        { "text": "Keep the headphones at their loudest.", "why": "Protect your hearing." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Metronome", "why": "This is about keys." },
+        { "name": "Sketch pad", "why": "Use manuscript paper." }
+      ] },
+      "decisions": [
+        { "id": "ask", "afterStep": 4, "prompt": "The music brightens, with a new sharp. Which is the likely key?", "options": [
+          { "text": "The dominant", "correct": true, "consequence": "It adds a sharp and lifts the music." },
+          { "text": "The subdominant", "consequence": "That adds a flat and feels softer." },
+          { "text": "The relative minor", "consequence": "That sounds darker." }
+        ] },
+        { "id": "darker", "afterStep": 4, "prompt": "From C major, the music turns darker, with G sharp heard. Which key?", "options": [
+          { "text": "The relative minor, A minor", "correct": true, "consequence": "G sharp is its raised 7th." },
+          { "text": "The dominant, G major", "consequence": "That has F sharp, and no G sharp." },
+          { "text": "The subdominant, F major", "consequence": "That adds B flat." }
+        ] }
+      ],
+      "observations": [
+        { "id": "relative", "prompt": "What does a relative minor have in common with its major?", "options": [
+          { "text": "The same key signature", "correct": true },
+          { "text": "The same tonic", "why": "That is the tonic minor." },
+          { "text": "The same dominant note and chord", "why": "Their dominants differ." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "sharp", "prompt": "A major key has {s} sharps. How many sharps does its dominant key have?", "formula": "s + 1", "vars": { "s": { "min": 0, "max": 4, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{s} + 1 = {answer}." }
+      ],
+      "faults": [
+        { "id": "key-names", "scenario": "Temi's answers lost marks. Here is what she did.", "lines": [
+          { "text": "She named the new key letter when a relationship was asked for.", "fault": true, "why": "Answer the question asked." },
+          { "text": "She forgot that a relative minor keeps the same signature.", "fault": true, "why": "The signature is shared." },
+          { "text": "She sang the opening tonic to compare.", "why": "That is correct." },
+          { "text": "She worked out the related keys first.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What is a modulation, and how can you hear one?",
+        "explainGuide": "It is a change of key within a piece. The old tonic no longer sounds like home, and new accidentals and a cadence in the new key confirm the change.",
+        "explainKeywords": [["key"], ["change", "move"], ["accidental", "tonic", "cadence", "sharp"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-theme-identification": {
+      "safety": { "wrong": [
+        { "text": "Play recordings at full volume in a closed room.", "why": "Keep the volume comfortable." },
+        { "text": "Share earbuds without cleaning them.", "why": "Clean them first." },
+        { "text": "Touch the mains with wet hands.", "why": "Dry them first." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "You tap the pulse from the recording." },
+        { "name": "Violin", "why": "This is a listening task." },
+        { "name": "Drawing board", "why": "Use the listening chart." }
+      ] },
+      "decisions": [
+        { "id": "instrument", "afterStep": 3, "prompt": "You hear a drum whose pitch bends like speech. How do you describe it?", "options": [
+          { "text": "A talking drum (dundun)", "correct": true, "consequence": "A precise name earns the mark." },
+          { "text": "Drums", "consequence": "That is too vague." },
+          { "text": "Some kind of loud instrument", "consequence": "That earns nothing." }
+        ] },
+        { "id": "evidence", "afterStep": 5, "prompt": "You name a highlife piece. What must you add?", "options": [
+          { "text": "Musical evidence, such as the guitar and horn parts", "correct": true, "consequence": "You've justified it." },
+          { "text": "How it made you feel, and the memories it brings back", "consequence": "Feelings are not musical features." },
+          { "text": "The price of the recording", "consequence": "That is unrelated." }
+        ] }
+      ],
+      "observations": [
+        { "id": "metre", "prompt": "Strong accents every two beats show:", "options": [
+          { "text": "Duple metre", "correct": true },
+          { "text": "Triple metre", "why": "That's every three beats." },
+          { "text": "Free rhythm", "why": "Free rhythm has no regular accent." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "tempo", "prompt": "You count {b} beats in 12 seconds. What is the tempo, in beats per minute?", "formula": "b / 12 * 60", "vars": { "b": { "min": 16, "max": 28, "step": 4 } }, "unit": "bpm", "unitAliases": ["beats per minute", "beats/min"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{b} ÷ 12 × 60 = {answer} bpm." }
+      ],
+      "faults": [
+        { "id": "vague", "scenario": "Kola's listening notes lost marks. Here is what he did.", "lines": [
+          { "text": "He wrote 'drums' rather than 'talking drum'.", "fault": true, "why": "Be specific." },
+          { "text": "He described his feelings, not musical features.", "fault": true, "why": "Describe the music." },
+          { "text": "He prepared a chart beforehand.", "why": "That is correct." },
+          { "text": "He tapped the beat.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What should a good answer say about an excerpt's style?",
+        "explainGuide": "It names the genre and backs it up with musical features such as instruments, metre, tempo and scale.",
+        "explainKeywords": [["genre", "style"], ["instrument", "metre", "tempo", "scale"], ["feature", "evidence", "justify", "because"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-scales-arpeggios": {
+      "safety": { "wrong": [
+        { "text": "Practise through pain until the speed comes.", "why": "Pain is a warning. Rest." },
+        { "text": "Skip the warm-up to save time.", "why": "Warm up to avoid strain." },
+        { "text": "Lock your shoulders so that your hands stay still.", "why": "Stay relaxed." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Manuscript paper", "why": "This is a playing task." },
+        { "name": "Answer grid", "why": "This is a playing task." },
+        { "name": "Drawing board", "why": "This is a playing task." }
+      ] },
+      "decisions": [
+        { "id": "speed-up", "afterStep": 3, "prompt": "When do you raise the metronome?", "options": [
+          { "text": "After three clean runs, by 4 to 6 bpm", "correct": true, "consequence": "Speed builds on accuracy." },
+          { "text": "After any run", "consequence": "Mistakes are practised into your playing." },
+          { "text": "By 30 bpm, at once, to reach exam speed sooner", "consequence": "It falls apart." }
+        ] },
+        { "id": "slip", "afterStep": 4, "prompt": "You make a slip in the exam. What do you do?", "options": [
+          { "text": "Keep going steadily", "correct": true, "consequence": "Flow is marked, and a small slip costs little." },
+          { "text": "Stop and start again", "consequence": "A restart costs more than the slip." },
+          { "text": "Apologise, then replay", "consequence": "It breaks the flow." }
+        ] }
+      ],
+      "observations": [
+        { "id": "melodic", "prompt": "The melodic minor descending is:", "options": [
+          { "text": "The same as the natural minor", "correct": true },
+          { "text": "The same as ascending, with the raised 6th and 7th", "why": "The 6th and 7th fall back." },
+          { "text": "The same as the major", "why": "It keeps the minor 3rd." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "notes", "prompt": "An {o}-octave scale goes up and down. How many notes does it have in all?", "formula": "7 * o * 2 + 1", "vars": { "o": { "min": 1, "max": 3, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "7 × {o} × 2 + 1 = {answer}." },
+        { "id": "time", "prompt": "At crotchet = {t}, a passage lasts 15 beats. How many seconds is that?", "formula": "15 * 60 / t", "vars": { "t": { "min": 60, "max": 120, "step": 20 } }, "unit": "s", "unitAliases": ["sec", "secs", "seconds"], "tolerance": { "abs": 0.1 }, "decimals": 1, "working": "15 × 60 ÷ {t} = {answer} s." }
+      ],
+      "faults": [
+        { "id": "scales", "scenario": "Dami's scales lost marks. Here is what she did.", "lines": [
+          { "text": "She raised the 6th and 7th coming down a melodic minor.", "fault": true, "why": "They return to natural on the way down." },
+          { "text": "She stopped and restarted during the exam.", "fault": true, "why": "Keep going." },
+          { "text": "She warmed up slowly.", "why": "That is correct." },
+          { "text": "She recorded herself to check.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is it better to practise scales slowly with a metronome?",
+        "explainGuide": "A steady beat exposes unevenness. Slow, accurate practice builds correct finger habits, so speed can be added without mistakes.",
+        "explainKeywords": [["slow", "steady"], ["accura", "even", "correct"], ["speed", "habit", "metronome"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-prepared-pieces": {
+      "safety": { "wrong": [
+        { "text": "Practise for five hours without a break the day before.", "why": "Rest to avoid injury." },
+        { "text": "Drink nothing, to keep your voice dry.", "why": "Stay hydrated." },
+        { "text": "Lift a piano alone to the front of the room.", "why": "Get help." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Answer grid", "why": "This is a performance." },
+        { "name": "Drawing board", "why": "This is a performance." },
+        { "name": "Tracing paper", "why": "This is a performance." }
+      ] },
+      "decisions": [
+        { "id": "hard-bit", "afterStep": 3, "prompt": "One passage keeps breaking down. What do you do?", "options": [
+          { "text": "Practise it slowly on its own in short sections", "correct": true, "consequence": "The problem is fixed at its source." },
+          { "text": "Play the whole piece again and again from the start", "consequence": "The mistake gets rehearsed." },
+          { "text": "Speed up to get over it", "consequence": "It gets worse." }
+        ] },
+        { "id": "stops", "afterStep": 5, "prompt": "You slip in a performance. What do you do?", "options": [
+          { "text": "Keep going in time", "correct": true, "consequence": "Most listeners barely notice." },
+          { "text": "Stop and restart the bar", "consequence": "It breaks the flow, which costs marks." },
+          { "text": "Stop and explain", "consequence": "It breaks the performance." }
+        ] }
+      ],
+      "observations": [
+        { "id": "marks", "prompt": "Which earns marks as well as right notes?", "options": [
+          { "text": "Dynamics, phrasing and style", "correct": true },
+          { "text": "A loud volume all the way", "why": "Contrast is what's asked for." },
+          { "text": "The highest speed possible", "why": "Use the marked tempo." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "length", "prompt": "A {b}-bar piece in 4/4 is played at crotchet = 96. How many seconds does it last?", "formula": "b * 4 * 60 / 96", "vars": { "b": { "min": 32, "max": 96, "step": 16 } }, "unit": "s", "unitAliases": ["sec", "secs", "seconds"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{b} × 4 × 60 ÷ 96 = {answer} s." }
+      ],
+      "faults": [
+        { "id": "performance", "scenario": "Ife's prepared piece scored poorly. Here is what she did.", "lines": [
+          { "text": "She chose a piece well above her level.", "fault": true, "why": "Choose what you can play well." },
+          { "text": "She ignored the dynamics.", "fault": true, "why": "They earn marks." },
+          { "text": "She did a mock exam.", "why": "That is correct." },
+          { "text": "She marked her breaths.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should you choose a piece within your ability?",
+        "explainGuide": "A piece you can play securely lets you show accuracy, musical expression and style, which earn more marks than a hard piece played badly.",
+        "explainKeywords": [["accura", "secure", "well"], ["expression", "dynamics", "style", "musical"], ["marks", "level", "ability"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-sight-reading": {
+      "safety": { "wrong": [
+        { "text": "Tense your shoulders to concentrate harder.", "why": "Stay relaxed." },
+        { "text": "Sit so that you can only see the music by twisting.", "why": "Set the stand straight in front of you." },
+        { "text": "Skip your warm-up before singing.", "why": "Warm up." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Manuscript paper", "why": "You read here, you don't write." },
+        { "name": "Answer grid", "why": "This is a playing task." },
+        { "name": "Pencil for marking the test", "why": "You can't mark an exam sheet." }
+      ] },
+      "decisions": [
+        { "id": "inspect", "afterStep": 1, "prompt": "You have 30 seconds. What do you look at first?", "options": [
+          { "text": "The key and time signatures", "correct": true, "consequence": "These two facts set everything." },
+          { "text": "The title", "consequence": "That won't help you play it." },
+          { "text": "The hardest bar only, to practise it first", "consequence": "You've missed the key." }
+        ] },
+        { "id": "tempo", "afterStep": 4, "prompt": "What speed do you choose?", "options": [
+          { "text": "A slow, steady speed you can hold to the end", "correct": true, "consequence": "It flows throughout." },
+          { "text": "The fastest you can manage", "consequence": "You stumble." },
+          { "text": "Fast for easy bars, slow for hard ones", "consequence": "The pulse goes." }
+        ] }
+      ],
+      "observations": [
+        { "id": "eyes", "prompt": "Where should your eyes be as you play?", "options": [
+          { "text": "On the music, reading ahead", "correct": true },
+          { "text": "On your hands", "why": "You lose your place." },
+          { "text": "On the examiner, watching for a nod", "why": "Stay on the music." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "per-bar", "prompt": "You have 30 seconds to inspect {b} bars. How many seconds is that per bar?", "formula": "30 / b", "vars": { "b": { "min": 8, "max": 16, "step": 2 } }, "unit": "s", "unitAliases": ["sec", "secs", "seconds"], "tolerance": { "abs": 0.05 }, "decimals": 2, "working": "30 ÷ {b} = {answer} s." }
+      ],
+      "faults": [
+        { "id": "stumble", "scenario": "Pat's sight-reading fell apart. Here is what he did.", "lines": [
+          { "text": "He ignored the time signature.", "fault": true, "why": "Check it first." },
+          { "text": "He looked at his hands, not the music.", "fault": true, "why": "Keep reading ahead." },
+          { "text": "He counted one bar in.", "why": "That is correct." },
+          { "text": "He clapped the rhythm silently.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How should you use your inspection time?",
+        "explainGuide": "Read the key and time signatures, spot patterns, tap the rhythm silently and choose a steady speed.",
+        "explainKeywords": [["key", "signature"], ["pattern", "rhythm"], ["speed", "tempo", "time"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-transcription-solfa": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Work bent double with your face close to the paper.", "why": "Sit up, with good light." },
+        { "text": "Leave your ruler hanging off the desk.", "why": "Keep the desk tidy." },
+        { "text": "Sharpen your pencil onto the keyboard.", "why": "Shavings get into the keys." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "Not needed for writing." },
+        { "name": "Drum sticks", "why": "Not needed here." },
+        { "name": "Compasses", "why": "Not needed here." }
+      ] },
+      "decisions": [
+        { "id": "key", "afterStep": 1, "prompt": "What do you write first in tonic solfa?", "options": [
+          { "text": "The key statement, such as Doh is D", "correct": true, "consequence": "Now the solfa has a fixed starting point." },
+          { "text": "The first note", "consequence": "With no key, the note means nothing." },
+          { "text": "The composer's name and the title of the piece", "consequence": "That isn't the point here." }
+        ] },
+        { "id": "half", "afterStep": 4, "prompt": "Two quavers fill one beat. What separates them in solfa?", "options": [
+          { "text": "A full stop", "correct": true, "consequence": "A dot divides the beat in half." },
+          { "text": "A colon", "consequence": "A colon separates beats." },
+          { "text": "A bar line", "consequence": "That ends a bar." }
+        ] }
+      ],
+      "observations": [
+        { "id": "doh", "prompt": "In D major, F sharp in solfa is:", "options": [
+          { "text": "m", "correct": true },
+          { "text": "r", "why": "r is E." },
+          { "text": "s", "why": "s is A." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "beats", "prompt": "A bar has a minim and {c} crotchets. How many crotchet beats does it hold?", "formula": "2 + c", "vars": { "c": { "min": 1, "max": 3, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "2 + {c} = {answer}." }
+      ],
+      "faults": [
+        { "id": "solfa-line", "scenario": "Tayo's transcription was marked down. Here is what he did.", "lines": [
+          { "text": "He wrote letter names instead of solfa.", "fault": true, "why": "Use solfa." },
+          { "text": "He used the wrong sign for half beats.", "fault": true, "why": "Use a full stop." },
+          { "text": "He wrote the key statement.", "why": "That is correct." },
+          { "text": "He played both versions to check.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How do the signs in tonic solfa show rhythm?",
+        "explainGuide": "Bar lines mark bars, colons separate beats, full stops divide beats in half, and dashes continue a note.",
+        "explainKeywords": [["bar"], ["colon", "beat"], ["stop", "half", "dash"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-transposition": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Work in a dim corner to concentrate.", "why": "Use good light." },
+        { "text": "Sit twisted at the keyboard to check notes.", "why": "Sit straight." },
+        { "text": "Leave bags in the walkway.", "why": "Keep it clear." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Metronome", "why": "This is a writing job." },
+        { "name": "Tracing paper", "why": "You're rewriting, not tracing." }
+      ] },
+      "decisions": [
+        { "id": "sig", "afterStep": 1, "prompt": "What do you write first?", "options": [
+          { "text": "The new key signature", "correct": true, "consequence": "Then most notes fall into place." },
+          { "text": "The first note", "consequence": "With no key, accidentals go wrong." },
+          { "text": "The tempo mark and the title at the top", "consequence": "That is copied at the end." }
+        ] },
+        { "id": "accidental", "afterStep": 4, "prompt": "A note has a sharp in the original. What happens in the new key?", "options": [
+          { "text": "It stays raised by the same amount", "correct": true, "consequence": "The interval stays the same." },
+          { "text": "The sharp is simply copied across to the new key", "consequence": "It may not be the same interval." },
+          { "text": "It is dropped", "consequence": "The melody changes." }
+        ] }
+      ],
+      "observations": [
+        { "id": "trumpet", "prompt": "A B flat trumpet sounds:", "options": [
+          { "text": "A major 2nd below the written note", "correct": true },
+          { "text": "A major 2nd above the written note", "why": "It sounds lower." },
+          { "text": "The same as written", "why": "It's a transposing instrument." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "semitones", "prompt": "Each note moves up by a major 2nd, repeated {n} times from the same start. How many semitones is that altogether?", "formula": "2 * n", "vars": { "n": { "min": 1, "max": 4, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "2 × {n} = {answer}." }
+      ],
+      "faults": [
+        { "id": "wrong-trans", "scenario": "Stella's transposition was marked down. Here is what she did.", "lines": [
+          { "text": "She forgot to write the new key signature.", "fault": true, "why": "Write it first." },
+          { "text": "She moved by letter but didn't check tone and semitone.", "fault": true, "why": "Check the size." },
+          { "text": "She kept the rhythm unchanged.", "why": "That is correct." },
+          { "text": "She played both versions.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What must stay the same when a melody is transposed?",
+        "explainGuide": "The intervals, the rhythm and the expression marks stay the same. Only the pitch level and key change.",
+        "explainKeywords": [["interval"], ["rhythm", "dynamics", "marks"], ["key", "pitch"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-intervals": {
+      "safety": { "wrong": [
+        { "text": "Sing at full power to reach the high note.", "why": "Don't strain." },
+        { "text": "Press the keys hard enough to mark them.", "why": "A light touch does the job." },
+        { "text": "Keep drinks on the piano.", "why": "Spills ruin it." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "Not needed here." },
+        { "name": "Drum sticks", "why": "Not needed here." },
+        { "name": "Violin bow", "why": "Not needed here." }
+      ] },
+      "decisions": [
+        { "id": "count", "afterStep": 1, "prompt": "F up to B: how do you find the number?", "options": [
+          { "text": "Count the letters F G A B", "correct": true, "consequence": "It is a 4th." },
+          { "text": "Count the semitones only", "consequence": "That gives the size, but not the number." },
+          { "text": "Count the sharps", "consequence": "That doesn't name the interval." }
+        ] },
+        { "id": "quality", "afterStep": 3, "prompt": "F to B is 6 semitones. A perfect 4th has 5. What is it?", "options": [
+          { "text": "An augmented 4th", "correct": true, "consequence": "One semitone larger than perfect." },
+          { "text": "A perfect 4th", "consequence": "That's a very common mistake." },
+          { "text": "A diminished 4th", "consequence": "That's smaller." }
+        ] }
+      ],
+      "observations": [
+        { "id": "maj3", "prompt": "How many semitones are there in a major 3rd?", "options": [
+          { "text": "4", "correct": true },
+          { "text": "3", "why": "That's a minor 3rd." },
+          { "text": "5", "why": "That's a perfect 4th." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "add", "prompt": "A perfect 5th (7 semitones) is widened by {n} semitone(s). What is the total in semitones?", "formula": "7 + n", "vars": { "n": { "min": 1, "max": 5, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "7 + {n} = {answer}." }
+      ],
+      "faults": [
+        { "id": "worksheet", "scenario": "Ola's interval worksheet lost marks. Here is what he did.", "lines": [
+          { "text": "He called F-B a perfect 4th.", "fault": true, "why": "It's augmented." },
+          { "text": "He forgot the accidentals from the key signature.", "fault": true, "why": "They change the size." },
+          { "text": "He counted letters first.", "why": "That is correct." },
+          { "text": "He checked semitones on the keyboard.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How do you name any interval correctly?",
+        "explainGuide": "Count the letter names for the number. Then count semitones, or compare with the major scale of the lower note, for the quality.",
+        "explainKeywords": [["letter", "number"], ["semitone"], ["quality", "major", "minor", "perfect", "scale"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-harmonise-melody": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Sit for hours without a stretch.", "why": "Take breaks." },
+        { "text": "Press heavily on the pencil until it snaps.", "why": "Use a light hand." },
+        { "text": "Keep food on your manuscript sheets.", "why": "Keep the desk clear." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metronome", "why": "Not needed here." },
+        { "name": "Drum sticks", "why": "Not needed here." },
+        { "name": "Tuning fork", "why": "A keyboard checks your work." }
+      ] },
+      "decisions": [
+        { "id": "cadence-first", "afterStep": 1, "prompt": "Where do you begin?", "options": [
+          { "text": "At the phrase endings: choose the cadences", "correct": true, "consequence": "The harmony then has clear goals." },
+          { "text": "At bar 1, then see where the harmony goes from there", "consequence": "You may arrive at a bad cadence." },
+          { "text": "With the alto line", "consequence": "The bass and chords come first." }
+        ] },
+        { "id": "double", "afterStep": 5, "prompt": "Which note do you double in a root-position chord?", "options": [
+          { "text": "The root", "correct": true, "consequence": "It sounds strong." },
+          { "text": "The leading note", "consequence": "That causes consecutive octaves when it rises." },
+          { "text": "The 7th", "consequence": "That doubles a dissonance." }
+        ] },
+        { "id": "fifths", "afterStep": 6, "prompt": "You find consecutive 5ths between tenor and bass. What do you do?", "options": [
+          { "text": "Rewrite those parts so the fifths go", "correct": true, "consequence": "The parts stay independent." },
+          { "text": "Leave them, as long as the chord is right", "consequence": "Marks are lost." },
+          { "text": "Add a rest between the two chords", "consequence": "That doesn't fix the harmony." }
+        ] }
+      ],
+      "observations": [
+        { "id": "perfect", "prompt": "In a perfect cadence, the leading note normally:", "options": [
+          { "text": "Rises a semitone to the tonic", "correct": true },
+          { "text": "Falls to the dominant of the next chord", "why": "It wants to rise." },
+          { "text": "Stays still", "why": "It is a tendency note." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "notes", "prompt": "A {b}-bar melody has 4 chords in each bar. How many chords is that?", "formula": "b * 4", "vars": { "b": { "min": 4, "max": 12, "step": 4 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{b} × 4 = {answer}." }
+      ],
+      "faults": [
+        { "id": "satb", "scenario": "Ene's four-part harmony lost marks. Here is what she did.", "lines": [
+          { "text": "She doubled the leading note.", "fault": true, "why": "Don't double it." },
+          { "text": "She used second-inversion chords freely.", "fault": true, "why": "Use them only in set contexts." },
+          { "text": "She kept each part in range.", "why": "That is correct." },
+          { "text": "She checked for consecutive 5ths.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why are consecutive 5ths and octaves avoided in four-part writing?",
+        "explainGuide": "They make two parts sound like one, which weakens their independence and thins the harmony.",
+        "explainKeywords": [["consecutive", "parallel", "fifths", "octaves"], ["independen", "one part"], ["parts", "thin", "weak", "harmony"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-continue-melody": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Sit twisted at the keyboard while you compose.", "why": "Sit straight." },
+        { "text": "Play back at full volume.", "why": "Keep it comfortable." },
+        { "text": "Share a recorder without cleaning it.", "why": "Clean it first." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Answer grid", "why": "Not used here." },
+        { "name": "Violin bow", "why": "Not used here." }
+      ] },
+      "decisions": [
+        { "id": "plan", "afterStep": 1, "prompt": "What do you do before writing notes?", "options": [
+          { "text": "Plan the phrases and cadence points", "correct": true, "consequence": "The melody has a shape and a goal." },
+          { "text": "Write bar by bar as ideas come", "consequence": "It wanders." },
+          { "text": "Fill in the rests", "consequence": "That's not a plan." }
+        ] },
+        { "id": "develop", "afterStep": 4, "prompt": "How do you use the given opening?", "options": [
+          { "text": "Repeat and develop its motif, for example by sequence", "correct": true, "consequence": "The melody holds together." },
+          { "text": "Abandon it", "consequence": "The melody loses unity." },
+          { "text": "Copy it unchanged all the way to the last bar of the tune", "consequence": "It gets dull." }
+        ] }
+      ],
+      "observations": [
+        { "id": "shape", "prompt": "A well-shaped 16-bar melody usually:", "options": [
+          { "text": "Has a climax, cadences and a return home", "correct": true },
+          { "text": "Stays on one note", "why": "That has no shape." },
+          { "text": "Ends in the middle of a phrase, leaving it open", "why": "It should finish." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "beats", "prompt": "A {b}-bar melody is in 3/4. How many crotchet beats does it hold?", "formula": "b * 3", "vars": { "b": { "min": 12, "max": 16, "step": 2 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{b} × 3 = {answer}." }
+      ],
+      "faults": [
+        { "id": "wandering", "scenario": "Ibe's melody lost marks. Here is what he did.", "lines": [
+          { "text": "He let the melody wander, with no repeated ideas.", "fault": true, "why": "Develop the motif." },
+          { "text": "He used too many large leaps.", "fault": true, "why": "Mostly move by step." },
+          { "text": "He added dynamics and phrase marks.", "why": "That is correct." },
+          { "text": "He planned imperfect and perfect cadences.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How does repeating a motif help a melody?",
+        "explainGuide": "It gives unity: the listener recognises the idea, and variation adds interest while the melody still holds together.",
+        "explainKeywords": [["motif", "idea", "repeat"], ["unity", "together", "recognise"], ["variation", "interest", "develop"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-setting-text": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Sing in a shout to test the setting.", "why": "Don't strain your voice." },
+        { "text": "Bend over the keyboard for hours.", "why": "Take breaks." },
+        { "text": "Share one recorder without wiping it.", "why": "Clean it first." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Drum sticks", "why": "Not used here." },
+        { "name": "Tuning fork", "why": "A keyboard or recorder will do." },
+        { "name": "Answer grid", "why": "Not used here." }
+      ] },
+      "decisions": [
+        { "id": "stress", "afterStep": 3, "prompt": "Where do stressed syllables go?", "options": [
+          { "text": "On strong beats", "correct": true, "consequence": "The words sound natural." },
+          { "text": "On weak beats", "consequence": "The stress of the speech is lost." },
+          { "text": "Anywhere", "consequence": "The words sound wrong." }
+        ] },
+        { "id": "upbeat", "afterStep": 3, "prompt": "A line begins with the unstressed word 'The'. What do you do?", "options": [
+          { "text": "Set it as an upbeat", "correct": true, "consequence": "The stressed word lands on beat one." },
+          { "text": "Put it on beat one", "consequence": "The weak syllable is falsely stressed." },
+          { "text": "Leave it out", "consequence": "You must set all the words." }
+        ] }
+      ],
+      "observations": [
+        { "id": "align", "prompt": "How are the words written under the notes?", "options": [
+          { "text": "Each syllable under its note, with hyphens", "correct": true },
+          { "text": "Whole words at the start of the bar", "why": "The singer can't tell which note." },
+          { "text": "In a block below the stave", "why": "That's not a setting." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "syll", "prompt": "A {s}-syllable line is set one crotchet per syllable in 4/4. How many bars does it fill?", "formula": "s / 4", "vars": { "s": { "min": 8, "max": 16, "step": 4 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{s} ÷ 4 = {answer}." }
+      ],
+      "faults": [
+        { "id": "setting", "scenario": "Obi's song setting was marked down. Here is what he did.", "lines": [
+          { "text": "He put weak syllables such as 'the' on first beats.", "fault": true, "why": "Use an upbeat." },
+          { "text": "He didn't line the words up under the notes.", "fault": true, "why": "Line them up." },
+          { "text": "He read the text aloud first.", "why": "That is correct." },
+          { "text": "He counted the syllables.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should a text be read aloud before it is set?",
+        "explainGuide": "Speaking it shows its natural stresses and rhythm, so that strong syllables can go on strong beats.",
+        "explainKeywords": [["stress", "accent"], ["rhythm", "natural"], ["strong", "beat", "syllable"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-mus-african-instruments": {
+      "safety": { "wrong": [
+        { "text": "Hit a borrowed drum as hard as you can to test it.", "why": "Treat instruments with respect." },
+        { "text": "Handle a sacred instrument without asking.", "why": "Ask permission first." },
+        { "text": "Go to the cultural centre alone without telling anyone.", "why": "Go in a group, and tell your teacher." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Electric guitar amplifier", "why": "You're classifying traditional instruments." },
+        { "name": "Metronome", "why": "Not needed for classification." },
+        { "name": "Drawing board with T-square", "why": "A notebook sketch is enough." }
+      ] },
+      "decisions": [
+        { "id": "class", "afterStep": 4, "prompt": "How is the ekwe (a slit wooden drum) classified?", "options": [
+          { "text": "Idiophone", "correct": true, "consequence": "Its own body vibrates." },
+          { "text": "Membranophone", "consequence": "It has no skin. This is a common error." },
+          { "text": "Aerophone", "consequence": "It isn't blown." }
+        ] },
+        { "id": "permission", "afterStep": 1, "prompt": "You want to photograph an instrument at a shrine. What do you do?", "options": [
+          { "text": "Ask its keeper first", "correct": true, "consequence": "You respect the owners." },
+          { "text": "Take the picture quickly", "consequence": "That disrespects its owners." },
+          { "text": "Take it away to photograph", "consequence": "You can't remove it." }
+        ] }
+      ],
+      "observations": [
+        { "id": "dundun", "prompt": "Dundun is a:", "options": [
+          { "text": "Membranophone", "correct": true },
+          { "text": "Chordophone", "why": "That has strings." },
+          { "text": "Aerophone", "why": "That's blown." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "share", "prompt": "A collection of 12 instruments has {i} idiophones. What percentage are idiophones?", "formula": "i / 12 * 100", "vars": { "i": { "min": 3, "max": 6, "step": 1 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.1 }, "decimals": 1, "working": "{i} ÷ 12 × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "tally", "scenario": "Ijeoma's field report was marked down. Here is what she did.", "lines": [
+          { "text": "She called the ekwe a membranophone.", "fault": true, "why": "It's an idiophone." },
+          { "text": "She handed in unlabelled sketches.", "fault": true, "why": "Label them." },
+          { "text": "She recorded each local name.", "why": "That is correct." },
+          { "text": "She presented her results in a table.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What decides an instrument's class?",
+        "explainGuide": "How the sound is made: idiophones vibrate their own body, membranophones a skin, chordophones a string, and aerophones the air.",
+        "explainKeywords": [["sound", "vibrat"], ["idiophone", "membranophone", "chordophone", "aerophone"], ["body", "skin", "string", "air"]],
+        "explainNeed": 2
+      }
+    }
+  }
+}

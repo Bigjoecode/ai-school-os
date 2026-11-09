@@ -41,7 +41,7 @@
     "Write the workshop rules on a chart."
    ],
    "expectedObservations": "Bench is organised, grounded and safe; the wrist strap tester shows a good connection.",
-   "dataAndCalculations": "A typical ESD wrist strap contains a 1 MΩ safety resistor. If a person touches 230 V by accident, the current through the strap is limited to 230/1 000 000 = 0.23 mA — far below dangerous levels.",
+   "dataAndCalculations": "A typical ESD wrist strap contains a 1 MΩ safety resistor. If a person touches 230 V by accident, the current through the strap itself is limited to 230/1 000 000 = 0.23 mA. That only protects the path through the strap: current can still flow through any other part of the body that touches earth, so a wrist strap is never protection against live mains.",
    "precautions": [
     "Test the wrist strap regularly.",
     "Do not wear the wrist strap when working on mains-powered equipment that is live."
@@ -92,7 +92,7 @@
      "explanation": "CO₂ is non-conductive and leaves no residue."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-identifying-phone-repair-tools-and-equipment",
@@ -181,7 +181,7 @@
      "explanation": "It loads firmware."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-disassembling-and-reassembling-a-mobile-phone",
@@ -271,7 +271,7 @@
      "explanation": "Repeated opening wears the flex."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-drawing-the-block-diagram-of-a-mobile-phone",
@@ -353,7 +353,7 @@
      "explanation": "Non-volatile storage."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-identifying-electronic-components-on-a-phone-board",
@@ -436,7 +436,7 @@
      "explanation": "Solder balls under the IC."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-continuity-short-circuit-and-voltage-tests-on-a-phone-board",
@@ -522,7 +522,7 @@
      "explanation": "Resistance tests need a dead circuit."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-replacing-a-damaged-phone-screen",
@@ -612,7 +612,7 @@
      "explanation": "Heat loosens glue."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-replacing-a-charging-port-with-hot-air-rework",
@@ -705,7 +705,7 @@
      "explanation": "It corrects faults."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-preventive-maintenance-routine-for-a-phone",
@@ -793,7 +793,7 @@
      "explanation": "Plastic avoids shorting pins."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-using-phone-menus-and-codes-for-fault-finding",
@@ -874,7 +874,7 @@
      "explanation": "Often a software fault."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-flashing-firmware-on-a-mobile-phone",
@@ -960,7 +960,7 @@
      "explanation": "IMEI tampering is an offence."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-diagnosing-sim-and-network-problems",
@@ -1044,7 +1044,7 @@
      "explanation": "9/20 × 100 = 45%."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-testing-chargers-batteries-and-accessories",
@@ -1126,7 +1126,7 @@
      "explanation": "Short-range radio."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-gsm-costing-and-return-on-investment-for-a-phone-repair-shop",
@@ -1206,7 +1206,7 @@
      "explanation": "Customers must find it easily."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   }
  ]
 }

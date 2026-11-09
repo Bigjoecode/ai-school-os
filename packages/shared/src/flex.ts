@@ -170,7 +170,7 @@ export const importSchemeSchema = z.object({
 
 export const HOMEWORK_KINDS = ['QUESTIONS', 'THEORY', 'PROJECT', 'UPLOAD', 'PRACTICAL'] as const;
 export type HomeworkKind = (typeof HOMEWORK_KINDS)[number];
-export const HOMEWORK_KIND_LABELS: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory (written answers)', PROJECT: 'Project', UPLOAD: 'Hand in a file or video', PRACTICAL: 'Practical (virtual lab)' };
+export const HOMEWORK_KIND_LABELS: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory (written answers)', PROJECT: 'Project', UPLOAD: 'Hand in a file or video', PRACTICAL: 'Practical' };
 /** PRACTICAL homework is marked out of this: the lab's score as a percentage. */
 export const PRACTICAL_HOMEWORK_MAX = 100;
 export const SUBMISSION_TYPES = ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT', 'LINK'] as const;

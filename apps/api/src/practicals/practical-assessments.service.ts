@@ -4,6 +4,7 @@ import {
   SIMULATORS,
   gradeFor,
   isSimulatorId,
+  labWord,
   rubricTotal,
   type CbtScorePreview,
   type CbtSendScoresResult,
@@ -565,7 +566,8 @@ export class PracticalAssessmentsService implements OnModuleInit {
     const t = await this.prisma.root.tenant.findUnique({ where: { id: currentTenantId() }, select: { timezone: true } });
     const when = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: t?.timezone || 'Africa/Lagos' }).format(row.opensAt);
     const students = await this.prisma.db.student.findMany({ where: { classArmId: { in: row.classArmIds }, status: 'ACTIVE' }, select: { id: true } });
-    await this.notify(students.map((s) => s.id), `New practical test: ${row.title}`, `Opens ${when} · ${row.durationMinutes} minutes in the virtual lab.`);
+    const lesson = await this.prisma.root.practicalLesson.findUnique({ where: { id: row.practicalId }, select: { simulator: true } });
+    await this.notify(students.map((s) => s.id), `New practical test: ${row.title}`, `Opens ${when} · ${row.durationMinutes} minutes in the ${labWord(lesson?.simulator)}.`);
   }
 
   /** In-app notifications to these students (a courtesy: never fails the action). */

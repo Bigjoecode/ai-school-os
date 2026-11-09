@@ -1,4 +1,4 @@
-import { PRACTICAL_KIND_LABELS, type PracticalListItem, type PracticalStatus } from '@aischool/shared';
+import { PRACTICAL_KIND_LABELS, type PracticalListItem, type PracticalStatus, GUIDED_PRACTICAL_LABEL, isGuidedPractical } from '@aischool/shared';
 import { ArrowRight, Atom, CheckCircle2, ChevronRight, Cpu, FlaskConical, Globe2, Microscope, Palette, Search, Sprout, UtensilsCrossed, Wrench, type LucideIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -43,7 +43,7 @@ export default function PracticalHubPage() {
     () =>
       CATEGORIES.map((c) => {
         const rows = (q.data ?? []).filter((s) => categoryOf(s.subject).id === c.id);
-        return { ...c, rows, practicals: rows.reduce((t, s) => t + s.practicals, 0), labs: rows.reduce((t, s) => t + s.labs, 0), learned: rows.reduce((t, s) => t + s.learned, 0) };
+        return { ...c, rows, practicals: rows.reduce((t, s) => t + s.practicals, 0), labs: rows.reduce((t, s) => t + s.labs, 0), guided: rows.reduce((t, s) => t + s.guided, 0), learned: rows.reduce((t, s) => t + s.learned, 0) };
       }).filter((c) => c.rows.length),
     [q.data],
   );
@@ -84,6 +84,7 @@ export default function PracticalHubPage() {
                     <span>
                       {c.practicals} practical{c.practicals === 1 ? '' : 's'}
                       {c.labs ? ` · ${c.labs} virtual lab${c.labs === 1 ? '' : 's'}` : ''}
+                      {c.guided ? ` · ${c.guided} guided practical${c.guided === 1 ? '' : 's'}` : ''}
                     </span>
                     <span className="tabular text-muted-foreground">{c.learned} learned</span>
                   </div>
@@ -194,7 +195,7 @@ function PracticalRow({ p, groupTopic }: { p: PracticalListItem; groupTopic?: st
         <span className="block text-[14px] font-medium">{p.title}</span>
         <span className="mt-1 flex flex-wrap items-center gap-1.5">
           <Badge variant="outline">{PRACTICAL_KIND_LABELS[p.kind]}</Badge>
-          {p.simulator && <Badge variant="ai">Virtual lab</Badge>}
+          {p.simulator && <Badge variant="ai">{isGuidedPractical(p.simulator) ? GUIDED_PRACTICAL_LABEL : 'Virtual lab'}</Badge>}
           {p.skills.slice(0, 4).map((s) => (
             <span key={s} className="rounded-full bg-muted px-2 py-0.5 text-[11px] capitalize text-muted-foreground">
               {s}
@@ -203,7 +204,7 @@ function PracticalRow({ p, groupTopic }: { p: PracticalListItem; groupTopic?: st
           {p.topic !== groupTopic && <span className="text-[11.5px] text-muted-foreground">{p.topic}</span>}
         </span>
         <span className="mt-1 block">
-          <StatusBadges s={p.status} lab={!!p.simulator} />
+          <StatusBadges s={p.status} lab={!!p.simulator} guided={isGuidedPractical(p.simulator)} />
         </span>
       </span>
       <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
@@ -211,7 +212,7 @@ function PracticalRow({ p, groupTopic }: { p: PracticalListItem; groupTopic?: st
   );
 }
 
-export function StatusBadges({ s, lab }: { s: PracticalStatus; lab: boolean }) {
+export function StatusBadges({ s, lab, guided }: { s: PracticalStatus; lab: boolean; guided?: boolean }) {
   return (
     <span className="flex flex-wrap items-center gap-1.5">
       {s.learned && (
@@ -220,7 +221,7 @@ export function StatusBadges({ s, lab }: { s: PracticalStatus; lab: boolean }) {
         </Badge>
       )}
       {s.practised > 0 && <Badge variant="info">Practised {s.practised}×</Badge>}
-      {lab && s.best !== null && <span className={cn('text-[12px] font-semibold tabular', scoreTone(s.best))}>Best lab {s.best}%</span>}
+      {lab && s.best !== null && <span className={cn('text-[12px] font-semibold tabular', scoreTone(s.best))}>{guided ? 'Best' : 'Best lab'} {s.best}%</span>}
     </span>
   );
 }

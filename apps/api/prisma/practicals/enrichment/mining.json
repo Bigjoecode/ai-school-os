@@ -1,0 +1,3155 @@
+{
+ "subject": "Mining",
+ "lessons": {
+  "pr-min-mapping-the-distribution-of-minerals-in-nigeria": {
+   "safety": {
+    "correct": [
+     "Keep samples in their labelled trays so they are not mixed up."
+    ],
+    "wrong": [
+     {
+      "text": "Handle the galena sample, then eat your snack without washing.",
+      "why": "Lead ores are harmful. Wash your hands first."
+     },
+     {
+      "text": "Lick a mineral sample to see if it is salty.",
+      "why": "Some minerals are toxic. Never taste samples."
+     },
+     {
+      "text": "Crush a sample on the desk to see inside it.",
+      "why": "Chips can hit your eyes, and the dust is harmful."
+     },
+     {
+      "text": "Blow dust off a lead ore sample close to your face.",
+      "why": "You may breathe in lead dust. Keep it away from your face."
+     },
+     {
+      "text": "Leave samples on the floor beside your chair.",
+      "why": "People can trip on them. Keep them in trays."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Geological hammer",
+      "why": "Nothing here is broken. This is map work."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "It is for field readings, not for this map."
+     },
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "No chemical test is needed for this map."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a classroom."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "coal",
+     "afterStep": 2,
+     "prompt": "Where do you mark coal?",
+     "options": [
+      {
+       "text": "Itakpe only",
+       "consequence": "Itakpe is known for iron ore."
+      },
+      {
+       "text": "Enugu and Kogi",
+       "correct": true,
+       "consequence": "Those are its main locations."
+      },
+      {
+       "text": "Jos Plateau",
+       "consequence": "That is tin and columbite."
+      }
+     ]
+    },
+    {
+     "id": "class",
+     "afterStep": 1,
+     "prompt": "How do you classify coal?",
+     "options": [
+      {
+       "text": "Metallic mineral",
+       "consequence": "It is not a metal."
+      },
+      {
+       "text": "Gemstone",
+       "consequence": "It is not a gem."
+      },
+      {
+       "text": "Energy (fuel) mineral",
+       "correct": true,
+       "consequence": "It is burned for energy."
+      }
+     ]
+    },
+    {
+     "id": "finish",
+     "afterStep": 4,
+     "prompt": "Your map has symbols and a key. What must be added?",
+     "options": [
+      {
+       "text": "Coloured borders only",
+       "consequence": "Decoration is not what is marked."
+      },
+      {
+       "text": "Title, north point and scale",
+       "correct": true,
+       "consequence": "The map is then complete."
+      },
+      {
+       "text": "A list of mine owners",
+       "consequence": "It is not asked for."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tin",
+     "prompt": "Which location goes with cassiterite?",
+     "options": [
+      {
+       "text": "Itakpe Hill, Kogi",
+       "why": "That is iron ore."
+      },
+      {
+       "text": "Jos Plateau",
+       "correct": true
+      },
+      {
+       "text": "Ondo State",
+       "why": "That is bitumen."
+      },
+      {
+       "text": "Enugu",
+       "why": "That is coal."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dist",
+     "prompt": "On a 1:5 000 000 map, two towns are {d} cm apart. What is the real distance, in km?",
+     "formula": "d * 50",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 9,
+       "step": 0.5
+      }
+     },
+     "unit": "km",
+     "unitAliases": [
+      "kilometres"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "{d} × 5 000 000 cm = {answer} km."
+    }
+   ],
+   "faults": [
+    {
+     "id": "map-fault",
+     "scenario": "Efe's mineral map lost marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He put iron ore at Enugu and coal at Itakpe.",
+       "fault": true,
+       "why": "Coal is Enugu, iron ore is Itakpe."
+      },
+      {
+       "text": "He left out the key.",
+       "fault": true,
+       "why": "A clear key is needed."
+      },
+      {
+       "text": "He added a north point and scale.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He classified the minerals first.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State why minerals are important to Nigeria's economy.",
+    "explainGuide": "Minerals provide raw materials for industry, jobs and government revenue from exports.",
+    "explainKeywords": [
+     [
+      "raw material",
+      "industry"
+     ],
+     [
+      "job",
+      "employment"
+     ],
+     [
+      "revenue",
+      "export",
+      "income"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-identifying-rock-forming-minerals-by-physical-properties": {
+   "safety": {
+    "correct": [
+     "Wipe the streak plate clean between samples."
+    ],
+    "wrong": [
+     {
+      "text": "Pour the dilute acid yourself to speed things up.",
+      "why": "The teacher dispenses it. Wear goggles."
+     },
+     {
+      "text": "Test acid on a sample with no goggles because it is dilute.",
+      "why": "Splashes harm the eyes. Wear goggles."
+     },
+     {
+      "text": "Skip washing your hands after handling galena.",
+      "why": "It is a lead mineral. Wash your hands."
+     },
+     {
+      "text": "Point the steel knife at yourself while testing hardness.",
+      "why": "It can slip. Scratch away from your body."
+     },
+     {
+      "text": "Smell the acid closely to check what it is.",
+      "why": "Fumes irritate. Do not sniff it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Clinometer",
+      "why": "It measures dip in the field."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a lab."
+     },
+     {
+      "name": "Sieve (2 mm)",
+      "why": "It sorts grains; it does not identify a mineral."
+     },
+     {
+      "name": "Bar of soap",
+      "why": "It is not a hardness standard here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "streak",
+     "afterStep": 2,
+     "prompt": "How do you get the streak?",
+     "options": [
+      {
+       "text": "Rub the mineral on the unglazed plate",
+       "correct": true,
+       "consequence": "The powder colour shows."
+      },
+      {
+       "text": "Look at the body colour of a broken surface",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Rub it on glazed tile",
+       "consequence": "A glazed tile gives no streak."
+      }
+     ]
+    },
+    {
+     "id": "bubbles",
+     "afterStep": 6,
+     "prompt": "Bubbles cling to the sample in water. What do you do?",
+     "options": [
+      {
+       "text": "Weigh it anyway and note the bubbles",
+       "consequence": "Bubbles spoil the result."
+      },
+      {
+       "text": "Add more samples",
+       "consequence": "This does not remove the bubbles."
+      },
+      {
+       "text": "Remove them before weighing",
+       "correct": true,
+       "consequence": "The SG comes out correct."
+      }
+     ]
+    },
+    {
+     "id": "colour",
+     "afterStep": 7,
+     "prompt": "A sample looks like hematite by colour. Is that enough?",
+     "options": [
+      {
+       "text": "Yes, colour is the best test",
+       "consequence": "Relying on colour alone is a common mistake."
+      },
+      {
+       "text": "Yes, if the sample is shiny",
+       "consequence": "Lustre alone does not settle it."
+      },
+      {
+       "text": "No, check streak and other properties",
+       "correct": true,
+       "consequence": "Colour alone misleads."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "calcite",
+     "prompt": "Which sample fizzes in dilute acid?",
+     "options": [
+      {
+       "text": "Magnetite",
+       "why": "It does not fizz."
+      },
+      {
+       "text": "Calcite",
+       "correct": true
+      },
+      {
+       "text": "Quartz",
+       "why": "It does not react."
+      },
+      {
+       "text": "Galena",
+       "why": "It does not fizz in this test."
+      }
+     ]
+    },
+    {
+     "id": "hema",
+     "prompt": "Which mineral gives a red-brown streak?",
+     "options": [
+      {
+       "text": "Mica",
+       "why": "Its streak is not red-brown."
+      },
+      {
+       "text": "Hematite",
+       "correct": true
+      },
+      {
+       "text": "Magnetite",
+       "why": "Its streak is black."
+      },
+      {
+       "text": "Quartz",
+       "why": "It is too hard to give a streak."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "sg",
+     "prompt": "A sample weighs {a} g in air and {w} g in water. What is its specific gravity?",
+     "formula": "a / (a - w)",
+     "vars": {
+      "a": {
+       "min": 24,
+       "max": 30,
+       "step": 2
+      },
+      "w": {
+       "min": 12,
+       "max": 18,
+       "step": 2
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "SG = {a} ÷ ({a} − {w}) = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "id-fault",
+     "scenario": "Ama named a hematite sample wrongly. Here is what she did.",
+     "lines": [
+      {
+       "text": "She relied on colour alone.",
+       "fault": true,
+       "why": "Use several properties."
+      },
+      {
+       "text": "She confused streak with body colour.",
+       "fault": true,
+       "why": "They can differ."
+      },
+      {
+       "text": "She used a weathered surface.",
+       "fault": true,
+       "why": "Use fresh surfaces."
+      },
+      {
+       "text": "She used a hand lens for cleavage.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She washed her hands after galena.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is streak more reliable than body colour?",
+    "explainGuide": "The body colour of a mineral can vary with impurities and weathering, but its powder colour stays the same, so streak is a truer guide.",
+    "explainKeywords": [
+     [
+      "impurit",
+      "weathering",
+      "vary"
+     ],
+     [
+      "powder"
+     ],
+     [
+      "same",
+      "reliable",
+      "constant"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-identifying-igneous-sedimentary-and-metamorphic-rocks": {
+   "safety": {
+    "correct": [
+     "Keep rock samples away from the edge of the bench."
+    ],
+    "wrong": [
+     {
+      "text": "Test acid on rocks with no goggles because the bottle is small.",
+      "why": "Wear goggles for acid tests."
+     },
+     {
+      "text": "Hit a sample on the bench with a hammer to see fresh rock.",
+      "why": "Chips fly. Your teacher provides a fresh surface."
+     },
+     {
+      "text": "Run your palm hard across a broken sample's sharp edge.",
+      "why": "Sharp edges cut. Handle with care."
+     },
+     {
+      "text": "Taste a sample to tell shale from limestone.",
+      "why": "Never taste samples."
+     },
+     {
+      "text": "Drop acid on your hand to see what it feels like.",
+      "why": "Acid harms skin. Keep it off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Sieve (2 mm)",
+      "why": "Rock is not being sieved."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a lab."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "It measures dip in the field."
+     },
+     {
+      "name": "Streak plate for naming whole rocks",
+      "why": "Texture and minerals name a rock."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "marble",
+     "afterStep": 3,
+     "prompt": "A pale crystalline sample fizzes in acid. How do you class it?",
+     "options": [
+      {
+       "text": "Marble, as it is crystalline and metamorphic",
+       "correct": true,
+       "consequence": "Fizzing and crystals point to marble."
+      },
+      {
+       "text": "Limestone, as all that fizzes is sedimentary",
+       "consequence": "This confuses marble and limestone."
+      },
+      {
+       "text": "Granite",
+       "consequence": "Granite does not fizz."
+      }
+     ]
+    },
+    {
+     "id": "band",
+     "afterStep": 1,
+     "prompt": "A rock shows bands of light and dark minerals. What is it?",
+     "options": [
+      {
+       "text": "Metamorphic (foliated)",
+       "correct": true,
+       "consequence": "That fits gneiss."
+      },
+      {
+       "text": "Sedimentary, as all layered rocks are",
+       "consequence": "Calling all banded rocks sedimentary is a common mistake."
+      },
+      {
+       "text": "Volcanic glass",
+       "consequence": "Glass has no such bands."
+      }
+     ]
+    },
+    {
+     "id": "grain",
+     "afterStep": 1,
+     "prompt": "Crystals are large and interlocking. How did it cool?",
+     "options": [
+      {
+       "text": "Slowly at depth (intrusive)",
+       "correct": true,
+       "consequence": "Slow cooling gives large crystals."
+      },
+      {
+       "text": "Quickly at the surface",
+       "consequence": "That gives fine grains."
+      },
+      {
+       "text": "It did not cool",
+       "consequence": "Igneous rock formed from cooling melt."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "basalt",
+     "prompt": "Which is fine-grained and extrusive?",
+     "options": [
+      {
+       "text": "Basalt",
+       "correct": true
+      },
+      {
+       "text": "Granite",
+       "why": "It is coarse and intrusive."
+      },
+      {
+       "text": "Gneiss",
+       "why": "It is banded and metamorphic."
+      },
+      {
+       "text": "Sandstone",
+       "why": "It is clastic and sedimentary."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "size",
+     "prompt": "A crystal measures {d} mm across. Coarse grains are over 2 mm. By how many mm does it exceed the coarse limit?",
+     "formula": "d - 2",
+     "vars": {
+      "d": {
+       "min": 3,
+       "max": 8,
+       "step": 0.5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{d} − 2 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "rock-fault",
+     "scenario": "Dayo got several rocks wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He confused marble with limestone.",
+       "fault": true,
+       "why": "Marble is metamorphic."
+      },
+      {
+       "text": "He called all banded rocks sedimentary.",
+       "fault": true,
+       "why": "Banding is typical of metamorphic rock."
+      },
+      {
+       "text": "He examined weathered surfaces only.",
+       "fault": true,
+       "why": "Use fresh surfaces."
+      },
+      {
+       "text": "He drew the rock cycle.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He wore goggles for acid tests.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Explain how a sedimentary rock can become a metamorphic rock.",
+    "explainGuide": "Burial brings heat and pressure which change its minerals and texture without melting it, so limestone, for example, becomes marble.",
+    "explainKeywords": [
+     [
+      "heat"
+     ],
+     [
+      "pressure"
+     ],
+     [
+      "change",
+      "without melting",
+      "marble"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-reading-geological-maps-and-drawing-a-cross-section": {
+   "safety": {
+    "correct": [
+     "Keep sharp pencils and the protractor on the desk, not on your lap."
+    ],
+    "wrong": [
+     {
+      "text": "Lean back on your chair while you plot the section.",
+      "why": "You can fall. Sit properly."
+     },
+     {
+      "text": "Swing your ruler about as you walk round the room.",
+      "why": "It can hit someone. Carry it down by your side."
+     },
+     {
+      "text": "Throw a pencil across to a classmate.",
+      "why": "It can hit an eye. Hand it over."
+     },
+     {
+      "text": "Sharpen your pencil towards your palm with a blade.",
+      "why": "It can slip. Use a sharpener."
+     },
+     {
+      "text": "Leave your bag in the aisle during the exercise.",
+      "why": "People can trip on it. Keep it under the desk."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Geological hammer",
+      "why": "This is map work."
+     },
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "Dips are read from the map's symbols here."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Nothing is tested chemically."
+     },
+     {
+      "name": "Hand lens for grain size",
+      "why": "There are no samples here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "transfer",
+     "afterStep": 3,
+     "prompt": "How do you get contour crossings onto the section?",
+     "options": [
+      {
+       "text": "Mark them on a paper edge laid along X–Y",
+       "correct": true,
+       "consequence": "Points transfer accurately."
+      },
+      {
+       "text": "Estimate them by eye",
+       "consequence": "Accuracy is lost."
+      },
+      {
+       "text": "Copy them from another map of the same area",
+       "consequence": "It would not match this line."
+      }
+     ]
+    },
+    {
+     "id": "dip",
+     "afterStep": 5,
+     "prompt": "The key shows the beds dipping east. How do you draw them?",
+     "options": [
+      {
+       "text": "At their dip, on the side shown",
+       "correct": true,
+       "consequence": "The section is true."
+      },
+      {
+       "text": "Horizontal, in the order shown on the key",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Vertical",
+       "consequence": "They dip, and are not vertical."
+      }
+     ]
+    },
+    {
+     "id": "state",
+     "afterStep": 6,
+     "prompt": "Your section is shaded. What must you state?",
+     "options": [
+      {
+       "text": "Your favourite rock",
+       "consequence": "This is not relevant."
+      },
+      {
+       "text": "Nothing more than the title and your name",
+       "consequence": "Scales and exaggeration earn marks."
+      },
+      {
+       "text": "Scales and vertical exaggeration",
+       "correct": true,
+       "consequence": "Others can read it correctly."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ve",
+     "prompt": "Why might dips look steeper on the section?",
+     "options": [
+      {
+       "text": "Thinner paper",
+       "why": "This has no effect."
+      },
+      {
+       "text": "A faded key",
+       "why": "This has no effect."
+      },
+      {
+       "text": "A blunt pencil on the section",
+       "why": "This has no effect on angles."
+      },
+      {
+       "text": "Vertical exaggeration",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-ve",
+     "prompt": "Horizontal 1 cm = {h} m and vertical 1 cm = 100 m. What is the vertical exaggeration?",
+     "formula": "h / 100",
+     "vars": {
+      "h": {
+       "min": 200,
+       "max": 800,
+       "step": 100
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{h} ÷ 100 = {answer}."
+    },
+    {
+     "id": "thick",
+     "prompt": "A bed has an outcrop width of {w} m on flat ground and dips at 30°. Taking sin 30° as 0.5, what is its true thickness?",
+     "formula": "w * 0.5",
+     "vars": {
+      "w": {
+       "min": 10,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{w} × 0.5 = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sect-fault",
+     "scenario": "Ngozi's cross-section lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She drew horizontal beds where the map showed dip.",
+       "fault": true,
+       "why": "Follow the map's dip."
+      },
+      {
+       "text": "She left out the key.",
+       "fault": true,
+       "why": "A key is needed."
+      },
+      {
+       "text": "She did not state the vertical exaggeration.",
+       "fault": true,
+       "why": "It must be stated."
+      },
+      {
+       "text": "She drew the profile first.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She shaded and labelled the units.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is vertical exaggeration and what effect does it have on a section?",
+    "explainGuide": "It is the ratio of the horizontal to the vertical scale. It makes the relief and the dips look steeper than they really are.",
+    "explainKeywords": [
+     [
+      "ratio",
+      "horizontal",
+      "vertical"
+     ],
+     [
+      "steep"
+     ],
+     [
+      "dip",
+      "relief"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-field-excursion-measuring-strike-and-dip-and-collecting-geological-data": {
+   "safety": {
+    "correct": [
+     "Tell the teacher at once if anyone is hurt or feels unwell."
+    ],
+    "wrong": [
+     {
+      "text": "Hammer a loose rock face to get a fresh sample quickly.",
+      "why": "Loose rock can fall on you. Never hammer at loose faces."
+     },
+     {
+      "text": "Hammer close to a friend so they can see the fresh surface.",
+      "why": "Chips fly. Never hammer near others."
+     },
+     {
+      "text": "Wander off alone to a further outcrop.",
+      "why": "Work in groups with a teacher."
+     },
+     {
+      "text": "Enter a farm without asking so as not to lose time.",
+      "why": "Get permission to enter land."
+     },
+     {
+      "text": "Leave your water behind to carry less.",
+      "why": "You need water in the field."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "No panning is done on this excursion."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives are never used by students."
+     },
+     {
+      "name": "Dilute hydrochloric acid in an open cup",
+      "why": "It can spill. Carry nothing open in the field."
+     },
+     {
+      "name": "Sieve (2 mm)",
+      "why": "It is for sediment work."
+     },
+     {
+      "name": "Steel rule for dip",
+      "why": "Dip is read with the clinometer."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "compass",
+     "afterStep": 3,
+     "prompt": "You have the hammer and phone in your hand. What do you do?",
+     "options": [
+      {
+       "text": "Put them away from the compass",
+       "correct": true,
+       "consequence": "Magnetic interference is avoided."
+      },
+      {
+       "text": "Hold them close",
+       "consequence": "They upset the reading."
+      },
+      {
+       "text": "Take the reading twice",
+       "consequence": "The interference remains."
+      }
+     ]
+    },
+    {
+     "id": "surface",
+     "afterStep": 3,
+     "prompt": "Which surface do you measure?",
+     "options": [
+      {
+       "text": "Any flat face",
+       "consequence": "It may not be bedding."
+      },
+      {
+       "text": "A bedding or foliation plane",
+       "correct": true,
+       "consequence": "That gives the rock's structure."
+      },
+      {
+       "text": "A joint surface, if it is the flattest",
+       "consequence": "This is a source of error."
+      }
+     ]
+    },
+    {
+     "id": "label",
+     "afterStep": 5,
+     "prompt": "You have collected a sample. What must you do at once?",
+     "options": [
+      {
+       "text": "Label it",
+       "correct": true,
+       "consequence": "It can be traced later."
+      },
+      {
+       "text": "Put it in with the others",
+       "consequence": "Unlabelled samples are a common mistake."
+      },
+      {
+       "text": "Wash it in a stream",
+       "consequence": "This does not label it."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "consistent",
+     "prompt": "What do consistent readings at nearby outcrops show?",
+     "options": [
+      {
+       "text": "The rock has no bedding",
+       "why": "They are taken on bedding."
+      },
+      {
+       "text": "The map is wrong",
+       "why": "They do not show this."
+      },
+      {
+       "text": "The regional structure",
+       "correct": true
+      },
+      {
+       "text": "A faulty compass",
+       "why": "Consistent readings do not suggest this."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mean",
+     "prompt": "Dip readings are {a}°, {b}°, {c}° and 36°. What is the mean dip?",
+     "formula": "(a + b + c + 36) / 4",
+     "vars": {
+      "a": {
+       "min": 30,
+       "max": 34,
+       "step": 1
+      },
+      "b": {
+       "min": 33,
+       "max": 36,
+       "step": 1
+      },
+      "c": {
+       "min": 32,
+       "max": 35,
+       "step": 1
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "({a} + {b} + {c} + 36) ÷ 4 = {answer}°."
+    }
+   ],
+   "faults": [
+    {
+     "id": "field-fault",
+     "scenario": "Sunday's field data cannot be used. Here is what he did.",
+     "lines": [
+      {
+       "text": "He recorded dip without its direction.",
+       "fault": true,
+       "why": "The direction must be given."
+      },
+      {
+       "text": "He left samples unlabelled.",
+       "fault": true,
+       "why": "Each must be labelled."
+      },
+      {
+       "text": "He took readings with his hammer beside the compass.",
+       "fault": true,
+       "why": "It disturbs the needle."
+      },
+      {
+       "text": "He averaged several readings.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He recorded GPS coordinates.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Define strike and dip.",
+    "explainGuide": "Strike is the direction of a horizontal line on an inclined bed. Dip is the angle and direction of the steepest slope, at right angles to the strike.",
+    "explainKeywords": [
+     [
+      "horizontal",
+      "direction"
+     ],
+     [
+      "angle"
+     ],
+     [
+      "slope",
+      "steepest",
+      "right angle"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-stream-sediment-sampling-and-panning-for-heavy-minerals": {
+   "safety": {
+    "correct": [
+     "Check the weather and the water level before entering the stream."
+    ],
+    "wrong": [
+     {
+      "text": "Pan in a fast deep part where the water is clear.",
+      "why": "Work only in shallow, slow water."
+     },
+     {
+      "text": "Go to the stream alone early in the morning.",
+      "why": "Work with a partner."
+     },
+     {
+      "text": "Sample a stream straight after heavy rain, when it is full.",
+      "why": "Avoid streams after heavy rain."
+     },
+     {
+      "text": "Reach into undergrowth with your bare hands.",
+      "why": "Beware of snakes and sharp objects. Wear gloves."
+     },
+     {
+      "text": "Wade in bare feet to feel the gravel.",
+      "why": "Wear boots. There may be sharp objects."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives are never used by students."
+     },
+     {
+      "name": "Mercury",
+      "why": "It is highly toxic and has no place in this practical."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "It measures dip."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Panning separates by density."
+     },
+     {
+      "name": "Rotary drill",
+      "why": "This is hand sampling."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "site",
+     "afterStep": 1,
+     "prompt": "Where do you take your sample?",
+     "options": [
+      {
+       "text": "Inside a bend or behind a boulder",
+       "correct": true,
+       "consequence": "Heavy minerals collect there."
+      },
+      {
+       "text": "In the fastest part of the channel",
+       "consequence": "Sampling the wrong part is a common mistake."
+      },
+      {
+       "text": "On the top of the bank",
+       "consequence": "This is not stream sediment."
+      }
+     ]
+    },
+    {
+     "id": "same",
+     "afterStep": 2,
+     "prompt": "You are comparing sites. How much do you pan?",
+     "options": [
+      {
+       "text": "The same mass each time",
+       "correct": true,
+       "consequence": "Comparison is fair."
+      },
+      {
+       "text": "As much as you can carry",
+       "consequence": "Sites cannot be compared."
+      },
+      {
+       "text": "Less at the far sites",
+       "consequence": "Sites cannot be compared."
+      }
+     ]
+    },
+    {
+     "id": "magnet",
+     "afterStep": 5,
+     "prompt": "Black grains stick to the magnet. What are they?",
+     "options": [
+      {
+       "text": "Quartz",
+       "consequence": "Quartz is not magnetic."
+      },
+      {
+       "text": "Magnetite",
+       "correct": true,
+       "consequence": "It is removed with the magnet."
+      },
+      {
+       "text": "Gold",
+       "consequence": "Gold is not magnetic."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "concentrate",
+     "prompt": "What remains in the pan after panning?",
+     "options": [
+      {
+       "text": "Only clay",
+       "why": "Clay washes out."
+      },
+      {
+       "text": "Only coarse gravel",
+       "why": "That is sieved off."
+      },
+      {
+       "text": "Clear water alone",
+       "why": "The heavy grains settle."
+      },
+      {
+       "text": "A concentrate of black sand",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "grade",
+     "prompt": "{m} g of gold comes from 20 kg (0.02 t) of gravel. What is the grade?",
+     "formula": "m / 0.02",
+     "vars": {
+      "m": {
+       "min": 0.02,
+       "max": 0.1,
+       "step": 0.02
+      }
+     },
+     "unit": "g/t",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{m} ÷ 0.02 = {answer} g/t."
+    }
+   ],
+   "faults": [
+    {
+     "id": "pan-fault",
+     "scenario": "Bisi's results do not show where the gold came from. Here is what she did.",
+     "lines": [
+      {
+       "text": "She sampled the wrong part of the stream.",
+       "fault": true,
+       "why": "Heavy minerals collect at bends and behind boulders."
+      },
+      {
+       "text": "She panned a different mass at each site.",
+       "fault": true,
+       "why": "The same mass must be used."
+      },
+      {
+       "text": "She let fine grains wash out.",
+       "fault": true,
+       "why": "Fine grains are lost."
+      },
+      {
+       "text": "She labelled her samples at once.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She worked with a partner.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why do heavy grains stay in the pan while the light material washes out?",
+    "explainGuide": "Panning separates by specific gravity. Heavy grains sink to the bottom, and swirling water carries the lighter grains over the edge.",
+    "explainKeywords": [
+     [
+      "specific gravity",
+      "density",
+      "heavy"
+     ],
+     [
+      "sink",
+      "settle",
+      "bottom"
+     ],
+     [
+      "light",
+      "wash",
+      "swirl"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-quarry-visit-unit-operations-and-flow-sheet": {
+   "safety": {
+    "correct": [
+     "Keep your PPE on until the guide says you have left the site."
+    ],
+    "wrong": [
+     {
+      "text": "Walk to the rock face to look at the drill holes.",
+      "why": "Stay with the guide. Never enter areas alone."
+     },
+     {
+      "text": "Carry on across the yard when the blast siren sounds.",
+      "why": "Obey blast warning signals at once."
+     },
+     {
+      "text": "Take off your dust mask because it is hot.",
+      "why": "Dust harms your lungs. Keep it on."
+     },
+     {
+      "text": "Cross the haul road to get a better photograph.",
+      "why": "Keep out of vehicle routes."
+     },
+     {
+      "text": "Remove the ear defenders near the crusher to hear the guide.",
+      "why": "Noise damages hearing. Keep them on."
+     },
+     {
+      "text": "Pick up a misplaced detonator wire to show the class.",
+      "why": "Never touch blasting items. Tell the guide."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Nothing is tested chemically."
+     },
+     {
+      "name": "Geological hammer for your own samples",
+      "why": "You may not break rock on this visit."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No dips are measured."
+     },
+     {
+      "name": "Sieve (2 mm)",
+      "why": "The quarry's own screens grade the rock."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "siren",
+     "afterStep": 2,
+     "prompt": "A blast warning sounds. What do you do?",
+     "options": [
+      {
+       "text": "Follow the guide to the safe point at once",
+       "correct": true,
+       "consequence": "Everyone is clear of the blast."
+      },
+      {
+       "text": "Finish your note first, then walk to the safe point",
+       "consequence": "You could be in danger."
+      },
+      {
+       "text": "Go closer for a photograph",
+       "consequence": "This is extremely dangerous."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 6,
+     "prompt": "Which order goes on the flow sheet?",
+     "options": [
+      {
+       "text": "Crush, drill, blast, haul, load, screen, stockpile",
+       "consequence": "Wrong order is a common mistake."
+      },
+      {
+       "text": "Stockpile, screen, crush, haul, load, blast, drill",
+       "consequence": "That is the reverse."
+      },
+      {
+       "text": "Drill, blast, load, haul, crush, screen, stockpile",
+       "correct": true,
+       "consequence": "That is the sequence observed."
+      }
+     ]
+    },
+    {
+     "id": "induction",
+     "afterStep": 1,
+     "prompt": "You arrive a little late. What do you do?",
+     "options": [
+      {
+       "text": "Skip it and read a leaflet later",
+       "consequence": "The induction comes first."
+      },
+      {
+       "text": "Attend the safety induction",
+       "correct": true,
+       "consequence": "You learn the site rules."
+      },
+      {
+       "text": "Go straight to the face",
+       "consequence": "This is forbidden."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "path",
+     "prompt": "How does rock reach the crusher?",
+     "options": [
+      {
+       "text": "By drilling",
+       "why": "Drilling comes before blasting."
+      },
+      {
+       "text": "By loaders and trucks from the blasted face",
+       "correct": true
+      },
+      {
+       "text": "By panning",
+       "why": "That is for stream sediment."
+      },
+      {
+       "text": "By hand-carrying in head pans to the crusher",
+       "why": "That is not how a quarry runs."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "per-hole",
+     "prompt": "Burden is 3.0 m, spacing 3.5 m and bench height {h} m. What volume of rock is broken per hole?",
+     "formula": "3 * 3.5 * h",
+     "vars": {
+      "h": {
+       "min": 8,
+       "max": 14,
+       "step": 1
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 1,
+     "working": "3.0 × 3.5 × {h} = {answer} m³."
+    },
+    {
+     "id": "tonnes",
+     "prompt": "A hole breaks {v} m³ of rock at 2.7 t/m³. What tonnage is this?",
+     "formula": "v * 2.7",
+     "vars": {
+      "v": {
+       "min": 80,
+       "max": 130,
+       "step": 5
+      }
+     },
+     "unit": "t",
+     "unitAliases": [
+      "tonnes"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 1,
+     "working": "{v} × 2.7 = {answer} t."
+    }
+   ],
+   "faults": [
+    {
+     "id": "quarry-fault",
+     "scenario": "Emeka was sent back to the bus, and his report lost marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left the guide to look at the crusher.",
+       "fault": true,
+       "why": "Never enter areas without the guide."
+      },
+      {
+       "text": "He put the flow sheet in the wrong order.",
+       "fault": true,
+       "why": "Follow the sequence observed."
+      },
+      {
+       "text": "He stood on a haul road to take notes.",
+       "fault": true,
+       "why": "Keep out of vehicle routes."
+      },
+      {
+       "text": "He wore his helmet and hi-vis vest.",
+       "why": "That is required."
+      },
+      {
+       "text": "He drew the flow sheet with arrows.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a safety induction given before a quarry visit?",
+    "explainGuide": "Quarries have blasting, moving vehicles, noise and dust. The induction explains the signals, routes and PPE so that visitors stay safe.",
+    "explainKeywords": [
+     [
+      "blast",
+      "vehicle",
+      "noise",
+      "dust"
+     ],
+     [
+      "signal",
+      "route",
+      "ppe",
+      "rule"
+     ],
+     [
+      "safe",
+      "danger",
+      "hazard"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-room-and-pillar-mine-model-and-extraction-ratio": {
+   "safety": {
+    "correct": [
+     "Keep clay and glue off your hands before touching graph paper."
+    ],
+    "wrong": [
+     {
+      "text": "Use the craft knife yourself while the teacher is busy.",
+      "why": "Cutting tools are used under supervision."
+     },
+     {
+      "text": "Cut foam towards your hand to keep the line straight.",
+      "why": "The blade can slip. Cut away from your body."
+     },
+     {
+      "text": "Leave the knife open on the bench.",
+      "why": "Someone can be cut. Close it and hand it back."
+     },
+     {
+      "text": "Carry the open knife across the room.",
+      "why": "You can stab someone. Pass it closed."
+     },
+     {
+      "text": "Build the model on the classroom floor where people walk.",
+      "why": "People can trip. Use a bench."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a classroom."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Nothing is tested chemically."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "It measures dip in the field."
+     },
+     {
+      "name": "Sieve set",
+      "why": "No sizing is done here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ratio",
+     "afterStep": 4,
+     "prompt": "You worked out 144/324 = 0.444. What is the extraction ratio?",
+     "options": [
+      {
+       "text": "324 − 144, which is 180%",
+       "consequence": "A ratio cannot be above 100%."
+      },
+      {
+       "text": "1 − 0.444, which is 55.6%",
+       "correct": true,
+       "consequence": "Extraction is what is taken out."
+      },
+      {
+       "text": "0.444, which is 44.4%",
+       "consequence": "That is the pillar fraction, a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "wider",
+     "afterStep": 4,
+     "prompt": "You want more ore. What happens if rooms are made wider?",
+     "options": [
+      {
+       "text": "Extraction falls, and support rises",
+       "consequence": "That is the reverse."
+      },
+      {
+       "text": "Nothing changes",
+       "consequence": "Room width sets both."
+      },
+      {
+       "text": "Extraction rises, but roof support falls",
+       "correct": true,
+       "consequence": "That is the trade-off."
+      }
+     ]
+    },
+    {
+     "id": "entry",
+     "afterStep": 3,
+     "prompt": "How do you label a horizontal entry into a hillside?",
+     "options": [
+      {
+       "text": "Adit",
+       "correct": true,
+       "consequence": "That is the correct term."
+      },
+      {
+       "text": "Shaft",
+       "consequence": "A shaft is vertical."
+      },
+      {
+       "text": "Stope",
+       "consequence": "A stope is a working area."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "pillars",
+     "prompt": "What do the pillars do in the model?",
+     "options": [
+      {
+       "text": "They store the broken rock",
+       "why": "They are not storage."
+      },
+      {
+       "text": "They are removed first",
+       "why": "They are left in place."
+      },
+      {
+       "text": "They support the roof, but lock up ore",
+       "correct": true
+      },
+      {
+       "text": "They carry the ventilation fans",
+       "why": "Pillars are rock left in place."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "extract",
+     "prompt": "Square pillars are {p} m wide with {r} m rooms. What is the extraction ratio, as a percentage?",
+     "formula": "(1 - p^2 / (p + r)^2) * 100",
+     "vars": {
+      "p": {
+       "min": 10,
+       "max": 14,
+       "step": 2
+      },
+      "r": {
+       "min": 6,
+       "max": 10,
+       "step": 2
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Extraction = 1 − {p}² ÷ ({p} + {r})² = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "model-fault",
+     "scenario": "Tola's mine model and sum lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She called the pillar fraction the extraction.",
+       "fault": true,
+       "why": "Extraction is 1 minus the pillar fraction."
+      },
+      {
+       "text": "She did not keep the model to scale.",
+       "fault": true,
+       "why": "It must be to scale."
+      },
+      {
+       "text": "She labelled the shaft and haulage way.",
+       "why": "That is expected."
+      },
+      {
+       "text": "She worked from a plan on graph paper.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Compare room-and-pillar mining with longwall mining.",
+    "explainGuide": "Room-and-pillar leaves pillars to support the roof, so some ore is lost. Longwall removes the whole panel and lets the roof collapse behind, so extraction is higher.",
+    "explainKeywords": [
+     [
+      "pillar"
+     ],
+     [
+      "longwall",
+      "panel"
+     ],
+     [
+      "extraction",
+      "higher",
+      "collapse",
+      "lost"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-truck-haulage-productivity": {
+   "safety": {
+    "correct": [
+     "Point out moving-equipment hazards when you describe each machine."
+    ],
+    "wrong": [
+     {
+      "text": "On site, stand behind a reversing dump truck to guide it close.",
+      "why": "Keep out of blind spots."
+     },
+     {
+      "text": "On site, walk across a loader's working area to take a shortcut.",
+      "why": "Keep clear of moving equipment."
+     },
+     {
+      "text": "On site, climb on a moving conveyor to save the walk.",
+      "why": "Moving belts can trap and kill. Never ride them."
+     },
+     {
+      "text": "On site, reach under a running conveyor to clear spillage.",
+      "why": "Stop and lock it first, under supervision."
+     },
+     {
+      "text": "On site, leave your hi-vis vest off in daylight.",
+      "why": "Drivers must be able to see you."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "This is a calculation exercise."
+     },
+     {
+      "name": "Sieve set",
+      "why": "No sizing is done here."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Nothing is tested chemically."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a classroom."
+     },
+     {
+      "name": "Geological hammer",
+      "why": "This is a calculation exercise."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "units",
+     "afterStep": 3,
+     "prompt": "The cycle is in minutes. How do you get trips per hour?",
+     "options": [
+      {
+       "text": "60 ÷ cycle time in minutes",
+       "correct": true,
+       "consequence": "The units agree."
+      },
+      {
+       "text": "Divide the cycle time by 60",
+       "consequence": "This is upside down."
+      },
+      {
+       "text": "Multiply the cycle time by 60",
+       "consequence": "This gives seconds."
+      }
+     ]
+    },
+    {
+     "id": "realistic",
+     "afterStep": 2,
+     "prompt": "Your cycle time leaves out queueing at the loader. What do you do?",
+     "options": [
+      {
+       "text": "Halve the haul time",
+       "consequence": "This makes the figure less honest."
+      },
+      {
+       "text": "Include realistic waiting time",
+       "correct": true,
+       "consequence": "Output is not overstated."
+      },
+      {
+       "text": "Leave it out to look better",
+       "consequence": "Actual output would be lower."
+      }
+     ]
+    },
+    {
+     "id": "choice",
+     "afterStep": 5,
+     "prompt": "You need steady transport over a long fixed route. What do you choose?",
+     "options": [
+      {
+       "text": "More trucks",
+       "consequence": "Trucks cost more per tonne over long distances."
+      },
+      {
+       "text": "A pay-loader",
+       "consequence": "It loads, and does not haul far."
+      },
+      {
+       "text": "A conveyor",
+       "correct": true,
+       "consequence": "It suits steady, long-distance transport."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "loader",
+     "prompt": "What is a pay-loader mainly used for?",
+     "options": [
+      {
+       "text": "Loading broken rock into trucks",
+       "correct": true
+      },
+      {
+       "text": "Drilling blast holes at the quarry face",
+       "why": "That is a drill rig."
+      },
+      {
+       "text": "Crushing rock",
+       "why": "That is a crusher."
+      },
+      {
+       "text": "Screening aggregate",
+       "why": "That is a screen."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "output",
+     "prompt": "A {c} t truck has a {t} minute cycle. What is its hourly output?",
+     "formula": "60 / t * c",
+     "vars": {
+      "c": {
+       "min": 20,
+       "max": 40,
+       "step": 10
+      },
+      "t": {
+       "min": 15,
+       "max": 30,
+       "step": 5
+      }
+     },
+     "unit": "t/h",
+     "unitAliases": [
+      "tonnes per hour"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "60 ÷ {t} trips × {c} = {answer} t/h."
+    },
+    {
+     "id": "fleet",
+     "prompt": "A truck hauls 90 t/h. The target is {x} t/h. How many trucks are needed?",
+     "formula": "x / 90",
+     "vars": {
+      "x": {
+       "min": 270,
+       "max": 900,
+       "step": 90
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{x} ÷ 90 = {answer} trucks."
+    }
+   ],
+   "faults": [
+    {
+     "id": "haul-fault",
+     "scenario": "Bello's fleet could not meet its target. Here is what he did.",
+     "lines": [
+      {
+       "text": "He mixed minutes and hours.",
+       "fault": true,
+       "why": "Use one unit."
+      },
+      {
+       "text": "He ignored delays and availability.",
+       "fault": true,
+       "why": "Real output is lower."
+      },
+      {
+       "text": "He showed his productivity working.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He named each machine.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Compare trucks and conveyors for moving ore.",
+    "explainGuide": "Trucks are flexible and can change route, but cost more per tonne over long distances. Conveyors suit steady, continuous, long-distance transport.",
+    "explainKeywords": [
+     [
+      "flexible",
+      "truck"
+     ],
+     [
+      "conveyor",
+      "continuous",
+      "steady"
+     ],
+     [
+      "cost",
+      "long",
+      "distance"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-crushing-and-sieve-analysis": {
+   "safety": {
+    "correct": [
+     "Switch off and wait for the crusher to stop before clearing it."
+    ],
+    "wrong": [
+     {
+      "text": "Push a stuck lump into the jaws with your fingers.",
+      "why": "Fingers can be crushed. Keep them out."
+     },
+     {
+      "text": "Run the crusher with no goggles for a short batch.",
+      "why": "Chips fly. Wear goggles."
+     },
+     {
+      "text": "Skip the dust mask since the sample is small.",
+      "why": "Rock dust harms your lungs. Wear the mask."
+     },
+     {
+      "text": "Clear the jaws with the machine running.",
+      "why": "Stop it first."
+     },
+     {
+      "text": "Blow the dust off the sieves with your mouth.",
+      "why": "You breathe it in. Use the brush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gold pan",
+      "why": "Panning is a different test."
+     },
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a lab."
+     },
+     {
+      "name": "Clinometer",
+      "why": "It measures dip."
+     },
+     {
+      "name": "Hand magnet",
+      "why": "No magnetic separation is done."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Nothing is tested chemically."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "balance",
+     "afterStep": 5,
+     "prompt": "The masses add up to 2% less than the feed. What do you do?",
+     "options": [
+      {
+       "text": "Check for losses and repeat if needed",
+       "correct": true,
+       "consequence": "Losses should be under 1%."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "The mass balance has failed."
+      },
+      {
+       "text": "Add 2% to one sieve so the total comes right",
+       "consequence": "This falsifies the result."
+      }
+     ]
+    },
+    {
+     "id": "overload",
+     "afterStep": 4,
+     "prompt": "Your sieve is piled high with sample. What do you do?",
+     "options": [
+      {
+       "text": "Skip that sieve",
+       "consequence": "Results would be incomplete."
+      },
+      {
+       "text": "Sieve in smaller portions",
+       "correct": true,
+       "consequence": "Overloaded sieves give false results."
+      },
+      {
+       "text": "Shake it harder and for twice as long",
+       "consequence": "It remains overloaded."
+      }
+     ]
+    },
+    {
+     "id": "plot",
+     "afterStep": 6,
+     "prompt": "What do you plot on the graph?",
+     "options": [
+      {
+       "text": "% retained on each sieve",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Sieve number",
+       "consequence": "This is not a size."
+      },
+      {
+       "text": "Cumulative % passing",
+       "correct": true,
+       "consequence": "That gives the P80."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "curve",
+     "prompt": "What does the cumulative curve look like?",
+     "options": [
+      {
+       "text": "Falling with size",
+       "why": "It should rise."
+      },
+      {
+       "text": "Smooth and rising with size",
+       "correct": true
+      },
+      {
+       "text": "Jagged and up and down",
+       "why": "Something has gone wrong."
+      },
+      {
+       "text": "Flat at zero",
+       "why": "Nothing has passed."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rr",
+     "prompt": "F80 is {f} mm and P80 is {p} mm. What is the reduction ratio?",
+     "formula": "f / p",
+     "vars": {
+      "f": {
+       "min": 80,
+       "max": 160,
+       "step": 20
+      },
+      "p": {
+       "min": 10,
+       "max": 20,
+       "step": 10
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{f} ÷ {p} = {answer}."
+    },
+    {
+     "id": "pass",
+     "prompt": "A 1 000 g sample has {r} g retained on the top sieve. What is the cumulative % passing it?",
+     "formula": "100 - r / 10",
+     "vars": {
+      "r": {
+       "min": 120,
+       "max": 260,
+       "step": 20
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "100 − {r} ÷ 10 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sieve-fault",
+     "scenario": "Rose's size distribution curve cannot be used. Here is what she did.",
+     "lines": [
+      {
+       "text": "She plotted % retained, not cumulative % passing.",
+       "fault": true,
+       "why": "Plot cumulative % passing."
+      },
+      {
+       "text": "She did not brush the sieves between tests.",
+       "fault": true,
+       "why": "Sample carries over."
+      },
+      {
+       "text": "She overloaded the top sieve.",
+       "fault": true,
+       "why": "Results become false."
+      },
+      {
+       "text": "She wore goggles and a mask.",
+       "why": "That is required."
+      },
+      {
+       "text": "She shook the stack for 10 minutes.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is meant by liberation, and why is it the main aim of grinding?",
+    "explainGuide": "Liberation is freeing valuable mineral grains from the gangue. Grinding reduces size so that the mineral can then be separated.",
+    "explainKeywords": [
+     [
+      "liberat",
+      "free"
+     ],
+     [
+      "gangue",
+      "waste"
+     ],
+     [
+      "separate",
+      "size",
+      "grind"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-gravity-and-magnetic-concentration-with-recovery-calculation": {
+   "safety": {
+    "correct": [
+     "Wipe spilled water from the bench at once."
+    ],
+    "wrong": [
+     {
+      "text": "Put wet trays on the balance to save time.",
+      "why": "Water harms the balance and spoils the mass. Dry first."
+     },
+     {
+      "text": "Bring the bare magnet right into the concentrate.",
+      "why": "It is hard to clean. Use the magnet in a plastic bag."
+     },
+     {
+      "text": "Leave the floor wet round the sluice.",
+      "why": "You can slip. Keep it dry."
+     },
+     {
+      "text": "Pour wash water down the sink with the sand in it.",
+      "why": "It can block the drain. Let the solids settle."
+     },
+     {
+      "text": "Keep the magnet close to the electronic balance.",
+      "why": "It disturbs the reading. Keep it away."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a lab."
+     },
+     {
+      "name": "Clinometer",
+      "why": "It measures dip."
+     },
+     {
+      "name": "Jaw crusher",
+      "why": "The ore is already sand-sized."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "Separation here is physical."
+     },
+     {
+      "name": "Mercury",
+      "why": "It is highly toxic and has no place here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "dry",
+     "afterStep": 4,
+     "prompt": "Your concentrate is damp. What do you do before weighing?",
+     "options": [
+      {
+       "text": "Weigh it damp",
+       "consequence": "The grade comes out wrong."
+      },
+      {
+       "text": "Estimate the water",
+       "consequence": "You have no way to know it."
+      },
+      {
+       "text": "Dry it first",
+       "correct": true,
+       "consequence": "Water no longer adds to the mass."
+      }
+     ]
+    },
+    {
+     "id": "magnet",
+     "afterStep": 3,
+     "prompt": "How do you use the magnet?",
+     "options": [
+      {
+       "text": "Bare, straight in the sample",
+       "consequence": "It is hard to clean."
+      },
+      {
+       "text": "Under the balance",
+       "consequence": "That does not separate anything."
+      },
+      {
+       "text": "Inside a plastic bag",
+       "correct": true,
+       "consequence": "The magnetite can be released easily."
+      }
+     ]
+    },
+    {
+     "id": "term",
+     "afterStep": 6,
+     "prompt": "60% is what is in the concentrate. What is 60% here?",
+     "options": [
+      {
+       "text": "Ratio of concentration",
+       "consequence": "That is feed over concentrate."
+      },
+      {
+       "text": "Grade",
+       "correct": true,
+       "consequence": "Recovery is a different figure."
+      },
+      {
+       "text": "Recovery",
+       "consequence": "Confusing them is a common mistake."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tails",
+     "prompt": "What are the tailings mostly made up of?",
+     "options": [
+      {
+       "text": "Light quartz sand",
+       "correct": true
+      },
+      {
+       "text": "Dark heavy grains",
+       "why": "Those report to the concentrate."
+      },
+      {
+       "text": "Pure magnetite",
+       "why": "That is the concentrate."
+      },
+      {
+       "text": "Water alone",
+       "why": "Solids remain."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "recovery",
+     "prompt": "Feed contains 100 g of mineral. Concentrate is 150 g at {g}% grade. What is the recovery?",
+     "formula": "g / 100 * 150 / 100 * 100",
+     "vars": {
+      "g": {
+       "min": 40,
+       "max": 65,
+       "step": 5
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Mineral = {g}% of 150 g. Recovery = that ÷ 100 × 100 = {answer}%."
+    },
+    {
+     "id": "roc",
+     "prompt": "Feed is 2 000 g and concentrate is {c} g. What is the ratio of concentration?",
+     "formula": "2000 / c",
+     "vars": {
+      "c": {
+       "min": 100,
+       "max": 250,
+       "step": 50
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "2000 ÷ {c} = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "conc-fault",
+     "scenario": "Ike's recovery came out above 100%. Here is what he did.",
+     "lines": [
+      {
+       "text": "He weighed his concentrate wet.",
+       "fault": true,
+       "why": "Water adds to the mass."
+      },
+      {
+       "text": "He confused grade with recovery.",
+       "fault": true,
+       "why": "They are different."
+      },
+      {
+       "text": "He lost fines in the wash water.",
+       "fault": true,
+       "why": "This is a source of error."
+      },
+      {
+       "text": "He used a magnet in a bag.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He dried his samples.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Distinguish grade from recovery.",
+    "explainGuide": "Grade is the percentage of valuable mineral in the concentrate. Recovery is the percentage of the mineral in the feed that reports to the concentrate.",
+    "explainKeywords": [
+     [
+      "grade"
+     ],
+     [
+      "recovery"
+     ],
+     [
+      "feed",
+      "concentrate"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-identifying-gemstones-and-calculating-carat-weight": {
+   "safety": {
+    "correct": [
+     "Close the gem paper or tray before you move away from the bench."
+    ],
+    "wrong": [
+     {
+      "text": "Use the refractometer contact liquid yourself.",
+      "why": "It is toxic. Teacher only."
+     },
+     {
+      "text": "Handle stones over the bare floor.",
+      "why": "They can break or be lost. Use the padded tray."
+     },
+     {
+      "text": "Test a stone's hardness by scratching a cut face.",
+      "why": "This damages it. Use the other properties."
+     },
+     {
+      "text": "Hold stones in bare fingers while you examine them.",
+      "why": "Finger grease spoils the view. Use tweezers."
+     },
+     {
+      "text": "Put a stone in your mouth to clean it.",
+      "why": "It can be swallowed. Clean it properly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place in a lab."
+     },
+     {
+      "name": "Jaw crusher",
+      "why": "It would destroy the stones."
+     },
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Sieve set",
+      "why": "Gems are examined singly."
+     },
+     {
+      "name": "Geological hammer",
+      "why": "It would break the stones."
+     }
+    ],
+    "optional": [
+     "Refractometer (if available)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bubbles",
+     "afterStep": 2,
+     "prompt": "You see round gas bubbles in the stone. What do you conclude?",
+     "options": [
+      {
+       "text": "It is natural",
+       "consequence": "Natural stones often show inclusions, not round bubbles."
+      },
+      {
+       "text": "It is a sapphire",
+       "consequence": "Bubbles do not point to that."
+      },
+      {
+       "text": "It is probably glass",
+       "correct": true,
+       "consequence": "Glass may show round bubbles."
+      }
+     ]
+    },
+    {
+     "id": "unit",
+     "afterStep": 3,
+     "prompt": "What does the carat measure?",
+     "options": [
+      {
+       "text": "The stone's colour",
+       "consequence": "That is not a unit."
+      },
+      {
+       "text": "The stone's weight",
+       "correct": true,
+       "consequence": "Carat is a unit of mass."
+      },
+      {
+       "text": "The stone's purity",
+       "consequence": "That is karat, for gold."
+      }
+     ]
+    },
+    {
+     "id": "clean",
+     "afterStep": 1,
+     "prompt": "The stone is smeared. What do you do first?",
+     "options": [
+      {
+       "text": "Clean it, then handle it with tweezers",
+       "correct": true,
+       "consequence": "Grease no longer spoils the view."
+      },
+      {
+       "text": "Examine it as it is",
+       "consequence": "A false view results."
+      },
+      {
+       "text": "Rub it on your shirt until it looks clean",
+       "consequence": "Fibres and grease remain."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "natural",
+     "prompt": "What often shows that a stone is natural?",
+     "options": [
+      {
+       "text": "Round gas bubbles",
+       "why": "These suggest glass."
+      },
+      {
+       "text": "A mould line",
+       "why": "That suggests glass."
+      },
+      {
+       "text": "Very low hardness on a scratch test",
+       "why": "That suggests glass."
+      },
+      {
+       "text": "Inclusions inside the stone",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ct",
+     "prompt": "A stone weighs {g} g. What is its weight in carats?",
+     "formula": "g / 0.2",
+     "vars": {
+      "g": {
+       "min": 0.4,
+       "max": 4,
+       "step": 0.2
+      }
+     },
+     "unit": "ct",
+     "unitAliases": [
+      "carat",
+      "carats"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{g} ÷ 0.2 = {answer} ct."
+    },
+    {
+     "id": "gem-sg",
+     "prompt": "A stone weighs 3.50 g in air and {w} g in water. What is its SG?",
+     "formula": "3.5 / (3.5 - w)",
+     "vars": {
+      "w": {
+       "min": 2.2,
+       "max": 2.6,
+       "step": 0.1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.03
+     },
+     "decimals": 2,
+     "working": "3.50 ÷ (3.50 − {w}) = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "gem-fault",
+     "scenario": "Ada's gem report has errors. Here is what she did.",
+     "lines": [
+      {
+       "text": "She confused carat with karat.",
+       "fault": true,
+       "why": "They are different."
+      },
+      {
+       "text": "She handled stones with greasy fingers.",
+       "fault": true,
+       "why": "Use tweezers."
+      },
+      {
+       "text": "She used the padded tray.",
+       "why": "That is required."
+      },
+      {
+       "text": "She used a loupe for inclusions.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name the four Cs that affect the price of a gemstone.",
+    "explainGuide": "Colour, clarity, cut and carat weight together affect a stone's price.",
+    "explainKeywords": [
+     [
+      "colour",
+      "color"
+     ],
+     [
+      "clarity"
+     ],
+     [
+      "cut"
+     ],
+     [
+      "carat"
+     ]
+    ],
+    "explainNeed": 3
+   }
+  },
+  "pr-min-mine-safety-ppe-first-aid-and-accident-reporting": {
+   "safety": {
+    "correct": [
+     "Check the first aid kit is complete before the exercise."
+    ],
+    "wrong": [
+     {
+      "text": "Give a casualty painkillers from your bag.",
+      "why": "Do not give drugs without training and authority."
+     },
+     {
+      "text": "Move a casualty with a suspected spinal injury to a comfortable spot.",
+      "why": "Moving them can cause paralysis. Keep them still and call for help."
+     },
+     {
+      "text": "Run to the casualty without checking for danger.",
+      "why": "Check the scene first, or you can become a casualty too."
+     },
+     {
+      "text": "Practise splinting on a friend with a real sprain.",
+      "why": "Practise only on volunteers with no real injuries."
+     },
+     {
+      "text": "Delay the accident report until the end of the month.",
+      "why": "Late reports are incomplete. Report at once."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives have no place here."
+     },
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Dilute hydrochloric acid",
+      "why": "It is not part of a first aid kit."
+     },
+     {
+      "name": "Geological hammer",
+      "why": "It is not PPE."
+     },
+     {
+      "name": "Herbal mixture for wounds",
+      "why": "Use sterile dressings from the first aid kit."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 2,
+     "prompt": "A workmate collapses in a roadway. What is your first action?",
+     "options": [
+      {
+       "text": "Check the pulse at once",
+       "consequence": "Danger comes first."
+      },
+      {
+       "text": "Move them outside",
+       "consequence": "Moving them may cause harm."
+      },
+      {
+       "text": "Check for danger",
+       "correct": true,
+       "consequence": "You do not become a casualty."
+      }
+     ]
+    },
+    {
+     "id": "spine",
+     "afterStep": 2,
+     "prompt": "A casualty fell and has neck pain. What do you do?",
+     "options": [
+      {
+       "text": "Help them walk it off",
+       "consequence": "They may be paralysed by moving."
+      },
+      {
+       "text": "Sit them up to drink water",
+       "consequence": "This moves the spine."
+      },
+      {
+       "text": "Keep them still and call for help",
+       "correct": true,
+       "consequence": "You do not worsen a spinal injury."
+      }
+     ]
+    },
+    {
+     "id": "form",
+     "afterStep": 4,
+     "prompt": "What should the accident report include?",
+     "options": [
+      {
+       "text": "Only a verbal message",
+       "consequence": "A written form is needed."
+      },
+      {
+       "text": "Date, place, persons, injuries, action, witnesses",
+       "correct": true,
+       "consequence": "The form is complete."
+      },
+      {
+       "text": "The injured person's name alone, on a slip of paper",
+       "consequence": "This is not enough."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ppe",
+     "prompt": "Which item protects against silica dust?",
+     "options": [
+      {
+       "text": "Ear defenders",
+       "why": "They protect hearing."
+      },
+      {
+       "text": "Safety boots with steel toecaps",
+       "why": "They protect feet."
+      },
+      {
+       "text": "Hi-vis vest",
+       "why": "It makes you visible."
+      },
+      {
+       "text": "Dust mask or respirator",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ltifr",
+     "prompt": "There are {n} lost-time injuries in 600 000 hours. What is the frequency rate per million hours?",
+     "formula": "n * 1000000 / 600000",
+     "vars": {
+      "n": {
+       "min": 1,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{n} × 1 000 000 ÷ 600 000 = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "safety-fault",
+     "scenario": "A visiting inspector criticised how an accident was handled. Here is what the team did.",
+     "lines": [
+      {
+       "text": "They moved a casualty with a suspected spinal injury.",
+       "fault": true,
+       "why": "Keep the casualty still."
+      },
+      {
+       "text": "They gave the casualty tablets without authority.",
+       "fault": true,
+       "why": "Do not give drugs."
+      },
+      {
+       "text": "They filed a late, incomplete report.",
+       "fault": true,
+       "why": "Report promptly and fully."
+      },
+      {
+       "text": "They checked for danger first.",
+       "why": "That is the method."
+      },
+      {
+       "text": "They used sterile dressings.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must the scene be checked for danger before giving first aid?",
+    "explainGuide": "The hazard that hurt the casualty, such as falling rock or gas, can also hurt the rescuer, who then becomes another casualty.",
+    "explainKeywords": [
+     [
+      "danger",
+      "hazard"
+     ],
+     [
+      "rescuer",
+      "first aider",
+      "you",
+      "another"
+     ],
+     [
+      "casualty",
+      "hurt",
+      "injure"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-min-assessing-the-environmental-impact-of-a-mine-site": {
+   "safety": {
+    "correct": [
+     "Stay with your group and report any hazards you notice to the guide."
+    ],
+    "wrong": [
+     {
+      "text": "Drink from the stream beside the mine because it looks clear.",
+      "why": "Do not drink or touch untested water."
+     },
+     {
+      "text": "Walk along the top of the spoil heap for a better view.",
+      "why": "Spoil heaps are unstable. Keep off."
+     },
+     {
+      "text": "Go close to the edge of the open pit to measure it.",
+      "why": "Avoid open pits."
+     },
+     {
+      "text": "Wade into a mine pond to fill your bottle.",
+      "why": "Avoid ponds. They can be deep or contaminated."
+     },
+     {
+      "text": "Visit the site alone at the weekend without permission.",
+      "why": "Visit only with permission and a guide."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blasting detonator",
+      "why": "Explosives are never used by students."
+     },
+     {
+      "name": "Geological hammer",
+      "why": "No samples are being broken."
+     },
+     {
+      "name": "Gold pan",
+      "why": "No panning is done here."
+     },
+     {
+      "name": "Jaw crusher",
+      "why": "No crushing is done here."
+     },
+     {
+      "name": "Compass-clinometer",
+      "why": "No dip is measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ph",
+     "afterStep": 2,
+     "prompt": "Where do you test the water?",
+     "options": [
+      {
+       "text": "Upstream and downstream of the site",
+       "correct": true,
+       "consequence": "You can compare them."
+      },
+      {
+       "text": "Only downstream",
+       "consequence": "You have nothing to compare it with."
+      },
+      {
+       "text": "Only at the pit, where the water is collected",
+       "consequence": "It does not show the effect on the stream."
+      }
+     ]
+    },
+    {
+     "id": "same",
+     "afterStep": 2,
+     "prompt": "How do you take the water samples?",
+     "options": [
+      {
+       "text": "With your bare hands in the stream",
+       "consequence": "Do not touch untested water."
+      },
+      {
+       "text": "At the same depth and time",
+       "correct": true,
+       "consequence": "The comparison is fair."
+      },
+      {
+       "text": "At any depth, whenever convenient",
+       "consequence": "Samples cannot be compared."
+      }
+     ]
+    },
+    {
+     "id": "report",
+     "afterStep": 6,
+     "prompt": "Your report lists the damage. What must it also contain?",
+     "options": [
+      {
+       "text": "A list of the workers' names",
+       "consequence": "It is not what the report needs."
+      },
+      {
+       "text": "Nothing else",
+       "consequence": "It would be incomplete."
+      },
+      {
+       "text": "Control measures",
+       "correct": true,
+       "consequence": "Listing impacts alone is a common mistake."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "acid",
+     "prompt": "pH is 6.8 upstream and 4.9 downstream. What does this show?",
+     "options": [
+      {
+       "text": "There is no change",
+       "why": "The value has fallen."
+      },
+      {
+       "text": "The pH paper is wet",
+       "why": "All pH paper gets wet in use."
+      },
+      {
+       "text": "The water is more acidic downstream",
+       "correct": true
+      },
+      {
+       "text": "The water is more alkaline downstream",
+       "why": "A lower pH means more acid."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "area",
+     "prompt": "A pit measures {l} m by 80 m. What is its area in hectares?",
+     "formula": "l * 80 / 10000",
+     "vars": {
+      "l": {
+       "min": 100,
+       "max": 200,
+       "step": 20
+      }
+     },
+     "unit": "ha",
+     "unitAliases": [
+      "hectares",
+      "hectare"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{l} × 80 ÷ 10 000 = {answer} ha."
+    },
+    {
+     "id": "cost",
+     "prompt": "An area of {a} ha costs N2 500 000 per hectare to reclaim. What is the cost, in naira?",
+     "formula": "a * 2500000",
+     "vars": {
+      "a": {
+       "min": 0.4,
+       "max": 2,
+       "step": 0.2
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "naira",
+      "₦"
+     ],
+     "tolerance": {
+      "abs": 1000
+     },
+     "decimals": 0,
+     "working": "{a} × 2 500 000 = N{answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "impact-fault",
+     "scenario": "Yemi's impact report was returned. Here is what he did.",
+     "lines": [
+      {
+       "text": "He listed impacts without control measures.",
+       "fault": true,
+       "why": "Both are needed."
+      },
+      {
+       "text": "He sampled at different depths and times.",
+       "fault": true,
+       "why": "Sample at the same depth and time."
+      },
+      {
+       "text": "He relied on a single visit in the dry season.",
+       "fault": true,
+       "why": "It may not represent all seasons."
+      },
+      {
+       "text": "He recorded reclamation.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He stayed with the guide.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is acid mine drainage, and how does it affect a stream?",
+    "explainGuide": "Water that runs through exposed sulphide rock becomes acidic. It lowers the pH of the stream and harms fish, plants and water users.",
+    "explainKeywords": [
+     [
+      "acid"
+     ],
+     [
+      "ph",
+      "sulphide",
+      "sulfide"
+     ],
+     [
+      "harm",
+      "fish",
+      "plant",
+      "water"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  }
+ }
+}

@@ -43,7 +43,7 @@ export default function PracticalTestsPage() {
     <Page>
       <PageHeader
         title="Practical tests"
-        description="Set a Practical Academy virtual lab as a timed class test or practical exam. Each student sits it once on their own variant; readings and calculations are marked exactly, written answers by AI, and you can review any mark and send scores to the score sheet."
+        description="Set a Practical Academy virtual lab or guided practical as a timed class test or practical exam. Each student sits it once on their own variant; readings and calculations are marked exactly, written answers by AI, and you can review any mark and send scores to the score sheet."
         actions={
           <div className="flex flex-wrap gap-2">
             <Button asChild variant="outline">
@@ -63,7 +63,7 @@ export default function PracticalTestsPage() {
         </Card>
       ) : !groups.length ? (
         <Card>
-          <EmptyState icon={FlaskConical} title="No practical tests yet" description="Pick a practical with a virtual lab, the classes and a time window. Students find it under Exams." action={scheduleButton || undefined} />
+          <EmptyState icon={FlaskConical} title="No practical tests yet" description="Pick a practical with a virtual lab or guided practical, the classes and a time window. Students find it under Exams." action={scheduleButton || undefined} />
         </Card>
       ) : (
         <div className="space-y-8">

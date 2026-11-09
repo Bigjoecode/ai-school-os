@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { PRACTICAL_KINDS, PRACTICAL_SKILLS, type PracticalContent, type PracticalFile } from '@aischool/shared';
+import { PRACTICAL_KINDS, PRACTICAL_SKILLS, genEnrichmentLessonSchema, type GenEnrichmentLesson, type GenLessonPrivate, type GenRoom, type PracticalContent, type PracticalFile } from '@aischool/shared';
 import type { Prisma, PrismaClient } from '../generated/prisma/client';
 import { subjectKey } from '../learning/mastery.service';
 
@@ -12,6 +12,12 @@ import { subjectKey } from '../learning/mastery.service';
  * platform_settings); a file whose lessons didn't all find their syllabus topic
  * is tried again on the next start (the syllabus may have been installed since).
  * Lessons are matched by their stable id; lessons dropped from a file are removed.
+ *
+ * prisma/practicals/enrichment/<slug>.json (authored content for the Guided
+ * practical, same slug as the lesson file) is installed with its lesson file:
+ * its bytes are part of the file's hash, and each entry is kept on the lesson's
+ * private `gen` part, which never goes to a browser. A bad entry is left out and
+ * reported; it never stops the lessons installing.
  */
 
 function practicalsDir(): string | undefined {
@@ -69,6 +75,39 @@ export function cleanPractical(p: Partial<PracticalContent>): PracticalContent |
   };
 }
 
+/** The directory beside the exams that holds enrichment, not lessons. */
+const ENRICHMENT_DIR = 'enrichment';
+
+/** A subject's enrichment: its raw text (for the hash) and its entries by lesson id; `rejected` names the entries that failed the schema. */
+export function readEnrichment(dir: string, file: string) {
+  const path = join(dir, ENRICHMENT_DIR, file);
+  const entries = new Map<string, GenEnrichmentLesson>();
+  const rejected: string[] = [];
+  if (!existsSync(path)) return { raw: '', room: undefined as GenRoom | undefined, entries, rejected };
+  const raw = readFileSync(path, 'utf8');
+  try {
+    const data = JSON.parse(raw) as { room?: GenRoom; lessons?: Record<string, unknown> };
+    for (const [id, entry] of Object.entries(data.lessons ?? {})) {
+      const r = genEnrichmentLessonSchema.safeParse(entry);
+      if (r.success) entries.set(id, r.data);
+      else rejected.push(id);
+    }
+    return { raw, room: data.room, entries, rejected };
+  } catch {
+    return { raw, room: undefined as GenRoom | undefined, entries, rejected: [file] };
+  }
+}
+
+/** Tools and results from a subject's other lessons, for distractors when a lesson has no enrichment. */
+export function lessonPool(all: PracticalContent[], me: PracticalContent): NonNullable<GenLessonPrivate['pool']> {
+  const others = all.filter((x) => x.id !== me.id);
+  const firstSentence = (s: string) => (/^[^.!?]+[.!?]/.exec(s)?.[0] ?? s).trim().slice(0, 240);
+  return {
+    tools: [...new Set(others.flatMap((x) => [...x.apparatus, ...x.materials]))].filter((x) => x.length <= 60).slice(0, 60),
+    observations: [...new Set(others.map((x) => firstSentence(x.expectedObservations)).filter((x) => x.length > 20))].slice(0, 12),
+  };
+}
+
 export async function installPracticals(prisma: PrismaClient): Promise<string> {
   const dir = practicalsDir();
   if (!dir) return '';
@@ -77,7 +116,10 @@ export async function installPracticals(prisma: PrismaClient): Promise<string> {
   let removed = 0;
   let unmatched = 0;
   const failed: string[] = [];
+  let enriched = 0;
+  const badEnrichment: string[] = [];
   for (const exam of readdirSync(dir)) {
+    if (exam === ENRICHMENT_DIR) continue;
     let names: string[];
     try {
       names = readdirSync(join(dir, exam)).filter((f) => f.endsWith('.json'));
@@ -86,7 +128,9 @@ export async function installPracticals(prisma: PrismaClient): Promise<string> {
     }
     for (const file of names) {
       const raw = readFileSync(join(dir, exam, file), 'utf8');
-      const hash = createHash('sha256').update(raw).digest('hex').slice(0, 16);
+      const enrichment = readEnrichment(dir, file);
+      // A file with no enrichment keeps the hash it always had; new or edited enrichment reinstalls the lessons.
+      const hash = createHash('sha256').update(raw).update(enrichment.raw).digest('hex').slice(0, 16);
       const key = `practicals:${exam}/${file}`;
       const source = `${exam}/${file}`;
       const seen = (await prisma.platformSetting.findUnique({ where: { key } }))?.value as { hash?: string; unmatched?: number } | null;
@@ -109,11 +153,14 @@ export async function installPracticals(prisma: PrismaClient): Promise<string> {
         const kept: string[] = [];
         let misses = 0;
         let order = 0;
-        for (const rawLesson of data.practicals) {
-          const p = cleanPractical(rawLesson);
-          if (!p) continue;
+        const cleaned = data.practicals.map((x) => cleanPractical(x)).filter((x): x is PracticalContent => !!x);
+        badEnrichment.push(...enrichment.rejected.map((id) => `${source}: ${id}`));
+        for (const p of cleaned) {
           const topicId = exact.get(p.topic.toLowerCase()) ?? loose.get(looseTopic(p.topic)) ?? null;
           if (!topicId) misses++;
+          const entry = enrichment.entries.get(p.id);
+          if (entry) enriched++;
+          const gen: GenLessonPrivate = { ...(entry ? { enrichment: entry } : {}), ...(enrichment.room ? { room: enrichment.room } : {}), pool: lessonPool(cleaned, p) };
           const row = {
             exam: examCode,
             subject,
@@ -123,7 +170,7 @@ export async function installPracticals(prisma: PrismaClient): Promise<string> {
             kind: p.kind,
             simulator: p.simulator,
             order: order++,
-            data: { ...p, practicalPaper: text(data.practicalPaper) } as unknown as Prisma.InputJsonValue,
+            data: { ...p, practicalPaper: text(data.practicalPaper), ...(p.simulator === 'gen-practical' ? { gen } : {}) } as unknown as Prisma.InputJsonValue,
             file: source,
           };
           await prisma.practicalLesson.upsert({ where: { id: p.id }, update: row, create: { id: p.id, ...row } });
@@ -141,5 +188,5 @@ export async function installPracticals(prisma: PrismaClient): Promise<string> {
     }
   }
   if (failed.length) throw new Error(`Practical files failed: ${failed.join(' | ')}`);
-  return files ? `Practicals: ${files} file(s), ${lessons} lesson(s)${removed ? `, ${removed} removed` : ''}${unmatched ? `, ${unmatched} without a matching syllabus topic` : ''}` : '';
+  return files ? `Practicals: ${files} file(s), ${lessons} lesson(s)${removed ? `, ${removed} removed` : ''}${unmatched ? `, ${unmatched} without a matching syllabus topic` : ''}${enriched ? `, ${enriched} enriched` : ''}${badEnrichment.length ? `, enrichment rejected: ${badEnrichment.slice(0, 8).join('; ')}` : ''}` : '';
 }

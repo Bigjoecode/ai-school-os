@@ -1,4 +1,4 @@
-import type { CriterionScore, SimulatorId, SimulatorStates } from '@aischool/shared';
+import type { CriterionScore, GenLesson, SimulatorId, SimulatorStates } from '@aischool/shared';
 
 /**
  * A written answer for an AI criterion. The AI judges only these (against the
@@ -29,8 +29,13 @@ export interface GraderOutput {
   facts: string[];
 }
 
+/** What the server knows that the state and seed don't: the stored lesson, for a simulator driven by lesson data. */
+export interface GradeContext {
+  lesson?: GenLesson | null;
+}
+
 /** Marks one simulator's submitted state. Must be pure and deterministic (same state + seed → same marks). */
 export interface SimulatorGrader<Id extends SimulatorId = SimulatorId> {
   id: Id;
-  grade(state: SimulatorStates[Id], seed: number): GraderOutput;
+  grade(state: SimulatorStates[Id], seed: number, ctx?: GradeContext): GraderOutput;
 }

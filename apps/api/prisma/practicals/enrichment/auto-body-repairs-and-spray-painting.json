@@ -1,0 +1,3805 @@
+{
+ "subject": "Auto Body Repairs and Spray Painting",
+ "room": "workshop",
+ "lessons": {
+  "pr-abr-personal-protective-equipment-and-workshop-housekeeping": {
+   "safety": {
+    "correct": [
+     "Change out of overalls soaked with thinner before going near any heat or flame."
+    ],
+    "wrong": [
+     {
+      "text": "Spray a small 2K job in a dust mask because it will only take five minutes.",
+      "why": "A dust mask stops particles, not isocyanate vapour. Even a short spray needs the proper respirator."
+     },
+     {
+      "text": "Wipe paint off your hands with thinner at the end of the day.",
+      "why": "Thinner carries chemicals through the skin and dries it out. Wear nitrile gloves and use hand cleaner."
+     },
+     {
+      "text": "Throw thinner-soaked rags in the general dustbin by the door.",
+      "why": "Soaked rags are a fire hazard. They go in the labelled rags container."
+     },
+     {
+      "text": "Keep a beard and test the respirator seal only when the mask feels loose.",
+      "why": "Hair breaks the seal, so vapour leaks in. Seal-check every time you put it on."
+     },
+     {
+      "text": "Rinse used gun-wash thinner down the yard drain with plenty of water.",
+      "why": "It pollutes the water and the fumes can build up. Collect it for recovery or proper disposal."
+     },
+     {
+      "text": "Leave a small oil spill until closing time, since everyone can see it.",
+      "why": "Someone will slip on it. Clean a spill promptly with sawdust or dry sand."
+     },
+     {
+      "text": "Smoke outside the spray booth door with the door left open.",
+      "why": "Solvent vapour drifts. No smoking or naked flames anywhere near the paint area."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Welding helmet",
+      "why": "It protects against arc light. This job is about paint, dust and waste hazards."
+     },
+     {
+      "name": "Cotton nose mask",
+      "why": "It stops neither fine dust well nor any vapour, so it gives false confidence."
+     },
+     {
+      "name": "Open plastic basin for thinner",
+      "why": "Thinner must go in a labelled closed container, not an open basin."
+     },
+     {
+      "name": "Petrol for cleaning the floor",
+      "why": "Petrol is a fire hazard. Spills are soaked up with sawdust or dry sand."
+     },
+     {
+      "name": "Leather sandals",
+      "why": "They leave the feet open to falling tools and spills. Wear safety boots."
+     },
+     {
+      "name": "Sunglasses",
+      "why": "They give no splash protection. Use goggles or a face shield."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "seal",
+     "afterStep": 2,
+     "prompt": "You have put on the respirator. What do you do before entering the spray area?",
+     "options": [
+      {
+       "text": "Cover the inlets, breathe in gently and feel the mask pull in",
+       "correct": true,
+       "consequence": "The mask holds its seal, so you know vapour is passing through the cartridges only."
+      },
+      {
+       "text": "Breathe normally and go in if nothing smells bad to you after a minute",
+       "consequence": "Many harmful vapours have little smell by the time they hurt you, and the leak goes unnoticed."
+      },
+      {
+       "text": "Tighten the top strap as hard as it will go",
+       "consequence": "A strap pulled too hard can distort the mask, and you have still not tested the seal."
+      }
+     ]
+    },
+    {
+     "id": "spill",
+     "afterStep": 3,
+     "prompt": "Engine oil has spread near the compressor. What do you do?",
+     "options": [
+      {
+       "text": "Cover with dry sand, sweep up and bin it in the correct container",
+       "correct": true,
+       "consequence": "The oil is soaked up and removed, so nobody slips and the waste stays controlled."
+      },
+      {
+       "text": "Wash it out of the door with a bucket of water",
+       "consequence": "Oil floats on water, spreads further and ends up in the drain."
+      },
+      {
+       "text": "Wipe it up using a rag dampened with paint thinner from the spray shop",
+       "consequence": "This adds a flammable solvent to the spill and leaves a soaked rag to deal with."
+      }
+     ]
+    },
+    {
+     "id": "sort",
+     "afterStep": 4,
+     "prompt": "A tin holds used thinner, and another holds wet paint sludge. Where do they go?",
+     "options": [
+      {
+       "text": "Each into its own labelled container",
+       "correct": true,
+       "consequence": "Separated waste can be recovered or disposed of properly, and the labels warn others."
+      },
+      {
+       "text": "Both into one drum, to save space",
+       "consequence": "Mixed waste cannot be recovered, so all of it becomes hazardous disposal."
+      },
+      {
+       "text": "Both left open outside so that they dry off",
+       "consequence": "Vapour escapes into the air, and open tins can catch fire or spill."
+      }
+     ]
+    },
+    {
+     "id": "faulty",
+     "afterStep": 5,
+     "prompt": "The bench grinder's guard is cracked. What do you do?",
+     "options": [
+      {
+       "text": "Tag it, report it and keep it out of use",
+       "correct": true,
+       "consequence": "The tag warns everyone, and nobody is hurt before it is repaired."
+      },
+      {
+       "text": "Use it gently until the repairer comes",
+       "consequence": "A cracked guard may fail without warning, and it can hurt you or a classmate."
+      },
+      {
+       "text": "Remove the guard so that it cannot rattle",
+       "consequence": "The wheel is then fully exposed, which is more dangerous than before."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-shop",
+     "prompt": "You inspect the workshop at the end of the session. Which finding shows it is being kept safely?",
+     "options": [
+      {
+       "text": "Waste is separated and labelled, and the floor has no spills",
+       "correct": true
+      },
+      {
+       "text": "Rags and sludge are stacked tidily in one open drum",
+       "why": "Tidy is not the same as safe. Waste must be separated and closed in."
+      },
+      {
+       "text": "Thinner tins stand ready on the bench beside the grinder",
+       "why": "Flammables belong in a metal cabinet, away from sparks."
+      },
+      {
+       "text": "All extinguishers are stored in the locked office",
+       "why": "Extinguishers must be reachable at once, so they cannot be locked away."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "recover",
+     "prompt": "A recycler recovers {p}% of {v} L of used gun-wash thinner. How many litres can be reused?",
+     "formula": "p / 100 * v",
+     "vars": {
+      "p": {
+       "min": 60,
+       "max": 90,
+       "step": 10
+      },
+      "v": {
+       "min": 10,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres",
+      "liters",
+      "l"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "{p} ÷ 100 × {v} = {answer} L."
+    },
+    {
+     "id": "dispose",
+     "prompt": "From {v} L of used thinner, {p}% is recovered. How many litres are left for hazardous disposal?",
+     "formula": "v - p / 100 * v",
+     "vars": {
+      "p": {
+       "min": 60,
+       "max": 90,
+       "step": 10
+      },
+      "v": {
+       "min": 10,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres",
+      "liters",
+      "l"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "Recovered = {p} ÷ 100 × {v}. Left over = {v} minus that = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "spray-day",
+     "scenario": "Emeka's workshop was warned by an inspector after a spraying job. Here is what happened.",
+     "lines": [
+      {
+       "text": "He sprayed 2K paint wearing a dust mask.",
+       "fault": true,
+       "why": "A dust mask does not stop isocyanate vapour."
+      },
+      {
+       "text": "He poured the used thinner into the drain behind the shop.",
+       "fault": true,
+       "why": "Thinner is hazardous waste. It goes for recovery or proper disposal."
+      },
+      {
+       "text": "He kept using the same cartridges past their schedule.",
+       "fault": true,
+       "why": "Old cartridges stop absorbing vapour. Replace them as scheduled."
+      },
+      {
+       "text": "He stored his thinner in a metal cabinet.",
+       "why": "That is the right place for flammables."
+      },
+      {
+       "text": "He cleaned an oil spill with dry sand.",
+       "why": "That is the safe way to deal with oil."
+      }
+     ]
+    },
+    {
+     "id": "fit-test",
+     "scenario": "Ngozi felt dizzy after spraying, although she wore a cartridge respirator. Here is what she did.",
+     "lines": [
+      {
+       "text": "She wore a respirator that was too big for her face.",
+       "fault": true,
+       "why": "A poor fit lets vapour in around the edge."
+      },
+      {
+       "text": "She skipped the seal check because she was in a hurry.",
+       "fault": true,
+       "why": "The seal check is what shows a leak before you breathe the vapour."
+      },
+      {
+       "text": "She kept her goggles and gloves on throughout.",
+       "why": "That protects the eyes and skin."
+      },
+      {
+       "text": "She reported how she felt to the instructor.",
+       "why": "Symptoms must always be reported."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using PPE and keeping the paint area safe.",
+    "explainPrompt": "Why is a dust mask not enough when spraying 2K paint?",
+    "explainGuide": "A dust mask only traps particles. The isocyanate in 2K paint is a vapour and mist that harms the lungs, so an air-fed or properly fitted respirator is needed.",
+    "explainKeywords": [
+     [
+      "dust mask",
+      "particle",
+      "particles",
+      "dust"
+     ],
+     [
+      "isocyanate",
+      "vapour",
+      "fumes"
+     ],
+     [
+      "lung",
+      "lungs",
+      "harm",
+      "breathing"
+     ],
+     [
+      "respirator",
+      "air-fed"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Personal protective equipment and workshop housekeeping",
+    "Match each hazard to its protection."
+   ]
+  },
+  "pr-abr-identifying-and-using-body-repair-hand-and-power-tools": {
+   "safety": {
+    "correct": [
+     "Disconnect a power tool before changing its disc or pad."
+    ],
+    "wrong": [
+     {
+      "text": "Blow dust off your overalls with the compressed air gun.",
+      "why": "Compressed air can drive dust into the eyes or skin. Use a brush."
+     },
+     {
+      "text": "Carry the electric sander by its cable.",
+      "why": "That damages the cable and its connection. Carry it by the body."
+     },
+     {
+      "text": "Keep sanding with a worn disc to finish the sheet.",
+      "why": "A worn disc cuts unevenly and heats the panel. Change it."
+     },
+     {
+      "text": "Join a leaking air hose with tape and carry on.",
+      "why": "A weak joint can burst or whip. Replace a damaged hose or coupling."
+     },
+     {
+      "text": "Lay a running sander down on the bench when you stop.",
+      "why": "It can walk off the bench. Wait for it to stop before putting it down."
+     },
+     {
+      "text": "Leave the compressor tank undrained because the gauge reads normal.",
+      "why": "The gauge does not show water. Water rusts the tank and spoils paint."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Claw hammer",
+      "why": "It is a woodworking hammer. Its face would mark and stretch a panel."
+     },
+     {
+      "name": "Tenon saw",
+      "why": "That is a woodworking saw, and no panel tool list has one."
+     },
+     {
+      "name": "Pipe wrench",
+      "why": "It is a plumber's tool, and its jaws would mar body parts."
+     },
+     {
+      "name": "Wood rasp",
+      "why": "A rasp is for wood. A body file is made for metal and filler."
+     },
+     {
+      "name": "Tin of grease",
+      "why": "Grease on tools gets on panels and spoils paint. A light oil and a rag are used."
+     },
+     {
+      "name": "Spirit level",
+      "why": "Panel shape is checked by hand, eye and file, not by level."
+     }
+    ]
+   },
+   "procedure": {
+    "anyOrder": [
+     [
+      4,
+      5
+     ]
+    ]
+   },
+   "decisions": [
+    {
+     "id": "grip",
+     "afterStep": 3,
+     "prompt": "You are showing the hammer grip for panel work. How do you hold the bumping hammer?",
+     "options": [
+      {
+       "text": "Loosely, letting the wrist swing so that it rebounds",
+       "correct": true,
+       "consequence": "Light blows land where you aim, and the panel is not stretched."
+      },
+      {
+       "text": "Tightly near the head, for maximum control of the blow",
+       "consequence": "A short tight grip gives heavy dead blows that leave marks."
+      },
+      {
+       "text": "At the very end, using a full arm swing",
+       "consequence": "The blows are too hard and too inaccurate, so the metal stretches."
+      }
+     ]
+    },
+    {
+     "id": "tank",
+     "afterStep": 4,
+     "prompt": "The tank drain valve spits rusty water when opened. What do you do?",
+     "options": [
+      {
+       "text": "Let it drain fully, then close it and note the check",
+       "correct": true,
+       "consequence": "The water is removed and the record shows when it was done."
+      },
+      {
+       "text": "Close it quickly so as to keep the pressure up",
+       "consequence": "The water stays in the tank, causing rust and spoiled paint."
+      },
+      {
+       "text": "Add some oil to the tank to stop the rust",
+       "consequence": "Oil in the air line contaminates paint and does not remove the water."
+      }
+     ]
+    },
+    {
+     "id": "marked-face",
+     "afterStep": 5,
+     "prompt": "Your hammer face has a small chip. What do you do with it?",
+     "options": [
+      {
+       "text": "Set it aside and have the face dressed and polished",
+       "correct": true,
+       "consequence": "A polished face leaves no marks, so the panel needs no extra filling."
+      },
+      {
+       "text": "Use it for now, as filler will hide the marks",
+       "consequence": "Every blow prints the chip on the panel, which costs extra time in filling."
+      },
+      {
+       "text": "Oil the face so it slides over the panel",
+       "consequence": "Oil does not hide the chip, and it contaminates the surface."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "dolly-use",
+     "prompt": "A student demonstrates a dolly. Which use is correct?",
+     "options": [
+      {
+       "text": "Held behind the panel while the hammer works the front",
+       "correct": true
+      },
+      {
+       "text": "Struck on the panel face like a small hammer",
+       "why": "A dolly is a backing tool, so this would dent the panel."
+      },
+      {
+       "text": "Used to lever a panel away from the frame",
+       "why": "That is a job for a pry bar."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "shortfall",
+     "prompt": "A sander needs {n} L/min of free air. The compressor delivers {c} L/min. What is the shortfall in L/min?",
+     "formula": "n - c",
+     "vars": {
+      "n": {
+       "min": 300,
+       "max": 400,
+       "step": 50
+      },
+      "c": {
+       "min": 200,
+       "max": 250,
+       "step": 25
+      }
+     },
+     "unit": "L/min",
+     "unitAliases": [
+      "l/min",
+      "litres per minute"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} − {c} = {answer} L/min, so this compressor cannot run the sander continuously."
+    }
+   ],
+   "faults": [
+    {
+     "id": "rough-finish",
+     "scenario": "Tobi's repaired panel shows small marks and his paint has specks of water. Here is what he did.",
+     "lines": [
+      {
+       "text": "He kept using a hammer with a damaged face.",
+       "fault": true,
+       "why": "Marks on the hammer transfer to the panel."
+      },
+      {
+       "text": "He left water in the compressor tank for weeks.",
+       "fault": true,
+       "why": "Moisture passes down the line and spoils the paint."
+      },
+      {
+       "text": "He sanded with a worn disc to save money.",
+       "fault": true,
+       "why": "A worn disc gives an uneven finish."
+      },
+      {
+       "text": "He cleaned and oiled his tools after use.",
+       "why": "That is good maintenance."
+      },
+      {
+       "text": "He stored his tools on a shadow board.",
+       "why": "That keeps them protected and easy to count."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for looking after body repair tools.",
+    "explainPrompt": "Why must water be drained from the compressor tank regularly?",
+    "explainGuide": "Air contains moisture that condenses in the tank. Left there, the water rusts the tank and passes down the line, which spoils paint work, so it must be drained.",
+    "explainKeywords": [
+     [
+      "condense",
+      "condensed",
+      "moisture",
+      "water"
+     ],
+     [
+      "rust",
+      "corrode",
+      "corrosion"
+     ],
+     [
+      "paint",
+      "spray",
+      "finish"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying and using body repair hand and power tools",
+    "Name it, use it, care for it."
+   ]
+  },
+  "pr-abr-mixing-and-applying-body-filler": {
+   "safety": {
+    "correct": [
+     "Keep the hardener cap on and the tube away from your eyes."
+    ],
+    "wrong": [
+     {
+      "text": "Dry-sand filler with no mask, as the dust settles quickly.",
+      "why": "Filler dust is harmful to breathe. Wear the dust mask."
+     },
+     {
+      "text": "Mix the hardener in with bare fingers to feel the texture.",
+      "why": "Hardener irritates skin. Wear gloves and use a spreader."
+     },
+     {
+      "text": "Wipe hardener from your eye area with a dirty rag.",
+      "why": "That spreads it and can scratch the eye. Rinse with clean water and get help."
+     },
+     {
+      "text": "Blow filler dust off the panel using your mouth.",
+      "why": "The dust goes into your eyes and lungs. Use a clean cloth or brush."
+     },
+     {
+      "text": "Scrape leftover mixed filler into the general bin while it is still curing.",
+      "why": "Curing filler gets hot. Let it harden on the board, then dispose of it properly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Paint brush",
+      "why": "Filler is pressed on with a spreader. A brush cannot do it."
+     },
+     {
+      "name": "Wood glue",
+      "why": "It is not a body filler and will not bond or sand like one."
+     },
+     {
+      "name": "P1200 wet and dry paper",
+      "why": "It is far too fine for shaping filler and belongs to polishing."
+     },
+     {
+      "name": "Tin snips",
+      "why": "Nothing is being cut out in this job."
+     },
+     {
+      "name": "Cement mortar",
+      "why": "It is a building material, and it cracks and falls off a thin panel."
+     },
+     {
+      "name": "Wire brush for cleaning off paint",
+      "why": "A wire brush does not take the area to clean bright bare metal as grinding does."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ratio",
+     "afterStep": 3,
+     "prompt": "You have measured out filler. How much hardener do you add?",
+     "options": [
+      {
+       "text": "About 2% by weight, as the data says",
+       "correct": true,
+       "consequence": "The filler cures hard and sands well, with no staining."
+      },
+      {
+       "text": "A generous amount so that it sets faster",
+       "consequence": "Too much hardener causes bleed-through staining in the paint."
+      },
+      {
+       "text": "A very small touch so that it stays workable",
+       "consequence": "Too little hardener leaves soft, uncured filler that clogs paper."
+      }
+     ]
+    },
+    {
+     "id": "mix-how",
+     "afterStep": 3,
+     "prompt": "The hardener is on the board. How do you mix it?",
+     "options": [
+      {
+       "text": "Fold and press with the spreader until the colour is even",
+       "correct": true,
+       "consequence": "An even colour means even curing, and no air gets folded in."
+      },
+      {
+       "text": "Whip it fast in a circle like an egg",
+       "consequence": "Whipping beats in air, which shows later as pinholes."
+      },
+      {
+       "text": "Stir it briefly and leave some streaks showing in the filler",
+       "consequence": "Uneven mixing leaves soft spots in the cured filler."
+      }
+     ]
+    },
+    {
+     "id": "surface",
+     "afterStep": 2,
+     "prompt": "The dent still has old paint and a little rust. What do you do first?",
+     "options": [
+      {
+       "text": "Grind to bare metal and feather beyond the dent",
+       "correct": true,
+       "consequence": "Filler grips clean bare metal, so the repair will not lift."
+      },
+      {
+       "text": "Apply filler now, as it will seal the rust",
+       "consequence": "Rust keeps growing under the filler and lifts it."
+      },
+      {
+       "text": "Scuff the paint lightly and spread on top",
+       "consequence": "Filler over paint can peel with the old paint."
+      }
+     ]
+    },
+    {
+     "id": "file-when",
+     "afterStep": 5,
+     "prompt": "The filler has begun to set. When do you shape it with the body file?",
+     "options": [
+      {
+       "text": "At the cheesy stage, firm but not yet hard",
+       "correct": true,
+       "consequence": "The file cuts it cleanly, so little sanding is needed later."
+      },
+      {
+       "text": "Straight after spreading while it is soft",
+       "consequence": "Soft filler drags and clogs the file and tears from the panel."
+      },
+      {
+       "text": "Next day, once it is rock hard",
+       "consequence": "The file no longer cuts easily and you lose the easy shaping stage."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cured",
+     "prompt": "The filler has cured and been sanded. Which result shows a good job?",
+     "options": [
+      {
+       "text": "Hard, smooth, flush with the panel and free from pinholes",
+       "correct": true
+      },
+      {
+       "text": "Smooth but soft enough to mark with a fingernail",
+       "why": "That means it is under-cured from too little hardener or poor mixing."
+      },
+      {
+       "text": "Hard, with small holes across the surface",
+       "why": "Pinholes come from air whipped in. They need a skim coat."
+      },
+      {
+       "text": "Hard, and standing proud of the panel contour",
+       "why": "It must be sanded down flush, or the repair will show."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hardener",
+     "prompt": "Hardener is added at 2% by weight. How many grams of hardener do you need for {m} g of filler?",
+     "formula": "0.02 * m",
+     "vars": {
+      "m": {
+       "min": 100,
+       "max": 400,
+       "step": 50
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "0.02 × {m} = {answer} g."
+    }
+   ],
+   "faults": [
+    {
+     "id": "soft-spots",
+     "scenario": "Bola's filler repair has pinholes and soft patches, and it lifted after a month. Here is what she did.",
+     "lines": [
+      {
+       "text": "She whipped the filler quickly with the spreader.",
+       "fault": true,
+       "why": "Whipping traps air, which leaves pinholes."
+      },
+      {
+       "text": "She spread filler straight over rust.",
+       "fault": true,
+       "why": "Filler must go on clean bare metal."
+      },
+      {
+       "text": "She stopped mixing while streaks still showed.",
+       "fault": true,
+       "why": "Uneven mixing leaves soft spots."
+      },
+      {
+       "text": "She built the filler up in thin layers.",
+       "why": "Thin layers are correct, usually not over about 3 mm."
+      },
+      {
+       "text": "She pressed the first layer firmly into the metal.",
+       "why": "That gives good adhesion."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for applying body filler.",
+    "explainPrompt": "Why is filler folded and not whipped when mixing in the hardener?",
+    "explainGuide": "Whipping traps air in the filler, and the air leaves pinholes in the cured surface. Folding and pressing mixes it evenly without air.",
+    "explainKeywords": [
+     [
+      "air",
+      "bubbles"
+     ],
+     [
+      "pinhole",
+      "pinholes",
+      "holes"
+     ],
+     [
+      "fold",
+      "folding",
+      "press",
+      "even"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Mixing and applying body filler",
+    "Clean metal, thin layers."
+   ]
+  },
+  "pr-abr-identifying-metals-and-demonstrating-their-properties": {
+   "safety": {
+    "correct": [
+     "Bend the strip away from your face so that a sudden break cannot strike you."
+    ],
+    "wrong": [
+     {
+      "text": "Run your fingers along a freshly broken edge to feel the break.",
+      "why": "Fresh edges are sharp. Wear gloves and look at the break instead."
+     },
+     {
+      "text": "Hold the small sample in your hand while you strike it.",
+      "why": "The hammer can hit your hand. Hold it in the vice."
+     },
+     {
+      "text": "Strike the cast iron hard so it breaks in one blow.",
+      "why": "Pieces can fly. The lesson calls for a gentle strike and steady force."
+     },
+     {
+      "text": "Leave your goggles off for a quick magnet and file test.",
+      "why": "Filing and breaking can throw particles. Keep goggles on throughout."
+     },
+     {
+      "text": "Blow the filings off the sample and the bench.",
+      "why": "Filings fly into your eyes. Use a brush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It measures liquid density, not the properties of a metal."
+     },
+     {
+      "name": "Multimeter",
+      "why": "This job compares metals by magnet, bending and filing, not by electrical reading."
+     },
+     {
+      "name": "Plastic mallet",
+      "why": "It cannot show malleability, which needs the steel hammer."
+     },
+     {
+      "name": "Paint thickness gauge",
+      "why": "It reads coatings. This job tests the metal itself."
+     },
+     {
+      "name": "Wood chisel",
+      "why": "It would be ruined on metal samples."
+     }
+    ]
+   },
+   "procedure": {
+    "anyOrder": [
+     [
+      2,
+      3,
+      4,
+      5
+     ]
+    ]
+   },
+   "decisions": [
+    {
+     "id": "silver-panel",
+     "afterStep": 1,
+     "prompt": "A silver-coloured panel does not attract the magnet. What do you conclude?",
+     "options": [
+      {
+       "text": "It is not steel, and may well be aluminium",
+       "correct": true,
+       "consequence": "The magnet test rules out steel, so you handle and repair it as a non-ferrous panel."
+      },
+      {
+       "text": "It is steel with a thick coat of paint",
+       "consequence": "Check first, but do not assume. A thin coat does not stop a magnet on steel."
+      },
+      {
+       "text": "It is steel, since all silver panels are",
+       "consequence": "Colour is no proof, and this is the common mistake the test is meant to prevent."
+      }
+     ]
+    },
+    {
+     "id": "coated",
+     "afterStep": 4,
+     "prompt": "A sample's coating hides the metal colour. What do you do before comparing it?",
+     "options": [
+      {
+       "text": "File a small area to expose the bare metal",
+       "correct": true,
+       "consequence": "You now see and test the metal itself and not the coating."
+      },
+      {
+       "text": "Judge the metal by the colour of the coating",
+       "consequence": "A coating can hide any metal, which is a known source of error here."
+      },
+      {
+       "text": "Mark it as steel and go on to the next",
+       "consequence": "A guess gives a false record and spoils the comparison."
+      }
+     ]
+    },
+    {
+     "id": "stiffen",
+     "afterStep": 2,
+     "prompt": "You bend the mild steel strip back and forth. What are you feeling for?",
+     "options": [
+      {
+       "text": "The metal growing stiffer near the bend",
+       "correct": true,
+       "consequence": "That is work-hardening, and it is what this step sets out to show."
+      },
+      {
+       "text": "The metal growing softer near the bend",
+       "consequence": "That is the opposite. Softening comes from annealing, not from bending."
+      },
+      {
+       "text": "The strip stretching longer at each bend",
+       "consequence": "The aim is to feel the stiffness change, not to measure length."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "magnet",
+     "prompt": "Which result of the magnet test is correct?",
+     "options": [
+      {
+       "text": "Steel and cast iron attract it; aluminium, copper and brass do not",
+       "correct": true
+      },
+      {
+       "text": "All the shiny samples attract it",
+       "why": "Shine says nothing about magnetism: aluminium is bright and non-magnetic."
+      },
+      {
+       "text": "Only mild steel attracts it",
+       "why": "Cast iron is ferrous too, so it also attracts."
+      },
+      {
+       "text": "Copper and steel attract it, but cast iron, aluminium and brass do not",
+       "why": "Neither copper nor brass is magnetic."
+      }
+     ]
+    },
+    {
+     "id": "cast-iron",
+     "prompt": "You strike a small piece of cast iron gently. What do you expect?",
+     "options": [
+      {
+       "text": "It cracks or breaks rather than bends",
+       "correct": true
+      },
+      {
+       "text": "It bends slowly without cracking",
+       "why": "That is how mild steel behaves. Cast iron is brittle."
+      },
+      {
+       "text": "It flattens out like copper",
+       "why": "Copper is malleable, but cast iron is not."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "steel-skin",
+     "prompt": "A steel bonnet skin is 0.8 mm thick and {a} m² in area. Steel has a density of 7 850 kg/m³. What is its mass in kg?",
+     "formula": "0.0008 * a * 7850",
+     "vars": {
+      "a": {
+       "min": 1,
+       "max": 2,
+       "step": 0.5
+      }
+     },
+     "unit": "kg",
+     "unitAliases": [
+      "kilograms"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "Mass = thickness in metres × area × density = 0.0008 × {a} × 7 850 = {answer} kg."
+    },
+    {
+     "id": "alu-skin",
+     "prompt": "An aluminium skin is 1.2 mm thick and {a} m² in area, with a density of 2 700 kg/m³. What is its mass in kg?",
+     "formula": "0.0012 * a * 2700",
+     "vars": {
+      "a": {
+       "min": 1,
+       "max": 2,
+       "step": 0.5
+      }
+     },
+     "unit": "kg",
+     "unitAliases": [
+      "kilograms"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "Mass = 0.0012 × {a} × 2 700 = {answer} kg."
+    }
+   ],
+   "faults": [
+    {
+     "id": "mislabelled",
+     "scenario": "Sade's table of metals has several errors. Here is what she did.",
+     "lines": [
+      {
+       "text": "She recorded a silver panel as steel without using the magnet.",
+       "fault": true,
+       "why": "Not all silver-coloured panels are steel."
+      },
+      {
+       "text": "She tested a painted sample without exposing the metal.",
+       "fault": true,
+       "why": "Coatings hide the metal."
+      },
+      {
+       "text": "She hit the cast iron hard with a full swing.",
+       "fault": true,
+       "why": "Use small samples and steady force."
+      },
+      {
+       "text": "She filed each sample to compare hardness.",
+       "why": "That is the planned test."
+      },
+      {
+       "text": "She wore goggles when bending samples.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing metal samples.",
+    "explainPrompt": "Why does a mild steel strip become stiffer near the bend before it breaks?",
+    "explainGuide": "Repeated bending work-hardens the metal: its structure is deformed, so it becomes harder and less ductile until it cracks.",
+    "explainKeywords": [
+     [
+      "work-hardening",
+      "work-hardens",
+      "work hardening",
+      "work hardens"
+     ],
+     [
+      "harder",
+      "stiffer",
+      "hard"
+     ],
+     [
+      "brittle",
+      "crack",
+      "cracks",
+      "less ductile"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying metals and demonstrating their properties",
+    "Test the metal, not its colour."
+   ]
+  },
+  "pr-abr-heat-treatment-of-body-metals": {
+   "safety": {
+    "correct": [
+     "Treat every piece of steel on the bench as hot until you have checked it."
+    ],
+    "wrong": [
+     {
+      "text": "Pick up the strip with bare hands once the glow has gone.",
+      "why": "Steel stays hot long after it stops glowing. Use tongs."
+     },
+     {
+      "text": "Heat a spot near the fuel tank if the tank is nearly empty.",
+      "why": "An almost empty tank still holds vapour. Keep heat well away from it."
+     },
+     {
+      "text": "Leave the seat and trim in place while heating the panel behind them.",
+      "why": "Trim catches fire and smoulders. Remove it or keep heat away."
+     },
+     {
+      "text": "Quench with a dry rag to avoid steam.",
+      "why": "A dry rag can scorch and it does not cool the spot. Use a wet rag."
+     },
+     {
+      "text": "Work without goggles, since the flame is only a small one.",
+      "why": "Gas goggles protect your eyes from glare and sparks at any flame size."
+     },
+     {
+      "text": "Lay the lit torch on the bench while you pick up the hammer.",
+      "why": "A lit torch can burn anything it points at. Use the proper rest or shut it off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bucket of engine oil on the bench",
+      "why": "It is a fire hazard here. This job quenches in the water tank or with a wet rag."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "It cannot bring steel to red heat."
+     },
+     {
+      "name": "Plastic mallet",
+      "why": "It would melt or mark on hot metal. Use the hammer and dolly."
+     },
+     {
+      "name": "Thermometer",
+      "why": "Heat here is judged by the colour of the steel."
+     },
+     {
+      "name": "Spray gun",
+      "why": "No paint is applied in this job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "anneal-cool",
+     "afterStep": 1,
+     "prompt": "The strip has reached dull red for annealing. How do you cool it?",
+     "options": [
+      {
+       "text": "Leave it to cool slowly in still air",
+       "correct": true,
+       "consequence": "Slow cooling leaves the steel soft, so it bends easily."
+      },
+      {
+       "text": "Plunge it straight into the water tank",
+       "consequence": "On mild steel this does not give the slow cool that the process demands, so the comparison is spoiled."
+      },
+      {
+       "text": "Reheat it at once to a brighter red",
+       "consequence": "More heat is not annealing, and you risk damaging the strip."
+      }
+     ]
+    },
+    {
+     "id": "harden-order",
+     "afterStep": 3,
+     "prompt": "The high-carbon strip is file-hard after quenching. What comes next?",
+     "options": [
+      {
+       "text": "Temper it, then compare the toughness",
+       "correct": true,
+       "consequence": "Tempering takes away some brittleness while keeping useful hardness."
+      },
+      {
+       "text": "Bend it to see how hard it is",
+       "consequence": "Hardened strip is brittle and may snap and fly."
+      },
+      {
+       "text": "Anneal it to make it harder still",
+       "consequence": "Annealing softens steel and undoes the hardening."
+      }
+     ]
+    },
+    {
+     "id": "spot-size",
+     "afterStep": 4,
+     "prompt": "A stretched bulge needs shrinking. What area do you heat?",
+     "options": [
+      {
+       "text": "A small spot, then tap it and quench it",
+       "correct": true,
+       "consequence": "The heat stays local, so the metal draws in without distorting the panel."
+      },
+      {
+       "text": "The whole bulge at one time",
+       "consequence": "Heating too large an area distorts the panel."
+      },
+      {
+       "text": "The undamaged metal around the bulge",
+       "consequence": "The stretched metal is what must be shrunk, so nothing is corrected."
+      }
+     ]
+    },
+    {
+     "id": "spot-order",
+     "afterStep": 5,
+     "prompt": "The first spot is finished, and the bulge is 150 mm across. Where is the next spot?",
+     "options": [
+      {
+       "text": "Further round the bulge, working from the outside in",
+       "correct": true,
+       "consequence": "The stretch is drawn in step by step towards the centre."
+      },
+      {
+       "text": "On the same spot until it turns bright and starts to shrink",
+       "consequence": "Repeated heat in one place risks burning through the thin panel."
+      },
+      {
+       "text": "Far away on another part of the panel",
+       "consequence": "This leaves the bulge untouched and heats good metal."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "file-test",
+     "prompt": "You test the quenched high-carbon strip with a file. What shows it has hardened?",
+     "options": [
+      {
+       "text": "The file skids and hardly cuts",
+       "correct": true
+      },
+      {
+       "text": "The file cuts it as easily as mild steel",
+       "why": "Then the strip has not hardened."
+      },
+      {
+       "text": "The strip bends under the file",
+       "why": "Bending suggests a soft strip, not a hard one."
+      }
+     ]
+    },
+    {
+     "id": "shrink-result",
+     "prompt": "After several shrinking spots, what shows success?",
+     "options": [
+      {
+       "text": "The bulge has drawn back level with the panel",
+       "correct": true
+      },
+      {
+       "text": "A hole has opened at the centre of the spot",
+       "why": "That is burn-through from overheating."
+      },
+      {
+       "text": "The bulge moved to the panel edge",
+       "why": "That is distortion, not a repair."
+      }
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "warped-door",
+     "scenario": "Kunle tried to shrink a bulge on a door skin, and the panel came out wavy with a small hole. Here is what he did.",
+     "lines": [
+      {
+       "text": "He heated an area as wide as his hand.",
+       "fault": true,
+       "why": "Heating too large an area distorts the panel."
+      },
+      {
+       "text": "He held the flame on one spot until it was very bright.",
+       "fault": true,
+       "why": "Overheating burns through thin panels."
+      },
+      {
+       "text": "He quenched a high-strength panel without checking if it allowed heat.",
+       "fault": true,
+       "why": "Some high-strength steels are not designed for this."
+      },
+      {
+       "text": "He tapped the spot down with hammer on dolly.",
+       "why": "That is the correct step."
+      },
+      {
+       "text": "He kept a fire extinguisher at hand.",
+       "why": "That is a required precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for heat-shrinking a panel.",
+    "explainPrompt": "Why does a stretched panel need shrinking and not just hammering?",
+    "explainGuide": "Stretched metal has too much surface area, so hammering only moves the bulge. Heating a small spot lets it upset and draw in as it cools, so the panel returns level.",
+    "explainKeywords": [
+     [
+      "stretched",
+      "stretch",
+      "surface"
+     ],
+     [
+      "heat",
+      "heating",
+      "hot"
+     ],
+     [
+      "shrink",
+      "shrinks",
+      "draw",
+      "contract",
+      "upset"
+     ],
+     [
+      "level",
+      "flat"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Heat treatment of body metals",
+    "Small spots. Watch the colour."
+   ]
+  },
+  "pr-abr-installing-oxy-acetylene-equipment-and-identifying-weld-defects": {
+   "safety": {
+    "correct": [
+     "Stand to the side of the regulator when opening a cylinder valve."
+    ],
+    "wrong": [
+     {
+      "text": "Put a drop of oil on a stiff oxygen regulator thread.",
+      "why": "Oil and oxygen together can ignite violently. Keep oxygen fittings free from oil."
+     },
+     {
+      "text": "Look for a gas leak with a lit match.",
+      "why": "A flame can ignite the leak. Use leak detection fluid."
+     },
+     {
+      "text": "Lay the acetylene cylinder on its side so it cannot fall.",
+      "why": "Cylinders must stand upright and be secured."
+     },
+     {
+      "text": "Light the blowpipe with a cigarette lighter from your pocket.",
+      "why": "That brings your hand close to the flash. Use the spark lighter."
+     },
+     {
+      "text": "Leave out the flashback arrestors on a short hose run.",
+      "why": "A flashback can happen on any length of hose. Fit the arrestors."
+     },
+     {
+      "text": "Wrap a leaking hose with tape and carry on welding.",
+      "why": "Tape will not hold gas safely. Take the hose out of service and report it."
+     },
+     {
+      "text": "Carry a lighter in your overall pocket while welding.",
+      "why": "Sparks and heat can set it off. Leave it out of the work area."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Arc welding electrode holder",
+      "why": "That belongs to arc welding, and this job uses a gas flame."
+     },
+     {
+      "name": "Soapstone holder used as a lighter",
+      "why": "It marks metal but makes no spark, so use the spark lighter."
+     },
+     {
+      "name": "Grease gun",
+      "why": "Grease must never go near oxygen fittings."
+     },
+     {
+      "name": "Water hose for testing leaks",
+      "why": "Leaks are tested with leak detection fluid, not by hosing the joints."
+     },
+     {
+      "name": "Large cutting nozzle",
+      "why": "It is far too big for thin panel steel and would burn through."
+     },
+     {
+      "name": "Car jack",
+      "why": "Nothing in this job needs lifting."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "fit-regs",
+     "afterStep": 1,
+     "prompt": "A regulator thread will not start on the acetylene cylinder. What do you do?",
+     "options": [
+      {
+       "text": "Check the thread direction, as fuel gas fittings are left-handed",
+       "correct": true,
+       "consequence": "The right fitting goes on without force, so the joint seals safely."
+      },
+      {
+       "text": "Force it with a longer spanner",
+       "consequence": "Forcing damages the thread and makes a leak likely."
+      },
+      {
+       "text": "Use the oxygen regulator, since it fits the cylinder and saves time",
+       "consequence": "Regulators are made for one gas, and swapping them is dangerous."
+      }
+     ]
+    },
+    {
+     "id": "nozzle",
+     "afterStep": 3,
+     "prompt": "You are welding 0.8 mm panel steel. Which nozzle do you select?",
+     "options": [
+      {
+       "text": "Size 1, the smallest suitable nozzle",
+       "correct": true,
+       "consequence": "The heat is just enough, which limits distortion and burn-through."
+      },
+      {
+       "text": "Size 3, so that the weld runs faster",
+       "consequence": "The flame is too large for 0.8 mm sheet, so it burns through."
+      },
+      {
+       "text": "Size 2, as a safe middle choice",
+       "consequence": "The guide gives size 2 for 0.9 to 1.2 mm, so 0.8 mm gets too much heat."
+      }
+     ]
+    },
+    {
+     "id": "flame",
+     "afterStep": 4,
+     "prompt": "The flame shows a long white feather around the inner cone. What do you do?",
+     "options": [
+      {
+       "text": "Add oxygen until the feather just disappears",
+       "correct": true,
+       "consequence": "This gives a neutral flame, so the weld comes out clean."
+      },
+      {
+       "text": "Weld now, because it is a hotter flame",
+       "consequence": "That is a carburising flame, which adds carbon and spoils the weld."
+      },
+      {
+       "text": "Add a lot of oxygen until the flame hisses",
+       "consequence": "That is an oxidising flame, which burns the steel and weakens the weld."
+      }
+     ]
+    },
+    {
+     "id": "run",
+     "afterStep": 5,
+     "prompt": "How do you join the thin panel seam?",
+     "options": [
+      {
+       "text": "Tack at intervals, then weld short lengths",
+       "correct": true,
+       "consequence": "The heat is spread out, so warping is limited."
+      },
+      {
+       "text": "One long continuous weld without a stop",
+       "consequence": "Long continuous welds on thin panels cause warping."
+      },
+      {
+       "text": "Weld from both ends quickly to the middle with no tacks",
+       "consequence": "Without tacks the edges move, and the panel warps."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "porosity",
+     "prompt": "A sample weld has small holes on its surface. What is the defect?",
+     "options": [
+      {
+       "text": "Porosity, from contamination or trapped gas",
+       "correct": true
+      },
+      {
+       "text": "Slag inclusion from bad cleaning between runs",
+       "why": "Slag shows as trapped non-metal matter, not gas holes."
+      },
+      {
+       "text": "Lack of penetration from too little heat",
+       "why": "That shows at the root, where the joint has not fused."
+      },
+      {
+       "text": "Cracking from cooling stresses",
+       "why": "Cracks are lines, not small round holes."
+      }
+     ]
+    },
+    {
+     "id": "neutral",
+     "prompt": "Which flame gives the clean weld expected here?",
+     "options": [
+      {
+       "text": "A neutral flame with a clear, rounded inner cone",
+       "correct": true
+      },
+      {
+       "text": "A flame with a long feather round the cone",
+       "why": "That is carburising, with excess acetylene."
+      },
+      {
+       "text": "A sharp, short, hissing flame",
+       "why": "That is oxidising, with excess oxygen."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "nozzle-size",
+     "prompt": "The guide gives size 1 for up to 0.9 mm, size 2 for 0.9 to 1.2 mm and size 3 for 1.2 to 2.0 mm steel. Which nozzle size do you choose for a 1.6 mm sheet?",
+     "answer": 3,
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "1.6 mm lies between 1.2 and 2.0 mm, so the guide gives size 3."
+    }
+   ],
+   "faults": [
+    {
+     "id": "warped-sill",
+     "scenario": "Musa welded a thin patch, and it warped and showed holes. Here is what he did.",
+     "lines": [
+      {
+       "text": "He ran one long continuous weld.",
+       "fault": true,
+       "why": "Long welds on thin panels cause warping."
+      },
+      {
+       "text": "He used a large nozzle to finish quickly.",
+       "fault": true,
+       "why": "Use the smallest suitable nozzle on body panels."
+      },
+      {
+       "text": "He welded with a flame that was not neutral.",
+       "fault": true,
+       "why": "The wrong flame type is a source of weld defects."
+      },
+      {
+       "text": "He leak-tested the joints with fluid.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He secured both cylinders upright.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for welding a thin body panel.",
+    "explainPrompt": "Why are thin body panels tack welded at intervals and not welded in one long run?",
+    "explainGuide": "A long run puts too much heat into thin steel, which expands and warps. Tacks hold the joint and spread the heat, so distortion is reduced.",
+    "explainKeywords": [
+     [
+      "heat",
+      "expand",
+      "expands"
+     ],
+     [
+      "warp",
+      "warps",
+      "warping",
+      "distortion",
+      "distort"
+     ],
+     [
+      "tack",
+      "tacks",
+      "hold",
+      "intervals"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Installing oxy-acetylene equipment and identifying weld defects",
+    "Check every joint before lighting up."
+   ]
+  },
+  "pr-abr-hammer-and-dolly-repair-of-a-minor-dent": {
+   "safety": {
+    "correct": [
+     "Check that nobody's fingers are behind the panel before you strike."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the door skin with one knee while you hammer it.",
+      "why": "It can slip and hurt you. Support the panel firmly."
+     },
+     {
+      "text": "File the panel without gloves because the file is a hand tool.",
+      "why": "Filed edges and swarf cut. Wear gloves."
+     },
+     {
+      "text": "Run your bare palm over a fresh file mark on a sharp edge.",
+      "why": "Burrs cut. Feel the panel with a gloved hand and avoid sharp edges."
+     },
+     {
+      "text": "Use the pry bar with your face close to it for a better view.",
+      "why": "It can slip and spring back. Stay clear and wear goggles."
+     },
+     {
+      "text": "Leave your goggles off while using the slide hammer.",
+      "why": "A stud can break free. Keep your goggles on."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Sledge hammer",
+      "why": "It stretches and tears thin panels. Use light, accurate blows."
+     },
+     {
+      "name": "Ball pein hammer with a rough face",
+      "why": "Its face marks the panel. Use a polished panel hammer."
+     },
+     {
+      "name": "Angle grinder for removing the dent",
+      "why": "Grinding removes metal and thins the panel. It does not move a dent."
+     },
+     {
+      "name": "Body filler for the whole dent",
+      "why": "Filler is not meant to cover large dents. Do the metal work first."
+     },
+     {
+      "name": "Spirit level",
+      "why": "The contour is checked against the undamaged side."
+     },
+     {
+      "name": "Tram gauge",
+      "why": "That is for structural alignment, not for a small dent."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first-work",
+     "afterStep": 2,
+     "prompt": "The dent has a sharp crease at the last point of contact. Which do you tackle first?",
+     "options": [
+      {
+       "text": "The last damage done, so you work in reverse order",
+       "correct": true,
+       "consequence": "The damage unfolds as it went in, so the panel returns with less stress."
+      },
+      {
+       "text": "The first point of impact, as it is the deepest",
+       "consequence": "The later folds stay locked in, so the panel fights back."
+      },
+      {
+       "text": "Whichever part is easiest to reach",
+       "consequence": "Working out of order locks in the creases and adds more work."
+      }
+     ]
+    },
+    {
+     "id": "which-technique",
+     "afterStep": 3,
+     "prompt": "You need a high spot to go down and the low beside it to rise. Which technique do you use?",
+     "options": [
+      {
+       "text": "Hammer-off-dolly",
+       "correct": true,
+       "consequence": "The dolly rebounds under the low while the hammer lowers the high, with no stretching."
+      },
+      {
+       "text": "Hammer-on-dolly",
+       "consequence": "This squeezes the metal between hammer and dolly, which stretches it."
+      },
+      {
+       "text": "Heavy blows with no dolly",
+       "consequence": "Unsupported heavy blows add new dents and stretch the panel."
+      }
+     ]
+    },
+    {
+     "id": "planish",
+     "afterStep": 4,
+     "prompt": "You are planishing hammer-on-dolly. How do you work?",
+     "options": [
+      {
+       "text": "Light blows, for only as long as needed",
+       "correct": true,
+       "consequence": "The surface is smoothed with very little stretching."
+      },
+      {
+       "text": "Keep hammering hard until it looks bright",
+       "consequence": "Excessive on-dolly hammering over-stretches the metal."
+      },
+      {
+       "text": "Strike the same spot repeatedly to save time",
+       "consequence": "One spot gets thin and stretched, leaving a bulge to shrink later."
+      }
+     ]
+    },
+    {
+     "id": "low-left",
+     "afterStep": 6,
+     "prompt": "After filing, a low spot about 6 mm deep remains. What do you do?",
+     "options": [
+      {
+       "text": "Pick it up with more metal work",
+       "correct": true,
+       "consequence": "The low is too deep for a skim, so metal work brings it within the limit."
+      },
+      {
+       "text": "Fill it, as filler is quicker",
+       "consequence": "Filler is meant for a thin skim, and thick filler can crack."
+      },
+      {
+       "text": "Leave it, because paint will hide it",
+       "consequence": "Paint shows every low, so the repair will be visible."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "file-show",
+     "prompt": "You file the panel lightly over the guide coat. What shows a well-finished panel?",
+     "options": [
+      {
+       "text": "An even bright surface with very few low spots",
+       "correct": true
+      },
+      {
+       "text": "Bright patches only, with broad dark areas between them",
+       "why": "Dark areas are lows that the file has not touched."
+      },
+      {
+       "text": "The guide coat untouched everywhere",
+       "why": "Then the file has not reached the panel, so nothing is shown."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "metal-up",
+     "prompt": "A skim of filler can finish a low of about 3 mm. A low is now {d} mm deep. How many mm must metal work raise it to reach that limit?",
+     "formula": "d - 3",
+     "vars": {
+      "d": {
+       "min": 4,
+       "max": 9,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{d} − 3 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "oil-can",
+     "scenario": "Ade's wing now has a springy bulge and thick filler. Here is what he did.",
+     "lines": [
+      {
+       "text": "He hammered hard on the dolly all over the dent.",
+       "fault": true,
+       "why": "Too much on-dolly hammering stretches the metal."
+      },
+      {
+       "text": "He struck the panel hard with no dolly behind it.",
+       "fault": true,
+       "why": "That adds damage and stretches the panel."
+      },
+      {
+       "text": "He covered a large dent with filler instead of metal work.",
+       "fault": true,
+       "why": "Filler is not for large dents."
+      },
+      {
+       "text": "He studied the damage before starting.",
+       "why": "That is the first step."
+      },
+      {
+       "text": "He used a guide coat to show highs and lows.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for hammer and dolly work.",
+    "explainPrompt": "Why can too much hammer-on-dolly work spoil a repair?",
+    "explainGuide": "Each blow squeezes the metal between the hammer and dolly, so it thins and stretches. Too much leaves a loose bulge that must then be shrunk.",
+    "explainKeywords": [
+     [
+      "squeeze",
+      "squeezes",
+      "between",
+      "thin",
+      "thins"
+     ],
+     [
+      "stretch",
+      "stretches",
+      "stretched"
+     ],
+     [
+      "bulge",
+      "shrink",
+      "shrunk",
+      "oil"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Hammer and dolly repair of a minor dent",
+    "Light, accurate blows."
+   ]
+  },
+  "pr-abr-checking-body-alignment-with-a-tram-gauge": {
+   "safety": {
+    "correct": [
+     "Check that the stands are firmly placed before going under the vehicle."
+    ],
+    "wrong": [
+     {
+      "text": "Slide under the shell while it rests on the jack alone.",
+      "why": "Jacks can drop. Support the vehicle on stands first."
+     },
+     {
+      "text": "Stand beside a pulling chain to watch it tighten.",
+      "why": "A chain can snap and whip. Stay clear: only trained staff work the pull."
+     },
+     {
+      "text": "Try a small pull yourself while the instructor is away.",
+      "why": "Pulling equipment is operated only by trained staff with safety chains."
+     },
+     {
+      "text": "Stand the shell on bricks because the stands are in use.",
+      "why": "Bricks can crumble under load. Use proper stands."
+     },
+     {
+      "text": "Reach through the structure over torn metal with bare hands.",
+      "why": "Damaged panels have sharp edges. Wear gloves and look first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Spirit level for diagonals",
+      "why": "A level shows slope only. Diagonals need the tram gauge."
+     },
+     {
+      "name": "Vernier caliper",
+      "why": "Its range is far too short for underbody diagonals."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "It measures very small gaps, not body diagonals."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It cannot span a vehicle body."
+     },
+     {
+      "name": "Bumping hammer",
+      "why": "This job measures. No panel is being worked."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ref-hole",
+     "afterStep": 3,
+     "prompt": "One reference hole looks torn and oval. What do you do?",
+     "options": [
+      {
+       "text": "Use another sound reference point from the chart",
+       "correct": true,
+       "consequence": "A sound point gives a true reading and a correct diagnosis."
+      },
+      {
+       "text": "Measure to it anyway, and note nothing",
+       "consequence": "Measuring to a damaged hole gives a false reading."
+      },
+      {
+       "text": "Move the pointer a little to allow for it",
+       "consequence": "This is a guess, so the diagonal is no longer reliable."
+      }
+     ]
+    },
+    {
+     "id": "same-height",
+     "afterStep": 3,
+     "prompt": "One side's reference point sits lower. How do you set the pointers?",
+     "options": [
+      {
+       "text": "At equal heights, as the precaution requires",
+       "correct": true,
+       "consequence": "The two readings are then comparable."
+      },
+      {
+       "text": "Each by eye, as a small height error will not matter",
+       "consequence": "Unequal pointers change the reading and give a false difference."
+      },
+      {
+       "text": "One long and one short, to save time",
+       "consequence": "The diagonals can no longer be fairly compared."
+      }
+     ]
+    },
+    {
+     "id": "compare",
+     "afterStep": 4,
+     "prompt": "The diagonals differ by far more than the tolerance. What do you conclude?",
+     "options": [
+      {
+       "text": "The structure is out of alignment and needs correcting",
+       "correct": true,
+       "consequence": "You go on to find the direction of the damage."
+      },
+      {
+       "text": "The tape is wrong, so ignore the difference and carry on",
+       "consequence": "A large difference is what the check is meant to show."
+      },
+      {
+       "text": "It is fine, since the doors still open",
+       "consequence": "Doors opening does not prove the structure is square."
+      }
+     ]
+    },
+    {
+     "id": "pull-dir",
+     "afterStep": 6,
+     "prompt": "The impact came from the front left. How is the straightening pull planned?",
+     "options": [
+      {
+       "text": "Opposite to the direction of impact",
+       "correct": true,
+       "consequence": "The metal is drawn back along the path the damage took."
+      },
+      {
+       "text": "In the same direction as the impact",
+       "consequence": "This drives the damage deeper."
+      },
+      {
+       "text": "Straight upward at the worst point",
+       "consequence": "An upward pull does not reverse the side damage."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "unequal",
+     "prompt": "Your X-diagonals are clearly unequal. What does this reveal?",
+     "options": [
+      {
+       "text": "Side sway or diamond damage",
+       "correct": true
+      },
+      {
+       "text": "A sound structure within tolerance",
+       "why": "Sound structures have matching diagonals."
+      },
+      {
+       "text": "Only paint damage",
+       "why": "Paint has no effect on diagonals."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "diag-diff",
+     "prompt": "The underbody diagonals measure {a} mm and {b} mm. What is the difference in mm?",
+     "formula": "b - a",
+     "vars": {
+      "a": {
+       "min": 1440,
+       "max": 1460,
+       "step": 10
+      },
+      "b": {
+       "min": 1464,
+       "max": 1478,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{b} − {a} = {answer} mm."
+    },
+    {
+     "id": "over-tol",
+     "prompt": "Diagonals of {a} mm and {b} mm are compared with a typical tolerance of 3 mm. By how many mm is the difference over that tolerance?",
+     "formula": "b - a - 3",
+     "vars": {
+      "a": {
+       "min": 1490,
+       "max": 1500,
+       "step": 5
+      },
+      "b": {
+       "min": 1508,
+       "max": 1520,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Difference = {b} − {a}. Subtract the 3 mm tolerance to get {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-readings",
+     "scenario": "Yemi's two diagonal readings would not repeat, and the pull made things worse. Here is what she did.",
+     "lines": [
+      {
+       "text": "She measured to a damaged reference hole.",
+       "fault": true,
+       "why": "Damaged holes give false readings."
+      },
+      {
+       "text": "She set the pointers at unequal heights.",
+       "fault": true,
+       "why": "Pointers must be at equal heights."
+      },
+      {
+       "text": "She used different types of reference point on each side.",
+       "fault": true,
+       "why": "Measure from the same type of point on each side."
+      },
+      {
+       "text": "She compared her readings with the dimension chart.",
+       "why": "That is the correct check."
+      },
+      {
+       "text": "She supported the vehicle on stands.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for taking tram gauge measurements.",
+    "explainPrompt": "Why are diagonals compared when checking a body section?",
+    "explainGuide": "A sound section is symmetrical, so its diagonals match. Damage moves one corner, which makes one diagonal longer than the other and shows the misalignment.",
+    "explainKeywords": [
+     [
+      "symmetrical",
+      "square",
+      "match",
+      "equal"
+     ],
+     [
+      "diagonal",
+      "diagonals"
+     ],
+     [
+      "misalignment",
+      "misaligned",
+      "damage",
+      "sway",
+      "diamond"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Checking body alignment with a tram gauge",
+    "Same points, same heights."
+   ]
+  },
+  "pr-abr-repairing-and-aligning-an-aluminium-panel": {
+   "safety": {
+    "correct": [
+     "Clear steel dust from the work area before grinding or sanding aluminium."
+    ],
+    "wrong": [
+     {
+      "text": "Wait for the aluminium to glow red before you start to work it.",
+      "why": "Aluminium gives no glow before it melts. Use the temperature crayon."
+     },
+     {
+      "text": "Sweep aluminium and steel dust together into one bin.",
+      "why": "Aluminium dust is flammable and must be kept separate from steel dust."
+     },
+     {
+      "text": "Hold the heat on one spot to save time.",
+      "why": "Aluminium conducts heat fast and can melt suddenly. Keep the heat moving."
+     },
+     {
+      "text": "Touch the panel with your hand to judge how warm it is.",
+      "why": "You could burn yourself, and it tells you little. Use the temperature crayon."
+     },
+     {
+      "text": "Sand aluminium with no extraction because the dust is soft.",
+      "why": "The dust is flammable and harmful. Use extraction."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Carbon steel wire brush",
+      "why": "Embedded steel particles cause corrosion on aluminium."
+     },
+     {
+      "name": "Steel bumping hammer used on steel panels",
+      "why": "It carries steel particles and hits too hard for soft aluminium."
+     },
+     {
+      "name": "Steel body file used on steel panels",
+      "why": "It transfers steel to the aluminium."
+     },
+     {
+      "name": "Oxy-acetylene shrinking nozzle",
+      "why": "It is too fierce: aluminium is warmed gently, not brought to red heat."
+     },
+     {
+      "name": "Magnet",
+      "why": "Aluminium is non-magnetic, so a magnet does nothing in this repair."
+     }
+    ]
+   },
+   "procedure": {
+    "leaveOut": [
+     7
+    ]
+   },
+   "decisions": [
+    {
+     "id": "brush",
+     "afterStep": 1,
+     "prompt": "The steel-shop brush is nearest to hand. What do you use for cleaning?",
+     "options": [
+      {
+       "text": "The stainless steel brush kept for aluminium",
+       "correct": true,
+       "consequence": "No steel is left in the surface, so no corrosion starts."
+      },
+      {
+       "text": "The nearest brush, since it is only a quick clean",
+       "consequence": "Steel particles embed in the aluminium and cause corrosion."
+      },
+      {
+       "text": "A piece of coarse emery from the steel bench",
+       "consequence": "Emery used on steel carries contamination, and it scores soft metal."
+      }
+     ]
+    },
+    {
+     "id": "heat-judge",
+     "afterStep": 2,
+     "prompt": "How do you tell that the panel has reached the softening temperature?",
+     "options": [
+      {
+       "text": "The temperature crayon mark changes",
+       "correct": true,
+       "consequence": "You stop at about 150 to 200 °C with no risk of overheating."
+      },
+      {
+       "text": "The metal starts to change colour",
+       "consequence": "Aluminium does not change colour, so you could melt it first."
+      },
+      {
+       "text": "You count a fixed time on the heat",
+       "consequence": "Heat varies with the torch and the panel, so timing gives no proof."
+      }
+     ]
+    },
+    {
+     "id": "blows",
+     "afterStep": 3,
+     "prompt": "How do you rough out the warmed dent?",
+     "options": [
+      {
+       "text": "Light blows from the back with a wooden or plastic tool",
+       "correct": true,
+       "consequence": "The panel moves without stretching and stays clean."
+      },
+      {
+       "text": "Firm blows on the outer face with the steel hammer and dolly",
+       "consequence": "Hard blows stretch the soft metal, and steel contaminates it."
+      },
+      {
+       "text": "Pull from the front with a steel pry bar",
+       "consequence": "A steel bar can contaminate and crease the soft metal."
+      }
+     ]
+    },
+    {
+     "id": "stiff",
+     "afterStep": 4,
+     "prompt": "The area you are working has become stiff. What do you do?",
+     "options": [
+      {
+       "text": "Stop and warm it again before going on",
+       "correct": true,
+       "consequence": "Warming restores workability, so it will not crack."
+      },
+      {
+       "text": "Keep going with heavier blows until it moves",
+       "consequence": "Work-hardened aluminium cracks under heavy blows."
+      },
+      {
+       "text": "Grind the stiff area thinner",
+       "consequence": "This weakens the panel and risks grinding through it."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "warmed",
+     "prompt": "The warmed panel is being worked. What result do you expect?",
+     "options": [
+      {
+       "text": "It returns to shape without cracking",
+       "correct": true
+      },
+      {
+       "text": "It glows and then returns to shape",
+       "why": "Aluminium does not glow before melting."
+      },
+      {
+       "text": "It gets softer the more it is worked",
+       "why": "Working hardens it, and overworked areas may crack."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "margin",
+     "prompt": "Aluminium melts at about 660 °C. You warm a panel to {t} °C. How many degrees below the melting point is it?",
+     "formula": "660 - t",
+     "vars": {
+      "t": {
+       "min": 150,
+       "max": 200,
+       "step": 10
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "degrees C",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "660 − {t} = {answer} °C."
+    },
+    {
+     "id": "steel-gap",
+     "prompt": "Steel melts at about 1 500 °C and aluminium at about 660 °C. How much lower is aluminium's melting point, in °C?",
+     "answer": 840,
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "degrees C",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "1 500 − 660 = 840 °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "corroded-bonnet",
+     "scenario": "Six months after repair, Femi's aluminium bonnet shows white corrosion and a crack. Here is what he did.",
+     "lines": [
+      {
+       "text": "He cleaned it with a steel wire brush.",
+       "fault": true,
+       "why": "Steel particles left behind cause corrosion."
+      },
+      {
+       "text": "He used the same hammer that he uses on steel panels.",
+       "fault": true,
+       "why": "Aluminium tools must be kept separate from steel tools."
+      },
+      {
+       "text": "He hit hard to finish quickly.",
+       "fault": true,
+       "why": "Aluminium needs lighter blows than steel, or it stretches and cracks."
+      },
+      {
+       "text": "He used a temperature crayon when warming.",
+       "why": "That avoids burning through."
+      },
+      {
+       "text": "He finished the metal with care.",
+       "why": "That avoids grinding through."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for repairing an aluminium panel.",
+    "explainPrompt": "Why is a temperature crayon needed when heating aluminium?",
+    "explainGuide": "Aluminium melts at a low temperature and does not change colour or glow first, and it conducts heat quickly. The crayon shows the temperature, so burn-through is avoided.",
+    "explainKeywords": [
+     [
+      "melt",
+      "melts",
+      "melting"
+     ],
+     [
+      "colour",
+      "glow"
+     ],
+     [
+      "crayon",
+      "temperature",
+      "indicate",
+      "shows"
+     ],
+     [
+      "burn",
+      "burning",
+      "overheat",
+      "overheating"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Repairing and aligning an aluminium panel",
+    "Separate tools. Gentle heat."
+   ]
+  },
+  "pr-abr-repairing-a-plastic-bumper-by-plastic-welding": {
+   "safety": {
+    "correct": [
+     "Rest the hot welder on its stand whenever it is not in your hand."
+    ],
+    "wrong": [
+     {
+      "text": "Weld with the door shut so that the heat is not lost.",
+      "why": "Burning plastic gives toxic fumes. Ventilate the area."
+     },
+     {
+      "text": "Test the welder tip's heat by touching it quickly.",
+      "why": "The tip is very hot and will burn you. Wear gloves and keep clear."
+     },
+     {
+      "text": "Keep heating when the plastic begins to smoke.",
+      "why": "Smoke means charring and toxic fumes. Reduce the heat."
+     },
+     {
+      "text": "Lean over the bead to see it closely while it smokes.",
+      "why": "You breathe the fumes. Keep your face back and ventilate."
+     },
+     {
+      "text": "Put the hot welder down on the plastic bumper between runs.",
+      "why": "It will melt the bumper and could start a fire. Use a stand."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oxy-acetylene blowpipe",
+      "why": "The flame would burn and char the bumper. Use the hot-air welder."
+     },
+     {
+      "name": "Steel filler rod",
+      "why": "It cannot fuse with plastic. The rod must match the plastic."
+     },
+     {
+      "name": "Polyester body filler",
+      "why": "It is rigid and cracks on a flexible bumper. Use flexible filler."
+     },
+     {
+      "name": "Super glue",
+      "why": "It is brittle and gives no fused repair."
+     },
+     {
+      "name": "Arc welder",
+      "why": "Electricity and arc heat would simply burn the plastic."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "no-code",
+     "afterStep": 1,
+     "prompt": "The inside code reads >PP<. Which rod do you pick?",
+     "options": [
+      {
+       "text": "The PP rod",
+       "correct": true,
+       "consequence": "Matching plastics fuse together into a strong bead."
+      },
+      {
+       "text": "The ABS rod, because it is the strongest",
+       "consequence": "Unlike plastics do not fuse, so the bond is weak."
+      },
+      {
+       "text": "Any rod that is the same colour",
+       "consequence": "Colour tells you nothing about the plastic type."
+      }
+     ]
+    },
+    {
+     "id": "thermoset",
+     "afterStep": 2,
+     "prompt": "A panel will not soften on a heated test, and it chars. What do you do?",
+     "options": [
+      {
+       "text": "Stop: it is a thermoset, so do not weld it",
+       "correct": true,
+       "consequence": "You avoid wasting the job on a plastic that cannot be re-melted."
+      },
+      {
+       "text": "Raise the heat until it does melt, then weld",
+       "consequence": "Thermosets char and give toxic fumes, and they do not melt."
+      },
+      {
+       "text": "Weld it using a higher-grade rod",
+       "consequence": "No rod can fuse with a plastic that will not re-melt."
+      }
+     ]
+    },
+    {
+     "id": "stop-hole",
+     "afterStep": 3,
+     "prompt": "You have V-grooved the crack on both sides. What else do you do at the crack's end?",
+     "options": [
+      {
+       "text": "Drill a stop hole",
+       "correct": true,
+       "consequence": "The hole stops the crack from spreading further."
+      },
+      {
+       "text": "Cover it with tape and leave it",
+       "consequence": "The end of the crack is free to spread later."
+      },
+      {
+       "text": "Grind the end into a wide notch",
+       "consequence": "A wide notch weakens the bumper and leaves more to fill."
+      }
+     ]
+    },
+    {
+     "id": "painting",
+     "afterStep": 7,
+     "prompt": "The repair has been sanded flush. What goes on before the topcoat?",
+     "options": [
+      {
+       "text": "Adhesion promoter, then flexible filler or primer",
+       "correct": true,
+       "consequence": "The paint grips the plastic and flexes with it."
+      },
+      {
+       "text": "Topcoat straight on to the bare plastic, in thin coats",
+       "consequence": "Without adhesion promoter, the paint peels."
+      },
+      {
+       "text": "Rigid polyester primer and thick filler",
+       "consequence": "Rigid coatings crack when the bumper flexes."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "bead",
+     "prompt": "Which result shows that the weld is sound?",
+     "options": [
+      {
+       "text": "The rod fuses into the groove as a continuous bead",
+       "correct": true
+      },
+      {
+       "text": "The rod lies on top and can be peeled off",
+       "why": "There is no fusion, often from low heat or the wrong rod."
+      },
+      {
+       "text": "The bead is dark and bubbled",
+       "why": "That is overheating, which chars and weakens the plastic."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rod",
+     "prompt": "A crack {l} mm long is welded on both sides. You allow {a} mm extra for starting and finishing. What length of rod do you cut, in mm?",
+     "formula": "2 * l + a",
+     "vars": {
+      "l": {
+       "min": 60,
+       "max": 120,
+       "step": 10
+      },
+      "a": {
+       "min": 30,
+       "max": 50,
+       "step": 10
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "2 × {l} + {a} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "weak-bumper",
+     "scenario": "Chinedu's bumper repair split open within a week and its paint peeled. Here is what he did.",
+     "lines": [
+      {
+       "text": "He guessed the plastic without reading the moulded code.",
+       "fault": true,
+       "why": "Misidentified plastic gives a weak bond."
+      },
+      {
+       "text": "He kept the heat on until the plastic turned black.",
+       "fault": true,
+       "why": "Overheating chars and weakens the plastic."
+      },
+      {
+       "text": "He painted without adhesion promoter.",
+       "fault": true,
+       "why": "That is why the paint peeled."
+      },
+      {
+       "text": "He drilled a stop hole at the end of the crack.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He let it cool naturally.",
+       "why": "That is the correct way."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for plastic welding.",
+    "explainPrompt": "Why must the filler rod match the plastic of the bumper?",
+    "explainGuide": "Only the same plastic melts and fuses together with the base material. A different plastic does not bond, so the weld is weak.",
+    "explainKeywords": [
+     [
+      "same",
+      "match",
+      "matching"
+     ],
+     [
+      "fuse",
+      "fuses",
+      "melt",
+      "melts",
+      "bond"
+     ],
+     [
+      "weak",
+      "strength",
+      "strong"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Repairing a plastic bumper by plastic welding",
+    "Read the code before welding."
+   ]
+  },
+  "pr-abr-dismantling-cleaning-and-adjusting-a-spray-gun": {
+   "safety": {
+    "correct": [
+     "Pour used gun-wash thinner into the labelled waste container."
+    ],
+    "wrong": [
+     {
+      "text": "Keep the air connected while removing the air cap, for a quick blow-out.",
+      "why": "The gun can fire or blow parts off. Disconnect the air first."
+     },
+     {
+      "text": "Test the fan by pointing the gun past a classmate.",
+      "why": "Never point a gun at anyone. Spray only at the test paper."
+     },
+     {
+      "text": "Clean the gun bare-handed, as it takes only a minute.",
+      "why": "Thinner passes through skin. Wear gloves and goggles."
+     },
+     {
+      "text": "Clear a blocked air cap hole with a pin.",
+      "why": "Metal enlarges or marks the holes. Use the correct cleaning brush."
+     },
+     {
+      "text": "Soak the whole gun overnight in a tin of thinner.",
+      "why": "That damages the seals. Clean only the parts."
+     },
+     {
+      "text": "Clean the gun beside the closed store to keep fumes out of the workshop.",
+      "why": "Closed spaces trap vapour. Clean in a ventilated area."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pipe wrench",
+      "why": "It chews the fluid tip. Use the spanner supplied with the gun."
+     },
+     {
+      "name": "Steel wire for air cap holes",
+      "why": "Metal damages the holes. Use the cleaning brush."
+     },
+     {
+      "name": "Engine oil",
+      "why": "It contaminates paint. Use gun lubricant."
+     },
+     {
+      "name": "Adjustable spanner with worn jaws",
+      "why": "It rounds off the soft brass tip. Use the gun spanner."
+     },
+     {
+      "name": "Bumping hammer",
+      "why": "No part of a precision gun is hammered."
+     },
+     {
+      "name": "Silicone spray",
+      "why": "Silicone in a gun causes fish-eyes in the paint."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "strip-order",
+     "afterStep": 3,
+     "prompt": "The air is disconnected. How do you clean the parts?",
+     "options": [
+      {
+       "text": "Take off the air cap, tip and needle, then brush them in thinner",
+       "correct": true,
+       "consequence": "The passages come clean, and the seals stay dry."
+      },
+      {
+       "text": "Drop the assembled gun in thinner for an hour",
+       "consequence": "This damages the seals and does not clean the passages."
+      },
+      {
+       "text": "Wipe the outside with a rag and leave the inside for the next time",
+       "consequence": "Paint dries inside, so the next spray pattern is spoiled."
+      }
+     ]
+    },
+    {
+     "id": "needle",
+     "afterStep": 4,
+     "prompt": "On reassembly the needle looks slightly bent. What do you do?",
+     "options": [
+      {
+       "text": "Replace it before use",
+       "correct": true,
+       "consequence": "A straight needle seats properly and does not drip."
+      },
+      {
+       "text": "Straighten it with pliers and fit it",
+       "consequence": "A bent needle will not seat properly or give a good pattern."
+      },
+      {
+       "text": "Fit it as it is and adjust the fluid knob",
+       "consequence": "The knob cannot correct a bent needle."
+      }
+     ]
+    },
+    {
+     "id": "crescent",
+     "afterStep": 6,
+     "prompt": "The test paper shows a heavy-sided crescent. What do you check first?",
+     "options": [
+      {
+       "text": "The air cap horn for a blockage",
+       "correct": true,
+       "consequence": "Cleaning the blocked horn restores the even pattern."
+      },
+      {
+       "text": "The compressor oil level and its air filter",
+       "consequence": "That has no bearing on a one-sided pattern."
+      },
+      {
+       "text": "The colour of the paint",
+       "consequence": "Colour does not change the fan's shape."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "pattern",
+     "prompt": "Which test pattern shows a clean, well-adjusted gun?",
+     "options": [
+      {
+       "text": "An even oval with uniform atomisation",
+       "correct": true
+      },
+      {
+       "text": "A crescent that is heavy on one side",
+       "why": "That suggests a blocked air cap horn."
+      },
+      {
+       "text": "A narrow round spot with coarse droplets",
+       "why": "Fan and atomisation are not set correctly."
+      },
+      {
+       "text": "An oval with spitting dots at the edges",
+       "why": "That suggests poor atomisation or a dirty gun, not a good setting."
+      }
+     ]
+    },
+    {
+     "id": "type",
+     "prompt": "A gun has its cup below the body. Which type is it?",
+     "options": [
+      {
+       "text": "Suction (siphon) feed",
+       "correct": true
+      },
+      {
+       "text": "Gravity feed, with a cup fitted to the gun",
+       "why": "Gravity feed has the cup above."
+      },
+      {
+       "text": "Pressure feed",
+       "why": "Pressure feed uses a remote pot."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "passes",
+     "prompt": "A panel is {h} mm high. The fan is {f} mm wide and each pass overlaps 50%. How many passes does one coat need?",
+     "formula": "h / (f * 0.5)",
+     "vars": {
+      "h": {
+       "min": 600,
+       "max": 1200,
+       "step": 300
+      },
+      "f": {
+       "min": 200,
+       "max": 300,
+       "step": 100
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Gun moves {f} × 0.5 per pass. Passes = {h} ÷ that = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-pattern",
+     "scenario": "Amaka's gun drips and sprays unevenly after she cleaned it. Here is what she did.",
+     "lines": [
+      {
+       "text": "She refitted a bent needle.",
+       "fault": true,
+       "why": "A bent needle spoils the seal and the pattern."
+      },
+      {
+       "text": "She lost the needle packing and carried on.",
+       "fault": true,
+       "why": "Without the packing the gun leaks."
+      },
+      {
+       "text": "She set a pressure from memory, not from the data sheet.",
+       "fault": true,
+       "why": "The wrong pressure is a known source of error."
+      },
+      {
+       "text": "She disconnected the air before dismantling.",
+       "why": "That is required."
+      },
+      {
+       "text": "She lubricated the trigger pivot.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for cleaning a spray gun.",
+    "explainPrompt": "Why should a spray gun never be soaked whole in thinner?",
+    "explainGuide": "Thinner attacks the seals and packing and removes the lubricant, so the gun leaks and the air passages may be contaminated. Only the parts are cleaned.",
+    "explainKeywords": [
+     [
+      "seal",
+      "seals",
+      "packing"
+     ],
+     [
+      "damage",
+      "damages",
+      "attack",
+      "attacks",
+      "leak",
+      "leaks"
+     ],
+     [
+      "parts",
+      "lubricant",
+      "contaminated"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Dismantling, cleaning and adjusting a spray gun",
+    "Air off before you strip the gun."
+   ]
+  },
+  "pr-abr-preparing-a-metal-surface-for-spray-painting": {
+   "safety": {
+    "correct": [
+     "Keep the sanding extraction running, or wet-sand, to keep the dust down."
+    ],
+    "wrong": [
+     {
+      "text": "Sand old paint dry with no mask, outdoors.",
+      "why": "Paint dust is harmful anywhere. Wear a dust mask."
+     },
+     {
+      "text": "Spray primer in a dust mask because primer is not a topcoat.",
+      "why": "Primer spray needs a respirator."
+     },
+     {
+      "text": "Wipe the panel with petrol to degrease it.",
+      "why": "Petrol is a fire risk and leaves a residue. Use wax and grease remover."
+     },
+     {
+      "text": "Leave degreaser rags on the panel while you fetch the primer.",
+      "why": "They are a fire risk and contaminate the panel. Put them in the rags container."
+     },
+     {
+      "text": "Rub the bare panel with your palm to check for dust.",
+      "why": "Skin oil contaminates a cleaned surface. Keep bare hands off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Newspaper for masking",
+      "why": "Paint soaks through newsprint. Use masking paper."
+     },
+     {
+      "name": "Silicone polish",
+      "why": "Silicone causes fish-eyes in the paint."
+     },
+     {
+      "name": "Household cooking oil",
+      "why": "It would contaminate the whole surface."
+     },
+     {
+      "name": "Grinding wheel for feather-edging",
+      "why": "It cuts far too hard. Feather-edging uses the DA sander and fine abrasive."
+     },
+     {
+      "name": "Wire brush for paint edges",
+      "why": "It scores the paint instead of tapering it."
+     },
+     {
+      "name": "Topcoat clear",
+      "why": "This job stops at primer and masking."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 1,
+     "prompt": "The panel has road film and wax. What comes before sanding?",
+     "options": [
+      {
+       "text": "Wash, then degrease",
+       "correct": true,
+       "consequence": "Sanding after degreasing does not push contamination into the surface."
+      },
+      {
+       "text": "Start with P80 to cut through it",
+       "consequence": "Sanding drives contamination into the surface, causing fish-eyes later."
+      },
+      {
+       "text": "Prime straight over it",
+       "consequence": "Primer will not stick to wax."
+      }
+     ]
+    },
+    {
+     "id": "feather",
+     "afterStep": 2,
+     "prompt": "How do you finish the edge of the damaged paint?",
+     "options": [
+      {
+       "text": "Taper it smoothly over 25 to 50 mm",
+       "correct": true,
+       "consequence": "No step can show, so no ring mark appears."
+      },
+      {
+       "text": "Leave a clean, straight step",
+       "consequence": "A step shows through as a ring mark."
+      },
+      {
+       "text": "Fill the step with thick primer only",
+       "consequence": "The step still telegraphs through the paint."
+      }
+     ]
+    },
+    {
+     "id": "skip-grade",
+     "afterStep": 5,
+     "prompt": "You have P80 scratches on the primer. Do you go straight to P400?",
+     "options": [
+      {
+       "text": "No, step through the grades in order",
+       "correct": true,
+       "consequence": "Each grade removes the scratches of the one before it."
+      },
+      {
+       "text": "Yes, because the fine paper saves work",
+       "consequence": "P80 scratches stay, then swell through the topcoat."
+      },
+      {
+       "text": "Yes, but press harder",
+       "consequence": "Pressure does not remove deep scratches. It only spoils the block finish."
+      }
+     ]
+    },
+    {
+     "id": "cure",
+     "afterStep": 5,
+     "prompt": "The primer feels dry on top. May you sand it?",
+     "options": [
+      {
+       "text": "Wait until it has cured fully",
+       "correct": true,
+       "consequence": "It cuts cleanly and does not clog or shrink later."
+      },
+      {
+       "text": "Yes, once it is dry to touch",
+       "consequence": "Uncured primer clogs paper and can shrink later."
+      },
+      {
+       "text": "Yes, but with coarser paper",
+       "consequence": "Coarser paper digs in and tears soft primer."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ready",
+     "prompt": "Which panel is ready to paint?",
+     "options": [
+      {
+       "text": "Uniform, smooth primer: no edges, scratches or contamination",
+       "correct": true
+      },
+      {
+       "text": "Guide coat still showing in the low patches of a smooth primer",
+       "why": "Those lows are not yet sanded level."
+      },
+      {
+       "text": "Smooth primer with a visible ring",
+       "why": "That is poor feather-edging."
+      }
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "fish-eyes",
+     "scenario": "Efe's panel shows craters and ring marks in the topcoat. Here is what he did.",
+     "lines": [
+      {
+       "text": "He wiped the panel with a bare hand after degreasing.",
+       "fault": true,
+       "why": "Touching the cleaned surface contaminates it."
+      },
+      {
+       "text": "He did not feather the paint edges enough.",
+       "fault": true,
+       "why": "Poor feather-edging leaves ring marks."
+      },
+      {
+       "text": "He sanded before degreasing.",
+       "fault": true,
+       "why": "That drives contamination into the surface."
+      },
+      {
+       "text": "He used a tack cloth last of all.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He allowed flash-off between primer coats.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for preparing a panel for paint.",
+    "explainPrompt": "Why is a panel degreased before sanding and not only after?",
+    "explainGuide": "Sanding an oily or waxy surface drives contamination into the scratches, where it later causes fish-eyes. Degreasing first removes it.",
+    "explainKeywords": [
+     [
+      "sanding",
+      "sand"
+     ],
+     [
+      "contamination",
+      "wax",
+      "grease",
+      "silicone",
+      "oil"
+     ],
+     [
+      "fish-eyes",
+      "fish",
+      "craters"
+     ],
+     [
+      "into",
+      "drive",
+      "drives",
+      "driving"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Preparing a metal surface for spray painting",
+    "Clean, feather, prime, sand, mask."
+   ]
+  },
+  "pr-abr-identifying-paint-types-with-the-solvent-test-and-paint-code": {
+   "safety": {
+    "correct": [
+     "Keep the thinner bottle capped between rubs."
+    ],
+    "wrong": [
+     {
+      "text": "Do the rub test near the grinder to use the bright light.",
+      "why": "Thinner vapour can ignite. Keep it away from sparks."
+     },
+     {
+      "text": "Do the test bare-handed so that you can feel the softening.",
+      "why": "Thinner is harmful to skin. Wear gloves."
+     },
+     {
+      "text": "Sniff the cloth to find out what paint it is.",
+      "why": "The fumes are harmful. Look at the cloth."
+     },
+     {
+      "text": "Do the test in the closed car with the windows up.",
+      "why": "Fumes build up. Work with ventilation."
+     },
+     {
+      "text": "Leave the used cloth on the wing and go for the chart.",
+      "why": "It stays flammable and marks the paint. Bin it in the rags container."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Coloured cloth",
+      "why": "It hides the colour transfer. Use a clean white cloth."
+     },
+     {
+      "name": "Wire brush",
+      "why": "The test must not damage the finish."
+     },
+     {
+      "name": "Spray gun",
+      "why": "Nothing is being sprayed in this test."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It plays no part in a solvent test or paint code."
+     },
+     {
+      "name": "Petrol in place of thinner",
+      "why": "It is dangerous and is not the test solvent."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "where",
+     "afterStep": 1,
+     "prompt": "Where do you do the rub test?",
+     "options": [
+      {
+       "text": "A hidden area, such as inside a door jamb",
+       "correct": true,
+       "consequence": "Any softening or mark stays out of sight."
+      },
+      {
+       "text": "The middle of the bonnet, to get a clear view",
+       "consequence": "If it is a lacquer, you will leave a mark in plain view."
+      },
+      {
+       "text": "Across a newly painted repair",
+       "consequence": "Fresh paint would give a false result and could be spoiled."
+      }
+     ]
+    },
+    {
+     "id": "colour-match",
+     "afterStep": 4,
+     "prompt": "The car's paint looks faded. How do you choose the colour?",
+     "options": [
+      {
+       "text": "Use the paint code and chart, then check variants",
+       "correct": true,
+       "consequence": "The code gives the right formula, and variants allow for fading."
+      },
+      {
+       "text": "Match it by eye only",
+       "consequence": "Visual matching alone often comes out wrong."
+      },
+      {
+       "text": "Pick the nearest colour in stock and blend it by eye",
+       "consequence": "The repair will show when dry."
+      }
+     ]
+    },
+    {
+     "id": "over-enamel",
+     "afterStep": 2,
+     "prompt": "A panel has uncured enamel. May you spray cellulose over it?",
+     "options": [
+      {
+       "text": "No: wait until the enamel has cured",
+       "correct": true,
+       "consequence": "The layer below holds firm and does not lift."
+      },
+      {
+       "text": "Yes, cellulose dries faster",
+       "consequence": "Its solvents lift and wrinkle uncured enamel."
+      },
+      {
+       "text": "Yes, if you spray it heavily and allow it time",
+       "consequence": "Heavy coats make the lifting worse."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cloth",
+     "prompt": "After rubbing a sample, the cloth has picked up colour and the paint feels soft. What is the finish?",
+     "options": [
+      {
+       "text": "Cellulose lacquer",
+       "correct": true
+      },
+      {
+       "text": "Cured 2K paint",
+       "why": "2K resists thinner."
+      },
+      {
+       "text": "Cured synthetic enamel",
+       "why": "Cured enamels resist thinner."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hard",
+     "prompt": "2K topcoat is mixed 4:1:1 (paint : hardener : thinner). How much hardener in mL is needed for {p} mL of paint?",
+     "formula": "p / 4",
+     "vars": {
+      "p": {
+       "min": 400,
+       "max": 1000,
+       "step": 200
+      }
+     },
+     "unit": "mL",
+     "unitAliases": [
+      "ml",
+      "millilitres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{p} ÷ 4 = {answer} mL."
+    },
+    {
+     "id": "total",
+     "prompt": "You mix 4:1:1 using {p} mL of paint. What is the total ready-to-spray volume in mL?",
+     "formula": "p * 1.5",
+     "vars": {
+      "p": {
+       "min": 400,
+       "max": 1000,
+       "step": 200
+      }
+     },
+     "unit": "mL",
+     "unitAliases": [
+      "ml",
+      "millilitres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Hardener and thinner are each {p} ÷ 4, so total = {p} × 1.5 = {answer} mL."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrinkled",
+     "scenario": "Halima's refinish wrinkled and the colour does not match. Here is what she did.",
+     "lines": [
+      {
+       "text": "She sprayed cellulose over uncured enamel.",
+       "fault": true,
+       "why": "This causes lifting and wrinkling."
+      },
+      {
+       "text": "She matched the colour by eye alone.",
+       "fault": true,
+       "why": "Use the paint code, not visual matching alone."
+      },
+      {
+       "text": "She rubbed the test on the bonnet centre.",
+       "fault": true,
+       "why": "Test only in an inconspicuous place."
+      },
+      {
+       "text": "She used a clean white cloth.",
+       "why": "That makes colour transfer easy to see."
+      },
+      {
+       "text": "She worked with gloves and ventilation.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for the solvent test.",
+    "explainPrompt": "Why must the paint code be used and not only the eye when matching colour?",
+    "explainGuide": "The code gives the manufacturer's exact formula. Faded paint and light can fool the eye, so a visual match alone may be wrong.",
+    "explainKeywords": [
+     [
+      "code",
+      "formula",
+      "manufacturer"
+     ],
+     [
+      "fade",
+      "faded",
+      "fading",
+      "light"
+     ],
+     [
+      "eye",
+      "visual"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying paint types with the solvent test and paint code",
+    "Test where it will not show."
+   ]
+  },
+  "pr-abr-spray-painting-a-panel": {
+   "safety": {
+    "correct": [
+     "Check that the booth extraction is running before opening the paint."
+    ],
+    "wrong": [
+     {
+      "text": "Switch on a lamp in the booth while vapour is still clearing.",
+      "why": "An ordinary switch can spark. No ignition sources in the booth."
+     },
+     {
+      "text": "Lift your respirator to shout to a helper during spraying.",
+      "why": "You breathe the vapour at once. Keep it on until the air is clear."
+     },
+     {
+      "text": "Spray 2K in a cartridge mask because air-fed kit is being cleaned.",
+      "why": "This lesson requires air-fed for 2K. Wait for it."
+     },
+     {
+      "text": "Turn the extraction off to stop dust from entering the booth.",
+      "why": "Vapour builds up and could ignite. Keep it on."
+     },
+     {
+      "text": "Keep your phone in the spray suit pocket, in case someone calls.",
+      "why": "It is an ignition risk and a distraction. Leave it outside."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Paint brush for the panel",
+      "why": "A brush leaves marks. The topcoat is sprayed."
+     },
+     {
+      "name": "Dust mask for 2K",
+      "why": "A dust mask does not stop isocyanate vapour."
+     },
+     {
+      "name": "Air hose with no water trap",
+      "why": "Water would reach the paint."
+     },
+     {
+      "name": "P80 sanding disc",
+      "why": "This job is spraying. Coarse discs would ruin the prepared surface."
+     },
+     {
+      "name": "Used cloth rag for wiping",
+      "why": "It leaves lint. Use a tack cloth."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first-spray",
+     "afterStep": 3,
+     "prompt": "The panel has been tacked. Where do you begin spraying?",
+     "options": [
+      {
+       "text": "Edges and corners first",
+       "correct": true,
+       "consequence": "Those areas get their coat without runs on the face."
+      },
+      {
+       "text": "The centre of the face",
+       "consequence": "Later passes over edges load the face and cause runs."
+      },
+      {
+       "text": "Wherever the light is best",
+       "consequence": "The order is left to chance, so coverage is uneven."
+      }
+     ]
+    },
+    {
+     "id": "arc",
+     "afterStep": 5,
+     "prompt": "Your arm is tiring. How do you keep moving the gun?",
+     "options": [
+      {
+       "text": "Square to the panel at steady speed",
+       "correct": true,
+       "consequence": "The film stays even from edge to edge."
+      },
+      {
+       "text": "In an arc from the elbow",
+       "consequence": "Arcing changes the distance and gives an uneven film."
+      },
+      {
+       "text": "Tilted upward to ease your wrist",
+       "consequence": "A tilted gun lays more paint on one side of the fan."
+      }
+     ]
+    },
+    {
+     "id": "distance",
+     "afterStep": 5,
+     "prompt": "How far from the panel do you hold the gun?",
+     "options": [
+      {
+       "text": "15 to 20 cm",
+       "correct": true,
+       "consequence": "This gives an even wet film."
+      },
+      {
+       "text": "5 to 10 cm",
+       "consequence": "Too close puts on too much paint, and it runs."
+      },
+      {
+       "text": "30 to 40 cm",
+       "consequence": "Too far, so the paint dries in the air and lands as dry spray."
+      }
+     ]
+    },
+    {
+     "id": "second-coat",
+     "afterStep": 6,
+     "prompt": "The first coat looks wet. When do you apply the second?",
+     "options": [
+      {
+       "text": "After the specified flash-off time",
+       "correct": true,
+       "consequence": "Solvent escapes, so the next coat will not run."
+      },
+      {
+       "text": "Straight away, while it is wet",
+       "consequence": "Too much wet paint sags and can trap solvent."
+      },
+      {
+       "text": "The next week, as extra hardness helps",
+       "consequence": "It misses the recoat time, so adhesion suffers."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "finish",
+     "prompt": "You inspect the cured panel. Which finish is correct?",
+     "options": [
+      {
+       "text": "Even, glossy film with no runs or dry spray",
+       "correct": true
+      },
+      {
+       "text": "Glossy with sagging drips at the lower edge",
+       "why": "Those are runs, from spraying too close or too heavy."
+      },
+      {
+       "text": "Dull and rough like fine sand",
+       "why": "That is dry spray, from spraying too far away."
+      },
+      {
+       "text": "Bumpy like the skin of an orange",
+       "why": "Heavy orange peel is a defect."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "paint",
+     "prompt": "A panel is {l} m × {w} m. It takes two coats, and paint covers 8 m² per litre per coat. How many litres of ready-to-spray paint do you need?",
+     "formula": "l * w * 2 / 8",
+     "vars": {
+      "l": {
+       "min": 1,
+       "max": 1.6,
+       "step": 0.2
+      },
+      "w": {
+       "min": 0.8,
+       "max": 1,
+       "step": 0.1
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres",
+      "l"
+     ],
+     "tolerance": {
+      "rel": 0.05
+     },
+     "decimals": 2,
+     "working": "Area = {l} × {w}. Double it for two coats, then divide by 8 = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sags",
+     "scenario": "Oba's topcoat has runs in one place and dry spray in another. Here is what he did.",
+     "lines": [
+      {
+       "text": "He held the gun very close on one pass.",
+       "fault": true,
+       "why": "Too close causes runs."
+      },
+      {
+       "text": "He held the gun too far back on another pass.",
+       "fault": true,
+       "why": "Too far causes dry spray."
+      },
+      {
+       "text": "He arced the gun at the end of each pass.",
+       "fault": true,
+       "why": "That gives an uneven film."
+      },
+      {
+       "text": "He tacked the panel before spraying.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He overlapped each pass by 50%.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for spraying a topcoat.",
+    "explainPrompt": "Why must the gun stay square to the panel at a constant distance?",
+    "explainGuide": "Arcing or changing distance varies how much paint lands. Too close gives runs, too far gives dry spray, so a constant distance gives an even film.",
+    "explainKeywords": [
+     [
+      "distance",
+      "close",
+      "far"
+     ],
+     [
+      "runs",
+      "sag",
+      "sags"
+     ],
+     [
+      "dry spray",
+      "dry"
+     ],
+     [
+      "even",
+      "uniform"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Spray painting a panel",
+    "Square, steady, 50% overlap."
+   ]
+  },
+  "pr-abr-metallic-spray-technique": {
+   "safety": {
+    "correct": [
+     "Keep your respirator on until the booth air has cleared after the clear coat."
+    ],
+    "wrong": [
+     {
+      "text": "Spray a test panel outside the booth without PPE.",
+      "why": "Paint vapour is harmful anywhere. Use the booth and full PPE."
+     },
+     {
+      "text": "Spray 2K clear coat with a dust mask since it has no colour.",
+      "why": "Clear hardener contains isocyanate. Wear the respirator."
+     },
+     {
+      "text": "Mix clear and hardener in the booth with the extraction off.",
+      "why": "Vapour collects. Keep the extraction on."
+     },
+     {
+      "text": "Wipe your hands with thinner after handling the basecoat.",
+      "why": "Thinner passes through skin. Wear gloves and use hand cleaner."
+     },
+     {
+      "text": "Leave leftover thinner in an open cup on the booth floor.",
+      "why": "It adds vapour and fire risk. Close it in a labelled container."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Solid colour paint",
+      "why": "This job is metallic, with flakes."
+     },
+     {
+      "name": "Paint roller",
+      "why": "A roller cannot orient metallic flakes."
+     },
+     {
+      "name": "Etch primer",
+      "why": "That goes on bare metal, not in this topcoat stage."
+     },
+     {
+      "name": "Bumping hammer",
+      "why": "No metal work is done in this job."
+     },
+     {
+      "name": "P80 sanding disc",
+      "why": "It would destroy the basecoat."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "stir",
+     "afterStep": 1,
+     "prompt": "The basecoat tin has stood overnight. What do you do first?",
+     "options": [
+      {
+       "text": "Stir thoroughly until the flakes are dispersed",
+       "correct": true,
+       "consequence": "The flake is even, so the colour matches from start to finish."
+      },
+      {
+       "text": "Pour off the top and use that",
+       "consequence": "Flakes settle, so the top is thin in flake and comes out wrong."
+      },
+      {
+       "text": "Shake it briefly by hand and spray straight away",
+       "consequence": "Settled flakes remain, so the colour is uneven."
+      }
+     ]
+    },
+    {
+     "id": "spray-out",
+     "afterStep": 2,
+     "prompt": "The job is urgent. Do you make the spray-out card?",
+     "options": [
+      {
+       "text": "Yes, always, before spraying the car",
+       "correct": true,
+       "consequence": "You catch any colour mismatch on the card, not on the car."
+      },
+      {
+       "text": "No, the paint code is enough",
+       "consequence": "Variants exist, so a mismatch may show only on the car."
+      },
+      {
+       "text": "No, check it after the clear coat",
+       "consequence": "By then it is costly to correct."
+      }
+     ]
+    },
+    {
+     "id": "striping",
+     "afterStep": 4,
+     "prompt": "Striping shows in the basecoat. What do you do?",
+     "options": [
+      {
+       "text": "Apply a light drop coat from slightly further away",
+       "correct": true,
+       "consequence": "The flake evens out and the mottling goes."
+      },
+      {
+       "text": "Spray a heavy wet coat over it",
+       "consequence": "Wet coats let flakes move and can make it worse."
+      },
+      {
+       "text": "Go straight on to the clear coat to hide the stripes",
+       "consequence": "Clear locks the striping in."
+      }
+     ]
+    },
+    {
+     "id": "flash",
+     "afterStep": 5,
+     "prompt": "The basecoat is still glossy. When do you apply clear?",
+     "options": [
+      {
+       "text": "Once the basecoat has flashed off matt",
+       "correct": true,
+       "consequence": "Solvent has gone, so the clear does not disturb it."
+      },
+      {
+       "text": "Now, while it is glossy and wet",
+       "consequence": "Clear on wet base traps solvent and moves the flake."
+      },
+      {
+       "text": "Only after a light sanding of the base",
+       "consequence": "Sanding a basecoat disturbs the flake and shows through."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tone",
+     "prompt": "You spray one test panel wet and one dry. Which result is correct?",
+     "options": [
+      {
+       "text": "The wet coat is darker on the face; the dry coat is lighter",
+       "correct": true
+      },
+      {
+       "text": "The wet coat is lighter on the face; the dry coat is darker",
+       "why": "It is the other way round: dry coats hold flakes near the surface."
+      },
+      {
+       "text": "Both look the same",
+       "why": "Technique changes flake position, so the tone changes."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "base-mix",
+     "prompt": "A door needs {n} coats of reduced basecoat at about 0.1 L per coat, reduced 1:1 with thinner. How many litres of unreduced basecoat do you need?",
+     "formula": "n * 0.1 / 2",
+     "vars": {
+      "n": {
+       "min": 2,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres",
+      "l"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "Reduced paint = {n} × 0.1 L. Half of that is basecoat = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "mottled",
+     "scenario": "Ify's metallic door looks mottled and the colour is off. Here is what she did.",
+     "lines": [
+      {
+       "text": "She skipped the spray-out card.",
+       "fault": true,
+       "why": "The card shows a colour mismatch early."
+      },
+      {
+       "text": "She varied her gun distance from pass to pass.",
+       "fault": true,
+       "why": "Uneven film causes mottling."
+      },
+      {
+       "text": "She put clear on a basecoat that was still wet.",
+       "fault": true,
+       "why": "The base must flash off matt first."
+      },
+      {
+       "text": "She stirred the basecoat thoroughly.",
+       "why": "That disperses the flakes."
+      },
+      {
+       "text": "She applied two coats of clear.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for spraying metallic paint.",
+    "explainPrompt": "Why does a dry coat of metallic paint look lighter than a wet coat?",
+    "explainGuide": "In a dry coat the flakes stay near the surface and reflect more light, so it looks lighter. In a wet coat they sink deeper and it looks darker.",
+    "explainKeywords": [
+     [
+      "flake",
+      "flakes"
+     ],
+     [
+      "surface",
+      "near"
+     ],
+     [
+      "reflect",
+      "reflects",
+      "light",
+      "lighter"
+     ],
+     [
+      "deeper",
+      "sink",
+      "darker"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Metallic spray technique",
+    "Same distance, same speed."
+   ]
+  }
+ }
+}

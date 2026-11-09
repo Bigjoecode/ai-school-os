@@ -93,3 +93,4 @@ export * from './simulators/phy-pins';
 export * from './simulators/phy-mechanics';
 export * from './simulators/phy-thermal';
 export * from './simulators/phy-magnetism';
+export * from './simulators/gen-practical';

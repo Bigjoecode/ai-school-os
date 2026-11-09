@@ -25,7 +25,7 @@ export function LabResult({ a, teacher }: { a: PracticalAttemptView; teacher?: b
           </div>
           <div className="min-w-0 flex-1 space-y-1.5">
             <div className="flex flex-wrap gap-1.5">
-              <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>{a.assessment ? (a.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : a.mode === 'EXAM' ? 'Timed practical exam' : 'Practice lab'}</Badge>
+              <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>{a.assessment ? (a.assessment.kind === 'EXAM' ? 'Practical exam' : 'Practical test') : a.simulatorId === 'gen-practical' ? 'Guided practical' : a.mode === 'EXAM' ? 'Timed practical exam' : 'Practice lab'}</Badge>
               {r.review && (
                 <Badge variant="success">
                   <BadgeCheck /> Reviewed by {teacher ? r.review.by : 'your teacher'}

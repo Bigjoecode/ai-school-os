@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { practicalAskSchema, practicalCheckSchema, practicalDraftSchema, practicalLabStartSchema, practicalOverrideSchema, practicalPracticeSchema, type PracticalAskInput, type PracticalExam } from '@aischool/shared';
+import { genCheckSchema, practicalAskSchema, practicalCheckSchema, practicalDraftSchema, practicalLabStartSchema, practicalOverrideSchema, practicalPracticeSchema, type PracticalAskInput, type PracticalExam } from '@aischool/shared';
 import { z } from 'zod';
 import { RequirePermissions } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
@@ -45,6 +45,21 @@ export class PracticalsController {
   @Throttle({ default: { limit: 20, ttl: 60_000 } })
   async check(@Param('id') id: string, @Body(new ZodPipe(practicalCheckSchema)) body: z.infer<typeof practicalCheckSchema>) {
     return this.practicals.check(await this.access(), id, body.answers, body.questions);
+  }
+
+  /** The Guided practical's worked example (Demo). */
+  @Get('lessons/:id/guided-demo')
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  async guidedDemo(@Param('id') id: string) {
+    return this.practicals.guidedDemo(await this.access(), id);
+  }
+
+  /** Guided practice: the server's answer to one choice (never in exam mode or a sitting). */
+  @Post('labs/:id/guided-check')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 90, ttl: 60_000 } })
+  async guidedCheck(@Param('id') id: string, @Body(new ZodPipe(genCheckSchema)) body: z.infer<typeof genCheckSchema>) {
+    return this.practicals.guidedCheck(await this.access(), id, body);
   }
 
   /** "Ask Mrs Ada" in the 3D lab: a short answer from the practical's lesson, on the student's AI allowance (refused in timed practicals). */

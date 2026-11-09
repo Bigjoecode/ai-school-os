@@ -97,7 +97,7 @@ function Body({ r }: { r: PracticalAssessmentResults }) {
       </dl>
       {!sat.length ? (
         <Card>
-          <EmptyState icon={Users} title="Nobody has started yet" description={e.phase === 'UPCOMING' ? 'Students can start once it opens.' : 'Students find it under Exams and start it in the virtual lab.'} />
+          <EmptyState icon={Users} title="Nobody has started yet" description={e.phase === 'UPCOMING' ? 'Students can start once it opens.' : 'Students find it under Exams and start it there.'} />
         </Card>
       ) : (
         <ResultsTable r={r} rows={sat} />

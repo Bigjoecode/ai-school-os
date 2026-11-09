@@ -342,7 +342,7 @@ interface Values {
   countEarlierLabs: boolean;
   links: { url: string; name: string }[];
   /** PRACTICAL: the chosen Practical Academy lesson. */
-  practical: Pick<PracticalPickItem, 'id' | 'title' | 'subject' | 'lab'> & { topic?: { id: string; name: string } | null } | null;
+  practical: Pick<PracticalPickItem, 'id' | 'title' | 'subject' | 'lab' | 'guided'> & { topic?: { id: string; name: string } | null } | null;
 }
 
 export const KIND_SHORT: Record<HomeworkKind, string> = { QUESTIONS: 'Questions', THEORY: 'Theory', PROJECT: 'Project', UPLOAD: 'Hand-in', PRACTICAL: 'Practical' };
@@ -351,7 +351,7 @@ const KIND_HINT: Record<HomeworkKind, string> = {
   THEORY: 'Longer written answers, typed or photographed',
   PROJECT: 'Make something; hand in photos, video or a write-up',
   UPLOAD: 'Hand in a worksheet, drawing, recording or file',
-  PRACTICAL: 'A Practical Academy lab: handed in and marked from the lab',
+  PRACTICAL: 'A Practical Academy practical: handed in and marked there',
 };
 /** Sensible hand-in types for each kind of assignment. */
 const KIND_TYPES: Record<HomeworkKind, SubmissionType[]> = {
@@ -453,7 +453,7 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
     const prev = v!.practical;
     const subject = v!.subjectId ? null : subjects.find((x) => x.name.toLowerCase() === p.subject.toLowerCase());
     set({
-      practical: { id: p.id, title: p.title, subject: p.subject, lab: p.lab, topic: p.topicId ? { id: p.topicId, name: p.topic } : null },
+      practical: { id: p.id, title: p.title, subject: p.subject, lab: p.lab, guided: p.guided, topic: p.topicId ? { id: p.topicId, name: p.topic } : null },
       title: !v!.title.trim() || v!.title === prev?.title ? p.title : v!.title,
       instructions: !v!.instructions.trim() || v!.instructions === practicalInstructions(prev) ? practicalInstructions(p) : v!.instructions,
       ...(p.topicId ? { topicId: p.topicId } : {}),
@@ -862,10 +862,12 @@ export function HomeworkSheet({ open, onOpenChange, homework }: { open: boolean;
 }
 
 /** The instructions a practical fills in (kept up to date while the teacher hasn't changed them). */
-function practicalInstructions(p: { title: string; lab: boolean } | null | undefined) {
+function practicalInstructions(p: { title: string; lab: boolean; guided?: boolean } | null | undefined) {
   if (!p) return '';
   return p.lab
-    ? `Open "${p.title}" in the Practical Academy and do its virtual lab. It is handed in when you submit the lab, and your best lab score is your mark.`
+    ? p.guided
+      ? `Open "${p.title}" in the Practical Academy and do its guided practical. It is handed in when you submit it, and your best score is your mark.`
+      : `Open "${p.title}" in the Practical Academy and do its virtual lab. It is handed in when you submit the lab, and your best lab score is your mark.`
     : `Open "${p.title}" in the Practical Academy, study the lesson and pass its quick check. Passing the check hands this in.`;
 }
 
@@ -890,7 +892,7 @@ function PracticalPicker({ subjectId, value, onPick, onClear, error }: { subject
           <span className="min-w-0 flex-1">
             <span className="block truncate text-[13px] font-medium">{value.title}</span>
             <span className="block truncate text-[11.5px] text-muted-foreground">
-              {value.subject} · {value.lab ? 'Virtual lab' : 'Lesson and quick check (no virtual lab)'}
+              {value.subject} · {value.lab ? (value.guided ? 'Guided practical' : 'Virtual lab') : 'Lesson and quick check (no virtual lab)'}
             </span>
           </span>
           <Button type="button" variant="outline" size="sm" onClick={onClear}>
@@ -930,7 +932,7 @@ function PracticalPicker({ subjectId, value, onPick, onClear, error }: { subject
                     <span className="block truncate text-[13px] font-medium">{p.title}</span>
                     <span className="block truncate text-[11.5px] text-muted-foreground">{subjectId ? p.topic : `${p.subject} · ${p.topic}`}</span>
                   </span>
-                  {p.lab && <Badge variant="outline">Lab</Badge>}
+                  {p.lab && <Badge variant="outline">{p.guided ? 'Guided practical' : 'Lab'}</Badge>}
                 </button>
               </li>
             ))}

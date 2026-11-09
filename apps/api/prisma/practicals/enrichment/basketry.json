@@ -1,0 +1,4070 @@
+{
+  "subject": "Basketry",
+  "room": "workshop",
+  "lessons": {
+    "pr-bsk-material-survey": {
+      "room": "field",
+      "safety": {
+        "correct": [
+          "Part thick grass with a stick and look before you reach in.",
+          "Tell an adult where your group is going before you leave the compound."
+        ],
+        "wrong": [
+          {
+            "text": "Reach bare-handed into a clump of palm fronds to pull out a good one.",
+            "why": "Palm and rattan have spines that tear skin. Wear gloves and look first."
+          },
+          {
+            "text": "Wear shorts and slippers because the bush is hot.",
+            "why": "Spines, insects and snakes reach bare legs and feet. Wear long sleeves and covered shoes."
+          },
+          {
+            "text": "Swing the cutlass towards a friend who is holding the frond for you.",
+            "why": "A slip cuts your friend. Keep people clear of the swing and cut away from everyone."
+          },
+          {
+            "text": "Cut all the raffia you can find so the class will not need to come back.",
+            "why": "Stripping plants destroys the source. Take only what you need, with permission."
+          },
+          {
+            "text": "Carry the open cutlass in your hand while you run back to the group.",
+            "why": "A trip turns it into a serious injury. Walk, and carry it pointing down and away from you."
+          },
+          {
+            "text": "Enter a farm and cut samples while the owner is away, since it is only for school.",
+            "why": "Collecting needs permission. Ask the owner first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "It packs a weave down. There is no weaving in a survey."
+          },
+          {
+            "name": "Tapestry needle",
+            "why": "Needles stitch coils. Nothing is stitched in this job."
+          },
+          {
+            "name": "Dye pot",
+            "why": "Dyeing comes later. The survey tests the raw material."
+          },
+          {
+            "name": "Clear varnish",
+            "why": "Varnish finishes a basket. It would spoil the test samples."
+          },
+          {
+            "name": "Try square",
+            "why": "It checks right angles on a frame. Strips are bent, not squared."
+          },
+          {
+            "name": "Rod 10 cm in diameter",
+            "why": "Far too gentle a bend. The test uses the 2 cm rod for every strip."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "permission",
+          "afterStep": 1,
+          "prompt": "You find a stand of raffia palm on a farm by the road. Nobody is there. What do you do?",
+          "options": [
+            {
+              "text": "Find the owner and ask before you cut a small sample",
+              "correct": true,
+              "consequence": "The owner agrees, and the plants keep growing for later harvests."
+            },
+            {
+              "text": "Cut a small amount quickly and go before anyone comes",
+              "consequence": "This is taking without permission, and you could be stopped and lose the samples."
+            },
+            {
+              "text": "Cut the whole frond cluster, since you may not return",
+              "consequence": "You have stripped the plant and damaged the source for the whole community."
+            }
+          ]
+        },
+        {
+          "id": "strip-size",
+          "afterStep": 3,
+          "prompt": "The cane you collected gives strips of different thickness. What do you do before the bending test?",
+          "options": [
+            {
+              "text": "Cut the soaked set and the dry set to one size",
+              "correct": true,
+              "consequence": "Thickness is now the same throughout, so any difference comes from soaking."
+            },
+            {
+              "text": "Soak the thin strips and keep the thick ones for the dry set",
+              "consequence": "Thin strips bend more easily anyway, so the test no longer shows what soaking does."
+            },
+            {
+              "text": "Use the strips as they are and take an average at the end",
+              "consequence": "Thickness changes the result, and averaging cannot remove that from the test."
+            }
+          ]
+        },
+        {
+          "id": "soak-time",
+          "afterStep": 4,
+          "prompt": "You remember four strips after the first eight have soaked for 20 minutes. What do you do?",
+          "options": [
+            {
+              "text": "Start the test again with all 12 going in together",
+              "correct": true,
+              "consequence": "All the strips get the same 30 minutes, so the comparison is fair."
+            },
+            {
+              "text": "Add the four and take all 12 out at the 30-minute mark",
+              "consequence": "Four strips soak for only 10 minutes, so they crack more and spoil the result."
+            },
+            {
+              "text": "Leave those four in for an extra hour to make up for it",
+              "consequence": "Those strips have soaked far longer than the others, so the set is not comparable."
+            }
+          ]
+        },
+        {
+          "id": "dry-rod",
+          "afterStep": 5,
+          "prompt": "The dry strips are cracking on the 2 cm rod. A classmate suggests a change. What do you do?",
+          "options": [
+            {
+              "text": "Keep the same rod and record each crack as it happens",
+              "correct": true,
+              "consequence": "Same rod, same bend: the dry result can be compared with the soaked one."
+            },
+            {
+              "text": "Change to a thicker rod so that fewer dry strips crack",
+              "consequence": "A gentler bend makes dry cane look better than it is, and the comparison fails."
+            },
+            {
+              "text": "Stop at six strips, because the result is already clear",
+              "consequence": "Six strips cannot be compared fairly with twelve soaked strips."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "compare",
+          "prompt": "You compare the soaked and dry cane. Which result is what you should expect?",
+          "options": [
+            {
+              "text": "Many more dry strips crack than soaked strips",
+              "correct": true
+            },
+            {
+              "text": "Soaked and dry strips crack in about equal numbers",
+              "why": "Then soaking would do nothing, but water softens cane fibres."
+            },
+            {
+              "text": "Soaked strips crack more, because water weakens cane",
+              "why": "Soaking makes cane pliable. It does not make it brittle."
+            },
+            {
+              "text": "No strips crack at all in either set",
+              "why": "Dry cane is rigid and cracks when bent sharply."
+            }
+          ]
+        },
+        {
+          "id": "classify",
+          "prompt": "Which sample is natural and rigid when dry?",
+          "options": [
+            {
+              "text": "Bamboo",
+              "correct": true
+            },
+            {
+              "text": "Plastic strapping",
+              "why": "It is synthetic, not natural."
+            },
+            {
+              "text": "Raffia",
+              "why": "Raffia is natural but flexible."
+            },
+            {
+              "text": "Grass",
+              "why": "Grass is natural but flexible."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cracked",
+          "prompt": "In a bending test, {c} out of {n} cane strips cracked. What percentage cracked?",
+          "formula": "c / n * 100",
+          "vars": {
+            "c": {
+              "min": 2,
+              "max": 8,
+              "step": 1
+            },
+            "n": {
+              "min": 20,
+              "max": 40,
+              "step": 20
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{c} ÷ {n} × 100 = {answer}%."
+        },
+        {
+          "id": "passed",
+          "prompt": "{c} out of {n} soaked strips cracked. What percentage passed the test?",
+          "formula": "(n - c) / n * 100",
+          "vars": {
+            "c": {
+              "min": 3,
+              "max": 6,
+              "step": 3
+            },
+            "n": {
+              "min": 12,
+              "max": 24,
+              "step": 12
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "Passed = {n} − {c}. Percentage = passed ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "survey-table",
+          "scenario": "Bola handed in her survey table. Her teacher could not use the bending results. Here is what she did.",
+          "lines": [
+            {
+              "text": "She wrote only 'palm' for two samples and did not state the part of the plant used.",
+              "fault": true,
+              "why": "The plant part (leaf, stem, bark) must be stated. It is a common way to lose marks."
+            },
+            {
+              "text": "She labelled a sisal sample as raffia because both are pale fibres.",
+              "fault": true,
+              "why": "Raffia and sisal are different materials. Check the source before you label."
+            },
+            {
+              "text": "She soaked her strips for different times, whatever was convenient.",
+              "fault": true,
+              "why": "Soaking time must be the same, or the test is not fair."
+            },
+            {
+              "text": "She labelled each sample as she collected it.",
+              "why": "Labelling at once stops samples being mixed up."
+            },
+            {
+              "text": "She wrote down each result straight after the bend.",
+              "why": "Recording at once is correct practice."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for carrying out the bending test fairly.",
+        "explainPrompt": "Why must all the strips in the bending test be the same size and soak for the same time?",
+        "explainGuide": "Thickness and soaking time both change how easily cane bends. If only one thing differs between the two sets, namely wet or dry, then the difference in cracking is caused by soaking. This makes it a fair test.",
+        "explainKeywords": [
+          [
+            "same",
+            "equal",
+            "constant"
+          ],
+          [
+            "fair",
+            "compar"
+          ],
+          [
+            "thick",
+            "size",
+            "soak",
+            "time"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Field survey of basketry materials",
+        "Label each sample where you find it",
+        "Ask before you cut"
+      ]
+    },
+    "pr-bsk-material-preparation-dyeing": {
+      "safety": {
+        "correct": [
+          "Use a dye pot and spoon kept only for dyeing, never for food.",
+          "Lift the pot off the heat with a helper and thick, dry cloths."
+        ],
+        "wrong": [
+          {
+            "text": "Stir the dye with a spoon from the home kitchen and take it back afterwards.",
+            "why": "Dye can poison food. Keep dye tools only for dyeing."
+          },
+          {
+            "text": "Put preservative into an empty water bottle with no label.",
+            "why": "Someone may drink it. Keep it in a labelled container, away from food and children."
+          },
+          {
+            "text": "Pull the hot raffia out of the bath with bare hands to check the colour.",
+            "why": "Hot dye scalds and stains skin. Wear gloves and use a stick."
+          },
+          {
+            "text": "Split the cane towards your chest so you can see the line better.",
+            "why": "A slipping blade goes into you. Always split away from your body."
+          },
+          {
+            "text": "Pour the spent dye bath into the stream behind the school.",
+            "why": "It pollutes water that people and animals use. Dispose of it as your teacher directs."
+          },
+          {
+            "text": "Leave the dye simmering alone while you go for lunch.",
+            "why": "A pot left on the heat can boil over or dry out. Someone must stay and watch it."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "It packs a finished weave down. Nothing is woven in this job."
+          },
+          {
+            "name": "Household bleach",
+            "why": "It strips colour and weakens fibres. It is not part of this dye method."
+          },
+          {
+            "name": "Clear varnish",
+            "why": "Varnish is a final finish for a basket, not for loose raffia."
+          },
+          {
+            "name": "Tapestry needle",
+            "why": "Stitching comes later. Here the material is only being prepared."
+          },
+          {
+            "name": "Polythene bag for storing hanks",
+            "why": "It traps moisture, and damp hanks go mouldy. Store them in a dry, airy place."
+          },
+          {
+            "name": "Try square",
+            "why": "Nothing here needs checking for right angles."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "split-width",
+          "afterStep": 1,
+          "prompt": "Your split raffia strands vary between thin and wide. What do you do?",
+          "options": [
+            {
+              "text": "Split the wide ones down to match the others",
+              "correct": true,
+              "consequence": "An even width weaves more neatly and takes dye more evenly."
+            },
+            {
+              "text": "Keep them as they are, since the weave will hide it",
+              "consequence": "Uneven strands show as a rough, irregular surface in the finished work."
+            },
+            {
+              "text": "Sort out and throw away all the thin strands",
+              "consequence": "You waste good material, and the wide strands still need splitting."
+            }
+          ]
+        },
+        {
+          "id": "cover",
+          "afterStep": 4,
+          "prompt": "Part way through the simmer, some raffia floats above the dye. What do you do?",
+          "options": [
+            {
+              "text": "Press it under with a stick and keep stirring",
+              "correct": true,
+              "consequence": "All the raffia stays under the liquor, so the colour comes out even."
+            },
+            {
+              "text": "Leave it, as the colour will spread along the strand",
+              "consequence": "The exposed part takes less dye and comes out patchy."
+            },
+            {
+              "text": "Turn the heat right up so that the dye reaches it",
+              "consequence": "Fierce boiling does not cover the raffia, and the strands get tangled."
+            }
+          ]
+        },
+        {
+          "id": "dry-place",
+          "afterStep": 5,
+          "prompt": "The raffia is rinsed. It is a bright, hot afternoon. Where do you dry it?",
+          "options": [
+            {
+              "text": "On the drying line in an airy, shaded place",
+              "correct": true,
+              "consequence": "The colour stays bright and the raffia dries without fading."
+            },
+            {
+              "text": "On the line in full sun, because it will dry faster",
+              "consequence": "Strong sun fades the dye, which is the commonest mistake in this job."
+            },
+            {
+              "text": "Folded in a closed bag so that the dust stays off",
+              "consequence": "It stays damp in the bag and goes mouldy."
+            }
+          ]
+        },
+        {
+          "id": "store",
+          "afterStep": 6,
+          "prompt": "The hanks feel dry outside but slightly damp at the centre. What do you do?",
+          "options": [
+            {
+              "text": "Leave them to dry fully before putting them away",
+              "correct": true,
+              "consequence": "They store safely without mould or rot."
+            },
+            {
+              "text": "Store them now and spray them with perfume",
+              "consequence": "Scent does nothing for damp. Mould still grows inside the hank."
+            },
+            {
+              "text": "Tie them more tightly so the damp is squeezed out",
+              "consequence": "Tight hanks dry more slowly, and mould grows at the centre."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "fade",
+          "prompt": "Two lots of raffia were dyed in one bath. One was dried in the sun, one in the shade. What do you see?",
+          "options": [
+            {
+              "text": "The shade-dried raffia is brighter",
+              "correct": true
+            },
+            {
+              "text": "The sun-dried raffia is brighter",
+              "why": "Strong sunlight fades dye. It does not brighten it."
+            },
+            {
+              "text": "Both look exactly the same",
+              "why": "Sun drying fades the colour."
+            },
+            {
+              "text": "The shade-dried raffia has lost its colour",
+              "why": "Shade protects colour."
+            }
+          ]
+        },
+        {
+          "id": "store-sign",
+          "prompt": "You open a store and the hanks smell musty, with grey spots. What is the most likely cause?",
+          "options": [
+            {
+              "text": "They were put away damp",
+              "correct": true
+            },
+            {
+              "text": "They were dyed with too much dye",
+              "why": "Excess dye does not produce grey spots and a musty smell."
+            },
+            {
+              "text": "They were dried in the shade",
+              "why": "Shade drying is correct. Storing damp material causes mould."
+            },
+            {
+              "text": "The store has too much air moving through it",
+              "why": "Good ventilation prevents mould."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "water",
+          "prompt": "You will dye {m} g of raffia at a liquor ratio of 1:30. How many litres of water do you need?",
+          "formula": "m * 30 / 1000",
+          "vars": {
+            "m": {
+              "min": 200,
+              "max": 800,
+              "step": 100
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "L",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Water = {m} × 30 g. 1,000 g of water is 1 litre, so that is {answer} litres."
+        },
+        {
+          "id": "dye",
+          "prompt": "Dye is used at {p}% of the weight of the raffia. How many grams of dye do you need for {m} g of raffia?",
+          "formula": "p / 100 * m",
+          "vars": {
+            "p": {
+              "min": 2,
+              "max": 3,
+              "step": 1
+            },
+            "m": {
+              "min": 200,
+              "max": 800,
+              "step": 100
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Dye = {p} ÷ 100 × {m} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "patchy-hanks",
+          "scenario": "Musa's dyed raffia came out pale and streaky, and a month later his hanks were mouldy. Here is what he did.",
+          "lines": [
+            {
+              "text": "He dried the dyed raffia on a sunny wall for the whole afternoon.",
+              "fault": true,
+              "why": "Strong sun fades dyed raffia. Dry it in the shade."
+            },
+            {
+              "text": "He stored the hanks in a box while they were still damp inside.",
+              "fault": true,
+              "why": "Damp material goes mouldy. Dry it fully first."
+            },
+            {
+              "text": "He guessed the amount of dye instead of weighing the raffia.",
+              "fault": true,
+              "why": "The dye is a percentage of the dry weight, so the raffia must be weighed."
+            },
+            {
+              "text": "He wetted the raffia before putting it into the dye.",
+              "why": "This helps the dye take evenly. It is correct."
+            },
+            {
+              "text": "He rinsed the raffia after dyeing.",
+              "why": "Rinsing removes loose dye. It is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for dyeing and storing raffia.",
+        "explainPrompt": "Why should dyed raffia be dried in the shade and stored only when fully dry?",
+        "explainGuide": "Strong sunlight fades the dye, so shade keeps the colour bright. Damp material stored away goes mouldy and rots, so it must be thoroughly dry first.",
+        "explainKeywords": [
+          [
+            "sun",
+            "light"
+          ],
+          [
+            "fade",
+            "colour"
+          ],
+          [
+            "mould",
+            "rot",
+            "damp"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Preparing and dyeing raffia and cane",
+        "Weigh the dry material first",
+        "Keep dye tools away from food"
+      ]
+    },
+    "pr-bsk-tools-draw-improvise": {
+      "room": "drawing",
+      "safety": {
+        "correct": [
+          "Hold the spoke firmly in a block when filing it.",
+          "Keep the finished bodkin in a cork or sheath when it is not in use."
+        ],
+        "wrong": [
+          {
+            "text": "Test the point of the new bodkin on your palm.",
+            "why": "You can stab yourself. Test it on a scrap of cane."
+          },
+          {
+            "text": "Carry the bodkin point-up in your shirt pocket.",
+            "why": "The point can stab you when you bend. Carry it sheathed or in a tool roll."
+          },
+          {
+            "text": "Leave the knife open on the desk while you draw it.",
+            "why": "An open blade cuts anyone who reaches across. Close or sheathe it."
+          },
+          {
+            "text": "File the whole spoke to a point so that it is sharp all along.",
+            "why": "Only the tip should be sharp. The shank must be smooth so it cannot cut your hand."
+          },
+          {
+            "text": "Hold the spoke in your bare hand and file towards your fingers.",
+            "why": "The file can slip off the end. Secure the spoke and keep your hand behind the work."
+          },
+          {
+            "text": "Toss the secateurs to a friend across the room.",
+            "why": "A flying sharp tool injures people. Hand tools over closed, handle first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Hand saw",
+            "why": "Nothing here is sawn: the hardwood gauge is notched by filing."
+          },
+          {
+            "name": "Dye pot",
+            "why": "No material is coloured in this job."
+          },
+          {
+            "name": "Clear varnish",
+            "why": "Steel tools are oiled. Varnish would not protect their working parts."
+          },
+          {
+            "name": "Basket weaving cane",
+            "why": "This is a tool drawing job. No weaving is done."
+          },
+          {
+            "name": "Tapestry frame",
+            "why": "It holds woven work. There is nothing to mount here."
+          },
+          {
+            "name": "Glue gun",
+            "why": "The bodkin is set in a wooden handle. This job needs no hot glue."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "scale",
+          "afterStep": 2,
+          "prompt": "Your drawing sheet is tight for the secateurs at 1:2. What do you do?",
+          "options": [
+            {
+              "text": "Keep to 1:2 and arrange the tools again to fit the sheet",
+              "correct": true,
+              "consequence": "Every drawing keeps the stated scale, so sizes can be read off it."
+            },
+            {
+              "text": "Shrink the secateurs to about 1:3 without saying so",
+              "consequence": "The drawing is now false, and anyone reading it gets the wrong size."
+            },
+            {
+              "text": "Draw it freehand at any size and leave out the scale",
+              "consequence": "A drawing without a stated scale is a common way to lose marks."
+            }
+          ]
+        },
+        {
+          "id": "curved",
+          "afterStep": 2,
+          "prompt": "You need the length of a curved rapping iron. How do you measure it?",
+          "options": [
+            {
+              "text": "Lay the flexible tape along the curve",
+              "correct": true,
+              "consequence": "This gives the true length, not the shorter straight distance."
+            },
+            {
+              "text": "Measure straight between the two ends",
+              "consequence": "The straight line is shorter than the curve, so the drawing comes out wrong."
+            },
+            {
+              "text": "Guess it by comparing it with the knife",
+              "consequence": "A guess cannot be used for a scale drawing."
+            }
+          ]
+        },
+        {
+          "id": "point",
+          "afterStep": 3,
+          "prompt": "Your filed bodkin has a tip but rough file marks along the shank. What do you do?",
+          "options": [
+            {
+              "text": "Smooth the shank, leaving only the tip sharp",
+              "correct": true,
+              "consequence": "The tool slides into the weave without tearing the cane, and your hand stays safe."
+            },
+            {
+              "text": "Leave it, because only the tip touches the cane",
+              "consequence": "Rough shanks tear the material and can cut your hand."
+            },
+            {
+              "text": "File the shank sharper to help it go in",
+              "consequence": "A sharp shank is dangerous and tears the cane as it goes in."
+            }
+          ]
+        },
+        {
+          "id": "after-use",
+          "afterStep": 5,
+          "prompt": "The work is done. It is a humid day. What do you do with the steel tools?",
+          "options": [
+            {
+              "text": "Clean them, wipe on a little oil and store them",
+              "correct": true,
+              "consequence": "Oil keeps rust away, so the tools stay smooth and do not tear the materials."
+            },
+            {
+              "text": "Rinse them and leave them in the rack to air dry",
+              "consequence": "Water left on steel starts rust, and rusty tools tear material."
+            },
+            {
+              "text": "Put them straight into the bag while they are dirty",
+              "consequence": "Dirt holds moisture, so the tools rust and blunt."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "tool-use",
+          "prompt": "A gap in a cane weave needs opening so that a stake can go in. Which tool does that?",
+          "options": [
+            {
+              "text": "The bodkin",
+              "correct": true
+            },
+            {
+              "text": "The rapping iron",
+              "why": "It packs the weave down. It does not pierce."
+            },
+            {
+              "text": "The secateurs",
+              "why": "They cut cane."
+            },
+            {
+              "text": "The tape measure",
+              "why": "It only measures."
+            }
+          ]
+        },
+        {
+          "id": "worn-tool",
+          "prompt": "You try an old rusty bodkin on soft raffia. What do you expect?",
+          "options": [
+            {
+              "text": "It snags and tears the strands",
+              "correct": true
+            },
+            {
+              "text": "It slides through better than a clean one",
+              "why": "Rust makes the surface rough, not slippery."
+            },
+            {
+              "text": "It colours the raffia evenly",
+              "why": "Rust marks are stains, not dye."
+            },
+            {
+              "text": "It makes the raffia stronger",
+              "why": "Rough tools damage the fibres."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "to-draw",
+          "prompt": "A tool is {r} cm long. How long should it be drawn at a scale of 1:2?",
+          "formula": "r / 2",
+          "vars": {
+            "r": {
+              "min": 14,
+              "max": 32,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Drawn length = {r} ÷ 2 = {answer} cm."
+        },
+        {
+          "id": "to-real",
+          "prompt": "On a 1:2 drawing, a rapping iron measures {d} cm. What is its real length?",
+          "formula": "d * 2",
+          "vars": {
+            "d": {
+              "min": 9,
+              "max": 15,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Real length = {d} × 2 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "tool-sheet",
+          "scenario": "Kemi's tool sheet lost marks, and her bodkin was unsafe. Here is what she did.",
+          "lines": [
+            {
+              "text": "She labelled the rapping iron as a tool for piercing cane.",
+              "fault": true,
+              "why": "She has confused it with the bodkin. The rapping iron packs the weave."
+            },
+            {
+              "text": "She drew each tool at whatever size filled the space.",
+              "fault": true,
+              "why": "All the drawings must keep the stated scale."
+            },
+            {
+              "text": "She left the shank of her bodkin rough from the file.",
+              "fault": true,
+              "why": "The shank must be smooth, with only the tip sharp."
+            },
+            {
+              "text": "She oiled the steel tools before storing them.",
+              "why": "That prevents rust."
+            },
+            {
+              "text": "She set the filed spoke firmly in a wooden handle.",
+              "why": "That is how the bodkin is made."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making and looking after hand tools.",
+        "explainPrompt": "Why should a drawing of a tool state its scale?",
+        "explainGuide": "The scale links the drawing to the real tool. Anyone can then work out the true size by multiplying the drawn length by the scale, so the drawing is accurate and useful.",
+        "explainKeywords": [
+          [
+            "scale",
+            "ratio"
+          ],
+          [
+            "real",
+            "true",
+            "actual"
+          ],
+          [
+            "size",
+            "length",
+            "measure"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Basketry tools: name, use, care",
+        "Keep one scale for all your drawings"
+      ]
+    },
+    "pr-bsk-coiled-basket": {
+      "safety": {
+        "correct": [
+          "Point the needle away from your face when you pull it through.",
+          "Sit in good light so that you do not bend close to the needle."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the needle between your lips while you trim the grass.",
+            "why": "It can be swallowed or pierce your lip. Put it in the pin cushion."
+          },
+          {
+            "text": "Run your fingers fast along the grass bundle to smooth it.",
+            "why": "Grass edges cut skin. Handle the bundle gently."
+          },
+          {
+            "text": "Leave the threaded needle stuck in your seat cushion.",
+            "why": "Someone will sit on it. Use the pin cushion."
+          },
+          {
+            "text": "Pull the stitch towards your eye to see if it has seated.",
+            "why": "The needle can jerk free. Pull away from your face."
+          },
+          {
+            "text": "Bite the raffia to cut it when the scissors are across the room.",
+            "why": "It can damage your teeth, and dyed raffia is not for your mouth. Use the scissors."
+          },
+          {
+            "text": "Point the scissors at a neighbour when passing them over.",
+            "why": "Pass scissors closed, handles first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "It packs randed cane. Coils are stitched, not rapped."
+          },
+          {
+            "name": "Secateurs",
+            "why": "They cut thick cane. Grass and raffia are cut with scissors."
+          },
+          {
+            "name": "Soaking trough",
+            "why": "Dried grass and raffia do not need a cane trough for this job."
+          },
+          {
+            "name": "Try square",
+            "why": "A coil is round, so there are no right angles to check."
+          },
+          {
+            "name": "Binding wire",
+            "why": "Coils are held by raffia stitches, not wire."
+          },
+          {
+            "name": "Sewing machine needle",
+            "why": "It is far too fine to carry raffia through a grass coil."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "tension",
+          "afterStep": 2,
+          "prompt": "The base is starting to cup upwards like a bowl. What is the best response?",
+          "options": [
+            {
+              "text": "Ease the stitches so that the base lies flat",
+              "correct": true,
+              "consequence": "The base stays flat and the basket stands level."
+            },
+            {
+              "text": "Pull every stitch tighter to control it",
+              "consequence": "Tight stitching is what makes the base cup up."
+            },
+            {
+              "text": "Press it flat under a weight and carry on as before",
+              "consequence": "It springs back, because the stitch tension has not changed."
+            }
+          ]
+        },
+        {
+          "id": "thin-core",
+          "afterStep": 3,
+          "prompt": "The grass bundle is getting thinner as you stitch. What do you do?",
+          "options": [
+            {
+              "text": "Feed in more grass and pass it through the gauge",
+              "correct": true,
+              "consequence": "The coil stays 1 cm thick and the spiral stays flat and regular."
+            },
+            {
+              "text": "Carry on, and the coil will even itself out",
+              "consequence": "The thin part makes a dip in the spiral, and the wall looks uneven."
+            },
+            {
+              "text": "Fill the thin part later with glue and extra raffia",
+              "consequence": "Glue shows, and the coil is still uneven under it."
+            }
+          ]
+        },
+        {
+          "id": "splice",
+          "afterStep": 3,
+          "prompt": "Your raffia is running out in the middle of a round. How do you add more?",
+          "options": [
+            {
+              "text": "Splice new raffia under the wrapping so it is hidden",
+              "correct": true,
+              "consequence": "The stitching looks continuous and the join holds."
+            },
+            {
+              "text": "Knot the new piece on where it will be seen",
+              "consequence": "Knots on the surface are splices that show, and they lose finishing marks."
+            },
+            {
+              "text": "Leave a gap and begin again one stitch later",
+              "consequence": "The gap is a weak spot, and it looks careless."
+            }
+          ]
+        },
+        {
+          "id": "rise",
+          "afterStep": 4,
+          "prompt": "The base has reached 20 cm across. How do you start the straight sides?",
+          "options": [
+            {
+              "text": "Place the next coil on top of the previous round",
+              "correct": true,
+              "consequence": "The wall rises straight up from the edge of the base."
+            },
+            {
+              "text": "Set the coil beside the last round, as before",
+              "consequence": "That only makes the base wider, and no side forms."
+            },
+            {
+              "text": "Start a separate coil and sew it on later",
+              "consequence": "The join is weak, and the wall will not line up with the base."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "bumps",
+          "prompt": "Your spiral has bumps at intervals. What is the most likely cause?",
+          "options": [
+            {
+              "text": "The core was fed unevenly",
+              "correct": true
+            },
+            {
+              "text": "The raffia colour was changed",
+              "why": "Colour changes do not alter the shape."
+            },
+            {
+              "text": "The stitches were evenly spaced",
+              "why": "Even stitches give an even surface."
+            },
+            {
+              "text": "The base was too flat",
+              "why": "A flat base is what you want."
+            }
+          ]
+        },
+        {
+          "id": "good-base",
+          "prompt": "Which base shows good coiling?",
+          "options": [
+            {
+              "text": "A flat, regular spiral with evenly spaced stitches",
+              "correct": true
+            },
+            {
+              "text": "A bowl-shaped base with tight stitches pulling inwards",
+              "why": "Tension has made it cup up."
+            },
+            {
+              "text": "A base with a visible knot at every new length",
+              "why": "Splices should be hidden."
+            },
+            {
+              "text": "A spiral that changes from thick to thin at each round",
+              "why": "The core thickness should be constant."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "rounds",
+          "prompt": "A flat coiled base is {d} cm across, and the coil is 1 cm thick. How many rounds does it need?",
+          "formula": "d / 2",
+          "vars": {
+            "d": {
+              "min": 16,
+              "max": 30,
+              "step": 2
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Radius = {d} ÷ 2 = {answer} cm. At 1 cm per round, that is {answer} rounds."
+        },
+        {
+          "id": "side-core",
+          "prompt": "The sides are {d} cm across and {h} cm high, and the coil is 1 cm thick. Taking pi as 3.14, how much core do the sides need, in cm?",
+          "formula": "3.14 * d * h",
+          "vars": {
+            "d": {
+              "min": 16,
+              "max": 24,
+              "step": 2
+            },
+            "h": {
+              "min": 3,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "One round = 3.14 × {d} cm. A height of {h} cm means {h} rounds. Core = 3.14 × {d} × {h} = {answer} cm."
+        },
+        {
+          "id": "base-core",
+          "prompt": "A flat base has {n} rounds of a 1 cm coil, so the mean diameters add up to {n} × {n} cm. Taking pi as 3.14, what length of core does the base need, in cm?",
+          "formula": "3.14 * n * n",
+          "vars": {
+            "n": {
+              "min": 6,
+              "max": 12,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "Sum of mean diameters = {n} × {n}. Core = 3.14 × {n} × {n} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "coil-bowl",
+          "scenario": "Ngozi's coiled basket was meant to have a flat 20 cm base. It rocks on the table and looks rough. Here is what she did.",
+          "lines": [
+            {
+              "text": "She pulled her stitches very tight on the base.",
+              "fault": true,
+              "why": "Tight stitching makes the base cup up."
+            },
+            {
+              "text": "She did not use the gauge, and the bundle grew from thin to thick.",
+              "fault": true,
+              "why": "The core must stay 1 cm thick, or bumps appear."
+            },
+            {
+              "text": "She left her raffia joins showing on the surface.",
+              "fault": true,
+              "why": "Splices should be hidden under the wrapping."
+            },
+            {
+              "text": "She wrapped the tapered end for 3 cm before she coiled the centre.",
+              "why": "That is how a tight centre starts."
+            },
+            {
+              "text": "She tapered the core at the finish and stitched it down.",
+              "why": "That makes a neat rim."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for keeping a coiled basket neat and regular.",
+        "explainPrompt": "Why must the core stay the same thickness throughout a coiled basket?",
+        "explainGuide": "An even core gives a flat, regular spiral. Thick or thin places make bumps and dips, so the base will not lie flat, and the wall looks uneven.",
+        "explainKeywords": [
+          [
+            "flat",
+            "regular",
+            "even"
+          ],
+          [
+            "bump",
+            "dip",
+            "uneven"
+          ],
+          [
+            "core",
+            "coil",
+            "spiral"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Coiling a basket",
+        "Gauge every round",
+        "Keep your stitches evenly spaced"
+      ]
+    },
+    "pr-bsk-stake-and-strand-basket": {
+      "safety": {
+        "correct": [
+          "Keep the bodkin point away from the hand that steadies the base.",
+          "Warn your neighbour before you bend a long stake round."
+        ],
+        "wrong": [
+          {
+            "text": "Lean close over the upright stakes to look at your weaving.",
+            "why": "Springy cane ends can strike your eyes. Keep your face back."
+          },
+          {
+            "text": "Cut the cane ends towards your face so that you can see them.",
+            "why": "Cut at an angle, away from your face."
+          },
+          {
+            "text": "Leave the wet floor by the soaking trough for someone else to dry.",
+            "why": "A wet floor causes slips. Wipe it up."
+          },
+          {
+            "text": "Rest the bodkin point against your thigh as you push it in.",
+            "why": "It will go into your leg if it slips. Use the bench and keep the point clear of your body."
+          },
+          {
+            "text": "Let a long stake spring back without holding it.",
+            "why": "It can whip across a neighbour's face. Control it as you bend it."
+          },
+          {
+            "text": "Drop trimmed cane ends on the floor for sweeping later.",
+            "why": "Short ends are sharp and slippery underfoot. Collect them as you go."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tapestry needle",
+            "why": "Needles stitch coils. Stakes go in with the bodkin."
+          },
+          {
+            "name": "Gauge ring",
+            "why": "It controls a grass coil. There is no coil here."
+          },
+          {
+            "name": "Raffia for wrapping",
+            "why": "This basket is woven in cane."
+          },
+          {
+            "name": "Pegs for a plaited mat",
+            "why": "Pegs clip flat strips to a board. There is no flat plait here."
+          },
+          {
+            "name": "Dye pot",
+            "why": "No colour is called for in this job."
+          },
+          {
+            "name": "Round-nose pliers",
+            "why": "Nothing is gripped with pliers here. The cane is soaked so it bends by hand."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "odd",
+          "afterStep": 3,
+          "prompt": "You have inserted 16 side stakes, and you plan to rand with one weaver. What do you do?",
+          "options": [
+            {
+              "text": "Add one more stake to make the number odd",
+              "correct": true,
+              "consequence": "The single weaver alternates by itself and the pattern is correct."
+            },
+            {
+              "text": "Keep 16, because an even number is more balanced",
+              "consequence": "One weaver then repeats the same path, and the weave will not alternate."
+            },
+            {
+              "text": "Take one stake out and leave 15 at uneven spaces",
+              "consequence": "The number is odd, but the gap spoils the spacing and the strength."
+            }
+          ]
+        },
+        {
+          "id": "dry-out",
+          "afterStep": 5,
+          "prompt": "Your cane is drying out and starting to crack at the bends. What do you do?",
+          "options": [
+            {
+              "text": "Dampen it again and carry on",
+              "correct": true,
+              "consequence": "Damp cane bends without cracking, and the weave lies close."
+            },
+            {
+              "text": "Weave faster to finish before it gets worse",
+              "consequence": "Cracked strands stay in the basket as weak points."
+            },
+            {
+              "text": "Press harder on each bend to keep it in place",
+              "consequence": "Dry cane cracks further under pressure."
+            }
+          ]
+        },
+        {
+          "id": "tension",
+          "afterStep": 5,
+          "prompt": "The sides are pulling inwards as you go up. What should you change?",
+          "options": [
+            {
+              "text": "Ease the weaver so that the stakes stay upright",
+              "correct": true,
+              "consequence": "The wall keeps its shape and the basket stays the planned width."
+            },
+            {
+              "text": "Pull the weaver tighter to firm up the wall",
+              "consequence": "Tight weaving is what pulls the sides in."
+            },
+            {
+              "text": "Bend the stakes outwards after the basket is finished",
+              "consequence": "Dry woven cane cracks if forced. The shape is set by the weaving."
+            }
+          ]
+        },
+        {
+          "id": "rap",
+          "afterStep": 5,
+          "prompt": "One side of the randing has risen higher than the other. What do you do?",
+          "options": [
+            {
+              "text": "Rap down the high side and keep rapping often",
+              "correct": true,
+              "consequence": "The rows close up, and the sides come level."
+            },
+            {
+              "text": "Weave extra rows only on the low side at the end",
+              "consequence": "That leaves a visible step in the wall."
+            },
+            {
+              "text": "Trim the top of the high side off with the secateurs",
+              "consequence": "Cutting removes the stakes you need for the border."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "odd-even",
+          "prompt": "You try one weaver on an even number of stakes. What happens?",
+          "options": [
+            {
+              "text": "It repeats the same path on each round",
+              "correct": true
+            },
+            {
+              "text": "It alternates automatically",
+              "why": "That is what an odd number of stakes does."
+            },
+            {
+              "text": "The base comes apart",
+              "why": "The base is not affected by this."
+            },
+            {
+              "text": "It makes the upsett stronger with each round",
+              "why": "The upsett is done before randing."
+            }
+          ]
+        },
+        {
+          "id": "upsett",
+          "prompt": "What does the waling upsett do for the basket?",
+          "options": [
+            {
+              "text": "It sets firm, upright sides",
+              "correct": true
+            },
+            {
+              "text": "It forms the top border",
+              "why": "The border comes last."
+            },
+            {
+              "text": "It makes the base wider",
+              "why": "The base is finished before the upsett."
+            },
+            {
+              "text": "It adds colour to the sides",
+              "why": "Its job is shape and strength."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "stake-full",
+          "prompt": "A basket has a base {b} cm across, sides {h} cm high and a border allowance of {a} cm at each end. Use: stake length = base + 2 × side height + 2 × border allowance. What is the stake length?",
+          "formula": "b + 2 * h + 2 * a",
+          "vars": {
+            "b": {
+              "min": 16,
+              "max": 24,
+              "step": 2
+            },
+            "h": {
+              "min": 10,
+              "max": 18,
+              "step": 1
+            },
+            "a": {
+              "min": 10,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} + 2 × {h} + 2 × {a} = {answer} cm."
+        },
+        {
+          "id": "stake-total",
+          "prompt": "There are {s} separate stakes, each running from the edge of the base. Each one is base radius {r} cm + height {h} cm + border {a} cm. What total length of thick cane is needed?",
+          "formula": "s * (r + h + a)",
+          "vars": {
+            "s": {
+              "min": 17,
+              "max": 21,
+              "step": 2
+            },
+            "r": {
+              "min": 8,
+              "max": 12,
+              "step": 1
+            },
+            "h": {
+              "min": 12,
+              "max": 16,
+              "step": 1
+            },
+            "a": {
+              "min": 10,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Each stake = {r} + {h} + {a} cm. Total = {s} × that = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "fruit-basket",
+          "scenario": "Efe's fruit basket has sides that lean in, an untidy weave and a cracked border. Here is what he did.",
+          "lines": [
+            {
+              "text": "He randed with one weaver on an even number of stakes.",
+              "fault": true,
+              "why": "The weaver repeats its path. A single weaver needs an odd number."
+            },
+            {
+              "text": "He pulled the weaver very tight on every round.",
+              "fault": true,
+              "why": "That draws the sides inwards."
+            },
+            {
+              "text": "He let the stakes dry out before he made the border.",
+              "fault": true,
+              "why": "Dry cane cracks when bent. Keep it damp."
+            },
+            {
+              "text": "He wove three rounds of waling at the upsett.",
+              "why": "That sets the shape."
+            },
+            {
+              "text": "He rapped the weaving down often.",
+              "why": "That keeps the height even."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for weaving even, upright sides.",
+        "explainPrompt": "Why does single-weaver randing need an odd number of stakes?",
+        "explainGuide": "With an odd number, the weaver arrives at the start of each round on the opposite side of the first stake, so it alternates in and out by itself. With an even number it repeats the same path.",
+        "explainKeywords": [
+          [
+            "odd"
+          ],
+          [
+            "alternat",
+            "opposite"
+          ],
+          [
+            "repeat",
+            "same path",
+            "even"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Stake and strand: a round cane basket",
+        "Base, upsett, randing, border",
+        "Keep the cane damp"
+      ]
+    },
+    "pr-bsk-plaited-mat": {
+      "safety": {
+        "correct": [
+          "Cut on a board, with the knife moving away from your fingers.",
+          "Keep the knife on the far side of the board when you are not using it."
+        ],
+        "wrong": [
+          {
+            "text": "Pull a palm strip quickly through your closed hand to straighten it.",
+            "why": "Palm edges cut like paper. Handle the strips gently."
+          },
+          {
+            "text": "Cut strips while resting them on your knee.",
+            "why": "The knife can go straight into your leg. Cut on the flat board."
+          },
+          {
+            "text": "Hold a strip in your teeth while your hands are busy.",
+            "why": "Palm edges cut lips, and dyed strips are not for the mouth. Clip it to the board."
+          },
+          {
+            "text": "Reach across a classmate who is cutting.",
+            "why": "You can be cut by their knife. Wait or walk round."
+          },
+          {
+            "text": "Leave the knife under loose strips on the bench.",
+            "why": "The next person who picks up the strips will be cut. Keep it in view."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "It packs randed cane rounds. Plaited strips are pushed close by hand."
+          },
+          {
+            "name": "Bodkin",
+            "why": "There are no stakes to insert in a flat mat."
+          },
+          {
+            "name": "Gauge ring",
+            "why": "It controls a coil. Strips are cut to width instead."
+          },
+          {
+            "name": "Dye pot",
+            "why": "The strips are already prepared and dyed."
+          },
+          {
+            "name": "Secateurs",
+            "why": "They are for thick cane. Flat strips are cut with a knife."
+          },
+          {
+            "name": "Macramé cord",
+            "why": "Cord is for knotting. The edge here is bound with raffia."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "allowance",
+          "afterStep": 1,
+          "prompt": "The mat must be 40 cm across. How long do you cut the strips for that direction?",
+          "options": [
+            {
+              "text": "50 cm, to include the 10 cm turning allowance",
+              "correct": true,
+              "consequence": "There is enough length to fold back and tuck in at each end."
+            },
+            {
+              "text": "40 cm, because that is the finished width",
+              "consequence": "There is nothing left to tuck in, so the edge comes undone."
+            },
+            {
+              "text": "45 cm, which saves palm and looks about right",
+              "consequence": "The ends are too short to turn under properly."
+            }
+          ]
+        },
+        {
+          "id": "start",
+          "afterStep": 3,
+          "prompt": "You begin the second cross strip. Where does it start?",
+          "options": [
+            {
+              "text": "Opposite to the first: under where that went over",
+              "correct": true,
+              "consequence": "The strips alternate and lock together in a true check."
+            },
+            {
+              "text": "In the same position as the first strip",
+              "consequence": "Strips run over two together, leaving long floats and a loose weave."
+            },
+            {
+              "text": "Wherever is easiest for that strip",
+              "consequence": "The check breaks up, with floats scattered over the mat."
+            }
+          ]
+        },
+        {
+          "id": "gaps",
+          "afterStep": 4,
+          "prompt": "Small squares of board show between the strips. What do you do?",
+          "options": [
+            {
+              "text": "Push the strips close together, keeping them square",
+              "correct": true,
+              "consequence": "The gaps close and the check stays even."
+            },
+            {
+              "text": "Fill the holes with extra short pieces of strip",
+              "consequence": "The patches work loose and look untidy."
+            },
+            {
+              "text": "Glue the strips where they are and carry on",
+              "consequence": "Glue shows, and the gaps remain."
+            }
+          ]
+        },
+        {
+          "id": "brittle",
+          "afterStep": 3,
+          "prompt": "The palm strips have started to crack as you bend them over. What do you do?",
+          "options": [
+            {
+              "text": "Damp them lightly so that they bend again",
+              "correct": true,
+              "consequence": "Damp strips bend without cracking, and the plait stays neat."
+            },
+            {
+              "text": "Force them over, since a crack will not show",
+              "consequence": "Cracks weaken the mat and spread when it is used."
+            },
+            {
+              "text": "Dry them in the sun to harden them",
+              "consequence": "Drying makes them more brittle."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "pattern",
+          "prompt": "You alternate natural and dyed strips in both directions. What appears?",
+          "options": [
+            {
+              "text": "A chequerboard",
+              "correct": true
+            },
+            {
+              "text": "A spiral",
+              "why": "A spiral comes from coiling or half-knots."
+            },
+            {
+              "text": "A plain single colour",
+              "why": "Two colours alternate, so both show."
+            },
+            {
+              "text": "Diagonal stripes only",
+              "why": "Over one, under one with alternate colours gives a check."
+            }
+          ]
+        },
+        {
+          "id": "float",
+          "prompt": "You see a strip passing over two neighbours. What does that show?",
+          "options": [
+            {
+              "text": "A cross strip started in the wrong place",
+              "correct": true
+            },
+            {
+              "text": "The strips were cut too wide",
+              "why": "Width does not change the over and under order."
+            },
+            {
+              "text": "The binding was too tight",
+              "why": "Binding comes at the end."
+            },
+            {
+              "text": "The strips were pressed too long",
+              "why": "Pressing does not move strips."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "count",
+          "prompt": "A mat is {l} cm long and the strips are {w} cm wide. How many strips lie side by side along its length?",
+          "formula": "l / w",
+          "vars": {
+            "l": {
+              "min": 40,
+              "max": 80,
+              "step": 10
+            },
+            "w": {
+              "min": 2,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ {w} = {answer} strips."
+        },
+        {
+          "id": "cut-len",
+          "prompt": "Strips must cross a width of {w} cm with a {a} cm turning allowance. How long is each one cut?",
+          "formula": "w + a",
+          "vars": {
+            "w": {
+              "min": 30,
+              "max": 60,
+              "step": 5
+            },
+            "a": {
+              "min": 10,
+              "max": 10,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} + {a} = {answer} cm."
+        },
+        {
+          "id": "total",
+          "prompt": "You need {p} strips of {x} cm and {q} strips of {y} cm. What is the total strip length in metres?",
+          "formula": "(p * x + q * y) / 100",
+          "vars": {
+            "p": {
+              "min": 20,
+              "max": 30,
+              "step": 10
+            },
+            "x": {
+              "min": 50,
+              "max": 60,
+              "step": 10
+            },
+            "q": {
+              "min": 20,
+              "max": 20,
+              "step": 1
+            },
+            "y": {
+              "min": 70,
+              "max": 80,
+              "step": 10
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "({p} × {x}) + ({q} × {y}) cm, divided by 100 = {answer} m."
+        }
+      ],
+      "faults": [
+        {
+          "id": "loose-mat",
+          "scenario": "Tobi's mat is short on one side, with loose ends and long floats. Here is what he did.",
+          "lines": [
+            {
+              "text": "He cut the strips to the finished size with no turning allowance.",
+              "fault": true,
+              "why": "Forgetting the allowance leaves nothing to tuck in."
+            },
+            {
+              "text": "He began every cross strip in the same position.",
+              "fault": true,
+              "why": "That leaves floats. The starting point must alternate."
+            },
+            {
+              "text": "He cut some strips wide and some narrow to use up his palm.",
+              "fault": true,
+              "why": "Uneven strips will not lie in a square check."
+            },
+            {
+              "text": "He clipped the first set of strips to the board.",
+              "why": "That keeps them in place."
+            },
+            {
+              "text": "He pressed the finished mat under a weight overnight.",
+              "why": "That flattens it."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for plaiting a flat, square mat.",
+        "explainPrompt": "Why must each cross strip start in the opposite position to the one before it?",
+        "explainGuide": "Alternating the start makes the over and under places change from row to row. The strips then lock together in a check. If each starts the same, strips float over two and the mat is loose.",
+        "explainKeywords": [
+          [
+            "alternat",
+            "opposite",
+            "change"
+          ],
+          [
+            "lock",
+            "hold",
+            "firm"
+          ],
+          [
+            "float",
+            "loose"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Plaiting a checked mat",
+        "Over one, under one",
+        "Allow for the turning at each end"
+      ]
+    },
+    "pr-bsk-macrame-beads": {
+      "safety": {
+        "correct": [
+          "Test the hook by pulling on it before you hang any weight.",
+          "Tie long hair back and keep long cords off the floor where people walk."
+        ],
+        "wrong": [
+          {
+            "text": "Hang the board from a loose nail in the wall and pull hard on the knots.",
+            "why": "It can pull free and hit you. Mount it securely."
+          },
+          {
+            "text": "Leave long cords trailing across the walkway.",
+            "why": "People trip on them. Keep the cords gathered."
+          },
+          {
+            "text": "Wrap the cord tightly round your fingers to pull a knot firm.",
+            "why": "It cuts into the skin and stops the blood. Hold it loosely, and pull steadily."
+          },
+          {
+            "text": "Cut towards your hand while you hold the cord tight.",
+            "why": "The scissors can close on your fingers. Cut away from your hand."
+          },
+          {
+            "text": "Test the hanger with a heavy pot over a classmate's head.",
+            "why": "It may slip and fall. Test it low down, over the floor."
+          },
+          {
+            "text": "Put spare beads in your mouth while you work.",
+            "why": "They can be swallowed or choke you. Keep them in a dish."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Soaking trough",
+            "why": "Cord needs no soaking. Soaking is for cane."
+          },
+          {
+            "name": "Rapping iron",
+            "why": "Knots are tightened by hand."
+          },
+          {
+            "name": "Bodkin",
+            "why": "The cords are knotted, not pushed into a weave."
+          },
+          {
+            "name": "Secateurs",
+            "why": "They are for cutting thick cane. Scissors cut cord cleanly."
+          },
+          {
+            "name": "Knitting needles",
+            "why": "Macramé is knotting done by hand, not knitting."
+          },
+          {
+            "name": "Dye pot",
+            "why": "The cords are used as bought."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "cord-length",
+          "afterStep": 1,
+          "prompt": "The finished hanger will be 60 cm long. How long do you cut each cord?",
+          "options": [
+            {
+              "text": "480 cm: four times the length, then doubled for the fold",
+              "correct": true,
+              "consequence": "There is enough cord to finish every knot."
+            },
+            {
+              "text": "240 cm: four times the length, with no doubling",
+              "consequence": "Each cord is folded in half, so you run out before the end."
+            },
+            {
+              "text": "120 cm: double the length, which looks like plenty",
+              "consequence": "Knots use a lot of cord, and this runs out early."
+            }
+          ]
+        },
+        {
+          "id": "twist",
+          "afterStep": 3,
+          "prompt": "Your flat band has started to twist into a spiral. What has gone wrong?",
+          "options": [
+            {
+              "text": "You are tying the same half-knot each time",
+              "correct": true,
+              "consequence": "The square knot needs the left and right halves in turn. Undo and alternate them."
+            },
+            {
+              "text": "The cord is too thick for square knots",
+              "consequence": "Thick cord still lies flat when the knot is right."
+            },
+            {
+              "text": "The beads are too heavy for the cord",
+              "consequence": "Beads hang from a knot. They do not twist it."
+            }
+          ]
+        },
+        {
+          "id": "groups",
+          "afterStep": 3,
+          "prompt": "One group of cords is running shorter than the other three. What do you do?",
+          "options": [
+            {
+              "text": "Measure and bring the groups to the same length",
+              "correct": true,
+              "consequence": "All four arms meet the net evenly, and the pot hangs straight."
+            },
+            {
+              "text": "Leave it, because the pot will level out on its own",
+              "consequence": "The pot tilts and may slide out of the net."
+            },
+            {
+              "text": "Pull that group's knots extra tight",
+              "consequence": "Tighter knots use more cord and make it shorter still."
+            }
+          ]
+        },
+        {
+          "id": "tension",
+          "afterStep": 4,
+          "prompt": "Your net of alternating knots has some large holes and some small. What do you change?",
+          "options": [
+            {
+              "text": "Keep the same tension and spacing on every knot",
+              "correct": true,
+              "consequence": "The net comes out even and holds the pot securely."
+            },
+            {
+              "text": "Pull only the last knots hard",
+              "consequence": "The pattern stays uneven, and the top still has the loose knots."
+            },
+            {
+              "text": "Add more beads over the large holes to fill them in",
+              "consequence": "Beads hide nothing, and a large hole can still let the pot slip."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "knot-type",
+          "prompt": "You tie half-knots again and again without changing sides. What do you see?",
+          "options": [
+            {
+              "text": "A cord that twists into a spiral",
+              "correct": true
+            },
+            {
+              "text": "A flat band",
+              "why": "Flat bands come from full square knots."
+            },
+            {
+              "text": "A chequerboard",
+              "why": "That comes from plaiting."
+            },
+            {
+              "text": "The cords come undone after a few knots",
+              "why": "Half-knots still hold."
+            }
+          ]
+        },
+        {
+          "id": "usage",
+          "prompt": "After 15 cm of knotting, how does the length of cord used compare with 15 cm?",
+          "options": [
+            {
+              "text": "It is much more than 15 cm",
+              "correct": true
+            },
+            {
+              "text": "It is exactly 15 cm",
+              "why": "Knots take up far more cord than the finished length."
+            },
+            {
+              "text": "It is less than 15 cm",
+              "why": "Cord cannot be shorter than the work it forms."
+            },
+            {
+              "text": "It is about 16 cm",
+              "why": "Knotting uses several times the finished length."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "each",
+          "prompt": "Using the 4× rule, then doubling for the fold, how long is each cord for a finished length of {l} cm?",
+          "formula": "4 * l * 2",
+          "vars": {
+            "l": {
+              "min": 40,
+              "max": 80,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Four times {l} cm, then doubled for the fold, = {answer} cm."
+        },
+        {
+          "id": "total",
+          "prompt": "Each of {c} cords is {l} cm long. What is the total length in metres?",
+          "formula": "c * l / 100",
+          "vars": {
+            "c": {
+              "min": 6,
+              "max": 10,
+              "step": 2
+            },
+            "l": {
+              "min": 320,
+              "max": 560,
+              "step": 80
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{c} × {l} = total in cm. Divide by 100 to get {answer} m."
+        },
+        {
+          "id": "cost",
+          "prompt": "You need {m} m of cord at N{p} per metre. What does it cost?",
+          "formula": "m * p",
+          "vars": {
+            "m": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            },
+            "p": {
+              "min": 100,
+              "max": 200,
+              "step": 50
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{m} × N{p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "short-hanger",
+          "scenario": "Halima's hanger came up short, and the pot sits at an angle. Here is what she did.",
+          "lines": [
+            {
+              "text": "She cut each cord to four times the length but forgot to double it for the fold.",
+              "fault": true,
+              "why": "Each cord is folded over the ring, so the 4× length must be doubled."
+            },
+            {
+              "text": "She pulled some knots hard and left others slack.",
+              "fault": true,
+              "why": "Uneven tension makes the groups different lengths."
+            },
+            {
+              "text": "She mixed up the left and right halves, and a band twisted by accident.",
+              "fault": true,
+              "why": "This is a common mistake with square knots."
+            },
+            {
+              "text": "She tied a gathering knot at the ring.",
+              "why": "That secures the cords."
+            },
+            {
+              "text": "She tested the hanger with a pot and adjusted it.",
+              "why": "That is the last step."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for keeping a macramé hanger even.",
+        "explainPrompt": "Why are macramé cords cut to many times the finished length?",
+        "explainGuide": "Every knot turns the cord round other cords, so it uses far more cord than the length it makes. Cords are also folded in half at the ring, so the length is doubled.",
+        "explainKeywords": [
+          [
+            "knot"
+          ],
+          [
+            "use",
+            "take"
+          ],
+          [
+            "fold",
+            "doubl"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Macramé plant hanger",
+        "Square knot, half-knot, half-hitch",
+        "Cut generous lengths"
+      ]
+    },
+    "pr-bsk-frame-stool": {
+      "safety": {
+        "correct": [
+          "Wear eye protection if you are sawing or drilling bamboo.",
+          "Have an adult present whenever a heated rod is in use."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the bamboo against your knee and saw it.",
+            "why": "The saw can jump into your leg. Clamp the work."
+          },
+          {
+            "text": "Burn holes with a heated rod on your own while the teacher is out.",
+            "why": "Heat and fire need supervision. Wait until an adult is there."
+          },
+          {
+            "text": "Leave a heated rod on the bench to cool without warning anyone.",
+            "why": "Someone will pick it up. Put it in a safe place and warn people."
+          },
+          {
+            "text": "Run your bare hand down a cut bamboo pole.",
+            "why": "Split bamboo has razor-sharp slivers. Wear gloves."
+          },
+          {
+            "text": "Drive a nail into bamboo without drilling first, as it is quicker.",
+            "why": "The bamboo splits, and the sharp pieces can cut you. Pre-drill."
+          },
+          {
+            "text": "Strip binding cane with your bare hands, pulling hard.",
+            "why": "The edges can slice your fingers. Wear gloves."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "It packs randed cane. There is no randing here, and the seat is woven by hand."
+          },
+          {
+            "name": "Gauge ring",
+            "why": "It is for coils. This is a rigid frame."
+          },
+          {
+            "name": "Plastic strapping",
+            "why": "The frame is lashed with cane, which shrinks tight as it dries."
+          },
+          {
+            "name": "Wood glue only",
+            "why": "Pegs and lashing hold this frame. Glue alone will not hold on bamboo."
+          },
+          {
+            "name": "Tapestry needle",
+            "why": "It stitches raffia, and it is too fine for binding cane."
+          },
+          {
+            "name": "Spirit-based dye",
+            "why": "Colour is not part of the stool. It is finished with varnish."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "predrill",
+          "afterStep": 3,
+          "prompt": "You are ready to peg a rail to a bamboo leg. What do you do first?",
+          "options": [
+            {
+              "text": "Drill a pilot hole in the bamboo",
+              "correct": true,
+              "consequence": "The peg goes in cleanly, and the bamboo does not split."
+            },
+            {
+              "text": "Drive the peg straight in with a hammer",
+              "consequence": "Bamboo splits along its length, and the joint is ruined."
+            },
+            {
+              "text": "Soak the leg, then hammer in the peg",
+              "consequence": "Soaking does not stop a forced peg from splitting the bamboo."
+            }
+          ]
+        },
+        {
+          "id": "square",
+          "afterStep": 4,
+          "prompt": "The frame is pegged. Before you lash it, what do you do?",
+          "options": [
+            {
+              "text": "Check it with the try square and on a level surface",
+              "correct": true,
+              "consequence": "Faults are corrected now. Once lashed, the frame sets as it is."
+            },
+            {
+              "text": "Lash it, then see whether the stool rocks",
+              "consequence": "The lashing shrinks and locks the fault in, and it will rock."
+            },
+            {
+              "text": "Wait and check it after the varnish is dry",
+              "consequence": "It is too late by then. The frame cannot be corrected."
+            }
+          ]
+        },
+        {
+          "id": "wet-lash",
+          "afterStep": 5,
+          "prompt": "Your binding cane has been out of the water all morning. What do you do?",
+          "options": [
+            {
+              "text": "Soak it until pliable before you lash",
+              "correct": true,
+              "consequence": "Wet cane shrinks as it dries and pulls the joint tight."
+            },
+            {
+              "text": "Lash with it dry to save time",
+              "consequence": "Dry lashing goes slack, and the joint works loose."
+            },
+            {
+              "text": "Rub oil on it and lash straight away",
+              "consequence": "Oil does not make it shrink, so the joint stays slack."
+            }
+          ]
+        },
+        {
+          "id": "waste",
+          "afterStep": 2,
+          "prompt": "You plan to buy exactly 500 cm of pole for the 500 cm of pieces. What do you do?",
+          "options": [
+            {
+              "text": "Add 10% for joints and waste and buy 550 cm",
+              "correct": true,
+              "consequence": "You have enough for cuts and small mistakes."
+            },
+            {
+              "text": "Buy exactly 500 cm, to keep the cost down",
+              "consequence": "Saw cuts and bad ends leave you short of pole."
+            },
+            {
+              "text": "Buy double, in case something goes wrong",
+              "consequence": "This wastes money. 10% is the planned allowance."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "dry-lash",
+          "prompt": "What happens to a wet cane lashing as it dries?",
+          "options": [
+            {
+              "text": "It shrinks and tightens the joint",
+              "correct": true
+            },
+            {
+              "text": "It stretches and goes slack",
+              "why": "Wet cane shrinks. Dry cane is the one that stays slack."
+            },
+            {
+              "text": "It stays exactly the same",
+              "why": "Cane changes as it dries."
+            },
+            {
+              "text": "It turns to a powder",
+              "why": "Cane does not break down."
+            }
+          ]
+        },
+        {
+          "id": "rock",
+          "prompt": "You stand the finished stool on a flat floor and it rocks. What is the most likely cause?",
+          "options": [
+            {
+              "text": "The legs are uneven, or the frame is not square",
+              "correct": true
+            },
+            {
+              "text": "The seat was woven in a check pattern that pulls unevenly",
+              "why": "The seat pattern does not affect the legs."
+            },
+            {
+              "text": "The lashing was done with wet cane",
+              "why": "That is correct practice."
+            },
+            {
+              "text": "The rails were pegged",
+              "why": "Pegging is correct."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "pole",
+          "prompt": "A stool has {l} legs of {h} cm and {r} rails of {w} cm. What total length of pole is that, before any allowance?",
+          "formula": "l * h + r * w",
+          "vars": {
+            "l": {
+              "min": 4,
+              "max": 4,
+              "step": 1
+            },
+            "h": {
+              "min": 40,
+              "max": 50,
+              "step": 5
+            },
+            "r": {
+              "min": 8,
+              "max": 8,
+              "step": 1
+            },
+            "w": {
+              "min": 35,
+              "max": 45,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} × {h} + {r} × {w} = {answer} cm."
+        },
+        {
+          "id": "allow",
+          "prompt": "The cut pieces total {p} cm. With a 10% allowance for joints and waste, how much pole do you need?",
+          "formula": "p * 1.1",
+          "vars": {
+            "p": {
+              "min": 400,
+              "max": 600,
+              "step": 50
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{p} × 1.1 = {answer} cm."
+        },
+        {
+          "id": "strands",
+          "prompt": "A square seat is {w} cm wide, with a strand spacing of {s} cm. How many strands run in each direction?",
+          "formula": "w / s",
+          "vars": {
+            "w": {
+              "min": 30,
+              "max": 50,
+              "step": 10
+            },
+            "s": {
+              "min": 1,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} ÷ {s} = {answer} strands."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wobbly-stool",
+          "scenario": "Yusuf's stool rocks, and its joints loosened within a week. Here is what he did.",
+          "lines": [
+            {
+              "text": "He lashed the joints with dry binding cane.",
+              "fault": true,
+              "why": "Dry cane goes slack. Wet cane tightens as it dries."
+            },
+            {
+              "text": "He cut the legs by eye, so they came out different lengths.",
+              "fault": true,
+              "why": "Uneven legs make a stool rock. Measure each one."
+            },
+            {
+              "text": "He did not check the frame was square before he lashed it.",
+              "fault": true,
+              "why": "The frame must be squared first."
+            },
+            {
+              "text": "He drilled pilot holes in the bamboo.",
+              "why": "That stops splitting."
+            },
+            {
+              "text": "He clamped each pole for sawing.",
+              "why": "That is safe practice."
+            },
+            {
+              "text": "He tucked in the ends of the lashing.",
+              "why": "That stops it unwinding."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a strong, square frame.",
+        "explainPrompt": "Why is a stool lashed with wet cane and not dry cane?",
+        "explainGuide": "Wet cane is pliable and shrinks as it dries, so the lashing pulls the joint tight. Dry cane cannot tighten and goes slack.",
+        "explainKeywords": [
+          [
+            "wet",
+            "damp",
+            "soak"
+          ],
+          [
+            "shrink",
+            "contract"
+          ],
+          [
+            "tight",
+            "firm"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Frame work: a cane-lashed stool",
+        "Measure twice, cut once",
+        "Square first, lash second"
+      ]
+    },
+    "pr-bsk-colour-wheel-elements": {
+      "room": "studio",
+      "safety": {
+        "correct": [
+          "Pass compasses closed, with the point held down.",
+          "Keep glue off your skin and put the cap back on after use."
+        ],
+        "wrong": [
+          {
+            "text": "Leave the compasses open with the point up on the desk.",
+            "why": "Someone leaning over can be stabbed. Lay them flat and closed."
+          },
+          {
+            "text": "Hold the card up against your hand and press the compass point into it.",
+            "why": "The point can go through into your hand. Keep the card flat on the desk."
+          },
+          {
+            "text": "Hold the needle in your mouth while gluing raffia.",
+            "why": "It can be swallowed. Put it in the pin cushion."
+          },
+          {
+            "text": "Point the compasses at your friend for a joke.",
+            "why": "Sharp tools are never toys. Keep the point down."
+          },
+          {
+            "text": "Lick your fingers to smooth the glued raffia.",
+            "why": "Glue and dye do not belong in your mouth. Use a damp cloth."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "Nothing here needs packing down."
+          },
+          {
+            "name": "Dye pot",
+            "why": "The raffia is already dyed."
+          },
+          {
+            "name": "Secateurs",
+            "why": "They cut thick cane. There is none in this sampler."
+          },
+          {
+            "name": "Try square",
+            "why": "A wheel is divided with compasses and a protractor."
+          },
+          {
+            "name": "Tape measure",
+            "why": "A ruler is more accurate on a 16 cm card circle."
+          },
+          {
+            "name": "Saw",
+            "why": "Card is cut with scissors, and it does not need sawing."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "divide",
+          "afterStep": 1,
+          "prompt": "You must divide the circle into 12 sectors. What angle do you set off each time?",
+          "options": [
+            {
+              "text": "30 degrees, checking that they total 360",
+              "correct": true,
+              "consequence": "All 12 sectors come out equal, and the wheel closes exactly."
+            },
+            {
+              "text": "12 degrees, to match the 12 sectors",
+              "consequence": "Twelve of these cover only 144 degrees, so the wheel is not filled."
+            },
+            {
+              "text": "Whatever looks right by eye",
+              "consequence": "The sectors are uneven, and the opposite pairs will not line up."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 2,
+          "prompt": "You have placed red, yellow and blue. Where does orange go?",
+          "options": [
+            {
+              "text": "Midway between red and yellow",
+              "correct": true,
+              "consequence": "Orange is mixed from red and yellow, so the wheel stays in order."
+            },
+            {
+              "text": "Midway between yellow and blue",
+              "consequence": "That place belongs to green, and the order is now wrong."
+            },
+            {
+              "text": "Next to blue, as a strong contrast",
+              "consequence": "Orange is opposite blue, so that is the wrong place for it."
+            }
+          ]
+        },
+        {
+          "id": "texture",
+          "afterStep": 3,
+          "prompt": "You must show texture in the sampler. Which do you choose?",
+          "options": [
+            {
+              "text": "Waling set beside randing",
+              "correct": true,
+              "consequence": "The two weaves feel and look different, so texture is clear."
+            },
+            {
+              "text": "A single bead on plain card",
+              "consequence": "A bead shows a dot, not texture."
+            },
+            {
+              "text": "Two pieces of randing in one colour",
+              "consequence": "With no difference between them, no texture contrast is shown."
+            }
+          ]
+        },
+        {
+          "id": "label",
+          "afterStep": 4,
+          "prompt": "The sampler looks neat. Your friend says that labels will spoil it. What do you do?",
+          "options": [
+            {
+              "text": "Label each element and technique",
+              "correct": true,
+              "consequence": "The examiner can credit each element, which earns the marks."
+            },
+            {
+              "text": "Leave the labels off for a cleaner look",
+              "consequence": "Unlabelled elements are a common way to lose marks."
+            },
+            {
+              "text": "Label only the ones you are unsure of",
+              "consequence": "Every element must be labelled to be credited."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "comp",
+          "prompt": "Which colours sit opposite each other on the wheel?",
+          "options": [
+            {
+              "text": "Red and green",
+              "correct": true
+            },
+            {
+              "text": "Red and orange",
+              "why": "These are neighbours, so they are analogous."
+            },
+            {
+              "text": "Blue and green",
+              "why": "These are close together on the wheel."
+            },
+            {
+              "text": "Yellow and orange",
+              "why": "These are neighbours."
+            }
+          ]
+        },
+        {
+          "id": "hue",
+          "prompt": "Your dyed violet looks more brown than the wheel in your textbook. What is the likely reason?",
+          "options": [
+            {
+              "text": "Dyed colours differ from theoretical hues",
+              "correct": true
+            },
+            {
+              "text": "The sectors of the wheel were divided wrongly",
+              "why": "Dividing the circle does not change a colour."
+            },
+            {
+              "text": "Violet is not a real colour",
+              "why": "Violet is a secondary colour."
+            },
+            {
+              "text": "The card was too thick",
+              "why": "Card thickness does not change a dye."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sector",
+          "prompt": "A colour wheel has {n} equal sectors. How many degrees is each sector?",
+          "formula": "360 / n",
+          "vars": {
+            "n": {
+              "min": 6,
+              "max": 12,
+              "step": 6
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "deg",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "360 ÷ {n} = {answer} degrees."
+        },
+        {
+          "id": "apart",
+          "prompt": "On a 12-part wheel, two colours are {s} sectors apart. How many degrees separate them?",
+          "formula": "s * 30",
+          "vars": {
+            "s": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "deg",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{s} × 30 = {answer} degrees."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wheel",
+          "scenario": "Amina's raffia wheel was marked down. Here is what she did.",
+          "lines": [
+            {
+              "text": "She put green between red and yellow.",
+              "fault": true,
+              "why": "Green belongs between yellow and blue."
+            },
+            {
+              "text": "She drew the sectors by eye, so some were wider than others.",
+              "fault": true,
+              "why": "Each must be 30 degrees."
+            },
+            {
+              "text": "She left the sampler with no labels.",
+              "fault": true,
+              "why": "Each element must be labelled."
+            },
+            {
+              "text": "She used a bead to show a dot.",
+              "why": "That is a good link between element and technique."
+            },
+            {
+              "text": "She filled the primaries first.",
+              "why": "That is the correct order."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making an accurate colour wheel.",
+        "explainPrompt": "How can basketry techniques show the elements of design? Give two examples.",
+        "explainGuide": "Each element can be made with a technique. A bead or knot shows a dot. Wrapping or a stitched line shows line. Waling beside randing shows texture, and a woven motif shows shape.",
+        "explainKeywords": [
+          [
+            "bead",
+            "knot"
+          ],
+          [
+            "line",
+            "wrap",
+            "stitch"
+          ],
+          [
+            "textur",
+            "wal"
+          ],
+          [
+            "shape",
+            "motif"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Elements of design in raffia",
+        "Dot, line, shape, texture",
+        "The 12-part colour wheel"
+      ]
+    },
+    "pr-bsk-principles-pattern": {
+      "room": "studio",
+      "safety": {
+        "correct": [
+          "Keep sharp pencils pointing down in a pot.",
+          "Keep the weaving frame steady on the desk while you work."
+        ],
+        "wrong": [
+          {
+            "text": "Leave pencils rolling on the floor by your feet.",
+            "why": "You can slip on them. Keep them in a pot."
+          },
+          {
+            "text": "Point a sharpened pencil towards your face to check it.",
+            "why": "The point can hurt your eye. Hold it pointing away."
+          },
+          {
+            "text": "Balance the frame on the edge of the desk.",
+            "why": "It may fall on your foot. Keep it flat and stable."
+          },
+          {
+            "text": "Pull a springy stake aside with your face close to it.",
+            "why": "It can hit your eye. Keep your face back."
+          },
+          {
+            "text": "Sharpen your pencil with a loose razor blade held in your fingers.",
+            "why": "A loose blade cuts easily. Use a sharpener."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Dye pot",
+            "why": "The weavers are already dyed."
+          },
+          {
+            "name": "Secateurs",
+            "why": "Nothing thick is cut in this border."
+          },
+          {
+            "name": "Compasses",
+            "why": "This motif is planned on squared graph paper."
+          },
+          {
+            "name": "Gauge ring",
+            "why": "It is for coiling, not for a woven border."
+          },
+          {
+            "name": "Spray gun",
+            "why": "The pattern is woven in, not sprayed on."
+          },
+          {
+            "name": "Tape measure",
+            "why": "The band is given. The motif is planned on paper with a ruler."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "motif-fit",
+          "afterStep": 2,
+          "prompt": "Your motif is 5 cm and the band is 36 cm. What do you do?",
+          "options": [
+            {
+              "text": "Change the motif to 4.5 cm so that it divides 36 exactly",
+              "correct": true,
+              "consequence": "You get 8 full repeats, and the join is clean."
+            },
+            {
+              "text": "Keep 5 cm and accept a part-motif at the join",
+              "consequence": "The part-motif at the join is an awkward break in the rhythm."
+            },
+            {
+              "text": "Stretch the stakes apart to make it fit",
+              "consequence": "Uneven stake spacing distorts the band."
+            }
+          ]
+        },
+        {
+          "id": "colours",
+          "afterStep": 2,
+          "prompt": "You could use six colours in the border. Your plan already has two. What do you do?",
+          "options": [
+            {
+              "text": "Keep to the few colours that work together",
+              "correct": true,
+              "consequence": "The band stays unified, and the rhythm is clear."
+            },
+            {
+              "text": "Use all six, to show more variety and more skill",
+              "consequence": "Too many colours lose unity."
+            },
+            {
+              "text": "Change the colours at each repeat",
+              "consequence": "Changing colour at each repeat breaks the repetition."
+            }
+          ]
+        },
+        {
+          "id": "stakes",
+          "afterStep": 3,
+          "prompt": "The band has 24 stakes, and you want single-weaver randing. What do you do?",
+          "options": [
+            {
+              "text": "Add one stake, or change to pairing",
+              "correct": true,
+              "consequence": "The weave now alternates properly and the pattern keeps its place."
+            },
+            {
+              "text": "Rand with one weaver on 24 stakes",
+              "consequence": "With an even number, the weaver repeats the same path."
+            },
+            {
+              "text": "Remove stakes until the motif fits",
+              "consequence": "Removing stakes changes the spacing and spoils the plan."
+            }
+          ]
+        },
+        {
+          "id": "evaluate",
+          "afterStep": 4,
+          "prompt": "You look at the finished band. What do you judge it by?",
+          "options": [
+            {
+              "text": "Unity, balance and proportion in the finished band",
+              "correct": true,
+              "consequence": "You name the principles and say where they show."
+            },
+            {
+              "text": "Only how bright the colours look beside the other students' bands",
+              "consequence": "Brightness is only one part. The principles must be named."
+            },
+            {
+              "text": "How fast you finished it compared with the rest of the class",
+              "consequence": "Speed is not a principle of design."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "rhythm",
+          "prompt": "An exact repeat of a motif round a band gives",
+          "options": [
+            {
+              "text": "Rhythm and unity",
+              "correct": true
+            },
+            {
+              "text": "An awkward part-motif",
+              "why": "That comes from a motif that does not divide the band."
+            },
+            {
+              "text": "Loss of balance",
+              "why": "Exact repeats help balance."
+            },
+            {
+              "text": "Rough texture",
+              "why": "Repetition does not change the surface feel."
+            }
+          ]
+        },
+        {
+          "id": "sym",
+          "prompt": "A motif is the same on both sides of a centre line. What does this show?",
+          "options": [
+            {
+              "text": "Symmetrical balance",
+              "correct": true
+            },
+            {
+              "text": "Asymmetrical balance",
+              "why": "Asymmetry means the two sides differ."
+            },
+            {
+              "text": "Contrast",
+              "why": "Contrast is a strong difference, which is not shown here."
+            },
+            {
+              "text": "Texture",
+              "why": "Texture is about surface."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "repeats",
+          "prompt": "A band is {b} cm round, and a motif is 4.5 cm wide. How many repeats are there?",
+          "formula": "b / 4.5",
+          "vars": {
+            "b": {
+              "min": 36,
+              "max": 72,
+              "step": 18
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} ÷ 4.5 = {answer} repeats."
+        },
+        {
+          "id": "stake-count",
+          "prompt": "A band is {b} cm round, with stakes 1.5 cm apart. How many stakes are there?",
+          "formula": "b / 1.5",
+          "vars": {
+            "b": {
+              "min": 24,
+              "max": 48,
+              "step": 12
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} ÷ 1.5 = {answer} stakes."
+        }
+      ],
+      "faults": [
+        {
+          "id": "band",
+          "scenario": "Chiamaka's border looks untidy at the back. Here is what she did.",
+          "lines": [
+            {
+              "text": "She chose a motif that did not divide into the band.",
+              "fault": true,
+              "why": "This leaves a part-motif at the join."
+            },
+            {
+              "text": "She used eight colours in a short band.",
+              "fault": true,
+              "why": "Too many colours lose unity."
+            },
+            {
+              "text": "She let the stake spacing change as she wove.",
+              "fault": true,
+              "why": "This makes the motifs uneven."
+            },
+            {
+              "text": "She drew the motif on graph paper first.",
+              "why": "That is good planning."
+            },
+            {
+              "text": "She changed colours at the marked stakes.",
+              "why": "That follows the plan."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for planning a repeat border.",
+        "explainPrompt": "Why should the motif size divide exactly into the length of the band?",
+        "explainGuide": "If it divides exactly, every repeat is complete and the pattern joins cleanly, which gives rhythm and unity. If not, an awkward part-motif is left at the join.",
+        "explainKeywords": [
+          [
+            "divid",
+            "exact",
+            "complete"
+          ],
+          [
+            "part",
+            "join"
+          ],
+          [
+            "rhythm",
+            "unity"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Principles of design in a border",
+        "Repetition, balance, rhythm",
+        "Plan on paper first"
+      ]
+    },
+    "pr-bsk-design-sketches": {
+      "room": "drawing",
+      "safety": {
+        "correct": [
+          "Keep the compass point away from your face and from others.",
+          "Sit upright in good light to protect your eyes and back."
+        ],
+        "wrong": [
+          {
+            "text": "Leave a compass open on the seat of your chair.",
+            "why": "You or someone else could sit on it. Close it and put it away."
+          },
+          {
+            "text": "Sharpen pencils with a loose razor blade.",
+            "why": "A loose blade is easily dropped on your fingers. Use a sharpener."
+          },
+          {
+            "text": "Lean close over the paper in dim light for hours.",
+            "why": "It strains your eyes and back. Sit up, and work in good light."
+          },
+          {
+            "text": "Draw with your laptop on your lap with its vents blocked, in a dusty corner.",
+            "why": "Blocked vents overheat it. Use a flat desk."
+          },
+          {
+            "text": "Leave drawing boards on the floor between the desks.",
+            "why": "People trip over them. Stack them against the wall."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "This is design on paper. Nothing is woven yet."
+          },
+          {
+            "name": "Dye pot",
+            "why": "You plan colour on paper with colour pencils."
+          },
+          {
+            "name": "Bodkin",
+            "why": "This is a drawing job."
+          },
+          {
+            "name": "Soaking trough",
+            "why": "No cane is prepared at this stage."
+          },
+          {
+            "name": "Blow lamp",
+            "why": "There is no scorching at the design stage."
+          },
+          {
+            "name": "Rough sugar paper for final drawings",
+            "why": "Scaled working drawings need clean cartridge paper."
+          }
+        ],
+        "optional": [
+          "Computer drawing software (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "brief",
+          "afterStep": 1,
+          "prompt": "The brief is a shopping basket. What do you settle first?",
+          "options": [
+            {
+              "text": "The user, function, size, materials and cost limit",
+              "correct": true,
+              "consequence": "Everything you draw now answers the brief."
+            },
+            {
+              "text": "The colours and the pattern that you most enjoy working with",
+              "consequence": "Colour comes later. It does not answer function."
+            },
+            {
+              "text": "The pattern you did last term",
+              "consequence": "The brief may need something different."
+            }
+          ]
+        },
+        {
+          "id": "ideas",
+          "afterStep": 2,
+          "prompt": "Your first idea looks good. How many more ideas do you develop?",
+          "options": [
+            {
+              "text": "At least two more, from observation, memory or imagination",
+              "correct": true,
+              "consequence": "Your preparatory work shows how the idea developed, which earns marks."
+            },
+            {
+              "text": "None: a good first idea should go straight to the working drawing",
+              "consequence": "One sketch shows no development, so marks are lost."
+            },
+            {
+              "text": "Ten near-copies of the first sketch",
+              "consequence": "Copies do not show a real development of ideas."
+            }
+          ]
+        },
+        {
+          "id": "handle",
+          "afterStep": 3,
+          "prompt": "Your chosen shopping basket has no handle. What do you do?",
+          "options": [
+            {
+              "text": "Add a strong handle and check that it can be gripped",
+              "correct": true,
+              "consequence": "The article now meets its function."
+            },
+            {
+              "text": "Keep it, because a handle spoils the shape",
+              "consequence": "It fails the brief: a shopping basket must be carried."
+            },
+            {
+              "text": "Add a thin handle just for looks",
+              "consequence": "A weak handle fails in use, so it does not meet the need."
+            }
+          ]
+        },
+        {
+          "id": "drawing",
+          "afterStep": 4,
+          "prompt": "You begin the working drawing. What must it show?",
+          "options": [
+            {
+              "text": "Elevation and plan with dimensions, and the stated scale",
+              "correct": true,
+              "consequence": "Quantities and making can now be worked out correctly."
+            },
+            {
+              "text": "A coloured picture of the basket with no sizes",
+              "consequence": "A picture cannot be used to work out materials."
+            },
+            {
+              "text": "The plan only, as the height can be guessed",
+              "consequence": "Height is needed to calculate the stakes."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "why-wd",
+          "prompt": "Why does a clear working drawing help the later work?",
+          "options": [
+            {
+              "text": "It makes the calculations and making accurate",
+              "correct": true
+            },
+            {
+              "text": "It removes any need to measure during the making",
+              "why": "You still measure while making."
+            },
+            {
+              "text": "It means that the materials list can be left out of the folio",
+              "why": "The list is still needed."
+            },
+            {
+              "text": "It makes the basket lighter",
+              "why": "A drawing cannot change weight."
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "prompt": "You sketch an old market basket that is on your desk. This is drawing from",
+          "options": [
+            {
+              "text": "Observation",
+              "correct": true
+            },
+            {
+              "text": "Memory",
+              "why": "You can see it, so you are not relying on memory."
+            },
+            {
+              "text": "Imagination",
+              "why": "It already exists in front of you."
+            },
+            {
+              "text": "A computer",
+              "why": "No software is being used."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "scale",
+          "prompt": "A basket is {h} cm high. How tall is it on a 1:5 drawing?",
+          "formula": "h / 5",
+          "vars": {
+            "h": {
+              "min": 20,
+              "max": 50,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} ÷ 5 = {answer} cm."
+        },
+        {
+          "id": "perim",
+          "prompt": "A rectangular rim is {l} cm by {w} cm. What is its perimeter?",
+          "formula": "2 * (l + w)",
+          "vars": {
+            "l": {
+              "min": 30,
+              "max": 50,
+              "step": 5
+            },
+            "w": {
+              "min": 20,
+              "max": 30,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "2 × ({l} + {w}) = {answer} cm."
+        },
+        {
+          "id": "stakes",
+          "prompt": "A rim of {p} cm has stakes {s} cm apart. How many stakes are there?",
+          "formula": "p / s",
+          "vars": {
+            "p": {
+              "min": 100,
+              "max": 160,
+              "step": 20
+            },
+            "s": {
+              "min": 2,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{p} ÷ {s} = {answer} stakes."
+        }
+      ],
+      "faults": [
+        {
+          "id": "folio",
+          "scenario": "Sade's preparatory folio earned few of the 20 marks. Here is what she did.",
+          "lines": [
+            {
+              "text": "She drew one idea only and went straight to making.",
+              "fault": true,
+              "why": "Ideas must be developed. At least three are expected."
+            },
+            {
+              "text": "She did not list the materials or their quantities.",
+              "fault": true,
+              "why": "A material list is a required part of the folio."
+            },
+            {
+              "text": "She gave no scale on the working drawing.",
+              "fault": true,
+              "why": "The scale must be stated."
+            },
+            {
+              "text": "She chose an idea and gave reasons.",
+              "why": "That is what the brief asks for."
+            },
+            {
+              "text": "She made a day-by-day plan for the five days.",
+              "why": "That is good planning."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for producing a working drawing.",
+        "explainPrompt": "Why do the preparatory sketches and notes matter in this exam?",
+        "explainGuide": "They carry 20 marks. They show how the idea developed and that the design meets the brief, and a good working drawing makes the material calculations and making accurate.",
+        "explainKeywords": [
+          [
+            "20",
+            "marks"
+          ],
+          [
+            "develop",
+            "idea"
+          ],
+          [
+            "brief",
+            "function",
+            "accurate"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Design brief and working drawing",
+        "User, function, size, materials, cost",
+        "State your scale"
+      ]
+    },
+    "pr-bsk-decoration-finishing": {
+      "safety": {
+        "correct": [
+          "Sweep up loose fibres and offcuts before any flame is lit.",
+          "Tie back long hair and loose clothing before you use a flame."
+        ],
+        "wrong": [
+          {
+            "text": "Singe the basket on the bench among trimmed raffia ends.",
+            "why": "Loose fibres catch fire fast. Work outdoors in a clear space with water nearby."
+          },
+          {
+            "text": "Light the candle next to the open varnish tin to save walking.",
+            "why": "Varnish and solvents catch fire. Keep flames well away."
+          },
+          {
+            "text": "Spray the paint inside the closed store to keep the wind off it.",
+            "why": "Fumes build up and can catch fire. Spray only where there is good ventilation."
+          },
+          {
+            "text": "Hold the flame still on one spot for a darker brown.",
+            "why": "The strand burns through, and fire can take hold. Keep the flame moving."
+          },
+          {
+            "text": "Pour water on a blow lamp to cool it down quickly.",
+            "why": "Follow your teacher's instructions for shutting it off, and let it cool in a safe place."
+          },
+          {
+            "text": "Skip the mask because you will only spray for a short time.",
+            "why": "Even a short spray fills the air with fine droplets. Wear the mask."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rapping iron",
+            "why": "The weaving is finished, so there is nothing left to pack."
+          },
+          {
+            "name": "Soaking trough",
+            "why": "Wetting a finished basket would stop the varnish taking."
+          },
+          {
+            "name": "Tapestry frame",
+            "why": "The basket is already made."
+          },
+          {
+            "name": "Household kerosene",
+            "why": "It is a dangerous fire risk near a flame, and it is not a finish."
+          },
+          {
+            "name": "Dye pot",
+            "why": "Colour here is scorched or sprayed on, not dyed."
+          },
+          {
+            "name": "Thick floor paint",
+            "why": "It clogs the weave. Use thin coats of the listed finish."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "singe",
+          "afterStep": 1,
+          "prompt": "Fluffy fibres stand out over the basket. How do you use the flame?",
+          "options": [
+            {
+              "text": "One quick pass, keeping the flame moving",
+              "correct": true,
+              "consequence": "The fluff goes and the strands are unharmed."
+            },
+            {
+              "text": "Hold the flame close until the area turns dark",
+              "consequence": "You burn into the strands and damage them."
+            },
+            {
+              "text": "Go over it again and again to be thorough",
+              "consequence": "Repeated heat scorches the strands and may set them alight."
+            }
+          ]
+        },
+        {
+          "id": "dust",
+          "afterStep": 4,
+          "prompt": "You have just sanded the rough areas. What comes before the varnish?",
+          "options": [
+            {
+              "text": "Brush off all the dust",
+              "correct": true,
+              "consequence": "The varnish goes on clean and clear."
+            },
+            {
+              "text": "Varnish at once while the surface is fresh",
+              "consequence": "The varnish traps dust and dries rough."
+            },
+            {
+              "text": "Wet the basket and varnish it while it is damp",
+              "consequence": "Varnish does not take evenly on a wet surface."
+            }
+          ]
+        },
+        {
+          "id": "coat",
+          "afterStep": 5,
+          "prompt": "You want a strong finish. How do you apply the varnish?",
+          "options": [
+            {
+              "text": "Thin coats, letting each dry before the next",
+              "correct": true,
+              "consequence": "Thin coats dry clear and hard."
+            },
+            {
+              "text": "One very thick coat to save time",
+              "consequence": "Thick coats run and stay tacky."
+            },
+            {
+              "text": "Second coat straight on the wet first coat",
+              "consequence": "It stays tacky, with runs."
+            }
+          ]
+        },
+        {
+          "id": "rim",
+          "afterStep": 3,
+          "prompt": "The rim has sharp cut ends after trimming. What do you do?",
+          "options": [
+            {
+              "text": "Bind or wrap it neatly with cane or raffia",
+              "correct": true,
+              "consequence": "It makes a smooth, strong border that will not catch on hands."
+            },
+            {
+              "text": "Leave them, as varnish will cover them",
+              "consequence": "Varnish does not cover sharp ends, and they can scratch the user."
+            },
+            {
+              "text": "Burn them off with the flame",
+              "consequence": "That can scorch the rim and start a fire."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "thin",
+          "prompt": "What happens to a thin coat of varnish?",
+          "options": [
+            {
+              "text": "It dries clear",
+              "correct": true
+            },
+            {
+              "text": "It runs and stays tacky",
+              "why": "That is a thick coat."
+            },
+            {
+              "text": "It stays white",
+              "why": "Clear varnish does not stay white."
+            },
+            {
+              "text": "It peels off straight away",
+              "why": "That is not expected."
+            }
+          ]
+        },
+        {
+          "id": "scorch",
+          "prompt": "Light scorching, moved steadily across the cane, gives",
+          "options": [
+            {
+              "text": "Graded brown tones",
+              "correct": true
+            },
+            {
+              "text": "Bright red colour",
+              "why": "Scorching browns the surface."
+            },
+            {
+              "text": "A shiny varnish finish",
+              "why": "That comes from varnish."
+            },
+            {
+              "text": "No change at all",
+              "why": "Heat browns cane."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cover",
+          "prompt": "Varnish covers {c} m² per litre. How many litres do you need to cover {a} m²?",
+          "formula": "a / c",
+          "vars": {
+            "c": {
+              "min": 8,
+              "max": 10,
+              "step": 2
+            },
+            "a": {
+              "min": 1,
+              "max": 4,
+              "step": 1
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "L",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{a} ÷ {c} = {answer} litres."
+        },
+        {
+          "id": "coats",
+          "prompt": "One coat of varnish covers {a} m² of basket. How much coverage do {n} coats need?",
+          "formula": "a * n",
+          "vars": {
+            "a": {
+              "min": 0.5,
+              "max": 0.9,
+              "step": 0.1
+            },
+            "n": {
+              "min": 2,
+              "max": 3,
+              "step": 1
+            }
+          },
+          "unit": "m²",
+          "unitAliases": [
+            "m2",
+            "square metres"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 1,
+          "working": "{a} × {n} = {answer} m²."
+        },
+        {
+          "id": "base",
+          "prompt": "A round basket base is {d} cm across. Taking pi as 3.14, what is its area in cm²?",
+          "formula": "3.14 * (d / 2) ^ 2",
+          "vars": {
+            "d": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "cm²",
+          "unitAliases": [
+            "cm2"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "Radius = {d} ÷ 2. Area = 3.14 × radius × radius = {answer} cm²."
+        }
+      ],
+      "faults": [
+        {
+          "id": "sticky",
+          "scenario": "Ada's basket finished sticky, with burn marks. Here is what she did.",
+          "lines": [
+            {
+              "text": "She held the flame on each spot to get rid of the fluff.",
+              "fault": true,
+              "why": "Holding the flame still burns the strands. Keep it moving."
+            },
+            {
+              "text": "She brushed on one thick coat of varnish.",
+              "fault": true,
+              "why": "Thick coats run and stay tacky."
+            },
+            {
+              "text": "She varnished a basket that was still dusty from sanding.",
+              "fault": true,
+              "why": "Dust gets trapped in the varnish."
+            },
+            {
+              "text": "She kept water nearby while using the flame.",
+              "why": "That is correct safety practice."
+            },
+            {
+              "text": "She varnished the inside as well as the outside.",
+              "why": "That is what the job calls for."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for singeing and varnishing a basket.",
+        "explainPrompt": "Why are two thin coats of varnish better than one thick coat?",
+        "explainGuide": "Thin coats dry clear and hard. A thick coat runs and stays tacky, and the surface dries before the inside does. A second thin coat then builds up an even finish.",
+        "explainKeywords": [
+          [
+            "thin"
+          ],
+          [
+            "dry",
+            "clear"
+          ],
+          [
+            "run",
+            "tacky",
+            "sticky"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Decoration and finishing",
+        "Keep the flame moving",
+        "Thin coats, dry between"
+      ]
+    },
+    "pr-bsk-costing-pricing": {
+      "safety": {
+        "correct": [
+          "Keep your receipts in one file so that no cost is lost.",
+          "Sit upright at the desk and rest your eyes between long calculations."
+        ],
+        "wrong": [
+          {
+            "text": "Leave the workshop cash box open on the bench while you add up.",
+            "why": "Money can go missing. Lock it away."
+          },
+          {
+            "text": "Throw away the receipts as soon as you have paid.",
+            "why": "Receipts are the record of your costs. Keep them."
+          },
+          {
+            "text": "Work out prices in your head and write nothing down.",
+            "why": "Costs get lost. Record every cost."
+          },
+          {
+            "text": "Write costs on loose scraps of paper.",
+            "why": "Scraps get lost. Use the record book."
+          },
+          {
+            "text": "Use last year's material prices so you need not check.",
+            "why": "Prices change, so the cost will be wrong. Review them."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tapestry needle",
+            "why": "There is no weaving or stitching in this job."
+          },
+          {
+            "name": "Rapping iron",
+            "why": "This is a paper job."
+          },
+          {
+            "name": "Bodkin",
+            "why": "This is a paper job."
+          },
+          {
+            "name": "Tape measure",
+            "why": "You are working with costs, not lengths."
+          },
+          {
+            "name": "Dye pot",
+            "why": "Dye appears here only as a cost."
+          },
+          {
+            "name": "Balance",
+            "why": "Quantities are already on the receipts."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sort",
+          "afterStep": 1,
+          "prompt": "The monthly workshop rent is on your list. How do you class it?",
+          "options": [
+            {
+              "text": "As a fixed cost, shared across the month's output",
+              "correct": true,
+              "consequence": "It is charged fairly across all the baskets."
+            },
+            {
+              "text": "As a variable cost for this batch only",
+              "consequence": "Rent does not change with output, so that is the wrong class."
+            },
+            {
+              "text": "Leave it out, because it is not about baskets",
+              "consequence": "You lose money every month on unrecorded rent."
+            }
+          ]
+        },
+        {
+          "id": "share",
+          "afterStep": 2,
+          "prompt": "Fixed costs are N12,000 a month for 24 baskets. Your batch is 10. What do you charge?",
+          "options": [
+            {
+              "text": "12,000 × 10 ÷ 24 = N5,000",
+              "correct": true,
+              "consequence": "The batch pays its fair share of the month."
+            },
+            {
+              "text": "The full N12,000 to this batch",
+              "consequence": "The price comes out too high, because other baskets also share it."
+            },
+            {
+              "text": "Nothing, as it is already paid",
+              "consequence": "Prices must recover the fixed costs too."
+            }
+          ]
+        },
+        {
+          "id": "labour",
+          "afterStep": 3,
+          "prompt": "Labour was your own time, so a classmate says to leave it out. What do you do?",
+          "options": [
+            {
+              "text": "Include it, because your time is a real cost",
+              "correct": true,
+              "consequence": "The unit cost is true, so the price pays you too."
+            },
+            {
+              "text": "Leave it out to keep the price low for the buyers",
+              "consequence": "This hides a real cost, and you work for nothing."
+            },
+            {
+              "text": "Count only half of it",
+              "consequence": "There is no reason to halve it."
+            }
+          ]
+        },
+        {
+          "id": "compete",
+          "afterStep": 4,
+          "prompt": "Your price comes to N3,000, and a plastic basket sells for N2,000. What do you do?",
+          "options": [
+            {
+              "text": "Compare quality and demand, then review the price",
+              "correct": true,
+              "consequence": "The price reflects cost, demand, competition and quality."
+            },
+            {
+              "text": "Cut it to N1,500 at once, so that you beat the plastic basket",
+              "consequence": "That is below the unit cost, so you make a loss."
+            },
+            {
+              "text": "Ignore the competitor altogether",
+              "consequence": "Competition is a factor that decides price."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "more",
+          "prompt": "You make more baskets a month. What happens to the unit cost?",
+          "options": [
+            {
+              "text": "It falls, because fixed costs are spread more thinly",
+              "correct": true
+            },
+            {
+              "text": "It rises, because the extra work uses up more of the rent money",
+              "why": "More items spread the fixed costs, so the unit cost falls."
+            },
+            {
+              "text": "It stays exactly the same",
+              "why": "Unit cost changes because fixed costs are shared."
+            },
+            {
+              "text": "It becomes zero",
+              "why": "Costs do not disappear."
+            }
+          ]
+        },
+        {
+          "id": "varc",
+          "prompt": "Which of these is a variable cost?",
+          "options": [
+            {
+              "text": "Raffia",
+              "correct": true
+            },
+            {
+              "text": "Workshop rent",
+              "why": "That is a fixed cost."
+            },
+            {
+              "text": "Monthly tool wear",
+              "why": "That is listed as fixed."
+            },
+            {
+              "text": "Yearly shop licence",
+              "why": "That does not change with output."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "batch-share",
+          "prompt": "Fixed costs are N{f} a month for {m} baskets. How much of this goes to a batch of {b}?",
+          "formula": "f * b / m",
+          "vars": {
+            "f": {
+              "min": 12000,
+              "max": 18000,
+              "step": 6000
+            },
+            "m": {
+              "min": 24,
+              "max": 24,
+              "step": 1
+            },
+            "b": {
+              "min": 6,
+              "max": 12,
+              "step": 6
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{f} × {b} ÷ {m} = N{answer}."
+        },
+        {
+          "id": "unit",
+          "prompt": "A batch of {b} baskets costs N{c} in total. What is the unit cost?",
+          "formula": "c / b",
+          "vars": {
+            "b": {
+              "min": 10,
+              "max": 20,
+              "step": 10
+            },
+            "c": {
+              "min": 20000,
+              "max": 40000,
+              "step": 10000
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {b} = N{answer}."
+        },
+        {
+          "id": "price",
+          "prompt": "A basket has a unit cost of N{c}, and the markup is {m}%. What is the selling price?",
+          "formula": "c * (1 + m / 100)",
+          "vars": {
+            "c": {
+              "min": 2000,
+              "max": 3000,
+              "step": 200
+            },
+            "m": {
+              "min": 20,
+              "max": 30,
+              "step": 5
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} + {m}% of {c} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "no-profit",
+          "scenario": "Ifeoma sells many baskets but seems to make no money. Here is what she did.",
+          "lines": [
+            {
+              "text": "She left out her own labour.",
+              "fault": true,
+              "why": "Labour is a real cost."
+            },
+            {
+              "text": "She charged the whole month's fixed cost to one batch.",
+              "fault": true,
+              "why": "It must be shared across the month's output."
+            },
+            {
+              "text": "She has not changed her prices in two years.",
+              "fault": true,
+              "why": "Prices must be reviewed as material costs change."
+            },
+            {
+              "text": "She separated her variable costs from her fixed costs.",
+              "why": "That is the first step."
+            },
+            {
+              "text": "She recorded each cost.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for costing a batch of baskets accurately.",
+        "explainPrompt": "Why does making more baskets a month lower the cost of each basket?",
+        "explainGuide": "Fixed costs such as rent stay the same, so spreading them over more baskets means each one carries a smaller share, and the unit cost falls.",
+        "explainKeywords": [
+          [
+            "fixed",
+            "rent"
+          ],
+          [
+            "spread",
+            "share"
+          ],
+          [
+            "unit",
+            "each"
+          ],
+          [
+            "lower",
+            "fall",
+            "less",
+            "smaller"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Costing and pricing baskets",
+        "Variable + labour + share of fixed",
+        "Then the markup"
+      ]
+    }
+  }
+}

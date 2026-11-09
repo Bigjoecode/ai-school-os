@@ -199,7 +199,7 @@ export class AssignmentsController {
     const lab = !!p.simulator;
     const attempts = await this.prisma.db.practicalAttempt.findMany({ where: { studentId, practicalId: p.id, submittedAt: { not: null } }, select: { id: true, mode: true, score: true, maxScore: true, override: true, submittedAt: true } });
     const done = doneAttempts(attempts, lab);
-    return { lab, done: done.length > 0, attempts: done.length, best: done.length ? Math.max(...done.map((a) => a.percent)) : null };
+    return { lab, guided: p.simulator === 'gen-practical', done: done.length > 0, attempts: done.length, best: done.length ? Math.max(...done.map((a) => a.percent)) : null };
   }
 
   private attachmentsFor(h: { id: string; attachments: Prisma.JsonValue }) {

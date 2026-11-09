@@ -1,0 +1,6233 @@
+{
+ "subject": "Auto Mechanics",
+ "room": "workshop",
+ "lessons": {
+  "pr-amech-using-fire-extinguishers-and-workshop-safety-devices": {
+   "safety": {
+    "correct": [
+     "Check the pressure gauge and seal when inspecting an extinguisher."
+    ],
+    "wrong": [
+     {
+      "text": "Throw a bucket of water on a burning petrol tray.",
+      "why": "Water spreads burning fuel. Use foam or dry powder."
+     },
+     {
+      "text": "Stand with the fire between you and the exit.",
+      "why": "You could be trapped. Keep your back to an exit."
+     },
+     {
+      "text": "Aim the extinguisher at the top of the flames.",
+      "why": "That misses the fuel. Aim at the base."
+     },
+     {
+      "text": "Use a water extinguisher on a burning wiring loom.",
+      "why": "Water conducts electricity. Use CO₂."
+     },
+     {
+      "text": "Hang a used extinguisher back on its bracket.",
+      "why": "It will fail next time. Report it for refilling."
+     },
+     {
+      "text": "Light the practice tray yourself while the teacher is busy.",
+      "why": "Only the teacher runs fire demonstrations."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bucket of petrol",
+      "why": "Fuel must be kept away from any fire exercise."
+     },
+     {
+      "name": "Garden hose",
+      "why": "Water is wrong for fuel and electrical fires."
+     },
+     {
+      "name": "Cotton wrapper for smothering",
+      "why": "It can burn. A proper fire blanket is made for the job."
+     },
+     {
+      "name": "Empty paint tin",
+      "why": "It is no safety device, and it can hold flammable residue."
+     },
+     {
+      "name": "Torque wrench",
+      "why": "It plays no part in fire safety."
+     },
+     {
+      "name": "Foam mattress",
+      "why": "It burns and gives off toxic smoke."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "petrol",
+     "afterStep": 2,
+     "prompt": "A small petrol fire needs an extinguisher. Which one do you pick?",
+     "options": [
+      {
+       "text": "Foam or dry powder",
+       "correct": true,
+       "consequence": "It smothers the fuel surface without spreading it."
+      },
+      {
+       "text": "Water",
+       "consequence": "Burning petrol floats on water and spreads."
+      },
+      {
+       "text": "Sand thrown high at the flames",
+       "consequence": "Sand from a distance on the flames misses the base, and it splashes burning fuel."
+      }
+     ]
+    },
+    {
+     "id": "electric",
+     "afterStep": 2,
+     "prompt": "The battery charger cable is on fire. Which one do you pick?",
+     "options": [
+      {
+       "text": "CO₂",
+       "correct": true,
+       "consequence": "It does not conduct and it leaves no residue on equipment."
+      },
+      {
+       "text": "Water",
+       "consequence": "Water conducts and can shock you."
+      },
+      {
+       "text": "Foam",
+       "consequence": "Foam contains water, so it is unsuitable for live equipment."
+      }
+     ]
+    },
+    {
+     "id": "aim",
+     "afterStep": 3,
+     "prompt": "You have pulled the pin. Where do you aim?",
+     "options": [
+      {
+       "text": "At the base of the fire, sweeping side to side",
+       "correct": true,
+       "consequence": "The burning fuel is covered, so the fire goes out quickly."
+      },
+      {
+       "text": "At the middle of the flames, where the fire looks worst",
+       "consequence": "The powder passes through, and the 15-second charge is wasted."
+      },
+      {
+       "text": "Straight at the flame tips",
+       "consequence": "The fuel keeps burning, and the charge runs out."
+      }
+     ]
+    },
+    {
+     "id": "position",
+     "afterStep": 3,
+     "prompt": "The wind is blowing from your left towards the fire. Where do you stand?",
+     "options": [
+      {
+       "text": "With the wind behind you and an exit at your back",
+       "correct": true,
+       "consequence": "Heat and powder blow away, and you can leave."
+      },
+      {
+       "text": "With the wind in your face, for a closer view",
+       "consequence": "Smoke and heat blow into you."
+      },
+      {
+       "text": "Between the fire and the wall",
+       "consequence": "You could be trapped."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "blanket",
+     "prompt": "The teacher lays a blanket over the oil tray. What do you see, and why?",
+     "options": [
+      {
+       "text": "The fire dies because oxygen is cut off",
+       "correct": true
+      },
+      {
+       "text": "The fire flares because the blanket feeds it",
+       "why": "A fire blanket does not burn, and it removes oxygen."
+      },
+      {
+       "text": "The fire cools because of water in the blanket",
+       "why": "A fire blanket works by smothering."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rate",
+     "prompt": "A {m} kg dry powder extinguisher discharges in {t} s. How many kg leave it each second?",
+     "formula": "m / t",
+     "vars": {
+      "m": {
+       "min": 4,
+       "max": 8,
+       "step": 2
+      },
+      "t": {
+       "min": 10,
+       "max": 20,
+       "step": 5
+      }
+     },
+     "unit": "kg/s",
+     "unitAliases": [
+      "kg per second",
+      "kg per s"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{m} ÷ {t} = {answer} kg/s."
+    }
+   ],
+   "faults": [
+    {
+     "id": "garage-fire",
+     "scenario": "A small fire grew at Uche's garage. Here is what the workers did.",
+     "lines": [
+      {
+       "text": "One threw water on the burning fuel.",
+       "fault": true,
+       "why": "Never use water on fuel fires."
+      },
+      {
+       "text": "Another aimed at the flames.",
+       "fault": true,
+       "why": "Aim at the base."
+      },
+      {
+       "text": "A third picked the first extinguisher without reading its label.",
+       "fault": true,
+       "why": "Wrong selection is a source of error."
+      },
+      {
+       "text": "They called people to the assembly point.",
+       "why": "That is correct."
+      },
+      {
+       "text": "They reported the used extinguisher.",
+       "why": "That gets it refilled."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using a fire extinguisher.",
+    "explainPrompt": "Why must water never be used on a petrol or electrical fire?",
+    "explainGuide": "Petrol floats on water, so the burning fuel spreads. Water also conducts electricity, so it can give a shock on electrical fires.",
+    "explainKeywords": [
+     [
+      "float",
+      "floats",
+      "spread",
+      "spreads"
+     ],
+     [
+      "conduct",
+      "conducts",
+      "shock"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Using fire extinguishers and workshop safety devices",
+    "Know your exit and your extinguisher."
+   ]
+  },
+  "pr-amech-using-measuring-instruments-and-lifting-equipment": {
+   "safety": {
+    "correct": [
+     "Lower the jack slowly so that the car settles evenly on the stands."
+    ],
+    "wrong": [
+     {
+      "text": "Slide under the car while it rests on the trolley jack.",
+      "why": "Jacks can fail. Always use axle stands."
+     },
+     {
+      "text": "Jack the car at any strong-looking point of the sill.",
+      "why": "Use the specified jacking point."
+     },
+     {
+      "text": "Lift the car before chocking, since you only need a moment.",
+      "why": "It can roll. Chock first, with the handbrake on."
+     },
+     {
+      "text": "Put a block of firewood under the car in place of a stand.",
+      "why": "Wood can split. Use rated axle stands."
+     },
+     {
+      "text": "Force a thick feeler blade into a tight gap.",
+      "why": "That bends it and gives a false reading."
+     },
+     {
+      "text": "Spin the micrometer thimble hard to close it.",
+      "why": "That strains it and gives a false reading. Use the ratchet."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel rule for piston diameter",
+      "why": "It cannot read to 0.01 mm."
+     },
+     {
+      "name": "Bottle of brake fluid",
+      "why": "No hydraulic system is being worked on."
+     },
+     {
+      "name": "Concrete blocks",
+      "why": "They can crumble. Use axle stands."
+     },
+     {
+      "name": "Depth gauge for spark plug gap",
+      "why": "A gap is measured with a feeler gauge."
+     },
+     {
+      "name": "Bathroom scale",
+      "why": "No weighing is done in this job."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "It would damage precision parts."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "zero",
+     "afterStep": 1,
+     "prompt": "The micrometer does not read zero when closed. What do you do?",
+     "options": [
+      {
+       "text": "Correct the zero or allow for the error",
+       "correct": true,
+       "consequence": "Your readings stay true."
+      },
+      {
+       "text": "Ignore it, since it is small",
+       "consequence": "Every reading carries the same error."
+      },
+      {
+       "text": "Tap the thimble with a spanner",
+       "consequence": "This damages the instrument."
+      }
+     ]
+    },
+    {
+     "id": "pressure",
+     "afterStep": 2,
+     "prompt": "How do you close the micrometer on the piston?",
+     "options": [
+      {
+       "text": "Use the ratchet until it clicks",
+       "correct": true,
+       "consequence": "Pressure stays consistent, so readings are repeatable."
+      },
+      {
+       "text": "Tighten the thimble firmly by hand",
+       "consequence": "Varying pressure changes the reading."
+      },
+      {
+       "text": "Close it and lock it, then force it off",
+       "consequence": "This wears the anvil faces."
+      }
+     ]
+    },
+    {
+     "id": "feeler",
+     "afterStep": 3,
+     "prompt": "A blade will not enter the plug gap easily. What do you do?",
+     "options": [
+      {
+       "text": "Try the next thinner blade",
+       "correct": true,
+       "consequence": "It slides with light drag, which gives a true reading."
+      },
+      {
+       "text": "Push it in harder",
+       "consequence": "Forcing bends the blade."
+      },
+      {
+       "text": "Open the gap with a screwdriver",
+       "consequence": "You have not yet measured, and this may harm the plug."
+      }
+     ]
+    },
+    {
+     "id": "stands",
+     "afterStep": 6,
+     "prompt": "The car is on the stands. What do you do before going under?",
+     "options": [
+      {
+       "text": "Test that it is stable",
+       "correct": true,
+       "consequence": "A firm car will not shift when you are under it."
+      },
+      {
+       "text": "Go straight under, as it looks fine",
+       "consequence": "You have not checked its stability."
+      },
+      {
+       "text": "Remove the chocks",
+       "consequence": "The car can then roll."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "float-ok",
+     "prompt": "Crankshaft end float reads 0.15 mm, and the limit is 0.05 to 0.25 mm. What do you record?",
+     "options": [
+      {
+       "text": "Acceptable",
+       "correct": true
+      },
+      {
+       "text": "Too small",
+       "why": "It is above the lower limit."
+      },
+      {
+       "text": "Too large",
+       "why": "It is below the upper limit."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mic",
+     "prompt": "The sleeve of a micrometer shows {s} mm, and the thimble reads {t} divisions of 0.01 mm. What is the reading in mm?",
+     "formula": "s + t * 0.01",
+     "vars": {
+      "s": {
+       "min": 74,
+       "max": 75,
+       "step": 0.5
+      },
+      "t": {
+       "min": 12,
+       "max": 48,
+       "step": 6
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{s} + {t} × 0.01 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "near-miss",
+     "scenario": "The car rocked while Ebuka worked under it, and his measurements were wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He jacked at a non-designated point.",
+       "fault": true,
+       "why": "Use the specified points."
+      },
+      {
+       "text": "He forced feeler blades into the gap.",
+       "fault": true,
+       "why": "Forcing gives a false reading."
+      },
+      {
+       "text": "He did not check the instruments for zero error.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "He cleaned the surfaces before measuring.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He chocked the wheels.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using a micrometer or jack.",
+    "explainPrompt": "Why must a car on a jack be supported on axle stands before anyone goes under it?",
+    "explainGuide": "A jack can leak down, slip or fail without warning. Axle stands hold the load mechanically, so the car cannot drop on you.",
+    "explainKeywords": [
+     [
+      "jack"
+     ],
+     [
+      "fail",
+      "fails",
+      "slip",
+      "leak",
+      "drop"
+     ],
+     [
+      "stands",
+      "support",
+      "holds"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Using measuring instruments and lifting equipment",
+    "Zero it first. Stands before you go under."
+   ]
+  },
+  "pr-amech-inspecting-vehicle-layout-and-drive-arrangements": {
+   "safety": {
+    "correct": [
+     "Wear gloves when touching parts underneath the car."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the key in the ignition in case the bonnet light is needed.",
+      "why": "Someone could start it. Engine off, key out."
+     },
+     {
+      "text": "Lean on the exhaust to look at the gearbox.",
+      "why": "Exhausts stay hot long after running. Keep clear."
+     },
+     {
+      "text": "Crawl under the jacked car with no stands, for just a look.",
+      "why": "Use stands, even for a short look."
+     },
+     {
+      "text": "Reach beside the fan as soon as the engine stops.",
+      "why": "Electric fans can start again on a hot engine. Keep clear."
+     },
+     {
+      "text": "Stand on the battery to reach over the engine.",
+      "why": "It can break or short. Use a proper platform."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Compression tester",
+      "why": "Nothing is being measured in the cylinders."
+     },
+     {
+      "name": "Torque wrench",
+      "why": "Nothing is being fastened in this inspection."
+     },
+     {
+      "name": "Valve spring compressor",
+      "why": "No valve is being removed."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "This is a layout inspection."
+     },
+     {
+      "name": "Feeler gauge set",
+      "why": "No gap is being measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "rods",
+     "afterStep": 3,
+     "prompt": "You see two shafts from the front differential out to the wheels. What are they?",
+     "options": [
+      {
+       "text": "Drive shafts with CV joints",
+       "correct": true,
+       "consequence": "Your record names the drive parts correctly."
+      },
+      {
+       "text": "Steering rods",
+       "consequence": "This is the common mistake. Track rods link to the steering, not the differential."
+      },
+      {
+       "text": "Propeller shafts to each wheel",
+       "consequence": "A propeller shaft runs along the car."
+      }
+     ]
+    },
+    {
+     "id": "transaxle",
+     "afterStep": 4,
+     "prompt": "The gearbox and final drive are one unit. What do you record?",
+     "options": [
+      {
+       "text": "A transaxle",
+       "correct": true,
+       "consequence": "This is the correct term for a front-wheel-drive unit."
+      },
+      {
+       "text": "A gearbox only",
+       "consequence": "That leaves out the final drive."
+      },
+      {
+       "text": "A rear axle",
+       "consequence": "It is at the front, and it is a different assembly."
+      }
+     ]
+    },
+    {
+     "id": "classify",
+     "afterStep": 4,
+     "prompt": "There is a long shaft from the front gearbox to a rear differential. How do you classify it?",
+     "options": [
+      {
+       "text": "Front-engine, rear-wheel drive",
+       "correct": true,
+       "consequence": "The propeller shaft takes the drive to the rear."
+      },
+      {
+       "text": "Front-wheel drive",
+       "consequence": "That has no long propeller shaft."
+      },
+      {
+       "text": "Rear-engine, rear-wheel drive",
+       "consequence": "The engine is at the front."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "layout",
+     "prompt": "Which finding fits a front-wheel-drive car?",
+     "options": [
+      {
+       "text": "A transaxle with drive shafts and CV joints",
+       "correct": true
+      },
+      {
+       "text": "A long propeller shaft and rear axle",
+       "why": "That is rear-wheel drive."
+      },
+      {
+       "text": "A transfer box driving both axles",
+       "why": "That is four-wheel drive."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "front",
+     "prompt": "The front axle load is {f} N, and the rear axle load is {r} N. What percentage of the total is on the front axle?",
+     "formula": "f / (f + r) * 100",
+     "vars": {
+      "f": {
+       "min": 6600,
+       "max": 7800,
+       "step": 600
+      },
+      "r": {
+       "min": 4200,
+       "max": 4800,
+       "step": 600
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 1,
+     "working": "{f} ÷ ({f} + {r}) × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "layout-sheet",
+     "scenario": "Adaeze's layout sheet was marked down. Here is what she wrote or did.",
+     "lines": [
+      {
+       "text": "She called the transaxle a gearbox only.",
+       "fault": true,
+       "why": "It also holds the final drive."
+      },
+      {
+       "text": "She labelled the drive shafts as steering rods.",
+       "fault": true,
+       "why": "That is a common mix-up."
+      },
+      {
+       "text": "She touched the hot exhaust while looking underneath.",
+       "fault": true,
+       "why": "Use a lamp, and keep clear of hot parts."
+      },
+      {
+       "text": "She removed the key first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She sketched the power flow.",
+       "why": "That is the task."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for inspecting underneath a vehicle.",
+    "explainPrompt": "Why does a front-wheel-drive car need no long propeller shaft?",
+    "explainGuide": "The engine and transaxle sit at the front next to the driven wheels, so short drive shafts carry the power directly.",
+    "explainKeywords": [
+     [
+      "front"
+     ],
+     [
+      "transaxle",
+      "gearbox",
+      "engine"
+     ],
+     [
+      "drive shafts",
+      "drive shaft",
+      "short",
+      "wheels"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Inspecting vehicle layout and drive arrangements",
+    "Follow the power from engine to wheels."
+   ]
+  },
+  "pr-amech-engine-compression-test": {
+   "safety": {
+    "correct": [
+     "Let the exhaust and plugs cool enough to handle before removing the plugs."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the ignition live to save time on reconnecting.",
+      "why": "It risks coil damage and shock. Disable it."
+     },
+     {
+      "text": "Reach near the belts while a helper cranks.",
+      "why": "Keep your hands clear."
+     },
+     {
+      "text": "Crank with the plug leads hanging loose and live.",
+      "why": "They can spark. Disable the system."
+     },
+     {
+      "text": "Pour a cupful of oil into a low cylinder.",
+      "why": "Too much oil can lock the engine. A teaspoon is enough."
+     },
+     {
+      "text": "Remove the plugs with the hot engine still running.",
+      "why": "Switch off first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Vacuum gauge",
+      "why": "It is not the tool for reading each cylinder's pressure."
+     },
+     {
+      "name": "Fuel pressure gauge",
+      "why": "It reads fuel, not cylinder pressure."
+     },
+     {
+      "name": "Tyre pressure gauge",
+      "why": "Its range and fitting do not suit a cylinder."
+     },
+     {
+      "name": "Radiator pressure tester",
+      "why": "It tests the cooling system."
+     },
+     {
+      "name": "Grease gun",
+      "why": "Oil from the can is used for the wet test."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It measures size, not pressure."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "warm",
+     "afterStep": 1,
+     "prompt": "The engine has been standing cold all morning. What do you do?",
+     "options": [
+      {
+       "text": "Warm it to normal temperature",
+       "correct": true,
+       "consequence": "The parts fit as they do in service, so the readings mean something."
+      },
+      {
+       "text": "Test it cold to save fuel",
+       "consequence": "Testing cold is a common mistake that gives low readings."
+      },
+      {
+       "text": "Pour hot water over the head",
+       "consequence": "This gives uneven heating and proves nothing."
+      }
+     ]
+    },
+    {
+     "id": "throttle",
+     "afterStep": 3,
+     "prompt": "The tester is in. What do you do with the throttle?",
+     "options": [
+      {
+       "text": "Hold it fully open",
+       "correct": true,
+       "consequence": "The cylinder fills properly, so the reading is true."
+      },
+      {
+       "text": "Leave it closed",
+       "consequence": "The cylinder cannot fill, so readings are low."
+      },
+      {
+       "text": "Open it a quarter",
+       "consequence": "Partial opening gives low, uneven readings."
+      }
+     ]
+    },
+    {
+     "id": "same-strokes",
+     "afterStep": 4,
+     "prompt": "Cylinder 1 took 6 strokes. How many do you use on the others?",
+     "options": [
+      {
+       "text": "The same number for each",
+       "correct": true,
+       "consequence": "The readings can be fairly compared."
+      },
+      {
+       "text": "As many as it takes to reach cylinder 1's figure",
+       "consequence": "This hides the fault."
+      },
+      {
+       "text": "3 on the next, to save the battery",
+       "consequence": "A different count makes the comparison unfair."
+      }
+     ]
+    },
+    {
+     "id": "wet",
+     "afterStep": 6,
+     "prompt": "Cylinder 3 is low. What do you do next?",
+     "options": [
+      {
+       "text": "Add a teaspoon of oil and retest",
+       "correct": true,
+       "consequence": "A rise points to the rings, and no rise points to the valves or gasket."
+      },
+      {
+       "text": "Add a cupful of oil and crank",
+       "consequence": "Too much oil can lock the engine."
+      },
+      {
+       "text": "Condemn the engine straight away",
+       "consequence": "The wet test would show the cause."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "rings",
+     "prompt": "A low cylinder rises sharply with oil. What does it show?",
+     "options": [
+      {
+       "text": "Worn piston rings",
+       "correct": true
+      },
+      {
+       "text": "Leaking valves",
+       "why": "Oil would not raise that reading much."
+      },
+      {
+       "text": "A blown gasket",
+       "why": "That reading would not rise much either."
+      }
+     ]
+    },
+    {
+     "id": "adjacent",
+     "prompt": "Two neighbouring cylinders both read low, and oil does not help. What does it suggest?",
+     "options": [
+      {
+       "text": "A blown head gasket between them",
+       "correct": true
+      },
+      {
+       "text": "A worn crankshaft journal on that side",
+       "why": "That would not give this pattern."
+      },
+      {
+       "text": "Weak spark",
+       "why": "This is a pressure test, not a spark test."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "low",
+     "prompt": "The highest cylinder reads 1 050 kPa, and another reads {l} kPa. By what percentage is it below the highest?",
+     "formula": "(1050 - l) / 1050 * 100",
+     "vars": {
+      "l": {
+       "min": 780,
+       "max": 900,
+       "step": 30
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "(1 050 − {l}) ÷ 1 050 × 100 = {answer}%. Over 10% is beyond the usual limit."
+    }
+   ],
+   "faults": [
+    {
+     "id": "false-low",
+     "scenario": "Hassan's readings were all low, and he condemned a good engine. Here is what he did.",
+     "lines": [
+      {
+       "text": "He tested it cold.",
+       "fault": true,
+       "why": "The engine must be at normal temperature."
+      },
+      {
+       "text": "He cranked on a weak battery.",
+       "fault": true,
+       "why": "This gives a low cranking speed."
+      },
+      {
+       "text": "He left the throttle closed.",
+       "fault": true,
+       "why": "It must be wide open."
+      },
+      {
+       "text": "He removed all the plugs.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He recorded each peak reading.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for an accurate compression test.",
+    "explainPrompt": "Explain the reasoning behind the wet compression test.",
+    "explainGuide": "A little oil seals worn rings for a short time, so pressure rises if the rings are at fault. It cannot seal valves or a gasket, so if the reading stays low the leak is there.",
+    "explainKeywords": [
+     [
+      "oil"
+     ],
+     [
+      "seal",
+      "seals"
+     ],
+     [
+      "rings",
+      "ring"
+     ],
+     [
+      "valve",
+      "valves",
+      "gasket"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Engine compression test",
+    "Same strokes, same conditions."
+   ]
+  },
+  "pr-amech-measuring-cylinder-bore-and-crankshaft-journal-wear": {
+   "safety": {
+    "correct": [
+     "Keep your feet clear when the block is being moved."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the crankshaft alone to save time.",
+      "why": "It is heavy. Get help or use a hoist."
+     },
+     {
+      "text": "Lean the crankshaft against the bench edge.",
+      "why": "It can fall and hurt you. Lay it flat and supported."
+     },
+     {
+      "text": "Wipe a bore with a bare finger to clear it.",
+      "why": "Sharp ridges can cut. Use a clean rag."
+     },
+     {
+      "text": "Reach into the block as a partner rolls it over.",
+      "why": "Fingers can be crushed. Keep clear."
+     },
+     {
+      "text": "Measure straight after washing, with petrol still on the block.",
+      "why": "Petrol is a fire risk. Dry it first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel rule",
+      "why": "It reads nowhere near 0.01 mm."
+     },
+     {
+      "name": "Feeler gauge for bore wear",
+      "why": "Bore size needs a bore gauge and micrometer."
+     },
+     {
+      "name": "Compression tester",
+      "why": "The block is stripped, so this cannot be used."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is cut."
+     },
+     {
+      "name": "Bench grinder",
+      "why": "Regrinding is a machine-shop job, and it comes after measuring."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "where",
+     "afterStep": 2,
+     "prompt": "How many places do you measure each bore?",
+     "options": [
+      {
+       "text": "Top, middle and bottom, in both directions",
+       "correct": true,
+       "consequence": "You can then work out both taper and ovality."
+      },
+      {
+       "text": "The middle only, in one direction",
+       "consequence": "This is a common mistake that hides the wear."
+      },
+      {
+       "text": "The very top lip only",
+       "consequence": "The ridge is not the wear zone, and one reading shows no taper."
+      }
+     ]
+    },
+    {
+     "id": "square",
+     "afterStep": 2,
+     "prompt": "The gauge rocks in the bore. How do you hold it?",
+     "options": [
+      {
+       "text": "Square to the bore axis",
+       "correct": true,
+       "consequence": "Rocking finds the true smallest reading."
+      },
+      {
+       "text": "At a slant to reach the wear",
+       "consequence": "A slanted gauge reads oversize."
+      },
+      {
+       "text": "Pressed hard to one side",
+       "consequence": "The reading is then false."
+      }
+     ]
+    },
+    {
+     "id": "temp",
+     "afterStep": 2,
+     "prompt": "The block has just come from the sun. What do you do?",
+     "options": [
+      {
+       "text": "Wait, so parts are at the same temperature",
+       "correct": true,
+       "consequence": "Readings of block and gauge can be trusted."
+      },
+      {
+       "text": "Measure now, as it is drier and easier to handle",
+       "consequence": "Temperature differences are a source of error."
+      },
+      {
+       "text": "Cool it with cold water",
+       "consequence": "Sudden cooling can harm it and causes rust."
+      }
+     ]
+    },
+    {
+     "id": "decide",
+     "afterStep": 6,
+     "prompt": "Taper is 0.08 mm, and the maker's limit is 0.10 mm. What do you recommend?",
+     "options": [
+      {
+       "text": "Accept on taper, then check the other limits",
+       "correct": true,
+       "consequence": "It is within this limit, so no rebore is needed for taper."
+      },
+      {
+       "text": "Rebore at once",
+       "consequence": "It is within the limit."
+      },
+      {
+       "text": "Fit oversize pistons with no rebore",
+       "consequence": "Oversize pistons need a rebore."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "wear",
+     "prompt": "Where do you expect the bore to be worn most?",
+     "options": [
+      {
+       "text": "At the top on the thrust side",
+       "correct": true
+      },
+      {
+       "text": "At the bottom on the non-thrust side",
+       "why": "That is the least worn part."
+      },
+      {
+       "text": "In the very centre of the block",
+       "why": "There is no bore there."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "oval",
+     "prompt": "At the top of a bore, the thrust reading is {a} mm and the axial reading is {b} mm. What is the ovality in mm?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 80.1,
+       "max": 80.14,
+       "step": 0.02
+      },
+      "b": {
+       "min": 80.04,
+       "max": 80.08,
+       "step": 0.02
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{a} − {b} = {answer} mm."
+    },
+    {
+     "id": "taper",
+     "prompt": "On the thrust side, the top reads {a} mm and the bottom {b} mm. What is the taper in mm?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 80.1,
+       "max": 80.14,
+       "step": 0.02
+      },
+      "b": {
+       "min": 80.02,
+       "max": 80.06,
+       "step": 0.02
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{a} − {b} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "mixed-up",
+     "scenario": "Dele's bore report was rejected. Here is what he did.",
+     "lines": [
+      {
+       "text": "He measured in one direction only.",
+       "fault": true,
+       "why": "Both directions are needed."
+      },
+      {
+       "text": "He wrote the top-to-bottom difference down as ovality.",
+       "fault": true,
+       "why": "That difference is taper."
+      },
+      {
+       "text": "He held the gauge slanted.",
+       "fault": true,
+       "why": "It must be square to the bore."
+      },
+      {
+       "text": "He cleaned the bores.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He compared with the specifications.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for accurate bore measurement.",
+    "explainPrompt": "What is the difference between taper and ovality in a cylinder bore?",
+    "explainGuide": "Taper is the difference in diameter between top and bottom of the bore. Ovality is the difference between two directions at the same height.",
+    "explainKeywords": [
+     [
+      "taper"
+     ],
+     [
+      "top",
+      "bottom"
+     ],
+     [
+      "ovality",
+      "oval",
+      "out-of-round"
+     ],
+     [
+      "direction",
+      "directions",
+      "same height"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Measuring cylinder bore and crankshaft journal wear",
+    "Top, middle, bottom. Both directions."
+   ]
+  },
+  "pr-amech-valve-clearance-adjustment-and-firing-order": {
+   "safety": {
+    "correct": [
+     "Turn the engine by hand only, with a socket on the crankshaft."
+    ],
+    "wrong": [
+     {
+      "text": "Flick the starter to bring the engine round.",
+      "why": "It can move suddenly. Turn it by hand with the battery off."
+     },
+     {
+      "text": "Leave the battery connected for the inspection lamp.",
+      "why": "Disconnect it, and use a separate lamp."
+     },
+     {
+      "text": "Keep your fingers on the rockers while a friend turns the crank.",
+      "why": "They can trap your fingers. Keep clear."
+     },
+     {
+      "text": "Work on a hot engine straight after a road test.",
+      "why": "It can burn you. Let it cool as far as the task permits."
+     },
+     {
+      "text": "Leave a spanner on the rocker while turning the crank.",
+      "why": "It can jam and fly off. Clear the tools first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Micrometer",
+      "why": "A feeler gauge measures this gap."
+     },
+     {
+      "name": "Hacksaw blade as a feeler",
+      "why": "It has no known thickness."
+     },
+     {
+      "name": "Tube of instant gasket sealant",
+      "why": "The lesson fits a new rocker cover gasket. Sealant can squeeze into the oil ways."
+     },
+     {
+      "name": "Pipe wrench",
+      "why": "It rounds the lock nut. Use a ring spanner."
+     },
+     {
+      "name": "Compression tester",
+      "why": "This is a clearance job."
+     },
+     {
+      "name": "Hammer",
+      "why": "Valve gear is not to be struck."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "which",
+     "afterStep": 3,
+     "prompt": "Valves on cylinder 3 are rocking. Which cylinder do you adjust?",
+     "options": [
+      {
+       "text": "Cylinder 2",
+       "correct": true,
+       "consequence": "The rule of nine gives 5 − 3 = 2."
+      },
+      {
+       "text": "Cylinder 3",
+       "consequence": "These valves are open, so the clearance is false."
+      },
+      {
+       "text": "Cylinder 1",
+       "consequence": "That one is at another point in its cycle."
+      }
+     ]
+    },
+    {
+     "id": "open",
+     "afterStep": 4,
+     "prompt": "The valve you chose is slightly open. What do you do?",
+     "options": [
+      {
+       "text": "Turn the crank until it is fully closed",
+       "correct": true,
+       "consequence": "Only then is the clearance real."
+      },
+      {
+       "text": "Adjust it there",
+       "consequence": "This gives a false clearance."
+      },
+      {
+       "text": "Add extra feeler thickness to allow for it",
+       "consequence": "This is a guess."
+      }
+     ]
+    },
+    {
+     "id": "drag",
+     "afterStep": 4,
+     "prompt": "How tight should the feeler be?",
+     "options": [
+      {
+       "text": "A slight drag",
+       "correct": true,
+       "consequence": "That is the specified gap."
+      },
+      {
+       "text": "Trapped so that it cannot move",
+       "consequence": "The gap is too small, and valves can burn."
+      },
+      {
+       "text": "Slack with no feel",
+       "consequence": "The gap is too wide, so the valve gear is noisy."
+      }
+     ]
+    },
+    {
+     "id": "hot-cold",
+     "afterStep": 5,
+     "prompt": "The data says 0.25 mm hot, and the engine is cold. What do you do?",
+     "options": [
+      {
+       "text": "Check the specified condition and work to that",
+       "correct": true,
+       "consequence": "The gap will be right at the temperature it was specified for."
+      },
+      {
+       "text": "Use the hot figure on the cold engine",
+       "consequence": "This gives the wrong clearance."
+      },
+      {
+       "text": "Use the exhaust figure instead",
+       "consequence": "That is mixing clearances."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "order",
+     "prompt": "You note the inlet valves opening in a typical in-line four. What order do you see?",
+     "options": [
+      {
+       "text": "1-3-4-2",
+       "correct": true
+      },
+      {
+       "text": "1-2-3-4",
+       "why": "That would unbalance the engine."
+      },
+      {
+       "text": "1-5-3-6-2-4",
+       "why": "That is a six-cylinder order."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "nine",
+     "prompt": "On a four-cylinder engine, valves are rocking on cylinder {x}. By the rule, which cylinder do you adjust?",
+     "formula": "5 - x",
+     "vars": {
+      "x": {
+       "min": 1,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "5 − {x} = {answer}."
+    },
+    {
+     "id": "period",
+     "prompt": "An inlet valve opens {o}° BTDC and closes {c}° ABDC. What is the inlet period in degrees?",
+     "formula": "o + 180 + c",
+     "vars": {
+      "o": {
+       "min": 5,
+       "max": 15,
+       "step": 5
+      },
+      "c": {
+       "min": 40,
+       "max": 55,
+       "step": 5
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees",
+      "deg"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{o} + 180 + {c} = {answer}°."
+    },
+    {
+     "id": "overlap",
+     "prompt": "An inlet valve opens {o}° BTDC. The exhaust valve closes {c}° ATDC. What is the valve overlap?",
+     "formula": "o + c",
+     "vars": {
+      "o": {
+       "min": 5,
+       "max": 15,
+       "step": 5
+      },
+      "c": {
+       "min": 10,
+       "max": 20,
+       "step": 5
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees",
+      "deg"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{o} + {c} = {answer}°."
+    }
+   ],
+   "faults": [
+    {
+     "id": "noisy",
+     "scenario": "Sani's engine was noisy, and later one valve burnt. Here is what he did.",
+     "lines": [
+      {
+       "text": "He adjusted a valve that was open.",
+       "fault": true,
+       "why": "Valves must be closed."
+      },
+      {
+       "text": "He swapped the inlet and exhaust clearances.",
+       "fault": true,
+       "why": "Each has its own value."
+      },
+      {
+       "text": "He did not recheck after tightening.",
+       "fault": true,
+       "why": "The lock nut can shift the setting."
+      },
+      {
+       "text": "He used a new cover gasket.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He removed the spark plugs.",
+       "why": "That makes turning easy."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for setting valve clearances.",
+    "explainPrompt": "What can too small a valve clearance do to an engine?",
+    "explainGuide": "As the valve heats and expands, it may not seat fully. The valve loses heat to the seat, so it burns and compression leaks.",
+    "explainKeywords": [
+     [
+      "expand",
+      "expands",
+      "heat"
+     ],
+     [
+      "seat",
+      "seats",
+      "close",
+      "closes"
+     ],
+     [
+      "burn",
+      "burns",
+      "burnt"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Valve clearance adjustment and firing order",
+    "Rule of nine for a four."
+   ]
+  },
+  "pr-amech-decarbonising-a-cylinder-head": {
+   "safety": {
+    "correct": [
+     "Dispose of drained coolant in a closed container, not on the ground."
+    ],
+    "wrong": [
+     {
+      "text": "Slacken the head bolts while the engine is still hot.",
+      "why": "Hot heads can warp and burn you. Let it cool."
+     },
+     {
+      "text": "Wire-brush carbon without goggles, as it is soft.",
+      "why": "Carbon flies into the eyes. Wear goggles."
+     },
+     {
+      "text": "Wash parts in petrol in the open workshop.",
+      "why": "Petrol is a fire risk. Use paraffin."
+     },
+     {
+      "text": "Lift the heavy head alone, off the top of the engine.",
+      "why": "It is heavy, and you can strain yourself. Get help."
+     },
+     {
+      "text": "Keep paste on your fingers and rub your eyes.",
+      "why": "Grit damages the eyes. Wash your hands."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel chisel for scraping",
+      "why": "It gouges the chamber. Use a soft scraper."
+     },
+     {
+      "name": "Old head gasket",
+      "why": "Always use a new one."
+     },
+     {
+      "name": "Engine crane boom",
+      "why": "The head can be lifted without one."
+     },
+     {
+      "name": "Impact wrench for head bolts",
+      "why": "Head bolts need staged torque."
+     },
+     {
+      "name": "Petrol for cleaning",
+      "why": "Paraffin is the listed cleaner."
+     },
+     {
+      "name": "Spirit level for head flatness",
+      "why": "Use the straight edge and feeler gauge."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "slacken",
+     "afterStep": 2,
+     "prompt": "In which order do you slacken the head bolts?",
+     "options": [
+      {
+       "text": "Reverse of the tightening sequence",
+       "correct": true,
+       "consequence": "The head relaxes evenly and does not warp."
+      },
+      {
+       "text": "From one end to the other",
+       "consequence": "Uneven release can warp the head."
+      },
+      {
+       "text": "All at full force at once",
+       "consequence": "This is the same risk, and it can strip threads."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 3,
+     "prompt": "You have removed the valves. Where do you put them?",
+     "options": [
+      {
+       "text": "In order, in a numbered rack",
+       "correct": true,
+       "consequence": "Each returns to its own seat."
+      },
+      {
+       "text": "All together in a tin",
+       "consequence": "They get mixed, so the seats no longer match."
+      },
+      {
+       "text": "On the floor, close by",
+       "consequence": "They get dirty and are easily mixed."
+      }
+     ]
+    },
+    {
+     "id": "ring",
+     "afterStep": 4,
+     "prompt": "You scrape the piston crown. What do you leave?",
+     "options": [
+      {
+       "text": "A ring of carbon at the edge",
+       "correct": true,
+       "consequence": "This protects the seal between piston and bore."
+      },
+      {
+       "text": "Nothing: scrape every bit off",
+       "consequence": "Carbon gets into the ring area."
+      },
+      {
+       "text": "A full layer of carbon",
+       "consequence": "That defeats the task."
+      }
+     ]
+    },
+    {
+     "id": "flat",
+     "afterStep": 6,
+     "prompt": "A 0.10 mm feeler slides under the straight edge, and the limit is 0.05 mm. What do you do?",
+     "options": [
+      {
+       "text": "Have the head skimmed",
+       "correct": true,
+       "consequence": "A flat head seals against the new gasket."
+      },
+      {
+       "text": "Refit it with extra sealant",
+       "consequence": "Sealant does not correct a warped head."
+      },
+      {
+       "text": "Tighten the bolts more",
+       "consequence": "This can break bolts, and it does not flatten the head."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lap",
+     "prompt": "You have finished lapping a valve. What shows a good seat?",
+     "options": [
+      {
+       "text": "A continuous, even grey band",
+       "correct": true
+      },
+      {
+       "text": "A broken band with gaps",
+       "why": "It would leak."
+      },
+      {
+       "text": "A bright polished shine, with scratches",
+       "why": "Scratches show dirt, not a good seat."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "over",
+     "prompt": "A {f} mm feeler slides under the straight edge, and the limit is 0.05 mm. By how many mm is the head beyond the limit?",
+     "formula": "f - 0.05",
+     "vars": {
+      "f": {
+       "min": 0.08,
+       "max": 0.14,
+       "step": 0.02
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{f} − 0.05 = {answer} mm, so it must be skimmed."
+    }
+   ],
+   "faults": [
+    {
+     "id": "blown-again",
+     "scenario": "Chuka's head gasket failed a week after the job. Here is what he did.",
+     "lines": [
+      {
+       "text": "He reused the old gasket.",
+       "fault": true,
+       "why": "Always use a new gasket."
+      },
+      {
+       "text": "He tightened the bolts from one end.",
+       "fault": true,
+       "why": "Tighten from the centre out, in stages."
+      },
+      {
+       "text": "He left grinding paste on the valves.",
+       "fault": true,
+       "why": "Paste must be removed before assembly."
+      },
+      {
+       "text": "He kept the valves in order.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He let the engine cool first.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for decarbonising a cylinder head.",
+    "explainPrompt": "Why are head bolts tightened in stages from the centre outwards?",
+    "explainGuide": "Tightening in stages from the centre spreads the clamping load evenly and pushes the head flat. This stops warping and gasket failure.",
+    "explainKeywords": [
+     [
+      "even",
+      "evenly",
+      "uniform"
+     ],
+     [
+      "centre",
+      "stages"
+     ],
+     [
+      "warp",
+      "warping",
+      "distort",
+      "gasket"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Decarbonising a cylinder head",
+    "Keep the valves in order."
+   ]
+  },
+  "pr-amech-servicing-a-mechanical-fuel-pump-and-carburettor": {
+   "safety": {
+    "correct": [
+     "Keep a suitable extinguisher near while the fuel system is open."
+    ],
+    "wrong": [
+     {
+      "text": "Wash carburettor parts in an open basin of petrol near the grinder.",
+      "why": "Sparks can ignite the vapour. Use cleaner, well away from sparks."
+     },
+     {
+      "text": "Blow through a fuel pipe with your mouth to clear it.",
+      "why": "You can swallow petrol. Use compressed air, with goggles."
+     },
+     {
+      "text": "Leave a petrol spill to dry off by itself.",
+      "why": "The vapour can ignite. Wipe it up immediately."
+     },
+     {
+      "text": "Put petrol-soaked rags in your overall pocket.",
+      "why": "Your clothes become a fire risk. Use the rags container."
+     },
+     {
+      "text": "Point the air gun at your palm to check the pressure.",
+      "why": "Air can injure skin. Point it only at the part."
+     },
+     {
+      "text": "Check the idle indoors with the doors closed.",
+      "why": "Exhaust gas is deadly. Ventilate."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel wire for jets",
+      "why": "Wire enlarges jets."
+     },
+     {
+      "name": "Drill bit to open the jet",
+      "why": "It changes the size of the jet and spoils the mixture."
+     },
+     {
+      "name": "Used gaskets from the old pump",
+      "why": "Replace all gaskets."
+     },
+     {
+      "name": "Grease for the float chamber",
+      "why": "It blocks the fine passages."
+     },
+     {
+      "name": "Radiator pressure tester",
+      "why": "This job tests fuel pressure."
+     },
+     {
+      "name": "Injector tester",
+      "why": "That is for diesel injectors, not a carburettor."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "test-first",
+     "afterStep": 1,
+     "prompt": "The car is losing power. What do you do before removing the pump?",
+     "options": [
+      {
+       "text": "Test its delivery and pressure",
+       "correct": true,
+       "consequence": "You have proof of whether the pump is at fault."
+      },
+      {
+       "text": "Fit a repair kit straight away",
+       "consequence": "That is changing parts without a test."
+      },
+      {
+       "text": "Remove the carburettor first",
+       "consequence": "You will lose the fuel supply test."
+      }
+     ]
+    },
+    {
+     "id": "jets",
+     "afterStep": 4,
+     "prompt": "A jet is blocked. How do you clear it?",
+     "options": [
+      {
+       "text": "Use cleaner and compressed air",
+       "correct": true,
+       "consequence": "The jet opens without any change in size."
+      },
+      {
+       "text": "Push a wire through it, then blow it out",
+       "consequence": "Wire enlarges jets and upsets the mixture."
+      },
+      {
+       "text": "Tap it on the bench",
+       "consequence": "This does not clear it, and it can damage it."
+      }
+     ]
+    },
+    {
+     "id": "valves",
+     "afterStep": 2,
+     "prompt": "You are refitting the pump's valves. What must you check?",
+     "options": [
+      {
+       "text": "That each faces the correct way",
+       "correct": true,
+       "consequence": "Fuel flows in the right direction."
+      },
+      {
+       "text": "That they shine",
+       "consequence": "Shine does not matter."
+      },
+      {
+       "text": "Nothing, as they fit either way",
+       "consequence": "Reversing them stops the pump working."
+      }
+     ]
+    },
+    {
+     "id": "float",
+     "afterStep": 5,
+     "prompt": "The carburettor is back together. What must you set?",
+     "options": [
+      {
+       "text": "The float level",
+       "correct": true,
+       "consequence": "The mixture stays correct."
+      },
+      {
+       "text": "The fuel tank level",
+       "consequence": "The tank has no such setting."
+      },
+      {
+       "text": "The spark plug gap",
+       "consequence": "That is the ignition."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "diaphragm",
+     "prompt": "A pump gives low delivery. What might you find?",
+     "options": [
+      {
+       "text": "A torn diaphragm or sticking valve",
+       "correct": true
+      },
+      {
+       "text": "A spotless diaphragm with free valves",
+       "why": "That pump would deliver normally."
+      },
+      {
+       "text": "A loose spark plug",
+       "why": "That does not affect pump delivery."
+      }
+     ]
+    },
+    {
+     "id": "smoke",
+     "prompt": "The petrol engine gives black exhaust smoke. What does it indicate?",
+     "options": [
+      {
+       "text": "A rich mixture",
+       "correct": true
+      },
+      {
+       "text": "A weak mixture",
+       "why": "A weak mixture gives overheating and backfire."
+      },
+      {
+       "text": "Burning coolant",
+       "why": "That is white steam."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "air",
+     "prompt": "The stoichiometric ratio is 14.7:1 by mass. How many kg of air are needed to burn {m} kg of petrol?",
+     "formula": "14.7 * m",
+     "vars": {
+      "m": {
+       "min": 2,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "kg",
+     "unitAliases": [
+      "kilograms"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "14.7 × {m} = {answer} kg."
+    },
+    {
+     "id": "vol",
+     "prompt": "Air has a density of 1.2 kg/m³. What volume in m³ do {a} kg of air take up?",
+     "formula": "a / 1.2",
+     "vars": {
+      "a": {
+       "min": 12,
+       "max": 24,
+       "step": 6
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{a} ÷ 1.2 = {answer} m³."
+    }
+   ],
+   "faults": [
+    {
+     "id": "flooding",
+     "scenario": "Tola's car ran rich and stalled after the service. Here is what he did.",
+     "lines": [
+      {
+       "text": "He cleaned the jets with wire.",
+       "fault": true,
+       "why": "This enlarges them."
+      },
+      {
+       "text": "He did not set the float level.",
+       "fault": true,
+       "why": "A wrong level gives a rich or weak mixture."
+      },
+      {
+       "text": "He reused the old gaskets.",
+       "fault": true,
+       "why": "Replace all gaskets."
+      },
+      {
+       "text": "He kept the small parts in a clean tray.",
+       "why": "That prevents losses."
+      },
+      {
+       "text": "He checked for leaks.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing a fuel system.",
+    "explainPrompt": "Why should a carburettor jet never be cleaned with wire?",
+    "explainGuide": "Wire scratches and enlarges the jet, so too much fuel passes through. The mixture becomes rich and fuel use rises.",
+    "explainKeywords": [
+     [
+      "enlarge",
+      "enlarges",
+      "bigger",
+      "wider"
+     ],
+     [
+      "fuel",
+      "mixture"
+     ],
+     [
+      "rich",
+      "too much"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing a mechanical fuel pump and carburettor",
+    "No flames near petrol."
+   ]
+  },
+  "pr-amech-bleeding-a-diesel-fuel-system-and-servicing-injectors": {
+   "safety": {
+    "correct": [
+     "Point the injector into the clean container whenever the tester is pumped."
+    ],
+    "wrong": [
+     {
+      "text": "Feel the spray with your palm to judge how fine it is.",
+      "why": "High-pressure diesel can penetrate skin. Watch it only."
+     },
+     {
+      "text": "Hold the nozzle up close to your face to view the spray.",
+      "why": "Spray can injure your eyes and skin. Keep it directed into the container."
+     },
+     {
+      "text": "Wipe a leak with your finger during pumping.",
+      "why": "Fuel under pressure can enter the skin. Stop and release pressure."
+     },
+     {
+      "text": "Leave your goggles off because diesel is not petrol.",
+      "why": "Fuel spray still harms the eyes."
+     },
+     {
+      "text": "Treat a fuel injection in the skin as a small scratch.",
+      "why": "It is a medical emergency, so get medical help at once."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel wire brush",
+      "why": "It scratches the nozzle. Use the brass brush."
+     },
+     {
+      "name": "Used copper washers",
+      "why": "Fit new ones."
+     },
+     {
+      "name": "Dirty funnel",
+      "why": "Dirt damages injection parts."
+     },
+     {
+      "name": "Spark plug spanner",
+      "why": "A diesel has no spark plugs."
+     },
+     {
+      "name": "Petrol for flushing",
+      "why": "Clean diesel is the listed fuel."
+     },
+     {
+      "name": "Timing light",
+      "why": "It works on spark ignition."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bleed-order",
+     "afterStep": 2,
+     "prompt": "The filter is new. Where do you begin bleeding?",
+     "options": [
+      {
+       "text": "At the filter bleed screw",
+       "correct": true,
+       "consequence": "You bleed in order from tank towards injectors."
+      },
+      {
+       "text": "At the injectors",
+       "consequence": "Air upstream still has to pass through."
+      },
+      {
+       "text": "By cranking straight away",
+       "consequence": "Cranking before bleeding is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "clear",
+     "afterStep": 2,
+     "prompt": "When do you close the bleed screw?",
+     "options": [
+      {
+       "text": "When fuel flows free of bubbles",
+       "correct": true,
+       "consequence": "Air has gone from that stage."
+      },
+      {
+       "text": "After the first spurt of froth",
+       "consequence": "Air is still present."
+      },
+      {
+       "text": "After 5 strokes, whatever flows",
+       "consequence": "A set count proves nothing."
+      }
+     ]
+    },
+    {
+     "id": "pop",
+     "afterStep": 6,
+     "prompt": "The tester shows opening at 128 bar, and the spec is 150 bar. What do you do?",
+     "options": [
+      {
+       "text": "Adjust the shims or spring to raise it",
+       "correct": true,
+       "consequence": "The injector returns to the specified pressure."
+      },
+      {
+       "text": "Accept it, because it opens without any leaks",
+       "consequence": "It is 14.7% low, so timing and spray suffer."
+      },
+      {
+       "text": "Bend the nozzle tip",
+       "consequence": "This ruins the nozzle."
+      }
+     ]
+    },
+    {
+     "id": "washers",
+     "afterStep": 7,
+     "prompt": "You are refitting the injector. What do you use?",
+     "options": [
+      {
+       "text": "New copper washers",
+       "correct": true,
+       "consequence": "They seal properly."
+      },
+      {
+       "text": "The old washers, annealed in a flame",
+       "consequence": "The lesson calls for new washers."
+      },
+      {
+       "text": "No washers, for a tighter fit",
+       "consequence": "It will leak."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "spray",
+     "prompt": "Which test result shows a good injector?",
+     "options": [
+      {
+       "text": "A fine, even atomised spray with no dribble",
+       "correct": true
+      },
+      {
+       "text": "A solid stream",
+       "why": "This shows a poor atomisation."
+      },
+      {
+       "text": "A spray that then dribbles from the tip afterwards",
+       "why": "A dribble means a leaking nozzle."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dev",
+     "prompt": "An injector's specified opening pressure is {s} bar, and it tests at {t} bar. What is the percentage deviation?",
+     "formula": "(s - t) / s * 100",
+     "vars": {
+      "s": {
+       "min": 150,
+       "max": 200,
+       "step": 50
+      },
+      "t": {
+       "min": 120,
+       "max": 135,
+       "step": 15
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "({s} − {t}) ÷ {s} × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "no-start",
+     "scenario": "Bala's diesel still will not start. Here is what he did.",
+     "lines": [
+      {
+       "text": "He cranked before bleeding the filter and pump.",
+       "fault": true,
+       "why": "Air is still in the system."
+      },
+      {
+       "text": "He wiped the pipes with a dirty rag.",
+       "fault": true,
+       "why": "Dirt damages injection parts."
+      },
+      {
+       "text": "He reused old washers.",
+       "fault": true,
+       "why": "Use new washers."
+      },
+      {
+       "text": "He bled in order from the tank towards the injectors.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He wore goggles.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing diesel injectors.",
+    "explainPrompt": "Why must air be bled from a diesel fuel system?",
+    "explainGuide": "Air compresses, so injection pressure cannot build and fuel does not reach the injectors properly. This causes hard starting or stopping.",
+    "explainKeywords": [
+     [
+      "air"
+     ],
+     [
+      "compress",
+      "compresses",
+      "pressure"
+     ],
+     [
+      "starting",
+      "stopping",
+      "stop",
+      "start"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Bleeding a diesel fuel system and servicing injectors",
+    "Keep it clean. Keep hands clear."
+   ]
+  },
+  "pr-amech-inspecting-the-exhaust-system-for-leaks": {
+   "safety": {
+    "correct": [
+     "Keep your face away from the tail pipe outlet."
+    ],
+    "wrong": [
+     {
+      "text": "Run the engine in the closed garage to hear leaks better.",
+      "why": "Carbon monoxide kills. Run outdoors."
+     },
+     {
+      "text": "Grab the exhaust just after a run to shake it.",
+      "why": "It is very hot. Inspect it cold or wear gloves."
+     },
+     {
+      "text": "Keep the rag in the tail pipe for a full minute.",
+      "why": "Only a few seconds. Long blockage strains the exhaust and heats the rag."
+     },
+     {
+      "text": "Lie under the running car on a jack alone.",
+      "why": "Use stands or a pit."
+     },
+     {
+      "text": "Lean a lit lamp near the hot silencer with fuel around.",
+      "why": "Fuel and heat can start a fire. Keep it clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oil filter wrench",
+      "why": "It is for oil filters."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Spark plug spanner",
+      "why": "No plug is removed here."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "No gap is measured."
+     },
+     {
+      "name": "Grease gun",
+      "why": "No exhaust part is greased."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "where",
+     "afterStep": 3,
+     "prompt": "You are about to do the rag test. Where is the car?",
+     "options": [
+      {
+       "text": "Outdoors, with the engine idling",
+       "correct": true,
+       "consequence": "Exhaust gas blows away safely."
+      },
+      {
+       "text": "In the store with the door shut",
+       "consequence": "Carbon monoxide can collect."
+      },
+      {
+       "text": "In the pit under a closed shutter",
+       "consequence": "Heavy fumes gather in a closed pit."
+      }
+     ]
+    },
+    {
+     "id": "time",
+     "afterStep": 3,
+     "prompt": "How long do you block the tail pipe?",
+     "options": [
+      {
+       "text": "Only a few seconds",
+       "correct": true,
+       "consequence": "Leaks show at once with no damage."
+      },
+      {
+       "text": "Until the engine stalls",
+       "consequence": "This strains the system."
+      },
+      {
+       "text": "For a minute or two",
+       "consequence": "The rag gets hot and it adds back pressure."
+      }
+     ]
+    },
+    {
+     "id": "soot",
+     "afterStep": 4,
+     "prompt": "You see soot at a pipe joint. What does it mean?",
+     "options": [
+      {
+       "text": "A leak at that joint",
+       "correct": true,
+       "consequence": "You can tighten or repair it."
+      },
+      {
+       "text": "A good seal",
+       "consequence": "Soot marks show gas escaping."
+      },
+      {
+       "text": "A rich mixture only",
+       "consequence": "Soot at a joint shows a leak."
+      }
+     ]
+    },
+    {
+     "id": "knock",
+     "afterStep": 2,
+     "prompt": "A pipe knocks on the floor pan. What do you check?",
+     "options": [
+      {
+       "text": "The hangers and mountings",
+       "correct": true,
+       "consequence": "Broken hangers let the pipe move."
+      },
+      {
+       "text": "The oil level and the sump plug",
+       "consequence": "It does not affect the pipe."
+      },
+      {
+       "text": "The fan belt",
+       "consequence": "It is not connected."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "puff",
+     "prompt": "With the tail pipe briefly blocked, what shows a leak?",
+     "options": [
+      {
+       "text": "A puffing sound and soot around a joint",
+       "correct": true
+      },
+      {
+       "text": "A smooth, quiet idle with clean joints",
+       "why": "That shows no leak."
+      },
+      {
+       "text": "A rise in coolant level",
+       "why": "That is not exhaust related."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "flow",
+     "prompt": "A {v}-litre four-stroke engine runs at {n} rev/min. At 100% volumetric efficiency, how many litres of mixture does it draw per minute?",
+     "formula": "v * n / 2",
+     "vars": {
+      "v": {
+       "min": 1.2,
+       "max": 2,
+       "step": 0.4
+      },
+      "n": {
+       "min": 2000,
+       "max": 4000,
+       "step": 1000
+      }
+     },
+     "unit": "L/min",
+     "unitAliases": [
+      "l/min",
+      "litres per minute"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{v} × {n} ÷ 2 = {answer} L/min."
+    }
+   ],
+   "faults": [
+    {
+     "id": "noisy-car",
+     "scenario": "Rita inspected an exhaust and got a headache, and she also missed a leak. Here is what she did.",
+     "lines": [
+      {
+       "text": "She ran the engine in a closed space.",
+       "fault": true,
+       "why": "Carbon monoxide danger."
+      },
+      {
+       "text": "She confused the exhaust and inlet manifolds.",
+       "fault": true,
+       "why": "That is a common mistake."
+      },
+      {
+       "text": "She tested beside a loud compressor.",
+       "fault": true,
+       "why": "Background noise hides leaks."
+      },
+      {
+       "text": "She checked the rubber hangers.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She recorded her findings.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for inspecting an exhaust system.",
+    "explainPrompt": "Why is carbon monoxide from exhaust gas so dangerous?",
+    "explainGuide": "It is odourless and poisonous. It takes the place of oxygen in the blood, so people can pass out without warning.",
+    "explainKeywords": [
+     [
+      "odourless",
+      "smell"
+     ],
+     [
+      "poison",
+      "poisonous",
+      "toxic"
+     ],
+     [
+      "blood",
+      "oxygen"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Inspecting the exhaust system for leaks",
+    "Outdoors with the engine running."
+   ]
+  },
+  "pr-amech-changing-engine-oil-and-filter-and-comparing-lubricants": {
+   "safety": {
+    "correct": [
+     "Wipe up any oil spilled on the floor at once."
+    ],
+    "wrong": [
+     {
+      "text": "Pull the sump plug with the engine fully hot.",
+      "why": "Hot oil scalds. Warm it only slightly."
+     },
+     {
+      "text": "Pour used oil on the ground behind the workshop.",
+      "why": "It pollutes. Collect it for recycling."
+     },
+     {
+      "text": "Taste the fresh oil sample to compare it.",
+      "why": "Never taste lubricants. Check colour, smell and feel."
+     },
+     {
+      "text": "Lie under the car with only the jack holding it.",
+      "why": "Use stands."
+     },
+     {
+      "text": "Stand directly under the plug as you remove it.",
+      "why": "The oil can run on to you. Keep to one side."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Brake fluid to fill the engine",
+      "why": "Never. It is for identification only."
+     },
+     {
+      "name": "Water to flush the sump",
+      "why": "Water harms the engine."
+     },
+     {
+      "name": "Chain wrench to tighten the filter",
+      "why": "A filter is hand tight plus about ¾ turn."
+     },
+     {
+      "name": "Radiator cap tester",
+      "why": "That is for cooling."
+     },
+     {
+      "name": "Injector tester",
+      "why": "That is a diesel fuel tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "filter",
+     "afterStep": 3,
+     "prompt": "How do you fit the new filter?",
+     "options": [
+      {
+       "text": "Oil the seal; tighten by hand plus about ¾ turn",
+       "correct": true,
+       "consequence": "It seals without damage."
+      },
+      {
+       "text": "Fit it dry with a wrench",
+       "consequence": "A dry seal tears, and it can be over-tightened."
+      },
+      {
+       "text": "Tighten as hard as the wrench goes, with the seal dry",
+       "consequence": "This can crush the seal."
+      }
+     ]
+    },
+    {
+     "id": "plug",
+     "afterStep": 4,
+     "prompt": "The old sump plug washer is flattened. What do you do?",
+     "options": [
+      {
+       "text": "Fit a new washer",
+       "correct": true,
+       "consequence": "The plug seals."
+      },
+      {
+       "text": "Leave the washer off",
+       "consequence": "Forgetting it is a common mistake."
+      },
+      {
+       "text": "Tighten the plug harder",
+       "consequence": "This can strip the sump."
+      }
+     ]
+    },
+    {
+     "id": "fill",
+     "afterStep": 5,
+     "prompt": "You have added the full 4.5 L. What do you check?",
+     "options": [
+      {
+       "text": "The dipstick, then top up to the full mark",
+       "correct": true,
+       "consequence": "The level is right without overfilling."
+      },
+      {
+       "text": "Add a further litre to be safe",
+       "consequence": "Overfilling is harmful."
+      },
+      {
+       "text": "Nothing, as the quantity is correct",
+       "consequence": "Always check the level."
+      }
+     ]
+    },
+    {
+     "id": "level",
+     "afterStep": 6,
+     "prompt": "You check the level again after the engine has run. Where is the car?",
+     "options": [
+      {
+       "text": "On level ground",
+       "correct": true,
+       "consequence": "The stick reads true."
+      },
+      {
+       "text": "On a slope",
+       "consequence": "A slope gives a false level."
+      },
+      {
+       "text": "Up on one axle stand",
+       "consequence": "This gives a false reading."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "compare",
+     "prompt": "You compare fresh and used oil. Which is correct?",
+     "options": [
+      {
+       "text": "Used oil is dark and thin; fresh oil is clear amber",
+       "correct": true
+      },
+      {
+       "text": "Used oil is clearer and thicker; fresh oil is dark amber",
+       "why": "It is darker and thinner."
+      },
+      {
+       "text": "They look exactly the same",
+       "why": "Used oil changes."
+      }
+     ]
+    },
+    {
+     "id": "oil-light",
+     "prompt": "After starting, how should the oil light behave?",
+     "options": [
+      {
+       "text": "It goes out within seconds",
+       "correct": true
+      },
+      {
+       "text": "It stays on until the first service",
+       "why": "A light that stays on is a warning."
+      },
+      {
+       "text": "It flickers all day",
+       "why": "That needs investigating."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "add",
+     "prompt": "A sump holds {w} L with the filter and {o} L without. How much more oil does a filter change need than a plain drain, in L?",
+     "formula": "w - o",
+     "vars": {
+      "w": {
+       "min": 4.5,
+       "max": 5.5,
+       "step": 0.5
+      },
+      "o": {
+       "min": 4,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{w} − {o} = {answer} L."
+    }
+   ],
+   "faults": [
+    {
+     "id": "leaky",
+     "scenario": "Yinka's engine leaked oil after the change. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot the sump plug washer.",
+       "fault": true,
+       "why": "A washer is needed."
+      },
+      {
+       "text": "He tightened the filter with a wrench until it crushed.",
+       "fault": true,
+       "why": "This is a common mistake."
+      },
+      {
+       "text": "He read the dipstick on a slope.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "He used the maker's grade.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He collected the oil for recycling.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for an oil and filter change.",
+    "explainPrompt": "What does the grade 15W-40 mean?",
+    "explainGuide": "It is a multigrade oil. It has the viscosity of SAE 15 at low (winter) temperature, and that of SAE 40 at 100 °C.",
+    "explainKeywords": [
+     [
+      "15",
+      "winter",
+      "low"
+     ],
+     [
+      "40",
+      "100"
+     ],
+     [
+      "viscosity",
+      "multigrade"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Changing engine oil and filter and comparing lubricants",
+    "Right grade. Right level."
+   ]
+  },
+  "pr-amech-cooling-system-service-flushing-fan-belt-and-thermostat-test": {
+   "safety": {
+    "correct": [
+     "Keep antifreeze away from food, children and animals."
+    ],
+    "wrong": [
+     {
+      "text": "Open the radiator cap slowly while the engine is hot.",
+      "why": "Pressurised coolant can scald. Wait for it to cool."
+     },
+     {
+      "text": "Touch the belt with the engine running to feel its tension.",
+      "why": "It can trap your hand."
+     },
+     {
+      "text": "Reach past the fan with the engine running.",
+      "why": "Keep hands clear."
+     },
+     {
+      "text": "Pour used coolant into the yard drain.",
+      "why": "It is poisonous. Collect it for proper disposal."
+     },
+     {
+      "text": "Lift the hot beaker with bare hands.",
+      "why": "It scalds. Use tongs or a cloth."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Engine oil for the radiator",
+      "why": "Oil ruins hoses and cooling."
+     },
+     {
+      "name": "Cloth belt from the store",
+      "why": "Use the correct new fan belt."
+     },
+     {
+      "name": "Spark tester",
+      "why": "It tests ignition."
+     },
+     {
+      "name": "Feeler gauge for belt tension",
+      "why": "Belt deflection is measured with the ruler."
+     },
+     {
+      "name": "Hydrometer for the battery",
+      "why": "It is not part of this job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "belt",
+     "afterStep": 4,
+     "prompt": "How tight do you set the belt?",
+     "options": [
+      {
+       "text": "About 10 to 15 mm deflection midway",
+       "correct": true,
+       "consequence": "It neither slips nor loads the bearings."
+      },
+      {
+       "text": "As tight as a guitar string",
+       "consequence": "This wears the bearings."
+      },
+      {
+       "text": "Slack enough to lift off",
+       "consequence": "It slips and squeals."
+      }
+     ]
+    },
+    {
+     "id": "thermo",
+     "afterStep": 5,
+     "prompt": "A thermostat stamped 82 °C stays closed at 90 °C. What do you do?",
+     "options": [
+      {
+       "text": "Replace it",
+       "correct": true,
+       "consequence": "The engine will not overheat."
+      },
+      {
+       "text": "Refit it anyway",
+       "consequence": "It blocks coolant flow."
+      },
+      {
+       "text": "Remove it for good",
+       "consequence": "Running with none stops the engine reaching its working temperature."
+      }
+     ]
+    },
+    {
+     "id": "fit-way",
+     "afterStep": 6,
+     "prompt": "How do you refit the thermostat?",
+     "options": [
+      {
+       "text": "With the sensing element towards the engine",
+       "correct": true,
+       "consequence": "It feels the coolant temperature."
+      },
+      {
+       "text": "Whichever way it drops into the housing most easily",
+       "consequence": "Fitting upside down is a common mistake."
+      },
+      {
+       "text": "With sealant all over",
+       "consequence": "Sealant blocks the valve."
+      }
+     ]
+    },
+    {
+     "id": "refill",
+     "afterStep": 6,
+     "prompt": "The system is filled. What must you do?",
+     "options": [
+      {
+       "text": "Bleed the air and pressure-test it",
+       "correct": true,
+       "consequence": "Air pockets are removed, and leaks are found."
+      },
+      {
+       "text": "Close up and drive off to warm it through",
+       "consequence": "Air pockets can cause overheating."
+      },
+      {
+       "text": "Top up with oil",
+       "consequence": "Oil does not go in the cooling system."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "open",
+     "prompt": "A thermostat stamped 82 °C is heated in a beaker. What do you expect?",
+     "options": [
+      {
+       "text": "It opens near 82 °C and is fully open some 10 to 13 °C higher",
+       "correct": true
+      },
+      {
+       "text": "It is fully open by 60 °C and shuts again at 82 °C",
+       "why": "It should stay shut until near its stamped 82 °C."
+      },
+      {
+       "text": "It stays shut even when the water reaches 100 °C",
+       "why": "That thermostat is stuck shut and would cause overheating."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mix",
+     "prompt": "A cooling system holds {c} L. The coolant mix is 50%. How much antifreeze do you need, in L?",
+     "formula": "c * 0.5",
+     "vars": {
+      "c": {
+       "min": 4,
+       "max": 10,
+       "step": 1
+      }
+     },
+     "unit": "L",
+     "unitAliases": [
+      "litres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{c} × 0.5 = {answer} L."
+    },
+    {
+     "id": "full-open",
+     "prompt": "A thermostat stamped {t} °C is fully open about 12 °C higher. At what temperature, in °C?",
+     "formula": "t + 12",
+     "vars": {
+      "t": {
+       "min": 78,
+       "max": 88,
+       "step": 2
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{t} + 12 = {answer} °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "overheat",
+     "scenario": "Ayo's car overheated after the service. Here is what he did.",
+     "lines": [
+      {
+       "text": "He fitted the thermostat upside down.",
+       "fault": true,
+       "why": "A common mistake that blocks flow."
+      },
+      {
+       "text": "He did not bleed the air.",
+       "fault": true,
+       "why": "Air pockets stop coolant flow."
+      },
+      {
+       "text": "He left the belt slack.",
+       "fault": true,
+       "why": "It slips and does not drive the pump."
+      },
+      {
+       "text": "He waited for the engine to cool.",
+       "why": "That is required."
+      },
+      {
+       "text": "He used the correct coolant mixture.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing a cooling system.",
+    "explainPrompt": "Why does a pressurised cooling system help an engine?",
+    "explainGuide": "The pressure raises the boiling point of the coolant, about 120 °C with a 100 kPa cap, so it does not boil and the engine cools better.",
+    "explainKeywords": [
+     [
+      "pressure",
+      "pressurised"
+     ],
+     [
+      "boiling",
+      "boil"
+     ],
+     [
+      "raise",
+      "raises",
+      "higher"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Cooling system service: flushing, fan belt and thermostat test",
+    "Never open a hot radiator cap."
+   ]
+  },
+  "pr-amech-servicing-a-single-plate-clutch-and-adjusting-pedal-free-play": {
+   "safety": {
+    "correct": [
+     "Wash your hands after handling clutch parts."
+    ],
+    "wrong": [
+     {
+      "text": "Blow out the bell housing with compressed air.",
+      "why": "It raises harmful fibres. Use a damp cloth."
+     },
+     {
+      "text": "Let the gearbox hang from the shaft while you inspect.",
+      "why": "It damages parts and can fall. Support it."
+     },
+     {
+      "text": "Hold the gearbox on your chest as you lower it.",
+      "why": "It can crush you. Use a jack or help."
+     },
+     {
+      "text": "Spill brake fluid on the paint and leave it.",
+      "why": "It strips paint and harms skin. Wipe it at once."
+     },
+     {
+      "text": "Reuse fluid from the bleeding jar for a top-up.",
+      "why": "It holds air and dirt. Use fresh fluid."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Grease for the friction plate",
+      "why": "Oil and grease must stay off the linings."
+     },
+     {
+      "name": "Engine oil for the clutch reservoir",
+      "why": "Use the specified fluid."
+     },
+     {
+      "name": "Compressed air gun",
+      "why": "Air raises harmful fibres."
+     },
+     {
+      "name": "Feeler gauge for free play",
+      "why": "Pedal free play is measured with a ruler."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is being cut."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "centre",
+     "afterStep": 4,
+     "prompt": "You are refitting the plate. What do you use?",
+     "options": [
+      {
+       "text": "The alignment tool",
+       "correct": true,
+       "consequence": "The gearbox slides into a centred plate."
+      },
+      {
+       "text": "A rough guess by eye",
+       "consequence": "A misaligned plate stops the gearbox going in."
+      },
+      {
+       "text": "The bolt pressure alone",
+       "consequence": "This does not centre the plate."
+      }
+     ]
+    },
+    {
+     "id": "cover-bolts",
+     "afterStep": 4,
+     "prompt": "How do you tighten the cover bolts?",
+     "options": [
+      {
+       "text": "Diagonally and evenly, to torque",
+       "correct": true,
+       "consequence": "The cover seats evenly."
+      },
+      {
+       "text": "One side first, then the other",
+       "consequence": "This can distort the cover."
+      },
+      {
+       "text": "As hard as you can",
+       "consequence": "Over-tightening can strip threads."
+      }
+     ]
+    },
+    {
+     "id": "oil-lining",
+     "afterStep": 2,
+     "prompt": "The lining has oil on it. What do you do?",
+     "options": [
+      {
+       "text": "Renew the plate and fix the leak",
+       "correct": true,
+       "consequence": "This stops the clutch slipping."
+      },
+      {
+       "text": "Wipe it clean with a rag and refit it",
+       "consequence": "Oil soaks into linings, and it will slip."
+      },
+      {
+       "text": "Add more free play",
+       "consequence": "This does not fix the oil."
+      }
+     ]
+    },
+    {
+     "id": "play",
+     "afterStep": 6,
+     "prompt": "Pedal free play is zero. What do you do?",
+     "options": [
+      {
+       "text": "Adjust it to specification",
+       "correct": true,
+       "consequence": "The clutch fully engages."
+      },
+      {
+       "text": "Leave it, for a sharper clutch",
+       "consequence": "No free play causes clutch slip."
+      },
+      {
+       "text": "Remove the return spring",
+       "consequence": "This does not fix free play."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "after",
+     "prompt": "After the job, what do you expect on road test?",
+     "options": [
+      {
+       "text": "It engages smoothly, and gears select without crunching",
+       "correct": true
+      },
+      {
+       "text": "It engages harshly",
+       "why": "That is judder or fierce engagement."
+      },
+      {
+       "text": "The engine revs but the car hardly moves on a steep hill",
+       "why": "That is clutch slip."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "torque",
+     "prompt": "A single-plate clutch has μ = {u}, spring force {w} N, 2 friction faces and a mean radius of 0.1 m. What is its torque capacity in N·m?",
+     "formula": "u * w * 2 * 0.1",
+     "vars": {
+      "u": {
+       "min": 0.25,
+       "max": 0.3,
+       "step": 0.05
+      },
+      "w": {
+       "min": 3000,
+       "max": 5000,
+       "step": 1000
+      }
+     },
+     "unit": "N·m",
+     "unitAliases": [
+      "Nm",
+      "N m"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "T = {u} × {w} × 2 × 0.1 = {answer} N·m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "slipping",
+     "scenario": "Ngozi's rebuilt clutch slips and drags. Here is what she did.",
+     "lines": [
+      {
+       "text": "She fitted the plate the wrong way round.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She left no pedal free play.",
+       "fault": true,
+       "why": "That causes slip."
+      },
+      {
+       "text": "She got grease on the linings.",
+       "fault": true,
+       "why": "Keep oil and grease off them."
+      },
+      {
+       "text": "She torqued the bolts evenly.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She supported the gearbox.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing a clutch.",
+    "explainPrompt": "Why does a clutch need pedal free play?",
+    "explainGuide": "Free play ensures the release bearing is clear of the fingers when the pedal is released. The clutch can then engage fully and it does not slip.",
+    "explainKeywords": [
+     [
+      "release bearing",
+      "bearing"
+     ],
+     [
+      "engage",
+      "engages",
+      "fully"
+     ],
+     [
+      "slip",
+      "slipping"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing a single-plate clutch and adjusting pedal free play",
+    "Keep the linings clean."
+   ]
+  },
+  "pr-amech-gearbox-components-and-gear-ratio-calculation": {
+   "safety": {
+    "correct": [
+     "Wipe your hands dry before lifting oily parts."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the gear cluster alone, with oily hands.",
+      "why": "Parts are heavy and oily. Lift carefully."
+     },
+     {
+      "text": "Leave oil on the floor by the gearbox stand.",
+      "why": "Someone can slip. Keep the floor clean."
+     },
+     {
+      "text": "Spin the cut-away gears with your finger in the mesh.",
+      "why": "Gear teeth nip fingers. Turn the shaft."
+     },
+     {
+      "text": "Drop the shaft on the floor after use.",
+      "why": "It can land on your foot and damage teeth."
+     },
+     {
+      "text": "Run your palm along a chipped tooth to feel the chip.",
+      "why": "It can cut you. Look with the magnifying glass."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Compression tester",
+      "why": "It tests engines."
+     },
+     {
+      "name": "Spark plug spanner",
+      "why": "It is not used on gearboxes."
+     },
+     {
+      "name": "Fuel pressure gauge",
+      "why": "It tests fuel supply."
+     },
+     {
+      "name": "Beam setter",
+      "why": "It aims head lamps."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ratio-how",
+     "afterStep": 3,
+     "prompt": "Driver 15, driven 45. How do you calculate the ratio?",
+     "options": [
+      {
+       "text": "Driven ÷ driver = 3:1",
+       "correct": true,
+       "consequence": "This is the correct form."
+      },
+      {
+       "text": "Driver ÷ driven = 0.33:1",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Add them to get 60:1",
+       "consequence": "Teeth are not added."
+      }
+     ]
+    },
+    {
+     "id": "overall",
+     "afterStep": 6,
+     "prompt": "Gear 3:1, final drive 4.1:1. What is the overall ratio?",
+     "options": [
+      {
+       "text": "Multiply them, giving 12.3:1",
+       "correct": true,
+       "consequence": "Ratios in a train multiply."
+      },
+      {
+       "text": "Add them, giving 7.1:1",
+       "consequence": "Adding is a common mistake."
+      },
+      {
+       "text": "Use the larger, 4.1:1",
+       "consequence": "This ignores the gearbox."
+      }
+     ]
+    },
+    {
+     "id": "count",
+     "afterStep": 3,
+     "prompt": "You get 41 teeth, but you are not sure. What do you do?",
+     "options": [
+      {
+       "text": "Mark a tooth and count twice",
+       "correct": true,
+       "consequence": "Miscounting is avoided."
+      },
+      {
+       "text": "Round it to 40",
+       "consequence": "This gives a false ratio."
+      },
+      {
+       "text": "Take it from another gearbox",
+       "consequence": "That may be a different gear."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "synchro",
+     "prompt": "Which fault explains crunching on changing gear?",
+     "options": [
+      {
+       "text": "Worn synchro rings",
+       "correct": true
+      },
+      {
+       "text": "New gear oil",
+       "why": "This does not cause crunching."
+      },
+      {
+       "text": "A clean casing",
+       "why": "It does not affect gear changes."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ratio",
+     "prompt": "A driver of {a} teeth drives a gear of {b} teeth. What is the ratio, stated as x:1?",
+     "formula": "b / a",
+     "vars": {
+      "a": {
+       "min": 12,
+       "max": 15,
+       "step": 3
+      },
+      "b": {
+       "min": 36,
+       "max": 45,
+       "step": 9
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{b} ÷ {a} = {answer}:1."
+    },
+    {
+     "id": "overall-calc",
+     "prompt": "A first gear of {g}:1 works with a final drive of {f}:1. What is the overall ratio, stated as x:1?",
+     "formula": "g * f",
+     "vars": {
+      "g": {
+       "min": 2.5,
+       "max": 3.5,
+       "step": 0.5
+      },
+      "f": {
+       "min": 4,
+       "max": 4.4,
+       "step": 0.2
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "{g} × {f} = {answer}:1."
+    },
+    {
+     "id": "wheel",
+     "prompt": "The engine runs at {n} rev/min through an overall ratio of {r}:1. What is the wheel speed in rev/min?",
+     "formula": "n / r",
+     "vars": {
+      "n": {
+       "min": 2400,
+       "max": 3600,
+       "step": 600
+      },
+      "r": {
+       "min": 10,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "rev/min",
+     "unitAliases": [
+      "rpm"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{n} ÷ {r} = {answer} rev/min."
+    }
+   ],
+   "faults": [
+    {
+     "id": "ratio-table",
+     "scenario": "Emeka's ratio table was wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He divided driver by driven.",
+       "fault": true,
+       "why": "It is driven ÷ driver."
+      },
+      {
+       "text": "He added the gear and final drive ratios.",
+       "fault": true,
+       "why": "They must be multiplied."
+      },
+      {
+       "text": "He counted the teeth only once.",
+       "fault": true,
+       "why": "Count twice to avoid miscounting."
+      },
+      {
+       "text": "He stated ratios as x:1.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He traced power flow in each gear.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for working out gear ratios.",
+    "explainPrompt": "Why does a low gear have a large reduction ratio?",
+    "explainGuide": "A low gear gives more torque for starting and climbing. The engine turns many times for each output turn, so speed falls and torque rises.",
+    "explainKeywords": [
+     [
+      "torque",
+      "turning"
+     ],
+     [
+      "speed",
+      "slower"
+     ],
+     [
+      "start",
+      "starting",
+      "climbing",
+      "hill",
+      "hills"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Gearbox components and gear ratio calculation",
+    "Driven ÷ driver."
+   ]
+  },
+  "pr-amech-wheel-changing-tyre-pressure-and-puncture-repair": {
+   "safety": {
+    "correct": [
+     "Keep away from the tyre's face when it is being inflated."
+    ],
+    "wrong": [
+     {
+      "text": "Inflate above the rated pressure to seat a stubborn bead.",
+      "why": "The tyre can burst. Never exceed the rating."
+     },
+     {
+      "text": "Lean over the tyre when seating the bead.",
+      "why": "Stand to one side."
+     },
+     {
+      "text": "Loosen the nuts only after the wheel is off the ground.",
+      "why": "The wheel spins. Loosen them before lifting."
+     },
+     {
+      "text": "Leave the car on the jack alone while you repair the tube.",
+      "why": "Use a stand."
+     },
+     {
+      "text": "Change a wheel on a slope without chocks.",
+      "why": "The car can roll."
+     },
+     {
+      "text": "Smoke while the rubber solution dries.",
+      "why": "The solution is flammable."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bicycle pump",
+      "why": "The compressor is used in this job."
+     },
+     {
+      "name": "Super glue for the tube",
+      "why": "Use the rubber solution."
+     },
+     {
+      "name": "Spoon handles for tyre fitting",
+      "why": "They slip and pinch the tube. Use tyre levers."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "No gap is measured here."
+     },
+     {
+      "name": "Spark plug spanner",
+      "why": "It has no use on wheels."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "loosen",
+     "afterStep": 1,
+     "prompt": "When do you loosen the wheel nuts?",
+     "options": [
+      {
+       "text": "Before lifting, on the ground",
+       "correct": true,
+       "consequence": "The wheel cannot spin."
+      },
+      {
+       "text": "After jacking",
+       "consequence": "The wheel turns as you pull."
+      },
+      {
+       "text": "After the stands are under, with no hold on the wheel",
+       "consequence": "It will spin."
+      }
+     ]
+    },
+    {
+     "id": "tighten",
+     "afterStep": 2,
+     "prompt": "How do you tighten the nuts?",
+     "options": [
+      {
+       "text": "Diagonally, then torque when lowered",
+       "correct": true,
+       "consequence": "The wheel seats evenly."
+      },
+      {
+       "text": "Round in a circle, all at once",
+       "consequence": "The wheel can seat crooked."
+      },
+      {
+       "text": "One nut fully, then leave the others",
+       "consequence": "The wheel will run loose."
+      }
+     ]
+    },
+    {
+     "id": "tacky",
+     "afterStep": 4,
+     "prompt": "You have spread the solution. When do you apply the patch?",
+     "options": [
+      {
+       "text": "When it is tacky",
+       "correct": true,
+       "consequence": "The patch bonds firmly."
+      },
+      {
+       "text": "At once, while it is wet",
+       "consequence": "This is a common mistake that gives a weak bond."
+      },
+      {
+       "text": "The following day",
+       "consequence": "The solution has dried too far."
+      }
+     ]
+    },
+    {
+     "id": "cause",
+     "afterStep": 5,
+     "prompt": "The tube is patched. What do you do before refitting?",
+     "options": [
+      {
+       "text": "Check inside the tyre for the cause",
+       "correct": true,
+       "consequence": "This prevents a repeat puncture."
+      },
+      {
+       "text": "Just refit it and pump it up to pressure",
+       "consequence": "The object may still be there."
+      },
+      {
+       "text": "Add extra air",
+       "consequence": "It does not remove the object."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "water",
+     "prompt": "The tube is back in the water bath. What shows a good repair?",
+     "options": [
+      {
+       "text": "No bubbles from the repaired area",
+       "correct": true
+      },
+      {
+       "text": "A steady line of bubbles at the patch edge",
+       "why": "The patch is leaking."
+      },
+      {
+       "text": "The patch peels away",
+       "why": "It was not tacky."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "side",
+     "prompt": "A tyre is marked {w}/{a} R15. What is the sidewall height in mm?",
+     "formula": "w * a / 100",
+     "vars": {
+      "w": {
+       "min": 185,
+       "max": 205,
+       "step": 10
+      },
+      "a": {
+       "min": 60,
+       "max": 70,
+       "step": 5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 2,
+     "working": "{w} × {a} ÷ 100 = {answer} mm."
+    },
+    {
+     "id": "dia",
+     "prompt": "A rim of 381 mm carries a tyre with a sidewall of {s} mm. What is the overall diameter, in mm?",
+     "formula": "381 + 2 * s",
+     "vars": {
+      "s": {
+       "min": 120,
+       "max": 130,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "381 + 2 × {s} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "flat-again",
+     "scenario": "Kemi's tube went flat again the next day. Here is what she did.",
+     "lines": [
+      {
+       "text": "She patched before the solution was tacky.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She left the nail in the tyre.",
+       "fault": true,
+       "why": "Remove the cause."
+      },
+      {
+       "text": "She checked pressures on a hot tyre.",
+       "fault": true,
+       "why": "Check when cold."
+      },
+      {
+       "text": "She chocked the wheels.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She tightened nuts in a star pattern.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for changing a wheel.",
+    "explainPrompt": "Why are wheel nuts tightened in a star pattern?",
+    "explainGuide": "A star pattern pulls the wheel evenly on to the hub. This keeps it centred, so it does not run crooked or work loose.",
+    "explainKeywords": [
+     [
+      "even",
+      "evenly"
+     ],
+     [
+      "hub",
+      "seat",
+      "seats",
+      "centred"
+     ],
+     [
+      "loose",
+      "crooked",
+      "wobble"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Wheel changing, tyre pressure and puncture repair",
+    "Chock it. Stand it."
+   ]
+  },
+  "pr-amech-replacing-brake-pads-and-bleeding-hydraulic-brakes": {
+   "safety": {
+    "correct": [
+     "Rinse with plenty of clean water and get help if brake fluid enters the eye."
+    ],
+    "wrong": [
+     {
+      "text": "Blow brake dust off the caliper with the air gun.",
+      "why": "Dust is harmful to breathe. Clean with brake cleaner."
+     },
+     {
+      "text": "Drive off fast to test the new pads on the highway.",
+      "why": "Test at low speed first, in a safe place."
+     },
+     {
+      "text": "Leave spilled brake fluid on the wing until you finish.",
+      "why": "It damages paint. Wipe it at once."
+     },
+     {
+      "text": "Top up the reservoir with engine oil, as it is also a fluid.",
+      "why": "Mineral oil destroys brake seals. Use the specified fluid."
+     },
+     {
+      "text": "Work on the brakes with the car held by the jack alone.",
+      "why": "Use axle stands."
+     },
+     {
+      "text": "Let the caliper hang from its flexible hose.",
+      "why": "That damages the hose. Support the caliper."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Engine oil",
+      "why": "Mineral oil must never be mixed with brake fluid."
+     },
+     {
+      "name": "Grease for the pad faces",
+      "why": "Grease on friction surfaces stops the pads gripping."
+     },
+     {
+      "name": "Compressed air gun",
+      "why": "It spreads brake dust."
+     },
+     {
+      "name": "Old fluid from the bleeding jar",
+      "why": "It holds air and dirt."
+     },
+     {
+      "name": "Fan belt gauge",
+      "why": "It has no part in a brake job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "piston",
+     "afterStep": 3,
+     "prompt": "You push the caliper piston back. What do you watch?",
+     "options": [
+      {
+       "text": "The reservoir level",
+       "correct": true,
+       "consequence": "Fluid returns there, so it must not overflow."
+      },
+      {
+       "text": "The fan belt",
+       "consequence": "It has nothing to do with the piston."
+      },
+      {
+       "text": "The oil pressure lamp",
+       "consequence": "This is not related."
+      }
+     ]
+    },
+    {
+     "id": "start-where",
+     "afterStep": 5,
+     "prompt": "Where do you start bleeding?",
+     "options": [
+      {
+       "text": "The wheel farthest from the master cylinder",
+       "correct": true,
+       "consequence": "Air is pushed out along the longest line first."
+      },
+      {
+       "text": "The wheel nearest the master cylinder",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "The wheel with the newest pads",
+       "consequence": "Pad age does not matter."
+      }
+     ]
+    },
+    {
+     "id": "close-when",
+     "afterStep": 5,
+     "prompt": "When do you close the bleed screw?",
+     "options": [
+      {
+       "text": "Before the pedal is released",
+       "correct": true,
+       "consequence": "Air cannot be drawn back in."
+      },
+      {
+       "text": "After the pedal is released",
+       "consequence": "Air is sucked back in."
+      },
+      {
+       "text": "Only when the job is over",
+       "consequence": "Air enters on every return stroke."
+      }
+     ]
+    },
+    {
+     "id": "reservoir",
+     "afterStep": 6,
+     "prompt": "The reservoir is low during bleeding. What do you do?",
+     "options": [
+      {
+       "text": "Top it up with the specified fluid",
+       "correct": true,
+       "consequence": "No air is drawn in."
+      },
+      {
+       "text": "Keep going until it is empty",
+       "consequence": "Air enters, and you must start again."
+      },
+      {
+       "text": "Add water",
+       "consequence": "Water boils and corrodes brake parts."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "pedal",
+     "prompt": "After bleeding, how should the pedal feel?",
+     "options": [
+      {
+       "text": "Firm and high",
+       "correct": true
+      },
+      {
+       "text": "Spongy",
+       "why": "This shows air in the system."
+      },
+      {
+       "text": "Sinking slowly to the floor",
+       "why": "This suggests a leak."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mult",
+     "prompt": "A master cylinder piston is 20 mm across, and a wheel cylinder is {d} mm across. By how many times is the force multiplied?",
+     "formula": "(d / 20) ^ 2",
+     "vars": {
+      "d": {
+       "min": 40,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "({d} ÷ 20)² = {answer} times."
+    },
+    {
+     "id": "force",
+     "prompt": "A force of {f} N on a master cylinder acts through a hydraulic multiplication of {m} times. What is the output force in N?",
+     "formula": "f * m",
+     "vars": {
+      "f": {
+       "min": 800,
+       "max": 1200,
+       "step": 200
+      },
+      "m": {
+       "min": 4,
+       "max": 9,
+       "step": 1
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "newtons"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{f} × {m} = {answer} N."
+    }
+   ],
+   "faults": [
+    {
+     "id": "spongy",
+     "scenario": "Bode's brakes feel spongy and pull to one side. Here is what he did.",
+     "lines": [
+      {
+       "text": "He started bleeding at the nearest wheel.",
+       "fault": true,
+       "why": "Start at the farthest."
+      },
+      {
+       "text": "He got grease on a pad.",
+       "fault": true,
+       "why": "This reduces friction on one side."
+      },
+      {
+       "text": "He let the reservoir run dry.",
+       "fault": true,
+       "why": "Air enters the system."
+      },
+      {
+       "text": "He wore goggles.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He torqued the caliper bolts.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for bleeding hydraulic brakes.",
+    "explainPrompt": "Why is a brake pedal spongy when there is air in the system?",
+    "explainGuide": "Air compresses but brake fluid does not. Pedal effort squeezes the air, so pressure does not reach the wheels properly.",
+    "explainKeywords": [
+     [
+      "air"
+     ],
+     [
+      "compress",
+      "compresses",
+      "compressible",
+      "squeeze"
+     ],
+     [
+      "fluid",
+      "pressure"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Replacing brake pads and bleeding hydraulic brakes",
+    "Fresh fluid. Keep the reservoir full."
+   ]
+  },
+  "pr-amech-front-wheel-alignment-and-tyre-wear-patterns": {
+   "safety": {
+    "correct": [
+     "Roll the car slowly, with a person ready at the handbrake."
+    ],
+    "wrong": [
+     {
+      "text": "Roll the car with your fingers on the tyre tread.",
+      "why": "Fingers can be caught. Push on the body."
+     },
+     {
+      "text": "Lie in front of the car while it is being rolled.",
+      "why": "It can hit you. Stay clear."
+     },
+     {
+      "text": "Leave the lock nuts slack after adjusting, for next time.",
+      "why": "The track rod can move. Tighten them."
+     },
+     {
+      "text": "Run the engine while measuring to power the steering.",
+      "why": "Engine off."
+     },
+     {
+      "text": "Check tyre wear by running a bare hand over a wire-showing tyre.",
+      "why": "Wires can cut. Wear gloves."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dial gauge",
+      "why": "It is not the toe tool here."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It cannot span the car."
+     },
+     {
+      "name": "Beam setter",
+      "why": "It aims head lamps."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "Toe is measured with the alignment gauge."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "roll",
+     "afterStep": 3,
+     "prompt": "You need the same tyre point at the front. How do you get it there?",
+     "options": [
+      {
+       "text": "Roll the car forward",
+       "correct": true,
+       "consequence": "The same points are used, and tyre run-out is cancelled."
+      },
+      {
+       "text": "Turn the steering",
+       "consequence": "This changes the toe."
+      },
+      {
+       "text": "Move the gauge only",
+       "consequence": "That uses a different point on the tyre."
+      }
+     ]
+    },
+    {
+     "id": "calc",
+     "afterStep": 4,
+     "prompt": "Rear reads 1 243 mm, and front 1 240 mm. What do you record?",
+     "options": [
+      {
+       "text": "Toe-in of 3 mm",
+       "correct": true,
+       "consequence": "Rear − front is positive, so it is toe-in."
+      },
+      {
+       "text": "Toe-out of 3 mm",
+       "consequence": "That is subtracting the wrong way."
+      },
+      {
+       "text": "Toe-in of 1 240 mm",
+       "consequence": "That is a distance, not toe."
+      }
+     ]
+    },
+    {
+     "id": "adjust",
+     "afterStep": 5,
+     "prompt": "Toe is out of specification. How do you adjust the rods?",
+     "options": [
+      {
+       "text": "Both equally",
+       "correct": true,
+       "consequence": "The steering wheel stays centred."
+      },
+      {
+       "text": "Only one",
+       "consequence": "The steering wheel goes off centre."
+      },
+      {
+       "text": "Only the shorter rod, by twice as much",
+       "consequence": "This also moves the wheel off centre."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "wear",
+     "prompt": "Both tyre shoulders are worn, and the centre is good. What is the cause?",
+     "options": [
+      {
+       "text": "Under-inflation",
+       "correct": true
+      },
+      {
+       "text": "Over-inflation",
+       "why": "That wears the centre."
+      },
+      {
+       "text": "Excessive toe-in",
+       "why": "This gives feathered wear."
+      }
+     ]
+    },
+    {
+     "id": "feather",
+     "prompt": "A tyre shows feathered wear on the outer edge. What is the likely cause?",
+     "options": [
+      {
+       "text": "Excessive toe-in",
+       "correct": true
+      },
+      {
+       "text": "Worn brake pads",
+       "why": "This does not affect the tyre."
+      },
+      {
+       "text": "Low oil level",
+       "why": "This does not affect the tyre."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "toe",
+     "prompt": "The rear measurement is {r} mm, and the front is {f} mm. What is the toe-in in mm?",
+     "formula": "r - f",
+     "vars": {
+      "r": {
+       "min": 1242,
+       "max": 1246,
+       "step": 1
+      },
+      "f": {
+       "min": 1240,
+       "max": 1241,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{r} − {f} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "pulled",
+     "scenario": "After Grace's tracking, the steering wheel was off-centre. Here is what she did.",
+     "lines": [
+      {
+       "text": "She adjusted one track rod only.",
+       "fault": true,
+       "why": "Adjust both equally."
+      },
+      {
+       "text": "She turned the wheels to bring the marks forward.",
+       "fault": true,
+       "why": "Roll, do not turn."
+      },
+      {
+       "text": "She worked on a sloping floor.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "She inflated tyres first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She tightened the lock nuts.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for checking toe-in.",
+    "explainPrompt": "Why must the car be rolled, not the wheels turned, between the two measurements?",
+    "explainGuide": "Rolling brings the same point of the tyre to the front. Turning the wheels changes the toe angle and spoils the comparison.",
+    "explainKeywords": [
+     [
+      "roll",
+      "rolling"
+     ],
+     [
+      "same point",
+      "same",
+      "point"
+     ],
+     [
+      "turn",
+      "turning",
+      "steering"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Front wheel alignment and tyre wear patterns",
+    "Same point. Roll, do not turn."
+   ]
+  },
+  "pr-amech-inspecting-suspension-and-testing-shock-absorbers": {
+   "safety": {
+    "correct": [
+     "Keep your feet clear of the wheels during the bounce test."
+    ],
+    "wrong": [
+     {
+      "text": "Loosen a compressed coil spring's top mount to look inside.",
+      "why": "Stored energy can throw it out. Use a proper compressor."
+     },
+     {
+      "text": "Lever on a joint with the car on a jack alone.",
+      "why": "It can fall. Use stands."
+     },
+     {
+      "text": "Stand on the bumper and jump for the bounce test.",
+      "why": "You can slip. Push down firmly with your hands."
+     },
+     {
+      "text": "Reach behind a leaf spring as a friend levers it.",
+      "why": "Your hand can be trapped."
+     },
+     {
+      "text": "Knock a cracked coil with a hammer to test it.",
+      "why": "A hammer can shatter it and fling pieces."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Coil spring clamps made from wire",
+      "why": "They can fail. Only a proper compressor is safe."
+     },
+     {
+      "name": "Compression tester",
+      "why": "It tests engines."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "Bush play is not measured this way."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "tyres",
+     "afterStep": 5,
+     "prompt": "Tyre pressures differ between sides. What do you do before measuring ride height?",
+     "options": [
+      {
+       "text": "Correct them",
+       "correct": true,
+       "consequence": "A difference in the tyres cannot affect the reading."
+      },
+      {
+       "text": "Measure anyway",
+       "consequence": "Uneven pressures are a source of error."
+      },
+      {
+       "text": "Measure one side only",
+       "consequence": "No comparison is possible."
+      }
+     ]
+    },
+    {
+     "id": "bush",
+     "afterStep": 3,
+     "prompt": "A rubber bush moves slightly under the bar. What do you conclude?",
+     "options": [
+      {
+       "text": "Compare with normal flexibility before condemning it",
+       "correct": true,
+       "consequence": "Normal movement is not wear."
+      },
+      {
+       "text": "It is worn, so replace it now before it gets any worse",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "It is seized",
+       "consequence": "Movement shows it is not."
+      }
+     ]
+    },
+    {
+     "id": "bounce",
+     "afterStep": 4,
+     "prompt": "One corner bounces three times. What do you record?",
+     "options": [
+      {
+       "text": "A worn damper at that corner",
+       "correct": true,
+       "consequence": "A good damper settles in about one oscillation."
+      },
+      {
+       "text": "A good damper",
+       "consequence": "Three bounces is too many."
+      },
+      {
+       "text": "A weak engine mounting",
+       "consequence": "This is a suspension test."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "settle",
+     "prompt": "Which result shows a good damper?",
+     "options": [
+      {
+       "text": "The body rises and settles in about one oscillation",
+       "correct": true
+      },
+      {
+       "text": "It bounces several times before it finally comes to rest",
+       "why": "That is a worn damper."
+      },
+      {
+       "text": "It stays pressed down",
+       "why": "That is a sign of a seized part."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ride",
+     "prompt": "Ride height is {a} mm on the left and {b} mm on the right. What is the difference in mm?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 360,
+       "max": 370,
+       "step": 5
+      },
+      "b": {
+       "min": 340,
+       "max": 350,
+       "step": 5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{a} − {b} = {answer} mm. A typical limit is 10 mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "unsure",
+     "scenario": "Kunle's report says three bushes and one spring are bad, but they are not. Here is what he did.",
+     "lines": [
+      {
+       "text": "He took normal bush flexibility for wear.",
+       "fault": true,
+       "why": "This is a common mistake."
+      },
+      {
+       "text": "He measured ride height on a slope.",
+       "fault": true,
+       "why": "Use level ground."
+      },
+      {
+       "text": "He bounced corners with different force.",
+       "fault": true,
+       "why": "Bounce each corner the same way."
+      },
+      {
+       "text": "He used axle stands.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He identified the suspension type.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing suspension.",
+    "explainPrompt": "What is the function of a shock absorber?",
+    "explainGuide": "A shock absorber damps the spring. It controls the oscillation so that the body settles and the tyre stays on the road.",
+    "explainKeywords": [
+     [
+      "damp",
+      "damps",
+      "damper",
+      "control",
+      "controls"
+     ],
+     [
+      "spring",
+      "springs"
+     ],
+     [
+      "oscillation",
+      "bounce",
+      "bouncing"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Inspecting suspension and testing shock absorbers",
+    "Same push at each corner."
+   ]
+  },
+  "pr-amech-battery-testing-and-preparing-electrolyte": {
+   "safety": {
+    "correct": [
+     "Leave concentrated acid to the teacher, and stand well back during the demonstration."
+    ],
+    "wrong": [
+     {
+      "text": "Pour water into the acid to make it mix faster.",
+      "why": "It boils and spits. Acid goes into water, slowly."
+     },
+     {
+      "text": "Tip the acid in quickly to save time.",
+      "why": "The heat can make it spit. Pour slowly, stirring."
+     },
+     {
+      "text": "Stir the electrolyte with a metal spanner.",
+      "why": "Metal reacts. Use the glass rod."
+     },
+     {
+      "text": "Mix electrolyte in a steel tin.",
+      "why": "Acid attacks it. Use a glass or plastic container."
+     },
+     {
+      "text": "Light a match to see the cell level.",
+      "why": "Hydrogen is explosive."
+     },
+     {
+      "text": "Wipe an acid splash off your skin and carry on.",
+      "why": "Rinse with plenty of water and tell the teacher."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel bucket",
+      "why": "Acid attacks steel."
+     },
+     {
+      "name": "Tap water",
+      "why": "Use distilled water."
+     },
+     {
+      "name": "Metal stirring rod",
+      "why": "Use the glass rod."
+     },
+     {
+      "name": "Thin polythene bag",
+      "why": "It is not a safe container for acid."
+     },
+     {
+      "name": "Spark tester",
+      "why": "No sparks near batteries."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "acid-order",
+     "afterStep": 5,
+     "prompt": "Your teacher asks what goes into what. What do you answer?",
+     "options": [
+      {
+       "text": "Acid slowly into the water",
+       "correct": true,
+       "consequence": "The water takes up the heat, so it does not spit."
+      },
+      {
+       "text": "Water slowly into the acid",
+       "consequence": "This is the common and dangerous mistake."
+      },
+      {
+       "text": "Both together, fast",
+       "consequence": "The heat is uncontrolled."
+      }
+     ]
+    },
+    {
+     "id": "top-up",
+     "afterStep": 6,
+     "prompt": "A cell is low. What do you add?",
+     "options": [
+      {
+       "text": "Distilled water",
+       "correct": true,
+       "consequence": "Only water is lost in normal use."
+      },
+      {
+       "text": "Acid",
+       "consequence": "This wrongly raises the strength."
+      },
+      {
+       "text": "Tap water that has been boiled",
+       "consequence": "Its minerals harm the cell."
+      }
+     ]
+    },
+    {
+     "id": "reading",
+     "afterStep": 3,
+     "prompt": "You have just topped up the battery. When do you read SG?",
+     "options": [
+      {
+       "text": "After the water has mixed",
+       "correct": true,
+       "consequence": "An early reading is false."
+      },
+      {
+       "text": "At once",
+       "consequence": "The top layer is diluted."
+      },
+      {
+       "text": "Never, after topping up",
+       "consequence": "You can read it after mixing."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "bad-cell",
+     "prompt": "Readings are 1.275, 1.270, 1.210, 1.275, 1.270, 1.275. What do you record?",
+     "options": [
+      {
+       "text": "Cell 3 is faulty",
+       "correct": true
+      },
+      {
+       "text": "All cells are good",
+       "why": "Cell 3 is 0.060 below."
+      },
+      {
+       "text": "Cell 1 is faulty",
+       "why": "Cell 1 is the highest."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "spread",
+     "prompt": "The highest cell reads {a} and the lowest {b}. How far below the highest is the lowest?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 1.27,
+       "max": 1.28,
+       "step": 0.01
+      },
+      "b": {
+       "min": 1.2,
+       "max": 1.24,
+       "step": 0.01
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.002
+     },
+     "decimals": 3,
+     "working": "{a} − {b} = {answer}."
+    },
+    {
+     "id": "volts",
+     "prompt": "A battery has {n} cells at 2.1 V each when fully charged. What is its voltage?",
+     "formula": "n * 2.1",
+     "vars": {
+      "n": {
+       "min": 3,
+       "max": 6,
+       "step": 3
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{n} × 2.1 = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "lab-report",
+     "scenario": "Sule's practical report and demonstration notes show errors. Here is what he recorded.",
+     "lines": [
+      {
+       "text": "He wrote that water should be added to acid.",
+       "fault": true,
+       "why": "It is acid into water."
+      },
+      {
+       "text": "He topped up with acid.",
+       "fault": true,
+       "why": "Use distilled water."
+      },
+      {
+       "text": "He read the hydrometer from above.",
+       "fault": true,
+       "why": "That is parallax."
+      },
+      {
+       "text": "He kept sodium bicarbonate ready.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He rested the battery before measuring.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing a lead-acid battery.",
+    "explainPrompt": "Why must acid always be added to water and never water to acid?",
+    "explainGuide": "Mixing gives out great heat. Water poured on to acid can boil at once and spit acid, but acid added slowly to water is diluted and cooled.",
+    "explainKeywords": [
+     [
+      "heat",
+      "hot"
+     ],
+     [
+      "boil",
+      "boils",
+      "spit",
+      "spits",
+      "splash"
+     ],
+     [
+      "water"
+     ],
+     [
+      "acid"
+     ]
+    ],
+    "explainNeed": 3
+   },
+   "board": [
+    "Battery testing and preparing electrolyte",
+    "Acid into water."
+   ]
+  },
+  "pr-amech-setting-contact-breaker-and-spark-plug-gaps-and-ignition-timing": {
+   "safety": {
+    "correct": [
+     "Switch the ignition off while setting the points."
+    ],
+    "wrong": [
+     {
+      "text": "Hold a plug lead to feel if it is live.",
+      "why": "It gives a high-voltage shock. Do not hold it."
+     },
+     {
+      "text": "Lean over the fan to read the marks.",
+      "why": "Keep hair and hands clear."
+     },
+     {
+      "text": "Run the engine in the closed bay.",
+      "why": "Exhaust gas is deadly."
+     },
+     {
+      "text": "Work with a loose scarf during the timing check.",
+      "why": "It can catch in the belt."
+     },
+     {
+      "text": "Turn the engine by flicking the starter with your fingers near the points.",
+      "why": "They can be trapped. Turn it by hand."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Emery paper for the plug",
+      "why": "It leaves grit in the plug."
+     },
+     {
+      "name": "Tram gauge",
+      "why": "It is a body tool."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Micrometer",
+      "why": "A feeler gauge sets this gap."
+     },
+     {
+      "name": "Oily rag for the contacts",
+      "why": "Contacts must be kept clean and dry."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "heel",
+     "afterStep": 2,
+     "prompt": "Where must the contact heel be to set the gap?",
+     "options": [
+      {
+       "text": "On a cam peak",
+       "correct": true,
+       "consequence": "The points are fully open."
+      },
+      {
+       "text": "Between two lobes",
+       "consequence": "The points are closed."
+      },
+      {
+       "text": "Anywhere",
+       "consequence": "The gap would be wrong."
+      }
+     ]
+    },
+    {
+     "id": "oily",
+     "afterStep": 2,
+     "prompt": "The contact surface is oily. What do you do?",
+     "options": [
+      {
+       "text": "Clean it before using the feeler",
+       "correct": true,
+       "consequence": "It closes cleanly and gives a good reading."
+      },
+      {
+       "text": "Use the feeler anyway, pressing a little firmer",
+       "consequence": "Oil spoils both reading and contact."
+      },
+      {
+       "text": "Add more oil",
+       "consequence": "This makes it worse."
+      }
+     ]
+    },
+    {
+     "id": "sequence",
+     "afterStep": 4,
+     "prompt": "You have changed the dwell. What do you do about the timing?",
+     "options": [
+      {
+       "text": "Recheck it",
+       "correct": true,
+       "consequence": "Changing dwell changes timing."
+      },
+      {
+       "text": "Nothing, since they are separate",
+       "consequence": "They are linked."
+      },
+      {
+       "text": "Change the plug gap",
+       "consequence": "This has no effect on timing."
+      }
+     ]
+    },
+    {
+     "id": "clamp",
+     "afterStep": 6,
+     "prompt": "You have set the timing. What do you do?",
+     "options": [
+      {
+       "text": "Tighten the clamp and recheck",
+       "correct": true,
+       "consequence": "The setting holds."
+      },
+      {
+       "text": "Leave the clamp slack",
+       "consequence": "The distributor moves."
+      },
+      {
+       "text": "Remove the timing marks",
+       "consequence": "They are needed."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "pink",
+     "prompt": "After setting, the engine pinks under load. What does it show?",
+     "options": [
+      {
+       "text": "The ignition is over-advanced",
+       "correct": true
+      },
+      {
+       "text": "The ignition is retarded",
+       "why": "That causes sluggishness."
+      },
+      {
+       "text": "The timing is perfect",
+       "why": "A correct setting does not pink."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dwell",
+     "prompt": "A {c}-cylinder engine has a dwell of {p}%. What is the dwell angle in degrees?",
+     "formula": "p / 100 * 360 / c",
+     "vars": {
+      "c": {
+       "min": 4,
+       "max": 6,
+       "step": 2
+      },
+      "p": {
+       "min": 50,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees",
+      "deg"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{p} ÷ 100 × (360 ÷ {c}) = {answer}°."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sluggish",
+     "scenario": "Pius's engine runs sluggishly after he set it. Here is what he did.",
+     "lines": [
+      {
+       "text": "He set the gap with the heel off the cam peak.",
+       "fault": true,
+       "why": "It must be on the peak."
+      },
+      {
+       "text": "He used the feeler on an oily contact.",
+       "fault": true,
+       "why": "This spoils the reading."
+      },
+      {
+       "text": "He did not recheck timing after setting dwell.",
+       "fault": true,
+       "why": "Dwell changes timing."
+      },
+      {
+       "text": "He cleaned and gapped the plugs.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He kept his hands clear of the fan.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for setting ignition timing.",
+    "explainPrompt": "Why does a larger contact breaker gap reduce dwell?",
+    "explainGuide": "With a wider gap, the points open earlier and close later on the cam, so they stay closed for a smaller angle.",
+    "explainKeywords": [
+     [
+      "gap",
+      "wider",
+      "larger"
+     ],
+     [
+      "open",
+      "opens",
+      "earlier"
+     ],
+     [
+      "closed",
+      "angle"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Setting contact breaker and spark plug gaps and ignition timing",
+    "Heel on the peak."
+   ]
+  },
+  "pr-amech-headlamp-focusing-and-replacing-bulbs-and-fuses": {
+   "safety": {
+    "correct": [
+     "Let a bulb cool down before removing it."
+    ],
+    "wrong": [
+     {
+      "text": "Fit a 25 A fuse to stop the 15 A one blowing.",
+      "why": "The wiring could burn. Find the fault."
+     },
+     {
+      "text": "Hold the H4 bulb by the glass as you fit it.",
+      "why": "It shortens bulb life and gets very hot."
+     },
+     {
+      "text": "Change wiring with the battery connected.",
+      "why": "Disconnect it."
+     },
+     {
+      "text": "Stare into the beam to see its centre.",
+      "why": "That hurts the eyes."
+     },
+     {
+      "text": "Fit a 100 W bulb for more light on the road.",
+      "why": "It overloads the wiring and dazzles. Use the correct type."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Higher-rated fuse",
+      "why": "This does not fix the cause, and it risks fire."
+     },
+     {
+      "name": "Foil wrapped around a fuse",
+      "why": "This defeats the fuse."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing."
+     },
+     {
+      "name": "Tram gauge",
+      "why": "It is a body tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "which-fuse",
+     "afterStep": 2,
+     "prompt": "A 15 A fuse has blown. Which do you fit?",
+     "options": [
+      {
+       "text": "A 15 A fuse",
+       "correct": true,
+       "consequence": "Protection stays as designed."
+      },
+      {
+       "text": "A 30 A fuse",
+       "consequence": "This allows too much current."
+      },
+      {
+       "text": "A 5 A fuse",
+       "consequence": "It will blow at once."
+      }
+     ]
+    },
+    {
+     "id": "keeps",
+     "afterStep": 2,
+     "prompt": "The new fuse blows too. What do you do?",
+     "options": [
+      {
+       "text": "Investigate the fault",
+       "correct": true,
+       "consequence": "The cause is found."
+      },
+      {
+       "text": "Fit a higher rating",
+       "consequence": "This risks fire."
+      },
+      {
+       "text": "Fit fuses until one lasts",
+       "consequence": "This wastes fuses, and the fault stays."
+      }
+     ]
+    },
+    {
+     "id": "park",
+     "afterStep": 3,
+     "prompt": "How do you park the car before aiming?",
+     "options": [
+      {
+       "text": "On level ground, tyres correct, driver's weight in seat",
+       "correct": true,
+       "consequence": "It sits as it does on the road."
+      },
+      {
+       "text": "On a slope close to the screen, so the beams are easy to see",
+       "consequence": "An uneven floor is an error."
+      },
+      {
+       "text": "With the boot full",
+       "consequence": "Check with normal load."
+      }
+     ]
+    },
+    {
+     "id": "cut",
+     "afterStep": 5,
+     "prompt": "Which beam do you set first?",
+     "options": [
+      {
+       "text": "Dipped beam",
+       "correct": true,
+       "consequence": "The cut-off line is clear."
+      },
+      {
+       "text": "Main beam",
+       "consequence": "It has no clear cut-off."
+      },
+      {
+       "text": "Fog lamp",
+       "consequence": "This job is the head lamps."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "aimed",
+     "prompt": "What shows the job is done well?",
+     "options": [
+      {
+       "text": "Both lamps aim evenly without dazzling oncoming traffic",
+       "correct": true
+      },
+      {
+       "text": "One lamp aims higher than the other, but neither dazzles",
+       "why": "They should match."
+      },
+      {
+       "text": "Both lamps point into the sky",
+       "why": "This dazzles other drivers."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "lamps",
+     "prompt": "Two {p} W dipped lamps run on 12 V. What current do they draw, in A?",
+     "formula": "2 * p / 12",
+     "vars": {
+      "p": {
+       "min": 45,
+       "max": 60,
+       "step": 5
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "2 × {p} ÷ 12 = {answer} A."
+    },
+    {
+     "id": "aim",
+     "prompt": "A beam has a downward aim of {d}%. How far does it drop at 10 m, in mm?",
+     "formula": "d / 100 * 10000",
+     "vars": {
+      "d": {
+       "min": 0.8,
+       "max": 1.4,
+       "step": 0.2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{d} ÷ 100 × 10 000 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "hot-fuse",
+     "scenario": "Joy's car lost its lamps twice in one week. Here is what she did.",
+     "lines": [
+      {
+       "text": "She fitted a higher-rated fuse.",
+       "fault": true,
+       "why": "Do not do this."
+      },
+      {
+       "text": "She touched the halogen glass.",
+       "fault": true,
+       "why": "It shortens bulb life."
+      },
+      {
+       "text": "She aimed the lamps on an uneven floor.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "She used the test lamp to find the failed fuse.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She replaced the bulb with the same type.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for replacing bulbs and aiming lamps.",
+    "explainPrompt": "Why must a fuse of the correct rating be used?",
+    "explainGuide": "The fuse is sized to blow before the wiring overheats. A higher rating lets too much current through, and that can burn the wiring.",
+    "explainKeywords": [
+     [
+      "fuse"
+     ],
+     [
+      "current"
+     ],
+     [
+      "overheat",
+      "overheats",
+      "burn",
+      "fire",
+      "melt"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Headlamp focusing and replacing bulbs and fuses",
+    "Same type, same rating."
+   ]
+  },
+  "pr-amech-joining-and-soldering-auto-cables": {
+   "safety": {
+    "correct": [
+     "Solder in moving air, and do not breathe the flux smoke."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the iron on the bench top between joints.",
+      "why": "Use the stand."
+     },
+     {
+      "text": "Strip a live cable with the battery connected.",
+      "why": "Disconnect it first."
+     },
+     {
+      "text": "Flick hot solder off the iron.",
+      "why": "It can burn you."
+     },
+     {
+      "text": "Check a joint's heat by touching it.",
+      "why": "It can burn you. Let it cool."
+     },
+     {
+      "text": "Run a cable across the exhaust because it is shorter.",
+      "why": "Heat destroys insulation."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Combination pliers",
+      "why": "They squash a terminal unevenly and give a weak, high-resistance crimp."
+     },
+     {
+      "name": "Insulating tape as the only joint",
+      "why": "Twist-and-tape joints fail."
+     },
+     {
+      "name": "Household flex",
+      "why": "It is not made for vehicles."
+     },
+     {
+      "name": "Blowlamp",
+      "why": "Its flame burns the insulation. Use the soldering iron and heat gun."
+     },
+     {
+      "name": "Wood glue",
+      "why": "It is not an electrical joint."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "size",
+     "afterStep": 1,
+     "prompt": "A cable will carry 10 A for 5 m. How do you choose?",
+     "options": [
+      {
+       "text": "A size correct for the current",
+       "correct": true,
+       "consequence": "Voltage drop stays small."
+      },
+      {
+       "text": "The thinnest in stock",
+       "consequence": "Undersized cable overheats."
+      },
+      {
+       "text": "Any size, so long as the colour is right",
+       "consequence": "Colour does not carry current."
+      }
+     ]
+    },
+    {
+     "id": "strip",
+     "afterStep": 2,
+     "prompt": "How do you strip the cable?",
+     "options": [
+      {
+       "text": "To terminal length, without nicking strands",
+       "correct": true,
+       "consequence": "All strands carry current."
+      },
+      {
+       "text": "With your teeth",
+       "consequence": "This damages teeth and strands."
+      },
+      {
+       "text": "Hard, to expose plenty of bare copper",
+       "consequence": "Bare copper can short."
+      }
+     ]
+    },
+    {
+     "id": "crimp",
+     "afterStep": 3,
+     "prompt": "The crimp is done. What do you do?",
+     "options": [
+      {
+       "text": "Pull-test it",
+       "correct": true,
+       "consequence": "A bad crimp shows now, not on the road."
+      },
+      {
+       "text": "Tape it at once",
+       "consequence": "A bad crimp stays hidden."
+      },
+      {
+       "text": "Trust it because it looks good",
+       "consequence": "Poor crimps add resistance."
+      }
+     ]
+    },
+    {
+     "id": "cold",
+     "afterStep": 4,
+     "prompt": "Your solder joint is dull and grainy. What do you do?",
+     "options": [
+      {
+       "text": "Reheat and remake it",
+       "correct": true,
+       "consequence": "A cold joint would give a poor contact."
+      },
+      {
+       "text": "Cover it with heat-shrink",
+       "consequence": "This hides a bad joint."
+      },
+      {
+       "text": "Add a piece of tape",
+       "consequence": "This does not remake the joint."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "What shows a good joint?",
+     "options": [
+      {
+       "text": "It passes the pull test with negligible resistance",
+       "correct": true
+      },
+      {
+       "text": "It pulls apart by hand",
+       "why": "That is a failed joint."
+      },
+      {
+       "text": "It reads very high resistance but holds when pulled",
+       "why": "That is a poor joint."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "res",
+     "prompt": "A copper cable is {l} m long and {a} mm² in area. With R = 0.0172 × length ÷ area, what is its resistance in ohms?",
+     "formula": "0.0172 * l / a",
+     "vars": {
+      "l": {
+       "min": 2,
+       "max": 6,
+       "step": 1
+      },
+      "a": {
+       "min": 1,
+       "max": 2,
+       "step": 0.5
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.05
+     },
+     "decimals": 3,
+     "working": "0.0172 × {l} ÷ {a} = {answer} Ω."
+    },
+    {
+     "id": "vd",
+     "prompt": "A conductor has a resistance of {r} Ω and carries {i} A. What is the voltage drop?",
+     "formula": "r * i",
+     "vars": {
+      "r": {
+       "min": 0.04,
+       "max": 0.1,
+       "step": 0.02
+      },
+      "i": {
+       "min": 5,
+       "max": 15,
+       "step": 5
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{i} × {r} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "hot-loom",
+     "scenario": "Zara's new wiring ran hot and failed. Here is what she did.",
+     "lines": [
+      {
+       "text": "She twisted and taped wires with no crimp or solder.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She used undersized cable.",
+       "fault": true,
+       "why": "It has high resistance."
+      },
+      {
+       "text": "She left a cold solder joint.",
+       "fault": true,
+       "why": "This raises resistance."
+      },
+      {
+       "text": "She disconnected the battery.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She fitted heat-shrink.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for joining auto cables.",
+    "explainPrompt": "Why are thick cables used for head lamp circuits?",
+    "explainGuide": "A thicker cable has lower resistance, so the voltage drop is smaller and the lamps stay bright.",
+    "explainKeywords": [
+     [
+      "thick",
+      "thicker"
+     ],
+     [
+      "resistance"
+     ],
+     [
+      "drop",
+      "voltage"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Joining and soldering auto cables",
+    "Right size. Sound joint."
+   ]
+  },
+  "pr-amech-identifying-electronic-fuel-injection-components": {
+   "safety": {
+    "correct": [
+     "Keep a clean rag ready when fuel lines are opened by the teacher."
+    ],
+    "wrong": [
+     {
+      "text": "Undo a fuel line straight after switching off.",
+      "why": "It stays under pressure. Relieve it first."
+     },
+     {
+      "text": "Push a pin into an ECU connector to test it.",
+      "why": "Sharp objects damage it."
+     },
+     {
+      "text": "Unplug sensors with the ignition on.",
+      "why": "This can damage electronics."
+     },
+     {
+      "text": "Smoke near the fuel rail.",
+      "why": "Fuel vapour ignites."
+     },
+     {
+      "text": "Force a plug that will not release.",
+      "why": "This breaks the connector. Find the clip."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Carburettor jet set",
+      "why": "EFI has no carburettor."
+     },
+     {
+      "name": "Contact breaker feeler set",
+      "why": "That belongs to old ignition."
+     },
+     {
+      "name": "Injector tester for diesel",
+      "why": "This job is on a petrol EFI system."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is cut."
+     },
+     {
+      "name": "Grease gun",
+      "why": "It has no use here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "type",
+     "afterStep": 3,
+     "prompt": "You find one injector per cylinder. What do you record?",
+     "options": [
+      {
+       "text": "Multi-point",
+       "correct": true,
+       "consequence": "Each inlet port has its own injector."
+      },
+      {
+       "text": "Single-point",
+       "consequence": "That has one injector in the throttle body."
+      },
+      {
+       "text": "Carburettor",
+       "consequence": "A carburettor has no injector."
+      }
+     ]
+    },
+    {
+     "id": "inj",
+     "afterStep": 4,
+     "prompt": "The injector reads 14.2 Ω, and the spec is 12 to 16 Ω. What do you record?",
+     "options": [
+      {
+       "text": "Good",
+       "correct": true,
+       "consequence": "It is within specification."
+      },
+      {
+       "text": "Faulty",
+       "consequence": "It is not outside the limit."
+      },
+      {
+       "text": "Open-circuit",
+       "consequence": "An open circuit reads infinite."
+      }
+     ]
+    },
+    {
+     "id": "sensor-name",
+     "afterStep": 2,
+     "prompt": "A sensor in the exhaust measures oxygen. What is it?",
+     "options": [
+      {
+       "text": "The lambda sensor",
+       "correct": true,
+       "consequence": "It reports oxygen to the ECU."
+      },
+      {
+       "text": "The MAP sensor",
+       "consequence": "That reads manifold pressure."
+      },
+      {
+       "text": "The crankshaft sensor",
+       "consequence": "That reads position."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "single",
+     "prompt": "Which observation describes a single-point system?",
+     "options": [
+      {
+       "text": "One injector in the throttle body",
+       "correct": true
+      },
+      {
+       "text": "An injector in each inlet port",
+       "why": "That is multi-point."
+      },
+      {
+       "text": "A float chamber and jets",
+       "why": "That is a carburettor."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "duty",
+     "prompt": "One engine cycle takes 40 ms. An injector is open for {t} ms each cycle. What percentage of the cycle is that?",
+     "formula": "t / 40 * 100",
+     "vars": {
+      "t": {
+       "min": 2,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "{t} ÷ 40 × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sprayed",
+     "scenario": "Musa's EFI identification went badly. Here is what he did.",
+     "lines": [
+      {
+       "text": "He disconnected a sensor with the ignition on.",
+       "fault": true,
+       "why": "This can damage electronics."
+      },
+      {
+       "text": "He undid a line without relieving the pressure.",
+       "fault": true,
+       "why": "Fuel can spray out."
+      },
+      {
+       "text": "He confused MAP and MAF sensors.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He checked the workshop manual.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He recorded each component.",
+       "why": "That is the task."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for working on an EFI system.",
+    "explainPrompt": "State the merits of electronic fuel injection over a carburettor.",
+    "explainGuide": "EFI gives better economy and lower emissions, because the ECU meters the fuel exactly. Starting is also better.",
+    "explainKeywords": [
+     [
+      "economy",
+      "fuel use"
+     ],
+     [
+      "emissions",
+      "pollution"
+     ],
+     [
+      "starting",
+      "ecu",
+      "control"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying electronic fuel injection components",
+    "Sensors, ECU, injectors."
+   ]
+  },
+  "pr-amech-inspecting-an-auto-air-conditioning-system": {
+   "safety": {
+    "correct": [
+     "Leave the manifold gauge connections to the teacher."
+    ],
+    "wrong": [
+     {
+      "text": "Crack open a pipe nut to hear if gas is present.",
+      "why": "Do not disconnect lines. Refrigerant causes frostbite."
+     },
+     {
+      "text": "Release refrigerant into the air before a repair.",
+      "why": "It must not be vented."
+     },
+     {
+      "text": "Reach past the belt with the engine running.",
+      "why": "Keep clear."
+     },
+     {
+      "text": "Grip the high-side pipe firmly with the system running.",
+      "why": "It can burn. Feel carefully."
+     },
+     {
+      "text": "Press the A/C clutch with your finger as it engages.",
+      "why": "It can trap your finger."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Spark tester",
+      "why": "It is an ignition tool."
+     },
+     {
+      "name": "Spanner for undoing pipe unions",
+      "why": "No refrigerant line is disconnected."
+     },
+     {
+      "name": "Grease gun",
+      "why": "It is not used here."
+     },
+     {
+      "name": "Refrigerant can for topping up",
+      "why": "Only trained persons handle it."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "clutch",
+     "afterStep": 2,
+     "prompt": "You switch on A/C. What do you check?",
+     "options": [
+      {
+       "text": "That the compressor clutch engages",
+       "correct": true,
+       "consequence": "The compressor is then driven."
+      },
+      {
+       "text": "That the horn sounds",
+       "consequence": "This is not related."
+      },
+      {
+       "text": "That the dipstick rises as the engine runs",
+       "consequence": "This is not related."
+      }
+     ]
+    },
+    {
+     "id": "place",
+     "afterStep": 4,
+     "prompt": "Where do you put the thermometer?",
+     "options": [
+      {
+       "text": "At the vent, not pushed far in",
+       "correct": true,
+       "consequence": "It reads true vent air."
+      },
+      {
+       "text": "Deep inside the vent",
+       "consequence": "That is a source of error."
+      },
+      {
+       "text": "On the dashboard top, near the vent",
+       "consequence": "It reads the cabin surface."
+      }
+     ]
+    },
+    {
+     "id": "hot-fins",
+     "afterStep": 5,
+     "prompt": "The condenser fins are blocked with dirt. What do you do?",
+     "options": [
+      {
+       "text": "Record it for gentle cleaning",
+       "correct": true,
+       "consequence": "Airflow is restored, and heat can leave."
+      },
+      {
+       "text": "Disconnect the pipes and flush them out",
+       "consequence": "Do not disconnect any line."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "A blocked condenser cuts cooling."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cold",
+     "prompt": "With A/C on, what does a working system give?",
+     "options": [
+      {
+       "text": "The clutch engages, and vent air drops to about 6 to 10 °C",
+       "correct": true
+      },
+      {
+       "text": "Vent air stays at 30 °C",
+       "why": "This is not cooling."
+      },
+      {
+       "text": "The compressor never engages, but the cabin fan still blows air",
+       "why": "This is a fault."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "drop",
+     "prompt": "Ambient air is {a} °C and vent air is {v} °C. What is the temperature drop in °C?",
+     "formula": "a - v",
+     "vars": {
+      "a": {
+       "min": 28,
+       "max": 36,
+       "step": 2
+      },
+      "v": {
+       "min": 6,
+       "max": 10,
+       "step": 2
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{a} − {v} = {answer} °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-part",
+     "scenario": "Ibrahim wrote a poor report on an A/C system. Here is what he did.",
+     "lines": [
+      {
+       "text": "He called the condenser the radiator.",
+       "fault": true,
+       "why": "A common mix-up."
+      },
+      {
+       "text": "He pushed the thermometer deep into the vent.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "He loosened a pipe to check for gas.",
+       "fault": true,
+       "why": "Never disconnect a line."
+      },
+      {
+       "text": "He checked the drive belt.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He kept clear of the fan.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for inspecting a car A/C system.",
+    "explainPrompt": "Describe what the refrigerant does at the evaporator and condenser.",
+    "explainGuide": "At the evaporator the liquid boils and takes in heat from the cabin. At the condenser the gas gives up heat to the outside air and turns to liquid.",
+    "explainKeywords": [
+     [
+      "evaporator",
+      "boils"
+     ],
+     [
+      "absorb",
+      "absorbs",
+      "takes in"
+     ],
+     [
+      "condenser"
+     ],
+     [
+      "releases",
+      "gives up",
+      "gives"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Inspecting an auto air-conditioning system",
+    "Do not disconnect any pipes."
+   ]
+  },
+  "pr-amech-identifying-safety-related-vehicle-defects-and-road-signs": {
+   "safety": {
+    "correct": [
+     "Wear a reflective vest when checking a vehicle near a road."
+    ],
+    "wrong": [
+     {
+      "text": "Do the check on the roadside with traffic passing.",
+      "why": "Use a safe area away from traffic."
+     },
+     {
+      "text": "Ignore a brake warning lamp because the car stops.",
+      "why": "Warning lamps must be acted on."
+     },
+     {
+      "text": "Drive on smooth tyres to a far market first.",
+      "why": "Replace them first."
+     },
+     {
+      "text": "Check the tread by feel only.",
+      "why": "Use the tread depth gauge."
+     },
+     {
+      "text": "Cross the road to see the sign chart without looking.",
+      "why": "Stay in the safe area."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Compression tester",
+      "why": "It is a deep engine test."
+     },
+     {
+      "name": "Micrometer",
+      "why": "It is not a road check tool."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is not part of this check."
+     },
+     {
+      "name": "Timing light",
+      "why": "It is an ignition tool."
+     },
+     {
+      "name": "Torque wrench",
+      "why": "This job is a check, not a repair."
+     }
+    ]
+   },
+   "room": "field",
+   "decisions": [
+    {
+     "id": "tread",
+     "afterStep": 1,
+     "prompt": "A tyre reads 1.4 mm, and the minimum is 1.6 mm. What do you record?",
+     "options": [
+      {
+       "text": "Replace it before the trip",
+       "correct": true,
+       "consequence": "It is below the legal minimum."
+      },
+      {
+       "text": "Use it for one more trip",
+       "consequence": "It is unsafe and illegal."
+      },
+      {
+       "text": "Add more air",
+       "consequence": "This does not add tread."
+      }
+     ]
+    },
+    {
+     "id": "lamp",
+     "afterStep": 4,
+     "prompt": "The dash shows an oil warning lamp. What do you do?",
+     "options": [
+      {
+       "text": "Stop and investigate",
+       "correct": true,
+       "consequence": "This prevents engine damage."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Cover the lamp and carry on",
+       "consequence": "The fault is still there."
+      }
+     ]
+    },
+    {
+     "id": "sign",
+     "afterStep": 5,
+     "prompt": "A triangle with a red border is ahead. What kind of sign is it?",
+     "options": [
+      {
+       "text": "A warning sign",
+       "correct": true,
+       "consequence": "Triangles warn."
+      },
+      {
+       "text": "An order sign",
+       "consequence": "Circles order."
+      },
+      {
+       "text": "An information sign",
+       "consequence": "Rectangles inform."
+      }
+     ]
+    },
+    {
+     "id": "checklist",
+     "afterStep": 6,
+     "prompt": "How do you make sure nothing is missed?",
+     "options": [
+      {
+       "text": "Use a checklist",
+       "correct": true,
+       "consequence": "Every item gets checked."
+      },
+      {
+       "text": "Rely on memory",
+       "consequence": "Items get missed."
+      },
+      {
+       "text": "Check the most expensive parts only",
+       "consequence": "Cheap parts can kill too."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "defect",
+     "prompt": "Which is a defect that can cause an accident?",
+     "options": [
+      {
+       "text": "A faulty brake light",
+       "correct": true
+      },
+      {
+       "text": "A clean windscreen",
+       "why": "That is sound."
+      },
+      {
+       "text": "Firm brake pedal feel",
+       "why": "That is sound."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "tread-gap",
+     "prompt": "The legal minimum tread is 1.6 mm. A tyre reads {t} mm. How far below the minimum is it, in mm?",
+     "formula": "1.6 - t",
+     "vars": {
+      "t": {
+       "min": 0.8,
+       "max": 1.4,
+       "step": 0.2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "1.6 − {t} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "unsafe",
+     "scenario": "A pre-trip check missed danger signs. Here is what Sani did.",
+     "lines": [
+      {
+       "text": "He ignored a warning lamp on the dash.",
+       "fault": true,
+       "why": "Act on warning lamps."
+      },
+      {
+       "text": "He read the tread on a wear bar.",
+       "fault": true,
+       "why": "That gives a false reading."
+      },
+      {
+       "text": "He worked with no checklist.",
+       "fault": true,
+       "why": "Things get missed."
+      },
+      {
+       "text": "He checked seat belts and mirrors.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He checked brake pedal feel.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for a pre-trip check.",
+    "explainPrompt": "State how road signs are classified by shape.",
+    "explainGuide": "Triangles warn, circles order or prohibit, and rectangles inform.",
+    "explainKeywords": [
+     [
+      "triangle",
+      "triangles"
+     ],
+     [
+      "circle",
+      "circles"
+     ],
+     [
+      "rectangle",
+      "rectangles"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying safety-related vehicle defects and road signs",
+    "Check it before you drive it."
+   ]
+  }
+ }
+}

@@ -1,0 +1,1239 @@
+{
+  "subject": "Foods and Nutrition",
+  "room": "kitchen",
+  "lessons": {
+    "pr-fnu-food-tests-nutrients": {
+      "room": "lab",
+      "safety": { "wrong": [
+        { "text": "Taste the sample after the test to confirm the result.", "why": "Nothing in a food test is ever tasted: the reagents are not food." },
+        { "text": "Look down into the test tube while it heats.", "why": "It can spurt. Point it away from everyone." },
+        { "text": "Warm the ethanol over a naked flame to speed up the emulsion test.", "why": "Ethanol catches fire. Keep it away from flames." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Samples are crushed in a mortar, not rolled." },
+        { "name": "Frying pan", "why": "Nothing is cooked here." },
+        { "name": "Cake tin", "why": "This is a chemical test, not baking." }
+      ] },
+      "procedure": { "anyOrder": [[2, 3, 4, 5, 6]] },
+      "decisions": [
+        { "id": "which-reagent", "afterStep": 2, "prompt": "You want to test the sample for reducing sugar. What do you add?", "options": [
+          { "text": "Benedict's solution, then warm in a water bath", "correct": true, "consequence": "A reducing sugar gives a brick-red precipitate." },
+          { "text": "Iodine solution, at room temperature", "consequence": "Iodine tests for starch, so this tells you nothing about sugar." },
+          { "text": "Biuret reagents, at room temperature", "consequence": "Biuret tests for protein, so this tells you nothing about sugar." }
+        ] },
+        { "id": "control", "afterStep": 6, "prompt": "All the tests are done. What makes your results reliable?", "options": [
+          { "text": "A control of each test using water only", "correct": true, "consequence": "You can now see what each reagent looks like with no nutrient present." },
+          { "text": "Repeating with more of the same sample", "consequence": "Repeating cannot show what a negative result looks like." },
+          { "text": "Leaving the tubes to stand overnight", "consequence": "That changes the colours you must record." }
+        ] }
+      ],
+      "observations": [
+        { "id": "starch", "prompt": "You add iodine to garri. What do you observe?", "options": [
+          { "text": "The yellow-brown iodine turns blue-black", "correct": true },
+          { "text": "A brick-red precipitate forms at the bottom of the tube", "why": "That is Benedict's with a reducing sugar." },
+          { "text": "A violet colour appears", "why": "That is Biuret with protein." }
+        ] },
+        { "id": "protein", "prompt": "Egg white with Biuret reagents shows:", "options": [
+          { "text": "A violet colour", "correct": true },
+          { "text": "A blue-black colour", "why": "That is iodine with starch." },
+          { "text": "A translucent spot on paper", "why": "That is the grease-spot test for fat." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "glucose", "prompt": "How many grams of glucose make {v} cm³ of a {c}% solution?", "formula": "c / 100 * v", "vars": { "v": { "min": 50, "max": 200, "step": 50 }, "c": { "min": 1, "max": 4, "step": 1 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "rel": 0.02 }, "decimals": 1, "working": "{c}/100 × {v} = {answer} g." }
+      ],
+      "faults": [
+        { "id": "record", "scenario": "Ifeoma wrote up her food tests. Here are lines from her table.", "lines": [
+          { "text": "She recorded 'positive' for the garri, with no colour.", "fault": true, "why": "Record the colour you actually saw." },
+          { "text": "She used iodine to test table sugar for reducing sugar.", "fault": true, "why": "Iodine tests for starch." },
+          { "text": "She said table sugar gave no colour change with Benedict's, so it is a non-reducing sugar.", "why": "That is correct: sucrose is non-reducing." },
+          { "text": "She ran a water control.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What is the difference between an observation and an inference in a food test?",
+        "explainGuide": "An observation is what you see, such as a colour change. An inference is what that shows, such as starch being present.",
+        "explainKeywords": [["observ", "see", "colour"], ["infer", "present", "conclude", "shows"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-food-composition-table": {
+      "safety": { "wrong": [
+        { "text": "Eat from the plate while weighing, since it is your own meal.", "why": "Weigh it first, or your portions are wrong." },
+        { "text": "Share one serving spoon between raw and cooked foods.", "why": "That spreads bacteria." },
+        { "text": "Leave the meal uncovered on the bench for the whole lesson.", "why": "Keep food covered." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Nothing is rolled." },
+        { "name": "Egg whisk", "why": "No food is being prepared here." },
+        { "name": "Frying pan", "why": "The meal is already cooked." }
+      ] },
+      "decisions": [
+        { "id": "tare", "afterStep": 1, "prompt": "What do you do before putting food on the plate?", "options": [
+          { "text": "Set the scale to zero with the empty plate on it", "correct": true, "consequence": "The reading is now the food's mass alone." },
+          { "text": "Note the plate's brand", "consequence": "That does nothing for the weighing." },
+          { "text": "Weigh all the foods together at once", "consequence": "You can't then look up each food separately." }
+        ] },
+        { "id": "cooked", "afterStep": 3, "prompt": "You served boiled rice. Which value do you look up?", "options": [
+          { "text": "The cooked rice value", "correct": true, "consequence": "Cooked rice holds water, so its value per 100 g is much lower." },
+          { "text": "The raw rice value", "consequence": "Raw rice has far more energy per 100 g, so your total comes out much too high." },
+          { "text": "Any rice value: they are the same", "consequence": "They differ greatly because of the water taken up." }
+        ] }
+      ],
+      "observations": [
+        { "id": "scale", "prompt": "A table gives values per 100 g. For a 250 g portion you:", "options": [
+          { "text": "Multiply the value by 250/100", "correct": true },
+          { "text": "Multiply the value by 250", "why": "You must divide by 100, as the value is per 100 g." },
+          { "text": "Use the value as it stands", "why": "That is the value for 100 g only." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "energy", "prompt": "Cooked rice has 130 kcal per 100 g. How many kcal are in a {m} g portion?", "formula": "130 * m / 100", "vars": { "m": { "min": 150, "max": 350, "step": 50 } }, "unit": "kcal", "tolerance": { "rel": 0.01 }, "decimals": 1, "working": "130 × {m} ÷ 100 = {answer} kcal." },
+        { "id": "protein", "prompt": "Beef stew has 20 g protein per 100 g. How many grams of protein are in {m} g?", "formula": "20 * m / 100", "vars": { "m": { "min": 60, "max": 120, "step": 20 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "rel": 0.01 }, "decimals": 1, "working": "20 × {m} ÷ 100 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "high-total", "scenario": "Grace's meal came out at 4,000 kcal, which cannot be right. Here is what she did.", "lines": [
+          { "text": "She forgot to divide by 100 for each portion.", "fault": true, "why": "That makes each value far too large." },
+          { "text": "She used the raw rice value for boiled rice.", "fault": true, "why": "Use the value for the food as eaten." },
+          { "text": "She weighed each food separately.", "why": "That is correct." },
+          { "text": "She reset the scale to zero with the plate on it.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is a food's value per 100 g so different cooked and raw?",
+        "explainGuide": "Cooking adds or removes water, so the same mass holds a different amount of nutrients. Rice takes up water, so 100 g cooked holds less than 100 g raw.",
+        "explainKeywords": [["water"], ["cook", "boil", "raw"], ["mass", "less", "nutrient", "energy"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-meal-planning-family": {
+      "safety": { "wrong": [
+        { "text": "Leave the frying pan unattended while you lay the table.", "why": "Hot oil can catch fire. Stay with it." },
+        { "text": "Taste with a finger and carry on cooking without washing.", "why": "Use a clean spoon each time." },
+        { "text": "Carry a hot pot through the kitchen with a wet cloth.", "why": "A wet cloth conducts heat and scalds." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Pastry brush", "why": "This meal involves no pastry." },
+        { "name": "Piping bag", "why": "Nothing is iced." },
+        { "name": "Cake tin", "why": "No cake is on this menu." }
+      ] },
+      "decisions": [
+        { "id": "balance", "afterStep": 2, "prompt": "Your menu is jollof rice, fried plantain and yam chips. What do you change?", "options": [
+          { "text": "Replace one starchy dish with chicken and add a salad", "correct": true, "consequence": "Now every class of food appears, with variety of colour and texture." },
+          { "text": "Nothing: it is filling, and students enjoy all three dishes", "consequence": "All starch: it has too little protein and few vitamins." },
+          { "text": "Add a second rice dish", "consequence": "Even more starch, and no balance." }
+        ] },
+        { "id": "time-plan", "afterStep": 4, "prompt": "Rice takes 40 minutes and salad 10. How do you plan the order?", "options": [
+          { "text": "Start the rice first and make the salad near the end", "correct": true, "consequence": "Everything is ready at once, hot or fresh." },
+          { "text": "Make the salad first of all", "consequence": "The salad wilts while it waits." },
+          { "text": "Cook everything at the same moment so that it all comes together", "consequence": "Things finish at different times, so some get cold." }
+        ] }
+      ],
+      "observations": [
+        { "id": "good-meal", "prompt": "Which of these shows a well-planned family meal?", "options": [
+          { "text": "All food classes, varied colour, served hot and on time", "correct": true },
+          { "text": "Rice and yam, with extra stew, all brown in colour", "why": "That lacks variety and balance." },
+          { "text": "Everything cooked early, then kept on the side", "why": "Food goes cold and loses its quality." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "per-head", "prompt": "A meal costs N{t} in total for {n} people. What is the cost per person, in naira?", "formula": "t / n", "vars": { "t": { "min": 8000, "max": 12000, "step": 500 }, "n": { "min": 4, "max": 6, "step": 1 } }, "unit": "", "tolerance": { "abs": 1 }, "decimals": 0, "working": "{t} ÷ {n} = N{answer}." },
+        { "id": "rice", "prompt": "Rice costs N2,000 per kg. What do {m} g cost, in naira?", "formula": "m / 1000 * 2000", "vars": { "m": { "min": 500, "max": 1000, "step": 250 } }, "unit": "", "tolerance": { "abs": 1 }, "decimals": 0, "working": "{m} ÷ 1000 × 2000 = N{answer}." }
+      ],
+      "faults": [
+        { "id": "cold-rice", "scenario": "Chioma's rice was cold by the time the chicken was done, and the sink was full. Here is what she did.", "lines": [
+          { "text": "She had no written time plan.", "fault": true, "why": "A time plan puts everything ready together." },
+          { "text": "She left all the washing up until the end.", "fault": true, "why": "Clean as you go." },
+          { "text": "She tasted and adjusted the seasoning.", "why": "That is correct." },
+          { "text": "She garnished the dishes before serving.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is a written order of work needed for a family meal?",
+        "explainGuide": "Dishes take different times. A time plan makes sure they are ready together, the food is served hot, and clearing up is done as you go.",
+        "explainKeywords": [["time", "order", "plan"], ["ready", "together", "hot"], ["dishes", "different"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-special-needs-meal": {
+      "safety": { "wrong": [
+        { "text": "Offer a sweet soft drink, since sugar raises energy.", "why": "Sugary drinks raise blood sugar quickly." },
+        { "text": "Skip weighing the portions, as an estimate is close enough.", "why": "Carbohydrate must be measured for this diet." },
+        { "text": "Change the person's medicine to suit the meal.", "why": "Only a doctor changes medication." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Frying pan", "why": "This meal is boiled, not fried." },
+        { "name": "Icing sugar", "why": "Sweet foods are limited in this meal." },
+        { "name": "Deep fat fryer", "why": "Fried foods add fat this meal avoids." }
+      ] },
+      "decisions": [
+        { "id": "carb", "afterStep": 1, "prompt": "How should carbohydrate be handled?", "options": [
+          { "text": "Kept in measured amounts, with slow-release foods", "correct": true, "consequence": "Blood sugar stays steady." },
+          { "text": "Removed from the diet altogether", "consequence": "People with diabetes still need carbohydrate." },
+          { "text": "Served freely, since rice is natural and gives energy", "consequence": "Large portions make blood sugar rise too far." }
+        ] },
+        { "id": "cook", "afterStep": 4, "prompt": "How do you cook the plantain?", "options": [
+          { "text": "Boil it unripe, in its skin", "correct": true, "consequence": "It stays slow to digest, with no added fat." },
+          { "text": "Fry it ripe as dodo, in plenty of oil", "consequence": "That adds fat, and ripe plantain has more sugar." },
+          { "text": "Mash it with sugar", "consequence": "That adds quick sugar." }
+        ] }
+      ],
+      "observations": [
+        { "id": "drink", "prompt": "Which drink suits this meal?", "options": [
+          { "text": "Water", "correct": true },
+          { "text": "A sweetened malt drink", "why": "That raises blood sugar quickly." },
+          { "text": "Sweetened zobo", "why": "The added sugar raises blood sugar." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "carb-p", "prompt": "Boiled unripe plantain has 31 g carbohydrate per 100 g. How much is in a {m} g portion, in grams?", "formula": "31 * m / 100", "vars": { "m": { "min": 100, "max": 160, "step": 20 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "rel": 0.01 }, "decimals": 1, "working": "31 × {m} ÷ 100 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "wrong-meal", "scenario": "Kunle prepared a lunch for his diabetic uncle. His teacher returned it. Here is what he did.", "lines": [
+          { "text": "He fried the plantain.", "fault": true, "why": "Boil it instead." },
+          { "text": "He served a sweetened drink.", "fault": true, "why": "Offer water." },
+          { "text": "He weighed the carbohydrate foods.", "why": "That is correct." },
+          { "text": "He used lots of vegetables.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should a person with diabetes not simply cut out carbohydrate?",
+        "explainGuide": "The body still needs carbohydrate for energy. Measured portions of slow-release foods keep blood sugar steady, and missing them can make it fall too low.",
+        "explainKeywords": [["energy"], ["blood sugar", "glucose", "steady"], ["measured", "portion", "controlled", "slow"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-kitchen-work-triangle": {
+      "room": "drawing",
+      "safety": { "wrong": [
+        { "text": "Stand on a kitchen stool to measure the top of a cupboard.", "why": "Use a safe step, or measure from the floor." },
+        { "text": "Pull out the cooker yourself to measure behind it.", "why": "It is heavy, and it may be connected to gas." },
+        { "text": "Let the tape measure snap back with your hand in the way.", "why": "The tape edge cuts." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Saucepan", "why": "This is a drawing job." },
+        { "name": "Kitchen scale", "why": "You are measuring a room, not food." },
+        { "name": "Set of compasses and dividers for maps", "why": "A rule and pencil do this job." }
+      ] },
+      "decisions": [
+        { "id": "sink-place", "afterStep": 3, "prompt": "Where do you put the sink?", "options": [
+          { "text": "Near the window, for light and drainage", "correct": true, "consequence": "Good light and short drain runs." },
+          { "text": "In the middle of the floor", "consequence": "That blocks movement and has no drainage." },
+          { "text": "Directly beside the fridge door hinges", "consequence": "That leaves no working space." }
+        ] },
+        { "id": "cooker-place", "afterStep": 3, "prompt": "Where should the cooker go?", "options": [
+          { "text": "Against a wall, with a clear space on each side", "correct": true, "consequence": "Pans can be put down safely, and nothing blows out the flame." },
+          { "text": "Beside the door, so that smoke and steam can get out", "consequence": "People walking in knock into hot pans." },
+          { "text": "Under the window", "consequence": "Curtains catch fire, and draughts blow out the flame." }
+        ] }
+      ],
+      "observations": [
+        { "id": "total", "prompt": "What should the three sides of a good triangle add up to?", "options": [
+          { "text": "About 3.6 m to 6.6 m", "correct": true },
+          { "text": "Under 1 m, to save steps", "why": "That is too cramped to work in." },
+          { "text": "Over 12 m, so that two people can pass", "why": "That means too much walking." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "real", "prompt": "At a scale of 1:20, a line on paper is {d} cm. What is the real distance, in metres?", "formula": "d * 20 / 100", "vars": { "d": { "min": 8, "max": 14, "step": 0.5 } }, "unit": "m", "unitAliases": ["metres", "meters"], "tolerance": { "abs": 0.02 }, "decimals": 1, "working": "{d} × 20 = cm; ÷ 100 = {answer} m." }
+      ],
+      "faults": [
+        { "id": "bad-plan", "scenario": "Halima's kitchen plan was marked down. Here is what she did.", "lines": [
+          { "text": "She drew it without stating a scale.", "fault": true, "why": "A plan needs a scale." },
+          { "text": "She placed the fridge next to the cooker.", "fault": true, "why": "Heat makes the fridge work harder." },
+          { "text": "She labelled every fixture.", "why": "That is correct." },
+          { "text": "She drew the triangle between the centres of the work areas.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What does the work triangle save the cook, and how?",
+        "explainGuide": "It saves steps, time and energy, by keeping the sink, cooker and refrigerator close but not cramped, with nothing crossing it.",
+        "explainKeywords": [["time", "energy", "steps", "walking"], ["sink", "cooker", "refrigerator", "fridge"], ["close", "distance", "near"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-equipment-care": {
+      "safety": { "wrong": [
+        { "text": "Wash the blender base in the sink to clean it properly.", "why": "Electrical bases must never be immersed." },
+        { "text": "Leave knives in the washing-up water.", "why": "A hidden blade cuts the next hand." },
+        { "text": "Scour the non-stick pan with a metal pad.", "why": "That destroys the coating." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Metal scouring pad for the non-stick pan", "why": "It scratches the coating." },
+        { "name": "Rolling pin", "why": "No baking here." },
+        { "name": "Bleach for the kettle", "why": "Vinegar descales it safely." }
+      ] },
+      "decisions": [
+        { "id": "wood", "afterStep": 6, "prompt": "How do you clean the wooden board?", "options": [
+          { "text": "Scrub with hot soapy water, rinse and dry upright", "correct": true, "consequence": "It stays clean, and it doesn't split." },
+          { "text": "Soak it overnight in the sink with soap and bleach water", "consequence": "It swells and splits." },
+          { "text": "Put it away damp", "consequence": "Mould grows." }
+        ] },
+        { "id": "order-wash", "afterStep": 3, "prompt": "In which order do you wash up?", "options": [
+          { "text": "Glassware, cutlery, plates, then pots", "correct": true, "consequence": "The water stays cleanest for what needs it most." },
+          { "text": "Greasy pots first, then glasses", "consequence": "Grease coats the glasses." },
+          { "text": "Any order, because the soap does the work", "consequence": "The water gets greasy too soon." }
+        ] }
+      ],
+      "observations": [
+        { "id": "fridge", "prompt": "What is a safe refrigerator temperature?", "options": [
+          { "text": "Between 1 and 5 °C", "correct": true },
+          { "text": "About 15 °C", "why": "Bacteria grow at that temperature." },
+          { "text": "Below -18 °C, so that it keeps longest", "why": "That is a freezer." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "mean", "prompt": "Daily fridge readings are {a}, 4, 4, 5 and 3 °C. What is the mean, in °C?", "formula": "(a + 4 + 4 + 5 + 3) / 5", "vars": { "a": { "min": 2, "max": 6, "step": 1 } }, "unit": "°C", "unitAliases": ["C", "degrees", "degrees C", "degC"], "tolerance": { "abs": 0.05 }, "decimals": 1, "working": "({a} + 4 + 4 + 5 + 3) ÷ 5 = {answer} °C." },
+        { "id": "vinegar", "prompt": "You fill a kettle with {v} ml of a 1:1 vinegar and water mix. How much vinegar is that, in ml?", "formula": "v / 2", "vars": { "v": { "min": 400, "max": 800, "step": 100 } }, "unit": "ml", "unitAliases": ["cm3"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{v} ÷ 2 = {answer} ml." }
+      ],
+      "faults": [
+        { "id": "ruined", "scenario": "Tobi spoiled some of the school's kitchen equipment. Here is what he did.", "lines": [
+          { "text": "He immersed the kettle's electrical base in water.", "fault": true, "why": "That damages it and is dangerous." },
+          { "text": "He used abrasive powder on the non-stick pan.", "fault": true, "why": "It scratches the coating." },
+          { "text": "He dried everything before storing.", "why": "That is correct." },
+          { "text": "He rinsed the kettle well after descaling.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a kettle need descaling, and how does vinegar help?",
+        "explainGuide": "Hard water leaves a layer of limescale that slows heating. Vinegar is an acid that dissolves the scale.",
+        "explainKeywords": [["scale", "limescale", "deposit"], ["acid"], ["dissolve", "removes", "break"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-kitchen-safety-audit": {
+      "safety": { "wrong": [
+        { "text": "Spread oil or raw egg on a burn.", "why": "That traps heat and invites infection." },
+        { "text": "Put ice straight on a burn.", "why": "Ice damages the skin. Cool it with running water." },
+        { "text": "Reuse a dirty dressing to save the first aid box.", "why": "Use sterile dressings." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Bag of ice for burns", "why": "Ice damages burnt skin." },
+        { "name": "Butter for burns", "why": "Grease traps heat." },
+        { "name": "Rolling pin", "why": "Not part of an audit." }
+      ] },
+      "decisions": [
+        { "id": "burn", "afterStep": 3, "prompt": "A classmate's hand touches a hot tray. What is the first step?", "options": [
+          { "text": "Cool it under cool running water for about 20 minutes", "correct": true, "consequence": "This stops the burn going deeper and eases the pain." },
+          { "text": "Rub on palm oil", "consequence": "Oil traps the heat in the skin." },
+          { "text": "Burst the blister to let the heat out, then cover it with a plaster", "consequence": "That opens the skin to infection." }
+        ] },
+        { "id": "cut", "afterStep": 4, "prompt": "A small cut is bleeding. What do you do?", "options": [
+          { "text": "Wash it, press with a clean dressing, then cover", "correct": true, "consequence": "The bleeding stops, and it stays clean." },
+          { "text": "Keep cooking with it uncovered until the lesson has finished", "consequence": "It can contaminate food." },
+          { "text": "Put flour on it", "consequence": "That dirties the wound." }
+        ] }
+      ],
+      "observations": [
+        { "id": "hazard", "prompt": "Which is a hazard you should record?", "options": [
+          { "text": "A saucepan handle turned over the cooker edge", "correct": true },
+          { "text": "A clean, dry floor", "why": "That is safe." },
+          { "text": "Knives stored in a rack on the wall, away from children", "why": "That is safe." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "score", "prompt": "A kitchen passes {p} of 24 checks. What is its safety score?", "formula": "p / 24 * 100", "vars": { "p": { "min": 12, "max": 21, "step": 3 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "{p} ÷ 24 × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "audit", "scenario": "Zara's audit report was sent back. Here is what she did.", "lines": [
+          { "text": "She listed the hazards, but not how to prevent them.", "fault": true, "why": "An audit must say how to fix each hazard." },
+          { "text": "She suggested raw egg for burns.", "fault": true, "why": "Cool running water only." },
+          { "text": "She checked the first aid box against its list.", "why": "That is correct." },
+          { "text": "She marked each item safe or unsafe.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is cool running water the right first aid for a minor burn?",
+        "explainGuide": "It takes heat out of the skin, which stops the burn going deeper and eases pain, without damaging the skin as ice would.",
+        "explainKeywords": [["cool", "heat"], ["skin", "deeper", "damage"], ["pain", "ease", "ice"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-kitchen-hygiene": {
+      "safety": { "wrong": [
+        { "text": "Mix bleach with another cleaner to make it stronger.", "why": "It can give off a poisonous gas." },
+        { "text": "Wipe the worktop with the floor cloth.", "why": "That spreads dirt and bacteria." },
+        { "text": "Keep rings and a wristwatch on when preparing dough.", "why": "They trap dirt and bacteria." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Floor cloth for the worktop", "why": "Keep separate cloths." },
+        { "name": "Frying pan", "why": "This job is about cleaning." },
+        { "name": "Nail varnish remover", "why": "Remove polish at home before the lesson." }
+      ] },
+      "decisions": [
+        { "id": "wash-long", "afterStep": 2, "prompt": "How long should a good hand wash last?", "options": [
+          { "text": "About 20 seconds, with soap, all parts of the hands", "correct": true, "consequence": "Soap and rubbing remove the bacteria." },
+          { "text": "About 3 seconds, rinsing only the fingertips under the tap", "consequence": "That leaves most bacteria on the hands." },
+          { "text": "A short wipe on the apron", "consequence": "That only moves the dirt." }
+        ] },
+        { "id": "disinfect", "afterStep": 3, "prompt": "When is the bleach solution used?", "options": [
+          { "text": "After cleaning with soapy water", "correct": true, "consequence": "Dirt is gone, so the disinfectant reaches the surface." },
+          { "text": "Before cleaning, so that it can loosen the dirt", "consequence": "Dirt uses up the bleach." },
+          { "text": "Instead of cleaning, to save time", "consequence": "Dirt protects the bacteria." }
+        ] }
+      ],
+      "observations": [
+        { "id": "boards", "prompt": "Why are raw and cooked foods kept apart?", "options": [
+          { "text": "To prevent cross-contamination", "correct": true },
+          { "text": "To stop their colours mixing", "why": "The risk is bacteria, not colour." },
+          { "text": "To save worktop space", "why": "The reason is food safety." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "bleach", "prompt": "To dilute 5% bleach to 0.1%, you use a factor of 50. How much bleach makes {v} ml of solution, in ml?", "formula": "v / 50", "vars": { "v": { "min": 500, "max": 2000, "step": 500 } }, "unit": "ml", "unitAliases": ["cm3"], "tolerance": { "abs": 0.5 }, "decimals": 0, "working": "{v} ÷ 50 = {answer} ml of bleach." }
+      ],
+      "faults": [
+        { "id": "poor-routine", "scenario": "Food poisoning is traced to a class's kitchen practice. Here is what Ade did.", "lines": [
+          { "text": "He skipped his thumbs and nails when washing his hands.", "fault": true, "why": "Bacteria collect there." },
+          { "text": "He wiped the worktop with a dirty cloth after disinfecting it.", "fault": true, "why": "That puts bacteria back." },
+          { "text": "He used different boards for raw and cooked food.", "why": "That is correct." },
+          { "text": "He wore a clean apron.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What is cross-contamination, and how do you prevent it?",
+        "explainGuide": "It is the spread of bacteria from raw food, hands or surfaces to cooked or ready food. Keep them apart, and use separate boards and clean hands.",
+        "explainKeywords": [["bacteria", "germs"], ["raw", "cooked"], ["separate", "apart", "different", "wash"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-cooking-methods-yam": {
+      "safety": { "wrong": [
+        { "text": "Lower wet yam into hot oil from a height.", "why": "Water and hot oil spatter badly. Dry the yam and lower it gently." },
+        { "text": "Use a wet cloth to take the tray from the oven.", "why": "Use a dry oven cloth." },
+        { "text": "Crowd all the pieces into the pan at once to save time.", "why": "That drops the oil temperature and it can overflow." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Pastry brush", "why": "No pastry here." },
+        { "name": "Piping bag", "why": "Nothing is iced." },
+        { "name": "Egg whisk", "why": "Nothing is whisked." }
+      ] },
+      "decisions": [
+        { "id": "same", "afterStep": 1, "prompt": "What must be the same across the three batches?", "options": [
+          { "text": "The starting mass and the size of the pieces", "correct": true, "consequence": "Only the cooking method then differs, so the comparison is fair." },
+          { "text": "The cooking time in minutes for each of the three", "consequence": "The methods need different times to cook through." },
+          { "text": "The colour on serving", "consequence": "Colour is a result, not a control." }
+        ] },
+        { "id": "fry-dry", "afterStep": 3, "prompt": "What do you do before frying batch C?", "options": [
+          { "text": "Pat the pieces dry", "correct": true, "consequence": "The oil stays calm, and the yam browns." },
+          { "text": "Rinse them again", "consequence": "Water on hot oil spatters dangerously." },
+          { "text": "Add salt to the oil", "consequence": "Salt doesn't dissolve in oil, and it spoils the oil." }
+        ] }
+      ],
+      "observations": [
+        { "id": "mass", "prompt": "Which batch usually gains mass?", "options": [
+          { "text": "The boiled batch", "correct": true, "why": "Yam takes up water." },
+          { "text": "The roasted batch", "why": "It loses water to the dry heat." },
+          { "text": "The fried batch", "why": "It loses more water than the oil it takes up." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "change", "prompt": "A 500 g batch weighs {f} g after cooking. What is the percentage loss in mass?", "formula": "(500 - f) / 500 * 100", "vars": { "f": { "min": 400, "max": 460, "step": 10 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.2 }, "decimals": 1, "working": "(500 − {f}) ÷ 500 × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "unfair", "scenario": "Efua's comparison of cooking methods was marked down. Here is what she did.", "lines": [
+          { "text": "She called frying a moist-heat method.", "fault": true, "why": "Frying is dry-heat cooking in fat." },
+          { "text": "She overcrowded the frying pan.", "fault": true, "why": "The oil cools, and the yam soaks up oil." },
+          { "text": "She started each batch at 500 g.", "why": "That is correct." },
+          { "text": "She drained each batch before weighing.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does boiled yam gain mass while roasted yam loses it?",
+        "explainGuide": "In boiling, the starch takes up water from the pot. In roasting, dry heat drives water out of the yam.",
+        "explainKeywords": [["water"], ["starch", "absorb", "takes up", "gain"], ["dry", "lose", "evaporat"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-plantain-dishes": {
+      "safety": { "wrong": [
+        { "text": "Throw plantain slices into the oil from above.", "why": "Hot oil splashes. Lower them in gently." },
+        { "text": "Pour hot oil back into its bottle straight away.", "why": "Let it cool first." },
+        { "text": "Peel away from the board in the air with the knife.", "why": "Keep the food on the board." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Nothing is rolled." },
+        { "name": "Egg whisk", "why": "Nothing is whisked." },
+        { "name": "Cake tin", "why": "Nothing is baked." }
+      ] },
+      "decisions": [
+        { "id": "ripe", "afterStep": 1, "prompt": "Which plantain makes sweet, soft dodo?", "options": [
+          { "text": "Ripe plantain", "correct": true, "consequence": "The starch has turned to sugar, so it browns and tastes sweet." },
+          { "text": "Green plantain", "consequence": "It stays hard and starchy." },
+          { "text": "Boiled plantain", "consequence": "It falls apart in the oil." }
+        ] },
+        { "id": "greens", "afterStep": 4, "prompt": "When do you add the ugu?", "options": [
+          { "text": "At the end of cooking", "correct": true, "consequence": "It keeps its colour and vitamins." },
+          { "text": "At the start, with the plantain", "consequence": "It overcooks, and it loses colour and vitamin C." },
+          { "text": "After serving", "consequence": "It stays raw." }
+        ] }
+      ],
+      "observations": [
+        { "id": "oil", "prompt": "What does measuring the oil left in the pan tell you?", "options": [
+          { "text": "How much oil the plantain took up", "correct": true },
+          { "text": "How much water was in the plantain", "why": "It measures oil." },
+          { "text": "How sweet it is", "why": "It says nothing about the sweetness." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "absorbed", "prompt": "You begin with 500 ml of oil and {r} ml remain. How many ml were absorbed?", "formula": "500 - r", "vars": { "r": { "min": 440, "max": 480, "step": 10 } }, "unit": "ml", "unitAliases": ["cm3"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "500 − {r} = {answer} ml." },
+        { "id": "energy", "prompt": "{v} ml of oil is absorbed, oil has a density of 0.92 g/ml, and oil gives 9 kcal/g. How many kcal is that?", "formula": "v * 0.92 * 9", "vars": { "v": { "min": 20, "max": 50, "step": 10 } }, "unit": "kcal", "tolerance": { "rel": 0.02 }, "decimals": 1, "working": "{v} × 0.92 × 9 = {answer} kcal." }
+      ],
+      "faults": [
+        { "id": "burnt", "scenario": "Ogechi's dodo was burnt, and the porridge greens were dull. Here is what she did.", "lines": [
+          { "text": "She sliced the plantain too thinly.", "fault": true, "why": "Thin slices burn." },
+          { "text": "She added the vegetables too early.", "fault": true, "why": "They lose colour and vitamins." },
+          { "text": "She drained the dodo on kitchen paper.", "why": "That is correct." },
+          { "text": "She measured the oil.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does ripe plantain brown faster and taste sweeter than green plantain?",
+        "explainGuide": "As plantain ripens, its starch turns to sugar. The sugar caramelises and browns quickly in hot oil, and tastes sweet.",
+        "explainKeywords": [["starch"], ["sugar"], ["brown", "caramel"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-raising-agents": {
+      "room": "kitchen",
+      "safety": { "wrong": [
+        { "text": "Test the oven heat with your bare hand on the shelf.", "why": "Use the dial and oven gloves." },
+        { "text": "Pull the hot tray out without gloves, quickly.", "why": "Use dry oven gloves." },
+        { "text": "Stand a hot tray on the edge of the table.", "why": "It can fall. Place it on a safe surface." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Frying pan", "why": "Scones are baked." },
+        { "name": "Yeast", "why": "This test uses baking powder." },
+        { "name": "Whisk", "why": "Scone dough is rubbed in, not whisked." }
+      ] },
+      "decisions": [
+        { "id": "control", "afterStep": 1, "prompt": "What is different between batches A and B?", "options": [
+          { "text": "Only the baking powder", "correct": true, "consequence": "Any difference comes from the raising agent." },
+          { "text": "The baking powder and the amount of milk", "consequence": "With two changes, you can't tell which caused the result." },
+          { "text": "The oven temperature", "consequence": "That is a second variable." }
+        ] },
+        { "id": "knead", "afterStep": 4, "prompt": "How do you handle the dough?", "options": [
+          { "text": "Lightly, with only a little kneading", "correct": true, "consequence": "It stays tender." },
+          { "text": "Knead hard for 10 minutes", "consequence": "The gluten develops, and the scones are tough." },
+          { "text": "Add extra milk to make it sticky", "consequence": "It spreads rather than rises." }
+        ] }
+      ],
+      "observations": [
+        { "id": "height", "prompt": "Which batch rises higher?", "options": [
+          { "text": "Batch B, with baking powder", "correct": true },
+          { "text": "Batch A, with no baking powder", "why": "It has no raising agent." },
+          { "text": "Both rise equally", "why": "The gas makes the difference." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "increase", "prompt": "Batch A has a mean height of {a} cm, and batch B {b} cm. What is the percentage increase?", "formula": "(b - a) / a * 100", "vars": { "a": { "min": 1, "max": 1.4, "step": 0.2 }, "b": { "min": 2.4, "max": 2.8, "step": 0.2 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "({b} − {a}) ÷ {a} × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "flat", "scenario": "Wale's scones came out flat and tough. Here is what he did.", "lines": [
+          { "text": "He kneaded the dough heavily.", "fault": true, "why": "That toughens scones." },
+          { "text": "He opened the oven early.", "fault": true, "why": "They collapse." },
+          { "text": "He sieved the flour.", "why": "That is correct." },
+          { "text": "He rolled each dough to 1.5 cm.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How does baking powder make a scone rise?",
+        "explainGuide": "With moisture and heat, baking powder gives off carbon dioxide gas. The gas expands in the dough, which rises and sets.",
+        "explainKeywords": [["carbon dioxide", "gas"], ["heat", "moisture"], ["expand", "rise"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-batters": {
+      "safety": { "wrong": [
+        { "text": "Turn the pan handle outwards so you can flip quickly.", "why": "It gets knocked. Turn it inwards." },
+        { "text": "Put wet fish straight into hot oil.", "why": "It spatters. Dry the fish first." },
+        { "text": "Toss the pancake over the open flame with a full pan.", "why": "Use a palette knife." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Batter is poured." },
+        { "name": "Yeast", "why": "This batter isn't yeast-raised." },
+        { "name": "Cake tin", "why": "Nothing is baked." }
+      ] },
+      "decisions": [
+        { "id": "milk", "afterStep": 1, "prompt": "How do you add the milk?", "options": [
+          { "text": "Gradually, beating all the time", "correct": true, "consequence": "A smooth batter with no lumps." },
+          { "text": "All at once", "consequence": "The flour forms lumps." },
+          { "text": "After cooking starts, a splash at a time in the pan", "consequence": "There is no batter to cook." }
+        ] },
+        { "id": "heat", "afterStep": 2, "prompt": "How hot should the pan be?", "options": [
+          { "text": "Fairly hot and lightly oiled", "correct": true, "consequence": "Pancakes set quickly and stay tender." },
+          { "text": "Barely warm", "consequence": "They turn leathery." },
+          { "text": "Smoking hot with lots of oil", "consequence": "They burn outside and stay raw inside." }
+        ] }
+      ],
+      "observations": [
+        { "id": "coating", "prompt": "How does a coating batter differ from a pouring batter?", "options": [
+          { "text": "It is thicker, with about half the liquid", "correct": true },
+          { "text": "It is thinner, with double the liquid", "why": "That would run off the fish." },
+          { "text": "It contains no flour", "why": "It uses the same flour." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "scale", "prompt": "Batter for 8 pancakes takes 250 ml of milk. How much milk do {n} pancakes need, in ml?", "formula": "250 * n / 8", "vars": { "n": { "min": 16, "max": 40, "step": 8 } }, "unit": "ml", "unitAliases": ["cm3"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "250 × {n} ÷ 8 = {answer} ml." }
+      ],
+      "faults": [
+        { "id": "heavy", "scenario": "Adaobi's pancakes were thick, lumpy and leathery. Here is what she did.", "lines": [
+          { "text": "She poured in all the milk at once.", "fault": true, "why": "That gives lumps." },
+          { "text": "She used too much batter in the pan.", "fault": true, "why": "They come out thick and heavy." },
+          { "text": "She cooked at too low a heat.", "fault": true, "why": "They go leathery." },
+          { "text": "She sieved the flour.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a coating batter need less liquid than a pouring batter?",
+        "explainGuide": "It must be thick enough to cling to the food and protect it in the hot oil. A thin batter runs off.",
+        "explainKeywords": [["thick"], ["cling", "coat", "stick", "stay"], ["food", "fish", "oil", "protect"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-creamed-cake": {
+      "safety": { "wrong": [
+        { "text": "Lean into the hot oven to check the cake.", "why": "Hot air burns the face. Stand to one side." },
+        { "text": "Plug in the mixer with wet hands.", "why": "Dry your hands." },
+        { "text": "Lift a hot tin with a damp cloth.", "why": "Use dry oven gloves." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Frying pan", "why": "Cake is baked." },
+        { "name": "Yeast", "why": "Creamed cakes rise with air and raising agent." },
+        { "name": "Rolling pin", "why": "Nothing is rolled." }
+      ] },
+      "decisions": [
+        { "id": "cream", "afterStep": 3, "prompt": "When is creaming finished?", "options": [
+          { "text": "When the mixture is light, pale and fluffy", "correct": true, "consequence": "Air is beaten in, so the cake will rise." },
+          { "text": "As soon as the sugar is mixed in", "consequence": "Too little air gives a heavy cake." },
+          { "text": "When the mixture turns oily", "consequence": "The fat is melting, and air is lost." }
+        ] },
+        { "id": "curdle", "afterStep": 4, "prompt": "The mixture starts to curdle as you add egg. What do you do?", "options": [
+          { "text": "Add a little of the flour with the next egg", "correct": true, "consequence": "It smooths out again." },
+          { "text": "Add all the remaining egg at once and beat it quickly", "consequence": "It curdles worse, and the cake is heavy." },
+          { "text": "Beat it for 30 minutes", "consequence": "That does not fix it." }
+        ] },
+        { "id": "fold", "afterStep": 5, "prompt": "How do you add the flour?", "options": [
+          { "text": "Fold in gently with a metal spoon", "correct": true, "consequence": "The air stays in." },
+          { "text": "Beat in hard", "consequence": "Air is knocked out, and gluten toughens the cake." },
+          { "text": "Rub in with your fingers until it looks like breadcrumbs", "consequence": "That is for shortcrust." }
+        ] }
+      ],
+      "observations": [
+        { "id": "done", "prompt": "How do you know that the cake is baked?", "options": [
+          { "text": "A skewer comes out clean, and it springs back", "correct": true },
+          { "text": "The top is wet but the sides have started to brown", "why": "That is underbaked." },
+          { "text": "It sinks in the middle", "why": "That is a fault." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "equal", "prompt": "Each egg weighs about 50 g. By the equal-weights rule, how much flour do {n} eggs need, in g?", "formula": "50 * n", "vars": { "n": { "min": 2, "max": 5, "step": 1 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "50 × {n} = {answer} g." }
+      ],
+      "faults": [
+        { "id": "sunk", "scenario": "Mfon's cake sank in the middle and was heavy. Here is what she did.", "lines": [
+          { "text": "She under-creamed the fat and sugar.", "fault": true, "why": "Too little air." },
+          { "text": "She beat hard after adding the flour.", "fault": true, "why": "That knocks out air." },
+          { "text": "She opened the oven door early.", "fault": true, "why": "A cake sinks if it is disturbed before it has set." },
+          { "text": "She lined the tins.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why are fat and sugar creamed before anything else goes in?",
+        "explainGuide": "Creaming beats air into the fat. That trapped air expands in the oven and helps the cake rise and be light.",
+        "explainKeywords": [["air"], ["rise", "expand"], ["light", "fat"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-shortcrust-meat-pie": {
+      "safety": { "wrong": [
+        { "text": "Taste the raw filling to check the seasoning.", "why": "Cook the meat first." },
+        { "text": "Use the same board for raw mince and rolled pastry without washing it.", "why": "That spreads bacteria." },
+        { "text": "Use a wet cloth to pull out the tray.", "why": "Use dry gloves." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Yeast", "why": "Shortcrust needs no yeast." },
+        { "name": "Whisk", "why": "Pastry is rubbed in." },
+        { "name": "Frying basket", "why": "These pies are baked." }
+      ] },
+      "decisions": [
+        { "id": "cool-filling", "afterStep": 1, "prompt": "When does the filling go into the pastry?", "options": [
+          { "text": "Once it has cooled", "correct": true, "consequence": "The fat stays cold, so the pastry stays short." },
+          { "text": "While it is still hot", "consequence": "It melts the fat, so the pastry goes greasy." },
+          { "text": "Before it is cooked", "consequence": "The filling may not cook through." }
+        ] },
+        { "id": "water", "afterStep": 3, "prompt": "How do you add water?", "options": [
+          { "text": "Cold, a little at a time, just to bind", "correct": true, "consequence": "A soft, not sticky, dough." },
+          { "text": "Warm, all at once", "consequence": "It melts the fat, and the pastry is tough." },
+          { "text": "Lots, to make it easier to roll", "consequence": "Too much water makes hard, shrunken pastry." }
+        ] }
+      ],
+      "observations": [
+        { "id": "texture", "prompt": "What should good shortcrust be like?", "options": [
+          { "text": "Crisp and crumbly, not tough", "correct": true },
+          { "text": "Stretchy like bread, and soft in the middle", "why": "That is overworked." },
+          { "text": "Hard and shrunken", "why": "That means too much water." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "fat", "prompt": "With a fat to flour ratio of 1:2, how much fat do you need for {f} g of flour, in g?", "formula": "f / 2", "vars": { "f": { "min": 200, "max": 600, "step": 100 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "{f} ÷ 2 = {answer} g." },
+        { "id": "per-pie", "prompt": "Ingredients cost N{t} and the batch makes 12 pies. What is the cost per pie, in naira?", "formula": "t / 12", "vars": { "t": { "min": 3600, "max": 6000, "step": 600 } }, "unit": "", "tolerance": { "abs": 1 }, "decimals": 0, "working": "{t} ÷ 12 = N{answer}." }
+      ],
+      "faults": [
+        { "id": "tough-pie", "scenario": "Ejiro's meat pies were tough, and greasy underneath. Here is what she did.", "lines": [
+          { "text": "She overworked the dough.", "fault": true, "why": "That develops gluten." },
+          { "text": "She used a hot filling.", "fault": true, "why": "It melts the fat." },
+          { "text": "She sealed the edges with a fork.", "why": "That is correct." },
+          { "text": "She brushed with beaten egg.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why must everything be kept cool when making shortcrust?",
+        "explainGuide": "Cold fat stays in small pieces coating the flour, which limits gluten and gives short, crumbly pastry. Warm fat melts and gives greasy, tough pastry.",
+        "explainKeywords": [["cold", "cool"], ["fat", "melt"], ["crumbly", "short", "gluten", "tough"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-yeast-bread-rolls": {
+      "safety": { "wrong": [
+        { "text": "Drop doughnuts into hot oil from a height.", "why": "Lower them in gently." },
+        { "text": "Leave the deep pan alone while you knead.", "why": "Never leave hot oil." },
+        { "text": "Use your bare hands to lift rolls from the hot tray.", "why": "Use oven gloves." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Baking powder", "why": "Yeast raises this dough." },
+        { "name": "Whisk", "why": "Bread dough is kneaded." },
+        { "name": "Pastry brush", "why": "A glaze can be brushed on, but it is not needed for this list." }
+      ] },
+      "decisions": [
+        { "id": "water-temp", "afterStep": 1, "prompt": "What temperature should the water be?", "options": [
+          { "text": "Warm, about blood heat", "correct": true, "consequence": "The yeast works well." },
+          { "text": "Just off the boil", "consequence": "It kills the yeast, and the dough won't rise." },
+          { "text": "Iced", "consequence": "The yeast works very slowly." }
+        ] },
+        { "id": "knead", "afterStep": 3, "prompt": "How long do you knead?", "options": [
+          { "text": "About 10 minutes, until smooth and elastic", "correct": true, "consequence": "Gluten forms and traps the gas." },
+          { "text": "About 30 seconds", "consequence": "The rolls are heavy and close-textured." },
+          { "text": "Until the dough tears when you pull it, however long it takes", "consequence": "Overworked dough loses gas." }
+        ] },
+        { "id": "prove", "afterStep": 5, "prompt": "How long do you let it rise?", "options": [
+          { "text": "Until doubled in size", "correct": true, "consequence": "It is well aerated." },
+          { "text": "Until it is three times its size and collapsing", "consequence": "Over-proved rolls collapse." },
+          { "text": "No rise at all", "consequence": "The rolls stay small and heavy." }
+        ] }
+      ],
+      "observations": [
+        { "id": "yeast", "prompt": "What shows that the yeast is alive?", "options": [
+          { "text": "A frothy layer forms on the liquid", "correct": true },
+          { "text": "The liquid turns blue", "why": "That doesn't happen." },
+          { "text": "The liquid gets colder and turns clear at the top", "why": "Fermentation shows as froth." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "each", "prompt": "A dough weighs {m} g in all, and it is cut into {n} equal rolls. How much does each weigh, in g?", "formula": "m / n", "vars": { "m": { "min": 840, "max": 900, "step": 12 }, "n": { "min": 10, "max": 12, "step": 2 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "{m} ÷ {n} = {answer} g." },
+        { "id": "water", "prompt": "Baker's percentage: water is 60% of the flour. How much water does {f} g of flour need, in ml or g?", "formula": "0.6 * f", "vars": { "f": { "min": 300, "max": 700, "step": 100 } }, "unit": "ml", "unitAliases": ["g", "grams", "cm3"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "0.6 × {f} = {answer} ml." }
+      ],
+      "faults": [
+        { "id": "brick", "scenario": "Sadiq's rolls did not rise, and they came out heavy. Here is what he did.", "lines": [
+          { "text": "He used very hot water for the yeast.", "fault": true, "why": "It kills the yeast." },
+          { "text": "He kneaded for only a minute.", "fault": true, "why": "Too little gluten forms." },
+          { "text": "He covered the dough while rising.", "why": "That is correct." },
+          { "text": "He knocked back the dough.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What do yeast and kneading each do to make bread rise?",
+        "explainGuide": "Yeast ferments sugar and gives off carbon dioxide. Kneading develops gluten, an elastic network which traps the gas so the dough rises.",
+        "explainKeywords": [["yeast", "ferment"], ["carbon dioxide", "gas"], ["gluten", "knead", "elastic"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-cake-icing": {
+      "safety": { "wrong": [
+        { "text": "Use raw egg white icing on food for a person who is seriously ill.", "why": "Raw egg is a risk for vulnerable people." },
+        { "text": "Lick the palette knife and go on icing.", "why": "That contaminates the icing." },
+        { "text": "Share one piping bag without washing it.", "why": "Wash it." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Frying pan", "why": "No frying here." },
+        { "name": "Yeast", "why": "Icing has no yeast." },
+        { "name": "Rolling pin", "why": "These icings are spread and piped." }
+      ] },
+      "decisions": [
+        { "id": "cool", "afterStep": 3, "prompt": "When do you ice the cake?", "options": [
+          { "text": "When it has completely cooled", "correct": true, "consequence": "The icing stays where you put it." },
+          { "text": "While it is warm", "consequence": "The icing melts and runs." },
+          { "text": "Straight from the oven", "consequence": "The icing melts completely." }
+        ] },
+        { "id": "runny", "afterStep": 3, "prompt": "Your royal icing is too runny. What do you do?", "options": [
+          { "text": "Sieve in more icing sugar", "correct": true, "consequence": "It stiffens to a piping consistency." },
+          { "text": "Add more egg white, a drop at a time, and stir", "consequence": "It gets even runnier." },
+          { "text": "Heat it", "consequence": "It goes thinner and spoils." }
+        ] }
+      ],
+      "observations": [
+        { "id": "peak", "prompt": "What is the right royal icing for piping?", "options": [
+          { "text": "It holds a soft peak", "correct": true },
+          { "text": "It pours like milk", "why": "That is too thin." },
+          { "text": "It crumbles", "why": "That is too stiff." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "sugar", "prompt": "Royal icing uses about 250 g of icing sugar per egg white. How much do {n} whites need, in g?", "formula": "250 * n", "vars": { "n": { "min": 2, "max": 5, "step": 1 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "250 × {n} = {answer} g." },
+        { "id": "butter", "prompt": "Butter icing has a butter to sugar ratio of 1:2. How much butter makes {t} g of icing, in g?", "formula": "t / 3", "vars": { "t": { "min": 300, "max": 600, "step": 150 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{t} ÷ 3 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "melted", "scenario": "Bimpe's iced cake slid and looked rough. Here is what she did.", "lines": [
+          { "text": "She iced the cake while it was still warm.", "fault": true, "why": "It melts." },
+          { "text": "She overfilled the piping bag.", "fault": true, "why": "It bursts from the top." },
+          { "text": "She sieved the icing sugar.", "why": "That is correct." },
+          { "text": "She used a palette knife.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why must icing sugar be sieved?",
+        "explainGuide": "It forms lumps in storage. Sieving removes them, so that the icing is smooth and passes through the nozzle without blocking it.",
+        "explainKeywords": [["lump"], ["smooth"], ["nozzle", "pipe", "block"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-beverages": {
+      "safety": { "wrong": [
+        { "text": "Reach across a boiling kettle's spout.", "why": "Steam burns." },
+        { "text": "Fill cups to the brim so that nobody is short.", "why": "Full cups spill and scald." },
+        { "text": "Store zobo in an unwashed bottle for a week.", "why": "It ferments and spoils. Use clean bottles and keep it cold." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Not used for drinks." },
+        { "name": "Frying pan", "why": "Not used for drinks." },
+        { "name": "Chopping board and cleaver", "why": "Nothing needs chopping here." }
+      ] },
+      "decisions": [
+        { "id": "pot", "afterStep": 1, "prompt": "Tea has infused for 4 minutes. What do you do?", "options": [
+          { "text": "Serve it now", "correct": true, "consequence": "It tastes fresh." },
+          { "text": "Leave it for 20 minutes to be stronger", "consequence": "It goes bitter." },
+          { "text": "Boil it again", "consequence": "That spoils the flavour." }
+        ] },
+        { "id": "cocoa", "afterStep": 2, "prompt": "How do you mix the cocoa?", "options": [
+          { "text": "Blend it to a paste with a little cold milk first", "correct": true, "consequence": "No lumps form." },
+          { "text": "Tip the powder straight into hot milk", "consequence": "It forms lumps." },
+          { "text": "Add it to the boiling kettle", "consequence": "It clogs the kettle." }
+        ] }
+      ],
+      "observations": [
+        { "id": "zobo", "prompt": "What should good zobo look like?", "options": [
+          { "text": "A clear deep red drink", "correct": true },
+          { "text": "A green cloudy drink", "why": "Roselle gives red." },
+          { "text": "A thick paste", "why": "It should be strained." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "glasses", "prompt": "You have {v} litres of zobo. How many full 250 ml glasses can you pour?", "formula": "round(v * 1000 / 250 - 0.49, 0)", "vars": { "v": { "min": 1.6, "max": 2.4, "step": 0.2 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{v} × 1000 ÷ 250, rounded down = {answer}." },
+        { "id": "cocoa-tsp", "prompt": "Cocoa takes 2 level teaspoons per cup. How many teaspoons for {n} cups?", "formula": "2 * n", "vars": { "n": { "min": 4, "max": 10, "step": 2 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "2 × {n} = {answer}." }
+      ],
+      "faults": [
+        { "id": "bitter", "scenario": "Yetunde's drinks tray was poorly received. Here is what she did.", "lines": [
+          { "text": "She let the tea stand far too long.", "fault": true, "why": "It goes bitter." },
+          { "text": "She tipped the cocoa straight into hot milk.", "fault": true, "why": "Lumps form." },
+          { "text": "She strained the zobo.", "why": "That is correct." },
+          { "text": "She warmed the pot.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why do you blend cocoa with a little cold liquid first?",
+        "explainGuide": "The starch in the powder clumps when it meets hot liquid. A cold paste separates the grains, so the drink is smooth.",
+        "explainKeywords": [["lump", "clump"], ["paste", "blend"], ["smooth", "starch", "separate"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-drying-vegetables": {
+      "safety": { "wrong": [
+        { "text": "Dry on bare ground to get the most sun.", "why": "Dirt, insects and animals get at the food." },
+        { "text": "Taste a spoiled, mouldy batch to check it.", "why": "Throw it away." },
+        { "text": "Cut towards your palm while slicing okra.", "why": "Keep the food on the board." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Frying pan", "why": "Drying uses air and sun." },
+        { "name": "Open basket for storage", "why": "Dried food needs airtight jars." },
+        { "name": "Rolling pin", "why": "Nothing is rolled." }
+      ] },
+      "decisions": [
+        { "id": "thin", "afterStep": 3, "prompt": "How do you slice the okra?", "options": [
+          { "text": "Thin and even", "correct": true, "consequence": "It dries quickly and evenly." },
+          { "text": "In thick chunks", "consequence": "The middles stay wet and rot." },
+          { "text": "Leave it whole", "consequence": "It takes too long, and it spoils." }
+        ] },
+        { "id": "cover", "afterStep": 4, "prompt": "How do you protect the trays?", "options": [
+          { "text": "Cover with net and raise them", "correct": true, "consequence": "Air passes, but insects don't." },
+          { "text": "Seal them with plastic", "consequence": "Moisture stays in, and the food rots." },
+          { "text": "Leave them open", "consequence": "Flies and dust get in." }
+        ] }
+      ],
+      "observations": [
+        { "id": "dry", "prompt": "How do you know the okra is dry?", "options": [
+          { "text": "It is brittle and snaps", "correct": true },
+          { "text": "It bends and feels soft", "why": "It still holds water." },
+          { "text": "It is sticky", "why": "It still holds water." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "percent", "prompt": "Fresh okra weighs {f} g and dried okra 165 g. What percentage of the mass was removed?", "formula": "(f - 165) / f * 100", "vars": { "f": { "min": 1200, "max": 1800, "step": 300 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "({f} − 165) ÷ {f} × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "mould", "scenario": "Aisha's stored okra went mouldy in the jar. Here is what she did.", "lines": [
+          { "text": "She stored it before it was fully dry.", "fault": true, "why": "Remaining water lets moulds grow." },
+          { "text": "She dried it in thick layers.", "fault": true, "why": "Thick layers dry unevenly." },
+          { "text": "She used raised trays.", "why": "That is correct." },
+          { "text": "She chose fresh, firm okra.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does drying preserve vegetables?",
+        "explainGuide": "Bacteria and moulds need water. Removing most of the water stops them growing, so the food keeps for longer.",
+        "explainKeywords": [["water", "moisture"], ["bacteria", "mould", "microorganisms", "micro"], ["grow", "keep", "spoil"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-pineapple-jam": {
+      "safety": { "wrong": [
+        { "text": "Taste the boiling jam straight from the spoon.", "why": "Jam is far hotter than boiling water. Cool it on a saucer." },
+        { "text": "Fill the pan to the brim to make more.", "why": "It boils over. Leave plenty of room." },
+        { "text": "Pour hot jam into cold jars.", "why": "They crack." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Thin aluminium pan", "why": "Use a heavy-based pan: thin pans scorch the jam." },
+        { "name": "Rolling pin", "why": "Not used here." },
+        { "name": "Yeast", "why": "Jam is not fermented." }
+      ] },
+      "decisions": [
+        { "id": "dissolve", "afterStep": 3, "prompt": "Before boiling hard, what must have happened?", "options": [
+          { "text": "The sugar must be fully dissolved over low heat", "correct": true, "consequence": "It boils clear and doesn't crystallise." },
+          { "text": "The jam must be set and starting to thicken", "consequence": "That comes after boiling." },
+          { "text": "The jars must be full and warming nearby", "consequence": "That comes last." }
+        ] },
+        { "id": "set-test", "afterStep": 5, "prompt": "The jam on the cold saucer stays runny. What do you do?", "options": [
+          { "text": "Boil a few minutes more, and test again", "correct": true, "consequence": "It reaches setting point." },
+          { "text": "Bottle it as it is and leave it to firm up on the shelf", "consequence": "It stays runny, and it ferments." },
+          { "text": "Add cold water", "consequence": "It gets further from setting." }
+        ] }
+      ],
+      "observations": [
+        { "id": "wrinkle", "prompt": "What shows the setting point?", "options": [
+          { "text": "The cooled drop wrinkles when pushed", "correct": true },
+          { "text": "The jam smells burnt", "why": "That is scorching." },
+          { "text": "The drop runs freely across the saucer when tilted", "why": "That is under-boiled." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "yield", "prompt": "Using yield = sugar × 1.66, what mass of jam comes from {s} g of sugar, in g?", "formula": "s * 1.66", "vars": { "s": { "min": 500, "max": 1000, "step": 250 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "rel": 0.01 }, "decimals": 0, "working": "{s} × 1.66 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "ferment", "scenario": "Chinedu's jam went mouldy and fizzed within weeks. Here is what he did.", "lines": [
+          { "text": "He under-boiled the jam.", "fault": true, "why": "Too little sugar concentration lets it ferment." },
+          { "text": "He used unsterilised jars.", "fault": true, "why": "They carry mould." },
+          { "text": "He removed the scum.", "why": "That is correct." },
+          { "text": "He labelled the jars.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "How does the sugar in jam preserve the fruit?",
+        "explainGuide": "A high sugar concentration draws water out of microorganisms by osmosis and leaves too little free water for them to grow.",
+        "explainKeywords": [["sugar"], ["water", "osmosis"], ["bacteria", "mould", "micro", "yeast", "grow"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-table-setting": {
+      "safety": { "wrong": [
+        { "text": "Carry a stack of plates too high to see over.", "why": "Carry a few at a time." },
+        { "text": "Leave chipped glasses on the table.", "why": "They cut lips. Remove them." },
+        { "text": "Hold glasses by the rim when laying them.", "why": "Hold the base or stem." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Not table equipment." },
+        { "name": "Cooking pot on the table", "why": "Food is served in dishes." },
+        { "name": "Chopping board", "why": "Not table equipment." }
+      ] },
+      "decisions": [
+        { "id": "fork-side", "afterStep": 3, "prompt": "Where does the dinner fork go?", "options": [
+          { "text": "On the left of the plate", "correct": true, "consequence": "It matches how the cover is used." },
+          { "text": "On the right of the plate", "consequence": "That is a well-known fault." },
+          { "text": "On the plate", "consequence": "It gets in the way of serving." }
+        ] },
+        { "id": "knife-blade", "afterStep": 3, "prompt": "Which way does the knife blade face?", "options": [
+          { "text": "Towards the plate", "correct": true, "consequence": "That is the correct way." },
+          { "text": "Away from the plate", "consequence": "That is a fault in a formal cover." },
+          { "text": "Upwards", "consequence": "That is unsafe." }
+        ] }
+      ],
+      "observations": [
+        { "id": "order", "prompt": "How is cutlery laid?", "options": [
+          { "text": "In order of use, from the outside in", "correct": true },
+          { "text": "In order of size", "why": "Order of use." },
+          { "text": "In any order that fits neatly beside the plate", "why": "Order of use." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "length", "prompt": "Each cover needs 60 cm. For {n} guests along each long side, how long must the table be, in cm?", "formula": "60 * n", "vars": { "n": { "min": 3, "max": 6, "step": 1 } }, "unit": "cm", "tolerance": { "abs": 0 }, "decimals": 0, "working": "60 × {n} = {answer} cm." }
+      ],
+      "faults": [
+        { "id": "cover", "scenario": "Nkem's table lost marks. Here is what she did.", "lines": [
+          { "text": "She laid the forks on the right.", "fault": true, "why": "Forks go on the left." },
+          { "text": "She laid cutlery for courses she was not serving.", "fault": true, "why": "Lay only what will be used." },
+          { "text": "She overcrowded the tray.", "fault": true, "why": "Trays should be neat and steady." },
+          { "text": "She ironed the cloth.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is cutlery laid in order of use from the outside in?",
+        "explainGuide": "It helps the diner choose the right item for each course, without confusion, and keeps the cover orderly.",
+        "explainKeywords": [["order", "course"], ["diner", "guest", "choose"], ["outside", "use"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-rechauffe-dishes": {
+      "safety": { "wrong": [
+        { "text": "Reheat the rice twice to be extra safe.", "why": "Reheat once only." },
+        { "text": "Keep cooked rice at room temperature overnight.", "why": "Bacteria grow in warm cooked rice." },
+        { "text": "Eat fish that smells off if it is hot enough.", "why": "Heat doesn't make spoiled food safe." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Not needed here." },
+        { "name": "Yeast", "why": "Not needed here." },
+        { "name": "Cake tin", "why": "Nothing is baked." }
+      ] },
+      "decisions": [
+        { "id": "check", "afterStep": 1, "prompt": "The rice was left out on the side all night. What do you do?", "options": [
+          { "text": "Throw it away", "correct": true, "consequence": "Bacteria can have grown, and reheating won't make it safe." },
+          { "text": "Fry it very hot and serve it", "consequence": "Toxins survive heat. People can be ill." },
+          { "text": "Wash it and serve", "consequence": "That makes no difference to toxins." }
+        ] },
+        { "id": "hot", "afterStep": 5, "prompt": "How hot must the food be?", "options": [
+          { "text": "Piping hot right through", "correct": true, "consequence": "Bacteria are killed." },
+          { "text": "Warm", "consequence": "Warm food helps bacteria grow." },
+          { "text": "Hot on the outside only", "consequence": "The centre remains unsafe." }
+        ] }
+      ],
+      "observations": [
+        { "id": "new", "prompt": "A good rechauffe dish is:", "options": [
+          { "text": "A new dish that doesn't look like leftovers", "correct": true },
+          { "text": "The same dish, simply warmed through and served again", "why": "It should be changed." },
+          { "text": "A dry, dull plate", "why": "Add moisture, flavour and garnish." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "raw", "prompt": "Cooked rice weighs about 2.5 times its raw weight. How much raw rice gives {c} g of cooked rice, in g?", "formula": "c / 2.5", "vars": { "c": { "min": 400, "max": 800, "step": 100 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{c} ÷ 2.5 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "bad-reheat", "scenario": "Several people felt ill after Sade's leftover dish. Here is what she did.", "lines": [
+          { "text": "She kept the leftovers at room temperature for many hours.", "fault": true, "why": "Bacteria multiply." },
+          { "text": "She reheated the food only until warm.", "fault": true, "why": "It must be piping hot." },
+          { "text": "She removed the fish bones.", "why": "That is correct." },
+          { "text": "She added a garnish.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should cooked rice be cooled quickly and reheated only once?",
+        "explainGuide": "Bacteria grow fast in warm cooked rice. Quick cooling slows them, and repeated reheating gives them more chances to multiply.",
+        "explainKeywords": [["bacteria", "germs"], ["cool", "warm"], ["once", "reheat", "multiply"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-festive-small-chops": {
+      "safety": { "wrong": [
+        { "text": "Fry puff-puff in very hot oil for speed.", "why": "It burns outside and stays raw inside." },
+        { "text": "Let children crowd round the pot of hot oil.", "why": "Keep them away." },
+        { "text": "Drain fried food on the floor on old newspaper.", "why": "Use a clean rack or kitchen paper." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin for puff-puff", "why": "Puff-puff is dropped as a batter." },
+        { "name": "Cake tin", "why": "Everything here is fried." },
+        { "name": "Teapot", "why": "This is about small chops." }
+      ] },
+      "decisions": [
+        { "id": "quantities", "afterStep": 1, "prompt": "Your recipe serves 10 but there are 30 guests. What do you do?", "options": [
+          { "text": "Scale every ingredient by three", "correct": true, "consequence": "There is enough, with no large waste." },
+          { "text": "Guess and hope for the best", "consequence": "Too much or too little food." },
+          { "text": "Treble only the flour", "consequence": "The batter's proportions are wrong." }
+        ] },
+        { "id": "oil-temp", "afterStep": 5, "prompt": "The puff-puff brown at once but are raw inside. What do you do?", "options": [
+          { "text": "Lower the heat and fry steadily", "correct": true, "consequence": "They cook through." },
+          { "text": "Take them out sooner", "consequence": "They stay raw inside." },
+          { "text": "Add cold water to the oil", "consequence": "It spatters dangerously." }
+        ] }
+      ],
+      "observations": [
+        { "id": "rising", "prompt": "What should the puff-puff batter do before frying?", "options": [
+          { "text": "Rise and turn bubbly", "correct": true },
+          { "text": "Stay flat and still", "why": "The yeast has not worked." },
+          { "text": "Separate into layers", "why": "That shows too much water." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "pieces", "prompt": "{g} guests each have 3 puff-puff. How many pieces are needed?", "formula": "g * 3", "vars": { "g": { "min": 20, "max": 50, "step": 5 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{g} × 3 = {answer}." },
+        { "id": "flour", "prompt": "250 g of flour makes 30 puff-puff. How much flour do {n} pieces need, in g?", "formula": "n / 30 * 250", "vars": { "n": { "min": 60, "max": 150, "step": 30 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 1 }, "decimals": 0, "working": "{n} ÷ 30 × 250 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "raw-centre", "scenario": "Guests left Remi's small chops. Here is what she did.", "lines": [
+          { "text": "She fried in oil that was too hot.", "fault": true, "why": "Raw centres." },
+          { "text": "She made far too much, without scaling the recipe.", "fault": true, "why": "Waste." },
+          { "text": "She arranged the chops neatly with toothpicks.", "why": "That is correct." },
+          { "text": "She let the batter rise.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does oil that is too hot leave food raw inside?",
+        "explainGuide": "The outside browns quickly in very hot oil, before heat can reach the centre, so it looks done but the inside is raw.",
+        "explainKeywords": [["outside", "brown", "surface"], ["centre", "inside", "middle"], ["heat", "hot"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-convenience-foods": {
+      "safety": { "wrong": [
+        { "text": "Use food past its 'use by' date if it looks fine.", "why": "'Use by' is a safety date." },
+        { "text": "Eat from a dented, bulging can.", "why": "Bulging cans can hold dangerous bacteria." },
+        { "text": "Eat the seasoning sachet raw to test the flavour.", "why": "Use only part of it, cooked in." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Rolling pin", "why": "Not needed here." },
+        { "name": "Cake tin", "why": "Nothing is baked." },
+        { "name": "Piping bag", "why": "Nothing is iced." }
+      ] },
+      "decisions": [
+        { "id": "salt", "afterStep": 3, "prompt": "How much of the seasoning sachet do you use?", "options": [
+          { "text": "Only part of it", "correct": true, "consequence": "The salt comes down, and the vegetables still taste good." },
+          { "text": "All of it, then extra salt", "consequence": "It is very high in salt." },
+          { "text": "Two sachets for one pack", "consequence": "Even more salt." }
+        ] },
+        { "id": "improve", "afterStep": 3, "prompt": "What does most to improve this meal?", "options": [
+          { "text": "Add vegetables and an egg or sardines", "correct": true, "consequence": "It gains protein, vitamins and fibre." },
+          { "text": "Add more noodles and another seasoning cube", "consequence": "Only more starch." },
+          { "text": "Add more oil", "consequence": "Only more fat." }
+        ] }
+      ],
+      "observations": [
+        { "id": "label", "prompt": "What does a label's 'best before' date mean?", "options": [
+          { "text": "The date until which quality is at its best", "correct": true },
+          { "text": "The date on which it must be thrown away", "why": "That is 'use by'." },
+          { "text": "The date of manufacture", "why": "That is a different date." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "per-serving", "prompt": "A dish costs N{t} for 3 servings. What is the cost per serving, in naira?", "formula": "t / 3", "vars": { "t": { "min": 1500, "max": 2400, "step": 300 } }, "unit": "", "tolerance": { "abs": 1 }, "decimals": 0, "working": "{t} ÷ 3 = N{answer}." },
+        { "id": "mass", "prompt": "You use {n} packs of 70 g noodles. What total mass of noodles is that, in g?", "formula": "n * 70", "vars": { "n": { "min": 2, "max": 5, "step": 1 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "{n} × 70 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "plain", "scenario": "Lucky's convenience meal lost marks. Here is what he did.", "lines": [
+          { "text": "He served the noodles alone, with no vegetables.", "fault": true, "why": "It lacks nutrients." },
+          { "text": "He ignored the date on the packet.", "fault": true, "why": "Check the dates." },
+          { "text": "He timed the preparation.", "why": "That is correct." },
+          { "text": "He read the label.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Give one advantage and one disadvantage of convenience foods.",
+        "explainGuide": "They save time and effort, but they are often high in salt and low in some nutrients, and cost more per serving.",
+        "explainKeywords": [["time", "quick", "effort"], ["salt", "nutrient", "cost", "expensive", "fat"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-composite-flour": {
+      "room": "kitchen",
+      "safety": { "wrong": [
+        { "text": "Use cassava flour of unknown quality to save money.", "why": "Use high-quality flour, low in cyanide." },
+        { "text": "Let tasters use one spoon between them.", "why": "Use separate clean samples." },
+        { "text": "Drop chin-chin in hot oil from a height.", "why": "Lower it in gently." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Yeast", "why": "Chin-chin isn't yeast-raised." },
+        { "name": "Piping bag", "why": "Nothing is piped." },
+        { "name": "Cake tin", "why": "Chin-chin is fried." }
+      ] },
+      "decisions": [
+        { "id": "variable", "afterStep": 2, "prompt": "What changes between the batches?", "options": [
+          { "text": "Only the share of cassava flour", "correct": true, "consequence": "Differences can be put down to the cassava." },
+          { "text": "The cassava share and the sugar", "consequence": "Two changes: you can't tell what caused what." },
+          { "text": "The frying temperature", "consequence": "That's another variable to keep the same." }
+        ] },
+        { "id": "code", "afterStep": 5, "prompt": "How are samples shown to tasters?", "options": [
+          { "text": "With code letters, with no recipe shown", "correct": true, "consequence": "The tasters aren't biased." },
+          { "text": "Labelled '50% cassava' so that tasters know what to expect", "consequence": "Knowing the recipe biases the tasters." },
+          { "text": "One taster only", "consequence": "One person's taste isn't a fair test." }
+        ] }
+      ],
+      "observations": [
+        { "id": "effect", "prompt": "At a high share of cassava, what happens?", "options": [
+          { "text": "Acceptability falls, as texture suffers", "correct": true },
+          { "text": "Acceptability always goes up as more is added", "why": "It falls beyond a point." },
+          { "text": "There is no difference", "why": "Texture changes because there's less gluten." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "mean", "prompt": "Five tasters score a batch {a}, 4, 5, 4 and 3. What is the mean score?", "formula": "(a + 4 + 5 + 4 + 3) / 5", "vars": { "a": { "min": 2, "max": 5, "step": 1 } }, "unit": "", "tolerance": { "abs": 0.05 }, "decimals": 1, "working": "({a} + 4 + 5 + 4 + 3) ÷ 5 = {answer}." },
+        { "id": "cassava", "prompt": "A batch uses 400 g of flour, of which {p}% is cassava. How many grams of cassava is that?", "formula": "p / 100 * 400", "vars": { "p": { "min": 25, "max": 75, "step": 25 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "{p}% of 400 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "unfair", "scenario": "Temi's flour experiment could not be used. Here is what she did.", "lines": [
+          { "text": "She changed the sugar as well as the cassava.", "fault": true, "why": "Change only one thing." },
+          { "text": "She did not put her scores in a table.", "fault": true, "why": "Results belong in a table." },
+          { "text": "She coded the samples.", "why": "That is correct." },
+          { "text": "She cut the pieces to the same size.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does using more cassava flour change the texture of chin-chin?",
+        "explainGuide": "Cassava flour has no gluten. With less gluten, the dough is less stretchy, so the texture becomes more crumbly.",
+        "explainKeywords": [["gluten"], ["cassava"], ["crumbly", "texture", "stretch", "elastic"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-fnu-improving-local-dish": {
+      "room": "kitchen",
+      "safety": { "wrong": [
+        { "text": "Add raw soya flour to the pap.", "why": "Raw soya is poorly digested. Use roasted." },
+        { "text": "Feed it to a baby without checking for allergy or lumps.", "why": "Care is needed with infants." },
+        { "text": "Keep ready-made pap warm all day for babies.", "why": "Bacteria grow. Make it fresh." }
+      ] },
+      "setOut": { "distractors": [
+        { "name": "Raw soya beans", "why": "Use roasted soya flour." },
+        { "name": "Frying pan", "why": "Pap is not fried." },
+        { "name": "Rolling pin", "why": "Not needed here." }
+      ] },
+      "decisions": [
+        { "id": "control", "afterStep": 2, "prompt": "Why make plain pap too?", "options": [
+          { "text": "It is the control for comparison", "correct": true, "consequence": "You can show what the soya changed." },
+          { "text": "It is a spare in case of failure", "consequence": "A control is more than a spare." },
+          { "text": "It is what the tasters prefer", "consequence": "That's what you're trying to find out." }
+        ] },
+        { "id": "mix", "afterStep": 3, "prompt": "How do you avoid lumps?", "options": [
+          { "text": "Blend with cold water, then add boiling water", "correct": true, "consequence": "It stays smooth." },
+          { "text": "Add dry flour straight into boiling water, a handful at a time", "consequence": "It forms lumps." },
+          { "text": "Stop stirring when it thickens", "consequence": "It forms lumps." }
+        ] }
+      ],
+      "observations": [
+        { "id": "protein", "prompt": "What does the soya add most of?", "options": [
+          { "text": "Protein", "correct": true },
+          { "text": "Vitamin C", "why": "Soya flour isn't a good source." },
+          { "text": "Starch", "why": "Maize gives the starch." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "soya", "prompt": "Soya flour has 36 g protein per 100 g. How much protein is in {m} g of soya flour, in grams?", "formula": "36 * m / 100", "vars": { "m": { "min": 10, "max": 40, "step": 10 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0.1 }, "decimals": 1, "working": "36 × {m} ÷ 100 = {answer} g." },
+        { "id": "ogi", "prompt": "Ogi has 9.4 g protein per 100 g. How much protein is in {m} g of ogi, in grams?", "formula": "9.4 * m / 100", "vars": { "m": { "min": 60, "max": 90, "step": 10 } }, "unit": "g", "unitAliases": ["grams"], "tolerance": { "abs": 0.1 }, "decimals": 2, "working": "9.4 × {m} ÷ 100 = {answer} g." }
+      ],
+      "faults": [
+        { "id": "no-control", "scenario": "Dayo's project report was weak. Here is what he did.", "lines": [
+          { "text": "He added raw soya flour.", "fault": true, "why": "Use roasted." },
+          { "text": "He made no plain pap to compare with.", "fault": true, "why": "A control is needed." },
+          { "text": "He calculated the protein.", "why": "That is correct." },
+          { "text": "He used the same amount in both batches.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does soya make a useful addition to ogi?",
+        "explainGuide": "Maize is low in protein and low in lysine. Soya is rich in protein, so the mixture has more protein and better quality.",
+        "explainKeywords": [["protein"], ["soya"], ["maize", "ogi", "quality", "increase"]],
+        "explainNeed": 2
+      }
+    }
+  }
+}

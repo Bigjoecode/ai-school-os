@@ -1,0 +1,5328 @@
+{
+  "subject": "Home Management",
+  "room": "kitchen",
+  "lessons": {
+    "pr-hmg-stain-removal": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Dab methylated spirit on the stain beside the lit stove to speed up drying.",
+            "why": "Methylated spirit catches fire. Use it well away from flames."
+          },
+          {
+            "text": "Mix the bleach with the lemon juice to make it work harder.",
+            "why": "Never mix bleach with other chemicals: it can give off dangerous gas."
+          },
+          {
+            "text": "Use bleach on a coloured wrapper to shift a tea stain.",
+            "why": "Bleach is for white cotton only. It strips dye."
+          },
+          {
+            "text": "Pour the agent straight on the front of the garment without testing.",
+            "why": "The fabric or dye may be damaged. Test on a hidden part first."
+          },
+          {
+            "text": "Handle the bleach with bare hands because it is mild.",
+            "why": "Bleach irritates skin. Wear gloves."
+          },
+          {
+            "text": "Rub the stain hard with the brush to get it out faster.",
+            "why": "Hard rubbing spreads the stain and damages fibres."
+          },
+          {
+            "text": "Leave the stain in the bucket for a week until there is time.",
+            "why": "Old stains set and respond poorly. Treat stains while fresh."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Electric iron",
+            "why": "Heat sets a stain before it is removed."
+          },
+          {
+            "name": "Petrol",
+            "why": "It is highly flammable and has no place in home stain removal."
+          },
+          {
+            "name": "Wire brush",
+            "why": "It tears fabric: use the soft brush."
+          },
+          {
+            "name": "Kettle of boiling water",
+            "why": "Boiling water sets protein stains."
+          },
+          {
+            "name": "Coarse sand",
+            "why": "It damages fibres."
+          },
+          {
+            "name": "Sharp kitchen knife",
+            "why": "Solid deposits are scraped with a blunt knife."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5,
+            6
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "blood",
+          "afterStep": 2,
+          "prompt": "A fresh blood stain is on a cotton pillowcase. What goes on it first?",
+          "options": [
+            {
+              "text": "Cold salt water",
+              "correct": true,
+              "consequence": "It loosens the protein so that the stain comes out."
+            },
+            {
+              "text": "Hot soapy water",
+              "consequence": "Heat coagulates the protein and sets the stain."
+            },
+            {
+              "text": "Bleach, straight on the stain",
+              "consequence": "Mildest method first: bleach is the last resort, and for white cotton only."
+            }
+          ]
+        },
+        {
+          "id": "grease",
+          "afterStep": 3,
+          "prompt": "A palm oil stain is on a tablecloth. How do you set it up to dab with methylated spirit?",
+          "options": [
+            {
+              "text": "Stain face down on a pad, dab from the back",
+              "correct": true,
+              "consequence": "The grease is pushed off the fabric into the pad."
+            },
+            {
+              "text": "Stain face up, dab down into the cloth",
+              "consequence": "That pushes the grease further in and it spreads."
+            },
+            {
+              "text": "Stain flat on bare table, rub in circles",
+              "consequence": "With no pad, the grease spreads into a ring."
+            }
+          ]
+        },
+        {
+          "id": "rust",
+          "afterStep": 4,
+          "prompt": "A rust stain is on a white cotton shirt. What do you use?",
+          "options": [
+            {
+              "text": "Salt and lemon juice, left in the sun",
+              "correct": true,
+              "consequence": "The acid in the lemon dissolves rust."
+            },
+            {
+              "text": "Methylated spirit from the back",
+              "consequence": "That is for grease."
+            },
+            {
+              "text": "Cold salt water soak",
+              "consequence": "That is for protein stains."
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "afterStep": 6,
+          "prompt": "You are dabbing the agent on to a stain. Which way do you work?",
+          "options": [
+            {
+              "text": "From the outside towards the centre",
+              "correct": true,
+              "consequence": "The stain does not spread, so there is no ring."
+            },
+            {
+              "text": "From the centre outwards",
+              "consequence": "That pushes the stain out, leaving a ring."
+            },
+            {
+              "text": "Back and forth across the middle",
+              "consequence": "That spreads it and works the fibres."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "blood-heat",
+          "prompt": "A student soaked blood in hot water first. What will be seen?",
+          "options": [
+            {
+              "text": "The stain has set and is harder to remove",
+              "correct": true
+            },
+            {
+              "text": "The stain floats out at once",
+              "why": "Hot water sets protein. It does the opposite."
+            },
+            {
+              "text": "The stain spreads into a wide ring",
+              "why": "Rings come from working outwards. Hot water sets the stain."
+            }
+          ]
+        },
+        {
+          "id": "grease-result",
+          "prompt": "You treat palm oil from the front with no pad. What happens?",
+          "options": [
+            {
+              "text": "The grease spreads",
+              "correct": true
+            },
+            {
+              "text": "It disappears at once",
+              "why": "Grease spreads unless treated from the back over a pad."
+            },
+            {
+              "text": "It stays in one neat spot",
+              "why": "Treated from the front, grease spreads."
+            }
+          ]
+        },
+        {
+          "id": "class",
+          "prompt": "What class of stain is tea?",
+          "options": [
+            {
+              "text": "Tannin",
+              "correct": true
+            },
+            {
+              "text": "Protein",
+              "why": "Protein stains are blood and egg."
+            },
+            {
+              "text": "Grease",
+              "why": "Grease stains are oils such as palm oil."
+            },
+            {
+              "text": "Mineral",
+              "why": "Rust is a mineral stain."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "borax",
+          "prompt": "What is the concentration (mass/volume) of {m} g of borax in {v} ml of warm water?",
+          "formula": "m / v * 100",
+          "vars": {
+            "m": {
+              "min": 10,
+              "max": 25,
+              "step": 5
+            },
+            "v": {
+              "min": 250,
+              "max": 500,
+              "step": 250
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{m} ÷ {v} × 100 = {answer}%."
+        },
+        {
+          "id": "salt",
+          "prompt": "Salt solution for blood stains is 15 g in 500 ml. How much salt do you need for {v} ml?",
+          "formula": "15 / 500 * v",
+          "vars": {
+            "v": {
+              "min": 250,
+              "max": 1500,
+              "step": 250
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "15 ÷ 500 × {v} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wrapper",
+          "scenario": "Funke tried to remove stains from clothes her family brought. Several were spoilt. Here is what she did.",
+          "lines": [
+            {
+              "text": "She used hot water first on a bloodstained shirt.",
+              "fault": true,
+              "why": "Hot water sets a protein stain."
+            },
+            {
+              "text": "She bleached a coloured wrapper.",
+              "fault": true,
+              "why": "Bleach is for white cotton only."
+            },
+            {
+              "text": "She rubbed hard with the brush.",
+              "fault": true,
+              "why": "That spreads stains and damages fibres."
+            },
+            {
+              "text": "She worked from the outside of the stain towards the centre.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She tested each agent on a hidden seam.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She rinsed the garment well before laundering it.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for removing stains safely.",
+        "explainPrompt": "Why must a blood stain never be treated with hot water first?",
+        "explainGuide": "Blood is a protein stain. Hot water coagulates the protein, so it sets in the fibres. Cold salt water loosens it instead.",
+        "explainKeywords": [
+          [
+            "protein",
+            "blood"
+          ],
+          [
+            "coagulat",
+            "set"
+          ],
+          [
+            "cold",
+            "salt"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Identifying and removing stains",
+        "Classify it, then treat it",
+        "Mildest method first"
+      ]
+    },
+    "pr-hmg-laundry-cotton": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Leave the iron face down on the board while you fetch the next shirt.",
+            "why": "It can scorch and catch fire. Place it on its heel."
+          },
+          {
+            "text": "Leave the iron plugged in on the table after you finish.",
+            "why": "It may overheat or be knocked. Unplug it after use."
+          },
+          {
+            "text": "Mix bleach and another cleaner in the soaking bucket.",
+            "why": "Never mix bleach with other chemicals."
+          },
+          {
+            "text": "Handle a hot charcoal iron indoors with the windows shut.",
+            "why": "Burning charcoal gives off harmful fumes. Use it only with good ventilation."
+          },
+          {
+            "text": "Iron with wet hands on an electric iron.",
+            "why": "Water and electricity can give a shock. Dry your hands."
+          },
+          {
+            "text": "Wash without reading the label because it is only cotton.",
+            "why": "Check the care label before washing."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Pressing cloth for silk",
+            "why": "That belongs to the laundering of wool and silk."
+          },
+          {
+            "name": "Mild soap flakes",
+            "why": "Cotton does not need a mild wool soap."
+          },
+          {
+            "name": "Vinegar for the final rinse",
+            "why": "That restores lustre to silk, not cotton."
+          },
+          {
+            "name": "Flat drying rack",
+            "why": "Cotton is hung on a line. Flat drying is for wool."
+          },
+          {
+            "name": "Methylated spirit",
+            "why": "That is a stain remover, not a laundry agent."
+          },
+          {
+            "name": "Tailor's chalk",
+            "why": "Nothing is being marked."
+          }
+        ],
+        "optional": [
+          "Laundry blue (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sort",
+          "afterStep": 1,
+          "prompt": "You have a white shirt and a red wrapper. How do you sort them?",
+          "options": [
+            {
+              "text": "Whites, light colours and dark colours apart",
+              "correct": true,
+              "consequence": "Dye cannot run into the white shirt."
+            },
+            {
+              "text": "All together to save water",
+              "consequence": "Dye runs and the whites turn pink."
+            },
+            {
+              "text": "Together, as long as the water is cold",
+              "consequence": "Washing whites and colours together is a named mistake."
+            }
+          ]
+        },
+        {
+          "id": "fast",
+          "afterStep": 1,
+          "prompt": "The wrapper is new. What test comes before washing?",
+          "options": [
+            {
+              "text": "Press a damp white cloth on a hidden seam",
+              "correct": true,
+              "consequence": "Colour on the cloth warns you that the dye runs."
+            },
+            {
+              "text": "Rub the wrapper with bleach on the front",
+              "consequence": "That strips colour and tells you nothing useful."
+            },
+            {
+              "text": "Boil a corner for ten minutes",
+              "consequence": "Heat this strong damages the wrapper."
+            }
+          ]
+        },
+        {
+          "id": "colours",
+          "afterStep": 4,
+          "prompt": "How do you wash the coloured wrapper?",
+          "options": [
+            {
+              "text": "Quickly, in warm water, turned inside out",
+              "correct": true,
+              "consequence": "It keeps its colour."
+            },
+            {
+              "text": "Soaked overnight in hot water",
+              "consequence": "Long soaking in heat makes dye run."
+            },
+            {
+              "text": "Soaked in bleach with the whites, to keep it bright",
+              "consequence": "Bleach strips colour."
+            }
+          ]
+        },
+        {
+          "id": "dry",
+          "afterStep": 6,
+          "prompt": "The coloured wrapper is rinsed. Where do you dry it?",
+          "options": [
+            {
+              "text": "Inside out, in the shade",
+              "correct": true,
+              "consequence": "Sunlight fades dyes."
+            },
+            {
+              "text": "Right side out, in full sun",
+              "consequence": "Strong sun fades coloured items."
+            },
+            {
+              "text": "Over the smoky cooking fire",
+              "consequence": "Smoke dirties a clean wrapper."
+            }
+          ]
+        },
+        {
+          "id": "iron",
+          "afterStep": 7,
+          "prompt": "The shirt is slightly damp. What do you iron first?",
+          "options": [
+            {
+              "text": "The double parts: collar and cuffs",
+              "correct": true,
+              "consequence": "Large areas stay smooth when done last."
+            },
+            {
+              "text": "The large back panel, while it is damp",
+              "consequence": "It creases again as you work on the double parts."
+            },
+            {
+              "text": "Right over the buttons",
+              "consequence": "Ironing over buttons damages them."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "bright",
+          "prompt": "What should a well-laundered result look like?",
+          "options": [
+            {
+              "text": "Bright whites, and colours that keep their shade",
+              "correct": true
+            },
+            {
+              "text": "Grey whites and faded colours, but a clean, fresh smell",
+              "why": "Whites and colours have probably been mixed or dried in strong sun."
+            },
+            {
+              "text": "Stiff, soapy-feeling cloth",
+              "why": "Detergent has been left in: rinse well."
+            }
+          ]
+        },
+        {
+          "id": "rinse",
+          "prompt": "How do you know when rinsing is complete?",
+          "options": [
+            {
+              "text": "No lather remains in the water",
+              "correct": true
+            },
+            {
+              "text": "The water is warm",
+              "why": "Temperature tells you nothing about soap."
+            },
+            {
+              "text": "The cloth feels heavy and clean to the touch",
+              "why": "All wet cloth feels heavy."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "dose",
+          "prompt": "The packet says 30 g of detergent per 4 litres. How much do you need for {v} litres?",
+          "formula": "30 / 4 * v",
+          "vars": {
+            "v": {
+              "min": 6,
+              "max": 20,
+              "step": 2
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "30 ÷ 4 × {v} = {answer} g."
+        },
+        {
+          "id": "dose2",
+          "prompt": "The packet says {d} g of detergent per 5 litres. How much do you need for a {v}-litre bucket?",
+          "formula": "d / 5 * v",
+          "vars": {
+            "d": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            },
+            "v": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{d} ÷ 5 × {v} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "monday",
+          "scenario": "Ngozi washed the family's clothes. The white shirts came out pink and a wrapper faded. Here is what she did.",
+          "lines": [
+            {
+              "text": "She washed whites and coloured clothes together.",
+              "fault": true,
+              "why": "Dye runs. Wash them separately."
+            },
+            {
+              "text": "She dried the coloured wrapper in strong sun.",
+              "fault": true,
+              "why": "Direct sun fades dyes. Dry in the shade."
+            },
+            {
+              "text": "She left the coloured clothes soaking all day.",
+              "fault": true,
+              "why": "Coloured items must not soak for long."
+            },
+            {
+              "text": "She rinsed until no lather remained.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She ironed the shirt while slightly damp.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for laundering cotton articles.",
+        "explainPrompt": "Why are coloured cottons washed separately and dried in the shade?",
+        "explainGuide": "Dyes can run in water and stain other clothes, so colours are washed apart. Direct sunlight fades dyes, so they dry in the shade.",
+        "explainKeywords": [
+          [
+            "dye",
+            "colour"
+          ],
+          [
+            "run",
+            "bleed",
+            "stain"
+          ],
+          [
+            "sun",
+            "shade",
+            "fade"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Laundering cotton",
+        "Sort. Wash. Rinse. Dry. Iron.",
+        "Test colour fastness first"
+      ]
+    },
+    "pr-hmg-laundry-wool-silk": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Set the iron to the hottest setting to finish the silk quickly.",
+            "why": "Silk scorches. Keep the iron low."
+          },
+          {
+            "text": "Test the water by plunging your hand in straight from the kettle.",
+            "why": "Hot water scalds. Test with the elbow or a thermometer."
+          },
+          {
+            "text": "Pour boiling water from the kettle into the basin with the jumper already in it.",
+            "why": "That is a scald risk and it felts the wool."
+          },
+          {
+            "text": "Leave the hot iron on the wet towel while you turn the scarf.",
+            "why": "It can scorch or burn. Stand it safely."
+          },
+          {
+            "text": "Spread the wet jumper on a bare electric heater to dry.",
+            "why": "That risks fire and damages the wool. Dry it flat, away from heat."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bleach",
+            "why": "It damages wool and silk."
+          },
+          {
+            "name": "Washing board",
+            "why": "Rubbing wool causes felting."
+          },
+          {
+            "name": "Scrubbing brush",
+            "why": "Rubbing damages delicate fibres."
+          },
+          {
+            "name": "Clothes pegs and line",
+            "why": "A heavy wet jumper stretches when hung."
+          },
+          {
+            "name": "Laundry starch",
+            "why": "Wool and silk are not starched."
+          },
+          {
+            "name": "Strong detergent",
+            "why": "Too harsh for wool. Use mild soap flakes."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "measure",
+          "afterStep": 1,
+          "prompt": "Before the jumper goes into water, what do you do?",
+          "options": [
+            {
+              "text": "Measure it or draw its outline",
+              "correct": true,
+              "consequence": "You can pull it back to shape when drying."
+            },
+            {
+              "text": "Soak it in cold water",
+              "consequence": "You lose the original size for comparison."
+            },
+            {
+              "text": "Stretch it to loosen the wool",
+              "consequence": "That distorts it before it is even washed."
+            }
+          ]
+        },
+        {
+          "id": "wash",
+          "afterStep": 3,
+          "prompt": "The jumper is in the suds. How do you wash it?",
+          "options": [
+            {
+              "text": "Squeeze it gently in the suds",
+              "correct": true,
+              "consequence": "No rubbing means no felting."
+            },
+            {
+              "text": "Rub it hard on the board",
+              "consequence": "Rubbing locks the fibres: it felts and shrinks."
+            },
+            {
+              "text": "Twist it and wring it tight",
+              "consequence": "Wringing distorts and damages wool."
+            }
+          ]
+        },
+        {
+          "id": "rinse",
+          "afterStep": 4,
+          "prompt": "The wool is ready to rinse. What temperature do you use?",
+          "options": [
+            {
+              "text": "The same as the wash water",
+              "correct": true,
+              "consequence": "Sudden changes shrink wool."
+            },
+            {
+              "text": "Very cold, to tighten the fibres",
+              "consequence": "A sudden change of temperature causes shrinking."
+            },
+            {
+              "text": "Hot, to remove all the soap",
+              "consequence": "Hot water felts wool."
+            }
+          ]
+        },
+        {
+          "id": "dry",
+          "afterStep": 6,
+          "prompt": "The jumper has been rolled in a towel. How do you dry it?",
+          "options": [
+            {
+              "text": "Flat, pulled back to its measurements",
+              "correct": true,
+              "consequence": "It keeps its size."
+            },
+            {
+              "text": "On a line, in the sun",
+              "consequence": "Wet wool stretches and sun harms it."
+            },
+            {
+              "text": "On top of a warm stove, turned now and again",
+              "consequence": "Direct heat damages wool."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "felt",
+          "prompt": "What happens to wool rubbed in hot water?",
+          "options": [
+            {
+              "text": "It felts and shrinks",
+              "correct": true
+            },
+            {
+              "text": "It becomes stronger",
+              "why": "Wool scales lock together and it is spoilt."
+            },
+            {
+              "text": "It gets a higher shine",
+              "why": "It goes matted and dull."
+            },
+            {
+              "text": "It gets softer and fluffier",
+              "why": "Rubbing and heat mat it, so it goes hard."
+            }
+          ]
+        },
+        {
+          "id": "silk",
+          "prompt": "How should correctly laundered silk look?",
+          "options": [
+            {
+              "text": "It keeps its sheen",
+              "correct": true
+            },
+            {
+              "text": "It feels stiff and dull",
+              "why": "Too hot, or the soap was not rinsed out."
+            },
+            {
+              "text": "It has shiny scorch marks",
+              "why": "The iron was too hot."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "mix",
+          "prompt": "{a} litres of water at {t} °C are mixed with 1 litre at {h} °C. What is the temperature of the mixture?",
+          "formula": "(a * t + h) / (a + 1)",
+          "vars": {
+            "a": {
+              "min": 2,
+              "max": 4,
+              "step": 1
+            },
+            "t": {
+              "min": 24,
+              "max": 28,
+              "step": 2
+            },
+            "h": {
+              "min": 70,
+              "max": 80,
+              "step": 10
+            }
+          },
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees C",
+            "degrees Celsius"
+          ],
+          "tolerance": {
+            "abs": 0.3
+          },
+          "decimals": 1,
+          "working": "({a} × {t} + 1 × {h}) ÷ ({a} + 1) = {answer} °C."
+        },
+        {
+          "id": "shrink",
+          "prompt": "A jumper {b} cm long before washing comes out {s} cm shorter. By what percentage has it shrunk?",
+          "formula": "s / b * 100",
+          "vars": {
+            "b": {
+              "min": 50,
+              "max": 70,
+              "step": 10
+            },
+            "s": {
+              "min": 1,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "{s} ÷ {b} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "jumper",
+          "scenario": "Tolu washed her father's woollen jumper and a silk scarf. The jumper shrank and the scarf lost its sheen. Here is what she did.",
+          "lines": [
+            {
+              "text": "She rubbed the jumper in hot water.",
+              "fault": true,
+              "why": "Heat and rubbing cause felting and shrinkage."
+            },
+            {
+              "text": "She hung the wet jumper on a line in the sun.",
+              "fault": true,
+              "why": "It stretches and the sun harms it. Dry it flat in the shade."
+            },
+            {
+              "text": "She ironed the silk on a hot setting.",
+              "fault": true,
+              "why": "Silk needs a cool iron."
+            },
+            {
+              "text": "She rolled the jumper in a clean towel.",
+              "why": "That is correct: it removes excess water without wringing."
+            },
+            {
+              "text": "She added a little vinegar to the last rinse for the silk.",
+              "why": "That is correct: it restores lustre."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for laundering wool and silk.",
+        "explainPrompt": "Why must wool not be rubbed in hot water?",
+        "explainGuide": "Heat and rubbing make the wool scales lock together, so the fibre felts and the garment shrinks.",
+        "explainKeywords": [
+          [
+            "scale",
+            "fibre"
+          ],
+          [
+            "felt",
+            "lock"
+          ],
+          [
+            "shrink",
+            "shrunk"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Laundering wool and silk",
+        "Lukewarm. Gentle. No wringing.",
+        "Give a reason for each step."
+      ]
+    },
+    "pr-hmg-garment-repairs": {
+      "room": "studio",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Hold spare pins in your mouth while you tack the patch.",
+            "why": "You can swallow or inhale a pin. Use a pin cushion."
+          },
+          {
+            "text": "Stick needles in your uniform so that you can find them.",
+            "why": "They can stab you or be left in the cloth. Keep them in a pin cushion."
+          },
+          {
+            "text": "Walk across the room with open scissors, points forward.",
+            "why": "They can stab someone. Carry them closed with the points down."
+          },
+          {
+            "text": "Leave a dropped pin on the floor for the cleaner.",
+            "why": "Someone will step on it. Count pins in and out."
+          },
+          {
+            "text": "Leave the iron on its plate on the ironing board while you thread a needle.",
+            "why": "It scorches and could start a fire. Stand it on its heel."
+          },
+          {
+            "text": "Bite the thread off with your teeth.",
+            "why": "That damages teeth and spreads germs. Use the scissors."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Pinking shears",
+            "why": "They neaten edges. They are not for trimming in a repair."
+          },
+          {
+            "name": "Stapler",
+            "why": "It damages fabric and cannot repair it."
+          },
+          {
+            "name": "Glue stick",
+            "why": "A repair must be sewn."
+          },
+          {
+            "name": "Crochet hook",
+            "why": "It is the wrong tool for a darn."
+          },
+          {
+            "name": "Razor blade",
+            "why": "Too dangerous and it can slash the garment."
+          },
+          {
+            "name": "Sewing machine",
+            "why": "This darn, patch and button are done by hand."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "extent",
+          "afterStep": 1,
+          "prompt": "You are starting a darn on a small hole. How far do your running stitches go?",
+          "options": [
+            {
+              "text": "1-1.5 cm beyond the hole into firm fabric",
+              "correct": true,
+              "consequence": "That anchors the darn in sound fabric."
+            },
+            {
+              "text": "Exactly to the edge of the hole",
+              "consequence": "The edge is weak, so the darn tears out."
+            },
+            {
+              "text": "Right across to the nearest seam of the garment",
+              "consequence": "That wastes time and makes a stiff, thick area."
+            }
+          ]
+        },
+        {
+          "id": "weave",
+          "afterStep": 1,
+          "prompt": "The first rows are in place. What comes next?",
+          "options": [
+            {
+              "text": "Weave across them at right angles",
+              "correct": true,
+              "consequence": "You make a new, even woven surface."
+            },
+            {
+              "text": "Sew a second row, in the same direction",
+              "consequence": "There is nothing to hold the threads across."
+            },
+            {
+              "text": "Pull the rows tight to close the hole",
+              "consequence": "Tight darning stitches pucker the fabric."
+            }
+          ]
+        },
+        {
+          "id": "grain",
+          "afterStep": 2,
+          "prompt": "You are cutting the patch. What must match the garment?",
+          "options": [
+            {
+              "text": "The grain of the fabric",
+              "correct": true,
+              "consequence": "The patch lies flat and does not pucker."
+            },
+            {
+              "text": "Only the colour",
+              "consequence": "A patch cut off-grain puckers."
+            },
+            {
+              "text": "The width of the garment",
+              "consequence": "The patch only needs to cover the worn area."
+            }
+          ]
+        },
+        {
+          "id": "shank",
+          "afterStep": 4,
+          "prompt": "You are sewing a button on a thick coat. What do you do?",
+          "options": [
+            {
+              "text": "Stitch over a pin to form a shank",
+              "correct": true,
+              "consequence": "It leaves room for the buttonhole layer."
+            },
+            {
+              "text": "Sew it flat and tight to the coat",
+              "consequence": "Flat buttons strain the fabric on a thick coat."
+            },
+            {
+              "text": "Use one stitch only, to keep it loose",
+              "consequence": "One stitch soon comes undone."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "darn",
+          "prompt": "Which darn is good?",
+          "options": [
+            {
+              "text": "Flat, even and blended with the fabric",
+              "correct": true
+            },
+            {
+              "text": "Puckered, with stitches pulled tight",
+              "why": "Tight stitches pucker it."
+            },
+            {
+              "text": "A thick lump over the hole only",
+              "why": "It does not reach firm fabric."
+            }
+          ]
+        },
+        {
+          "id": "button",
+          "prompt": "What does a shank let a button do?",
+          "options": [
+            {
+              "text": "It fastens easily without straining the fabric",
+              "correct": true
+            },
+            {
+              "text": "It looks larger",
+              "why": "It is not for appearance."
+            },
+            {
+              "text": "It uses less thread than a flat button would need",
+              "why": "It uses more."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "pw",
+          "prompt": "A hole is {w} cm wide. Allow 2 cm of firm fabric and 0.5 cm turning on each side. How wide do you cut the patch?",
+          "formula": "w + 2 * 2 + 2 * 0.5",
+          "vars": {
+            "w": {
+              "min": 2,
+              "max": 7,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{w} + (2 × 2) + (2 × 0.5) = {answer} cm."
+        },
+        {
+          "id": "pl",
+          "prompt": "A hole is {l} cm long. Allow 2 cm of firm fabric and 0.5 cm turning on each side. How long do you cut the patch?",
+          "formula": "l + 2 * 2 + 2 * 0.5",
+          "vars": {
+            "l": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{l} + (2 × 2) + (2 × 0.5) = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "uniform",
+          "scenario": "Ifeanyi repaired his school uniform. The repairs looked poor. Here is what he did.",
+          "lines": [
+            {
+              "text": "He darned only across the hole.",
+              "fault": true,
+              "why": "Darns must go into firm fabric."
+            },
+            {
+              "text": "He cut the patch off-grain.",
+              "fault": true,
+              "why": "It puckers. Match the grain."
+            },
+            {
+              "text": "He pulled the darning stitches very tight.",
+              "fault": true,
+              "why": "Tight stitches pucker the fabric."
+            },
+            {
+              "text": "He used matching thread.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He pressed each repair.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for repairing a garment.",
+        "explainPrompt": "Why does a darn have to extend beyond the hole into firm fabric?",
+        "explainGuide": "The edge of a hole is weak. Taking the stitches into firm fabric anchors the darn, so it does not pull away.",
+        "explainKeywords": [
+          [
+            "firm",
+            "strong",
+            "sound"
+          ],
+          [
+            "anchor",
+            "hold",
+            "secure"
+          ],
+          [
+            "weak",
+            "pull",
+            "tear"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Garment repairs",
+        "Darn. Patch. Button.",
+        "Neat, even stitches"
+      ]
+    },
+    "pr-hmg-seams-and-hems": {
+      "room": "studio",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Thread the machine while your foot rests on the switch.",
+            "why": "It can start and stab your finger. Switch off first."
+          },
+          {
+            "text": "Sew straight over the pins to save time.",
+            "why": "The needle can break and fly up. Remove pins before they reach the foot."
+          },
+          {
+            "text": "Guide the cloth with your fingers right up against the needle.",
+            "why": "The needle goes through your finger. Keep fingers away."
+          },
+          {
+            "text": "Leave the hot iron face down when you go back to the machine.",
+            "why": "It can scorch or start a fire. Stand it on its heel."
+          },
+          {
+            "text": "Hold pins in your lips while you pin the seam.",
+            "why": "You could swallow one. Use a pincushion."
+          },
+          {
+            "text": "Let your long loose scarf hang over the machine as you sew.",
+            "why": "It can be caught in the moving parts. Keep loose items clear."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Darning needle",
+            "why": "That is for darns, not seams."
+          },
+          {
+            "name": "Stapler",
+            "why": "Seams are stitched."
+          },
+          {
+            "name": "Glue",
+            "why": "Seams are stitched."
+          },
+          {
+            "name": "Crochet hook",
+            "why": "It is the wrong tool for a seam."
+          },
+          {
+            "name": "Razor blade",
+            "why": "It is dangerous and cuts unevenly: use scissors."
+          },
+          {
+            "name": "Darning wool",
+            "why": "It is too thick for seams."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "french",
+          "afterStep": 2,
+          "prompt": "You are starting a French seam. How do you place the fabric?",
+          "options": [
+            {
+              "text": "Wrong sides together",
+              "correct": true,
+              "consequence": "The raw edges finish up enclosed inside."
+            },
+            {
+              "text": "Right sides together",
+              "consequence": "That is the common mistake, and leaves raw edges showing."
+            },
+            {
+              "text": "Overlapped by a centimetre",
+              "consequence": "That is not how this seam starts."
+            }
+          ]
+        },
+        {
+          "id": "trim",
+          "afterStep": 2,
+          "prompt": "You have stitched 0.6 cm from the edge. What do you do before turning?",
+          "options": [
+            {
+              "text": "Trim to 3 mm",
+              "correct": true,
+              "consequence": "No threads poke through the finished seam."
+            },
+            {
+              "text": "Leave the full allowance",
+              "consequence": "Threads poke through the seam."
+            },
+            {
+              "text": "Cut right up to the stitching",
+              "consequence": "The seam can come apart."
+            }
+          ]
+        },
+        {
+          "id": "choose",
+          "afterStep": 3,
+          "prompt": "You are making a man's work shirt. Which seam suits it?",
+          "options": [
+            {
+              "text": "Run-and-fell seam",
+              "correct": true,
+              "consequence": "It is flat and strong."
+            },
+            {
+              "text": "Tacked seam",
+              "consequence": "Tacking is temporary."
+            },
+            {
+              "text": "Plain seam, not neatened",
+              "consequence": "The raw edges fray and it is not strong enough for work wear."
+            }
+          ]
+        },
+        {
+          "id": "press",
+          "afterStep": 4,
+          "prompt": "When do you press your work?",
+          "options": [
+            {
+              "text": "After each stage",
+              "correct": true,
+              "consequence": "Each stage lies flat, so the next one is accurate."
+            },
+            {
+              "text": "Only at the very end",
+              "consequence": "Earlier stages stay bulky and inaccurate."
+            },
+            {
+              "text": "Never: pressing is only for looks",
+              "consequence": "Pressing is marked, and it helps accuracy."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "french-result",
+          "prompt": "What does a good French seam show?",
+          "options": [
+            {
+              "text": "No raw edges",
+              "correct": true
+            },
+            {
+              "text": "Raw edges on both sides",
+              "why": "That is a plain seam left un-neatened."
+            },
+            {
+              "text": "Two lines of stitching on the right side",
+              "why": "That points to a run-and-fell seam."
+            }
+          ]
+        },
+        {
+          "id": "pucker",
+          "prompt": "Your seam comes out puckered. What is the likely cause?",
+          "options": [
+            {
+              "text": "Wrong tension",
+              "correct": true
+            },
+            {
+              "text": "Too little pressing after the seam",
+              "why": "Pressing will not remove a tension fault."
+            },
+            {
+              "text": "Too much thread on the reel",
+              "why": "That has no effect."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "second",
+          "prompt": "A French seam has a {a} cm allowance. The first line is stitched 0.6 cm from the edge. How far from the fold is the second line?",
+          "formula": "a - 0.6",
+          "vars": {
+            "a": {
+              "min": 1.2,
+              "max": 2,
+              "step": 0.2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 1,
+          "working": "{a} − 0.6 = {answer} cm."
+        },
+        {
+          "id": "total",
+          "prompt": "A fabric piece is {w} cm wide. Two such pieces are joined with a 1.5 cm seam. How wide is the joined piece?",
+          "formula": "2 * w - 3",
+          "vars": {
+            "w": {
+              "min": 15,
+              "max": 30,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "({w} − 1.5) × 2 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "samples",
+          "scenario": "Rita worked her samples for the examiner. She lost marks. Here is what the examiner saw.",
+          "lines": [
+            {
+              "text": "Her French seam was started with right sides together.",
+              "fault": true,
+              "why": "Start with wrong sides together."
+            },
+            {
+              "text": "Threads poked through the French seam.",
+              "fault": true,
+              "why": "She did not trim enough."
+            },
+            {
+              "text": "Seam widths varied along the sample.",
+              "fault": true,
+              "why": "Use the machine guide for an even allowance."
+            },
+            {
+              "text": "She labelled each sample and stated where it is used.",
+              "why": "That is correct and earns marks."
+            },
+            {
+              "text": "She fastened off the ends of the machining.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for machining seams.",
+        "explainPrompt": "Why is a French seam suitable for fine fabrics?",
+        "explainGuide": "The raw edges are completely enclosed inside the seam, so they cannot fray or show through thin cloth.",
+        "explainKeywords": [
+          [
+            "raw",
+            "edge"
+          ],
+          [
+            "enclos",
+            "inside",
+            "hidden"
+          ],
+          [
+            "fray",
+            "show",
+            "fine"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Seams, hems and neatening",
+        "Press after each stage",
+        "Label each sample"
+      ]
+    },
+    "pr-hmg-sewing-tools": {
+      "room": "studio",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Thread the electric machine while it is still plugged in.",
+            "why": "It can start and injure your finger. Unplug first."
+          },
+          {
+            "text": "Clear fluff from an electric machine with your finger while it runs.",
+            "why": "Your hand is near moving parts. Unplug it first."
+          },
+          {
+            "text": "Leave the shears open on the table.",
+            "why": "The blades can cut someone. Keep them closed."
+          },
+          {
+            "text": "Pull out a jammed needle with the power on.",
+            "why": "It can start. Switch off and unplug first."
+          },
+          {
+            "text": "Use a machine with a damaged, bare flex.",
+            "why": "That risks electric shock. Report it and do not use it."
+          },
+          {
+            "text": "Keep the machine oil on the table where small children can reach it.",
+            "why": "Keep it safely stored in the sewing box."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Cooking oil",
+            "why": "It gums the machine. Use machine oil."
+          },
+          {
+            "name": "Palm oil",
+            "why": "It gums the machine. Use machine oil."
+          },
+          {
+            "name": "Paper scissors",
+            "why": "Tools are named and sorted by use: shears are for fabric."
+          },
+          {
+            "name": "Grease gun",
+            "why": "It is far too much for the oiling points."
+          },
+          {
+            "name": "Bicycle oil",
+            "why": "It is too heavy for a sewing machine: use machine oil."
+          },
+          {
+            "name": "Kerosene",
+            "why": "It is not a lubricant, and it is a fire risk."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "foot",
+          "afterStep": 2,
+          "prompt": "You are threading the upper machine. Where should the presser foot be?",
+          "options": [
+            {
+              "text": "Raised",
+              "correct": true,
+              "consequence": "The tension discs are open, so the thread seats properly."
+            },
+            {
+              "text": "Lowered",
+              "consequence": "The tension discs stay closed: a common mistake."
+            },
+            {
+              "text": "Taken off the machine",
+              "consequence": "That is not needed and takes time."
+            }
+          ]
+        },
+        {
+          "id": "pull",
+          "afterStep": 3,
+          "prompt": "You are stitching curves on scrap. How do you move the fabric?",
+          "options": [
+            {
+              "text": "Guide it and let the feed dogs pull it",
+              "correct": true,
+              "consequence": "The needle stays straight."
+            },
+            {
+              "text": "Pull it through hard from the back",
+              "consequence": "You bend or break the needle."
+            },
+            {
+              "text": "Push it hard from the front",
+              "consequence": "That bends the needle and bunches the fabric."
+            }
+          ]
+        },
+        {
+          "id": "under",
+          "afterStep": 4,
+          "prompt": "Loops show on the underside of your stitching. What do you adjust?",
+          "options": [
+            {
+              "text": "Tighten the upper tension",
+              "correct": true,
+              "consequence": "That balances the stitch."
+            },
+            {
+              "text": "Loosen the upper tension",
+              "consequence": "That is for loops on top."
+            },
+            {
+              "text": "Change to a longer stitch",
+              "consequence": "Length will not fix the tension."
+            }
+          ]
+        },
+        {
+          "id": "oil",
+          "afterStep": 5,
+          "prompt": "You have brushed out the fluff. How much oil do you use?",
+          "options": [
+            {
+              "text": "One drop at each oiling point",
+              "correct": true,
+              "consequence": "Oil sparingly."
+            },
+            {
+              "text": "A good pour over the whole machine",
+              "consequence": "Excess oil marks your fabric."
+            },
+            {
+              "text": "Cooking oil to loosen it",
+              "consequence": "It gums the parts up."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "balanced",
+          "prompt": "What does balanced tension look like?",
+          "options": [
+            {
+              "text": "The stitches look the same on both sides",
+              "correct": true
+            },
+            {
+              "text": "Loops on the underside but flat on the top side",
+              "why": "That shows upper tension too loose."
+            },
+            {
+              "text": "Loops on the top side",
+              "why": "That shows upper tension too tight."
+            }
+          ]
+        },
+        {
+          "id": "pinking",
+          "prompt": "What are pinking shears for?",
+          "options": [
+            {
+              "text": "Neatening raw edges with a zigzag cut",
+              "correct": true
+            },
+            {
+              "text": "Cutting paper",
+              "why": "Do not cut paper with fabric shears."
+            },
+            {
+              "text": "Marking fabric",
+              "why": "Use tailor's chalk."
+            },
+            {
+              "text": "Unpicking seams stitch by stitch along the line",
+              "why": "They are not used for that."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "len",
+          "prompt": "On a 10 cm test line you count {n} stitches. What is the stitch length in millimetres?",
+          "formula": "100 / n",
+          "vars": {
+            "n": {
+              "min": 20,
+              "max": 50,
+              "step": 5
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "10 cm = 100 mm. 100 ÷ {n} = {answer} mm."
+        },
+        {
+          "id": "count",
+          "prompt": "A stitch length of {l} mm is set. How many stitches are in a 10 cm line?",
+          "formula": "100 / l",
+          "vars": {
+            "l": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "stitches",
+          "unitAliases": [
+            "stitch"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "100 ÷ {l} = {answer} stitches."
+        }
+      ],
+      "faults": [
+        {
+          "id": "class-machine",
+          "scenario": "A class sewing machine started skipping and the needle bent. The teacher checked what Zainab had done.",
+          "lines": [
+            {
+              "text": "She threaded it with the presser foot down.",
+              "fault": true,
+              "why": "Tension discs stay closed, so tension is wrong."
+            },
+            {
+              "text": "She pulled the fabric from the back.",
+              "fault": true,
+              "why": "That bends the needle."
+            },
+            {
+              "text": "She poured oil over the machine.",
+              "fault": true,
+              "why": "Oil sparingly: one drop at each point."
+            },
+            {
+              "text": "She unplugged the machine before cleaning it.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She ran the machine on scrap after oiling.",
+              "why": "That is correct: it absorbs excess oil."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for using a sewing machine.",
+        "explainPrompt": "Why is scrap fabric run through the machine after oiling?",
+        "explainGuide": "The scrap absorbs excess oil, so that the oil does not mark the next garment.",
+        "explainKeywords": [
+          [
+            "absorb",
+            "soak",
+            "take up"
+          ],
+          [
+            "oil"
+          ],
+          [
+            "mark",
+            "stain",
+            "garment"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Sewing tools and machine care",
+        "Unplug before cleaning",
+        "Oil sparingly"
+      ]
+    },
+    "pr-hmg-pillowcase": {
+      "room": "studio",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Leave the shears open on the floor while you pin.",
+            "why": "Someone can step on them. Close them and put them away."
+          },
+          {
+            "text": "Leave the iron switched on when you go to sew.",
+            "why": "It is a fire risk. Switch it off after use."
+          },
+          {
+            "text": "Cut towards your other hand holding the fabric.",
+            "why": "Shears can slip into your fingers. Keep that hand clear."
+          },
+          {
+            "text": "Sew over the pins so the layers stay still.",
+            "why": "The needle can break and fly up. Remove pins as you sew."
+          },
+          {
+            "text": "Pass the shears to your partner by the handles.",
+            "why": "Pass them closed, with the handles towards the other person."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bias binding",
+            "why": "No curved edge needs binding."
+          },
+          {
+            "name": "Zip",
+            "why": "A housewife-style case is held by its flap."
+          },
+          {
+            "name": "Elastic",
+            "why": "The flap holds the pillow in."
+          },
+          {
+            "name": "Pinking shears",
+            "why": "Raw edges go into seams and hems."
+          },
+          {
+            "name": "Darning needle",
+            "why": "That is for darns."
+          },
+          {
+            "name": "Tracing wheel",
+            "why": "Measurements are marked with chalk."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "measure",
+          "afterStep": 1,
+          "prompt": "You have measured the pillow. What must the width calculation include?",
+          "options": [
+            {
+              "text": "Two seam allowances",
+              "correct": true,
+              "consequence": "The case fits. Forgetting these is a common mistake."
+            },
+            {
+              "text": "Nothing: use the exact width of the pillow",
+              "consequence": "There is no room for the seams, so the case is too tight."
+            },
+            {
+              "text": "A flap on both sides",
+              "consequence": "The flap goes on the length."
+            }
+          ]
+        },
+        {
+          "id": "wash",
+          "afterStep": 2,
+          "prompt": "You have your fabric, new from the market. What do you do before cutting?",
+          "options": [
+            {
+              "text": "Pre-wash it",
+              "correct": true,
+              "consequence": "It allows for shrinkage."
+            },
+            {
+              "text": "Cut it right away",
+              "consequence": "It may shrink in the first wash and no longer fit."
+            },
+            {
+              "text": "Starch it to make it stiffer",
+              "consequence": "Starch does not deal with shrinkage."
+            }
+          ]
+        },
+        {
+          "id": "grain",
+          "afterStep": 3,
+          "prompt": "How do you lay out the fabric for cutting?",
+          "options": [
+            {
+              "text": "On the straight grain",
+              "correct": true,
+              "consequence": "The case hangs straight."
+            },
+            {
+              "text": "At an angle, to save fabric",
+              "consequence": "Off-grain cloth twists."
+            },
+            {
+              "text": "Any way, if it fits the piece",
+              "consequence": "Off-grain cutting causes twisting."
+            }
+          ]
+        },
+        {
+          "id": "neat",
+          "afterStep": 5,
+          "prompt": "You are sewing the sides. How do you finish them?",
+          "options": [
+            {
+              "text": "With French seams or neatened edges",
+              "correct": true,
+              "consequence": "No raw edges are left to fray."
+            },
+            {
+              "text": "Plain seam, with the edges left raw and fraying",
+              "consequence": "Raw edges are a named mistake."
+            },
+            {
+              "text": "With tacking stitches only",
+              "consequence": "Tacking is temporary."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "fit",
+          "prompt": "How can you tell that the pillowcase is right?",
+          "options": [
+            {
+              "text": "It fits snugly and the flap holds the pillow in",
+              "correct": true
+            },
+            {
+              "text": "The pillow falls out on one side when you lift it",
+              "why": "The flap has been measured too short."
+            },
+            {
+              "text": "The case twists to one side",
+              "why": "It was cut off-grain."
+            }
+          ]
+        },
+        {
+          "id": "grain-why",
+          "prompt": "What happens if a case is cut off-grain?",
+          "options": [
+            {
+              "text": "It twists and does not hang straight",
+              "correct": true
+            },
+            {
+              "text": "It costs less",
+              "why": "Cost is not affected."
+            },
+            {
+              "text": "It colours unevenly after a few washes",
+              "why": "Grain does not change colour."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "wide",
+          "prompt": "A pillow is {w} cm wide. With two 1.5 cm seam allowances, what is the width of the fabric?",
+          "formula": "w + 2 * 1.5",
+          "vars": {
+            "w": {
+              "min": 40,
+              "max": 60,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 0,
+          "working": "{w} + 2 × 1.5 = {answer} cm."
+        },
+        {
+          "id": "long",
+          "prompt": "A pillow is {l} cm long. The fabric length is twice the pillow length + 15 cm flap + 1 cm narrow hem + 4 cm deep hem. What length is that?",
+          "formula": "2 * l + 15 + 1 + 4",
+          "vars": {
+            "l": {
+              "min": 60,
+              "max": 80,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 0,
+          "working": "2 × {l} + 15 + 1 + 4 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "short-case",
+          "scenario": "Chioma made a pillowcase. It was tight and twisted to one side. Here is what she did.",
+          "lines": [
+            {
+              "text": "She used the exact pillow width with no seam allowance.",
+              "fault": true,
+              "why": "Forgetting seam allowances makes it too tight."
+            },
+            {
+              "text": "She cut the fabric off-grain.",
+              "fault": true,
+              "why": "It twists. Cut on the straight grain."
+            },
+            {
+              "text": "She left raw edges inside the seams.",
+              "fault": true,
+              "why": "Raw edges fray."
+            },
+            {
+              "text": "She measured the pillow first.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She pressed the finished case.",
+              "why": "That is correct and earns marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a pillowcase.",
+        "explainPrompt": "Why is cotton fabric pre-washed before it is cut?",
+        "explainGuide": "Cotton may shrink in its first wash. Pre-washing means the shrinkage happens before cutting, so the finished case still fits.",
+        "explainKeywords": [
+          [
+            "shrink",
+            "shrunk"
+          ],
+          [
+            "first",
+            "before"
+          ],
+          [
+            "fit",
+            "size"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Making a pillowcase",
+        "Measure, calculate, cut",
+        "Show your calculation."
+      ]
+    },
+    "pr-hmg-fibre-burning-test": {
+      "room": "lab",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Hold the sample in your fingers so that you can feel it melting.",
+            "why": "Melting synthetics drip and burn the skin. Use tongs."
+          },
+          {
+            "text": "Burn a large piece so that the result is clearer.",
+            "why": "Test small samples only."
+          },
+          {
+            "text": "Test a thread on your shirt while you are wearing it.",
+            "why": "Never test fabric while it is being worn."
+          },
+          {
+            "text": "Bend over the flame and sniff the smoke deeply.",
+            "why": "Fumes can harm you. Carefully waft the smell towards your nose."
+          },
+          {
+            "text": "Leave your long hair loose while you work.",
+            "why": "It can catch fire. Tie it back."
+          },
+          {
+            "text": "Work at a paper-covered desk with no tray or water.",
+            "why": "A dripping sample can start a fire. Use a metal tray with water nearby."
+          },
+          {
+            "text": "Blow on the flaming sample and hold it over your hand.",
+            "why": "It can drip on your hand. Keep it over the tray."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bunsen burner on full",
+            "why": "A small candle or spirit lamp is all you need."
+          },
+          {
+            "name": "Bottle of petrol",
+            "why": "It is highly flammable."
+          },
+          {
+            "name": "Cloth oven mitt",
+            "why": "It gives no grip on a small sample: use tongs."
+          },
+          {
+            "name": "Plastic bowl for the residue",
+            "why": "Hot residue can melt plastic: use a metal tray or tile."
+          },
+          {
+            "name": "Paper tray",
+            "why": "It would catch fire."
+          },
+          {
+            "name": "Glass beaker",
+            "why": "Melted residue sticks and hot glass can crack: use a tray or tile."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "approach",
+          "afterStep": 2,
+          "prompt": "You are about to test a sample. What do you do first?",
+          "options": [
+            {
+              "text": "Bring it slowly towards the flame",
+              "correct": true,
+              "consequence": "You can see it shrink or melt before it burns."
+            },
+            {
+              "text": "Push it straight into the flame",
+              "consequence": "You miss the first sign."
+            },
+            {
+              "text": "Light it with a match, in your hand",
+              "consequence": "Never hold samples by hand."
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "afterStep": 3,
+          "prompt": "The sample has burned in the flame. What do you do next?",
+          "options": [
+            {
+              "text": "Remove it and see whether it keeps burning",
+              "correct": true,
+              "consequence": "Wool and silk often stop on their own."
+            },
+            {
+              "text": "Blow it out at once",
+              "consequence": "You lose the evidence."
+            },
+            {
+              "text": "Drop it into the water straight away",
+              "consequence": "You cannot note whether it keeps burning."
+            }
+          ]
+        },
+        {
+          "id": "residue",
+          "afterStep": 5,
+          "prompt": "The test is over and the residue is still hot. How do you examine it?",
+          "options": [
+            {
+              "text": "Wait until it is cool, then press it",
+              "correct": true,
+              "consequence": "Melted beads stay hot and can burn."
+            },
+            {
+              "text": "Pick it up right away with your fingers",
+              "consequence": "A hot bead burns your skin."
+            },
+            {
+              "text": "Crush it at once between bare fingers",
+              "consequence": "A hot bead burns your skin."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "cotton",
+          "prompt": "Which results point to cotton?",
+          "options": [
+            {
+              "text": "Burns fast, smells of paper and leaves soft grey ash",
+              "correct": true
+            },
+            {
+              "text": "Curls away, smells of burning hair and leaves a crushable bead",
+              "why": "That is wool or silk."
+            },
+            {
+              "text": "Melts, smells chemical and leaves a hard bead",
+              "why": "That is a synthetic."
+            }
+          ]
+        },
+        {
+          "id": "wool",
+          "prompt": "Which results point to wool?",
+          "options": [
+            {
+              "text": "Burns slowly, smells of hair and leaves a crushable bead",
+              "correct": true
+            },
+            {
+              "text": "Burns fast, smells of paper and leaves soft ash",
+              "why": "That is cotton."
+            },
+            {
+              "text": "Melts, shrinks and leaves a hard bead",
+              "why": "That is polyester or nylon."
+            }
+          ]
+        },
+        {
+          "id": "blend",
+          "prompt": "What does a polyester-cotton blend show?",
+          "options": [
+            {
+              "text": "Mixed results: it melts and leaves ash and a hard bead",
+              "correct": true
+            },
+            {
+              "text": "Only soft grey ash, with no melting of the fibres at all",
+              "why": "Polyester does not leave ash."
+            },
+            {
+              "text": "No burning at all",
+              "why": "It does burn."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "blend-mass",
+          "prompt": "A {m} g shirt is {p}% polyester. How many grams of polyester does it contain?",
+          "formula": "p / 100 * m",
+          "vars": {
+            "m": {
+              "min": 150,
+              "max": 300,
+              "step": 50
+            },
+            "p": {
+              "min": 50,
+              "max": 70,
+              "step": 5
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{p} ÷ 100 × {m} = {answer} g."
+        },
+        {
+          "id": "cotton-mass",
+          "prompt": "A {m} g shirt is {p}% cotton. How many grams of cotton does it contain?",
+          "formula": "p / 100 * m",
+          "vars": {
+            "m": {
+              "min": 100,
+              "max": 300,
+              "step": 100
+            },
+            "p": {
+              "min": 25,
+              "max": 45,
+              "step": 5
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{p} ÷ 100 × {m} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "table",
+          "scenario": "Ebere filled in her fibre test table. Here is what she wrote and did.",
+          "lines": [
+            {
+              "text": "She held a nylon sample in her fingers.",
+              "fault": true,
+              "why": "Melting synthetics burn the skin. Use tongs."
+            },
+            {
+              "text": "She recorded a soft grey ash as a crushable bead of wool.",
+              "fault": true,
+              "why": "Cotton leaves soft ash. Wool leaves a crushable black bead."
+            },
+            {
+              "text": "She tested a sample from the sleeve of the blouse she was wearing.",
+              "fault": true,
+              "why": "Never test fabric while it is being worn."
+            },
+            {
+              "text": "She waited for the residue to cool.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She recorded the test, the observation and the inference in columns.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for the burning test.",
+        "explainPrompt": "Why do wool and silk smell like burning hair?",
+        "explainGuide": "Wool and silk are protein fibres, like hair, so they give the same smell when they burn.",
+        "explainKeywords": [
+          [
+            "protein",
+            "animal"
+          ],
+          [
+            "hair"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Fibre burning test",
+        "Vegetable, animal, synthetic",
+        "Tongs, tray, water"
+      ]
+    },
+    "pr-hmg-local-cleaning-agents": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Scour the pot with wood-ash water with bare hands.",
+            "why": "It is alkaline and irritates the skin. Wear gloves."
+          },
+          {
+            "text": "Scrub soft brass hard with coarse sand to save time.",
+            "why": "It scratches soft metal. Use abrasives gently."
+          },
+          {
+            "text": "Leave the tin of polish where children play.",
+            "why": "Keep polishes away from children."
+          },
+          {
+            "text": "Store the leftover ash water in an unlabelled drink bottle.",
+            "why": "Someone could drink it. Never store cleaners in drink bottles."
+          },
+          {
+            "text": "Put your fingers in your mouth or eyes after handling ash water.",
+            "why": "It irritates. Wash your hands first."
+          },
+          {
+            "text": "Mix commercial polish with lemon juice and ash in one bowl.",
+            "why": "Mixed cleaners can react. Use each one on its own."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Wire wool",
+            "why": "It scratches soft metals."
+          },
+          {
+            "name": "Coarse river sand",
+            "why": "It scratches. Only fine sand is used, gently."
+          },
+          {
+            "name": "Bleach",
+            "why": "It is not used on brass."
+          },
+          {
+            "name": "Petrol",
+            "why": "It is highly flammable."
+          },
+          {
+            "name": "Kerosene",
+            "why": "It is flammable and is not a cleaner for this."
+          },
+          {
+            "name": "Emery paper",
+            "why": "It is a coarse abrasive and scratches brass."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "after",
+          "afterStep": 2,
+          "prompt": "You have rubbed the brass with lemon and salt. What do you do next?",
+          "options": [
+            {
+              "text": "Rinse it and dry it at once",
+              "correct": true,
+              "consequence": "Dry metal does not mark."
+            },
+            {
+              "text": "Leave it wet to keep working",
+              "consequence": "Lemon juice left on metal marks it."
+            },
+            {
+              "text": "Polish it with wet sand",
+              "consequence": "Abrasives scratch soft metal."
+            }
+          ]
+        },
+        {
+          "id": "ash",
+          "afterStep": 3,
+          "prompt": "The sieved ash has soaked in water. What do you use on the greasy pot?",
+          "options": [
+            {
+              "text": "The strained liquid, with gloves on",
+              "correct": true,
+              "consequence": "The alkali cuts the grease."
+            },
+            {
+              "text": "The dry ash, rubbed in with bare hands",
+              "consequence": "It irritates the skin."
+            },
+            {
+              "text": "The ash water with bleach added",
+              "consequence": "Do not mix chemicals."
+            }
+          ]
+        },
+        {
+          "id": "lacquer",
+          "afterStep": 1,
+          "prompt": "A lacquered brass tray is on the bench. What do you do?",
+          "options": [
+            {
+              "text": "Test a small area, and avoid abrasives",
+              "correct": true,
+              "consequence": "Abrasives ruin the lacquer."
+            },
+            {
+              "text": "Scour it with coarse sand",
+              "consequence": "That is a named mistake."
+            },
+            {
+              "text": "Leave it in lemon juice all day",
+              "consequence": "That marks the metal."
+            }
+          ]
+        },
+        {
+          "id": "compare",
+          "afterStep": 6,
+          "prompt": "Your table must compare the agents. What do you record?",
+          "options": [
+            {
+              "text": "Results, time and cost",
+              "correct": true,
+              "consequence": "This allows a fair comparison."
+            },
+            {
+              "text": "Only which one smelled nicest",
+              "consequence": "That does not tell you about cleaning."
+            },
+            {
+              "text": "Only the price of the polish",
+              "consequence": "That compares nothing."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "tarnish",
+          "prompt": "What do you see on the brass after lemon and salt?",
+          "options": [
+            {
+              "text": "The tarnish goes and the metal is bright",
+              "correct": true
+            },
+            {
+              "text": "The metal turns black and feels rough to touch",
+              "why": "That is not the effect."
+            },
+            {
+              "text": "Nothing happens",
+              "why": "Lemon and salt remove tarnish quickly."
+            }
+          ]
+        },
+        {
+          "id": "why-ash",
+          "prompt": "Why does wood-ash water cut grease?",
+          "options": [
+            {
+              "text": "It is alkaline",
+              "correct": true
+            },
+            {
+              "text": "It is acidic",
+              "why": "Ash water is alkaline."
+            },
+            {
+              "text": "It is neutral",
+              "why": "Neutral water does not cut grease."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "polish",
+          "prompt": "Polish costs N{p} for 200 ml. You use 20 ml per session. What is the cost per session, in naira?",
+          "formula": "p / 200 * 20",
+          "vars": {
+            "p": {
+              "min": 1800,
+              "max": 3000,
+              "step": 200
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{p} ÷ 200 × 20 = N{answer}."
+        },
+        {
+          "id": "local",
+          "prompt": "The local method uses {n} limes at N{l} each and salt worth N20. What does a session cost, in naira?",
+          "formula": "n * l + 20",
+          "vars": {
+            "n": {
+              "min": 2,
+              "max": 4,
+              "step": 1
+            },
+            "l": {
+              "min": 50,
+              "max": 150,
+              "step": 50
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × {l} + 20 = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "brass-tray",
+          "scenario": "Kola cleaned some brass ornaments and a greasy pot. Here is what he did.",
+          "lines": [
+            {
+              "text": "He used coarse sand on a plated tray.",
+              "fault": true,
+              "why": "It scratches lacquered or plated items."
+            },
+            {
+              "text": "He left lemon juice on the brass overnight.",
+              "fault": true,
+              "why": "It marks the metal."
+            },
+            {
+              "text": "He worked with ash water without gloves.",
+              "fault": true,
+              "why": "Ash water irritates skin."
+            },
+            {
+              "text": "He dried the metal immediately after rinsing.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He compared cost, time and result.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for using local cleaning agents.",
+        "explainPrompt": "Why must metal be dried immediately after it has been cleaned with lemon?",
+        "explainGuide": "Water and leftover acid leave marks on the metal. Rinsing and drying at once keeps it bright.",
+        "explainKeywords": [
+          [
+            "water",
+            "acid",
+            "lemon"
+          ],
+          [
+            "mark",
+            "stain",
+            "tarnish"
+          ],
+          [
+            "dry",
+            "rinse"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Local and commercial cleaners",
+        "Compare result, time and cost",
+        "Gloves for ash water"
+      ]
+    },
+    "pr-hmg-floor-surface-care": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Stand on a plastic stool on top of a table to reach the cobwebs.",
+            "why": "It can tip and you can fall. Use a long-handled brush from the floor."
+          },
+          {
+            "text": "Mop the corridor and say nothing to anyone passing through.",
+            "why": "Someone can slip. Warn others or put out a sign."
+          },
+          {
+            "text": "Shut the windows so that dust does not come in while you clean.",
+            "why": "Cleaning needs ventilation. Open the windows."
+          },
+          {
+            "text": "Mix the floor detergent with bleach to make it stronger.",
+            "why": "Mixing chemicals can give off dangerous fumes. Use one agent."
+          },
+          {
+            "text": "Leave a full bucket of dirty water in the doorway.",
+            "why": "People trip over it. Empty it and put it away."
+          },
+          {
+            "text": "Wipe a wall socket with a wet cloth while dusting.",
+            "why": "Water and electricity can give a shock. Keep sockets dry."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Coarse scouring powder",
+            "why": "It scratches polished and formica surfaces."
+          },
+          {
+            "name": "Wire wool",
+            "why": "It scratches tile and wood."
+          },
+          {
+            "name": "Bleach",
+            "why": "It is not needed here, and it can strip wood."
+          },
+          {
+            "name": "Paint scraper",
+            "why": "It gouges floors."
+          },
+          {
+            "name": "Stiff outdoor broom",
+            "why": "It scratches polished floors: use the soft brush."
+          },
+          {
+            "name": "Kerosene",
+            "why": "It is flammable and is not a floor cleaner."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "order",
+          "afterStep": 2,
+          "prompt": "The room is ventilated and cleared. Where do you begin?",
+          "options": [
+            {
+              "text": "Cobwebs and high surfaces",
+              "correct": true,
+              "consequence": "Dust falls down, so nothing clean gets dirty again."
+            },
+            {
+              "text": "Sweep the floor first",
+              "consequence": "Dust from above falls on your clean floor."
+            },
+            {
+              "text": "Mop the floor first",
+              "consequence": "You will then have to do it again."
+            }
+          ]
+        },
+        {
+          "id": "wood",
+          "afterStep": 3,
+          "prompt": "The wooden table is dusty. How do you treat it?",
+          "options": [
+            {
+              "text": "Slightly damp cloth, dry it, polish along the grain",
+              "correct": true,
+              "consequence": "It gets an even shine."
+            },
+            {
+              "text": "Scrub with soapy water and leave it wet",
+              "consequence": "Water damages wood."
+            },
+            {
+              "text": "Rub with scouring powder across the grain",
+              "consequence": "Abrasives scratch polished wood."
+            }
+          ]
+        },
+        {
+          "id": "mop",
+          "afterStep": 5,
+          "prompt": "You are mopping a terrazzo floor. How do you move?",
+          "options": [
+            {
+              "text": "Working towards the door",
+              "correct": true,
+              "consequence": "You do not trap yourself on a wet floor."
+            },
+            {
+              "text": "From the door to the far corner",
+              "consequence": "You mop yourself into a corner."
+            },
+            {
+              "text": "In any order, walking back over the wet",
+              "consequence": "Footprints spoil the floor and you may slip."
+            }
+          ]
+        },
+        {
+          "id": "wooden-floor",
+          "afterStep": 5,
+          "prompt": "The next room has a polished wooden floor. How much water do you use?",
+          "options": [
+            {
+              "text": "Very little, with a well-wrung mop",
+              "correct": true,
+              "consequence": "Flooding damages wooden floors."
+            },
+            {
+              "text": "Buckets of water, then a good scrub",
+              "consequence": "Never flood a wooden floor."
+            },
+            {
+              "text": "Hot detergent, poured on and left",
+              "consequence": "That damages the wood and the polish."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "streak",
+          "prompt": "How do you get a floor that dries without streaks?",
+          "options": [
+            {
+              "text": "Rinse and wring the mop well",
+              "correct": true
+            },
+            {
+              "text": "Use more detergent than usual",
+              "why": "Too much detergent leaves streaks."
+            },
+            {
+              "text": "Leave the water to dry on its own",
+              "why": "Standing water leaves marks."
+            }
+          ]
+        },
+        {
+          "id": "order-why",
+          "prompt": "Why do you work from top to bottom?",
+          "options": [
+            {
+              "text": "It stops cleaned surfaces getting dirty again",
+              "correct": true
+            },
+            {
+              "text": "It takes more time",
+              "why": "That is not the reason."
+            },
+            {
+              "text": "High surfaces are always dirtier than the ones below",
+              "why": "That is not why: dust falls downwards."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "area",
+          "prompt": "A room is {l} m by {w} m. What is its floor area?",
+          "formula": "l * w",
+          "vars": {
+            "l": {
+              "min": 3,
+              "max": 6,
+              "step": 1
+            },
+            "w": {
+              "min": 2.5,
+              "max": 4,
+              "step": 0.5
+            }
+          },
+          "unit": "m²",
+          "unitAliases": [
+            "m2",
+            "sq m",
+            "square metres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{l} × {w} = {answer} m²."
+        },
+        {
+          "id": "buckets",
+          "prompt": "One bucket of solution covers about 10 m². How many full buckets do you prepare for a floor of {a} m²?",
+          "formula": "round(a / 10 + 0.49, 0)",
+          "vars": {
+            "a": {
+              "min": 12,
+              "max": 38,
+              "step": 2
+            }
+          },
+          "unit": "buckets",
+          "unitAliases": [
+            "bucket"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} ÷ 10, rounded up because you cannot prepare part of a bucket: {answer} buckets."
+        },
+        {
+          "id": "deter",
+          "prompt": "Each 5-litre bucket uses 25 ml of detergent. How much do you need for {n} buckets?",
+          "formula": "25 * n",
+          "vars": {
+            "n": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "ml",
+          "unitAliases": [
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 25 = {answer} ml."
+        }
+      ],
+      "faults": [
+        {
+          "id": "sitting-room",
+          "scenario": "Bola cleaned the sitting room. It looked dusty afterwards and the floor was streaky. Here is what she did.",
+          "lines": [
+            {
+              "text": "She swept the floor before dusting the shelves.",
+              "fault": true,
+              "why": "Dust falls on the clean floor. Start high."
+            },
+            {
+              "text": "She used dirty mop water for the whole room.",
+              "fault": true,
+              "why": "Change it often."
+            },
+            {
+              "text": "She rubbed scouring powder on the polished table.",
+              "fault": true,
+              "why": "Abrasives damage polished surfaces."
+            },
+            {
+              "text": "She opened the windows first.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She washed and dried her cleaning equipment at the end.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for cleaning floors and surfaces.",
+        "explainPrompt": "Why is a room cleaned from top to bottom?",
+        "explainGuide": "Dust and dirt fall downwards, so cleaning high surfaces first stops the floor and furniture being soiled again.",
+        "explainKeywords": [
+          [
+            "dust",
+            "dirt"
+          ],
+          [
+            "fall",
+            "down"
+          ],
+          [
+            "again",
+            "re-soil",
+            "soil",
+            "clean"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Cleaning a room",
+        "Top to bottom",
+        "State your reason."
+      ]
+    },
+    "pr-hmg-bed-making": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Bend your back and jerk the mattress up alone.",
+            "why": "You can injure your back. Bend the knees and keep the back straight."
+          },
+          {
+            "text": "Stand on the bed frame to reach the far side.",
+            "why": "The frame can give way and you can fall. Walk round the bed."
+          },
+          {
+            "text": "Drag the heavy mattress across the floor with one hand.",
+            "why": "You can hurt your back. Get help."
+          },
+          {
+            "text": "Shake out dusty sheets indoors, near someone with asthma.",
+            "why": "Dust irritates the airways. Air them outside."
+          },
+          {
+            "text": "Rest a heavy mattress on its side, leaning on someone else's cot.",
+            "why": "It can topple. Lean it safely."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Sewing machine",
+            "why": "Nothing is sewn."
+          },
+          {
+            "name": "Iron with steam",
+            "why": "Not needed to make the bed."
+          },
+          {
+            "name": "Feather duster",
+            "why": "Dusting belongs to room cleaning, not to making the bed."
+          },
+          {
+            "name": "Mop and bucket",
+            "why": "That is floor care."
+          },
+          {
+            "name": "Sheet of polythene",
+            "why": "It stops air moving through the mattress."
+          },
+          {
+            "name": "Clothes pegs",
+            "why": "Bedding is tucked in, not pegged."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "air",
+          "afterStep": 1,
+          "prompt": "You have stripped the bed. What comes next?",
+          "options": [
+            {
+              "text": "Air the mattress",
+              "correct": true,
+              "consequence": "Airing removes moisture and keeps it fresh."
+            },
+            {
+              "text": "Put the clean sheet on straight away",
+              "consequence": "Damp stays in the mattress."
+            },
+            {
+              "text": "Spray it with insecticide and cover it at once",
+              "consequence": "Airing is what is needed. Spray can be harmful to breathe in."
+            }
+          ]
+        },
+        {
+          "id": "sheet",
+          "afterStep": 2,
+          "prompt": "How do you spread the bottom sheet?",
+          "options": [
+            {
+              "text": "Right side up, centre fold down the middle",
+              "correct": true,
+              "consequence": "It is centred, so the tuck is even all round."
+            },
+            {
+              "text": "Wrong side up, pulled off to one side of the bed",
+              "consequence": "It is uneven, and the wrong side shows."
+            },
+            {
+              "text": "Across the bed, the short way",
+              "consequence": "It will not tuck in properly."
+            }
+          ]
+        },
+        {
+          "id": "corner",
+          "afterStep": 3,
+          "prompt": "You are making a mitred corner. What is the first move?",
+          "options": [
+            {
+              "text": "Lift the side edge to form a triangle",
+              "correct": true,
+              "consequence": "You can then tuck the hanging part under."
+            },
+            {
+              "text": "Tuck the whole corner under in a bundle",
+              "consequence": "That leaves a loose bulky corner, not a mitre."
+            },
+            {
+              "text": "Fix the corner with safety pins",
+              "consequence": "Pins tear the sheet: a mitre needs none."
+            }
+          ]
+        },
+        {
+          "id": "pillow",
+          "afterStep": 6,
+          "prompt": "Which way do the pillowcase openings go?",
+          "options": [
+            {
+              "text": "Away from the door",
+              "correct": true,
+              "consequence": "That is neater."
+            },
+            {
+              "text": "Facing the door",
+              "consequence": "That is a named mistake."
+            },
+            {
+              "text": "Up towards the ceiling",
+              "consequence": "That is not how a pillow is placed."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "bed",
+          "prompt": "How does a well-made bed look?",
+          "options": [
+            {
+              "text": "Smooth and firm, with neat corners that stay tucked",
+              "correct": true
+            },
+            {
+              "text": "Loose corners that pull out when sat on, but a smooth top",
+              "why": "Each layer must be pulled taut."
+            },
+            {
+              "text": "Wrinkled bottom sheet",
+              "why": "Wrinkles in the bottom sheet are a named mistake."
+            }
+          ]
+        },
+        {
+          "id": "angle",
+          "prompt": "What angle do the mitred folds make?",
+          "options": [
+            {
+              "text": "45°",
+              "correct": true
+            },
+            {
+              "text": "90°",
+              "why": "A right-angled fold is not a mitre."
+            },
+            {
+              "text": "30°",
+              "why": "A neat mitre folds at 45°."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "wide",
+          "prompt": "A mattress is {w} cm wide and {d} cm deep. Tuck-in is 20 cm each side. What sheet width do you need?",
+          "formula": "w + 2 * d + 2 * 20",
+          "vars": {
+            "w": {
+              "min": 90,
+              "max": 150,
+              "step": 15
+            },
+            "d": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{w} + 2 × {d} + 2 × 20 = {answer} cm."
+        },
+        {
+          "id": "length",
+          "prompt": "A mattress is {l} cm long and {d} cm deep. Tuck-in is 20 cm at each end. What sheet length do you need?",
+          "formula": "l + 2 * d + 2 * 20",
+          "vars": {
+            "l": {
+              "min": 180,
+              "max": 200,
+              "step": 5
+            },
+            "d": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{l} + 2 × {d} + 2 × 20 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "hostel",
+          "scenario": "Sade made a hostel bed for inspection. The matron was not pleased. Here is what she saw.",
+          "lines": [
+            {
+              "text": "There were wrinkles in the bottom sheet.",
+              "fault": true,
+              "why": "Pull each layer taut."
+            },
+            {
+              "text": "The pillowcase openings faced the door.",
+              "fault": true,
+              "why": "They should face away from the door."
+            },
+            {
+              "text": "The sheet was too short to tuck in.",
+              "fault": true,
+              "why": "Measure the mattress, including its depth."
+            },
+            {
+              "text": "The mattress had been aired.",
+              "why": "That is correct."
+            },
+            {
+              "text": "The top sheet went on wrong side up.",
+              "why": "That is correct: it turns down to show the right side."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a bed.",
+        "explainPrompt": "Why should a mattress be aired and turned regularly?",
+        "explainGuide": "Airing removes moisture and keeps it fresh. Turning it spreads the wear evenly.",
+        "explainKeywords": [
+          [
+            "air",
+            "moisture",
+            "fresh"
+          ],
+          [
+            "turn",
+            "wear",
+            "even"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Making a bed",
+        "Mitred corners",
+        "Air the mattress first"
+      ]
+    },
+    "pr-hmg-flower-arrangement": {
+      "room": "studio",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Cut the stem towards your thumb to get a better grip.",
+            "why": "The blade can slip into your hand. Cut away from the body."
+          },
+          {
+            "text": "Eat your snack straight after handling the croton.",
+            "why": "Plant sap can irritate. Wash your hands first."
+          },
+          {
+            "text": "Rub your eyes after cutting plants with milky sap.",
+            "why": "Sap in the eye can harm it. Wash your hands first."
+          },
+          {
+            "text": "Leave the secateurs open on the bench.",
+            "why": "They can cut someone. Close them and put them away."
+          },
+          {
+            "text": "Pick flowers from a thorny bush with bare hands in a hurry.",
+            "why": "Thorns tear the skin. Take care, and use the secateurs."
+          },
+          {
+            "text": "Leave the bucket of water where people walk.",
+            "why": "Someone can trip or slip. Keep it out of the way."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Scissors for paper",
+            "why": "They crush stems. Use a sharp knife or secateurs."
+          },
+          {
+            "name": "Cello tape",
+            "why": "Stems are held by the foam or pin holder."
+          },
+          {
+            "name": "Plastic flowers",
+            "why": "The practical uses fresh material."
+          },
+          {
+            "name": "Glue gun",
+            "why": "Stems take up water in the foam."
+          },
+          {
+            "name": "Saw",
+            "why": "It is too coarse for stems."
+          },
+          {
+            "name": "Chopping board",
+            "why": "Stems are cut in the hand with a sharp knife or secateurs."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "cut",
+          "afterStep": 1,
+          "prompt": "You have just picked the flowers. How do you cut the stems?",
+          "options": [
+            {
+              "text": "At a slant, then stand them in water",
+              "correct": true,
+              "consequence": "A slant exposes more surface for taking up water."
+            },
+            {
+              "text": "Straight across, then lay them on the bench",
+              "consequence": "Less surface takes up water, and they wilt."
+            },
+            {
+              "text": "Crushed with a stone, then left dry",
+              "consequence": "That damages the stem and dries it out."
+            }
+          ]
+        },
+        {
+          "id": "height",
+          "afterStep": 3,
+          "prompt": "The container is 20 cm tall. Where do you set the tallest stem?",
+          "options": [
+            {
+              "text": "About 1½ to 2 times the container height",
+              "correct": true,
+              "consequence": "The arrangement looks in proportion."
+            },
+            {
+              "text": "Level with the top of the container",
+              "consequence": "That is too short and looks squat."
+            },
+            {
+              "text": "Four times the container height",
+              "consequence": "It overpowers the container and may tip."
+            }
+          ]
+        },
+        {
+          "id": "focal",
+          "afterStep": 4,
+          "prompt": "Where do the largest, brightest flowers go?",
+          "options": [
+            {
+              "text": "Low in the centre",
+              "correct": true,
+              "consequence": "They form the focal point."
+            },
+            {
+              "text": "At the very top",
+              "consequence": "They make it look top-heavy."
+            },
+            {
+              "text": "Hidden at the back",
+              "consequence": "You lose the focal point."
+            }
+          ]
+        },
+        {
+          "id": "leaves",
+          "afterStep": 1,
+          "prompt": "Some leaves will sit under the water line. What do you do?",
+          "options": [
+            {
+              "text": "Remove them",
+              "correct": true,
+              "consequence": "Leaves in water rot and spoil it."
+            },
+            {
+              "text": "Keep them, for more colour",
+              "consequence": "They rot in the water."
+            },
+            {
+              "text": "Tie them in a bunch",
+              "consequence": "Nothing stops them rotting."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "outline",
+          "prompt": "What shows a good arrangement?",
+          "options": [
+            {
+              "text": "A clear outline, a focal point and no foam showing",
+              "correct": true
+            },
+            {
+              "text": "All the stems are the same length",
+              "why": "That is a named mistake: it has no shape."
+            },
+            {
+              "text": "It is packed so tight that no shape shows",
+              "why": "Overcrowding is a named mistake."
+            }
+          ]
+        },
+        {
+          "id": "last",
+          "prompt": "What makes an arrangement last longer?",
+          "options": [
+            {
+              "text": "Changing the water regularly",
+              "correct": true
+            },
+            {
+              "text": "Standing it in strong sun",
+              "why": "Heat wilts flowers."
+            },
+            {
+              "text": "Leaving leaves under the water",
+              "why": "They rot."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "tall",
+          "prompt": "A container is {h} cm tall. How long is the tallest stem above the rim, at 1.5 times the container height?",
+          "formula": "1.5 * h",
+          "vars": {
+            "h": {
+              "min": 12,
+              "max": 24,
+              "step": 4
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "1.5 × {h} = {answer} cm."
+        },
+        {
+          "id": "side",
+          "prompt": "The main stem is {m} cm above the rim. Side stems are two-thirds of it. How long are they?",
+          "formula": "2 / 3 * m",
+          "vars": {
+            "m": {
+              "min": 18,
+              "max": 36,
+              "step": 6
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "2/3 × {m} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "hall",
+          "scenario": "Rukayat arranged flowers for the school hall. They wilted and looked crowded. Here is what she did.",
+          "lines": [
+            {
+              "text": "She cut all the stems to the same length.",
+              "fault": true,
+              "why": "There was no shape. Vary the lengths."
+            },
+            {
+              "text": "She packed the container very full.",
+              "fault": true,
+              "why": "Overcrowding is a named mistake."
+            },
+            {
+              "text": "She left leaves below the water line.",
+              "fault": true,
+              "why": "They rot in the water."
+            },
+            {
+              "text": "She picked the flowers early in the morning.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She fixed the soaked foam firmly in the container.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a flower arrangement last.",
+        "explainPrompt": "Why are stems recut under water?",
+        "explainGuide": "Recutting under water prevents air locks, so the stem can keep taking up water and the flowers do not wilt.",
+        "explainKeywords": [
+          [
+            "air lock",
+            "air"
+          ],
+          [
+            "water"
+          ],
+          [
+            "wilt",
+            "fresh",
+            "uptake",
+            "take"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Flower arrangement",
+        "Balance, proportion, rhythm, harmony",
+        "Check from the front"
+      ]
+    },
+    "pr-hmg-meter-reading-bill": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Open the meter cover for a closer look at the numbers.",
+            "why": "The wiring inside is dangerous. Do not open or touch it."
+          },
+          {
+            "text": "Tap the meter wires with a pen to find out which is live.",
+            "why": "You can get a shock. Do not touch meter wiring."
+          },
+          {
+            "text": "Touch the meter box with wet hands when it is raining.",
+            "why": "Water and electricity can give a shock. Keep clear."
+          },
+          {
+            "text": "Climb a stool on a wet floor to reach the meter.",
+            "why": "You can fall. Read it from a safe distance."
+          },
+          {
+            "text": "Bypass the meter with a wire to cut the bill.",
+            "why": "That is dangerous and against the law."
+          },
+          {
+            "text": "Pull the meter cables aside for a better view of the display.",
+            "why": "Do not touch the wiring. Read from a safe distance."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Screwdriver",
+            "why": "You must not open the meter."
+          },
+          {
+            "name": "Multimeter",
+            "why": "This exercise only reads the display."
+          },
+          {
+            "name": "Pliers",
+            "why": "Nothing is to be touched."
+          },
+          {
+            "name": "Wire cutters",
+            "why": "Never touch the meter's wiring."
+          },
+          {
+            "name": "Stepladder",
+            "why": "Read from a safe distance: no climbing."
+          },
+          {
+            "name": "Insulated gloves",
+            "why": "You must not touch the meter at all."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "read",
+          "afterStep": 2,
+          "prompt": "You are reading the digits. How do you go?",
+          "options": [
+            {
+              "text": "From left to right",
+              "correct": true,
+              "consequence": "That is how the meter is read."
+            },
+            {
+              "text": "From right to left",
+              "consequence": "You get the digits reversed."
+            },
+            {
+              "text": "Starting from the largest digit",
+              "consequence": "The position counts, not the size."
+            }
+          ]
+        },
+        {
+          "id": "between",
+          "afterStep": 2,
+          "prompt": "A dial pointer lies between 4 and 5. What is the risk?",
+          "options": [
+            {
+              "text": "Misreading it",
+              "correct": true,
+              "consequence": "That is the listed source of error, so read it carefully."
+            },
+            {
+              "text": "The meter is broken",
+              "consequence": "It is normal for a pointer to be between numbers."
+            },
+            {
+              "text": "The bill is zero",
+              "consequence": "It still counts."
+            }
+          ]
+        },
+        {
+          "id": "subtract",
+          "afterStep": 3,
+          "prompt": "How do you find the units used?",
+          "options": [
+            {
+              "text": "Present reading minus previous reading",
+              "correct": true,
+              "consequence": "That gives a positive number of units."
+            },
+            {
+              "text": "Previous reading minus present reading",
+              "consequence": "That is a common mistake: the sum is the wrong way round."
+            },
+            {
+              "text": "Previous reading plus present reading",
+              "consequence": "That is meaningless."
+            }
+          ]
+        },
+        {
+          "id": "total",
+          "afterStep": 5,
+          "prompt": "You have the energy charge. What do you do next?",
+          "options": [
+            {
+              "text": "Add VAT and any fixed charge",
+              "correct": true,
+              "consequence": "That gives the total."
+            },
+            {
+              "text": "Stop: that is the whole bill",
+              "consequence": "Forgetting VAT is a common mistake."
+            },
+            {
+              "text": "Multiply again by the tariff",
+              "consequence": "That double-counts it."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "heat",
+          "prompt": "Which appliances use the most energy?",
+          "options": [
+            {
+              "text": "Those with heating elements, such as an iron",
+              "correct": true
+            },
+            {
+              "text": "Phone chargers left plugged in all day and all night",
+              "why": "They use very little."
+            },
+            {
+              "text": "Bulbs",
+              "why": "Low-energy bulbs use far less than an iron."
+            }
+          ]
+        },
+        {
+          "id": "save",
+          "prompt": "Which is a good way to reduce the bill?",
+          "options": [
+            {
+              "text": "Ironing clothes in bulk at one time",
+              "correct": true
+            },
+            {
+              "text": "Leaving the fridge door open",
+              "why": "That wastes energy."
+            },
+            {
+              "text": "Leaving lights on in empty rooms",
+              "why": "That wastes energy."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "units",
+          "prompt": "The previous reading is {a} kWh and the present reading is {b} kWh. How many units were used?",
+          "formula": "b - a",
+          "vars": {
+            "a": {
+              "min": 12400,
+              "max": 12500,
+              "step": 20
+            },
+            "b": {
+              "min": 12700,
+              "max": 12800,
+              "step": 20
+            }
+          },
+          "unit": "kWh",
+          "unitAliases": [
+            "units"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} − {a} = {answer} kWh."
+        },
+        {
+          "id": "charge",
+          "prompt": "{u} units are charged at N{t} per kWh. What is the energy charge, in naira?",
+          "formula": "u * t",
+          "vars": {
+            "u": {
+              "min": 200,
+              "max": 300,
+              "step": 20
+            },
+            "t": {
+              "min": 60,
+              "max": 70,
+              "step": 2
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{u} × {t} = N{answer}."
+        },
+        {
+          "id": "vat",
+          "prompt": "The energy charge is N{e}. VAT is 7.5%. What is the VAT, in naira?",
+          "formula": "0.075 * e",
+          "vars": {
+            "e": {
+              "min": 16000,
+              "max": 24000,
+              "step": 2000
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 2,
+          "working": "0.075 × {e} = N{answer}."
+        },
+        {
+          "id": "bill",
+          "prompt": "The energy charge is N{e}. VAT is 7.5%. What is the total bill, in naira?",
+          "formula": "1.075 * e",
+          "vars": {
+            "e": {
+              "min": 16000,
+              "max": 24000,
+              "step": 2000
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 2,
+          "working": "{e} × 1.075 = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "month-bill",
+          "scenario": "Halima calculated her household bill for the month. Here is her working.",
+          "lines": [
+            {
+              "text": "She took the present reading from the previous one.",
+              "fault": true,
+              "why": "Subtracting the wrong way round gives a negative figure."
+            },
+            {
+              "text": "She left out VAT.",
+              "fault": true,
+              "why": "Forgetting VAT is a common mistake."
+            },
+            {
+              "text": "She used last year's tariff.",
+              "fault": true,
+              "why": "Tariffs change. Use the current figure."
+            },
+            {
+              "text": "She read the meter from left to right.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She showed each step separately.",
+              "why": "That is correct and earns marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for reading a meter and working out a bill.",
+        "explainPrompt": "Why do appliances such as irons make bills high?",
+        "explainGuide": "Heating elements draw a lot of power, so they use many units of electricity in a short time.",
+        "explainKeywords": [
+          [
+            "heat"
+          ],
+          [
+            "energy",
+            "power",
+            "units",
+            "electricity"
+          ],
+          [
+            "high",
+            "lot",
+            "most",
+            "many"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Reading a meter",
+        "Previous, present, units",
+        "Show the VAT step."
+      ]
+    },
+    "pr-hmg-water-purification": {
+      "room": "lab",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Add a generous pour of bleach to be extra safe.",
+            "why": "Too much is harmful. Use only the correct small dose."
+          },
+          {
+            "text": "Drink some of the water to check that it is safe.",
+            "why": "Do not drink water during the experiment."
+          },
+          {
+            "text": "Chlorinate the muddy water without filtering it first.",
+            "why": "Dirt uses up the chlorine, so germs can survive. Filter first."
+          },
+          {
+            "text": "Dip your cup into the stored water to take some out.",
+            "why": "Hands and cups contaminate it. Use a tap or a clean cup."
+          },
+          {
+            "text": "Store bleach in an unlabelled drink bottle beside the water.",
+            "why": "Someone could drink it. Keep it labelled and out of reach."
+          },
+          {
+            "text": "Boil the water and stop as soon as you see the first bubbles.",
+            "why": "It must reach a rolling boil for at least 1 minute."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Open bucket without a lid",
+            "why": "Stored water must be covered."
+          },
+          {
+            "name": "Empty kerosene jerrycan",
+            "why": "It leaves fuel in the water."
+          },
+          {
+            "name": "Sugar",
+            "why": "It does not purify water."
+          },
+          {
+            "name": "Salt",
+            "why": "It does not purify water."
+          },
+          {
+            "name": "Bottle of methylated spirit",
+            "why": "It is not used to treat water."
+          },
+          {
+            "name": "Scented disinfectant",
+            "why": "It is not for drinking water: only the measured bleach."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "settle",
+          "afterStep": 2,
+          "prompt": "You have stirred alum into the muddy water. What next?",
+          "options": [
+            {
+              "text": "Leave it to settle for several hours",
+              "correct": true,
+              "consequence": "Particles clump and sink."
+            },
+            {
+              "text": "Pour it straight into the filter",
+              "consequence": "Particles have not settled, so they clog the filter."
+            },
+            {
+              "text": "Drink it, because alum kills germs",
+              "consequence": "Alum clumps particles. It does not kill germs."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 3,
+          "prompt": "The water is clear after settling. It is still not safe. What is the correct next stage?",
+          "options": [
+            {
+              "text": "Filter it, then disinfect it",
+              "correct": true,
+              "consequence": "Filtration removes particles. Boiling or chlorine kills germs."
+            },
+            {
+              "text": "Chlorinate it, then filter it later",
+              "consequence": "Particles left in the water use up chlorine."
+            },
+            {
+              "text": "Store it now, since it looks clear",
+              "consequence": "Clear water can still hold germs."
+            }
+          ]
+        },
+        {
+          "id": "boil",
+          "afterStep": 4,
+          "prompt": "How long do you boil the portion?",
+          "options": [
+            {
+              "text": "A rolling boil for at least 1 minute",
+              "correct": true,
+              "consequence": "That kills germs."
+            },
+            {
+              "text": "Only a few seconds",
+              "consequence": "That is a named mistake."
+            },
+            {
+              "text": "Warm it, then take it off the heat",
+              "consequence": "Warming does not kill germs."
+            }
+          ]
+        },
+        {
+          "id": "store",
+          "afterStep": 6,
+          "prompt": "The purified water is cool. Where do you keep it?",
+          "options": [
+            {
+              "text": "In a clean, covered container with a tap",
+              "correct": true,
+              "consequence": "It stays clean."
+            },
+            {
+              "text": "In an open bucket used for washing",
+              "consequence": "Dirty containers contaminate it again."
+            },
+            {
+              "text": "In an old paint tin",
+              "consequence": "Chemical residues contaminate the water."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "alum",
+          "prompt": "What does alum do?",
+          "options": [
+            {
+              "text": "It makes particles clump and settle",
+              "correct": true
+            },
+            {
+              "text": "It kills all the germs in the water",
+              "why": "Boiling or chlorine does that."
+            },
+            {
+              "text": "It adds taste",
+              "why": "It is a coagulant."
+            }
+          ]
+        },
+        {
+          "id": "chlorine",
+          "prompt": "How does correctly chlorinated water smell after 30 minutes?",
+          "options": [
+            {
+              "text": "A faint smell of chlorine",
+              "correct": true
+            },
+            {
+              "text": "A strong smell of bleach",
+              "why": "That means too much was used."
+            },
+            {
+              "text": "No smell at all",
+              "why": "Too little chlorine is left to protect the water."
+            }
+          ]
+        },
+        {
+          "id": "kills",
+          "prompt": "Which step kills germs?",
+          "options": [
+            {
+              "text": "Boiling",
+              "correct": true
+            },
+            {
+              "text": "Filtration through cloth",
+              "why": "That removes particles."
+            },
+            {
+              "text": "Sedimentation",
+              "why": "That only settles particles."
+            },
+            {
+              "text": "Decanting",
+              "why": "That only pours off the water."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "drops",
+          "prompt": "The dose is 2 drops of 5% bleach per litre of clear water. How many drops do you need for {v} litres?",
+          "formula": "2 * v",
+          "vars": {
+            "v": {
+              "min": 5,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "drops",
+          "unitAliases": [
+            "drop"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "2 × {v} = {answer} drops."
+        },
+        {
+          "id": "ml",
+          "prompt": "At 2 drops per litre and about 20 drops per ml, how many ml of bleach do you need for {v} litres?",
+          "formula": "2 * v / 20",
+          "vars": {
+            "v": {
+              "min": 10,
+              "max": 50,
+              "step": 10
+            }
+          },
+          "unit": "ml",
+          "unitAliases": [
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "2 × {v} = drops. Drops ÷ 20 = {answer} ml."
+        }
+      ],
+      "faults": [
+        {
+          "id": "village",
+          "scenario": "Peace treated stream water for her household. Here is what she did.",
+          "lines": [
+            {
+              "text": "She boiled it for a few seconds only.",
+              "fault": true,
+              "why": "It must reach a rolling boil for at least 1 minute."
+            },
+            {
+              "text": "She stored it in a dirty jerrycan.",
+              "fault": true,
+              "why": "Dirty containers contaminate treated water."
+            },
+            {
+              "text": "She chlorinated the cloudy water without filtering.",
+              "fault": true,
+              "why": "Filter cloudy water first."
+            },
+            {
+              "text": "She covered the storage container.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She drew water with a tap.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for purifying and storing water.",
+        "explainPrompt": "Why must cloudy water be filtered before it is boiled or chlorinated?",
+        "explainGuide": "Particles shield germs and use up chlorine. Filtering first makes disinfection work properly.",
+        "explainKeywords": [
+          [
+            "particle",
+            "dirt"
+          ],
+          [
+            "chlorine",
+            "germ",
+            "shield"
+          ],
+          [
+            "filter",
+            "first",
+            "work"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Purifying water",
+        "Settle, filter, disinfect, store",
+        "Bleach: correct dose only"
+      ]
+    },
+    "pr-hmg-family-budget": {
+      "room": "drawing",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Show the class your family's real income figures for fun.",
+            "why": "Keep real family financial details private."
+          },
+          {
+            "text": "Post a photo of your family budget in the class group chat.",
+            "why": "Keep real family details private."
+          },
+          {
+            "text": "Leave your family's bank details in the classroom.",
+            "why": "Others may see them. Keep them safe."
+          },
+          {
+            "text": "Tell other students what another family earns.",
+            "why": "That is private."
+          },
+          {
+            "text": "Write your family's account password on the budget sheet.",
+            "why": "Keep such details private."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is being timed."
+          },
+          {
+            "name": "Sewing tape measure",
+            "why": "Angles are measured with a protractor."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Nothing is being weighed."
+          },
+          {
+            "name": "Set of paints",
+            "why": "Sectors are labelled, not painted."
+          },
+          {
+            "name": "Measuring jug",
+            "why": "That belongs in the kitchen."
+          },
+          {
+            "name": "Survey form",
+            "why": "That is for the market survey."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "income",
+          "afterStep": 1,
+          "prompt": "What is your first step?",
+          "options": [
+            {
+              "text": "List all income and find the total",
+              "correct": true,
+              "consequence": "You cannot plan until you know what you have."
+            },
+            {
+              "text": "Start drawing the pie chart",
+              "consequence": "There are no figures to draw."
+            },
+            {
+              "text": "Spend, then record what is left",
+              "consequence": "That is not a budget."
+            }
+          ]
+        },
+        {
+          "id": "fixed",
+          "afterStep": 2,
+          "prompt": "Which is a fixed expense?",
+          "options": [
+            {
+              "text": "Rent",
+              "correct": true,
+              "consequence": "It is the same each period."
+            },
+            {
+              "text": "Snacks",
+              "consequence": "That varies."
+            },
+            {
+              "text": "Gifts",
+              "consequence": "That varies."
+            }
+          ]
+        },
+        {
+          "id": "over",
+          "afterStep": 3,
+          "prompt": "Expenditure comes to N260,000 and income is N250,000. What do you do?",
+          "options": [
+            {
+              "text": "Cut items until spending fits income",
+              "correct": true,
+              "consequence": "Spending more than income is a named mistake."
+            },
+            {
+              "text": "Leave it and hope for the best",
+              "consequence": "The family goes into debt."
+            },
+            {
+              "text": "Drop savings altogether",
+              "consequence": "Leaving out savings is a named mistake."
+            }
+          ]
+        },
+        {
+          "id": "sum",
+          "afterStep": 5,
+          "prompt": "Your angles add up to 340°. What do you do?",
+          "options": [
+            {
+              "text": "Check the sums and find the error",
+              "correct": true,
+              "consequence": "They must add to 360°."
+            },
+            {
+              "text": "Draw it anyway and leave a gap",
+              "consequence": "That shows an error."
+            },
+            {
+              "text": "Add 20° to the food sector",
+              "consequence": "That falsifies the chart."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "largest",
+          "prompt": "Which item usually takes the largest share?",
+          "options": [
+            {
+              "text": "Food",
+              "correct": true
+            },
+            {
+              "text": "Health",
+              "why": "It is usually a smaller share."
+            },
+            {
+              "text": "Utilities",
+              "why": "It is usually a smaller share."
+            }
+          ]
+        },
+        {
+          "id": "savings",
+          "prompt": "Why set aside savings first?",
+          "options": [
+            {
+              "text": "It helps the family meet emergencies",
+              "correct": true
+            },
+            {
+              "text": "It raises income",
+              "why": "It does not raise income."
+            },
+            {
+              "text": "It removes the need for a budget",
+              "why": "It is part of the budget."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "pct",
+          "prompt": "Income is N250,000. One item takes N{a}. What percentage is that?",
+          "formula": "a / 250000 * 100",
+          "vars": {
+            "a": {
+              "min": 10000,
+              "max": 100000,
+              "step": 10000
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{a} ÷ 250,000 × 100 = {answer}%."
+        },
+        {
+          "id": "angle",
+          "prompt": "An item is {p}% of the budget. What is its pie-chart angle?",
+          "formula": "p * 3.6",
+          "vars": {
+            "p": {
+              "min": 4,
+              "max": 40,
+              "step": 4
+            }
+          },
+          "unit": "°",
+          "unitAliases": [
+            "degrees",
+            "degree",
+            "deg"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{p} × 3.6 = {answer}°."
+        },
+        {
+          "id": "left",
+          "prompt": "Income is N{i}. Expenses total N{e}. What remains for savings, in naira?",
+          "formula": "i - e",
+          "vars": {
+            "i": {
+              "min": 200000,
+              "max": 300000,
+              "step": 25000
+            },
+            "e": {
+              "min": 150000,
+              "max": 190000,
+              "step": 10000
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{i} − {e} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ten-items",
+          "scenario": "Musa drew up a family budget. His teacher marked it. Here is what she found.",
+          "lines": [
+            {
+              "text": "He spent more than the family's income.",
+              "fault": true,
+              "why": "Spending must not exceed income."
+            },
+            {
+              "text": "He left out savings.",
+              "fault": true,
+              "why": "Include savings and an emergency allowance."
+            },
+            {
+              "text": "He drew the pie sectors without measuring angles.",
+              "fault": true,
+              "why": "Measure each angle."
+            },
+            {
+              "text": "He showed the working for each percentage.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He sorted expenses into fixed and variable.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when drawing up a family budget.",
+        "explainPrompt": "What are two advantages of keeping a budget?",
+        "explainGuide": "A budget helps a family live within its income and avoid debt. It also helps them save for emergencies.",
+        "explainKeywords": [
+          [
+            "income",
+            "spend",
+            "debt"
+          ],
+          [
+            "sav",
+            "emergenc"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Monthly family budget",
+        "Percent × 3.6 = angle",
+        "Check for 100% and 360°"
+      ]
+    },
+    "pr-hmg-family-meal-service": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Leave the handle of the frying pan sticking out over the edge.",
+            "why": "It can be knocked or grabbed. Turn pan handles in."
+          },
+          {
+            "text": "Cut the raw fish, then chop the salad on the same board.",
+            "why": "Germs pass to the salad. Use separate boards."
+          },
+          {
+            "text": "Pour water on a pan of oil that catches fire.",
+            "why": "Water makes burning oil flare. Keep a fire blanket close."
+          },
+          {
+            "text": "Leave the frying oil on full heat while you lay the table.",
+            "why": "Unattended oil can catch fire. Stay with it."
+          },
+          {
+            "text": "Taste the stew with a finger and go back to stirring.",
+            "why": "That spreads germs. Use a clean spoon."
+          },
+          {
+            "text": "Leave spilt oil on the floor until you have finished cooking.",
+            "why": "Someone can slip. Wipe it at once."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Deep-fat fryer",
+            "why": "A frying pan is enough for family cooking."
+          },
+          {
+            "name": "Bain-marie",
+            "why": "It is for holding food in catering, not for a family lunch."
+          },
+          {
+            "name": "Cocktail shaker",
+            "why": "Water is served."
+          },
+          {
+            "name": "Roasting spit",
+            "why": "Nothing here is spit-roasted."
+          },
+          {
+            "name": "Punch bowl",
+            "why": "No party drink is on this menu."
+          },
+          {
+            "name": "Mop and bucket",
+            "why": "Clean as you work, with a cloth."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "menu",
+          "afterStep": 1,
+          "prompt": "Which family lunch is balanced?",
+          "options": [
+            {
+              "text": "Rice and stew with fish, vegetables and fruit",
+              "correct": true,
+              "consequence": "It contains all the classes of food."
+            },
+            {
+              "text": "Rice with yam and bread",
+              "consequence": "That is all starch."
+            },
+            {
+              "text": "Fried plantain and chips with a fizzy soft drink",
+              "consequence": "It lacks protein, and is high in fat."
+            }
+          ]
+        },
+        {
+          "id": "plan",
+          "afterStep": 2,
+          "prompt": "The menu is agreed. What comes before you start cooking?",
+          "options": [
+            {
+              "text": "A market list and a time plan",
+              "correct": true,
+              "consequence": "Food is ready on time."
+            },
+            {
+              "text": "Start the rice and see how it goes",
+              "consequence": "Having no time plan is a named mistake."
+            },
+            {
+              "text": "Lay the table in the morning and cook after",
+              "consequence": "That is not a plan."
+            }
+          ]
+        },
+        {
+          "id": "clean",
+          "afterStep": 3,
+          "prompt": "You are cooking and the worktop is getting messy. What do you do?",
+          "options": [
+            {
+              "text": "Clean as you work",
+              "correct": true,
+              "consequence": "An untidy work area loses marks."
+            },
+            {
+              "text": "Leave it all to the end",
+              "consequence": "Mess is a hygiene risk."
+            },
+            {
+              "text": "Push it aside and carry on",
+              "consequence": "That is a hygiene risk."
+            }
+          ]
+        },
+        {
+          "id": "serve",
+          "afterStep": 5,
+          "prompt": "Lunch is ready. How do you serve it?",
+          "options": [
+            {
+              "text": "Hot food on warmed plates, cold food cold",
+              "correct": true,
+              "consequence": "That keeps food at its best."
+            },
+            {
+              "text": "Hot food on cold plates",
+              "consequence": "Food cools too quickly."
+            },
+            {
+              "text": "Everything left uncovered until guests sit",
+              "consequence": "It cools and is not clean."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "meal",
+          "prompt": "What shows a successful service?",
+          "options": [
+            {
+              "text": "Food ready on time, with a neat, correctly set table",
+              "correct": true
+            },
+            {
+              "text": "Food late, but on a nice table",
+              "why": "Time matters: planning is marked."
+            },
+            {
+              "text": "Only starch served in large amounts, but right on time",
+              "why": "The menu must be balanced."
+            }
+          ]
+        },
+        {
+          "id": "hygiene",
+          "prompt": "Which is good kitchen hygiene?",
+          "options": [
+            {
+              "text": "Separate boards for raw meat",
+              "correct": true
+            },
+            {
+              "text": "One board for all food",
+              "why": "That spreads germs."
+            },
+            {
+              "text": "Washing hands only at the end",
+              "why": "Wash hands before and during work."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "rice",
+          "prompt": "Raw rice allowance is 90 g per person. How much rice do you need for {n} people?",
+          "formula": "90 * n",
+          "vars": {
+            "n": {
+              "min": 3,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 90 = {answer} g."
+        },
+        {
+          "id": "fish",
+          "prompt": "Fish is 120 g per person. How much fish do you need for {n} people?",
+          "formula": "120 * n",
+          "vars": {
+            "n": {
+              "min": 3,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 120 = {answer} g."
+        },
+        {
+          "id": "start",
+          "prompt": "Rice takes {t} minutes and you allow 5 minutes for dishing. How many minutes before serving must you start?",
+          "formula": "t + 5",
+          "vars": {
+            "t": {
+              "min": 25,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "minutes",
+          "unitAliases": [
+            "min",
+            "mins"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{t} + 5 = {answer} minutes."
+        }
+      ],
+      "faults": [
+        {
+          "id": "examiner",
+          "scenario": "The visiting examiner watched Amina's family lunch. Here are her notes.",
+          "lines": [
+            {
+              "text": "She had no time plan and the rice was late.",
+              "fault": true,
+              "why": "Plan and work from the time plan."
+            },
+            {
+              "text": "Her pan handles stuck out over the stove edge.",
+              "fault": true,
+              "why": "Keep pan handles turned in."
+            },
+            {
+              "text": "Her worktop was untidy.",
+              "fault": true,
+              "why": "Clean as you work."
+            },
+            {
+              "text": "She tasted and adjusted the seasoning before serving.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She covered the food to keep it hot and clean.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing and serving a family lunch.",
+        "explainPrompt": "Why does a time plan work backwards from the serving time?",
+        "explainGuide": "It shows when each dish must start so that all the food is ready and hot at the same time.",
+        "explainKeywords": [
+          [
+            "start",
+            "when"
+          ],
+          [
+            "ready",
+            "finish",
+            "same time"
+          ],
+          [
+            "hot",
+            "time"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Family lunch for four",
+        "Plan, prepare, serve",
+        "Hygiene is marked."
+      ]
+    },
+    "pr-hmg-first-aid-home": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Tilt the head back to stop a nosebleed.",
+            "why": "Blood runs down the throat. Lean forward instead."
+          },
+          {
+            "text": "Put oil or toothpaste on a burn.",
+            "why": "That traps heat and adds germs. Cool under running water."
+          },
+          {
+            "text": "Treat a bleeding cut without gloves when gloves are in the box.",
+            "why": "Use gloves when dealing with blood."
+          },
+          {
+            "text": "Practise a real pressure bandage on a friend who has a cut.",
+            "why": "Practise only on uninjured volunteers."
+          },
+          {
+            "text": "Clean a wound with any cloth lying around.",
+            "why": "Unclean materials infect wounds. Use a clean pad."
+          },
+          {
+            "text": "Burst a blister so that the burn can breathe.",
+            "why": "That lets germs in. Leave it and get help if needed."
+          },
+          {
+            "text": "Pour kerosene into a soft drink bottle for storage.",
+            "why": "A child could drink it. Keep chemicals labelled and locked away."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Butter",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Toothpaste",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Palm oil",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Fluffy cotton wool for burns",
+            "why": "Fibres stick to a burn."
+          },
+          {
+            "name": "Dirty rag",
+            "why": "Unclean materials infect wounds."
+          },
+          {
+            "name": "Bottle of kerosene",
+            "why": "It is a hazard, not a first aid item."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "burn",
+          "afterStep": 3,
+          "prompt": "A child has spilt hot water on an arm. What is the first aid?",
+          "options": [
+            {
+              "text": "Running water for at least 20 minutes",
+              "correct": true,
+              "consequence": "Cooling stops the burn getting worse."
+            },
+            {
+              "text": "Rub oil on it, then cover it",
+              "consequence": "Oil holds the heat in."
+            },
+            {
+              "text": "Hold it under running water for a few seconds",
+              "consequence": "That is much too short."
+            }
+          ]
+        },
+        {
+          "id": "cut",
+          "afterStep": 4,
+          "prompt": "A cut hand is bleeding. What do you do?",
+          "options": [
+            {
+              "text": "Direct pressure with a clean pad and raise the part",
+              "correct": true,
+              "consequence": "That slows the bleeding."
+            },
+            {
+              "text": "Wash it with kerosene to clean it, then leave it open to the air",
+              "consequence": "Never put kerosene on a wound."
+            },
+            {
+              "text": "Tie a tight string around the wrist",
+              "consequence": "That is not the listed first aid, and it can harm the hand."
+            }
+          ]
+        },
+        {
+          "id": "nose",
+          "afterStep": 5,
+          "prompt": "A sister has a nosebleed. What do you tell her?",
+          "options": [
+            {
+              "text": "Lean forward, pinch the soft part, breathe by mouth",
+              "correct": true,
+              "consequence": "Blood does not run down the throat."
+            },
+            {
+              "text": "Lie flat and tip your head right back until it stops",
+              "consequence": "That is the named mistake."
+            },
+            {
+              "text": "Blow your nose hard",
+              "consequence": "That can start it again."
+            }
+          ]
+        },
+        {
+          "id": "hazard",
+          "afterStep": 1,
+          "prompt": "You find bleach stored on the floor by the door. What do you do?",
+          "options": [
+            {
+              "text": "Move it, labelled, out of children's reach",
+              "correct": true,
+              "consequence": "That helps prevent poisoning."
+            },
+            {
+              "text": "Pour it into a smaller drink bottle",
+              "consequence": "Drink bottles lead to poisoning."
+            },
+            {
+              "text": "Leave it, since it has a strong smell",
+              "consequence": "Children may still drink it."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "causes",
+          "prompt": "Which are the most common home accidents?",
+          "options": [
+            {
+              "text": "Falls, burns, cuts, electric shocks and poisoning",
+              "correct": true
+            },
+            {
+              "text": "Road accidents near the gate and on the way to market",
+              "why": "Those are not home accidents."
+            },
+            {
+              "text": "Sports injuries",
+              "why": "Those are not usually home accidents."
+            }
+          ]
+        },
+        {
+          "id": "pinch",
+          "prompt": "How long do you pinch a nosebleed for?",
+          "options": [
+            {
+              "text": "10 minutes",
+              "correct": true
+            },
+            {
+              "text": "10 seconds",
+              "why": "That is too short."
+            },
+            {
+              "text": "1 minute",
+              "why": "That is too short."
+            }
+          ]
+        },
+        {
+          "id": "prevent",
+          "prompt": "Which prevents poisoning of children?",
+          "options": [
+            {
+              "text": "Medicines and chemicals locked away and labelled",
+              "correct": true
+            },
+            {
+              "text": "Bleach kept on the floor",
+              "why": "Children can reach it."
+            },
+            {
+              "text": "Chemicals in drink bottles, kept on a kitchen shelf",
+              "why": "Children may drink them."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "box",
+          "prompt": "{a} of 12 required items are in the first aid box. What percentage is present?",
+          "formula": "a / 12 * 100",
+          "vars": {
+            "a": {
+              "min": 6,
+              "max": 11,
+              "step": 1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ 12 × 100 = {answer}%."
+        },
+        {
+          "id": "box2",
+          "prompt": "A home needs {b} first aid items and has 9. How many are missing?",
+          "formula": "b - 9",
+          "vars": {
+            "b": {
+              "min": 10,
+              "max": 14,
+              "step": 1
+            }
+          },
+          "unit": "items",
+          "unitAliases": [
+            "item"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} − 9 = {answer} items."
+        }
+      ],
+      "faults": [
+        {
+          "id": "kitchen-burn",
+          "scenario": "A boy burnt his hand at home. His sister wrote what the family did.",
+          "lines": [
+            {
+              "text": "They put toothpaste on the burn.",
+              "fault": true,
+              "why": "Do not apply oil or toothpaste to burns."
+            },
+            {
+              "text": "They held it under water for a few seconds.",
+              "fault": true,
+              "why": "Cool it under running water for at least 20 minutes."
+            },
+            {
+              "text": "They wrapped it in a fluffy towel.",
+              "fault": true,
+              "why": "Use a clean, non-fluffy dressing or cling film."
+            },
+            {
+              "text": "They covered it loosely after cooling.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They wrote down how to prevent it next time.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when giving first aid at home.",
+        "explainPrompt": "Why should a person with a nosebleed lean forward and not tilt the head back?",
+        "explainGuide": "Leaning forward lets blood drain out of the nose, so it does not run down the throat and be swallowed.",
+        "explainKeywords": [
+          [
+            "forward",
+            "drain"
+          ],
+          [
+            "throat",
+            "swallow"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Home safety and first aid",
+        "Hazards, first aid box, practice",
+        "Practise only on uninjured volunteers"
+      ]
+    },
+    "pr-hmg-market-survey": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Go to the market alone without telling the teacher.",
+            "why": "Go in groups with a teacher's permission."
+          },
+          {
+            "text": "Walk through the market with your phone and money in your open hand.",
+            "why": "Keep personal belongings safe."
+          },
+          {
+            "text": "Wander off from your group to a far stall.",
+            "why": "Stay with your group."
+          },
+          {
+            "text": "Argue loudly with a trader who refuses to give a price.",
+            "why": "Be polite and move on."
+          },
+          {
+            "text": "Eat unwashed sample food from any stall.",
+            "why": "Unclean food can make you ill."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Measuring jug",
+            "why": "Pack sizes are on the label."
+          },
+          {
+            "name": "Sewing tape measure",
+            "why": "Pack sizes are on the label."
+          },
+          {
+            "name": "Protractor",
+            "why": "That is for the pie chart."
+          },
+          {
+            "name": "Kitchen scale",
+            "why": "Masses are on the pack label."
+          },
+          {
+            "name": "Ruler",
+            "why": "Pack sizes are on the label."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is being timed."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "compare",
+          "afterStep": 3,
+          "prompt": "A sachet is N250 and a tin is N1,200. How do you compare them?",
+          "options": [
+            {
+              "text": "Work out the price per gram",
+              "correct": true,
+              "consequence": "Only unit prices compare fairly."
+            },
+            {
+              "text": "Buy the lower total price",
+              "consequence": "Comparing totals is a named mistake."
+            },
+            {
+              "text": "Buy the bigger tin",
+              "consequence": "Bigger is not always cheaper per gram."
+            }
+          ]
+        },
+        {
+          "id": "bulk",
+          "afterStep": 4,
+          "prompt": "The 50 kg bag is cheaper per kg, but the family has nowhere dry to store it. What do you recommend?",
+          "options": [
+            {
+              "text": "A smaller pack, as spoilage cancels the saving",
+              "correct": true,
+              "consequence": "Storage matters as much as price."
+            },
+            {
+              "text": "The bulk bag at all costs",
+              "consequence": "Spoilt food wastes the saving."
+            },
+            {
+              "text": "The bag, kept on the damp kitchen floor",
+              "consequence": "Damp spoils rice, so the saving is lost."
+            }
+          ]
+        },
+        {
+          "id": "quality",
+          "afterStep": 4,
+          "prompt": "A cheap brand is past its expiry date. What do you do?",
+          "options": [
+            {
+              "text": "Reject it, whatever the unit price",
+              "correct": true,
+              "consequence": "Check expiry dates and packaging."
+            },
+            {
+              "text": "Buy it: it is the best buy",
+              "consequence": "Expired food is not a good buy."
+            },
+            {
+              "text": "Peel off the date and buy it",
+              "consequence": "That is dishonest and unsafe."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "unit",
+          "prompt": "What usually happens to unit price as pack size rises?",
+          "options": [
+            {
+              "text": "It falls",
+              "correct": true
+            },
+            {
+              "text": "It rises",
+              "why": "Larger packs usually cost less per unit."
+            },
+            {
+              "text": "It stays the same",
+              "why": "It usually changes."
+            }
+          ]
+        },
+        {
+          "id": "econ",
+          "prompt": "When is bulk buying economical?",
+          "options": [
+            {
+              "text": "If the family can store and use it before it spoils",
+              "correct": true
+            },
+            {
+              "text": "Always, whatever the storage",
+              "why": "Spoilage can wipe out the saving."
+            },
+            {
+              "text": "Only when the shop is close to home and the price is low",
+              "why": "Distance is not the test: storage and use are."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "gram",
+          "prompt": "A {g} g tin costs N{p}. What is its price per gram, in naira?",
+          "formula": "p / g",
+          "vars": {
+            "g": {
+              "min": 200,
+              "max": 400,
+              "step": 200
+            },
+            "p": {
+              "min": 800,
+              "max": 1400,
+              "step": 200
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{p} ÷ {g} = N{answer} per gram."
+        },
+        {
+          "id": "kg",
+          "prompt": "A 50 kg bag costs N{p}. What is its price per kg, in naira?",
+          "formula": "p / 50",
+          "vars": {
+            "p": {
+              "min": 75000,
+              "max": 95000,
+              "step": 5000
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{p} ÷ 50 = N{answer} per kg."
+        },
+        {
+          "id": "saving",
+          "prompt": "Retail is N{r} per kg and the bulk price is N{b} per kg. What is the percentage saving?",
+          "formula": "(r - b) / r * 100",
+          "vars": {
+            "r": {
+              "min": 2000,
+              "max": 2400,
+              "step": 200
+            },
+            "b": {
+              "min": 1600,
+              "max": 1800,
+              "step": 100
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "({r} − {b}) ÷ {r} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "report",
+          "scenario": "Ejike wrote his market survey report. Here is what he did.",
+          "lines": [
+            {
+              "text": "He compared total prices, not unit prices.",
+              "fault": true,
+              "why": "Compare unit prices."
+            },
+            {
+              "text": "He recommended bulk rice without asking about storage.",
+              "fault": true,
+              "why": "Bulk buying needs storage space."
+            },
+            {
+              "text": "He compared two products of very different quality as if they were the same.",
+              "fault": true,
+              "why": "Compare the same quality and units."
+            },
+            {
+              "text": "He visited two outlets.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He checked expiry dates.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a market survey.",
+        "explainPrompt": "Why is the best buy not always the item with the lowest unit price?",
+        "explainGuide": "Quality, storage and the family's needs also matter. A cheap bulk pack can spoil before it is used, so the saving is lost.",
+        "explainKeywords": [
+          [
+            "quality",
+            "storage",
+            "need"
+          ],
+          [
+            "spoil",
+            "waste",
+            "lost"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Market survey",
+        "Compare unit prices",
+        "Best buy: price, quality and need"
+      ]
+    }
+  }
+}

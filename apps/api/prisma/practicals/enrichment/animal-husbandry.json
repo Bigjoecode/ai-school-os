@@ -1,0 +1,5180 @@
+{
+ "subject": "Animal Husbandry",
+ "lessons": {
+  "pr-ahus-products-and-by-products": {
+   "safety": {
+    "correct": [
+     "Throw used gloves in the covered bin, not on the bench."
+    ],
+    "wrong": [
+     {
+      "text": "Handle the raw hide with bare hands, as it looks dry.",
+      "why": "Hides may carry germs such as anthrax spores. Wear gloves."
+     },
+     {
+      "text": "Dip a finger in the honey to confirm what it is.",
+      "why": "Do not taste any specimen."
+     },
+     {
+      "text": "Rinse your hands quickly in the milk-sample water.",
+      "why": "Wash with soap and clean water after the practical."
+     },
+     {
+      "text": "Smell the dried droppings closely for the ammonia.",
+      "why": "Dung can carry Salmonella, so keep it away from your face."
+     },
+     {
+      "text": "Touch your mouth or eyes with your gloves on.",
+      "why": "Germs on gloves reach your face. Keep your hands away from it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dissecting kit",
+      "why": "No dissection is done in this identification lesson."
+     },
+     {
+      "name": "Egg candler",
+      "why": "The egg here is only named and described."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use in this room."
+     },
+     {
+      "name": "Universal indicator",
+      "why": "No chemical test is needed."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sort",
+     "afterStep": 1,
+     "prompt": "How do you sort the egg, honey and feathers?",
+     "options": [
+      {
+       "text": "Egg and honey as products; feathers as a by-product",
+       "correct": true,
+       "consequence": "Products are why the animal is kept; by-products are secondary."
+      },
+      {
+       "text": "All three as by-products, since the farm sells them all",
+       "consequence": "Eggs and honey are main products."
+      },
+      {
+       "text": "Feathers as a product; egg and honey as by-products",
+       "consequence": "That is the wrong way round."
+      }
+     ]
+    },
+    {
+     "id": "fast",
+     "afterStep": 5,
+     "prompt": "When do you weigh the goat alive?",
+     "options": [
+      {
+       "text": "Straight after a large feed",
+       "consequence": "Gut fill raises the mass and lowers the dressing percentage."
+      },
+      {
+       "text": "After a short fast",
+       "correct": true,
+       "consequence": "Gut contents do not inflate the live mass."
+      },
+      {
+       "text": "After it has had a big drink",
+       "consequence": "The water raises the live mass."
+      }
+     ]
+    },
+    {
+     "id": "uses",
+     "afterStep": 4,
+     "prompt": "Which entry for hide will earn the marks?",
+     "options": [
+      {
+       "text": "For money",
+       "consequence": "Vague uses earn no marks."
+      },
+      {
+       "text": "Leather and ponmo",
+       "correct": true,
+       "consequence": "These are two specific uses."
+      },
+      {
+       "text": "Useful to the farmer",
+       "consequence": "This names no use at all."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "thick",
+     "prompt": "A thick, heavy piece came from cattle. What do you call it?",
+     "options": [
+      {
+       "text": "Skin",
+       "why": "Skins are thin and from goats or sheep."
+      },
+      {
+       "text": "Fleece",
+       "why": "This is wool."
+      },
+      {
+       "text": "Hide",
+       "correct": true
+      },
+      {
+       "text": "Pelt of a rabbit",
+       "why": "Not from cattle."
+      }
+     ]
+    },
+    {
+     "id": "bone",
+     "prompt": "Which specimen is a whitish powder used as a feed mineral?",
+     "options": [
+      {
+       "text": "Poultry droppings",
+       "why": "These are greyish-white with brown portions."
+      },
+      {
+       "text": "Goat hair",
+       "why": "This is fibre."
+      },
+      {
+       "text": "Honey",
+       "why": "Honey is a liquid."
+      },
+      {
+       "text": "Bone meal",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dress",
+     "prompt": "A goat weighing {l} kg alive gives a {c} kg carcass. What is its dressing percentage?",
+     "formula": "c / l * 100",
+     "vars": {
+      "l": {
+       "min": 20,
+       "max": 30,
+       "step": 5
+      },
+      "c": {
+       "min": 10,
+       "max": 14,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Dressing % = {c} ÷ {l} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "table",
+     "scenario": "Adamu's table of specimens lost marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He divided the live mass by the carcass mass.",
+       "fault": true,
+       "why": "This gives a figure over 100 %."
+      },
+      {
+       "text": "He listed milk as a by-product.",
+       "fault": true,
+       "why": "Milk is a main product."
+      },
+      {
+       "text": "He called a cow's skin a skin, not a hide.",
+       "fault": true,
+       "why": "Large animals give hides."
+      },
+      {
+       "text": "He zeroed the scale before each weighing.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He gave the source animal for each specimen.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for finding dressing percentage.",
+    "explainPrompt": "What is the difference between a product and a by-product?",
+    "explainGuide": "A product is the main reason for keeping the animal, such as meat or milk. A by-product is secondary, such as hides or bones.",
+    "explainKeywords": [
+     [
+      "main",
+      "purpose",
+      "reason"
+     ],
+     [
+      "secondary",
+      "hide",
+      "hides",
+      "bones",
+      "by-product"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Products and by-products",
+    "Source animal and two uses",
+    "Show the formula"
+   ]
+  },
+  "pr-ahus-external-parts-drawing": {
+   "safety": {
+    "correct": [
+     "Have someone calm hold the animal while you measure."
+    ],
+    "wrong": [
+     {
+      "text": "Stand directly behind the cow to see its rump clearly.",
+      "why": "Stand to the side, never directly behind."
+     },
+     {
+      "text": "Hold the cockerel by one wing to look at its comb.",
+      "why": "Hold the legs and wings of birds properly."
+     },
+     {
+      "text": "Measure the goat with no one restraining it.",
+      "why": "Restrain it with a halter so nobody is hurt."
+     },
+     {
+      "text": "Go to lunch with no hand washing after handling the hen.",
+      "why": "Wash your hands after handling animals."
+     },
+     {
+      "text": "Make sudden noises to get the goat to turn side-on.",
+      "why": "A frightened animal can hurt you. Restrain it calmly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Coloured crayons",
+      "why": "Drawings use a sharp pencil with no shading."
+     },
+     {
+      "name": "Ink pen",
+      "why": "Label lines and outlines are drawn in pencil."
+     },
+     {
+      "name": "Dissecting kit",
+      "why": "External parts are drawn from the living animal."
+     },
+     {
+      "name": "Weighing scale",
+      "why": "Mass plays no part in this drawing."
+     },
+     {
+      "name": "Hand lens",
+      "why": "You are drawing a whole animal, not a small specimen."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "view",
+     "afterStep": 1,
+     "prompt": "How do you position the goat?",
+     "options": [
+      {
+       "text": "Calmly restrained, with its side view seen",
+       "correct": true,
+       "consequence": "The whole side is seen, so proportions are right."
+      },
+      {
+       "text": "Chased around the pen until it stands out in the open",
+       "consequence": "A moving goat cannot be measured or drawn well."
+      },
+      {
+       "text": "Facing you head-on",
+       "consequence": "The side parts are hidden."
+      }
+     ]
+    },
+    {
+     "id": "labels",
+     "afterStep": 5,
+     "prompt": "How do you draw the label lines?",
+     "options": [
+      {
+       "text": "Arrows from the part to the word",
+       "consequence": "Arrows are a common mistake."
+      },
+      {
+       "text": "Freehand lines, crossing each other wherever needed",
+       "consequence": "Crossed lines lose marks."
+      },
+      {
+       "text": "Ruled, parallel lines that do not cross",
+       "correct": true,
+       "consequence": "The labels are easy to read and earn marks."
+      }
+     ]
+    },
+    {
+     "id": "mag-state",
+     "afterStep": 6,
+     "prompt": "Your drawing is smaller than the goat. How do you state it?",
+     "options": [
+      {
+       "text": "5, as the goat is bigger",
+       "consequence": "This is the wrong way up."
+      },
+      {
+       "text": "×0.2, with the sign",
+       "correct": true,
+       "consequence": "Magnification below 1 is right for large animals."
+      },
+      {
+       "text": "0.2 cm, as a length",
+       "consequence": "Magnification has no unit."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fowl",
+     "prompt": "Which parts would you label on the fowl only?",
+     "options": [
+      {
+       "text": "Muzzle and dewlap",
+       "why": "These belong to the ruminant."
+      },
+      {
+       "text": "Comb and wattle",
+       "correct": true
+      },
+      {
+       "text": "Poll and withers",
+       "why": "These belong to the ruminant."
+      },
+      {
+       "text": "Brisket and flank",
+       "why": "These belong to the ruminant."
+      }
+     ]
+    },
+    {
+     "id": "ruminant",
+     "prompt": "Which feature do ruminants show?",
+     "options": [
+      {
+       "text": "Scaly shanks and a beak",
+       "why": "These belong to the fowl."
+      },
+      {
+       "text": "Comb and spur",
+       "why": "These belong to the fowl."
+      },
+      {
+       "text": "Saddle and sickle feathers",
+       "why": "These belong to the fowl."
+      },
+      {
+       "text": "Cloven hooves and a moist muzzle",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mag",
+     "prompt": "A goat measures {a} cm from shoulder to pin bone. Your drawing is {d} cm long. What is the magnification?",
+     "formula": "d / a",
+     "vars": {
+      "a": {
+       "min": 50,
+       "max": 100,
+       "step": 10
+      },
+      "d": {
+       "min": 10,
+       "max": 15,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "Magnification = {d} ÷ {a} = ×{answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "goat-drawing",
+     "scenario": "Rita's goat drawing lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She labelled the hock as the knee.",
+       "fault": true,
+       "why": "That part is the hock."
+      },
+      {
+       "text": "She used arrows for her labels.",
+       "fault": true,
+       "why": "Use ruled label lines."
+      },
+      {
+       "text": "She wrote the magnification with no × sign.",
+       "fault": true,
+       "why": "The × must be shown."
+      },
+      {
+       "text": "She gave the drawing a title.",
+       "why": "That is expected."
+      },
+      {
+       "text": "She measured before she drew.",
+       "why": "That keeps proportions correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for drawing a farm animal.",
+    "explainPrompt": "Why is a magnification below 1 correct for a drawing of a cow?",
+    "explainGuide": "A cow is much larger than the paper, so the drawing is smaller than the animal. Drawing length divided by actual length gives a value below 1.",
+    "explainKeywords": [
+     [
+      "drawing",
+      "paper"
+     ],
+     [
+      "smaller",
+      "larger"
+     ],
+     [
+      "actual",
+      "divided",
+      "length"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "External parts",
+    "Clean single lines",
+    "Title and magnification"
+   ]
+  },
+  "pr-ahus-fowl-dissection-internal-organs": {
+   "safety": {
+    "correct": [
+     "Count scalpel and pins back at the end, so that nothing sharp is left in the waste."
+    ],
+    "wrong": [
+     {
+      "text": "Cut towards your chest for a firm pull.",
+      "why": "Cut away from your body."
+     },
+     {
+      "text": "Steady the bird with your fingers just ahead of the blade.",
+      "why": "Keep your fingers clear of the scalpel."
+     },
+     {
+      "text": "Throw the offal in an open bin behind the classroom.",
+      "why": "Bury it or use a covered bin."
+     },
+     {
+      "text": "Rinse the board with plain water and put it back.",
+      "why": "Disinfect the board and instruments."
+     },
+     {
+      "text": "Handle the fowl's insides with bare hands to feel them.",
+      "why": "Wear gloves."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Cutlass",
+      "why": "This would tear the organs."
+     },
+     {
+      "name": "Hedge shears",
+      "why": "Use the dissecting scissors."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated here."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "These have no use in dissection."
+     },
+     {
+      "name": "Egg candler",
+      "why": "No eggs are tested in this lesson."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "cut",
+     "afterStep": 2,
+     "prompt": "How do you open the bird?",
+     "options": [
+      {
+       "text": "One deep slash from the vent right through to the back",
+       "consequence": "The gut is cut, so the contents obscure everything."
+      },
+      {
+       "text": "A shallow cut, without piercing the gut",
+       "correct": true,
+       "consequence": "Gut contents do not obscure the organs."
+      },
+      {
+       "text": "A cut from the back of the neck",
+       "consequence": "The bird lies on its back with the belly upward."
+      }
+     ]
+    },
+    {
+     "id": "measure",
+     "afterStep": 4,
+     "prompt": "How do you measure the gut?",
+     "options": [
+      {
+       "text": "Pull it out tight along the rule",
+       "consequence": "Stretching gives too long a reading."
+      },
+      {
+       "text": "Uncoil it and lay it straight, unstretched",
+       "correct": true,
+       "consequence": "The length is a true one."
+      },
+      {
+       "text": "Measure it where it lies, still coiled inside the body",
+       "consequence": "Coils hide the true length."
+      }
+     ]
+    },
+    {
+     "id": "name",
+     "afterStep": 6,
+     "prompt": "Which compartment do you record as the true stomach?",
+     "options": [
+      {
+       "text": "Reticulum",
+       "consequence": "This is the honeycomb chamber."
+      },
+      {
+       "text": "Rumen",
+       "consequence": "This is the fermentation vat."
+      },
+      {
+       "text": "Abomasum",
+       "correct": true,
+       "consequence": "It is glandular, like a simple stomach."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "gizzard",
+     "prompt": "Which organ has thick muscular walls with grit inside?",
+     "options": [
+      {
+       "text": "Crop",
+       "why": "The crop is a thin-walled store."
+      },
+      {
+       "text": "Proventriculus",
+       "why": "This is the glandular stomach."
+      },
+      {
+       "text": "Gizzard",
+       "correct": true
+      },
+      {
+       "text": "Caecum",
+       "why": "This is a blind sac."
+      }
+     ]
+    },
+    {
+     "id": "honey",
+     "prompt": "Which chamber has a honeycomb lining?",
+     "options": [
+      {
+       "text": "Reticulum",
+       "correct": true
+      },
+      {
+       "text": "Rumen",
+       "why": "This has papillae."
+      },
+      {
+       "text": "Omasum",
+       "why": "This has leaves."
+      },
+      {
+       "text": "Abomasum",
+       "why": "This is glandular."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ratio",
+     "prompt": "A fowl's gut is {g} cm long and its body is {b} cm long. What is the ratio of gut to body length, as a number to 1?",
+     "formula": "g / b",
+     "vars": {
+      "g": {
+       "min": 140,
+       "max": 180,
+       "step": 10
+      },
+      "b": {
+       "min": 35,
+       "max": 45,
+       "step": 5
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "Ratio = {g} ÷ {b} = {answer} : 1."
+    }
+   ],
+   "faults": [
+    {
+     "id": "fowl-lab",
+     "scenario": "Kola's fowl report lost marks. Here is what he wrote.",
+     "lines": [
+      {
+       "text": "He said the fowl has teeth.",
+       "fault": true,
+       "why": "Fowls have no teeth."
+      },
+      {
+       "text": "He confused the proventriculus with the gizzard.",
+       "fault": true,
+       "why": "The proventriculus is glandular and the gizzard grinds."
+      },
+      {
+       "text": "He named the reticulum as the true stomach.",
+       "fault": true,
+       "why": "That is the abomasum."
+      },
+      {
+       "text": "He used a fresh specimen.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He showed the organs in sequence.",
+       "why": "That is what the drawing needs."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for dissecting a fowl.",
+    "explainPrompt": "How does a long gut help an animal?",
+    "explainGuide": "A long gut gives food more time in the intestine, so digestion and absorption are more complete.",
+    "explainKeywords": [
+     [
+      "time",
+      "longer"
+     ],
+     [
+      "digestion",
+      "digest"
+     ],
+     [
+      "absorption",
+      "absorb"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Internal organs of the fowl",
+    "Show the sequence",
+    "Match function to organ"
+   ]
+  },
+  "pr-ahus-ruminant-vs-non-ruminant": {
+   "safety": {
+    "correct": [
+     "Clear the floor of water and digesta so that nobody slips."
+    ],
+    "wrong": [
+     {
+      "text": "Handle fresh stomach tissue with bare hands.",
+      "why": "Handle fresh tissues with gloves."
+     },
+     {
+      "text": "Leave the stomach contents spilled until the end of the lesson.",
+      "why": "Clean and disinfect spillages at once."
+     },
+     {
+      "text": "Run your finger along the pig's sharp tusk.",
+      "why": "Tusks can cut you, so handle skulls with care."
+     },
+     {
+      "text": "Eat at the bench while the water is being measured.",
+      "why": "Tissues carry germs. Keep food out of the room."
+     },
+     {
+      "text": "Wipe stomach contents off your hands onto your clothes.",
+      "why": "Wash them off and disinfect."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated here."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "Castration tools have no part in this."
+     },
+     {
+      "name": "Top-pan balance",
+      "why": "Capacity is measured by volume here."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain plays no part in this."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "seal",
+     "afterStep": 4,
+     "prompt": "How do you tie the compartments?",
+     "options": [
+      {
+       "text": "Loosely, so that the stomach wall can stretch as it fills",
+       "consequence": "Water leaks between chambers."
+      },
+      {
+       "text": "You need not tie them at all",
+       "consequence": "Water would run through all the compartments."
+      },
+      {
+       "text": "Tightly, to prevent leaks between chambers",
+       "correct": true,
+       "consequence": "Each volume is true for that chamber."
+      }
+     ]
+    },
+    {
+     "id": "classify",
+     "afterStep": 6,
+     "prompt": "How do you class the rabbit in your table?",
+     "options": [
+      {
+       "text": "Ruminant",
+       "consequence": "Rabbits are hind-gut fermenters, not ruminants."
+      },
+      {
+       "text": "Half ruminant",
+       "consequence": "There is no such class."
+      },
+      {
+       "text": "Non-ruminant",
+       "correct": true,
+       "consequence": "It does not chew the cud in the ruminant way and has no four-part stomach."
+      }
+     ]
+    },
+    {
+     "id": "teeth",
+     "afterStep": 1,
+     "prompt": "What do you record for the goat's front teeth?",
+     "options": [
+      {
+       "text": "No incisors at all",
+       "consequence": "Ruminants do have lower incisors."
+      },
+      {
+       "text": "Upper and lower incisors, with canines as tusks",
+       "consequence": "That is the pig."
+      },
+      {
+       "text": "Lower incisors, with a dental pad above",
+       "correct": true,
+       "consequence": "This is what a ruminant has."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cud",
+     "prompt": "Which behaviour do resting goats show?",
+     "options": [
+      {
+       "text": "Rooting the ground with a snout",
+       "why": "That is what a pig does."
+      },
+      {
+       "text": "Scratching with the feet",
+       "why": "That is what a fowl does."
+      },
+      {
+       "text": "Pecking grit",
+       "why": "That is what a fowl does."
+      },
+      {
+       "text": "Chewing the cud",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "largest",
+     "prompt": "Which compartment holds the most water?",
+     "options": [
+      {
+       "text": "Omasum",
+       "why": "The omasum is small."
+      },
+      {
+       "text": "Rumen",
+       "correct": true
+      },
+      {
+       "text": "Reticulum",
+       "why": "The reticulum is small."
+      },
+      {
+       "text": "Abomasum",
+       "why": "The rumen is by far the largest."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "share",
+     "prompt": "A ruminant stomach has a total capacity of {t} L, and the rumen holds {r} L. What is the rumen's share?",
+     "formula": "r / t * 100",
+     "vars": {
+      "t": {
+       "min": 100,
+       "max": 150,
+       "step": 50
+      },
+      "r": {
+       "min": 75,
+       "max": 90,
+       "step": 5
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Share = {r} ÷ {t} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "table",
+     "scenario": "Tina's table of differences lost marks. Here is what she wrote.",
+     "lines": [
+      {
+       "text": "She classed the rabbit as a ruminant.",
+       "fault": true,
+       "why": "It is a hind-gut fermenter."
+      },
+      {
+       "text": "She said that ruminants have no incisors at all.",
+       "fault": true,
+       "why": "They have lower incisors."
+      },
+      {
+       "text": "She named no examples from Nigerian farms.",
+       "fault": true,
+       "why": "Two examples are needed for each group."
+      },
+      {
+       "text": "She gave paired differences in a table.",
+       "why": "That earns full marks."
+      },
+      {
+       "text": "She read the cylinder at eye level.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring stomach capacity.",
+    "explainPrompt": "Why can ruminants digest fibrous roughage better than pigs?",
+    "explainGuide": "The rumen is a large fermentation vat where microbes break down fibre. The pig has a single simple stomach without this.",
+    "explainKeywords": [
+     [
+      "rumen",
+      "vat"
+     ],
+     [
+      "microbe",
+      "microbes"
+     ],
+     [
+      "fibre",
+      "fibrous",
+      "cellulose"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Ruminants and non-ruminants",
+    "Teeth, stomach, cud",
+    "Paired differences"
+   ]
+  },
+  "pr-ahus-management-tools-equipment": {
+   "safety": {
+    "correct": [
+     "Keep the tools in their tray until you are told to pick them up."
+    ],
+    "wrong": [
+     {
+      "text": "Carry the hoof trimmer with its points up.",
+      "why": "Carry sharp tools with points down."
+     },
+     {
+      "text": "Put the ear-notcher on the floor beside your foot.",
+      "why": "Never leave sharp tools on the floor."
+     },
+     {
+      "text": "Clean the debeaker while it is still connected.",
+      "why": "Disconnect electrical equipment before cleaning."
+     },
+     {
+      "text": "Wipe the incubator with a wet rag while it is plugged in.",
+      "why": "Disconnect it first: water and electricity are dangerous."
+     },
+     {
+      "text": "Test the hot debeaker blade with your finger.",
+      "why": "It burns. Keep your hands off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Cutlass",
+      "why": "This is a farm tool, not one for these management jobs."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "These belong to soil practicals."
+     },
+     {
+      "name": "Secateurs",
+      "why": "They are for pruning plants."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "This is for weather records."
+     },
+     {
+      "name": "Disc harrow",
+      "why": "This is a field implement."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "use",
+     "afterStep": 2,
+     "prompt": "Which use do you write for the Burdizzo?",
+     "options": [
+      {
+       "text": "For castration",
+       "consequence": "The exam wants the specific use."
+      },
+      {
+       "text": "Stretches a tight rubber ring over the scrotum of a kid or lamb",
+       "consequence": "That is the elastrator."
+      },
+      {
+       "text": "Crushes the spermatic cords in bloodless castration",
+       "correct": true,
+       "consequence": "This specific use earns the mark."
+      }
+     ]
+    },
+    {
+     "id": "main",
+     "afterStep": 4,
+     "prompt": "What maintenance suits the elastrator?",
+     "options": [
+      {
+       "text": "Sharpen its blade",
+       "consequence": "It has no blade to sharpen."
+      },
+      {
+       "text": "Charge its battery",
+       "consequence": "It has no battery."
+      },
+      {
+       "text": "Wash, disinfect and oil its hinge",
+       "correct": true,
+       "consequence": "It has no blade, so hygiene and oil matter."
+      }
+     ]
+    },
+    {
+     "id": "between",
+     "afterStep": 3,
+     "prompt": "You have used a Burdizzo on one animal. What now?",
+     "options": [
+      {
+       "text": "Move straight to the next animal",
+       "consequence": "Infection can spread."
+      },
+      {
+       "text": "Disinfect it before the next animal",
+       "correct": true,
+       "consequence": "This prevents infection spreading."
+      },
+      {
+       "text": "Wipe it with a dry rag and go on to the next animal",
+       "consequence": "This does not disinfect."
+      }
+     ]
+    },
+    {
+     "id": "calib",
+     "afterStep": 4,
+     "prompt": "The drenching gun will be used next week. What do you do?",
+     "options": [
+      {
+       "text": "Assume it is correct",
+       "consequence": "Doses could be wrong."
+      },
+      {
+       "text": "Oil the inside of its tube",
+       "consequence": "Oil would get into the dose."
+      },
+      {
+       "text": "Calibrate it before use",
+       "correct": true,
+       "consequence": "Doses are correct."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "prongs",
+     "prompt": "A tool has four prongs that stretch a ring. What is it?",
+     "options": [
+      {
+       "text": "Burdizzo",
+       "why": "This has long handles and crushing jaws."
+      },
+      {
+       "text": "Debeaker",
+       "why": "This has a heated blade."
+      },
+      {
+       "text": "Egg candler",
+       "why": "This has a light."
+      },
+      {
+       "text": "Elastrator",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "candler",
+     "prompt": "Which tool is a box or torch with a hole for an egg?",
+     "options": [
+      {
+       "text": "Fountain drinker",
+       "why": "This is for water."
+      },
+      {
+       "text": "Tube feeder",
+       "why": "This is for feed."
+      },
+      {
+       "text": "Ear tagger",
+       "why": "This fixes tags."
+      },
+      {
+       "text": "Egg candler",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "feeders",
+     "prompt": "{n} broilers need 1 tube feeder per 25 birds. How many feeders are needed?",
+     "formula": "n / 25",
+     "vars": {
+      "n": {
+       "min": 300,
+       "max": 800,
+       "step": 100
+      }
+     },
+     "unit": "feeders",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Feeders = {n} ÷ 25 = {answer} feeders.",
+     "unitAliases": [
+      "feeder"
+     ]
+    },
+    {
+     "id": "drinkers",
+     "prompt": "{n} broilers need 1 fountain drinker per 50 birds. How many drinkers are needed?",
+     "formula": "n / 50",
+     "vars": {
+      "n": {
+       "min": 300,
+       "max": 800,
+       "step": 100
+      }
+     },
+     "unit": "drinkers",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Drinkers = {n} ÷ 50 = {answer} drinkers.",
+     "unitAliases": [
+      "drinker"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "tool-table",
+     "scenario": "Sam's tool table lost marks. Here is what he wrote.",
+     "lines": [
+      {
+       "text": "He confused the Burdizzo with the elastrator.",
+       "fault": true,
+       "why": "One crushes, and the other uses a rubber ring."
+      },
+      {
+       "text": "He wrote 'cleaning' as the only maintenance for every tool.",
+       "fault": true,
+       "why": "Maintenance must suit the tool."
+      },
+      {
+       "text": "He rounded 14.3 feeders down to 14.",
+       "fault": true,
+       "why": "Round up to a whole number."
+      },
+      {
+       "text": "He wrote the name, use and maintenance in a table.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "He stored the tools in a dry place.",
+       "why": "That prevents rust."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using livestock tools.",
+    "explainPrompt": "Why are castration tools disinfected between animals?",
+    "explainGuide": "Tools carry germs from one animal to the next. Disinfecting them prevents infection of wounds and the spread of disease.",
+    "explainKeywords": [
+     [
+      "germ",
+      "germs",
+      "infection",
+      "disease"
+     ],
+     [
+      "spread",
+      "next",
+      "another"
+     ],
+     [
+      "disinfect",
+      "disinfecting",
+      "disinfected",
+      "kills"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Management tools",
+    "Name, use, maintenance",
+    "Round up to whole numbers"
+   ]
+  },
+  "pr-ahus-egg-candling-hatchability": {
+   "safety": {
+    "correct": [
+     "Wash your hands before and after handling hatching eggs."
+    ],
+    "wrong": [
+     {
+      "text": "Shake an egg to feel whether there is a chick in it.",
+      "why": "Shaking harms the embryo. Handle eggs gently."
+     },
+     {
+      "text": "Leave the tray out through the whole lesson.",
+      "why": "Do not keep eggs out for more than a few minutes."
+     },
+     {
+      "text": "Stack eggs loosely on the bench edge.",
+      "why": "They may roll off. Use egg trays."
+     },
+     {
+      "text": "Leave the incubator lid open while you candle the eggs.",
+      "why": "This upsets the temperature. Keep it closed."
+     },
+     {
+      "text": "Tap the eggs together to test the shells.",
+      "why": "This cracks them."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Burdizzo",
+      "why": "This has no role in hatching."
+     },
+     {
+      "name": "Debeaker",
+      "why": "Debeaking comes later in a bird's life."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "The incubator is the only source of heat."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Hand lens",
+      "why": "You look at the egg by light, not by magnification."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "dark",
+     "afterStep": 2,
+     "prompt": "Where do you candle the eggs?",
+     "options": [
+      {
+       "text": "Beside the bright window",
+       "consequence": "The room light drowns the candler."
+      },
+      {
+       "text": "Outside in the sun",
+       "consequence": "Sun and heat harm the eggs."
+      },
+      {
+       "text": "In a dark room",
+       "correct": true,
+       "consequence": "The internal features are visible."
+      }
+     ]
+    },
+    {
+     "id": "dead",
+     "afterStep": 4,
+     "prompt": "An egg shows a blood ring. What do you do?",
+     "options": [
+      {
+       "text": "Remove it and record it as dead",
+       "correct": true,
+       "consequence": "It will not hatch."
+      },
+      {
+       "text": "Return it to give it another chance",
+       "consequence": "Dead embryos can rot in the incubator."
+      },
+      {
+       "text": "Record it as clear",
+       "consequence": "This confuses infertile and dead."
+      }
+     ]
+    },
+    {
+     "id": "stop-turn",
+     "afterStep": 5,
+     "prompt": "It is day 18. What do you do?",
+     "options": [
+      {
+       "text": "Keep turning them as usual right up to day 21 of hatching",
+       "consequence": "Turning in the last three days is a mistake."
+      },
+      {
+       "text": "Turn them more often",
+       "consequence": "This disturbs chicks about to hatch."
+      },
+      {
+       "text": "Stop turning, and move them to the hatcher",
+       "correct": true,
+       "consequence": "The chicks position themselves for hatching."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fertile",
+     "prompt": "An egg shows a network of vessels around a dark spot. What is it?",
+     "options": [
+      {
+       "text": "Fertile",
+       "correct": true
+      },
+      {
+       "text": "Infertile",
+       "why": "Infertile eggs look clear."
+      },
+      {
+       "text": "Dead embryo",
+       "why": "This shows a ring or blot."
+      },
+      {
+       "text": "Cracked",
+       "why": "This shows as a bright line."
+      }
+     ]
+    },
+    {
+     "id": "clear",
+     "prompt": "What does an infertile egg look like at candling?",
+     "options": [
+      {
+       "text": "Clear, like a fresh egg",
+       "correct": true
+      },
+      {
+       "text": "A spider of red vessels",
+       "why": "That egg is fertile."
+      },
+      {
+       "text": "A blood ring",
+       "why": "That egg has a dead embryo."
+      },
+      {
+       "text": "A dark blot with no vessels",
+       "why": "That egg has a dead embryo."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "fertility",
+     "prompt": "{e} eggs were set and {c} were clear. What is the fertility percentage?",
+     "formula": "(e - c) / e * 100",
+     "vars": {
+      "e": {
+       "min": 200,
+       "max": 300,
+       "step": 50
+      },
+      "c": {
+       "min": 20,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Fertile = {e} − {c}. Fertility = fertile ÷ {e} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "hatch",
+     "prompt": "Of {f} fertile eggs, {h} chicks hatched. What is the hatchability of fertile eggs?",
+     "formula": "h / f * 100",
+     "vars": {
+      "f": {
+       "min": 200,
+       "max": 270,
+       "step": 10
+      },
+      "h": {
+       "min": 150,
+       "max": 190,
+       "step": 10
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Hatchability = {h} ÷ {f} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "set",
+     "prompt": "{e} eggs were set and {h} chicks hatched. What is the hatchability of eggs set?",
+     "formula": "h / e * 100",
+     "vars": {
+      "e": {
+       "min": 200,
+       "max": 300,
+       "step": 50
+      },
+      "h": {
+       "min": 150,
+       "max": 190,
+       "step": 10
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Hatchability = {h} ÷ {e} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "hatchery",
+     "scenario": "Lara's hatch was poor and her figures were wrong. Here is what she did.",
+     "lines": [
+      {
+       "text": "She divided by eggs set when asked for hatchability of fertile eggs.",
+       "fault": true,
+       "why": "Use fertile eggs as the base."
+      },
+      {
+       "text": "She kept turning the eggs during the last three days.",
+       "fault": true,
+       "why": "Turning stops at day 18."
+      },
+      {
+       "text": "She took early dead embryos as clear eggs.",
+       "fault": true,
+       "why": "This is a source of error."
+      },
+      {
+       "text": "She candled in a dark room.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She stated which base she used.",
+       "why": "That is what the exam wants."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for candling and incubating eggs.",
+    "explainPrompt": "Why are clear and dead eggs removed from the incubator?",
+    "explainGuide": "They will never hatch, and they can rot and burst, spreading germs to the healthy eggs.",
+    "explainKeywords": [
+     [
+      "hatch"
+     ],
+     [
+      "rot",
+      "burst",
+      "germs",
+      "bacteria"
+     ],
+     [
+      "healthy",
+      "spread",
+      "others"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Candling and hatchability",
+    "State your base",
+    "Chicken: 21 days"
+   ]
+  },
+  "pr-ahus-oestrus-gestation-records": {
+   "safety": {
+    "correct": [
+     "Tell the farm attendant before you go near the breeding pens."
+    ],
+    "wrong": [
+     {
+      "text": "Climb into the boar's pen alone to get a closer look.",
+      "why": "Never enter a pen alone with a breeding male."
+     },
+     {
+      "text": "Stand close to the bull to watch the cows.",
+      "why": "Keep a safe distance from boars and bulls."
+     },
+     {
+      "text": "Lean over the pen wall to pat the boar.",
+      "why": "Keep a safe distance: a boar can bite."
+     },
+     {
+      "text": "Go off without washing after touching the sows.",
+      "why": "Wash your hands after handling animals."
+     },
+     {
+      "text": "Run through the herd to make the cows move about.",
+      "why": "Frightened animals can hurt you. Observe them calmly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded here."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "Castration has nothing to do with detecting heat."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs, not mammals."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Microscope",
+      "why": "Heat is seen from the animal's behaviour."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "when-obs",
+     "afterStep": 1,
+     "prompt": "When do you watch for heat?",
+     "options": [
+      {
+       "text": "Once a week at noon",
+       "consequence": "Heat lasts only a short time and is missed."
+      },
+      {
+       "text": "Only at those times when the animal is heard bellowing",
+       "consequence": "Quiet heats go unseen."
+      },
+      {
+       "text": "Early morning and evening, the same each day",
+       "correct": true,
+       "consequence": "Heat is less likely to be missed."
+      }
+     ]
+    },
+    {
+     "id": "date-used",
+     "afterStep": 5,
+     "prompt": "She was first seen on heat on Monday and served on Tuesday. Which date is used for the gestation count?",
+     "options": [
+      {
+       "text": "Monday, the first sign of heat",
+       "consequence": "Service is the correct date to use."
+      },
+      {
+       "text": "Whichever day is more convenient",
+       "consequence": "Your date would be wrong."
+      },
+      {
+       "text": "Tuesday, the date of service",
+       "correct": true,
+       "consequence": "Gestation counts from service."
+      }
+     ]
+    },
+    {
+     "id": "which-gest",
+     "afterStep": 5,
+     "prompt": "You are finding the kidding date for a goat. Which gestation do you use?",
+     "options": [
+      {
+       "text": "About 283 days",
+       "consequence": "That is the cow's."
+      },
+      {
+       "text": "About 114 days",
+       "consequence": "That is the sow's."
+      },
+      {
+       "text": "About 150 days",
+       "correct": true,
+       "consequence": "That is the goat's gestation."
+      }
+     ]
+    },
+    {
+     "id": "count",
+     "afterStep": 5,
+     "prompt": "How do you count the days from service?",
+     "options": [
+      {
+       "text": "Count the day of service itself as day 1 of the total",
+       "consequence": "This makes the date one day early."
+      },
+      {
+       "text": "By adding whole months only",
+       "consequence": "Months differ in length, so the date is off."
+      },
+      {
+       "text": "From the day after service, month by month",
+       "correct": true,
+       "consequence": "The date comes out right."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "reliable",
+     "prompt": "Which sign of heat is the most reliable?",
+     "options": [
+      {
+       "text": "Reduced appetite",
+       "why": "This is a sign, but not the most reliable one."
+      },
+      {
+       "text": "Standing to be mounted",
+       "correct": true
+      },
+      {
+       "text": "Frequent urination",
+       "why": "This is a sign, but not the most reliable one."
+      },
+      {
+       "text": "Bellowing",
+       "why": "This is a sign, but not the most reliable one."
+      }
+     ]
+    },
+    {
+     "id": "heat",
+     "prompt": "Which set of signs shows an animal on heat?",
+     "options": [
+      {
+       "text": "Dull, off feed, with a rough coat",
+       "why": "These are signs of illness."
+      },
+      {
+       "text": "Coughing, with discharge from the nose",
+       "why": "These are signs of illness."
+      },
+      {
+       "text": "Calm and chewing the cud, with a dry and pale vulva",
+       "why": "This animal is not on heat."
+      },
+      {
+       "text": "Restless, with a swollen red vulva and mucus",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "next-heat",
+     "prompt": "A sow on a 21-day cycle was served on {d} March. On what date in March is her next heat, if she is not pregnant?",
+     "formula": "d + 21",
+     "vars": {
+      "d": {
+       "min": 1,
+       "max": 10,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Next heat = {d} + 21 = {answer} March."
+    },
+    {
+     "id": "kid",
+     "prompt": "A doe with a 150-day gestation was served on {d} June. On what date in October should she kid?",
+     "formula": "28 + d",
+     "vars": {
+      "d": {
+       "min": 1,
+       "max": 3,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Days to 30 September = (30 − {d}) + 31 + 31 + 30. The rest of the 150 days fall in October, so she kids on {answer} October."
+    }
+   ],
+   "faults": [
+    {
+     "id": "card",
+     "scenario": "Eze's breeding card had wrong dates. Here is what he did.",
+     "lines": [
+      {
+       "text": "He counted the service day as day 1.",
+       "fault": true,
+       "why": "This makes the date one day early."
+      },
+      {
+       "text": "He used the cow's gestation for a goat.",
+       "fault": true,
+       "why": "Each species has its own gestation."
+      },
+      {
+       "text": "He used the date of first heat for his count.",
+       "fault": true,
+       "why": "Use the exact date of service."
+      },
+      {
+       "text": "He showed the month-by-month count.",
+       "why": "That is what the exam wants."
+      },
+      {
+       "text": "He observed at the same times each day.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for detecting heat and working out dates.",
+    "explainPrompt": "Why does a farmer need to know the expected date of parturition?",
+    "explainGuide": "The farmer can prepare the pen and give care to the female and young at birth, and can feed her better before the date.",
+    "explainKeywords": [
+     [
+      "prepare",
+      "preparation",
+      "ready"
+     ],
+     [
+      "care",
+      "feed",
+      "feeding"
+     ],
+     [
+      "birth",
+      "farrowing",
+      "kidding",
+      "parturition"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Heat and breeding dates",
+    "Use the date of service",
+    "Count month by month"
+   ]
+  },
+  "pr-ahus-routine-management-practices": {
+   "safety": {
+    "correct": [
+     "Leave castration, dehorning and debeaking to the teacher, farm attendant or vet unless you are told otherwise."
+    ],
+    "wrong": [
+     {
+      "text": "Use the hot debeaker yourself while the teacher is away.",
+      "why": "Only the teacher or attendant uses the hot debeaker."
+     },
+     {
+      "text": "Try to hold and operate on an animal by yourself.",
+      "why": "One person holds while another operates."
+     },
+     {
+      "text": "Use the notcher on the next piglet with no disinfecting.",
+      "why": "Disinfect tools between animals."
+     },
+     {
+      "text": "Pick up the hot dehorning iron to carry it.",
+      "why": "Only the teacher or attendant uses it."
+     },
+     {
+      "text": "Hold a piglet roughly so that it stops squealing.",
+      "why": "Restrain animals firmly and gently."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Cutlass",
+      "why": "This has no place in these operations."
+     },
+     {
+      "name": "Hedge shears",
+      "why": "These are for hedges, not hooves."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured here."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "age",
+     "afterStep": 4,
+     "prompt": "When should a male be castrated?",
+     "options": [
+      {
+       "text": "While young",
+       "correct": true,
+       "consequence": "Stress and bleeding are reduced."
+      },
+      {
+       "text": "As an adult, with no vet",
+       "consequence": "This is a known mistake. Adults need veterinary help."
+      },
+      {
+       "text": "At any age at all",
+       "consequence": "Age affects stress and bleeding."
+      }
+     ]
+    },
+    {
+     "id": "debeak",
+     "afterStep": 3,
+     "prompt": "How much of the chick's beak is removed?",
+     "options": [
+      {
+       "text": "Back to the nostrils",
+       "consequence": "Birds cannot eat."
+      },
+      {
+       "text": "About one-third of the upper beak",
+       "correct": true,
+       "consequence": "Birds can still eat."
+      },
+      {
+       "text": "The whole of the lower beak, leaving the upper one",
+       "consequence": "This is wrong."
+      }
+     ]
+    },
+    {
+     "id": "fly",
+     "afterStep": 2,
+     "prompt": "It is fly season, and you have made a wound. What is done?",
+     "options": [
+      {
+       "text": "Apply fly repellent and antiseptic",
+       "correct": true,
+       "consequence": "Fly attack and infection are reduced."
+      },
+      {
+       "text": "Leave it open so that it can dry out in the air",
+       "consequence": "Flies and infection can reach it."
+      },
+      {
+       "text": "Rub soil on it to seal it",
+       "consequence": "Soil brings infection."
+      }
+     ]
+    },
+    {
+     "id": "notch-gap",
+     "afterStep": 2,
+     "prompt": "Two notches are needed on one edge. How do you space them?",
+     "options": [
+      {
+       "text": "Cut them touching each other",
+       "consequence": "The ear may tear."
+      },
+      {
+       "text": "Keep them well apart",
+       "correct": true,
+       "consequence": "The ear does not tear."
+      },
+      {
+       "text": "Overlap them at one point",
+       "consequence": "A single wide cut reads as one notch."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ring",
+     "prompt": "What happens to the scrotum below an elastrator ring?",
+     "options": [
+      {
+       "text": "It swells up, turns red and bursts open within a day or so",
+       "why": "This does not happen."
+      },
+      {
+       "text": "It remains unchanged",
+       "why": "Blood flow has stopped, so it withers."
+      },
+      {
+       "text": "It falls off in about 2 to 3 days",
+       "why": "It takes longer than this."
+      },
+      {
+       "text": "It shrivels and drops off in about 2 to 3 weeks",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "chicks",
+     "prompt": "How do debeaked chicks behave if the work was right?",
+     "options": [
+      {
+       "text": "They stop eating for several days",
+       "why": "This points to over-trimming."
+      },
+      {
+       "text": "They peck each other more",
+       "why": "Debeaking reduces pecking."
+      },
+      {
+       "text": "They resume feeding within hours",
+       "correct": true
+      },
+      {
+       "text": "They lose feathers",
+       "why": "Debeaking helps to reduce feather pecking."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "notch",
+     "prompt": "Key: right lower = 1, right upper = 3, left lower = 10. A piglet has {a} right-lower, {b} right-upper and {c} left-lower notches. What is its number?",
+     "formula": "a + 3 * b + 10 * c",
+     "vars": {
+      "a": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      },
+      "b": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      },
+      "c": {
+       "min": 1,
+       "max": 3,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Number = {a} × 1 + {b} × 3 + {c} × 10 = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "kids",
+     "scenario": "The trainee's operations went badly. Here is what he did.",
+     "lines": [
+      {
+       "text": "He cut the chick's beak back to the nostrils.",
+       "fault": true,
+       "why": "Birds then cannot eat."
+      },
+      {
+       "text": "He tried to castrate an adult male with no vet.",
+       "fault": true,
+       "why": "Adults need veterinary help."
+      },
+      {
+       "text": "He crushed only part of the cord.",
+       "fault": true,
+       "why": "This leads to failed castration."
+      },
+      {
+       "text": "He recorded the date and identity in the register.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "He applied antiseptic after notching.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for routine management of farm animals.",
+    "explainPrompt": "Why is castration done on young animals?",
+    "explainGuide": "Young animals bleed less and suffer less stress, and they heal more quickly.",
+    "explainKeywords": [
+     [
+      "bleed",
+      "bleeding"
+     ],
+     [
+      "stress"
+     ],
+     [
+      "heal",
+      "young",
+      "younger"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Routine management",
+    "Reason and age for each",
+    "Use the key given"
+   ]
+  },
+  "pr-ahus-feeds-feedstuffs-identification": {
+   "safety": {
+    "correct": [
+     "Keep the oven door closed unless you are putting in or taking out a tray."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the hot tray out with your fingers and a rag.",
+      "why": "Use tongs to remove hot trays."
+     },
+     {
+      "text": "Sniff the fish meal dust deeply to identify it.",
+      "why": "Avoid breathing in fine dust."
+     },
+     {
+      "text": "Taste the premix to find out what it contains.",
+      "why": "Do not taste feeds."
+     },
+     {
+      "text": "Pour the premix from a height so that it flows faster.",
+      "why": "Fine dust rises and you breathe it in."
+     },
+     {
+      "text": "Put the tray on the balance straight from the oven.",
+      "why": "Hot trays can burn, and they read wrongly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bunsen burner",
+      "why": "The oven is the correct heat source."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "Feeds are not sieved in this practical."
+     },
+     {
+      "name": "Universal indicator",
+      "why": "No pH test is needed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "gnc",
+     "afterStep": 2,
+     "prompt": "How do you classify groundnut cake?",
+     "options": [
+      {
+       "text": "Protein concentrate",
+       "correct": true,
+       "consequence": "That is its main nutrient."
+      },
+      {
+       "text": "Energy feed",
+       "consequence": "Maize is the energy feed. This is a common slip."
+      },
+      {
+       "text": "Mineral supplement",
+       "consequence": "Oyster shell is one."
+      }
+     ]
+    },
+    {
+     "id": "chop",
+     "afterStep": 3,
+     "prompt": "How do you prepare the grass?",
+     "options": [
+      {
+       "text": "Chop it finely",
+       "correct": true,
+       "consequence": "It dries evenly."
+      },
+      {
+       "text": "Leave it in long bundles",
+       "consequence": "It dries unevenly."
+      },
+      {
+       "text": "Soak it first",
+       "consequence": "This adds water."
+      }
+     ]
+    },
+    {
+     "id": "constant",
+     "afterStep": 4,
+     "prompt": "When have you finished drying?",
+     "options": [
+      {
+       "text": "When the mass stays constant",
+       "correct": true,
+       "consequence": "All water has been removed."
+      },
+      {
+       "text": "After one hour",
+       "consequence": "Water may remain."
+      },
+      {
+       "text": "When the grass feels warm to the touch on the tray",
+       "consequence": "Warmth does not show dryness."
+      }
+     ]
+    },
+    {
+     "id": "cool",
+     "afterStep": 4,
+     "prompt": "How do you cool the sample?",
+     "options": [
+      {
+       "text": "In a desiccator",
+       "correct": true,
+       "consequence": "It does not take up moisture."
+      },
+      {
+       "text": "On the open bench overnight",
+       "consequence": "It takes up moisture."
+      },
+      {
+       "text": "In the cool wind by the door",
+       "consequence": "It takes up moisture from the air."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fish",
+     "prompt": "A brown sample has a strong fishy smell. What is it?",
+     "options": [
+      {
+       "text": "Groundnut cake",
+       "why": "This is brown and flaky."
+      },
+      {
+       "text": "Premix",
+       "why": "This is a fine coloured powder."
+      },
+      {
+       "text": "Fish meal",
+       "correct": true
+      },
+      {
+       "text": "Wheat offal",
+       "why": "This is a fibrous powder."
+      }
+     ]
+    },
+    {
+     "id": "loss",
+     "prompt": "How much mass does fresh young grass lose on drying?",
+     "options": [
+      {
+       "text": "About one-tenth",
+       "why": "Fresh grass is mostly water."
+      },
+      {
+       "text": "About three-quarters",
+       "correct": true
+      },
+      {
+       "text": "None at all",
+       "why": "Water leaves as it dries."
+      },
+      {
+       "text": "Nearly all of it",
+       "why": "Dry matter remains."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dm",
+     "prompt": "{f} g of fresh grass gives {d} g after drying to constant mass. What is its dry matter percentage?",
+     "formula": "d / f * 100",
+     "vars": {
+      "f": {
+       "min": 200,
+       "max": 300,
+       "step": 50
+      },
+      "d": {
+       "min": 40,
+       "max": 70,
+       "step": 10
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "DM = {d} ÷ {f} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "moist",
+     "prompt": "Fresh grass gives a dry matter of {d} %. What is its moisture percentage?",
+     "formula": "100 - d",
+     "vars": {
+      "d": {
+       "min": 20,
+       "max": 35,
+       "step": 5
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Moisture = 100 − {d} = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "feeds",
+     "scenario": "Jide's feed table lost marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He classed groundnut cake as an energy feed.",
+       "fault": true,
+       "why": "It is a protein concentrate."
+      },
+      {
+       "text": "He used dry mass as the denominator.",
+       "fault": true,
+       "why": "Fresh mass is used."
+      },
+      {
+       "text": "He left out the tray mass subtraction.",
+       "fault": true,
+       "why": "The tray must be subtracted if weighed with the sample."
+      },
+      {
+       "text": "He gave the main nutrient for each feed.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He chopped the forage finely.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for finding the dry matter of forage.",
+    "explainPrompt": "Why is dry matter used to compare feeds?",
+    "explainGuide": "Feeds differ in the amount of water they hold. Dry matter shows the real nutrients, so feeds can be fairly compared.",
+    "explainKeywords": [
+     [
+      "water",
+      "moisture"
+     ],
+     [
+      "nutrient",
+      "nutrients"
+     ],
+     [
+      "compare",
+      "compared",
+      "fair",
+      "fairly"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Feedstuffs and dry matter",
+    "Name, class, main nutrient",
+    "Dry to constant mass"
+   ]
+  },
+  "pr-ahus-pearson-square-ration": {
+   "safety": {
+    "correct": [
+     "Keep the mixing floor swept so no one slips on spilled feed."
+    ],
+    "wrong": [
+     {
+      "text": "Mix the dry feed with no dust mask.",
+      "why": "Wear a dust mask when mixing dry feeds."
+     },
+     {
+      "text": "Lift the heavy bag with your back bent.",
+      "why": "Lift with a straight back."
+     },
+     {
+      "text": "Carry a full bag alone rather than ask for help.",
+      "why": "Heavy bags strain your back. Ask for help."
+     },
+     {
+      "text": "Taste the mash to check it.",
+      "why": "Feeds may carry germs. Do not taste them."
+     },
+     {
+      "text": "Throw the dry feed high with the shovel while mixing.",
+      "why": "Dust rises and is breathed in."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated in this practical."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "Feed is not sieved here."
+     },
+     {
+      "name": "Universal indicator",
+      "why": "No chemical test is needed."
+     },
+     {
+      "name": "Egg candler",
+      "why": "No eggs are involved."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sub",
+     "afterStep": 3,
+     "prompt": "How do you subtract?",
+     "options": [
+      {
+       "text": "Diagonally across the square",
+       "correct": true,
+       "consequence": "Each ingredient gets the correct parts."
+      },
+      {
+       "text": "Across the same row",
+       "consequence": "This is a common slip."
+      },
+      {
+       "text": "Down the same column",
+       "consequence": "The parts come out wrong."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 4,
+     "prompt": "You have the parts. What next?",
+     "options": [
+      {
+       "text": "Use the parts directly as the kilograms to weigh out",
+       "consequence": "This ignores the batch size."
+      },
+      {
+       "text": "Convert to percentages, then kilograms",
+       "correct": true,
+       "consequence": "Masses match the batch."
+      },
+      {
+       "text": "Add the parts to the target",
+       "consequence": "This has no meaning."
+      }
+     ]
+    },
+    {
+     "id": "premix",
+     "afterStep": 5,
+     "prompt": "How do you add the premix?",
+     "options": [
+      {
+       "text": "Mix it with a little maize first",
+       "correct": true,
+       "consequence": "It spreads evenly."
+      },
+      {
+       "text": "Pour it in one corner of the heap",
+       "consequence": "It forms pockets."
+      },
+      {
+       "text": "Add it to the water and pour",
+       "consequence": "This makes the mash wet and uneven."
+      }
+     ]
+    },
+    {
+     "id": "cake",
+     "afterStep": 5,
+     "prompt": "The groundnut cake smells mouldy. What do you do?",
+     "options": [
+      {
+       "text": "Reject it and get fresh cake",
+       "correct": true,
+       "consequence": "Aflatoxin stays out of the feed."
+      },
+      {
+       "text": "Use it, but mix well",
+       "consequence": "Mould toxins stay in the mixture."
+      },
+      {
+       "text": "Dry it in the sun, then use it",
+       "consequence": "Drying does not remove toxins."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "mash",
+     "prompt": "How should the finished mash look?",
+     "options": [
+      {
+       "text": "Patches of cake and premix",
+       "why": "This is poor mixing."
+      },
+      {
+       "text": "Wet and sticky",
+       "why": "The feed should be dry."
+      },
+      {
+       "text": "Separate layers of each ingredient lying one on another",
+       "why": "This is poor mixing."
+      },
+      {
+       "text": "Evenly coloured, with no lumps or pockets",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "maize",
+     "prompt": "You make a {t} % CP ration from maize (9 %) and groundnut cake (45 %). What percentage of the ration is maize?",
+     "formula": "(45 - t) / 36 * 100",
+     "vars": {
+      "t": {
+       "min": 16,
+       "max": 24,
+       "step": 2
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Maize parts = 45 − {t}. GNC parts = {t} − 9. Total = 36. Maize = parts ÷ 36 × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "kg",
+     "prompt": "Groundnut cake is {p} % of a {b} kg batch. How many kilograms of cake are needed?",
+     "formula": "p / 100 * b",
+     "vars": {
+      "p": {
+       "min": 20,
+       "max": 40,
+       "step": 5
+      },
+      "b": {
+       "min": 100,
+       "max": 200,
+       "step": 50
+      }
+     },
+     "unit": "kg",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Mass = {p} ÷ 100 × {b} = {answer} kg.",
+     "unitAliases": [
+      "kilograms"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "mix",
+     "scenario": "Musa's ration failed the check. Here is what he did.",
+     "lines": [
+      {
+       "text": "He subtracted across the same row.",
+       "fault": true,
+       "why": "Subtract diagonally."
+      },
+      {
+       "text": "He skipped from parts straight to kilograms.",
+       "fault": true,
+       "why": "Convert parts to percentages first."
+      },
+      {
+       "text": "He chose a target above both ingredients.",
+       "fault": true,
+       "why": "The target must lie between them."
+      },
+      {
+       "text": "He drew the square neatly.",
+       "why": "Marks go to this."
+      },
+      {
+       "text": "He back-calculated the CP.",
+       "why": "That checks the answer."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for mixing a ration.",
+    "explainPrompt": "Why must the required CP lie between the CP values of the two ingredients?",
+    "explainGuide": "A mixture cannot have more protein than its richest ingredient, or less than its poorest. Only a target between them can be reached.",
+    "explainKeywords": [
+     [
+      "mixture",
+      "mix"
+     ],
+     [
+      "richest",
+      "highest",
+      "more"
+     ],
+     [
+      "poorest",
+      "lowest",
+      "less",
+      "between"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Pearson square",
+    "Subtract diagonally",
+    "Check by back-calculation"
+   ]
+  },
+  "pr-ahus-feeding-trial-fcr": {
+   "safety": {
+    "correct": [
+     "Keep your footwear for the pen separate from your classroom shoes."
+    ],
+    "wrong": [
+     {
+      "text": "Walk into the pen without using the foot dip.",
+      "why": "Disinfect footwear at the entrance."
+     },
+     {
+      "text": "Eat in the pen after weighing the birds.",
+      "why": "Wash your hands after handling birds and litter."
+     },
+     {
+      "text": "Carry litter out in your bare hands.",
+      "why": "Wash your hands. Use a tool for litter."
+     },
+     {
+      "text": "Hold a bird by one leg during weighing.",
+      "why": "This can injure the bird. Handle it gently."
+     },
+     {
+      "text": "Use your classroom shoes in the pen.",
+      "why": "They can carry disease. Use the dip."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated in this trial."
+     },
+     {
+      "name": "Layer mash",
+      "why": "Layer feed does not suit broilers."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Egg candler",
+      "why": "No eggs are involved."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "leftover",
+     "afterStep": 2,
+     "prompt": "Feed is left over the next morning. What do you do?",
+     "options": [
+      {
+       "text": "Weigh it and subtract it from feed offered",
+       "correct": true,
+       "consequence": "Only feed eaten is counted."
+      },
+      {
+       "text": "Ignore it, and count all the feed that was offered as eaten",
+       "consequence": "This counts unused feed as eaten."
+      },
+      {
+       "text": "Throw it away unweighed",
+       "consequence": "You lose the figure you need."
+      }
+     ]
+    },
+    {
+     "id": "weigh-time",
+     "afterStep": 3,
+     "prompt": "When do you weigh the birds each week?",
+     "options": [
+      {
+       "text": "Just after a heavy feed",
+       "consequence": "Gut fill raises the weight."
+      },
+      {
+       "text": "Whenever someone has the time to help you weigh them",
+       "consequence": "Weights will not compare."
+      },
+      {
+       "text": "Same time of day, before feeding",
+       "correct": true,
+       "consequence": "Gut-fill errors are avoided."
+      }
+     ]
+    },
+    {
+     "id": "dead",
+     "afterStep": 4,
+     "prompt": "A bird dies in week 3. What do you do?",
+     "options": [
+      {
+       "text": "Account for it in your records",
+       "correct": true,
+       "consequence": "Your per-bird figures stay fair."
+      },
+      {
+       "text": "Ignore it and carry on",
+       "consequence": "Mortality not accounted for gives an error."
+      },
+      {
+       "text": "Replace it with an older bird of about the same size",
+       "consequence": "This spoils the trial."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "curve",
+     "prompt": "What shape does a broiler growth curve have?",
+     "options": [
+      {
+       "text": "A straight falling line",
+       "why": "Weight goes up, not down."
+      },
+      {
+       "text": "A flat line",
+       "why": "Birds are growing."
+      },
+      {
+       "text": "S-shaped",
+       "correct": true
+      },
+      {
+       "text": "A U shape",
+       "why": "Weight does not dip and rise."
+      }
+     ]
+    },
+    {
+     "id": "best",
+     "prompt": "Which FCR shows the most efficient birds?",
+     "options": [
+      {
+       "text": "2.2",
+       "why": "A lower FCR is better."
+      },
+      {
+       "text": "1.8",
+       "correct": true
+      },
+      {
+       "text": "2.6",
+       "why": "A lower FCR is better."
+      },
+      {
+       "text": "3.0",
+       "why": "A lower FCR is better."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "fcr",
+     "prompt": "A broiler eats {f} kg of feed and gains {g} kg. What is its FCR?",
+     "formula": "f / g",
+     "vars": {
+      "f": {
+       "min": 3.6,
+       "max": 4.8,
+       "step": 0.2
+      },
+      "g": {
+       "min": 1.8,
+       "max": 2.2,
+       "step": 0.2
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "FCR = {f} ÷ {g} = {answer}."
+    },
+    {
+     "id": "eaten",
+     "prompt": "Feed offered was {o} kg and {l} kg was left over. How much feed was eaten?",
+     "formula": "o - l",
+     "vars": {
+      "o": {
+       "min": 10,
+       "max": 20,
+       "step": 5
+      },
+      "l": {
+       "min": 1,
+       "max": 3,
+       "step": 0.5
+      }
+     },
+     "unit": "kg",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 1,
+     "working": "Feed eaten = {o} − {l} = {answer} kg.",
+     "unitAliases": [
+      "kilograms"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "fcr-report",
+     "scenario": "Paul's FCR of 0.48 looks wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He divided weight gain by feed.",
+       "fault": true,
+       "why": "This gives feed efficiency, not FCR."
+      },
+      {
+       "text": "He used final weight, not weight gain.",
+       "fault": true,
+       "why": "Use the gain."
+      },
+      {
+       "text": "He counted spilt feed as eaten.",
+       "fault": true,
+       "why": "It should be subtracted."
+      },
+      {
+       "text": "He kept water available at all times.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He plotted age on the x-axis.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for a feeding trial.",
+    "explainPrompt": "Why is a low FCR desirable?",
+    "explainGuide": "A low FCR means less feed is needed for each kilogram of gain. Feed costs money, so the birds are more efficient and profitable.",
+    "explainKeywords": [
+     [
+      "less",
+      "low",
+      "lower"
+     ],
+     [
+      "feed"
+     ],
+     [
+      "gain",
+      "weight"
+     ],
+     [
+      "cost",
+      "costs",
+      "profit",
+      "profitable",
+      "efficient"
+     ]
+    ],
+    "explainNeed": 3
+   },
+   "board": [
+    "Feeding trial and FCR",
+    "Feed eaten ÷ weight gain",
+    "Low FCR is good"
+   ]
+  },
+  "pr-ahus-pasture-forage-identification": {
+   "safety": {
+    "correct": [
+     "Keep well apart from others when you are cutting."
+    ],
+    "wrong": [
+     {
+      "text": "Walk the pasture in slippers.",
+      "why": "Wear boots against snakes and thorns."
+     },
+     {
+      "text": "Carry the cutlass with its point up, over your shoulder.",
+      "why": "Carry cutlasses pointing downwards."
+     },
+     {
+      "text": "Reach into a thick tuft with your bare hand.",
+      "why": "Snakes and thorns hide there. Look first."
+     },
+     {
+      "text": "Throw the quadrat towards your friends.",
+      "why": "It can hit someone. Check the way is clear."
+     },
+     {
+      "text": "Leave the cutlass hidden in the grass.",
+      "why": "Someone can step on it. Keep it in view."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed here."
+     },
+     {
+      "name": "Soil auger",
+      "why": "You are sampling forage, not soil."
+     },
+     {
+      "name": "Ridger",
+      "why": "Nothing is ridged."
+     },
+     {
+      "name": "Egg candler",
+      "why": "No eggs are involved."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "throw",
+     "afterStep": 2,
+     "prompt": "How do you place the quadrat?",
+     "options": [
+      {
+       "text": "Choose the greenest patch",
+       "consequence": "This gives too high a yield."
+      },
+      {
+       "text": "Put it at the gate where it is trodden",
+       "consequence": "This gives too low a yield."
+      },
+      {
+       "text": "Throw it at random",
+       "correct": true,
+       "consequence": "This avoids bias."
+      }
+     ]
+    },
+    {
+     "id": "cut",
+     "afterStep": 2,
+     "prompt": "How do you cut the forage?",
+     "options": [
+      {
+       "text": "At ground level, pulling up roots",
+       "consequence": "Roots add false mass."
+      },
+      {
+       "text": "At about 5 cm, the same each time",
+       "correct": true,
+       "consequence": "Samples compare fairly."
+      },
+      {
+       "text": "At whatever height is easiest for each person cutting",
+       "consequence": "Samples would not compare."
+      }
+     ]
+    },
+    {
+     "id": "weigh",
+     "afterStep": 3,
+     "prompt": "When do you weigh the cut forage?",
+     "options": [
+      {
+       "text": "Immediately",
+       "correct": true,
+       "consequence": "Moisture is not lost."
+      },
+      {
+       "text": "At the end of the day",
+       "consequence": "It dries and loses mass."
+      },
+      {
+       "text": "After it has dried in the sun",
+       "consequence": "This is not the fresh weight."
+      }
+     ]
+    },
+    {
+     "id": "use-dm",
+     "afterStep": 6,
+     "prompt": "Intake is given in dry matter. Which yield do you use?",
+     "options": [
+      {
+       "text": "Dry matter yield",
+       "correct": true,
+       "consequence": "The figures now match."
+      },
+      {
+       "text": "Fresh yield",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "The average of the two",
+       "consequence": "This has no meaning."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "legume",
+     "prompt": "Which features point to a legume?",
+     "options": [
+      {
+       "text": "Narrow leaves and parallel veins",
+       "why": "These point to a grass."
+      },
+      {
+       "text": "Compound leaves and root nodules",
+       "correct": true
+      },
+      {
+       "text": "Fibrous roots only",
+       "why": "These point to a grass."
+      },
+      {
+       "text": "A tall stem with hairy leaf sheaths",
+       "why": "That is elephant grass."
+      }
+     ]
+    },
+    {
+     "id": "centro",
+     "prompt": "Which one is a twining legume with purple flowers?",
+     "options": [
+      {
+       "text": "Guinea grass",
+       "why": "This is a grass."
+      },
+      {
+       "text": "Elephant grass",
+       "why": "This is a grass."
+      },
+      {
+       "text": "Giant star grass",
+       "why": "This is a grass."
+      },
+      {
+       "text": "Centro",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ha",
+     "prompt": "Mean fresh yield is {y} kg per m². What is the yield in kg/ha?",
+     "formula": "y * 10000",
+     "vars": {
+      "y": {
+       "min": 0.4,
+       "max": 1,
+       "step": 0.1
+      }
+     },
+     "unit": "kg/ha",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Yield = {y} × 10 000 = {answer} kg/ha.",
+     "unitAliases": [
+      "kg per ha"
+     ]
+    },
+    {
+     "id": "dm",
+     "prompt": "A pasture gives {y} kg/ha fresh at 25 % DM. What is its dry matter yield?",
+     "formula": "y * 0.25",
+     "vars": {
+      "y": {
+       "min": 6000,
+       "max": 10000,
+       "step": 1000
+      }
+     },
+     "unit": "kg/ha",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "DM yield = {y} × 0.25 = {answer} kg/ha.",
+     "unitAliases": [
+      "kg per ha"
+     ]
+    },
+    {
+     "id": "cowdays",
+     "prompt": "A pasture has {u} kg of usable DM, and a cow eats 10 kg of DM a day. How many cow-days does it give?",
+     "formula": "u / 10",
+     "vars": {
+      "u": {
+       "min": 800,
+       "max": 1400,
+       "step": 100
+      }
+     },
+     "unit": "cow-days",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Cow-days = {u} ÷ 10 = {answer} cow-days.",
+     "unitAliases": [
+      "cow days"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "stock",
+     "scenario": "Rufus overstocked his pasture. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used fresh yield with DM intake figures.",
+       "fault": true,
+       "why": "Both must be dry matter."
+      },
+      {
+       "text": "He forgot that 1 ha is 10 000 m².",
+       "fault": true,
+       "why": "The conversion was wrong."
+      },
+      {
+       "text": "He rounded 3.3 cows up to 4.",
+       "fault": true,
+       "why": "Round down, as you cannot keep part of a cow."
+      },
+      {
+       "text": "He gave both common and botanical names.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He threw the quadrat at least five times.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for estimating forage yield.",
+    "explainPrompt": "Why are legumes valuable in a pasture?",
+    "explainGuide": "Legumes fix nitrogen in root nodules, which improves the soil and grass growth. Their leaves are rich in protein.",
+    "explainKeywords": [
+     [
+      "nitrogen"
+     ],
+     [
+      "nodule",
+      "nodules",
+      "soil"
+     ],
+     [
+      "protein"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Pasture and forage",
+    "Common and botanical names",
+    "Use dry matter figures"
+   ]
+  },
+  "pr-ahus-hay-and-silage-making": {
+   "safety": {
+    "correct": [
+     "Tell someone where you are before you go near an opened pit."
+    ],
+    "wrong": [
+     {
+      "text": "Climb into the silo straight after opening it.",
+      "why": "Gases can collect. Do not enter immediately."
+     },
+     {
+      "text": "Go down into the deep pit alone to fetch a tool.",
+      "why": "Gases can collect there. Stay out, and ask for help."
+     },
+     {
+      "text": "Swing the cutlass near your partner while cutting.",
+      "why": "Handle cutlasses with care."
+     },
+     {
+      "text": "Leave a cutlass in the cut forage.",
+      "why": "Someone can be cut. Keep it in view."
+     },
+     {
+      "text": "Jump on the forage in the pit without checking the sides.",
+      "why": "The sides can give way. Compact it with care under supervision."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Moisture can",
+      "why": "Hay is judged by feel here."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Egg candler",
+      "why": "No eggs are involved."
+     },
+     {
+      "name": "Universal indicator",
+      "why": "Silage is judged by colour, smell and texture."
+     },
+     {
+      "name": "Ranging poles",
+      "why": "Nothing is being surveyed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "hay-weather",
+     "afterStep": 1,
+     "prompt": "Rain is forecast for the week. What do you do about hay?",
+     "options": [
+      {
+       "text": "Cut it now and leave it out",
+       "consequence": "Rain spoils the hay."
+      },
+      {
+       "text": "Stack it wet under the roof",
+       "consequence": "Damp hay goes mouldy."
+      },
+      {
+       "text": "Wait for dry weather",
+       "correct": true,
+       "consequence": "Hay dries properly, without mould."
+      }
+     ]
+    },
+    {
+     "id": "pack",
+     "afterStep": 4,
+     "prompt": "How do you fill the pit?",
+     "options": [
+      {
+       "text": "In layers, each firmly compacted",
+       "correct": true,
+       "consequence": "Air is pressed out, so no mould forms."
+      },
+      {
+       "text": "All at once, with no pressing",
+       "consequence": "Air pockets cause moulding."
+      },
+      {
+       "text": "Loosely, to let the forage breathe",
+       "consequence": "Air spoils silage."
+      }
+     ]
+    },
+    {
+     "id": "seal",
+     "afterStep": 5,
+     "prompt": "The pit is full. What do you do?",
+     "options": [
+      {
+       "text": "Cover with polythene and weight it down",
+       "correct": true,
+       "consequence": "The pit is airtight, so fermentation is anaerobic."
+      },
+      {
+       "text": "Leave it open to the air for about a week to settle",
+       "consequence": "Air causes moulding."
+      },
+      {
+       "text": "Cover it with loose grass",
+       "consequence": "Air gets in."
+      }
+     ]
+    },
+    {
+     "id": "stage",
+     "afterStep": 2,
+     "prompt": "When do you cut forage for quality?",
+     "options": [
+      {
+       "text": "At the right stage: young and green",
+       "correct": true,
+       "consequence": "Quality is good."
+      },
+      {
+       "text": "When it is old and dry",
+       "consequence": "Quality is poor."
+      },
+      {
+       "text": "At any stage, as all forage is alike",
+       "consequence": "The stage of growth affects quality."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "Which silage is good?",
+     "options": [
+      {
+       "text": "Dark and slimy, like rotten eggs",
+       "why": "That is poor silage."
+      },
+      {
+       "text": "Yellow-green, firm, pleasant sour smell",
+       "correct": true
+      },
+      {
+       "text": "Smells of ammonia",
+       "why": "That is poor silage."
+      },
+      {
+       "text": "White with mould on top, with a strong musty smell",
+       "why": "Mould means air got in."
+      }
+     ]
+    },
+    {
+     "id": "hay",
+     "prompt": "How does good hay look?",
+     "options": [
+      {
+       "text": "Green, leafy, sweet-smelling",
+       "correct": true
+      },
+      {
+       "text": "Brown and mouldy",
+       "why": "Mould makes hay unsafe."
+      },
+      {
+       "text": "Black and wet",
+       "why": "That is spoiled."
+      },
+      {
+       "text": "Stalky and dusty",
+       "why": "That is poor hay."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "volume",
+     "prompt": "A silage pit measures {l} m × {w} m × {d} m. What is its volume?",
+     "formula": "l * w * d",
+     "vars": {
+      "l": {
+       "min": 3,
+       "max": 5,
+       "step": 1
+      },
+      "w": {
+       "min": 2,
+       "max": 3,
+       "step": 1
+      },
+      "d": {
+       "min": 1,
+       "max": 2,
+       "step": 0.5
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Volume = {l} × {w} × {d} = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    },
+    {
+     "id": "mass",
+     "prompt": "A {v} m³ pit is packed at 600 kg/m³. How much silage does it hold?",
+     "formula": "v * 600",
+     "vars": {
+      "v": {
+       "min": 8,
+       "max": 16,
+       "step": 2
+      }
+     },
+     "unit": "kg",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Mass = {v} × 600 = {answer} kg.",
+     "unitAliases": [
+      "kilograms"
+     ]
+    },
+    {
+     "id": "days",
+     "prompt": "A pit holds {m} kg of silage. How many cow-days does it give at 20 kg per cow per day?",
+     "formula": "m / 20",
+     "vars": {
+      "m": {
+       "min": 4800,
+       "max": 8400,
+       "step": 1200
+      }
+     },
+     "unit": "cow-days",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Cow-days = {m} ÷ 20 = {answer} cow-days.",
+     "unitAliases": [
+      "cow days"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "silage",
+     "scenario": "Ojo's silage rotted. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left air pockets when filling.",
+       "fault": true,
+       "why": "Air causes moulding."
+      },
+      {
+       "text": "He called silage dried forage.",
+       "fault": true,
+       "why": "That is hay. Silage is fermented."
+      },
+      {
+       "text": "He did not weight down the cover.",
+       "fault": true,
+       "why": "It must be airtight."
+      },
+      {
+       "text": "He wilted the forage for a few hours.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "He chopped the forage into short pieces.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for making silage.",
+    "explainPrompt": "Why must air be kept out of a silage pit?",
+    "explainGuide": "Silage is made by anaerobic fermentation, which produces lactic acid. Air allows moulds to grow and spoils the forage.",
+    "explainKeywords": [
+     [
+      "anaerobic",
+      "fermentation",
+      "ferment"
+     ],
+     [
+      "lactic",
+      "acid"
+     ],
+     [
+      "mould",
+      "moulds",
+      "moulding",
+      "spoil",
+      "spoils"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Hay and silage",
+    "Exclude air",
+    "Volume, mass, days"
+   ]
+  },
+  "pr-ahus-artificial-insemination": {
+   "safety": {
+    "correct": [
+     "Keep the liquid nitrogen flask upright and leave it to the teacher to open."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the straws from the liquid nitrogen with bare hands.",
+      "why": "Liquid nitrogen causes severe cold burns. Use gloves and goggles."
+     },
+     {
+      "text": "Look into the flask with no goggles.",
+      "why": "Splashes burn. Wear goggles."
+     },
+     {
+      "text": "Work on a cow that is not in a crush.",
+      "why": "Restrain the female in a crush."
+     },
+     {
+      "text": "Do rectal palpation with short gloves.",
+      "why": "Wear arm-length gloves."
+     },
+     {
+      "text": "Stand directly behind an unrestrained cow.",
+      "why": "You can be kicked. Use a crush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Burdizzo",
+      "why": "This is for castration."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs."
+     },
+     {
+      "name": "Drenching gun",
+      "why": "This gives oral drugs, and is not the insemination gun."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "warm",
+     "afterStep": 3,
+     "prompt": "The fresh semen is waiting for the microscope. How do you keep it?",
+     "options": [
+      {
+       "text": "On a cold bench",
+       "consequence": "Cold shock kills sperm."
+      },
+      {
+       "text": "At body temperature",
+       "correct": true,
+       "consequence": "There is no cold shock."
+      },
+      {
+       "text": "In the sun",
+       "consequence": "Heat harms sperm."
+      }
+     ]
+    },
+    {
+     "id": "reject",
+     "afterStep": 3,
+     "prompt": "The sample shows low motility. What do you do?",
+     "options": [
+      {
+       "text": "Reject it",
+       "correct": true,
+       "consequence": "Only good semen is used."
+      },
+      {
+       "text": "Dilute it less and use it",
+       "consequence": "Poor semen gives poor conception."
+      },
+      {
+       "text": "Mix it with a good sample",
+       "consequence": "Poor semen spoils the batch."
+      }
+     ]
+    },
+    {
+     "id": "timing",
+     "afterStep": 6,
+     "prompt": "When do you inseminate?",
+     "options": [
+      {
+       "text": "Before the heat begins",
+       "consequence": "It is too early."
+      },
+      {
+       "text": "A full week after the signs of heat have all ended",
+       "consequence": "It is far too late."
+      },
+      {
+       "text": "About 12 hours after standing heat begins",
+       "correct": true,
+       "consequence": "Conception is most likely."
+      }
+     ]
+    },
+    {
+     "id": "tool",
+     "afterStep": 1,
+     "prompt": "Which equipment collects the semen?",
+     "options": [
+      {
+       "text": "Insemination gun",
+       "consequence": "This deposits semen in the cow."
+      },
+      {
+       "text": "Liquid nitrogen flask",
+       "consequence": "This stores straws."
+      },
+      {
+       "text": "Artificial vagina",
+       "correct": true,
+       "consequence": "It collects from the bull."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "How does good bull semen look?",
+     "options": [
+      {
+       "text": "Watery and clear, with only a little slow movement seen",
+       "why": "This shows poor semen."
+      },
+      {
+       "text": "Pink with blood",
+       "why": "This is not normal."
+      },
+      {
+       "text": "Creamy-white, with strong wave-like motion",
+       "correct": true
+      },
+      {
+       "text": "Yellow with no motion",
+       "why": "This shows poor semen."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "doses",
+     "prompt": "An ejaculate of {v} mL has 1.2 × 10⁹ sperm/mL and {m} % motility. At 2 × 10⁷ motile sperm per dose, how many doses is that?",
+     "formula": "v * 1.2 * m / 100 * 100 / 2",
+     "vars": {
+      "v": {
+       "min": 4,
+       "max": 6,
+       "step": 1
+      },
+      "m": {
+       "min": 60,
+       "max": 80,
+       "step": 10
+      }
+     },
+     "unit": "doses",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Total sperm = {v} × 1.2 × 10⁹. Motile = total × {m} ÷ 100. Doses = motile ÷ (2 × 10⁷) = {answer} doses.",
+     "unitAliases": [
+      "dose"
+     ]
+    },
+    {
+     "id": "diluent",
+     "prompt": "{d} doses of 0.5 mL are made from 5 mL of semen. How much diluent is needed?",
+     "formula": "d * 0.5 - 5",
+     "vars": {
+      "d": {
+       "min": 150,
+       "max": 250,
+       "step": 20
+      }
+     },
+     "unit": "mL",
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "Total volume = {d} × 0.5 mL. Diluent = total − 5 = {answer} mL.",
+     "unitAliases": [
+      "ml",
+      "millilitres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "ai",
+     "scenario": "Ben's AI report lost marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot to multiply by motility.",
+       "fault": true,
+       "why": "Only motile sperm count."
+      },
+      {
+       "text": "He called the artificial vagina the insemination gun.",
+       "fault": true,
+       "why": "They do different jobs."
+      },
+      {
+       "text": "He let the semen get cold before diluting.",
+       "fault": true,
+       "why": "This causes cold shock."
+      },
+      {
+       "text": "He sterilised all the equipment.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He showed powers of ten clearly.",
+       "why": "That is what the exam wants."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions in artificial insemination.",
+    "explainPrompt": "Give two advantages of artificial insemination.",
+    "explainGuide": "AI allows wide use of superior sires and helps to control disease. There is no need to keep bulls, and semen can be stored for years.",
+    "explainKeywords": [
+     [
+      "superior",
+      "sire",
+      "sires"
+     ],
+     [
+      "disease"
+     ],
+     [
+      "bull",
+      "bulls",
+      "stored",
+      "storage"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Artificial insemination",
+    "Collect, evaluate, dilute, store",
+    "Show powers of ten"
+   ]
+  },
+  "pr-ahus-parasites-and-dipping": {
+   "safety": {
+    "correct": [
+     "Stay with the dip while it is uncovered, so that no child or animal reaches it."
+    ],
+    "wrong": [
+     {
+      "text": "Stir the dip with your bare hand.",
+      "why": "Acaricides are poisonous. Wear gloves."
+     },
+     {
+      "text": "Mix the dip with no goggles or mask.",
+      "why": "Wear gloves, goggles and a mask."
+     },
+     {
+      "text": "Eat a snack while measuring the concentrate.",
+      "why": "Do not eat or drink while handling acaricides."
+     },
+     {
+      "text": "Empty the used dip into the stream.",
+      "why": "Dispose of it away from wells and streams."
+     },
+     {
+      "text": "Pour the used dip close to the school well.",
+      "why": "Dispose of it away from wells."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Drink bottle",
+      "why": "Never measure or carry poison in a drink bottle."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated here."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs."
+     },
+     {
+      "name": "Secateurs",
+      "why": "Nothing is being pruned."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "strength",
+     "afterStep": 6,
+     "prompt": "You have worked out the volume of concentrate. How do you add it?",
+     "options": [
+      {
+       "text": "Add a little more than the label says, to be safe",
+       "consequence": "Too strong poisons the animals."
+      },
+      {
+       "text": "Add a bit less to save money",
+       "consequence": "Too weak gives resistance."
+      },
+      {
+       "text": "Measure exactly, top up with water and stir",
+       "correct": true,
+       "consequence": "The strength is right."
+      }
+     ]
+    },
+    {
+     "id": "top-up",
+     "afterStep": 6,
+     "prompt": "Part of the water is in. How do you finish?",
+     "options": [
+      {
+       "text": "Stop there, with part of the water",
+       "consequence": "The dip is too strong."
+      },
+      {
+       "text": "Add the concentrate and top up to full volume",
+       "correct": true,
+       "consequence": "The dip reaches the stated strength."
+      },
+      {
+       "text": "Add extra water well beyond the volume on the label",
+       "consequence": "The dip is too weak."
+      }
+     ]
+    },
+    {
+     "id": "when-dip",
+     "afterStep": 6,
+     "prompt": "When are animals dipped?",
+     "options": [
+      {
+       "text": "At noon in the hot sun, while they are still thirsty",
+       "consequence": "They may drink the dip."
+      },
+      {
+       "text": "In the cool of the day, after watering",
+       "correct": true,
+       "consequence": "They are calm and do not drink the dip."
+      },
+      {
+       "text": "Right after a long dry walk",
+       "consequence": "Thirsty animals may drink the dip."
+      }
+     ]
+    },
+    {
+     "id": "class",
+     "afterStep": 2,
+     "prompt": "How do you class the liver fluke?",
+     "options": [
+      {
+       "text": "Ectoparasite",
+       "consequence": "It does not live on the outside."
+      },
+      {
+       "text": "Storage pest",
+       "consequence": "It is a parasite of animals."
+      },
+      {
+       "text": "Endoparasite",
+       "correct": true,
+       "consequence": "It lives inside the host."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tick",
+     "prompt": "An oval parasite has eight legs and no body division. What is it?",
+     "options": [
+      {
+       "text": "Louse",
+       "why": "This has six legs."
+      },
+      {
+       "text": "Tapeworm",
+       "why": "This is long and segmented."
+      },
+      {
+       "text": "Ascaris",
+       "why": "This is a long cylindrical worm."
+      },
+      {
+       "text": "Tick",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "fluke",
+     "prompt": "Which one is leaf-shaped with two suckers?",
+     "options": [
+      {
+       "text": "Tapeworm",
+       "why": "This is long, flat and segmented."
+      },
+      {
+       "text": "Ascaris",
+       "why": "This is cylindrical."
+      },
+      {
+       "text": "Flea",
+       "why": "This is an insect."
+      },
+      {
+       "text": "Liver fluke",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "c1v1",
+     "prompt": "Concentrate is 12.5 % and the required dip is 0.05 %. How many litres of concentrate make {v} L of dip?",
+     "formula": "0.05 * v / 12.5",
+     "vars": {
+      "v": {
+       "min": 100,
+       "max": 300,
+       "step": 50
+      }
+     },
+     "unit": "L",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "V₁ = 0.05 × {v} ÷ 12.5 = {answer} L.",
+     "unitAliases": [
+      "litres",
+      "litre"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "dip",
+     "scenario": "Ticks returned after Mr Bello's dip. Here is what he did.",
+     "lines": [
+      {
+       "text": "He stopped after adding only part of the water.",
+       "fault": true,
+       "why": "The dip must be topped up to full volume."
+      },
+      {
+       "text": "He called ticks insects.",
+       "fault": true,
+       "why": "They are arachnids."
+      },
+      {
+       "text": "He left the dip uncovered for days as it evaporated.",
+       "fault": true,
+       "why": "Evaporation raises the concentration."
+      },
+      {
+       "text": "He wrote the dilution formula first.",
+       "why": "That is what the exam wants."
+      },
+      {
+       "text": "He wore gloves, goggles and a mask.",
+       "why": "That is the safe way."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for preparing an acaricide dip.",
+    "explainPrompt": "Why must the correct dip strength be used?",
+    "explainGuide": "Too weak a dip does not kill the ticks and gives resistance. Too strong a dip poisons the animals.",
+    "explainKeywords": [
+     [
+      "weak"
+     ],
+     [
+      "resistance"
+     ],
+     [
+      "strong",
+      "poison",
+      "poisons"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Parasites and dipping",
+    "Name, host, damage, control",
+    "Write the formula first"
+   ]
+  },
+  "pr-ahus-pests-of-farm-animals": {
+   "safety": {
+    "correct": [
+     "Keep sealed samples away from the school food store."
+    ],
+    "wrong": [
+     {
+      "text": "Sort the mouldy grain with your bare hands.",
+      "why": "Mouldy grain may carry aflatoxin. Wear gloves."
+     },
+     {
+      "text": "Sweep up rat droppings with your bare hands.",
+      "why": "Lassa fever risk: do not touch them."
+     },
+     {
+      "text": "Blow the frass off the tray.",
+      "why": "Dust and germs can reach you. Handle it carefully."
+     },
+     {
+      "text": "Leave infested grain open in the laboratory.",
+      "why": "It spreads. Seal it."
+     },
+     {
+      "text": "Taste the grain to check its spoilage.",
+      "why": "Mouldy grain is unsafe."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed here."
+     },
+     {
+      "name": "Drenching gun",
+      "why": "No animal is being dosed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "Grains are counted by hand."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sample",
+     "afterStep": 3,
+     "prompt": "How do you pick your 200 grains?",
+     "options": [
+      {
+       "text": "At random",
+       "correct": true,
+       "consequence": "The sample is fair."
+      },
+      {
+       "text": "Only those with holes",
+       "consequence": "This overstates damage."
+      },
+      {
+       "text": "Only the clean-looking ones",
+       "consequence": "This understates damage."
+      }
+     ]
+    },
+    {
+     "id": "seal",
+     "afterStep": 5,
+     "prompt": "You have finished with the infested sample. What do you do?",
+     "options": [
+      {
+       "text": "Seal it",
+       "correct": true,
+       "consequence": "It cannot spread to other stores."
+      },
+      {
+       "text": "Leave it open on the bench",
+       "consequence": "Pests spread."
+      },
+      {
+       "text": "Tip it into the feed store",
+       "consequence": "This spreads infestation."
+      }
+     ]
+    },
+    {
+     "id": "classify",
+     "afterStep": 2,
+     "prompt": "How do you class the maize weevil?",
+     "options": [
+      {
+       "text": "Storage pest",
+       "correct": true,
+       "consequence": "It attacks stored grain."
+      },
+      {
+       "text": "Field pest of animals",
+       "consequence": "It does not attack animals."
+      },
+      {
+       "text": "Parasite",
+       "consequence": "It does not live on an animal."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tsetse",
+     "prompt": "Which fly's wings fold like closed scissors?",
+     "options": [
+      {
+       "text": "House fly",
+       "why": "This has different wings."
+      },
+      {
+       "text": "Mosquito",
+       "why": "This is much slimmer."
+      },
+      {
+       "text": "Tsetse fly",
+       "correct": true
+      },
+      {
+       "text": "Blackfly",
+       "why": "This is small and humped."
+      }
+     ]
+    },
+    {
+     "id": "grain",
+     "prompt": "How do you recognise damaged grains?",
+     "options": [
+      {
+       "text": "Dull colour alone",
+       "why": "Look for holes."
+      },
+      {
+       "text": "Round holes and powdery frass",
+       "correct": true
+      },
+      {
+       "text": "Bigger size",
+       "why": "Damage does not enlarge grains."
+      },
+      {
+       "text": "Wet surface",
+       "why": "Holes are the sign."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "infest",
+     "prompt": "{d} of {n} grains are holed. What is the percentage infestation?",
+     "formula": "d / n * 100",
+     "vars": {
+      "d": {
+       "min": 20,
+       "max": 50,
+       "step": 5
+      },
+      "n": {
+       "min": 200,
+       "max": 250,
+       "step": 50
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Infestation = {d} ÷ {n} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "pest-report",
+     "scenario": "Sade's pest report lost marks. Here is what she wrote.",
+     "lines": [
+      {
+       "text": "She said ticks are pests, not parasites.",
+       "fault": true,
+       "why": "Parasites live on or in the host."
+      },
+      {
+       "text": "She wrote 'use chemicals' with no method.",
+       "fault": true,
+       "why": "She must name a method."
+      },
+      {
+       "text": "She did not count hidden infestation as a possible error.",
+       "fault": true,
+       "why": "This is a known source of error."
+      },
+      {
+       "text": "She named trypanosomiasis for the tsetse fly.",
+       "why": "That is a specific importance."
+      },
+      {
+       "text": "She suggested drying feed and good storage.",
+       "why": "That is hygiene control."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for handling infested grain.",
+    "explainPrompt": "What is the difference between a pest and a parasite?",
+    "explainGuide": "A parasite lives on or inside a host and feeds on it. A pest damages or annoys animals or spoils stored products.",
+    "explainKeywords": [
+     [
+      "parasite"
+     ],
+     [
+      "host",
+      "lives"
+     ],
+     [
+      "pest"
+     ],
+     [
+      "damage",
+      "damages",
+      "annoy",
+      "annoys",
+      "stored"
+     ]
+    ],
+    "explainNeed": 3
+   },
+   "board": [
+    "Pests of animals and feeds",
+    "Field or storage?",
+    "Name the method"
+   ]
+  },
+  "pr-ahus-clinical-examination-vital-signs": {
+   "safety": {
+    "correct": [
+     "Hold the thermometer firmly so that it cannot slip inside or fall."
+    ],
+    "wrong": [
+     {
+      "text": "Stand directly behind the goat as you read the thermometer.",
+      "why": "Stand to the side."
+     },
+     {
+      "text": "Examine the goat with no one holding it.",
+      "why": "Restrain the animal firmly."
+     },
+     {
+      "text": "Use the thermometer on the next goat with no disinfecting.",
+      "why": "Disinfect before and after use."
+     },
+     {
+      "text": "Force the thermometer in fast to finish quickly.",
+      "why": "Insert it gently."
+     },
+     {
+      "text": "Chase the goat to catch it before you start.",
+      "why": "This raises its pulse and alarms it. Keep it calm."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Laboratory thermometer",
+      "why": "Use the clinical thermometer."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "calm",
+     "afterStep": 2,
+     "prompt": "The goat has just been chased. What do you do?",
+     "options": [
+      {
+       "text": "Wait until it is calm",
+       "correct": true,
+       "consequence": "Excitement does not raise your readings."
+      },
+      {
+       "text": "Read it at once",
+       "consequence": "Pulse and breathing will be falsely high."
+      },
+      {
+       "text": "Run it again and take an average",
+       "consequence": "This makes it worse."
+      }
+     ]
+    },
+    {
+     "id": "thermo",
+     "afterStep": 2,
+     "prompt": "How do you use the thermometer?",
+     "options": [
+      {
+       "text": "In the mouth under the tongue, as you would with a person",
+       "consequence": "Oral temperature is not taken in animals."
+      },
+      {
+       "text": "In the middle of the faeces",
+       "consequence": "It must touch the rectal wall."
+      },
+      {
+       "text": "Against the rectal wall for about a minute",
+       "correct": true,
+       "consequence": "You get a steady reading."
+      }
+     ]
+    },
+    {
+     "id": "count",
+     "afterStep": 3,
+     "prompt": "You counted 22 pulse beats in 15 s. What do you record?",
+     "options": [
+      {
+       "text": "88 beats per minute",
+       "correct": true,
+       "consequence": "This is the count × 4."
+      },
+      {
+       "text": "22 beats per minute",
+       "consequence": "You forgot to multiply by 4."
+      },
+      {
+       "text": "37 beats per minute",
+       "consequence": "This is a wrong scale."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "health",
+     "prompt": "Which goat looks healthy?",
+     "options": [
+      {
+       "text": "Dull and isolated",
+       "why": "That looks sick."
+      },
+      {
+       "text": "Rough coat with diarrhoea",
+       "why": "That looks sick."
+      },
+      {
+       "text": "Off feed, with discharges",
+       "why": "That looks sick."
+      },
+      {
+       "text": "Alert, bright eyes, smooth coat",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "fever",
+     "prompt": "A goat's temperature is 41.2 °C. What do you record?",
+     "options": [
+      {
+       "text": "Normal",
+       "why": "Normal is about 38.5–40 °C."
+      },
+      {
+       "text": "Fever",
+       "correct": true
+      },
+      {
+       "text": "Too cold",
+       "why": "It is above normal."
+      },
+      {
+       "text": "Normal only after exercise",
+       "why": "Take it when calm, then judge."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "pulse",
+     "prompt": "You count {c} pulse beats in 15 s. What is the pulse rate?",
+     "formula": "c * 4",
+     "vars": {
+      "c": {
+       "min": 17,
+       "max": 24,
+       "step": 1
+      }
+     },
+     "unit": "beats/min",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Pulse = {c} × 4 = {answer} beats/min.",
+     "unitAliases": [
+      "per minute",
+      "per min"
+     ]
+    },
+    {
+     "id": "resp",
+     "prompt": "You count {c} flank movements in 15 s. What is the respiration rate?",
+     "formula": "c * 4",
+     "vars": {
+      "c": {
+       "min": 4,
+       "max": 10,
+       "step": 1
+      }
+     },
+     "unit": "breaths/min",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Respiration = {c} × 4 = {answer} breaths/min.",
+     "unitAliases": [
+      "per minute",
+      "per min"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "exam",
+     "scenario": "Yemi's clinical report was wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot to multiply his 15-second count by 4.",
+       "fault": true,
+       "why": "The rate must be per minute."
+      },
+      {
+       "text": "He took the goat's temperature by mouth.",
+       "fault": true,
+       "why": "Rectal temperature is used."
+      },
+      {
+       "text": "He measured right after chasing the goat.",
+       "fault": true,
+       "why": "Excitement raises pulse and breathing."
+      },
+      {
+       "text": "He used a stopwatch.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He listed signs of ill-health.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for taking vital signs.",
+    "explainPrompt": "Why should readings be taken when the animal is calm?",
+    "explainGuide": "Excitement or heat stress raises pulse and respiration, so readings taken then do not show the animal's normal state.",
+    "explainKeywords": [
+     [
+      "excitement",
+      "stress",
+      "chased"
+     ],
+     [
+      "pulse",
+      "respiration",
+      "breathing"
+     ],
+     [
+      "raise",
+      "raises",
+      "high",
+      "higher"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Temperature, pulse, respiration",
+    "Calm animal first",
+    "Multiply by 4"
+   ]
+  },
+  "pr-ahus-disease-prevention-dosing": {
+   "safety": {
+    "correct": [
+     "Put used needles straight into a safe sharps container."
+    ],
+    "wrong": [
+     {
+      "text": "Reuse one needle on all the animals, with no cleaning.",
+      "why": "Use one needle per animal or disinfect between."
+     },
+     {
+      "text": "Use an out-of-date drug, as it is still in the bottle.",
+      "why": "Never give drugs past their expiry date."
+     },
+     {
+      "text": "Spray without gloves or a mask.",
+      "why": "Wear gloves and a mask."
+     },
+     {
+      "text": "Leave used needles on the pen floor.",
+      "why": "Dispose of needles safely."
+     },
+     {
+      "text": "Recap a needle by pushing it towards your palm.",
+      "why": "You can jab yourself. Put it into the sharps container."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chlorinated tap water",
+      "why": "Chlorine kills live vaccine virus."
+     },
+     {
+      "name": "Hot water flask",
+      "why": "Heat kills live vaccine."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This is for eggs."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "weigh",
+     "afterStep": 1,
+     "prompt": "How do you find the goat's dose?",
+     "options": [
+      {
+       "text": "Guess its weight",
+       "consequence": "Under-dosing encourages resistance."
+      },
+      {
+       "text": "Use the dose you gave the last goat",
+       "consequence": "Doses follow body weight."
+      },
+      {
+       "text": "Weigh it or use a weigh band",
+       "correct": true,
+       "consequence": "You give the right dose."
+      }
+     ]
+    },
+    {
+     "id": "head",
+     "afterStep": 3,
+     "prompt": "How do you drench?",
+     "options": [
+      {
+       "text": "Head raised high and the dose given fast",
+       "consequence": "It may enter the lungs."
+      },
+      {
+       "text": "Head level, slowly over the tongue",
+       "correct": true,
+       "consequence": "It goes down safely."
+      },
+      {
+       "text": "Into the nose",
+       "consequence": "This is dangerous."
+      }
+     ]
+    },
+    {
+     "id": "water",
+     "afterStep": 4,
+     "prompt": "Which water do you use for the vaccine?",
+     "options": [
+      {
+       "text": "Chlorinated tap water",
+       "consequence": "Chlorine kills live vaccine."
+      },
+      {
+       "text": "Hot water",
+       "consequence": "Heat kills live vaccine."
+      },
+      {
+       "text": "Cool, chlorine-free water",
+       "correct": true,
+       "consequence": "The live vaccine survives."
+      }
+     ]
+    },
+    {
+     "id": "store",
+     "afterStep": 4,
+     "prompt": "Where do you keep the vaccine?",
+     "options": [
+      {
+       "text": "Cold, 2–8 °C, out of the sun",
+       "correct": true,
+       "consequence": "It stays potent."
+      },
+      {
+       "text": "On a sunny window ledge where you can see it",
+       "consequence": "Heat and sun destroy it."
+      },
+      {
+       "text": "On the warm shelf",
+       "consequence": "It loses potency."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "swallow",
+     "prompt": "How does a correctly drenched animal behave?",
+     "options": [
+      {
+       "text": "It coughs and splutters, with liquid running out",
+       "why": "Liquid may be going to the lungs."
+      },
+      {
+       "text": "It spits it all out",
+       "why": "The dose was lost."
+      },
+      {
+       "text": "It falls down",
+       "why": "This is a serious problem."
+      },
+      {
+       "text": "It swallows without coughing",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "immunity",
+     "prompt": "When should vaccinated birds show immunity?",
+     "options": [
+      {
+       "text": "Within an hour",
+       "why": "Immunity takes time."
+      },
+      {
+       "text": "After 6 months",
+       "why": "It develops much sooner."
+      },
+      {
+       "text": "After 1 to 2 weeks",
+       "correct": true
+      },
+      {
+       "text": "Never",
+       "why": "Vaccines do give immunity."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dose",
+     "prompt": "The label dose is 2.5 mL per 10 kg. What dose does a {w} kg goat need?",
+     "formula": "w / 10 * 2.5",
+     "vars": {
+      "w": {
+       "min": 20,
+       "max": 40,
+       "step": 4
+      }
+     },
+     "unit": "mL",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "Dose = {w} ÷ 10 × 2.5 = {answer} mL.",
+     "unitAliases": [
+      "ml",
+      "millilitres"
+     ]
+    },
+    {
+     "id": "vials",
+     "prompt": "{n} birds need vaccinating from vials of 100 doses. How many vials are needed?",
+     "formula": "n / 100",
+     "vars": {
+      "n": {
+       "min": 300,
+       "max": 800,
+       "step": 100
+      }
+     },
+     "unit": "vials",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Vials = {n} ÷ 100 = {answer} vials.",
+     "unitAliases": [
+      "vial"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "vaccine",
+     "scenario": "The flock's vaccination failed. Here is what happened.",
+     "lines": [
+      {
+       "text": "The vaccine was mixed with chlorinated tap water.",
+       "fault": true,
+       "why": "Chlorine kills live vaccine."
+      },
+      {
+       "text": "The vaccine was left in the sun.",
+       "fault": true,
+       "why": "Keep it cold and dark."
+      },
+      {
+       "text": "The drinkers were left full before vaccinating.",
+       "fault": true,
+       "why": "Withdraw water for 1 to 2 hours before."
+      },
+      {
+       "text": "The date, product and dose were recorded.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "The foot dip was refilled.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for vaccinating or drenching.",
+    "explainPrompt": "Why is under-dosing a drug harmful?",
+    "explainGuide": "An under-dose does not kill all the worms. The survivors build up drug resistance, so the drug stops working.",
+    "explainKeywords": [
+     [
+      "resistance",
+      "resistant"
+     ],
+     [
+      "worm",
+      "worms",
+      "survivors",
+      "parasites"
+     ],
+     [
+      "kill",
+      "kills"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Vaccination and drenching",
+    "Weigh before dosing",
+    "Keep vaccines cold"
+   ]
+  },
+  "pr-ahus-egg-handling-hen-day": {
+   "safety": {
+    "correct": [
+     "Keep broken eggs off the floor, and clean up at once."
+    ],
+    "wrong": [
+     {
+      "text": "Eat straight after collecting the eggs, with no hand washing.",
+      "why": "Shells may carry Salmonella. Wash your hands."
+     },
+     {
+      "text": "Drop eggs into the tray from a height.",
+      "why": "Handle eggs gently."
+     },
+     {
+      "text": "Stack eggs loose in a bucket.",
+      "why": "They will crack. Use trays."
+     },
+     {
+      "text": "Taste a raw egg to check that it is fresh.",
+      "why": "Raw eggs may carry Salmonella."
+     },
+     {
+      "text": "Rub your eyes after handling soiled eggs.",
+      "why": "Germs reach your eyes. Wash your hands first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Burdizzo",
+      "why": "This is a castration tool."
+     },
+     {
+      "name": "Soil sieves",
+      "why": "They have no use here."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated."
+     },
+     {
+      "name": "Debeaker",
+      "why": "This is used on chicks."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "soiled",
+     "afterStep": 2,
+     "prompt": "An egg is soiled. How do you clean it?",
+     "options": [
+      {
+       "text": "Wash it well in a basin of cold water, then dry it",
+       "consequence": "Cold water draws microbes in."
+      },
+      {
+       "text": "Dry-clean it with a slightly rough cloth",
+       "correct": true,
+       "consequence": "The shell stays sealed."
+      },
+      {
+       "text": "Soak it in a bucket",
+       "consequence": "Soaking lets microbes in."
+      }
+     ]
+    },
+    {
+     "id": "up",
+     "afterStep": 1,
+     "prompt": "How do you place eggs in the tray?",
+     "options": [
+      {
+       "text": "Pointed end up",
+       "consequence": "The air cell moves."
+      },
+      {
+       "text": "On their sides, loosely",
+       "consequence": "They roll and crack."
+      },
+      {
+       "text": "Broad end up",
+       "correct": true,
+       "consequence": "The air cell stays stable."
+      }
+     ]
+    },
+    {
+     "id": "smell",
+     "afterStep": 5,
+     "prompt": "Where do you store eggs?",
+     "options": [
+      {
+       "text": "Next to the onions",
+       "consequence": "Eggs absorb odours."
+      },
+      {
+       "text": "Beside the fish store",
+       "consequence": "Eggs absorb odours."
+      },
+      {
+       "text": "Away from strong smells",
+       "correct": true,
+       "consequence": "They do not take up odours."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 5,
+     "prompt": "Which eggs do you sell first?",
+     "options": [
+      {
+       "text": "The newest",
+       "consequence": "Older eggs go bad."
+      },
+      {
+       "text": "The earliest collected",
+       "correct": true,
+       "consequence": "First in, first out keeps stock fresh."
+      },
+      {
+       "text": "The cleanest",
+       "consequence": "Age matters more."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "fresh",
+     "prompt": "What does candling show in a fresh egg?",
+     "options": [
+      {
+       "text": "A large air cell",
+       "why": "This shows an older egg."
+      },
+      {
+       "text": "A meat spot",
+       "why": "This is a defect."
+      },
+      {
+       "text": "A small air cell",
+       "correct": true
+      },
+      {
+       "text": "A crack",
+       "why": "This is a defect."
+      }
+     ]
+    },
+    {
+     "id": "oil",
+     "prompt": "Why do oil-coated eggs keep longer?",
+     "options": [
+      {
+       "text": "The oil feeds the egg",
+       "why": "The oil only seals pores."
+      },
+      {
+       "text": "The shell gets thicker",
+       "why": "Shells do not thicken."
+      },
+      {
+       "text": "Water loss and entry of microbes fall",
+       "correct": true
+      },
+      {
+       "text": "The oil soaks in and makes the yolk grow larger",
+       "why": "This does not happen."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "henday",
+     "prompt": "{h} hens lay {e} eggs in 7 days. What is the hen-day production?",
+     "formula": "e / (h * 7) * 100",
+     "vars": {
+      "h": {
+       "min": 80,
+       "max": 120,
+       "step": 20
+      },
+      "e": {
+       "min": 400,
+       "max": 600,
+       "step": 50
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Hen-days = {h} × 7. Production = {e} ÷ hen-days × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "hen-days",
+     "prompt": "{h} hens were kept for {d} days. How many hen-days is that?",
+     "formula": "h * d",
+     "vars": {
+      "h": {
+       "min": 80,
+       "max": 120,
+       "step": 10
+      },
+      "d": {
+       "min": 7,
+       "max": 14,
+       "step": 7
+      }
+     },
+     "unit": "hen-days",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Hen-days = {h} × {d} = {answer} hen-days.",
+     "unitAliases": [
+      "hen days"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "eggs",
+     "scenario": "Nina's eggs went bad and her records were off. Here is what she did.",
+     "lines": [
+      {
+       "text": "She divided eggs by hens only, forgetting days.",
+       "fault": true,
+       "why": "Hen-days are hens × days."
+      },
+      {
+       "text": "She washed the eggs in cold water.",
+       "fault": true,
+       "why": "This draws microbes in."
+      },
+      {
+       "text": "She kept the eggs next to fish.",
+       "fault": true,
+       "why": "Eggs absorb odours."
+      },
+      {
+       "text": "She candled the eggs to remove cracked ones.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "She showed hen-days as a separate step.",
+       "why": "That is the exam tip."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for storing eggs.",
+    "explainPrompt": "Why are soiled eggs dry-cleaned and not washed in cold water?",
+    "explainGuide": "Cold water makes the egg contents shrink, drawing water and microbes in through the shell pores. Dry cleaning avoids this.",
+    "explainKeywords": [
+     [
+      "cold"
+     ],
+     [
+      "microbes",
+      "germs",
+      "bacteria"
+     ],
+     [
+      "pores",
+      "shell",
+      "draws"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Eggs and hen-day production",
+    "Show hen-days",
+    "First in, first out"
+   ]
+  }
+ }
+}

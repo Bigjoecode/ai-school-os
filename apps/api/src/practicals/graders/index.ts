@@ -33,6 +33,7 @@ import { phyPinsGrader } from './phy-pins';
 import { phyMechanicsGrader } from './phy-mechanics';
 import { phyThermalGrader } from './phy-thermal';
 import { phyMagnetismGrader } from './phy-magnetism';
+import { genPracticalGrader } from './gen-practical';
 import type { SimulatorGrader } from './types';
 
 /** Every simulator's grader. A new virtual lab adds its grader here (the record type makes a missing one a compile error). */
@@ -71,10 +72,11 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'phy-mechanics': phyMechanicsGrader,
   'phy-thermal': phyThermalGrader,
   'phy-magnetism': phyMagnetismGrader,
+  'gen-practical': genPracticalGrader,
 };
 
 export function graderFor<Id extends SimulatorId>(id: Id): SimulatorGrader<Id> {
   return GRADERS[id] as SimulatorGrader<Id>;
 }
 
-export type { AiItem, GraderOutput, SimulatorGrader } from './types';
+export type { AiItem, GradeContext, GraderOutput, SimulatorGrader } from './types';

@@ -92,7 +92,7 @@
      "explanation": "After 5τ less than 1% of the voltage remains."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-identification-of-electronic-components-and-symbols",
@@ -178,7 +178,7 @@
      "explanation": "Pins are numbered anticlockwise from pin 1 viewed from the top."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-comparing-colour-code-and-measured-values-testing-capacitors",
@@ -264,7 +264,7 @@
      "explanation": "No charging current flows."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-testing-diodes-and-transistors-with-a-multimeter",
@@ -350,7 +350,7 @@
      "explanation": "N–P–N: the base is the P layer."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-testing-cells-and-batteries",
@@ -438,7 +438,7 @@
      "explanation": "(1.5 − 1.2)/0.3 = 1 Ω."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-ohms-law-and-series-parallel-resistor-circuits",
@@ -610,7 +610,7 @@
      "explanation": "Zero adjustment compensates for battery condition."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-using-an-oscilloscope-and-signal-generator",
@@ -697,7 +697,7 @@
      "explanation": "Vp = 5 V; Vrms = 5 × 0.707 = 3.54 V."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-soldering-and-desoldering-components-on-a-circuit-board",
@@ -792,7 +792,7 @@
      "explanation": "It sucks molten solder away from the joint."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-constructing-a-stabilised-low-voltage-d-c-power-supply",
@@ -812,7 +812,7 @@
    ],
    "materials": [
     "230 V/12 V transformer, 4 × 1N4001 or bridge rectifier, 1 000 µF 25 V capacitor",
-    "5.1 V zener (or LM7805 regulator), 220 Ω 0.5 W resistor, 0.1 µF capacitors",
+    "5.1 V zener (or LM7805 regulator), 330 Ω 0.5 W resistor, 0.1 µF capacitors",
     "Veroboard, fuse and holder, LED indicator with 1 kΩ resistor"
    ],
    "safety": [
@@ -829,7 +829,7 @@
     "Load the output and check that the voltage stays constant."
    ],
    "expectedObservations": "The unregulated output is about 16 V with some ripple; the regulated output stays near 5 V with very little ripple even when the load changes.",
-   "dataAndCalculations": "Zener series resistor for Vin = 12 V, Vz = 5.1 V, load 20 mA + zener 10 mA = 30 mA: R = (12 − 5.1)/0.030 = 230 Ω → choose 220 Ω (nearest preferred value). Then I = 6.9/220 = 31.4 mA and resistor power P = I²R = 0.0314² × 220 = 0.22 W, so a 0.5 W resistor is needed.",
+   "dataAndCalculations": "Zener series resistor for Vin = 16 V (the measured unregulated output), Vz = 5.1 V, load 20 mA + zener 10 mA = 30 mA: R = (16 − 5.1)/0.030 = 363 Ω → choose 330 Ω (the nearest lower preferred value, so the zener still has enough current). Then I = 10.9/330 = 33 mA and resistor power P = I²R = 0.033² × 330 = 0.36 W, so a 0.5 W resistor is needed.",
    "precautions": [
     "Fit a heat sink to the regulator if the current is high.",
     "Keep mains and low-voltage wiring apart."
@@ -881,7 +881,7 @@
      "explanation": "(9 − 6)/0.03 = 100 Ω."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-common-emitter-amplifier-voltages-and-gain",
@@ -970,7 +970,7 @@
      "explanation": "Class A is biased for continuous conduction."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-building-a-transistor-astable-multivibrator-led-flasher",
@@ -1063,7 +1063,7 @@
      "explanation": "In-phase feedback sustains oscillation."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-resonance-and-bandwidth-of-a-series-tuned-circuit",
@@ -1150,7 +1150,7 @@
      "explanation": "BW = f₂ − f₁."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-observing-amplitude-modulation-and-calculating-modulation-index",
@@ -1236,7 +1236,7 @@
      "explanation": "The high-frequency carrier is modulated by the audio."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-dismantling-and-reassembling-a-radio-receiver",
@@ -1327,7 +1327,7 @@
      "explanation": "Records make reassembly accurate."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-installing-a-car-radio",
@@ -1419,7 +1419,7 @@
      "explanation": "I = 36/12 = 3 A."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-fault-finding-and-alignment-in-a-radio-receiver",
@@ -1510,7 +1510,7 @@
      "explanation": "Check the supply first."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-diagnosing-faults-in-a-black-and-white-television-receiver",
@@ -1600,7 +1600,7 @@
      "explanation": "It isolates the chassis from earth so touching it is safer."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-colour-television-fault-diagnosis-with-a-colour-bar-generator",
@@ -1688,7 +1688,7 @@
      "explanation": "Nigeria adopted PAL (B/G, I standards)."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   },
   {
    "id": "pr-rtv-installing-and-aligning-a-satellite-dish",
@@ -1782,7 +1782,7 @@
      "explanation": "It orbits once every 24 hours above the equator."
     }
    ],
-   "simulator": null
+   "simulator": "gen-practical"
   }
  ]
 }

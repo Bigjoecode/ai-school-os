@@ -33,6 +33,7 @@ import { PHY_DENSITY, phyDensityStateSchema, type PhyDensityState } from './simu
 import { PHY_PINS, phyPinsStateSchema, type PhyPinsState } from './simulators/phy-pins';
 import { PHY_MECHANICS, phyMechanicsStateSchema, type PhyMechanicsState } from './simulators/phy-mechanics';
 import { PHY_THERMAL, phyThermalStateSchema, type PhyThermalState } from './simulators/phy-thermal';
+import { GEN_PRACTICAL, genPracticalStateSchema, type GenPaper, type GenPracticalState } from './simulators/gen-practical';
 import { PHY_MAGNETISM, phyMagnetismStateSchema, type PhyMagnetismState } from './simulators/phy-magnetism';
 
 /**
@@ -61,7 +62,7 @@ export const PRACTICAL_SKILLS = ['measurement', 'observation', 'calculation', 'd
 export type PracticalSkill = (typeof PRACTICAL_SKILLS)[number];
 
 /** Virtual labs. Add an id here when its shared module, API grader and web component exist. */
-export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'chem-acids', 'chem-organic', 'chem-prep', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'phy-thermal', 'phy-magnetism', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology', 'bio-human', 'bio-growth', 'bio-genetics', 'bio-dissection'] as const;
+export const SIMULATOR_IDS = ['chem-titration', 'chem-qualitative', 'chem-rates', 'chem-redox', 'chem-energetics', 'chem-salts', 'chem-electro', 'chem-acids', 'chem-organic', 'chem-prep', 'phy-pendulum', 'phy-ohms-law', 'phy-glass-block', 'phy-optics', 'phy-moments', 'phy-spring', 'phy-circuits', 'phy-heat', 'phy-sound', 'phy-density', 'phy-pins', 'phy-mechanics', 'phy-thermal', 'phy-magnetism', 'bio-microscope', 'bio-specimens', 'bio-food-tests', 'bio-osmosis', 'bio-plant', 'bio-ecology', 'bio-human', 'bio-growth', 'bio-genetics', 'bio-dissection', 'gen-practical'] as const;
 export type SimulatorId = (typeof SIMULATOR_IDS)[number];
 export const isSimulatorId = (x: unknown): x is SimulatorId => typeof x === 'string' && (SIMULATOR_IDS as readonly string[]).includes(x);
 
@@ -123,6 +124,7 @@ export const SIMULATORS: Record<SimulatorId, SimulatorSpec> = {
   'phy-mechanics': PHY_MECHANICS,
   'phy-thermal': PHY_THERMAL,
   'phy-magnetism': PHY_MAGNETISM,
+  'gen-practical': GEN_PRACTICAL,
 };
 
 /** The state each simulator saves and submits (typed per simulator). */
@@ -161,6 +163,7 @@ export interface SimulatorStates {
   'phy-mechanics': PhyMechanicsState;
   'phy-thermal': PhyThermalState;
   'phy-magnetism': PhyMagnetismState;
+  'gen-practical': GenPracticalState;
 }
 export type SimulatorState<Id extends SimulatorId = SimulatorId> = SimulatorStates[Id];
 
@@ -200,6 +203,7 @@ export const SIMULATOR_STATE_SCHEMAS: Record<SimulatorId, z.ZodType<unknown>> = 
   'phy-mechanics': phyMechanicsStateSchema,
   'phy-thermal': phyThermalStateSchema,
   'phy-magnetism': phyMagnetismStateSchema,
+  'gen-practical': genPracticalStateSchema,
 };
 
 export const rubricTotal = (rubric: RubricCriterion[]) => rubric.reduce((t, c) => t + c.marks, 0);
@@ -304,6 +308,8 @@ export interface PracticalSubjectRow {
   practicalPaper: string;
   practicals: number;
   labs: number;
+  /** Lessons with a Guided practical (not counted in `labs`: those are the virtual labs). */
+  guided: number;
   learned: number;
   practised: number;
 }
@@ -402,6 +408,8 @@ export interface PracticalAttemptView<Id extends SimulatorId = SimulatorId> {
   result: PracticalResult | null;
   /** Set when this attempt is a sitting of a teacher-scheduled practical test or exam. */
   assessment?: PracticalAttemptAssessment | null;
+  /** A Guided practical's paper, built on the server for this attempt (no answers until marking allows). */
+  paper?: GenPaper | null;
 }
 
 // ------------------------------------------------------------------ teachers
@@ -427,8 +435,10 @@ export interface PracticalPickItem {
   subject: string;
   topic: string;
   topicId: string | null;
-  /** Has a virtual lab (otherwise the quick check hands it in). */
+  /** Has a virtual lab or a Guided practical (otherwise the quick check hands it in). */
   lab: boolean;
+  /** It is a Guided practical. */
+  guided?: boolean;
 }
 export interface PracticalPickList {
   /** The homework subject's Practical Academy subject, when one was given (null: it has no practicals). */

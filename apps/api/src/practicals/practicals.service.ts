@@ -2,13 +2,21 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException,
 import {
   EXAM_LABELS,
   FREE_LABS_PER_TERM,
+  GEN_PRACTICAL_ID,
   PRACTICAL_SITTING_OPEN,
   SEED_MAX,
   SIMULATORS,
   SIMULATOR_STATE_SCHEMAS,
+  isGuidedPractical,
   isSimulatorId,
+  publicLessonData,
   rubricTotal,
   type CriterionScore,
+  type GenCheckInput,
+  type GenCheckResult,
+  type GenDemoView,
+  type GenLesson,
+  type GenPaper,
   type PracticalAskInput,
   type PracticalAssessmentKind,
   type PracticalAttemptAssessment,
@@ -40,7 +48,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import type { ResolvedAccess } from '../student-ai/entitlements.service';
 import { resultVisibility } from '../cbt/cbt-rules';
 import { askPrompt } from './ask';
-import { graderFor, type GraderOutput } from './graders';
+import { graderFor, type GradeContext, type GraderOutput } from './graders';
+import { buildGen, genCheck, genDemo, genReveal } from './graders/gen-paper';
 import { keywordMarks } from './graders/helpers';
 import { studentView } from './practical-assessment';
 import { CHECK_PASS } from './practical-homework';
@@ -76,7 +85,7 @@ export interface StoredOverride {
 /** How a parent's notification about a practical test opens it. */
 export const practicalNotice = (assessmentId: string) => ({ label: 'practical test', query: `practical=${assessmentId}` });
 
-export const lessonData = (l: { data: Prisma.JsonValue }) => l.data as unknown as PracticalContent & { practicalPaper?: string };
+export const lessonData = (l: { data: Prisma.JsonValue }) => l.data as unknown as GenLesson;
 /** The score that counts: a teacher's review, else the marked score. */
 export const effectiveScore = (a: { score: number | null; override: Prisma.JsonValue | null }) => (a.override as StoredOverride | null)?.score ?? a.score;
 export const percentOf = (score: number | null, max: number) => (score !== null && max ? Math.round((score / max) * 100) : null);
@@ -161,9 +170,10 @@ export class PracticalsService {
     const by = new Map<string, PracticalSubjectRow>();
     for (const r of rows) {
       const k = `${r.exam}|${r.subject}`;
-      const row = by.get(k) ?? { exam: r.exam as PracticalExam, subject: r.subject, practicalPaper: lessonData(r).practicalPaper ?? '', practicals: 0, labs: 0, learned: 0, practised: 0 };
+      const row = by.get(k) ?? { exam: r.exam as PracticalExam, subject: r.subject, practicalPaper: lessonData(r).practicalPaper ?? '', practicals: 0, labs: 0, guided: 0, learned: 0, practised: 0 };
       row.practicals++;
-      if (isSimulatorId(r.simulator)) row.labs++;
+      if (isGuidedPractical(r.simulator)) row.guided++;
+      else if (isSimulatorId(r.simulator)) row.labs++;
       const s = status.get(r.id);
       if (s?.learned) row.learned++;
       if (s?.practised) row.practised++;
@@ -219,7 +229,8 @@ export class PracticalsService {
   async lessonView(access: ResolvedAccess, id: string): Promise<PracticalLessonView> {
     await this.refuseDuringSitting(access.studentId, id);
     const l = await this.lesson(id);
-    const d = lessonData(l);
+    // The lesson page's copy never carries the private part (a Guided practical's enrichment and pools).
+    const d = publicLessonData(lessonData(l));
     const exam = l.exam as PracticalExam;
     const sim = isSimulatorId(l.simulator) ? SIMULATORS[l.simulator] : null;
     // A topic's practical questions take in its subtopics.
@@ -421,8 +432,45 @@ export class PracticalsService {
   }
 
   /** The grader's exact output for an attempt's state (also used to show the worked solution). */
-  graded(simulatorId: SimulatorId, state: SimulatorState, seed: number): GraderOutput {
-    return graderFor(simulatorId).grade(state as never, seed);
+  graded(simulatorId: SimulatorId, state: SimulatorState, seed: number, ctx?: GradeContext): GraderOutput {
+    return graderFor(simulatorId).grade(state as never, seed, ctx);
+  }
+
+  /** What a lesson-driven simulator is marked against: always the stored lesson, never anything from the browser. */
+  private async gradeContext(a: { simulatorId: string | null; practicalId: string }): Promise<GradeContext | undefined> {
+    if (!isGuidedPractical(a.simulatorId)) return undefined;
+    const row = await this.prisma.root.practicalLesson.findUnique({ where: { id: a.practicalId }, select: { data: true } });
+    return { lesson: row ? lessonData(row) : null };
+  }
+
+  // ---------------------------------------------------------- Guided practical
+
+  /** A Guided practical's paper for this attempt: no key, ever, until the marks may be seen in detail. */
+  private guidedPaper(a: AttemptRow, ctx: GradeContext | undefined, reveal: boolean): GenPaper | null {
+    if (!ctx?.lesson) return null;
+    const { paper, key } = buildGen(ctx.lesson, a.seed);
+    return { ...paper, feedback: a.mode === 'LAB' && !a.assessmentId && !a.submittedAt, ...(reveal ? { reveal: genReveal(key) } : {}) };
+  }
+
+  /** Guided practice only: the consequence of one answer, from the server. Never in exam mode, a sitting of a test, or after hand-in. */
+  async guidedCheck(access: ResolvedAccess, id: string, input: GenCheckInput): Promise<GenCheckResult> {
+    const a = await this.own(access.studentId, id);
+    if (a.simulatorId !== GEN_PRACTICAL_ID) throw new BadRequestException('This attempt is not a Guided practical');
+    if (a.mode !== 'LAB' || a.assessmentId || a.submittedAt) throw new ForbiddenException({ statusCode: 403, code: 'GUIDED_CHECK_CLOSED', message: 'Feedback is only given during guided practice.' });
+    await this.refuseDuringSitting(access.studentId, a.practicalId);
+    const ctx = await this.gradeContext(a);
+    if (!ctx?.lesson) throw new NotFoundException('Practical not found');
+    return genCheck(buildGen(ctx.lesson, a.seed).key, input);
+  }
+
+  /** The worked example for Demo: its own seed and paper with the model answers, so it never touches an attempt. Not while a sitting or a timed practical runs. */
+  async guidedDemo(access: ResolvedAccess, id: string): Promise<GenDemoView> {
+    await this.refuseDuringSitting(access.studentId, id);
+    const l = await this.lesson(id);
+    if (!isGuidedPractical(l.simulator)) throw new BadRequestException('This practical has no Guided practical');
+    const timed = await this.prisma.root.practicalAttempt.findFirst({ where: { studentId: access.studentId, mode: 'EXAM', submittedAt: null, endsAt: { gt: new Date(Date.now() - LAB_GRACE_MS) } }, select: { id: true } });
+    if (timed) throw new ForbiddenException({ statusCode: 403, code: 'GUIDED_DEMO_CLOSED', message: 'The worked example is not available during a timed practical.' });
+    return genDemo(lessonData(l));
   }
 
   /**
@@ -444,7 +492,7 @@ export class PracticalsService {
       await this.tellFamilies(a);
       return this.prisma.root.practicalAttempt.findUniqueOrThrow({ where: { id: a.id } });
     }
-    const out = this.graded(a.simulatorId, state, a.seed);
+    const out = this.graded(a.simulatorId, state, a.seed, await this.gradeContext(a));
     const answered = out.ai.filter((x) => x.answer.trim());
     const aiScores = new Map<string, CriterionScore>();
     let feedback: string | null = null;
@@ -569,6 +617,7 @@ export class PracticalsService {
       }
     }
     let result: PracticalResult | null = null;
+    const ctx = await this.gradeContext(a);
     const state = a.state && typeof a.state === 'object' && Object.keys(a.state).length ? this.parseState(a.simulatorId, a.state) : null;
     if (a.submittedAt && !hidden) {
       const criteria = (a.scores as unknown as CriterionScore[] | null) ?? [];
@@ -582,7 +631,7 @@ export class PracticalsService {
         markedScore: detail ? marked : score,
         criteria: detail ? criteria : [],
         feedback: detail ? a.aiFeedback : null,
-        solution: detail && state ? this.graded(a.simulatorId, state, a.seed).solution : [],
+        solution: detail && state ? this.graded(a.simulatorId, state, a.seed, ctx).solution : [],
         review: detail && o ? { score: o.score, note: o.note, by: o.by, at: o.at } : null,
         next: l && !a.assessmentId ? await this.next(a.studentId, l) : null,
       };
@@ -605,6 +654,7 @@ export class PracticalsService {
       focusLosses: a.focusLosses,
       result,
       assessment,
+      ...(isGuidedPractical(a.simulatorId) ? { paper: this.guidedPaper(a, ctx, !!a.submittedAt && !hidden && detail) } : {}),
     };
   }
 }

@@ -1,0 +1,3034 @@
+{
+ "subject": "GSM Phone Maintenance and Repairs",
+ "lessons": {
+  "pr-gsm-workshop-safety-and-protection-against-static": {
+   "safety": {
+    "correct": [
+     "Keep food and drinks off the repair bench."
+    ],
+    "wrong": [
+     {
+      "text": "Clip the wrist strap to your sleeve, not your skin, so it is comfortable.",
+      "why": "It only works in contact with your skin. Wear it on the wrist."
+     },
+     {
+      "text": "Press a swollen battery flat so it fits back in the phone.",
+      "why": "Pressing or bending a lithium battery can start a fire. Remove it and store it safely."
+     },
+     {
+      "text": "Keep the IPA bottle open beside the hot-air station.",
+      "why": "IPA is flammable. Keep it closed and away from hot tools."
+     },
+     {
+      "text": "Lay the hot-air gun on the bench while you pick up a part.",
+      "why": "It can burn you or the bench. Return it to its stand."
+     },
+     {
+      "text": "Solder with the fume extractor off because the fan is noisy.",
+      "why": "Flux fumes harm the lungs. Switch the extractor on first."
+     },
+     {
+      "text": "Throw a damaged battery in the waste bin.",
+      "why": "It can catch fire. Put it in the battery fire bag or sand container."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Water bucket for electrical fires",
+      "why": "Water conducts and spreads some fires. Use the CO₂ extinguisher."
+     },
+     {
+      "name": "Nylon bench cover",
+      "why": "Nylon builds up static. Use the ESD mat."
+     },
+     {
+      "name": "Metal knife for lifting batteries",
+      "why": "It can puncture the cell. Plastic tools are used near batteries."
+     },
+     {
+      "name": "Petrol for cleaning boards",
+      "why": "It is a fire hazard. IPA is the cleaner."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries, not phones."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "strap",
+     "afterStep": 1,
+     "prompt": "The wrist strap is on. What do you connect it to?",
+     "options": [
+      {
+       "text": "The grounded ESD mat",
+       "correct": true,
+       "consequence": "Static drains safely away from the boards."
+      },
+      {
+       "text": "Nothing, since wearing it is enough",
+       "consequence": "An unconnected strap drains nothing."
+      },
+      {
+       "text": "The live terminal of a socket",
+       "consequence": "This is dangerous and gives no ESD protection."
+      }
+     ]
+    },
+    {
+     "id": "swollen",
+     "afterStep": 5,
+     "prompt": "A customer's phone has a swollen battery. What do you do?",
+     "options": [
+      {
+       "text": "Push it back into its bay and screw the case shut again",
+       "consequence": "Pressure on a swollen cell can start a fire."
+      },
+      {
+       "text": "Pierce it to let the gas out",
+       "consequence": "Puncturing a lithium cell can make it burn."
+      },
+      {
+       "text": "Remove it gently and store it in the fire container",
+       "correct": true,
+       "consequence": "The risk of fire is contained."
+      }
+     ]
+    },
+    {
+     "id": "extract",
+     "afterStep": 3,
+     "prompt": "You are about to solder. What do you switch on first?",
+     "options": [
+      {
+       "text": "The fume extractor",
+       "correct": true,
+       "consequence": "Fumes are drawn away from your face."
+      },
+      {
+       "text": "The hot-air gun at full heat",
+       "consequence": "It is not needed yet and is a risk on the bench."
+      },
+      {
+       "text": "Nothing, the window is open",
+       "consequence": "An open window does not remove fumes at the bench."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tester",
+     "prompt": "What shows that the wrist strap is working?",
+     "options": [
+      {
+       "text": "The tester shows an open circuit through the cord",
+       "why": "The strap or cord is faulty."
+      },
+      {
+       "text": "The mat is not plugged in",
+       "why": "Then the strap is not grounded."
+      },
+      {
+       "text": "The strap tester shows a good connection",
+       "correct": true
+      },
+      {
+       "text": "The strap feels tight",
+       "why": "Tightness does not prove a connection."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-strap",
+     "prompt": "A wrist strap has a {r} MΩ resistor. What current flows through it from {v} V, in mA?",
+     "formula": "v / (r * 1000)",
+     "vars": {
+      "r": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      },
+      "v": {
+       "min": 100,
+       "max": 230,
+       "step": 10
+      }
+     },
+     "unit": "mA",
+     "unitAliases": [
+      "milliamps"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 3,
+     "working": "I = {v} ÷ ({r} × 1 000 000) A = {answer} mA."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bench-fault",
+     "scenario": "A board died on Femi's bench, and a fire started near his station. Here is what he did.",
+     "lines": [
+      {
+       "text": "He touched the ICs without an ESD strap.",
+       "fault": true,
+       "why": "Static can damage phone ICs."
+      },
+      {
+       "text": "He left the hot-air gun on the bench.",
+       "fault": true,
+       "why": "Hot tools go on their stands."
+      },
+      {
+       "text": "He kept open IPA next to the soldering station.",
+       "fault": true,
+       "why": "IPA is flammable."
+      },
+      {
+       "text": "He grounded his ESD mat.",
+       "why": "That is the first step."
+      },
+      {
+       "text": "He knew where the first aid box was.",
+       "why": "That is part of bench set-up."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why can static damage the ICs in a phone?",
+    "explainGuide": "A charged body can discharge thousands of volts into an IC. Its tiny internal parts break down, so the chip fails at once or later.",
+    "explainKeywords": [
+     [
+      "static",
+      "discharge",
+      "charge"
+     ],
+     [
+      "volt",
+      "voltage"
+     ],
+     [
+      "damage",
+      "fail",
+      "break"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-identifying-phone-repair-tools-and-equipment": {
+   "safety": {
+    "correct": [
+     "Return each tool to its labelled place when you finish."
+    ],
+    "wrong": [
+     {
+      "text": "Leave opening picks uncapped in your pocket.",
+      "why": "They can stab you. Keep them capped."
+     },
+     {
+      "text": "Prise near the battery with a metal screwdriver.",
+      "why": "Metal can puncture or short the battery. Use plastic tools."
+     },
+     {
+      "text": "Use any bit that roughly fits the screw.",
+      "why": "Wrong bits strip screw heads. Match the bit."
+     },
+     {
+      "text": "Leave the soldering iron lying on the table to cool.",
+      "why": "Hot tools go on stands."
+     },
+     {
+      "text": "Test the DC power supply by shorting its leads.",
+      "why": "A short can damage it. Never short the output."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pipe wrench",
+      "why": "It is a plumbing tool."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing in phone repair is hammered."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Wire brush",
+      "why": "It scratches boards."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It is a surveying instrument."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bit",
+     "afterStep": 4,
+     "prompt": "A screw has a five-lobed head. Which bit do you use?",
+     "options": [
+      {
+       "text": "Phillips",
+       "consequence": "It does not fit and strips the head."
+      },
+      {
+       "text": "Pentalobe",
+       "correct": true,
+       "consequence": "It matches the head and does not strip it."
+      },
+      {
+       "text": "Torx",
+       "consequence": "Torx has six points and slips on a pentalobe screw."
+      }
+     ]
+    },
+    {
+     "id": "class",
+     "afterStep": 2,
+     "prompt": "How do you classify the DC power supply?",
+     "options": [
+      {
+       "text": "Opening tool, for prising the case",
+       "consequence": "It does not open phones."
+      },
+      {
+       "text": "Software tool, installed on the bench computer",
+       "consequence": "It is hardware."
+      },
+      {
+       "text": "Measuring tool, showing current draw",
+       "correct": true,
+       "consequence": "That is its main use in repair."
+      }
+     ]
+    },
+    {
+     "id": "software",
+     "afterStep": 5,
+     "prompt": "Which of these is a software repair tool?",
+     "options": [
+      {
+       "text": "Flashing software",
+       "correct": true,
+       "consequence": "It reloads firmware."
+      },
+      {
+       "text": "Spudger",
+       "consequence": "That is an opening tool."
+      },
+      {
+       "text": "Suction cup with a pry tool",
+       "consequence": "That is an opening tool."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "spudger",
+     "prompt": "What is a spudger used for?",
+     "options": [
+      {
+       "text": "Opening housings and lifting flex connectors",
+       "correct": true
+      },
+      {
+       "text": "Measuring voltage across the test points on a board",
+       "why": "That is the multimeter."
+      },
+      {
+       "text": "Soldering small parts",
+       "why": "That is the iron."
+      },
+      {
+       "text": "Holding screws",
+       "why": "That is the screw mat."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "strip",
+     "prompt": "A phone has {n} screws. A technician strips 1 in 4 with wrong bits. How many screws need replacing?",
+     "formula": "n / 4",
+     "vars": {
+      "n": {
+       "min": 8,
+       "max": 24,
+       "step": 4
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} ÷ 4 = {answer} screws."
+    }
+   ],
+   "faults": [
+    {
+     "id": "tool-fault",
+     "scenario": "Kemi damaged a phone she opened. Here is what she did.",
+     "lines": [
+      {
+       "text": "She pried near the battery with a metal tool.",
+       "fault": true,
+       "why": "Use plastic near the battery."
+      },
+      {
+       "text": "She used a Torx bit on pentalobe screws.",
+       "fault": true,
+       "why": "These look alike but differ."
+      },
+      {
+       "text": "She matched bits before starting.",
+       "why": "That is good practice."
+      },
+      {
+       "text": "She kept picks capped.",
+       "why": "That is the rule."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are plastic tools used near flex cables and batteries?",
+    "explainGuide": "Plastic does not conduct and is softer, so it will not short the battery, puncture it or cut the thin flex cables.",
+    "explainKeywords": [
+     [
+      "conduct",
+      "short",
+      "insulat"
+     ],
+     [
+      "puncture",
+      "cut",
+      "damage",
+      "soft"
+     ],
+     [
+      "battery",
+      "flex"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-disassembling-and-reassembling-a-mobile-phone": {
+   "safety": {
+    "correct": [
+     "Work over the screw mat so that small parts are not lost."
+    ],
+    "wrong": [
+     {
+      "text": "Open the phone while it is still switched on.",
+      "why": "Power off and disconnect the battery first."
+     },
+     {
+      "text": "Heat the back cover until it is too hot to touch.",
+      "why": "Too much heat can damage the battery. Use gentle heat."
+     },
+     {
+      "text": "Pull the display flex out by its cable.",
+      "why": "This tears it. Lift by the connector."
+     },
+     {
+      "text": "Prise the battery out with a screwdriver.",
+      "why": "This can puncture it. Use the pull tabs or a plastic tool."
+     },
+     {
+      "text": "Reconnect the battery first to test as you go.",
+      "why": "The battery is connected last."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is cut."
+     },
+     {
+      "name": "Pliers to pull flex cables",
+      "why": "They tear the connectors."
+     },
+     {
+      "name": "Blow torch",
+      "why": "It is far too hot and can ignite the battery."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first-conn",
+     "afterStep": 2,
+     "prompt": "The screws are out. Which connector do you unplug first?",
+     "options": [
+      {
+       "text": "The camera",
+       "consequence": "With the battery connected, this can damage the board."
+      },
+      {
+       "text": "The battery",
+       "correct": true,
+       "consequence": "The board is dead before other flexes come off."
+      },
+      {
+       "text": "The display",
+       "consequence": "With the battery connected, this can damage the board."
+      }
+     ]
+    },
+    {
+     "id": "screws",
+     "afterStep": 2,
+     "prompt": "How do you keep the screws?",
+     "options": [
+      {
+       "text": "All together in one cup beside the phone",
+       "consequence": "Mixed lengths can pierce the board."
+      },
+      {
+       "text": "Loose on the bench",
+       "consequence": "They get lost."
+      },
+      {
+       "text": "On the magnetic mat in their positions",
+       "correct": true,
+       "consequence": "Each goes back in its own hole."
+      }
+     ]
+    },
+    {
+     "id": "reconnect",
+     "afterStep": 6,
+     "prompt": "In what order do you reconnect?",
+     "options": [
+      {
+       "text": "Battery first, then the flex cables",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Any order",
+       "consequence": "Order matters."
+      },
+      {
+       "text": "Flexes first, battery last",
+       "correct": true,
+       "consequence": "No flex is connected live."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "done",
+     "prompt": "What shows a good reassembly?",
+     "options": [
+      {
+       "text": "The screen is dark",
+       "why": "A flex may not be seated."
+      },
+      {
+       "text": "The case does not close",
+       "why": "Something is out of place."
+      },
+      {
+       "text": "All functions work with no screws left over",
+       "correct": true
+      },
+      {
+       "text": "One screw left over, but the phone switches on",
+       "why": "It belongs somewhere."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "protrude",
+     "prompt": "A {a} mm screw is put where a 2.0 mm screw belongs. How far does it protrude, in mm?",
+     "formula": "a - 2",
+     "vars": {
+      "a": {
+       "min": 2.5,
+       "max": 4,
+       "step": 0.5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{a} − 2.0 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "phone-fault",
+     "scenario": "Tobi's reassembled phone has a dead area on the screen and a mark on the board. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used a long screw in a short hole.",
+       "fault": true,
+       "why": "It can pierce the board or display."
+      },
+      {
+       "text": "He reconnected the battery before other flexes.",
+       "fault": true,
+       "why": "Battery goes last."
+      },
+      {
+       "text": "He missed a hidden screw under a label.",
+       "fault": true,
+       "why": "He forced the case."
+      },
+      {
+       "text": "He switched off first.",
+       "why": "That is required."
+      },
+      {
+       "text": "He used a spudger on flex connectors.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the battery disconnected first and reconnected last?",
+    "explainGuide": "With the battery connected, the board is live. Unplugging or plugging other flexes can cause a short or a surge that damages the board.",
+    "explainKeywords": [
+     [
+      "live",
+      "power"
+     ],
+     [
+      "short",
+      "surge",
+      "spark"
+     ],
+     [
+      "damage",
+      "board"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-drawing-the-block-diagram-of-a-mobile-phone": {
+   "safety": {
+    "correct": [
+     "Hold the scrap board by its edges, away from your face."
+    ],
+    "wrong": [
+     {
+      "text": "Rub the board edge with your fingers to check if it is smooth.",
+      "why": "Edges can be sharp. Handle it carefully."
+     },
+     {
+      "text": "Break the shielding cans off with your fingers.",
+      "why": "You can cut yourself. Look under them with the lamp only."
+     },
+     {
+      "text": "Put the scrap board in your mouth to free your hands.",
+      "why": "Boards carry lead and other harmful substances."
+     },
+     {
+      "text": "Snap a scrap board in half to see inside.",
+      "why": "Sharp pieces fly. Do not break it."
+     },
+     {
+      "text": "Stare into the magnifying lamp at full brightness.",
+      "why": "It strains your eyes. Adjust it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hot-air station",
+      "why": "Nothing is being removed."
+     },
+     {
+      "name": "DC power supply",
+      "why": "The scrap board is not powered."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Compass and dividers",
+      "why": "A ruler is enough for blocks."
+     },
+     {
+      "name": "Hammer",
+      "why": "Nothing is hammered."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "section",
+     "afterStep": 3,
+     "prompt": "Where do you put the power amplifier?",
+     "options": [
+      {
+       "text": "In the power section",
+       "consequence": "It does not manage battery power."
+      },
+      {
+       "text": "In the logic section",
+       "consequence": "It is not a logic block."
+      },
+      {
+       "text": "In the radio section",
+       "correct": true,
+       "consequence": "It boosts the transmit signal."
+      }
+     ]
+    },
+    {
+     "id": "arrows",
+     "afterStep": 4,
+     "prompt": "How do you link the blocks?",
+     "options": [
+      {
+       "text": "Without links",
+       "consequence": "Links are needed."
+      },
+      {
+       "text": "With arrows showing flow",
+       "correct": true,
+       "consequence": "The direction is clear."
+      },
+      {
+       "text": "With plain lines between the blocks",
+       "consequence": "Missing arrows lose marks."
+      }
+     ]
+    },
+    {
+     "id": "pmic",
+     "afterStep": 1,
+     "prompt": "What does the PMIC do?",
+     "options": [
+      {
+       "text": "Amplifies the radio signal",
+       "consequence": "That is the PA."
+      },
+      {
+       "text": "Distributes and regulates power",
+       "correct": true,
+       "consequence": "That is its function."
+      },
+      {
+       "text": "Stores the operating system",
+       "consequence": "That is flash memory."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "layout",
+     "prompt": "What do shielding cans usually cover?",
+     "options": [
+      {
+       "text": "The charging port",
+       "why": "It is not usually shielded."
+      },
+      {
+       "text": "The screws",
+       "why": "These are not covered."
+      },
+      {
+       "text": "The radio and CPU areas",
+       "correct": true
+      },
+      {
+       "text": "The battery connector",
+       "why": "It is not usually shielded."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "area",
+     "prompt": "A board is 120 mm by 60 mm. The radio section is {a} mm by 25 mm. What percentage of the board is it?",
+     "formula": "a * 25 / 7200 * 100",
+     "vars": {
+      "a": {
+       "min": 20,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "{a} × 25 ÷ 7200 × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "diag-fault",
+     "scenario": "Dami's block diagram loses marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She drew the blocks without arrows.",
+       "fault": true,
+       "why": "Arrows show flow."
+      },
+      {
+       "text": "She left out the antenna switch and PA.",
+       "fault": true,
+       "why": "Both are needed."
+      },
+      {
+       "text": "She labelled each block.",
+       "why": "That is expected."
+      },
+      {
+       "text": "She used a ruler.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name the three main sections of a phone and one block in each.",
+    "explainGuide": "The power section has the battery and PMIC. The logic and memory section has the CPU and flash. The radio section has the transceiver and PA.",
+    "explainKeywords": [
+     [
+      "power",
+      "pmic",
+      "battery"
+     ],
+     [
+      "logic",
+      "cpu",
+      "memory",
+      "flash"
+     ],
+     [
+      "radio",
+      "transceiver",
+      "antenna",
+      "amplifier"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-identifying-electronic-components-on-a-phone-board": {
+   "safety": {
+    "correct": [
+     "Work over a tray so dropped parts are not lost."
+    ],
+    "wrong": [
+     {
+      "text": "Handle the board without an ESD strap because it is scrap.",
+      "why": "Practise good habits. Use ESD protection."
+     },
+     {
+      "text": "Pick up tiny parts with your fingers.",
+      "why": "They are lost easily. Use tweezers."
+     },
+     {
+      "text": "Blow parts off the board to see underneath.",
+      "why": "They are lost. Use tweezers."
+     },
+     {
+      "text": "Scrape markings with a blade to read them.",
+      "why": "This removes the code."
+     },
+     {
+      "text": "Measure a resistor while it is on a powered board.",
+      "why": "Remove the power first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is cut."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "Wire stripper",
+      "why": "There is no wiring."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It is a surveying tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "code",
+     "afterStep": 3,
+     "prompt": "An SMD resistor reads 472. What is it?",
+     "options": [
+      {
+       "text": "472 Ω",
+       "consequence": "The last digit is a multiplier."
+      },
+      {
+       "text": "47 kΩ",
+       "consequence": "That would be 473."
+      },
+      {
+       "text": "4.7 kΩ",
+       "correct": true,
+       "consequence": "47 with two zeros."
+      }
+     ]
+    },
+    {
+     "id": "zero",
+     "afterStep": 3,
+     "prompt": "A part marked 000 reads 0 Ω. What is it?",
+     "options": [
+      {
+       "text": "An open resistor",
+       "consequence": "It reads zero, not infinite."
+      },
+      {
+       "text": "A 0 Ω link, which is normal",
+       "correct": true,
+       "consequence": "It is not faulty."
+      },
+      {
+       "text": "A shorted resistor to be replaced",
+       "consequence": "Treating it as faulty is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "cap",
+     "afterStep": 2,
+     "prompt": "A tan unmarked part. What is it likely to be?",
+     "options": [
+      {
+       "text": "A capacitor",
+       "correct": true,
+       "consequence": "Most SMD capacitors are unmarked."
+      },
+      {
+       "text": "A resistor",
+       "consequence": "Resistors are usually black with a code."
+      },
+      {
+       "text": "An IC",
+       "consequence": "ICs are larger, with pins or balls."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "bga",
+     "prompt": "How do you recognise a BGA IC?",
+     "options": [
+      {
+       "text": "It is tan in colour and has no markings",
+       "why": "That is a capacitor."
+      },
+      {
+       "text": "It has a colour code",
+       "why": "That is a through-hole resistor."
+      },
+      {
+       "text": "It has balls underneath, not legs",
+       "correct": true
+      },
+      {
+       "text": "It has two leads",
+       "why": "That is a discrete part."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "smd",
+     "prompt": "An SMD resistor reads {d}3. What is its value in kΩ?",
+     "formula": "d",
+     "vars": {
+      "d": {
+       "min": 10,
+       "max": 47,
+       "step": 1
+      }
+     },
+     "unit": "kΩ",
+     "unitAliases": [
+      "kohm",
+      "k"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{d} × 10³ Ω = {answer} kΩ."
+    }
+   ],
+   "faults": [
+    {
+     "id": "smd-fault",
+     "scenario": "Ola's table has several wrong verdicts. Here is what she did.",
+     "lines": [
+      {
+       "text": "She called a 0 Ω link faulty.",
+       "fault": true,
+       "why": "It is a link."
+      },
+      {
+       "text": "She read 103 as 103 Ω.",
+       "fault": true,
+       "why": "It is 10 kΩ."
+      },
+      {
+       "text": "She used tweezers over a tray.",
+       "why": "That is good practice."
+      },
+      {
+       "text": "She used ESD protection.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why do unmarked SMD capacitors need measuring?",
+    "explainGuide": "They carry no value marking, so their value cannot be read. It must be measured with a meter once the part is out of circuit.",
+    "explainKeywords": [
+     [
+      "unmarked",
+      "no marking",
+      "no value"
+     ],
+     [
+      "measure",
+      "meter"
+     ],
+     [
+      "value"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-continuity-short-circuit-and-voltage-tests-on-a-phone-board": {
+   "safety": {
+    "correct": [
+     "Check the supply leads go to the correct battery terminals."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the supply with no current limit to see the board start.",
+      "why": "A shorted board would draw full current and burn tracks. Set the limit first."
+     },
+     {
+      "text": "Do continuity tests with the supply connected.",
+      "why": "Continuity is tested with power removed."
+     },
+     {
+      "text": "Raise the supply voltage above battery level to find the short faster.",
+      "why": "This can damage more parts. Stay at battery voltage."
+     },
+     {
+      "text": "Touch hot parts with bare fingers for a long time.",
+      "why": "They can burn. Touch briefly, or use IPA evaporation."
+     },
+     {
+      "text": "Leave IPA on the board, then use the hot-air gun at once.",
+      "why": "IPA is flammable. Let it evaporate."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "12 V car battery as supply",
+      "why": "Use the bench supply at phone battery voltage."
+     },
+     {
+      "name": "Mains test lamp",
+      "why": "No mains is involved."
+     },
+     {
+      "name": "Wire brush",
+      "why": "It scratches the board."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "limit",
+     "afterStep": 3,
+     "prompt": "What do you set before connecting the supply?",
+     "options": [
+      {
+       "text": "The maximum current",
+       "consequence": "A shorted board burns."
+      },
+      {
+       "text": "Nothing",
+       "consequence": "This is how boards get damaged."
+      },
+      {
+       "text": "A low current limit",
+       "correct": true,
+       "consequence": "A short cannot burn tracks."
+      }
+     ]
+    },
+    {
+     "id": "dead-short",
+     "afterStep": 3,
+     "prompt": "The current jumps high at once and the board does not start. What do you suspect?",
+     "options": [
+      {
+       "text": "A short circuit on the board",
+       "correct": true,
+       "consequence": "That is the usual cause."
+      },
+      {
+       "text": "A normal boot, drawing its full load",
+       "consequence": "A normal boot shows rising, changing current."
+      },
+      {
+       "text": "A flat battery",
+       "consequence": "The supply is used, not the battery."
+      }
+     ]
+    },
+    {
+     "id": "find",
+     "afterStep": 5,
+     "prompt": "How can you find the shorted capacitor?",
+     "options": [
+      {
+       "text": "Look for the part that warms",
+       "correct": true,
+       "consequence": "The shorted part heats under limited current."
+      },
+      {
+       "text": "Replace every capacitor",
+       "consequence": "This is guesswork."
+      },
+      {
+       "text": "Raise the current fully",
+       "consequence": "This burns tracks."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "normal",
+     "prompt": "What does a normal board show when powered?",
+     "options": [
+      {
+       "text": "Current that swings to full limit",
+       "why": "That is a fault."
+      },
+      {
+       "text": "A rising, fluctuating current as it boots",
+       "correct": true
+      },
+      {
+       "text": "A steady zero current",
+       "why": "Nothing is starting."
+      },
+      {
+       "text": "A high current at once",
+       "why": "That is a short."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "wh",
+     "prompt": "A 3.7 V battery is rated {c} mAh. How much energy does it store, in Wh?",
+     "formula": "3.7 * c / 1000",
+     "vars": {
+      "c": {
+       "min": 2000,
+       "max": 5000,
+       "step": 500
+      }
+     },
+     "unit": "Wh",
+     "unitAliases": [
+      "watt-hours"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "3.7 × {c} ÷ 1000 = {answer} Wh."
+    },
+    {
+     "id": "charge",
+     "prompt": "A {c} mAh battery charges at 2 A, with 20% added for losses. How long does it take, in hours?",
+     "formula": "c / 2000 * 1.2",
+     "vars": {
+      "c": {
+       "min": 2000,
+       "max": 5000,
+       "step": 500
+      }
+     },
+     "unit": "h",
+     "unitAliases": [
+      "hours",
+      "hr"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "{c} ÷ 2000 × 1.2 = {answer} h."
+    }
+   ],
+   "faults": [
+    {
+     "id": "short-fault",
+     "scenario": "Musa burnt a track while repairing a dead phone. Here is what he did.",
+     "lines": [
+      {
+       "text": "He applied full current to a shorted board.",
+       "fault": true,
+       "why": "Begin with a low limit."
+      },
+      {
+       "text": "He tested continuity with power connected.",
+       "fault": true,
+       "why": "Remove power first."
+      },
+      {
+       "text": "He compared with a known good board.",
+       "why": "That is good practice."
+      },
+      {
+       "text": "He inspected the board first.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a current limit set on the DC supply before powering a faulty board?",
+    "explainGuide": "If the board has a short, the limit stops a large current flowing, so tracks and parts do not burn while the fault is found.",
+    "explainKeywords": [
+     [
+      "limit",
+      "limited"
+     ],
+     [
+      "short"
+     ],
+     [
+      "burn",
+      "damage",
+      "track"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-replacing-a-damaged-phone-screen": {
+   "safety": {
+    "correct": [
+     "Collect glass fragments with tape and put them in a closed container."
+    ],
+    "wrong": [
+     {
+      "text": "Pull the cracked glass off with bare fingers.",
+      "why": "Splinters cut. Tape the glass and wear safety glasses."
+     },
+     {
+      "text": "Heat the back of the phone near the battery to free the screen.",
+      "why": "Too much heat near the battery is dangerous. Warm the edges gently."
+     },
+     {
+      "text": "Disconnect the display before the battery.",
+      "why": "Battery first, then the display flex."
+     },
+     {
+      "text": "Cut through the adhesive with a craft knife near the flex.",
+      "why": "You can cut the flex. Use picks."
+     },
+     {
+      "text": "Seal the new screen, then test it.",
+      "why": "Test before sealing."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Claw hammer",
+      "why": "It would crack the glass."
+     },
+     {
+      "name": "Blow torch",
+      "why": "It is far too hot."
+     },
+     {
+      "name": "Petrol",
+      "why": "It is a fire risk. IPA is used."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is cut."
+     },
+     {
+      "name": "Sandpaper",
+      "why": "It scratches the frame."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "tape",
+     "afterStep": 1,
+     "prompt": "The glass is badly cracked. What do you do first?",
+     "options": [
+      {
+       "text": "Lift it out in pieces",
+       "consequence": "Splinters fly."
+      },
+      {
+       "text": "Heat it fully",
+       "consequence": "Loose glass still flies."
+      },
+      {
+       "text": "Tape over it",
+       "correct": true,
+       "consequence": "Fragments are held together."
+      }
+     ]
+    },
+    {
+     "id": "test",
+     "afterStep": 5,
+     "prompt": "The new display is connected. What next?",
+     "options": [
+      {
+       "text": "Return it to the customer",
+       "consequence": "It is untested."
+      },
+      {
+       "text": "Test it before sealing",
+       "correct": true,
+       "consequence": "A faulty part can be returned without damage."
+      },
+      {
+       "text": "Seal it at once",
+       "consequence": "This is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "pry",
+     "afterStep": 2,
+     "prompt": "Where do you insert the picks?",
+     "options": [
+      {
+       "text": "Away from the flex cables",
+       "correct": true,
+       "consequence": "The flex is not cut."
+      },
+      {
+       "text": "Near the flex for speed",
+       "consequence": "You can cut the flex."
+      },
+      {
+       "text": "Deep under the battery",
+       "consequence": "This is dangerous."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "done",
+     "prompt": "What shows a good screen replacement?",
+     "options": [
+      {
+       "text": "A dead strip on one side",
+       "why": "The display or flex is faulty."
+      },
+      {
+       "text": "The proximity sensor does not work",
+       "why": "Check the fitting."
+      },
+      {
+       "text": "The screen lifts at a corner",
+       "why": "The adhesive is poor."
+      },
+      {
+       "text": "Touch works over the whole surface",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "quote",
+     "prompt": "A screen costs N{s}, adhesive N1 500 and labour N5 000. What is the quote, in naira?",
+     "formula": "s + 1500 + 5000",
+     "vars": {
+      "s": {
+       "min": 15000,
+       "max": 40000,
+       "step": 5000
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "naira",
+      "₦"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{s} + 1500 + 5000 = N{answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "screen-fault",
+     "scenario": "Ada's new screen did not work, and she had already sealed it. Here is what she did.",
+     "lines": [
+      {
+       "text": "She sealed before testing.",
+       "fault": true,
+       "why": "Test first."
+      },
+      {
+       "text": "She pried near the flex and cut it.",
+       "fault": true,
+       "why": "Pry away from flex cables."
+      },
+      {
+       "text": "She taped the cracked glass.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She wore safety glasses.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must a new screen be tested before it is sealed?",
+    "explainGuide": "Replacement parts can be faulty. If it is sealed first, opening it again risks damage and wastes adhesive.",
+    "explainKeywords": [
+     [
+      "faulty",
+      "fault"
+     ],
+     [
+      "seal"
+     ],
+     [
+      "damage",
+      "waste",
+      "open"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-replacing-a-charging-port-with-hot-air-rework": {
+   "safety": {
+    "correct": [
+     "Disconnect the battery before applying hot air to the board."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the hot-air nozzle still on one spot until the solder melts.",
+      "why": "The board can burn. Keep the nozzle moving."
+     },
+     {
+      "text": "Rework the port with the fume extractor switched off.",
+      "why": "Flux smoke is irritating. Use fume extraction."
+     },
+     {
+      "text": "Leave nearby plastic parts uncovered to save tape.",
+      "why": "Heat melts them. Shield them with Kapton tape."
+     },
+     {
+      "text": "Lift the hot port with your fingers once the solder melts.",
+      "why": "It will burn you. Use tweezers."
+     },
+     {
+      "text": "Lay the hot-air handle on the bench between heating runs.",
+      "why": "It can burn the bench or you. Return it to its stand."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Blow torch",
+      "why": "It is far too hot for a phone board."
+     },
+     {
+      "name": "Masking tape as a heat shield",
+      "why": "It scorches. Kapton tape is used."
+     },
+     {
+      "name": "Plumber's acid paste",
+      "why": "It corrodes the board."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Metal scraper for the pads",
+      "why": "It lifts the pads. Use solder wick."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "airflow",
+     "afterStep": 3,
+     "prompt": "Tiny parts near the port begin to move. What do you change?",
+     "options": [
+      {
+       "text": "Lower the airflow and keep the nozzle moving",
+       "correct": true,
+       "consequence": "The parts stay in place."
+      },
+      {
+       "text": "Raise the airflow so that the heat gets in faster",
+       "consequence": "Tiny parts are blown away."
+      },
+      {
+       "text": "Hold the nozzle closer",
+       "consequence": "This overheats the board."
+      }
+     ]
+    },
+    {
+     "id": "pads",
+     "afterStep": 4,
+     "prompt": "The old port is off. What do you do to the pads?",
+     "options": [
+      {
+       "text": "Scrape them with a blade",
+       "consequence": "This lifts the pads."
+      },
+      {
+       "text": "Clean them with wick and IPA",
+       "correct": true,
+       "consequence": "The new port can seat and bond."
+      },
+      {
+       "text": "Fit the new port over the old solder",
+       "consequence": "It sits high and joints are poor."
+      }
+     ]
+    },
+    {
+     "id": "inspect",
+     "afterStep": 6,
+     "prompt": "The new port is reflowed. What comes next?",
+     "options": [
+      {
+       "text": "Connect the charger straight away",
+       "consequence": "A bridge could damage the board."
+      },
+      {
+       "text": "Seal the phone first",
+       "consequence": "You would have to reopen it."
+      },
+      {
+       "text": "Check for bridges under the microscope",
+       "correct": true,
+       "consequence": "A bridge is found before power is applied."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "charging",
+     "prompt": "What shows that the repair has worked?",
+     "options": [
+      {
+       "text": "The port gets very hot on charge",
+       "why": "There may be a bridge or short."
+      },
+      {
+       "text": "The tester shows correct voltage and current",
+       "correct": true
+      },
+      {
+       "text": "The tester shows 0 A with a charger connected",
+       "why": "No charge is flowing."
+      },
+      {
+       "text": "The port feels loose",
+       "why": "A joint has failed."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "max-power",
+     "prompt": "A charger is rated 5 V, {i} A. What is its maximum power?",
+     "formula": "5 * i",
+     "vars": {
+      "i": {
+       "min": 1,
+       "max": 3,
+       "step": 0.5
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "5 × {i} = {answer} W."
+    },
+    {
+     "id": "draw",
+     "prompt": "A USB tester shows 5.05 V and {i} A. What power is the phone drawing?",
+     "formula": "5.05 * i",
+     "vars": {
+      "i": {
+       "min": 1,
+       "max": 2,
+       "step": 0.2
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "5.05 × {i} = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "port-fault",
+     "scenario": "Ayo's phone charges slowly after a port change, and two small parts are missing from the board. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used too high an airflow.",
+       "fault": true,
+       "why": "It blows tiny parts away."
+      },
+      {
+       "text": "He left flux residue on the joints.",
+       "fault": true,
+       "why": "Flux must be cleaned off."
+      },
+      {
+       "text": "He did not reflow the hidden pads under the connector.",
+       "fault": true,
+       "why": "Those joints stay poor."
+      },
+      {
+       "text": "He shielded nearby parts with Kapton tape.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He tested with a USB charging tester.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is corrective maintenance, and how does it differ from preventive maintenance?",
+    "explainGuide": "Corrective maintenance repairs a fault after it has occurred, such as soldering a new port. Preventive maintenance is done before faults occur.",
+    "explainKeywords": [
+     [
+      "after",
+      "fault",
+      "repair"
+     ],
+     [
+      "before",
+      "prevent"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-preventive-maintenance-routine-for-a-phone": {
+   "safety": {
+    "correct": [
+     "Ask the customer's permission before you touch their files."
+    ],
+    "wrong": [
+     {
+      "text": "Clean the charging port with a metal pin.",
+      "why": "Metal can short or bend the pins. Use a plastic pick."
+     },
+     {
+      "text": "Clean the port with the phone switched on.",
+      "why": "Power off before cleaning ports."
+     },
+     {
+      "text": "Delete old photos to free space without asking.",
+      "why": "Files belong to the customer. Get permission."
+     },
+     {
+      "text": "Start an update with the battery almost flat.",
+      "why": "It can stop midway and damage the software. Charge it first."
+     },
+     {
+      "text": "Pour IPA straight into the charging port.",
+      "why": "Excess liquid gets inside. Apply a little with a brush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Metal pin",
+      "why": "It can short or bend the port pins."
+     },
+     {
+      "name": "Water and soap",
+      "why": "Water harms electronics. IPA is used."
+     },
+     {
+      "name": "Wire brush",
+      "why": "It scratches contacts."
+     },
+     {
+      "name": "Hot-air station",
+      "why": "No soldering is done here."
+     },
+     {
+      "name": "Household bleach",
+      "why": "It corrodes contacts."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "backup",
+     "afterStep": 1,
+     "prompt": "Before anything else, what do you do?",
+     "options": [
+      {
+       "text": "Back up the data, with permission",
+       "correct": true,
+       "consequence": "Nothing is lost if an update fails."
+      },
+      {
+       "text": "Install the updates the phone is asking for",
+       "consequence": "An update without a backup risks the data."
+      },
+      {
+       "text": "Remove unwanted files",
+       "consequence": "You need permission and a backup first."
+      }
+     ]
+    },
+    {
+     "id": "lint",
+     "afterStep": 2,
+     "prompt": "The port is packed with lint. What do you use?",
+     "options": [
+      {
+       "text": "A safety pin",
+       "consequence": "Metal can damage the pins."
+      },
+      {
+       "text": "A strong blow from your mouth",
+       "consequence": "Moisture gets in, and the lint stays."
+      },
+      {
+       "text": "A plastic pick and soft brush",
+       "correct": true,
+       "consequence": "The lint comes out with no damage."
+      }
+     ]
+    },
+    {
+     "id": "health",
+     "afterStep": 4,
+     "prompt": "Battery health reads 78%. What do you do?",
+     "options": [
+      {
+       "text": "Record it and advise a replacement",
+       "correct": true,
+       "consequence": "About 80% is when replacement is advised."
+      },
+      {
+       "text": "Say nothing to the customer",
+       "consequence": "They need to be told."
+      },
+      {
+       "text": "Open the battery to check it",
+       "consequence": "Never open a lithium cell."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "clean",
+     "prompt": "What often follows removing lint from the port?",
+     "options": [
+      {
+       "text": "The IMEI changes",
+       "why": "Cleaning cannot change it."
+      },
+      {
+       "text": "Charging becomes reliable",
+       "correct": true
+      },
+      {
+       "text": "The phone loses signal",
+       "why": "Lint does not affect the signal."
+      },
+      {
+       "text": "The screen gets brighter",
+       "why": "Lint has no effect on it."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "bat-health",
+     "prompt": "A battery has a design capacity of 4 000 mAh and measures {c} mAh. What is its health?",
+     "formula": "c / 4000 * 100",
+     "vars": {
+      "c": {
+       "min": 2800,
+       "max": 3800,
+       "step": 200
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "{c} ÷ 4000 × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "pm-fault",
+     "scenario": "A customer lost her photos after Sade serviced her phone. Here is what Sade did.",
+     "lines": [
+      {
+       "text": "She updated without a backup.",
+       "fault": true,
+       "why": "Back up first."
+      },
+      {
+       "text": "She started the update on low battery.",
+       "fault": true,
+       "why": "It needs sufficient charge."
+      },
+      {
+       "text": "She used a plastic pick.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She reported battery health to the customer.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State two advantages of preventive maintenance.",
+    "explainGuide": "It finds problems before they become faults, so the phone lasts longer and costly repairs and lost data are avoided.",
+    "explainKeywords": [
+     [
+      "before",
+      "early",
+      "prevent"
+     ],
+     [
+      "last",
+      "longer",
+      "life"
+     ],
+     [
+      "cost",
+      "repair",
+      "data"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-using-phone-menus-and-codes-for-fault-finding": {
+   "safety": {
+    "correct": [
+     "Tell the customer what each test will do before you begin."
+    ],
+    "wrong": [
+     {
+      "text": "Try codes found online to see what they do.",
+      "why": "Unknown codes can reset the phone and erase data."
+     },
+     {
+      "text": "Run a factory reset code without a backup.",
+      "why": "Never erase data without consent and backup."
+     },
+     {
+      "text": "Change the network settings without noting them first.",
+      "why": "Record settings before changing them."
+     },
+     {
+      "text": "Show the customer's messages to a friend while testing.",
+      "why": "Their data is private. Test only what you need."
+     },
+     {
+      "text": "Copy a customer's IMEI onto another phone.",
+      "why": "Altering an IMEI is illegal."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hot-air station",
+      "why": "This job uses menus and codes."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Nothing is soldered."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Suction cup",
+      "why": "The phone is not opened."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "match",
+     "afterStep": 1,
+     "prompt": "The IMEI on screen differs from the label. What do you do?",
+     "options": [
+      {
+       "text": "Record it and investigate before going on",
+       "correct": true,
+       "consequence": "A mismatch can mean a changed board or tampering."
+      },
+      {
+       "text": "Ignore it and carry on, since the phone still works",
+       "consequence": "You miss an important warning."
+      },
+      {
+       "text": "Edit the IMEI to match",
+       "consequence": "Changing an IMEI is illegal."
+      }
+     ]
+    },
+    {
+     "id": "code",
+     "afterStep": 3,
+     "prompt": "This make does not accept the test code you know. What do you do?",
+     "options": [
+      {
+       "text": "Tell the customer that the phone is dead",
+       "consequence": "The code simply differs."
+      },
+      {
+       "text": "Check the service manual for that make",
+       "correct": true,
+       "consequence": "Codes differ between makes."
+      },
+      {
+       "text": "Try random codes",
+       "consequence": "They can reset the phone."
+      }
+     ]
+    },
+    {
+     "id": "remedy",
+     "afterStep": 6,
+     "prompt": "A phone restarts repeatedly, and the test menu passes. What do you suggest?",
+     "options": [
+      {
+       "text": "A new charging port and flex cable",
+       "consequence": "This does not cure a restart loop."
+      },
+      {
+       "text": "A cache clear, update or reflash",
+       "correct": true,
+       "consequence": "This suits a software fault."
+      },
+      {
+       "text": "A new screen",
+       "consequence": "The screen is not at fault."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "speaker",
+     "prompt": "The test menu shows every test passing except the microphone. What does this show?",
+     "options": [
+      {
+       "text": "The SIM is rejected",
+       "why": "That is a separate check."
+      },
+      {
+       "text": "The microphone path has a hardware fault",
+       "correct": true
+      },
+      {
+       "text": "The firmware needs a new IMEI number entered",
+       "why": "An IMEI is not related."
+      },
+      {
+       "text": "All the hardware is working",
+       "why": "One test failed."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "luhn",
+     "prompt": "In a Luhn check of an IMEI, the digits add up to {s}. What is the check digit?",
+     "formula": "60 - s",
+     "vars": {
+      "s": {
+       "min": 51,
+       "max": 59,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Next multiple of 10 is 60. 60 − {s} = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "code-fault",
+     "scenario": "A customer's phone was wiped during a fault check. Here is what the technician did.",
+     "lines": [
+      {
+       "text": "He used an unknown code that reset the phone.",
+       "fault": true,
+       "why": "Unknown codes are risky."
+      },
+      {
+       "text": "He did not get consent or a backup.",
+       "fault": true,
+       "why": "Both are needed."
+      },
+      {
+       "text": "He compared the IMEI with the label.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He noted the symptoms.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is an IMEI used for?",
+    "explainGuide": "It is a unique number that identifies a phone on the network. It can be used to block a stolen phone and to check the handset is genuine.",
+    "explainKeywords": [
+     [
+      "unique",
+      "identif"
+     ],
+     [
+      "network"
+     ],
+     [
+      "stolen",
+      "block",
+      "genuine"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-flashing-firmware-on-a-mobile-phone": {
+   "safety": {
+    "correct": [
+     "Keep the USB cable where nobody can knock it during flashing."
+    ],
+    "wrong": [
+     {
+      "text": "Flash a phone a stranger brought in without proof of ownership.",
+      "why": "Only flash with the owner's consent and proof of ownership."
+     },
+     {
+      "text": "Unplug the cable when the bar seems stuck.",
+      "why": "Disconnecting during flashing can brick the phone."
+     },
+     {
+      "text": "Start flashing with the battery at 15%.",
+      "why": "Keep at least 50%. A power loss can brick it."
+     },
+     {
+      "text": "Bypass the account lock so the customer can sell the phone.",
+      "why": "Bypassing theft protection is illegal."
+     },
+     {
+      "text": "Use firmware for a similar model because it is smaller.",
+      "why": "Use only firmware for the exact model."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Unofficial IMEI changer",
+      "why": "Changing an IMEI is illegal."
+     },
+     {
+      "name": "Hot-air station",
+      "why": "Nothing is soldered."
+     },
+     {
+      "name": "Worn charging-only cable",
+      "why": "It may not carry data, and it can drop out."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "Firmware for a similar model",
+      "why": "It can brick the phone."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "model",
+     "afterStep": 1,
+     "prompt": "The box says one model, the settings another. Which do you go by?",
+     "options": [
+      {
+       "text": "Pick whichever firmware file is the newest one available",
+       "consequence": "Wrong firmware can brick it."
+      },
+      {
+       "text": "Confirm the exact model and region from the phone",
+       "correct": true,
+       "consequence": "The firmware will match the phone."
+      },
+      {
+       "text": "Go by the box",
+       "consequence": "The box may not be the original."
+      }
+     ]
+    },
+    {
+     "id": "verify",
+     "afterStep": 4,
+     "prompt": "The download has finished. What do you do?",
+     "options": [
+      {
+       "text": "Flash at once",
+       "consequence": "A corrupted file can brick it."
+      },
+      {
+       "text": "Rename it to the model number",
+       "consequence": "That does not check it."
+      },
+      {
+       "text": "Verify the file before flashing",
+       "correct": true,
+       "consequence": "A corrupted file is caught in time."
+      }
+     ]
+    },
+    {
+     "id": "stuck",
+     "afterStep": 6,
+     "prompt": "Flashing is slow, and the bar has not moved for a minute. What do you do?",
+     "options": [
+      {
+       "text": "Wait until it completes",
+       "correct": true,
+       "consequence": "The process is not interrupted."
+      },
+      {
+       "text": "Unplug it and start again",
+       "consequence": "Interrupting can brick the phone."
+      },
+      {
+       "text": "Close the tool",
+       "consequence": "This interrupts the flash."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ok",
+     "prompt": "What shows a successful flash?",
+     "options": [
+      {
+       "text": "The computer loses the phone half-way through the flash",
+       "why": "The flash has been interrupted."
+      },
+      {
+       "text": "The tool reports a checksum error",
+       "why": "The file is corrupt."
+      },
+      {
+       "text": "The phone boots normally and the loop is cleared",
+       "correct": true
+      },
+      {
+       "text": "The phone shows only the logo",
+       "why": "The boot loop continues."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dl",
+     "prompt": "A {g} GB firmware file downloads at 10 Mbit/s. How long does it take, in seconds?",
+     "formula": "g * 1024 * 8 / 10",
+     "vars": {
+      "g": {
+       "min": 1,
+       "max": 4,
+       "step": 0.5
+      }
+     },
+     "unit": "s",
+     "unitAliases": [
+      "seconds",
+      "sec"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "{g} × 1024 × 8 ÷ 10 = {answer} s."
+    }
+   ],
+   "faults": [
+    {
+     "id": "flash-fault",
+     "scenario": "A phone was bricked in Chidi's shop. Here is what happened.",
+     "lines": [
+      {
+       "text": "He flashed wrong-region firmware.",
+       "fault": true,
+       "why": "Use the exact model and region."
+      },
+      {
+       "text": "He interrupted the process.",
+       "fault": true,
+       "why": "Never disconnect during flashing."
+      },
+      {
+       "text": "He had the owner's consent form.",
+       "why": "That is required."
+      },
+      {
+       "text": "He used the original USB cable.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State the ethical and legal limits on flashing and unlocking phones.",
+    "explainGuide": "Work only with the owner's consent and proof of ownership. Changing an IMEI or bypassing theft protection is illegal.",
+    "explainKeywords": [
+     [
+      "consent",
+      "owner",
+      "ownership"
+     ],
+     [
+      "imei",
+      "theft",
+      "bypass"
+     ],
+     [
+      "illegal",
+      "law",
+      "legal"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-diagnosing-sim-and-network-problems": {
+   "safety": {
+    "correct": [
+     "Handle SIM cards by their edges so that the contacts stay clean."
+    ],
+    "wrong": [
+     {
+      "text": "Pull out the SIM tray while the phone is on.",
+      "why": "Power off before removing it."
+     },
+     {
+      "text": "Bend the socket pins hard with a metal tool.",
+      "why": "They can snap. Re-tension gently."
+     },
+     {
+      "text": "Remove a lock code for someone who cannot prove the phone is theirs.",
+      "why": "Reset only with owner verification."
+     },
+     {
+      "text": "Reflash the phone before testing a good SIM.",
+      "why": "This wastes time. Test the SIM first."
+     },
+     {
+      "text": "Scrape the SIM contacts with a blade.",
+      "why": "This damages them. Use IPA and a brush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hot-air station",
+      "why": "It is not needed for a SIM check."
+     },
+     {
+      "name": "Unofficial IMEI changer",
+      "why": "Changing an IMEI is illegal."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Sandpaper",
+      "why": "It damages the contacts."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 1,
+     "prompt": "A phone shows \"Invalid SIM\". What is your first step?",
+     "options": [
+      {
+       "text": "Replace the board",
+       "consequence": "This is a costly guess."
+      },
+      {
+       "text": "Try a known good SIM",
+       "correct": true,
+       "consequence": "Faulty SIMs are the most common cause."
+      },
+      {
+       "text": "Reflash it",
+       "consequence": "This is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "locked",
+     "afterStep": 3,
+     "prompt": "The phone accepts only one network's SIM. What is it?",
+     "options": [
+      {
+       "text": "Water-damaged",
+       "consequence": "The symptom does not suggest this."
+      },
+      {
+       "text": "Network-locked",
+       "correct": true,
+       "consequence": "It works only with one network."
+      },
+      {
+       "text": "Faulty",
+       "consequence": "It works, but only on that network."
+      }
+     ]
+    },
+    {
+     "id": "settings",
+     "afterStep": 4,
+     "prompt": "The SIM works, but there is no data service. What do you check?",
+     "options": [
+      {
+       "text": "APN and network mode",
+       "correct": true,
+       "consequence": "Settings are a common cause."
+      },
+      {
+       "text": "The screen and its touch layer",
+       "consequence": "The screen does not affect data."
+      },
+      {
+       "text": "The speaker",
+       "consequence": "The speaker does not affect data."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-sim",
+     "prompt": "A known good SIM works in the phone. What does this show?",
+     "options": [
+      {
+       "text": "The customer's SIM is faulty",
+       "correct": true
+      },
+      {
+       "text": "The phone's socket is faulty",
+       "why": "The good SIM worked."
+      },
+      {
+       "text": "The phone is network-locked",
+       "why": "The good SIM worked."
+      },
+      {
+       "text": "The phone needs flashing",
+       "why": "The good SIM worked."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "share",
+     "prompt": "Of 20 phones with SIM errors, {n} had faulty SIMs. What percentage is this?",
+     "formula": "n / 20 * 100",
+     "vars": {
+      "n": {
+       "min": 6,
+       "max": 12,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} ÷ 20 × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sim-fault",
+     "scenario": "Wale wasted an hour on a simple SIM fault. Here is what he did.",
+     "lines": [
+      {
+       "text": "He reflashed before checking the SIM.",
+       "fault": true,
+       "why": "Test the SIM first."
+      },
+      {
+       "text": "He opened the phone before trying a good SIM.",
+       "fault": true,
+       "why": "Test with a good SIM first."
+      },
+      {
+       "text": "He recorded the cause and remedy.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He switched off before removing the tray.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a known good SIM tried first?",
+    "explainGuide": "Faulty SIMs are the most common cause, so this quick test shows at once whether the SIM or the phone is at fault, and saves time.",
+    "explainKeywords": [
+     [
+      "common",
+      "most",
+      "45"
+     ],
+     [
+      "sim"
+     ],
+     [
+      "time",
+      "quick",
+      "phone"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-testing-chargers-batteries-and-accessories": {
+   "safety": {
+    "correct": [
+     "Stop using a charger whose casing is cracked, and report it."
+    ],
+    "wrong": [
+     {
+      "text": "Open a mains charger to see inside.",
+      "why": "It contains high voltages. Do not open it."
+     },
+     {
+      "text": "Touch both battery terminals with a metal tweezer.",
+      "why": "That shorts them. Never short a battery."
+     },
+     {
+      "text": "Use a cheap uncertified charger for the test because it is handy.",
+      "why": "Use certified chargers."
+     },
+     {
+      "text": "Test a swollen battery to see if it still works.",
+      "why": "It can catch fire. Remove it from use and store it safely."
+     },
+     {
+      "text": "Measure a mains charger's input side on the multimeter.",
+      "why": "Mains is dangerous. Test only the USB output."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oscilloscope",
+      "why": "Voltage and current are read on the tester."
+     },
+     {
+      "name": "Hot-air station",
+      "why": "Nothing is soldered."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is hammered."
+     },
+     {
+      "name": "Insulation resistance tester",
+      "why": "Its high voltage is not for this work."
+     }
+    ],
+    "optional": [
+     "Electronic load (optional)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "label",
+     "afterStep": 3,
+     "prompt": "A charger is labelled 2 A. How do you judge it?",
+     "options": [
+      {
+       "text": "Measure it on load with the USB tester",
+       "correct": true,
+       "consequence": "The label alone does not prove it."
+      },
+      {
+       "text": "Trust the label, as it is printed on the case",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Weigh it in your hand",
+       "consequence": "Weight proves nothing."
+      }
+     ]
+    },
+    {
+     "id": "cable",
+     "afterStep": 4,
+     "prompt": "Charging is slow. How do you check the cable?",
+     "options": [
+      {
+       "text": "Swap it with a known good one",
+       "correct": true,
+       "consequence": "You see the difference in current and drop."
+      },
+      {
+       "text": "Open the charger",
+       "consequence": "Mains chargers are dangerous inside."
+      },
+      {
+       "text": "Twist the cable to test it",
+       "consequence": "This can break it."
+      }
+     ]
+    },
+    {
+     "id": "no-load",
+     "afterStep": 2,
+     "prompt": "Which reading do you take first?",
+     "options": [
+      {
+       "text": "The output voltage with no load",
+       "correct": true,
+       "consequence": "It gives a value to compare under load."
+      },
+      {
+       "text": "The mains voltage inside the charger",
+       "consequence": "Do not open it."
+      },
+      {
+       "text": "The battery's capacity from the label",
+       "consequence": "This does not test the charger."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "What shows a good charger and cable?",
+     "options": [
+      {
+       "text": "0 V at the output",
+       "why": "It is dead."
+      },
+      {
+       "text": "A flickering reading when the lead moves",
+       "why": "It has a poor connection."
+      },
+      {
+       "text": "About 5 V under load with a small drop",
+       "correct": true
+      },
+      {
+       "text": "A voltage falling to 3.8 V under load",
+       "why": "It is a poor charger or cable."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "drop",
+     "prompt": "A charger reads 5.10 V at no load and {v} V while delivering 1.0 A. What is the cable resistance?",
+     "formula": "(5.1 - v) / 1",
+     "vars": {
+      "v": {
+       "min": 4.6,
+       "max": 5,
+       "step": 0.1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "(5.10 − {v}) ÷ 1.0 = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "charger-fault",
+     "scenario": "Biola told a customer a poor charger was good. Here is what she did.",
+     "lines": [
+      {
+       "text": "She judged it by its label alone.",
+       "fault": true,
+       "why": "Test it under load."
+      },
+      {
+       "text": "She tested only with no load.",
+       "fault": true,
+       "why": "A poor charger drops under load."
+      },
+      {
+       "text": "She swapped the cable.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She did not open the mains charger.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does a poor cable give slower charging?",
+    "explainGuide": "Its higher resistance drops more voltage when current flows, so less voltage reaches the phone and it draws less current.",
+    "explainKeywords": [
+     [
+      "resistance"
+     ],
+     [
+      "drop",
+      "voltage"
+     ],
+     [
+      "current",
+      "slower",
+      "less"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-gsm-costing-and-return-on-investment-for-a-phone-repair-shop": {
+   "safety": {
+    "correct": [
+     "Tell an adult where you are going before the market survey."
+    ],
+    "wrong": [
+     {
+      "text": "Go alone to a quiet market area to collect prices.",
+      "why": "Collect prices in pairs in safe market areas."
+     },
+     {
+      "text": "Show a large sum of cash when asking for prices.",
+      "why": "It attracts theft. Keep money out of sight."
+     },
+     {
+      "text": "Follow a trader into a lonely store to see the price list.",
+      "why": "Stay in safe, open areas."
+     },
+     {
+      "text": "Survey at night to find the shops less busy.",
+      "why": "Work in daylight in safe areas."
+     },
+     {
+      "text": "Argue loudly with a trader over a quoted price.",
+      "why": "This can cause trouble. Note the price politely."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Soldering iron",
+      "why": "This is a costing exercise."
+     },
+     {
+      "name": "Multimeter",
+      "why": "Nothing is measured electrically."
+     },
+     {
+      "name": "Hot-air station",
+      "why": "This is a costing exercise."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It is a surveying tool."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid batteries."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "recurring",
+     "afterStep": 4,
+     "prompt": "Your list of expenses shows only parts. What must you add?",
+     "options": [
+      {
+       "text": "The cost of your school books",
+       "consequence": "It is not a shop expense."
+      },
+      {
+       "text": "Nothing",
+       "consequence": "Profit would be overstated."
+      },
+      {
+       "text": "Rent, power and wages",
+       "correct": true,
+       "consequence": "Recurring costs are often forgotten."
+      }
+     ]
+    },
+    {
+     "id": "prices",
+     "afterStep": 2,
+     "prompt": "Your price list is from three years ago. What do you do?",
+     "options": [
+      {
+       "text": "Halve all the figures",
+       "consequence": "This makes it worse."
+      },
+      {
+       "text": "Collect up-to-date local prices",
+       "correct": true,
+       "consequence": "The budget is realistic."
+      },
+      {
+       "text": "Use it as it is, since little has changed",
+       "consequence": "Prices have changed."
+      }
+     ]
+    },
+    {
+     "id": "roi",
+     "afterStep": 5,
+     "prompt": "Which formula gives ROI?",
+     "options": [
+      {
+       "text": "Investment ÷ profit × 100",
+       "consequence": "That is upside down."
+      },
+      {
+       "text": "Income ÷ expenses × 100",
+       "consequence": "That is not ROI."
+      },
+      {
+       "text": "Profit ÷ investment × 100",
+       "correct": true,
+       "consequence": "That is the formula."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "budget",
+     "prompt": "What does a realistic budget show?",
+     "options": [
+      {
+       "text": "Income with no costs",
+       "why": "Costs must be included."
+      },
+      {
+       "text": "Profit higher than income",
+       "why": "This is impossible."
+      },
+      {
+       "text": "Only the cost of tools and the shop rent each month",
+       "why": "All costs must be included."
+      },
+      {
+       "text": "How long it takes to recover the capital",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "profit",
+     "prompt": "Yearly income is N{i} and yearly expenses are N1 200 000. What is the yearly profit, in naira?",
+     "formula": "i - 1200000",
+     "vars": {
+      "i": {
+       "min": 2000000,
+       "max": 4000000,
+       "step": 500000
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "naira",
+      "₦"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{i} − 1 200 000 = N{answer}."
+    },
+    {
+     "id": "return",
+     "prompt": "Yearly profit is N{p} on a capital of N1 200 000. What is the ROI?",
+     "formula": "p / 1200000 * 100",
+     "vars": {
+      "p": {
+       "min": 600000,
+       "max": 2400000,
+       "step": 300000
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "{p} ÷ 1 200 000 × 100 = {answer}%."
+    },
+    {
+     "id": "payback",
+     "prompt": "Capital is N1 200 000 and yearly profit is N{p}. What is the payback time, in months?",
+     "formula": "1200000 / (p / 12)",
+     "vars": {
+      "p": {
+       "min": 900000,
+       "max": 2400000,
+       "step": 300000
+      }
+     },
+     "unit": "months",
+     "unitAliases": [
+      "month"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "1 200 000 ÷ ({p} ÷ 12) = {answer} months."
+    }
+   ],
+   "faults": [
+    {
+     "id": "budget-fault",
+     "scenario": "Oge's shop ran out of money in six months, though her budget showed a big profit. Here is what she did.",
+     "lines": [
+      {
+       "text": "She forgot recurring costs like power and rent.",
+       "fault": true,
+       "why": "These must be included."
+      },
+      {
+       "text": "She made optimistic income estimates.",
+       "fault": true,
+       "why": "Income should be realistic."
+      },
+      {
+       "text": "She used out-of-date prices.",
+       "fault": true,
+       "why": "Use current prices."
+      },
+      {
+       "text": "She listed the risks.",
+       "why": "That is expected."
+      },
+      {
+       "text": "She showed the ROI working.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State factors to consider when choosing a location for a phone repair shop.",
+    "explainGuide": "A busy, accessible commercial area brings customers. Rent, security, power supply and nearby competition also matter.",
+    "explainKeywords": [
+     [
+      "busy",
+      "accessible",
+      "commercial",
+      "customer"
+     ],
+     [
+      "rent",
+      "security",
+      "power",
+      "competition"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  }
+ }
+}

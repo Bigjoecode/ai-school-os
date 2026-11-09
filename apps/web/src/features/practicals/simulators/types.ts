@@ -1,4 +1,4 @@
-import type { PracticalMode, PracticalResult, SimulatorId, SimulatorStates } from '@aischool/shared';
+import type { GenPaper, PracticalMode, PracticalResult, SimulatorId, SimulatorStates } from '@aischool/shared';
 import type { ComponentType, LazyExoticComponent } from 'react';
 
 /**
@@ -27,6 +27,8 @@ export interface SimulatorProps<Id extends SimulatorId = SimulatorId> {
   attemptId?: string;
   /** Read-only after marking: the result, for a lab that walks the student through it. */
   result?: PracticalResult | null;
+  /** A Guided practical's paper from the server (labs driven by lesson data). */
+  paper?: GenPaper | null;
 }
 
 export interface SimulatorEntry<Id extends SimulatorId = SimulatorId> {
@@ -34,8 +36,10 @@ export interface SimulatorEntry<Id extends SimulatorId = SimulatorId> {
   component: LazyExoticComponent<ComponentType<SimulatorProps<Id>>>;
   /** An optional 3D view of the same lab: same state, same marks (lazy, so only devices that open it download three.js). */
   component3d?: LazyExoticComponent<ComponentType<SimulatorProps<Id>>>;
+  /** Open in 2D even on a capable device (the 3D view stays one tap away). */
+  prefer2d?: boolean;
   /** A fresh state for a new attempt. */
   empty: () => SimulatorStates[Id];
   /** Things still missing, shown before hand-in ("You haven't recorded the mean titre"). Empty when complete. */
-  missing: (state: SimulatorStates[Id], seed: number) => string[];
+  missing: (state: SimulatorStates[Id], seed: number, paper?: GenPaper | null) => string[];
 }

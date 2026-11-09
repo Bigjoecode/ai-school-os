@@ -1,0 +1,6181 @@
+{
+  "subject": "Health Education",
+  "room": "lab",
+  "lessons": {
+    "pr-hed-food-tests-starch-sugars": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Heat the Benedict's tube directly in the flame to save time.",
+            "why": "It can spit out of the tube. Heat it in a water bath."
+          },
+          {
+            "text": "Taste the banana solution to see whether it is sweet.",
+            "why": "Nothing in a laboratory is tasted, even a food sample."
+          },
+          {
+            "text": "Look straight down into the tube while it heats.",
+            "why": "It can spurt into your eye. Point it away from everyone."
+          },
+          {
+            "text": "Hold the hot tube in your fingers to shake it.",
+            "why": "It burns you. Use the test-tube holder."
+          },
+          {
+            "text": "Leave spilt iodine on the bench until the end of the lesson.",
+            "why": "Iodine stains skin and clothes. Wipe spills at once."
+          },
+          {
+            "text": "Take off your eye protection once the water bath is boiling.",
+            "why": "Boiling water can splash. Keep eye protection on."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Biuret reagents",
+            "why": "They test for protein, not starch or sugar."
+          },
+          {
+            "name": "Filter paper for a grease spot",
+            "why": "The grease-spot test is for fats."
+          },
+          {
+            "name": "Sudan III solution",
+            "why": "It tests for fat."
+          },
+          {
+            "name": "Crucible and tongs",
+            "why": "Nothing is being strongly heated to ash."
+          },
+          {
+            "name": "Thermometer",
+            "why": "The bath only needs to be boiling."
+          },
+          {
+            "name": "Litmus paper",
+            "why": "It tests for acid or alkali, not nutrients."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "starch-reagent",
+          "afterStep": 1,
+          "prompt": "The food solutions are ready. You want to test for starch. What do you add?",
+          "options": [
+            {
+              "text": "2-3 drops of iodine solution",
+              "correct": true,
+              "consequence": "Iodine turns blue-black with starch."
+            },
+            {
+              "text": "2 cm3 of Benedict's solution",
+              "consequence": "That tests for reducing sugar."
+            },
+            {
+              "text": "Dilute sodium hydroxide",
+              "consequence": "That is part of the protein test."
+            }
+          ]
+        },
+        {
+          "id": "heat-benedict",
+          "afterStep": 4,
+          "prompt": "Food solution and Benedict's solution are in the tube. What next?",
+          "options": [
+            {
+              "text": "Heat in a boiling water bath for about 5 minutes",
+              "correct": true,
+              "consequence": "The reaction needs heat, and a water bath gives it safely."
+            },
+            {
+              "text": "Leave the tube in the rack, unheated",
+              "consequence": "Not heating is a named mistake: no colour change appears."
+            },
+            {
+              "text": "Heat it over a naked flame for 5 seconds",
+              "consequence": "It spits, and that is too short a time to react."
+            }
+          ]
+        },
+        {
+          "id": "sucrose",
+          "afterStep": 7,
+          "prompt": "Table sugar stayed blue with Benedict's solution. What do you conclude?",
+          "options": [
+            {
+              "text": "Sucrose is a non-reducing sugar",
+              "correct": true,
+              "consequence": "Correct. It only reacts after acid hydrolysis."
+            },
+            {
+              "text": "The sample contains no sugar at all",
+              "consequence": "It is sugar, but not a reducing sugar."
+            },
+            {
+              "text": "The Benedict's solution has gone bad",
+              "consequence": "Glucose gave a colour change, so the reagent works."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "garri-iodine",
+          "prompt": "You add iodine to garri. What do you observe?",
+          "options": [
+            {
+              "text": "It turns blue-black",
+              "correct": true
+            },
+            {
+              "text": "It stays yellow-brown",
+              "why": "That would mean no starch: garri is starchy."
+            },
+            {
+              "text": "A brick-red precipitate forms",
+              "why": "That is Benedict's solution with a reducing sugar."
+            }
+          ]
+        },
+        {
+          "id": "glucose-result",
+          "prompt": "Glucose solution is heated with Benedict's solution. What do you see?",
+          "options": [
+            {
+              "text": "A brick-red precipitate",
+              "correct": true
+            },
+            {
+              "text": "A blue-black colour",
+              "why": "That is iodine with starch."
+            },
+            {
+              "text": "No change from blue",
+              "why": "That is table sugar."
+            },
+            {
+              "text": "A violet colour",
+              "why": "That is the protein test."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "volume",
+          "prompt": "Each test uses 2 cm3 of Benedict's solution. How much is needed for {n} tubes?",
+          "formula": "2 * n",
+          "vars": {
+            "n": {
+              "min": 5,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm3",
+          "unitAliases": [
+            "cm³",
+            "ml"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 2 = {answer} cm3."
+        },
+        {
+          "id": "positive",
+          "prompt": "{a} of {n} food samples are positive for starch. What percentage is that?",
+          "formula": "a / n * 100",
+          "vars": {
+            "a": {
+              "min": 3,
+              "max": 5,
+              "step": 1
+            },
+            "n": {
+              "min": 8,
+              "max": 10,
+              "step": 2
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "table-entries",
+          "scenario": "Bose wrote up her starch and sugar tests. Here is what she did.",
+          "lines": [
+            {
+              "text": "She wrote 'starch is present' with no colour.",
+              "fault": true,
+              "why": "State the colour observed: blue-black."
+            },
+            {
+              "text": "She used one unwashed tube for every sample.",
+              "fault": true,
+              "why": "Sugar carries over. Use clean tubes."
+            },
+            {
+              "text": "She expected table sugar to go brick-red.",
+              "fault": true,
+              "why": "Sucrose is non-reducing."
+            },
+            {
+              "text": "She used equal volumes of solution and reagent.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She set out a table of test, observation and inference.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for the starch and reducing sugar tests.",
+        "explainPrompt": "Why does table sugar stay blue with Benedict's solution?",
+        "explainGuide": "Table sugar is sucrose, a non-reducing sugar, so it cannot reduce the copper in Benedict's solution unless it is first hydrolysed with acid.",
+        "explainKeywords": [
+          [
+            "sucrose",
+            "non-reducing"
+          ],
+          [
+            "reduc",
+            "copper"
+          ],
+          [
+            "acid",
+            "hydrolys"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Food tests: starch and sugars",
+        "Test. Observation. Inference.",
+        "Quote exact colours."
+      ]
+    },
+    "pr-hed-food-tests-protein-fat": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Wipe sodium hydroxide off your skin with a dry cloth and carry on.",
+            "why": "It is corrosive. Wash it off with plenty of water."
+          },
+          {
+            "text": "Work without goggles because the alkali is dilute.",
+            "why": "It is still corrosive to the eyes. Wear goggles."
+          },
+          {
+            "text": "Open the Sudan III beside a lit burner.",
+            "why": "It is in alcohol, which burns. Keep it away from flames."
+          },
+          {
+            "text": "Taste the groundnut sample after testing it.",
+            "why": "Do not taste samples."
+          },
+          {
+            "text": "Pipette the alkali by mouth.",
+            "why": "It can reach your mouth. Use the dropping pipette bulb."
+          },
+          {
+            "text": "Rub your eyes after handling the copper sulphate.",
+            "why": "Chemicals on your fingers can harm your eyes. Wash your hands first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Iodine solution",
+            "why": "That tests for starch."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That tests for reducing sugar."
+          },
+          {
+            "name": "Hot plate",
+            "why": "Neither the Biuret nor the grease-spot test is heated."
+          },
+          {
+            "name": "White tile",
+            "why": "Biuret is done in tubes and the grease spot on paper."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Sudan III is in alcohol, and no heating is needed."
+          },
+          {
+            "name": "Glucose powder",
+            "why": "It is not one of the foods tested here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "biuret-order",
+          "afterStep": 2,
+          "prompt": "Sodium hydroxide is in with the food solution. What goes in next?",
+          "options": [
+            {
+              "text": "1% copper(II) sulphate, drop by drop",
+              "correct": true,
+              "consequence": "Violet appears if protein is present."
+            },
+            {
+              "text": "A large splash of copper(II) sulphate",
+              "consequence": "Excess blue masks the violet colour."
+            },
+            {
+              "text": "Iodine solution, two drops",
+              "consequence": "Iodine tests for starch."
+            }
+          ]
+        },
+        {
+          "id": "spot-dry",
+          "afterStep": 5,
+          "prompt": "You have rubbed the groundnut on the paper. What do you do before judging it?",
+          "options": [
+            {
+              "text": "Leave it to dry, then hold it to the light",
+              "correct": true,
+              "consequence": "A water spot dries off and only fat stays."
+            },
+            {
+              "text": "Judge it at once while it is wet",
+              "consequence": "Judging a wet spot is a named mistake."
+            },
+            {
+              "text": "Warm it over the flame",
+              "consequence": "Heat is unnecessary and paper can burn."
+            }
+          ]
+        },
+        {
+          "id": "control-food",
+          "afterStep": 8,
+          "prompt": "Garri gave no violet colour and no grease spot. What does this show?",
+          "options": [
+            {
+              "text": "Neither protein nor fat was detected",
+              "correct": true,
+              "consequence": "That is the expected negative result."
+            },
+            {
+              "text": "The reagents must have failed",
+              "consequence": "Egg white and groundnut gave positive results."
+            },
+            {
+              "text": "Garri is high in fat",
+              "consequence": "There was no permanent spot."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "egg-biuret",
+          "prompt": "Egg white with the Biuret reagents shows:",
+          "options": [
+            {
+              "text": "A violet colour",
+              "correct": true
+            },
+            {
+              "text": "A blue-black colour",
+              "why": "That is iodine with starch."
+            },
+            {
+              "text": "A red oily layer",
+              "why": "That is Sudan III with fat."
+            },
+            {
+              "text": "A pink colour",
+              "why": "Say violet or purple. Pink loses marks."
+            }
+          ]
+        },
+        {
+          "id": "grease-spot",
+          "prompt": "Which result shows fat on the paper?",
+          "options": [
+            {
+              "text": "A translucent spot that stays after drying",
+              "correct": true
+            },
+            {
+              "text": "A wet spot that dries off, leaving the paper plain",
+              "why": "That was water."
+            },
+            {
+              "text": "A blue-black mark",
+              "why": "That is starch with iodine."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "kcal-fat",
+          "prompt": "A food contains {f} g of fat. How many kilocalories does the fat supply, at 9 kcal per gram?",
+          "formula": "9 * f",
+          "vars": {
+            "f": {
+              "min": 3,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "kcal",
+          "unitAliases": [
+            "kilocalories"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{f} × 9 = {answer} kcal."
+        },
+        {
+          "id": "groundnut-energy",
+          "prompt": "10 g of groundnut has {f} g fat, 2.5 g protein and 1.5 g carbohydrate. How many kilocalories is that?",
+          "formula": "9 * f + 4 * 2.5 + 4 * 1.5",
+          "vars": {
+            "f": {
+              "min": 4,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "kcal",
+          "unitAliases": [
+            "kilocalories"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{f} × 9 + 2.5 × 4 + 1.5 × 4 = {answer} kcal."
+        }
+      ],
+      "faults": [
+        {
+          "id": "protein-fault",
+          "scenario": "Sam tested foods for protein and fat. His results were unclear. Here is what he did.",
+          "lines": [
+            {
+              "text": "He added copper(II) sulphate before the sodium hydroxide.",
+              "fault": true,
+              "why": "The alkali goes in first."
+            },
+            {
+              "text": "He poured in a lot of copper(II) sulphate.",
+              "fault": true,
+              "why": "Excess blue masks the violet."
+            },
+            {
+              "text": "He judged the grease spot while the paper was still wet.",
+              "fault": true,
+              "why": "A water spot can look like grease until dry."
+            },
+            {
+              "text": "He wore goggles.",
+              "why": "That is correct: the alkali is corrosive."
+            },
+            {
+              "text": "He used clean apparatus for each food.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for the protein and fat tests.",
+        "explainPrompt": "Why is the paper dried before a grease spot is judged?",
+        "explainGuide": "A water spot looks translucent while it is wet but disappears as it dries. Only fat leaves a permanent translucent spot.",
+        "explainKeywords": [
+          [
+            "water"
+          ],
+          [
+            "dry",
+            "disappear",
+            "evaporat"
+          ],
+          [
+            "fat",
+            "permanent",
+            "oil"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Food tests: protein and fat",
+        "Biuret. Grease spot. Sudan III.",
+        "Violet, not pink"
+      ]
+    },
+    "pr-hed-meal-energy-balanced-diet": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Handle the food samples straight after using the toilet without washing.",
+            "why": "Wash your hands before handling food samples."
+          },
+          {
+            "text": "Taste a food sample with the spoon and put it back in the bowl.",
+            "why": "That passes germs to the food others handle."
+          },
+          {
+            "text": "Let the samples sit uncovered in a warm room all day.",
+            "why": "Flies and warmth spoil food. Cover it and discard it after the lesson."
+          },
+          {
+            "text": "Use the same unwashed scale pan for raw fish and fruit.",
+            "why": "Germs pass from the raw fish. Clean the pan between foods."
+          },
+          {
+            "text": "Eat the raw-fish sample after the practical.",
+            "why": "Raw samples are not for eating."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Benedict's solution",
+            "why": "No chemical food test is done here."
+          },
+          {
+            "name": "Test-tube rack",
+            "why": "This is a planning and calculation exercise."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated."
+          },
+          {
+            "name": "Iodine solution",
+            "why": "No chemical food test is done here."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          },
+          {
+            "name": "Measuring tape",
+            "why": "Portions are weighed."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "classes",
+          "afterStep": 1,
+          "prompt": "Which meal covers all six classes of food?",
+          "options": [
+            {
+              "text": "Rice, beans, fish, ugu, palm oil, orange and water",
+              "correct": true,
+              "consequence": "It has energy, body-building and protective foods, with water."
+            },
+            {
+              "text": "Rice, yam, bread, garri, pap, plantain, pasta and water",
+              "consequence": "That is mostly carbohydrate."
+            },
+            {
+              "text": "Fish, beans and egg only",
+              "consequence": "It has protein but lacks fruit, vegetables and water."
+            }
+          ]
+        },
+        {
+          "id": "factor",
+          "afterStep": 5,
+          "prompt": "A portion has 20 g of protein. Which energy factor do you use?",
+          "options": [
+            {
+              "text": "4 kcal per gram",
+              "correct": true,
+              "consequence": "80 kcal."
+            },
+            {
+              "text": "9 kcal per gram",
+              "consequence": "That is for fat: using it for protein is a named mistake."
+            },
+            {
+              "text": "1 kcal per gram",
+              "consequence": "That is no food's energy factor."
+            }
+          ]
+        },
+        {
+          "id": "adjust",
+          "afterStep": 6,
+          "prompt": "The total is far below the student's need. What do you do?",
+          "options": [
+            {
+              "text": "Suggest adjustments to the portions or foods",
+              "correct": true,
+              "consequence": "Comparing with need is the purpose of the sum."
+            },
+            {
+              "text": "Change the arithmetic until it matches",
+              "consequence": "That falsifies the result."
+            },
+            {
+              "text": "Leave out the comparison",
+              "consequence": "The aim includes comparing with the person's needs."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "source",
+          "prompt": "Where does most of the energy in a balanced meal come from?",
+          "options": [
+            {
+              "text": "Carbohydrate",
+              "correct": true
+            },
+            {
+              "text": "Vitamins",
+              "why": "Vitamins give no energy."
+            },
+            {
+              "text": "Water",
+              "why": "Water gives no energy."
+            },
+            {
+              "text": "Mineral salts",
+              "why": "Mineral salts give no energy."
+            }
+          ]
+        },
+        {
+          "id": "protective",
+          "prompt": "Which is a protective food?",
+          "options": [
+            {
+              "text": "Ugu or an orange",
+              "correct": true
+            },
+            {
+              "text": "Rice or a slice of yam",
+              "why": "That is an energy food."
+            },
+            {
+              "text": "Fish",
+              "why": "That is a body-building food."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "energy",
+          "prompt": "A meal has {c} g carbohydrate, {p} g protein and {f} g fat. What is its energy value?",
+          "formula": "4 * c + 4 * p + 9 * f",
+          "vars": {
+            "c": {
+              "min": 60,
+              "max": 90,
+              "step": 5
+            },
+            "p": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            },
+            "f": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "kcal",
+          "unitAliases": [
+            "kilocalories"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{c} × 4 + {p} × 4 + {f} × 9 = {answer} kcal."
+        },
+        {
+          "id": "share",
+          "prompt": "A meal supplies {m} kcal and a student needs 2,400 kcal a day. What percentage of the daily need is that?",
+          "formula": "m / 2400 * 100",
+          "vars": {
+            "m": {
+              "min": 480,
+              "max": 720,
+              "step": 60
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{m} ÷ 2,400 × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "energy-sheet",
+          "scenario": "Ruth planned a meal for an SS3 student and worked out its energy. Here is her sheet.",
+          "lines": [
+            {
+              "text": "She used 9 kcal per gram for protein.",
+              "fault": true,
+              "why": "Protein gives 4 kcal per gram."
+            },
+            {
+              "text": "She left out water and fruit.",
+              "fault": true,
+              "why": "A balanced meal includes them."
+            },
+            {
+              "text": "She gave the total with no units.",
+              "fault": true,
+              "why": "Show the units: kcal."
+            },
+            {
+              "text": "She named a local example for each food class.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She showed each multiplication.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when calculating the energy of a meal.",
+        "explainPrompt": "Why is a meal of only rice and yam not balanced?",
+        "explainGuide": "Both are mainly carbohydrate. The meal lacks body-building protein, protective vitamins and minerals, and water.",
+        "explainKeywords": [
+          [
+            "carbohydrate",
+            "energy",
+            "starch"
+          ],
+          [
+            "protein",
+            "body-building"
+          ],
+          [
+            "vitamin",
+            "mineral",
+            "protective"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "A balanced meal",
+        "Six classes of food",
+        "4 kcal, 4 kcal, 9 kcal per gram"
+      ]
+    },
+    "pr-hed-snellen-vision-screening": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Press the card firmly against the covered eye.",
+            "why": "Pressing blurs that eye and can hurt it. Do not press on the eye."
+          },
+          {
+            "text": "Pass the occluder straight to the next student.",
+            "why": "Eye infections spread that way. Clean it between students."
+          },
+          {
+            "text": "Tell the student that they have myopia and need glasses.",
+            "why": "Screening does not diagnose. Refer them to an eye specialist."
+          },
+          {
+            "text": "Tell the class who failed and laugh about it.",
+            "why": "Results are private and teasing stops people getting help."
+          },
+          {
+            "text": "Advise a struggling student to borrow a friend's glasses.",
+            "why": "Wrong lenses do not correct their sight. Refer them."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing tests."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          },
+          {
+            "name": "Reading newspaper",
+            "why": "Acuity is measured with the standard chart."
+          },
+          {
+            "name": "Torch shone into the eye",
+            "why": "The chart needs even room lighting."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "It has no place in an eye test."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "distance",
+          "afterStep": 2,
+          "prompt": "How far from the chart do you mark the standing line?",
+          "options": [
+            {
+              "text": "Exactly 6 metres",
+              "correct": true,
+              "consequence": "That is the standard distance."
+            },
+            {
+              "text": "About 3 metres",
+              "consequence": "The fraction would no longer mean what it should."
+            },
+            {
+              "text": "As far as the room allows",
+              "consequence": "The distance must be exact."
+            }
+          ]
+        },
+        {
+          "id": "glasses",
+          "afterStep": 3,
+          "prompt": "The student usually wears glasses. What do you tell them?",
+          "options": [
+            {
+              "text": "Keep them on for the test",
+              "correct": true,
+              "consequence": "You are screening usual vision."
+            },
+            {
+              "text": "Take them off, whatever they usually wear",
+              "consequence": "This test is done with glasses on if usually worn."
+            },
+            {
+              "text": "Share a friend's glasses for the test",
+              "consequence": "That says nothing about their own vision."
+            }
+          ]
+        },
+        {
+          "id": "refer",
+          "afterStep": 8,
+          "prompt": "A student scores 6/18 in the right eye and 6/6 in the left. What do you do?",
+          "options": [
+            {
+              "text": "Refer them to an optometrist or ophthalmologist",
+              "correct": true,
+              "consequence": "6/12 or worse in either eye is referred."
+            },
+            {
+              "text": "Say nothing, as the left eye is perfect",
+              "consequence": "Either eye counts."
+            },
+            {
+              "text": "Prescribe concave lenses yourself",
+              "consequence": "Refer, do not diagnose."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "meaning",
+          "prompt": "A result reads 6/24. What does it mean?",
+          "options": [
+            {
+              "text": "The student reads at 6 m what a normal eye reads at 24 m",
+              "correct": true
+            },
+            {
+              "text": "The student reads at 24 m what others read at 6 m",
+              "why": "That is the fraction the wrong way round."
+            },
+            {
+              "text": "The student has perfect vision",
+              "why": "Normal is 6/6."
+            }
+          ]
+        },
+        {
+          "id": "normal",
+          "prompt": "What result does a normal eye give?",
+          "options": [
+            {
+              "text": "6/6",
+              "correct": true
+            },
+            {
+              "text": "6/60",
+              "why": "That is very poor vision."
+            },
+            {
+              "text": "60/6",
+              "why": "The fraction is written testing distance over line number."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "decimal",
+          "prompt": "A student's result is 6/{d}. What is the decimal acuity?",
+          "formula": "6 / d",
+          "vars": {
+            "d": {
+              "min": 9,
+              "max": 36,
+              "step": 3
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 2,
+          "working": "6 ÷ {d} = {answer}."
+        },
+        {
+          "id": "referral",
+          "prompt": "In a class of {n} screened, {r} students scored 6/12 or worse. What is the referral rate?",
+          "formula": "r / n * 100",
+          "vars": {
+            "n": {
+              "min": 40,
+              "max": 60,
+              "step": 10
+            },
+            "r": {
+              "min": 4,
+              "max": 10,
+              "step": 2
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{r} ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "screening-day",
+          "scenario": "Class prefects screened vision in the assembly hall. Here is what they did.",
+          "lines": [
+            {
+              "text": "They tested only with both eyes open.",
+              "fault": true,
+              "why": "Test each eye separately."
+            },
+            {
+              "text": "They wrote one result as 18/6.",
+              "fault": true,
+              "why": "Testing distance goes on top: 6/18."
+            },
+            {
+              "text": "They hung the chart facing bright windows.",
+              "fault": true,
+              "why": "Glare makes letters hard to read."
+            },
+            {
+              "text": "They told one student he had a disease of the eye.",
+              "fault": true,
+              "why": "Refer, do not diagnose."
+            },
+            {
+              "text": "They measured exactly 6 metres.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They cleaned the occluder between students.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for vision screening.",
+        "explainPrompt": "Why does each eye have to be tested separately?",
+        "explainGuide": "One eye can be weaker than the other, and the stronger eye can hide the defect if both are open together.",
+        "explainKeywords": [
+          [
+            "each",
+            "one eye",
+            "separate"
+          ],
+          [
+            "weak",
+            "defect",
+            "differ"
+          ],
+          [
+            "hide",
+            "mask",
+            "cover"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Vision screening",
+        "6 metres, even light",
+        "Refer, do not diagnose."
+      ]
+    },
+    "pr-hed-auditory-screening": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Strike the tuning fork on the edge of the desk.",
+            "why": "Never strike it on a hard surface. Use the knee or a rubber pad."
+          },
+          {
+            "text": "Strike the fork right beside your partner's ear.",
+            "why": "Never strike it near the ear."
+          },
+          {
+            "text": "Clean your partner's ear with a matchstick before the test.",
+            "why": "Do not insert anything into the ear canal."
+          },
+          {
+            "text": "Push a cotton bud into the ear to look for wax.",
+            "why": "Do not insert anything into the ear canal."
+          },
+          {
+            "text": "Tell your partner they have nerve deafness.",
+            "why": "Refer abnormal findings. Do not draw conclusions."
+          },
+          {
+            "text": "Rest the vibrating prongs against the ear to make the sound louder.",
+            "why": "Keep the prongs from touching the ear or hair."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Otoscope",
+            "why": "Looking in the ear is for trained health workers."
+          },
+          {
+            "name": "Loud radio for background",
+            "why": "You need a quiet room."
+          },
+          {
+            "name": "128 kHz tuning fork",
+            "why": "The screening fork is 512 Hz."
+          },
+          {
+            "name": "Thermometer",
+            "why": "Body temperature is not part of this test."
+          },
+          {
+            "name": "Cotton buds",
+            "why": "Nothing goes into the ear canal."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "room",
+          "afterStep": 1,
+          "prompt": "Where do you do this test?",
+          "options": [
+            {
+              "text": "In a quiet room",
+              "correct": true,
+              "consequence": "Background noise is a listed source of error."
+            },
+            {
+              "text": "Beside the football field",
+              "consequence": "Noise hides what is being tested."
+            },
+            {
+              "text": "In the busy corridor",
+              "consequence": "Noise hides what is being tested."
+            }
+          ]
+        },
+        {
+          "id": "rinne-place",
+          "afterStep": 3,
+          "prompt": "You have struck the fork for the Rinne test. Where does its base go first?",
+          "options": [
+            {
+              "text": "On the mastoid bone behind the ear",
+              "correct": true,
+              "consequence": "That times bone conduction."
+            },
+            {
+              "text": "On the middle of the forehead",
+              "consequence": "That is the Weber test."
+            },
+            {
+              "text": "Into the opening of the ear canal",
+              "consequence": "Nothing goes into the ear canal."
+            }
+          ]
+        },
+        {
+          "id": "weber",
+          "afterStep": 5,
+          "prompt": "The Rinne test is complete. Where does the fork go for the Weber test?",
+          "options": [
+            {
+              "text": "On the middle of the forehead",
+              "correct": true,
+              "consequence": "The student says which ear is louder."
+            },
+            {
+              "text": "2-3 cm from the ear canal",
+              "consequence": "That is the air conduction part of Rinne."
+            },
+            {
+              "text": "On the back of the hand",
+              "consequence": "That tests nothing about hearing."
+            }
+          ]
+        },
+        {
+          "id": "abnormal",
+          "afterStep": 6,
+          "prompt": "A partner's left ear hears the watch at a third of the distance of the right. What do you do?",
+          "options": [
+            {
+              "text": "Record it and refer them to an ENT doctor",
+              "correct": true,
+              "consequence": "Screening finds problems. Specialists diagnose them."
+            },
+            {
+              "text": "Try to clear the ear yourself with a clean cotton bud",
+              "consequence": "Do not insert anything into the ear."
+            },
+            {
+              "text": "Tell them it will pass",
+              "consequence": "Refer abnormal findings."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "rinne-normal",
+          "prompt": "What does a normal Rinne test show?",
+          "options": [
+            {
+              "text": "Air conduction lasts longer than bone conduction",
+              "correct": true
+            },
+            {
+              "text": "Bone conduction lasts longer than air conduction",
+              "why": "That suggests conductive loss."
+            },
+            {
+              "text": "Neither is heard",
+              "why": "That is not a normal result."
+            }
+          ]
+        },
+        {
+          "id": "wax",
+          "prompt": "Wax blocking the canal would give which kind of loss?",
+          "options": [
+            {
+              "text": "Conductive loss",
+              "correct": true
+            },
+            {
+              "text": "Sensorineural loss",
+              "why": "That involves the inner ear or nerve."
+            },
+            {
+              "text": "Myopia",
+              "why": "That is a problem of the eye."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ac-total",
+          "prompt": "Bone conduction is heard for {b} s, then air conduction for a further {f} s. What is the total air conduction time?",
+          "formula": "b + f",
+          "vars": {
+            "b": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            },
+            "f": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "seconds",
+            "sec"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} + {f} = {answer} s."
+        },
+        {
+          "id": "watch-frac",
+          "prompt": "The right ear hears the watch at {r} cm and the left at {l} cm. What fraction of the right-ear distance is the left, as a decimal?",
+          "formula": "l / r",
+          "vars": {
+            "r": {
+              "min": 80,
+              "max": 100,
+              "step": 10
+            },
+            "l": {
+              "min": 30,
+              "max": 50,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{l} ÷ {r} = {answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "hearing-fault",
+          "scenario": "Tunde and Ike screened each other's hearing. Here is what happened.",
+          "lines": [
+            {
+              "text": "They called the forehead test the Rinne test.",
+              "fault": true,
+              "why": "That is the Weber test."
+            },
+            {
+              "text": "They struck the fork on the desk.",
+              "fault": true,
+              "why": "Strike it on the knee or a rubber pad."
+            },
+            {
+              "text": "Tunde told Ike he had nerve deafness.",
+              "fault": true,
+              "why": "Refer, do not draw conclusions."
+            },
+            {
+              "text": "They tested each ear separately.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They used a quiet room.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for hearing screening.",
+        "explainPrompt": "Why must a student with an abnormal result be referred rather than told what is wrong?",
+        "explainGuide": "Screening only suggests a problem. A trained ENT doctor or audiologist must examine the ear and confirm the cause.",
+        "explainKeywords": [
+          [
+            "screen",
+            "suggest"
+          ],
+          [
+            "ENT",
+            "audiolog",
+            "doctor",
+            "specialist"
+          ],
+          [
+            "confirm",
+            "examin",
+            "diagnos"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Hearing screening",
+        "Watch tick, Rinne and Weber",
+        "512 Hz fork"
+      ]
+    },
+    "pr-hed-posture-assessment": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Lift the 5 kg box with straight legs and a bent back.",
+            "why": "That strains the back. Bend the knees and keep the back straight."
+          },
+          {
+            "text": "Ask a student to remove their shirt in front of the class.",
+            "why": "Respect privacy: assess over PE kit."
+          },
+          {
+            "text": "Add more weight to the box to show off.",
+            "why": "Lift only light loads."
+          },
+          {
+            "text": "Announce to the class who has a curved spine.",
+            "why": "Respect privacy. Findings are private."
+          },
+          {
+            "text": "Press hard on a student's back to straighten it.",
+            "why": "You can cause injury. Refer to a physiotherapist."
+          },
+          {
+            "text": "Tell a student with a rib hump to ignore it.",
+            "why": "A rib hump suggests scoliosis and should be referred."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Bathroom scale",
+            "why": "Weight does not form part of this posture check."
+          },
+          {
+            "name": "Heavy sack of cement",
+            "why": "Lift only light loads."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          },
+          {
+            "name": "Spirit level for the student's back",
+            "why": "The plumb line gives the vertical."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "plumb-still",
+          "afterStep": 1,
+          "prompt": "You hang the plumb line and it is swinging. What do you do?",
+          "options": [
+            {
+              "text": "Wait for it to hang still",
+              "correct": true,
+              "consequence": "Only a still line gives a true vertical."
+            },
+            {
+              "text": "Read it as it swings",
+              "consequence": "A moving line gives wrong points."
+            },
+            {
+              "text": "Hold the string with your fingers",
+              "consequence": "That changes where it hangs."
+            }
+          ]
+        },
+        {
+          "id": "bend",
+          "afterStep": 3,
+          "prompt": "You ask the student to bend forward. What are you checking for?",
+          "options": [
+            {
+              "text": "A rib hump on one side",
+              "correct": true,
+              "consequence": "That suggests scoliosis."
+            },
+            {
+              "text": "A bulge at the lower back only",
+              "consequence": "Lordosis is seen when standing, not this."
+            },
+            {
+              "text": "How far their fingers reach",
+              "consequence": "That tests flexibility, not this defect."
+            }
+          ]
+        },
+        {
+          "id": "refer-physio",
+          "afterStep": 6,
+          "prompt": "A student has shoulders 2 cm uneven. What goes on the checklist?",
+          "options": [
+            {
+              "text": "Record it and suggest referral to a physiotherapist",
+              "correct": true,
+              "consequence": "An uneven height may indicate scoliosis."
+            },
+            {
+              "text": "Record 'normal', as all shoulders differ",
+              "consequence": "A 2 cm difference needs referral."
+            },
+            {
+              "text": "Give them strong exercises to fix it at once",
+              "consequence": "Refer: do not treat it yourself."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "lord",
+          "prompt": "An exaggerated inward curve of the lower back is:",
+          "options": [
+            {
+              "text": "Lordosis",
+              "correct": true
+            },
+            {
+              "text": "Kyphosis",
+              "why": "That is a rounded upper back."
+            },
+            {
+              "text": "Scoliosis",
+              "why": "That is a sideways curve."
+            }
+          ]
+        },
+        {
+          "id": "flat",
+          "prompt": "A wet footprint shows the full sole with no inner arch. This suggests:",
+          "options": [
+            {
+              "text": "Flat foot",
+              "correct": true
+            },
+            {
+              "text": "Normal arch",
+              "why": "A normal arch leaves a gap at the inner side."
+            },
+            {
+              "text": "Scoliosis",
+              "why": "That is a curve of the spine."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "shoulder",
+          "prompt": "The right shoulder is {r} cm from the floor and the left is {l} cm. What is the difference?",
+          "formula": "abs(r - l)",
+          "vars": {
+            "r": {
+              "min": 142,
+              "max": 146,
+              "step": 1
+            },
+            "l": {
+              "min": 138,
+              "max": 141,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{r} − {l} = {answer} cm."
+        },
+        {
+          "id": "class-pct",
+          "prompt": "{a} of {n} students showed rounded shoulders. What percentage is that?",
+          "formula": "a / n * 100",
+          "vars": {
+            "a": {
+              "min": 6,
+              "max": 12,
+              "step": 2
+            },
+            "n": {
+              "min": 30,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "posture-record",
+          "scenario": "Grace filled in a posture checklist for her partner. Here is what she did.",
+          "lines": [
+            {
+              "text": "She wrote kyphosis for an exaggerated lower-back curve.",
+              "fault": true,
+              "why": "That is lordosis."
+            },
+            {
+              "text": "She listed the defect with no cause or correction.",
+              "fault": true,
+              "why": "Link defects to causes such as bad sitting or heavy bags."
+            },
+            {
+              "text": "She let her partner stand extra straight for the check.",
+              "fault": true,
+              "why": "Stand relaxed in the usual posture."
+            },
+            {
+              "text": "She used a level floor.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She assessed her partner over PE kit.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for assessing posture.",
+        "explainPrompt": "How does correct lifting protect the back?",
+        "explainGuide": "Bending the knees and keeping the back straight lets the leg muscles do the work, so the spine is not strained.",
+        "explainKeywords": [
+          [
+            "knee",
+            "leg"
+          ],
+          [
+            "back",
+            "spine"
+          ],
+          [
+            "strain",
+            "injur",
+            "protect"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Posture assessment",
+        "Plumb line, footprint, lifting",
+        "Respect privacy"
+      ]
+    },
+    "pr-hed-pulse-exercise": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Tell a student with asthma to join in the step-ups anyway.",
+            "why": "Students with asthma should not do vigorous exercise."
+          },
+          {
+            "text": "Keep skipping after you start to feel dizzy.",
+            "why": "Stop if dizzy or breathless."
+          },
+          {
+            "text": "Push a friend with sickle cell disease to finish the exercise.",
+            "why": "They should not do vigorous exercise."
+          },
+          {
+            "text": "Tell someone who feels breathless to run faster to get over it.",
+            "why": "Stop if dizzy or breathless."
+          },
+          {
+            "text": "Press hard on your partner's wrist until it hurts.",
+            "why": "Pressing too hard can stop you feeling the pulse."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Blood pressure cuff",
+            "why": "This practical measures pulse rate only."
+          },
+          {
+            "name": "Thermometer",
+            "why": "Temperature is not recorded."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Mass is not recorded."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Skipping rope weights",
+            "why": "The skipping needs no added load."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "fingers",
+          "afterStep": 2,
+          "prompt": "How do you feel the radial pulse?",
+          "options": [
+            {
+              "text": "With two fingers on the thumb side of the wrist",
+              "correct": true,
+              "consequence": "You feel only the patient's pulse."
+            },
+            {
+              "text": "With your thumb on the inner wrist, pressing firmly",
+              "consequence": "The thumb has its own pulse."
+            },
+            {
+              "text": "With your palm around the wrist",
+              "consequence": "You cannot count it accurately."
+            }
+          ]
+        },
+        {
+          "id": "rate-calc",
+          "afterStep": 3,
+          "prompt": "You counted 18 beats in 15 seconds. What do you write as beats per minute?",
+          "options": [
+            {
+              "text": "72, after multiplying by 4",
+              "correct": true,
+              "consequence": "That is the rate per minute."
+            },
+            {
+              "text": "18, as you counted it",
+              "consequence": "Forgetting to multiply is a named mistake."
+            },
+            {
+              "text": "36, after multiplying by 2",
+              "consequence": "There are four 15-second periods in a minute."
+            }
+          ]
+        },
+        {
+          "id": "when-count",
+          "afterStep": 5,
+          "prompt": "You have just stopped skipping. When do you take the pulse?",
+          "options": [
+            {
+              "text": "Immediately",
+              "correct": true,
+              "consequence": "Delay lets the rate fall and spoils the reading."
+            },
+            {
+              "text": "After a five-minute rest",
+              "consequence": "The peak has gone by then."
+            },
+            {
+              "text": "After you have drawn the graph",
+              "consequence": "You then have nothing to plot."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "change",
+          "prompt": "What does the pulse do after exercise?",
+          "options": [
+            {
+              "text": "It rises sharply, then falls back towards resting value",
+              "correct": true
+            },
+            {
+              "text": "It stays the same throughout",
+              "why": "Exercise raises it."
+            },
+            {
+              "text": "It falls below the resting value at once and stays there",
+              "why": "It rises first."
+            }
+          ]
+        },
+        {
+          "id": "why-rise",
+          "prompt": "Why does the heart rate rise in exercise?",
+          "options": [
+            {
+              "text": "Muscles need more oxygen and glucose",
+              "correct": true
+            },
+            {
+              "text": "The blood becomes thicker and harder to pump",
+              "why": "That is not the reason."
+            },
+            {
+              "text": "The body cools down",
+              "why": "Exercise warms the body."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "bpm",
+          "prompt": "You count {b} beats in 15 seconds. What is the pulse rate per minute?",
+          "formula": "b * 4",
+          "vars": {
+            "b": {
+              "min": 16,
+              "max": 36,
+              "step": 1
+            }
+          },
+          "unit": "beats/min",
+          "unitAliases": [
+            "beats per minute",
+            "/min",
+            "bpm",
+            "per minute"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} × 4 = {answer} beats/min."
+        },
+        {
+          "id": "pct-rise",
+          "prompt": "The resting pulse is {r} beats/min and it rises to {e} after exercise. What is the percentage rise?",
+          "formula": "(e - r) / r * 100",
+          "vars": {
+            "r": {
+              "min": 60,
+              "max": 80,
+              "step": 10
+            },
+            "e": {
+              "min": 120,
+              "max": 140,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "({e} − {r}) ÷ {r} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "pulse-graph",
+          "scenario": "Yemi recorded his pulse before and after exercise. Here is what he did.",
+          "lines": [
+            {
+              "text": "He used his thumb to find the pulse.",
+              "fault": true,
+              "why": "The thumb has its own pulse."
+            },
+            {
+              "text": "He wrote his 15-second count as the rate per minute.",
+              "fault": true,
+              "why": "Multiply by 4."
+            },
+            {
+              "text": "His graph had no axis labels.",
+              "fault": true,
+              "why": "Label the axes."
+            },
+            {
+              "text": "He sat quietly for 5 minutes first.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He repeated the resting count and took an average.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for measuring the pulse.",
+        "explainPrompt": "Why does the pulse rate rise during exercise?",
+        "explainGuide": "Working muscles need more oxygen and glucose, so the heart beats faster to deliver more blood to them.",
+        "explainKeywords": [
+          [
+            "muscle"
+          ],
+          [
+            "oxygen",
+            "glucose"
+          ],
+          [
+            "blood",
+            "heart",
+            "faster"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Pulse at rest and after exercise",
+        "Two fingers. Count. Multiply by 4.",
+        "Stop if dizzy or breathless."
+      ]
+    },
+    "pr-hed-bmi-growth": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Read out each student's weight to the whole class.",
+            "why": "Results are confidential. Respect privacy."
+          },
+          {
+            "text": "Stand the scale on a thick rug.",
+            "why": "Soft floors give false readings. Use a firm, level floor."
+          },
+          {
+            "text": "Joke about a classmate's weight during the practical.",
+            "why": "Be respectful about weight."
+          },
+          {
+            "text": "Tell an underweight friend to stop eating breakfast.",
+            "why": "Unsafe advice: skipping meals is not a good idea."
+          },
+          {
+            "text": "Tell an overweight friend to stop eating for a few days.",
+            "why": "Starving is harmful. Advise a balanced diet and exercise."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          },
+          {
+            "name": "Skinfold caliper",
+            "why": "This practical uses height and weight only."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Elastic cloth tape",
+            "why": "A stretchy tape gives false heights."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "zero",
+          "afterStep": 1,
+          "prompt": "The student is ready. What do you check first?",
+          "options": [
+            {
+              "text": "That the scale reads zero",
+              "correct": true,
+              "consequence": "An uncalibrated scale is a listed source of error."
+            },
+            {
+              "text": "That the student has their shoes on",
+              "consequence": "Remove shoes first."
+            },
+            {
+              "text": "That the student is carrying their bag",
+              "consequence": "Heavy items give a false reading."
+            }
+          ]
+        },
+        {
+          "id": "convert",
+          "afterStep": 3,
+          "prompt": "The height is 165.0 cm. What do you put in the formula?",
+          "options": [
+            {
+              "text": "1.65 m",
+              "correct": true,
+              "consequence": "The formula uses metres."
+            },
+            {
+              "text": "165 cm",
+              "consequence": "Using centimetres is a named mistake."
+            },
+            {
+              "text": "16.5 m",
+              "consequence": "That is the wrong conversion."
+            }
+          ]
+        },
+        {
+          "id": "square",
+          "afterStep": 4,
+          "prompt": "A student is 60 kg and 1.65 m. How do you use the height?",
+          "options": [
+            {
+              "text": "Square it, then divide the weight by it",
+              "correct": true,
+              "consequence": "BMI is kg/m2."
+            },
+            {
+              "text": "Divide 60 by 1.65 only, and report that figure",
+              "consequence": "Not squaring is a named mistake."
+            },
+            {
+              "text": "Multiply 60 by 1.65",
+              "consequence": "That is not the formula."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "classify",
+          "prompt": "An adult has a BMI of 27.0. How is that classified?",
+          "options": [
+            {
+              "text": "Overweight",
+              "correct": true
+            },
+            {
+              "text": "Normal",
+              "why": "18.5 to 24.9 is normal."
+            },
+            {
+              "text": "Obese",
+              "why": "30 and above is obese."
+            },
+            {
+              "text": "Underweight",
+              "why": "Under 18.5 is underweight."
+            }
+          ]
+        },
+        {
+          "id": "teen",
+          "prompt": "How is a teenager's BMI properly classified?",
+          "options": [
+            {
+              "text": "With BMI-for-age charts",
+              "correct": true
+            },
+            {
+              "text": "With adult categories only",
+              "why": "Teenagers need BMI-for-age charts."
+            },
+            {
+              "text": "By comparing with the tallest in the class",
+              "why": "That gives no standard."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "bmi",
+          "prompt": "A student weighs {m} kg and is {h} m tall. What is the BMI, to 1 decimal place?",
+          "formula": "m / (h * h)",
+          "vars": {
+            "m": {
+              "min": 45,
+              "max": 75,
+              "step": 5
+            },
+            "h": {
+              "min": 1.5,
+              "max": 1.8,
+              "step": 0.1
+            }
+          },
+          "unit": "kg/m2",
+          "unitAliases": [
+            "kg/m²",
+            "kg per m2"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{m} ÷ ({h} × {h}) = {answer} kg/m2."
+        },
+        {
+          "id": "cm-to-m",
+          "prompt": "A height is recorded as {c} cm. What is it in metres?",
+          "formula": "c / 100",
+          "vars": {
+            "c": {
+              "min": 150,
+              "max": 185,
+              "step": 5
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres"
+          ],
+          "tolerance": {
+            "abs": 0.005
+          },
+          "decimals": 2,
+          "working": "{c} ÷ 100 = {answer} m."
+        }
+      ],
+      "faults": [
+        {
+          "id": "bmi-sheet",
+          "scenario": "Faith measured BMI for her group. Here is what she did.",
+          "lines": [
+            {
+              "text": "She put the height in centimetres in the formula.",
+              "fault": true,
+              "why": "Height must be in metres."
+            },
+            {
+              "text": "She did not square the height.",
+              "fault": true,
+              "why": "BMI = weight ÷ height squared."
+            },
+            {
+              "text": "She weighed students in their shoes.",
+              "fault": true,
+              "why": "Remove shoes and heavy items."
+            },
+            {
+              "text": "She zeroed the scale.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She kept the results confidential.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for measuring height and weight.",
+        "explainPrompt": "Why is the BMI result handled confidentially?",
+        "explainGuide": "Weight is a sensitive matter. Keeping results private respects the student and avoids teasing or embarrassment.",
+        "explainKeywords": [
+          [
+            "private",
+            "confidential",
+            "respect"
+          ],
+          [
+            "sensitiv",
+            "embarrass",
+            "teas"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Body Mass Index",
+        "Weight ÷ height squared",
+        "Results are confidential"
+      ]
+    },
+    "pr-hed-teeth-dental-check": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Borrow a friend's toothbrush for the demonstration.",
+            "why": "Never share toothbrushes."
+          },
+          {
+            "text": "Handle the jaw specimen without gloves.",
+            "why": "Wear gloves when handling specimens."
+          },
+          {
+            "text": "Pass your mouth mirror to the next student unwashed.",
+            "why": "Use your own mirror."
+          },
+          {
+            "text": "Poke at a dark cavity with a pin to see how deep it is.",
+            "why": "You can injure the gum and spread germs. Refer to a dentist."
+          },
+          {
+            "text": "Dab kerosene on a bleeding gum to treat it.",
+            "why": "Kerosene must never go in the mouth. See a health worker."
+          },
+          {
+            "text": "Bite on the jaw specimen to test the teeth.",
+            "why": "Never put a specimen in your mouth."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Pliers",
+            "why": "Teeth are not extracted in this practical."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Sharp pin",
+            "why": "Do not probe teeth."
+          },
+          {
+            "name": "Biuret reagents",
+            "why": "This is not a food test."
+          },
+          {
+            "name": "Measuring cylinder",
+            "why": "Nothing is measured by volume."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "identify",
+          "afterStep": 1,
+          "prompt": "A tooth has a chisel-shaped edge. What is it?",
+          "options": [
+            {
+              "text": "An incisor",
+              "correct": true,
+              "consequence": "Incisors are chisel-shaped, for biting."
+            },
+            {
+              "text": "A canine",
+              "consequence": "Canines are pointed."
+            },
+            {
+              "text": "A molar",
+              "consequence": "Molars are broad and multi-cusped."
+            }
+          ]
+        },
+        {
+          "id": "premolar",
+          "afterStep": 1,
+          "prompt": "A tooth has two cusps and sits behind the canine. What is it?",
+          "options": [
+            {
+              "text": "A premolar",
+              "correct": true,
+              "consequence": "Premolars are two-cusped."
+            },
+            {
+              "text": "A molar",
+              "consequence": "Molars are broad with several cusps."
+            },
+            {
+              "text": "An incisor",
+              "consequence": "Incisors are chisel-shaped."
+            }
+          ]
+        },
+        {
+          "id": "brush",
+          "afterStep": 5,
+          "prompt": "You are demonstrating brushing. What is the advice?",
+          "options": [
+            {
+              "text": "Brush for 2 minutes twice daily",
+              "correct": true,
+              "consequence": "That is the routine in the lesson."
+            },
+            {
+              "text": "Brush once a week, hard",
+              "consequence": "That is not enough, and scrubbing hard harms gums."
+            },
+            {
+              "text": "Share your toothbrush with a sibling",
+              "consequence": "Never share toothbrushes."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "caries-sign",
+          "prompt": "Which sign suggests dental caries?",
+          "options": [
+            {
+              "text": "Black spots or holes in the teeth",
+              "correct": true
+            },
+            {
+              "text": "Red, swollen gums",
+              "why": "That is gingivitis."
+            },
+            {
+              "text": "A chipped tooth edge only, with no pain",
+              "why": "Caries are cavities caused by decay."
+            }
+          ]
+        },
+        {
+          "id": "gingivitis",
+          "prompt": "Red, swollen, bleeding gums suggest:",
+          "options": [
+            {
+              "text": "Gingivitis",
+              "correct": true
+            },
+            {
+              "text": "Dental caries",
+              "why": "That is a cavity in the tooth."
+            },
+            {
+              "text": "Myopia",
+              "why": "That is a problem of the eye."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "adult",
+          "prompt": "An adult has incisors 2, canine 1, premolars 2 and molars 3 in each half-jaw. How many teeth is that in total?",
+          "answer": 32,
+          "unit": "teeth",
+          "unitAliases": [
+            "tooth"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "(2 + 1 + 2 + 3) × 2 × 2 = 32 teeth."
+        },
+        {
+          "id": "caries",
+          "prompt": "{a} of {n} students have visible caries. What percentage is that?",
+          "formula": "a / n * 100",
+          "vars": {
+            "a": {
+              "min": 8,
+              "max": 18,
+              "step": 2
+            },
+            "n": {
+              "min": 40,
+              "max": 50,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "dental-record",
+          "scenario": "Musa labelled a tooth and recorded a mouth check. Here is what he did.",
+          "lines": [
+            {
+              "text": "He labelled a premolar as a molar.",
+              "fault": true,
+              "why": "Premolars have two cusps."
+            },
+            {
+              "text": "He shaded his drawing heavily with no labels.",
+              "fault": true,
+              "why": "Draw clean outlines and label them."
+            },
+            {
+              "text": "He used a friend's toothbrush.",
+              "fault": true,
+              "why": "Never share toothbrushes."
+            },
+            {
+              "text": "He wore gloves to handle the jaw.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He used a torch for the mouth check.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for the dental practical.",
+        "explainPrompt": "Why should toothbrushes never be shared?",
+        "explainGuide": "A toothbrush carries saliva, blood and germs from one mouth, which can spread infection to another person.",
+        "explainKeywords": [
+          [
+            "germ",
+            "infect",
+            "blood",
+            "saliva"
+          ],
+          [
+            "spread",
+            "pass"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Teeth and dental check",
+        "Incisor, canine, premolar, molar",
+        "Brush twice daily"
+      ]
+    },
+    "pr-hed-skeleton-joints": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Handle the cow femur without gloves.",
+            "why": "Wear gloves when handling real bones."
+          },
+          {
+            "text": "Eat your snack after handling the bones without washing.",
+            "why": "Wash your hands afterwards."
+          },
+          {
+            "text": "Swing the skeleton model around by its arm.",
+            "why": "Handle models carefully."
+          },
+          {
+            "text": "Test a joint's range by twisting your partner's arm hard.",
+            "why": "Move only your own joints, gently."
+          },
+          {
+            "text": "Taste the bone to see whether it is real.",
+            "why": "Never put a specimen in your mouth."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Scalpel",
+            "why": "Nothing is being cut."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Bandages",
+            "why": "This is a study of bones, not first aid."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "divide",
+          "afterStep": 1,
+          "prompt": "Where does the femur belong?",
+          "options": [
+            {
+              "text": "The appendicular skeleton",
+              "correct": true,
+              "consequence": "It is part of the limbs."
+            },
+            {
+              "text": "The axial skeleton of the trunk",
+              "consequence": "Axial is skull, spine, ribs and sternum."
+            },
+            {
+              "text": "Neither part",
+              "consequence": "Every bone belongs to one part."
+            }
+          ]
+        },
+        {
+          "id": "joint-type",
+          "afterStep": 4,
+          "prompt": "Which joint allows movement in all planes?",
+          "options": [
+            {
+              "text": "Ball-and-socket, as at the hip",
+              "correct": true,
+              "consequence": "It moves in all planes."
+            },
+            {
+              "text": "Hinge, as at the elbow",
+              "consequence": "A hinge moves in one plane."
+            },
+            {
+              "text": "Fixed, as at the skull sutures",
+              "consequence": "Sutures allow no movement."
+            }
+          ]
+        },
+        {
+          "id": "fluid",
+          "afterStep": 5,
+          "prompt": "You are labelling a synovial joint. What is the synovial fluid for?",
+          "options": [
+            {
+              "text": "Lubrication, reducing friction",
+              "correct": true,
+              "consequence": "It lets the joint move smoothly."
+            },
+            {
+              "text": "Making the bones grow longer",
+              "consequence": "That is not its function."
+            },
+            {
+              "text": "Joining muscle to bone",
+              "consequence": "Tendons do that."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "bones",
+          "prompt": "How many bones are in the adult skeleton?",
+          "options": [
+            {
+              "text": "206",
+              "correct": true
+            },
+            {
+              "text": "300",
+              "why": "Far too many for an adult."
+            },
+            {
+              "text": "80",
+              "why": "That is the axial skeleton only."
+            }
+          ]
+        },
+        {
+          "id": "ligament",
+          "prompt": "Which structure joins bone to bone?",
+          "options": [
+            {
+              "text": "Ligament",
+              "correct": true
+            },
+            {
+              "text": "Tendon",
+              "why": "Tendons join muscle to bone."
+            },
+            {
+              "text": "Synovial fluid",
+              "why": "That lubricates the joint."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "axial",
+          "prompt": "The adult skeleton has 206 bones, of which 80 are axial. What percentage is that?",
+          "answer": 38.8,
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "80 ÷ 206 × 100 = 38.8%."
+        },
+        {
+          "id": "vert",
+          "prompt": "There are 7 cervical, 12 thoracic and 5 lumbar movable vertebrae. How many movable vertebrae is that?",
+          "answer": 24,
+          "unit": "vertebrae",
+          "unitAliases": [
+            "vertebra"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "7 + 12 + 5 = 24 vertebrae."
+        }
+      ],
+      "faults": [
+        {
+          "id": "joint-table",
+          "scenario": "Dupe wrote a table of bones and joints. Here is what the teacher marked.",
+          "lines": [
+            {
+              "text": "She labelled the radius as the ulna.",
+              "fault": true,
+              "why": "Check which is which."
+            },
+            {
+              "text": "She said tendons join bone to bone.",
+              "fault": true,
+              "why": "Ligaments do. Tendons join muscle to bone."
+            },
+            {
+              "text": "She called the knee a ball-and-socket joint.",
+              "fault": true,
+              "why": "It is a hinge joint."
+            },
+            {
+              "text": "She wrote the shoulder as a ball-and-socket joint.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She wore gloves for the real bones.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for handling bones and models.",
+        "explainPrompt": "What is the function of synovial fluid?",
+        "explainGuide": "It lubricates the joint and reduces friction, so that the bones can move smoothly.",
+        "explainKeywords": [
+          [
+            "lubric"
+          ],
+          [
+            "friction",
+            "smooth"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "The skeleton and joints",
+        "Axial and appendicular",
+        "Ball-and-socket, hinge, pivot, gliding, fixed"
+      ]
+    },
+    "pr-hed-reproductive-organs": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Touch your face after handling the preserved rat.",
+            "why": "Specimens are preserved in chemicals. Keep your hands from your face."
+          },
+          {
+            "text": "Pick up the scalpel to help the teacher.",
+            "why": "The teacher alone handles scalpels."
+          },
+          {
+            "text": "Make jokes about the diagrams to amuse the class.",
+            "why": "Treat the topic maturely and respectfully."
+          },
+          {
+            "text": "Remove your gloves to feel the specimen better.",
+            "why": "Wear gloves: preservatives are harmful."
+          },
+          {
+            "text": "Pour the preservative down the sink.",
+            "why": "Preservative chemicals are for the teacher to dispose of safely."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Nothing is weighed."
+          },
+          {
+            "name": "Crepe bandage",
+            "why": "That is first aid."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "oviduct",
+          "afterStep": 1,
+          "prompt": "Where does fertilisation normally take place?",
+          "options": [
+            {
+              "text": "The oviduct",
+              "correct": true,
+              "consequence": "The egg meets sperm in the fallopian tube."
+            },
+            {
+              "text": "The uterus",
+              "consequence": "The embryo implants there later."
+            },
+            {
+              "text": "The vagina",
+              "consequence": "Sperm enter there but fertilisation does not."
+            }
+          ]
+        },
+        {
+          "id": "ovulate",
+          "afterStep": 5,
+          "prompt": "A cycle is 32 days long. How do you find the likely ovulation day?",
+          "options": [
+            {
+              "text": "Subtract 14 from 32: day 18",
+              "correct": true,
+              "consequence": "Ovulation is about 14 days before the next period."
+            },
+            {
+              "text": "Halve it: day 16, the middle of the cycle",
+              "consequence": "It is 14 days before the next period, not the midpoint."
+            },
+            {
+              "text": "Add 14 to 32: day 46",
+              "consequence": "That is past the end of the cycle."
+            }
+          ]
+        },
+        {
+          "id": "edd",
+          "afterStep": 5,
+          "prompt": "You are using Naegele's rule. From the first day of the last period, what do you do?",
+          "options": [
+            {
+              "text": "Add 1 year, subtract 3 months, add 7 days",
+              "correct": true,
+              "consequence": "That gives the expected date of delivery."
+            },
+            {
+              "text": "Add 9 months, subtract 7 days from that date",
+              "consequence": "The 7 days are added, not subtracted."
+            },
+            {
+              "text": "Subtract 7 days and add 1 month",
+              "consequence": "That is not the rule."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "uterus-rat",
+          "prompt": "How does the uterus of a rat or rabbit differ from a human's?",
+          "options": [
+            {
+              "text": "It has two separate uterine horns",
+              "correct": true
+            },
+            {
+              "text": "It is a single pear-shaped sac",
+              "why": "That is the human uterus."
+            },
+            {
+              "text": "It has no uterus",
+              "why": "Rats and rabbits have one."
+            }
+          ]
+        },
+        {
+          "id": "scrotum-testis",
+          "prompt": "Which part produces sperm?",
+          "options": [
+            {
+              "text": "The testis",
+              "correct": true
+            },
+            {
+              "text": "The scrotum",
+              "why": "The scrotum holds the testes."
+            },
+            {
+              "text": "The ureter",
+              "why": "The ureter carries urine from the kidney."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ovul",
+          "prompt": "A woman has a {c}-day cycle. On about which day is ovulation likely?",
+          "formula": "c - 14",
+          "vars": {
+            "c": {
+              "min": 26,
+              "max": 34,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{c} − 14 = day {answer}."
+        },
+        {
+          "id": "days",
+          "prompt": "How many days are there in 40 weeks?",
+          "answer": 280,
+          "unit": "days",
+          "unitAliases": [
+            "day"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "40 × 7 = 280 days."
+        }
+      ],
+      "faults": [
+        {
+          "id": "repro-notes",
+          "scenario": "Kemi labelled diagrams of the reproductive systems. Her teacher checked them.",
+          "lines": [
+            {
+              "text": "She labelled the oviduct as the ureter.",
+              "fault": true,
+              "why": "The ureter carries urine."
+            },
+            {
+              "text": "She labelled the scrotum as the testis.",
+              "fault": true,
+              "why": "The scrotum holds the testes."
+            },
+            {
+              "text": "She gave a label with no function.",
+              "fault": true,
+              "why": "Give the function with each label."
+            },
+            {
+              "text": "She used ruled label lines.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She showed her date working step by step.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for this practical.",
+        "explainPrompt": "Why are ovulation estimates unreliable for a woman with irregular cycles?",
+        "explainGuide": "Ovulation is worked out from the expected next period. If cycles vary in length, that date cannot be known in advance.",
+        "explainKeywords": [
+          [
+            "irregular",
+            "vary",
+            "differ"
+          ],
+          [
+            "next period",
+            "cycle",
+            "length"
+          ],
+          [
+            "predict",
+            "know",
+            "estimate",
+            "unreliable"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Reproductive organs",
+        "Name the part and its function",
+        "Treat the topic respectfully"
+      ]
+    },
+    "pr-hed-first-aid-bleeding-burns": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Attend to a bleeding casualty without gloves when gloves are in the box.",
+            "why": "Wear gloves to avoid contact with blood."
+          },
+          {
+            "text": "Put butter or oil on a fresh burn.",
+            "why": "They hold heat in and raise the risk of infection. Cool it with running water."
+          },
+          {
+            "text": "Burst a blister so that the burn can dry.",
+            "why": "Never burst blisters. That lets germs in."
+          },
+          {
+            "text": "Tie a tight tourniquet first on a bleeding arm.",
+            "why": "Direct pressure comes first."
+          },
+          {
+            "text": "Pull off the shirt that is stuck to a burn.",
+            "why": "Do not remove clothing stuck to a burn."
+          },
+          {
+            "text": "Pull out a piece of glass embedded in the wound.",
+            "why": "Do not remove embedded objects: pad around them."
+          },
+          {
+            "text": "Rub ice directly on the burn.",
+            "why": "Use cool running water, not ice."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Butter",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Toothpaste",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Raw egg",
+            "why": "It should never go on a burn."
+          },
+          {
+            "name": "Tourniquet",
+            "why": "Direct pressure is first."
+          },
+          {
+            "name": "Bag of ice",
+            "why": "Use cool running water."
+          },
+          {
+            "name": "Palm oil",
+            "why": "It should never go on a burn."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "severe",
+          "afterStep": 3,
+          "prompt": "Blood is flowing fast from a forearm wound. What do you do first?",
+          "options": [
+            {
+              "text": "Apply firm direct pressure with a pad",
+              "correct": true,
+              "consequence": "Direct pressure controls bleeding."
+            },
+            {
+              "text": "Wash it with hot water",
+              "consequence": "That wastes time and does not control bleeding."
+            },
+            {
+              "text": "Give the casualty water to drink",
+              "consequence": "That does not stop bleeding."
+            }
+          ]
+        },
+        {
+          "id": "soak",
+          "afterStep": 3,
+          "prompt": "Blood soaks through the pad. What do you do?",
+          "options": [
+            {
+              "text": "Add another pad on top and keep pressing",
+              "correct": true,
+              "consequence": "Lifting the pad disturbs the clotting."
+            },
+            {
+              "text": "Take the first pad off and start again",
+              "consequence": "That disturbs the wound."
+            },
+            {
+              "text": "Leave it and walk away to find a phone",
+              "consequence": "Pressure must be kept up."
+            }
+          ]
+        },
+        {
+          "id": "cool",
+          "afterStep": 5,
+          "prompt": "A hot-water scald is on the arm. What is your first step?",
+          "options": [
+            {
+              "text": "Cool it under cool running water for at least 20 minutes",
+              "correct": true,
+              "consequence": "Cooling reduces the damage and the pain."
+            },
+            {
+              "text": "Cover it straight away with cling film, to keep the air off",
+              "consequence": "Cool it first."
+            },
+            {
+              "text": "Put toothpaste on it to soothe it",
+              "consequence": "Never apply toothpaste to burns."
+            }
+          ]
+        },
+        {
+          "id": "rings",
+          "afterStep": 5,
+          "prompt": "The burn is on a hand with a ring on the finger. What do you do during cooling?",
+          "options": [
+            {
+              "text": "Remove the ring before swelling starts",
+              "correct": true,
+              "consequence": "A swollen finger cannot get free of a ring."
+            },
+            {
+              "text": "Leave it, as it is only a ring",
+              "consequence": "Swelling can trap it and restrict the finger."
+            },
+            {
+              "text": "Cut it off yourself with scissors",
+              "consequence": "Take it off before swelling."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "shock",
+          "prompt": "Which signs suggest shock?",
+          "options": [
+            {
+              "text": "Pale, cold, clammy skin and a fast, weak pulse",
+              "correct": true
+            },
+            {
+              "text": "Warm, dry skin and a slow, strong pulse",
+              "why": "Those are not the signs of shock."
+            },
+            {
+              "text": "A rash on the arms",
+              "why": "That is not a sign listed for shock."
+            }
+          ]
+        },
+        {
+          "id": "aims",
+          "prompt": "What are the aims of first aid?",
+          "options": [
+            {
+              "text": "Preserve life, prevent worsening, promote recovery",
+              "correct": true
+            },
+            {
+              "text": "Diagnose the illness and prescribe drugs",
+              "why": "That is for doctors."
+            },
+            {
+              "text": "Find out who was to blame",
+              "why": "That is not first aid."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cool-end",
+          "prompt": "You start cooling a burn at {m} minutes past 13:00. At the earliest, how many minutes past 13:00 can you stop?",
+          "formula": "m + 20",
+          "vars": {
+            "m": {
+              "min": 5,
+              "max": 30,
+              "step": 5
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{m} + 20 = {answer} minutes past 13:00."
+        },
+        {
+          "id": "box-pct",
+          "prompt": "A first aid box listing 15 standard items has {a} present. What percentage is complete?",
+          "formula": "a / 15 * 100",
+          "vars": {
+            "a": {
+              "min": 6,
+              "max": 14,
+              "step": 1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ 15 × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "accident",
+          "scenario": "A student was burnt and another cut in the home economics room. Here is what happened.",
+          "lines": [
+            {
+              "text": "A friend put butter on the burn.",
+              "fault": true,
+              "why": "Never apply oil, butter or toothpaste."
+            },
+            {
+              "text": "A friend pulled off the shirt stuck to the burn.",
+              "fault": true,
+              "why": "Do not remove clothing stuck to a burn."
+            },
+            {
+              "text": "A friend tied a tight tourniquet on the cut arm first.",
+              "fault": true,
+              "why": "Direct pressure comes first."
+            },
+            {
+              "text": "The burn was cooled under running water for at least 20 minutes.",
+              "why": "That is correct."
+            },
+            {
+              "text": "The first aider wore gloves.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when giving first aid for bleeding or burns.",
+        "explainPrompt": "Why should oil or butter never be put on a burn?",
+        "explainGuide": "They hold the heat in the skin and increase the risk of infection. Cool running water removes the heat.",
+        "explainKeywords": [
+          [
+            "heat"
+          ],
+          [
+            "infect",
+            "germ"
+          ],
+          [
+            "water",
+            "cool"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "First aid: bleeding and burns",
+        "Protect yourself first",
+        "Call for help for serious injuries"
+      ]
+    },
+    "pr-hed-first-aid-fractures": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Pull a deformed leg straight before splinting it.",
+            "why": "Do not try to straighten a deformed limb. Support it as found."
+          },
+          {
+            "text": "Push a dislocated shoulder back into place.",
+            "why": "Only trained medical staff do that. Support it and go to hospital."
+          },
+          {
+            "text": "Sit up a casualty who may have a spinal injury.",
+            "why": "Do not move them unless they are in danger."
+          },
+          {
+            "text": "Tie the bandage directly over the break.",
+            "why": "Tie above and below the injury."
+          },
+          {
+            "text": "Massage the swollen limb to ease the pain.",
+            "why": "Keep the injured part still."
+          },
+          {
+            "text": "Tie the bandages as tight as you can.",
+            "why": "Too tight stops circulation. Check it and loosen if needed."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tourniquet",
+            "why": "It is not used to immobilise a fracture."
+          },
+          {
+            "name": "Hot water bottle",
+            "why": "Keep the casualty still and arrange hospital care."
+          },
+          {
+            "name": "Butter",
+            "why": "It has no place in treating a fracture."
+          },
+          {
+            "name": "Thin wire for tying",
+            "why": "It cuts in. Use bandages."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "It is not part of a sling or splint."
+          },
+          {
+            "name": "Hard plaster cast",
+            "why": "Casts are applied in hospital, not by a first aider."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "position",
+          "afterStep": 2,
+          "prompt": "A casualty has a suspected broken arm. How do you handle it?",
+          "options": [
+            {
+              "text": "Keep them still and support it as found",
+              "correct": true,
+              "consequence": "Moving the injured part causes more damage."
+            },
+            {
+              "text": "Straighten it before you do anything",
+              "consequence": "Never straighten a deformed limb."
+            },
+            {
+              "text": "Ask them to move it to see if it is broken",
+              "consequence": "Moving it causes more harm."
+            }
+          ]
+        },
+        {
+          "id": "knot-leg",
+          "afterStep": 4,
+          "prompt": "You are tying a leg to the good leg. Where do the knots go?",
+          "options": [
+            {
+              "text": "On the uninjured side",
+              "correct": true,
+              "consequence": "Knots are kept away from the injury."
+            },
+            {
+              "text": "On top of the injury",
+              "consequence": "That presses on the break."
+            },
+            {
+              "text": "Under the injured limb",
+              "consequence": "It is painful, and you would have to move it."
+            }
+          ]
+        },
+        {
+          "id": "circ",
+          "afterStep": 5,
+          "prompt": "You press the nail bed for 5 seconds. Colour takes 4 seconds to return. What do you do?",
+          "options": [
+            {
+              "text": "Loosen the bandage",
+              "correct": true,
+              "consequence": "It should return within 2 seconds, so it is too tight."
+            },
+            {
+              "text": "Tighten it further",
+              "consequence": "That makes the circulation worse."
+            },
+            {
+              "text": "Leave it: 4 seconds is fine",
+              "consequence": "It should return within 2 seconds."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "open",
+          "prompt": "A bone has broken through the skin. This is:",
+          "options": [
+            {
+              "text": "A compound (open) fracture",
+              "correct": true
+            },
+            {
+              "text": "A simple (closed) fracture",
+              "why": "In a closed fracture the skin is unbroken."
+            },
+            {
+              "text": "A dislocation",
+              "why": "A dislocation is a joint out of place, not a broken bone."
+            }
+          ]
+        },
+        {
+          "id": "signs",
+          "prompt": "Which of these are signs of a fracture?",
+          "options": [
+            {
+              "text": "Pain, swelling, deformity and loss of function",
+              "correct": true
+            },
+            {
+              "text": "Normal movement with no pain at all, but a small bruise",
+              "why": "Those are not signs of a fracture."
+            },
+            {
+              "text": "Fever and a runny nose",
+              "why": "Those are signs of illness, not injury."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ties",
+          "prompt": "A lower-leg fracture needs at least 2 ties above and 2 ties below it. How many ties is that at least?",
+          "answer": 4,
+          "unit": "ties",
+          "unitAliases": [
+            "tie"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "2 + 2 = 4 ties."
+        },
+        {
+          "id": "checks",
+          "prompt": "You check circulation every 10 minutes. How many checks do you make in {t} minutes?",
+          "formula": "t / 10",
+          "vars": {
+            "t": {
+              "min": 20,
+              "max": 60,
+              "step": 10
+            }
+          },
+          "unit": "checks",
+          "unitAliases": [
+            "check"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{t} ÷ 10 = {answer} checks."
+        }
+      ],
+      "faults": [
+        {
+          "id": "football",
+          "scenario": "A student was hurt on the football field. Here is what his friends did.",
+          "lines": [
+            {
+              "text": "They tried to straighten the deformed leg.",
+              "fault": true,
+              "why": "Support it in the position found."
+            },
+            {
+              "text": "They tied a bandage over the break.",
+              "fault": true,
+              "why": "Tie above and below the injury."
+            },
+            {
+              "text": "They never checked his circulation.",
+              "fault": true,
+              "why": "Check it every 10 minutes."
+            },
+            {
+              "text": "They padded between his legs.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They arranged transport to hospital.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for immobilising a limb.",
+        "explainPrompt": "Why must the circulation be checked after a bandage is put on?",
+        "explainGuide": "A tight bandage can stop blood reaching the limb, especially as it swells. Checking colour, warmth and capillary refill shows when to loosen it.",
+        "explainKeywords": [
+          [
+            "tight",
+            "bandage"
+          ],
+          [
+            "blood",
+            "circulation"
+          ],
+          [
+            "loosen",
+            "colour",
+            "refill",
+            "warm"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Fractures and dislocations",
+        "Support as found",
+        "Check circulation repeatedly"
+      ]
+    },
+    "pr-hed-first-aid-cpr-recovery": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Practise chest compressions on your partner.",
+            "why": "Practise only on a manikin, never on a person."
+          },
+          {
+            "text": "Run straight to a casualty lying beside a fallen electric wire.",
+            "why": "Check for danger first."
+          },
+          {
+            "text": "Pour water into an unconscious person's mouth to wake them.",
+            "why": "It can enter the airway and choke them."
+          },
+          {
+            "text": "Leave a breathing, unconscious person alone on their back.",
+            "why": "Place them in the recovery position and monitor them."
+          },
+          {
+            "text": "Spend a full minute checking whether they are breathing.",
+            "why": "Check breathing for up to 10 seconds only."
+          },
+          {
+            "text": "Stop compressions for a long chat about what to do next.",
+            "why": "Keep interruptions under 10 seconds."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bottle of water",
+            "why": "Never give fluids to an unconscious person."
+          },
+          {
+            "name": "Smelling salts",
+            "why": "They are not part of CPR."
+          },
+          {
+            "name": "Hot water bottle",
+            "why": "It is not part of CPR."
+          },
+          {
+            "name": "Tourniquet",
+            "why": "It is not part of CPR."
+          },
+          {
+            "name": "Pillow under the head during compressions",
+            "why": "The casualty lies flat on a firm surface."
+          },
+          {
+            "name": "Ice pack",
+            "why": "It is not part of CPR."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "first-step",
+          "afterStep": 1,
+          "prompt": "You see someone collapse in the road. What do you do first?",
+          "options": [
+            {
+              "text": "Check for danger",
+              "correct": true,
+              "consequence": "Rescuers must not become casualties too."
+            },
+            {
+              "text": "Start compressions at once, in the traffic",
+              "consequence": "You could both be hurt."
+            },
+            {
+              "text": "Move them on to your bed",
+              "consequence": "Check danger first and do not move them needlessly."
+            }
+          ]
+        },
+        {
+          "id": "breathing-normal",
+          "afterStep": 2,
+          "prompt": "The casualty is unresponsive but breathing normally. What do you do?",
+          "options": [
+            {
+              "text": "Place them in the recovery position and monitor",
+              "correct": true,
+              "consequence": "That keeps the airway open."
+            },
+            {
+              "text": "Start compressions",
+              "consequence": "CPR is for someone not breathing normally."
+            },
+            {
+              "text": "Sit them upright against a wall and keep talking to them",
+              "consequence": "The airway can block."
+            }
+          ]
+        },
+        {
+          "id": "hands-rate",
+          "afterStep": 4,
+          "prompt": "Your hands are in the centre of the chest. How do you compress?",
+          "options": [
+            {
+              "text": "Arms straight, 100-120 per minute, 5-6 cm deep, full recoil",
+              "correct": true,
+              "consequence": "That is the standard for adults."
+            },
+            {
+              "text": "Elbows bent, slowly, about 1-2 cm",
+              "consequence": "Bent elbows and shallow pushes are common mistakes."
+            },
+            {
+              "text": "Arms straight, as fast as you can, without recoil",
+              "consequence": "Too fast, and without recoil the heart cannot refill."
+            }
+          ]
+        },
+        {
+          "id": "ratio",
+          "afterStep": 5,
+          "prompt": "You have given 30 compressions. What next?",
+          "options": [
+            {
+              "text": "2 rescue breaths, or continue compressions if untrained",
+              "correct": true,
+              "consequence": "The ratio is 30:2."
+            },
+            {
+              "text": "Stop and wait for help to come",
+              "consequence": "Continue until help arrives or the person recovers."
+            },
+            {
+              "text": "15 more compressions, then one rescue breath, and repeat",
+              "consequence": "The ratio is 30:2."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "recovery-why",
+          "prompt": "Why is the recovery position used?",
+          "options": [
+            {
+              "text": "It keeps the airway open and lets fluids drain",
+              "correct": true
+            },
+            {
+              "text": "It makes the casualty warmer",
+              "why": "That is not why it is used."
+            },
+            {
+              "text": "It restarts the heart by pressing on the chest wall",
+              "why": "It does not. CPR is for someone not breathing normally."
+            }
+          ]
+        },
+        {
+          "id": "choke-adult",
+          "prompt": "What is the first aid for a choking adult?",
+          "options": [
+            {
+              "text": "Up to 5 back blows, then up to 5 abdominal thrusts",
+              "correct": true
+            },
+            {
+              "text": "Give a glass of water",
+              "why": "That does not clear a blocked airway."
+            },
+            {
+              "text": "Lay them down flat and leave them to recover by themselves",
+              "why": "They need back blows, then abdominal thrusts."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cpr-time",
+          "prompt": "How many seconds do {c} compressions take at {r} per minute?",
+          "formula": "c / r * 60",
+          "vars": {
+            "c": {
+              "min": 30,
+              "max": 60,
+              "step": 30
+            },
+            "r": {
+              "min": 100,
+              "max": 120,
+              "step": 10
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "seconds",
+            "sec"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{c} ÷ {r} × 60 = {answer} s."
+        },
+        {
+          "id": "cycles",
+          "prompt": "How many compressions are given in {n} cycles of 30:2?",
+          "formula": "30 * n",
+          "vars": {
+            "n": {
+              "min": 2,
+              "max": 10,
+              "step": 1
+            }
+          },
+          "unit": "compressions",
+          "unitAliases": [
+            "compression"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 30 = {answer} compressions."
+        }
+      ],
+      "faults": [
+        {
+          "id": "manikin",
+          "scenario": "Students practised CPR on a manikin. Here is what the teacher saw.",
+          "lines": [
+            {
+              "text": "One bent his elbows while compressing.",
+              "fault": true,
+              "why": "Arms must stay straight."
+            },
+            {
+              "text": "One pressed only about 1 cm deep.",
+              "fault": true,
+              "why": "The depth is 5-6 cm."
+            },
+            {
+              "text": "One spent a long time checking breathing.",
+              "fault": true,
+              "why": "Check for up to 10 seconds."
+            },
+            {
+              "text": "One called for help early.",
+              "why": "That is correct."
+            },
+            {
+              "text": "One used a face shield.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for practising CPR.",
+        "explainPrompt": "Why is full chest recoil allowed after each compression?",
+        "explainGuide": "Recoil lets the chest come back up, so the heart can refill with blood before the next compression.",
+        "explainKeywords": [
+          [
+            "recoil",
+            "release"
+          ],
+          [
+            "heart",
+            "refill",
+            "fill"
+          ],
+          [
+            "blood"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Recovery position and CPR",
+        "DRABC",
+        "Practise only on a manikin"
+      ]
+    },
+    "pr-hed-ors-preparation": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Prepare ORS without washing your hands first.",
+            "why": "Wash hands with soap before preparing it."
+          },
+          {
+            "text": "Dissolve the sachet in half a litre so that it is stronger.",
+            "why": "Too little water makes it too salty. Use exactly 1 litre."
+          },
+          {
+            "text": "Keep yesterday's ORS for today's feeds.",
+            "why": "Discard ORS after 24 hours."
+          },
+          {
+            "text": "Mix the ORS with unboiled stream water.",
+            "why": "Use clean, boiled and cooled water."
+          },
+          {
+            "text": "Use heaped spoons of salt to make it work better.",
+            "why": "Use level spoons: too much salt harms a child."
+          },
+          {
+            "text": "Stop feeding the child until the diarrhoea has ended.",
+            "why": "Continue breastfeeding and normal feeding."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Soft drink",
+            "why": "Soft drinks do not replace ORS."
+          },
+          {
+            "name": "Tablespoon of salt",
+            "why": "The recipe uses a level teaspoon measure."
+          },
+          {
+            "name": "Unboiled stream water",
+            "why": "Use clean, boiled and cooled water."
+          },
+          {
+            "name": "Antibiotic tablets",
+            "why": "They are not part of ORS: medicines are for a health worker to advise."
+          },
+          {
+            "name": "Palm wine",
+            "why": "Alcohol is harmful and it is not ORS."
+          },
+          {
+            "name": "Cup with a chipped rim",
+            "why": "Use a clean, sound cup and spoon."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sachet-water",
+          "afterStep": 2,
+          "prompt": "You have one WHO/UNICEF sachet. How much cooled boiled water do you use?",
+          "options": [
+            {
+              "text": "Exactly 1 litre, as the sachet states",
+              "correct": true,
+              "consequence": "The solution has the right strength."
+            },
+            {
+              "text": "About half a litre, to make it stronger",
+              "consequence": "Dissolving it in less water is a named mistake."
+            },
+            {
+              "text": "Whatever fills the nearest bottle",
+              "consequence": "The volume must be exact."
+            }
+          ]
+        },
+        {
+          "id": "home-recipe",
+          "afterStep": 3,
+          "prompt": "You are using the home method with 1 litre of cooled boiled water. What do you add?",
+          "options": [
+            {
+              "text": "6 level teaspoons of sugar, 1/2 level teaspoon of salt",
+              "correct": true,
+              "consequence": "That is the recipe in the lesson."
+            },
+            {
+              "text": "6 level teaspoons of salt, 1/2 level teaspoon of sugar",
+              "consequence": "Far too salty, and dangerous."
+            },
+            {
+              "text": "Sugar only, as much as tastes nice",
+              "consequence": "It needs the salts too."
+            }
+          ]
+        },
+        {
+          "id": "give",
+          "afterStep": 5,
+          "prompt": "The ORS is ready and the child has diarrhoea. How do you give it?",
+          "options": [
+            {
+              "text": "In small, frequent sips, and continue feeding",
+              "correct": true,
+              "consequence": "It replaces lost water and salts while feeding goes on."
+            },
+            {
+              "text": "All at once, in one big cup, with no food",
+              "consequence": "Giving no food is a named mistake."
+            },
+            {
+              "text": "Only at bedtime",
+              "consequence": "It should be given in frequent sips."
+            }
+          ]
+        },
+        {
+          "id": "danger",
+          "afterStep": 6,
+          "prompt": "The child has blood in the stool and sunken eyes. What do you do?",
+          "options": [
+            {
+              "text": "Seek care from a health worker at once",
+              "correct": true,
+              "consequence": "These are danger signs."
+            },
+            {
+              "text": "Wait another two days at home",
+              "consequence": "Danger signs need care."
+            },
+            {
+              "text": "Stop the ORS and give soft drinks",
+              "consequence": "ORS must not be replaced with soft drinks."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "solution",
+          "prompt": "What is correctly made ORS like?",
+          "options": [
+            {
+              "text": "Clear, slightly sweet and slightly salty",
+              "correct": true
+            },
+            {
+              "text": "Very salty, with a strong taste like sea water",
+              "why": "Too little water or too much salt."
+            },
+            {
+              "text": "Very sweet, like soda",
+              "why": "Too much sugar."
+            }
+          ]
+        },
+        {
+          "id": "why-ors",
+          "prompt": "What does ORS do?",
+          "options": [
+            {
+              "text": "It replaces water and salts lost in diarrhoea",
+              "correct": true
+            },
+            {
+              "text": "It kills the germs causing diarrhoea",
+              "why": "It replaces what is lost."
+            },
+            {
+              "text": "It stops the diarrhoea at once",
+              "why": "It prevents dehydration."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "extra-fluid",
+          "prompt": "A child passes {n} loose stools in a day and receives 100 ml after each. How much extra fluid is that?",
+          "formula": "100 * n",
+          "vars": {
+            "n": {
+              "min": 2,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "ml",
+          "unitAliases": [
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 100 = {answer} ml."
+        },
+        {
+          "id": "sugar",
+          "prompt": "The home recipe uses 6 level teaspoons of sugar for 1 litre. How many level teaspoons of sugar are used for {v} ml?",
+          "formula": "6 * v / 1000",
+          "vars": {
+            "v": {
+              "min": 500,
+              "max": 1000,
+              "step": 500
+            }
+          },
+          "unit": "teaspoons",
+          "unitAliases": [
+            "teaspoon",
+            "tsp"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "6 × {v} ÷ 1,000 = {answer} teaspoons."
+        }
+      ],
+      "faults": [
+        {
+          "id": "clinic-day",
+          "scenario": "A mother prepared ORS for her child. A health worker recorded what she did.",
+          "lines": [
+            {
+              "text": "She dissolved a sachet in less water than it said.",
+              "fault": true,
+              "why": "Too little water makes it too salty."
+            },
+            {
+              "text": "She stopped feeding the child.",
+              "fault": true,
+              "why": "Continue breastfeeding and normal feeding."
+            },
+            {
+              "text": "She gave a soft drink instead when the ORS ran out.",
+              "fault": true,
+              "why": "Soft drinks do not replace ORS."
+            },
+            {
+              "text": "She used boiled and cooled water.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She gave small, frequent sips.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing ORS.",
+        "explainPrompt": "Why is exactly the stated amount of water used for an ORS sachet?",
+        "explainGuide": "Too little water makes the solution too salty, which is harmful. The stated volume gives the correct concentration.",
+        "explainKeywords": [
+          [
+            "water",
+            "volume"
+          ],
+          [
+            "salt",
+            "concentrat",
+            "strength"
+          ],
+          [
+            "harm",
+            "correct",
+            "danger"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Oral rehydration solution",
+        "Exact water. Level spoons.",
+        "Fresh every 24 hours"
+      ]
+    },
+    "pr-hed-water-purification": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Drink a sip of the unboiled stream sample to compare it.",
+            "why": "Never drink unboiled test samples."
+          },
+          {
+            "text": "Leave the pot of boiling water at the edge of the stove.",
+            "why": "It can tip and scald. Take care with boiling water."
+          },
+          {
+            "text": "Rub your eyes after handling the stream water.",
+            "why": "Wash your hands after handling it."
+          },
+          {
+            "text": "Decide the borehole water is safe because it looks clear.",
+            "why": "Clear water is not always safe."
+          },
+          {
+            "text": "Reach across the boiling pot to get the funnel.",
+            "why": "Steam and flames can burn you. Go round it."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Bleach in a soft-drink bottle",
+            "why": "Never store chemicals in drink bottles."
+          },
+          {
+            "name": "Sugar",
+            "why": "It does not purify water."
+          },
+          {
+            "name": "Salt",
+            "why": "It does not purify water."
+          },
+          {
+            "name": "Empty kerosene jerrycan",
+            "why": "It contaminates the water."
+          },
+          {
+            "name": "Plastic bucket without a lid",
+            "why": "Stored water must be covered."
+          },
+          {
+            "name": "Iodine solution",
+            "why": "This practical does not use it."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "settle-first",
+          "afterStep": 2,
+          "prompt": "The stream sample is muddy. What is the first treatment?",
+          "options": [
+            {
+              "text": "Let it stand, or add alum, so that the mud settles",
+              "correct": true,
+              "consequence": "Sedimentation clears most solids first."
+            },
+            {
+              "text": "Boil it straight away, before doing anything else to it",
+              "consequence": "Boil after filtering."
+            },
+            {
+              "text": "Pour it straight into storage",
+              "consequence": "Muddy water is not safe."
+            }
+          ]
+        },
+        {
+          "id": "decant",
+          "afterStep": 3,
+          "prompt": "The mud has settled. How do you move the top water?",
+          "options": [
+            {
+              "text": "Decant it carefully, without stirring the sediment",
+              "correct": true,
+              "consequence": "The clear water goes to the filter."
+            },
+            {
+              "text": "Stir it first, then pour it steadily through the cloth",
+              "consequence": "Stirring brings the mud back."
+            },
+            {
+              "text": "Pour all of it quickly",
+              "consequence": "The sediment goes into the filter."
+            }
+          ]
+        },
+        {
+          "id": "boil-time",
+          "afterStep": 4,
+          "prompt": "The filtered water is on the stove. How long do you boil it?",
+          "options": [
+            {
+              "text": "At a rolling boil for at least 1 minute",
+              "correct": true,
+              "consequence": "That kills most germs."
+            },
+            {
+              "text": "Until the first few bubbles show",
+              "consequence": "That is not a rolling boil."
+            },
+            {
+              "text": "Only warm it",
+              "consequence": "Warming does not kill germs."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "boil-limit",
+          "prompt": "What does boiling not do?",
+          "options": [
+            {
+              "text": "Remove dissolved chemicals",
+              "correct": true
+            },
+            {
+              "text": "Kill most germs in the water",
+              "why": "Boiling does kill most germs."
+            },
+            {
+              "text": "Heat the water",
+              "why": "Boiling does heat the water."
+            }
+          ]
+        },
+        {
+          "id": "clear-safe",
+          "prompt": "What should you remember about clear water?",
+          "options": [
+            {
+              "text": "It is not always safe",
+              "correct": true
+            },
+            {
+              "text": "It is always safe",
+              "why": "Believing that is a named mistake."
+            },
+            {
+              "text": "It never needs boiling",
+              "why": "Clear water can still hold germs."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "family",
+          "prompt": "A family of {n} uses 20 litres per person per day. How much water do they need daily?",
+          "formula": "n * 20",
+          "vars": {
+            "n": {
+              "min": 3,
+              "max": 9,
+              "step": 1
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 20 = {answer} litres."
+        },
+        {
+          "id": "filter-rate",
+          "prompt": "{v} ml of filtrate is collected in {t} minutes. What is the rate in ml per minute?",
+          "formula": "v / t",
+          "vars": {
+            "v": {
+              "min": 400,
+              "max": 800,
+              "step": 100
+            },
+            "t": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "ml/min",
+          "unitAliases": [
+            "ml per minute"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{v} ÷ {t} = {answer} ml/min."
+        }
+      ],
+      "faults": [
+        {
+          "id": "class-filter",
+          "scenario": "Group 3 purified water for their project. Here is what they did.",
+          "lines": [
+            {
+              "text": "They said the clear filtered water needed no boiling.",
+              "fault": true,
+              "why": "Clear water is not always safe."
+            },
+            {
+              "text": "They stirred up the sediment when decanting.",
+              "fault": true,
+              "why": "Do not stir the sediment."
+            },
+            {
+              "text": "They stored the water in an uncovered bucket.",
+              "fault": true,
+              "why": "Cover stored water."
+            },
+            {
+              "text": "They boiled the filtered water at a rolling boil for at least 1 minute.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They washed their hands after handling the stream water.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for purifying water.",
+        "explainPrompt": "Why is filtered water boiled before it is used?",
+        "explainGuide": "Filtering removes particles but not all germs. Boiling kills most germs, so that the water is safer to drink.",
+        "explainKeywords": [
+          [
+            "germ",
+            "bacteria",
+            "micro"
+          ],
+          [
+            "boil",
+            "kill"
+          ],
+          [
+            "filter",
+            "particle",
+            "safe"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Purifying water",
+        "Settle, filter, boil, store",
+        "Clear does not mean safe."
+      ]
+    },
+    "pr-hed-waste-disposal-survey": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Walk into the dumpsite to see the refuse properly.",
+            "why": "Do not enter dumpsites or open drains."
+          },
+          {
+            "text": "Go round the houses alone to finish sooner.",
+            "why": "Work in groups with a teacher."
+          },
+          {
+            "text": "Pick up refuse without gloves to examine it.",
+            "why": "Wear gloves and masks."
+          },
+          {
+            "text": "Skip washing your hands because you wore gloves.",
+            "why": "Wash your hands after the survey."
+          },
+          {
+            "text": "Enter an open drain to measure how blocked it is.",
+            "why": "Do not enter dumpsites or open drains."
+          },
+          {
+            "text": "Photograph people's homes without asking.",
+            "why": "Ask permission and keep answers confidential."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Rake for digging through the dump",
+            "why": "Do not enter or disturb dumpsites."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Thermometer",
+            "why": "Temperature is not surveyed."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Refuse is not weighed in this survey."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "permission",
+          "afterStep": 2,
+          "prompt": "You reach a household on your list. What do you do?",
+          "options": [
+            {
+              "text": "Ask permission before asking questions",
+              "correct": true,
+              "consequence": "Consent and confidentiality are required."
+            },
+            {
+              "text": "Walk in and start asking",
+              "consequence": "That is intrusive."
+            },
+            {
+              "text": "Guess the answers from outside",
+              "consequence": "That produces false data."
+            }
+          ]
+        },
+        {
+          "id": "fair-sample",
+          "afterStep": 2,
+          "prompt": "Which sample is fair?",
+          "options": [
+            {
+              "text": "A spread of houses across the streets",
+              "correct": true,
+              "consequence": "A fair sample represents the area."
+            },
+            {
+              "text": "Only your friends' houses",
+              "consequence": "That is a biased sample."
+            },
+            {
+              "text": "Only houses on the cleanest street",
+              "consequence": "That is a biased sample."
+            }
+          ]
+        },
+        {
+          "id": "tally-check",
+          "afterStep": 4,
+          "prompt": "Your percentages add up to 92%. What do you do?",
+          "options": [
+            {
+              "text": "Find the error and recalculate",
+              "correct": true,
+              "consequence": "They must add up to 100%."
+            },
+            {
+              "text": "Add 8% to the largest group",
+              "consequence": "That falsifies the results."
+            },
+            {
+              "text": "Hand it in as it is",
+              "consequence": "Percentages not adding to 100 is a named mistake."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "dump-hazard",
+          "prompt": "What do open refuse dumps mainly encourage?",
+          "options": [
+            {
+              "text": "Flies and rats that spread disease",
+              "correct": true
+            },
+            {
+              "text": "Clean air",
+              "why": "They cause odour and pollution."
+            },
+            {
+              "text": "Better drainage along nearby streets",
+              "why": "They block drains."
+            }
+          ]
+        },
+        {
+          "id": "blocked",
+          "prompt": "What do blocked drains cause?",
+          "options": [
+            {
+              "text": "Odour, flooding and mosquito breeding",
+              "correct": true
+            },
+            {
+              "text": "Cleaner streets after the rains have passed",
+              "why": "They do the opposite."
+            },
+            {
+              "text": "Lower rents",
+              "why": "That is not a health effect."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "pct-hh",
+          "prompt": "{a} of {n} households use open dumping. What percentage is that?",
+          "formula": "a / n * 100",
+          "vars": {
+            "a": {
+              "min": 12,
+              "max": 32,
+              "step": 4
+            },
+            "n": {
+              "min": 40,
+              "max": 50,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {n} × 100 = {answer}%."
+        },
+        {
+          "id": "angle",
+          "prompt": "A disposal method is {p}% of the households. What is its pie-chart angle?",
+          "formula": "p / 100 * 360",
+          "vars": {
+            "p": {
+              "min": 5,
+              "max": 70,
+              "step": 5
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "degree",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{p} ÷ 100 × 360 = {answer} degrees."
+        }
+      ],
+      "faults": [
+        {
+          "id": "survey-report",
+          "scenario": "A group wrote a report on waste disposal. Here is what they did.",
+          "lines": [
+            {
+              "text": "Their percentages added up to 92%.",
+              "fault": true,
+              "why": "They must add up to 100."
+            },
+            {
+              "text": "Their chart had no title or key.",
+              "fault": true,
+              "why": "Give it a title and key."
+            },
+            {
+              "text": "They visited only their friends' houses.",
+              "fault": true,
+              "why": "Use a fair sample of streets."
+            },
+            {
+              "text": "They kept household answers confidential.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They wrote recommendations to the local government.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a waste disposal survey.",
+        "explainPrompt": "Why are open refuse dumps a health hazard?",
+        "explainGuide": "They breed flies, rats and mosquitoes, which spread disease, and they block drains, causing odour and flooding.",
+        "explainKeywords": [
+          [
+            "fly",
+            "flies",
+            "rat",
+            "mosquito",
+            "vector"
+          ],
+          [
+            "disease",
+            "spread"
+          ],
+          [
+            "drain",
+            "odour",
+            "flood"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Waste disposal survey",
+        "Questionnaire, tally, chart",
+        "State a hazard and a remedy"
+      ]
+    },
+    "pr-hed-vector-survey": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Wade into a deep stagnant drain for a better sample.",
+            "why": "Avoid stagnant drains and deep water."
+          },
+          {
+            "text": "Pick up a dead rat to look at it.",
+            "why": "Do not handle rats or dead animals."
+          },
+          {
+            "text": "Inspect a bushy compound in shorts and a short-sleeved shirt.",
+            "why": "Wear gloves and long sleeves."
+          },
+          {
+            "text": "Dip containers with bare hands because the water is shallow.",
+            "why": "Wear gloves."
+          },
+          {
+            "text": "Spray insecticide on the water containers people drink from.",
+            "why": "Insecticide must not go in drinking water."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Bottle of petrol for the drains",
+            "why": "It is dangerous and is not a recommended control."
+          },
+          {
+            "name": "Fishing net",
+            "why": "Larvae are dipped with a ladle or dish."
+          },
+          {
+            "name": "Thermometer",
+            "why": "Temperature is not surveyed."
+          },
+          {
+            "name": "Rat poison",
+            "why": "Do not handle rats or poison in this practical."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sites",
+          "afterStep": 2,
+          "prompt": "Where do you look first for larvae?",
+          "options": [
+            {
+              "text": "Tyres, tins, drums, gutters and blocked drains",
+              "correct": true,
+              "consequence": "These are water-holding containers."
+            },
+            {
+              "text": "On dry walls, high up behind doors and cupboards",
+              "consequence": "Larvae need water."
+            },
+            {
+              "text": "In dry sand",
+              "consequence": "Larvae need water."
+            }
+          ]
+        },
+        {
+          "id": "larvae-id",
+          "afterStep": 4,
+          "prompt": "Larvae lie flat, parallel to the water surface. What are they?",
+          "options": [
+            {
+              "text": "Anopheles",
+              "correct": true,
+              "consequence": "Anopheles larvae have no siphon and lie flat."
+            },
+            {
+              "text": "Culex (house mosquito)",
+              "consequence": "Culex larvae hang at an angle with a siphon."
+            },
+            {
+              "text": "Aedes",
+              "consequence": "Aedes larvae hang at an angle with a siphon."
+            }
+          ]
+        },
+        {
+          "id": "control-type",
+          "afterStep": 6,
+          "prompt": "Which recommendation deals with the breeding site?",
+          "options": [
+            {
+              "text": "Empty and cover containers and clear the drains",
+              "correct": true,
+              "consequence": "That is physical control."
+            },
+            {
+              "text": "List only insecticide spraying of the rooms around it",
+              "consequence": "That is a named mistake."
+            },
+            {
+              "text": "Advise people to do nothing",
+              "consequence": "Control is recommended."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "disease-vector",
+          "prompt": "Yellow fever is transmitted by:",
+          "options": [
+            {
+              "text": "The Aedes mosquito",
+              "correct": true
+            },
+            {
+              "text": "The Anopheles mosquito",
+              "why": "That spreads malaria."
+            },
+            {
+              "text": "The tsetse fly",
+              "why": "That spreads sleeping sickness."
+            }
+          ]
+        },
+        {
+          "id": "pest-vector",
+          "prompt": "What separates a vector from a pest?",
+          "options": [
+            {
+              "text": "A vector transmits disease",
+              "correct": true
+            },
+            {
+              "text": "A vector is always larger",
+              "why": "Size is not the test."
+            },
+            {
+              "text": "A pest always transmits disease",
+              "why": "A pest is a nuisance."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "house",
+          "prompt": "{h} of {n} houses had larvae. What is the house index?",
+          "formula": "h / n * 100",
+          "vars": {
+            "h": {
+              "min": 6,
+              "max": 15,
+              "step": 3
+            },
+            "n": {
+              "min": 30,
+              "max": 60,
+              "step": 15
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{h} ÷ {n} × 100 = {answer}%."
+        },
+        {
+          "id": "container",
+          "prompt": "{p} of {c} containers were positive. What is the container index?",
+          "formula": "p / c * 100",
+          "vars": {
+            "p": {
+              "min": 6,
+              "max": 12,
+              "step": 3
+            },
+            "c": {
+              "min": 30,
+              "max": 60,
+              "step": 15
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{p} ÷ {c} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "vector-report",
+          "scenario": "Dayo surveyed mosquito breeding sites. Here is what he did.",
+          "lines": [
+            {
+              "text": "He called rats 'pests' and flies 'vectors' without giving reasons.",
+              "fault": true,
+              "why": "Give the difference: vectors transmit disease."
+            },
+            {
+              "text": "He recommended only insecticide.",
+              "fault": true,
+              "why": "Physical and biological control count too."
+            },
+            {
+              "text": "He skipped the roof gutters.",
+              "fault": true,
+              "why": "Inspect every container."
+            },
+            {
+              "text": "He told Anopheles from Culex larvae by how they lie.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He recorded his data immediately.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a mosquito survey.",
+        "explainPrompt": "Why does emptying containers control mosquitoes?",
+        "explainGuide": "Mosquito larvae develop in standing water, so removing the water removes the breeding site.",
+        "explainKeywords": [
+          [
+            "larva",
+            "breed"
+          ],
+          [
+            "water",
+            "standing"
+          ],
+          [
+            "remove",
+            "empty"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Mosquito breeding survey",
+        "House index, container index",
+        "Link each vector to its disease"
+      ]
+    },
+    "pr-hed-vital-statistics": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Write patients' full names in your class report.",
+            "why": "Use anonymised data and keep records confidential."
+          },
+          {
+            "text": "Leave the clinic register open on your desk at break.",
+            "why": "Keep personal health records confidential."
+          },
+          {
+            "text": "Discuss a named patient's illness with your friends.",
+            "why": "Keep personal health records confidential."
+          },
+          {
+            "text": "Photograph the patient register to share in the class group chat.",
+            "why": "Use anonymised summary figures only."
+          },
+          {
+            "text": "Copy names of children who died into your project.",
+            "why": "Use anonymised data."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Nothing is weighed."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "imr",
+          "afterStep": 4,
+          "prompt": "Which number goes under infant deaths in the infant mortality rate?",
+          "options": [
+            {
+              "text": "Live births in the year",
+              "correct": true,
+              "consequence": "IMR is per 1,000 live births."
+            },
+            {
+              "text": "The total population",
+              "consequence": "Dividing by population is a named mistake."
+            },
+            {
+              "text": "The number of women",
+              "consequence": "That is not the denominator."
+            }
+          ]
+        },
+        {
+          "id": "ri",
+          "afterStep": 5,
+          "prompt": "A population has 1,000 births and 300 deaths. How do you work out natural increase?",
+          "options": [
+            {
+              "text": "Births minus deaths, over the population, times 100",
+              "correct": true,
+              "consequence": "Births minus deaths gives the increase."
+            },
+            {
+              "text": "Births plus deaths, over the population, times 100",
+              "consequence": "Deaths are not added."
+            },
+            {
+              "text": "Births divided by deaths, times 100",
+              "consequence": "That is not the rate."
+            }
+          ]
+        },
+        {
+          "id": "units",
+          "afterStep": 6,
+          "prompt": "You have worked out the incidence. How do you state it?",
+          "options": [
+            {
+              "text": "As so many per 1,000",
+              "correct": true,
+              "consequence": "Give rates with 'per 1,000'."
+            },
+            {
+              "text": "As a plain number with no units",
+              "consequence": "Omitting units is a named mistake."
+            },
+            {
+              "text": "As a share of all deaths",
+              "consequence": "Incidence is new cases per 1,000 of the population at risk."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "use",
+          "prompt": "What are vital statistics used for?",
+          "options": [
+            {
+              "text": "Health planning and evaluating programmes",
+              "correct": true
+            },
+            {
+              "text": "Deciding one patient's treatment",
+              "why": "They describe a population, not one person."
+            },
+            {
+              "text": "Counting the pupils in a school",
+              "why": "They are about births, deaths and disease."
+            }
+          ]
+        },
+        {
+          "id": "high-imr",
+          "prompt": "What does a high infant mortality rate suggest?",
+          "options": [
+            {
+              "text": "Health problems that need planning and action",
+              "correct": true
+            },
+            {
+              "text": "Excellent child health",
+              "why": "High IMR means poor outcomes."
+            },
+            {
+              "text": "A falling population only, with no health concern",
+              "why": "IMR measures infant deaths."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cbr",
+          "prompt": "A population of {p} has {b} live births. What is the crude birth rate?",
+          "formula": "b / p * 1000",
+          "vars": {
+            "p": {
+              "min": 20000,
+              "max": 50000,
+              "step": 10000
+            },
+            "b": {
+              "min": 500,
+              "max": 1500,
+              "step": 250
+            }
+          },
+          "unit": "per 1,000",
+          "unitAliases": [
+            "per 1000"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{b} ÷ {p} × 1,000 = {answer} per 1,000."
+        },
+        {
+          "id": "imr-calc",
+          "prompt": "There were {d} infant deaths and {b} live births. What is the infant mortality rate?",
+          "formula": "d / b * 1000",
+          "vars": {
+            "d": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            },
+            "b": {
+              "min": 1000,
+              "max": 2000,
+              "step": 250
+            }
+          },
+          "unit": "per 1,000",
+          "unitAliases": [
+            "per 1000"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{d} ÷ {b} × 1,000 = {answer} per 1,000 live births."
+        },
+        {
+          "id": "ni",
+          "prompt": "In a population of {p}, there are {b} births and {d} deaths. What is the rate of natural increase?",
+          "formula": "(b - d) / p * 100",
+          "vars": {
+            "p": {
+              "min": 30000,
+              "max": 60000,
+              "step": 10000
+            },
+            "b": {
+              "min": 900,
+              "max": 1500,
+              "step": 200
+            },
+            "d": {
+              "min": 300,
+              "max": 500,
+              "step": 100
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "({b} − {d}) ÷ {p} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "stats-paper",
+          "scenario": "A student calculated rates for a primary health centre. Here is her work.",
+          "lines": [
+            {
+              "text": "She divided infant deaths by the total population.",
+              "fault": true,
+              "why": "Use live births."
+            },
+            {
+              "text": "She wrote her rates with no 'per 1,000'.",
+              "fault": true,
+              "why": "Give the unit."
+            },
+            {
+              "text": "She put patients' names in her report.",
+              "fault": true,
+              "why": "Use anonymised data."
+            },
+            {
+              "text": "She wrote each formula first.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She stated one use of each statistic.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when calculating vital statistics.",
+        "explainPrompt": "Why is the infant mortality rate calculated from live births, not the total population?",
+        "explainGuide": "It measures the risk of death in infants. Only babies born alive that year are at risk, so they form the correct denominator.",
+        "explainKeywords": [
+          [
+            "live birth",
+            "births"
+          ],
+          [
+            "infant",
+            "babies"
+          ],
+          [
+            "risk",
+            "denominator"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Vital statistics",
+        "Write the formula first",
+        "Give rates per 1,000"
+      ]
+    },
+    "pr-hed-worm-life-cycles": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Open the specimen jar to smell the preservative.",
+            "why": "Do not open jars: preservatives are toxic."
+          },
+          {
+            "text": "Take the worm out of the jar for your drawing.",
+            "why": "Do not open specimen jars."
+          },
+          {
+            "text": "Leave the practical and eat without washing your hands.",
+            "why": "Wash your hands after the practical."
+          },
+          {
+            "text": "Shake the jar hard to see the specimen move.",
+            "why": "Handle jars carefully."
+          },
+          {
+            "text": "Rest the jar on the very edge of the bench.",
+            "why": "It can fall and break. Handle jars carefully."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Scalpel",
+            "why": "Do not open the jars."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "hook-prevent",
+          "afterStep": 4,
+          "prompt": "Which measure prevents hookworm infection?",
+          "options": [
+            {
+              "text": "Wearing shoes",
+              "correct": true,
+              "consequence": "Larvae enter through the skin of bare feet."
+            },
+            {
+              "text": "Sleeping under a net",
+              "consequence": "That is for mosquitoes."
+            },
+            {
+              "text": "Filtering drinking water",
+              "consequence": "That is for guinea worm."
+            }
+          ]
+        },
+        {
+          "id": "guinea-prevent",
+          "afterStep": 4,
+          "prompt": "How is guinea worm prevented?",
+          "options": [
+            {
+              "text": "Filtering drinking water to remove Cyclops",
+              "correct": true,
+              "consequence": "Cyclops water fleas carry the larvae."
+            },
+            {
+              "text": "Wearing shoes",
+              "consequence": "That is for hookworm."
+            },
+            {
+              "text": "Sleeping under a treated net throughout the year",
+              "consequence": "That is for mosquitoes."
+            }
+          ]
+        },
+        {
+          "id": "host",
+          "afterStep": 5,
+          "prompt": "You are filling in the table for Taenia solium. Which is the intermediate host?",
+          "options": [
+            {
+              "text": "The pig",
+              "correct": true,
+              "consequence": "Cysts develop in pigs."
+            },
+            {
+              "text": "The human",
+              "consequence": "Humans are the definitive host."
+            },
+            {
+              "text": "The mosquito",
+              "consequence": "That is not involved."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "taenia",
+          "prompt": "Which worm is flat, ribbon-like and segmented, with a scolex?",
+          "options": [
+            {
+              "text": "Taenia (tapeworm)",
+              "correct": true
+            },
+            {
+              "text": "Ascaris",
+              "why": "Ascaris is long and unsegmented."
+            },
+            {
+              "text": "Hookworm (roundworm)",
+              "why": "Hookworm is small with a curved front end."
+            }
+          ]
+        },
+        {
+          "id": "ascaris",
+          "prompt": "What does Ascaris look like?",
+          "options": [
+            {
+              "text": "Long, unsegmented and creamy",
+              "correct": true
+            },
+            {
+              "text": "Flat and segmented",
+              "why": "That is tapeworm."
+            },
+            {
+              "text": "Emerging through a skin blister",
+              "why": "That is guinea worm."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "eggs",
+          "prompt": "A female Ascaris lays about 200,000 eggs per day. How many eggs is that in {d} days?",
+          "formula": "200000 * d",
+          "vars": {
+            "d": {
+              "min": 2,
+              "max": 10,
+              "step": 1
+            }
+          },
+          "unit": "eggs",
+          "unitAliases": [
+            "egg"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "200,000 × {d} = {answer} eggs."
+        },
+        {
+          "id": "segments",
+          "prompt": "A tapeworm {l} m long has segments about 5 mm long. Roughly how many segments does it have?",
+          "formula": "l * 1000 / 5",
+          "vars": {
+            "l": {
+              "min": 2,
+              "max": 7,
+              "step": 1
+            }
+          },
+          "unit": "segments",
+          "unitAliases": [
+            "segment"
+          ],
+          "tolerance": {
+            "abs": 5
+          },
+          "decimals": 0,
+          "working": "{l} m = {l} × 1,000 mm. Divide by 5 = {answer} segments."
+        }
+      ],
+      "faults": [
+        {
+          "id": "worm-table",
+          "scenario": "Ejiro wrote a table of worms. Here is what the teacher marked.",
+          "lines": [
+            {
+              "text": "He gave the human as the intermediate host of Taenia solium.",
+              "fault": true,
+              "why": "The pig is the intermediate host."
+            },
+            {
+              "text": "He wrote that hookworm is caught by drinking water.",
+              "fault": true,
+              "why": "Larvae enter through bare skin."
+            },
+            {
+              "text": "He drew an unlabelled life cycle.",
+              "fault": true,
+              "why": "Label each stage."
+            },
+            {
+              "text": "He linked each stage to a way of preventing infection.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He washed his hands after the practical.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for this practical.",
+        "explainPrompt": "Why is proper disposal of faeces vital in preventing roundworm?",
+        "explainGuide": "Eggs pass out in the faeces in huge numbers and contaminate soil, food and water. Proper disposal stops them reaching a new host.",
+        "explainKeywords": [
+          [
+            "egg"
+          ],
+          [
+            "faeces",
+            "stool"
+          ],
+          [
+            "soil",
+            "food",
+            "water",
+            "contaminat",
+            "host"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Parasitic worms",
+        "Source, entry, site, exit",
+        "One prevention for each stage"
+      ]
+    },
+    "pr-hed-consumer-labels": {
+      "safety": {
+        "wrong": [
+          {
+            "text": "Open a medicine packet to look at the tablets.",
+            "why": "Use empty or sealed containers only."
+          },
+          {
+            "text": "Taste the syrup to check whether it has expired.",
+            "why": "Do not taste medicines."
+          },
+          {
+            "text": "Take an expired tablet for a headache as it looks fine.",
+            "why": "Expired medicines must not be used."
+          },
+          {
+            "text": "Buy a drug because a high price proves it is genuine.",
+            "why": "A high price proves nothing."
+          },
+          {
+            "text": "Give a friend a drug with a broken seal.",
+            "why": "A broken seal is a sign of a fake."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Benedict's solution",
+            "why": "No chemical test is done here."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Nothing is weighed."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated."
+          },
+          {
+            "name": "Plumb line",
+            "why": "That is for posture."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "dates",
+          "afterStep": 1,
+          "prompt": "A label shows two dates. Which tells you when not to use the product after?",
+          "options": [
+            {
+              "text": "The expiry date",
+              "correct": true,
+              "consequence": "Confusing it with the manufacturing date is a named mistake."
+            },
+            {
+              "text": "The manufacturing date",
+              "consequence": "That is when it was made."
+            },
+            {
+              "text": "The batch number",
+              "consequence": "That identifies the batch."
+            }
+          ]
+        },
+        {
+          "id": "fake-sign",
+          "afterStep": 2,
+          "prompt": "A packet has spelling errors and no NAFDAC number. What do you record?",
+          "options": [
+            {
+              "text": "Possibly fake: do not buy or use",
+              "correct": true,
+              "consequence": "These are signs of a fake."
+            },
+            {
+              "text": "Genuine, as the price is high",
+              "consequence": "Price proves nothing."
+            },
+            {
+              "text": "Safe, as it is in a box",
+              "consequence": "A box proves nothing."
+            }
+          ]
+        },
+        {
+          "id": "expired-decision",
+          "afterStep": 6,
+          "prompt": "A syrup expired last month. What goes in your table?",
+          "options": [
+            {
+              "text": "It must not be bought or used",
+              "correct": true,
+              "consequence": "Expired products must not be used."
+            },
+            {
+              "text": "Safe for another year",
+              "consequence": "Expired products must not be used."
+            },
+            {
+              "text": "Safe if shaken well before each use",
+              "consequence": "Shaking changes nothing."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "agency",
+          "prompt": "Which agency registers food and drugs in Nigeria?",
+          "options": [
+            {
+              "text": "NAFDAC",
+              "correct": true
+            },
+            {
+              "text": "Standards Organisation of Nigeria",
+              "why": "SON deals with standards."
+            },
+            {
+              "text": "FRSC",
+              "why": "That is road safety."
+            }
+          ]
+        },
+        {
+          "id": "genuine",
+          "prompt": "Which features suggest a genuine product?",
+          "options": [
+            {
+              "text": "Clear printing, a NAFDAC number and readable dates",
+              "correct": true
+            },
+            {
+              "text": "Spelling errors and blurred print on the outer packet",
+              "why": "Those suggest a fake."
+            },
+            {
+              "text": "A broken seal",
+              "why": "That suggests a fake."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "shelf",
+          "prompt": "A product was made in March 2025 and has an 18-month shelf life. How many months after January 2025 does it expire?",
+          "answer": 20,
+          "unit": "months",
+          "unitAliases": [
+            "month"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "March is 2 months after January. 2 + 18 = 20 months."
+        },
+        {
+          "id": "expired-pct",
+          "prompt": "{a} of {n} products examined had expired. What percentage is that?",
+          "formula": "a / n * 100",
+          "vars": {
+            "a": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            },
+            "n": {
+              "min": 12,
+              "max": 20,
+              "step": 4
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {n} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "pharmacy",
+          "scenario": "Ada examined some health products. Here is what she recorded.",
+          "lines": [
+            {
+              "text": "She read the manufacturing date as the expiry date.",
+              "fault": true,
+              "why": "Read the dates carefully."
+            },
+            {
+              "text": "She said the dearest drug must be genuine.",
+              "fault": true,
+              "why": "A high price proves nothing."
+            },
+            {
+              "text": "She opened a sealed medicine to look inside.",
+              "fault": true,
+              "why": "Use empty or sealed containers only."
+            },
+            {
+              "text": "She recorded each NAFDAC number and batch number.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She read the storage instructions.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when examining product labels.",
+        "explainPrompt": "Why must expired medicines not be used?",
+        "explainGuide": "After the expiry date a medicine may be less effective or no longer safe, so it must not be used.",
+        "explainKeywords": [
+          [
+            "expire",
+            "date"
+          ],
+          [
+            "effect",
+            "safe",
+            "harm",
+            "work"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Reading health product labels",
+        "NAFDAC number, batch, dates",
+        "Empty or sealed containers only"
+      ]
+    },
+    "pr-hed-housing-inspection": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Walk into a crumbling building to measure its rooms.",
+            "why": "Do not enter unsafe or collapsing structures."
+          },
+          {
+            "text": "Inspect a house without asking the occupants.",
+            "why": "Work with the permission of occupants."
+          },
+          {
+            "text": "Go alone to save time.",
+            "why": "Work in groups."
+          },
+          {
+            "text": "Photograph people in their rooms without asking.",
+            "why": "Respect privacy."
+          },
+          {
+            "text": "Climb on the roof to look at the gutters.",
+            "why": "Do not put yourself in danger."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Snellen chart",
+            "why": "That is for vision."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Nothing is weighed."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "compare",
+          "afterStep": 3,
+          "prompt": "The floor area is 14 m2 and the windows total 1.2 m2. What do you conclude?",
+          "options": [
+            {
+              "text": "Ventilation is inadequate, below the 10% guide",
+              "correct": true,
+              "consequence": "10% of 14 m2 is 1.4 m2."
+            },
+            {
+              "text": "Ventilation is excellent",
+              "consequence": "It falls short of the guide."
+            },
+            {
+              "text": "The area is too large to measure with a tape or rule",
+              "consequence": "It was measured: 14 m2."
+            }
+          ]
+        },
+        {
+          "id": "latrine",
+          "afterStep": 5,
+          "prompt": "A pit latrine is 10 m from the well. What do you record?",
+          "options": [
+            {
+              "text": "Too close: it should be at least 30 m away",
+              "correct": true,
+              "consequence": "The latrine can contaminate the well."
+            },
+            {
+              "text": "Good: it is close and convenient",
+              "consequence": "Closeness threatens the water."
+            },
+            {
+              "text": "Acceptable, as long as the water looks clear",
+              "consequence": "Clear water can still be contaminated."
+            }
+          ]
+        },
+        {
+          "id": "crowded",
+          "afterStep": 4,
+          "prompt": "Four people sleep in a 14 m2 room. How do you work out the space per person?",
+          "options": [
+            {
+              "text": "Floor area divided by occupants",
+              "correct": true,
+              "consequence": "That gives 3.5 m2 each."
+            },
+            {
+              "text": "Occupants divided by floor area",
+              "consequence": "That gives the wrong unit."
+            },
+            {
+              "text": "Floor length divided by occupants",
+              "consequence": "You need the area."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "airborne",
+          "prompt": "Overcrowded, poorly ventilated rooms favour the spread of:",
+          "options": [
+            {
+              "text": "Tuberculosis",
+              "correct": true
+            },
+            {
+              "text": "Guinea worm",
+              "why": "That comes from drinking water with Cyclops."
+            },
+            {
+              "text": "Tapeworm",
+              "why": "That comes from undercooked meat."
+            }
+          ]
+        },
+        {
+          "id": "signs-house",
+          "prompt": "What do poor drainage and close latrines do?",
+          "options": [
+            {
+              "text": "They threaten health",
+              "correct": true
+            },
+            {
+              "text": "They improve water quality",
+              "why": "They do the opposite."
+            },
+            {
+              "text": "They reduce mosquitoes",
+              "why": "Poor drainage encourages them."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "floor",
+          "prompt": "A room is {l} m by {w} m. What is its floor area?",
+          "formula": "l * w",
+          "vars": {
+            "l": {
+              "min": 3,
+              "max": 6,
+              "step": 1
+            },
+            "w": {
+              "min": 2.5,
+              "max": 4,
+              "step": 0.5
+            }
+          },
+          "unit": "m2",
+          "unitAliases": [
+            "m²",
+            "sq m",
+            "square metres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{l} × {w} = {answer} m2."
+        },
+        {
+          "id": "window-min",
+          "prompt": "A room has a floor area of {a} m2. What is the minimum window area at the 10% guide?",
+          "formula": "a * 0.1",
+          "vars": {
+            "a": {
+              "min": 10,
+              "max": 24,
+              "step": 2
+            }
+          },
+          "unit": "m2",
+          "unitAliases": [
+            "m²",
+            "sq m"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 1,
+          "working": "{a} × 0.1 = {answer} m2."
+        },
+        {
+          "id": "per-person",
+          "prompt": "{p} people sleep in a room of {a} m2. What is the space per person?",
+          "formula": "a / p",
+          "vars": {
+            "a": {
+              "min": 12,
+              "max": 24,
+              "step": 4
+            },
+            "p": {
+              "min": 2,
+              "max": 4,
+              "step": 1
+            }
+          },
+          "unit": "m2",
+          "unitAliases": [
+            "m²",
+            "sq m"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{a} ÷ {p} = {answer} m2."
+        }
+      ],
+      "faults": [
+        {
+          "id": "house-report",
+          "scenario": "Bola inspected a house and wrote a report. Here is what she did.",
+          "lines": [
+            {
+              "text": "She gave the floor area in metres.",
+              "fault": true,
+              "why": "Area is in m2."
+            },
+            {
+              "text": "She left out the toilet and drainage.",
+              "fault": true,
+              "why": "Ignoring sanitation is a named mistake."
+            },
+            {
+              "text": "She entered a collapsing outbuilding.",
+              "fault": true,
+              "why": "Do not enter unsafe structures."
+            },
+            {
+              "text": "She asked the occupants' permission.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She measured all the window openings.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a housing inspection.",
+        "explainPrompt": "Why is a pit latrine kept well away from a well?",
+        "explainGuide": "Waste from the latrine can seep through the soil into the well and contaminate the water, spreading disease.",
+        "explainKeywords": [
+          [
+            "waste",
+            "faeces",
+            "seep"
+          ],
+          [
+            "contaminat",
+            "pollut"
+          ],
+          [
+            "water",
+            "well",
+            "disease"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Inspecting housing",
+        "Area, windows, space per person",
+        "Link poor housing to disease"
+      ]
+    },
+    "pr-hed-health-facility-visit": {
+      "room": "field",
+      "safety": {
+        "wrong": [
+          {
+            "text": "Pick up a syringe from the tray to look at it.",
+            "why": "Do not touch equipment or patients."
+          },
+          {
+            "text": "Talk to a patient about their illness without being asked.",
+            "why": "Keep patient information confidential."
+          },
+          {
+            "text": "Walk in without washing your hands.",
+            "why": "Wash your hands on arrival and departure."
+          },
+          {
+            "text": "Copy a patient's name and diagnosis into your notes.",
+            "why": "Keep patient information confidential."
+          },
+          {
+            "text": "Ignore the nurse's request to wait outside the ward.",
+            "why": "Follow staff instructions."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Stethoscope to examine patients",
+            "why": "Students do not touch equipment or patients."
+          },
+          {
+            "name": "Snellen chart",
+            "why": "Only observation is planned."
+          },
+          {
+            "name": "Tuning fork",
+            "why": "That is for hearing."
+          },
+          {
+            "name": "Benedict's solution",
+            "why": "That is a food test."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Students do not weigh patients on this visit."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "prepare",
+          "afterStep": 1,
+          "prompt": "Before you go, what must be ready?",
+          "options": [
+            {
+              "text": "Permission and questions prepared in advance",
+              "correct": true,
+              "consequence": "You make good use of the staff's time."
+            },
+            {
+              "text": "Nothing: just turn up",
+              "consequence": "Permission is needed."
+            },
+            {
+              "text": "Your own medicines for the patients",
+              "consequence": "Do not treat patients."
+            }
+          ]
+        },
+        {
+          "id": "records-use",
+          "afterStep": 4,
+          "prompt": "You want immunisation figures for your report. What do you ask for?",
+          "options": [
+            {
+              "text": "Anonymised summary figures",
+              "correct": true,
+              "consequence": "Patient information stays confidential."
+            },
+            {
+              "text": "The names of all the children",
+              "consequence": "Keep patient information confidential."
+            },
+            {
+              "text": "A photograph of the register",
+              "consequence": "Keep records confidential."
+            }
+          ]
+        },
+        {
+          "id": "services",
+          "afterStep": 2,
+          "prompt": "Which should your list of services include?",
+          "options": [
+            {
+              "text": "Preventive and curative services",
+              "correct": true,
+              "consequence": "Listing curative services only is a named mistake."
+            },
+            {
+              "text": "Curative services only",
+              "consequence": "That is a named mistake."
+            },
+            {
+              "text": "Only the surgery theatre and its wards",
+              "consequence": "Primary care is much wider than that."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "prevent",
+          "prompt": "Which is a preventive service?",
+          "options": [
+            {
+              "text": "Immunisation",
+              "correct": true
+            },
+            {
+              "text": "Dialysis",
+              "why": "That is hospital treatment."
+            },
+            {
+              "text": "Organ transplant",
+              "why": "That is hospital treatment."
+            }
+          ]
+        },
+        {
+          "id": "phc-part",
+          "prompt": "Which is a component of primary health care?",
+          "options": [
+            {
+              "text": "Health education",
+              "correct": true
+            },
+            {
+              "text": "Heart surgery",
+              "why": "That is specialist care."
+            },
+            {
+              "text": "Cosmetic surgery",
+              "why": "That is not PHC."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cov",
+          "prompt": "Of {n} children registered, {f} are fully immunised. What is the coverage?",
+          "formula": "f / n * 100",
+          "vars": {
+            "n": {
+              "min": 200,
+              "max": 300,
+              "step": 50
+            },
+            "f": {
+              "min": 120,
+              "max": 180,
+              "step": 20
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{f} ÷ {n} × 100 = {answer}%."
+        },
+        {
+          "id": "target",
+          "prompt": "{n} children are registered and the target is 90%. How many must be fully immunised?",
+          "formula": "0.9 * n",
+          "vars": {
+            "n": {
+              "min": 200,
+              "max": 400,
+              "step": 50
+            }
+          },
+          "unit": "children",
+          "unitAliases": [
+            "child"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "0.9 × {n} = {answer} children."
+        }
+      ],
+      "faults": [
+        {
+          "id": "phc-report",
+          "scenario": "A class visited a primary health centre. Here is what the group wrote and did.",
+          "lines": [
+            {
+              "text": "They listed only treatment of illnesses.",
+              "fault": true,
+              "why": "Include preventive services."
+            },
+            {
+              "text": "They named patients in their report.",
+              "fault": true,
+              "why": "Keep patient information confidential."
+            },
+            {
+              "text": "They did not link their findings to PHC components.",
+              "fault": true,
+              "why": "Link them to the components."
+            },
+            {
+              "text": "They washed their hands on arrival and departure.",
+              "why": "That is correct."
+            },
+            {
+              "text": "They showed their coverage calculation.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a visit to a health centre.",
+        "explainPrompt": "Why is immunisation coverage compared with a national target?",
+        "explainGuide": "It shows whether enough children are protected and whether the centre needs to do more to reach those missed.",
+        "explainKeywords": [
+          [
+            "cover",
+            "protect",
+            "immunis"
+          ],
+          [
+            "target",
+            "enough"
+          ],
+          [
+            "more",
+            "miss",
+            "reach",
+            "improve"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Visit to a health centre",
+        "Observe. Ask. Record.",
+        "Patient information is confidential"
+      ]
+    }
+  }
+}

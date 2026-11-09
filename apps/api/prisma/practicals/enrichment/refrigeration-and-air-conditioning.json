@@ -1,0 +1,4312 @@
+{
+ "subject": "Refrigeration and Air Conditioning",
+ "room": "workshop",
+ "lessons": {
+  "pr-rac-operating-fire-extinguishers-and-applying-first-aid": {
+   "safety": {
+    "correct": [
+     "Report every injury to the teacher, however small it seems."
+    ],
+    "wrong": [
+     {
+      "text": "Throw water over a burning compressor motor.",
+      "why": "Water conducts electricity. Isolate the supply and use CO₂ or dry powder."
+     },
+     {
+      "text": "Pull a shocked classmate away by the arm at once.",
+      "why": "You could get a shock too. Switch off first."
+     },
+     {
+      "text": "Rub frostbitten skin hard to warm it.",
+      "why": "Rubbing damages the frozen tissue. Warm it gently with lukewarm water."
+     },
+     {
+      "text": "Put butter on a burn to soothe it.",
+      "why": "It holds the heat in. Cool it under running water for 20 minutes."
+     },
+     {
+      "text": "Warm a frostbitten finger close to a hot heater.",
+      "why": "Numb skin burns easily. Use lukewarm water."
+     },
+     {
+      "text": "Take the last plasters and leave the first aid box empty.",
+      "why": "Restock the box after use, so that it is ready next time."
+     },
+     {
+      "text": "Handle a refrigerant cylinder without gloves for a quick move.",
+      "why": "Liquid refrigerant causes frostbite. Wear gloves and goggles."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Water extinguisher",
+      "why": "It is dangerous on electrical fires, which are the main risk here."
+     },
+     {
+      "name": "Butter or palm oil for burns",
+      "why": "These hold the heat in the skin."
+     },
+     {
+      "name": "Hot water for frostbite",
+      "why": "It would burn numb skin. Lukewarm water is used."
+     },
+     {
+      "name": "Toothpaste for burns",
+      "why": "It does not cool the burn and it contaminates it."
+     },
+     {
+      "name": "Refrigerant gauge manifold",
+      "why": "It plays no part in safety drill or first aid."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "elec-fire",
+     "afterStep": 2,
+     "prompt": "A compressor's wiring is burning. What do you do first?",
+     "options": [
+      {
+       "text": "Isolate the supply, then use CO₂ or dry powder",
+       "correct": true,
+       "consequence": "The fire is out of the live circuit, and the agent will not conduct."
+      },
+      {
+       "text": "Use the foam extinguisher at once",
+       "consequence": "Foam contains water, which conducts on live equipment."
+      },
+      {
+       "text": "Throw sand from a distance on the live board",
+       "consequence": "The supply is still live, so the fire can restart and shock someone."
+      }
+     ]
+    },
+    {
+     "id": "burn-aid",
+     "afterStep": 4,
+     "prompt": "A student has a minor burn on the hand. What do you do?",
+     "options": [
+      {
+       "text": "Cool it under running water for 20 minutes",
+       "correct": true,
+       "consequence": "The heat is drawn out, which limits the damage."
+      },
+      {
+       "text": "Cool it for a few seconds, then cover it",
+       "consequence": "A few seconds is too short to stop the burn going deeper."
+      },
+      {
+       "text": "Break the blisters and cover them",
+       "consequence": "Broken blisters can become infected."
+      }
+     ]
+    },
+    {
+     "id": "frost",
+     "afterStep": 4,
+     "prompt": "Refrigerant has frozen a patch of skin. What do you do?",
+     "options": [
+      {
+       "text": "Warm it gently with lukewarm water, without rubbing",
+       "correct": true,
+       "consequence": "The tissue thaws with least damage."
+      },
+      {
+       "text": "Rub it briskly with a dry cloth",
+       "consequence": "Rubbing frostbitten skin is a common mistake that damages it."
+      },
+      {
+       "text": "Hold it near the workshop heater to warm it up quickly",
+       "consequence": "Numb skin burns easily."
+      }
+     ]
+    },
+    {
+     "id": "shock",
+     "afterStep": 5,
+     "prompt": "A student is holding a live wire and cannot let go. What do you do first?",
+     "options": [
+      {
+       "text": "Switch off the supply",
+       "correct": true,
+       "consequence": "The casualty can then be helped without danger to you."
+      },
+      {
+       "text": "Grab the student's waist and pull",
+       "consequence": "You will get a shock as well."
+      },
+      {
+       "text": "Throw a bucket of water",
+       "consequence": "Water conducts, and it makes the shock worse."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "pick",
+     "prompt": "Which choice is right for a fire on electrical equipment?",
+     "options": [
+      {
+       "text": "CO₂ or dry powder",
+       "correct": true
+      },
+      {
+       "text": "Water",
+       "why": "Water conducts."
+      },
+      {
+       "text": "Foam from a spray extinguisher",
+       "why": "Foam contains water."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rate",
+     "prompt": "A {m} kg dry powder extinguisher discharges in about {t} s. How many kg does it release each second?",
+     "formula": "m / t",
+     "vars": {
+      "m": {
+       "min": 6,
+       "max": 12,
+       "step": 3
+      },
+      "t": {
+       "min": 12,
+       "max": 24,
+       "step": 6
+      }
+     },
+     "unit": "kg/s",
+     "unitAliases": [
+      "kg per second",
+      "kg per s"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{m} ÷ {t} = {answer} kg/s."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-aid",
+     "scenario": "An incident was handled badly at Musa's workshop. Here is what happened.",
+     "lines": [
+      {
+       "text": "Water was used on an electrical fire.",
+       "fault": true,
+       "why": "Water conducts electricity."
+      },
+      {
+       "text": "Frostbitten skin was rubbed.",
+       "fault": true,
+       "why": "A common mistake that damages tissue."
+      },
+      {
+       "text": "The supply was left on while the fire was fought.",
+       "fault": true,
+       "why": "Isolate the supply first."
+      },
+      {
+       "text": "A burn was cooled under running water.",
+       "why": "That is correct."
+      },
+      {
+       "text": "The first aid box was restocked.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for fire safety in a refrigeration workshop.",
+    "explainPrompt": "Why must the electrical supply be switched off before helping a shock casualty?",
+    "explainGuide": "The casualty may still be live, so anyone who touches them can get a shock. Switching off first makes it safe to help.",
+    "explainKeywords": [
+     [
+      "live",
+      "current"
+     ],
+     [
+      "shock",
+      "electrocuted"
+     ],
+     [
+      "switch",
+      "switching",
+      "isolate",
+      "off"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Operating fire extinguishers and applying first aid",
+    "Isolate first."
+   ]
+  },
+  "pr-rac-energy-conversion-and-change-of-state-of-matter": {
+   "safety": {
+    "correct": [
+     "Wipe up melted ice and water from around the heater."
+    ],
+    "wrong": [
+     {
+      "text": "Stir the hot beaker with the thermometer.",
+      "why": "It can break. Stir gently with a stirrer."
+     },
+     {
+      "text": "Lift the hot beaker with your bare hands.",
+      "why": "It can scald. Use a cloth or tongs."
+     },
+     {
+      "text": "Reach across the lit burner for the stop-watch.",
+      "why": "Your sleeve can catch. Go round it."
+     },
+     {
+      "text": "Leave the heater on and go to fetch more ice.",
+      "why": "Never leave a heater unattended."
+     },
+     {
+      "text": "Touch the heater element to see if it is on.",
+      "why": "It can burn or shock you. Look at the indicator."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It measures liquid density, not temperature."
+     },
+     {
+      "name": "Gauge manifold",
+      "why": "No refrigerant system is used here."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No current is measured in this experiment."
+     },
+     {
+      "name": "Barometer",
+      "why": "Air pressure is not recorded in this job."
+     },
+     {
+      "name": "Infrared thermometer",
+      "why": "It reads the surface. The bulb thermometer reads inside the mixture."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "flat",
+     "afterStep": 4,
+     "prompt": "The thermometer stays at 0 °C while you heat. What do you conclude?",
+     "options": [
+      {
+       "text": "The heat is melting the ice, so this is latent heat",
+       "correct": true,
+       "consequence": "That is why the graph is flat."
+      },
+      {
+       "text": "The heater has failed",
+       "consequence": "The ice is melting, so heat is arriving."
+      },
+      {
+       "text": "The thermometer is stuck and should be tapped or changed",
+       "consequence": "It will rise when the ice has gone."
+      }
+     ]
+    },
+    {
+     "id": "stir",
+     "afterStep": 3,
+     "prompt": "How do you keep the temperature uniform?",
+     "options": [
+      {
+       "text": "Stir continuously",
+       "correct": true,
+       "consequence": "The reading is true for the whole mixture."
+      },
+      {
+       "text": "Leave it perfectly still",
+       "consequence": "Layers at different temperatures form."
+      },
+      {
+       "text": "Rest the bulb on the beaker base",
+       "consequence": "It then reads the hot glass."
+      }
+     ]
+    },
+    {
+     "id": "bulb",
+     "afterStep": 3,
+     "prompt": "Where do you place the thermometer bulb?",
+     "options": [
+      {
+       "text": "In the mixture, off the beaker base",
+       "correct": true,
+       "consequence": "It reads the mixture, not the hot glass."
+      },
+      {
+       "text": "Resting on the base of the beaker",
+       "consequence": "The base is warmer, so it reads high."
+      },
+      {
+       "text": "Above the ice in the air",
+       "consequence": "It reads the air, not the ice."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "graph",
+     "prompt": "What shape do you expect your graph to take?",
+     "options": [
+      {
+       "text": "Flat at about 0 °C while melting, then rising steadily",
+       "correct": true
+      },
+      {
+       "text": "Rising steadily from the start, with no flat part at all",
+       "why": "Temperature does not rise during melting."
+      },
+      {
+       "text": "Flat throughout",
+       "why": "It rises when melting ends."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "latent",
+     "prompt": "Latent heat of ice is 334 kJ/kg. How much heat melts {m} kg of ice, in kJ?",
+     "formula": "m * 334",
+     "vars": {
+      "m": {
+       "min": 0.2,
+       "max": 0.8,
+       "step": 0.1
+      }
+     },
+     "unit": "kJ",
+     "unitAliases": [
+      "kilojoules"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{m} × 334 = {answer} kJ."
+    },
+    {
+     "id": "sensible",
+     "prompt": "How much heat warms {m} kg of water through {t} °C, in kJ? Take c = 4.2 kJ/kg °C.",
+     "formula": "m * 4.2 * t",
+     "vars": {
+      "m": {
+       "min": 0.5,
+       "max": 1,
+       "step": 0.5
+      },
+      "t": {
+       "min": 10,
+       "max": 30,
+       "step": 10
+      }
+     },
+     "unit": "kJ",
+     "unitAliases": [
+      "kilojoules"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{m} × 4.2 × {t} = {answer} kJ."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-graph",
+     "scenario": "Tola's graph shows no flat part, and his result is wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He expected the temperature to rise during melting.",
+       "fault": true,
+       "why": "It stays at about 0 °C."
+      },
+      {
+       "text": "He rested the thermometer on the base of the beaker.",
+       "fault": true,
+       "why": "The bulb must be off the base."
+      },
+      {
+       "text": "He did not stir.",
+       "fault": true,
+       "why": "Stir for a uniform temperature."
+      },
+      {
+       "text": "He recorded every 30 s.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He weighed the ice.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for this experiment.",
+    "explainPrompt": "Why does the temperature stay at 0 °C while ice is melting?",
+    "explainGuide": "The heat supplied is used to change the state from solid to liquid. This latent heat breaks the bonds and does not raise the temperature.",
+    "explainKeywords": [
+     [
+      "latent"
+     ],
+     [
+      "state",
+      "melt",
+      "melting",
+      "solid"
+     ],
+     [
+      "temperature",
+      "bonds"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Energy conversion and change of state of matter",
+    "Flat means latent."
+   ]
+  },
+  "pr-rac-measuring-temperature-and-converting-scales": {
+   "safety": {
+    "correct": [
+     "Carry glass thermometers in their case."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the clamp probe near the spinning fan blade for a better air reading.",
+      "why": "Keep probes away from fan blades."
+     },
+     {
+      "text": "Grip the discharge line to see how hot it feels.",
+      "why": "It can burn you. Use the probe."
+     },
+     {
+      "text": "Stir the boiling water with the glass thermometer.",
+      "why": "It can break and scald you."
+     },
+     {
+      "text": "Reach into the running unit with the cover off.",
+      "why": "Moving parts and live terminals are inside. Use the access ports."
+     },
+     {
+      "text": "Point the infrared thermometer's laser at a classmate's face.",
+      "why": "It can harm the eyes."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It measures density, not temperature."
+     },
+     {
+      "name": "Barometer",
+      "why": "It reads air pressure."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "It reads current, not temperature."
+     },
+     {
+      "name": "Compound gauge",
+      "why": "It reads pressure."
+     },
+     {
+      "name": "Tyre pressure gauge",
+      "why": "It reads pressure in tyres."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "convert",
+     "afterStep": 4,
+     "prompt": "You convert 25 °C to °F. What do you do first?",
+     "options": [
+      {
+       "text": "Multiply by 9/5, then add 32",
+       "correct": true,
+       "consequence": "That gives 77 °F."
+      },
+      {
+       "text": "Add 32, then multiply by 9/5",
+       "consequence": "This is the common mistake."
+      },
+      {
+       "text": "Subtract 32, then multiply",
+       "consequence": "That is not the conversion."
+      }
+     ]
+    },
+    {
+     "id": "steady",
+     "afterStep": 3,
+     "prompt": "The reading is still falling. What do you do?",
+     "options": [
+      {
+       "text": "Wait for it to stabilise",
+       "correct": true,
+       "consequence": "You record a true reading."
+      },
+      {
+       "text": "Record the first figure",
+       "consequence": "It is not yet steady."
+      },
+      {
+       "text": "Average two guesses",
+       "consequence": "A guess is not a measurement."
+      }
+     ]
+    },
+    {
+     "id": "probe",
+     "afterStep": 3,
+     "prompt": "Your clamp probe reads a little low on the suction line. What do you check?",
+     "options": [
+      {
+       "text": "Its contact and insulation from the air",
+       "correct": true,
+       "consequence": "Poor contact is a source of error."
+      },
+      {
+       "text": "The colour of the refrigerant",
+       "consequence": "That has nothing to do with it."
+      },
+      {
+       "text": "The room's lighting",
+       "consequence": "It does not affect the probe."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lines",
+     "prompt": "With the unit running, what do you find?",
+     "options": [
+      {
+       "text": "The suction line is cold, and the discharge line is hot",
+       "correct": true
+      },
+      {
+       "text": "The suction line is hot, and the discharge line is cold",
+       "why": "They are the other way round."
+      },
+      {
+       "text": "Both are at room temperature",
+       "why": "This shows the unit is not working."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "to-f",
+     "prompt": "Convert {c} °C to °F.",
+     "formula": "c * 9 / 5 + 32",
+     "vars": {
+      "c": {
+       "min": 10,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "°F",
+     "unitAliases": [
+      "F",
+      "degrees F"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{c} × 9/5 + 32 = {answer} °F."
+    },
+    {
+     "id": "to-k",
+     "prompt": "Convert {c} °C to kelvin, taking 0 °C = 273.15 K.",
+     "formula": "c + 273.15",
+     "vars": {
+      "c": {
+       "min": -20,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "K",
+     "unitAliases": [
+      "kelvin"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "{c} + 273.15 = {answer} K."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-sums",
+     "scenario": "Bala's table of temperatures was marked down. Here is what he did.",
+     "lines": [
+      {
+       "text": "He added 32 before multiplying by 9/5.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He wrote K with a degree sign.",
+       "fault": true,
+       "why": "Kelvin takes no degree sign."
+      },
+      {
+       "text": "He recorded readings before they stabilised.",
+       "fault": true,
+       "why": "Allow readings to stabilise."
+      },
+      {
+       "text": "He checked each thermometer in ice-water.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He insulated the clamp probe.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring temperature on a running system.",
+    "explainPrompt": "Why are thermometers checked in ice-water and boiling water first?",
+    "explainGuide": "These give known fixed points of about 0 °C and 100 °C, so any calibration error can be found before readings are taken.",
+    "explainKeywords": [
+     [
+      "fixed",
+      "known",
+      "points"
+     ],
+     [
+      "calibration",
+      "error",
+      "errors"
+     ],
+     [
+      "ice",
+      "boiling"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Measuring temperature and converting scales",
+    "Let readings settle."
+   ]
+  },
+  "pr-rac-using-suction-and-high-pressure-gauges": {
+   "safety": {
+    "correct": [
+     "Keep your face to the side of a port when connecting a hose."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the hoses with both manifold valves open.",
+      "why": "Refrigerant can escape and cross over. Close both valves first."
+     },
+     {
+      "text": "Connect the low-side gauge to the high side to save swapping.",
+      "why": "It can burst or damage the gauge. Use the correct gauge."
+     },
+     {
+      "text": "Work bare-handed to feel the hose fit.",
+      "why": "Refrigerant can freeze skin. Wear gloves and goggles."
+     },
+     {
+      "text": "Loosen the hose with your eyes close to the port.",
+      "why": "Refrigerant can spray and freeze the eyes."
+     },
+     {
+      "text": "Leave the hoses attached and walk away with the unit running.",
+      "why": "They can leak or be knocked. Disconnect them quickly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Tyre pressure gauge",
+      "why": "It does not fit a service port or read the range."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "It reads current."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It reads liquid density."
+     },
+     {
+      "name": "Water hose",
+      "why": "No cleaning is done here."
+     },
+     {
+      "name": "Pipe wrench for the service valve",
+      "why": "It damages the spindle. Use the service valve key."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "connect",
+     "afterStep": 1,
+     "prompt": "Which hose goes where?",
+     "options": [
+      {
+       "text": "Blue to suction, red to discharge",
+       "correct": true,
+       "consequence": "Each gauge reads its own side."
+      },
+      {
+       "text": "Red to suction, blue to discharge",
+       "consequence": "The gauges are crossed."
+      },
+      {
+       "text": "Both to the suction port",
+       "consequence": "You get no high-side reading."
+      }
+     ]
+    },
+    {
+     "id": "settle",
+     "afterStep": 3,
+     "prompt": "You have just started the unit. When do you read?",
+     "options": [
+      {
+       "text": "After about 10 minutes of running",
+       "correct": true,
+       "consequence": "The system has stabilised."
+      },
+      {
+       "text": "At once",
+       "consequence": "Readings before it stabilises are a source of error."
+      },
+      {
+       "text": "After switching it off and waiting a moment",
+       "consequence": "This does not show running pressures."
+      }
+     ]
+    },
+    {
+     "id": "abs",
+     "afterStep": 4,
+     "prompt": "You need the pressure for a gas law sum. What do you use?",
+     "options": [
+      {
+       "text": "Absolute pressure",
+       "correct": true,
+       "consequence": "Gauge + atmospheric is what the law needs."
+      },
+      {
+       "text": "Gauge pressure",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "The saturation temperature",
+       "consequence": "That is not pressure."
+      }
+     ]
+    },
+    {
+     "id": "kelvin",
+     "afterStep": 4,
+     "prompt": "You need a temperature for the gas law. What do you use?",
+     "options": [
+      {
+       "text": "Kelvin",
+       "correct": true,
+       "consequence": "The gas law needs absolute temperature."
+      },
+      {
+       "text": "°C, as read on the thermometer",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "°F",
+       "consequence": "The law needs absolute temperature."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "normal",
+     "prompt": "What do you expect on the gauges of a working system?",
+     "options": [
+      {
+       "text": "Suction pressure low and discharge pressure high",
+       "correct": true
+      },
+      {
+       "text": "Suction pressure high and discharge pressure low",
+       "why": "That would be reversed."
+      },
+      {
+       "text": "Both exactly the same",
+       "why": "That suggests the compressor is not pumping."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "abs-calc",
+     "prompt": "A gauge reads {g} kPa(g), and atmospheric pressure is 101.3 kPa. What is the absolute pressure in kPa?",
+     "formula": "g + 101.3",
+     "vars": {
+      "g": {
+       "min": 200,
+       "max": 400,
+       "step": 50
+      }
+     },
+     "unit": "kPa",
+     "unitAliases": [
+      "kPa(abs)",
+      "kPa abs"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "{g} + 101.3 = {answer} kPa(abs)."
+    },
+    {
+     "id": "gas",
+     "prompt": "Vapour at {p} kPa(abs) and 300 K occupies 2.0 L. It is compressed to 1.5 L at {t} K. What is P₂ in kPa(abs)?",
+     "formula": "p * 2 * t / (300 * 1.5)",
+     "vars": {
+      "p": {
+       "min": 200,
+       "max": 400,
+       "step": 100
+      },
+      "t": {
+       "min": 310,
+       "max": 330,
+       "step": 10
+      }
+     },
+     "unit": "kPa",
+     "unitAliases": [
+      "kPa(abs)",
+      "kPa abs"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{p} × 2.0 × {t} ÷ (300 × 1.5) = {answer} kPa(abs)."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-sum",
+     "scenario": "Ngozi's gauge report and gas-law sum were wrong. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used gauge pressure in the gas law.",
+       "fault": true,
+       "why": "Use absolute pressure."
+      },
+      {
+       "text": "She used °C instead of K.",
+       "fault": true,
+       "why": "Use kelvin."
+      },
+      {
+       "text": "She read the gauges at the moment of starting.",
+       "fault": true,
+       "why": "The system had not stabilised."
+      },
+      {
+       "text": "She closed both manifold valves first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She wore gloves and goggles.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using a gauge manifold.",
+    "explainPrompt": "Why must absolute pressure and kelvin be used in gas law sums?",
+    "explainGuide": "The gas laws depend on true pressure and true temperature from absolute zero. Gauge readings and °C start from other zeros, so they give wrong answers.",
+    "explainKeywords": [
+     [
+      "absolute",
+      "kelvin"
+     ],
+     [
+      "zero",
+      "true"
+     ],
+     [
+      "gauge",
+      "wrong",
+      "°C"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Using suction and high-pressure gauges",
+    "Valves closed before connecting."
+   ]
+  },
+  "pr-rac-measuring-the-power-used-by-a-compressor": {
+   "safety": {
+    "correct": [
+     "Check the meter leads for damage before connecting them."
+    ],
+    "wrong": [
+     {
+      "text": "Remove the terminal cover to clamp more easily.",
+      "why": "Live parts are then exposed. Keep covers on."
+     },
+     {
+      "text": "Touch the meter probes with your fingers near the tips.",
+      "why": "You may get a shock. Hold the insulated parts."
+     },
+     {
+      "text": "Use damaged meter leads wrapped in tape.",
+      "why": "Insulation can fail. Replace them."
+     },
+     {
+      "text": "Take readings with wet hands.",
+      "why": "Water increases the risk of shock."
+     },
+     {
+      "text": "Pull out the plug by its cable after testing.",
+      "why": "This damages the connection. Grip the plug."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gauge manifold",
+      "why": "No pressure is being read."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests liquid density."
+     },
+     {
+      "name": "Thermometer",
+      "why": "No temperature is needed for power."
+     },
+     {
+      "name": "Low-voltage test lamp",
+      "why": "It cannot measure current or voltage."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Cutting a cable is never part of this test."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "clamp",
+     "afterStep": 3,
+     "prompt": "How do you take the current reading?",
+     "options": [
+      {
+       "text": "Clamp round the live conductor only",
+       "correct": true,
+       "consequence": "A true current is read."
+      },
+      {
+       "text": "Clamp round the whole cable",
+       "consequence": "The live and neutral currents cancel, so it reads about zero."
+      },
+      {
+       "text": "Open the cable to clamp it",
+       "consequence": "Live conductors should not be disturbed."
+      }
+     ]
+    },
+    {
+     "id": "steady",
+     "afterStep": 1,
+     "prompt": "When do you read the running current?",
+     "options": [
+      {
+       "text": "After about 10 minutes of steady running",
+       "correct": true,
+       "consequence": "You read the steady value."
+      },
+      {
+       "text": "In the first second after start",
+       "consequence": "That is the starting current."
+      },
+      {
+       "text": "When it has stopped",
+       "consequence": "No current flows then."
+      }
+     ]
+    },
+    {
+     "id": "pf",
+     "afterStep": 5,
+     "prompt": "How do you calculate power?",
+     "options": [
+      {
+       "text": "V × I × power factor",
+       "correct": true,
+       "consequence": "That gives the real power."
+      },
+      {
+       "text": "V × I alone, without any factor",
+       "consequence": "Forgetting power factor is a common mistake."
+      },
+      {
+       "text": "V ÷ I",
+       "consequence": "That is resistance, not power."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "start",
+     "prompt": "How does the starting current compare with the running current?",
+     "options": [
+      {
+       "text": "It is several times higher for a fraction of a second",
+       "correct": true
+      },
+      {
+       "text": "It is half the running current, and rises slowly to full",
+       "why": "It is much higher."
+      },
+      {
+       "text": "It is the same",
+       "why": "Starting takes more current."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "power",
+     "prompt": "A compressor runs on {v} V at {i} A, with a power factor of {p}. What is the power, in W?",
+     "formula": "v * i * p",
+     "vars": {
+      "v": {
+       "min": 220,
+       "max": 240,
+       "step": 10
+      },
+      "i": {
+       "min": 4,
+       "max": 6,
+       "step": 1
+      },
+      "p": {
+       "min": 0.8,
+       "max": 0.9,
+       "step": 0.05
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{v} × {i} × {p} = {answer} W."
+    },
+    {
+     "id": "energy",
+     "prompt": "A compressor uses {p} kW and runs for {h} h a day. How much energy does it use each day, in kWh?",
+     "formula": "p * h",
+     "vars": {
+      "p": {
+       "min": 0.6,
+       "max": 1,
+       "step": 0.1
+      },
+      "h": {
+       "min": 6,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "kWh",
+     "unitAliases": [
+      "kilowatt-hours",
+      "units"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{p} × {h} = {answer} kWh."
+    }
+   ],
+   "faults": [
+    {
+     "id": "big-bill",
+     "scenario": "Oba's energy sums for a fridge were wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left out the power factor.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He wrote the energy answer in kW.",
+       "fault": true,
+       "why": "Energy is in kWh."
+      },
+      {
+       "text": "He clamped round both conductors.",
+       "fault": true,
+       "why": "Clamp one conductor only."
+      },
+      {
+       "text": "He let the unit stabilise.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He compared with the nameplate.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring compressor power.",
+    "explainPrompt": "What is the difference between kW and kWh?",
+    "explainGuide": "A kilowatt is a rate of using energy, which is power. A kilowatt-hour is an amount of energy, being power multiplied by time.",
+    "explainKeywords": [
+     [
+      "power",
+      "rate"
+     ],
+     [
+      "energy",
+      "amount"
+     ],
+     [
+      "time",
+      "hours",
+      "hour"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Measuring the power used by a compressor",
+    "One conductor. Power factor."
+   ]
+  },
+  "pr-rac-tracing-the-vapour-compression-refrigeration-cycle": {
+   "safety": {
+    "correct": [
+     "Refit all covers before plugging the fridge back in."
+    ],
+    "wrong": [
+     {
+      "text": "Cut a line to see what the refrigerant looks like.",
+      "why": "Never cut or open refrigerant lines."
+     },
+     {
+      "text": "Remove covers while the fridge is plugged in.",
+      "why": "Unplug it first."
+     },
+     {
+      "text": "Grip the discharge line to see how hot it is.",
+      "why": "It can burn you. Feel with care, or use a thermometer."
+     },
+     {
+      "text": "Move the fridge alone with its plug still in.",
+      "why": "It can fall or pull the cable. Unplug it and get help."
+     },
+     {
+      "text": "Poke the capillary tube with a screwdriver to find it.",
+      "why": "It kinks or breaks easily. Trace it by eye."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pipe cutter",
+      "why": "Never cut refrigerant lines in this job."
+     },
+     {
+      "name": "Gauge manifold",
+      "why": "No gauges are fitted in this tracing job."
+     },
+     {
+      "name": "Blowlamp",
+      "why": "No line is opened or brazed."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Fin comb",
+      "why": "This job traces the cycle."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "trace",
+     "afterStep": 4,
+     "prompt": "After the condenser, where does the refrigerant go?",
+     "options": [
+      {
+       "text": "Filter-drier, then capillary, then evaporator",
+       "correct": true,
+       "consequence": "That is the correct path."
+      },
+      {
+       "text": "Straight back to the compressor through the suction line",
+       "consequence": "It must expand and evaporate first."
+      },
+      {
+       "text": "Evaporator, then drier",
+       "consequence": "The drier comes before the capillary."
+      }
+     ]
+    },
+    {
+     "id": "hot-cold",
+     "afterStep": 3,
+     "prompt": "A large coil at the back is hot. Which part is it?",
+     "options": [
+      {
+       "text": "The condenser",
+       "correct": true,
+       "consequence": "It rejects heat to the room."
+      },
+      {
+       "text": "The evaporator",
+       "consequence": "Calling the condenser the evaporator is a common mistake."
+      },
+      {
+       "text": "The capillary",
+       "consequence": "That is a fine tube."
+      }
+     ]
+    },
+    {
+     "id": "high-low",
+     "afterStep": 5,
+     "prompt": "Where on your drawing does the low-pressure side begin?",
+     "options": [
+      {
+       "text": "At the capillary outlet",
+       "correct": true,
+       "consequence": "The pressure falls there."
+      },
+      {
+       "text": "At the compressor outlet",
+       "consequence": "That is the high side."
+      },
+      {
+       "text": "At the condenser inlet",
+       "consequence": "That is the high side."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "feel",
+     "prompt": "Running the fridge, which observation is correct?",
+     "options": [
+      {
+       "text": "Discharge line and condenser hot; evaporator cold; suction line cool",
+       "correct": true
+      },
+      {
+       "text": "Evaporator and suction line hot; discharge line and condenser cold",
+       "why": "These are reversed."
+      },
+      {
+       "text": "Discharge line, condenser and evaporator all at room temperature",
+       "why": "It is not working."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "cop",
+     "prompt": "A refrigerator removes {q} W of heat, while the compressor takes {w} W. What is the COP?",
+     "formula": "q / w",
+     "vars": {
+      "q": {
+       "min": 240,
+       "max": 360,
+       "step": 60
+      },
+      "w": {
+       "min": 100,
+       "max": 150,
+       "step": 25
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "{q} ÷ {w} = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-layout",
+     "scenario": "Sani's layout drawing was marked down. Here is what he did.",
+     "lines": [
+      {
+       "text": "He called the condenser the evaporator.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He put the capillary before the drier.",
+       "fault": true,
+       "why": "The drier comes first."
+      },
+      {
+       "text": "He left the high and low sides unmarked.",
+       "fault": true,
+       "why": "They must be marked."
+      },
+      {
+       "text": "He unplugged before removing covers.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He stated the function of each part.",
+       "why": "That is the task."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for tracing a refrigeration system.",
+    "explainPrompt": "What does the condenser do in the vapour-compression cycle?",
+    "explainGuide": "It rejects heat from the hot high-pressure vapour to the surroundings, so the vapour condenses to liquid.",
+    "explainKeywords": [
+     [
+      "heat",
+      "rejects"
+     ],
+     [
+      "vapour",
+      "gas"
+     ],
+     [
+      "liquid",
+      "condenses",
+      "condense"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Tracing the vapour-compression refrigeration cycle",
+    "Follow the refrigerant."
+   ]
+  },
+  "pr-rac-identifying-refrigerants-and-flow-controls": {
+   "safety": {
+    "correct": [
+     "Report any cylinder with a damaged valve or label."
+    ],
+    "wrong": [
+     {
+      "text": "Warm a cylinder over a burner to read its pressure.",
+      "why": "Never heat a cylinder."
+     },
+     {
+      "text": "Leave cylinders out in the yard sun.",
+      "why": "Heat raises pressure. Store them out of the sun."
+     },
+     {
+      "text": "Lay cylinders on their sides to stop them rolling.",
+      "why": "Keep them upright and capped."
+     },
+     {
+      "text": "Light a cigarette beside the R600a cylinder.",
+      "why": "R600a is flammable. No flames or sparks."
+     },
+     {
+      "text": "Open a cylinder to smell the refrigerant.",
+      "why": "It can freeze you and displace air. Read the label."
+     },
+     {
+      "text": "Identify a faded cylinder by colour alone.",
+      "why": "Read the label."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests liquid density."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "It reads current."
+     },
+     {
+      "name": "Blowlamp",
+      "why": "No heat should go near a cylinder."
+     },
+     {
+      "name": "Spark tester",
+      "why": "Sparks are dangerous near R600a."
+     },
+     {
+      "name": "Battery charger",
+      "why": "It has no use here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "trust",
+     "afterStep": 2,
+     "prompt": "A cylinder is light blue, but its label says R-22. What do you trust?",
+     "options": [
+      {
+       "text": "The label",
+       "correct": true,
+       "consequence": "Colours fade, and codes have changed."
+      },
+      {
+       "text": "The colour",
+       "consequence": "Relying on colour alone is a common mistake."
+      },
+      {
+       "text": "Your guess",
+       "consequence": "A guess can damage a system."
+      }
+     ]
+    },
+    {
+     "id": "mix",
+     "afterStep": 4,
+     "prompt": "A system holds R-134a. Which refrigerant may you add?",
+     "options": [
+      {
+       "text": "Only R-134a",
+       "correct": true,
+       "consequence": "The system stays correct."
+      },
+      {
+       "text": "R-22, as it is cheaper",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "R-600a, as it is similar",
+       "consequence": "Never mix refrigerants."
+      }
+     ]
+    },
+    {
+     "id": "flam",
+     "afterStep": 4,
+     "prompt": "You are working with R600a. What gauges do you use?",
+     "options": [
+      {
+       "text": "Dedicated gauges for flammable refrigerants",
+       "correct": true,
+       "consequence": "It avoids mixing and sparks."
+      },
+      {
+       "text": "Any gauges you have, as long as they read correctly",
+       "consequence": "Gauges may hold other refrigerants."
+      },
+      {
+       "text": "None, by guesswork",
+       "consequence": "Pressures would be unknown."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tev",
+     "prompt": "A flow control has a bulb on a capillary line. Which is it?",
+     "options": [
+      {
+       "text": "A thermostatic expansion valve",
+       "correct": true
+      },
+      {
+       "text": "An automatic expansion valve",
+       "why": "That has no sensing bulb."
+      },
+      {
+       "text": "A capillary tube",
+       "why": "That has no moving valve."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "blend",
+     "prompt": "R-410A is a 50/50 blend of R-32 and R-125. How many grams of R-32 are in {m} g of R-410A?",
+     "formula": "m / 2",
+     "vars": {
+      "m": {
+       "min": 200,
+       "max": 1000,
+       "step": 200
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{m} ÷ 2 = {answer} g."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-gas",
+     "scenario": "Chidi charged the wrong gas into a fridge. Here is what he did.",
+     "lines": [
+      {
+       "text": "He relied on cylinder colour alone.",
+       "fault": true,
+       "why": "Read the label."
+      },
+      {
+       "text": "He charged R-22 into an R-134a system.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He left his cylinders in the sun.",
+       "fault": true,
+       "why": "Store them out of the sun."
+      },
+      {
+       "text": "He kept the cylinders upright.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He used the refrigerant data chart.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for handling refrigerant cylinders.",
+    "explainPrompt": "Why is the cylinder label more reliable than the colour?",
+    "explainGuide": "Colours fade, and since 2020 many new cylinders are one uniform colour. The label states the exact refrigerant.",
+    "explainKeywords": [
+     [
+      "fade",
+      "faded",
+      "fading"
+     ],
+     [
+      "uniform",
+      "changed",
+      "same"
+     ],
+     [
+      "label"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying refrigerants and flow controls",
+    "Read the label."
+   ]
+  },
+  "pr-rac-measuring-humidity-with-a-sling-psychrometer": {
+   "safety": {
+    "correct": [
+     "Check the psychrometer's handle and pins before whirling."
+    ],
+    "wrong": [
+     {
+      "text": "Whirl the psychrometer with classmates close around you.",
+      "why": "It can hit them and break. Keep clear of people."
+     },
+     {
+      "text": "Whirl it close to a shelf or the AC unit.",
+      "why": "It can hit objects and break. Keep clear."
+     },
+     {
+      "text": "Pick up broken thermometer glass with your fingers.",
+      "why": "It can cut you, and the glass may be contaminated. Tell the teacher."
+     },
+     {
+      "text": "Reach into the AC indoor unit to measure the air.",
+      "why": "Moving parts are inside. Measure at the outlet."
+     },
+     {
+      "text": "Stand on a stool to whirl it near the outlet.",
+      "why": "You can fall. Keep your footing."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Clamp meter",
+      "why": "It reads current."
+     },
+     {
+      "name": "Gauge manifold",
+      "why": "It reads pressure."
+     },
+     {
+      "name": "Tap water with soap",
+      "why": "Soap and minerals spoil the wick. Use distilled water."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It reads liquid density, not humidity."
+     },
+     {
+      "name": "Barometer",
+      "why": "It reads air pressure."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 3,
+     "prompt": "You have stopped whirling. Which do you read first?",
+     "options": [
+      {
+       "text": "The wet bulb",
+       "correct": true,
+       "consequence": "It is read before it warms."
+      },
+      {
+       "text": "The dry bulb",
+       "consequence": "This common mistake lets the wet bulb rise."
+      },
+      {
+       "text": "Neither: wait a minute first",
+       "consequence": "The wet bulb warms up."
+      }
+     ]
+    },
+    {
+     "id": "steady",
+     "afterStep": 4,
+     "prompt": "Your wet-bulb reading is still falling. What do you do?",
+     "options": [
+      {
+       "text": "Whirl again until it is steady at its lowest",
+       "correct": true,
+       "consequence": "The reading is then correct."
+      },
+      {
+       "text": "Take the first figure",
+       "consequence": "It is not yet steady."
+      },
+      {
+       "text": "Use the dry bulb in its place and carry on recording",
+       "consequence": "This gives no depression."
+      }
+     ]
+    },
+    {
+     "id": "wick",
+     "afterStep": 1,
+     "prompt": "The wick looks dirty. What do you do?",
+     "options": [
+      {
+       "text": "Use a clean wick and distilled water",
+       "correct": true,
+       "consequence": "It gives correct evaporative cooling."
+      },
+      {
+       "text": "Wet it with more tap water",
+       "consequence": "A dirty wick is a source of error."
+      },
+      {
+       "text": "Remove it altogether",
+       "consequence": "It then reads as a dry bulb."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lower",
+     "prompt": "How does the wet bulb compare with the dry bulb?",
+     "options": [
+      {
+       "text": "It reads lower, because of evaporative cooling",
+       "correct": true
+      },
+      {
+       "text": "It reads higher, because of the water in the wick",
+       "why": "Evaporation cools it."
+      },
+      {
+       "text": "They are always equal",
+       "why": "Equal only at 100% humidity."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dep",
+     "prompt": "The dry bulb reads {d} °C, and the wet bulb {w} °C. What is the wet-bulb depression in °C?",
+     "formula": "d - w",
+     "vars": {
+      "d": {
+       "min": 28,
+       "max": 36,
+       "step": 2
+      },
+      "w": {
+       "min": 20,
+       "max": 26,
+       "step": 2
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{d} − {w} = {answer} °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-rh",
+     "scenario": "Efe's humidity results were wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He read the dry bulb first.",
+       "fault": true,
+       "why": "The wet bulb rose meanwhile."
+      },
+      {
+       "text": "He used a dirty wick.",
+       "fault": true,
+       "why": "That is a source of error."
+      },
+      {
+       "text": "He whirled it too slowly.",
+       "fault": true,
+       "why": "Insufficient speed gives a wrong reading."
+      },
+      {
+       "text": "He used distilled water.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He used the psychrometric chart.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for using a sling psychrometer.",
+    "explainPrompt": "Why does air leaving an air-conditioner have lower moisture content?",
+    "explainGuide": "Water vapour condenses on the cold evaporator and drains away. This removes latent heat and leaves less moisture in the air.",
+    "explainKeywords": [
+     [
+      "condense",
+      "condenses"
+     ],
+     [
+      "evaporator",
+      "cold"
+     ],
+     [
+      "latent",
+      "moisture",
+      "drier"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Measuring humidity with a sling psychrometer",
+    "Wet bulb first."
+   ]
+  },
+  "pr-rac-servicing-a-condenser": {
+   "safety": {
+    "correct": [
+     "Put a warning notice on the isolator while you work."
+    ],
+    "wrong": [
+     {
+      "text": "Spray coil cleaner with the power still on.",
+      "why": "Water and live parts can give a shock. Isolate and lock off."
+     },
+     {
+      "text": "Run water over the control box to clean it.",
+      "why": "Protect electrical parts from water."
+     },
+     {
+      "text": "Push a stick through the fan to clean it while it turns.",
+      "why": "Moving blades can injure you. Isolate first."
+     },
+     {
+      "text": "Spray cleaner without eye protection.",
+      "why": "It can splash the eyes. Wear goggles."
+     },
+     {
+      "text": "Restore power while someone is still at the unit.",
+      "why": "They could get a shock. Tell them first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pressure washer",
+      "why": "High pressure bends fins."
+     },
+     {
+      "name": "Acid drain cleaner",
+      "why": "It corrodes the fins."
+     },
+     {
+      "name": "Wire brush for the fins",
+      "why": "It flattens them."
+     },
+     {
+      "name": "Gas blowlamp",
+      "why": "No heat is applied to the coil."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "isolate",
+     "afterStep": 1,
+     "prompt": "What do you do before removing the covers?",
+     "options": [
+      {
+       "text": "Isolate and lock off the supply",
+       "correct": true,
+       "consequence": "Nobody can switch it on while you are working."
+      },
+      {
+       "text": "Switch off at the wall and leave it open",
+       "consequence": "Someone may switch it back on."
+      },
+      {
+       "text": "Switch off the thermostat only",
+       "consequence": "The circuit can still be live."
+      }
+     ]
+    },
+    {
+     "id": "fins",
+     "afterStep": 2,
+     "prompt": "The fins are bent over. What do you do?",
+     "options": [
+      {
+       "text": "Straighten them with the fin comb",
+       "correct": true,
+       "consequence": "Air can flow through the coil."
+      },
+      {
+       "text": "Brush them flat with a stiff brush",
+       "consequence": "This common mistake flattens the fins."
+      },
+      {
+       "text": "Leave them bent",
+       "consequence": "They block the airflow."
+      }
+     ]
+    },
+    {
+     "id": "rinse",
+     "afterStep": 3,
+     "prompt": "How do you rinse the coil?",
+     "options": [
+      {
+       "text": "Gently, from the inside outwards",
+       "correct": true,
+       "consequence": "Dirt is pushed out, not in."
+      },
+      {
+       "text": "Hard, from the outside inwards",
+       "consequence": "Dirt is driven deeper, and fins are bent."
+      },
+      {
+       "text": "Not at all, leave the cleaner on",
+       "consequence": "Residue can damage the coil."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "after",
+     "prompt": "After cleaning, what do you expect?",
+     "options": [
+      {
+       "text": "Condenser air temperature rise and compressor current fall",
+       "correct": true
+      },
+      {
+       "text": "Compressor current rises sharply and the condenser runs hotter",
+       "why": "A clean coil lowers it."
+      },
+      {
+       "text": "Nothing changes",
+       "why": "Cleaning improves heat rejection."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "load",
+     "prompt": "The evaporator load is {e} kW, and the compressor work is {w} kW. What is the condenser heat load in kW?",
+     "formula": "e + w",
+     "vars": {
+      "e": {
+       "min": 2,
+       "max": 4,
+       "step": 0.5
+      },
+      "w": {
+       "min": 0.6,
+       "max": 1.2,
+       "step": 0.2
+      }
+     },
+     "unit": "kW",
+     "unitAliases": [
+      "kilowatts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{e} + {w} = {answer} kW."
+    },
+    {
+     "id": "ratio",
+     "prompt": "A condenser rejects {c} kW for an evaporator load of 2.5 kW. What is the heat rejection ratio?",
+     "formula": "c / 2.5",
+     "vars": {
+      "c": {
+       "min": 3,
+       "max": 3.5,
+       "step": 0.25
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{c} ÷ 2.5 = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "flattened",
+     "scenario": "After Yemi serviced a condenser, the unit ran hot and tripped. Here is what she did.",
+     "lines": [
+      {
+       "text": "She sprayed water on live electrics.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She flattened the fins with a stiff brush.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She rinsed with high-pressure water.",
+       "fault": true,
+       "why": "That bends fins."
+      },
+      {
+       "text": "She used a non-acid cleaner.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She checked the fan motor bearings.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing a condenser.",
+    "explainPrompt": "Why does cleaning a condenser lower the compressor current?",
+    "explainGuide": "A clean coil rejects heat better, so the condensing pressure falls. The compressor then does less work and draws less current.",
+    "explainKeywords": [
+     [
+      "heat",
+      "reject",
+      "rejects"
+     ],
+     [
+      "pressure"
+     ],
+     [
+      "work",
+      "current",
+      "less"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing a condenser",
+    "Isolate. Lock off."
+   ]
+  },
+  "pr-rac-servicing-an-evaporator-and-estimating-heat-load": {
+   "safety": {
+    "correct": [
+     "Mop up melt water so that nobody slips near the unit."
+    ],
+    "wrong": [
+     {
+      "text": "Chip the ice away with a screwdriver to save time.",
+      "why": "It punctures the evaporator tubes. Let it melt."
+     },
+     {
+      "text": "Open the unit with the supply still on.",
+      "why": "Isolate the supply first."
+     },
+     {
+      "text": "Pour boiling water straight on the frosted coil.",
+      "why": "It can scald you and strain the tubes. Allow the ice to melt."
+     },
+     {
+      "text": "Restart with the wiring still wet.",
+      "why": "Dry electrical parts before restarting."
+     },
+     {
+      "text": "Use a knife to free the ice tray stuck to the coil.",
+      "why": "A sharp tool can puncture the tube."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Ice pick",
+      "why": "Sharp tools puncture evaporator tubes."
+     },
+     {
+      "name": "Flat screwdriver for scraping ice",
+      "why": "It can puncture the tubes."
+     },
+     {
+      "name": "Blowlamp for defrosting",
+      "why": "The flame can damage the coil and plastic parts."
+     },
+     {
+      "name": "Pressure washer",
+      "why": "High pressure bends fins and wets electrics."
+     },
+     {
+      "name": "Vacuum pump",
+      "why": "This job does not open the refrigerant circuit."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ice",
+     "afterStep": 1,
+     "prompt": "The coil is thick with ice, and you are in a hurry. What do you do?",
+     "options": [
+      {
+       "text": "Switch off and let it melt",
+       "correct": true,
+       "consequence": "The tubes stay undamaged."
+      },
+      {
+       "text": "Chip it off carefully with a screwdriver",
+       "consequence": "Puncturing the evaporator is a common mistake."
+      },
+      {
+       "text": "Run the compressor longer",
+       "consequence": "That makes more ice."
+      }
+     ]
+    },
+    {
+     "id": "drain",
+     "afterStep": 3,
+     "prompt": "Water drips from the indoor unit. What do you check?",
+     "options": [
+      {
+       "text": "The condensate drain",
+       "correct": true,
+       "consequence": "A blocked drain causes water leaks."
+      },
+      {
+       "text": "The compressor oil",
+       "consequence": "It does not cause dripping water."
+      },
+      {
+       "text": "The room's light switch",
+       "consequence": "It has no part in this."
+      }
+     ]
+    },
+    {
+     "id": "dry",
+     "afterStep": 5,
+     "prompt": "You are about to restart. What must be true?",
+     "options": [
+      {
+       "text": "The electrical parts are dry",
+       "correct": true,
+       "consequence": "No short or shock can occur."
+      },
+      {
+       "text": "The door is fully open",
+       "consequence": "This does nothing for safety."
+      },
+      {
+       "text": "The coil is still iced",
+       "consequence": "It must be clear."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "clean",
+     "prompt": "After cleaning a fridge evaporator, what do you expect?",
+     "options": [
+      {
+       "text": "It frosts evenly",
+       "correct": true
+      },
+      {
+       "text": "Frost only in one corner",
+       "why": "This suggests a fault."
+      },
+      {
+       "text": "Water leaking from the base",
+       "why": "A blocked drain causes that."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "q",
+     "prompt": "How much heat must be removed to cool {m} kg of water through {t} °C, in kJ? Take c = 4.18 kJ/kg °C.",
+     "formula": "m * 4.18 * t",
+     "vars": {
+      "m": {
+       "min": 20,
+       "max": 60,
+       "step": 10
+      },
+      "t": {
+       "min": 20,
+       "max": 30,
+       "step": 5
+      }
+     },
+     "unit": "kJ",
+     "unitAliases": [
+      "kilojoules"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{m} × 4.18 × {t} = {answer} kJ."
+    },
+    {
+     "id": "kw",
+     "prompt": "A load of {q} kJ must be removed in {h} hours. What is the evaporator load in kW?",
+     "formula": "q / (h * 3600)",
+     "vars": {
+      "q": {
+       "min": 3600,
+       "max": 7200,
+       "step": 3600
+      },
+      "h": {
+       "min": 2,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "kW",
+     "unitAliases": [
+      "kilowatts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 3,
+     "working": "{q} ÷ ({h} × 3 600) = {answer} kW."
+    }
+   ],
+   "faults": [
+    {
+     "id": "punctured",
+     "scenario": "After Amina serviced a fridge, it stopped cooling. Here is what she did.",
+     "lines": [
+      {
+       "text": "She chipped the ice with a sharp tool.",
+       "fault": true,
+       "why": "This punctures the evaporator."
+      },
+      {
+       "text": "She ignored the drain line.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She restarted with the wiring wet.",
+       "fault": true,
+       "why": "Dry electrical parts first."
+      },
+      {
+       "text": "She isolated the supply first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She cleaned the filters.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing an evaporator.",
+    "explainPrompt": "Why must sharp tools not be used to remove ice from an evaporator?",
+    "explainGuide": "The tubes have thin walls. A sharp tool can puncture one, so refrigerant escapes and the system stops cooling.",
+    "explainKeywords": [
+     [
+      "puncture",
+      "punctures",
+      "pierce"
+     ],
+     [
+      "tube",
+      "tubes"
+     ],
+     [
+      "refrigerant",
+      "leak",
+      "escapes"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing an evaporator and estimating heat load",
+    "Let the ice melt."
+   ]
+  },
+  "pr-rac-cutting-bending-flaring-and-brazing-copper-tube": {
+   "safety": {
+    "correct": [
+     "Lay hot brazed work on a heat-proof surface to cool."
+    ],
+    "wrong": [
+     {
+      "text": "Purge with oxygen, because it is the nearest cylinder.",
+      "why": "Oxygen with oil can cause fire. Use dry nitrogen."
+     },
+     {
+      "text": "Braze without ventilation in the closed store.",
+      "why": "Fumes build up. Ventilate."
+     },
+     {
+      "text": "Touch a brazed joint to see if it has cooled.",
+      "why": "It burns. Allow time, or use tongs."
+     },
+     {
+      "text": "Blow chips out of the tube with your mouth.",
+      "why": "You can inhale them. Use dry nitrogen or air."
+     },
+     {
+      "text": "Braze near oily rags and leave them there.",
+      "why": "They can catch fire. Clear the area."
+     },
+     {
+      "text": "Point the lit torch at the wall while you adjust your gloves.",
+      "why": "It can start a fire. Shut it down first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw for final cuts",
+      "why": "It leaves a rough, unsquare end and swarf. Use the tube cutter."
+     },
+     {
+      "name": "Oxygen for purging",
+      "why": "Never use oxygen for purging."
+     },
+     {
+      "name": "Grease for the flare face",
+      "why": "Use refrigeration oil only."
+     },
+     {
+      "name": "Household pliers for bending",
+      "why": "They kink the tube."
+     },
+     {
+      "name": "Lead solder",
+      "why": "It is not strong enough for refrigerant joints."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "nut-first",
+     "afterStep": 4,
+     "prompt": "You are about to flare the tube. What must be on already?",
+     "options": [
+      {
+       "text": "The flare nut",
+       "correct": true,
+       "consequence": "It cannot go on after the flare."
+      },
+      {
+       "text": "The compressor",
+       "consequence": "It is not fitted in this job."
+      },
+      {
+       "text": "Nothing yet",
+       "consequence": "Forgetting it means cutting off the flare."
+      }
+     ]
+    },
+    {
+     "id": "bend",
+     "afterStep": 3,
+     "prompt": "How tight can you bend ⅜ in tube with a spring?",
+     "options": [
+      {
+       "text": "About 5 × the tube diameter radius",
+       "correct": true,
+       "consequence": "The tube does not kink."
+      },
+      {
+       "text": "As tight as it will go",
+       "consequence": "Bending too tightly kinks the tube."
+      },
+      {
+       "text": "Around a thin pencil, using the spring to guide it",
+       "consequence": "It will kink and collapse."
+      }
+     ]
+    },
+    {
+     "id": "purge",
+     "afterStep": 5,
+     "prompt": "What do you do with the inside of the tube while brazing?",
+     "options": [
+      {
+       "text": "Purge it with dry nitrogen",
+       "correct": true,
+       "consequence": "No oxide scale forms inside."
+      },
+      {
+       "text": "Nothing, as it is out of sight",
+       "consequence": "Oxide scale blocks the system."
+      },
+      {
+       "text": "Fill it with oil",
+       "consequence": "Oil burns and leaves carbon."
+      }
+     ]
+    },
+    {
+     "id": "flare-torque",
+     "afterStep": 6,
+     "prompt": "How do you tighten the flare nut?",
+     "options": [
+      {
+       "text": "To the specified torque with a drop of refrigeration oil",
+       "correct": true,
+       "consequence": "The joint seals without cracking."
+      },
+      {
+       "text": "As tight as possible, using the longest spanner in the box",
+       "consequence": "This cracks the flare."
+      },
+      {
+       "text": "Finger tight only",
+       "consequence": "The joint leaks."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "What shows a good flare and braze?",
+     "options": [
+      {
+       "text": "A smooth, concentric flare and a complete fillet",
+       "correct": true
+      },
+      {
+       "text": "An off-centre flare",
+       "why": "This comes from uneven clamping."
+      },
+      {
+       "text": "A cracked flare with a partial fillet round the joint",
+       "why": "This will leak."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "radius",
+     "prompt": "The minimum bend radius is about 5 × the tube diameter. What is it for a {d} mm tube, in mm?",
+     "formula": "5 * d",
+     "vars": {
+      "d": {
+       "min": 6,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "5 × {d} = {answer} mm."
+    },
+    {
+     "id": "bend-length",
+     "prompt": "A 90° bend has a radius of {r} mm. What length of tube does it take, in mm? Use (π/2) × R.",
+     "formula": "pi / 2 * r",
+     "vars": {
+      "r": {
+       "min": 40,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "1.571 × {r} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "clogged-joint",
+     "scenario": "Chuka's joints leaked, and his capillary tube blocked. Here is what he did.",
+     "lines": [
+      {
+       "text": "He brazed without a nitrogen purge.",
+       "fault": true,
+       "why": "This leaves oxide scale inside."
+      },
+      {
+       "text": "He did not deburr the cut ends.",
+       "fault": true,
+       "why": "Burrs cause leaks and restrictions."
+      },
+      {
+       "text": "He clamped the tube unevenly in the flaring block.",
+       "fault": true,
+       "why": "This gives off-centre flares."
+      },
+      {
+       "text": "He cut the tube with a tube cutter.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He wore goggles and gloves.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for making flared and brazed joints.",
+    "explainPrompt": "Why is dry nitrogen used inside the tube during brazing?",
+    "explainGuide": "Nitrogen keeps air out, so no oxide scale forms inside the tube. Scale would otherwise break off and block the system.",
+    "explainKeywords": [
+     [
+      "nitrogen"
+     ],
+     [
+      "oxide",
+      "scale",
+      "oxidation"
+     ],
+     [
+      "block",
+      "blocks",
+      "clog"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Cutting, bending, flaring and brazing copper tube",
+    "Nut on first."
+   ]
+  },
+  "pr-rac-leak-testing-evacuation-and-charging-a-system": {
+   "safety": {
+    "correct": [
+     "Open cylinder valves slowly, with your face away from the outlet."
+    ],
+    "wrong": [
+     {
+      "text": "Connect nitrogen straight to the system at cylinder pressure.",
+      "why": "It can burst the system. Always use a regulator."
+     },
+     {
+      "text": "Pressure-test with oxygen, as it is the nearest cylinder.",
+      "why": "Oxygen with oil can explode."
+     },
+     {
+      "text": "Run the system straight after charging R600a beside an open flame.",
+      "why": "R600a is flammable. No sparks or flames."
+     },
+     {
+      "text": "Charge refrigerant with bare hands and no goggles.",
+      "why": "It can freeze skin and eyes."
+     },
+     {
+      "text": "Use compressed air for the leak test.",
+      "why": "Air brings moisture and oxygen. Use dry nitrogen."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oxygen cylinder",
+      "why": "Never use oxygen for pressure-testing."
+     },
+     {
+      "name": "Compressed air line",
+      "why": "It adds moisture to the system."
+     },
+     {
+      "name": "Bathroom scale",
+      "why": "It is too coarse for charging by weight."
+     },
+     {
+      "name": "Household gas cylinder",
+      "why": "It is not the refrigerant on the nameplate."
+     },
+     {
+      "name": "Lighted candle for finding leaks",
+      "why": "A flame is dangerous near refrigerant."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "test-with",
+     "afterStep": 1,
+     "prompt": "What do you pressurise the system with?",
+     "options": [
+      {
+       "text": "Dry nitrogen through a regulator",
+       "correct": true,
+       "consequence": "The pressure is controlled and no moisture enters."
+      },
+      {
+       "text": "Oxygen through a regulator",
+       "consequence": "There is an explosion risk with oil."
+      },
+      {
+       "text": "Refrigerant from the cylinder",
+       "consequence": "If it leaks, refrigerant is lost."
+      }
+     ]
+    },
+    {
+     "id": "evac",
+     "afterStep": 4,
+     "prompt": "The joints are tight. What must be done before charging?",
+     "options": [
+      {
+       "text": "Evacuate to about 500 microns and hold",
+       "correct": true,
+       "consequence": "Moisture and air are removed."
+      },
+      {
+       "text": "Charge straight away",
+       "consequence": "Moisture and air stay in, which is a common mistake."
+      },
+      {
+       "text": "Flush it with water and blow it dry with air",
+       "consequence": "Water is the thing you want out."
+      }
+     ]
+    },
+    {
+     "id": "charge",
+     "afterStep": 5,
+     "prompt": "How do you put in the correct amount?",
+     "options": [
+      {
+       "text": "Weigh it in, as the nameplate shows",
+       "correct": true,
+       "consequence": "The charge is exactly right."
+      },
+      {
+       "text": "Charge until the pipe feels cold",
+       "consequence": "This is guesswork and can overcharge."
+      },
+      {
+       "text": "Fill until the gauge stops moving",
+       "consequence": "This may overcharge."
+      }
+     ]
+    },
+    {
+     "id": "rise",
+     "afterStep": 4,
+     "prompt": "The vacuum rises well above 1 000 microns after you stop the pump. What do you do?",
+     "options": [
+      {
+       "text": "Find the leak or moisture before charging",
+       "correct": true,
+       "consequence": "The system is not yet tight or dry."
+      },
+      {
+       "text": "Charge anyway",
+       "consequence": "The leak or moisture stays in."
+      },
+      {
+       "text": "Add nitrogen and then charge it in the normal way",
+       "consequence": "Nitrogen cannot stay in a charged system."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tight",
+     "prompt": "What confirms a tight system?",
+     "options": [
+      {
+       "text": "No bubbles and a steady pressure",
+       "correct": true
+      },
+      {
+       "text": "Bubbles at one joint",
+       "why": "That joint leaks."
+      },
+      {
+       "text": "A pressure that falls steadily",
+       "why": "That shows a leak."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "scale",
+     "prompt": "The nameplate charge is {m} g. The cylinder on the scale reads {s} g. At what scale reading do you stop charging, in g?",
+     "formula": "s - m",
+     "vars": {
+      "m": {
+       "min": 100,
+       "max": 200,
+       "step": 50
+      },
+      "s": {
+       "min": 2000,
+       "max": 3000,
+       "step": 500
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{s} − {m} = {answer} g."
+    }
+   ],
+   "faults": [
+    {
+     "id": "poor-cooling",
+     "scenario": "Bisi's system cooled badly, then froze up. Here is what she did.",
+     "lines": [
+      {
+       "text": "She charged without evacuating.",
+       "fault": true,
+       "why": "Moisture and air remain."
+      },
+      {
+       "text": "She overcharged by guesswork.",
+       "fault": true,
+       "why": "Charge by weight."
+      },
+      {
+       "text": "She used no nitrogen regulator.",
+       "fault": true,
+       "why": "Always use a regulator."
+      },
+      {
+       "text": "She checked joints with soap solution.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She weighed the cylinder.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for evacuating and charging a system.",
+    "explainPrompt": "Why must a system be evacuated before charging?",
+    "explainGuide": "Evacuation removes air and moisture. Moisture can freeze in the capillary tube and form acids, and air raises the pressures.",
+    "explainKeywords": [
+     [
+      "air",
+      "moisture",
+      "water"
+     ],
+     [
+      "remove",
+      "removes",
+      "removed"
+     ],
+     [
+      "freeze",
+      "acid",
+      "acids",
+      "pressure",
+      "block"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Leak testing, evacuation and charging a system",
+    "Test. Evacuate. Weigh in."
+   ]
+  },
+  "pr-rac-diagnosing-compressor-and-electrical-faults": {
+   "safety": {
+    "correct": [
+     "Use a test cord only with its fuse and switch in place."
+    ],
+    "wrong": [
+     {
+      "text": "Run a compressor with the terminal cover left off.",
+      "why": "A terminal can blow out. Keep the cover on."
+     },
+     {
+      "text": "Test without discharging the capacitor.",
+      "why": "It can shock you and damage the meter."
+     },
+     {
+      "text": "Short a capacitor with a screwdriver held in bare hands.",
+      "why": "It can spark and shock. Discharge it safely."
+     },
+     {
+      "text": "Test the windings with the unit still plugged in.",
+      "why": "Isolate it first."
+     },
+     {
+      "text": "Bridge the overload protector so the unit will run.",
+      "why": "The compressor can burn out. Find the fault."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gauge manifold for winding tests",
+      "why": "Windings are tested with a meter."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Spark tester",
+      "why": "It tests car ignition."
+     },
+     {
+      "name": "Fin comb",
+      "why": "It straightens fins."
+     },
+     {
+      "name": "Household extension without fuse",
+      "why": "A fused test cord is needed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "find-c",
+     "afterStep": 2,
+     "prompt": "S–R is the highest reading. Which terminal is C?",
+     "options": [
+      {
+       "text": "The terminal not in that pair",
+       "correct": true,
+       "consequence": "That is the common."
+      },
+      {
+       "text": "One of the highest pair",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Whichever is on the left",
+       "consequence": "Position does not identify it."
+      }
+     ]
+    },
+    {
+     "id": "earth",
+     "afterStep": 3,
+     "prompt": "One terminal shows continuity to the body. What is the fault?",
+     "options": [
+      {
+       "text": "An earthed winding",
+       "correct": true,
+       "consequence": "The compressor should not be run."
+      },
+      {
+       "text": "A healthy compressor",
+       "consequence": "There should be no continuity."
+      },
+      {
+       "text": "A low charge",
+       "consequence": "This is an electrical fault."
+      }
+     ]
+    },
+    {
+     "id": "relay",
+     "afterStep": 5,
+     "prompt": "The compressor will not start, but its windings test good. What do you check?",
+     "options": [
+      {
+       "text": "The relay and overload",
+       "correct": true,
+       "consequence": "The cheap fault is found first."
+      },
+      {
+       "text": "Fit a new compressor",
+       "consequence": "A common mistake when the relay is faulty."
+      },
+      {
+       "text": "Add more refrigerant",
+       "consequence": "This does not cure a start fault."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "highest",
+     "prompt": "Readings are C–R 3.5 Ω, C–S 12.5 Ω, S–R 16 Ω. What does it tell you?",
+     "options": [
+      {
+       "text": "S–R is the highest, and the remaining terminal is C",
+       "correct": true
+      },
+      {
+       "text": "C–R is the highest, so that pair are the two windings",
+       "why": "It is the lowest."
+      },
+      {
+       "text": "All terminals are equal",
+       "why": "They are not."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "check",
+     "prompt": "A compressor reads S–R = {s} Ω and C–R = {r} Ω. What should C–S read in Ω?",
+     "formula": "s - r",
+     "vars": {
+      "s": {
+       "min": 14,
+       "max": 18,
+       "step": 2
+      },
+      "r": {
+       "min": 3,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{s} − {r} = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-comp",
+     "scenario": "Pius replaced a compressor, but the fault stayed. Here is what he did.",
+     "lines": [
+      {
+       "text": "He replaced the compressor when the relay was faulty.",
+       "fault": true,
+       "why": "Test before replacing."
+      },
+      {
+       "text": "He took C to be one end of the highest pair.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He did not clean the terminals first.",
+       "fault": true,
+       "why": "Clean them before measuring low resistances."
+      },
+      {
+       "text": "He discharged the capacitors.",
+       "why": "That is required."
+      },
+      {
+       "text": "He tested each terminal to the body.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing a compressor.",
+    "explainPrompt": "How do you identify the common terminal of a hermetic compressor?",
+    "explainGuide": "Measure all three pairs. The highest reading is S to R, and the terminal not in that pair is C.",
+    "explainKeywords": [
+     [
+      "measure",
+      "resistance",
+      "readings"
+     ],
+     [
+      "highest"
+     ],
+     [
+      "remaining",
+      "not in",
+      "other",
+      "common"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Diagnosing compressor and electrical faults",
+    "Discharge capacitors first."
+   ]
+  },
+  "pr-rac-servicing-a-window-air-conditioner": {
+   "safety": {
+    "correct": [
+     "Lower the unit on to a firm, flat bench, not a stool."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the unit alone to save calling a friend.",
+      "why": "It is heavy. Two people lift it."
+     },
+     {
+      "text": "Spray cleaner with the plug still in.",
+      "why": "Isolate the supply."
+     },
+     {
+      "text": "Leave the capacitor charged during the check.",
+      "why": "Discharge it first."
+     },
+     {
+      "text": "Run the unit with no filter while you wash it.",
+      "why": "A common mistake that dirties the coil."
+     },
+     {
+      "text": "Spray water straight into the control box.",
+      "why": "Protect electrical parts from water."
+     },
+     {
+      "text": "Slide the chassis out by pulling on the refrigerant tubes.",
+      "why": "They bend or crack. Use the chassis."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pressure washer",
+      "why": "It bends fins and wets electrics."
+     },
+     {
+      "name": "Stiff wire brush",
+      "why": "It flattens fins."
+     },
+     {
+      "name": "Blowlamp",
+      "why": "No heat is applied in routine service."
+     },
+     {
+      "name": "Vacuum pump",
+      "why": "The refrigerant circuit is not opened."
+     },
+     {
+      "name": "Grease for the fins",
+      "why": "Grease traps dirt on the coil."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "lift",
+     "afterStep": 3,
+     "prompt": "How do you get the unit to the bench?",
+     "options": [
+      {
+       "text": "With two people",
+       "correct": true,
+       "consequence": "Nobody is injured."
+      },
+      {
+       "text": "By yourself, with a straight back",
+       "consequence": "It is too heavy for one."
+      },
+      {
+       "text": "Drag it along the floor",
+       "consequence": "This damages it."
+      }
+     ]
+    },
+    {
+     "id": "tubes",
+     "afterStep": 3,
+     "prompt": "How do you slide the chassis?",
+     "options": [
+      {
+       "text": "With care, without bending the refrigerant tubes",
+       "correct": true,
+       "consequence": "The tubes are protected."
+      },
+      {
+       "text": "By pulling on the tubes, since they give a good grip",
+       "consequence": "They bend or crack."
+      },
+      {
+       "text": "Fast, to save time",
+       "consequence": "A tube can snag."
+      }
+     ]
+    },
+    {
+     "id": "where",
+     "afterStep": 6,
+     "prompt": "Where do you hold the thermometer in the supply air?",
+     "options": [
+      {
+       "text": "A little back from the louvres",
+       "correct": true,
+       "consequence": "You get a true reading."
+      },
+      {
+       "text": "Touching the louvres, right in the airflow",
+       "consequence": "That is a source of error."
+      },
+      {
+       "text": "Against the wall",
+       "consequence": "It reads the wall."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "after",
+     "prompt": "After service, what do you expect?",
+     "options": [
+      {
+       "text": "Better airflow, 8 to 12 °C drop, and current within nameplate rating",
+       "correct": true
+      },
+      {
+       "text": "Weaker airflow, a 3 °C drop and current above the nameplate",
+       "why": "That suggests a fault."
+      },
+      {
+       "text": "Better airflow, a 30 °C drop and current within the rating",
+       "why": "A 30 °C drop is out of the normal range."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "drop",
+     "prompt": "Return air is {r} °C and supply air is {s} °C. What is the temperature drop in °C?",
+     "formula": "r - s",
+     "vars": {
+      "r": {
+       "min": 26,
+       "max": 30,
+       "step": 2
+      },
+      "s": {
+       "min": 16,
+       "max": 20,
+       "step": 2
+      }
+     },
+     "unit": "°C",
+     "unitAliases": [
+      "degrees",
+      "C"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{r} − {s} = {answer} °C."
+    }
+   ],
+   "faults": [
+    {
+     "id": "dirty-return",
+     "scenario": "Efe's window unit tripped after a service. Here is what he did.",
+     "lines": [
+      {
+       "text": "He ran the unit with no filter.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He sprayed water into the control parts.",
+       "fault": true,
+       "why": "Protect electrics from water."
+      },
+      {
+       "text": "He bent a tube while sliding the chassis.",
+       "fault": true,
+       "why": "A stated precaution."
+      },
+      {
+       "text": "He straightened the fins.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He cleaned the drain holes.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for servicing a window unit.",
+    "explainPrompt": "Why must the filter never be left out when a window unit runs?",
+    "explainGuide": "Without a filter, dust reaches the evaporator coil. It clogs the fins and reduces airflow and cooling.",
+    "explainKeywords": [
+     [
+      "dust",
+      "dirt"
+     ],
+     [
+      "coil",
+      "fins",
+      "evaporator"
+     ],
+     [
+      "airflow",
+      "cooling",
+      "clog",
+      "clogs"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing a window air-conditioner",
+    "Two people to lift."
+   ]
+  },
+  "pr-rac-installing-a-split-air-conditioner": {
+   "safety": {
+    "correct": [
+     "Check the wall for hidden cables and pipes before drilling."
+    ],
+    "wrong": [
+     {
+      "text": "Stand on a chair to fix the outdoor bracket.",
+      "why": "Use a secure ladder and harness."
+     },
+     {
+      "text": "Work at height with no harness, as it is one floor.",
+      "why": "A fall from any height can kill."
+     },
+     {
+      "text": "Wire up with the supply still on.",
+      "why": "Isolate the supply."
+     },
+     {
+      "text": "Use thin bell wire as the supply cable.",
+      "why": "Use the correct cable and breaker."
+     },
+     {
+      "text": "Drill the wall with no goggles.",
+      "why": "Masonry dust and chips fly."
+     },
+     {
+      "text": "Leave tools on the ladder top.",
+      "why": "They can fall on someone."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Plastic garden hose for refrigerant",
+      "why": "Refrigerant lines are copper."
+     },
+     {
+      "name": "Water pipe for refrigerant",
+      "why": "It is not rated or clean enough."
+     },
+     {
+      "name": "Thin bell wire",
+      "why": "It cannot carry the current."
+     },
+     {
+      "name": "Household adaptor plug",
+      "why": "It is not the correct connection."
+     },
+     {
+      "name": "Nail for the wall bracket",
+      "why": "It cannot carry the unit. Use proper fixings."
+     }
+    ]
+   },
+   "room": "field",
+   "decisions": [
+    {
+     "id": "hole",
+     "afterStep": 2,
+     "prompt": "Which way do you drill the wall hole?",
+     "options": [
+      {
+       "text": "Sloping slightly outward",
+       "correct": true,
+       "consequence": "Water drains outside."
+      },
+      {
+       "text": "Sloping inward",
+       "consequence": "Water runs back into the room."
+      },
+      {
+       "text": "Straight, as it makes no difference",
+       "consequence": "Water can sit in the hole."
+      }
+     ]
+    },
+    {
+     "id": "evac",
+     "afterStep": 5,
+     "prompt": "The pipes are connected. What do you do before opening the valves?",
+     "options": [
+      {
+       "text": "Evacuate with the vacuum pump",
+       "correct": true,
+       "consequence": "Air and moisture are removed."
+      },
+      {
+       "text": "Open the valves straight away",
+       "consequence": "Not evacuating is a common mistake."
+      },
+      {
+       "text": "Flush the pipes with water",
+       "consequence": "Water is what you want out."
+      }
+     ]
+    },
+    {
+     "id": "drain",
+     "afterStep": 4,
+     "prompt": "How do you run the drain hose?",
+     "options": [
+      {
+       "text": "Sloping downward, without loops",
+       "correct": true,
+       "consequence": "Condensate drains freely."
+      },
+      {
+       "text": "Level, with a loop for neatness",
+       "consequence": "Water can back up."
+      },
+      {
+       "text": "Upward, to reach a higher outlet",
+       "consequence": "Water will not flow up."
+      }
+     ]
+    },
+    {
+     "id": "level",
+     "afterStep": 2,
+     "prompt": "The indoor bracket is a little off level. What do you do?",
+     "options": [
+      {
+       "text": "Level it with the spirit level",
+       "correct": true,
+       "consequence": "Water drains correctly."
+      },
+      {
+       "text": "Leave it, as it is barely visible",
+       "consequence": "An unlevel unit causes leaks."
+      },
+      {
+       "text": "Pack the unit with paper",
+       "consequence": "This does not correct the bracket."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ok",
+     "prompt": "After commissioning, what do you expect?",
+     "options": [
+      {
+       "text": "It cools quietly with no leaks, and condensate drains outside",
+       "correct": true
+      },
+      {
+       "text": "It cools quietly, but water drips from the indoor unit",
+       "why": "That shows a bad slope or level."
+      },
+      {
+       "text": "It cools with no leaks, but current is well above rating",
+       "why": "That shows a fault."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "room",
+     "prompt": "A room is {l} m × {w} m. The rule of thumb is 600 BTU/h per m². What capacity do you need, in BTU/h?",
+     "formula": "l * w * 600",
+     "vars": {
+      "l": {
+       "min": 3,
+       "max": 5,
+       "step": 1
+      },
+      "w": {
+       "min": 4,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "BTU/h",
+     "unitAliases": [
+      "btu per hour"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{l} × {w} × 600 = {answer} BTU/h."
+    },
+    {
+     "id": "kw",
+     "prompt": "12 000 BTU/h is about 3.517 kW. What is {b} BTU/h in kW?",
+     "formula": "b * 3.517 / 12000",
+     "vars": {
+      "b": {
+       "min": 9000,
+       "max": 18000,
+       "step": 3000
+      }
+     },
+     "unit": "kW",
+     "unitAliases": [
+      "kilowatts"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "{b} × 3.517 ÷ 12 000 = {answer} kW."
+    }
+   ],
+   "faults": [
+    {
+     "id": "leaky-install",
+     "scenario": "Sade's new unit dripped indoors and cooled poorly. Here is what she did.",
+     "lines": [
+      {
+       "text": "She did not evacuate the lines.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She over-tightened the flare nuts and cracked a flare.",
+       "fault": true,
+       "why": "Use the torque wrench."
+      },
+      {
+       "text": "She left the indoor unit out of level.",
+       "fault": true,
+       "why": "That causes water leaks."
+      },
+      {
+       "text": "She fitted the correct breaker.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She used a secure ladder.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for installing a split air-conditioner.",
+    "explainPrompt": "Why must the indoor unit and pipes be evacuated during installation?",
+    "explainGuide": "Air and moisture left in the pipes reduce cooling, can freeze, and can damage the compressor. Evacuation removes them.",
+    "explainKeywords": [
+     [
+      "air",
+      "moisture"
+     ],
+     [
+      "evacuation",
+      "evacuate",
+      "remove",
+      "removes"
+     ],
+     [
+      "cooling",
+      "compressor",
+      "freeze",
+      "damage"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Installing a split air-conditioner",
+    "Level, sloped, evacuated."
+   ]
+  },
+  "pr-rac-servicing-fan-motors-and-testing-capacitors": {
+   "safety": {
+    "correct": [
+     "Tell others that the unit is locked off before you start."
+    ],
+    "wrong": [
+     {
+      "text": "Test a capacitor straight after switching off.",
+      "why": "It holds charge. Discharge it through a resistor first."
+     },
+     {
+      "text": "Discharge it by touching the terminals with your fingers.",
+      "why": "You will get a shock."
+     },
+     {
+      "text": "Start work with the supply only switched at the wall.",
+      "why": "Lock off the supply."
+     },
+     {
+      "text": "Spin the blade with your hand while the motor runs.",
+      "why": "It can injure you. Run it only with the guard on."
+     },
+     {
+      "text": "Over-oil the bearings until oil runs out of them.",
+      "why": "It collects dirt and can reach the windings. Use a little."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Capacitor with a lower voltage rating",
+      "why": "It can fail. Use the same rating."
+     },
+     {
+      "name": "Household grease for oil ports",
+      "why": "Ports need light machine oil."
+     },
+     {
+      "name": "Gauge manifold",
+      "why": "It reads pressure, not motor condition."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Spark tester",
+      "why": "It is a car ignition tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "discharge",
+     "afterStep": 4,
+     "prompt": "You are about to test the capacitor. What do you do first?",
+     "options": [
+      {
+       "text": "Discharge it through a resistor",
+       "correct": true,
+       "consequence": "It is safe to handle and to test."
+      },
+      {
+       "text": "Test it as it is",
+       "consequence": "Testing a charged capacitor is a common mistake."
+      },
+      {
+       "text": "Shake it to clear the charge",
+       "consequence": "Shaking does nothing."
+      }
+     ]
+    },
+    {
+     "id": "replace-with",
+     "afterStep": 4,
+     "prompt": "A 35 µF, 440 V capacitor is faulty. What do you fit?",
+     "options": [
+      {
+       "text": "A 35 µF, 440 V capacitor",
+       "correct": true,
+       "consequence": "It matches the rating."
+      },
+      {
+       "text": "A 35 µF, 250 V capacitor",
+       "consequence": "Fitting a lower voltage rating is a common mistake."
+      },
+      {
+       "text": "A 70 µF, 440 V capacitor",
+       "consequence": "The wrong value damages the motor."
+      }
+     ]
+    },
+    {
+     "id": "blade",
+     "afterStep": 5,
+     "prompt": "How do you refit the fan blade?",
+     "options": [
+      {
+       "text": "At the same position on the shaft",
+       "correct": true,
+       "consequence": "Airflow and balance stay as designed."
+      },
+      {
+       "text": "Pushed as far along as it goes",
+       "consequence": "It can hit the shroud."
+      },
+      {
+       "text": "Anywhere on the shaft",
+       "consequence": "Airflow is affected."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "weak",
+     "prompt": "A fan runs slowly or fails to start. What may you find?",
+     "options": [
+      {
+       "text": "A weak capacitor",
+       "correct": true
+      },
+      {
+       "text": "A new, correctly rated capacitor",
+       "why": "That would be sound."
+      },
+      {
+       "text": "Bearings that turn freely",
+       "why": "That is sound."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "low",
+     "prompt": "A capacitor is marked {c} µF, and reads {m} µF. What percentage low is it?",
+     "formula": "(c - m) / c * 100",
+     "vars": {
+      "c": {
+       "min": 30,
+       "max": 40,
+       "step": 5
+      },
+      "m": {
+       "min": 25,
+       "max": 28,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "({c} − {m}) ÷ {c} × 100 = {answer}%."
+    },
+    {
+     "id": "min",
+     "prompt": "A capacitor is marked {c} µF ±5%. What is the lowest acceptable reading in µF?",
+     "formula": "c * 0.95",
+     "vars": {
+      "c": {
+       "min": 20,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "µF",
+     "unitAliases": [
+      "uF",
+      "microfarads"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "{c} × 0.95 = {answer} µF."
+    }
+   ],
+   "faults": [
+    {
+     "id": "failed-cap",
+     "scenario": "Kola's fan motor overheated soon after his service. Here is what he did.",
+     "lines": [
+      {
+       "text": "He tested a capacitor while it was charged.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He fitted a capacitor with a lower voltage rating.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He refitted the blade in a different place.",
+       "fault": true,
+       "why": "Refit it at the same position."
+      },
+      {
+       "text": "He compared the reading with the marked value.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He checked the direction of rotation.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing a capacitor.",
+    "explainPrompt": "Why must a capacitor be discharged before it is tested?",
+    "explainGuide": "It can store charge after the power is off. Discharging prevents a shock and protects the meter.",
+    "explainKeywords": [
+     [
+      "store",
+      "stores",
+      "charge",
+      "charged"
+     ],
+     [
+      "shock"
+     ],
+     [
+      "meter",
+      "protect",
+      "protects"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Servicing fan motors and testing capacitors",
+    "Discharge before you test."
+   ]
+  },
+  "pr-rac-calculating-heat-gain-through-cold-room-insulation": {
+   "safety": {
+    "correct": [
+     "Wash your hands after handling glass wool samples."
+    ],
+    "wrong": [
+     {
+      "text": "Handle glass wool without gloves.",
+      "why": "Fibres irritate the skin. Wear gloves."
+     },
+     {
+      "text": "Blow glass fibres off the bench.",
+      "why": "They get into the eyes and lungs. Wipe them up."
+     },
+     {
+      "text": "Break up a sample with no dust mask.",
+      "why": "Fibres irritate the lungs. Wear a dust mask."
+     },
+     {
+      "text": "Rub your eyes after touching fibre glass.",
+      "why": "Fibres can scratch the eyes. Wash your hands first."
+     },
+     {
+      "text": "Cut foam with a hot knife in a closed room.",
+      "why": "It gives off fumes, and this lesson does not need it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Clamp meter",
+      "why": "It reads current."
+     },
+     {
+      "name": "Gauge manifold",
+      "why": "It reads pressure."
+     },
+     {
+      "name": "Copper sheet as insulation",
+      "why": "Copper is a good heat conductor."
+     },
+     {
+      "name": "Aluminium plate as insulation",
+      "why": "It conducts heat well."
+     },
+     {
+      "name": "Spirit level",
+      "why": "It has no use here."
+     }
+    ]
+   },
+   "room": "lab",
+   "decisions": [
+    {
+     "id": "units",
+     "afterStep": 4,
+     "prompt": "Thickness is given as 100 mm. What do you put in the formula?",
+     "options": [
+      {
+       "text": "0.10 m",
+       "correct": true,
+       "consequence": "Units stay consistent in SI."
+      },
+      {
+       "text": "100",
+       "consequence": "Forgetting to convert mm to m is a common mistake."
+      },
+      {
+       "text": "10 cm",
+       "consequence": "Metres are needed."
+      }
+     ]
+    },
+    {
+     "id": "better",
+     "afterStep": 5,
+     "prompt": "Which change lowers the heat gain most for the same area?",
+     "options": [
+      {
+       "text": "Lower k and greater thickness",
+       "correct": true,
+       "consequence": "Q falls as k drops and as x rises."
+      },
+      {
+       "text": "Higher k and lesser thickness",
+       "consequence": "Q rises."
+      },
+      {
+       "text": "A larger area",
+       "consequence": "Q rises with area."
+      }
+     ]
+    },
+    {
+     "id": "barrier",
+     "afterStep": 6,
+     "prompt": "What do you fit on the warm side of cold room insulation?",
+     "options": [
+      {
+       "text": "A vapour barrier",
+       "correct": true,
+       "consequence": "Moisture is kept out of the insulation."
+      },
+      {
+       "text": "A wet cloth",
+       "consequence": "Moisture spoils insulation."
+      },
+      {
+       "text": "Nothing, as the foam will do",
+       "consequence": "Moisture raises the k value."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "best",
+     "prompt": "Which is the most effective common insulant in your list?",
+     "options": [
+      {
+       "text": "Polyurethane foam",
+       "correct": true
+      },
+      {
+       "text": "Wood planks of good thickness",
+       "why": "Wood conducts more heat."
+      },
+      {
+       "text": "Bitumen",
+       "why": "Bitumen is mainly a vapour barrier."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "q",
+     "prompt": "A wall of polyurethane (k = 0.035 W/m K) has an area of {a} m², ΔT of 30 K, and thickness {x} m. What is the heat gain in W?",
+     "formula": "0.035 * a * 30 / x",
+     "vars": {
+      "a": {
+       "min": 10,
+       "max": 30,
+       "step": 10
+      },
+      "x": {
+       "min": 0.05,
+       "max": 0.1,
+       "step": 0.05
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "0.035 × {a} × 30 ÷ {x} = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "big-result",
+     "scenario": "Musa's heat gain figures came out wildly wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used thickness in mm without converting it.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "He mixed units in the formula.",
+       "fault": true,
+       "why": "Keep to SI."
+      },
+      {
+       "text": "He took a k value without checking the material's density.",
+       "fault": true,
+       "why": "k varies with density and moisture."
+      },
+      {
+       "text": "He identified each material.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He wore a dust mask with glass wool.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for this insulation exercise.",
+    "explainPrompt": "Why does doubling insulation thickness halve the heat gain?",
+    "explainGuide": "In Q = kAΔT/x, heat gain varies inversely as thickness. If x is doubled, Q is halved.",
+    "explainKeywords": [
+     [
+      "inversely",
+      "inverse",
+      "divided"
+     ],
+     [
+      "thickness",
+      "thick"
+     ],
+     [
+      "halved",
+      "half",
+      "halves"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Calculating heat gain through cold room insulation",
+    "Keep to SI units."
+   ]
+  },
+  "pr-rac-commercial-marketing-survey-for-a-refrigeration-business": {
+   "safety": {
+    "correct": [
+     "Tell the teacher where your pair will be working."
+    ],
+    "wrong": [
+     {
+      "text": "Go to homes alone after dark, when people are at home.",
+      "why": "Work in pairs during daylight."
+     },
+     {
+      "text": "Enter a compound without asking.",
+      "why": "Work only with permission."
+     },
+     {
+      "text": "Share a respondent's name and answers on social media.",
+      "why": "Respect their privacy."
+     },
+     {
+      "text": "Walk into a stranger's bedroom to see the AC.",
+      "why": "Stay where you are invited."
+     },
+     {
+      "text": "Argue with someone who refuses to answer.",
+      "why": "Thank them and move on."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Gauge manifold",
+      "why": "No system is tested in a survey."
+     },
+     {
+      "name": "Vacuum pump",
+      "why": "No system is serviced in a survey."
+     },
+     {
+      "name": "Leading question sheet",
+      "why": "Questions must be clear and unbiased."
+     },
+     {
+      "name": "Blowlamp",
+      "why": "It has no place in a survey."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No current is measured in a survey."
+     }
+    ]
+   },
+   "room": "field",
+   "decisions": [
+    {
+     "id": "sample",
+     "afterStep": 2,
+     "prompt": "How do you choose who to survey?",
+     "options": [
+      {
+       "text": "A fair, representative sample of the area",
+       "correct": true,
+       "consequence": "The results reflect the market."
+      },
+      {
+       "text": "Only your relatives",
+       "consequence": "This gives a biased result."
+      },
+      {
+       "text": "Only the richest houses, where most ACs are found",
+       "consequence": "This misses most of the market."
+      }
+     ]
+    },
+    {
+     "id": "question",
+     "afterStep": 1,
+     "prompt": "Which question do you put in your questionnaire?",
+     "options": [
+      {
+       "text": "How often do you service your AC?",
+       "correct": true,
+       "consequence": "It is clear and unbiased."
+      },
+      {
+       "text": "You agree that local repairers are bad, don't you?",
+       "consequence": "That is a leading question."
+      },
+      {
+       "text": "Are you very rich?",
+       "consequence": "It is intrusive and irrelevant."
+      }
+     ]
+    },
+    {
+     "id": "base",
+     "afterStep": 4,
+     "prompt": "18 of the 28 AC owners service twice a year. What is your base?",
+     "options": [
+      {
+       "text": "28, the AC owners",
+       "correct": true,
+       "consequence": "The percentage is correct."
+      },
+      {
+       "text": "40, all respondents",
+       "consequence": "Using the wrong base is a common mistake."
+      },
+      {
+       "text": "18, the ones who said yes",
+       "consequence": "That would give 100%."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "finding",
+     "prompt": "What should your completed survey show?",
+     "options": [
+      {
+       "text": "Demand for services and gaps in service quality",
+       "correct": true
+      },
+      {
+       "text": "The refrigerant charge of each AC and the gas it uses",
+       "why": "A survey does not measure this."
+      },
+      {
+       "text": "The voltage at each house",
+       "why": "A survey does not measure this."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "own",
+     "prompt": "Of 40 respondents, {n} own an air-conditioner. What percentage is that?",
+     "formula": "n / 40 * 100",
+     "vars": {
+      "n": {
+       "min": 20,
+       "max": 32,
+       "step": 4
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} ÷ 40 × 100 = {answer}%."
+    },
+    {
+     "id": "twice",
+     "prompt": "Of {o} AC owners, {s} service it at least twice a year. What percentage of the owners is that?",
+     "formula": "s / o * 100",
+     "vars": {
+      "o": {
+       "min": 24,
+       "max": 32,
+       "step": 4
+      },
+      "s": {
+       "min": 12,
+       "max": 18,
+       "step": 3
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "{s} ÷ {o} × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "biased",
+     "scenario": "Ify's survey report was marked down. Here is what she did.",
+     "lines": [
+      {
+       "text": "She calculated percentages from the wrong base.",
+       "fault": true,
+       "why": "A common mistake."
+      },
+      {
+       "text": "She surveyed only 5 of her friends.",
+       "fault": true,
+       "why": "That is a small, biased sample."
+      },
+      {
+       "text": "She asked leading questions.",
+       "fault": true,
+       "why": "Ask clear, unbiased questions."
+      },
+      {
+       "text": "She visited existing service shops.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She wrote a recommendation.",
+       "why": "That is the task."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for carrying out a market survey.",
+    "explainPrompt": "Why should a market survey use a fair, representative sample?",
+    "explainGuide": "A representative sample reflects the whole market. A biased or small sample gives misleading results and poor business decisions.",
+    "explainKeywords": [
+     [
+      "representative",
+      "fair",
+      "reflect",
+      "reflects"
+     ],
+     [
+      "bias",
+      "biased",
+      "small",
+      "misleading"
+     ],
+     [
+      "decision",
+      "decisions",
+      "result",
+      "results"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Commercial marketing survey for a refrigeration business",
+    "Fair sample. Clear questions."
+   ]
+  }
+ }
+}

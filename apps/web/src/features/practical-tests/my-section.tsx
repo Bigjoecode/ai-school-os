@@ -71,7 +71,7 @@ function TestRow({ e }: { e: PracticalMyAssessment }) {
           )}
         </div>
         <h3 className="mt-2 font-display text-[15.5px] font-semibold leading-snug tracking-tight">{e.title}</h3>
-        <p className="mt-0.5 text-[13px] text-muted-foreground">{e.practicalTitle} · virtual lab</p>
+        <p className="mt-0.5 text-[13px] text-muted-foreground">{e.practicalTitle}</p>
         <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px] text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <CalendarClock className="size-3.5" /> {windowLabel(e.opensAt, e.closesAt)}

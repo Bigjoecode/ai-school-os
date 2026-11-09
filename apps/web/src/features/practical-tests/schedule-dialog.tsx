@@ -24,7 +24,7 @@ interface Props {
   started?: boolean;
 }
 
-/** Schedule (or edit) a practical test: a virtual lab set as a timed class test or exam. */
+/** Schedule (or edit) a practical test: a virtual lab or guided practical set as a timed class test or exam. */
 export function SchedulePracticalTestDialog({ open, onOpenChange, item, started }: Props) {
   const options = usePracticalTestOptions(open);
   const [f, setF] = useState<FormState>(() => initialForm(item));
@@ -89,14 +89,14 @@ export function SchedulePracticalTestDialog({ open, onOpenChange, item, started 
               ? started
                 ? 'Students have started, so the kind, classes, start time and duration are locked. You can still extend the closing time.'
                 : 'Change anything until the first student starts.'
-              : 'Set a virtual lab as a timed test for your classes. Each student sits it once, on their own variant, and the lab marks it.'}
+              : 'Set a practical as a timed test for your classes. Each student sits it once, on their own variant, and it is marked automatically.'}
           </DialogDescription>
         </DialogHeader>
         <DialogBody className="space-y-5">
           {options.isLoading ? (
             <Skeleton className="h-48" />
           ) : noSubjects ? (
-            <EmptyState compact icon={FlaskConical} title="No subjects with virtual labs you can set" description="Practical tests use the Practical Academy's virtual labs (Chemistry, Physics, Biology…), for classes you teach the subject in." />
+            <EmptyState compact icon={FlaskConical} title="No subjects with practicals you can set" description="Practical tests use the Practical Academy's virtual labs and guided practicals, for classes you teach the subject in." />
           ) : (
             <FormFields f={f} set={set} item={item} started={started} errors={errors} options={options.data} picks={picks} pick={pick} armOptions={armOptions} choosePractical={choosePractical} />
           )}
@@ -170,7 +170,7 @@ function FormFields({ f, set, item, started, errors, options, picks, pick, armOp
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Practical (virtual lab)" htmlFor="pt-practical" error={errors.practicalId} hint={pick ? `${pick.topic} · marked out of ${pick.maxScore} · usual time ${pick.minutes} min` : 'Only practicals with a virtual lab can be set as a test.'}>
+          <Field label="Practical" htmlFor="pt-practical" error={errors.practicalId} hint={pick ? `${pick.topic} · marked out of ${pick.maxScore} · usual time ${pick.minutes} min` : 'Only practicals with a virtual lab or guided practical can be set as a test.'}>
             {f.subjectId && picks.isLoading ? (
               <Skeleton className="h-10" />
             ) : (

@@ -1,0 +1,3954 @@
+{
+  "subject": "Painting and Decorating",
+  "room": "studio",
+  "lessons": {
+    "pr-pdec-applying-the-elements-and-principles-of-design": {
+      "safety": {
+        "correct": [
+          "Mop up spilled water straight away.",
+          "Keep your water pot away from the edge of the desk."
+        ],
+        "wrong": [
+          {
+            "text": "Eat your puff-puff at the easel while you paint.",
+            "why": "Paint on your hands gets into food. Eat outside the studio, after washing."
+          },
+          {
+            "text": "Lick the brush to bring it to a point.",
+            "why": "Paint must not go in your mouth. Shape the brush on the palette."
+          },
+          {
+            "text": "Leave the spilled water on the floor until the end of the lesson.",
+            "why": "Someone will slip. Keep the floor dry."
+          },
+          {
+            "text": "Go straight from painting to lunch without washing your hands.",
+            "why": "Wash your hands after painting."
+          },
+          {
+            "text": "Pour the dirty water out of the window.",
+            "why": "It can splash people and stain walls. Use the sink."
+          },
+          {
+            "text": "Run across the studio carrying a full water pot.",
+            "why": "Spills make the floor slippery. Walk, and carry it low."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Impasto knife",
+            "why": "Flat, neat colour is laid with brushes, not knifed on."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes on walls and boards."
+          },
+          {
+            "name": "Spray gun",
+            "why": "Clean flat colour here is brushed, not sprayed."
+          },
+          {
+            "name": "Canvas board",
+            "why": "The job asks for A3 cartridge paper."
+          },
+          {
+            "name": "Sandpaper",
+            "why": "Paper does not need sanding, and it would tear."
+          },
+          {
+            "name": "Compasses",
+            "why": "The panels are rectangles, set out with a ruler."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "one-principle",
+          "afterStep": 2,
+          "prompt": "Your rhythm panel now shows strong contrast, a focal point and a big symmetry too. What do you do?",
+          "options": [
+            {
+              "text": "Simplify it so that rhythm alone stands out",
+              "correct": true,
+              "consequence": "The panel clearly communicates one principle."
+            },
+            {
+              "text": "Keep it all, as more ideas in one panel earn more marks from the examiner",
+              "consequence": "Mixing several principles means none is clear."
+            },
+            {
+              "text": "Leave it and explain the problem in your note",
+              "consequence": "A note cannot make up for an unclear panel."
+            }
+          ]
+        },
+        {
+          "id": "edge",
+          "afterStep": 4,
+          "prompt": "You need a crisp edge between two flat colours. What do you use?",
+          "options": [
+            {
+              "text": "Masking tape along the edge",
+              "correct": true,
+              "consequence": "The edge is sharp and clean."
+            },
+            {
+              "text": "A steady hand and a large brush",
+              "consequence": "The edge is likely to wobble."
+            },
+            {
+              "text": "A thick black outline to hide the join",
+              "consequence": "An outline hides a fault, and it is not clean colour work."
+            }
+          ]
+        },
+        {
+          "id": "wet-next",
+          "afterStep": 4,
+          "prompt": "The blue is still wet and you want red beside it. What do you do?",
+          "options": [
+            {
+              "text": "Let the blue dry first",
+              "correct": true,
+              "consequence": "The two colours stay clean, with no bleeding."
+            },
+            {
+              "text": "Paint the red now, very lightly",
+              "consequence": "Wet paint bleeds into the next colour."
+            },
+            {
+              "text": "Blow on the red as you paint it",
+              "consequence": "Blowing does not stop wet colours running together."
+            }
+          ]
+        },
+        {
+          "id": "consistency",
+          "afterStep": 4,
+          "prompt": "Your poster colour is going on in streaks. What do you do?",
+          "options": [
+            {
+              "text": "Mix it to an even, creamy consistency",
+              "correct": true,
+              "consequence": "It flows evenly and leaves no streaks."
+            },
+            {
+              "text": "Press harder on the brush",
+              "consequence": "Pressure spreads the bristles and adds streaks."
+            },
+            {
+              "text": "Go over it with water while it is wet",
+              "consequence": "Extra water makes it patchier."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "good-panel",
+          "prompt": "Which panel would earn the best marks?",
+          "options": [
+            {
+              "text": "Clear principle, even colour, clean edges",
+              "correct": true
+            },
+            {
+              "text": "Many principles, each of them well painted",
+              "why": "No single principle is clear."
+            },
+            {
+              "text": "Even colour, but with no label on it",
+              "why": "Each panel must be labelled."
+            },
+            {
+              "text": "A clear principle with streaky colour",
+              "why": "Colour should be even."
+            }
+          ]
+        },
+        {
+          "id": "element",
+          "prompt": "Which of these is an element of design, not a principle?",
+          "options": [
+            {
+              "text": "Texture",
+              "correct": true
+            },
+            {
+              "text": "Balance",
+              "why": "That is a principle."
+            },
+            {
+              "text": "Emphasis",
+              "why": "That is a principle."
+            },
+            {
+              "text": "Unity",
+              "why": "That is a principle."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "side",
+          "prompt": "A sheet is 420 mm wide. Three panels, each {w} mm wide, sit side by side with no gaps and are centred. How wide is each side margin?",
+          "formula": "(420 - 3 * w) / 2",
+          "vars": {
+            "w": {
+              "min": 100,
+              "max": 130,
+              "step": 10
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "(420 − 3 × {w}) ÷ 2 = {answer} mm."
+        },
+        {
+          "id": "top",
+          "prompt": "A sheet is 297 mm high. Two rows of panels, each {h} mm high, sit with no gaps and are centred. How deep are the top and bottom margins?",
+          "formula": "(297 - 2 * h) / 2",
+          "vars": {
+            "h": {
+              "min": 80,
+              "max": 120,
+              "step": 10
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "(297 − 2 × {h}) ÷ 2 = {answer} mm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "panels",
+          "scenario": "Ejiro's design sheet looked muddy, and the examiner could not tell what it showed. Here is what she did.",
+          "lines": [
+            {
+              "text": "She put several principles in each panel.",
+              "fault": true,
+              "why": "None of them is then clear."
+            },
+            {
+              "text": "She painted each colour right up against wet paint.",
+              "fault": true,
+              "why": "Each colour must dry before the next one touches it."
+            },
+            {
+              "text": "She used her paint in different consistencies.",
+              "fault": true,
+              "why": "Uneven paint gives streaks."
+            },
+            {
+              "text": "She used masking tape for the edges.",
+              "why": "That gives crisp edges."
+            },
+            {
+              "text": "She labelled each panel with its principle.",
+              "why": "That is step 5."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for producing clean design panels.",
+        "explainPrompt": "What is the difference between an element and a principle of design?",
+        "explainGuide": "Elements are the basic parts of a design, such as line, shape, colour and texture. Principles are the ways those parts are organised, such as balance, rhythm and unity.",
+        "explainKeywords": [
+          [
+            "element"
+          ],
+          [
+            "principle"
+          ],
+          [
+            "part",
+            "line",
+            "shape",
+            "colour"
+          ],
+          [
+            "organis",
+            "arrange",
+            "balance",
+            "rhythm"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "Elements and principles of design",
+        "One principle in each panel",
+        "Label and explain each one"
+      ]
+    },
+    "pr-pdec-mixing-a-colour-wheel": {
+      "safety": {
+        "correct": [
+          "Point the compasses down and lay them flat when you finish.",
+          "Wash your hands before you eat."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the brush in your mouth while you measure.",
+            "why": "Paint can be swallowed. Rest it on the palette."
+          },
+          {
+            "text": "Lick the brush to get a fine point for the small sectors.",
+            "why": "Keep brushes out of your mouth."
+          },
+          {
+            "text": "Leave the open compasses on the seat.",
+            "why": "Someone can sit on the point."
+          },
+          {
+            "text": "Use the same water pot for drinking when you are thirsty.",
+            "why": "You could swallow paint. Keep drinking water well away."
+          },
+          {
+            "text": "Drink from the cup that you used for mixing yellow.",
+            "why": "Studio cups are never for drinking."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Set square",
+            "why": "Its fixed angles cannot set off all twelve 30 degree sectors round a circle."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glazes."
+          },
+          {
+            "name": "Painting knife",
+            "why": "Fine sectors need round brushes."
+          },
+          {
+            "name": "Masking tape roll",
+            "why": "Curved sectors are painted to a pencil line."
+          },
+          {
+            "name": "Set of oil pastels",
+            "why": "The wheel is mixed from poster colours."
+          },
+          {
+            "name": "Spray gun",
+            "why": "Colour mixing here is done by hand on a palette."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "primary-pos",
+          "afterStep": 2,
+          "prompt": "How do you place the primaries on the 12 sectors?",
+          "options": [
+            {
+              "text": "Four sectors apart, every 120 degrees",
+              "correct": true,
+              "consequence": "Room is left for the secondaries and tertiaries."
+            },
+            {
+              "text": "In three sectors side by side, then the mixed colours after them",
+              "consequence": "The secondaries will not sit between their parents."
+            },
+            {
+              "text": "Six sectors apart",
+              "consequence": "Six sectors apart would be opposites, not three equal points."
+            }
+          ]
+        },
+        {
+          "id": "orange",
+          "afterStep": 3,
+          "prompt": "You have mixed orange. Which sector does it go in?",
+          "options": [
+            {
+              "text": "Halfway between red and yellow",
+              "correct": true,
+              "consequence": "It sits between its two parent colours."
+            },
+            {
+              "text": "Halfway between yellow and blue",
+              "consequence": "That is the green position."
+            },
+            {
+              "text": "Opposite red, as a contrast",
+              "consequence": "That is the green position, opposite red."
+            }
+          ]
+        },
+        {
+          "id": "clean",
+          "afterStep": 4,
+          "prompt": "You have just used red, and you want yellow next. What do you do?",
+          "options": [
+            {
+              "text": "Rinse and dry the brush first",
+              "correct": true,
+              "consequence": "The yellow stays clean and bright."
+            },
+            {
+              "text": "Carry on, since a trace of red adds warmth to the yellow you are mixing",
+              "consequence": "Dirty brushes dull colours."
+            },
+            {
+              "text": "Wipe it on your shirt",
+              "consequence": "Paint stays in the bristles."
+            }
+          ]
+        },
+        {
+          "id": "enough",
+          "afterStep": 4,
+          "prompt": "Yellow-orange is running out with the sector half painted. What should you have done?",
+          "options": [
+            {
+              "text": "Mixed enough at the start to finish the sector",
+              "correct": true,
+              "consequence": "One mix keeps the colour the same throughout."
+            },
+            {
+              "text": "Mixed a thin wash and spread it across the whole sector",
+              "consequence": "This makes it patchy."
+            },
+            {
+              "text": "Used less paint on each brushstroke",
+              "consequence": "The result is thin and streaky."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "opp",
+          "prompt": "Which pair sit directly opposite each other?",
+          "options": [
+            {
+              "text": "Blue and orange",
+              "correct": true
+            },
+            {
+              "text": "Blue and green",
+              "why": "These are close neighbours."
+            },
+            {
+              "text": "Red and orange",
+              "why": "These are neighbours."
+            },
+            {
+              "text": "Yellow and orange",
+              "why": "These are neighbours."
+            }
+          ]
+        },
+        {
+          "id": "ter",
+          "prompt": "Yellow-orange is an example of a",
+          "options": [
+            {
+              "text": "Tertiary colour",
+              "correct": true
+            },
+            {
+              "text": "Primary colour",
+              "why": "It is mixed from other colours."
+            },
+            {
+              "text": "Secondary colour",
+              "why": "Secondaries are orange, green and violet."
+            },
+            {
+              "text": "Neutral",
+              "why": "It has a clear hue."
+            }
+          ]
+        },
+        {
+          "id": "dull",
+          "prompt": "Your green looks dull. What is the likely reason?",
+          "options": [
+            {
+              "text": "Impure pigments",
+              "correct": true
+            },
+            {
+              "text": "The circle radius was 8 cm",
+              "why": "Size does not affect colour."
+            },
+            {
+              "text": "It was mixed from yellow and blue",
+              "why": "That is the correct mix."
+            },
+            {
+              "text": "The sector is labelled",
+              "why": "Labels do not change colour."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sector",
+          "prompt": "A wheel has {n} equal sectors. How many degrees is each one?",
+          "formula": "360 / n",
+          "vars": {
+            "n": {
+              "min": 6,
+              "max": 12,
+              "step": 6
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "deg",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "360 ÷ {n} = {answer} degrees."
+        },
+        {
+          "id": "apart",
+          "prompt": "Two colours are {s} sectors apart on a 12-part wheel. How many degrees is that?",
+          "formula": "s * 30",
+          "vars": {
+            "s": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "deg",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{s} × 30 = {answer} degrees."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wheel",
+          "scenario": "Femi's wheel was marked down. Here is what he did.",
+          "lines": [
+            {
+              "text": "He put green next to red, away from yellow and blue.",
+              "fault": true,
+              "why": "Secondaries go between their parent primaries."
+            },
+            {
+              "text": "He did not clean his brush between colours.",
+              "fault": true,
+              "why": "This dulls every mix."
+            },
+            {
+              "text": "He left the sectors unlabelled.",
+              "fault": true,
+              "why": "Labels earn marks."
+            },
+            {
+              "text": "He used a protractor.",
+              "why": "That gives 30 degree sectors."
+            },
+            {
+              "text": "He joined complementary pairs with lines.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for mixing clean colours for a wheel.",
+        "explainPrompt": "Why are complementary colours placed directly opposite each other on the wheel?",
+        "explainGuide": "Complementary pairs, such as red and green, are 180 degrees or six sectors apart. Each primary sits opposite the secondary mixed from the other two primaries, so they give the strongest contrast.",
+        "explainKeywords": [
+          [
+            "opposite",
+            "180",
+            "six"
+          ],
+          [
+            "primary",
+            "secondary"
+          ],
+          [
+            "contrast",
+            "mix"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Mixing a colour wheel",
+        "Primaries, secondaries, tertiaries",
+        "Clean the brush between colours"
+      ]
+    },
+    "pr-pdec-painting-colour-schemes-and-tonal-scales": {
+      "safety": {
+        "correct": [
+          "Wipe up any spilled water before it reaches other students' work.",
+          "Wash your hands before you leave the studio."
+        ],
+        "wrong": [
+          {
+            "text": "Balance your water pot on the edge of the drawing board.",
+            "why": "It can tip on to the work. Keep it stable, on the desk."
+          },
+          {
+            "text": "Lick your brush to shape it.",
+            "why": "Paint must not go in your mouth."
+          },
+          {
+            "text": "Fill the water pot right to the brim.",
+            "why": "It spills as you carry it."
+          },
+          {
+            "text": "Rest the wet palette on your lap.",
+            "why": "It can slide and spill."
+          },
+          {
+            "text": "Leave the wet floor for the cleaner.",
+            "why": "Someone can slip. Dry it now."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes."
+          },
+          {
+            "name": "Painting knife",
+            "why": "Smooth tonal steps need brushes."
+          },
+          {
+            "name": "Masking fluid",
+            "why": "Nothing is masked here."
+          },
+          {
+            "name": "Compasses",
+            "why": "The strip is set out with a ruler."
+          },
+          {
+            "name": "Roller and tray",
+            "why": "This small work needs brushes."
+          },
+          {
+            "name": "Sponge",
+            "why": "Sponging gives a mottled look, not flat steps."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "black",
+          "afterStep": 1,
+          "prompt": "You are mixing the first shade. How do you add the black?",
+          "options": [
+            {
+              "text": "A very little at a time",
+              "correct": true,
+              "consequence": "The tone steps down evenly."
+            },
+            {
+              "text": "A full brush load, then add more of the hue if it goes dark",
+              "consequence": "Black is very strong, so the mix goes too dark and you waste paint."
+            },
+            {
+              "text": "Mix it into the white first",
+              "consequence": "That makes a grey, not a shade of the hue."
+            }
+          ]
+        },
+        {
+          "id": "analog",
+          "afterStep": 4,
+          "prompt": "Which three hues would you use for the analogous version?",
+          "options": [
+            {
+              "text": "Blue, blue-green and green",
+              "correct": true,
+              "consequence": "They are neighbours on the wheel."
+            },
+            {
+              "text": "Red, blue and yellow",
+              "consequence": "Those are the primaries."
+            },
+            {
+              "text": "Blue and orange, plus a bit of red",
+              "consequence": "Those are not neighbours."
+            }
+          ]
+        },
+        {
+          "id": "compl",
+          "afterStep": 5,
+          "prompt": "Which pair do you use for the complementary version?",
+          "options": [
+            {
+              "text": "Yellow and violet",
+              "correct": true,
+              "consequence": "They sit directly opposite each other."
+            },
+            {
+              "text": "Yellow and yellow-green",
+              "consequence": "Those are neighbours."
+            },
+            {
+              "text": "Red and red-orange",
+              "consequence": "Those are neighbours."
+            }
+          ]
+        },
+        {
+          "id": "enough",
+          "afterStep": 3,
+          "prompt": "You have one large area to fill. How much paint do you mix?",
+          "options": [
+            {
+              "text": "Enough to finish the whole area",
+              "correct": true,
+              "consequence": "The tone stays even."
+            },
+            {
+              "text": "A little, and more when it runs out",
+              "consequence": "A second mix rarely matches."
+            },
+            {
+              "text": "A thin wash to save paint",
+              "consequence": "It dries patchy."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "mood",
+          "prompt": "Which version shows the strongest contrast and vibrancy?",
+          "options": [
+            {
+              "text": "Complementary",
+              "correct": true
+            },
+            {
+              "text": "Monochrome",
+              "why": "It is calm and unified."
+            },
+            {
+              "text": "Analogous",
+              "why": "It is harmonious."
+            },
+            {
+              "text": "All are the same",
+              "why": "Colour schemes differ in mood."
+            }
+          ]
+        },
+        {
+          "id": "tint",
+          "prompt": "You add white to a hue. What do you get?",
+          "options": [
+            {
+              "text": "A tint",
+              "correct": true
+            },
+            {
+              "text": "A shade",
+              "why": "Shades are made with black."
+            },
+            {
+              "text": "A complement",
+              "why": "That is an opposite hue."
+            },
+            {
+              "text": "A primary",
+              "why": "Primaries cannot be mixed."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "step",
+          "prompt": "A tonal strip is {l} mm long, with 7 equal steps. How wide is each step?",
+          "formula": "l / 7",
+          "vars": {
+            "l": {
+              "min": 140,
+              "max": 280,
+              "step": 70
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ 7 = {answer} mm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "scheme",
+          "scenario": "Oluchi's three versions were marked down. Here is what she did.",
+          "lines": [
+            {
+              "text": "She used unrelated hues in the analogous version.",
+              "fault": true,
+              "why": "Analogous hues must be neighbours."
+            },
+            {
+              "text": "She added black in large amounts.",
+              "fault": true,
+              "why": "Black is very strong. Add it gradually."
+            },
+            {
+              "text": "She used two hues in her monochrome version.",
+              "fault": true,
+              "why": "Monochrome means one hue with its tints and shades."
+            },
+            {
+              "text": "She traced the same motif three times.",
+              "why": "That makes the comparison fair."
+            },
+            {
+              "text": "She compared the mood of the three versions.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for mixing a tonal scale.",
+        "explainPrompt": "Explain the difference between a tint and a shade.",
+        "explainGuide": "A tint is a hue with white added, so it gets lighter. A shade is a hue with black added, so it gets darker.",
+        "explainKeywords": [
+          [
+            "tint"
+          ],
+          [
+            "white"
+          ],
+          [
+            "shade"
+          ],
+          [
+            "black"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "Colour schemes and tonal scales",
+        "Monochrome, analogous, complementary",
+        "Tints and shades"
+      ]
+    },
+    "pr-pdec-improvising-colours-from-local-sources": {
+      "safety": {
+        "correct": [
+          "Use a mortar kept only for pigments, not for food.",
+          "Wash your hands well after grinding, before you eat."
+        ],
+        "wrong": [
+          {
+            "text": "Grind the dry laterite with no mask, as it is only earth.",
+            "why": "Fine dust harms the lungs. Wear a dust mask."
+          },
+          {
+            "text": "Grind charcoal and pigment in the family pepper mortar.",
+            "why": "Pigment residue gets into food. Keep a separate one."
+          },
+          {
+            "text": "Handle indigo with bare hands so that you can feel the mix.",
+            "why": "Plant dyes stain skin. Wear gloves."
+          },
+          {
+            "text": "Blow the fine powder off the sieve.",
+            "why": "Dust goes into your eyes and lungs. Tap it gently."
+          },
+          {
+            "text": "Keep the raw egg binder for several days in the hot room.",
+            "why": "It rots and smells, and it can spread germs. Make it fresh and clean up."
+          },
+          {
+            "text": "Leave containers with no labels, as the colours are easy to see.",
+            "why": "Label each container so that nothing is mistaken for food."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rollers and tray",
+            "why": "This is small sample work with brushes."
+          },
+          {
+            "name": "Spray gun",
+            "why": "Home-made paints clog a spray gun."
+          },
+          {
+            "name": "Kerosene as binder",
+            "why": "It is a fire and fume risk, and it does not bind pigment."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes."
+          },
+          {
+            "name": "Palette knife",
+            "why": "Pigments are ground, not spread."
+          },
+          {
+            "name": "Sand as a pigment",
+            "why": "Sand gives grit rather than colour."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "grind",
+          "afterStep": 2,
+          "prompt": "Your camwood powder feels gritty. What do you do?",
+          "options": [
+            {
+              "text": "Grind it again and sieve it",
+              "correct": true,
+              "consequence": "It gives a smooth paint."
+            },
+            {
+              "text": "Use it as it is, because the grit gives texture and it will be less work too",
+              "consequence": "Coarse powder gives rough, uneven paint."
+            },
+            {
+              "text": "Add more water",
+              "consequence": "Water does not remove the grit."
+            }
+          ]
+        },
+        {
+          "id": "binder-low",
+          "afterStep": 3,
+          "prompt": "Your laterite paint dries and rubs off on your finger. What do you do?",
+          "options": [
+            {
+              "text": "Add more binder and test again",
+              "correct": true,
+              "consequence": "The colour no longer rubs off."
+            },
+            {
+              "text": "Add more pigment to it",
+              "consequence": "More powder gives less binder per particle, so it rubs off more."
+            },
+            {
+              "text": "Add more water",
+              "consequence": "Water does not hold pigment on the surface."
+            }
+          ]
+        },
+        {
+          "id": "binder-high",
+          "afterStep": 3,
+          "prompt": "A new mix dries glossy, then begins to crack. What is wrong?",
+          "options": [
+            {
+              "text": "There is too much binder",
+              "correct": true,
+              "consequence": "Reduce the binder for a sound paint."
+            },
+            {
+              "text": "There is too little binder",
+              "consequence": "Too little binder gives a powdery surface."
+            },
+            {
+              "text": "The pigment was ground too finely",
+              "consequence": "Fine grinding gives smooth paint."
+            }
+          ]
+        },
+        {
+          "id": "test",
+          "afterStep": 4,
+          "prompt": "You have made five colours. Where do you test them?",
+          "options": [
+            {
+              "text": "On paper and on a plastered sample",
+              "correct": true,
+              "consequence": "You learn how each one behaves on both surfaces."
+            },
+            {
+              "text": "Only on the back of your hand",
+              "consequence": "This does not test the paint on a real surface."
+            },
+            {
+              "text": "In the container",
+              "consequence": "You cannot see how it dries."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "sources",
+          "prompt": "Which local material gives white?",
+          "options": [
+            {
+              "text": "Kaolin",
+              "correct": true
+            },
+            {
+              "text": "Charcoal",
+              "why": "Charcoal gives black."
+            },
+            {
+              "text": "Camwood",
+              "why": "Camwood gives reddish-brown."
+            },
+            {
+              "text": "Indigo",
+              "why": "Indigo gives blue."
+            }
+          ]
+        },
+        {
+          "id": "laterite",
+          "prompt": "What colour does laterite give?",
+          "options": [
+            {
+              "text": "Earth red or ochre",
+              "correct": true
+            },
+            {
+              "text": "Blue",
+              "why": "That is indigo."
+            },
+            {
+              "text": "White",
+              "why": "That is kaolin."
+            },
+            {
+              "text": "Black",
+              "why": "That is charcoal."
+            }
+          ]
+        },
+        {
+          "id": "binder-role",
+          "prompt": "Your well-bound paint no longer rubs off. What is the binder doing?",
+          "options": [
+            {
+              "text": "Holding pigment together and to the surface",
+              "correct": true
+            },
+            {
+              "text": "Giving the paint its colour and brightness",
+              "why": "The pigment gives colour."
+            },
+            {
+              "text": "Thinning the paint so that it spreads",
+              "why": "Water does that."
+            },
+            {
+              "text": "Making it dry instantly",
+              "why": "It does not."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "binder",
+          "prompt": "You use 3 parts pigment to 2 parts binder. How many grams of binder go with {p} g of pigment?",
+          "formula": "p * 2 / 3",
+          "vars": {
+            "p": {
+              "min": 30,
+              "max": 90,
+              "step": 15
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{p} × 2 ÷ 3 = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "rub-off",
+          "scenario": "Sani's local paints rubbed off, and he could not tell which was which. Here is what he did.",
+          "lines": [
+            {
+              "text": "He added too little binder.",
+              "fault": true,
+              "why": "Too little binder leaves a powdery paint."
+            },
+            {
+              "text": "He did not label his containers.",
+              "fault": true,
+              "why": "Each one must be labelled."
+            },
+            {
+              "text": "He left the powder coarse.",
+              "fault": true,
+              "why": "Fine grinding gives smooth paint."
+            },
+            {
+              "text": "He wore a dust mask when grinding.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He tested the colours on a plastered sample.",
+              "why": "That is step 4."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing paint from local materials.",
+        "explainPrompt": "What does a binder do in paint?",
+        "explainGuide": "A binder holds the pigment particles together and fixes them to the surface. Without enough of it, the colour rubs off.",
+        "explainKeywords": [
+          [
+            "binder",
+            "gum",
+            "egg"
+          ],
+          [
+            "hold",
+            "stick",
+            "fix"
+          ],
+          [
+            "pigment",
+            "particle"
+          ],
+          [
+            "rub",
+            "surface"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Colours from local sources",
+        "Camwood, laterite, charcoal, kaolin, indigo",
+        "Pigment + binder + water"
+      ]
+    },
+    "pr-pdec-still-life-painting-from-observation": {
+      "safety": {
+        "correct": [
+          "Check that the easel legs are locked before you start.",
+          "Keep the walkway around the group clear of bags."
+        ],
+        "wrong": [
+          {
+            "text": "Stack the yam on top of the calabash on the desk edge.",
+            "why": "It may fall and break. Arrange objects securely."
+          },
+          {
+            "text": "Stand on a chair to fix the drape.",
+            "why": "You may fall. Ask for a step or help."
+          },
+          {
+            "text": "Leave your palette on the floor beside the easel.",
+            "why": "People can slip on it. Keep it on a table."
+          },
+          {
+            "text": "Eat the fruit from the group while you work.",
+            "why": "It is a painting object, and your hands have paint on them."
+          },
+          {
+            "text": "Run the lamp lead across the walkway.",
+            "why": "Someone can trip on it. Keep leads clear, and ask your teacher."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Roller and tray",
+            "why": "This is fine observational work."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for wall finishes."
+          },
+          {
+            "name": "Masking tape for hard edges",
+            "why": "Soft forms do not need taped edges."
+          },
+          {
+            "name": "T-square",
+            "why": "Forms are judged by eye and pencil measure."
+          },
+          {
+            "name": "Sponge for mottling",
+            "why": "A mottled surface would hide the form."
+          },
+          {
+            "name": "Photograph of a still life",
+            "why": "The job is painted from direct observation."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "light",
+          "afterStep": 1,
+          "prompt": "The window light and a side lamp both fall on the group. What do you do?",
+          "options": [
+            {
+              "text": "Use one light source",
+              "correct": true,
+              "consequence": "Shadows fall one way, so the forms look solid."
+            },
+            {
+              "text": "Keep them both, since more light shows more detail and is better for the eyes",
+              "consequence": "Two lights give confusing shadows, and the light direction is not consistent."
+            },
+            {
+              "text": "Turn off all the lights",
+              "consequence": "You cannot see the forms."
+            }
+          ]
+        },
+        {
+          "id": "fixed",
+          "afterStep": 3,
+          "prompt": "You step to the right to speak with a friend, then return to measure. What do you do?",
+          "options": [
+            {
+              "text": "Go back to the same viewing position",
+              "correct": true,
+              "consequence": "The measurements stay consistent."
+            },
+            {
+              "text": "Measure from wherever you are now standing",
+              "consequence": "The view changes, so the proportions are wrong."
+            },
+            {
+              "text": "Stop measuring and judge it by memory",
+              "consequence": "Proportions drift."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 4,
+          "prompt": "You are eager to paint the fine pattern on the calabash. What do you do?",
+          "options": [
+            {
+              "text": "Block in large areas first, details last",
+              "correct": true,
+              "consequence": "You work from general to particular."
+            },
+            {
+              "text": "Paint that pattern now, before anything else on the board",
+              "consequence": "Details on unblocked shapes are lost."
+            },
+            {
+              "text": "Paint in a black outline first",
+              "consequence": "Heavy black outlines flatten forms."
+            }
+          ]
+        },
+        {
+          "id": "light-move",
+          "afterStep": 5,
+          "prompt": "The afternoon sun has moved, and your shadows no longer match. What do you do?",
+          "options": [
+            {
+              "text": "Keep to the light direction you started with",
+              "correct": true,
+              "consequence": "Consistent light keeps the picture sound."
+            },
+            {
+              "text": "Change the shadows on some of the objects",
+              "consequence": "Mixed light directions look false."
+            },
+            {
+              "text": "Add a shadow on each side of every object",
+              "consequence": "Cast shadows fall one way."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "solid",
+          "prompt": "Which sign shows that your forms are working?",
+          "options": [
+            {
+              "text": "Objects look solid with one light direction",
+              "correct": true
+            },
+            {
+              "text": "Each object has a strong black outline",
+              "why": "Heavy outlines flatten the forms."
+            },
+            {
+              "text": "Shadows fall in different directions",
+              "why": "The light direction must be consistent."
+            },
+            {
+              "text": "Every object is painted one flat colour",
+              "why": "Forms need light, mid and dark tones."
+            }
+          ]
+        },
+        {
+          "id": "view",
+          "prompt": "What does the viewfinder help you do?",
+          "options": [
+            {
+              "text": "Select a good composition",
+              "correct": true
+            },
+            {
+              "text": "Mix your colours",
+              "why": "It is a framing tool."
+            },
+            {
+              "text": "Stretch the paper",
+              "why": "It is a framing tool."
+            },
+            {
+              "text": "Varnish your work",
+              "why": "It is a framing tool."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sight",
+          "prompt": "A pot measures 3 pencil units high and a calabash 2 units. You draw the pot {p} cm high. How high is the calabash on the page?",
+          "formula": "p * 2 / 3",
+          "vars": {
+            "p": {
+              "min": 12,
+              "max": 24,
+              "step": 3
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "{p} × 2 ÷ 3 = {answer} cm."
+        },
+        {
+          "id": "ratio",
+          "prompt": "A jar measures {a} pencil units, and a yam {b} units. If you draw the jar {p} cm high, how high is the yam?",
+          "formula": "p * b / a",
+          "vars": {
+            "a": {
+              "min": 4,
+              "max": 4,
+              "step": 1
+            },
+            "b": {
+              "min": 2,
+              "max": 3,
+              "step": 1
+            },
+            "p": {
+              "min": 12,
+              "max": 20,
+              "step": 4
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "{p} × {b} ÷ {a} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "flat",
+          "scenario": "Amaka's still life looked flat and uneven. Here is what she did.",
+          "lines": [
+            {
+              "text": "She outlined each object heavily in black.",
+              "fault": true,
+              "why": "This flattens the forms."
+            },
+            {
+              "text": "She moved round as she measured.",
+              "fault": true,
+              "why": "Keep the viewing position fixed."
+            },
+            {
+              "text": "She started with details, before blocking in.",
+              "fault": true,
+              "why": "Work from general to particular."
+            },
+            {
+              "text": "She used a viewfinder.",
+              "why": "That is step 2."
+            },
+            {
+              "text": "She signed and titled the work.",
+              "why": "That is step 7."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for painting from observation.",
+        "explainPrompt": "Why should you work from general to particular in a still life?",
+        "explainGuide": "Blocking in large shapes first sets the composition, proportion and tones. Details added last sit on sound forms. Early detail is often lost or wrong.",
+        "explainKeywords": [
+          [
+            "large",
+            "block",
+            "general"
+          ],
+          [
+            "composition",
+            "proportion",
+            "tone"
+          ],
+          [
+            "detail"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Still life from observation",
+        "One light source",
+        "Large areas first, details last"
+      ]
+    },
+    "pr-pdec-pictorial-techniques-wet-dry-glazing-and-impasto": {
+      "safety": {
+        "correct": [
+          "Wipe the palette knife away from your fingers.",
+          "Wash your hands after using egg yolk."
+        ],
+        "wrong": [
+          {
+            "text": "Clean the palette knife by pulling it quickly through your closed hand.",
+            "why": "Its edges can cut. Wipe it gently with a cloth."
+          },
+          {
+            "text": "Leave egg tempera out on the palette overnight, to use tomorrow.",
+            "why": "Egg goes bad. Mix it fresh and throw away what is left."
+          },
+          {
+            "text": "Lick the brush for a fine hatched stroke.",
+            "why": "Paint and raw egg must not go in your mouth."
+          },
+          {
+            "text": "Taste the egg tempera to check that it is fresh.",
+            "why": "Raw egg and pigment are not safe to swallow."
+          },
+          {
+            "text": "Leave wet boards on the floor between the desks.",
+            "why": "People can slip. Put them on a rack."
+          },
+          {
+            "text": "Wash paint from the palette into the drinking water basin.",
+            "why": "Paint contaminates the water. Use the studio sink."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Roller and tray",
+            "why": "Sample panels are too small for a roller."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze wall finishes."
+          },
+          {
+            "name": "Masking fluid",
+            "why": "No area is masked out in these samples."
+          },
+          {
+            "name": "Hair dryer",
+            "why": "You do not need one. Glazes should dry naturally."
+          },
+          {
+            "name": "Kerosene",
+            "why": "It is not a medium for acrylic, and it is a fire risk."
+          },
+          {
+            "name": "Spray gun",
+            "why": "Each sample is applied by hand."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "dry-brush",
+          "afterStep": 2,
+          "prompt": "You want broken texture. How do you load the stiff brush?",
+          "options": [
+            {
+              "text": "With very little paint, then drag it",
+              "correct": true,
+              "consequence": "The paper grain shows through as broken texture."
+            },
+            {
+              "text": "With plenty of wet paint, as a fully loaded brush always covers the surface best",
+              "consequence": "The surface fills in, with no broken effect."
+            },
+            {
+              "text": "With water only",
+              "consequence": "Water alone leaves no mark."
+            }
+          ]
+        },
+        {
+          "id": "glaze-wait",
+          "afterStep": 3,
+          "prompt": "The first glaze is still tacky. Do you add the next layer?",
+          "options": [
+            {
+              "text": "No: let it dry fully first",
+              "correct": true,
+              "consequence": "Each layer stays clear and luminous."
+            },
+            {
+              "text": "Yes: add it while tacky so that they blend well",
+              "consequence": "Lower layers lift, and the colour goes muddy."
+            },
+            {
+              "text": "Yes, with thicker paint",
+              "consequence": "Thick paint hides the layer below."
+            }
+          ]
+        },
+        {
+          "id": "glaze-opaque",
+          "afterStep": 3,
+          "prompt": "Which paint do you use for a glaze?",
+          "options": [
+            {
+              "text": "Thin, transparent colour in medium",
+              "correct": true,
+              "consequence": "The underlayer shows through and looks deep."
+            },
+            {
+              "text": "Opaque poster colour straight from the jar",
+              "consequence": "Opaque paint hides the underlayer."
+            },
+            {
+              "text": "White paint on its own",
+              "consequence": "White is opaque, so it covers."
+            }
+          ]
+        },
+        {
+          "id": "impasto",
+          "afterStep": 4,
+          "prompt": "Which tool gives a raised impasto surface?",
+          "options": [
+            {
+              "text": "The palette knife",
+              "correct": true,
+              "consequence": "Thick paint stands up in ridges."
+            },
+            {
+              "text": "A soft round brush with thin paint",
+              "consequence": "Thin paint leaves no raised texture."
+            },
+            {
+              "text": "A wet sponge",
+              "consequence": "It spreads paint thinly."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "wet",
+          "prompt": "Colour dropped on wet paper gives",
+          "options": [
+            {
+              "text": "Soft blended edges",
+              "correct": true
+            },
+            {
+              "text": "Hard, raised ridges",
+              "why": "That is impasto."
+            },
+            {
+              "text": "A broken, dry texture",
+              "why": "That is dry brush."
+            },
+            {
+              "text": "Small hatched strokes",
+              "why": "That is tempera."
+            }
+          ]
+        },
+        {
+          "id": "glaze",
+          "prompt": "Thin transparent layers over a dry underlayer give",
+          "options": [
+            {
+              "text": "Luminous depth",
+              "correct": true
+            },
+            {
+              "text": "A raised surface",
+              "why": "That is impasto."
+            },
+            {
+              "text": "A broken surface",
+              "why": "That is dry brush."
+            },
+            {
+              "text": "A smooth, flat poster colour",
+              "why": "That is not what a glaze gives."
+            }
+          ]
+        },
+        {
+          "id": "fresco",
+          "prompt": "Fresco is painted on",
+          "options": [
+            {
+              "text": "Wet lime plaster",
+              "correct": true
+            },
+            {
+              "text": "Dry canvas",
+              "why": "Fresco uses wet plaster."
+            },
+            {
+              "text": "Glass",
+              "why": "It does not use glass."
+            },
+            {
+              "text": "Hardboard",
+              "why": "It does not use board."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "medium",
+          "prompt": "You mix 1 part colour to 4 parts medium. How many mL of medium go with {c} mL of colour?",
+          "formula": "4 * c",
+          "vars": {
+            "c": {
+              "min": 5,
+              "max": 15,
+              "step": 5
+            }
+          },
+          "unit": "mL",
+          "unitAliases": [
+            "ml",
+            "millilitres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "4 × {c} = {answer} mL."
+        },
+        {
+          "id": "pct",
+          "prompt": "A glaze has {c} mL of colour in {t} mL of mix. What percentage is colour?",
+          "formula": "c / t * 100",
+          "vars": {
+            "c": {
+              "min": 5,
+              "max": 10,
+              "step": 5
+            },
+            "t": {
+              "min": 25,
+              "max": 50,
+              "step": 25
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {t} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "samples",
+          "scenario": "Chinedu's samples all looked alike. Here is what he did.",
+          "lines": [
+            {
+              "text": "He used opaque poster paint for the glaze.",
+              "fault": true,
+              "why": "Glazes must be transparent."
+            },
+            {
+              "text": "He added the second glaze while the first was wet.",
+              "fault": true,
+              "why": "Let each layer dry fully."
+            },
+            {
+              "text": "He did not label his samples.",
+              "fault": true,
+              "why": "Label each one and note its use."
+            },
+            {
+              "text": "He used a palette knife for impasto.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He mixed pigment with egg yolk for tempera.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for painting a glaze.",
+        "explainPrompt": "Why must each glaze layer dry before the next is applied?",
+        "explainGuide": "A wet layer lifts and mixes with the new layer, so the colour goes muddy. A dry layer stays in place, and thin transparent colour over it gives luminous depth.",
+        "explainKeywords": [
+          [
+            "dry"
+          ],
+          [
+            "lift",
+            "mix",
+            "mud"
+          ],
+          [
+            "transparent",
+            "luminous",
+            "depth",
+            "clear"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Pictorial techniques",
+        "Wet, dry brush, glazing, impasto",
+        "Label each sample"
+      ]
+    },
+    "pr-pdec-decorative-finishes-flat-painting-rag-rolling-and-combing": {
+      "safety": {
+        "correct": [
+          "Wear a dust mask when sanding.",
+          "Keep solvents and glaze away from any flame."
+        ],
+        "wrong": [
+          {
+            "text": "Crumple oily rags into a bag and leave them in the store.",
+            "why": "They can heat up and catch fire. Lay them flat to dry."
+          },
+          {
+            "text": "Use solvent-based glaze in a closed room to keep the dust off.",
+            "why": "Fumes build up. Open the room up well."
+          },
+          {
+            "text": "Sand the board without a mask, as it only takes a minute.",
+            "why": "Dust harms the lungs."
+          },
+          {
+            "text": "Smoke or light a stove near the solvent glaze.",
+            "why": "Solvent vapour catches fire."
+          },
+          {
+            "text": "Clean your hands in solvent after working.",
+            "why": "Solvents harm skin. Use soap and water, or as your teacher directs."
+          },
+          {
+            "text": "Leave the paint tray on the floor where people walk.",
+            "why": "People can slip. Keep it on a table."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Palette knife",
+            "why": "It is for impasto."
+          },
+          {
+            "name": "Fine sable brush",
+            "why": "Boards are 60 cm across, so a fine brush is far too small."
+          },
+          {
+            "name": "Stencil paper",
+            "why": "These finishes are not stencilled."
+          },
+          {
+            "name": "Compasses",
+            "why": "Nothing here is drawn."
+          },
+          {
+            "name": "Clear water only, as glaze",
+            "why": "Water will not hold the pattern."
+          },
+          {
+            "name": "Set of oil pastels",
+            "why": "This is a paint finish."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "prep",
+          "afterStep": 1,
+          "prompt": "Your board is rough. Do you paint straight away?",
+          "options": [
+            {
+              "text": "Sand and prime it first",
+              "correct": true,
+              "consequence": "The base coats go on smooth."
+            },
+            {
+              "text": "Paint it now, since the base coat will fill all the rough spots",
+              "consequence": "Roughness shows through the finish."
+            },
+            {
+              "text": "Cover it with the glaze only",
+              "consequence": "Glaze does not hide a rough board."
+            }
+          ]
+        },
+        {
+          "id": "base-dry",
+          "afterStep": 2,
+          "prompt": "You have put on the first base coat. What is next?",
+          "options": [
+            {
+              "text": "Let it dry, then apply the second",
+              "correct": true,
+              "consequence": "The base is even and firm."
+            },
+            {
+              "text": "Add the second coat at once to save time",
+              "consequence": "The wet coat lifts, and it stays soft."
+            },
+            {
+              "text": "Move straight on to the glaze",
+              "consequence": "One coat gives a poor base."
+            }
+          ]
+        },
+        {
+          "id": "section",
+          "afterStep": 3,
+          "prompt": "The glaze is drying quickly in the heat. What do you do?",
+          "options": [
+            {
+              "text": "Work in small sections while it is wet",
+              "correct": true,
+              "consequence": "The pattern stays even."
+            },
+            {
+              "text": "Spread glaze on the whole board and rush it",
+              "consequence": "It dries before you finish."
+            },
+            {
+              "text": "Stop and leave it for tomorrow",
+              "consequence": "Dry glaze cannot be worked."
+            }
+          ]
+        },
+        {
+          "id": "wet-edge",
+          "afterStep": 3,
+          "prompt": "You stop halfway across a section and a line appears. What should you have done?",
+          "options": [
+            {
+              "text": "Kept a wet edge",
+              "correct": true,
+              "consequence": "Each new band joins in with no lap marks."
+            },
+            {
+              "text": "Pressed harder as you returned to the edge",
+              "consequence": "Pressure gives patchy patterns."
+            },
+            {
+              "text": "Added more glaze on the dry part later",
+              "consequence": "This creates a lap mark."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "rag",
+          "prompt": "Which finish looks like crushed fabric?",
+          "options": [
+            {
+              "text": "Rag rolling",
+              "correct": true
+            },
+            {
+              "text": "Combing",
+              "why": "It gives lines."
+            },
+            {
+              "text": "Sponging",
+              "why": "It gives a mottled look."
+            },
+            {
+              "text": "Flat painting",
+              "why": "It gives one even colour."
+            }
+          ]
+        },
+        {
+          "id": "sponge",
+          "prompt": "What does sponging give?",
+          "options": [
+            {
+              "text": "A mottled look",
+              "correct": true
+            },
+            {
+              "text": "Straight lines",
+              "why": "That is combing."
+            },
+            {
+              "text": "A crushed fabric look",
+              "why": "That is rag rolling."
+            },
+            {
+              "text": "One smooth colour",
+              "why": "That is flat painting."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "area",
+          "prompt": "A room is {l} m by {w} m and 3 m high. There is a 2 m² door and a 1.5 m² window. What is the wall area to paint?",
+          "formula": "2 * (l + w) * 3 - 3.5",
+          "vars": {
+            "l": {
+              "min": 3,
+              "max": 5,
+              "step": 1
+            },
+            "w": {
+              "min": 3,
+              "max": 4,
+              "step": 0.5
+            }
+          },
+          "unit": "m²",
+          "unitAliases": [
+            "m2",
+            "square metres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "2 × ({l} + {w}) × 3 = gross area. Take away 3.5 to get {answer} m²."
+        },
+        {
+          "id": "paint",
+          "prompt": "You will paint {a} m² with two coats at 10 m² per litre. How much emulsion do you need?",
+          "formula": "a * 2 / 10",
+          "vars": {
+            "a": {
+              "min": 30,
+              "max": 50,
+              "step": 5
+            }
+          },
+          "unit": "L",
+          "unitAliases": [
+            "litres",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{a} × 2 ÷ 10 = {answer} L."
+        }
+      ],
+      "faults": [
+        {
+          "id": "patchy",
+          "scenario": "Bukola's sample boards came out patchy, and a rag in her bin got hot. Here is what she did.",
+          "lines": [
+            {
+              "text": "She pressed unevenly on the rag.",
+              "fault": true,
+              "why": "Uneven pressure gives patchy patterns."
+            },
+            {
+              "text": "She let the glaze dry at the edges of each section.",
+              "fault": true,
+              "why": "Keep a wet edge."
+            },
+            {
+              "text": "She packed oily rags tightly into a bin.",
+              "fault": true,
+              "why": "Oily rags are a fire risk. Lay them flat to dry."
+            },
+            {
+              "text": "She sanded and primed the boards.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "She applied two flat base coats.",
+              "why": "That is step 2."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for applying a glaze finish.",
+        "explainPrompt": "Why must oily or solvent rags be laid flat to dry rather than packed in a bin?",
+        "explainGuide": "Packed rags can trap heat as they dry, and they can catch fire by themselves. Spread flat, they lose heat to the air.",
+        "explainKeywords": [
+          [
+            "heat"
+          ],
+          [
+            "fire",
+            "ignite",
+            "burn"
+          ],
+          [
+            "flat",
+            "spread",
+            "air"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Decorative finishes",
+        "Flat, rag rolling, combing, sponging",
+        "Keep a wet edge"
+      ]
+    },
+    "pr-pdec-designing-a-mosaic-panel": {
+      "safety": {
+        "correct": [
+          "Cut tile inside a cloth or bag so that chips cannot fly.",
+          "Keep your bare fingers away from the broken edges."
+        ],
+        "wrong": [
+          {
+            "text": "Nip glass with no goggles, since each cut is so small.",
+            "why": "Chips fly. Wear goggles and gloves."
+          },
+          {
+            "text": "Brush fragments off the bench with your bare hand.",
+            "why": "Slivers cut your hand. Use a brush and dustpan."
+          },
+          {
+            "text": "Leave glass pieces on the floor to sweep at the end.",
+            "why": "Someone can tread on them. Sweep up as you go."
+          },
+          {
+            "text": "Hold the tile against your chest while nipping it.",
+            "why": "The chips and the nippers can hurt you. Work on the bench."
+          },
+          {
+            "text": "Wash grout down the sink.",
+            "why": "It sets in the pipes. Wipe it into a bucket and let it settle."
+          },
+          {
+            "text": "Mix tile adhesive with bare hands.",
+            "why": "It can irritate the skin. Use the spatula and gloves."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Roller and tray",
+            "why": "Tesserae are glued piece by piece."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes."
+          },
+          {
+            "name": "Hacksaw",
+            "why": "Tiles are cut with nippers."
+          },
+          {
+            "name": "Oil paint",
+            "why": "Mosaic colour comes from the pieces."
+          },
+          {
+            "name": "Emulsion as an adhesive",
+            "why": "Emulsion will not hold pieces. Use PVA or tile adhesive."
+          },
+          {
+            "name": "Canvas stretcher",
+            "why": "The panel is laid on stiff plywood."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "detail",
+          "afterStep": 1,
+          "prompt": "Your design has tiny faces, but your tesserae are 1.5 cm square. What do you do?",
+          "options": [
+            {
+              "text": "Simplify it to bold shapes that the pieces can show",
+              "correct": true,
+              "consequence": "The design reads clearly from a distance."
+            },
+            {
+              "text": "Keep every detail, and just cut each of the pieces very much smaller",
+              "consequence": "Too much detail for the size of the pieces makes the design unreadable."
+            },
+            {
+              "text": "Paint the small details on to the pieces",
+              "consequence": "The panel is no longer a true mosaic, and the paint wears off."
+            }
+          ]
+        },
+        {
+          "id": "outline",
+          "afterStep": 3,
+          "prompt": "You have sorted your tesserae. Where do you start gluing?",
+          "options": [
+            {
+              "text": "Along the outlines",
+              "correct": true,
+              "consequence": "The pieces follow the shapes, which makes the design clear."
+            },
+            {
+              "text": "In the middle of the background",
+              "consequence": "The outlines end up with awkward gaps."
+            },
+            {
+              "text": "In the corners of the board, working inwards",
+              "consequence": "The main shapes then get the leftovers."
+            }
+          ]
+        },
+        {
+          "id": "gap",
+          "afterStep": 3,
+          "prompt": "Some of your gaps are wide and some are very tight. What do you do?",
+          "options": [
+            {
+              "text": "Reset the pieces so that the gaps match",
+              "correct": true,
+              "consequence": "Even gaps look neat, and the grout fills them evenly."
+            },
+            {
+              "text": "Leave them, as the grout will hide all this later on",
+              "consequence": "Uneven gaps still show after grouting."
+            },
+            {
+              "text": "Fill the wide gaps with glue",
+              "consequence": "Glue shows, and it dries shiny."
+            }
+          ]
+        },
+        {
+          "id": "grout-wipe",
+          "afterStep": 5,
+          "prompt": "You have grouted a tile mosaic. What do you do next?",
+          "options": [
+            {
+              "text": "Wipe the surface clean with the sponge",
+              "correct": true,
+              "consequence": "The tile colours show clearly."
+            },
+            {
+              "text": "Leave the grout haze, as it protects the tiles",
+              "consequence": "Dried haze dulls the colours."
+            },
+            {
+              "text": "Add a second layer over the tiles",
+              "consequence": "That hides the design."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "reads",
+          "prompt": "Which result shows a good mosaic?",
+          "options": [
+            {
+              "text": "The design reads from a distance, with even gaps",
+              "correct": true
+            },
+            {
+              "text": "Fine detail can only be seen close up",
+              "why": "It should read clearly from a distance."
+            },
+            {
+              "text": "Pieces stand at different heights",
+              "why": "Pieces should lie flat."
+            },
+            {
+              "text": "No gaps are left between pieces",
+              "why": "Small even gaps are needed."
+            }
+          ]
+        },
+        {
+          "id": "grout",
+          "prompt": "What fills the gaps in a tile mosaic?",
+          "options": [
+            {
+              "text": "Grout",
+              "correct": true
+            },
+            {
+              "text": "Varnish",
+              "why": "Varnish seals surfaces."
+            },
+            {
+              "text": "Emulsion",
+              "why": "That is wall paint."
+            },
+            {
+              "text": "Glaze",
+              "why": "Glaze is for ceramics or paint effects."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "area",
+          "prompt": "A panel is {w} cm by {w} cm. What is its area?",
+          "formula": "w * w",
+          "vars": {
+            "w": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "cm²",
+          "unitAliases": [
+            "cm2"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} × {w} = {answer} cm²."
+        },
+        {
+          "id": "pieces",
+          "prompt": "A panel of {a} cm² is covered with pieces that take up 4 cm² each. About how many pieces do you need?",
+          "formula": "a / 4",
+          "vars": {
+            "a": {
+              "min": 400,
+              "max": 1000,
+              "step": 200
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} ÷ 4 = {answer} pieces."
+        },
+        {
+          "id": "cover",
+          "prompt": "A tessera is {s} cm square, with a 0.2 cm gap. What area does each piece take up?",
+          "formula": "(s + 0.2) * (s + 0.2)",
+          "vars": {
+            "s": {
+              "min": 1.3,
+              "max": 1.8,
+              "step": 0.1
+            }
+          },
+          "unit": "cm²",
+          "unitAliases": [
+            "cm2"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "({s} + 0.2) × ({s} + 0.2) = {answer} cm²."
+        }
+      ],
+      "faults": [
+        {
+          "id": "panel",
+          "scenario": "Dele's panel looks muddled, and pieces are coming off. Here is what he did.",
+          "lines": [
+            {
+              "text": "He put in too much detail for his tesserae.",
+              "fault": true,
+              "why": "Keep to bold shapes."
+            },
+            {
+              "text": "He stuck the pieces on with weak, watery glue.",
+              "fault": true,
+              "why": "Use a strong adhesive."
+            },
+            {
+              "text": "He placed the gaps anyhow.",
+              "fault": true,
+              "why": "Keep gaps uniform."
+            },
+            {
+              "text": "He sorted the tesserae by colour.",
+              "why": "That is step 2."
+            },
+            {
+              "text": "He transferred the design to the board.",
+              "why": "That is step 1."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a neat mosaic panel.",
+        "explainPrompt": "Why should a mosaic design use bold, simple shapes?",
+        "explainGuide": "Tesserae are fairly large and cannot show fine detail. Bold shapes are built up clearly by the pieces, so the design reads from a distance.",
+        "explainKeywords": [
+          [
+            "bold",
+            "simple"
+          ],
+          [
+            "tesser",
+            "piece"
+          ],
+          [
+            "detail"
+          ],
+          [
+            "distance",
+            "clear"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Designing a mosaic panel",
+        "Outlines first, then the background",
+        "Keep the gaps even"
+      ]
+    },
+    "pr-pdec-enlarging-a-design-for-a-wall-mural": {
+      "safety": {
+        "correct": [
+          "Have a partner steady the ladder while you work.",
+          "Keep paint tins off the top step of the ladder or trestle."
+        ],
+        "wrong": [
+          {
+            "text": "Lean far out from the ladder to save moving it.",
+            "why": "You can fall. Come down and move it."
+          },
+          {
+            "text": "Stand on a stack of chairs to reach the top of the wall.",
+            "why": "It will topple. Use a stable trestle."
+          },
+          {
+            "text": "Paint without covering the floor, as it is only a few drops.",
+            "why": "Paint on the floor makes it slippery and spoils the room."
+          },
+          {
+            "text": "Stand on the very top step of the ladder.",
+            "why": "It is unstable. Stay below the top."
+          },
+          {
+            "text": "Leave brushes on the trestle at head height.",
+            "why": "They can fall on someone. Keep them in a tray."
+          },
+          {
+            "text": "Set the ladder on a loose plank to gain height.",
+            "why": "It can slide. Stand it on firm, level ground."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Palette knife",
+            "why": "Murals this size are brushed and rolled."
+          },
+          {
+            "name": "Tile nippers",
+            "why": "Nothing is cut."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes."
+          },
+          {
+            "name": "Hard pencil for the wall grid",
+            "why": "A chalk line marks a wall grid more quickly and truly."
+          },
+          {
+            "name": "Tracing paper the size of the wall",
+            "why": "The grid method does this job."
+          },
+          {
+            "name": "Protractor",
+            "why": "A spirit level and T-square keep the grid true."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "factor",
+          "afterStep": 4,
+          "prompt": "A 30 × 20 cm design goes on a wall space 1.5 m wide. Which scale factor do you use?",
+          "options": [
+            {
+              "text": "5, in both directions",
+              "correct": true,
+              "consequence": "The proportions are unchanged."
+            },
+            {
+              "text": "5 across, and whatever height fits the wall",
+              "consequence": "Different factors distort the design."
+            },
+            {
+              "text": "3 in both directions",
+              "consequence": "That design would fill only 90 cm of the wall."
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "afterStep": 4,
+          "prompt": "You have snapped your first chalk line. How do you check it?",
+          "options": [
+            {
+              "text": "With the spirit level",
+              "correct": true,
+              "consequence": "The grid is level and square, so everything built on it is true."
+            },
+            {
+              "text": "By eye from across the room",
+              "consequence": "A small slope grows across a wall."
+            },
+            {
+              "text": "Against the top of the door frame",
+              "consequence": "Door frames are not always level."
+            }
+          ]
+        },
+        {
+          "id": "transfer",
+          "afterStep": 5,
+          "prompt": "How do you move the design on to the wall?",
+          "options": [
+            {
+              "text": "Square by square",
+              "correct": true,
+              "consequence": "Each square keeps its proportions, which makes it accurate."
+            },
+            {
+              "text": "Copy the whole shape at once from a distance",
+              "consequence": "Proportions slip without the grid."
+            },
+            {
+              "text": "Project it by guessing the middle first",
+              "consequence": "Guesses lead to errors."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 6,
+          "prompt": "The grid is on the wall. What do you paint first?",
+          "options": [
+            {
+              "text": "Background areas",
+              "correct": true,
+              "consequence": "Motifs and details go on clean over the top."
+            },
+            {
+              "text": "Fine details",
+              "consequence": "The background then has to be cut in around them."
+            },
+            {
+              "text": "The clear coat",
+              "consequence": "It is the last stage, if the mural is exterior."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "good",
+          "prompt": "Which result shows a good enlargement?",
+          "options": [
+            {
+              "text": "The wall image keeps the design's proportions",
+              "correct": true
+            },
+            {
+              "text": "The motifs have been stretched sideways",
+              "why": "That comes from different scale factors."
+            },
+            {
+              "text": "The lines bend where the wall is uneven",
+              "why": "That is a source of error."
+            },
+            {
+              "text": "Motifs are larger only in the middle",
+              "why": "The whole design is scaled equally."
+            }
+          ]
+        },
+        {
+          "id": "uli",
+          "prompt": "Uli is a traditional",
+          "options": [
+            {
+              "text": "Igbo body and wall decoration art",
+              "correct": true
+            },
+            {
+              "text": "Hausa embroidery form",
+              "why": "Uli is Igbo."
+            },
+            {
+              "text": "Yoruba drum",
+              "why": "It is not an instrument."
+            },
+            {
+              "text": "Type of brush",
+              "why": "It is a form of art."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sf",
+          "prompt": "A design {d} cm wide is enlarged to {w} cm wide. What is the scale factor?",
+          "formula": "w / d",
+          "vars": {
+            "d": {
+              "min": 20,
+              "max": 40,
+              "step": 20
+            },
+            "w": {
+              "min": 200,
+              "max": 200,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} ÷ {d} = {answer}."
+        },
+        {
+          "id": "grid",
+          "prompt": "A {g} cm grid on the design is enlarged by a scale factor of {s}. What is the grid size on the wall?",
+          "formula": "g * s",
+          "vars": {
+            "g": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            },
+            "s": {
+              "min": 4,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{g} × {s} = {answer} cm."
+        },
+        {
+          "id": "squares",
+          "prompt": "A wall image is {w} cm wide with a {g} cm grid. How many squares go across?",
+          "formula": "w / g",
+          "vars": {
+            "w": {
+              "min": 120,
+              "max": 240,
+              "step": 60
+            },
+            "g": {
+              "min": 10,
+              "max": 20,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} ÷ {g} = {answer} squares."
+        }
+      ],
+      "faults": [
+        {
+          "id": "mural",
+          "scenario": "Tolu's mural looks stretched, and it slopes at one end. Here is what he did.",
+          "lines": [
+            {
+              "text": "He used a larger scale factor across than down.",
+              "fault": true,
+              "why": "Use one factor in both directions."
+            },
+            {
+              "text": "He did not check his grid with a level.",
+              "fault": true,
+              "why": "Check that it is level and square."
+            },
+            {
+              "text": "He painted the details first.",
+              "fault": true,
+              "why": "Do the background first."
+            },
+            {
+              "text": "He drew a grid over his design.",
+              "why": "That is step 3."
+            },
+            {
+              "text": "He covered the floor.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for enlarging a design on to a wall.",
+        "explainPrompt": "Why must the same scale factor be used across and down?",
+        "explainGuide": "Using one factor keeps the proportions of the design the same. If the factors differ, the motifs are stretched or squashed.",
+        "explainKeywords": [
+          [
+            "same",
+            "one",
+            "equal"
+          ],
+          [
+            "proportion",
+            "shape"
+          ],
+          [
+            "stretch",
+            "squash",
+            "distort"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Enlarging a design for a mural",
+        "Grid on design, larger grid on wall",
+        "Square by square"
+      ]
+    },
+    "pr-pdec-designing-motifs-for-body-decoration": {
+      "safety": {
+        "correct": [
+          "Practise only on paper templates in this job.",
+          "Keep ink and henna paste away from your eyes and mouth."
+        ],
+        "wrong": [
+          {
+            "text": "Try the black henna from the market on your friend's arm.",
+            "why": "Black 'henna' with PPD can cause severe allergic reactions. Never use it on skin."
+          },
+          {
+            "text": "Use a marker pen on your hand to test the motif.",
+            "why": "Marker inks are not made for skin. Practise on the paper templates."
+          },
+          {
+            "text": "Use wall paint for face painting because the colours are bright.",
+            "why": "Wall paint is unsafe on skin. Only materials made for skin are safe."
+          },
+          {
+            "text": "Decorate a classmate's skin without asking.",
+            "why": "Skin work always needs consent."
+          },
+          {
+            "text": "Put a new natural paste on a friend's face without any test.",
+            "why": "Skin reactions happen. A patch test comes first, with consent."
+          },
+          {
+            "text": "Share your ink pen by holding it in your mouth.",
+            "why": "Ink must not go in your mouth."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tile grout",
+            "why": "It is for mosaics, and it is not for bodies."
+          },
+          {
+            "name": "Emulsion paint",
+            "why": "It is wall paint, and it is unsafe on skin."
+          },
+          {
+            "name": "Chalk line",
+            "why": "It is for wall grids."
+          },
+          {
+            "name": "Black henna with PPD",
+            "why": "It can cause severe allergic reactions."
+          },
+          {
+            "name": "Palette knife",
+            "why": "Fine motifs are drawn with pens."
+          },
+          {
+            "name": "Roller and tray",
+            "why": "This is fine, small work."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "paste",
+          "afterStep": 5,
+          "prompt": "A trader offers you 'black henna' that darkens faster. What do you do?",
+          "options": [
+            {
+              "text": "Refuse it, and keep to safe materials",
+              "correct": true,
+              "consequence": "Nobody is put at risk of a severe allergic reaction."
+            },
+            {
+              "text": "Buy it for a stronger, darker look, as it comes from a well-known trader",
+              "consequence": "It may contain PPD, which can cause severe reactions."
+            },
+            {
+              "text": "Mix it half and half with natural henna",
+              "consequence": "Any PPD in it is still unsafe."
+            }
+          ]
+        },
+        {
+          "id": "meaning",
+          "afterStep": 6,
+          "prompt": "You like the look of a motif, but you do not know what it means. What do you do?",
+          "options": [
+            {
+              "text": "Find out its meaning before you use it",
+              "correct": true,
+              "consequence": "Your design respects the culture it comes from."
+            },
+            {
+              "text": "Use it anyway, as nobody will ask you",
+              "consequence": "Ignoring cultural meaning is a common mistake."
+            },
+            {
+              "text": "Invent your own meaning for it",
+              "consequence": "Inventing false meanings misrepresents the tradition."
+            }
+          ]
+        },
+        {
+          "id": "fit",
+          "afterStep": 4,
+          "prompt": "Your straight border looks wrong on the wrist template. What do you do?",
+          "options": [
+            {
+              "text": "Curve it to follow the shape of the wrist",
+              "correct": true,
+              "consequence": "The design follows the body part."
+            },
+            {
+              "text": "Keep it straight and press harder with the pen",
+              "consequence": "It still ignores the shape."
+            },
+            {
+              "text": "Make the template wider",
+              "consequence": "The template shows the real body part."
+            }
+          ]
+        },
+        {
+          "id": "smudge",
+          "afterStep": 5,
+          "prompt": "You keep smudging the ink. What do you do?",
+          "options": [
+            {
+              "text": "Work away from your drawing hand, and let each area dry",
+              "correct": true,
+              "consequence": "The lines stay clean."
+            },
+            {
+              "text": "Draw faster, so that you finish before it smudges",
+              "consequence": "Speed makes the smudging worse."
+            },
+            {
+              "text": "Load more ink so that each line goes on in one stroke",
+              "consequence": "Wet ink smudges more."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "tell",
+          "prompt": "Good motifs for body decoration should",
+          "options": [
+            {
+              "text": "Follow the body part, with symmetry and rhythm",
+              "correct": true
+            },
+            {
+              "text": "Ignore the shape of the body part",
+              "why": "They should follow it."
+            },
+            {
+              "text": "Avoid all cultural meaning",
+              "why": "They reflect cultural meaning."
+            },
+            {
+              "text": "Be drawn only in straight lines",
+              "why": "They follow the curves."
+            }
+          ]
+        },
+        {
+          "id": "ppd",
+          "prompt": "Why is chemical black 'henna' dangerous?",
+          "options": [
+            {
+              "text": "It can cause severe allergic reactions",
+              "correct": true
+            },
+            {
+              "text": "It is too expensive",
+              "why": "The problem is harm, not cost."
+            },
+            {
+              "text": "It washes off too easily",
+              "why": "That is not the danger."
+            },
+            {
+              "text": "It only works on paper",
+              "why": "It is sold for skin, which is the danger."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "repeats",
+          "prompt": "A wrist is {c} cm round, with a {m} cm motif. How many repeats fit?",
+          "formula": "c / m",
+          "vars": {
+            "c": {
+              "min": 14,
+              "max": 20,
+              "step": 2
+            },
+            "m": {
+              "min": 2,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {m} = {answer} repeats."
+        },
+        {
+          "id": "size",
+          "prompt": "A band {c} cm round holds {n} equal repeats. How wide is each motif?",
+          "formula": "c / n",
+          "vars": {
+            "c": {
+              "min": 12,
+              "max": 20,
+              "step": 4
+            },
+            "n": {
+              "min": 4,
+              "max": 8,
+              "step": 4
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{c} ÷ {n} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "set",
+          "scenario": "Zainab's motif set lost marks, and her friend's arm came up red after a test. Here is what she did.",
+          "lines": [
+            {
+              "text": "She used market black henna on her friend.",
+              "fault": true,
+              "why": "This can cause severe allergic reactions."
+            },
+            {
+              "text": "She gave no meanings for her motifs.",
+              "fault": true,
+              "why": "The meaning or function of each is required."
+            },
+            {
+              "text": "She used a chemical paste without a patch test or consent.",
+              "fault": true,
+              "why": "Always use a safe material, test it and get consent."
+            },
+            {
+              "text": "She designed a border, a central and a filler motif.",
+              "why": "That is step 3."
+            },
+            {
+              "text": "She arranged them on the paper templates.",
+              "why": "That is step 4."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for designing and testing body decoration.",
+        "explainPrompt": "State one difference between traditional and modern body decoration.",
+        "explainGuide": "Traditional decoration uses natural materials such as camwood, uli and henna, and often carries cultural meaning. Modern decoration uses manufactured face paints, and it is often mainly for beauty or fashion.",
+        "explainKeywords": [
+          [
+            "tradition"
+          ],
+          [
+            "modern"
+          ],
+          [
+            "camwood",
+            "uli",
+            "henna",
+            "natural"
+          ],
+          [
+            "face paint",
+            "manufactur",
+            "fashion"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Motifs for body decoration",
+        "Border, central and filler motifs",
+        "Paper only. No black henna"
+      ]
+    },
+    "pr-pdec-one-and-two-point-perspective-drawing": {
+      "safety": {
+        "correct": [
+          "Keep sharpened pencils pointing down.",
+          "Keep the floor around your desk dry and clear of bags."
+        ],
+        "wrong": [
+          {
+            "text": "Sharpen your pencil with a loose blade.",
+            "why": "It can cut you. Use a sharpener."
+          },
+          {
+            "text": "Lick your brush to a point before you paint the hills.",
+            "why": "Keep paint out of your mouth."
+          },
+          {
+            "text": "Leave your water pot on the edge of the drawing board.",
+            "why": "It can spill on the work."
+          },
+          {
+            "text": "Eat in the studio while you paint.",
+            "why": "Wash up and eat outside."
+          },
+          {
+            "text": "Leave your ruler on the floor in the walkway.",
+            "why": "People can slip on it."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Compasses",
+            "why": "Receding lines are ruled, not curved."
+          },
+          {
+            "name": "Graining comb",
+            "why": "It is for glaze finishes."
+          },
+          {
+            "name": "Palette knife",
+            "why": "Thick paint would hide aerial perspective."
+          },
+          {
+            "name": "Tile nippers",
+            "why": "Nothing is cut here."
+          },
+          {
+            "name": "Chalk line",
+            "why": "That is for walls."
+          },
+          {
+            "name": "Spirit level",
+            "why": "The horizon is ruled on paper."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "horizon",
+          "afterStep": 1,
+          "prompt": "Where do you draw the horizon line?",
+          "options": [
+            {
+              "text": "At your eye level",
+              "correct": true,
+              "consequence": "All the vanishing points sit on it."
+            },
+            {
+              "text": "Always at the top of the page",
+              "consequence": "That only works if the viewer is looking from very high up."
+            },
+            {
+              "text": "Along the ground line",
+              "consequence": "The ground line is not the eye level."
+            }
+          ]
+        },
+        {
+          "id": "converge",
+          "afterStep": 2,
+          "prompt": "Your road lines meet at slightly different points. What do you do?",
+          "options": [
+            {
+              "text": "Redraw them with a ruler to meet at one point",
+              "correct": true,
+              "consequence": "The road recedes truly."
+            },
+            {
+              "text": "Leave them: a small error adds a natural, freehand kind of character",
+              "consequence": "Lines that do not meet are a common mistake."
+            },
+            {
+              "text": "Rub out the point itself",
+              "consequence": "The point is needed."
+            }
+          ]
+        },
+        {
+          "id": "vps",
+          "afterStep": 4,
+          "prompt": "You place the two vanishing points very close together. What is the risk?",
+          "options": [
+            {
+              "text": "The building looks distorted",
+              "correct": true,
+              "consequence": "Keep them well apart on the horizon line."
+            },
+            {
+              "text": "The colours fade",
+              "consequence": "Position does not change colour."
+            },
+            {
+              "text": "The horizon line moves",
+              "consequence": "The horizon is your eye level."
+            }
+          ]
+        },
+        {
+          "id": "hills",
+          "afterStep": 5,
+          "prompt": "How do you paint the farthest hills?",
+          "options": [
+            {
+              "text": "Paler, bluer and with less detail",
+              "correct": true,
+              "consequence": "Aerial perspective gives a sense of distance."
+            },
+            {
+              "text": "Darker, warmer and very detailed",
+              "consequence": "This brings them forward."
+            },
+            {
+              "text": "In the same colours as the nearest ones",
+              "consequence": "The picture loses its depth."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "size",
+          "prompt": "Equal poles along a road appear",
+          "options": [
+            {
+              "text": "Smaller as they recede",
+              "correct": true
+            },
+            {
+              "text": "The same height all the way",
+              "why": "Perspective makes them shrink."
+            },
+            {
+              "text": "Larger as they recede",
+              "why": "They appear smaller."
+            },
+            {
+              "text": "Thicker towards the vanishing point",
+              "why": "They appear smaller."
+            }
+          ]
+        },
+        {
+          "id": "aerial",
+          "prompt": "What are distant colours like in aerial perspective?",
+          "options": [
+            {
+              "text": "Lighter and cooler, with less detail",
+              "correct": true
+            },
+            {
+              "text": "Darker and warmer, with more detail",
+              "why": "That is what nearby colours look like."
+            },
+            {
+              "text": "Brighter than near ones",
+              "why": "They are paler."
+            },
+            {
+              "text": "Exactly the same as near ones",
+              "why": "The atmosphere changes them."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "half",
+          "prompt": "A pole is {h} cm tall at the front. About how tall does it look half-way to the vanishing point?",
+          "formula": "h / 2",
+          "vars": {
+            "h": {
+              "min": 6,
+              "max": 14,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "{h} ÷ 2 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "street",
+          "scenario": "Ifeanyi's street scene looks wrong. Here is what he did.",
+          "lines": [
+            {
+              "text": "He put a vanishing point above the horizon line.",
+              "fault": true,
+              "why": "Vanishing points must be on the horizon."
+            },
+            {
+              "text": "He drew converging lines freehand.",
+              "fault": true,
+              "why": "Use a ruler."
+            },
+            {
+              "text": "He painted the far hills dark and detailed.",
+              "fault": true,
+              "why": "They should be paler and bluer."
+            },
+            {
+              "text": "He drew the horizon at eye level.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "He labelled his horizon line and vanishing points.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for an accurate perspective drawing.",
+        "explainPrompt": "Explain linear and aerial perspective.",
+        "explainGuide": "Linear perspective shows depth by making parallel lines converge on a vanishing point, with objects smaller as they recede. Aerial perspective shows depth by making distant colours paler, cooler and less detailed.",
+        "explainKeywords": [
+          [
+            "linear"
+          ],
+          [
+            "converg",
+            "vanish",
+            "line"
+          ],
+          [
+            "aerial"
+          ],
+          [
+            "pale",
+            "cool",
+            "blue",
+            "colour"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "One- and two-point perspective",
+        "Horizon = eye level",
+        "Rule all converging lines"
+      ]
+    },
+    "pr-pdec-costing-a-painting-commission": {
+      "safety": {
+        "correct": [
+          "Walk the site and look for hazards before you measure.",
+          "Have your partner hold the end of the tape."
+        ],
+        "wrong": [
+          {
+            "text": "Climb the ladder alone in the hall to measure the wall.",
+            "why": "Work in pairs, with a stable ladder."
+          },
+          {
+            "text": "Stand the ladder on a stack of benches.",
+            "why": "It can topple. Use it on firm ground."
+          },
+          {
+            "text": "Stretch across from the ladder to reach the last mark.",
+            "why": "You can fall. Move the ladder."
+          },
+          {
+            "text": "Leave the tape lying across the doorway.",
+            "why": "People can trip."
+          },
+          {
+            "text": "Measure next to open electrical sockets without telling anyone.",
+            "why": "Report damaged sockets and keep clear of them."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Graining comb",
+            "why": "This is a paper estimate."
+          },
+          {
+            "name": "Palette knife",
+            "why": "This is a paper estimate."
+          },
+          {
+            "name": "Roller and tray",
+            "why": "No paint is applied yet."
+          },
+          {
+            "name": "Compasses",
+            "why": "No circles are being drawn."
+          },
+          {
+            "name": "Chalk line",
+            "why": "You are measuring, not setting out a grid."
+          },
+          {
+            "name": "Tile nippers",
+            "why": "No mosaic is involved."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "materials-only",
+          "afterStep": 3,
+          "prompt": "Your friend says to charge for the paint and brushes only. What do you do?",
+          "options": [
+            {
+              "text": "Charge for labour as well",
+              "correct": true,
+              "consequence": "The price pays for your time."
+            },
+            {
+              "text": "Charge for the materials only, to keep the client happy",
+              "consequence": "Charging only for materials is a common mistake."
+            },
+            {
+              "text": "Charge for labour only if the client asks",
+              "consequence": "Labour is a real cost in every job."
+            }
+          ]
+        },
+        {
+          "id": "overheads",
+          "afterStep": 4,
+          "prompt": "The school is across town and you need a scaffold. What do you do?",
+          "options": [
+            {
+              "text": "Add transport and equipment hire to the estimate",
+              "correct": true,
+              "consequence": "The quote covers the location."
+            },
+            {
+              "text": "Pay for them from the profit, and leave them off the list",
+              "consequence": "Forgotten costs eat your profit."
+            },
+            {
+              "text": "Ignore them, as they are small",
+              "consequence": "Transport and hire are real costs."
+            }
+          ]
+        },
+        {
+          "id": "old-prices",
+          "afterStep": 2,
+          "prompt": "Your price list is from last year. What do you do?",
+          "options": [
+            {
+              "text": "Get current market prices",
+              "correct": true,
+              "consequence": "The estimate reflects today's costs."
+            },
+            {
+              "text": "Use it and add a little",
+              "consequence": "This is a guess."
+            },
+            {
+              "text": "Use it as it is",
+              "consequence": "Your estimate will be too low."
+            }
+          ]
+        },
+        {
+          "id": "contingency",
+          "afterStep": 2,
+          "prompt": "Some paint is always wasted. What do you do?",
+          "options": [
+            {
+              "text": "Include an allowance for waste",
+              "correct": true,
+              "consequence": "You do not run short during the job."
+            },
+            {
+              "text": "Buy the exact amount worked out",
+              "consequence": "You may run short."
+            },
+            {
+              "text": "Tell the client to buy the extra",
+              "consequence": "This is unclear and unprofessional."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "good-quote",
+          "prompt": "Which is a good quotation?",
+          "options": [
+            {
+              "text": "A clear one that covers all the costs",
+              "correct": true
+            },
+            {
+              "text": "One figure with no breakdown",
+              "why": "The client cannot understand it."
+            },
+            {
+              "text": "Materials listed, with labour left out",
+              "why": "It misses a cost."
+            },
+            {
+              "text": "A verbal estimate only",
+              "why": "It should be a neat written quotation."
+            }
+          ]
+        },
+        {
+          "id": "factor",
+          "prompt": "Which of these is a factor in pricing a painting?",
+          "options": [
+            {
+              "text": "Time invested",
+              "correct": true
+            },
+            {
+              "text": "The artist's height",
+              "why": "It is not relevant."
+            },
+            {
+              "text": "Next year's weather",
+              "why": "It is not relevant."
+            },
+            {
+              "text": "The colour of the brush handle",
+              "why": "It is not relevant."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "labour",
+          "prompt": "Labour is {h} hours at N{r} an hour. What is the cost?",
+          "formula": "h * r",
+          "vars": {
+            "h": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            },
+            "r": {
+              "min": 1000,
+              "max": 2000,
+              "step": 500
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} × {r} = N{answer}."
+        },
+        {
+          "id": "price",
+          "prompt": "A job costs N{c}. With {p}% profit, what is the price?",
+          "formula": "c * (1 + p / 100)",
+          "vars": {
+            "c": {
+              "min": 80000,
+              "max": 120000,
+              "step": 20000
+            },
+            "p": {
+              "min": 20,
+              "max": 30,
+              "step": 10
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} × (1 + {p}/100) = N{answer}."
+        },
+        {
+          "id": "per-m",
+          "prompt": "A mural {w} m by {h} m is priced at N{c}. What is the price per square metre?",
+          "formula": "c / (w * h)",
+          "vars": {
+            "w": {
+              "min": 2,
+              "max": 4,
+              "step": 2
+            },
+            "h": {
+              "min": 2,
+              "max": 3,
+              "step": 1
+            },
+            "c": {
+              "min": 120000,
+              "max": 120000,
+              "step": 1
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "Area = {w} × {h}. {c} ÷ area = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "under",
+          "scenario": "Yemi lost money on a school mural. Here is what she did.",
+          "lines": [
+            {
+              "text": "She charged only for materials.",
+              "fault": true,
+              "why": "Labour must be included."
+            },
+            {
+              "text": "She forgot the scaffold hire.",
+              "fault": true,
+              "why": "Equipment is a cost."
+            },
+            {
+              "text": "She underestimated her hours.",
+              "fault": true,
+              "why": "This is a common source of error."
+            },
+            {
+              "text": "She measured the work area.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "She gave a neat quotation.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for an accurate estimate.",
+        "explainPrompt": "State three factors that affect the price of a painting.",
+        "explainGuide": "Price depends on location, size, materials, time, quantity and quality. Each one changes the cost, or the value of the job.",
+        "explainKeywords": [
+          [
+            "location",
+            "transport"
+          ],
+          [
+            "size",
+            "area"
+          ],
+          [
+            "material"
+          ],
+          [
+            "time",
+            "labour",
+            "hour"
+          ],
+          [
+            "quality"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "Costing a painting commission",
+        "Materials + labour + overheads",
+        "Then the profit"
+      ]
+    },
+    "pr-pdec-planning-and-mounting-an-exhibition": {
+      "safety": {
+        "correct": [
+          "Have a partner hold the ladder while you hang work.",
+          "Keep power leads and packing boxes out of the walkways."
+        ],
+        "wrong": [
+          {
+            "text": "Hang a heavy frame on one small pin.",
+            "why": "It can fall on someone. Secure heavy frames properly."
+          },
+          {
+            "text": "Stack empty boxes in the main walkway.",
+            "why": "Visitors can trip, and the exit is blocked."
+          },
+          {
+            "text": "Stand on a chair on top of a table to reach a high hook.",
+            "why": "You can fall. Use a stable ladder."
+          },
+          {
+            "text": "Reach out sideways from the ladder to hang the next work.",
+            "why": "You can fall. Move the ladder."
+          },
+          {
+            "text": "Lean large framed works loosely against the wall in the walkway.",
+            "why": "They can fall on visitors."
+          },
+          {
+            "text": "Hammer a hook into a wall without checking for wires.",
+            "why": "You can hit a cable. Ask your teacher where it is safe."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Graining comb",
+            "why": "It is for wall finishes."
+          },
+          {
+            "name": "Palette knife",
+            "why": "The works are already finished."
+          },
+          {
+            "name": "Tile nippers",
+            "why": "There is no mosaic."
+          },
+          {
+            "name": "Roller and tray",
+            "why": "The walls are not being painted."
+          },
+          {
+            "name": "Protractor",
+            "why": "A spirit level checks the hang."
+          },
+          {
+            "name": "Kiln",
+            "why": "Nothing is fired."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "committee",
+          "afterStep": 1,
+          "prompt": "Three students want to do everything. How do you organise?",
+          "options": [
+            {
+              "text": "Form publicity, hanging and finance committees",
+              "correct": true,
+              "consequence": "Each job has someone responsible."
+            },
+            {
+              "text": "Let everyone do whatever they feel like on the day",
+              "consequence": "Important jobs get missed."
+            },
+            {
+              "text": "Let one student do it all",
+              "consequence": "It is too much for one person."
+            }
+          ]
+        },
+        {
+          "id": "fund",
+          "afterStep": 2,
+          "prompt": "The budget is short. What do you do?",
+          "options": [
+            {
+              "text": "Seek sponsors, school support or gate fees",
+              "correct": true,
+              "consequence": "The exhibition is funded."
+            },
+            {
+              "text": "Cut the labels, posters and visitors' book",
+              "consequence": "Those are needed."
+            },
+            {
+              "text": "Spend first and worry later",
+              "consequence": "You may be left in debt."
+            }
+          ]
+        },
+        {
+          "id": "crowd",
+          "afterStep": 4,
+          "prompt": "You have too many works for one wall. What do you do?",
+          "options": [
+            {
+              "text": "Use more wall, or select fewer works",
+              "correct": true,
+              "consequence": "Works are evenly spaced and visitors can see them."
+            },
+            {
+              "text": "Crowd them all together on the wall",
+              "consequence": "Crowding is a common mistake."
+            },
+            {
+              "text": "Stack some on top of the others",
+              "consequence": "This hides the art."
+            }
+          ]
+        },
+        {
+          "id": "height",
+          "afterStep": 4,
+          "prompt": "How high do you hang the works?",
+          "options": [
+            {
+              "text": "With picture centres at about 1.5 m",
+              "correct": true,
+              "consequence": "Works sit at average eye level, and look consistent."
+            },
+            {
+              "text": "With tops touching the ceiling",
+              "consequence": "Visitors cannot see the work."
+            },
+            {
+              "text": "At whatever height the hook goes in",
+              "consequence": "The row looks uneven."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "level",
+          "prompt": "How do you check that each picture is straight?",
+          "options": [
+            {
+              "text": "With a spirit level",
+              "correct": true
+            },
+            {
+              "text": "With a colour wheel",
+              "why": "It is for colour."
+            },
+            {
+              "text": "With a palette knife",
+              "why": "It is for paint."
+            },
+            {
+              "text": "By eye from the door",
+              "why": "Only a level is sure."
+            }
+          ]
+        },
+        {
+          "id": "book",
+          "prompt": "What is a visitors' book for?",
+          "options": [
+            {
+              "text": "Recording names and comments",
+              "correct": true
+            },
+            {
+              "text": "Hanging paintings",
+              "why": "It is not a tool for hanging."
+            },
+            {
+              "text": "Listing materials",
+              "why": "That is a different record."
+            },
+            {
+              "text": "Pricing works",
+              "why": "Labels do that."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "gap",
+          "prompt": "A wall is {w} m long, with {n} works each 0.6 m wide. Allow equal gaps, including both ends. How wide is each gap?",
+          "formula": "(w - n * 0.6) / (n + 1)",
+          "vars": {
+            "w": {
+              "min": 6,
+              "max": 10,
+              "step": 2
+            },
+            "n": {
+              "min": 4,
+              "max": 6,
+              "step": 2
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 2,
+          "working": "Space left = {w} − {n} × 0.6. Divide by {n} + 1 gaps = {answer} m."
+        },
+        {
+          "id": "total",
+          "prompt": "{n} works are each {a} m wide. What is the total width of the works?",
+          "formula": "n * a",
+          "vars": {
+            "n": {
+              "min": 4,
+              "max": 8,
+              "step": 2
+            },
+            "a": {
+              "min": 0.5,
+              "max": 0.8,
+              "step": 0.1
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 1,
+          "working": "{n} × {a} = {answer} m."
+        }
+      ],
+      "faults": [
+        {
+          "id": "show",
+          "scenario": "Kelechi's class exhibition looked poor, and few works sold. Here is what they did.",
+          "lines": [
+            {
+              "text": "They crowded the works together.",
+              "fault": true,
+              "why": "Give each work room."
+            },
+            {
+              "text": "They left off the labels and prices.",
+              "fault": true,
+              "why": "Each work needs title, artist, medium, size and price."
+            },
+            {
+              "text": "They did no publicity.",
+              "fault": true,
+              "why": "Posters and social media bring visitors."
+            },
+            {
+              "text": "They set a theme, a date and a venue.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "They recorded sales and visitors.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for hanging an exhibition.",
+        "explainPrompt": "Why should paintings in an exhibition be hung evenly at about eye level?",
+        "explainGuide": "Evenly spaced works at about 1.5 m are comfortable to view, and they look orderly. Visitors can see every work and move easily.",
+        "explainKeywords": [
+          [
+            "eye",
+            "1.5"
+          ],
+          [
+            "even",
+            "spac"
+          ],
+          [
+            "see",
+            "view",
+            "visitor"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Planning an exhibition",
+        "Theme, budget, hanging, publicity",
+        "Centres at about 1.5 m"
+      ]
+    }
+  }
+}

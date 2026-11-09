@@ -1,0 +1,5539 @@
+{
+ "subject": "Forestry",
+ "lessons": {
+  "pr-for-wildlife-signs-identification": {
+   "safety": {
+    "correct": [
+     "Stay on the marked path and keep the group in sight."
+    ],
+    "wrong": [
+     {
+      "text": "Walk the forest path alone so you do not scare the animals.",
+      "why": "Walk in groups with a guide."
+     },
+     {
+      "text": "Wear shorts and sandals, as the path is clear.",
+      "why": "Boots and long trousers protect you against snakes and thorns."
+     },
+     {
+      "text": "Pick up the droppings in your hand to look at them.",
+      "why": "Do not touch droppings with bare hands."
+     },
+     {
+      "text": "Follow a monkey off the path to get a better photograph.",
+      "why": "Never approach or provoke wild animals."
+     },
+     {
+      "text": "Put your hand into a burrow to see if it is in use.",
+      "why": "Something may bite. Look from a distance."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Shotgun",
+      "why": "You are counting signs, not hunting."
+     },
+     {
+      "name": "Animal snare",
+      "why": "Nothing is to be trapped."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated on a transect."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not being sampled."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "pace",
+     "afterStep": 1,
+     "prompt": "How do you walk the transect?",
+     "options": [
+      {
+       "text": "At a slow, steady pace along the whole of the marked path",
+       "correct": true,
+       "consequence": "Search effort stays the same along the path."
+      },
+      {
+       "text": "Fast at first, then slowly near the end",
+       "consequence": "Uneven effort makes the count unfair."
+      },
+      {
+       "text": "Running ahead of the group wherever the path looks empty of signs",
+       "consequence": "You miss signs and leave the group."
+      }
+     ]
+    },
+    {
+     "id": "once",
+     "afterStep": 6,
+     "prompt": "You pass the same dropping group on the way back. What do you do?",
+     "options": [
+      {
+       "text": "Leave it out, as that sign was counted on the way out",
+       "correct": true,
+       "consequence": "Each sign is counted once only."
+      },
+      {
+       "text": "Count it again, as it was seen on a second walk along the path",
+       "consequence": "Double counting raises the encounter rate falsely."
+      },
+      {
+       "text": "Count it as half a sign",
+       "consequence": "Signs are counted once, whole."
+      }
+     ]
+    },
+    {
+     "id": "record",
+     "afterStep": 2,
+     "prompt": "You find a clear footprint. When do you write it down?",
+     "options": [
+      {
+       "text": "At the end of the walk, from what you remember of the day",
+       "consequence": "Details are forgotten or mixed up."
+      },
+      {
+       "text": "Back at school, after comparing notes with the rest of your group",
+       "consequence": "Details are lost, and notes can be copied."
+      },
+      {
+       "text": "In the notebook as soon as you have found and measured it",
+       "correct": true,
+       "consequence": "Your notes stay accurate."
+      }
+     ]
+    },
+    {
+     "id": "class-pangolin",
+     "afterStep": 7,
+     "prompt": "How do you class the pangolin in your report?",
+     "options": [
+      {
+       "text": "A mammal, even though its body is covered with hard scales",
+       "correct": true,
+       "consequence": "Scales do not make it a reptile: it is a mammal."
+      },
+      {
+       "text": "A reptile, because the whole of its body is covered with scales",
+       "consequence": "This is a common mistake. It is a mammal."
+      },
+      {
+       "text": "An amphibian that digs at termite mounds near forest streams",
+       "consequence": "It is a mammal, and an endangered one."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "duiker",
+     "prompt": "Small paired hoof prints and pellet droppings point to which animal?",
+     "options": [
+      {
+       "text": "Duiker, a small antelope with cloven hooves",
+       "correct": true
+      },
+      {
+       "text": "Grasscutter, which leaves cut stems and runways",
+       "why": "The grasscutter is a rodent with no hooves."
+      },
+      {
+       "text": "Pangolin, which digs at termite mounds",
+       "why": "Pangolins leave digging marks."
+      },
+      {
+       "text": "Monkey, which leaves half-eaten fruits",
+       "why": "Monkeys have no hooves."
+      }
+     ]
+    },
+    {
+     "id": "grasscutter",
+     "prompt": "You find cut grass stems and runways in grassland. Which animal is it?",
+     "options": [
+      {
+       "text": "Hornbill, a large forest bird",
+       "why": "Hornbills do not cut grass stems."
+      },
+      {
+       "text": "Grasscutter, a large rodent of grassland",
+       "correct": true
+      },
+      {
+       "text": "Tortoise, a slow reptile",
+       "why": "A tortoise does not make runways of cut stems."
+      },
+      {
+       "text": "Duiker, a small antelope",
+       "why": "A duiker leaves hoof prints and pellets."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "encounter",
+     "prompt": "{s} dropping groups are counted along a {l} km transect. What is the encounter rate?",
+     "formula": "s / l",
+     "vars": {
+      "s": {
+       "min": 12,
+       "max": 30,
+       "step": 3
+      },
+      "l": {
+       "min": 3,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "per km",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Rate = {s} ÷ {l} = {answer} dropping groups per km.",
+     "unitAliases": [
+      "/km",
+      "groups per km"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "transect",
+     "scenario": "Bode's encounter rate is far too high. Here is what he did.",
+     "lines": [
+      {
+       "text": "He counted the same droppings on the walk back.",
+       "fault": true,
+       "why": "Count each sign once only."
+      },
+      {
+       "text": "He counted old, dried signs as recent ones.",
+       "fault": true,
+       "why": "Old signs make the rate too high."
+      },
+      {
+       "text": "He called the pangolin a reptile.",
+       "fault": true,
+       "why": "It is a mammal with scales."
+      },
+      {
+       "text": "He kept the same search width.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He wrote 'per km' with his answer.",
+       "why": "The unit is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for counting wildlife signs on a transect.",
+    "explainPrompt": "Why are encounter rates useful to a forest manager?",
+    "explainGuide": "Comparing the rate between seasons or forests shows changes in the relative abundance of a species, without having to see the animals.",
+    "explainKeywords": [
+     [
+      "compare",
+      "comparing",
+      "between"
+     ],
+     [
+      "abundance",
+      "number",
+      "numbers",
+      "changes"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Wildlife signs",
+    "Habitat and one feature",
+    "Include the unit"
+   ]
+  },
+  "pr-for-tree-identification": {
+   "safety": {
+    "correct": [
+     "Warn others before you make a slash, and check nobody is close."
+    ],
+    "wrong": [
+     {
+      "text": "Hack a large piece of bark off to see the wood clearly.",
+      "why": "Make only a small slash."
+     },
+     {
+      "text": "Point the cutlass at your friend as you explain the bark.",
+      "why": "Keep the cutlass pointed away from people."
+     },
+     {
+      "text": "Stand under a dead branch while you write your notes.",
+      "why": "Watch for falling branches."
+     },
+     {
+      "text": "Put your hand in a hole in the trunk to check it.",
+      "why": "Stinging insects may live there."
+     },
+     {
+      "text": "Lick the latex from the slash to find out its taste.",
+      "why": "Exudates can be harmful. Never taste them."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Nothing is felled for identification."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not being sampled."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "Nothing is heated."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "height",
+     "afterStep": 4,
+     "prompt": "Where do you measure girth?",
+     "options": [
+      {
+       "text": "At 1.3 m above the ground and above any buttress on the stem, every time",
+       "correct": true,
+       "consequence": "This is the standard height, so readings compare."
+      },
+      {
+       "text": "At ground level, where the base of the tree is easiest to reach",
+       "consequence": "Ground-level girth is too large, and it is a common mistake."
+      },
+      {
+       "text": "At whatever height the tape happens to go round most easily",
+       "consequence": "Readings cannot be compared."
+      }
+     ]
+    },
+    {
+     "id": "features",
+     "afterStep": 5,
+     "prompt": "The leaf matches Teak but the bark looks odd. What do you do?",
+     "options": [
+      {
+       "text": "Name it Teak at once, because leaf shape always settles the matter",
+       "consequence": "One feature alone can mislead."
+      },
+      {
+       "text": "Check the bark, slash and stem form as well before you name the tree",
+       "correct": true,
+       "consequence": "One feature alone can mislead."
+      },
+      {
+       "text": "Leave it out of the table altogether, since it does not match exactly",
+       "consequence": "Check more features and key it out."
+      }
+     ]
+    },
+    {
+     "id": "name",
+     "afterStep": 5,
+     "prompt": "How do you write the scientific name of Teak?",
+     "options": [
+      {
+       "text": "Tectona grandis, genus with a capital, species small, and underlined",
+       "correct": true,
+       "consequence": "Genus capital, species small, and underlined when handwritten."
+      },
+      {
+       "text": "TECTONA GRANDIS, all in large capital letters to make it stand out",
+       "consequence": "Only the genus takes a capital letter."
+      },
+      {
+       "text": "Tectona Grandis, with a capital on each of the two names",
+       "consequence": "The species name takes a small letter."
+      }
+     ]
+    },
+    {
+     "id": "tape",
+     "afterStep": 4,
+     "prompt": "Your tape is slanting around the trunk. What do you do?",
+     "options": [
+      {
+       "text": "Keep it level all the way round the stem and pull it firm before reading",
+       "correct": true,
+       "consequence": "The girth is true."
+      },
+      {
+       "text": "Read it as it is, since a small slant makes no real difference",
+       "consequence": "A slanted tape gives too large a girth."
+      },
+      {
+       "text": "Loosen it a little so that it slides more easily round the trunk",
+       "consequence": "A loose tape reads wrongly."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "latex",
+     "prompt": "A tree has a cylindrical bole, and its slash exudes white latex. What is it?",
+     "options": [
+      {
+       "text": "Teak, with its rough leaves",
+       "why": "Teak has very large rough leaves."
+      },
+      {
+       "text": "Iroko, with a cylindrical bole",
+       "correct": true
+      },
+      {
+       "text": "Obeche, with plank buttresses",
+       "why": "Obeche has soft pale wood and plank buttresses."
+      },
+      {
+       "text": "Gmelina, with heart-shaped leaves",
+       "why": "Gmelina has heart-shaped leaves and yellow fruits."
+      }
+     ]
+    },
+    {
+     "id": "sandpaper",
+     "prompt": "A tree has very large leaves with a sandpaper feel. What is it?",
+     "options": [
+      {
+       "text": "Ceiba, with conical spines",
+       "why": "Ceiba has spines on young bark."
+      },
+      {
+       "text": "Afara, a tall indigenous tree",
+       "why": "Rough sandpaper leaves mark Teak."
+      },
+      {
+       "text": "Iroko, with white latex",
+       "why": "Iroko is known by its latex."
+      },
+      {
+       "text": "Teak, an exotic plantation tree",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "dia",
+     "prompt": "A tree has a girth of {g} cm at breast height. Taking π as 3.142, what is its diameter?",
+     "formula": "g / 3.142",
+     "vars": {
+      "g": {
+       "min": 157,
+       "max": 471,
+       "step": 31.4
+      }
+     },
+     "unit": "cm",
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 1,
+     "working": "Diameter = {g} ÷ 3.142 = {answer} cm.",
+     "unitAliases": [
+      "centimetres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "tree-table",
+     "scenario": "Grace's tree table lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She wrote the scientific names with both names capitalised.",
+       "fault": true,
+       "why": "Only the genus takes a capital."
+      },
+      {
+       "text": "She measured girth at ground level.",
+       "fault": true,
+       "why": "Girth is measured at 1.3 m."
+      },
+      {
+       "text": "She named a tree from its leaf alone.",
+       "fault": true,
+       "why": "Use several features together."
+      },
+      {
+       "text": "She kept the tape level and tight.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "She said that Teak is exotic.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring the girth of a tree.",
+    "explainPrompt": "Why is girth measured at 1.3 m above the ground?",
+    "explainGuide": "It is the standard breast height, so readings can be compared between trees. It also avoids the swelling at the base and most buttresses.",
+    "explainKeywords": [
+     [
+      "standard",
+      "breast"
+     ],
+     [
+      "compare",
+      "compared"
+     ],
+     [
+      "buttress",
+      "buttresses",
+      "swelling",
+      "base"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Tree identification",
+    "Two or three precise features",
+    "Genus capital, species small"
+   ]
+  },
+  "pr-for-tools-equipment-machinery": {
+   "safety": {
+    "correct": [
+     "Keep everyone well clear while the teacher starts or runs the chainsaw."
+    ],
+    "wrong": [
+     {
+      "text": "Mix the petrol and oil indoors, out of the wind.",
+      "why": "Mix fuel outdoors away from flames."
+     },
+     {
+      "text": "Refuel the chainsaw straight after use, while it is hot.",
+      "why": "Never refuel a hot chainsaw."
+     },
+     {
+      "text": "Start the chainsaw held in the air, with the brake off.",
+      "why": "Start it on the ground with the chain brake on."
+     },
+     {
+      "text": "Use the chainsaw in a cap, with no ear muffs or visor.",
+      "why": "Wear full protective equipment."
+     },
+     {
+      "text": "Smoke while the petrol is being measured.",
+      "why": "Keep flames away from fuel."
+     },
+     {
+      "text": "Store the mixed fuel in an unlabelled drink bottle.",
+      "why": "Use a clean labelled container."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Diesel",
+      "why": "The two-stroke chainsaw runs on a petrol mix."
+     },
+     {
+      "name": "Four-stroke oil",
+      "why": "This is a common mistake: use two-stroke oil."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Soil auger",
+      "why": "It is not part of this lesson's set."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "oil-type",
+     "afterStep": 4,
+     "prompt": "Which oil goes into the chainsaw petrol?",
+     "options": [
+      {
+       "text": "Four-stroke engine oil, as it is the oil used in most engines",
+       "consequence": "This is a common mistake that damages the engine."
+      },
+      {
+       "text": "Two-stroke oil, in the ratio that the chainsaw maker recommends",
+       "correct": true,
+       "consequence": "The engine is lubricated as designed."
+      },
+      {
+       "text": "No oil at all, as petrol burns cleaner",
+       "consequence": "With no oil the engine seizes."
+      }
+     ]
+    },
+    {
+     "id": "measure",
+     "afterStep": 4,
+     "prompt": "How do you measure the oil?",
+     "options": [
+      {
+       "text": "By eye from the bottle, in a slow and careful pour into the can",
+       "consequence": "A wrong mixture damages the engine."
+      },
+      {
+       "text": "In the measuring jug, read at eye level, to the volume you worked out",
+       "correct": true,
+       "consequence": "The mixture is correct."
+      },
+      {
+       "text": "By using the cap of the bottle as a rough guide to the amount",
+       "consequence": "A wrong mixture damages the engine."
+      }
+     ]
+    },
+    {
+     "id": "blunt",
+     "afterStep": 5,
+     "prompt": "The chain is blunt, but the job is small. What do you do?",
+     "options": [
+      {
+       "text": "Stop and sharpen the chain before making any more cuts with it at all",
+       "correct": true,
+       "consequence": "Blunt tools need more force and cause accidents."
+      },
+      {
+       "text": "Press harder on the saw for the few cuts you have left to make",
+       "consequence": "Forcing a blunt chain causes accidents."
+      },
+      {
+       "text": "Carry on as it is and sharpen the chain at the end of the week",
+       "consequence": "Blunt tools cause accidents."
+      }
+     ]
+    },
+    {
+     "id": "maintain",
+     "afterStep": 3,
+     "prompt": "Which maintenance answer scores for a cross-cut saw?",
+     "options": [
+      {
+       "text": "Clean it, as for all tools",
+       "consequence": "Cleaning alone is a common weak answer."
+      },
+      {
+       "text": "Sharpen the teeth, oil the blade and store it dry",
+       "correct": true,
+       "consequence": "These are specific to that tool."
+      },
+      {
+       "text": "Check the fuel mixture and the tension of its chain before each use",
+       "consequence": "That applies to the chainsaw."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "compare",
+     "prompt": "Which statement about hand tools and machines is right?",
+     "options": [
+      {
+       "text": "Hand tools are cheap and simple, but slow and tiring",
+       "correct": true
+      },
+      {
+       "text": "Hand tools are costly, and they are much faster than chainsaws",
+       "why": "Hand tools are cheap and slow."
+      },
+      {
+       "text": "Chainsaws are cheap, quiet and safe for anyone with no training",
+       "why": "Chainsaws are costly, noisy and dangerous without training."
+      },
+      {
+       "text": "Machines and hand tools take the same time and the same effort",
+       "why": "Machines are faster."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "oil",
+     "prompt": "The manufacturer recommends 50 : 1. How many millilitres of oil are needed for {p} L of petrol?",
+     "formula": "p * 1000 / 50",
+     "vars": {
+      "p": {
+       "min": 1,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "mL",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Petrol = {p} × 1 000 mL. Oil = petrol ÷ 50 = {answer} mL.",
+     "unitAliases": [
+      "ml",
+      "millilitres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "saw",
+     "scenario": "Felix's chainsaw engine seized. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used four-stroke oil in the petrol.",
+       "fault": true,
+       "why": "Use two-stroke oil."
+      },
+      {
+       "text": "He measured the oil roughly by eye.",
+       "fault": true,
+       "why": "A wrong mixture damages the engine."
+      },
+      {
+       "text": "He gave 'cleaning' as the only maintenance practice.",
+       "fault": true,
+       "why": "Give practices specific to each tool."
+      },
+      {
+       "text": "He checked the chain tension before use.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "He mixed the fuel in a clean labelled container.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions when using or maintaining forestry tools.",
+    "explainPrompt": "Why is a blunt cutting tool more dangerous than a sharp one?",
+    "explainGuide": "A blunt tool needs more force, so it is more likely to slip or jump and cause an accident.",
+    "explainKeywords": [
+     [
+      "force",
+      "harder"
+     ],
+     [
+      "slip",
+      "jump",
+      "accident",
+      "accidents"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Forestry tools and machines",
+    "One use, one maintenance",
+    "Protective equipment"
+   ]
+  },
+  "pr-for-seed-testing-sowing": {
+   "safety": {
+    "correct": [
+     "Warn others before you carry hot water across the room."
+    ],
+    "wrong": [
+     {
+      "text": "Carry the kettle of boiling water across the crowded room quickly.",
+      "why": "Take care with boiling water."
+     },
+     {
+      "text": "Handle fungicide-treated seed with bare hands.",
+      "why": "Wear gloves."
+     },
+     {
+      "text": "Stir the hot-water seeds with your fingers to check them.",
+      "why": "Boiling water scalds. Use a stirrer."
+     },
+     {
+      "text": "Taste a seed to see if it is still good.",
+      "why": "Treated seed is not safe to eat."
+     },
+     {
+      "text": "Eat lunch with seed dust on your hands.",
+      "why": "Wash your hands first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Seeds are collected from fruits, not by felling."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed in this lesson."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded here."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No heights are measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "mother",
+     "afterStep": 1,
+     "prompt": "Which trees do you collect seed from?",
+     "options": [
+      {
+       "text": "The trees nearest the school gate, because they save walking time",
+       "consequence": "Nearby trees may be poor seed parents."
+      },
+      {
+       "text": "Healthy, well-formed mother trees, even if they are further from the school",
+       "correct": true,
+       "consequence": "Good parents pass on good form."
+      },
+      {
+       "text": "Any crooked or diseased tree that has plenty of fruit on it",
+       "consequence": "Poor parents give poor seedlings."
+      }
+     ]
+    },
+    {
+     "id": "dormancy",
+     "afterStep": 3,
+     "prompt": "Your Leucaena seeds have hard coats. What do you do?",
+     "options": [
+      {
+       "text": "Sow them dry without any treatment, and wait for the rains to soften them",
+       "consequence": "Hard coats delay and unsettle germination."
+      },
+      {
+       "text": "Boil them hard on the stove for an hour to make sure they are soft",
+       "consequence": "Long boiling kills the seed."
+      },
+      {
+       "text": "Soak them in hot water and let them cool overnight before sowing",
+       "correct": true,
+       "consequence": "This breaks dormancy, so germination is even."
+      }
+     ]
+    },
+    {
+     "id": "depth",
+     "afterStep": 6,
+     "prompt": "How deep do you sow?",
+     "options": [
+      {
+       "text": "As deep as your finger will go, so that the seed stays moist down there",
+       "consequence": "Sowing too deep is a common mistake."
+      },
+      {
+       "text": "About twice the thickness of the seed itself, and then water lightly",
+       "correct": true,
+       "consequence": "Seedlings can reach the surface."
+      },
+      {
+       "text": "On top of the soil with no cover at all, to give it plenty of light",
+       "consequence": "Uncovered seed dries out and is eaten."
+      }
+     ]
+    },
+    {
+     "id": "moist",
+     "afterStep": 4,
+     "prompt": "How wet should the test medium be?",
+     "options": [
+      {
+       "text": "Moist all through, but with no water left standing in the tray",
+       "correct": true,
+       "consequence": "The seeds get both water and air."
+      },
+      {
+       "text": "Flooded with water, so that it will not need watering again",
+       "consequence": "Waterlogged seeds cannot breathe."
+      },
+      {
+       "text": "Left completely dry until the seeds begin to show signs of life",
+       "consequence": "Dry seeds will not germinate."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "treated",
+     "prompt": "How do hard-coated seeds respond to treatment?",
+     "options": [
+      {
+       "text": "They germinate later than those that have had no treatment",
+       "why": "Treatment speeds germination."
+      },
+      {
+       "text": "They swell and germinate sooner and more evenly than untreated seeds",
+       "correct": true
+      },
+      {
+       "text": "They do not germinate at all after they have been treated",
+       "why": "Correct treatment helps germination."
+      },
+      {
+       "text": "They rot away in the first day or two of the germination test",
+       "why": "Rot points to overwatering or disease."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "germ",
+     "prompt": "{g} of 100 seeds germinate. What is the germination percentage?",
+     "formula": "g / 100 * 100",
+     "vars": {
+      "g": {
+       "min": 60,
+       "max": 90,
+       "step": 4
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Germination = {g} ÷ 100 × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "needed",
+     "prompt": "You want {t} plantable seedlings. Germination is {g} % and nursery survival is 85 %. How many seeds are needed?",
+     "formula": "t / (g / 100 * 0.85)",
+     "vars": {
+      "t": {
+       "min": 3000,
+       "max": 6000,
+       "step": 1000
+      },
+      "g": {
+       "min": 60,
+       "max": 80,
+       "step": 10
+      }
+     },
+     "unit": "seeds",
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "Seeds = {t} ÷ ({g} ÷ 100 × 0.85) = {answer} seeds, rounded up.",
+     "unitAliases": [
+      "seed"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "seedbed",
+     "scenario": "Ali's seedlings were too few. Here is what he did.",
+     "lines": [
+      {
+       "text": "He sowed the seeds far too deep.",
+       "fault": true,
+       "why": "Sow at about twice the seed's thickness."
+      },
+      {
+       "text": "He forgot to allow for losses when calculating seed needs.",
+       "fault": true,
+       "why": "Allow for germination and survival."
+      },
+      {
+       "text": "He picked only the largest seeds for testing.",
+       "fault": true,
+       "why": "Use a large random sample."
+      },
+      {
+       "text": "He labelled every batch with species and date.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He rounded his seed number up.",
+       "why": "You cannot sow part of a seed."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for a tree seed germination test.",
+    "explainPrompt": "Why are hard-coated seeds treated before sowing?",
+    "explainGuide": "The hard coat stops water entering, which keeps the seed dormant. Treatment breaks dormancy, so germination is faster and more even.",
+    "explainKeywords": [
+     [
+      "coat",
+      "hard"
+     ],
+     [
+      "water"
+     ],
+     [
+      "dormancy",
+      "dormant"
+     ],
+     [
+      "germination",
+      "germinate"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Seed testing and sowing",
+    "Name species and method",
+    "Round seed numbers up"
+   ]
+  },
+  "pr-for-pricking-out-hardening-off": {
+   "safety": {
+    "correct": [
+     "Ask for help to lift a heavy soil bag."
+    ],
+    "wrong": [
+     {
+      "text": "Lift the soil bag with your back bent.",
+      "why": "Lift soil bags correctly."
+     },
+     {
+      "text": "Eat your food straight after handling manure.",
+      "why": "Wash your hands after handling manure."
+     },
+     {
+      "text": "Rub your eyes with hands dirty from the potting mix.",
+      "why": "Manure carries germs. Wash your hands."
+     },
+     {
+      "text": "Leave the spade lying on the path between beds.",
+      "why": "Someone can trip. Keep tools off the paths."
+     },
+     {
+      "text": "Carry a pile of pots that blocks your view.",
+      "why": "You can trip. Carry fewer at a time."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "No tree is being felled."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No heights are measured."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Beds are made with a spade and rake."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "No spraying is part of this job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "hold",
+     "afterStep": 4,
+     "prompt": "How do you hold a seedling at pricking out?",
+     "options": [
+      {
+       "text": "By a leaf, lifting it gently with the dibber under its roots",
+       "correct": true,
+       "consequence": "A bruised stem would kill it."
+      },
+      {
+       "text": "Firmly by its stem, because that is the strongest part of the plant",
+       "consequence": "A damaged stem kills the seedling."
+      },
+      {
+       "text": "By the root tip, pulling it straight up",
+       "consequence": "Roots tear and the seedling dies."
+      }
+     ]
+    },
+    {
+     "id": "when",
+     "afterStep": 4,
+     "prompt": "When do you prick out?",
+     "options": [
+      {
+       "text": "At noon, when you can see them clearly",
+       "consequence": "Midday heat wilts the seedlings."
+      },
+      {
+       "text": "On any hot afternoon, as long as you water them later in the evening",
+       "consequence": "Heat causes heavy wilting."
+      },
+      {
+       "text": "In the cool of the day, early in the morning or towards evening",
+       "correct": true,
+       "consequence": "Less wilting."
+      }
+     ]
+    },
+    {
+     "id": "harden",
+     "afterStep": 6,
+     "prompt": "When and how do you remove the shade?",
+     "options": [
+      {
+       "text": "Bit by bit over 2–4 weeks before field planting, watering less as well",
+       "correct": true,
+       "consequence": "Seedlings toughen up slowly."
+      },
+      {
+       "text": "All at once, on the very day that the seedlings go to the field",
+       "consequence": "Sudden exposure scorches seedlings."
+      },
+      {
+       "text": "Never: keep them shaded until the moment that you plant them out",
+       "consequence": "They would not be hardened off."
+      }
+     ]
+    },
+    {
+     "id": "fill",
+     "afterStep": 3,
+     "prompt": "How full should each pot be?",
+     "options": [
+      {
+       "text": "Filled right up and firmed, so that the pot stands upright",
+       "correct": true,
+       "consequence": "It stands upright."
+      },
+      {
+       "text": "About half full, to save potting mixture",
+       "consequence": "Half-filled pots collapse."
+      },
+      {
+       "text": "Loosely filled with no firming, so that the roots can move about",
+       "consequence": "Loose pots collapse."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "harden-look",
+     "prompt": "How do hardened-off seedlings look?",
+     "options": [
+      {
+       "text": "Pale, soft leaves with thin, floppy green stems",
+       "why": "These have not been hardened off."
+      },
+      {
+       "text": "Tougher, darker leaves on stems that have become woody",
+       "correct": true
+      },
+      {
+       "text": "Wilted leaves with soft stems that are bending over",
+       "why": "These are stressed."
+      },
+      {
+       "text": "Long thin stems that are leaning towards the light",
+       "why": "These have been over-shaded."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "purity",
+     "prompt": "A {s} g sample contains {p} g of pure seed. What is the purity?",
+     "formula": "p / s * 100",
+     "vars": {
+      "s": {
+       "min": 50,
+       "max": 50,
+       "step": 1
+      },
+      "p": {
+       "min": 42,
+       "max": 48,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Purity = {p} ÷ {s} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "perkg",
+     "prompt": "A 50 g sample contains {n} seeds. How many seeds are there per kilogram?",
+     "formula": "n / 50 * 1000",
+     "vars": {
+      "n": {
+       "min": 1000,
+       "max": 1500,
+       "step": 100
+      }
+     },
+     "unit": "seeds/kg",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Seeds per kg = {n} ÷ 50 × 1 000 = {answer} seeds/kg.",
+     "unitAliases": [
+      "seeds per kg"
+     ]
+    },
+    {
+     "id": "pots",
+     "prompt": "A {l} m × 1 m bed holds pots 10 cm across, in rows. How many pots fit?",
+     "formula": "l * 10 * 10",
+     "vars": {
+      "l": {
+       "min": 5,
+       "max": 12,
+       "step": 1
+      }
+     },
+     "unit": "pots",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Along = {l} × 10 pots. Across = 10 pots. Total = {answer} pots.",
+     "unitAliases": [
+      "pot"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "nursery",
+     "scenario": "Many of Ngozi's seedlings died. Here is what she did.",
+     "lines": [
+      {
+       "text": "She removed the shade suddenly.",
+       "fault": true,
+       "why": "Hardening off must be gradual."
+      },
+      {
+       "text": "She left the pots half-filled.",
+       "fault": true,
+       "why": "Half-filled pots collapse."
+      },
+      {
+       "text": "She over-watered the seedlings.",
+       "fault": true,
+       "why": "Over-watering encourages damping-off."
+      },
+      {
+       "text": "She mixed topsoil, sand and manure.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "She planted one seedling per pot.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for pricking out seedlings.",
+    "explainPrompt": "What is hardening off, and why is it done?",
+    "explainGuide": "Hardening off is gradually reducing shade and watering before field planting. It toughens seedlings so that they survive field conditions.",
+    "explainKeywords": [
+     [
+      "gradual",
+      "gradually",
+      "reducing"
+     ],
+     [
+      "shade",
+      "watering"
+     ],
+     [
+      "tough",
+      "toughens",
+      "survive",
+      "field"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Pricking out and hardening off",
+    "Define the terms",
+    "Hold by the leaf"
+   ]
+  },
+  "pr-for-nursery-costing": {
+   "safety": {
+    "correct": [
+     "Keep the cost register locked away when you are not using it."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the record book out in the rain by the nursery.",
+      "why": "Keep records secure."
+     },
+     {
+      "text": "Keep receipts loose in your pocket.",
+      "why": "They get lost. File them with the record."
+     },
+     {
+      "text": "Let anyone write in the cost register.",
+      "why": "Records must stay accurate."
+     },
+     {
+      "text": "Write costs from memory at the end of term.",
+      "why": "Record every expense with its date."
+     },
+     {
+      "text": "Keep the only copy of the figures on a loose sheet.",
+      "why": "Keep records secure."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Balance",
+      "why": "No masses are measured here."
+     },
+     {
+      "name": "Dibber",
+      "why": "The work here is on paper."
+     },
+     {
+      "name": "Measuring tape",
+      "why": "Nothing is measured on the ground."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Chainsaw",
+      "why": "This is not a costing tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "rent",
+     "afterStep": 2,
+     "prompt": "Where do you put plot rent?",
+     "options": [
+      {
+       "text": "Direct costs, because rent is a bill paid out for the seedling plot",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Indirect costs, along with the stationery and maintenance bills",
+       "correct": true,
+       "consequence": "Rent is not a direct production input."
+      },
+      {
+       "text": "Under both groups, to be safe",
+       "consequence": "An item must not be counted twice."
+      }
+     ]
+    },
+    {
+     "id": "divide",
+     "afterStep": 5,
+     "prompt": "Which number do you divide the total cost by?",
+     "options": [
+      {
+       "text": "Only the seedlings that survived to a plantable size",
+       "correct": true,
+       "consequence": "Unit cost is per plantable seedling."
+      },
+      {
+       "text": "All the seedlings sown at the start of the season, alive or dead",
+       "consequence": "This is a common mistake that lowers the cost."
+      },
+      {
+       "text": "The number of pots bought",
+       "consequence": "Pots bought are not seedlings produced."
+      }
+     ]
+    },
+    {
+     "id": "reduce",
+     "afterStep": 6,
+     "prompt": "Which is the best way to cut cost per seedling?",
+     "options": [
+      {
+       "text": "Reduce seedling losses, so that more plants survive to share the cost",
+       "correct": true,
+       "consequence": "More survivors share the same cost."
+      },
+      {
+       "text": "Buy the most expensive pots on the market for the next season",
+       "consequence": "This raises costs."
+      },
+      {
+       "text": "Stop keeping records, so that the stationery costs are left out",
+       "consequence": "Records are needed to control costs."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "largest",
+     "prompt": "Which items usually take the largest share of direct costs?",
+     "options": [
+      {
+       "text": "Labour and pots, the two biggest bills in raising seedlings",
+       "correct": true
+      },
+      {
+       "text": "Stationery and the rent of the plot",
+       "why": "Those are indirect costs."
+      },
+      {
+       "text": "Seeds and tools, which are bought only once",
+       "why": "These are usually smaller."
+      },
+      {
+       "text": "Maintenance and stationery, which are paid monthly",
+       "why": "Those are indirect costs."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "total",
+     "prompt": "Direct costs are N{d} and indirect costs are N{i}. What is the total cost in naira?",
+     "formula": "d + i",
+     "vars": {
+      "d": {
+       "min": 300000,
+       "max": 500000,
+       "step": 50000
+      },
+      "i": {
+       "min": 50000,
+       "max": 90000,
+       "step": 10000
+      }
+     },
+     "unit": "naira",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Total = {d} + {i} = N{answer}.",
+     "unitAliases": [
+      "N",
+      "₦"
+     ]
+    },
+    {
+     "id": "unit",
+     "prompt": "The total cost is N{t}, and {n} seedlings are plantable. What is the cost per seedling in naira?",
+     "formula": "t / n",
+     "vars": {
+      "t": {
+       "min": 400000,
+       "max": 600000,
+       "step": 50000
+      },
+      "n": {
+       "min": 4000,
+       "max": 5000,
+       "step": 500
+      }
+     },
+     "unit": "naira",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Cost per seedling = {t} ÷ {n} = N{answer}.",
+     "unitAliases": [
+      "N",
+      "₦"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "costs",
+     "scenario": "Ayo's costing is wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He divided by seedlings sown, not those that survived.",
+       "fault": true,
+       "why": "Use the survivors."
+      },
+      {
+       "text": "He treated plot rent as a direct cost.",
+       "fault": true,
+       "why": "Rent is an indirect cost."
+      },
+      {
+       "text": "He counted the tools under both groups.",
+       "fault": true,
+       "why": "No item may be counted twice."
+      },
+      {
+       "text": "He showed subtotals.",
+       "why": "That is what the exam wants."
+      },
+      {
+       "text": "He wrote currency signs throughout.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for keeping nursery cost records.",
+    "explainPrompt": "Why do nursery losses raise the cost per seedling?",
+    "explainGuide": "The total cost stays the same but fewer seedlings survive, so each survivor carries a larger share of the cost.",
+    "explainKeywords": [
+     [
+      "total",
+      "cost"
+     ],
+     [
+      "fewer",
+      "less",
+      "losses"
+     ],
+     [
+      "share",
+      "each"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Costing a nursery",
+    "Show subtotals",
+    "Divide by survivors"
+   ]
+  },
+  "pr-for-nursery-pests-diseases": {
+   "safety": {
+    "correct": [
+     "Stay out of the sprayed beds until the teacher says they are safe."
+    ],
+    "wrong": [
+     {
+      "text": "Mix the fungicide with bare hands and no mask.",
+      "why": "Wear protective clothing when mixing."
+     },
+     {
+      "text": "Spray into the wind so it reaches further.",
+      "why": "Spray in still air, not against the wind."
+     },
+     {
+      "text": "Leave the chemicals on the bench where small children pass.",
+      "why": "Keep chemicals away from children and food."
+     },
+     {
+      "text": "Keep the insecticide in the food store.",
+      "why": "Keep chemicals away from food."
+     },
+     {
+      "text": "Blow through a blocked nozzle to clear it.",
+      "why": "The chemical can enter your mouth. Ask the teacher."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "No trees are being felled."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No heights are measured."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Dibber",
+      "why": "You are not transplanting here."
+     },
+     {
+      "name": "Ranging pole",
+      "why": "No lines are being set out."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "chem",
+     "afterStep": 5,
+     "prompt": "Crickets are eating the seedlings. Which chemical do you use?",
+     "options": [
+      {
+       "text": "Fungicide, which is the one kept nearest the bench in the store",
+       "consequence": "Fungicide does not control insects."
+      },
+      {
+       "text": "Any chemical from the store, at any rate you think is strong enough",
+       "consequence": "Use the named product at the label rate."
+      },
+      {
+       "text": "Insecticide at the label rate, since crickets are insects and not a fungus",
+       "correct": true,
+       "consequence": "It targets insects."
+      }
+     ]
+    },
+    {
+     "id": "dose",
+     "afterStep": 5,
+     "prompt": "How much chemical do you measure?",
+     "options": [
+      {
+       "text": "Double the label rate, in order to be quite sure that it works well",
+       "consequence": "Too strong harms seedlings and people."
+      },
+      {
+       "text": "Exactly the label rate, measured out in the cylinder or on the balance",
+       "correct": true,
+       "consequence": "The dose is effective and safe."
+      },
+      {
+       "text": "Half of the label rate, because it saves the school some money",
+       "consequence": "Under-dosing is ineffective."
+      }
+     ]
+    },
+    {
+     "id": "dead",
+     "afterStep": 4,
+     "prompt": "Damping-off has killed a patch. What do you do with the dead seedlings?",
+     "options": [
+      {
+       "text": "Leave them in the bed so that they will rot down and feed the soil",
+       "consequence": "Leaving dead seedlings spreads disease."
+      },
+      {
+       "text": "Pile them at the end of the bed",
+       "consequence": "They continue to spread disease."
+      },
+      {
+       "text": "Lift them out of the bed and destroy them away from the seedlings",
+       "correct": true,
+       "consequence": "The disease is not spread further."
+      }
+     ]
+    },
+    {
+     "id": "culture",
+     "afterStep": 6,
+     "prompt": "Damping-off keeps returning. What do you change?",
+     "options": [
+      {
+       "text": "Water twice as often and sow the seedlings much more closely together",
+       "consequence": "This makes damping-off worse."
+      },
+      {
+       "text": "Move the shade closer to the bed so that it stays darker and wetter",
+       "consequence": "Damp shade favours the fungi."
+      },
+      {
+       "text": "Water less, improve the drainage and thin out the crowded seedlings",
+       "correct": true,
+       "consequence": "Damp and crowding favour damping-off."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "damp",
+     "prompt": "Stems are water-soaked and shrunken at soil level, and seedlings fall over. What is it?",
+     "options": [
+      {
+       "text": "Damping-off, caused by fungi in the soil",
+       "correct": true
+      },
+      {
+       "text": "Termite damage, with soil tunnels on the stems",
+       "why": "Termites ringbark stems and leave tunnels."
+      },
+      {
+       "text": "Caterpillar damage, with chewed leaves",
+       "why": "Caterpillars chew leaves."
+      },
+      {
+       "text": "Cricket damage, with stems cut through",
+       "why": "Crickets cut stems cleanly."
+      }
+     ]
+    },
+    {
+     "id": "termite",
+     "prompt": "Stems are ringbarked and covered with soil tunnels. What is the cause?",
+     "options": [
+      {
+       "text": "Damping-off fungi in the soil",
+       "why": "These leave water-soaked stems."
+      },
+      {
+       "text": "Leaf-eating caterpillars",
+       "why": "These chew leaves."
+      },
+      {
+       "text": "Termites, which live in colonies in the ground",
+       "correct": true
+      },
+      {
+       "text": "Too much watering in the nursery",
+       "why": "Water does not leave soil tunnels."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mort",
+     "prompt": "{d} of {n} seedlings are killed by damping-off. What is the percentage mortality?",
+     "formula": "d / n * 100",
+     "vars": {
+      "d": {
+       "min": 60,
+       "max": 120,
+       "step": 12
+      },
+      "n": {
+       "min": 1200,
+       "max": 1200,
+       "step": 1
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Mortality = {d} ÷ {n} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "mix",
+     "prompt": "The label rate is 2 g per litre. How much fungicide does a {v} L knapsack need?",
+     "formula": "2 * v",
+     "vars": {
+      "v": {
+       "min": 10,
+       "max": 20,
+       "step": 5
+      }
+     },
+     "unit": "g",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Fungicide = 2 × {v} = {answer} g.",
+     "unitAliases": [
+      "grams"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "beds",
+     "scenario": "Damping-off spread through Ife's beds. Here is what she did.",
+     "lines": [
+      {
+       "text": "She sprayed fungicide to control insects.",
+       "fault": true,
+       "why": "Use the right chemical for the pest."
+      },
+      {
+       "text": "She left dead seedlings in the bed.",
+       "fault": true,
+       "why": "They should be removed and destroyed."
+      },
+      {
+       "text": "She over-watered the crowded seedlings.",
+       "fault": true,
+       "why": "This favours damping-off."
+      },
+      {
+       "text": "She washed the sprayer after use.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "She combined cultural and chemical control.",
+       "why": "That is what the exam wants."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for spraying a nursery.",
+    "explainPrompt": "Why does over-watering favour damping-off?",
+    "explainGuide": "Wet soil favours the soil fungi that cause damping-off, such as Pythium, so seedlings rot at soil level.",
+    "explainKeywords": [
+     [
+      "wet",
+      "moist",
+      "damp",
+      "water"
+     ],
+     [
+      "fungi",
+      "fungus",
+      "pythium"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Nursery pests and diseases",
+    "Name the causal organism",
+    "Follow the label"
+   ]
+  },
+  "pr-for-plantation-layout-pegging": {
+   "safety": {
+    "correct": [
+     "Agree with your group where each person will clear before work starts."
+    ],
+    "wrong": [
+     {
+      "text": "Clear the site in sandals with bare hands.",
+      "why": "Wear boots and gloves when clearing."
+     },
+     {
+      "text": "Slash right beside your partner to finish together.",
+      "why": "Keep a distance between workers."
+     },
+     {
+      "text": "Carry the cutlass over your shoulder with the blade up.",
+      "why": "Carry tools safely, blade down."
+     },
+     {
+      "text": "Leave the cutlass in the grass while you peg.",
+      "why": "Someone can step on it. Keep it in view."
+     },
+     {
+      "text": "Walk backwards with the rope without looking.",
+      "why": "You can fall over stumps. Look behind you."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "The site is slashed by hand here."
+     },
+     {
+      "name": "Clinometer",
+      "why": "Tree height is not being measured."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "angle",
+     "afterStep": 3,
+     "prompt": "How do you set the second side at right angles?",
+     "options": [
+      {
+       "text": "Set out a 3-4-5 triangle from the base line using the marked rope",
+       "correct": true,
+       "consequence": "This gives a true right angle."
+      },
+      {
+       "text": "Judge the corner by eye",
+       "consequence": "Pegs will drift out of square."
+      },
+      {
+       "text": "Follow any footpath that happens to leave the corner of the plot",
+       "consequence": "Paths do not give right angles."
+      }
+     ]
+    },
+    {
+     "id": "pot",
+     "afterStep": 5,
+     "prompt": "The seedling is ready for the hole. What about its polythene pot?",
+     "options": [
+      {
+       "text": "Take it off completely and plant the ball of soil and roots",
+       "correct": true,
+       "consequence": "Roots can grow freely into the soil."
+      },
+      {
+       "text": "Leave it on to protect the roots",
+       "consequence": "Polythene strangles the roots."
+      },
+      {
+       "text": "Tear off the top half and leave the bottom half around the roots",
+       "consequence": "Polythene left on holds the roots back."
+      }
+     ]
+    },
+    {
+     "id": "depth",
+     "afterStep": 5,
+     "prompt": "How deep do you plant?",
+     "options": [
+      {
+       "text": "Well below the collar, so that the stem is held firmly by the soil",
+       "consequence": "Planting too deep is a common mistake."
+      },
+      {
+       "text": "Above the collar, with roots showing",
+       "consequence": "Exposed roots dry out."
+      },
+      {
+       "text": "With the root collar level with the ground, and the soil firmed",
+       "correct": true,
+       "consequence": "The seedling stands correctly."
+      }
+     ]
+    },
+    {
+     "id": "when",
+     "afterStep": 5,
+     "prompt": "When do you plant?",
+     "options": [
+      {
+       "text": "At the peak of the dry season, when labour is cheap and easy to find",
+       "consequence": "Seedlings die of drought."
+      },
+      {
+       "text": "At the end of the rains",
+       "consequence": "Seedlings cannot establish in time."
+      },
+      {
+       "text": "At the onset of the rains, once the soil has become moist enough",
+       "correct": true,
+       "consequence": "Seedlings get water to establish."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "grid",
+     "prompt": "How should correctly pegged points look?",
+     "options": [
+      {
+       "text": "Rows that curve to follow the footpaths on the site",
+       "why": "Lines should be straight."
+      },
+      {
+       "text": "Scattered points placed wherever the soil looks good",
+       "why": "The spacing must be regular."
+      },
+      {
+       "text": "Tight clusters of pegs around the largest stumps",
+       "why": "The spacing must be regular."
+      },
+      {
+       "text": "A square grid of pegs in straight rows and columns",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "seedlings",
+     "prompt": "How many seedlings are needed for {a} ha at 3 m × 3 m?",
+     "formula": "a * 10000 / 9",
+     "vars": {
+      "a": {
+       "min": 1,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "seedlings",
+     "tolerance": {
+      "rel": 0.005
+     },
+     "decimals": 0,
+     "working": "Area = {a} × 10 000 m². Seedlings = area ÷ 9 = {answer} seedlings.",
+     "unitAliases": [
+      "seedling"
+     ]
+    },
+    {
+     "id": "beat",
+     "prompt": "You will plant {n} seedlings. How many should you raise, adding 10 % for beating up?",
+     "formula": "n * 1.1",
+     "vars": {
+      "n": {
+       "min": 1000,
+       "max": 3000,
+       "step": 500
+      }
+     },
+     "unit": "seedlings",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Seedlings to raise = {n} × 1.1 = {answer} seedlings.",
+     "unitAliases": [
+      "seedling"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "layout",
+     "scenario": "Ojo's plantation count is wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot to convert hectares to square metres.",
+       "fault": true,
+       "why": "1 ha = 10 000 m²."
+      },
+      {
+       "text": "He planted with the roots exposed.",
+       "fault": true,
+       "why": "Plant at the root collar."
+      },
+      {
+       "text": "He pegged with a rope that had stretched.",
+       "fault": true,
+       "why": "Rope stretches with use and alters spacing."
+      },
+      {
+       "text": "He showed the area conversion step.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "He used the 3-4-5 method.",
+       "why": "That is the correct method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for planting out seedlings.",
+    "explainPrompt": "Why are planting lines kept straight?",
+    "explainGuide": "Straight lines give even spacing and make tending easier, so weeding and thinning can be carried out quickly.",
+    "explainKeywords": [
+     [
+      "even",
+      "spacing"
+     ],
+     [
+      "tending",
+      "weeding",
+      "thinning"
+     ],
+     [
+      "easy",
+      "easier",
+      "quickly"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Plantation layout",
+    "Show the area conversion",
+    "Name the 3-4-5 method"
+   ]
+  },
+  "pr-for-tending-operations": {
+   "safety": {
+    "correct": [
+     "Warn others before a branch comes down."
+    ],
+    "wrong": [
+     {
+      "text": "Prune above your head with a short saw and no helmet.",
+      "why": "Prune above head height only with a pole saw and helmet."
+     },
+     {
+      "text": "Stand under the branch while it is being cut.",
+      "why": "Keep away from falling branches."
+     },
+     {
+      "text": "Climb the young tree to reach the upper branches.",
+      "why": "It can break. Use the correct tool."
+     },
+     {
+      "text": "Slash close to your partner to save time.",
+      "why": "A cutlass can hit someone. Keep apart."
+     },
+     {
+      "text": "Leave the pruning saw on the path between rows.",
+      "why": "Someone can be cut. Keep it in view."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Tending here is done with hand tools."
+     },
+     {
+      "name": "Clinometer",
+      "why": "Height is not being measured."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "prune",
+     "afterStep": 4,
+     "prompt": "Where do you make the pruning cut?",
+     "options": [
+      {
+       "text": "Flush with the branch collar, leaving no stub and not cutting into it",
+       "correct": true,
+       "consequence": "Knot-free timber forms, and the wound heals."
+      },
+      {
+       "text": "A good way along the branch, leaving a long stub on the stem of the tree",
+       "consequence": "Stubs must not be left."
+      },
+      {
+       "text": "Deep into the collar, so that the stem is left completely smooth",
+       "consequence": "Do not cut into the collar."
+      }
+     ]
+    },
+    {
+     "id": "beat",
+     "afterStep": 3,
+     "prompt": "When do you beat up?",
+     "options": [
+      {
+       "text": "At the height of the dry season, while there is time to do the work",
+       "consequence": "Seedlings die of drought."
+      },
+      {
+       "text": "Whenever someone notices a gap",
+       "consequence": "Timing affects survival."
+      },
+      {
+       "text": "Early in the rainy season, while there is still plenty of moisture",
+       "correct": true,
+       "consequence": "Replacement seedlings establish well."
+      }
+     ]
+    },
+    {
+     "id": "thin",
+     "afterStep": 5,
+     "prompt": "Which trees do you mark for thinning?",
+     "options": [
+      {
+       "text": "The tallest and straightest stems in the stand, since they will sell well",
+       "consequence": "This removes the best trees."
+      },
+      {
+       "text": "Those that are suppressed, diseased or crooked, marked first with paint",
+       "correct": true,
+       "consequence": "The best trees are left to grow."
+      },
+      {
+       "text": "Whichever trees are nearest to the road for the ease of removing them",
+       "consequence": "Quality must decide, not position."
+      }
+     ]
+    },
+    {
+     "id": "stages",
+     "afterStep": 5,
+     "prompt": "The stand is overcrowded. How much do you thin?",
+     "options": [
+      {
+       "text": "A part of the stand now and more later, thinning in separate stages",
+       "correct": true,
+       "consequence": "Trees adjust gradually."
+      },
+      {
+       "text": "All at once in one heavy cut, so that the job is done and finished",
+       "consequence": "Thin in stages, not all at once."
+      },
+      {
+       "text": "Not at all, since all the trees in the stand were paid for at planting",
+       "consequence": "Crowded trees grow slowly."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ring",
+     "prompt": "How do ring-weeded trees grow?",
+     "options": [
+      {
+       "text": "More slowly than the trees still growing among the weeds",
+       "why": "Weeds compete with young trees."
+      },
+      {
+       "text": "At the same rate as those trees left among thick weeds",
+       "why": "Removing weeds helps."
+      },
+      {
+       "text": "Faster than the trees left among the weeds",
+       "correct": true
+      },
+      {
+       "text": "Not at all, until the weeds are allowed to come back",
+       "why": "Weeds compete with the tree."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "survival",
+     "prompt": "{p} trees were planted, and {a} are alive. What is the survival percentage?",
+     "formula": "a / p * 100",
+     "vars": {
+      "p": {
+       "min": 1000,
+       "max": 1200,
+       "step": 100
+      },
+      "a": {
+       "min": 800,
+       "max": 950,
+       "step": 50
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Survival = {a} ÷ {p} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "beatup",
+     "prompt": "{p} trees were planted, and {a} are alive. How many trees must be beaten up?",
+     "formula": "p - a",
+     "vars": {
+      "p": {
+       "min": 1000,
+       "max": 1200,
+       "step": 100
+      },
+      "a": {
+       "min": 800,
+       "max": 950,
+       "step": 50
+      }
+     },
+     "unit": "trees",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Trees to replace = {p} − {a} = {answer} trees.",
+     "unitAliases": [
+      "tree"
+     ]
+    },
+    {
+     "id": "thinning",
+     "prompt": "A {t} % thinning is done on {a} trees. How many trees are removed?",
+     "formula": "t / 100 * a",
+     "vars": {
+      "t": {
+       "min": 20,
+       "max": 40,
+       "step": 10
+      },
+      "a": {
+       "min": 800,
+       "max": 1000,
+       "step": 100
+      }
+     },
+     "unit": "trees",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Removed = {t} ÷ 100 × {a} = {answer} trees.",
+     "unitAliases": [
+      "tree"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "tending",
+     "scenario": "The stand is doing badly. Here is what the crew did.",
+     "lines": [
+      {
+       "text": "They said beating up meant removing living trees.",
+       "fault": true,
+       "why": "Beating up replaces dead seedlings."
+      },
+      {
+       "text": "They pruned live branches too heavily.",
+       "fault": true,
+       "why": "This slows growth."
+      },
+      {
+       "text": "They left stubs when pruning.",
+       "fault": true,
+       "why": "Stubs must not be left."
+      },
+      {
+       "text": "They recorded all operations and dates.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "They gave survival as a percentage of trees planted.",
+       "why": "That is the exam tip."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for pruning or thinning.",
+    "explainPrompt": "Why are plantation trees thinned?",
+    "explainGuide": "Thinning removes poor trees and gives the remaining trees more space, so they develop wider crowns and larger diameters.",
+    "explainKeywords": [
+     [
+      "space",
+      "room"
+     ],
+     [
+      "crown",
+      "crowns"
+     ],
+     [
+      "diameter",
+      "diameters",
+      "growth",
+      "grow"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Tending operations",
+    "Give the reason for each",
+    "Thin in stages"
+   ]
+  },
+  "pr-for-tree-height-measurement": {
+   "safety": {
+    "correct": [
+     "Have a partner watch the ground behind you as you step back."
+    ],
+    "wrong": [
+     {
+      "text": "Stand right under a dead branch to sight the top.",
+      "why": "Look out for dead branches overhead."
+     },
+     {
+      "text": "Walk backwards over rough ground while looking up.",
+      "why": "Check behind you before moving."
+     },
+     {
+      "text": "Run with the clinometer between the positions.",
+      "why": "You can trip over roots. Walk with care."
+     },
+     {
+      "text": "Rest against a dead tree while you take the angle.",
+      "why": "Dead trees can give way."
+     },
+     {
+      "text": "Sight the tree top while standing in the road.",
+      "why": "Traffic may hit you. Choose a safe place."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Diameter tape",
+      "why": "Height, not girth, is being measured."
+     },
+     {
+      "name": "Chainsaw",
+      "why": "No tree is being felled."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "stand",
+     "afterStep": 1,
+     "prompt": "How far from the tree do you stand?",
+     "options": [
+      {
+       "text": "About as far from the trunk as the tree is tall, on level ground",
+       "correct": true,
+       "consequence": "This gives the best accuracy."
+      },
+      {
+       "text": "Right up against the trunk",
+       "consequence": "The top cannot be seen properly."
+      },
+      {
+       "text": "As far away as you can get while the top can still be made out faintly",
+       "consequence": "Accuracy falls as the sighting gets harder."
+      }
+     ]
+    },
+    {
+     "id": "eye",
+     "afterStep": 5,
+     "prompt": "You have worked out distance × tan(angle). What next?",
+     "options": [
+      {
+       "text": "Add your eye height, then give the answer in metres to one decimal",
+       "correct": true,
+       "consequence": "The total tree height is found."
+      },
+      {
+       "text": "Subtract the eye height from your answer to allow for your own height",
+       "consequence": "Eye height must be added."
+      },
+      {
+       "text": "Stop there, since the calculation has already given you the full height",
+       "consequence": "This forgets the eye height."
+      }
+     ]
+    },
+    {
+     "id": "calc",
+     "afterStep": 5,
+     "prompt": "Your calculator gives an odd tan value. What do you check?",
+     "options": [
+      {
+       "text": "That the calculator is set to degrees and not to radians",
+       "correct": true,
+       "consequence": "Radians give a wrong answer."
+      },
+      {
+       "text": "That it is set to sine, as that is the usual function for tree heights",
+       "consequence": "Tan is the correct function."
+      },
+      {
+       "text": "That its battery is new",
+       "consequence": "A battery does not change the mode."
+      }
+     ]
+    },
+    {
+     "id": "top",
+     "afterStep": 4,
+     "prompt": "You can see a side branch and the true top. Which do you sight?",
+     "options": [
+      {
+       "text": "The side branch, as it is easiest to see",
+       "consequence": "Height would be too low."
+      },
+      {
+       "text": "The true top of the tree, even if it takes time to find it",
+       "correct": true,
+       "consequence": "The height is correct."
+      },
+      {
+       "text": "The middle of the crown, so that the two errors can cancel each other",
+       "consequence": "Sight the true top."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "agree",
+     "prompt": "How closely should the two methods agree?",
+     "options": [
+      {
+       "text": "Within about 10 m on most trees of this size",
+       "why": "That gap is too big."
+      },
+      {
+       "text": "Exactly, down to the last centimetre every time",
+       "why": "Some difference is normal."
+      },
+      {
+       "text": "They need not agree at all, as they are separate methods",
+       "why": "They should agree closely."
+      },
+      {
+       "text": "Within about 0.5 to 1 m of each other",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "height",
+     "prompt": "From {d} m away, the tangent of the angle is 0.7002 and your eye height is {e} m. What is the height of the tree?",
+     "formula": "d * 0.7002 + e",
+     "vars": {
+      "d": {
+       "min": 15,
+       "max": 30,
+       "step": 5
+      },
+      "e": {
+       "min": 1.4,
+       "max": 1.7,
+       "step": 0.1
+      }
+     },
+     "unit": "m",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Height = {d} × 0.7002 + {e} = {answer} m.",
+     "unitAliases": [
+      "metres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "height-report",
+     "scenario": "Tunde's height is far too low. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot to add his eye height.",
+       "fault": true,
+       "why": "Eye height must be added."
+      },
+      {
+       "text": "He used sin instead of tan.",
+       "fault": true,
+       "why": "Height needs tan."
+      },
+      {
+       "text": "He left his calculator in radians.",
+       "fault": true,
+       "why": "It must be set to degrees."
+      },
+      {
+       "text": "He drew a labelled triangle.",
+       "why": "That often earns a mark."
+      },
+      {
+       "text": "He measured the distance horizontally.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring tree height.",
+    "explainPrompt": "Why must the distance to the tree be measured horizontally?",
+    "explainGuide": "The formula uses the horizontal side of a right-angled triangle. A sloping distance is longer, so it would give a false height.",
+    "explainKeywords": [
+     [
+      "horizontal"
+     ],
+     [
+      "triangle",
+      "formula",
+      "tan"
+     ],
+     [
+      "slope",
+      "sloping",
+      "false",
+      "wrong"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Tree height",
+    "Draw a labelled triangle",
+    "One decimal place, in m"
+   ]
+  },
+  "pr-for-diameter-basal-area": {
+   "safety": {
+    "correct": [
+     "Look over the stem for insects before you wrap the tape round it."
+    ],
+    "wrong": [
+     {
+      "text": "Put your arm round the trunk without looking first.",
+      "why": "Ants, wasps and thorns may be there."
+     },
+     {
+      "text": "Knock on a wasp nest to move the wasps away.",
+      "why": "They will sting you. Leave it and tell the teacher."
+     },
+     {
+      "text": "Wrap the tape round a thorny stem with bare hands.",
+      "why": "Thorns can cut your hands. Check first."
+     },
+     {
+      "text": "Lean your chest against the stem to steady the tape.",
+      "why": "Ants or thorns may be there."
+     },
+     {
+      "text": "Run between trees with the calliper arms open.",
+      "why": "You can injure someone. Carry it closed."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "No tree is being cut."
+     },
+     {
+      "name": "Haga altimeter",
+      "why": "Height is not being measured in this task."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "uphill",
+     "afterStep": 1,
+     "prompt": "On sloping ground, where do you mark breast height?",
+     "options": [
+      {
+       "text": "On the downhill side, because the stem is easier to reach from there",
+       "consequence": "That is the wrong side."
+      },
+      {
+       "text": "On whichever side has smooth bark",
+       "consequence": "Use the uphill side so that measurements compare."
+      },
+      {
+       "text": "On the uphill side of the stem, using the 1.3 m stick",
+       "correct": true,
+       "consequence": "This is the standard practice."
+      }
+     ]
+    },
+    {
+     "id": "calliper",
+     "afterStep": 3,
+     "prompt": "How do you use the calliper on an oval stem?",
+     "options": [
+      {
+       "text": "In one direction only, on the widest part of the stem that you can see",
+       "consequence": "The diameter is overestimated."
+      },
+      {
+       "text": "In one direction only, along the narrowest part of the stem",
+       "consequence": "The diameter is underestimated."
+      },
+      {
+       "text": "In two directions at right angles, and find the mean of the two",
+       "correct": true,
+       "consequence": "This allows for the oval shape."
+      }
+     ]
+    },
+    {
+     "id": "units",
+     "afterStep": 4,
+     "prompt": "Your diameter is 50 cm. What must you do before finding basal area in m²?",
+     "options": [
+      {
+       "text": "Use 50 directly, then write m² after the answer to make it correct",
+       "consequence": "Mixing cm and m is a common mistake."
+      },
+      {
+       "text": "Change 50 cm to 0.50 m, then put that value into the formula",
+       "correct": true,
+       "consequence": "The unit is then correct."
+      },
+      {
+       "text": "Convert it to 5.0 m first",
+       "consequence": "That is the wrong conversion."
+      }
+     ]
+    },
+    {
+     "id": "formula",
+     "afterStep": 4,
+     "prompt": "Which quantity goes into πd²/4?",
+     "options": [
+      {
+       "text": "The diameter, found from the girth or read off the d-side of the tape",
+       "correct": true,
+       "consequence": "This is the correct quantity."
+      },
+      {
+       "text": "The girth, because that is what the tape round the stem shows you",
+       "consequence": "Girth must not be used in place of diameter."
+      },
+      {
+       "text": "The height of the tree, because that gives you the size of the stem",
+       "consequence": "Height is used later, for volume."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "oval",
+     "prompt": "What do you notice when you calliper an oval stem?",
+     "options": [
+      {
+       "text": "Two identical readings, however you hold the calliper",
+       "why": "Only round stems give the same reading."
+      },
+      {
+       "text": "Two different readings, one in each direction",
+       "correct": true
+      },
+      {
+       "text": "A reading far larger than the girth of the same stem",
+       "why": "Diameter is smaller than girth."
+      },
+      {
+       "text": "No reading can be taken from a stem of this shape",
+       "why": "It can be measured in two directions."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ba",
+     "prompt": "A tree has a diameter of {d} m. Taking π as 3.142, what is its basal area?",
+     "formula": "3.142 * d ^ 2 / 4",
+     "vars": {
+      "d": {
+       "min": 0.3,
+       "max": 0.7,
+       "step": 0.1
+      }
+     },
+     "unit": "m²",
+     "tolerance": {
+      "abs": 0.002
+     },
+     "decimals": 3,
+     "working": "g = 3.142 × {d}² ÷ 4 = {answer} m².",
+     "unitAliases": [
+      "m2",
+      "square metres"
+     ]
+    },
+    {
+     "id": "vol",
+     "prompt": "A tree has a basal area of {g} m², a height of {h} m and a form factor of 0.5. What is its volume?",
+     "formula": "g * h * 0.5",
+     "vars": {
+      "g": {
+       "min": 0.1,
+       "max": 0.3,
+       "step": 0.05
+      },
+      "h": {
+       "min": 15,
+       "max": 25,
+       "step": 5
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "v = {g} × {h} × 0.5 = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "dbh",
+     "scenario": "Musa's basal areas are all wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used girth in place of diameter in πd²/4.",
+       "fault": true,
+       "why": "Use the diameter."
+      },
+      {
+       "text": "He forgot to square the diameter.",
+       "fault": true,
+       "why": "d must be squared."
+      },
+      {
+       "text": "He mixed centimetres and metres.",
+       "fault": true,
+       "why": "Convert to metres first."
+      },
+      {
+       "text": "He kept the tape horizontal.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He stated the symbols d, g, h and v.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring diameter at breast height.",
+    "explainPrompt": "Why is basal area useful in forestry?",
+    "explainGuide": "Basal area shows how much of the land is occupied by stems. With height and form factor, it is used to estimate the volume of timber.",
+    "explainKeywords": [
+     [
+      "basal"
+     ],
+     [
+      "volume",
+      "timber"
+     ],
+     [
+      "height",
+      "form"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Diameter and basal area",
+    "Formula, substitution, unit",
+    "Convert cm to m"
+   ]
+  },
+  "pr-for-log-volume": {
+   "safety": {
+    "correct": [
+     "Agree on a clear way out of the log yard before you start."
+    ],
+    "wrong": [
+     {
+      "text": "Stand on the downhill side of the log to measure it.",
+      "why": "Never stand on the downhill side."
+     },
+     {
+      "text": "Measure the log before it has been chocked.",
+      "why": "Chock logs so that they cannot roll."
+     },
+     {
+      "text": "Walk along the top of the log to find its midpoint.",
+      "why": "It can roll. Stay on the ground."
+     },
+     {
+      "text": "Work in the depot in sandals.",
+      "why": "Wear boots and gloves."
+     },
+     {
+      "text": "Lean over a stack of logs to reach the far end.",
+      "why": "Logs can roll. Move round instead."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Clinometer",
+      "why": "The log is on the ground, so no height is sighted."
+     },
+     {
+      "name": "Haga altimeter",
+      "why": "The log is on the ground, so no height is sighted."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "two-dia",
+     "afterStep": 2,
+     "prompt": "How do you measure each diameter?",
+     "options": [
+      {
+       "text": "Once only at the widest place you can find across the end of the log",
+       "consequence": "The diameter is overestimated."
+      },
+      {
+       "text": "Once only, in any direction",
+       "consequence": "One reading misses irregular shape."
+      },
+      {
+       "text": "Two readings at right angles at that point, and take the average",
+       "correct": true,
+       "consequence": "This allows for irregular shape."
+      }
+     ]
+    },
+    {
+     "id": "smalian-avg",
+     "afterStep": 5,
+     "prompt": "In Smalian's formula, what do you average?",
+     "options": [
+      {
+       "text": "The areas of the two ends, each worked out first from its own diameter",
+       "correct": true,
+       "consequence": "This is what the formula says."
+      },
+      {
+       "text": "The two end diameters, and then you find one single area from them",
+       "consequence": "Averaging diameters is a common mistake."
+      },
+      {
+       "text": "The end area and the middle area, since both are already worked out",
+       "consequence": "Smalian uses the two ends."
+      }
+     ]
+    },
+    {
+     "id": "units",
+     "afterStep": 4,
+     "prompt": "Your diameters are in cm. What do you do first?",
+     "options": [
+      {
+       "text": "Leave them in cm, then divide the final volume by a hundred at the end",
+       "consequence": "Mixing units is a common mistake."
+      },
+      {
+       "text": "Convert only the base diameter",
+       "consequence": "All values must be in metres."
+      },
+      {
+       "text": "Change every diameter to metres before finding any of the areas",
+       "correct": true,
+       "consequence": "The volume then comes out in m³."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "compare",
+     "prompt": "For a tapering log, how does Smalian's result compare with Huber's?",
+     "options": [
+      {
+       "text": "Much smaller, by about one half of the Huber volume",
+       "why": "Smalian is usually a little larger."
+      },
+      {
+       "text": "Exactly the same on every log that you measure",
+       "why": "They usually differ a little."
+      },
+      {
+       "text": "Slightly larger, in most tapering logs",
+       "correct": true
+      },
+      {
+       "text": "Slightly smaller, because it leaves out the middle",
+       "why": "Smalian is usually slightly larger."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "smalian",
+     "prompt": "A log is {l} m long, with base diameter {b} m and top diameter {t} m. Taking π as 3.142, what is its Smalian volume?",
+     "formula": "l * (3.142 * b ^ 2 / 4 + 3.142 * t ^ 2 / 4) / 2",
+     "vars": {
+      "l": {
+       "min": 4,
+       "max": 8,
+       "step": 2
+      },
+      "b": {
+       "min": 0.5,
+       "max": 0.7,
+       "step": 0.1
+      },
+      "t": {
+       "min": 0.3,
+       "max": 0.4,
+       "step": 0.1
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 3,
+     "working": "Ab = 3.142 × {b}² ÷ 4. At = 3.142 × {t}² ÷ 4. V = {l} × (Ab + At) ÷ 2 = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    },
+    {
+     "id": "huber",
+     "prompt": "A log is {l} m long, with mid-diameter {m} m. Taking π as 3.142, what is its Huber volume?",
+     "formula": "l * 3.142 * m ^ 2 / 4",
+     "vars": {
+      "l": {
+       "min": 4,
+       "max": 8,
+       "step": 2
+      },
+      "m": {
+       "min": 0.4,
+       "max": 0.6,
+       "step": 0.1
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 3,
+     "working": "Am = 3.142 × {m}² ÷ 4. V = {l} × Am = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "depot",
+     "scenario": "Eze's volume is wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He averaged the diameters instead of the areas.",
+       "fault": true,
+       "why": "Smalian averages the areas."
+      },
+      {
+       "text": "He mixed centimetres and metres.",
+       "fault": true,
+       "why": "All values must be in metres."
+      },
+      {
+       "text": "He measured each diameter only once.",
+       "fault": true,
+       "why": "Take two at right angles."
+      },
+      {
+       "text": "He named the formula he used.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "He wrote the units m² and m³.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring a log.",
+    "explainPrompt": "Why are two diameters taken at right angles?",
+    "explainGuide": "Logs are rarely perfect circles. Averaging two diameters at right angles allows for an oval or irregular shape.",
+    "explainKeywords": [
+     [
+      "circle",
+      "circles",
+      "oval",
+      "irregular"
+     ],
+     [
+      "average",
+      "averaging"
+     ],
+     [
+      "right",
+      "angles"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Log volume",
+    "Name the formula",
+    "Metres before multiplying"
+   ]
+  },
+  "pr-for-enumeration-sampling": {
+   "safety": {
+    "correct": [
+     "Tell the team leader if you leave your plot for any reason."
+    ],
+    "wrong": [
+     {
+      "text": "Go off alone to finish the last plot.",
+      "why": "Work in teams and agree on meeting points."
+     },
+     {
+      "text": "Leave the first aid kit at school to save weight.",
+      "why": "Carry first aid and water."
+     },
+     {
+      "text": "Skip agreeing a meeting point, as the forest is small.",
+      "why": "Agree on meeting points."
+     },
+     {
+      "text": "Go into the forest with no water as it is cool.",
+      "why": "Carry first aid and water."
+     },
+     {
+      "text": "Walk off the compass line without telling your team.",
+      "why": "You can get lost. Stay together."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Trees are not being felled."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Rain gauge",
+      "why": "Rain is not recorded here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "mark",
+     "afterStep": 3,
+     "prompt": "You have measured a tree in the plot. What do you do?",
+     "options": [
+      {
+       "text": "Move on with no mark, since you will surely remember all the trees",
+       "consequence": "Trees may be counted twice."
+      },
+      {
+       "text": "Put a paint mark on it, so that no one counts that tree a second time",
+       "correct": true,
+       "consequence": "It is not counted twice."
+      },
+      {
+       "text": "Cut a large slash into the bark so that others can find it later on",
+       "consequence": "Paint is what is used for marking."
+      }
+     ]
+    },
+    {
+     "id": "min",
+     "afterStep": 3,
+     "prompt": "A tree is below the minimum dbh. What do you do?",
+     "options": [
+      {
+       "text": "Leave it off the tally, because it is under the agreed minimum",
+       "correct": true,
+       "consequence": "The same minimum is used throughout."
+      },
+      {
+       "text": "Include it this one time, because there are so few trees in this plot",
+       "consequence": "The minimum must be the same throughout."
+      },
+      {
+       "text": "Round its diameter up to the minimum",
+       "consequence": "This is falsifying the data."
+      }
+     ]
+    },
+    {
+     "id": "expand",
+     "afterStep": 6,
+     "prompt": "How do you expand the sample to the whole compartment?",
+     "options": [
+      {
+       "text": "Multiply by the sampling fraction, as you would for any percentage sum",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Divide each sample figure by the sampling fraction of 0.05",
+       "correct": true,
+       "consequence": "This is the correct method."
+      },
+      {
+       "text": "Add the fraction to each figure",
+       "consequence": "This has no meaning."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "tally",
+     "prompt": "What do tally sheets from a natural forest usually show?",
+     "options": [
+      {
+       "text": "More large trees than small ones in every plot",
+       "why": "Natural forests have many small trees."
+      },
+      {
+       "text": "About the same number in each diameter class",
+       "why": "Small trees are more numerous."
+      },
+      {
+       "text": "Only trees of one species in each of the plots",
+       "why": "Natural forest is mixed."
+      },
+      {
+       "text": "More small trees than large ones in each plot",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "sampled",
+     "prompt": "A compartment of {a} ha is enumerated at 5 %. What area is sampled?",
+     "formula": "a * 0.05",
+     "vars": {
+      "a": {
+       "min": 20,
+       "max": 60,
+       "step": 10
+      }
+     },
+     "unit": "ha",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Area sampled = {a} × 0.05 = {answer} ha.",
+     "unitAliases": [
+      "hectares"
+     ]
+    },
+    {
+     "id": "estimate",
+     "prompt": "{n} trees were counted in a 5 % sample. What is the estimated total?",
+     "formula": "n / 0.05",
+     "vars": {
+      "n": {
+       "min": 30,
+       "max": 60,
+       "step": 6
+      }
+     },
+     "unit": "trees",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Total = {n} ÷ 0.05 = {answer} trees.",
+     "unitAliases": [
+      "tree"
+     ]
+    },
+    {
+     "id": "volume",
+     "prompt": "The sample volume is {v} m³ at 5 % enumeration. What is the estimated total volume?",
+     "formula": "v / 0.05",
+     "vars": {
+      "v": {
+       "min": 60,
+       "max": 120,
+       "step": 10
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Total = {v} ÷ 0.05 = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "enum",
+     "scenario": "The estimate from Bello's team is badly wrong. Here is what they did.",
+     "lines": [
+      {
+       "text": "They multiplied by the sampling fraction.",
+       "fault": true,
+       "why": "They should have divided."
+      },
+      {
+       "text": "They called fixed-interval plots random sampling.",
+       "fault": true,
+       "why": "Fixed intervals are systematic."
+      },
+      {
+       "text": "They changed the minimum diameter between plots.",
+       "fault": true,
+       "why": "Use the same minimum throughout."
+      },
+      {
+       "text": "They tallied by species and diameter class.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "They marked each tree after measuring.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for sample enumeration.",
+    "explainPrompt": "Why is a forest usually enumerated by sampling and not tree by tree?",
+    "explainGuide": "Counting every tree takes too much time and money. A sample gives a good estimate of the whole compartment at much lower cost.",
+    "explainKeywords": [
+     [
+      "time"
+     ],
+     [
+      "cost",
+      "money"
+     ],
+     [
+      "estimate",
+      "sample"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Enumeration by sampling",
+    "Define the intensities",
+    "Divide by the fraction"
+   ]
+  },
+  "pr-for-slope-and-area-survey": {
+   "safety": {
+    "correct": [
+     "Keep the group together on the steep part of the slope."
+    ],
+    "wrong": [
+     {
+      "text": "Run down the steep part of the slope with the poles.",
+      "why": "Take care on steep slopes."
+     },
+     {
+      "text": "Wear smooth-soled sandals on the slope.",
+      "why": "Wear boots with good grip."
+     },
+     {
+      "text": "Throw the arrows to your partner down the slope.",
+      "why": "Arrows are sharp. Never throw them."
+     },
+     {
+      "text": "Stand below someone who is moving loose rocks.",
+      "why": "Rocks can roll on you. Keep to one side."
+     },
+     {
+      "text": "Lean out from the cliff edge to read the angle.",
+      "why": "You can fall. Stay back from edges."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Nothing is felled in this survey."
+     },
+     {
+      "name": "Diameter tape",
+      "why": "Trees are not being measured."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sight",
+     "afterStep": 2,
+     "prompt": "What do you sight on the far pole?",
+     "options": [
+      {
+       "text": "The very top of the pole, because it is the easiest thing to make out",
+       "consequence": "The angle comes out wrong."
+      },
+      {
+       "text": "The foot of the pole",
+       "consequence": "The angle comes out wrong."
+      },
+      {
+       "text": "A mark at the same height on that pole as your own eye",
+       "correct": true,
+       "consequence": "The line is then parallel to the slope."
+      }
+     ]
+    },
+    {
+     "id": "chain",
+     "afterStep": 5,
+     "prompt": "You are chaining across a slope. How do you hold the chain?",
+     "options": [
+      {
+       "text": "Along the ground on the slope, as this is the distance that you walk",
+       "consequence": "Slope distance is longer than plan distance."
+      },
+      {
+       "text": "Horizontal, stepping down the slope in short chain lengths",
+       "correct": true,
+       "consequence": "You get the true plan distance."
+      },
+      {
+       "text": "Loosely, following the ground",
+       "consequence": "Sag gives false lengths."
+      }
+     ]
+    },
+    {
+     "id": "scale",
+     "afterStep": 4,
+     "prompt": "The clinometer shows two scales. What do you note?",
+     "options": [
+      {
+       "text": "Which of the two scales you read, degrees or percent, in the book",
+       "correct": true,
+       "consequence": "Degrees and percent are not the same."
+      },
+      {
+       "text": "Nothing, since the two scales on the clinometer give the same number",
+       "consequence": "This is a known source of error."
+      },
+      {
+       "text": "The larger of the two, because it is much the easier one to read",
+       "consequence": "You must use the correct scale."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "steep",
+     "prompt": "What happens to the clinometer angle on a steeper slope?",
+     "options": [
+      {
+       "text": "It gets smaller as the ground rises more quickly",
+       "why": "Steeper slopes give larger angles."
+      },
+      {
+       "text": "It gets larger as the slope gets steeper",
+       "correct": true
+      },
+      {
+       "text": "It stays the same on any slope you choose to measure",
+       "why": "The angle depends on the slope."
+      },
+      {
+       "text": "It reads zero when the slope is at its steepest",
+       "why": "Zero means level ground."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "grad",
+     "prompt": "The ground rises {r} m over a horizontal distance of {d} m. What is the gradient?",
+     "formula": "r / d * 100",
+     "vars": {
+      "r": {
+       "min": 8,
+       "max": 16,
+       "step": 2
+      },
+      "d": {
+       "min": 80,
+       "max": 100,
+       "step": 20
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Gradient = {r} ÷ {d} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "area",
+     "prompt": "A rectangular plot measures {l} m × {w} m. What is its area in hectares?",
+     "formula": "l * w / 10000",
+     "vars": {
+      "l": {
+       "min": 150,
+       "max": 300,
+       "step": 50
+      },
+      "w": {
+       "min": 100,
+       "max": 200,
+       "step": 20
+      }
+     },
+     "unit": "ha",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "Area = {l} × {w} m². Hectares = area ÷ 10 000 = {answer} ha.",
+     "unitAliases": [
+      "hectares"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "survey",
+     "scenario": "Ama's slope report lost marks. Here is what she wrote and did.",
+     "lines": [
+      {
+       "text": "She took a gradient of 15 % to mean 15 degrees.",
+       "fault": true,
+       "why": "Gradient percent and degrees differ."
+      },
+      {
+       "text": "She forgot that 1 ha = 10 000 m².",
+       "fault": true,
+       "why": "The area conversion was wrong."
+      },
+      {
+       "text": "She let the chain sag.",
+       "fault": true,
+       "why": "Sag gives false lengths."
+      },
+      {
+       "text": "She stated the scale she had read.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "She divided the plot into triangles and rectangles.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for measuring slope.",
+    "explainPrompt": "Why do steep plots need contour planting?",
+    "explainGuide": "Planting along the contour slows run-off across the slope, which reduces soil erosion on steep ground.",
+    "explainKeywords": [
+     [
+      "contour"
+     ],
+     [
+      "run-off",
+      "runoff",
+      "water"
+     ],
+     [
+      "erosion",
+      "soil"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Slope and area survey",
+    "State the scale you read",
+    "Show conversion to hectares"
+   ]
+  },
+  "pr-for-directional-felling": {
+   "safety": {
+    "correct": [
+     "Stay behind the line the teacher marks, and do not move until you are told."
+    ],
+    "wrong": [
+     {
+      "text": "Offer to make the back cut yourself, as you have watched it done.",
+      "why": "Only trained persons fell trees. Students observe."
+     },
+     {
+      "text": "Watch from close by to see the hinge clearly.",
+      "why": "Observe from at least twice the tree height away."
+     },
+     {
+      "text": "Carry on felling although the wind is getting strong.",
+      "why": "Never fell in strong wind."
+     },
+     {
+      "text": "Start the work before any escape routes are planned.",
+      "why": "Plan two escape routes first."
+     },
+     {
+      "text": "Stand under the crown so you can see the lean.",
+      "why": "Falling branches can kill. Stay out of the danger zone."
+     },
+     {
+      "text": "Take off the helmet, as the visor makes you hot.",
+      "why": "Helmet, visor, ear protection, gloves and boots stay on."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Pruning saw",
+      "why": "This is for pruning, not for felling a tree."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Egg candler",
+      "why": "This has no place in felling."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "wind",
+     "afterStep": 1,
+     "prompt": "A strong wind starts before the felling. What is decided?",
+     "options": [
+      {
+       "text": "Felling goes ahead quickly, in order to finish before the wind gets worse",
+       "consequence": "Never fell in strong wind."
+      },
+      {
+       "text": "Felling is put off until the strong wind has completely died down",
+       "correct": true,
+       "consequence": "Strong wind makes the fall unpredictable."
+      },
+      {
+       "text": "Felling goes ahead, but the onlookers are moved a few steps further back",
+       "consequence": "Never fell in strong wind."
+      }
+     ]
+    },
+    {
+     "id": "notch-side",
+     "afterStep": 3,
+     "prompt": "On which side is the notch cut?",
+     "options": [
+      {
+       "text": "The side away from the direction in which the tree is meant to fall",
+       "consequence": "The tree would fall the wrong way."
+      },
+      {
+       "text": "The side facing the direction in which the tree is meant to fall",
+       "correct": true,
+       "consequence": "The hinge guides the tree that way."
+      },
+      {
+       "text": "Whichever side of the stem the operator can reach most comfortably",
+       "consequence": "The notch decides the direction of fall."
+      }
+     ]
+    },
+    {
+     "id": "hinge",
+     "afterStep": 4,
+     "prompt": "What must happen to the hinge?",
+     "options": [
+      {
+       "text": "It should be cut right through, so that the tree comes down more quickly",
+       "consequence": "Cutting the hinge loses control of the fall."
+      },
+      {
+       "text": "It must be left uncut, about one-tenth of the diameter thick",
+       "correct": true,
+       "consequence": "The hinge guides the fall."
+      },
+      {
+       "text": "It should be cut through on one side",
+       "consequence": "Never cut through the hinge."
+      }
+     ]
+    },
+    {
+     "id": "retreat",
+     "afterStep": 5,
+     "prompt": "Which way does the operator retreat?",
+     "options": [
+      {
+       "text": "Directly behind the tree, in a straight line away from the back cut",
+       "consequence": "The butt may kick back."
+      },
+      {
+       "text": "Straight forward, in the same direction that the tree is falling",
+       "consequence": "The tree would fall on him."
+      },
+      {
+       "text": "Along one of the two planned escape routes, about 45° behind the tree",
+       "correct": true,
+       "consequence": "This route avoids the butt and the falling crown."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "hinge-do",
+     "prompt": "What does the hinge do during the fall?",
+     "options": [
+      {
+       "text": "It speeds the tree up, with no effect on the direction",
+       "why": "Its job is to guide the direction."
+      },
+      {
+       "text": "It guides the tree in the direction of the notch",
+       "correct": true
+      },
+      {
+       "text": "It stops the tree from falling until the wedges are removed",
+       "why": "The hinge steers the fall."
+      },
+      {
+       "text": "It catches the branches, so that they do not break off",
+       "why": "It has no such role."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "notch",
+     "prompt": "A tree has a diameter of {d} cm. What is the notch depth at one-quarter of the diameter?",
+     "formula": "d / 4",
+     "vars": {
+      "d": {
+       "min": 40,
+       "max": 100,
+       "step": 10
+      }
+     },
+     "unit": "cm",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "Notch = {d} ÷ 4 = {answer} cm.",
+     "unitAliases": [
+      "centimetres"
+     ]
+    },
+    {
+     "id": "hinge-t",
+     "prompt": "A tree has a diameter of {d} cm. What is the hinge thickness at 10 % of the diameter?",
+     "formula": "d * 0.1",
+     "vars": {
+      "d": {
+       "min": 40,
+       "max": 100,
+       "step": 10
+      }
+     },
+     "unit": "cm",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "Hinge = {d} × 0.10 = {answer} cm.",
+     "unitAliases": [
+      "centimetres"
+     ]
+    },
+    {
+     "id": "danger",
+     "prompt": "A tree is {h} m tall. What is the radius of the danger zone at twice the tree height?",
+     "formula": "2 * h",
+     "vars": {
+      "h": {
+       "min": 15,
+       "max": 35,
+       "step": 5
+      }
+     },
+     "unit": "m",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Danger zone = 2 × {h} = {answer} m.",
+     "unitAliases": [
+      "metres"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "fell",
+     "scenario": "The felling report describes mistakes. Here is what the crew did.",
+     "lines": [
+      {
+       "text": "They made the back cut below the notch.",
+       "fault": true,
+       "why": "The back cut goes slightly above the base of the notch."
+      },
+      {
+       "text": "The operator retreated directly behind the tree.",
+       "fault": true,
+       "why": "The butt may kick back."
+      },
+      {
+       "text": "They let onlookers stay inside the danger zone.",
+       "fault": true,
+       "why": "Keep onlookers out of the danger zone."
+      },
+      {
+       "text": "They shouted a warning before the tree fell.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "They checked the tree's lean first.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two safety measures for felling a tree.",
+    "explainPrompt": "Why must two escape routes be planned before felling?",
+    "explainGuide": "The tree may fall in an unexpected direction or kick back, so workers need a clear way out at an angle behind the tree.",
+    "explainKeywords": [
+     [
+      "escape",
+      "route",
+      "way"
+     ],
+     [
+      "fall",
+      "falls",
+      "kick"
+     ],
+     [
+      "behind",
+      "angle",
+      "safe"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Directional felling",
+    "Students observe",
+    "State three safety measures"
+   ]
+  },
+  "pr-for-log-markings": {
+   "safety": {
+    "correct": [
+     "Stay where the loader driver can see you, and well clear of the machine."
+    ],
+    "wrong": [
+     {
+      "text": "Climb on the stack to read the top log.",
+      "why": "Do not climb on log stacks."
+     },
+     {
+      "text": "Walk behind the loader to get to the far logs.",
+      "why": "Keep clear of loading machines."
+     },
+     {
+      "text": "Lean into a gap in the stack to see a marking.",
+      "why": "Logs can shift. Keep out of gaps."
+     },
+     {
+      "text": "Sit on a log at the edge of the stack to write.",
+      "why": "It can roll. Stay on the ground."
+     },
+     {
+      "text": "Rush across the yard as the machine is turning.",
+      "why": "Keep clear of loading machines."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Nothing is being cut."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No heights are being measured."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "copy",
+     "afterStep": 2,
+     "prompt": "A marking is partly faded. What do you write?",
+     "options": [
+      {
+       "text": "Exactly what can be read, noting that the rest of the mark is faded",
+       "correct": true,
+       "consequence": "A small error traces the log to the wrong tree."
+      },
+      {
+       "text": "Your best guess at the whole marking, written out neatly as if complete",
+       "consequence": "A guess can trace the log to the wrong tree."
+      },
+      {
+       "text": "The marking from the log beside it, as the two are probably the same",
+       "consequence": "Each log has its own marking."
+      }
+     ]
+    },
+    {
+     "id": "both",
+     "afterStep": 1,
+     "prompt": "Where do you read the marking?",
+     "options": [
+      {
+       "text": "Only on the end that happens to be nearest to where you are standing",
+       "consequence": "Reading only one end misses errors."
+      },
+      {
+       "text": "On both ends of the log wherever you are able to reach them",
+       "correct": true,
+       "consequence": "You have a check on the reading."
+      },
+      {
+       "text": "On the bark along the side",
+       "consequence": "Markings are on the log ends."
+      }
+     ]
+    },
+    {
+     "id": "why",
+     "afterStep": 6,
+     "prompt": "Which reasons do you give for log marking?",
+     "options": [
+      {
+       "text": "To show ownership and to allow revenue to be collected at the depot",
+       "correct": true,
+       "consequence": "These are stated reasons."
+      },
+      {
+       "text": "To decorate the log and to make it look better to the buyers at the depot",
+       "consequence": "That is not the purpose of marking."
+      },
+      {
+       "text": "To increase the volume of timber in each log before it goes to the sawmill",
+       "consequence": "Marks do not change volume."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "read",
+     "prompt": "In the mark 'FD / OK-R / C12 / SS045 / T17 / L2', what does T17 mean?",
+     "options": [
+      {
+       "text": "Compartment 17 of the Okomu forest reserve",
+       "why": "C12 gives the compartment."
+      },
+      {
+       "text": "Tree number 17 in that compartment",
+       "correct": true
+      },
+      {
+       "text": "Stock survey number 17 for the reserve",
+       "why": "SS045 gives the stock survey number."
+      },
+      {
+       "text": "Log 17, cut from the tree in that compartment",
+       "why": "L2 gives the log number."
+      }
+     ]
+    },
+    {
+     "id": "l2",
+     "prompt": "Tree 17 has 3 logs. Where does the log marked L2 come from?",
+     "options": [
+      {
+       "text": "The butt end of the tree, nearest to the stump",
+       "why": "That is L1."
+      },
+      {
+       "text": "The middle log of the three cut from tree 17",
+       "correct": true
+      },
+      {
+       "text": "The top end of the merchantable bole",
+       "why": "That is L3."
+      },
+      {
+       "text": "A different tree in the same compartment",
+       "why": "T17 ties it to this tree."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "logs",
+     "prompt": "A tree has a merchantable bole of {b} m, cross-cut into {l} m logs. How many logs does it give?",
+     "formula": "b / l",
+     "vars": {
+      "b": {
+       "min": 12,
+       "max": 24,
+       "step": 6
+      },
+      "l": {
+       "min": 3,
+       "max": 6,
+       "step": 3
+      }
+     },
+     "unit": "logs",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Logs = {b} ÷ {l} = {answer} logs.",
+     "unitAliases": [
+      "log"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "marks",
+     "scenario": "Dede's log report lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She confused the stock survey number with the tree number.",
+       "fault": true,
+       "why": "They are separate codes."
+      },
+      {
+       "text": "She did not state the purpose of log marking.",
+       "fault": true,
+       "why": "She must state why it is done."
+      },
+      {
+       "text": "She miscopied a digit of the mark.",
+       "fault": true,
+       "why": "A small error traces the log to the wrong tree."
+      },
+      {
+       "text": "She used the key given.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "She checked the tree number against the stump.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions when reading log markings.",
+    "explainPrompt": "Why are logs marked in a forest reserve?",
+    "explainGuide": "Marks show ownership and allow revenue to be collected. They also help to control illegal felling and trace logs back to their source.",
+    "explainKeywords": [
+     [
+      "ownership",
+      "property"
+     ],
+     [
+      "revenue"
+     ],
+     [
+      "illegal",
+      "trace",
+      "tracing",
+      "source"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Log markings",
+    "Use the key given",
+    "Copy exactly"
+   ]
+  },
+  "pr-for-ntfp-harvesting": {
+   "safety": {
+    "correct": [
+     "Have every wild mushroom checked by an expert, and do not eat it otherwise."
+    ],
+    "wrong": [
+     {
+      "text": "Eat a wild mushroom that looks like the picture.",
+      "why": "Some are deadly. Only an expert can identify them."
+     },
+     {
+      "text": "Pick up snails and strip bark with bare hands.",
+      "why": "Wear gloves."
+     },
+     {
+      "text": "Taste an unknown forest leaf to see if it is edible.",
+      "why": "Unknown plants may be poisonous."
+     },
+     {
+      "text": "Wander off alone at night to look for snails.",
+      "why": "You can get lost or hurt. Stay in a group."
+     },
+     {
+      "text": "Carry the open knife in your basket.",
+      "why": "Someone can be cut. Keep it covered."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Shotgun",
+      "why": "Hunting is not done in this lesson."
+     },
+     {
+      "name": "Dynamite",
+      "why": "Illegal and very dangerous: never used to get forest products."
+     },
+     {
+      "name": "Chainsaw",
+      "why": "Felling trees for fruit is a harmful practice."
+     },
+     {
+      "name": "Fish poison",
+      "why": "Poison fishing is harmful and is not used here."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "snail",
+     "afterStep": 2,
+     "prompt": "Which snails do you keep?",
+     "options": [
+      {
+       "text": "All the snails you can find, including those with a thin, brittle shell",
+       "consequence": "Immature snails must be left to sustain the population."
+      },
+      {
+       "text": "Only the smallest of them, which are the softest and fetch the best price",
+       "consequence": "Small snails are immature."
+      },
+      {
+       "text": "Only mature snails with a hard, thickened lip at the shell opening",
+       "correct": true,
+       "consequence": "Young snails are left to breed."
+      }
+     ]
+    },
+    {
+     "id": "leaf",
+     "afterStep": 3,
+     "prompt": "How do you harvest Gnetum leaves?",
+     "options": [
+      {
+       "text": "Pull the whole vine down out of the tree and strip it of all its leaves",
+       "consequence": "The plant is destroyed."
+      },
+      {
+       "text": "Pick some of the leaves and leave the growing tip on the plant",
+       "correct": true,
+       "consequence": "The plant regrows."
+      },
+      {
+       "text": "Cut the stem at the base",
+       "consequence": "The plant cannot regrow."
+      }
+     ]
+    },
+    {
+     "id": "bark",
+     "afterStep": 5,
+     "prompt": "You need medicinal bark. How is it taken?",
+     "options": [
+      {
+       "text": "Narrow strips, taken from one side of the stem only",
+       "correct": true,
+       "consequence": "The tree survives."
+      },
+      {
+       "text": "By ring-barking the whole stem, to get as much as possible at one time",
+       "consequence": "Ring-barking kills the tree."
+      },
+      {
+       "text": "By felling the tree first",
+       "consequence": "This destroys the tree."
+      }
+     ]
+    },
+    {
+     "id": "close",
+     "afterStep": 5,
+     "prompt": "It is the closed season. What do you do about hunting?",
+     "options": [
+      {
+       "text": "Continue, as long as you hunt only for your own family's cooking pot",
+       "consequence": "Closed seasons apply to everyone."
+      },
+      {
+       "text": "Obey the closed season and stay out of the forest with your traps",
+       "correct": true,
+       "consequence": "Breeding animals are protected."
+      },
+      {
+       "text": "Burn the bush to drive the animals out so that the hunt is quicker",
+       "consequence": "Bush burning is a harmful practice."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lip",
+     "prompt": "How does the shell of a mature snail look?",
+     "options": [
+      {
+       "text": "A thin and brittle lip around the shell opening",
+       "why": "That is an immature snail."
+      },
+      {
+       "text": "A hard and thickened lip at the shell opening",
+       "correct": true
+      },
+      {
+       "text": "A soft shell with no lip at all at the opening",
+       "why": "This does not describe a mature snail."
+      },
+      {
+       "text": "A shell lip that is broken at several points",
+       "why": "Damage does not show maturity."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mass",
+     "prompt": "A collector gathers {n} snails, averaging {w} g each. What is their mass in kilograms?",
+     "formula": "n * w / 1000",
+     "vars": {
+      "n": {
+       "min": 20,
+       "max": 60,
+       "step": 10
+      },
+      "w": {
+       "min": 100,
+       "max": 200,
+       "step": 50
+      }
+     },
+     "unit": "kg",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Mass = {n} × {w} ÷ 1 000 = {answer} kg.",
+     "unitAliases": [
+      "kilograms"
+     ]
+    },
+    {
+     "id": "mature",
+     "prompt": "Of {n} snails collected, 25 % are immature and returned. How many mature snails are kept?",
+     "formula": "n * 0.75",
+     "vars": {
+      "n": {
+       "min": 20,
+       "max": 80,
+       "step": 20
+      }
+     },
+     "unit": "snails",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Kept = {n} × 0.75 = {answer} snails.",
+     "unitAliases": [
+      "snail"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "harvest",
+     "scenario": "Musa's report on forest products lost marks. Here is what he wrote.",
+     "lines": [
+      {
+       "text": "He listed timber as an NTFP.",
+       "fault": true,
+       "why": "Timber is not a non-timber product."
+      },
+      {
+       "text": "He called bush burning an acceptable way of hunting.",
+       "fault": true,
+       "why": "It is a harmful practice."
+      },
+      {
+       "text": "He advised felling trees to collect the fruits.",
+       "fault": true,
+       "why": "This destroys the source."
+      },
+      {
+       "text": "He gave named examples with uses.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "He left immature snails to grow.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for harvesting NTFPs sustainably.",
+    "explainPrompt": "Why are immature snails left in the forest?",
+    "explainGuide": "Immature snails have not bred yet. Leaving them lets them reproduce, so the population is sustained.",
+    "explainKeywords": [
+     [
+      "immature",
+      "young"
+     ],
+     [
+      "breed",
+      "bred",
+      "reproduce"
+     ],
+     [
+      "population",
+      "sustain",
+      "sustained",
+      "sustainable"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Harvesting NTFPs",
+    "Name, use, method",
+    "Harmful practice and consequence"
+   ]
+  },
+  "pr-for-timber-processing": {
+   "safety": {
+    "correct": [
+     "Stay behind the marked line at the sawmill while the saws are running."
+    ],
+    "wrong": [
+     {
+      "text": "Stand close to the moving saw to watch the cut.",
+      "why": "Keep away from moving saws."
+     },
+     {
+      "text": "Visit the sawmill with no ear protection.",
+      "why": "Wear ear protection."
+     },
+     {
+      "text": "Lift the hot wood block out with your fingers.",
+      "why": "Use tongs with hot samples."
+     },
+     {
+      "text": "Pick up the offcut while the blade is still turning.",
+      "why": "Keep clear until the saw has stopped."
+     },
+     {
+      "text": "Open the oven and lean close to look in.",
+      "why": "Hot air can burn your face. Stand aside."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Clinometer",
+      "why": "No heights are measured."
+     },
+     {
+      "name": "Haga altimeter",
+      "why": "No heights are measured."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "Nothing is sprayed."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "units",
+     "afterStep": 3,
+     "prompt": "A board's thickness is 25 mm. What do you do first?",
+     "options": [
+      {
+       "text": "Multiply 25 directly by the other two measurements in metres",
+       "consequence": "Leaving thickness in mm is a common mistake."
+      },
+      {
+       "text": "Change it to 2.5 m, which is the usual size of a timber board",
+       "consequence": "That is the wrong conversion."
+      },
+      {
+       "text": "Change 25 mm to 0.025 m before multiplying the three dimensions",
+       "correct": true,
+       "consequence": "All dimensions are then in metres."
+      }
+     ]
+    },
+    {
+     "id": "dry",
+     "afterStep": 5,
+     "prompt": "How long do you dry the block?",
+     "options": [
+      {
+       "text": "For one hour only, as that is about as long as the lesson lasts",
+       "consequence": "Water may remain."
+      },
+      {
+       "text": "To constant mass, re-heating and re-weighing until the mass is steady",
+       "correct": true,
+       "consequence": "All the water is removed."
+      },
+      {
+       "text": "Until the block feels warm in the middle when it is picked up",
+       "consequence": "Warmth does not show dryness."
+      }
+     ]
+    },
+    {
+     "id": "basis",
+     "afterStep": 5,
+     "prompt": "The question asks for moisture on a dry basis. What do you divide by?",
+     "options": [
+      {
+       "text": "Wet mass, which is the first figure that you wrote down in the table",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "The wet and dry masses added",
+       "consequence": "This has no meaning."
+      },
+      {
+       "text": "The oven-dry mass of the block, found after drying it fully",
+       "correct": true,
+       "consequence": "This is the correct base."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ply",
+     "prompt": "Why is plywood strong in both directions?",
+     "options": [
+      {
+       "text": "The grain of each layer is at right angles to the next",
+       "correct": true
+      },
+      {
+       "text": "It is sawn from a single wide plank of hardwood",
+       "why": "Plywood is built up from layers."
+      },
+      {
+       "text": "It is made of glued chips, all lying side by side",
+       "why": "That is particle board."
+      },
+      {
+       "text": "Each sheet is much thicker than any solid board",
+       "why": "The grain direction is what matters."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "board",
+     "prompt": "A board measures {l} m × {w} m × 0.025 m. What is its volume?",
+     "formula": "l * w * 0.025",
+     "vars": {
+      "l": {
+       "min": 2.4,
+       "max": 3.6,
+       "step": 0.6
+      },
+      "w": {
+       "min": 0.2,
+       "max": 0.3,
+       "step": 0.1
+      }
+     },
+     "unit": "m³",
+     "tolerance": {
+      "abs": 0.001
+     },
+     "decimals": 3,
+     "working": "Volume = {l} × {w} × 0.025 = {answer} m³.",
+     "unitAliases": [
+      "m3",
+      "cubic metres"
+     ]
+    },
+    {
+     "id": "recovery",
+     "prompt": "A log of {l} m³ yields {b} m³ of boards. What is the recovery?",
+     "formula": "b / l * 100",
+     "vars": {
+      "l": {
+       "min": 1,
+       "max": 1.5,
+       "step": 0.25
+      },
+      "b": {
+       "min": 0.5,
+       "max": 0.75,
+       "step": 0.05
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Recovery = {b} ÷ {l} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    },
+    {
+     "id": "mc",
+     "prompt": "A block weighs {w} g wet and {d} g oven-dry. What is its moisture content on a dry basis?",
+     "formula": "(w - d) / d * 100",
+     "vars": {
+      "w": {
+       "min": 110,
+       "max": 130,
+       "step": 10
+      },
+      "d": {
+       "min": 70,
+       "max": 90,
+       "step": 10
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Water = {w} − {d} g. MC = water ÷ {d} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "sawmill",
+     "scenario": "Joy's sawmill sums are wrong. Here is what she did.",
+     "lines": [
+      {
+       "text": "She divided by wet mass for a dry-basis answer.",
+       "fault": true,
+       "why": "Use oven-dry mass."
+      },
+      {
+       "text": "She left thickness in mm.",
+       "fault": true,
+       "why": "All dimensions must be in metres."
+      },
+      {
+       "text": "She reweighed the block after it had taken up moisture.",
+       "fault": true,
+       "why": "Wood can reabsorb moisture before weighing."
+      },
+      {
+       "text": "She named the layers of plywood.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "She dried the block to constant mass.",
+       "why": "That is a stated precaution."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions in finding wood moisture content.",
+    "explainPrompt": "Why is timber seasoned before use?",
+    "explainGuide": "Seasoning reduces the moisture in wood, so there is less shrinkage and warping and less fungal attack.",
+    "explainKeywords": [
+     [
+      "moisture",
+      "water"
+     ],
+     [
+      "shrinkage",
+      "warping",
+      "shrink",
+      "warp"
+     ],
+     [
+      "fungal",
+      "fungi",
+      "decay"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Timber processing",
+    "Metres before multiplying",
+    "Dry basis: divide by dry mass"
+   ]
+  },
+  "pr-for-ntfp-processing": {
+   "safety": {
+    "correct": [
+     "Keep clear of the hot kiln, and let it cool before cleaning it."
+    ],
+    "wrong": [
+     {
+      "text": "Eat snails that have only been lightly warmed.",
+      "why": "Cook snails and bushmeat thoroughly."
+     },
+     {
+      "text": "Pick up an animal you found dead on the path.",
+      "why": "Never handle animals found dead."
+     },
+     {
+      "text": "Cut the cane towards your body with the knife.",
+      "why": "Take care with knives. Cut away from your body."
+     },
+     {
+      "text": "Open the hot kiln with bare hands.",
+      "why": "Hot kilns burn. Take care."
+     },
+     {
+      "text": "Taste an unknown dried leaf to identify it.",
+      "why": "Do not taste unknown plants."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Chainsaw",
+      "why": "Nothing is felled here."
+     },
+     {
+      "name": "Clinometer",
+      "why": "No heights are measured."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Open sack",
+      "why": "Dried products must be kept airtight."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "dry",
+     "afterStep": 4,
+     "prompt": "Where do you dry the mushrooms?",
+     "options": [
+      {
+       "text": "In a clean solar dryer or on racks, away from the dust and flies",
+       "correct": true,
+       "consequence": "They are protected from dust and flies."
+      },
+      {
+       "text": "On the bare ground by the road, where the sun is at its very strongest",
+       "consequence": "Dust and flies spoil them."
+      },
+      {
+       "text": "In a damp shed with no flow of air, to keep the mushrooms out of the sun",
+       "consequence": "They will go mouldy."
+      }
+     ]
+    },
+    {
+     "id": "store",
+     "afterStep": 4,
+     "prompt": "How do you store the dried products?",
+     "options": [
+      {
+       "text": "In open baskets on the floor, so that they can have some air around them",
+       "consequence": "They take up moisture and go mouldy."
+      },
+      {
+       "text": "In a damp cupboard by the tank",
+       "consequence": "Moisture causes moulds."
+      },
+      {
+       "text": "In airtight containers kept in a cool, dry place after drying",
+       "correct": true,
+       "consequence": "They do not re-wet or go mouldy."
+      }
+     ]
+    },
+    {
+     "id": "rattan",
+     "afterStep": 2,
+     "prompt": "How do you prepare rattan for furniture?",
+     "options": [
+      {
+       "text": "Soak it in preservative, in just the way that you would treat bamboo",
+       "consequence": "That step is for bamboo."
+      },
+      {
+       "text": "Scrape off the sheath, sun-dry the cane, then sort it by diameter",
+       "correct": true,
+       "consequence": "It is then ready for bending."
+      },
+      {
+       "text": "Leave the sheath on and bend it cold",
+       "consequence": "The sheath must be scraped off first."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "dried",
+     "prompt": "How do well-dried mushrooms look and feel?",
+     "options": [
+      {
+       "text": "Soft and heavy, with drops of moisture on the caps",
+       "why": "These are still wet."
+      },
+      {
+       "text": "Slimy, with a strong smell of rotting matter",
+       "why": "These have spoiled."
+      },
+      {
+       "text": "Light and brittle, and they keep for months",
+       "correct": true
+      },
+      {
+       "text": "Spotted with green mould around the edges of the caps",
+       "why": "These have gone mouldy."
+      }
+     ]
+    },
+    {
+     "id": "rattan-is",
+     "prompt": "How do you classify rattan and bamboo?",
+     "options": [
+      {
+       "text": "Rattan is a grass and bamboo is a climbing palm",
+       "why": "That is the wrong way round."
+      },
+      {
+       "text": "Both of them are climbing palms of the forest",
+       "why": "Bamboo is a grass."
+      },
+      {
+       "text": "Both of them are hardwood trees of the forest",
+       "why": "Neither one is a hardwood tree."
+      },
+      {
+       "text": "Rattan is a palm; bamboo is a grass",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "loss",
+     "prompt": "{f} kg of fresh mushrooms dry to {d} kg. What is the percentage of moisture lost?",
+     "formula": "(f - d) / f * 100",
+     "vars": {
+      "f": {
+       "min": 2,
+       "max": 4,
+       "step": 1
+      },
+      "d": {
+       "min": 0.2,
+       "max": 0.4,
+       "step": 0.1
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Loss = {f} − {d} kg. Percentage = loss ÷ {f} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "ntfp-table",
+     "scenario": "Chika's table lost marks. Here is what she wrote.",
+     "lines": [
+      {
+       "text": "She called rattan a grass, and bamboo a palm.",
+       "fault": true,
+       "why": "Rattan is a climbing palm, and bamboo a grass."
+      },
+      {
+       "text": "She described uses with no processing methods.",
+       "fault": true,
+       "why": "Give a processing method for each."
+      },
+      {
+       "text": "She left her mushrooms only part-dried.",
+       "fault": true,
+       "why": "Incomplete drying causes spoilage."
+      },
+      {
+       "text": "She mentioned value addition.",
+       "why": "That is the exam tip."
+      },
+      {
+       "text": "She weighed products before and after drying.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for drying and storing NTFPs.",
+    "explainPrompt": "Why are dried products stored in airtight containers?",
+    "explainGuide": "Airtight containers keep out moisture from the air, which prevents re-wetting and the growth of moulds.",
+    "explainKeywords": [
+     [
+      "airtight",
+      "container"
+     ],
+     [
+      "moisture",
+      "wetting",
+      "re-wetting",
+      "water"
+     ],
+     [
+      "mould",
+      "moulds"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Processing NTFPs",
+    "Process and preserve",
+    "Keep dried goods airtight"
+   ]
+  },
+  "pr-for-mushroom-cultivation": {
+   "safety": {
+    "correct": [
+     "Let the drum cool fully before you open it or lift out the bags."
+    ],
+    "wrong": [
+     {
+      "text": "Open the steaming drum with your face over it.",
+      "why": "Steam burns. Take care with steam and hot drums."
+     },
+     {
+      "text": "Lift the hot bags out with your bare hands.",
+      "why": "Hot drums and bags can burn. Let them cool."
+     },
+     {
+      "text": "Eat a wild mushroom growing beside the shed.",
+      "why": "Only eat mushrooms you have grown from known spawn."
+     },
+     {
+      "text": "Eat a mushroom from a bag with green mould on it.",
+      "why": "Contaminated bags must be removed."
+     },
+     {
+      "text": "Leave the hot drum where others can knock it.",
+      "why": "Take care with hot drums."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Aromatic sawdust",
+      "why": "Aromatic sawdust inhibits the mycelium."
+     },
+     {
+      "name": "Chainsaw",
+      "why": "No trees are being felled here."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Knapsack sprayer",
+      "why": "A hand sprayer is what mists the bags."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "wet",
+     "afterStep": 1,
+     "prompt": "How wet should the mix be?",
+     "options": [
+      {
+       "text": "Just wet enough for a squeezed handful to release only a few drops",
+       "correct": true,
+       "consequence": "This moisture suits the mycelium."
+      },
+      {
+       "text": "Soaking wet, so that water runs freely out of it when it is picked up",
+       "consequence": "Too much water spoils the substrate."
+      },
+      {
+       "text": "Completely dry, so that the mix can be packed into the bags quickly",
+       "consequence": "Mycelium needs moisture."
+      }
+     ]
+    },
+    {
+     "id": "sawdust",
+     "afterStep": 1,
+     "prompt": "Which sawdust do you use?",
+     "options": [
+      {
+       "text": "Fresh sawdust from an aromatic wood, as its pleasant smell is a good sign",
+       "consequence": "This inhibits the mycelium."
+      },
+      {
+       "text": "Any sawdust at all, since all of it is just the same to the mushroom",
+       "consequence": "The type of sawdust matters."
+      },
+      {
+       "text": "Sawdust from a non-aromatic wood, mixed with bran and a little lime",
+       "correct": true,
+       "consequence": "It does not inhibit the mycelium."
+      }
+     ]
+    },
+    {
+     "id": "light",
+     "afterStep": 5,
+     "prompt": "Where do you keep the bags during spawn run?",
+     "options": [
+      {
+       "text": "On a bright window ledge, where you can check them all through the day",
+       "consequence": "Bags should not be exposed to light."
+      },
+      {
+       "text": "Outside in the open air, in full view of the morning and evening sun",
+       "consequence": "Bags should not be exposed to light."
+      },
+      {
+       "text": "In a dark place at about 25 °C until the mycelium has covered it",
+       "correct": true,
+       "consequence": "Light is a known mistake at this stage."
+      }
+     ]
+    },
+    {
+     "id": "contam",
+     "afterStep": 5,
+     "prompt": "A bag shows green mould. What do you do?",
+     "options": [
+      {
+       "text": "Take that bag out at once, away from all of the clean ones",
+       "correct": true,
+       "consequence": "Mould does not spread to the other bags."
+      },
+      {
+       "text": "Leave it where it is and hope that the white mycelium grows over it",
+       "consequence": "Mould can spread."
+      },
+      {
+       "text": "Water it more to wash off the mould",
+       "consequence": "Contaminated bags must be removed."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "What should a healthy bag show after incubation?",
+     "options": [
+      {
+       "text": "Green or black patches spreading through the bag",
+       "why": "That is contamination."
+      },
+      {
+       "text": "Water standing in a layer at the bottom of the bag",
+       "why": "Too wet."
+      },
+      {
+       "text": "White cottony mycelium all through the substrate",
+       "correct": true
+      },
+      {
+       "text": "Dry, loose sawdust, just as it was on the first day",
+       "why": "The spawn did not grow."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "be",
+     "prompt": "{b} bags of 1 kg dry substrate gave {y} kg of fresh mushrooms. What is the biological efficiency?",
+     "formula": "y / b * 100",
+     "vars": {
+      "b": {
+       "min": 10,
+       "max": 20,
+       "step": 5
+      },
+      "y": {
+       "min": 6,
+       "max": 12,
+       "step": 1.5
+      }
+     },
+     "unit": "%",
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "BE = {y} ÷ {b} × 100 = {answer} %.",
+     "unitAliases": [
+      "percent"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "bags",
+     "scenario": "Most of Tobi's bags failed. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used fresh, aromatic sawdust.",
+       "fault": true,
+       "why": "That inhibits the mycelium."
+      },
+      {
+       "text": "He exposed the bags to light during spawn run.",
+       "fault": true,
+       "why": "Keep them dark."
+      },
+      {
+       "text": "He left contaminated bags among the others.",
+       "fault": true,
+       "why": "Remove them at once."
+      },
+      {
+       "text": "He worked with clean hands at spawning.",
+       "why": "That is a stated precaution."
+      },
+      {
+       "text": "He harvested by twisting the mushrooms off.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for growing mushrooms.",
+    "explainPrompt": "Why are the bags pasteurised or sterilised before spawning?",
+    "explainGuide": "Heating kills moulds and other organisms in the substrate, so the mushroom spawn can grow without competition.",
+    "explainKeywords": [
+     [
+      "kill",
+      "kills"
+     ],
+     [
+      "mould",
+      "moulds",
+      "organisms",
+      "germs"
+     ],
+     [
+      "spawn",
+      "compete",
+      "competition"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Oyster mushrooms",
+    "Know the stages",
+    "Clean hands at spawning"
+   ]
+  },
+  "pr-for-beekeeping-colony-harvest": {
+   "safety": {
+    "correct": [
+     "Keep bystanders well away from the hive during the inspection."
+    ],
+    "wrong": [
+     {
+      "text": "Tell nobody about your bee-sting allergy and stay near the hive.",
+      "why": "Students allergic to bee stings must not approach the hive."
+     },
+     {
+      "text": "Open the hive in shorts and no veil.",
+      "why": "Wear a full bee suit and veil."
+     },
+     {
+      "text": "Put a flame straight onto the bees to move them.",
+      "why": "Never use fire directly on bees."
+     },
+     {
+      "text": "Open the hive at midday during a storm.",
+      "why": "Work in the evening or in calm weather."
+     },
+     {
+      "text": "Swat at the bees when they land on you.",
+      "why": "Sudden movements make bees sting. Move calmly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Insecticide spray",
+      "why": "This would kill the colony."
+     },
+     {
+      "name": "Chainsaw",
+      "why": "No tree is being cut."
+     },
+     {
+      "name": "Burdizzo",
+      "why": "This is a livestock tool."
+     },
+     {
+      "name": "Soil auger",
+      "why": "Soil is not sampled."
+     },
+     {
+      "name": "Kerosene",
+      "why": "Kerosene taints the honey and is a fire risk."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "smoke",
+     "afterStep": 2,
+     "prompt": "How do you use the smoker?",
+     "options": [
+      {
+       "text": "A few gentle puffs of smoke at the entrance of the hive",
+       "correct": true,
+       "consequence": "The bees stay calm and the honey is not tainted."
+      },
+      {
+       "text": "Thick clouds of smoke into the hive",
+       "consequence": "Too much smoke can taint the honey."
+      },
+      {
+       "text": "A flame held right up to the entrance to chase all the bees out of it",
+       "consequence": "Never use fire directly on bees."
+      }
+     ]
+    },
+    {
+     "id": "ripe",
+     "afterStep": 4,
+     "prompt": "Which combs do you cut out?",
+     "options": [
+      {
+       "text": "Any combs that look heavy, whether they are capped with wax or not",
+       "consequence": "Uncapped honey ferments."
+      },
+      {
+       "text": "Only combs that are at least three-quarters capped with wax",
+       "correct": true,
+       "consequence": "Capped honey is ripe."
+      },
+      {
+       "text": "Only the combs full of brood",
+       "consequence": "Brood must be left in the hive."
+      }
+     ]
+    },
+    {
+     "id": "leave",
+     "afterStep": 5,
+     "prompt": "How much honey do you take?",
+     "options": [
+      {
+       "text": "Some, but leave enough honey in the hive for the colony's own use",
+       "correct": true,
+       "consequence": "The colony survives."
+      },
+      {
+       "text": "All the honey that there is in the hive, so as to give the best yield",
+       "consequence": "The colony may starve."
+      },
+      {
+       "text": "All but one comb",
+       "consequence": "Enough must be left for the colony."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "queen",
+     "prompt": "Which bee is the largest, with a long abdomen?",
+     "options": [
+      {
+       "text": "Drone, stout with very large eyes",
+       "why": "Drones are stout with large eyes."
+      },
+      {
+       "text": "Worker, the most numerous in the hive",
+       "why": "Workers are the smallest."
+      },
+      {
+       "text": "Queen, the largest bee, with a long abdomen",
+       "correct": true
+      },
+      {
+       "text": "A young worker that has just emerged",
+       "why": "Workers are the smallest."
+      }
+     ]
+    },
+    {
+     "id": "drone",
+     "prompt": "Which bee has large eyes and no sting?",
+     "options": [
+      {
+       "text": "Drone, which is stout and has no sting",
+       "correct": true
+      },
+      {
+       "text": "Queen, the largest in the colony",
+       "why": "The queen has a long abdomen."
+      },
+      {
+       "text": "Worker, which collects the nectar",
+       "why": "Workers have stings."
+      },
+      {
+       "text": "Young queen, reared in a queen cell",
+       "why": "Queens are not stout with large eyes."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "honey",
+     "prompt": "{n} combs average {w} kg each, and honey is 75 % of comb mass. What mass of honey is obtained?",
+     "formula": "n * w * 0.75",
+     "vars": {
+      "n": {
+       "min": 8,
+       "max": 16,
+       "step": 2
+      },
+      "w": {
+       "min": 1,
+       "max": 1.4,
+       "step": 0.2
+      }
+     },
+     "unit": "kg",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "Comb = {n} × {w} kg. Honey = comb × 0.75 = {answer} kg.",
+     "unitAliases": [
+      "kilograms"
+     ]
+    },
+    {
+     "id": "bottles",
+     "prompt": "You have {h} kg of honey. How many half-kilogram bottles will it fill?",
+     "formula": "h / 0.5",
+     "vars": {
+      "h": {
+       "min": 6,
+       "max": 12,
+       "step": 1.5
+      }
+     },
+     "unit": "bottles",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Bottles = {h} ÷ 0.5 = {answer} bottles.",
+     "unitAliases": [
+      "bottle"
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "hive",
+     "scenario": "The honey fermented and the colony weakened. Here is what happened.",
+     "lines": [
+      {
+       "text": "Uncapped combs were harvested.",
+       "fault": true,
+       "why": "Uncapped honey ferments."
+      },
+      {
+       "text": "Too much smoke was used.",
+       "fault": true,
+       "why": "This can taint the honey."
+      },
+      {
+       "text": "The report said that drones collect nectar.",
+       "fault": true,
+       "why": "Only workers do."
+      },
+      {
+       "text": "The combs were lifted one at a time.",
+       "why": "That is the procedure."
+      },
+      {
+       "text": "The honey was strained and allowed to settle.",
+       "why": "That is the procedure."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for harvesting honey.",
+    "explainPrompt": "Why is smoke used when a hive is opened?",
+    "explainGuide": "Gentle smoke calms the bees, so they are less likely to sting the beekeeper while the hive is opened.",
+    "explainKeywords": [
+     [
+      "calm",
+      "calms",
+      "calmer"
+     ],
+     [
+      "sting",
+      "stings",
+      "attack"
+     ],
+     [
+      "smoke"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Beekeeping",
+    "State each member's role",
+    "Harvest capped combs only"
+   ]
+  }
+ }
+}

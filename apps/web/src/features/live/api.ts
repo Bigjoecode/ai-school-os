@@ -364,7 +364,7 @@ export interface AssignmentView {
   homework: HomeworkRow;
   submission: SubmissionRow | null;
   /** PRACTICAL homework: whether the student has done the practical (lab handed in, or quick check passed when it has no lab). */
-  practicalStatus: { lab: boolean; done: boolean; attempts: number; best: number | null } | null;
+  practicalStatus: { lab: boolean; guided?: boolean; done: boolean; attempts: number; best: number | null } | null;
 }
 
 /** A child's homework for their parent, with the child's hand-in. */

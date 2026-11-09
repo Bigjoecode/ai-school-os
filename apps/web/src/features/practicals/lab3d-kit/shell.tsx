@@ -239,6 +239,8 @@ export function useNewLogEntries(log: { t: number; a: string }[], stage: Stage, 
 
 export interface LabShellProps {
   kit: LabKit;
+  /** The line above the intro heading (default "3D virtual lab"). */
+  kicker?: string;
   /** Top bar title, e.g. "Chemistry lab"; intro heading, e.g. "Chemistry laboratory". */
   title: string;
   heading: string;
@@ -248,6 +250,8 @@ export interface LabShellProps {
   readingStatus?: string;
   /** Inside the canvas: the lab's scene (usually <KitScene>…</KitScene>). */
   scene: ReactNode;
+  /** Optional: a lab's own full-size overlay above the canvas, under the top bar and the panels (e.g. a computer screen that stays mounted). */
+  overlay?: ReactNode;
   /** The exam clock and hand-in. */
   endsAt?: string | null;
   onHandIn?: () => void;
@@ -439,6 +443,8 @@ export function LabShell(p: LabShellProps) {
           </div>
         </div>
       )}
+
+      {p.overlay}
 
       {/* top bar */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col gap-1.5 p-2 pt-[max(0.5rem,env(safe-area-inset-top))] sm:p-3">
@@ -704,7 +710,7 @@ export function LabShell(p: LabShellProps) {
       {intro && (
         <div className="absolute inset-0 z-40 grid place-items-center bg-black/45 p-4 backdrop-blur-[2px]">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-2xl sm:p-5">
-            <p className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">3D virtual lab{mode === 'EXAM' || sitting ? ' · timed practical' : ''}</p>
+            <p className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">{p.kicker ?? '3D virtual lab'}{mode === 'EXAM' || sitting ? ' · timed practical' : ''}</p>
             <h2 className="mt-1 font-display text-xl font-semibold tracking-tight">{p.heading}</h2>
             {teach && <p className="mt-2 text-[13.5px] text-muted-foreground">New to this practical? Learn it first, watch {assistantProfile.name} do it, then try it yourself — you can jump to any stage.</p>}
             <p className="mt-2 text-[13.5px] text-muted-foreground sm:hidden">{p.intro.short}</p>

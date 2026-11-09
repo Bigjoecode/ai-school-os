@@ -1,0 +1,3937 @@
+{
+ "subject": "Auto Electrical Work",
+ "room": "workshop",
+ "lessons": {
+  "pr-aew-identifying-battery-construction-and-ratings": {
+   "safety": {
+    "correct": [
+     "Wash your hands after handling battery parts, even if you wore gloves."
+    ],
+    "wrong": [
+     {
+      "text": "Touch the plates with your bare fingers to feel their texture.",
+      "why": "Plates carry lead and residual acid. Do not touch them with bare hands."
+     },
+     {
+      "text": "Tip the sectioned battery over to see underneath the plates.",
+      "why": "Residual acid may run out. Keep it upright and look in from the side."
+     },
+     {
+      "text": "Wipe your face during the job with the gloves you are using.",
+      "why": "Acid or lead on the gloves can reach your eyes and mouth."
+     },
+     {
+      "text": "Eat your snack at the bench while recording the table.",
+      "why": "Lead and acid traces can reach your food. Eat away from the work."
+     },
+     {
+      "text": "Rest a metal spanner across the terminals of the sample cell.",
+      "why": "It could short the terminals and make sparks. Keep tools clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte strength. This job studies construction and labels."
+     },
+     {
+      "name": "Spark tester",
+      "why": "That tests ignition, not a battery."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures, not batteries."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing, not battery ratings."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Nothing is being joined in this identification job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "plate-id",
+     "afterStep": 2,
+     "prompt": "You see two kinds of plate in the cut-away. Which one is the positive?",
+     "options": [
+      {
+       "text": "The chocolate-brown plate of lead dioxide",
+       "correct": true,
+       "consequence": "Your table shows the positive plate correctly."
+      },
+      {
+       "text": "The grey plate of spongy lead, next to the separator",
+       "consequence": "Grey spongy lead is the negative plate."
+      },
+      {
+       "text": "The larger of the two plates",
+       "consequence": "Size is no guide. Colour and material identify the plate."
+      }
+     ]
+    },
+    {
+     "id": "ni-cells",
+     "afterStep": 3,
+     "prompt": "You record the voltage of a nickel-alkaline cell. What do you write?",
+     "options": [
+      {
+       "text": "About 1.2 V",
+       "correct": true,
+       "consequence": "That shows why ten cells are needed for 12 V."
+      },
+      {
+       "text": "About 2 V, as with lead-acid",
+       "consequence": "This common mistake gives the wrong cell count for 12 V."
+      },
+      {
+       "text": "About 12 V",
+       "consequence": "That is a whole battery, not one cell."
+      }
+     ]
+    },
+    {
+     "id": "ah-cca",
+     "afterStep": 4,
+     "prompt": "The label shows 60 Ah and 450 CCA. Which figure tells you the stored capacity?",
+     "options": [
+      {
+       "text": "The 60 Ah figure",
+       "correct": true,
+       "consequence": "Ampere-hours state how much it can deliver over time."
+      },
+      {
+       "text": "The 450 CCA figure",
+       "consequence": "CCA states cold starting current, not stored capacity."
+      },
+      {
+       "text": "Both figures added together",
+       "consequence": "They measure different things and cannot be added."
+      }
+     ]
+    },
+    {
+     "id": "term-id",
+     "afterStep": 5,
+     "prompt": "One terminal's mark has rubbed off. How do you identify the positive?",
+     "options": [
+      {
+       "text": "It has the larger diameter",
+       "correct": true,
+       "consequence": "The positive post is made larger, so the identification is sound."
+      },
+      {
+       "text": "It is the shinier of the two posts",
+       "consequence": "Shine depends on cleaning, not polarity."
+      },
+      {
+       "text": "It is the terminal nearer the front",
+       "consequence": "Position differs from battery to battery."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cells",
+     "prompt": "How is a 12 V lead-acid battery made up?",
+     "options": [
+      {
+       "text": "Six 2 V cells in series",
+       "correct": true
+      },
+      {
+       "text": "Six 2 V cells in parallel",
+       "why": "Parallel cells would still give 2 V."
+      },
+      {
+       "text": "Ten 1.2 V cells in series",
+       "why": "That describes a nickel-alkaline battery."
+      },
+      {
+       "text": "Twelve 1 V cells in series",
+       "why": "Lead-acid cells are about 2 V each."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hours",
+     "prompt": "A {c} Ah battery supplies {i} A. In theory, how many hours does it last?",
+     "formula": "c / i",
+     "vars": {
+      "c": {
+       "min": 60,
+       "max": 80,
+       "step": 20
+      },
+      "i": {
+       "min": 2,
+       "max": 4,
+       "step": 2
+      }
+     },
+     "unit": "h",
+     "unitAliases": [
+      "hours",
+      "hr",
+      "hrs"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{c} ÷ {i} = {answer} h."
+    },
+    {
+     "id": "energy",
+     "prompt": "A 12 V battery has a capacity of {c} Ah. About how much energy does it store, in Wh?",
+     "formula": "12 * c",
+     "vars": {
+      "c": {
+       "min": 40,
+       "max": 80,
+       "step": 10
+      }
+     },
+     "unit": "Wh",
+     "unitAliases": [
+      "watt-hours",
+      "watt hours"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "12 × {c} = {answer} Wh."
+    },
+    {
+     "id": "ni",
+     "prompt": "Nickel-alkaline cells give about 1.2 V each. How many cells are needed for {v} V?",
+     "formula": "v / 1.2",
+     "vars": {
+      "v": {
+       "min": 12,
+       "max": 24,
+       "step": 12
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{v} ÷ 1.2 = {answer} cells."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-table",
+     "scenario": "Sola's battery table has several errors. Here is what she wrote or did.",
+     "lines": [
+      {
+       "text": "She took CCA to be the capacity in ampere-hours.",
+       "fault": true,
+       "why": "CCA and Ah are different ratings."
+      },
+      {
+       "text": "She listed a nickel-alkaline cell as 2 V.",
+       "fault": true,
+       "why": "It is about 1.2 V."
+      },
+      {
+       "text": "She picked up the plates with bare hands.",
+       "fault": true,
+       "why": "Plates must not be touched with bare hands."
+      },
+      {
+       "text": "She wore gloves for the sectioned battery.",
+       "why": "Residual acid may be present."
+      },
+      {
+       "text": "She noted the brown plate as positive.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions when handling a sectioned battery.",
+    "explainPrompt": "Why does a 12 V lead-acid battery need six cells?",
+    "explainGuide": "Each lead-acid cell gives about 2 V, and connecting six in series adds their voltages to reach 12 V.",
+    "explainKeywords": [
+     [
+      "cell",
+      "cells"
+     ],
+     [
+      "2 V",
+      "two volts",
+      "2V",
+      "2 volts"
+     ],
+     [
+      "series",
+      "add",
+      "adds"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Identifying battery construction and ratings",
+    "Read the label with care."
+   ]
+  },
+  "pr-aew-connecting-and-charging-batteries-safely": {
+   "safety": {
+    "correct": [
+     "Keep metal tools off the top of the battery while working."
+    ],
+    "wrong": [
+     {
+      "text": "Pull a clip off while charging to see if it sparks.",
+      "why": "Sparks can ignite hydrogen. Switch the charger off first."
+     },
+     {
+      "text": "Look into the cell with a lighter to check the level.",
+      "why": "Hydrogen is explosive. Use a torch, never a flame."
+     },
+     {
+      "text": "Charge in the closed store so that nobody disturbs the battery.",
+      "why": "Hydrogen builds up. Charge in a ventilated area."
+     },
+     {
+      "text": "Keep charging a battery that feels very hot.",
+      "why": "Heat damages plates. Stop and let it cool."
+     },
+     {
+      "text": "Lift the battery with its charger clips still on.",
+      "why": "A clip can spark or the battery can drop. Disconnect first."
+     },
+     {
+      "text": "Put a battery that looks swollen on charge straight away.",
+      "why": "A damaged battery must not be charged. Report it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Tap water for topping up",
+      "why": "Its minerals harm the cells. Use distilled water."
+     },
+     {
+      "name": "Battery acid for topping up",
+      "why": "Water is what is lost, so adding acid upsets the strength."
+     },
+     {
+      "name": "Engine oil for terminals",
+      "why": "It attracts dirt. Use petroleum jelly."
+     },
+     {
+      "name": "Steel wool for the battery top",
+      "why": "Loose steel fibres can short the terminals."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures, not batteries."
+     },
+     {
+      "name": "Spark tester",
+      "why": "Sparks are the thing to keep away from a battery."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "order",
+     "afterStep": 4,
+     "prompt": "The clips are ready. In what order do you work?",
+     "options": [
+      {
+       "text": "Charger off, red to +, black to −, then on",
+       "correct": true,
+       "consequence": "No spark occurs at the battery, so hydrogen is not ignited."
+      },
+      {
+       "text": "Charger on, then touch the clips on",
+       "consequence": "This common mistake makes sparks near explosive gas."
+      },
+      {
+       "text": "Black to + and red to −, then on",
+       "consequence": "Reversed polarity can damage the battery and charger."
+      }
+     ]
+    },
+    {
+     "id": "rate",
+     "afterStep": 5,
+     "prompt": "You are charging a 60 Ah battery. What current do you set?",
+     "options": [
+      {
+       "text": "About 6 A, 10% of capacity",
+       "correct": true,
+       "consequence": "The battery charges without excess heat or gassing."
+      },
+      {
+       "text": "About 30 A, to finish by lunch",
+       "consequence": "Too high a rate causes heat and can buckle the plates."
+      },
+      {
+       "text": "About 0.5 A, so it is extra safe",
+       "consequence": "This is too low for the planned charge, and it will take far too long."
+      }
+     ]
+    },
+    {
+     "id": "hot",
+     "afterStep": 6,
+     "prompt": "The electrolyte reaches about 50 °C during the charge. What do you do?",
+     "options": [
+      {
+       "text": "Stop charging and let it cool",
+       "correct": true,
+       "consequence": "The limit is about 45 °C, so the plates are protected."
+      },
+      {
+       "text": "Raise the current to finish sooner",
+       "consequence": "More current adds more heat."
+      },
+      {
+       "text": "Add cold tap water to cool it",
+       "consequence": "Tap water contaminates the cells."
+      }
+     ]
+    },
+    {
+     "id": "full",
+     "afterStep": 6,
+     "prompt": "SG and voltage have stayed the same for 3 hourly readings. What does this show?",
+     "options": [
+      {
+       "text": "The battery is fully charged, so stop",
+       "correct": true,
+       "consequence": "Charging further would only cause gassing and heat."
+      },
+      {
+       "text": "The charger is faulty, so raise the current",
+       "consequence": "Steady readings are the normal sign of full charge."
+      },
+      {
+       "text": "It needs another full day on charge",
+       "consequence": "That overcharges it, and water is lost."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "series-par",
+     "prompt": "You measure the connected pair of 12 V batteries. Which is correct?",
+     "options": [
+      {
+       "text": "Series gives 24 V; parallel gives 12 V with double capacity",
+       "correct": true
+      },
+      {
+       "text": "Series gives 12 V; parallel gives 24 V with double capacity",
+       "why": "That swaps them. Series adds the voltage."
+      },
+      {
+       "text": "Both give 24 V",
+       "why": "Parallel does not add the voltage."
+      },
+      {
+       "text": "Series doubles the Ah capacity",
+       "why": "Parallel doubles Ah, not series."
+      }
+     ]
+    },
+    {
+     "id": "gassing",
+     "prompt": "Near the end of a normal charge, what do you see?",
+     "options": [
+      {
+       "text": "SG and voltage have risen and the cells gas freely",
+       "correct": true
+      },
+      {
+       "text": "SG falls steadily",
+       "why": "SG falling shows discharge."
+      },
+      {
+       "text": "The electrolyte turns blue and then clears at the top",
+       "why": "This is not a sign of charge in a lead-acid cell."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rate-calc",
+     "prompt": "The charging rate is about 10% of capacity. What current do you set for a {c} Ah battery?",
+     "formula": "0.1 * c",
+     "vars": {
+      "c": {
+       "min": 40,
+       "max": 100,
+       "step": 10
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "0.1 × {c} = {answer} A."
+    },
+    {
+     "id": "time",
+     "prompt": "A battery is {m} Ah short of full charge and you allow 20% extra for efficiency. At {r} A, how many hours are needed?",
+     "formula": "m * 1.2 / r",
+     "vars": {
+      "m": {
+       "min": 20,
+       "max": 40,
+       "step": 10
+      },
+      "r": {
+       "min": 4,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "h",
+     "unitAliases": [
+      "hours",
+      "hr",
+      "hrs"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "{m} × 1.2 ÷ {r} = {answer} h."
+    },
+    {
+     "id": "par",
+     "prompt": "Two 12 V, {c} Ah batteries are connected in parallel. What is the capacity of the pair in Ah?",
+     "formula": "2 * c",
+     "vars": {
+      "c": {
+       "min": 40,
+       "max": 80,
+       "step": 10
+      }
+     },
+     "unit": "Ah",
+     "unitAliases": [
+      "ampere-hours",
+      "amp hours"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "2 × {c} = {answer} Ah, still at 12 V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "spark-pop",
+     "scenario": "Dayo's battery overheated and lost water. He also made a loud spark at the clip. Here is what he did.",
+     "lines": [
+      {
+       "text": "He connected the clips with the charger already on.",
+       "fault": true,
+       "why": "This causes sparks near hydrogen."
+      },
+      {
+       "text": "He set the current far above 10% of capacity.",
+       "fault": true,
+       "why": "This causes overheating and water loss."
+      },
+      {
+       "text": "He let the electrolyte rise well above 45 °C.",
+       "fault": true,
+       "why": "Keep it below about 45 °C."
+      },
+      {
+       "text": "He topped up with distilled water.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He greased the terminals at the end.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for charging a lead-acid battery.",
+    "explainPrompt": "Why must the charger be off when clips are connected or removed?",
+    "explainGuide": "Charging cells give off hydrogen, which is explosive. A clip making or breaking contact on a live charger causes a spark that could ignite the gas.",
+    "explainKeywords": [
+     [
+      "hydrogen",
+      "gas"
+     ],
+     [
+      "explosive",
+      "explode",
+      "ignite",
+      "explosion"
+     ],
+     [
+      "spark",
+      "sparks"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Connecting and charging batteries safely",
+    "No sparks near a charging battery."
+   ]
+  },
+  "pr-aew-hydrometer-cell-voltage-and-polarity-tests": {
+   "safety": {
+    "correct": [
+     "Hold the hydrometer upright over the cell so that drips fall back in."
+    ],
+    "wrong": [
+     {
+      "text": "Check the battery for gas by looking closely with a lit match.",
+      "why": "Sparks and flames must stay away from vents."
+     },
+     {
+      "text": "Squeeze the bulb hard so that electrolyte spurts back fast.",
+      "why": "It can splash acid. Squeeze it gently."
+     },
+     {
+      "text": "Shake the hydrometer dry over the floor.",
+      "why": "Acid drops will burn skin and rot clothes. Return it to the cell."
+     },
+     {
+      "text": "Leave your goggles off for just one quick reading.",
+      "why": "Acid burns the eyes. Keep them on throughout."
+     },
+     {
+      "text": "Put the high-rate tester clamps on with the load already on.",
+      "why": "That can spark near the vents. Connect first, then load."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bicycle pump",
+      "why": "It has no use here. The hydrometer has its own bulb."
+     },
+     {
+      "name": "Tap water",
+      "why": "Top up only with distilled water."
+     },
+     {
+      "name": "Battery acid for topping up",
+      "why": "Only water is lost in normal use."
+     },
+     {
+      "name": "Vacuum gauge",
+      "why": "That tests engines, not batteries."
+     },
+     {
+      "name": "Feeler gauge",
+      "why": "It measures gaps, not battery condition."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ocv",
+     "afterStep": 3,
+     "prompt": "The battery has just come off charge. When do you read open-circuit voltage?",
+     "options": [
+      {
+       "text": "After it has rested",
+       "correct": true,
+       "consequence": "The surface charge goes, so the reading is true."
+      },
+      {
+       "text": "Straight away",
+       "consequence": "Surface charge makes it read high."
+      },
+      {
+       "text": "While the charger is still on",
+       "consequence": "That reads the charger, not the battery."
+      }
+     ]
+    },
+    {
+     "id": "float",
+     "afterStep": 4,
+     "prompt": "The hydrometer float is touching the side of the tube. What do you do?",
+     "options": [
+      {
+       "text": "Hold it upright until the float is free",
+       "correct": true,
+       "consequence": "The float rises freely, so the reading is true."
+      },
+      {
+       "text": "Read it anyway and add 0.010",
+       "consequence": "This guess spoils the reading."
+      },
+      {
+       "text": "Tap it hard on the battery case to free it",
+       "consequence": "Tapping breaks the glass and spills acid."
+      }
+     ]
+    },
+    {
+     "id": "cell-var",
+     "afterStep": 4,
+     "prompt": "One cell reads 1.210 while the others read 1.270. What do you conclude?",
+     "options": [
+      {
+       "text": "That cell is faulty",
+       "correct": true,
+       "consequence": "The 0.060 spread is more than the 0.050 limit."
+      },
+      {
+       "text": "The battery only needs topping up with acid",
+       "consequence": "Adding acid is a common mistake, and it does not fix a bad cell."
+      },
+      {
+       "text": "The temperature differs, so ignore it",
+       "consequence": "Cells share a temperature closely enough, so that spread is real."
+      }
+     ]
+    },
+    {
+     "id": "topped",
+     "afterStep": 7,
+     "prompt": "You have just topped up a cell. May you test it now?",
+     "options": [
+      {
+       "text": "No, not until the water has mixed",
+       "correct": true,
+       "consequence": "An unmixed cell gives a false low reading."
+      },
+      {
+       "text": "Yes, the water will not affect it",
+       "consequence": "The top layer is diluted, which spoils the reading."
+      },
+      {
+       "text": "Yes, but draw more electrolyte",
+       "consequence": "More volume does not fix unmixed electrolyte."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "full",
+     "prompt": "Which readings show a fully charged battery?",
+     "options": [
+      {
+       "text": "About 12.6 V and SG about 1.270 to 1.280",
+       "correct": true
+      },
+      {
+       "text": "About 12.0 V and SG about 1.120",
+       "why": "That is well discharged."
+      },
+      {
+       "text": "About 9.6 V and SG about 1.280",
+       "why": "9.6 V is the high-rate limit, not a resting voltage."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "sg",
+     "prompt": "A hydrometer reads {r} at {t} °C. Correct it by adding 0.0007 for each °C above 25 °C. What is the corrected SG?",
+     "formula": "r + 0.0007 * (t - 25)",
+     "vars": {
+      "r": {
+       "min": 1.24,
+       "max": 1.26,
+       "step": 0.01
+      },
+      "t": {
+       "min": 30,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.002
+     },
+     "decimals": 3,
+     "working": "{r} + 0.0007 × ({t} − 25) = {answer}."
+    },
+    {
+     "id": "spread",
+     "prompt": "The highest cell reads {a} and the lowest {b}. What is the spread between them?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 1.27,
+       "max": 1.28,
+       "step": 0.01
+      },
+      "b": {
+       "min": 1.2,
+       "max": 1.25,
+       "step": 0.01
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.002
+     },
+     "decimals": 3,
+     "working": "{a} − {b} = {answer}. A spread over 0.050 shows a faulty cell."
+    }
+   ],
+   "faults": [
+    {
+     "id": "false-readings",
+     "scenario": "Musa's readings do not agree with the battery's condition. Here is what he did.",
+     "lines": [
+      {
+       "text": "He read SG with the float touching the tube.",
+       "fault": true,
+       "why": "The float must be free."
+      },
+      {
+       "text": "He read the scale from above the float level.",
+       "fault": true,
+       "why": "That is parallax. Read at eye level."
+      },
+      {
+       "text": "He topped up with acid after testing.",
+       "fault": true,
+       "why": "Top up with distilled water only."
+      },
+      {
+       "text": "He noted the electrolyte temperature.",
+       "why": "It is needed for correction."
+      },
+      {
+       "text": "He returned the electrolyte to the same cell.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for hydrometer testing.",
+    "explainPrompt": "Why must a hydrometer reading be corrected for temperature?",
+    "explainGuide": "Warm electrolyte expands, which lowers its density and the SG reading. Correction brings the reading to a standard temperature so that it shows the true state of charge.",
+    "explainKeywords": [
+     [
+      "temperature",
+      "warm",
+      "hot"
+     ],
+     [
+      "density",
+      "expand",
+      "expands",
+      "lower"
+     ],
+     [
+      "correct",
+      "correction",
+      "standard",
+      "true"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Hydrometer, cell voltage and polarity tests",
+    "Read at eye level, cell by cell."
+   ]
+  },
+  "pr-aew-drawing-and-tracing-the-starting-system-circuit": {
+   "safety": {
+    "correct": [
+     "Keep meter leads away from moving parts before anyone cranks."
+    ],
+    "wrong": [
+     {
+      "text": "Crank with the gear engaged, as the handbrake will hold it.",
+      "why": "The vehicle can move. Keep it in neutral with the handbrake on."
+     },
+     {
+      "text": "Reach across the fan while a helper cranks.",
+      "why": "Keep clear of the fan and belts."
+     },
+     {
+      "text": "Crank for a full minute to get a steady reading.",
+      "why": "Crank for no more than 10 to 15 s at a time."
+     },
+     {
+      "text": "Leave ignition and fuel live during cranking tests.",
+      "why": "The engine may start. Disable them first."
+     },
+     {
+      "text": "Rest a spanner across the starter terminal while measuring.",
+      "why": "It can short to earth and burn you. Keep tools clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte, not a cable drop."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests a removed armature."
+     },
+     {
+      "name": "Thin bell wire",
+      "why": "Starter current needs heavy cable. This lesson uses none."
+     },
+     {
+      "name": "Spark tester",
+      "why": "This job tests the starter circuit, not the spark."
+     },
+     {
+      "name": "Wire stripper",
+      "why": "Nothing is being rewired."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "draw",
+     "afterStep": 1,
+     "prompt": "You have drawn the main heavy circuit. What must you also show?",
+     "options": [
+      {
+       "text": "The control circuit from the ignition switch to the solenoid",
+       "correct": true,
+       "consequence": "Your circuit now shows how the solenoid is worked."
+      },
+      {
+       "text": "The charging circuit's alternator field",
+       "consequence": "That is another system, not part of this job."
+      },
+      {
+       "text": "Nothing else, since the main circuit is enough",
+       "consequence": "Omitting the control circuit is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "when",
+     "afterStep": 4,
+     "prompt": "When do you read the voltage drop?",
+     "options": [
+      {
+       "text": "While cranking",
+       "correct": true,
+       "consequence": "Current flows, so the resistance shows as a drop."
+      },
+      {
+       "text": "With the engine stationary and not cranking",
+       "consequence": "No current means no drop, whatever the cable's state."
+      },
+      {
+       "text": "With the engine running at idle",
+       "consequence": "The starter carries no current then."
+      }
+     ]
+    },
+    {
+     "id": "high-side",
+     "afterStep": 5,
+     "prompt": "The earth-side drop is 1.5 V. What do you do?",
+     "options": [
+      {
+       "text": "Check the earth strap and its connections",
+       "correct": true,
+       "consequence": "A corroded earth is the likely cause of the high drop."
+      },
+      {
+       "text": "Fit a new starter motor",
+       "consequence": "The drop points to the connection, not the motor."
+      },
+      {
+       "text": "Accept it, as earth cables do not matter",
+       "consequence": "Earth is half of the circuit, and 1.5 V is far too high."
+      }
+     ]
+    },
+    {
+     "id": "probe",
+     "afterStep": 4,
+     "prompt": "Where do you touch your meter probes?",
+     "options": [
+      {
+       "text": "On the terminal posts",
+       "correct": true,
+       "consequence": "The drop across each clamp is included in your reading."
+      },
+      {
+       "text": "On the cable clamps",
+       "consequence": "The clamp joints are left out, hiding any corrosion."
+      },
+      {
+       "text": "On the middle of the cable insulation",
+       "consequence": "This gives no electrical contact."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "Which readings show a good starter circuit?",
+     "options": [
+      {
+       "text": "Each side drops under about 0.5 V",
+       "correct": true
+      },
+      {
+       "text": "One side drops 1.5 V",
+       "why": "That points to a bad cable or terminal."
+      },
+      {
+       "text": "Neither side has been measured while cranking",
+       "why": "Then the result means nothing."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "res",
+     "prompt": "The insulated side drops {d} V at a cranking current of {i} A. What is its resistance in ohms?",
+     "formula": "d / i",
+     "vars": {
+      "d": {
+       "min": 0.2,
+       "max": 0.4,
+       "step": 0.1
+      },
+      "i": {
+       "min": 100,
+       "max": 200,
+       "step": 50
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.05
+     },
+     "decimals": 4,
+     "working": "R = V ÷ I = {d} ÷ {i} = {answer} Ω."
+    },
+    {
+     "id": "pow",
+     "prompt": "The starter takes {i} A at {v} V. What power is delivered, in W?",
+     "formula": "v * i",
+     "vars": {
+      "v": {
+       "min": 9,
+       "max": 11,
+       "step": 1
+      },
+      "i": {
+       "min": 100,
+       "max": 200,
+       "step": 50
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{v} × {i} = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "slow-crank",
+     "scenario": "Bisi tested a slow-cranking car and found nothing wrong, but the fault remained. Here is what she did.",
+     "lines": [
+      {
+       "text": "She measured the drop with the engine not cranking.",
+       "fault": true,
+       "why": "No current flows, so no drop can appear."
+      },
+      {
+       "text": "She put her probes on the cable clamps.",
+       "fault": true,
+       "why": "Use the terminal posts."
+      },
+      {
+       "text": "She used a flat battery for the test.",
+       "fault": true,
+       "why": "State of charge affects the readings."
+      },
+      {
+       "text": "She disabled ignition and fuel before cranking.",
+       "why": "That is required."
+      },
+      {
+       "text": "She used standard symbols in her drawing.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for voltage-drop testing.",
+    "explainPrompt": "Why are starter cables much thicker than other vehicle wiring?",
+    "explainGuide": "The starter draws very high current. Thick cable has low resistance, so the voltage drop is small and the motor receives enough power.",
+    "explainKeywords": [
+     [
+      "high current",
+      "current",
+      "amps"
+     ],
+     [
+      "resistance",
+      "low"
+     ],
+     [
+      "drop",
+      "voltage",
+      "power"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Drawing and tracing the starting system circuit",
+    "Measure while cranking."
+   ]
+  },
+  "pr-aew-dismantling-and-overhauling-a-starter-motor": {
+   "safety": {
+    "correct": [
+     "Keep your fingers clear of the pinion during the bench test."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the heavy starter in your lap to undo the bolts.",
+      "why": "It can fall and hurt you. Clamp it in soft jaws."
+     },
+     {
+      "text": "Clean with compressed air and no goggles.",
+      "why": "Carbon dust goes into your eyes."
+     },
+     {
+      "text": "Grip the starter hard in plain steel vice jaws.",
+      "why": "That crushes the yoke. Use soft jaws."
+     },
+     {
+      "text": "Run the no-load test with the starter loose on the bench.",
+      "why": "Its torque makes it jump. Clamp it."
+     },
+     {
+      "text": "Leave the hot soldering iron lying on the bench.",
+      "why": "It burns the bench and you. Use a stand."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Emery cloth",
+      "why": "It is conductive and can bridge the segments."
+     },
+     {
+      "name": "Coarse sandpaper",
+      "why": "It scores the commutator."
+     },
+     {
+      "name": "Machine oil for the commutator",
+      "why": "The commutator and brushes must not be lubricated."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte, not a motor."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "It would damage cast housings."
+     },
+     {
+      "name": "Spark plug gapper",
+      "why": "It has no part in a starter."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "mark",
+     "afterStep": 1,
+     "prompt": "Before removing the end covers, what do you do?",
+     "options": [
+      {
+       "text": "Mark them for correct reassembly",
+       "correct": true,
+       "consequence": "They go back the right way round."
+      },
+      {
+       "text": "Lay them in a heap with the bolts",
+       "consequence": "The covers can go back wrongly."
+      },
+      {
+       "text": "Wash them first in petrol",
+       "consequence": "Petrol is a fire risk, and it does not help reassembly."
+      }
+     ]
+    },
+    {
+     "id": "brush-len",
+     "afterStep": 3,
+     "prompt": "The minimum brush length is 8 mm. A brush measures 6 mm. What do you do?",
+     "options": [
+      {
+       "text": "Replace it",
+       "correct": true,
+       "consequence": "A new brush restores contact and cranking power."
+      },
+      {
+       "text": "Keep it, since 6 mm is close to the limit",
+       "consequence": "It is under the limit, so poor contact continues."
+      },
+      {
+       "text": "Stretch the spring to press it harder",
+       "consequence": "This damages the spring and does not restore the brush."
+      }
+     ]
+    },
+    {
+     "id": "growler",
+     "afterStep": 4,
+     "prompt": "A hacksaw blade vibrates over the armature on the growler. What does this show?",
+     "options": [
+      {
+       "text": "A shorted armature coil",
+       "correct": true,
+       "consequence": "The armature is faulty and needs repair or renewal."
+      },
+      {
+       "text": "A healthy armature",
+       "consequence": "A good coil leaves the blade still."
+      },
+      {
+       "text": "Worn brushes",
+       "consequence": "Brushes are not on a growler test."
+      }
+     ]
+    },
+    {
+     "id": "clean-comm",
+     "afterStep": 5,
+     "prompt": "The commutator is dirty. What do you use on it?",
+     "options": [
+      {
+       "text": "Fine glass paper",
+       "correct": true,
+       "consequence": "It cleans without leaving conductive grit."
+      },
+      {
+       "text": "Emery cloth",
+       "consequence": "Its grit is conductive and can short the segments."
+      },
+      {
+       "text": "Grease applied with a rag",
+       "consequence": "Lubricant must not go on the commutator."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "slow",
+     "prompt": "Which finding explains slow cranking?",
+     "options": [
+      {
+       "text": "Worn brushes or burnt commutator segments",
+       "correct": true
+      },
+      {
+       "text": "Clean, undercut mica",
+       "why": "That is what you want to find."
+      },
+      {
+       "text": "Brushes well above minimum length",
+       "why": "That is sound."
+      }
+     ]
+    },
+    {
+     "id": "no-load",
+     "prompt": "The no-load test gives 11 V, 60 A at 5 000 rev/min, within specification. What is your verdict?",
+     "options": [
+      {
+       "text": "The motor is serviceable",
+       "correct": true
+      },
+      {
+       "text": "The motor has a shorted armature",
+       "why": "A motor within specification has no such fault."
+      },
+      {
+       "text": "The test is invalid at 11 V",
+       "why": "That voltage is the one given for the test."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "under",
+     "prompt": "The brush minimum is 8 mm. A brush measures {m} mm. How many mm below the limit is it?",
+     "formula": "8 - m",
+     "vars": {
+      "m": {
+       "min": 5,
+       "max": 7,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "8 − {m} = {answer} mm, so replace it."
+    }
+   ],
+   "faults": [
+    {
+     "id": "rebuild",
+     "scenario": "Idris rebuilt a starter, but it runs poorly and rattles. Here is what he did.",
+     "lines": [
+      {
+       "text": "He cleaned the commutator with emery cloth.",
+       "fault": true,
+       "why": "Emery is conductive."
+      },
+      {
+       "text": "He put grease on the brushes.",
+       "fault": true,
+       "why": "The commutator and brushes must not be lubricated."
+      },
+      {
+       "text": "He left out the thrust washers.",
+       "fault": true,
+       "why": "This is a common mistake that causes end play."
+      },
+      {
+       "text": "He marked the end covers.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He bench tested it after assembly.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for overhauling a starter motor.",
+    "explainPrompt": "Why is emery cloth not used to clean a commutator?",
+    "explainGuide": "Emery is conductive, so its grit can lodge between the segments and short them. Fine glass paper is non-conductive.",
+    "explainKeywords": [
+     [
+      "conductive",
+      "conducts",
+      "conduct"
+     ],
+     [
+      "short",
+      "shorts",
+      "bridge"
+     ],
+     [
+      "segment",
+      "segments",
+      "glass paper",
+      "glass"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Dismantling and overhauling a starter motor",
+    "Mark it before you strip it."
+   ]
+  },
+  "pr-aew-testing-an-ignition-coil-and-drawing-the-ignition-circuit": {
+   "safety": {
+    "correct": [
+     "Keep the spark tester away from fuel and rags."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the HT lead to feel if there is a spark.",
+      "why": "The coil can produce over 20 kV. Never hold an HT lead."
+     },
+     {
+      "text": "Hold the spark tester in your bare hand at the gap.",
+      "why": "You may get a shock. Mount it clear of your body."
+     },
+     {
+      "text": "Test the spark near an open petrol container.",
+      "why": "A spark ignites vapour. Keep fuel well away."
+     },
+     {
+      "text": "Touch the coil tower to check for a crack while cranking.",
+      "why": "That can give you an HT shock. Inspect it with power off."
+     },
+     {
+      "text": "Lean over the coil while a helper cranks.",
+      "why": "A shock can make you jerk into moving parts. Keep clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte, not a coil."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     },
+     {
+      "name": "Tram gauge",
+      "why": "That is a body measuring tool."
+     },
+     {
+      "name": "Feeler gauge alone",
+      "why": "It cannot test a coil winding."
+     },
+     {
+      "name": "Spirit level",
+      "why": "This job needs no level."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "range",
+     "afterStep": 2,
+     "prompt": "Which meter range do you use to measure the primary winding?",
+     "options": [
+      {
+       "text": "The low ohms range",
+       "correct": true,
+       "consequence": "The 1 to 3 Ω winding gives a clear reading."
+      },
+      {
+       "text": "The high kilohm range",
+       "consequence": "A low resistance reads as almost zero."
+      },
+      {
+       "text": "The AC volts range",
+       "consequence": "This is a resistance measurement."
+      }
+     ]
+    },
+    {
+     "id": "sec",
+     "afterStep": 3,
+     "prompt": "The secondary reads infinite resistance. What does this show?",
+     "options": [
+      {
+       "text": "An open-circuit secondary winding",
+       "correct": true,
+       "consequence": "The coil cannot give HT, so it must be replaced."
+      },
+      {
+       "text": "A very good coil",
+       "consequence": "Expected is 6 to 12 kΩ, not infinity."
+      },
+      {
+       "text": "The primary is shorted to the coil case",
+       "consequence": "This reading concerns the secondary."
+      }
+     ]
+    },
+    {
+     "id": "polarity",
+     "afterStep": 1,
+     "prompt": "How do you connect the primary?",
+     "options": [
+      {
+       "text": "+15 to the switch side and −1 to the breaker",
+       "correct": true,
+       "consequence": "Correct polarity gives the best spark."
+      },
+      {
+       "text": "The other way round, as it does not matter",
+       "consequence": "Reversing gives a poorer spark."
+      },
+      {
+       "text": "Both to the switch side",
+       "consequence": "There would be no primary current control."
+      }
+     ]
+    },
+    {
+     "id": "cap",
+     "afterStep": 6,
+     "prompt": "In your drawing, what goes across the contact breaker?",
+     "options": [
+      {
+       "text": "A capacitor",
+       "correct": true,
+       "consequence": "It reduces arcing and speeds the field collapse."
+      },
+      {
+       "text": "A diode",
+       "consequence": "That is not part of this circuit."
+      },
+      {
+       "text": "The ballast resistor",
+       "consequence": "The ballast is in series with the primary."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "normal",
+     "prompt": "Which readings suit a good coil?",
+     "options": [
+      {
+       "text": "Primary 1 to 3 Ω, secondary 6 to 12 kΩ, strong blue spark",
+       "correct": true
+      },
+      {
+       "text": "Primary 6 to 12 kΩ, secondary 1 to 3 Ω",
+       "why": "These are swapped."
+      },
+      {
+       "text": "Primary 1 to 3 Ω, secondary 6 to 12 kΩ, weak yellow spark",
+       "why": "A yellow spark is weak."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "current",
+     "prompt": "A coil primary of {p} Ω is in series with a {b} Ω ballast on 12 V. What is the current in A?",
+     "formula": "12 / (p + b)",
+     "vars": {
+      "p": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      },
+      "b": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "I = 12 ÷ ({p} + {b}) = {answer} A."
+    },
+    {
+     "id": "secv",
+     "prompt": "The primary self-induced voltage is {v} V and the turns ratio is 1:{n}. What is the secondary voltage in V?",
+     "formula": "v * n",
+     "vars": {
+      "v": {
+       "min": 200,
+       "max": 300,
+       "step": 50
+      },
+      "n": {
+       "min": 80,
+       "max": 120,
+       "step": 20
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{v} × {n} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "weak-spark",
+     "scenario": "Tayo reported a good coil, but the engine still misfires. Here is what he did.",
+     "lines": [
+      {
+       "text": "He reversed the primary connections.",
+       "fault": true,
+       "why": "This gives a poorer spark."
+      },
+      {
+       "text": "He ignored a crack on the HT tower.",
+       "fault": true,
+       "why": "Cracks cause tracking."
+      },
+      {
+       "text": "He measured the coil when it was very hot.",
+       "fault": true,
+       "why": "Check resistance at room temperature."
+      },
+      {
+       "text": "He compared readings with the manufacturer's data.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He used a spark tester with a set gap.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing an ignition coil.",
+    "explainPrompt": "What does the capacitor do in the coil ignition circuit?",
+    "explainGuide": "It absorbs the current surge when the points open, which reduces arcing at the points. It also speeds the collapse of the magnetic field, so the HT spark is stronger.",
+    "explainKeywords": [
+     [
+      "arcing",
+      "arc"
+     ],
+     [
+      "collapse",
+      "field"
+     ],
+     [
+      "points",
+      "contact breaker"
+     ],
+     [
+      "spark",
+      "stronger"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Testing an ignition coil and drawing the ignition circuit",
+    "Never hold an HT lead."
+   ]
+  },
+  "pr-aew-setting-ignition-timing-with-a-timing-light": {
+   "safety": {
+    "correct": [
+     "Tie back loose sleeves and hair before running the engine."
+    ],
+    "wrong": [
+     {
+      "text": "Run the engine indoors with the shutter closed.",
+      "why": "Exhaust gas is deadly. Work outdoors or with extraction."
+     },
+     {
+      "text": "Lean over the fan to read the marks from close up.",
+      "why": "Keep clear of the fan and belt."
+     },
+     {
+      "text": "Lay the timing light leads across the fan belt.",
+      "why": "They can be caught and whipped in."
+     },
+     {
+      "text": "Wear a loose tie while working at the engine.",
+      "why": "It can catch in the fan. Remove it."
+     },
+     {
+      "text": "Trust the strobe to show that the fan has stopped.",
+      "why": "The strobe can make it seem still when it is moving."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It has no use in timing."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     },
+     {
+      "name": "Compression tester",
+      "why": "It tests cylinders, not timing."
+     },
+     {
+      "name": "Battery charger",
+      "why": "Nothing is being charged."
+     },
+     {
+      "name": "Torque wrench set to 200 N m",
+      "why": "It is unnecessary for a distributor clamp."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "idle",
+     "afterStep": 3,
+     "prompt": "Before aiming the light, what do you set?",
+     "options": [
+      {
+       "text": "The specified idle speed",
+       "correct": true,
+       "consequence": "Timing is read at the right speed, so the reading is valid."
+      },
+      {
+       "text": "A high fast idle, to steady the marks",
+       "consequence": "Advance alters the reading."
+      },
+      {
+       "text": "The carburettor mixture to rich",
+       "consequence": "This is not the job here, and it does not set the speed."
+      }
+     ]
+    },
+    {
+     "id": "which-way",
+     "afterStep": 4,
+     "prompt": "Timing reads 2° BTDC and the specification is 8° BTDC. Which way do you turn the distributor?",
+     "options": [
+      {
+       "text": "Against its direction of rotation",
+       "correct": true,
+       "consequence": "This advances the timing to the specification."
+      },
+      {
+       "text": "With its direction of rotation",
+       "consequence": "This retards it further."
+      },
+      {
+       "text": "Either way until it runs smoothly",
+       "consequence": "That is a guess, so timing may be left wrong."
+      }
+     ]
+    },
+    {
+     "id": "clamp",
+     "afterStep": 4,
+     "prompt": "The marks align. What do you do?",
+     "options": [
+      {
+       "text": "Tighten the clamp, then recheck",
+       "correct": true,
+       "consequence": "Tightening can move it, so a recheck confirms it."
+      },
+      {
+       "text": "Tighten the clamp and leave",
+       "consequence": "It may have moved while tightening."
+      },
+      {
+       "text": "Leave the clamp loose for later",
+       "consequence": "The distributor can drift."
+      }
+     ]
+    },
+    {
+     "id": "vacuum",
+     "afterStep": 6,
+     "prompt": "The test is finished. What must you do about the vacuum pipe?",
+     "options": [
+      {
+       "text": "Reconnect it, then road test",
+       "correct": true,
+       "consequence": "Vacuum advance works again for part-throttle running."
+      },
+      {
+       "text": "Leave it off for extra power",
+       "consequence": "Part-throttle advance is lost, which wastes fuel."
+      },
+      {
+       "text": "Plug it and tie it back",
+       "consequence": "Vacuum advance stays out of action."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "strobe",
+     "prompt": "What do you see when the timing light is working?",
+     "options": [
+      {
+       "text": "The marks appear stationary, and they move as speed rises",
+       "correct": true
+      },
+      {
+       "text": "The marks stay still however much the speed rises",
+       "why": "That means the advance is not working."
+      },
+      {
+       "text": "The marks vanish from view",
+       "why": "That points to a lead or mark problem."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "retard",
+     "prompt": "The specification is {s}° BTDC. The light shows {m}° BTDC. By how many degrees is the timing retarded?",
+     "formula": "s - m",
+     "vars": {
+      "s": {
+       "min": 6,
+       "max": 12,
+       "step": 2
+      },
+      "m": {
+       "min": 1,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "°",
+     "unitAliases": [
+      "degrees",
+      "deg"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{s} − {m} = {answer}°."
+    }
+   ],
+   "faults": [
+    {
+     "id": "pinking",
+     "scenario": "Kemi timed an engine, but it now pinks and runs hot. Here is what she did.",
+     "lines": [
+      {
+       "text": "She turned the distributor the wrong way.",
+       "fault": true,
+       "why": "Know which direction advances the timing."
+      },
+      {
+       "text": "She left the vacuum pipe disconnected.",
+       "fault": true,
+       "why": "It must be reconnected."
+      },
+      {
+       "text": "She did not recheck after tightening the clamp.",
+       "fault": true,
+       "why": "Tightening can move the setting."
+      },
+      {
+       "text": "She marked the notch with chalk.",
+       "why": "That makes it visible."
+      },
+      {
+       "text": "She worked outdoors.",
+       "why": "That avoids exhaust gas."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for setting ignition timing.",
+    "explainPrompt": "What are the effects of retarded and of over-advanced ignition timing?",
+    "explainGuide": "Retarded timing causes loss of power and overheating. Over-advanced timing causes pinking, because burning starts too early.",
+    "explainKeywords": [
+     [
+      "retarded",
+      "retard"
+     ],
+     [
+      "power",
+      "overheating",
+      "overheat"
+     ],
+     [
+      "advanced",
+      "advance"
+     ],
+     [
+      "pinking",
+      "knocking",
+      "knock"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Setting ignition timing with a timing light",
+    "Marks clean, idle set."
+   ]
+  },
+  "pr-aew-diagnosing-ignition-faults": {
+   "safety": {
+    "correct": [
+     "Keep the vehicle in neutral with the handbrake on while cranking."
+    ],
+    "wrong": [
+     {
+      "text": "Pull off an HT lead with a bare hand while cranking.",
+      "why": "HT shocks are severe. Use insulated tools and the spark tester."
+     },
+     {
+      "text": "Remove a plug and spark it near the open plug hole.",
+      "why": "Fuel vapour can ignite. Use the spark tester away from fuel."
+     },
+     {
+      "text": "Spray petrol into the carburettor while the engine is hot.",
+      "why": "Fuel on hot parts can catch fire. Never spray it."
+     },
+     {
+      "text": "Test for a spark by holding the plug against the block with your fingers.",
+      "why": "You will get a shock. Use the spark tester."
+     },
+     {
+      "text": "Crank on and on until the fault shows itself.",
+      "why": "This overheats the starter and flattens the battery. Crank briefly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "Battery voltage is checked with the meter in this job."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures, not ignition."
+     },
+     {
+      "name": "Tram gauge",
+      "why": "That is a body measuring tool."
+     },
+     {
+      "name": "Beam setter",
+      "why": "That aims head lamps."
+     },
+     {
+      "name": "Grease gun",
+      "why": "No part here needs greasing."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "start",
+     "afterStep": 1,
+     "prompt": "A car will not start. Which check comes first?",
+     "options": [
+      {
+       "text": "Confirm the complaint and check battery voltage",
+       "correct": true,
+       "consequence": "A flat battery would make every later test misleading."
+      },
+      {
+       "text": "Replace the coil, as it often fails",
+       "consequence": "Replacing parts without testing is a common mistake."
+      },
+      {
+       "text": "Change all the plugs and leads",
+       "consequence": "That costs money and gives no diagnosis."
+      }
+     ]
+    },
+    {
+     "id": "no-spark",
+     "afterStep": 3,
+     "prompt": "There is no spark, and coil + has 12 V. What do you test next?",
+     "options": [
+      {
+       "text": "Switching at coil − with a test lamp",
+       "correct": true,
+       "consequence": "A flashing lamp shows whether the points or pick-up are switching."
+      },
+      {
+       "text": "The ignition switch again, with the meter",
+       "consequence": "The supply has already been proved good."
+      },
+      {
+       "text": "The fuel pump pressure",
+       "consequence": "That does not explain a missing spark."
+      }
+     ]
+    },
+    {
+     "id": "one-at-a-time",
+     "afterStep": 7,
+     "prompt": "You suspect both the rotor and a lead. How do you proceed?",
+     "options": [
+      {
+       "text": "Test one item at a time",
+       "correct": true,
+       "consequence": "You will know which part really caused the fault."
+      },
+      {
+       "text": "Change both, and see if it runs",
+       "consequence": "You will never know the true cause."
+      },
+      {
+       "text": "Change neither, and add fuel additive",
+       "consequence": "Additive does nothing for an electrical fault."
+      }
+     ]
+    },
+    {
+     "id": "backfire",
+     "afterStep": 4,
+     "prompt": "The engine backfires through the carburettor. Which do you check?",
+     "options": [
+      {
+       "text": "HT lead firing order and timing",
+       "correct": true,
+       "consequence": "Crossed leads or bad timing are the usual causes."
+      },
+      {
+       "text": "The horn relay",
+       "consequence": "That has nothing to do with firing."
+      },
+      {
+       "text": "The battery's water level",
+       "consequence": "Backfiring is not caused by that."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lamp",
+     "prompt": "A test lamp at coil − does not flash during cranking. What does this show?",
+     "options": [
+      {
+       "text": "A points or pick-up fault",
+       "correct": true
+      },
+      {
+       "text": "A good switching circuit",
+       "why": "A good circuit makes the lamp flash."
+      },
+      {
+       "text": "An overcharged battery",
+       "why": "That is unrelated."
+      }
+     ]
+    },
+    {
+     "id": "sooty",
+     "prompt": "A spark plug comes out sooty. What does it suggest?",
+     "options": [
+      {
+       "text": "A rich mixture or weak spark",
+       "correct": true
+      },
+      {
+       "text": "Perfect running",
+       "why": "A healthy plug is light brown, not sooty."
+      },
+      {
+       "text": "A blown head lamp fuse",
+       "why": "That is another circuit."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "ht",
+     "prompt": "An HT lead {l} m long measures {r} kΩ. What is its resistance per metre in kΩ/m?",
+     "formula": "r / l",
+     "vars": {
+      "l": {
+       "min": 0.4,
+       "max": 0.8,
+       "step": 0.2
+      },
+      "r": {
+       "min": 16,
+       "max": 32,
+       "step": 8
+      }
+     },
+     "unit": "kΩ/m",
+     "unitAliases": [
+      "kohm/m",
+      "k/m"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "{r} ÷ {l} = {answer} kΩ/m. Compare this with the limit of 25 kΩ/m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "parts-cannon",
+     "scenario": "Efe changed four parts, and the misfire returned in the rain. Here is what he did.",
+     "lines": [
+      {
+       "text": "He replaced parts without testing.",
+       "fault": true,
+       "why": "Test first, then replace."
+      },
+      {
+       "text": "He ignored the clues on the spark plugs.",
+       "fault": true,
+       "why": "Plug condition tells you about the fault."
+      },
+      {
+       "text": "He did not check the cap for cracks.",
+       "fault": true,
+       "why": "Cracked caps cause misfire in damp weather."
+      },
+      {
+       "text": "He used the spark tester.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He checked battery voltage first.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for fault-finding on an ignition system.",
+    "explainPrompt": "Why should only one item be changed or tested at a time?",
+    "explainGuide": "It shows which item really caused the fault. Changing many parts at once wastes money and leaves the true cause unknown.",
+    "explainKeywords": [
+     [
+      "cause",
+      "fault"
+     ],
+     [
+      "one",
+      "single",
+      "each"
+     ],
+     [
+      "waste",
+      "wastes",
+      "money",
+      "unknown",
+      "cost"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Diagnosing ignition faults",
+    "Symptom, test, result, remedy."
+   ]
+  },
+  "pr-aew-testing-charging-system-output": {
+   "safety": {
+    "correct": [
+     "Keep clear of the belt and fan when the engine is running."
+    ],
+    "wrong": [
+     {
+      "text": "Pull a battery lead off with the engine running to test the alternator.",
+      "why": "Voltage spikes damage electronics. Never do this."
+     },
+     {
+      "text": "Remove the alternator with the battery still connected.",
+      "why": "The live B+ lead can short. Disconnect the battery first."
+     },
+     {
+      "text": "Check belt tension by pressing it with the engine running.",
+      "why": "Your hand can be drawn in. Stop the engine."
+     },
+     {
+      "text": "Hold a heavy load on the tester for many minutes.",
+      "why": "It overheats. Keep loads within tester ratings and brief."
+     },
+     {
+      "text": "Run the engine in the closed workshop during the test.",
+      "why": "Exhaust gas is deadly. Ventilate."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "Voltage is what this test reads."
+     },
+     {
+      "name": "Spark tester",
+      "why": "It tests ignition."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests starter armatures."
+     },
+     {
+      "name": "Timing light",
+      "why": "It does not read charging output."
+     },
+     {
+      "name": "Beam setter",
+      "why": "It aims head lamps."
+     }
+    ]
+   },
+   "procedure": {
+    "leaveOut": [
+     7
+    ]
+   },
+   "decisions": [
+    {
+     "id": "belt",
+     "afterStep": 2,
+     "prompt": "The belt is glazed and slack. What do you do before testing?",
+     "options": [
+      {
+       "text": "Correct the belt, then test",
+       "correct": true,
+       "consequence": "A slipping belt would otherwise give a false low output."
+      },
+      {
+       "text": "Test anyway, then blame the alternator",
+       "consequence": "A slipping belt can cause undercharging on its own."
+      },
+      {
+       "text": "Dress it with oil to stop the slip",
+       "consequence": "Oil ruins the belt and causes more slip."
+      }
+     ]
+    },
+    {
+     "id": "measure",
+     "afterStep": 4,
+     "prompt": "Where do you measure regulated voltage?",
+     "options": [
+      {
+       "text": "At the battery at about 2 000 rev/min",
+       "correct": true,
+       "consequence": "This shows what the battery actually receives."
+      },
+      {
+       "text": "At the battery with the engine off",
+       "consequence": "That is the resting voltage only."
+      },
+      {
+       "text": "At the head lamp bulb at idle",
+       "consequence": "This includes other circuit drops."
+      }
+     ]
+    },
+    {
+     "id": "low",
+     "afterStep": 4,
+     "prompt": "You read 13.2 V at 2 000 rev/min. What do you conclude?",
+     "options": [
+      {
+       "text": "Undercharging: check belt, regulator and diodes",
+       "correct": true,
+       "consequence": "13.2 V is below the 13.8 V limit, so you follow it up."
+      },
+      {
+       "text": "Normal charging for an engine running at this speed",
+       "consequence": "The normal range starts at 13.8 V."
+      },
+      {
+       "text": "Overcharging",
+       "consequence": "Overcharging is above the range, not below it."
+      }
+     ]
+    },
+    {
+     "id": "refit",
+     "afterStep": 7,
+     "prompt": "You have refitted the alternator. What must you check?",
+     "options": [
+      {
+       "text": "Belt tension with the gauge",
+       "correct": true,
+       "consequence": "Correct tension avoids slipping and bearing damage."
+      },
+      {
+       "text": "The tyre pressures",
+       "consequence": "They have nothing to do with this job."
+      },
+      {
+       "text": "The spark plug gaps on each of the cylinders",
+       "consequence": "That is another system."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good",
+     "prompt": "Which result shows a good charging system?",
+     "options": [
+      {
+       "text": "About 13.8 to 14.4 V, near rated current, lamp goes out",
+       "correct": true
+      },
+      {
+       "text": "About 15.5 V with the lamp out, at close to rated current",
+       "why": "That is overcharging."
+      },
+      {
+       "text": "About 12.4 V, with the lamp on",
+       "why": "It is not charging."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "watts",
+     "prompt": "An alternator is rated {i} A at 14.2 V. What is its maximum output in W?",
+     "formula": "14.2 * i",
+     "vars": {
+      "i": {
+       "min": 30,
+       "max": 70,
+       "step": 10
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "14.2 × {i} = {answer} W."
+    },
+    {
+     "id": "short",
+     "prompt": "The minimum regulated voltage is 13.8 V. You measure {m} V. How many volts short is it?",
+     "formula": "13.8 - m",
+     "vars": {
+      "m": {
+       "min": 12.8,
+       "max": 13.4,
+       "step": 0.2
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "13.8 − {m} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "blown-regs",
+     "scenario": "Zainab's test damaged the car's electronics, and she got the wrong result. Here is what she did.",
+     "lines": [
+      {
+       "text": "She ran the engine with the battery disconnected.",
+       "fault": true,
+       "why": "Voltage spikes can damage electronics."
+      },
+      {
+       "text": "She mixed up the B+ and D+ terminals.",
+       "fault": true,
+       "why": "These are separate terminals with separate jobs."
+      },
+      {
+       "text": "She tested on a nearly flat battery and ignored it.",
+       "fault": true,
+       "why": "Battery state affects the current reading."
+      },
+      {
+       "text": "She checked the belt first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She checked the warning lamp.",
+       "why": "That is a step in the test."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing charging output.",
+    "explainPrompt": "Why must the battery never be disconnected with the engine running?",
+    "explainGuide": "The battery steadies the system. Removing it causes voltage spikes, and these can damage the diodes, regulator and other electronics.",
+    "explainKeywords": [
+     [
+      "spike",
+      "spikes",
+      "surge"
+     ],
+     [
+      "damage",
+      "damages",
+      "destroy"
+     ],
+     [
+      "electronics",
+      "diodes",
+      "regulator"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Testing charging system output",
+    "Battery connected while running."
+   ]
+  },
+  "pr-aew-dismantling-an-alternator-and-testing-its-diodes": {
+   "safety": {
+    "correct": [
+     "Disconnect the battery before removing the alternator from a vehicle."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the alternator in your hand to pull the bearing.",
+      "why": "It can slip. Clamp it in soft jaws."
+     },
+     {
+      "text": "Pull the bearing without goggles, as it is slow work.",
+      "why": "A puller can slip and throw parts. Keep goggles on."
+     },
+     {
+      "text": "Grip the housing in hard steel vice jaws.",
+      "why": "That can crack the housing. Use soft jaws."
+     },
+     {
+      "text": "Keep the iron on the diode joint until the solder runs well.",
+      "why": "Long heating kills diodes. Use a heat sink and work quickly."
+     },
+     {
+      "text": "Blow solder off the iron over the bench.",
+      "why": "Hot solder can burn you. Wipe it on the sponge."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Emery cloth",
+      "why": "It is too harsh and can leave grit. Use fine glass paper."
+     },
+     {
+      "name": "Growler",
+      "why": "This job tests with the multimeter."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "No electrolyte is tested here."
+     },
+     {
+      "name": "Mains test lamp",
+      "why": "Mains voltage has no place on this bench and can destroy diodes."
+     },
+     {
+      "name": "Blowlamp for soldering",
+      "why": "It destroys diodes. Use a soldering iron."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "connected",
+     "afterStep": 5,
+     "prompt": "The diodes are still joined to the stator. What do you do before testing?",
+     "options": [
+      {
+       "text": "Unsolder the stator leads",
+       "correct": true,
+       "consequence": "Each diode is now tested on its own."
+      },
+      {
+       "text": "Test them where they are",
+       "consequence": "The windings give false paths."
+      },
+      {
+       "text": "Cut the diode legs short",
+       "consequence": "This destroys parts you may not need to replace."
+      }
+     ]
+    },
+    {
+     "id": "heat",
+     "afterStep": 4,
+     "prompt": "You are soldering a diode lead. How do you protect it?",
+     "options": [
+      {
+       "text": "Use a heat sink and solder quickly",
+       "correct": true,
+       "consequence": "Heat is drawn away before it reaches the junction."
+      },
+      {
+       "text": "Use a larger iron for longer",
+       "consequence": "More heat kills the diode."
+      },
+      {
+       "text": "Cool it with a wet rag while soldering",
+       "consequence": "This spoils the joint."
+      }
+     ]
+    },
+    {
+     "id": "both-ways",
+     "afterStep": 5,
+     "prompt": "A diode conducts in both directions. What is your verdict?",
+     "options": [
+      {
+       "text": "It is short-circuited and must be replaced",
+       "correct": true,
+       "consequence": "A shorted diode lowers output and can cause whine."
+      },
+      {
+       "text": "It is excellent, since it conducts well",
+       "consequence": "A good diode conducts one way only."
+      },
+      {
+       "text": "It is open-circuited",
+       "consequence": "An open diode conducts in neither direction."
+      }
+     ]
+    },
+    {
+     "id": "slip",
+     "afterStep": 2,
+     "prompt": "The slip rings are dirty. What do you clean them with?",
+     "options": [
+      {
+       "text": "Fine glass paper only",
+       "correct": true,
+       "consequence": "They come clean without being damaged."
+      },
+      {
+       "text": "A coarse file",
+       "consequence": "That cuts grooves and wears the brushes."
+      },
+      {
+       "text": "Grease on a clean rag, wiped round",
+       "consequence": "Grease stops the brush contact."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "diode",
+     "prompt": "You test a good diode with the meter. What do you see?",
+     "options": [
+      {
+       "text": "About 0.5 to 0.7 V one way, and no conduction the other",
+       "correct": true
+      },
+      {
+       "text": "Conduction in both directions",
+       "why": "That is a short."
+      },
+      {
+       "text": "No conduction in either direction, whichever way it is tested",
+       "why": "That is an open diode."
+      }
+     ]
+    },
+    {
+     "id": "rotor",
+     "prompt": "You test rotor insulation to the shaft. What is a good result?",
+     "options": [
+      {
+       "text": "No continuity",
+       "correct": true
+      },
+      {
+       "text": "Full continuity",
+       "why": "That means a winding is earthed."
+      },
+      {
+       "text": "2.5 to 4 Ω",
+       "why": "That is the field resistance, not the insulation test."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "fall",
+     "prompt": "One diode has failed open, and output falls by about a third. A rated {r} A alternator now gives about how many amperes?",
+     "formula": "r * 2 / 3",
+     "vars": {
+      "r": {
+       "min": 45,
+       "max": 90,
+       "step": 15
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{r} − a third of {r} = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "low-charge",
+     "scenario": "Sam rebuilt an alternator, and now it barely charges. Here is what he did.",
+     "lines": [
+      {
+       "text": "He tested the diodes while still joined to the stator.",
+       "fault": true,
+       "why": "They must be separated to test."
+      },
+      {
+       "text": "He lost one brush spring and carried on.",
+       "fault": true,
+       "why": "This is a common mistake. Brush contact fails."
+      },
+      {
+       "text": "He soldered without a heat sink.",
+       "fault": true,
+       "why": "Heat damages diodes."
+      },
+      {
+       "text": "He marked the end housings.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He checked rotor insulation.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing alternator parts.",
+    "explainPrompt": "How does an alternator give d.c. from the a.c. made by its stator?",
+    "explainGuide": "The rectifier diodes conduct one way only. The bridge passes the a.c. in one direction, so the battery receives d.c.",
+    "explainKeywords": [
+     [
+      "diode",
+      "diodes",
+      "rectifier",
+      "bridge"
+     ],
+     [
+      "one way",
+      "one direction",
+      "direction"
+     ],
+     [
+      "d.c.",
+      "dc",
+      "direct"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Dismantling an alternator and testing its diodes",
+    "Test each diode both ways."
+   ]
+  },
+  "pr-aew-setting-head-lamps": {
+   "safety": {
+    "correct": [
+     "Make sure the handbrake is on before you stand in front of the car."
+    ],
+    "wrong": [
+     {
+      "text": "Grip the new H4 bulb by its glass to fit it quickly.",
+      "why": "Skin oil damages the glass and it gets very hot. Hold the base."
+     },
+     {
+      "text": "Stare at the bright spot to judge its position.",
+      "why": "That hurts your eyes. Look at the pattern on the screen."
+     },
+     {
+      "text": "Change a bulb straight after the lamp has been on.",
+      "why": "It stays very hot. Let it cool."
+     },
+     {
+      "text": "Stand in front of the car with the engine running in gear.",
+      "why": "It could move. Keep it in neutral."
+     },
+     {
+      "text": "Do the aim on the sloping yard to save time.",
+      "why": "It gives a wrong setting, which dazzles other drivers."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests batteries."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets the ignition, not the beam."
+     },
+     {
+      "name": "Hammer for moving the lamp",
+      "why": "Aim is set by adjusting screws."
+     },
+     {
+      "name": "Tin of paint for the lens",
+      "why": "Nothing goes on the lens."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "prep",
+     "afterStep": 2,
+     "prompt": "The car has a loaded boot and one soft tyre. What do you do?",
+     "options": [
+      {
+       "text": "Unload it and correct the tyre pressure",
+       "correct": true,
+       "consequence": "The car sits at normal ride height, so the aim is true."
+      },
+      {
+       "text": "Set the lamps as it stands",
+       "consequence": "The aim will be wrong when the car is corrected."
+      },
+      {
+       "text": "Lower the jack under the rear",
+       "consequence": "The car is still not at normal ride height."
+      }
+     ]
+    },
+    {
+     "id": "ground",
+     "afterStep": 3,
+     "prompt": "The floor at the bay slopes. What do you do?",
+     "options": [
+      {
+       "text": "Move to level ground",
+       "correct": true,
+       "consequence": "A level floor keeps the screen height valid."
+      },
+      {
+       "text": "Adjust the marks by eye",
+       "consequence": "A guess leaves the aim wrong."
+      },
+      {
+       "text": "Carry on, since it is a small slope",
+       "consequence": "Floor slope is a source of error, so the aim will be off."
+      }
+     ]
+    },
+    {
+     "id": "screw",
+     "afterStep": 5,
+     "prompt": "The pattern is too high. Which screw do you turn?",
+     "options": [
+      {
+       "text": "The vertical adjuster",
+       "correct": true,
+       "consequence": "The pattern moves down to the mark."
+      },
+      {
+       "text": "The horizontal adjuster",
+       "consequence": "That moves it sideways, which is a common mistake."
+      },
+      {
+       "text": "The bulb clip",
+       "consequence": "The clip only holds the bulb."
+      }
+     ]
+    },
+    {
+     "id": "which-beam",
+     "afterStep": 4,
+     "prompt": "Which beam do you use to set the cut-off?",
+     "options": [
+      {
+       "text": "Dipped beam",
+       "correct": true,
+       "consequence": "The cut-off shows clearly."
+      },
+      {
+       "text": "Main beam",
+       "consequence": "Main beam has no clear cut-off."
+      },
+      {
+       "text": "Side lamps",
+       "consequence": "They give no beam pattern."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "cut",
+     "prompt": "After setting, what do you see on the screen?",
+     "options": [
+      {
+       "text": "Dipped cut-off just below lamp centre, with a kick-up to the kerb side",
+       "correct": true
+      },
+      {
+       "text": "The cut-off is above lamp centre",
+       "why": "This dazzles other road users."
+      },
+      {
+       "text": "The cut-off is level with lamp centre, and the kick-up points to the middle of the road",
+       "why": "It should point to the kerb side."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "cut-height",
+     "prompt": "A lamp centre is {h} mm above the ground. The dip is {d}% at 10 m. At what height in mm is the cut-off on the screen?",
+     "formula": "h - d / 100 * 10000",
+     "vars": {
+      "h": {
+       "min": 600,
+       "max": 700,
+       "step": 10
+      },
+      "d": {
+       "min": 1,
+       "max": 1.5,
+       "step": 0.1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{h} − {d} ÷ 100 × 10 000 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "dazzle",
+     "scenario": "After Hauwa set the lamps, oncoming drivers flashed at her at night. Here is what she did.",
+     "lines": [
+      {
+       "text": "She set them on a sloping floor.",
+       "fault": true,
+       "why": "An uneven floor is a source of error."
+      },
+      {
+       "text": "She left heavy loads in the boot.",
+       "fault": true,
+       "why": "Adjust at normal ride height."
+      },
+      {
+       "text": "She turned the wrong adjusting screw.",
+       "fault": true,
+       "why": "This is a common mistake."
+      },
+      {
+       "text": "She checked tyre pressures.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She repeated the setting for the other lamp.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for setting head lamps.",
+    "explainPrompt": "Why is correct head lamp aim important for safety?",
+    "explainGuide": "A beam aimed too high dazzles oncoming drivers. A beam aimed too low shortens how far you can see, so either fault can cause an accident.",
+    "explainKeywords": [
+     [
+      "dazzle",
+      "dazzles",
+      "blind"
+     ],
+     [
+      "see",
+      "visibility",
+      "vision",
+      "low"
+     ],
+     [
+      "accident",
+      "accidents",
+      "drivers",
+      "safety"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Setting head lamps",
+    "Level floor, normal ride height."
+   ]
+  },
+  "pr-aew-tracing-and-troubleshooting-the-lighting-circuit": {
+   "safety": {
+    "correct": [
+     "Fit fuses of the correct rating only."
+    ],
+    "wrong": [
+     {
+      "text": "Bridge a blown fuse with a strip of foil to test the lamp.",
+      "why": "The foil has no protection, so wiring can burn. Use a fused jumper."
+     },
+     {
+      "text": "Use a plain wire as a jumper because the fused one is missing.",
+      "why": "A short would melt it and may start a fire."
+     },
+     {
+      "text": "Probe through the insulation with a sharp pin everywhere.",
+      "why": "The holes let moisture in and cause corrosion."
+     },
+     {
+      "text": "Change a lamp while the switch is on.",
+      "why": "It can spark or short. Switch off first."
+     },
+     {
+      "text": "Lay the meter on the battery top during the test.",
+      "why": "It can short terminals. Keep tools off the battery."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Plain wire link",
+      "why": "Never bridge a fuse with plain wire."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing."
+     },
+     {
+      "name": "Beam setter",
+      "why": "That aims lamps, and does not find open circuits."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 3,
+     "prompt": "One dipped beam is out. What do you check first?",
+     "options": [
+      {
+       "text": "The bulb and fuse",
+       "correct": true,
+       "consequence": "The simplest checks often find the fault."
+      },
+      {
+       "text": "The relay, by replacing it",
+       "consequence": "That is a replacement without a test."
+      },
+      {
+       "text": "The battery SG",
+       "consequence": "One lamp out does not point to the battery."
+      }
+     ]
+    },
+    {
+     "id": "switch",
+     "afterStep": 4,
+     "prompt": "You test at the connector. What must the light switch be set to?",
+     "options": [
+      {
+       "text": "On, with dipped beam selected",
+       "correct": true,
+       "consequence": "Only then can voltage be present."
+      },
+      {
+       "text": "Off, to be safe",
+       "consequence": "With it off, there is no voltage to find."
+      },
+      {
+       "text": "Main beam only, with the ignition on",
+       "consequence": "The fault is on the dipped circuit."
+      }
+     ]
+    },
+    {
+     "id": "volt",
+     "afterStep": 5,
+     "prompt": "The connector has voltage, but the lamp stays off. What do you check?",
+     "options": [
+      {
+       "text": "The earth, as the bulb is good",
+       "correct": true,
+       "consequence": "With the supply proved, the earth is next."
+      },
+      {
+       "text": "The fuse again, as it must be at fault",
+       "consequence": "Voltage at the lamp proves the fuse."
+      },
+      {
+       "text": "The relay again",
+       "consequence": "Voltage has already passed through it."
+      }
+     ]
+    },
+    {
+     "id": "no-volt",
+     "afterStep": 5,
+     "prompt": "The connector has no voltage. What do you do?",
+     "options": [
+      {
+       "text": "Trace back through switch and relay",
+       "correct": true,
+       "consequence": "The break must be upstream."
+      },
+      {
+       "text": "Fit a new earth strap between the lamp and body",
+       "consequence": "Earth is downstream of the lamp."
+      },
+      {
+       "text": "Fit a brighter bulb",
+       "consequence": "No bulb lights without voltage."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "meaning",
+     "prompt": "No voltage reaches the lamp connector. What does it show?",
+     "options": [
+      {
+       "text": "A fault upstream, in the fuse, relay, switch or wire",
+       "correct": true
+      },
+      {
+       "text": "A faulty bulb, even though the wiring and fuse are sound",
+       "why": "The bulb cannot stop the voltage reaching the connector."
+      },
+      {
+       "text": "A good circuit",
+       "why": "A good circuit gives voltage there."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "drop",
+     "prompt": "You read {b} V at the battery and {l} V at the lamp. What is the total voltage drop?",
+     "formula": "b - l",
+     "vars": {
+      "b": {
+       "min": 12.2,
+       "max": 12.6,
+       "step": 0.2
+      },
+      "l": {
+       "min": 11.4,
+       "max": 11.8,
+       "step": 0.2
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{b} − {l} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "still-out",
+     "scenario": "Ike said the lamp circuit was fine, but the lamp was still dim and out at times. Here is what he did.",
+     "lines": [
+      {
+       "text": "He took a lit test lamp as proof of a good earth.",
+       "fault": true,
+       "why": "A lit lamp does not prove a good earth."
+      },
+      {
+       "text": "He tested with the light switch off.",
+       "fault": true,
+       "why": "The circuit must be on."
+      },
+      {
+       "text": "He ignored a 0.9 V drop.",
+       "fault": true,
+       "why": "Over about 0.5 V suggests corrosion."
+      },
+      {
+       "text": "He checked the bulb and fuse first.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He used a fused jumper.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for fault-finding on a lighting circuit.",
+    "explainPrompt": "Why are vehicle lamps wired in parallel?",
+    "explainGuide": "Each lamp gets full battery voltage on its own path. If one fails, the others stay on.",
+    "explainKeywords": [
+     [
+      "voltage",
+      "full"
+     ],
+     [
+      "path",
+      "own",
+      "separate"
+     ],
+     [
+      "fail",
+      "fails",
+      "stay",
+      "others"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Tracing and troubleshooting the lighting circuit",
+    "Simplest checks first."
+   ]
+  },
+  "pr-aew-locating-a-short-circuit-in-the-lighting-system": {
+   "safety": {
+    "correct": [
+     "Reconnect the battery only after the repair is insulated and clipped."
+    ],
+    "wrong": [
+     {
+      "text": "Fit a 30 A fuse so that the 10 A one stops blowing.",
+      "why": "Wiring can burn and catch fire. Never fit a higher rating."
+     },
+     {
+      "text": "Cut into the harness with the battery connected.",
+      "why": "A cutter can short it and burn you. Disconnect first."
+     },
+     {
+      "text": "Wrap a bare wire with paper from the workshop.",
+      "why": "Paper is not insulation. Use sleeving."
+     },
+     {
+      "text": "Leave a repaired wire loose against the body edge.",
+      "why": "It will chafe again. Clip it clear."
+     },
+     {
+      "text": "Keep replacing fuses to clear the fault.",
+      "why": "This does nothing about the short. Find the cause."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Silver foil",
+      "why": "It is not a fuse."
+     },
+     {
+      "name": "Nail in the fuse holder",
+      "why": "This removes all protection."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     },
+     {
+      "name": "Insulating tape over bare copper with no clips",
+      "why": "Tape alone comes loose. Use sleeving and clips."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "blown",
+     "afterStep": 1,
+     "prompt": "The fuse has blown again. How do you start?",
+     "options": [
+      {
+       "text": "Fit a test lamp across the fuse terminals",
+       "correct": true,
+       "consequence": "It lights while the short is present, so you can trace it safely."
+      },
+      {
+       "text": "Fit a bigger fuse",
+       "consequence": "That risks burning the wiring."
+      },
+      {
+       "text": "Fit another 10 A fuse and hope that it holds",
+       "consequence": "It will blow again, and nothing is learned."
+      }
+     ]
+    },
+    {
+     "id": "section",
+     "afterStep": 2,
+     "prompt": "The test lamp is lit. What do you do now?",
+     "options": [
+      {
+       "text": "Disconnect sections one at a time",
+       "correct": true,
+       "consequence": "The lamp going out shows the faulty section."
+      },
+      {
+       "text": "Unplug everything together",
+       "consequence": "You will not know which part did it."
+      },
+      {
+       "text": "Remove the whole loom",
+       "consequence": "This is not systematic, and it is needless."
+      }
+     ]
+    },
+    {
+     "id": "lamp-out",
+     "afterStep": 3,
+     "prompt": "The lamp goes out when you unplug the rear loom. What does it tell you?",
+     "options": [
+      {
+       "text": "The short is in the last section disconnected",
+       "correct": true,
+       "consequence": "You can now inspect that section."
+      },
+      {
+       "text": "The fault has cured itself",
+       "consequence": "The short is only disconnected."
+      },
+      {
+       "text": "The short is in the front loom that is still connected",
+       "consequence": "That loom was still connected and caused no light."
+      }
+     ]
+    },
+    {
+     "id": "intermittent",
+     "afterStep": 4,
+     "prompt": "The short shows only when a door is moved. What do you do?",
+     "options": [
+      {
+       "text": "Flex that harness while watching the test lamp",
+       "correct": true,
+       "consequence": "Movement reveals the chafed spot."
+      },
+      {
+       "text": "Declare there is no fault",
+       "consequence": "An intermittent short is still a fault."
+      },
+      {
+       "text": "Fit a higher-rated fuse and watch whether it still blows",
+       "consequence": "This is dangerous and hides nothing."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "isolated",
+     "prompt": "How do you know the faulty section is isolated?",
+     "options": [
+      {
+       "text": "The test lamp goes out",
+       "correct": true
+      },
+      {
+       "text": "The test lamp burns brighter",
+       "why": "The short is still there."
+      },
+      {
+       "text": "The fuse blows again",
+       "why": "No fuse is fitted during this test."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "amps",
+     "prompt": "Two {s} W stop lamps and two 5 W tail lamps run on 12 V. What current do they draw, in A?",
+     "formula": "(2 * s + 10) / 12",
+     "vars": {
+      "s": {
+       "min": 18,
+       "max": 24,
+       "step": 3
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "(2 × {s} + 10) ÷ 12 = {answer} A."
+    },
+    {
+     "id": "dead",
+     "prompt": "A dead short has a resistance of {r} Ω on 12 V. What current would flow, in A?",
+     "formula": "12 / r",
+     "vars": {
+      "r": {
+       "min": 0.04,
+       "max": 0.06,
+       "step": 0.01
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "12 ÷ {r} = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "burnt-loom",
+     "scenario": "The insulation of Kola's loom melted in a stuck door pillar. Here is what he did.",
+     "lines": [
+      {
+       "text": "He fitted a higher-rated fuse.",
+       "fault": true,
+       "why": "This allows wires to overheat."
+      },
+      {
+       "text": "He replaced fuses repeatedly without finding the cause.",
+       "fault": true,
+       "why": "Find the short first."
+      },
+      {
+       "text": "He left the chafed wire unclipped.",
+       "fault": true,
+       "why": "It needs sleeving and clips."
+      },
+      {
+       "text": "He disconnected the battery before cutting.",
+       "why": "That is required."
+      },
+      {
+       "text": "He recorded each section tested.",
+       "why": "That keeps the search systematic."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for tracing a short circuit.",
+    "explainPrompt": "Why must a blown fuse never be replaced by one of a higher rating?",
+    "explainGuide": "The fuse is the weak link that protects the wiring. A higher rating lets too much current flow, so the wires overheat and may start a fire.",
+    "explainKeywords": [
+     [
+      "protect",
+      "protects",
+      "weak"
+     ],
+     [
+      "current"
+     ],
+     [
+      "overheat",
+      "overheats",
+      "melt",
+      "fire"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Locating a short circuit in the lighting system",
+    "Isolate one section at a time."
+   ]
+  },
+  "pr-aew-testing-fuel-and-temperature-gauges": {
+   "safety": {
+    "correct": [
+     "Keep a suitable extinguisher near when a fuel sender is out."
+    ],
+    "wrong": [
+     {
+      "text": "Check the sender with the tank open and a cigarette in your mouth.",
+      "why": "Fuel vapour ignites. No flames near it."
+     },
+     {
+      "text": "Lift the hot water beaker with bare hands.",
+      "why": "Hot water scalds. Use a cloth and handle it with care."
+     },
+     {
+      "text": "Work on the fuel sender in the closed garage.",
+      "why": "Vapour gathers. Ventilate."
+     },
+     {
+      "text": "Leave the tank opening uncovered when you finish.",
+      "why": "Vapour escapes and dirt enters. Cover it."
+     },
+     {
+      "text": "Put the sender's wire to earth to see the needle move.",
+      "why": "It can damage the gauge without a resistor."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests armatures."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing."
+     },
+     {
+      "name": "Oil pressure gauge",
+      "why": "This job is fuel and temperature gauges."
+     },
+     {
+      "name": "Spark tester",
+      "why": "A spark is dangerous near fuel."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sub",
+     "afterStep": 4,
+     "prompt": "The gauge reads nothing. How do you test it?",
+     "options": [
+      {
+       "text": "Substitute known resistances at the gauge wire",
+       "correct": true,
+       "consequence": "A correct reading proves the gauge."
+      },
+      {
+       "text": "Earth the wire straight to the body",
+       "consequence": "This can damage the gauge."
+      },
+      {
+       "text": "Replace the gauge straight away",
+       "consequence": "It may be the sender at fault."
+      }
+     ]
+    },
+    {
+     "id": "verdict",
+     "afterStep": 4,
+     "prompt": "The gauge responds correctly to known resistances. What do you conclude?",
+     "options": [
+      {
+       "text": "The sender or wiring is at fault",
+       "correct": true,
+       "consequence": "The gauge is cleared, so you look further."
+      },
+      {
+       "text": "The gauge is faulty",
+       "consequence": "It has just passed the test."
+      },
+      {
+       "text": "The stabiliser is the cause",
+       "consequence": "A wrong stabiliser would make the gauge read wrongly."
+      }
+     ]
+    },
+    {
+     "id": "spec",
+     "afterStep": 2,
+     "prompt": "Your sender differs from the example in the lesson. Which values do you use?",
+     "options": [
+      {
+       "text": "The specification for that sender",
+       "correct": true,
+       "consequence": "Ranges differ between makers."
+      },
+      {
+       "text": "The example values",
+       "consequence": "The example may not apply."
+      },
+      {
+       "text": "Those of the last car you saw",
+       "consequence": "They may be from a different system."
+      }
+     ]
+    },
+    {
+     "id": "arm",
+     "afterStep": 2,
+     "prompt": "The float arm is bent. What do you do?",
+     "options": [
+      {
+       "text": "Correct or replace it before testing",
+       "correct": true,
+       "consequence": "The float reaches its true positions."
+      },
+      {
+       "text": "Ignore it and record the readings",
+       "consequence": "A bent arm changes the readings."
+      },
+      {
+       "text": "Adjust the gauge to suit",
+       "consequence": "The fault stays in the tank."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "therm",
+     "prompt": "You heat a thermistor sender. How does its resistance change?",
+     "options": [
+      {
+       "text": "It falls as temperature rises",
+       "correct": true
+      },
+      {
+       "text": "It rises as temperature rises",
+       "why": "That is the opposite of this sender."
+      },
+      {
+       "text": "It stays the same",
+       "why": "Then the sender is faulty."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mid",
+     "prompt": "A sender reads {e} Ω at empty and {f} Ω at full. About what should it read at half tank, in Ω?",
+     "formula": "(e + f) / 2",
+     "vars": {
+      "e": {
+       "min": 180,
+       "max": 240,
+       "step": 30
+      },
+      "f": {
+       "min": 30,
+       "max": 40,
+       "step": 10
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "({e} + {f}) ÷ 2 = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-gauge",
+     "scenario": "Kofi replaced a gauge, but the fault remains and a new gauge has failed. Here is what he did.",
+     "lines": [
+      {
+       "text": "He connected the gauge wire straight to earth.",
+       "fault": true,
+       "why": "This can damage the gauge."
+      },
+      {
+       "text": "He ignored a bent float arm.",
+       "fault": true,
+       "why": "This changes the readings."
+      },
+      {
+       "text": "He assumed all senders have the same range.",
+       "fault": true,
+       "why": "Ranges differ between makers."
+      },
+      {
+       "text": "He checked the stabiliser output.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He worked on the sender away from flames.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing gauges and senders.",
+    "explainPrompt": "Why are bimetal gauges fed by a voltage stabiliser?",
+    "explainGuide": "Their reading depends on heating, which depends on voltage. The stabiliser keeps the gauge supply constant, so the reading does not change with battery voltage.",
+    "explainKeywords": [
+     [
+      "constant",
+      "steady",
+      "stable"
+     ],
+     [
+      "voltage",
+      "supply"
+     ],
+     [
+      "reading",
+      "accurate",
+      "correct",
+      "heating"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Testing fuel and temperature gauges",
+    "Known resistance, known result."
+   ]
+  },
+  "pr-aew-troubleshooting-horn-and-wiper-circuits": {
+   "safety": {
+    "correct": [
+     "Warn people nearby before you sound the horn on test."
+    ],
+    "wrong": [
+     {
+      "text": "Hold the wiper arm down with your finger while the motor runs.",
+      "why": "The linkage can trap your finger. Keep clear."
+     },
+     {
+      "text": "Bridge the relay with a bare wire because it is only quick.",
+      "why": "Use fused jumpers only."
+     },
+     {
+      "text": "Keep the jumper on until you have finished your other checks.",
+      "why": "It overheats the horn. Do not hold it for long."
+     },
+     {
+      "text": "Reach into the linkage with the wiper switch on.",
+      "why": "It can start without warning. Switch off first."
+     },
+     {
+      "text": "Stand with your ear close to the horn to check the tone.",
+      "why": "Loud sound hurts your hearing. Stand back."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Plain wire link",
+      "why": "Use a fused jumper lead."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It tests electrolyte."
+     },
+     {
+      "name": "Beam setter",
+      "why": "It aims head lamps."
+     },
+     {
+      "name": "Growler",
+      "why": "It tests starter armatures."
+     },
+     {
+      "name": "Timing light",
+      "why": "It sets ignition timing."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bridge",
+     "afterStep": 1,
+     "prompt": "The horn is silent and the fuse is good. What do you do?",
+     "options": [
+      {
+       "text": "Bridge terminals 30 and 87 with the fused jumper",
+       "correct": true,
+       "consequence": "This shows whether the fault is on the control or load side."
+      },
+      {
+       "text": "Bridge terminals 85 and 87 with the fused jumper",
+       "consequence": "These are the wrong terminals."
+      },
+      {
+       "text": "Replace the horn at once",
+       "consequence": "It may be the relay or button at fault."
+      }
+     ]
+    },
+    {
+     "id": "sounds",
+     "afterStep": 1,
+     "prompt": "The horn sounds with the jumper on. What do you test next?",
+     "options": [
+      {
+       "text": "The relay and horn button",
+       "correct": true,
+       "consequence": "The load side is proved, so the fault is in control."
+      },
+      {
+       "text": "The horn's mounting bolts",
+       "consequence": "The horn has just worked."
+      },
+      {
+       "text": "The wiper motor",
+       "consequence": "That is another circuit."
+      }
+     ]
+    },
+    {
+     "id": "hum",
+     "afterStep": 4,
+     "prompt": "The wiper motor hums, but does not move, and the fuse blows. What do you check?",
+     "options": [
+      {
+       "text": "The linkage for seizure",
+       "correct": true,
+       "consequence": "A seized linkage is the likely cause."
+      },
+      {
+       "text": "The horn relay",
+       "consequence": "That is another circuit."
+      },
+      {
+       "text": "The washer jets for a blockage",
+       "consequence": "They do not stop the motor."
+      }
+     ]
+    },
+    {
+     "id": "replace",
+     "afterStep": 5,
+     "prompt": "The linkage is seized. Do you fit a new motor?",
+     "options": [
+      {
+       "text": "No, free or replace the linkage",
+       "correct": true,
+       "consequence": "This fixes the true cause."
+      },
+      {
+       "text": "Yes, the motor is the expensive part",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Yes, and fit a bigger fuse",
+       "consequence": "This is dangerous, and the fault remains."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "bridge-res",
+     "prompt": "Bridging the relay makes the horn sound. What does this identify?",
+     "options": [
+      {
+       "text": "The fault is on the control side (button or relay)",
+       "correct": true
+      },
+      {
+       "text": "The fault is in the horn itself, or its mounting bracket",
+       "why": "The horn has just worked."
+      },
+      {
+       "text": "There is no fault at all",
+       "why": "The horn does not work from the button."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "coil",
+     "prompt": "A relay coil of {r} Ω is on 12 V. What current does it draw, in A?",
+     "formula": "12 / r",
+     "vars": {
+      "r": {
+       "min": 60,
+       "max": 120,
+       "step": 20
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "12 ÷ {r} = {answer} A."
+    },
+    {
+     "id": "horn",
+     "prompt": "A {p} W horn runs on 12 V. What current does it draw, in A?",
+     "formula": "p / 12",
+     "vars": {
+      "p": {
+       "min": 36,
+       "max": 60,
+       "step": 12
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{p} ÷ 12 = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "hidden-seize",
+     "scenario": "Sade fitted a new wiper motor, but the fuse blew again. Her horn also worked only sometimes. Here is what she did.",
+     "lines": [
+      {
+       "text": "She replaced the motor without checking the linkage.",
+       "fault": true,
+       "why": "The linkage was seized."
+      },
+      {
+       "text": "She missed a poor horn earth at the mounting.",
+       "fault": true,
+       "why": "This is a known source of error."
+      },
+      {
+       "text": "She held the jumper on for a long time.",
+       "fault": true,
+       "why": "This overheats the horn."
+      },
+      {
+       "text": "She used the wiring diagram.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She used a fused jumper.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "precautionsPrompt": "State two precautions for testing horn and wiper circuits.",
+    "explainPrompt": "Why is a relay used in the horn circuit?",
+    "explainGuide": "The button carries only the small coil current. The heavy horn current passes through the relay contacts, so the button and column wiring are protected.",
+    "explainKeywords": [
+     [
+      "small",
+      "coil"
+     ],
+     [
+      "heavy",
+      "large",
+      "high"
+     ],
+     [
+      "contacts",
+      "relay"
+     ],
+     [
+      "protect",
+      "protects",
+      "protected"
+     ]
+    ],
+    "explainNeed": 2
+   },
+   "board": [
+    "Troubleshooting horn and wiper circuits",
+    "Control side or load side?"
+   ]
+  }
+ }
+}

@@ -1,0 +1,5040 @@
+{
+ "subject": "Basic Electricity",
+ "lessons": {
+  "pr-bel-resistor-colour-code-and-measured-resistance": {
+   "safety": {
+    "correct": [
+     "Keep the resistor leads clean so the probes make firm contact."
+    ],
+    "wrong": [
+     {
+      "text": "Measure the resistor while it is still connected to the live board.",
+      "why": "A live circuit can damage the meter, and other paths spoil the reading. Take it out and disconnect the supply."
+     },
+     {
+      "text": "Pinch both resistor leads between your fingers to hold them on the probes.",
+      "why": "Your body resistance goes in parallel and pulls a high value down. Use clips or a holder."
+     },
+     {
+      "text": "Read the colours in the dim corner of the lab to save time.",
+      "why": "Red, orange and brown look alike in poor light. Read them in good light."
+     },
+     {
+      "text": "Leave the meter on a current range and read the display anyway.",
+      "why": "A current range does not measure resistance and can blow the meter fuse. Select ohms."
+     },
+     {
+      "text": "Scrape the colour bands with a blade to see them better.",
+      "why": "That damages the coating and can remove the code. Use good light or a hand lens."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Ammeter (0–5 A)",
+      "why": "No current flows here. The meter's ohms range does this job."
+     },
+     {
+      "name": "Variable d.c. supply",
+      "why": "Resistance is measured with no supply connected."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The resistors stay loose or on the breadboard. Nothing is soldered."
+     },
+     {
+      "name": "Capacitor colour chart",
+      "why": "These are resistors, so the resistor code chart is the one needed."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Nothing in this job is timed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "which-end",
+     "afterStep": 1,
+     "prompt": "One resistor has a gold band close to one end. Which way do you hold it?",
+     "options": [
+      {
+       "text": "With the gold band to your left",
+       "consequence": "You read the code backwards and get a value that does not exist."
+      },
+      {
+       "text": "Either way, since the value is the same",
+       "consequence": "Reversed, the digits change, so you record the wrong value."
+      },
+      {
+       "text": "With the gold band to your right",
+       "correct": true,
+       "consequence": "The digits now read from the left, so the value comes out correctly."
+      }
+     ]
+    },
+    {
+     "id": "third-band",
+     "afterStep": 3,
+     "prompt": "The third band is red. What does it tell you?",
+     "options": [
+      {
+       "text": "The third digit of the value is 2",
+       "consequence": "Treating the multiplier as a digit makes the value far too small."
+      },
+      {
+       "text": "The tolerance of the resistor is ±2%",
+       "consequence": "Tolerance is the fourth band. The third band is the multiplier."
+      },
+      {
+       "text": "Multiply the first two digits by 100",
+       "correct": true,
+       "consequence": "Correct: red means two zeros, so 47 with red is 4700 Ω."
+      }
+     ]
+    },
+    {
+     "id": "range",
+     "afterStep": 6,
+     "prompt": "You expect about 4.7 kΩ. The meter has 200 Ω, 2 kΩ, 20 kΩ and 200 kΩ ranges. Which do you pick?",
+     "options": [
+      {
+       "text": "200 kΩ",
+       "consequence": "It reads, but you lose a digit of precision."
+      },
+      {
+       "text": "20 kΩ",
+       "correct": true,
+       "consequence": "This is the lowest range above the value, so it shows the most significant figures."
+      },
+      {
+       "text": "200 Ω",
+       "consequence": "The value is above the range, so the meter only shows overload."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-one",
+     "prompt": "A 1 kΩ ±5% resistor is tested. Which reading shows that it is good?",
+     "options": [
+      {
+       "text": "1 080 Ω",
+       "why": "That is above the 1 050 Ω limit, so it is outside tolerance."
+      },
+      {
+       "text": "OL (overload)",
+       "why": "That shows an open circuit or a damaged resistor."
+      },
+      {
+       "text": "0.4 Ω",
+       "why": "That shows a short across the probes, not a 1 kΩ resistor."
+      },
+      {
+       "text": "992 Ω",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "upper",
+     "prompt": "A resistor is marked {n} Ω ±5%. What is the highest value it may measure and still be within tolerance?",
+     "formula": "n * 1.05",
+     "vars": {
+      "n": {
+       "min": 100,
+       "max": 1000,
+       "step": 100
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "Upper limit = {n} × 1.05 = {answer} Ω."
+    },
+    {
+     "id": "deviation",
+     "prompt": "A 1000 Ω resistor measures {m} Ω. What is the percentage deviation? Give a minus sign if it is below nominal.",
+     "formula": "(m - 1000) / 1000 * 100",
+     "vars": {
+      "m": {
+       "min": 960,
+       "max": 1040,
+       "step": 5
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent",
+      "per cent"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "% deviation = ({m} − 1000) ÷ 1000 × 100 = {answer}%."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-reading",
+     "scenario": "Musa's table shows a 10 kΩ resistor reading low, and another entry is far from its true value. Here is what he did.",
+     "lines": [
+      {
+       "text": "He held both resistor leads in his fingers while measuring.",
+       "fault": true,
+       "why": "Body resistance in parallel lowers a high-value reading."
+      },
+      {
+       "text": "He read the bands from the end with the gold band.",
+       "fault": true,
+       "why": "Reading from the wrong end gives the wrong digits."
+      },
+      {
+       "text": "He wrote 4.7 in his table with no unit.",
+       "fault": true,
+       "why": "A value with no Ω or kΩ cannot be marked as a measurement."
+      },
+      {
+       "text": "He touched the probes together first to note the lead resistance.",
+       "why": "That is the correct zero check."
+      },
+      {
+       "text": "He worked out the permitted range before judging each resistor.",
+       "why": "That is what the conclusion needs."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must a resistor be taken out of the circuit before its resistance is measured?",
+    "explainGuide": "Other components in parallel give extra paths, so the meter reads the wrong value, and a live supply can damage the meter.",
+    "explainKeywords": [
+     [
+      "parallel",
+      "path",
+      "other component"
+     ],
+     [
+      "reading",
+      "value",
+      "wrong",
+      "affect"
+     ],
+     [
+      "damage",
+      "supply",
+      "live"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-resistors-in-series-and-parallel": {
+   "safety": {
+    "correct": [
+     "Check that each joint is firm before you take a reading."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the battery connected so the meter reads faster.",
+      "why": "Resistance is measured with no supply. A supply gives false readings and can harm the meter."
+     },
+     {
+      "text": "Twist the wires loosely so you can change the circuit quickly.",
+      "why": "Loose joints add resistance and spoil the result. Make every joint firm."
+     },
+     {
+      "text": "Touch the bare probe tips with your fingers while reading.",
+      "why": "Your body adds a parallel path. Hold the insulated part only."
+     },
+     {
+      "text": "Use the old colour-coded values since measuring takes time.",
+      "why": "The real values differ by tolerance. The lesson compares against measured values."
+     },
+     {
+      "text": "Push a resistor lead hard into a bent breadboard hole until it fits.",
+      "why": "That damages the contacts and gives a poor joint. Use a free hole and straight leads."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Ammeter",
+      "why": "Effective resistance here is read directly on the multimeter's ohms range."
+     },
+     {
+      "name": "Rheostat",
+      "why": "Only the three fixed resistors are being combined."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Nothing is timed in this job."
+     },
+     {
+      "name": "Galvanometer",
+      "why": "This is not a null-deflection or induction job."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The breadboard or terminal block needs no soldering."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "values",
+     "afterStep": 5,
+     "prompt": "You are about to calculate the expected totals. Which values do you use?",
+     "options": [
+      {
+       "text": "Rounded values to the nearest 100 Ω",
+       "consequence": "Rounding adds an error that has nothing to do with the circuit."
+      },
+      {
+       "text": "The values you measured on each resistor",
+       "correct": true,
+       "consequence": "The calculation now matches the actual parts, so the comparison is fair."
+      },
+      {
+       "text": "The colour-coded values on the bodies",
+       "consequence": "Tolerance puts these off the true values, so your agreement looks worse."
+      }
+     ]
+    },
+    {
+     "id": "parallel-sum",
+     "afterStep": 3,
+     "prompt": "R2 and R3 are side by side. What do you expect the meter to show?",
+     "options": [
+      {
+       "text": "Less than the smaller of the two",
+       "correct": true,
+       "consequence": "Parallel paths share the current, so the total is below the smallest."
+      },
+      {
+       "text": "The two values added together",
+       "consequence": "That is the series rule. Adding parallel resistances directly is a common error."
+      },
+      {
+       "text": "Between the two values",
+       "consequence": "A parallel total is never between them. It is below the smallest."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "series",
+     "prompt": "You read the total of R1, R2 and R3 in series. What should you find?",
+     "options": [
+      {
+       "text": "The total is less than the smallest resistor",
+       "why": "That describes a parallel group."
+      },
+      {
+       "text": "The total equals the largest resistor",
+       "why": "The other two would then add nothing, but they do."
+      },
+      {
+       "text": "The total keeps falling as you watch",
+       "why": "A steady network gives a steady reading. Check for a poor joint."
+      },
+      {
+       "text": "The total is greater than the largest resistor",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "agreement",
+     "prompt": "Which comparison shows that the circuit was built properly?",
+     "options": [
+      {
+       "text": "Measured totals agree with calculated totals within a few per cent",
+       "correct": true
+      },
+      {
+       "text": "Measured totals are exactly double the calculated totals",
+       "why": "That points to a wrong connection or a wrong formula."
+      },
+      {
+       "text": "The measured total is zero",
+       "why": "That shows a short across the network."
+      },
+      {
+       "text": "The meter shows OL on every arrangement",
+       "why": "That shows an open circuit."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-series",
+     "prompt": "Three resistors of {a} Ω, {b} Ω and {c} Ω are in series. What is the total resistance?",
+     "formula": "a + b + c",
+     "vars": {
+      "a": {
+       "min": 100,
+       "max": 150,
+       "step": 10
+      },
+      "b": {
+       "min": 220,
+       "max": 270,
+       "step": 10
+      },
+      "c": {
+       "min": 300,
+       "max": 390,
+       "step": 30
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "R = {a} + {b} + {c} = {answer} Ω."
+    },
+    {
+     "id": "parallel",
+     "prompt": "Resistors of {a} Ω and 300 Ω are in parallel. What is their effective resistance?",
+     "formula": "a * 300 / (a + 300)",
+     "vars": {
+      "a": {
+       "min": 100,
+       "max": 600,
+       "step": 100
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 1,
+     "working": "R = ({a} × 300) ÷ ({a} + 300) = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wrong-total",
+     "scenario": "Ada reports 550 Ω for 220 Ω and 330 Ω in parallel. Here is what she did.",
+     "lines": [
+      {
+       "text": "She added the two parallel values directly.",
+       "fault": true,
+       "why": "Parallel resistances do not add. Use product over sum."
+      },
+      {
+       "text": "She measured with the supply still connected.",
+       "fault": true,
+       "why": "Measurements must be made with the supply disconnected."
+      },
+      {
+       "text": "She measured each resistor on its own first.",
+       "why": "That gives the values for the calculation."
+      },
+      {
+       "text": "She drew each arrangement before making her table.",
+       "why": "Examiners expect a neat diagram for each one."
+      }
+     ]
+    },
+    {
+     "id": "reciprocal",
+     "scenario": "Emeka uses 1/R = 1/R1 + 1/R2 and reports a very small answer for his parallel pair. Here is what he did.",
+     "lines": [
+      {
+       "text": "He stopped at the value of 1/R and wrote it as R.",
+       "fault": true,
+       "why": "He forgot the reciprocal at the end, so the answer is wrong."
+      },
+      {
+       "text": "He left the Ω off the final answer.",
+       "fault": true,
+       "why": "A resistance with no unit loses the mark."
+      },
+      {
+       "text": "He compared his answer with the measured value.",
+       "why": "That is the right check."
+      },
+      {
+       "text": "He zero-checked the meter first.",
+       "why": "That is good practice."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the effective resistance of a parallel group always less than its smallest resistor?",
+    "explainGuide": "Each branch adds another path for current. More current flows for the same voltage, so the total resistance falls below that of the smallest resistor.",
+    "explainKeywords": [
+     [
+      "path",
+      "branch"
+     ],
+     [
+      "current"
+     ],
+     [
+      "less",
+      "smaller",
+      "fall",
+      "lower",
+      "reduce"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-verification-of-kirchhoffs-current-and-voltage-laws": {
+   "safety": {
+    "correct": [
+     "Have the circuit checked before you switch on."
+    ],
+    "wrong": [
+     {
+      "text": "Move the ammeter to the next branch with the supply still on.",
+      "why": "This breaks a live circuit and can damage the meter. Switch off first."
+     },
+     {
+      "text": "Connect the ammeter across R2 to read the branch current.",
+      "why": "An ammeter goes in series. Across a resistor it acts as a near short and can blow its fuse."
+     },
+     {
+      "text": "Use quarter-watt resistors because they are smaller.",
+      "why": "R1 dissipates about 0.3 W, above a quarter-watt rating, so it overheats. Use 1 W or more."
+     },
+     {
+      "text": "Touch the resistors during the run to see which is hottest.",
+      "why": "They may be hot. Check the ratings on paper instead."
+     },
+     {
+      "text": "Raise the supply above 12 V to get bigger readings.",
+      "why": "This overloads the parts and changes the planned values. Keep the supply constant."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Rheostat",
+      "why": "The circuit uses fixed resistors on a steady 12 V supply."
+     },
+     {
+      "name": "Capacitor",
+      "why": "This is a resistive d.c. circuit."
+     },
+     {
+      "name": "Oscilloscope",
+      "why": "Steady d.c. values are read on the meters."
+     },
+     {
+      "name": "Step-down transformer",
+      "why": "The supply is already 12 V d.c."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Readings are steady, so timing is not needed."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "ammeter-place",
+     "afterStep": 2,
+     "prompt": "You now need I2. Where does the ammeter go?",
+     "options": [
+      {
+       "text": "Across the 12 V supply terminals, with the supply on",
+       "consequence": "That puts a near short across the supply and can destroy the meter."
+      },
+      {
+       "text": "In series with R2, supply switched off first",
+       "correct": true,
+       "consequence": "The whole branch current passes through the meter, and it is reconnected safely."
+      },
+      {
+       "text": "Across R2 with the supply on",
+       "consequence": "An ammeter across a resistor is nearly a short and can blow its fuse."
+      }
+     ]
+    },
+    {
+     "id": "sign",
+     "afterStep": 5,
+     "prompt": "At the junction, how do you treat the currents?",
+     "options": [
+      {
+       "text": "I enters, I2 and I3 leave, so I = I2 + I3",
+       "correct": true,
+       "consequence": "The directions are correct, so the law is tested properly."
+      },
+      {
+       "text": "All three enter, so I + I2 + I3 = 0",
+       "consequence": "Ignoring directions makes the results look wrong."
+      },
+      {
+       "text": "The biggest current is the only one that counts",
+       "consequence": "All currents at the junction count."
+      }
+     ]
+    },
+    {
+     "id": "drift",
+     "afterStep": 4,
+     "prompt": "The supply reading drops a little under load between readings. What do you do?",
+     "options": [
+      {
+       "text": "Ignore it and carry on",
+       "consequence": "Readings taken at different voltages cannot be compared."
+      },
+      {
+       "text": "Change one resistor to match the new reading",
+       "consequence": "That changes the circuit under test."
+      },
+      {
+       "text": "Reset it to 12 V and keep it constant",
+       "correct": true,
+       "consequence": "All readings then belong to the same conditions."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "kcl",
+     "prompt": "Which set of readings supports Kirchhoff's current law?",
+     "options": [
+      {
+       "text": "I = 54 mA, I2 = 33 mA, I3 = 21 mA",
+       "correct": true
+      },
+      {
+       "text": "I = 54 mA, I2 = 54 mA, I3 = 54 mA",
+       "why": "The branches share the current, so they cannot each carry the total."
+      },
+      {
+       "text": "I = 33 mA, I2 = 33 mA, I3 = 21 mA",
+       "why": "The branch currents add to 54 mA, not 33 mA."
+      },
+      {
+       "text": "I = 21 mA, I2 = 33 mA, I3 = 54 mA",
+       "why": "The current leaving exceeds that entering, which breaks the law."
+      }
+     ]
+    },
+    {
+     "id": "kvl",
+     "prompt": "With Vs = 12.0 V, which readings support Kirchhoff's voltage law?",
+     "options": [
+      {
+       "text": "V1 = 12.0 V and Vp = 12.0 V",
+       "why": "The two p.d.s must add to the e.m.f., not 24 V."
+      },
+      {
+       "text": "V1 = 3.0 V and Vp = 3.0 V",
+       "why": "These add to only 6 V, so the reading is wrong."
+      },
+      {
+       "text": "V1 = 6.5 V and Vp = 0 V",
+       "why": "A zero p.d. means the pair is shorted or not connected."
+      },
+      {
+       "text": "V1 = 5.5 V and Vp = 6.5 V",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "total-i",
+     "prompt": "R1 = 100 Ω is in series with R2 ∥ R3, which equals 120 Ω. The supply is {v} V. What is the supply current, in mA?",
+     "formula": "v / 220 * 1000",
+     "vars": {
+      "v": {
+       "min": 6,
+       "max": 12,
+       "step": 2
+      }
+     },
+     "unit": "mA",
+     "unitAliases": [
+      "milliamps",
+      "milliampere"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "Total R = 100 + 120 = 220 Ω. I = {v} ÷ 220 = {answer} mA."
+    },
+    {
+     "id": "junction",
+     "prompt": "At a junction {a} mA enters and one of two leaving branches carries {b} mA. What does the other branch carry?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 50,
+       "max": 90,
+       "step": 5
+      },
+      "b": {
+       "min": 15,
+       "max": 35,
+       "step": 5
+      }
+     },
+     "unit": "mA",
+     "unitAliases": [
+      "milliamps"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "I3 = {a} − {b} = {answer} mA."
+    },
+    {
+     "id": "loop",
+     "prompt": "Around the loop the supply is 12 V and the p.d. across R1 is {a} V. What is the p.d. across the parallel pair?",
+     "formula": "12 - a",
+     "vars": {
+      "a": {
+       "min": 3.5,
+       "max": 7.5,
+       "step": 0.5
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Vp = 12 − {a} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "kcl-fail",
+     "scenario": "Ngozi's results show I2 + I3 larger than I by a wide margin. Here is what she did.",
+     "lines": [
+      {
+       "text": "She measured the p.d. across the wrong pair of points.",
+       "fault": true,
+       "why": "A branch p.d. must be taken across that branch only."
+      },
+      {
+       "text": "She used different ranges for the currents she compared.",
+       "fault": true,
+       "why": "The same range keeps comparisons fair."
+      },
+      {
+       "text": "She left the supply voltage to drift between readings.",
+       "fault": true,
+       "why": "Readings must share one supply voltage."
+      },
+      {
+       "text": "She put measured and calculated values in one table.",
+       "why": "That is the recommended layout."
+      },
+      {
+       "text": "She switched off before moving the ammeter.",
+       "why": "That is the safe way."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does Kirchhoff's current law follow from conservation of charge?",
+    "explainGuide": "Charge cannot be created or destroyed or pile up at a junction, so the charge entering each second equals the charge leaving, which means current in equals current out.",
+    "explainKeywords": [
+     [
+      "charge"
+     ],
+     [
+      "junction",
+      "enter",
+      "leaving",
+      "leave"
+     ],
+     [
+      "conserv",
+      "created",
+      "destroyed",
+      "equal"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-measuring-electrical-power-and-energy-consumption": {
+   "safety": {
+    "correct": [
+     "Keep the mains leads clear of the wet kettle base and the bench edge."
+    ],
+    "wrong": [
+     {
+      "text": "Open the lamp circuit and wire the a.c. ammeter in live.",
+      "why": "Opening a mains circuit exposes you to shock. The clamp meter avoids this."
+     },
+     {
+      "text": "Clamp the meter round the whole flex for a quicker reading.",
+      "why": "Phase and neutral currents cancel, so it reads about zero. Clamp one conductor only."
+     },
+     {
+      "text": "Refill the kettle at the sink while it stays plugged in.",
+      "why": "Water near live connections is a shock risk. Switch off and unplug first."
+     },
+     {
+      "text": "Test the mains voltage alone while your teacher is out of the room.",
+      "why": "Mains work is done under supervision. Wait for your teacher."
+     },
+     {
+      "text": "Hold the meter probes by the metal tips to keep them steady.",
+      "why": "Mains voltage on the tips can kill. Hold only the insulated part."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Galvanometer",
+      "why": "It measures tiny d.c. currents and would be destroyed on mains."
+     },
+     {
+      "name": "Dry cells",
+      "why": "The loads run from 230 V mains."
+     },
+     {
+      "name": "Rheostat",
+      "why": "The lamp and kettle take their own current. Nothing needs varying."
+     },
+     {
+      "name": "Vernier calipers",
+      "why": "Nothing here is a length measurement."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The lamp board is already connected. Nothing is soldered."
+     }
+    ],
+    "optional": [
+     "Energy meter (optional)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "clamp",
+     "afterStep": 3,
+     "prompt": "You have the clamp meter open. What goes through the jaws?",
+     "options": [
+      {
+       "text": "The phase conductor alone",
+       "correct": true,
+       "consequence": "The field of one conductor is measured, so you get a true reading."
+      },
+      {
+       "text": "The whole flex with both conductors",
+       "consequence": "The two currents cancel, so the meter reads almost zero."
+      },
+      {
+       "text": "The neutral and the earth together",
+       "consequence": "Earth carries no load current, and this is not the method taught."
+      }
+     ]
+    },
+    {
+     "id": "convert",
+     "afterStep": 6,
+     "prompt": "The kettle ran 15 minutes. How do you start the energy sum?",
+     "options": [
+      {
+       "text": "Multiply 2 kW by 15 min",
+       "consequence": "The time must be in hours, so this is far too large."
+      },
+      {
+       "text": "Change to 2 kW and 0.25 h, then multiply",
+       "correct": true,
+       "consequence": "The units now give kWh directly."
+      },
+      {
+       "text": "Multiply 2000 W by 15 min and divide by 1000",
+       "consequence": "This is watts times minutes, not kWh."
+      }
+     ]
+    },
+    {
+     "id": "settle",
+     "afterStep": 4,
+     "prompt": "The reading is jumping as you take it. What do you do?",
+     "options": [
+      {
+       "text": "Tighten your grip on the meter jaws",
+       "consequence": "Squeezing the jaws does not steady a mains reading."
+      },
+      {
+       "text": "Wait for it to settle, then record it",
+       "correct": true,
+       "consequence": "The recorded value now represents the load."
+      },
+      {
+       "text": "Write the highest figure you saw",
+       "consequence": "This overstates the current and power."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "lamp",
+     "prompt": "You measure the 60 W lamp on 230 V. Which current is sensible?",
+     "options": [
+      {
+       "text": "About 0.0026 A",
+       "why": "That would be well under 1 W."
+      },
+      {
+       "text": "About 0.26 A",
+       "correct": true
+      },
+      {
+       "text": "About 8 A",
+       "why": "That is what the 2 kW kettle takes."
+      },
+      {
+       "text": "About 26 A",
+       "why": "That would be nearly 6 kW, far above a 60 W lamp."
+      }
+     ]
+    },
+    {
+     "id": "full-flex",
+     "prompt": "A student clamps the whole kettle flex. What does the meter show?",
+     "options": [
+      {
+       "text": "Close to zero",
+       "correct": true
+      },
+      {
+       "text": "About 8.7 A, as expected",
+       "why": "That is what one conductor shows."
+      },
+      {
+       "text": "Double the normal current",
+       "why": "The two conductors carry opposite currents, so they cancel."
+      },
+      {
+       "text": "The mains voltage",
+       "why": "A clamp meter on its current range shows amps."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "power",
+     "prompt": "A load draws {i} A from a 230 V supply. What power does it take?",
+     "formula": "230 * i",
+     "vars": {
+      "i": {
+       "min": 0.2,
+       "max": 0.8,
+       "step": 0.1
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "P = VI = 230 × {i} = {answer} W."
+    },
+    {
+     "id": "kettle",
+     "prompt": "A 2 kW kettle runs {m} minutes. How much energy does it use, in kWh?",
+     "formula": "2 * m / 60",
+     "vars": {
+      "m": {
+       "min": 6,
+       "max": 30,
+       "step": 6
+      }
+     },
+     "unit": "kWh",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "E = 2 kW × ({m} ÷ 60) h = {answer} kWh."
+    },
+    {
+     "id": "fan-cost",
+     "prompt": "A {p} W fan runs 8 hours a day for 30 days. At N225 per kWh, what does it cost, in naira?",
+     "formula": "p * 8 * 30 / 1000 * 225",
+     "vars": {
+      "p": {
+       "min": 50,
+       "max": 100,
+       "step": 25
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "naira",
+      "₦"
+     ],
+     "tolerance": {
+      "rel": 0.005
+     },
+     "decimals": 0,
+     "working": "E = {p} × 8 × 30 ÷ 1000 kWh. Cost = E × 225 = N{answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bill",
+     "scenario": "Bisi's report shows the kettle using 30 000 kWh in 15 minutes, and her clamp reading is zero. Here is what she did.",
+     "lines": [
+      {
+       "text": "She multiplied watts by minutes and called the result kWh.",
+       "fault": true,
+       "why": "She must convert to kW and hours first."
+      },
+      {
+       "text": "She clamped the meter round the full flex.",
+       "fault": true,
+       "why": "The two currents cancel. Clamp the phase conductor only."
+      },
+      {
+       "text": "She let the reading settle before recording it.",
+       "why": "That is correct practice."
+      },
+      {
+       "text": "She worked under her teacher's supervision.",
+       "why": "That is required for mains work."
+      },
+      {
+       "text": "She kept water away from the connections.",
+       "why": "That keeps the circuit safe."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does a clamp meter read about zero when it is placed round the whole flex?",
+    "explainGuide": "Phase and neutral carry equal currents in opposite directions, so their magnetic fields cancel and the meter senses no net field.",
+    "explainKeywords": [
+     [
+      "phase",
+      "neutral"
+     ],
+     [
+      "opposite",
+      "equal"
+     ],
+     [
+      "cancel",
+      "no net",
+      "zero"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-charging-and-discharging-a-capacitor": {
+   "safety": {
+    "correct": [
+     "Check the capacitor's voltage rating is above the supply before connecting it."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the capacitor either way round since it is only 9 V.",
+      "why": "Electrolytics are polarised, and reverse connection can make them burst. Match + to +."
+     },
+     {
+      "text": "Short the charged capacitor directly with a screwdriver.",
+      "why": "This makes a sudden spark and can damage it. Discharge through a resistor."
+     },
+     {
+      "text": "Pick up the capacitor straight after a run without discharging it.",
+      "why": "It may still hold charge. Discharge it through a resistor first."
+     },
+     {
+      "text": "Lean over the capacitor to watch it when you close the switch.",
+      "why": "If it is reversed it can burst towards your face. Stay back and check polarity first."
+     },
+     {
+      "text": "Swap to a 6.3 V capacitor because it is the same size.",
+      "why": "9 V exceeds that rating, so it can fail. Keep to the 25 V part."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Ammeter (0–5 A)",
+      "why": "The current here is only microamps, and it is the voltage being recorded."
+     },
+     {
+      "name": "Analogue voltmeter of low resistance",
+      "why": "It would drain the capacitor. Use a high-resistance digital voltmeter."
+     },
+     {
+      "name": "Rheostat",
+      "why": "The fixed 100 kΩ sets the time constant."
+     },
+     {
+      "name": "Oscilloscope probe",
+      "why": "The slow change is read on a voltmeter every 10 s."
+     },
+     {
+      "name": "Thermometer",
+      "why": "Temperature is not being recorded."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "start",
+     "afterStep": 3,
+     "prompt": "The voltmeter reads 3 V before you begin. What do you do?",
+     "options": [
+      {
+       "text": "Start anyway and subtract 3 V later",
+       "consequence": "The curve is not a simple shift, so the time constant comes out wrong."
+      },
+      {
+       "text": "Start the watch at the 3 V point",
+       "consequence": "This misses the real start of charging."
+      },
+      {
+       "text": "Discharge it through the resistor again",
+       "correct": true,
+       "consequence": "It starts from 0 V, so the charging curve is correct."
+      }
+     ]
+    },
+    {
+     "id": "timing",
+     "afterStep": 3,
+     "prompt": "When do you start the stop-watch?",
+     "options": [
+      {
+       "text": "After noting the first reading",
+       "consequence": "You lose time zero, so tau will be wrong."
+      },
+      {
+       "text": "At the same moment as you close the switch",
+       "correct": true,
+       "consequence": "Time zero is correct for every reading."
+      },
+      {
+       "text": "When the voltage first reaches 1 V",
+       "consequence": "All your times come out short."
+      }
+     ]
+    },
+    {
+     "id": "graph",
+     "afterStep": 6,
+     "prompt": "Your readings rise fast, then level off. How do you draw the graph?",
+     "options": [
+      {
+       "text": "A smooth curve through the points",
+       "correct": true,
+       "consequence": "That shows the exponential shape correctly."
+      },
+      {
+       "text": "Straight lines joining each point",
+       "consequence": "Charging is exponential, not a chain of straight lines."
+      },
+      {
+       "text": "One straight best-fit line",
+       "consequence": "No straight line fits an exponential rise."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "charge-shape",
+     "prompt": "How does the voltage change while charging?",
+     "options": [
+      {
+       "text": "It jumps to 9 V at once",
+       "why": "The 100 kΩ resistor slows the charging."
+      },
+      {
+       "text": "It rises slowly at first, then faster as it nears 9 V",
+       "why": "It is fastest at the start."
+      },
+      {
+       "text": "It rises fast at first, then levels off towards 9 V",
+       "correct": true
+      },
+      {
+       "text": "It rises at a steady rate to 9 V",
+       "why": "The rate falls as the capacitor charges."
+      }
+     ]
+    },
+    {
+     "id": "tau-point",
+     "prompt": "Discharging from 9 V, at about what voltage is one time constant reached?",
+     "options": [
+      {
+       "text": "About 5.7 V",
+       "why": "That is the 63% point on charging."
+      },
+      {
+       "text": "About 0.9 V",
+       "why": "That is far beyond one time constant."
+      },
+      {
+       "text": "About 4.5 V",
+       "why": "That is half voltage, not 37%."
+      },
+      {
+       "text": "About 3.3 V",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "tau",
+     "prompt": "A {c} µF capacitor charges through a 100 kΩ resistor. What is the time constant?",
+     "formula": "100000 * c / 1000000",
+     "vars": {
+      "c": {
+       "min": 100,
+       "max": 1000,
+       "step": 100
+      }
+     },
+     "unit": "s",
+     "unitAliases": [
+      "seconds",
+      "sec"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "τ = RC = 100 000 × {c} × 10⁻⁶ = {answer} s."
+    },
+    {
+     "id": "v63",
+     "prompt": "The supply is {v} V. What voltage has the capacitor reached after one time constant of charging?",
+     "formula": "0.632 * v",
+     "vars": {
+      "v": {
+       "min": 5,
+       "max": 15,
+       "step": 1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 2,
+     "working": "V = 0.632 × {v} = {answer} V."
+    },
+    {
+     "id": "charge",
+     "prompt": "A 470 µF capacitor is charged to {v} V. What charge does it hold, in mC?",
+     "formula": "470 * v / 1000",
+     "vars": {
+      "v": {
+       "min": 6,
+       "max": 12,
+       "step": 1
+      }
+     },
+     "unit": "mC",
+     "unitAliases": [
+      "millicoulombs"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 2,
+     "working": "Q = CV = 470 × 10⁻⁶ × {v} = {answer} mC."
+    }
+   ],
+   "faults": [
+    {
+     "id": "tau-out",
+     "scenario": "Tola's time constant came out as 0.047 s instead of about 47 s. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used kΩ and µF in the sum without changing them to Ω and F.",
+       "fault": true,
+       "why": "Unconverted units give a value a thousand times out."
+      },
+      {
+       "text": "She connected the digital voltmeter across the capacitor.",
+       "why": "That is the correct position."
+      },
+      {
+       "text": "She drew smooth curves through her points.",
+       "why": "Those are correct for exponential change."
+      },
+      {
+       "text": "She read 63% of 9 V from her charging curve.",
+       "why": "That is how τ is found."
+      }
+     ]
+    },
+    {
+     "id": "no-fit",
+     "scenario": "Ibrahim's charging curve starts above zero and ends below 9 V. Here is what he did.",
+     "lines": [
+      {
+       "text": "He did not discharge the capacitor before starting.",
+       "fault": true,
+       "why": "It must start fully discharged."
+      },
+      {
+       "text": "He used a low-resistance analogue voltmeter.",
+       "fault": true,
+       "why": "It drains the capacitor and holds the final voltage down."
+      },
+      {
+       "text": "He checked the polarity first.",
+       "why": "That is required for an electrolytic."
+      },
+      {
+       "text": "He recorded a reading every 10 s.",
+       "why": "That is what the procedure asks."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does the charging current fall as a capacitor charges?",
+    "explainGuide": "As the capacitor voltage rises it opposes the supply, so the p.d. across the resistor falls and the current gets smaller until it nearly stops.",
+    "explainKeywords": [
+     [
+      "voltage",
+      "p.d"
+     ],
+     [
+      "oppos",
+      "resistor"
+     ],
+     [
+      "smaller",
+      "falls",
+      "fall",
+      "decrease",
+      "less",
+      "stops"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-capacitors-in-series-and-parallel": {
+   "safety": {
+    "correct": [
+     "Read the voltage rating of each capacitor before using it."
+    ],
+    "wrong": [
+     {
+      "text": "Connect a charged capacitor straight to the capacitance meter.",
+      "why": "Stored charge can damage the meter. Discharge it first."
+     },
+     {
+      "text": "Use long loose leads so the meter can stay on another bench.",
+      "why": "Long leads add stray capacitance. Keep them short."
+     },
+     {
+      "text": "Throw a bulged electrolytic back in the good box after testing it.",
+      "why": "A bulged part can fail. Set it aside and report it."
+     },
+     {
+      "text": "Connect a supply above the marked voltage to test the capacitor.",
+      "why": "Exceeding the rating can make it fail. Stay below the marked value."
+     },
+     {
+      "text": "Discharge a capacitor by touching both leads with your fingers.",
+      "why": "This is unsafe for a charged part and does not discharge it reliably. Use a resistor."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Stop-watch",
+      "why": "This method reads capacitance directly, so timing is not needed."
+     },
+     {
+      "name": "Rheostat",
+      "why": "No current is being adjusted."
+     },
+     {
+      "name": "Resistor colour chart",
+      "why": "These are capacitors, so use the capacitor marking chart."
+     },
+     {
+      "name": "Inductor",
+      "why": "Only capacitors are combined in this job."
+     },
+     {
+      "name": "Galvanometer",
+      "why": "The meter's capacitance range does the job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "code",
+     "afterStep": 2,
+     "prompt": "A small ceramic disc is marked 104. How do you record it?",
+     "options": [
+      {
+       "text": "104 pF, as printed on the disc",
+       "consequence": "This misreads the third digit, which is the multiplier."
+      },
+      {
+       "text": "104 µF, as printed",
+       "consequence": "A small disc is not that large, and the code is in pF."
+      },
+      {
+       "text": "100 nF, which is 0.1 µF",
+       "correct": true,
+       "consequence": "10 followed by four zeros, in pF, gives 100 000 pF."
+      }
+     ]
+    },
+    {
+     "id": "series-expect",
+     "afterStep": 4,
+     "prompt": "Before connecting 10 µF and 22 µF in series, what do you expect?",
+     "options": [
+      {
+       "text": "Below 10 µF",
+       "correct": true,
+       "consequence": "Series capacitance is less than the smallest one."
+      },
+      {
+       "text": "Exactly 32 µF",
+       "consequence": "That is the parallel total."
+      },
+      {
+       "text": "Between 10 µF and 22 µF",
+       "consequence": "This is not possible for capacitors in series."
+      }
+     ]
+    },
+    {
+     "id": "discharge-before",
+     "afterStep": 3,
+     "prompt": "You take a capacitor from another circuit for testing. What comes first?",
+     "options": [
+      {
+       "text": "Measure it first to see if it holds charge",
+       "consequence": "Stored charge can damage the meter."
+      },
+      {
+       "text": "Clean the leads with water",
+       "consequence": "Water is not needed, and any charge is still there."
+      },
+      {
+       "text": "Discharge it through a resistor",
+       "correct": true,
+       "consequence": "The meter is safe and the reading is valid."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "parallel",
+     "prompt": "You measure 10 µF and 22 µF in parallel. Which reading is sensible?",
+     "options": [
+      {
+       "text": "About 12 µF",
+       "why": "That is the difference, not the sum."
+      },
+      {
+       "text": "0 µF",
+       "why": "That shows an open connection."
+      },
+      {
+       "text": "About 32 µF",
+       "correct": true
+      },
+      {
+       "text": "About 6.9 µF",
+       "why": "That is the series total."
+      }
+     ]
+    },
+    {
+     "id": "series",
+     "prompt": "You measure the same two in series. Which reading is sensible?",
+     "options": [
+      {
+       "text": "About 16 µF",
+       "why": "That is the average, which has no meaning here."
+      },
+      {
+       "text": "About 22 µF",
+       "why": "Series capacitance is below the smallest value."
+      },
+      {
+       "text": "About 6.9 µF",
+       "correct": true
+      },
+      {
+       "text": "About 32 µF",
+       "why": "That is the parallel total."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-parallel",
+     "prompt": "Capacitors of {a} µF and {b} µF are in parallel. What is the total capacitance?",
+     "formula": "a + b",
+     "vars": {
+      "a": {
+       "min": 10,
+       "max": 47,
+       "step": 1
+      },
+      "b": {
+       "min": 10,
+       "max": 33,
+       "step": 1
+      }
+     },
+     "unit": "µF",
+     "unitAliases": [
+      "uF",
+      "microfarads"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "C = {a} + {b} = {answer} µF."
+    },
+    {
+     "id": "calc-series",
+     "prompt": "Capacitors of {a} µF and 22 µF are in series. What is the total capacitance?",
+     "formula": "a * 22 / (a + 22)",
+     "vars": {
+      "a": {
+       "min": 10,
+       "max": 40,
+       "step": 5
+      }
+     },
+     "unit": "µF",
+     "unitAliases": [
+      "uF",
+      "microfarads"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "C = ({a} × 22) ÷ ({a} + 22) = {answer} µF."
+    }
+   ],
+   "faults": [
+    {
+     "id": "swap",
+     "scenario": "Kemi reports 32 µF for her series pair and 6.9 µF for her parallel pair. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used the resistor formulae the wrong way round.",
+       "fault": true,
+       "why": "Capacitors in parallel add directly; series is product over sum."
+      },
+      {
+       "text": "She read a 104 disc as 104 pF.",
+       "fault": true,
+       "why": "The third digit is a multiplier, so 104 is 100 nF."
+      },
+      {
+       "text": "She discharged each capacitor before measuring.",
+       "why": "That is the first precaution."
+      },
+      {
+       "text": "She kept her leads short.",
+       "why": "That reduces stray capacitance."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does the total capacitance rise when capacitors are connected in parallel?",
+    "explainGuide": "Parallel capacitors act like one capacitor with a larger plate area. At the same voltage they store more charge, so the total capacitance is the sum.",
+    "explainKeywords": [
+     [
+      "plate",
+      "area"
+     ],
+     [
+      "charge"
+     ],
+     [
+      "sum",
+      "add",
+      "larger",
+      "more"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-magnetic-field-of-a-current-carrying-conductor-and-electromagnetic-induction": {
+   "safety": {
+    "correct": [
+     "Keep steel rulers and other magnets away from the compasses."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the 6 A current on while you plot the whole field.",
+      "why": "The wire can become hot. Switch on only briefly."
+     },
+     {
+      "text": "Hold the thick wire in your hand to keep it upright while it carries current.",
+      "why": "It can burn you. Support it in a clamp or through the card."
+     },
+     {
+      "text": "Blow the iron filings off the card when you finish.",
+      "why": "Filings can get into eyes. Tip them back into the container."
+     },
+     {
+      "text": "Rub your eyes after handling the filings.",
+      "why": "Filings in the eye cause harm. Wash your hands first."
+     },
+     {
+      "text": "Put the bar magnet next to the galvanometer between runs.",
+      "why": "This disturbs the meter and may harm it. Keep them apart."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Voltmeter (0–300 V)",
+      "why": "The induced e.m.f. is tiny, so the centre-zero galvanometer is used."
+     },
+     {
+      "name": "Soft iron rod",
+      "why": "Only the air-cored solenoid and a bar magnet are used here."
+     },
+     {
+      "name": "Step-up transformer",
+      "why": "This is not a transformer experiment."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Speed is compared by eye. Nothing is timed."
+     },
+     {
+      "name": "Aluminium filings",
+      "why": "Aluminium is not attracted by a magnet. Iron filings show the field."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "tap",
+     "afterStep": 1,
+     "prompt": "The filings sit still after you switch on. What do you do?",
+     "options": [
+      {
+       "text": "Pour on far more filings",
+       "consequence": "A heap hides the pattern and does not help them turn."
+      },
+      {
+       "text": "Leave the current on until they move",
+       "consequence": "The wire gets hot, and the filings still will not turn."
+      },
+      {
+       "text": "Tap the card gently",
+       "correct": true,
+       "consequence": "The filings can turn and show the circular pattern."
+      }
+     ]
+    },
+    {
+     "id": "still",
+     "afterStep": 5,
+     "prompt": "The magnet is resting inside the coil. What do you record?",
+     "options": [
+      {
+       "text": "A steady deflection for as long as it stays",
+       "consequence": "A stationary magnet induces nothing."
+      },
+      {
+       "text": "The largest deflection of the run",
+       "consequence": "The largest deflection comes from fast motion, not rest."
+      },
+      {
+       "text": "No deflection while the magnet is still",
+       "correct": true,
+       "consequence": "Induction needs change, so only motion gives a reading."
+      }
+     ]
+    },
+    {
+     "id": "compare",
+     "afterStep": 6,
+     "prompt": "You want a bigger deflection. What do you try?",
+     "options": [
+      {
+       "text": "Hold the magnet still at the coil's centre",
+       "consequence": "With no motion there is no e.m.f."
+      },
+      {
+       "text": "Move the galvanometer next to the magnet",
+       "consequence": "That disturbs the meter and adds nothing to the e.m.f."
+      },
+      {
+       "text": "Move the magnet in faster",
+       "correct": true,
+       "consequence": "The field changes faster, so the induced e.m.f. rises."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "wire",
+     "prompt": "What pattern do the filings form around the straight wire?",
+     "options": [
+      {
+       "text": "Straight lines leading away from the wire",
+       "why": "Those would suggest a radial field, which a wire does not make."
+      },
+      {
+       "text": "A bar-magnet pattern with two poles",
+       "why": "That is the solenoid pattern."
+      },
+      {
+       "text": "No pattern at any current",
+       "why": "This shows a broken circuit or no tapping."
+      },
+      {
+       "text": "Concentric circles centred on the wire",
+       "correct": true
+      }
+     ]
+    },
+    {
+     "id": "withdraw",
+     "prompt": "You withdraw the magnet. What does the galvanometer do?",
+     "options": [
+      {
+       "text": "It stays at zero",
+       "why": "The field in the coil is changing, so it must deflect."
+      },
+      {
+       "text": "It stays deflected after the magnet has stopped moving away",
+       "why": "The deflection lasts only during motion."
+      },
+      {
+       "text": "It deflects the opposite way to when the magnet went in",
+       "correct": true
+      },
+      {
+       "text": "It deflects the same way, but further",
+       "why": "Reversing the motion reverses the induced current."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "force",
+     "prompt": "A {l} m conductor carries {i} A at right angles to a 0.5 T field. What force acts on it?",
+     "formula": "0.5 * i * l",
+     "vars": {
+      "i": {
+       "min": 2,
+       "max": 6,
+       "step": 1
+      },
+      "l": {
+       "min": 0.1,
+       "max": 0.4,
+       "step": 0.1
+      }
+     },
+     "unit": "N",
+     "unitAliases": [
+      "newtons",
+      "newton"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "F = BIL = 0.5 × {i} × {l} = {answer} N."
+    },
+    {
+     "id": "emf",
+     "prompt": "A 0.2 m conductor moves at {v} m/s at right angles to a 0.5 T field. What e.m.f. is induced?",
+     "formula": "0.5 * 0.2 * v",
+     "vars": {
+      "v": {
+       "min": 1,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 1,
+     "working": "E = BLv = 0.5 × 0.2 × {v} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sketch",
+     "scenario": "Femi's report loses marks on his field sketches and his conclusion. Here is what he did.",
+     "lines": [
+      {
+       "text": "He drew field lines that cross each other.",
+       "fault": true,
+       "why": "Field lines never cross."
+      },
+      {
+       "text": "He left the arrows off his lines.",
+       "fault": true,
+       "why": "Field lines need arrows to show direction."
+      },
+      {
+       "text": "He wrote that a magnet held still in the coil induces current.",
+       "fault": true,
+       "why": "Only relative motion induces current."
+      },
+      {
+       "text": "He labelled the N and S ends of the solenoid.",
+       "why": "Those labels are expected."
+      },
+      {
+       "text": "He kept steel objects away from the compasses.",
+       "why": "That keeps the compass readings honest."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does the galvanometer deflect only while the magnet is moving?",
+    "explainGuide": "An e.m.f. is induced only when the magnetic flux through the coil changes. A still magnet gives a steady flux, so there is no e.m.f. and no current.",
+    "explainKeywords": [
+     [
+      "flux",
+      "field"
+     ],
+     [
+      "chang",
+      "motion",
+      "moving"
+     ],
+     [
+      "e.m.f",
+      "emf",
+      "induced",
+      "induce"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-converting-a-moving-coil-meter-into-an-ammeter-and-a-voltmeter": {
+   "safety": {
+    "correct": [
+     "Raise the current slowly and watch the needle as you do."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the 1 mA meter straight across the supply to test it.",
+      "why": "Far more than 1 mA would flow and burn out the coil. Always use a series resistance."
+     },
+     {
+      "text": "Set the rheostat to its lowest resistance before switching on.",
+      "why": "The current starts at its highest and can bang the needle. Start at maximum resistance."
+     },
+     {
+      "text": "Remove the shunt while current is flowing to check its value.",
+      "why": "All the current then passes through the coil and burns it out. Switch off first."
+     },
+     {
+      "text": "Use thin, loose wires to join the shunt to the meter.",
+      "why": "The shunt is tiny, so joint resistance spoils it. Keep joints short and thick."
+     },
+     {
+      "text": "Tap the meter hard when the needle stops at full scale.",
+      "why": "A pinned needle means overload. Switch off and find out why."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oscilloscope",
+      "why": "The check is against standard meters on steady d.c."
+     },
+     {
+      "name": "Copper wire for the shunt",
+      "why": "Copper's resistance changes greatly with heat. Manganin or constantan stays steady."
+     },
+     {
+      "name": "Soldering flux and acid",
+      "why": "The joints are short clamped connections, and no acid is needed."
+     },
+     {
+      "name": "Capacitor",
+      "why": "This is a d.c. resistance job."
+     },
+     {
+      "name": "Step-up transformer",
+      "why": "The supply here is variable d.c."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "shunt-where",
+     "afterStep": 3,
+     "prompt": "You have cut the shunt. How is it connected?",
+     "options": [
+      {
+       "text": "In series with the meter",
+       "consequence": "All the current then goes through the coil, which burns out."
+      },
+      {
+       "text": "Across the supply on its own",
+       "consequence": "That is a near short across the supply."
+      },
+      {
+       "text": "In parallel with the meter",
+       "correct": true,
+       "consequence": "Most of the current passes through the shunt, and the coil stays safe."
+      }
+     ]
+    },
+    {
+     "id": "multiplier-where",
+     "afterStep": 5,
+     "prompt": "For the 10 V range, how does the multiplier go?",
+     "options": [
+      {
+       "text": "In series with the meter",
+       "correct": true,
+       "consequence": "It drops the extra voltage, so only 1 mA flows at 10 V."
+      },
+      {
+       "text": "In parallel with the meter",
+       "consequence": "It no longer limits the coil current, so the meter overloads."
+      },
+      {
+       "text": "In series with the standard voltmeter",
+       "consequence": "The basic meter is then still unprotected."
+      }
+     ]
+    },
+    {
+     "id": "formula",
+     "afterStep": 2,
+     "prompt": "For the multiplier you work out V/Im. What is the next step?",
+     "options": [
+      {
+       "text": "Add the coil resistance Rm",
+       "consequence": "The total is too high by 2Rm, so the meter reads low."
+      },
+      {
+       "text": "Divide by the coil resistance Rm",
+       "consequence": "This has no meaning in the circuit."
+      },
+      {
+       "text": "Subtract the coil resistance Rm",
+       "correct": true,
+       "consequence": "The total circuit resistance is now correct."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ammeter-check",
+     "prompt": "With the correct shunt fitted, what do you see at 1 A on the standard meter?",
+     "options": [
+      {
+       "text": "The needle hits the end stop hard",
+       "why": "Too much current is going through the coil, so check the shunt."
+      },
+      {
+       "text": "The needle does not move",
+       "why": "The coil may be open, or the shunt may be shorting it."
+      },
+      {
+       "text": "The converted meter reads full scale",
+       "correct": true
+      },
+      {
+       "text": "The converted meter reads half scale",
+       "why": "The shunt is too small or its joints are wrong."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "multiplier",
+     "prompt": "A meter of 1 mA f.s.d. and 50 Ω is to read {v} V at full scale. What multiplier resistance is needed?",
+     "formula": "v * 1000 - 50",
+     "vars": {
+      "v": {
+       "min": 5,
+       "max": 30,
+       "step": 5
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "Rse = V/Im − Rm = {v} ÷ 0.001 − 50 = {answer} Ω."
+    },
+    {
+     "id": "shunt",
+     "prompt": "The same meter (1 mA, 50 Ω) is to read {i} A at full scale. What shunt resistance is needed?",
+     "formula": "0.05 / (i - 0.001)",
+     "vars": {
+      "i": {
+       "min": 1,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 4,
+     "working": "Rs = ImRm/(I − Im) = 0.05 ÷ ({i} − 0.001) = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "converted",
+     "scenario": "Yusuf's converted ammeter reads wrongly, and his voltmeter burnt out at the start. Here is what he did.",
+     "lines": [
+      {
+       "text": "He put the multiplier in parallel with the meter.",
+       "fault": true,
+       "why": "A multiplier goes in series. In parallel it gives no protection."
+      },
+      {
+       "text": "He forgot to subtract Rm when finding the multiplier.",
+       "fault": true,
+       "why": "Rm is part of the total resistance."
+      },
+      {
+       "text": "He joined the shunt with long thin leads.",
+       "fault": true,
+       "why": "Their resistance adds to the small shunt."
+      },
+      {
+       "text": "He started with maximum rheostat resistance.",
+       "why": "That protects the meter."
+      },
+      {
+       "text": "He drew the circuit for each conversion.",
+       "why": "Examiners give marks for that."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must an ammeter have a very low resistance and a voltmeter a very high one?",
+    "explainGuide": "An ammeter goes in series, so low resistance does not change the current. A voltmeter goes in parallel, so high resistance draws little current and does not load the circuit.",
+    "explainKeywords": [
+     [
+      "series"
+     ],
+     [
+      "parallel"
+     ],
+     [
+      "current",
+      "load",
+      "change",
+      "disturb"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-using-a-digital-multimeter-for-d-c-and-a-c-measurements": {
+   "safety": {
+    "correct": [
+     "Check the probe insulation for cracks before use."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the red lead in the 10 A socket when you measure voltage next.",
+      "why": "That socket is nearly a short, so it can damage the meter and the source. Move the lead back."
+     },
+     {
+      "text": "Measure the lamp's resistance while the circuit is still on.",
+      "why": "A live circuit damages the meter and gives a false reading. Switch off first."
+     },
+     {
+      "text": "Turn the function switch while the probes are on the circuit.",
+      "why": "Passing through other functions can harm the meter. Remove the probes first."
+     },
+     {
+      "text": "Connect the meter across the lamp on the current range.",
+      "why": "That is a near short through the meter. Current is measured in series."
+     },
+     {
+      "text": "Hold the probes near the tips for better contact.",
+      "why": "Fingers belong behind the probe guards."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Galvanometer",
+      "why": "The digital multimeter does all these measurements."
+     },
+     {
+      "name": "Megger insulation tester",
+      "why": "Its high test voltage is not for this low-voltage work."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Nothing is timed here."
+     },
+     {
+      "name": "Mains extension lead",
+      "why": "This job stays on cells and a 12 V transformer output."
+     },
+     {
+      "name": "Vernier calipers",
+      "why": "The flex is tested for continuity, not measured for size."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "socket",
+     "afterStep": 4,
+     "prompt": "You now need the lamp current of about 0.3 A. Where do the leads go?",
+     "options": [
+      {
+       "text": "Black in COM, red in the mA socket, meter in series",
+       "correct": true,
+       "consequence": "The current passes through the meter safely within its range."
+      },
+      {
+       "text": "Black in COM, red in VΩ, meter in series",
+       "consequence": "The meter reads no current in that socket."
+      },
+      {
+       "text": "Black in COM, red in mA, meter across the lamp",
+       "consequence": "A current range across a load is nearly a short."
+      }
+     ]
+    },
+    {
+     "id": "function",
+     "afterStep": 3,
+     "prompt": "You move from the cell to the 12 V a.c. output. What must you change?",
+     "options": [
+      {
+       "text": "Leave it on d.c. volts",
+       "consequence": "An a.c. supply will read near zero or a false value."
+      },
+      {
+       "text": "Set it to the current range",
+       "consequence": "That would be a near short across the transformer."
+      },
+      {
+       "text": "Set the switch to a.c. volts",
+       "correct": true,
+       "consequence": "The meter now reads the r.m.s. value."
+      }
+     ]
+    },
+    {
+     "id": "after-current",
+     "afterStep": 4,
+     "prompt": "You have finished the current reading. What is your next action?",
+     "options": [
+      {
+       "text": "Move the red lead back to VΩ",
+       "correct": true,
+       "consequence": "The meter is safe for the next voltage reading."
+      },
+      {
+       "text": "Leave the lead for the next student",
+       "consequence": "The next voltage reading could short through the meter."
+      },
+      {
+       "text": "Switch straight to voltage only",
+       "consequence": "The lead is still in the current socket, so the short remains."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "minus",
+     "prompt": "You reverse the leads on a 1.5 V cell. What does the meter show?",
+     "options": [
+      {
+       "text": "OL on the display",
+       "why": "The value is well inside the range."
+      },
+      {
+       "text": "−1.5 V or nearly so",
+       "correct": true
+      },
+      {
+       "text": "0 V, because the cell has been shorted",
+       "why": "Reversing the leads shorts nothing."
+      },
+      {
+       "text": "3.0 V, because the reading doubles",
+       "why": "The value stays the same and only the sign changes."
+      }
+     ]
+    },
+    {
+     "id": "filament",
+     "prompt": "You compare a lamp's cold reading with V/I when lit. What do you find?",
+     "options": [
+      {
+       "text": "The cold reading is always zero",
+       "why": "A good filament reads a few ohms."
+      },
+      {
+       "text": "The cold resistance is much lower",
+       "correct": true
+      },
+      {
+       "text": "The cold resistance is much higher",
+       "why": "Tungsten's resistance rises as it heats."
+      },
+      {
+       "text": "The two are exactly equal",
+       "why": "A filament is not ohmic over that heating range."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hot-r",
+     "prompt": "A lamp has {v} V across it and carries {i} A. What is its hot resistance?",
+     "formula": "v / i",
+     "vars": {
+      "v": {
+       "min": 6,
+       "max": 12,
+       "step": 3
+      },
+      "i": {
+       "min": 0.3,
+       "max": 0.6,
+       "step": 0.1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 1,
+     "working": "R = V/I = {v} ÷ {i} = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "blown",
+     "scenario": "Sade's meter stopped reading current, and her table has no units. Here is what she did.",
+     "lines": [
+      {
+       "text": "She measured voltage with the red lead in the 10 A socket.",
+       "fault": true,
+       "why": "This puts a near short across the source."
+      },
+      {
+       "text": "She measured current with the meter in parallel with the lamp.",
+       "fault": true,
+       "why": "Current must be measured in series."
+      },
+      {
+       "text": "She recorded figures with no units in the table.",
+       "fault": true,
+       "why": "Every reading needs its unit."
+      },
+      {
+       "text": "She started on the highest range and stepped down.",
+       "why": "That protects the meter."
+      },
+      {
+       "text": "She chose the function before connecting the probes.",
+       "why": "That is the correct order."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State why a digital multimeter is often preferred to an analogue meter, and give one drawback.",
+    "explainGuide": "A digital meter has no parallax, a high input resistance and automatic polarity. However, it needs a battery and its reading can flicker on changing quantities.",
+    "explainKeywords": [
+     [
+      "parallax",
+      "input resistance",
+      "polarity"
+     ],
+     [
+      "battery",
+      "flicker"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-logic-gates-with-switches-and-lamps": {
+   "safety": {
+    "correct": [
+     "Check the lamp rating matches the 6 V supply before switching on."
+    ],
+    "wrong": [
+     {
+      "text": "Leave out the 47 Ω resistor in the NOT circuit because it dims the lamp.",
+      "why": "Closing the switch would short the battery. The resistor must stay."
+     },
+     {
+      "text": "Use the mains socket in place of the 6 V supply for a brighter lamp.",
+      "why": "Only low-voltage supplies are allowed. Mains can kill and would destroy the lamp."
+     },
+     {
+      "text": "Leave the NOT switch closed for a long time while writing up.",
+      "why": "Current keeps flowing in the resistor, which wastes the battery and heats it. Open it."
+     },
+     {
+      "text": "Join the bare ends of wires by twisting them while the circuit is on.",
+      "why": "You risk a short and a spark. Switch off to change connections."
+     },
+     {
+      "text": "Touch the IC pins to test which one feels warm.",
+      "why": "A hot IC can burn you, and handling can damage it. Check the wiring with power off."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "230 V lamp and holder",
+      "why": "It would not light on 6 V and has no place in low-voltage work."
+     },
+     {
+      "name": "Oscilloscope",
+      "why": "The output is simply lamp on or off."
+     },
+     {
+      "name": "Thermistor",
+      "why": "There is no temperature input here."
+     },
+     {
+      "name": "Transformer",
+      "why": "The circuit runs from a 6 V battery or d.c. supply."
+     },
+     {
+      "name": "Three-pin plug",
+      "why": "Nothing here connects to the mains."
+     }
+    ],
+    "optional": [
+     "Optional: 74LS08, 74LS32, 74LS04 ICs with LED and 5 V supply"
+    ]
+   },
+   "procedure": {
+    "anyOrder": [
+     [
+      4,
+      5
+     ]
+    ]
+   },
+   "decisions": [
+    {
+     "id": "and-wire",
+     "afterStep": 1,
+     "prompt": "How must A and B be connected to act as AND?",
+     "options": [
+      {
+       "text": "In series with the lamp",
+       "correct": true,
+       "consequence": "The lamp lights only when both are closed."
+      },
+      {
+       "text": "In parallel with each other",
+       "consequence": "Either switch alone lights the lamp, which is OR."
+      },
+      {
+       "text": "One across the lamp, one in series",
+       "consequence": "This gives neither a clean AND nor the intended table."
+      }
+     ]
+    },
+    {
+     "id": "not-wire",
+     "afterStep": 3,
+     "prompt": "For NOT, where does switch A go?",
+     "options": [
+      {
+       "text": "Across the lamp and resistor together",
+       "consequence": "Closing A then shorts the battery."
+      },
+      {
+       "text": "In series with the lamp only",
+       "consequence": "That gives lamp ON when closed, which is not inversion."
+      },
+      {
+       "text": "Across the lamp, with the resistor in series",
+       "correct": true,
+       "consequence": "Closing A shorts out the lamp, and the resistor protects the battery."
+      }
+     ]
+    },
+    {
+     "id": "all-rows",
+     "afterStep": 4,
+     "prompt": "You are drawing the two-input table. How many rows do you need?",
+     "options": [
+      {
+       "text": "Four, in binary order",
+       "correct": true,
+       "consequence": "Every input combination is covered."
+      },
+      {
+       "text": "Three, since 00 tells you nothing",
+       "consequence": "Leaving out a combination loses the mark."
+      },
+      {
+       "text": "Two, one for each input",
+       "consequence": "Two inputs need 2² rows."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "or-result",
+     "prompt": "In the parallel circuit, when does the lamp light?",
+     "options": [
+      {
+       "text": "Only when both are open",
+       "why": "That is NOR."
+      },
+      {
+       "text": "Only when just one is closed",
+       "why": "That is exclusive-OR."
+      },
+      {
+       "text": "When A or B or both are closed",
+       "correct": true
+      },
+      {
+       "text": "Only when both are closed",
+       "why": "That is AND."
+      }
+     ]
+    },
+    {
+     "id": "not-result",
+     "prompt": "In the NOT circuit, what happens when A is closed?",
+     "options": [
+      {
+       "text": "The lamp goes off",
+       "correct": true
+      },
+      {
+       "text": "The lamp gets brighter",
+       "why": "The switch bypasses the lamp."
+      },
+      {
+       "text": "The lamp stays on as before",
+       "why": "Closing A shorts out the lamp."
+      },
+      {
+       "text": "The battery is short-circuited",
+       "why": "The series resistor prevents this."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rows",
+     "prompt": "How many rows does the truth table of a gate with {n} inputs need?",
+     "formula": "2 ^ n",
+     "vars": {
+      "n": {
+       "min": 2,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Rows = 2 to the power {n} = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "truth",
+     "scenario": "Grace's work on the OR gate lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She left out the row where A = 0 and B = 0.",
+       "fault": true,
+       "why": "All four combinations must appear."
+      },
+      {
+       "text": "She drew the NOT symbol with no bubble.",
+       "fault": true,
+       "why": "The bubble shows inversion."
+      },
+      {
+       "text": "She read a dim lamp as OFF without checking the battery.",
+       "fault": true,
+       "why": "A weak battery gave a misleading result."
+      },
+      {
+       "text": "She wrote Y = A + B for OR.",
+       "why": "That is the correct expression."
+      },
+      {
+       "text": "She checked each switch with a meter first.",
+       "why": "That rules out faulty contacts."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the 47 Ω resistor needed in the NOT circuit?",
+    "explainGuide": "Closing the switch across the lamp would otherwise put a short circuit across the battery. The series resistor limits the current.",
+    "explainKeywords": [
+     [
+      "short"
+     ],
+     [
+      "limit",
+      "current"
+     ],
+     [
+      "battery",
+      "supply"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-measuring-a-c-quantities-with-an-oscilloscope": {
+   "safety": {
+    "correct": [
+     "Do not leave a bright, still spot on the screen; keep the trace at normal brightness."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the probe to the mains socket to see the real 50 Hz wave.",
+      "why": "Mains can kill and can destroy the oscilloscope. Use a low-voltage source only."
+     },
+     {
+      "text": "Remove the earth pin of the plug so the trace is less noisy.",
+      "why": "The earth is a safety connection and must stay."
+     },
+     {
+      "text": "Leave the variable knob out of CAL to fit the trace on the screen.",
+      "why": "The scale is then wrong. Keep it in CAL and change the range."
+     },
+     {
+      "text": "Push the plug in with wet hands after washing the bench.",
+      "why": "Wet hands and mains are a shock risk. Dry your hands first."
+     },
+     {
+      "text": "Open the oscilloscope case to look for a dim trace.",
+      "why": "High voltages inside can kill. Report it to your teacher."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Energy meter",
+      "why": "No energy is being measured here."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "The current is not being measured."
+     },
+     {
+      "name": "Mains test lamp",
+      "why": "No mains goes near this job."
+     },
+     {
+      "name": "Dry cell",
+      "why": "The source must be a.c. to show a sine wave."
+     },
+     {
+      "name": "Galvanometer",
+      "why": "The a.c. voltmeter is the comparison."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "fit",
+     "afterStep": 2,
+     "prompt": "The wave is too tall and its peaks are off the screen. What do you turn?",
+     "options": [
+      {
+       "text": "The variable knob, out of CAL",
+       "consequence": "It fits, but your readings are then wrong."
+      },
+      {
+       "text": "Volts/div, to a larger value",
+       "correct": true,
+       "consequence": "The whole wave fits, and the scale is still calibrated."
+      },
+      {
+       "text": "Time/div, to a larger value",
+       "consequence": "This squeezes the wave sideways but not its height."
+      }
+     ]
+    },
+    {
+     "id": "peak",
+     "afterStep": 3,
+     "prompt": "The wave spans 8 divisions from bottom to top. How many divisions do you use for Vp?",
+     "options": [
+      {
+       "text": "8, the whole height",
+       "consequence": "That is peak-to-peak, so Vp comes out double."
+      },
+      {
+       "text": "2, one quarter of the height of the trace",
+       "consequence": "That is half the true peak."
+      },
+      {
+       "text": "4, from the centre line to the peak",
+       "correct": true,
+       "consequence": "That is the peak, not peak-to-peak."
+      }
+     ]
+    },
+    {
+     "id": "period",
+     "afterStep": 4,
+     "prompt": "Which distance gives the period T?",
+     "options": [
+      {
+       "text": "From one zero crossing to the very next",
+       "consequence": "That is half a cycle, so f comes out double."
+      },
+      {
+       "text": "From the centre line to the peak",
+       "consequence": "That is a vertical distance, not time."
+      },
+      {
+       "text": "One complete cycle, peak to next peak",
+       "correct": true,
+       "consequence": "That is the full period."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "agree",
+     "prompt": "Vp is 8.0 V. Which voltmeter reading agrees?",
+     "options": [
+      {
+       "text": "About 5.7 V",
+       "correct": true
+      },
+      {
+       "text": "About 8.0 V",
+       "why": "A voltmeter shows r.m.s., not peak."
+      },
+      {
+       "text": "About 16 V",
+       "why": "That is peak-to-peak."
+      },
+      {
+       "text": "About 5.1 V",
+       "why": "That is the half-cycle average."
+      }
+     ]
+    },
+    {
+     "id": "trace",
+     "prompt": "The trace drifts sideways and will not stand still. What is the likely cause?",
+     "options": [
+      {
+       "text": "The volts/div is wrong",
+       "why": "That changes the height, not the sideways drift."
+      },
+      {
+       "text": "The source is d.c.",
+       "why": "A d.c. source gives a flat line, not a moving wave."
+      },
+      {
+       "text": "The earth pin is correct and firmly in its socket",
+       "why": "A good earth does not cause drift."
+      },
+      {
+       "text": "The trigger is not set for a stable display",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vrms",
+     "prompt": "A trace is {d} divisions from centre to peak on {s} V/div. What is the r.m.s. voltage?",
+     "formula": "d * s * 0.707",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 4,
+       "step": 0.5
+      },
+      "s": {
+       "min": 1,
+       "max": 2,
+       "step": 1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 2,
+     "working": "Vp = {d} × {s} V. Vrms = 0.707 × Vp = {answer} V."
+    },
+    {
+     "id": "freq",
+     "prompt": "One full cycle spans {d} divisions at 5 ms/div. What is the frequency?",
+     "formula": "1000 / (d * 5)",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "Hz",
+     "unitAliases": [
+      "hertz"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 1,
+     "working": "T = {d} × 5 ms. f = 1/T = {answer} Hz."
+    }
+   ],
+   "faults": [
+    {
+     "id": "trace-fault",
+     "scenario": "Ifeanyi reports Vp = 16 V and f = 100 Hz. The true values are 8 V and 50 Hz. Here is what he did.",
+     "lines": [
+      {
+       "text": "He read peak-to-peak and called it peak.",
+       "fault": true,
+       "why": "Peak is half that, measured from the centre line."
+      },
+      {
+       "text": "He measured half a cycle as the period.",
+       "fault": true,
+       "why": "The period is one full cycle."
+      },
+      {
+       "text": "He kept the variable knobs in CAL.",
+       "why": "That keeps the scales valid."
+      },
+      {
+       "text": "He read divisions on the centre graticule.",
+       "why": "That lowers reading error."
+      },
+      {
+       "text": "He connected only a low-voltage source.",
+       "why": "That is the safe way."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does an a.c. voltmeter read less than the peak value shown on the oscilloscope?",
+    "explainGuide": "The voltmeter shows the root mean square value, which gives the same heating as an equal steady d.c. For a sine wave it equals 0.707 of the peak.",
+    "explainKeywords": [
+     [
+      "rms",
+      "root",
+      "r.m.s"
+     ],
+     [
+      "heat"
+     ],
+     [
+      "peak",
+      "sine"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-voltage-relationships-in-a-series-rc-circuit": {
+   "safety": {
+    "correct": [
+     "Check the supply is switched off while you change connections."
+    ],
+    "wrong": [
+     {
+      "text": "Use a polarised electrolytic because it was the only 2.2 µF in the box.",
+      "why": "An electrolytic on a.c. can fail. Use a non-polarised capacitor."
+     },
+     {
+      "text": "Run the circuit straight from a mains socket for a stronger reading.",
+      "why": "Only a low-voltage isolated supply is allowed."
+     },
+     {
+      "text": "Touch the capacitor leads while the supply is on to check they are firm.",
+      "why": "Keep hands off live connections, and switch off to check them."
+     },
+     {
+      "text": "Discharge the capacitor with your fingers across its leads.",
+      "why": "Your body is not a discharge path. Use a resistor, or leave it to your teacher."
+     },
+     {
+      "text": "Use a low-resistance voltmeter to get a steady reading.",
+      "why": "It loads the circuit and upsets the voltages. Use a high-resistance one."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "D.C. supply",
+      "why": "The aim needs a.c. A capacitor passes no steady d.c."
+     },
+     {
+      "name": "Moving-coil d.c. ammeter",
+      "why": "It will not read a.c. current correctly."
+     },
+     {
+      "name": "Rheostat rated 10 A",
+      "why": "The current is only milliamps, through a fixed resistor."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "This is not a timed charging experiment."
+     },
+     {
+      "name": "Polarised electrolytic capacitor",
+      "why": "It can fail on a.c."
+     }
+    ],
+    "optional": [
+     "Optional inductor (choke) for an RL test"
+    ]
+   },
+   "procedure": {
+    "anyOrder": [
+     [
+      5,
+      6
+     ]
+    ]
+   },
+   "decisions": [
+    {
+     "id": "sum",
+     "afterStep": 3,
+     "prompt": "VR + VC comes to more than V. What do you conclude?",
+     "options": [
+      {
+       "text": "The voltages are out of phase, so add them as phasors",
+       "correct": true,
+       "consequence": "You follow the true relationship."
+      },
+      {
+       "text": "One meter is wrong, so take the readings again",
+       "consequence": "The readings are right. Arithmetic addition is the mistake."
+      },
+      {
+       "text": "The supply is faulty, so change it",
+       "consequence": "The supply is fine. This result is expected."
+      }
+     ]
+    },
+    {
+     "id": "phasor-draw",
+     "afterStep": 5,
+     "prompt": "With the current as reference, how do you draw VC?",
+     "options": [
+      {
+       "text": "In line with the current",
+       "consequence": "That is a pure resistor."
+      },
+      {
+       "text": "90° behind the current",
+       "correct": true,
+       "consequence": "Current leads the voltage in a capacitor."
+      },
+      {
+       "text": "90° ahead of the current",
+       "consequence": "That is the inductor case, a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "freq",
+     "afterStep": 2,
+     "prompt": "You want to compare readings fairly. What do you keep the same?",
+     "options": [
+      {
+       "text": "The room lighting",
+       "consequence": "That has no effect on the voltages."
+      },
+      {
+       "text": "The length of meter leads only",
+       "consequence": "That is a minor point and does not hold XC steady."
+      },
+      {
+       "text": "The supply frequency",
+       "correct": true,
+       "consequence": "XC depends on frequency, so all values stay comparable."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "sum-obs",
+     "prompt": "VR = 6.0 V and VC = 8.0 V. Which supply reading do you expect?",
+     "options": [
+      {
+       "text": "About 2 V",
+       "why": "That is the difference."
+      },
+      {
+       "text": "About 48 V",
+       "why": "That is the product."
+      },
+      {
+       "text": "About 10 V",
+       "correct": true
+      },
+      {
+       "text": "About 14 V",
+       "why": "That is the arithmetic sum."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "phasor",
+     "prompt": "In a series RC circuit VR = {r} V and VC = {c} V. What is the supply voltage?",
+     "formula": "sqrt(r^2 + c^2)",
+     "vars": {
+      "r": {
+       "min": 3,
+       "max": 6,
+       "step": 1
+      },
+      "c": {
+       "min": 4,
+       "max": 8,
+       "step": 2
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 2,
+     "working": "V = √({r}² + {c}²) = {answer} V."
+    },
+    {
+     "id": "imp",
+     "prompt": "The supply is {v} V and the current is {i} mA. What is the impedance?",
+     "formula": "v * 1000 / i",
+     "vars": {
+      "v": {
+       "min": 8,
+       "max": 12,
+       "step": 2
+      },
+      "i": {
+       "min": 4,
+       "max": 8,
+       "step": 2
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "Z = V/I = {v} ÷ ({i} ÷ 1000) = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "add",
+     "scenario": "Chiamaka says her supply must be faulty because 6 V + 8 V is not 10 V. Here is what she did.",
+     "lines": [
+      {
+       "text": "She added VR and VC arithmetically.",
+       "fault": true,
+       "why": "They are 90° apart, so they add as phasors."
+      },
+      {
+       "text": "She drew VC leading the current.",
+       "fault": true,
+       "why": "VC lags the current in a capacitor."
+      },
+      {
+       "text": "She used a non-polarised capacitor.",
+       "why": "That is correct for a.c."
+      },
+      {
+       "text": "She used a high-resistance voltmeter.",
+       "why": "That avoids loading the circuit."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why do VR and VC not simply add up to the supply voltage?",
+    "explainGuide": "VR is in phase with the current but VC lags it by 90°. They peak at different times, so they add as phasors, using √(VR² + VC²).",
+    "explainKeywords": [
+     [
+      "phase",
+      "90",
+      "lag"
+     ],
+     [
+      "phasor",
+      "vector",
+      "root",
+      "square"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-transformer-turns-ratio-and-efficiency": {
+   "safety": {
+    "correct": [
+     "Check that the primary fuse is the correct rating before you switch on."
+    ],
+    "wrong": [
+     {
+      "text": "Change the secondary load with the primary still switched on.",
+      "why": "Always switch off before changing the load."
+     },
+     {
+      "text": "Connect the primary terminals yourself while the supply is live.",
+      "why": "The primary is at mains voltage. Terminals must be enclosed and you need supervision."
+     },
+     {
+      "text": "Leave out the fuse so the supply does not trip during the test.",
+      "why": "The fuse protects against faults. It must be in the primary circuit."
+     },
+     {
+      "text": "Hold a meter lead on the primary with your hand while reading.",
+      "why": "Mains can kill. Use fixed, enclosed connections."
+     },
+     {
+      "text": "Load the transformer well past its rating to see how much it takes.",
+      "why": "This overheats the windings. Keep within the VA rating."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Galvanometer",
+      "why": "Too sensitive, and it would be destroyed by a.c. mains."
+     },
+     {
+      "name": "Dry cells",
+      "why": "A transformer needs a.c. Steady d.c. does nothing but heat the winding."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Energy over time is not being measured."
+     },
+     {
+      "name": "Moving-coil d.c. voltmeter",
+      "why": "It will not read a.c. values correctly."
+     },
+     {
+      "name": "Capacitor",
+      "why": "A resistive load is used."
+     }
+    ],
+    "optional": [
+     "Wattmeter (optional)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "input",
+     "afterStep": 4,
+     "prompt": "You have no power factor value. How do you get the input power?",
+     "options": [
+      {
+       "text": "Read it on a wattmeter in the primary",
+       "correct": true,
+       "consequence": "It reads true power, even with magnetising current."
+      },
+      {
+       "text": "Multiply Vp by Ip and call it true power",
+       "consequence": "Vp × Ip is not true power unless the power factor is 1."
+      },
+      {
+       "text": "Take Vs × Is as the input",
+       "consequence": "That is the output power."
+      }
+     ]
+    },
+    {
+     "id": "eff-formula",
+     "afterStep": 4,
+     "prompt": "Which is the efficiency?",
+     "options": [
+      {
+       "text": "Vs ÷ Vp × 100",
+       "consequence": "That is only the voltage ratio."
+      },
+      {
+       "text": "Input power ÷ output power × 100",
+       "consequence": "That gives over 100%, which cannot be right."
+      },
+      {
+       "text": "Output power ÷ input power × 100",
+       "correct": true,
+       "consequence": "That compares powers, and the answer is below 100%."
+      }
+     ]
+    },
+    {
+     "id": "load-change",
+     "afterStep": 5,
+     "prompt": "You need another load value. What do you do first?",
+     "options": [
+      {
+       "text": "Change it quickly while it runs",
+       "consequence": "Live changes are unsafe on this rig."
+      },
+      {
+       "text": "Raise the mains to compensate",
+       "consequence": "The supply cannot and must not be raised."
+      },
+      {
+       "text": "Switch off, then change the load",
+       "correct": true,
+       "consequence": "The change is made with no live risk."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "warm",
+     "prompt": "After running on load, what is normal?",
+     "options": [
+      {
+       "text": "The windings smoke a little",
+       "why": "Smoke is a fault. Switch off at once."
+      },
+      {
+       "text": "The core stays cold and the fuse blows",
+       "why": "That shows a fault, not normal running."
+      },
+      {
+       "text": "The output rises above no-load voltage",
+       "why": "On load the output normally falls a little."
+      },
+      {
+       "text": "The core is slightly warm",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "sec",
+     "prompt": "A transformer has 1000 primary turns and {n} secondary turns on a 240 V supply. What is the secondary voltage?",
+     "formula": "240 * n / 1000",
+     "vars": {
+      "n": {
+       "min": 50,
+       "max": 150,
+       "step": 25
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Vs = 240 × {n} ÷ 1000 = {answer} V."
+    },
+    {
+     "id": "eff",
+     "prompt": "Input is 115 W. The output is 12 V at {i} A. What is the efficiency?",
+     "formula": "12 * i / 115 * 100",
+     "vars": {
+      "i": {
+       "min": 8,
+       "max": 9,
+       "step": 0.2
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent",
+      "per cent"
+     ],
+     "tolerance": {
+      "abs": 0.2
+     },
+     "decimals": 1,
+     "working": "Output = 12 × {i} W. η = output ÷ 115 × 100 = {answer}%."
+    },
+    {
+     "id": "loss",
+     "prompt": "Input is {a} W and the output is {b} W. What are the losses?",
+     "formula": "a - b",
+     "vars": {
+      "a": {
+       "min": 110,
+       "max": 130,
+       "step": 5
+      },
+      "b": {
+       "min": 95,
+       "max": 105,
+       "step": 5
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Losses = {a} − {b} = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "eff-fault",
+     "scenario": "Dayo reports an efficiency of 5%. Here is what he did.",
+     "lines": [
+      {
+       "text": "He took efficiency as Vs/Vp.",
+       "fault": true,
+       "why": "Efficiency compares power, not voltage."
+      },
+      {
+       "text": "He changed the load with the supply on.",
+       "fault": true,
+       "why": "He must switch off first."
+      },
+      {
+       "text": "He used Vp × Ip as the true input power.",
+       "fault": true,
+       "why": "Power factor is not 1 here, so a wattmeter is needed."
+      },
+      {
+       "text": "He named copper and iron as the losses.",
+       "why": "Those are the correct names."
+      },
+      {
+       "text": "He stayed within the VA rating.",
+       "why": "That keeps the windings safe."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name the two types of loss in a transformer and say how each arises.",
+    "explainGuide": "Copper loss is I²R heating in the windings. Iron loss is in the core, from hysteresis and eddy currents.",
+    "explainKeywords": [
+     [
+      "copper",
+      "winding"
+     ],
+     [
+      "iron",
+      "core"
+     ],
+     [
+      "eddy",
+      "hysteresis",
+      "I²R"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-half-wave-and-full-wave-rectification-with-smoothing": {
+   "safety": {
+    "correct": [
+     "Check the capacitor's voltage rating is above the peak output."
+    ],
+    "wrong": [
+     {
+      "text": "Connect the circuit directly to the 230 V side for a larger output.",
+      "why": "Only the low-voltage secondary may be used."
+     },
+     {
+      "text": "Fit the electrolytic the other way round if the leads reach better.",
+      "why": "Reversed polarity can make it burst. Positive goes to positive."
+     },
+     {
+      "text": "Touch the smoothing capacitor's leads as soon as you switch off.",
+      "why": "It stays charged after switch-off. Discharge it through a resistor."
+     },
+     {
+      "text": "Rewire the bridge while the transformer is still on.",
+      "why": "Switch off to make any change."
+     },
+     {
+      "text": "Leave the circuit on if a diode gets hot, since diodes run warm.",
+      "why": "Excess heat means a wrong connection. Switch off and check."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Rheostat rated 10 A",
+      "why": "The fixed 1 kΩ load is used."
+     },
+     {
+      "name": "Galvanometer",
+      "why": "The multimeter and oscilloscope do the measuring."
+     },
+     {
+      "name": "Light-dependent resistor",
+      "why": "No light sensing is involved."
+     },
+     {
+      "name": "230 V lamp",
+      "why": "The load here is a 1 kΩ resistor on a low voltage."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Waveforms are read on the oscilloscope."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bridge",
+     "afterStep": 3,
+     "prompt": "Your bridge is wired, and one diode gets hot. What do you do?",
+     "options": [
+      {
+       "text": "Add the capacitor to cool it",
+       "consequence": "A capacitor does not fix a wiring fault."
+      },
+      {
+       "text": "Switch off and check each diode's direction",
+       "correct": true,
+       "consequence": "A reversed bridge diode can short the transformer."
+      },
+      {
+       "text": "Leave it on so it can settle and cool by itself",
+       "consequence": "It can destroy the diodes and the transformer."
+      }
+     ]
+    },
+    {
+     "id": "cap",
+     "afterStep": 4,
+     "prompt": "Which way does the capacitor go?",
+     "options": [
+      {
+       "text": "Either way, because the output is d.c.",
+       "consequence": "Polarity matters on an electrolytic."
+      },
+      {
+       "text": "Positive lead to the positive output",
+       "correct": true,
+       "consequence": "It charges safely and smooths the output."
+      },
+      {
+       "text": "Negative lead to the positive output",
+       "consequence": "Reversed, the electrolytic can burst."
+      }
+     ]
+    },
+    {
+     "id": "sketch",
+     "afterStep": 6,
+     "prompt": "How do you sketch the bridge output without the capacitor?",
+     "options": [
+      {
+       "text": "A flat straight line",
+       "consequence": "That is ideal d.c., not rectified output."
+      },
+      {
+       "text": "Two humps per cycle with no gaps",
+       "correct": true,
+       "consequence": "That is the full-wave shape."
+      },
+      {
+       "text": "One hump per cycle with gaps",
+       "consequence": "That is half-wave."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ripple",
+     "prompt": "What is the ripple frequency of the bridge on 50 Hz?",
+     "options": [
+      {
+       "text": "25 Hz",
+       "why": "Rectifying does not halve the frequency."
+      },
+      {
+       "text": "200 Hz",
+       "why": "The bridge gives two pulses per cycle."
+      },
+      {
+       "text": "100 Hz",
+       "correct": true
+      },
+      {
+       "text": "50 Hz",
+       "why": "That is half-wave."
+      }
+     ]
+    },
+    {
+     "id": "cap-effect",
+     "prompt": "What changes when the capacitor is added?",
+     "options": [
+      {
+       "text": "Nothing changes at all",
+       "why": "A working capacitor always has an effect."
+      },
+      {
+       "text": "The output becomes a.c.",
+       "why": "The output stays d.c."
+      },
+      {
+       "text": "The d.c. level rises and the ripple falls",
+       "correct": true
+      },
+      {
+       "text": "The d.c. level falls and the ripple rises",
+       "why": "That is the reverse."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "peak",
+     "prompt": "A transformer secondary gives {v} V r.m.s. What is the peak voltage?",
+     "formula": "v * sqrt(2)",
+     "vars": {
+      "v": {
+       "min": 6,
+       "max": 15,
+       "step": 3
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 2,
+     "working": "Vp = {v} × 1.414 = {answer} V."
+    },
+    {
+     "id": "smooth",
+     "prompt": "A {v} V r.m.s. secondary feeds a smoothed bridge on a light load. Allow 0.7 V for each of two diodes. What is the d.c. output?",
+     "formula": "v * sqrt(2) - 1.4",
+     "vars": {
+      "v": {
+       "min": 6,
+       "max": 15,
+       "step": 3
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.015
+     },
+     "decimals": 2,
+     "working": "Vdc ≈ {v} × 1.414 − 2 × 0.7 = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "hot-bridge",
+     "scenario": "Hauwa's bridge blew the fuse, and her report sketch is wrong. Here is what she did.",
+     "lines": [
+      {
+       "text": "She wired one bridge diode the wrong way round.",
+       "fault": true,
+       "why": "This can short the transformer."
+      },
+      {
+       "text": "She drew her full-wave output with gaps.",
+       "fault": true,
+       "why": "Those gaps belong to half-wave output."
+      },
+      {
+       "text": "She connected the capacitor positive to positive.",
+       "why": "That is the correct polarity."
+      },
+      {
+       "text": "She worked only on the low-voltage secondary.",
+       "why": "That is the safe side."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does a smoothing capacitor raise the d.c. output of a rectifier?",
+    "explainGuide": "It charges to near the peak on each pulse, then discharges slowly into the load between pulses, so the output stays close to the peak with little ripple.",
+    "explainKeywords": [
+     [
+      "charg"
+     ],
+     [
+      "discharg",
+      "between",
+      "pulse"
+     ],
+     [
+      "peak",
+      "ripple"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-wiring-a-one-way-and-a-two-way-lighting-circuit": {
+   "safety": {
+    "correct": [
+     "Tell your teacher when the board is ready, and wait for the test before any power is applied."
+    ],
+    "wrong": [
+     {
+      "text": "Put the switch in the neutral because that wire is nearer.",
+      "why": "The lamp stays live when the switch is off, so someone changing it can get a shock."
+     },
+     {
+      "text": "Connect your board to the supply yourself to save the teacher's time.",
+      "why": "Only the teacher may approve connection, after testing."
+     },
+     {
+      "text": "Leave the earth off the metal switch plate since it looks insulated.",
+      "why": "A loose live wire could make it live. Earth all metal accessories."
+     },
+     {
+      "text": "Leave a little bare copper outside the terminal so you can see the joint.",
+      "why": "Bare copper can touch another conductor or a person. Terminate cleanly."
+     },
+     {
+      "text": "Tighten the terminal screws as hard as you can.",
+      "why": "Over-tightening damages stranded conductors. Make them firm, not forced."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw blade for steel conduit",
+      "why": "This board uses trunking or clips, not steel conduit."
+     },
+     {
+      "name": "Insulation tape to join cables mid-run",
+      "why": "Runs should be whole, with joints only at terminals."
+     },
+     {
+      "name": "Stocks and dies",
+      "why": "No conduit is threaded in surface trunking work."
+     },
+     {
+      "name": "2.5 mm² socket circuit cable",
+      "why": "Lighting here uses 1.5 mm² cable."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Connections are made at screw terminals."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "switch-in",
+     "afterStep": 3,
+     "prompt": "Where does the one-way switch go in the circuit?",
+     "options": [
+      {
+       "text": "In the earth conductor",
+       "consequence": "That never controls the lamp and breaks the earth path."
+      },
+      {
+       "text": "In the phase conductor",
+       "correct": true,
+       "consequence": "Off means the lamp is truly dead."
+      },
+      {
+       "text": "In the neutral conductor",
+       "consequence": "The lamp stays live even when it is off."
+      }
+     ]
+    },
+    {
+     "id": "strappers",
+     "afterStep": 4,
+     "prompt": "Which terminals take the two strappers?",
+     "options": [
+      {
+       "text": "The common terminals of both switches",
+       "consequence": "This is a common error, and the lamp will not work from both ends."
+      },
+      {
+       "text": "L1 of one switch and the common of the other",
+       "consequence": "The strappers are crossed, and the switching goes wrong."
+      },
+      {
+       "text": "L1 and L2 of both switches",
+       "correct": true,
+       "consequence": "Either switch can now change the lamp's state."
+      }
+     ]
+    },
+    {
+     "id": "energise",
+     "afterStep": 7,
+     "prompt": "All tests pass. What is the next action?",
+     "options": [
+      {
+       "text": "Plug in and check it quickly yourself",
+       "consequence": "Only an approved board may be energised."
+      },
+      {
+       "text": "Cut out the insulation test to save time",
+       "consequence": "A skipped test can hide a fault."
+      },
+      {
+       "text": "Ask for teacher approval, then energise",
+       "correct": true,
+       "consequence": "You follow the rule that protects everyone."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "two-way",
+     "prompt": "What shows that the two-way circuit is correct?",
+     "options": [
+      {
+       "text": "Only switch 1 can turn it off",
+       "why": "Strappers may be wrong."
+      },
+      {
+       "text": "The lamp lights only with both switches up",
+       "why": "That is AND-type behaviour, so the connections are wrong."
+      },
+      {
+       "text": "The lamp glows dim all the time",
+       "why": "That is a fault, so isolate and check."
+      },
+      {
+       "text": "Either switch changes the state of the lamp",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "load",
+     "prompt": "A lighting circuit has {n} lamps of 60 W on 230 V. What current does it take?",
+     "formula": "n * 60 / 230",
+     "vars": {
+      "n": {
+       "min": 3,
+       "max": 9,
+       "step": 1
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "ampere",
+      "amperes"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "I = P/V = ({n} × 60) ÷ 230 = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "lamp-stays-live",
+     "scenario": "Tunji's lamp holder gives a tingle when the lamp is off. Here is what he did.",
+     "lines": [
+      {
+       "text": "He connected the switch in the neutral.",
+       "fault": true,
+       "why": "The switch must be in the phase, or the holder stays live."
+      },
+      {
+       "text": "He left bare conductor outside some terminals.",
+       "fault": true,
+       "why": "Bare copper can touch a person or another wire."
+      },
+      {
+       "text": "He clipped his cables in straight lines.",
+       "why": "That earns workmanship marks."
+      },
+      {
+       "text": "He ran tests with the supply off first.",
+       "why": "Dead tests come first."
+      },
+      {
+       "text": "He drew his circuit diagram with standard symbols.",
+       "why": "Examiners expect this."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must the switch be placed in the phase conductor, not the neutral?",
+    "explainGuide": "With the switch in the phase, turning it off makes the lamp and holder dead. In the neutral they would stay live, so a person could get a shock.",
+    "explainKeywords": [
+     [
+      "phase",
+      "live"
+     ],
+     [
+      "dead",
+      "off",
+      "isolat"
+     ],
+     [
+      "shock",
+      "danger",
+      "safe"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-wiring-a-socket-outlet-and-connecting-a-13-a-plug": {
+   "safety": {
+    "correct": [
+     "Check that the supply to the circuit is off before touching any terminal."
+    ],
+    "wrong": [
+     {
+      "text": "Fit a 13 A fuse in every plug because that is what the shop sells.",
+      "why": "A small appliance needs a smaller fuse, or its flex can overheat before the fuse blows."
+     },
+     {
+      "text": "Replace a blown fuse with a piece of wire until you buy one.",
+      "why": "A wire gives no protection, so faults can start a fire. Use the correct fuse."
+     },
+     {
+      "text": "Make the earth core shorter than the live one to fit the plug.",
+      "why": "The earth must be longest, so it is the last to pull out."
+     },
+     {
+      "text": "Grip the coloured cores in the cord grip so the sheath stays neat.",
+      "why": "The grip must hold the outer sheath. On the cores, a pull will strain the terminals."
+     },
+     {
+      "text": "Wire the socket with the circuit still live to test as you go.",
+      "why": "Work dead, and test before energising."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Stocks and dies",
+      "why": "No conduit is being threaded in this job."
+     },
+     {
+      "name": "Pipe vice",
+      "why": "Nothing here is held for cutting."
+     },
+     {
+      "name": "Copper wire used as a fuse link",
+      "why": "It does not protect the appliance or the flex."
+     },
+     {
+      "name": "Two-way switch",
+      "why": "This is a socket and plug job."
+     },
+     {
+      "name": "1.0 mm² bell wire",
+      "why": "It is too small for a 13 A socket. Use 2.5 mm² cable."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "core",
+     "afterStep": 4,
+     "prompt": "The brown core is in your hand. Where does it go?",
+     "options": [
+      {
+       "text": "The neutral terminal",
+       "consequence": "Live and neutral are swapped, so the fuse no longer protects the live side."
+      },
+      {
+       "text": "The live pin terminal, on the fuse side",
+       "correct": true,
+       "consequence": "The fuse is now in the live conductor."
+      },
+      {
+       "text": "The earth pin terminal, at the top of the plug",
+       "consequence": "Live on earth makes the appliance body deadly."
+      }
+     ]
+    },
+    {
+     "id": "fuse",
+     "afterStep": 5,
+     "prompt": "You are wiring a plug for a 60 W table lamp. Which fuse do you fit?",
+     "options": [
+      {
+       "text": "3 A",
+       "correct": true,
+       "consequence": "It is just above the 0.26 A working current."
+      },
+      {
+       "text": "13 A",
+       "consequence": "The flex can overheat in a fault before such a large fuse blows."
+      },
+      {
+       "text": "0.1 A",
+       "consequence": "It is below the working current, so it blows at once."
+      }
+     ]
+    },
+    {
+     "id": "sheath",
+     "afterStep": 3,
+     "prompt": "How far do you strip the flex sheath?",
+     "options": [
+      {
+       "text": "Very short, so cores must stretch to reach",
+       "consequence": "The cores are strained and may come out of the terminals."
+      },
+      {
+       "text": "So the sheath itself sits under the cord grip",
+       "correct": true,
+       "consequence": "A pull on the flex is taken by the grip, not the terminals."
+      },
+      {
+       "text": "Back so that only coloured cores reach the grip",
+       "consequence": "A pull strains the terminals."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "polarity",
+     "prompt": "A meter is used on the finished plug and socket. What shows that they are right?",
+     "options": [
+      {
+       "text": "All three pins read OL to the socket",
+       "why": "The circuit is open."
+      },
+      {
+       "text": "L reads through to L, N to N and E to E",
+       "correct": true
+      },
+      {
+       "text": "L reads through to E",
+       "why": "Live is connected to earth, which is deadly."
+      },
+      {
+       "text": "N reads through to E only",
+       "why": "That is a wiring fault."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "kettle-i",
+     "prompt": "An appliance of {p} W runs on 230 V. What is its working current?",
+     "formula": "p / 230",
+     "vars": {
+      "p": {
+       "min": 500,
+       "max": 2500,
+       "step": 500
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps",
+      "ampere"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "I = P/V = {p} ÷ 230 = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "plug-fault",
+     "scenario": "Aisha's table lamp plug has a 13 A fuse, and the flex pulls out easily. Here is what she did.",
+     "lines": [
+      {
+       "text": "She gripped the coloured cores, not the sheath.",
+       "fault": true,
+       "why": "The grip must hold the outer sheath."
+      },
+      {
+       "text": "She fitted a 13 A fuse to a small lamp.",
+       "fault": true,
+       "why": "A 3 A fuse suits the lamp."
+      },
+      {
+       "text": "She connected brown to the fuse side.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She tested continuity with a meter.",
+       "why": "That is a required check."
+      },
+      {
+       "text": "She left the earth core longest.",
+       "why": "That is the right length."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the fuse placed in the live conductor?",
+    "explainGuide": "When the fuse blows it cuts the live wire, so the appliance is disconnected from the supply and is safe. In the neutral the appliance would stay live.",
+    "explainKeywords": [
+     [
+      "live",
+      "phase"
+     ],
+     [
+      "disconnect",
+      "cut",
+      "break",
+      "dead",
+      "isolat"
+     ],
+     [
+      "safe",
+      "shock",
+      "stay"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-conduit-installation-cutting-threading-and-bending": {
+   "safety": {
+    "correct": [
+     "Keep the hacksaw blade tight and well clear of your holding hand."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the cut end as it is, since the cable is well insulated.",
+      "why": "Burrs strip the insulation as the cable is pulled in. Ream every cut end."
+     },
+     {
+      "text": "Clean burrs off the conduit with your bare fingers.",
+      "why": "Cut ends are sharp. Wear gloves and use a reamer."
+     },
+     {
+      "text": "Hold the conduit on your knee while you saw it.",
+      "why": "The saw can slip into your leg. Use the pipe vice."
+     },
+     {
+      "text": "Heat the PVC conduit over an open flame to bend it faster.",
+      "why": "This scorches or kinks it. Use a bending spring."
+     },
+     {
+      "text": "Pull the cables in before all the saddles and bends are done.",
+      "why": "Later work can damage them. Finish the conduit system first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Wire strippers only for cutting conduit",
+      "why": "Conduit is cut with the hacksaw in a pipe vice."
+     },
+     {
+      "name": "Bench plane",
+      "why": "It is a woodworking tool."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Conduit joins with threads or couplers, not solder."
+     },
+     {
+      "name": "Wood chisel",
+      "why": "It is ruined on steel and is not part of conduit work."
+     },
+     {
+      "name": "Claw hammer for bending",
+      "why": "It flattens the conduit. Use the bending machine or spring."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "after-cut",
+     "afterStep": 2,
+     "prompt": "You have cut the conduit square. What is next?",
+     "options": [
+      {
+       "text": "Ream the inside of the cut end",
+       "correct": true,
+       "consequence": "The burr is gone, so cables will not be cut."
+      },
+      {
+       "text": "Thread it straight away and ream later",
+       "consequence": "The burr can damage the dies and the cable."
+      },
+      {
+       "text": "Fit it now and leave the burr",
+       "consequence": "The burr strips the insulation."
+      }
+     ]
+    },
+    {
+     "id": "cable-when",
+     "afterStep": 6,
+     "prompt": "The conduit is fixed, and a box still needs fitting. What do you do about the cables?",
+     "options": [
+      {
+       "text": "Pull the cables in now",
+       "consequence": "Fitting later can damage them."
+      },
+      {
+       "text": "Pull them in, then remove them later",
+       "consequence": "This adds time and risk."
+      },
+      {
+       "text": "Finish the system first, then draw in",
+       "correct": true,
+       "consequence": "The cables go in with no risk of damage."
+      }
+     ]
+    },
+    {
+     "id": "bends",
+     "afterStep": 5,
+     "prompt": "Your run needs many bends. What do you plan?",
+     "options": [
+      {
+       "text": "Add as many as look neat",
+       "consequence": "Too many bends make the pull too hard, and cables get damaged."
+      },
+      {
+       "text": "Use tighter bends to save space",
+       "consequence": "Tight bends flatten the conduit."
+      },
+      {
+       "text": "Limit bends between draw-in points",
+       "correct": true,
+       "consequence": "Cables will pull through smoothly."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "finish",
+     "prompt": "What does a well-finished PVC bend look like?",
+     "options": [
+      {
+       "text": "Smooth, round, and not flattened",
+       "correct": true
+      },
+      {
+       "text": "Kinked at the inside but round on the outer face",
+       "why": "The bend was forced without the spring."
+      },
+      {
+       "text": "Flattened at the top",
+       "why": "This reduces the space inside."
+      },
+      {
+       "text": "Scorched brown",
+       "why": "That is overheating."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "spacing",
+     "prompt": "A {l} m run between boxes is divided into {n} equal spaces between saddles. What is the spacing, in metres?",
+     "formula": "l / n",
+     "vars": {
+      "l": {
+       "min": 1.8,
+       "max": 3,
+       "step": 0.6
+      },
+      "n": {
+       "min": 4,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "metre"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "Spacing = {l} ÷ {n} = {answer} m."
+    },
+    {
+     "id": "count",
+     "prompt": "A straight run is divided into {n} equal spaces with a saddle at each end of every space. How many saddles are needed?",
+     "formula": "n + 1",
+     "vars": {
+      "n": {
+       "min": 3,
+       "max": 7,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "Saddles = {n} + 1 = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "stripped",
+     "scenario": "Sunday's cable shows a fault on the insulation test after his conduit job. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left burrs in the cut ends.",
+       "fault": true,
+       "why": "Burrs strip the insulation."
+      },
+      {
+       "text": "He pulled cables round too many bends.",
+       "fault": true,
+       "why": "Too many bends between draw-in points strain the cable."
+      },
+      {
+       "text": "He overfilled the conduit past about 40%.",
+       "fault": true,
+       "why": "Exceeding the space factor makes cables bind and heat."
+      },
+      {
+       "text": "He fixed saddles at regular spacing.",
+       "why": "That is sound."
+      },
+      {
+       "text": "He used a draw wire.",
+       "why": "That is the proper way to pull cables."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are cut conduit ends reamed before cables are drawn in?",
+    "explainGuide": "Cutting leaves sharp burrs. Reaming removes them so that the cable insulation is not stripped or damaged during the pull.",
+    "explainKeywords": [
+     [
+      "burr",
+      "sharp"
+     ],
+     [
+      "insulation",
+      "cable"
+     ],
+     [
+      "damage",
+      "strip",
+      "cut"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-inspection-and-testing-of-an-installation": {
+   "safety": {
+    "correct": [
+     "Prove the voltage tester on a known source before and after you use it."
+    ],
+    "wrong": [
+     {
+      "text": "Do the insulation test with the lamps still in their holders.",
+      "why": "The lamp filaments give a false low reading. Remove them first."
+     },
+     {
+      "text": "Carry out the live loop test first to save time.",
+      "why": "Dead tests come first."
+     },
+     {
+      "text": "Assume the circuit is dead because the switch is off.",
+      "why": "Isolate, lock off and prove it dead with an approved tester."
+     },
+     {
+      "text": "Energise the circuit yourself for the loop test.",
+      "why": "Only the teacher should energise it."
+     },
+     {
+      "text": "Leave computers plugged in while testing at 500 V.",
+      "why": "The test voltage can damage them. Disconnect sensitive equipment."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Clamp meter",
+      "why": "It measures load current, which is not one of these tests."
+     },
+     {
+      "name": "Bending spring",
+      "why": "It is a conduit tool, not a test tool."
+     },
+     {
+      "name": "Neon screwdriver for proving dead",
+      "why": "It is not reliable enough. Use an approved voltage indicator."
+     },
+     {
+      "name": "Oscilloscope",
+      "why": "None of these tests displays a waveform."
+     },
+     {
+      "name": "Three-terminal earth resistance tester with spikes",
+      "why": "That is for electrode tests, not this loop test."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "null",
+     "afterStep": 2,
+     "prompt": "You are about to measure R1 + R2. What do you do first with the leads?",
+     "options": [
+      {
+       "text": "Hold them tightly to warm them",
+       "consequence": "This does nothing to help the reading."
+      },
+      {
+       "text": "Lengthen them with extra wire",
+       "consequence": "This adds resistance and error."
+      },
+      {
+       "text": "Null the test leads",
+       "correct": true,
+       "consequence": "The lead resistance no longer adds to a very small reading."
+      }
+     ]
+    },
+    {
+     "id": "lamps",
+     "afterStep": 3,
+     "prompt": "Your insulation test reads very low on L–N. What do you check first?",
+     "options": [
+      {
+       "text": "Whether the tester needs 1000 V",
+       "consequence": "The test voltage for 230 V circuits is 500 V."
+      },
+      {
+       "text": "Whether the lamps are still in circuit",
+       "correct": true,
+       "consequence": "Filaments give a false low reading, so remove them and retest."
+      },
+      {
+       "text": "Whether the supply can be energised",
+       "consequence": "Switching on does not explain this, and live testing is wrong."
+      }
+     ]
+    },
+    {
+     "id": "order",
+     "afterStep": 5,
+     "prompt": "Dead tests pass. Who energises the circuit for the loop test?",
+     "options": [
+      {
+       "text": "Any student who holds the meter",
+       "consequence": "Students must not energise it."
+      },
+      {
+       "text": "Nobody; skip the loop test",
+       "consequence": "Zs must still be measured."
+      },
+      {
+       "text": "The teacher, under supervision",
+       "correct": true,
+       "consequence": "This is the rule for the live test."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ir-good",
+     "prompt": "Which insulation reading is acceptable for a 230 V circuit at 500 V?",
+     "options": [
+      {
+       "text": "0.2 MΩ",
+       "why": "This is below the 1 MΩ minimum."
+      },
+      {
+       "text": "0.5 kΩ",
+       "why": "This is far too low."
+      },
+      {
+       "text": "0 Ω",
+       "why": "That is a short circuit."
+      },
+      {
+       "text": "25 MΩ",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "zs",
+     "prompt": "Ze = {e} Ω and R1 + R2 = {r} Ω. What is the earth fault loop impedance Zs?",
+     "formula": "e + r",
+     "vars": {
+      "e": {
+       "min": 0.3,
+       "max": 0.5,
+       "step": 0.05
+      },
+      "r": {
+       "min": 0.4,
+       "max": 0.7,
+       "step": 0.1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "Zs = {e} + {r} = {answer} Ω."
+    },
+    {
+     "id": "fault-i",
+     "prompt": "Zs is {z} Ω on 230 V. What is the prospective fault current?",
+     "formula": "230 / z",
+     "vars": {
+      "z": {
+       "min": 0.5,
+       "max": 1.5,
+       "step": 0.25
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "I = 230 ÷ {z} = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "test-record",
+     "scenario": "Obi's test report is rejected by the teacher. Here is what he did.",
+     "lines": [
+      {
+       "text": "He did not prove his voltage tester before and after use.",
+       "fault": true,
+       "why": "An unproven tester can falsely show a live circuit is dead."
+      },
+      {
+       "text": "He tested insulation with the lamps in circuit.",
+       "fault": true,
+       "why": "That gives a false low reading."
+      },
+      {
+       "text": "He left a link out after testing.",
+       "fault": true,
+       "why": "All links and accessories must be restored."
+      },
+      {
+       "text": "He did the dead tests first.",
+       "why": "That is the correct order."
+      },
+      {
+       "text": "He wrote units on every result.",
+       "why": "That is what examiners want."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must dead tests be carried out before the circuit is made live?",
+    "explainGuide": "Continuity, insulation and polarity tests show the installation is safe. If it were energised first, a fault could give a shock or cause a fire.",
+    "explainKeywords": [
+     [
+      "dead",
+      "continuity",
+      "insulation",
+      "polarity"
+     ],
+     [
+      "fault"
+     ],
+     [
+      "shock",
+      "fire",
+      "danger",
+      "safe"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-installing-and-testing-an-earth-electrode": {
+   "safety": {
+    "correct": [
+     "Keep clear of the rod head while someone is swinging the sledge hammer."
+    ],
+    "wrong": [
+     {
+      "text": "Start driving at the first soft spot without checking the ground.",
+      "why": "There may be buried cables or pipes. Check first."
+     },
+     {
+      "text": "Hold the rod with your bare hand high up as a friend strikes it.",
+      "why": "The hammer can hit your hand. Wear gloves and keep hands well away from the head."
+     },
+     {
+      "text": "Use the sledge hammer in rubber slippers since the ground is soft.",
+      "why": "Wear safety boots, as a dropped hammer or rod can crush your foot."
+     },
+     {
+      "text": "Disconnect the earthing conductor from a working building to test on it alone.",
+      "why": "Do not remove it. It keeps the building safe, and the label says so."
+     },
+     {
+      "text": "Hit the rod head directly with the hammer.",
+      "why": "Use the driving head so that the rod is not damaged."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Insulation resistance tester (500 V)",
+      "why": "It tests insulation, not electrode resistance."
+     },
+     {
+      "name": "Aluminium rod",
+      "why": "It corrodes in soil. Use the copper-clad rod."
+     },
+     {
+      "name": "1.5 mm² lighting cable",
+      "why": "It is undersized for an earthing conductor."
+     },
+     {
+      "name": "Wooden mallet",
+      "why": "It cannot drive a rod into the ground."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "It does not measure electrode resistance."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "where",
+     "afterStep": 1,
+     "prompt": "You have two sites in the compound. Which do you choose?",
+     "options": [
+      {
+       "text": "A damp spot away from the foundations",
+       "correct": true,
+       "consequence": "Moist soil gives lower resistance."
+      },
+      {
+       "text": "A dry sandy spot under the eaves",
+       "consequence": "Dry soil gives high resistance."
+      },
+      {
+       "text": "Right against the foundation wall",
+       "consequence": "It should stand away from foundations."
+      }
+     ]
+    },
+    {
+     "id": "spikes",
+     "afterStep": 4,
+     "prompt": "The current spike is 30 m away. Where is the potential spike?",
+     "options": [
+      {
+       "text": "About 62% of the way, 18.6 m",
+       "correct": true,
+       "consequence": "This is the standard position."
+      },
+      {
+       "text": "Next to the rod",
+       "consequence": "It is too close and inside the resistance area."
+      },
+      {
+       "text": "Beside the current spike",
+       "consequence": "It is too close to that spike, and the reading is invalid."
+      }
+     ]
+    },
+    {
+     "id": "spread",
+     "afterStep": 6,
+     "prompt": "The three readings differ by about 20%. What do you do?",
+     "options": [
+      {
+       "text": "Report only the lowest one",
+       "consequence": "A flattering value hides the problem."
+      },
+      {
+       "text": "Move the spikes further and retest",
+       "correct": true,
+       "consequence": "The spikes are likely in the resistance area, so retest."
+      },
+      {
+       "text": "Average them all the same and write that down",
+       "consequence": "The agreement test has failed, so the average means little."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "agree",
+     "prompt": "What shows that the spikes are well placed?",
+     "options": [
+      {
+       "text": "The third reading is double the first",
+       "why": "The spikes may be too close."
+      },
+      {
+       "text": "All three read OL",
+       "why": "The circuit is open."
+      },
+      {
+       "text": "The readings rise with each test",
+       "why": "That is not agreement."
+      },
+      {
+       "text": "The three readings agree within about 5%",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "avg",
+     "prompt": "Readings are {a} Ω, {b} Ω and {c} Ω. What is the electrode resistance?",
+     "formula": "(a + b + c) / 3",
+     "vars": {
+      "a": {
+       "min": 18,
+       "max": 19,
+       "step": 0.5
+      },
+      "b": {
+       "min": 18.5,
+       "max": 19.5,
+       "step": 0.5
+      },
+      "c": {
+       "min": 19,
+       "max": 20,
+       "step": 0.5
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "Average = ({a} + {b} + {c}) ÷ 3 = {answer} Ω."
+    },
+    {
+     "id": "spike",
+     "prompt": "The current spike is {d} m from the rod. How far is the potential spike at 62%, in metres?",
+     "formula": "0.62 * d",
+     "vars": {
+      "d": {
+       "min": 25,
+       "max": 30,
+       "step": 1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "0.62 × {d} = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "earth-report",
+     "scenario": "Kunle's earth rod test is not accepted. Here is what he did.",
+     "lines": [
+      {
+       "text": "He took one reading only.",
+       "fault": true,
+       "why": "Three positions are needed to show agreement."
+      },
+      {
+       "text": "He used an undersized earthing conductor.",
+       "fault": true,
+       "why": "It must be properly sized."
+      },
+      {
+       "text": "He put a spike beside a buried steel pipe.",
+       "fault": true,
+       "why": "Spikes must be clear of buried metal."
+      },
+      {
+       "text": "He fitted the safety label.",
+       "why": "That is required."
+      },
+      {
+       "text": "He made the clamp tight.",
+       "why": "That keeps the connection good."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Give two reasons for earthing an electrical installation.",
+    "explainGuide": "Earthing keeps exposed metal safe if a fault makes it live, and it carries fault current so that fuses or breakers operate quickly.",
+    "explainKeywords": [
+     [
+      "metal",
+      "shock",
+      "safe"
+     ],
+     [
+      "fault",
+      "current"
+     ],
+     [
+      "fuse",
+      "breaker",
+      "protective",
+      "operate",
+      "trip"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bel-fault-diagnosis-and-repair-of-an-electric-iron-and-a-fluorescent-fitting": {
+   "safety": {
+    "correct": [
+     "Keep the appliance unplugged until all the post-repair tests pass."
+    ],
+    "wrong": [
+     {
+      "text": "Open the iron while it is still plugged in but switched off.",
+      "why": "The element can still be live. Unplug it."
+     },
+     {
+      "text": "Touch the fitting's capacitor terminals as soon as you open it.",
+      "why": "It may hold a charge. Discharge it first."
+     },
+     {
+      "text": "Switch the iron on after repair and skip the earth test.",
+      "why": "An omitted earth test can leave a live body. Always test."
+     },
+     {
+      "text": "Replace a burnt terminal with one of a lower rating you have spare.",
+      "why": "Use the same rating, or it will overheat."
+     },
+     {
+      "text": "Test a hot iron immediately by touching the soleplate.",
+      "why": "It can burn you. Let it cool first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Stocks and dies",
+      "why": "Nothing here is threaded."
+     },
+     {
+      "name": "Oscilloscope",
+      "why": "Open and short faults are found with a meter."
+     },
+     {
+      "name": "Earth loop impedance tester",
+      "why": "An unplugged appliance is checked with the meter and insulation tester."
+     },
+     {
+      "name": "Spirit level",
+      "why": "This is not a fixing job."
+     },
+     {
+      "name": "Copper wire as a fuse replacement",
+      "why": "It gives no protection."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "start",
+     "afterStep": 1,
+     "prompt": "The iron is dead. What do you do first?",
+     "options": [
+      {
+       "text": "Open it while it is plugged in",
+       "consequence": "Testing plugged in is a common, dangerous mistake."
+      },
+      {
+       "text": "Replace the element straight away",
+       "consequence": "You may spend money on the wrong part."
+      },
+      {
+       "text": "Unplug it and inspect visually",
+       "correct": true,
+       "consequence": "Simple faults like a loose flex show up first."
+      }
+     ]
+    },
+    {
+     "id": "ol",
+     "afterStep": 3,
+     "prompt": "The meter shows OL across the iron's supply terminals. What is the fault?",
+     "options": [
+      {
+       "text": "Open circuit in the element path",
+       "correct": true,
+       "consequence": "OL means no path, so the element or its contacts are broken."
+      },
+      {
+       "text": "Short circuit in the element",
+       "consequence": "A short reads close to 0 Ω."
+      },
+      {
+       "text": "Earth fault",
+       "consequence": "That shows up between element and body."
+      }
+     ]
+    },
+    {
+     "id": "after",
+     "afterStep": 6,
+     "prompt": "The iron is reassembled. What comes next?",
+     "options": [
+      {
+       "text": "Test earth continuity and insulation",
+       "correct": true,
+       "consequence": "The appliance is proved safe before it is plugged in."
+      },
+      {
+       "text": "Plug it in to see if it heats",
+       "consequence": "You may energise a dangerous fault."
+      },
+      {
+       "text": "Return it to the owner untested",
+       "consequence": "You have not shown it is safe."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-iron",
+     "prompt": "Which reading fits a healthy 1 000 W, 230 V iron element?",
+     "options": [
+      {
+       "text": "OL",
+       "why": "That is an open circuit."
+      },
+      {
+       "text": "About 5 kΩ",
+       "why": "That would be a heating power of about 10 W."
+      },
+      {
+       "text": "About 53 Ω",
+       "correct": true
+      },
+      {
+       "text": "0 Ω",
+       "why": "That is a short circuit."
+      }
+     ]
+    },
+    {
+     "id": "tube",
+     "prompt": "A tube flickers and will not strike, with good filaments. What is the usual cure?",
+     "options": [
+      {
+       "text": "Reverse the tube",
+       "why": "Reversing a tube is not a cure."
+      },
+      {
+       "text": "Remove the choke",
+       "why": "The fitting needs the choke."
+      },
+      {
+       "text": "Replace the starter",
+       "correct": true
+      },
+      {
+       "text": "Replace the plug top",
+       "why": "That does not affect the strike."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "r-el",
+     "prompt": "A {p} W, 230 V element is tested cold. What is the expected resistance by R = V²/P?",
+     "formula": "230 ^ 2 / p",
+     "vars": {
+      "p": {
+       "min": 500,
+       "max": 2500,
+       "step": 500
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 1,
+     "working": "R = 230² ÷ {p} = {answer} Ω."
+    },
+    {
+     "id": "i-el",
+     "prompt": "A {p} W iron runs on 230 V. What is its normal current?",
+     "formula": "p / 230",
+     "vars": {
+      "p": {
+       "min": 500,
+       "max": 2500,
+       "step": 500
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "I = {p} ÷ 230 = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "iron-shock",
+     "scenario": "A repaired iron gave a customer a shock. Here is what the repairer did.",
+     "lines": [
+      {
+       "text": "He omitted the earth continuity test.",
+       "fault": true,
+       "why": "It should be done on every repair."
+      },
+      {
+       "text": "He tested the iron while it was plugged in.",
+       "fault": true,
+       "why": "Testing live is dangerous and is not the method."
+      },
+      {
+       "text": "He replaced the part with the same rating.",
+       "why": "That is correct."
+      },
+      {
+       "text": "He re-made terminations tightly.",
+       "why": "That is good practice."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must a repaired appliance have earth continuity and insulation tests before it is plugged in?",
+    "explainGuide": "A repair can leave the earth loose or an element touching the body, so the metal could become live. The tests prove it is safe before energising, preventing a shock.",
+    "explainKeywords": [
+     [
+      "earth",
+      "metal",
+      "body"
+     ],
+     [
+      "insulation",
+      "live"
+     ],
+     [
+      "shock",
+      "safe"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  }
+ }
+}

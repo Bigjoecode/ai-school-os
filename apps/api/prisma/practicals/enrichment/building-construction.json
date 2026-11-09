@@ -1,0 +1,4940 @@
+{
+ "subject": "Building Construction",
+ "lessons": {
+  "pr-bcon-using-drawing-instruments-and-building-geometry": {
+   "safety": {
+    "correct": [
+     "Keep the sharp compass point away from your face and from other students."
+    ],
+    "wrong": [
+     {
+      "text": "Cut your paper to size against the T-square edge with a blade.",
+      "why": "Blade nicks ruin the edge. Never cut against it."
+     },
+     {
+      "text": "Toss the compasses across the bench to a friend.",
+      "why": "The point can injure someone. Pass them with the point protected."
+     },
+     {
+      "text": "Carry the dividers in your shirt pocket with the points up.",
+      "why": "The points can stab you. Keep them covered."
+     },
+     {
+      "text": "Lean your whole weight on the set square to stop it moving.",
+      "why": "It can snap and cut you. Hold it lightly and steady."
+     },
+     {
+      "text": "Sharpen your pencil with a razor blade held towards your palm.",
+      "why": "The blade can slip into your hand. Cut away from yourself, or use a sharpener."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hacksaw",
+      "why": "This is a drawing job, and nothing is cut."
+     },
+     {
+      "name": "Felt-tip marker",
+      "why": "It gives a thick line that cannot be erased."
+     },
+     {
+      "name": "Soft 6B pencil",
+      "why": "It smudges and gives wide lines. Use 2H and HB."
+     },
+     {
+      "name": "Sellotape on the drawing face",
+      "why": "It tears the paper when removed. Use masking tape."
+     },
+     {
+      "name": "Wooden school ruler with a nicked edge",
+      "why": "Nicks spoil the line. Use the scale rule and set squares."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "fix",
+     "afterStep": 1,
+     "prompt": "You lay the paper on the board. How do you fix it?",
+     "options": [
+      {
+       "text": "Hold it with one hand while drawing",
+       "consequence": "The paper moves, and accuracy is lost."
+      },
+      {
+       "text": "Line its edge along the T-square, then tape the corners",
+       "correct": true,
+       "consequence": "The paper is square, so horizontals run true."
+      },
+      {
+       "text": "Tape it down at any angle, then draw your lines from there",
+       "consequence": "All your lines sit off the paper edge."
+      }
+     ]
+    },
+    {
+     "id": "arcs",
+     "afterStep": 3,
+     "prompt": "You have bisected a line. What do you do with the construction arcs?",
+     "options": [
+      {
+       "text": "Leave them light and visible",
+       "correct": true,
+       "consequence": "They prove your method and earn marks."
+      },
+      {
+       "text": "Erase them completely",
+       "consequence": "You lose the proof of your method."
+      },
+      {
+       "text": "Darken them like outlines",
+       "consequence": "They then compete with the finished lines."
+      }
+     ]
+    },
+    {
+     "id": "line-in",
+     "afterStep": 7,
+     "prompt": "You are lining in the finished figure. Which lines do you aim for?",
+     "options": [
+      {
+       "text": "Thick and thin lines at random",
+       "consequence": "Uneven line weights lose marks."
+      },
+      {
+       "text": "Firm lines of even weight",
+       "correct": true,
+       "consequence": "This is what line-quality marks reward."
+      },
+      {
+       "text": "Light lines, like the construction",
+       "consequence": "The figure does not stand out."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-sheet",
+     "prompt": "Which sheet would earn line-quality marks?",
+     "options": [
+      {
+       "text": "Clean outlines with all arcs rubbed out",
+       "why": "The method is then not shown."
+      },
+      {
+       "text": "Faint outlines with heavy construction",
+       "why": "That is the wrong way round."
+      },
+      {
+       "text": "Light construction lines left in, with firm outlines",
+       "correct": true
+      },
+      {
+       "text": "All lines drawn at the same heavy weight, to look bold",
+       "why": "Nothing stands out."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "arch",
+     "prompt": "A segmental arch has a span of 1 200 mm and a rise of {h} mm. What is the radius, using r = (s²/4 + h²)/(2h)?",
+     "formula": "(360000 + h^2) / (2 * h)",
+     "vars": {
+      "h": {
+       "min": 200,
+       "max": 400,
+       "step": 100
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "rel": 0.005
+     },
+     "decimals": 0,
+     "working": "r = (600² + {h}²) ÷ (2 × {h}) = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "sheet-fault",
+     "scenario": "Binta's geometry sheet is marked down. Here is what she did.",
+     "lines": [
+      {
+       "text": "She kept working with a blunt pencil.",
+       "fault": true,
+       "why": "Blunt pencils widen the lines, and accuracy falls."
+      },
+      {
+       "text": "She used uneven line weights on the outlines.",
+       "fault": true,
+       "why": "Line quality earns marks."
+      },
+      {
+       "text": "She did her lettering freehand and untidily.",
+       "fault": true,
+       "why": "Neat lettering is marked."
+      },
+      {
+       "text": "She worked from the left to avoid smudging.",
+       "why": "That is a good habit."
+      },
+      {
+       "text": "She drew the border and title block early.",
+       "why": "The procedure asks for this."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why should construction lines be left visible on a geometry sheet?",
+    "explainGuide": "Light construction lines and arcs prove the method used, so the examiner can see that the figure was constructed and not guessed.",
+    "explainKeywords": [
+     [
+      "construction",
+      "arc"
+     ],
+     [
+      "method",
+      "prove",
+      "show"
+     ],
+     [
+      "examiner",
+      "marks",
+      "guess"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-using-scales-in-building-drawing": {
+   "safety": {
+    "correct": [
+     "Keep the scale rule's edge clean so that its divisions stay readable."
+    ],
+    "wrong": [
+     {
+      "text": "Cut paper against the scale rule edge.",
+      "why": "Cutting damages the edge and the scale marks."
+     },
+     {
+      "text": "Use the scale rule as a straight-edge for your pen lines.",
+      "why": "Ink and nicks spoil the graduations. Use the set square."
+     },
+     {
+      "text": "Leave the scale rule hanging over the edge of the bench.",
+      "why": "It can fall and chip. Keep it on the board."
+     },
+     {
+      "text": "Clean the scale rule by scraping with a blade.",
+      "why": "Scraping removes the markings. Wipe it with a soft cloth."
+     },
+     {
+      "text": "Press the rule into the paper with your sharp pencil point.",
+      "why": "This nicks the edge and the paper. Rest it lightly."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Tape rule 30 m",
+      "why": "It measures on site. For drawing, the scale rule is used."
+     },
+     {
+      "name": "Surveyor's chain",
+      "why": "This is a site tool, not a drawing tool."
+     },
+     {
+      "name": "Protractor as a length measure",
+      "why": "It measures angles, not lengths."
+     },
+     {
+      "name": "Spirit level",
+      "why": "Nothing on a drawing needs levelling."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing here is cut."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "back",
+     "afterStep": 5,
+     "prompt": "A line is 60 mm on a 1:50 drawing. How do you find the real length?",
+     "options": [
+      {
+       "text": "Add 50 to get 110 mm",
+       "consequence": "A scale is a ratio, not an addition."
+      },
+      {
+       "text": "Multiply by 50 to get 3 000 mm",
+       "correct": true,
+       "consequence": "Going from drawing to real, you multiply."
+      },
+      {
+       "text": "Divide by 50 to get 1.2 mm",
+       "consequence": "Dividing is for real to drawn size."
+      }
+     ]
+    },
+    {
+     "id": "face",
+     "afterStep": 3,
+     "prompt": "You are drawing at 1:50. Which face of the rule do you use?",
+     "options": [
+      {
+       "text": "The 1:5/1:50 face, reading the 1:50 markings",
+       "correct": true,
+       "consequence": "The direct reading is right."
+      },
+      {
+       "text": "The 1:100/1:200 face, doubling by eye",
+       "consequence": "This invites mistakes."
+      },
+      {
+       "text": "Any face, then correct it later",
+       "consequence": "The wrong face gives the wrong size."
+      }
+     ]
+    },
+    {
+     "id": "which",
+     "afterStep": 1,
+     "prompt": "You must draw a 900 mm wide door section to show rebates. Which scale do you choose?",
+     "options": [
+      {
+       "text": "1:5",
+       "correct": true,
+       "consequence": "Large scales show the detail."
+      },
+      {
+       "text": "1:200",
+       "consequence": "Rebates would be too small to see."
+      },
+      {
+       "text": "1:1250",
+       "consequence": "That suits a location plan."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "check",
+     "prompt": "You measure back a drawn wall. What shows the work is right?",
+     "options": [
+      {
+       "text": "It is 2 mm off for every 100 mm",
+       "why": "Check for a wrong face or a copied sheet."
+      },
+      {
+       "text": "It is exactly double the real size",
+       "why": "That is the wrong scale."
+      },
+      {
+       "text": "It is the same as the drawn figure",
+       "why": "The scale has not been applied."
+      },
+      {
+       "text": "It returns the original real dimension",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "drawn",
+     "prompt": "A wall is {l} mm long. How long is it drawn at 1:50, in mm?",
+     "formula": "l / 50",
+     "vars": {
+      "l": {
+       "min": 3000,
+       "max": 6000,
+       "step": 500
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "{l} ÷ 50 = {answer} mm."
+    },
+    {
+     "id": "real",
+     "prompt": "A line is {d} mm long on a 1:100 drawing. What real length does it show, in metres?",
+     "formula": "d * 100 / 1000",
+     "vars": {
+      "d": {
+       "min": 30,
+       "max": 90,
+       "step": 5
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{d} × 100 = real length in mm. Divide by 1000 to get {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bad-size",
+     "scenario": "Efe's plan came out twice the size asked for. Here is what he did.",
+     "lines": [
+      {
+       "text": "He read the wrong face of the scale rule.",
+       "fault": true,
+       "why": "He must read the face for the stated scale."
+      },
+      {
+       "text": "He mixed metres and millimetres in his sums.",
+       "fault": true,
+       "why": "Building drawings are in millimetres."
+      },
+      {
+       "text": "He stated the scale in the title block.",
+       "why": "That is required."
+      },
+      {
+       "text": "He read the written scale before measuring.",
+       "why": "That is the right habit."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why should you always read the scale written on a drawing, and not trust a printed copy alone?",
+    "explainGuide": "A photocopy can enlarge or shrink, and paper can shrink too. The written scale and figured dimensions show the true size.",
+    "explainKeywords": [
+     [
+      "photocopy",
+      "copy",
+      "shrink",
+      "enlarge"
+     ],
+     [
+      "scale"
+     ],
+     [
+      "size",
+      "dimension"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-drawing-the-floor-plan-of-a-bungalow": {
+   "safety": {
+    "correct": [
+     "Pass the templates and instruments by hand; do not slide them across other students' work."
+    ],
+    "wrong": [
+     {
+      "text": "Leave the open compasses on the board beside your plan.",
+      "why": "The point can stab you. Close and protect them."
+     },
+     {
+      "text": "Spread your bag and books on the drawing board.",
+      "why": "You will smudge the sheet. Keep the area tidy."
+     },
+     {
+      "text": "Rest your food on the board while drawing.",
+      "why": "Grease and crumbs spoil the sheet. Keep it clear."
+     },
+     {
+      "text": "Put instruments on the floor by your feet.",
+      "why": "They can break or trip someone. Keep them in their box."
+     },
+     {
+      "text": "Rub out on the sheet with a wet finger.",
+      "why": "It tears the paper. Use the eraser and shield."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Road map of the state",
+      "why": "A plan needs only the sketch given."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It is a site tool. This is drawn at the board."
+     },
+     {
+      "name": "Tape rule 30 m",
+      "why": "Use the scale rule at the board."
+     },
+     {
+      "name": "Colour paint",
+      "why": "This is a technical drawing, not a painting."
+     },
+     {
+      "name": "French curve",
+      "why": "Walls are straight lines."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "walls-first",
+     "afterStep": 2,
+     "prompt": "How do you start the walls?",
+     "options": [
+      {
+       "text": "Heavy lines straight away",
+       "consequence": "Errors cannot be cleaned up easily."
+      },
+      {
+       "text": "Same thickness for all walls, drawn firmly first",
+       "consequence": "External and internal walls differ."
+      },
+      {
+       "text": "Thin lines first, 225 mm and 150 mm",
+       "correct": true,
+       "consequence": "You can correct errors before lining in."
+      }
+     ]
+    },
+    {
+     "id": "door-swing",
+     "afterStep": 3,
+     "prompt": "The door between bedroom and corridor needs a swing. Which way?",
+     "options": [
+      {
+       "text": "Into the corridor",
+       "consequence": "It would obstruct people."
+      },
+      {
+       "text": "Both ways, on one sheet",
+       "consequence": "A door has a single swing."
+      },
+      {
+       "text": "Into the room",
+       "correct": true,
+       "consequence": "The corridor stays clear."
+      }
+     ]
+    },
+    {
+     "id": "sum",
+     "afterStep": 6,
+     "prompt": "The running dimensions do not add to the overall. What do you do?",
+     "options": [
+      {
+       "text": "Check and fix them so they agree",
+       "correct": true,
+       "consequence": "Contradictions are removed."
+      },
+      {
+       "text": "Leave both figures in and let the builder decide",
+       "consequence": "Contradictory dimensions lose marks."
+      },
+      {
+       "text": "Delete the overall one",
+       "consequence": "Both are needed."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "complete",
+     "prompt": "Which plan is complete?",
+     "options": [
+      {
+       "text": "It has a title block, scale and room names, but no dimensions at all",
+       "why": "A plan needs dimensions."
+      },
+      {
+       "text": "It has dimensions, room names, north point, scale and title block",
+       "correct": true
+      },
+      {
+       "text": "It has rooms but no north point",
+       "why": "The north point must be shown."
+      },
+      {
+       "text": "It has dimensions but no room names",
+       "why": "Room names earn marks."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "area",
+     "prompt": "A bedroom measures {a} m by {b} m. What is the floor area?",
+     "formula": "a * b",
+     "vars": {
+      "a": {
+       "min": 3,
+       "max": 4.2,
+       "step": 0.3
+      },
+      "b": {
+       "min": 3,
+       "max": 3.6,
+       "step": 0.3
+      }
+     },
+     "unit": "m²",
+     "unitAliases": [
+      "m2",
+      "sq m",
+      "square metres"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{a} × {b} = {answer} m²."
+    },
+    {
+     "id": "external",
+     "prompt": "A room is {w} mm wide between two 225 mm external walls. What is the external dimension, in mm?",
+     "formula": "w + 2 * 225",
+     "vars": {
+      "w": {
+       "min": 3000,
+       "max": 4500,
+       "step": 300
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{w} + 2 × 225 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "plan-fault",
+     "scenario": "Rita's bungalow plan loses marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She drew walls and fittings at one line weight.",
+       "fault": true,
+       "why": "Walls should stand out."
+      },
+      {
+       "text": "She left out the north point.",
+       "fault": true,
+       "why": "It shows the building's orientation."
+      },
+      {
+       "text": "She gave running dimensions that disagree with the overall.",
+       "fault": true,
+       "why": "Dimensions must agree."
+      },
+      {
+       "text": "She used 225 mm for external walls.",
+       "why": "That is the common thickness."
+      },
+      {
+       "text": "She hatched the cut walls.",
+       "why": "That is the convention."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are door swings drawn into rooms, not into corridors?",
+    "explainGuide": "A door opening into a corridor would obstruct people moving along it. Opening into the room keeps the passage clear and safe.",
+    "explainKeywords": [
+     [
+      "corridor",
+      "passage"
+     ],
+     [
+      "obstruct",
+      "block",
+      "clear"
+     ],
+     [
+      "people",
+      "moving",
+      "safe"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-drawing-elevations-and-a-vertical-section": {
+   "safety": {
+    "correct": [
+     "Wash graphite off your hands before handling a finished sheet."
+    ],
+    "wrong": [
+     {
+      "text": "Wipe the set squares on your clothes, then use them straight away.",
+      "why": "Dirt smudges the sheet. Clean them with a dry cloth first."
+     },
+     {
+      "text": "Sharpen your pencil over the sheet.",
+      "why": "Graphite dust smudges the drawing. Sharpen it away from the board."
+     },
+     {
+      "text": "Use a wet rag on the T-square just before drawing.",
+      "why": "Damp instruments mark the paper. Dry them."
+     },
+     {
+      "text": "Rest hatching templates on freshly lined work and drag them.",
+      "why": "This smudges the lines. Lift them when moving."
+     },
+     {
+      "text": "Sweep rubbings off with your palm across the sheet.",
+      "why": "Your hand smears the graphite. Use a soft brush."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dumpy level",
+      "why": "Heights here are set out on paper."
+     },
+     {
+      "name": "Plumb bob",
+      "why": "This is a site tool, not a drawing instrument."
+     },
+     {
+      "name": "Measuring tape 30 m",
+      "why": "The scale rule is used at the board."
+     },
+     {
+      "name": "Trowel",
+      "why": "Nothing is being built."
+     },
+     {
+      "name": "Tracing wheel",
+      "why": "It is not part of this projection method."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "project",
+     "afterStep": 1,
+     "prompt": "How do you get window positions onto the elevation?",
+     "options": [
+      {
+       "text": "Estimate them by eye",
+       "consequence": "The views no longer agree."
+      },
+      {
+       "text": "Project them down from the plan",
+       "correct": true,
+       "consequence": "The views agree."
+      },
+      {
+       "text": "Re-measure them for each view",
+       "consequence": "Errors creep in."
+      }
+     ]
+    },
+    {
+     "id": "section-items",
+     "afterStep": 6,
+     "prompt": "Your section stops at the wall and floor. What must also be shown?",
+     "options": [
+      {
+       "text": "Trees and clouds behind the building",
+       "consequence": "That is rendering. A section shows construction."
+      },
+      {
+       "text": "The DPC, the DPM and the strip foundation",
+       "correct": true,
+       "consequence": "All elements are present."
+      },
+      {
+       "text": "The furniture in each room",
+       "consequence": "This is not part of a section."
+      }
+     ]
+    },
+    {
+     "id": "hatch",
+     "afterStep": 7,
+     "prompt": "Which items do you hatch?",
+     "options": [
+      {
+       "text": "Everything seen in the view beyond the cut",
+       "consequence": "Hatching uncut items is a common mistake."
+      },
+      {
+       "text": "Nothing at all",
+       "consequence": "Cut materials need hatching."
+      },
+      {
+       "text": "Only materials cut by the section",
+       "correct": true,
+       "consequence": "That follows the convention."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "align",
+     "prompt": "What shows that the views are correct?",
+     "options": [
+      {
+       "text": "Window heights differ between views",
+       "why": "Heights must agree."
+      },
+      {
+       "text": "The section has no labels",
+       "why": "Labels earn marks."
+      },
+      {
+       "text": "Each elevation lines up with the plan",
+       "correct": true
+      },
+      {
+       "text": "The elevation is bigger than the plan",
+       "why": "Both should be at one scale."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rise",
+     "prompt": "A 30° roof has a half-span of {h} m. Taking tan 30° as 0.577, what is its rise?",
+     "formula": "h * 0.577",
+     "vars": {
+      "h": {
+       "min": 3,
+       "max": 6,
+       "step": 0.5
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{h} × 0.577 = {answer} m."
+    },
+    {
+     "id": "wall",
+     "prompt": "The floor is {f} mm above ground and the wall plate is 3 000 mm above floor. How high is the wall plate above ground, in mm?",
+     "formula": "f + 3000",
+     "vars": {
+      "f": {
+       "min": 150,
+       "max": 450,
+       "step": 150
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{f} + 3000 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "section-fault",
+     "scenario": "Paul's section loses marks. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left out the DPC and the DPM.",
+       "fault": true,
+       "why": "Both are needed to show damp protection."
+      },
+      {
+       "text": "He hatched uncut items.",
+       "fault": true,
+       "why": "Only cut materials are hatched."
+      },
+      {
+       "text": "He used different heights on the elevation and section.",
+       "fault": true,
+       "why": "Heights must agree."
+      },
+      {
+       "text": "He drew arrows on his section line.",
+       "why": "They show the direction of viewing."
+      },
+      {
+       "text": "He labelled elements with leaders.",
+       "why": "Each correct label earns marks."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a damp-proof course placed in a wall?",
+    "explainGuide": "Moisture rises from the ground through blockwork. A DPC forms a barrier that stops rising damp reaching the walls above it.",
+    "explainKeywords": [
+     [
+      "damp",
+      "moisture"
+     ],
+     [
+      "rising",
+      "rises",
+      "ground"
+     ],
+     [
+      "barrier",
+      "stop",
+      "prevent"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-door-and-window-details-and-schedule": {
+   "safety": {
+    "correct": [
+     "Check hands for splinters after handling the sample frame."
+    ],
+    "wrong": [
+     {
+      "text": "Run your bare hand down the old door sample to feel the moulding.",
+      "why": "There may be nails and splinters. Look first."
+     },
+     {
+      "text": "Lift the sample door alone and carry it across the room.",
+      "why": "It is heavy and awkward. Get help."
+     },
+     {
+      "text": "Lean the sample window against the wall on its glass.",
+      "why": "Glass can crack and cut. Stand it safely on its frame."
+     },
+     {
+      "text": "Pull a loose nail out with your fingers.",
+      "why": "You may tear your skin. Tell your teacher."
+     },
+     {
+      "text": "Stand on a stool to photograph the door head.",
+      "why": "A fall is more likely. Work from the floor or ask for help."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Mortise chisel",
+      "why": "Details are being drawn, not cut."
+     },
+     {
+      "name": "Tenon saw",
+      "why": "This is a drawing job."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It has no use at the drawing board."
+     },
+     {
+      "name": "Paint brush",
+      "why": "Nothing is being finished."
+     },
+     {
+      "name": "Vernier calipers",
+      "why": "Standard sizes and the scale rule are enough."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "section-scale",
+     "afterStep": 2,
+     "prompt": "Which scale shows the rebates best?",
+     "options": [
+      {
+       "text": "1:100",
+       "consequence": "They would vanish."
+      },
+      {
+       "text": "1:50",
+       "consequence": "They remain too small."
+      },
+      {
+       "text": "1:5",
+       "correct": true,
+       "consequence": "Large scales show the rebates clearly."
+      }
+     ]
+    },
+    {
+     "id": "rebate",
+     "afterStep": 2,
+     "prompt": "How do you draw the frame?",
+     "options": [
+      {
+       "text": "As a plain flat rectangle around the door leaf",
+       "consequence": "Omitting a rebate is a common mistake."
+      },
+      {
+       "text": "With no frame at all",
+       "consequence": "A door hangs on a frame."
+      },
+      {
+       "text": "With a rebate for the door to close against",
+       "correct": true,
+       "consequence": "It shows a real, weatherproof frame."
+      }
+     ]
+    },
+    {
+     "id": "ironmongery",
+     "afterStep": 5,
+     "prompt": "You are completing the schedule. What must not be left out?",
+     "options": [
+      {
+       "text": "The cost of painting each door",
+       "consequence": "Costing is not part of this schedule."
+      },
+      {
+       "text": "The wall colour of each room",
+       "consequence": "That is a finishes matter, not part of this schedule."
+      },
+      {
+       "text": "Ironmongery",
+       "correct": true,
+       "consequence": "This is often forgotten and loses marks."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "sched",
+     "prompt": "What shows that a schedule is right?",
+     "options": [
+      {
+       "text": "There are more windows in the schedule than the plan shows",
+       "why": "Numbers must match the plan."
+      },
+      {
+       "text": "Doors and windows share a reference",
+       "why": "Each needs its own reference."
+      },
+      {
+       "text": "Each opening has one reference and a consistent size",
+       "correct": true
+      },
+      {
+       "text": "D1 has two different sizes",
+       "why": "Sizes must be consistent."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "glass",
+     "prompt": "The schedule lists W1, 1 200 × 1 200 mm, {n} No. What total opening area is this?",
+     "formula": "1.2 * 1.2 * n",
+     "vars": {
+      "n": {
+       "min": 2,
+       "max": 8,
+       "step": 1
+      }
+     },
+     "unit": "m²",
+     "unitAliases": [
+      "m2",
+      "sq m"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "1.2 × 1.2 × {n} = {answer} m²."
+    },
+    {
+     "id": "door-draw",
+     "prompt": "A door is {h} mm high. How high is it drawn at 1:20, in mm?",
+     "formula": "h / 20",
+     "vars": {
+      "h": {
+       "min": 2000,
+       "max": 2400,
+       "step": 100
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "{h} ÷ 20 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "detail-fault",
+     "scenario": "Mary's door detail and schedule lost marks. Here is what she did.",
+     "lines": [
+      {
+       "text": "She left ironmongery out of the schedule.",
+       "fault": true,
+       "why": "It should be listed."
+      },
+      {
+       "text": "She drew the door frame without a rebate.",
+       "fault": true,
+       "why": "A door needs one to close against."
+      },
+      {
+       "text": "She mis-numbered two windows.",
+       "fault": true,
+       "why": "References must match the plan."
+      },
+      {
+       "text": "She used 1:5 for the section.",
+       "why": "That shows the rebates."
+      },
+      {
+       "text": "She labelled stiles, rails and panels.",
+       "why": "That is what is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is the purpose of a door and window schedule?",
+    "explainGuide": "It lists the reference, size, type, material, ironmongery and quantity of each opening in one table, so the builder can order and fix them correctly.",
+    "explainKeywords": [
+     [
+      "reference",
+      "size",
+      "type",
+      "quantity",
+      "material"
+     ],
+     [
+      "list",
+      "table"
+     ],
+     [
+      "order",
+      "builder",
+      "fix"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-isometric-and-perspective-drawing-of-a-building": {
+   "safety": {
+    "correct": [
+     "Close the compasses and dividers as soon as you finish with them."
+    ],
+    "wrong": [
+     {
+      "text": "Leave loose instruments at the bench edge where they can fall.",
+      "why": "They can break or injure a foot. Keep the area clear."
+     },
+     {
+      "text": "Hold the set square against your chest while drawing.",
+      "why": "This is not stable, and it can cut you. Keep it on the board."
+     },
+     {
+      "text": "Leave pencils on the T-square so they roll to the floor.",
+      "why": "Falling pencils break their leads and can trip people. Use a tray."
+     },
+     {
+      "text": "Reach across another student's sheet while they are lining in.",
+      "why": "This jogs their hand and can smudge the work. Walk round."
+     },
+     {
+      "text": "Use a compass point as a pointer when explaining.",
+      "why": "You could hurt someone. Point with a closed pencil."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Protractor set to 45°",
+      "why": "Isometric axes are at 30°, set with the 30°/60° square."
+     },
+     {
+      "name": "45° set square alone",
+      "why": "It cannot give the 30° axes."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It has no use here."
+     },
+     {
+      "name": "Ink pad",
+      "why": "Pictorials are lined in by pencil."
+     },
+     {
+      "name": "Bow saw",
+      "why": "Nothing is being cut."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "axes",
+     "afterStep": 1,
+     "prompt": "How do you set up the axes?",
+     "options": [
+      {
+       "text": "All three at 60°",
+       "consequence": "That does not fit the method."
+      },
+      {
+       "text": "One vertical, two at 30° to the horizontal",
+       "correct": true,
+       "consequence": "Those are isometric axes."
+      },
+      {
+       "text": "Two horizontal axes, and one drawn at 45° to them",
+       "consequence": "That is an oblique arrangement, not isometric."
+      }
+     ]
+    },
+    {
+     "id": "slope",
+     "afterStep": 3,
+     "prompt": "How do you draw a sloping roof edge?",
+     "options": [
+      {
+       "text": "Measure along the slope with the scale rule",
+       "consequence": "Sloping lines are not true lengths."
+      },
+      {
+       "text": "Draw it at 30° with no measurement",
+       "consequence": "The pitch would be wrong."
+      },
+      {
+       "text": "Plot its end points, then join them",
+       "correct": true,
+       "consequence": "Non-isometric lengths are plotted."
+      }
+     ]
+    },
+    {
+     "id": "vp",
+     "afterStep": 4,
+     "prompt": "How far apart should the vanishing points be?",
+     "options": [
+      {
+       "text": "Exactly on the leading edge",
+       "consequence": "They would not work there."
+      },
+      {
+       "text": "Far apart",
+       "correct": true,
+       "consequence": "That avoids distortion."
+      },
+      {
+       "text": "Very close together",
+       "consequence": "This gives a distorted view."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "persp",
+     "prompt": "What does a good two-point perspective show?",
+     "options": [
+      {
+       "text": "Lines moving apart with distance",
+       "why": "That is the reverse."
+      },
+      {
+       "text": "Parallel lines converging to the vanishing points",
+       "correct": true
+      },
+      {
+       "text": "All parallel lines remaining parallel across the sheet",
+       "why": "That is isometric."
+      },
+      {
+       "text": "Verticals leaning to a third point",
+       "why": "That is three-point perspective."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "iso",
+     "prompt": "A {l} m wall is drawn along an isometric axis at 1:50. What is the drawn length, in mm?",
+     "formula": "l * 1000 / 50",
+     "vars": {
+      "l": {
+       "min": 2,
+       "max": 6,
+       "step": 0.5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "{l} × 1000 ÷ 50 = {answer} mm."
+    },
+    {
+     "id": "proj",
+     "prompt": "A line of {l} mm is drawn in true isometric projection, at scale factor 0.816. What is its length, in mm?",
+     "formula": "l * 0.816",
+     "vars": {
+      "l": {
+       "min": 50,
+       "max": 100,
+       "step": 10
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 1,
+     "working": "{l} × 0.816 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "iso-fault",
+     "scenario": "Bello's pictorial looks wrong. Here is what he did.",
+     "lines": [
+      {
+       "text": "He measured sloping lines directly.",
+       "fault": true,
+       "why": "Only lines along the axes are true length."
+      },
+      {
+       "text": "He placed the horizon line too high.",
+       "fault": true,
+       "why": "This makes the building look odd."
+      },
+      {
+       "text": "He stated the type of pictorial view.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He boxed in the building first.",
+       "why": "That is a sound way to start."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why can lengths be measured directly only along isometric axes?",
+    "explainGuide": "Lines on the axes keep their true length in an isometric drawing. Lines that do not lie along the axes are distorted, so their end points are plotted instead.",
+    "explainKeywords": [
+     [
+      "axes",
+      "axis"
+     ],
+     [
+      "true",
+      "length"
+     ],
+     [
+      "plot",
+      "distort",
+      "end point"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-setting-out-a-building-by-the-3-4-5-method": {
+   "safety": {
+    "correct": [
+     "Keep clear when a partner is driving a peg with the mallet."
+    ],
+    "wrong": [
+     {
+      "text": "Leave pegs unmarked, as they will be gone by next week.",
+      "why": "People trip on them. Mark them with bright tape."
+     },
+     {
+      "text": "Work in slippers because the site is level.",
+      "why": "Boots protect you from nails and pegs. Wear safety boots."
+     },
+     {
+      "text": "Hold the peg with your bare hand while your partner swings the mallet.",
+      "why": "The mallet can crush your fingers. Wear gloves and start the peg before standing clear."
+     },
+     {
+      "text": "Throw a peg to your partner across the site.",
+      "why": "It can hit someone. Hand it over."
+     },
+     {
+      "text": "Leave the tape lying across the path of a working vehicle.",
+      "why": "It can be damaged, and people can trip on it. Keep it clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dumpy level alone for right angles",
+      "why": "It levels, but the 3:4:5 triangle sets the right angle."
+     },
+     {
+      "name": "Chalk line as the only tape",
+      "why": "It marks lines but does not measure."
+     },
+     {
+      "name": "Concrete mixer",
+      "why": "This is only setting out."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "No metal is cut."
+     },
+     {
+      "name": "Plumb bob for the diagonal check",
+      "why": "Diagonals are measured with the tape."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "triangle",
+     "afterStep": 3,
+     "prompt": "AC is 3.6 m. What tape lengths find D?",
+     "options": [
+      {
+       "text": "4.8 m from A and 6.0 m from C",
+       "correct": true,
+       "consequence": "That is 3:4:5 multiplied by 1.2."
+      },
+      {
+       "text": "6.0 m from A and 4.8 m from C",
+       "consequence": "This puts the right angle at the wrong corner."
+      },
+      {
+       "text": "3.6 m from A and 3.6 m from C",
+       "consequence": "This is not a right-angled triangle."
+      }
+     ]
+    },
+    {
+     "id": "profile",
+     "afterStep": 6,
+     "prompt": "Where do the profile boards go?",
+     "options": [
+      {
+       "text": "On the centre line of the wall",
+       "consequence": "They are in the dig zone."
+      },
+      {
+       "text": "Clear of the trench",
+       "correct": true,
+       "consequence": "They survive digging, so lines can be restored."
+      },
+      {
+       "text": "Inside the trench line",
+       "consequence": "They get in the way and are lost."
+      }
+     ]
+    },
+    {
+     "id": "diag",
+     "afterStep": 5,
+     "prompt": "Your diagonals differ by 80 mm. What do you do?",
+     "options": [
+      {
+       "text": "Average them and carry on",
+       "consequence": "The building is out of square."
+      },
+      {
+       "text": "Dig anyway and fix it later",
+       "consequence": "Errors get built in."
+      },
+      {
+       "text": "Adjust the pegs and recheck",
+       "correct": true,
+       "consequence": "Only equal diagonals prove squareness."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "square",
+     "prompt": "What shows that the building is square?",
+     "options": [
+      {
+       "text": "The pegs stand vertical",
+       "why": "This alone does not prove square."
+      },
+      {
+       "text": "The diagonals are equal within a few millimetres",
+       "correct": true
+      },
+      {
+       "text": "One diagonal measures 100 mm longer than the other",
+       "why": "It is out of square."
+      },
+      {
+       "text": "The front wall is level",
+       "why": "Level does not prove square."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-diag",
+     "prompt": "A building is {a} m by {b} m. What is its diagonal?",
+     "formula": "sqrt(a^2 + b^2)",
+     "vars": {
+      "a": {
+       "min": 9,
+       "max": 12,
+       "step": 1
+      },
+      "b": {
+       "min": 5,
+       "max": 7,
+       "step": 1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "√({a}² + {b}²) = {answer} m."
+    },
+    {
+     "id": "triple",
+     "prompt": "You multiply the 3:4:5 triangle by {k}. What is the longest side, in metres?",
+     "formula": "5 * k",
+     "vars": {
+      "k": {
+       "min": 1,
+       "max": 2,
+       "step": 0.2
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "5 × {k} = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "peg-fault",
+     "scenario": "Danjuma's corners came out out of square. Here is what he did.",
+     "lines": [
+      {
+       "text": "He did not check the diagonals.",
+       "fault": true,
+       "why": "This is the proof of squareness."
+      },
+      {
+       "text": "He let the tape sag.",
+       "fault": true,
+       "why": "Tapes must be taut and level."
+      },
+      {
+       "text": "He put profile boards inside the trench area.",
+       "fault": true,
+       "why": "They must stand clear."
+      },
+      {
+       "text": "He used the largest practicable triangle.",
+       "why": "That improves accuracy."
+      },
+      {
+       "text": "He marked his pegs with bright tape.",
+       "why": "That prevents trips."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does a triangle with sides of 3, 4 and 5 units give a right angle?",
+    "explainGuide": "By Pythagoras' theorem 3² + 4² = 5², so the angle opposite the longest side is exactly 90°.",
+    "explainKeywords": [
+     [
+      "pythagoras"
+     ],
+     [
+      "square",
+      "25"
+     ],
+     [
+      "90",
+      "right"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-site-levelling-with-a-dumpy-level": {
+   "safety": {
+    "correct": [
+     "Watch where you step when walking backwards with the staff."
+    ],
+    "wrong": [
+     {
+      "text": "Raise the staff near the power line above the site to get a clear reading.",
+      "why": "A staff near overhead cables can cause a fatal shock. Look up first and move away."
+     },
+     {
+      "text": "Stand the tripod in the path of the tipper for the clearest view.",
+      "why": "Keep clear of moving plant. Choose another spot."
+     },
+     {
+      "text": "Leave the level on its tripod and walk away on a busy site.",
+      "why": "It can be knocked down. Stay with it, or carry it safely."
+     },
+     {
+      "text": "Carry the extended staff horizontally through a crowd of workers.",
+      "why": "It can hit people. Close it before moving."
+     },
+     {
+      "text": "Lean the staff against a wall when you go for lunch.",
+      "why": "It can fall and hurt someone. Lay it down safely."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Builder's square",
+      "why": "It sets right angles, not levels."
+     },
+     {
+      "name": "Prismatic compass",
+      "why": "It reads bearings, not heights."
+     },
+     {
+      "name": "Slump cone",
+      "why": "It is for testing concrete."
+     },
+     {
+      "name": "Plumb bob for reading heights",
+      "why": "It gives a vertical, not a staff reading."
+     },
+     {
+      "name": "Theodolite",
+      "why": "Reduced levels here come from the level and staff."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 2,
+     "prompt": "The instrument is level. What is your first reading?",
+     "options": [
+      {
+       "text": "A fore sight on the last point",
+       "consequence": "There is no known height yet."
+      },
+      {
+       "text": "An intermediate sight on any point",
+       "consequence": "You cannot reduce it without the HPC."
+      },
+      {
+       "text": "A back sight on the TBM",
+       "correct": true,
+       "consequence": "It fixes the HPC from a known level."
+      }
+     ]
+    },
+    {
+     "id": "rl-sum",
+     "afterStep": 5,
+     "prompt": "How do you find a point's RL?",
+     "options": [
+      {
+       "text": "HPC minus the staff reading",
+       "correct": true,
+       "consequence": "A larger reading means a lower point."
+      },
+      {
+       "text": "HPC plus the staff reading",
+       "consequence": "Adding is a common mistake."
+      },
+      {
+       "text": "BS plus the staff reading",
+       "consequence": "That leaves out the TBM level."
+      }
+     ]
+    },
+    {
+     "id": "close",
+     "afterStep": 6,
+     "prompt": "The closing error on the TBM is 60 mm. What do you do?",
+     "options": [
+      {
+       "text": "Accept it, since the job is done",
+       "consequence": "Every RL may be wrong."
+      },
+      {
+       "text": "Change the TBM's level to match",
+       "consequence": "A known level must not be altered."
+      },
+      {
+       "text": "Recheck the work and relevel",
+       "correct": true,
+       "consequence": "Such a large error shows a mistake."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "higher",
+     "prompt": "Which staff reading shows the lowest point?",
+     "options": [
+      {
+       "text": "2.150 m",
+       "correct": true
+      },
+      {
+       "text": "0.650 m",
+       "why": "A small reading means a high point."
+      },
+      {
+       "text": "1.250 m",
+       "why": "This is in between."
+      },
+      {
+       "text": "0.950 m",
+       "why": "This is a higher point than the 2.150 m one."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hpc",
+     "prompt": "A TBM has RL 100.000 m and the back sight is {b} m. What is the HPC?",
+     "formula": "100 + b",
+     "vars": {
+      "b": {
+       "min": 1.05,
+       "max": 1.65,
+       "step": 0.05
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.001
+     },
+     "decimals": 3,
+     "working": "HPC = 100.000 + {b} = {answer} m."
+    },
+    {
+     "id": "rl",
+     "prompt": "HPC is 101.250 m and the staff reading at a point is {r} m. What is the RL?",
+     "formula": "101.25 - r",
+     "vars": {
+      "r": {
+       "min": 0.8,
+       "max": 2,
+       "step": 0.1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.001
+     },
+     "decimals": 3,
+     "working": "RL = 101.250 − {r} = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "level-fault",
+     "scenario": "Hassan's level book does not close on the TBM. Here is what he did.",
+     "lines": [
+      {
+       "text": "He let the staff lean while reading it.",
+       "fault": true,
+       "why": "The staff must be vertical."
+      },
+      {
+       "text": "He added staff readings to the HPC.",
+       "fault": true,
+       "why": "Staff readings are subtracted."
+      },
+      {
+       "text": "He moved the instrument without a change point.",
+       "fault": true,
+       "why": "The link to the TBM is lost."
+      },
+      {
+       "text": "He booked BS, IS, FS, HPC, RL and remarks.",
+       "why": "That is the standard table."
+      },
+      {
+       "text": "He levelled the instrument before each reading.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must a levelling run close back on the TBM?",
+    "explainGuide": "Closing on a known level shows the size of any error. A small closing error proves the readings can be trusted.",
+    "explainKeywords": [
+     [
+      "known",
+      "tbm",
+      "bench"
+     ],
+     [
+      "error",
+      "mistake"
+     ],
+     [
+      "check",
+      "prove",
+      "trust",
+      "show"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-trench-excavation-for-a-strip-foundation": {
+   "safety": {
+    "correct": [
+     "Always have someone at the top when you work in a trench."
+    ],
+    "wrong": [
+     {
+      "text": "Pile the spoil right at the edge so that backfilling is easy.",
+      "why": "The weight can collapse the side, and it can fall in. Keep it at least 0.6 m back."
+     },
+     {
+      "text": "Work alone in a deep trench to finish before the rain comes.",
+      "why": "If the side falls, nobody can raise the alarm. Never work alone."
+     },
+     {
+      "text": "Jump down into the trench when you need to get in.",
+      "why": "You may be injured or weaken the side. Use the ladder."
+     },
+     {
+      "text": "Carry on in a loose-soil trench with no support as it looks firm.",
+      "why": "Loose soil can collapse without warning. Support it first."
+     },
+     {
+      "text": "Swing the pick-axe with a workmate bent close beside you.",
+      "why": "The pick can strike them. Keep a safe distance."
+     },
+     {
+      "text": "Work in the trench without a helmet because it is shallow.",
+      "why": "Falling material can hit you. Wear a helmet and boots."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Concrete mixer",
+      "why": "No concrete is placed at this stage."
+     },
+     {
+      "name": "Bricklayer's trowel",
+      "why": "Trenches are dug with picks and shovels."
+     },
+     {
+      "name": "Plumb bob alone for depth",
+      "why": "It cannot check the bottom level. Use a level and gauge rod."
+     },
+     {
+      "name": "Bow saw for digging",
+      "why": "Saws are not digging tools."
+     },
+     {
+      "name": "Hand block mould",
+      "why": "No blocks are being made."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "spoil",
+     "afterStep": 2,
+     "prompt": "Where do you put the spoil?",
+     "options": [
+      {
+       "text": "Right on the trench edge",
+       "consequence": "The weight can cause a collapse."
+      },
+      {
+       "text": "Up against the profile boards, where it is out of the way",
+       "consequence": "This disturbs the setting-out marks."
+      },
+      {
+       "text": "At least 0.6 m from the trench edge",
+       "correct": true,
+       "consequence": "The edge carries less load, and spoil cannot fall in."
+      }
+     ]
+    },
+    {
+     "id": "over",
+     "afterStep": 3,
+     "prompt": "You have dug 50 mm too deep. What do you do?",
+     "options": [
+      {
+       "text": "Throw the soil back in, tread it down lightly and carry on",
+       "consequence": "Loose backfill weakens the base."
+      },
+      {
+       "text": "Say nothing and carry on",
+       "consequence": "The strip may settle unevenly."
+      },
+      {
+       "text": "Tell the supervisor, and follow the specified remedy",
+       "correct": true,
+       "consequence": "Loose fill is avoided, so the base stays strong."
+      }
+     ]
+    },
+    {
+     "id": "water",
+     "afterStep": 5,
+     "prompt": "Rain has left water in the trench. What do you do?",
+     "options": [
+      {
+       "text": "Bail or pump it out before going on",
+       "correct": true,
+       "consequence": "The bottom stays firm for concrete."
+      },
+      {
+       "text": "Pour the concrete into the water",
+       "consequence": "The water spoils the concrete."
+      },
+      {
+       "text": "Wait for it to soak away for weeks",
+       "consequence": "This softens the bottom and delays work."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "ready",
+     "prompt": "Which trench is ready for concrete?",
+     "options": [
+      {
+       "text": "Crumbling sides with water at the bottom",
+       "why": "It is unsafe and not ready."
+      },
+      {
+       "text": "Spoil lying along the edges",
+       "why": "It can fall in, and the trench is unsafe."
+      },
+      {
+       "text": "Vertical sides and a level, rammed bottom",
+       "correct": true
+      },
+      {
+       "text": "A sloping bottom with loose soil",
+       "why": "The concrete would not be of even thickness."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vol",
+     "prompt": "A trench is {l} m long, 0.6 m wide and 0.9 m deep. What is its volume?",
+     "formula": "l * 0.6 * 0.9",
+     "vars": {
+      "l": {
+       "min": 20,
+       "max": 50,
+       "step": 5
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "V = {l} × 0.6 × 0.9 = {answer} m³."
+    },
+    {
+     "id": "bulk",
+     "prompt": "The bank volume is {v} m³ and the soil bulks by 25%. What volume of spoil is carted?",
+     "formula": "v * 1.25",
+     "vars": {
+      "v": {
+       "min": 16,
+       "max": 32,
+       "step": 4
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{v} × 1.25 = {answer} m³."
+    }
+   ],
+   "faults": [
+    {
+     "id": "trench-fault",
+     "scenario": "A trench side slipped on Wale's site. Here is what the team did.",
+     "lines": [
+      {
+       "text": "They piled spoil at the trench edge.",
+       "fault": true,
+       "why": "Spoil must be 0.6 m or more away."
+      },
+      {
+       "text": "One man worked alone in the deep part.",
+       "fault": true,
+       "why": "Nobody should work alone in a deep trench."
+      },
+      {
+       "text": "They left loose sides without support.",
+       "fault": true,
+       "why": "Loose soil needs support."
+      },
+      {
+       "text": "They kept the trench covered during rain.",
+       "why": "That protects it."
+      },
+      {
+       "text": "They provided a ladder.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must spoil be kept away from the edge of a trench?",
+    "explainGuide": "Spoil at the edge adds weight, so the side can collapse, and loose material can fall on people working below.",
+    "explainKeywords": [
+     [
+      "weight",
+      "load",
+      "pressure"
+     ],
+     [
+      "collapse",
+      "side"
+     ],
+     [
+      "fall",
+      "people",
+      "worker"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-casting-a-strip-foundation": {
+   "safety": {
+    "correct": [
+     "Check the trench sides are safe before anyone gets in to place concrete."
+    ],
+    "wrong": [
+     {
+      "text": "Mix and spread concrete with bare hands since it washes off.",
+      "why": "Wet cement burns skin. Wear gloves and boots."
+     },
+     {
+      "text": "Lift a full head pan by bending your back.",
+      "why": "This can injure your spine. Bend your knees, and get help."
+     },
+     {
+      "text": "Tip barrows from a great height into the trench.",
+      "why": "Falling concrete segregates. Place it close to the bottom."
+     },
+     {
+      "text": "Add a lot of water so the concrete spreads with less work.",
+      "why": "Too much water weakens the concrete."
+     },
+     {
+      "text": "Stand barefoot in fresh concrete to level it.",
+      "why": "Wet cement burns skin. Boots are needed, and use the straight edge."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Tenon saw",
+      "why": "No timber joint is cut here."
+     },
+     {
+      "name": "Paint roller",
+      "why": "No surface is being painted."
+     },
+     {
+      "name": "Slump cone only",
+      "why": "It tests workability but does not place concrete."
+     },
+     {
+      "name": "Lime",
+      "why": "Lime is for marking out, not for this mix."
+     },
+     {
+      "name": "Clay soil",
+      "why": "Clay spoils concrete. Use clean sharp sand and granite."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "water",
+     "afterStep": 2,
+     "prompt": "The mix is stiff and the men are tired. What do you do?",
+     "options": [
+      {
+       "text": "Keep to the planned water and mix it fully",
+       "correct": true,
+       "consequence": "Strength is kept."
+      },
+      {
+       "text": "Add plenty of water so that it turns more easily",
+       "consequence": "Too much water is a common mistake and weakens it."
+      },
+      {
+       "text": "Leave out the cement",
+       "consequence": "The concrete would have no real strength."
+      }
+     ]
+    },
+    {
+     "id": "pour",
+     "afterStep": 3,
+     "prompt": "How do you place concrete in the trench?",
+     "options": [
+      {
+       "text": "In one deep layer, not compacted",
+       "consequence": "Voids weaken the strip."
+      },
+      {
+       "text": "In layers, compacting each one",
+       "correct": true,
+       "consequence": "Voids are removed."
+      },
+      {
+       "text": "Dump it all from the top",
+       "consequence": "Concrete segregates, and voids form."
+      }
+     ]
+    },
+    {
+     "id": "cure",
+     "afterStep": 6,
+     "prompt": "The strip is level. What is the final step?",
+     "options": [
+      {
+       "text": "Keep it damp while it cures",
+       "correct": true,
+       "consequence": "It gains its strength."
+      },
+      {
+       "text": "Leave it dry in the sun",
+       "consequence": "Drying early weakens it."
+      },
+      {
+       "text": "Build on it at once",
+       "consequence": "The green concrete can be damaged."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "finish",
+     "prompt": "What does a good finished strip look like?",
+     "options": [
+      {
+       "text": "Honeycombed with voids",
+       "why": "It is poorly compacted."
+      },
+      {
+       "text": "Stones on top with the cement washed away by the water",
+       "why": "It is too wet or segregated."
+      },
+      {
+       "text": "Level with the peg tops and of uniform thickness",
+       "correct": true
+      },
+      {
+       "text": "Thick at one end and thin at the other",
+       "why": "Check the level pegs."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vol",
+     "prompt": "A strip is {l} m long, 0.6 m wide and {t} m thick. What is the concrete volume?",
+     "formula": "l * 0.6 * t",
+     "vars": {
+      "l": {
+       "min": 20,
+       "max": 50,
+       "step": 10
+      },
+      "t": {
+       "min": 0.15,
+       "max": 0.25,
+       "step": 0.05
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "{l} × 0.6 × {t} = {answer} m³."
+    }
+   ],
+   "faults": [
+    {
+     "id": "strip-fault",
+     "scenario": "Abu's strip foundation is honeycombed and cracked. Here is what he did.",
+     "lines": [
+      {
+       "text": "He added too much water.",
+       "fault": true,
+       "why": "This weakens the mix."
+      },
+      {
+       "text": "He did not cure the concrete.",
+       "fault": true,
+       "why": "It needs keeping damp."
+      },
+      {
+       "text": "He dropped concrete from a great height.",
+       "fault": true,
+       "why": "This segregates it."
+      },
+      {
+       "text": "He levelled to the tops of the pegs.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He wore boots and gloves.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name four types of foundation and one factor that affects the choice.",
+    "explainGuide": "Strip, pad, raft and pile are the main types. The choice depends on the soil type, load, cost and water table.",
+    "explainKeywords": [
+     [
+      "strip",
+      "pad",
+      "raft",
+      "pile"
+     ],
+     [
+      "soil",
+      "load",
+      "cost",
+      "water table"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-concrete-batching-mixing-and-the-slump-test": {
+   "safety": {
+    "correct": [
+     "Stand upwind of the cement when you open a bag."
+    ],
+    "wrong": [
+     {
+      "text": "Leave cement on your skin until the end of the work.",
+      "why": "It burns skin. Wash it off promptly."
+     },
+     {
+      "text": "Handle cement bags without a mask since it is only dust.",
+      "why": "Cement dust harms the lungs. Wear a dust mask."
+     },
+     {
+      "text": "Reach into the turning mixer to free a lump.",
+      "why": "The drum can trap your arm. Stop it first."
+     },
+     {
+      "text": "Add water to the mix through the slump cone.",
+      "why": "This spoils the test."
+     },
+     {
+      "text": "Stand on the concrete in the cone to compact it.",
+      "why": "Compact only with the tamping rod."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Curing tank",
+      "why": "This is for cubes, not for this test."
+     },
+     {
+      "name": "Compression testing machine",
+      "why": "It crushes hardened cubes."
+     },
+     {
+      "name": "Vernier calipers",
+      "why": "A steel rule is enough."
+     },
+     {
+      "name": "Spirit level only",
+      "why": "It does not measure workability."
+     },
+     {
+      "name": "Beach sand",
+      "why": "Salt harms concrete. Use clean sharp sand."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "water",
+     "afterStep": 3,
+     "prompt": "How do you add the water?",
+     "options": [
+      {
+       "text": "Only after the slump test",
+       "consequence": "The test must use the finished mix."
+      },
+      {
+       "text": "Gradually while turning the mix",
+       "correct": true,
+       "consequence": "You reach a workable mix with no excess."
+      },
+      {
+       "text": "All at once before turning, to save time",
+       "consequence": "The mix may become too wet."
+      }
+     ]
+    },
+    {
+     "id": "lift",
+     "afterStep": 5,
+     "prompt": "The cone is full and struck off. How do you lift it?",
+     "options": [
+      {
+       "text": "With a quick jerk",
+       "consequence": "It disturbs the concrete."
+      },
+      {
+       "text": "Vertically and steadily",
+       "correct": true,
+       "consequence": "The result is valid."
+      },
+      {
+       "text": "With a twist to free it",
+       "consequence": "Twisting spoils the slump."
+      }
+     ]
+    },
+    {
+     "id": "collapse",
+     "afterStep": 7,
+     "prompt": "The sample collapses. What does it show?",
+     "options": [
+      {
+       "text": "Too much water",
+       "correct": true,
+       "consequence": "The mix is not workable, so review it."
+      },
+      {
+       "text": "Too much cement",
+       "consequence": "This is not what collapse shows."
+      },
+      {
+       "text": "A perfect mix",
+       "consequence": "A collapse is not a true slump."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "true-slump",
+     "prompt": "Which slump is typical of normal reinforced work?",
+     "options": [
+      {
+       "text": "A zero slump",
+       "why": "The mix is too stiff for this use."
+      },
+      {
+       "text": "A true slump of about 50 mm",
+       "correct": true
+      },
+      {
+       "text": "A collapse of 250 mm",
+       "why": "The mix is too wet."
+      },
+      {
+       "text": "A shear slump to one side",
+       "why": "Repeat the test."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "bags",
+     "prompt": "You need {v} m³ of 1:2:4 wet concrete, with dry volume factor 1.54 and cement at 1 440 kg/m³. How many 50 kg bags?",
+     "formula": "v * 1.54 / 7 * 1440 / 50",
+     "vars": {
+      "v": {
+       "min": 1,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "rel": 0.03
+     },
+     "decimals": 1,
+     "working": "Cement = {v} × 1.54 ÷ 7 m³ × 1440 ÷ 50 = {answer} bags."
+    },
+    {
+     "id": "sand",
+     "prompt": "You need {v} m³ of 1:2:4 wet concrete, with dry volume factor 1.54. What volume of sand?",
+     "formula": "v * 1.54 * 2 / 7",
+     "vars": {
+      "v": {
+       "min": 1,
+       "max": 4,
+       "step": 1
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "{v} × 1.54 × 2 ÷ 7 = {answer} m³."
+    },
+    {
+     "id": "slump",
+     "prompt": "The cone is 300 mm high. The highest point of the slumped concrete is {h} mm above the base. What is the slump, in mm?",
+     "formula": "300 - h",
+     "vars": {
+      "h": {
+       "min": 225,
+       "max": 275,
+       "step": 5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "300 − {h} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "slump-fault",
+     "scenario": "Nneka's slump result cannot be trusted. Here is what she did.",
+     "lines": [
+      {
+       "text": "She measured slump from the wrong point.",
+       "fault": true,
+       "why": "Use the highest point of the slumped concrete."
+      },
+      {
+       "text": "She added all the water at once.",
+       "fault": true,
+       "why": "Add it gradually."
+      },
+      {
+       "text": "She twisted the cone as she lifted it.",
+       "fault": true,
+       "why": "This disturbs the sample."
+      },
+      {
+       "text": "She rodded each layer 25 times.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She used three equal layers.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What does the slump test show, and why does it matter?",
+    "explainGuide": "It measures workability. A correct slump means the concrete can be placed and compacted well without being too wet, which would weaken it.",
+    "explainKeywords": [
+     [
+      "workability",
+      "workable"
+     ],
+     [
+      "water",
+      "wet"
+     ],
+     [
+      "place",
+      "compact",
+      "strength",
+      "weaken"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-concrete-cube-crushing-test": {
+   "safety": {
+    "correct": [
+     "Check the machine guard or shield is in place before loading."
+    ],
+    "wrong": [
+     {
+      "text": "Watch the cube closely with no goggles to see it crack.",
+      "why": "Fragments can fly. Wear goggles."
+     },
+     {
+      "text": "Steady the cube by hand as the platen closes.",
+      "why": "Your hand can be crushed. Keep clear."
+     },
+     {
+      "text": "Lift the full steel mould with bent back.",
+      "why": "It is heavy. Bend your knees, and get help."
+     },
+     {
+      "text": "Leave oil spills on the floor round the test bench.",
+      "why": "You could slip. Wipe them up."
+     },
+     {
+      "text": "Pick up broken fragments before the machine has stopped.",
+      "why": "Keep your hands clear until it stops."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Slump cone",
+      "why": "It tests fresh workability, not strength."
+     },
+     {
+      "name": "Plastic bucket as a mould",
+      "why": "Cubes need 150 mm steel moulds."
+     },
+     {
+      "name": "Spirit level alone",
+      "why": "It does not measure strength."
+     },
+     {
+      "name": "Beam balance only",
+      "why": "Mass alone is not the result."
+     },
+     {
+      "name": "Ordinary hammer",
+      "why": "Failure load comes from the machine."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "compact",
+     "afterStep": 2,
+     "prompt": "How do you fill the mould?",
+     "options": [
+      {
+       "text": "In one fill with a few pokes",
+       "consequence": "The cube honeycombs and tests low."
+      },
+      {
+       "text": "With hand pressure alone",
+       "consequence": "Compaction is too poor."
+      },
+      {
+       "text": "In three layers, 35 strokes each",
+       "correct": true,
+       "consequence": "Voids are removed."
+      }
+     ]
+    },
+    {
+     "id": "crush-face",
+     "afterStep": 5,
+     "prompt": "Which way do you place the cube?",
+     "options": [
+      {
+       "text": "Off-centre on the platen",
+       "consequence": "The load is uneven."
+      },
+      {
+       "text": "Centred, with a moulded face on the platen",
+       "correct": true,
+       "consequence": "Load is even."
+      },
+      {
+       "text": "With the trowelled face on the platen",
+       "consequence": "Crushing on this face gives false results."
+      }
+     ]
+    },
+    {
+     "id": "cure",
+     "afterStep": 4,
+     "prompt": "The cube has come out of its mould. What is next?",
+     "options": [
+      {
+       "text": "Crush it straight away",
+       "consequence": "It is too young."
+      },
+      {
+       "text": "Cure it in water until test day",
+       "correct": true,
+       "consequence": "Its strength develops."
+      },
+      {
+       "text": "Leave it to dry on the bench",
+       "consequence": "Dry cubes test low."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "age",
+     "prompt": "What do you find when comparing 7 and 28 days?",
+     "options": [
+      {
+       "text": "The 28-day strength is higher",
+       "correct": true
+      },
+      {
+       "text": "The 7-day strength is higher",
+       "why": "Strength rises with age."
+      },
+      {
+       "text": "Both are always the same",
+       "why": "Strength rises with age."
+      },
+      {
+       "text": "The cube loses all strength",
+       "why": "This would mean a bad test or mix."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "strength",
+     "prompt": "A 150 mm cube fails at {f} kN. What is the compressive strength?",
+     "formula": "f * 1000 / 22500",
+     "vars": {
+      "f": {
+       "min": 225,
+       "max": 450,
+       "step": 45
+      }
+     },
+     "unit": "N/mm²",
+     "unitAliases": [
+      "N/mm2",
+      "MPa"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "{f} × 1000 ÷ 22 500 = {answer} N/mm²."
+    },
+    {
+     "id": "avg",
+     "prompt": "Three cubes give {a}, {b} and {c} N/mm². What is the average strength?",
+     "formula": "(a + b + c) / 3",
+     "vars": {
+      "a": {
+       "min": 14,
+       "max": 16,
+       "step": 1
+      },
+      "b": {
+       "min": 15,
+       "max": 17,
+       "step": 1
+      },
+      "c": {
+       "min": 16,
+       "max": 18,
+       "step": 1
+      }
+     },
+     "unit": "N/mm²",
+     "unitAliases": [
+      "N/mm2",
+      "MPa"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "({a} + {b} + {c}) ÷ 3 = {answer} N/mm²."
+    }
+   ],
+   "faults": [
+    {
+     "id": "cube-fault",
+     "scenario": "Chuka reports 0.015 N/mm² for his cube. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used kN without changing it to N.",
+       "fault": true,
+       "why": "The load must be in newtons."
+      },
+      {
+       "text": "He crushed the cube on its trowelled face.",
+       "fault": true,
+       "why": "That face is uneven."
+      },
+      {
+       "text": "He labelled each cube with date and mix.",
+       "why": "That is required."
+      },
+      {
+       "text": "He oiled the moulds.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Explain what curing is and why it matters.",
+    "explainGuide": "Curing keeps concrete moist while the cement hydrates. It lets the concrete gain strength. If it dries early the strength is lost.",
+    "explainKeywords": [
+     [
+      "moist",
+      "wet",
+      "water",
+      "damp"
+     ],
+     [
+      "strength",
+      "stronger"
+     ],
+     [
+      "hydrat",
+      "cement",
+      "dries",
+      "dry"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-mixing-mortar-and-laying-blockwork-in-stretcher-bond": {
+   "safety": {
+    "correct": [
+     "Keep the working area clear of loose blocks and mortar droppings."
+    ],
+    "wrong": [
+     {
+      "text": "Rub your eyes after handling the mortar.",
+      "why": "Cement harms eyes. Keep it out and wash your hands."
+     },
+     {
+      "text": "Lift a block with your back bent and legs straight.",
+      "why": "This injures your back. Bend your knees."
+     },
+     {
+      "text": "Throw blocks up to your mate on a higher platform.",
+      "why": "A dropped block can injure someone. Pass them safely."
+     },
+     {
+      "text": "Stack blocks along the edge of the top course.",
+      "why": "They can fall on people below."
+     },
+     {
+      "text": "Lay blocks on the wall with bare hands.",
+      "why": "Wear gloves, as cement burns the skin."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dumpy level alone",
+      "why": "This small wall is checked with spirit level and plumb bob."
+     },
+     {
+      "name": "Rammer",
+      "why": "Nothing is being rammed."
+     },
+     {
+      "name": "Slump cone",
+      "why": "It is for concrete."
+     },
+     {
+      "name": "Tenon saw",
+      "why": "This is masonry work."
+     },
+     {
+      "name": "Paint brush",
+      "why": "There is no finishing yet."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "line",
+     "afterStep": 3,
+     "prompt": "The corner blocks are set. How do you lay the rest of the course?",
+     "options": [
+      {
+       "text": "To a tight line between the corners",
+       "correct": true,
+       "consequence": "Blocks stay straight and level."
+      },
+      {
+       "text": "By eye along the foundation",
+       "consequence": "The wall wanders."
+      },
+      {
+       "text": "With the line slack and sagging",
+       "consequence": "A sagging line misleads you."
+      }
+     ]
+    },
+    {
+     "id": "bond",
+     "afterStep": 5,
+     "prompt": "How do you start the second course?",
+     "options": [
+      {
+       "text": "Directly above the first",
+       "consequence": "Continuous joints give no bond."
+      },
+      {
+       "text": "With wider joints",
+       "consequence": "This does not give a bond."
+      },
+      {
+       "text": "Offset by half a block",
+       "correct": true,
+       "consequence": "Joints are staggered, so the wall is bonded."
+      }
+     ]
+    },
+    {
+     "id": "mortar-old",
+     "afterStep": 6,
+     "prompt": "A batch has stood for over two hours. What do you do?",
+     "options": [
+      {
+       "text": "Add water and use it",
+       "consequence": "The set has started, so it is weak."
+      },
+      {
+       "text": "Use it for the top course only",
+       "consequence": "It is still weak."
+      },
+      {
+       "text": "Discard it and mix fresh",
+       "correct": true,
+       "consequence": "Mortar should be used within about an hour."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "wall",
+     "prompt": "What does a good wall show?",
+     "options": [
+      {
+       "text": "A lean of 20 mm at the top",
+       "why": "It is out of plumb."
+      },
+      {
+       "text": "Joints from 5 to 25 mm, and level courses",
+       "why": "Joints should be a uniform 10 mm."
+      },
+      {
+       "text": "Staggered joints, plumb and level",
+       "correct": true
+      },
+      {
+       "text": "Vertical joints lined up",
+       "why": "That is a bonding fault."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "blocks",
+     "prompt": "A wall is {l} m long and 3 m high. Each block covers 0.1081 m² with its joints. How many blocks are needed before waste?",
+     "formula": "l * 3 / 0.1081",
+     "vars": {
+      "l": {
+       "min": 4,
+       "max": 9,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "Blocks = {l} × 3 ÷ 0.1081 = {answer}."
+    },
+    {
+     "id": "waste",
+     "prompt": "An estimate is {n} blocks. How many with 5% added for breakage?",
+     "formula": "n * 1.05",
+     "vars": {
+      "n": {
+       "min": 100,
+       "max": 400,
+       "step": 20
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{n} × 1.05 = {answer} blocks."
+    }
+   ],
+   "faults": [
+    {
+     "id": "wall-fault",
+     "scenario": "Musa's wall is weak and leaning. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left continuous vertical joints.",
+       "fault": true,
+       "why": "There is no bond."
+      },
+      {
+       "text": "He did not check plumb at the corners.",
+       "fault": true,
+       "why": "Corners set the whole wall."
+      },
+      {
+       "text": "He left his line sagging over a long length.",
+       "fault": true,
+       "why": "A sag spoils alignment."
+      },
+      {
+       "text": "He filled the perpends fully.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He racked back the corners.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are the vertical joints staggered in a block wall?",
+    "explainGuide": "Staggering bonds the blocks so that the load spreads through the wall. A continuous joint is a weak line where cracks can run.",
+    "explainKeywords": [
+     [
+      "bond"
+     ],
+     [
+      "load",
+      "spread"
+     ],
+     [
+      "crack",
+      "weak"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-moulding-sandcrete-blocks": {
+   "safety": {
+    "correct": [
+     "Stack blocks on a firm, level base."
+    ],
+    "wrong": [
+     {
+      "text": "Stack the blocks ten courses high to save space.",
+      "why": "High stacks can fall on you. Keep to about 6 courses."
+     },
+     {
+      "text": "Mix cement with bare hands to feel if it is ready.",
+      "why": "Cement burns skin. Wear gloves."
+     },
+     {
+      "text": "Work in slippers as it is a dry yard.",
+      "why": "Boots protect from dropped blocks."
+     },
+     {
+      "text": "Wipe sweat from your eyes with cement-covered hands.",
+      "why": "Cement harms eyes. Wash your hands first."
+     },
+     {
+      "text": "Stand in the way when a mate moves a full pallet.",
+      "why": "A dropped pallet can crush your foot. Keep clear."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Compression testing machine",
+      "why": "This is for tests, not moulding."
+     },
+     {
+      "name": "Reddish clay soil",
+      "why": "Clay weakens the blocks."
+     },
+     {
+      "name": "Plumb bob",
+      "why": "Nothing here is being plumbed."
+     },
+     {
+      "name": "Steel floating trowel only",
+      "why": "The mould forms the shape."
+     },
+     {
+      "name": "Tape rule 30 m",
+      "why": "Blocks are formed in a mould."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "wet",
+     "afterStep": 2,
+     "prompt": "How do you know when the water is right?",
+     "options": [
+      {
+       "text": "It holds its shape when squeezed, with no ooze",
+       "correct": true,
+       "consequence": "The block will stand when demoulded."
+      },
+      {
+       "text": "It runs through your fingers",
+       "consequence": "Blocks will slump."
+      },
+      {
+       "text": "It falls to dry powder when squeezed and released",
+       "consequence": "It is too dry to bind."
+      }
+     ]
+    },
+    {
+     "id": "sand",
+     "afterStep": 1,
+     "prompt": "Your sand has a lot of clay. What do you do?",
+     "options": [
+      {
+       "text": "Add less cement",
+       "consequence": "Blocks would be weak and crumbly."
+      },
+      {
+       "text": "Use clean sharp sand instead",
+       "correct": true,
+       "consequence": "The block's strength is protected."
+      },
+      {
+       "text": "Add more water to wash the clay through",
+       "consequence": "Clay stays, and it still weakens the blocks."
+      }
+     ]
+    },
+    {
+     "id": "cure",
+     "afterStep": 5,
+     "prompt": "The blocks stood 24 hours in the shade. What next?",
+     "options": [
+      {
+       "text": "Sell them today",
+       "consequence": "They are too green to handle or use."
+      },
+      {
+       "text": "Water-cure them for at least 7 days",
+       "correct": true,
+       "consequence": "They gain strength."
+      },
+      {
+       "text": "Stack them to dry out in the hot midday sun",
+       "consequence": "Direct sun and no curing make them weak."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-block",
+     "prompt": "What shows that the block is good?",
+     "options": [
+      {
+       "text": "A surface that powders when rubbed with the thumb",
+       "why": "That is a weak mix."
+      },
+      {
+       "text": "Cracks across the face",
+       "why": "It dried too fast."
+      },
+      {
+       "text": "Sharp arrises and uniform texture, no cracks",
+       "correct": true
+      },
+      {
+       "text": "Crumbling corners",
+       "why": "There is too little cement or poor compaction."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vol",
+     "prompt": "A solid block is 0.45 m by {w} m by 0.225 m. What is its volume?",
+     "formula": "0.45 * w * 0.225",
+     "vars": {
+      "w": {
+       "min": 0.15,
+       "max": 0.225,
+       "step": 0.075
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "abs": 0.0005
+     },
+     "decimals": 4,
+     "working": "0.45 × {w} × 0.225 = {answer} m³."
+    },
+    {
+     "id": "sand-box",
+     "prompt": "In a 1:6 mix you use {n} boxes of cement. How many boxes of sand?",
+     "formula": "6 * n",
+     "vars": {
+      "n": {
+       "min": 1,
+       "max": 5,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "6 × {n} = {answer} boxes."
+    }
+   ],
+   "faults": [
+    {
+     "id": "block-fault",
+     "scenario": "Bola's blocks crumble when lifted. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used too little cement.",
+       "fault": true,
+       "why": "That gives crumbly blocks."
+      },
+      {
+       "text": "She skipped the curing stage.",
+       "fault": true,
+       "why": "Blocks must be kept wet for 7 days or more."
+      },
+      {
+       "text": "She left them to dry in direct sun.",
+       "fault": true,
+       "why": "They need shade."
+      },
+      {
+       "text": "She rammed each layer.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She oiled the mould.",
+       "why": "That helps release."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are freshly moulded blocks kept in the shade and watered?",
+    "explainGuide": "Cement needs water to harden. Direct sun dries blocks too fast, so they crack and stay weak. Watering keeps them moist so they gain strength.",
+    "explainKeywords": [
+     [
+      "water",
+      "moist"
+     ],
+     [
+      "sun",
+      "shade",
+      "dry"
+     ],
+     [
+      "strength",
+      "hard",
+      "crack",
+      "weak"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-plastering-and-rendering-a-wall": {
+   "safety": {
+    "correct": [
+     "Wash cement splashes off skin promptly."
+    ],
+    "wrong": [
+     {
+      "text": "Stand on stacked blocks to reach the top of the wall.",
+      "why": "Stacked blocks can shift, and you can fall. Use a stable platform."
+     },
+     {
+      "text": "Throw mortar overhead without goggles.",
+      "why": "Mortar can fall into your eyes. Wear goggles."
+     },
+     {
+      "text": "Wipe mortar from your face with a dirty glove.",
+      "why": "This can push grit into your eyes. Rinse with clean water."
+     },
+     {
+      "text": "Leave the hawk at the edge of the platform.",
+      "why": "It can fall on someone below. Keep the platform clear."
+     },
+     {
+      "text": "Reach far out to one side of the platform to save moving it.",
+      "why": "You can fall. Move the platform."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Notched trowel",
+      "why": "It spreads tile adhesive, not plaster."
+     },
+     {
+      "name": "Pick-axe",
+      "why": "Nothing is being dug."
+     },
+     {
+      "name": "Slump cone",
+      "why": "It tests concrete, not plaster."
+     },
+     {
+      "name": "Tile cutter",
+      "why": "There are no tiles here."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "The spirit level and plumb bob check this wall."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "prep",
+     "afterStep": 1,
+     "prompt": "The wall is dry and dusty. What do you do?",
+     "options": [
+      {
+       "text": "Paint it with oil first",
+       "consequence": "Oil stops the plaster bonding."
+      },
+      {
+       "text": "Brush it clean and wet it",
+       "correct": true,
+       "consequence": "The plaster bonds and does not dry too fast."
+      },
+      {
+       "text": "Plaster straight over it",
+       "consequence": "The dry wall sucks out the water, and the coat comes off."
+      }
+     ]
+    },
+    {
+     "id": "thick",
+     "afterStep": 3,
+     "prompt": "The wall is hollow in places. How do you apply the plaster?",
+     "options": [
+      {
+       "text": "One coat with no key",
+       "consequence": "The next coat has nothing to grip."
+      },
+      {
+       "text": "In two coats, keying the first",
+       "correct": true,
+       "consequence": "Coats bond and do not sag."
+      },
+      {
+       "text": "In one thick coat, to fill the hollows",
+       "consequence": "One thick coat sags."
+      }
+     ]
+    },
+    {
+     "id": "second",
+     "afterStep": 4,
+     "prompt": "The scratch coat has stiffened. What is next?",
+     "options": [
+      {
+       "text": "Over-trowel the scratch coat smooth",
+       "consequence": "The key would be lost."
+      },
+      {
+       "text": "Apply the second coat to the screeds",
+       "correct": true,
+       "consequence": "The finish is even and flat."
+      },
+      {
+       "text": "Wash the key off first",
+       "consequence": "The key would be lost."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "finish",
+     "prompt": "What shows a good finish?",
+     "options": [
+      {
+       "text": "Fine crazing all over, with a smooth, glossy sheen",
+       "why": "It is over-trowelled or cement-rich."
+      },
+      {
+       "text": "Blisters on the face",
+       "why": "This is a known defect."
+      },
+      {
+       "text": "A white, salty bloom",
+       "why": "This is efflorescence."
+      },
+      {
+       "text": "A flat, even surface, no hollows or ridges",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "mortar",
+     "prompt": "An area of {a} m² is plastered {t} mm thick. What volume of wet mortar is needed?",
+     "formula": "a * t / 1000",
+     "vars": {
+      "a": {
+       "min": 10,
+       "max": 30,
+       "step": 5
+      },
+      "t": {
+       "min": 12,
+       "max": 15,
+       "step": 3
+      }
+     },
+     "unit": "m³",
+     "unitAliases": [
+      "m3",
+      "cubic metres",
+      "cu m"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 3,
+     "working": "{a} × {t} ÷ 1000 = {answer} m³."
+    }
+   ],
+   "faults": [
+    {
+     "id": "plaster-fault",
+     "scenario": "Part of Sani's plaster has come away from the wall. Here is what he did.",
+     "lines": [
+      {
+       "text": "He applied one thick coat.",
+       "fault": true,
+       "why": "One thick coat sags."
+      },
+      {
+       "text": "He skipped the key on the first coat.",
+       "fault": true,
+       "why": "The second coat cannot grip."
+      },
+      {
+       "text": "He plastered over a dry, dusty wall.",
+       "fault": true,
+       "why": "Dust stops the bond."
+      },
+      {
+       "text": "He kept the plaster damp for three days.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He ruled off with a straight edge.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the first coat of plaster scratched before it hardens?",
+    "explainGuide": "The scratches give a key, so that the second coat grips the first and does not come away.",
+    "explainKeywords": [
+     [
+      "key"
+     ],
+     [
+      "grip",
+      "bond",
+      "hold",
+      "stick"
+     ],
+     [
+      "second",
+      "next",
+      "coat"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-laying-floor-tiles": {
+   "safety": {
+    "correct": [
+     "Keep the floor clear of cut pieces while you work."
+    ],
+    "wrong": [
+     {
+      "text": "Cut tiles without goggles since it is only one tile.",
+      "why": "Chips fly. Wear gloves and goggles."
+     },
+     {
+      "text": "Kneel directly on the hard screed all day.",
+      "why": "This hurts your knees. Use knee pads."
+     },
+     {
+      "text": "Walk across the fresh tiles to save going round.",
+      "why": "Keep off for 24 hours, or the tiles can shift."
+     },
+     {
+      "text": "Throw broken tile pieces in a heap by the door.",
+      "why": "Sharp pieces can cut. Collect them in a box."
+     },
+     {
+      "text": "Hold a tile against your thigh to cut it.",
+      "why": "It can slip and cut you. Use the tile cutter."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Claw hammer",
+      "why": "It breaks tiles. Use the rubber mallet."
+     },
+     {
+      "name": "Wooden float",
+      "why": "It finishes plaster, not tile joints."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Tiles are cut with the tile cutter."
+     },
+     {
+      "name": "Plumb bob",
+      "why": "It is for vertical work."
+     },
+     {
+      "name": "Slump cone",
+      "why": "It is for testing concrete."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "start",
+     "afterStep": 2,
+     "prompt": "Where do you start the setting out?",
+     "options": [
+      {
+       "text": "From the door, by eye, following the room",
+       "consequence": "Lines will wander."
+      },
+      {
+       "text": "From centre lines at right angles",
+       "correct": true,
+       "consequence": "Cut tiles are balanced at each wall."
+      },
+      {
+       "text": "From one wall",
+       "consequence": "Cuts end up thin on the other side."
+      }
+     ]
+    },
+    {
+     "id": "spread",
+     "afterStep": 4,
+     "prompt": "How much adhesive do you spread at once?",
+     "options": [
+      {
+       "text": "About 1 m²",
+       "correct": true,
+       "consequence": "It stays workable as you lay."
+      },
+      {
+       "text": "The whole room",
+       "consequence": "It skins over before you reach it."
+      },
+      {
+       "text": "Only under one tile corner",
+       "consequence": "Tiles rock and can crack."
+      }
+     ]
+    },
+    {
+     "id": "grout",
+     "afterStep": 7,
+     "prompt": "When do you grout?",
+     "options": [
+      {
+       "text": "Before fitting the edge tiles",
+       "consequence": "All tiles must be in first."
+      },
+      {
+       "text": "After 24 hours",
+       "correct": true,
+       "consequence": "The tiles have set firmly."
+      },
+      {
+       "text": "Immediately after laying",
+       "consequence": "Tiles can shift."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-floor",
+     "prompt": "What shows that the floor is well laid?",
+     "options": [
+      {
+       "text": "Corners standing proud (lippage)",
+       "why": "This shows an uneven bed."
+      },
+      {
+       "text": "Joints getting wider across the room, but tiles level",
+       "why": "Spacers were not used."
+      },
+      {
+       "text": "Straight joints and similar cuts at opposite walls",
+       "correct": true
+      },
+      {
+       "text": "A thin sliver at one wall",
+       "why": "This shows a bad start."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "tiles",
+     "prompt": "A room is {a} m by {b} m. Tiles are 0.4 m × 0.4 m. How many tiles are needed with no waste?",
+     "formula": "a * b / 0.16",
+     "vars": {
+      "a": {
+       "min": 4,
+       "max": 6,
+       "step": 0.4
+      },
+      "b": {
+       "min": 3.2,
+       "max": 4,
+       "step": 0.4
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "({a} × {b}) ÷ 0.16 = {answer} tiles."
+    },
+    {
+     "id": "waste",
+     "prompt": "{n} tiles are needed. How many with 10% added for cutting and breakage?",
+     "formula": "n * 1.1",
+     "vars": {
+      "n": {
+       "min": 60,
+       "max": 120,
+       "step": 10
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{n} × 1.1 = {answer} tiles."
+    }
+   ],
+   "faults": [
+    {
+     "id": "tile-fault",
+     "scenario": "Ike's tiled floor has lippage and a thin line of cuts along one wall. Here is what he did.",
+     "lines": [
+      {
+       "text": "He started from one wall.",
+       "fault": true,
+       "why": "Start from the centre."
+      },
+      {
+       "text": "He did not use spacers.",
+       "fault": true,
+       "why": "Joints then differ."
+      },
+      {
+       "text": "He left the adhesive bed uneven.",
+       "fault": true,
+       "why": "This gives lippage."
+      },
+      {
+       "text": "He checked that the screed was sound.",
+       "why": "That is the first step."
+      },
+      {
+       "text": "He dry-laid a row each way.",
+       "why": "That balances the cuts."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are tiles set out from the centre of a room?",
+    "explainGuide": "It balances the cut tiles at opposite walls, so there is no thin sliver along one side and the floor looks even.",
+    "explainKeywords": [
+     [
+      "centre"
+     ],
+     [
+      "cut",
+      "balance"
+     ],
+     [
+      "even",
+      "equal",
+      "wall",
+      "sliver"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-designing-and-drawing-a-straight-flight-staircase": {
+   "safety": {
+    "correct": [
+     "Check your design against the brief before lining in."
+    ],
+    "wrong": [
+     {
+      "text": "Make the bottom riser higher so the top ones fit.",
+      "why": "Uneven risers cause falls. Keep all risers equal."
+     },
+     {
+      "text": "Omit the handrail since the stair is short.",
+      "why": "Design safety needs a handrail."
+     },
+     {
+      "text": "Set headroom at 1.8 m to save floor space.",
+      "why": "People hit their heads. Keep at least 2.0 m."
+     },
+     {
+      "text": "Choose risers of 220 mm to reduce the total going.",
+      "why": "This is too steep. Keep to 150–190 mm."
+     },
+     {
+      "text": "Leave the compasses open on the drawing while you calculate.",
+      "why": "They can stab you. Close them."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Dumpy level",
+      "why": "Stairs here are calculated and drawn."
+     },
+     {
+      "name": "Slump cone",
+      "why": "Nothing here is tested."
+     },
+     {
+      "name": "Trowel",
+      "why": "Nothing is being built."
+     },
+     {
+      "name": "Rammer",
+      "why": "There is no compaction here."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing is being cut."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "risers",
+     "afterStep": 1,
+     "prompt": "For a 3 000 mm rise, how many risers do you pick?",
+     "options": [
+      {
+       "text": "25, 120 mm each",
+       "consequence": "Each step would be too low."
+      },
+      {
+       "text": "17, about 176 mm each",
+       "correct": true,
+       "consequence": "This is within 150–190 mm."
+      },
+      {
+       "text": "10 only, at 300 mm each",
+       "consequence": "Each step would be too high."
+      }
+     ]
+    },
+    {
+     "id": "treads",
+     "afterStep": 3,
+     "prompt": "How many treads go with 17 risers?",
+     "options": [
+      {
+       "text": "18",
+       "consequence": "That is the wrong way round."
+      },
+      {
+       "text": "16",
+       "correct": true,
+       "consequence": "Treads are one less than risers."
+      },
+      {
+       "text": "17",
+       "consequence": "Using risers as treads is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "check",
+     "afterStep": 6,
+     "prompt": "Your pitch comes out at 46°. What do you do?",
+     "options": [
+      {
+       "text": "Accept it because it fits the space you were given",
+       "consequence": "A stair that steep is unsafe."
+      },
+      {
+       "text": "Remove the handrail to gain room",
+       "consequence": "That makes it worse."
+      },
+      {
+       "text": "Redesign with a larger going or lower risers",
+       "correct": true,
+       "consequence": "The stair gets under about 42°."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-stair",
+     "prompt": "Which result passes the design check?",
+     "options": [
+      {
+       "text": "Pitch of 48°",
+       "why": "It is too steep."
+      },
+      {
+       "text": "Risers from 165 mm to 185 mm",
+       "why": "They must be equal."
+      },
+      {
+       "text": "Headroom of 1.7 m",
+       "why": "It must be at least 2.0 m."
+      },
+      {
+       "text": "All risers equal with pitch 35°",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "riser",
+     "prompt": "A floor-to-floor height of 3 000 mm has {n} risers. What is each riser, in mm?",
+     "formula": "3000 / n",
+     "vars": {
+      "n": {
+       "min": 16,
+       "max": 19,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 1,
+     "working": "R = 3000 ÷ {n} = {answer} mm."
+    },
+    {
+     "id": "going",
+     "prompt": "The riser is {r} mm. Using 2R + G = 600, what is the going, in mm?",
+     "formula": "600 - 2 * r",
+     "vars": {
+      "r": {
+       "min": 160,
+       "max": 185,
+       "step": 5
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "G = 600 − 2 × {r} = {answer} mm."
+    },
+    {
+     "id": "total",
+     "prompt": "A flight has {n} risers and a going of 250 mm. What is the total going, in mm?",
+     "formula": "(n - 1) * 250",
+     "vars": {
+      "n": {
+       "min": 15,
+       "max": 18,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "({n} − 1) × 250 = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "stair-fault",
+     "scenario": "Zainab's stair does not fit its space. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used the number of risers as the number of treads.",
+       "fault": true,
+       "why": "Treads are one less."
+      },
+      {
+       "text": "She forgot the landing and nosings.",
+       "fault": true,
+       "why": "These must be shown."
+      },
+      {
+       "text": "She rounded risers and let the error build up.",
+       "fault": true,
+       "why": "Rounding adds up over a flight."
+      },
+      {
+       "text": "She showed the 2R + G check.",
+       "why": "That earns marks."
+      },
+      {
+       "text": "She labelled the direction UP.",
+       "why": "That is what the plan needs."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must all the risers in a flight be equal?",
+    "explainGuide": "People take steps at a regular rhythm, so a riser of a different height can make them trip or fall.",
+    "explainKeywords": [
+     [
+      "rhythm",
+      "regular",
+      "expect",
+      "same"
+     ],
+     [
+      "trip",
+      "fall",
+      "stumble"
+     ],
+     [
+      "safe",
+      "safety",
+      "people",
+      "step"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-roof-truss-geometry-and-roof-plan": {
+   "safety": {
+    "correct": [
+     "Keep calculators and instruments on the board, not on the floor."
+    ],
+    "wrong": [
+     {
+      "text": "Draw the roof with no holding-down straps as they are hidden.",
+      "why": "Wind can lift the roof. Show straps."
+     },
+     {
+      "text": "Plan roof work on site without scaffolding, using a ladder alone.",
+      "why": "Roof work needs secure scaffolding and harnesses."
+     },
+     {
+      "text": "Assume a harness is not needed for a low roof.",
+      "why": "A fall from any roof can injure. Use the protection given."
+     },
+     {
+      "text": "Specify asbestos sheets because they are cheap.",
+      "why": "Asbestos fibres harm the lungs. Use asbestos-free sheets."
+     },
+     {
+      "text": "Leave drawing pins scattered about the board.",
+      "why": "They can stab you. Use masking tape."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Spirit level",
+      "why": "Nothing is levelled here."
+     },
+     {
+      "name": "Claw hammer",
+      "why": "Nothing is built here."
+     },
+     {
+      "name": "Trowel",
+      "why": "This is a drawing job."
+     },
+     {
+      "name": "Plumb bob",
+      "why": "This is a drawing job."
+     },
+     {
+      "name": "Slump cone",
+      "why": "No concrete is tested."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "half",
+     "afterStep": 2,
+     "prompt": "The span is 8 m. Which length gives the rise?",
+     "options": [
+      {
+       "text": "The full span of 8 m",
+       "consequence": "This doubles the rise, a common mistake."
+      },
+      {
+       "text": "The rafter length",
+       "consequence": "That is not yet known."
+      },
+      {
+       "text": "The half-span of 4 m",
+       "correct": true,
+       "consequence": "The rise is over half the span."
+      }
+     ]
+    },
+    {
+     "id": "hips",
+     "afterStep": 4,
+     "prompt": "On a roof with equal pitches, how do you draw the hips on plan?",
+     "options": [
+      {
+       "text": "Parallel to the ridge",
+       "consequence": "A hip is not parallel to the ridge."
+      },
+      {
+       "text": "At 45° to the walls",
+       "correct": true,
+       "consequence": "The hips meet the ridge correctly."
+      },
+      {
+       "text": "At the roof pitch of 30°",
+       "consequence": "Pitch is seen in section, not plan."
+      }
+     ]
+    },
+    {
+     "id": "label",
+     "afterStep": 3,
+     "prompt": "What must go on the truss drawing?",
+     "options": [
+      {
+       "text": "The rafters alone",
+       "consequence": "All members must be labelled."
+      },
+      {
+       "text": "All members labelled",
+       "correct": true,
+       "consequence": "Labels earn marks."
+      },
+      {
+       "text": "A shaded background behind it",
+       "consequence": "That earns nothing. The members and their labels do."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "plan",
+     "prompt": "What shows a correct hipped roof plan?",
+     "options": [
+      {
+       "text": "Hips rising at 45° to meet the ridge",
+       "correct": true
+      },
+      {
+       "text": "Hips stopping short of the ridge",
+       "why": "They must meet."
+      },
+      {
+       "text": "No fall direction shown",
+       "why": "Fall must be shown."
+      },
+      {
+       "text": "Valleys and hips mixed up",
+       "why": "They are different lines."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rise",
+     "prompt": "The span is {s} m at a 30° pitch. Taking tan 30° as 0.577, what is the rise?",
+     "formula": "s / 2 * 0.577",
+     "vars": {
+      "s": {
+       "min": 6,
+       "max": 10,
+       "step": 1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{s} ÷ 2 × 0.577 = {answer} m."
+    },
+    {
+     "id": "rafter",
+     "prompt": "The half-span is {h} m at a 30° pitch. Taking cos 30° as 0.866, what is the rafter length to the wall plate?",
+     "formula": "h / 0.866",
+     "vars": {
+      "h": {
+       "min": 3,
+       "max": 5,
+       "step": 0.5
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{h} ÷ 0.866 = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "truss-fault",
+     "scenario": "Kola's truss drawing is out of proportion. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used the full span to find the rise.",
+       "fault": true,
+       "why": "Use the half-span."
+      },
+      {
+       "text": "He left the truss members unlabelled.",
+       "fault": true,
+       "why": "Each label earns marks."
+      },
+      {
+       "text": "He drew hips at 45° on plan.",
+       "why": "That is correct for equal pitches."
+      },
+      {
+       "text": "He added an overhang and fascia.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What are holding-down straps for on a roof?",
+    "explainGuide": "They tie the roof to the wall so that strong wind uplift cannot lift the roof off.",
+    "explainKeywords": [
+     [
+      "wind",
+      "uplift"
+     ],
+     [
+      "tie",
+      "hold",
+      "fix",
+      "secure"
+     ],
+     [
+      "roof",
+      "wall"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-laying-and-testing-a-drain-line": {
+   "safety": {
+    "correct": [
+     "Replace the solvent cement lid after each joint."
+    ],
+    "wrong": [
+     {
+      "text": "Smoke while you join the PVC pipes.",
+      "why": "Solvent fumes can ignite. No smoking."
+     },
+     {
+      "text": "Use solvent cement deep in the trench with no ventilation.",
+      "why": "Fumes build up. Ventilate well."
+     },
+     {
+      "text": "Work unsupported in a deep trench to finish fast.",
+      "why": "Deep trenches need support."
+     },
+     {
+      "text": "Leave a hand under a pipe while it is lowered.",
+      "why": "It can trap your fingers. Use a line."
+     },
+     {
+      "text": "Clean solvent off your hands with petrol.",
+      "why": "Petrol is a fire and skin hazard. Follow the product's guidance."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Steel conduit",
+      "why": "This is drainage, not wiring."
+     },
+     {
+      "name": "Compass",
+      "why": "This is a site job and no arcs are needed."
+     },
+     {
+      "name": "Concrete mixer",
+      "why": "The pipe sits on gravel."
+     },
+     {
+      "name": "Rubber mallet for pipe joints",
+      "why": "Joints are solvent cement or ring seals."
+     },
+     {
+      "name": "Rammer on the pipes",
+      "why": "It can break them. Backfill carefully."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "set-fall",
+     "afterStep": 1,
+     "prompt": "A 12 m run at 1 in 40. What fall do you set?",
+     "options": [
+      {
+       "text": "0.30 m",
+       "correct": true,
+       "consequence": "That is 12 ÷ 40."
+      },
+      {
+       "text": "0.03 m",
+       "consequence": "This is a tenth of the right fall, and it will block."
+      },
+      {
+       "text": "40 m",
+       "consequence": "You cannot get a fall from dividing the other way."
+      }
+     ]
+    },
+    {
+     "id": "traveller",
+     "afterStep": 4,
+     "prompt": "A pipe sits high against the sight line. What do you do?",
+     "options": [
+      {
+       "text": "Force it down hard",
+       "consequence": "You may crack the pipe."
+      },
+      {
+       "text": "Lift it and lower the bed before fixing",
+       "correct": true,
+       "consequence": "The fall stays uniform."
+      },
+      {
+       "text": "Leave it, since it joins up with the next pipe",
+       "consequence": "Uneven fall causes blockages."
+      }
+     ]
+    },
+    {
+     "id": "backfill",
+     "afterStep": 7,
+     "prompt": "The water test passed. How do you backfill?",
+     "options": [
+      {
+       "text": "Tip large stones on the pipe to hold it down firmly",
+       "consequence": "Large stones can break it."
+      },
+      {
+       "text": "Do it before the test",
+       "consequence": "The test must come first."
+      },
+      {
+       "text": "Carefully in layers, fine material first",
+       "correct": true,
+       "consequence": "The pipe stays safe."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "test",
+     "prompt": "What shows that the drain has passed?",
+     "options": [
+      {
+       "text": "The water level stays steady over the test time",
+       "correct": true
+      },
+      {
+       "text": "The level falls steadily, but only by a small amount",
+       "why": "There is a leak."
+      },
+      {
+       "text": "Water seeps at a joint",
+       "why": "That is a leak."
+      },
+      {
+       "text": "The plug comes off",
+       "why": "The test is not valid."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "fall",
+     "prompt": "A drain is {l} m long at a gradient of 1 in {g}. What is the fall, in metres?",
+     "formula": "l / g",
+     "vars": {
+      "l": {
+       "min": 10,
+       "max": 30,
+       "step": 5
+      },
+      "g": {
+       "min": 40,
+       "max": 50,
+       "step": 10
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "{l} ÷ {g} = {answer} m."
+    },
+    {
+     "id": "invert",
+     "prompt": "Invert A is 99.600 m and the fall to B is {f} m. What is invert B?",
+     "formula": "99.6 - f",
+     "vars": {
+      "f": {
+       "min": 0.2,
+       "max": 0.6,
+       "step": 0.1
+      }
+     },
+     "unit": "m",
+     "unitAliases": [
+      "metres",
+      "meters"
+     ],
+     "tolerance": {
+      "abs": 0.001
+     },
+     "decimals": 3,
+     "working": "99.600 − {f} = {answer} m."
+    }
+   ],
+   "faults": [
+    {
+     "id": "drain-fault",
+     "scenario": "Tayo's drain blocks often, and it has a cracked pipe. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left the fall uneven.",
+       "fault": true,
+       "why": "It causes blockages."
+      },
+      {
+       "text": "He backfilled with large stones on the pipe.",
+       "fault": true,
+       "why": "They can break it."
+      },
+      {
+       "text": "He let the bedding settle unevenly.",
+       "fault": true,
+       "why": "Pipes must be evenly supported."
+      },
+      {
+       "text": "He kept pipe interiors clean.",
+       "why": "That helps flow."
+      },
+      {
+       "text": "He water-tested before backfilling.",
+       "why": "That is the correct order."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name the drain tests, and state why a drain must have a uniform fall.",
+    "explainGuide": "Water, air and smoke tests show leaks. A uniform fall keeps waste moving, so solids do not settle and block the line.",
+    "explainKeywords": [
+     [
+      "water test",
+      "air",
+      "smoke",
+      "test"
+     ],
+     [
+      "fall",
+      "gradient"
+     ],
+     [
+      "block",
+      "settle",
+      "flow"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-identification-and-care-of-building-tools-and-safety-equipment": {
+   "safety": {
+    "correct": [
+     "Report a damaged handle at once and keep that tool out of use."
+    ],
+    "wrong": [
+     {
+      "text": "Carry a pick-axe with its blade pointing forward.",
+      "why": "It can injure someone. Carry edged tools with blades down."
+     },
+     {
+      "text": "Start the concrete mixer while the teacher is away, to see how it works.",
+      "why": "Never operate machines without training and supervision."
+     },
+     {
+      "text": "Leave the wheelbarrow in the walkway to save a trip.",
+      "why": "People can trip on it. Store it properly."
+     },
+     {
+      "text": "Leave off your helmet when the site looks quiet.",
+      "why": "Falling items cause injury. Wear your PPE."
+     },
+     {
+      "text": "Oil the wooden handle so it shines.",
+      "why": "An oily handle slips in your hand. Oil steel parts only."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Soldering iron",
+      "why": "It is an electrician's tool, not a building tool."
+     },
+     {
+      "name": "Bunsen burner",
+      "why": "It is laboratory equipment."
+     },
+     {
+      "name": "Scalpel",
+      "why": "It is not a site tool."
+     },
+     {
+      "name": "Beaker",
+      "why": "It is laboratory glassware."
+     },
+     {
+      "name": "Bench lathe",
+      "why": "It belongs in a metal or wood workshop, not on a building site."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "clean",
+     "afterStep": 4,
+     "prompt": "You finish using a trowel with wet mortar on it. What do you do?",
+     "options": [
+      {
+       "text": "Clean it now, then lightly oil the steel",
+       "correct": true,
+       "consequence": "It stays usable and does not rust."
+      },
+      {
+       "text": "Leave it for tomorrow",
+       "consequence": "Cement hardens on it."
+      },
+      {
+       "text": "Chip it off with a hammer next week",
+       "consequence": "This damages the blade."
+      }
+     ]
+    },
+    {
+     "id": "class",
+     "afterStep": 2,
+     "prompt": "How do you classify a spirit level?",
+     "options": [
+      {
+       "text": "Excavation and trench digging",
+       "consequence": "It does not dig."
+      },
+      {
+       "text": "Concreting",
+       "consequence": "It does not mix or place concrete."
+      },
+      {
+       "text": "Measuring and setting out",
+       "correct": true,
+       "consequence": "That is its use."
+      }
+     ]
+    },
+    {
+     "id": "damaged",
+     "afterStep": 5,
+     "prompt": "A shovel handle is cracked. What do you do?",
+     "options": [
+      {
+       "text": "Put it back on the rack",
+       "consequence": "Someone else may be hurt."
+      },
+      {
+       "text": "Wrap it with tape and keep using it until the job ends",
+       "consequence": "It can still break."
+      },
+      {
+       "text": "Report it and keep it out of use",
+       "correct": true,
+       "consequence": "Nobody is hurt by a break."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "reversal",
+     "prompt": "You reverse a spirit level. What shows that it is accurate?",
+     "options": [
+      {
+       "text": "The bubble reads the same both ways",
+       "correct": true
+      },
+      {
+       "text": "The bubble shifts after turning",
+       "why": "It has an error."
+      },
+      {
+       "text": "The bubble vanishes",
+       "why": "The vial may be damaged."
+      },
+      {
+       "text": "Both ends rise",
+       "why": "A surface reading cannot show this."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-reversal",
+     "prompt": "Reversing a spirit level shows a difference of {d} mm between the two readings. What is the error, in mm?",
+     "formula": "d / 2",
+     "vars": {
+      "d": {
+       "min": 1,
+       "max": 6,
+       "step": 1
+      }
+     },
+     "unit": "mm",
+     "unitAliases": [
+      "millimetres",
+      "millimeters"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "Half of {d} = {answer} mm."
+    }
+   ],
+   "faults": [
+    {
+     "id": "store-fault",
+     "scenario": "An inspector was unhappy with Tobi's tool store. Here is what she found.",
+     "lines": [
+      {
+       "text": "Cement had hardened on the trowels.",
+       "fault": true,
+       "why": "Clean tools after use."
+      },
+      {
+       "text": "A spirit level had been knocked about in a heap.",
+       "fault": true,
+       "why": "It must be protected from knocks."
+      },
+      {
+       "text": "Shovels had been left in the walkway.",
+       "fault": true,
+       "why": "They can trip people."
+      },
+      {
+       "text": "Steel tools were lightly oiled.",
+       "why": "That stops rust."
+      },
+      {
+       "text": "Tools were stored on racks.",
+       "why": "That is the rule."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why are steel tools cleaned and lightly oiled before storing?",
+    "explainGuide": "Cleaning removes cement that would harden, and a light film of oil keeps out moisture and stops rust, so the tool lasts longer.",
+    "explainKeywords": [
+     [
+      "clean",
+      "cement"
+     ],
+     [
+      "oil"
+     ],
+     [
+      "rust",
+      "corrosion",
+      "last"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-bcon-drawing-an-electrical-layout-with-installation-symbols": {
+   "safety": {
+    "correct": [
+     "Close your instruments in their box when you finish."
+    ],
+    "wrong": [
+     {
+      "text": "Plan to wire the house yourself to save money.",
+      "why": "On site, only qualified electricians do electrical work."
+     },
+     {
+      "text": "Plan a socket directly over a kitchen sink tap for ease of use.",
+      "why": "Water and sockets are a shock risk. Keep them apart."
+     },
+     {
+      "text": "Leave the distribution board out of the plan.",
+      "why": "It must be shown. Every circuit starts there."
+     },
+     {
+      "text": "Use your own invented symbols for each point.",
+      "why": "Others cannot read them. Use standard symbols."
+     },
+     {
+      "text": "Place the battery and inverter inside a closed cupboard over the cooker.",
+      "why": "Heat and fire are a risk. Choose a safe, ventilated space."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Multimeter",
+      "why": "Nothing here is measured electrically."
+     },
+     {
+      "name": "Wire strippers",
+      "why": "Nothing here is wired."
+     },
+     {
+      "name": "Insulation resistance tester",
+      "why": "This is a drawing."
+     },
+     {
+      "name": "Screwdriver",
+      "why": "No connections are being made."
+     },
+     {
+      "name": "Dumpy level",
+      "why": "It has no use on a drawing."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "order",
+     "afterStep": 5,
+     "prompt": "What is the correct order of the solar system?",
+     "options": [
+      {
+       "text": "Battery, panels, board, inverter, controller",
+       "consequence": "This has no working path."
+      },
+      {
+       "text": "Panels, controller, battery, inverter, board",
+       "correct": true,
+       "consequence": "Each part receives what it needs."
+      },
+      {
+       "text": "Panels, inverter, battery, controller, board",
+       "consequence": "An inverter gives a.c., which cannot charge the battery directly."
+      }
+     ]
+    },
+    {
+     "id": "links",
+     "afterStep": 3,
+     "prompt": "How do you show which switch controls a light?",
+     "options": [
+      {
+       "text": "A note beside each room name",
+       "consequence": "It can be misread and is not the convention."
+      },
+      {
+       "text": "A heavy solid line to the board",
+       "consequence": "That is not the link convention."
+      },
+      {
+       "text": "A dashed link from switch to light",
+       "correct": true,
+       "consequence": "That is the convention."
+      }
+     ]
+    },
+    {
+     "id": "legend",
+     "afterStep": 4,
+     "prompt": "Your symbols are placed. What must be added?",
+     "options": [
+      {
+       "text": "A cost estimate for the cables",
+       "consequence": "It is not asked for here."
+      },
+      {
+       "text": "The cable colours for each circuit",
+       "consequence": "That belongs to the wiring work, not this layout."
+      },
+      {
+       "text": "A legend for each symbol",
+       "correct": true,
+       "consequence": "Missing legends are a common mistake."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "layout",
+     "prompt": "Which layout is complete?",
+     "options": [
+      {
+       "text": "Symbols from mixed standards",
+       "why": "Keep to one standard."
+      },
+      {
+       "text": "Every point linked to its switch, with a legend",
+       "correct": true
+      },
+      {
+       "text": "Lights not linked to switches, but a full legend given",
+       "why": "This is a common mistake."
+      },
+      {
+       "text": "No legend shown",
+       "why": "The legend is needed."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "load",
+     "prompt": "A house has {n} LED lamps of 10 W for 6 h and one 60 W fan for 8 h. What is the daily load, in Wh?",
+     "formula": "n * 10 * 6 + 480",
+     "vars": {
+      "n": {
+       "min": 6,
+       "max": 14,
+       "step": 2
+      }
+     },
+     "unit": "Wh",
+     "unitAliases": [
+      "watt-hours",
+      "watt hours"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{n} × 10 × 6 + 60 × 8 = {answer} Wh."
+    },
+    {
+     "id": "panel",
+     "prompt": "The daily load is {w} Wh with 5 peak sun hours. What panel power is needed before losses?",
+     "formula": "w / 5",
+     "vars": {
+      "w": {
+       "min": 800,
+       "max": 1400,
+       "step": 100
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{w} ÷ 5 = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "layout-fault",
+     "scenario": "Ronke's layout cannot be followed by the electrician. Here is what she did.",
+     "lines": [
+      {
+       "text": "She left out the legend.",
+       "fault": true,
+       "why": "Symbols need a legend."
+      },
+      {
+       "text": "She did not link lights to switches.",
+       "fault": true,
+       "why": "Each needs a link."
+      },
+      {
+       "text": "She mixed two symbol standards.",
+       "fault": true,
+       "why": "Keep to one."
+      },
+      {
+       "text": "She traced the plan at 1:100.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She labelled each part of the solar system.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State the function of the charge controller and the inverter in a solar system.",
+    "explainGuide": "The charge controller prevents battery over-charge and deep discharge. The inverter converts the battery's d.c. into a.c. for the house.",
+    "explainKeywords": [
+     [
+      "charge",
+      "battery"
+     ],
+     [
+      "inverter"
+     ],
+     [
+      "d.c",
+      "dc",
+      "a.c",
+      "ac",
+      "convert"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  }
+ }
+}

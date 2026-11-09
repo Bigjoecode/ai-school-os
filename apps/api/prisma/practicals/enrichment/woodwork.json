@@ -1,0 +1,1318 @@
+{
+  "subject": "Woodwork",
+  "room": "workshop",
+  "lessons": {
+    "pr-wwk-preparing-stock-to-size-by-hand": {
+      "safety": {
+        "correct": ["Sweep shavings from the floor around your bench so that you do not slip."],
+        "wrong": [
+          { "text": "Rest the plane on its sole so the blade stays ready for use.", "why": "That dulls the blade and exposes it. Lay the plane on its side." },
+          { "text": "Hold the short piece in one hand and plane it against your chest.", "why": "The plane can slip into you. Hold the work in the vice or against a stop." },
+          { "text": "Run your hand along the sole to feel how far the blade projects.", "why": "That can cut your fingers. Sight along the sole against the light." },
+          { "text": "Brush shavings away with your bare palm while the plane is moving.", "why": "Hands near the moving blade get cut. Stop first and use a bench brush." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Rip saw", "why": "This stock is already sawn near size. The tenon saw squares the ends." },
+          { "name": "Sash cramp", "why": "Nothing is being glued up in this job." },
+          { "name": "Spokeshave", "why": "A spokeshave is for curves. These faces must be flat." },
+          { "name": "Mortise chisel", "why": "No joint is being cut here." }
+        ]
+      },
+      "decisions": [
+        { "id": "which-first", "afterStep": 1, "prompt": "The best face is flat and has its face mark. What do you plane next?", "options": [
+          { "text": "The best edge, square to the face side", "correct": true, "consequence": "Face side and face edge now give two true surfaces to gauge from." },
+          { "text": "The opposite face, down to thickness", "consequence": "You have nothing square to gauge from yet, so the thickness will not be even." },
+          { "text": "Both ends, to get the length", "consequence": "End grain tears when planed first, and the ends may not be square to a true edge." }
+        ] },
+        { "id": "tearing", "afterStep": 2, "prompt": "The plane leaves torn patches on the edge. What do you do?", "options": [
+          { "text": "Turn the piece and plane with the grain", "correct": true, "consequence": "The shaving now lifts cleanly and the surface comes up smooth." },
+          { "text": "Press harder and take a thicker cut", "consequence": "Thicker cuts tear deeper, and you may go past the line." },
+          { "text": "Sand the torn patches out now", "consequence": "Grit left on the wood dulls the plane, and the edge goes out of square." }
+        ] },
+        { "id": "gauge-from", "afterStep": 3, "prompt": "You are about to gauge the width. Where does the gauge stock run?", "options": [
+          { "text": "Against the face edge you have planed", "correct": true, "consequence": "The width line runs true because it follows a true edge." },
+          { "text": "Against the rough sawn edge", "consequence": "The line copies every wave of the rough edge, so the width varies." },
+          { "text": "Against whichever edge is nearer to you", "consequence": "Working from different edges puts the line out by the difference between them." }
+        ] }
+      ],
+      "observations": [
+        { "id": "wind", "prompt": "You sight across two winding strips on the face. What shows the face is out of winding?", "options": [
+          { "text": "The top edges of the strips line up", "correct": true },
+          { "text": "One strip sits higher at one end", "why": "That shows the face is twisted." },
+          { "text": "The strips rock when pressed", "why": "That shows the face is hollow or round." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "order-length", "prompt": "A finished rail is {l} mm long. You allow {a} mm for squaring the ends. What length of sawn stock do you order, in mm?", "formula": "l + a", "vars": { "l": { "min": 300, "max": 900, "step": 50 }, "a": { "min": 15, "max": 20, "step": 5 } }, "unit": "mm", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{l} + {a} = {answer} mm." },
+        { "id": "order-width", "prompt": "The finished width is {w} mm. You allow {a} mm on the width for planing. What sawn width do you need, in mm?", "formula": "w + a", "vars": { "w": { "min": 40, "max": 100, "step": 10 }, "a": { "min": 3, "max": 5, "step": 1 } }, "unit": "mm", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{w} + {a} = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "uneven-rail", "scenario": "Chidi's rail is thicker at one end than the other, and his marks are hard to find. Here is what he did.", "lines": [
+          { "text": "He gauged the thickness from the rough face.", "fault": true, "why": "Gauge only from the planed face side, or the thickness follows the rough face." },
+          { "text": "He kept planing after reaching the gauge line.", "fault": true, "why": "Going past the line makes that part undersize." },
+          { "text": "He left off the face side and face edge marks.", "fault": true, "why": "Without marks he cannot tell which surfaces are true." },
+          { "text": "He set the plane for a fine cut near the line.", "why": "That is the right way to finish to a line." },
+          { "text": "He laid the plane on its side between cuts.", "why": "That protects the blade." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why are the face side and face edge prepared first, and all other work measured from them?",
+        "explainGuide": "They are the true reference surfaces. Gauging and squaring from them keeps every other line parallel and square, so the piece comes out even.",
+        "explainKeywords": [["reference", "true", "accurate"], ["gauge", "gauging", "measure", "marking"], ["parallel", "square", "even"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-ripping-and-cross-cutting": {
+      "safety": {
+        "correct": ["Lift the saw clear before moving the board on the trestles."],
+        "wrong": [
+          { "text": "Kneel on the board to hold it while a friend supports the free end by hand near the saw.", "why": "A hand near the saw path gets cut. Support it away from the cut or on trestles." },
+          { "text": "Leave the saw standing in the cut when you stop for a break.", "why": "It can fall or be knocked. Lay it safely on the bench." },
+          { "text": "Saw hard and fast at the start so the blade bites.", "why": "The saw jumps out of a forced start. Start with light strokes." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Jack plane", "why": "Planing comes later. This job is about sawing." },
+          { "name": "Coping saw", "why": "A coping saw cuts curves, not long straight cuts." },
+          { "name": "Bevel-edged chisel", "why": "No waste is chopped out here." },
+          { "name": "Mallet", "why": "Nothing here is struck." }
+        ]
+      },
+      "decisions": [
+        { "id": "saw-choice", "afterStep": 2, "prompt": "You must cut along the grain of a long board. Which saw do you use?", "options": [
+          { "text": "The rip saw", "correct": true, "consequence": "Its chisel-shaped teeth chop along the grain and clear fast." },
+          { "text": "The cross-cut saw", "consequence": "Its knife-point teeth score across the grain, so along the grain they clog and cut slowly." },
+          { "text": "The tenon saw", "consequence": "Its fine teeth clog at once, and the blade is far too short for this cut." }
+        ] },
+        { "id": "binding", "afterStep": 3, "prompt": "Halfway along the rip, the saw starts to bind. What do you do?", "options": [
+          { "text": "Stop, and open the kerf with a small wedge", "correct": true, "consequence": "The saw runs free again and the cut stays straight." },
+          { "text": "Push harder to force it through to the far end", "consequence": "Forcing buckles the blade and the cut wanders off the line." },
+          { "text": "Twist the handle to widen the cut", "consequence": "Twisting bends the blade and can spoil the saw set." }
+        ] },
+        { "id": "offcut", "afterStep": 4, "prompt": "You are nearly through a cross-cut, and the off-cut is heavy. What do you do?", "options": [
+          { "text": "Support the off-cut and finish with light strokes", "correct": true, "consequence": "The cut ends cleanly with no splitting." },
+          { "text": "Saw faster so it drops away cleanly", "consequence": "It drops early and tears a long split from the board." },
+          { "text": "Let it fall and trim the split later with a sharp plane", "consequence": "The split runs into the good timber, and the piece is short." }
+        ] }
+      ],
+      "observations": [
+        { "id": "cut-side", "prompt": "After sawing, where should the pencil or knife line be?", "options": [
+          { "text": "Still visible on the piece you are keeping", "correct": true },
+          { "text": "Gone, cut away by the saw as it passed along", "why": "The kerf has eaten into the piece, so it is undersize." },
+          { "text": "A full 10 mm from the cut", "why": "That leaves far too much cleaning up." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "kerf", "prompt": "A board takes {c} cross-cuts, with a {k} mm kerf at each. What is the total length lost to the saw, in mm?", "formula": "c * k", "vars": { "k": { "min": 2, "max": 3, "step": 1 }, "c": { "min": 2, "max": 5, "step": 1 } }, "unit": "mm", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{c} cuts × {k} mm = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "short-piece", "scenario": "Amaka's shelf board came out 2 mm short, and its end has a split. Here is what she did.", "lines": [
+          { "text": "She sawed straight down the middle of the line.", "fault": true, "why": "The kerf took half its width from the keep side." },
+          { "text": "She let the off-cut hang unsupported near the end.", "fault": true, "why": "Its weight tore a split into the board." },
+          { "text": "She forced the saw on the last few strokes.", "fault": true, "why": "Forcing wanders the cut and splits the end. Let the teeth work." },
+          { "text": "She used the full length of the blade.", "why": "That is good practice." },
+          { "text": "She marked the cross-cut line with a knife.", "why": "That is good practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a rip saw cut along the grain better than a cross-cut saw?",
+        "explainGuide": "Rip saw teeth are chisel-shaped and chop the fibres end-on along the grain. Cross-cut teeth are knife-pointed and are made to sever fibres across the grain.",
+        "explainKeywords": [["chisel"], ["chop", "cut"], ["grain", "fibres"], ["knife", "point"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-constructing-a-through-mortise-and-tenon-joint": {
+      "safety": {
+        "correct": ["Keep the mallet head clear of your other hand when chopping."],
+        "wrong": [
+          { "text": "Hold the rail in one hand while you chop the mortise with the other.", "why": "The chisel can skid. Cramp the work to the bench." },
+          { "text": "Chop over the bench vice jaw so the blows ring through.", "why": "Hollow support makes it bounce. Chop over a solid part of the bench." },
+          { "text": "Lever waste out with the chisel held towards your stomach.", "why": "A slip drives it into you. Keep the edge pointing away." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Marking gauge with a single pin", "why": "A mortise needs two lines at once: use the mortise gauge." },
+          { "name": "Rip saw", "why": "Too coarse: use the tenon saw for cheeks and shoulders." },
+          { "name": "Claw hammer", "why": "It splits a chisel handle. Use the mallet." },
+          { "name": "Coping saw", "why": "This joint has straight cuts only." }
+        ],
+        "optional": ["Bevel-edged chisel"]
+      },
+      "procedure": { "anyOrder": [] },
+      "decisions": [
+        { "id": "gauge-setting", "afterStep": 2, "prompt": "Stock is 25 mm thick. How do you set the mortise gauge?", "options": [
+          { "text": "To the width of the mortise chisel", "correct": true, "consequence": "The mortise can be chopped exactly between the lines." },
+          { "text": "To half the stock thickness", "consequence": "That leaves weak thin cheeks around a very wide mortise." },
+          { "text": "To any width near one-third", "consequence": "No chisel matches the gauge, so the sides of the mortise go ragged." }
+        ] },
+        { "id": "chop-side", "afterStep": 3, "prompt": "How far do you chop from the first edge?", "options": [
+          { "text": "Halfway, then turn the piece and meet from the other edge", "correct": true, "consequence": "Both faces stay clean with no split-out." },
+          { "text": "Straight through from one side", "consequence": "The far face bursts out as the chisel breaks through." },
+          { "text": "Most of the way through, then drill out the rest from below", "consequence": "The drill wanders, and the hole no longer lines up." }
+        ] },
+        { "id": "tight-fit", "afterStep": 5, "prompt": "The tenon needs hard mallet blows to go in. What do you do?", "options": [
+          { "text": "Pare the tenon cheeks and test again", "correct": true, "consequence": "It now slides in with hand pressure and the shoulders close." },
+          { "text": "Drive it home with the mallet anyway", "consequence": "The tight tenon splits the mortised rail." },
+          { "text": "Widen the mortise with a coarse rasp", "consequence": "The mortise goes out of parallel and the joint rocks." }
+        ] }
+      ],
+      "observations": [
+        { "id": "fit", "prompt": "The joint is well cut when:", "options": [
+          { "text": "The tenon slides in by hand and the shoulders close tight", "correct": true },
+          { "text": "The tenon rattles a little so that glue can get into the gaps", "why": "Glue cannot fill gaps. A loose joint is a weak joint." },
+          { "text": "It needs a heavy hammer to close the shoulders", "why": "That much force splits the mortised piece." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "tenon", "prompt": "Stock is {t} mm thick. By the one-third rule, how thick should the tenon be, in mm?", "formula": "t / 3", "vars": { "t": { "min": 18, "max": 36, "step": 3 } }, "unit": "mm", "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "Tenon ≈ {t} ÷ 3 = {answer} mm (then use the nearest chisel size)." }
+      ],
+      "faults": [
+        { "id": "loose-joint", "scenario": "Bola's frame rail sits out of line, and its tenon is loose. Here is what she did.", "lines": [
+          { "text": "She gauged the rail from one face and the stile from the other.", "fault": true, "why": "Any thickness difference pushes the joint out of line. Gauge both from the face side." },
+          { "text": "She chopped the mortise wider than the tenon.", "fault": true, "why": "The tenon is loose and the joint is weak." },
+          { "text": "She marked the shoulders with a knife.", "why": "A knife line gives a clean shoulder." },
+          { "text": "She chopped halfway from each edge.", "why": "That stops the mortise splitting out." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is a tenon usually made about one-third of the stock thickness?",
+        "explainGuide": "It leaves enough wood on both cheeks of the mortise to stay strong, while the tenon itself stays thick enough. Thicker weakens the mortised piece; thinner weakens the tenon.",
+        "explainKeywords": [["third"], ["strong", "strength", "weak"], ["cheek", "mortise", "tenon"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-constructing-a-common-through-dovetail-joint": {
+      "safety": {
+        "correct": ["Pass chisels to others handle first."],
+        "wrong": [
+          { "text": "Hold the board against your thigh while you saw the tails.", "why": "A slip cuts your leg. Hold it in the vice." },
+          { "text": "Chop waste towards your free hand so you can feel the depth.", "why": "Hands stay behind the edge. Check depth by eye." },
+          { "text": "Blow the waste out of the joint with your mouth.", "why": "Dust and chips fly into your eyes. Use a small brush." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Rip saw", "why": "Far too coarse for fine joint cutting." },
+          { "name": "Jack plane", "why": "The boards are already prepared." },
+          { "name": "Sash cramp", "why": "A box corner is closed by hand pressure and light taps." },
+          { "name": "Claw hammer", "why": "It damages chisel handles and bruises the wood. Use the mallet." }
+        ]
+      },
+      "decisions": [
+        { "id": "slope", "afterStep": 1, "prompt": "You are working in iroko, a hardwood. Which slope do you mark?", "options": [
+          { "text": "1:8", "correct": true, "consequence": "A gentle slope suits hardwood, which resists crushing." },
+          { "text": "1:6", "consequence": "That is the softwood slope. It leaves weak short grain at the corners of hard timber." },
+          { "text": "1:2", "consequence": "So steep a slope has short grain that snaps straight off." }
+        ] },
+        { "id": "saw-side", "afterStep": 2, "prompt": "Your tail lines are clear. Where do you saw?", "options": [
+          { "text": "Just on the waste side of each line", "correct": true, "consequence": "The lines survive, so the tails keep their exact shape." },
+          { "text": "Straight down the middle of each line", "consequence": "The line is gone, and the joint comes out loose by half a saw cut." },
+          { "text": "On the tail side, then pare back", "consequence": "The tail is undersize and cannot be recovered: the joint has gaps." }
+        ] },
+        { "id": "transfer", "afterStep": 3, "prompt": "The tails are cut. How do you mark the pins?", "options": [
+          { "text": "Scribe round the tails with a marking knife", "correct": true, "consequence": "The pins are an exact copy of these tails, small errors included." },
+          { "text": "Set them out with a rule and the template", "consequence": "They no longer match the tails as actually cut, so gaps appear." },
+          { "text": "Draw round the tails with a thick pencil", "consequence": "The thick line sits away from the tail, so the pins come out too small." }
+        ] }
+      ],
+      "observations": [
+        { "id": "fit", "prompt": "You test-fit the corner. Which result means the joint is good?", "options": [
+          { "text": "It seats with light taps and no gaps show", "correct": true },
+          { "text": "It only closes with hard mallet blows", "why": "That force splits the short grain." },
+          { "text": "It slides together and falls apart when lifted", "why": "Too loose: glue will not fill those gaps." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "slope-run", "prompt": "A tail is {h} mm long, with a 1:6 slope. How far does the slope run sideways over that length, in mm?", "formula": "h / 6", "vars": { "h": { "min": 12, "max": 30, "step": 6 } }, "unit": "mm", "tolerance": { "abs": 0.2 }, "decimals": 1, "working": "Sideways run = {h} ÷ 6 = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "box-corner", "scenario": "Tunde cut a dovetailed box corner. It shows gaps. Here is what he did.", "lines": [
+          { "text": "He marked the slopes so that they ran the wrong way, narrowing towards the end of the board.", "fault": true, "why": "A reversed slope pulls apart instead of locking." },
+          { "text": "He chopped beyond the gauge line on the inside face.", "fault": true, "why": "The cut shows as a gap when the joint closes." },
+          { "text": "He cut the tails first and transferred them to the pins.", "why": "That is the correct order." },
+          { "text": "He kept the work in the vice while sawing.", "why": "That is sound practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why are the tails normally cut before the pins?",
+        "explainGuide": "The tails set the shape. Marking the pins directly from them transfers any small error, so the two parts still match and fit.",
+        "explainKeywords": [["tail", "tails"], ["mark", "transfer", "scribe"], ["match", "fit", "exact"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-constructing-housing-and-halving-joints": {
+      "safety": {
+        "correct": ["Keep your hands behind the chisel when paring the housing."],
+        "wrong": [
+          { "text": "Steady the board with your hand in front of the saw.", "why": "A slipping saw goes straight into the hand. Cramp the board." },
+          { "text": "Hold the router plane by its cutter to guide it.", "why": "The cutter is sharp. Use both handles." },
+          { "text": "Stand the chisel edge-up on the bench to keep it handy.", "why": "An exposed edge cuts hands. Lay it flat, away from the edge of the bench." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Mortise gauge", "why": "There is no mortise here. The single-pin gauge sets the depth." },
+          { "name": "Rip saw", "why": "The housing is cut across the grain, with a fine saw." },
+          { "name": "Spokeshave", "why": "This job has no curves." },
+          { "name": "Sash cramp", "why": "These joints are test-fitted, not glued in this exercise." }
+        ]
+      },
+      "decisions": [
+        { "id": "mark-width", "afterStep": 1, "prompt": "How do you mark the width of the housing?", "options": [
+          { "text": "Lay the shelf itself on the board and mark both sides", "correct": true, "consequence": "The housing is exactly as wide as the shelf you are fitting." },
+          { "text": "Measure the shelf with a rule and copy the figure", "consequence": "A rule reading is out by a fraction, so the fit is slack or tight." },
+          { "text": "Mark it a little wider so the shelf goes in easily", "consequence": "The shelf rattles, and a gap shows at the front." }
+        ] },
+        { "id": "depth", "afterStep": 2, "prompt": "The board is 18 mm thick. What depth do you gauge?", "options": [
+          { "text": "About 6 mm, one-third of the thickness", "correct": true, "consequence": "The shelf is well held, and the board stays strong." },
+          { "text": "About 12 mm, two-thirds of the thickness", "consequence": "Too little wood is left, and the board can split along the housing." },
+          { "text": "About 2 mm, as little as possible", "consequence": "The housing is too shallow to hold the shelf." }
+        ] },
+        { "id": "halving-face", "afterStep": 5, "prompt": "For a cross-halving, from which face do you mark the depth?", "options": [
+          { "text": "From the top face of one and the bottom face of the other", "correct": true, "consequence": "The two pieces finish flush on both sides." },
+          { "text": "From the top face of both pieces, so they are marked alike", "consequence": "The pieces stand proud of each other and do not finish flush." },
+          { "text": "From whichever face is cleanest", "consequence": "Any difference in thickness shows as a step in the joint." }
+        ] }
+      ],
+      "observations": [
+        { "id": "fit", "prompt": "What shows that the housing is right?", "options": [
+          { "text": "The shelf slides in by hand with no play", "correct": true },
+          { "text": "The shelf must be hammered in tightly", "why": "That can split the side." },
+          { "text": "The shelf moves up and down in the housing", "why": "That is too wide and will show gaps." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "housing", "prompt": "A board is {t} mm thick. What is the housing depth at one-third of the thickness, in mm?", "formula": "t / 3", "vars": { "t": { "min": 15, "max": 30, "step": 3 } }, "unit": "mm", "tolerance": { "abs": 0.1 }, "decimals": 1, "working": "{t} ÷ 3 = {answer} mm." },
+        { "id": "halving", "prompt": "Two pieces {t} mm thick are cross-halved. How deep is the cut in each piece, in mm?", "formula": "t / 2", "vars": { "t": { "min": 20, "max": 50, "step": 5 } }, "unit": "mm", "tolerance": { "abs": 0.1 }, "decimals": 1, "working": "{t} ÷ 2 = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "step", "scenario": "Ngozi's cross-halving has a step in it, and her housing shelf rocks. Here is what she did.", "lines": [
+          { "text": "She gauged both halving cuts from the top face.", "fault": true, "why": "The pieces will not finish flush." },
+          { "text": "She checked the housing depth at one end only.", "fault": true, "why": "The depth can vary along the housing, so check at both ends." },
+          { "text": "She marked the housing width from the shelf itself.", "why": "That is the accurate way." },
+          { "text": "She cramped the board before sawing.", "why": "That is sound practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is the width of a housing marked from the shelf rather than with a rule?",
+        "explainGuide": "The actual piece gives the exact width, so the joint fits with no play. A rule reading adds small errors.",
+        "explainKeywords": [["actual", "shelf", "piece"], ["exact", "accurate", "error"], ["fit", "play", "tight"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-edge-jointing-dowelled-and-tongued-and-grooved-widening-joints": {
+      "safety": {
+        "correct": ["Keep your fingers clear of the bit when starting the drill."],
+        "wrong": [
+          { "text": "Hold the board in your lap while drilling the dowel holes.", "why": "The bit can run through into you. Clamp the work." },
+          { "text": "Taste a drop of glue to check if it is still fresh.", "why": "Glue is not food. Check its date and pour." },
+          { "text": "Wipe glue from the cramp bar with your fingers while it is being tightened.", "why": "Fingers get nipped. Wait until it is tight, then use a damp cloth." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "Nothing is being cut to length in this job." },
+          { "name": "Coping saw", "why": "This is straight edge work." },
+          { "name": "Marking knife and bevel", "why": "No angled marking is needed." },
+          { "name": "Mallet and mortise chisel", "why": "There are no mortises here." }
+        ]
+      },
+      "decisions": [
+        { "id": "rings", "afterStep": 1, "prompt": "How do you lay out the boards before jointing?", "options": [
+          { "text": "With the growth rings alternating, board by board", "correct": true, "consequence": "Each board's cupping counters the next, so the panel stays flat." },
+          { "text": "All with the heart side up", "consequence": "All the boards cup the same way, and the panel bends." },
+          { "text": "Whichever way the colours look best along the panel", "consequence": "Looks alone can leave several boards cupping together." }
+        ] },
+        { "id": "cramps", "afterStep": 5, "prompt": "Where do you put the sash cramps?", "options": [
+          { "text": "Alternately above and below the panel", "correct": true, "consequence": "The forces balance, and the panel stays flat." },
+          { "text": "All underneath the panel, where they stay out of the way", "consequence": "The pull is all on one side, and the panel bows." },
+          { "text": "One only, at the centre", "consequence": "The ends gape, because no pressure reaches them." }
+        ] },
+        { "id": "dry", "afterStep": 4, "prompt": "The dowels are ready. What comes before the glue?", "options": [
+          { "text": "A dry run with all the cramps", "correct": true, "consequence": "Any tight dowel or gap shows while it can still be fixed." },
+          { "text": "Nothing: go straight to gluing", "consequence": "A problem found once the glue is on cannot be fixed in time." },
+          { "text": "Plane the panel flat first", "consequence": "The panel is not assembled yet, so there is nothing to plane." }
+        ] }
+      ],
+      "observations": [
+        { "id": "joint", "prompt": "How should the finished panel look?", "options": [
+          { "text": "Flat, with tight, nearly invisible joint lines", "correct": true },
+          { "text": "With a line of squeezed glue left on the face", "why": "Dried glue blocks the finish. Wipe it off." },
+          { "text": "Bowed slightly towards the cramps", "why": "That shows the cramps were all on one side." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "dowel-len", "prompt": "A dowel is {d} mm in diameter. Using a length of 5 × diameter, how long is each dowel, in mm?", "formula": "5 * d", "vars": { "d": { "min": 6, "max": 12, "step": 2 } }, "unit": "mm", "tolerance": { "abs": 0 }, "decimals": 0, "working": "5 × {d} = {answer} mm." },
+        { "id": "dowel-count", "prompt": "A joint is {l} mm long, with dowels 150 mm apart and one 75 mm from each end. How many dowels are needed?", "formula": "round((l - 150) / 150, 0) + 1", "vars": { "l": { "min": 600, "max": 1200, "step": 150 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "Spaces = ({l} − 150) ÷ 150; dowels = spaces + 1 = {answer}." }
+      ],
+      "faults": [
+        { "id": "bowed-panel", "scenario": "Efe's table-top panel came out bowed, with one joint open. Here is what he did.", "lines": [
+          { "text": "He put all the cramps on one side.", "fault": true, "why": "That bows the panel. Alternate them." },
+          { "text": "He glued up without a dry run.", "fault": true, "why": "The bad joint was found too late." },
+          { "text": "He overtightened the cramps until no glue was left in the joint.", "fault": true, "why": "A starved joint is weak." },
+          { "text": "He shot the edges straight and square first.", "why": "That gives a tight joint." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why are boards arranged with their growth rings alternating?",
+        "explainGuide": "Boards cup as they dry. Alternating the rings makes each board cup the opposite way to the next, which reduces the cupping of the whole panel.",
+        "explainKeywords": [["cup", "cupping", "warp"], ["alternat", "opposite"], ["flat", "reduce", "panel"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-assembling-and-gluing-a-frame-and-testing-for-squareness": {
+      "safety": {
+        "correct": ["Support the long ends of sash cramps so they cannot tip."],
+        "wrong": [
+          { "text": "Lean over the frame and hold it down with your chest while tightening.", "why": "A slipping cramp can hit you. Rest the frame on bearers." },
+          { "text": "Leave the cramps sticking out in the walkway overnight.", "why": "They are a trip hazard. Set the frame aside out of the way." },
+          { "text": "Use your hand as a cramp block to protect the wood.", "why": "Fingers get crushed. Use scraps." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "The joints are already cut." },
+          { "name": "Jack plane", "why": "Flushing off comes after the glue sets, and it is not the main job here." },
+          { "name": "Marking gauge", "why": "The marking out is finished." },
+          { "name": "Mortise chisel", "why": "The joints are already cut." }
+        ]
+      },
+      "decisions": [
+        { "id": "diagonals", "afterStep": 3, "prompt": "One diagonal measures 4 mm longer than the other. What do you do?", "options": [
+          { "text": "Set the cramps slightly skew to pull the long diagonal in", "correct": true, "consequence": "The diagonals come equal, so the frame is square." },
+          { "text": "Plane one rail shorter until the two diagonals are the same", "consequence": "The rails were fine: now the frame has a gap." },
+          { "text": "Glue it up and fix it later", "consequence": "Once the glue sets, the frame stays out of square." }
+        ] },
+        { "id": "blocks", "afterStep": 2, "prompt": "What goes between the cramp jaws and the frame?", "options": [
+          { "text": "Scrap cramp blocks", "correct": true, "consequence": "The pressure spreads and the face stays unmarked." },
+          { "text": "Nothing: the jaws need a firm grip", "consequence": "The jaws bite dents into the finished face." },
+          { "text": "A wet cloth folded in two", "consequence": "It compresses unevenly and marks the wood with water." }
+        ] },
+        { "id": "squeeze", "afterStep": 6, "prompt": "Glue is squeezing from the joints. What do you do?", "options": [
+          { "text": "Wipe it off now with a damp cloth", "correct": true, "consequence": "The surface stays clean, so the finish takes evenly." },
+          { "text": "Leave it to dry and sand it later", "consequence": "Glue that soaks in stops stain and leaves pale patches." },
+          { "text": "Spread it with a finger over the joint", "consequence": "It seals the surface, and the finish will not take there." }
+        ] }
+      ],
+      "observations": [
+        { "id": "square", "prompt": "What shows that the frame is square?", "options": [
+          { "text": "The two diagonals are equal", "correct": true },
+          { "text": "Opposite rails are equal in length", "why": "That is true of any parallelogram, square or not." },
+          { "text": "The frame lies flat on the bench", "why": "That shows no twist. It does not show the corners are square." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "diagonal", "prompt": "A frame is {l} mm by {w} mm. What is each diagonal, to the nearest mm?", "formula": "sqrt(l^2 + w^2)", "vars": { "l": { "min": 600, "max": 900, "step": 100 }, "w": { "min": 300, "max": 500, "step": 100 } }, "unit": "mm", "tolerance": { "abs": 1 }, "decimals": 0, "working": "√({l}² + {w}²) = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "twisted", "scenario": "Ada's frame is not square, and it has shiny patches after finishing. Here is what she did.", "lines": [
+          { "text": "She measured the diagonals only after the glue had set.", "fault": true, "why": "By then it cannot be corrected." },
+          { "text": "She left dried glue on the surfaces to be finished.", "fault": true, "why": "Dried glue blocks the finish." },
+          { "text": "She cleaned up the inside edges before assembly.", "why": "They are hard to reach afterwards." },
+          { "text": "She used cramp blocks to protect the wood.", "why": "That is sound practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does measuring the two diagonals prove that a frame is square?",
+        "explainGuide": "A rectangle has equal diagonals. If opposite sides are equal and the diagonals are equal, every corner must be a right angle.",
+        "explainKeywords": [["diagonal"], ["equal", "same"], ["right angle", "rectangle", "square", "90"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-determining-the-moisture-content-of-timber": {
+      "room": "lab",
+      "safety": {
+        "correct": ["Let samples cool in the desiccator before you handle them bare-handed."],
+        "wrong": [
+          { "text": "Lift hot samples from the oven with a damp rag.", "why": "Damp cloth conducts heat fast and scalds. Use dry oven gloves." },
+          { "text": "Test the oven temperature by holding your hand inside.", "why": "Read the thermometer, not your hand." },
+          { "text": "Check the moisture meter by pressing its pins into your palm.", "why": "The pins pierce skin. Test it on a timber offcut." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Bench grinder", "why": "Nothing is being sharpened." },
+          { "name": "Spring balance", "why": "Not sensitive enough: use the 0.1 g electronic balance." },
+          { "name": "Sliding bevel", "why": "No angles are marked here." },
+          { "name": "Sash cramp", "why": "Nothing is glued in this practical." }
+        ]
+      },
+      "decisions": [
+        { "id": "sample-place", "afterStep": 1, "prompt": "Where do you cut the sample from?", "options": [
+          { "text": "At least 300 mm from the end of the board", "correct": true, "consequence": "This represents the board, because the ends dry fastest." },
+          { "text": "The very end of the board, for convenience", "consequence": "End slices are drier than the rest, so the result reads low." },
+          { "text": "Round a knot, where it is densest", "consequence": "Knots hold resin and dry differently, so the result misleads." }
+        ] },
+        { "id": "weigh-when", "afterStep": 2, "prompt": "When do you weigh the wet sample?", "options": [
+          { "text": "Immediately after cutting", "correct": true, "consequence": "No moisture has escaped, so the wet mass is true." },
+          { "text": "After lunch, when the balance is free", "consequence": "It has lost moisture to the air, so the result reads low." },
+          { "text": "After a short time in the oven", "consequence": "That is already part of the drying: the wet mass is lost." }
+        ] },
+        { "id": "constant", "afterStep": 3, "prompt": "Two weighings an hour apart differ by 3 g. What do you do?", "options": [
+          { "text": "Dry it further and weigh again until the mass is constant", "correct": true, "consequence": "Constant mass shows all the free moisture has gone." },
+          { "text": "Take the lower figure as the dry mass and carry on working", "consequence": "It is still drying, so the moisture content comes out too low." },
+          { "text": "Average the two weighings", "consequence": "The average is not a dry mass at all." }
+        ] }
+      ],
+      "observations": [
+        { "id": "trend", "prompt": "What happens to the sample's mass in the oven?", "options": [
+          { "text": "It falls, then stays constant", "correct": true },
+          { "text": "It falls steadily and never stops", "why": "It stops when the free moisture has gone." },
+          { "text": "It rises slowly as the wood heats", "why": "Heating adds no mass." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "mc", "prompt": "A sample has a wet mass of {w} g and an oven-dry mass of 200 g. What is its moisture content?", "formula": "(w - 200) / 200 * 100", "vars": { "w": { "min": 230, "max": 280, "step": 10 } }, "unit": "%", "unitAliases": ["percent", "per cent"], "tolerance": { "abs": 0.5 }, "decimals": 1, "working": "MC = ({w} − 200) ÷ 200 × 100 = {answer}%." }
+      ],
+      "faults": [
+        { "id": "low-mc", "scenario": "Sade reports 20% moisture content for a board that actually holds 25%. Here is what she did.", "lines": [
+          { "text": "She divided by the wet mass instead of the dry mass.", "fault": true, "why": "Moisture content is calculated on the oven-dry mass." },
+          { "text": "She cut her sample from the end of the board.", "fault": true, "why": "Ends dry faster and read low." },
+          { "text": "She dried the sample to constant mass.", "why": "That is correct." },
+          { "text": "She used the 0.1 g electronic balance.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is moisture content worked out on the oven-dry mass, not the wet mass?",
+        "explainGuide": "The dry mass is a fixed value for the wood, whereas the wet mass changes with the water in it, so the dry mass gives a fair base for comparing timbers.",
+        "explainKeywords": [["dry"], ["fixed", "constant", "does not change", "base"], ["compare", "comparing", "fair"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-identifying-west-african-timbers": {
+      "safety": {
+        "correct": ["Cut away from your fingers when you pare a clean end."],
+        "wrong": [
+          { "text": "Sand each sample hard to see the colour, without a mask.", "why": "Some timber dusts irritate the lungs and nose." },
+          { "text": "Taste the timber to help identify it.", "why": "Some timbers are irritant. Smell and look instead." },
+          { "text": "Hold the sample against your palm while cutting its end.", "why": "The knife can slip into your hand. Rest it on the bench." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Marking gauge", "why": "Nothing is being marked out." },
+          { "name": "Jack plane", "why": "A knife gives a clean enough end." },
+          { "name": "Moisture meter", "why": "Identification relies on the features listed in the key." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." }
+        ]
+      },
+      "decisions": [
+        { "id": "colour-only", "afterStep": 1, "prompt": "Two reddish samples look alike. What do you do?", "options": [
+          { "text": "Compare grain, pores, density and smell as well", "correct": true, "consequence": "Several features together separate timbers that share a colour." },
+          { "text": "Decide on colour, which is the surest guide", "consequence": "Colour changes with age and light, so that is unreliable." },
+          { "text": "Pick the one that seems heavier", "consequence": "One feature alone is not enough." }
+        ] },
+        { "id": "surface", "afterStep": 2, "prompt": "Where do you look at the pores?", "options": [
+          { "text": "On a freshly cut end surface", "correct": true, "consequence": "The pores show clearly on a clean cut." },
+          { "text": "On the old, dirty face of the sample", "consequence": "Dirt and handling hide the pores." },
+          { "text": "On a waxed face, for shine", "consequence": "Wax fills the pores and hides them." }
+        ] },
+        { "id": "density-units", "afterStep": 3, "prompt": "You have a mass in kg and sizes in mm. What is your first step?", "options": [
+          { "text": "Convert the sizes to metres before finding the volume", "correct": true, "consequence": "The density comes out in kg/m³, which matches the key." },
+          { "text": "Divide the mass by the three sizes in mm, without converting", "consequence": "The answer is out by a factor of a thousand million." },
+          { "text": "Convert the mass to grams and keep mm", "consequence": "The units don't match the key." }
+        ] }
+      ],
+      "observations": [
+        { "id": "obeche", "prompt": "A sample is pale and very light in the hand. Which timber is it most likely to be?", "options": [
+          { "text": "Obeche", "correct": true },
+          { "text": "Iroko", "why": "Iroko is golden brown and heavy." },
+          { "text": "Ebony", "why": "Ebony is black and very heavy." },
+          { "text": "Mahogany", "why": "Mahogany is reddish brown." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "density", "prompt": "A block measures 300 × 50 × 50 mm, and its mass is {m} kg. What is its density, in kg/m³?", "formula": "m / 0.00075", "vars": { "m": { "min": 0.3, "max": 0.6, "step": 0.05 } }, "unit": "kg/m³", "unitAliases": ["kg/m3", "kg m-3", "kgm-3"], "tolerance": { "rel": 0.02 }, "decimals": 0, "working": "Volume = 0.3 × 0.05 × 0.05 = 0.00075 m³. Density = {m} ÷ 0.00075 = {answer} kg/m³." }
+      ],
+      "faults": [
+        { "id": "misnamed", "scenario": "Kemi named an iroko sample as mahogany. Here is what she did.", "lines": [
+          { "text": "She decided on colour alone.", "fault": true, "why": "Colour alone misleads." },
+          { "text": "She looked at the old surface, not a fresh cut.", "fault": true, "why": "A fresh surface shows the real features." },
+          { "text": "She used a ×10 hand lens.", "why": "That is the correct tool." },
+          { "text": "She worked from dry samples.", "why": "Moisture alters colour and weight, so this is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why should several features be used to identify a timber, rather than colour alone?",
+        "explainGuide": "Colour varies with age, moisture and exposure, and different timbers share colours. Grain, texture, density and smell together give a reliable identification.",
+        "explainKeywords": [["colour"], ["grain", "texture", "density", "smell", "pores"], ["vary", "varies", "change", "reliable"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-identifying-timber-defects": {
+      "safety": {
+        "correct": ["Wash your hands after handling infested samples."],
+        "wrong": [
+          { "text": "Stack infested samples with the sound timber to save space.", "why": "Insects and fungi spread. Keep them apart." },
+          { "text": "Pull rough splinters off with your bare fingers.", "why": "Wear gloves on rough samples." },
+          { "text": "Blow the bore dust from insect holes.", "why": "It goes into your eyes and mouth. Use a brush." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "Nothing is cut in this inspection." },
+          { "name": "Jack plane", "why": "Planing would remove the evidence." },
+          { "name": "Try plane", "why": "This is an inspection, not a preparation job." },
+          { "name": "PVA glue", "why": "Nothing is repaired or glued here." }
+        ]
+      },
+      "decisions": [
+        { "id": "cup-bow", "afterStep": 2, "prompt": "The board curves across its width. What do you call this?", "options": [
+          { "text": "Cup", "correct": true, "consequence": "Yes: cup is across the width of the face." },
+          { "text": "Bow", "consequence": "Bow runs along the length of the face." },
+          { "text": "Spring", "consequence": "Spring runs along the edge." }
+        ] },
+        { "id": "dead-knot", "afterStep": 3, "prompt": "A dark knot is loose in its socket. What do you do with this piece?", "options": [
+          { "text": "Avoid it in any load-bearing part", "correct": true, "consequence": "Dead knots can fall out, leaving a weak hole." },
+          { "text": "Use it in a load-bearing rail after sanding", "consequence": "The knot drops out under load, so the rail fails." },
+          { "text": "Treat it as a live knot", "consequence": "Live knots are tight. This one is not." }
+        ] },
+        { "id": "frass", "afterStep": 5, "prompt": "You find fine powder under small holes. What does it show?", "options": [
+          { "text": "Insect attack, possibly still active", "correct": true, "consequence": "Frass under holes means borers. Isolate the timber." },
+          { "text": "A seasoning check", "consequence": "Seasoning checks are splits with no powder." },
+          { "text": "Simple sawdust from conversion", "consequence": "Sawdust does not collect under small round holes." }
+        ] }
+      ],
+      "observations": [
+        { "id": "cause", "prompt": "Which is the usual cause of cup, bow and twist?", "options": [
+          { "text": "Uneven drying (seasoning)", "correct": true },
+          { "text": "Insect attack in the stored timber", "why": "Insects leave holes and frass." },
+          { "text": "Fungal attack", "why": "Fungi cause stain and rot." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "bow", "prompt": "A {l} m board has a gap of {g} mm at the middle under a straight edge. What is its bow per metre, in mm/m?", "formula": "g / l", "vars": { "l": { "min": 2, "max": 4, "step": 1 }, "g": { "min": 6, "max": 24, "step": 6 } }, "unit": "mm/m", "tolerance": { "rel": 0.02 }, "decimals": 1, "working": "{g} ÷ {l} = {answer} mm per metre." }
+      ],
+      "faults": [
+        { "id": "report", "scenario": "Musa wrote up his defect inspection. His teacher marked some of it wrong. Here is what he did.", "lines": [
+          { "text": "He wrote 'bow' for a curve across the width of the board.", "fault": true, "why": "That is cup. Bow is along the length of the face." },
+          { "text": "He inspected only the top face of each board.", "fault": true, "why": "Inspect all four faces and both ends." },
+          { "text": "He used a straight edge to find bow.", "why": "That is the right tool." },
+          { "text": "He kept infested samples apart.", "why": "That is sound practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Explain how the defects cup and bow differ, and what causes them.",
+        "explainGuide": "Cup is a curve across the width; bow is a curve along the length of the face. Both come from uneven drying during seasoning.",
+        "explainKeywords": [["cup"], ["bow"], ["width", "across", "length"], ["drying", "seasoning", "shrink"]],
+        "explainNeed": 3
+      }
+    },
+    "pr-wwk-applying-timber-preservatives": {
+      "safety": {
+        "correct": ["Keep preservative away from food, drink and open drains."],
+        "wrong": [
+          { "text": "Mix the preservative indoors with the windows shut to keep dust out.", "why": "Fumes build up. Work outdoors or with good ventilation." },
+          { "text": "Stir with your gloved hand so that you can feel the mix.", "why": "Use a stick. Keep your hands out of it." },
+          { "text": "Rinse the brushes in the nearest stream.", "why": "That poisons the water. Dispose of residues safely." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "Timber is cut to final size before treatment." },
+          { "name": "Moisture meter", "why": "Dryness is settled before this job begins." },
+          { "name": "Rubber for polishing", "why": "French polish is a finish, not a preservative." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." }
+        ]
+      },
+      "decisions": [
+        { "id": "when", "afterStep": 1, "prompt": "When do you treat the battens?", "options": [
+          { "text": "After cutting to final size", "correct": true, "consequence": "Every surface, including the end grain, gets treated." },
+          { "text": "Before cutting, then cut as needed", "consequence": "Each saw cut opens up untreated wood." },
+          { "text": "When the battens are still wet from rain", "consequence": "Water in the wood blocks the preservative." }
+        ] },
+        { "id": "end-grain", "afterStep": 3, "prompt": "Which part needs the most attention when brushing?", "options": [
+          { "text": "The end grain", "correct": true, "consequence": "End grain soaks up most, and rot starts there." },
+          { "text": "The widest face", "consequence": "The face takes less up than the ends." },
+          { "text": "The edges only", "consequence": "That leaves the ends, the worst spots, unprotected." }
+        ] },
+        { "id": "stack", "afterStep": 5, "prompt": "How do you stack the treated timber?", "options": [
+          { "text": "On sticks, under cover, to dry", "correct": true, "consequence": "Air flows, and the rain cannot wash the preservative out." },
+          { "text": "Flat on the ground, in the open sun", "consequence": "It picks up ground moisture, and rain washes it." },
+          { "text": "Straight back into service while wet", "consequence": "It is toxic to touch, and not fixed yet." }
+        ] }
+      ],
+      "observations": [
+        { "id": "penetration", "prompt": "You compare cut ends. What do you expect?", "options": [
+          { "text": "Dipped samples show deeper, more even penetration", "correct": true },
+          { "text": "Brushed samples show the deeper penetration", "why": "A brush gives a thin, surface coat." },
+          { "text": "Both show the same depth", "why": "Dipping gives longer contact with the liquid." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "litres", "prompt": "You must treat {a} m² at a coverage of 8 m² per litre per coat, with 2 coats. How many litres are needed?", "formula": "a / 8 * 2", "vars": { "a": { "min": 6, "max": 16, "step": 2 } }, "unit": "litres", "unitAliases": ["l", "L", "litre", "liters", "dm3"], "tolerance": { "rel": 0.02 }, "decimals": 2, "working": "{a} ÷ 8 × 2 = {answer} litres." }
+      ],
+      "faults": [
+        { "id": "rotting-fence", "scenario": "Ifeanyi's treated fence rail is rotting at its ends after a year. Here is what he did.", "lines": [
+          { "text": "He brushed the faces but not the end grain.", "fault": true, "why": "Rot starts at the end grain." },
+          { "text": "He cut it to length after treatment and left the new ends bare.", "fault": true, "why": "Re-treat every cut end." },
+          { "text": "He wore gloves, goggles and a respirator.", "why": "That is correct PPE." },
+          { "text": "He applied two coats.", "why": "That is sound practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does end grain need more preservative than the faces?",
+        "explainGuide": "The cut ends of the wood's tubes soak up liquid fastest, so moisture and rot enter there first. They take up the most preservative and need the most protection.",
+        "explainKeywords": [["end grain", "ends", "cut"], ["absorb", "soak", "takes up"], ["moisture", "rot", "decay"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-surface-preparation-and-application-of-wood-finishes": {
+      "safety": {
+        "correct": ["Keep flames and cigarettes out of the finishing area."],
+        "wrong": [
+          { "text": "Ball up used polishing rags and drop them in the bin.", "why": "Bundled rags can self-ignite. Spread them flat to dry." },
+          { "text": "Close the doors so that dust stays out while you varnish.", "why": "Solvent fumes build up. Ventilate." },
+          { "text": "Clean brushes in a tin on the hot stove to speed it up.", "why": "Solvents are flammable. Keep them away from heat." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Rip saw", "why": "No sawing is done at finishing." },
+          { "name": "Mortise chisel", "why": "The woodwork is already made." },
+          { "name": "Paint roller", "why": "A roller leaves a stippled film. Use a brush or rubber." },
+          { "name": "Marking gauge", "why": "Nothing is marked out here." }
+        ],
+        "optional": ["Rubber (for polishing)"]
+      },
+      "decisions": [
+        { "id": "grit-order", "afterStep": 2, "prompt": "You have sanded with 80 grit. Which do you use next?", "options": [
+          { "text": "A medium paper, about 120", "correct": true, "consequence": "Each grade removes the last grade's scratches." },
+          { "text": "A fine paper, about 240", "consequence": "It cannot cut out the deep 80-grit scratches, and they show under the finish." },
+          { "text": "Another coarse paper, about 60", "consequence": "That makes the scratches deeper." }
+        ] },
+        { "id": "sand-direction", "afterStep": 2, "prompt": "Which way do you sand?", "options": [
+          { "text": "With the grain", "correct": true, "consequence": "Scratches hide along the grain." },
+          { "text": "Across the grain", "consequence": "Cross scratches show clearly once stain goes on." },
+          { "text": "In small circles", "consequence": "Swirl marks show through the finish." }
+        ] },
+        { "id": "thin-coats", "afterStep": 6, "prompt": "How do you lay on the varnish?", "options": [
+          { "text": "In thin coats, letting each dry and de-nibbing between them", "correct": true, "consequence": "A smooth, level film builds up with no runs." },
+          { "text": "In one thick coat, to save time", "consequence": "It runs, sags and stays soft underneath." },
+          { "text": "A thin coat, then a second one straight away while still tacky", "consequence": "The wet coats drag and lift, leaving marks." }
+        ] }
+      ],
+      "observations": [
+        { "id": "film", "prompt": "What does a good finish look like?", "options": [
+          { "text": "Even colour and a smooth film with no runs or dust", "correct": true },
+          { "text": "Glossy with runs at the lower edge", "why": "Runs come from coats that are too thick." },
+          { "text": "Dark scratches that cross the grain on an even coat", "why": "Those are from sanding across the grain." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "coats", "prompt": "A table top of {a} m² needs {c} coats, at a coverage of 12 m² per litre per coat. How many litres of varnish are needed?", "formula": "a * c / 12", "vars": { "a": { "min": 1, "max": 3, "step": 1 }, "c": { "min": 2, "max": 4, "step": 1 } }, "unit": "litres", "unitAliases": ["l", "L", "litre", "liters", "dm3"], "tolerance": { "rel": 0.03 }, "decimals": 2, "working": "{a} × {c} ÷ 12 = {answer} litres." }
+      ],
+      "faults": [
+        { "id": "rough-film", "scenario": "Zainab's varnished box has runs on it, dust in the film, and scratches showing. Here is what she did.", "lines": [
+          { "text": "She went straight from 80 grit to 240 grit.", "fault": true, "why": "Deep scratches remain. Work through the grades." },
+          { "text": "She laid on one thick coat.", "fault": true, "why": "Thick coats run." },
+          { "text": "She varnished right after sanding, without using a tack cloth.", "fault": true, "why": "Dust goes into the film." },
+          { "text": "She sanded with the grain.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why must abrasive papers be used in order from coarse to fine?",
+        "explainGuide": "Each grade removes the scratches left by the grade before it and leaves smaller ones. Skipping grades leaves deep scratches that show under the finish.",
+        "explainKeywords": [["scratch"], ["coarse", "grade", "grit"], ["fine", "smooth", "remove", "show"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-fitting-butt-hinges-and-a-cabinet-lock": {
+      "safety": {
+        "correct": ["Hold the door steady with a wedge or a helper while fixing it."],
+        "wrong": [
+          { "text": "Hold a screw with your lips while you line up the hinge.", "why": "Screws get swallowed. Keep them in a tray." },
+          { "text": "Use the chisel as a screwdriver for a stiff screw.", "why": "That chips the edge and it can slip. Use the right screwdriver." },
+          { "text": "Hold the door with your fingers in the hinge gap.", "why": "The hinge nips fingers when the door swings." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Sash cramp", "why": "Nothing is glued or cramped here." },
+          { "name": "Jack plane", "why": "The door is already to size." },
+          { "name": "Rip saw", "why": "Only small recess cuts are needed." },
+          { "name": "Spokeshave", "why": "There are no curves in this job." }
+        ]
+      },
+      "decisions": [
+        { "id": "first-screw", "afterStep": 4, "prompt": "You are fixing the hinge to the carcass. How many screws go in first?", "options": [
+          { "text": "One in each hinge, then test the swing", "correct": true, "consequence": "The door can still be adjusted if it binds." },
+          { "text": "All of them, tightly", "consequence": "If the door binds, the screws must come out, and the holes are spoiled." },
+          { "text": "None until the lock is fitted, to avoid any marks", "consequence": "The door is not held in place to mark the lock." }
+        ] },
+        { "id": "pilot", "afterStep": 3, "prompt": "What do you do before driving the screws into hardwood?", "options": [
+          { "text": "Bore pilot holes", "correct": true, "consequence": "The screws go in straight, and the wood does not split." },
+          { "text": "Rub the screw with water", "consequence": "Water rusts the screw and swells the wood." },
+          { "text": "Drive them straight in with a hammer", "consequence": "That splits the rail and ruins the screw." }
+        ] },
+        { "id": "recess-depth", "afterStep": 2, "prompt": "How deep is the hinge recess?", "options": [
+          { "text": "The thickness of the leaf, so it sits flush", "correct": true, "consequence": "The hinge sits level, and the door closes without binding." },
+          { "text": "Twice the thickness of the leaf", "consequence": "The hinge sits too deep, and the door binds on the carcass." },
+          { "text": "No recess: the leaf sits on the surface", "consequence": "The door stands off, and the gap shows." }
+        ] }
+      ],
+      "observations": [
+        { "id": "fit", "prompt": "What shows a well-hung door?", "options": [
+          { "text": "Even gaps all round, and it swings freely", "correct": true },
+          { "text": "It springs open when released", "why": "That means a hinge is binding or too deep." },
+          { "text": "It must be pushed hard to latch, but then stays shut", "why": "That means the lock or the hinges are out of line." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "hinge-pos", "prompt": "A door is {h} mm high. Hinges go about one-sixth of the height from top and bottom. How far from the top is the top hinge, in mm?", "formula": "h / 6", "vars": { "h": { "min": 480, "max": 900, "step": 60 } }, "unit": "mm", "tolerance": { "abs": 2 }, "decimals": 0, "working": "{h} ÷ 6 = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "binding-door", "scenario": "Dapo's cabinet door binds, and a screw tip shows through the face. Here is what he did.", "lines": [
+          { "text": "He used screws too long for the door thickness.", "fault": true, "why": "They broke through the face." },
+          { "text": "He cut the hinge recesses to uneven depths.", "fault": true, "why": "That throws the door out of line." },
+          { "text": "He bored pilot holes first.", "why": "That is correct." },
+          { "text": "He gauged the recess from the door edge.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is each hinge fixed with one screw first?",
+        "explainGuide": "It holds the door so that the swing can be tested. The door can still be adjusted before the other screws go in, and no holes are spoiled.",
+        "explainKeywords": [["one screw", "first"], ["test", "check", "swing"], ["adjust", "move", "correct"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-sharpening-and-maintaining-edge-tools": {
+      "safety": {
+        "correct": ["Stand to one side of the wheel when switching on the grinder."],
+        "wrong": [
+          { "text": "Wrap a rag round the blade so that you can grip it better on the wheel.", "why": "The rag can catch in the wheel. Hold the blade itself." },
+          { "text": "Test the sharpness of the edge on your thumb.", "why": "Test on end grain." },
+          { "text": "Grind on the side of the wheel for a flat bevel.", "why": "Side pressure can shatter the wheel. Grind on the face." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "Saws are sharpened with a file, in another job." },
+          { "name": "Marking gauge", "why": "Nothing is marked out here." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." },
+          { "name": "Mallet", "why": "Nothing here is struck." }
+        ]
+      },
+      "decisions": [
+        { "id": "blue", "afterStep": 2, "prompt": "The tip begins to turn colour on the grinder. What do you do?", "options": [
+          { "text": "Dip it in water and use lighter pressure", "correct": true, "consequence": "It keeps its temper, so the edge stays hard." },
+          { "text": "Grind on quickly to finish", "consequence": "It turns blue, the temper is lost, and the edge goes soft." },
+          { "text": "Let it go blue, because that hardens it", "consequence": "Blue means soft: that part must be ground away." }
+        ] },
+        { "id": "back", "afterStep": 3, "prompt": "You have raised a burr on the edge. What next?", "options": [
+          { "text": "Rub the flat back on the stone, keeping it flat", "correct": true, "consequence": "The burr comes off and leaves a keen edge." },
+          { "text": "Hone the back at an angle", "consequence": "A bevel on the back spoils how the tool cuts." },
+          { "text": "Leave the burr, as it is a sharp edge ready for work", "consequence": "The burr breaks off, leaving a dull edge." }
+        ] },
+        { "id": "stone-use", "afterStep": 3, "prompt": "How do you use the oilstone?", "options": [
+          { "text": "Lubricated, using the whole surface", "correct": true, "consequence": "The stone stays flat and cuts well." },
+          { "text": "Dry, in the middle only", "consequence": "It clogs and wears hollow." },
+          { "text": "With water from a tap on an oilstone", "consequence": "Oilstones need oil. Water stones need water." }
+        ] }
+      ],
+      "observations": [
+        { "id": "sharp", "prompt": "How do you know that the edge is sharp?", "options": [
+          { "text": "It shaves end grain cleanly", "correct": true },
+          { "text": "It catches the light along the edge", "why": "A bright line on the edge shows it is dull." },
+          { "text": "It feels rough on your thumb", "why": "Never test on your thumb." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "hone-angle", "prompt": "You grind at {g}° and hone {d}° steeper. What is the honing angle, in degrees?", "formula": "g + d", "vars": { "g": { "min": 20, "max": 25, "step": 5 }, "d": { "min": 3, "max": 5, "step": 1 } }, "unit": "°", "unitAliases": ["degrees", "degree", "deg"], "tolerance": { "abs": 0 }, "decimals": 0, "working": "{g} + {d} = {answer}°." }
+      ],
+      "faults": [
+        { "id": "blue-edge", "scenario": "Yemi's chisel goes dull within minutes, and it does not pare well. Here is what he did.", "lines": [
+          { "text": "He let the tip overheat to blue on the grinder.", "fault": true, "why": "Blue steel has lost its temper." },
+          { "text": "He honed the flat back at an angle.", "fault": true, "why": "The back must stay flat." },
+          { "text": "He set the tool rest close to the wheel.", "why": "That is correct." },
+          { "text": "He wore goggles.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is an edge ground at about 25° and honed at about 30°?",
+        "explainGuide": "The honing bevel is steeper, so only a narrow strip at the tip touches the stone. This saves time, and a stronger edge is formed.",
+        "explainKeywords": [["hon"], ["narrow", "tip", "small"], ["time", "quick", "strong"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-safe-use-of-the-circular-saw-and-surface-planer": {
+      "safety": {
+        "correct": ["Know where the emergency stop is before starting a machine."],
+        "wrong": [
+          { "text": "Take off the crown guard to see the cut better.", "why": "The guard stays on: it protects you and helps prevent kick-back." },
+          { "text": "Reach over the blade to pull the cut piece through.", "why": "Never reach over the blade." },
+          { "text": "Clear offcuts while the blade is slowing down.", "why": "Wait until it has fully stopped." },
+          { "text": "Wear gloves so that your hands are safe near the blade.", "why": "Gloves are pulled in by the blade." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "This job uses the machines." },
+          { "name": "Marking gauge", "why": "The fence sets the width." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." },
+          { "name": "Chisel", "why": "This job involves no paring." }
+        ]
+      },
+      "decisions": [
+        { "id": "blade-height", "afterStep": 1, "prompt": "How high do you set the blade?", "options": [
+          { "text": "About 10 mm above the work", "correct": true, "consequence": "Little of the blade is exposed, and the cut is clean." },
+          { "text": "As high as it goes", "consequence": "That exposes more blade and raises the risk of injury." },
+          { "text": "Below the top of the work", "consequence": "The cut does not go through, and the work may kick." }
+        ] },
+        { "id": "stance", "afterStep": 3, "prompt": "Where do you stand?", "options": [
+          { "text": "To one side of the blade's line", "correct": true, "consequence": "If there is a kick-back, it misses you." },
+          { "text": "Directly behind the blade", "consequence": "A kick-back flies straight at you." },
+          { "text": "On the far side, to pull the work through", "consequence": "Your hands are over the blade." }
+        ] },
+        { "id": "end-cut", "afterStep": 3, "prompt": "The last 300 mm of the cut is coming up. What do you do?", "options": [
+          { "text": "Finish with the push stick", "correct": true, "consequence": "Your hand never gets near the blade." },
+          { "text": "Keep pushing with your palm", "consequence": "Your hand rides straight towards the blade." },
+          { "text": "Stop and pull it back through", "consequence": "Pulling back against the blade can kick." }
+        ] }
+      ],
+      "observations": [
+        { "id": "good", "prompt": "What shows that the machine work has been done correctly?", "options": [
+          { "text": "Clean cuts, no kick-back, and all guards remained in place", "correct": true },
+          { "text": "Fast cuts with the guard taken off, and the timber kept moving", "why": "Speed never excuses removing a guard." },
+          { "text": "A burnt edge along the cut", "why": "Burn marks show a dull blade or a slow feed." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "rim-speed", "prompt": "A {d} mm blade runs at 3000 rev/min. What is its rim speed, in m/min? Take π = 3.14.", "formula": "3.14 * d / 1000 * 3000", "vars": { "d": { "min": 200, "max": 300, "step": 50 } }, "unit": "m/min", "tolerance": { "rel": 0.02 }, "decimals": 0, "working": "v = π × {d}/1000 × 3000 = {answer} m/min." }
+      ],
+      "faults": [
+        { "id": "kick-back", "scenario": "A board kicked back at Obi on the circular saw. Here is what he did.", "lines": [
+          { "text": "He stood in line with the blade.", "fault": true, "why": "Stand to one side." },
+          { "text": "He had taken out the riving knife to make a quick cut.", "fault": true, "why": "The riving knife stops the kerf closing on the blade." },
+          { "text": "He had not checked the board for nails.", "fault": true, "why": "Nails catch and throw the timber." },
+          { "text": "He wore ear defenders and goggles.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "What does the riving knife do, and why must it stay aligned with the blade?",
+        "explainGuide": "It keeps the kerf open behind the blade, so the timber cannot close on the blade and kick back. Out of line, it binds the timber.",
+        "explainKeywords": [["kerf", "cut", "open"], ["kick"], ["blade"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-turning-between-centres-on-the-wood-lathe": {
+      "safety": {
+        "correct": ["Check that the tailstock and tool rest are locked before you switch on."],
+        "wrong": [
+          { "text": "Wear a loose tie so the sleeves are held back.", "why": "A tie catches in the work. Remove anything loose." },
+          { "text": "Stop the spinning work with your hand to save time.", "why": "Let it stop by itself." },
+          { "text": "Measure the diameter with a rule while it spins.", "why": "Stop first, or use calipers correctly." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "Waste ends are sawn after turning, and that's incidental here." },
+          { "name": "Marking gauge", "why": "Diameters are set with calipers." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." },
+          { "name": "Jack plane", "why": "Nothing is planed on the lathe." }
+        ]
+      },
+      "decisions": [
+        { "id": "start", "afterStep": 2, "prompt": "The blank is mounted. What do you do before switching on?", "options": [
+          { "text": "Turn it by hand to check that it clears the rest", "correct": true, "consequence": "The corners clear the rest, so there is no crash." },
+          { "text": "Switch on at top speed to save time and check it by ear", "consequence": "A square blank at high speed shakes, and can fly out." },
+          { "text": "Push the gouge onto the work first", "consequence": "The tool catches as soon as the power comes on." }
+        ] },
+        { "id": "speed", "afterStep": 3, "prompt": "At what speed do you start a square blank?", "options": [
+          { "text": "Low", "correct": true, "consequence": "An unbalanced blank stays steady." },
+          { "text": "The highest", "consequence": "It vibrates hard and can leave the centres." },
+          { "text": "Whatever it was left on", "consequence": "It may be set far too fast." }
+        ] },
+        { "id": "rest", "afterStep": 3, "prompt": "The tool rest needs moving closer. What do you do?", "options": [
+          { "text": "Switch off, wait for the work to stop, then adjust", "correct": true, "consequence": "You move it with no danger of a catch." },
+          { "text": "Move it while it spins", "consequence": "The rest catches the blank, and it shatters." },
+          { "text": "Leave it and reach further with the tool", "consequence": "A long overhang causes a catch." }
+        ] }
+      ],
+      "observations": [
+        { "id": "spindle", "prompt": "A good spindle has:", "options": [
+          { "text": "Smooth surfaces, with diameters matching the drawing", "correct": true },
+          { "text": "Flats still showing at the middle, with smoother ends", "why": "It has not been roughed fully to a cylinder." },
+          { "text": "Long spiral tears along it", "why": "That is a catch, from a skew presented flat." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "surface", "prompt": "A blank {d} mm in diameter turns at {n} rev/min. What is its surface speed, in m/min? Take π = 3.14.", "formula": "3.14 * d / 1000 * n", "vars": { "d": { "min": 40, "max": 80, "step": 20 }, "n": { "min": 1000, "max": 2000, "step": 500 } }, "unit": "m/min", "tolerance": { "rel": 0.02 }, "decimals": 0, "working": "v = π × {d}/1000 × {n} = {answer} m/min." }
+      ],
+      "faults": [
+        { "id": "catch", "scenario": "Sola's spindle has a deep spiral gouge in it, and the work jumped. Here is what she did.", "lines": [
+          { "text": "She presented the skew chisel flat on the work.", "fault": true, "why": "That digs in, causing a catch." },
+          { "text": "She adjusted the tool rest while the lathe ran.", "fault": true, "why": "Stop first." },
+          { "text": "She wore a face shield.", "why": "That is correct." },
+          { "text": "She kept the bevel rubbing.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why must the speed be lower for large diameters than for small ones?",
+        "explainGuide": "Surface speed depends on diameter as well as the rev/min. A large blank moves much faster at the rim for the same rev/min, so the speed is lowered to keep it safe.",
+        "explainKeywords": [["surface", "rim", "speed"], ["diameter", "large"], ["safe", "lower", "faster"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-working-drawing-and-cutting-list-for-a-stool": {
+      "room": "drawing",
+      "safety": {
+        "wrong": [
+          { "text": "Pass your compasses to a friend point first.", "why": "Pass them handle first." },
+          { "text": "Lean over a sharp divider point to see the line closely.", "why": "Keep your face away from points." },
+          { "text": "Blow rubbings from the sheet towards the next desk.", "why": "Brush them gently off the sheet." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Tenon saw", "why": "This is a drawing job." },
+          { "name": "Jack plane", "why": "This is a drawing job." },
+          { "name": "Marking gauge", "why": "Marking gauges are used on timber, not paper." },
+          { "name": "Freehand brush", "why": "Working drawings need fine, ruled lines." }
+        ]
+      },
+      "decisions": [
+        { "id": "projection", "afterStep": 2, "prompt": "In first-angle projection, where does the plan go?", "options": [
+          { "text": "Below the front elevation", "correct": true, "consequence": "That is the first-angle layout." },
+          { "text": "Above the front elevation", "consequence": "That is third-angle." },
+          { "text": "To the right of the end view", "consequence": "A plan is always projected vertically from the front view." }
+        ] },
+        { "id": "list-sizes", "afterStep": 5, "prompt": "Which size goes in the cutting list?", "options": [
+          { "text": "The finished size, with waste allowed for separately", "correct": true, "consequence": "The list matches the drawing, and the waste is clear." },
+          { "text": "The sawn size, which already includes waste", "consequence": "The list no longer matches the drawing." },
+          { "text": "A rough estimate", "consequence": "The timber order cannot be checked." }
+        ] },
+        { "id": "section", "afterStep": 3, "prompt": "What does the section show?", "options": [
+          { "text": "The joints and hidden construction", "correct": true, "consequence": "It shows the maker how the parts fit." },
+          { "text": "The colour of the finish on each part", "consequence": "A section shows internal form, not colour." },
+          { "text": "The price of the timber", "consequence": "Cost belongs with the cutting list." }
+        ] }
+      ],
+      "observations": [
+        { "id": "check", "prompt": "How can you tell that your views are correct?", "options": [
+          { "text": "Features line up across the views", "correct": true },
+          { "text": "The views fill the sheet", "why": "Filling the sheet says nothing about alignment." },
+          { "text": "The lines are all equally thick", "why": "Line weights should differ." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "leg-vol", "prompt": "There are 4 legs, each {l} × 45 × 45 mm. What is their total volume, in m³? Give 5 decimal places.", "formula": "4 * l * 45 * 45 / 1000000000", "vars": { "l": { "min": 400, "max": 500, "step": 50 } }, "unit": "m³", "unitAliases": ["m3", "m^3", "cubic metres"], "tolerance": { "rel": 0.02 }, "decimals": 5, "working": "4 × {l} × 45 × 45 ÷ 1 000 000 000 = {answer} m³." },
+        { "id": "waste", "prompt": "A stool needs {v} m³ of timber, and you add 20% for waste. What volume do you buy, in m³?", "formula": "v * 1.2", "vars": { "v": { "min": 0.006, "max": 0.012, "step": 0.002 } }, "unit": "m³", "unitAliases": ["m3", "m^3", "cubic metres"], "tolerance": { "rel": 0.02 }, "decimals": 4, "working": "{v} × 1.2 = {answer} m³." }
+      ],
+      "faults": [
+        { "id": "drawing-check", "scenario": "Hauwa's drawing was returned by her teacher. Here is what she did.", "lines": [
+          { "text": "She put the plan above the front view, but drew a first-angle symbol.", "fault": true, "why": "The layout must match the symbol." },
+          { "text": "She left the quantity column out of the cutting list.", "fault": true, "why": "The list must say how many." },
+          { "text": "She added a title block.", "why": "That is correct." },
+          { "text": "She dimensioned the drawing fully.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a cutting list use finished sizes, with waste allowed separately?",
+        "explainGuide": "Finished sizes match the drawing, so parts can be checked. Keeping the waste separate shows clearly how much timber to buy and what it costs.",
+        "explainKeywords": [["finished"], ["drawing", "match"], ["waste", "buy", "order", "cost"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-design-and-construction-of-a-small-project": {
+      "safety": {
+        "correct": ["Ask for help when moving large panels."],
+        "wrong": [
+          { "text": "Use a machine without asking, because you have seen it done.", "why": "Machines only under supervision." },
+          { "text": "Remove guards from power tools to reach into the work.", "why": "Guards stay on." },
+          { "text": "Keep working when tired to finish on time.", "why": "Tired people have accidents. Plan your time." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Soldering iron", "why": "This is a wood project." },
+          { "name": "Hacksaw for steel", "why": "This is a wood project." },
+          { "name": "Bench grinder used as a sander", "why": "It is the wrong tool, and unsafe." },
+          { "name": "Automotive oil can", "why": "This has no place in a wood finish." }
+        ]
+      },
+      "decisions": [
+        { "id": "brief-first", "afterStep": 1, "prompt": "A customer wants a shoe rack. What do you do first?", "options": [
+          { "text": "Write a design brief from what they need", "correct": true, "consequence": "Everything else can be checked against it." },
+          { "text": "Buy the timber while it is cheap", "consequence": "You don't yet know what you need." },
+          { "text": "Begin cutting from a similar design", "consequence": "It may not fit the customer's need." }
+        ] },
+        { "id": "start-build", "afterStep": 4, "prompt": "When do you begin construction?", "options": [
+          { "text": "Once the drawings are final and costed", "correct": true, "consequence": "You make it once, and correctly." },
+          { "text": "As soon as you have one good sketch", "consequence": "Sizes change mid-build, and timber is wasted." },
+          { "text": "Before the specification is written", "consequence": "There is nothing to test the product against." }
+        ] },
+        { "id": "evaluate", "afterStep": 7, "prompt": "The product is finished. What remains?", "options": [
+          { "text": "Test it against the specification and suggest improvements", "correct": true, "consequence": "That completes the design process and earns the evaluation marks." },
+          { "text": "Nothing: it is finished", "consequence": "The folio is incomplete without an evaluation." },
+          { "text": "Paint it a different colour to give the job a better appearance", "consequence": "That is not an evaluation." }
+        ] }
+      ],
+      "observations": [
+        { "id": "folio", "prompt": "What should you hand in?", "options": [
+          { "text": "The product and a design folio recording the process", "correct": true },
+          { "text": "The product alone", "why": "The folio earns marks too." },
+          { "text": "The working drawing alone, with the list of materials used", "why": "The product is assessed as well." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "labour", "prompt": "A job takes {h} hours at N800 per hour. What is the labour cost, in naira?", "formula": "h * 800", "vars": { "h": { "min": 6, "max": 12, "step": 2 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{h} × 800 = N{answer}." },
+        { "id": "overheads", "prompt": "Materials cost N{m} and labour N6400. Overheads are 10% of materials plus labour. What are the overheads, in naira?", "formula": "(m + 6400) * 0.1", "vars": { "m": { "min": 10000, "max": 14000, "step": 2000 } }, "unit": "", "tolerance": { "abs": 1 }, "decimals": 0, "working": "({m} + 6400) × 10% = N{answer}." }
+      ],
+      "faults": [
+        { "id": "folio-marks", "scenario": "Ayo's project scored poorly, even though it looks good. Here is what he did.", "lines": [
+          { "text": "He started building before finalising the drawings.", "fault": true, "why": "The process marks depend on the order of work." },
+          { "text": "He left out the evaluation.", "fault": true, "why": "It is a marked stage." },
+          { "text": "He did trial assemblies.", "why": "That is good practice." },
+          { "text": "He checked sizes against the drawing.", "why": "That is good practice." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a project need a written specification before any work starts?",
+        "explainGuide": "It fixes the size, function, material, finish and cost limit, so choices can be judged against it, and the finished product can be evaluated against it.",
+        "explainKeywords": [["size", "function", "material", "cost"], ["evaluate", "test", "judge", "check"], ["product", "design", "choice"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-hammer-veneering-a-panel": {
+      "safety": {
+        "correct": ["Switch the iron off when you put it down."],
+        "wrong": [
+          { "text": "Test the heat of the glue with your finger.", "why": "Hot glue burns. Test it on scrap." },
+          { "text": "Hold the veneer with your fingertips in the path of the knife.", "why": "Keep your fingers away from the straight edge." },
+          { "text": "Leave the iron face down on the veneer while you tape.", "why": "It scorches the veneer and is a fire risk." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Claw hammer", "why": "A veneer hammer presses and squeegees. It is not a striking tool." },
+          { "name": "Rip saw", "why": "Veneer is cut with a veneer saw or sharp knife." },
+          { "name": "Mortise chisel", "why": "There are no joints here." },
+          { "name": "Sash cramp", "why": "The hammer does the pressing here." }
+        ]
+      },
+      "decisions": [
+        { "id": "tooth", "afterStep": 1, "prompt": "Why do you tooth the groundwork?", "options": [
+          { "text": "To give the glue a key", "correct": true, "consequence": "The veneer bonds strongly to the ground." },
+          { "text": "To make it thinner", "consequence": "Toothing only roughens the surface." },
+          { "text": "To colour it", "consequence": "Toothing has no effect on colour." }
+        ] },
+        { "id": "direction", "afterStep": 4, "prompt": "In which direction do you work the hammer?", "options": [
+          { "text": "From the centre outwards", "correct": true, "consequence": "Glue and air are pushed out at the edges." },
+          { "text": "From the edges to the centre", "consequence": "Air and glue get trapped, forming blisters." },
+          { "text": "In small random patches", "consequence": "Pockets of air stay trapped." }
+        ] },
+        { "id": "back", "afterStep": 5, "prompt": "The face is veneered. What about the back?", "options": [
+          { "text": "Veneer it too, with a balancing veneer", "correct": true, "consequence": "Both faces pull equally, so the panel stays flat." },
+          { "text": "Leave it bare to save veneer, as it will not be seen", "consequence": "The panel cups as the glue dries." },
+          { "text": "Paint it with glue only", "consequence": "That does not balance the pull of the veneer." }
+        ] }
+      ],
+      "observations": [
+        { "id": "tap", "prompt": "You tap the veneer. What does a blister sound like?", "options": [
+          { "text": "Hollow, compared with the rest", "correct": true },
+          { "text": "Exactly the same as the rest", "why": "A blister is hollow beneath." },
+          { "text": "Sharper and more solid", "why": "Solid means a good bond." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "area", "prompt": "A panel measures {l} × {w} mm. Both faces are veneered. What is the area of veneer needed before adding waste, in m²?", "formula": "2 * l * w / 1000000", "vars": { "l": { "min": 500, "max": 800, "step": 100 }, "w": { "min": 300, "max": 500, "step": 100 } }, "unit": "m²", "unitAliases": ["m2", "m^2", "square metres"], "tolerance": { "rel": 0.02 }, "decimals": 2, "working": "2 × {l} × {w} ÷ 1 000 000 = {answer} m²." }
+      ],
+      "faults": [
+        { "id": "cupped-panel", "scenario": "Bisi's veneered panel has cupped, and it has a bubble in the middle. Here is what she did.", "lines": [
+          { "text": "She veneered one side only.", "fault": true, "why": "An unbalanced panel cups." },
+          { "text": "She worked from the edges inwards.", "fault": true, "why": "That traps air in the middle." },
+          { "text": "She keyed the groundwork.", "why": "That is correct." },
+          { "text": "She cut the veneer oversize.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why must a veneered panel have a balancing veneer on its back?",
+        "explainGuide": "Veneer and glue pull on the panel as they dry. An equal veneer on the back balances that pull, so the panel does not cup or warp.",
+        "explainKeywords": [["balance", "equal", "both"], ["pull", "shrink", "tension"], ["cup", "warp", "flat", "bend"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-relief-carving-of-a-simple-motif": {
+      "safety": {
+        "correct": ["Keep gouges in a rack, with their edges protected."],
+        "wrong": [
+          { "text": "Hold the carving in your lap and cut towards you.", "why": "Clamp the work and carve away from yourself." },
+          { "text": "Steady the wood with your free hand in front of the gouge.", "why": "Both hands stay behind the edge." },
+          { "text": "Use a blunt gouge, as it is safer.", "why": "Blunt tools need force and slip." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Jack plane", "why": "This job doesn't plane the board." },
+          { "name": "Rip saw", "why": "Carving tools do this job." },
+          { "name": "Mortise gauge", "why": "There is no mortise." },
+          { "name": "Sash cramp", "why": "Nothing is glued here." }
+        ]
+      },
+      "decisions": [
+        { "id": "direction", "afterStep": 5, "prompt": "The wood tears as you model the leaf. What do you do?", "options": [
+          { "text": "Change direction and cut with the grain", "correct": true, "consequence": "The cut runs clean, with no more tearing." },
+          { "text": "Cut deeper, against the grain, to get past the tear", "consequence": "The tearing gets worse, and the piece is spoiled." },
+          { "text": "Hit the mallet harder", "consequence": "Forcing a blunt or wrong cut makes it worse." }
+        ] },
+        { "id": "ground", "afterStep": 4, "prompt": "How deep do you take the background in a 25 mm board?", "options": [
+          { "text": "About 5 mm, kept even all over", "correct": true, "consequence": "The motif stands out with a good shadow, and the board stays strong." },
+          { "text": "About 20 mm", "consequence": "The board is weakened." },
+          { "text": "Different in each area, to suit the design", "consequence": "The background looks rough and uneven." }
+        ] },
+        { "id": "setin", "afterStep": 2, "prompt": "After outlining with the V-tool, what is next?", "options": [
+          { "text": "Set in the outline vertically", "correct": true, "consequence": "This defines a clean edge to work to." },
+          { "text": "Apply the finish", "consequence": "The carving hasn't been done yet." },
+          { "text": "Undercut the motif at once", "consequence": "Fragile parts break off." }
+        ] }
+      ],
+      "observations": [
+        { "id": "finish", "prompt": "What shows that the carving is well done?", "options": [
+          { "text": "A level background and clean outlines", "correct": true },
+          { "text": "A wavy background with tool tears", "why": "That is uneven grounding." },
+          { "text": "A motif cut below the background", "why": "That would be sunk carving, not relief." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "depth", "prompt": "A board is {t} mm thick. At one-fifth of the thickness, what is the ground depth, in mm?", "formula": "t / 5", "vars": { "t": { "min": 20, "max": 35, "step": 5 } }, "unit": "mm", "tolerance": { "abs": 0.1 }, "decimals": 0, "working": "{t} ÷ 5 = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "chipped", "scenario": "Part of Femi's leaf has chipped off, and the ground is patchy. Here is what he did.", "lines": [
+          { "text": "He undercut the thin parts of the leaf.", "fault": true, "why": "Undercut parts are fragile." },
+          { "text": "He left the background at different depths.", "fault": true, "why": "The ground should be even." },
+          { "text": "He clamped the work.", "why": "That is correct." },
+          { "text": "He kept his tools very sharp.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is relief carving usually done in a fine-grained hardwood?",
+        "explainGuide": "Fine, even grain holds crisp detail and cuts cleanly in any direction, without crumbling or tearing as coarse-grained wood would.",
+        "explainKeywords": [["fine", "grain"], ["detail", "crisp", "clean"], ["tear", "crumble", "chip"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-upholstering-a-padded-stool-seat": {
+      "safety": {
+        "correct": ["Keep scissors closed when you pass them to someone."],
+        "wrong": [
+          { "text": "Hold tacks between your lips, ready for the hammer.", "why": "Tacks get swallowed." },
+          { "text": "Point the staple gun at a friend to show how it works.", "why": "Never point it at anyone." },
+          { "text": "Stretch the webbing using your bare hands around the frame edge.", "why": "Use the webbing stretcher." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Jack plane", "why": "The frame is already made." },
+          { "name": "Tenon saw", "why": "The frame is already made." },
+          { "name": "Mortise chisel", "why": "The frame is already made." },
+          { "name": "Marking gauge", "why": "This is fabric work." }
+        ]
+      },
+      "decisions": [
+        { "id": "tack-first", "afterStep": 5, "prompt": "Where do you start fixing the cover?", "options": [
+          { "text": "Temporary tacks at the centre of each side", "correct": true, "consequence": "The tension is even, and it can be adjusted." },
+          { "text": "Fully fix one side, then pull across", "consequence": "The cover pulls skew and wrinkles." },
+          { "text": "At the corners", "consequence": "The sides wrinkle, and the corners bunch." }
+        ] },
+        { "id": "foam-size", "afterStep": 3, "prompt": "How do you cut the foam?", "options": [
+          { "text": "Slightly oversize, with bevelled edges", "correct": true, "consequence": "It stays firm at the edges, and the seat is rounded." },
+          { "text": "Exactly to size, with square edges", "consequence": "The edges look hard and boxy." },
+          { "text": "Smaller than the frame", "consequence": "The frame edge can be felt through the seat." }
+        ] },
+        { "id": "web", "afterStep": 1, "prompt": "How is the webbing fixed?", "options": [
+          { "text": "In both directions, tensioned with the stretcher", "correct": true, "consequence": "The seat is firm, and it does not sag." },
+          { "text": "In one direction only, with each strip tensioned hard", "consequence": "The seat sags quickly." },
+          { "text": "Left slack, for comfort", "consequence": "The seat sags at once." }
+        ] }
+      ],
+      "observations": [
+        { "id": "seat", "prompt": "What should the finished seat look like?", "options": [
+          { "text": "Firm and smooth with neat corners", "correct": true },
+          { "text": "Wrinkled along one side but tightly stretched", "why": "That is uneven tension." },
+          { "text": "With bulky corners", "why": "Excess fabric was not trimmed." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "cover", "prompt": "A seat is {s} mm square, with {f} mm foam, a 25 mm frame depth and a 30 mm turn-under. What size square of cover do you cut, in mm?", "formula": "s + 2 * (f + 25 + 30)", "vars": { "s": { "min": 350, "max": 450, "step": 50 }, "f": { "min": 30, "max": 50, "step": 10 } }, "unit": "mm", "tolerance": { "abs": 1 }, "decimals": 0, "working": "{s} + 2 × ({f} + 25 + 30) = {answer} mm." }
+      ],
+      "faults": [
+        { "id": "saggy", "scenario": "Tola's stool sags, and the cover does not reach under the frame on one side. Here is what she did.", "lines": [
+          { "text": "She tensioned the webbing unevenly.", "fault": true, "why": "Webbing should be evenly tensioned." },
+          { "text": "She cut the cover too small.", "fault": true, "why": "Allow for foam, frame depth and turn-under." },
+          { "text": "She used a magnetic hammer for the tacks.", "why": "That is correct." },
+          { "text": "She kept the fabric grain straight.", "why": "That is correct." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why is the cover first held with temporary tacks at the centres of the sides?",
+        "explainGuide": "They set the position and even out the tension across the seat, and they can be removed to adjust before final fixing, so no wrinkles are left.",
+        "explainKeywords": [["temporary", "tacks"], ["tension", "even"], ["adjust", "wrinkle", "remove"]],
+        "explainNeed": 2
+      }
+    },
+    "pr-wwk-laminated-bending-of-a-curved-component": {
+      "safety": {
+        "correct": ["Wash resin glue from your skin straight away."],
+        "wrong": [
+          { "text": "Mix resin glue with your bare fingers.", "why": "Wear gloves." },
+          { "text": "Spread glue in a closed store room.", "why": "Ventilate." },
+          { "text": "Tighten one cramp fully before starting the others.", "why": "Tighten evenly, from the centre." }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          { "name": "Rip saw", "why": "Laminates are already thin." },
+          { "name": "Mortise chisel", "why": "There are no joints." },
+          { "name": "Marking gauge", "why": "The former sets the shape." },
+          { "name": "Jack plane", "why": "The curve is cleaned up with a spokeshave." }
+        ]
+      },
+      "decisions": [
+        { "id": "cramp-order", "afterStep": 5, "prompt": "In which order do you tighten the cramps?", "options": [
+          { "text": "From the centre outwards", "correct": true, "consequence": "Laminates close up tightly, with no trapped glue." },
+          { "text": "From both ends towards the centre", "consequence": "A bulge and gap are trapped in the middle." },
+          { "text": "Any order, as quickly as you can", "consequence": "The stack shifts, leaving gaps." }
+        ] },
+        { "id": "former-curve", "afterStep": 1, "prompt": "How tight do you make the former's curve?", "options": [
+          { "text": "Slightly tighter than the final curve", "correct": true, "consequence": "After spring-back, the curve comes out right." },
+          { "text": "Exactly the final curve", "consequence": "The part opens out and ends up too shallow." },
+          { "text": "Slightly shallower than the final curve", "consequence": "With spring-back on top, it is well off." }
+        ] },
+        { "id": "release", "afterStep": 6, "prompt": "When do you take off the cramps?", "options": [
+          { "text": "Only when the glue has fully cured", "correct": true, "consequence": "The curve holds." },
+          { "text": "After an hour, to use the former again", "consequence": "The glue line slips, and the laminates open." },
+          { "text": "When the glue squeeze-out looks dry", "consequence": "The inner glue may not have cured." }
+        ] }
+      ],
+      "observations": [
+        { "id": "glue-lines", "prompt": "What does a good lamination show?", "options": [
+          { "text": "Thin, continuous glue lines, and little spring-back", "correct": true },
+          { "text": "Thick dark glue lines with gaps", "why": "That comes from too few cramps." },
+          { "text": "Layers that split apart at the ends when the cramps come off", "why": "That comes from poor glue coverage." }
+        ] }
+      ],
+      "numerics": [
+        { "id": "layers", "prompt": "A curved rail {t} mm thick is made from {l} mm laminates. How many laminates are needed?", "formula": "t / l", "vars": { "t": { "min": 12, "max": 24, "step": 6 }, "l": { "min": 2, "max": 3, "step": 1 } }, "unit": "", "tolerance": { "abs": 0 }, "decimals": 0, "working": "{t} ÷ {l} = {answer}." }
+      ],
+      "faults": [
+        { "id": "gappy", "scenario": "Dele's curved chair rail has gaps, and it opened out. Here is what he did.", "lines": [
+          { "text": "He used too few cramps.", "fault": true, "why": "Too few cramps leave gaps." },
+          { "text": "He released it before the glue had cured.", "fault": true, "why": "It sprang back." },
+          { "text": "He dry-cramped the stack first.", "why": "That is correct." },
+          { "text": "He used plastic sheet on the former.", "why": "That stops the glue sticking to the former." }
+        ] }
+      ],
+      "written": {
+        "explainPrompt": "Why does a laminated curve hold its shape better than a bent single piece?",
+        "explainGuide": "The thin layers bend easily, and the glue lines lock them in position once cured, so the curve is held with little spring-back. A single thick piece resists bending and tries to spring back.",
+        "explainKeywords": [["thin", "layers", "laminat"], ["glue"], ["spring", "hold", "lock"]],
+        "explainNeed": 2
+      }
+    }
+  }
+}

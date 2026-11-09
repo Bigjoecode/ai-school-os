@@ -1,0 +1,4426 @@
+{
+  "subject": "Ceramics",
+  "room": "studio",
+  "lessons": {
+    "pr-cer-clay-prospecting-moisture": {
+      "room": "field",
+      "safety": {
+        "correct": [
+          "Work in a group and tell your teacher where you will be digging.",
+          "Wear covered shoes and keep clear of the water's edge after rain."
+        ],
+        "wrong": [
+          {
+            "text": "Dig into the foot of a steep stream bank, because the clay is easiest to reach there.",
+            "why": "The overhang can collapse on you. Dig only from open, stable ground."
+          },
+          {
+            "text": "Go alone to the riverbank to save time.",
+            "why": "If the bank gives way or you slip, nobody can help. Stay with your group."
+          },
+          {
+            "text": "Start digging on a farm first, and explain to the owner afterwards.",
+            "why": "Permission comes first, from the landowner or community."
+          },
+          {
+            "text": "Eat your groundnuts straight after handling the samples, as clay is only earth.",
+            "why": "Soil can carry germs and worms. Wash your hands first."
+          },
+          {
+            "text": "Leave your pit open and unmarked when you go.",
+            "why": "People and animals can fall in. Fill it in or make it safe."
+          },
+          {
+            "text": "Swing the hoe while a friend scoops clay out of the same hole.",
+            "why": "The hoe can strike your friend. Take turns, and stand clear."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "Forming comes much later. This job only finds and tests clay."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "Field tests are done by hand with a pinch and a coil."
+          },
+          {
+            "name": "Glaze brush",
+            "why": "Nothing is glazed at the survey stage."
+          },
+          {
+            "name": "Serrated kidney",
+            "why": "It scrapes pot walls. No pot is made here."
+          },
+          {
+            "name": "Plaster bat",
+            "why": "Bats dry prepared slip. This sample is only weighed and dried."
+          },
+          {
+            "name": "Sieve",
+            "why": "Sieving is part of preparing clay, not of the field survey."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "topsoil",
+          "afterStep": 2,
+          "prompt": "You have started digging. The top layer is dark and full of roots. What do you do?",
+          "options": [
+            {
+              "text": "Remove it and dig down to the clay layer",
+              "correct": true,
+              "consequence": "Your sample is true clay, with no organic matter in it."
+            },
+            {
+              "text": "Bag some now, because it is the easiest to reach and it is soft and moist too",
+              "consequence": "That is topsoil, not clay. It is one of the commonest mistakes here."
+            },
+            {
+              "text": "Mix it into the clay to give a bigger sample",
+              "consequence": "Organic matter spoils the sample, and the layers can no longer be told apart."
+            }
+          ]
+        },
+        {
+          "id": "layers",
+          "afterStep": 4,
+          "prompt": "You have dug through a grey layer into a red layer. How do you sample them?",
+          "options": [
+            {
+              "text": "Bag each layer alone, with its depth on the label",
+              "correct": true,
+              "consequence": "Each result belongs to one clay, so you can compare them later."
+            },
+            {
+              "text": "Mix them, as that gives an average of the site",
+              "consequence": "Mixed layers hide what each clay is like, which is a source of error."
+            },
+            {
+              "text": "Keep only the prettier colour and record nothing about the other layer",
+              "consequence": "The record of the deposit is now incomplete."
+            }
+          ]
+        },
+        {
+          "id": "label",
+          "afterStep": 4,
+          "prompt": "The rain is coming and you have three bags to fill. When do you label them?",
+          "options": [
+            {
+              "text": "Now, as each bag is filled",
+              "correct": true,
+              "consequence": "No sample can be mixed up with another."
+            },
+            {
+              "text": "Back at school, when your hands are clean and you can write neatly",
+              "consequence": "You may no longer remember which bag came from which depth."
+            },
+            {
+              "text": "Only the first, as the rest came from the same area",
+              "consequence": "Site, depth and date must be on each bag."
+            }
+          ]
+        },
+        {
+          "id": "constant",
+          "afterStep": 5,
+          "prompt": "Your clay has dried overnight. How do you know it is fully dry?",
+          "options": [
+            {
+              "text": "Weigh, dry further, and weigh until the mass stops falling",
+              "correct": true,
+              "consequence": "Constant mass shows all the free water has gone."
+            },
+            {
+              "text": "It looks pale and feels dry, so record that mass",
+              "consequence": "Clay can look dry and still hold water, so the result comes out low."
+            },
+            {
+              "text": "Dry it for the same time as last year's class did",
+              "consequence": "Drying time varies. Only constant mass proves it is dry."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "coil-bend",
+          "prompt": "You bend a 1 cm coil round your finger and it bends with no cracks. What does this show?",
+          "options": [
+            {
+              "text": "Good plasticity",
+              "correct": true
+            },
+            {
+              "text": "Too much sand",
+              "why": "Sandy clays crack and feel gritty."
+            },
+            {
+              "text": "It is a white primary clay",
+              "why": "Primary clays are less plastic."
+            },
+            {
+              "text": "The clay is too dry to use",
+              "why": "Dry clay would crack."
+            }
+          ]
+        },
+        {
+          "id": "primary",
+          "prompt": "A white clay from a site where it formed has low plasticity. What is it most likely to be?",
+          "options": [
+            {
+              "text": "A primary clay such as kaolin",
+              "correct": true
+            },
+            {
+              "text": "A secondary ball clay",
+              "why": "Ball clays are more plastic."
+            },
+            {
+              "text": "A red earthenware clay",
+              "why": "That is a coloured, plastic secondary clay."
+            },
+            {
+              "text": "Sand",
+              "why": "Sand is gritty and has no plasticity."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "dry-basis",
+          "prompt": "A clay sample weighs 250 g wet and {d} g dry. What is its water content on a dry basis?",
+          "formula": "(250 - d) / d * 100",
+          "vars": {
+            "d": {
+              "min": 190,
+              "max": 220,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.3
+          },
+          "decimals": 1,
+          "working": "Water = 250 − {d} g. Water content = water ÷ {d} × 100 = {answer}%."
+        },
+        {
+          "id": "wet-basis",
+          "prompt": "A sample weighs 250 g wet and {d} g dry. What is its water content on a wet basis?",
+          "formula": "(250 - d) / 250 * 100",
+          "vars": {
+            "d": {
+              "min": 190,
+              "max": 220,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.3
+          },
+          "decimals": 1,
+          "working": "Water = 250 − {d} g. Water content = water ÷ 250 × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "report",
+          "scenario": "Emeka's prospecting report gave a strange water content. Here is what he did.",
+          "lines": [
+            {
+              "text": "He did not say whether his water content was on a wet or dry basis.",
+              "fault": true,
+              "why": "The two give different numbers. State which one you used."
+            },
+            {
+              "text": "He left his open bags in the sun for two days before weighing the wet clay.",
+              "fault": true,
+              "why": "The sample dried out before it was weighed, so the wet mass is too low."
+            },
+            {
+              "text": "He bagged several layers together.",
+              "fault": true,
+              "why": "Mixed layers are a source of error."
+            },
+            {
+              "text": "He asked the community for permission to dig.",
+              "why": "Permission comes first."
+            },
+            {
+              "text": "He recorded the depth, colour and thickness of the layer.",
+              "why": "That is the correct record."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for sampling clay and finding its water content.",
+        "explainPrompt": "Why must you state whether water content is on a wet or dry basis?",
+        "explainGuide": "The same water is divided by a different mass. The dry basis divides by the dry mass and the wet basis by the wet mass, so the percentages differ. For 250 g wet and 200 g dry, they are 25% and 20%.",
+        "explainKeywords": [
+          [
+            "wet"
+          ],
+          [
+            "dry"
+          ],
+          [
+            "differ",
+            "divide",
+            "different"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Prospecting for clay",
+        "Locate, test, sample, record",
+        "Ask first. Keep clear of high banks"
+      ]
+    },
+    "pr-cer-shrinkage-test": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Let only your teacher load, fire and unload the kiln.",
+          "Damp-wipe the bench so that dry clay dust does not build up."
+        ],
+        "wrong": [
+          {
+            "text": "Open the kiln door a little to see how the bars are doing.",
+            "why": "A hot kiln can burn you, and the cold air can crack the ware. Never open it hot."
+          },
+          {
+            "text": "Lift the warm bars out with a dry rag, because they are not glowing any more.",
+            "why": "They can be hot enough to burn you badly. Wait until the kiln has cooled."
+          },
+          {
+            "text": "Stand and lean on the kiln to read the temperature during firing.",
+            "why": "The case is hot. Keep clear unless the teacher directs you."
+          },
+          {
+            "text": "Sweep dry clay crumbs off the bench with your hand.",
+            "why": "This raises silica dust. Wipe with a damp cloth."
+          },
+          {
+            "text": "Put a damp bar into the kiln to save time.",
+            "why": "Steam can burst it, and it can damage other work. It must be fully dry."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "The test uses flat bars cut from a slab."
+          },
+          {
+            "name": "Plaster mould",
+            "why": "The bars are cut with a knife and ruler."
+          },
+          {
+            "name": "Banding wheel",
+            "why": "There is nothing to turn in this test."
+          },
+          {
+            "name": "Glaze",
+            "why": "A bare bar shows the true shrinkage of the clay."
+          },
+          {
+            "name": "Spring balance",
+            "why": "The test measures length, not mass."
+          },
+          {
+            "name": "Wooden school ruler with worn ends",
+            "why": "It cannot be read closely enough. Use the calliper or steel rule."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "marks",
+          "afterStep": 2,
+          "prompt": "You are about to scratch the 10.0 cm line. How do you mark it?",
+          "options": [
+            {
+              "text": "Two fine, sharp marks set exactly 10.0 cm apart",
+              "correct": true,
+              "consequence": "Each later reading is from the same exact points."
+            },
+            {
+              "text": "Two broad marks that are easy to see from a distance",
+              "consequence": "Broad marks leave you unsure where to read, so the result is rough."
+            },
+            {
+              "text": "One long groove pressed deep to the bottom of the bar",
+              "consequence": "A deep groove weakens the bar, and it can crack along the line."
+            }
+          ]
+        },
+        {
+          "id": "slow",
+          "afterStep": 3,
+          "prompt": "The bars need to dry by tomorrow. Where do you put them?",
+          "options": [
+            {
+              "text": "In a sheltered place, turning them often",
+              "correct": true,
+              "consequence": "They dry slowly and evenly, and stay flat for measuring."
+            },
+            {
+              "text": "In strong sun on one side, to speed them up",
+              "consequence": "One side shrinks faster, so the bars warp and the lengths are false."
+            },
+            {
+              "text": "On top of the warm kiln with no turning",
+              "consequence": "Fast one-sided drying warps them and can crack them."
+            }
+          ]
+        },
+        {
+          "id": "which-length",
+          "afterStep": 5,
+          "prompt": "You are working out firing shrinkage. Which length do you divide by?",
+          "options": [
+            {
+              "text": "The dry length",
+              "correct": true,
+              "consequence": "Firing starts from the dry bar, so that is the base."
+            },
+            {
+              "text": "The plastic length of 10.0 cm",
+              "consequence": "That is the common mistake. It gives a lower, wrong figure."
+            },
+            {
+              "text": "The fired length",
+              "consequence": "Shrinkage is worked out on the size before the change."
+            }
+          ]
+        },
+        {
+          "id": "average",
+          "afterStep": 5,
+          "prompt": "Your three bars give 11%, 10.8% and 11.2%. What do you report?",
+          "options": [
+            {
+              "text": "The mean of the three bars",
+              "correct": true,
+              "consequence": "Averaging evens out small errors between bars."
+            },
+            {
+              "text": "The highest, to be on the safe side",
+              "consequence": "One bar does not represent the clay."
+            },
+            {
+              "text": "Only the bar that looks best",
+              "consequence": "Dropping results without a reason is poor practice."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "line",
+          "prompt": "What happens to the 10.0 cm line through the test?",
+          "options": [
+            {
+              "text": "It gets shorter after drying, then shorter again after firing",
+              "correct": true
+            },
+            {
+              "text": "It gets shorter on drying, then returns to 10.0 cm on firing",
+              "why": "Fired clay does not expand back."
+            },
+            {
+              "text": "It stays 10.0 cm until the bar is fired",
+              "why": "Water loss on drying shrinks it first."
+            },
+            {
+              "text": "It gets longer after firing",
+              "why": "Clay shrinks as it fires."
+            }
+          ]
+        },
+        {
+          "id": "grog",
+          "prompt": "Clay A is fine and plastic. Clay B has grog in it. Which shrinks more?",
+          "options": [
+            {
+              "text": "Clay A",
+              "correct": true
+            },
+            {
+              "text": "Clay B",
+              "why": "Grog opens the body and reduces shrinkage."
+            },
+            {
+              "text": "They shrink exactly the same",
+              "why": "Grog changes shrinkage."
+            },
+            {
+              "text": "Neither shrinks",
+              "why": "All plastic clays shrink."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "drying",
+          "prompt": "A 10.0 cm line measures {d} cm when dry. What is the drying shrinkage?",
+          "formula": "(10 - d) / 10 * 100",
+          "vars": {
+            "d": {
+              "min": 9.2,
+              "max": 9.6,
+              "step": 0.1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "(10.0 − {d}) ÷ 10.0 × 100 = {answer}%."
+        },
+        {
+          "id": "total",
+          "prompt": "A 10.0 cm line measures {f} cm when fired. What is the total shrinkage?",
+          "formula": "(10 - f) / 10 * 100",
+          "vars": {
+            "f": {
+              "min": 8.6,
+              "max": 9,
+              "step": 0.1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "(10.0 − {f}) ÷ 10.0 × 100 = {answer}%."
+        },
+        {
+          "id": "firing",
+          "prompt": "A line measures {d} cm dry and {f} cm fired. What is the firing shrinkage, worked on the dry length?",
+          "formula": "(d - f) / d * 100",
+          "vars": {
+            "d": {
+              "min": 9.3,
+              "max": 9.5,
+              "step": 0.1
+            },
+            "f": {
+              "min": 8.8,
+              "max": 9,
+              "step": 0.1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 2,
+          "working": "({d} − {f}) ÷ {d} × 100 = {answer}%."
+        },
+        {
+          "id": "wet-size",
+          "prompt": "A clay shrinks {s}% in total. You want a pot {h} cm high when fired. How high do you make it wet?",
+          "formula": "h / (1 - s / 100)",
+          "vars": {
+            "s": {
+              "min": 8,
+              "max": 12,
+              "step": 1
+            },
+            "h": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 2,
+          "working": "{h} ÷ (1 − {s}/100) = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "big-pots",
+          "scenario": "Tunde's fired pots came out smaller than planned, and his report was marked down. Here is what he did.",
+          "lines": [
+            {
+              "text": "He added the shrinkage percentage to the finished size.",
+              "fault": true,
+              "why": "The wet size is the finished size divided by (1 − shrinkage)."
+            },
+            {
+              "text": "He worked out firing shrinkage on the plastic length.",
+              "fault": true,
+              "why": "It must be worked on the dry length."
+            },
+            {
+              "text": "He measured a warped bar along its bend.",
+              "fault": true,
+              "why": "Warped bars give false lengths."
+            },
+            {
+              "text": "He labelled each bar.",
+              "why": "That keeps the results apart."
+            },
+            {
+              "text": "He averaged his three bars.",
+              "why": "Using the mean is the right way to report the result."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for an accurate shrinkage test.",
+        "explainPrompt": "Why do you divide by (1 − shrinkage) to find the wet size, and not simply add the percentage?",
+        "explainGuide": "The percentage is a share of the wet size, not of the fired size. The fired size equals wet size × (1 − shrinkage), so the wet size is the fired size ÷ (1 − shrinkage). Adding the percentage gives a pot that is too small.",
+        "explainKeywords": [
+          [
+            "wet"
+          ],
+          [
+            "divid"
+          ],
+          [
+            "fired",
+            "finish"
+          ],
+          [
+            "percent",
+            "shrink"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Shrinkage test",
+        "Plastic, dry and fired lengths",
+        "Show each formula and %"
+      ]
+    },
+    "pr-cer-clay-preparation-wedging": {
+      "safety": {
+        "correct": [
+          "Keep the wedging table clean with a damp sponge after use.",
+          "Mop up spilled slip at once, as a wet floor is slippery."
+        ],
+        "wrong": [
+          {
+            "text": "Sweep up dry clay dust with a broom at the end of the lesson.",
+            "why": "This puts silica dust in the air you breathe. Damp-mop instead."
+          },
+          {
+            "text": "Crush dry lumps without a mask because the job only takes a minute.",
+            "why": "Silica dust harms the lungs. Wear a dust mask."
+          },
+          {
+            "text": "Lift a full slip bucket by bending your back.",
+            "why": "You can injure your back. Bend your knees, keep your back straight, or share the load."
+          },
+          {
+            "text": "Pour slip waste down the sink.",
+            "why": "Clay sets in pipes and blocks them. Let it settle and reuse it."
+          },
+          {
+            "text": "Pull the cutting wire towards your body with both hands.",
+            "why": "The wire can snap through and cut you. Pull it down through the clay, away from you."
+          },
+          {
+            "text": "Leave a bucket of slip in the walkway.",
+            "why": "People trip over it. Keep buckets by the wall."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Glaze mop",
+            "why": "Glazing comes after bisque firing."
+          },
+          {
+            "name": "Banding wheel",
+            "why": "Forming comes after the clay is ready."
+          },
+          {
+            "name": "Trimming tools",
+            "why": "Nothing has been thrown yet."
+          },
+          {
+            "name": "Pyrometric cones",
+            "why": "They show kiln heat. There is no firing here."
+          },
+          {
+            "name": "Cottle boards",
+            "why": "They hold plaster for moulds."
+          },
+          {
+            "name": "Fine paint brush",
+            "why": "Nothing here is painted."
+          }
+        ],
+        "optional": [
+          "Grog or fine sand (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sieve",
+          "afterStep": 2,
+          "prompt": "The slip is ready, but the sieve is slow and the class is waiting. What do you do?",
+          "options": [
+            {
+              "text": "Keep sieving until it has all passed through",
+              "correct": true,
+              "consequence": "Stones and roots are out, so there will be no blow-outs in the kiln."
+            },
+            {
+              "text": "Skip sieving, since a few small stones never hurt a pot and the class is waiting",
+              "consequence": "Stones cause blow-outs in the kiln."
+            },
+            {
+              "text": "Pour it through a coarse basket instead",
+              "consequence": "Sand and small stones go through, and they stay in the body."
+            }
+          ]
+        },
+        {
+          "id": "bats",
+          "afterStep": 3,
+          "prompt": "Your slip on the plaster bats has reached a soft plastic stage. What do you do?",
+          "options": [
+            {
+              "text": "Take it off now, before it dries too hard",
+              "correct": true,
+              "consequence": "The clay is ready to wedge without lumps."
+            },
+            {
+              "text": "Leave it for a day longer to be sure",
+              "consequence": "It dries too hard, so it forms lumps and must be slaked again."
+            },
+            {
+              "text": "Add more slip on top of it",
+              "consequence": "The layers dry unevenly and form lumps."
+            }
+          ]
+        },
+        {
+          "id": "blend",
+          "afterStep": 4,
+          "prompt": "You must blend in 10% grog. How do you measure it?",
+          "options": [
+            {
+              "text": "Weigh the clay and the grog",
+              "correct": true,
+              "consequence": "The blend is exact and can be repeated."
+            },
+            {
+              "text": "Add a few handfuls and judge by feel",
+              "consequence": "You cannot repeat it, and the shrinkage will change."
+            },
+            {
+              "text": "Measure it by the height of the bucket",
+              "consequence": "Volume in a bucket does not give the proportion by weight."
+            }
+          ]
+        },
+        {
+          "id": "wedge",
+          "afterStep": 5,
+          "prompt": "You cut the wedged clay and see small holes in the cut faces. What do you do?",
+          "options": [
+            {
+              "text": "Keep wedging and cut again until the holes are gone",
+              "correct": true,
+              "consequence": "The clay is free of air, so the ware will not burst in the kiln."
+            },
+            {
+              "text": "Go ahead, since the air will escape as it dries",
+              "consequence": "Trapped air stays there and can burst the ware in the kiln."
+            },
+            {
+              "text": "Smooth the holes over with a wet finger",
+              "consequence": "This covers the surface. The air inside remains."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "cut-face",
+          "prompt": "You cut a well-wedged ball with the wire. What do the cut faces look like?",
+          "options": [
+            {
+              "text": "Smooth, one colour, with no air holes",
+              "correct": true
+            },
+            {
+              "text": "Marbled with streaks",
+              "why": "Streaks show that blending is not finished."
+            },
+            {
+              "text": "Full of small pockets",
+              "why": "Pockets are trapped air."
+            },
+            {
+              "text": "Dry and crumbling",
+              "why": "That clay is too dry to wedge."
+            }
+          ]
+        },
+        {
+          "id": "why-stones",
+          "prompt": "Why does sieving matter for fired work?",
+          "options": [
+            {
+              "text": "Stones left in the clay can cause blow-outs in the kiln",
+              "correct": true
+            },
+            {
+              "text": "Stones turn the clay red when it is fired",
+              "why": "Colour depends on iron content, not on stones."
+            },
+            {
+              "text": "Sieving makes the clay shrink less in firing",
+              "why": "Sieving removes debris. Grog is what reduces shrinkage."
+            },
+            {
+              "text": "Sieved clay needs no wedging afterwards",
+              "why": "It must still be wedged."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "clay-qty",
+          "prompt": "Blend {a} parts plastic clay with 1 part kaolin to make {t} kg. How much plastic clay do you need?",
+          "formula": "a / (a + 1) * t",
+          "vars": {
+            "a": {
+              "min": 3,
+              "max": 3,
+              "step": 1
+            },
+            "t": {
+              "min": 4,
+              "max": 16,
+              "step": 4
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{a} ÷ ({a} + 1) × {t} = {answer} kg."
+        },
+        {
+          "id": "kaolin",
+          "prompt": "Blend 3 parts plastic clay with 1 part kaolin to make {t} kg. How much kaolin do you need?",
+          "formula": "t / 4",
+          "vars": {
+            "t": {
+              "min": 4,
+              "max": 16,
+              "step": 2
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "1 ÷ 4 × {t} = {answer} kg."
+        },
+        {
+          "id": "grog",
+          "prompt": "You add grog at {p}% of {m} kg of clay. How much grog do you add?",
+          "formula": "p / 100 * m",
+          "vars": {
+            "p": {
+              "min": 5,
+              "max": 10,
+              "step": 5
+            },
+            "m": {
+              "min": 4,
+              "max": 10,
+              "step": 2
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{p} ÷ 100 × {m} = {answer} kg."
+        }
+      ],
+      "faults": [
+        {
+          "id": "blowout",
+          "scenario": "Bisi's pots burst in the kiln. Here is what she did.",
+          "lines": [
+            {
+              "text": "She skipped the sieve, so stones stayed in the clay.",
+              "fault": true,
+              "why": "Stones cause blow-outs."
+            },
+            {
+              "text": "She folded the clay over carelessly as she wedged it.",
+              "fault": true,
+              "why": "That folds air in."
+            },
+            {
+              "text": "She stopped wedging without cutting the clay to check it.",
+              "fault": true,
+              "why": "Cut faces must show no air holes or streaks."
+            },
+            {
+              "text": "She slaked the broken lumps for a full day.",
+              "why": "That is the correct soak."
+            },
+            {
+              "text": "She wrapped the clay in polythene.",
+              "why": "That keeps it moist."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing a good clay body.",
+        "explainPrompt": "Why must air be removed from clay before it is formed and fired?",
+        "explainGuide": "Trapped air expands in the kiln and can burst the ware. Air pockets also make the clay uneven to form. Wedging removes the air and makes the clay uniform.",
+        "explainKeywords": [
+          [
+            "air"
+          ],
+          [
+            "expand"
+          ],
+          [
+            "burst",
+            "explode",
+            "blow"
+          ],
+          [
+            "wedg",
+            "uniform"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Preparing clay",
+        "Slake, sieve, dry, blend, wedge",
+        "Damp-mop: no dry sweeping"
+      ]
+    },
+    "pr-cer-pinch-coil-pot": {
+      "safety": {
+        "correct": [
+          "Wipe the bench with a damp sponge at the end of the lesson.",
+          "Hold the needle tool with its point down and pass it handle first."
+        ],
+        "wrong": [
+          {
+            "text": "Brush dry clay off your overall with your hands.",
+            "why": "This raises dust. Change, or wipe it down damp."
+          },
+          {
+            "text": "Leave the hacksaw blade on the edge of the bench, teeth outwards.",
+            "why": "It cuts anyone who reaches past. Store it away safely."
+          },
+          {
+            "text": "Eat at the bench without washing the clay off your hands.",
+            "why": "Clay and slip do not belong in your food. Wash first."
+          },
+          {
+            "text": "Blow dry dust off the finished rim.",
+            "why": "Silica dust goes into your lungs and eyes. Sponge the rim."
+          },
+          {
+            "text": "Tip dirty slip water into the sink.",
+            "why": "Clay blocks the drains. Let it settle and reuse the sediment."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "This pot is hand built. The banding wheel only turns it."
+          },
+          {
+            "name": "Rolling pin with no guide sticks",
+            "why": "It gives uneven slabs. The base needs a steady 1 cm."
+          },
+          {
+            "name": "Plaster mould",
+            "why": "Moulds are used for casting."
+          },
+          {
+            "name": "Glaze brush",
+            "why": "Glazing comes after bisque firing."
+          },
+          {
+            "name": "Set square",
+            "why": "The profile is checked with the curved card template."
+          },
+          {
+            "name": "Cutting saw",
+            "why": "Clay is cut with a wire or needle tool."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "score",
+          "afterStep": 3,
+          "prompt": "You are about to lay the first coil on the base. What do you do?",
+          "options": [
+            {
+              "text": "Score both surfaces and apply slip",
+              "correct": true,
+              "consequence": "The joint holds firm when dry."
+            },
+            {
+              "text": "Press it on firmly, as wet clay sticks to itself and there is no need for any more",
+              "consequence": "Unscored joints crack on drying."
+            },
+            {
+              "text": "Wet it with plain water only",
+              "consequence": "Water alone does not make a firm bond."
+            }
+          ]
+        },
+        {
+          "id": "inside",
+          "afterStep": 3,
+          "prompt": "The coils are in place. What do you do with the inside joints?",
+          "options": [
+            {
+              "text": "Blend each one with your finger or a tool",
+              "correct": true,
+              "consequence": "The wall becomes one piece, so it will not split along the coils."
+            },
+            {
+              "text": "Leave them, as they will not be seen inside",
+              "consequence": "Unblended joints are weak and split apart."
+            },
+            {
+              "text": "Fill the gaps with dry clay powder",
+              "consequence": "Powder does not bond, and the join remains weak."
+            }
+          ]
+        },
+        {
+          "id": "height",
+          "afterStep": 4,
+          "prompt": "The vase is getting soft and sagging after several coils. What do you do?",
+          "options": [
+            {
+              "text": "Stop, and let the lower coils stiffen a little",
+              "correct": true,
+              "consequence": "The base firms up and can take more weight."
+            },
+            {
+              "text": "Add more coils quickly before it moves further",
+              "consequence": "Building too fast makes the form collapse."
+            },
+            {
+              "text": "Wrap the outside in dry newspaper and carry on building",
+              "consequence": "The soft wall still has to take the weight."
+            }
+          ]
+        },
+        {
+          "id": "cover",
+          "afterStep": 6,
+          "prompt": "You must stop until tomorrow. What do you do with the pot?",
+          "options": [
+            {
+              "text": "Cover it with polythene",
+              "correct": true,
+              "consequence": "The clay stays workable, so the next coil will join."
+            },
+            {
+              "text": "Leave it uncovered so that it firms up well by morning",
+              "consequence": "It dries too far, and new coils will crack away."
+            },
+            {
+              "text": "Soak it in water so it stays soft",
+              "consequence": "It collapses, because it cannot take water."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "joint",
+          "prompt": "Which joint can you expect to crack as the pot dries?",
+          "options": [
+            {
+              "text": "One made with no scoring or slip",
+              "correct": true
+            },
+            {
+              "text": "One scored and slipped, then blended",
+              "why": "That is the correct way to join."
+            },
+            {
+              "text": "One blended well on the inside",
+              "why": "Blending strengthens it."
+            },
+            {
+              "text": "One covered with polythene",
+              "why": "Slow drying helps."
+            }
+          ]
+        },
+        {
+          "id": "outward",
+          "prompt": "You lay the next coil a little towards the outside of the wall. What does the form do?",
+          "options": [
+            {
+              "text": "It gets wider",
+              "correct": true
+            },
+            {
+              "text": "It gets narrower",
+              "why": "Placing a coil inward does that."
+            },
+            {
+              "text": "It only gets thicker",
+              "why": "The profile also moves outward."
+            },
+            {
+              "text": "It stays the same width",
+              "why": "Its position changes the profile."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ring",
+          "prompt": "Taking pi as 3.14, what length of coil goes round a {d} cm diameter base?",
+          "formula": "3.14 * d",
+          "vars": {
+            "d": {
+              "min": 8,
+              "max": 16,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 2,
+          "working": "3.14 × {d} = {answer} cm."
+        },
+        {
+          "id": "coils",
+          "prompt": "Each coil flattens to 1.2 cm of wall height. How many coils make a wall {h} cm high?",
+          "formula": "h / 1.2",
+          "vars": {
+            "h": {
+              "min": 12,
+              "max": 24,
+              "step": 6
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} ÷ 1.2 = {answer} coils."
+        },
+        {
+          "id": "fired",
+          "prompt": "A vase is {h} cm high when wet. With {s}% total shrinkage, how high is it when fired?",
+          "formula": "h * (1 - s / 100)",
+          "vars": {
+            "h": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            },
+            "s": {
+              "min": 10,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "{h} × (1 − {s}/100) = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "cracked-vase",
+          "scenario": "Uche's coil vase slumped on one side, and the coils came apart as it dried. Here is what he did.",
+          "lines": [
+            {
+              "text": "He built the whole vase quickly in one session.",
+              "fault": true,
+              "why": "Building too fast makes the form collapse."
+            },
+            {
+              "text": "He pressed the coils on without scoring or slip.",
+              "fault": true,
+              "why": "Unscored joints crack on drying."
+            },
+            {
+              "text": "He rolled coils of very different thicknesses.",
+              "fault": true,
+              "why": "Uneven coils make the walls rise unevenly."
+            },
+            {
+              "text": "He checked the profile against a card template.",
+              "why": "That is the right check."
+            },
+            {
+              "text": "He covered the pot with polythene between sessions.",
+              "why": "That keeps it workable."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for building an even coil vase.",
+        "explainPrompt": "Why is every join scored and slipped in hand building?",
+        "explainGuide": "Scoring roughens the two surfaces and slip acts as a glue of clay. The two parts key together and shrink as one, so the join does not crack on drying.",
+        "explainKeywords": [
+          [
+            "scor",
+            "rough"
+          ],
+          [
+            "slip"
+          ],
+          [
+            "crack",
+            "hold",
+            "firm",
+            "bond"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Pinch pot and coil vase",
+        "Score, slip, blend",
+        "Check the profile against the template"
+      ]
+    },
+    "pr-cer-slab-building": {
+      "safety": {
+        "correct": [
+          "Cut on the board with the blade moving away from your hand.",
+          "Wipe the bench with a wet sponge when you finish."
+        ],
+        "wrong": [
+          {
+            "text": "Sweep trimmed dry clay off the bench with your hand.",
+            "why": "This raises dust. Clean up damp."
+          },
+          {
+            "text": "Cut the slab while holding it against your other hand.",
+            "why": "The knife can slip into your hand. Cut on the bench with fingers clear."
+          },
+          {
+            "text": "Hold the knife in your mouth while you lift the slab.",
+            "why": "You can cut yourself badly. Lay it on the bench."
+          },
+          {
+            "text": "Shake the dry canvas out in the classroom.",
+            "why": "Dust fills the air. Wash it, or wipe it damp."
+          },
+          {
+            "text": "Leave the knife under the slab.",
+            "why": "The next person who lifts the slab will be cut. Keep it in view."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "Slabs are rolled and built by hand."
+          },
+          {
+            "name": "Serrated kidney",
+            "why": "A slab wall is cut, not scraped thin."
+          },
+          {
+            "name": "Cottle boards",
+            "why": "They hold plaster. There is no mould here."
+          },
+          {
+            "name": "Glazing tongs",
+            "why": "Nothing is glazed yet."
+          },
+          {
+            "name": "1.5 cm guide sticks",
+            "why": "The job calls for 8 mm slabs."
+          },
+          {
+            "name": "Sieve",
+            "why": "The clay is already wedged."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "stage",
+          "afterStep": 2,
+          "prompt": "You want to build the box walls. How firm should the slab be?",
+          "options": [
+            {
+              "text": "Leather-hard",
+              "correct": true,
+              "consequence": "It stands upright, gives crisp edges and can still be joined."
+            },
+            {
+              "text": "Still soft, since it joins more easily when it is freshly rolled",
+              "consequence": "Soft slabs sag."
+            },
+            {
+              "text": "Bone dry",
+              "consequence": "It will not join, and the joint cracks."
+            }
+          ]
+        },
+        {
+          "id": "newspaper",
+          "afterStep": 3,
+          "prompt": "You are about to wrap the slab round the former. What goes on first?",
+          "options": [
+            {
+              "text": "Newspaper round the former",
+              "correct": true,
+              "consequence": "The clay does not stick, and it can shrink freely."
+            },
+            {
+              "text": "Slip round the former",
+              "consequence": "Slip glues the clay to the tube, and it cracks as it shrinks."
+            },
+            {
+              "text": "Nothing at all: a bare former is cleaner and quicker to use",
+              "consequence": "The clay grips it and splits as it shrinks."
+            }
+          ]
+        },
+        {
+          "id": "wall-width",
+          "afterStep": 4,
+          "prompt": "The box is 10 cm wide, and the walls are 8 mm thick. How wide do you cut the two inner walls?",
+          "options": [
+            {
+              "text": "8.4 cm, allowing for both wall thicknesses",
+              "correct": true,
+              "consequence": "The corners close and the box stays 10 cm."
+            },
+            {
+              "text": "10 cm, the same as the two outer walls",
+              "consequence": "The box comes out too wide: you forgot the wall thickness."
+            },
+            {
+              "text": "9.2 cm, allowing for just one wall thickness",
+              "consequence": "Each end needs its allowance, so the box is still too wide."
+            }
+          ]
+        },
+        {
+          "id": "join-mix",
+          "afterStep": 4,
+          "prompt": "One wall has dried hard and the other is soft. What do you do?",
+          "options": [
+            {
+              "text": "Bring them to the same state before you join them",
+              "correct": true,
+              "consequence": "They shrink together and the join stays closed."
+            },
+            {
+              "text": "Join them anyway with extra slip",
+              "consequence": "Soft joined to dry cracks on drying."
+            },
+            {
+              "text": "Put more pressure on the join with a heavy weight",
+              "consequence": "The soft slab distorts, and the join still cracks."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "soft",
+          "prompt": "You stand a very soft slab on edge. What happens?",
+          "options": [
+            {
+              "text": "It sags",
+              "correct": true
+            },
+            {
+              "text": "It stands with crisp edges",
+              "why": "That is a leather-hard slab."
+            },
+            {
+              "text": "It cracks at once",
+              "why": "Soft clay bends. It does not crack."
+            },
+            {
+              "text": "It shrinks to half its size",
+              "why": "Shrinkage is slow and much smaller."
+            }
+          ]
+        },
+        {
+          "id": "sticks",
+          "prompt": "What do the guide sticks do?",
+          "options": [
+            {
+              "text": "They keep the slab one thickness",
+              "correct": true
+            },
+            {
+              "text": "They add a texture",
+              "why": "Texture comes from the canvas or tools."
+            },
+            {
+              "text": "They stop the slab shrinking",
+              "why": "Sticks do not stop shrinkage."
+            },
+            {
+              "text": "They colour the clay",
+              "why": "They have no effect on colour."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "cyl",
+          "prompt": "A cylinder is {d} cm across, with a {o} cm overlap. Taking pi as 3.14, how long must the slab be?",
+          "formula": "3.14 * d + o",
+          "vars": {
+            "d": {
+              "min": 8,
+              "max": 14,
+              "step": 2
+            },
+            "o": {
+              "min": 1.5,
+              "max": 1.5,
+              "step": 0.5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 2,
+          "working": "3.14 × {d} + {o} = {answer} cm."
+        },
+        {
+          "id": "inner",
+          "prompt": "A box has {w} cm sides and {t} cm walls. How wide are the two walls cut to fit between the others?",
+          "formula": "w - 2 * t",
+          "vars": {
+            "w": {
+              "min": 8,
+              "max": 14,
+              "step": 2
+            },
+            "t": {
+              "min": 0.8,
+              "max": 1,
+              "step": 0.2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{w} − 2 × {t} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "box",
+          "scenario": "Remi's box was too big, and its corners opened as it dried. Here is what she did.",
+          "lines": [
+            {
+              "text": "She cut all four walls to the same width.",
+              "fault": true,
+              "why": "She forgot to allow for wall thickness."
+            },
+            {
+              "text": "She joined a soft wall to one that was almost dry.",
+              "fault": true,
+              "why": "This cracks on drying."
+            },
+            {
+              "text": "She dried it fast in the sun.",
+              "fault": true,
+              "why": "Dry slowly and evenly."
+            },
+            {
+              "text": "She used card templates.",
+              "why": "That keeps the parts true."
+            },
+            {
+              "text": "She added a thin coil inside each corner.",
+              "why": "That reinforces the corner."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for slab building.",
+        "explainPrompt": "Why are slabs joined at the leather-hard stage?",
+        "explainGuide": "Leather-hard clay is firm enough to stand and give crisp edges, but still moist enough to be scored, slipped and joined. Both parts then shrink together, so the joints do not crack.",
+        "explainKeywords": [
+          [
+            "leather",
+            "firm"
+          ],
+          [
+            "stand",
+            "edge",
+            "shape"
+          ],
+          [
+            "join",
+            "slip",
+            "scor"
+          ],
+          [
+            "crack",
+            "shrink"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Slab building",
+        "Cylinder and lidded box",
+        "Allow for the wall thickness"
+      ]
+    },
+    "pr-cer-throwing-wheel": {
+      "safety": {
+        "correct": [
+          "Check that the wheel head is clear before you switch on.",
+          "Roll up sleeves and take off bangles and rings."
+        ],
+        "wrong": [
+          {
+            "text": "Press the wheel switch while your hands are wet and dripping.",
+            "why": "Water and electricity are dangerous. Dry your hands and keep leads dry."
+          },
+          {
+            "text": "Let the slurry bucket stand on the electric lead.",
+            "why": "Wet leads are a shock risk. Keep the lead clear and dry."
+          },
+          {
+            "text": "Lean over the spinning wheel with your long scarf hanging down.",
+            "why": "It can catch and pull you in. Tie everything back."
+          },
+          {
+            "text": "Stop the wheel by grabbing the head with your hand.",
+            "why": "It can injure your hand. Let it stop on its own."
+          },
+          {
+            "text": "Start the wheel while holding a needle tool against the clay.",
+            "why": "The tool can catch and fly out. Start with nothing touching."
+          },
+          {
+            "text": "Reach under the wheel to clear slurry while it is turning.",
+            "why": "Your hand or sleeve can be caught. Switch off first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rolling pin",
+            "why": "Slabs need one. Thrown clay does not."
+          },
+          {
+            "name": "Plaster mould",
+            "why": "Thrown work is formed on the wheel."
+          },
+          {
+            "name": "Hand-building template of cardboard tube",
+            "why": "Tubes are formers for slabs."
+          },
+          {
+            "name": "Cottle boards",
+            "why": "Nothing is cast here."
+          },
+          {
+            "name": "Sieve",
+            "why": "The clay is already wedged."
+          },
+          {
+            "name": "Glaze",
+            "why": "Glazing comes after bisque firing."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "centre",
+          "afterStep": 1,
+          "prompt": "The clay is slightly off-centre, but it is time to move on. What do you do?",
+          "options": [
+            {
+              "text": "Cone it again until it runs true",
+              "correct": true,
+              "consequence": "It no longer wobbles, so the walls come up even."
+            },
+            {
+              "text": "Open it now and correct it during the pull",
+              "consequence": "Off-centre clay gives uneven walls, and it may tear."
+            },
+            {
+              "text": "Speed the wheel up to the highest speed and start pulling at once",
+              "consequence": "Speed makes the wobble worse."
+            }
+          ]
+        },
+        {
+          "id": "open",
+          "afterStep": 2,
+          "prompt": "You are opening the clay. How deep do you go?",
+          "options": [
+            {
+              "text": "Stop with about 1 cm of base left",
+              "correct": true,
+              "consequence": "There is enough clay for the base and the foot."
+            },
+            {
+              "text": "Go right down until you feel the wheel head",
+              "consequence": "This opens too deep, and leaves no base."
+            },
+            {
+              "text": "Stop 5 cm above the wheel head, to be very safe",
+              "consequence": "That leaves too much clay, and the pot is base-heavy."
+            }
+          ]
+        },
+        {
+          "id": "water",
+          "afterStep": 2,
+          "prompt": "Water has collected in the bottom of the pot. What do you do?",
+          "options": [
+            {
+              "text": "Sponge it out with the sponge on a stick",
+              "correct": true,
+              "consequence": "The base does not soften or crack."
+            },
+            {
+              "text": "Leave it: it keeps the clay soft for the next pull",
+              "consequence": "The soaked base weakens and may crack."
+            },
+            {
+              "text": "Tip the wheel head to pour it out while it is spinning",
+              "consequence": "This spoils the pot, and it can throw it off."
+            }
+          ]
+        },
+        {
+          "id": "pull",
+          "afterStep": 3,
+          "prompt": "The wall is getting wet and floppy halfway up. What do you do?",
+          "options": [
+            {
+              "text": "Use less water, and make slower, even pulls",
+              "correct": true,
+              "consequence": "The wall stays strong and rises evenly."
+            },
+            {
+              "text": "Add more water and pull faster to finish",
+              "consequence": "Too much water and speed make the wall collapse."
+            },
+            {
+              "text": "Press hard at the rim only",
+              "consequence": "The thick lower wall stays, and the rim may tear."
+            }
+          ]
+        },
+        {
+          "id": "trim",
+          "afterStep": 6,
+          "prompt": "You will trim the foot. When?",
+          "options": [
+            {
+              "text": "At leather-hard, upside down and re-centred",
+              "correct": true,
+              "consequence": "The clay cuts cleanly, and the pot keeps its shape."
+            },
+            {
+              "text": "Straight away while it is still wet on the wheel head",
+              "consequence": "Wet clay smears and distorts."
+            },
+            {
+              "text": "When bone dry",
+              "consequence": "It chips and raises dust."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "wobble",
+          "prompt": "Your steady hands feel no wobble against the turning clay. What does this show?",
+          "options": [
+            {
+              "text": "It is centred",
+              "correct": true
+            },
+            {
+              "text": "It is too dry",
+              "why": "Dry clay would drag, not run true."
+            },
+            {
+              "text": "It has too much water",
+              "why": "Too much water weakens the clay."
+            },
+            {
+              "text": "It is ready to be fired",
+              "why": "It has not even been opened."
+            }
+          ]
+        },
+        {
+          "id": "collapse",
+          "prompt": "Your wall suddenly folds. What is the most likely cause?",
+          "options": [
+            {
+              "text": "Too much water and too fast a pull",
+              "correct": true
+            },
+            {
+              "text": "Too little time spent on wedging the rim",
+              "why": "The rim is not wedged."
+            },
+            {
+              "text": "The wheel was running at medium speed",
+              "why": "Medium speed is correct for pulling."
+            },
+            {
+              "text": "The foot ring was not trimmed",
+              "why": "Trimming comes later."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "throw",
+          "prompt": "With {s}% total shrinkage, a mug must be {d} cm across when fired. How wide do you throw it?",
+          "formula": "d / (1 - s / 100)",
+          "vars": {
+            "s": {
+              "min": 10,
+              "max": 12,
+              "step": 2
+            },
+            "d": {
+              "min": 8,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "{d} ÷ (1 − {s}/100) = {answer} cm."
+        },
+        {
+          "id": "needle",
+          "prompt": "A needle shows {t} cm of clay above the wheel head. You want a base 1 cm thick. How much do you trim off?",
+          "formula": "t - 1",
+          "vars": {
+            "t": {
+              "min": 1.5,
+              "max": 2.5,
+              "step": 0.5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 1,
+          "working": "{t} − 1 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "no-base",
+          "scenario": "Ibrahim's bowl came off the wheel with a hole in its base, and its wall was uneven. Here is what he did.",
+          "lines": [
+            {
+              "text": "He opened it until he felt the wheel head.",
+              "fault": true,
+              "why": "Opening too deep leaves no base."
+            },
+            {
+              "text": "He started opening before the clay ran true.",
+              "fault": true,
+              "why": "Poor centring gives uneven walls."
+            },
+            {
+              "text": "He used the same high speed as the bowl got wider.",
+              "fault": true,
+              "why": "Use the wheel slower as the pot widens."
+            },
+            {
+              "text": "He compressed the rim.",
+              "why": "That strengthens it."
+            },
+            {
+              "text": "He removed the slurry with a rib.",
+              "why": "That is a good step."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when throwing on the wheel.",
+        "explainPrompt": "Why should the wheel run slower as a pot gets wider?",
+        "explainGuide": "The rim of a wider pot moves faster at the same wheel speed. The force throws the soft wall outward, and it may collapse. A slower wheel keeps it under control.",
+        "explainKeywords": [
+          [
+            "wider",
+            "wide",
+            "rim"
+          ],
+          [
+            "fast",
+            "speed",
+            "force"
+          ],
+          [
+            "collapse",
+            "outward",
+            "control"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Throwing on the wheel",
+        "Centre, open, pull, shape, trim",
+        "Nothing touching at start and stop"
+      ]
+    },
+    "pr-cer-slip-casting-press-moulding": {
+      "safety": {
+        "correct": [
+          "Clean plaster off tools into a bucket of water, and let it settle.",
+          "Keep sodium silicate in a labelled container, and wash off any splashes."
+        ],
+        "wrong": [
+          {
+            "text": "Rinse the plaster bowl out in the sink.",
+            "why": "Plaster sets in the pipes and blocks them. Let it set in the bowl or a bucket, and bin it."
+          },
+          {
+            "text": "Set your hand in plaster to make a souvenir mould.",
+            "why": "Setting plaster gets warm and can burn or trap you. Never do this."
+          },
+          {
+            "text": "Sieve the dry plaster with no mask because it is only white powder.",
+            "why": "The dust harms the lungs. Wear a dust mask."
+          },
+          {
+            "text": "Lift the full jug of slip over the shoulder to pour it.",
+            "why": "You can spill it, and the floor gets slippery. Pour from a stable height."
+          },
+          {
+            "text": "Leave spilled slip on the floor until the end of the lesson.",
+            "why": "It is slippery, and it dries to dust. Mop it damp straight away."
+          },
+          {
+            "text": "Clean up plaster dust by dry sweeping.",
+            "why": "It sends fine dust into the air. Clean up damp."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "Slip casting needs no wheel."
+          },
+          {
+            "name": "Rolling pin only, for the mould",
+            "why": "The mould is poured, not rolled."
+          },
+          {
+            "name": "Kick wheel bat",
+            "why": "There is no throwing here."
+          },
+          {
+            "name": "Glaze brush",
+            "why": "No glaze is used in this job."
+          },
+          {
+            "name": "Hacksaw",
+            "why": "Plaster is trimmed with a knife."
+          },
+          {
+            "name": "Spirit level for the slab",
+            "why": "Only the cottle needs care. The slab is pressed by hand."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "release",
+          "afterStep": 1,
+          "prompt": "The model is set up in the cottle. What must you do first?",
+          "options": [
+            {
+              "text": "Seal it well with soft soap",
+              "correct": true,
+              "consequence": "The plaster releases cleanly, and the model is not damaged."
+            },
+            {
+              "text": "Oil the outside of the cottle",
+              "consequence": "The soap must go on the model. The plaster would grip it."
+            },
+            {
+              "text": "Nothing: set the model up dry and pour the plaster right away",
+              "consequence": "The plaster bonds to the model, and the mould may be lost."
+            }
+          ]
+        },
+        {
+          "id": "add-plaster",
+          "afterStep": 2,
+          "prompt": "You have water and weighed plaster. What is the correct way to mix them?",
+          "options": [
+            {
+              "text": "Sprinkle the plaster into the water, then soak for 2 minutes",
+              "correct": true,
+              "consequence": "It wets evenly with no lumps."
+            },
+            {
+              "text": "Pour water on to the plaster",
+              "consequence": "This goes lumpy."
+            },
+            {
+              "text": "Whisk it fast with a stick to get it mixed up early",
+              "consequence": "Whipping puts air in, so the mould has bubbles."
+            }
+          ]
+        },
+        {
+          "id": "dry",
+          "afterStep": 3,
+          "prompt": "Your mould has only just set, and the slip is ready. What do you do?",
+          "options": [
+            {
+              "text": "Dry the mould fully first",
+              "correct": true,
+              "consequence": "A dry mould draws water from the slip, and the wall builds up."
+            },
+            {
+              "text": "Cast now, since the mould feels firm enough",
+              "consequence": "A wet mould absorbs poorly, and the cast stays soft."
+            },
+            {
+              "text": "Heat the mould on a stove flame to dry it quickly",
+              "consequence": "Too much heat damages plaster."
+            }
+          ]
+        },
+        {
+          "id": "drain",
+          "afterStep": 5,
+          "prompt": "You have poured the slip in, and only 4 minutes have passed. What do you do?",
+          "options": [
+            {
+              "text": "Wait 10 to 20 minutes, then drain",
+              "correct": true,
+              "consequence": "The wall builds up to a safe thickness."
+            },
+            {
+              "text": "Drain now to speed up the class",
+              "consequence": "The wall is too thin."
+            },
+            {
+              "text": "Leave it in the mould overnight to be safe",
+              "consequence": "It will set solid."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "time",
+          "prompt": "You leave one casting in the mould longer than another. What do you find?",
+          "options": [
+            {
+              "text": "It has a thicker wall",
+              "correct": true
+            },
+            {
+              "text": "It has a thinner wall",
+              "why": "Longer time builds more clay."
+            },
+            {
+              "text": "It is the same",
+              "why": "Time controls thickness."
+            },
+            {
+              "text": "It has more colour",
+              "why": "Time does not alter the colour."
+            }
+          ]
+        },
+        {
+          "id": "thick-slip",
+          "prompt": "The slip is too thick. What fault does that cause?",
+          "options": [
+            {
+              "text": "Air is trapped in the cast",
+              "correct": true
+            },
+            {
+              "text": "Soft, slow casts",
+              "why": "That is what thin slip causes."
+            },
+            {
+              "text": "The mould dissolves",
+              "why": "Plaster is not dissolved by slip."
+            },
+            {
+              "text": "It casts in one minute with no fault",
+              "why": "Thick slip causes faults."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sg",
+          "prompt": "500 ml of slip weighs {m} g. What is its specific gravity?",
+          "formula": "m / 500",
+          "vars": {
+            "m": {
+              "min": 860,
+              "max": 900,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 2,
+          "working": "{m} ÷ 500 = {answer}."
+        },
+        {
+          "id": "plaster",
+          "prompt": "You will use {w} L of water, with 1.4 kg of plaster per litre. How much plaster do you weigh out?",
+          "formula": "w * 1.4",
+          "vars": {
+            "w": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "kg",
+          "unitAliases": [
+            "kilograms"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{w} × 1.4 = {answer} kg."
+        },
+        {
+          "id": "water",
+          "prompt": "Each litre of water gives about 1.53 L of plaster mix. How much water do you need to fill {v} L?",
+          "formula": "v / 1.53",
+          "vars": {
+            "v": {
+              "min": 3,
+              "max": 9,
+              "step": 1.5
+            }
+          },
+          "unit": "L",
+          "unitAliases": [
+            "litres",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "{v} ÷ 1.53 = {answer} L."
+        }
+      ],
+      "faults": [
+        {
+          "id": "stuck-cast",
+          "scenario": "Nkem's mould was full of bubbles, and her cast was too thin and stuck in one place. Here is what she did.",
+          "lines": [
+            {
+              "text": "She whisked the plaster hard.",
+              "fault": true,
+              "why": "Whipping puts air in the plaster."
+            },
+            {
+              "text": "She drained the slip after five minutes.",
+              "fault": true,
+              "why": "Draining too early leaves thin walls."
+            },
+            {
+              "text": "Her model had an undercut.",
+              "fault": true,
+              "why": "Undercuts lock the cast in. Avoid them or use a two-piece mould."
+            },
+            {
+              "text": "She weighed 500 ml of slip to check density.",
+              "why": "That is the correct check."
+            },
+            {
+              "text": "She fettled the seams and sponged.",
+              "why": "That finishes the cast."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making a plaster mould.",
+        "explainPrompt": "Why does the slip wall get thicker the longer it stays in the mould?",
+        "explainGuide": "Dry plaster absorbs water from the slip. As water leaves, clay particles build up on the mould face, so more time gives a thicker wall.",
+        "explainKeywords": [
+          [
+            "plaster",
+            "mould"
+          ],
+          [
+            "absorb",
+            "water"
+          ],
+          [
+            "clay",
+            "wall"
+          ],
+          [
+            "time",
+            "long"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Plaster moulds and slip casting",
+        "Plaster into water, never the reverse",
+        "Dust mask for sieving"
+      ]
+    },
+    "pr-cer-decorative-processes": {
+      "safety": {
+        "correct": [
+          "Keep the needle tool point down when it is not in your hand.",
+          "Clean the bench with a damp sponge, not a dry brush."
+        ],
+        "wrong": [
+          {
+            "text": "Stir iron oxide into the slip without a mask because you only need a little.",
+            "why": "Oxide dust is harmful to breathe. Wear the mask while mixing."
+          },
+          {
+            "text": "Leave the loop tool lying with its edge up on the bench.",
+            "why": "It cuts anyone who leans on it. Lay it flat in the tool tray."
+          },
+          {
+            "text": "Scrape dried slip off a tile and blow away the dust.",
+            "why": "Clay dust is harmful. Use a damp sponge."
+          },
+          {
+            "text": "Lick the end of the brush to bring it to a point.",
+            "why": "Slip and oxides must never go in your mouth. Shape the brush on the rim of the pot."
+          },
+          {
+            "text": "Point the needle tool towards your hand as you steady the bowl.",
+            "why": "It can stab the hand holding the bowl. Cut away from that hand."
+          },
+          {
+            "text": "Use a kitchen cup to mix red slip and take it home afterwards.",
+            "why": "Oxides can poison food. Keep studio cups in the studio."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Glaze tongs",
+            "why": "Decoration here is done on leather-hard clay, long before any glaze."
+          },
+          {
+            "name": "Rolling pin with guide sticks",
+            "why": "The wares are already formed."
+          },
+          {
+            "name": "Pyrometer",
+            "why": "No firing is done in this job."
+          },
+          {
+            "name": "Plaster dust sieve",
+            "why": "There is nothing to sieve here: slips are already prepared."
+          },
+          {
+            "name": "Sandpaper",
+            "why": "Rubbing leather-hard clay raises dust and blurs the design."
+          },
+          {
+            "name": "Wire-cutting tool for clay blocks",
+            "why": "Nothing is cut from a block in this job."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "stage",
+          "afterStep": 1,
+          "prompt": "Your bowl is still soft and wet. It is your turn at the decorating bench. What do you do?",
+          "options": [
+            {
+              "text": "Wait until it is leather-hard",
+              "correct": true,
+              "consequence": "The decoration comes out crisp."
+            },
+            {
+              "text": "Start now, as wet clay is the easiest to mark and needs the least pressure from the tools",
+              "consequence": "Decoration on wet clay smears."
+            },
+            {
+              "text": "Wait until it is bone dry so that you cannot damage it",
+              "consequence": "Decoration on dry clay chips."
+            }
+          ]
+        },
+        {
+          "id": "divide",
+          "afterStep": 1,
+          "prompt": "You need eight equal motifs round the rim. How do you space them?",
+          "options": [
+            {
+              "text": "Wrap a paper strip round, then fold it into eight",
+              "correct": true,
+              "consequence": "The divisions come out equal, and the last motif fits."
+            },
+            {
+              "text": "Begin at one point and work round by eye",
+              "consequence": "Uneven divisions leave a squeezed last motif."
+            },
+            {
+              "text": "Make one motif, then scratch the others wherever they fit",
+              "consequence": "Unplanned cutting is hard to undo."
+            }
+          ]
+        },
+        {
+          "id": "shine",
+          "afterStep": 3,
+          "prompt": "You have just coated a section with white slip. When do you scratch through?",
+          "options": [
+            {
+              "text": "When it has lost its shine",
+              "correct": true,
+              "consequence": "The line is clean and shows two clear colours."
+            },
+            {
+              "text": "At once, while the slip still looks wet",
+              "consequence": "The slip smears and the line blurs."
+            },
+            {
+              "text": "After a week of drying",
+              "consequence": "Dry slip chips off rather than cutting cleanly."
+            }
+          ]
+        },
+        {
+          "id": "sprig",
+          "afterStep": 5,
+          "prompt": "Your sprig has come out of the mould. How do you attach it?",
+          "options": [
+            {
+              "text": "Score and slip the back, then press it on",
+              "correct": true,
+              "consequence": "It stays on through drying and firing."
+            },
+            {
+              "text": "Press it on by hand, as it is still damp",
+              "consequence": "Unattached sprigs fall off in the kiln."
+            },
+            {
+              "text": "Stick it on after firing with glue",
+              "consequence": "Glue joins are weak, and a sprig belongs in the clay."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "sgr",
+          "prompt": "A successful sgraffito panel shows",
+          "options": [
+            {
+              "text": "A clear two-colour contrast",
+              "correct": true
+            },
+            {
+              "text": "One smooth colour",
+              "why": "That would mean the scratch did not reach the clay body."
+            },
+            {
+              "text": "Fine cracks all over the panel",
+              "why": "That is a fault."
+            },
+            {
+              "text": "Smears of mixed colour",
+              "why": "This shows it was cut while too wet."
+            }
+          ]
+        },
+        {
+          "id": "flake",
+          "prompt": "Slip on your test tile flakes away as it dries. What is the likely cause?",
+          "options": [
+            {
+              "text": "The slip was too thick",
+              "correct": true
+            },
+            {
+              "text": "The tile was at the leather-hard stage",
+              "why": "That is the correct stage."
+            },
+            {
+              "text": "The slip was white",
+              "why": "Colour is not the cause."
+            },
+            {
+              "text": "The tile was labelled",
+              "why": "Labels have no effect."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "circ",
+          "prompt": "Taking pi as 3.14, what is the rim length of a bowl {d} cm in diameter?",
+          "formula": "3.14 * d",
+          "vars": {
+            "d": {
+              "min": 14,
+              "max": 24,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 2,
+          "working": "3.14 × {d} = {answer} cm."
+        },
+        {
+          "id": "motif",
+          "prompt": "A rim measures {c} cm. How much of the rim does each of {n} equal motifs have?",
+          "formula": "c / n",
+          "vars": {
+            "c": {
+              "min": 48,
+              "max": 72,
+              "step": 12
+            },
+            "n": {
+              "min": 6,
+              "max": 8,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "{c} ÷ {n} = {answer} cm."
+        },
+        {
+          "id": "angle",
+          "prompt": "{n} motifs are spaced equally round a circle. How many degrees apart are they?",
+          "formula": "360 / n",
+          "vars": {
+            "n": {
+              "min": 6,
+              "max": 12,
+              "step": 2
+            }
+          },
+          "unit": "degrees",
+          "unitAliases": [
+            "deg",
+            "°"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "360 ÷ {n} = {answer} degrees."
+        }
+      ],
+      "faults": [
+        {
+          "id": "bare-patches",
+          "scenario": "After firing, Chidinma's bowl had bare patches and thin spots. Here is what she did.",
+          "lines": [
+            {
+              "text": "She pressed sprigs on without scoring or slip.",
+              "fault": true,
+              "why": "Unattached sprigs fall off in the kiln."
+            },
+            {
+              "text": "She cut the incised lines nearly through the wall.",
+              "fault": true,
+              "why": "Cutting too deep weakens the wall."
+            },
+            {
+              "text": "She brushed on a very thick coat of slip.",
+              "fault": true,
+              "why": "Thick slip flakes off."
+            },
+            {
+              "text": "She worked at the leather-hard stage.",
+              "why": "That is the right stage."
+            },
+            {
+              "text": "She kept test tiles with labels.",
+              "why": "That is good recording."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for decorating leather-hard ware.",
+        "explainPrompt": "Why is surface decoration normally done at the leather-hard stage?",
+        "explainGuide": "Leather-hard clay is firm enough to hold a crisp mark. Wet clay smears, and dry clay chips.",
+        "explainKeywords": [
+          [
+            "leather",
+            "firm"
+          ],
+          [
+            "crisp",
+            "clean",
+            "sharp"
+          ],
+          [
+            "smear",
+            "wet"
+          ],
+          [
+            "chip",
+            "dry"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Surface decoration",
+        "Incising, stamps, sgraffito, trailing, sprigs",
+        "Plan the divisions first"
+      ]
+    },
+    "pr-cer-drying-bisque-firing": {
+      "safety": {
+        "correct": [
+          "Clear grass and rubbish from around the firing pit before lighting it.",
+          "Have water and sand ready at an open firing."
+        ],
+        "wrong": [
+          {
+            "text": "Open the kiln a little at 300 degrees C to see how the pots are doing.",
+            "why": "Never open a hot kiln. It can burn you, and the rush of cold air can crack the ware."
+          },
+          {
+            "text": "Look into the spyhole with no goggles, because it is only for a moment.",
+            "why": "Use goggles and gloves whenever you look into the spyhole."
+          },
+          {
+            "text": "Build the open firing beside the classroom block, out of the wind.",
+            "why": "Fire can spread to the building. Keep it well away."
+          },
+          {
+            "text": "Pour petrol on the wood to get the open fire going faster.",
+            "why": "Petrol vapour flashes and causes serious burns. Light it as your teacher shows you."
+          },
+          {
+            "text": "Rake hot pots out of the ash by hand with a wet rag.",
+            "why": "Hot pots burn through cloth, and steam scalds. Let them cool in the ash."
+          },
+          {
+            "text": "Leave the fire when it dies down, without checking the embers.",
+            "why": "Embers can flare up. Watch until it is out."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "Forming is finished by this stage."
+          },
+          {
+            "name": "Plaster bat",
+            "why": "Bats dry slip. They do not go in a kiln."
+          },
+          {
+            "name": "Glaze",
+            "why": "Bisque firing is done without glaze."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "Forming is finished by this stage."
+          },
+          {
+            "name": "Measuring tape",
+            "why": "The firing is timed and read by the pyrometer."
+          },
+          {
+            "name": "Wooden shelf for packing",
+            "why": "Wood burns. Use kiln furniture."
+          }
+        ],
+        "optional": [
+          "Firewood, grass and straw for open firing"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "bonedry",
+          "afterStep": 1,
+          "prompt": "A pot looks dry, but its thick base still feels cold against your cheek. What do you do?",
+          "options": [
+            {
+              "text": "Dry it for longer",
+              "correct": true,
+              "consequence": "Moisture has left the base, so it will not burst."
+            },
+            {
+              "text": "Fire it now, because the top looks fine and the kiln is ready to go",
+              "consequence": "Water left in thick bases turns to steam and bursts the ware."
+            },
+            {
+              "text": "Fire it with the base at the top",
+              "consequence": "Water still turns to steam, whichever way up it sits."
+            }
+          ]
+        },
+        {
+          "id": "pack",
+          "afterStep": 2,
+          "prompt": "You are packing greenware. Where do the heavy pieces go?",
+          "options": [
+            {
+              "text": "At the bottom, clear of the elements",
+              "correct": true,
+              "consequence": "The stack is stable, and the elements are not damaged."
+            },
+            {
+              "text": "At the top, where the heat is best and they take the least weight from the other pots",
+              "consequence": "Heavy pots at the top can crush the ware below and topple."
+            },
+            {
+              "text": "Against the elements to get the most heat",
+              "consequence": "Ware must be kept off the elements."
+            }
+          ]
+        },
+        {
+          "id": "early-rate",
+          "afterStep": 3,
+          "prompt": "The class wants to go home. It is 150 degrees C and the kiln is climbing slowly. What do you do?",
+          "options": [
+            {
+              "text": "Keep to about 100 degrees C per hour, with vents open",
+              "correct": true,
+              "consequence": "Water leaves steadily, and the ware survives."
+            },
+            {
+              "text": "Turn it to full power, then ease off again once you have caught up",
+              "consequence": "Fast early heating causes cracks or explosions."
+            },
+            {
+              "text": "Close the vents to hold the heat in",
+              "consequence": "The vents must stay open for water smoking and carbon burn-off."
+            }
+          ]
+        },
+        {
+          "id": "unpack",
+          "afterStep": 5,
+          "prompt": "The firing is finished. It is 400 degrees C inside. What do you do?",
+          "options": [
+            {
+              "text": "Leave the kiln to cool naturally before unpacking",
+              "correct": true,
+              "consequence": "The ware cools evenly and comes out sound."
+            },
+            {
+              "text": "Open the door wide to cool it faster",
+              "consequence": "Sudden cooling causes dunting."
+            },
+            {
+              "text": "Take the pots out with tongs one at a time",
+              "consequence": "It is too hot, and the pots can crack in cool air."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "ring",
+          "prompt": "You tap a sound bisque-fired pot. What do you hear?",
+          "options": [
+            {
+              "text": "A clear ring",
+              "correct": true
+            },
+            {
+              "text": "A dull thud",
+              "why": "That suggests a crack."
+            },
+            {
+              "text": "Nothing at all",
+              "why": "Fired ware sounds when tapped."
+            },
+            {
+              "text": "A hissing sound",
+              "why": "Hissing is not expected."
+            }
+          ]
+        },
+        {
+          "id": "open-fire",
+          "prompt": "How do open-fired pots usually compare with kiln-fired pots?",
+          "options": [
+            {
+              "text": "They are darker, and often smoke-marked",
+              "correct": true
+            },
+            {
+              "text": "They are whiter and cleaner",
+              "why": "Smoke and fuel darken them."
+            },
+            {
+              "text": "They have a glossy glaze",
+              "why": "They are not glazed by the fire."
+            },
+            {
+              "text": "They are exactly the same",
+              "why": "Open fires are less controlled."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "slow",
+          "prompt": "A kiln heats from 30 degrees C to {e} degrees C at 100 degrees C per hour. How long does that take, in hours?",
+          "formula": "(e - 30) / 100",
+          "vars": {
+            "e": {
+              "min": 430,
+              "max": 630,
+              "step": 100
+            }
+          },
+          "unit": "h",
+          "unitAliases": [
+            "hours",
+            "hour",
+            "hrs"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "({e} − 30) ÷ 100 = {answer} h."
+        },
+        {
+          "id": "fast",
+          "prompt": "A kiln heats from 600 to 1000 degrees C at {r} degrees C per hour. How long does that take?",
+          "formula": "400 / r",
+          "vars": {
+            "r": {
+              "min": 100,
+              "max": 200,
+              "step": 50
+            }
+          },
+          "unit": "h",
+          "unitAliases": [
+            "hours",
+            "hour",
+            "hrs"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "400 ÷ {r} = {answer} h."
+        }
+      ],
+      "faults": [
+        {
+          "id": "exploded",
+          "scenario": "Half of Musa's batch exploded, and others came out with cracks. Here is what he did.",
+          "lines": [
+            {
+              "text": "He fired pots that were still damp at the base.",
+              "fault": true,
+              "why": "Damp ware explodes in the firing."
+            },
+            {
+              "text": "He raised the heat quickly from the start.",
+              "fault": true,
+              "why": "Heat slowly through water smoking."
+            },
+            {
+              "text": "He opened the kiln as soon as it was switched off.",
+              "fault": true,
+              "why": "This causes dunting."
+            },
+            {
+              "text": "He left the vents open early in the firing.",
+              "why": "That lets water and carbon gases escape."
+            },
+            {
+              "text": "He plotted temperature against time.",
+              "why": "That is the record the job asks for."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for bisque firing.",
+        "explainPrompt": "Why must the early part of a bisque firing be slow?",
+        "explainGuide": "Water left in the clay turns to steam. If heating is fast, the steam cannot escape and the ware cracks or explodes. Slow heating lets the water leave safely. Quartz inversion at 573 degrees C also needs slow heating.",
+        "explainKeywords": [
+          [
+            "water",
+            "moisture"
+          ],
+          [
+            "steam"
+          ],
+          [
+            "crack",
+            "burst",
+            "explo"
+          ],
+          [
+            "slow"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Drying and bisque firing",
+        "Bone dry before you fire",
+        "Never open a hot kiln"
+      ]
+    },
+    "pr-cer-glaze-preparation-application": {
+      "safety": {
+        "correct": [
+          "Keep food, drink and your hands away from your mouth when glazing.",
+          "Keep glaze buckets labelled and covered."
+        ],
+        "wrong": [
+          {
+            "text": "Use any cheap glaze for mugs, whatever it contains.",
+            "why": "Food ware must have a lead-free glaze."
+          },
+          {
+            "text": "Weigh out the dry silica with no mask, because it is only a small amount.",
+            "why": "Silica dust damages the lungs. Wear the dust mask."
+          },
+          {
+            "text": "Sweep up spilled glaze powder.",
+            "why": "This raises harmful dust. Clean up with a damp cloth."
+          },
+          {
+            "text": "Spray glaze in the open classroom when the booth is busy.",
+            "why": "Spray in the air is breathed in. Spray only in a booth."
+          },
+          {
+            "text": "Taste a little of the glaze to tell whether it has been mixed well.",
+            "why": "Glaze materials are harmful if swallowed. Never put them near your mouth."
+          },
+          {
+            "text": "Wash your glazing hands quickly with no soap, and eat your lunch.",
+            "why": "Glaze residue can be swallowed. Wash well."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "The wares are already bisque fired."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "The wares are already formed."
+          },
+          {
+            "name": "Plaster bat",
+            "why": "Glaze is applied to bisque, not dried on bats."
+          },
+          {
+            "name": "Lead glaze powder",
+            "why": "Lead glazes are unsafe on food ware. This job uses a lead-free frit."
+          },
+          {
+            "name": "Sgraffito needle",
+            "why": "Decoration of this kind is done at the leather-hard stage."
+          },
+          {
+            "name": "Soft soap",
+            "why": "It is a release agent for moulds, and it would stop the glaze taking."
+          }
+        ],
+        "optional": [
+          "Spray gun and booth (if available)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "consist",
+          "afterStep": 2,
+          "prompt": "Your glaze is thick, like porridge. What do you do?",
+          "options": [
+            {
+              "text": "Add water slowly until it is like single cream, then sieve it",
+              "correct": true,
+              "consequence": "It coats evenly and does not run."
+            },
+            {
+              "text": "Use it now, since thick glaze gives a stronger colour and a harder surface",
+              "consequence": "Thick glaze runs, or crawls."
+            },
+            {
+              "text": "Add more frit to it",
+              "consequence": "This thickens it further."
+            }
+          ]
+        },
+        {
+          "id": "foot",
+          "afterStep": 3,
+          "prompt": "You are about to dip a pot. Its foot is bare. What do you do first?",
+          "options": [
+            {
+              "text": "Wax the foot or wipe the base clean",
+              "correct": true,
+              "consequence": "Glaze cannot stick the ware to the kiln shelf."
+            },
+            {
+              "text": "Dip the whole pot and hope it does not stick",
+              "consequence": "Glaze on the foot sticks the ware to the shelf."
+            },
+            {
+              "text": "Put a thick coat on the foot so it will stand firm",
+              "consequence": "That fuses it to the shelf."
+            }
+          ]
+        },
+        {
+          "id": "stir",
+          "afterStep": 4,
+          "prompt": "You stop halfway through glazing to help a friend. What do you do when you get back?",
+          "options": [
+            {
+              "text": "Stir the glaze before you dip again",
+              "correct": true,
+              "consequence": "The glaze is even again, because glazes settle."
+            },
+            {
+              "text": "Carry on dipping from the top of the bucket",
+              "consequence": "The top is thin because the heavy materials have settled."
+            },
+            {
+              "text": "Add a little more water to the top",
+              "consequence": "This makes it even thinner."
+            }
+          ]
+        },
+        {
+          "id": "shelf",
+          "afterStep": 5,
+          "prompt": "Your kiln shelf is nearly full, with little room left. How do you place the wares?",
+          "options": [
+            {
+              "text": "Leave a clear gap between all of them",
+              "correct": true,
+              "consequence": "No two wares fuse together in the firing."
+            },
+            {
+              "text": "Let them touch lightly so that you can fit everything in",
+              "consequence": "Glazed wares that touch fuse together."
+            },
+            {
+              "text": "Stack the smaller ones inside the bigger ones",
+              "consequence": "Glaze fuses them together."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "crawl",
+          "prompt": "Your fired glaze has pulled back, leaving bare patches. What is this defect, and its likely cause?",
+          "options": [
+            {
+              "text": "Crawling, from dust or grease",
+              "correct": true
+            },
+            {
+              "text": "Crazing, from an expansion mismatch",
+              "why": "Crazing is a network of fine cracks."
+            },
+            {
+              "text": "Running, from overfiring",
+              "why": "Running gives drips, not bare patches."
+            },
+            {
+              "text": "Pinholing, from a good firing",
+              "why": "Pinholes are small holes."
+            }
+          ]
+        },
+        {
+          "id": "dull",
+          "prompt": "Your glaze came out rough and dull. What is the likely cause?",
+          "options": [
+            {
+              "text": "It was underfired",
+              "correct": true
+            },
+            {
+              "text": "It was overfired",
+              "why": "Overfiring tends to make glaze run."
+            },
+            {
+              "text": "The glaze had been sieved twice",
+              "why": "Sieving is correct."
+            },
+            {
+              "text": "The foot was sponged clean",
+              "why": "That is correct."
+            }
+          ]
+        },
+        {
+          "id": "craze",
+          "prompt": "Fine cracks form all over a fired glaze. What is the cause?",
+          "options": [
+            {
+              "text": "A mismatch in expansion between glaze and body",
+              "correct": true
+            },
+            {
+              "text": "Dust left on the bisque",
+              "why": "Dust causes crawling."
+            },
+            {
+              "text": "Too little cobalt oxide was added to the glaze batch",
+              "why": "The colouring oxide does not cause cracks at that level."
+            },
+            {
+              "text": "Waxing the foot of the ware",
+              "why": "Waxing is correct."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "frit",
+          "prompt": "A recipe uses {p}% frit. How many grams of frit are there in a {b} g batch?",
+          "formula": "p / 100 * b",
+          "vars": {
+            "p": {
+              "min": 60,
+              "max": 80,
+              "step": 10
+            },
+            "b": {
+              "min": 1000,
+              "max": 3000,
+              "step": 500
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{p} ÷ 100 × {b} = {answer} g."
+        },
+        {
+          "id": "cobalt",
+          "prompt": "You add {c}% cobalt oxide to a {b} g batch. How many grams is that?",
+          "formula": "c / 100 * b",
+          "vars": {
+            "c": {
+              "min": 1,
+              "max": 2,
+              "step": 1
+            },
+            "b": {
+              "min": 1000,
+              "max": 3000,
+              "step": 500
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{c} ÷ 100 × {b} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "stuck-mugs",
+          "scenario": "Three of Efua's mugs came out stuck to the shelf, and two had bare patches. Here is what she did.",
+          "lines": [
+            {
+              "text": "She left glaze on the foot of each mug.",
+              "fault": true,
+              "why": "Glaze on the foot sticks the ware to the shelf."
+            },
+            {
+              "text": "She dipped dusty bisque straight from the shelf.",
+              "fault": true,
+              "why": "Dust causes crawling. Clean it first."
+            },
+            {
+              "text": "She put the mugs on the shelf touching one another.",
+              "fault": true,
+              "why": "Glazed wares fuse together when touching."
+            },
+            {
+              "text": "She sieved the glaze twice.",
+              "why": "That mixes it evenly."
+            },
+            {
+              "text": "She worked out her batch before weighing.",
+              "why": "That is step one."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for glazing wares.",
+        "explainPrompt": "Why must the foot of a ware be kept free of glaze?",
+        "explainGuide": "Glaze melts in the kiln. Any glaze on the foot fuses the ware to the shelf, which damages both. Waxing the foot or sponging it clean prevents this.",
+        "explainKeywords": [
+          [
+            "melt",
+            "fuse",
+            "stick"
+          ],
+          [
+            "shelf"
+          ],
+          [
+            "foot",
+            "base"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Glaze: batch, apply, fire, inspect",
+        "Lead-free for food ware",
+        "Link each defect to its cause"
+      ]
+    },
+    "pr-cer-oxide-line-blend": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Close the lids of oxide containers as soon as you have weighed.",
+          "Clean the balance and bench with a damp cloth."
+        ],
+        "wrong": [
+          {
+            "text": "Weigh the oxides with no gloves, since they are only coloured powders.",
+            "why": "Oxides are toxic. Wear a mask and gloves."
+          },
+          {
+            "text": "Keep oxides in unlabelled paper twists.",
+            "why": "Nobody can tell what they are. Label every container."
+          },
+          {
+            "text": "Eat your snack in the room between weighings.",
+            "why": "Oxides on your hands are swallowed. Wash your hands before eating, outside the room."
+          },
+          {
+            "text": "Blow spilled oxide off the balance pan.",
+            "why": "This puts toxic dust into the air. Use a damp cloth."
+          },
+          {
+            "text": "Mix the oxides in a kitchen cup and take it back home.",
+            "why": "It can poison food. Keep these cups in the studio."
+          },
+          {
+            "text": "Lick the brush so that it comes to a fine point.",
+            "why": "Oxides are toxic if swallowed. Shape the brush on the cup."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "No forming is done in this test."
+          },
+          {
+            "name": "Spring balance",
+            "why": "It is not accurate enough for small amounts. Use the 0.1 g balance."
+          },
+          {
+            "name": "Cutting wire",
+            "why": "The test tiles are already made."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "The test tiles are already made."
+          },
+          {
+            "name": "Sandpaper",
+            "why": "It raises dust, and the tiles do not need it."
+          },
+          {
+            "name": "Plaster mould",
+            "why": "Nothing here is cast."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "label",
+          "afterStep": 1,
+          "prompt": "You have a stack of blank tiles. When do you number them?",
+          "options": [
+            {
+              "text": "Before anything else, on the back of each tile",
+              "correct": true,
+              "consequence": "The fired colour can be traced to its oxide and percentage."
+            },
+            {
+              "text": "After firing, when you can see the colours and match them to your notes from memory",
+              "consequence": "You will not be able to tell which tile is which."
+            },
+            {
+              "text": "Only the most important tiles",
+              "consequence": "Unlabelled tiles cannot be used."
+            }
+          ]
+        },
+        {
+          "id": "control",
+          "afterStep": 3,
+          "prompt": "You have enough tiles for 2%, 4% and 6%, and one left over. What do you do with it?",
+          "options": [
+            {
+              "text": "Use it as the control, with base glaze only",
+              "correct": true,
+              "consequence": "You can compare each colour with the plain glaze."
+            },
+            {
+              "text": "Keep it spare, in case one of the others breaks in the kiln",
+              "consequence": "There is then no control to compare with."
+            },
+            {
+              "text": "Add 8% oxide, for an extra result",
+              "consequence": "Without a control, the comparison is incomplete."
+            }
+          ]
+        },
+        {
+          "id": "thick",
+          "afterStep": 3,
+          "prompt": "One tile has a much thicker coat than the others. What do you do?",
+          "options": [
+            {
+              "text": "Wipe it and coat it to match the others",
+              "correct": true,
+              "consequence": "The colour differences come from the oxide, not the thickness."
+            },
+            {
+              "text": "Leave it, as it will even out in the kiln",
+              "consequence": "Thicker glaze looks darker, which spoils the comparison."
+            },
+            {
+              "text": "Fire it separately on its own at a later date",
+              "consequence": "A different firing means it can no longer be compared fairly."
+            }
+          ]
+        },
+        {
+          "id": "fire",
+          "afterStep": 4,
+          "prompt": "Half your tiles did not fit into this firing. What do you do?",
+          "options": [
+            {
+              "text": "Wait and fire all of them together",
+              "correct": true,
+              "consequence": "All the tiles have the same firing, so the results are comparable."
+            },
+            {
+              "text": "Fire the rest next week",
+              "consequence": "A different firing changes the colours."
+            },
+            {
+              "text": "Fire the 2% and 4% tiles now, and leave the 6% tiles out of the test",
+              "consequence": "You lose the top of the line blend, and the firing is no longer shared."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "cobalt",
+          "prompt": "Which oxide gives strong blues even at 0.5 to 1%?",
+          "options": [
+            {
+              "text": "Cobalt",
+              "correct": true
+            },
+            {
+              "text": "Iron",
+              "why": "Iron gives honey, amber or brown."
+            },
+            {
+              "text": "Copper",
+              "why": "Copper gives greens in an oxidising firing."
+            },
+            {
+              "text": "Manganese",
+              "why": "Manganese gives purple-brown."
+            }
+          ]
+        },
+        {
+          "id": "copper",
+          "prompt": "In an oxidising firing, a copper tile should be",
+          "options": [
+            {
+              "text": "Green",
+              "correct": true
+            },
+            {
+              "text": "Blue",
+              "why": "That is cobalt."
+            },
+            {
+              "text": "Amber",
+              "why": "That is iron."
+            },
+            {
+              "text": "White",
+              "why": "Copper gives colour."
+            }
+          ]
+        },
+        {
+          "id": "deepen",
+          "prompt": "What happens to a colour as the percentage of oxide rises?",
+          "options": [
+            {
+              "text": "It deepens",
+              "correct": true
+            },
+            {
+              "text": "It gets lighter",
+              "why": "More oxide gives more colour."
+            },
+            {
+              "text": "It stays exactly the same",
+              "why": "The blend shows a change."
+            },
+            {
+              "text": "It always changes to blue",
+              "why": "Each oxide keeps its own family of colours."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "hundred",
+          "prompt": "How many grams of oxide are in a {p}% mix with 100 g of base glaze?",
+          "formula": "p",
+          "vars": {
+            "p": {
+              "min": 2,
+              "max": 6,
+              "step": 2
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{p}% of 100 g = {answer} g."
+        },
+        {
+          "id": "batch",
+          "prompt": "How many grams of oxide does a {p}% mix need for {b} g of glaze?",
+          "formula": "p / 100 * b",
+          "vars": {
+            "p": {
+              "min": 2,
+              "max": 6,
+              "step": 2
+            },
+            "b": {
+              "min": 150,
+              "max": 300,
+              "step": 50
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{p} ÷ 100 × {b} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "lost-tiles",
+          "scenario": "Oge's line blend could not be used. Here is what she did.",
+          "lines": [
+            {
+              "text": "She did not number the backs of her tiles.",
+              "fault": true,
+              "why": "Unlabelled tiles cannot be traced."
+            },
+            {
+              "text": "She left out the base-glaze tile.",
+              "fault": true,
+              "why": "There is no control."
+            },
+            {
+              "text": "She fired half of the tiles in a different firing.",
+              "fault": true,
+              "why": "All the tiles must share one firing."
+            },
+            {
+              "text": "She weighed on a 0.1 g balance.",
+              "why": "That is accurate enough."
+            },
+            {
+              "text": "She arranged her fired tiles in order.",
+              "why": "That is step 5."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a fair line blend.",
+        "explainPrompt": "Why is a tile with base glaze only included in the line blend?",
+        "explainGuide": "It is the control. It shows the glaze with no oxide, so any colour on the other tiles can be put down to the oxide.",
+        "explainKeywords": [
+          [
+            "control",
+            "compar"
+          ],
+          [
+            "base",
+            "plain",
+            "no oxide"
+          ],
+          [
+            "oxide",
+            "colour"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Colouring oxide line blend",
+        "Number the tile backs first",
+        "Always keep a control tile"
+      ]
+    },
+    "pr-cer-tool-construction": {
+      "safety": {
+        "correct": [
+          "Keep your fingers behind the cutting edge of the knife.",
+          "Sweep metal filings into a dustpan with a brush, never with your hand."
+        ],
+        "wrong": [
+          {
+            "text": "Saw the strip while holding it across your knee.",
+            "why": "The saw can jump into your leg. Clamp the work in the vice."
+          },
+          {
+            "text": "File the steel strip with no goggles, since the bits are tiny.",
+            "why": "Fine metal bits can get in your eyes. Wear goggles."
+          },
+          {
+            "text": "Leave a sharp edge on the loop tool to help it cut.",
+            "why": "Sharp edges cut hands. Smooth all the edges."
+          },
+          {
+            "text": "Hold the old hacksaw blade in your bare fist while you shape it.",
+            "why": "It can cut you badly. Clamp it in the vice."
+          },
+          {
+            "text": "Strip the knife towards your chest to take off long shavings.",
+            "why": "Cut away from your body."
+          },
+          {
+            "text": "Rub filings off the bench with your palm.",
+            "why": "Metal splinters go into the skin. Use a brush."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "No throwing is done while you are making tools."
+          },
+          {
+            "name": "Softwood offcuts",
+            "why": "Softwood splits. Use hardwood."
+          },
+          {
+            "name": "Sewing thread for the wire",
+            "why": "It is not strong enough to cut clay."
+          },
+          {
+            "name": "Glaze",
+            "why": "Glaze is for ceramics, not tool handles."
+          },
+          {
+            "name": "Kiln",
+            "why": "Nothing here is fired."
+          },
+          {
+            "name": "Plaster of Paris",
+            "why": "It is not used for hand tools."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "draw",
+          "afterStep": 1,
+          "prompt": "You have the wood and want to start cutting. What comes first?",
+          "options": [
+            {
+              "text": "A full-size working drawing with dimensions",
+              "correct": true,
+              "consequence": "The cuts are planned, and the tools match the plan."
+            },
+            {
+              "text": "Saw the first length to see how it looks, and draw it up later",
+              "consequence": "You risk wasting material. Measure twice, cut once."
+            },
+            {
+              "text": "Oil the wood",
+              "consequence": "Oil comes after shaping and sanding."
+            }
+          ]
+        },
+        {
+          "id": "wood",
+          "afterStep": 2,
+          "prompt": "The store has soft pine and a hardwood strip. Which do you take?",
+          "options": [
+            {
+              "text": "The hardwood strip",
+              "correct": true,
+              "consequence": "It stands up to use without splitting."
+            },
+            {
+              "text": "The soft pine, since it is much easier to shape with the knife",
+              "consequence": "Softwood splits in use."
+            },
+            {
+              "text": "A mixture of the two in one tool",
+              "consequence": "The soft part will still split."
+            }
+          ]
+        },
+        {
+          "id": "sand",
+          "afterStep": 3,
+          "prompt": "Your new modelling tool has a rough end. What do you do?",
+          "options": [
+            {
+              "text": "Sand it smooth, then oil it",
+              "correct": true,
+              "consequence": "It leaves clean marks in the clay."
+            },
+            {
+              "text": "Leave it: rough wood grips clay better than smooth wood",
+              "consequence": "Rough wood drags and tears the clay."
+            },
+            {
+              "text": "Paint it",
+              "consequence": "Paint will come off in the wet clay."
+            }
+          ]
+        },
+        {
+          "id": "guides",
+          "afterStep": 6,
+          "prompt": "Your two rolling guides differ by 1 mm. What do you do?",
+          "options": [
+            {
+              "text": "Plane or sand one until the callipers match",
+              "correct": true,
+              "consequence": "The slab stays one thickness."
+            },
+            {
+              "text": "Use them, as 1 mm cannot matter",
+              "consequence": "The slab is wedge-shaped."
+            },
+            {
+              "text": "Put the thicker guide on the side you use most",
+              "consequence": "The slab is still uneven."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "good",
+          "prompt": "What does a smooth, well-balanced tool do on clay?",
+          "options": [
+            {
+              "text": "It leaves clean marks",
+              "correct": true
+            },
+            {
+              "text": "It drags and tears",
+              "why": "That is rough wood."
+            },
+            {
+              "text": "It sticks to the clay",
+              "why": "Smooth tools slide."
+            },
+            {
+              "text": "It changes the clay's colour",
+              "why": "Tools do not colour clay."
+            }
+          ]
+        },
+        {
+          "id": "wire",
+          "prompt": "What is the cutting wire used for?",
+          "options": [
+            {
+              "text": "Cutting clay and removing pots from the wheel",
+              "correct": true
+            },
+            {
+              "text": "Stirring the glaze bucket before each dip",
+              "why": "That takes a stirrer."
+            },
+            {
+              "text": "Holding pots inside the kiln during firing",
+              "why": "That needs kiln furniture."
+            },
+            {
+              "text": "Polishing the surface of leather-hard wares",
+              "why": "Wire does not polish."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "tools",
+          "prompt": "How many complete {l} cm tools can you cut from a 100 cm strip, ignoring the saw cut?",
+          "formula": "round(100 / l - 0.5, 0)",
+          "vars": {
+            "l": {
+              "min": 16,
+              "max": 24,
+              "step": 2
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "100 ÷ {l}. Only whole tools count, so the answer is {answer}."
+        },
+        {
+          "id": "left",
+          "prompt": "You cut as many {l} cm tools as you can from a 100 cm strip. How much is left over, ignoring the saw cut?",
+          "formula": "100 - l * round(100 / l - 0.5, 0)",
+          "vars": {
+            "l": {
+              "min": 16,
+              "max": 24,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Whole tools × {l}, taken from 100, leaves {answer} cm."
+        },
+        {
+          "id": "kerf",
+          "prompt": "Each saw cut loses 2 mm. How much length is lost to {n} cuts?",
+          "formula": "n * 2",
+          "vars": {
+            "n": {
+              "min": 3,
+              "max": 7,
+              "step": 1
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} × 2 = {answer} mm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "tool-kit",
+          "scenario": "Kunle's tool kit cut his hands and tore his clay. Here is what he did.",
+          "lines": [
+            {
+              "text": "He left the loop tool with sharp edges.",
+              "fault": true,
+              "why": "Smooth all the metal edges."
+            },
+            {
+              "text": "He left his wood unsanded.",
+              "fault": true,
+              "why": "Rough wood tears clay."
+            },
+            {
+              "text": "He stored the metal tools wet.",
+              "fault": true,
+              "why": "Clean, dry and oil them, or they rust."
+            },
+            {
+              "text": "He tested each tool on clay.",
+              "why": "That is step 7."
+            },
+            {
+              "text": "He clamped the work in the vice.",
+              "why": "That is safe practice."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for making hand tools from wood and metal.",
+        "explainPrompt": "Why should finished tools be sanded and then oiled or waxed?",
+        "explainGuide": "Sanding removes splinters and rough spots that would hurt your hands or tear the clay. Oil or wax seals the wood, and oil stops metal parts rusting.",
+        "explainKeywords": [
+          [
+            "sand",
+            "smooth"
+          ],
+          [
+            "splinter",
+            "tear",
+            "rough"
+          ],
+          [
+            "oil",
+            "wax"
+          ],
+          [
+            "rust",
+            "seal",
+            "protect"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Making ceramic hand tools",
+        "Measure twice, cut once",
+        "Smooth every edge"
+      ]
+    },
+    "pr-cer-design-working-drawings": {
+      "room": "drawing",
+      "safety": {
+        "correct": [
+          "Lay the compasses flat and closed when you are not using them.",
+          "Work in good light, sitting upright."
+        ],
+        "wrong": [
+          {
+            "text": "Cut the card template while holding it against your hand.",
+            "why": "The blade can go through into your hand. Cut on a board."
+          },
+          {
+            "text": "Leave the compass open on your chair.",
+            "why": "Someone can sit on it."
+          },
+          {
+            "text": "Sharpen your pencil with a loose razor blade.",
+            "why": "Loose blades cut fingers. Use a sharpener."
+          },
+          {
+            "text": "Lean close to the paper in poor light for hours.",
+            "why": "It strains your eyes and back."
+          },
+          {
+            "text": "Throw a set square to a friend.",
+            "why": "Its corners can injure. Hand it over."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "This job is done on paper."
+          },
+          {
+            "name": "Glaze sample tiles",
+            "why": "The glaze plan is drawn, not tested, at this stage."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "No clay is rolled yet."
+          },
+          {
+            "name": "Kiln",
+            "why": "Nothing is fired here."
+          },
+          {
+            "name": "Sieve",
+            "why": "Nothing is sieved at the drawing stage."
+          },
+          {
+            "name": "Plaster mould",
+            "why": "You are designing the form, not casting it."
+          }
+        ],
+        "optional": [
+          "Computer with a CAD or drawing program (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "ideas",
+          "afterStep": 2,
+          "prompt": "You have one idea you like. What do you do next?",
+          "options": [
+            {
+              "text": "Draw several thumbnails of forms and decoration from local sources",
+              "correct": true,
+              "consequence": "The development of your ideas earns marks."
+            },
+            {
+              "text": "Go straight to the final working drawing, and leave out all the rest",
+              "consequence": "Development is lost, and the marks with it."
+            },
+            {
+              "text": "Copy a vase from a catalogue",
+              "consequence": "This shows no development."
+            }
+          ]
+        },
+        {
+          "id": "section",
+          "afterStep": 3,
+          "prompt": "The elevation is finished. How do you show the wall thickness?",
+          "options": [
+            {
+              "text": "Draw a section",
+              "correct": true,
+              "consequence": "It reveals the wall profile."
+            },
+            {
+              "text": "Add it as a note in the plan view",
+              "consequence": "A plan cannot show the height of the wall."
+            },
+            {
+              "text": "Leave it out",
+              "consequence": "The maker has no target."
+            }
+          ]
+        },
+        {
+          "id": "wet-size",
+          "afterStep": 4,
+          "prompt": "The vase must be 30 cm high when fired. Which height do you make it?",
+          "options": [
+            {
+              "text": "The fired height divided by (1 − shrinkage)",
+              "correct": true,
+              "consequence": "The fired vase comes out close to 30 cm."
+            },
+            {
+              "text": "30 cm exactly",
+              "consequence": "It shrinks and comes out too small."
+            },
+            {
+              "text": "The fired height plus a small amount by eye",
+              "consequence": "This is only a guess."
+            }
+          ]
+        },
+        {
+          "id": "deco",
+          "afterStep": 5,
+          "prompt": "Your decoration has been drawn on paper, and it ignores the curve of the form. What do you do?",
+          "options": [
+            {
+              "text": "Redraw it to follow the form",
+              "correct": true,
+              "consequence": "Form and decoration work together."
+            },
+            {
+              "text": "Keep it, as it looks good flat and it can be stretched later",
+              "consequence": "Decoration that ignores the form looks wrong on the pot."
+            },
+            {
+              "text": "Remove the decoration completely",
+              "consequence": "The brief asked for decoration."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "section-q",
+          "prompt": "Which view shows the wall thickness?",
+          "options": [
+            {
+              "text": "A section",
+              "correct": true
+            },
+            {
+              "text": "A plan",
+              "why": "A plan is from above."
+            },
+            {
+              "text": "A thumbnail",
+              "why": "It is a quick idea sketch."
+            },
+            {
+              "text": "A perspective view",
+              "why": "It shows the outside only."
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "prompt": "Why is a dimensioned drawing useful?",
+          "options": [
+            {
+              "text": "It gives a clear target during making",
+              "correct": true
+            },
+            {
+              "text": "It replaces the firing",
+              "why": "It cannot do that."
+            },
+            {
+              "text": "It stops all shrinkage",
+              "why": "Shrinkage still happens."
+            },
+            {
+              "text": "It makes wedging unnecessary",
+              "why": "It does not."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "paper",
+          "prompt": "A vase is {h} cm high when fired. How high is it on a 1:{s} drawing?",
+          "formula": "h / s",
+          "vars": {
+            "h": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            },
+            "s": {
+              "min": 2,
+              "max": 2,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} ÷ {s} = {answer} cm."
+        },
+        {
+          "id": "wet",
+          "prompt": "A vase must be {h} cm high when fired, with {s}% total shrinkage. What is the making height?",
+          "formula": "h / (1 - s / 100)",
+          "vars": {
+            "h": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            },
+            "s": {
+              "min": 10,
+              "max": 12,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 2,
+          "working": "{h} ÷ (1 − {s}/100) = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "folio",
+          "scenario": "Ada's drawing earned few marks, and her vase came out too small. Here is what she did.",
+          "lines": [
+            {
+              "text": "She gave no scale or units.",
+              "fault": true,
+              "why": "A scale must be on every drawing."
+            },
+            {
+              "text": "She made the vase to the fired size.",
+              "fault": true,
+              "why": "It needs the shrinkage allowance."
+            },
+            {
+              "text": "She showed only the final drawing.",
+              "fault": true,
+              "why": "The development of ideas earns marks too."
+            },
+            {
+              "text": "She cut a profile template from card.",
+              "why": "That is step 6."
+            },
+            {
+              "text": "She added a time plan for the five days.",
+              "why": "That is good practice."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a good working drawing.",
+        "explainPrompt": "Why does a working drawing give both fired and wet dimensions?",
+        "explainGuide": "The clay shrinks in drying and firing, so the pot has to be made larger than the size required. The wet size is the fired size divided by (1 − shrinkage).",
+        "explainKeywords": [
+          [
+            "shrink"
+          ],
+          [
+            "larger",
+            "bigger",
+            "wet"
+          ],
+          [
+            "fired",
+            "finish"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Design ideas and working drawings",
+        "Elevation, plan and section",
+        "Allow for shrinkage"
+      ]
+    },
+    "pr-cer-costing-pricing": {
+      "safety": {
+        "correct": [
+          "Check each sum twice before you write it into the record book.",
+          "Keep the records in one safe place."
+        ],
+        "wrong": [
+          {
+            "text": "Write costs on loose scraps of paper.",
+            "why": "Scraps get lost. Use the record book."
+          },
+          {
+            "text": "Leave out the cost of breakages because they are embarrassing.",
+            "why": "Unrecorded breakages make your costing false."
+          },
+          {
+            "text": "Use last term's fuel price without checking it.",
+            "why": "Fuel prices change. Check before costing."
+          },
+          {
+            "text": "Leave the cash box open on the bench.",
+            "why": "Money can go missing. Lock it away."
+          },
+          {
+            "text": "Throw away your receipts after paying.",
+            "why": "Receipts prove your costs."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Potter's wheel",
+            "why": "This is a paper job."
+          },
+          {
+            "name": "Kiln",
+            "why": "Firing appears here only as a cost."
+          },
+          {
+            "name": "Glaze sieve",
+            "why": "Glaze appears here only as a cost."
+          },
+          {
+            "name": "Rolling pin",
+            "why": "This is a paper job."
+          },
+          {
+            "name": "Needle tool",
+            "why": "This is a paper job."
+          },
+          {
+            "name": "Tape measure",
+            "why": "Costing does not need it."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "losses",
+          "afterStep": 3,
+          "prompt": "You made 20 vases, but 2 cracked in the firing. What do you divide the total by?",
+          "options": [
+            {
+              "text": "18, the number of saleable wares",
+              "correct": true,
+              "consequence": "The price recovers the cost of the losses."
+            },
+            {
+              "text": "20, the number that you made",
+              "consequence": "You sell only 18, so you lose money."
+            },
+            {
+              "text": "22, to add a safety margin",
+              "consequence": "This lowers the unit cost, which is the wrong way."
+            }
+          ]
+        },
+        {
+          "id": "labour",
+          "afterStep": 2,
+          "prompt": "Your friend says your labour need not be costed. What do you do?",
+          "options": [
+            {
+              "text": "Include it, because it is a real cost",
+              "correct": true,
+              "consequence": "Your time is paid for by the price."
+            },
+            {
+              "text": "Leave it out so that the vases sell faster",
+              "consequence": "Forgetting labour is a common mistake."
+            },
+            {
+              "text": "Add it only if there is a profit",
+              "consequence": "Cost comes before profit."
+            }
+          ]
+        },
+        {
+          "id": "market",
+          "afterStep": 4,
+          "prompt": "Your price comes to N4,478. What do you do next?",
+          "options": [
+            {
+              "text": "Compare it with the market survey, then fix the price",
+              "correct": true,
+              "consequence": "The price is both profitable and able to sell."
+            },
+            {
+              "text": "Sell at that exact figure without checking the market",
+              "consequence": "You may be far above or below competitors."
+            },
+            {
+              "text": "Halve it to sell out quickly",
+              "consequence": "You make a loss."
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "afterStep": 2,
+          "prompt": "You nearly forgot transport to the craft fair. What do you do?",
+          "options": [
+            {
+              "text": "Add it to the batch cost",
+              "correct": true,
+              "consequence": "All the costs are now in the total."
+            },
+            {
+              "text": "Pay for it from your pocket and do not record it",
+              "consequence": "A hidden cost means a false unit cost."
+            },
+            {
+              "text": "Leave it, because it is only a small amount of money",
+              "consequence": "Every cost counts."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "loss-effect",
+          "prompt": "What do firing losses do to the cost of each saleable ware?",
+          "options": [
+            {
+              "text": "They raise it",
+              "correct": true
+            },
+            {
+              "text": "They lower it",
+              "why": "Fewer wares share the same costs."
+            },
+            {
+              "text": "They have no effect",
+              "why": "The same cost is divided by fewer wares."
+            },
+            {
+              "text": "They make it zero",
+              "why": "Costs remain."
+            }
+          ]
+        },
+        {
+          "id": "pack",
+          "prompt": "Which is good packaging for a fired vase?",
+          "options": [
+            {
+              "text": "Protective padding in a strong box",
+              "correct": true
+            },
+            {
+              "text": "A thin plastic bag",
+              "why": "It offers no protection."
+            },
+            {
+              "text": "Loose in a basket with others",
+              "why": "Wares knock together."
+            },
+            {
+              "text": "Wrapped in wet cloth",
+              "why": "This offers no real protection."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "unit",
+          "prompt": "A batch costs N{c} in total, and {g} wares are saleable. What is the unit cost?",
+          "formula": "c / g",
+          "vars": {
+            "c": {
+              "min": 48000,
+              "max": 72000,
+              "step": 12000
+            },
+            "g": {
+              "min": 12,
+              "max": 18,
+              "step": 6
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {g} = N{answer}."
+        },
+        {
+          "id": "price",
+          "prompt": "The unit cost is N{u}. At a {m}% markup, what is the selling price?",
+          "formula": "u * (1 + m / 100)",
+          "vars": {
+            "u": {
+              "min": 2000,
+              "max": 4000,
+              "step": 500
+            },
+            "m": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{u} × (1 + {m}/100) = N{answer}."
+        },
+        {
+          "id": "clay",
+          "prompt": "You buy {k} kg of clay at N{p} per kg. What does it cost?",
+          "formula": "k * p",
+          "vars": {
+            "k": {
+              "min": 15,
+              "max": 30,
+              "step": 5
+            },
+            "p": {
+              "min": 500,
+              "max": 700,
+              "step": 100
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{k} × {p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "vase-loss",
+          "scenario": "Blessing lost money on her vases, though they all sold. Here is what she did.",
+          "lines": [
+            {
+              "text": "She divided the total by the number made, and not by the number saleable.",
+              "fault": true,
+              "why": "The unit cost is shared by the good wares only."
+            },
+            {
+              "text": "She forgot her labour.",
+              "fault": true,
+              "why": "It is a real cost."
+            },
+            {
+              "text": "She did not record the breakages.",
+              "fault": true,
+              "why": "Unrecorded breakages make the costing false."
+            },
+            {
+              "text": "She set out her costs in a table.",
+              "why": "That is good practice."
+            },
+            {
+              "text": "She compared her price with the market.",
+              "why": "That is step 4."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for costing a batch of ceramic ware.",
+        "explainPrompt": "Why is the total cost divided by the number of good wares and not by the number made?",
+        "explainGuide": "Only the good wares can be sold, so they must recover all the money spent, including the cost of the wares that were lost in firing.",
+        "explainKeywords": [
+          [
+            "good",
+            "saleable",
+            "sold",
+            "sell"
+          ],
+          [
+            "cost",
+            "money"
+          ],
+          [
+            "lost",
+            "loss",
+            "crack"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Costing a batch of vases",
+        "Divide by the good wares",
+        "Then add the markup"
+      ]
+    }
+  }
+}

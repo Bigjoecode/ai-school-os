@@ -1,0 +1,4341 @@
+{
+ "subject": "Radio, Television and Electronics Works",
+ "lessons": {
+  "pr-rtv-safe-discharge-of-capacitors-before-servicing": {
+   "safety": {
+    "correct": [
+     "Tell your teacher if a capacitor still reads a high voltage after discharging."
+    ],
+    "wrong": [
+     {
+      "text": "Short the big capacitor with a screwdriver as a quick way of draining it.",
+      "why": "It can weld the blade and spray molten metal. Use the discharge tool."
+     },
+     {
+      "text": "Open the set straight after switching it off at the wall, with the plug in.",
+      "why": "Unplug it and wait. Switched off does not mean safe."
+     },
+     {
+      "text": "Assume the capacitor is empty because the set has stood for a while.",
+      "why": "It can hold charge for a long time. Measure it."
+     },
+     {
+      "text": "Hold the discharge probe by its metal tip for better contact.",
+      "why": "The tip is at capacitor voltage. Hold only the insulated parts."
+     },
+     {
+      "text": "Work with both hands inside the chassis to hold the probes steady.",
+      "why": "Current could pass across your chest. Use one hand where you can."
+     },
+     {
+      "text": "Rest your cup of water on the bench beside the open chassis.",
+      "why": "Liquids near electrical work are a shock risk. Clear them first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Bare screwdriver for shorting",
+      "why": "It can weld and spray molten metal."
+     },
+     {
+      "name": "Low-value 1 Ω resistor as a discharger",
+      "why": "It discharges too violently. The tool is rated for this job."
+     },
+     {
+      "name": "Quarter-watt resistor on bare leads",
+      "why": "It is underrated and has no insulation."
+     },
+     {
+      "name": "Signal generator",
+      "why": "No signal is needed for this job."
+     },
+     {
+      "name": "Wet cloth",
+      "why": "Moisture has no place on an open chassis."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "reading",
+     "afterStep": 4,
+     "prompt": "The capacitor reads 320 V. What do you do next?",
+     "options": [
+      {
+       "text": "Begin servicing with care",
+       "consequence": "It is still dangerous."
+      },
+      {
+       "text": "Apply the discharge tool across its terminals",
+       "correct": true,
+       "consequence": "It falls steadily and safely."
+      },
+      {
+       "text": "Touch it with a screwdriver to see if it sparks",
+       "consequence": "You could get a dangerous shock."
+      }
+     ]
+    },
+    {
+     "id": "time",
+     "afterStep": 5,
+     "prompt": "How long do you hold the tool in place?",
+     "options": [
+      {
+       "text": "At least five time constants",
+       "correct": true,
+       "consequence": "The voltage has time to fall to almost zero."
+      },
+      {
+       "text": "For one second, whatever the value",
+       "consequence": "A large capacitor can still be charged."
+      },
+      {
+       "text": "Until you see a spark",
+       "consequence": "A spark is not a measure of safety."
+      }
+     ]
+    },
+    {
+     "id": "verify",
+     "afterStep": 6,
+     "prompt": "The time is up. What now?",
+     "options": [
+      {
+       "text": "Begin work at once, without measuring it again",
+       "consequence": "Some capacitors recover a small charge."
+      },
+      {
+       "text": "Check that the mains is still on",
+       "consequence": "The set stays unplugged."
+      },
+      {
+       "text": "Re-measure to confirm it is below about 2 V",
+       "correct": true,
+       "consequence": "You verify it before touching anything."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "falling",
+     "prompt": "What do you see on the meter during discharge?",
+     "options": [
+      {
+       "text": "The meter reads ohms",
+       "why": "It should be on d.c. volts."
+      },
+      {
+       "text": "The voltage falls steadily to almost zero",
+       "correct": true
+      },
+      {
+       "text": "The voltage jumps higher",
+       "why": "Check your connections, and stop."
+      },
+      {
+       "text": "The voltage stays the same throughout the discharge",
+       "why": "The tool is not connected."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "energy",
+     "prompt": "A 220 µF capacitor is charged to {v} V. How much energy does it store, in joules?",
+     "formula": "0.5 * 220 * v^2 / 1000000",
+     "vars": {
+      "v": {
+       "min": 200,
+       "max": 400,
+       "step": 50
+      }
+     },
+     "unit": "J",
+     "unitAliases": [
+      "joules"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "E = ½CV² = 0.5 × 220 × 10⁻⁶ × {v}² = {answer} J."
+    },
+    {
+     "id": "tau",
+     "prompt": "A {c} µF capacitor discharges through 10 kΩ. How long is five time constants?",
+     "formula": "5 * 10000 * c / 1000000",
+     "vars": {
+      "c": {
+       "min": 100,
+       "max": 500,
+       "step": 50
+      }
+     },
+     "unit": "s",
+     "unitAliases": [
+      "seconds",
+      "sec"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 1,
+     "working": "τ = 10 000 × {c} × 10⁻⁶ s. 5τ = {answer} s."
+    }
+   ],
+   "faults": [
+    {
+     "id": "discharge-fault",
+     "scenario": "Sule got a shock from a radio he had switched off. Here is what he did.",
+     "lines": [
+      {
+       "text": "He assumed the set was safe once switched off.",
+       "fault": true,
+       "why": "It must be unplugged and discharged."
+      },
+      {
+       "text": "He did not re-measure after discharging.",
+       "fault": true,
+       "why": "Always verify."
+      },
+      {
+       "text": "He left a hidden capacitor on another board unchecked.",
+       "fault": true,
+       "why": "Hidden capacitors stay charged."
+      },
+      {
+       "text": "He kept the bench clear of loose metal.",
+       "why": "That is the first step."
+      },
+      {
+       "text": "He stood on a rubber mat.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a charged filter capacitor dangerous after the set is unplugged?",
+    "explainGuide": "It keeps its stored energy, given by E = ½CV², after the supply is removed, so it can give a dangerous shock until it is discharged.",
+    "explainKeywords": [
+     [
+      "stored",
+      "store",
+      "energy",
+      "charge"
+     ],
+     [
+      "shock",
+      "danger"
+     ],
+     [
+      "unplug",
+      "after",
+      "remove",
+      "off"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-identification-of-electronic-components-and-symbols": {
+   "safety": {
+    "correct": [
+     "Keep small components in their card trays to avoid losing them."
+    ],
+    "wrong": [
+     {
+      "text": "Pick up the salvaged board by its big capacitor pins straight away.",
+      "why": "They may hold charge. Discharge them first."
+     },
+     {
+      "text": "Handle ICs by their pins to see which is pin 1.",
+      "why": "Static can damage them. Hold the body."
+     },
+     {
+      "text": "Test ICs by putting them in your mouth to hold them free.",
+      "why": "Components can be toxic. Keep them out of your mouth."
+     },
+     {
+      "text": "Bend the leads back and forth to read the markings.",
+      "why": "The leads can snap. Use a magnifying glass."
+     },
+     {
+      "text": "Slide ICs across a nylon cloth to clean them.",
+      "why": "This can build up static. Use an anti-static surface."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oscilloscope",
+      "why": "Identification needs no waveform."
+     },
+     {
+      "name": "Signal generator",
+      "why": "No signal is used here."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "Nothing here is cut."
+     },
+     {
+      "name": "Hot-air gun",
+      "why": "Nothing needs removing from the board."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No mains current is measured."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "pin",
+     "afterStep": 4,
+     "prompt": "You have a DIL IC. How do you find pin 1?",
+     "options": [
+      {
+       "text": "Next to the notch or dot",
+       "correct": true,
+       "consequence": "That is the marked end."
+      },
+      {
+       "text": "At whichever end is nearest",
+       "consequence": "You cannot rely on that."
+      },
+      {
+       "text": "Always the largest pin",
+       "consequence": "All pins are about the same size."
+      }
+     ]
+    },
+    {
+     "id": "polarity",
+     "afterStep": 4,
+     "prompt": "An electrolytic capacitor has a stripe. What does it mark?",
+     "options": [
+      {
+       "text": "The positive lead",
+       "consequence": "That is the reverse."
+      },
+      {
+       "text": "The voltage rating",
+       "consequence": "The rating is printed, not striped."
+      },
+      {
+       "text": "The negative lead",
+       "correct": true,
+       "consequence": "Electrolytics are marked on that side."
+      }
+     ]
+    },
+    {
+     "id": "pinout",
+     "afterStep": 4,
+     "prompt": "You have a BC547 but no pin-out to hand. What do you do?",
+     "options": [
+      {
+       "text": "Use another transistor's pin order",
+       "consequence": "That is a common mistake."
+      },
+      {
+       "text": "Guess, then test it live",
+       "consequence": "You can damage the part."
+      },
+      {
+       "text": "Check the data sheet",
+       "correct": true,
+       "consequence": "Pin-outs differ between types."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "diode",
+     "prompt": "Which end of a diode does the band mark?",
+     "options": [
+      {
+       "text": "The cathode",
+       "correct": true
+      },
+      {
+       "text": "The anode",
+       "why": "The band is at the other end."
+      },
+      {
+       "text": "The gate",
+       "why": "A diode has no gate."
+      },
+      {
+       "text": "The value",
+       "why": "Value is printed as a code."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "cer",
+     "prompt": "A ceramic capacitor is marked {c}3. What is its value in nF?",
+     "formula": "c",
+     "vars": {
+      "c": {
+       "min": 10,
+       "max": 82,
+       "step": 12
+      }
+     },
+     "unit": "nF",
+     "unitAliases": [
+      "nanofarads"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{c} × 10³ pF = {answer} nF."
+    },
+    {
+     "id": "rating",
+     "prompt": "An electrolytic marked 470 µF 16 V is used at {v}% of its rating. What voltage is across it?",
+     "formula": "16 * v / 100",
+     "vars": {
+      "v": {
+       "min": 50,
+       "max": 75,
+       "step": 5
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 1,
+     "working": "16 × {v} ÷ 100 = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "id-fault",
+     "scenario": "Halima lost marks on her component table. Here is what she did.",
+     "lines": [
+      {
+       "text": "She drew the zener symbol like an ordinary diode.",
+       "fault": true,
+       "why": "The zener has its own symbol."
+      },
+      {
+       "text": "She gave component names but no value or rating.",
+       "fault": true,
+       "why": "Value and rating are required."
+      },
+      {
+       "text": "She mixed up a transistor and a regulator in TO-92.",
+       "fault": true,
+       "why": "They look alike, so check the number."
+      },
+      {
+       "text": "She used a template for symbols.",
+       "why": "That is what examiners like."
+      },
+      {
+       "text": "She handled ICs by the body.",
+       "why": "That is correct."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must a component's rating be stated as well as its value?",
+    "explainGuide": "The value sets what the part does, but the rating gives the limit it can safely take. Exceeding it can make the part fail.",
+    "explainKeywords": [
+     [
+      "rating",
+      "limit"
+     ],
+     [
+      "value"
+     ],
+     [
+      "fail",
+      "exceed",
+      "safe",
+      "damage"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-comparing-colour-code-and-measured-values-testing-capacitors": {
+   "safety": {
+    "correct": [
+     "Keep your fingers off the bare probe tips while testing."
+    ],
+    "wrong": [
+     {
+      "text": "Test a capacitor without discharging it to save time.",
+      "why": "Stored charge can damage the meter. Discharge first."
+     },
+     {
+      "text": "Short a capacitor with a key to discharge it.",
+      "why": "This can spark. Use a resistor."
+     },
+     {
+      "text": "Pinch the probes to the resistor with both hands.",
+      "why": "Your body acts in parallel and spoils the reading."
+     },
+     {
+      "text": "Test capacitors with the mains still connected.",
+      "why": "The sample must be out of circuit and disconnected."
+     },
+     {
+      "text": "Charge a capacitor above its rating to see if it fails.",
+      "why": "This can make it burst."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oscilloscope",
+      "why": "The needle test and capacitance range do this job."
+     },
+     {
+      "name": "Signal generator",
+      "why": "No signal is used here."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The samples are loose."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No current is measured here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "read-needle",
+     "afterStep": 4,
+     "prompt": "The needle kicks up, then returns. What does this show?",
+     "options": [
+      {
+       "text": "A faulty capacitor",
+       "consequence": "Taking the kick as a fault is a common mistake."
+      },
+      {
+       "text": "An open circuit",
+       "consequence": "An open capacitor gives no kick."
+      },
+      {
+       "text": "A normal, good capacitor",
+       "correct": true,
+       "consequence": "It charges through the meter, so it returns."
+      }
+     ]
+    },
+    {
+     "id": "in-circuit",
+     "afterStep": 3,
+     "prompt": "The capacitor is still on the board. What do you do?",
+     "options": [
+      {
+       "text": "Skip this capacitor",
+       "consequence": "You still need a verdict."
+      },
+      {
+       "text": "Take it out of circuit first",
+       "correct": true,
+       "consequence": "Parallel components can no longer affect it."
+      },
+      {
+       "text": "Test it where it is, to save unsoldering",
+       "consequence": "Parallel parts spoil the reading."
+      }
+     ]
+    },
+    {
+     "id": "settle",
+     "afterStep": 4,
+     "prompt": "The needle is still moving. When do you judge leakage?",
+     "options": [
+      {
+       "text": "After it has settled fully",
+       "correct": true,
+       "consequence": "You avoid a false verdict."
+      },
+      {
+       "text": "At once, as soon as it starts",
+       "consequence": "It may not have finished."
+      },
+      {
+       "text": "Before it moves",
+       "consequence": "That tells you nothing."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "leaky",
+     "prompt": "The needle returns only part-way. What is the capacitor?",
+     "options": [
+      {
+       "text": "Short-circuited",
+       "why": "A short stays at zero."
+      },
+      {
+       "text": "Leaky",
+       "correct": true
+      },
+      {
+       "text": "Good",
+       "why": "A good one returns to very high resistance."
+      },
+      {
+       "text": "Open",
+       "why": "An open one gives no kick."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "limit",
+     "prompt": "A {r} Ω resistor is marked ±5%. What is the lowest allowed value?",
+     "formula": "r * 0.95",
+     "vars": {
+      "r": {
+       "min": 1000,
+       "max": 4000,
+       "step": 200
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "abs": 1
+     },
+     "decimals": 0,
+     "working": "{r} × 0.95 = {answer} Ω."
+    },
+    {
+     "id": "diff",
+     "prompt": "A 2 200 Ω resistor measures {m} Ω. What is the percentage difference? Use a minus sign if below nominal.",
+     "formula": "(m - 2200) / 2200 * 100",
+     "vars": {
+      "m": {
+       "min": 2120,
+       "max": 2280,
+       "step": 20
+      }
+     },
+     "unit": "%",
+     "unitAliases": [
+      "percent",
+      "per cent"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 1,
+     "working": "({m} − 2200) ÷ 2200 × 100 = {answer}%."
+    },
+    {
+     "id": "cap",
+     "prompt": "A {c} µF ±20% capacitor is checked. What is the upper limit?",
+     "formula": "c * 1.2",
+     "vars": {
+      "c": {
+       "min": 100,
+       "max": 470,
+       "step": 10
+      }
+     },
+     "unit": "µF",
+     "unitAliases": [
+      "uF"
+     ],
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "{c} × 1.2 = {answer} µF."
+    }
+   ],
+   "faults": [
+    {
+     "id": "cap-fault",
+     "scenario": "Abel called several good capacitors faulty. Here is what he did.",
+     "lines": [
+      {
+       "text": "He took the needle kick as a fault.",
+       "fault": true,
+       "why": "The kick is normal."
+      },
+      {
+       "text": "He tested a capacitor in circuit.",
+       "fault": true,
+       "why": "Parallel parts mislead the meter."
+      },
+      {
+       "text": "He left a charge on them before retesting.",
+       "fault": true,
+       "why": "Residual charge gives false kicks."
+      },
+      {
+       "text": "He tabulated value, range and verdict.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He discharged before reversing the probes.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does the needle kick and then return when a good capacitor is tested?",
+    "explainGuide": "The meter's battery charges the capacitor. A large current flows at first, then falls as it charges, so the needle returns towards infinity.",
+    "explainKeywords": [
+     [
+      "charg"
+     ],
+     [
+      "current"
+     ],
+     [
+      "return",
+      "fall",
+      "infinity"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-testing-diodes-and-transistors-with-a-multimeter": {
+   "safety": {
+    "correct": [
+     "Check that the meter's battery is good before you trust the readings."
+    ],
+    "wrong": [
+     {
+      "text": "Test a transistor on a live circuit to save time.",
+      "why": "Never test in a live circuit."
+     },
+     {
+      "text": "Use a high-voltage range to test junctions.",
+      "why": "Use the low-voltage diode-test range."
+     },
+     {
+      "text": "Let the transistor leads touch while testing.",
+      "why": "Hold them apart, or the reading is false."
+     },
+     {
+      "text": "Test LEDs on a mains supply to see them light.",
+      "why": "Mains destroys them and can kill."
+     },
+     {
+      "text": "Bend transistor leads sharply to fit the meter socket.",
+      "why": "Bending can snap them. Fit gently."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "It is for mains currents."
+     },
+     {
+      "name": "Oscilloscope",
+      "why": "Static junction tests use a meter."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Parts are loose or on a breadboard."
+     },
+     {
+      "name": "Frequency counter",
+      "why": "It measures frequency, not junctions."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "base",
+     "afterStep": 2,
+     "prompt": "How do you find the base?",
+     "options": [
+      {
+       "text": "The lead conducting to both others with the same probe",
+       "correct": true,
+       "consequence": "Both junctions share the base."
+      },
+      {
+       "text": "Always the middle lead",
+       "consequence": "Pin order differs between types."
+      },
+      {
+       "text": "The lead nearest the flat face, on whichever type of case",
+       "consequence": "That does not show which it is."
+      }
+     ]
+    },
+    {
+     "id": "ce",
+     "afterStep": 4,
+     "prompt": "C–E reads OL both ways. What do you record?",
+     "options": [
+      {
+       "text": "A faulty transistor",
+       "consequence": "Concluding OL means a fault is a common mistake."
+      },
+      {
+       "text": "A short",
+       "consequence": "A short reads near 0 V."
+      },
+      {
+       "text": "Normal, so far",
+       "correct": true,
+       "consequence": "A good transistor does not conduct C–E."
+      }
+     ]
+    },
+    {
+     "id": "type",
+     "afterStep": 3,
+     "prompt": "With black on the base you get forward readings. What is the transistor?",
+     "options": [
+      {
+       "text": "PNP",
+       "correct": true,
+       "consequence": "That is the rule."
+      },
+      {
+       "text": "NPN",
+       "consequence": "For NPN the red probe is on the base."
+      },
+      {
+       "text": "A diode",
+       "consequence": "A diode has two leads."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "good-diode",
+     "prompt": "Which reading shows a good silicon diode?",
+     "options": [
+      {
+       "text": "OL both ways",
+       "why": "That is open."
+      },
+      {
+       "text": "About 0.6 V both ways, steady on each reading",
+       "why": "It is leaky or wrong."
+      },
+      {
+       "text": "About 0.6 V forward, OL in reverse",
+       "correct": true
+      },
+      {
+       "text": "Near 0 V both ways",
+       "why": "That is shorted."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "hfe",
+     "prompt": "IC is {c} mA and IB is 25 µA. What is hFE?",
+     "formula": "c * 1000 / 25",
+     "vars": {
+      "c": {
+       "min": 2,
+       "max": 7,
+       "step": 0.5
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "hFE = {c} mA ÷ 25 µA = {answer}."
+    },
+    {
+     "id": "ie",
+     "prompt": "IC is {c} mA and IB is {b} mA. What is IE?",
+     "formula": "c + b",
+     "vars": {
+      "c": {
+       "min": 2,
+       "max": 6,
+       "step": 1
+      },
+      "b": {
+       "min": 0.02,
+       "max": 0.06,
+       "step": 0.01
+      }
+     },
+     "unit": "mA",
+     "unitAliases": [
+      "milliamps"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{c} + {b} = {answer} mA."
+    }
+   ],
+   "faults": [
+    {
+     "id": "trans-fault",
+     "scenario": "Ola rejected a good BC547. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used another transistor's pin order.",
+       "fault": true,
+       "why": "Pin orders differ between types."
+      },
+      {
+       "text": "She called a C–E reading of OL a fault.",
+       "fault": true,
+       "why": "That is normal."
+      },
+      {
+       "text": "She used the diode-test range.",
+       "why": "That is correct."
+      },
+      {
+       "text": "She tabulated readings for each pair of leads.",
+       "why": "That earns marks."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why can a transistor be tested as if it were two diodes?",
+    "explainGuide": "It has two PN junctions, base to emitter and base to collector. They are back to back, so each can be tested with the diode range.",
+    "explainKeywords": [
+     [
+      "junction",
+      "pn"
+     ],
+     [
+      "base"
+     ],
+     [
+      "diode",
+      "back"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-testing-cells-and-batteries": {
+   "safety": {
+    "correct": [
+     "Keep metal tools away from the battery terminals."
+    ],
+    "wrong": [
+     {
+      "text": "Handle the hydrometer with no goggles because a small amount is drawn.",
+      "why": "The electrolyte is corrosive. Wear goggles and gloves."
+     },
+     {
+      "text": "Short the 9 V battery briefly to see if it sparks.",
+      "why": "Never short-circuit any battery."
+     },
+     {
+      "text": "Check the lead-acid battery with a lit match to see the level.",
+      "why": "Hydrogen can ignite. No naked flames."
+     },
+     {
+      "text": "Leave the load on while you write up the results.",
+      "why": "This runs the cell down. Read quickly."
+     },
+     {
+      "text": "Wipe spilled electrolyte with your bare hand.",
+      "why": "It burns skin. Follow your teacher's spill routine."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Oscilloscope",
+      "why": "Steady d.c. readings are taken on the meter."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "Current is found by calculation."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "Nothing is soldered."
+     },
+     {
+      "name": "Signal generator",
+      "why": "This is a d.c. job."
+     },
+     {
+      "name": "Stop-watch",
+      "why": "Nothing is timed here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "load-time",
+     "afterStep": 2,
+     "prompt": "You connect the load. When do you read V?",
+     "options": [
+      {
+       "text": "Immediately",
+       "correct": true,
+       "consequence": "The battery has not run down."
+      },
+      {
+       "text": "After ten minutes",
+       "consequence": "The reading falls with time."
+      },
+      {
+       "text": "After removing the load",
+       "consequence": "It recovers, so you miss the drop."
+      }
+     ]
+    },
+    {
+     "id": "judge",
+     "afterStep": 5,
+     "prompt": "A used cell reads 1.5 V open circuit but falls far on load. How do you class it?",
+     "options": [
+      {
+       "text": "Fully charged",
+       "consequence": "It is clearly not."
+      },
+      {
+       "text": "Weak, from high internal resistance",
+       "correct": true,
+       "consequence": "The on-load test shows the true state."
+      },
+      {
+       "text": "Good, from its open-circuit voltage",
+       "consequence": "That is a common mistake."
+      }
+     ]
+    },
+    {
+     "id": "hydro",
+     "afterStep": 4,
+     "prompt": "How do you hold the hydrometer?",
+     "options": [
+      {
+       "text": "Tilted, to see the float",
+       "consequence": "This gives a false value."
+      },
+      {
+       "text": "Held at chest height",
+       "consequence": "You misread it, and acid may spill."
+      },
+      {
+       "text": "Vertical, reading at eye level",
+       "correct": true,
+       "consequence": "You get a true value."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "sg",
+     "prompt": "Which reading shows a fully charged lead-acid cell?",
+     "options": [
+      {
+       "text": "About 0.90",
+       "why": "That is less than water."
+      },
+      {
+       "text": "About 1.27",
+       "correct": true
+      },
+      {
+       "text": "About 1.05",
+       "why": "That is very low."
+      },
+      {
+       "text": "About 2.70",
+       "why": "That is not a battery value."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "current",
+     "prompt": "On a 47 Ω load the terminal voltage is {v} V. What is the load current?",
+     "formula": "v / 47",
+     "vars": {
+      "v": {
+       "min": 8.2,
+       "max": 9,
+       "step": 0.2
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 3,
+     "working": "I = {v} ÷ 47 = {answer} A."
+    },
+    {
+     "id": "internal",
+     "prompt": "E = 9.4 V and V = {v} V on a 47 Ω load. What is the internal resistance?",
+     "formula": "(9.4 - v) / (v / 47)",
+     "vars": {
+      "v": {
+       "min": 8.2,
+       "max": 9,
+       "step": 0.2
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.03
+     },
+     "decimals": 2,
+     "working": "I = {v} ÷ 47. r = (9.4 − {v}) ÷ I = {answer} Ω."
+    }
+   ],
+   "faults": [
+    {
+     "id": "cell-fault",
+     "scenario": "Sadiq declared a weak battery good. Here is what he did.",
+     "lines": [
+      {
+       "text": "He judged it from open-circuit voltage alone.",
+       "fault": true,
+       "why": "Test it on load."
+      },
+      {
+       "text": "He read V after the battery had recovered.",
+       "fault": true,
+       "why": "Read on load."
+      },
+      {
+       "text": "He spilled electrolyte using the hydrometer.",
+       "fault": true,
+       "why": "Handle it with care."
+      },
+      {
+       "text": "He wore goggles and gloves.",
+       "why": "That is required."
+      },
+      {
+       "text": "He kept naked flames away.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does a cell's terminal voltage fall when a load is connected?",
+    "explainGuide": "Current flowing through the internal resistance causes a voltage drop inside the cell, so the terminal voltage is less than the e.m.f.",
+    "explainKeywords": [
+     [
+      "internal"
+     ],
+     [
+      "current",
+      "drop"
+     ],
+     [
+      "e.m.f",
+      "emf",
+      "terminal",
+      "less"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-measuring-voltage-current-and-resistance-in-d-c-and-a-c-circuits": {
+   "safety": {
+    "correct": [
+     "Keep fingers behind the probe guards."
+    ],
+    "wrong": [
+     {
+      "text": "Change range while the probes are on the circuit.",
+      "why": "Set the function and range before connecting."
+     },
+     {
+      "text": "Put the meter on ohms to check a battery.",
+      "why": "Ohms and current ranges must never go on a voltage source."
+     },
+     {
+      "text": "Leave the meter on current, then measure a voltage.",
+      "why": "It shorts the circuit."
+     },
+     {
+      "text": "Measure a component's resistance while the circuit is on.",
+      "why": "Resistance is measured out of circuit."
+     },
+     {
+      "text": "Measure the transformer's mains side in place of its output.",
+      "why": "Mains can kill. Stay on the low-voltage output."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Hot-air gun",
+      "why": "No rework is being done."
+     },
+     {
+      "name": "Soldering flux",
+      "why": "Nothing is soldered."
+     },
+     {
+      "name": "Colour bar generator",
+      "why": "This is for television work."
+     },
+     {
+      "name": "Vernier calipers",
+      "why": "No lengths are measured here."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "zero",
+     "afterStep": 4,
+     "prompt": "You switch the analogue meter to a new ohms range. What first?",
+     "options": [
+      {
+       "text": "Zero it with the probes shorted",
+       "correct": true,
+       "consequence": "The reading is correct."
+      },
+      {
+       "text": "Measure straight away",
+       "consequence": "The zero changes with the range."
+      },
+      {
+       "text": "Open the back of the meter",
+       "consequence": "That is not how to zero it."
+      }
+     ]
+    },
+    {
+     "id": "current",
+     "afterStep": 3,
+     "prompt": "How do you measure circuit current?",
+     "options": [
+      {
+       "text": "Break the supply line and insert the meter",
+       "correct": true,
+       "consequence": "It is in series."
+      },
+      {
+       "text": "Place the meter across the supply",
+       "consequence": "That is a short through the meter."
+      },
+      {
+       "text": "Use the voltage range in series",
+       "consequence": "That gives no valid reading."
+      }
+     ]
+    },
+    {
+     "id": "loading",
+     "afterStep": 5,
+     "prompt": "An analogue meter reads low across a 100 kΩ divider. Why?",
+     "options": [
+      {
+       "text": "Its resistance loads the circuit",
+       "correct": true,
+       "consequence": "A digital meter of about 10 MΩ avoids this."
+      },
+      {
+       "text": "The battery is too new",
+       "consequence": "This does not explain it."
+      },
+      {
+       "text": "The scale is in the wrong unit",
+       "consequence": "This does not explain it."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "flat",
+     "prompt": "What suggests a flat meter battery?",
+     "options": [
+      {
+       "text": "A steady correct cell reading",
+       "why": "That shows it is fine."
+      },
+      {
+       "text": "The display showing 1.5 V for a fresh cell",
+       "why": "That is correct."
+      },
+      {
+       "text": "Unstable ohms readings and failure to zero",
+       "correct": true
+      },
+      {
+       "text": "Agreement with reference values",
+       "why": "That shows it is working."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "sens",
+     "prompt": "An analogue meter has a sensitivity of 20 kΩ/V and is on its {r} V range. What is its resistance, in kΩ?",
+     "formula": "r * 20",
+     "vars": {
+      "r": {
+       "min": 5,
+       "max": 50,
+       "step": 5
+      }
+     },
+     "unit": "kΩ",
+     "unitAliases": [
+      "kohm",
+      "kilohms"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{r} × 20 = {answer} kΩ."
+    }
+   ],
+   "faults": [
+    {
+     "id": "meter-fault",
+     "scenario": "Jide's meter fuse blew, and his table has wrong values. Here is what he did.",
+     "lines": [
+      {
+       "text": "He left the meter on a current range.",
+       "fault": true,
+       "why": "This shorts the circuit when measuring voltage."
+      },
+      {
+       "text": "He read the wrong analogue scale.",
+       "fault": true,
+       "why": "Check the range and scale."
+      },
+      {
+       "text": "He read the scale at an angle.",
+       "fault": true,
+       "why": "That adds parallax."
+      },
+      {
+       "text": "He zeroed the meter on each ohms range.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He recorded the range and unit.",
+       "why": "That is what is asked."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is meant by meter loading, and how is it reduced?",
+    "explainGuide": "A voltmeter draws current from the circuit, so its reading falls in high-resistance circuits. A meter of high resistance, such as a digital meter, reduces this.",
+    "explainKeywords": [
+     [
+      "draw",
+      "current",
+      "load"
+     ],
+     [
+      "high resistance",
+      "high-resistance",
+      "high-impedance",
+      "digital"
+     ],
+     [
+      "reading",
+      "low",
+      "circuit"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-using-an-oscilloscope-and-signal-generator": {
+   "safety": {
+    "correct": [
+     "Check the probe's earth clip is on the circuit's own earth point."
+    ],
+    "wrong": [
+     {
+      "text": "Clip the scope earth to a mains live point to see the supply.",
+      "why": "Never do this. It can cause a shock and damage the scope."
+     },
+     {
+      "text": "Feed mains into the amplifier board to test its gain.",
+      "why": "Use low-voltage signals only."
+     },
+     {
+      "text": "Open the scope's case to find a dim trace.",
+      "why": "Lethal voltages are inside. Report it."
+     },
+     {
+      "text": "Pull the probe lead hard to free it.",
+      "why": "The lead can break. Unclip it gently."
+     },
+     {
+      "text": "Leave the variable control out of its calibrated click.",
+      "why": "The scale is then wrong."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The boards are ready made."
+     },
+     {
+      "name": "Hot-air gun",
+      "why": "No rework is being done."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No mains current is measured."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It belongs to dish installation."
+     }
+    ],
+    "optional": [
+     "Frequency counter (optional)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "probe",
+     "afterStep": 1,
+     "prompt": "You set the probe to ×10. What must you do on the scope?",
+     "options": [
+      {
+       "text": "Double the volts/div",
+       "consequence": "Doubling is not a factor of ten."
+      },
+      {
+       "text": "Set the channel to ×10 as well",
+       "correct": true,
+       "consequence": "The volts reading stays correct."
+      },
+      {
+       "text": "Nothing, as it has no effect",
+       "consequence": "Forgetting the ×10 factor is a common error."
+      }
+     ]
+    },
+    {
+     "id": "period",
+     "afterStep": 3,
+     "prompt": "Which length of trace gives T?",
+     "options": [
+      {
+       "text": "One complete cycle",
+       "correct": true,
+       "consequence": "That gives the true period."
+      },
+      {
+       "text": "Half a cycle",
+       "consequence": "This gives double the frequency."
+      },
+      {
+       "text": "The height of the wave",
+       "consequence": "Height shows voltage, not time."
+      }
+     ]
+    },
+    {
+     "id": "clip",
+     "afterStep": 5,
+     "prompt": "The output has flat tops. What do you do?",
+     "options": [
+      {
+       "text": "Increase the input",
+       "consequence": "Clipping gets worse."
+      },
+      {
+       "text": "Change the time/div",
+       "consequence": "This does not stop clipping."
+      },
+      {
+       "text": "Reduce the input",
+       "correct": true,
+       "consequence": "Clipping shows the input is too large."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "amp",
+     "prompt": "What shows that the amplifier is working?",
+     "options": [
+      {
+       "text": "A larger, similar output waveform",
+       "correct": true
+      },
+      {
+       "text": "A flat line at the output",
+       "why": "Signal is not passing."
+      },
+      {
+       "text": "Output smaller than input",
+       "why": "It is not amplifying."
+      },
+      {
+       "text": "Flat tops at a small input",
+       "why": "It is clipping or badly set."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vrms",
+     "prompt": "A trace is {d} divisions high (peak to peak) at 1 V/div. What is the r.m.s. value?",
+     "formula": "d / 2 * 0.707",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 8,
+       "step": 1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "rel": 0.015
+     },
+     "decimals": 2,
+     "working": "Vp = {d} ÷ 2. Vrms = Vp × 0.707 = {answer} V."
+    },
+    {
+     "id": "freq",
+     "prompt": "One cycle spans {d} divisions at 0.2 ms/div. What is the frequency?",
+     "formula": "1000 / (d * 0.2)",
+     "vars": {
+      "d": {
+       "min": 2,
+       "max": 5,
+       "step": 0.5
+      }
+     },
+     "unit": "Hz",
+     "unitAliases": [
+      "hertz"
+     ],
+     "tolerance": {
+      "rel": 0.01
+     },
+     "decimals": 0,
+     "working": "T = {d} × 0.2 ms. f = 1/T = {answer} Hz."
+    },
+    {
+     "id": "x10",
+     "prompt": "The screen shows {v} V using a ×10 probe with the scope set to ×1. What is the true voltage?",
+     "formula": "v * 10",
+     "vars": {
+      "v": {
+       "min": 0.2,
+       "max": 1,
+       "step": 0.1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{v} × 10 = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "scope-fault",
+     "scenario": "Ama's readings are ten times too small, and her frequency is double. Here is what she did.",
+     "lines": [
+      {
+       "text": "She forgot the ×10 factor of the probe.",
+       "fault": true,
+       "why": "The probe divides by ten."
+      },
+      {
+       "text": "She measured half a cycle as the period.",
+       "fault": true,
+       "why": "The period is one full cycle."
+      },
+      {
+       "text": "She did not compensate the probe.",
+       "fault": true,
+       "why": "That distorts the wave."
+      },
+      {
+       "text": "She compared her result with the counter.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She used only low-voltage signals.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is a logic probe used for, and how does it differ from an oscilloscope?",
+    "explainGuide": "A logic probe checks digital levels as high, low or pulsing. An oscilloscope shows the waveform's shape, voltage and time.",
+    "explainKeywords": [
+     [
+      "digital",
+      "logic",
+      "high",
+      "low"
+     ],
+     [
+      "waveform",
+      "shape"
+     ],
+     [
+      "voltage",
+      "time",
+      "display",
+      "show"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-soldering-and-desoldering-components-on-a-circuit-board": {
+   "safety": {
+    "correct": [
+     "Tie back long hair and keep sleeves away from the iron."
+    ],
+    "wrong": [
+     {
+      "text": "Lay the hot iron on the bench between joints.",
+      "why": "It burns the bench or you. Always use the stand."
+     },
+     {
+      "text": "Lean close over the joint and breathe in the flux smoke.",
+      "why": "Flux fumes harm the lungs. Work in a ventilated area."
+     },
+     {
+      "text": "Eat your snack while soldering with leaded solder.",
+      "why": "Lead can reach your mouth. Wash your hands first."
+     },
+     {
+      "text": "Shake excess solder off the tip with a flick.",
+      "why": "Hot solder can hit your skin or eyes. Use the damp sponge."
+     },
+     {
+      "text": "Use acid flux to get a stronger joint on the board.",
+      "why": "Acid corrodes electronics. Use rosin flux."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "100 W soldering gun",
+      "why": "It overheats pads and parts."
+     },
+     {
+      "name": "Plumber's acid paste",
+      "why": "It corrodes electronic joints."
+     },
+     {
+      "name": "Blow torch",
+      "why": "It is far too hot for a PCB."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Plumber's solder without rosin",
+      "why": "It has no flux for electronics."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "feed",
+     "afterStep": 3,
+     "prompt": "Where do you feed the solder?",
+     "options": [
+      {
+       "text": "Onto a cold pad, then touch it",
+       "consequence": "The solder will not bond."
+      },
+      {
+       "text": "To the heated pad and lead",
+       "correct": true,
+       "consequence": "It flows into the joint."
+      },
+      {
+       "text": "To the iron tip, then carry it across",
+       "consequence": "This gives dry joints."
+      }
+     ]
+    },
+    {
+     "id": "cool",
+     "afterStep": 4,
+     "prompt": "The joint is made. What do you do?",
+     "options": [
+      {
+       "text": "Remove the solder, then the iron, and hold still",
+       "correct": true,
+       "consequence": "The joint sets cleanly."
+      },
+      {
+       "text": "Blow on it and move the lead to check it has taken",
+       "consequence": "A moved joint goes dull and weak."
+      },
+      {
+       "text": "Remove the iron first",
+       "consequence": "The solder freezes on the wire."
+      }
+     ]
+    },
+    {
+     "id": "time",
+     "afterStep": 3,
+     "prompt": "The joint is taking a long time. What do you do?",
+     "options": [
+      {
+       "text": "Press much harder",
+       "consequence": "This damages the pad."
+      },
+      {
+       "text": "Stop, clean the tip, and try again",
+       "correct": true,
+       "consequence": "You avoid lifting the pad."
+      },
+      {
+       "text": "Keep heating for 20 seconds",
+       "consequence": "Long heating lifts the copper pad."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "joint",
+     "prompt": "What does a good lead-based joint look like?",
+     "options": [
+      {
+       "text": "Cracked around the lead",
+       "why": "It moved while cooling."
+      },
+      {
+       "text": "Smooth, bright and concave",
+       "correct": true
+      },
+      {
+       "text": "Dull and grainy",
+       "why": "It is a dry joint."
+      },
+      {
+       "text": "Round like a ball",
+       "why": "It has not wetted the pad."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "tin",
+     "prompt": "A {m} g reel of 60/40 solder contains how much tin, in g?",
+     "formula": "m * 0.6",
+     "vars": {
+      "m": {
+       "min": 50,
+       "max": 250,
+       "step": 50
+      }
+     },
+     "unit": "g",
+     "unitAliases": [
+      "grams"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "{m} × 0.6 = {answer} g."
+    }
+   ],
+   "faults": [
+    {
+     "id": "solder-fault",
+     "scenario": "Ebuka's board fails. Several joints look dull, and two pads have lifted. Here is what he did.",
+     "lines": [
+      {
+       "text": "He carried solder on the tip to the joint.",
+       "fault": true,
+       "why": "This gives dry joints."
+      },
+      {
+       "text": "He heated the pads for too long.",
+       "fault": true,
+       "why": "Long heating lifts copper pads."
+      },
+      {
+       "text": "He left a solder bridge between two pads.",
+       "fault": true,
+       "why": "Check for bridges."
+      },
+      {
+       "text": "He used a heat-shunt clip on the transistor.",
+       "why": "That protects semiconductors."
+      },
+      {
+       "text": "He trimmed his leads above the joint.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why must the pad and lead be heated before the solder is fed in?",
+    "explainGuide": "Both must be hot so the molten solder wets them and flows into the joint. Otherwise it sits on a cold surface and gives a dry joint.",
+    "explainKeywords": [
+     [
+      "heat",
+      "hot"
+     ],
+     [
+      "wet",
+      "flow",
+      "bond"
+     ],
+     [
+      "dry joint",
+      "dry"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-constructing-a-stabilised-low-voltage-d-c-power-supply": {
+   "safety": {
+    "correct": [
+     "Keep the mains side covered once the transformer is connected."
+    ],
+    "wrong": [
+     {
+      "text": "Switch on before the teacher has checked the mains side.",
+      "why": "The teacher must check it first."
+     },
+     {
+      "text": "Use bare twisted joints on the primary because it is a small job.",
+      "why": "Mains connections must be insulated and fused."
+     },
+     {
+      "text": "Leave out the fuse so you do not have to replace it.",
+      "why": "The fuse protects against faults."
+     },
+     {
+      "text": "Fit the electrolytic any way round if it fits the board better.",
+      "why": "Reverse polarity can make it burst."
+     },
+     {
+      "text": "Run the mains and 5 V wires tied in one bundle.",
+      "why": "Keep mains and low-voltage wiring apart."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It is for dish installation."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "Output current is small and is read on the multimeter."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Hacksaw",
+      "why": "The veroboard is ready cut."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "check",
+     "afterStep": 5,
+     "prompt": "The board is complete. What do you do before power-up?",
+     "options": [
+      {
+       "text": "Check for bridges and polarity",
+       "correct": true,
+       "consequence": "Faults are found before they cause damage."
+      },
+      {
+       "text": "Plug in at once to see if it works",
+       "consequence": "A fault could burn out parts."
+      },
+      {
+       "text": "Add a bigger fuse",
+       "consequence": "That reduces protection."
+      }
+     ]
+    },
+    {
+     "id": "zener",
+     "afterStep": 3,
+     "prompt": "Why is a series resistor used with the zener?",
+     "options": [
+      {
+       "text": "To filter the ripple alone",
+       "consequence": "That is the capacitor's main job."
+      },
+      {
+       "text": "To limit the zener current",
+       "correct": true,
+       "consequence": "Omitting it destroys the zener."
+      },
+      {
+       "text": "To raise the output voltage",
+       "consequence": "The resistor drops voltage."
+      }
+     ]
+    },
+    {
+     "id": "heat",
+     "afterStep": 7,
+     "prompt": "The LM7805 runs hot under load. What do you do?",
+     "options": [
+      {
+       "text": "Touch it to see how hot it is",
+       "consequence": "You can burn yourself."
+      },
+      {
+       "text": "Fit a heat sink",
+       "correct": true,
+       "consequence": "The regulator stays within safe limits."
+      },
+      {
+       "text": "Remove its capacitors",
+       "consequence": "This does not help."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "reg",
+     "prompt": "What shows that the regulator works?",
+     "options": [
+      {
+       "text": "The output stays near 5 V as the load changes",
+       "correct": true
+      },
+      {
+       "text": "The output falls to 2 V on load",
+       "why": "It is not regulating."
+      },
+      {
+       "text": "The ripple grows when loaded",
+       "why": "It is not regulating well."
+      },
+      {
+       "text": "The output follows the 16 V input whatever the load",
+       "why": "It is bypassed or faulty."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "rs",
+     "prompt": "Vin is {v} V, Vz is 5.1 V and the total current is 30 mA. What series resistance is needed?",
+     "formula": "(v - 5.1) / 0.03",
+     "vars": {
+      "v": {
+       "min": 9,
+       "max": 12,
+       "step": 1
+      }
+     },
+     "unit": "Ω",
+     "unitAliases": [
+      "ohm",
+      "ohms"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "R = ({v} − 5.1) ÷ 0.030 = {answer} Ω."
+    },
+    {
+     "id": "p",
+     "prompt": "A 220 Ω resistor carries {i} mA. What power does it dissipate, in W?",
+     "formula": "(i / 1000) ^ 2 * 220",
+     "vars": {
+      "i": {
+       "min": 20,
+       "max": 35,
+       "step": 5
+      }
+     },
+     "unit": "W",
+     "unitAliases": [
+      "watts"
+     ],
+     "tolerance": {
+      "rel": 0.03
+     },
+     "decimals": 2,
+     "working": "P = I²R = ({i} ÷ 1000)² × 220 = {answer} W."
+    }
+   ],
+   "faults": [
+    {
+     "id": "psu-fault",
+     "scenario": "Grace's power supply output is 16 V, and a part burnt. Here is what she did.",
+     "lines": [
+      {
+       "text": "She omitted the zener series resistor.",
+       "fault": true,
+       "why": "The zener then burns out."
+      },
+      {
+       "text": "She reversed the electrolytic capacitor.",
+       "fault": true,
+       "why": "It can burst."
+      },
+      {
+       "text": "She drew the block diagram.",
+       "why": "That is expected."
+      },
+      {
+       "text": "She powered up through the fuse.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What do the filter and the regulator each do in a power supply?",
+    "explainGuide": "The filter smooths the rectified pulses to reduce ripple. The regulator keeps the output voltage constant when the load or input changes.",
+    "explainKeywords": [
+     [
+      "filter",
+      "smooth",
+      "capacitor"
+     ],
+     [
+      "regulator",
+      "stabilis",
+      "constant"
+     ],
+     [
+      "ripple",
+      "load"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-common-emitter-amplifier-voltages-and-gain": {
+   "safety": {
+    "correct": [
+     "Disconnect the supply before you change any part on the breadboard."
+    ],
+    "wrong": [
+     {
+      "text": "Reverse the supply briefly to see if the circuit works.",
+      "why": "This can destroy the transistor and capacitors."
+     },
+     {
+      "text": "Swap components with the supply on.",
+      "why": "Switch off first."
+     },
+     {
+      "text": "Fit the bypass capacitor with no check of polarity.",
+      "why": "Check polarity before switching on."
+     },
+     {
+      "text": "Use a mains transformer directly as the input signal.",
+      "why": "Use the signal generator at a low level."
+     },
+     {
+      "text": "Touch the transistor to check it when it seems hot.",
+      "why": "It may burn you. Switch off first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Hot-air gun",
+      "why": "No rework is being done."
+     },
+     {
+      "name": "Isolation transformer",
+      "why": "The circuit runs on 9–12 V d.c."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It is for dish installation."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "bias",
+     "afterStep": 2,
+     "prompt": "VE reads 0.65 V and VB reads 1.3 V. What do you conclude?",
+     "options": [
+      {
+       "text": "The collector is shorted to the emitter lead",
+       "consequence": "This reading does not show that."
+      },
+      {
+       "text": "Normal, the junction is forward biased",
+       "correct": true,
+       "consequence": "VE is about 0.6–0.7 V below VB."
+      },
+      {
+       "text": "The transistor is dead",
+       "consequence": "A dead device will not show this drop."
+      }
+     ]
+    },
+    {
+     "id": "input",
+     "afterStep": 3,
+     "prompt": "How large should the input be?",
+     "options": [
+      {
+       "text": "Exactly equal to the supply",
+       "consequence": "This overloads the stage."
+      },
+      {
+       "text": "Small, about 20 mV peak",
+       "correct": true,
+       "consequence": "You avoid distortion."
+      },
+      {
+       "text": "As large as possible",
+       "consequence": "It clips and distorts."
+      }
+     ]
+    },
+    {
+     "id": "phase",
+     "afterStep": 4,
+     "prompt": "The input and output peaks are opposite. What do you record?",
+     "options": [
+      {
+       "text": "A fault in the circuit",
+       "consequence": "This is not a fault."
+      },
+      {
+       "text": "Zero phase shift",
+       "consequence": "They clearly oppose."
+      },
+      {
+       "text": "180° phase shift",
+       "correct": true,
+       "consequence": "That is normal for common emitter."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "vc",
+     "prompt": "With no signal, where should VC sit?",
+     "options": [
+      {
+       "text": "At the full supply, ready for the signal",
+       "why": "No current is flowing."
+      },
+      {
+       "text": "Exactly equal to VE",
+       "why": "That is not normal bias."
+      },
+      {
+       "text": "Near the middle of the supply",
+       "correct": true
+      },
+      {
+       "text": "At 0 V",
+       "why": "The transistor is saturated or wired wrongly."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "gain",
+     "prompt": "Vin is 20 mV and Vout is {v} V. What is the voltage gain?",
+     "formula": "v / 0.02",
+     "vars": {
+      "v": {
+       "min": 0.8,
+       "max": 1.6,
+       "step": 0.2
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.5
+     },
+     "decimals": 0,
+     "working": "Av = {v} ÷ 0.020 = {answer}."
+    },
+    {
+     "id": "out",
+     "prompt": "The gain is {a} and Vin is 10 mV. What is Vout, in V?",
+     "formula": "a * 0.01",
+     "vars": {
+      "a": {
+       "min": 50,
+       "max": 200,
+       "step": 50
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 1,
+     "working": "{a} × 0.010 = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "amp-fault",
+     "scenario": "Bayo reports a gain of 0.06 and no phase change. Here is what he did.",
+     "lines": [
+      {
+       "text": "He forgot to convert mV to V.",
+       "fault": true,
+       "why": "Use the same units."
+      },
+      {
+       "text": "He did not notice the phase inversion.",
+       "fault": true,
+       "why": "Common emitter inverts."
+      },
+      {
+       "text": "He used long leads and picked up hum.",
+       "fault": true,
+       "why": "Keep them short."
+      },
+      {
+       "text": "He measured VB, VE and VC with no signal.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He checked polarity before switching on.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Name the classes of amplifier and their conduction angles.",
+    "explainGuide": "Class A conducts for 360°, Class AB between 180° and 360°, Class B for 180° and Class C for less than 180°.",
+    "explainKeywords": [
+     [
+      "class"
+     ],
+     [
+      "360"
+     ],
+     [
+      "180"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-building-a-transistor-astable-multivibrator-led-flasher": {
+   "safety": {
+    "correct": [
+     "Disconnect the battery before you change a component."
+    ],
+    "wrong": [
+     {
+      "text": "Run the flasher from a mains adaptor of any voltage.",
+      "why": "Use only a 9 V battery."
+     },
+     {
+      "text": "Fit the LEDs without checking their polarity.",
+      "why": "A reversed LED will not light."
+     },
+     {
+      "text": "Connect the battery while the iron is on the board.",
+      "why": "Disconnect it when soldering."
+     },
+     {
+      "text": "Fit the capacitors with no check of polarity.",
+      "why": "Polarity matters on electrolytics."
+     },
+     {
+      "text": "Leave the battery connected in your bag.",
+      "why": "It can short and overheat. Disconnect it."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Isolation transformer",
+      "why": "The circuit runs on a 9 V battery."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No mains current is measured."
+     },
+     {
+      "name": "Hot-air gun",
+      "why": "No rework is being done."
+     }
+    ],
+    "optional": [
+     "Oscilloscope (optional)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "cross",
+     "afterStep": 2,
+     "prompt": "How are the capacitors connected?",
+     "options": [
+      {
+       "text": "Cross-coupled, one to each side",
+       "correct": true,
+       "consequence": "That gives alternate switching."
+      },
+      {
+       "text": "Both to the same transistor",
+       "consequence": "This is a common mistake, and it will not flash."
+      },
+      {
+       "text": "Both across the battery",
+       "consequence": "That does nothing for timing."
+      }
+     ]
+    },
+    {
+     "id": "count",
+     "afterStep": 4,
+     "prompt": "How do you count flashes?",
+     "options": [
+      {
+       "text": "Counting both LEDs as one",
+       "consequence": "You would double the count."
+      },
+      {
+       "text": "Over 30 s, for one LED",
+       "correct": true,
+       "consequence": "A long period reduces timing error."
+      },
+      {
+       "text": "Over 3 s",
+       "consequence": "Reaction time matters more."
+      }
+     ]
+    },
+    {
+     "id": "bigger",
+     "afterStep": 6,
+     "prompt": "You fit 22 µF capacitors. What do you expect?",
+     "options": [
+      {
+       "text": "Slower flashing",
+       "correct": true,
+       "consequence": "T rises with C."
+      },
+      {
+       "text": "Faster flashing",
+       "consequence": "That is the reverse."
+      },
+      {
+       "text": "No change",
+       "consequence": "C sets the timing."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "alt",
+     "prompt": "How should the LEDs behave?",
+     "options": [
+      {
+       "text": "One stays dark",
+       "why": "A polarity or wiring fault is likely."
+      },
+      {
+       "text": "Both stay lit",
+       "why": "The circuit is not oscillating."
+      },
+      {
+       "text": "They flash alternately",
+       "correct": true
+      },
+      {
+       "text": "They both flash together",
+       "why": "That shows a wiring fault."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "period",
+     "prompt": "Each side has 47 kΩ and {c} µF. Using T = 0.69(R1C1 + R2C2), what is the period?",
+     "formula": "0.69 * 2 * 47000 * c / 1000000",
+     "vars": {
+      "c": {
+       "min": 10,
+       "max": 30,
+       "step": 5
+      }
+     },
+     "unit": "s",
+     "unitAliases": [
+      "seconds"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 2,
+     "working": "T = 0.69 × 2 × 47 000 × {c} × 10⁻⁶ = {answer} s."
+    },
+    {
+     "id": "f",
+     "prompt": "You count {n} flashes in 30 s. What is the measured frequency?",
+     "formula": "n / 30",
+     "vars": {
+      "n": {
+       "min": 36,
+       "max": 54,
+       "step": 3
+      }
+     },
+     "unit": "Hz",
+     "unitAliases": [
+      "hertz"
+     ],
+     "tolerance": {
+      "abs": 0.02
+     },
+     "decimals": 2,
+     "working": "{n} ÷ 30 = {answer} Hz."
+    }
+   ],
+   "faults": [
+    {
+     "id": "flash-fault",
+     "scenario": "Hope's flasher has one dead LED and no flashing. Here is what she did.",
+     "lines": [
+      {
+       "text": "She connected both capacitors to the same transistor.",
+       "fault": true,
+       "why": "They must be cross-coupled."
+      },
+      {
+       "text": "She fitted one LED the wrong way round.",
+       "fault": true,
+       "why": "Its side will never light."
+      },
+      {
+       "text": "She checked the pin-out.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She used a 9 V battery.",
+       "why": "That is the required supply."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Distinguish astable, monostable and bistable multivibrators.",
+    "explainGuide": "An astable has no stable state and oscillates by itself. A monostable has one stable state. A bistable has two stable states.",
+    "explainKeywords": [
+     [
+      "astable"
+     ],
+     [
+      "monostable"
+     ],
+     [
+      "bistable"
+     ],
+     [
+      "stable"
+     ]
+    ],
+    "explainNeed": 3
+   }
+  },
+  "pr-rtv-resonance-and-bandwidth-of-a-series-tuned-circuit": {
+   "safety": {
+    "correct": [
+     "Check the connections with the generator output turned down."
+    ],
+    "wrong": [
+     {
+      "text": "Use a mains source to make the peak larger.",
+      "why": "Use low signal levels only."
+     },
+     {
+      "text": "Drive the generator to maximum and leave it there.",
+      "why": "Use low signal levels."
+     },
+     {
+      "text": "Handle the circuit with wet hands.",
+      "why": "Keep the bench dry."
+     },
+     {
+      "text": "Change connections with the generator at full output.",
+      "why": "Turn it down first."
+     },
+     {
+      "text": "Pull leads out by the wire.",
+      "why": "Grip the plug to avoid damage."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "D.C. power supply",
+      "why": "This is an a.c. response test."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The parts are clipped together."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Fixed 50 Hz transformer",
+      "why": "You need a variable frequency."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "const",
+     "afterStep": 2,
+     "prompt": "The output changes as you change the frequency. What do you do?",
+     "options": [
+      {
+       "text": "Reset it to the same level each time",
+       "correct": true,
+       "consequence": "The curve then shows the circuit, not the generator."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "Readings are not comparable."
+      },
+      {
+       "text": "Change R to match the new frequency each time",
+       "consequence": "R is fixed for this test."
+      }
+     ]
+    },
+    {
+     "id": "steps",
+     "afterStep": 3,
+     "prompt": "Where do you take more readings?",
+     "options": [
+      {
+       "text": "Evenly with big gaps",
+       "consequence": "You may miss the peak."
+      },
+      {
+       "text": "Close to the peak",
+       "correct": true,
+       "consequence": "The shape is shown well."
+      },
+      {
+       "text": "Only at 2 kHz and 9 kHz",
+       "consequence": "The curve is not defined."
+      }
+     ]
+    },
+    {
+     "id": "half",
+     "afterStep": 5,
+     "prompt": "Which level gives f₁ and f₂?",
+     "options": [
+      {
+       "text": "0.5 of the peak",
+       "consequence": "That is a common mistake."
+      },
+      {
+       "text": "0.9 of the peak",
+       "consequence": "It gives a narrower band."
+      },
+      {
+       "text": "0.707 of the peak",
+       "correct": true,
+       "consequence": "That is the half-power point."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "curve",
+     "prompt": "What does the VR curve look like?",
+     "options": [
+      {
+       "text": "A straight rising line from one end to the other",
+       "why": "This is not resonance."
+      },
+      {
+       "text": "A flat line",
+       "why": "Check the connections."
+      },
+      {
+       "text": "A dip at resonance",
+       "why": "Series current is largest at resonance."
+      },
+      {
+       "text": "A sharp peak falling on either side",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "f0",
+     "prompt": "L = 10 mH and C = {c} µF. What is the resonant frequency, in Hz?",
+     "formula": "1 / (2 * pi * sqrt(0.01 * c / 1000000))",
+     "vars": {
+      "c": {
+       "min": 0.1,
+       "max": 0.5,
+       "step": 0.1
+      }
+     },
+     "unit": "Hz",
+     "unitAliases": [
+      "hertz"
+     ],
+     "tolerance": {
+      "rel": 0.02
+     },
+     "decimals": 0,
+     "working": "f₀ = 1/(2π√(0.01 × {c} × 10⁻⁶)) = {answer} Hz."
+    },
+    {
+     "id": "bw",
+     "prompt": "f₁ is {a} kHz and f₂ is {b} kHz. What is the bandwidth, in kHz?",
+     "formula": "b - a",
+     "vars": {
+      "a": {
+       "min": 4,
+       "max": 4.5,
+       "step": 0.1
+      },
+      "b": {
+       "min": 5.6,
+       "max": 6,
+       "step": 0.1
+      }
+     },
+     "unit": "kHz",
+     "unitAliases": [
+      "kilohertz"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{b} − {a} = {answer} kHz."
+    },
+    {
+     "id": "q",
+     "prompt": "f₀ is {f} Hz and the bandwidth is 1 592 Hz. What is Q?",
+     "formula": "f / 1592",
+     "vars": {
+      "f": {
+       "min": 4000,
+       "max": 6000,
+       "step": 500
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.05
+     },
+     "decimals": 2,
+     "working": "Q = {f} ÷ 1592 = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "bw-fault",
+     "scenario": "Lanre's bandwidth is too small. Here is what he did.",
+     "lines": [
+      {
+       "text": "He used 0.5 instead of 0.707.",
+       "fault": true,
+       "why": "This is a common error."
+      },
+      {
+       "text": "He drew a jagged curve through every point.",
+       "fault": true,
+       "why": "Draw a smooth curve."
+      },
+      {
+       "text": "He marked f₀, f₁ and f₂.",
+       "why": "That is expected."
+      },
+      {
+       "text": "He kept the generator output constant.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why does high Q give a receiver better selectivity?",
+    "explainGuide": "High Q gives a narrow bandwidth, so the circuit picks the wanted station and rejects those on nearby frequencies.",
+    "explainKeywords": [
+     [
+      "narrow",
+      "bandwidth"
+     ],
+     [
+      "station",
+      "signal",
+      "wanted"
+     ],
+     [
+      "reject",
+      "nearby",
+      "adjacent"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-observing-amplitude-modulation-and-calculating-modulation-index": {
+   "safety": {
+    "correct": [
+     "Keep the leads tidy so that nothing pulls on the instruments."
+    ],
+    "wrong": [
+     {
+      "text": "Connect an aerial and transmit the test signal around the school.",
+      "why": "Keep to the bench at low level."
+     },
+     {
+      "text": "Run the trainer at maximum output all the time.",
+      "why": "Use low-level signals only."
+     },
+     {
+      "text": "Pull the probe out by its lead.",
+      "why": "Hold the connector."
+     },
+     {
+      "text": "Open the trainer kit while it is on.",
+      "why": "Switch off, and ask your teacher."
+     },
+     {
+      "text": "Leave the variable knob out of its calibrated position.",
+      "why": "Readings would be wrong."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Soldering iron",
+      "why": "The kit is ready to use."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No mains current is measured."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Rheostat",
+      "why": "It is not part of this job."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "time",
+     "afterStep": 3,
+     "prompt": "You can only see a blur. What do you adjust?",
+     "options": [
+      {
+       "text": "The time base, to show several audio cycles",
+       "correct": true,
+       "consequence": "You see the envelope."
+      },
+      {
+       "text": "Volts/div alone, until the waveform fills the screen",
+       "consequence": "It changes the height only."
+      },
+      {
+       "text": "The audio frequency",
+       "consequence": "This does not fix the view."
+      }
+     ]
+    },
+    {
+     "id": "trig",
+     "afterStep": 3,
+     "prompt": "The envelope drifts. What do you do?",
+     "options": [
+      {
+       "text": "Increase the carrier",
+       "consequence": "This does not steady it."
+      },
+      {
+       "text": "Switch off the audio and retune the carrier",
+       "consequence": "You lose the envelope."
+      },
+      {
+       "text": "Trigger on the modulating signal",
+       "correct": true,
+       "consequence": "The display becomes stable."
+      }
+     ]
+    },
+    {
+     "id": "formula",
+     "afterStep": 5,
+     "prompt": "Which formula gives m?",
+     "options": [
+      {
+       "text": "(Vmax − Vmin)/(Vmax + Vmin)",
+       "correct": true,
+       "consequence": "That is the index."
+      },
+      {
+       "text": "Vmax divided by Vmin",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Vmax multiplied by Vmin",
+       "consequence": "This has no meaning here."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "over",
+     "prompt": "What shows over-modulation?",
+     "options": [
+      {
+       "text": "A rising straight line",
+       "why": "This is not an AM display."
+      },
+      {
+       "text": "The envelope is cut off at its lowest points",
+       "correct": true
+      },
+      {
+       "text": "The envelope is smooth",
+       "why": "It is normal."
+      },
+      {
+       "text": "A plain carrier with no change in its amplitude",
+       "why": "There is no modulation."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "m",
+     "prompt": "Vmax is {a} div and Vmin is {b} div. What is the modulation index?",
+     "formula": "(a - b) / (a + b)",
+     "vars": {
+      "a": {
+       "min": 5,
+       "max": 8,
+       "step": 1
+      },
+      "b": {
+       "min": 1,
+       "max": 3,
+       "step": 1
+      }
+     },
+     "unit": "",
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 2,
+     "working": "({a} − {b}) ÷ ({a} + {b}) = {answer}."
+    }
+   ],
+   "faults": [
+    {
+     "id": "am-fault",
+     "scenario": "Rose reports a modulation index of 3. Here is what she did.",
+     "lines": [
+      {
+       "text": "She used Vmax/Vmin as the index.",
+       "fault": true,
+       "why": "Use the formula."
+      },
+      {
+       "text": "She confused an AM and an FM display.",
+       "fault": true,
+       "why": "They look different."
+      },
+      {
+       "text": "She measured both on one scale.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She drew carrier, modulating and modulated waves.",
+       "why": "That is expected."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "State one advantage of FM and one of AM.",
+    "explainGuide": "FM has less noise. AM is simpler and has a longer range.",
+    "explainKeywords": [
+     [
+      "fm",
+      "noise"
+     ],
+     [
+      "am",
+      "simple",
+      "range"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-dismantling-and-reassembling-a-radio-receiver": {
+   "safety": {
+    "correct": [
+     "Keep your work on a clean tray so that small parts do not roll off."
+    ],
+    "wrong": [
+     {
+      "text": "Open a mains radio while it is still plugged in.",
+      "why": "Remove the power source before opening."
+     },
+     {
+      "text": "Skip discharging the capacitors because the radio is small.",
+      "why": "Discharge capacitors on mains models."
+     },
+     {
+      "text": "Force plastic clips with a screwdriver.",
+      "why": "They break. Work gently."
+     },
+     {
+      "text": "Tighten screws into plastic as hard as you can.",
+      "why": "They strip the threads."
+     },
+     {
+      "text": "Turn the IF cores to see what happens.",
+      "why": "This puts the set out of alignment."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hammer",
+      "why": "It would break the case."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "This is not a colour TV."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Blow torch",
+      "why": "It would damage the case and board."
+     },
+     {
+      "name": "Clamp meter",
+      "why": "No mains current is measured."
+     }
+    ],
+    "optional": [
+     "Service diagram (if available)"
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 1,
+     "prompt": "What do you do before opening the set?",
+     "options": [
+      {
+       "text": "Photograph it and note wire positions",
+       "correct": true,
+       "consequence": "You can rebuild it correctly."
+      },
+      {
+       "text": "Remove all wires quickly and sort them out afterwards",
+       "consequence": "Losing track of them is a common error."
+      },
+      {
+       "text": "Adjust the IF cores",
+       "consequence": "This puts the set out of alignment."
+      }
+     ]
+    },
+    {
+     "id": "screws",
+     "afterStep": 2,
+     "prompt": "Where do you put the screws?",
+     "options": [
+      {
+       "text": "In one heap on the bench",
+       "consequence": "They roll away."
+      },
+      {
+       "text": "Back in the holes loosely",
+       "consequence": "This gets in the way."
+      },
+      {
+       "text": "In labelled containers",
+       "correct": true,
+       "consequence": "None get lost or swapped."
+      }
+     ]
+    },
+    {
+     "id": "reassemble",
+     "afterStep": 6,
+     "prompt": "The set does not play after reassembly. What do you check first?",
+     "options": [
+      {
+       "text": "Turn the IF cores",
+       "consequence": "This makes it worse."
+      },
+      {
+       "text": "The wire connections",
+       "correct": true,
+       "consequence": "Reversed or loose wires are a common cause."
+      },
+      {
+       "text": "Replace the speaker",
+       "consequence": "This is guesswork."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "works",
+     "prompt": "What shows a good job?",
+     "options": [
+      {
+       "text": "It plays as before, with tuning moving freely",
+       "correct": true
+      },
+      {
+       "text": "Stations are weak after the job, but the dial moves",
+       "why": "Something has been disturbed."
+      },
+      {
+       "text": "The dial cord is off",
+       "why": "It has been broken or misplaced."
+      },
+      {
+       "text": "Screws are left over",
+       "why": "All must be refitted."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "lo",
+     "prompt": "An AM superhet with a 455 kHz IF is tuned to {f} kHz. What is the local oscillator frequency?",
+     "formula": "f + 455",
+     "vars": {
+      "f": {
+       "min": 600,
+       "max": 1400,
+       "step": 100
+      }
+     },
+     "unit": "kHz",
+     "unitAliases": [
+      "kilohertz"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{f} + 455 = {answer} kHz."
+    },
+    {
+     "id": "image",
+     "prompt": "The same radio is tuned to {f} kHz. What is the image frequency?",
+     "formula": "f + 2 * 455",
+     "vars": {
+      "f": {
+       "min": 600,
+       "max": 1400,
+       "step": 100
+      }
+     },
+     "unit": "kHz",
+     "unitAliases": [
+      "kilohertz"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "{f} + 910 = {answer} kHz."
+    }
+   ],
+   "faults": [
+    {
+     "id": "radio-fault",
+     "scenario": "Yemi's radio will not play after reassembly. Here is what he did.",
+     "lines": [
+      {
+       "text": "He did not record wire positions.",
+       "fault": true,
+       "why": "He should note them first."
+      },
+      {
+       "text": "He over-tightened screws into the plastic.",
+       "fault": true,
+       "why": "They strip the threads."
+      },
+      {
+       "text": "He broke the dial cord.",
+       "fault": true,
+       "why": "Handle it with care."
+      },
+      {
+       "text": "He photographed the set first.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He tested it on several stations.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "List the stages of a superhet receiver in order.",
+    "explainGuide": "The signal passes from the RF stage to the mixer and oscillator, then the IF stage, the detector and the AF amplifier to the speaker.",
+    "explainKeywords": [
+     [
+      "rf"
+     ],
+     [
+      "mixer",
+      "oscillator"
+     ],
+     [
+      "if",
+      "intermediate"
+     ],
+     [
+      "detector"
+     ],
+     [
+      "af",
+      "audio"
+     ]
+    ],
+    "explainNeed": 3
+   }
+  },
+  "pr-rtv-installing-a-car-radio": {
+   "safety": {
+    "correct": [
+     "Keep tools away from the battery terminals."
+    ],
+    "wrong": [
+     {
+      "text": "Wire the radio with the battery still connected.",
+      "why": "Disconnect the negative terminal first."
+     },
+     {
+      "text": "Fit the fuse far from the supply at the radio end only.",
+      "why": "Fuse the supply close to its source."
+     },
+     {
+      "text": "Twist the wires together and tape them.",
+      "why": "Use crimped or soldered joints."
+     },
+     {
+      "text": "Run the wires over the hot engine parts.",
+      "why": "Keep them from moving parts and hot surfaces."
+     },
+     {
+      "text": "Use a bigger fuse if the fuse blows.",
+      "why": "Find the fault first. A bigger fuse may let the wiring burn."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Isolation transformer",
+      "why": "The car runs on 12 V d.c."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is not needed for this job."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Soldering flux with acid",
+      "why": "Acid corrodes wires."
+     },
+     {
+      "name": "Mains extension lead",
+      "why": "The radio runs from the car battery."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "battery",
+     "afterStep": 1,
+     "prompt": "What do you do with the battery?",
+     "options": [
+      {
+       "text": "Disconnect the negative terminal",
+       "correct": true,
+       "consequence": "A slip cannot cause a short."
+      },
+      {
+       "text": "Disconnect nothing",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Remove the positive terminal first",
+       "consequence": "The negative is removed first."
+      }
+     ]
+    },
+    {
+     "id": "memory",
+     "afterStep": 3,
+     "prompt": "Where does the memory (yellow) wire go?",
+     "options": [
+      {
+       "text": "To the permanent 12 V",
+       "correct": true,
+       "consequence": "Presets are kept."
+      },
+      {
+       "text": "To the ignition feed",
+       "consequence": "Presets are lost."
+      },
+      {
+       "text": "To the chassis",
+       "consequence": "That is an earth, not a supply."
+      }
+     ]
+    },
+    {
+     "id": "speakers",
+     "afterStep": 4,
+     "prompt": "How are the speakers connected?",
+     "options": [
+      {
+       "text": "With correct polarity, isolated from the chassis",
+       "correct": true,
+       "consequence": "They play in phase."
+      },
+      {
+       "text": "With any polarity",
+       "consequence": "They play out of phase."
+      },
+      {
+       "text": "With both negatives joined together on the chassis",
+       "consequence": "This is a mistake on bridged amplifiers."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "works",
+     "prompt": "What shows a good installation?",
+     "options": [
+      {
+       "text": "It loses presets when the key is off",
+       "why": "The wires are swapped."
+      },
+      {
+       "text": "It hums and crackles",
+       "why": "Poor earth."
+      },
+      {
+       "text": "One speaker is dead",
+       "why": "Check the connections."
+      },
+      {
+       "text": "It starts with the key and keeps its presets",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "i",
+     "prompt": "A {p} W radio runs on 12 V. What current does it draw at full output?",
+     "formula": "p / 12",
+     "vars": {
+      "p": {
+       "min": 36,
+       "max": 72,
+       "step": 12
+      }
+     },
+     "unit": "A",
+     "unitAliases": [
+      "amps"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{p} ÷ 12 = {answer} A."
+    }
+   ],
+   "faults": [
+    {
+     "id": "car-fault",
+     "scenario": "Uche's car radio loses its presets and hums. Here is what he did.",
+     "lines": [
+      {
+       "text": "He connected the memory wire to the ignition feed.",
+       "fault": true,
+       "why": "It needs permanent 12 V."
+      },
+      {
+       "text": "He left a poor earth connection.",
+       "fault": true,
+       "why": "It gives noise."
+      },
+      {
+       "text": "He fitted a fuse near the source.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He disconnected the battery before wiring.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is the in-line fuse placed close to the supply?",
+    "explainGuide": "It protects the whole length of wire. A short anywhere after the fuse blows it, so the wiring does not overheat or catch fire.",
+    "explainKeywords": [
+     [
+      "protect"
+     ],
+     [
+      "wire",
+      "wiring",
+      "length"
+     ],
+     [
+      "short",
+      "fire",
+      "overheat"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-fault-finding-and-alignment-in-a-radio-receiver": {
+   "safety": {
+    "correct": [
+     "Keep the service manual open at the correct diagram."
+    ],
+    "wrong": [
+     {
+      "text": "Use a metal screwdriver on coil cores.",
+      "why": "Use a non-metallic tool."
+     },
+     {
+      "text": "Skip discharging on a mains set.",
+      "why": "Discharge filter capacitors first."
+     },
+     {
+      "text": "Turn every core without a signal.",
+      "why": "Never do this. You lose the alignment."
+     },
+     {
+      "text": "Probe bias voltages with both hands inside a mains set.",
+      "why": "Use one hand and take care."
+     },
+     {
+      "text": "Force a stuck core with more turns.",
+      "why": "Make only small adjustments."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Metal trimming screwdriver",
+      "why": "It upsets coil tuning. Use a plastic tool."
+     },
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It is for dish installation."
+     },
+     {
+      "name": "Colour bar generator",
+      "why": "It is for colour TV work."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "first",
+     "afterStep": 2,
+     "prompt": "The set is dead. What do you do first?",
+     "options": [
+      {
+       "text": "Check the power supply voltages",
+       "correct": true,
+       "consequence": "Faults are often simple."
+      },
+      {
+       "text": "Replace the IF transformers",
+       "consequence": "This is guesswork."
+      },
+      {
+       "text": "Align the set",
+       "consequence": "Alignment does not cure a dead set."
+      }
+     ]
+    },
+    {
+     "id": "inject",
+     "afterStep": 3,
+     "prompt": "Sound is heard when you inject at the volume control. What does this show?",
+     "options": [
+      {
+       "text": "The RF stage is good",
+       "consequence": "You have not tested it."
+      },
+      {
+       "text": "The power supply is faulty",
+       "consequence": "It is working."
+      },
+      {
+       "text": "The AF stage is good",
+       "correct": true,
+       "consequence": "Move back to the IF stages."
+      }
+     ]
+    },
+    {
+     "id": "align",
+     "afterStep": 7,
+     "prompt": "How do you adjust the IF transformers?",
+     "options": [
+      {
+       "text": "First stage first, by guesswork",
+       "consequence": "This is not the method."
+      },
+      {
+       "text": "Without any signal source",
+       "consequence": "This is a common mistake."
+      },
+      {
+       "text": "Last stage first, for maximum output",
+       "correct": true,
+       "consequence": "This is the method."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "open-be",
+     "prompt": "Normal VE is 1.0 V and VC is 5.0 V. You read VE = 0 V, VC = 9 V. What does this show?",
+     "options": [
+      {
+       "text": "A shorted collector resistor",
+       "why": "This does not give these readings."
+      },
+      {
+       "text": "A normal stage",
+       "why": "These are not normal."
+      },
+      {
+       "text": "A flat battery, which can no longer feed the stage",
+       "why": "VC is at full supply, so 9 V is present."
+      },
+      {
+       "text": "No collector current, from an open junction",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "vbe",
+     "prompt": "VB is {b} V and VE is {e} V. What is the voltage across the base–emitter junction?",
+     "formula": "b - e",
+     "vars": {
+      "b": {
+       "min": 1.5,
+       "max": 2,
+       "step": 0.1
+      },
+      "e": {
+       "min": 0.9,
+       "max": 1.3,
+       "step": 0.1
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "{b} − {e} = {answer} V."
+    },
+    {
+     "id": "drop",
+     "prompt": "The supply is 9 V and VC is {c} V. What is the drop across the collector resistor?",
+     "formula": "9 - c",
+     "vars": {
+      "c": {
+       "min": 4,
+       "max": 6,
+       "step": 0.5
+      }
+     },
+     "unit": "V",
+     "unitAliases": [
+      "volts"
+     ],
+     "tolerance": {
+      "abs": 0.01
+     },
+     "decimals": 1,
+     "working": "9 − {c} = {answer} V."
+    }
+   ],
+   "faults": [
+    {
+     "id": "align-fault",
+     "scenario": "Ike's radio is worse after his repair. Here is what he did.",
+     "lines": [
+      {
+       "text": "He replaced parts by guesswork.",
+       "fault": true,
+       "why": "Test before replacing."
+      },
+      {
+       "text": "He turned every core without a signal source.",
+       "fault": true,
+       "why": "The alignment is now lost."
+      },
+      {
+       "text": "He checked the supply first.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He used a plastic trimming tool.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What is the difference between signal injection and signal tracing?",
+    "explainGuide": "Signal injection puts a test signal into a stage and listens at the output. Signal tracing follows a signal stage by stage using a tracer or oscilloscope.",
+    "explainKeywords": [
+     [
+      "injection",
+      "inject"
+     ],
+     [
+      "tracing",
+      "trace",
+      "tracer"
+     ],
+     [
+      "stage"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-diagnosing-faults-in-a-black-and-white-television-receiver": {
+   "safety": {
+    "correct": [
+     "Keep your teacher nearby whenever a TV chassis is open."
+    ],
+    "wrong": [
+     {
+      "text": "Run the set straight from the mains to save time.",
+      "why": "Many TV chassis are live. Use the isolation transformer."
+     },
+     {
+      "text": "Pick up the tube by its neck.",
+      "why": "The neck is fragile. Handle it by the body."
+     },
+     {
+      "text": "Touch the anode cap to see if it is charged.",
+      "why": "It can hold up to about 25 kV. Never touch it."
+     },
+     {
+      "text": "Discharge the CRT yourself while the teacher is out.",
+      "why": "Do this only under supervision."
+     },
+     {
+      "text": "Leave the set running with a single bright line on screen.",
+      "why": "This burns the screen."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Degaussing coil",
+      "why": "This is a monochrome tube, so colour purity does not apply."
+     },
+     {
+      "name": "Colour bar generator",
+      "why": "This is a monochrome set."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Ordinary 600 V test lead for EHT",
+      "why": "It is not rated. The high-voltage probe is the tool."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It is for dish installation."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "line",
+     "afterStep": 2,
+     "prompt": "You see a single horizontal line. Which stage do you suspect?",
+     "options": [
+      {
+       "text": "Horizontal deflection",
+       "consequence": "A failure there gives a vertical line."
+      },
+      {
+       "text": "The audio stage",
+       "consequence": "Audio is not linked to the raster."
+      },
+      {
+       "text": "Vertical deflection",
+       "correct": true,
+       "consequence": "There is no vertical scan."
+      }
+     ]
+    },
+    {
+     "id": "bad-crt",
+     "afterStep": 3,
+     "prompt": "There is no picture. What do you do?",
+     "options": [
+      {
+       "text": "Replace the CRT, since the picture comes from it",
+       "consequence": "This is a costly guess."
+      },
+      {
+       "text": "Open the anode cap and test it for a spark",
+       "consequence": "This is dangerous."
+      },
+      {
+       "text": "Use the block diagram to choose a suspect stage",
+       "correct": true,
+       "consequence": "You do not assume a bad tube."
+      }
+     ]
+    },
+    {
+     "id": "burn",
+     "afterStep": 2,
+     "prompt": "The vertical stage is dead. What do you do?",
+     "options": [
+      {
+       "text": "Leave it on overnight",
+       "consequence": "This burns the screen."
+      },
+      {
+       "text": "Turn the brightness to full",
+       "consequence": "This burns it faster."
+      },
+      {
+       "text": "Do not leave the set running",
+       "correct": true,
+       "consequence": "You avoid screen burn."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "sound",
+     "prompt": "There is sound but no raster. Where does this point?",
+     "options": [
+      {
+       "text": "The speaker",
+       "why": "It works."
+      },
+      {
+       "text": "The audio stage",
+       "why": "Sound is fine."
+      },
+      {
+       "text": "The line output and EHT section",
+       "correct": true
+      },
+      {
+       "text": "The tuner alone, which feeds the picture signal",
+       "why": "Sound shows that the tuner works."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "calc-line",
+     "prompt": "For a 625-line, 25 frames per second system, what is the line frequency?",
+     "answer": 15625,
+     "unit": "Hz",
+     "unitAliases": [
+      "hertz"
+     ],
+     "tolerance": {
+      "abs": 0
+     },
+     "decimals": 0,
+     "working": "625 × 25 = {answer} Hz."
+    },
+    {
+     "id": "period",
+     "prompt": "With a line frequency of 15 625 Hz, how long is one line, in µs?",
+     "answer": 64,
+     "unit": "µs",
+     "unitAliases": [
+      "us",
+      "microseconds"
+     ],
+     "tolerance": {
+      "abs": 0.1
+     },
+     "decimals": 0,
+     "working": "1 ÷ 15 625 = {answer} µs."
+    }
+   ],
+   "faults": [
+    {
+     "id": "tv-fault",
+     "scenario": "Sam replaced a good tube, and got a shock. Here is what he did.",
+     "lines": [
+      {
+       "text": "He worked on a live chassis without isolation.",
+       "fault": true,
+       "why": "Use the isolation transformer."
+      },
+      {
+       "text": "He assumed no picture meant a bad CRT.",
+       "fault": true,
+       "why": "This is a common mistake."
+      },
+      {
+       "text": "He classified the symptom first.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He used the service manual.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is an isolation transformer used when servicing a TV?",
+    "explainGuide": "Many TV chassis are connected to the mains. An isolation transformer separates the set from the mains so that touching the chassis does not give a direct shock path to earth.",
+    "explainKeywords": [
+     [
+      "chassis",
+      "live"
+     ],
+     [
+      "mains"
+     ],
+     [
+      "shock",
+      "isolat",
+      "separate"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-colour-television-fault-diagnosis-with-a-colour-bar-generator": {
+   "safety": {
+    "correct": [
+     "Keep watches and bank cards away from the degaussing coil."
+    ],
+    "wrong": [
+     {
+      "text": "Work on the set with no isolation transformer.",
+      "why": "Use one."
+     },
+     {
+      "text": "Touch the high-voltage section before discharging it.",
+      "why": "Treat it with caution, and discharge it first."
+     },
+     {
+      "text": "Rest a speaker with a strong magnet on top of the CRT.",
+      "why": "Magnets upset purity."
+     },
+     {
+      "text": "Switch the degaussing coil off close to the screen.",
+      "why": "Move it away slowly first."
+     },
+     {
+      "text": "Adjust convergence before purity.",
+      "why": "Adjust purity first."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Satellite finder meter",
+      "why": "It is for dish installation."
+     },
+     {
+      "name": "Bar magnet",
+      "why": "It upsets purity."
+     },
+     {
+      "name": "Metal trimming tool",
+      "why": "It upsets tuning, and it is not needed."
+     },
+     {
+      "name": "Soldering flux with acid",
+      "why": "Acid corrodes electronics."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "convergence",
+     "afterStep": 4,
+     "prompt": "You see fringes at the centre. What do you adjust?",
+     "options": [
+      {
+       "text": "Purity",
+       "consequence": "Fringes are convergence."
+      },
+      {
+       "text": "Static convergence",
+       "correct": true,
+       "consequence": "Static is at the centre."
+      },
+      {
+       "text": "Dynamic convergence",
+       "consequence": "Dynamic is at the edges."
+      }
+     ]
+    },
+    {
+     "id": "patch",
+     "afterStep": 5,
+     "prompt": "A red raster has coloured patches. What do you do?",
+     "options": [
+      {
+       "text": "Replace the CRT",
+       "consequence": "This is a costly guess."
+      },
+      {
+       "text": "Adjust convergence",
+       "consequence": "Patches are a purity fault."
+      },
+      {
+       "text": "Degauss the set",
+       "correct": true,
+       "consequence": "Purity is restored."
+      }
+     ]
+    },
+    {
+     "id": "bar",
+     "afterStep": 2,
+     "prompt": "The bar order looks different. What do you do?",
+     "options": [
+      {
+       "text": "Replace the set, as the pattern is clearly wrong",
+       "consequence": "This is not a repair."
+      },
+      {
+       "text": "Check it against the correct sequence",
+       "correct": true,
+       "consequence": "The sequence is fixed."
+      },
+      {
+       "text": "Ignore it",
+       "consequence": "The order matters."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "no-blue",
+     "prompt": "The white bar looks yellow. Which colour has failed?",
+     "options": [
+      {
+       "text": "Red",
+       "why": "White would look cyan."
+      },
+      {
+       "text": "Green",
+       "why": "White would look magenta."
+      },
+      {
+       "text": "None",
+       "why": "White should be white."
+      },
+      {
+       "text": "Blue",
+       "correct": true
+      }
+     ]
+    }
+   ],
+   "faults": [
+    {
+     "id": "colour-fault",
+     "scenario": "Ifey left the colour set worse than she found it. Here is what she did.",
+     "lines": [
+      {
+       "text": "She confused static and dynamic convergence.",
+       "fault": true,
+       "why": "They are at the centre and edges."
+      },
+      {
+       "text": "She moved a speaker's magnet near the CRT.",
+       "fault": true,
+       "why": "It upsets purity."
+      },
+      {
+       "text": "She adjusted convergence before purity.",
+       "fault": true,
+       "why": "Purity comes first."
+      },
+      {
+       "text": "She used the bar sequence.",
+       "why": "That is the method."
+      },
+      {
+       "text": "She measured voltages at the RGB outputs.",
+       "why": "That is the method."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "Why is a colour set degaussed?",
+    "explainGuide": "Stray magnetism on the tube sends electron beams to the wrong phosphor, causing patches of colour. Degaussing removes this, so purity returns.",
+    "explainKeywords": [
+     [
+      "magnet"
+     ],
+     [
+      "beam",
+      "phosphor",
+      "patches",
+      "purity"
+     ],
+     [
+      "remove",
+      "restore",
+      "returns"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  },
+  "pr-rtv-installing-and-aligning-a-satellite-dish": {
+   "safety": {
+    "correct": [
+     "Check the ladder's feet are firm before anyone climbs."
+    ],
+    "wrong": [
+     {
+      "text": "Climb without anyone holding the ladder.",
+      "why": "Someone must hold it."
+     },
+     {
+      "text": "Skip the harness on a low roof.",
+      "why": "Wear a harness on roofs."
+     },
+     {
+      "text": "Fix the pole near the overhead power line for a clear view.",
+      "why": "Keep away from overhead lines."
+     },
+     {
+      "text": "Finish the job in strong wind before the customer returns.",
+      "why": "Avoid working in rain or strong wind."
+     },
+     {
+      "text": "Carry the dish up the ladder in one hand.",
+      "why": "Keep hands for the ladder, and haul it up."
+     }
+    ]
+   },
+   "setOut": {
+    "distractors": [
+     {
+      "name": "Degaussing coil",
+      "why": "It is for colour TV work."
+     },
+     {
+      "name": "Hydrometer",
+      "why": "It is for lead-acid cells."
+     },
+     {
+      "name": "Colour bar generator",
+      "why": "It is for TV work."
+     },
+     {
+      "name": "Mortar trowel",
+      "why": "This is not blockwork."
+     },
+     {
+      "name": "Plastic trimming tool",
+      "why": "It is for radio coil cores."
+     }
+    ]
+   },
+   "decisions": [
+    {
+     "id": "pole",
+     "afterStep": 2,
+     "prompt": "How do you fix the pole?",
+     "options": [
+      {
+       "text": "By eye",
+       "consequence": "Readings would be wrong."
+      },
+      {
+       "text": "Leaning towards the satellite",
+       "consequence": "This spoils elevation."
+      },
+      {
+       "text": "Truly vertical, with a spirit level",
+       "correct": true,
+       "consequence": "Elevation readings are correct."
+      }
+     ]
+    },
+    {
+     "id": "sweep",
+     "afterStep": 5,
+     "prompt": "How do you sweep the dish?",
+     "options": [
+      {
+       "text": "Without the finder meter",
+       "consequence": "You have no reading."
+      },
+      {
+       "text": "Slowly, for maximum signal",
+       "correct": true,
+       "consequence": "The peak is found."
+      },
+      {
+       "text": "In quick wide swings",
+       "consequence": "You miss the peak."
+      }
+     ]
+    },
+    {
+     "id": "tighten",
+     "afterStep": 6,
+     "prompt": "You have the peak. How do you tighten the bolts?",
+     "options": [
+      {
+       "text": "Evenly, without moving the dish",
+       "correct": true,
+       "consequence": "Alignment is kept."
+      },
+      {
+       "text": "All on one side first, then the other side",
+       "consequence": "The dish moves."
+      },
+      {
+       "text": "Very loosely",
+       "consequence": "The wind will move it."
+      }
+     ]
+    }
+   ],
+   "observations": [
+    {
+     "id": "peak",
+     "prompt": "What do you see at the correct position?",
+     "options": [
+      {
+       "text": "Signal quality rises sharply",
+       "correct": true
+      },
+      {
+       "text": "Signal quality stays at zero",
+       "why": "It is off target."
+      },
+      {
+       "text": "The meter stays flat as you move it",
+       "why": "It is off target."
+      },
+      {
+       "text": "Quality falls as you approach",
+       "why": "It is moving away."
+      }
+     ]
+    }
+   ],
+   "numerics": [
+    {
+     "id": "if",
+     "prompt": "An LNB with a 9.75 GHz local oscillator receives {f} GHz. What is the IF?",
+     "formula": "f - 9.75",
+     "vars": {
+      "f": {
+       "min": 10.9,
+       "max": 11.7,
+       "step": 0.1
+      }
+     },
+     "unit": "GHz",
+     "unitAliases": [
+      "gigahertz"
+     ],
+     "tolerance": {
+      "abs": 0.005
+     },
+     "decimals": 2,
+     "working": "{f} − 9.75 = {answer} GHz."
+    }
+   ],
+   "faults": [
+    {
+     "id": "dish-fault",
+     "scenario": "Niyi's dish loses signal after rain. Here is what he did.",
+     "lines": [
+      {
+       "text": "He crimped the F-connectors poorly.",
+       "fault": true,
+       "why": "They must be firm."
+      },
+      {
+       "text": "He did not weatherproof the connectors.",
+       "fault": true,
+       "why": "Water gets in."
+      },
+      {
+       "text": "He tightened bolts unevenly.",
+       "fault": true,
+       "why": "The dish moved."
+      },
+      {
+       "text": "He checked strength on the menu.",
+       "why": "That is the method."
+      },
+      {
+       "text": "He used a harness on the roof.",
+       "why": "That is required."
+      }
+     ]
+    }
+   ],
+   "written": {
+    "explainPrompt": "What does the LNB do?",
+    "explainGuide": "It amplifies the weak satellite signal and converts it down to a lower frequency that can travel along the coaxial cable to the decoder.",
+    "explainKeywords": [
+     [
+      "amplif"
+     ],
+     [
+      "down",
+      "lower",
+      "convert"
+     ],
+     [
+      "cable",
+      "coaxial",
+      "decoder"
+     ]
+    ],
+    "explainNeed": 2
+   }
+  }
+ }
+}

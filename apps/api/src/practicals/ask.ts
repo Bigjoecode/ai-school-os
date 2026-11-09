@@ -41,6 +41,7 @@ const ASSISTANT: Record<string, { name: string; role: string }> = {
   chemistry: { name: 'Mrs Ada', role: 'laboratory technician' },
   physics: { name: 'Mr Bayo', role: 'physics laboratory assistant' },
   biology: { name: 'Mrs Okon', role: 'biology laboratory technician' },
+  geography: { name: 'Mr Eze', role: 'geography teacher' },
 };
 
 export function askPrompt(title: string, d: Partial<PracticalContent>, input: PracticalAskInput, subject = 'Chemistry') {

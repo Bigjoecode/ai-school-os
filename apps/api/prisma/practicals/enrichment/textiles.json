@@ -1,0 +1,3764 @@
+{
+  "subject": "Textiles",
+  "room": "studio",
+  "lessons": {
+    "pr-tex-fibre-burning-test": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Test one small sample at a time.",
+          "Put the flame out as soon as the tests are finished."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the yarn in your fingers so that you can feel when it melts.",
+            "why": "Melting synthetics drip and stick to skin. Use tweezers."
+          },
+          {
+            "text": "Burn a large square of fabric so that the result is easier to see.",
+            "why": "A large piece flares up and is unsafe. Use short samples."
+          },
+          {
+            "text": "Put your nose right over the smoke to get a strong smell.",
+            "why": "Fumes irritate the airways. Waft the smoke gently towards you."
+          },
+          {
+            "text": "Close the windows so that a draught will not disturb the flame.",
+            "why": "Burning synthetics give off fumes, so the room must be ventilated."
+          },
+          {
+            "text": "Pick up the bead straight after burning to test it.",
+            "why": "Melted residue stays hot. Let it cool on the tile."
+          },
+          {
+            "text": "Work beside your notebook and the spare fabric samples.",
+            "why": "Loose paper and fabric catch fire. Keep them away from the flame."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Hand cards",
+            "why": "They straighten fibres for spinning. Nothing is carded in this test."
+          },
+          {
+            "name": "Drop spindle",
+            "why": "It spins yarn. Here you only burn short samples."
+          },
+          {
+            "name": "Dye bucket",
+            "why": "No dyeing is done in this test."
+          },
+          {
+            "name": "Plastic ruler for holding samples",
+            "why": "Plastic melts near a flame. Use metal tweezers."
+          },
+          {
+            "name": "Wooden clothes peg",
+            "why": "Wood can scorch, and it holds badly. Use metal tweezers."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "approach",
+          "afterStep": 2,
+          "prompt": "Sample A is in the tweezers. How do you bring it to the flame?",
+          "options": [
+            {
+              "text": "Slowly, towards the side of the flame",
+              "correct": true,
+              "consequence": "You can see whether it shrinks or curls away before it touches."
+            },
+            {
+              "text": "Straight into the hottest part",
+              "consequence": "It catches at once, so the shrinking-away evidence is lost."
+            },
+            {
+              "text": "Drop it on the flame from above and watch it from a short way off",
+              "consequence": "You lose control of the sample, and it may fall burning."
+            }
+          ]
+        },
+        {
+          "id": "record",
+          "afterStep": 3,
+          "prompt": "Sample B has burned. What goes in your table?",
+          "options": [
+            {
+              "text": "How it burned, the smell and the residue",
+              "correct": true,
+              "consequence": "All three features together identify the fibre."
+            },
+            {
+              "text": "The single word 'burns'",
+              "consequence": "That says nothing useful, and it is a common way to lose marks."
+            },
+            {
+              "text": "Only the colour of the sample before you lit it",
+              "consequence": "Colour comes from dye, so it does not identify the fibre."
+            }
+          ]
+        },
+        {
+          "id": "residue",
+          "afterStep": 6,
+          "prompt": "The residue is black and small. How do you tell what it is?",
+          "options": [
+            {
+              "text": "Let it cool on the tile, then try to crush it between your fingers",
+              "correct": true,
+              "consequence": "A crushable bead suggests protein. A hard bead suggests a synthetic."
+            },
+            {
+              "text": "Press it at once with your fingertip while it is still soft and warm enough to mark",
+              "consequence": "It can burn you, and hot residue gives no fair result."
+            },
+            {
+              "text": "Judge by its colour alone and write down the answer without touching it",
+              "consequence": "Wool and synthetic beads can both be dark."
+            }
+          ]
+        },
+        {
+          "id": "dry-mass",
+          "afterStep": 8,
+          "prompt": "The cotton has been drying for an hour. When do you take the dry mass?",
+          "options": [
+            {
+              "text": "When repeated weighings show that the mass has stopped changing",
+              "correct": true,
+              "consequence": "Constant mass shows that the moisture has gone."
+            },
+            {
+              "text": "Now, because an hour in the sun is plenty for such a small and thin piece of fabric",
+              "consequence": "It may still hold water, so the regain comes out too low."
+            },
+            {
+              "text": "After leaving it on the bench to cool overnight",
+              "consequence": "It picks up moisture again from the air."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "cotton",
+          "prompt": "A sample burns fast with a yellow flame and leaves soft grey ash. What is it?",
+          "options": [
+            {
+              "text": "Cotton",
+              "correct": true
+            },
+            {
+              "text": "Wool",
+              "why": "Wool burns slowly and leaves a crushable bead."
+            },
+            {
+              "text": "Polyester",
+              "why": "Polyester melts and leaves a hard bead."
+            },
+            {
+              "text": "Nylon",
+              "why": "Nylon melts and leaves a hard bead."
+            }
+          ]
+        },
+        {
+          "id": "hair",
+          "prompt": "A sample smells of burning hair and leaves a crushable bead. Which class is it?",
+          "options": [
+            {
+              "text": "Protein fibre",
+              "correct": true
+            },
+            {
+              "text": "Cellulose fibre from the stem or seed of a plant",
+              "why": "Cellulose smells of burning paper."
+            },
+            {
+              "text": "Synthetic fibre made from chemicals",
+              "why": "Synthetics leave a hard bead."
+            },
+            {
+              "text": "A mineral fibre that does not burn at all",
+              "why": "This sample burned."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "regain",
+          "prompt": "A cotton sample weighs {c} g conditioned and 5.00 g after drying. What is its moisture regain?",
+          "formula": "(c - 5) / 5 * 100",
+          "vars": {
+            "c": {
+              "min": 5.3,
+              "max": 5.5,
+              "step": 0.05
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.2
+          },
+          "decimals": 1,
+          "working": "({c} − 5.00) ÷ 5.00 × 100 = {answer}%."
+        },
+        {
+          "id": "regain2",
+          "prompt": "A sample weighs 2.20 g conditioned and {d} g dry. What is its moisture regain?",
+          "formula": "(2.2 - d) / d * 100",
+          "vars": {
+            "d": {
+              "min": 2,
+              "max": 2.1,
+              "step": 0.05
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.3
+          },
+          "decimals": 1,
+          "working": "(2.20 − {d}) ÷ {d} × 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "fibre-table",
+          "scenario": "Ike's fibre table could not be marked well, and he burned a finger. Here is what he did.",
+          "lines": [
+            {
+              "text": "He held sample C in his fingers.",
+              "fault": true,
+              "why": "Melting synthetics stick to skin. Use tweezers."
+            },
+            {
+              "text": "He took a large piece of fabric for each test.",
+              "fault": true,
+              "why": "Large pieces flare up. Use short samples."
+            },
+            {
+              "text": "He wrote that wool left 'ash', the same as cotton.",
+              "fault": true,
+              "why": "Cotton leaves soft ash. Wool leaves a crushable bead."
+            },
+            {
+              "text": "He kept a bowl of water nearby.",
+              "why": "That is correct safety practice."
+            },
+            {
+              "text": "He let each residue cool on the tile.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for carrying out the burning test.",
+        "explainPrompt": "Why is a burning test for fibres not always reliable?",
+        "explainGuide": "Blended yarns show mixed behaviour, and finishes and dyes can change the smell and residue. Draughts also change how the flame behaves.",
+        "explainKeywords": [
+          [
+            "blend",
+            "mixed"
+          ],
+          [
+            "finish",
+            "dye"
+          ],
+          [
+            "draught",
+            "flame"
+          ]
+        ],
+        "explainNeed": 1
+      },
+      "board": [
+        "Fibre burning test",
+        "Approach, in flame, removed, smell, residue",
+        "Tweezers, tile, water nearby"
+      ]
+    },
+    "pr-tex-yarn-preparation-and-count": {
+      "room": "workshop",
+      "safety": {
+        "correct": [
+          "Pass the hand cards to others with the teeth facing down.",
+          "Keep the floor around you clear for the falling spindle."
+        ],
+        "wrong": [
+          {
+            "text": "Stroke the cards together fast with your fingers over the teeth.",
+            "why": "Sharp teeth tear skin. Keep your fingers clear."
+          },
+          {
+            "text": "Spin beside the lit stove so that you can keep warm.",
+            "why": "Cotton fibre catches fire easily. Keep it from naked flames."
+          },
+          {
+            "text": "Leave the cards on the seat, teeth up.",
+            "why": "Someone will sit on them. Store them face down."
+          },
+          {
+            "text": "Pull the seeds out with your teeth when they stick.",
+            "why": "Raw cotton is dirty, and it can damage your teeth. Use your fingers."
+          },
+          {
+            "text": "Throw loose fluff into the charcoal pot to clear the bench.",
+            "why": "It flares up at once. Put it in a bin."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Point paper",
+            "why": "It is for drafting weaves. This job spins yarn."
+          },
+          {
+            "name": "Tie-dye marbles",
+            "why": "No resist work is done here."
+          },
+          {
+            "name": "Tjanting tool",
+            "why": "It applies wax in batik."
+          },
+          {
+            "name": "Screen and squeegee",
+            "why": "They are for printing."
+          },
+          {
+            "name": "Frame loom",
+            "why": "Yarn must be spun before it can be woven."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "trash",
+          "afterStep": 2,
+          "prompt": "Your lint still has bits of leaf and seed in it. What do you do?",
+          "options": [
+            {
+              "text": "Pick them out first",
+              "correct": true,
+              "consequence": "The cards stay clear, and the yarn is clean."
+            },
+            {
+              "text": "Card it now",
+              "consequence": "Forgetting to remove trash is a common mistake."
+            },
+            {
+              "text": "Spin around the bits and pull them out from the finished yarn afterwards",
+              "consequence": "The bits weaken the yarn and spoil the skein."
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "afterStep": 4,
+          "prompt": "Your arm is tired. A friend says that you can spin the other way for a while. What do you do?",
+          "options": [
+            {
+              "text": "Keep spinning in one direction only, however tired your arm gets",
+              "correct": true,
+              "consequence": "The twist stays in the yarn."
+            },
+            {
+              "text": "Change direction, because either way adds twist and the yarn cannot tell the difference",
+              "consequence": "Reversing undoes the twist, and the yarn drifts apart."
+            },
+            {
+              "text": "Stop the spindle and keep drafting without any more twist at all",
+              "consequence": "With too little twist, the yarn drifts apart."
+            }
+          ]
+        },
+        {
+          "id": "skein",
+          "afterStep": 6,
+          "prompt": "You lay the skein along the rule. How do you measure it?",
+          "options": [
+            {
+              "text": "Laid straight along the rule, without stretching it",
+              "correct": true,
+              "consequence": "The length is true, so the tex is correct."
+            },
+            {
+              "text": "Pull it hard until there is no slack left",
+              "consequence": "Stretching gives a false length, and the tex is wrong."
+            },
+            {
+              "text": "Guess it by counting the times it went round your arm",
+              "consequence": "That is too rough to give a tex value."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "twist",
+          "prompt": "You add more twist to the same fibres. What happens to the yarn?",
+          "options": [
+            {
+              "text": "It is firmer, thinner and harder",
+              "correct": true
+            },
+            {
+              "text": "It is softer and thicker, and it drifts apart when pulled",
+              "why": "That is too little twist."
+            },
+            {
+              "text": "It stays exactly the same but gets longer each time",
+              "why": "Twist changes the yarn."
+            },
+            {
+              "text": "It changes colour along its length",
+              "why": "Twist does not change colour."
+            }
+          ]
+        },
+        {
+          "id": "handspun",
+          "prompt": "How does hand-spun yarn usually compare with machine-spun yarn?",
+          "options": [
+            {
+              "text": "It is uneven",
+              "correct": true
+            },
+            {
+              "text": "It is perfectly even along the full length",
+              "why": "Hand spinning leaves thick and thin places."
+            },
+            {
+              "text": "It has no twist in it at all, unlike machine yarn",
+              "why": "All spun yarn has twist."
+            },
+            {
+              "text": "It is always much finer than machine-spun yarn",
+              "why": "Hand-spun yarn is often thicker."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "tex",
+          "prompt": "A skein {l} m long weighs {m} g. What is its count in tex?",
+          "formula": "m * 1000 / l",
+          "vars": {
+            "m": {
+              "min": 1,
+              "max": 2.5,
+              "step": 0.5
+            },
+            "l": {
+              "min": 50,
+              "max": 100,
+              "step": 50
+            }
+          },
+          "unit": "tex",
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{m} × 1000 ÷ {l} = {answer} tex."
+        },
+        {
+          "id": "tpm",
+          "prompt": "An average of {a} turns is counted in 10 cm. How many turns per metre is that?",
+          "formula": "a * 10",
+          "vars": {
+            "a": {
+              "min": 4,
+              "max": 9,
+              "step": 1
+            }
+          },
+          "unit": "turns per metre",
+          "unitAliases": [
+            "tpm",
+            "turns/m"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} × 10 = {answer} turns per metre."
+        }
+      ],
+      "faults": [
+        {
+          "id": "weak-yarn",
+          "scenario": "Rukayat's yarn kept falling apart, and her tex was wrong. Here is what she did.",
+          "lines": [
+            {
+              "text": "She changed the spinning direction several times.",
+              "fault": true,
+              "why": "Reversing undoes the twist."
+            },
+            {
+              "text": "She stretched the skein tightly along the rule.",
+              "fault": true,
+              "why": "Stretching gives a false length."
+            },
+            {
+              "text": "She thought a bigger tex number meant a finer yarn.",
+              "fault": true,
+              "why": "A bigger tex number means a thicker yarn."
+            },
+            {
+              "text": "She carded the lint until the fibres lay parallel.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She counted turns at three places and averaged them.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for spinning and measuring a yarn.",
+        "explainPrompt": "What is the difference between tex and cotton count (Ne)?",
+        "explainGuide": "Tex is the mass in grams of 1000 m of yarn, so a bigger number means a thicker yarn. In cotton count, a bigger number means a finer yarn.",
+        "explainKeywords": [
+          [
+            "tex"
+          ],
+          [
+            "thick"
+          ],
+          [
+            "count",
+            "Ne"
+          ],
+          [
+            "fine"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "Spinning yarn and finding its count",
+        "Gin, card, draft, spin, skein",
+        "Tex = g per 1000 m"
+      ]
+    },
+    "pr-tex-point-paper-designs": {
+      "room": "drawing",
+      "safety": {
+        "correct": [
+          "Rest your eyes now and then when working on fine squares.",
+          "Keep sharpened pencils pointing down."
+        ],
+        "wrong": [
+          {
+            "text": "Bend low over the paper in dim light to see the small squares.",
+            "why": "It strains your eyes. Sit upright in good light."
+          },
+          {
+            "text": "Sharpen your pencil with a loose blade held in your fingers.",
+            "why": "A loose blade cuts easily. Use a sharpener."
+          },
+          {
+            "text": "Point your pencil at a neighbour to show the error.",
+            "why": "Points can injure eyes. Keep them down."
+          },
+          {
+            "text": "Work on for hours without looking up from the squares.",
+            "why": "This strains your eyes. Take short breaks."
+          },
+          {
+            "text": "Leave your bag in the aisle between the desks.",
+            "why": "People can trip. Keep it under the desk."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Shed stick",
+            "why": "It opens a shed on a loom. This job is on paper."
+          },
+          {
+            "name": "Hand cards",
+            "why": "They prepare fibres."
+          },
+          {
+            "name": "Dye bucket",
+            "why": "Nothing is dyed."
+          },
+          {
+            "name": "Compasses",
+            "why": "Weave drafts are squares, so nothing is curved."
+          },
+          {
+            "name": "Tape measure",
+            "why": "Weave drafts are counted in squares."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "twill-step",
+          "afterStep": 3,
+          "prompt": "You are on pick 3 of the 2/2 twill. Which way does the pair move?",
+          "options": [
+            {
+              "text": "One end to the right, as before",
+              "correct": true,
+              "consequence": "The diagonal stays straight at 45 degrees."
+            },
+            {
+              "text": "Back one end to the left, so that the pattern of the draft looks balanced on the page",
+              "consequence": "That creates a zigzag (herringbone) by accident."
+            },
+            {
+              "text": "Two ends to the right",
+              "consequence": "The diagonal breaks up."
+            }
+          ]
+        },
+        {
+          "id": "move",
+          "afterStep": 4,
+          "prompt": "Which move number do you use for a five-end satin?",
+          "options": [
+            {
+              "text": "2",
+              "correct": true,
+              "consequence": "Marks are scattered, and no two touch."
+            },
+            {
+              "text": "1, because it is the simplest step and starts from the first end of the draft",
+              "consequence": "A move of 1 just gives a twill."
+            },
+            {
+              "text": "5, which is the same as the number of ends",
+              "consequence": "It lands on the same end each time."
+            }
+          ]
+        },
+        {
+          "id": "key",
+          "afterStep": 5,
+          "prompt": "Your drafts are drawn. What is left to do?",
+          "options": [
+            {
+              "text": "Border one repeat and label it",
+              "correct": true,
+              "consequence": "The examiner can read the repeat, weave and move number."
+            },
+            {
+              "text": "Colour every square in a different shade",
+              "consequence": "Colour adds nothing, and a key is still missing."
+            },
+            {
+              "text": "Nothing",
+              "consequence": "Labels and a key earn most of the marks."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "twill",
+          "prompt": "Which weave shows a clear diagonal line?",
+          "options": [
+            {
+              "text": "Twill",
+              "correct": true
+            },
+            {
+              "text": "Plain weave, with a chessboard of interlacing",
+              "why": "Plain shows no diagonal."
+            },
+            {
+              "text": "Satin, with scattered interlacings",
+              "why": "Satin shows no clear diagonal."
+            },
+            {
+              "text": "Hopsack",
+              "why": "Hopsack is a plain weave variation."
+            }
+          ]
+        },
+        {
+          "id": "satin",
+          "prompt": "Why does satin snag easily?",
+          "options": [
+            {
+              "text": "It has long floats",
+              "correct": true
+            },
+            {
+              "text": "It has the most interlacings of all the common weaves",
+              "why": "Plain weave has the most."
+            },
+            {
+              "text": "It is always made from very weak yarn",
+              "why": "The floats are the cause."
+            },
+            {
+              "text": "It has a 2 by 2 repeat",
+              "why": "Satin here is 5 by 5."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "plain",
+          "prompt": "How many plain-weave repeats fit across {n} ends?",
+          "formula": "n / 2",
+          "vars": {
+            "n": {
+              "min": 40,
+              "max": 80,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} ÷ 2 = {answer} repeats."
+        },
+        {
+          "id": "twill-r",
+          "prompt": "How many 2/2 twill repeats fit across {n} ends?",
+          "formula": "n / 4",
+          "vars": {
+            "n": {
+              "min": 40,
+              "max": 80,
+              "step": 8
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} ÷ 4 = {answer} repeats."
+        },
+        {
+          "id": "satin-r",
+          "prompt": "How many five-end satin repeats fit across {n} ends?",
+          "formula": "n / 5",
+          "vars": {
+            "n": {
+              "min": 40,
+              "max": 80,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} ÷ 5 = {answer} repeats."
+        }
+      ],
+      "faults": [
+        {
+          "id": "drafts",
+          "scenario": "Ezinne's weave drafts were marked down. Here is what she did.",
+          "lines": [
+            {
+              "text": "She gave no key and did not label warp and weft.",
+              "fault": true,
+              "why": "Key and labels are required."
+            },
+            {
+              "text": "She used a move number of 1 for her satin.",
+              "fault": true,
+              "why": "That gives a twill."
+            },
+            {
+              "text": "She started counting from different corners.",
+              "fault": true,
+              "why": "Always count from the same corner."
+            },
+            {
+              "text": "She drew a heavy border around one repeat.",
+              "why": "That is step 5."
+            },
+            {
+              "text": "She worked out repeats for 40 ends.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for drawing a weave draft.",
+        "explainPrompt": "Why is a move number of 1 not used for a five-end satin?",
+        "explainGuide": "A move of 1 places each mark next to the last, so the marks line up in a diagonal and it becomes a twill. A satin needs scattered marks that do not touch.",
+        "explainKeywords": [
+          [
+            "twill",
+            "diagonal"
+          ],
+          [
+            "scatter",
+            "touch",
+            "next"
+          ],
+          [
+            "move"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Weaves on point paper",
+        "Filled square = warp up",
+        "Label each repeat"
+      ]
+    },
+    "pr-tex-warp-weft-calculations": {
+      "room": "workshop",
+      "safety": {
+        "correct": [
+          "Keep the specification sheet and your workings together.",
+          "Rest your eyes between long calculations."
+        ],
+        "wrong": [
+          {
+            "text": "Do the sums on loose scraps that you throw away afterwards.",
+            "why": "Your method cannot be checked. Keep clear workings."
+          },
+          {
+            "text": "Leave the balance at the edge of the desk.",
+            "why": "It can be knocked off. Keep it well on the desk."
+          },
+          {
+            "text": "Leave the tape measure trailing across the aisle.",
+            "why": "People can trip."
+          },
+          {
+            "text": "Round every step to save writing.",
+            "why": "Errors build up. Round only the final answers."
+          },
+          {
+            "text": "Use an old yarn price from memory.",
+            "why": "The cost will be wrong. Use the specification sheet."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Frame loom",
+            "why": "This job is calculation only."
+          },
+          {
+            "name": "Drop spindle",
+            "why": "No yarn is spun in this job."
+          },
+          {
+            "name": "Dye bucket",
+            "why": "No dyeing is done."
+          },
+          {
+            "name": "Point paper",
+            "why": "Weave drafts are not needed for yarn quantities."
+          },
+          {
+            "name": "Hand lens",
+            "why": "Nothing is examined closely."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "allow",
+          "afterStep": 3,
+          "prompt": "When do you add the 10% warp allowance?",
+          "options": [
+            {
+              "text": "Before multiplying by the ends",
+              "correct": true,
+              "consequence": "The extra length is carried through every later step."
+            },
+            {
+              "text": "After costing",
+              "consequence": "The weights are then wrong."
+            },
+            {
+              "text": "Not at all",
+              "consequence": "Waste and take-up are real, and they must be allowed for."
+            }
+          ]
+        },
+        {
+          "id": "picks",
+          "afterStep": 5,
+          "prompt": "How do you find the number of picks?",
+          "options": [
+            {
+              "text": "Fabric length in cm × picks per cm",
+              "correct": true,
+              "consequence": "Picks run along the length, so the count is right."
+            },
+            {
+              "text": "Fabric width in cm × picks per cm",
+              "consequence": "This is the common mistake of multiplying width by picks."
+            },
+            {
+              "text": "Number of ends × picks per cm",
+              "consequence": "Ends have nothing to do with the number of picks."
+            }
+          ]
+        },
+        {
+          "id": "units",
+          "afterStep": 5,
+          "prompt": "The width is 50 cm. What do you use in the weft length?",
+          "options": [
+            {
+              "text": "0.5 m",
+              "correct": true,
+              "consequence": "Length in metres is what tex needs."
+            },
+            {
+              "text": "50, as the specification gives it",
+              "consequence": "Mixing cm and m makes the weft 100 times too long."
+            },
+            {
+              "text": "500 mm",
+              "consequence": "Tex needs metres."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "more",
+          "prompt": "Which usually needs more yarn?",
+          "options": [
+            {
+              "text": "The warp",
+              "correct": true
+            },
+            {
+              "text": "The weft, because it travels back and forth across the full width of the cloth",
+              "why": "The warp carries extra allowance for waste and take-up."
+            },
+            {
+              "text": "Both always need exactly the same amount",
+              "why": "They differ."
+            },
+            {
+              "text": "Neither needs any allowance on a hand loom",
+              "why": "Allowances are real."
+            }
+          ]
+        },
+        {
+          "id": "allow-why",
+          "prompt": "Why is an allowance added to the warp?",
+          "options": [
+            {
+              "text": "To cover loom waste, tying on and take-up",
+              "correct": true
+            },
+            {
+              "text": "To make the cloth a brighter colour",
+              "why": "Colour is not affected."
+            },
+            {
+              "text": "To add lustre to the finished cloth",
+              "why": "Lustre is not affected."
+            },
+            {
+              "text": "To change the fibre into a stronger kind of fibre",
+              "why": "Allowance is extra length."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ends",
+          "prompt": "A fabric is {w} cm wide with {e} ends per cm. How many warp ends is that?",
+          "formula": "w * e",
+          "vars": {
+            "w": {
+              "min": 40,
+              "max": 80,
+              "step": 10
+            },
+            "e": {
+              "min": 6,
+              "max": 10,
+              "step": 2
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} × {e} = {answer} ends."
+        },
+        {
+          "id": "warp-g",
+          "prompt": "A warp has a total length of {l} m in {t} tex yarn. What does it weigh?",
+          "formula": "l * t / 1000",
+          "vars": {
+            "l": {
+              "min": 2000,
+              "max": 5000,
+              "step": 1000
+            },
+            "t": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "{l} × {t} ÷ 1000 = {answer} g."
+        },
+        {
+          "id": "cost",
+          "prompt": "Yarn costs N{p} per kg. What does {g} g cost?",
+          "formula": "g / 1000 * p",
+          "vars": {
+            "p": {
+              "min": 6000,
+              "max": 10000,
+              "step": 2000
+            },
+            "g": {
+              "min": 100,
+              "max": 400,
+              "step": 100
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{g} ÷ 1000 × {p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "costing",
+          "scenario": "Sam's yarn estimate was far too high. Here is what he did.",
+          "lines": [
+            {
+              "text": "He multiplied width by picks per cm instead of length.",
+              "fault": true,
+              "why": "Use length × picks per cm."
+            },
+            {
+              "text": "He used 50 for the width instead of 0.5 m.",
+              "fault": true,
+              "why": "This mixes cm and m."
+            },
+            {
+              "text": "He forgot to divide by 1000 when using tex.",
+              "fault": true,
+              "why": "Weight = length × tex ÷ 1000."
+            },
+            {
+              "text": "He added the allowance before multiplying.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He gave units with each answer.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for calculating yarn quantities.",
+        "explainPrompt": "What does 30 tex mean, and how does it help you find the weight of yarn?",
+        "explainGuide": "30 tex means 1000 m of the yarn weighs 30 g. So the weight in grams equals the length in metres multiplied by tex and divided by 1000.",
+        "explainKeywords": [
+          [
+            "1000"
+          ],
+          [
+            "gram",
+            "weigh",
+            "mass"
+          ],
+          [
+            "length",
+            "metre"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Warp and weft quantities",
+        "Formula, substitute, answer, unit",
+        "Metres, grams, kilograms"
+      ]
+    },
+    "pr-tex-frame-loom-weaving": {
+      "room": "workshop",
+      "safety": {
+        "correct": [
+          "Lay the loom flat on the table when you leave it.",
+          "Keep scissors closed and pass them handle first."
+        ],
+        "wrong": [
+          {
+            "text": "Press on a nail that sticks out to see if it is firm.",
+            "why": "Protruding nails cut skin. Check the frame and fix them first."
+          },
+          {
+            "text": "Run your hand down the frame without checking it for splinters.",
+            "why": "Splinters go into your hand. Check and sand it."
+          },
+          {
+            "text": "Hold the tapestry needle in your mouth.",
+            "why": "It can be swallowed. Keep it in a safe place."
+          },
+          {
+            "text": "Cut the warp with the scissors pointing towards you.",
+            "why": "They can slip. Cut away from your body."
+          },
+          {
+            "text": "Prop the loom against your chest while you beat.",
+            "why": "Protruding nails can scratch you, and it is unstable."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Hand cards",
+            "why": "Yarn is already spun."
+          },
+          {
+            "name": "Point paper for the final piece",
+            "why": "You may plan on paper, but the sampler is woven on the frame."
+          },
+          {
+            "name": "Dye bucket",
+            "why": "The yarns are already coloured."
+          },
+          {
+            "name": "Squeegee",
+            "why": "It is for screen printing."
+          },
+          {
+            "name": "Tjanting tool",
+            "why": "It is for batik."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "tension",
+          "afterStep": 2,
+          "prompt": "Part of the warp has gone slack as you wind. What do you do?",
+          "options": [
+            {
+              "text": "Take up the slack and even it out",
+              "correct": true,
+              "consequence": "Even tension gives an even fabric."
+            },
+            {
+              "text": "Leave it",
+              "consequence": "A loose warp makes an uneven fabric."
+            },
+            {
+              "text": "Tie extra knots along the slack ends",
+              "consequence": "Knots do not even the tension."
+            }
+          ]
+        },
+        {
+          "id": "bubble",
+          "afterStep": 4,
+          "prompt": "You lay in a pick. How do you place it?",
+          "options": [
+            {
+              "text": "At an angle, in a loose arc across the warp, before beating",
+              "correct": true,
+              "consequence": "There is enough weft, so the edges stay straight."
+            },
+            {
+              "text": "Pulled straight and firm across the warp",
+              "consequence": "A tight weft pulls the edges in (waisting)."
+            },
+            {
+              "text": "Doubled back to make the row thicker",
+              "consequence": "This makes lumps and uneven picks."
+            }
+          ]
+        },
+        {
+          "id": "new-weft",
+          "afterStep": 5,
+          "prompt": "Your weft has run out near the edge. Where do you start the new one?",
+          "options": [
+            {
+              "text": "Inside the cloth, a few ends away from the selvedge",
+              "correct": true,
+              "consequence": "The join is hidden and the edge stays even."
+            },
+            {
+              "text": "Right at the selvedge, because the loose end can be tied to the last end there",
+              "consequence": "Starting a new weft at the selvedge leaves a lump."
+            },
+            {
+              "text": "Halfway along, with a big knot on the front",
+              "consequence": "A knot on the face is unsightly."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "waist",
+          "prompt": "The edges of your sampler pull inwards. What is this called?",
+          "options": [
+            {
+              "text": "Waisting",
+              "correct": true
+            },
+            {
+              "text": "Floating, a fault caused by the weft passing over several ends",
+              "why": "A float comes from skipping an end."
+            },
+            {
+              "text": "Felting, a process caused by rubbing fibres",
+              "why": "Felting is a finishing process."
+            },
+            {
+              "text": "Pilling on the surface of the fabric",
+              "why": "Pilling is surface fuzz from wear."
+            }
+          ]
+        },
+        {
+          "id": "slit",
+          "prompt": "What do you see where two colours meet in slit tapestry?",
+          "options": [
+            {
+              "text": "Small gaps",
+              "correct": true
+            },
+            {
+              "text": "A straight diagonal line running from edge to edge",
+              "why": "That is twill."
+            },
+            {
+              "text": "A shiny, smooth raised ridge of weft",
+              "why": "Slit tapestry leaves gaps."
+            },
+            {
+              "text": "A thick knot at every pick",
+              "why": "Slit tapestry has no knots."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "ends",
+          "prompt": "A sampler is {w} cm wide at {e} ends per cm. How many ends does it need?",
+          "formula": "w * e",
+          "vars": {
+            "w": {
+              "min": 15,
+              "max": 25,
+              "step": 5
+            },
+            "e": {
+              "min": 4,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} × {e} = {answer} ends."
+        },
+        {
+          "id": "draw-in",
+          "prompt": "A 20 cm sampler finished {f} cm wide. What is the draw-in?",
+          "formula": "(20 - f) / 20 * 100",
+          "vars": {
+            "f": {
+              "min": 18.5,
+              "max": 19.5,
+              "step": 0.5
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "(20 − {f}) ÷ 20 × 100 = {answer}%."
+        },
+        {
+          "id": "warp-m",
+          "prompt": "There are {n} ends, each 0.40 m long. How many metres of warp is that, before any allowance?",
+          "formula": "n * 0.4",
+          "vars": {
+            "n": {
+              "min": 60,
+              "max": 100,
+              "step": 20
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "{n} × 0.40 = {answer} m."
+        }
+      ],
+      "faults": [
+        {
+          "id": "waisted",
+          "scenario": "Halima's sampler is narrow in the middle, with lumps at the edge. Here is what she did.",
+          "lines": [
+            {
+              "text": "She pulled each pick tight before beating.",
+              "fault": true,
+              "why": "A tight weft causes waisting."
+            },
+            {
+              "text": "She started new wefts at the selvedge.",
+              "fault": true,
+              "why": "This leaves lumps."
+            },
+            {
+              "text": "She skipped a warp end by mistake.",
+              "fault": true,
+              "why": "This causes a float."
+            },
+            {
+              "text": "She wove a heading first.",
+              "why": "That spaces the warp."
+            },
+            {
+              "text": "She tied the warp in pairs at the end.",
+              "why": "That secures the weft."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for keeping a sampler even.",
+        "explainPrompt": "Why should each pick of weft be bubbled before it is beaten?",
+        "explainGuide": "The arc gives extra weft to travel over and under the warp ends. Without it, the weft is too short, and it pulls the selvedges in (waisting).",
+        "explainKeywords": [
+          [
+            "arc",
+            "bubble",
+            "angle",
+            "extra"
+          ],
+          [
+            "pull",
+            "tight"
+          ],
+          [
+            "edge",
+            "selvedge",
+            "waist"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Weaving a sampler on a frame loom",
+        "Bubble each pick",
+        "Plain, twill, tapestry"
+      ]
+    },
+    "pr-tex-tie-dye": {
+      "safety": {
+        "correct": [
+          "Keep the lids on the chemical containers when you are not using them.",
+          "Tell your teacher at once about any splash."
+        ],
+        "wrong": [
+          {
+            "text": "Pour water on to the caustic soda in the jug.",
+            "why": "It can spit and burn. Always add the chemical to water."
+          },
+          {
+            "text": "Mix the dye in the closed store because it is out of the wind.",
+            "why": "Hydros releases irritating fumes. Use the open air or a well-ventilated room."
+          },
+          {
+            "text": "Wipe a caustic splash with a dry rag and carry on.",
+            "why": "Caustic soda is corrosive. Wash it off at once with plenty of water."
+          },
+          {
+            "text": "Skip goggles because you are only stirring.",
+            "why": "Caustic soda can blind. Wear goggles throughout."
+          },
+          {
+            "text": "Keep the hydros in an unlabelled milk tin.",
+            "why": "Someone may use it for food. Label all containers."
+          },
+          {
+            "text": "Take the kitchen spoon home after stirring the dye.",
+            "why": "Chemicals poison food. Keep dye tools only for dyeing."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tjanting tool",
+            "why": "It applies wax in batik."
+          },
+          {
+            "name": "Paraffin wax",
+            "why": "Wax is the resist for batik. Here the ties are the resist."
+          },
+          {
+            "name": "Screen and squeegee",
+            "why": "They are for printing."
+          },
+          {
+            "name": "Hand cards",
+            "why": "They are for preparing fibres."
+          },
+          {
+            "name": "Graph paper for final dyeing",
+            "why": "Plans go on paper, but it has no part in the dye bath."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "tie",
+          "afterStep": 2,
+          "prompt": "Your tie round a seed feels a little slack. What do you do?",
+          "options": [
+            {
+              "text": "Tie it again, tightly",
+              "correct": true,
+              "consequence": "The dye is resisted, and the circle has a sharp edge."
+            },
+            {
+              "text": "Leave it",
+              "consequence": "Loose ties let the dye in, and the motif is lost."
+            },
+            {
+              "text": "Add a dab of soap on top of the tie instead",
+              "consequence": "Soap does not resist dye."
+            }
+          ]
+        },
+        {
+          "id": "stir",
+          "afterStep": 3,
+          "prompt": "You have added the hydros. How do you stir it?",
+          "options": [
+            {
+              "text": "Gently, keeping the stick below the surface of the liquor",
+              "correct": true,
+              "consequence": "Little air goes in, so the reduction is not spoiled."
+            },
+            {
+              "text": "Hard and fast, to make sure the chemicals are all fully mixed together in the bucket",
+              "consequence": "Vigorous stirring puts oxygen in and spoils the reduction."
+            },
+            {
+              "text": "Not at all, even though nothing has been mixed yet",
+              "consequence": "The chemicals need gentle mixing."
+            }
+          ]
+        },
+        {
+          "id": "below",
+          "afterStep": 4,
+          "prompt": "Part of the cloth keeps floating up. What do you do?",
+          "options": [
+            {
+              "text": "Hold it gently below the surface",
+              "correct": true,
+              "consequence": "No air reaches it in the bath, so there are no streaks."
+            },
+            {
+              "text": "Leave it to float",
+              "consequence": "Air exposure in the bath causes streaks."
+            },
+            {
+              "text": "Lift it out of the bath and put it back in several times",
+              "consequence": "Each lift lets air in."
+            }
+          ]
+        },
+        {
+          "id": "untie",
+          "afterStep": 6,
+          "prompt": "The cloth has oxidised. When do you remove the ties?",
+          "options": [
+            {
+              "text": "After rinsing in cold water",
+              "correct": true,
+              "consequence": "Loose dye goes first, so the white areas stay clean."
+            },
+            {
+              "text": "Right away",
+              "consequence": "Untying before rinsing makes dye bleed into the resisted areas."
+            },
+            {
+              "text": "After ironing it",
+              "consequence": "You cannot iron a tied cloth."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "green-blue",
+          "prompt": "You lift the cloth out and it changes from yellow-green to blue. Why?",
+          "options": [
+            {
+              "text": "The reduced dye oxidises in the air",
+              "correct": true
+            },
+            {
+              "text": "Reduction by the hydros still in the wet cloth",
+              "why": "Reduction happens in the bath. The air oxidises the dye."
+            },
+            {
+              "text": "Fading of the colour in the daylight",
+              "why": "It is getting deeper, not fading."
+            },
+            {
+              "text": "Rinsing in water removes the green dye",
+              "why": "It changes before rinsing."
+            }
+          ]
+        },
+        {
+          "id": "resist",
+          "prompt": "What do the tied areas look like?",
+          "options": [
+            {
+              "text": "White or pale",
+              "correct": true
+            },
+            {
+              "text": "Darker blue than the rest of the fabric",
+              "why": "Ties resist dye."
+            },
+            {
+              "text": "Yellow-green, even after the cloth has dried",
+              "why": "That colour is only seen when it leaves the bath."
+            },
+            {
+              "text": "Burnt brown at the edges",
+              "why": "Ties do not burn the cloth."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "water",
+          "prompt": "At a liquor ratio of 1:20, how many litres of water do you need for {m} g of cloth?",
+          "formula": "m * 20 / 1000",
+          "vars": {
+            "m": {
+              "min": 200,
+              "max": 500,
+              "step": 50
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "L",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{m} × 20 = grams of water. Divide by 1000 to get {answer} litres."
+        },
+        {
+          "id": "dye",
+          "prompt": "Dye is {p}% of the weight of {m} g of cloth. How many grams is that?",
+          "formula": "p / 100 * m",
+          "vars": {
+            "p": {
+              "min": 2,
+              "max": 3,
+              "step": 1
+            },
+            "m": {
+              "min": 200,
+              "max": 500,
+              "step": 50
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "{p} ÷ 100 × {m} = {answer} g."
+        }
+      ],
+      "faults": [
+        {
+          "id": "blurred",
+          "scenario": "Chidi's adire has blurred circles and streaks. Here is what he did.",
+          "lines": [
+            {
+              "text": "He untied the fabric before rinsing.",
+              "fault": true,
+              "why": "Dye bleeds into the resisted areas."
+            },
+            {
+              "text": "He used loose ties.",
+              "fault": true,
+              "why": "Tie firmly."
+            },
+            {
+              "text": "He dyed fabric that had not been scoured.",
+              "fault": true,
+              "why": "Unscoured fabric takes dye unevenly."
+            },
+            {
+              "text": "He wore gloves and goggles.",
+              "why": "That is correct safety practice."
+            },
+            {
+              "text": "He let the fabric oxidise in the air.",
+              "why": "That develops the colour."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for dyeing evenly with a vat dye.",
+        "explainPrompt": "Why does a vat-dyed cloth turn blue after it is lifted out of the bath?",
+        "explainGuide": "In the bath, the dye is in its reduced, soluble leuco form, which is yellow-green. In the air, oxygen changes it back to the insoluble blue form inside the fibres.",
+        "explainKeywords": [
+          [
+            "oxid",
+            "oxygen",
+            "air"
+          ],
+          [
+            "reduc",
+            "leuco",
+            "soluble"
+          ],
+          [
+            "blue"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Tie-dye (adire oniko)",
+        "Add chemical to water, never the reverse",
+        "Gloves, goggles, fresh air"
+      ]
+    },
+    "pr-tex-batik-wax-resist": {
+      "safety": {
+        "correct": [
+          "Keep long hair and sleeves tied back near hot wax.",
+          "Stand the wax pot where it cannot be knocked over."
+        ],
+        "wrong": [
+          {
+            "text": "Melt the wax directly over the flame because it is quicker.",
+            "why": "Wax can catch fire. Use a double boiler."
+          },
+          {
+            "text": "Leave the wax heating while you fetch the dye.",
+            "why": "Hot wax must never be left unattended."
+          },
+          {
+            "text": "Throw water on the wax if it catches fire.",
+            "why": "Water makes burning wax spit and spread. Smother it with the lid or fire blanket."
+          },
+          {
+            "text": "Turn the heat up when the wax starts to smoke.",
+            "why": "Smoking wax is close to catching fire. Turn the heat down."
+          },
+          {
+            "text": "Iron out the wax in a closed room to keep the smell in.",
+            "why": "Wax fumes need ventilation."
+          },
+          {
+            "text": "Carry the pot of hot wax across the room among other students.",
+            "why": "A spill causes burns. Bring your work to the pot."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Marbles for tying",
+            "why": "They are used for tie-dye."
+          },
+          {
+            "name": "Squeegee",
+            "why": "It is for screen printing."
+          },
+          {
+            "name": "Boiling dye bath",
+            "why": "Hot dye melts the wax. Use cold or lukewarm baths."
+          },
+          {
+            "name": "Shed stick",
+            "why": "It is for weaving."
+          },
+          {
+            "name": "Candle for heating the wax",
+            "why": "A naked flame is unsafe with wax."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "transparent",
+          "afterStep": 3,
+          "prompt": "Your waxed line looks white and sits on top of the cloth. What does this show?",
+          "options": [
+            {
+              "text": "The wax is too cool",
+              "correct": true,
+              "consequence": "It has not penetrated, so warm it until it flows, then reapply."
+            },
+            {
+              "text": "It is exactly right",
+              "consequence": "Cool wax sits on the surface and lets dye through."
+            },
+            {
+              "text": "The cloth needs to be wet first",
+              "consequence": "Wet cloth stops wax from penetrating."
+            }
+          ]
+        },
+        {
+          "id": "order",
+          "afterStep": 4,
+          "prompt": "You have blue and yellow. Which do you dye first?",
+          "options": [
+            {
+              "text": "Yellow",
+              "correct": true,
+              "consequence": "Colours build from light to dark."
+            },
+            {
+              "text": "Blue",
+              "consequence": "Yellow cannot cover blue."
+            },
+            {
+              "text": "Either: the colours do not affect each other in the bath",
+              "consequence": "Each later dye goes over the earlier ones."
+            }
+          ]
+        },
+        {
+          "id": "dye-temp",
+          "afterStep": 4,
+          "prompt": "The dye is working slowly. A friend suggests warming it up well. What do you do?",
+          "options": [
+            {
+              "text": "Keep the bath cold or lukewarm, and give the dye more time",
+              "correct": true,
+              "consequence": "The wax stays solid and goes on resisting."
+            },
+            {
+              "text": "Heat it up to speed the dye, then let it cool before you put the waxed cloth in",
+              "consequence": "Any bath left hot melts the resist."
+            },
+            {
+              "text": "Boil the cloth in the dye for a stronger colour",
+              "consequence": "Boiling melts the wax."
+            }
+          ]
+        },
+        {
+          "id": "residue",
+          "afterStep": 7,
+          "prompt": "The cloth still feels stiff after ironing. What do you do?",
+          "options": [
+            {
+              "text": "Boil-wash or soap-wash it to remove the wax residue",
+              "correct": true,
+              "consequence": "The residue comes out, and the cloth is soft."
+            },
+            {
+              "text": "Iron it again on the same newsprint, for longer, until the stiffness has gone away",
+              "consequence": "Used paper puts wax back on the cloth."
+            },
+            {
+              "text": "Leave it, as the stiffness will protect the colour",
+              "consequence": "Leaving residue is a common mistake."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "crack",
+          "prompt": "What makes the fine veins in batik?",
+          "options": [
+            {
+              "text": "Dye that has entered fine cracks in the wax",
+              "correct": true
+            },
+            {
+              "text": "Hot wax that flows over the dye after dyeing has been finished",
+              "why": "Veins come from cracks."
+            },
+            {
+              "text": "Too much soda ash added to the dye",
+              "why": "Soda ash does not make veins."
+            },
+            {
+              "text": "Ironing the cloth between newsprint",
+              "why": "Ironing removes wax."
+            }
+          ]
+        },
+        {
+          "id": "transp",
+          "prompt": "How should correctly applied wax look on the cloth?",
+          "options": [
+            {
+              "text": "Transparent",
+              "correct": true
+            },
+            {
+              "text": "Thick, white and raised above the cloth",
+              "why": "That wax is too cool."
+            },
+            {
+              "text": "Dark and smoking",
+              "why": "That wax is too hot."
+            },
+            {
+              "text": "Powdery and dull",
+              "why": "That is not properly melted wax."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "paraffin",
+          "prompt": "A wax blend of 7 parts paraffin to 3 parts beeswax makes {b} g. How much paraffin do you need?",
+          "formula": "7 / 10 * b",
+          "vars": {
+            "b": {
+              "min": 500,
+              "max": 2000,
+              "step": 500
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 0,
+          "working": "7 ÷ 10 × {b} = {answer} g."
+        },
+        {
+          "id": "motifs",
+          "prompt": "A {l} cm length of fabric has a motif every {m} cm. How many motifs is that?",
+          "formula": "l / m",
+          "vars": {
+            "l": {
+              "min": 100,
+              "max": 300,
+              "step": 100
+            },
+            "m": {
+              "min": 20,
+              "max": 25,
+              "step": 5
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ {m} = {answer} motifs."
+        }
+      ],
+      "faults": [
+        {
+          "id": "lost-resist",
+          "scenario": "Ope's batik came out patchy and stiff. Here is what she did.",
+          "lines": [
+            {
+              "text": "She used a hot dye bath.",
+              "fault": true,
+              "why": "Hot dye melts the resist."
+            },
+            {
+              "text": "She dyed the dark colour first.",
+              "fault": true,
+              "why": "Dye light to dark."
+            },
+            {
+              "text": "She left wax residue in the fabric.",
+              "fault": true,
+              "why": "Boil-wash or soap-wash it."
+            },
+            {
+              "text": "She used a double boiler.",
+              "why": "That is correct safety practice."
+            },
+            {
+              "text": "She ironed between sheets of newsprint.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for working safely with hot wax.",
+        "explainPrompt": "Why are colours dyed from light to dark in batik?",
+        "explainGuide": "Each later dye goes over the earlier colours and mixes with them. A dark colour would hide or spoil a lighter one, so the lightest goes first.",
+        "explainKeywords": [
+          [
+            "light"
+          ],
+          [
+            "dark"
+          ],
+          [
+            "over",
+            "mix",
+            "hide",
+            "cover"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Batik with a hot wax resist",
+        "Double boiler. Never leave it unattended",
+        "Light to dark"
+      ]
+    },
+    "pr-tex-block-screen-printing": {
+      "safety": {
+        "correct": [
+          "Keep the gouges in a rack when you are not cutting.",
+          "Put kerosene rags in a closed metal bin, as your teacher directs."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the block in your hand and cut towards your palm.",
+            "why": "The gouge can slip into your hand. Use a bench hook, and cut away from the holding hand."
+          },
+          {
+            "text": "Clean the screen with kerosene next to the lit stove.",
+            "why": "Kerosene catches fire. Use solvents in a ventilated area, away from flames."
+          },
+          {
+            "text": "Wash your inky hands in kerosene at the end.",
+            "why": "Solvents harm skin. Use soap and water."
+          },
+          {
+            "text": "Clean up with kerosene in the closed store to keep the smell in.",
+            "why": "Fumes build up. Work where the air moves."
+          },
+          {
+            "text": "Leave a gouge on the printing table, under the fabric.",
+            "why": "Someone will press on it. Keep it in the rack."
+          },
+          {
+            "text": "Leave the kerosene rags in a heap under the bench.",
+            "why": "Solvent rags are a fire risk. Dispose of them safely."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tjanting tool",
+            "why": "It applies wax in batik."
+          },
+          {
+            "name": "Shed stick",
+            "why": "It is for weaving."
+          },
+          {
+            "name": "Hand cards",
+            "why": "They prepare raw fibre."
+          },
+          {
+            "name": "Marbles for tying",
+            "why": "They are used in tie-dye."
+          },
+          {
+            "name": "Embroidery hoop",
+            "why": "It holds stitching, not printing."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "reverse",
+          "afterStep": 1,
+          "prompt": "Your motif has lettering. How do you trace it on to the block?",
+          "options": [
+            {
+              "text": "In reverse",
+              "correct": true,
+              "consequence": "It prints the right way round on the cloth."
+            },
+            {
+              "text": "The right way round, exactly as drawn",
+              "consequence": "It prints back to front. This is a common mistake."
+            },
+            {
+              "text": "Upside down, then turn the block when printing",
+              "consequence": "Turning the block does not correct a mirror image."
+            }
+          ]
+        },
+        {
+          "id": "reink",
+          "afterStep": 4,
+          "prompt": "You have made one good print. Do you ink again for the next?",
+          "options": [
+            {
+              "text": "Yes: roll ink on evenly for every single impression",
+              "correct": true,
+              "consequence": "Each impression has the same strength."
+            },
+            {
+              "text": "No: there is enough ink on the block for two or three more prints if you press harder",
+              "consequence": "Later prints come out broken and pale."
+            },
+            {
+              "text": "Only when the print has completely faded away",
+              "consequence": "The pattern is uneven by then."
+            }
+          ]
+        },
+        {
+          "id": "wet-print",
+          "afterStep": 5,
+          "prompt": "The next registration mark is beside a wet print. What do you do?",
+          "options": [
+            {
+              "text": "Let it dry, or print elsewhere first",
+              "correct": true,
+              "consequence": "The wet prints are not smudged."
+            },
+            {
+              "text": "Rest the screen on it for a moment",
+              "consequence": "You will smudge the wet print."
+            },
+            {
+              "text": "Blow on it hard and print straight away",
+              "consequence": "Blowing does not dry it."
+            }
+          ]
+        },
+        {
+          "id": "clean-screen",
+          "afterStep": 6,
+          "prompt": "Printing is finished, and the class is leaving. What about the screen?",
+          "options": [
+            {
+              "text": "Clean it at once, before the ink can dry in the mesh",
+              "correct": true,
+              "consequence": "The mesh does not clog."
+            },
+            {
+              "text": "Leave it until next week's lesson, when you can give it a proper wash with more time",
+              "consequence": "Dried ink clogs the mesh."
+            },
+            {
+              "text": "Stand it in the sun to dry the ink",
+              "consequence": "The ink dries and clogs the mesh."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "good",
+          "prompt": "What gives a crisp print?",
+          "options": [
+            {
+              "text": "Even ink and firm pressure",
+              "correct": true
+            },
+            {
+              "text": "Lots of ink, and a very light touch from the block",
+              "why": "Too much ink fills fine lines."
+            },
+            {
+              "text": "Very little ink with a light press on the block",
+              "why": "Too little gives a broken print."
+            },
+            {
+              "text": "Printing on creased fabric",
+              "why": "Fabric must be ironed flat."
+            }
+          ]
+        },
+        {
+          "id": "reg",
+          "prompt": "Accurate registration gives",
+          "options": [
+            {
+              "text": "A continuous pattern",
+              "correct": true
+            },
+            {
+              "text": "Small gaps and overlaps along each row of prints",
+              "why": "Those come from poor registration."
+            },
+            {
+              "text": "Broken patches of ink inside each motif",
+              "why": "Those come from too little ink."
+            },
+            {
+              "text": "A mirror image of the original design",
+              "why": "That is about reversing the design."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "across",
+          "prompt": "Fabric is {w} cm wide and the block is 15 cm. How many full repeats fit across?",
+          "formula": "round(w / 15 - 0.5, 0)",
+          "vars": {
+            "w": {
+              "min": 90,
+              "max": 120,
+              "step": 10
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} ÷ 15. Count only full repeats: {answer}."
+        },
+        {
+          "id": "impress",
+          "prompt": "A straight repeat has {a} repeats across and {b} along. How many impressions is that?",
+          "formula": "a * b",
+          "vars": {
+            "a": {
+              "min": 6,
+              "max": 8,
+              "step": 1
+            },
+            "b": {
+              "min": 10,
+              "max": 14,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} × {b} = {answer} impressions."
+        }
+      ],
+      "faults": [
+        {
+          "id": "smudged",
+          "scenario": "Zara's printed length is smudged and uneven. Here is what she did.",
+          "lines": [
+            {
+              "text": "She worked over wet prints.",
+              "fault": true,
+              "why": "Wet prints smudge."
+            },
+            {
+              "text": "She printed on unironed fabric.",
+              "fault": true,
+              "why": "Iron it first, and keep it taut."
+            },
+            {
+              "text": "She drew her grid out of square.",
+              "fault": true,
+              "why": "The repeat will wander."
+            },
+            {
+              "text": "She made a test print on paper.",
+              "why": "That is step 2."
+            },
+            {
+              "text": "She pinned the fabric to the padded table.",
+              "why": "That keeps it flat."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for block printing a repeat.",
+        "explainPrompt": "Why must a design be cut in reverse on a printing block?",
+        "explainGuide": "The block prints a mirror image of what is cut. Cutting it in reverse makes the print the right way round, which matters most for lettering.",
+        "explainKeywords": [
+          [
+            "mirror",
+            "reverse"
+          ],
+          [
+            "print"
+          ],
+          [
+            "letter",
+            "right way",
+            "correct"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Block and screen printing",
+        "Straight, half-drop, brick repeats",
+        "Re-ink for every impression"
+      ]
+    },
+    "pr-tex-applique-embroidery": {
+      "room": "studio",
+      "safety": {
+        "correct": [
+          "Count your needles and pins back in at the end.",
+          "Stand the iron on its heel when you put it down."
+        ],
+        "wrong": [
+          {
+            "text": "Hold pins in your mouth while you position a motif.",
+            "why": "They can be swallowed. Use a pin cushion."
+          },
+          {
+            "text": "Leave the iron on when you go for your break.",
+            "why": "It can start a fire. Switch it off."
+          },
+          {
+            "text": "Leave a needle stuck in the arm of your chair.",
+            "why": "Someone will be pricked. Use the pin cushion."
+          },
+          {
+            "text": "Stand the hot iron flat on the fabric while you thread a needle.",
+            "why": "It scorches the fabric and can start a fire."
+          },
+          {
+            "text": "Bite through your thread to save looking for scissors.",
+            "why": "It damages teeth. Use the scissors."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Squeegee",
+            "why": "It is for screen printing."
+          },
+          {
+            "name": "Dye bucket",
+            "why": "Colour comes from fabric and thread."
+          },
+          {
+            "name": "Tjanting tool",
+            "why": "It is for wax."
+          },
+          {
+            "name": "Shed stick",
+            "why": "It is for weaving."
+          },
+          {
+            "name": "Drop spindle",
+            "why": "Thread is already spun."
+          }
+        ],
+        "optional": [
+          "Fusible web (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "turning",
+          "afterStep": 2,
+          "prompt": "How do you size a motif for turned-edge appliqué?",
+          "options": [
+            {
+              "text": "Add 0.5 cm all round",
+              "correct": true,
+              "consequence": "There is material to turn under."
+            },
+            {
+              "text": "Cut exactly on the traced line",
+              "consequence": "With no turning, there is nothing to turn under."
+            },
+            {
+              "text": "Add 5 cm all round",
+              "consequence": "Excess turnings make the motif bulky."
+            }
+          ]
+        },
+        {
+          "id": "clip",
+          "afterStep": 3,
+          "prompt": "A curved motif will not turn smoothly. What do you do?",
+          "options": [
+            {
+              "text": "Clip the curves, then turn the edge under again",
+              "correct": true,
+              "consequence": "The edge turns smoothly."
+            },
+            {
+              "text": "Pull it tighter while tacking",
+              "consequence": "It puckers."
+            },
+            {
+              "text": "Cut the curve into a straight line",
+              "consequence": "The motif loses its shape."
+            }
+          ]
+        },
+        {
+          "id": "hoop",
+          "afterStep": 5,
+          "prompt": "You are ready to embroider. How do you hold the work?",
+          "options": [
+            {
+              "text": "In the hoop",
+              "correct": true,
+              "consequence": "The work stays flat."
+            },
+            {
+              "text": "In your hand, loosely gathered",
+              "consequence": "Unhooped stitching puckers the foundation."
+            },
+            {
+              "text": "Pinned to your knee",
+              "consequence": "This can stab you, and it does not hold the work flat."
+            }
+          ]
+        },
+        {
+          "id": "press",
+          "afterStep": 6,
+          "prompt": "You have removed the tacking. How do you press the panel?",
+          "options": [
+            {
+              "text": "On the wrong side, over a towel",
+              "correct": true,
+              "consequence": "The stitches stay raised and neat."
+            },
+            {
+              "text": "On the right side, pressing firmly, so that the stitches lie as flat as they possibly can",
+              "consequence": "It crushes the stitches and can make them shiny."
+            },
+            {
+              "text": "You do not press it at all",
+              "consequence": "Pressing is part of finishing."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "knot",
+          "prompt": "Which stitch makes dots?",
+          "options": [
+            {
+              "text": "French knots",
+              "correct": true
+            },
+            {
+              "text": "Stem stitch",
+              "why": "Stem stitch makes lines."
+            },
+            {
+              "text": "Satin stitch",
+              "why": "Satin stitch fills small areas."
+            },
+            {
+              "text": "Chain stitch",
+              "why": "Chain stitch makes a line of loops."
+            }
+          ]
+        },
+        {
+          "id": "no-clip",
+          "prompt": "What happens to an unclipped curved edge?",
+          "options": [
+            {
+              "text": "It puckers",
+              "correct": true
+            },
+            {
+              "text": "It turns smoothly and lies flat without any effort",
+              "why": "Clipped curves do that."
+            },
+            {
+              "text": "It frays away completely in the first wash",
+              "why": "That is not the expected result."
+            },
+            {
+              "text": "It shrinks to half its size when it is pressed",
+              "why": "It does not shrink like that."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "scale",
+          "prompt": "A {a} cm sketch motif is enlarged to {b} cm. What is the scale factor?",
+          "formula": "b / a",
+          "vars": {
+            "a": {
+              "min": 4,
+              "max": 5,
+              "step": 1
+            },
+            "b": {
+              "min": 20,
+              "max": 20,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{b} ÷ {a} = {answer}."
+        },
+        {
+          "id": "cut",
+          "prompt": "A motif is {w} cm across, and it has 0.5 cm turnings on each side. What is the cutting size?",
+          "formula": "w + 1",
+          "vars": {
+            "w": {
+              "min": 12,
+              "max": 24,
+              "step": 4
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} + 0.5 + 0.5 = {answer} cm."
+        },
+        {
+          "id": "area",
+          "prompt": "A motif is enlarged by a scale factor of {s}. How many times does its area grow?",
+          "formula": "s * s",
+          "vars": {
+            "s": {
+              "min": 2,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "times",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{s} × {s} = {answer} times."
+        }
+      ],
+      "faults": [
+        {
+          "id": "puckered",
+          "scenario": "Grace's panel puckers, and her stitching looks untidy at the front. Here is what she did.",
+          "lines": [
+            {
+              "text": "She pulled her stitches tight.",
+              "fault": true,
+              "why": "Tight stitches pucker the work."
+            },
+            {
+              "text": "She left knots on the right side.",
+              "fault": true,
+              "why": "Knots should be kept at the back."
+            },
+            {
+              "text": "She did not allow for turnings.",
+              "fault": true,
+              "why": "She needed 0.5 cm all round."
+            },
+            {
+              "text": "She enlarged the motif using a grid.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "She removed the tacking at the end.",
+              "why": "That is step 6."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for neat appliqué and embroidery.",
+        "explainPrompt": "Why are curves clipped in turned-edge appliqué?",
+        "explainGuide": "Clipping the turning lets the fabric spread or overlap around the curve, so the edge turns smoothly and does not pucker.",
+        "explainKeywords": [
+          [
+            "clip",
+            "cut"
+          ],
+          [
+            "curve"
+          ],
+          [
+            "pucker",
+            "smooth",
+            "flat"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Appliqué and embroidery",
+        "Turn, tack, stitch",
+        "Press on the wrong side"
+      ]
+    },
+    "pr-tex-finishing-shrinkage-test": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Stand the iron on its heel between uses.",
+          "Mop up spills near the ironing area."
+        ],
+        "wrong": [
+          {
+            "text": "Pour boiling water while your friend holds the starch bowl in her hands.",
+            "why": "A splash scalds her. Stand the bowl on a firm surface."
+          },
+          {
+            "text": "Leave the iron hot and face down on the fabric.",
+            "why": "It scorches, and can start a fire."
+          },
+          {
+            "text": "Test the iron with a wet finger.",
+            "why": "You can burn yourself. Test it on a scrap of cloth."
+          },
+          {
+            "text": "Carry the boiling starch across a crowded room.",
+            "why": "A spill causes scalds. Move carefully, or bring your work to it."
+          },
+          {
+            "text": "Leave the iron's flex hanging over the edge of the table.",
+            "why": "It can be pulled down. Keep the flex clear."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Squeegee",
+            "why": "It is for printing."
+          },
+          {
+            "name": "Tjanting tool",
+            "why": "It is for wax."
+          },
+          {
+            "name": "Hand cards",
+            "why": "They prepare raw fibre."
+          },
+          {
+            "name": "Spring balance",
+            "why": "This test measures length."
+          },
+          {
+            "name": "Point paper",
+            "why": "No weave is being drafted."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "where",
+          "afterStep": 3,
+          "prompt": "Where do you measure the washed fabric?",
+          "options": [
+            {
+              "text": "Along the same marked warp and weft lines as before",
+              "correct": true,
+              "consequence": "Before and after can be compared fairly."
+            },
+            {
+              "text": "Along whichever edge of the cloth looks the straightest after it has been washed",
+              "consequence": "The edges were not the lines marked before."
+            },
+            {
+              "text": "Across a corner, from point to point",
+              "consequence": "Corners do not give warp or weft shrinkage."
+            }
+          ]
+        },
+        {
+          "id": "base",
+          "afterStep": 3,
+          "prompt": "Which length do you divide by?",
+          "options": [
+            {
+              "text": "The original length",
+              "correct": true,
+              "consequence": "Shrinkage is a share of the starting size."
+            },
+            {
+              "text": "The new length, which is the one you have just measured and that you are able to see",
+              "consequence": "That is the common mistake."
+            },
+            {
+              "text": "The average of the two lengths",
+              "consequence": "The formula uses the original."
+            }
+          ]
+        },
+        {
+          "id": "stretch",
+          "afterStep": 2,
+          "prompt": "The washed piece is drying. How should it lie?",
+          "options": [
+            {
+              "text": "Spread out flat, without pulling or stretching it",
+              "correct": true,
+              "consequence": "The length is not distorted."
+            },
+            {
+              "text": "Hung by one edge from the line, with pegs close together and a small weight at the bottom",
+              "consequence": "Weighted hanging stretches it and hides the shrinkage."
+            },
+            {
+              "text": "Wrung tightly and folded into a square",
+              "consequence": "This distorts the fabric."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "dir",
+          "prompt": "In which direction does unshrunk cotton usually shrink more?",
+          "options": [
+            {
+              "text": "Warp",
+              "correct": true
+            },
+            {
+              "text": "Weft, along the picks across the width of the fabric",
+              "why": "It usually shrinks more in the warp direction."
+            },
+            {
+              "text": "Neither direction: it stays the same on washing",
+              "why": "Unshrunk cotton contracts."
+            },
+            {
+              "text": "Only along the diagonal of the cloth",
+              "why": "Warp and weft are what you measure."
+            }
+          ]
+        },
+        {
+          "id": "starch",
+          "prompt": "Starch on cotton is what kind of finish?",
+          "options": [
+            {
+              "text": "Temporary",
+              "correct": true
+            },
+            {
+              "text": "Permanent",
+              "why": "Starch washes out."
+            },
+            {
+              "text": "Mechanical, like calendering of the cloth",
+              "why": "Starching is listed as chemical."
+            },
+            {
+              "text": "A form of dyeing that adds a white colour",
+              "why": "It is a stiffening finish."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "warp",
+          "prompt": "A marked line of 50.0 cm measures {n} cm after washing. What is the shrinkage?",
+          "formula": "(50 - n) / 50 * 100",
+          "vars": {
+            "n": {
+              "min": 47,
+              "max": 49.5,
+              "step": 0.5
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "(50 − {n}) ÷ 50 × 100 = {answer}%."
+        },
+        {
+          "id": "buy",
+          "prompt": "A garment needs {l} m after shrinkage. The fabric shrinks {s}%. How much do you buy?",
+          "formula": "l / (1 - s / 100)",
+          "vars": {
+            "l": {
+              "min": 1,
+              "max": 3,
+              "step": 1
+            },
+            "s": {
+              "min": 4,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "m",
+          "unitAliases": [
+            "metres",
+            "metre"
+          ],
+          "tolerance": {
+            "abs": 0.02
+          },
+          "decimals": 2,
+          "working": "{l} ÷ (1 − {s}/100) = {answer} m."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wrong-pct",
+          "scenario": "Ngozi's shrinkage result was marked wrong. Here is what she did.",
+          "lines": [
+            {
+              "text": "She divided by the new length.",
+              "fault": true,
+              "why": "Divide by the original length."
+            },
+            {
+              "text": "She hung the wet cloth by a corner to dry.",
+              "fault": true,
+              "why": "Dry flat without stretching."
+            },
+            {
+              "text": "She measured along a different line afterwards.",
+              "fault": true,
+              "why": "Use the same marked lines."
+            },
+            {
+              "text": "She marked warp and weft directions.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "She compared the handle of the two fabrics.",
+              "why": "That is step 5."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a fair shrinkage test.",
+        "explainPrompt": "Explain why starching is called a temporary finish.",
+        "explainGuide": "Starch sits on the fabric and makes it crisp, but it washes out, so it must be applied again after each wash. A permanent finish, such as sanforising, lasts.",
+        "explainKeywords": [
+          [
+            "starch"
+          ],
+          [
+            "wash"
+          ],
+          [
+            "again",
+            "temporary",
+            "remove"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Fabric finishing and shrinkage",
+        "(Original − new) ÷ original × 100",
+        "Same marked lines"
+      ]
+    },
+    "pr-tex-preparatory-sketches-portfolio": {
+      "room": "drawing",
+      "safety": {
+        "correct": [
+          "Close or retract the craft knife when you put it down.",
+          "Cut on the cutting mat, never on the desk."
+        ],
+        "wrong": [
+          {
+            "text": "Cut along a plastic ruler with your fingers beside the blade.",
+            "why": "The blade can ride over it. Use a steel ruler, with fingers behind the blade."
+          },
+          {
+            "text": "Leave the open craft knife among your sketches.",
+            "why": "It cuts the next person who reaches in."
+          },
+          {
+            "text": "Cut towards your own body to keep the line in view.",
+            "why": "Cut away from yourself."
+          },
+          {
+            "text": "Hand a friend the knife blade first.",
+            "why": "Pass it closed, or handle first."
+          },
+          {
+            "text": "Use a blunt blade and force it through the card.",
+            "why": "Blunt blades slip. Replace them."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Dye bucket",
+            "why": "This job is on paper and card."
+          },
+          {
+            "name": "Frame loom",
+            "why": "No weaving is done."
+          },
+          {
+            "name": "Squeegee",
+            "why": "No printing is done."
+          },
+          {
+            "name": "Tjanting tool",
+            "why": "No wax is used."
+          },
+          {
+            "name": "Embroidery hoop",
+            "why": "No stitching is done."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "underline",
+          "afterStep": 1,
+          "prompt": "You have just received the question. What do you do first?",
+          "options": [
+            {
+              "text": "Underline the item, size, technique and theme it asks for",
+              "correct": true,
+              "consequence": "Your work answers the item, size, technique and theme."
+            },
+            {
+              "text": "Start on your favourite motif at once, since time is short and it will keep you motivated",
+              "consequence": "It may not answer the question."
+            },
+            {
+              "text": "Buy the materials you used last year",
+              "consequence": "You do not yet know what is required."
+            }
+          ]
+        },
+        {
+          "id": "thumbnails",
+          "afterStep": 3,
+          "prompt": "You like your first idea. What next?",
+          "options": [
+            {
+              "text": "Make at least three thumbnails",
+              "correct": true,
+              "consequence": "You show how the design developed."
+            },
+            {
+              "text": "Develop that one idea straight away into the full-colour design and leave out the others",
+              "consequence": "Only the final design hides your development."
+            },
+            {
+              "text": "Copy a wrapper from the market",
+              "consequence": "Copying shows no development."
+            }
+          ]
+        },
+        {
+          "id": "notes",
+          "afterStep": 4,
+          "prompt": "What must your preparatory notes include?",
+          "options": [
+            {
+              "text": "Quantities and a time plan",
+              "correct": true,
+              "consequence": "They give a usable plan for the five days."
+            },
+            {
+              "text": "A long description of why you like textiles and how you first came to choose the subject",
+              "consequence": "It earns no marks and leaves out what is required."
+            },
+            {
+              "text": "Only a list of the colours",
+              "consequence": "The notes need much more than that."
+            }
+          ]
+        },
+        {
+          "id": "photo",
+          "afterStep": 5,
+          "prompt": "How do you photograph the finished work?",
+          "options": [
+            {
+              "text": "In good daylight, with no glare",
+              "correct": true,
+              "consequence": "The colours are true."
+            },
+            {
+              "text": "At night under a bright yellow bulb, with the flash on",
+              "consequence": "Yellow light and flash shift colours and cause glare."
+            },
+            {
+              "text": "Folded",
+              "consequence": "The design cannot be seen."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "why",
+          "prompt": "What does a clear plan do during the five practical days?",
+          "options": [
+            {
+              "text": "It reduces mistakes during the five days of practical work",
+              "correct": true
+            },
+            {
+              "text": "It removes the need for any preparatory notes at all",
+              "why": "The plan is the preparatory notes."
+            },
+            {
+              "text": "It makes the practical longer than the set time",
+              "why": "It helps you keep to the time."
+            },
+            {
+              "text": "It replaces the examiner's marking of the work",
+              "why": "The examiner still marks."
+            }
+          ]
+        },
+        {
+          "id": "worth",
+          "prompt": "How many marks are the sketches and preparatory notes worth?",
+          "options": [
+            {
+              "text": "20",
+              "correct": true
+            },
+            {
+              "text": "5, as they only count as a small extra",
+              "why": "They carry 20 marks."
+            },
+            {
+              "text": "80, the same as the practical itself",
+              "why": "The practical carries 80."
+            },
+            {
+              "text": "Nothing: they are only for your own use",
+              "why": "They carry 20 marks."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "width",
+          "prompt": "A work is {w} cm wide with a 5 cm border on each side. What is the mount width?",
+          "formula": "w + 10",
+          "vars": {
+            "w": {
+              "min": 15,
+              "max": 30,
+              "step": 3
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{w} + 5 + 5 = {answer} cm."
+        },
+        {
+          "id": "height",
+          "prompt": "A work is {h} cm high with a 5 cm top and a 6 cm bottom border. What is the mount height?",
+          "formula": "h + 11",
+          "vars": {
+            "h": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} + 5 + 6 = {answer} cm."
+        },
+        {
+          "id": "scale",
+          "prompt": "A wrapper {l} cm long is drawn at 1:10. How long is it on paper?",
+          "formula": "l / 10",
+          "vars": {
+            "l": {
+              "min": 100,
+              "max": 300,
+              "step": 50
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} ÷ 10 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "folio",
+          "scenario": "Kachi's folio earned few marks. Here is what he did.",
+          "lines": [
+            {
+              "text": "He handed in only the final design.",
+              "fault": true,
+              "why": "Development earns marks."
+            },
+            {
+              "text": "He left out the quantities and time plan.",
+              "fault": true,
+              "why": "They are required."
+            },
+            {
+              "text": "He did not label his sheets.",
+              "fault": true,
+              "why": "Label with name, index number and title."
+            },
+            {
+              "text": "He collected indigenous motifs.",
+              "why": "That is step 2."
+            },
+            {
+              "text": "He photographed his finished work.",
+              "why": "That is step 5."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for preparing a portfolio.",
+        "explainPrompt": "Why should sketches be kept in the order of development?",
+        "explainGuide": "The order shows how the idea grew from first thumbnails to the final design. Examiners reward this development in the preparatory marks.",
+        "explainKeywords": [
+          [
+            "develop",
+            "grew"
+          ],
+          [
+            "idea",
+            "design"
+          ],
+          [
+            "mark",
+            "examiner"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Preparatory sketches and portfolio",
+        "Worth 20 marks",
+        "Show how the idea developed"
+      ]
+    },
+    "pr-tex-costing-pricing": {
+      "room": "workshop",
+      "safety": {
+        "correct": [
+          "Keep your receipts in a file.",
+          "Check each sum twice before you write it down."
+        ],
+        "wrong": [
+          {
+            "text": "Throw away your receipts once the wrappers have been dyed.",
+            "why": "They are your record of cost."
+          },
+          {
+            "text": "Leave the cash on the bench while you go out.",
+            "why": "It can go missing. Lock it away."
+          },
+          {
+            "text": "Work from memory instead of the price list.",
+            "why": "Prices are easily misremembered."
+          },
+          {
+            "text": "Write your costs on loose scraps.",
+            "why": "They get lost. Use the record book."
+          },
+          {
+            "text": "Leave wasted fabric out of your records.",
+            "why": "Unrecorded wastage makes the cost false."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Dye bucket",
+            "why": "Dye appears here only as a cost."
+          },
+          {
+            "name": "Hand cards",
+            "why": "This is paper work."
+          },
+          {
+            "name": "Squeegee",
+            "why": "This is paper work."
+          },
+          {
+            "name": "Tape measure",
+            "why": "You are working with costs."
+          },
+          {
+            "name": "Rubber gloves",
+            "why": "No chemicals are handled here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "labour",
+          "afterStep": 2,
+          "prompt": "Your friend says you need not cost your own time. What do you do?",
+          "options": [
+            {
+              "text": "Include it at an hourly rate, as it is a real cost",
+              "correct": true,
+              "consequence": "The price pays for your time."
+            },
+            {
+              "text": "Leave it out",
+              "consequence": "Leaving out labour is a common mistake."
+            },
+            {
+              "text": "Add it only if you make a profit",
+              "consequence": "Cost comes before profit."
+            }
+          ]
+        },
+        {
+          "id": "overheads",
+          "afterStep": 2,
+          "prompt": "Water, fuel and transport are not on your list. What do you do?",
+          "options": [
+            {
+              "text": "Add them as overheads",
+              "correct": true,
+              "consequence": "All the costs are covered."
+            },
+            {
+              "text": "Leave them out",
+              "consequence": "Hidden costs can turn a profit into a loss."
+            },
+            {
+              "text": "Charge them to the next batch",
+              "consequence": "This batch's cost is then false."
+            }
+          ]
+        },
+        {
+          "id": "markup",
+          "afterStep": 4,
+          "prompt": "Your unit cost is N6,150, and you want a 30% markup. How do you find the price?",
+          "options": [
+            {
+              "text": "Multiply the cost by 1.30",
+              "correct": true,
+              "consequence": "The markup is on the cost."
+            },
+            {
+              "text": "Divide by 0.70, which gives the same result as adding 30% on to the cost of the wrapper",
+              "consequence": "Dividing gives a margin on the price, a different thing."
+            },
+            {
+              "text": "Add N30",
+              "consequence": "That is not 30%."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "hidden",
+          "prompt": "What can happen if overheads are left out?",
+          "options": [
+            {
+              "text": "An apparent profit turns out to be a loss when all costs are counted",
+              "correct": true
+            },
+            {
+              "text": "The wrappers become much better quality than the others",
+              "why": "Quality is not affected."
+            },
+            {
+              "text": "Fixed costs turn into variable costs in the record book",
+              "why": "Leaving them out does not change their type."
+            },
+            {
+              "text": "The dye bath is able to take more cloth each time",
+              "why": "That is unrelated."
+            }
+          ]
+        },
+        {
+          "id": "varc",
+          "prompt": "Which of these is a fixed cost?",
+          "options": [
+            {
+              "text": "Rent share",
+              "correct": true
+            },
+            {
+              "text": "Fabric bought for the batch of wrappers",
+              "why": "That varies with output."
+            },
+            {
+              "text": "Dye used for this batch only",
+              "why": "That varies with output."
+            },
+            {
+              "text": "Ties used on the wrappers",
+              "why": "That varies with output."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "unit",
+          "prompt": "A batch of {n} wrappers costs N{c}. What is the unit cost?",
+          "formula": "c / n",
+          "vars": {
+            "n": {
+              "min": 4,
+              "max": 8,
+              "step": 4
+            },
+            "c": {
+              "min": 24000,
+              "max": 32000,
+              "step": 8000
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{c} ÷ {n} = N{answer}."
+        },
+        {
+          "id": "price",
+          "prompt": "The unit cost is N{u}. At a {m}% markup, what is the selling price?",
+          "formula": "u * (1 + m / 100)",
+          "vars": {
+            "u": {
+              "min": 5000,
+              "max": 7000,
+              "step": 500
+            },
+            "m": {
+              "min": 20,
+              "max": 30,
+              "step": 10
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 0,
+          "working": "{u} × (1 + {m}/100) = N{answer}."
+        },
+        {
+          "id": "fabric",
+          "prompt": "You buy {m} m of fabric at N{p} per metre. What does it cost?",
+          "formula": "m * p",
+          "vars": {
+            "m": {
+              "min": 6,
+              "max": 12,
+              "step": 2
+            },
+            "p": {
+              "min": 1000,
+              "max": 2000,
+              "step": 500
+            }
+          },
+          "unit": "naira",
+          "unitAliases": [
+            "N"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{m} × {p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "wrapper-loss",
+          "scenario": "Adaku sold all her wrappers but has no money left. Here is what she did.",
+          "lines": [
+            {
+              "text": "She left out her own labour.",
+              "fault": true,
+              "why": "It is a real cost."
+            },
+            {
+              "text": "She did not count overheads.",
+              "fault": true,
+              "why": "Water, fuel and transport are costs."
+            },
+            {
+              "text": "She confused markup on cost with margin on price.",
+              "fault": true,
+              "why": "They are different."
+            },
+            {
+              "text": "She listed every material.",
+              "why": "That is step 1."
+            },
+            {
+              "text": "She compared the price with the market.",
+              "why": "That is step 4."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for costing a batch of wrappers.",
+        "explainPrompt": "What is the difference between a fixed cost and a variable cost?",
+        "explainGuide": "A fixed cost, such as a rent share, does not change with the number of wrappers made. A variable cost, such as fabric and dye, rises as more are made.",
+        "explainKeywords": [
+          [
+            "fixed"
+          ],
+          [
+            "variable"
+          ],
+          [
+            "change",
+            "rise",
+            "vary"
+          ],
+          [
+            "rent",
+            "fabric",
+            "dye"
+          ]
+        ],
+        "explainNeed": 3
+      },
+      "board": [
+        "Costing tie-dye wrappers",
+        "Materials + labour + overheads",
+        "Unit cost, then markup"
+      ]
+    },
+    "pr-tex-natural-dye-extraction": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Keep the dye pot and scale for dye work only, never for food.",
+          "Wash your hands after handling alum."
+        ],
+        "wrong": [
+          {
+            "text": "Handle the alum with bare hands because it is only a mineral.",
+            "why": "Wear gloves with the mordant."
+          },
+          {
+            "text": "Pour the spent bath into the stream behind the school.",
+            "why": "Do not pollute water. Cool it, dilute it and use a soak-away or garden bed."
+          },
+          {
+            "text": "Lift the boiling pot off alone with a damp rag.",
+            "why": "Hot liquid can scald you. Use dry cloths, and get help."
+          },
+          {
+            "text": "Use the family soup pot and return it after dyeing.",
+            "why": "Dye and mordant residue can poison food. Keep dye pots apart."
+          },
+          {
+            "text": "Taste the liquor to judge how strong it is.",
+            "why": "Dye and mordant must not be swallowed."
+          },
+          {
+            "text": "Pour hot waste on to the garden straight away.",
+            "why": "Let it cool and dilute it first."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Tjanting tool",
+            "why": "It applies wax."
+          },
+          {
+            "name": "Squeegee",
+            "why": "It is for printing."
+          },
+          {
+            "name": "Caustic soda",
+            "why": "It is for vat dyeing, and is not used in this method."
+          },
+          {
+            "name": "Sodium hydrosulphite",
+            "why": "It is for vat dyeing, and is not used here."
+          },
+          {
+            "name": "Hand cards",
+            "why": "They prepare raw fibre."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "mordant",
+          "afterStep": 3,
+          "prompt": "The dye bath is ready. A friend says to skip the alum. What do you do?",
+          "options": [
+            {
+              "text": "Mordant first",
+              "correct": true,
+              "consequence": "The colour is deeper and faster to washing."
+            },
+            {
+              "text": "Skip it",
+              "consequence": "Skipping the mordant is a common mistake."
+            },
+            {
+              "text": "Add the alum after the fabric has dried",
+              "consequence": "It must be done before dyeing."
+            }
+          ]
+        },
+        {
+          "id": "simmer",
+          "afterStep": 4,
+          "prompt": "The bath begins a rolling boil. What do you do?",
+          "options": [
+            {
+              "text": "Lower the heat until the bath holds a steady simmer",
+              "correct": true,
+              "consequence": "The fabric takes up the colour evenly."
+            },
+            {
+              "text": "Turn it up, because a hard boil will force the colour into the fabric more quickly",
+              "consequence": "A rolling boil makes the dyeing uneven."
+            },
+            {
+              "text": "Take the pot off and leave it cold",
+              "consequence": "The dye needs its simmer time."
+            }
+          ]
+        },
+        {
+          "id": "crowd",
+          "afterStep": 4,
+          "prompt": "You have more cloth than planned. What do you do?",
+          "options": [
+            {
+              "text": "Dye the extra cloth in a second batch of its own",
+              "correct": true,
+              "consequence": "The cloth moves freely, so the colour is even."
+            },
+            {
+              "text": "Push it all into the pot together",
+              "consequence": "Overcrowding gives patchy colour."
+            },
+            {
+              "text": "Fold the extra cloth tightly in the pot",
+              "consequence": "Folds cause patches."
+            }
+          ]
+        },
+        {
+          "id": "dispose",
+          "afterStep": 6,
+          "prompt": "The spent bath has cooled. What do you do?",
+          "options": [
+            {
+              "text": "Dilute it and use a soak-away or garden bed",
+              "correct": true,
+              "consequence": "The waste does not reach drinking water."
+            },
+            {
+              "text": "Pour it into the stream",
+              "consequence": "It still contains mordant, so keep it out of streams."
+            },
+            {
+              "text": "Put it down the school well",
+              "consequence": "That poisons a water source."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "mord",
+          "prompt": "How does mordanted cloth compare with unmordanted cloth?",
+          "options": [
+            {
+              "text": "Deeper in colour and faster to washing",
+              "correct": true
+            },
+            {
+              "text": "Paler and quicker to lose its colour on washing",
+              "why": "Mordant does the opposite."
+            },
+            {
+              "text": "Exactly the same in every way after the first wash",
+              "why": "Mordant makes a clear difference."
+            },
+            {
+              "text": "Stiffer and impossible to dye at all",
+              "why": "Mordant helps dyeing."
+            }
+          ]
+        },
+        {
+          "id": "onion",
+          "prompt": "What colour do onion skins usually give?",
+          "options": [
+            {
+              "text": "Gold to brown",
+              "correct": true
+            },
+            {
+              "text": "Bright blue, like that given by indigo",
+              "why": "Indigo gives blue."
+            },
+            {
+              "text": "Pure white, like that of kaolin clay",
+              "why": "Onion skins give gold to brown."
+            },
+            {
+              "text": "Bright green with no trace of yellow",
+              "why": "Onion skins give gold to brown."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "alum",
+          "prompt": "How many grams of alum do you need at 10% of {m} g of fabric?",
+          "formula": "0.1 * m",
+          "vars": {
+            "m": {
+              "min": 40,
+              "max": 200,
+              "step": 20
+            }
+          },
+          "unit": "g",
+          "unitAliases": [
+            "grams",
+            "gram"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 0,
+          "working": "0.10 × {m} = {answer} g."
+        },
+        {
+          "id": "water",
+          "prompt": "At a liquor ratio of 1:30, how many litres of water do you need for {m} g of fabric?",
+          "formula": "m * 30 / 1000",
+          "vars": {
+            "m": {
+              "min": 40,
+              "max": 200,
+              "step": 20
+            }
+          },
+          "unit": "litres",
+          "unitAliases": [
+            "L",
+            "litre",
+            "l"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "{m} × 30 ÷ 1000 = {answer} litres."
+        }
+      ],
+      "faults": [
+        {
+          "id": "fading",
+          "scenario": "Ama's dyed cloth faded on the first wash, and the waste went into a stream. Here is what she did.",
+          "lines": [
+            {
+              "text": "She skipped the mordant.",
+              "fault": true,
+              "why": "This reduces fastness."
+            },
+            {
+              "text": "She kept the bath at a hard boil.",
+              "fault": true,
+              "why": "Keep a steady simmer."
+            },
+            {
+              "text": "She poured spent dye into a stream.",
+              "fault": true,
+              "why": "Use a soak-away or garden bed."
+            },
+            {
+              "text": "She wore gloves with the alum.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She dried the cloth in the shade.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for dyeing with natural dyes.",
+        "explainPrompt": "What does a mordant do in natural dyeing?",
+        "explainGuide": "A mordant such as alum helps fix the dye to the fibres, giving a deeper colour that is faster to washing.",
+        "explainKeywords": [
+          [
+            "mordant",
+            "alum"
+          ],
+          [
+            "fix",
+            "bind",
+            "hold"
+          ],
+          [
+            "fast",
+            "deeper",
+            "wash"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Extracting a natural dye",
+        "Mordant first, simmer, rinse",
+        "Keep waste out of streams"
+      ]
+    }
+  }
+}

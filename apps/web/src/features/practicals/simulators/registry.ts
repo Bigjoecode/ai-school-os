@@ -61,6 +61,8 @@ import { emptyPhyMechanicsState } from '@aischool/shared';
 import { phyMechanicsMissing } from './phy-mechanics/missing';
 import { emptyPhyThermalState } from '@aischool/shared';
 import { phyThermalMissing } from './phy-thermal/missing';
+import { emptyGeoMapsState } from '@aischool/shared';
+import { geoMapsMissing } from './geo-maps/missing';
 import { emptyPhyMagnetismState } from '@aischool/shared';
 import { phyMagnetismMissing } from './phy-magnetism/missing';
 import { emptyGenPracticalState, genPracticalMissing } from '@aischool/shared';
@@ -106,6 +108,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'chem-acids': { id: 'chem-acids', component: lazy(() => import('./chem-acids')), component3d: lazy(() => import('./chem-acids/lab3d')), empty: emptyChemAcidsState, missing: chemAcidsMissing },
   'chem-organic': { id: 'chem-organic', component: lazy(() => import('./chem-organic')), component3d: lazy(() => import('./chem-organic/lab3d')), empty: emptyChemOrganicState, missing: chemOrganicMissing },
   'chem-prep': { id: 'chem-prep', component: lazy(() => import('./chem-prep')), component3d: lazy(() => import('./chem-prep/lab3d')), empty: emptyChemPrepState, missing: chemPrepMissing },
+  'geo-maps': { id: 'geo-maps', component: lazy(() => import('./geo-maps')), component3d: lazy(() => import('./geo-maps/lab3d')), prefer2d: true, empty: emptyGeoMapsState, missing: geoMapsMissing },
   'comp-code': { id: 'comp-code', component: lazy(() => import('./comp-code')), component3d: lazy(() => import('./comp-code/lab3d')), empty: emptyCompCodeState, missing: compCodeMissing },
   'phy-pendulum': { id: 'phy-pendulum', component: lazy(() => import('./phy-pendulum')), component3d: lazy(() => import('./phy-pendulum/lab3d')), empty: emptyPhyPendulumState, missing: phyPendulumMissing },
   'phy-ohms-law': { id: 'phy-ohms-law', component: lazy(() => import('./phy-ohms-law')), component3d: lazy(() => import('./phy-ohms-law/lab3d')), empty: emptyPhyOhmsState, missing: phyOhmsMissing },

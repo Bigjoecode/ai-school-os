@@ -160,7 +160,7 @@ function Enquiries({ d }: { d: PricingConsole }) {
             <li key={e.id} className="flex flex-wrap items-start justify-between gap-3 px-5 py-3 text-[13px] sm:px-6">
               <div className="min-w-0">
                 <p className="font-medium">
-                  {e.schoolName} <span className="text-muted-foreground">· {e.plan ?? 'pricing'} · {e.students.toLocaleString('en-NG')} students{e.branches > 1 ? `, ${e.branches} branches` : ''}</span>
+                  {e.schoolName} <span className="text-muted-foreground">· {e.plan ?? (e.message?.startsWith('Demo request') ? 'demo request' : 'pricing')} · {e.students.toLocaleString('en-NG')} students{e.branches > 1 ? `, ${e.branches} branches` : ''}</span>
                 </p>
                 <p className="text-[12px] text-muted-foreground">
                   {e.contactName} · <a href={`mailto:${e.email}`} className="hover:underline">{e.email}</a> · <a href={`tel:${e.phone}`} className="hover:underline">{e.phone}</a> · {formatDate(e.createdAt)}

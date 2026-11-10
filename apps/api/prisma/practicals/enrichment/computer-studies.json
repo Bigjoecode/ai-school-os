@@ -1,0 +1,2513 @@
+{
+  "subject": "Computer Studies",
+  "room": "drawing",
+  "lessons": {
+    "pr-cst-booting-and-shutting-down": {
+      "safety": {
+        "correct": [
+          "Tell the teacher if a computer gives repeated beeps at start-up instead of the usual single short beep."
+        ],
+        "wrong": [
+          {
+            "text": "Unplug the UPS from the wall to restart the computer more quickly.",
+            "why": "Cutting the power while Windows runs can corrupt files. Restart from the Start menu."
+          },
+          {
+            "text": "Keep pressing the power button if the computer seems slow to start.",
+            "why": "Repeated presses can interrupt the start-up. Wait and watch the POST, then tell the teacher if it stops."
+          },
+          {
+            "text": "Cover the vents of the system unit with a cloth to keep dust out while it runs.",
+            "why": "Blocked vents trap heat and the machine can overheat. Dust covers go on only when it is off and cool."
+          },
+          {
+            "text": "Push a frayed cable firmly back into the socket so that the class can continue.",
+            "why": "A frayed cable can give a shock or start a fire. Leave it alone and report it to the teacher."
+          },
+          {
+            "text": "Eat your snack at the desk as long as it is kept away from the keyboard.",
+            "why": "Crumbs and spills still reach the equipment. Food stays out of the computer laboratory."
+          },
+          {
+            "text": "Switch the computer back on the moment the power light goes off.",
+            "why": "The computer should be left for about 10 seconds after shut-down before it is started again."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Screwdriver set",
+            "why": "The system unit is not opened in this job."
+          },
+          {
+            "name": "Anti-static wrist strap",
+            "why": "This is for handling parts inside the case, and nothing inside is touched."
+          },
+          {
+            "name": "Windows installation disc",
+            "why": "You are starting Windows, not installing it."
+          },
+          {
+            "name": "Laser printer",
+            "why": "Nothing is printed. Results go in the notebook."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "No circuit work is done here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "slow-boot",
+          "afterStep": 4,
+          "prompt": "Your cold boot took far longer than your neighbour's, and the screen mentioned Windows updates. What do you put in your table?",
+          "options": [
+            {
+              "text": "Your own time, with a note that updates were running",
+              "correct": true,
+              "consequence": "The result is honest, and the note names a real source of error: background updates slow some boots."
+            },
+            {
+              "text": "Your neighbour's time, since yours looks wrong",
+              "consequence": "That is not your measurement, so the table no longer describes your computer."
+            },
+            {
+              "text": "Nothing yet: switch off at the UPS and boot again",
+              "consequence": "Cutting the power during an update can corrupt files, and the machine may then fail to start."
+            }
+          ]
+        },
+        {
+          "id": "warm-method",
+          "afterStep": 5,
+          "prompt": "You must now warm boot the computer. Which action do you take?",
+          "options": [
+            {
+              "text": "Start > Power > Restart",
+              "correct": true,
+              "consequence": "Windows closes in an orderly way and starts again: that is a warm boot."
+            },
+            {
+              "text": "Hold the power button until the screen goes dark",
+              "consequence": "That forces a working computer off. Files can be damaged, and it is not a warm boot."
+            },
+            {
+              "text": "Switch off the UPS, then switch it back on",
+              "consequence": "That removes the power, so it would be a cold start, and Windows was still running."
+            }
+          ]
+        },
+        {
+          "id": "open-work",
+          "afterStep": 6,
+          "prompt": "The bell has gone and your notes are still open in a program. What do you do first?",
+          "options": [
+            {
+              "text": "Save and close the file, then shut down from Start",
+              "correct": true,
+              "consequence": "Your work is safe and Windows closes cleanly."
+            },
+            {
+              "text": "Press the power button once, since it is quicker",
+              "consequence": "Work not saved can be lost. A normal shut-down uses the Start menu."
+            },
+            {
+              "text": "Turn the monitor off and leave the computer running",
+              "consequence": "The screen is dark but the computer has not shut down, and your file is still unsaved."
+            }
+          ]
+        },
+        {
+          "id": "light-still-on",
+          "afterStep": 6,
+          "prompt": "You have chosen Shut down. The screen says \"Shutting down\" and the power light is still on. What now?",
+          "options": [
+            {
+              "text": "Wait for the light to go off, then switch off the monitor and UPS",
+              "correct": true,
+              "consequence": "Windows finishes closing its files before any power is removed."
+            },
+            {
+              "text": "Switch off the UPS now to save time before the next class",
+              "consequence": "The power goes while Windows is still writing to the disk, which can corrupt files."
+            },
+            {
+              "text": "Pull the power cable from the back of the system unit",
+              "consequence": "That cuts the power during shut-down and handles a live connection for no reason."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "post-signs",
+          "prompt": "You have just pressed the power button after a cold start. Which of these shows that the POST is running?",
+          "options": [
+            {
+              "text": "The fans start, the logo appears and a short beep is heard",
+              "correct": true
+            },
+            {
+              "text": "The desktop icons appear and the clock shows the time",
+              "why": "That comes later, once Windows has loaded."
+            },
+            {
+              "text": "The screen says \"Shutting down\"",
+              "why": "That message appears at the end of a session, not at the start."
+            },
+            {
+              "text": "The Start menu opens by itself",
+              "why": "The POST is a hardware check before any Windows feature exists."
+            }
+          ]
+        },
+        {
+          "id": "desktop-feature",
+          "prompt": "You are listing the features of the Windows desktop. Which entry belongs on the list?",
+          "options": [
+            {
+              "text": "Taskbar",
+              "correct": true
+            },
+            {
+              "text": "Keyboard",
+              "why": "That is hardware, not a feature of the desktop."
+            },
+            {
+              "text": "Monitor",
+              "why": "That is hardware. The desktop is what it displays."
+            },
+            {
+              "text": "System unit",
+              "why": "That is hardware, not a screen feature."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "time-saved",
+          "prompt": "A cold boot took {c} s and a warm boot took {w} s. How many seconds did the warm boot save?",
+          "formula": "c - w",
+          "vars": {
+            "c": {
+              "min": 40,
+              "max": 90,
+              "step": 5
+            },
+            "w": {
+              "min": 15,
+              "max": 35,
+              "step": 5
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "sec",
+            "secs",
+            "second",
+            "seconds"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Time saved = {c} - {w} = {answer} s."
+        },
+        {
+          "id": "percent-quicker",
+          "prompt": "A cold boot took {c} s and a warm boot took {w} s. By what percentage of the cold-boot time was the warm boot quicker?",
+          "formula": "(c - w) / c * 100",
+          "vars": {
+            "c": {
+              "min": 40,
+              "max": 80,
+              "step": 10
+            },
+            "w": {
+              "min": 15,
+              "max": 30,
+              "step": 5
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "Percentage quicker = ({c} - {w}) / {c} x 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ngozi-session",
+          "scenario": "Ngozi's table of boot times looks odd, and the computer complained about files the next day. Here is what she did.",
+          "lines": [
+            {
+              "text": "She held the power button down to end the session, although Windows was working normally.",
+              "fault": true,
+              "why": "Holding the button forces the machine off and can corrupt files. Use Start > Power > Shut down."
+            },
+            {
+              "text": "She wrote \"keyboard\" and \"mouse\" in her list of desktop features.",
+              "fault": true,
+              "why": "Those are hardware. Desktop features include icons, the Start button and the taskbar."
+            },
+            {
+              "text": "She labelled the restart from the Start menu as a cold boot.",
+              "fault": true,
+              "why": "A restart of a running computer is a warm boot. A cold boot starts from power off."
+            },
+            {
+              "text": "She switched on the UPS, then the monitor, then the system unit.",
+              "why": "That is the correct order."
+            },
+            {
+              "text": "She stopped the timer when the busy circle had gone from the pointer.",
+              "why": "That is when the desktop is really ready."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions to take when starting and shutting down a computer.",
+        "explainPrompt": "Why is it wrong to switch off at the wall socket or UPS while Windows is still running?",
+        "explainGuide": "Windows is still writing to its files on the disk. Cutting the power stops that part-way, so files can be corrupted or lost, and the computer may not start properly next time.",
+        "explainKeywords": [
+          [
+            "corrupt",
+            "damage",
+            "lost",
+            "loss"
+          ],
+          [
+            "file",
+            "files",
+            "data"
+          ],
+          [
+            "writing",
+            "running",
+            "power",
+            "shut"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Booting and shutting down",
+        "Cold boot, warm boot, shut down",
+        "Record every time in your table"
+      ]
+    },
+    "pr-cst-keyboard-and-mouse-skills": {
+      "safety": {
+        "correct": [
+          "Keep your wrists straight and relaxed while typing so that they do not ache."
+        ],
+        "wrong": [
+          {
+            "text": "Rest your drink beside the mouse so that you do not have to leave your seat.",
+            "why": "One knock and it spills on the equipment. Drinks stay out of the laboratory."
+          },
+          {
+            "text": "Bang the keys hard so that each letter is sure to register.",
+            "why": "Hard strokes damage the keys and tire your fingers. A light touch is enough."
+          },
+          {
+            "text": "Lift the keyboard and shake it over the desk while the computer is running.",
+            "why": "Keys get pressed by accident and crumbs fall into the equipment. Report a dirty keyboard to the teacher."
+          },
+          {
+            "text": "Slouch close to the screen so that you can read the passage better.",
+            "why": "That strains your back and eyes. Sit upright at about arm's length."
+          },
+          {
+            "text": "Type for the whole period without looking up, even when your eyes hurt.",
+            "why": "Rest your eyes about every 20 minutes to avoid strain."
+          },
+          {
+            "text": "Pull the mouse cable hard if it does not reach far enough.",
+            "why": "That can break the cable or tug the plug loose. Move the mouse closer or ask for help."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Scanner",
+            "why": "The passage is typed, not scanned. Scanning would measure nothing."
+          },
+          {
+            "name": "Spreadsheet program",
+            "why": "Typing is done in Notepad or a word processor."
+          },
+          {
+            "name": "Microphone headset",
+            "why": "This is a test of typing, not of voice input."
+          },
+          {
+            "name": "Graphics tablet",
+            "why": "The mouse is the pointing device under practice."
+          },
+          {
+            "name": "Touchpad cleaner spray",
+            "why": "No cleaning is part of this job, and liquids do not belong near the keyboard."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "open-icon",
+          "afterStep": 1,
+          "prompt": "You want to open the Recycle Bin icon on the desktop. What do you do with the mouse?",
+          "options": [
+            {
+              "text": "Point at it and double-click the left button",
+              "correct": true,
+              "consequence": "A double-click opens the item, which is what you wanted."
+            },
+            {
+              "text": "Point at it and single-click the left button",
+              "consequence": "A single click only selects the icon. It shows highlighted but stays closed."
+            },
+            {
+              "text": "Drag it to the middle of the desktop",
+              "consequence": "That only moves the icon to a new place."
+            }
+          ]
+        },
+        {
+          "id": "at-five-minutes",
+          "afterStep": 3,
+          "prompt": "The stopwatch reaches 5 minutes and you are three words from the end of a sentence. What do you do?",
+          "options": [
+            {
+              "text": "Stop at once, even in mid-sentence",
+              "correct": true,
+              "consequence": "The time used in the calculation is exactly the time you typed for."
+            },
+            {
+              "text": "Finish the sentence, since it is only a few words",
+              "consequence": "You typed for longer than 5 minutes, so the wpm comes out too high."
+            },
+            {
+              "text": "Finish the sentence and add 5 seconds to your time",
+              "consequence": "The extra time is only a guess, so the timing is no longer exact."
+            }
+          ]
+        },
+        {
+          "id": "which-delete",
+          "afterStep": 3,
+          "prompt": "The cursor is just after a wrong letter you have typed. Which key removes that letter?",
+          "options": [
+            {
+              "text": "Backspace",
+              "correct": true,
+              "consequence": "Backspace deletes to the left of the cursor, which is the wrong letter."
+            },
+            {
+              "text": "Delete",
+              "consequence": "Delete removes the character to the right of the cursor, so a good letter would go."
+            },
+            {
+              "text": "Esc",
+              "consequence": "Esc does not remove text in Notepad, so the mistake stays."
+            }
+          ]
+        },
+        {
+          "id": "error-count",
+          "afterStep": 5,
+          "prompt": "You compare your typing with the printed passage. Which errors go into the net speed calculation?",
+          "options": [
+            {
+              "text": "Only the errors still left in the finished text",
+              "correct": true,
+              "consequence": "Net speed is reduced by uncorrected errors, so your count is correct."
+            },
+            {
+              "text": "Every time you pressed Backspace while typing",
+              "consequence": "Those mistakes were corrected. They cost you time but are not counted again."
+            },
+            {
+              "text": "None, as long as the passage can still be read",
+              "consequence": "Net speed needs the uncorrected errors, so your result would be too high."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "right-click",
+          "prompt": "You right-click an icon on the desktop. What should you see?",
+          "options": [
+            {
+              "text": "A shortcut menu appears beside the icon",
+              "correct": true
+            },
+            {
+              "text": "The program opens in a new window",
+              "why": "Opening needs a double-click."
+            },
+            {
+              "text": "The icon moves to the pointer",
+              "why": "Moving an icon needs a drag."
+            },
+            {
+              "text": "The Caps Lock light comes on",
+              "why": "That light responds to the Caps Lock key only."
+            }
+          ]
+        },
+        {
+          "id": "key-groups",
+          "prompt": "You are grouping the keys. Which group does F7 belong to?",
+          "options": [
+            {
+              "text": "Function keys",
+              "correct": true
+            },
+            {
+              "text": "Numeric keys",
+              "why": "Numeric keys are the top-row digits and the keypad."
+            },
+            {
+              "text": "Cursor keys",
+              "why": "Cursor keys are the arrows."
+            },
+            {
+              "text": "Alphabetic keys",
+              "why": "Though it has a letter on it, F7 is one of F1 to F12."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "gross-speed",
+          "prompt": "A student typed {c} characters in {m} minutes. A standard word is 5 characters. What is the gross speed in wpm?",
+          "formula": "c / 5 / m",
+          "vars": {
+            "c": {
+              "min": 1000,
+              "max": 2000,
+              "step": 100
+            },
+            "m": {
+              "min": 4,
+              "max": 5,
+              "step": 1
+            }
+          },
+          "unit": "wpm",
+          "unitAliases": [
+            "words per minute",
+            "words/min"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Words = {c} / 5. Gross speed = words / {m} = {answer} wpm."
+        },
+        {
+          "id": "net-speed",
+          "prompt": "A student typed {c} characters in {m} minutes and left {e} uncorrected errors. A standard word is 5 characters. What is the net speed in wpm?",
+          "formula": "c / 5 / m - e / m",
+          "vars": {
+            "c": {
+              "min": 1200,
+              "max": 1800,
+              "step": 100
+            },
+            "m": {
+              "min": 4,
+              "max": 5,
+              "step": 1
+            },
+            "e": {
+              "min": 2,
+              "max": 10,
+              "step": 2
+            }
+          },
+          "unit": "wpm",
+          "unitAliases": [
+            "words per minute",
+            "words/min"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Gross = {c} / 5 / {m}. Net = gross - {e} / {m} = {answer} wpm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "emeka-speed",
+          "scenario": "Emeka got 300 wpm for a typing test, which cannot be true. Here is what he did.",
+          "lines": [
+            {
+              "text": "He divided his characters by the minutes and called that his speed.",
+              "fault": true,
+              "why": "Characters must first be divided by 5 to give words. He forgot that step."
+            },
+            {
+              "text": "He kept typing for a while after the stopwatch reached the limit.",
+              "fault": true,
+              "why": "The extra typing inflates the count. Stop exactly at the time limit."
+            },
+            {
+              "text": "He described the numeric keypad as the function keys.",
+              "fault": true,
+              "why": "Function keys are F1 to F12. The keypad holds numeric keys."
+            },
+            {
+              "text": "He used the word processor's count to find his number of characters.",
+              "why": "That is the right way to get an exact figure."
+            },
+            {
+              "text": "He returned his fingers to the home keys after each stroke.",
+              "why": "That is correct typing technique."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a fair and comfortable typing test.",
+        "explainPrompt": "Why is the number of characters divided by 5 before the typing speed is worked out?",
+        "explainGuide": "A standard word is taken as 5 characters, including spaces. Dividing by 5 turns characters into standard words, so that speeds can be compared fairly in words per minute however long the real words are.",
+        "explainKeywords": [
+          [
+            "standard",
+            "average"
+          ],
+          [
+            "word",
+            "words"
+          ],
+          [
+            "character",
+            "characters",
+            "letters"
+          ],
+          [
+            "compare",
+            "fair",
+            "fairly"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Keyboard and mouse skills",
+        "Key groups and mouse actions",
+        "Show the formula before the numbers"
+      ]
+    },
+    "pr-cst-coreldraw-business-card": {
+      "safety": {
+        "correct": [
+          "Let the printer finish and stop before you remove the card from it."
+        ],
+        "wrong": [
+          {
+            "text": "Reach into the printer with your fingers to pull out a jammed card while it is printing.",
+            "why": "Moving parts can trap your fingers. Stop the printer and call the teacher."
+          },
+          {
+            "text": "Keep your bottle of water on the printer lid so that it is out of the way.",
+            "why": "A spill there can short-circuit the printer. Drinks stay out of the laboratory."
+          },
+          {
+            "text": "Sit very close to the screen to check small text on the card.",
+            "why": "That strains your eyes. Zoom in on screen and keep about arm's length."
+          },
+          {
+            "text": "Unplug the printer by pulling on the cable when you have finished.",
+            "why": "Pulling the cable can damage it. Do not touch plugs and report any fault to the teacher."
+          },
+          {
+            "text": "Work through break without resting because the design is nearly done.",
+            "why": "Rest your eyes about every 20 minutes, even when the job is nearly done."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Microsoft Excel",
+            "why": "A spreadsheet is not a drawing program for logos and layout."
+          },
+          {
+            "name": "Flatbed scanner",
+            "why": "The logo is drawn with the program's tools, not scanned in."
+          },
+          {
+            "name": "Laminating machine",
+            "why": "Lamination is not part of this job."
+          },
+          {
+            "name": "Audio recording software",
+            "why": "There is no sound in a business card."
+          },
+          {
+            "name": "A1 drawing board",
+            "why": "The card is laid out on screen, not drawn by hand."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "circle-draw",
+          "afterStep": 1,
+          "prompt": "The logo needs a perfect circle. How do you draw it?",
+          "options": [
+            {
+              "text": "Drag with the Ellipse tool while holding Ctrl",
+              "correct": true,
+              "consequence": "Ctrl constrains the shape, so the ellipse comes out as a true circle."
+            },
+            {
+              "text": "Drag with the Ellipse tool and judge it by eye",
+              "consequence": "The shape will be slightly oval, which shows when it sits beside the text."
+            },
+            {
+              "text": "Drag with the Rectangle tool while holding Ctrl",
+              "consequence": "That constrains a rectangle to a square, not a circle."
+            }
+          ]
+        },
+        {
+          "id": "before-moving",
+          "afterStep": 2,
+          "prompt": "Your logo is made of three parts and now needs to go to the top left. What do you do first?",
+          "options": [
+            {
+              "text": "Select all the parts and group them with Ctrl + G",
+              "correct": true,
+              "consequence": "The parts move together as one object and keep their positions."
+            },
+            {
+              "text": "Drag each part across on its own",
+              "consequence": "The parts slip out of position and the logo has to be rebuilt."
+            },
+            {
+              "text": "Select all the parts and press Ctrl + D",
+              "consequence": "Ctrl + D duplicates them, leaving you with a second copy to clear up."
+            }
+          ]
+        },
+        {
+          "id": "fonts",
+          "afterStep": 4,
+          "prompt": "The client wants the card to stand out. How do you handle the fonts and colours?",
+          "options": [
+            {
+              "text": "Use two fonts and colours that contrast",
+              "correct": true,
+              "consequence": "The card is clear and looks professional."
+            },
+            {
+              "text": "Give every line its own font and colour",
+              "consequence": "The card becomes crowded and hard to read."
+            },
+            {
+              "text": "Use pale yellow text on a white background",
+              "consequence": "Without contrast, the text fades away when printed."
+            }
+          ]
+        },
+        {
+          "id": "print-now",
+          "afterStep": 4,
+          "prompt": "The card is finished and the printer is free. What is your next move?",
+          "options": [
+            {
+              "text": "Save it as BusinessCard.cdr, then lay out the A4 sheet",
+              "correct": true,
+              "consequence": "Your design is safe before anything can go wrong at the printer."
+            },
+            {
+              "text": "Print one straight away and save it afterwards",
+              "consequence": "A power cut or a crash during printing would lose the whole design."
+            },
+            {
+              "text": "Close the program and let it ask you about saving",
+              "consequence": "One wrong click at the prompt and the design is gone."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "group-test",
+          "prompt": "You click once on the logo and drag it. How do you know the parts were grouped properly?",
+          "options": [
+            {
+              "text": "All the parts move together as one",
+              "correct": true
+            },
+            {
+              "text": "Only the circle moves and the initials stay",
+              "why": "The parts are still separate objects."
+            },
+            {
+              "text": "The logo changes colour as it moves",
+              "why": "Grouping has no effect on colour."
+            },
+            {
+              "text": "A second copy appears beside the first",
+              "why": "That is what duplicating does."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sheets",
+          "prompt": "You get 10 cards from each A4 sheet. How many sheets are needed for {c} cards?",
+          "formula": "c / 10",
+          "vars": {
+            "c": {
+              "min": 100,
+              "max": 500,
+              "step": 50
+            }
+          },
+          "unit": "sheets",
+          "unitAliases": [
+            "sheet",
+            "pages"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Sheets = {c} / 10 = {answer} sheets."
+        },
+        {
+          "id": "best-layout",
+          "prompt": "A sheet of A4 is 210 mm x 297 mm and each card is 90 mm x 55 mm. What is the greatest number of whole cards on one sheet, with all cards turned the same way?",
+          "answer": 10,
+          "unit": "cards",
+          "unitAliases": [
+            "card"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "One way: floor(210/90) x floor(297/55) = 2 x 5 = 10. Turned round: floor(210/55) x floor(297/90) = 3 x 3 = 9. Choose {answer}."
+        },
+        {
+          "id": "text-width",
+          "prompt": "A card is {w} mm wide. Text must stay 3 mm from each side edge. What is the widest a line of text can be, in mm?",
+          "formula": "w - 6",
+          "vars": {
+            "w": {
+              "min": 85,
+              "max": 95,
+              "step": 5
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Width = {w} - 3 - 3 = {answer} mm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ilorin-cards",
+          "scenario": "Bola's cards for a business centre in Ilorin came out messy, and part of the phone number is cut off. Here is what she did.",
+          "lines": [
+            {
+              "text": "She placed the phone number right against the bottom edge of the card.",
+              "fault": true,
+              "why": "Text must be at least 3 mm from the edges or it can be cut off."
+            },
+            {
+              "text": "She used five different fonts so that each line would look special.",
+              "fault": true,
+              "why": "Too many fonts make a crowded design. Two or three are enough."
+            },
+            {
+              "text": "She moved the logo's parts one at a time because she had not grouped them.",
+              "fault": true,
+              "why": "Grouped objects move together. Without grouping the logo falls apart."
+            },
+            {
+              "text": "She set the page size to 90 mm x 55 mm before drawing.",
+              "why": "That is the right card size for this job."
+            },
+            {
+              "text": "She lined up the text with Align and Distribute.",
+              "why": "That is the proper tool for lining up objects."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for designing and printing a business card.",
+        "explainPrompt": "Why should the logo parts be grouped before the logo is moved or copied?",
+        "explainGuide": "Grouping makes the separate shapes act as one object. They then move and copy together and keep their positions relative to each other, so the logo stays intact.",
+        "explainKeywords": [
+          [
+            "group",
+            "grouped",
+            "grouping"
+          ],
+          [
+            "together",
+            "one object",
+            "single"
+          ],
+          [
+            "position",
+            "intact",
+            "apart",
+            "move"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Business card in CorelDRAW",
+        "Card size 90 mm x 55 mm",
+        "Save before printing"
+      ]
+    },
+    "pr-cst-storage-unit-conversion": {
+      "safety": {
+        "correct": [
+          "Pull a flash drive out only after using Safely Remove Hardware or Eject."
+        ],
+        "wrong": [
+          {
+            "text": "Pull out the flash drive the moment the file has been copied, without ejecting it.",
+            "why": "The drive may still be writing. Eject it first so that data is not corrupted."
+          },
+          {
+            "text": "Hold the CD by its shiny surface so that it does not fall.",
+            "why": "Fingermarks and scratches can stop a disc being read. Hold it by the edges."
+          },
+          {
+            "text": "Force a flash drive into the USB port if it does not go in at first.",
+            "why": "Force can break the port. Turn the drive over and try gently."
+          },
+          {
+            "text": "Reach across the desk with a drink in hand to compare your figures with a friend's.",
+            "why": "A spill can short-circuit the equipment. Drinks stay out of the laboratory."
+          },
+          {
+            "text": "Open up the system unit to read the size printed on the RAM.",
+            "why": "There is no need: Windows reports the RAM. Only a technician opens the case, with the power off."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Floppy disk",
+            "why": "Only the devices named in the lesson are compared here."
+          },
+          {
+            "name": "Screwdriver set",
+            "why": "The RAM size is read from Settings. The case stays closed."
+          },
+          {
+            "name": "Digital multimeter",
+            "why": "Storage capacity is not measured with a meter."
+          },
+          {
+            "name": "Printer",
+            "why": "Nothing is printed in this job."
+          },
+          {
+            "name": "Weighing scale",
+            "why": "Capacity has nothing to do with mass."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2,
+            3
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "which-factor",
+          "afterStep": 3,
+          "prompt": "You are about to convert the capacities on your table. Which conversion factor do you use?",
+          "options": [
+            {
+              "text": "1 024 between each unit and the next",
+              "correct": true,
+              "consequence": "Computer storage works in powers of 2, so the lesson's 1 024 is correct."
+            },
+            {
+              "text": "1 000 between each unit and the next",
+              "consequence": "Manufacturers quote that way, but this exercise uses 1 024, and your answers would be wrong."
+            },
+            {
+              "text": "8 between each unit and the next",
+              "consequence": "Eight is only the number of bits in a byte, not the step between KB, MB and GB."
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "afterStep": 4,
+          "prompt": "You need to change 5 120 KB into MB. What do you do with the 1 024?",
+          "options": [
+            {
+              "text": "Divide, because the unit is getting larger",
+              "correct": true,
+              "consequence": "A larger unit gives a smaller number: 5 120 / 1 024 = 5 MB."
+            },
+            {
+              "text": "Multiply, because the unit is getting larger",
+              "consequence": "The number becomes huge, which is a common mistake in this topic."
+            },
+            {
+              "text": "Subtract it from the figure once for each unit",
+              "consequence": "Unit conversions need multiplying or dividing, never subtracting."
+            }
+          ]
+        },
+        {
+          "id": "cds-needed",
+          "afterStep": 5,
+          "prompt": "Your division gives 6.88 CDs needed to hold one DVD's data. What do you write down?",
+          "options": [
+            {
+              "text": "7 CDs",
+              "correct": true,
+              "consequence": "A part-filled seventh disc is still needed for the remaining data."
+            },
+            {
+              "text": "6 CDs",
+              "consequence": "Six discs cannot hold all the data. Some of it is left over."
+            },
+            {
+              "text": "6.88 CDs",
+              "consequence": "You cannot use part of a disc, so the answer must be a whole number."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "ram-vs-disk",
+          "prompt": "You compare the RAM figure with drive C. Which result fits what you should find?",
+          "options": [
+            {
+              "text": "The RAM is much smaller than the hard disk",
+              "correct": true
+            },
+            {
+              "text": "The RAM is several times bigger than the hard disk",
+              "why": "RAM is smaller. Hard disks hold far more."
+            },
+            {
+              "text": "The RAM and hard disk are the same size",
+              "why": "They do different jobs and differ greatly in size."
+            }
+          ]
+        },
+        {
+          "id": "free-space",
+          "prompt": "You copy a file to the flash drive and look again at its free space. What should have happened?",
+          "options": [
+            {
+              "text": "Free space fell by roughly the size of the file",
+              "correct": true
+            },
+            {
+              "text": "Free space rose by the size of the file",
+              "why": "Adding a file uses up space."
+            },
+            {
+              "text": "Free space stayed exactly the same",
+              "why": "The file is now stored there and takes up room."
+            },
+            {
+              "text": "Total capacity of the drive fell by the file size",
+              "why": "Total size is fixed. Only the free space changes."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "gb-to-mb",
+          "prompt": "A computer has {g} GB of RAM. How many MB is that? Use 1 GB = 1 024 MB.",
+          "formula": "g * 1024",
+          "vars": {
+            "g": {
+              "min": 2,
+              "max": 16,
+              "step": 2
+            }
+          },
+          "unit": "MB",
+          "unitAliases": [
+            "megabytes"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{g} x 1 024 = {answer} MB."
+        },
+        {
+          "id": "kb-to-mb",
+          "prompt": "A file is {k} KB. How many MB is that? Use 1 MB = 1 024 KB.",
+          "formula": "k / 1024",
+          "vars": {
+            "k": {
+              "min": 1024,
+              "max": 10240,
+              "step": 1024
+            }
+          },
+          "unit": "MB",
+          "unitAliases": [
+            "megabytes"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{k} / 1 024 = {answer} MB."
+        },
+        {
+          "id": "bytes-to-bits",
+          "prompt": "How many bits are there in {b} bytes?",
+          "formula": "b * 8",
+          "vars": {
+            "b": {
+              "min": 3,
+              "max": 20,
+              "step": 1
+            }
+          },
+          "unit": "bits",
+          "unitAliases": [
+            "bit"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "1 byte = 8 bits, so {b} x 8 = {answer} bits."
+        },
+        {
+          "id": "nibbles",
+          "prompt": "How many nibbles are there in {b} bytes?",
+          "formula": "b * 2",
+          "vars": {
+            "b": {
+              "min": 3,
+              "max": 20,
+              "step": 1
+            }
+          },
+          "unit": "nibbles",
+          "unitAliases": [
+            "nibble"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "1 byte = 2 nibbles, so {b} x 2 = {answer} nibbles."
+        },
+        {
+          "id": "dvd-mb",
+          "prompt": "A DVD holds 4.7 GB. How many MB is that? Use 1 GB = 1 024 MB.",
+          "answer": 4812.8,
+          "unit": "MB",
+          "unitAliases": [
+            "megabytes"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "4.7 x 1 024 = {answer} MB."
+        }
+      ],
+      "faults": [
+        {
+          "id": "sade-table",
+          "scenario": "Sade's storage table has several wrong answers. Here is what she did.",
+          "lines": [
+            {
+              "text": "She multiplied by 1 024 to change KB into MB.",
+              "fault": true,
+              "why": "Going to a larger unit, you divide."
+            },
+            {
+              "text": "She used 1 000 for every conversion in her table.",
+              "fault": true,
+              "why": "Computer storage conversions in this exercise use 1 024."
+            },
+            {
+              "text": "She wrote that 6 CDs will hold a DVD's data after getting 6.88.",
+              "fault": true,
+              "why": "Six cannot hold it all. A seventh disc is needed."
+            },
+            {
+              "text": "She read the installed RAM from Settings > System > About.",
+              "why": "That is the correct place to find it."
+            },
+            {
+              "text": "She showed each step with its factor of 1 024.",
+              "why": "That is how to earn the method marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for reading and converting storage capacities.",
+        "explainPrompt": "Why does Windows show a new 16 GB flash drive as having slightly less than 16 GB?",
+        "explainGuide": "Manufacturers count capacity using 1 000 for each step, while Windows reports it using 1 024. The same number of bytes therefore looks like a smaller number of gigabytes on the screen.",
+        "explainKeywords": [
+          [
+            "manufacturer",
+            "manufacturers",
+            "maker"
+          ],
+          [
+            "1000",
+            "1 000",
+            "thousand"
+          ],
+          [
+            "1024",
+            "1 024"
+          ],
+          [
+            "windows",
+            "computer",
+            "binary"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Units of storage",
+        "Bits, bytes, KB, MB, GB, TB",
+        "Show each conversion factor"
+      ]
+    },
+    "pr-cst-number-base-conversion": {
+      "safety": {
+        "correct": [
+          "Close the Calculator and leave the desk tidy when you finish."
+        ],
+        "wrong": [
+          {
+            "text": "Eat at the keyboard while working through the exercise sheet.",
+            "why": "Crumbs and drinks can damage the keyboard. Keep food out of the laboratory."
+          },
+          {
+            "text": "Pull the mouse plug out and back in when the Calculator is slow to open.",
+            "why": "Do not disturb cables. Wait, or tell the teacher."
+          },
+          {
+            "text": "Stay bent over your exercise sheet with your face close to the desk.",
+            "why": "That strains your back and eyes. Sit upright."
+          },
+          {
+            "text": "Work for the whole period without once looking away from the screen.",
+            "why": "Rest your eyes about every 20 minutes."
+          },
+          {
+            "text": "Reach behind the system unit with damp hands to check the cable.",
+            "why": "Keep wet hands away from cables and report any problem."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Typing tutor program",
+            "why": "The conversions are done by hand and checked in Calculator."
+          },
+          {
+            "name": "Slide rule",
+            "why": "A slide rule cannot work in number bases."
+          },
+          {
+            "name": "Flash drive",
+            "why": "No files are moved in this practical."
+          },
+          {
+            "name": "Graphics tablet",
+            "why": "Nothing is drawn. You write your working on the sheet."
+          },
+          {
+            "name": "Set of drawing instruments",
+            "why": "Base conversion needs no drawing."
+          }
+        ],
+        "optional": [
+          "Scientific calculator (optional)"
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "read-order",
+          "afterStep": 1,
+          "prompt": "You have the column of remainders for 45 divided by 2. In what order do you write them?",
+          "options": [
+            {
+              "text": "From the last remainder up to the first",
+              "correct": true,
+              "consequence": "The last remainder is the most significant bit, so you get the right binary number."
+            },
+            {
+              "text": "From the first remainder down to the last",
+              "consequence": "The digits come out reversed, which is a common mistake."
+            },
+            {
+              "text": "Largest remainders first, then the smallest",
+              "consequence": "The order of the digits carries the value, so sorting them destroys the number."
+            }
+          ]
+        },
+        {
+          "id": "hex-fifteen",
+          "afterStep": 4,
+          "prompt": "Dividing 159 by 16 gives 9 remainder 15. How do you write the answer in base 16?",
+          "options": [
+            {
+              "text": "9F",
+              "correct": true,
+              "consequence": "In hexadecimal, 15 is the single digit F."
+            },
+            {
+              "text": "915",
+              "consequence": "A remainder of 15 must be one digit. This reads as a different number."
+            },
+            {
+              "text": "159",
+              "consequence": "That is just the decimal number again."
+            }
+          ]
+        },
+        {
+          "id": "octal-digit",
+          "afterStep": 4,
+          "prompt": "A classmate's exercise sheet has the number 2 8 3 labelled as base 8. What do you do?",
+          "options": [
+            {
+              "text": "Point out that it is not a valid base-8 number",
+              "correct": true,
+              "consequence": "Base 8 uses only the digits 0 to 7, so 8 cannot appear."
+            },
+            {
+              "text": "Convert it using place values 64, 8 and 1",
+              "consequence": "The arithmetic works but the answer means nothing, because 8 is not a base-8 digit."
+            },
+            {
+              "text": "Drop the 8 and convert the 23 that is left",
+              "consequence": "That changes the number. A mistake in the sheet must be reported, not hidden."
+            }
+          ]
+        },
+        {
+          "id": "check-method",
+          "afterStep": 5,
+          "prompt": "Your hand answer and the Programmer Calculator disagree. What do you do?",
+          "options": [
+            {
+              "text": "Rework your divisions step by step to find the slip",
+              "correct": true,
+              "consequence": "You find the mistake, and your full working earns the method marks."
+            },
+            {
+              "text": "Copy the Calculator answer and leave your working",
+              "consequence": "The answer no longer matches the working, so the method marks are lost."
+            },
+            {
+              "text": "Keep your hand answer, because the Calculator can be wrong",
+              "consequence": "The Calculator is the check. A difference means your arithmetic needs looking at."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "programmer-mode",
+          "prompt": "You type 27 with DEC selected in Calculator's Programmer mode. What should you see?",
+          "options": [
+            {
+              "text": "The value shown in HEX, DEC, OCT and BIN at once",
+              "correct": true
+            },
+            {
+              "text": "Only the BIN value, in place of the decimal",
+              "why": "All four appear together."
+            },
+            {
+              "text": "An error message, because 27 is too small",
+              "why": "There is nothing wrong with entering 27."
+            }
+          ]
+        },
+        {
+          "id": "hex-digit-value",
+          "prompt": "Which of these is the decimal value of the hexadecimal digit D?",
+          "options": [
+            {
+              "text": "13",
+              "correct": true
+            },
+            {
+              "text": "14",
+              "why": "14 is E."
+            },
+            {
+              "text": "12",
+              "why": "12 is C."
+            },
+            {
+              "text": "4",
+              "why": "D is the fourth letter, but its value is 13."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "bin-to-dec",
+          "prompt": "Convert 1{b}{c}{d}{e} (base 2) to base 10.",
+          "formula": "16 + 8 * b + 4 * c + 2 * d + e",
+          "vars": {
+            "b": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            },
+            "c": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            },
+            "d": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            },
+            "e": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Using place values 16, 8, 4, 2, 1: 16 + 8 x {b} + 4 x {c} + 2 x {d} + {e} = {answer}."
+        },
+        {
+          "id": "oct-to-dec",
+          "prompt": "Convert {h}{t}{u} (base 8) to base 10.",
+          "formula": "64 * h + 8 * t + u",
+          "vars": {
+            "h": {
+              "min": 1,
+              "max": 7,
+              "step": 1
+            },
+            "t": {
+              "min": 0,
+              "max": 7,
+              "step": 1
+            },
+            "u": {
+              "min": 0,
+              "max": 7,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{h} x 64 + {t} x 8 + {u} = {answer}."
+        },
+        {
+          "id": "hex-to-dec",
+          "prompt": "Convert {a}F (base 16) to base 10.",
+          "formula": "16 * a + 15",
+          "vars": {
+            "a": {
+              "min": 1,
+              "max": 9,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} x 16 + 15 = {answer}."
+        },
+        {
+          "id": "dec-to-bin",
+          "prompt": "Write 45 (base 10) as a binary number.",
+          "answer": 101101,
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Repeated division by 2 gives remainders 1, 0, 1, 1, 0, 1. Reading upwards: {answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "tayo-working",
+          "scenario": "Tayo's base conversions are marked wrong in several places. Here is what he did.",
+          "lines": [
+            {
+              "text": "He read the binary remainders from top to bottom.",
+              "fault": true,
+              "why": "Remainders are read from the last to the first."
+            },
+            {
+              "text": "He wrote 15 instead of F in his hexadecimal answer.",
+              "fault": true,
+              "why": "Each hexadecimal place holds one symbol, so 15 must be written F."
+            },
+            {
+              "text": "He left the bases off the numbers in his working.",
+              "fault": true,
+              "why": "Every number needs its base as a subscript, or the value is unclear."
+            },
+            {
+              "text": "He used place values 64, 8 and 1 for a three-digit base-8 number.",
+              "why": "Those are the right place values."
+            },
+            {
+              "text": "He wrote out every division and its remainder.",
+              "why": "That earns method marks even if a final digit is wrong."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when converting numbers between bases by hand.",
+        "explainPrompt": "Why must the remainders in repeated division be read from the last one to the first?",
+        "explainGuide": "The first remainder is the units place, the least significant digit. The last remainder has the highest place value, so it must be written first for each digit to sit in its correct place.",
+        "explainKeywords": [
+          [
+            "last",
+            "first"
+          ],
+          [
+            "place",
+            "significant",
+            "value"
+          ],
+          [
+            "highest",
+            "least",
+            "units",
+            "most"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Number base conversions",
+        "Bases 2, 8, 10 and 16",
+        "Show every division and remainder"
+      ]
+    },
+    "pr-cst-logic-gates-truth-table": {
+      "safety": {
+        "correct": [
+          "Check the wiring of a chip against its pin diagram before you switch on."
+        ],
+        "wrong": [
+          {
+            "text": "Leave the 5 V supply on while you move wires on the breadboard.",
+            "why": "A slip can short the circuit or damage the chip. Switch off before changing wiring."
+          },
+          {
+            "text": "Connect any supply you find, since chips will work on most voltages.",
+            "why": "The lesson's chips need 5 V, correctly connected. A wrong supply can destroy them."
+          },
+          {
+            "text": "Swap the +5 V and 0 V wires if the LED does not light.",
+            "why": "Reversed supply can damage the chip. Pin 14 goes to +5 V and pin 7 to 0 V."
+          },
+          {
+            "text": "Press a hot chip with your finger to see whether it is working.",
+            "why": "A hot chip can burn you and warns of a wiring fault. Switch off and check."
+          },
+          {
+            "text": "Bend the pins of a chip flat so that it pushes into the board more easily.",
+            "why": "Bent pins break or make poor contact. Line the chip up and press gently."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Compass and dividers",
+            "why": "Gate symbols come from a stencil or software."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "A breadboard needs no soldering, and the circuit is only a trial."
+          },
+          {
+            "name": "12 V car battery",
+            "why": "These chips are used with a 5 V supply. A higher voltage can destroy them."
+          },
+          {
+            "name": "Network cable tester",
+            "why": "No network is involved. The truth table is worked out by hand."
+          },
+          {
+            "name": "Protractor",
+            "why": "No angles are measured here."
+          }
+        ],
+        "optional": [
+          "Optional: online logic simulator or a breadboard with 7408 (AND), 7432 (OR) and 7404 (NOT) chips, LEDs and a 5 V supply"
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "list-order",
+          "afterStep": 3,
+          "prompt": "You must set out the input combinations for A, B and C. How do you list them?",
+          "options": [
+            {
+              "text": "In binary counting order, from 000 to 111",
+              "correct": true,
+              "consequence": "All 8 rows appear exactly once, and none is missed."
+            },
+            {
+              "text": "In whatever order you think of them",
+              "consequence": "It is easy to repeat or miss a row, and you would lose the marks for it."
+            },
+            {
+              "text": "Only the rows where the output will be 1",
+              "consequence": "A truth table needs every combination, including those that give 0."
+            }
+          ]
+        },
+        {
+          "id": "row-count",
+          "afterStep": 4,
+          "prompt": "You have written six rows and cannot think of another. What do you decide?",
+          "options": [
+            {
+              "text": "Add two more, as three inputs give eight rows",
+              "correct": true,
+              "consequence": "2^3 = 8, so the table is now complete."
+            },
+            {
+              "text": "Stop at six, one pair of rows for each input",
+              "consequence": "Six is a common wrong count. Some of the combinations are still missing."
+            },
+            {
+              "text": "Stop at three, one row for each input",
+              "consequence": "A truth table needs every combination, not one row per input."
+            }
+          ]
+        },
+        {
+          "id": "working-columns",
+          "afterStep": 4,
+          "prompt": "How do you lay out the table to find X for each row?",
+          "options": [
+            {
+              "text": "Give A.B and C' their own columns before X",
+              "correct": true,
+              "consequence": "The intermediate columns reduce slips and earn method marks."
+            },
+            {
+              "text": "Go straight to X and do the rest in your head",
+              "consequence": "Slips go unnoticed, and the method marks for those columns are lost."
+            },
+            {
+              "text": "Add a column for A + B, then find X from it",
+              "consequence": "A + B is not part of X = A.B + C', so that column leads you astray."
+            }
+          ]
+        },
+        {
+          "id": "led-wrong",
+          "afterStep": 6,
+          "prompt": "On the breadboard, one row of your table does not match the LED. What do you do first?",
+          "options": [
+            {
+              "text": "Switch off, then check the wiring for loose links",
+              "correct": true,
+              "consequence": "Loose breadboard connections are a common source of error, and it is safe to work on with the power off."
+            },
+            {
+              "text": "Change the table to match what the LED shows",
+              "consequence": "A wiring fault has now been copied into your work and hidden."
+            },
+            {
+              "text": "Move the wires around with the supply still on",
+              "consequence": "A slip can short the circuit. Always switch off before changing wiring."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "led-count",
+          "prompt": "You step through all the input combinations for X = A.B + C'. What should the LED show?",
+          "options": [
+            {
+              "text": "On for 5 of the 8 combinations",
+              "correct": true
+            },
+            {
+              "text": "On for 4 of the 8 combinations",
+              "why": "Count again: X is 1 for every row with C = 0, and for 111."
+            },
+            {
+              "text": "On only for 111",
+              "why": "X is also 1 whenever C = 0."
+            },
+            {
+              "text": "On for all 8 combinations",
+              "why": "X is 0 for 001, 011 and 101."
+            }
+          ]
+        },
+        {
+          "id": "nand-output",
+          "prompt": "Which gate gives an output of 0 only when both of its inputs are 1?",
+          "options": [
+            {
+              "text": "NAND",
+              "correct": true
+            },
+            {
+              "text": "AND",
+              "why": "AND gives 1 only when both inputs are 1."
+            },
+            {
+              "text": "NOR",
+              "why": "NOR gives 1 only when both inputs are 0."
+            },
+            {
+              "text": "XOR",
+              "why": "XOR gives 1 when its inputs differ."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "rows",
+          "prompt": "How many rows does the truth table of a circuit with {n} inputs have?",
+          "formula": "2 ^ n",
+          "vars": {
+            "n": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Rows = 2^{n} = {answer}."
+        },
+        {
+          "id": "x-value",
+          "prompt": "For X = A.B + C', find X when A = {a}, B = {b} and C = {c}.",
+          "formula": "max(a * b, 1 - c)",
+          "vars": {
+            "a": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            },
+            "b": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            },
+            "c": {
+              "min": 0,
+              "max": 1,
+              "step": 1
+            }
+          },
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "A.B = {a} x {b}. C' is the opposite of {c}. OR gives 1 if either is 1, so X = {answer}."
+        },
+        {
+          "id": "rows-with-one",
+          "prompt": "In the full truth table of X = A.B + C', in how many rows is X equal to 1?",
+          "answer": 5,
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "X = 1 for 000, 010, 100, 110 and 111: that is {answer} rows."
+        }
+      ],
+      "faults": [
+        {
+          "id": "kemi-gates",
+          "scenario": "Kemi's logic work lost marks in several places. Here is what she did.",
+          "lines": [
+            {
+              "text": "She drew the OR gate with a flat back.",
+              "fault": true,
+              "why": "A flat back belongs to AND. The OR gate has a curved back."
+            },
+            {
+              "text": "She drew the NAND gate without the small bubble at its output.",
+              "fault": true,
+              "why": "The bubble shows the inversion on NOT, NAND and NOR."
+            },
+            {
+              "text": "She gave six rows for her three-input table.",
+              "fault": true,
+              "why": "Three inputs need 2^3 = 8 rows."
+            },
+            {
+              "text": "She listed her inputs from 000 to 111 in counting order.",
+              "why": "That makes sure no row is missed."
+            },
+            {
+              "text": "She added columns for A.B and C' before the column for X.",
+              "why": "Those intermediate columns earn method marks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when drawing logic circuits and building truth tables.",
+        "explainPrompt": "Why does a truth table with three inputs have eight rows?",
+        "explainGuide": "Each input can be 0 or 1, giving two choices. With three inputs the number of combinations is 2 x 2 x 2 = 2^3 = 8, and a truth table must show every combination, so it needs eight rows.",
+        "explainKeywords": [
+          [
+            "two",
+            "binary"
+          ],
+          [
+            "combination",
+            "combinations"
+          ],
+          [
+            "eight",
+            "2^3"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Logic circuits and truth tables",
+        "X = A.B + C'",
+        "List inputs in counting order"
+      ]
+    },
+    "pr-cst-network-topology": {
+      "safety": {
+        "correct": [
+          "Walk carefully round the laboratory and do not step on cables or trunking."
+        ],
+        "wrong": [
+          {
+            "text": "Unplug a cable from the switch to see which computer loses its connection.",
+            "why": "That disrupts other users' work. Do not unplug network devices without permission."
+          },
+          {
+            "text": "Lift the cover off the trunking to count the cables inside.",
+            "why": "That can damage the installation. Count from the visible ends or ask the teacher."
+          },
+          {
+            "text": "Press the reset button on the router to find out what it does.",
+            "why": "A reset can wipe its settings and take the whole network down."
+          },
+          {
+            "text": "Stand on a chair to read the label on a wall-mounted switch.",
+            "why": "A chair can tip over. Ask the teacher to read it or show you a picture."
+          },
+          {
+            "text": "Switch off the modem to see whether anything changes in the laboratory.",
+            "why": "That cuts off the network for everyone. Never do it without permission."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Crimping tool",
+            "why": "No cables are made in this practical. You observe and draw."
+          },
+          {
+            "name": "Network cable tester",
+            "why": "Cables are counted and drawn, not tested."
+          },
+          {
+            "name": "Flash drive",
+            "why": "Nothing is copied or stored in this job."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "There is no electronic repair in this job."
+          },
+          {
+            "name": "Protractor",
+            "why": "Topology diagrams show connections, not exact angles."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            2,
+            3,
+            4
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "centre-device",
+          "afterStep": 1,
+          "prompt": "You are drawing the star. What goes at the centre of your diagram?",
+          "options": [
+            {
+              "text": "The switch",
+              "correct": true,
+              "consequence": "In a star layout every cable runs from a computer to the central switch."
+            },
+            {
+              "text": "The first computer in the row",
+              "consequence": "Then that computer would have to carry all the links, which is not a star."
+            },
+            {
+              "text": "The modem",
+              "consequence": "A modem links the network to the Internet service. It does not join the computers."
+            }
+          ]
+        },
+        {
+          "id": "bus-ends",
+          "afterStep": 2,
+          "prompt": "What must you show at both ends of the bus backbone?",
+          "options": [
+            {
+              "text": "A terminator",
+              "correct": true,
+              "consequence": "Terminators stop signals bouncing back along the cable."
+            },
+            {
+              "text": "A switch",
+              "consequence": "A central switch or hub does not belong in a bus layout, which is a common mistake."
+            },
+            {
+              "text": "A router",
+              "consequence": "A router joins networks. It does not finish off a backbone."
+            }
+          ]
+        },
+        {
+          "id": "faulty-cable",
+          "afterStep": 5,
+          "prompt": "The school wants one faulty cable to stop only one computer. Which layout do you recommend?",
+          "options": [
+            {
+              "text": "Star, with a cable from each computer to the switch",
+              "correct": true,
+              "consequence": "A bad cable affects only its own computer, as in the laboratory."
+            },
+            {
+              "text": "Bus, with a single backbone for all the computers",
+              "consequence": "A break in the backbone can stop the whole network."
+            },
+            {
+              "text": "Ring, with each computer joined to two neighbours",
+              "consequence": "A break in a simple ring can stop traffic round the whole ring."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "lab-layout",
+          "prompt": "You follow the cables in the laboratory. Which finding means that it is a star?",
+          "options": [
+            {
+              "text": "Every cable runs from a computer to the switch",
+              "correct": true
+            },
+            {
+              "text": "All the computers tap into one long cable",
+              "why": "That describes a bus."
+            },
+            {
+              "text": "Each computer is joined to two neighbours",
+              "why": "That describes a ring."
+            }
+          ]
+        },
+        {
+          "id": "device-job",
+          "prompt": "You are labelling the devices. Which description fits the router?",
+          "options": [
+            {
+              "text": "It connects the LAN to other networks such as the Internet",
+              "correct": true
+            },
+            {
+              "text": "It is fitted inside each computer to join it to the cable",
+              "why": "That is the network interface card."
+            },
+            {
+              "text": "It closes the end of a bus backbone",
+              "why": "That is a terminator."
+            },
+            {
+              "text": "It joins the computers of one room to each other",
+              "why": "That is the job of the switch."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "free-ports",
+          "prompt": "A {p}-port switch connects {n} computers in a star. How many ports are free?",
+          "formula": "p - n",
+          "vars": {
+            "p": {
+              "min": 16,
+              "max": 24,
+              "step": 8
+            },
+            "n": {
+              "min": 8,
+              "max": 15,
+              "step": 1
+            }
+          },
+          "unit": "ports",
+          "unitAliases": [
+            "port"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Free ports = {p} - {n} = {answer} ports."
+        },
+        {
+          "id": "ring-links",
+          "prompt": "A ring joins {n} computers, each to two neighbours. How many links are needed?",
+          "formula": "n",
+          "vars": {
+            "n": {
+              "min": 6,
+              "max": 20,
+              "step": 2
+            }
+          },
+          "unit": "links",
+          "unitAliases": [
+            "link",
+            "cables"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "A ring of {n} computers closes with one link per computer: {answer} links."
+        },
+        {
+          "id": "star-cables",
+          "prompt": "How many cables does a star network of {n} computers need?",
+          "formula": "n",
+          "vars": {
+            "n": {
+              "min": 8,
+              "max": 24,
+              "step": 2
+            }
+          },
+          "unit": "cables",
+          "unitAliases": [
+            "cable"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "One cable per computer to the switch: {answer} cables."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ike-diagrams",
+          "scenario": "Ike's network diagrams lost marks. Here is what he did.",
+          "lines": [
+            {
+              "text": "He drew a hub in the middle of his bus topology.",
+              "fault": true,
+              "why": "A bus has a single backbone and no central device."
+            },
+            {
+              "text": "He described the network of the school laboratory as a WAN.",
+              "fault": true,
+              "why": "A network in one building is a LAN. A WAN covers a wide area."
+            },
+            {
+              "text": "He left the devices in his diagrams unlabelled.",
+              "fault": true,
+              "why": "Each device must be labelled to earn the marks."
+            },
+            {
+              "text": "He gave each computer two neighbours in his ring.",
+              "why": "That is a correct ring."
+            },
+            {
+              "text": "He ended the bus backbone with two terminators.",
+              "why": "That is correct for a bus."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for touring the laboratory and drawing its network.",
+        "explainPrompt": "Why does a fault in one cable of a star network affect only one computer?",
+        "explainGuide": "In a star, each computer has its own cable to the central switch. If one cable fails, only that computer is cut off, and the others keep working through their own cables.",
+        "explainKeywords": [
+          [
+            "own",
+            "separate",
+            "each"
+          ],
+          [
+            "cable",
+            "link"
+          ],
+          [
+            "switch",
+            "central",
+            "hub"
+          ],
+          [
+            "others",
+            "other",
+            "only"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Network topologies",
+        "Star, bus and ring",
+        "Label every device"
+      ]
+    },
+    "pr-cst-antivirus-scan": {
+      "safety": {
+        "correct": [
+          "Tell the teacher at once if the antivirus reports a threat on a school computer."
+        ],
+        "wrong": [
+          {
+            "text": "Open a file that the antivirus has flagged, to see what it really is.",
+            "why": "A flagged file can infect the computer when it runs. Quarantine it and tell the teacher."
+          },
+          {
+            "text": "Turn off the antivirus because it is slowing down your work.",
+            "why": "That leaves the computer unprotected. Let it run and be patient."
+          },
+          {
+            "text": "Copy a quarantined file to your flash drive to show your friends.",
+            "why": "That spreads the risk to other machines. Quarantined files stay where they are."
+          },
+          {
+            "text": "Install a cracked antivirus you found on a free download site.",
+            "why": "Cracked programs are a common way to get infected. Use licensed or official software."
+          },
+          {
+            "text": "Open your friend's flash drive first, then scan it if something looks wrong.",
+            "why": "Scan before you open anything. Files may run as soon as they are opened."
+          },
+          {
+            "text": "Click a pop-up saying that your computer is infected and pay to fix it.",
+            "why": "Such pop-ups are often scams. Close the window and use the school's own antivirus."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Disk formatting utility",
+            "why": "Formatting wipes a drive's data. That is not how you deal with a threat here."
+          },
+          {
+            "name": "Spreadsheet program",
+            "why": "The scan is run in the antivirus program."
+          },
+          {
+            "name": "Screwdriver set",
+            "why": "Nothing is opened in this job."
+          },
+          {
+            "name": "Windows installation disc",
+            "why": "A scan does not need Windows to be reinstalled."
+          },
+          {
+            "name": "Free game downloaded from an unknown site",
+            "why": "Unknown downloads are a common source of malware and have no place here."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "no-update",
+          "afterStep": 1,
+          "prompt": "The virus definitions will not update because the network is down. What do you do?",
+          "options": [
+            {
+              "text": "Report it, and hold off until the definitions can update",
+              "correct": true,
+              "consequence": "Definitions must be up to date first, or new threats can be missed."
+            },
+            {
+              "text": "Run the scan and write that the computer is clean",
+              "consequence": "Old definitions miss new threats, so that result cannot be trusted."
+            },
+            {
+              "text": "Turn off the antivirus until the network returns",
+              "consequence": "The computer now has no protection at all."
+            }
+          ]
+        },
+        {
+          "id": "flash-first",
+          "afterStep": 2,
+          "prompt": "While the flash drive scan runs you spot a file on it named after your school. What do you do?",
+          "options": [
+            {
+              "text": "Wait for the scan to finish before opening anything",
+              "correct": true,
+              "consequence": "Nothing on the drive runs until the antivirus has checked it."
+            },
+            {
+              "text": "Open that file only, since it has a familiar name",
+              "consequence": "A familiar name proves nothing. Opening files before a scan is a common mistake."
+            },
+            {
+              "text": "Stop the scan and copy the file onto the desktop",
+              "consequence": "An unchecked file is now on the computer itself."
+            }
+          ]
+        },
+        {
+          "id": "bell-mid-scan",
+          "afterStep": 3,
+          "prompt": "The Full scan is half-way through when the bell goes. What do you do?",
+          "options": [
+            {
+              "text": "Ask the teacher to let it run to the end",
+              "correct": true,
+              "consequence": "A full scan that is not interrupted checks every file."
+            },
+            {
+              "text": "Cancel it and record it as a completed scan",
+              "consequence": "Half of the files were not checked, so your record is false."
+            },
+            {
+              "text": "Shut the computer down and restart it next week",
+              "consequence": "The scan has been interrupted, and threats may still be there."
+            }
+          ]
+        },
+        {
+          "id": "threat-found",
+          "afterStep": 3,
+          "prompt": "The program reports one threat and recommends quarantine. What do you do?",
+          "options": [
+            {
+              "text": "Quarantine it as the program advises",
+              "correct": true,
+              "consequence": "The file goes to a safe area where it cannot run."
+            },
+            {
+              "text": "Rename it so that it looks like a harmless file",
+              "consequence": "A new name changes nothing. The threat is still there and still able to run."
+            },
+            {
+              "text": "Ignore it, as only one threat was found",
+              "consequence": "One threat is enough to harm the computer and spread to others."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "quarantine-meaning",
+          "prompt": "Your report says a file has been quarantined. What does that mean?",
+          "options": [
+            {
+              "text": "It was moved to a safe area where it cannot run",
+              "correct": true
+            },
+            {
+              "text": "It has been repaired and is safe to open now",
+              "why": "Quarantine isolates a file. It does not make it safe."
+            },
+            {
+              "text": "It was copied to every drive for safe keeping",
+              "why": "That would spread it. Quarantine isolates it."
+            },
+            {
+              "text": "It was sent out to other computers on the network",
+              "why": "It is kept isolated on this computer."
+            }
+          ]
+        },
+        {
+          "id": "firewall-job",
+          "prompt": "You confirm the firewall is on. What does this protect against?",
+          "options": [
+            {
+              "text": "Unauthorised traffic passing to or from the network",
+              "correct": true
+            },
+            {
+              "text": "Infected files already on the hard disk",
+              "why": "Finding those is the job of the antivirus. A firewall is not an antivirus."
+            },
+            {
+              "text": "Damage caused by a sudden power surge",
+              "why": "That is the job of a UPS or surge protector."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "full-scan-time",
+          "prompt": "{g} GB of data is scanned at {r} MB/s. How long does the scan take, in seconds? Use 1 GB = 1 024 MB.",
+          "formula": "g * 1024 / r",
+          "vars": {
+            "g": {
+              "min": 60,
+              "max": 120,
+              "step": 20
+            },
+            "r": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "sec",
+            "secs",
+            "seconds"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 1,
+          "working": "Time = {g} x 1 024 / {r} = {answer} s."
+        },
+        {
+          "id": "minutes",
+          "prompt": "{g} GB of data is scanned at {r} MB/s. How long does the scan take, in minutes? Use 1 GB = 1 024 MB.",
+          "formula": "g * 1024 / r / 60",
+          "vars": {
+            "g": {
+              "min": 60,
+              "max": 120,
+              "step": 20
+            },
+            "r": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "minutes",
+          "unitAliases": [
+            "min",
+            "mins",
+            "minute"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "Seconds = {g} x 1 024 / {r}. Minutes = seconds / 60 = {answer} minutes."
+        },
+        {
+          "id": "flash-scan",
+          "prompt": "A {g} GB flash drive is scanned at {r} MB/s. How many seconds does it take? Use 1 GB = 1 024 MB.",
+          "formula": "g * 1024 / r",
+          "vars": {
+            "g": {
+              "min": 4,
+              "max": 32,
+              "step": 4
+            },
+            "r": {
+              "min": 20,
+              "max": 40,
+              "step": 10
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "sec",
+            "secs",
+            "seconds"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 1,
+          "working": "Time = {g} x 1 024 / {r} = {answer} s."
+        }
+      ],
+      "faults": [
+        {
+          "id": "chika-virus",
+          "scenario": "Chika's computer picked up a virus after she brought in a borrowed flash drive. Here is what she did.",
+          "lines": [
+            {
+              "text": "She opened the files on the flash drive before scanning it.",
+              "fault": true,
+              "why": "Scan first. Opening files on an unscanned drive is how infection spreads."
+            },
+            {
+              "text": "She scanned without updating the virus definitions.",
+              "fault": true,
+              "why": "Old definitions miss newer threats. Update first."
+            },
+            {
+              "text": "She said that the firewall and the antivirus were the same thing.",
+              "fault": true,
+              "why": "A firewall guards network traffic. Antivirus finds and removes malware."
+            },
+            {
+              "text": "She checked that the firewall was on in Windows Security.",
+              "why": "That is the right place, and a sound check."
+            },
+            {
+              "text": "She let the full scan run to the end.",
+              "why": "A full scan should not be interrupted."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions to take when scanning a computer for viruses.",
+        "explainPrompt": "Why should the virus definitions be updated before scanning?",
+        "explainGuide": "Definitions are the antivirus program's list of known threats. New malware appears all the time, so an out-of-date list can miss recent threats and wrongly report the computer as clean.",
+        "explainKeywords": [
+          [
+            "definition",
+            "definitions",
+            "list",
+            "database"
+          ],
+          [
+            "new",
+            "recent",
+            "latest"
+          ],
+          [
+            "threat",
+            "threats",
+            "virus",
+            "viruses",
+            "malware"
+          ],
+          [
+            "miss",
+            "detect",
+            "find",
+            "recognise"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Antivirus scan and security",
+        "Update, scan, deal with threats",
+        "Scan before you open"
+      ]
+    }
+  }
+}

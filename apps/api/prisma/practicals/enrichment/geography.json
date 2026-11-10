@@ -1,0 +1,1949 @@
+{
+  "subject": "Geography",
+  "room": "field",
+  "lessons": {
+    "pr-geo-weather-station": {
+      "safety": {
+        "correct": [
+          "Leave the thermometers in place and read them with your hands off the glass."
+        ],
+        "wrong": [
+          {
+            "text": "Hold the thermometer in your palm to get a clearer view of the reading.",
+            "why": "Your hand warms it and glass can break. Read it where it hangs."
+          },
+          {
+            "text": "Sweep up a broken thermometer with your hands so that no one notices.",
+            "why": "Mercury is harmful. Report breakages so that it can be cleaned up safely."
+          },
+          {
+            "text": "Lean on the screen's stand to steady yourself while reading the indices.",
+            "why": "It can tip over and break the instruments."
+          },
+          {
+            "text": "Blow on the wet-bulb muslin to help it dry out faster.",
+            "why": "That adds moisture and heat. Leave the muslin alone."
+          },
+          {
+            "text": "Knock the Six's thermometer with your finger to shift a stuck index.",
+            "why": "Knocking can break the glass. Reset with the magnet."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Clinical thermometer",
+            "why": "It measures body temperature and has too short a range for air."
+          },
+          {
+            "name": "Bottle of tap water",
+            "why": "The muslin is wet with distilled water. Tap water leaves deposits."
+          },
+          {
+            "name": "Rain gauge",
+            "why": "Rainfall is not measured in this exercise."
+          },
+          {
+            "name": "Wind vane",
+            "why": "Wind direction is not measured in this exercise."
+          },
+          {
+            "name": "Aneroid barometer",
+            "why": "This exercise covers temperature and humidity, not pressure."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "index-end",
+          "afterStep": 1,
+          "prompt": "A student reads Six's thermometer. Which part of the index gives the correct reading?",
+          "options": [
+            {
+              "text": "The bottom of the index",
+              "correct": true,
+              "consequence": "That is the end the mercury pushed against, so the extreme is correct."
+            },
+            {
+              "text": "The top of the index",
+              "consequence": "The reading is too far along by the length of the index, a common mistake."
+            },
+            {
+              "text": "The top of the mercury column",
+              "consequence": "The mercury shows the present temperature, not the extreme."
+            }
+          ]
+        },
+        {
+          "id": "reset-when",
+          "afterStep": 2,
+          "prompt": "The maximum and minimum have been written down. What should the observer do next with the thermometer?",
+          "options": [
+            {
+              "text": "Reset the indices with the magnet",
+              "correct": true,
+              "consequence": "The indices now start again from the present temperature for the next 24 hours."
+            },
+            {
+              "text": "Leave the indices as they are until next week",
+              "consequence": "The next readings will be the old extremes and not the new day's."
+            },
+            {
+              "text": "Reset them by shaking the thermometer hard",
+              "consequence": "Shaking can break the glass and disturb the mercury."
+            }
+          ]
+        },
+        {
+          "id": "dry-muslin",
+          "afterStep": 3,
+          "prompt": "The wet-bulb muslin has dried out. What should be done before that reading is used?",
+          "options": [
+            {
+              "text": "Wet it with distilled water and wait for the bulb to settle",
+              "correct": true,
+              "consequence": "Evaporation returns, so the wet-bulb reading can be trusted."
+            },
+            {
+              "text": "Record it anyway, since the difference is small",
+              "consequence": "A dry bulb reads like the dry-bulb thermometer, so humidity comes out far too high."
+            },
+            {
+              "text": "Wet it with tap water and read it straight away",
+              "consequence": "Tap water leaves deposits, and the bulb has not had time to settle."
+            }
+          ]
+        },
+        {
+          "id": "screen-site",
+          "afterStep": 1,
+          "prompt": "The school wants to move its Stevenson screen. Which site should be chosen?",
+          "options": [
+            {
+              "text": "In the open on short grass, away from buildings and trees",
+              "correct": true,
+              "consequence": "Air moves freely and readings are free from nearby heat and shade."
+            },
+            {
+              "text": "Next to the concrete wall of the staff room, for security",
+              "consequence": "Heat from the wall affects the readings, a listed source of error."
+            },
+            {
+              "text": "Under a large mango tree, to keep it out of the sun",
+              "consequence": "The shade changes the readings, which should represent open air."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "depression-humidity",
+          "prompt": "Four record sheets give the following dry-bulb and wet-bulb readings. Which one shows the highest relative humidity?",
+          "options": [
+            {
+              "text": "Dry 28 °C, wet 27 °C",
+              "correct": true
+            },
+            {
+              "text": "Dry 30 °C, wet 26 °C",
+              "why": "A depression of 4 °C means drier air."
+            },
+            {
+              "text": "Dry 32 °C, wet 24 °C",
+              "why": "A depression of 8 °C means much drier air."
+            },
+            {
+              "text": "Dry 26 °C, wet 22 °C",
+              "why": "A depression of 4 °C means drier air than a depression of 1 °C."
+            }
+          ]
+        },
+        {
+          "id": "extreme-times",
+          "prompt": "A week's hourly record is examined. When do the extremes of temperature usually occur?",
+          "options": [
+            {
+              "text": "Maximum in early afternoon, minimum just before dawn",
+              "correct": true
+            },
+            {
+              "text": "Maximum at noon exactly, minimum at midnight",
+              "why": "The ground goes on heating after noon, and cooling continues until dawn."
+            },
+            {
+              "text": "Maximum at sunset, minimum at midday",
+              "why": "Midday is warm, and the coolest time is just before dawn."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "daily-mean",
+          "prompt": "The record sheet shows a maximum of {a} °C and a minimum of {b} °C. What is the daily mean temperature?",
+          "formula": "(a + b) / 2",
+          "vars": {
+            "a": {
+              "min": 28,
+              "max": 36,
+              "step": 1
+            },
+            "b": {
+              "min": 18,
+              "max": 26,
+              "step": 1
+            }
+          },
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Mean = ({a} + {b}) / 2 = {answer} °C."
+        },
+        {
+          "id": "daily-range",
+          "prompt": "The record sheet shows a maximum of {a} °C and a minimum of {b} °C. What is the daily range?",
+          "formula": "a - b",
+          "vars": {
+            "a": {
+              "min": 28,
+              "max": 36,
+              "step": 1
+            },
+            "b": {
+              "min": 18,
+              "max": 26,
+              "step": 1
+            }
+          },
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Range = {a} - {b} = {answer} °C."
+        },
+        {
+          "id": "depression",
+          "prompt": "The dry bulb reads {d} °C and the wet bulb reads {w} °C. What is the wet-bulb depression?",
+          "formula": "d - w",
+          "vars": {
+            "d": {
+              "min": 28,
+              "max": 34,
+              "step": 1
+            },
+            "w": {
+              "min": 22,
+              "max": 27,
+              "step": 1
+            }
+          },
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Depression = {d} - {w} = {answer} °C."
+        },
+        {
+          "id": "weekly-mean-max",
+          "prompt": "The weekly maximum temperatures are 31, 32, 33, 30, 32, 31 and 31 °C. What is the mean maximum temperature?",
+          "answer": 31.4,
+          "unit": "°C",
+          "unitAliases": [
+            "C",
+            "deg C",
+            "degrees"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Sum = 220. Mean = 220 / 7 = {answer} °C."
+        }
+      ],
+      "faults": [
+        {
+          "id": "weather-record",
+          "scenario": "Hauwa's weather record for her school was queried by the teacher. Here is what she did and wrote.",
+          "lines": [
+            {
+              "text": "She read the top of the index on Six's thermometer.",
+              "fault": true,
+              "why": "Readings are taken from the bottom of each index."
+            },
+            {
+              "text": "She worked out the daily range as maximum plus minimum.",
+              "fault": true,
+              "why": "Range is maximum minus minimum."
+            },
+            {
+              "text": "She wrote that the screen is painted white to look clean.",
+              "fault": true,
+              "why": "It is white to reflect sunlight."
+            },
+            {
+              "text": "She took the readings at 9 a.m. each day.",
+              "why": "Readings at the same time each day can be compared."
+            },
+            {
+              "text": "She read the thermometers at eye level.",
+              "why": "That avoids parallax."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for taking accurate readings at a weather station.",
+        "explainPrompt": "Why does the wet bulb read lower than the dry bulb, and what does a small difference between them mean?",
+        "explainGuide": "Water evaporating from the muslin cools the wet bulb, so it reads lower. In humid air there is little evaporation, so a small difference means high relative humidity.",
+        "explainKeywords": [
+          [
+            "evaporation",
+            "evaporating",
+            "evaporates"
+          ],
+          [
+            "cool",
+            "cools",
+            "cooling"
+          ],
+          [
+            "humid",
+            "humidity"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "The school weather station",
+        "Temperature and relative humidity",
+        "Same time every day"
+      ]
+    },
+    "pr-geo-rain-gauge-wind": {
+      "safety": {
+        "correct": [
+          "Keep to the marked path when you go out to the instruments after rain."
+        ],
+        "wrong": [
+          {
+            "text": "Climb the pole to read the wind vane more easily.",
+            "why": "Do not climb on roofs or poles to read instruments."
+          },
+          {
+            "text": "Stay at the station to record the storm as it happens.",
+            "why": "Avoid the station during thunderstorms."
+          },
+          {
+            "text": "Go up onto the classroom roof to get a clearer view of the anemometer.",
+            "why": "Never climb on roofs. Read it from the ground."
+          },
+          {
+            "text": "Stop the anemometer cups with your fingers so that you can see them.",
+            "why": "That risks injury and damages the instrument."
+          },
+          {
+            "text": "Run across the wet compound to get the reading on time.",
+            "why": "Wet ground is slippery. Walk carefully."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Wet-and-dry bulb hygrometer",
+            "why": "That measures humidity, which is not recorded here."
+          },
+          {
+            "name": "Six's thermometer",
+            "why": "Temperature is not measured in this exercise."
+          },
+          {
+            "name": "Plastic bucket",
+            "why": "Rain is collected in the rain gauge, through its funnel."
+          },
+          {
+            "name": "Kitchen measuring jug",
+            "why": "It is not graduated in mm of rainfall."
+          },
+          {
+            "name": "Clinometer",
+            "why": "No slopes are measured in this exercise."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "gauge-site",
+          "afterStep": 1,
+          "prompt": "The school garden has one space beside a mango tree and another in the middle of the field. Where should the gauge go?",
+          "options": [
+            {
+              "text": "In the open field, away from trees and buildings",
+              "correct": true,
+              "consequence": "Rain falls straight into the funnel with no shelter or splash."
+            },
+            {
+              "text": "Under the mango tree, where it will not be disturbed",
+              "consequence": "The tree shelters the gauge and drips into it, so the reading is wrong."
+            },
+            {
+              "text": "Against a wall of the school building",
+              "consequence": "Walls shelter the gauge and give splash-in during storms."
+            }
+          ]
+        },
+        {
+          "id": "vane-direction",
+          "afterStep": 3,
+          "prompt": "The vane's arrow points towards the north-east. What should be recorded?",
+          "options": [
+            {
+              "text": "A north-east wind",
+              "correct": true,
+              "consequence": "The arrow points to where the wind blows from, and winds are named that way."
+            },
+            {
+              "text": "A south-west wind",
+              "consequence": "That confuses where the wind is going with where it comes from."
+            },
+            {
+              "text": "A north wind",
+              "consequence": "The vane gives a more exact direction, so this is not accurate."
+            }
+          ]
+        },
+        {
+          "id": "storm-coming",
+          "afterStep": 2,
+          "prompt": "Dark clouds gather and thunder is heard at the usual time for readings. What should the observer do?",
+          "options": [
+            {
+              "text": "Wait indoors and take the readings when the storm has passed",
+              "correct": true,
+              "consequence": "The observer stays safe. The gauge keeps collecting the rain."
+            },
+            {
+              "text": "Run out to the station to finish before the rain",
+              "consequence": "Thunderstorms are dangerous in the open, and the station must be avoided."
+            },
+            {
+              "text": "Shelter under the tall tree near the station until it stops",
+              "consequence": "Tall trees attract lightning and are unsafe in a storm."
+            }
+          ]
+        },
+        {
+          "id": "monthly-total",
+          "afterStep": 5,
+          "prompt": "You need the monthly rainfall figure from the daily records. How do you get it?",
+          "options": [
+            {
+              "text": "Add up the daily totals",
+              "correct": true,
+              "consequence": "That gives the total rainfall for the month."
+            },
+            {
+              "text": "Add up the weekly means",
+              "consequence": "Means are averages, so adding them does not give the total."
+            },
+            {
+              "text": "Take the largest daily figure",
+              "consequence": "That is the wettest day only, and not the month's total."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "read-cylinder",
+          "prompt": "The measuring cylinder holds the collected rainwater. How should it be read?",
+          "options": [
+            {
+              "text": "At eye level, at the bottom of the meniscus",
+              "correct": true
+            },
+            {
+              "text": "From above, at the top of the meniscus",
+              "why": "That gives a parallax error and reads too high."
+            },
+            {
+              "text": "Held up high, at arm's length",
+              "why": "Reading it above eye level gives a parallax error."
+            }
+          ]
+        },
+        {
+          "id": "wet-season-winds",
+          "prompt": "A station's records for Nigeria show a change of wind with the seasons. Which pattern fits?",
+          "options": [
+            {
+              "text": "South-west in the wet season, north-east in the dry season",
+              "correct": true
+            },
+            {
+              "text": "North-east in the wet season, south-west in the dry season",
+              "why": "The harmattan from the north-east blows in the dry season."
+            },
+            {
+              "text": "Westerly throughout the year",
+              "why": "The direction changes with the seasons."
+            }
+          ]
+        },
+        {
+          "id": "instrument-pressure",
+          "prompt": "Which instrument gives the pressure in millibars?",
+          "options": [
+            {
+              "text": "Barometer",
+              "correct": true
+            },
+            {
+              "text": "Hygrometer",
+              "why": "A hygrometer measures humidity."
+            },
+            {
+              "text": "Anemometer",
+              "why": "An anemometer measures wind speed."
+            },
+            {
+              "text": "Wind vane",
+              "why": "A wind vane shows wind direction."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "weekly-total",
+          "prompt": "Rainfall for a week was 0, 12, 25, 0, 8, 30 and 5 mm. What is the total for the week?",
+          "answer": 80,
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "0 + 12 + 25 + 0 + 8 + 30 + 5 = {answer} mm."
+        },
+        {
+          "id": "daily-mean-rain",
+          "prompt": "Rainfall for a week was 0, 12, 25, 0, 8, 30 and 5 mm. What is the mean rainfall per day?",
+          "answer": 11.4,
+          "unit": "mm",
+          "unitAliases": [
+            "mm/day",
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Total = 80 mm. Mean = 80 / 7 = {answer} mm per day."
+        },
+        {
+          "id": "four-day-total",
+          "prompt": "Rainfall on four days was {a}, {b}, {c} and {d} mm. What is the total?",
+          "formula": "a + b + c + d",
+          "vars": {
+            "a": {
+              "min": 0,
+              "max": 20,
+              "step": 5
+            },
+            "b": {
+              "min": 5,
+              "max": 30,
+              "step": 5
+            },
+            "c": {
+              "min": 0,
+              "max": 25,
+              "step": 5
+            },
+            "d": {
+              "min": 5,
+              "max": 15,
+              "step": 5
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{a} + {b} + {c} + {d} = {answer} mm."
+        },
+        {
+          "id": "wind-speed",
+          "prompt": "Anemometer cups on a circle of radius {r} m make {n} revolutions per minute. Taking circumference x revolutions / 60, what is the approximate wind speed, in m/s?",
+          "formula": "2 * pi * r * n / 60",
+          "vars": {
+            "r": {
+              "min": 0.1,
+              "max": 0.2,
+              "step": 0.05
+            },
+            "n": {
+              "min": 60,
+              "max": 180,
+              "step": 30
+            }
+          },
+          "unit": "m/s",
+          "unitAliases": [
+            "metres per second",
+            "ms-1"
+          ],
+          "tolerance": {
+            "rel": 0.05
+          },
+          "decimals": 2,
+          "working": "Circumference = 2 x pi x {r}. Speed = circumference x {n} / 60 = {answer} m/s."
+        }
+      ],
+      "faults": [
+        {
+          "id": "rain-record",
+          "scenario": "Musa's week of weather records was marked down. Here is what he did and wrote.",
+          "lines": [
+            {
+              "text": "He wrote that the wind vane points to where the wind is going.",
+              "fault": true,
+              "why": "It points to where the wind is coming from."
+            },
+            {
+              "text": "He said that the barometer measures humidity.",
+              "fault": true,
+              "why": "A barometer measures pressure. A hygrometer measures humidity."
+            },
+            {
+              "text": "He added daily means to get the monthly rainfall.",
+              "fault": true,
+              "why": "Monthly rainfall is found from daily totals."
+            },
+            {
+              "text": "He read the cylinder at eye level at the bottom of the meniscus.",
+              "why": "That is the correct way."
+            },
+            {
+              "text": "He recorded the readings at the same time each morning.",
+              "why": "That makes the days comparable."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for measuring rainfall accurately.",
+        "explainPrompt": "Why should a rain gauge be sited away from trees and buildings?",
+        "explainGuide": "Trees and buildings shelter the gauge from rain and let water drip or splash into it. In open ground the funnel catches only the rain that falls, so the reading is accurate.",
+        "explainKeywords": [
+          [
+            "shelter",
+            "shelters",
+            "block"
+          ],
+          [
+            "drip",
+            "splash"
+          ],
+          [
+            "open",
+            "accurate"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Rainfall and wind",
+        "Rain gauge, vane, anemometer, barometer",
+        "Winds are named by where they come from"
+      ]
+    },
+    "pr-geo-rock-identification": {
+      "room": "lab",
+      "safety": {
+        "correct": [
+          "Wash your hands after handling rock samples and acid."
+        ],
+        "wrong": [
+          {
+            "text": "Lean over the rock with your face close to the fizzing.",
+            "why": "Acid can spit into your eyes. Keep back and wear eye protection."
+          },
+          {
+            "text": "Scratch the rock towards your own hand and body.",
+            "why": "Scratch away from your body, as the nail can slip."
+          },
+          {
+            "text": "Wipe an acid spill off the bench with your bare hand.",
+            "why": "Rinse spills with water and do not touch them."
+          },
+          {
+            "text": "Hammer off a fresh corner of the rock without goggles.",
+            "why": "Chips fly at the eyes. Do not hammer rocks without goggles."
+          },
+          {
+            "text": "Pour leftover acid back into the main bottle to avoid waste.",
+            "why": "That contaminates the stock. Dispose of it as your teacher directs."
+          },
+          {
+            "text": "Take off your eye protection once the first acid test is over.",
+            "why": "Keep it on while acid is in use."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Concentrated sulphuric acid",
+            "why": "This test uses dilute acid only. Concentrated acid is dangerous."
+          },
+          {
+            "name": "Bunsen burner",
+            "why": "Nothing is heated in this practical."
+          },
+          {
+            "name": "Compound microscope",
+            "why": "A hand lens is enough for crystals and grains."
+          },
+          {
+            "name": "Stopwatch",
+            "why": "Nothing is timed here."
+          },
+          {
+            "name": "Filter funnel",
+            "why": "Nothing is filtered in this practical."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "fresh-surface",
+          "afterStep": 1,
+          "prompt": "Your granite sample is brown and crumbly on the outside. How should it be examined?",
+          "options": [
+            {
+              "text": "Look at a fresh surface, away from the weathered part",
+              "correct": true,
+              "consequence": "Weathering hides features, so a fresh surface shows the true crystals."
+            },
+            {
+              "text": "Describe the brown outside, as that is what you see",
+              "consequence": "The weathered surface does not show the rock's true features."
+            },
+            {
+              "text": "Soak the sample in acid to clean the surface",
+              "consequence": "Acid is used only as a drop test, and this would waste it and be unsafe."
+            }
+          ]
+        },
+        {
+          "id": "after-fizz",
+          "afterStep": 3,
+          "prompt": "A sample has fizzed and the test is over. What must be done before anything else is done with it?",
+          "options": [
+            {
+              "text": "Rinse the rock with water",
+              "correct": true,
+              "consequence": "No acid is left on the rock, so it is safe to handle and to test again."
+            },
+            {
+              "text": "Put it straight on the balance",
+              "consequence": "Acid on the rock can damage the balance and it would affect the mass."
+            },
+            {
+              "text": "Dry it on your uniform",
+              "consequence": "That puts acid on your clothing and skin."
+            }
+          ]
+        },
+        {
+          "id": "air-bubbles",
+          "afterStep": 4,
+          "prompt": "When the rock is lowered into the cylinder, bubbles cling to its surface. What should be done?",
+          "options": [
+            {
+              "text": "Gently move the thread to free the bubbles, then read",
+              "correct": true,
+              "consequence": "Trapped air would make the volume too large, so this gives a truer reading."
+            },
+            {
+              "text": "Read the level straight away, as they are small",
+              "consequence": "The trapped air adds to the volume, so the density comes out too low."
+            },
+            {
+              "text": "Add more water until the bubbles go",
+              "consequence": "That changes the starting level, so the volume is wrong."
+            }
+          ]
+        },
+        {
+          "id": "banded-rock",
+          "afterStep": 5,
+          "prompt": "A sample labelled gneiss shows clear bands of light and dark minerals. How is it classified?",
+          "options": [
+            {
+              "text": "Metamorphic",
+              "correct": true,
+              "consequence": "Banding in gneiss comes from heat and pressure."
+            },
+            {
+              "text": "Sedimentary, because it has layers",
+              "consequence": "Not all layered rocks are sedimentary. This is a common mistake."
+            },
+            {
+              "text": "Igneous, because it is hard",
+              "consequence": "Hardness alone does not show how a rock was formed."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "acid-result",
+          "prompt": "Which pair of samples should both fizz with the dilute acid?",
+          "options": [
+            {
+              "text": "Limestone and marble",
+              "correct": true
+            },
+            {
+              "text": "Granite and basalt",
+              "why": "These are igneous rocks with no carbonate."
+            },
+            {
+              "text": "Quartzite and sandstone",
+              "why": "These are mainly quartz, and quartzite does not fizz."
+            },
+            {
+              "text": "Shale and granite",
+              "why": "Neither is a carbonate rock."
+            }
+          ]
+        },
+        {
+          "id": "granite-look",
+          "prompt": "Which description fits granite?",
+          "options": [
+            {
+              "text": "Coarse, interlocking crystals of quartz, feldspar and mica",
+              "correct": true
+            },
+            {
+              "text": "Dark and fine-grained",
+              "why": "That describes basalt."
+            },
+            {
+              "text": "Fine layers that split easily",
+              "why": "That describes shale."
+            },
+            {
+              "text": "Gritty grains cemented together",
+              "why": "That describes sandstone."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "volume",
+          "prompt": "The water level rises from 150 cm³ to {b} cm³ when a rock is lowered in. What is the rock's volume?",
+          "formula": "b - 150",
+          "vars": {
+            "b": {
+              "min": 200,
+              "max": 250,
+              "step": 10
+            }
+          },
+          "unit": "cm³",
+          "unitAliases": [
+            "cm3",
+            "cc"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Volume = {b} - 150 = {answer} cm³."
+        },
+        {
+          "id": "density",
+          "prompt": "A rock has a mass of {m} g. The water level rises from 150 cm³ to {b} cm³. What is its density, in g/cm³?",
+          "formula": "m / (b - 150)",
+          "vars": {
+            "m": {
+              "min": 210,
+              "max": 270,
+              "step": 10
+            },
+            "b": {
+              "min": 230,
+              "max": 250,
+              "step": 10
+            }
+          },
+          "unit": "g/cm³",
+          "unitAliases": [
+            "g/cm3",
+            "g per cm3"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 2,
+          "working": "Volume = {b} - 150. Density = {m} / volume = {answer} g/cm³."
+        }
+      ],
+      "faults": [
+        {
+          "id": "rock-sheet",
+          "scenario": "Ngozi's rock identification sheet lost marks. Here is what she did and wrote.",
+          "lines": [
+            {
+              "text": "She classified the banded gneiss as sedimentary.",
+              "fault": true,
+              "why": "Gneiss is a banded metamorphic rock."
+            },
+            {
+              "text": "She labelled marble as a sedimentary rock.",
+              "fault": true,
+              "why": "Marble is metamorphic and limestone is sedimentary."
+            },
+            {
+              "text": "She did not state any uses of the rocks.",
+              "fault": true,
+              "why": "A use should be stated for each rock."
+            },
+            {
+              "text": "She rinsed each rock after the acid test.",
+              "why": "That is correct."
+            },
+            {
+              "text": "She read the measuring cylinder at eye level.",
+              "why": "That avoids parallax."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for identifying rocks and finding their density.",
+        "explainPrompt": "Why do limestone and marble fizz when dilute acid is added, while quartzite does not?",
+        "explainGuide": "Limestone and marble contain calcium carbonate, which reacts with the acid to release carbon dioxide gas. Quartzite is mainly quartz, which does not react.",
+        "explainKeywords": [
+          [
+            "carbonate",
+            "calcium"
+          ],
+          [
+            "react",
+            "reacts",
+            "reaction"
+          ],
+          [
+            "carbon dioxide",
+            "gas",
+            "co2"
+          ],
+          [
+            "quartz",
+            "quartzite"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Identifying common rocks",
+        "Igneous, sedimentary, metamorphic",
+        "Use a fresh surface"
+      ]
+    },
+    "pr-geo-fieldwork-land-use": {
+      "safety": {
+        "correct": [
+          "Stay with your group and tell the teacher before you leave the route."
+        ],
+        "wrong": [
+          {
+            "text": "Walk along the middle of the road, where the view of both sides is best.",
+            "why": "Keep away from moving traffic. Stay on the pavement or verge."
+          },
+          {
+            "text": "Write down the names of residents to make the survey more detailed.",
+            "why": "Respect privacy. Do not record names without consent."
+          },
+          {
+            "text": "Go into a private compound to see what it is used for.",
+            "why": "Respect private property. Observe from the road or ask politely."
+          },
+          {
+            "text": "Set off alone so that the survey will be finished sooner.",
+            "why": "Work in groups, with the teacher's permission."
+          },
+          {
+            "text": "Photograph people at their stalls without asking them first.",
+            "why": "Respect people's privacy and ask first."
+          },
+          {
+            "text": "Argue with a trader who objects to your survey.",
+            "why": "Be polite. Move on and tell the teacher."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rain gauge",
+            "why": "Land use is being surveyed, not rainfall."
+          },
+          {
+            "name": "Soil auger",
+            "why": "Soil is not sampled in this survey."
+          },
+          {
+            "name": "Mallet and pins",
+            "why": "Those are for erosion study, not land use."
+          },
+          {
+            "name": "Traffic tally sheet",
+            "why": "This survey records land use, not vehicles."
+          },
+          {
+            "name": "Clinometer",
+            "why": "The slope of the ground is not being measured."
+          }
+        ],
+        "optional": [
+          "Phone camera (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "first-step",
+          "afterStep": 1,
+          "prompt": "The topic and hypothesis are agreed. What should the group do before walking the transect?",
+          "options": [
+            {
+              "text": "Plan the line on the base map and divide it into equal sections",
+              "correct": true,
+              "consequence": "Equal sections make the recording systematic and the results comparable."
+            },
+            {
+              "text": "Start walking and decide on sections later",
+              "consequence": "Sections of uneven length cannot be compared properly."
+            },
+            {
+              "text": "Draw the pie chart first, using estimated figures",
+              "consequence": "Results come from the data collected, so this has no basis."
+            }
+          ]
+        },
+        {
+          "id": "mixed-building",
+          "afterStep": 3,
+          "prompt": "A building has a shop on the ground floor and a home above. How should it be entered on the record sheet?",
+          "options": [
+            {
+              "text": "Use the agreed key, and note the mixed use",
+              "correct": true,
+              "consequence": "The data stay consistent and the note shows a recognised source of error."
+            },
+            {
+              "text": "Leave the section blank, since it is confusing",
+              "consequence": "The record has a gap, and the percentages are affected."
+            },
+            {
+              "text": "Invent a new category for this one building",
+              "consequence": "The key is agreed before the survey, so a new category breaks consistency."
+            }
+          ]
+        },
+        {
+          "id": "present-results",
+          "afterStep": 5,
+          "prompt": "The data have been collected. Which presentation will earn the most marks?",
+          "options": [
+            {
+              "text": "A coloured map with a key and a pie chart or bar graph",
+              "correct": true,
+              "consequence": "Maps and diagrams show the pattern clearly."
+            },
+            {
+              "text": "The raw tally sheets stapled to the back of the report",
+              "consequence": "Raw data alone, without maps or diagrams, is a common mistake."
+            },
+            {
+              "text": "A long paragraph describing each section",
+              "consequence": "Without maps or diagrams, the pattern is very hard to see."
+            }
+          ]
+        },
+        {
+          "id": "conclusion",
+          "afterStep": 6,
+          "prompt": "The data do not support the hypothesis. What should the report's conclusion do?",
+          "options": [
+            {
+              "text": "State what the data show and give possible reasons",
+              "correct": true,
+              "consequence": "Conclusions must be linked to the data collected."
+            },
+            {
+              "text": "Say the hypothesis was right, as that was expected",
+              "consequence": "A conclusion not linked to the data is a common mistake."
+            },
+            {
+              "text": "Change the figures so that they fit the hypothesis",
+              "consequence": "That is dishonest, and the report would no longer be evidence of anything."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "pattern",
+          "prompt": "A group's results for a transect from the town centre are given below. Which pattern matches what is usually expected?",
+          "options": [
+            {
+              "text": "Commercial near the centre, residential further out, farmland at the edge",
+              "correct": true
+            },
+            {
+              "text": "Farmland near the centre and commercial at the edge",
+              "why": "That is the reverse of the usual pattern."
+            },
+            {
+              "text": "Commercial evenly spread all along the transect",
+              "why": "Commercial land use is usually concentrated near the centre."
+            }
+          ]
+        },
+        {
+          "id": "transect-meaning",
+          "prompt": "A report describes its route as a transect. What does this mean?",
+          "options": [
+            {
+              "text": "A line along which observations are made at intervals",
+              "correct": true
+            },
+            {
+              "text": "A circular walk round the market",
+              "why": "A transect is a line."
+            },
+            {
+              "text": "A scale used on the base map",
+              "why": "A scale is something else."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "percent-residential",
+          "prompt": "Along a transect of {l} m, residential land use measures {x} m. What percentage is residential?",
+          "formula": "x / l * 100",
+          "vars": {
+            "l": {
+              "min": 1000,
+              "max": 2000,
+              "step": 500
+            },
+            "x": {
+              "min": 200,
+              "max": 500,
+              "step": 50
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{x} / {l} x 100 = {answer}%."
+        },
+        {
+          "id": "pie-angle",
+          "prompt": "On a transect of {l} m, farmland measures {x} m. What angle should farmland have on a pie chart?",
+          "formula": "x / l * 360",
+          "vars": {
+            "l": {
+              "min": 1000,
+              "max": 2000,
+              "step": 500
+            },
+            "x": {
+              "min": 100,
+              "max": 400,
+              "step": 50
+            }
+          },
+          "unit": "°",
+          "unitAliases": [
+            "degrees",
+            "deg"
+          ],
+          "tolerance": {
+            "abs": 1
+          },
+          "decimals": 1,
+          "working": "{x} / {l} x 360 = {answer}°."
+        },
+        {
+          "id": "sections",
+          "prompt": "A transect of {l} m is divided into equal sections of 50 m. How many sections are there?",
+          "formula": "l / 50",
+          "vars": {
+            "l": {
+              "min": 500,
+              "max": 2000,
+              "step": 250
+            }
+          },
+          "unit": "sections",
+          "unitAliases": [
+            "section"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} / 50 = {answer} sections."
+        }
+      ],
+      "faults": [
+        {
+          "id": "land-use-report",
+          "scenario": "A group's land-use report was returned by the teacher. Here is what it shows.",
+          "lines": [
+            {
+              "text": "The report had no hypothesis or aim.",
+              "fault": true,
+              "why": "An aim or hypothesis guides the survey and comes first."
+            },
+            {
+              "text": "It presented only raw tally figures with no map or diagram.",
+              "fault": true,
+              "why": "Data need to be shown in maps or diagrams."
+            },
+            {
+              "text": "Its conclusion was not linked to the data collected.",
+              "fault": true,
+              "why": "Conclusions must come from the data."
+            },
+            {
+              "text": "The group used a clear classification key.",
+              "why": "That gives consistent results."
+            },
+            {
+              "text": "The group recorded data on the sheet immediately.",
+              "why": "That avoids forgotten results."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when carrying out a land-use survey.",
+        "explainPrompt": "Why is the transect divided into equal sections before the survey starts?",
+        "explainGuide": "Equal sections make the sampling systematic, so each part of the line is given the same weight and the results can be compared fairly along the transect.",
+        "explainKeywords": [
+          [
+            "equal",
+            "same"
+          ],
+          [
+            "systematic",
+            "sampling",
+            "sample"
+          ],
+          [
+            "compare",
+            "compared",
+            "comparison",
+            "fairly"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Land-use survey along a transect",
+        "Aim, method, results, conclusion",
+        "Link your conclusion to your data"
+      ]
+    },
+    "pr-geo-fieldwork-market-traffic": {
+      "safety": {
+        "correct": [
+          "Keep your group together in crowded parts of the market."
+        ],
+        "wrong": [
+          {
+            "text": "Stand on the road at the junction to count the vehicles better.",
+            "why": "Keep away from moving traffic. Use the pavement or verge."
+          },
+          {
+            "text": "Ask traders for their full names and phone numbers.",
+            "why": "Do not record names without consent. It is not needed for this survey."
+          },
+          {
+            "text": "Interrupt a trader in the middle of a sale to ask your questions.",
+            "why": "Be polite. Wait until the trader is free."
+          },
+          {
+            "text": "Go alone to the market to save the group's time.",
+            "why": "Work in groups, with the teacher's permission."
+          },
+          {
+            "text": "Wear dull clothing so that drivers do not get distracted.",
+            "why": "Wear bright clothing so that drivers can see you."
+          },
+          {
+            "text": "Cross between moving vehicles to change your counting side.",
+            "why": "Stay on one side at a safe point, and cross only with the teacher's guidance."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Soil auger",
+            "why": "Soil is not studied in this survey."
+          },
+          {
+            "name": "Clinometer",
+            "why": "Slope is not measured."
+          },
+          {
+            "name": "Rain gauge",
+            "why": "Rainfall is not recorded here."
+          },
+          {
+            "name": "Compass and dividers set",
+            "why": "Direction and distance are not measured with these in this survey."
+          },
+          {
+            "name": "Hand lens",
+            "why": "Nothing needs magnifying."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "sample-traders",
+          "afterStep": 1,
+          "prompt": "Your questionnaire is ready and there are 200 stalls. Which traders should be interviewed?",
+          "options": [
+            {
+              "text": "Every fifth stall along each row",
+              "correct": true,
+              "consequence": "A systematic sample avoids bias in choosing who to ask."
+            },
+            {
+              "text": "Only the traders who look friendly",
+              "consequence": "That is biased, since the sample is no longer representative."
+            },
+            {
+              "text": "Only the stalls near the main gate",
+              "consequence": "That leaves out the rest of the market, so the sample is biased."
+            }
+          ]
+        },
+        {
+          "id": "question-style",
+          "afterStep": 1,
+          "prompt": "Which question should go on the questionnaire?",
+          "options": [
+            {
+              "text": "Where do your goods come from?",
+              "correct": true,
+              "consequence": "It is short and neutral, and gives usable data."
+            },
+            {
+              "text": "Don't you agree goods from Lagos are the best?",
+              "consequence": "That is a leading question which pushes the trader to agree."
+            },
+            {
+              "text": "What is your income, age and your family size?",
+              "consequence": "These are personal questions not needed for the survey."
+            }
+          ]
+        },
+        {
+          "id": "count-point",
+          "afterStep": 3,
+          "prompt": "Where should the group stand to count the traffic?",
+          "options": [
+            {
+              "text": "On the verge, well back from the junction",
+              "correct": true,
+              "consequence": "The group is safe and can still see all the vehicles."
+            },
+            {
+              "text": "On the traffic island in the middle of the road",
+              "consequence": "That places you among moving traffic."
+            },
+            {
+              "text": "Beside the okada park, in the road",
+              "consequence": "Standing in the road is unsafe."
+            }
+          ]
+        },
+        {
+          "id": "unequal-periods",
+          "afterStep": 4,
+          "prompt": "The morning count lasted 15 minutes but the evening count lasted 30 minutes. How can they be compared?",
+          "options": [
+            {
+              "text": "Convert both counts to vehicles per hour",
+              "correct": true,
+              "consequence": "A rate per hour makes the two counts directly comparable."
+            },
+            {
+              "text": "Compare the two totals directly",
+              "consequence": "Counts for unequal periods cannot be compared directly."
+            },
+            {
+              "text": "Add the two counts together",
+              "consequence": "That gives a single total and no comparison."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "market-origins",
+          "prompt": "A market survey shows where goods come from. Which pattern is usually found?",
+          "options": [
+            {
+              "text": "Foodstuffs from nearby villages, manufactured goods from larger cities",
+              "correct": true
+            },
+            {
+              "text": "Foodstuffs from overseas, manufactured goods from nearby villages",
+              "why": "That is the reverse of the usual pattern."
+            },
+            {
+              "text": "All goods from the town itself",
+              "why": "Markets draw goods from a wider area."
+            }
+          ]
+        },
+        {
+          "id": "peaks",
+          "prompt": "Which times of day would you expect the traffic count to be highest?",
+          "options": [
+            {
+              "text": "Morning and evening peaks",
+              "correct": true
+            },
+            {
+              "text": "Midday only",
+              "why": "Traffic is usually lighter at midday."
+            },
+            {
+              "text": "Late at night",
+              "why": "Few people travel at that time."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "per-hour",
+          "prompt": "A group counted {c} vehicles in 15 minutes. What is the rate in vehicles per hour?",
+          "formula": "c * 4",
+          "vars": {
+            "c": {
+              "min": 90,
+              "max": 240,
+              "step": 15
+            }
+          },
+          "unit": "vehicles/h",
+          "unitAliases": [
+            "per hour",
+            "vehicles per hour",
+            "vph"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{c} x 4 = {answer} vehicles per hour."
+        },
+        {
+          "id": "percent-motorcycles",
+          "prompt": "Out of {t} vehicles counted, {m} were motorcycles. What percentage were motorcycles?",
+          "formula": "m / t * 100",
+          "vars": {
+            "t": {
+              "min": 120,
+              "max": 240,
+              "step": 30
+            },
+            "m": {
+              "min": 40,
+              "max": 100,
+              "step": 10
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{m} / {t} x 100 = {answer}%."
+        },
+        {
+          "id": "traders-near",
+          "prompt": "In a sample of 40 traders, {k} came from within 10 km. What percentage is this?",
+          "formula": "k / 40 * 100",
+          "vars": {
+            "k": {
+              "min": 16,
+              "max": 32,
+              "step": 2
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "{k} / 40 x 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "market-report",
+          "scenario": "Bola's group wrote a report on the market and the nearby road junction. Here is what it shows.",
+          "lines": [
+            {
+              "text": "They counted the morning for 15 minutes and the evening for 30, and compared the totals.",
+              "fault": true,
+              "why": "Counts for unequal periods cannot be compared directly."
+            },
+            {
+              "text": "They asked traders leading questions and far too many of them.",
+              "fault": true,
+              "why": "Questions should be short, neutral and few."
+            },
+            {
+              "text": "Their report did not include a map of the study area.",
+              "fault": true,
+              "why": "A map of the area is expected."
+            },
+            {
+              "text": "They used tally marks in groups of five.",
+              "why": "That keeps the count accurate."
+            },
+            {
+              "text": "They recorded each direction separately.",
+              "why": "That lets them draw a flow map."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a market survey and traffic count.",
+        "explainPrompt": "Why is it better to interview every fifth trader than only the traders who seem willing?",
+        "explainGuide": "Every fifth trader is a systematic sample, which avoids the bias of choosing only friendly people. The sample then better represents all the traders in the market.",
+        "explainKeywords": [
+          [
+            "systematic",
+            "sample",
+            "sampling"
+          ],
+          [
+            "bias",
+            "biased",
+            "fair"
+          ],
+          [
+            "represent",
+            "represents",
+            "representative"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Market survey and traffic count",
+        "Sample fairly, count for equal times",
+        "Bar graphs and flow maps"
+      ]
+    },
+    "pr-geo-fieldwork-erosion-rate": {
+      "safety": {
+        "correct": [
+          "Look where you put your feet and hands when walking through grass on the plots."
+        ],
+        "wrong": [
+          {
+            "text": "Stand close to the edge of the gully to get a better look.",
+            "why": "Gully edges can collapse. Avoid them."
+          },
+          {
+            "text": "Set up the plots on a farm without asking the owner.",
+            "why": "Get permission from the landowner."
+          },
+          {
+            "text": "Wear slippers on the slopes because they are cooler.",
+            "why": "Wear covered shoes, for grip and protection from snakes."
+          },
+          {
+            "text": "Reach into thick grass for a pin without looking first.",
+            "why": "Watch for snakes. Look first and use a stick to part the grass."
+          },
+          {
+            "text": "Choose the steepest slope you can find, however dangerous.",
+            "why": "Choose slopes that are safe to walk on."
+          },
+          {
+            "text": "Hold a pin in place with your fingers near where the mallet strikes.",
+            "why": "The mallet can hit your hand. Keep your fingers away from the head of the pin."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Rain gauge",
+            "why": "Only soil loss is recorded here, using the pins."
+          },
+          {
+            "name": "Compass bearing chart",
+            "why": "Direction is not needed for measuring erosion."
+          },
+          {
+            "name": "Traffic tally sheet",
+            "why": "That has no use in this study."
+          },
+          {
+            "name": "Sledgehammer",
+            "why": "It is too heavy, and would drive the pins in too far."
+          },
+          {
+            "name": "Shovel",
+            "why": "The soil must not be disturbed around the pins."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "plot-choice",
+          "afterStep": 1,
+          "prompt": "Which pair of plots makes a fair comparison?",
+          "options": [
+            {
+              "text": "A bare plot and a grassed plot, equal in size, on similar slopes",
+              "correct": true,
+              "consequence": "The only real difference is the vegetation cover, so its effect can be seen."
+            },
+            {
+              "text": "Two bare plots on different slopes",
+              "consequence": "There is no vegetated control, so cover cannot be compared."
+            },
+            {
+              "text": "A large bare plot and a small grassed plot",
+              "consequence": "Unequal plot sizes spoil the comparison."
+            }
+          ]
+        },
+        {
+          "id": "pin-height",
+          "afterStep": 3,
+          "prompt": "One pin on the plot stands 12 cm above the surface. What should be done?",
+          "options": [
+            {
+              "text": "Set it to exactly 10 cm, vertically",
+              "correct": true,
+              "consequence": "All the pins now start from the same height."
+            },
+            {
+              "text": "Leave it, as 12 cm is close enough",
+              "consequence": "Different starting heights make the readings uneven."
+            },
+            {
+              "text": "Remove it, so that there will be only nine pins",
+              "consequence": "Ten pins are required, and fewer give a less reliable mean."
+            }
+          ]
+        },
+        {
+          "id": "pin-side",
+          "afterStep": 4,
+          "prompt": "How should the exposed length be measured each month?",
+          "options": [
+            {
+              "text": "From the same side of each pin every time",
+              "correct": true,
+              "consequence": "Soil depth can vary around a pin, so the same side gives comparable readings."
+            },
+            {
+              "text": "From whichever side is easiest that day",
+              "consequence": "The readings change with the side chosen, not only with the soil loss."
+            },
+            {
+              "text": "Estimated by eye without using the ruler",
+              "consequence": "Only a measured reading can show small changes."
+            }
+          ]
+        },
+        {
+          "id": "pin-disturbed",
+          "afterStep": 4,
+          "prompt": "At a monthly visit one pin has been knocked sideways by a goat. What should be done with its reading?",
+          "options": [
+            {
+              "text": "Note it and leave that pin out of the mean",
+              "correct": true,
+              "consequence": "The disturbed pin is a known source of error and is not treated as soil loss."
+            },
+            {
+              "text": "Use it just like all the others",
+              "consequence": "A knocked pin does not show soil loss, so the mean is misleading."
+            },
+            {
+              "text": "Replace all the pins and begin again",
+              "consequence": "Months of good data would be lost because of one pin."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "bare-vs-grass",
+          "prompt": "The record sheet gives the pin readings for both plots. Which result would you expect?",
+          "options": [
+            {
+              "text": "Pins on the bare plot became more exposed",
+              "correct": true
+            },
+            {
+              "text": "Pins on the grassed plot became more exposed",
+              "why": "Vegetation protects the soil from erosion."
+            },
+            {
+              "text": "Both plots changed equally",
+              "why": "Vegetation cover reduces soil loss."
+            }
+          ]
+        },
+        {
+          "id": "control-measure",
+          "prompt": "Which recommendation would help to reduce erosion on the bare plot?",
+          "options": [
+            {
+              "text": "Plant cover crops and build terraces",
+              "correct": true
+            },
+            {
+              "text": "Burn the remaining vegetation",
+              "why": "Bush burning exposes the soil to erosion."
+            },
+            {
+              "text": "Plough straight down the slope",
+              "why": "That channels the runoff and speeds up erosion."
+            },
+            {
+              "text": "Graze more animals on it",
+              "why": "Overgrazing removes the cover and makes erosion worse."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "rate",
+          "prompt": "Mean pin exposure increased by {l} cm over {m} months. What is the rate of erosion, in cm per month?",
+          "formula": "l / m",
+          "vars": {
+            "l": {
+              "min": 0.8,
+              "max": 3.2,
+              "step": 0.4
+            },
+            "m": {
+              "min": 4,
+              "max": 8,
+              "step": 2
+            }
+          },
+          "unit": "cm/month",
+          "unitAliases": [
+            "cm per month"
+          ],
+          "tolerance": {
+            "abs": 0.01
+          },
+          "decimals": 2,
+          "working": "Rate = {l} / {m} = {answer} cm per month."
+        },
+        {
+          "id": "exposure-loss",
+          "prompt": "A pin's mean exposure went from 10.0 cm to {e} cm. What depth of soil has been lost, in cm?",
+          "formula": "e - 10",
+          "vars": {
+            "e": {
+              "min": 10.4,
+              "max": 14,
+              "step": 0.4
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0.05
+          },
+          "decimals": 1,
+          "working": "Loss = {e} - 10.0 = {answer} cm."
+        },
+        {
+          "id": "times-faster",
+          "prompt": "Over 8 months, the bare plot lost 3.2 cm and the grassed plot lost 0.4 cm. How many times faster was erosion on the bare plot?",
+          "answer": 8,
+          "unit": "times",
+          "unitAliases": [
+            "x"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Bare: 3.2 / 8 = 0.4 cm/month. Grassed: 0.4 / 8 = 0.05 cm/month. 0.4 / 0.05 = {answer} times."
+        },
+        {
+          "id": "soil-volume",
+          "prompt": "A square bare plot has sides of {s} m and lost {c} cm of soil depth. What volume of soil was lost, in m³?",
+          "formula": "s * s * c / 100",
+          "vars": {
+            "s": {
+              "min": 5,
+              "max": 10,
+              "step": 1
+            },
+            "c": {
+              "min": 2,
+              "max": 4,
+              "step": 0.4
+            }
+          },
+          "unit": "m³",
+          "unitAliases": [
+            "m3"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 2,
+          "working": "Depth = {c} / 100 m. Volume = {s} x {s} x depth = {answer} m³."
+        }
+      ],
+      "faults": [
+        {
+          "id": "erosion-study",
+          "scenario": "Adamu's erosion study was marked down for its method. Here is what he did and wrote.",
+          "lines": [
+            {
+              "text": "He studied only a bare plot, with no vegetated plot.",
+              "fault": true,
+              "why": "A vegetated plot is needed as a control."
+            },
+            {
+              "text": "He used plots of different sizes on different slopes.",
+              "fault": true,
+              "why": "Plots need equal sizes and similar slopes for a fair test."
+            },
+            {
+              "text": "He explained his results without mentioning rainfall.",
+              "fault": true,
+              "why": "Results must be linked to rainfall."
+            },
+            {
+              "text": "He hammered his pins in vertically to the same height.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He took readings at the same intervals.",
+              "why": "That lets him compare the months."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when using erosion pins to measure soil loss.",
+        "explainPrompt": "Why are the erosion pins on a bare plot usually more exposed than those on a grassed plot?",
+        "explainGuide": "Bare soil has no cover, so raindrops and runoff remove it easily. Grass protects the surface and its roots hold the soil, slowing the runoff and reducing soil loss.",
+        "explainKeywords": [
+          [
+            "bare",
+            "cover"
+          ],
+          [
+            "rain",
+            "raindrops",
+            "runoff"
+          ],
+          [
+            "roots",
+            "protects",
+            "hold",
+            "grass"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Measuring the rate of soil erosion",
+        "Bare plot and grassed plot",
+        "Show the rate with units"
+      ]
+    }
+  }
+}

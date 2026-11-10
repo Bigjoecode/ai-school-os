@@ -1,0 +1,1863 @@
+{
+  "subject": "Information and Communication Technology",
+  "room": "drawing",
+  "lessons": {
+    "pr-ict-information-processing-cycle": {
+      "safety": {
+        "correct": [
+          "Ask the shop owner's permission before you stand and watch at the till."
+        ],
+        "wrong": [
+          {
+            "text": "Stand close behind a customer to see how the PIN is entered.",
+            "why": "A PIN is private. Keep your distance and never watch anyone enter it."
+          },
+          {
+            "text": "Photograph the card and receipt so that your notes are accurate.",
+            "why": "Card details and customers must never be photographed."
+          },
+          {
+            "text": "Leave your bottle of malt beside the spreadsheet computer while you work.",
+            "why": "Spills cause short circuits. No drinks near computers."
+          },
+          {
+            "text": "Unscrew the side of the till to see how it works inside.",
+            "why": "That risks damage and shock. Observe from outside only."
+          },
+          {
+            "text": "Touch a sparking socket to see if the plug has come loose.",
+            "why": "Keep away and report it to the teacher. Do not fix it yourself."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Graphics tablet",
+            "why": "Nothing is drawn. The sale is rebuilt in a spreadsheet."
+          },
+          {
+            "name": "Word processor template",
+            "why": "The calculations are done in a spreadsheet."
+          },
+          {
+            "name": "Screwdriver set",
+            "why": "The POS terminal is observed, never opened."
+          },
+          {
+            "name": "Digital camera",
+            "why": "Customers and card details must not be photographed."
+          },
+          {
+            "name": "Network cable tester",
+            "why": "The network is not being tested in this job."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "shop-note",
+          "afterStep": 1,
+          "prompt": "You are at a busy canteen till and want a record of what happens. How do you get it?",
+          "options": [
+            {
+              "text": "Note the steps on paper, without recording people or cards",
+              "correct": true,
+              "consequence": "You keep your record and customers' details stay private."
+            },
+            {
+              "text": "Film the till on your phone so that you miss nothing",
+              "consequence": "A film would capture customers and card details, which must not be photographed."
+            },
+            {
+              "text": "Ask a customer to read out their card details",
+              "consequence": "Card details are private, and asking for them is wrong."
+            }
+          ]
+        },
+        {
+          "id": "vat-where",
+          "afterStep": 5,
+          "prompt": "You are building the spreadsheet. How do you add VAT?",
+          "options": [
+            {
+              "text": "Apply 7.5% once, to the subtotal",
+              "correct": true,
+              "consequence": "VAT is charged correctly on the subtotal, once."
+            },
+            {
+              "text": "Add 7.5% to each item, then again to the subtotal",
+              "consequence": "VAT has been applied twice, so the customer is overcharged."
+            },
+            {
+              "text": "Add the number 7.5 to the subtotal",
+              "consequence": "Adding 7.5 naira is not the same as adding 7.5% of the subtotal."
+            }
+          ]
+        },
+        {
+          "id": "monitor-class",
+          "afterStep": 4,
+          "prompt": "Which column of the IPOS table does the POS display showing the total belong in?",
+          "options": [
+            {
+              "text": "Output",
+              "correct": true,
+              "consequence": "A screen gives results to the user, so it is output."
+            },
+            {
+              "text": "Input",
+              "consequence": "The screen does not enter data, and listing it as input is a common mistake."
+            },
+            {
+              "text": "Storage",
+              "consequence": "The sale is kept in the sales database. The display only shows it."
+            }
+          ]
+        },
+        {
+          "id": "wrong-barcode",
+          "afterStep": 2,
+          "prompt": "The till shows a wrong item after a scan. What is the most likely cause in this system?",
+          "options": [
+            {
+              "text": "The wrong barcode was scanned",
+              "correct": true,
+              "consequence": "Wrong input gives wrong output, however good the processing is."
+            },
+            {
+              "text": "The receipt printer is short of paper",
+              "consequence": "Paper affects only printing. It cannot change which item was entered."
+            },
+            {
+              "text": "The VAT rate was changed",
+              "consequence": "The VAT rate affects the total, not the name of the item."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "data-or-info",
+          "prompt": "Which of these should you label as information?",
+          "options": [
+            {
+              "text": "The receipt with items, prices and the total",
+              "correct": true
+            },
+            {
+              "text": "The digits under a barcode",
+              "why": "That is data until it has been processed."
+            },
+            {
+              "text": "A list of quantities typed at the till",
+              "why": "That is raw data."
+            },
+            {
+              "text": "A PIN typed on the keypad",
+              "why": "That is data entered for processing."
+            }
+          ]
+        },
+        {
+          "id": "scanner-class",
+          "prompt": "Which item on your list is an input device?",
+          "options": [
+            {
+              "text": "Barcode scanner",
+              "correct": true
+            },
+            {
+              "text": "Receipt printer",
+              "why": "It produces output."
+            },
+            {
+              "text": "Screen",
+              "why": "A screen is an output device."
+            },
+            {
+              "text": "Sales database",
+              "why": "That is storage."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "vat",
+          "prompt": "The subtotal is N{s}. VAT is 7.5%. How much VAT is charged, in naira?",
+          "formula": "s * 0.075",
+          "vars": {
+            "s": {
+              "min": 2000,
+              "max": 8000,
+              "step": 500
+            }
+          },
+          "unit": "N",
+          "unitAliases": [
+            "naira"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 2,
+          "working": "VAT = {s} x 0.075 = N{answer}."
+        },
+        {
+          "id": "total",
+          "prompt": "The subtotal is N{s}. With VAT at 7.5%, what is the total, in naira?",
+          "formula": "s * 1.075",
+          "vars": {
+            "s": {
+              "min": 2000,
+              "max": 8000,
+              "step": 500
+            }
+          },
+          "unit": "N",
+          "unitAliases": [
+            "naira"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 2,
+          "working": "Total = {s} + {s} x 0.075 = N{answer}."
+        },
+        {
+          "id": "line-amount",
+          "prompt": "A customer buys {q} tins of milk at N{p} each. What is the amount for that line, in naira?",
+          "formula": "q * p",
+          "vars": {
+            "q": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            },
+            "p": {
+              "min": 800,
+              "max": 1400,
+              "step": 200
+            }
+          },
+          "unit": "N",
+          "unitAliases": [
+            "naira"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{q} x {p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ipos-table",
+          "scenario": "Kunle's IPOS table for a supermarket sale lost marks. Here is what he wrote.",
+          "lines": [
+            {
+              "text": "He listed the monitor as an input device.",
+              "fault": true,
+              "why": "A monitor shows results, so it is output."
+            },
+            {
+              "text": "He called the printed receipt \"data\".",
+              "fault": true,
+              "why": "The receipt is processed and meaningful, so it is information."
+            },
+            {
+              "text": "He charged VAT on each item and once again on the subtotal.",
+              "fault": true,
+              "why": "VAT is applied to the subtotal only once."
+            },
+            {
+              "text": "He put the sales database in the storage column.",
+              "why": "That is correct."
+            },
+            {
+              "text": "He listed the barcode scanner under input.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for observing a shop's till and working out a sale.",
+        "explainPrompt": "Why is a printed receipt called information while the barcode digits are called data?",
+        "explainGuide": "The barcode digits are raw facts with little meaning on their own. A receipt has been processed, with prices looked up and totals worked out, so it is meaningful to the customer and that makes it information.",
+        "explainKeywords": [
+          [
+            "raw",
+            "facts"
+          ],
+          [
+            "process",
+            "processed",
+            "processing"
+          ],
+          [
+            "meaningful",
+            "meaning",
+            "useful"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "The information processing cycle",
+        "Input, processing, output, storage",
+        "Data or information?"
+      ]
+    },
+    "pr-ict-hardware-identification": {
+      "safety": {
+        "correct": [
+          "Tell the teacher if an opened unit on display still has its mains lead attached."
+        ],
+        "wrong": [
+          {
+            "text": "Plug in the display system unit to see whether its parts still work.",
+            "why": "The opened unit must stay unplugged, with its power supply removed."
+          },
+          {
+            "text": "Press down on the processor pins to feel how sharp they are.",
+            "why": "Pins bend easily and cannot be repaired. Do not touch them."
+          },
+          {
+            "text": "Twist a connector hard if it does not go into its port the first time.",
+            "why": "Each connector fits only its matching port. Force breaks it."
+          },
+          {
+            "text": "Pick up a RAM module by its gold contacts with your bare fingers.",
+            "why": "Touching the contacts risks static damage and dirt. Hold boards by the edges."
+          },
+          {
+            "text": "Handle the circuit boards straight away, without touching earthed metal.",
+            "why": "Static from your body can damage them. Touch earthed metal first."
+          },
+          {
+            "text": "Pull out a working machine's cables to see how the ports look at the back.",
+            "why": "Ports can be read where they are. Ask the teacher before moving any cable."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Soldering iron",
+            "why": "No part is repaired in this practical."
+          },
+          {
+            "name": "Live mains lead for the display unit",
+            "why": "The display unit stays unplugged."
+          },
+          {
+            "name": "Crimping tool",
+            "why": "No cables are made here."
+          },
+          {
+            "name": "Digital multimeter",
+            "why": "Parts are identified by sight. Nothing is measured electrically."
+          },
+          {
+            "name": "Network cable tester",
+            "why": "Cables are identified by sight here and are not tested."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "connector-wont-fit",
+          "afterStep": 2,
+          "prompt": "An HDMI lead will not go into a port at the back of the unit. What do you do?",
+          "options": [
+            {
+              "text": "Check that the port is really an HDMI port",
+              "correct": true,
+              "consequence": "Each connector fits only its matching port, so check the type."
+            },
+            {
+              "text": "Push harder until it clicks into place",
+              "consequence": "Forcing a connector damages both it and the port."
+            },
+            {
+              "text": "Shave the edge of the plug so that it fits",
+              "consequence": "That ruins the connector, and the port was the wrong one anyway."
+            }
+          ]
+        },
+        {
+          "id": "open-unit-check",
+          "afterStep": 2,
+          "prompt": "You come to the opened unit and see that its mains lead is plugged in. What do you do?",
+          "options": [
+            {
+              "text": "Do not touch it, and tell the teacher",
+              "correct": true,
+              "consequence": "The teacher makes it safe. Only unplugged units with the power supply removed may be examined."
+            },
+            {
+              "text": "Pull the plug out, then carry on examining it",
+              "consequence": "The power supply is still in place, so the unit is still not safe to examine."
+            },
+            {
+              "text": "Examine only the parts away from the power supply",
+              "consequence": "The unit is not safe to examine at all while it is still connected."
+            }
+          ]
+        },
+        {
+          "id": "handling-ram",
+          "afterStep": 3,
+          "prompt": "You want a closer look at a RAM module on the display unit. How do you handle it?",
+          "options": [
+            {
+              "text": "Touch earthed metal, then hold it by the edges",
+              "correct": true,
+              "consequence": "This protects the module from static."
+            },
+            {
+              "text": "Rub it clean on your shirt, then hold it up",
+              "consequence": "Rubbing on cloth can build up static, which damages the module."
+            },
+            {
+              "text": "Hold it firmly by its gold contacts",
+              "consequence": "That leaves dirt and can carry static onto the contacts."
+            }
+          ]
+        },
+        {
+          "id": "touch-class",
+          "afterStep": 1,
+          "prompt": "Where do you put a touch screen on the classification worksheet?",
+          "options": [
+            {
+              "text": "Under both input and output",
+              "correct": true,
+              "consequence": "It displays results and also accepts touch."
+            },
+            {
+              "text": "Under output only",
+              "consequence": "That ignores its touch function, which is a common mistake."
+            },
+            {
+              "text": "Under storage only",
+              "consequence": "A touch screen does not store the user's files."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "cpu-meaning",
+          "prompt": "Which item in the opened unit is the CPU?",
+          "options": [
+            {
+              "text": "The processor chip under the heat sink",
+              "correct": true
+            },
+            {
+              "text": "The whole metal case",
+              "why": "That is the system unit. The CPU is the chip inside."
+            },
+            {
+              "text": "The long modules in the slots",
+              "why": "Those are RAM modules."
+            },
+            {
+              "text": "The large board all the parts plug into",
+              "why": "That is the motherboard."
+            }
+          ]
+        },
+        {
+          "id": "ethernet-port",
+          "prompt": "You trace the network cable to the back of the unit. Which connector does it use?",
+          "options": [
+            {
+              "text": "RJ-45",
+              "correct": true
+            },
+            {
+              "text": "RJ-11",
+              "why": "RJ-11 is used for telephone lines."
+            },
+            {
+              "text": "HDMI",
+              "why": "HDMI carries video and sound."
+            },
+            {
+              "text": "VGA",
+              "why": "VGA carries video to a monitor."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "flash-mb",
+          "prompt": "A flash drive holds {g} GB. How many MB is that? Use 1 GB = 1,024 MB.",
+          "formula": "g * 1024",
+          "vars": {
+            "g": {
+              "min": 8,
+              "max": 64,
+              "step": 8
+            }
+          },
+          "unit": "MB",
+          "unitAliases": [
+            "megabytes"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{g} x 1,024 = {answer} MB."
+        },
+        {
+          "id": "photos",
+          "prompt": "How many whole photos of 3.5 MB each will fit on a 16 GB flash drive? Use 1 GB = 1,024 MB.",
+          "answer": 4681,
+          "unit": "photos",
+          "unitAliases": [
+            "photo",
+            "pictures"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "16 x 1,024 = 16,384 MB. 16,384 / 3.5 = 4,681.1, so {answer} whole photos."
+        },
+        {
+          "id": "tb-times",
+          "prompt": "A 1 TB hard disk is how many times the capacity of a {g} GB flash drive? Use 1 TB = 1,024 GB.",
+          "formula": "1024 / g",
+          "vars": {
+            "g": {
+              "min": 16,
+              "max": 32,
+              "step": 16
+            }
+          },
+          "unit": "times",
+          "unitAliases": [
+            "x"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "1,024 / {g} = {answer} times."
+        }
+      ],
+      "faults": [
+        {
+          "id": "hardware-sheet",
+          "scenario": "Grace's hardware worksheet lost marks. Here is what she did and wrote.",
+          "lines": [
+            {
+              "text": "She labelled the whole system unit \"the CPU\".",
+              "fault": true,
+              "why": "The CPU is the processor chip inside the system unit."
+            },
+            {
+              "text": "She put the touch screen under output only.",
+              "fault": true,
+              "why": "A touch screen is both input and output."
+            },
+            {
+              "text": "She compared a drive in GB with one in MB without converting.",
+              "fault": true,
+              "why": "Capacities must be compared in the same units."
+            },
+            {
+              "text": "She found the processor type under This PC > Properties.",
+              "why": "That is the correct place."
+            },
+            {
+              "text": "She listed the RJ-45 port as the network connection.",
+              "why": "That is correct."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions to take when examining computer hardware.",
+        "explainPrompt": "Why does Windows show a new drive as having a slightly smaller capacity than its label?",
+        "explainGuide": "Manufacturers count 1 GB as 1,000 MB, while Windows uses 1,024, so the figure looks smaller. Some of the space is also taken up by the file system.",
+        "explainKeywords": [
+          [
+            "manufacturer",
+            "manufacturers",
+            "label"
+          ],
+          [
+            "1,000",
+            "1000",
+            "1,024",
+            "1024"
+          ],
+          [
+            "file system",
+            "formatted",
+            "windows"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Identifying computer hardware",
+        "System unit, peripherals, storage media",
+        "Hold boards by the edges"
+      ]
+    },
+    "pr-ict-software-installation": {
+      "safety": {
+        "correct": [
+          "Ask the teacher before you install anything on a school computer."
+        ],
+        "wrong": [
+          {
+            "text": "Download a free copy of Office from a website that offers it cracked.",
+            "why": "Cracked software is illegal and often carries malware. Use a licensed copy or LibreOffice."
+          },
+          {
+            "text": "Run the installer straight from the flash drive without scanning it.",
+            "why": "Scan installers with antivirus first."
+          },
+          {
+            "text": "Turn off the antivirus because a website told you to, for a smooth install.",
+            "why": "That instruction is a warning sign. Keep protection on and use the official installer."
+          },
+          {
+            "text": "Click Next on every screen, and agree to every extra offer.",
+            "why": "Read each screen and decline add-ons you did not ask for."
+          },
+          {
+            "text": "Lend your administrator password to a friend so that the work goes faster.",
+            "why": "Administrator access is for the person responsible. Never share a password."
+          },
+          {
+            "text": "Download an update from a pop-up advert that says your computer needs it.",
+            "why": "Pop-up adverts are not a trusted source. Use the publisher's own site or update tool."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Cracked Office DVD from a roadside seller",
+            "why": "Pirated software is illegal and often carries malware."
+          },
+          {
+            "name": "Unknown download-manager program",
+            "why": "Software is downloaded only from the official publisher or a trusted store."
+          },
+          {
+            "name": "Screwdriver set",
+            "why": "Installing software needs no hardware work."
+          },
+          {
+            "name": "Registry cleaner from an advert",
+            "why": "It is not needed and is a common source of unwanted software."
+          },
+          {
+            "name": "Disk formatting utility",
+            "why": "Formatting would erase the drive, and nothing here needs it."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "space-check",
+          "afterStep": 1,
+          "prompt": "The installer is small but the installed program needs more space than drive C has free. What do you do?",
+          "options": [
+            {
+              "text": "Free up enough space before you install",
+              "correct": true,
+              "consequence": "The installed size is what counts, so the install can now finish."
+            },
+            {
+              "text": "Go ahead, as the installer itself fits on the drive",
+              "consequence": "The install is likely to fail part-way through, for lack of space."
+            },
+            {
+              "text": "Delete the Windows folder to make room",
+              "consequence": "Windows needs that folder, and the computer may no longer start."
+            }
+          ]
+        },
+        {
+          "id": "where-from",
+          "afterStep": 1,
+          "prompt": "A web search shows several sites offering the LibreOffice installer. Which one do you choose?",
+          "options": [
+            {
+              "text": "The official LibreOffice site",
+              "correct": true,
+              "consequence": "An official download is the trustworthy copy, and it is free."
+            },
+            {
+              "text": "The first result with a big Download button",
+              "consequence": "Such pages often hide adverts or unwanted programs."
+            },
+            {
+              "text": "A link shared in a class WhatsApp group",
+              "consequence": "You cannot tell where that file came from or what was added to it."
+            }
+          ]
+        },
+        {
+          "id": "licence-screen",
+          "afterStep": 2,
+          "prompt": "The licence screen appears during the install. What do you do?",
+          "options": [
+            {
+              "text": "Read it, note the licence, then accept",
+              "correct": true,
+              "consequence": "You know the conditions, and you can name the Mozilla Public Licence in your table."
+            },
+            {
+              "text": "Tick accept straight away without reading it",
+              "consequence": "You would not know what you have agreed to, and you need it for your table."
+            },
+            {
+              "text": "Cancel, as licences only apply to paid software",
+              "consequence": "Open-source software has a licence too, and the install is now stopped."
+            }
+          ]
+        },
+        {
+          "id": "uninstall-how",
+          "afterStep": 5,
+          "prompt": "You need to remove the test program. Which is the right way?",
+          "options": [
+            {
+              "text": "Settings > Apps > Installed apps > Uninstall",
+              "correct": true,
+              "consequence": "Windows removes the program and its settings properly."
+            },
+            {
+              "text": "Delete its shortcut from the desktop",
+              "consequence": "That only removes the shortcut, and the program stays installed."
+            },
+            {
+              "text": "Delete its folder from Program Files",
+              "consequence": "Parts of it stay behind and Windows still lists it as installed."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "installed-shows",
+          "prompt": "How do you confirm that LibreOffice has installed properly?",
+          "options": [
+            {
+              "text": "It appears in the Start menu and opens when chosen",
+              "correct": true
+            },
+            {
+              "text": "The installer file is still in Downloads",
+              "why": "That file was there before the install."
+            },
+            {
+              "text": "The computer has become noticeably slower",
+              "why": "That does not show the program works."
+            }
+          ]
+        },
+        {
+          "id": "open-vs-free",
+          "prompt": "Which of these describes open-source software correctly?",
+          "options": [
+            {
+              "text": "Its source code can be studied, changed and shared",
+              "correct": true
+            },
+            {
+              "text": "It is free of charge but its code is secret",
+              "why": "That is freeware."
+            },
+            {
+              "text": "Copying and modification are forbidden",
+              "why": "That describes a proprietary EULA."
+            },
+            {
+              "text": "It can only be used for one year",
+              "why": "That describes a trial."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "download-seconds",
+          "prompt": "An installer of {s} MB is downloaded at {r} Mbps. How many seconds does it take?",
+          "formula": "s * 8 / r",
+          "vars": {
+            "s": {
+              "min": 200,
+              "max": 600,
+              "step": 40
+            },
+            "r": {
+              "min": 5,
+              "max": 10,
+              "step": 5
+            }
+          },
+          "unit": "s",
+          "unitAliases": [
+            "sec",
+            "secs",
+            "seconds"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 0,
+          "working": "{s} x 8 = megabits. Time = megabits / {r} = {answer} s."
+        },
+        {
+          "id": "licence-cost",
+          "prompt": "A school has {n} computers. A proprietary licence costs an illustrative N{p} per computer. What is the total cost, in naira?",
+          "formula": "n * p",
+          "vars": {
+            "n": {
+              "min": 20,
+              "max": 40,
+              "step": 5
+            },
+            "p": {
+              "min": 100000,
+              "max": 200000,
+              "step": 25000
+            }
+          },
+          "unit": "N",
+          "unitAliases": [
+            "naira"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} x {p} = N{answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "install-report",
+          "scenario": "Tobi's report on installing software lost marks, and his computer started showing adverts. Here is what he did and wrote.",
+          "lines": [
+            {
+              "text": "He said open source and freeware mean the same thing.",
+              "fault": true,
+              "why": "Freeware may be free of charge, but its source code is closed."
+            },
+            {
+              "text": "He called Windows an application package.",
+              "fault": true,
+              "why": "Windows is system software."
+            },
+            {
+              "text": "He installed a program offered by a pop-up advert.",
+              "fault": true,
+              "why": "Software must come from the official publisher or a trusted store."
+            },
+            {
+              "text": "He compared the system requirements with This PC > Properties.",
+              "why": "That is the correct first step."
+            },
+            {
+              "text": "He scanned the installer before he ran it.",
+              "why": "That is a safe habit."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when installing software on a school computer.",
+        "explainPrompt": "Why should software be downloaded only from the publisher's official site or a trusted store?",
+        "explainGuide": "Copies from unknown sites may be altered and can carry malware or unwanted programs. The official source gives the genuine, safe version, and the licence is honoured.",
+        "explainKeywords": [
+          [
+            "official",
+            "trusted",
+            "genuine",
+            "publisher"
+          ],
+          [
+            "malware",
+            "virus",
+            "viruses",
+            "unwanted"
+          ],
+          [
+            "safe",
+            "unknown",
+            "altered"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Installing and removing software",
+        "Open-source and proprietary software",
+        "Official sources only"
+      ]
+    },
+    "pr-ict-threats-protection": {
+      "safety": {
+        "correct": [
+          "Lock the screen whenever you leave a computer that you are signed in to."
+        ],
+        "wrong": [
+          {
+            "text": "Connect the surge protector with the computer still running, to save time.",
+            "why": "Switch off and unplug the equipment first."
+          },
+          {
+            "text": "Write your new password on a sticker on the monitor so that you remember it.",
+            "why": "Anyone can read it there. Never write passwords on the monitor."
+          },
+          {
+            "text": "Give your password to your friend so that they can finish your backup.",
+            "why": "Passwords are never shared."
+          },
+          {
+            "text": "Open a suspicious file to find out whether the antivirus will catch it.",
+            "why": "Never run anything suspicious. Use only safe test files."
+          },
+          {
+            "text": "Plug a heater into the UPS along with the computer during the practical.",
+            "why": "A UPS has a limited capacity, and a heater can overload it. Only the computer goes on it."
+          },
+          {
+            "text": "Keep using the computer through a thunderstorm with no surge protection.",
+            "why": "Lightning can send surges into the equipment. Shut down and unplug if there is no protection."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Second folder on the same hard disk",
+            "why": "A backup on the same disk is lost if the disk fails."
+          },
+          {
+            "name": "Ordinary extension box with no surge protection",
+            "why": "It gives no protection against surges."
+          },
+          {
+            "name": "Crimping tool",
+            "why": "No network cables are made in this job."
+          },
+          {
+            "name": "Pirated antivirus disc",
+            "why": "Pirated software often carries malware."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "Nothing is repaired here."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "classify-lightning",
+          "afterStep": 1,
+          "prompt": "Which remedy on the checklist would you match to lightning and voltage surges?",
+          "options": [
+            {
+              "text": "Surge protector or UPS",
+              "correct": true,
+              "consequence": "It guards the equipment against surges."
+            },
+            {
+              "text": "Antivirus software",
+              "consequence": "Antivirus only deals with malware. It cannot stop a surge."
+            },
+            {
+              "text": "A stronger password",
+              "consequence": "A password protects accounts, not power circuits."
+            }
+          ]
+        },
+        {
+          "id": "password-choice",
+          "afterStep": 3,
+          "prompt": "You are creating a new password. Which of these do you use?",
+          "options": [
+            {
+              "text": "A 14-character mix of cases, numbers and a symbol",
+              "correct": true,
+              "consequence": "It meets the lesson's standard of at least 12 mixed characters."
+            },
+            {
+              "text": "Your first name followed by your birth year",
+              "consequence": "Anyone who knows you can guess it."
+            },
+            {
+              "text": "password123",
+              "consequence": "It is one of the first passwords that an attacker would try."
+            }
+          ]
+        },
+        {
+          "id": "backup-where",
+          "afterStep": 4,
+          "prompt": "Where do you keep your backup copy?",
+          "options": [
+            {
+              "text": "On an external drive or in a cloud folder",
+              "correct": true,
+              "consequence": "It is away from the computer's own disk, so one failure cannot destroy both."
+            },
+            {
+              "text": "In a new folder on the same hard disk",
+              "consequence": "If that disk fails, the backup is lost as well."
+            },
+            {
+              "text": "On the computer's desktop",
+              "consequence": "The desktop is on the same disk, so the copy is no protection at all."
+            }
+          ]
+        },
+        {
+          "id": "before-connect",
+          "afterStep": 5,
+          "prompt": "You are about to connect the surge protector and UPS. What do you do first?",
+          "options": [
+            {
+              "text": "Switch off and unplug the equipment",
+              "correct": true,
+              "consequence": "The connection is made with no power present."
+            },
+            {
+              "text": "Leave it on so that no work is lost",
+              "consequence": "Connecting live equipment is unsafe. Save and shut down first."
+            },
+            {
+              "text": "Switch off only the monitor",
+              "consequence": "The system unit and mains are still live."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "ups-behaviour",
+          "prompt": "The mains supply fails in the middle of the practical. What should the UPS do?",
+          "options": [
+            {
+              "text": "Beep and keep the computer running briefly",
+              "correct": true
+            },
+            {
+              "text": "Shut off the computer immediately",
+              "why": "A UPS gives time to save and shut down."
+            },
+            {
+              "text": "Run the computer for several days",
+              "why": "A UPS only gives a short time."
+            }
+          ]
+        },
+        {
+          "id": "natural-human",
+          "prompt": "Which threat on your checklist is a human threat?",
+          "options": [
+            {
+              "text": "Hacking",
+              "correct": true
+            },
+            {
+              "text": "Lightning",
+              "why": "That is natural."
+            },
+            {
+              "text": "Floods",
+              "why": "Those are natural."
+            },
+            {
+              "text": "Heat",
+              "why": "That is natural."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "new-data-mb",
+          "prompt": "A student adds {m} MB of work each school day for {d} days. How much new data is that, in MB?",
+          "formula": "m * d",
+          "vars": {
+            "m": {
+              "min": 200,
+              "max": 400,
+              "step": 100
+            },
+            "d": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "MB",
+          "unitAliases": [
+            "megabytes"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{m} x {d} = {answer} MB."
+        },
+        {
+          "id": "new-data-gb",
+          "prompt": "A student adds {m} MB of work each school day for {d} days. How much new data is that, in GB? Use 1 GB = 1,024 MB.",
+          "formula": "m * d / 1024",
+          "vars": {
+            "m": {
+              "min": 200,
+              "max": 400,
+              "step": 100
+            },
+            "d": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "GB",
+          "unitAliases": [
+            "gigabytes"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 2,
+          "working": "{m} x {d} = MB of new data. Divide by 1,024 = {answer} GB."
+        },
+        {
+          "id": "total-gb",
+          "prompt": "A student has {s} GB of files and adds {m} MB each school day for {d} days. What is the total, in GB? Use 1 GB = 1,024 MB.",
+          "formula": "s + m * d / 1024",
+          "vars": {
+            "s": {
+              "min": 20,
+              "max": 30,
+              "step": 5
+            },
+            "m": {
+              "min": 200,
+              "max": 400,
+              "step": 100
+            },
+            "d": {
+              "min": 10,
+              "max": 20,
+              "step": 5
+            }
+          },
+          "unit": "GB",
+          "unitAliases": [
+            "gigabytes"
+          ],
+          "tolerance": {
+            "rel": 0.01
+          },
+          "decimals": 2,
+          "working": "New data = {m} x {d} / 1,024 GB. Total = {s} + new data = {answer} GB."
+        }
+      ],
+      "faults": [
+        {
+          "id": "threat-report",
+          "scenario": "Efe wrote a protection plan for his uncle's business centre after a storm and a theft. Here is what he suggested.",
+          "lines": [
+            {
+              "text": "He said that an antivirus would protect the computers from floods and theft.",
+              "fault": true,
+              "why": "Antivirus only deals with malware. Floods and theft need other remedies."
+            },
+            {
+              "text": "He backed up the files to another folder on the same hard disk.",
+              "fault": true,
+              "why": "If the disk fails, the backup goes with it."
+            },
+            {
+              "text": "He wrote the shop's password on the monitor for the staff.",
+              "fault": true,
+              "why": "Passwords must never be written on the monitor."
+            },
+            {
+              "text": "He suggested a surge protector or UPS for the grid fluctuations.",
+              "why": "That is the right remedy for power surges."
+            },
+            {
+              "text": "He recommended burglar-proofing and locks against theft.",
+              "why": "That matches the threat to its remedy."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for protecting a computer and its data.",
+        "explainPrompt": "Why should at least one backup be kept in a different place from the computer?",
+        "explainGuide": "Fire, flood, theft or a disk failure can destroy the computer and anything kept with it. A copy kept elsewhere, such as in the cloud or at home, survives so the files can be restored.",
+        "explainKeywords": [
+          [
+            "fire",
+            "flood",
+            "theft",
+            "failure",
+            "stolen"
+          ],
+          [
+            "different",
+            "elsewhere",
+            "cloud",
+            "home"
+          ],
+          [
+            "restore",
+            "restored",
+            "survive",
+            "survives",
+            "recover"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Protecting computers",
+        "Antivirus, updates, backup, power",
+        "Match each threat to a remedy"
+      ]
+    },
+    "pr-ict-ergonomics-health": {
+      "safety": {
+        "correct": [
+          "Tell your partner at once if a stretch or position feels uncomfortable."
+        ],
+        "wrong": [
+          {
+            "text": "Stand on the chair to adjust the blinds above the workstation.",
+            "why": "A chair can tip over. Do not stand on chairs."
+          },
+          {
+            "text": "Carry on with a wrist stretch even though it has started to hurt.",
+            "why": "Stop if any exercise causes pain."
+          },
+          {
+            "text": "Hold the measuring tape close to your partner's open eye.",
+            "why": "Keep the tape end away from the eye. Measure to the side of the face."
+          },
+          {
+            "text": "Spin your partner round in the adjustable chair to test it.",
+            "why": "They can fall and be hurt. Adjust chairs gently."
+          },
+          {
+            "text": "Force your partner's shoulders back to improve their posture.",
+            "why": "Let them adjust themselves. Forcing can cause injury."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Weighing scale",
+            "why": "Body weight is not part of a workstation check."
+          },
+          {
+            "name": "Blood pressure monitor",
+            "why": "This is a posture and workstation check, not a medical test."
+          },
+          {
+            "name": "Vernier calipers",
+            "why": "These measure small lengths. The tape is the right tool here."
+          },
+          {
+            "name": "Box of eye drops",
+            "why": "No medicine belongs in this practical. Report eye problems to an adult."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "Nothing is repaired here."
+          }
+        ]
+      },
+      "procedure": {
+        "anyOrder": [
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      "decisions": [
+        {
+          "id": "eye-distance",
+          "afterStep": 2,
+          "prompt": "Your partner's eyes are 42 cm from the screen. What do you recommend?",
+          "options": [
+            {
+              "text": "Move back to between 50 and 70 cm",
+              "correct": true,
+              "consequence": "That is about an arm's length, which is the target."
+            },
+            {
+              "text": "Stay where you are, since 42 cm is close enough",
+              "consequence": "That is closer than the minimum of 50 cm, which can cause eye strain."
+            },
+            {
+              "text": "Move back to about 1.5 m from the screen",
+              "consequence": "That is far beyond the target, so the text is hard to read and the user leans forward."
+            }
+          ]
+        },
+        {
+          "id": "screen-height",
+          "afterStep": 3,
+          "prompt": "The top of the screen is well above your partner's eyes. What do you do?",
+          "options": [
+            {
+              "text": "Lower the screen or raise the chair to bring it to eye level",
+              "correct": true,
+              "consequence": "The neck is no longer strained looking upwards."
+            },
+            {
+              "text": "Leave it, as a high screen encourages good posture",
+              "consequence": "A high screen strains the neck. This is a common mistake."
+            },
+            {
+              "text": "Tilt the head back and carry on typing",
+              "consequence": "Keeping the neck bent back causes neck pain."
+            }
+          ]
+        },
+        {
+          "id": "feet-dangling",
+          "afterStep": 3,
+          "prompt": "When the chair is at the right height for the desk, your partner's feet do not reach the floor. What do you recommend?",
+          "options": [
+            {
+              "text": "Add a footrest so that the feet are flat",
+              "correct": true,
+              "consequence": "Flat, supported feet help the back stay well supported."
+            },
+            {
+              "text": "Let the feet dangle because it is only for a short time",
+              "consequence": "Dangling feet put pressure on the legs and encourage slouching."
+            },
+            {
+              "text": "Have them tuck their feet under the chair",
+              "consequence": "The feet are still not flat, and the posture is poor."
+            }
+          ]
+        },
+        {
+          "id": "glare-fix",
+          "afterStep": 5,
+          "prompt": "The afternoon sun is reflecting off the screen. What do you do?",
+          "options": [
+            {
+              "text": "Adjust the blinds or the angle of the screen",
+              "correct": true,
+              "consequence": "The glare goes and the screen is easy to read."
+            },
+            {
+              "text": "Turn the brightness down as low as it will go",
+              "consequence": "The screen becomes harder to read, and the reflection is still there."
+            },
+            {
+              "text": "Lean to one side until the reflection moves",
+              "consequence": "That swaps eye strain for neck and back strain."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "elbow-angle",
+          "prompt": "Which observation shows that your partner's arms are positioned correctly at the keyboard?",
+          "options": [
+            {
+              "text": "Elbows at about 90 degrees with straight wrists",
+              "correct": true
+            },
+            {
+              "text": "Elbows locked straight with hands far forward",
+              "why": "That strains the arms and shoulders."
+            },
+            {
+              "text": "Wrists bent upwards, resting on the desk edge",
+              "why": "Bent wrists are linked with repetitive strain injury."
+            }
+          ]
+        },
+        {
+          "id": "observer-error",
+          "prompt": "Your partner sits up very straight as soon as you start watching. Which of these is it an example of?",
+          "options": [
+            {
+              "text": "A source of error in the observation",
+              "correct": true
+            },
+            {
+              "text": "A sign that the workstation is well set up",
+              "why": "They sat that way only because they were being watched."
+            },
+            {
+              "text": "A good reason to make the observation shorter",
+              "why": "A shorter observation makes this problem worse."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "eye-breaks",
+          "prompt": "How many eye breaks does the 20-20-20 rule give in a session of {s} minutes?",
+          "formula": "s / 20",
+          "vars": {
+            "s": {
+              "min": 60,
+              "max": 180,
+              "step": 20
+            }
+          },
+          "unit": "breaks",
+          "unitAliases": [
+            "break"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{s} / 20 = {answer} breaks."
+        },
+        {
+          "id": "too-close",
+          "prompt": "The eye-to-screen distance measures {d} cm. How many centimetres too close is that, compared with the minimum recommended 50 cm?",
+          "formula": "50 - d",
+          "vars": {
+            "d": {
+              "min": 30,
+              "max": 48,
+              "step": 2
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "50 - {d} = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ergo-write-up",
+          "scenario": "Fatima assessed a workstation in the school library. Her report was returned for correction. Here is what she did and wrote.",
+          "lines": [
+            {
+              "text": "She listed backache without giving its cause or remedy.",
+              "fault": true,
+              "why": "A hazard should be stated with its cause and remedy."
+            },
+            {
+              "text": "She advised placing the monitor well above eye level.",
+              "fault": true,
+              "why": "A high monitor strains the neck."
+            },
+            {
+              "text": "She told the user to keep working through neck pain.",
+              "fault": true,
+              "why": "Pain is a signal to stop and change position."
+            },
+            {
+              "text": "She measured the eye-to-screen distance with a tape.",
+              "why": "That is the procedure."
+            },
+            {
+              "text": "She demonstrated the 20-20-20 rule.",
+              "why": "That is the recommended eye break."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions to reduce health problems when using a computer.",
+        "explainPrompt": "Why does using a keyboard with bent wrists for long periods cause injury?",
+        "explainGuide": "Bent wrists strain the tendons, and repeating the same movement for long periods makes this worse, leading to repetitive strain injury. Straight wrists and regular breaks reduce the strain.",
+        "explainKeywords": [
+          [
+            "repetitive",
+            "repeated",
+            "repeating",
+            "repeat"
+          ],
+          [
+            "strain",
+            "strains",
+            "tendon",
+            "tendons"
+          ],
+          [
+            "wrist",
+            "wrists",
+            "injury"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Workstation ergonomics",
+        "Posture, screen, lighting, breaks",
+        "Give a cause and a remedy"
+      ]
+    },
+    "pr-ict-typing-speed-test": {
+      "safety": {
+        "correct": [
+          "Rest your hands briefly between test runs if your fingers begin to ache."
+        ],
+        "wrong": [
+          {
+            "text": "Eat your puff-puff at the keyboard while waiting for the next test.",
+            "why": "Crumbs and spills can damage the keyboard. No food near computers."
+          },
+          {
+            "text": "Slide the keyboard so that it hangs over the edge of the desk for more room.",
+            "why": "It can fall, and an awkward position bends your wrists. Keep it firmly on the desk."
+          },
+          {
+            "text": "Push a warm, smelly cable back behind the desk and carry on with the test.",
+            "why": "Overheating equipment must be reported to the teacher. Do not fix it yourself."
+          },
+          {
+            "text": "Type for an hour with your eyes on the screen, trying to improve your speed.",
+            "why": "Take short eye breaks about every 20 minutes."
+          },
+          {
+            "text": "Rest your wrists heavily on the desk edge as you type.",
+            "why": "Keep your wrists straight and do not rest them heavily."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Presentation software",
+            "why": "The passage is typed in a word processor."
+          },
+          {
+            "name": "Microphone headset",
+            "why": "This is a test of typing, not of voice input."
+          },
+          {
+            "name": "Mouse mat",
+            "why": "The mouse is not used during the test."
+          },
+          {
+            "name": "Graphics tablet",
+            "why": "It is not a typing tool."
+          },
+          {
+            "name": "Scanner",
+            "why": "The passage is typed, not scanned."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "error-during-test",
+          "afterStep": 3,
+          "prompt": "In the middle of the timed test you notice a wrong letter on the line above. What do you do?",
+          "options": [
+            {
+              "text": "Keep typing and leave the error uncorrected",
+              "correct": true,
+              "consequence": "The procedure says not to correct errors, so all of them count in the net speed."
+            },
+            {
+              "text": "Stop the stopwatch and go back to fix it",
+              "consequence": "Stopping the clock and correcting errors spoils the timing and the method."
+            },
+            {
+              "text": "Go back and fix it while the time runs on",
+              "consequence": "Correcting is not part of this test, and you would have a different result."
+            }
+          ]
+        },
+        {
+          "id": "eyes-on-copy",
+          "afterStep": 3,
+          "prompt": "Your fingers lose their place on the keys. What is the best thing to do?",
+          "options": [
+            {
+              "text": "Feel for the F and J bumps and keep your eyes on the copy",
+              "correct": true,
+              "consequence": "The bumps bring your fingers home without you looking down."
+            },
+            {
+              "text": "Look down and type with two fingers from now on",
+              "consequence": "Looking at the keys slows you down and increases your errors."
+            },
+            {
+              "text": "Look down at the keyboard for the rest of the test",
+              "consequence": "This is what slows typists down and causes more errors."
+            }
+          ]
+        },
+        {
+          "id": "which-count",
+          "afterStep": 4,
+          "prompt": "Review > Word Count is open. Which figure do you use?",
+          "options": [
+            {
+              "text": "Characters (with spaces)",
+              "correct": true,
+              "consequence": "A standard word is 5 characters including spaces, so this is the figure needed."
+            },
+            {
+              "text": "Words",
+              "consequence": "The counter's words vary in length. Speed uses 5-character standard words."
+            },
+            {
+              "text": "Paragraphs",
+              "consequence": "Paragraphs say nothing about how many characters you typed."
+            }
+          ]
+        },
+        {
+          "id": "weekly-compare",
+          "afterStep": 6,
+          "prompt": "You want to know if you have improved since last week. How do you test?",
+          "options": [
+            {
+              "text": "Same passage length and time as last week",
+              "correct": true,
+              "consequence": "Keeping these the same makes the comparison fair."
+            },
+            {
+              "text": "A shorter passage this time, so that you can go faster",
+              "consequence": "Changing the length makes the two results impossible to compare fairly."
+            },
+            {
+              "text": "A longer time limit than last week",
+              "consequence": "The conditions have changed, so the comparison is not fair."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "target",
+          "prompt": "Which net speed meets the target for this practical?",
+          "options": [
+            {
+              "text": "32 wpm",
+              "correct": true
+            },
+            {
+              "text": "24 wpm",
+              "why": "That is below the 30-35 wpm target."
+            },
+            {
+              "text": "18 wpm",
+              "why": "That is well below the target."
+            }
+          ]
+        },
+        {
+          "id": "home-left",
+          "prompt": "Where should your left-hand fingers rest before you start?",
+          "options": [
+            {
+              "text": "A, S, D and F",
+              "correct": true
+            },
+            {
+              "text": "Q, W, E and R",
+              "why": "That is the row above."
+            },
+            {
+              "text": "J, K, L and ;",
+              "why": "Those are the right-hand home keys."
+            },
+            {
+              "text": "Z, X, C and V",
+              "why": "That is the row below."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "gross",
+          "prompt": "A student typed {c} characters in 5 minutes. A standard word is 5 characters. What is the gross speed, in wpm?",
+          "formula": "c / 5 / 5",
+          "vars": {
+            "c": {
+              "min": 750,
+              "max": 1250,
+              "step": 25
+            }
+          },
+          "unit": "wpm",
+          "unitAliases": [
+            "words per minute",
+            "words/min"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Words = {c} / 5. Gross = words / 5 = {answer} wpm."
+        },
+        {
+          "id": "net",
+          "prompt": "A student typed {c} characters in 5 minutes with {e} uncorrected errors. What is the net speed, in wpm? A standard word is 5 characters.",
+          "formula": "c / 5 / 5 - e / 5",
+          "vars": {
+            "c": {
+              "min": 800,
+              "max": 1200,
+              "step": 50
+            },
+            "e": {
+              "min": 1,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "wpm",
+          "unitAliases": [
+            "words per minute",
+            "words/min"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Gross = {c} / 5 / 5. Net = gross - {e} / 5 = {answer} wpm."
+        },
+        {
+          "id": "accuracy",
+          "prompt": "A student typed {c} characters with {e} uncorrected errors. What is the accuracy, as a percentage? A standard word is 5 characters.",
+          "formula": "(c / 5 - e) / (c / 5) * 100",
+          "vars": {
+            "c": {
+              "min": 800,
+              "max": 1200,
+              "step": 50
+            },
+            "e": {
+              "min": 1,
+              "max": 8,
+              "step": 1
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "abs": 0.1
+          },
+          "decimals": 1,
+          "working": "Words = {c} / 5. Accuracy = (words - {e}) / words x 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "typing-record",
+          "scenario": "Amaka reported a net speed of 29 wpm, but the teacher could not reproduce it. Here is what she did.",
+          "lines": [
+            {
+              "text": "She read \"Words\" from the counter and divided it by the minutes.",
+              "fault": true,
+              "why": "Speed uses 5-character standard words, not the counter's words."
+            },
+            {
+              "text": "She subtracted the whole number of errors from the gross speed.",
+              "fault": true,
+              "why": "The errors must first be divided by the minutes."
+            },
+            {
+              "text": "She started the stopwatch some time after she had begun typing.",
+              "fault": true,
+              "why": "A late start makes the timing wrong and the speed too high."
+            },
+            {
+              "text": "She placed the passage on a copy holder beside the screen.",
+              "why": "That keeps her eyes on the copy."
+            },
+            {
+              "text": "She sat with her fingers on the home keys before starting.",
+              "why": "That is the correct start."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for a fair typing speed test.",
+        "explainPrompt": "Why are the errors divided by the number of minutes when net speed is worked out?",
+        "explainGuide": "Gross speed is in words per minute, so the penalty must also be per minute. Dividing the errors by the minutes gives errors per minute, which can properly be subtracted from the gross speed.",
+        "explainKeywords": [
+          [
+            "per minute",
+            "minutes",
+            "minute"
+          ],
+          [
+            "errors",
+            "error",
+            "penalty"
+          ],
+          [
+            "subtract",
+            "subtracted",
+            "gross"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Typing speed and accuracy",
+        "Target: 30 to 35 wpm",
+        "Show the formula first"
+      ]
+    }
+  }
+}

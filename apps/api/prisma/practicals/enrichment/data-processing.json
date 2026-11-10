@@ -1,0 +1,1270 @@
+{
+  "subject": "Data Processing",
+  "room": "drawing",
+  "lessons": {
+    "pr-dpr-coreldraw-business-card": {
+      "safety": {
+        "correct": [
+          "Leave the room's cables where they are and ask the teacher if a plug seems loose."
+        ],
+        "wrong": [
+          {
+            "text": "Keep your water bottle next to the keyboard while you work on the design.",
+            "why": "A spill can short-circuit the equipment. Bottles stay out of the laboratory."
+          },
+          {
+            "text": "Push a loose plug back into its socket yourself to save the class time.",
+            "why": "Loose plugs can spark. Report them to the teacher and do not touch them."
+          },
+          {
+            "text": "Lean close to the screen to check whether the small text is sharp.",
+            "why": "That strains your eyes. Zoom in on screen and sit at arm's length."
+          },
+          {
+            "text": "Open the side of the system unit if it feels warm while exporting.",
+            "why": "Never touch the inside of a system unit. Report it to the teacher."
+          },
+          {
+            "text": "Carry on for the whole period without looking away from the design.",
+            "why": "Rest your eyes about every 20 minutes."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Microsoft Access",
+            "why": "That is a database program, not a graphics package."
+          },
+          {
+            "name": "Microsoft Excel",
+            "why": "A spreadsheet cannot do this job. Use a vector graphics package."
+          },
+          {
+            "name": "Flatbed scanner",
+            "why": "The logo is drawn with the program's tools."
+          },
+          {
+            "name": "Laminating machine",
+            "why": "Lamination is not part of this job."
+          },
+          {
+            "name": "Label printer for parcels",
+            "why": "The card is exported as an image for printing."
+          }
+        ],
+        "optional": [
+          "Colour printer (optional)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "group-logo",
+          "afterStep": 3,
+          "prompt": "Your logo is finished, made of several shapes, and is in the wrong place. What do you do first?",
+          "options": [
+            {
+              "text": "Group the parts with Ctrl+G, then drag the logo",
+              "correct": true,
+              "consequence": "The parts stay together when moved."
+            },
+            {
+              "text": "Drag each part across on its own",
+              "consequence": "The parts shift out of position, a common mistake."
+            },
+            {
+              "text": "Press F8 and retype the logo in its new place",
+              "consequence": "F8 is the Text tool, and this throws away the shapes you have drawn."
+            }
+          ]
+        },
+        {
+          "id": "text-edge",
+          "afterStep": 4,
+          "prompt": "The phone number sits very close to the bottom edge of the card. What do you do?",
+          "options": [
+            {
+              "text": "Move it at least 3 mm inside the edge",
+              "correct": true,
+              "consequence": "Trimming will not cut through it."
+            },
+            {
+              "text": "Leave it, as it can still be read on screen",
+              "consequence": "The trimmer can cut into the text on the printed card."
+            },
+            {
+              "text": "Make the font smaller and leave it in place",
+              "consequence": "It is harder to read and is still too close to the edge."
+            }
+          ]
+        },
+        {
+          "id": "export-res",
+          "afterStep": 5,
+          "prompt": "The print shop in Aba will print from an image file. Which export setting do you choose?",
+          "options": [
+            {
+              "text": "PNG at 300 dpi",
+              "correct": true,
+              "consequence": "300 dpi gives a sharp printed card."
+            },
+            {
+              "text": "PNG at 72 dpi",
+              "consequence": "That is a screen resolution, so the card prints blurred."
+            },
+            {
+              "text": "Save the .cdr file only and tell them to open it",
+              "consequence": "The lesson's job is an exported image, since the shop may not have CorelDRAW."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "package-type",
+          "prompt": "A classmate asks what kind of program CorelDRAW is. Which is the right answer?",
+          "options": [
+            {
+              "text": "A vector graphics package",
+              "correct": true
+            },
+            {
+              "text": "A word processor",
+              "why": "It handles text, but it is a graphics package."
+            },
+            {
+              "text": "A spreadsheet program",
+              "why": "Excel is a spreadsheet. CorelDRAW is a graphics package."
+            },
+            {
+              "text": "A database management system",
+              "why": "Access is a DBMS. CorelDRAW is a graphics package."
+            }
+          ]
+        },
+        {
+          "id": "exported-print",
+          "prompt": "You open the card exported at 300 dpi and zoom in to check it. What do you expect?",
+          "options": [
+            {
+              "text": "Sharp edges on the text and shapes",
+              "correct": true
+            },
+            {
+              "text": "Blurred edges on all the text",
+              "why": "Blurring comes from exporting at screen resolution."
+            },
+            {
+              "text": "A logo with the parts out of place",
+              "why": "Exporting does not move objects."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "pixels",
+          "prompt": "An image {w} in wide is exported at {d} dpi. How many pixels wide is it?",
+          "formula": "w * d",
+          "vars": {
+            "w": {
+              "min": 2,
+              "max": 4,
+              "step": 0.5
+            },
+            "d": {
+              "min": 150,
+              "max": 300,
+              "step": 150
+            }
+          },
+          "unit": "pixels",
+          "unitAliases": [
+            "pixel",
+            "px"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Width = {w} x {d} = {answer} pixels."
+        },
+        {
+          "id": "usable-width",
+          "prompt": "A sheet of A4 is 210 mm wide. With a margin of {m} mm on each side, what is the usable width in mm?",
+          "formula": "210 - 2 * m",
+          "vars": {
+            "m": {
+              "min": 5,
+              "max": 15,
+              "step": 5
+            }
+          },
+          "unit": "mm",
+          "unitAliases": [
+            "millimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Usable width = 210 - 2 x {m} = {answer} mm."
+        },
+        {
+          "id": "sheets",
+          "prompt": "You fit 10 cards on one A4 sheet. How many sheets do you need for {c} cards?",
+          "formula": "c / 10",
+          "vars": {
+            "c": {
+              "min": 100,
+              "max": 500,
+              "step": 50
+            }
+          },
+          "unit": "sheets",
+          "unitAliases": [
+            "sheet"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Sheets = {c} / 10 = {answer} sheets."
+        }
+      ],
+      "faults": [
+        {
+          "id": "ada-cards",
+          "scenario": "The cards for Ada's Tailoring came back from the printer blurred, and the logo is out of place. Here is what Chinedu did.",
+          "lines": [
+            {
+              "text": "He exported the card at screen resolution.",
+              "fault": true,
+              "why": "Screen resolution (72-96 dpi) prints blurred. Export at 300 dpi."
+            },
+            {
+              "text": "He moved the logo before grouping its parts.",
+              "fault": true,
+              "why": "Parts shift unless they are grouped."
+            },
+            {
+              "text": "He entered the page size in inches while the units were set to millimetres.",
+              "fault": true,
+              "why": "Wrong units give a wrong page size, a listed source of error."
+            },
+            {
+              "text": "He held Ctrl to draw the circle with the Ellipse tool.",
+              "why": "That gives a perfect circle."
+            },
+            {
+              "text": "He kept to two fonts for the whole card.",
+              "why": "That keeps the design clear."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when designing a business card for printing.",
+        "explainPrompt": "Why should a card meant for printing be exported at 300 dpi rather than screen resolution?",
+        "explainGuide": "300 dpi gives many more dots per inch than the 72 to 96 dpi of a screen, so printed edges stay sharp. At screen resolution the image has too few pixels for its size and prints blurred.",
+        "explainKeywords": [
+          [
+            "sharp",
+            "clear",
+            "blur",
+            "blurred"
+          ],
+          [
+            "dots",
+            "pixels",
+            "resolution"
+          ],
+          [
+            "print",
+            "printed",
+            "printing"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Business card in CorelDRAW",
+        "Card size 3.5 in x 2 in",
+        "Group the logo, keep inside the edge"
+      ]
+    },
+    "pr-dpr-virus-scan": {
+      "safety": {
+        "correct": [
+          "Tell the teacher at once if the antivirus reports anything other than the test file."
+        ],
+        "wrong": [
+          {
+            "text": "Bring a real virus from home so that the antivirus has something proper to catch.",
+            "why": "Real malware can spread to the whole network. Use only the harmless EICAR test file."
+          },
+          {
+            "text": "Run two real-time antivirus programs together to be extra safe.",
+            "why": "They conflict with each other. One up-to-date program is right."
+          },
+          {
+            "text": "Open the attachment in a strange e-mail about exam results to see if it is real.",
+            "why": "Attachments can carry malware. Never open suspicious ones."
+          },
+          {
+            "text": "Keep an infected computer on the network so that it can download a fix.",
+            "why": "It can infect others. Disconnect it until it is cleaned."
+          },
+          {
+            "text": "Turn off the antivirus so that files can be copied more quickly.",
+            "why": "That leaves the computer open to attack, and removes the protection you are testing."
+          },
+          {
+            "text": "Forward a suspicious file to your classmates to warn them about it.",
+            "why": "Sending it on spreads the danger. Report it to the teacher."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Disk formatting utility",
+            "why": "Formatting wipes data. It is not how a threat is dealt with here."
+          },
+          {
+            "name": "Pirated software CD",
+            "why": "Pirated software is a common source of malware."
+          },
+          {
+            "name": "Second antivirus program",
+            "why": "Two real-time antivirus programs conflict."
+          },
+          {
+            "name": "Screwdriver set",
+            "why": "Viruses affect software and data. Nothing is opened here."
+          },
+          {
+            "name": "Replacement monitor",
+            "why": "A virus damages software and data, not usually the monitor."
+          }
+        ]
+      },
+      "decisions": [
+        {
+          "id": "shortcuts-sign",
+          "afterStep": 1,
+          "prompt": "On a flash drive, every folder has turned into a shortcut. What do you decide?",
+          "options": [
+            {
+              "text": "Treat it as a sign of infection and scan it",
+              "correct": true,
+              "consequence": "Shortcuts replacing folders are a known sign of infection."
+            },
+            {
+              "text": "Double-click a shortcut to see where it leads",
+              "consequence": "Opening it may run the malicious program."
+            },
+            {
+              "text": "Ignore it, since the folders still show their names",
+              "consequence": "The real folders are hidden, and the infection can spread to other computers."
+            }
+          ]
+        },
+        {
+          "id": "scan-flash",
+          "afterStep": 3,
+          "prompt": "A classmate lends you a flash drive with notes you need straight away. What do you do?",
+          "options": [
+            {
+              "text": "Scan it from File Explorer before opening it",
+              "correct": true,
+              "consequence": "Any malware is detected before it can run."
+            },
+            {
+              "text": "Open only the notes folder, then scan it",
+              "consequence": "Opening before scanning is how malware spreads."
+            },
+            {
+              "text": "Copy the folder to the desktop, then scan the desktop",
+              "consequence": "The unchecked files have now reached your computer."
+            }
+          ]
+        },
+        {
+          "id": "alert-action",
+          "afterStep": 5,
+          "prompt": "The real-time protection alert appears for the test file. What do you do?",
+          "options": [
+            {
+              "text": "Choose Quarantine or Delete",
+              "correct": true,
+              "consequence": "The file is isolated and the action is recorded in the protection history."
+            },
+            {
+              "text": "Choose Allow, so that it will stop the alerts",
+              "consequence": "Allowing a flagged file trains you to ignore the very warning you are testing."
+            },
+            {
+              "text": "Close the alert and open the file to see inside",
+              "consequence": "Flagged files should never be opened, even in a practical."
+            }
+          ]
+        },
+        {
+          "id": "after-practical",
+          "afterStep": 6,
+          "prompt": "You are setting up the computer for the weeks ahead. Which plan do you choose?",
+          "options": [
+            {
+              "text": "A weekly Full Scan with automatic updates on",
+              "correct": true,
+              "consequence": "Regular scans and up-to-date definitions give steady protection."
+            },
+            {
+              "text": "A Full Scan only when the computer becomes slow",
+              "consequence": "A threat could work for months before it is noticed."
+            },
+            {
+              "text": "A weekly Full Scan with automatic updates off",
+              "consequence": "Outdated definitions miss new viruses."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "eicar-result",
+          "prompt": "You copy the EICAR file onto the desktop. What should happen?",
+          "options": [
+            {
+              "text": "The antivirus flags it at once and quarantines it",
+              "correct": true
+            },
+            {
+              "text": "Nothing happens, as the file is harmless",
+              "why": "Every antivirus reports EICAR as a test virus."
+            },
+            {
+              "text": "The computer restarts by itself",
+              "why": "The file is harmless and only triggers an alert."
+            },
+            {
+              "text": "The monitor flickers and goes off",
+              "why": "Viruses affect software and data, and this file is harmless."
+            }
+          ]
+        },
+        {
+          "id": "false-positive",
+          "prompt": "The scan flags a file your teacher knows is safe. What is this called?",
+          "options": [
+            {
+              "text": "A false positive",
+              "correct": true
+            },
+            {
+              "text": "A zero-day virus",
+              "why": "That is a new virus not yet in the signature database."
+            },
+            {
+              "text": "A quarantine",
+              "why": "Quarantine is the action taken, not the wrong detection."
+            },
+            {
+              "text": "A signature update",
+              "why": "That is the download of new definitions."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "scan-rate",
+          "prompt": "A scan checks {n} files in {m} minutes. How many files per second is that?",
+          "formula": "n / (m * 60)",
+          "vars": {
+            "n": {
+              "min": 40000,
+              "max": 60000,
+              "step": 4000
+            },
+            "m": {
+              "min": 10,
+              "max": 16,
+              "step": 2
+            }
+          },
+          "unit": "files/s",
+          "unitAliases": [
+            "files per second",
+            "file/s"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "Rate = {n} / ({m} x 60) = {answer} files/s."
+        },
+        {
+          "id": "drive-time",
+          "prompt": "A drive holds {n} files and the scan runs at {r} files per second. How many minutes will it take?",
+          "formula": "n / r / 60",
+          "vars": {
+            "n": {
+              "min": 60000,
+              "max": 120000,
+              "step": 20000
+            },
+            "r": {
+              "min": 50,
+              "max": 70,
+              "step": 5
+            }
+          },
+          "unit": "minutes",
+          "unitAliases": [
+            "min",
+            "mins",
+            "minute"
+          ],
+          "tolerance": {
+            "rel": 0.02
+          },
+          "decimals": 1,
+          "working": "Seconds = {n} / {r}. Minutes = seconds / 60 = {answer} minutes."
+        },
+        {
+          "id": "percent-infected",
+          "prompt": "{i} infected files were found among {n} files. What percentage of the files were infected?",
+          "formula": "i / n * 100",
+          "vars": {
+            "i": {
+              "min": 2,
+              "max": 6,
+              "step": 1
+            },
+            "n": {
+              "min": 40000,
+              "max": 60000,
+              "step": 5000
+            }
+          },
+          "unit": "%",
+          "unitAliases": [
+            "percent"
+          ],
+          "tolerance": {
+            "rel": 0.03
+          },
+          "decimals": 4,
+          "working": "{i} / {n} x 100 = {answer}%."
+        }
+      ],
+      "faults": [
+        {
+          "id": "uche-report",
+          "scenario": "Uche's scanning report was marked down, and the laboratory machine later got infected. Here is what he did.",
+          "lines": [
+            {
+              "text": "He wrote that a computer virus damages the monitor.",
+              "fault": true,
+              "why": "Viruses damage software and data, not usually the hardware."
+            },
+            {
+              "text": "He installed a second real-time antivirus to double the protection.",
+              "fault": true,
+              "why": "Two real-time programs conflict."
+            },
+            {
+              "text": "He opened a borrowed flash drive before scanning it.",
+              "fault": true,
+              "why": "Every removable medium is scanned before being opened."
+            },
+            {
+              "text": "He updated the virus definitions before scanning.",
+              "why": "That is correct, as outdated definitions miss new viruses."
+            },
+            {
+              "text": "He looked up the quarantine record in the protection history.",
+              "why": "That is how the action is confirmed."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions for keeping a computer free of viruses.",
+        "explainPrompt": "Why should an infected computer be disconnected from the network until it is cleaned?",
+        "explainGuide": "While it is connected, the malware can spread across the network to other computers and their shared files. Disconnecting isolates the machine, so the infection stays on it while it is being cleaned.",
+        "explainKeywords": [
+          [
+            "spread",
+            "spreading",
+            "infect",
+            "infection"
+          ],
+          [
+            "network",
+            "connected"
+          ],
+          [
+            "other",
+            "others"
+          ],
+          [
+            "isolate",
+            "isolates",
+            "disconnect",
+            "disconnecting"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Detecting and removing viruses",
+        "Update, scan, quarantine",
+        "EICAR test file only"
+      ]
+    },
+    "pr-dpr-computer-room-layout": {
+      "safety": {
+        "correct": [
+          "Walk round the benches slowly and watch where you put your feet during the survey."
+        ],
+        "wrong": [
+          {
+            "text": "Unplug an extension box to see how many sockets it has.",
+            "why": "That cuts off other people's equipment. Count them without touching, and report any overload."
+          },
+          {
+            "text": "Fix a loose wire you notice so that the survey can continue.",
+            "why": "Exposed wires are dangerous. Report them to the teacher."
+          },
+          {
+            "text": "Move a heavy system unit alone to measure the bench behind it.",
+            "why": "You may hurt yourself or damage it. Measure round it or ask for help."
+          },
+          {
+            "text": "Stand on a bench to measure the height of a window.",
+            "why": "You can fall and damage the bench. Measure from the floor or ask the teacher."
+          },
+          {
+            "text": "Leave a bag in front of the extinguisher while you take measurements.",
+            "why": "The extinguisher must stay clear and easy to reach."
+          },
+          {
+            "text": "Let your tape run across the doorway while people are coming in.",
+            "why": "That is a trip hazard. Warn people and clear the tape as soon as you have the reading."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Vernier calipers",
+            "why": "These are for small lengths. A room is measured with a tape."
+          },
+          {
+            "name": "Bottle of drinking water",
+            "why": "Liquids stay out of the computer room."
+          },
+          {
+            "name": "Digital multimeter",
+            "why": "Sockets are recorded, not tested. Report any fault to the teacher."
+          },
+          {
+            "name": "Soldering iron",
+            "why": "This is a survey, not a repair."
+          },
+          {
+            "name": "Water fire extinguisher",
+            "why": "Water conducts electricity and is wrong for electrical fires."
+          }
+        ],
+        "optional": [
+          "Lux meter app on a smartphone (optional)",
+          "Floor plan of the computer room (if available)"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "monitor-window",
+          "afterStep": 3,
+          "prompt": "One long wall has big windows. How do you place the monitors in relation to them?",
+          "options": [
+            {
+              "text": "At right angles to the windows",
+              "correct": true,
+              "consequence": "Daylight falls across the screens, so glare is reduced."
+            },
+            {
+              "text": "Facing straight towards the windows",
+              "consequence": "Daylight falls straight on the screen and reflects off it, so it is hard to read."
+            },
+            {
+              "text": "With the windows directly behind the screens",
+              "consequence": "The user looks into bright light past the screen and suffers glare."
+            }
+          ]
+        },
+        {
+          "id": "cable-route",
+          "afterStep": 4,
+          "prompt": "The cables from the benches must reach the socket on the far wall. How do you route them?",
+          "options": [
+            {
+              "text": "Along trunking round the walls",
+              "correct": true,
+              "consequence": "No one can trip on them and the walkways stay clear."
+            },
+            {
+              "text": "Across the central aisle, taped to the floor",
+              "consequence": "Cables in a walkway are a trip hazard, and tape wears away."
+            },
+            {
+              "text": "Under the mats, out of sight",
+              "consequence": "Hidden cables get crushed and damaged, which can cause a fire."
+            }
+          ]
+        },
+        {
+          "id": "not-enough-sockets",
+          "afterStep": 5,
+          "prompt": "You are short of sockets on one side of the room. Which plan is correct?",
+          "options": [
+            {
+              "text": "Add a wall point or another box on its own socket",
+              "correct": true,
+              "consequence": "Each extension box then has its own wall supply."
+            },
+            {
+              "text": "Plug a second extension box into the first",
+              "consequence": "Daisy-chaining extension boxes can overload them, which is a fire risk."
+            },
+            {
+              "text": "Share two plugs per socket using an adaptor",
+              "consequence": "That overloads the socket, a common finding that must be reported."
+            }
+          ]
+        },
+        {
+          "id": "extinguisher-choice",
+          "afterStep": 7,
+          "prompt": "Your report recommends a fire extinguisher for the room. Which type do you name?",
+          "options": [
+            {
+              "text": "Carbon dioxide (CO2)",
+              "correct": true,
+              "consequence": "CO2 suits electrical fires and leaves no residue."
+            },
+            {
+              "text": "Water",
+              "consequence": "Water conducts electricity and is dangerous on an electrical fire."
+            },
+            {
+              "text": "Foam",
+              "consequence": "Foam is water-based and is not suitable for electrical equipment."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "lux-reading",
+          "prompt": "You take four light readings for the benches. Which one meets the target for this room?",
+          "options": [
+            {
+              "text": "About 400 lux, with no direct glare",
+              "correct": true
+            },
+            {
+              "text": "About 120 lux, with no direct glare",
+              "why": "Too dim: the aim is about 300 to 500 lux."
+            },
+            {
+              "text": "About 400 lux, with sun shining on the screens",
+              "why": "The level is fine, but direct glare is not."
+            },
+            {
+              "text": "About 1 500 lux, right beside a window",
+              "why": "Far brighter than the aim, and the window is causing glare."
+            }
+          ]
+        },
+        {
+          "id": "needs-report",
+          "prompt": "Which finding from your survey must be reported to the teacher straight away?",
+          "options": [
+            {
+              "text": "An overloaded socket behind a bench",
+              "correct": true
+            },
+            {
+              "text": "A mat at the door for dust",
+              "why": "That is a good dust control."
+            },
+            {
+              "text": "Trunking carrying the cables along the wall",
+              "why": "That is the correct way to route cables."
+            },
+            {
+              "text": "A clear aisle down the middle of the room",
+              "why": "That is what the plan requires."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "workstations-wall",
+          "prompt": "A wall is 10 m long and each workstation needs 1.2 m of bench. How many whole workstations fit along it?",
+          "answer": 8,
+          "unit": "workstations",
+          "unitAliases": [
+            "workstation",
+            "stations"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "10 / 1.2 = 8.33, so {answer} whole workstations."
+        },
+        {
+          "id": "sockets",
+          "prompt": "A room has {n} workstations, each needing 2 sockets. How many sockets are needed altogether?",
+          "formula": "n * 2",
+          "vars": {
+            "n": {
+              "min": 8,
+              "max": 20,
+              "step": 2
+            }
+          },
+          "unit": "sockets",
+          "unitAliases": [
+            "socket"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{n} x 2 = {answer} sockets."
+        },
+        {
+          "id": "ext-boxes",
+          "prompt": "A room has {n} workstations, each needing 2 sockets, served by 4-way extension boxes. How many boxes are needed?",
+          "formula": "n * 2 / 4",
+          "vars": {
+            "n": {
+              "min": 8,
+              "max": 20,
+              "step": 2
+            }
+          },
+          "unit": "boxes",
+          "unitAliases": [
+            "box"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "Sockets = {n} x 2. Boxes = sockets / 4 = {answer} boxes."
+        },
+        {
+          "id": "scale",
+          "prompt": "A wall is {l} m long. How long is it on a drawing at a scale of 1 cm : 50 cm?",
+          "formula": "l * 100 / 50",
+          "vars": {
+            "l": {
+              "min": 6,
+              "max": 14,
+              "step": 1
+            }
+          },
+          "unit": "cm",
+          "unitAliases": [
+            "centimetres"
+          ],
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "{l} m = {l} x 100 cm. On paper = {l} x 100 / 50 = {answer} cm."
+        }
+      ],
+      "faults": [
+        {
+          "id": "room-plan",
+          "scenario": "Zainab's plan for the computer room was rejected by the teacher. Here is what she proposed.",
+          "lines": [
+            {
+              "text": "She put all the monitors directly in front of the windows.",
+              "fault": true,
+              "why": "That causes glare. Monitors go at right angles to windows."
+            },
+            {
+              "text": "She filled the centre of the room with benches and left no aisle.",
+              "fault": true,
+              "why": "A clear central aisle of at least 1 m is needed for movement and emergencies."
+            },
+            {
+              "text": "She plugged one extension box into another to reach the far wall.",
+              "fault": true,
+              "why": "Extension boxes must never be daisy-chained."
+            },
+            {
+              "text": "She allowed 1.2 m of bench for each workstation.",
+              "why": "That is the allowance in the plan."
+            },
+            {
+              "text": "She placed mats at the door to reduce dust.",
+              "why": "That is a sound dust control."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when planning a safe computer room.",
+        "explainPrompt": "Why are monitors placed at right angles to windows and not facing them?",
+        "explainGuide": "Light from a window directly in front of or behind the screen causes glare and reflections, which strain the eyes. Placing monitors at right angles lets daylight pass across the screen, so it can be read comfortably.",
+        "explainKeywords": [
+          [
+            "glare",
+            "reflection",
+            "reflections"
+          ],
+          [
+            "light",
+            "daylight"
+          ],
+          [
+            "eye",
+            "eyes",
+            "strain",
+            "read"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "Planning a safe computer room",
+        "Survey, draw to scale, recommend",
+        "Give a reason for each measure"
+      ]
+    },
+    "pr-dpr-file-organisation-access": {
+      "safety": {
+        "correct": [
+          "Keep the record cards away from the keyboard so that they do not catch on the keys."
+        ],
+        "wrong": [
+          {
+            "text": "Sip a drink while you enter your counts into the spreadsheet.",
+            "why": "A spill can short-circuit the equipment. Drinks stay out of the laboratory."
+          },
+          {
+            "text": "Reach behind the system unit to find a pencil that has dropped.",
+            "why": "Do not touch cables or sockets. Ask the teacher to help."
+          },
+          {
+            "text": "Shuffle the cards standing right next to the sockets at the wall.",
+            "why": "Work at your bench, away from sockets and cables."
+          },
+          {
+            "text": "Sit hunched over the cards all period without resting your eyes.",
+            "why": "Sit upright and rest your eyes about every 20 minutes."
+          },
+          {
+            "text": "Press down on the system unit to steady it when it starts to hum.",
+            "why": "Leave it alone and report any strange noise or burning smell."
+          }
+        ]
+      },
+      "setOut": {
+        "distractors": [
+          {
+            "name": "Magnetic tape drive",
+            "why": "The cards model the file. No tape is used."
+          },
+          {
+            "name": "Word processor document",
+            "why": "The counts and means go in a spreadsheet."
+          },
+          {
+            "name": "Flowchart stencil",
+            "why": "Nothing is drawn in this job."
+          },
+          {
+            "name": "Scanner",
+            "why": "The cards are searched by hand, and scanning them would measure nothing."
+          },
+          {
+            "name": "Printer",
+            "why": "Results are saved in the spreadsheet."
+          }
+        ],
+        "optional": [
+          "Stopwatch"
+        ]
+      },
+      "decisions": [
+        {
+          "id": "after-trial",
+          "afterStep": 2,
+          "prompt": "You have just finished a sequential trial. What do you do with the cards before the next one?",
+          "options": [
+            {
+              "text": "Check that they are still in key order",
+              "correct": true,
+              "consequence": "Each sequential search must start from a properly sorted file."
+            },
+            {
+              "text": "Shuffle them so the trial is fair",
+              "consequence": "A sequential search needs records in key order, so the method would no longer be sequential."
+            },
+            {
+              "text": "Leave them in any order to save time",
+              "consequence": "Out-of-order cards spoil the stopping rule, so the count is wrong."
+            }
+          ]
+        },
+        {
+          "id": "which-group",
+          "afterStep": 3,
+          "prompt": "The highest keys in the four groups are 1250, 2500, 3750 and 5000. You are looking for key 2700. Which group do you search?",
+          "options": [
+            {
+              "text": "The group with highest key 3750",
+              "correct": true,
+              "consequence": "2700 is above 2500 and below 3750, so only that group can hold it."
+            },
+            {
+              "text": "The group with highest key 2500",
+              "consequence": "That group stops at 2500, so 2700 cannot be in it."
+            },
+            {
+              "text": "All four groups, starting from the first",
+              "consequence": "The index exists so that you need search only one group."
+            }
+          ]
+        },
+        {
+          "id": "collision",
+          "afterStep": 4,
+          "prompt": "Two keys hash to the same slot, and your count comes to more than one access. What do you do?",
+          "options": [
+            {
+              "text": "Record the extra access as a collision",
+              "correct": true,
+              "consequence": "Honest counting shows why random access only usually takes one try."
+            },
+            {
+              "text": "Write 1, because random access takes one try",
+              "consequence": "That hides what really happened and makes your mean wrong."
+            },
+            {
+              "text": "Leave out that key and choose another",
+              "consequence": "Dropping awkward results makes the average unfairly low."
+            }
+          ]
+        },
+        {
+          "id": "bank-enquiry",
+          "afterStep": 5,
+          "prompt": "A bank must show one customer's balance within seconds. Which organisation do you recommend?",
+          "options": [
+            {
+              "text": "Random, using a calculated address",
+              "correct": true,
+              "consequence": "Direct access goes straight to the record."
+            },
+            {
+              "text": "Serial, in order of arrival",
+              "consequence": "On average half of the file must be read for each enquiry."
+            },
+            {
+              "text": "Sequential, in key order on tape",
+              "consequence": "Tape must be read through in order, so it is far too slow for an enquiry."
+            }
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "fewest-accesses",
+          "prompt": "Compare the mean counts for your four methods. Which usually needs the fewest accesses?",
+          "options": [
+            {
+              "text": "Random (direct)",
+              "correct": true
+            },
+            {
+              "text": "Serial",
+              "why": "Serial search examines many cards."
+            },
+            {
+              "text": "Sequential",
+              "why": "Sequential still reads from the top."
+            },
+            {
+              "text": "Indexed sequential",
+              "why": "It needs far fewer than serial, but still more than direct access."
+            }
+          ]
+        },
+        {
+          "id": "serial-meaning",
+          "prompt": "Which description matches a serial file?",
+          "options": [
+            {
+              "text": "Records stored in order of arrival",
+              "correct": true
+            },
+            {
+              "text": "Records stored in order of key",
+              "why": "That is a sequential file."
+            },
+            {
+              "text": "Records stored at a calculated address",
+              "why": "That is a random file."
+            },
+            {
+              "text": "Records stored anyhow with no way of finding them",
+              "why": "They are stored in the order they arrived."
+            }
+          ]
+        }
+      ],
+      "numerics": [
+        {
+          "id": "sequential-mean",
+          "prompt": "On average, how many records does a sequential search examine in a file of {n} records?",
+          "formula": "(n + 1) / 2",
+          "vars": {
+            "n": {
+              "min": 200,
+              "max": 2000,
+              "step": 200
+            }
+          },
+          "unit": "records",
+          "unitAliases": [
+            "record"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "Mean = ({n} + 1) / 2 = {answer} records."
+        },
+        {
+          "id": "indexed-mean",
+          "prompt": "An index has {e} entries and each group holds {r} records. About how many accesses does an indexed search take on average?",
+          "formula": "(e + 1) / 2 + (r + 1) / 2",
+          "vars": {
+            "e": {
+              "min": 5,
+              "max": 20,
+              "step": 5
+            },
+            "r": {
+              "min": 50,
+              "max": 200,
+              "step": 50
+            }
+          },
+          "unit": "accesses",
+          "unitAliases": [
+            "access"
+          ],
+          "tolerance": {
+            "abs": 0.5
+          },
+          "decimals": 1,
+          "working": "Mean = ({e} + 1) / 2 + ({r} + 1) / 2 = {answer} accesses."
+        },
+        {
+          "id": "hash-5437",
+          "prompt": "Using address = key MOD 97, in which slot is the record with key 5437 stored?",
+          "answer": 5,
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "97 x 56 = 5432. 5437 - 5432 = {answer}."
+        },
+        {
+          "id": "hash-8123",
+          "prompt": "Using address = key MOD 97, in which slot is the record with key 8123 stored?",
+          "answer": 72,
+          "unit": "",
+          "tolerance": {
+            "abs": 0
+          },
+          "decimals": 0,
+          "working": "97 x 83 = 8051. 8123 - 8051 = {answer}."
+        }
+      ],
+      "faults": [
+        {
+          "id": "file-report",
+          "scenario": "Ifeoma's write-up on file organisation lost marks. Here is what she did and wrote.",
+          "lines": [
+            {
+              "text": "She said a serial file is arranged in key order.",
+              "fault": true,
+              "why": "Serial means in order of arrival. Key order is sequential."
+            },
+            {
+              "text": "She wrote that a random file means records are placed anyhow.",
+              "fault": true,
+              "why": "Random means direct access by a calculated address."
+            },
+            {
+              "text": "She left collisions out of her counts to make the mean look better.",
+              "fault": true,
+              "why": "Every count must be recorded honestly, including collisions."
+            },
+            {
+              "text": "She repeated each search for five different keys.",
+              "why": "That gives a fairer average."
+            },
+            {
+              "text": "She worked out the mean for each method in the spreadsheet.",
+              "why": "That is what the procedure asks."
+            }
+          ]
+        }
+      ],
+      "written": {
+        "precautionsPrompt": "State two precautions when comparing file access methods with record cards.",
+        "explainPrompt": "Why does indexed sequential access need far fewer accesses than a sequential search?",
+        "explainGuide": "The index shows which group can hold the key, so you search only that one group instead of reading from the start of the whole file. Most records are skipped.",
+        "explainKeywords": [
+          [
+            "index"
+          ],
+          [
+            "group",
+            "section",
+            "block"
+          ],
+          [
+            "only",
+            "skip",
+            "skipped",
+            "fewer"
+          ]
+        ],
+        "explainNeed": 2
+      },
+      "board": [
+        "File organisation and access",
+        "Serial, sequential, indexed, random",
+        "Record every count honestly"
+      ]
+    }
+  }
+}

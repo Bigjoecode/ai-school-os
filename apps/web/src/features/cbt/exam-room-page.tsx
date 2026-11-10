@@ -383,11 +383,23 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
 
   // ---- time warnings and auto-submit
   const warned = useRef({ five: remaining <= 300, one: remaining <= 60 });
+  const checkingTime = useRef(false);
   useEffect(() => {
     if (remaining <= 0) {
-      if (!submitting.current) {
-        toast.info('Time is up — handing in your answers');
-        void submit(true);
+      if (!submitting.current && !checkingTime.current) {
+        // The teacher may have added time since the last look: ask the server before handing in.
+        checkingTime.current = true;
+        void queryClient
+          .refetchQueries({ queryKey: cbtKeys.room(examId) })
+          .catch(() => undefined)
+          .then(() => {
+            const fresh = queryClient.getQueryData<CbtRoom>(cbtKeys.room(examId))?.attempt;
+            checkingTime.current = false;
+            if (fresh?.status === 'IN_PROGRESS' && Date.parse(fresh.endsAt) > Date.now() + offset.current + 1000) return;
+            if (submitting.current) return;
+            toast.info('Time is up — handing in your answers');
+            void submit(true);
+          });
       }
       return;
     }

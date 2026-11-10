@@ -283,7 +283,8 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
             const flat = (
               <LabSittingContext.Provider value={sitting ? a.assessment! : null}>
                 <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
-                  <Sim {...props} />
+                  {/* In the 2D labs, LAB mode only adds hints and timing aids, so a class test sat in LAB mode gets them hidden here. */}
+                  <Sim {...props} mode={sitting ? 'EXAM' : props.mode} />
                 </Suspense>
               </LabSittingContext.Provider>
             );

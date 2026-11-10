@@ -6,6 +6,7 @@ import { TwoFactorGate } from '@/features/auth/two-factor-gate';
 import { ConsentGate } from '@/features/data-protection/consent-gate';
 import { BootLoader } from '@/components/layout/boot-loader';
 import { AmbassadorRedirect, RedirectIfAuthed, RequireAuth, RequireFeature, RequirePermission, RequirePlatform } from './guards';
+import { RequireAuthOrLanding } from '@/features/landing/landing-gate';
 import { UPCOMING_MODULES } from './modules';
 
 const LoginPage = lazy(() => import('@/features/auth/login-page'));
@@ -359,8 +360,9 @@ export const router = createBrowserRouter(withRouteErrors([
   { path: '/offline-exams/:key', element: withSuspense(<OfflineRoomPage />) },
   {
     path: '/',
+    // Signed out on `/` itself: the public product landing page; otherwise exactly RequireAuth (see landing-gate.tsx).
     element: (
-      <RequireAuth>
+      <RequireAuthOrLanding>
         <AmbassadorRedirect>
           <TwoFactorGate>
             <ConsentGate>
@@ -368,7 +370,7 @@ export const router = createBrowserRouter(withRouteErrors([
             </ConsentGate>
           </TwoFactorGate>
         </AmbassadorRedirect>
-      </RequireAuth>
+      </RequireAuthOrLanding>
     ),
     children: [
       { index: true, element: <OverviewPage /> },

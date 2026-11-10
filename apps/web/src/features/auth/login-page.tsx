@@ -29,6 +29,7 @@ import { isTwoFactorChallenge, useLogin } from "./session";
 import { TwoFactorStep } from "./two-factor-step";
 import { LegalLinks } from "../legal/legal-links";
 import { isIosApp } from "@/pwa/ios-app";
+import { isStandalone } from "@/pwa/store";
 
 type LoginValues = z.input<typeof loginSchema>;
 
@@ -408,6 +409,14 @@ export default function LoginPage() {
         </div>
         <div className="space-y-1.5 pb-6 text-center text-[12px] text-muted-foreground">
           <SignupLink />
+          {/* The product landing page (the portal root when signed out); not in the installed app. */}
+          {!isStandalone() && (
+            <p className="text-[13px]">
+              <Link to="/" className="font-medium text-brand hover:underline">
+                What is AI School OS?
+              </Link>
+            </p>
+          )}
           <LegalLinks />
           <p>© {new Date().getFullYear()} AI School OS</p>
         </div>

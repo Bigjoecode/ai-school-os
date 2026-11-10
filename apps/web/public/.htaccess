@@ -11,6 +11,10 @@ RewriteRule ^for-schools/deck/?$ og/for-schools-deck.html [L]
 RewriteRule ^for-schools/calculator/?$ og/for-schools-calculator.html [L]
 RewriteRule ^for-boards/?$ og/for-boards.html [L]
 RewriteRule ^ambassadors/?$ og/ambassadors.html [L]
+# The portal's own front page (the product landing page for signed-out visitors): its share-preview copy.
+# Only on the portal host: a school's own website domain served from here keeps the plain app shell.
+RewriteCond %{HTTP_HOST} ^ai-schoolportal\.mejortechworld\.com$ [NC]
+RewriteRule ^$ og/home.html [L]
 # Real files and folders are served as-is.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
@@ -32,7 +36,7 @@ Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
 # The app shell must always be fresh so new deploys load immediately.
 # The service worker too (it isn't hashed), so notification fixes reach browsers.
-<FilesMatch "(^index\.html|\.htaccess|^sw\.js|^for-[a-z-]+\.html)$">
+<FilesMatch "(^index\.html|\.htaccess|^sw\.js|^for-[a-z-]+\.html|^home\.html)$">
 Header set Cache-Control "no-cache, no-store, must-revalidate"
 </FilesMatch>
 # The installable-app manifest: checked each time (it is tiny) so name/icon changes reach phones.

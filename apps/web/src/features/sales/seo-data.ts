@@ -48,6 +48,14 @@ export const SALES_SEO: SalesSeo[] = [
     title: 'Earn as an AI School OS ambassador',
     description: 'Refer Nigerian schools to AI School OS and earn a commission on every subscription payment they make. Free to join; we approve every ambassador.',
   },
+  // The public landing page, shown at the portal root to signed-out visitors (features/landing).
+  {
+    path: '/',
+    file: 'og/home.html',
+    title: 'AI School OS: school management with AI for Nigerian schools',
+    description:
+      'Results and report cards, fees and online payment, CBT with offline exams, WAEC, NECO, BECE and JAMB practice, 3D science labs, an AI tutor in five languages, and portals for staff, parents and students.',
+  },
 ];
 
 export const seoFor = (path: string) => SALES_SEO.find((s) => s.path === path) ?? SALES_SEO[0]!;

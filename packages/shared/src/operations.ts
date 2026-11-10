@@ -316,6 +316,9 @@ export const vehicleSchema = z.object({
   assistantName: nullableText(120),
   status: z.enum(VEHICLE_STATUSES).default('ACTIVE'),
   notes: nullableText(300),
+  /** The driver's and bus assistant's own logins (Bus Driver role) for live bus tracking. Left out = unchanged. */
+  driverUserId: z.string().min(1).nullish(),
+  assistantUserId: z.string().min(1).nullish(),
 });
 export type VehicleInput = z.infer<typeof vehicleSchema>;
 
@@ -323,7 +326,10 @@ export const routeStopSchema = z.object({
   name: z.string().trim().min(2).max(80),
   pickup: hhmm,
   dropoff: hhmm,
-});
+  /** Where the stop is, for live bus tracking (WGS84 degrees). Optional; both or neither. */
+  lat: z.number().min(-90).max(90).nullish(),
+  lng: z.number().min(-180).max(180).nullish(),
+}).refine((s) => (s.lat == null) === (s.lng == null), { message: 'Give both latitude and longitude, or neither', path: ['lat'] });
 export type RouteStop = z.infer<typeof routeStopSchema>;
 
 export const transportRouteSchema = z.object({

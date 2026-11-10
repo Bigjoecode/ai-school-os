@@ -139,6 +139,8 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
       { label: 'Study materials', to: '/learning/materials', icon: FolderOpen, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'notes slides videos documents library revision textbook' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
+      // Drivers and bus assistants (Bus Driver role, no school.read): their trip screen.
+      { label: 'Bus run', to: '/drive', icon: Bus, feature: 'transport', permission: 'transport.drive', audience: 'family', keywords: 'bus trip driver route start end location students boarded dropped' },
       { label: 'My HR', to: '/me/hr', icon: IdCard, feature: 'hr', permission: 'hr.self', keywords: 'my leave request payslips awards self service holiday' },
     ],
   },

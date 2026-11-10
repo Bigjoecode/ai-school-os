@@ -65,6 +65,7 @@ import { RbacModule } from './rbac/rbac.module';
 import { SchoolController } from './school/school.controller';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { BirthdaysModule } from './birthdays/birthdays.module';
+import { BusModule } from './bus/bus.module';
 
 @Controller('health')
 class HealthController {
@@ -173,6 +174,7 @@ function requestContext(req: Request, _res: Response, next: NextFunction) {
     ParentLinesModule,
     SubscriptionsModule,
     BirthdaysModule,
+    BusModule,
   ],
   controllers: [HealthController, PublicConfigController, SchoolController, AcademicsController],
   providers: [

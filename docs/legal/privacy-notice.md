@@ -36,6 +36,7 @@ This notice explains how personal information about **students, parents and guar
 - AI tutor (where the school uses it): the student's questions and the tutor's answers, voice clips when the student chooses to speak, and short learning notes the tutor keeps (for example "finds fractions hard").
 - Careers: interest-quiz answers and results, saved careers, planned subjects and courses, counsellor notes.
 - Other school services where used: library loans, transport, hostel, live class attendance, certificates, ID cards, admission applications, alumni details.
+- School bus (where the school uses live bus tracking): the student's route and stop, and when they got on and off the bus. The bus's location is shared from the driver's phone only while a trip is running, is shown only to the transport office and to the parents of children on that bus, and is deleted after 30 days.
 
 **About parents and guardians**
 

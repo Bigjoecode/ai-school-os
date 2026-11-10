@@ -21,6 +21,7 @@ This note says honestly what AI School OS keeps today and for how long, and list
 | Parental consent records | Current consent on the parent record; full history of consents and withdrawals in the audit log. | [PLACEHOLDER: keep for as long as the data it covers, plus N years] |
 | Sign-in sessions (refresh-token records: user, school, time, IP address, browser) | Expire after 30 days. *Automatic:* records more than **400 days** old (expired or revoked) are deleted daily. Sign-ins also stay in the audit log. | 400 days (kept a little over a school year for the success dashboard's per-term activity) [PLACEHOLDER: confirm] |
 | In-app notifications | Kept in the user's bell. *Automatic:* notifications created more than **400 days** ago and already read are deleted daily; unread ones are kept. | 400 days after creation, once read [PLACEHOLDER: confirm] |
+| Live school bus location (GPS fixes from the driver's phone, only while a trip is running) | Used to show the bus to the riders' parents and the transport office during the trip. *Automatic:* fixes are deleted **30 days** after they are received. The trip summary (route, driver, start and end time, distance) and the boarding log (who got on and off, where, when) are kept like other student records. | 30 days for location fixes [PLACEHOLDER: confirm] |
 | EduGames rounds started but never answered | No score or XP. *Automatic:* deleted after **30 days**. Rounds with answers are kept like other learning records. | 30 days |
 | Uploaded files (photos, hand-ins, documents) | Stored on the server in the uploads folder; kept until removed. | [PLACEHOLDER] |
 | Server backups (hosting provider) | Daily database backups, kept by the hosting provider for its configured period (recommended 7–14 days). | [PLACEHOLDER: confirm the configured period] |
@@ -35,5 +36,5 @@ This note says honestly what AI School OS keeps today and for how long, and list
 
 ## Planned improvements
 
-- Automatic housekeeping runs once a day (old sign-in session records, old read notifications, abandoned game rounds; periods above). The periods are set in `apps/api/src/prisma/housekeeping.service.ts` (`RETENTION`).
+- Automatic housekeeping runs once a day (old sign-in session records, old read notifications, abandoned game rounds, school bus location fixes; periods above). The periods are set in `apps/api/src/prisma/housekeeping.service.ts` (`RETENTION`).
 - [PLACEHOLDER/TODO: further automatic deletion jobs once periods are agreed — for example AI conversations and old delivery logs.]

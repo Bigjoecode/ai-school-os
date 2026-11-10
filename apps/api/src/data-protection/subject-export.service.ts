@@ -219,6 +219,7 @@ export class SubjectExportService {
           P('StudentDiscount', 'discounts.csv', 'Fee discounts and scholarships', bySt),
           P('LibraryLoan', 'library_loans.csv', 'Library loans', bySt),
           P('TransportAssignment', 'transport.csv', 'School transport', bySt),
+          P('BusBoarding', 'bus_boarding.csv', 'School bus boarding and drop-off log (the bus’s location trail is not kept per child and is deleted after 30 days)', bySt),
           P('HostelAllocation', 'hostel.csv', 'Hostel beds', bySt),
           P('Exeat', 'exeats.csv', 'Exeats', bySt),
           P('StudentPickup', 'pickups.csv', 'Pick-up log (who collected them, when, and how it was checked)', bySt),

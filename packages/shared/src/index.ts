@@ -10,6 +10,7 @@ export * from './finance';
 export * from './discounts';
 export * from './hr';
 export * from './operations';
+export * from './bus';
 export * from './comms';
 export * from './live';
 export * from './ai';

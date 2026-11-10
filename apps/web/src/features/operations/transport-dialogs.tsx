@@ -22,6 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { type PickedStudent, StudentPicker } from '../students/student-picker';
 import { useAssignRiders, useSaveRoute, useSaveVehicle, useVehicles } from './api';
+import { useBusDrivers } from '../bus/api';
 import { apiFieldErrors, FormError, VEHICLE_STATUS_LABEL, zodErrors } from './ui';
 
 export const DIRECTION_LABEL: Record<(typeof TRANSPORT_DIRECTIONS)[number], string> = {
@@ -32,10 +33,11 @@ export const DIRECTION_LABEL: Record<(typeof TRANSPORT_DIRECTIONS)[number], stri
 
 // ------------------------------------------------------------------ vehicle
 
-const emptyVehicle = { name: '', plateNumber: '', capacity: '18', driverName: '', driverPhone: '', assistantName: '', status: 'ACTIVE' as VehicleStatus, notes: '' };
+const emptyVehicle = { name: '', plateNumber: '', capacity: '18', driverName: '', driverPhone: '', assistantName: '', status: 'ACTIVE' as VehicleStatus, notes: '', driverUserId: '', assistantUserId: '' };
 
 export function VehicleFormSheet({ open, onOpenChange, vehicle }: { open: boolean; onOpenChange: (o: boolean) => void; vehicle: VehicleRow | null }) {
   const save = useSaveVehicle(vehicle?.id);
+  const drivers = useBusDrivers(open);
   const [v, setV] = useState(emptyVehicle);
   const [errors, setErrors] = useState<Record<string, string>>({});
   useEffect(() => {
@@ -52,6 +54,8 @@ export function VehicleFormSheet({ open, onOpenChange, vehicle }: { open: boolea
             assistantName: vehicle.assistantName ?? '',
             status: vehicle.status,
             notes: vehicle.notes ?? '',
+            driverUserId: vehicle.driverUserId ?? '',
+            assistantUserId: vehicle.assistantUserId ?? '',
           }
         : emptyVehicle,
     );
@@ -60,7 +64,7 @@ export function VehicleFormSheet({ open, onOpenChange, vehicle }: { open: boolea
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    const parsed = vehicleSchema.safeParse({ ...v, capacity: Number(v.capacity) });
+    const parsed = vehicleSchema.safeParse({ ...v, capacity: Number(v.capacity), driverUserId: v.driverUserId || null, assistantUserId: v.assistantUserId || null });
     if (!parsed.success) {
       const errs = zodErrors(parsed.error.issues);
       if (errs.capacity) errs.capacity = '1–100 seats';
@@ -116,6 +120,38 @@ export function VehicleFormSheet({ open, onOpenChange, vehicle }: { open: boolea
                 <Input id="vh-asst" value={v.assistantName} onChange={(e) => set({ assistantName: e.target.value })} maxLength={120} />
               </Field>
             </div>
+            <fieldset className="grid gap-3 rounded-xl border border-border p-3.5">
+              <legend className="px-1 text-[13px] font-semibold">Live bus tracking</legend>
+              <p className="-mt-1 text-[12.5px] text-muted-foreground">
+                The driver or bus assistant starts each trip on their phone and shares the bus’s location only during it. Give them a login with the <strong>Bus Driver</strong> role in Users &amp; Roles, then choose it here.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2 [&>*]:min-w-0">
+                {(
+                  [
+                    ['driverUserId', 'Driver’s login'],
+                    ['assistantUserId', 'Bus assistant’s login'],
+                  ] as const
+                ).map(([field, label]) => (
+                  <Field key={field} label={label} htmlFor={`vh-${field}`} optional error={errors[field]}>
+                    <Select value={v[field] || NONE} onValueChange={(id) => set({ [field]: id === NONE ? '' : id })}>
+                      <SelectTrigger id={`vh-${field}`}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={NONE}>Nobody</SelectItem>
+                        {(drivers.data ?? []).map((d) => (
+                          <SelectItem key={d.userId} value={d.userId}>
+                            {d.name}
+                          </SelectItem>
+                        ))}
+                        {v[field] && drivers.data && !drivers.data.some((d) => d.userId === v[field]) && <SelectItem value={v[field]}>Someone without the Bus Driver role</SelectItem>}
+                      </SelectContent>
+                    </Select>
+                  </Field>
+                ))}
+              </div>
+              {drivers.data?.length === 0 && <p className="text-[12.5px] text-warning">Nobody has the Bus Driver role yet.</p>}
+            </fieldset>
             <Field label="Notes" htmlFor="vh-notes" optional>
               <Textarea id="vh-notes" rows={3} value={v.notes} onChange={(e) => set({ notes: e.target.value })} maxLength={300} placeholder="e.g. Service due in December" />
             </Field>
@@ -139,7 +175,8 @@ export function VehicleFormSheet({ open, onOpenChange, vehicle }: { open: boolea
 
 type StopDraft = RouteStop & { key: number };
 let stopKey = 0;
-const newStop = (s?: Partial<RouteStop>): StopDraft => ({ key: ++stopKey, name: s?.name ?? '', pickup: s?.pickup ?? '06:45', dropoff: s?.dropoff ?? '15:30' });
+// lat/lng (live tracking) are kept with the stop's row, so renaming or reordering stops keeps their map location.
+const newStop = (s?: Partial<RouteStop>): StopDraft => ({ key: ++stopKey, name: s?.name ?? '', pickup: s?.pickup ?? '06:45', dropoff: s?.dropoff ?? '15:30', lat: s?.lat ?? null, lng: s?.lng ?? null });
 
 export function RouteFormSheet({ open, onOpenChange, route }: { open: boolean; onOpenChange: (o: boolean) => void; route: RouteRow | null }) {
   const save = useSaveRoute(route?.id);
@@ -171,7 +208,7 @@ export function RouteFormSheet({ open, onOpenChange, route }: { open: boolean; o
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    const parsed = transportRouteSchema.safeParse({ name, vehicleId, active, stops: stops.map(({ name: n, pickup, dropoff }) => ({ name: n, pickup, dropoff })) });
+    const parsed = transportRouteSchema.safeParse({ name, vehicleId, active, stops: stops.map(({ name: n, pickup, dropoff, lat, lng }) => ({ name: n, pickup, dropoff, lat, lng })) });
     const next: Record<string, string> = {};
     if (!parsed.success) {
       for (const i of parsed.error.issues) {

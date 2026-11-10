@@ -68,6 +68,7 @@ const MyHrPage = lazy(() => import('@/features/hr/my-hr-page'));
 const LibraryPage = lazy(() => import('@/features/operations/library-page'));
 const InventoryPage = lazy(() => import('@/features/operations/inventory-page'));
 const TransportPage = lazy(() => import('@/features/operations/transport-page'));
+const DriverPage = lazy(() => import('@/features/bus/driver-page'));
 const RoutePage = lazy(() => import('@/features/operations/route-page'));
 const HostelPage = lazy(() => import('@/features/operations/hostel-page'));
 const ReceptionPage = lazy(() => import('@/features/operations/reception-page'));
@@ -750,6 +751,8 @@ export const router = createBrowserRouter(withRouteErrors([
           ['inventory', 'inventory.read', <InventoryPage key="inventory" />, 'inventory'],
           ['transport', 'transport.read', <TransportPage key="transport" />, 'transport'],
           ['transport/routes/:id', 'transport.read', <RoutePage key="route" />, 'transport'],
+          // Live bus tracking: the driver's / bus assistant's phone screen.
+          ['drive', 'transport.drive', <DriverPage key="drive" />, 'transport'],
           ['hostel', 'hostel.read', <HostelPage key="hostel" />, 'hostel'],
           ['reception', 'reception.read', <ReceptionPage key="reception" />, null],
           ['admissions', 'admissions.read', <AdmissionsPage key="admissions" />, null],

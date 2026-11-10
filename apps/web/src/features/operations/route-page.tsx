@@ -22,6 +22,7 @@ import { useOpenComposer } from '../comms/ui';
 import { BackLink, DetailSkeleton } from '../planning/ui';
 import { useDeleteRoute, useRemoveRider, useRoute, useRouteNotice } from './api';
 import { AddRidersDialog, DIRECTION_LABEL, RouteFormSheet } from './transport-dialogs';
+import { StopLocationsDialog } from '../bus/stop-locations-dialog';
 import { CapacityBar, CopyBlock, plural, telHref, VehicleStatusBadge } from './ui';
 
 export default function RoutePage() {
@@ -276,14 +277,26 @@ function RouteView({ r }: { r: RouteDetail }) {
 }
 
 function StopsCard({ r }: { r: RouteDetail }) {
+  const canManage = useCan('transport.manage');
+  const [locating, setLocating] = useState(false);
+  const placed = r.stops.filter((s) => s.lat != null && s.lng != null).length;
   return (
     <Card>
       <CardHeader>
         <div>
           <CardTitle>Stops</CardTitle>
-          <CardDescription>Morning pick-up / afternoon drop-off</CardDescription>
+          <CardDescription>
+            Morning pick-up / afternoon drop-off
+            {r.stops.length > 0 && ` · ${placed} of ${r.stops.length} on the map`}
+          </CardDescription>
         </div>
+        {canManage && r.stops.length > 0 && (
+          <Button variant="outline" size="sm" onClick={() => setLocating(true)}>
+            <MapPin /> Locations
+          </Button>
+        )}
       </CardHeader>
+      {canManage && <StopLocationsDialog open={locating} onOpenChange={setLocating} routeId={r.id} routeName={r.name} stops={r.stops} />}
       <CardContent>
         {r.stops.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border p-4 text-[13px] text-muted-foreground">No stops yet — edit the route to add them.</p>
@@ -296,7 +309,10 @@ function StopsCard({ r }: { r: RouteDetail }) {
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13.5px] font-medium">{s.name}</p>
+                  <p className="flex items-center gap-1.5 truncate text-[13.5px] font-medium">
+                    {s.name}
+                    {s.lat != null && s.lng != null && <MapPin className="size-3.5 shrink-0 text-success" aria-label="On the map" />}
+                  </p>
                   <p className="text-[12px] text-muted-foreground tabular">
                     {s.pickup} · {s.dropoff}
                   </p>

@@ -153,6 +153,7 @@ export const PERMISSION_GROUPS = [
     permissions: {
       'transport.read': 'View vehicles, routes and riders',
       'transport.manage': 'Manage vehicles and routes, and assign riders',
+      'transport.drive': 'Run trips on the bus you are assigned to: share its location during a trip and mark students on and off',
     },
   },
   {

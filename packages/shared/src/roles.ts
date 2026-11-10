@@ -102,6 +102,12 @@ export const SYSTEM_ROLES: SystemRoleDefinition[] = [
     permissions: ['school.read', 'students.read', 'timetable.read', 'hr.self', 'transport.read', 'transport.manage', 'guardians.read', 'comms.read', 'comms.send'],
   },
   {
+    key: 'bus_driver',
+    name: 'Bus Driver',
+    description: 'Drivers and bus assistants: run trips on their own bus, share its location during a trip and mark students on and off. Nothing else.',
+    permissions: ['transport.drive'],
+  },
+  {
     key: 'hostel_manager',
     name: 'Hostel Manager',
     description: 'Runs boarding and hostels.',

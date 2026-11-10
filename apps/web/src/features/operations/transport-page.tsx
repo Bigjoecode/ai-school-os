@@ -1,5 +1,5 @@
 import type { RouteRow, TransportOverview, VehicleRow } from '@aischool/shared';
-import { AlertTriangle, ArrowRight, Bus, CarFront, CheckCircle2, MapPin, Pencil, Phone, Plus, Receipt, Route as RouteIcon, Trash2, Users } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Bus, CarFront, CheckCircle2, MapPin, Pencil, Phone, Plus, Radio, Receipt, Route as RouteIcon, Trash2, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Page, PageHeader } from '@/components/layout/page-header';
@@ -14,16 +14,17 @@ import { useCan } from '@/lib/auth-store';
 import { cn } from '@/lib/utils';
 import { StatTile } from '../attendance/ui';
 import { StudentSheet } from '../students/student-sheet';
+import { LiveBusesTab } from '../bus/live-buses';
 import { useDeleteVehicle, useTransportOverview, useVehicles } from './api';
 import { RouteFormSheet, VehicleFormSheet } from './transport-dialogs';
 import { CapacityBar, plural, telHref, VehicleStatusBadge } from './ui';
 
-type Tab = 'routes' | 'vehicles';
+type Tab = 'routes' | 'vehicles' | 'live';
 
 export default function TransportPage() {
   const canManage = useCan('transport.manage');
   const [params, setParams] = useSearchParams();
-  const tab: Tab = params.get('tab') === 'vehicles' ? 'vehicles' : 'routes';
+  const tab: Tab = params.get('tab') === 'vehicles' ? 'vehicles' : params.get('tab') === 'live' ? 'live' : 'routes';
   const q = useTransportOverview();
   const [routeOpen, setRouteOpen] = useState(params.get('new') === '1' && canManage);
   const [student, setStudent] = useState<string | null>(null);
@@ -69,6 +70,9 @@ export default function TransportPage() {
               <TabsTrigger value="vehicles">
                 <CarFront /> Vehicles
               </TabsTrigger>
+              <TabsTrigger value="live">
+                <Radio /> Live buses
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="routes" className="space-y-5">
               <ChecksCard o={q.data} onStudent={setStudent} />
@@ -76,6 +80,9 @@ export default function TransportPage() {
             </TabsContent>
             <TabsContent value="vehicles">
               <VehiclesTab />
+            </TabsContent>
+            <TabsContent value="live">
+              <LiveBusesTab />
             </TabsContent>
           </Tabs>
         </div>

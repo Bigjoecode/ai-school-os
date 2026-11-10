@@ -150,6 +150,8 @@ export class TransportController {
       assistantName: v.assistantName,
       status: v.status as VehicleStatus,
       notes: v.notes,
+      driverUserId: v.driverUserId,
+      assistantUserId: v.assistantUserId,
       routes: v.routes.map((r) => ({ id: r.id, name: r.name, riders: r._count.assignments })),
     }));
   }
@@ -157,6 +159,7 @@ export class TransportController {
   @Post('vehicles')
   @RequirePermissions('transport.manage')
   async createVehicle(@Body(new ZodPipe(vehicleSchema)) body: VehicleInput) {
+    await this.checkCrew(body);
     const v = await this.prisma.db.vehicle.create({ data: { ...body, tenantId: currentTenantId() } });
     await this.audit.log({ action: 'transport.vehicle_added', entityType: 'Vehicle', entityId: v.id, summary: `Added ${v.name} (${v.plateNumber}, ${v.capacity} seats)` });
     return v;
@@ -166,7 +169,11 @@ export class TransportController {
   @RequirePermissions('transport.manage')
   async updateVehicle(@Param('id') id: string, @Body(new ZodPipe(vehicleSchema)) body: VehicleInput) {
     const before = await this.prisma.db.vehicle.findUniqueOrThrow({ where: { id } });
+    await this.checkCrew(body);
     const v = await this.prisma.db.vehicle.update({ where: { id }, data: body });
+    if ((body.driverUserId !== undefined && before.driverUserId !== v.driverUserId) || (body.assistantUserId !== undefined && before.assistantUserId !== v.assistantUserId)) {
+      await this.audit.log({ action: 'transport.vehicle_crew', entityType: 'Vehicle', entityId: id, summary: `Changed the driver/assistant logins linked to ${v.name} (${v.plateNumber}) for live tracking` });
+    }
     if (before.status !== v.status) {
       await this.audit.log({ action: 'transport.vehicle_status', entityType: 'Vehicle', entityId: id, summary: `${v.name} (${v.plateNumber}) is now ${v.status.toLowerCase()}` });
     }
@@ -180,6 +187,19 @@ export class TransportController {
     const v = await this.prisma.db.vehicle.findUniqueOrThrow({ where: { id } });
     await this.prisma.db.vehicle.delete({ where: { id } });
     await this.audit.log({ action: 'transport.vehicle_removed', entityType: 'Vehicle', entityId: id, summary: `Removed ${v.name} (${v.plateNumber}); its routes now have no vehicle` });
+  }
+
+  /** Linked driver and assistant logins must be members of this school with the Bus Driver permission. */
+  private async checkCrew(body: VehicleInput) {
+    for (const [field, userId] of [['driverUserId', body.driverUserId], ['assistantUserId', body.assistantUserId]] as const) {
+      if (!userId) continue;
+      const ok = await this.prisma.db.membership.findFirst({
+        where: { userId, status: 'ACTIVE', roles: { some: { role: { permissions: { has: 'transport.drive' } } } } },
+        select: { id: true },
+      });
+      if (!ok) throw new BadRequestException(`The ${field === 'driverUserId' ? 'driver' : 'bus assistant'} login must belong to someone with the Bus Driver role in this school (Users & Roles)`);
+    }
+    if (body.driverUserId && body.driverUserId === body.assistantUserId) throw new BadRequestException('The driver and the bus assistant need separate logins');
   }
 
   // ---------------------------------------------------------- routes

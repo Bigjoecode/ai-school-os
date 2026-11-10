@@ -181,6 +181,9 @@ model Tenant {
   vehicles            Vehicle[]
   transportRoutes     TransportRoute[]
   transportRiders     TransportAssignment[]
+  busTrips            BusTrip[]
+  busPings            BusPing[]
+  busBoardings        BusBoarding[]
   hostels             Hostel[]
   hostelRooms         HostelRoom[]
   hostelAllocations   HostelAllocation[]
@@ -361,6 +364,9 @@ model User {
   supportMessages       SupportMessage[]
   consumerSubscriptions ConsumerSubscription[]
   consumerOrders        ConsumerOrder[]
+  drivesVehicles        Vehicle[]              @relation("VehicleDriver")
+  assistsVehicles       Vehicle[]              @relation("VehicleAssistant")
+  busTrips              BusTrip[]
 
   @@map("users")
 }
@@ -744,6 +750,7 @@ model Student {
   masteryEvidence     MasteryEvidence[]
   learningUpdates     LearningUpdate[]
   transport           TransportAssignment?
+  busBoardings        BusBoarding[]
   hostelBeds          HostelAllocation[]
   exeats              Exeat[]
   pickups             StudentPickup[]
@@ -2003,22 +2010,28 @@ model StockMovement {
 // ============================================================== transport
 
 model Vehicle {
-  id            String   @id @default(cuid())
-  tenantId      String
-  name          String
-  plateNumber   String
-  capacity      Int
-  driverName    String?
-  driverPhone   String?
-  assistantName String?
+  id              String   @id @default(cuid())
+  tenantId        String
+  name            String
+  plateNumber     String
+  capacity        Int
+  driverName      String?
+  driverPhone     String?
+  assistantName   String?
   /// ACTIVE, MAINTENANCE, RETIRED
-  status        String   @default("ACTIVE")
-  notes         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  status          String   @default("ACTIVE")
+  notes           String?
+  /// Live bus tracking: the driver's and bus assistant's own logins (Bus Driver role).
+  driverUserId    String?
+  assistantUserId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  routes TransportRoute[]
+  tenant        Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  routes        TransportRoute[]
+  driverUser    User?            @relation("VehicleDriver", fields: [driverUserId], references: [id], onDelete: SetNull)
+  assistantUser User?            @relation("VehicleAssistant", fields: [assistantUserId], references: [id], onDelete: SetNull)
+  trips         BusTrip[]
 
   @@unique([tenantId, plateNumber])
   @@map("vehicles")
@@ -2029,7 +2042,7 @@ model TransportRoute {
   tenantId  String
   name      String
   vehicleId String?
-  /// [{ name, pickup: "06:45", dropoff: "15:40" }] in route order
+  /// [{ name, pickup: "06:45", dropoff: "15:40", lat?, lng? }] in route order (lat/lng optional, for live tracking)
   stops     Json     @default("[]")
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -2038,6 +2051,7 @@ model TransportRoute {
   tenant      Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   vehicle     Vehicle?              @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
   assignments TransportAssignment[]
+  trips       BusTrip[]
 
   @@unique([tenantId, name])
   @@map("transport_routes")
@@ -2060,6 +2074,94 @@ model TransportAssignment {
 
   @@index([tenantId, routeId])
   @@map("transport_assignments")
+}
+
+/// One run of a bus route (live tracking). Started and ended by the driver or bus
+/// assistant from their phone; the position is shared only while it is ACTIVE.
+/// Trip rows are kept as summaries; their location pings are deleted after 30 days.
+model BusTrip {
+  id           String    @id @default(cuid())
+  tenantId     String
+  /// Null once the route is deleted (the summary keeps routeName).
+  routeId      String?
+  vehicleId    String?
+  driverUserId String?
+  /// MORNING (pick-up) or AFTERNOON (drop-off)
+  direction    String
+  /// ACTIVE or ENDED
+  status       String    @default("ACTIVE")
+  routeName    String
+  vehicleName  String?
+  driverName   String
+  startedAt    DateTime  @default(now())
+  endedAt      DateTime?
+  /// DRIVER, or AUTO when ended for going silent
+  endReason    String?
+  lastLat      Float?
+  lastLng      Float?
+  lastAccuracy Float?
+  lastSpeed    Float?
+  lastHeading  Float?
+  lastFixAt    DateTime?
+  fixCount     Int       @default(0)
+  distanceM    Float     @default(0)
+  /// Stops whose parents were told "the bus is near" on this trip (once per trip).
+  nearNotified String[]  @default([])
+
+  tenant     Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  route      TransportRoute? @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  vehicle    Vehicle?        @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  driverUser User?           @relation(fields: [driverUserId], references: [id], onDelete: SetNull)
+  pings      BusPing[]
+  boardings  BusBoarding[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, startedAt])
+  @@index([routeId, status])
+  @@map("bus_trips")
+}
+
+/// A GPS fix from the driver's phone during a trip. Deleted after 30 days (housekeeping).
+model BusPing {
+  id         String   @id @default(cuid())
+  tenantId   String
+  tripId     String
+  lat        Float
+  lng        Float
+  accuracy   Float?
+  speed      Float?
+  heading    Float?
+  /// When the phone took the fix.
+  recordedAt DateTime
+  receivedAt DateTime @default(now())
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trip   BusTrip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId, recordedAt])
+  @@index([receivedAt])
+  @@map("bus_pings")
+}
+
+/// Boarded, dropped off or absent, as tapped by the driver (one row per kind per student per trip).
+model BusBoarding {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tripId    String
+  studentId String
+  stop      String
+  /// BOARDED, DROPPED, ABSENT
+  kind      String
+  at        DateTime @default(now())
+  byUserId  String?
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trip    BusTrip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, studentId, kind])
+  @@index([tenantId, studentId])
+  @@map("bus_boardings")
 }
 
 // ============================================================== hostel

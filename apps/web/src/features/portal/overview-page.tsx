@@ -15,6 +15,7 @@ import { PortalEventItem } from './events';
 import { LatestOnlineTest } from './latest-online-test';
 import { LatestLearningUpdateCard } from './learning-updates';
 import { ArrivalPickupCard } from './arrival-pickup';
+import { FamilyBusCard } from '../bus/family-bus-card';
 import { AttendanceRing, PortalShell, portalPath, positionText, sectionShared, type ShellCtx } from './ui';
 
 export default function PortalOverviewPage() {
@@ -76,6 +77,8 @@ function OverviewBody({ child, me, isParent, who }: ShellCtx) {
           />
         )}
       </div>
+
+      {isParent && <FamilyBusCard childId={child.id} firstName={child.firstName} />}
 
       {isParent && <ArrivalPickupCard childId={child.id} firstName={child.firstName} />}
 

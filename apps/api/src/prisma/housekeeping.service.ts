@@ -15,6 +15,8 @@ export const RETENTION = {
   readNotificationDays: 400,
   /** Server game rounds started but never answered (no score, no XP). */
   abandonedRoundDays: 30,
+  /** Live bus tracking: GPS fixes from drivers' phones. Trip summaries and boarding logs are kept. */
+  busPingDays: 30,
 } as const;
 
 const DAY_MS = 86_400_000;
@@ -46,8 +48,8 @@ export class HousekeepingService implements OnModuleInit {
     try {
       const r = await this.prune(now);
       this.lastRun = now.getTime();
-      const total = r.sessions + r.notifications + r.gameRounds;
-      if (total) this.logger.log(`Pruned ${r.sessions} old sign-in session(s), ${r.notifications} read notification(s), ${r.gameRounds} abandoned game round(s)`);
+      const total = r.sessions + r.notifications + r.gameRounds + r.busPings;
+      if (total) this.logger.log(`Pruned ${r.sessions} old sign-in session(s), ${r.notifications} read notification(s), ${r.gameRounds} abandoned game round(s), ${r.busPings} bus location ping(s)`);
       return total;
     } finally {
       this.running = false;
@@ -59,6 +61,7 @@ export class HousekeepingService implements OnModuleInit {
     const sessionCutoff = before(RETENTION.sessionDays);
     const notificationCutoff = before(RETENTION.readNotificationDays);
     const roundCutoff = before(RETENTION.abandonedRoundDays);
+    const pingCutoff = before(RETENTION.busPingDays);
     const db = this.prisma.root;
     return {
       // Older than the retention period and no longer usable (expired or revoked).
@@ -78,6 +81,12 @@ export class HousekeepingService implements OnModuleInit {
         () => db.$executeRaw`
           DELETE FROM game_rounds WHERE id IN (
             SELECT id FROM game_rounds WHERE mode = 'SERVER' AND total = 0 AND "startedAt" < ${roundCutoff} LIMIT ${BATCH})`,
+      ),
+      // The location trail of a bus trip; the trip row (summary) and boarding log stay.
+      busPings: await this.batched(
+        () => db.$executeRaw`
+          DELETE FROM bus_pings WHERE id IN (
+            SELECT id FROM bus_pings WHERE "receivedAt" < ${pingCutoff} LIMIT ${BATCH})`,
       ),
     };
   }

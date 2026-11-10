@@ -74,6 +74,8 @@ export default function OverviewPage() {
   // Platform staff without a school selected live in the console.
   if (!me?.tenant && me?.user.platformRole) return <Navigate to="/platform" replace />;
   if (!me?.tenant) return <PlatformWelcome />;
+  // Drivers and bus assistants (Bus Driver role only) go straight to their trip screen.
+  if (!me.permissions.includes('school.read') && me.permissions.includes('transport.drive') && !me.permissions.includes('family.manage') && !me.permissions.includes('learning.use')) return <Navigate to="/drive" replace />;
   // Parents and students don't see the school-wide numbers.
   if (!me.permissions.includes('school.read')) return <MemberOverview />;
   return <SchoolOverview />;

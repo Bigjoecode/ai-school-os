@@ -20,6 +20,7 @@ const load = () => ({
   ...(require('../src/prisma/prisma.service') as typeof import('../src/prisma/prisma.service')),
   ...(require('../src/common/request-context') as typeof import('../src/common/request-context')),
   ...(require('../src/cbt/cbt.service') as typeof import('../src/cbt/cbt.service')),
+  ...(require('../src/audit/audit.service') as typeof import('../src/audit/audit.service')),
   ...(require('../src/assessment/assessment-settings.service') as typeof import('../src/assessment/assessment-settings.service')),
   ...(require('../src/practicals/practicals.service') as typeof import('../src/practicals/practicals.service')),
   ...(require('../src/practicals/practical-assessments.service') as typeof import('../src/practicals/practical-assessments.service')),
@@ -137,7 +138,8 @@ before(async () => {
   const cbt = new m.CbtService(prisma, settings, {} as never);
   const noWork = { record: async () => undefined, replaceEvidence: async () => undefined, handIn: async () => 0 } as never;
   labs = new m.PracticalsService(prisma, {} as never, { withAllowance: async () => { throw new Error('no AI in tests'); } } as never, noWork, noWork, cbt);
-  tests = new m.PracticalAssessmentsService(prisma, cbt, settings, {} as never, labs, audit);
+  // A real audit log here: whether results were released before decides whether anyone is told again.
+  tests = new m.PracticalAssessmentsService(prisma, cbt, settings, {} as never, labs, new m.AuditService(prisma));
   const insights = { scope: () => undefined } as never;
   teaching = new m.PracticalsTeacherService(prisma, insights, labs, audit, noWork);
   // The real rule for who may review, from the real scope code (it needs only the database).
@@ -281,6 +283,11 @@ test('a student and their parents can’t read a hidden result; nobody else’s 
   await as(school.tenantId, teacher, MANAGE, () => tests.release(pa.id, false));
   assert.equal((await asParent(() => portal.practicalTests(kid.studentId))).tests.find((x) => x.id === pa.id)!.score, null);
   assert.equal((await asKid(() => labs.attempt(kid.access, sitting.id))).result, null);
+  // Released a second time: shown again, but nobody is told twice.
+  await as(school.tenantId, teacher, MANAGE, () => tests.release(pa.id, true));
+  assert.equal((await asKid(() => labs.attempt(kid.access, sitting.id))).result?.score, 17);
+  assert.equal(await prisma.root.notification.count({ where: { userId: parent, link: { contains: pa.id } } }), 1);
+  assert.equal(await prisma.root.notification.count({ where: { userId: kid.userId, title: { startsWith: 'Results are out' }, link: { contains: sitting.id } } }), 1);
 });
 
 test('results straight away: the score shows, parents are told once, the detail waits until it closes', async (t) => {

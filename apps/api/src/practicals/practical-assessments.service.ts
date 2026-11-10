@@ -225,9 +225,14 @@ export class PracticalAssessmentsService implements OnModuleInit {
 
   async release(id: string, released: boolean): Promise<PracticalAssessmentSummary> {
     const { row, scope } = await this.staffItem(id, 'manage');
+    // Students and parents hear about results once: a release after a withdrawal doesn't tell them again.
+    const releasedBefore =
+      released && !row.resultsReleasedAt
+        ? !!(await this.prisma.root.auditLog.findFirst({ where: { tenantId: currentTenantId(), entityType: 'PracticalAssessment', entityId: id, action: 'practical_test.released' }, select: { id: true } }))
+        : true;
     const updated = await this.prisma.db.practicalAssessment.update({ where: { id }, data: { resultsReleasedAt: released ? (row.resultsReleasedAt ?? new Date()) : null } });
     await this.audit.log({ action: released ? 'practical_test.released' : 'practical_test.unreleased', entityType: 'PracticalAssessment', entityId: id, summary: `${released ? 'Released' : 'Withdrew'} results of practical test "${row.title}"` });
-    if (released && !row.resultsReleasedAt) {
+    if (released && !row.resultsReleasedAt && !releasedBefore) {
       const sat = await this.prisma.db.practicalAttempt.findMany({ where: { assessmentId: id, submittedAt: { not: null } }, select: { id: true, studentId: true } });
       // Parents too; with results straight after handing in they were told then, and aren't told twice.
       if (row.showResults !== 'IMMEDIATE') await this.cbt.notifyGuardians(currentTenantId(), updated, sat.map((s) => s.studentId), practicalNotice(id));

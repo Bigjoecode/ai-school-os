@@ -218,9 +218,14 @@ export class OnlineExamsController {
   @RequirePermissions('assessment.manage')
   async release(@Param('id') id: string, @Body(new ZodPipe(z.object({ released: z.boolean() }))) body: { released: boolean }): Promise<CbtExamSummary> {
     const { exam, scope } = await this.cbt.staffExam(id, 'manage');
+    // Students and parents hear about results once: a release after a withdrawal doesn't tell them again.
+    const releasedBefore =
+      body.released && !exam.resultsReleasedAt
+        ? !!(await this.prisma.root.auditLog.findFirst({ where: { tenantId: currentTenantId(), entityType: 'OnlineExam', entityId: id, action: 'cbt.released' }, select: { id: true } }))
+        : true;
     const updated = await this.prisma.db.onlineExam.update({ where: { id }, data: { resultsReleasedAt: body.released ? (exam.resultsReleasedAt ?? new Date()) : null } });
     await this.audit.log({ action: body.released ? 'cbt.released' : 'cbt.unreleased', entityType: 'OnlineExam', entityId: id, summary: `${body.released ? 'Released' : 'Withdrew'} results of "${exam.title}"` });
-    if (body.released && !exam.resultsReleasedAt) {
+    if (body.released && !exam.resultsReleasedAt && !releasedBefore) {
       const sat = await this.prisma.db.onlineExamAttempt.findMany({ where: { examId: id, status: { not: 'IN_PROGRESS' } }, select: { studentId: true, status: true } });
       await this.notifyStudents(updated, `Results are out: ${exam.title}`, 'Open the exam to see your score and review your answers.', sat.map((s) => s.studentId));
       // Parents too; those told when the marking finished (results straight after submitting) aren't told twice.

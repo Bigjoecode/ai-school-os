@@ -79,6 +79,7 @@ export * from './simulators/chem-electro';
 export * from './simulators/chem-acids';
 export * from './simulators/chem-organic';
 export * from './simulators/chem-prep';
+export * from './simulators/comp-office';
 export * from './simulators/geo-maps';
 export * from './simulators/comp-code';
 export * from './simulators/phy-common';

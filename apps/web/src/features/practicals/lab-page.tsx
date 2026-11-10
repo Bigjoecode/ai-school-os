@@ -281,9 +281,11 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
               paper: a.paper,
             };
             const flat = (
-              <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
-                <Sim {...props} />
-              </Suspense>
+              <LabSittingContext.Provider value={sitting ? a.assessment! : null}>
+                <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
+                  <Sim {...props} />
+                </Suspense>
+              </LabSittingContext.Provider>
             );
             if (!use3d || !Sim3d) return flat;
             return (

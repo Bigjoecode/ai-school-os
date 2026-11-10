@@ -39,6 +39,8 @@ import { emptyChemOrganicState } from '@aischool/shared';
 import { chemOrganicMissing } from './chem-organic/missing';
 import { emptyChemPrepState } from '@aischool/shared';
 import { chemPrepMissing } from './chem-prep/missing';
+import { emptyCompOfficeState } from '@aischool/shared';
+import { compOfficeMissing } from './comp-office/missing';
 import { emptyCompCodeState } from '@aischool/shared';
 import { compCodeMissing } from './comp-code/missing';
 import { phyGlassMissing } from './phy-glass-block/missing';
@@ -107,6 +109,7 @@ export const SIMULATOR_UI: { [Id in SimulatorId]: SimulatorEntry<Id> } = {
   'chem-electro': { id: 'chem-electro', component: lazy(() => import('./chem-electro')), component3d: lazy(() => import('./chem-electro/lab3d')), empty: emptyChemElectroState, missing: chemElectroMissing },
   'chem-acids': { id: 'chem-acids', component: lazy(() => import('./chem-acids')), component3d: lazy(() => import('./chem-acids/lab3d')), empty: emptyChemAcidsState, missing: chemAcidsMissing },
   'chem-organic': { id: 'chem-organic', component: lazy(() => import('./chem-organic')), component3d: lazy(() => import('./chem-organic/lab3d')), empty: emptyChemOrganicState, missing: chemOrganicMissing },
+  'comp-office': { id: 'comp-office', component: lazy(() => import('./comp-office')), component3d: lazy(() => import('./comp-office/lab3d')), empty: emptyCompOfficeState, missing: compOfficeMissing },
   'chem-prep': { id: 'chem-prep', component: lazy(() => import('./chem-prep')), component3d: lazy(() => import('./chem-prep/lab3d')), empty: emptyChemPrepState, missing: chemPrepMissing },
   'geo-maps': { id: 'geo-maps', component: lazy(() => import('./geo-maps')), component3d: lazy(() => import('./geo-maps/lab3d')), prefer2d: true, empty: emptyGeoMapsState, missing: geoMapsMissing },
   'comp-code': { id: 'comp-code', component: lazy(() => import('./comp-code')), component3d: lazy(() => import('./comp-code/lab3d')), empty: emptyCompCodeState, missing: compCodeMissing },

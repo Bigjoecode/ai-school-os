@@ -19,6 +19,7 @@ import { chemElectroGrader } from './chem-electro';
 import { chemAcidsGrader } from './chem-acids';
 import { chemOrganicGrader } from './chem-organic';
 import { chemPrepGrader } from './chem-prep';
+import { compOfficeGrader } from './comp-office';
 import { geoMapsGrader } from './geo-maps';
 import { compCodeGrader } from './comp-code';
 import { phyGlassGrader } from './phy-glass-block';
@@ -60,6 +61,7 @@ export const GRADERS: { [Id in SimulatorId]: SimulatorGrader<Id> } = {
   'chem-acids': chemAcidsGrader,
   'chem-organic': chemOrganicGrader,
   'chem-prep': chemPrepGrader,
+  'comp-office': compOfficeGrader,
   'geo-maps': geoMapsGrader,
   'comp-code': compCodeGrader,
   'phy-pendulum': phyPendulumGrader,

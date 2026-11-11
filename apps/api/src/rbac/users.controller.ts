@@ -6,6 +6,7 @@ import { hashPassword } from '../auth/password';
 import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
+import { assertCanGrant } from './grant';
 import { PrismaService } from '../prisma/prisma.service';
 
 const updateMemberSchema = z.object({
@@ -51,6 +52,7 @@ export class UsersController {
     const tenantId = currentTenantId();
     const roles = await this.prisma.db.role.findMany({ where: { id: { in: body.roleIds } } });
     if (roles.length !== body.roleIds.length) throw new BadRequestException('Unknown role');
+    assertCanGrant(currentContext().permissions, roles);
     const passwordHash = await hashPassword(body.password);
 
     const membership = await this.prisma.root.$transaction(async (tx) => {
@@ -83,16 +85,19 @@ export class UsersController {
   ) {
     const membership = await this.prisma.db.membership.findUniqueOrThrow({
       where: { id: membershipId },
-      include: { user: true },
+      include: { user: true, roles: { include: { role: { select: { name: true, permissions: true } } } } },
     });
     if (membership.userId === currentContext().userId) {
       throw new BadRequestException('You cannot change your own access; ask another admin');
     }
+    // Someone with permissions you don't hold (e.g. a School Admin) is not yours to demote or disable.
+    assertCanGrant(currentContext().permissions, membership.roles.map((r) => r.role));
 
     const changes: string[] = [];
     if (body.roleIds) {
       const roles = await this.prisma.db.role.findMany({ where: { id: { in: body.roleIds } } });
       if (roles.length !== body.roleIds.length) throw new BadRequestException('Unknown role');
+      assertCanGrant(currentContext().permissions, roles);
       await this.prisma.root.$transaction([
         this.prisma.root.membershipRole.deleteMany({ where: { membershipId } }),
         this.prisma.root.membershipRole.createMany({

@@ -299,7 +299,7 @@ export class WebsiteController {
   // ---------------------------------------------------------- result codes
 
   @Get('result-codes')
-  @RequirePermissions('website.manage')
+  @RequirePermissions('website.manage', 'results.read')
   async codes(@Query(new ZodPipe(z.object({ classArmId: z.string().min(1), termId: z.string().min(1) }))) q: { classArmId: string; termId: string }): Promise<ResultCodeRow[]> {
     const students = await this.prisma.db.student.findMany({
       where: { classArmId: q.classArmId, status: 'ACTIVE' },
@@ -321,7 +321,7 @@ export class WebsiteController {
   /** Replaces one student's code (e.g. a slip was lost); the old code stops working. */
   @Post('result-codes/:studentId/reset')
   @HttpCode(200)
-  @RequirePermissions('website.manage')
+  @RequirePermissions('website.manage', 'results.read')
   async resetCode(@Param('studentId') studentId: string, @Body(new ZodPipe(z.object({ termId: z.string().min(1) }))) body: { termId: string }) {
     const row = await this.prisma.db.resultAccessCode.update({ where: { studentId_termId: { studentId, termId: body.termId } }, data: { code: resultCode(), uses: 0 } });
     return { code: row.code };

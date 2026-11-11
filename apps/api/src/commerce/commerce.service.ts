@@ -573,7 +573,9 @@ export class CommerceService implements OnModuleInit, OnApplicationShutdown {
   async sponsor(tenantId: string, userId: string, input: { productCode: string; classArmIds: string[]; title: string; startsOn: string; months: number }) {
     const product = await this.product(input.productCode, false);
     if (!product.isActive || product.schoolPriceKobo === null) throw new BadRequestException(`${product.name} isn't offered to schools`);
-    const students = await this.prisma.root.student.findMany({ where: { tenantId, classArmId: { in: input.classArmIds }, status: 'ACTIVE' }, select: { id: true } });
+    // Only this school's own classes are kept on the sponsorship (they are listed back by name).
+    const classArmIds = (await this.prisma.root.classArm.findMany({ where: { tenantId, id: { in: input.classArmIds } }, select: { id: true } })).map((a) => a.id);
+    const students = await this.prisma.root.student.findMany({ where: { tenantId, classArmId: { in: classArmIds }, status: 'ACTIVE' }, select: { id: true } });
     if (!students.length) throw new BadRequestException('There are no active students in those classes');
     const periods = Math.max(1, Math.ceil(input.months / product.periodMonths));
     const unit = product.schoolPriceKobo * periods;
@@ -581,7 +583,7 @@ export class CommerceService implements OnModuleInit, OnApplicationShutdown {
     const startsAt = new Date(`${input.startsOn}T00:00:00Z`);
     const endsAt = addMonths(startsAt, input.months);
     const sp = await this.prisma.root.sponsorship.create({
-      data: { tenantId, productId: product.id, title: input.title, classArmIds: input.classArmIds, seats: students.length, unitKobo: unit, totalKobo: total, startsAt, endsAt, createdById: userId },
+      data: { tenantId, productId: product.id, title: input.title, classArmIds, seats: students.length, unitKobo: unit, totalKobo: total, startsAt, endsAt, createdById: userId },
     });
     await this.entitlements.grant(
       students.map((s) => ({ tenantId, studentId: s.id })),

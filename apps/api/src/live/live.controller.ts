@@ -486,6 +486,8 @@ export class LiveController {
   async updateHomework(@Param('id') id: string, @Body(new ZodPipe(homeworkSchema)) body: HomeworkInput): Promise<HomeworkRow> {
     const before = await this.prisma.db.homework.findUniqueOrThrow({ where: { id } });
     await this.checkTeaches(before.classArmId, before.subjectId);
+    // Moving it to another subject: the teacher must teach that one too.
+    if ((body.subjectId ?? null) !== before.subjectId) await this.checkTeaches(before.classArmId, body.subjectId ?? null);
     const school = await this.live.school();
     const publishing = body.publish && before.status === 'DRAFT';
     if (publishing) this.checkChannels(body.notifyParents as Channel[]);

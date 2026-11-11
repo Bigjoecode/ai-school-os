@@ -97,8 +97,9 @@ export class PublicSiteController {
   @Public()
   async post(@Param('slug') slug: string, @Param('post') postSlug: string, @Query('preview') preview?: string): Promise<PublicPost> {
     const previewTid = await this.previewTenant(preview);
-    await this.site.siteTenant(slug, previewTid);
-    const p = await this.prisma.db.websitePost.findFirst({ where: { slug: postSlug, ...(previewTid ? {} : { status: 'PUBLISHED' }) } });
+    const t = await this.site.siteTenant(slug, previewTid);
+    // Drafts only with this school's own preview link, never another school's.
+    const p = await this.prisma.db.websitePost.findFirst({ where: { slug: postSlug, ...(previewTid === t.id ? {} : { status: 'PUBLISHED' }) } });
     if (!p) throw new NotFoundException('That news post does not exist');
     return postView(p, true);
   }

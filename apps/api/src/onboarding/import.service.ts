@@ -16,6 +16,7 @@ import { AuditService } from '../audit/audit.service';
 import { hashPassword } from '../auth/password';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { PrismaService } from '../prisma/prisma.service';
+import { assertCanGrant } from '../rbac/grant';
 import { csvCell, normHeader, parseCsv } from './csv';
 
 const MAX_ROWS = 5000;
@@ -444,6 +445,12 @@ export class ImportService {
   private async commitStaff(ops: StaffOp[], createLogins: boolean) {
     const db = this.prisma.db;
     const tenantId = currentTenantId();
+    if (createLogins) {
+      // Checked before anything is saved: logins may only get roles the importer could give by hand.
+      const withLogin = ops.filter((o) => o.data.email);
+      const used = await db.role.findMany({ where: { OR: [{ id: { in: withLogin.map((o) => o.roleId).filter((x): x is string => !!x) } }, ...(withLogin.some((o) => !o.roleId && o.data.type === 'TEACHING') ? [{ key: 'teacher' }] : [])] } });
+      assertCanGrant(currentContext().permissions, used);
+    }
     const depts = new Map((await db.department.findMany()).map((d) => [d.name.toLowerCase(), d.id]));
     for (const name of new Set(ops.map((o) => o.department).filter((d): d is string => !!d))) {
       if (!depts.has(name.toLowerCase())) depts.set(name.toLowerCase(), (await db.department.create({ data: { tenantId, name } })).id);

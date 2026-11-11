@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# The deploy only reads the repository; the GitHub token never needs to write.
+permissions:
+  contents: read
+
 concurrency:
   group: deploy-production
   cancel-in-progress: false
@@ -47,15 +51,25 @@ jobs:
         run: node infrastructure/deploy/assetlinks.mjs apps/web/dist/.well-known/assetlinks.json
 
       - name: Load the deploy key
+        # Secrets arrive through env, never pasted into the script text.
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           install -m 700 -d ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy
+          (umask 077; printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy)
           chmod 600 ~/.ssh/deploy
           # Pin the host key so a changed fingerprint fails the deploy rather
           # than silently trusting a new server.
-          printf '%s\n' "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-          sudo apt-get install -y -qq lftp >/dev/null
+          # The runner's package list can be stale or a mirror briefly unreachable: refresh and retry.
+          for i in 1 2 3; do
+            sudo apt-get update -qq -o Acquire::Retries=3 >/dev/null || true
+            sudo apt-get install -y -qq -o Acquire::Retries=3 lftp >/dev/null && break
+            [ "$i" = 3 ] && exit 1
+            sleep 15
+          done
 
       # The host allows SFTP but no shell, so everything ships as files:
       #  - API bundle → API_DEPLOY_PATH (the cPanel Node.js app root), then

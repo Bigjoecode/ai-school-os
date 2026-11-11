@@ -4,7 +4,7 @@ import { useMemo, useRef, useState, type PointerEvent as RPointerEvent } from 'r
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Checks, type PanelProps } from './sheet-panels';
+import { Checks, NumInput, type PanelProps } from './sheet-panels';
 
 /** The statistical diagrams: graph paper, the pie and circles, the outline map, the flow map and chart, and the earth grid. */
 
@@ -256,7 +256,7 @@ function OneChart(p: PanelProps & { c: GeoChart }) {
                   <td className="whitespace-nowrap pr-2">{x.label}</td>
                   {c.cats.map((_, i) => (
                     <td key={i} className="p-0.5">
-                      <input id={`geo-plot-${c.id}-${x.id}-${i}`} className="h-7 w-14 rounded border border-input bg-card px-1 text-right text-base tabular sm:text-[12px]" readOnly={readOnly} inputMode="decimal" aria-label={`${x.label} ${c.cats[i]}`} value={get(x)[i] ?? ''} onChange={(e) => setVal(x, i, Number(e.target.value) || 0)} />
+                      <NumInput id={`geo-plot-${c.id}-${x.id}-${i}`} className="h-7 w-14 rounded border border-input bg-card px-1 py-0 text-right text-base tabular shadow-none sm:text-[12px]" readOnly={readOnly} inputMode="decimal" aria-label={`${x.label} ${c.cats[i]}`} value={get(x)[i]} onValue={(n) => setVal(x, i, n)} />
                     </td>
                   ))}
                 </tr>
@@ -366,7 +366,7 @@ export function PiePanel(p: PanelProps) {
             <div key={it.id} className="flex items-center gap-1 text-[13px]">
               <span className="inline-block size-3 rounded-sm" style={{ background: hues[i % 4] }} aria-hidden />
               <span className="min-w-0 flex-1 truncate">{it.label}</span>
-              <Input id={`geo-pie-${i}`} className="h-7 w-16 text-right tabular" inputMode="numeric" aria-label={`Angle of ${it.label}`} readOnly={readOnly} value={angles[i] ? String(angles[i]) : ''} onChange={(e) => setAngles(angles.map((a, k) => (k === i ? Number(e.target.value) || 0 : a)))} />
+              <NumInput id={`geo-pie-${i}`} className="h-7 w-16 text-right tabular" inputMode="decimal" aria-label={`Angle of ${it.label}`} readOnly={readOnly} value={angles[i] || undefined} onValue={(n) => setAngles(angles.map((a, k) => (k === i ? n : a)))} />
               <span>°</span>
               {!readOnly && (
                 <>
@@ -394,7 +394,7 @@ export function PiePanel(p: PanelProps) {
             <label key={id} className="flex items-center justify-between gap-2 text-[13px]">
               {name}
               <span className="flex items-center gap-1">
-                <Input id={`geo-set-${id}`} className="h-8 w-20 text-right tabular" inputMode="decimal" aria-label={`Radius of ${name}`} readOnly={readOnly} value={s.sets[id] === undefined ? '' : String(s.sets[id])} onChange={(e) => g.setSets({ [id]: e.target.value === '' ? 0 : Number(e.target.value) || 0 })} /> cm
+                <NumInput id={`geo-set-${id}`} className="h-8 w-20 text-right tabular" inputMode="decimal" aria-label={`Radius of ${name}`} readOnly={readOnly} value={s.sets[id] as number | undefined} onValue={(n) => g.setSets({ [id]: n })} /> cm
               </span>
             </label>
           ))}
@@ -556,7 +556,7 @@ export function FlowPanel(p: PanelProps) {
         {f.routes.map((r) => (
           <div key={r.id} className="flex flex-wrap items-center gap-1.5 text-[13px]">
             <span className="min-w-24 flex-1 truncate">{r.name}</span>
-            <Input id={`geo-w-${r.id}`} className="h-7 w-16 text-right tabular" inputMode="decimal" aria-label={`Width of the ${r.name} line`} readOnly={readOnly} value={s.sets[`width:${r.id}`] === undefined ? '' : String(s.sets[`width:${r.id}`])} onChange={(e) => g.setSets({ [`width:${r.id}`]: Number(e.target.value) || 0 })} />
+            <NumInput id={`geo-w-${r.id}`} className="h-7 w-16 text-right tabular" inputMode="decimal" aria-label={`Width of the ${r.name} line`} readOnly={readOnly} value={s.sets[`width:${r.id}`] as number | undefined} onValue={(n) => g.setSets({ [`width:${r.id}`]: n })} />
             <span className="text-[12px] text-muted-foreground">mm</span>
             {(['IN', 'OUT'] as const).map((d) => (
               <Button key={d} size="sm" variant={s.sets[`arrow:${r.id}`] === d ? 'brand' : 'outline'} className="h-7 px-2" disabled={readOnly} data-arrow={`${r.id}:${d}`} onClick={() => g.setSets({ [`arrow:${r.id}`]: d }, `arrow:${r.id}`)}>

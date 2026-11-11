@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { useLabSitting } from '../../sitting';
 import type { SimulatorProps } from '../types';
 import { nextHint, useChecks, useOffice } from './actions';
 import { Desktop } from './desktop';
@@ -15,8 +14,6 @@ export default function CompOfficeLab({ seed, mode, state, onChange, readOnly, s
   const o = useOffice({ seed, state, onChange, readOnly, startedAt, practicalId });
   const [brief, setBrief] = useState(true);
   const checks = useChecks(o.v, state);
-  // A practical test can run in LAB mode: no hints while it is being sat.
-  const sitting = !!useLabSitting();
   const fresh = !practicalId && state.log.filter((l) => !l.a.startsWith('task:')).length === 0;
   return (
     <div className="space-y-3">
@@ -43,7 +40,7 @@ export default function CompOfficeLab({ seed, mode, state, onChange, readOnly, s
           </div>
         )}
       </Card>
-      {!readOnly && mode === 'LAB' && !sitting && (
+      {!readOnly && mode === 'LAB' && (
         <p className="flex items-start gap-2 rounded-xl bg-info-soft px-3 py-2 text-[12.5px] text-info">
           <Lightbulb className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {nextHint(checks)}
         </p>

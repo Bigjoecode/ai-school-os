@@ -1,8 +1,8 @@
 import { SHEET_H, dist, polyArea, polyLength, type GeoMapsState, type GeoVariant, type P } from '@aischool/shared';
 import { Eraser, Undo2 } from 'lucide-react';
-import { useMemo, useRef, type PointerEvent as RPointerEvent } from 'react';
+import { useMemo, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Input, type InputProps } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import type { Geo } from './actions';
 import { BaseMap, flipY } from './base-map';
@@ -34,12 +34,35 @@ export function Checks({ g, s, readOnly, ids }: PanelProps & { ids?: string[] })
 }
 
 const num = (x: unknown) => (x === undefined ? '' : String(x));
+
+/**
+ * A number box that keeps what is being typed ("2.", "0.0", "") while passing the number on.
+ * Rebuilt from the number on every key, "0.5" could not be typed: the point vanished as soon as it was pressed.
+ */
+export function NumInput({ value, onValue, onBlur, ...p }: Omit<InputProps, 'value' | 'onChange'> & { value: number | string | undefined; onValue: (n: number) => void }) {
+  const [text, setText] = useState<string | null>(null);
+  const shown = num(value);
+  return (
+    <Input
+      {...p}
+      value={text !== null && (Number(text) || 0) === (Number(value) || 0) ? text : shown}
+      onChange={(e) => {
+        setText(e.target.value);
+        onValue(Number(e.target.value) || 0);
+      }}
+      onBlur={(e) => {
+        setText(null);
+        onBlur?.(e);
+      }}
+    />
+  );
+}
 function SetInput({ id, label, g, s, readOnly, unit }: PanelProps & { id: string; label: string; unit?: string }) {
   return (
     <label className="flex items-center justify-between gap-2 text-[13px]">
       {label}
       <span className="flex items-center gap-1">
-        <Input id={`geo-set-${id}`} value={num(s.sets[id])} readOnly={readOnly} inputMode="decimal" aria-label={label} onChange={(e) => g.setSets({ [id]: Number(e.target.value) || 0 }, undefined)} className="h-8 w-20 text-right tabular" />
+        <NumInput id={`geo-set-${id}`} value={s.sets[id] as number | undefined} readOnly={readOnly} inputMode="decimal" aria-label={label} onValue={(n) => g.setSets({ [id]: n }, undefined)} className="h-8 w-20 text-right tabular" />
         <span className="w-8 text-[12px] text-muted-foreground">{unit}</span>
       </span>
     </label>

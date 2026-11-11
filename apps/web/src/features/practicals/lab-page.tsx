@@ -240,7 +240,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="sticky top-2 z-10 flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/95 p-3 shadow-soft backdrop-blur">
+          <div className="sticky top-16 z-10 flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/95 p-3 shadow-soft backdrop-blur">
             <Badge variant={a.mode === 'EXAM' ? 'warning' : 'brand'}>
               <FlaskConical /> {a.assessment ? (a.mode === 'EXAM' ? 'Practical exam — one attempt' : 'Practical test — one attempt') : a.mode === 'EXAM' ? 'Timed practical' : 'Practice — untimed'}
             </Badge>
@@ -283,8 +283,7 @@ function LabHost({ a, receivedAt }: { a: PracticalAttemptView; receivedAt: numbe
             const flat = (
               <LabSittingContext.Provider value={sitting ? a.assessment! : null}>
                 <Suspense fallback={<Skeleton className="h-[480px] rounded-2xl" />}>
-                  {/* In the 2D labs, LAB mode only adds hints and timing aids, so a class test sat in LAB mode gets them hidden here. */}
-                  <Sim {...props} mode={sitting ? 'EXAM' : props.mode} />
+                  <Sim {...props} />
                 </Suspense>
               </LabSittingContext.Provider>
             );

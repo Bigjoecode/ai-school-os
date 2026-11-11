@@ -57,6 +57,9 @@ export interface LabKitOptions {
   onStageChange?: (next: Stage) => void;
 }
 
+/** "Switch on: UPS, monitor" → "switch on: UPS, monitor": only the first word drops its capital, so names, letters and acronyms survive mid-sentence. */
+const lowerFirst = (t: string) => (/^[A-Z][a-z]/.test(t) ? t[0]!.toLowerCase() + t.slice(1) : t);
+
 /** The shell's state, used by the lab (stage, guided, speak…) and by LabShell. */
 export function useLabKit(o: LabKitOptions) {
   const { mode, readOnly, practicalId, result, started } = o;
@@ -343,7 +346,7 @@ export function LabShell(p: LabShellProps) {
     speak(
       o.started
         ? `Welcome back! ${cur ? `Next: ${/^[A-Z][a-z]/.test(cur.label) ? cur.label.charAt(0).toLowerCase() + cur.label.slice(1) : cur.label}.` : 'Everything is recorded — hand in when you are ready.'} Tap me any time for help.`
-        : `Welcome! I’m ${assistantProfile.name}, the ${assistantProfile.role}. ${cur ? `First: ${cur.label.toLowerCase()}.` : ''} Tap me any time for help.`,
+        : `Welcome! I’m ${assistantProfile.name}, the ${assistantProfile.role}. ${cur ? `First: ${lowerFirst(cur.label)}.` : ''} Tap me any time for help.`,
     );
   }, [practice, stage, intro, tour, showBriefing, cur, o.started, speak]);
 

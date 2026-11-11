@@ -10,6 +10,7 @@ import {
   coCondHit,
   coCycleRef,
   coDeleteRow,
+  coDisplay,
   coEvalAll,
   coFillDown,
   coFillRight,
@@ -344,6 +345,8 @@ export function SheetApp({ o }: { o: Office }) {
                   const corner = c === g.c1 && r === g.r1 && !ro && edit === null;
                   const inFill = previewFill && c >= g.c0 && r >= g.r0 && ((previewFill.r > g.r1 && c <= g.c1 && r <= previewFill.r) || (previewFill.c > g.c1 && r <= g.r1 && c <= previewFill.c));
                   const shown = coShown(s, a, v);
+                  // Text cut off at the column edge (or a number shown as #####) can still be read: the whole value shows on hover.
+                  const full = shown && (shown.length > coColWidth(s, c) || shown.startsWith('#')) ? coDisplay(v, cell) : undefined;
                   return (
                     <td
                       key={c}
@@ -354,6 +357,7 @@ export function SheetApp({ o }: { o: Office }) {
                       onPointerEnter={() => onCellEnter(a)}
                       onClick={(e) => onCellClick(a, e)}
                       onDoubleClick={() => !pointing && beginEdit()}
+                      title={full}
                       style={{ background: hit?.fill ?? cell?.fill ?? undefined, ...(s.freeze && r === 0 ? { position: 'sticky', top: 28, zIndex: 5 } : {}) }}
                       className={cn('relative h-7 max-w-0 select-none overflow-hidden whitespace-nowrap border-b border-r border-slate-200 bg-white px-1', cell?.bd && 'border-slate-600', cell?.b && 'font-semibold', num || typeof v === 'boolean' ? 'text-right tabular-nums' : 'text-left', sell && 'bg-blue-50 outline outline-1 -outline-offset-1 outline-blue-300', a === sel.a && 'outline-2 outline-blue-600', inFill && 'outline-dashed outline-1 outline-slate-500')}
                     >

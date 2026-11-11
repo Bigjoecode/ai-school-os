@@ -260,12 +260,14 @@ function TableBlock({ o }: { o: Office }) {
                 {row.map((cell, c) => {
                   const k = `${r},${c}`;
                   const num = t.rightNums && r > 0 && c > 0;
+                  const shown = cell.startsWith('=') ? coTableShown(t, r, c) : cell;
                   return (
                     <td key={c} className="border border-slate-400 p-0">
                       <input
                         aria-label={`Table cell row ${r + 1} column ${c + 1}`}
                         readOnly={ro}
-                        value={focus === k || !cell.startsWith('=') ? cell : coTableShown(t, r, c)}
+                        value={focus === k ? cell : shown}
+                        title={shown.length > 10 ? shown : undefined}
                         onFocus={() => setFocus(k)}
                         onBlur={() => setFocus(null)}
                         onChange={(e) => set((x) => coSetTableCell(x, r, c, e.target.value))}

@@ -61,8 +61,7 @@ export default function CompOfficeLab3D(props: SimulatorProps<'comp-office'>) {
   const sandbox = useSandbox(task, startedAt);
   const kit = useLabKit({ mode, readOnly, practicalId, result, started });
   const { stage, work, practice, teach } = kit;
-  // A practical test can run in LAB mode: no guided steps, hints or corrections while it is being sat.
-  const guided = kit.guided && !kit.sitting;
+  const { guided } = kit;
   const demo = useOfficeDemo({ studentSeed: seed, task, startedAt, active: stage === 'demo', onFinished: () => kit.markJourney('demo') });
   const o: Office = stage === 'sandbox' ? sandbox.o : attempt;
   const state = stage === 'sandbox' ? sandbox.state : attemptState;
@@ -93,15 +92,13 @@ export default function CompOfficeLab3D(props: SimulatorProps<'comp-office'>) {
   }, [on, o]);
 
   const steps = useMemo((): GuideStep[] => {
-    // One step with no answer in it, so the assistant has something honest to say in a test.
-    if (kit.sitting) return [{ id: 'test', label: 'Work through your task card', target: null, why: 'This is a test, so there are no step-by-step hints.', done: false }];
     if (!guided) return [];
     return [
       { id: 'power', label: 'Switch on the power and the computer', target: 'ups', why: 'Switch on the UPS (the battery backup) first: it protects the computer from surges and power cuts.', done: on },
       ...checks.map((c): GuideStep => ({ id: c.id, label: c.crit === 'calculation' ? `Notebook: ${c.label}` : c.label, target: c.crit === 'calculation' ? null : 'monitor', why: c.why ?? (c.crit === 'calculation' ? 'Work it out from your own data and write it in your notebook.' : 'Use the computer: the step is on your task card.'), done: c.done, group: c.crit === 'calculation' ? 'Notebook' : 'On the computer' })),
       { id: 'written', label: 'Write your precautions and the explanation', target: null, why: 'Marked by the teacher’s guide: say what you did and why.', done: !!state.written.precautions.trim() && !!state.written.explain.trim(), group: 'Notebook' },
     ];
-  }, [kit.sitting, guided, checks, on, state.written]);
+  }, [guided, checks, on, state.written]);
   useNewLogEntries(state.log, stage, (fresh) => {
     if (!guided) return;
     for (const e of fresh) {

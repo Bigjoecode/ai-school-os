@@ -183,15 +183,14 @@ function Hero() {
           label="Illustration with sample data: the principal's dashboard on a laptop and a parent's weekly learning update on a phone."
           className="relative mx-auto mt-14 max-w-5xl sm:mt-16"
         >
-          <BrowserFrame className="mr-0 sm:mr-24 lg:mr-40">
+          <BrowserFrame sample className="lg:mr-40">
             <DashboardMock />
           </BrowserFrame>
-          <div className="absolute -bottom-10 right-0 hidden sm:block lg:-right-4">
+          <div className="absolute -bottom-10 -right-4 hidden lg:block">
             <PhoneFrame>
               <ParentPhoneMock />
             </PhoneFrame>
           </div>
-          <SampleTag className="absolute right-3 top-[7px] sm:right-28 lg:right-44" />
         </Illustration>
       </div>
     </section>
@@ -445,10 +444,9 @@ function Analytics() {
         center
       />
       <Illustration label="Illustration with sample data: the school success dashboard with attendance, fees and parent figures, a fees-collected line chart, a topic mastery heatmap and a list of students who need attention." className="lp-reveal mx-auto mt-12 max-w-5xl">
-        <BrowserFrame>
+        <BrowserFrame sample>
           <AnalyticsMock />
         </BrowserFrame>
-        <SampleTag className="absolute right-3 top-[7px]" />
       </Illustration>
     </Section>
   );

@@ -54,7 +54,7 @@ export function AnalysisView({ classArmId, termId, scale }: { classArmId: string
   return (
     <div className="space-y-5">
       <div className="grid gap-3 sm:grid-cols-3">
-        <Kpi label="Class mean" value={fmtPct(a.overall.mean)} hint={`${a.students} learners`} bar={a.overall.mean} />
+        <Kpi label="Class mean" value={fmtPct(a.overall.mean)} hint={`Mean of every subject result · ${a.students} learners`} bar={a.overall.mean} />
         <Kpi label="Pass rate" value={fmtPct(a.overall.passRate)} hint="Subject results at a pass grade" bar={a.overall.passRate} tone={a.overall.passRate != null && a.overall.passRate < 50 ? 'danger' : 'success'} />
         <Kpi label="Marks completeness" value={fmtPct(a.overall.completeness, 0)} hint="Of expected marks entered" bar={a.overall.completeness} tone={a.overall.completeness < 80 ? 'warning' : undefined} />
       </div>

@@ -5,6 +5,8 @@
  */
 const CACHE_KEY = 'aischool.siteHost';
 const TIMEOUT_MS = 2500;
+/** Bare loopback names are always the portal (local dev); a school site can still be tried on e.g. greenfield-site.localhost. */
+const LOOPBACK = new Set(['localhost', '127.0.0.1', '[::1]', '::1']);
 
 function readCache(host: string): string | null | undefined {
   try {
@@ -29,7 +31,7 @@ function writeCache(host: string, slug: string | null) {
 export async function detectWebsiteHost(): Promise<string | null> {
   const host = window.location.hostname.toLowerCase();
   const portal = (import.meta.env.VITE_PORTAL_HOST as string | undefined)?.toLowerCase();
-  if (!host || (portal && host === portal)) return null;
+  if (!host || LOOPBACK.has(host) || (portal && host === portal)) return null;
   const cached = readCache(host);
   if (cached !== undefined) return cached;
 

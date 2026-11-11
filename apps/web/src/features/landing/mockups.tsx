@@ -42,16 +42,18 @@ export function SampleTag({ className }: { className?: string }) {
   );
 }
 
-export function BrowserFrame({ children, url = 'ai-schoolportal.mejortechworld.com', className }: { children: ReactNode; url?: string; className?: string }) {
+/** `sample` puts the "Sample data" tag in the browser bar, beside the address (it never sits on top of it). */
+export function BrowserFrame({ children, url = 'ai-schoolportal.mejortechworld.com', sample, className }: { children: ReactNode; url?: string; sample?: boolean; className?: string }) {
   return (
     <div className={cn('overflow-hidden rounded-2xl border border-border-strong bg-card shadow-pop', className)}>
       <div className="flex items-center gap-2 border-b border-border bg-muted/70 px-3 py-2">
-        <span className="flex gap-1.5">
+        <span className="flex shrink-0 gap-1.5">
           <span className="size-2.5 rounded-full bg-danger/70" />
           <span className="size-2.5 rounded-full bg-warning/70" />
           <span className="size-2.5 rounded-full bg-success/70" />
         </span>
-        <span className="mx-auto max-w-[70%] truncate rounded-md bg-background px-3 py-0.5 text-[10.5px] text-muted-foreground">{url}</span>
+        <span className="mx-auto min-w-0 max-w-[70%] truncate rounded-md bg-background px-3 py-0.5 text-[10.5px] text-muted-foreground">{url}</span>
+        {sample && <SampleTag className="shrink-0" />}
       </div>
       {children}
     </div>

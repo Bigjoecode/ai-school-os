@@ -385,7 +385,8 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
       return { url: await this.providers.bbbJoin(currentTenantId(), c.externalId!, data, c.title, { name: fullName(user), userId: ctx.userId!, host }), role: host ? 'HOST' : 'ATTENDEE' };
     }
     if (c.provider === 'ZOOM' && host && data.startUrl) return { url: String(data.startUrl), role: 'HOST' };
-    if (!c.joinUrl) throw new BadRequestException('This class has no meeting link');
+    // Only web links: a "javascript:" link saved before this check would run inside the portal when opened.
+    if (!c.joinUrl || !/^https?:\/\//i.test(c.joinUrl)) throw new BadRequestException('This class has no meeting link');
     return { url: c.joinUrl, role: host ? 'HOST' : 'ATTENDEE' };
   }
 

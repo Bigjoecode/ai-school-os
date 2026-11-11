@@ -60,8 +60,13 @@ export const normHeader = (h: string) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-/** Quotes a value for CSV output. */
+/**
+ * Quotes a value for CSV output. Text a spreadsheet would read as a formula
+ * (starting =, +, -, @, tab or CR) gets a leading ' so a name typed into a
+ * public form ("=HYPERLINK(…)") never runs when staff open the export in Excel.
+ */
 export const csvCell = (v: string | number | null | undefined) => {
-  const s = v === null || v === undefined ? '' : String(v);
+  let s = v === null || v === undefined ? '' : String(v);
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s) && !/^[+-]?\d+(\.\d+)?$/.test(s)) s = `'${s}`;
   return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };

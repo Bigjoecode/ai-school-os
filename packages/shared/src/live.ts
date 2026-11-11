@@ -51,7 +51,7 @@ export const liveClassSchema = z
     durationMinutes: z.number().int().min(10).max(300),
     agenda: nullableText(2000),
     /** For EXTERNAL: the meeting link (Teams, Jitsi, a personal Zoom room…). */
-    joinUrl: z.url().max(1000).nullish().transform((v) => v ?? null),
+    joinUrl: z.url({ protocol: /^https?$/, error: 'Use a web link (https://…)' }).max(1000).nullish().transform((v) => v ?? null),
   })
   .refine((v) => v.provider !== 'EXTERNAL' || !!v.joinUrl, { message: 'Paste the meeting link', path: ['joinUrl'] });
 export type LiveClassInput = z.infer<typeof liveClassSchema>;
@@ -72,7 +72,7 @@ export const fromTimetableSchema = z
     from: isoDate,
     to: isoDate,
     provider: z.enum(LIVE_PROVIDERS),
-    joinUrl: z.url().max(1000).nullish().transform((v) => v ?? null),
+    joinUrl: z.url({ protocol: /^https?$/, error: 'Use a web link (https://…)' }).max(1000).nullish().transform((v) => v ?? null),
   })
   .refine((v) => v.to >= v.from, { message: 'The end date must be on or after the start', path: ['to'] })
   .refine((v) => v.provider !== 'EXTERNAL' || !!v.joinUrl, { message: 'Paste the meeting link', path: ['joinUrl'] });
@@ -106,7 +106,7 @@ export const zoomSettingsSchema = z.object({
 });
 export const bbbSettingsSchema = z.object({
   /** e.g. https://bbb.school.ng/bigbluebutton/ */
-  url: z.url().max(300),
+  url: z.url({ protocol: /^https?$/, error: 'Use a web link (https://…)' }).max(300),
   secret: z.string().trim().min(10).max(200),
 });
 

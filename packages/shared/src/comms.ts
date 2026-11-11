@@ -463,8 +463,18 @@ export interface NotificationsResponse {
   unread: number;
 }
 
+/**
+ * The server POSTs to a push endpoint, so only a public https host is accepted
+ * (no plain http, localhost or bare IP addresses that could reach internal services).
+ */
 export const pushSubscriptionSchema = z.object({
-  endpoint: z.url().max(1000),
+  endpoint: z
+    .url({ protocol: /^https$/ })
+    .max(1000)
+    .refine((u) => {
+      const host = new URL(u).hostname.toLowerCase().replace(/^\[|\]$/g, '');
+      return host.includes('.') && !/^[\d.]+$/.test(host) && !host.includes(':') && !/(^|\.)(localhost|local|internal)$/.test(host);
+    }, 'Not a push service address'),
   keys: z.object({ p256dh: z.string().min(10).max(200), auth: z.string().min(5).max(100) }),
 });
 

@@ -37,6 +37,7 @@ import {
 import { z } from 'zod';
 import { AuditService } from '../audit/audit.service';
 import { AllowNoTenant, Public, RequirePlatformRole } from '../common/decorators';
+import { emailLinkOrigin } from '../common/email-origin';
 import { currentContext, currentUserId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
@@ -65,7 +66,7 @@ export class AmbassadorPublicController {
   @Post('apply')
   @Throttle({ default: { limit: 5, ttl: 10 * 60_000 } })
   apply(@Body(new ZodPipe(ambassadorApplySchema)) body: AmbassadorApplyInput, @Req() req: Request): Promise<AmbassadorApplyResult> {
-    return this.ambassadors.apply(body, currentContext().ip ?? req.ip, siteOrigin(req));
+    return this.ambassadors.apply(body, currentContext().ip ?? req.ip, emailLinkOrigin(req));
   }
 
   @Public()
@@ -81,7 +82,7 @@ export class AmbassadorPublicController {
   @HttpCode(200)
   @Throttle({ default: { limit: 3, ttl: 10 * 60_000 } })
   resend(@Body(new ZodPipe(z.object({ id: z.string().min(10).max(40) }))) body: { id: string }, @Req() req: Request): Promise<AmbassadorApplyResult> {
-    return this.ambassadors.resend(body.id, siteOrigin(req));
+    return this.ambassadors.resend(body.id, emailLinkOrigin(req));
   }
 }
 

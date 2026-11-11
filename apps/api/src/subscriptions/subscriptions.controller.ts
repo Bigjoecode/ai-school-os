@@ -42,6 +42,7 @@ import {
 import { z } from 'zod';
 import { AuditService } from '../audit/audit.service';
 import { Public, RequirePermissions, RequirePlatformRole } from '../common/decorators';
+import { emailLinkOrigin } from '../common/email-origin';
 import { currentContext, currentTenantId, currentUserId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { siteOrigin } from '../finance/finance.controller';
@@ -84,7 +85,7 @@ export class SignupController {
   @Post()
   @Throttle({ default: { limit: 5, ttl: 10 * 60_000 } })
   start(@Body(new ZodPipe(signupSchema)) body: SignupInput, @Req() req: Request): Promise<SignupResult> {
-    return this.signups.start(body, currentContext().ip ?? req.ip, siteOrigin(req));
+    return this.signups.start(body, currentContext().ip ?? req.ip, emailLinkOrigin(req));
   }
 
   @Public()
@@ -100,7 +101,7 @@ export class SignupController {
   @HttpCode(200)
   @Throttle({ default: { limit: 3, ttl: 10 * 60_000 } })
   resend(@Body(new ZodPipe(z.object({ id: z.string().min(10).max(40) }))) body: { id: string }, @Req() req: Request): Promise<SignupResult> {
-    return this.signups.resend(body.id, siteOrigin(req));
+    return this.signups.resend(body.id, emailLinkOrigin(req));
   }
 }
 

@@ -186,6 +186,8 @@ export function useJoinLiveClass() {
       const tab = window.open('about:blank', '_blank');
       try {
         const link = await api.post<JoinLink>(`/live/classes/${id}/join`);
+        // Only web links: a stored "javascript:" link would run inside this site in the blank tab.
+        if (!/^https?:\/\//i.test(link.url)) throw new Error('This meeting link is not a web link. Ask the teacher to fix it.');
         if (tab) {
           tab.opener = null;
           tab.location.href = link.url;

@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'node:crypto';
 import type { AuthResponse, LoginInput, TwoFactorChallengeResponse, TwoFactorLoginInput } from '@aischool/shared';
@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { AccessService } from './access.service';
 import { DemoModeService } from './demo-mode.service';
 import { TWO_FACTOR_CHALLENGE_TTL_SECONDS, TwoFactorService } from './two-factor.service';
+import { AttemptLimiter } from './attempt-limiter';
 import { burnPasswordCheck, verifyPassword } from './password';
 import {
   ACCESS_TOKEN_TTL_SECONDS,
@@ -22,6 +23,21 @@ interface ClientInfo {
   host?: string;
 }
 
+/**
+ * Wrong passwords per account (from any IP) before sign-in to it pauses, and
+ * wrong two-step codes per account across all challenges. The per-IP limits
+ * live in AppThrottlerGuard; these stop a guesser spread over many addresses.
+ */
+export const LOGIN_FAILURES_PER_ACCOUNT = 30;
+export const TWO_FACTOR_FAILURES_PER_ACCOUNT = 10;
+export const ACCOUNT_FAILURE_WINDOW_MS = 15 * 60_000;
+
+const tooMany = (ms: number) =>
+  new HttpException(
+    `Too many wrong attempts for this account. Try again in ${Math.max(1, Math.ceil(ms / 60_000))} minute(s), or ask your school admin for help.`,
+    HttpStatus.TOO_MANY_REQUESTS,
+  );
+
 export interface IssuedSession {
   response: AuthResponse;
   refreshToken: string;
@@ -29,6 +45,9 @@ export interface IssuedSession {
 
 @Injectable()
 export class AuthService {
+  private readonly loginFailures = new AttemptLimiter(LOGIN_FAILURES_PER_ACCOUNT, ACCOUNT_FAILURE_WINDOW_MS);
+  private readonly secondFactorFailures = new AttemptLimiter(TWO_FACTOR_FAILURES_PER_ACCOUNT, ACCOUNT_FAILURE_WINDOW_MS);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwt: JwtService,
@@ -50,12 +69,17 @@ export class AuthService {
    * the caller gets a 5-minute challenge to complete with POST /auth/2fa.
    */
   async login(input: LoginInput, client: ClientInfo): Promise<IssuedSession | TwoFactorChallengeResponse> {
+    // Counted by the email typed, so unknown and known accounts behave the same (no enumeration).
+    const blocked = this.loginFailures.blockedFor(input.email);
+    if (blocked) throw tooMany(blocked);
     const user = await this.prisma.root.user.findUnique({ where: { email: input.email } });
     if (!user) {
       await burnPasswordCheck(input.password);
+      this.loginFailures.fail(input.email);
       throw new UnauthorizedException('Incorrect email or password');
     }
     if (!(await verifyPassword(input.password, user.passwordHash))) {
+      this.loginFailures.fail(input.email);
       await this.audit.log({
         action: 'auth.login_failed',
         summary: `Failed sign-in for ${user.email}`,
@@ -64,6 +88,7 @@ export class AuthService {
       });
       throw new UnauthorizedException('Incorrect email or password');
     }
+    this.loginFailures.clear(input.email);
     if (user.status === 'DISABLED') throw new ForbiddenException('This account has been disabled');
 
     const tenantId = await this.pickTenant(user.id, user.platformRole, input.school, client.host);
@@ -89,9 +114,13 @@ export class AuthService {
       return this.finishLogin(user, challenge.tid, client, 'password');
     }
 
+    // Each challenge allows a few codes; this caps codes per account across fresh challenges too.
+    const blocked = this.secondFactorFailures.blockedFor(user.id);
+    if (blocked) throw tooMany(blocked);
     const method = await this.twoFactor.checkSecondFactor(user, input);
     if (!method) {
       this.twoFactor.noteFailedAttempt(challenge.jti);
+      this.secondFactorFailures.fail(user.id);
       await this.audit.log({
         action: 'auth.2fa_failed',
         summary: `Wrong two-step ${input.recoveryCode ? 'recovery code' : 'code'} for ${user.email}`,
@@ -103,6 +132,7 @@ export class AuthService {
       );
     }
     this.twoFactor.markChallengeUsed(challenge.jti);
+    this.secondFactorFailures.clear(user.id);
     if (method === 'recovery') {
       const left = user.recoveryCodes.length - 1;
       await this.audit.log({
@@ -148,7 +178,16 @@ export class AuthService {
     if (!session || session.revokedAt || session.expiresAt < new Date()) {
       throw new UnauthorizedException('Your session has expired');
     }
-    if (session.rotatedAt) {
+    // Claimed with a conditional update: two requests racing with one token can't both rotate it.
+    const claimed = session.rotatedAt
+      ? 0
+      : (
+          await this.prisma.root.authSession.updateMany({
+            where: { id: session.id, rotatedAt: null, revokedAt: null },
+            data: { rotatedAt: new Date() },
+          })
+        ).count;
+    if (!claimed) {
       await this.prisma.root.authSession.updateMany({
         where: { familyId: session.familyId, revokedAt: null },
         data: { revokedAt: new Date() },
@@ -161,11 +200,6 @@ export class AuthService {
       });
       throw new UnauthorizedException('Your session has expired');
     }
-
-    await this.prisma.root.authSession.update({
-      where: { id: session.id },
-      data: { rotatedAt: new Date() },
-    });
     return this.issue(session.userId, session.tenantId, session.familyId, client);
   }
 

@@ -54,7 +54,9 @@ export const useCensusAggregate = (state: string) =>
 // ------------------------------------------------------------------ CSV
 
 function csvCell(v: unknown): string {
-  const s = v == null ? '' : String(v);
+  let s = v == null ? '' : String(v);
+  // Text Excel would run as a formula (school names are typed by schools) is kept as text.
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s) && !/^[+-]?\d+(\.\d+)?$/.test(s)) s = `'${s}`;
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 

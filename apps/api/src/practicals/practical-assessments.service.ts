@@ -33,6 +33,7 @@ import { fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { registerTickTask } from '../common/tick-tasks';
 import { subjectKey } from '../learning/mastery.service';
+import { csvCell } from '../onboarding/csv';
 import { PrismaService } from '../prisma/prisma.service';
 import { lockedChanges, overdue, sameMinute, sittingStatus, startDecision, studentView, timeTakenSeconds } from './practical-assessment';
 import { LAB_GRACE_MS, PracticalsService, effectiveScore, percentOf, practicalNotice } from './practicals.service';
@@ -317,10 +318,7 @@ export class PracticalAssessmentsService implements OnModuleInit {
 
   async csv(id: string): Promise<string> {
     const r = await this.results(id);
-    const cell = (v: unknown) => {
-      const s = v == null ? '' : String(v);
-      return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-    };
+    const cell = (v: unknown) => csvCell(v == null ? null : typeof v === 'number' ? v : String(v));
     const mins = (s: number | null) => (s == null ? '' : `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s`);
     const head = ['Student', 'Admission no.', 'Class', 'Status', 'Score', 'Out of', '%', 'Reviewed', ...r.criteria.map((c) => `${c.label} (/${c.max}${c.how === 'AI' ? ', AI-marked' : ''})`), 'Time taken', ...(r.assessment.kind === 'EXAM' ? ['Focus losses'] : []), 'Started', 'Handed in'];
     const lines = r.rows.map((x) =>

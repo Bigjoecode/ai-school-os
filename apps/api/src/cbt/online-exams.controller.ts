@@ -30,6 +30,7 @@ import { RequirePermissions } from '../common/decorators';
 import { fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
+import { csvCell as csvText } from '../onboarding/csv';
 import { PrismaService } from '../prisma/prisma.service';
 import { windowError } from './cbt-rules';
 import { ScoreSheetService } from '../assessment/score-sheet.service';
@@ -45,10 +46,8 @@ const aiMarkSchema = z.object({
   ),
 });
 
-const csvCell = (v: unknown) => {
-  const s = v == null ? '' : String(v);
-  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-};
+/** Formula-safe CSV cell (pupils' names and question text are typed by people). */
+const csvCell = (v: unknown) => csvText(v == null ? null : typeof v === 'number' ? v : String(v));
 const fmtSeconds = (s: number | null) => (s == null ? '' : `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s`);
 
 /**

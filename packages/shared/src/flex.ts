@@ -189,7 +189,7 @@ export type Attachment = z.infer<typeof attachmentSchema>;
 export const submitHomeworkSchema = z.object({
   text: z.string().trim().max(20_000).nullish().transform((v) => v || null),
   fileIds: z.array(z.string()).max(10).default([]),
-  links: z.array(z.url().max(1000)).max(5).default([]),
+  links: z.array(z.url({ protocol: /^https?$/, error: 'Use a web link (https://…)' }).max(1000)).max(5).default([]),
 });
 export const gradeSubmissionSchema = z.object({
   score: z.number().min(0).max(1000).nullable(),

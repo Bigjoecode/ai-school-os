@@ -58,11 +58,7 @@ export class AnthropicProvider implements AiProvider {
     );
 
     if (response.stop_reason === 'refusal') return { ...usage(response), text: REFUSAL_TEXT };
-    const text = response.content
-      .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
-      .map((b) => b.text)
-      .join('\n')
-      .trim();
+    const text = finalText(response.content);
     return { ...usage(response), text };
   }
 
@@ -119,11 +115,7 @@ export class AnthropicProvider implements AiProvider {
       total.outputTokens += response.usage.output_tokens;
       total.cacheReadTokens = (total.cacheReadTokens ?? 0) + (response.usage.cache_read_input_tokens ?? 0);
       total.cacheWriteTokens = (total.cacheWriteTokens ?? 0) + (response.usage.cache_creation_input_tokens ?? 0);
-      const text = response.content
-        .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
-        .map((b) => b.text)
-        .join('\n')
-        .trim();
+      const text = finalText(response.content);
       if (response.stop_reason === 'refusal') return { ...total, text: REFUSAL_TEXT };
       if (response.stop_reason === 'pause_turn') {
         messages.push({ role: 'assistant', content: response.content });
@@ -183,6 +175,27 @@ export class AnthropicProvider implements AiProvider {
       throw err;
     }
   }
+}
+
+/**
+ * The answer in a response: the text after the last thinking or tool block. With adaptive
+ * (interleaved) thinking a reply can hold a first draft, a thinking pause, then the full answer;
+ * joining every text block showed the student the same lesson twice. Text blocks that follow
+ * one another (e.g. split around citations) are still joined.
+ */
+export function finalText(content: readonly { type: string; text?: string }[]): string {
+  let start = 0;
+  content.forEach((b, i) => {
+    if (b.type !== 'text' && content.slice(i + 1).some((x) => x.type === 'text')) start = i + 1;
+  });
+  const pick = (from: number) =>
+    content
+      .slice(from)
+      .filter((b) => b.type === 'text')
+      .map((b) => b.text ?? '')
+      .join('\n')
+      .trim();
+  return pick(start) || pick(0);
 }
 
 /**

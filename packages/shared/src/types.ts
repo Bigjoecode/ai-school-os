@@ -27,6 +27,8 @@ export interface MeResponse {
     lastName: string;
     avatarUrl: string | null;
     platformRole: PlatformRole | null;
+    /** An admin reset the password: choose a new one before anything else. */
+    mustChangePassword?: boolean;
   };
   tenant: (TenantSummary & { currency: string; timezone: string; motto: string | null }) | null;
   roles: { id: string; key: string; name: string }[];

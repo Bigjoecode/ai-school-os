@@ -226,16 +226,33 @@ export class AuthService {
     return issued;
   }
 
-  async logout(refreshToken: string | undefined): Promise<void> {
-    if (!refreshToken) return;
-    const session = await this.prisma.root.authSession.findUnique({
-      where: { tokenHash: hashToken(refreshToken) },
-    });
-    if (!session) return;
-    await this.prisma.root.authSession.updateMany({
-      where: { familyId: session.familyId, revokedAt: null },
-      data: { revokedAt: new Date() },
-    });
+  /**
+   * Ends the session family named by the refresh cookie and/or the access
+   * token. The auth guard checks the session on every request, so the access
+   * token stops working at once too (and a missing cookie, e.g. a blocked
+   * third-party cookie, still signs out).
+   */
+  async logout(refreshToken: string | undefined, accessToken?: string): Promise<void> {
+    const families = new Set<string>();
+    if (refreshToken) {
+      const session = await this.prisma.root.authSession.findUnique({
+        where: { tokenHash: hashToken(refreshToken) },
+      });
+      if (session) families.add(session.familyId);
+    }
+    if (accessToken) {
+      const payload = await this.jwt.verifyAsync<AccessTokenPayload>(accessToken).catch(() => null);
+      if (payload?.typ === 'access' && typeof payload.sid === 'string') {
+        const session = await this.prisma.root.authSession.findUnique({ where: { id: payload.sid }, select: { familyId: true, userId: true } });
+        if (session && session.userId === payload.sub) families.add(session.familyId);
+      }
+    }
+    for (const familyId of families) {
+      await this.prisma.root.authSession.updateMany({
+        where: { familyId, revokedAt: null },
+        data: { revokedAt: new Date() },
+      });
+    }
   }
 
   async familyOf(refreshToken: string | undefined): Promise<string | undefined> {

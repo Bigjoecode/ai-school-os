@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { DemoModeController, DemoModeService } from './demo-mode.service';
+import { PasswordService } from './password.service';
 import { TwoFactorController } from './two-factor.controller';
 import { TwoFactorService } from './two-factor.service';
 
@@ -19,8 +20,8 @@ import { TwoFactorService } from './two-factor.service';
     }),
   ],
   controllers: [AuthController, TwoFactorController, DemoModeController],
-  providers: [AuthService, AccessService, TwoFactorService, DemoModeService, ConsentEnforcementService, { provide: APP_GUARD, useClass: AuthGuard }],
+  providers: [AuthService, AccessService, PasswordService, TwoFactorService, DemoModeService, ConsentEnforcementService, { provide: APP_GUARD, useClass: AuthGuard }],
   // JwtModule is shared so other modules can sign short-lived tokens (e.g. the check-in kiosk).
-  exports: [AccessService, TwoFactorService, DemoModeService, ConsentEnforcementService, JwtModule],
+  exports: [AccessService, PasswordService, TwoFactorService, DemoModeService, ConsentEnforcementService, JwtModule],
 })
 export class AuthModule {}

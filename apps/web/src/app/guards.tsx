@@ -1,6 +1,6 @@
 import type { Permission, PlatformArea } from '@aischool/shared';
 import { Lock, ShieldOff } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { Link, Navigate, useLocation } from 'react-router';
 import { Page } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
@@ -8,11 +8,22 @@ import { Card } from '@/components/ui/card';
 import { EmptyState, NotInPlanState } from '@/components/ui/empty-state';
 import { canOpenArea, hasFeature, hasPermission, useAuthStore, useIsSuperAdmin } from '@/lib/auth-store';
 
+const ForcedPasswordChange = lazy(() => import('@/features/settings/change-password').then((m) => ({ default: m.ForcedPasswordChange })));
+
 export function RequireAuth({ children }: { children: ReactNode }) {
   const status = useAuthStore((s) => s.status);
+  // An admin reset the password: choose a new one before anything else (the API closes every other route meanwhile).
+  const mustChangePassword = useAuthStore((s) => s.status === 'authenticated' && !!s.me?.user.mustChangePassword);
   const location = useLocation();
   if (status === 'anonymous') {
     return <Navigate to="/login" replace state={{ from: `${location.pathname}${location.search}` }} />;
+  }
+  if (mustChangePassword) {
+    return (
+      <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+        <ForcedPasswordChange />
+      </Suspense>
+    );
   }
   return <>{children}</>;
 }

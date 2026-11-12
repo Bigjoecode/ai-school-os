@@ -20,6 +20,8 @@ export interface ResolvedAccess {
     status: string;
     /** Two-step sign-in is switched on (enforced by the guard when a policy requires it). */
     twoFactorEnabled: boolean;
+    /** An admin reset the password: the guard closes everything but changing it. */
+    mustChangePassword: boolean;
   };
   tenant: {
     id: string;
@@ -35,6 +37,12 @@ export interface ResolvedAccess {
   } | null;
   roles: { id: string; key: string; name: string }[];
   permissions: Set<Permission>;
+  /**
+   * Only when resolve() was given a session ID: that sign-in session exists,
+   * belongs to this user and has not been ended (sign-out, password change,
+   * two-step reset, token reuse...).
+   */
+  sessionLive?: boolean;
 }
 
 /** One row of the access query in resolve(); tenant and membership columns are null when there is no match. */
@@ -47,6 +55,8 @@ interface AccessRow {
   platformRole: string | null;
   status: string;
   twoFactorEnabled: boolean;
+  mustChangePassword: boolean;
+  sessionLive: boolean;
   tenantId: string | null;
   slug: string | null;
   name: string | null;
@@ -77,13 +87,20 @@ export class AccessService {
     private readonly features: FeatureService,
   ) {}
 
-  async resolve(userId: string, tenantId: string | null): Promise<ResolvedAccess | null> {
+  /**
+   * With `sessionId` (the auth guard passes the access token's `sid`), also
+   * reports whether that session is still live, so ending a session stops
+   * its access tokens at once instead of when they expire.
+   */
+  async resolve(userId: string, tenantId: string | null, sessionId?: string): Promise<ResolvedAccess | null> {
     // One round trip (this runs on every signed-in request): the user, the
-    // school, and the roles of the user's active membership there. A nested
-    // Prisma include would be five queries.
+    // school, the roles of the user's active membership there, and (a
+    // primary-key lookup) whether the session is live. A nested Prisma
+    // include would be five queries.
     const [row] = await this.prisma.root.$queryRaw<AccessRow[]>`
       SELECT u.id, u.email, u."firstName", u."lastName", u."avatarUrl", u."platformRole"::text AS "platformRole",
-        u.status::text AS status, (u."totpEnabledAt" IS NOT NULL) AS "twoFactorEnabled",
+        u.status::text AS status, (u."totpEnabledAt" IS NOT NULL) AS "twoFactorEnabled", u."mustChangePassword",
+        EXISTS (SELECT 1 FROM auth_sessions s WHERE s.id = ${sessionId ?? null} AND s."userId" = u.id AND s."revokedAt" IS NULL) AS "sessionLive",
         t.id AS "tenantId", t.slug, t.name, t."shortName", t."logoUrl", t."primaryColor", t.currency, t.timezone, t.motto,
         t.status::text AS "tenantStatus", m.id AS "membershipId",
         (SELECT COALESCE(json_agg(json_build_object('id', r.id, 'key', r.key, 'name', r.name, 'permissions', r.permissions)), '[]'::json)
@@ -106,10 +123,12 @@ export class AccessService {
         platformRole: user.platformRole as PlatformRole | null,
         status: user.status,
         twoFactorEnabled: user.twoFactorEnabled,
+        mustChangePassword: user.mustChangePassword,
       },
       tenant: null,
       roles: [],
       permissions: new Set(),
+      ...(sessionId !== undefined ? { sessionLive: user.sessionLive } : {}),
     };
     if (!tenantId || !row.tenantId) return base;
 
@@ -162,7 +181,8 @@ export class AccessService {
   async me(userId: string, tenantId: string | null): Promise<MeResponse | null> {
     const access = await this.resolve(userId, tenantId);
     if (!access) return null;
-    const { status: _status, twoFactorEnabled: _tfa, ...user } = access.user;
+    const { status: _status, twoFactorEnabled: _tfa, mustChangePassword, ...rest } = access.user;
+    const user = mustChangePassword ? { ...rest, mustChangePassword } : rest;
     const tenant = access.tenant ? (({ status: _s, ...t }) => t)(access.tenant) : null;
     return {
       user,

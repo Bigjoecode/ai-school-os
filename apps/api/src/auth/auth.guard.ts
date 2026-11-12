@@ -8,7 +8,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import type { Request } from 'express';
-import { TWO_FACTOR_SETUP_REQUIRED, type Permission, type PlatformRole } from '@aischool/shared';
+import { PASSWORD_CHANGE_REQUIRED, TWO_FACTOR_SETUP_REQUIRED, type Permission, type PlatformRole } from '@aischool/shared';
 import {
   ALLOW_NO_TENANT,
   FEATURE_KEY,
@@ -28,12 +28,12 @@ import type { AccessTokenPayload } from './tokens';
 
 /**
  * Global guard. For every non-public route it:
- *  1. verifies the Bearer access token,
+ *  1. verifies the Bearer access token, and that its sign-in session has not been ended,
  *  2. resolves the user's roles/permissions in the token's school,
  *  3. fills the request context (read by the tenant-scoped Prisma client),
  *  4. enforces @RequirePermissions / @RequirePlatformRole / tenant presence,
  *  5. checks the school's plan includes the route's @RequireFeature module,
- *  6. blocks everything but set-up when two-step sign-in is required and not on yet,
+ *  6. blocks everything but set-up when an admin-reset password must be replaced, or when two-step sign-in is required and not on yet,
  *  7. ends sessions in a demo school whose logins are switched off (DemoModeService),
  *  8. holds parents at the consent step when their school requires NDPA consent (ConsentEnforcementService),
  *  9. refuses writes in a school whose subscription has lapsed past its grace period (BillingStateService).
@@ -65,10 +65,14 @@ export class AuthGuard implements CanActivate {
     } catch {
       throw new UnauthorizedException('Your session has expired');
     }
-    if (payload.typ !== 'access') throw new UnauthorizedException();
+    if (payload.typ !== 'access' || typeof payload.sub !== 'string' || typeof payload.sid !== 'string' || !payload.sid) {
+      throw new UnauthorizedException();
+    }
 
-    const resolved = await this.access.resolve(payload.sub, payload.tid ?? null);
+    const resolved = await this.access.resolve(payload.sub, payload.tid ?? null, payload.sid);
     if (!resolved) throw new UnauthorizedException('Your account is not active');
+    // Signed out, password changed, two-step reset, token reuse: the session's access tokens stop now, not in 15 minutes.
+    if (resolved.sessionLive !== true) throw new UnauthorizedException('Your session has ended');
     if (!(await this.demo.allows(resolved.tenant?.id, resolved.user.platformRole))) throw new UnauthorizedException('Your session has ended');
 
     const ctx = RequestContextStore.get();
@@ -78,6 +82,15 @@ export class AuthGuard implements CanActivate {
     ctx.sessionId = payload.sid;
     ctx.tenantId = resolved.tenant?.id ?? null;
     ctx.permissions = resolved.permissions;
+
+    // An admin reset the password: only the profile, changing it, two-step set-up and sign-out stay open.
+    if (resolved.user.mustChangePassword && !this.reflector.getAllAndOverride<boolean>(ALLOW_WITHOUT_2FA, targets)) {
+      throw new ForbiddenException({
+        statusCode: 403,
+        code: PASSWORD_CHANGE_REQUIRED,
+        message: 'Choose a new password to continue.',
+      });
+    }
 
     // A school (or the platform) that requires two-step sign-in: until it is set up,
     // only the profile, the set-up endpoints and sign-out are open.

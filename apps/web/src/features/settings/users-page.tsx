@@ -1,7 +1,7 @@
 import { inviteUserSchema, type RoleRow, type UserRow } from '@aischool/shared';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { Ellipsis, ShieldCheck, UserCheck, UserCog, UserPlus, UserX } from 'lucide-react';
+import { Ellipsis, KeyRound, ShieldCheck, UserCheck, UserCog, UserPlus, UserX } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -25,6 +25,7 @@ import { applyServerErrors } from '@/lib/forms';
 import { qk, queryClient } from '@/lib/query-client';
 import { cn, initials } from '@/lib/utils';
 import { useRoles, useUsers } from './api';
+import { ResetPasswordDialog } from './reset-password-dialog';
 import { SectionHeader } from './settings-layout';
 
 type InviteValues = z.input<typeof inviteUserSchema>;
@@ -64,6 +65,7 @@ export default function UsersPage() {
   const [search, setSearch] = useState('');
   const [inviteOpen, setInviteOpen] = useState(false);
   const [editing, setEditing] = useState<UserRow | null>(null);
+  const [resetting, setResetting] = useState<UserRow | null>(null);
 
   const update = useMutation({
     mutationFn: ({ membershipId, ...body }: { membershipId: string; roleIds?: string[]; status?: 'ACTIVE' | 'DISABLED' }) =>
@@ -96,6 +98,11 @@ export default function UsersPage() {
           <DropdownMenuItem onSelect={() => setEditing(u)}>
             <ShieldCheck /> Change roles
           </DropdownMenuItem>
+          {!isSelf(u) && (
+            <DropdownMenuItem onSelect={() => setResetting(u)}>
+              <KeyRound /> Reset password
+            </DropdownMenuItem>
+          )}
           <DropdownMenuSeparator />
           {u.status === 'DISABLED' ? (
             <DropdownMenuItem onSelect={() => update.mutate({ membershipId: u.membershipId, status: 'ACTIVE' })}>
@@ -187,6 +194,7 @@ export default function UsersPage() {
 
       {canManage && (
         <>
+          <ResetPasswordDialog user={resetting} onClose={() => setResetting(null)} />
           <InviteDialog open={inviteOpen} onOpenChange={setInviteOpen} roles={roles.data ?? []} />
           <RolesDialog
             user={editing}

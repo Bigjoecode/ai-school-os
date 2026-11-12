@@ -16,6 +16,7 @@ import { useCan, useMe } from '@/lib/auth-store';
 import { formatDate } from '@/lib/format';
 import { useDocumentTitle } from '@/lib/hooks';
 import { CodeInput } from '../auth/code-input';
+import { ChangePasswordCard } from './change-password';
 import { DeleteAccountCard } from './delete-account-card';
 import {
   useDisableTwoFactor,
@@ -318,6 +319,7 @@ export default function SecurityPage() {
   const canSeePolicy = useCan('users.read');
   return (
     <div className="max-w-3xl space-y-6">
+      <ChangePasswordCard />
       <MyTwoFactorCard />
       {me?.tenant && canSeePolicy && <SchoolPolicyCard />}
       {/* Deletion requests go to the school, so only for accounts that belong to one. */}

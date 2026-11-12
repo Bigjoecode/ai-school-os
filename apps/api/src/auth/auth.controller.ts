@@ -2,10 +2,13 @@ import { Body, Controller, Get, HttpCode, Post, Req, Res, UnauthorizedException 
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import {
+  changePasswordSchema,
   loginSchema,
   switchTenantSchema,
   twoFactorLoginSchema,
   type AuthResponse,
+  type ChangePasswordInput,
+  type ChangePasswordResponse,
   type LoginInput,
   type MeResponse,
   type TwoFactorChallengeResponse,
@@ -16,6 +19,7 @@ import { currentContext } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { AccessService } from './access.service';
 import { AuthService, type IssuedSession } from './auth.service';
+import { PasswordService } from './password.service';
 import { REFRESH_COOKIE, refreshCookieOptions } from './tokens';
 import { AllowWithoutTwoFactor } from './two-factor.decorator';
 
@@ -32,6 +36,7 @@ export class AuthController {
   constructor(
     private readonly auth: AuthService,
     private readonly access: AccessService,
+    private readonly passwords: PasswordService,
   ) {}
 
   @Public()
@@ -78,7 +83,8 @@ export class AuthController {
   @Post('logout')
   @HttpCode(204)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<void> {
-    await this.auth.logout(req.cookies?.[REFRESH_COOKIE]);
+    const bearer = req.headers.authorization?.match(/^Bearer (.+)$/i)?.[1];
+    await this.auth.logout(req.cookies?.[REFRESH_COOKIE], bearer);
     res.clearCookie(REFRESH_COOKIE, { ...refreshCookieOptions(), maxAge: undefined });
   }
 
@@ -90,6 +96,21 @@ export class AuthController {
     const me = await this.access.me(ctx.userId!, ctx.tenantId ?? null);
     if (!me) throw new UnauthorizedException();
     return me;
+  }
+
+  /**
+   * Change my password: needs the current one. Every other device is signed
+   * out; this one stays signed in. Also how someone whose password an admin
+   * reset chooses their own (everything else is closed until then).
+   */
+  @AllowNoTenant()
+  @AllowWithoutTwoFactor()
+  @Post('password')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 10, ttl: 15 * 60_000 } })
+  changePassword(@Body(new ZodPipe(changePasswordSchema)) body: ChangePasswordInput): Promise<ChangePasswordResponse> {
+    const ctx = currentContext();
+    return this.passwords.changeOwn({ userId: ctx.userId!, sessionId: ctx.sessionId, tenantId: ctx.tenantId ?? null }, body);
   }
 
   @AllowNoTenant()

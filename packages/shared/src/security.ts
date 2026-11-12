@@ -105,6 +105,43 @@ export interface SecurityPolicyResponse {
   members: SecurityMemberRow[];
 }
 
+// ============================================================ passwords
+
+/** Same rule as invites and sign-up: at least 10 characters (the API also refuses the account's own email). */
+export const PASSWORD_MIN_LENGTH = 10;
+export const newPasswordSchema = z.string().min(PASSWORD_MIN_LENGTH, `At least ${PASSWORD_MIN_LENGTH} characters`).max(200, 'At most 200 characters');
+
+/** The API answers 403 with this code while an admin-reset password must be replaced before anything else. */
+export const PASSWORD_CHANGE_REQUIRED = 'PASSWORD_CHANGE_REQUIRED';
+
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, 'Enter your current password').max(500),
+    newPassword: newPasswordSchema,
+  })
+  .refine((v) => v.newPassword !== v.currentPassword, { message: 'Choose a password different from your current one', path: ['newPassword'] });
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+
+/** Admin reset: a password typed by the admin, or none to have one generated (shown once). */
+export const adminResetPasswordSchema = z.object({
+  password: newPasswordSchema.optional(),
+});
+export type AdminResetPasswordInput = z.input<typeof adminResetPasswordSchema>;
+
+export interface AdminResetPasswordResponse {
+  ok: true;
+  /** Only when the password was generated: shown once, never stored in plain text. */
+  generatedPassword: string | null;
+  /** Sessions that were signed out. */
+  sessionsEnded: number;
+}
+
+export interface ChangePasswordResponse {
+  ok: true;
+  /** Other devices that were signed out. */
+  otherSessionsEnded: number;
+}
+
 // ============================================================ data export
 
 export interface BackupExportRow {

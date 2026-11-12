@@ -1,8 +1,17 @@
-import { BadRequestException, Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { z } from 'zod';
-import { inviteUserSchema, type InviteUserInput, type UserRow } from '@aischool/shared';
+import {
+  adminResetPasswordSchema,
+  inviteUserSchema,
+  type AdminResetPasswordInput,
+  type AdminResetPasswordResponse,
+  type InviteUserInput,
+  type UserRow,
+} from '@aischool/shared';
 import { AuditService } from '../audit/audit.service';
 import { hashPassword } from '../auth/password';
+import { PasswordService } from '../auth/password.service';
 import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
@@ -21,6 +30,7 @@ export class UsersController {
   constructor(
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
+    private readonly passwords: PasswordService,
   ) {}
 
   @Get()
@@ -75,6 +85,25 @@ export class UsersController {
       summary: `Gave ${body.firstName} ${body.lastName} (${body.email}) access as ${roles.map((r) => r.name).join(', ')}`,
     });
     return { membershipId: membership.id };
+  }
+
+  /**
+   * Sets a new password for a member who can't sign in (typed by the admin,
+   * or generated and shown once). They are signed out everywhere and must
+   * choose their own password at their next sign-in. Not for yourself, for
+   * someone holding permissions you don't, or for an account shared with
+   * another school (see PasswordService.adminReset).
+   */
+  @Post(':membershipId/password')
+  @HttpCode(200)
+  @RequirePermissions('users.manage')
+  @Throttle({ default: { limit: 20, ttl: 15 * 60_000 } })
+  resetPassword(
+    @Param('membershipId') membershipId: string,
+    @Body(new ZodPipe(adminResetPasswordSchema)) body: AdminResetPasswordInput,
+  ): Promise<AdminResetPasswordResponse> {
+    const ctx = currentContext();
+    return this.passwords.adminReset({ userId: ctx.userId!, tenantId: currentTenantId(), permissions: ctx.permissions }, membershipId, body.password);
   }
 
   @Patch(':membershipId')

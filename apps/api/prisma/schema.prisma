@@ -342,6 +342,8 @@ model User {
   totpSecret    String?
   totpEnabledAt DateTime?
   recoveryCodes String[]      @default([])
+  /// An admin reset the password: every route but changing it is closed until they choose their own.
+  mustChangePassword Boolean  @default(false)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 

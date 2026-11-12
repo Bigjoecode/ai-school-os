@@ -1,5 +1,10 @@
 import type {
+  AdminResetPasswordInput,
+  AdminResetPasswordResponse,
   BackupExportRow,
+  ChangePasswordInput,
+  ChangePasswordResponse,
+  MeResponse,
   RecoveryCodesResponse,
   SecurityPolicy,
   SecurityPolicyResponse,
@@ -87,6 +92,37 @@ export function useResetMemberTwoFactor() {
       void refreshStatus();
       toast.success('Two-step sign-in was reset. They will set it up again next time they sign in.');
     },
+  });
+}
+
+/** Change my password. Other devices are signed out; this one stays signed in. */
+export function useChangePassword() {
+  const setMe = useAuthStore((s) => s.setMe);
+  return useMutation({
+    mutationFn: (input: ChangePasswordInput) => api.post<ChangePasswordResponse>('/auth/password', input),
+    meta: { silent: true },
+    onSuccess: async (r) => {
+      // Clears "must change password" after an admin reset.
+      try {
+        setMe(await api.get<MeResponse>('/auth/me'));
+      } catch {
+        /* the next page load refreshes it */
+      }
+      toast.success('Password changed', {
+        description: r.otherSessionsEnded
+          ? `${r.otherSessionsEnded} other sign-in${r.otherSessionsEnded === 1 ? ' was' : 's were'} signed out.`
+          : 'Use it the next time you sign in.',
+      });
+    },
+  });
+}
+
+/** Admin: set a new password for a member (typed, or generated and shown once). */
+export function useAdminResetPassword() {
+  return useMutation({
+    mutationFn: ({ membershipId, ...body }: AdminResetPasswordInput & { membershipId: string }) =>
+      api.post<AdminResetPasswordResponse>(`/users/${membershipId}/password`, body),
+    meta: { silent: true },
   });
 }
 

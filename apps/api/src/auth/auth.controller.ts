@@ -70,9 +70,13 @@ export class AuthController {
   @Post('refresh')
   @HttpCode(200)
   @Throttle({ default: { limit: 60, ttl: 60_000 } })
-  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<AuthResponse> {
+  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<AuthResponse | null> {
+    const token: string | undefined = req.cookies?.[REFRESH_COOKIE];
+    // Signed out (no cookie at all): nothing to restore. An empty 200 rather than a 401, so the
+    // session check on every public page a visitor opens doesn't log an error in their console.
+    if (!token) return null;
     try {
-      return this.send(res, await this.auth.refresh(req.cookies?.[REFRESH_COOKIE], clientInfo(req)));
+      return this.send(res, await this.auth.refresh(token, clientInfo(req)));
     } catch (err) {
       res.clearCookie(REFRESH_COOKIE, { ...refreshCookieOptions(), maxAge: undefined });
       throw err;

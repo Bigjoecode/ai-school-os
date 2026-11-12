@@ -285,7 +285,17 @@ export class AssignmentsController {
     const sub = attachment ? null : await this.prisma.db.homeworkSubmission.findFirst({ where: { homeworkId: id, files: { array_contains: [{ fileId }] } } });
     if (!attachment && !sub) throw new NotFoundException('File not found');
     const staff = ctx.permissions.has('homework.manage') || ctx.permissions.has('school.read');
-    let allowed = staff;
+    let allowed = false;
+    if (staff) {
+      if (attachment) allowed = true;
+      else {
+        // A pupil's hand-in: the same people who can see and mark the hand-ins (mustTeach), not every member of staff.
+        allowed = await this.mustTeach(id).then(
+          () => true,
+          () => false,
+        );
+      }
+    }
     if (!allowed) {
       const me = await this.meStudent();
       const kids = await this.myChildIds();

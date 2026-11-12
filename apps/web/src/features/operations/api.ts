@@ -692,6 +692,17 @@ export function useIdCards(params: { kind: 'STUDENT' | 'STAFF'; classArmId?: str
   });
 }
 
+/** A lost card: every card printed before stops verifying and stops working at the gate. */
+export function useReissueIdCard() {
+  return useMutation({
+    mutationFn: (c: { kind: 'STUDENT' | 'STAFF'; id: string; name: string }) => api.post<void>(`/documents/id-cards/${c.kind === 'STUDENT' ? 'student' : 'staff'}/${c.id}/reissue`),
+    onSuccess: (_d, c) => {
+      void queryClient.invalidateQueries({ queryKey: ['ops', 'documents', 'id-cards'] });
+      toast.success(`${c.name}'s old card no longer works. Print the new one.`);
+    },
+  });
+}
+
 // ------------------------------------------------------------------ public
 
 export function usePublicVerification(kind: 'certificate' | 'id', code: string) {

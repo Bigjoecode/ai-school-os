@@ -332,6 +332,17 @@ export function useFeedLink(enabled: boolean) {
   });
 }
 
+/** A leaked link: every earlier calendar link stops working and a new one is made. */
+export function useResetFeedLink() {
+  return useMutation({
+    mutationFn: () => api.post<{ path: string }>('/events/feed-link/reset'),
+    onSuccess: (data) => {
+      queryClient.setQueryData(ck.feedLink, data);
+      toast.success('New link made. Your old calendar link has stopped working.');
+    },
+  });
+}
+
 // ------------------------------------------------------------------ notifications
 
 export function useNotifications() {

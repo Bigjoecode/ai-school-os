@@ -26,7 +26,7 @@ import { formatDate } from '@/lib/format';
 import { CopyButton } from '../finance/ui';
 import { apiFieldErrors, dateInput, FormError, zodErrors } from '../operations/ui';
 import { ClassArmPicker } from './announcement-sheet';
-import { useDeleteEvent, useFeedLink, useSaveEvent } from './api';
+import { useDeleteEvent, useFeedLink, useResetFeedLink, useSaveEvent } from './api';
 import { ANNOUNCEMENT_AUDIENCE_LABELS, categoryStyle, CATEGORY_COLOR, eventWhen } from './ui';
 
 // ------------------------------------------------------------------ detail
@@ -343,6 +343,8 @@ export function EventFormSheet({ open, onOpenChange, event, defaultDate }: { ope
 
 export function SubscribeDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   const q = useFeedLink(open);
+  const reset = useResetFeedLink();
+  const [confirmReset, setConfirmReset] = useState(false);
   const url = q.data ? `${window.location.origin}${q.data.path}` : '';
   const webcal = url.replace(/^https?:/, 'webcal:');
   return (
@@ -389,6 +391,13 @@ export function SubscribeDialog({ open, onOpenChange }: { open: boolean; onOpenC
                   <strong className="font-medium text-foreground">Outlook:</strong> Add calendar → Subscribe from web, and paste the link.
                 </li>
               </ul>
+              <p className="text-[12.5px] text-muted-foreground">
+                Shared this link by mistake?{' '}
+                <button type="button" className="font-medium text-foreground underline underline-offset-2" onClick={() => setConfirmReset(true)} disabled={reset.isPending}>
+                  Make a new link
+                </button>{' '}
+                and the old one stops working.
+              </p>
             </>
           )}
         </DialogBody>
@@ -396,6 +405,15 @@ export function SubscribeDialog({ open, onOpenChange }: { open: boolean; onOpenC
           <Button onClick={() => onOpenChange(false)}>Done</Button>
         </DialogFooter>
       </DialogContent>
+      <ConfirmDialog
+        open={confirmReset}
+        onOpenChange={setConfirmReset}
+        title="Make a new calendar link?"
+        description="Every calendar you subscribed with the old link stops updating. Subscribe again with the new link afterwards."
+        confirmLabel="Make a new link"
+        loading={reset.isPending}
+        onConfirm={() => reset.mutate(undefined, { onSettled: () => setConfirmReset(false) })}
+      />
     </Dialog>
   );
 }

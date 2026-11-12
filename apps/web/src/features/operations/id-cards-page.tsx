@@ -6,6 +6,7 @@ import { Page, PageHeader } from '@/components/layout/page-header';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { EmptyState, ErrorState } from '@/components/ui/empty-state';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCan } from '@/lib/auth-store';
@@ -13,7 +14,7 @@ import { formatDate } from '@/lib/format';
 import { cn, initialsFromName } from '@/lib/utils';
 import { armOptions, useStructure } from '../academics/api';
 import { NONE, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useIdCards } from './api';
+import { useIdCards, useReissueIdCard } from './api';
 import { OperationsSettingsSheet } from './settings-sheet';
 import { plural, Segmented } from './ui';
 
@@ -50,6 +51,8 @@ export default function IdCardsPage() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const enabled = kind === 'STAFF' || !!armId;
   const q = useIdCards(kind === 'STAFF' ? { kind } : { kind, classArmId: armId }, enabled);
+  const reissue = useReissueIdCard();
+  const [lost, setLost] = useState<IdCard | null>(null);
   const cards = enabled ? q.data?.cards : undefined;
   const qr = useQrMap(cards);
   const [excluded, setExcluded] = useState<Set<string>>(new Set());
@@ -155,6 +158,9 @@ export default function IdCardsPage() {
                     <Checkbox checked={on} onCheckedChange={() => toggle(c.id)} className="absolute right-2.5 top-2.5 z-10 bg-white" aria-label={`Include ${c.name}`} />
                     <IdCardFace card={c} school={q.data.school} qr={qr[c.id]} />
                   </label>
+                  <button type="button" className="mt-1 text-[12px] text-muted-foreground underline underline-offset-2 hover:text-foreground" onClick={() => setLost(c)}>
+                    Lost card? Re-issue
+                  </button>
                 </li>
               );
             })}
@@ -162,6 +168,15 @@ export default function IdCardsPage() {
         )}
       </div>
 
+      <ConfirmDialog
+        open={!!lost}
+        onOpenChange={(o) => !o && setLost(null)}
+        title={lost ? `Re-issue ${lost.name}'s ID card?` : ''}
+        description="Every card printed for them before stops verifying and stops working at the gate. Print and hand out the new card afterwards."
+        confirmLabel="Re-issue card"
+        loading={reissue.isPending}
+        onConfirm={() => lost && reissue.mutate({ kind: lost.kind, id: lost.id, name: lost.name }, { onSettled: () => setLost(null) })}
+      />
       {q.data && (
         <div className="print-idcards hidden print:block" aria-hidden>
           {sheets.map((sheet, i) => (

@@ -495,11 +495,8 @@ function Player({ room, receivedAt }: { room: CbtRoom; receivedAt: number }) {
             aria-label="Full screen"
             title="Full screen"
             onClick={() => {
-              try {
-                void document.documentElement.requestFullscreen?.();
-              } catch {
-                /* not supported */
-              }
+              // Refused (not allowed, or not supported): the room works without it.
+              void document.documentElement.requestFullscreen?.()?.catch(() => undefined);
             }}
           >
             <Maximize2 />

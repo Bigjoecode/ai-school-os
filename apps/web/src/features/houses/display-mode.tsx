@@ -66,7 +66,7 @@ export function DisplayMode({ open, onClose, period: initial }: { open: boolean;
               </button>
             ))}
           </div>
-          <button type="button" onClick={() => (full ? void document.exitFullscreen() : void root.current?.requestFullscreen?.())} className="grid size-10 place-items-center rounded-xl bg-white/10 hover:bg-white/20" aria-label={full ? 'Leave full screen' : 'Full screen'}>
+          <button type="button" onClick={() => void (full ? document.exitFullscreen() : root.current?.requestFullscreen?.())?.catch(() => undefined)} className="grid size-10 place-items-center rounded-xl bg-white/10 hover:bg-white/20" aria-label={full ? 'Leave full screen' : 'Full screen'}>
             {full ? <Minimize className="size-5" /> : <Maximize className="size-5" />}
           </button>
           <button type="button" onClick={onClose} className="grid size-10 place-items-center rounded-xl bg-white/10 hover:bg-white/20" aria-label="Close display mode">

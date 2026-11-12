@@ -134,9 +134,9 @@ export const NAV_GROUPS: NavGroup[] = [
       },
       // Students have the AI tutor instead; parents and staff use the agents here.
       { label: 'AI Command Center', to: '/ai', icon: Sparkles, feature: 'ai', permission: 'ai.use', anyOf: [['school.read'], ['family.manage']], keywords: 'assistant chat' },
-      { label: 'Homework', to: '/learning/homework', icon: ClipboardList, feature: 'live_classes', audience: 'family', keywords: 'assignments projects hand in submit marks feedback' },
-      { label: 'Live classes', to: '/learning/live', icon: Video, feature: 'live_classes', audience: 'family', keywords: 'online class join zoom meet lesson' },
-      { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', audience: 'family', keywords: 'summaries revision notes lessons' },
+      { label: 'Homework', to: '/learning/homework', icon: ClipboardList, feature: 'live_classes', anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'assignments projects hand in submit marks feedback' },
+      { label: 'Live classes', to: '/learning/live', icon: Video, feature: 'live_classes', anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'online class join zoom meet lesson' },
+      { label: 'Class notes', to: '/learning/notes', icon: NotebookText, feature: 'live_classes', anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'summaries revision notes lessons' },
       { label: 'Study materials', to: '/learning/materials', icon: FolderOpen, anyOf: [['family.manage'], ['learning.use']], audience: 'family', keywords: 'notes slides videos documents library revision textbook' },
       { label: 'Ask the school', to: '/ask', icon: School, permission: 'ai.use', audience: 'family', keywords: 'questions policies term dates fees knowledge' },
       // Drivers and bus assistants (Bus Driver role, no school.read): their trip screen.

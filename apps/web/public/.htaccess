@@ -64,13 +64,12 @@ SetEnvIf Request_URI "^/api(/|$)" AIS_API_REQUEST
 # No includeSubDomains: a school's own website domain can be served from here too, and its
 # other subdomains (mail, etc.) are not ours to force onto HTTPS.
 Header always set Strict-Transport-Security "max-age=31536000" env=!AIS_API_REQUEST
-# Report-only for launch: browsers log what it would block, without blocking. Switch to
-# Content-Security-Policy once the reports are clean.
+# Enforced: tested with every role's pages and the labs, bus maps, videos, PDFs, exams and payments.
 # What the app loads: its own code; the theme script in index.html (by hash — update the hash
 # below if that script changes); Google Fonts; YouTube (lesson videos: iframe + iframe_api);
 # map tiles and school logos as https images; blob:/data: for previews, downloads, 3D lab textures,
 # voice clips and PDF previews; the service worker. Payments (Paystack) are full-page redirects.
-Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'sha256-UZn1hIWLWZWEeiy3YoOHAPkjHr9Udo7JNpTYjqcF+P0=' https://www.youtube.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob:; connect-src 'self' blob: data: https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' blob: https://www.youtube-nocookie.com https://www.youtube.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" env=!AIS_API_REQUEST
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-UZn1hIWLWZWEeiy3YoOHAPkjHr9Udo7JNpTYjqcF+P0=' https://www.youtube.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob:; connect-src 'self' blob: data: https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' blob: https://www.youtube-nocookie.com https://www.youtube.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" env=!AIS_API_REQUEST
 # Driver GPS (geolocation), gate scanner (camera), voice tutor (microphone), kiosk/bus screen
 # wake lock. Fullscreen/autoplay/PiP keep browser defaults (YouTube embeds use them via allow=);
 # no quoted origins here: LiteSpeed sends \\" literally. Everything else off.

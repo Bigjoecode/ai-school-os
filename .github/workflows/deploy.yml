@@ -40,6 +40,11 @@ jobs:
           VITE_PORTAL_URL: https://ai-schoolportal.mejortechworld.com
         run: npm run build
 
+      # Browsers silently block an inline script the CSP (apps/web/public/.htaccess)
+      # doesn't list by hash — e.g. after an edit to the theme script in index.html.
+      - name: Check CSP script hashes
+        run: node infrastructure/deploy/check-csp-hashes.mjs apps/web/dist
+
       # The Play Store app (Trusted Web Activity) proves it belongs to this site
       # with /.well-known/assetlinks.json. Set the repository *variables*
       # ANDROID_PACKAGE_NAME and ANDROID_SHA256_FINGERPRINTS (see android/README.md);

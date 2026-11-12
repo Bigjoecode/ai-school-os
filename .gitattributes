@@ -1,0 +1,3 @@
+# The theme script in index.html is allowed by its sha256 in the CSP (.htaccess);
+# CRLF would change that hash on Windows builds.
+apps/web/index.html text eol=lf

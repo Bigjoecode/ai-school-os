@@ -126,7 +126,8 @@ export const moduleStepSchema = z
     if (s.kind === 'NOTE' && !s.body) ctx.addIssue({ code: 'custom', path: ['body'], message: 'Write the notes' });
     if (s.kind === 'VIDEO' && !s.fileId && !s.url && !s.materialId) ctx.addIssue({ code: 'custom', path: ['url'], message: 'Upload a video, paste a YouTube link or choose a video material' });
     if (s.kind === 'VIDEO' && s.questions.some((q) => q.at === null)) ctx.addIssue({ code: 'custom', path: ['questions'], message: 'Give each video question the time it appears' });
-    if (s.kind === 'IMAGE' && !s.fileId) ctx.addIssue({ code: 'custom', path: ['fileId'], message: 'Upload the picture' });
+    // A picture step may wait for its picture while the module is a draft (the AI suggests where one helps);
+    // the server refuses to publish it, or save it into a published module, without one.
     if (s.kind === 'FILE' && !s.fileId) ctx.addIssue({ code: 'custom', path: ['fileId'], message: 'Upload the document' });
     if (s.kind === 'LINK' && !s.url) ctx.addIssue({ code: 'custom', path: ['url'], message: 'Paste the link' });
     if (s.kind === 'MATERIAL' && !s.materialId) ctx.addIssue({ code: 'custom', path: ['materialId'], message: 'Choose a study material' });

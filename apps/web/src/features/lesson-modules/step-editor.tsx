@@ -136,6 +136,11 @@ export function StepEditor({ m, canAi }: { m: ModuleDetail; canAi: boolean }) {
                     {MODULE_STEP_LABELS[s.kind]}
                     {s.kind === 'CHECKIN' ? ` · ${s.questions.length} question${s.questions.length === 1 ? '' : 's'}` : ''}
                     {s.kind === 'VIDEO' && s.questions.length ? ` · video quiz (${s.questions.length})` : ''}
+                    {s.kind === 'IMAGE' && !s.fileId && (
+                      <Badge variant="warning" className="ml-2">
+                        Picture needed
+                      </Badge>
+                    )}
                   </span>
                 </span>
                 <ChevronDown className={cn('ml-auto size-4 shrink-0 text-muted-foreground transition-transform', isOpen && 'rotate-180')} />
@@ -192,6 +197,11 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
         <Input value={s.title} onChange={(e) => onChange({ ...s, title: e.target.value })} placeholder={MODULE_STEP_LABELS[s.kind]} maxLength={160} />
       </Field>
       {s.kind === 'VIDEO' && <VideoSource s={s} onChange={onChange} subjectId={subjectId} />}
+      {s.kind === 'IMAGE' && !s.fileId && (
+        <p className="rounded-lg border border-warning/40 bg-warning-soft px-3 py-2 text-[12.5px] text-foreground">
+          Upload a picture that shows what the caption below describes: a photo of a textbook diagram, a drawing on the board, or a picture you have. Or remove this step. The module can’t be published until every picture step has its picture.
+        </p>
+      )}
       {(s.kind === 'IMAGE' || s.kind === 'FILE') && <Uploader s={s} onChange={onChange} accept={s.kind === 'IMAGE' ? 'image/*' : '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx'} />}
       {s.kind === 'LINK' && (
         <Field label="Link">
@@ -200,7 +210,7 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
       )}
       {s.kind === 'MATERIAL' && <MaterialPicker s={s} onChange={onChange} subjectId={subjectId} />}
       {s.kind !== 'CHECKIN' && (
-        <Field label={s.kind === 'NOTE' ? 'Notes' : 'Notes (optional)'} hint="Simple formatting: ## heading, - bullet, **bold**.">
+        <Field label={s.kind === 'NOTE' ? 'Notes' : s.kind === 'IMAGE' ? 'Caption (optional)' : 'Notes (optional)'} hint="Simple formatting: ## heading, - bullet, **bold**.">
           <Textarea value={s.body} onChange={(e) => onChange({ ...s, body: e.target.value })} rows={s.kind === 'NOTE' ? 10 : 3} placeholder={s.kind === 'NOTE' ? 'What students should read and remember' : 'What to look out for'} />
         </Field>
       )}

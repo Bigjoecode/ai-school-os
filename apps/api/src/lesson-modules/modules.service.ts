@@ -62,6 +62,13 @@ const draftSchema = z.object({
       z.object({
         title: z.string().describe('Step title, e.g. "Introduction", "Key ideas", "Worked example"'),
         notes: z.string().describe('The teaching notes for this step in simple markdown: short paragraphs, bullet points, **key terms** in bold'),
+        picture: z
+          .object({
+            title: z.string().describe('A short name for the picture, e.g. "Diagram: the parts of a leaf"'),
+            caption: z.string().describe('One or two sentences saying exactly what the picture shows and what students should notice, e.g. "A leaf with its parts labelled: the blade, the veins, the midrib and the stalk (petiole)."'),
+          })
+          .nullable()
+          .describe('A picture, diagram or chart the teacher should add after this step, only where seeing it explains the idea far better than words (parts of a thing, a process, a map, a graph, a shape). null when words are enough.'),
       }),
     )
     .describe('The lesson content as exactly 3 steps: an introduction that links to what students know, the key ideas, and a worked example or activity'),
@@ -463,6 +470,8 @@ export class ModulesService {
       }
       if (st.materialId && !mats.some((x) => x.id === st.materialId)) throw new BadRequestException(`"${st.title}": that study material was not found`);
     }
+    // Students see a published module as soon as it's saved: no empty picture steps there.
+    if (m.status === 'PUBLISHED') missingPicture(body.steps);
     const keep = new Set(m.steps.map((x) => x.id));
     const tenantId = currentTenantId();
     await this.prisma.db.$transaction(async (tx) => {
@@ -495,6 +504,7 @@ export class ModulesService {
   async publish(id: string, published: boolean, notify: boolean): Promise<ModuleDetail> {
     const { s, m: before } = await this.mustEdit(id);
     if (published && !before.steps.length) throw new BadRequestException('Add at least one step before publishing');
+    if (published) missingPicture(before.steps);
     const m = await this.prisma.db.learningModule.update({
       where: { id },
       data: { status: published ? 'PUBLISHED' : 'DRAFT', publishedAt: published ? (before.publishedAt ?? new Date()) : before.publishedAt },
@@ -532,6 +542,7 @@ export class ModulesService {
     const { s, m } = await this.mustView(id);
     if (!s.library) throw new ForbiddenException('Only academic managers and heads of department can add to the content library');
     if (m.library) throw new BadRequestException('This module is already in the library');
+    missingPicture(m.steps);
     const made = await this.clone(m, { classArmId: null, library: true, status: 'PUBLISHED', week: m.week }, s.userId);
     await this.audit.log({ action: 'modules.shared', entityType: 'LearningModule', entityId: made.id, summary: `Shared "${m.title}" in the content library` });
     return this.detail(made, s);
@@ -688,6 +699,7 @@ export class ModulesService {
         system: [
           `You are an experienced Nigerian teacher preparing a short lesson module for ${level.name} ${subject.name} on "${name}", to be taught in class from a projector and read again by students on their phones.`,
           'Use British English, short sentences, Nigerian examples and names where they help (naira, markets, local foods, places). Keep facts accurate and at the level of the class. Each step should fit on one screen.',
+          'Where seeing something explains the idea far better than words (the parts of a thing, a process or cycle, a map, a graph, a shape or a set-up), suggest a picture after that step: a short title and a caption saying exactly what it shows, so the teacher can find or draw it. Suggest at most two, and none when words are enough.',
           'Then write four quick check-in questions to verify the class understood before the lesson moves on.',
           objectives.length ? `Lesson objectives: ${objectives.slice(0, 8).join('; ')}` : '',
           week?.subtopics.length ? `Sub-topics: ${week.subtopics.join('; ')}` : '',
@@ -712,13 +724,23 @@ export class ModulesService {
       orderBy: { updatedAt: 'desc' },
       take: 6,
     });
-    const picked = [...mats.filter((x) => x.kind === 'VIDEO'), ...mats.filter((x) => x.kind !== 'VIDEO')].slice(0, 2);
+    const picked = [...mats.filter((x) => x.kind === 'VIDEO').slice(0, 1), ...mats.filter((x) => x.kind === 'IMAGE').slice(0, 2), ...mats.filter((x) => x.kind !== 'VIDEO' && x.kind !== 'IMAGE')].slice(0, 3);
     const questions = this.toQuestions(r.data.questions.slice(0, 5), 'AI');
     const notes = r.data.steps.slice(0, 5).filter((x) => x.notes.trim());
+    // Where a picture would explain the idea, an empty picture step follows the notes: the teacher uploads
+    // one (its caption says what to show) or removes the step; the module can't be published until then.
+    let pictures = 0;
+    const withPicture = (x: (typeof notes)[number], fallback: string) => {
+      const note = { kind: 'NOTE', title: x.title.slice(0, 160) || fallback, body: x.notes };
+      const p = x.picture;
+      if (!p?.caption.trim() || pictures >= 2) return [note];
+      pictures++;
+      return [note, { kind: 'IMAGE', title: (p.title.trim() || 'Picture').slice(0, 160), body: p.caption.trim().slice(0, 1000) }];
+    };
     const steps = [
-      ...notes.slice(0, 1).map((x) => ({ kind: 'NOTE', title: x.title.slice(0, 160) || 'Introduction', body: x.notes })),
+      ...notes.slice(0, 1).flatMap((x) => withPicture(x, 'Introduction')),
       ...picked.map((x) => ({ kind: x.kind === 'VIDEO' ? 'VIDEO' : 'MATERIAL', title: x.title.slice(0, 160), body: null, materialId: x.id })),
-      ...notes.slice(1).map((x) => ({ kind: 'NOTE', title: x.title.slice(0, 160) || 'Key ideas', body: x.notes })),
+      ...notes.slice(1).flatMap((x) => withPicture(x, 'Key ideas')),
       ...(questions.length ? [{ kind: 'CHECKIN', title: `Check-in: ${name}`.slice(0, 160), body: null, questions }] : []),
     ];
     const term = body.termId ? await db.term.findUnique({ where: { id: body.termId } }) : await db.term.findFirst({ where: { isCurrent: true } });
@@ -756,6 +778,12 @@ export class ModulesService {
     await this.audit.log({ action: 'modules.ai_drafted', entityType: 'LearningModule', entityId: m.id, summary: `Asked AI to draft a lesson module on ${name} for ${arm.classLevel.name} ${arm.name}` });
     return this.detail(await db.learningModule.findUniqueOrThrow({ where: { id: m.id }, include: { steps: { orderBy: { order: 'asc' } } } }), s);
   }
+}
+
+/** Refuses picture steps that still wait for their picture (students would see an empty step). */
+export function missingPicture(steps: readonly { kind: string; title: string; fileId?: string | null }[]) {
+  const empty = steps.find((x) => x.kind === 'IMAGE' && !x.fileId);
+  if (empty) throw new BadRequestException(`Upload the picture for "${empty.title}", or remove that step`);
 }
 
 export type { ModuleInput, ModuleStepsInput, CheckInAiInput, ModuleAiDraftInput };

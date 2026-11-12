@@ -40,6 +40,19 @@ interface IdToken {
   /** S = student, T = staff */
   k: 'S' | 'T';
   id: string;
+  /** The card's version (idCardVersion when printed); re-issuing a card raises it. Older cards have none (= 0). */
+  v?: number;
+  exp?: number;
+}
+
+/**
+ * When printed ID cards stop verifying: the school's "valid until" date if set, otherwise
+ * 60 days after the current session ends (cover for the start of the next one), otherwise a
+ * year from now. End of that day, plus a day for time zones.
+ */
+export function idCardExpiry(validUntil: string | null, sessionEndsOn: Date | null, now = new Date()): number {
+  const day = validUntil ? Date.parse(`${validUntil}T00:00:00Z`) : sessionEndsOn ? sessionEndsOn.getTime() + 60 * 86_400_000 : now.getTime() + 365 * 86_400_000;
+  return Math.floor((day + 2 * 86_400_000) / 1000);
 }
 
 const certInclude = {
@@ -282,7 +295,9 @@ export class DocumentsController {
     const tid = currentTenantId();
     const ids = q.ids?.split(',').filter(Boolean);
     if (q.kind === 'STUDENT' && !q.classArmId && !ids?.length) throw new BadRequestException('Choose a class or some students');
-    const token = (k: 'S' | 'T', id: string) => this.jwt.signAsync({ typ: 'idcard', tid, k, id } satisfies IdToken);
+    const session = school.settings.idCardValidUntil ? null : await db.academicSession.findFirst({ where: { isCurrent: true }, select: { endsOn: true } });
+    const exp = idCardExpiry(school.settings.idCardValidUntil, session?.endsOn ?? null);
+    const token = (k: 'S' | 'T', id: string, v: number) => this.jwt.signAsync({ typ: 'idcard', tid, k, id, v, exp } satisfies IdToken);
     const cards =
       q.kind === 'STUDENT'
         ? await Promise.all(
@@ -305,7 +320,7 @@ export class DocumentsController {
               photoUrl: s.photoUrl,
               guardianPhone: s.guardians[0]?.guardian.phone ?? null,
               validUntil: school.settings.idCardValidUntil,
-              verifyPath: `/verify/id/${await token('S', s.id)}`,
+              verifyPath: `/verify/id/${await token('S', s.id, s.idCardVersion)}`,
             })),
           )
         : await Promise.all(
@@ -324,7 +339,7 @@ export class DocumentsController {
               photoUrl: null,
               guardianPhone: null,
               validUntil: school.settings.idCardValidUntil,
-              verifyPath: `/verify/id/${await token('T', s.id)}`,
+              verifyPath: `/verify/id/${await token('T', s.id, s.idCardVersion)}`,
             })),
           );
     return {
@@ -364,13 +379,29 @@ export class DocumentsController {
     };
   }
 
+  /** A lost card: cards printed before stop verifying (and stop working at the gate); print a new one. */
+  @Post('documents/id-cards/:kind/:id/reissue')
+  @HttpCode(204)
+  @RequirePermissions('documents.issue')
+  async reissueIdCard(@Param('kind') kind: string, @Param('id') id: string): Promise<void> {
+    const db = this.prisma.db;
+    if (kind === 'student') {
+      const s = await db.student.update({ where: { id }, data: { idCardVersion: { increment: 1 } } });
+      await this.audit.log({ action: 'documents.id_card_reissued', entityType: 'Student', entityId: id, summary: `Re-issued the ID card of ${fullName(s)}: earlier cards no longer verify` });
+    } else if (kind === 'staff') {
+      const s = await db.staff.update({ where: { id }, data: { idCardVersion: { increment: 1 } } });
+      await this.audit.log({ action: 'documents.id_card_reissued', entityType: 'Staff', entityId: id, summary: `Re-issued the ID card of ${fullName(s)}: earlier cards no longer verify` });
+    } else throw new NotFoundException('Not found');
+  }
+
   @Get('verify/id/:token')
   @Public()
   @Throttle({ default: { limit: 30, ttl: 60_000 } })
   async verifyId(@Param('token') token: string): Promise<PublicVerification> {
     let p: IdToken;
     try {
-      p = await this.jwt.verifyAsync<IdToken>(token);
+      // Expired cards still say whose they were, marked expired (never valid).
+      p = await this.jwt.verifyAsync<IdToken>(token, { ignoreExpiration: true });
     } catch {
       throw new NotFoundException('This ID card code is not recognised');
     }
@@ -378,10 +409,10 @@ export class DocumentsController {
     const tenant = await this.prisma.root.tenant.findUnique({ where: { id: p.tid }, select: { name: true, timezone: true, operationsSettings: true } });
     if (!tenant) throw new NotFoundException('This ID card code is not recognised');
     const validUntil = ((tenant.operationsSettings as Partial<OperationsSettings> | null) ?? {}).idCardValidUntil ?? null;
-    const expired = !!validUntil && schoolNow(tenant.timezone).date > validUntil;
+    const expired = (!!validUntil && schoolNow(tenant.timezone).date > validUntil) || (!!p.exp && p.exp * 1000 < Date.now());
     if (p.k === 'S') {
       const s = await this.prisma.root.student.findFirst({ where: { id: p.id, tenantId: p.tid }, include: { classArm: { include: { classLevel: true } } } });
-      if (!s) throw new NotFoundException('This ID card code is not recognised');
+      if (!s || s.idCardVersion !== (p.v ?? 0)) throw new NotFoundException('This ID card code is not recognised');
       const valid = s.status === 'ACTIVE' && !expired;
       return {
         valid,
@@ -395,7 +426,7 @@ export class DocumentsController {
       };
     }
     const st = await this.prisma.root.staff.findFirst({ where: { id: p.id, tenantId: p.tid } });
-    if (!st) throw new NotFoundException('This ID card code is not recognised');
+    if (!st || st.idCardVersion !== (p.v ?? 0)) throw new NotFoundException('This ID card code is not recognised');
     const valid = st.status !== 'EXITED' && !expired;
     return {
       valid,

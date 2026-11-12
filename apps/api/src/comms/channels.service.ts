@@ -4,6 +4,7 @@ import webpush from 'web-push';
 import type { Channel, ChannelStatus } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { decryptSecret, encryptSecret } from '../common/crypto-box';
+import { resolvePublicHost } from '../common/public-host';
 import { env } from '../config/env';
 import { PrismaService } from '../prisma/prisma.service';
 import { ApnsClient } from './apns';
@@ -158,11 +159,14 @@ export class ChannelsService {
 
   /** Checks the SMTP login before saving it. */
   async saveSmtp(tenantId: string, s: SmtpConfig & { password: string }) {
-    const transport = this.smtpTransport(s, s.password);
+    // One message for a private/internal, unreachable or non-mail host: the reply mustn't map the network.
+    const generic = "Couldn't connect to a mail server at that address. Check the host, port and security setting.";
+    const transport = await this.smtpTransport(s, s.password).catch(() => null);
+    if (!transport) throw new BadRequestException(generic);
     try {
       await transport.verify();
     } catch (err) {
-      throw new BadRequestException(`The mail server didn't accept those details: ${(err as Error).message}`);
+      throw new BadRequestException((err as { code?: string }).code === 'EAUTH' ? "The mail server didn't accept that username and password" : generic);
     } finally {
       transport.close();
     }
@@ -217,9 +221,15 @@ export class ChannelsService {
 
   // ---------------------------------------------------------- loading
 
-  private smtpTransport(c: SmtpConfig, password: string): Transporter {
+  /**
+   * Connects to the address the host name resolves to now, after checking it is public
+   * (PrivateHostError otherwise), and checks the certificate against the name.
+   */
+  private async smtpTransport(c: SmtpConfig, password: string): Promise<Transporter> {
+    const [ip] = await resolvePublicHost(c.host);
     return nodemailer.createTransport({
-      host: c.host,
+      host: ip,
+      servername: c.host,
       port: c.port,
       secure: c.secure,
       auth: { user: c.username, pass: password },
@@ -244,7 +254,12 @@ export class ChannelsService {
       }
       if (r.provider === 'smtp') {
         const c = r.config as unknown as SmtpConfig;
-        out.smtp = { ...c, transport: this.smtpTransport(c, secret) };
+        const transport = await this.smtpTransport(c, secret).catch(() => null);
+        if (!transport) {
+          this.logger.warn(`The email host for tenant ${tenantId} doesn't resolve to a public address; email is off until it does`);
+          continue;
+        }
+        out.smtp = { ...c, transport };
       } else if (r.provider === 'termii') out.termii = { ...(r.config as unknown as TermiiConfig), apiKey: secret };
       else if (r.provider === 'whatsapp') out.whatsapp = { ...(r.config as unknown as WhatsappConfig), token: secret };
     }

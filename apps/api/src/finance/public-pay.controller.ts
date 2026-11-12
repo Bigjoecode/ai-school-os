@@ -18,7 +18,7 @@ import { RequestContextStore } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { FeatureService } from '../features/features.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { siteOrigin } from './finance.controller';
+import { schoolLinkOrigin } from '../common/email-origin';
 import { FinanceService } from './finance.service';
 import { PaystackService, paystackReferenceHandlers } from './paystack.service';
 
@@ -143,7 +143,7 @@ export class PublicPayController {
       amountKobo: body.amountKobo,
       reference,
       currency: tenant.currency,
-      callbackUrl: `${siteOrigin(req)}/pay/${encodeURIComponent(body.token)}/done`,
+      callbackUrl: `${await schoolLinkOrigin(req, tid, async (t, host) => (await this.prisma.root.tenantDomain.count({ where: { tenantId: t, hostname: host, verifiedAt: { not: null } } })) > 0)}/pay/${encodeURIComponent(body.token)}/done`,
       metadata: { invoiceNumber: invoice.number, tenantId: tid },
     });
     return { authorizationUrl, reference };

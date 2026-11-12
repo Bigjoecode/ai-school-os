@@ -89,6 +89,52 @@ export class FilesService {
     return { data, mimeType: row.mimeType, filename: row.filename, inline };
   }
 
+  /**
+   * Whether the signed-in user may open a private file directly (GET /files/:id).
+   * The uploader and admins always can; other staff only when the file is
+   * attached to a record their permissions already let them see. Homework,
+   * materials, lesson steps and pick-up photos also have their own routes
+   * with record-level checks.
+   */
+  async canOpen(file: { id: string; uploadedById: string | null }): Promise<boolean> {
+    const ctx = currentContext();
+    if (ctx.userId && file.uploadedById === ctx.userId) return true;
+    const p = ctx.permissions;
+    if (p.has('school.manage')) return true;
+    const db = this.prisma.db;
+    const id = file.id;
+    const any = async (checks: (() => Promise<number>)[]) => {
+      for (const c of checks) if ((await c()) > 0) return true;
+      return false;
+    };
+    if (p.has('results.read') && (await any([() => db.reportCardTemplate.count({ where: { sampleFileId: id } })]))) return true;
+    if (p.has('admissions.read') && (await any([() => db.admissionApplication.count({ where: { documents: { array_contains: [{ fileId: id }] } } })]))) return true;
+    if (p.has('homework.manage') && (await any([() => db.homeworkSubmission.count({ where: { files: { array_contains: [{ fileId: id }] } } })]))) return true;
+    if ((p.has('reception.manage') || p.has('attendance.manage')) && (await any([
+      () => db.authorisedPickup.count({ where: { photoUrl: `/api/files/${id}` } }),
+      () => db.pickupNotice.count({ where: { delegatePhotoUrl: `/api/files/${id}` } }),
+    ]))) return true;
+    // Teaching content any staff member may already see in the app.
+    if (p.has('school.read')) {
+      return any([
+        () => db.homework.count({ where: { attachments: { array_contains: [{ fileId: id }] } } }),
+        () => db.studyMaterial.count({ where: { fileId: id } }),
+        () => db.learningModuleStep.count({ where: { fileId: id } }),
+        () => db.curriculum.count({ where: { importFileId: id } }),
+        () => db.schemeOfWork.count({ where: { importFileId: id } }),
+        () => db.kbDocument.count({ where: { fileId: id, audience: { in: ['STAFF', 'PARENTS', 'PUBLIC'] } } }),
+      ]);
+    }
+    return false;
+  }
+
+  /** A private file for GET /files/:id, after canOpen. Unknown and not-allowed look the same. */
+  async readPrivate(id: string) {
+    const row = await this.prisma.db.fileObject.findUnique({ where: { id }, select: { id: true, uploadedById: true } });
+    if (!row || !(await this.canOpen(row))) throw new NotFoundException('File not found');
+    return this.read(id, false);
+  }
+
   /** Size of an uploaded public file, from its URL (for download listings). */
   async sizeOf(url: string): Promise<number | null> {
     const id = /\/files\/([a-z0-9]+)$/.exec(url)?.[1];

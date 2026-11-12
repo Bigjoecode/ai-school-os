@@ -31,6 +31,7 @@ import { fullName } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { levelOf, MasteryService } from '../learning/mastery.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
+import { FilesService } from '../files/files.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { questionId, questionsOf } from './modules.helpers';
 
@@ -94,6 +95,7 @@ export class ModulesService {
     private readonly audit: AuditService,
     readonly mastery: MasteryService,
     private readonly evidence: SchoolEvidenceService,
+    private readonly files: FilesService,
   ) {}
 
   // ---------------------------------------------------------- who
@@ -454,10 +456,8 @@ export class ModulesService {
       if (st.fileId) {
         const f = F.get(st.fileId);
         if (!f) throw new BadRequestException(`Upload the file for "${st.title}" again: it was not found`);
-        if (!known.has(f.id) && f.uploadedById && f.uploadedById !== s.userId) {
-          const family = (await db.student.count({ where: { userId: f.uploadedById } })) + (await db.guardian.count({ where: { userId: f.uploadedById } }));
-          if (family) throw new BadRequestException('Upload the file yourself to use it');
-        }
+        // Only files this teacher uploaded or may already open, never someone else's private upload.
+        if (!known.has(f.id) && !(await this.files.canOpen(f))) throw new BadRequestException('Upload the file yourself to use it');
         const ok = st.kind === 'VIDEO' ? f.mimeType.startsWith('video/') : st.kind === 'IMAGE' ? f.mimeType.startsWith('image/') : true;
         if (!ok) throw new BadRequestException(`"${st.title}": that file isn’t ${st.kind === 'VIDEO' ? 'a video' : 'a picture'}`);
       }

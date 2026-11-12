@@ -369,7 +369,10 @@ export class LiveService implements OnModuleInit, OnApplicationShutdown {
     const v = await this.viewer();
     const host = this.canHost(v, c);
     const student = await db.student.findFirst({ where: { userId: ctx.userId, classArmId: c.classArmId, status: 'ACTIVE' } });
-    if (!host && !student && !v.staffId) throw new ForbiddenException('This class is for its students and teachers');
+    // Other staff join only if they teach this class (as a co-teacher or class teacher, even without
+    // hosting rights); live.manage (leadership) already counts as host.
+    const teacher = !!v.staffId && (c.teacherId === v.staffId || (!!c.subjectId && v.teaches.has(`${c.classArmId}|${c.subjectId}`)) || v.leads.has(c.classArmId));
+    if (!host && !student && !teacher) throw new ForbiddenException('This class is for its students and teachers');
     const user = await this.prisma.root.user.findUniqueOrThrow({ where: { id: ctx.userId }, select: { firstName: true, lastName: true } });
     if (student) {
       const now = new Date();

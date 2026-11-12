@@ -63,10 +63,18 @@ export class NotificationsController {
   @AllowNoTenant()
   async subscribe(@Body(new ZodPipe(pushSubscriptionSchema)) body: z.infer<typeof pushSubscriptionSchema>, @Headers('user-agent') ua?: string) {
     const userId = currentContext().userId!;
-    await this.prisma.root.pushSubscription.upsert({
+    const existing = await this.prisma.root.pushSubscription.findUnique({ where: { endpoint: body.endpoint }, select: { userId: true, p256dh: true, auth: true } });
+    if (!existing) {
+      await this.prisma.root.pushSubscription.create({ data: { userId, endpoint: body.endpoint, p256dh: body.keys.p256dh, auth: body.keys.auth, userAgent: ua?.slice(0, 300) } });
+      return;
+    }
+    // Someone else's subscription moves to this account only when the caller shows the same
+    // browser keys (a shared browser, now signed in as someone else); an endpoint alone can't
+    // take over another person's subscription or swap its keys.
+    if (existing.userId !== userId && (existing.p256dh !== body.keys.p256dh || existing.auth !== body.keys.auth)) return;
+    await this.prisma.root.pushSubscription.update({
       where: { endpoint: body.endpoint },
-      update: { userId, p256dh: body.keys.p256dh, auth: body.keys.auth, userAgent: ua?.slice(0, 300) },
-      create: { userId, endpoint: body.endpoint, p256dh: body.keys.p256dh, auth: body.keys.auth, userAgent: ua?.slice(0, 300) },
+      data: { userId, p256dh: body.keys.p256dh, auth: body.keys.auth, userAgent: ua?.slice(0, 300) },
     });
   }
 

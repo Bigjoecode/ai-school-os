@@ -280,16 +280,14 @@ export class MaterialsController {
       if (notLevel) throw new ForbiddenException(`You don’t teach every ${notLevel.name} class${body.subjectId ? ' this subject' : ''}; choose the classes you teach instead`);
     }
 
-    // The file: one already uploaded to this school, by this person or by staff.
+    // The file: one this person uploaded or may already open (FilesService.canOpen), never
+    // another person's private upload picked by id.
     let file: { id: string; mimeType: string; sizeBytes: number } | null = null;
     const usesFile = !['NOTE', 'LINK'].includes(body.kind);
     if (usesFile && body.fileId) {
       const f = await db.fileObject.findUnique({ where: { id: body.fileId } });
       if (!f) throw new BadRequestException('Upload the file again: it was not found');
-      if (body.fileId !== before?.fileId && f.uploadedById !== e.userId) {
-        const family = f.uploadedById ? (await db.student.count({ where: { userId: f.uploadedById } })) + (await db.guardian.count({ where: { userId: f.uploadedById } })) : 1;
-        if (family) throw new BadRequestException('Upload the file yourself to share it');
-      }
+      if (body.fileId !== before?.fileId && !(await this.files.canOpen(f))) throw new BadRequestException('Upload the file yourself to share it');
       const m = f.mimeType;
       const fits =
         body.kind === 'VIDEO' ? m.startsWith('video/') : body.kind === 'AUDIO' ? m.startsWith('audio/') : body.kind === 'IMAGE' ? m.startsWith('image/') : OFFICE_OR_PDF.test(m);

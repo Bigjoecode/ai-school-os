@@ -24,6 +24,28 @@ export type CbtAttemptStatus = 'IN_PROGRESS' | 'SUBMITTED' | 'MARKED';
 /** Seconds after the deadline in which a late save (slow network) is still accepted. */
 export const CBT_GRACE_SECONDS = 30;
 
+/** Codes like AAAAAA, 123456 or ABCDEF are guessed first. */
+function weakAccessCode(v: string): boolean {
+  const s = v.replace(/-/g, '').toUpperCase();
+  if (new Set(s).size <= 2) return true;
+  const steps = [...s].slice(1).map((c, i) => c.charCodeAt(0) - s.charCodeAt(i));
+  return steps.every((d) => d === 1) || steps.every((d) => d === -1);
+}
+
+/**
+ * An exam's access code: at least 6 letters or numbers and not an obvious run, because pupils
+ * try codes from the exam room (and are locked out after 10 wrong ones).
+ */
+export const accessCodeField = z
+  .string()
+  .trim()
+  .max(20)
+  .regex(/^[A-Za-z0-9-]*$/, 'Letters, numbers and dashes only')
+  .refine((v) => !v || v.replace(/-/g, '').length >= 6, 'Use at least 6 letters or numbers')
+  .refine((v) => !v || !weakAccessCode(v), 'Too easy to guess: mix letters and numbers')
+  .nullish()
+  .transform((v) => (v ? v.toUpperCase() : null));
+
 const examFields = {
   title: z.string().trim().min(3, 'Give the exam a title').max(160),
   classArmIds: z.array(z.string().min(1)).min(1, 'Pick at least one class').max(40),
@@ -34,13 +56,7 @@ const examFields = {
   shuffleOptions: z.boolean().default(true),
   showResults: z.enum(CBT_SHOW_RESULTS).default('AFTER_CLOSE'),
   sendToScores: z.boolean().default(true),
-  accessCode: z
-    .string()
-    .trim()
-    .max(20)
-    .regex(/^[A-Za-z0-9-]*$/, 'Letters, numbers and dashes only')
-    .nullish()
-    .transform((v) => (v ? v.toUpperCase() : null)),
+  accessCode: accessCodeField,
 };
 
 export const createOnlineExamSchema = z

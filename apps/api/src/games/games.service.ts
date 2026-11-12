@@ -913,7 +913,8 @@ export class GamesService {
   /** "Played 5 days this week, 120 questions" for a parent (or the student). */
   async child(studentId: string): Promise<ChildGamesSummary> {
     const ctx = currentContext();
-    const s = await this.db.student.findUnique({ where: { id: studentId }, select: { id: true, firstName: true, userId: true } });
+    // Like the parent portal: only current (ACTIVE) students.
+    const s = await this.db.student.findFirst({ where: { id: studentId, status: 'ACTIVE' }, select: { id: true, firstName: true, userId: true } });
     if (!s) throw new NotFoundException('Student not found');
     const isParent = ctx.permissions.has('family.manage') && (await this.db.studentGuardian.count({ where: { studentId, guardian: { userId: ctx.userId } } })) > 0;
     if (!isParent && s.userId !== ctx.userId) throw new ForbiddenException('You can only see your own children');

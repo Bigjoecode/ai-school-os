@@ -27,6 +27,7 @@ import type { PracticalAssessment, Student } from '../generated/prisma/client';
 import { AssessmentSettingsService } from '../assessment/assessment-settings.service';
 import { ScoreSheetService } from '../assessment/score-sheet.service';
 import { AuditService } from '../audit/audit.service';
+import { accessCodeKey, accessCodeLimiter, assertNotLockedOut } from '../cbt/access-code-limiter';
 import { attemptDeadline, phaseOf, windowError } from '../cbt/cbt-rules';
 import { CbtService, type StaffScope } from '../cbt/cbt.service';
 import { fullName } from '../common/format';
@@ -420,6 +421,8 @@ export class PracticalAssessmentsService implements OnModuleInit {
     const existing = row ? await db.practicalAttempt.findUnique({ where: { assessmentId_studentId: { assessmentId: id, studentId: me.id } } }) : null;
     if (!row || (!existing && !row.classArmIds.includes(me.classArmId ?? ''))) throw new NotFoundException('Practical test not found');
     const lesson = await this.practicals.lesson(row.practicalId);
+    const codeKey = accessCodeKey('practical', row.id, me.id);
+    if (!existing && row.accessCode) assertNotLockedOut(codeKey);
     const decision = startDecision(row, existing, accessCode);
     if (decision.action === 'RESUME') {
       // Time ran out while they were away: hand it in now rather than reopen the lab (the minute sweep would too).
@@ -427,6 +430,7 @@ export class PracticalAssessmentsService implements OnModuleInit {
       return this.practicals.view(existing!, lesson);
     }
     if (decision.action === 'REFUSE') {
+      if (decision.code === 'ACCESS_CODE') accessCodeLimiter.fail(codeKey);
       throw new BadRequestException({ statusCode: 400, code: decision.code, message: decision.message, ...(decision.code === 'ACCESS_CODE' ? { errors: [{ path: 'accessCode', message: 'Wrong access code' }] } : {}) });
     }
     if (!isSimulatorId(lesson.simulator)) throw new BadRequestException('This practical has no virtual lab. Tell your teacher.');

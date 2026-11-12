@@ -45,6 +45,7 @@ import type { Prisma } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
 import { RequireFeature, RequirePermissions } from '../common/decorators';
+import { emailLinkOrigin } from '../common/email-origin';
 import { dateOnly, paginate, parseDate } from '../common/format';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { schoolNow } from '../common/school-time';
@@ -54,10 +55,14 @@ import { FinanceService, invoiceInclude, paymentInclude } from './finance.servic
 import { PaystackService } from './paystack.service';
 import { feeReminderPrompt, financeBriefingPrompt } from './prompts';
 
+/**
+ * The web address for links the server builds (payment callbacks, Google sign-in, links in
+ * messages): the platform's own address (CORS_ORIGINS / PLATFORM_DOMAIN_TARGET), never a
+ * forged Origin or X-Forwarded-Host. See emailLinkOrigin; schoolLinkOrigin also allows the
+ * school's verified domain.
+ */
 export function siteOrigin(req: Request): string {
-  const proto = (req.headers['x-forwarded-proto'] as string | undefined)?.split(',')[0] ?? req.protocol;
-  const host = (req.headers['x-forwarded-host'] as string | undefined) ?? req.headers.host;
-  return (req.headers.origin as string | undefined) ?? `${proto}://${host}`;
+  return emailLinkOrigin(req);
 }
 
 @Controller('finance')

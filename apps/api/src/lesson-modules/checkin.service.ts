@@ -131,7 +131,8 @@ export class CheckInService {
   /** A parent's child (or the student themself): module completion. */
   async child(studentId: string): Promise<ChildModules> {
     const ctx = currentContext();
-    const s = await this.db.student.findUnique({ where: { id: studentId } });
+    // Like the parent portal: only current (ACTIVE) students.
+    const s = await this.db.student.findFirst({ where: { id: studentId, status: 'ACTIVE' } });
     if (!s) throw new NotFoundException('Student not found');
     const isParent = ctx.permissions.has('family.manage') && (await this.db.studentGuardian.count({ where: { studentId, guardian: { userId: ctx.userId } } })) > 0;
     const isSelf = s.userId === ctx.userId;

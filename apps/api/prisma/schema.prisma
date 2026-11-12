@@ -344,6 +344,8 @@ model User {
   recoveryCodes String[]      @default([])
   /// An admin reset the password: every route but changing it is closed until they choose their own.
   mustChangePassword Boolean  @default(false)
+  /// Raised to cut off calendar feed links handed out earlier.
+  calendarFeedVersion Int    @default(0)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -707,6 +709,8 @@ model Student {
   status            StudentStatus @default(ACTIVE)
   admittedOn        DateTime      @default(now()) @db.Date
   photoUrl          String?
+  /// Raised when the ID card is re-issued (lost card): older printed cards stop verifying.
+  idCardVersion     Int           @default(0)
   address           String?
   medicalNotes      String?
   /// A+, O−… and AA, AS, SS: asked for on every Nigerian school medical form.
@@ -864,6 +868,8 @@ model Staff {
   showOnWebsite  Boolean     @default(false)
   websiteBio     String?
   photoUrl       String?
+  /// Raised when the ID card is re-issued (lost card): older printed cards stop verifying.
+  idCardVersion  Int         @default(0)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 

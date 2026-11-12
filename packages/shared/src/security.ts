@@ -52,7 +52,7 @@ export const twoFactorCodeSchema = z.object({ code: totpCode });
 export type TwoFactorCodeInput = z.infer<typeof twoFactorCodeSchema>;
 
 export const twoFactorDisableSchema = z.object({
-  password: z.string().min(1, 'Enter your password'),
+  password: z.string().min(1, 'Enter your password').max(500),
   /** A code from the app, or one recovery code. */
   code: z.string().trim().min(6, 'Enter a code from your app or a recovery code').max(20),
 });

@@ -56,6 +56,10 @@ interface IcalToken {
   tid: string;
   aud: AnnouncementAudience[];
   cls: string[] | null;
+  /** Whose link it is: it stops when they leave the school or reset their links. */
+  sub?: string;
+  /** The user's calendarFeedVersion when the link was made. */
+  v?: number;
 }
 
 /** UTC instant for a school-local date and time. */
@@ -309,8 +313,18 @@ export class CommunityController {
   @Get('events/feed-link')
   async feedLink(): Promise<{ path: string }> {
     const v = await this.viewer();
-    const token = await this.jwt.signAsync({ typ: 'ical', tid: currentTenantId(), aud: v.audiences, cls: v.classArmIds ? [...v.classArmIds] : null } satisfies IcalToken);
+    const userId = currentContext().userId!;
+    const user = await this.prisma.root.user.findUniqueOrThrow({ where: { id: userId }, select: { calendarFeedVersion: true } });
+    const token = await this.jwt.signAsync({ typ: 'ical', tid: currentTenantId(), aud: v.audiences, cls: v.classArmIds ? [...v.classArmIds] : null, sub: userId, v: user.calendarFeedVersion } satisfies IcalToken);
     return { path: `/api/calendar/${token}.ics` };
+  }
+
+  /** A leaked link: every calendar link this person made before stops working; returns a new one. */
+  @Post('events/feed-link/reset')
+  @HttpCode(200)
+  async resetFeedLink(): Promise<{ path: string }> {
+    await this.prisma.root.user.update({ where: { id: currentContext().userId! }, data: { calendarFeedVersion: { increment: 1 } } });
+    return this.feedLink();
   }
 
   @Get('calendar/:token.ics')
@@ -325,7 +339,13 @@ export class CommunityController {
     } catch {
       throw new NotFoundException('Calendar not found');
     }
-    if (p.typ !== 'ical') throw new NotFoundException('Calendar not found');
+    if (p.typ !== 'ical' || !p.sub) throw new NotFoundException('Calendar not found');
+    // Only while the person is still an active member of the school and hasn't reset their links.
+    const owner = await this.prisma.root.user.findFirst({
+      where: { id: p.sub, status: 'ACTIVE', calendarFeedVersion: p.v ?? 0, memberships: { some: { tenantId: p.tid, status: 'ACTIVE' } } },
+      select: { id: true },
+    });
+    if (!owner) throw new NotFoundException('Calendar not found');
     const tenant = await this.prisma.root.tenant.findUnique({ where: { id: p.tid }, select: { name: true, timezone: true, slug: true } });
     if (!tenant) throw new NotFoundException('Calendar not found');
     const since = new Date(Date.now() - 60 * 86_400_000);

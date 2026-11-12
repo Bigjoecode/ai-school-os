@@ -279,8 +279,9 @@ export class GateService implements OnModuleInit {
     const idToken = /\/verify\/id\/([A-Za-z0-9_\-.]+)/.exec(code)?.[1];
     if (idToken) {
       try {
-        const p = await this.jwt.verifyAsync<{ typ: string; tid: string; k: string; id: string }>(idToken);
-        if (p.typ === 'idcard' && p.tid === tenantId && p.k === 'S') return p.id;
+        const p = await this.jwt.verifyAsync<{ typ: string; tid: string; k: string; id: string; v?: number }>(idToken);
+        // A re-issued (lost) card's older copies don't open the gate.
+        if (p.typ === 'idcard' && p.tid === tenantId && p.k === 'S' && (await this.prisma.root.student.count({ where: { tenantId, id: p.id, idCardVersion: p.v ?? 0 } }))) return p.id;
         if (p.typ === 'idcard' && p.k === 'T') throw new BadRequestException('That is a staff ID card. Staff use the check-in kiosk.');
       } catch (err) {
         if (err instanceof BadRequestException) throw err;

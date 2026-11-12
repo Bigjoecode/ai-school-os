@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CBT_SHOW_RESULTS, type CbtExamStatus, type CbtPhase, type CbtShowResults } from './cbt';
+import { accessCodeField, CBT_SHOW_RESULTS, type CbtExamStatus, type CbtPhase, type CbtShowResults } from './cbt';
 import type { CriterionScore, SimulatorId } from './practicals';
 
 /**
@@ -32,13 +32,7 @@ const fields = {
   showResults: z.enum(CBT_SHOW_RESULTS).default('AFTER_CLOSE'),
   /** Result component the marks can go into; null: not for the score sheet. */
   componentKey: z.string().trim().min(1).max(40).nullish().transform((v) => v ?? null),
-  accessCode: z
-    .string()
-    .trim()
-    .max(20)
-    .regex(/^[A-Za-z0-9-]*$/, 'Letters, numbers and dashes only')
-    .nullish()
-    .transform((v) => (v ? v.toUpperCase() : null)),
+  accessCode: accessCodeField,
 };
 
 export const createPracticalAssessmentSchema = z

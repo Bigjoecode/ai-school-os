@@ -4,7 +4,6 @@ import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import type { UploadedFile } from '@aischool/shared';
 import { Public, RequirePermissions } from '../common/decorators';
-import { currentContext } from '../common/request-context';
 import { env } from '../config/env';
 import { FilesService } from './files.service';
 
@@ -42,12 +41,13 @@ export class FilesController {
     this.send(res, await this.files.read(id, true), true, req);
   }
 
-  /** Staff open any of the school's files; everyone else only what they uploaded. */
+  /**
+   * The uploader and admins open any private file; other staff only files
+   * attached to records they can see (FilesService.canOpen).
+   */
   @Get('files/:id')
   async privateFile(@Param('id') id: string, @Req() req: Request, @Res() res: Response) {
-    const ctx = currentContext();
-    const staff = ctx.permissions.has('school.read');
-    this.send(res, await this.files.read(id, false, staff ? undefined : ctx.userId), false, req);
+    this.send(res, await this.files.readPrivate(id), false, req);
   }
 
   send(res: Response, f: { data: Buffer; mimeType: string; filename: string; inline: boolean }, cacheable: boolean, req?: Request) {

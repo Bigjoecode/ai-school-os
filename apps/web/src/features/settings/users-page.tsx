@@ -218,12 +218,14 @@ function InviteDialog({ open, onOpenChange, roles }: { open: boolean; onOpenChan
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
   const invite = useMutation({
-    mutationFn: (input: InviteOutput) => api.post<UserRow>('/users', input),
+    mutationFn: (input: InviteOutput) => api.post<{ membershipId: string; existingAccount?: boolean; message?: string }>('/users', input),
     meta: { silent: true },
-    onSuccess: (_u, input) => {
+    onSuccess: (r, input) => {
       void queryClient.invalidateQueries({ queryKey: qk.users });
       void queryClient.invalidateQueries({ queryKey: qk.roles });
-      toast.success(`${input.firstName} can now sign in`, { description: 'Share their email and temporary password securely.' });
+      // An existing account keeps its own password: the one typed here was not used.
+      if (r.existingAccount) toast.success(`${input.email} added to your school`, { description: r.message ?? 'They already had an account, so they sign in with their own password.' });
+      else toast.success(`${input.firstName} can now sign in`, { description: 'Share their email and temporary password securely.' });
       onOpenChange(false);
     },
     onError: (err) => {

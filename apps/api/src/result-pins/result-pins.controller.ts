@@ -26,6 +26,7 @@ import {
 import { z } from 'zod';
 import { Public, RequirePermissions, RequireFeature } from '../common/decorators';
 import { ZodPipe } from '../common/zod.pipe';
+import { schoolLinkOrigin } from '../common/email-origin';
 import { siteOrigin } from '../finance/finance.controller';
 import { ResultPinsService } from './result-pins.service';
 
@@ -150,8 +151,10 @@ export class PublicResultPinsController {
   @Public()
   @HttpCode(200)
   @Throttle({ default: { limit: 6, ttl: 60_000 } })
-  buy(@Param('slug') slug: string, @Body(new ZodPipe(buyPinSchema)) body: BuyPinInput, @Req() req: Request): Promise<PinPurchaseStart> {
-    return this.pins.startPurchase(slug, body, siteOrigin(req));
+  async buy(@Param('slug') slug: string, @Body(new ZodPipe(buyPinSchema)) body: BuyPinInput, @Req() req: Request): Promise<PinPurchaseStart> {
+    // The payment comes back (and the PIN link is emailed) only to the platform or the school's own verified domain.
+    const t = await this.pins.publicTenant(slug);
+    return this.pins.startPurchase(slug, body, await schoolLinkOrigin(req, t.id, (tid, host) => this.pins.isVerifiedHost(tid, host)));
   }
 
   @Get(':slug/purchase/:reference')

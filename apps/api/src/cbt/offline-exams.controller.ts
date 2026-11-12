@@ -75,9 +75,15 @@ export class OfflineExamsStaffController {
   @RequirePermissions('assessment.read')
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async devicePack(@Param('id') id: string, @Body(new ZodPipe(offlineDevicePackSchema)) body: OfflineDevicePackInput): Promise<OfflinePack> {
-    const { exam, paper } = await this.cbt.staffExam(id);
+    const { exam, paper, scope } = await this.cbt.staffExam(id);
     this.offline.checkDownloadable(exam);
-    const ids = await this.offline.enrolled(exam, body.classArmIds?.length ? body.classArmIds : exam.classArmIds);
+    // Only the classes this teacher teaches the subject in (academic managers: all of them).
+    const mine = exam.classArmIds.filter((a) => this.cbt.teachesArm(scope, a, paper.subjectId));
+    const asked = body.classArmIds?.length ? body.classArmIds : mine;
+    if (!asked.length || asked.some((a) => exam.classArmIds.includes(a) && !mine.includes(a))) {
+      throw new ForbiddenException('You can only prepare exam devices for the classes you teach this subject in');
+    }
+    const ids = await this.offline.enrolled(exam, asked);
     // Students already handed in (offline) don't need a place on the device.
     const seats = (await this.offline.ensureSeats(exam, paper, ids)).filter((s) => !s.syncedAt);
     const pack = await this.offline.buildPack(exam, paper, seats, 'DEVICE');

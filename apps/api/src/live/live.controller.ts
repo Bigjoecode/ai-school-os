@@ -38,6 +38,7 @@ import { siteOrigin } from '../finance/finance.controller';
 import { subjectKey } from '../learning/mastery.service';
 import { SchoolEvidenceService } from '../learning/school-evidence.service';
 import { PracticalHomeworkService } from '../practicals/practical-homework.service';
+import { FilesService } from '../files/files.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { LiveProvidersService } from './providers.service';
 import { LiveService, displayStatus, liveInclude } from './live.service';
@@ -64,6 +65,7 @@ export class LiveController {
     private readonly audit: AuditService,
     private readonly evidence: SchoolEvidenceService,
     private readonly practicalHomework: PracticalHomeworkService,
+    private readonly files: FilesService,
   ) {}
 
   /** Paid channels (SMS, email, WhatsApp) need messaging permission. Checked before anything is saved. */
@@ -407,10 +409,17 @@ export class LiveController {
     });
   }
 
-  /** Teacher attachments: links, or files already uploaded to this school. */
-  private async checkAttachments(list: HomeworkInput['attachments']) {
-    const ids = list.filter((a) => a.type === 'FILE').map((a) => a.fileId).filter((x): x is string => !!x);
-    if (ids.length && (await this.prisma.db.fileObject.count({ where: { id: { in: ids } } })) !== ids.length) throw new BadRequestException('Upload the attachment again: one of the files was not found');
+  /**
+   * Teacher attachments: links, or files the teacher uploaded or may already
+   * open (files already on this homework stay). A file id from elsewhere in
+   * the school, such as a parent's upload, is refused.
+   */
+  private async checkAttachments(list: HomeworkInput['attachments'], before?: unknown) {
+    const ids = [...new Set(list.filter((a) => a.type === 'FILE').map((a) => a.fileId).filter((x): x is string => !!x))];
+    const kept = new Set(((before as { fileId?: string | null }[] | null) ?? []).map((a) => a?.fileId).filter(Boolean));
+    const rows = ids.length ? await this.prisma.db.fileObject.findMany({ where: { id: { in: ids } }, select: { id: true, uploadedById: true } }) : [];
+    if (rows.length !== ids.length) throw new BadRequestException('Upload the attachment again: one of the files was not found');
+    for (const f of rows) if (!kept.has(f.id) && !(await this.files.canOpen(f))) throw new BadRequestException('Upload the attachment again: one of the files was not found');
     for (const a of list) if (a.type === 'LINK' && !/^https?:\/\//i.test(a.url)) throw new BadRequestException(`"${a.name}" isn't a web link`);
     return list.map((a) => (a.type === 'FILE' ? { ...a, url: `/api/files/${a.fileId}` } : a)) as unknown as Prisma.InputJsonValue;
   }
@@ -498,7 +507,7 @@ export class LiveController {
         instructions: body.instructions,
         questions: body.questions,
         kind: body.kind,
-        attachments: await this.checkAttachments(body.attachments),
+        attachments: await this.checkAttachments(body.attachments, before.attachments),
         submissionTypes: body.kind === 'PRACTICAL' ? [] : body.submissionTypes.length ? body.submissionTypes : body.kind === 'QUESTIONS' ? [] : body.kind === 'UPLOAD' ? ['IMAGE', 'DOCUMENT'] : ['TEXT'],
         practicalId: await this.checkPractical(body),
         maxScore: body.maxScore,

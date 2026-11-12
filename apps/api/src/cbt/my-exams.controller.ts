@@ -18,6 +18,7 @@ import { RequirePermissions } from '../common/decorators';
 import { currentContext, currentTenantId } from '../common/request-context';
 import { ZodPipe } from '../common/zod.pipe';
 import { PrismaService } from '../prisma/prisma.service';
+import { accessCodeKey, accessCodeLimiter, assertNotLockedOut } from './access-code-limiter';
 import { OfflineExamsService } from './offline-exams.service';
 import { CbtService, answersOf, isObjective, layoutOf, paperInclude, phaseOf, resultVisibility, round1, theoryMarksOf } from './cbt.service';
 
@@ -114,7 +115,10 @@ export class MyExamsController {
     const phase = phaseOf(exam);
     if (phase === 'UPCOMING') throw new BadRequestException('This exam has not opened yet');
     if (phase !== 'OPEN') throw new BadRequestException('This exam has closed');
+    const codeKey = accessCodeKey('cbt', exam.id, me.id);
+    if (exam.accessCode) assertNotLockedOut(codeKey);
     if (exam.accessCode && (body.accessCode ?? '').trim().toUpperCase() !== exam.accessCode.toUpperCase()) {
+      accessCodeLimiter.fail(codeKey);
       throw new BadRequestException({ statusCode: 400, message: 'That access code is not right. Ask your invigilator.', errors: [{ path: 'accessCode', message: 'Wrong access code' }] });
     }
     const paper = await this.prisma.db.examPaper.findUnique({ where: { id: exam.paperId }, include: paperInclude });

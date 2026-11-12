@@ -373,6 +373,11 @@ export class ResultPinsService implements OnModuleInit {
   // ================================================================ checking a result
 
   /** The school behind a public checker address; scopes this request to it. */
+  /** A web address the school has verified as its own (custom domain). */
+  async isVerifiedHost(tenantId: string, hostname: string): Promise<boolean> {
+    return (await this.prisma.root.tenantDomain.count({ where: { tenantId, hostname, verifiedAt: { not: null } } })) > 0;
+  }
+
   async publicTenant(slug: string) {
     const t = await this.prisma.root.tenant.findUnique({ where: { slug }, select: { id: true, slug: true, name: true, logoUrl: true, status: true, currency: true } });
     if (!t || t.status === 'SUSPENDED' || t.status === 'ARCHIVED') throw new NotFoundException('This school was not found');

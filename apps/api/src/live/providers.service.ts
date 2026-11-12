@@ -3,6 +3,7 @@ import { createHash, randomBytes } from 'node:crypto';
 import type { LiveIntegrationStatus, LiveProvider } from '@aischool/shared';
 import type { Prisma } from '../generated/prisma/client';
 import { decryptSecret, encryptSecret } from '../common/crypto-box';
+import { assertPublicUrl } from '../common/public-host';
 import { env } from '../config/env';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -235,11 +236,25 @@ export class LiveProvidersService {
     return `${base.replace(/\/?$/, '/')}api/${call}?${query}${query ? '&' : ''}checksum=${checksum}`;
   }
 
+  /**
+   * A call to the school's BBB server: only public addresses (checked by DNS first) and no
+   * redirects, so the address can't be pointed at the API's own network.
+   */
+  private async bbbFetch(url: string): Promise<Response | null> {
+    try {
+      await assertPublicUrl(url);
+      return await fetch(url, { method: 'GET', redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+    } catch {
+      return null;
+    }
+  }
+
   async bbbConnect(tenantId: string, s: { url: string; secret: string }) {
-    const res = await this.http(this.bbbUrl(s.url, s.secret, 'getMeetings', {}), { method: 'GET' }, 'BigBlueButton');
-    const xml = await res.text();
+    const res = await this.bbbFetch(this.bbbUrl(s.url, s.secret, 'getMeetings', {}));
+    const xml = res?.ok ? await res.text().catch(() => '') : '';
     if (!/<returncode>SUCCESS<\/returncode>/.test(xml)) {
-      throw new BadRequestException(/checksumError/.test(xml) ? 'BigBlueButton rejected the shared secret' : 'That does not look like a BigBlueButton server');
+      // One message whether the address is private, unreachable or not BBB: the reply mustn't map the network.
+      throw new BadRequestException(/checksumError/.test(xml) ? 'BigBlueButton rejected the shared secret' : "Couldn't connect to a BigBlueButton server at that address. Check the URL (https://…/bigbluebutton/) and the secret.");
     }
     await this.save(tenantId, 'bbb', s.secret, { url: s.url.replace(/\/?$/, '/') });
   }
@@ -249,7 +264,7 @@ export class LiveProvidersService {
     const i = await this.integration(tenantId, 'bbb');
     if (!i) throw new BadRequestException('BigBlueButton is no longer connected');
     const base = i.config.url!;
-    const create = await this.http(
+    const create = await this.bbbFetch(
       this.bbbUrl(base, i.secret, 'create', {
         name: title,
         meetingID: meetingId,
@@ -260,9 +275,8 @@ export class LiveProvidersService {
         allowStartStopRecording: 'true',
         welcome: `Welcome to ${title}`,
       }),
-      { method: 'GET' },
-      'BigBlueButton',
     );
+    if (!create) throw new BadGatewayException("Couldn't reach the school's BigBlueButton server");
     const xml = await create.text();
     if (!/<returncode>SUCCESS<\/returncode>/.test(xml)) {
       const msg = /<message>([^<]*)<\/message>/.exec(xml)?.[1];
@@ -483,7 +497,8 @@ export class LiveProvidersService {
   private async pullBbb(tenantId: string, meetingId: string): Promise<PullResult> {
     const i = await this.integration(tenantId, 'bbb');
     if (!i) throw new BadRequestException('BigBlueButton is no longer connected');
-    const res = await this.http(this.bbbUrl(i.config.url!, i.secret, 'getRecordings', { meetingID: meetingId }), { method: 'GET' }, 'BigBlueButton');
+    const res = await this.bbbFetch(this.bbbUrl(i.config.url!, i.secret, 'getRecordings', { meetingID: meetingId }));
+    if (!res) throw new BadGatewayException("Couldn't reach the school's BigBlueButton server");
     const xml = await res.text();
     const recordings: PulledRecording[] = [];
     for (const block of xml.match(/<recording>[\s\S]*?<\/recording>/g) ?? []) {

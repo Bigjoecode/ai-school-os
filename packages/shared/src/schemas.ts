@@ -24,7 +24,8 @@ const slug = z
 // ---------------------------------------------------------------- auth
 export const loginSchema = z.object({
   email: z.email('Enter a valid email').trim().toLowerCase(),
-  password: z.string().min(1, 'Enter your password'),
+  /** Bounded so a huge body can't make the server hash megabytes; 500 like currentPassword, so no older password is locked out (new ones are capped at 200). */
+  password: z.string().min(1, 'Enter your password').max(500, 'At most 500 characters'),
   school: slug.optional(),
 });
 export type LoginInput = z.infer<typeof loginSchema>;
@@ -44,7 +45,7 @@ export const createTenantSchema = z.object({
     firstName: name,
     lastName: name,
     email: z.email().trim().toLowerCase(),
-    password: z.string().min(10, 'At least 10 characters'),
+    password: z.string().min(10, 'At least 10 characters').max(200, 'At most 200 characters'),
   }),
 });
 export type CreateTenantInput = z.infer<typeof createTenantSchema>;
@@ -189,7 +190,7 @@ export const inviteUserSchema = z.object({
   lastName: name,
   email: z.email().trim().toLowerCase(),
   roleIds: z.array(z.string()).min(1, 'Pick at least one role'),
-  password: z.string().min(10, 'At least 10 characters'),
+  password: z.string().min(10, 'At least 10 characters').max(200, 'At most 200 characters'),
 });
 export type InviteUserInput = z.infer<typeof inviteUserSchema>;
 

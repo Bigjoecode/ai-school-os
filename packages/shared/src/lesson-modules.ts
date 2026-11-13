@@ -197,6 +197,27 @@ export const checkInAiSchema = z.object({
 });
 export type CheckInAiInput = z.input<typeof checkInAiSchema>;
 
+/** AI help on one step's notes; the teacher sees the result and chooses whether to use it. */
+export const STEP_AI_ACTIONS = ['simpler', 'example', 'extend', 'shorter', 'nigerian', 'custom'] as const;
+export type StepAiAction = (typeof STEP_AI_ACTIONS)[number];
+export const STEP_AI_LABELS: Record<StepAiAction, string> = {
+  simpler: 'Make it simpler',
+  example: 'Add a worked example',
+  extend: 'Explain it more fully',
+  shorter: 'Make it shorter',
+  nigerian: 'Use Nigerian examples',
+  custom: 'Something else…',
+};
+export const stepAiSchema = z
+  .object({
+    action: z.enum(STEP_AI_ACTIONS),
+    title: text(160),
+    notes: z.string().trim().min(1, 'Write some notes first').max(20_000),
+    guidance: text(400),
+  })
+  .refine((v) => v.action !== 'custom' || !!v.guidance, { path: ['guidance'], message: 'Say what to change' });
+export type StepAiInput = z.input<typeof stepAiSchema>;
+
 export const moduleBankQuerySchema = z.object({ subjectId: z.string().min(1), classLevelId: z.string().min(1), topicId: z.string().optional(), q: z.string().trim().max(100).optional() });
 export type ModuleBankQuery = z.input<typeof moduleBankQuerySchema>;
 

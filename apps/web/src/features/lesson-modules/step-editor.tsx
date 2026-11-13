@@ -1,4 +1,4 @@
-import { MODULE_STEP_LABELS, youtubeId, type Diagram, type ModuleDetail, type ModuleStepInput, type ModuleStepKind } from '@aischool/shared';
+import { MODULE_STEP_LABELS, STEP_AI_ACTIONS, STEP_AI_LABELS, youtubeId, type StepAiAction, type Diagram, type ModuleDetail, type ModuleStepInput, type ModuleStepKind } from '@aischool/shared';
 import { ArrowDown, ArrowUp, ChevronDown, ClipboardCheck, Eye, FileText, Film, Pencil, Image as ImageIcon, Link2, NotebookText, Plus, Save, Trash2, Upload, FolderOpen } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -15,7 +15,8 @@ import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { formatBytes, uploadPrivate } from '../live/files';
 import { useMaterials } from '../materials/api';
-import { useSaveSteps } from './api';
+import { aiStep, useSaveSteps } from './api';
+import { AiSparkle } from '@/components/ai/ai-sparkle';
 import { DiagramView } from './diagram-view';
 import { cleanQuestion, newId, QuestionsEditor, type DraftQ } from './question-editor';
 
@@ -163,7 +164,7 @@ export function StepEditor({ m, canAi }: { m: ModuleDetail; canAi: boolean }) {
             </div>
             {isOpen && (
               <div className="space-y-3 border-t border-border p-3 sm:p-4">
-                <StepFields s={s} onChange={(x) => set(i, x)} subjectId={m.subject.id} ctx={ctx} passMark={m.passMark} />
+                <StepFields s={s} onChange={(x) => set(i, x)} subjectId={m.subject.id} ctx={ctx} passMark={m.passMark} moduleId={m.id} />
               </div>
             )}
           </Card>
@@ -196,7 +197,7 @@ export function StepEditor({ m, canAi }: { m: ModuleDetail; canAi: boolean }) {
   );
 }
 
-function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; onChange: (s: DraftStep) => void; subjectId: string; ctx: Parameters<typeof QuestionsEditor>[0]['context']; passMark: number }) {
+function StepFields({ s, onChange, subjectId, ctx, passMark, moduleId }: { s: DraftStep; onChange: (s: DraftStep) => void; subjectId: string; ctx: Parameters<typeof QuestionsEditor>[0]['context']; passMark: number; moduleId: string }) {
   return (
     <>
       <Field label="Step title">
@@ -227,7 +228,7 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
       )}
       {s.kind === 'MATERIAL' && <MaterialPicker s={s} onChange={onChange} subjectId={subjectId} />}
       {s.kind !== 'CHECKIN' && (
-        <NotesField s={s} onChange={onChange} />
+        <NotesField s={s} onChange={onChange} moduleId={moduleId} canAi={ctx.canAi && s.kind === 'NOTE'} />
       )}
       {s.kind === 'CHECKIN' && (
         <>
@@ -249,18 +250,88 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
   );
 }
 
-/** The step's notes, with a switch to see them as students will. */
-function NotesField({ s, onChange }: { s: DraftStep; onChange: (s: DraftStep) => void }) {
+/** The step's notes, with a switch to see them as students will, and AI help the teacher can accept or not. */
+function NotesField({ s, onChange, moduleId, canAi }: { s: DraftStep; onChange: (s: DraftStep) => void; moduleId: string; canAi: boolean }) {
   const [preview, setPreview] = useState(false);
+  const [asking, setAsking] = useState<StepAiAction | null>(null);
+  const [custom, setCustom] = useState<string | null>(null);
+  const [offer, setOffer] = useState<string | null>(null);
   const label = s.kind === 'NOTE' ? 'Notes' : s.kind === 'IMAGE' ? 'Caption (optional)' : 'Notes (optional)';
+  const ask = (action: StepAiAction, guidance?: string) => {
+    setAsking(action);
+    aiStep(moduleId, { action, title: s.title, notes: s.body, guidance: guidance ?? null })
+      .then((r) => {
+        setOffer(r.notes);
+        setCustom(null);
+      })
+      .catch((err: unknown) => toast.error(errorMessage(err)))
+      .finally(() => setAsking(null));
+  };
   return (
     <div className="space-y-1.5">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-[13px] font-medium">{label}</span>
-        <Button type="button" variant="ghost" size="sm" onClick={() => setPreview(!preview)} aria-pressed={preview}>
-          {preview ? <Pencil /> : <Eye />} {preview ? 'Edit' : 'Preview'}
-        </Button>
+        <div className="flex items-center gap-1">
+          {canAi && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button type="button" variant="ghost" size="sm" loading={asking !== null} disabled={!s.body.trim() || offer !== null}>
+                  <AiSparkle animated={false} className="size-4" /> AI help
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {STEP_AI_ACTIONS.map((a) => (
+                  <DropdownMenuItem key={a} onSelect={() => (a === 'custom' ? setCustom('') : ask(a))}>
+                    {STEP_AI_LABELS[a]}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+          <Button type="button" variant="ghost" size="sm" onClick={() => setPreview(!preview)} aria-pressed={preview}>
+            {preview ? <Pencil /> : <Eye />} {preview ? 'Edit' : 'Preview'}
+          </Button>
+        </div>
       </div>
+      {custom !== null && offer === null && (
+        <form
+          className="flex flex-wrap items-center gap-2 rounded-xl border border-border p-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (custom.trim()) ask('custom', custom.trim());
+          }}
+        >
+          <Input aria-label="What should the AI change?" value={custom} onChange={(e) => setCustom(e.target.value)} maxLength={400} placeholder="e.g. add a short class activity" className="min-w-0 flex-1" autoFocus />
+          <Button type="submit" size="sm" variant="brand" loading={asking === 'custom'} disabled={!custom.trim()}>
+            Ask
+          </Button>
+          <Button type="button" size="sm" variant="ghost" onClick={() => setCustom(null)}>
+            Cancel
+          </Button>
+        </form>
+      )}
+      {offer !== null && (
+        <div className="space-y-2 rounded-xl border border-ai-2/40 bg-card p-3">
+          <p className="text-[12.5px] text-muted-foreground">The AI’s version. Check it, then use it or keep yours. Nothing changes until you choose, and you can still edit it after.</p>
+          <Markdown text={offer} className="max-h-96 overflow-y-auto rounded-lg border border-border p-3" />
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              size="sm"
+              variant="brand"
+              onClick={() => {
+                onChange({ ...s, body: offer });
+                setOffer(null);
+              }}
+            >
+              Use this
+            </Button>
+            <Button type="button" size="sm" variant="outline" onClick={() => setOffer(null)}>
+              Keep mine
+            </Button>
+          </div>
+        </div>
+      )}
       {preview ? (
         s.body.trim() ? (
           <Markdown text={s.body} className={cn('min-h-24', s.kind === 'NOTE' ? 'rounded-xl border border-border bg-card p-4 sm:p-6' : 'rounded-xl border border-dashed border-border p-3')} />

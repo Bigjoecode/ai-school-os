@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils';
  * A small dependency-free slippy map: Web Mercator tile maths, <img> tiles,
  * drag / wheel / pinch / keyboard pan and zoom, a bus marker and stop pins.
  *
- * Tiles come from VITE_MAP_TILE_URL (default: OpenStreetMap's standard tiles,
- * whose usage policy suits light use only; a busy production site should use
- * a paid or self-hosted tile provider). The attribution the provider requires
+ * Tiles come from VITE_MAP_TILE_URL (default: this app's own server, which
+ * fetches OpenStreetMap's tiles once and keeps a copy for every school, so the
+ * free service is used lightly and phones never contact it directly; see
+ * apps/api/src/bus/map-tiles.controller.ts). The attribution the provider requires
  * is always shown (VITE_MAP_ATTRIBUTION / VITE_MAP_ATTRIBUTION_URL).
  * Tile URLs carry tile numbers, never the app's own coordinates or ids.
  */
@@ -16,7 +17,7 @@ import { cn } from '@/lib/utils';
 const TILE = 256;
 const MIN_ZOOM = 3;
 const MAX_ZOOM = 18;
-const TILE_URL = import.meta.env.VITE_MAP_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_URL = import.meta.env.VITE_MAP_TILE_URL || '/api/map-tiles/{z}/{x}/{y}.png';
 const ATTRIBUTION = import.meta.env.VITE_MAP_ATTRIBUTION || '© OpenStreetMap contributors';
 const ATTRIBUTION_URL = import.meta.env.VITE_MAP_ATTRIBUTION_URL || 'https://www.openstreetmap.org/copyright';
 const SUBDOMAINS = ['a', 'b', 'c'];

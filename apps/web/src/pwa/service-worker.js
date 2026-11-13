@@ -20,6 +20,8 @@ const ASSET_CACHE = 'ais-assets-v1';
 const FONT_CACHE = 'ais-fonts-v1';
 const API_CACHE = 'ais-api-v1';
 const META_CACHE = 'ais-meta-v1';
+// Public data that is the same for every visitor (prices, the pilot offer): kept so /pricing opens offline.
+const PUBLIC_CACHE = 'ais-public-v1';
 const SHELL_URL = '/index.html';
 const SESSION_KEY = '/__ais/session';
 const SAVED_PREFIX = '/__ais/saved/';
@@ -56,6 +58,7 @@ const SAVABLE = [
   /^\/api\/homework$/,
 ];
 const isSavable = (pathname) => SAVABLE.some((re) => re.test(pathname));
+const PUBLIC_SAVABLE = new Set(['/api/signup/config', '/api/signup/pilot']);
 
 const precached = new Set(PRECACHE);
 
@@ -91,7 +94,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
-      const keep = new Set([SHELL_CACHE, ASSET_CACHE, FONT_CACHE, API_CACHE, META_CACHE]);
+      const keep = new Set([SHELL_CACHE, ASSET_CACHE, FONT_CACHE, API_CACHE, META_CACHE, PUBLIC_CACHE]);
       for (const key of await caches.keys()) if (key.startsWith('ais-') && !keep.has(key)) await caches.delete(key);
       if (self.registration.navigationPreload) await self.registration.navigationPreload.enable().catch(() => undefined);
       await trim(ASSET_CACHE, MAX_ASSETS);
@@ -116,6 +119,10 @@ self.addEventListener('fetch', (event) => {
 
   if (url.origin === self.location.origin) {
     if (url.pathname.startsWith('/api/')) {
+      if (PUBLIC_SAVABLE.has(url.pathname) && !url.search) {
+        event.respondWith(publicNetworkFirst(event));
+        return;
+      }
       if (isSavable(url.pathname) && !req.headers.has('range')) event.respondWith(apiNetworkFirst(event, url));
       return;
     }
@@ -264,6 +271,23 @@ async function apiNetworkFirst(event, url) {
   } catch {
     return useSaved('offline');
   }
+}
+
+/** Public, same-for-everyone data: the network when it answers, the last copy when offline or the server is down. */
+async function publicNetworkFirst(event) {
+  const req = event.request;
+  const cache = await caches.open(PUBLIC_CACHE);
+  try {
+    const res = await Promise.race([fetch(req), timeout(API_TIMEOUT_MS)]);
+    if (res && res.status === 200 && (res.headers.get('content-type') || '').includes('application/json')) {
+      event.waitUntil(cache.put(req.url, res.clone()).catch(() => undefined));
+      return res;
+    }
+    if (res && res.status < 500) return res;
+  } catch {
+    // offline: fall through to the saved copy
+  }
+  return (await cache.match(req.url)) || fetch(req);
 }
 
 async function save(cache, key, who, res) {

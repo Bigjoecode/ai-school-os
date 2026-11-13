@@ -272,7 +272,7 @@ function RemarkBox({
         </form>
       ) : (
         <p className={cn('flex-1 whitespace-pre-line text-[13px] leading-relaxed print:text-[10px]', !value && 'italic text-muted-foreground')}>
-          {value || (editable ? 'No remark yet — click the pencil to write one.' : 'No remark yet.')}
+          {value || (editable ? 'No remark yet — use the pencil to write one.' : 'No remark yet.')}
         </p>
       )}
       {who && <p className="mt-2 truncate text-[11px] text-muted-foreground print:mt-1 print:text-[8.5px]">{who}</p>}

@@ -1,5 +1,6 @@
 import type {
   CheckInAiInput,
+  StepAiInput,
   CheckInOutcome,
   CheckInQuestion,
   CheckInStart,
@@ -141,6 +142,7 @@ export function useAiDraft() {
 }
 
 export const aiCheckIn = (body: CheckInAiInput) => api.post<CheckInQuestion[]>('/modules/ai/checkin', body);
+export const aiStep = (moduleId: string, body: StepAiInput) => api.post<{ notes: string }>(`/modules/${moduleId}/ai/step`, body);
 export const bankQuestions = (q: { subjectId: string; classLevelId: string; topicId?: string; q?: string }) => api.get<CheckInQuestion[]>('/modules/bank', q);
 
 /** A step's file (staff, students and parents alike). */

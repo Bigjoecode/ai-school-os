@@ -4,6 +4,7 @@ import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import {
   checkInAiSchema,
+  stepAiSchema,
   checkInSubmitSchema,
   cueAnswerSchema,
   joinCodeSchema,
@@ -120,6 +121,14 @@ export class ModulesController {
   @Throttle({ default: { limit: 20, ttl: 60_000 } })
   aiCheckIn(@Body(new ZodPipe(checkInAiSchema)) body: Out<typeof checkInAiSchema>) {
     return this.modules.aiCheckIn(body);
+  }
+
+  @Post(':id/ai/step')
+  @HttpCode(200)
+  @RequirePermissions('ai.use')
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  aiStep(@Param('id') id: string, @Body(new ZodPipe(stepAiSchema)) body: Out<typeof stepAiSchema>): Promise<{ notes: string }> {
+    return this.modules.aiStep(id, body);
   }
 
   @Post('ai/draft')

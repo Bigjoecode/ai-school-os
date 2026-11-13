@@ -1,7 +1,8 @@
 import { MODULE_STEP_LABELS, youtubeId, type Diagram, type ModuleDetail, type ModuleStepInput, type ModuleStepKind } from '@aischool/shared';
-import { ArrowDown, ArrowUp, ChevronDown, ClipboardCheck, FileText, Film, Image as ImageIcon, Link2, NotebookText, Plus, Save, Trash2, Upload, FolderOpen } from 'lucide-react';
+import { ArrowDown, ArrowUp, ChevronDown, ClipboardCheck, Eye, FileText, Film, Pencil, Image as ImageIcon, Link2, NotebookText, Plus, Save, Trash2, Upload, FolderOpen } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
+import { Markdown } from '@/components/ai/markdown';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -226,9 +227,7 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
       )}
       {s.kind === 'MATERIAL' && <MaterialPicker s={s} onChange={onChange} subjectId={subjectId} />}
       {s.kind !== 'CHECKIN' && (
-        <Field label={s.kind === 'NOTE' ? 'Notes' : s.kind === 'IMAGE' ? 'Caption (optional)' : 'Notes (optional)'} hint="Simple formatting: ## heading, - bullet, **bold**.">
-          <Textarea value={s.body} onChange={(e) => onChange({ ...s, body: e.target.value })} rows={s.kind === 'NOTE' ? 10 : 3} placeholder={s.kind === 'NOTE' ? 'What students should read and remember' : 'What to look out for'} />
-        </Field>
+        <NotesField s={s} onChange={onChange} />
       )}
       {s.kind === 'CHECKIN' && (
         <>
@@ -247,6 +246,33 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
         </div>
       )}
     </>
+  );
+}
+
+/** The step's notes, with a switch to see them as students will. */
+function NotesField({ s, onChange }: { s: DraftStep; onChange: (s: DraftStep) => void }) {
+  const [preview, setPreview] = useState(false);
+  const label = s.kind === 'NOTE' ? 'Notes' : s.kind === 'IMAGE' ? 'Caption (optional)' : 'Notes (optional)';
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[13px] font-medium">{label}</span>
+        <Button type="button" variant="ghost" size="sm" onClick={() => setPreview(!preview)} aria-pressed={preview}>
+          {preview ? <Pencil /> : <Eye />} {preview ? 'Edit' : 'Preview'}
+        </Button>
+      </div>
+      {preview ? (
+        s.body.trim() ? (
+          <Markdown text={s.body} className={cn('min-h-24', s.kind === 'NOTE' ? 'rounded-xl border border-border bg-card p-4 sm:p-6' : 'rounded-xl border border-dashed border-border p-3')} />
+        ) : (
+          <p className="rounded-xl border border-dashed border-border p-3 text-[13px] text-muted-foreground">Nothing written yet.</p>
+        )
+      ) : (
+        <Field hint="Simple formatting: ## heading, - bullet, **bold**. Use Preview to see it as students will.">
+          <Textarea aria-label={label} value={s.body} onChange={(e) => onChange({ ...s, body: e.target.value })} rows={s.kind === 'NOTE' ? 12 : 3} placeholder={s.kind === 'NOTE' ? 'What students should read and remember' : 'What to look out for'} />
+        </Field>
+      )}
+    </div>
   );
 }
 

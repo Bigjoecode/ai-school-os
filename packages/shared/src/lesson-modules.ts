@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { diagramSchema, type Diagram } from './diagram';
 
 /**
  * Learning modules: ordered lesson units for a class and subject, made of
@@ -120,13 +121,16 @@ export const moduleStepSchema = z
     materialId: optId(),
     questions: z.array(checkInQuestionSchema).max(12).default([]),
     passMark: z.number().int().min(1).max(100).nullish().transform((v) => v ?? null),
+    /** A picture step's line diagram (drawn by the AI, checked by the teacher), instead of or as well as an uploaded picture. */
+    diagram: diagramSchema.nullish().transform((v) => v ?? null),
   })
   .superRefine((s, ctx) => {
+    if (s.diagram && s.kind !== 'IMAGE') ctx.addIssue({ code: 'custom', path: ['diagram'], message: 'Only a picture step can hold a diagram' });
     if (s.url && !/^https:\/\/[^\s]+$/i.test(s.url)) ctx.addIssue({ code: 'custom', path: ['url'], message: 'Use a full https:// link' });
     if (s.kind === 'NOTE' && !s.body) ctx.addIssue({ code: 'custom', path: ['body'], message: 'Write the notes' });
     if (s.kind === 'VIDEO' && !s.fileId && !s.url && !s.materialId) ctx.addIssue({ code: 'custom', path: ['url'], message: 'Upload a video, paste a YouTube link or choose a video material' });
     if (s.kind === 'VIDEO' && s.questions.some((q) => q.at === null)) ctx.addIssue({ code: 'custom', path: ['questions'], message: 'Give each video question the time it appears' });
-    // A picture step may wait for its picture while the module is a draft (the AI suggests where one helps);
+    // A picture step may wait for its picture (an upload or a diagram) while the module is a draft;
     // the server refuses to publish it, or save it into a published module, without one.
     if (s.kind === 'FILE' && !s.fileId) ctx.addIssue({ code: 'custom', path: ['fileId'], message: 'Upload the document' });
     if (s.kind === 'LINK' && !s.url) ctx.addIssue({ code: 'custom', path: ['url'], message: 'Paste the link' });
@@ -322,6 +326,7 @@ export interface ModuleStepRow {
   material: ModuleMaterialRef | null;
   questions: CheckInQuestion[];
   passMark: number | null;
+  diagram: Diagram | null;
 }
 
 export interface ModuleDetail extends ModuleSummary {
@@ -352,6 +357,7 @@ export interface MyModuleStep {
   mimeType: string | null;
   fileName: string | null;
   hasFile: boolean;
+  diagram: Diagram | null;
   material: ModuleMaterialRef | null;
   /** Video quiz questions (check-in questions come with each fresh try). */
   cues: StudentQuestion[];

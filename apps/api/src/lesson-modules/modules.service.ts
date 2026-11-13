@@ -1,7 +1,11 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 import {
   DEFAULT_PASS_MARK,
+  DIAGRAM_COLOURS,
   checkInQuestionSchema,
+  cleanDiagram,
+  diagramSchema,
+  type Diagram,
   youtubeId,
   type CheckInAiInput,
   type CheckInQuestion,
@@ -24,7 +28,7 @@ import {
   type Permission,
 } from '@aischool/shared';
 import { z } from 'zod';
-import type { LearningModule, LearningModuleStep, Prisma } from '../generated/prisma/client';
+import { Prisma, type LearningModule, type LearningModuleStep } from '../generated/prisma/client';
 import { AiGatewayService } from '../ai/ai-gateway.service';
 import { AuditService } from '../audit/audit.service';
 import { fullName } from '../common/format';
@@ -54,7 +58,29 @@ export interface Scope {
 
 type ModuleWithSteps = LearningModule & { steps: LearningModuleStep[] };
 
-const draftSchema = z.object({
+/**
+ * The AI's diagram: shapes on a 400 × 300 canvas. Loose on purpose: inside a list of alternatives the
+ * structured-output format can only hint at fixed choices, so kinds, colours and options are plain text
+ * here and cleanDiagram() keeps the valid ones (anything else falls back to a safe default or is dropped).
+ */
+const colour = z.string().describe(`One of: ${DIAGRAM_COLOURS.join(', ')}`);
+const kind = (t: string) => z.string().describe(`Always "${t}"`);
+const aiDiagramSchema = z.object({
+  elements: z
+    .array(
+      z.union([
+        z.object({ t: kind('rect'), x: z.number(), y: z.number(), w: z.number(), h: z.number(), fill: colour }),
+        z.object({ t: kind('circle'), cx: z.number(), cy: z.number(), r: z.number(), fill: colour }),
+        z.object({ t: kind('ellipse'), cx: z.number(), cy: z.number(), rx: z.number(), ry: z.number(), fill: colour }),
+        z.object({ t: kind('line'), x1: z.number(), y1: z.number(), x2: z.number(), y2: z.number(), arrow: z.string().describe('none, end or both'), dashed: z.boolean() }),
+        z.object({ t: kind('poly'), points: z.array(z.object({ x: z.number(), y: z.number() })), closed: z.boolean(), fill: colour }),
+        z.object({ t: kind('text'), x: z.number(), y: z.number(), text: z.string(), size: z.string().describe('s, m or l'), anchor: z.string().describe('start, middle or end'), bold: z.boolean() }),
+      ]),
+    )
+    .describe('Shapes drawn in order (later ones on top): rect, circle, ellipse, line (arrow: none, end or both), poly (a path through points; closed makes a shape) and text. The canvas is 400 wide and 300 high, (0,0) top-left. Black outlines; fill is a light tint. Text is drawn at (x, y) as its baseline, so keep it inside the canvas and clear of other labels.'),
+});
+
+const draftWith = (diagrams: boolean) => z.object({
   title: z.string().describe('A short, friendly title for the lesson module, e.g. "Photosynthesis: how plants make food"'),
   summary: z.string().describe('One or two sentences saying what students will learn'),
   steps: z
@@ -66,6 +92,13 @@ const draftSchema = z.object({
           .object({
             title: z.string().describe('A short name for the picture, e.g. "Diagram: the parts of a leaf"'),
             caption: z.string().describe('One or two sentences saying exactly what the picture shows and what students should notice, e.g. "A leaf with its parts labelled: the blade, the veins, the midrib and the stalk (petiole)."'),
+            ...(diagrams
+              ? {
+                  diagram: aiDiagramSchema
+                    .nullable()
+                    .describe('The picture drawn as a simple line diagram, when plain shapes, arrows and labels can show it correctly (a cycle, flow chart, food chain, labelled simple parts, number line, bar chart, simple circuit, shapes in geometry). null when it needs a photograph or a detailed drawing.'),
+                }
+              : {}),
           })
           .nullable()
           .describe('A picture, diagram or chart the teacher should add after this step, only where seeing it explains the idea far better than words (parts of a thing, a process, a map, a graph, a shape). null when words are enough.'),
@@ -85,6 +118,9 @@ const draftSchema = z.object({
     )
     .describe('Four quick check-in questions to verify understanding, mostly MCQ'),
 });
+const draftSchema = draftWith(true);
+/** The same draft without diagrams: used if a provider can't take the diagram format, so drafting never breaks. */
+const draftPlainSchema = draftWith(false);
 type DraftQuestion = z.infer<typeof draftSchema>['questions'][number];
 
 const questionsOnlySchema = z.object({ questions: draftSchema.shape.questions });
@@ -324,6 +360,7 @@ export class ModulesService {
         material,
         questions: withAnswers ? questions : questions.map((q) => ({ ...q, correctIndex: null, answers: [], explanation: null })),
         passMark: s.passMark,
+        diagram: s.kind === 'IMAGE' ? diagramOf(s.diagram) : null,
       };
     });
   }
@@ -491,6 +528,7 @@ export class ModulesService {
           materialId: st.kind === 'MATERIAL' || (st.kind === 'VIDEO' && !st.fileId && !st.url) ? st.materialId : null,
           questions: ['CHECKIN', 'VIDEO'].includes(st.kind) ? questions : ([] as Prisma.InputJsonValue),
           passMark: st.passMark,
+          diagram: st.kind === 'IMAGE' && st.diagram ? (st.diagram as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
         };
         if (st.id && keep.has(st.id)) await tx.learningModuleStep.update({ where: { id: st.id }, data });
         else await tx.learningModuleStep.create({ data: { ...data, tenantId, moduleId: id } });
@@ -574,7 +612,7 @@ export class ModulesService {
     });
     if (m.steps.length) {
       await this.prisma.db.learningModuleStep.createMany({
-        data: m.steps.map((x) => ({ tenantId, moduleId: made.id, order: x.order, kind: x.kind, title: x.title, body: x.body, fileId: x.fileId, mimeType: x.mimeType, url: x.url, materialId: x.materialId, questions: x.questions as Prisma.InputJsonValue, passMark: x.passMark })),
+        data: m.steps.map((x) => ({ tenantId, moduleId: made.id, order: x.order, kind: x.kind, title: x.title, body: x.body, fileId: x.fileId, mimeType: x.mimeType, url: x.url, materialId: x.materialId, questions: x.questions as Prisma.InputJsonValue, passMark: x.passMark, diagram: x.diagram ?? Prisma.DbNull })),
       });
     }
     return this.prisma.db.learningModule.findUniqueOrThrow({ where: { id: made.id }, include: { steps: { orderBy: { order: 'asc' } } } });
@@ -693,13 +731,13 @@ export class ModulesService {
     if (body.schemeWeekId && !week) throw new BadRequestException('Scheme week not found');
     const { subject, level, topic, name } = await this.aboutTopic(body.subjectId, arm.classLevelId, body.topicId, body.topic ?? week?.topic ?? null);
     const objectives = week?.objectives.length ? week.objectives : (topic?.objectives ?? []);
-    const r = await this.gateway.generateJson(
-      {
-        tier: 'standard',
+    const prompt = (diagrams: boolean) => ({
+        tier: 'standard' as const,
         system: [
           `You are an experienced Nigerian teacher preparing a short lesson module for ${level.name} ${subject.name} on "${name}", to be taught in class from a projector and read again by students on their phones.`,
           'Use British English, short sentences, Nigerian examples and names where they help (naira, markets, local foods, places). Keep facts accurate and at the level of the class. Each step should fit on one screen.',
           'Where seeing something explains the idea far better than words (the parts of a thing, a process or cycle, a map, a graph, a shape or a set-up), suggest a picture after that step: a short title and a caption saying exactly what it shows, so the teacher can find or draw it. Suggest at most two, and none when words are enough.',
+          diagrams ? 'When plain shapes, arrows and labels can show the picture correctly, also draw it as a diagram: a clean textbook-style line drawing, everything inside the 400 × 300 canvas with a margin of about 15, labels short (one to three words), placed beside what they name with a line pointing to it where needed, never overlapping each other or the shapes. Every label and arrow must be scientifically correct for the class: the teacher checks it, but a wrong diagram teaches the wrong thing. Leave the diagram out when it would need a photograph or a detailed drawing.' : '',
           'Then write four quick check-in questions to verify the class understood before the lesson moves on.',
           objectives.length ? `Lesson objectives: ${objectives.slice(0, 8).join('; ')}` : '',
           week?.subtopics.length ? `Sub-topics: ${week.subtopics.join('; ')}` : '',
@@ -707,12 +745,17 @@ export class ModulesService {
         ]
           .filter(Boolean)
           .join('\n\n'),
-        messages: [{ role: 'user', content: `Draft the module on ${name} in exactly 3 steps, then the check-in questions.` }],
-        maxOutputTokens: 4000,
-      },
-      draftSchema,
-      'modules-draft',
-    );
+        messages: [{ role: 'user' as const, content: `Draft the module on ${name} in exactly 3 steps, then the check-in questions.` }],
+        maxOutputTokens: diagrams ? 12000 : 4000,
+      });
+    let r: { data: z.infer<typeof draftPlainSchema> & { steps: { picture: { diagram?: unknown } | null }[] } };
+    try {
+      r = await this.gateway.generateJson(prompt(true), draftSchema, 'modules-draft');
+    } catch (err) {
+      // A provider that refuses the diagram format (or a reply cut off by it): draft again without diagrams.
+      if (!(err instanceof ServiceUnavailableException)) throw err;
+      r = await this.gateway.generateJson(prompt(false), draftPlainSchema, 'modules-draft');
+    }
     // Study materials the school already has on the topic (videos first).
     const mats = await db.studyMaterial.findMany({
       where: {
@@ -735,7 +778,7 @@ export class ModulesService {
       const p = x.picture;
       if (!p?.caption.trim() || pictures >= 2) return [note];
       pictures++;
-      return [note, { kind: 'IMAGE', title: (p.title.trim() || 'Picture').slice(0, 160), body: p.caption.trim().slice(0, 1000) }];
+      return [note, { kind: 'IMAGE', title: (p.title.trim() || 'Picture').slice(0, 160), body: p.caption.trim().slice(0, 1000), diagram: cleanDiagram(p.diagram ?? null) }];
     };
     const steps = [
       ...notes.slice(0, 1).flatMap((x) => withPicture(x, 'Introduction')),
@@ -773,6 +816,7 @@ export class ModulesService {
         body: x.body,
         materialId: 'materialId' in x ? x.materialId : null,
         questions: ('questions' in x ? x.questions : []) as unknown as Prisma.InputJsonValue,
+        diagram: 'diagram' in x && x.diagram ? (x.diagram as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
       })),
     });
     await this.audit.log({ action: 'modules.ai_drafted', entityType: 'LearningModule', entityId: m.id, summary: `Asked AI to draft a lesson module on ${name} for ${arm.classLevel.name} ${arm.name}` });
@@ -780,9 +824,15 @@ export class ModulesService {
   }
 }
 
+/** A stored diagram, or null if it isn't one (never trust a JSON column blindly). */
+export function diagramOf(v: unknown): Diagram | null {
+  const r = diagramSchema.safeParse(v);
+  return r.success ? r.data : null;
+}
+
 /** Refuses picture steps that still wait for their picture (students would see an empty step). */
-export function missingPicture(steps: readonly { kind: string; title: string; fileId?: string | null }[]) {
-  const empty = steps.find((x) => x.kind === 'IMAGE' && !x.fileId);
+export function missingPicture(steps: readonly { kind: string; title: string; fileId?: string | null; diagram?: unknown }[]) {
+  const empty = steps.find((x) => x.kind === 'IMAGE' && !x.fileId && !diagramOf(x.diagram));
   if (empty) throw new BadRequestException(`Upload the picture for "${empty.title}", or remove that step`);
 }
 

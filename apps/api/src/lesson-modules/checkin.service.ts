@@ -180,6 +180,7 @@ export class CheckInService {
         mimeType: r.mimeType,
         fileName: r.fileName,
         hasFile: !!r.fileId,
+        diagram: r.diagram,
         material: r.material,
         cues: r.kind === 'VIDEO' ? qs.map((q) => forStudent(q, false)).sort((a, b) => (a.at ?? 0) - (b.at ?? 0)) : [],
         cuesAnswered,

@@ -4554,6 +4554,8 @@ model LearningModuleStep {
   questions  Json     @default("[]")
   /// Pass mark (%) for this check-in; null = the module's.
   passMark   Int?
+  /// A picture step's line diagram: { elements: [...] } of plain shapes and labels, drawn by the app (see shared diagram.ts).
+  diagram    Json?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 

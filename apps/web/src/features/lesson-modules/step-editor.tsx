@@ -1,4 +1,4 @@
-import { MODULE_STEP_LABELS, youtubeId, type ModuleDetail, type ModuleStepInput, type ModuleStepKind } from '@aischool/shared';
+import { MODULE_STEP_LABELS, youtubeId, type Diagram, type ModuleDetail, type ModuleStepInput, type ModuleStepKind } from '@aischool/shared';
 import { ArrowDown, ArrowUp, ChevronDown, ClipboardCheck, FileText, Film, Image as ImageIcon, Link2, NotebookText, Plus, Save, Trash2, Upload, FolderOpen } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { formatBytes, uploadPrivate } from '../live/files';
 import { useMaterials } from '../materials/api';
 import { useSaveSteps } from './api';
+import { DiagramView } from './diagram-view';
 import { cleanQuestion, newId, QuestionsEditor, type DraftQ } from './question-editor';
 
 interface DraftStep {
@@ -29,6 +30,7 @@ interface DraftStep {
   materialId: string | null;
   questions: DraftQ[];
   passMark: number | null;
+  diagram: Diagram | null;
 }
 
 const ICON: Record<ModuleStepKind, typeof NotebookText> = { NOTE: NotebookText, VIDEO: Film, IMAGE: ImageIcon, FILE: FileText, LINK: Link2, MATERIAL: FolderOpen, CHECKIN: ClipboardCheck };
@@ -47,6 +49,7 @@ const fromDetail = (m: ModuleDetail): DraftStep[] =>
     materialId: s.materialId,
     questions: s.questions,
     passMark: s.passMark,
+    diagram: s.diagram,
   }));
 
 const toInput = (s: DraftStep): ModuleStepInput => ({
@@ -63,6 +66,8 @@ const toInput = (s: DraftStep): ModuleStepInput => ({
     return { ...c, id: c.id.startsWith('new') ? undefined : c.id };
   }),
   passMark: s.passMark,
+  // An uploaded picture replaces the drawing.
+  diagram: s.kind === 'IMAGE' && !s.fileId ? s.diagram : null,
 });
 
 /** The module's steps, edited together and saved in one go. */
@@ -93,7 +98,7 @@ export function StepEditor({ m, canAi }: { m: ModuleDetail; canAi: boolean }) {
   };
   const add = (kind: ModuleStepKind) => {
     const key = newId();
-    change([...steps, { key, kind, title: kind === 'CHECKIN' ? 'Check-in' : '', body: '', fileId: null, fileLabel: null, url: '', materialId: null, questions: [], passMark: null }]);
+    change([...steps, { key, kind, title: kind === 'CHECKIN' ? 'Check-in' : '', body: '', fileId: null, fileLabel: null, url: '', materialId: null, questions: [], passMark: null, diagram: null }]);
     setOpen(key);
   };
   const onSave = () =>
@@ -138,7 +143,7 @@ export function StepEditor({ m, canAi }: { m: ModuleDetail; canAi: boolean }) {
                     {s.kind === 'VIDEO' && s.questions.length ? ` · video quiz (${s.questions.length})` : ''}
                     {s.kind === 'IMAGE' && !s.fileId && (
                       <Badge variant="warning" className="ml-2">
-                        Picture needed
+                        {s.diagram ? 'AI drawing: check it' : 'Picture needed'}
                       </Badge>
                     )}
                   </span>
@@ -197,7 +202,18 @@ function StepFields({ s, onChange, subjectId, ctx, passMark }: { s: DraftStep; o
         <Input value={s.title} onChange={(e) => onChange({ ...s, title: e.target.value })} placeholder={MODULE_STEP_LABELS[s.kind]} maxLength={160} />
       </Field>
       {s.kind === 'VIDEO' && <VideoSource s={s} onChange={onChange} subjectId={subjectId} />}
-      {s.kind === 'IMAGE' && !s.fileId && (
+      {s.kind === 'IMAGE' && !s.fileId && s.diagram && (
+        <div className="space-y-2">
+          <DiagramView diagram={s.diagram} label={s.title} />
+          <p className="rounded-lg border border-warning/40 bg-warning-soft px-3 py-2 text-[12.5px] text-foreground">
+            Drawn by the AI. Check every label and arrow before you publish: a wrong diagram teaches the wrong thing. If anything is off, remove the drawing and upload a picture instead.
+          </p>
+          <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...s, diagram: null })}>
+            <Trash2 /> Remove the drawing
+          </Button>
+        </div>
+      )}
+      {s.kind === 'IMAGE' && !s.fileId && !s.diagram && (
         <p className="rounded-lg border border-warning/40 bg-warning-soft px-3 py-2 text-[12.5px] text-foreground">
           Upload a picture that shows what the caption below describes: a photo of a textbook diagram, a drawing on the board, or a picture you have. Or remove this step. The module can’t be published until every picture step has its picture.
         </p>

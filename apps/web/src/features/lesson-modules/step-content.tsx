@@ -1,4 +1,4 @@
-import type { CheckInReviewItem, ModuleMaterialRef, ModuleStepKind, ModuleStepRow, MyModuleStep, StudentQuestion } from '@aischool/shared';
+import type { CheckInReviewItem, Diagram, ModuleMaterialRef, ModuleStepKind, ModuleStepRow, MyModuleStep, StudentQuestion } from '@aischool/shared';
 import { Check, ExternalLink, FileText, Loader2, Play, X } from 'lucide-react';
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { Markdown } from '@/components/ai/markdown';
@@ -8,6 +8,7 @@ import { errorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { fetchFileBlob, hostOf, openProtectedFile } from '../live/files';
 import { stepFileUrl, stepStreamUrl } from './api';
+import { DiagramView } from './diagram-view';
 import { savedPicture } from './offline';
 
 /** What a step shows, whether the teacher is presenting it or a student is reading it. */
@@ -21,11 +22,12 @@ export interface StepView {
   mimeType: string | null;
   fileName: string | null;
   hasFile: boolean;
+  diagram: Diagram | null;
   material: ModuleMaterialRef | null;
 }
 
-export const fromRow = (r: ModuleStepRow): StepView => ({ id: r.id, kind: r.kind, title: r.title, body: r.body, url: r.url, youtubeId: r.youtubeId, mimeType: r.mimeType, fileName: r.fileName, hasFile: !!r.fileId, material: r.material });
-export const fromMine = (r: MyModuleStep): StepView => ({ id: r.id, kind: r.kind, title: r.title, body: r.body, url: r.url, youtubeId: r.youtubeId, mimeType: r.mimeType, fileName: r.fileName, hasFile: r.hasFile, material: r.material });
+export const fromRow = (r: ModuleStepRow): StepView => ({ id: r.id, kind: r.kind, title: r.title, body: r.body, url: r.url, youtubeId: r.youtubeId, mimeType: r.mimeType, fileName: r.fileName, hasFile: !!r.fileId, diagram: r.diagram, material: r.material });
+export const fromMine = (r: MyModuleStep): StepView => ({ id: r.id, kind: r.kind, title: r.title, body: r.body, url: r.url, youtubeId: r.youtubeId, mimeType: r.mimeType, fileName: r.fileName, hasFile: r.hasFile, diagram: r.diagram ?? null, material: r.material });
 
 /** The picture steps (and picture materials), for saving offline. */
 export const pictureSteps = (steps: StepView[]) => steps.filter((s) => (s.kind === 'IMAGE' && s.hasFile) || (s.material?.file?.mimeType.startsWith('image/') ?? false)).map((s) => s.id);
@@ -49,6 +51,7 @@ export function StepContent({ moduleId, step, big, video }: { moduleId: string; 
     <div className="space-y-4">
       {step.kind === 'VIDEO' ? video : null}
       {step.kind === 'IMAGE' && step.hasFile && <ProtectedPicture moduleId={moduleId} stepId={step.id} alt={step.title} big={big} />}
+      {step.kind === 'IMAGE' && !step.hasFile && step.diagram && <DiagramView diagram={step.diagram} label={step.body ? `${step.title}: ${step.body}` : step.title} big={big} />}
       {step.kind === 'FILE' && step.hasFile && <FileButton moduleId={moduleId} step={step} />}
       {step.kind === 'LINK' && step.url && <LinkCard url={step.url} />}
       {step.kind === 'MATERIAL' && m && (
